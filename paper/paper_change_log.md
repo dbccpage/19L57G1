@@ -246,3 +246,36 @@ search was reopened.
 
 Tests 129 → 131; coverage 99.10% line / 97.29% branch; artifact
 `refusal_frontier.json` regenerated deterministically.
+
+## 10. 2026-08-12 — F5 run: the composite generator
+
+New research leg answering F5 of `paper/refusal_as_difference.md`:
+`paper/endogenous_generator.md`, `lean4/Derivation/Generator.lean`
+(16 theorems), `code/derivation/generator.py`, `code/run_generator.py`,
+`tests/test_generator.py`, `artifacts/generator.json`, CL-G-* ledger
+entries, CI regeneration line.
+
+Terminal, split by claim: ENDOGENOUS_GENERATION_PROVED /
+ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS /
+GENERATION_REPAIR_EXCLUSION_IN_CLASS.  The composite of reflective
+growth and pair-separation closure fires at every round from the third
+on, horizon-free, with no per-round external act — the first such
+generator exhibited in the development, without a minimality or
+uniqueness claim.  Its obstruction set is
+identified exactly (interior pairs, an iff).  Over the declared
+five-strategy repair class within the 15-round computation, no branch
+fires, repairs, and never
+imports: presence marking is vacuous, per-pair marking is outgrown by
+every finite marking (a fresh import per repair, forever), valued
+marking kills generation at the price of identity-grade observation,
+and depth-2 observation is outrun in the deep interior (Lean instances
+at lengths 4 and 5; general depth-d open as G2).  The direct
+transposition of interior points 1 and 2 is proved not to preserve the
+successor relation; full rigidity and the quantified automorphism
+claim are not established here.
+
+Axiom-hygiene note recorded for the metatheory: `omega` on conjunction
+or disjunction *goals* introduces `Classical.choice` in this
+toolchain; all such uses were restructured (goal-splitting, explicit
+trichotomy) and the build's 151 axiom reports remain within
+{propext, Quot.sound}.

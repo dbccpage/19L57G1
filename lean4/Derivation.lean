@@ -10,6 +10,7 @@ import Derivation.PrimDiff
 import Derivation.Bridge
 import Derivation.Refusal
 import Derivation.RefusalFrontier
+import Derivation.Generator
 
 /-!
 # Axiom reports
@@ -177,3 +178,22 @@ open Derivation
 #print axioms RefusalFrontier.reflective_chain_is_initial_segment
 #print axioms RefusalFrontier.reflective_chain_successor_relation
 #print axioms RefusalFrontier.reflective_chain_irreflexive_facts
+
+-- F5: the composite generator (reflective growth + pair-separation
+-- closure)
+#print axioms Generator.reflective_chain_tags
+#print axioms Generator.chain_tagged_iff
+#print axioms Generator.chain_hasIn_iff
+#print axioms Generator.chain_hasOut_iff
+#print axioms Generator.middle_profile
+#print axioms Generator.endpoint0_profile
+#print axioms Generator.endpointN_profile
+#print axioms Generator.depth1_obstructions_are_exactly_middle_pairs
+#print axioms Generator.generation_never_dries
+#print axioms Generator.automark_presence_vacuous
+#print axioms Generator.le_foldr_max
+#print axioms Generator.finite_marks_outrun
+#print axioms Generator.valued_marks_collapse_generation
+#print axioms Generator.middle_swap_not_relation_preserving
+#print axioms Generator.depth2_separates_near_ends_n4
+#print axioms Generator.depth2_obstruction_n5

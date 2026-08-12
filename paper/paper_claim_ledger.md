@@ -716,3 +716,101 @@ Full statements, dependencies, and boundaries:
   obligation.
 - **Class**: bounded theorem (exhaustive in class).
 - **Python**: `normal_form_check`.
+
+## F5 claims (the composite generator)
+
+Full statements, dependencies, and boundaries:
+`paper/endogenous_generator.md`; evidence: `artifacts/generator.json`
+and `lean4/Derivation/Generator.lean`.
+
+### CL-G-TERMINAL
+- **Statement**: split by claim — ENDOGENOUS_GENERATION_PROVED (the
+  composite of reflective growth and pair-separation closure has a
+  live obstruction at every round from the third on, horizon-free,
+  with no per-round external act: the first horizon-free generator
+  exhibited here, without a minimality or uniqueness claim);
+  ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS (over the five declared
+  strategies and 15-round computation, the
+  fires-repairs-never-imports class is empty);
+  GENERATION_REPAIR_EXCLUSION_IN_CLASS (within those declared bounds,
+  no strategy both fires, clears every firing round, and avoids
+  recurring imports; valued marking prevents rather than repairs a
+  fired demand).
+- **Class**: theorem (generation; depth-1 strategy cores) + bounded
+  computation (exclusion over the declared class; depth-2 leg
+  instance-backed and bounded) + open conjecture (general depth-d,
+  G2).
+- **Lean**: `generation_never_dries` and the CL-G-* theorems below.
+  **Axioms**: within {propext, Quot.sound}.
+- **Python**: `generator.json` (trajectories, classification table,
+  `endogenous_cycle_found: false`, Lean agreement checks).
+- **Falsifier**: within the declared bound, a declared strategy
+  classified `endogenous_cycle`; or a round ≥ 3 with no obstruction
+  under the bare composite.
+
+### CL-G-GENERATION
+- **Statement**: for every chain length ≥ 3, elements 1 and 2 are
+  distinct carrier elements with equal depth-1 profiles; the only
+  event consumed is the internally enabled reflection.  **Class**:
+  theorem (horizon-free).
+- **Lean**: `generation_never_dries`; regime characterizations
+  `reflective_chain_tags`, `chain_tagged_iff`, `chain_hasIn_iff`,
+  `chain_hasOut_iff`.
+
+### CL-G-OBSTRUCTIONS-EXACT
+- **Statement**: at depth 1 the obstruction set of the bare chain is
+  exactly the interior pairs — an iff, for distinct elements within
+  the carrier; profile classes seed/interior/tip are pairwise
+  distinct.  **Class**: theorem.
+- **Lean**: `depth1_obstructions_are_exactly_middle_pairs`,
+  `middle_profile`, `endpoint0_profile`, `endpointN_profile`.
+- **Python**: agreement check over lengths 1..15.
+
+### CL-G-REPAIR-FATES
+- **Statement**: presence automark is vacuous (receipts are already
+  tagged; the interior still collapses); every finite marking is
+  outgrown, so per-pair repair recurs forever with a fresh import per
+  repair; valued automark separates every pair and kills generation —
+  its price is an unbounded observable alphabet (presentation identity
+  made observable).  **Class**: theorem (each horizon-free).
+- **Lean**: `automark_presence_vacuous`, `le_foldr_max`,
+  `finite_marks_outrun`, `valued_marks_collapse_generation`.
+- **Python**: bounded trajectories; per-pair imports at every firing
+  round within the bound.
+
+### CL-G-DEPTH2
+- **Statement**: raising the regime to depth 2 separates the near-end
+  pair (1, 3) at length 4 and is outrun by the deep-interior pair
+  (2, 3) at length 5; within the 15-round bound the depth-2 branch
+  fires unrepaired from length 5.  The general depth-d statement is
+  open (G2).  **Class**: theorem (decidable instances) + bounded
+  computation + open conjecture.
+- **Lean**: `depth2_separates_near_ends_n4`, `depth2_obstruction_n5`.
+
+### CL-G-DIRECT-SWAP
+- **Statement**: directly transposing interior points 1 and 2 does not
+  preserve the successor relation.  This distinguishes the example
+  from the earlier branch where that swap is an admitted symmetry.
+  It does not quantify over all automorphisms or prove full directed-
+  chain rigidity.  **Class**: theorem plus explicit nonclaim.
+- **Lean**: `middle_swap_not_relation_preserving`; contrast
+  `equivariant_output_invariant`,
+  `PrimDiff.symmetric_no_equivariant_classifier`.
+
+### CL-G-EXCLUSION
+- **Statement**: over the declared five-strategy class within the
+  15-round bound, no strategy fires, repairs, and never imports
+  (`endogenous_cycle_found: false`); classification per strategy:
+  bare/presence/depth-2 fire unrepaired, per-pair repairs with
+  recurring imports, valued is generation-dead.  Depth-1 fates are
+  horizon-free theorems; the depth-2 fate is instance-backed and
+  bounded.  **Class**: exhaustive finite computation over the declared
+  class and bound + theorem cores.
+- **Python**: `exclusion_check`.
+
+### CL-G-OPEN
+- **Statement**: G1 (no non-identity repair channel, class-general),
+  G2 (general depth-d outrun; named single best next theorem target),
+  G3 (repair-power = generation-poison as a conservation law), G4
+  (the sealed engine as the import branch), F4 carried (chain
+  initiality).  **Class**: open conjectures / carried obligations.

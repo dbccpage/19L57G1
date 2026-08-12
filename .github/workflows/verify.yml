@@ -2,7 +2,7 @@ name: verify
 
 on:
   push:
-    branches: ["**"]
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -33,6 +33,7 @@ jobs:
           PYTHONPATH=code python code/run_bridge.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_refusal.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_refusal_frontier.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_generator.py --artifacts artifacts_ci
           python ci/compare_artifacts.py artifacts artifacts_ci
 
   lean:
@@ -41,11 +42,27 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install elan
         run: |
-          curl -sSfL https://elan.lean-lang.org/elan-init.sh | sh -s -- -y --default-toolchain none
+          curl --retry 5 --retry-all-errors --retry-delay 2 -sSfL \
+            https://elan.lean-lang.org/elan-init.sh -o /tmp/elan-init.sh
+          for attempt in 1 2 3 4 5 6; do
+            sh /tmp/elan-init.sh -y --default-toolchain none && break
+            if [ "$attempt" -eq 6 ]; then exit 1; fi
+            sleep $((attempt * 10))
+          done
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Install pinned Lean toolchain
+        working-directory: lean4
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            elan toolchain install "$(cat lean-toolchain)" && break
+            if [ "$attempt" -eq 6 ]; then exit 1; fi
+            sleep $((attempt * 10))
+          done
       - name: lake build
         working-directory: lean4
-        run: lake build 2>&1 | tee ../lake_build.log
+        run: |
+          set -o pipefail
+          lake build 2>&1 | tee ../lake_build.log
       - name: Forbidden-token and axiom audit
         run: python3 ci/check_lean_audit.py lake_build.log
       - name: Axiom report matches committed artifact
