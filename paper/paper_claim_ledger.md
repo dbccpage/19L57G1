@@ -1083,3 +1083,143 @@ challenge (caller assignment, 2026-08-12).
   rules are proved consistent and sufficient for this kernel within
   bounds — their general forms remain conjectures.
 - **Class**: boundary record + conjecture (general forms).
+
+## Ultra-closure claims (the completed native derivation)
+
+Full statements: `paper/native_derivation_completion.md`; bridge
+table: `paper/native_derivation_map.md`; machine evidence: the five
+`completion_*.json` artifacts; Lean:
+`Completion/NoOutside/Constitution/Initiality` (57 new exported
+theorems; 291 total, all within {propext, Quot.sound}).
+
+### CL-NC-TERMINALS
+- **Statement**: RELATIVE_REPLAY_CLOSURE_ONLY;
+  EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER;
+  KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER;
+  KERNEL_CONSTITUTION_REMAINS_META (outermost layer — the single OPEN
+  bridge); INITIAL_KERNEL_PROVED (in the declared 64-member class);
+  ABSOLUTE_NO_OUTSIDE_UNFORMULABLE.  FULL_NATIVE_COMPOSITION is not
+  claimed.
+- **Class**: theorem (relative closures) + boundary record (the OPEN
+  bridge and the unformulable absolute).
+- **Falsifier**: a represented member of the constitution family that
+  executes its own family interpreter; a kernel result changed by an
+  input outside represented support/history/constitution; a second
+  compliant member of the declared class.
+
+### CL-NC-COMMON-STATE
+- **Statement**: one common native state carries the do-not-erase
+  distinctions as separate fields; the kernel, the reflective chain,
+  the two-element difference objects, and the early collapse
+  checkpoint transport with preservation theorems; witness does not
+  transport to separation, separation does not transport to witness,
+  and metatheoretic inequality is operationally inert.
+- **Class**: definition + theorem + countermodels.
+- **Lean**: `ofWorld_sep`, `ofWorld_obstruction`, `ofWorld_quiescent`,
+  `chain_transport`, `d2_transport_oriented`,
+  `s2_transport_symmetric`, `witness_not_separation`,
+  `separation_not_witness`, `meta_distinctness_inert`,
+  `early_collapse_transports`.
+
+### CL-NC-RULE1
+- **Statement**: Rule 1's strongest forms — the exhaustive trichotomy
+  with tie-retained extension family (both orientations proved
+  accepted); refusal proved object-inert and outside the binary action
+  algebra (preserve-presentation / change-presentation, by the
+  signature measure); the fidelity reduction (no protected
+  requirement, no obstruction); the retraction countermodel bounding
+  the preservation law to what the acceptance guard buys.
+  Classification: derived for the fixed kernel, fidelity-relative in
+  general, primitive nowhere.
+- **Class**: conditional theorem + countermodels.
+- **Lean**: `rule1_trichotomy`, `augFamily_retains_ties`,
+  `refusal_recordable`, `refusal_object_inert`,
+  `refusal_non_absorbing`, `action_dichotomy`, `rule1_needs_fidelity`,
+  `retraction_breaks_preservation`.
+
+### CL-NC-RULE2
+- **Statement**: Rule 2's strongest forms — support factorization
+  extended to histories, successor families, certificates, and
+  verdicts; the effectual-outside dichotomy (operational,
+  constitution-relative; the absolute form is unformulable in this
+  calculus); the family-valued invariance ceiling; the certification
+  panel replay-integrated by a conservative extension, with
+  panel-induced non-separation proved an equivalence and the
+  certificate proved equal to joint-quotient membership.
+- **Class**: theorem + boundary record.
+- **Lean**: `support_replay`, `support_repairFamily`,
+  `support_obstructed`, `support_quiescent`,
+  `effectual_outside_dichotomy`, `equivariant_family_invariant`,
+  `stepC_conservative`, `admitEvaluator_base_inert`, `panel_equiv`,
+  `certNeg_iff_panelEquiv`, `certC_ceiling`.
+
+### CL-NC-EVENT-SOURCE
+- **Statement**: the event source is internalized relative to the
+  fixed interpreter: the policy is represented data; the interpreter
+  emits complete tied families (singleton for the tower — proved, so
+  execution involves no selection; both augmentation orientations for
+  closure); fresh names are canonical numerals (a recorded
+  arithmetic/ordering import); budget replenishment is an emitted
+  represented event; the stop outcome is the represented empty
+  family; and the driver reproduces the previously supplied tower
+  stream exactly (`driver_reproduces_tower`).
+- **Class**: theorem (relative) + declared policy (the generation
+  policy itself).
+- **Lean**: `nextFamily_tower_singleton`,
+  `closeBlocks_complete_repair`, `closeBlocks_complete_aug`,
+  `nextFamily_stop`, `towerBlock_eq`, `driver_reproduces_tower`,
+  `nextFamily_complete`, `budget_replenishment_represented`,
+  `gen_growth`, `gen_three_quiescent`.
+- **Python**: `completion_protocols.json` (reproduction and
+  acceptance exhaustive to the 15-round bound).
+
+### CL-NC-AUTONOMY
+- **Statement**: autonomy separated from iterability by the
+  nine-level ladder, proved for the tower driver (steps, prefix
+  compatibility, computed families, internal trigger,
+  selection-freeness, represented replenishment, lawfulness across
+  extension, explicit productivity) — relative to the fixed
+  interpreter and declared policy data.  Arbitrary iterability is
+  levels 1-2 only.
+- **Class**: theorem (relative).
+- **Lean**: `tower_driver_autonomy`.
+
+### CL-NC-CONSTITUTION
+- **Statement**: the kernel constitution is represented as data
+  within a completely enumerated 64-member family; the fixed family
+  interpreter executes any description; the kernel's own description
+  executes to exactly the sealed step (verified self-description).
+  Quotation, executable description, and verified self-description
+  are distinct definitions.  The outermost interpretation relation
+  remains metatheoretic — the named irreducible obligation and the
+  graph's single OPEN bridge.
+- **Class**: theorem (family-relative) + OPEN (absolute).
+- **Lean**: `interp_describe`, `allDescs_length`, `allDescs_complete`.
+
+### CL-NC-INITIALITY
+- **Statement**: in the declared 64-member class under the declared
+  probe battery: every guard is load-bearing (six concrete
+  separations); the sealed kernel's description is the unique
+  compliant member; both declared cost orders agree on the singleton;
+  and the panel extension retracts onto the kernel (split retract).
+  Scope: class-relative; "most primitive engine" is underdetermined
+  as an absolute claim and proved as this class-relative one.
+- **Class**: theorem (class-scoped) + bounded computation (the
+  64-member compliance table).
+- **Lean**: `dedup_load_bearing`, `require_guard_load_bearing`,
+  `accept_guard_load_bearing`, `budget_gate_load_bearing`,
+  `license_gate_load_bearing`, `refusal_certificate_load_bearing`,
+  `unique_compliant`, `minimum_unique_in_class`, `extension_retract`,
+  `extension_retract_replay`, `retract_section`.
+- **Python**: `completion_minimality.json`.
+
+### CL-NC-INVENTORY
+- **Statement**: the theorem inventory is source-derived (names and
+  axiom sets from the axiom artifact; statements extracted from
+  sources; consumers and citing claims by search) and pinned by test
+  to exactly the exported estate; the dependency graph classifies all
+  thirty bridges with resolving evidence; exactly one bridge is OPEN.
+- **Class**: finite computation + declared metadata (kind/role
+  labels).
+- **Python**: `completion_dependency_graph.json`,
+  `completion_countermodels.json`, `completion_receipt.json`.

@@ -1,0 +1,57 @@
+{
+ "axiom_report_sha256": "1993490e47647ad50b47c069959087b8fb0fb8010a079ea1fc1bc81731c1098e",
+ "base_commit": "2c605e2",
+ "gates": {
+  "artifacts": "ci/compare_artifacts.py",
+  "axiom_report": "ci/check_axiom_report.py",
+  "coverage": "ci/check_coverage.py (>=95% line and branch)",
+  "lean_build": "lake build (no sorry/admit/axiom/unsafe/partial; ci/check_lean_audit.py)",
+  "mypy": "python -m mypy (strict)",
+  "prompts": "ci/check_prompt_hashes.py",
+  "python_tests": "pytest (see CI: coverage run -m pytest)"
+ },
+ "open_bridges": [
+  "kernel constitution -> kernel constitution (absolute self-interpretation): the family interpreter is not a member of its own described family; the outermost interpretation relation remains metatheoretic (named irreducible obligation)"
+ ],
+ "prompt_sha256": {
+  "prompt/prompt.md": "a613a1965e4f02fee00df4d42041fceeca176abcfaa9202c3e769021305940b5",
+  "prompt/seed_prompt.md": "ee3ba0583fea2a11f1294538c912c542b3faee5316355dc226efb92ef64646ab"
+ },
+ "terminal_evidence": {
+  "ABSOLUTE_NO_OUTSIDE_UNFORMULABLE": [
+   "scope notes: NoOutside.effectual_outside_dichotomy (operational, constitution-relative; the absolute form quantifies over unrepresented differences and is not a formulable statement of this calculus)"
+  ],
+  "EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER": [
+   "Constitution.driver_reproduces_tower",
+   "Constitution.nextFamily_complete",
+   "completion_protocols.json"
+  ],
+  "INITIAL_KERNEL_PROVED": [
+   "Initiality.unique_compliant",
+   "Initiality.extension_retract_replay",
+   "completion_minimality.json"
+  ],
+  "KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER": [
+   "Constitution.interp_describe",
+   "Constitution.allDescs_complete"
+  ],
+  "KERNEL_CONSTITUTION_REMAINS_META": [
+   "stratification boundary (Constitution module header)",
+   "completion_receipt.json:open_bridges"
+  ],
+  "RELATIVE_REPLAY_CLOSURE_ONLY": [
+   "NoOutside.effectual_outside_dichotomy",
+   "NoOutside.support_replay",
+   "paper/native_derivation_completion.md"
+  ]
+ },
+ "terminals": [
+  "RELATIVE_REPLAY_CLOSURE_ONLY",
+  "EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER",
+  "KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER",
+  "KERNEL_CONSTITUTION_REMAINS_META",
+  "INITIAL_KERNEL_PROVED",
+  "ABSOLUTE_NO_OUTSIDE_UNFORMULABLE"
+ ],
+ "theorem_count": 291
+}

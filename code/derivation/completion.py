@@ -553,3 +553,264 @@ def dependency_graph() -> dict[str, object]:
             for s in VALID_STATUSES
         },
     }
+
+
+# --------------------------------------------------------------------------
+# Phase V mirror: represented scheduler, driver, constitution family
+# --------------------------------------------------------------------------
+
+from dataclasses import replace as _replace  # noqa: E402
+
+from derivation.represented import (  # noqa: E402
+    GENESIS,
+    Event,
+    World,
+    aug_apply,
+    aug_ok,
+    hist_up_to,
+    mark_apply,
+    mark_ok,
+    obstructed,
+    quiescent,
+    repair_family,
+    replay,
+    req_ok,
+    step,
+    viol,
+    wf,
+)
+
+
+def fresh_name(w: World) -> int:
+    """Canonical numeral: a priced import of arithmetic and ordering."""
+    return len(w.data)
+
+
+def tower_block(w: World) -> list[Event]:
+    k = fresh_name(w)
+    return [("setBudget", 1), ("admit", k), ("require", 0, k),
+            ("addView", (k,))]
+
+
+def aug_family(w: World, r: tuple[int, int]) -> list[tuple[int, ...]]:
+    return [c for c in [(r[0],), (r[1],)] if aug_ok(w, c)]
+
+
+def close_blocks(w: World) -> list[list[Event]]:
+    out: list[list[Event]] = []
+    for r in w.reqs:
+        if viol(w, r):
+            for (v, p) in repair_family(w, r):
+                out.append([("mark", v, p)])
+            for c in aug_family(w, r):
+                out.append([("addView", c)])
+    return out
+
+
+def next_family(w: World, policy: str) -> list[list[Event]]:
+    if policy == "idle":
+        return []
+    if policy == "tower":
+        return [tower_block(w)]
+    assert policy == "close"
+    return close_blocks(w)
+
+
+def tower_gen(k: int) -> list[Event]:
+    h: list[Event] = [("admit", 0)]
+    for _ in range(k):
+        h.extend(tower_block(replay(h)))
+    return h
+
+
+PIGEON: list[Event] = [
+    ("setBudget", 9), ("admit", 10), ("admit", 20), ("admit", 30),
+    ("require", 0, 1), ("require", 0, 2), ("require", 1, 2),
+    ("addView", (0,)),
+]
+
+
+def protocols_report(rounds: int = 15) -> dict[str, object]:
+    """G0-G2: the driver reproduces the previously supplied stream;
+    families are complete and tie-retained; the stop outcome is the
+    empty family."""
+    reproduces = all(
+        tower_gen(k) == hist_up_to(k) for k in range(rounds + 1)
+    )
+    accepted = []
+    for k in range(rounds + 1):
+        w = GENESIS
+        ok = True
+        for e in tower_gen(k):
+            w2 = step(w, e)
+            if w2 == w:
+                ok = False
+            w = w2
+        accepted.append(ok and quiescent(w) and wf(w))
+    pigeon = replay(PIGEON)
+    blocks = close_blocks(pigeon)
+    both_orientations = (
+        [("addView", (1,))] in blocks and [("addView", (2,))] in blocks
+    )
+    quiet = replay(hist_up_to(4))
+    return {
+        "G0_supplied_stream": "hist_up_to (metatheoretic producer)",
+        "G1_family_singleton_per_stage": True,
+        "G2_driver_reproduces_supplied_stream": reproduces,
+        "G2_all_stages_accepted_quiescent_wf": all(accepted),
+        "close_family_retains_both_orientations": both_orientations,
+        "close_family_size_on_pigeonhole": len(blocks),
+        "stop_outcome_empty_family": next_family(quiet, "close") == [],
+        "fresh_name_source": "canonical numeral (arithmetic/ordering "
+                             "import, recorded)",
+    }
+
+
+# --------------------------------------------------------------------------
+# Constitution family and the fixed family interpreter (mirror)
+# --------------------------------------------------------------------------
+
+Desc = tuple[bool, bool, bool, bool, bool, bool]
+KERNEL_DESC: Desc = (True, True, True, True, True, True)
+DESC_FIELDS = ("dedupAdmit", "guardRequire", "guardAccept",
+               "gateBudget", "gateLicense", "certRefusal")
+
+
+def all_descs() -> list[Desc]:
+    out: list[Desc] = []
+    for n in range(64):
+        bits = (bool(n & 1), bool(n & 2), bool(n & 4),
+                bool(n & 8), bool(n & 16), bool(n & 32))
+        out.append(bits)
+    return out
+
+
+def interp_step(d: Desc, w: World, e: Event) -> World:
+    dedup, greq, gacc, gbud, glic, gcert = d
+    kind = e[0]
+    if kind == "admit":
+        t = e[1]
+        assert isinstance(t, int)
+        if t < 0 or (dedup and t in w.data):
+            return w
+        return _replace(w, data=w.data + (t,))
+    if kind == "require":
+        i, j = e[1], e[2]
+        assert isinstance(i, int) and isinstance(j, int)
+        if (not greq) or req_ok(w, i, j):
+            return _replace(w, reqs=w.reqs + ((i, j),))
+        return w
+    if kind == "mark":
+        v, p = e[1], e[2]
+        assert isinstance(v, tuple) and isinstance(p, int)
+        if ((not gacc) or mark_ok(w, v, p)) and (
+                (not gbud) or w.budget > 0):
+            return _replace(mark_apply(w, v, p), budget=w.budget - 1)
+        return w
+    if kind == "addView":
+        c = e[1]
+        assert isinstance(c, tuple)
+        if (((not gacc) or aug_ok(w, c))
+                and ((not glic) or w.aug_licensed)
+                and ((not gbud) or w.budget > 0)):
+            return _replace(aug_apply(w, c), budget=w.budget - 1)
+        return w
+    if kind == "refuse":
+        i, j = e[1], e[2]
+        assert isinstance(i, int) and isinstance(j, int)
+        if ((not gcert) or obstructed(w, (i, j))) and (
+                (i, j) not in w.refusals):
+            return _replace(w, refusals=w.refusals + ((i, j),))
+        return w
+    return step(w, e)
+
+
+DUP_WORLD = World(data=(5,), budget=9)
+SAT_WORLD = World(data=(10, 20), views=((0,),), reqs=((0, 1),), budget=9)
+BROKE_WORLD = World(data=(10, 20), views=((),), reqs=((0, 1),), budget=0)
+UNLIC_WORLD = World(data=(10, 20), views=((),), reqs=((0, 1),),
+                    budget=9, aug_licensed=False)
+
+PROBES: list[tuple[str, World, Event]] = [
+    ("dedup", DUP_WORLD, ("admit", 5)),
+    ("require_guard", DUP_WORLD, ("require", 0, 0)),
+    ("accept_guard", SAT_WORLD, ("mark", (0,), 1)),
+    ("budget_gate", BROKE_WORLD, ("mark", (), 0)),
+    ("license_gate", UNLIC_WORLD, ("addView", (0,))),
+    ("refusal_certificate", SAT_WORLD, ("refuse", 0, 1)),
+]
+
+
+def probe_results(d: Desc) -> dict[str, bool]:
+    return {
+        name: interp_step(d, w, e) == w for (name, w, e) in PROBES
+    }
+
+
+def compliant(d: Desc) -> bool:
+    return all(probe_results(d).values())
+
+
+def cost_capabilities(d: Desc) -> int:
+    return sum(1 for b in d if b)
+
+
+def cost_lex(d: Desc) -> tuple[int, int]:
+    return (sum(1 for b in d[:3] if b), sum(1 for b in d[3:] if b))
+
+
+def minimality_report() -> dict[str, object]:
+    descs = all_descs()
+    table = [
+        {
+            "desc": dict(zip(DESC_FIELDS, d)),
+            "probes": probe_results(d),
+            "compliant": compliant(d),
+        }
+        for d in descs
+    ]
+    comp = [d for d in descs if compliant(d)]
+    min_cap = (min(cost_capabilities(d) for d in comp) if comp else None)
+    min_lex = min((cost_lex(d) for d in comp), default=None)
+    interp_matches_kernel = all(
+        interp_step(KERNEL_DESC, w, e) == step(w, e)
+        for (_, w, e) in PROBES
+    ) and interp_step(KERNEL_DESC, SAT_WORLD, ("addView", (1,))) == \
+        step(SAT_WORLD, ("addView", (1,)))
+    return {
+        "class_size": len(descs),
+        "compliant": [dict(zip(DESC_FIELDS, d)) for d in comp],
+        "unique_compliant_is_kernel": comp == [KERNEL_DESC],
+        "orders_agree_on_singleton": (
+            len(comp) == 1
+            and min_cap == cost_capabilities(KERNEL_DESC)
+            and min_lex == cost_lex(KERNEL_DESC)
+        ),
+        "interp_of_kernel_desc_matches_step": interp_matches_kernel,
+        "table": table,
+    }
+
+
+def countermodels_report() -> dict[str, object]:
+    """The failed-bridge countermodels of the dependency graph, plus
+    the run-level separations, with their evidence handles."""
+    failed = [
+        {
+            "bridge": f"{b['source']} -> {b['target']}",
+            "relation": b["relation"],
+            "evidence": b["evidence"],
+            "boundary": b["boundary"],
+        }
+        for b in BRIDGES if b["status"] == "FALSE_WITH_COUNTERMODEL"
+    ]
+    return {
+        "failed_bridges": failed,
+        "run_level_separations": [
+            "witness_not_separation (Completion)",
+            "separation_not_witness (Completion)",
+            "meta_distinctness_inert (Completion)",
+            "retraction_breaks_preservation (Completion)",
+            "refusal terminalization refuted: refusal_non_absorbing",
+            "guard separations: six load-bearing probes (Initiality)",
+        ],
+    }

@@ -1,0 +1,1234 @@
+{
+ "class_size": 64,
+ "compliant": [
+  {
+   "certRefusal": true,
+   "dedupAdmit": true,
+   "gateBudget": true,
+   "gateLicense": true,
+   "guardAccept": true,
+   "guardRequire": true
+  }
+ ],
+ "interp_of_kernel_desc_matches_step": true,
+ "orders_agree_on_singleton": true,
+ "table": [
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": false,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": false,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": false,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": false,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": false,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": false,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": false,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": false,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": false
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": false
+   }
+  },
+  {
+   "compliant": false,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": false,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": false,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  },
+  {
+   "compliant": true,
+   "desc": {
+    "certRefusal": true,
+    "dedupAdmit": true,
+    "gateBudget": true,
+    "gateLicense": true,
+    "guardAccept": true,
+    "guardRequire": true
+   },
+   "probes": {
+    "accept_guard": true,
+    "budget_gate": true,
+    "dedup": true,
+    "license_gate": true,
+    "refusal_certificate": true,
+    "require_guard": true
+   }
+  }
+ ],
+ "unique_compliant_is_kernel": true
+}

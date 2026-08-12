@@ -1,0 +1,4372 @@
+{
+ "graph": {
+  "bridges": [
+   {
+    "boundary": "nothing follows from the seed alone; admission is a separate represented event",
+    "evidence": [
+     "Derivation.genesis_underivable",
+     "Derivation.supply_no_op"
+    ],
+    "relation": "forces successor state",
+    "source": "seed",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "admission"
+   },
+   {
+    "boundary": "supply never mutates admitted state",
+    "evidence": [
+     "Derivation.supply_no_op"
+    ],
+    "relation": "is",
+    "source": "supply",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "admission"
+   },
+   {
+    "boundary": "event-indexed, replayable",
+    "evidence": [
+     "Derivation.historyL_replays",
+     "Derivation.historyF_replays"
+    ],
+    "relation": "changes state via event",
+    "source": "admission",
+    "status": "PROVED",
+    "target": "retention"
+   },
+   {
+    "boundary": "one deduplicated token bounds the carrier at one",
+    "evidence": [
+     "Bridge.single_token_carrier_bound",
+     "Bridge.second_token_required"
+    ],
+    "relation": "yields",
+    "source": "seed",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "two-ness"
+   },
+   {
+    "boundary": "three tied purchases: second token / occurrence / reification (order-dependent winners)",
+    "evidence": [
+     "RefusalFrontier.min_witnessed_route_closes",
+     "Refusal.reifyUntagged_eq_occurrence"
+    ],
+    "relation": "priced routes to",
+    "source": "admission",
+    "status": "PROVED",
+    "target": "two-ness"
+   },
+   {
+    "boundary": "the relation channel is a separate purchase",
+    "evidence": [
+     "Bridge.no_forms_no_witness"
+    ],
+    "relation": "yields",
+    "source": "two-ness",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "witnessed relation"
+   },
+   {
+    "boundary": "unique minimum in the 44-protocol class under both declared cost orders",
+    "evidence": [
+     "RefusalFrontier.min_witnessed_route_closes"
+    ],
+    "relation": "priced relation route to",
+    "source": "admission",
+    "status": "PROVED",
+    "target": "witnessed relation"
+   },
+   {
+    "boundary": "horizon-free on the chain; class-general form is bounded computation",
+    "evidence": [
+     "RefusalFrontier.reflective_chain_irreflexive_facts"
+    ],
+    "relation": "born off-diagonal",
+    "source": "witnessed relation",
+    "status": "PROVED",
+    "target": "irreflexivity fact"
+   },
+   {
+    "boundary": "the law is always a separate declaration",
+    "evidence": [
+     "Bridge.irrefl_law_not_entailed",
+     "RefusalFrontier.bridge_facts_not_law"
+    ],
+    "relation": "entails",
+    "source": "irreflexivity fact",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "irreflexivity law"
+   },
+   {
+    "boundary": "protection is a fidelity commitment, never entailed",
+    "evidence": [
+     "DECLARED:DiffInterface.Stage.guarded",
+     "DECLARED:Represented.World.reqs"
+    ],
+    "relation": "declared as",
+    "source": "irreflexivity law",
+    "status": "DECLARED",
+    "target": "protected requirement"
+   },
+   {
+    "boundary": "the invariance ceiling; bypass requires a priced asymmetry (tag/relation/position)",
+    "evidence": [
+     "PrimDiff.symmetric_no_equivariant_classifier",
+     "RefusalFrontier.equivariant_output_invariant"
+    ],
+    "relation": "equivariantly yields",
+    "source": "two-ness",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "orientation"
+   },
+   {
+    "boundary": "orientation cost relocated to the declaration, never eliminated",
+    "evidence": [
+     "RefusalFrontier.priced_bridge_oriented"
+    ],
+    "relation": "priced asymmetry yields",
+    "source": "admission",
+    "status": "PROVED",
+    "target": "orientation"
+   },
+   {
+    "boundary": "equivalence proved before any quotient; kernel observers inherit the laws",
+    "evidence": [
+     "DiffInterface.zeroRel_equivalence"
+    ],
+    "relation": "declared with laws",
+    "source": "observer/difference map",
+    "status": "PROVED",
+    "target": "Zero/ZeroRel"
+   },
+   {
+    "boundary": "conjunction of three separated conditions; every proper subset realized without it",
+    "evidence": [
+     "DiffInterface.bare_reflection_certifies_active_obstruction",
+     "DiffInterface.no_guard_no_obstruction"
+    ],
+    "relation": "with retention+protection is",
+    "source": "Zero/ZeroRel",
+    "status": "PROVED",
+    "target": "active obstruction"
+   },
+   {
+    "boundary": "no fidelity, no obstruction: collapse alone is admissible",
+    "evidence": [
+     "DiffInterface.no_guard_no_obstruction",
+     "PrimDiff.collapse_unobstructed_without_fidelity"
+    ],
+    "relation": "necessary for",
+    "source": "protected requirement",
+    "status": "PROVED",
+    "target": "active obstruction"
+   },
+   {
+    "boundary": "the menu is part of the fixed kernel constitution",
+    "evidence": [
+     "DECLARED:Represented.responseMenu"
+    ],
+    "relation": "checked against",
+    "source": "active obstruction",
+    "status": "DECLARED",
+    "target": "response menu"
+   },
+   {
+    "boundary": "obstruction requires exhaustive failure by definition; truncated search falsely certifies",
+    "evidence": [
+     "Represented.incomplete_search_false_alarm"
+    ],
+    "relation": "exhaustive failure gives",
+    "source": "response menu",
+    "status": "PROVED",
+    "target": "exhaustion certificate"
+   },
+   {
+    "boundary": "repair family nonempty, or certificate + accepted augmentation, or recordable refusal; conditional on WF and the fixed constitution",
+    "evidence": [
+     "Represented.represented_progress",
+     "Completion.rule1_trichotomy"
+    ],
+    "relation": "trichotomy",
+    "source": "active obstruction",
+    "status": "PROVED",
+    "target": "same-level repair"
+   },
+   {
+    "boundary": "canonical augmentation accepted; in bounded grammars only a proposal is possible",
+    "evidence": [
+     "Represented.represented_progress",
+     "DiffInterface.no_bool_view_is_closed"
+    ],
+    "relation": "forces",
+    "source": "exhaustion certificate",
+    "status": "PROVED",
+    "target": "extension proposal"
+   },
+   {
+    "boundary": "authorization and budget are represented gates; proposals never self-execute",
+    "evidence": [
+     "Represented.progress_needs_license",
+     "Represented.progress_needs_budget"
+    ],
+    "relation": "executes without authorization",
+    "source": "extension proposal",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "extension execution"
+   },
+   {
+    "boundary": "positive-satisfaction preservation, not full observational conservativity",
+    "evidence": [
+     "Represented.step_mark_sound",
+     "Represented.aug_preserves_satisfied"
+    ],
+    "relation": "preserves satisfied",
+    "source": "same-level repair",
+    "status": "PROVED",
+    "target": "replay"
+   },
+   {
+    "boundary": "operational-support factorization, extended to histories, families, verdicts this run",
+    "evidence": [
+     "Represented.support_determines",
+     "NoOutside.support_replay"
+    ],
+    "relation": "factors through",
+    "source": "replay",
+    "status": "PROVED",
+    "target": "support"
+   },
+   {
+    "boundary": "represented fuel; setBudget is a history event",
+    "evidence": [
+     "Represented.progress_needs_budget"
+    ],
+    "relation": "gates",
+    "source": "budget",
+    "status": "PROVED",
+    "target": "same-level repair"
+   },
+   {
+    "boundary": "represented authorization",
+    "evidence": [
+     "Represented.progress_needs_license"
+    ],
+    "relation": "gates",
+    "source": "license",
+    "status": "PROVED",
+    "target": "extension execution"
+   },
+   {
+    "boundary": "refusal only with a verified certificate",
+    "evidence": [
+     "Represented.refusal_needs_certificate",
+     "Represented.refusals_are_represented"
+    ],
+    "relation": "recordable as",
+    "source": "exhaustion certificate",
+    "status": "PROVED",
+    "target": "refusal"
+   },
+   {
+    "boundary": "refusal is a status record, non-absorbing; run termination belongs to the history producer",
+    "evidence": [
+     "Completion.refusal_non_absorbing"
+    ],
+    "relation": "terminalizes the run",
+    "source": "refusal",
+    "status": "FALSE_WITH_COUNTERMODEL",
+    "target": "terminal"
+   },
+   {
+    "boundary": "panel-relative warrant = joint quotient closure; never correspondence; panel now replay-integrable",
+    "evidence": [
+     "Represented.cert_scope",
+     "Represented.cert_not_correspondence",
+     "NoOutside.panel_equiv"
+    ],
+    "relation": "certifies up to",
+    "source": "certification panel",
+    "status": "PROVED",
+    "target": "Zero/ZeroRel"
+   },
+   {
+    "boundary": "relative to a fixed interpreter; the policy and its outputs are represented, the interpreter is constitution",
+    "evidence": [
+     "Constitution.driver_reproduces_tower",
+     "Constitution.nextFamily_complete"
+    ],
+    "relation": "internalized as policy",
+    "source": "next-event source",
+    "status": "PROVED",
+    "target": "replay"
+   },
+   {
+    "boundary": "a declared constitution family is describable and executable relative to the fixed family interpreter; the outermost interpreter remains metatheory",
+    "evidence": [
+     "Constitution.interp_describe"
+    ],
+    "relation": "represented as data",
+    "source": "kernel constitution",
+    "status": "PROVED",
+    "target": "next-event source"
+   },
+   {
+    "boundary": "the named irreducible obligation: the family interpreter is not a member of its own described family; absolute self-interpretation unformulated",
+    "evidence": [
+     "DECLARED:Constitution stratification boundary"
+    ],
+    "relation": "interprets itself absolutely",
+    "source": "kernel constitution",
+    "status": "OPEN",
+    "target": "kernel constitution"
+   }
+  ],
+  "nodes": [
+   "seed",
+   "supply",
+   "admission",
+   "retention",
+   "two-ness",
+   "witnessed relation",
+   "irreflexivity fact",
+   "irreflexivity law",
+   "orientation",
+   "observer/difference map",
+   "Zero/ZeroRel",
+   "protected requirement",
+   "active obstruction",
+   "response menu",
+   "exhaustion certificate",
+   "same-level repair",
+   "extension proposal",
+   "extension execution",
+   "replay",
+   "support",
+   "budget",
+   "license",
+   "refusal",
+   "terminal",
+   "certification panel",
+   "next-event source",
+   "kernel constitution"
+  ],
+  "statuses": {
+   "COMPUTED_WITHIN_BOUNDS": 0,
+   "DECLARED": 2,
+   "FALSE_WITH_COUNTERMODEL": 8,
+   "OPEN": 1,
+   "PROVED": 19
+  }
+ },
+ "inventory": [
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-0-INERTIA",
+    "CL-0-NO-PROPOSAL-MUTATION",
+    "CL-1-SUPPLY-NOT-ADMISSION",
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [
+    "Basic.lean",
+    "Erasure.lean"
+   ],
+   "kind": "generic",
+   "module": "Inertia.lean",
+   "name": "Derivation.supply_no_op",
+   "role": "preservation",
+   "statement": "(r : Regime) (t : Nat) : stepE r (.supply t) = some r"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-0-INERTIA"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Inertia.lean",
+   "name": "Derivation.genesis_underivable",
+   "role": "countermodel",
+   "statement": "(i : Inst) : \u00ac derivable genesis i"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-0-INERTIA"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Inertia.lean",
+   "name": "Derivation.underivable_of_empty",
+   "role": "countermodel",
+   "statement": "(r : Regime) (hi : r.insts = []) (hr : r.rules = []) (i : Inst) : \u00ac derivable r i"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-1-SUPPLY-NOT-ADMISSION"
+   ],
+   "consumers": [
+    "Minimality.lean",
+    "Refusal.lean"
+   ],
+   "kind": "generic",
+   "module": "Inertia.lean",
+   "name": "Derivation.collapsed_of_no_insts",
+   "role": "classification",
+   "statement": "(r : Regime) (hi : r.insts = []) (d d' : Nat) : collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-2-COLLAPSED",
+    "CL-3-FAIL-CURRENT"
+   ],
+   "consumers": [
+    "Quot.lean"
+   ],
+   "kind": "concrete",
+   "module": "Inertia.lean",
+   "name": "Derivation.R2L_collapsed",
+   "role": "classification",
+   "statement": ": collapsed R2L 0 1"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-2-COLLAPSED",
+    "CL-3-FAIL-CURRENT"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Inertia.lean",
+   "name": "Derivation.R2F_collapsed",
+   "role": "classification",
+   "statement": "(d d' : Nat) : collapsed R2F d d'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-2-COLLAPSED",
+    "CL-REPLAY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Inertia.lean",
+   "name": "Derivation.historyL_replays",
+   "role": "example",
+   "statement": ": replayE [.supply 0, .supply 1, .supply 1, .supply 2, .admitDatum, .admitDatum, .impose 0 1] genesis = some R2L"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-2-COLLAPSED",
+    "CL-REPLAY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Inertia.lean",
+   "name": "Derivation.historyF_replays",
+   "role": "example",
+   "statement": ": replayE [.supply 0, .admitDatum, .supply 1, .supply 1, .supply 2, .admitDatum, .admitDatum, .impose 1 2] genesis = some R2F"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-2-NONINCREASE"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Inertia.lean",
+   "name": "Derivation.admission_without_expressive_increase",
+   "role": "countermodel",
+   "statement": ": \u2203 s, stepE R2L .admitDatum = some s \u2227 s \u2260 R2L \u2227 collapsed s 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-REPLAY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Inertia.lean",
+   "name": "Derivation.replayE_append",
+   "role": "preservation",
+   "statement": "(h : List Event) (e : Event) (base : Regime) : replayE (h ++ [e]) base = (replayE h base).bind (fun r => stepE r e)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-3-FAIL-CURRENT"
+   ],
+   "consumers": [
+    "Minimality.lean"
+   ],
+   "kind": "generic",
+   "module": "Basic.lean",
+   "name": "Derivation.separable_not_collapsed",
+   "role": "classification",
+   "statement": "{r : Regime} {d d' : Nat} (h : separable r d d') : \u00ac collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-QUOT-BARRIER"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Quot.lean",
+   "name": "Derivation.quotient_barrier",
+   "role": "classification",
+   "statement": "{\u03b1 : Sort u} {\u03b2 : Sort v} (s : Setoid \u03b1) (f : Quotient s \u2192 \u03b2) {a b : \u03b1} (h : a \u2248 b) : f (Quotient.mk s a) = f (Quotient.mk s b)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-QUOT-BARRIER"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Quot.lean",
+   "name": "Derivation.quot_barrier",
+   "role": "classification",
+   "statement": "{\u03b1 : Sort u} {\u03b2 : Sort v} (rel : \u03b1 \u2192 \u03b1 \u2192 Prop) (f : Quot rel \u2192 \u03b2) {a b : \u03b1} (h : rel a b) : f (Quot.mk rel a) = f (Quot.mk rel b)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-QUOT-BARRIER"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Quot.lean",
+   "name": "Derivation.barrier_R2L",
+   "role": "classification",
+   "statement": "{\u03b2 : Sort v} (f : Quot (collapseRel R2L) \u2192 \u03b2) : f (Quot.mk _ 0) = f (Quot.mk _ 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Counting.lean",
+   "name": "Derivation.index_le_strict_mono",
+   "role": "termination",
+   "statement": "(f : Nat \u2192 Nat) (L : Nat) (hstrict : \u2200 i, i + 1 < L \u2192 f i < f (i + 1)) : \u2200 i, i < L \u2192 i \u2264 f i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Counting.lean",
+   "name": "Derivation.strict_bounded_length",
+   "role": "termination",
+   "statement": "(f : Nat \u2192 Nat) (L B : Nat) (hstrict : \u2200 i, i + 1 < L \u2192 f i < f (i + 1)) (hbound : \u2200 i, i < L \u2192 f i \u2264 B) : L \u2264 B + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Counting.lean",
+   "name": "Derivation.no_supply_round_bound",
+   "role": "termination",
+   "statement": "(f : Nat \u2192 Nat) (L n : Nat) (hstrict : \u2200 i, i + 1 < L \u2192 f i < f (i + 1)) (hbound : \u2200 i, i < L \u2192 f i \u2264 n * (n - 1) / 2) : L \u2264 n * (n - 1) / 2 + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION",
+    "CL-CLOSURE-FIXPOINT",
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Counting.lean",
+   "name": "Derivation.allPairs_length",
+   "role": "termination",
+   "statement": "(n : Nat) : 2 * (allPairs n).length = n * (n - 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.U0_separable",
+   "role": "preservation",
+   "statement": ": separable U0 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.U1_separable",
+   "role": "preservation",
+   "statement": ": separable U1 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.BL_separable",
+   "role": "preservation",
+   "statement": ": separable BL 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.BD_separable",
+   "role": "preservation",
+   "statement": ": separable BD 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-MIN-TWO"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaU0_valid",
+   "role": "preservation",
+   "statement": ": validResponse R2L 0 1 deltaU0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaU1_valid",
+   "role": "preservation",
+   "statement": ": validResponse R2L 0 1 deltaU1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaBL_valid",
+   "role": "preservation",
+   "statement": ": validResponse R2L 0 1 deltaBL"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaBD_valid",
+   "role": "preservation",
+   "statement": ": validResponse R2L 0 1 deltaBD"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-3-COST1-IMPOSSIBLE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.cost1_insufficient_general",
+   "role": "minimality",
+   "statement": "(r : Regime) (hforms : r.forms = []) (hinsts : r.insts = []) (i j : Nat) (\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse r i j \u03b4"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-3-COST1-IMPOSSIBLE"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Minimality.lean",
+   "name": "Derivation.cost1_insufficient",
+   "role": "minimality",
+   "statement": "_general (r : Regime) (hforms : r.forms = []) (hinsts : r.insts = []) (i j : Nat) (\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse r i j \u03b4"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-3-COST1-IMPOSSIBLE"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Minimality.lean",
+   "name": "Derivation.cost1_insufficient_F",
+   "role": "minimality",
+   "statement": "(\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse R2F 1 2 \u03b4"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-MIN-TWO"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaU0F_valid",
+   "role": "preservation",
+   "statement": ": validResponse R2F 1 2 [.newForm 1, .newInst 0 [1]]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-NONUNIQUE-MU1",
+    "CL-3-TIE-CLASSES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.U0_not_iso_BL",
+   "role": "preservation",
+   "statement": "(iso : Iso U0 BL) : False"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-TIE-CLASSES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.U0_not_iso_BD",
+   "role": "preservation",
+   "statement": "(iso : Iso U0 BD) : False"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-TIE-CLASSES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.BL_not_iso_BD",
+   "role": "preservation",
+   "statement": "(iso : Iso BL BD) : False"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-NONUNIQUE-MU1"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Minimality.lean",
+   "name": "Derivation.mu1_minimum_not_unique",
+   "role": "uniqueness",
+   "statement": ": validResponse R2L 0 1 deltaU0 \u2227 validResponse R2L 0 1 deltaBL \u2227 deltaU0.length = 2 \u2227 deltaBL.length = 2 \u2227 (\u2200 \u03b4, \u03b4.length \u2264 1 \u2192 \u00ac validResponse R2L 0 1 \u03b4) \u2227 applyDelta R2L deltaU0 = some U0 \u2227 applyDelta R2L deltaBL = some BL \u2227 (Iso U0 BL \u2192 False)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-INFINITE-TIES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaK_applies",
+   "role": "preservation",
+   "statement": "(k : Nat) (hk : 1 \u2264 k) : applyDelta R2L (deltaK k) = some (markK k)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-INFINITE-TIES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.markK_separable",
+   "role": "preservation",
+   "statement": "(k : Nat) (hk : 1 \u2264 k) : separable (markK k) 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-INFINITE-TIES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaK_valid",
+   "role": "preservation",
+   "statement": "(k : Nat) (hk : 1 \u2264 k) : validResponse R2L 0 1 (deltaK k)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-3-INFINITE-TIES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.deltaK_length",
+   "role": "preservation",
+   "statement": "(k : Nat) : (deltaK k).length = 2"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-3-INFINITE-TIES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Minimality.lean",
+   "name": "Derivation.markK_pairwise_noniso",
+   "role": "uniqueness",
+   "statement": "(j k : Nat) (hjk : j \u2260 k) (iso : Iso (markK j) (markK k)) : False"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-UNIQUE-MU2-L"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Minimality.lean",
+   "name": "Derivation.mu2_unique",
+   "role": "uniqueness",
+   "statement": "(a b : Item) (hval : validResponse R2L 0 1 [a, b]) (har : aritySum [a, b] \u2264 1) : \u2203 s, applyDelta R2L [a, b] = some s \u2227 Nonempty (Iso s U0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PROGRESS",
+    "CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Progress.lean",
+   "name": "Derivation.mark_progress",
+   "role": "existence",
+   "statement": "(r : Regime) (hwf : r.wf) (i j : Nat) (hi : i < r.data) (hj : j < r.data) (hij : i \u2260 j) (hreqs : \u2200 q \u2208 r.reqs, separable r q.1 q.2) : validResponse r i j [.newForm 1, .newInst r.forms.length [j]]"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Progress.lean",
+   "name": "Derivation.separable_of_subrules",
+   "role": "preservation",
+   "statement": "(s : Regime) (rs' : List Nat) (hsub : \u2200 g \u2208 rs', g \u2208 s.rules) (d d' : Nat) (h : separable s d d') : separable \u27e8s.data, s.forms, s.insts, rs', s.reqs\u27e9 d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Erasure.lean",
+   "name": "Derivation.erase_step",
+   "role": "simulation",
+   "statement": "(t : TRegime) (e : TEvent) : (stepT t e).map TRegime.erase = stepE t.erase (eraseEvent t e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Erasure.lean",
+   "name": "Derivation.erase_replay",
+   "role": "simulation",
+   "statement": "(h : List TEvent) (base : TRegime) : (replayT h base).map TRegime.erase = replayE (eraseHistory base h) base.erase"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.derivable_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (i : Inst) : derivable r i \u2194 derivable s i"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.wfCtx_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (c : Ctx) : wfCtx r c \u2194 wfCtx s c"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.collapsed_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (d d' : Nat) : collapsed r d d' \u2194 collapsed s d d'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.separable_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (d d' : Nat) : separable r d d' \u2194 separable s d d'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.applyItem_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (it : Item) : OptExt (applyItem r it) (applyItem s it)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.applyDelta_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (\u03b4 : List Item) : OptExt (applyDelta r \u03b4) (applyDelta s \u03b4)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TOKEN-ERASURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Ext.lean",
+   "name": "Derivation.validResponse_ext",
+   "role": "preservation",
+   "statement": "{r s : Regime} (h : RegimeExt r s) (i j : Nat) (\u03b4 : List Item) : validResponse r i j \u03b4 \u2194 validResponse s i j \u03b4"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.irrefl_witness_ne",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} (hi : Irrefl r) {a b : \u03b1} (h : r a b) : a \u2260 b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.selfdiff_consistent",
+   "role": "classification",
+   "statement": ": \u2203 r : Unit \u2192 Unit \u2192 Prop, r () ()"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.symm_selfdiff_consistent",
+   "role": "classification",
+   "statement": ": \u2203 r : Unit \u2192 Unit \u2192 Prop, (\u2200 x y, r x y \u2192 r y x) \u2227 r () ()"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.meta_diff_without_assertion",
+   "role": "classification",
+   "statement": ": \u2203 r : Bool \u2192 Bool \u2192 Prop, \u00ac r false true \u2227 false \u2260 true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.factors_through_point_iff",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} (a b : \u03b1) : (\u2203 p : Unit \u2192 \u03b1, p () = a \u2227 p () = b) \u2194 a = b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.no_witness_on_subsingleton",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} [Subsingleton \u03b1] {r : \u03b1 \u2192 \u03b1 \u2192 Prop} (hi : Irrefl r) (a b : \u03b1) : \u00ac r a b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.D2_irrefl",
+   "role": "classification",
+   "statement": ": Irrefl D2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.S2_irrefl",
+   "role": "classification",
+   "statement": ": Irrefl S2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.D2_witness",
+   "role": "classification",
+   "statement": ": D2 false true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.D2_initial_pointed",
+   "role": "uniqueness",
+   "statement": "{\u03b1 : Type} (r : \u03b1 \u2192 \u03b1 \u2192 Prop) (a b : \u03b1) (h : r a b) : \u2203 f : Bool \u2192 \u03b1, (f false = a \u2227 f true = b \u2227 \u2200 x y, D2 x y \u2192 r (f x) (f y)) \u2227 \u2200 g : Bool \u2192 \u03b1, g false = a \u2192 g true = b \u2192 \u2200 t, g t = f t"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.one_point_hosts_bare_witness",
+   "role": "classification",
+   "statement": ": \u2203 r : Unit \u2192 Unit \u2192 Prop, r () ()"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.witnessed_irrefl_on_every_larger_carrier",
+   "role": "existence",
+   "statement": "(n : Nat) : \u2203 r : Fin (n + 2) \u2192 Fin (n + 2) \u2192 Prop, Irrefl r \u2227 r \u27e80, by omega\u27e9 \u27e81, by omega\u27e9"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.push_witness",
+   "role": "classification",
+   "statement": "{\u03b1 \u03b2 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} {a b : \u03b1} (h : r a b) (c : \u03b1 \u2192 \u03b2) : Push r c (c a) (c b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.collision_of_identifying_witness",
+   "role": "classification",
+   "statement": "{\u03b1 \u03b2 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} {a b : \u03b1} (h : r a b) {c : \u03b1 \u2192 \u03b2} (hc : c a = c b) : CollapseCollision r c"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.collision_not_irrefl",
+   "role": "classification",
+   "statement": "{\u03b1 \u03b2 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} {c : \u03b1 \u2192 \u03b2} (h : CollapseCollision r c) : \u00ac Irrefl (Push r c)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.bare_collapse_admissible",
+   "role": "classification",
+   "statement": "{\u03b1 \u03b2 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} {a b : \u03b1} (h : r a b) {c : \u03b1 \u2192 \u03b2} (hc : c a = c b) : CollapseCollision r c \u2227 Push r c (c a) (c b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.obstruction_under_irrefl",
+   "role": "classification",
+   "statement": "{\u03b1 \u03b2 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} {a b : \u03b1} (h : r a b) {c : \u03b1 \u2192 \u03b2} (hc : c a = c b) : FidelityObstruction Irrefl r c"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "Completion.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.collapse_unobstructed_without_fidelity",
+   "role": "countermodel",
+   "statement": ": \u2203 r : Unit \u2192 Unit \u2192 Prop, r () ()"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.collision_transpose_invariant",
+   "role": "classification",
+   "statement": "{\u03b1 \u03b2 : Type} (r : \u03b1 \u2192 \u03b1 \u2192 Prop) (c : \u03b1 \u2192 \u03b2) : CollapseCollision r c \u2194 CollapseCollision (Transpose r) c"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.orientation_data_invisible_to_collapse",
+   "role": "classification",
+   "statement": ": (\u2200 f : Bool \u2192 Bool, f false = false \u2192 f true = true \u2192 \u00ac (\u2200 x y, D2 x y \u2194 D2rev (f x) (f y))) \u2227 (CollapseCollision D2 (fun _ => ()) \u2194 CollapseCollision D2rev (fun _ => ()))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.bool_irrefl_witness_classification",
+   "role": "classification",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) [inst : \u2200 x y, Decidable (r x y)] (hi : Irrefl r) (hw : r false true) : r = D2 \u2228 r = S2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.D2_not_pointed_iso_S2",
+   "role": "uniqueness",
+   "statement": ": \u2200 f : Bool \u2192 Bool, f false = false \u2192 f true = true \u2192 \u00ac (\u2200 x y, D2 x y \u2194 S2 (f x) (f y))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.D2_S2_collapse_equiv",
+   "role": "classification",
+   "statement": "{\u03b2 : Type} (c : Bool \u2192 \u03b2) : CollapseCollision D2 c \u2194 CollapseCollision S2 c"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-G-DIRECT-SWAP"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.symmetric_no_equivariant_classifier",
+   "role": "countermodel",
+   "statement": ": \u2200 f : Bool \u2192 Bool, (\u2200 x, f (Bool.not x) = f x) \u2192 f false = f true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.swap_is_S2_automorphism",
+   "role": "classification",
+   "statement": ": \u2200 x y, S2 x y \u2194 S2 (Bool.not x) (Bool.not y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.oriented_rigid",
+   "role": "classification",
+   "statement": "(f : Bool \u2192 Bool) (hiff : \u2200 x y, D2 x y \u2194 D2 (f x) (f y)) : \u2200 x, f x = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.oriented_classifier_exists",
+   "role": "classification",
+   "statement": ": \u2203 f : Bool \u2192 Bool, (\u2200 x y, D2 x y \u2194 D2 (f x) (f y)) \u2227 f false \u2260 f true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.single_oriented_witness_consistent",
+   "role": "classification",
+   "statement": ": \u2203 W : Bool \u2192 Bool \u2192 Nat, W false true = 1 \u2227 W true false = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.multiplicity_invisible_to_presence",
+   "role": "classification",
+   "statement": ": \u2203 W1 W2 : Bool \u2192 Bool \u2192 Nat, W1 \u2260 W2 \u2227 \u2200 x y, (0 < W1 x y \u2194 0 < W2 x y)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.repetition_no_new_content",
+   "role": "classification",
+   "statement": "{p : Nat \u00d7 Nat} (L : List (Nat \u00d7 Nat)) (h : p \u2208 L) : \u2200 q, q \u2208 L ++ [p] \u2194 q \u2208 L"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.repetition_new_occurrence",
+   "role": "classification",
+   "statement": "(L : List (Nat \u00d7 Nat)) (p : Nat \u00d7 Nat) : (L ++ [p]).length = L.length + 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.const_presentation_unfaithful",
+   "role": "classification",
+   "statement": "{\u03b2 : Type} {r' : \u03b2 \u2192 \u03b2 \u2192 Prop} (hi : Irrefl r') (v : \u03b2) : \u00ac r' v v"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.id_presentation_faithful",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} {r : \u03b1 \u2192 \u03b1 \u2192 Prop} {a b : \u03b1} (h : r a b) : r (id a) (id b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.clos_empty_id",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} : \u2200 f, Clos (fun _ : \u03b1 \u2192 \u03b1 => False) f \u2192 \u2200 x, f x = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.irred_empty_iff_ne",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} (a b : \u03b1) : Irred (fun _ : \u03b1 \u2192 \u03b1 => False) a b \u2194 a \u2260 b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.irred_antitone",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} {F G : (\u03b1 \u2192 \u03b1) \u2192 Prop} (hsub : \u2200 f, F f \u2192 G f) {a b : \u03b1} (h : Irred G a b) : Irred F a b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.merger_erases",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} {F : (\u03b1 \u2192 \u03b1) \u2192 Prop} {v : \u03b1} (hF : F (fun _ => v)) (a b : \u03b1) : \u00ac Irred F a b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.stepT_preserves_atMostTok",
+   "role": "classification",
+   "statement": "{t0 : Nat} {t : TRegime} (ht : AtMostTok t0 t) {e : TEvent} (he : SingleTok t0 e) {t' : TRegime} (hs : stepT t e = some t') : AtMostTok t0 t'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Bridge.lean",
+   "name": "Bridge.single_token_carrier_bound",
+   "role": "termination",
+   "statement": "(t0 : Nat) (h : List TEvent) (hall : \u2200 e \u2208 h, SingleTok t0 e) {t : TRegime} (ht : AtMostTok t0 t) {res : TRegime} (hr : replayT h t = some res) : res.tokens.length \u2264 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.second_token_required",
+   "role": "countermodel",
+   "statement": "(t0 : Nat) (h : List TEvent) {res : TRegime} (hr : replayT h \u27e8[], [], [], [], []\u27e9 = some res) (htwo : 2 \u2264 res.tokens.length) : \u2203 e \u2208 h, \u2203 tok, e = TEvent.admitDatum tok \u2227 tok \u2260 t0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.no_admitForm_no_forms",
+   "role": "classification",
+   "statement": "(h : List TEvent) (hall : \u2200 e \u2208 h, \u2200 a, e \u2260 TEvent.admitForm a) {t : TRegime} (hf : t.forms = []) {res : TRegime} (hr : replayT h t = some res) : res.forms = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.no_forms_no_witness",
+   "role": "classification",
+   "statement": "(t : TRegime) (hf : t.forms = []) (f : Nat) (args : List Nat) : stepT t (TEvent.admitInst f args) = none"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "RefusalFrontier.lean"
+   ],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.irrefl_law_not_entailed",
+   "role": "countermodel",
+   "statement": "{\u03b1 : Type} (r : \u03b1 \u2192 \u03b1 \u2192 Prop) (a : \u03b1) : \u2203 r' : \u03b1 \u2192 \u03b1 \u2192 Prop, (\u2200 x y, r x y \u2192 r' x y) \u2227 \u00ac PrimDiff.Irrefl r'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "RefusalFrontier.lean"
+   ],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.equivariant_witness_is_S2",
+   "role": "classification",
+   "statement": "(S : Bool \u2192 Bool \u2192 Prop) (hinv : \u2200 x y, S x y \u2194 S (Bool.not x) (Bool.not y)) (hi : PrimDiff.Irrefl S) (hne : S false true \u2228 S true false) : \u2200 x y, S x y \u2194 PrimDiff.S2 x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.equivariant_not_D2",
+   "role": "classification",
+   "statement": "(S : Bool \u2192 Bool \u2192 Prop) (hinv : \u2200 x y, S x y \u2194 S (Bool.not x) (Bool.not y)) (hi : PrimDiff.Irrefl S) (hne : S false true \u2228 S true false) : \u00ac (\u2200 x y, S x y \u2194 PrimDiff.D2 x y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.no_swap_fixed_offdiag_pair",
+   "role": "classification",
+   "statement": ": \u2200 x y : Bool, x \u2260 y \u2192 (Bool.not x, Bool.not y) \u2260 (x, y)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.order_visible_to_metatheory",
+   "role": "classification",
+   "statement": ": replayT hist01 \u27e8[], [], [], [], []\u27e9 \u2260 replayT hist10 \u27e8[], [], [], [], []\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Bridge.lean",
+   "name": "Bridge.order_erased_at_object_level",
+   "role": "classification",
+   "statement": ": (replayT hist01 \u27e8[], [], [], [], []\u27e9).map TRegime.erase = (replayT hist10 \u27e8[], [], [], [], []\u27e9).map TRegime.erase"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.silent_eq_meta",
+   "role": "equivalence",
+   "statement": ": \u2200 s e, stepR .silent s e = stepR .metaMarker s e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.marker_state_invisible",
+   "role": "equivalence",
+   "statement": "(m : Mode) (s : RState) (tok : Nat) : stepR m s (.marker tok) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.markers_invisible",
+   "role": "equivalence",
+   "statement": "_from (m : Mode) (h : List REvent) : \u2200 s, (h.filter fun e => !isMarker e).foldl (stepR m) s = h.foldl (stepR m) s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.nonreify_carrier_bound",
+   "role": "equivalence",
+   "statement": "{m : Mode} (hm : m = .silent \u2228 m = .metaMarker \u2228 m = .fact) {t0 : Nat} {s : RState} (hs : AtMostTokR t0 s) {e : REvent} (he : \u2200 tok, e = REvent.admitTok tok \u2192 tok = t0) : AtMostTokR t0 (stepR m s e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.fact_state_changes",
+   "role": "equivalence",
+   "statement": ": stepR .fact \u27e8[0], [], 0\u27e9 (.admitTok 0) \u2260 \u27e8[0], [], 0\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.silent_state_fixed",
+   "role": "equivalence",
+   "statement": ": stepR .silent \u27e8[0], [], 0\u27e9 (.admitTok 0) = \u27e8[0], [], 0\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.reifyUntagged_eq_occurrence",
+   "role": "equivalence",
+   "statement": ": \u2200 s e, stepR .reifyUntagged s e = stepOcc s e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.reifyUntagged_replay_eq_occurrence",
+   "role": "equivalence",
+   "statement": "(h : List REvent) : replayR .reifyUntagged h = replayOcc h"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.reifyUntagged_two_admissions",
+   "role": "equivalence",
+   "statement": ": replayR .reifyUntagged [.admitTok 0, .admitTok 0] = \u27e8[0, 0], [], 0\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.reifyTagged_two_admissions",
+   "role": "equivalence",
+   "statement": ": replayR .reifyTagged [.admitTok 0, .admitTok 0] = \u27e8[0, 0], [1], 0\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.tag_separates",
+   "role": "equivalence",
+   "statement": ": (1 \u2208 (replayR .reifyTagged [.admitTok 0, .admitTok 0]).tags) \u2227 (0 \u2209 (replayR .reifyTagged [.admitTok 0, .admitTok 0]).tags)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.occurrence_state_swap_invariant",
+   "role": "equivalence",
+   "statement": ": swapState (replayR .reifyUntagged [.admitTok 0, .admitTok 0]) = replayR .reifyUntagged [.admitTok 0, .admitTok 0]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.tagged_state_not_swap_invariant",
+   "role": "equivalence",
+   "statement": ": swapState (replayR .reifyTagged [.admitTok 0, .admitTok 0]) \u2260 replayR .reifyTagged [.admitTok 0, .admitTok 0]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.canonical_designation",
+   "role": "equivalence",
+   "statement": ": (replayR .reifyTagged [.admitTok 0, .admitTok 0]).tags.head? = some 1 \u2227 (replayR .reifyUntagged [.admitTok 0, .admitTok 0]).tags.head? = none"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.tagged_translation_separable",
+   "role": "equivalence",
+   "statement": ": Derivation.separable taggedTranslation 0 1"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Refusal.lean",
+   "name": "Refusal.untagged_translation_collapsed",
+   "role": "equivalence",
+   "statement": ": Derivation.collapsed \u27e82, [], [], [], []\u27e9 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T1-INERTIA"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.silent_repetition_inert",
+   "role": "preservation",
+   "statement": "(h : List REvent) : \u2200 s : RState, (\u2200 e \u2208 h, \u2200 tok, e = REvent.admitTok tok \u2192 tok \u2208 s.data) \u2192 h.foldl (stepR .silent) s = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T2-TRACE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.trace_erasure",
+   "role": "classification",
+   "statement": "(e : REvent) (s : RState) : (stepTraced s e).2 = stepR .silent s e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T2-TRACE"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.histories_collapse",
+   "role": "countermodel",
+   "statement": ": replayR .silent [.admitTok 0, .admitTok 0] = replayR .silent [.admitTok 0]"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FR6-T3-CONSTRUCTORS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.mono_code_swap_invariant",
+   "role": "classification",
+   "statement": "(c : Nat) : storeSwap (c, c) = (c, c)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FR6-T3-CONSTRUCTORS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.distinct_code_not_swap_invariant",
+   "role": "classification",
+   "statement": "{c0 c1 : Nat} (h : c0 \u2260 c1) : storeSwap (c0, c1) \u2260 (c0, c1)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-FR6-T3-CONSTRUCTORS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.singleton_algebra_monochrome",
+   "role": "classification",
+   "statement": "(c : Nat) (p : Nat \u00d7 Nat) (h1 : p.1 = c) (h2 : p.2 = c) : p = (c, c)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FR6-T3-CONSTRUCTORS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.distinction_needs_two_constructors",
+   "role": "classification",
+   "statement": "(p : Nat \u00d7 Nat) (hsep : p.1 \u2260 p.2) : \u2203 a b, a \u2260 b \u2227 (a = p.1 \u2228 a = p.2) \u2227 (b = p.1 \u2228 b = p.2)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T4-CARRIER"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.judgment_variant_second_judgment_not_datum",
+   "role": "classification",
+   "statement": ": let s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T4-CARRIER"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.judgment_carrier_bound",
+   "role": "preservation",
+   "statement": "(h : List Nat) : \u2200 s : JState, (s.data = [] \u2228 s.data = [0]) \u2192 (\u2200 tok \u2208 h, tok = 0) \u2192 ((h.foldl stepJ s).data = [] \u2228 (h.foldl stepJ s).data = [0])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T5-BRIDGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.priced_bridge_closes",
+   "role": "classification",
+   "statement": ": bridgeState.data.length = 2 \u2227 bridgeState.rel = [(0, 1)] \u2227 (\u2200 p \u2208 bridgeState.rel, p.1 \u2260 p.2) \u2227 bridgeState.tags = [1]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T5-BRIDGE",
+    "CL-FR6-T7-CEILING"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.priced_bridge_oriented",
+   "role": "classification",
+   "statement": ": swapP bridgeState \u2260 bridgeState"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-FR6-TERMINAL",
+    "CL-FR6-T5-BRIDGE"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.min_witnessed_route_closes",
+   "role": "minimality",
+   "statement": ": minState.data = [MItem.tok 0, MItem.receipt 1] \u2227 minState.rel = [(0, 1)] \u2227 (\u2200 p \u2208 minState.rel, p.1 \u2260 p.2)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T6-LAW"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.bridge_facts_not_law",
+   "role": "classification",
+   "statement": ": \u2203 r' : Nat \u2192 Nat \u2192 Prop, (\u2200 x y, (x, y) \u2208 bridgeState.rel \u2192 r' x y) \u2227 \u00ac PrimDiff.Irrefl r'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FR6-T7-CEILING",
+    "CL-G-DIRECT-SWAP"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.equivariant_output_invariant",
+   "role": "preservation",
+   "statement": "{S R : Type} (actS : S \u2192 S) (actR : R \u2192 R) (F : S \u2192 R) (hequiv : \u2200 s, F (actS s) = actR (F s)) : \u2200 s, actS s = s \u2192 actR (F s) = F s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FR6-T8-DYNAMICS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.untyped_reflect_fixpoint",
+   "role": "classification",
+   "statement": ": \u2200 s, stepU (stepU s) = stepU s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FR6-T8-DYNAMICS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.toggle_two_cycle",
+   "role": "classification",
+   "statement": ": \u2200 s : Bool, (!(!s)) = s \u2227 (!s) \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-FR6-T8-DYNAMICS"
+   ],
+   "consumers": [
+    "Generator.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.reflective_chain_growth",
+   "role": "existence",
+   "statement": ": \u2200 n, (reflState n).data.length = n + 1"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-FR6-T8-DYNAMICS"
+   ],
+   "consumers": [
+    "Completion.lean",
+    "Generator.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.reflective_chain_is_initial_segment",
+   "role": "classification",
+   "statement": ": \u2200 n, (reflState n).data = List.range (n + 1)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-FR6-T8-DYNAMICS"
+   ],
+   "consumers": [
+    "Completion.lean",
+    "Generator.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.reflective_chain_successor_relation",
+   "role": "classification",
+   "statement": ": \u2200 n, (reflState n).rel = (List.range n).map (fun k => (k, k + 1))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-FR6-T8-DYNAMICS"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "RefusalFrontier.lean",
+   "name": "RefusalFrontier.reflective_chain_irreflexive_facts",
+   "role": "classification",
+   "statement": ": \u2200 n, \u2200 p \u2208 (reflState n).rel, p.1 \u2260 p.2"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-G-GENERATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.reflective_chain_tags",
+   "role": "classification",
+   "statement": ": \u2200 n, (reflState n).tags = (List.range n).map (\u00b7 + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-GENERATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.chain_tagged_iff",
+   "role": "classification",
+   "statement": "(n i : Nat) : i \u2208 (reflState n).tags \u2194 (1 \u2264 i \u2227 i \u2264 n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-GENERATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.chain_hasIn_iff",
+   "role": "classification",
+   "statement": "(n i : Nat) : (\u2203 p \u2208 (reflState n).rel, p.2 = i) \u2194 (1 \u2264 i \u2227 i \u2264 n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-GENERATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.chain_hasOut_iff",
+   "role": "classification",
+   "statement": "(n i : Nat) : (\u2203 p \u2208 (reflState n).rel, p.1 = i) \u2194 i < n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-OBSTRUCTIONS-EXACT"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.middle_profile",
+   "role": "classification",
+   "statement": "(n i : Nat) (h1 : 1 \u2264 i) (h2 : i < n) : profile1 (reflState n) i = (true, true, true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-OBSTRUCTIONS-EXACT"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.endpoint0_profile",
+   "role": "classification",
+   "statement": "(n : Nat) (h : 1 \u2264 n) : profile1 (reflState n) 0 = (false, false, true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-OBSTRUCTIONS-EXACT"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.endpointN_profile",
+   "role": "classification",
+   "statement": "(n : Nat) (h : 1 \u2264 n) : profile1 (reflState n) n = (true, true, false)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-OBSTRUCTIONS-EXACT"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.depth1_obstructions_are_exactly_middle_pairs",
+   "role": "classification",
+   "statement": "(n i j : Nat) (hn : 1 \u2264 n) (hi : i \u2264 n) (hj : j \u2264 n) (hne : i \u2260 j) : (profile1 (reflState n) i = profile1 (reflState n) j) \u2194 (1 \u2264 i \u2227 i < n \u2227 1 \u2264 j \u2227 j < n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-TERMINAL",
+    "CL-G-GENERATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.generation_never_dries",
+   "role": "existence",
+   "statement": "(n : Nat) (h : 3 \u2264 n) : (1 : Nat) \u2260 2 \u2227 profile1 (reflState n) 1 = profile1 (reflState n) 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-REPAIR-FATES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.automark_presence_vacuous",
+   "role": "classification",
+   "statement": "(n : Nat) (h : 3 \u2264 n) : (\u2200 i, 1 \u2264 i \u2192 i \u2264 n \u2192 i \u2208 (reflState n).tags) \u2227 profile1 (reflState n) 1 = profile1 (reflState n) 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-REPAIR-FATES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.le_foldr_max",
+   "role": "classification",
+   "statement": "(marks : List Nat) : \u2200 x \u2208 marks, x \u2264 marks.foldr max 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-REPAIR-FATES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.finite_marks_outrun",
+   "role": "countermodel",
+   "statement": "(marks : List Nat) : \u2203 n i j, 1 \u2264 i \u2227 i < n \u2227 1 \u2264 j \u2227 j < n \u2227 i \u2260 j \u2227 i \u2209 marks \u2227 j \u2209 marks \u2227 profile1 (reflState n) i = profile1 (reflState n) j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-REPAIR-FATES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Generator.lean",
+   "name": "Generator.valued_marks_collapse_generation",
+   "role": "countermodel",
+   "statement": "(n i j : Nat) (h : i \u2260 j) : profileV (reflState n) i \u2260 profileV (reflState n) j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-DIRECT-SWAP"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Generator.lean",
+   "name": "Generator.middle_swap_not_relation_preserving",
+   "role": "countermodel",
+   "statement": "(n : Nat) (h : 2 \u2264 n) : (0, 1) \u2208 (reflState n).rel \u2227 ((swap12 0, swap12 1) \u2209 (reflState n).rel)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-DEPTH2"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Generator.lean",
+   "name": "Generator.depth2_separates_near_ends_n4",
+   "role": "example",
+   "statement": ": profile2 (reflState 4) 1 \u2260 profile2 (reflState 4) 3"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G-DEPTH2"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Generator.lean",
+   "name": "Generator.depth2_obstruction_n5",
+   "role": "countermodel",
+   "statement": ": profile2 (reflState 5) 2 = profile2 (reflState 5) 3 \u2227 (2 : Nat) \u2260 3"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-EQUIVALENCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.zeroRel_equivalence",
+   "role": "equivalence",
+   "statement": "(O : DiffObs X R) : Equivalence (ZeroRel O)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.kernel_zeroRel",
+   "role": "preservation",
+   "statement": "(view : X \u2192 V) (x y : X) : ZeroRel (kernelObs view) x y \u2194 view x = view y"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-EQUIVALENCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.obsQuotient_eq_of_zero",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) {x y : X} (h : ZeroRel O x y) : ObsQuotient.mk O x = ObsQuotient.mk O y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-OBSTRUCTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.no_guard_no_obstruction",
+   "role": "preservation",
+   "statement": "(S : Stage X R) (h : \u2200 x y, \u00ac S.guarded x y) : \u2200 x y, \u00ac ActiveObstruction S x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-OBSTRUCTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.unretained_not_active",
+   "role": "preservation",
+   "statement": "(S : Stage X R) (x y : X) (h : \u00ac S.retained x y) : \u00ac ActiveObstruction S x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-OBSTRUCTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.distinguished_not_active",
+   "role": "preservation",
+   "statement": "(S : Stage X R) (x y : X) (h : \u00ac ZeroRel S.obs x y) : \u00ac ActiveObstruction S x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-REFLECTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.bare_reflection_certifies_active_obstruction",
+   "role": "existence",
+   "statement": "{S : Stage X R} {S' : Stage X' R} (B : BareReflection S S') : B.embed B.parent \u2260 B.fresh \u2227 ActiveObstruction S' (B.embed B.parent) B.fresh"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.refines_preserves_distinctions",
+   "role": "preservation",
+   "statement": "{O\u2082 O\u2081 : DiffObs X R} (h : Refines O\u2082 O\u2081) : \u2200 x y, \u00ac ZeroRel O\u2081 x y \u2192 \u00ac ZeroRel O\u2082 x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.closure_preserves_old_distinctions",
+   "role": "preservation",
+   "statement": "{S : Stage X R} {G : StageMaps S} (C : ClosureStep S G) : \u2200 x y, \u00ac ZeroRel S.obs x y \u2192 \u00ac ZeroRel C.apply.obs x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.closure_kills_demanded",
+   "role": "preservation",
+   "statement": "{S : Stage X R} {G : StageMaps S} (C : ClosureStep S G) (x y : X) (hD : C.D x y) : \u00ac ActiveObstruction C.apply x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.closure_adds_no_obstruction",
+   "role": "preservation",
+   "statement": "{S : Stage X R} {G : StageMaps S} (C : ClosureStep S G) (x y : X) : ActiveObstruction C.apply x y \u2192 ActiveObstruction S x y"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.drive_terminates",
+   "role": "termination",
+   "statement": "{\u03c3 P : Type} (next : \u03c3 \u2192 Option (\u03c3 \u2295 P)) (\u03bc : \u03c3 \u2192 Nat) (hdec : \u2200 s s', next s = some (.inl s') \u2192 \u03bc s' < \u03bc s) : \u2200 fuel s, \u03bc s < fuel \u2192 (\u2203 s', drive next fuel s = .closed s') \u2228 (\u2203 s' p, drive next fuel s = .proposal s' p)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.cview_distinct_mono",
+   "role": "preservation",
+   "statement": "{h h' i j : Nat} (hh : h \u2264 h') (hne : cview h i \u2260 cview h j) : cview h' i \u2260 cview h' j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_closed",
+   "role": "preservation",
+   "statement": "(s : Nat) (x y : Nat) (h : ActiveObstruction (mkStage s (s - 1)) x y) : False"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-REFLECTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_obstruction",
+   "role": "preservation",
+   "statement": "(n : Nat) : (n : Nat) \u2260 n + 1 \u2227 ActiveObstruction (mkStage (n + 2) n) n (n + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.swapTop_view",
+   "role": "preservation",
+   "statement": "(n x : Nat) (hx : x < n + 2) : cview n (swapTop n x) = cview n x"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.swapTop_live_inj",
+   "role": "preservation",
+   "statement": "(n x y : Nat) (hx : x < n + 2) (hy : y < n + 2) (h : swapTop n x = swapTop n y) : x = y"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_step_composes",
+   "role": "preservation",
+   "statement": "(n : Nat) : (towerClosure n).apply = mkStage (n + 2) (n + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_successor_step",
+   "role": "preservation",
+   "statement": "(n : Nat) : \u2203 (_ : BareReflection (mkStage (n + 1) n) (mkStage (n + 2) n)) (C : ClosureStep (mkStage (n + 2) n) (towerMaps n)), C.apply = mkStage (n + 2) (n + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.mem_activePairs",
+   "role": "preservation",
+   "statement": "{s h i j : Nat} : (i, j) \u2208 activePairs s h \u2194 i < s \u2227 j < s \u2227 i \u2260 j \u2227 min i h = min j h"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.mem_activePairs_iff_active",
+   "role": "preservation",
+   "statement": "{s h i j : Nat} (hne : i \u2260 j) : (i, j) \u2208 activePairs s h \u2194 ActiveObstruction (mkStage s h) i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.closed_measure_zero",
+   "role": "preservation",
+   "statement": "(s : Nat) : measureC s (s - 1) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.preclose_measure_pos",
+   "role": "preservation",
+   "statement": "(n : Nat) : 0 < measureC (n + 2) n"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_demand_characterized",
+   "role": "preservation",
+   "statement": "(n x y : Nat) : towerDemand n x y \u2194 (x, y) \u2208 towerDemandList n"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_demand_bound",
+   "role": "preservation",
+   "statement": "(n : Nat) : (towerDemandList n).length = 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.towerNext_decrease",
+   "role": "preservation",
+   "statement": "(st st' : Nat \u00d7 Nat) (h : towerNext st = some (.inl st')) : measureC st'.1 st'.2 < measureC st.1 st.2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.tower_fuel_terminates",
+   "role": "termination",
+   "statement": "(s h fuel : Nat) (hfuel : measureC s h < fuel) : (\u2203 st, drive towerNext fuel (s, h) = .closed st) \u2228 (\u2203 st p, drive towerNext fuel (s, h) = .proposal st p)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-PROPOSAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.bool_view_pigeonhole",
+   "role": "countermodel",
+   "statement": "(view : Nat \u2192 Bool) : view 0 = view 1 \u2228 view 0 = view 2 \u2228 view 1 = view 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-PROPOSAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.bool_grammar_obstruction",
+   "role": "preservation",
+   "statement": "(view : Nat \u2192 Bool) : \u2203 x y, x \u2260 y \u2227 ActiveObstruction (bStage view) x y"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-PROPOSAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.no_bool_view_is_closed",
+   "role": "countermodel",
+   "statement": "(view : Nat \u2192 Bool) : \u2203 x y, x \u2260 y \u2227 ActiveObstruction (bStage view) x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.cm_freshness",
+   "role": "countermodel",
+   "statement": ": ((0 : Nat) \u2260 1) \u2227 ZeroRel (mkStage 2 0).obs 0 1 \u2227 \u00ac ActiveObstruction freshUnguarded 0 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.cm_tagging",
+   "role": "countermodel",
+   "statement": ": tagView 1 = true \u2227 tagView 2 = true \u2227 ((1 : Nat) \u2260 2) \u2227 ZeroRel tagStage.obs 1 2 \u2227 \u00ac ActiveObstruction tagStage 1 2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.cm_edge",
+   "role": "countermodel",
+   "statement": ": edgeView 0 = true \u2227 edgeView 1 = true \u2227 ((0 : Nat) \u2260 1) \u2227 ZeroRel edgeStage.obs 0 1 \u2227 \u00ac ActiveObstruction edgeStage 0 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.cm_hash",
+   "role": "countermodel",
+   "statement": ": (\u2200 i j : Nat, (fun x => x) i = (fun x => x) j \u2192 i = j) \u2227 ((0 : Nat) \u2260 1) \u2227 ZeroRel hashStage.obs 0 1 \u2227 \u00ac ActiveObstruction hashStage 0 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-DI-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "DiffInterface.lean",
+   "name": "DiffInterface.cm_repetition",
+   "role": "countermodel",
+   "statement": ": tokenOf 0 = tokenOf 1 \u2227 ((0 : Nat) \u2260 1) \u2227 ZeroRel repetitionStage.obs 0 1 \u2227 \u00ac ActiveObstruction repetitionStage 0 1"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.bool_eq_of_iff",
+   "role": "preservation",
+   "statement": "{a b : Bool} (h : a = true \u2194 b = true) : a = b"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.or_not_eq_true",
+   "role": "preservation",
+   "statement": "{a b : Bool} : (!a || b) = true \u2194 (a = true \u2192 b = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPLAY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.replay_deterministic",
+   "role": "preservation",
+   "statement": "(h : List Event) {w w' : World} (hw : w = w') : replay h w = replay h w'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPLAY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.replay_nil",
+   "role": "preservation",
+   "statement": "(w : World) : replay [] w = w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPLAY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.replay_append",
+   "role": "preservation",
+   "statement": "(h1 h2 : List Event) (w : World) : replay (h1 ++ h2) w = replay h2 (replay h1 w)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-SUPPORT"
+   ],
+   "consumers": [
+    "NoOutside.lean"
+   ],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.support_determines",
+   "role": "preservation",
+   "statement": "(w w' : World) (h : supp w = supp w') (e : Event) : supp (step w e) = supp (step w' e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-SUPPORT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.internal_support",
+   "role": "preservation",
+   "statement": "(w w' : World) (e : Event) (hres : supp (step w e) \u2260 supp (step w' e)) : supp w \u2260 supp w'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-SUPPORT"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.notes_inert",
+   "role": "example",
+   "statement": ": supp (step { genesis with notes"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-NO-HIDDEN-CHOICE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.repairFamily_sound",
+   "role": "preservation",
+   "statement": "{w : World} {r : Req} {m : View \u00d7 Nat} (h : m \u2208 repairFamily w r) : m \u2208 responseMenu w \u2227 repairsB w m r = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-NO-HIDDEN-CHOICE"
+   ],
+   "consumers": [
+    "Completion.lean"
+   ],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.repairFamily_complete",
+   "role": "preservation",
+   "statement": "{w : World} {r : Req} {m : View \u00d7 Nat} (hm : m \u2208 responseMenu w) (hr : repairsB w m r = true) : m \u2208 repairFamily w r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-NO-HIDDEN-CHOICE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.repairFamily_retains_ties",
+   "role": "preservation",
+   "statement": "{w : World} {r : Req} {m m' : View \u00d7 Nat} (hm : m \u2208 responseMenu w) (hm' : m' \u2208 responseMenu w) (h1 : repairsB w m r = true) (h2 : repairsB w m' r = true) : m \u2208 repairFamily w r \u2227 m' \u2208 repairFamily w r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-NO-HIDDEN-CHOICE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.equiv_step",
+   "role": "preservation",
+   "statement": "{w w' : World} (h : WEquiv w w') (e : Event) : WEquiv (step w e) (step w' e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-NO-HIDDEN-CHOICE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.equiv_replay",
+   "role": "preservation",
+   "statement": "{w w' : World} (h : WEquiv w w') (hist : List Event) : WEquiv (replay hist w) (replay hist w')"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-NO-HIDDEN-CHOICE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.equiv_repairFamily",
+   "role": "preservation",
+   "statement": "{w w' : World} (h : WEquiv w w') (r : Req) : SameElems (repairFamily w r) (repairFamily w' r)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPAIR-AUG"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.mark_discharges",
+   "role": "preservation",
+   "statement": "{w : World} {v : View} {p : Nat} (h : markOkB w v p = true) : \u2203 r \u2208 w.reqs, violB w r = true \u2227 satB (markApply w v p) r = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPAIR-AUG"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.mark_preserves",
+   "role": "preservation",
+   "statement": "{w : World} {v : View} {p : Nat} (h : markOkB w v p = true) : \u2200 r \u2208 w.reqs, satB w r = true \u2192 satB (markApply w v p) r = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPAIR-AUG"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.step_mark_sound",
+   "role": "preservation",
+   "statement": "{w : World} {v : View} {p : Nat} (hok : markOkB w v p = true) (hbud : 0 < w.budget) : (\u2203 r \u2208 w.reqs, violB w r = true \u2227 satB (step w (.mark v p)) r = true) \u2227 (\u2200 r \u2208 w.reqs, satB w r = true \u2192 satB (step w (.mark v p)) r = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPAIR-AUG"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.satB_aug",
+   "role": "preservation",
+   "statement": "(w : World) (c : View) (r : Req) : satB (augApply w c) r = (satB w r || sepB c r.1 r.2)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPAIR-AUG"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.aug_preserves_satisfied",
+   "role": "preservation",
+   "statement": "{w : World} {c : View} {r : Req} (h : satB w r = true) : satB (augApply w c) r = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPAIR-AUG"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.aug_increases",
+   "role": "preservation",
+   "statement": "{w : World} {c : View} (h : augOkB w c = true) : \u2203 i j, i \u2260 j \u2227 i < w.data.length \u2227 j < w.data.length \u2227 sepB c i j = true \u2227 satB w (i, j) = false"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.wf_genesis",
+   "role": "preservation",
+   "statement": ": WF genesis"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.wf_step",
+   "role": "preservation",
+   "statement": "{w : World} (hwf : WF w) (e : Event) : WF (step w e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.wf_replay",
+   "role": "preservation",
+   "statement": "(h : List Event) : WF (replay h genesis)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-BOUNDARIES",
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.represented_progress",
+   "role": "existence",
+   "statement": "{w : World} {i j : Nat} (hwf : WF w) (hviol : violB w (i, j) = true) : (\u2203 m, m \u2208 repairFamily w (i, j)) \u2228 (obstructedB w (i, j) = true \u2227 augOkB w [i] = true \u2227 satB (augApply w [i]) (i, j) = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.progress_needs_budget",
+   "role": "preservation",
+   "statement": "(w : World) (v : View) (p : Nat) (h : w.budget = 0) : step w (.mark v p) = w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.progress_needs_license",
+   "role": "preservation",
+   "statement": "(w : World) (c : View) (h : w.augLicensed = false) : step w (.addView c) = w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.violation_only_from_require",
+   "role": "preservation",
+   "statement": "{w : World} {e : Event} {r : Req} (h : violB (step w e) r = true) : violB w r = true \u2228 \u2203 i j, e = .require i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-CLOSURE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.quiescent_stable",
+   "role": "preservation",
+   "statement": "{w : World} (hq : quiescentB w = true) {e : Event} (hnotreq : \u2200 i j, e \u2260 .require i j) : quiescentB (step w e) = true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.histUpTo_prefix",
+   "role": "preservation",
+   "statement": "(k : Nat) : histUpTo k <+: histUpTo (k + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.admit_data_fresh",
+   "role": "preservation",
+   "statement": "(u : World) (t : Nat) (h : \u00ac t \u2208 u.data) : (step u (.admitTok t)).data = u.data ++ [t]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Represented.lean",
+   "name": "Represented.worldAt_data",
+   "role": "classification",
+   "statement": "(k : Nat) : (worldAt k).data = List.range (k + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [
+    "Constitution.lean"
+   ],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.worldAt_growth",
+   "role": "preservation",
+   "statement": "(k : Nat) : (worldAt k).data.length = k + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "Represented.lean",
+   "name": "Represented.productive_run",
+   "role": "termination",
+   "statement": "(k : Nat) : histUpTo k <+: histUpTo (k + 1) \u2227 (worldAt k).data.length < (worldAt (k + 1)).data.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [
+    "Constitution.lean"
+   ],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.worldAt_three_quiescent",
+   "role": "example",
+   "statement": ": quiescentB (worldAt 3) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.wit_all_lengths",
+   "role": "preservation",
+   "statement": "(n : Nat) : witValid (List.replicate n n) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PRODUCTIVITY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.wit_no_infinite",
+   "role": "countermodel",
+   "statement": "(g : Nat \u2192 Nat) : witValid (prefixList g (g 0 + 1)) = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-CERTIFICATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.cert_scope",
+   "role": "preservation",
+   "statement": "(panel : List Evaluator) (i j : Nat) : certPosB panel i j = true \u2194 panel \u2260 [] \u2227 \u2200 E \u2208 panel, \u2203 c \u2208 E, sepB c i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-CERTIFICATION"
+   ],
+   "consumers": [
+    "NoOutside.lean"
+   ],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.cert_not_correspondence",
+   "role": "countermodel",
+   "statement": ": certNegB [[[0, 1]], [[0, 1]]] 0 1 = true \u2227 sepB [0] 0 1 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-CERTIFICATION"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.cert_panel_relative",
+   "role": "countermodel",
+   "statement": ": certPosB [[[0]]] 0 1 = true \u2227 certPosB [[[0]], [[0, 1]]] 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.scheduler_hidden",
+   "role": "countermodel",
+   "statement": ": stepSched true schedWorld2 (.mark [] 0) \u2260 stepSched false schedWorld2 (.mark [] 0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.gensym_hidden",
+   "role": "countermodel",
+   "statement": ": (stepGensym 0 (worldAt 1) (.admitTok 99)).data \u2260 (stepGensym 99 (worldAt 1) (.admitTok 99)).data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.oracle_hidden",
+   "role": "countermodel",
+   "statement": ": stepOracle true oracleWorld (.mark [0] 1) \u2260 stepOracle false oracleWorld (.mark [0] 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.incomplete_search_false_alarm",
+   "role": "countermodel",
+   "statement": ": obstructedTruncB 1 truncWorld (1, 2) = true \u2227 obstructedB truncWorld (1, 2) = false \u2227 repairFamily truncWorld (1, 2) \u2260 []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.augmentation_destroys_old_replay",
+   "role": "countermodel",
+   "statement": ": satB owWorld (0, 1) = true \u2227 satB (overwriteFirst owWorld []) (0, 1) = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.repetition_not_progress",
+   "role": "countermodel",
+   "statement": ": replay [.admitTok 5, .admitTok 5, .admitTok 5] genesis = replay [.admitTok 5] genesis \u2227 ([Event.admitTok 5, .admitTok 5, .admitTok 5].length \u2260 [Event.admitTok 5].length)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-COUNTERMODELS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Represented.lean",
+   "name": "Represented.order_sensitivity_splits_equivalents",
+   "role": "countermodel",
+   "statement": ": WEquiv headWorldA headWorldB \u2227 satB (stepHead headWorldA (.mark [] 1)) (0, 1) \u2260 satB (stepHead headWorldB (.mark [] 1)) (0, 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.refusal_needs_certificate",
+   "role": "preservation",
+   "statement": "{w : World} {i j : Nat} (h : step w (.refuse i j) \u2260 w) : obstructedB w (i, j) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-PROGRESS"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Represented.lean",
+   "name": "Represented.refusals_are_represented",
+   "role": "preservation",
+   "statement": "{w : World} {i j : Nat} : ((i, j) \u2208 (step w (.refuse i j)).refusals) \u2228 step w (.refuse i j) = w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.ofWorld_sep",
+   "role": "preservation",
+   "statement": "(w : World) (i j : Nat) : sepC (ofWorld w) i j = satB w (i, j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.ofWorld_obstruction",
+   "role": "preservation",
+   "statement": "(w : World) (i j : Nat) : obstC (ofWorld w) i j = violB w (i, j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.ofWorld_quiescent",
+   "role": "preservation",
+   "statement": "(w : World) : (w.reqs.all fun r => !obstC (ofWorld w) r.1 r.2) = (w.reqs.all fun r => !violB w r)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.chain_transport",
+   "role": "preservation",
+   "statement": "(n : Nat) : (ofPState (reflState n)).carrier = List.range (n + 1) \u2227 (ofPState (reflState n)).posWitness = (List.range n).map (fun k => (k, k + 1))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.d2_transport_oriented",
+   "role": "preservation",
+   "statement": ": swapC d2Common \u2260 d2Common"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.s2_transport_symmetric",
+   "role": "preservation",
+   "statement": ": (swapC s2Common).posWitness.length = s2Common.posWitness.length \u2227 ((0, 1) \u2208 (swapC s2Common).posWitness \u2194 (0, 1) \u2208 s2Common.posWitness) \u2227 ((1, 0) \u2208 (swapC s2Common).posWitness \u2194 (1, 0) \u2208 s2Common.posWitness)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.witness_not_separation",
+   "role": "preservation",
+   "statement": ": (0, 1) \u2208 d2Common.posWitness \u2227 zeroC d2Common 0 1 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.separation_not_witness",
+   "role": "preservation",
+   "statement": ": sepC tagOnly 0 1 = true \u2227 tagOnly.posWitness = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.meta_distinctness_inert",
+   "role": "preservation",
+   "statement": "(s : CommonState) (facts) (i j : Nat) : sepC { s with metaDistinct"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.early_collapse_transports",
+   "role": "preservation",
+   "statement": ": zeroC { carrier"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.sepB_symm",
+   "role": "preservation",
+   "statement": "(c : View) (i j : Nat) : sepB c i j = sepB c j i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.augFamily_sound",
+   "role": "preservation",
+   "statement": "{w : World} {r : Req} {c : View} (h : c \u2208 augFamily w r) : augOkB w c = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [
+    "Constitution.lean"
+   ],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.augFamily_retains_ties",
+   "role": "preservation",
+   "statement": "{w : World} {i j : Nat} (hwf : WF w) (hviol : violB w (i, j) = true) : [i] \u2208 augFamily w (i, j) \u2227 [j] \u2208 augFamily w (i, j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.rule1_trichotomy",
+   "role": "preservation",
+   "statement": "{w : World} {i j : Nat} (hwf : WF w) (hviol : violB w (i, j) = true) : (\u2203 m, m \u2208 repairFamily w (i, j)) \u2228 (obstructedB w (i, j) = true \u2227 [i] \u2208 augFamily w (i, j) \u2227 [j] \u2208 augFamily w (i, j))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.refusal_recordable",
+   "role": "preservation",
+   "statement": "{w : World} {i j : Nat} (hobs : obstructedB w (i, j) = true) : (i, j) \u2208 (step w (.refuse i j)).refusals"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.refusal_object_inert",
+   "role": "preservation",
+   "statement": "(w : World) (i j : Nat) : (step w (.refuse i j)).data = w.data \u2227 (step w (.refuse i j)).views = w.views \u2227 (step w (.refuse i j)).reqs = w.reqs \u2227 (step w (.refuse i j)).budget = w.budget \u2227 (step w (.refuse i j)).augLicensed = w.augLicensed"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.refusal_non_absorbing",
+   "role": "preservation",
+   "statement": "(w : World) (i j : Nat) (r : Req) (v : View) (p : Nat) (c : View) : satB (step w (.refuse i j)) r = satB w r \u2227 violB (step w (.refuse i j)) r = violB w r \u2227 markOkB (step w (.refuse i j)) v p = markOkB w v p \u2227 augOkB (step w (.refuse i j)) c = augOkB w c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.action_dichotomy",
+   "role": "preservation",
+   "statement": "(w : World) (e : Event) : sigOf (step w e) = sigOf w \u2228 (sigOf w).1 < (sigOf (step w e)).1 \u2228 (sigOf w).2 < (sigOf (step w e)).2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.rule1_needs_fidelity",
+   "role": "preservation",
+   "statement": "(w : World) (h : w.reqs = []) (r : Req) : violB w r = false \u2227 obstructedB w r = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.retraction_breaks_preservation",
+   "role": "preservation",
+   "statement": ": satB { data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.support_replay",
+   "role": "preservation",
+   "statement": "(h : List Event) : \u2200 {w w' : World}, supp w = supp w' \u2192 supp (replay h w) = supp (replay h w')"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.support_repairFamily",
+   "role": "preservation",
+   "statement": "(w w' : World) (h : supp w = supp w') (r : Req) : repairFamily w r = repairFamily w' r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.support_quiescent",
+   "role": "preservation",
+   "statement": "(w w' : World) (h : supp w = supp w') : quiescentB w = quiescentB w'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.support_obstructed",
+   "role": "preservation",
+   "statement": "(w w' : World) (h : supp w = supp w') (r : Req) : obstructedB w r = obstructedB w' r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.effectual_outside_dichotomy",
+   "role": "preservation",
+   "statement": "(w w' : World) (hs : supp w = supp w') (h : List Event) (r : Req) : supp (replay h w) = supp (replay h w') \u2227 repairFamily (replay h w) r = repairFamily (replay h w') r \u2227 obstructedB (replay h w) r = obstructedB (replay h w') r \u2227 quiescentB (replay h w) = quiescentB (replay h w')"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.equivariant_family_invariant",
+   "role": "preservation",
+   "statement": "{S R : Type} (actS : S \u2192 S) (actR : R \u2192 R) (F : S \u2192 List R) (hequiv : \u2200 s, F (actS s) = (F s).map actR) : \u2200 s, actS s = s \u2192 (F s).map actR = F s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.stepC_conservative",
+   "role": "preservation",
+   "statement": "(cw : CWorld) (e : Event) : (stepC cw (.base e)).base = step cw.base e \u2227 (stepC cw (.base e)).panel = cw.panel"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.admitEvaluator_base_inert",
+   "role": "preservation",
+   "statement": "(cw : CWorld) (E : Evaluator) : (stepC cw (.admitEvaluator E)).base = cw.base"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.replayC_deterministic",
+   "role": "preservation",
+   "statement": "(h : List CEvent) {cw cw' : CWorld} (hw : cw = cw') : replayC h cw = replayC h cw'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.panel_equiv",
+   "role": "preservation",
+   "statement": "(panel : List Evaluator) : Equivalence (PanelEquiv panel)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.certNeg_iff_panelEquiv",
+   "role": "preservation",
+   "statement": "(panel : List Evaluator) (i j : Nat) : certNegB panel i j = true \u2194 panel \u2260 [] \u2227 PanelEquiv panel i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE2"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutside.lean",
+   "name": "NoOutside.certC_ceiling",
+   "role": "preservation",
+   "statement": ": certNegC \u27e8genesis, [[[0, 1]], [[0, 1]]]\u27e9 0 1 = true \u2227 sepB [0] 0 1 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.nextFamily_tower_singleton",
+   "role": "simulation",
+   "statement": "(w : World) : (nextFamily \u27e8w, .tower\u27e9).length = 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.closeBlocks_complete_repair",
+   "role": "simulation",
+   "statement": "{w : World} {r : Req} {m : View \u00d7 Nat} (hr : r \u2208 w.reqs) (hv : violB w r = true) (hm : m \u2208 repairFamily w r) : [Event.mark m.1 m.2] \u2208 closeBlocks w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.closeBlocks_complete_aug",
+   "role": "simulation",
+   "statement": "{w : World} {r : Req} {c : View} (hr : r \u2208 w.reqs) (hv : violB w r = true) (hc : c \u2208 Completion.augFamily w r) : [Event.addView c] \u2208 closeBlocks w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.nextFamily_stop",
+   "role": "simulation",
+   "statement": "{w : World} (hq : quiescentB w = true) : nextFamily \u27e8w, .close\u27e9 = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.towerBlock_eq",
+   "role": "simulation",
+   "statement": "(k : Nat) : towerBlock (worldAt k) = blockEvents (k + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.driver_reproduces_tower",
+   "role": "simulation",
+   "statement": ": \u2200 k, towerGen k = histUpTo k"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.nextFamily_complete",
+   "role": "simulation",
+   "statement": "(k : Nat) : nextFamily \u27e8replay (towerGen k) genesis, .tower\u27e9 = [towerBlock (replay (towerGen k) genesis)]"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.budget_replenishment_represented",
+   "role": "simulation",
+   "statement": "(w : World) : (towerBlock w).head? = some (.setBudget 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.gen_growth",
+   "role": "simulation",
+   "statement": "(k : Nat) : (genWorld k).w.data.length = k + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.gen_three_quiescent",
+   "role": "simulation",
+   "statement": ": quiescentB (genWorld 3).w = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-AUTONOMY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.tower_driver_autonomy",
+   "role": "simulation",
+   "statement": ": (\u2200 k, towerGen k <+: towerGen (k + 1)) \u2227 (\u2200 k, nextFamily (genWorld k) = [towerBlock (genWorld k).w]) \u2227 (\u2200 k, towerGen (k + 1) = towerGen k ++ towerBlock (genWorld k).w) \u2227 (\u2200 k, (nextFamily (genWorld k)).length = 1) \u2227 (\u2200 k, (towerBlock (genWorld k).w).head? = some (.setBudget 1)) \u2227 (\u2200 k, (genWorld k).w.data.length < (genWorld (k + 1)).w.data.length)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-CONSTITUTION"
+   ],
+   "consumers": [
+    "Initiality.lean"
+   ],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.interp_describe",
+   "role": "simulation",
+   "statement": "(w : World) (e : Event) : interpStep kernelDesc w e = step w e"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-CONSTITUTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.allDescs_length",
+   "role": "simulation",
+   "statement": ": allDescs.length = 64"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-NC-CONSTITUTION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.allDescs_complete",
+   "role": "simulation",
+   "statement": ": \u2200 d : ConstitutionDesc, d \u2208 allDescs"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.dedup_load_bearing",
+   "role": "minimality",
+   "statement": ": probeDedup { kernelDesc with dedupAdmit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.require_guard_load_bearing",
+   "role": "minimality",
+   "statement": ": probeRequire { kernelDesc with guardRequire"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.accept_guard_load_bearing",
+   "role": "minimality",
+   "statement": ": probeAccept { kernelDesc with guardAccept"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.budget_gate_load_bearing",
+   "role": "minimality",
+   "statement": ": probeBudget { kernelDesc with gateBudget"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.license_gate_load_bearing",
+   "role": "minimality",
+   "statement": ": probeLicense { kernelDesc with gateLicense"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.refusal_certificate_load_bearing",
+   "role": "minimality",
+   "statement": ": probeRefusal { kernelDesc with certRefusal"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.unique_compliant",
+   "role": "minimality",
+   "statement": ": allDescs.filter compliantB = [kernelDesc]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.minimum_unique_in_class",
+   "role": "minimality",
+   "statement": ": \u2200 d \u2208 allDescs.filter compliantB, d = kernelDesc"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.extension_retract",
+   "role": "minimality",
+   "statement": "(cw : NoOutside.CWorld) (e : Event) : (NoOutside.stepC cw (.base e)).base = step cw.base e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.extension_retract_replay",
+   "role": "minimality",
+   "statement": "(h : List Event) : \u2200 cw : NoOutside.CWorld, (NoOutside.replayC (h.map .base) cw).base = replay h cw.base"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-INITIALITY"
+   ],
+   "consumers": [],
+   "kind": "bounded",
+   "module": "Initiality.lean",
+   "name": "Initiality.retract_section",
+   "role": "minimality",
+   "statement": "(w : World) : (NoOutside.CWorld.mk w []).base = w"
+  }
+ ]
+}

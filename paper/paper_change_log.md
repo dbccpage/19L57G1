@@ -396,3 +396,31 @@ One focused correction pass; the research programme is unchanged.
 
 Tests 175 -> 177; artifact, ledger, paper, and CI receipts
 regenerated; 234 axiom reports remain within {propext, Quot.sound}.
+
+## 14. 2026-08-12 — Ultra closure run
+
+One autonomous run composing the sealed estate (PRs #1-#10) into the
+final native spine: `paper/native_derivation_completion.md` (verdict,
+both rules, event source, constitution, autonomy, initiality,
+adversarial audit), `paper/native_derivation_map.md` (one row per
+bridge), four Lean modules (Completion, NoOutside, Constitution,
+Initiality; 57 new exported theorems, 291 total, all within {propext,
+Quot.sound}), the completion Python mirror with source-derived
+inventory, and five deterministic artifacts including the receipt.
+
+Terminals: RELATIVE_REPLAY_CLOSURE_ONLY;
+EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER;
+KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER;
+KERNEL_CONSTITUTION_REMAINS_META (the single OPEN bridge);
+INITIAL_KERNEL_PROVED (declared class);
+ABSOLUTE_NO_OUTSIDE_UNFORMULABLE.  FULL_NATIVE_COMPOSITION not
+claimed.  Highlights: the driver reproduces the previously supplied
+tower stream from represented state (the supplied-vs-endogenous
+laundering closed in the strong direction); the extension family
+retains both orientations (strengthening the PR #10 scoping); refusal
+proved object-inert; Rule 1 reduced to preservation + declared
+fidelity; Rule 2's dichotomy proved operationally and its absolute
+form recorded as unformulable; the kernel's own description executes
+to the sealed step under the fixed family interpreter; the kernel is
+the unique compliant and initial member of its declared 64-member
+class.  No sealed theorem or claim was altered.
