@@ -5,6 +5,7 @@ import Derivation.Counting
 import Derivation.Minimality
 import Derivation.Progress
 import Derivation.Erasure
+import Derivation.Ext
 
 /-!
 # Axiom reports
@@ -71,3 +72,12 @@ open Derivation
 -- admission semantics)
 #print axioms Derivation.erase_step
 #print axioms Derivation.erase_replay
+
+-- Membership extensionality (list representation vs set semantics)
+#print axioms Derivation.derivable_ext
+#print axioms Derivation.wfCtx_ext
+#print axioms Derivation.collapsed_ext
+#print axioms Derivation.separable_ext
+#print axioms Derivation.applyItem_ext
+#print axioms Derivation.applyDelta_ext
+#print axioms Derivation.validResponse_ext

@@ -116,43 +116,43 @@
  },
  "CL-BRANCH-REPORTS": {
   "F_mu1": {
-   "budget_cutoff_branches": 886,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 886,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 0
   },
   "F_mu2": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 885,
    "terminal_branches": 0
   },
   "L_mu1": {
-   "budget_cutoff_branches": 927,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 927,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 0
   },
   "L_mu2": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 568,
    "terminal_branches": 0
   },
   "closed_F": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": true,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 16
   },
   "closed_L": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": true,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 3
@@ -161,8 +161,8 @@
  "CL-CLOSURE-TERMINATION": {
   "F": {
    "branch_report": {
-    "budget_cutoff_branches": 0,
     "every_maximal_branch_terminates": true,
+    "guard_cutoff_branches": 0,
     "open_branches": 0,
     "round_cutoff_branches": 0,
     "terminal_branches": 16
@@ -174,8 +174,8 @@
   },
   "L": {
    "branch_report": {
-    "budget_cutoff_branches": 0,
     "every_maximal_branch_terminates": true,
+    "guard_cutoff_branches": 0,
     "open_branches": 0,
     "round_cutoff_branches": 0,
     "terminal_branches": 3
@@ -208,7 +208,7 @@
     "all_certified": true,
     "by_status": {
      "expanded": 315,
-     "frontier_budget": 886
+     "frontier_guard": 886
     },
     "edges": 1244,
     "expansions_with_multiple_orbits": 0,
@@ -260,7 +260,7 @@
     "all_certified": true,
     "by_status": {
      "expanded": 278,
-     "frontier_budget": 927
+     "frontier_guard": 927
     },
     "edges": 1250,
     "expansions_with_multiple_orbits": 0,
@@ -336,7 +336,7 @@
    "all_certified": true,
    "by_status": {
     "expanded": 315,
-    "frontier_budget": 886
+    "frontier_guard": 886
    },
    "edges": 1244,
    "expansions_with_multiple_orbits": 0,
@@ -371,7 +371,7 @@
    "all_certified": true,
    "by_status": {
     "expanded": 278,
-    "frontier_budget": 927
+    "frontier_guard": 927
    },
    "edges": 1250,
    "expansions_with_multiple_orbits": 0,

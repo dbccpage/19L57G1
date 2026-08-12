@@ -29,9 +29,9 @@ challenges* transcribed from these files):
 and the repository; both presentations of the seed prompt are pinned by
 CI (`ci/check_prompt_hashes.py`).
 
-**[declared metatheory]** Caller corrections received on 2026-08-11
-(three sets, transcribed in `paper_change_log.md` entries 4-6) are part
-of the challenge history and were applied before freezing.
+**[declared metatheory]** Caller corrections received on 2026-08-11 and
+2026-08-12 (four sets, transcribed in `paper_change_log.md` entries 4-7)
+are part of the challenge history and were applied before freezing.
 
 **[declared metatheory]** Toolchain: Python 3.14.2 (dependencies pinned
 in `requirements.txt`), Lean 4.33.0 with Lake 5.0.0, no external Lean
@@ -40,7 +40,12 @@ deterministic (no timestamps, no environment data): committed summaries
 carry the SHA-256 of the full exports; full trees are normalized DAG
 records (parent references and edge event-deltas, no per-node histories)
 under `artifacts/full/*.json.gz`, reproducibly compressed (fixed mtime
-and level).  Independent verification runs in CI
+and level).  Every DAG edge carries a certificate: creation edges must
+replay from their parent to the exact stored child, and merge edges carry
+explicit datum/form bijections verified to map the replayed result
+exactly onto the stored child representative (`verify_full_export`
+re-checks all of this independently and rejects a single invalid merge
+edge even when every node retains a valid creation path).  Independent verification runs in CI
 (`.github/workflows/verify.yml`): pinned dependencies, pytest, separate
 95% line and branch coverage gates, mypy strict, `lake build`,
 forbidden-token and axiom audits, prompt-hash verification, and artifact
@@ -50,8 +55,12 @@ regeneration with content comparison.  The reference implementation is
 **[declared metatheory]** Declared resource bounds: candidate deltas of at
 most 2 items; concrete enumeration of form arities up to 2 (the arity
 dimension is additionally covered by a grammar-wide theorem, section 7.4);
-15 requested augmentation rounds; node budgets 1200 (measure mu1) and 3000
-(measure mu2) per tree; 100000 candidate bijections per canonicalization.
+15 requested augmentation rounds; *pre-expansion node guards* of 1200
+(measure mu1) and 3000 (measure mu2) per tree — the guard is checked
+before a node is expanded, and an expansion in progress completes, so an
+export may contain slightly more nodes than the guard value (hence the
+name; it is not a strict node cap); 100000 candidate bijections per
+canonicalization or automorphism search.
 
 ## 2. Metatheory / object language separation
 
@@ -77,15 +86,24 @@ All definitions below are **[definition]**, implemented in
 `code/derivation/model.py`, `observe.py`, `candidates.py`, `iso.py`,
 `engine.py`.  The Lean development (`lean4/Derivation/`) formalizes a
 *token-erased abstraction*: data are counted, not named.  The bridge is
-proved, not asserted, and covers repeated admission of every event kind:
-the admitted instance, rule, and requirement collections use
-deduplicating insertion (`insertNew`) exactly as the Python sets do, and
-`erase_step` / `erase_replay` (`Derivation/Erasure.lean`) show that
-replaying a token-aware history with deduplicating datum admission and
-then erasing tokens equals replaying the erased history in the
-token-erased model (a duplicate datum admission erases to a bare supply,
-a proved no-op; duplicate instance/rule/requirement admissions are no-ops
-on both sides).  **[theorem]**
+proved, not asserted, and rests on two theorems rather than on duplicate
+idempotence alone:
+
+* **Erasure simulation** (`erase_step` / `erase_replay`,
+  `Derivation/Erasure.lean`): replaying a token-aware history with
+  deduplicating datum admission and then erasing tokens equals replaying
+  the erased history in the token-erased model (a duplicate datum
+  admission erases to a bare supply, a proved no-op).  **[theorem]**
+* **Membership extensionality** (`Derivation/Ext.lean`): Python's
+  admitted collections are sets while Lean's are deduplicated lists;
+  under the proved relation `RegimeExt` (equal data counts and form
+  tables, membership-equal instance/rule/requirement collections) every
+  observable transports — derivability, context well-formedness,
+  collapse, separability, item and delta application, and response
+  validity (`derivable_ext` … `validResponse_ext`).  Two list
+  representations of the same admitted sets therefore support exactly
+  the same claims; no exported result depends on list order or
+  representation.  **[theorem]**
 
 1. **Regime** `(data, forms, insts, rules, reqs)`: admitted data in
    admission order (entries record presentation tokens, visible only to
@@ -320,18 +338,24 @@ two same-index selections produce non-isomorphic children
 (`test_least_pair_selection_is_not_equivariant`), so the quotiented
 transition depended on the representative labeling.
 
-**[finite computation]** The repair: one challenge branch per
-automorphism orbit of collapsed pairs, all non-isomorphic challenge
-orbits retained (the regression regime has automorphism group of order 4
-and two distinct orbits, both challenged).  Transition congruence under
-isomorphism is tested exhaustively — for every data bijection of each
-sample regime, including the regression regime, the expansion produces
-exactly the same set of child isomorphism classes
-(`test_orbit_policy_transition_congruence_exhaustive`).  In the exported
-runs no reached state had more than one orbit
-(`expansions_with_multiple_orbits = 0` in every tree and baseline), so
-the regenerated trees, counts, and role reports are numerically
-unchanged: the repaired defect was latent within the explored bounds.
+**[finite computation — finite adversarial evidence only]** The repair:
+one challenge branch per automorphism orbit of collapsed pairs, all
+non-isomorphic challenge orbits retained (the regression regime has
+automorphism group of order 4 and two distinct orbits, both challenged).
+Scope, stated honestly: no general transport theorem is claimed — the
+transports of candidates, costs, validity, minima, and children under
+regime isomorphism are **[unresolved]** as theorems.  What exists is
+finite adversarial evidence: for every data bijection of each sample
+regime, including the regression regime chosen adversarially against the
+old policy, the expansion produces exactly the same set of child
+isomorphism classes
+(`test_orbit_policy_transition_congruence_exhaustive`), and every merge
+edge in every export carries an explicitly verified isomorphism
+certificate (section 1).  In the exported runs no reached state had more
+than one orbit (`expansions_with_multiple_orbits = 0` in every tree and
+baseline), so the regenerated trees, counts, and role reports are
+numerically unchanged: the repaired defect was latent within the
+explored bounds.
 
 **[theorem]** (`mark_progress`) Response existence: on any well-formed
 regime whose imposed requirements are all separated, every *supplied*
@@ -363,21 +387,21 @@ consequence: no `terminal_no_response` node occurs in any exported run.
 isomorphic regimes merge into one node (a DAG; a *maximal branch* is a
 leaf).  Every node is replay-certified from genesis.
 
-| tree | nodes | edges | max depth | terminal | budget-cut | round-cut | open | every maximal branch terminates |
+| tree | nodes | edges | max depth | terminal | guard-cut | round-cut | open | every maximal branch terminates |
 |---|---|---|---|---|---|---|---|---|
 | L mu1 | 1205 | 1250 | 7 | 0 | 927 | 0 | 0 | no |
 | L mu2 | 963 | 1022 | 15 | 0 | 0 | 568 | 0 | no |
 | F mu1 | 1201 | 1244 | 6 | 0 | 886 | 0 | 0 | no |
 | F mu2 | 1847 | 1960 | 15 | 0 | 0 | 885 | 0 | no |
 
-* The mu2 trees have **no budget cutoff**: the full isomorphism-quotient
+* The mu2 trees have **no guard cutoff**: the full isomorphism-quotient
   tree to the requested 15 rounds is finite and fully enumerated
   (963 / 1847 nodes).  Their leaves are round-cut, not terminal: the runs
   were stopped at the requested depth.  **[finite computation]** Reaching
   a finite requested depth is exactly that — *not* a proof of
   unboundedness, and no unboundedness claim is made
   (`CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`).
-* The mu1 trees hit the declared 1200-node budget at depths 7 / 6; the
+* The mu1 trees hit the declared 1200-node pre-expansion guard at depths 7 / 6; the
   exact frontier (927 / 886 leaves) is exported.  Enumeration below the
   cut is complete within the declared bounds.
 * What is and is not established about continuation beyond the runs:
@@ -400,7 +424,7 @@ first.
 **[finite computation]** (`artifacts/closed_*_summary.json` and
 `artifacts/full/closed_*.json.gz`, `CL-CLOSURE-TERMINATION`):
 
-| baseline | nodes | terminal branches | budget-cut | round-cut | open | rounds used | pair bound | every maximal branch terminates |
+| baseline | nodes | terminal branches | guard-cut | round-cut | open | rounds used | pair bound | every maximal branch terminates |
 |---|---|---|---|---|---|---|---|---|
 | L | 4 | 3 | 0 | 0 | 0 | 1 | 1 | **yes** |
 | F | 20 | 16 | 0 | 0 | 0 | 3 | 3 | **yes** |
@@ -421,7 +445,7 @@ transition system itself is **[unresolved]**.
 **[bounded theorem]** Closed-system termination: within the declared
 bounds, every maximal branch of both baselines ends at the
 all-pairs-separated fixpoint, within the pair bound (L: 1 <= 1; F: 3 <= 3;
-zero budget-cut, round-cut, and open branches — the flag
+zero guard-cut, round-cut, and open branches — the flag
 `every_maximal_branch_terminates` is computed over *all* maximal
 branches, never from the existence of one terminal node).
 
@@ -462,8 +486,8 @@ all-pairs-separated fixpoint: **pair-separation closure terminates.**
 5. **Comparison with the external-supply tree** — **[finite computation]**
    (`CL-CLOSURE-VS-EXTERNAL`): closed system L/F: 4 / 20 nodes, all
    maximal branches terminal at rounds <= 1 / 3; external policy: 963-1847
-   node quotient trees at the requested 15 rounds (mu2, no budget cutoff)
-   and 1200-node budget frontiers (mu1).
+   node quotient trees at the requested 15 rounds (mu2, no guard cutoff)
+   and 1200-node guard frontiers (mu1).
 6. **Beyond the fixpoint** — **[theorem]** at the fixpoint every pair of
    admitted data is separated, so no unresolved requirement exists in the
    admitted requirement language (all n(n-1)/2 pairs are exhausted —
@@ -570,8 +594,7 @@ Within the declared metatheory and candidate grammar:
 * (g) **[finite computation]** With the declared external continuation
   policy the process reached the requested 15 rounds; the
   isomorphism-quotient tree at that depth is finite and fully enumerated
-  under the refined measure (963 / 1847 nodes) and budget-bounded with
-  exact exported frontiers under the item-count measure.  Continuation
+  under the refined measure (963 / 1847 nodes) and guard-bounded with exact exported frontiers under the item-count measure.  Continuation
   beyond the exported depths is **[unresolved]**; no unboundedness is
   claimed.
 * (h) **[unresolved]** Two admission readings of the challenge text
@@ -598,8 +621,7 @@ Within the declared metatheory and candidate grammar:
   transition system; the behavior of the external continuation policy
   beyond the exported depths.
 * **[bounded theorem]** All tree-level results are relative to the
-  declared bounds (items <= 2, arity <= 2 concrete, 15 rounds, node
-  budgets); the exact frontiers are exported for continuation.  The
+  declared bounds (items <= 2, arity <= 2 concrete, 15 rounds, node guards); the exact frontiers are exported for continuation.  The
   multi-orbit statistic is 0 within these bounds; beyond them, states
   with several challenge orbits are possible (the regression regime is
   one), and the equivariant policy is what keeps the quotient transition
@@ -607,13 +629,13 @@ Within the declared metatheory and candidate grammar:
 * **[unresolved]** The admission-reading underdetermination (L vs F) is a
   fact about the challenge text, not about the object language; it cannot
   be internally resolved.
-* Coverage and build gates at freeze: 79 tests passing; line coverage
-  99.88%, branch coverage 98.98% (independent gates at 95% each,
+* Coverage and build gates at freeze: 82 tests passing; line coverage
+  99.77%, branch coverage 98.75% (independent gates at 95% each,
   enforced locally and in CI); `lake build` clean.  Axiom status,
   exactly: no `sorry`, no `admit`, no custom conclusion-producing
   axioms, no `unsafe`, no `partial`; the standard Lean-core dependencies
   `propext` and `Quot.sound` remain, per-theorem in
-  `artifacts/lean_axioms.txt` (44 exported reports; several theorems are
+  `artifacts/lean_axioms.txt` (51 exported reports; several theorems are
   axiom-free), audited mechanically in CI.
 
 ## 13. Post-hoc comparison

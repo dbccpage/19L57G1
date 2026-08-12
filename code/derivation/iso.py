@@ -19,7 +19,7 @@ the tests against a brute-force minimum over *all* bijection pairs.
 from __future__ import annotations
 
 from itertools import permutations, product
-from typing import Iterable, Iterator, Sequence, TypeVar
+from typing import Iterable, Iterator, Optional, Sequence, TypeVar
 
 from .model import Pair, Regime
 
@@ -141,8 +141,10 @@ def serialize(r: Regime, pi: Sequence[int], phi: Sequence[int]) -> CanonKey:
     )
 
 
-def canonical(r: Regime, perm_budget: int = 100_000) -> CanonKey:
-    """Canonical key under the implemented isomorphism relation."""
+def canonical_witness(
+    r: Regime, perm_budget: int = 100_000
+) -> tuple[CanonKey, tuple[int, ...], tuple[int, ...]]:
+    """Canonical key together with a bijection pair attaining it."""
     dcol, fcol = _refine(r)
     total = _perm_count(dcol) * _perm_count(fcol)
     if total > perm_budget:
@@ -151,10 +153,46 @@ def canonical(r: Regime, perm_budget: int = 100_000) -> CanonKey:
             f"{perm_budget}"
         )
     return min(
-        serialize(r, pi, phi)
+        (serialize(r, pi, phi), pi, phi)
         for pi in _class_perms(dcol)
         for phi in _class_perms(fcol)
     )
+
+
+def canonical(r: Regime, perm_budget: int = 100_000) -> CanonKey:
+    """Canonical key under the implemented isomorphism relation."""
+    return canonical_witness(r, perm_budget)[0]
+
+
+def _invert(perm: Sequence[int]) -> tuple[int, ...]:
+    out = [0] * len(perm)
+    for old, new in enumerate(perm):
+        out[new] = old
+    return tuple(out)
+
+
+def find_iso(
+    a: Regime, b: Regime, perm_budget: int = 100_000
+) -> Optional[tuple[tuple[int, ...], tuple[int, ...]]]:
+    """A bijection pair ``(dmap, fmap)`` with
+    ``serialize(a, dmap, fmap) == serialize(b, identity)`` — i.e. an
+    isomorphism carrying ``a`` exactly onto ``b``'s structure (tokens
+    excluded) — or ``None`` when the regimes are not isomorphic.  The
+    returned pair is re-verified before being returned."""
+    key_a, pi_a, phi_a = canonical_witness(a, perm_budget)
+    key_b, pi_b, phi_b = canonical_witness(b, perm_budget)
+    if key_a != key_b:
+        return None
+    inv_pi_b, inv_phi_b = _invert(pi_b), _invert(phi_b)
+    dmap = tuple(inv_pi_b[pi_a[d]] for d in range(a.n_data()))
+    fmap = tuple(inv_phi_b[phi_a[f]] for f in range(len(a.forms)))
+    identity_d = tuple(range(b.n_data()))
+    identity_f = tuple(range(len(b.forms)))
+    if serialize(a, dmap, fmap) != serialize(b, identity_d, identity_f):
+        raise RuntimeError(
+            "isomorphism witness failed re-verification"
+        )  # pragma: no cover - canonical machinery guarantees this
+    return (dmap, fmap)
 
 
 def canonical_bruteforce(r: Regime) -> CanonKey:

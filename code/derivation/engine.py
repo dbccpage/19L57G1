@@ -49,7 +49,7 @@ from .candidates import (
     min_responses,
     response_valid_naive,
 )
-from .iso import CanonKey, canonical, pair_orbits
+from .iso import CanonKey, canonical, find_iso, pair_orbits
 from .model import (
     AdmitDatum,
     Event,
@@ -375,6 +375,9 @@ class Edge:
     class_size: int
     cost: tuple[int, int]
     orbits: int = 1
+    kind: str = "creation"
+    merge_dmap: Optional[tuple[int, ...]] = None
+    merge_fmap: Optional[tuple[int, ...]] = None
 
 
 @dataclass
@@ -383,7 +386,7 @@ class Tree:
     measure: str
     bounds: Bounds
     max_rounds: int
-    node_budget: int
+    pre_expansion_node_guard: int
     supply: bool
     nodes: list[Node] = field(default_factory=list)
     edges: list[Edge] = field(default_factory=list)
@@ -450,7 +453,7 @@ def build_tree(
     measure: str,
     bounds: Bounds,
     max_rounds: int = 15,
-    node_budget: int = 250,
+    pre_expansion_node_guard: int = 250,
     supply: bool = True,
 ) -> Tree:
     """Breadth-first expansion of the branch tree from the Challenge 3
@@ -462,7 +465,7 @@ def build_tree(
     False the generator's supply move is disabled (termination variant).
     """
     tree = Tree(
-        reading.name, measure, bounds, max_rounds, node_budget, supply
+        reading.name, measure, bounds, max_rounds, pre_expansion_node_guard, supply
     )
     base = replay(reading.genesis)
     root = Node(0, reading.genesis, base, 0, canonical(base))
@@ -490,8 +493,8 @@ def build_tree(
         if node.depth >= max_rounds:
             node.status = "completed"
             continue
-        if len(tree.nodes) > node_budget:
-            node.status = "frontier_budget"
+        if len(tree.nodes) > pre_expansion_node_guard:
+            node.status = "frontier_guard"
             continue
         if not targets:
             token = f"g{node.regime.n_data()}"
@@ -571,11 +574,20 @@ def _attach(
 ) -> None:
     regime = replay(history)
     canon = canonical(regime)
+    merge_dmap: Optional[tuple[int, ...]] = None
+    merge_fmap: Optional[tuple[int, ...]] = None
     if canon in canon_map:
+        # Merge edge: certify it with an explicit isomorphism carrying
+        # the replayed result onto the stored child representative.
         child_id = canon_map[canon]
+        kind = "merge"
+        iso = find_iso(regime, tree.nodes[child_id].regime)
+        assert iso is not None, "merge edge without isomorphism"
+        merge_dmap, merge_fmap = iso
         tree.nodes[child_id].merged_count += 1
     else:
         child_id = len(tree.nodes)
+        kind = "creation"
         child = Node(
             child_id, history, regime, parent.depth + 1, canon
         )
@@ -595,5 +607,8 @@ def _attach(
             class_size,
             cost,
             orbits,
+            kind,
+            merge_dmap,
+            merge_fmap,
         )
     )

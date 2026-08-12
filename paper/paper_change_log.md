@@ -166,7 +166,46 @@ instantiated for both readings); reading-F existence witness
    compressed, and `verify_full_export` replays every node from the DAG
    (the exported artifact footprint dropped from ~17 MB to ~320 KB).
 
-## 7. 2026-08-11 — Paper suite frozen
+## 7. 2026-08-12 — Fourth caller correction (4 points, PR #2 review) applied
+
+1. Every DAG edge is now certified, not only one creation edge per node.
+   Merge edges carry explicit datum/form bijections, computed at attach
+   time (`find_iso`, built on `canonical_witness`) and re-verified before
+   storage; `verify_full_export` replays every edge — creation edges must
+   reproduce the exact stored child, merge edges must map the replayed
+   result exactly onto the stored representative through their stored
+   bijections (bijectivity checked, tampered events rejected rather than
+   crashing).  Required regression added: one invalid merge edge is
+   rejected even when every node retains a valid creation path
+   (`test_verify_rejects_invalid_merge_edge_despite_valid_creation_
+   paths`), plus corruption of merge events and deletion of the
+   certificate.
+2. `node_budget` renamed to `pre_expansion_node_guard` everywhere
+   (engine parameter, tree metadata, bounds keys, CLI flags, statuses
+   `frontier_budget` → `frontier_guard`, branch-report key
+   `budget_cutoff_branches` → `guard_cutoff_branches`, paper and
+   ledger), because the guard is checked before expansion and an export
+   may slightly exceed the guard value: it is not a strict node cap and
+   is no longer named like one.
+3. Transition equivariance rescoped honestly: no general transport of
+   candidates, costs, validity, minima, or children under regime
+   isomorphism is claimed; those transports are recorded as unresolved.
+   The surviving classification is finite adversarial evidence —
+   exhaustive congruence over all renamings of the sample regimes
+   including the adversarial regression, plus a verified isomorphism
+   certificate on every exported merge edge.
+4. The list-vs-set gap between Lean and Python closed by proof:
+   `Derivation/Ext.lean` adds the membership-extensional relation
+   (`SetEq`, `RegimeExt`) with transport theorems for derivability,
+   context well-formedness, collapse, separability, item and delta
+   application, and response validity.  The bridge claim now rests on
+   erasure simulation plus membership extensionality — never on
+   duplicate-admission idempotence alone.  Exported theorem count 51.
+
+Artifacts, ledger, paper, and CI receipts regenerated; tree statistics
+unchanged except the status rename.
+
+## 8. 2026-08-12 — Paper suite frozen
 
 `paper.md`, `paper_claim_ledger.md`, and this log written against the
 frozen artifacts; final gate run recorded in `paper.md` section 12.

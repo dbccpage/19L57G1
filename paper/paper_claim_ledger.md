@@ -290,7 +290,7 @@ implementation.
 - **Statement**: Pair-separation closure terminates: with the external
   policy disabled, every maximal branch ends at the all-pairs-separated
   fixpoint within n(n-1)/2 rounds (L: 1 round, 3 terminal branches, 0
-  budget-cut, 0 round-cut, 0 open; F: 3 rounds, 16 terminal branches,
+  guard-cut, 0 round-cut, 0 open; F: 3 rounds, 16 terminal branches,
   0/0/0).  *Bounds: declared engine bounds; the counting laws are
   grammar-wide but conditional (see Lean field).*
 - **Class**: bounded theorem.
@@ -309,7 +309,7 @@ implementation.
   for the exported runs; a Lean theorem connecting the hypotheses to the
   transition system is unresolved.
 - **Axioms**: `propext, Quot.sound`.
-- **Falsifier / boundary**: a closed-system branch that is budget-cut,
+- **Falsifier / boundary**: a closed-system branch that is guard-cut,
   round-cut, open, or exceeds the pair bound.
 
 ### CL-CLOSURE-FIXPOINT
@@ -338,23 +338,29 @@ implementation.
   and 3, collapsed pairs (0,1) and (2,3), renaming (2,3,0,1)) the
   canonical keys agree while the same-index least-pair challenges produce
   non-isomorphic children.
-- **Class**: finite computation (exhaustive congruence test over all
-  renamings of the sample regimes, including the regression) +
-  counterexample (against the old policy).
+- **Class**: finite computation — **finite adversarial evidence only**
+  (exhaustive congruence over all renamings of the sample regimes,
+  including the adversarially chosen regression) + counterexample
+  (against the old policy).  The general transports — candidates, costs,
+  validity, minima, and children under regime isomorphism — are
+  **unresolved** as theorems; no general transport is claimed.
 - **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
 - **Python**: `tests/test_equivariance.py` (regression, orbit
   distinctness, exhaustive congruence, orbit coverage);
   `claims.json:CL-TRANSITION-EQUIVARIANCE` (policy record and
   multi-orbit statistics: 0 in every exported run — the repaired defect
-  was latent within the explored bounds).
+  was latent within the explored bounds); every merge edge in every
+  export carries an explicitly verified isomorphism certificate
+  (CL-REPLAY).
 - **Lean**: -- (transport under isomorphism unresolved; see paper
   section 12).
 - **Axioms**: --.
 - **Falsifier / boundary**: a regime and bijection whose expansions
-  yield different child class sets.
+  yield different child class sets; boundary: the sampled regimes and
+  their full symmetric groups.
 
 ### CL-BRANCH-REPORTS
-- **Statement**: Per-tree branch evidence — terminal, budget-cutoff,
+- **Statement**: Per-tree branch evidence — terminal, guard-cutoff,
   round-cutoff, and open branch counts with the
   every-maximal-branch-terminates flag — as tabulated in paper
   section 8.3/8.4.
@@ -367,7 +373,7 @@ implementation.
 
 ### CL-TREE-MU2-COMPLETE
 - **Statement**: The isomorphism-quotient trees under mu2 are fully
-  enumerated to the requested 15 rounds with zero budget cutoff: 963
+  enumerated to the requested 15 rounds with zero guard cutoff: 963
   nodes / 1022 edges (L), 1847 / 1960 (F); all leaves are round-cut.
   *Bounds: declared bounds; completeness is of the quotient tree within
   them.*
@@ -381,7 +387,7 @@ implementation.
   export.
 
 ### CL-TREE-MU1-FRONTIER
-- **Statement**: The mu1 trees are budget-bounded at 1200 nodes with exact
+- **Statement**: The mu1 trees are guard-bounded at the 1200-node pre-expansion guard with exact
   exported frontiers: depth 7 with 927 frontier leaves (L), depth 6 with
   886 (F); enumeration is complete above the cut.
 - **Class**: finite computation.
@@ -394,7 +400,8 @@ implementation.
 ### CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY
 - **Statement**: With the external continuation policy, the process
   reaches the requested depth in the mu2 trees (15 of 15 rounds; mu1
-  trees reach 7 / 6 before the node budget).  Reaching a finite requested
+  trees reach 7 / 6 before the pre-expansion node guard).  Reaching a
+  finite requested
   depth is not a proof of unboundedness; no unboundedness claim is made,
   and the behavior beyond the exported depths is unresolved.
 - **Class**: finite computation.
@@ -434,14 +441,17 @@ implementation.
 
 ### CL-TOKEN-ERASURE
 - **Statement**: The Lean development is a token-erased abstraction of
-  the token-aware admission semantics, connected by a proved simulation
-  that agrees on *repeated admission of every event kind*: instance,
-  rule, and requirement admission use deduplicating insertion
-  (`insertNew`) on both sides, matching the Python set semantics; datum
-  admission dedups on token identity, and a duplicate datum admission
-  erases to a bare supply (a proved no-op).  One token-aware step
-  followed by erasure equals one erased step of the erased event, and
-  the same holds for whole histories.
+  the token-aware admission semantics, connected by **two** proved
+  components — never by duplicate-admission idempotence alone:
+  (i) the erasure simulation: one token-aware step followed by erasure
+  equals one erased step of the erased event (a duplicate datum
+  admission erases to a bare supply, a proved no-op), and the same for
+  whole histories; (ii) membership extensionality: Python's admitted
+  collections are sets, Lean's are deduplicated lists, and under the
+  proved relation `RegimeExt` every observable transports — derivability,
+  context well-formedness, collapse, separability, item/delta
+  application, response validity — so no exported claim depends on list
+  order or representation.
 - **Class**: theorem.
 - **Deps**: CL-0-INERTIA (`supply_no_op` makes the duplicate case a
   no-op). **Assumptions**: shared.
@@ -449,35 +459,46 @@ implementation.
   `model.py`); `test_admit_datum_dedups_on_presentation_identity`.
 - **Lean**: `insertNew` (+ `mem_insertNew`, `insertNew_of_not_mem`,
   `insertNew_of_mem`), `erase_step`, `erase_replay` (with
-  `replayT_cons`, `replayE_cons`) in `Derivation/Erasure.lean`.
-- **Axioms**: `propext, Quot.sound`.
+  `replayT_cons`, `replayE_cons`) in `Derivation/Erasure.lean`;
+  `derivable_ext`, `wfCtx_ext`, `collapsed_ext`, `separable_ext`,
+  `applyItem_ext`, `applyDelta_ext`, `validResponse_ext` in
+  `Derivation/Ext.lean`.
+- **Axioms**: `propext, Quot.sound` (simulation); the extensionality
+  family reports per-theorem in `artifacts/lean_axioms.txt`.
 - **Falsifier / boundary**: a repeated admission of any event kind on
-  which the two sides disagree, or a token-aware history whose erased
-  replay differs from its replayed erasure.  Boundary: Python-side
-  structures beyond events (token strings vs numbers) are related by the
-  declared opaque-token reading.
+  which the two sides disagree; two membership-equal list
+  representations supporting different claims; or a token-aware history
+  whose erased replay differs from its replayed erasure.  Boundary:
+  Python-side structures beyond events (token strings vs numbers) are
+  related by the declared opaque-token reading.
 
 ### CL-REPLAY
 - **Statement**: Every certified regime equals the replay of its recorded
   history from genesis; replay is compositional; tampering is detected.
-  The normalized DAG exports preserve replayability: every node's history
-  reconstructs from the root history along creation edges, and
-  `verify_full_export` independently replays every exported node and
-  checks its regime hash.
+  The normalized DAG exports certify **every edge**, not only one
+  creation edge per node: a creation edge must replay from its parent to
+  the exact stored child (hash equality), and a merge edge carries
+  explicit datum/form bijections, computed and re-verified at attach
+  time, that `verify_full_export` independently checks to map the
+  replayed result exactly onto the stored child representative.  A single
+  invalid merge edge is rejected even when every node retains a valid
+  creation path.
 - **Class**: theorem (compositionality) + finite computation
-  (certification of all 5240 exported nodes, in-engine and again from the
-  exports).
+  (certification of all 5240 exported nodes and all 5498 exported edges,
+  in-engine and again from the exports).
 - **Deps**: none. **Assumptions**: shared.
 - **Python**: `all_certified = true` in every tree;
   `test_replay_certify_and_tamper_detection`,
   `test_replay_from_base_composes`,
   `test_full_export_replays_and_verifies`,
-  `test_verify_full_export_detects_tampering`;
+  `test_verify_full_export_detects_tampering`,
+  `test_every_edge_is_certified_including_merges`,
+  `test_verify_rejects_invalid_merge_edge_despite_valid_creation_paths`;
   `test_run_main_produces_all_artifacts` verifies every exported tree.
 - **Lean**: `replayE_append`, `historyL_replays`, `historyF_replays`.
 - **Axioms**: `propext, Quot.sound`; `propext`; `propext`.
 - **Falsifier / boundary**: a certified node whose history replays
-  elsewhere.
+  elsewhere, or an edge whose certificate fails independent re-checking.
 
 ### CL-QUOT-BARRIER
 - **Statement**: If an abstraction identifies two cases, no operation

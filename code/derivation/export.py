@@ -24,6 +24,7 @@ from typing import Mapping, Sequence, Union, cast
 from .candidates import Delta, delta_events
 from .engine import Edge, Node, Tree, delta_json_items
 from .model import (
+    AdmissionError,
     AdmitDatum,
     AdmitForm,
     AdmitInst,
@@ -122,9 +123,18 @@ def node_json(n: Node) -> dict[str, Json]:
 
 def edge_json(t: Tree, e: Edge) -> dict[str, Json]:
     parent_regime = t.nodes[e.parent].regime
+    merge_iso: Json = None
+    if e.kind == "merge":
+        assert e.merge_dmap is not None and e.merge_fmap is not None
+        merge_iso = {
+            "dmap": list(e.merge_dmap),
+            "fmap": list(e.merge_fmap),
+        }
     return {
         "parent": e.parent,
         "child": e.child,
+        "kind": e.kind,
+        "merge_iso": merge_iso,
         "round": e.round_no,
         "challenge": e.challenge,
         "response_label": e.response_label,
@@ -146,7 +156,7 @@ def _tree_meta(t: Tree) -> dict[str, Json]:
             "max_arity": t.bounds.max_arity,
         },
         "max_rounds": t.max_rounds,
-        "node_budget": t.node_budget,
+        "pre_expansion_node_guard": t.pre_expansion_node_guard,
         "supply_enabled": t.supply,
         "stats": cast(Json, t.stats()),
     }
@@ -172,9 +182,20 @@ def tree_summary_json(t: Tree, full_sha256: str) -> dict[str, Json]:
 
 
 def verify_full_export(payload: Mapping[str, Json]) -> bool:
-    """Independent replay of a normalized DAG export: reconstruct every
-    node's history along its creation edge (first edge listing it as the
-    child), replay from genesis, and compare regime hashes."""
+    """Independent certification of a normalized DAG export.
+
+    Every node's history reconstructs along its creation edge and its
+    regime hash is checked; then **every edge** is certified: the parent
+    history extended by the edge events is replayed, and
+
+    * a creation edge must reproduce the stored child exactly (hash
+      equality);
+    * a merge edge must carry explicit datum/form bijections that map the
+      replayed result exactly onto the stored child representative's
+      structure (tokens excluded).
+    """
+    from .iso import serialize
+
     root_history = tuple(
         event_from_json(cast(Mapping[str, Json], e))
         for e in cast(Sequence[Json], payload["root_history"])
@@ -185,14 +206,21 @@ def verify_full_export(payload: Mapping[str, Json]) -> bool:
     regimes: dict[int, Regime] = {0: replay(root_history)}
     if regime_sha256(regimes[0]) != nodes[0]["regime_sha256"]:
         return False
+    # Build histories along creation edges; all hash certification happens
+    # in the per-edge pass below, so this pass only reconstructs.
     creation: dict[int, Mapping[str, Json]] = {}
     for edge in edges:
-        child = cast(int, edge["child"])
-        creation.setdefault(child, edge)
+        if edge["kind"] == "creation":
+            child = cast(int, edge["child"])
+            if child in creation:
+                return False  # two creation edges for one node
+            creation[child] = edge
     for node in nodes:
         nid = cast(int, node["id"])
         if nid == 0:
             continue
+        if nid not in creation:
+            return False  # node without a creation path
         edge = creation[nid]
         parent = cast(int, edge["parent"])
         events = tuple(
@@ -200,9 +228,49 @@ def verify_full_export(payload: Mapping[str, Json]) -> bool:
             for e in cast(Sequence[Json], edge["events"])
         )
         histories[nid] = histories[parent] + events
-        regimes[nid] = replay(histories[nid])
-        if regime_sha256(regimes[nid]) != node["regime_sha256"]:
-            return False
+        try:
+            regimes[nid] = replay(histories[nid])
+        except AdmissionError:
+            return False  # tampered creation events
+    # Certify every edge, creation and merge alike.
+    for edge in edges:
+        parent = cast(int, edge["parent"])
+        child = cast(int, edge["child"])
+        events = tuple(
+            event_from_json(cast(Mapping[str, Json], e))
+            for e in cast(Sequence[Json], edge["events"])
+        )
+        try:
+            result = replay(histories[parent] + events)
+        except AdmissionError:
+            return False  # tampered events: ill-formed admission
+        if edge["kind"] == "creation":
+            if regime_sha256(result) != nodes[child]["regime_sha256"]:
+                return False
+        elif edge["kind"] == "merge":
+            iso_raw = edge["merge_iso"]
+            if iso_raw is None:
+                return False
+            iso = cast(Mapping[str, Json], iso_raw)
+            dmap = tuple(cast(Sequence[int], iso["dmap"]))
+            fmap = tuple(cast(Sequence[int], iso["fmap"]))
+            target = regimes[child]
+            if len(dmap) != result.n_data() or len(fmap) != len(
+                result.forms
+            ):
+                return False
+            if sorted(dmap) != list(range(target.n_data())) or sorted(
+                fmap
+            ) != list(range(len(target.forms))):
+                return False  # not bijections onto the child's indices
+            if serialize(result, dmap, fmap) != serialize(
+                target,
+                tuple(range(target.n_data())),
+                tuple(range(len(target.forms))),
+            ):
+                return False
+        else:
+            return False  # unknown edge kind
     return True
 
 

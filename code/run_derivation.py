@@ -1,7 +1,7 @@
 """Produce every derivation artifact deterministically.
 
 Usage: python code/run_derivation.py [--artifacts DIR] [--rounds N]
-       [--budget-mu1 N] [--budget-mu2 N] [--max-arity N]
+       [--guard-mu1 N] [--guard-mu2 N] [--max-arity N]
 
 Outputs (all deterministic byte-for-byte):
 
@@ -57,19 +57,19 @@ def _claims(
         terminal = sum(
             1 for n in leaves if n.status.startswith("terminal")
         )
-        budget_cut = sum(
-            1 for n in leaves if n.status == "frontier_budget"
+        guard_cut = sum(
+            1 for n in leaves if n.status == "frontier_guard"
         )
         round_cut = sum(1 for n in leaves if n.status == "completed")
         open_ = sum(1 for n in leaves if n.status == "open")
         return {
             "terminal_branches": terminal,
-            "budget_cutoff_branches": budget_cut,
+            "guard_cutoff_branches": guard_cut,
             "round_cutoff_branches": round_cut,
             "open_branches": open_,
             "every_maximal_branch_terminates": (
                 terminal > 0
-                and budget_cut == 0
+                and guard_cut == 0
                 and round_cut == 0
                 and open_ == 0
             ),
@@ -166,21 +166,21 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser.add_argument("--artifacts", type=Path, default=Path("artifacts"))
     parser.add_argument("--rounds", type=int, default=15)
     parser.add_argument(
-        "--budget-mu1",
+        "--guard-mu1",
         type=int,
         default=1200,
-        help="node budget for mu1 trees (declared frontier bound)",
+        help="pre-expansion node guard for mu1 trees (declared frontier bound)",
     )
     parser.add_argument(
-        "--budget-mu2",
+        "--guard-mu2",
         type=int,
         default=3000,
-        help="node budget for mu2 trees (large enough for completion)",
+        help="pre-expansion node guard for mu2 trees (large enough for full expansion)",
     )
     parser.add_argument("--max-arity", type=int, default=2)
     args = parser.parse_args(argv)
     bounds = Bounds(max_items=2, max_arity=args.max_arity)
-    budgets = {"mu1": args.budget_mu1, "mu2": args.budget_mu2}
+    guards = {"mu1": args.guard_mu1, "mu2": args.guard_mu2}
 
     challenges: dict[str, Any] = {
         "challenge0": challenge0_report(),
@@ -200,7 +200,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 measure,
                 bounds,
                 max_rounds=args.rounds,
-                node_budget=budgets[measure],
+                pre_expansion_node_guard=guards[measure],
             )
             print(f"tree {key}: {trees[key].stats()}")
 
@@ -211,7 +211,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             "mu1",
             bounds,
             max_rounds=args.rounds,
-            node_budget=budgets["mu1"],
+            pre_expansion_node_guard=guards["mu1"],
             supply=False,
         )
         print(f"nosupply {rd.name}: {nosupply[rd.name].stats()}")
@@ -223,8 +223,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             "max_items": bounds.max_items,
             "max_arity": bounds.max_arity,
             "max_rounds": args.rounds,
-            "node_budget_mu1": budgets["mu1"],
-            "node_budget_mu2": budgets["mu2"],
+            "pre_expansion_node_guard_mu1": guards["mu1"],
+            "pre_expansion_node_guard_mu2": guards["mu2"],
             "perm_budget": 100_000,
             "readings": [rd.name for rd in READINGS],
             "measures": ["mu1", "mu2"],

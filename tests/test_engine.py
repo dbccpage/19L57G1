@@ -92,8 +92,8 @@ def test_delta_label_shapes() -> None:
 
 
 def test_build_tree_small_deterministic_and_certified() -> None:
-    t1 = build_tree(READING_L, "mu2", BOUNDS, max_rounds=5, node_budget=40)
-    t2 = build_tree(READING_L, "mu2", BOUNDS, max_rounds=5, node_budget=40)
+    t1 = build_tree(READING_L, "mu2", BOUNDS, max_rounds=5, pre_expansion_node_guard=40)
+    t2 = build_tree(READING_L, "mu2", BOUNDS, max_rounds=5, pre_expansion_node_guard=40)
     assert tree_full_json(t1) == tree_full_json(t2)
     stats = t1.stats()
     assert stats["all_certified"] is True
@@ -102,26 +102,26 @@ def test_build_tree_small_deterministic_and_certified() -> None:
 
 
 def test_build_tree_root_uses_challenge3_target() -> None:
-    t = build_tree(READING_F, "mu2", BOUNDS, max_rounds=1, node_budget=10)
+    t = build_tree(READING_F, "mu2", BOUNDS, max_rounds=1, pre_expansion_node_guard=10)
     round1 = [e for e in t.edges if e.round_no == 1]
     assert round1 and all(e.challenge == "separate(1, 2)" for e in round1)
 
 
 def test_build_tree_merges_isomorphic_nodes() -> None:
-    t = build_tree(READING_L, "mu1", BOUNDS, max_rounds=5, node_budget=400)
+    t = build_tree(READING_L, "mu1", BOUNDS, max_rounds=5, pre_expansion_node_guard=400)
     assert any(n.merged_count > 1 for n in t.nodes)
 
 
 def test_build_tree_budget_frontier() -> None:
-    t = build_tree(READING_L, "mu1", BOUNDS, max_rounds=15, node_budget=5)
+    t = build_tree(READING_L, "mu1", BOUNDS, max_rounds=15, pre_expansion_node_guard=5)
     stats = t.stats()
-    assert stats["by_status"].get("frontier_budget", 0) > 0
+    assert stats["by_status"].get("frontier_guard", 0) > 0
 
 
 def test_supply_alternation_in_mu2_lineage() -> None:
     """After the mark, the generator supplies a fresh datum; the fresh datum
     is collapsed with the unmarked one and gets separated at cost 1."""
-    t = build_tree(READING_L, "mu2", BOUNDS, max_rounds=3, node_budget=30)
+    t = build_tree(READING_L, "mu2", BOUNDS, max_rounds=3, pre_expansion_node_guard=30)
     supply_edges = [e for e in t.edges if e.challenge == "supply"]
     assert supply_edges, "expected a supply round within three rounds"
     for e in t.edges:
@@ -132,12 +132,12 @@ def test_supply_alternation_in_mu2_lineage() -> None:
 def test_no_supply_variant_terminates_within_pair_bound() -> None:
     for reading in (READING_L, READING_F):
         t = build_tree(
-            reading, "mu1", BOUNDS, max_rounds=15, node_budget=200,
+            reading, "mu1", BOUNDS, max_rounds=15, pre_expansion_node_guard=200,
             supply=False,
         )
         stats = t.stats()
         assert stats["by_status"].get("terminal_all_separated", 0) > 0
-        assert "frontier_budget" not in stats["by_status"]
+        assert "frontier_guard" not in stats["by_status"]
         n = t.nodes[0].regime.n_data()
         assert stats["max_depth"] <= n * (n - 1) // 2
         for node in t.nodes:
@@ -175,7 +175,7 @@ def test_tree_terminal_when_no_response_within_bounds() -> None:
         "mu1",
         Bounds(max_items=0, max_arity=2),
         max_rounds=3,
-        node_budget=10,
+        pre_expansion_node_guard=10,
     )
     assert t.nodes[0].status == "terminal_no_response"
     assert len(t.nodes) == 1
@@ -218,7 +218,7 @@ def test_closed_system_terminal_at_round_boundary() -> None:
     """A closed-system node that reaches the fixpoint exactly at the round
     limit is terminal, not round-cut."""
     t = build_tree(
-        READING_F, "mu1", BOUNDS, max_rounds=3, node_budget=200,
+        READING_F, "mu1", BOUNDS, max_rounds=3, pre_expansion_node_guard=200,
         supply=False,
     )
     stats = t.stats()
@@ -227,6 +227,6 @@ def test_closed_system_terminal_at_round_boundary() -> None:
 
 
 def test_generator_never_challenges_a_required_pair() -> None:
-    t = build_tree(READING_L, "mu2", BOUNDS, max_rounds=6, node_budget=60)
+    t = build_tree(READING_L, "mu2", BOUNDS, max_rounds=6, pre_expansion_node_guard=60)
     for node in t.nodes:
         assert not (set(collapsed_pairs(node.regime)) & set(node.regime.reqs))

@@ -3,10 +3,10 @@
   "max_arity": 2,
   "max_items": 2
  },
- "full_export_sha256": "a578d3285b7678a9e404dcef4205930ed69764607bbb839a3b53a40176ffaa58",
+ "full_export_sha256": "3bdfec07aa71f707b05f112aed1dbf20b61764406252751bd32fa3ab653ae056",
  "max_rounds": 15,
  "measure": "mu2",
- "node_budget": 3000,
+ "pre_expansion_node_guard": 3000,
  "reading": "F",
  "stats": {
   "all_certified": true,

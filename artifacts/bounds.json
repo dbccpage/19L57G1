@@ -6,9 +6,9 @@
   "mu1",
   "mu2"
  ],
- "node_budget_mu1": 1200,
- "node_budget_mu2": 3000,
  "perm_budget": 100000,
+ "pre_expansion_node_guard_mu1": 1200,
+ "pre_expansion_node_guard_mu2": 3000,
  "readings": [
   "L",
   "F"
