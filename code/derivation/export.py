@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Union
+from typing import Mapping, Sequence, Union, cast
 
 from .candidates import Delta
 from .engine import Edge, Node, Tree, delta_json_items
@@ -23,7 +23,9 @@ from .model import (
     Supply,
 )
 
-Json = Union[None, bool, int, str, float, list["Json"], dict[str, "Json"]]
+Json = Union[
+    None, bool, int, str, float, Sequence["Json"], Mapping[str, "Json"]
+]
 
 
 def event_json(e: Event) -> dict[str, Json]:
@@ -92,7 +94,7 @@ def tree_json(t: Tree) -> dict[str, Json]:
         "max_rounds": t.max_rounds,
         "node_budget": t.node_budget,
         "supply_enabled": t.supply,
-        "stats": t.stats(),  # type: ignore[dict-item]
+        "stats": cast(Json, t.stats()),
         "nodes": [node_json(n) for n in t.nodes],
         "edges": [edge_json(e) for e in t.edges],
     }

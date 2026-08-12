@@ -17,7 +17,7 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 from derivation.candidates import Bounds
 from derivation.engine import (
@@ -29,24 +29,18 @@ from derivation.engine import (
     challenge2_report,
     challenge3_report,
 )
-from derivation.export import Json, tree_json, write_json
+from derivation.export import tree_json, write_json
 from derivation.iso import canonical
 from derivation.model import replay
 from derivation.observe import collapsed_pairs
 
 
 def _claims(
-    challenges: dict[str, Json], trees: dict[str, Tree], nosupply: dict[str, Tree]
-) -> dict[str, Json]:
+    challenges: dict[str, Any], trees: dict[str, Tree], nosupply: dict[str, Tree]
+) -> dict[str, Any]:
     """Computed Python evidence for ledger claims (IDs match
     ``paper/paper_claim_ledger.md``)."""
     c3 = challenges["challenge3"]
-    assert isinstance(c3, dict)
-    c3l = c3["L"]
-    assert isinstance(c3l, dict)
-    mu1 = c3l["mu1"]
-    mu2 = c3l["mu2"]
-    assert isinstance(mu1, dict) and isinstance(mu2, dict)
     ns_l = nosupply["L"]
     ns_f = nosupply["F"]
 
@@ -60,26 +54,21 @@ def _claims(
         n = t.nodes[0].regime.n_data()
         return n * (n - 1) // 2
 
-    evidence: dict[str, Json] = {
+    evidence: dict[str, Any] = {
         "CL-0-INERTIA": challenges["challenge0"],
         "CL-1-SUPPLY-VS-ADMISSION": challenges["challenge1"],
         "CL-2-COLLAPSE": challenges["challenge2"],
         "CL-3-FAIL-CURRENT": {
-            r: c3r["current_regime_satisfies"]
-            for r, c3r in c3.items()
-            if isinstance(c3r, dict)
+            r: c3r["current_regime_satisfies"] for r, c3r in c3.items()
         },
         "CL-3-MIN-TWO": {
-            r: c3r["mu1"]["minimum_cost"] if isinstance(c3r, dict) else None
-            for r, c3r in c3.items()
+            r: c3r["mu1"]["minimum_cost"] for r, c3r in c3.items()
         },
         "CL-3-NONUNIQUE-MU1": {
-            r: len(c3r["mu1"]["iso_classes"]) if isinstance(c3r, dict) else 0
-            for r, c3r in c3.items()
+            r: len(c3r["mu1"]["iso_classes"]) for r, c3r in c3.items()
         },
         "CL-3-UNIQUE-MU2": {
-            r: len(c3r["mu2"]["iso_classes"]) if isinstance(c3r, dict) else 0
-            for r, c3r in c3.items()
+            r: len(c3r["mu2"]["iso_classes"]) for r, c3r in c3.items()
         },
         "CL-TREE-SUMMARY": {
             key: t.stats() for key, t in trees.items()
@@ -127,13 +116,13 @@ def main(argv: Optional[list[str]] = None) -> int:
     bounds = Bounds(max_items=2, max_arity=args.max_arity)
     budgets = {"mu1": args.budget_mu1, "mu2": args.budget_mu2}
 
-    challenges: dict[str, Json] = {
-        "challenge0": challenge0_report(),  # type: ignore[dict-item]
-        "challenge1": challenge1_report(),  # type: ignore[dict-item]
-        "challenge2": challenge2_report(),  # type: ignore[dict-item]
+    challenges: dict[str, Any] = {
+        "challenge0": challenge0_report(),
+        "challenge1": challenge1_report(),
+        "challenge2": challenge2_report(),
         "challenge3": {
             rd.name: challenge3_report(rd, bounds) for rd in READINGS
-        },  # type: ignore[dict-item]
+        },
     }
 
     trees: dict[str, Tree] = {}
