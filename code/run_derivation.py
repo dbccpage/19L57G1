@@ -110,10 +110,22 @@ def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--artifacts", type=Path, default=Path("artifacts"))
     parser.add_argument("--rounds", type=int, default=15)
-    parser.add_argument("--budget", type=int, default=250)
+    parser.add_argument(
+        "--budget-mu1",
+        type=int,
+        default=1200,
+        help="node budget for mu1 trees (declared frontier bound)",
+    )
+    parser.add_argument(
+        "--budget-mu2",
+        type=int,
+        default=3000,
+        help="node budget for mu2 trees (large enough for completion)",
+    )
     parser.add_argument("--max-arity", type=int, default=2)
     args = parser.parse_args(argv)
     bounds = Bounds(max_items=2, max_arity=args.max_arity)
+    budgets = {"mu1": args.budget_mu1, "mu2": args.budget_mu2}
 
     challenges: dict[str, Json] = {
         "challenge0": challenge0_report(),  # type: ignore[dict-item]
@@ -133,7 +145,7 @@ def main(argv: Optional[list[str]] = None) -> int:
                 measure,
                 bounds,
                 max_rounds=args.rounds,
-                node_budget=args.budget,
+                node_budget=budgets[measure],
             )
             print(f"tree {key}: {trees[key].stats()}")
 
@@ -144,7 +156,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             "mu1",
             bounds,
             max_rounds=args.rounds,
-            node_budget=args.budget,
+            node_budget=budgets["mu1"],
             supply=False,
         )
         print(f"nosupply {rd.name}: {nosupply[rd.name].stats()}")
@@ -156,7 +168,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             "max_items": bounds.max_items,
             "max_arity": bounds.max_arity,
             "max_rounds": args.rounds,
-            "node_budget": args.budget,
+            "node_budget_mu1": budgets["mu1"],
+            "node_budget_mu2": budgets["mu2"],
             "perm_budget": 100_000,
             "readings": [rd.name for rd in READINGS],
             "measures": ["mu1", "mu2"],

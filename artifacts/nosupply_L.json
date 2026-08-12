@@ -1,0 +1,379 @@
+{
+ "bounds": {
+  "max_arity": 2,
+  "max_items": 2
+ },
+ "edges": [
+  {
+   "challenge": "separate(0, 1)",
+   "child": 1,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "parent": 0,
+   "response": [
+    {
+     "arity": 1,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form1+inst1",
+   "round": 1,
+   "tie_classes": 3
+  },
+  {
+   "challenge": "separate(0, 1)",
+   "child": 2,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "parent": 0,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2diag",
+   "round": 1,
+   "tie_classes": 3
+  },
+  {
+   "challenge": "separate(0, 1)",
+   "child": 3,
+   "class_size": 2,
+   "cost": [
+    2,
+    -1
+   ],
+   "parent": 0,
+   "response": [
+    {
+     "arity": 2,
+     "kind": "form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "form": 0,
+     "kind": "inst"
+    }
+   ],
+   "response_label": "form2+inst2",
+   "round": 1,
+   "tie_classes": 3
+  }
+ ],
+ "max_rounds": 15,
+ "measure": "mu1",
+ "node_budget": 1200,
+ "nodes": [
+  {
+   "canonical": "(2, (), (), (), ())",
+   "certified": true,
+   "depth": 0,
+   "history": [
+    {
+     "event": "supply",
+     "token": "<>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<ab>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<a>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<ab>"
+    }
+   ],
+   "id": 0,
+   "merged_count": 1,
+   "regime": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   },
+   "status": "expanded"
+  },
+  {
+   "canonical": "(2, (1,), ((0, (0,)),), (), ((0, 1),))",
+   "certified": true,
+   "depth": 1,
+   "history": [
+    {
+     "event": "supply",
+     "token": "<>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<ab>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<a>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<ab>"
+    },
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 1,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "id": 1,
+   "merged_count": 1,
+   "regime": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [
+     1
+    ],
+    "insts": [
+     [
+      0,
+      [
+       0
+      ]
+     ]
+    ],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "rules": []
+   },
+   "status": "terminal_all_separated"
+  },
+  {
+   "canonical": "(2, (2,), ((0, (0, 0)),), (), ((0, 1),))",
+   "certified": true,
+   "depth": 1,
+   "history": [
+    {
+     "event": "supply",
+     "token": "<>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<ab>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<a>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<ab>"
+    },
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      0
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "id": 2,
+   "merged_count": 1,
+   "regime": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [
+     2
+    ],
+    "insts": [
+     [
+      0,
+      [
+       0,
+       0
+      ]
+     ]
+    ],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "rules": []
+   },
+   "status": "terminal_all_separated"
+  },
+  {
+   "canonical": "(2, (2,), ((0, (0, 1)),), (), ((0, 1),))",
+   "certified": true,
+   "depth": 1,
+   "history": [
+    {
+     "event": "supply",
+     "token": "<>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<a>"
+    },
+    {
+     "event": "supply",
+     "token": "<ab>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<a>"
+    },
+    {
+     "event": "admit_datum",
+     "token": "<ab>"
+    },
+    {
+     "event": "impose_separation",
+     "i": 0,
+     "j": 1
+    },
+    {
+     "arity": 2,
+     "event": "admit_form"
+    },
+    {
+     "args": [
+      0,
+      1
+     ],
+     "event": "admit_inst",
+     "form": 0
+    }
+   ],
+   "id": 3,
+   "merged_count": 1,
+   "regime": {
+    "data": [
+     "<a>",
+     "<ab>"
+    ],
+    "forms": [
+     2
+    ],
+    "insts": [
+     [
+      0,
+      [
+       0,
+       1
+      ]
+     ]
+    ],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "rules": []
+   },
+   "status": "terminal_all_separated"
+  }
+ ],
+ "reading": "L",
+ "stats": {
+  "all_certified": true,
+  "by_status": {
+   "expanded": 1,
+   "terminal_all_separated": 3
+  },
+  "edges": 3,
+  "expansions_with_ties": 1,
+  "max_depth": 1,
+  "nodes": 4,
+  "roles": {
+   "innovation": 3
+  }
+ },
+ "supply_enabled": false
+}
