@@ -1,0 +1,29 @@
+{
+ "bounds": {
+  "max_arity": 2,
+  "max_items": 2
+ },
+ "full_export_sha256": "f20da3a74e81ee90dd05d9e5542a4e23b5d5f61fc17c93691d61fe62491e455a",
+ "max_rounds": 15,
+ "measure": "mu1",
+ "pre_expansion_node_guard": 1200,
+ "reading": "L",
+ "stats": {
+  "all_certified": true,
+  "by_status": {
+   "expanded": 278,
+   "frontier_guard": 927
+  },
+  "edges": 1250,
+  "expansions_with_multiple_orbits": 0,
+  "expansions_with_ties": 81,
+  "max_depth": 7,
+  "nodes": 1205,
+  "roles": {
+   "discrimination": 1047,
+   "innovation": 8,
+   "supply": 195
+  }
+ },
+ "supply_enabled": true
+}

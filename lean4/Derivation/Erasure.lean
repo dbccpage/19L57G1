@@ -47,15 +47,15 @@ def stepT (t : TRegime) : TEvent → Option TRegime
   | .admitInst f args =>
       if f < t.forms.length ∧ args.length = t.forms.getD f 0 ∧
           (∀ x ∈ args, x < t.tokens.length) then
-        some { t with insts := t.insts ++ [(f, args)] }
+        some { t with insts := insertNew t.insts (f, args) }
       else none
   | .admitRuleAll f =>
       if f < t.forms.length then
-        some { t with rules := t.rules ++ [f] }
+        some { t with rules := insertNew t.rules f }
       else none
   | .impose i j =>
       if i < j ∧ j < t.tokens.length then
-        some { t with reqs := t.reqs ++ [(i, j)] }
+        some { t with reqs := insertNew t.reqs (i, j) }
       else none
 
 /-- Erasure: forget tokens, keep the count. -/

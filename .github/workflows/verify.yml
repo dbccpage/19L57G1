@@ -1,0 +1,48 @@
+name: verify
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Install pinned dependencies
+        run: pip install -r requirements.txt
+      - name: Prompt byte-identity
+        run: python ci/check_prompt_hashes.py
+      - name: Tests under coverage
+        run: |
+          coverage run -m pytest -q
+          coverage json -q
+          coverage report
+      - name: Independent 95% line and branch gates
+        run: python ci/check_coverage.py
+      - name: mypy strict
+        run: python -m mypy
+      - name: Regenerate artifacts and compare
+        run: |
+          PYTHONPATH=code python code/run_derivation.py --artifacts artifacts_ci
+          python ci/compare_artifacts.py artifacts artifacts_ci
+
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl -sSfL https://elan.lean-lang.org/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: lake build
+        working-directory: lean4
+        run: lake build 2>&1 | tee ../lake_build.log
+      - name: Forbidden-token and axiom audit
+        run: python3 ci/check_lean_audit.py lake_build.log
+      - name: Axiom report matches committed artifact
+        run: python3 ci/check_axiom_report.py lake_build.log

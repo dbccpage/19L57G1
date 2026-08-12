@@ -1,4 +1,4 @@
-# A Least Finite Formal System from One Opaque Inscription
+# A Finite Formal System from an Opaque Seed under Declared External Challenges
 
 Every statement in this paper carries exactly one classification tag from:
 **[declared metatheory]**, **[definition]**, **[finite computation]**,
@@ -15,29 +15,52 @@ A post-hoc comparison with known mathematics was originally permitted in
 this final section; the caller's correction of 2026-08-11 withheld it, and
 it is therefore omitted entirely (see `paper_change_log.md`).
 
-**[declared metatheory]** Inputs (read-only, byte-identical throughout):
+**[declared metatheory]** Inputs (read-only throughout; every result
+derives from the opaque seed inscription *under the declared external
+challenges* transcribed from these files):
 
-| file | bytes | SHA-256 |
-|---|---|---|
-| `prompt/prompt.md` | 2805 | `A613A1965E4F02FEE00DF4D42041FCEECA176ABCFAA9202C3E769021305940B5` |
-| `prompt/seed_prompt.md` | 10245 | `EE3BA0583FEA2A11F1294538C912C542B3FAEE5316355DC226EFB92EF64646AB` |
+| file | presentation | bytes | SHA-256 |
+|---|---|---|---|
+| `prompt/prompt.md` | supplied = repository-canonical | 2805 | `a613a1965e4f02fee00df4d42041fceeca176abcfaa9202c3e769021305940b5` |
+| `prompt/seed_prompt.md` | as supplied (CRLF) | 10245 | `ee3ba0583fea2a11f1294538c912c542b3faee5316355dc226efb92ef64646ab` |
+| `prompt/seed_prompt.md` | repository-canonical (LF; normalized once at the original staging) | 9972 | `4ea4682e1da25363f9c7c1e9234b4b248f980097ae92d6f7dc1e8e8dd9bd4388` |
 
-**[declared metatheory]** Caller corrections received on 2026-08-11
-(two sets, transcribed in `paper_change_log.md` entries 4 and 5) are part
-of the challenge history and were applied before freezing.
+`prompt/prompt.md`'s byte-identity mandate holds in both the working tree
+and the repository; both presentations of the seed prompt are pinned by
+CI (`ci/check_prompt_hashes.py`).
 
-**[declared metatheory]** Toolchain: Python 3.14.2 (pytest 9.0.2,
-coverage 7.13.1, mypy 1.19.1 strict), Lean 4.33.0 with Lake 5.0.0, no
-external Lean libraries.  All computational artifacts under `artifacts/`
-are byte-deterministic (verified by dual runs; no timestamps, no
-environment data).  The reference implementation is `code/derivation/`;
-the artifact generator is `code/run_derivation.py`.
+**[declared metatheory]** Caller corrections received on 2026-08-11 and
+2026-08-12 (four sets, transcribed in `paper_change_log.md` entries 4-7)
+are part of the challenge history and were applied before freezing.
+
+**[declared metatheory]** Toolchain: Python 3.14.2 (dependencies pinned
+in `requirements.txt`), Lean 4.33.0 with Lake 5.0.0, no external Lean
+libraries.  All computational artifacts under `artifacts/` are
+deterministic (no timestamps, no environment data): committed summaries
+carry the SHA-256 of the full exports; full trees are normalized DAG
+records (parent references and edge event-deltas, no per-node histories)
+under `artifacts/full/*.json.gz`, reproducibly compressed (fixed mtime
+and level).  Every DAG edge carries a certificate: creation edges must
+replay from their parent to the exact stored child, and merge edges carry
+explicit datum/form bijections verified to map the replayed result
+exactly onto the stored child representative (`verify_full_export`
+re-checks all of this independently and rejects a single invalid merge
+edge even when every node retains a valid creation path).  Independent verification runs in CI
+(`.github/workflows/verify.yml`): pinned dependencies, pytest, separate
+95% line and branch coverage gates, mypy strict, `lake build`,
+forbidden-token and axiom audits, prompt-hash verification, and artifact
+regeneration with content comparison.  The reference implementation is
+`code/derivation/`; the artifact generator is `code/run_derivation.py`.
 
 **[declared metatheory]** Declared resource bounds: candidate deltas of at
 most 2 items; concrete enumeration of form arities up to 2 (the arity
 dimension is additionally covered by a grammar-wide theorem, section 7.4);
-15 requested augmentation rounds; node budgets 1200 (measure mu1) and 3000
-(measure mu2) per tree; 100000 candidate bijections per canonicalization.
+15 requested augmentation rounds; *pre-expansion node guards* of 1200
+(measure mu1) and 3000 (measure mu2) per tree — the guard is checked
+before a node is expanded, and an expansion in progress completes, so an
+export may contain slightly more nodes than the guard value (hence the
+name; it is not a strict node cap); 100000 candidate bijections per
+canonicalization or automorphism search.
 
 ## 2. Metatheory / object language separation
 
@@ -62,13 +85,25 @@ interpretation (never assigned).
 All definitions below are **[definition]**, implemented in
 `code/derivation/model.py`, `observe.py`, `candidates.py`, `iso.py`,
 `engine.py`.  The Lean development (`lean4/Derivation/`) formalizes a
-*token-erased abstraction*: data are counted, not named, so token-level
-admission deduplication is not directly represented.  The bridge is
-proved, not asserted: `erase_step` and `erase_replay`
-(`Derivation/Erasure.lean`) show that replaying a token-aware history
-with deduplicating admission and then erasing tokens equals replaying the
-erased history in the token-erased model (a duplicate admission erases to
-a bare supply, which is a proved no-op).  **[theorem]**
+*token-erased abstraction*: data are counted, not named.  The bridge is
+proved, not asserted, and rests on two theorems rather than on duplicate
+idempotence alone:
+
+* **Erasure simulation** (`erase_step` / `erase_replay`,
+  `Derivation/Erasure.lean`): replaying a token-aware history with
+  deduplicating datum admission and then erasing tokens equals replaying
+  the erased history in the token-erased model (a duplicate datum
+  admission erases to a bare supply, a proved no-op).  **[theorem]**
+* **Membership extensionality** (`Derivation/Ext.lean`): Python's
+  admitted collections are sets while Lean's are deduplicated lists;
+  under the proved relation `RegimeExt` (equal data counts and form
+  tables, membership-equal instance/rule/requirement collections) every
+  observable transports — derivability, context well-formedness,
+  collapse, separability, item and delta application, and response
+  validity (`derivable_ext` … `validResponse_ext`).  Two list
+  representations of the same admitted sets therefore support exactly
+  the same claims; no exported result depends on list order or
+  representation.  **[theorem]**
 
 1. **Regime** `(data, forms, insts, rules, reqs)`: admitted data in
    admission order (entries record presentation tokens, visible only to
@@ -84,10 +119,11 @@ a bare supply, which is a proved no-op).  **[theorem]**
    fold of its recorded history from genesis.
 3. **Context**: a form with a slot tuple containing at least one hole;
    **plug** fills every hole with one datum.  A context is *well-formed*
-   when its form is admitted, its slot count equals the form's arity, and
-   its filled slots name admitted data.  (The Python enumeration produces
-   only arity-length slot tuples by construction; the Lean `wfCtx`
-   carries the arity-length constraint explicitly.)
+   when its form is admitted, its slot count equals the form's arity, at
+   least one slot is a hole, and its filled slots name admitted data.
+   (The Python enumeration produces exactly these by construction; the
+   Lean `wfCtx` carries the arity-length and hole constraints
+   explicitly, so the two context spaces coincide.)
 4. **Derivability**: membership in the admitted instances, or coverage by
    a uniform all-tuples rule.  No other inference exists.
 5. **Profile** of a datum: the set of well-formed contexts whose plugging
@@ -109,14 +145,20 @@ a bare supply, which is a proved no-op).  **[theorem]**
    color-class-preserving bijections of a total serialization, with
    isomorphism-invariant iterated refinement; cross-checked against a
    brute-force minimum over all bijections.
-9. **Endogenous generator**: from the admitted structure alone, the least
-   observationally collapsed pair of admitted data, or nothing at the
-   fixpoint where every pair is separated.  It reads only profile equality
-   and admission order — never token glyphs — supplies no data, and
-   imports no new goal kind (it reissues the requirement pattern already
-   admitted in `reqs`).
+9. **Declared pair-separation closure policy**: from the admitted
+   structure, reissue the admitted requirement pattern (separation) on
+   the collapsed pairs — one challenge branch per *automorphism orbit* of
+   collapsed pairs (an automorphism is a bijection pair mapping the
+   regime onto itself; orbits are equivalence classes of pairs under the
+   automorphism action) — or nothing at the fixpoint where every pair is
+   separated.  **[declared metatheory]** A collapsed pair is not an
+   active obstruction by itself; this declared policy is what makes it
+   one.  The policy reads only profile equality and automorphism
+   structure — never token glyphs — supplies no data, and imports no new
+   goal kind.  Orbit selection is isomorphism-equivariant; raw least-pair
+   selection is not (section 8.2).
 10. **External continuation policy**: the supply-and-admission of one
-    fresh opaque token when the endogenous generator is at its fixpoint.
+    fresh opaque token when the closure policy is at its fixpoint.
     **[declared metatheory]** This is an explicitly declared external
     policy, not a derived transition.  Runs with the policy disabled are
     the *closed-system baseline*.
@@ -270,18 +312,50 @@ mu2 is a declared metatheoretic act; neither is derived.
 
 ## 8. Autonomous continuation
 
-### 8.1 Generator decomposition
+### 8.1 Challenge-source decomposition
 
 **[declared metatheory]** After Challenge 3 the challenge source is the
-generator of section 3.9-3.10: the *endogenous generator* (least collapsed
-pair) plus, at its fixpoint, the *external continuation policy* (fresh
-supply).  Round 1 of every tree answers the externally imposed Challenge 3
-requirement; later separation rounds answer the endogenous generator.
+pair of declared policies of section 3.9-3.10: the *pair-separation
+closure policy* (one branch per automorphism orbit of collapsed pairs)
+plus, at its fixpoint, the *external continuation policy* (fresh supply).
+Round 1 of every tree answers the externally imposed Challenge 3
+requirement; later separation rounds answer the closure policy.
 
-**[finite computation]** Token-blindness of the endogenous generator:
-renaming every presentation token changes nothing
-(`test_endogenous_generator_is_token_blind`); in the Lean model tokens are
+**[finite computation]** Token-blindness of the closure policy: renaming
+every presentation token changes nothing
+(`test_closure_policy_is_token_blind`); in the Lean model tokens are
 absent by construction.
+
+### 8.2 Quotient-transition soundness (repaired)
+
+**[counterexample]** Raw least-pair selection is not
+isomorphism-equivariant.  Regression regime: four data, one unary form,
+instances on data 2 and 3; collapsed pairs (0, 1) and (2, 3); renaming by
+pi = (2, 3, 0, 1) yields an isomorphic regime
+(`canonical(r) = canonical(rename(r, pi))`, verified) in which index pair
+(0, 1) is the *marked* collapsed pair rather than the unmarked one — the
+two same-index selections produce non-isomorphic children
+(`test_least_pair_selection_is_not_equivariant`), so the quotiented
+transition depended on the representative labeling.
+
+**[finite computation — finite adversarial evidence only]** The repair:
+one challenge branch per automorphism orbit of collapsed pairs, all
+non-isomorphic challenge orbits retained (the regression regime has
+automorphism group of order 4 and two distinct orbits, both challenged).
+Scope, stated honestly: no general transport theorem is claimed — the
+transports of candidates, costs, validity, minima, and children under
+regime isomorphism are **[unresolved]** as theorems.  What exists is
+finite adversarial evidence: for every data bijection of each sample
+regime, including the regression regime chosen adversarially against the
+old policy, the expansion produces exactly the same set of child
+isomorphism classes
+(`test_orbit_policy_transition_congruence_exhaustive`), and every merge
+edge in every export carries an explicitly verified isomorphism
+certificate (section 1).  In the exported runs no reached state had more
+than one orbit (`expansions_with_multiple_orbits = 0` in every tree and
+baseline), so the regenerated trees, counts, and role reports are
+numerically unchanged: the repaired defect was latent within the
+explored bounds.
 
 **[theorem]** (`mark_progress`) Response existence: on any well-formed
 regime whose imposed requirements are all separated, every *supplied*
@@ -291,7 +365,7 @@ is exactly response existence — it does **not** prove autonomous demand
 generation, and it does **not** prove an unbounded tower.  Its observed
 consequence: no `terminal_no_response` node occurs in any exported run.
 
-### 8.2 Pruning lemmas for the cost-2 enumeration
+### 8.3 Pruning lemmas for the cost-2 enumeration
 
 * **[theorem]** (`separable_of_subrules`) A separation witness never
   inhabits a uniformly ruled form, so removing rule items preserves every
@@ -306,28 +380,28 @@ consequence: no `terminal_no_response` node occurs in any exported run.
   they enter every tree computation and are certified computationally
   against the unpruned space.
 
-### 8.3 Branch trees (external continuation policy enabled)
+### 8.4 Branch trees (external continuation policy enabled)
 
-**[finite computation]** (`artifacts/tree_*.json`; per-branch evidence in
+**[finite computation]** (committed summaries `artifacts/tree_*_summary.json` with full normalized DAG exports under `artifacts/full/`; per-branch evidence in
 `artifacts/claims.json`, `CL-BRANCH-REPORTS`).  Branches are quotiented:
 isomorphic regimes merge into one node (a DAG; a *maximal branch* is a
 leaf).  Every node is replay-certified from genesis.
 
-| tree | nodes | edges | max depth | terminal | budget-cut | round-cut | open | every maximal branch terminates |
+| tree | nodes | edges | max depth | terminal | guard-cut | round-cut | open | every maximal branch terminates |
 |---|---|---|---|---|---|---|---|---|
 | L mu1 | 1205 | 1250 | 7 | 0 | 927 | 0 | 0 | no |
 | L mu2 | 963 | 1022 | 15 | 0 | 0 | 568 | 0 | no |
 | F mu1 | 1201 | 1244 | 6 | 0 | 886 | 0 | 0 | no |
 | F mu2 | 1847 | 1960 | 15 | 0 | 0 | 885 | 0 | no |
 
-* The mu2 trees have **no budget cutoff**: the full isomorphism-quotient
+* The mu2 trees have **no guard cutoff**: the full isomorphism-quotient
   tree to the requested 15 rounds is finite and fully enumerated
   (963 / 1847 nodes).  Their leaves are round-cut, not terminal: the runs
   were stopped at the requested depth.  **[finite computation]** Reaching
   a finite requested depth is exactly that — *not* a proof of
   unboundedness, and no unboundedness claim is made
   (`CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`).
-* The mu1 trees hit the declared 1200-node budget at depths 7 / 6; the
+* The mu1 trees hit the declared 1200-node pre-expansion guard at depths 7 / 6; the
   exact frontier (927 / 886 leaves) is exported.  Enumeration below the
   cut is complete within the declared bounds.
 * What is and is not established about continuation beyond the runs:
@@ -345,12 +419,12 @@ instances at once: 6, in F mu2 only).  The enumerated fresh-datum shape
 in binary-form regimes, cost-1 links to existing data always suffice
 first.
 
-### 8.4 Closed-system baseline (external policy disabled)
+### 8.5 Closed-system baseline (external policy disabled)
 
-**[finite computation]** (`artifacts/nosupply_*.json`,
-`CL-ENDOGENOUS-TERMINATION`):
+**[finite computation]** (`artifacts/closed_*_summary.json` and
+`artifacts/full/closed_*.json.gz`, `CL-CLOSURE-TERMINATION`):
 
-| baseline | nodes | terminal branches | budget-cut | round-cut | open | rounds used | pair bound | every maximal branch terminates |
+| baseline | nodes | terminal branches | guard-cut | round-cut | open | rounds used | pair bound | every maximal branch terminates |
 |---|---|---|---|---|---|---|---|---|
 | L | 4 | 3 | 0 | 0 | 0 | 1 | 1 | **yes** |
 | F | 20 | 16 | 0 | 0 | 0 | 3 | 3 | **yes** |
@@ -371,25 +445,31 @@ transition system itself is **[unresolved]**.
 **[bounded theorem]** Closed-system termination: within the declared
 bounds, every maximal branch of both baselines ends at the
 all-pairs-separated fixpoint, within the pair bound (L: 1 <= 1; F: 3 <= 3;
-zero budget-cut, round-cut, and open branches — the flag
+zero guard-cut, round-cut, and open branches — the flag
 `every_maximal_branch_terminates` is computed over *all* maximal
 branches, never from the existence of one terminal node).
 
-## 9. The endogenous continuation obligation
+## 9. The continuation obligation
 
 *Can the admitted structure generate its next unresolved requirement
 without inspecting presentation-token glyphs, supplying a fresh external
 datum, importing a new external goal, or assuming the desired
 continuation?*
 
-**Answer: yes, up to a provable fixpoint; no, beyond it.**
+**Result: no object-language endogenous demand generator was derived.**
+A collapsed pair, by itself, is not an active obstruction: nothing in the
+object language demands its separation.  What exists is the *declared
+pair-separation closure policy* (section 3.9) — declared metatheory that
+reissues the externally admitted requirement pattern on collapsed pairs.
+Under that declared policy, the fixed finite datum set reaches an
+all-pairs-separated fixpoint: **pair-separation closure terminates.**
 
-1. **[definition]** The endogenous generator (section 3.9) exists and is
-   the weakest we can justify: it reads only the admitted structure and
-   admission order, issues one requirement at a time in canonical order,
+1. **[declared metatheory]** The policy reads only the admitted structure
+   and automorphism-orbit structure, issues one requirement per orbit,
    and reissues only the requirement pattern already admitted in `reqs`
-   (no new goal kind).  Weakest-ness is a declared-metatheory judgment,
-   not a proved universal property (section 10, question 10).
+   (no new goal kind).  Its selection among conceivable policies is a
+   declared-metatheory judgment, not a proved universal property
+   (section 10, question 10).
 2. **Admissibility** — **[finite computation]** token-blind (renaming
    test); supplies no data and imposes only requirements over already
    admitted data (by construction of its output type); **[theorem]** in
@@ -400,24 +480,24 @@ continuation?*
    `mark_progress` exhibits a preserving response), and the requirement
    set grows strictly.
 4. **Implementation** — **[finite computation]**
-   `next_endogenous_challenge` in `code/derivation/engine.py`;
-   deterministic; the closed-system trees of section 8.4 are its full
-   quotient towers.
+   `closure_challenge_orbits` in `code/derivation/engine.py`;
+   deterministic and isomorphism-equivariant (section 8.2); the
+   closed-system trees of section 8.5 are its full quotient towers.
 5. **Comparison with the external-supply tree** — **[finite computation]**
-   (`CL-ENDOGENOUS-VS-EXTERNAL`): closed system L/F: 4 / 20 nodes, all
+   (`CL-CLOSURE-VS-EXTERNAL`): closed system L/F: 4 / 20 nodes, all
    maximal branches terminal at rounds <= 1 / 3; external policy: 963-1847
-   node quotient trees at the requested 15 rounds (mu2, complete) and
-   1200-node budget frontiers (mu1).
+   node quotient trees at the requested 15 rounds (mu2, no guard cutoff)
+   and 1200-node guard frontiers (mu1).
 6. **Beyond the fixpoint** — **[theorem]** at the fixpoint every pair of
    admitted data is separated, so no unresolved requirement exists in the
    admitted requirement language (all n(n-1)/2 pairs are exhausted —
    `allPairs_length`); generating any further requirement would need a
    fresh datum (external supply) or a new requirement kind (external
-   goal).  **The native tower stops.**  Further continuation requires the
-   declared external continuation policy.
+   goal).  **Pair-separation closure terminates.**  Further continuation
+   requires the declared external continuation policy.
 
-A proved finite termination of the native tower is the result; no longer
-or infinite tower is forced.
+A proved finite termination of pair-separation closure is the result; no
+longer or infinite tower is forced.
 
 ## 10. The required questions
 
@@ -446,8 +526,8 @@ or infinite tower is forced.
 7. *What additional rule, if any, makes a long or unbounded sequence of
    augmentations possible rather than immediate termination?*  **The
    external continuation policy (fresh supply)** — **[bounded theorem]**
-   without it the native tower terminates within n(n-1)/2 rounds
-   (sections 8.4, 9); with it the process reached every requested depth
+   without it pair-separation closure terminates within n(n-1)/2 rounds
+   (sections 8.5, 9); with it the process reached every requested depth
    tried (**[finite computation]**), and every supplied demand has a
    response (**[theorem]** `mark_progress`).  Whether the sequence is
    unbounded is **[unresolved]**: no unboundedness claim is made.
@@ -462,7 +542,7 @@ or infinite tower is forced.
 9. *What recurring transition roles emerge from the derivation itself?*
    **[finite computation]** supply, discrimination, innovation, rare
    double discrimination; auxiliary-witness enumerated but never minimal
-   in the observed runs (section 8.3).
+   in the observed runs (section 8.4).
 10. *Is the final process minimal or initial among a clearly defined class
     of finite processes satisfying the same challenges?*  **Claim
     refused** — **[unresolved]**.  No universal property was proved.  What
@@ -491,8 +571,8 @@ Within the declared metatheory and candidate grammar:
   admission never changes state.
 * (b) **[theorem]** Admission without judgment structure yields total
   observational collapse; externally distinct data can remain internally
-  indistinguishable, and admission alone never increased expressive power
-  (counterexample to necessity).
+  indistinguishable: admission need not increase expressive power
+  (counterexample to the necessity claim).
 * (c) **[theorem]** The first separability requirement has minimum
   response cost exactly two items, absolutely over the item grammar, in
   both admission readings.
@@ -505,15 +585,16 @@ Within the declared metatheory and candidate grammar:
   for reading L; within bounds for reading F).
 * (e) **[theorem]** Response existence: every supplied separation demand
   on a well-formed accepted regime is answerable.
-* (f) **[bounded theorem]** The endogenous continuation exists, is
-  token-blind, and provably terminates: the native tower stops at the
-  all-pairs-separated fixpoint within n(n-1)/2 rounds (closed-system
-  baselines: 1 and 3 rounds, every maximal branch terminal).
+* (f) **[bounded theorem]** No object-language endogenous demand
+  generator was derived; under the declared pair-separation closure
+  policy (token-blind, isomorphism-equivariant) the fixed finite datum
+  set provably reaches the all-pairs-separated fixpoint within n(n-1)/2
+  rounds — pair-separation closure terminates (closed-system baselines:
+  1 and 3 rounds, every maximal branch terminal).
 * (g) **[finite computation]** With the declared external continuation
   policy the process reached the requested 15 rounds; the
   isomorphism-quotient tree at that depth is finite and fully enumerated
-  under the refined measure (963 / 1847 nodes) and budget-bounded with
-  exact exported frontiers under the item-count measure.  Continuation
+  under the refined measure (963 / 1847 nodes) and guard-bounded with exact exported frontiers under the item-count measure.  Continuation
   beyond the exported depths is **[unresolved]**; no unboundedness is
   claimed.
 * (h) **[unresolved]** Two admission readings of the challenge text
@@ -523,32 +604,39 @@ Within the declared metatheory and candidate grammar:
 ## 12. Limitations and open obstructions
 
 * **[declared metatheory]** The cost measures, the candidate grammar, the
-  isomorphism relation, the persistence of requirements, the endogenous
-  generator's canonical order, and the external continuation policy are
-  declared, not derived.  Different declarations could yield different
-  towers; the mu1/mu2 split documents one such sensitivity precisely.
+  isomorphism relation, the persistence of requirements, the
+  pair-separation closure policy (including its orbit-representative
+  selection), and the external continuation policy are declared, not
+  derived.  Different declarations could yield different towers; the
+  mu1/mu2 split documents one such sensitivity precisely.
 * **[unresolved]** Lean formalizations of: the three structural pruning
   lemmas (datum/form irrelevance, mention lemma) and the delta-level
   rule-removal bridge (the proved `separable_of_subrules` covers witness
   transfer under a shrunken final rule set; the bridge from delta items
   to shrunken rule sets is computational); grammar-wide mu2 uniqueness
-  for reading F; count-invariance transport under isomorphism; a theorem
-  connecting the strict-growth/boundedness hypotheses of the counting
-  laws to the transition system; the behavior of the external
-  continuation policy beyond the exported depths.
+  for reading F; count-invariance and transition-congruence transport
+  under isomorphism (both certified exhaustively in Python, the latter
+  including the equivariance regression); a theorem connecting the
+  strict-growth/boundedness hypotheses of the counting laws to the
+  transition system; the behavior of the external continuation policy
+  beyond the exported depths.
 * **[bounded theorem]** All tree-level results are relative to the
-  declared bounds (items <= 2, arity <= 2 concrete, 15 rounds, node
-  budgets); the exact frontiers are exported for continuation.
+  declared bounds (items <= 2, arity <= 2 concrete, 15 rounds, node guards); the exact frontiers are exported for continuation.  The
+  multi-orbit statistic is 0 within these bounds; beyond them, states
+  with several challenge orbits are possible (the regression regime is
+  one), and the equivariant policy is what keeps the quotient transition
+  well defined there.
 * **[unresolved]** The admission-reading underdetermination (L vs F) is a
   fact about the challenge text, not about the object language; it cannot
   be internally resolved.
-* Coverage and build gates at freeze: 72 tests passing; line coverage
-  99.86%, branch coverage 98.81% (thresholds 95/95); `lake build` clean.
-  Axiom status, exactly: no `sorry`, no `admit`, no custom
-  conclusion-producing axioms, no `unsafe`, no `partial`; the standard
-  Lean-core dependencies `propext` and `Quot.sound` remain, per-theorem
-  in `artifacts/lean_axioms.txt` (44 exported reports; several theorems
-  are axiom-free).
+* Coverage and build gates at freeze: 82 tests passing; line coverage
+  99.77%, branch coverage 98.75% (independent gates at 95% each,
+  enforced locally and in CI); `lake build` clean.  Axiom status,
+  exactly: no `sorry`, no `admit`, no custom conclusion-producing
+  axioms, no `unsafe`, no `partial`; the standard Lean-core dependencies
+  `propext` and `Quot.sound` remain, per-theorem in
+  `artifacts/lean_axioms.txt` (51 exported reports; several theorems are
+  axiom-free), audited mechanically in CI.
 
 ## 13. Post-hoc comparison
 

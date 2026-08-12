@@ -116,77 +116,77 @@
  },
  "CL-BRANCH-REPORTS": {
   "F_mu1": {
-   "budget_cutoff_branches": 886,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 886,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 0
   },
   "F_mu2": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 885,
    "terminal_branches": 0
   },
   "L_mu1": {
-   "budget_cutoff_branches": 927,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 927,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 0
   },
   "L_mu2": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": false,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 568,
    "terminal_branches": 0
   },
   "closed_F": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": true,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 16
   },
   "closed_L": {
-   "budget_cutoff_branches": 0,
    "every_maximal_branch_terminates": true,
+   "guard_cutoff_branches": 0,
    "open_branches": 0,
    "round_cutoff_branches": 0,
    "terminal_branches": 3
   }
  },
- "CL-ENDOGENOUS-TERMINATION": {
+ "CL-CLOSURE-TERMINATION": {
   "F": {
    "branch_report": {
-    "budget_cutoff_branches": 0,
     "every_maximal_branch_terminates": true,
+    "guard_cutoff_branches": 0,
     "open_branches": 0,
     "round_cutoff_branches": 0,
     "terminal_branches": 16
    },
-   "note": "closed-system baseline: endogenous generator only, no external continuation policy",
+   "note": "closed-system baseline: declared pair-separation closure policy only, no external continuation policy. No object-language endogenous demand generator was derived; under the declared policy the fixed finite datum set reaches an all-pairs-separated fixpoint (pair-separation closure terminates).",
    "pair_bound": 3,
    "rounds_used": 3,
    "within_bound": true
   },
   "L": {
    "branch_report": {
-    "budget_cutoff_branches": 0,
     "every_maximal_branch_terminates": true,
+    "guard_cutoff_branches": 0,
     "open_branches": 0,
     "round_cutoff_branches": 0,
     "terminal_branches": 3
    },
-   "note": "closed-system baseline: endogenous generator only, no external continuation policy",
+   "note": "closed-system baseline: declared pair-separation closure policy only, no external continuation policy. No object-language endogenous demand generator was derived; under the declared policy the fixed finite datum set reaches an all-pairs-separated fixpoint (pair-separation closure terminates).",
    "pair_bound": 1,
    "rounds_used": 1,
    "within_bound": true
   }
  },
- "CL-ENDOGENOUS-VS-EXTERNAL": {
+ "CL-CLOSURE-VS-EXTERNAL": {
   "F": {
    "closed_system": {
     "all_certified": true,
@@ -195,6 +195,7 @@
      "terminal_all_separated": 16
     },
     "edges": 19,
+    "expansions_with_multiple_orbits": 0,
     "expansions_with_ties": 3,
     "max_depth": 3,
     "nodes": 20,
@@ -207,9 +208,10 @@
     "all_certified": true,
     "by_status": {
      "expanded": 315,
-     "frontier_budget": 886
+     "frontier_guard": 886
     },
     "edges": 1244,
+    "expansions_with_multiple_orbits": 0,
     "expansions_with_ties": 80,
     "max_depth": 6,
     "nodes": 1201,
@@ -226,6 +228,7 @@
      "expanded": 962
     },
     "edges": 1960,
+    "expansions_with_multiple_orbits": 0,
     "expansions_with_ties": 422,
     "max_depth": 15,
     "nodes": 1847,
@@ -245,6 +248,7 @@
      "terminal_all_separated": 3
     },
     "edges": 3,
+    "expansions_with_multiple_orbits": 0,
     "expansions_with_ties": 1,
     "max_depth": 1,
     "nodes": 4,
@@ -256,9 +260,10 @@
     "all_certified": true,
     "by_status": {
      "expanded": 278,
-     "frontier_budget": 927
+     "frontier_guard": 927
     },
     "edges": 1250,
+    "expansions_with_multiple_orbits": 0,
     "expansions_with_ties": 81,
     "max_depth": 7,
     "nodes": 1205,
@@ -275,6 +280,7 @@
      "expanded": 395
     },
     "edges": 1022,
+    "expansions_with_multiple_orbits": 0,
     "expansions_with_ties": 236,
     "max_depth": 15,
     "nodes": 963,
@@ -314,14 +320,26 @@
   "L_mu1": true,
   "L_mu2": true
  },
+ "CL-TRANSITION-EQUIVARIANCE": {
+  "expansions_with_multiple_orbits": {
+   "F_mu1": 0,
+   "F_mu2": 0,
+   "L_mu1": 0,
+   "L_mu2": 0,
+   "closed_F": 0,
+   "closed_L": 0
+  },
+  "policy": "one challenge branch per automorphism orbit of collapsed pairs (isomorphism-equivariant); replaces raw least-pair selection, which was not equivariant (regression: test_least_pair_selection_is_not_equivariant; congruence: test_orbit_policy_transition_congruence_exhaustive)"
+ },
  "CL-TREE-SUMMARY": {
   "F_mu1": {
    "all_certified": true,
    "by_status": {
     "expanded": 315,
-    "frontier_budget": 886
+    "frontier_guard": 886
    },
    "edges": 1244,
+   "expansions_with_multiple_orbits": 0,
    "expansions_with_ties": 80,
    "max_depth": 6,
    "nodes": 1201,
@@ -338,6 +356,7 @@
     "expanded": 962
    },
    "edges": 1960,
+   "expansions_with_multiple_orbits": 0,
    "expansions_with_ties": 422,
    "max_depth": 15,
    "nodes": 1847,
@@ -352,9 +371,10 @@
    "all_certified": true,
    "by_status": {
     "expanded": 278,
-    "frontier_budget": 927
+    "frontier_guard": 927
    },
    "edges": 1250,
+   "expansions_with_multiple_orbits": 0,
    "expansions_with_ties": 81,
    "max_depth": 7,
    "nodes": 1205,
@@ -371,6 +391,7 @@
     "expanded": 395
    },
    "edges": 1022,
+   "expansions_with_multiple_orbits": 0,
    "expansions_with_ties": 236,
    "max_depth": 15,
    "nodes": 963,

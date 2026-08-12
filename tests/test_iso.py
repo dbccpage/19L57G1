@@ -119,10 +119,14 @@ def test_rule_sets_participate_in_canonical() -> None:
 def test_perm_budget_error() -> None:
     """Nine structureless data admit 9! candidate bijections, exceeding the
     default budget; the declared bound raises instead of silently
-    truncating."""
+    truncating -- for canonicalization and for automorphism search."""
+    from derivation.iso import automorphisms
+
     r = replay([AdmitDatum(f"d{i}") for i in range(9)])
     with pytest.raises(IsoBudgetError):
         canonical(r)
+    with pytest.raises(IsoBudgetError):
+        automorphisms(r)
     # An explicit larger budget succeeds.
     assert canonical(r, perm_budget=400_000)[0] == 9
 

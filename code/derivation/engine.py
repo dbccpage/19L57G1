@@ -9,14 +9,22 @@ Classification:
   Reading L admits only on explicit retention ("supplies and retains");
   reading F additionally admits the initial inscription at genesis
   ("the only initial object-language inscription is").  Both are carried.
-* The challenge generator splits into two declared components:
+* The challenge source splits into two declared components.  No
+  object-language endogenous demand generator was derived; both components
+  are declared metatheory:
 
-  - the *endogenous generator* (``next_endogenous_challenge``): from the
-    admitted structure alone it reissues the admitted requirement pattern
-    (separation) on the least collapsed pair.  It reads only profile
-    equality and admission order; it never inspects presentation-token
-    glyphs, never supplies data, and never imports a new goal kind.  It
-    reaches a fixpoint once every pair is separated.
+  - the *declared pair-separation closure policy*
+    (``closure_challenge_orbits``): reissue the admitted requirement
+    pattern (separation) on the collapsed pairs of admitted data, one
+    challenge branch per automorphism orbit of collapsed pairs.  A
+    collapsed pair is not an active obstruction by itself; this policy is
+    what makes it one.  The policy reads only profile equality and the
+    automorphism structure; it never inspects presentation-token glyphs,
+    never supplies data, and never imports a new goal kind.  It reaches a
+    fixpoint once every pair is separated (pair-separation closure
+    terminates).  Orbit selection — unlike raw least-pair selection — is
+    isomorphism-equivariant, so the quotiented transition is well defined
+    (regression: ``test_least_pair_selection_is_not_equivariant``).
   - the *external continuation policy* (supply): the supply-and-admission
     of one fresh opaque token.  This is an explicitly declared external
     policy, not a derived transition; runs with ``supply=False`` are the
@@ -41,7 +49,7 @@ from .candidates import (
     min_responses,
     response_valid_naive,
 )
-from .iso import CanonKey, canonical
+from .iso import CanonKey, canonical, find_iso, pair_orbits
 from .model import (
     AdmitDatum,
     Event,
@@ -324,15 +332,18 @@ def _quotient(
     ]
 
 
-def next_endogenous_challenge(r: Regime) -> Optional[Pair]:
-    """The endogenous generator: the least observationally collapsed pair
-    of admitted data, or ``None`` at the fixpoint (every pair separated).
+def closure_challenge_orbits(r: Regime) -> tuple[Pair, ...]:
+    """The declared pair-separation closure policy: one representative
+    (least member) per automorphism orbit of the collapsed pairs, or the
+    empty tuple at the fixpoint (every pair separated).
 
     Token-blind by construction: the computation never reads ``r.data``
     entries, only structural indices (verified by test against renaming).
-    """
-    collapsed = collapsed_pairs(r)
-    return collapsed[0] if collapsed else None
+    Equivariant by construction: renaming the regime by any bijection maps
+    the challenge set onto the corresponding challenge set, so isomorphic
+    regimes expand to isomorphic child sets."""
+    orbits = pair_orbits(r, collapsed_pairs(r))
+    return tuple(orbit[0] for orbit in orbits)
 
 
 # ---------------------------------------------------------------------------
@@ -363,6 +374,10 @@ class Edge:
     tie_classes: int
     class_size: int
     cost: tuple[int, int]
+    orbits: int = 1
+    kind: str = "creation"
+    merge_dmap: Optional[tuple[int, ...]] = None
+    merge_fmap: Optional[tuple[int, ...]] = None
 
 
 @dataclass
@@ -371,7 +386,7 @@ class Tree:
     measure: str
     bounds: Bounds
     max_rounds: int
-    node_budget: int
+    pre_expansion_node_guard: int
     supply: bool
     nodes: list[Node] = field(default_factory=list)
     edges: list[Edge] = field(default_factory=list)
@@ -386,10 +401,13 @@ class Tree:
             roles[role] = roles.get(role, 0) + 1
         tie_expansions = len(
             {
-                (e.parent, e.round_no)
+                (e.parent, e.challenge)
                 for e in self.edges
                 if e.tie_classes > 1
             }
+        )
+        multi_orbit = len(
+            {e.parent for e in self.edges if e.orbits > 1}
         )
         return {
             "nodes": len(self.nodes),
@@ -397,6 +415,7 @@ class Tree:
             "by_status": by_status,
             "roles": roles,
             "expansions_with_ties": tie_expansions,
+            "expansions_with_multiple_orbits": multi_orbit,
             "max_depth": max((n.depth for n in self.nodes), default=0),
             "all_certified": all(n.certified for n in self.nodes),
         }
@@ -434,7 +453,7 @@ def build_tree(
     measure: str,
     bounds: Bounds,
     max_rounds: int = 15,
-    node_budget: int = 250,
+    pre_expansion_node_guard: int = 250,
     supply: bool = True,
 ) -> Tree:
     """Breadth-first expansion of the branch tree from the Challenge 3
@@ -446,7 +465,7 @@ def build_tree(
     False the generator's supply move is disabled (termination variant).
     """
     tree = Tree(
-        reading.name, measure, bounds, max_rounds, node_budget, supply
+        reading.name, measure, bounds, max_rounds, pre_expansion_node_guard, supply
     )
     base = replay(reading.genesis)
     root = Node(0, reading.genesis, base, 0, canonical(base))
@@ -457,27 +476,27 @@ def build_tree(
     while queue:
         nid = queue.popleft()
         node = tree.nodes[nid]
-        target: Optional[Pair]
+        targets: tuple[Pair, ...]
         if nid == 0:
-            target = reading.target
+            targets = (reading.target,)
         else:
             assert not (
                 set(collapsed_pairs(node.regime)) & set(node.regime.reqs)
             )
-            target = next_endogenous_challenge(node.regime)
-        if target is None and not supply:
-            # Endogenous fixpoint: every pair separated, and the external
-            # continuation policy is disabled.  Genuine termination,
-            # regardless of the round budget.
+            targets = closure_challenge_orbits(node.regime)
+        if not targets and not supply:
+            # Pair-separation closure fixpoint: every pair separated, and
+            # the external continuation policy is disabled.  Genuine
+            # termination, regardless of the round budget.
             node.status = "terminal_all_separated"
             continue
         if node.depth >= max_rounds:
             node.status = "completed"
             continue
-        if len(tree.nodes) > node_budget:
-            node.status = "frontier_budget"
+        if len(tree.nodes) > pre_expansion_node_guard:
+            node.status = "frontier_guard"
             continue
-        if target is None:
+        if not targets:
             token = f"g{node.regime.n_data()}"
             history = node.history + (Supply(token), AdmitDatum(token))
             _attach(
@@ -492,39 +511,49 @@ def build_tree(
                 tie_classes=1,
                 class_size=1,
                 cost=(0, 0),
+                orbits=1,
             )
             node.status = "expanded"
             continue
-        mr = min_responses(node.regime, target, measure, bounds)
-        if mr is None:
+        gathered: list[tuple[Pair, MinResponses]] = []
+        no_response = False
+        for target in targets:
+            mr = min_responses(node.regime, target, measure, bounds)
+            if mr is None:
+                no_response = True
+                break
+            gathered.append((target, mr))
+        if no_response:
             node.status = "terminal_no_response"
             continue
-        classes = _quotient(node.regime, target, mr)
-        for rep, size in classes:
-            assert response_valid_naive(node.regime, target, rep)
-            history = (
-                node.history
-                + (Impose(target[0], target[1]),)
-                + delta_events(node.regime, rep)
-            )
-            cost = (
-                (mr.cost[0], mr.cost[1])
-                if measure == "mu2"
-                else (mr.cost[0], -1)
-            )
-            _attach(
-                tree,
-                canon_map,
-                queue,
-                node,
-                history,
-                challenge=f"separate{target}",
-                label=delta_label(node.regime, rep),
-                response=rep,
-                tie_classes=len(classes),
-                class_size=size,
-                cost=cost,
-            )
+        for target, mr in gathered:
+            classes = _quotient(node.regime, target, mr)
+            for rep, size in classes:
+                assert response_valid_naive(node.regime, target, rep)
+                history = (
+                    node.history
+                    + (Impose(target[0], target[1]),)
+                    + delta_events(node.regime, rep)
+                )
+                cost = (
+                    (mr.cost[0], mr.cost[1])
+                    if measure == "mu2"
+                    else (mr.cost[0], -1)
+                )
+                _attach(
+                    tree,
+                    canon_map,
+                    queue,
+                    node,
+                    history,
+                    challenge=f"separate{target}",
+                    label=delta_label(node.regime, rep),
+                    response=rep,
+                    tie_classes=len(classes),
+                    class_size=size,
+                    cost=cost,
+                    orbits=len(targets),
+                )
         node.status = "expanded"
     return tree
 
@@ -541,14 +570,24 @@ def _attach(
     tie_classes: int,
     class_size: int,
     cost: tuple[int, int],
+    orbits: int,
 ) -> None:
     regime = replay(history)
     canon = canonical(regime)
+    merge_dmap: Optional[tuple[int, ...]] = None
+    merge_fmap: Optional[tuple[int, ...]] = None
     if canon in canon_map:
+        # Merge edge: certify it with an explicit isomorphism carrying
+        # the replayed result onto the stored child representative.
         child_id = canon_map[canon]
+        kind = "merge"
+        iso = find_iso(regime, tree.nodes[child_id].regime)
+        assert iso is not None, "merge edge without isomorphism"
+        merge_dmap, merge_fmap = iso
         tree.nodes[child_id].merged_count += 1
     else:
         child_id = len(tree.nodes)
+        kind = "creation"
         child = Node(
             child_id, history, regime, parent.depth + 1, canon
         )
@@ -567,5 +606,9 @@ def _attach(
             tie_classes,
             class_size,
             cost,
+            orbits,
+            kind,
+            merge_dmap,
+            merge_fmap,
         )
     )
