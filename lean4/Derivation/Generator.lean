@@ -176,8 +176,9 @@ theorem depth1_obstructions_are_exactly_middle_pairs
 The composite fires at every round from the third on: elements 1 and 2
 are distinct carrier elements with identical depth-1 profiles, and the
 only event consumed is the internally enabled reflection.  This is the
-*generation* half of F5, proved — the first self-sustaining challenge
-generator in the development: no per-round external act. -/
+*generation* half of F5, proved — the first horizon-free challenge
+generator exhibited in the development, with no per-round external
+act.  No minimality or uniqueness claim is made. -/
 
 theorem generation_never_dries (n : Nat) (h : 3 ≤ n) :
     (1 : Nat) ≠ 2 ∧
@@ -249,13 +250,11 @@ theorem valued_marks_collapse_generation (n i j : Nat) (h : i ≠ j) :
 
 /-! ## The ceiling at work is expressiveness, not symmetry
 
-The interior collapse is *not* an invariance phenomenon: the
-transposition of interior elements 1 and 2 does not preserve the
-successor relation (it sends the edge (0, 1) to (0, 2), which is not an
-edge), so no automorphism identifies them.  Bounded observation fails
-to separate elements that the structure itself does distinguish —
-the opposite situation from the symmetric branch's invariance ceiling
-(`equivariant_output_invariant`). -/
+The direct transposition of interior elements 1 and 2 does not preserve
+the successor relation: it sends the edge (0, 1) to (0, 2), which is not
+an edge.  This theorem separates the present example from the earlier
+swap-symmetric witness, but it does not quantify over all automorphisms
+or prove full rigidity of the directed chain. -/
 
 def swap12 (k : Nat) : Nat := if k = 1 then 2 else if k = 2 then 1 else k
 
@@ -288,9 +287,8 @@ repair. -/
 theorem depth2_separates_near_ends_n4 :
     profile2 (reflState 4) 1 ≠ profile2 (reflState 4) 3 := by decide
 
-/-- Depth 2 is outrun in its turn: at length 5 the deep-interior pair
-(2, 3) has equal depth-2 profiles.  Each fixed regime is a fixed
-horizon; growth is not. -/
+/-- Depth 2 is outrun at length 5: the deep-interior pair (2, 3) has
+equal depth-2 profiles.  The all-depth generalization remains open. -/
 theorem depth2_obstruction_n5 :
     profile2 (reflState 5) 2 = profile2 (reflState 5) 3 ∧
       (2 : Nat) ≠ 3 := by decide

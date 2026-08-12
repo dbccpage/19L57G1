@@ -727,24 +727,26 @@ and `lean4/Derivation/Generator.lean`.
 - **Statement**: split by claim — ENDOGENOUS_GENERATION_PROVED (the
   composite of reflective growth and pair-separation closure has a
   live obstruction at every round from the third on, horizon-free,
-  with no per-round external act: the development's first
-  self-sustaining challenge generator);
+  with no per-round external act: the first horizon-free generator
+  exhibited here, without a minimality or uniqueness claim);
   ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS (over the five declared
-  strategies, the fires-repairs-never-imports class is empty);
-  GENERATION_REPAIR_EXCLUSION_IN_CLASS (a strategy repairs
-  endogenously iff it kills generation).
-- **Class**: theorem (generation; depth-1 strategy fates) + bounded
-  theorem (exclusion over the declared class; depth-2 leg
+  strategies and 15-round computation, the
+  fires-repairs-never-imports class is empty);
+  GENERATION_REPAIR_EXCLUSION_IN_CLASS (within those declared bounds,
+  no strategy both fires, clears every firing round, and avoids
+  recurring imports; valued marking prevents rather than repairs a
+  fired demand).
+- **Class**: theorem (generation; depth-1 strategy cores) + bounded
+  computation (exclusion over the declared class; depth-2 leg
   instance-backed and bounded) + open conjecture (general depth-d,
   G2).
 - **Lean**: `generation_never_dries` and the CL-G-* theorems below.
   **Axioms**: within {propext, Quot.sound}.
 - **Python**: `generator.json` (trajectories, classification table,
   `endogenous_cycle_found: false`, Lean agreement checks).
-- **Falsifier**: a declared strategy classified `endogenous_cycle`;
-  or a round ≥ 3 with no obstruction under the bare composite; or a
-  repair discharging the interior without an unbounded observable
-  alphabet.
+- **Falsifier**: within the declared bound, a declared strategy
+  classified `endogenous_cycle`; or a round ≥ 3 with no obstruction
+  under the bare composite.
 
 ### CL-G-GENERATION
 - **Statement**: for every chain length ≥ 3, elements 1 and 2 are
@@ -785,11 +787,12 @@ and `lean4/Derivation/Generator.lean`.
   computation + open conjecture.
 - **Lean**: `depth2_separates_near_ends_n4`, `depth2_obstruction_n5`.
 
-### CL-G-CEILING-SPLIT
-- **Statement**: the interior collapse is an expressiveness ceiling,
-  not the invariance ceiling: transposing the collapsed pair does not
-  preserve the successor relation, so no automorphism identifies the
-  elements bounded observation cannot separate.  **Class**: theorem.
+### CL-G-DIRECT-SWAP
+- **Statement**: directly transposing interior points 1 and 2 does not
+  preserve the successor relation.  This distinguishes the example
+  from the earlier branch where that swap is an admitted symmetry.
+  It does not quantify over all automorphisms or prove full directed-
+  chain rigidity.  **Class**: theorem plus explicit nonclaim.
 - **Lean**: `middle_swap_not_relation_preserving`; contrast
   `equivariant_output_invariant`,
   `PrimDiff.symmetric_no_equivariant_classifier`.
@@ -801,8 +804,8 @@ and `lean4/Derivation/Generator.lean`.
   bare/presence/depth-2 fire unrepaired, per-pair repairs with
   recurring imports, valued is generation-dead.  Depth-1 fates are
   horizon-free theorems; the depth-2 fate is instance-backed and
-  bounded.  **Class**: bounded theorem (exhaustive over the declared
-  class) + theorem cores.
+  bounded.  **Class**: exhaustive finite computation over the declared
+  class and bound + theorem cores.
 - **Python**: `exclusion_check`.
 
 ### CL-G-OPEN

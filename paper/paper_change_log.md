@@ -259,17 +259,20 @@ Terminal, split by claim: ENDOGENOUS_GENERATION_PROVED /
 ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS /
 GENERATION_REPAIR_EXCLUSION_IN_CLASS.  The composite of reflective
 growth and pair-separation closure fires at every round from the third
-on, horizon-free, with no per-round external act — the development's
-first self-sustaining challenge generator.  Its obstruction set is
+on, horizon-free, with no per-round external act — the first such
+generator exhibited in the development, without a minimality or
+uniqueness claim.  Its obstruction set is
 identified exactly (interior pairs, an iff).  Over the declared
-five-strategy repair class no branch fires, repairs, and never
+five-strategy repair class within the 15-round computation, no branch
+fires, repairs, and never
 imports: presence marking is vacuous, per-pair marking is outgrown by
 every finite marking (a fresh import per repair, forever), valued
 marking kills generation at the price of identity-grade observation,
 and depth-2 observation is outrun in the deep interior (Lean instances
-at lengths 4 and 5; general depth-d open as G2).  The interior
-collapse is proved to be an expressiveness ceiling, not the invariance
-ceiling (no automorphism identifies the collapsed pair).
+at lengths 4 and 5; general depth-d open as G2).  The direct
+transposition of interior points 1 and 2 is proved not to preserve the
+successor relation; full rigidity and the quantified automorphism
+claim are not established here.
 
 Axiom-hygiene note recorded for the metatheory: `omega` on conjunction
 or disjunction *goals* introduces `Classical.choice` in this

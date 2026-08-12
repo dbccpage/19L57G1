@@ -29,24 +29,26 @@ Split by claim, since the two halves of F5 come apart:
   from the third round on, the composite always has a live obstruction
   (elements 1 and 2 are distinct carrier elements with identical
   depth-1 profiles, for every chain length ≥ 3), and the only event
-  consumed is the internally enabled reflection.  The composite is the
-  development's **first self-sustaining challenge generator**: no
-  per-round external act.  F5's generation half is **true**.
-* **Repair — fails in the declared class**: over the five declared
+  consumed is the internally enabled reflection.  This is the first
+  horizon-free challenge generator exhibited in the development; no
+  minimality or uniqueness claim is made.  F5's generation half is
+  **true** for the declared rule.
+* **Self-sustaining repair cycle — absent from the declared bounded
+  search**: over the five declared
   repair strategies, every branch lands in exactly one of three fates —
   fires-unrepaired (bare, presence-automark, depth-2), repairs with a
   fresh import at every firing round (per-pair marking), or generation
   dead (valued automark).  The F5-positive class — fires, repairs,
-  never imports — is **empty**.  F5's cycle half is **false in class**.
-* **The exclusion**: in this class, a strategy repairs endogenously
-  *iff* it kills generation.  What discharges every future separation
-  demand (identity-grade valued marks) also prevents any demand from
-  ever arising; what keeps demands alive cannot pay for them without
-  recurring imports.  Scope: theorem-level (horizon-free Lean) for the
-  four depth-1 strategies; instance-backed and bounded for depth-2
-  (Lean instances at lengths 4 and 5, trajectories to the 15-round
-  bound); the general depth-d statement is a declared open conjecture
-  (G2).
+  never imports — is **empty within the declared 15-round
+  computation**.  The class-general cycle claim remains open.
+* **The exclusion**: within the five declared strategies and the
+  15-round computation, no strategy both fires, clears every firing
+  round, and avoids recurring imports.  The valued strategy prevents
+  every demand rather than repairing a demand that fired.  Scope:
+  horizon-free Lean cores for the four depth-1 strategies;
+  instance-backed and bounded evidence for depth 2 (Lean instances at
+  lengths 4 and 5, trajectories to the 15-round bound); the general
+  depth-d statement remains the open conjecture G2.
 
 The remaining bridge obligation, exactly stated: **a repair channel
 that separates without minting identity-grade distinctions** — or a
@@ -63,9 +65,9 @@ proof that none exists (G1).  Nothing in this run produces one.
   vacuity (`automark_presence_vacuous`); the per-pair outrun
   (`finite_marks_outrun` — every finite marking is outgrown); the
   valued-mark collapse (`valued_marks_collapse_generation`); the
-  ceiling split (`middle_swap_not_relation_preserving` — no
-  automorphism identifies the interior pair, so the collapse is an
-  expressiveness ceiling, not the invariance ceiling); the depth-2
+  direct-transposition result (`middle_swap_not_relation_preserving` —
+  swapping interior points 1 and 2 does not preserve the successor
+  relation; full rigidity is not proved); the depth-2
   instances (`depth2_separates_near_ends_n4`,
   `depth2_obstruction_n5`).
 * **Computed only within bounds** (15 rounds per branch, depths 1–2,
@@ -74,15 +76,16 @@ proof that none exists (G1).  Nothing in this run produces one.
   and the Lean agreement checks.
 * **Refuted**: that the composite hides a per-round import in its
   *generation* (it does not — proved); that any declared strategy
-  realizes the endogenous cycle (none does); that presence marking
-  repairs anything (vacuous by theorem); that raising the observation
-  depth escapes rather than relocates the horizon (depth 2 separates
-  near the ends and is outrun in the deep interior).
+  realizes the endogenous cycle within the 15-round search; that presence marking
+  repairs anything (vacuous by theorem); and that depth 2 escapes the
+  observed obstruction (it separates near the ends and is outrun at
+  length 5 and within the declared bound).
 * **Imported, explicitly, where repair succeeds**: a fresh observable
   per repaired pair (per-pair marking — recurring), or the unbounded
   valued alphabet (identity-grade observation — one declaration that
-  ends generation), or a deeper regime (one declaration per depth
-  increment, each outrun in turn).
+  ends generation), or the depth-2 regime (one declaration, outrun at
+  the proved switch point and within the declared bound).  The
+  all-depth version is G2, not a result of this run.
 * **Open**: G1 (no non-identity repair channel — class-general), G2
   (general depth-d outrun), G3 (repair-power = generation-poison as a
   conservation law), G4 (the sealed engine as the import branch), and
@@ -138,8 +141,9 @@ of them at length `n` (count computed; growth quadratic).
 and 2 are distinct carrier elements with equal depth-1 profiles.  The
 composite fires at every round from the third on, forever, and the only
 event consumed is the internally enabled reflection.  This is the
-development's first challenge generator with **no per-round external
-act** — the generation half of F5, settled positively.
+first horizon-free challenge generator exhibited in the development
+with **no per-round external act**.  No minimality or uniqueness
+theorem is claimed.
 
 The chain already auto-tags every receipt
 (`automark_presence_vacuous`), so generation survives presence-grade
@@ -167,44 +171,41 @@ the bound — repair debt tracks growth one-for-one.
 
 ## FG6. The exclusion, and its scope
 
-**[bounded theorem + theorem cores]**  The F5-positive classification —
-fires, repairs, never imports — is empty over the declared class:
-`endogenous_cycle_found: false`.  In this class, **repair-power is
-generation-poison**: the only strategy that discharges every demand is
-the one under which no demand ever arises.  Scope, exactly: for the
-four depth-1 strategies the fates are horizon-free theorems; for
-depth-2 the fate is Lean-verified at the switch points (lengths 4 and
-5) and computed to the 15-round bound; the general depth-d fate is G2,
-open.
+**[bounded computation + theorem cores]**  The F5-positive
+classification — fires, repairs, never imports — is empty over the
+declared five-strategy, 15-round computation:
+`endogenous_cycle_found: false`.  No declared strategy both fires,
+clears every firing round, and avoids recurring imports.  The valued
+strategy prevents demands instead of repairing fired ones.  For the
+four depth-1 strategies the stated cores are horizon-free theorems;
+for depth 2 the switch points (lengths 4 and 5) are Lean-verified and
+the trajectory is computed to round 15.  The general depth-d fate is
+G2, open.
 
-## FG7. The ceiling at work is expressiveness, not symmetry
+## FG7. The direct transposition fails
 
-**[theorem]** (`middle_swap_not_relation_preserving`)  Transposing the
-collapsed interior pair does not preserve the successor relation, so
-*no automorphism identifies the elements the regime cannot separate*.
-This is the opposite situation from the symmetric branch: there, the
-invariance ceiling (`equivariant_output_invariant`,
-`symmetric_no_equivariant_classifier`) makes separation impossible for
-any choice-free observer because the structure itself does not
-distinguish the elements; here the structure distinguishes them
-(rigidly, at the transposition), and *bounded observation* fails.  Two
-ceilings, now formally distinct: **invariance** (symmetric states,
-no observer can) and **expressiveness** (rigid states, this regime
-cannot).
+**[theorem]** (`middle_swap_not_relation_preserving`)  The direct
+transposition of interior points 1 and 2 does not preserve the
+successor relation.  This is enough to distinguish the example from
+the earlier branch in which that swap is an admitted symmetry.  It is
+not a quantified automorphism theorem and does not prove full rigidity
+of the directed chain.  A complete invariance-versus-expressiveness
+classification therefore remains open.
 
 ## FG8. What F5 now says
 
-The conjecture split.  Its generation half is a theorem: refusal
+The conjecture split.  Its generation half is a theorem for the
+declared composite: refusal
 supplies the datum, closure supplies the demand, and no per-round
 external act remains — the composite is genuinely autonomous *as a
-generator*.  Its cycle half is refuted in the declared class: autonomy
-of *repair* is bought only at the price of identity-grade observation,
-which retroactively unmakes every demand.  The bridge obligation left
-standing is G1: a repair channel that separates the interior of an
-unbounded chain without minting identity-grade distinctions, or a
-proof that no such channel exists.  Until one or the other arrives,
-the development's dynamics remain: **endogenous demands, exogenous
-payments.**
+generator*.  Its cycle half is not realized by any of the five
+declared strategies through the 15-round search.  The theorem cores
+explain the depth-1 fates, while the class-general cycle claim remains
+open.  The bridge obligation left standing is G1: a repair channel
+that separates the interior of an unbounded chain without minting
+identity-grade distinctions, or a proof that no such channel exists.
+Until one or the other arrives, the bounded evidence reads:
+**endogenous demands, exogenous payments.**
 
 ---
 
@@ -259,11 +260,11 @@ rather than an accident of its design.  A finite check away.
 * The generation/repair trade-off echoes productivity-versus-quiescence
   tensions in process theory: the demand stream stays live only while
   the system stays partially blind.
-* The two ceilings (invariance vs. expressiveness) recover the
-  standard model-theoretic distinction between indiscernibility by
-  automorphism and indiscernibility by bounded logics; the chain is
-  rigid yet locally homogeneous, the classic separator of the two.
+* The failed direct transposition and the local profile collapse point
+  toward the standard distinction between automorphism invariance and
+  bounded expressiveness.  Full directed-chain rigidity is not proved
+  in this run.
 * Relative to the sealed checkpoints: this run proves the generation
-  half of F5, refutes its cycle half in the declared class, splits the
-  invariance ceiling (PR #5/#7) from a new expressiveness ceiling, and
-  names G1 as the remaining bridge obligation.
+  half of F5, refutes its cycle half in the declared bounded class,
+  proves that one direct transposition is not a symmetry, and names G1
+  as the remaining bridge obligation.
