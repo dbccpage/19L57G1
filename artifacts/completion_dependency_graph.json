@@ -2880,7 +2880,9 @@
    "citing_claims": [
     "CL-RP-REPLAY"
    ],
-   "consumers": [],
+   "consumers": [
+    "Horizon.lean"
+   ],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.replay_append",
@@ -3323,7 +3325,8 @@
     "CL-RP-PRODUCTIVITY"
    ],
    "consumers": [
-    "Constitution.lean"
+    "Constitution.lean",
+    "Horizon.lean"
    ],
    "kind": "concrete",
    "module": "Represented.lean",
@@ -4119,7 +4122,9 @@
    "citing_claims": [
     "CL-NC-EVENT-SOURCE"
    ],
-   "consumers": [],
+   "consumers": [
+    "Horizon.lean"
+   ],
    "kind": "generic",
    "module": "Constitution.lean",
    "name": "Constitution.driver_reproduces_tower",
@@ -4174,9 +4179,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-EVENT-SOURCE"
+    "CL-NC-EVENT-SOURCE",
+    "CL-NC-AUTONOMY"
    ],
-   "consumers": [],
+   "consumers": [
+    "Horizon.lean"
+   ],
    "kind": "generic",
    "module": "Constitution.lean",
    "name": "Constitution.gen_three_quiescent",
@@ -4432,6 +4440,152 @@
    "name": "Initiality.retract_section",
    "role": "minimality",
    "statement": "(w : World) : (NoOutside.CWorld.mk w []).base = w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-AUTONOMY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.worldAt_spec",
+   "role": "preservation",
+   "statement": "(k : Nat) : worldAt k = specWorld k"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.worldAt_quiescent",
+   "role": "preservation",
+   "statement": "(k : Nat) : quiescentB (worldAt k) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.worldAt_wf",
+   "role": "preservation",
+   "statement": "(k : Nat) : WF (worldAt k)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-AUTONOMY"
+   ],
+   "consumers": [
+    "Constitution.lean"
+   ],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.block_all_accepted",
+   "role": "preservation",
+   "statement": "(k : Nat) : step (worldAt k) (.setBudget 1) \u2260 worldAt k \u2227 step (w1 k) (.admitTok (k + 1)) \u2260 w1 k \u2227 step (w2 k) (.require 0 (k + 1)) \u2260 w2 k \u2227 step (w3 k) (.addView [k + 1]) \u2260 w3 k \u2227 step (w3 k) (.addView [k + 1]) = worldAt (k + 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-AUTONOMY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.genesis_accepted",
+   "role": "preservation",
+   "statement": ": step genesis (.admitTok 0) \u2260 genesis"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-AUTONOMY"
+   ],
+   "consumers": [
+    "Constitution.lean"
+   ],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.gen_quiescent",
+   "role": "preservation",
+   "statement": "(k : Nat) : quiescentB (genWorld k).w = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-AUTONOMY"
+   ],
+   "consumers": [
+    "Constitution.lean"
+   ],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.gen_wf",
+   "role": "preservation",
+   "statement": "(k : Nat) : WF (genWorld k).w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.interp_budget_bound",
+   "role": "preservation",
+   "statement": "(d : ConstitutionDesc) (w : World) (e : Event) : (interpStep d w e).budget = w.budget \u2228 (interpStep d w e).budget = w.budget - 1 \u2228 \u2203 n, e = .setBudget n \u2227 (interpStep d w e).budget = n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.budget_saturation_noop",
+   "role": "preservation",
+   "statement": ": interpStep { kernelDesc with guardAccept"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Horizon.lean",
+   "name": "Horizon.mark_saturation_all_descs",
+   "role": "preservation",
+   "statement": ": allDescs.all (fun d => interpStep d satNoopWorld (.mark [1] 0) == satNoopWorld) = true"
   }
  ]
 }

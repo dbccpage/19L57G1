@@ -1197,9 +1197,21 @@ theorems; 291 total, all within {propext, Quot.sound}).
   families, selection-freeness, represented replenishment, lawfulness
   across extension, explicit productivity); level 4 (internal
   trigger) explicitly NOT attained — the iteration is metatheoretic.
-  Arbitrary iterability is levels 1-2 only.
+  Arbitrary iterability is levels 1-2 only.  Level 8 (lawfulness) is
+  carried by the Horizon module at every stage, not only at stage 3:
+  the generated world's complete record is characterized by induction
+  (`worldAt_spec`), quiescence and well-formedness hold at every
+  horizon (`gen_quiescent`, `gen_wf`), and every emitted event of
+  every block is accepted (`block_all_accepted`,
+  `genesis_accepted`).  PR #12 correction C6: the prior version of
+  this entry cited `tower_driver_autonomy` alone for "lawfulness
+  across extension", but that theorem has no lawfulness conjunct —
+  the only Lean lawfulness fact was the stage-3 instance
+  `gen_three_quiescent`.  The gap is closed upward, not rescoped.
 - **Class**: theorem (relative).
-- **Lean**: `tower_driver_autonomy`.
+- **Lean**: `tower_driver_autonomy`, `Horizon.worldAt_spec`,
+  `Horizon.gen_quiescent`, `Horizon.gen_wf`,
+  `Horizon.block_all_accepted`, `Horizon.genesis_accepted`.
 
 ### CL-NC-CONSTITUTION
 - **Statement**: the kernel constitution is represented as data

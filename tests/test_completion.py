@@ -178,6 +178,57 @@ def test_nat_domain_holds_for_every_descriptor() -> None:
     assert interp_step(all_off, w, ("require", 0, 0)) != w
 
 
+def test_budget_saturation_matches_lean_nat() -> None:
+    """PR #12 correction C10: budget decrements saturate at zero for
+    every descriptor, matching Lean ``Nat`` subtraction.  The audit
+    countermodel: with the acceptance guard and budget gate off,
+    ``mark (1,) 0`` at budget zero must be a no-op exactly as in Lean
+    (``Horizon.budget_saturation_noop``), and all 64 descriptors
+    agree (``Horizon.mark_saturation_all_descs``).  Before the
+    correction the Python mirror produced budget ``-1`` here."""
+    from derivation.represented import World
+
+    sat_noop = World(data=(10, 20), views=((0,),), reqs=((0, 1),),
+                     budget=0)
+    for d in all_descs():
+        assert interp_step(d, sat_noop, ("mark", (1,), 0)) == sat_noop
+    audit_desc = (True, True, False, False, True, True)
+    assert interp_step(audit_desc, sat_noop,
+                       ("mark", (1,), 0)) == sat_noop
+
+
+def test_budget_trichotomy_every_descriptor_event() -> None:
+    """Cross-language budget pin (``Horizon.interp_budget_bound``):
+    for every descriptor, basis world, and basis event the resulting
+    budget is unchanged, the saturating decrement
+    ``max(0, budget - 1)``, or the explicit ``setBudget`` payload —
+    and never negative."""
+    from derivation.represented import World
+
+    sat0 = World(data=(10, 20), views=((0,),), reqs=((0, 1),),
+                 budget=0)
+    worlds = [w for (_, w, _) in PROBES] + [sat0]
+    events: list[tuple[object, ...]] = [e for (_, _, e) in PROBES] + [
+        ("mark", (1,), 0),
+        ("addView", (2,)),
+        ("setBudget", 5),
+        ("note", 1),
+        ("setAugLicense", False),
+        ("admit", 7),
+        ("require", 0, 1),
+    ]
+    for d in all_descs():
+        for w in worlds:
+            for e in events:
+                w2 = interp_step(d, w, e)
+                assert w2.budget >= 0
+                if e[0] == "setBudget":
+                    assert w2.budget == e[1]
+                else:
+                    assert w2.budget in (w.budget,
+                                         max(0, w.budget - 1))
+
+
 def test_freshness_scoped_to_tower_invariant() -> None:
     from derivation.completion import fresh_name, tower_gen
     from derivation.represented import World

@@ -45,6 +45,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "NoOutside": ["NoOutside.lean"],
     "Constitution": ["Constitution.lean"],
     "Initiality": ["Initiality.lean"],
+    "Horizon": ["Horizon.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -696,8 +697,11 @@ def all_descs() -> list[Desc]:
 def interp_step(d: Desc, w: World, e: Event) -> World:
     """Nat-domain guards are unconditional: a disabled guard toggle
     never licenses a negative state, matching the Lean carrier (where
-    negatives are unrepresentable) for every constitution
-    descriptor."""
+    negatives are unrepresentable) for every constitution descriptor.
+    Budget decrements saturate at zero (``max(0, budget - 1)``),
+    matching Lean ``Nat`` subtraction exactly — the gateBudget toggle
+    only controls whether a zero budget blocks the event, never
+    whether the decrement may underflow (PR #12 correction C10)."""
     dedup, greq, gacc, gbud, glic, gcert = d
     kind = e[0]
     if kind == "admit":
@@ -721,7 +725,8 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
             return w
         if ((not gacc) or mark_ok(w, v, p)) and (
                 (not gbud) or w.budget > 0):
-            return _replace(mark_apply(w, v, p), budget=w.budget - 1)
+            return _replace(mark_apply(w, v, p),
+                            budget=max(0, w.budget - 1))
         return w
     if kind == "addView":
         c = e[1]
@@ -731,7 +736,8 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
         if (((not gacc) or aug_ok(w, c))
                 and ((not glic) or w.aug_licensed)
                 and ((not gbud) or w.budget > 0)):
-            return _replace(aug_apply(w, c), budget=w.budget - 1)
+            return _replace(aug_apply(w, c),
+                            budget=max(0, w.budget - 1))
         return w
     if kind == "refuse":
         i, j = e[1], e[2]

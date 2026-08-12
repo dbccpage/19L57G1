@@ -460,3 +460,39 @@ One focused correction pass; no new research phase.
    that the graph exhausts every possible bridge.
 
 Axiom reports 291 -> 295, all within {propext, Quot.sound}.
+
+## PR #12 — Primitive Difference contact and passage, Phase I corrections
+
+Pre-contact correction pass over PR #11's strongest labels
+(full audit: `paper/pr11_correction_ledger.md`).  Ten claims audited;
+two defects found and repaired:
+
+1. **C10 (cross-language exactness), refuted and repaired.**  Old
+   claim (42a33d9 item 8): "disabled guards can never license states
+   unavailable in Lean."  Countermodel: descriptor `(T,T,F,F,T,T)`,
+   world `{data=(10,20), views=((0,),), reqs=((0,1),), budget=0}`,
+   event `mark (1,) 0` — a Lean no-op but a Python state change to
+   budget `-1` (unsaturated subtraction under a disabled budget
+   gate).  Replacement: the mirror's two decrement sites now saturate
+   (`max(0, budget - 1)`); Lean pins the exact shared semantics
+   (`Horizon.interp_budget_bound`, `Horizon.budget_saturation_noop`,
+   `Horizon.mark_saturation_all_descs`); the Python suite asserts the
+   identical facts over all 64 descriptors on the declared basis.
+   Affected claims: 42a33d9 item 8 (recorded here as refuted; left in
+   place as history), `interp_step` docstring.
+
+2. **C6 (horizon lawfulness), closed upward.**  Old state: the only
+   Lean lawfulness fact for the generated run was the stage-3
+   quiescence instance, while CL-NC-AUTONOMY spoke of "lawfulness
+   across extension" citing a theorem with no lawfulness conjunct.
+   Replacement: `Derivation/Horizon.lean` proves the complete record
+   characterization of the generated world at every stage
+   (`worldAt_spec`, by induction) and derives quiescence,
+   well-formedness, and per-event acceptance at every horizon
+   (`worldAt_quiescent`, `worldAt_wf`, `block_all_accepted`,
+   `genesis_accepted`), lifted to the driver (`gen_quiescent`,
+   `gen_wf`).  Affected claims: CL-NC-AUTONOMY (rewritten, old defect
+   recorded inside the entry).
+
+Verdicts C1, C2: hold as labeled.  C3, C4, C5, C7, C8, C9: already
+corrected by 42a33d9; re-verified against current Lean statements.

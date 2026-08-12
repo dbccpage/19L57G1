@@ -17,6 +17,7 @@ import Derivation.Completion
 import Derivation.NoOutside
 import Derivation.Constitution
 import Derivation.Initiality
+import Derivation.Horizon
 
 /-!
 # Axiom reports
@@ -354,3 +355,13 @@ open Derivation
 #print axioms Initiality.extension_retract
 #print axioms Initiality.extension_retract_replay
 #print axioms Initiality.retract_section
+#print axioms Horizon.worldAt_spec
+#print axioms Horizon.worldAt_quiescent
+#print axioms Horizon.worldAt_wf
+#print axioms Horizon.block_all_accepted
+#print axioms Horizon.genesis_accepted
+#print axioms Horizon.gen_quiescent
+#print axioms Horizon.gen_wf
+#print axioms Horizon.interp_budget_bound
+#print axioms Horizon.budget_saturation_noop
+#print axioms Horizon.mark_saturation_all_descs
