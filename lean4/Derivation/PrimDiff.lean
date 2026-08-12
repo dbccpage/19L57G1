@@ -143,18 +143,19 @@ two-element carrier is *false as a necessity* for bare A1. -/
 theorem one_point_hosts_bare_witness :
     ∃ r : Unit → Unit → Prop, r () () := selfdiff_consistent
 
-/-- Merely minimal, not unique: witnessed irreflexive structures exist on
-larger carriers (three-element example), so the two-element carrier is
-sufficient and minimal but not exhaustive. -/
-theorem larger_witnessed_carrier_exists :
-    ∃ r : (Bool × Bool) → (Bool × Bool) → Prop,
-      Irrefl r ∧ r (false, false) (true, false) := by
-  refine ⟨fun x y => x = (false, false) ∧ y = (true, false), ?_, by decide⟩
+/-- Merely minimal, not unique: a witnessed irreflexive structure exists
+on *every* carrier of size at least two (`Fin (n + 2)` for every `n`), so
+the two-element carrier is sufficient and minimal but not exhaustive. -/
+theorem witnessed_irrefl_on_every_larger_carrier (n : Nat) :
+    ∃ r : Fin (n + 2) → Fin (n + 2) → Prop,
+      Irrefl r ∧ r ⟨0, by omega⟩ ⟨1, by omega⟩ := by
+  refine ⟨fun x y => x = ⟨0, by omega⟩ ∧ y = ⟨1, by omega⟩, ?_,
+    ⟨rfl, rfl⟩⟩
   intro x hx
-  have h1 := hx.1
-  have h2 := hx.2
-  rw [h1] at h2
-  exact Bool.noConfusion (congrArg Prod.fst h2)
+  have h : (⟨0, by omega⟩ : Fin (n + 2)) = ⟨1, by omega⟩ :=
+    hx.1.symm.trans hx.2
+  have hval : (0 : Nat) = 1 := congrArg Fin.val h
+  omega
 
 /-! ## Collapse: pushforward, clash, and the fidelity dichotomy -/
 
@@ -165,46 +166,72 @@ def Push {α β : Type} (r : α → α → Prop) (c : α → β) :
     β → β → Prop :=
   fun x y => ∃ u v, r u v ∧ c u = x ∧ c v = y
 
-/-- A *collapse clash*: some asserted edge has both endpoints identified
-by the map.  Stated positively (an existence), in the same spirit as
-positive apartness. -/
-def CollapseClash {α β : Type} (r : α → α → Prop) (c : α → β) : Prop :=
+/-- A *collapse collision*: some asserted edge has both endpoints
+identified by the map.  Stated positively (an existence), in the same
+spirit as positive apartness.  A collision is not yet an obstruction:
+it becomes one only relative to a protected law (`FidelityObstruction`).
+-/
+def CollapseCollision {α β : Type} (r : α → α → Prop) (c : α → β) :
+    Prop :=
   ∃ u v, r u v ∧ c u = c v
 
+/-- An obstruction is a collision *together with* a protected law the
+pushforward violates.  Obstruction is always relative to the protected
+property `P`. -/
+def FidelityObstruction {α β : Type}
+    (P : (β → β → Prop) → Prop) (r : α → α → Prop) (c : α → β) : Prop :=
+  CollapseCollision r c ∧ ¬ P (Push r c)
+
 /-- The witness survives every collapse: pushforward preserves the
-asserted pair.  Bare assertion (A1) creates no obstruction to collapse —
-the collapsed structure is again a bare-assertion structure. -/
+asserted pair.  The collapsed structure is again a bare-assertion
+structure. -/
 theorem push_witness {α β : Type} {r : α → α → Prop} {a b : α}
     (h : r a b) (c : α → β) : Push r c (c a) (c b) :=
   ⟨a, b, h, rfl, rfl⟩
 
-/-- The fidelity dichotomy, obstruction half: identifying a witnessed pair
-clashes, and a clash destroys irreflexivity of the pushforward.  Under the
-irreflexivity commitment, collapse of a witnessed pair is obstructed —
-internally, with no external fidelity demand. -/
-theorem clash_of_identifying_witness {α β : Type} {r : α → α → Prop}
-    {a b : α} (h : r a b) {c : α → β} (hc : c a = c b) :
-    CollapseClash r c :=
+/-- Identifying a witnessed pair always produces a collision — with or
+without any fidelity commitment. -/
+theorem collision_of_identifying_witness {α β : Type}
+    {r : α → α → Prop} {a b : α} (h : r a b) {c : α → β}
+    (hc : c a = c b) : CollapseCollision r c :=
   ⟨a, b, h, hc⟩
 
-theorem clash_not_irrefl {α β : Type} {r : α → α → Prop} {c : α → β}
-    (h : CollapseClash r c) : ¬ Irrefl (Push r c) := by
+theorem collision_not_irrefl {α β : Type} {r : α → α → Prop}
+    {c : α → β} (h : CollapseCollision r c) : ¬ Irrefl (Push r c) := by
   intro hi
   obtain ⟨u, v, huv, hc⟩ := h
   exact hi (c u) ⟨u, v, huv, rfl, hc.symm⟩
 
-/-- The fidelity dichotomy, no-obstruction half: without irreflexivity the
-collapse always succeeds — the one-point self-difference structure is a
-legitimate bare-assertion structure, and every pushforward exists. -/
+/-- Bare assertion: the collision exists, and the collapse nevertheless
+remains admissible — the pushforward still carries the asserted pair,
+and self-relations are allowed in the bare signature (the one-point
+self-difference is a structure, `selfdiff_consistent`). -/
+theorem bare_collapse_admissible {α β : Type} {r : α → α → Prop}
+    {a b : α} (h : r a b) {c : α → β} (hc : c a = c b) :
+    CollapseCollision r c ∧ Push r c (c a) (c b) :=
+  ⟨collision_of_identifying_witness h hc, push_witness h c⟩
+
+/-- Without a protected law the collision never rises to obstruction:
+the one-point self-difference is a legitimate bare-assertion structure,
+so the collided pushforward is admissible in the bare signature. -/
 theorem collapse_unobstructed_without_fidelity :
     ∃ r : Unit → Unit → Prop, r () () := selfdiff_consistent
 
-/-- Collapse clash is orientation-blind: transposing the relation changes
-nothing about which maps clash.  Obstruction sees only the symmetrization
-of a difference. -/
-theorem clash_transpose_invariant {α β : Type} (r : α → α → Prop)
+/-- With irreflexivity protected: the same collision now violates the
+protected law in the pushforward — collapse of a witnessed pair is
+obstructed *relative to preservation of `Irrefl`*. -/
+theorem obstruction_under_irrefl {α β : Type} {r : α → α → Prop}
+    {a b : α} (h : r a b) {c : α → β} (hc : c a = c b) :
+    FidelityObstruction Irrefl r c :=
+  ⟨collision_of_identifying_witness h hc,
+   collision_not_irrefl (collision_of_identifying_witness h hc)⟩
+
+/-- Collapse collision is orientation-blind: transposing the relation
+changes nothing about which maps collide.  The collision level sees only
+the symmetrization of a difference. -/
+theorem collision_transpose_invariant {α β : Type} (r : α → α → Prop)
     (c : α → β) :
-    CollapseClash r c ↔ CollapseClash (Transpose r) c := by
+    CollapseCollision r c ↔ CollapseCollision (Transpose r) c := by
   constructor
   · intro ⟨u, v, huv, hc⟩
     exact ⟨v, u, huv, hc.symm⟩
@@ -213,14 +240,14 @@ theorem clash_transpose_invariant {α β : Type} (r : α → α → Prop)
 
 /-- Orientation is real data at the assertion level: the oriented edge and
 its reverse are not pointed-isomorphic (no point-preserving map carries
-one onto the other), even though `clash_transpose_invariant` makes them
-indistinguishable at the obstruction level. -/
+one onto the other), even though `collision_transpose_invariant` makes
+them indistinguishable at the collision level. -/
 theorem orientation_data_invisible_to_collapse :
     (∀ f : Bool → Bool,
       f false = false → f true = true →
         ¬ (∀ x y, D2 x y ↔ D2rev (f x) (f y))) ∧
-    (CollapseClash D2 (fun _ => ()) ↔
-      CollapseClash D2rev (fun _ => ())) := by
+    (CollapseCollision D2 (fun _ => ()) ↔
+      CollapseCollision D2rev (fun _ => ())) := by
   constructor
   · intro f hf ht hiff
     have h := (hiff false true).mp (by decide)
@@ -231,6 +258,53 @@ theorem orientation_data_invisible_to_collapse :
       exact ⟨true, false, by decide, rfl⟩
     · intro _
       exact ⟨false, true, by decide, rfl⟩
+
+/-- Classification of the two-element witnessed irreflexive relations:
+with a decidable relation on `Bool` that is irreflexive and asserts the
+designated pair, the relation is exactly `D2` or exactly `S2`. -/
+theorem bool_irrefl_witness_classification (r : Bool → Bool → Prop)
+    [inst : ∀ x y, Decidable (r x y)] (hi : Irrefl r)
+    (hw : r false true) : r = D2 ∨ r = S2 := by
+  by_cases hrev : r true false
+  · right
+    funext x y
+    apply propext
+    cases x <;> cases y
+    · exact ⟨fun h => absurd h (hi false), fun h => absurd h (by decide)⟩
+    · exact ⟨fun _ => Or.inl (by decide), fun _ => hw⟩
+    · exact ⟨fun _ => Or.inr (by decide), fun _ => hrev⟩
+    · exact ⟨fun h => absurd h (hi true), fun h => absurd h (by decide)⟩
+  · left
+    funext x y
+    apply propext
+    cases x <;> cases y
+    · exact ⟨fun h => absurd h (hi false), fun h => absurd h (by decide)⟩
+    · exact ⟨fun _ => by decide, fun _ => hw⟩
+    · exact ⟨fun h => absurd h hrev, fun h => absurd h (by decide)⟩
+    · exact ⟨fun h => absurd h (hi true), fun h => absurd h (by decide)⟩
+
+/-- The two minimum realizations are not pointed-isomorphic: no
+point-preserving map carries the oriented edge onto the symmetric pair. -/
+theorem D2_not_pointed_iso_S2 :
+    ∀ f : Bool → Bool, f false = false → f true = true →
+      ¬ (∀ x y, D2 x y ↔ S2 (f x) (f y)) := by
+  intro f hf ht hiff
+  have h := (hiff true false).mpr ?_
+  · exact absurd h (by decide)
+  · rw [ht, hf]
+    exact Or.inr (by decide)
+
+/-- Yet the two minimum realizations have identical collapse-collision
+behavior: at the collision level `D2` and `S2` are the same object. -/
+theorem D2_S2_collapse_equiv {β : Type} (c : Bool → β) :
+    CollapseCollision D2 c ↔ CollapseCollision S2 c := by
+  constructor
+  · intro ⟨u, v, huv, hc⟩
+    exact ⟨u, v, Or.inl huv, hc⟩
+  · intro ⟨u, v, huv, hc⟩
+    cases huv with
+    | inl h => exact ⟨u, v, h, hc⟩
+    | inr h => exact ⟨v, u, h, hc.symm⟩
 
 /-! ## What an observer adds: the orientation gap -/
 

@@ -307,7 +307,7 @@ def observer_report() -> dict[str, object]:
 
 
 # ---------------------------------------------------------------------------
-# Collapse: clash, obstruction, orientation-blindness
+# Collapse: collision, obstruction-relative-to-a-law, orientation-blindness
 # ---------------------------------------------------------------------------
 
 
@@ -315,7 +315,7 @@ def pushforward(rel: Rel, f: Func) -> Rel:
     return frozenset((f[x], f[y]) for (x, y) in rel)
 
 
-def clash(rel: Rel, f: Func) -> bool:
+def collision(rel: Rel, f: Func) -> bool:
     return any(f[x] == f[y] for (x, y) in rel)
 
 
@@ -326,9 +326,9 @@ def transpose(rel: Rel) -> Rel:
 def collapse_report(max_n: int) -> dict[str, object]:
     """Exhaustive verification over the declared scope:
 
-    * pushforward irreflexivity fails exactly on clashes;
-    * clash is invariant under transposition (orientation-blind);
-    * identifying a witnessed pair always clashes (obstruction under the
+    * pushforward irreflexivity fails exactly on collisions;
+    * collision is invariant under transposition (orientation-blind);
+    * identifying a witnessed pair always collides (an obstruction relative to the
       irreflexivity commitment) while the pushforward always exists as a
       bare structure (no obstruction without it)."""
     checked = 0
@@ -340,19 +340,19 @@ def collapse_report(max_n: int) -> dict[str, object]:
                         continue
                     f = merge_map(n, x, y)
                     checked += 1
-                    assert clash(s.rel, f) == (
+                    assert collision(s.rel, f) == (
                         not irreflexive(pushforward(s.rel, f))
-                    ), "clash must equal pushforward reflexivity"
-                    assert clash(s.rel, f) == clash(transpose(s.rel), f)
+                    ), "collision must equal pushforward reflexivity"
+                    assert collision(s.rel, f) == collision(transpose(s.rel), f)
                     if a1(s) and f[s.a] == f[s.b]:
-                        assert clash(s.rel, f)
+                        assert collision(s.rel, f)
                     assert isinstance(pushforward(s.rel, f), frozenset)
     return {
         "scope": f"all pointed structures and merges, carrier <= {max_n}",
         "merge_cases_checked": checked,
-        "clash_iff_pushforward_not_irreflexive": True,
-        "clash_transpose_invariant": True,
-        "identifying_witnessed_pair_always_clashes": True,
+        "collision_iff_pushforward_not_irreflexive": True,
+        "collision_transpose_invariant": True,
+        "identifying_witnessed_pair_always_collides": True,
         "pushforward_always_exists": True,
     }
 
@@ -382,18 +382,21 @@ def carrier_table(max_k: int) -> dict[str, object]:
     }
 
 
-def obstruction_profile(s: Pointed) -> frozenset[tuple[int, int]]:
-    """Which merges clash: the collapse-level shadow of the structure."""
+def collision_profile(s: Pointed) -> frozenset[tuple[int, int]]:
+    """Which merges collide: the collapse-level shadow of the structure."""
     return frozenset(
         (x, y)
         for x in range(s.n)
         for y in range(s.n)
-        if x < y and clash(s.rel, merge_map(s.n, x, y))
+        if x < y and collision(s.rel, merge_map(s.n, x, y))
     )
 
 
 def pointed_isomorphic(s: Pointed, t: Pointed) -> bool:
-    if s.n != t.n or (s.a, s.b) != (t.a, t.b):
+    """Pointed isomorphism: some carrier bijection transports the
+    designated points onto the designated points and the relation onto
+    the relation.  The bijection may move the raw point indices."""
+    if s.n != t.n:
         return False
     for perm in permutations(range(s.n)):
         f = tuple(perm)
@@ -408,7 +411,7 @@ def frontier_profile_countermodel() -> dict[str, object]:
     """Obstruction profiles do not classify pointed structures: the
     oriented edge and its reverse share a profile yet are not
     pointed-isomorphic."""
-    same_profile = obstruction_profile(D2) == obstruction_profile(D2_REV)
+    same_profile = collision_profile(D2) == collision_profile(D2_REV)
     iso = pointed_isomorphic(D2, D2_REV)
     return {
         "left": D2.json(),

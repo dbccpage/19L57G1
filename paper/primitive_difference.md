@@ -106,69 +106,84 @@ axiom that ties them is irreflexivity.  A4 shows difference is
 family-relative all the way down: `F = ∅` collapses it onto the
 metatheory's identity, one admitted merger annihilates it.
 
-## S3. The fidelity dichotomy (collapse without external demands)
+## S3. Collision versus obstruction (the fidelity dichotomy, stated
+precisely)
 
 Collapse of a pair is a *map* `c` with `c a = c b`; the collapsed
-structure is the pushforward relation `Push r c`.  Obstruction is defined
-**positively** (in the same spirit as positive apartness):
-`CollapseClash r c :≡ ∃ u v, r u v ∧ c u = c v`.
+structure is the pushforward relation `Push r c`.  Two notions are kept
+separate:
 
-**[theorem]** (`push_witness`) The witness survives every collapse:
-`Push r c (c a) (c b)` always holds.  Bare assertion (A1) creates **no
-obstruction whatsoever**: the collapsed structure is again a legitimate
-A1 structure — concretely, the one-point self-difference
-(`collapse_unobstructed_without_fidelity`).
+* **Collision** — `CollapseCollision r c :≡ ∃ u v, r u v ∧ c u = c v`:
+  some asserted edge has both endpoints identified.  Positive (an
+  existence), and *prior to any law*.
+* **Obstruction** — `FidelityObstruction P r c :≡ CollapseCollision r c ∧
+  ¬ P (Push r c)`: a collision **together with** a protected law `P`
+  that the pushforward violates.  Obstruction is always relative to the
+  protected property.
 
-**[theorem]** (`clash_of_identifying_witness`, `clash_not_irrefl`)
-Identifying a witnessed pair clashes, and a clash destroys irreflexivity
-of the pushforward.  Under the irreflexivity commitment, collapse of a
-witnessed pair is obstructed — *internally*, with no external fidelity
-demand.
+**[theorem]** (`collision_of_identifying_witness`) Identifying a
+witnessed pair *always* produces a collision — with or without any
+fidelity commitment.
 
-**Answer to the posed question:** collapse creates obstruction **iff**
-the difference object carries the irreflexivity commitment.  Fidelity is
-not free and not external once irreflexivity is admitted; without it,
-"difference" has no teeth at all: it is consistent with the two points
-being the same point (`selfdiff_consistent`).
+**[theorem]** (`bare_collapse_admissible`, `push_witness`,
+`collapse_unobstructed_without_fidelity`) **Bare A1: the collision
+exists, and the collapse remains admissible.**  The pushforward still
+carries the asserted pair, and self-relations are allowed in the bare
+signature — the collapsed one-point self-difference is a legitimate
+structure.
+
+**[theorem]** (`obstruction_under_irrefl`, via `collision_not_irrefl`)
+**A1 + Irrefl: the same collision now violates the protected law** — the
+pushforward is not irreflexive, so collapse of a witnessed pair is
+obstructed *relative to preservation of `Irrefl`*.
+
+**Answer to the posed question, scoped:** relative to preservation of
+`Irrefl`, collapse of a witnessed pair is obstructed; among the three
+axiom choices studied (none, symmetry, irreflexivity), only
+irreflexivity produces the required soundness transfer.  The collision
+itself is unconditional; what the fidelity commitment adds is exactly
+the protected law that turns the collision into an obstruction.
 
 **[finite computation]** (`collapse` in the artifact) — verified
 exhaustively over every pointed structure and every merge with carrier
-≤ 3: clash ⟺ pushforward not irreflexive; identifying a witnessed pair
-always clashes; pushforward always exists.
+≤ 3: collision ⟺ pushforward not irreflexive; identifying a witnessed
+pair always collides; pushforward always exists.
 
 ## S4. Orientation, obstruction-blindness, and what an observer adds
 
-**[theorem]** (`clash_transpose_invariant`) Collapse clash is invariant
-under transposing the relation: **obstruction sees only the
-symmetrization of a difference.**
+**[theorem]** (`collision_transpose_invariant`) Collapse collision is
+invariant under transposing the relation: **the collision level sees
+only the symmetrization of a difference.**
 
-**[theorem]** (`orientation_data_invisible_to_collapse`) Yet orientation
-is real data: the oriented edge `D2` and its reverse `D2rev` are not
-pointed-isomorphic, while their clash behavior is identical.
+**[theorem]** (`orientation_data_invisible_to_collapse`,
+`D2_S2_collapse_equiv`) Yet orientation is real data: the oriented edge
+`D2` and its reverse are not pointed-isomorphic, `D2` and `S2` are not
+pointed-isomorphic (`D2_not_pointed_iso_S2`) — while `D2` and `S2` have
+*identical* collision behavior for every collapse map.
 
 **[theorem]** (`symmetric_no_equivariant_classifier`,
 `swap_is_S2_automorphism`) On the symmetric two-element difference, the
-swap is an automorphism, and every swap-equivariant two-valued classifier
-is constant: **symmetric primitive difference admits no definable
-observer.**
+swap is an automorphism, and every swap-equivariant `Bool`-valued
+classifier is constant: **`S2` admits no automorphism-invariant
+separating Boolean classifier.**  (Scope: this concerns invariant
+separating classifiers into `Bool`; equivariant maps into targets
+carrying a nontrivial action are not excluded and were not studied.)
 
-**[theorem]** (`oriented_rigid`, `oriented_classifier_exists`) The
-oriented structure is rigid (its only edge-preserving-and-reflecting
-endomap is the identity) and carries a separating classifier: **oriented
-primitive difference is self-observing.**
+**[theorem]** (`oriented_rigid`, `oriented_classifier_exists`) `D2`'s
+orientation cuts the automorphism group to the identity, and an
+invariant separating Boolean classifier exists.
 
 **[finite computation]** (`observer` in the artifact) `D2`: 1 unpointed
-automorphism, 2 definable observers.  `S2`: 2 automorphisms, 0 definable
-observers.
+automorphism, 2 invariant separating Boolean classifiers.  `S2`: 2
+automorphisms, 0 such classifiers.
 
-**Answer to the posed question:** an observer adds **exactly an
-orientation** — a symmetry-breaking choice.  Primitive difference already
-contains the fact of distinctness and its collapse-obstruction; what it
-lacks (in its symmetric form) is any way to say *which one is which*.
-The observer contributes nothing else at this layer: on the oriented
-object the observer is already present, and on the symmetric object it
-is exactly the missing choice.  Everything further an observer provides
-in richer settings (reusable tests, comparison across pairs, profiles)
+**Answer to the posed question, scoped:** orientation is **the minimum
+symmetry-breaking data needed for the specific invariant Boolean
+classifier studied here**.  It permits classification; it does not
+canonically name the outputs — the two output labels remain externally
+interchangeable.  What the symmetric object lacks is exactly this
+symmetry-breaking choice; everything further an observer provides in
+richer settings (reusable tests, comparison across pairs, profiles)
 requires carriers and function spaces this layer does not have.
 
 ## S5. The two-element question, answered four ways
@@ -188,8 +203,9 @@ sufficient, or false?":
   brute-force for all 2,337 witnessed pointed structures with carrier
   ≤ 3 (unique map in every case).
 * **Merely sufficient, not exhaustive** — **[theorem]**
-  `larger_witnessed_carrier_exists`; witnessed irreflexive structures
-  exist on every larger carrier.
+  `witnessed_irrefl_on_every_larger_carrier`: for every `n`, a witnessed
+  irreflexive structure exists on the carrier `Fin (n + 2)` — every
+  carrier size ≥ 2 hosts one.
 
 Minimal carriers by axiom set (**[finite computation]**): bare — 1;
 irreflexive — 2; irreflexive+symmetric — 2.
@@ -206,10 +222,12 @@ irreflexive — 2; irreflexive+symmetric — 2.
 2. **Are two witnesses forced?**  No.  **[theorem]**
    (`single_oriented_witness_consistent`) One witness for one orientation,
    none for the reverse, is consistent; a second same-orientation witness
-   is likewise unforced.  Witness structure beyond presence is optional
-   data: **[theorem]** (`multiplicity_invisible_to_presence`) different
-   multiplicities induce the same presence relation — A2 refines A1 with
-   data, never with new distinctions.
+   is likewise unforced.  Scope of the multiplicity result, stated
+   precisely: **[theorem]** (`multiplicity_invisible_to_presence`)
+   *after truncation to the induced presence relation*, multiplicity adds
+   no new carrier-pair separations — it still distinguishes witness
+   structures from one another (the two assignments in the theorem are
+   unequal as structures while presence-equal).
 3. **Does repetition create identity or only another occurrence?**  Only
    another occurrence.  **[theorem]** (`repetition_no_new_content`)
    re-asserting a present pair changes nothing at the membership level;
@@ -237,39 +255,47 @@ irreflexive — 2; irreflexive+symmetric — 2.
 
 ## S7. Strongest defensible Primitive Difference object
 
-**Terminal statement.**  Within the declared metatheory (types, one
-relation, finite case analysis):
+**Terminal statement, scoped.**  Within the **studied pointed
+one-relation signature** (types, one binary relation, finite case
+analysis; axiom comparison restricted to {no axiom, symmetry,
+irreflexivity} — the wider axiom lattice is an open obligation, S9):
 
-> **Primitive Difference is the pointed witnessed irreflexive datum, and
-> its minimum realizations are exactly two non-isomorphic two-element
-> objects: the oriented edge `D2` and the symmetric pair `S2`.**
+> **The strongest currently defensible minimal candidate for Primitive
+> Difference is a witnessed irreflexive relation.  Its two-element
+> realizations are exactly `D2` and `S2`
+> (**[theorem]** `bool_irrefl_witness_classification`: every decidable
+> irreflexive relation on the two-element carrier asserting the
+> designated pair equals `D2` or equals `S2`), and these are
+> non-isomorphic (**[theorem]** `D2_not_pointed_iso_S2`) yet have
+> identical collapse-collision behavior (**[theorem]**
+> `D2_S2_collapse_equiv`).**
 >
 > * Bare assertion (A1) is *not* defensible as difference: it is
->   consistent with the two points being one point, creates no collapse
->   obstruction, and supports no soundness transfer
->   (**[counterexample]** `selfdiff_consistent`).
+>   consistent with the two points being one point and supports no
+>   soundness transfer (**[counterexample]** `selfdiff_consistent`);
+>   its collisions never rise to obstruction (S3).
 > * Metatheoretic inequality (A3 ≡ A4(∅)) is *not* primitive: it is the
 >   metatheory's identity re-expressed through function composition
 >   (**[theorem]** `factors_through_point_iff`,
 >   `irred_empty_iff_ne`) and carries no object-level witness
 >   (**[counterexample]** `meta_diff_without_assertion`).
-> * Irreflexivity is the unique studied axiom converting assertion into
->   consequence: it forces metatheoretic distinctness
->   (**[theorem]** `irrefl_witness_ne`), forces the two-element carrier
->   (**[theorem]** `no_witness_on_subsingleton`), and creates the
->   internal collapse obstruction (**[theorem]** `clash_not_irrefl`).
+> * Among the three axiom choices studied, irreflexivity is the unique
+>   one converting assertion into consequence: it forces metatheoretic
+>   distinctness (**[theorem]** `irrefl_witness_ne`), forces the
+>   two-element carrier (**[theorem]** `no_witness_on_subsingleton`),
+>   and turns the unconditional collision into an obstruction relative
+>   to preservation of `Irrefl` (**[theorem]**
+>   `obstruction_under_irrefl`).
 > * `D2` is initial among all pointed witnessed structures
->   (**[theorem]** `D2_initial_pointed`) and self-observing
->   (**[theorem]** `oriented_classifier_exists`); `S2` is its
->   symmetrization, observer-free (**[theorem]**
->   `symmetric_no_equivariant_classifier`), and the two are
->   indistinguishable to collapse (**[theorem]**
->   `clash_transpose_invariant`) yet non-isomorphic (**[theorem]**
->   `orientation_data_invisible_to_collapse`).
+>   (**[theorem]** `D2_initial_pointed`) and carries an
+>   automorphism-invariant separating Boolean classifier
+>   (**[theorem]** `oriented_classifier_exists`); `S2` admits none
+>   (**[theorem]** `symmetric_no_equivariant_classifier`).
 >
-> The branch between `D2` and `S2` is retained: orientation is exactly
-> the observer's contribution, and nothing at this layer selects between
-> carrying it primitively (`D2`) or adding it later (`S2` + choice).
+> The branch between `D2` and `S2` is retained: orientation is the
+> minimum symmetry-breaking data for the invariant Boolean classifier
+> studied here, and nothing at this layer selects between carrying it
+> primitively (`D2`) or adding it later (`S2` + choice).
 
 ## S8. Countermodel index
 
@@ -303,6 +329,15 @@ relation, finite case analysis):
 * **[unresolved]** Lean formalization of the finite-scope matrix itself
   (the countermodels are formalized; the exhaustiveness of the scope
   sweep lives in Python only).
+* **[unresolved — the next bridge, deliberately left open]** Whether the
+  opaque inscription of the companion development can be *elaborated
+  into* a witnessed irreflexive datum, or which of its ingredients must
+  be externally admitted.  The provenance of each ingredient — carrier,
+  two designated occurrences, relation, witness, irreflexivity,
+  orientation — is untested here: this paper characterizes a strong
+  candidate once those ingredients exist; it does not derive them from
+  the inscription, and the gap must not be silently filled by the
+  metatheory.
 
 ---
 
@@ -314,7 +349,8 @@ construction or conjecture with its current evidence stated.*
 **F1. The forgetting tower (witness → assertion → obstruction).**  This
 investigation exhibited two forgetful steps that each lose exactly one
 kind of data: multiplicity → presence (`multiplicity_invisible_to_
-presence`) and orientation → clash (`clash_transpose_invariant`).
+presence`) and orientation → collision
+(`collision_transpose_invariant`, `D2_S2_collapse_equiv`).
 *Conjecture:* these are the first rungs of a tower of "difference
 shadows" — witness structures over pairs of witness structures
 (differences *between* differences) whose forgetful maps lose
@@ -340,12 +376,13 @@ irreflexivity — i.e., every axiom that makes assertion sound *contains*
 irreflexivity's content.  Finite search over small axiom shapes is
 feasible with the existing enumerator; not yet run.
 
-**F4. Obstruction calculus.**  Collapse-clash profiles are computable,
-orientation-blind, and fail to classify (S4, S8).  *Conjecture:* clash
-profiles classify pointed structures exactly up to symmetrization and
-witness-multiplicity — the "collapse shadow" is a complete invariant of
-the symmetrized presence relation and nothing more.  Evidence: true on
-carrier 2 by the frontier countermodel; untested above.
+**F4. Collision calculus.**  Collapse-collision profiles are computable,
+orientation-blind, and fail to classify (S4, S8).  *Conjecture:*
+collision profiles classify pointed structures exactly up to
+symmetrization and witness-multiplicity — the "collapse shadow" is a
+complete invariant of the symmetrized presence relation and nothing
+more.  Evidence: true on carrier 2 by the frontier countermodel;
+untested above.
 
 **F5. Demand composition.**  Fidelity entered as a single axiom;
 presentations showed fidelity is a per-map demand (S6.4).  *Conjecture:*

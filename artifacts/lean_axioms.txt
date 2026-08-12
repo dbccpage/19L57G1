@@ -60,24 +60,29 @@ Derivation.lean:94:0: 'PrimDiff.S2_irrefl' does not depend on any axioms
 Derivation.lean:95:0: 'PrimDiff.D2_witness' does not depend on any axioms
 Derivation.lean:96:0: 'PrimDiff.D2_initial_pointed' does not depend on any axioms
 Derivation.lean:97:0: 'PrimDiff.one_point_hosts_bare_witness' does not depend on any axioms
-Derivation.lean:98:0: 'PrimDiff.larger_witnessed_carrier_exists' does not depend on any axioms
+Derivation.lean:98:0: 'PrimDiff.witnessed_irrefl_on_every_larger_carrier' depends on axioms: [propext, Quot.sound]
 Derivation.lean:99:0: 'PrimDiff.push_witness' does not depend on any axioms
-Derivation.lean:100:0: 'PrimDiff.clash_of_identifying_witness' does not depend on any axioms
-Derivation.lean:101:0: 'PrimDiff.clash_not_irrefl' does not depend on any axioms
-Derivation.lean:102:0: 'PrimDiff.collapse_unobstructed_without_fidelity' does not depend on any axioms
-Derivation.lean:103:0: 'PrimDiff.clash_transpose_invariant' does not depend on any axioms
-Derivation.lean:104:0: 'PrimDiff.orientation_data_invisible_to_collapse' does not depend on any axioms
-Derivation.lean:105:0: 'PrimDiff.symmetric_no_equivariant_classifier' does not depend on any axioms
-Derivation.lean:106:0: 'PrimDiff.swap_is_S2_automorphism' does not depend on any axioms
-Derivation.lean:107:0: 'PrimDiff.oriented_rigid' does not depend on any axioms
-Derivation.lean:108:0: 'PrimDiff.oriented_classifier_exists' does not depend on any axioms
-Derivation.lean:109:0: 'PrimDiff.single_oriented_witness_consistent' does not depend on any axioms
-Derivation.lean:110:0: 'PrimDiff.multiplicity_invisible_to_presence' depends on axioms: [propext, Quot.sound]
-Derivation.lean:111:0: 'PrimDiff.repetition_no_new_content' depends on axioms: [propext]
-Derivation.lean:112:0: 'PrimDiff.repetition_new_occurrence' depends on axioms: [propext]
-Derivation.lean:113:0: 'PrimDiff.const_presentation_unfaithful' does not depend on any axioms
-Derivation.lean:114:0: 'PrimDiff.id_presentation_faithful' does not depend on any axioms
-Derivation.lean:115:0: 'PrimDiff.clos_empty_id' does not depend on any axioms
-Derivation.lean:116:0: 'PrimDiff.irred_empty_iff_ne' does not depend on any axioms
-Derivation.lean:117:0: 'PrimDiff.irred_antitone' does not depend on any axioms
-Derivation.lean:118:0: 'PrimDiff.merger_erases' does not depend on any axioms
+Derivation.lean:100:0: 'PrimDiff.collision_of_identifying_witness' does not depend on any axioms
+Derivation.lean:101:0: 'PrimDiff.collision_not_irrefl' does not depend on any axioms
+Derivation.lean:102:0: 'PrimDiff.bare_collapse_admissible' does not depend on any axioms
+Derivation.lean:103:0: 'PrimDiff.obstruction_under_irrefl' does not depend on any axioms
+Derivation.lean:104:0: 'PrimDiff.collapse_unobstructed_without_fidelity' does not depend on any axioms
+Derivation.lean:105:0: 'PrimDiff.collision_transpose_invariant' does not depend on any axioms
+Derivation.lean:106:0: 'PrimDiff.orientation_data_invisible_to_collapse' does not depend on any axioms
+Derivation.lean:107:0: 'PrimDiff.bool_irrefl_witness_classification' depends on axioms: [propext, Quot.sound]
+Derivation.lean:108:0: 'PrimDiff.D2_not_pointed_iso_S2' does not depend on any axioms
+Derivation.lean:109:0: 'PrimDiff.D2_S2_collapse_equiv' does not depend on any axioms
+Derivation.lean:110:0: 'PrimDiff.symmetric_no_equivariant_classifier' does not depend on any axioms
+Derivation.lean:111:0: 'PrimDiff.swap_is_S2_automorphism' does not depend on any axioms
+Derivation.lean:112:0: 'PrimDiff.oriented_rigid' does not depend on any axioms
+Derivation.lean:113:0: 'PrimDiff.oriented_classifier_exists' does not depend on any axioms
+Derivation.lean:114:0: 'PrimDiff.single_oriented_witness_consistent' does not depend on any axioms
+Derivation.lean:115:0: 'PrimDiff.multiplicity_invisible_to_presence' depends on axioms: [propext, Quot.sound]
+Derivation.lean:116:0: 'PrimDiff.repetition_no_new_content' depends on axioms: [propext]
+Derivation.lean:117:0: 'PrimDiff.repetition_new_occurrence' depends on axioms: [propext]
+Derivation.lean:118:0: 'PrimDiff.const_presentation_unfaithful' does not depend on any axioms
+Derivation.lean:119:0: 'PrimDiff.id_presentation_faithful' does not depend on any axioms
+Derivation.lean:120:0: 'PrimDiff.clos_empty_id' does not depend on any axioms
+Derivation.lean:121:0: 'PrimDiff.irred_empty_iff_ne' does not depend on any axioms
+Derivation.lean:122:0: 'PrimDiff.irred_antitone' does not depend on any axioms
+Derivation.lean:123:0: 'PrimDiff.merger_erases' does not depend on any axioms

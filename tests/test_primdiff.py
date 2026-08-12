@@ -16,7 +16,7 @@ from derivation.primdiff import (
     a4,
     automorphisms,
     carrier_table,
-    clash,
+    collision,
     closure,
     collapse_report,
     enumerate_pointed,
@@ -25,7 +25,7 @@ from derivation.primdiff import (
     invariant_separating_classifiers,
     merge_map,
     min_carrier_for_k,
-    obstruction_profile,
+    collision_profile,
     pointed_isomorphic,
     pushforward,
     transpose,
@@ -109,14 +109,27 @@ def test_observer_orientation_gap() -> None:
     assert automorphisms(S2, pointed=True) == [(0, 1)]
 
 
-def test_collapse_clash_and_pushforward() -> None:
+def test_collapse_collision_and_pushforward() -> None:
     f = merge_map(2, 0, 1)
-    assert clash(D2.rel, f)
+    assert collision(D2.rel, f)
     assert pushforward(D2.rel, f) == frozenset({(0, 0)})
     assert transpose(D2.rel) == D2_REV.rel
     rep = collapse_report(2)
-    assert rep["clash_iff_pushforward_not_irreflexive"] is True
-    assert rep["clash_transpose_invariant"] is True
+    assert rep["collision_iff_pushforward_not_irreflexive"] is True
+    assert rep["collision_transpose_invariant"] is True
+    # D2 and S2 have identical collision behavior (Lean:
+    # D2_S2_collapse_equiv); collision profiles agree.
+    assert collision_profile(D2) == collision_profile(S2)
+
+
+def test_pointed_isomorphic_transports_points() -> None:
+    """The bijection may move the raw point indices (review fix): the
+    oriented edge pointed at (0, 1) is isomorphic to its relabeling
+    pointed at (1, 0), via the swap."""
+    s = Pointed(2, frozenset({(0, 1)}), 0, 1)
+    t = Pointed(2, frozenset({(1, 0)}), 1, 0)
+    assert pointed_isomorphic(s, t)
+    assert not pointed_isomorphic(s, Pointed(3, s.rel, 0, 1))
 
 
 def test_carrier_table_matches_capacity_formula() -> None:
@@ -134,7 +147,7 @@ def test_frontier_profiles_do_not_classify() -> None:
     assert cm["profiles_equal"] is True
     assert cm["pointed_isomorphic"] is False
     assert cm["profiles_classify"] is False
-    assert obstruction_profile(D2) == obstruction_profile(D2_REV)
+    assert collision_profile(D2) == collision_profile(D2_REV)
     assert not pointed_isomorphic(D2, D2_REV)
     assert pointed_isomorphic(D2, D2)
 
@@ -150,7 +163,7 @@ def test_run_primdiff_main(tmp_path: Path) -> None:
     assert run_primdiff.main(["--artifacts", str(out), "--max-n", "2"]) == 0
     payload = json.loads((out / "primdiff.json").read_text(encoding="utf-8"))
     assert payload["observer"]["orientation_gap"] is True
-    assert payload["collapse"]["identifying_witnessed_pair_always_clashes"]
+    assert payload["collapse"]["identifying_witnessed_pair_always_collides"]
     # Determinism.
     out2 = tmp_path / "artifacts2"
     run_primdiff.main(["--artifacts", str(out2), "--max-n", "2"])

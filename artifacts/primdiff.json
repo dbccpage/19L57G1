@@ -18,9 +18,9 @@
   }
  },
  "collapse": {
-  "clash_iff_pushforward_not_irreflexive": true,
-  "clash_transpose_invariant": true,
-  "identifying_witnessed_pair_always_clashes": true,
+  "collision_iff_pushforward_not_irreflexive": true,
+  "collision_transpose_invariant": true,
+  "identifying_witnessed_pair_always_collides": true,
   "merge_cases_checked": 27776,
   "pushforward_always_exists": true,
   "scope": "all pointed structures and merges, carrier <= 3"
