@@ -1,0 +1,2908 @@
+{
+ "minimum_table": {
+  "A_total_imports": {
+   "oriented_pair": {
+    "cost": 2,
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": true,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     },
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": true,
+      "tokens": 1
+     }
+    ]
+   },
+   "separable_pair": {
+    "cost": 2,
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": true,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     },
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": true,
+      "tokens": 1
+     }
+    ]
+   },
+   "two_carrier": {
+    "cost": 1,
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "none",
+      "tagging": false,
+      "tokens": 2
+     },
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "occurrence",
+      "tagging": false,
+      "tokens": 1
+     },
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     }
+    ]
+   },
+   "witnessed_irreflexive": {
+    "cost": 2,
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": true,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     }
+    ]
+   },
+   "witnessed_relation": {
+    "cost": 2,
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": true,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     }
+    ]
+   }
+  },
+  "B_lex": {
+   "oriented_pair": {
+    "cost": [
+     0,
+     1,
+     2
+    ],
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": true,
+      "tokens": 1
+     }
+    ]
+   },
+   "separable_pair": {
+    "cost": [
+     0,
+     1,
+     2
+    ],
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": true,
+      "tokens": 1
+     }
+    ]
+   },
+   "two_carrier": {
+    "cost": [
+     0,
+     0,
+     1
+    ],
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": false,
+      "reflection": false,
+      "retention": "occurrence",
+      "tagging": false,
+      "tokens": 1
+     }
+    ]
+   },
+   "witnessed_irreflexive": {
+    "cost": [
+     0,
+     1,
+     3
+    ],
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": true,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     }
+    ]
+   },
+   "witnessed_relation": {
+    "cost": [
+     0,
+     1,
+     3
+    ],
+    "tied_minima": [
+     {
+      "algebra": 1,
+      "autorel": true,
+      "reflection": false,
+      "retention": "datum",
+      "tagging": false,
+      "tokens": 1
+     }
+    ]
+   }
+  }
+ },
+ "normal_form": {
+  "all_made_a_purchase": true,
+  "carrier2_without_reify_occurrence_or_second_token": [],
+  "normal_form_holds_in_class": true,
+  "violations": [],
+  "witnessed_irreflexive_reachers": 16,
+  "witnessed_without_relation_rule": []
+ },
+ "notion_matrix": {
+  "countermodels": {
+   "second_sort->separable_pair": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "second_sort->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "second_sort->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "second_sort->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "second_sort->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "second_sort->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "second_sort->witnessed_relation": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "separable_pair->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "separable_pair->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "separable_pair->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "separable_pair->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "separable_pair->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": true,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": [
+      1
+     ]
+    }
+   },
+   "separable_pair->witnessed_relation": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": true,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": [
+      1
+     ]
+    }
+   },
+   "two_carrier->second_sort": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->separable_pair": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_carrier->witnessed_relation": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->second_sort": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->separable_pair": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->two_carrier": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_judgments->witnessed_relation": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "judgment",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [
+      0,
+      0
+     ],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->second_sort": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->separable_pair": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_occurrences->witnessed_relation": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "occurrence",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->second_sort": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->separable_pair": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->two_carrier": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->two_judgments": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->two_occurrences": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->two_tokens": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_result_constructors->witnessed_relation": {
+    "protocol": {
+     "algebra": 2,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0,
+      1
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->second_sort": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->separable_pair": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->witnessed_irreflexive": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "two_tokens->witnessed_relation": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": false,
+     "reflection": false,
+     "retention": "none",
+     "tagging": false,
+     "tokens": 2
+    },
+    "state": {
+     "data": [
+      "<>",
+      "<a>"
+     ],
+     "judgments": [],
+     "rel": [],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_irreflexive->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_irreflexive->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_irreflexive->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_irreflexive->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_relation->two_judgments": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_relation->two_occurrences": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_relation->two_result_constructors": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   },
+   "witnessed_relation->two_tokens": {
+    "protocol": {
+     "algebra": 1,
+     "autorel": true,
+     "reflection": false,
+     "retention": "datum",
+     "tagging": false,
+     "tokens": 1
+    },
+    "state": {
+     "data": [
+      "<>",
+      "r1"
+     ],
+     "judgments": [],
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ],
+     "results_seen": [
+      0
+     ],
+     "tags": []
+    }
+   }
+  },
+  "implications": {
+   "second_sort->second_sort": true,
+   "second_sort->separable_pair": false,
+   "second_sort->two_carrier": true,
+   "second_sort->two_judgments": false,
+   "second_sort->two_occurrences": false,
+   "second_sort->two_result_constructors": false,
+   "second_sort->two_tokens": false,
+   "second_sort->witnessed_irreflexive": false,
+   "second_sort->witnessed_relation": false,
+   "separable_pair->second_sort": true,
+   "separable_pair->separable_pair": true,
+   "separable_pair->two_carrier": true,
+   "separable_pair->two_judgments": false,
+   "separable_pair->two_occurrences": false,
+   "separable_pair->two_result_constructors": false,
+   "separable_pair->two_tokens": false,
+   "separable_pair->witnessed_irreflexive": false,
+   "separable_pair->witnessed_relation": false,
+   "two_carrier->second_sort": false,
+   "two_carrier->separable_pair": false,
+   "two_carrier->two_carrier": true,
+   "two_carrier->two_judgments": false,
+   "two_carrier->two_occurrences": false,
+   "two_carrier->two_result_constructors": false,
+   "two_carrier->two_tokens": false,
+   "two_carrier->witnessed_irreflexive": false,
+   "two_carrier->witnessed_relation": false,
+   "two_judgments->second_sort": false,
+   "two_judgments->separable_pair": false,
+   "two_judgments->two_carrier": false,
+   "two_judgments->two_judgments": true,
+   "two_judgments->two_occurrences": false,
+   "two_judgments->two_result_constructors": false,
+   "two_judgments->two_tokens": false,
+   "two_judgments->witnessed_irreflexive": false,
+   "two_judgments->witnessed_relation": false,
+   "two_occurrences->second_sort": false,
+   "two_occurrences->separable_pair": false,
+   "two_occurrences->two_carrier": true,
+   "two_occurrences->two_judgments": false,
+   "two_occurrences->two_occurrences": true,
+   "two_occurrences->two_result_constructors": false,
+   "two_occurrences->two_tokens": false,
+   "two_occurrences->witnessed_irreflexive": false,
+   "two_occurrences->witnessed_relation": false,
+   "two_result_constructors->second_sort": false,
+   "two_result_constructors->separable_pair": false,
+   "two_result_constructors->two_carrier": false,
+   "two_result_constructors->two_judgments": false,
+   "two_result_constructors->two_occurrences": false,
+   "two_result_constructors->two_result_constructors": true,
+   "two_result_constructors->two_tokens": false,
+   "two_result_constructors->witnessed_irreflexive": false,
+   "two_result_constructors->witnessed_relation": false,
+   "two_tokens->second_sort": false,
+   "two_tokens->separable_pair": false,
+   "two_tokens->two_carrier": true,
+   "two_tokens->two_judgments": false,
+   "two_tokens->two_occurrences": false,
+   "two_tokens->two_result_constructors": false,
+   "two_tokens->two_tokens": true,
+   "two_tokens->witnessed_irreflexive": false,
+   "two_tokens->witnessed_relation": false,
+   "witnessed_irreflexive->second_sort": true,
+   "witnessed_irreflexive->separable_pair": true,
+   "witnessed_irreflexive->two_carrier": true,
+   "witnessed_irreflexive->two_judgments": false,
+   "witnessed_irreflexive->two_occurrences": false,
+   "witnessed_irreflexive->two_result_constructors": false,
+   "witnessed_irreflexive->two_tokens": false,
+   "witnessed_irreflexive->witnessed_irreflexive": true,
+   "witnessed_irreflexive->witnessed_relation": true,
+   "witnessed_relation->second_sort": true,
+   "witnessed_relation->separable_pair": true,
+   "witnessed_relation->two_carrier": true,
+   "witnessed_relation->two_judgments": false,
+   "witnessed_relation->two_occurrences": false,
+   "witnessed_relation->two_result_constructors": false,
+   "witnessed_relation->two_tokens": false,
+   "witnessed_relation->witnessed_irreflexive": true,
+   "witnessed_relation->witnessed_relation": true
+  },
+  "notions": [
+   "two_carrier",
+   "two_tokens",
+   "two_occurrences",
+   "two_result_constructors",
+   "two_judgments",
+   "second_sort",
+   "witnessed_relation",
+   "witnessed_irreflexive",
+   "separable_pair"
+  ]
+ },
+ "protocol_space_size": 44,
+ "protocols": [
+  {
+   "dynamics": "fixpoint",
+   "imports": [],
+   "max_carrier": 1,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": null,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "none",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 2,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "fixpoint",
+   "imports": [
+    "second external token"
+   ],
+   "max_carrier": 2,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "none",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "bounded",
+   "imports": [
+    "judgment retention rule"
+   ],
+   "max_carrier": 1,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": null,
+    "two_judgments": 3,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "judgment",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 7,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "bounded",
+   "imports": [
+    "judgment retention rule",
+    "second external token"
+   ],
+   "max_carrier": 2,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": 3,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "judgment",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 23,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "occurrence retention rule (position identity)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "occurrence",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "occurrence retention rule (position identity)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "occurrence",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 31,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 31,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 9,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 45,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 31,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 9,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": null,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 1,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 45,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "fixpoint",
+   "imports": [
+    "binary result algebra"
+   ],
+   "max_carrier": 1,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": null,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "none",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 3,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "fixpoint",
+   "imports": [
+    "binary result algebra",
+    "second external token"
+   ],
+   "max_carrier": 2,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "none",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 9,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "bounded",
+   "imports": [
+    "binary result algebra",
+    "judgment retention rule"
+   ],
+   "max_carrier": 1,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": null,
+    "two_judgments": 3,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "judgment",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 7,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "bounded",
+   "imports": [
+    "binary result algebra",
+    "judgment retention rule",
+    "second external token"
+   ],
+   "max_carrier": 2,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": 3,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "judgment",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 23,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "occurrence retention rule (position identity)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "occurrence",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "occurrence retention rule (position identity)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "occurrence",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 31,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 31,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": null,
+    "separable_pair": null,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 1
+   },
+   "states_reached": 9,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": false,
+    "tokens": 2
+   },
+   "states_reached": 45,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": false,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 31,
+   "two_event_classes": false
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 5,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": null,
+    "witnessed_relation": null
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": false,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 21,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 1
+   },
+   "states_reached": 9,
+   "two_event_classes": true
+  },
+  {
+   "dynamics": "growth_to_cap",
+   "imports": [
+    "binary result algebra",
+    "receipt reification rule (coproduct into carrier)",
+    "built-in unary observable (tag)",
+    "reflection rule (receipts presentable)",
+    "relation symbol + witness rule",
+    "second external token"
+   ],
+   "max_carrier": 4,
+   "min_events_to": {
+    "oriented_pair": 2,
+    "separable_pair": 2,
+    "two_carrier": 2,
+    "two_judgments": null,
+    "two_result_constructors": 2,
+    "witnessed_irreflexive": 2,
+    "witnessed_relation": 2
+   },
+   "protocol": {
+    "algebra": 2,
+    "autorel": true,
+    "reflection": true,
+    "retention": "datum",
+    "tagging": true,
+    "tokens": 2
+   },
+   "states_reached": 45,
+   "two_event_classes": true
+  }
+ ]
+}

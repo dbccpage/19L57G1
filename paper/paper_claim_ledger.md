@@ -584,3 +584,101 @@ implementation.
 - **Falsifier / boundary**: what survives instead: per-stage minimality
   with declared scope (CL-3-*), engine determinism (CL-DETERMINISM), and
   bounded completeness (CL-TREE-MU2-COMPLETE).
+
+---
+
+## Frontier Run 006 claims (refusal, reflection, the remaining bridge)
+
+Full statements, dependencies, and boundaries:
+`paper/refusal_as_difference.md`; evidence:
+`artifacts/refusal_frontier.json` and
+`lean4/Derivation/RefusalFrontier.lean`.
+
+### CL-FR6-TERMINAL
+- **Statement**: MULTIPLE_MINIMUM_BRIDGES — within the declared
+  44-protocol class the refusal bridge closes for priced protocols,
+  fails for the free fragment, has incomparable tied minima under the
+  two declared cost orders, and satisfies the provenance normal form.
+- **Class**: bounded theorem (exhaustive in class) + theorem (cores).
+- **Python**: `refusal_frontier.json` (minimum_table, normal_form).
+- **Lean**: the CL-FR6-T* theorems.  **Axioms**: within
+  {propext, Quot.sound}.
+- **Falsifier**: an in-class route with no listed purchase, or a
+  declared cost order under which one route dominates globally.
+
+### CL-FR6-T1-INERTIA
+- **Statement**: horizon-free silent-refusal inertia under arbitrary
+  repetition.  **Class**: theorem.
+- **Lean**: `RefusalFrontier.silent_repetition_inert`.
+
+### CL-FR6-T2-TRACE
+- **Statement**: result streams never feed back; distinct histories
+  erase to one object state.  **Class**: theorem.
+- **Lean**: `trace_erasure`, `histories_collapse`.
+
+### CL-FR6-T3-CONSTRUCTORS
+- **Statement**: constructor-channel dependency (singleton algebras are
+  monochrome, swap-invariant, collapsed); the search refines to exactly
+  three binary-import channels in class (constructors, tags, relations).
+- **Class**: theorem + bounded computation.
+- **Lean**: `singleton_algebra_monochrome`, `mono_code_swap_invariant`,
+  `distinct_code_not_swap_invariant`,
+  `distinction_needs_two_constructors`.
+- **Python**: matrix cell `separable_pair -> two_result_constructors`
+  refuted (tag-route countermodel).
+
+### CL-FR6-T4-CARRIER
+- **Statement**: refusal-to-carrier per variant; judgment mode gives a
+  second judgment, never a datum (horizon-free carrier bound).
+- **Class**: theorem + bounded computation.
+- **Lean**: `judgment_variant_second_judgment_not_datum`,
+  `judgment_carrier_bound`.
+
+### CL-FR6-T5-BRIDGE
+- **Statement**: the priced bridge closes (witnessed, irreflexive-as-
+  fact, oriented from one token in two presentations); the tag route
+  ties under cost order A; the orders disagree on the winner.
+- **Class**: theorem + bounded computation (ties).
+- **Lean**: `priced_bridge_closes`, `priced_bridge_oriented`.
+
+### CL-FR6-T6-LAW
+- **Statement**: bridge facts do not entail the irreflexivity law; in
+  class every refusal link is born off-diagonal (receipts fresh).
+- **Class**: theorem + bounded computation.
+- **Lean**: `bridge_facts_not_law`.
+
+### CL-FR6-T7-CEILING
+- **Statement**: the invariance ceiling, general form: equivariant
+  constructions fix outputs of symmetry-fixed states; tagged/relational
+  refusal states bypass it by never being fixed points.
+- **Class**: theorem (general lemma).
+- **Lean**: `equivariant_output_invariant`; bypass
+  `priced_bridge_oriented`.
+
+### CL-FR6-T8-DYNAMICS
+- **Statement**: reflective dynamics classified — fixpoint, two-cycle,
+  horizon-free growth; the growth chain's carrier is `range (n+1)` with
+  the successor relation, every link irreflexive: the refusal tower is
+  a successor structure, for every n.
+- **Class**: theorem.
+- **Lean**: `untyped_reflect_fixpoint`, `toggle_two_cycle`,
+  `reflective_chain_growth`, `reflective_chain_is_initial_segment`,
+  `reflective_chain_successor_relation`,
+  `reflective_chain_irreflexive_facts`.
+
+### CL-FR6-T9-PRICES
+- **Statement**: minimum-price table under two cost orders with all
+  ties (three tied purchases for two-ness; tag vs relation routes for
+  separability; order disagreement on the cheapest bridge).
+- **Class**: finite computation (exhaustive in class).
+- **Python**: `minimum_table`.
+
+### CL-FR6-T10-NORMAL-FORM
+- **Statement**: in-class provenance normal form: every route to
+  witnessed irreflexive difference makes at least one explicit
+  purchase; witnessed relations require the relation rule; carrier
+  growth from one token requires reification or occurrence retention;
+  zero violations among 44 protocols.  The class-general Lean form is
+  the named unresolved obligation.
+- **Class**: bounded theorem (exhaustive in class).
+- **Python**: `normal_form_check`.
