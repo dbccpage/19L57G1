@@ -123,10 +123,26 @@ def test_run_main_produces_all_artifacts(tmp_path: Path) -> None:
     assert claims["CL-3-FAIL-CURRENT"] == {"L": False, "F": False}
     assert claims["CL-3-NONUNIQUE-MU1"] == {"L": 3, "F": 5}
     assert claims["CL-3-UNIQUE-MU2"] == {"L": 1, "F": 1}
-    term = claims["CL-TERMINATION-NOSUPPLY"]
+    term = claims["CL-ENDOGENOUS-TERMINATION"]
     for name in ("L", "F"):
-        assert term[name]["terminated"] is True
-        assert term[name]["rounds_used"] <= term[name]["pair_bound"]
+        report = term[name]["branch_report"]
+        assert report["every_maximal_branch_terminates"] is True
+        assert report["budget_cutoff_branches"] == 0
+        assert report["round_cutoff_branches"] == 0
+        assert report["open_branches"] == 0
+        assert term[name]["within_bound"] is True
+    depth = claims["CL-REACHES-REQUESTED-DEPTH-WITH-SUPPLY"]
+    for key in ("L_mu1", "L_mu2", "F_mu1", "F_mu2"):
+        assert depth[key]["max_depth"] <= depth[key]["requested_rounds"]
+    branch = claims["CL-BRANCH-REPORTS"]
+    for key in ("L_mu1", "L_mu2", "F_mu1", "F_mu2"):
+        assert set(branch[key]) == {
+            "terminal_branches",
+            "budget_cutoff_branches",
+            "round_cutoff_branches",
+            "open_branches",
+            "every_maximal_branch_terminates",
+        }
     assert all(claims["CL-REPLAY-CERTIFIED"].values())
 
 

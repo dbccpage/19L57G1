@@ -41,11 +41,32 @@ def _claims(
     """Computed Python evidence for ledger claims (IDs match
     ``paper/paper_claim_ledger.md``)."""
     c3 = challenges["challenge3"]
-    ns_l = nosupply["L"]
-    ns_f = nosupply["F"]
 
-    def _terminated(t: Tree) -> bool:
-        return any(n.status == "terminal_all_separated" for n in t.nodes)
+    def _branch_report(t: Tree) -> dict[str, Any]:
+        """Per-branch termination evidence.  In the quotiented DAG a
+        maximal branch corresponds to a leaf; 'expanded' nodes are
+        internal."""
+        leaves = [n for n in t.nodes if n.status != "expanded"]
+        terminal = sum(
+            1 for n in leaves if n.status.startswith("terminal")
+        )
+        budget_cut = sum(
+            1 for n in leaves if n.status == "frontier_budget"
+        )
+        round_cut = sum(1 for n in leaves if n.status == "completed")
+        open_ = sum(1 for n in leaves if n.status == "open")
+        return {
+            "terminal_branches": terminal,
+            "budget_cutoff_branches": budget_cut,
+            "round_cutoff_branches": round_cut,
+            "open_branches": open_,
+            "every_maximal_branch_terminates": (
+                terminal > 0
+                and budget_cut == 0
+                and round_cut == 0
+                and open_ == 0
+            ),
+        }
 
     def _rounds_used(t: Tree) -> int:
         return max(n.depth for n in t.nodes)
@@ -73,23 +94,43 @@ def _claims(
         "CL-TREE-SUMMARY": {
             key: t.stats() for key, t in trees.items()
         },
-        "CL-TERMINATION-NOSUPPLY": {
-            "L": {
-                "terminated": _terminated(ns_l),
-                "rounds_used": _rounds_used(ns_l),
-                "pair_bound": _pair_bound(ns_l),
+        "CL-BRANCH-REPORTS": {
+            **{key: _branch_report(t) for key, t in trees.items()},
+            **{
+                f"closed_{name}": _branch_report(t)
+                for name, t in nosupply.items()
             },
-            "F": {
-                "terminated": _terminated(ns_f),
-                "rounds_used": _rounds_used(ns_f),
-                "pair_bound": _pair_bound(ns_f),
-            },
+        },
+        "CL-ENDOGENOUS-TERMINATION": {
+            name: {
+                "branch_report": _branch_report(t),
+                "rounds_used": _rounds_used(t),
+                "pair_bound": _pair_bound(t),
+                "within_bound": _rounds_used(t) <= _pair_bound(t),
+                "note": "closed-system baseline: endogenous generator "
+                "only, no external continuation policy",
+            }
+            for name, t in nosupply.items()
+        },
+        "CL-ENDOGENOUS-VS-EXTERNAL": {
+            name: {
+                "closed_system": nosupply[name].stats(),
+                "external_policy_mu1": trees[f"{name}_mu1"].stats(),
+                "external_policy_mu2": trees[f"{name}_mu2"].stats(),
+            }
+            for name in nosupply
         },
         "CL-REPLAY-CERTIFIED": {
             key: t.stats()["all_certified"] for key, t in trees.items()
         },
-        "CL-UNBOUNDED-WITH-SUPPLY": {
-            key: t.stats()["max_depth"] for key, t in trees.items()
+        "CL-REACHES-REQUESTED-DEPTH-WITH-SUPPLY": {
+            key: {
+                "max_depth": t.stats()["max_depth"],
+                "requested_rounds": t.max_rounds,
+                "note": "reaching a finite requested depth; not a proof "
+                "of unboundedness",
+            }
+            for key, t in trees.items()
         },
     }
     return evidence

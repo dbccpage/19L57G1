@@ -91,15 +91,17 @@ theorem deltaBD_valid : validResponse R2L 0 1 deltaBD :=
 /-! ## No zero- or one-item delta suffices -/
 
 /-- Dead-end helper: a regime with no instances cannot host a separation. -/
-theorem no_insts_no_separation {s : Regime} (hi : s.insts = [])
-    (hsep : separable s 0 1) : False :=
-  separable_not_collapsed hsep (collapsed_of_no_insts s hi 0 1)
+theorem no_insts_no_separation {s : Regime} {d d' : Nat}
+    (hi : s.insts = []) (hsep : separable s d d') : False :=
+  separable_not_collapsed hsep (collapsed_of_no_insts s hi d d')
 
-/-- Impossibility below cost 2 at Challenge 3 (reading L): every delta of
-at most one item either fails to apply or leaves the admitted instance set
-empty, and with no instances the target pair stays collapsed. -/
-theorem cost1_insufficient (δ : List Item) (hlen : δ.length ≤ 1) :
-    ¬ validResponse R2L 0 1 δ := by
+/-- Impossibility below cost 2 on any form-less, instance-less regime:
+every delta of at most one item either fails to apply or leaves the
+admitted instance set empty, and with no instances the target pair stays
+collapsed. -/
+theorem cost1_insufficient_general (r : Regime) (hforms : r.forms = [])
+    (hinsts : r.insts = []) (i j : Nat) (δ : List Item)
+    (hlen : δ.length ≤ 1) : ¬ validResponse r i j δ := by
   intro h
   cases h with
   | intro s hs =>
@@ -107,9 +109,9 @@ theorem cost1_insufficient (δ : List Item) (hlen : δ.length ≤ 1) :
     have hsep := hs.2.1
     cases δ with
     | nil =>
-        have hz : R2L = s := Option.some.inj happ
+        have hz : r = s := Option.some.inj happ
         subst hz
-        exact no_insts_no_separation rfl hsep
+        exact no_insts_no_separation hinsts hsep
     | cons it rest =>
       cases rest with
       | cons b r2 => simp at hlen
@@ -119,22 +121,48 @@ theorem cost1_insufficient (δ : List Item) (hlen : δ.length ≤ 1) :
         | newDatum =>
             have hz := Option.some.inj happ
             subst hz
-            exact no_insts_no_separation rfl hsep
+            refine no_insts_no_separation ?_ hsep
+            exact hinsts
         | newForm a =>
             simp only [applyItem] at happ
             split at happ
             · have hz := Option.some.inj happ
               subst hz
-              exact no_insts_no_separation rfl hsep
+              refine no_insts_no_separation ?_ hsep
+              exact hinsts
             · cases happ
         | newInst f args =>
             simp only [applyItem] at happ
-            rw [if_neg (by simp [R2L])] at happ
+            rw [if_neg (by simp [hforms])] at happ
             cases happ
         | newRuleAll f =>
             simp only [applyItem] at happ
-            rw [if_neg (by simp [R2L])] at happ
+            rw [if_neg (by simp [hforms])] at happ
             cases happ
+
+/-- Impossibility below cost 2 at Challenge 3, reading L. -/
+theorem cost1_insufficient (δ : List Item) (hlen : δ.length ≤ 1) :
+    ¬ validResponse R2L 0 1 δ :=
+  cost1_insufficient_general R2L rfl rfl 0 1 δ hlen
+
+/-- Impossibility below cost 2 at Challenge 3, reading F. -/
+theorem cost1_insufficient_F (δ : List Item) (hlen : δ.length ≤ 1) :
+    ¬ validResponse R2F 1 2 δ :=
+  cost1_insufficient_general R2F rfl rfl 1 2 δ hlen
+
+/-- Reading F existence: the unary mark on `<a>` is a valid two-item
+response, so the minimum cost in reading F is also exactly two. -/
+theorem deltaU0F_valid :
+    validResponse R2F 1 2 [.newForm 1, .newInst 0 [1]] := by
+  refine ⟨⟨3, [1], [(0, [1])], [], [(1, 2)]⟩, by decide, ?_, ?_⟩
+  · exact ⟨⟨0, [none]⟩, by decide, by decide⟩
+  · intro q hq
+    have : q = (1, 2) := by
+      cases hq with
+      | head => rfl
+      | tail _ h => cases h
+    rw [this]
+    exact ⟨⟨0, [none]⟩, by decide, by decide⟩
 
 /-! ## The implemented isomorphism relation -/
 

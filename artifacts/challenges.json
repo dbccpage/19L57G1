@@ -98,7 +98,12 @@
    "current_regime_satisfies": false,
    "declared_separability": "profiles differ (behavioral separation by positive derivability)",
    "mu1": {
+    "candidate_bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
     "cost_below_minimum_all_fail": true,
+    "cost_measure": "item count",
     "iso_classes": [
      {
       "capabilities": {
@@ -229,10 +234,16 @@
      2,
      -1
     ],
+    "uniqueness_scope": "not unique: the listed classes are tied minima within the declared bounds; the impossibility below two items is absolute over the item grammar (Lean); across unbounded arity the tie class is infinite (Lean arity family), so the enumeration is complete only within max_arity",
     "valid_deltas_at_minimum": 10
    },
    "mu2": {
+    "candidate_bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
     "cost_below_minimum_all_fail": true,
+    "cost_measure": "(item count, new-form arity sum), lexicographic",
     "iso_classes": [
      {
       "capabilities": {
@@ -263,6 +274,7 @@
      2,
      1
     ],
+    "uniqueness_scope": "unique up to the implemented isomorphism among two-item deltas with new-form arity sum <= 1 over the full item grammar (Lean, reading L); within the declared bounds the engine finds exactly one class in both readings",
     "valid_deltas_at_minimum": 2
    },
    "reading": "F",
@@ -273,7 +285,12 @@
    "current_regime_satisfies": false,
    "declared_separability": "profiles differ (behavioral separation by positive derivability)",
    "mu1": {
+    "candidate_bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
     "cost_below_minimum_all_fail": true,
+    "cost_measure": "item count",
     "iso_classes": [
      {
       "capabilities": {
@@ -354,10 +371,16 @@
      2,
      -1
     ],
+    "uniqueness_scope": "not unique: the listed classes are tied minima within the declared bounds; the impossibility below two items is absolute over the item grammar (Lean); across unbounded arity the tie class is infinite (Lean arity family), so the enumeration is complete only within max_arity",
     "valid_deltas_at_minimum": 6
    },
    "mu2": {
+    "candidate_bounds": {
+     "max_arity": 2,
+     "max_items": 2
+    },
     "cost_below_minimum_all_fail": true,
+    "cost_measure": "(item count, new-form arity sum), lexicographic",
     "iso_classes": [
      {
       "capabilities": {
@@ -388,6 +411,7 @@
      2,
      1
     ],
+    "uniqueness_scope": "unique up to the implemented isomorphism among two-item deltas with new-form arity sum <= 1 over the full item grammar (Lean, reading L); within the declared bounds the engine finds exactly one class in both readings",
     "valid_deltas_at_minimum": 2
    },
    "reading": "L",

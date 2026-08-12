@@ -9,10 +9,18 @@ Classification:
   Reading L admits only on explicit retention ("supplies and retains");
   reading F additionally admits the initial inscription at genesis
   ("the only initial object-language inscription is").  Both are carried.
-* The autonomous generator is metatheory apparatus.  From an accepted regime
-  it deterministically issues either ``Separate`` on the least collapsed pair
-  or the supply-and-admission of one fresh opaque token.  It reads only the
-  admitted regime and the admission order; it never inspects token glyphs.
+* The challenge generator splits into two declared components:
+
+  - the *endogenous generator* (``next_endogenous_challenge``): from the
+    admitted structure alone it reissues the admitted requirement pattern
+    (separation) on the least collapsed pair.  It reads only profile
+    equality and admission order; it never inspects presentation-token
+    glyphs, never supplies data, and never imports a new goal kind.  It
+    reaches a fixpoint once every pair is separated.
+  - the *external continuation policy* (supply): the supply-and-admission
+    of one fresh opaque token.  This is an explicitly declared external
+    policy, not a derived transition; runs with ``supply=False`` are the
+    closed-system baseline.
 """
 
 from __future__ import annotations
@@ -229,11 +237,31 @@ def challenge3_report(
         "current_regime_satisfies": separable(base, i, j),
         "witness": witness(base, i, j),
     }
+    uniqueness_scope = {
+        "mu1": "not unique: the listed classes are tied minima within the "
+        "declared bounds; the impossibility below two items is absolute "
+        "over the item grammar (Lean); across unbounded arity the tie "
+        "class is infinite (Lean arity family), so the enumeration is "
+        "complete only within max_arity",
+        "mu2": "unique up to the implemented isomorphism among two-item "
+        "deltas with new-form arity sum <= 1 over the full item grammar "
+        "(Lean, reading L); within the declared bounds the engine finds "
+        "exactly one class in both readings",
+    }
     for measure in ("mu1", "mu2"):
         mr = min_responses(base, (i, j), measure, bounds)
         assert mr is not None, "progress lemma violated"
         classes = _quotient(base, (i, j), mr)
         report[measure] = {
+            "cost_measure": (
+                "item count" if measure == "mu1"
+                else "(item count, new-form arity sum), lexicographic"
+            ),
+            "candidate_bounds": {
+                "max_items": bounds.max_items,
+                "max_arity": bounds.max_arity,
+            },
+            "uniqueness_scope": uniqueness_scope[measure],
             "minimum_cost": list(mr.cost),
             "valid_deltas_at_minimum": len(mr.deltas),
             "iso_classes": [
@@ -294,6 +322,17 @@ def _quotient(
         (members[0], len(members))
         for _, members in sorted(grouped.items())
     ]
+
+
+def next_endogenous_challenge(r: Regime) -> Optional[Pair]:
+    """The endogenous generator: the least observationally collapsed pair
+    of admitted data, or ``None`` at the fixpoint (every pair separated).
+
+    Token-blind by construction: the computation never reads ``r.data``
+    entries, only structural indices (verified by test against renaming).
+    """
+    collapsed = collapsed_pairs(r)
+    return collapsed[0] if collapsed else None
 
 
 # ---------------------------------------------------------------------------
@@ -418,23 +457,27 @@ def build_tree(
     while queue:
         nid = queue.popleft()
         node = tree.nodes[nid]
+        target: Optional[Pair]
+        if nid == 0:
+            target = reading.target
+        else:
+            assert not (
+                set(collapsed_pairs(node.regime)) & set(node.regime.reqs)
+            )
+            target = next_endogenous_challenge(node.regime)
+        if target is None and not supply:
+            # Endogenous fixpoint: every pair separated, and the external
+            # continuation policy is disabled.  Genuine termination,
+            # regardless of the round budget.
+            node.status = "terminal_all_separated"
+            continue
         if node.depth >= max_rounds:
             node.status = "completed"
             continue
         if len(tree.nodes) > node_budget:
             node.status = "frontier_budget"
             continue
-        target: Optional[Pair]
-        if nid == 0:
-            target = reading.target
-        else:
-            collapsed = collapsed_pairs(node.regime)
-            assert not (set(collapsed) & set(node.regime.reqs))
-            target = collapsed[0] if collapsed else None
         if target is None:
-            if not supply:
-                node.status = "terminal_all_separated"
-                continue
             token = f"g{node.regime.n_data()}"
             history = node.history + (Supply(token), AdmitDatum(token))
             _attach(

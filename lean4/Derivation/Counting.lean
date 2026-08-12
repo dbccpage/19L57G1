@@ -39,13 +39,41 @@ theorem strict_bounded_length (f : Nat → Nat) (L B : Nat)
     omega
 
 /-- Instantiation shape used by the engine: with `n` admitted data the
-requirement count is bounded by `n * (n - 1) / 2`, so a no-supply run has
-at most `n * (n - 1) / 2 + 1` states, i.e. at most `n * (n - 1) / 2`
+requirement count is bounded by `n * (n - 1) / 2`, so a closed-system run
+(endogenous generator only, external continuation policy disabled) has at
+most `n * (n - 1) / 2 + 1` states, i.e. at most `n * (n - 1) / 2`
 accepted separation rounds. -/
 theorem no_supply_round_bound (f : Nat → Nat) (L n : Nat)
     (hstrict : ∀ i, i + 1 < L → f i < f (i + 1))
     (hbound : ∀ i, i < L → f i ≤ n * (n - 1) / 2) :
     L ≤ n * (n - 1) / 2 + 1 :=
   strict_bounded_length f L (n * (n - 1) / 2) hstrict hbound
+
+/-- The requirement language of a regime with `n` data: the canonical
+enumeration of ordered pairs `(i, j)` with `i < j < n`. -/
+def allPairs : Nat → List (Nat × Nat)
+  | 0 => []
+  | n + 1 => allPairs n ++ (List.range n).map (fun i => (i, n))
+
+/-- The requirement language is finite with exactly `n * (n - 1) / 2`
+elements (stated multiplicatively to stay division-free): the endogenous
+generator can issue at most this many distinct requirements before its
+fixpoint. -/
+theorem allPairs_length (n : Nat) :
+    2 * (allPairs n).length = n * (n - 1) := by
+  induction n with
+  | zero => rfl
+  | succ m ih =>
+      have hexp : (allPairs (m + 1)).length = (allPairs m).length + m := by
+        simp [allPairs]
+      rw [hexp]
+      have hsq : (m + 1) * (m + 1 - 1) = m * (m - 1) + 2 * m := by
+        cases m with
+        | zero => rfl
+        | succ k =>
+            simp only [Nat.succ_sub_one, Nat.succ_mul, Nat.mul_succ]
+            generalize k * k = a
+            omega
+      omega
 
 end Derivation

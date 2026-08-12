@@ -181,6 +181,50 @@ def test_tree_terminal_when_no_response_within_bounds() -> None:
     assert len(t.nodes) == 1
 
 
+def test_endogenous_generator_is_token_blind() -> None:
+    """Renaming every presentation token leaves the generated challenge
+    unchanged: the endogenous generator reads no glyphs."""
+    from derivation.engine import next_endogenous_challenge
+    from derivation.model import Regime
+
+    r = replay(READING_F.genesis)
+    renamed = Regime(
+        tuple(f"opaque-{k}" for k in range(r.n_data())),
+        r.forms,
+        r.insts,
+        r.rules,
+        r.reqs,
+    )
+    assert next_endogenous_challenge(r) == next_endogenous_challenge(renamed)
+    assert next_endogenous_challenge(r) == (0, 1)
+
+
+def test_endogenous_generator_fixpoint() -> None:
+    """Once every pair is separated the endogenous generator yields
+    nothing: no unresolved requirement is generatable from the admitted
+    structure alone."""
+    from derivation.engine import next_endogenous_challenge
+    from derivation.model import AdmitForm, AdmitInst
+
+    r = replay(
+        (AdmitForm(1), AdmitInst(0, (1,))),
+        replay(READING_L.genesis),
+    )
+    assert next_endogenous_challenge(r) is None
+
+
+def test_closed_system_terminal_at_round_boundary() -> None:
+    """A closed-system node that reaches the fixpoint exactly at the round
+    limit is terminal, not round-cut."""
+    t = build_tree(
+        READING_F, "mu1", BOUNDS, max_rounds=3, node_budget=200,
+        supply=False,
+    )
+    stats = t.stats()
+    assert "completed" not in stats["by_status"]
+    assert stats["by_status"].get("terminal_all_separated", 0) > 0
+
+
 def test_generator_never_challenges_a_required_pair() -> None:
     t = build_tree(READING_L, "mu2", BOUNDS, max_rounds=6, node_budget=60)
     for node in t.nodes:

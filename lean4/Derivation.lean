@@ -36,6 +36,7 @@ open Derivation
 #print axioms Derivation.index_le_strict_mono
 #print axioms Derivation.strict_bounded_length
 #print axioms Derivation.no_supply_round_bound
+#print axioms Derivation.allPairs_length
 
 -- Challenge 3 minimality
 #print axioms Derivation.U0_separable
@@ -46,7 +47,10 @@ open Derivation
 #print axioms Derivation.deltaU1_valid
 #print axioms Derivation.deltaBL_valid
 #print axioms Derivation.deltaBD_valid
+#print axioms Derivation.cost1_insufficient_general
 #print axioms Derivation.cost1_insufficient
+#print axioms Derivation.cost1_insufficient_F
+#print axioms Derivation.deltaU0F_valid
 #print axioms Derivation.U0_not_iso_BL
 #print axioms Derivation.U0_not_iso_BD
 #print axioms Derivation.BL_not_iso_BD

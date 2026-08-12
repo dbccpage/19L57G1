@@ -114,23 +114,205 @@
   "F": 1,
   "L": 1
  },
+ "CL-BRANCH-REPORTS": {
+  "F_mu1": {
+   "budget_cutoff_branches": 886,
+   "every_maximal_branch_terminates": false,
+   "open_branches": 0,
+   "round_cutoff_branches": 0,
+   "terminal_branches": 0
+  },
+  "F_mu2": {
+   "budget_cutoff_branches": 0,
+   "every_maximal_branch_terminates": false,
+   "open_branches": 0,
+   "round_cutoff_branches": 885,
+   "terminal_branches": 0
+  },
+  "L_mu1": {
+   "budget_cutoff_branches": 927,
+   "every_maximal_branch_terminates": false,
+   "open_branches": 0,
+   "round_cutoff_branches": 0,
+   "terminal_branches": 0
+  },
+  "L_mu2": {
+   "budget_cutoff_branches": 0,
+   "every_maximal_branch_terminates": false,
+   "open_branches": 0,
+   "round_cutoff_branches": 568,
+   "terminal_branches": 0
+  },
+  "closed_F": {
+   "budget_cutoff_branches": 0,
+   "every_maximal_branch_terminates": true,
+   "open_branches": 0,
+   "round_cutoff_branches": 0,
+   "terminal_branches": 16
+  },
+  "closed_L": {
+   "budget_cutoff_branches": 0,
+   "every_maximal_branch_terminates": true,
+   "open_branches": 0,
+   "round_cutoff_branches": 0,
+   "terminal_branches": 3
+  }
+ },
+ "CL-ENDOGENOUS-TERMINATION": {
+  "F": {
+   "branch_report": {
+    "budget_cutoff_branches": 0,
+    "every_maximal_branch_terminates": true,
+    "open_branches": 0,
+    "round_cutoff_branches": 0,
+    "terminal_branches": 16
+   },
+   "note": "closed-system baseline: endogenous generator only, no external continuation policy",
+   "pair_bound": 3,
+   "rounds_used": 3,
+   "within_bound": true
+  },
+  "L": {
+   "branch_report": {
+    "budget_cutoff_branches": 0,
+    "every_maximal_branch_terminates": true,
+    "open_branches": 0,
+    "round_cutoff_branches": 0,
+    "terminal_branches": 3
+   },
+   "note": "closed-system baseline: endogenous generator only, no external continuation policy",
+   "pair_bound": 1,
+   "rounds_used": 1,
+   "within_bound": true
+  }
+ },
+ "CL-ENDOGENOUS-VS-EXTERNAL": {
+  "F": {
+   "closed_system": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 4,
+     "terminal_all_separated": 16
+    },
+    "edges": 19,
+    "expansions_with_ties": 3,
+    "max_depth": 3,
+    "nodes": 20,
+    "roles": {
+     "discrimination": 9,
+     "innovation": 10
+    }
+   },
+   "external_policy_mu1": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 315,
+     "frontier_budget": 886
+    },
+    "edges": 1244,
+    "expansions_with_ties": 80,
+    "max_depth": 6,
+    "nodes": 1201,
+    "roles": {
+     "discrimination": 1001,
+     "innovation": 10,
+     "supply": 233
+    }
+   },
+   "external_policy_mu2": {
+    "all_certified": true,
+    "by_status": {
+     "completed": 885,
+     "expanded": 962
+    },
+    "edges": 1960,
+    "expansions_with_ties": 422,
+    "max_depth": 15,
+    "nodes": 1847,
+    "roles": {
+     "discrimination": 1458,
+     "double_discrimination": 6,
+     "innovation": 83,
+     "supply": 413
+    }
+   }
+  },
+  "L": {
+   "closed_system": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_separated": 3
+    },
+    "edges": 3,
+    "expansions_with_ties": 1,
+    "max_depth": 1,
+    "nodes": 4,
+    "roles": {
+     "innovation": 3
+    }
+   },
+   "external_policy_mu1": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 278,
+     "frontier_budget": 927
+    },
+    "edges": 1250,
+    "expansions_with_ties": 81,
+    "max_depth": 7,
+    "nodes": 1205,
+    "roles": {
+     "discrimination": 1047,
+     "innovation": 8,
+     "supply": 195
+    }
+   },
+   "external_policy_mu2": {
+    "all_certified": true,
+    "by_status": {
+     "completed": 568,
+     "expanded": 395
+    },
+    "edges": 1022,
+    "expansions_with_ties": 236,
+    "max_depth": 15,
+    "nodes": 963,
+    "roles": {
+     "discrimination": 858,
+     "innovation": 53,
+     "supply": 111
+    }
+   }
+  }
+ },
+ "CL-REACHES-REQUESTED-DEPTH-WITH-SUPPLY": {
+  "F_mu1": {
+   "max_depth": 6,
+   "note": "reaching a finite requested depth; not a proof of unboundedness",
+   "requested_rounds": 15
+  },
+  "F_mu2": {
+   "max_depth": 15,
+   "note": "reaching a finite requested depth; not a proof of unboundedness",
+   "requested_rounds": 15
+  },
+  "L_mu1": {
+   "max_depth": 7,
+   "note": "reaching a finite requested depth; not a proof of unboundedness",
+   "requested_rounds": 15
+  },
+  "L_mu2": {
+   "max_depth": 15,
+   "note": "reaching a finite requested depth; not a proof of unboundedness",
+   "requested_rounds": 15
+  }
+ },
  "CL-REPLAY-CERTIFIED": {
   "F_mu1": true,
   "F_mu2": true,
   "L_mu1": true,
   "L_mu2": true
- },
- "CL-TERMINATION-NOSUPPLY": {
-  "F": {
-   "pair_bound": 3,
-   "rounds_used": 3,
-   "terminated": true
-  },
-  "L": {
-   "pair_bound": 1,
-   "rounds_used": 1,
-   "terminated": true
-  }
  },
  "CL-TREE-SUMMARY": {
   "F_mu1": {
@@ -198,11 +380,5 @@
     "supply": 111
    }
   }
- },
- "CL-UNBOUNDED-WITH-SUPPLY": {
-  "F_mu1": 6,
-  "F_mu2": 15,
-  "L_mu1": 7,
-  "L_mu2": 15
  }
 }
