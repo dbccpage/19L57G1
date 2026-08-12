@@ -1,0 +1,1150 @@
+{
+ "cells": {
+  "A->Bc": {
+   "lean": "nimp_a_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "A->Bl": {
+   "lean": "open_cell_a_bl",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "OPEN_LOCATED",
+   "witness": null
+  },
+  "A->Bs": {
+   "lean": "nimp_a_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "A->C": {
+   "lean": "nimp_a_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "A->D": {
+   "lean": "imp_a_d",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "A->E": {
+   "lean": "nimp_a_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "A->F": {
+   "lean": "nimp_a_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "A->W": {
+   "lean": "imp_a_w",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bc->A": {
+   "lean": "imp_bc_a",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bc->Bl": {
+   "lean": "open_cell_bc_bl",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "OPEN_LOCATED",
+   "witness": null
+  },
+  "Bc->Bs": {
+   "lean": "nimp_bc_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bc->C": {
+   "lean": "nimp_bc_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bc->D": {
+   "lean": "imp_bc_d",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bc->E": {
+   "lean": "nimp_bc_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bc->F": {
+   "lean": "nimp_bc_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bc->W": {
+   "lean": "imp_bc_w",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bl->A": {
+   "lean": "imp_bl_a",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bl->Bc": {
+   "lean": "nimp_bl_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bl->Bs": {
+   "lean": "nimp_bl_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bl->C": {
+   "lean": "nimp_bl_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bl->D": {
+   "lean": "imp_bl_d",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bl->E": {
+   "lean": "nimp_bl_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bl->F": {
+   "lean": "nimp_bl_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bl->W": {
+   "lean": "imp_bl_w",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bs->A": {
+   "lean": "imp_bs_a",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bs->Bc": {
+   "lean": "nimp_bs_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bs->Bl": {
+   "lean": "open_cell_bs_bl",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "OPEN_LOCATED",
+   "witness": null
+  },
+  "Bs->C": {
+   "lean": "nimp_bs_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bs->D": {
+   "lean": "imp_bs_d",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "Bs->E": {
+   "lean": "nimp_bs_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bs->F": {
+   "lean": "nimp_bs_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "Bs->W": {
+   "lean": "imp_bs_w",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "C->A": {
+   "lean": "nimp_c_a",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->Bc": {
+   "lean": "nimp_c_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->Bl": {
+   "lean": "nimp_c_bl",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->Bs": {
+   "lean": "nimp_c_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->D": {
+   "lean": "nimp_c_d",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->E": {
+   "lean": "nimp_c_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->F": {
+   "lean": "nimp_c_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      0
+     ]
+    ],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "C->W": {
+   "lean": "imp_c_w",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "D->A": {
+   "lean": "nimp_d_a",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->Bc": {
+   "lean": "nimp_d_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->Bl": {
+   "lean": "nimp_d_bl",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->Bs": {
+   "lean": "nimp_d_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->C": {
+   "lean": "nimp_d_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->E": {
+   "lean": "nimp_d_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->F": {
+   "lean": "nimp_d_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "D->W": {
+   "lean": "nimp_d_w",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->A": {
+   "lean": "nimp_e_a",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->Bc": {
+   "lean": "nimp_e_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->Bl": {
+   "lean": "nimp_e_bl",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->Bs": {
+   "lean": "nimp_e_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->C": {
+   "lean": "nimp_e_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->D": {
+   "lean": "imp_e_d",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "E->F": {
+   "lean": "nimp_e_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "E->W": {
+   "lean": "nimp_e_w",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [],
+    "r": [],
+    "ret": []
+   }
+  },
+  "F->A": {
+   "lean": "imp_f_a",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "F->Bc": {
+   "lean": "nimp_f_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  },
+  "F->Bl": {
+   "lean": "open_cell_f_bl",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "OPEN_LOCATED",
+   "witness": null
+  },
+  "F->Bs": {
+   "lean": "nimp_f_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  },
+  "F->C": {
+   "lean": "imp_f_c",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "F->D": {
+   "lean": "imp_f_d",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "F->E": {
+   "lean": "nimp_f_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  },
+  "F->W": {
+   "lean": "imp_f_w",
+   "search": "NO_COUNTERMODEL_IN_BOUNDS",
+   "status": "IMPLIES",
+   "witness": null
+  },
+  "W->A": {
+   "lean": "nimp_w_a",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->Bc": {
+   "lean": "nimp_w_bc",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->Bl": {
+   "lean": "nimp_w_bl",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->Bs": {
+   "lean": "nimp_w_bs",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->C": {
+   "lean": "nimp_w_c",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->D": {
+   "lean": "nimp_w_d",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->E": {
+   "lean": "nimp_w_e",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  },
+  "W->F": {
+   "lean": "nimp_w_f",
+   "search": "COUNTERMODEL",
+   "status": "COUNTERMODEL",
+   "witness": {
+    "a": 0,
+    "b": 0,
+    "n": 1,
+    "ops": [],
+    "prot": [],
+    "r": [
+     [
+      0,
+      0
+     ]
+    ],
+    "ret": []
+   }
+  }
+ },
+ "expected_equals_computed": true,
+ "minimality_assertions": {
+  "A->Bc": "carrier 3 minimum, cotransitivity automatic at 2 (Lean cotrans_auto_on_two)"
+ },
+ "open_cells": [
+  "A->Bl",
+  "Bc->Bl",
+  "Bs->Bl",
+  "F->Bl"
+ ],
+ "status_counts": {
+  "COUNTERMODEL": 51,
+  "IMPLIES": 17,
+  "OPEN_LOCATED": 4
+ }
+}

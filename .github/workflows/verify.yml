@@ -37,6 +37,8 @@ jobs:
           PYTHONPATH=code python code/run_diff_interface.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_represented.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_completion.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_primitive_core.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_primitive_passage.py --artifacts artifacts_ci
           python ci/compare_artifacts.py artifacts artifacts_ci
 
   lean:

@@ -1100,7 +1100,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.irrefl_witness_ne",
@@ -1140,7 +1142,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.factors_through_point_iff",
@@ -1150,7 +1154,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.no_witness_on_subsingleton",
@@ -1160,7 +1166,11 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCats.lean",
+    "PrimitiveContact.lean",
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.D2_irrefl",
@@ -1170,7 +1180,10 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCats.lean",
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.S2_irrefl",
@@ -1180,7 +1193,11 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCats.lean",
+    "PrimitiveContact.lean",
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.D2_witness",
@@ -1213,7 +1230,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.witnessed_irrefl_on_every_larger_carrier",
@@ -1308,7 +1327,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCore.lean"
+   ],
    "kind": "concrete",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.bool_irrefl_witness_classification",
@@ -1350,7 +1371,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.swap_is_S2_automorphism",
@@ -1360,7 +1383,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.oriented_rigid",
@@ -1427,7 +1452,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitivePassage.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.const_presentation_unfaithful",
@@ -1457,7 +1484,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.irred_empty_iff_ne",
@@ -1477,7 +1506,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "PrimitiveCore.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.merger_erases",
@@ -2850,7 +2881,9 @@
    "citing_claims": [
     "CL-RP-REPLAY"
    ],
-   "consumers": [],
+   "consumers": [
+    "PrimitivePassage.lean"
+   ],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.replay_deterministic",
@@ -2881,7 +2914,9 @@
     "CL-RP-REPLAY"
    ],
    "consumers": [
-    "Horizon.lean"
+    "HigherStructure.lean",
+    "Horizon.lean",
+    "PrimitivePassage.lean"
    ],
    "kind": "generic",
    "module": "Represented.lean",
@@ -3800,7 +3835,9 @@
    "citing_claims": [
     "CL-NC-RULE1"
    ],
-   "consumers": [],
+   "consumers": [
+    "PrimitivePassage.lean"
+   ],
    "kind": "generic",
    "module": "Completion.lean",
    "name": "Completion.refusal_object_inert",
@@ -4586,6 +4623,1330 @@
    "name": "Horizon.mark_saturation_all_descs",
    "role": "preservation",
    "statement": ": allDescs.all (fun d => interpStep d satNoopWorld (.mark [1] 0) == satNoopWorld) = true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.hom_ext",
+   "role": "preservation",
+   "statement": "{P Q : PtdRel} {h1 h2 : Hom P Q} (h : h1.f = h2.f) : h1 = h2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.comp_id",
+   "role": "preservation",
+   "statement": "{P Q : PtdRel} (h : Hom P Q) : comp h (idH P) = h"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.id_comp",
+   "role": "preservation",
+   "statement": "{P Q : PtdRel} (h : Hom P Q) : comp (idH Q) h = h"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.comp_assoc",
+   "role": "preservation",
+   "statement": "{P Q R S : PtdRel} (k : Hom R S) (g : Hom Q R) (h : Hom P Q) : comp (comp k g) h = comp k (comp g h)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2Obj_irrefl",
+   "role": "preservation",
+   "statement": ": IrreflObj d2Obj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2Obj_irrefl",
+   "role": "preservation",
+   "statement": ": IrreflObj s2Obj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2Obj_sym",
+   "role": "preservation",
+   "statement": ": SymObj s2Obj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2_not_obj_sym",
+   "role": "preservation",
+   "statement": ": \u00ac SymObj d2Obj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.weaklyInitial_of_initial",
+   "role": "preservation",
+   "statement": "{R : PtdRel} (h : Initial R) : WeaklyInitial R"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveContact.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2_initial",
+   "role": "preservation",
+   "statement": ": Initial d2Obj"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2_initial_irrefl",
+   "role": "preservation",
+   "statement": "(P : PtdRel) (_ : IrreflObj P) : \u2203 h : Hom d2Obj P, \u2200 h' : Hom d2Obj P, h' = h"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveContact.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_initial_sym",
+   "role": "preservation",
+   "statement": "(T : PtdRel) (hsym : SymObj T) : \u2203 h : Hom s2Obj T, \u2200 h' : Hom s2Obj T, h' = h"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_no_hom_to_d2",
+   "role": "preservation",
+   "statement": ": \u00ac Nonempty (Hom s2Obj d2Obj)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveContact.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_not_weakly_initial",
+   "role": "preservation",
+   "statement": ": \u00ac WeaklyInitial s2Obj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_not_initial",
+   "role": "preservation",
+   "statement": ": \u00ac Initial s2Obj"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2Swap_initial",
+   "role": "preservation",
+   "statement": ": Initial d2SwapObj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.two_initials_not_identical",
+   "role": "preservation",
+   "statement": ": d2Obj \u2260 d2SwapObj"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.initials_iso",
+   "role": "preservation",
+   "statement": "(P Q : PtdRel) (hP : Initial P) (hQ : Initial Q) : \u2203 (u : Hom P Q) (v : Hom Q P), comp v u = idH P \u2227 comp u v = idH Q"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.wideObj_irrefl",
+   "role": "preservation",
+   "statement": "(n : Nat) : IrreflObj (wideObj n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.ptd_on_every_larger_carrier",
+   "role": "preservation",
+   "statement": "(n : Nat) : \u2203 P : PtdRel, P.X = Fin (n + 2) \u2227 IrreflObj P"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.bigHomA_ne_bigHomB",
+   "role": "preservation",
+   "statement": "(n : Nat) : bigHomA n \u2260 bigHomB n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.larger_not_initial",
+   "role": "preservation",
+   "statement": "(n : Nat) : \u00ac Initial (bigObj n)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2_autos",
+   "role": "preservation",
+   "statement": "(f : Bool \u2192 Bool) (hiff : \u2200 x y, PrimDiff.D2 x y \u2194 PrimDiff.D2 (f x) (f y)) : f false = false \u2227 f true = true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_swap_auto",
+   "role": "preservation",
+   "statement": ": \u2200 x y, PrimDiff.S2 x y \u2194 PrimDiff.S2 (Bool.not x) (Bool.not y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_id_auto",
+   "role": "preservation",
+   "statement": ": \u2200 x y, PrimDiff.S2 x y \u2194 PrimDiff.S2 (id x) (id y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.not_bijective",
+   "role": "preservation",
+   "statement": ": BoolBijective Bool.not"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.s2_swap_isRelAuto",
+   "role": "preservation",
+   "statement": ": IsRelAuto PrimDiff.S2 Bool.not"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.not_not_d2_auto",
+   "role": "preservation",
+   "statement": ": \u00ac \u2200 x y, PrimDiff.D2 x y \u2194 PrimDiff.D2 (Bool.not x) (Bool.not y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.d2_swap_not_isRelAuto",
+   "role": "preservation",
+   "statement": ": \u00ac IsRelAuto PrimDiff.D2 Bool.not"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.pointed_rigid",
+   "role": "preservation",
+   "statement": ": (\u2200 h : Hom d2Obj d2Obj, h.f false = false \u2227 h.f true = true) \u2227 (\u2200 h : Hom s2Obj s2Obj, h.f false = false \u2227 h.f true = true)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom_ext",
+   "role": "preservation",
+   "statement": "{P R : Pres} {u v : PHom P R} (h : u.h = v.h) : u = v"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.pcomp_pid",
+   "role": "preservation",
+   "statement": "{P R : Pres} (u : PHom P R) : pcomp u (pid P) = u"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.pid_pcomp",
+   "role": "preservation",
+   "statement": "{P R : Pres} (u : PHom P R) : pcomp (pid R) u = u"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.pcomp_assoc",
+   "role": "preservation",
+   "statement": "{P R S T : Pres} (w : PHom S T) (g : PHom R S) (u : PHom P R) : pcomp (pcomp w g) u = pcomp w (pcomp g u)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.pres_initial",
+   "role": "preservation",
+   "statement": "(R : Pres) : \u2203 u : PHom idPres3 R, \u2200 v : PHom idPres3 R, v = u"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.no_phom_mergeA_mergeB",
+   "role": "preservation",
+   "statement": ": \u00ac Nonempty (PHom mergeA mergeB)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.no_phom_mergeB_mergeA",
+   "role": "preservation",
+   "statement": ": \u00ac Nonempty (PHom mergeB mergeA)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveContact.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.no_terminal_pres",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 T : Pres, \u2200 P : Pres, Nonempty (PHom P T)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom2_ext",
+   "role": "preservation",
+   "statement": "{P R : Pres2} {u v : PHom2 P R} (h : u.h = v.h) : u = v"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.idPres2_epi",
+   "role": "preservation",
+   "statement": ": Epi2 idPres2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.swapPres2_epi",
+   "role": "preservation",
+   "statement": ": Epi2 swapPres2"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom2_unique_of_epi",
+   "role": "preservation",
+   "statement": "(P : Pres2) (he : Epi2 P) (u v : PHom2 P idPres2) : u = v"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom2_exists_from_id",
+   "role": "preservation",
+   "statement": ": Nonempty (PHom2 idPres2 idPres2)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom2_exists_from_swap",
+   "role": "preservation",
+   "statement": ": Nonempty (PHom2 swapPres2 idPres2)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom2_unique_exists_id",
+   "role": "preservation",
+   "statement": ": \u2203 u : PHom2 idPres2 idPres2, \u2200 v : PHom2 idPres2 idPres2, v = u"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.phom2_unique_exists_swap",
+   "role": "preservation",
+   "statement": ": \u2203 u : PHom2 swapPres2 idPres2, \u2200 v : PHom2 swapPres2 idPres2, v = u"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.D_iff_ne",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, D S \u2194 S.a \u2260 S.b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.located_of_decidable",
+   "role": "preservation",
+   "statement": "{X : Type} (r : X \u2192 X \u2192 Prop) [inst : \u2200 x y, Decidable (r x y)] : Located r"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.cotrans_auto_on_two",
+   "role": "preservation",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) (hi : PrimDiff.Irrefl r) : Cotrans r"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.not_bs_of_not_a",
+   "role": "preservation",
+   "statement": "{S : Setting} (h : \u00ac A S) : \u00ac Bs S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.not_bc_of_not_a",
+   "role": "preservation",
+   "statement": "{S : Setting} (h : \u00ac A S) : \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.not_bl_of_not_a",
+   "role": "preservation",
+   "statement": "{S : Setting} (h : \u00ac A S) : \u00ac Bl S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.not_f_of_not_a",
+   "role": "preservation",
+   "statement": "{S : Setting} (h : \u00ac A S) : \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_a",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_bl",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac Bl S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_d",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_w_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, W S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_a_w",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, A S \u2192 W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_a_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_a_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_a_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_a_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, A S \u2192 D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_a_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_a_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bs_w",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bs S \u2192 W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bs_a",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bs S \u2192 A S"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bs_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bs S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bs_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bs S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bs_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bs S \u2192 D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bs_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bs S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bs_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bs S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bc_w",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bc S \u2192 W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bc_a",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bc S \u2192 A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bc_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bc S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bc_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bc S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bc_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bc S \u2192 D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bc_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bc S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bc_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bc S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bl_w",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bl S \u2192 W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bl_a",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bl S \u2192 A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bl_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bl S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bl_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bl S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bl_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bl S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_bl_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, Bl S \u2192 D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bl_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bl S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_bl_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, Bl S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_c_w",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, C S \u2192 W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_a",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_bl",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac Bl S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_d",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_c_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, C S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_w",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_a",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_bl",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac Bl S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_d_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, D S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_w",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_a",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_bl",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac Bl S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_c",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_e_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, E S \u2192 D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_e_f",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, E S \u2227 \u00ac F S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_f_w",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, F S \u2192 W S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_f_a",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, F S \u2192 A S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_f_bs",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, F S \u2227 \u00ac Bs S"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_f_bc",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, F S \u2227 \u00ac Bc S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_f_c",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, F S \u2192 C S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.imp_f_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, F S \u2192 D S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.nimp_f_e",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, F S \u2227 \u00ac E S"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.e_empty_iff_d",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, S.Ops = (fun _ => False) \u2192 (E S \u2194 D S)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.prot_not_from_witness",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac S.prot S.a S.b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.ret_not_from_witness",
+   "role": "preservation",
+   "statement": ": \u2203 S : Setting, A S \u2227 \u00ac S.ret S.a S.b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.f_ops_irrelevant",
+   "role": "preservation",
+   "statement": ": \u2200 S : Setting, \u2200 O' : (S.X \u2192 S.X) \u2192 Prop, F { S with Ops"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.bool_class",
+   "role": "preservation",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) [\u2200 x y, Decidable (r x y)] (ret prot : Bool \u2192 Bool \u2192 Prop) (Ops : (Bool \u2192 Bool) \u2192 Prop) (h : A { X"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCore.lean",
+   "name": "PrimitiveCore.matrixCells_length",
+   "role": "preservation",
+   "statement": ": matrixCells.length = 72"
   }
  ]
 }
