@@ -191,6 +191,9 @@
   "all_made_a_purchase": true,
   "carrier2_without_reify_occurrence_or_second_token": [],
   "normal_form_holds_in_class": true,
+  "oriented_without_tag_or_relation": [],
+  "result_distinction_without_binary_algebra": [],
+  "separable_without_tag_or_relation": [],
   "violations": [],
   "witnessed_irreflexive_reachers": 16,
   "witnessed_without_relation_rule": []
@@ -1659,7 +1662,13 @@
    "witnessed_relation->witnessed_irreflexive": true,
    "witnessed_relation->witnessed_relation": true
   },
-  "notions": [
+  "separately_reported": [
+   "two_histories (metatheoretic; histories_collapse)",
+   "two_states (metatheoretic; dynamics rows)",
+   "two_event_classes (protocol-level report flag)",
+   "oriented (per-state refinement; oriented_two)"
+  ],
+  "state_level_notions": [
    "two_carrier",
    "two_tokens",
    "two_occurrences",

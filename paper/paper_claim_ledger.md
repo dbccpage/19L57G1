@@ -595,16 +595,25 @@ Full statements, dependencies, and boundaries:
 `lean4/Derivation/RefusalFrontier.lean`.
 
 ### CL-FR6-TERMINAL
-- **Statement**: MULTIPLE_MINIMUM_BRIDGES — within the declared
-  44-protocol class the refusal bridge closes for priced protocols,
-  fails for the free fragment, has incomparable tied minima under the
-  two declared cost orders, and satisfies the provenance normal form.
+- **Statement**: split by target (per PR #7 verdict; supersedes the
+  earlier single-line MULTIPLE_MINIMUM_BRIDGES, which conflated three
+  bridge targets): FREE_REFUSAL_BRIDGE_FAILS (the free fragment reaches
+  nothing); UNIQUE_MINIMUM_WITNESSED_BRIDGE_IN_CLASS (one minimum
+  protocol — datum retention + relation rule, no tag, singleton
+  algebra, one token — for witnessed_relation and
+  witnessed_irreflexive, identical under both cost orders);
+  MULTIPLE_MINIMUM_WEAKER_BRIDGES (three ties for two_carrier and two
+  ties for separable/oriented pair under order A, with order B
+  selecting different winners).  Irreflexivity as a law is not reached
+  and remains separately declared.
 - **Class**: bounded theorem (exhaustive in class) + theorem (cores).
 - **Python**: `refusal_frontier.json` (minimum_table, normal_form).
-- **Lean**: the CL-FR6-T* theorems.  **Axioms**: within
+- **Lean**: the CL-FR6-T* theorems, incl.
+  `min_witnessed_route_closes`.  **Axioms**: within
   {propext, Quot.sound}.
-- **Falsifier**: an in-class route with no listed purchase, or a
-  declared cost order under which one route dominates globally.
+- **Falsifier**: an in-class route with no listed purchase; a second
+  minimum protocol at a witnessed milestone under either order; or a
+  weaker-milestone tie eliminated under both orders.
 
 ### CL-FR6-T1-INERTIA
 - **Statement**: horizon-free silent-refusal inertia under arbitrary
@@ -618,14 +627,21 @@ Full statements, dependencies, and boundaries:
 
 ### CL-FR6-T3-CONSTRUCTORS
 - **Statement**: constructor-channel dependency (singleton algebras are
-  monochrome, swap-invariant, collapsed); the search refines to exactly
-  three binary-import channels in class (constructors, tags, relations).
+  monochrome, swap-invariant, collapsed); the search scopes the three
+  import channels *by target* — constructors are required for
+  result-outcome distinction, tags or relations for carrier-pair
+  separability, relations for witnessed relations.  Result codes never
+  enter carrier profiles; no target-independent interchangeability of
+  the channels is claimed.
 - **Class**: theorem + bounded computation.
 - **Lean**: `singleton_algebra_monochrome`, `mono_code_swap_invariant`,
   `distinct_code_not_swap_invariant`,
   `distinction_needs_two_constructors`.
 - **Python**: matrix cell `separable_pair -> two_result_constructors`
-  refuted (tag-route countermodel).
+  refuted (tag-route countermodel); target-relative checks
+  `separable_without_tag_or_relation`,
+  `oriented_without_tag_or_relation`,
+  `result_distinction_without_binary_algebra` all empty in class.
 
 ### CL-FR6-T4-CARRIER
 - **Statement**: refusal-to-carrier per variant; judgment mode gives a
@@ -635,11 +651,18 @@ Full statements, dependencies, and boundaries:
   `judgment_carrier_bound`.
 
 ### CL-FR6-T5-BRIDGE
-- **Statement**: the priced bridge closes (witnessed, irreflexive-as-
-  fact, oriented from one token in two presentations); the tag route
-  ties under cost order A; the orders disagree on the winner.
+- **Statement**: a sufficient non-minimum bridge closes (`stepP`:
+  occurrence-style reification + tag + relation; no result store —
+  witnessed, irreflexive-as-fact, oriented from one token in two
+  presentations); and the unique minimum witnessed route (datum
+  retention + relation rule only, on a state with no tag store and no
+  result store) closes in Lean, matching the search's single minimum
+  under both cost orders.  The tag/relation tie and the order
+  disagreement live at the weaker milestones (separable/oriented pair),
+  not at the witnessed milestones.
 - **Class**: theorem + bounded computation (ties).
-- **Lean**: `priced_bridge_closes`, `priced_bridge_oriented`.
+- **Lean**: `priced_bridge_closes`, `priced_bridge_oriented`,
+  `min_witnessed_route_closes`.
 
 ### CL-FR6-T6-LAW
 - **Statement**: bridge facts do not entail the irreflexivity law; in
@@ -657,9 +680,12 @@ Full statements, dependencies, and boundaries:
 
 ### CL-FR6-T8-DYNAMICS
 - **Statement**: reflective dynamics classified — fixpoint, two-cycle,
-  horizon-free growth; the growth chain's carrier is `range (n+1)` with
-  the successor relation, every link irreflexive: the refusal tower is
-  a successor structure, for every n.
+  horizon-free growth; the *declared* reflective semantics realizes a
+  successor chain for every n (carrier `range (n+1)`, relation
+  successor, every link irreflexive).  Realization by declaration, not
+  derivation: `stepRefl` itself appends the current length and inserts
+  the predecessor edge; refusal alone derives no numerals.  Initiality
+  is open (F4).
 - **Class**: theorem.
 - **Lean**: `untyped_reflect_fixpoint`, `toggle_two_cycle`,
   `reflective_chain_growth`, `reflective_chain_is_initial_segment`,
@@ -668,17 +694,25 @@ Full statements, dependencies, and boundaries:
 
 ### CL-FR6-T9-PRICES
 - **Statement**: minimum-price table under two cost orders with all
-  ties (three tied purchases for two-ness; tag vs relation routes for
-  separability; order disagreement on the cheapest bridge).
+  ties, split by target: three tied purchases for two-ness under order
+  A (order B selects occurrence); tag vs relation routes tied for
+  separability under order A (order B selects the tag route); a unique,
+  order-independent minimum (the relation route) for witnessed_relation
+  and witnessed_irreflexive.  The order disagreement concerns the
+  weaker milestones only.
 - **Class**: finite computation (exhaustive in class).
 - **Python**: `minimum_table`.
 
 ### CL-FR6-T10-NORMAL-FORM
-- **Statement**: in-class provenance normal form: every route to
-  witnessed irreflexive difference makes at least one explicit
-  purchase; witnessed relations require the relation rule; carrier
-  growth from one token requires reification or occurrence retention;
-  zero violations among 44 protocols.  The class-general Lean form is
-  the named unresolved obligation.
+- **Statement**: target-relative provenance dependencies, each checked
+  exhaustively over the 44 protocols, claims matching checks
+  one-for-one: every witnessed-irreflexive reacher makes a declared
+  purchase (zero violations); witnessed relations require the relation
+  rule; one-token carrier growth requires reification or occurrence
+  retention; separable and oriented pairs require a tag or a relation;
+  result-outcome distinction requires the binary algebra.
+  `normal_form_holds_in_class` is the conjunction of exactly these
+  checks.  The class-general Lean form is the named unresolved
+  obligation.
 - **Class**: bounded theorem (exhaustive in class).
 - **Python**: `normal_form_check`.

@@ -209,3 +209,40 @@ unchanged except the status rename.
 
 `paper.md`, `paper_claim_ledger.md`, and this log written against the
 frozen artifacts; final gate run recorded in `paper.md` section 12.
+
+## 9. 2026-08-12 — Frontier Run 006 correction pass (PR #7 verdict)
+
+One narrow correction pass on `paper/refusal_as_difference.md` and its
+evidence, per verdict; the protocol class is unchanged and no research
+search was reopened.
+
+1. Terminal split by target: FREE_REFUSAL_BRIDGE_FAILS /
+   UNIQUE_MINIMUM_WITNESSED_BRIDGE_IN_CLASS /
+   MULTIPLE_MINIMUM_WEAKER_BRIDGES.  The artifact shows one minimum
+   protocol (datum + relation rule) for the witnessed milestones under
+   both cost orders; the ties and the order disagreement live at
+   two-carrier and separable/oriented pair.  The earlier single-line
+   MULTIPLE_MINIMUM_BRIDGES conflated these targets.
+2. New Lean theorem `min_witnessed_route_closes` verifies the actual
+   computed minimum witnessed route on a state type with no tag store
+   and no result store (receipt as a literal coproduct).  `stepP` is
+   relabeled a sufficient, non-minimum construction; its comment no
+   longer claims a binary result algebra (it has no result store).
+   Axiom reports: 135, within {propext, Quot.sound}.
+3. Import channels scoped by target (constructors — result outcomes;
+   tags/relations — carrier profiles; relations — witnessed relations);
+   the target-independent three-channel reading is withdrawn.
+4. `normal_form_check` strengthened to test exactly the claims made:
+   added separable/oriented pair → tag-or-relation and result
+   distinction → binary algebra checks (all empty in class); claims and
+   checks now match one-for-one.
+5. The implication matrix renamed to the nine-state-level-notion
+   matrix; the twelve declared notions remain, with histories, states,
+   event classes, and orientation reported separately at their own
+   levels.
+6. Proto-numeral headline scoped: the declared reflective protocol
+   *realizes* a successor chain (horizon-free); refusal itself derives
+   no numerals.  Initiality remains open (F4).
+
+Tests 129 → 131; coverage 99.10% line / 97.29% branch; artifact
+`refusal_frontier.json` regenerated deterministically.

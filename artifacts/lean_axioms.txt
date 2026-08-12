@@ -124,11 +124,12 @@ Derivation.lean:167:0: 'RefusalFrontier.judgment_variant_second_judgment_not_dat
 Derivation.lean:168:0: 'RefusalFrontier.judgment_carrier_bound' depends on axioms: [propext, Quot.sound]
 Derivation.lean:169:0: 'RefusalFrontier.priced_bridge_closes' depends on axioms: [propext, Quot.sound]
 Derivation.lean:170:0: 'RefusalFrontier.priced_bridge_oriented' depends on axioms: [propext, Quot.sound]
-Derivation.lean:171:0: 'RefusalFrontier.bridge_facts_not_law' depends on axioms: [propext, Quot.sound]
-Derivation.lean:172:0: 'RefusalFrontier.equivariant_output_invariant' does not depend on any axioms
-Derivation.lean:173:0: 'RefusalFrontier.untyped_reflect_fixpoint' does not depend on any axioms
-Derivation.lean:174:0: 'RefusalFrontier.toggle_two_cycle' does not depend on any axioms
-Derivation.lean:175:0: 'RefusalFrontier.reflective_chain_growth' depends on axioms: [propext]
-Derivation.lean:176:0: 'RefusalFrontier.reflective_chain_is_initial_segment' depends on axioms: [propext]
-Derivation.lean:177:0: 'RefusalFrontier.reflective_chain_successor_relation' depends on axioms: [propext]
-Derivation.lean:178:0: 'RefusalFrontier.reflective_chain_irreflexive_facts' depends on axioms: [propext, Quot.sound]
+Derivation.lean:171:0: 'RefusalFrontier.min_witnessed_route_closes' depends on axioms: [propext]
+Derivation.lean:172:0: 'RefusalFrontier.bridge_facts_not_law' depends on axioms: [propext, Quot.sound]
+Derivation.lean:173:0: 'RefusalFrontier.equivariant_output_invariant' does not depend on any axioms
+Derivation.lean:174:0: 'RefusalFrontier.untyped_reflect_fixpoint' does not depend on any axioms
+Derivation.lean:175:0: 'RefusalFrontier.toggle_two_cycle' does not depend on any axioms
+Derivation.lean:176:0: 'RefusalFrontier.reflective_chain_growth' depends on axioms: [propext]
+Derivation.lean:177:0: 'RefusalFrontier.reflective_chain_is_initial_segment' depends on axioms: [propext]
+Derivation.lean:178:0: 'RefusalFrontier.reflective_chain_successor_relation' depends on axioms: [propext]
+Derivation.lean:179:0: 'RefusalFrontier.reflective_chain_irreflexive_facts' depends on axioms: [propext, Quot.sound]

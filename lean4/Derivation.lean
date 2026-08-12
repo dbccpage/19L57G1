@@ -168,6 +168,7 @@ open Derivation
 #print axioms RefusalFrontier.judgment_carrier_bound
 #print axioms RefusalFrontier.priced_bridge_closes
 #print axioms RefusalFrontier.priced_bridge_oriented
+#print axioms RefusalFrontier.min_witnessed_route_closes
 #print axioms RefusalFrontier.bridge_facts_not_law
 #print axioms RefusalFrontier.equivariant_output_invariant
 #print axioms RefusalFrontier.untyped_reflect_fixpoint

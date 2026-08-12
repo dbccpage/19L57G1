@@ -120,6 +120,27 @@ def test_minimum_table_ties_and_disagreement() -> None:
     assert cost_b(Proto(1, "none", False, False, False, 2)) == (1, 0, 0)
 
 
+def test_witnessed_minimum_unique_under_both_orders() -> None:
+    """The witnessed milestones have a single minimum protocol, and it
+    is the same one under both cost orders: datum retention + the
+    relation rule, no tag, singleton algebra, one token.  The multiple
+    minima live only at the weaker milestones."""
+    mt = minimum_table(5)
+    for order in ("A_total_imports", "B_lex"):
+        for milestone in ("witnessed_relation", "witnessed_irreflexive"):
+            cell = mt[order][milestone]
+            assert isinstance(cell, dict)
+            ties = cell["tied_minima"]
+            assert len(ties) == 1
+            only = ties[0]
+            assert only["retention"] == "datum"
+            assert only["autorel"] is True
+            assert only["tagging"] is False
+            assert only["algebra"] == 1
+            assert only["tokens"] == 1
+            assert only["reflection"] is False
+
+
 def test_normal_form_holds() -> None:
     nf = normal_form_check(5)
     assert nf["normal_form_holds_in_class"] is True
@@ -127,6 +148,26 @@ def test_normal_form_holds() -> None:
     assert nf["violations"] == []
     assert nf["witnessed_without_relation_rule"] == []
     assert nf["carrier2_without_reify_occurrence_or_second_token"] == []
+    # Target-relative channel checks: carrier separability needs a tag
+    # or a relation; result-outcome distinction needs the binary
+    # algebra.  Zero exceptions in class.
+    assert nf["separable_without_tag_or_relation"] == []
+    assert nf["oriented_without_tag_or_relation"] == []
+    assert nf["result_distinction_without_binary_algebra"] == []
+
+
+def test_notion_matrix_declares_state_level_scope() -> None:
+    m = notion_matrix(4)
+    keys = m["state_level_notions"]
+    assert isinstance(keys, list)
+    assert len(keys) == 9  # nine state-level notions, 72 directed cells
+    imp = m["implications"]
+    assert isinstance(imp, dict)
+    assert len(imp) == 81  # 9 x 9 including reflexive diagonal
+    sep = m["separately_reported"]
+    assert isinstance(sep, list)
+    assert any("two_histories" in row for row in sep)
+    assert any("oriented" in row for row in sep)
 
 
 def test_notion_matrix_key_cells() -> None:

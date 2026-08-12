@@ -161,16 +161,20 @@ theorem judgment_carrier_bound (h : List Nat) :
             rfl
         | inr h1 => exact absurd (by rw [h1]; simp) hmem
 
-/-! ## T5 — The priced constructive bridge
+/-! ## T5 — priced constructive bridges: a sufficient route and the
+unique minimum route
 
-Protocol `P*`: binary result algebra + retention-as-datum + tag + an
-automatic relation rule (the refusal receipt is linked to its subject).
-Two presentations of one token yield a witnessed, irreflexive-as-fact,
-oriented datum.  Every capability is visible in the definition of
-`stepP` itself: the branch (binary algebra), the append (retention as
-carrier datum), the tag (built-in unary observable), the `rel` append
-(relation symbol + witness rule).  The irreflexivity *law* remains a
-separate declaration (T6). -/
+`stepP` is a *sufficient, non-minimum* construction: occurrence-style
+reification (the token itself is re-appended) + a tag + an automatic
+relation rule.  Its `if` is host-level control flow, not a stored
+result constructor — `PState` has no result store, so no binary result
+algebra is used or claimed.  Two presentations of one token yield a
+witnessed, irreflexive-as-fact, oriented datum.  The irreflexivity
+*law* remains a separate declaration (T6).
+
+The *minimum* witnessed route computed by the search — unique under
+both declared cost orders — uses strictly less and is verified
+separately below (`stepM`). -/
 
 structure PState where
   data : List Nat
@@ -205,6 +209,47 @@ def swapP (s : PState) : PState :=
 
 theorem priced_bridge_oriented : swapP bridgeState ≠ bridgeState := by
   decide
+
+/-! ### The unique minimum witnessed route
+
+The search's minimum protocol for `witnessed_relation` and
+`witnessed_irreflexive` is *unique under both declared cost orders*:
+datum retention (receipt reification — a coproduct into the carrier)
+plus the automatic relation rule, with no tag, no binary result
+algebra, no reflection, and one token.  `MItem` is literally that
+coproduct (token ⊕ receipt); `MState` has no tag store and no result
+store, so this construction cannot use either of the other channels. -/
+
+inductive MItem where
+  | tok (n : Nat)
+  | receipt (n : Nat)
+deriving Repr, DecidableEq
+
+structure MState where
+  data : List MItem
+  rel : List (Nat × Nat)
+deriving Repr, DecidableEq
+
+/-- One-token minimum protocol: a repeated presentation reifies a fresh
+receipt and asserts the relation instance from the refused subject
+(index 0, the sole token) to the receipt. -/
+def stepM (s : MState) (t : Nat) : MState :=
+  if MItem.tok t ∈ s.data then
+    { data := s.data ++ [MItem.receipt s.data.length],
+      rel := s.rel ++ [(0, s.data.length)] }
+  else { s with data := s.data ++ [MItem.tok t] }
+
+def minState : MState := stepM (stepM ⟨[], []⟩ 0) 0
+
+/-- The minimum route closes: two presentations of one token yield a
+two-element carrier (token and receipt — the coproduct is the second
+element's provenance), the witnessed relation `[(0, 1)]`, and only
+off-diagonal (irreflexive-as-fact) links — with no tag and no result
+store even present in the state. -/
+theorem min_witnessed_route_closes :
+    minState.data = [MItem.tok 0, MItem.receipt 1] ∧
+    minState.rel = [(0, 1)] ∧
+    (∀ p ∈ minState.rel, p.1 ≠ p.2) := by decide
 
 /-! ## T6 — Irreflexivity provenance (boundary preserved)
 
@@ -280,7 +325,11 @@ theorem reflective_chain_growth :
       rfl
 
 /-- The carrier of the chain is literally the initial segment of the
-numerals: the refusal tower is a successor structure. -/
+numerals: the *declared* reflective semantics realizes a successor
+structure.  Realization, not derivation — `stepRefl` itself appends the
+current length and inserts the predecessor edge, so the successor shape
+is the declaration's content; what the theorem adds is that this holds
+horizon-free, for every `n`. -/
 theorem reflective_chain_is_initial_segment :
     ∀ n, (reflState n).data = List.range (n + 1) := by
   intro n

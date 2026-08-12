@@ -370,13 +370,31 @@ def minimum_table(max_events: int) -> dict[str, object]:
 
 
 def normal_form_check(max_events: int) -> dict[str, object]:
-    """T10: every protocol reaching a witnessed irreflexive datum makes
-    at least one purchase from the declared list; and finer dependencies
-    within the class."""
+    """T10: target-relative provenance dependencies, each checked
+    exhaustively over the declared class — one check per claim made in
+    the paper:
+
+    * every ``witnessed_irreflexive`` reacher makes at least one
+      declared purchase;
+    * every ``witnessed_relation`` reacher has the relation rule;
+    * every one-token ``two_carrier`` reacher has occurrence or datum
+      retention;
+    * every ``separable_pair`` reacher and every ``oriented_pair``
+      reacher has a tag or a relation rule (the carrier-profile
+      channels);
+    * every ``two_result_constructors`` reacher has the binary result
+      algebra (the result-outcome channel).
+
+    The channels are target-relative: result-outcome distinction and
+    carrier-pair separability have different channels, and no
+    target-independent interchangeability of the three is claimed."""
     purchases = []
     violations = []
     dependency_rel = []
     dependency_two = []
+    dependency_sep = []
+    dependency_orient = []
+    dependency_result = []
     for p in enumerate_protocols():
         rep = protocol_report(p, max_events)
         mins = rep["min_events_to"]
@@ -386,13 +404,26 @@ def normal_form_check(max_events: int) -> dict[str, object]:
             purchases.append({"protocol": p.json(), "imports": imp})
             if not imp:
                 violations.append(p.json())
-            if not p.autorel:
-                dependency_rel.append(p.json())
+        if mins["witnessed_relation"] is not None and not p.autorel:
+            dependency_rel.append(p.json())
         if mins["two_carrier"] is not None:
             if p.tokens == 1 and p.retention not in (
                 "occurrence", "datum"
             ):
                 dependency_two.append(p.json())
+        if mins["separable_pair"] is not None and not (
+            p.tagging or p.autorel
+        ):
+            dependency_sep.append(p.json())
+        if mins["oriented_pair"] is not None and not (
+            p.tagging or p.autorel
+        ):
+            dependency_orient.append(p.json())
+        if (
+            mins["two_result_constructors"] is not None
+            and p.algebra < 2
+        ):
+            dependency_result.append(p.json())
     return {
         "witnessed_irreflexive_reachers": len(purchases),
         "all_made_a_purchase": not violations,
@@ -400,16 +431,27 @@ def normal_form_check(max_events: int) -> dict[str, object]:
         "witnessed_without_relation_rule": dependency_rel,
         "carrier2_without_reify_occurrence_or_second_token":
             dependency_two,
+        "separable_without_tag_or_relation": dependency_sep,
+        "oriented_without_tag_or_relation": dependency_orient,
+        "result_distinction_without_binary_algebra": dependency_result,
         "normal_form_holds_in_class": not violations
         and not dependency_rel
-        and not dependency_two,
+        and not dependency_two
+        and not dependency_sep
+        and not dependency_orient
+        and not dependency_result,
     }
 
 
 def notion_matrix(max_events: int) -> dict[str, object]:
-    """Implications among the state-level notions of two-ness, evaluated
-    over every reachable state of every protocol; countermodels recorded
-    per refuted implication."""
+    """Implications among the nine *state-level* notions of two-ness,
+    evaluated over every reachable state of every protocol;
+    countermodels recorded per refuted implication.  The remaining
+    declared notions are not state predicates and are reported
+    separately: two histories and two states are metatheoretic
+    (``histories_collapse``); two event classes is protocol-level (the
+    report flag); orientation is a per-state refinement of separability
+    (``oriented_two``)."""
     keys = [
         "two_carrier", "two_tokens", "two_occurrences",
         "two_result_constructors", "two_judgments", "second_sort",
@@ -433,7 +475,13 @@ def notion_matrix(max_events: int) -> dict[str, object]:
                             "state": s.json(),
                         }
     return {
-        "notions": keys,
+        "state_level_notions": keys,
+        "separately_reported": [
+            "two_histories (metatheoretic; histories_collapse)",
+            "two_states (metatheoretic; dynamics rows)",
+            "two_event_classes (protocol-level report flag)",
+            "oriented (per-state refinement; oriented_two)",
+        ],
         "implications": {
             f"{a}->{b}": holds[(a, b)] for a in keys for b in keys
         },
