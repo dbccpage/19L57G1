@@ -1,0 +1,81 @@
+{
+ "failed_bridges": [
+  {
+   "boundary": "nothing follows from the seed alone; admission is a separate represented event",
+   "bridge": "seed -> admission",
+   "evidence": [
+    "Derivation.genesis_underivable",
+    "Derivation.supply_no_op"
+   ],
+   "relation": "forces successor state"
+  },
+  {
+   "boundary": "supply never mutates admitted state",
+   "bridge": "supply -> admission",
+   "evidence": [
+    "Derivation.supply_no_op"
+   ],
+   "relation": "is"
+  },
+  {
+   "boundary": "one deduplicated token bounds the carrier at one",
+   "bridge": "seed -> two-ness",
+   "evidence": [
+    "Bridge.single_token_carrier_bound",
+    "Bridge.second_token_required"
+   ],
+   "relation": "yields"
+  },
+  {
+   "boundary": "the relation channel is a separate purchase",
+   "bridge": "two-ness -> witnessed relation",
+   "evidence": [
+    "Bridge.no_forms_no_witness"
+   ],
+   "relation": "yields"
+  },
+  {
+   "boundary": "the law is always a separate declaration",
+   "bridge": "irreflexivity fact -> irreflexivity law",
+   "evidence": [
+    "Bridge.irrefl_law_not_entailed",
+    "RefusalFrontier.bridge_facts_not_law"
+   ],
+   "relation": "entails"
+  },
+  {
+   "boundary": "the invariance ceiling; bypass requires a priced asymmetry (tag/relation/position)",
+   "bridge": "two-ness -> orientation",
+   "evidence": [
+    "PrimDiff.symmetric_no_equivariant_classifier",
+    "RefusalFrontier.equivariant_output_invariant"
+   ],
+   "relation": "equivariantly yields"
+  },
+  {
+   "boundary": "authorization and budget are represented gates; proposals never self-execute",
+   "bridge": "extension proposal -> extension execution",
+   "evidence": [
+    "Represented.progress_needs_license",
+    "Represented.progress_needs_budget"
+   ],
+   "relation": "executes without authorization"
+  },
+  {
+   "boundary": "refusal is a status record, non-absorbing; run termination belongs to the history producer",
+   "bridge": "refusal -> terminal",
+   "evidence": [
+    "Completion.refusal_non_absorbing"
+   ],
+   "relation": "terminalizes the run"
+  }
+ ],
+ "run_level_separations": [
+  "witness_not_separation (Completion)",
+  "separation_not_witness (Completion)",
+  "meta_distinctness_inert (Completion)",
+  "retraction_breaks_preservation (Completion)",
+  "refusal terminalization refuted: refusal_non_absorbing",
+  "guard separations: six load-bearing probes (Initiality)"
+ ]
+}
