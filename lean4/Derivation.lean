@@ -12,6 +12,7 @@ import Derivation.Refusal
 import Derivation.RefusalFrontier
 import Derivation.Generator
 import Derivation.DiffInterface
+import Derivation.Represented
 
 /-!
 # Axiom reports
@@ -235,3 +236,53 @@ open Derivation
 #print axioms DiffInterface.cm_edge
 #print axioms DiffInterface.cm_hash
 #print axioms DiffInterface.cm_repetition
+
+-- Represented progress without an outside
+#print axioms Represented.bool_eq_of_iff
+#print axioms Represented.or_not_eq_true
+#print axioms Represented.replay_deterministic
+#print axioms Represented.replay_nil
+#print axioms Represented.replay_append
+#print axioms Represented.support_determines
+#print axioms Represented.internal_support
+#print axioms Represented.notes_inert
+#print axioms Represented.repairFamily_sound
+#print axioms Represented.repairFamily_complete
+#print axioms Represented.repairFamily_retains_ties
+#print axioms Represented.equiv_step
+#print axioms Represented.equiv_replay
+#print axioms Represented.equiv_repairFamily
+#print axioms Represented.mark_discharges
+#print axioms Represented.mark_preserves
+#print axioms Represented.step_mark_sound
+#print axioms Represented.satB_aug
+#print axioms Represented.aug_preserves_satisfied
+#print axioms Represented.aug_increases
+#print axioms Represented.wf_genesis
+#print axioms Represented.wf_step
+#print axioms Represented.wf_replay
+#print axioms Represented.represented_progress
+#print axioms Represented.progress_needs_budget
+#print axioms Represented.progress_needs_license
+#print axioms Represented.violation_only_from_require
+#print axioms Represented.quiescent_stable
+#print axioms Represented.histUpTo_prefix
+#print axioms Represented.admit_data_fresh
+#print axioms Represented.worldAt_data
+#print axioms Represented.worldAt_growth
+#print axioms Represented.productive_run
+#print axioms Represented.worldAt_three_quiescent
+#print axioms Represented.wit_all_lengths
+#print axioms Represented.wit_no_infinite
+#print axioms Represented.cert_scope
+#print axioms Represented.cert_not_correspondence
+#print axioms Represented.cert_panel_relative
+#print axioms Represented.scheduler_hidden
+#print axioms Represented.gensym_hidden
+#print axioms Represented.oracle_hidden
+#print axioms Represented.incomplete_search_false_alarm
+#print axioms Represented.augmentation_destroys_old_replay
+#print axioms Represented.repetition_not_progress
+#print axioms Represented.order_sensitivity_splits_equivalents
+#print axioms Represented.refusal_needs_certificate
+#print axioms Represented.refusals_are_represented

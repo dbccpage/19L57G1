@@ -315,3 +315,84 @@ Further axiom-hygiene findings recorded: `List.eq_nil_iff_forall_not_mem`
 depends on `Classical.choice` in this toolchain (replaced by a
 cases-based proof); the build's 186 axiom reports remain within
 {propext, Quot.sound}.
+
+## 12. 2026-08-12 — Represented progress without an outside
+
+Externally imposed challenge (caller assignment): can all load-bearing
+causes of represented progress themselves be represented, with no
+hidden evaluator, selector, or source outside the replay semantics?
+
+New leg: `lean4/Derivation/Represented.lean` (native, core-only, 48
+exported theorems), `code/derivation/represented.py`,
+`code/run_represented.py`, `tests/test_represented.py`, artifact
+`represented.json`, `paper/represented_progress.md`, CL-RP-* ledger
+entries, CI regeneration line.
+
+Terminal, split by claim: REPRESENTED_KERNEL_EXISTS /
+HIDDEN_INPUT_CLASSES_REFUTED /
+CERTIFICATION_BOUNDED_BY_PANEL_QUOTIENT.  One kernel carries every
+load-bearing input in its state or history (evaluator, requirement,
+scheduler, tie-break, fresh names, fuel, authorization, stopping
+condition) and satisfies the eight target theorems: replay
+determinism/composition; the support theorem (result-affecting data
+occur in the represented support); complete tied successor families
+with replay-equivalence invariance; repair soundness (discharge +
+preservation); augmentation soundness (exact conservativity equation +
+verified expressive increase); represented progress (repair family
+non-empty or certified obstruction with accepted canonical
+augmentation; budget and license isolated as the represented
+load-bearing hypotheses; refusal only with a verified certificate);
+closure (new violations only from represented require events);
+productivity (one prefix-compatible unbounded run with carrier
+`range (k+1)` derived through the acceptance-guarded kernel) separated
+by proof from per-length witnessing (a represented Koenig failure).
+Internal certification is priced exactly: equivalent to the panel's
+joint separation, refuted as correspondence, non-monotone under panel
+extension.  The eight required countermodels each consume exactly one
+unrepresented input and are machine-checked; obstruction requires
+exhaustive failure of the declared response menu by definition, and
+the incomplete-search countermodel shows why.
+
+The `admit` event constructor is spelled `admitTok` (forbidden-token
+audit).  Test count 155 -> 175; the build's 234 axiom reports remain
+within {propext, Quot.sound} with no new hygiene exceptions.
+
+## 13. 2026-08-12 — Represented-progress correction pass (PR #10 verdict)
+
+One focused correction pass; the research programme is unchanged.
+
+1. Terminal scoped to a fixed kernel constitution: the event grammar,
+   sep/sat laws, response menu, acceptance predicates, and history
+   producer are fixed metatheory; the theorems cover *runtime* inputs
+   relative to that fixed `step` semantics, and the constitution does
+   not derive itself.
+2. Python/Lean carrier mismatch closed: every negative token, index,
+   view member, requirement endpoint, mark point, budget, and note is
+   rejected in the mirror, matching Lean's `Nat`; negative-domain and
+   malformed-event tests added.
+3. The claim that bounded runs terminalize in refusal is withdrawn:
+   refusal records verified same-level exhaustion and is
+   non-absorbing; run termination belongs to the metatheoretic history
+   producer.
+4. "Augmentation conservativity" renamed: `aug_preserves_satisfied`
+   preserves satisfied positive requirements; old non-separation
+   judgments are not preserved — changing them is the licensed content
+   of augmentation.
+5. RP8 scoped to an explicitly supplied prefix-compatible event
+   stream (never called endogenous); per-event acceptance and
+   per-stage quiescence verified exhaustively to the 15-round bound.
+6. No-hidden-choice scoped to `repairFamily`; the structural branch's
+   canonical augmentation `[i]` takes its orientation from the
+   ordered, recorded requirement — a represented datum and a stated
+   scoping, with no retained augmentation family claimed.
+7. The evaluator panel classified as an explicit certification
+   argument, not replay-integrated.
+8. Countermodels split: hidden runtime inputs (scheduler, fresh-name
+   source, hidden evaluator, order-sensitive tie-break) versus
+   neighboring semantic/inference failures (incomplete search,
+   destructive rewrite, repetition-as-progress, König witnesses).
+9. Support wording changed to operational-support factorization, not
+   full result causation.
+
+Tests 175 -> 177; artifact, ledger, paper, and CI receipts
+regenerated; 234 axiom reports remain within {propext, Quot.sound}.
