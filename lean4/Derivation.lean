@@ -11,6 +11,7 @@ import Derivation.Bridge
 import Derivation.Refusal
 import Derivation.RefusalFrontier
 import Derivation.Generator
+import Derivation.DiffInterface
 
 /-!
 # Axiom reports
@@ -197,3 +198,40 @@ open Derivation
 #print axioms Generator.middle_swap_not_relation_preserving
 #print axioms Generator.depth2_separates_near_ends_n4
 #print axioms Generator.depth2_obstruction_n5
+
+-- The native primitive-difference interface (caller-requested package)
+#print axioms DiffInterface.zeroRel_equivalence
+#print axioms DiffInterface.kernel_zeroRel
+#print axioms DiffInterface.obsQuotient_eq_of_zero
+#print axioms DiffInterface.no_guard_no_obstruction
+#print axioms DiffInterface.unretained_not_active
+#print axioms DiffInterface.distinguished_not_active
+#print axioms DiffInterface.bare_reflection_certifies_active_obstruction
+#print axioms DiffInterface.refines_preserves_distinctions
+#print axioms DiffInterface.closure_preserves_old_distinctions
+#print axioms DiffInterface.closure_kills_demanded
+#print axioms DiffInterface.closure_adds_no_obstruction
+#print axioms DiffInterface.drive_terminates
+#print axioms DiffInterface.cview_distinct_mono
+#print axioms DiffInterface.tower_closed
+#print axioms DiffInterface.tower_obstruction
+#print axioms DiffInterface.swapTop_view
+#print axioms DiffInterface.swapTop_live_inj
+#print axioms DiffInterface.tower_step_composes
+#print axioms DiffInterface.tower_successor_step
+#print axioms DiffInterface.mem_activePairs
+#print axioms DiffInterface.mem_activePairs_iff_active
+#print axioms DiffInterface.closed_measure_zero
+#print axioms DiffInterface.preclose_measure_pos
+#print axioms DiffInterface.tower_demand_characterized
+#print axioms DiffInterface.tower_demand_bound
+#print axioms DiffInterface.towerNext_decrease
+#print axioms DiffInterface.tower_fuel_terminates
+#print axioms DiffInterface.bool_view_pigeonhole
+#print axioms DiffInterface.bool_grammar_obstruction
+#print axioms DiffInterface.no_bool_view_is_closed
+#print axioms DiffInterface.cm_freshness
+#print axioms DiffInterface.cm_tagging
+#print axioms DiffInterface.cm_edge
+#print axioms DiffInterface.cm_hash
+#print axioms DiffInterface.cm_repetition

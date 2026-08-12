@@ -34,6 +34,7 @@ jobs:
           PYTHONPATH=code python code/run_refusal.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_refusal_frontier.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_generator.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_diff_interface.py --artifacts artifacts_ci
           python ci/compare_artifacts.py artifacts artifacts_ci
 
   lean:
