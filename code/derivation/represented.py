@@ -9,6 +9,16 @@ represented state or the represented history; the step function takes
 nothing else.  The eight countermodels are minimal non-kernel
 semantics, each consuming exactly one unrepresented input.
 
+The kernel constitution is fixed metatheory, not represented runtime
+input: the event grammar, the separation/satisfaction laws, the
+response menu, the acceptance predicates, and the history producer
+that supplies event streams.  The theorems and checks say: relative to
+this fixed constitution, no hidden runtime input reaches a transition.
+Refusal records verified same-level exhaustion and is non-absorbing;
+it certifies, it never terminalizes a run.  All domains are the
+naturals: negative tokens, endpoints, points, view members, budgets,
+and notes are rejected, matching the Lean carrier exactly.
+
 Everything below is deterministic and decided by the implemented
 checks; no model judgment selects, orders, or certifies anything.
 """
@@ -80,7 +90,7 @@ def discharges_some(w: World, w2: World) -> bool:
 
 
 def mark_ok(w: World, v: View, p: int) -> bool:
-    if v not in w.views or p >= len(w.data) or p in v:
+    if p < 0 or v not in w.views or p >= len(w.data) or p in v:
         return False
     w2 = mark_apply(w, v, p)
     return discharges_some(w, w2) and preserves(w, w2)
@@ -101,7 +111,7 @@ def increase(w: World, c: View) -> bool:
 
 def aug_ok(w: World, c: View) -> bool:
     return (
-        all(p < len(w.data) for p in c)
+        all(0 <= p < len(w.data) for p in c)
         and c not in w.views
         and increase(w, c)
     )
@@ -131,7 +141,9 @@ def obstructed(w: World, r: Req) -> bool:
 
 def req_ok(w: World, i: int, j: int) -> bool:
     return (
-        i != j
+        0 <= i
+        and 0 <= j
+        and i != j
         and i < len(w.data)
         and j < len(w.data)
         and (i, j) not in w.reqs
@@ -143,7 +155,7 @@ def step(w: World, e: Event) -> World:
     if kind == "admit":
         t = e[1]
         assert isinstance(t, int)
-        if t in w.data:
+        if t < 0 or t in w.data:
             return w
         return replace(w, data=w.data + (t,))
     if kind == "require":
@@ -173,10 +185,14 @@ def step(w: World, e: Event) -> World:
     if kind == "note":
         n = e[1]
         assert isinstance(n, int)
+        if n < 0:
+            return w
         return replace(w, notes=w.notes + (n,))
     if kind == "setBudget":
         n = e[1]
         assert isinstance(n, int)
+        if n < 0:
+            return w
         return replace(w, budget=n)
     assert kind == "setAugLicense"
     b = e[1]
@@ -249,14 +265,28 @@ def hist_up_to(k: int) -> list[Event]:
     return h
 
 
+def events_all_accepted(h: list[Event]) -> bool:
+    """Every event on the supplied stream changes the state: nothing is
+    silently rejected."""
+    w = GENESIS
+    for e in h:
+        w2 = step(w, e)
+        if w2 == w:
+            return False
+        w = w2
+    return True
+
+
 def productivity_report(rounds: int = 15) -> dict[str, object]:
     rows = []
     segments = []
+    accepted = []
     prev_hist: list[Event] = hist_up_to(0)
     for k in range(rounds + 1):
         h = hist_up_to(k)
         w = replay(h)
         segments.append(list(w.data) == list(range(k + 1)))
+        accepted.append(events_all_accepted(h))
         rows.append(
             {
                 "k": k,
@@ -276,6 +306,7 @@ def productivity_report(rounds: int = 15) -> dict[str, object]:
             for r in rows
         ),
         "carriers_are_initial_segments": all(segments),
+        "all_events_accepted": all(accepted),
         "all_quiescent": all(bool(r["quiescent"]) for r in rows),
     }
 
@@ -404,38 +435,45 @@ def countermodel_report() -> dict[str, object]:
     rows: list[dict[str, object]] = [
         {
             "name": "unrecorded_scheduler",
+            "kind": "hidden_runtime_input",
             "differs": step_sched(True, SCHED_WORLD, ("mark", (), 0))
             != step_sched(False, SCHED_WORLD, ("mark", (), 0)),
         },
         {
             "name": "unrecorded_fresh_name_source",
+            "kind": "hidden_runtime_input",
             "differs": step_gensym(0, base, ("admit", 99)).data
             != step_gensym(99, base, ("admit", 99)).data,
         },
         {
             "name": "hidden_evaluator",
+            "kind": "hidden_runtime_input",
             "differs": step_oracle(True, ORACLE_WORLD, ("mark", (0,), 1))
             != step_oracle(False, ORACLE_WORLD, ("mark", (0,), 1)),
         },
         {
             "name": "incomplete_search_false_obstruction",
+            "kind": "semantic_inference_failure",
             "differs": obstructed_trunc(1, TRUNC_WORLD, (1, 2))
             and not obstructed(TRUNC_WORLD, (1, 2))
             and bool(repair_family(TRUNC_WORLD, (1, 2))),
         },
         {
             "name": "destructive_rewrite_not_augmentation",
+            "kind": "semantic_inference_failure",
             "differs": sat(OW_WORLD, (0, 1))
             and not sat(overwrite_first(OW_WORLD, ()), (0, 1)),
         },
         {
             "name": "repetition_mislabeled_as_progress",
+            "kind": "semantic_inference_failure",
             "differs": replay([("admit", 5)] * 3)
             == replay([("admit", 5)])
             and len([("admit", 5)] * 3) != len([("admit", 5)]),
         },
         {
             "name": "order_sensitive_semantics_splits_equivalents",
+            "kind": "hidden_runtime_input",
             "differs": sat(step_head(HEAD_A, ("mark", (), 1)), (0, 1))
             != sat(step_head(HEAD_B, ("mark", (), 1)), (0, 1)),
         },

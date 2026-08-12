@@ -23,19 +23,33 @@ HIDDEN_INPUT_CLASSES_REFUTED
 CERTIFICATION_BOUNDED_BY_PANEL_QUOTIENT
 ```
 
-* **A represented kernel exists.**  One concrete semantics in which
-  every input that changes a transition — evaluator, requirement,
-  scheduler, tie-break, fresh-name source, fuel, authorization,
-  stopping condition — occurs in the represented state (`World`) or
-  the represented history (`List Event`), and which satisfies all
-  eight target theorems within its declared scope.  The answer to the
-  decisive question is **yes, for this kernel class, by
-  construction-plus-proof**: the step function's type admits no other
-  input, and the support theorem pins down what it reads.
-* **Every listed hidden-input class is refuted concretely.**  Eight
-  minimal countermodels, each a semantics consuming exactly one
-  unrepresented input, each provably changing the result (or falsely
-  certifying one) where the kernel provably cannot.
+* **A represented kernel exists — relative to a fixed kernel
+  constitution.**  The constitution is fixed metatheory, not
+  represented runtime input: the event grammar (`Event`), the
+  separation and satisfaction laws (`sepB`, `satB`), the declared
+  response menu (`responseMenu`), the acceptance predicates
+  (`reqOkB`, `markOkB`, `augOkB`, `obstructedB`), and the history
+  producer that supplies event streams.  Relative to that fixed
+  `step` semantics, every *runtime* input that changes a transition —
+  evaluator, requirement, scheduler, tie-break, fresh-name source,
+  fuel, authorization, stopping condition — occurs in the represented
+  state (`World`) or the represented history (`List Event`), and the
+  eight target theorems hold within their declared scopes.  The
+  answer to the decisive question is **yes for runtime inputs, by
+  construction-plus-proof, relative to this constitution**: the step
+  function's type admits no other input, and the support theorem
+  gives the factorization.  The constitution does not derive
+  itself.
+* **Every listed failure class is refuted concretely, and the classes
+  are split.**  Four countermodels are *hidden runtime inputs* —
+  semantics consuming an input in neither state nor history
+  (scheduler, fresh-name source, hidden evaluator, order-sensitive
+  tie-break).  Four are *neighboring semantic or inference failures* —
+  no hidden input, but a wrong definition or a wrong reading
+  (incomplete search declaring a false obstruction, destructive
+  rewrite passed off as augmentation, repetition mislabeled as
+  progress, per-length witnesses mistaken for productivity).  Each is
+  minimal and machine-checked.
 * **The internal truth candidate is priced exactly.**  Certification
   by represented evaluators is proved equivalent to joint separation
   by the panel's own columns — and proved *not* to be correspondence:
@@ -66,32 +80,45 @@ determinism is definitional — that is the design point: the step's
 type admits no unrepresented argument.  The countermodels show
 semantics with extra arguments failing exactly this.
 
-**RP2 — internal support.**  [theorem]  `support_determines`: worlds
-agreeing on the represented support have support-equal successors, for
-every event.  Contrapositive `internal_support`: a datum that can
-change the successor occurs in the support.  `notes_inert`: the
-represented-but-inert field really is inert.
+**RP2 — operational-support factorization.**  [theorem]
+`support_determines`: the step factors through the `supp` projection —
+worlds agreeing on the represented support have support-equal
+successors, for every event.  Contrapositive `internal_support`: two
+runs whose successor supports differ already differ in their
+represented supports.  This is a factorization theorem about the
+operational support, not a claim of per-datum result causation.
+`notes_inert`: the represented-but-inert field really is inert.
 
-**RP3 — no hidden choice.**  [theorem]  `repairFamily_sound` /
-`repairFamily_complete` / `repairFamily_retains_ties`: the successor
-family is exactly the accepted responses, all ties retained; nothing
-selects a least representative anywhere in the kernel.  Invariance:
-`equiv_step`, `equiv_replay`, `equiv_repairFamily` — replay-equivalent
-worlds have replay-equivalent successors and membership-identical
-successor families.  Countermodel 7 (`stepHead`) breaks precisely this
-by consulting list order.
+**RP3 — no hidden choice, scoped to `repairFamily`.**  [theorem]
+`repairFamily_sound` / `repairFamily_complete` /
+`repairFamily_retains_ties`: the same-structure successor family is
+exactly the accepted responses, all ties retained; no selector exists
+in it.  Invariance: `equiv_step`, `equiv_replay`,
+`equiv_repairFamily` — replay-equivalent worlds have replay-equivalent
+successors and membership-identical successor families.  The
+*structural* branch of RP6 exhibits the canonical augmentation `[i]`,
+whose orientation is supplied by the ordered, recorded requirement
+`(i, j)` — a represented datum and a stated scoping: augmentation
+candidates are not gathered into a retained family here, and the
+no-hidden-choice theorem does not extend to them.  Countermodel 7
+(`stepHead`) breaks the repairFamily invariance precisely by
+consulting list order.
 
 **RP4 — repair.**  [theorem]  `mark_discharges`, `mark_preserves`,
 `step_mark_sound`: an accepted repair discharges a recorded violation
 and preserves every previously satisfied recorded requirement — the
 acceptance checker's verdict is sound at the step level.
 
-**RP5 — augmentation.**  [theorem]  `satB_aug` is the exact
-conservativity equation: satisfaction after augmentation is the old
-verdict or the new column's, so the old represented language replays
-with its prior results intact (`aug_conservative`).  `aug_increases`:
-an accepted augmentation separates some bounded pair no old view
-separated — genuine expressive capacity, verified.
+**RP5 — augmentation preserves satisfied positive requirements.**
+[theorem]  `satB_aug` is the exact positive-satisfaction delta
+equation: satisfaction after augmentation is the old verdict or the
+new column's.  Every satisfied positive requirement is therefore
+preserved (`aug_preserves_satisfied`).  What is *not* preserved — by
+design — is old non-separation: augmentation exists precisely to
+change such judgments, and `aug_increases` verifies that an accepted
+augmentation separates some bounded pair no old view separated.
+"Conservativity" would overclaim; the preserved class is exactly the
+satisfied positive requirements.
 
 **RP6 — represented progress.**  [theorem]
 `represented_progress`: under the explicit hypotheses — replay
@@ -102,9 +129,13 @@ canonical singleton augmentation is accepted and discharges it.  The
 isolated remaining hypotheses are exactly the represented budget and
 the represented license (`progress_needs_budget`,
 `progress_needs_license`): with either absent the accepting steps are
-no-ops and the run stops in a represented refusal state
-(`refusal_needs_certificate`, `refusals_are_represented`) — a bounded
-run terminates only by represented policy.
+no-ops, and the same-level exhaustion is recordable as a represented,
+certificate-bearing refusal (`refusal_needs_certificate`,
+`refusals_are_represented`).  Scoped precisely: refusal is
+**non-absorbing** — it records exhaustion and terminates nothing;
+ending a bounded run belongs to the history producer, which is part
+of the fixed constitution, not a represented terminal driver.  No
+claim of terminalization-in-refusal is made.
 
 **RP7 — closure.**  [theorem]  `violation_only_from_require`: a new
 violation can arise only from a represented `require` event — marks
@@ -113,16 +144,21 @@ cannot create one (the preservation guard), augmentations cannot
 `quiescent_stable`: a quiescent world stays quiescent under every
 non-`require` event.
 
-**RP8 — unbounded-run discipline.**  [theorem]  Productivity is one
-prefix-compatible unbounded run: `histUpTo_prefix` (each history
-extends the last), `worldAt_data` (the replayed carrier is literally
-`range (k+1)` — derived through the acceptance-guarded kernel, not
-declared), `productive_run` (strict growth), and the concrete
-quiescence instance `worldAt_three_quiescent`.  The countermodel
-(`witValid`) has a witness at every finite length and provably no
-compatible infinite source (`wit_all_lengths`, `wit_no_infinite`) —
-finite witnesses do not assemble into a history, so productivity and
-per-length witnessing are separated by proof.
+**RP8 — unbounded-run discipline, under a supplied stream.**
+[theorem + finite computation]  The event stream `histUpTo` is an
+*explicitly supplied, prefix-compatible* stream — a metatheoretic
+history producer, not an endogenous source, and it is not called one.
+What the kernel contributes: `histUpTo_prefix` (each history extends
+the last), `worldAt_data` (the replayed carrier is literally
+`range (k+1)`, horizon-free, reached through the acceptance-guarded
+`step` alone), `productive_run` (strict growth), the Lean quiescence
+instance `worldAt_three_quiescent`, and — computationally, exhaustive
+to the 15-round bound — per-event acceptance (`all_events_accepted`:
+no event on the stream is silently rejected) and quiescence at every
+stage.  The countermodel (`witValid`) has a witness at every finite
+length and provably no compatible infinite source (`wit_all_lengths`,
+`wit_no_infinite`) — finite witnesses do not assemble into a history,
+so productivity and per-length witnessing are separated by proof.
 
 ## The internal candidate for truth
 
@@ -137,34 +173,51 @@ a represented panel, not a monotone approach to correspondence.  This
 is the strongest defensible finite substitute for truth-from-outside:
 *truth-for-a-panel, priced as such*.
 
-## The eight required countermodels
+Classification: the panel is an **explicit certification argument** —
+represented data by type (column lists, no functions from nowhere),
+but not yet carried in `World` or admitted by events.  Certification
+is therefore not replay-integrated in this kernel; integrating panels
+into the replayed state is a separate, unclaimed step.
 
-Each is minimal, concrete, and machine-checked; each consumes exactly
-one unrepresented input.
+## The eight required countermodels, split by class
+
+**Hidden runtime inputs** — semantics consuming an input found in
+neither the represented state nor the represented history:
 
 | # | hidden input | witness |
 |---|---|---|
 | 1 | unrecorded scheduler | `scheduler_hidden`: same state, same history, different results by an external tick-order bit |
 | 2 | unrecorded fresh-name source | `gensym_hidden`: an external seed replaces the event's token; carrier sizes diverge |
 | 3 | hidden evaluator | `oracle_hidden`: an unrepresented oracle pushes through a repair the represented checker rejects |
+| 7 | order-sensitive tie-break | `order_sensitivity_splits_equivalents`: two replay-equivalent worlds get observationally different successors under a head-picking semantics; the kernel's `equiv_step` is exactly the theorem this violates |
+
+**Neighboring semantic and inference failures** — no hidden input; a
+wrong definition or a wrong reading:
+
+| # | failure | witness |
+|---|---|---|
 | 4 | incomplete search | `incomplete_search_false_alarm`: a truncated menu declares an obstruction the exhaustive check refutes — obstruction requires exhaustive failure by definition |
 | 5 | destructive rewrite as "augmentation" | `augmentation_destroys_old_replay`: overwriting a column kills a previously satisfied requirement; the kernel's append-only augmentation provably cannot (`satB_aug`) |
 | 6 | repetition as progress | `repetition_not_progress`: three admissions of one token replay to the state of one; history length grows, the violation set does not |
-| 7 | order-sensitive tie-break | `order_sensitivity_splits_equivalents`: two replay-equivalent worlds get observationally different successors under a head-picking semantics; the kernel's `equiv_step` is exactly the theorem this violates |
 | 8 | pointwise witnesses as productivity | `wit_all_lengths` + `wit_no_infinite`: valid histories of every length, no compatible infinite source |
 
 ## The exact ceiling
 
 What the theorems do **not** say, stated as sharply as what they do:
 
-* The kernel proves *representability*, not uniqueness: the budget,
-  license, response menu, and requirement grammar are represented
+* The kernel proves *representability of runtime inputs relative to a
+  fixed constitution*, not uniqueness and not self-derivation: the
+  event grammar, laws, menu, acceptance predicates, and history
+  producer are fixed metatheory; budget and license are represented
   **choices** (evidence class: policy).  Rule 2 forbids hidden
   selectors; it does not derive the selected.
 * `represented_progress` is scoped by its explicit hypotheses.  Budget
   and license are load-bearing and represented; remove either and the
-  run halts in a represented refusal — progress is conditional on
-  represented resources, never free.
+  accepting steps are no-ops, with the exhaustion recordable as a
+  represented refusal.  Refusal is non-absorbing — it certifies
+  same-level exhaustion, it does not terminalize; run termination
+  belongs to the metatheoretic history producer.  Progress is
+  conditional on represented resources, never free.
 * Internal certification is bounded by the panel's joint quotient —
   the anti-promotion theorem is part of the package, not a caveat
   outside it.
@@ -172,10 +225,12 @@ What the theorems do **not** say, stated as sharply as what they do:
   occurrence identities (an established import of this development),
   so order of *admission* is semantic, while order of *views,
   requirements, refusals* is provably not.
-* The productivity theorem exhibits one compatible unbounded run and
-  separates it from per-length witnessing; it does not claim every
-  unbounded demand stream is realizable — the König-failure
-  countermodel is the reason such a claim needs its own hypotheses.
+* The productivity theorem exhibits one compatible unbounded run
+  *under an explicitly supplied stream* and separates it from
+  per-length witnessing; the stream is metatheory, never called
+  endogenous, and the theorem does not claim every unbounded demand
+  stream is realizable — the König-failure countermodel is the reason
+  such a claim needs its own hypotheses.
 * Determinism for the kernel is definitional; its *content* is
   carried by the support theorem plus the countermodels.  A skeptic
   should read RP1 as "the kernel's type is the theorem" — and the

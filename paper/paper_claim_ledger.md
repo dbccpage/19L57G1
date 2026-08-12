@@ -928,19 +928,26 @@ theorems) and `artifacts/represented.json`.  Externally imposed
 challenge (caller assignment, 2026-08-12).
 
 ### CL-RP-TERMINAL
-- **Statement**: REPRESENTED_KERNEL_EXISTS (a semantics in which every
-  load-bearing input — evaluator, requirement, scheduler, tie-break,
-  fresh-name source, fuel, authorization, stopping condition — occurs
-  in the represented state or history, satisfying all eight target
-  theorems); HIDDEN_INPUT_CLASSES_REFUTED (eight minimal countermodels,
-  one per hidden-input class);
+- **Statement**: scoped to a fixed kernel constitution.  The
+  constitution — event grammar, sep/sat laws, response menu,
+  acceptance predicates, history producer — is fixed metatheory.
+  Relative to that fixed `step` semantics:
+  REPRESENTED_KERNEL_EXISTS (every *runtime* input — evaluator,
+  requirement, scheduler, tie-break, fresh-name source, fuel,
+  authorization, stopping condition — occurs in the represented state
+  or history, and the eight target theorems hold in their declared
+  scopes); HIDDEN_INPUT_CLASSES_REFUTED (four hidden-runtime-input
+  countermodels, plus four neighboring semantic/inference failures,
+  split and machine-checked);
   CERTIFICATION_BOUNDED_BY_PANEL_QUOTIENT (internal certification is
-  exactly the panel's joint quotient, never correspondence).
+  exactly the panel's joint quotient, never correspondence).  The
+  constitution does not derive itself.
 - **Class**: theorem (kernel-scoped) + countermodels + bounded
   computation.  **Axioms**: within {propext, Quot.sound}.
-- **Falsifier**: an input changing a kernel result without occurring
-  in `supp`/history; a countermodel failing its exhibited divergence;
-  a certified claim exceeding the panel's joint separation power.
+- **Falsifier**: a runtime input changing a kernel result without
+  occurring in `supp`/history; a countermodel failing its exhibited
+  divergence; a certified claim exceeding the panel's joint separation
+  power.
 
 ### CL-RP-DEFINITIONS
 - **Statement**: the ten required notions defined natively —
@@ -959,17 +966,26 @@ challenge (caller assignment, 2026-08-12).
 - **Lean**: `replay_deterministic`, `replay_nil`, `replay_append`.
 
 ### CL-RP-SUPPORT
-- **Statement**: agreement on the represented support forces
-  support-equal successors for every event; contrapositively, any
-  result-affecting datum occurs in the support; the inert notes field
-  is provably inert.  **Class**: theorem.
+- **Statement**: operational-support factorization — the step factors
+  through the `supp` projection: support-agreeing worlds have
+  support-equal successors for every event; contrapositively, runs
+  whose successor supports differ already differ in represented
+  support.  A factorization theorem, not a claim of per-datum result
+  causation.  The inert notes field is provably inert.
+- **Class**: theorem.
 - **Lean**: `support_determines`, `internal_support`, `notes_inert`.
 
 ### CL-RP-NO-HIDDEN-CHOICE
-- **Statement**: the successor family is the complete set of accepted
-  responses with all ties retained (sound + complete filter, no
-  selector); replay-equivalent worlds step to replay-equivalent worlds
-  with membership-identical successor families.  **Class**: theorem.
+- **Statement**: scoped to `repairFamily` — the same-structure
+  successor family is the complete set of accepted responses with all
+  ties retained (sound + complete filter, no selector);
+  replay-equivalent worlds step to replay-equivalent worlds with
+  membership-identical successor families.  The progress theorem's
+  structural branch exhibits the canonical augmentation `[i]`, whose
+  orientation is supplied by the ordered, recorded requirement — a
+  represented datum and a stated scoping; augmentation candidates are
+  not gathered into a retained family, and this claim does not extend
+  to them.  **Class**: theorem (scoped).
 - **Lean**: `repairFamily_sound`, `repairFamily_complete`,
   `repairFamily_retains_ties`, `equiv_step`, `equiv_replay`,
   `equiv_repairFamily`.
@@ -977,19 +993,26 @@ challenge (caller assignment, 2026-08-12).
 ### CL-RP-REPAIR-AUG
 - **Statement**: accepted repairs discharge a recorded violation and
   preserve every previously satisfied requirement; accepted
-  augmentations satisfy the exact conservativity equation
-  (`satB_aug`), replay the old language unchanged, and verifiably add
-  expressive capacity.  **Class**: theorem.
+  augmentations satisfy the exact positive-satisfaction delta equation
+  (`satB_aug`) and preserve every satisfied positive requirement
+  (`aug_preserves_satisfied`) while verifiably adding expressive
+  capacity.  Old *non-separation* judgments are not preserved —
+  changing them is the licensed content of augmentation; the earlier
+  word "conservativity" is withdrawn as an overclaim.
+- **Class**: theorem.
 - **Lean**: `mark_discharges`, `mark_preserves`, `step_mark_sound`,
-  `satB_aug`, `aug_conservative`, `aug_increases`.
+  `satB_aug`, `aug_preserves_satisfied`, `aug_increases`.
 
 ### CL-RP-PROGRESS
 - **Statement**: under replay well-formedness (an invariant) and a
   recorded violation, the repair family is non-empty or the violation
   is a certified obstruction whose canonical singleton augmentation is
   accepted and discharges it; the isolated remaining hypotheses are
-  the represented budget and license, and bounded runs stop only in a
-  represented, certificate-bearing refusal state.  **Class**: theorem.
+  the represented budget and license.  Refusal records verified
+  same-level exhaustion and is non-absorbing: it certifies, it does
+  not terminalize; ending a bounded run belongs to the metatheoretic
+  history producer, and no terminalization-in-refusal is claimed.
+- **Class**: theorem.
 - **Lean**: `represented_progress`, `wf_genesis`, `wf_step`,
   `wf_replay`, `progress_needs_budget`, `progress_needs_license`,
   `refusal_needs_certificate`, `refusals_are_represented`.
@@ -1004,11 +1027,16 @@ challenge (caller assignment, 2026-08-12).
 - **Lean**: `violation_only_from_require`, `quiescent_stable`.
 
 ### CL-RP-PRODUCTIVITY
-- **Statement**: one prefix-compatible unbounded run through the
-  acceptance-guarded kernel with carrier literally `range (k+1)`;
-  productivity is separated by proof from per-length witnessing (the
-  represented König failure: witnesses at every length, no compatible
-  infinite source).  **Class**: theorem.
+- **Statement**: one prefix-compatible unbounded run under an
+  *explicitly supplied* event stream (the history producer is
+  metatheory, never called endogenous), with carrier literally
+  `range (k+1)` reached through the acceptance-guarded kernel;
+  per-event acceptance and per-stage quiescence verified exhaustively
+  to the 15-round bound (Python) with a Lean quiescence instance at
+  k = 3; productivity is separated by proof from per-length witnessing
+  (the represented König failure: witnesses at every length, no
+  compatible infinite source).  **Class**: theorem + finite
+  computation.
 - **Lean**: `histUpTo_prefix`, `admit_data_fresh` (spelled
   `admitTok`), `worldAt_data`, `worldAt_growth`, `productive_run`,
   `worldAt_three_quiescent`, `wit_all_lengths`, `wit_no_infinite`.
@@ -1018,18 +1046,23 @@ challenge (caller assignment, 2026-08-12).
   exactly joint separation by the panel's own columns; it is not
   correspondence (a unanimous panel certifies an equivalence an
   outside column refutes) and not monotone under panel extension.
+  Classification: the panel is an explicit certification argument —
+  represented data by type but not carried in `World` or admitted by
+  events; certification is not replay-integrated in this kernel.
 - **Class**: theorem + countermodels.
 - **Lean**: `cert_scope`, `cert_not_correspondence`,
   `cert_panel_relative`.
 
 ### CL-RP-COUNTERMODELS
-- **Statement**: the eight hidden-input classes are each refuted by a
-  minimal machine-checked witness — unrecorded scheduler, unrecorded
-  fresh-name source, hidden evaluator, incomplete search (false
-  obstruction), destructive rewrite (vs append-only augmentation),
-  repetition-as-progress, order-sensitive tie-break splitting
-  equivalent representations, and per-length witnesses without a
-  compatible infinite history.  **Class**: countermodels.
+- **Statement**: eight minimal machine-checked witnesses, split by
+  class.  Hidden runtime inputs (an input in neither state nor
+  history): unrecorded scheduler, unrecorded fresh-name source, hidden
+  evaluator, order-sensitive tie-break.  Neighboring
+  semantic/inference failures (no hidden input; a wrong definition or
+  reading): incomplete search (false obstruction), destructive rewrite
+  (vs append-only augmentation), repetition-as-progress, per-length
+  witnesses without a compatible infinite history.
+- **Class**: countermodels.
 - **Lean**: `scheduler_hidden`, `gensym_hidden`, `oracle_hidden`,
   `incomplete_search_false_alarm`,
   `augmentation_destroys_old_replay`, `repetition_not_progress`,
@@ -1038,11 +1071,15 @@ challenge (caller assignment, 2026-08-12).
   mutation of the story history changes the replay).
 
 ### CL-RP-CEILING
-- **Statement**: representability is proved, uniqueness is not (the
-  policies are represented choices); progress is conditional on
-  represented budget/license; certification never exceeds the panel
-  quotient; admission order is semantic (occurrence identity) while
-  view/requirement/refusal order is provably not; the two standing
+- **Statement**: representability of runtime inputs is proved relative
+  to the fixed constitution (which does not derive itself); uniqueness
+  is not proved (policies are represented choices); progress is
+  conditional on represented budget/license, with refusal
+  non-absorbing; certification never exceeds the panel quotient and is
+  not replay-integrated; admission order is semantic (occurrence
+  identity) while view/requirement/refusal order is provably not; the
+  carrier is the naturals in both formalisms (negative inputs rejected
+  in the mirror, matching Lean's `Nat` exactly); the two standing
   rules are proved consistent and sufficient for this kernel within
   bounds — their general forms remain conjectures.
 - **Class**: boundary record + conjecture (general forms).

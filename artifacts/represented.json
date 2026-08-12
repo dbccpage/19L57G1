@@ -12,30 +12,37 @@
   "rows": [
    {
     "differs": true,
+    "kind": "hidden_runtime_input",
     "name": "unrecorded_scheduler"
    },
    {
     "differs": true,
+    "kind": "hidden_runtime_input",
     "name": "unrecorded_fresh_name_source"
    },
    {
     "differs": true,
+    "kind": "hidden_runtime_input",
     "name": "hidden_evaluator"
    },
    {
     "differs": true,
+    "kind": "semantic_inference_failure",
     "name": "incomplete_search_false_obstruction"
    },
    {
     "differs": true,
+    "kind": "semantic_inference_failure",
     "name": "destructive_rewrite_not_augmentation"
    },
    {
     "differs": true,
+    "kind": "semantic_inference_failure",
     "name": "repetition_mislabeled_as_progress"
    },
    {
     "differs": true,
+    "kind": "hidden_runtime_input",
     "name": "order_sensitive_semantics_splits_equivalents"
    }
   ]
@@ -50,6 +57,7 @@
   "replay_deterministic": true
  },
  "productivity": {
+  "all_events_accepted": true,
   "all_prefix_compatible": true,
   "all_quiescent": true,
   "carriers_are_initial_segments": true,

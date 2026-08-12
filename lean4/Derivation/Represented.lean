@@ -31,6 +31,21 @@ Required native definitions and where they live:
   successor family         — `repairFamily` (all tied responses kept)
 * replay-equivalence       — `WEquiv` / `SameElems`
 
+The kernel constitution — fixed metatheory, not represented runtime
+input: the event grammar (`Event`), the separation and satisfaction
+laws (`sepB`, `satB`), the declared response menu (`responseMenu`),
+the acceptance predicates (`reqOkB`, `markOkB`, `augOkB`,
+`obstructedB`), and the history producer that supplies event streams.
+The theorems say: *relative to this fixed constitution*, no hidden
+runtime input reaches a transition.  They do not say the constitution
+derives itself.
+
+No-hidden-choice is scoped to `repairFamily` (same-structure
+responses, all ties retained).  The progress theorem's structural
+branch exhibits the canonical augmentation `[i]`, whose orientation is
+supplied by the *ordered, recorded* requirement `(i, j)` — a
+represented datum, and a stated scoping, not a hidden selector.
+
 Evidence classes: every statement below is a theorem or a decidable
 instance; policies (budget, augmentation license) are state fields;
 conjectures are confined to the paper.
@@ -213,8 +228,9 @@ deriving Repr, DecidableEq
 def supp (w : World) : Supp :=
   ⟨w.data, w.views, w.reqs, w.refusals, w.budget, w.augLicensed⟩
 
-/-- Agreement on the represented support forces agreement of successor
-supports: the step reads nothing outside `supp`. -/
+/-- Operational-support factorization: the step factors through the
+`supp` projection — agreement on the represented support forces
+agreement of successor supports, for every event. -/
 theorem support_determines (w w' : World) (h : supp w = supp w')
     (e : Event) : supp (step w e) = supp (step w' e) := by
   cases w with
@@ -269,8 +285,10 @@ theorem support_determines (w w' : World) (h : supp w = supp w')
       | setBudget n => rfl
       | setAugLicense bb => rfl
 
-/-- Internal-support theorem: if changing a datum can change the
-successor result, that datum occurs in the represented support. -/
+/-- Internal-support corollary (factorization form): two runs whose
+successor supports differ already differ in their represented
+supports.  This is operational-support factorization, not a claim of
+per-datum causation. -/
 theorem internal_support (w w' : World) (e : Event)
     (hres : supp (step w e) ≠ supp (step w' e)) : supp w ≠ supp w' :=
   fun h => hres (support_determines w w' h e)
@@ -626,16 +644,18 @@ theorem step_mark_sound {w : World} {v : View} {p : Nat}
 
 /-! ## Target 5 — augmentation soundness -/
 
-/-- Exact conservativity equation: after augmentation, satisfaction is
-the old verdict or the new column's — the old represented language
-replays with its prior results intact. -/
+/-- Exact positive-satisfaction delta equation: after augmentation,
+satisfaction is the old verdict or the new column's.  Satisfied
+positive requirements are therefore preserved; old *non-separation*
+judgments are not preserved — changing them is exactly the licensed
+content of an expressive increase. -/
 theorem satB_aug (w : World) (c : View) (r : Req) :
     satB (augApply w c) r = (satB w r || sepB c r.1 r.2) := by
   unfold satB augApply
   simp only [List.any_append, List.any_cons, List.any_nil,
     Bool.or_false]
 
-theorem aug_conservative {w : World} {c : View} {r : Req}
+theorem aug_preserves_satisfied {w : World} {c : View} {r : Req}
     (h : satB w r = true) : satB (augApply w c) r = true := by
   rw [satB_aug, h]
   rfl
@@ -841,8 +861,10 @@ theorem represented_progress {w : World} {i j : Nat} (hwf : WF w)
 
 /-- The isolated hypotheses: the represented budget and the represented
 license are load-bearing.  With either absent, the accepting steps are
-no-ops — the run stops in a represented refusal state, never by a
-hidden stopping condition. -/
+no-ops, and the same-level exhaustion is recordable as a represented,
+certificate-bearing refusal.  Refusal is non-absorbing — it records
+exhaustion and terminates nothing; ending a bounded run belongs to the
+history producer, which is fixed metatheory (see the module header). -/
 theorem progress_needs_budget (w : World) (v : View) (p : Nat)
     (h : w.budget = 0) : step w (.mark v p) = w := by
   simp only [step]
@@ -919,7 +941,7 @@ theorem violation_only_from_require {w : World} {e : Event} {r : Req}
             have : satB { augApply w c with
                 budget := w.budget - 1 } r =
                 satB (augApply w c) r := rfl
-            rw [this, aug_conservative hs] at h
+            rw [this, aug_preserves_satisfied hs] at h
             exact absurd h.2 (by decide)
       · exact h
   | refuse i j =>
@@ -981,7 +1003,12 @@ theorem quiescent_stable {w : World} (hq : quiescentB w = true)
         exact absurd hold.2 (by decide)
       · exact hnotreq i j he
 
-/-! ## Target 8 — productivity: one prefix-compatible unbounded run -/
+/-! ## Target 8 — productivity: one prefix-compatible unbounded run
+under an *explicitly supplied* event stream
+
+`histUpTo` is a metatheoretic history producer — supplied, not
+endogenous.  What the kernel contributes is that every state on the
+stream is reached through the acceptance-guarded `step` alone. -/
 
 def blockEvents (k : Nat) : List Event :=
   [.setBudget 1, .admitTok k, .require 0 k, .addView [k]]
@@ -1302,8 +1329,11 @@ theorem order_sensitivity_splits_equivalents :
                 | cases h''))
   · decide
 
-/-! ## The kernel's refusal discipline (bounded runs stop only by
-represented policy) -/
+/-! ## The kernel's refusal discipline
+
+Refusal records verified same-level exhaustion; it is non-absorbing
+(later events may still fire).  It certifies, it does not
+terminalize. -/
 
 theorem refusal_needs_certificate {w : World} {i j : Nat}
     (h : step w (.refuse i j) ≠ w) :

@@ -356,3 +356,43 @@ the incomplete-search countermodel shows why.
 The `admit` event constructor is spelled `admitTok` (forbidden-token
 audit).  Test count 155 -> 175; the build's 234 axiom reports remain
 within {propext, Quot.sound} with no new hygiene exceptions.
+
+## 13. 2026-08-12 — Represented-progress correction pass (PR #10 verdict)
+
+One focused correction pass; the research programme is unchanged.
+
+1. Terminal scoped to a fixed kernel constitution: the event grammar,
+   sep/sat laws, response menu, acceptance predicates, and history
+   producer are fixed metatheory; the theorems cover *runtime* inputs
+   relative to that fixed `step` semantics, and the constitution does
+   not derive itself.
+2. Python/Lean carrier mismatch closed: every negative token, index,
+   view member, requirement endpoint, mark point, budget, and note is
+   rejected in the mirror, matching Lean's `Nat`; negative-domain and
+   malformed-event tests added.
+3. The claim that bounded runs terminalize in refusal is withdrawn:
+   refusal records verified same-level exhaustion and is
+   non-absorbing; run termination belongs to the metatheoretic history
+   producer.
+4. "Augmentation conservativity" renamed: `aug_preserves_satisfied`
+   preserves satisfied positive requirements; old non-separation
+   judgments are not preserved — changing them is the licensed content
+   of augmentation.
+5. RP8 scoped to an explicitly supplied prefix-compatible event
+   stream (never called endogenous); per-event acceptance and
+   per-stage quiescence verified exhaustively to the 15-round bound.
+6. No-hidden-choice scoped to `repairFamily`; the structural branch's
+   canonical augmentation `[i]` takes its orientation from the
+   ordered, recorded requirement — a represented datum and a stated
+   scoping, with no retained augmentation family claimed.
+7. The evaluator panel classified as an explicit certification
+   argument, not replay-integrated.
+8. Countermodels split: hidden runtime inputs (scheduler, fresh-name
+   source, hidden evaluator, order-sensitive tie-break) versus
+   neighboring semantic/inference failures (incomplete search,
+   destructive rewrite, repetition-as-progress, König witnesses).
+9. Support wording changed to operational-support factorization, not
+   full result causation.
+
+Tests 175 -> 177; artifact, ledger, paper, and CI receipts
+regenerated; 234 axiom reports remain within {propext, Quot.sound}.

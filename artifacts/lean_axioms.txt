@@ -202,7 +202,7 @@ Derivation.lean:255:0: 'Represented.mark_discharges' depends on axioms: [propext
 Derivation.lean:256:0: 'Represented.mark_preserves' depends on axioms: [propext, Quot.sound]
 Derivation.lean:257:0: 'Represented.step_mark_sound' depends on axioms: [propext, Quot.sound]
 Derivation.lean:258:0: 'Represented.satB_aug' depends on axioms: [propext, Quot.sound]
-Derivation.lean:259:0: 'Represented.aug_conservative' depends on axioms: [propext, Quot.sound]
+Derivation.lean:259:0: 'Represented.aug_preserves_satisfied' depends on axioms: [propext, Quot.sound]
 Derivation.lean:260:0: 'Represented.aug_increases' depends on axioms: [propext, Quot.sound]
 Derivation.lean:261:0: 'Represented.wf_genesis' does not depend on any axioms
 Derivation.lean:262:0: 'Represented.wf_step' depends on axioms: [propext, Quot.sound]

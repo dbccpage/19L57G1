@@ -46,6 +46,33 @@ from derivation.represented import (
 import run_represented
 
 
+def test_negative_domain_rejected() -> None:
+    """The carrier is the naturals, matching Lean exactly: every
+    negative token, endpoint, mark point, view member, budget, and
+    note is rejected as a represented no-op."""
+    w = replay(PIGEON_HISTORY)
+    assert step(w, ("admit", -1)) == w
+    assert step(w, ("require", -1, 0)) == w
+    assert step(w, ("require", 0, -2)) == w
+    assert step(w, ("mark", (0,), -1)) == w
+    assert step(w, ("addView", (-1,))) == w
+    assert step(w, ("setBudget", -5)) == w
+    assert step(w, ("note", -3)) == w
+    assert step(w, ("refuse", -1, -2)) == w
+
+
+def test_malformed_events_rejected() -> None:
+    import pytest
+
+    w = replay(PIGEON_HISTORY)
+    for bad in [("admit", "x"), ("require", 0, "y"),
+                ("mark", [0], 0), ("mark", (0,), "p"),
+                ("addView", [0]), ("note", "n"),
+                ("setBudget", "b"), ("setAugLicense", 1)]:
+        with pytest.raises(AssertionError):
+            step(w, bad)  # type: ignore[arg-type]
+
+
 def test_replay_determinism_and_composition() -> None:
     h = PIGEON_HISTORY
     assert replay(h) == replay(h)
@@ -115,6 +142,9 @@ def test_productive_run_prefix_compatible() -> None:
     assert rep["all_prefix_compatible"] is True
     assert rep["carriers_are_initial_segments"] is True
     assert rep["all_quiescent"] is True
+    # every event on the supplied stream is verified accepted: the
+    # stream is metatheory; acceptance is the kernel's
+    assert rep["all_events_accepted"] is True
 
 
 def test_quiescent_worlds_stay_quiescent_without_require() -> None:
@@ -125,10 +155,12 @@ def test_quiescent_worlds_stay_quiescent_without_require() -> None:
         assert quiescent(step(w, e))
 
 
-def test_countermodels_all_exhibited() -> None:
+def test_countermodels_all_exhibited_and_classified() -> None:
     rep = countermodel_report()
     assert rep["all_exhibited"] is True
-    names = [r["name"] for r in rep["rows"]]  # type: ignore[index]
+    rows = rep["rows"]
+    assert isinstance(rows, list)
+    names = [r["name"] for r in rows]
     assert names == [
         "unrecorded_scheduler",
         "unrecorded_fresh_name_source",
@@ -138,6 +170,22 @@ def test_countermodels_all_exhibited() -> None:
         "repetition_mislabeled_as_progress",
         "order_sensitive_semantics_splits_equivalents",
     ]
+    kinds = {r["name"]: r["kind"] for r in rows}
+    assert kinds["unrecorded_scheduler"] == "hidden_runtime_input"
+    assert kinds["unrecorded_fresh_name_source"] == "hidden_runtime_input"
+    assert kinds["hidden_evaluator"] == "hidden_runtime_input"
+    assert kinds["order_sensitive_semantics_splits_equivalents"] == (
+        "hidden_runtime_input"
+    )
+    assert kinds["incomplete_search_false_obstruction"] == (
+        "semantic_inference_failure"
+    )
+    assert kinds["destructive_rewrite_not_augmentation"] == (
+        "semantic_inference_failure"
+    )
+    assert kinds["repetition_mislabeled_as_progress"] == (
+        "semantic_inference_failure"
+    )
 
 
 def test_scheduler_and_oracle_details() -> None:

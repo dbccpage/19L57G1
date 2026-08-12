@@ -256,7 +256,7 @@ open Derivation
 #print axioms Represented.mark_preserves
 #print axioms Represented.step_mark_sound
 #print axioms Represented.satB_aug
-#print axioms Represented.aug_conservative
+#print axioms Represented.aug_preserves_satisfied
 #print axioms Represented.aug_increases
 #print axioms Represented.wf_genesis
 #print axioms Represented.wf_step
