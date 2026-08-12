@@ -13,6 +13,10 @@ import Derivation.RefusalFrontier
 import Derivation.Generator
 import Derivation.DiffInterface
 import Derivation.Represented
+import Derivation.Completion
+import Derivation.NoOutside
+import Derivation.Constitution
+import Derivation.Initiality
 
 /-!
 # Axiom reports
@@ -286,3 +290,63 @@ open Derivation
 #print axioms Represented.order_sensitivity_splits_equivalents
 #print axioms Represented.refusal_needs_certificate
 #print axioms Represented.refusals_are_represented
+
+-- Ultra closure run: composition, no-outside, constitution,
+-- initiality
+#print axioms Completion.ofWorld_sep
+#print axioms Completion.ofWorld_obstruction
+#print axioms Completion.ofWorld_quiescent
+#print axioms Completion.chain_transport
+#print axioms Completion.d2_transport_oriented
+#print axioms Completion.s2_transport_symmetric
+#print axioms Completion.witness_not_separation
+#print axioms Completion.separation_not_witness
+#print axioms Completion.meta_distinctness_inert
+#print axioms Completion.early_collapse_transports
+#print axioms Completion.sepB_symm
+#print axioms Completion.augFamily_sound
+#print axioms Completion.augFamily_retains_ties
+#print axioms Completion.rule1_trichotomy
+#print axioms Completion.refusal_recordable
+#print axioms Completion.refusal_object_inert
+#print axioms Completion.refusal_non_absorbing
+#print axioms Completion.action_dichotomy
+#print axioms Completion.rule1_needs_fidelity
+#print axioms Completion.retraction_breaks_preservation
+#print axioms NoOutside.support_replay
+#print axioms NoOutside.support_repairFamily
+#print axioms NoOutside.support_quiescent
+#print axioms NoOutside.support_obstructed
+#print axioms NoOutside.effectual_outside_dichotomy
+#print axioms NoOutside.equivariant_family_invariant
+#print axioms NoOutside.stepC_conservative
+#print axioms NoOutside.admitEvaluator_base_inert
+#print axioms NoOutside.replayC_deterministic
+#print axioms NoOutside.panel_equiv
+#print axioms NoOutside.certNeg_iff_panelEquiv
+#print axioms NoOutside.certC_ceiling
+#print axioms Constitution.nextFamily_tower_singleton
+#print axioms Constitution.closeBlocks_complete_repair
+#print axioms Constitution.closeBlocks_complete_aug
+#print axioms Constitution.nextFamily_stop
+#print axioms Constitution.towerBlock_eq
+#print axioms Constitution.driver_reproduces_tower
+#print axioms Constitution.nextFamily_complete
+#print axioms Constitution.budget_replenishment_represented
+#print axioms Constitution.gen_growth
+#print axioms Constitution.gen_three_quiescent
+#print axioms Constitution.tower_driver_autonomy
+#print axioms Constitution.interp_describe
+#print axioms Constitution.allDescs_length
+#print axioms Constitution.allDescs_complete
+#print axioms Initiality.dedup_load_bearing
+#print axioms Initiality.require_guard_load_bearing
+#print axioms Initiality.accept_guard_load_bearing
+#print axioms Initiality.budget_gate_load_bearing
+#print axioms Initiality.license_gate_load_bearing
+#print axioms Initiality.refusal_certificate_load_bearing
+#print axioms Initiality.unique_compliant
+#print axioms Initiality.minimum_unique_in_class
+#print axioms Initiality.extension_retract
+#print axioms Initiality.extension_retract_replay
+#print axioms Initiality.retract_section
