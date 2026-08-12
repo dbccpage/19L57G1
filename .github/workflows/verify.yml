@@ -29,6 +29,7 @@ jobs:
       - name: Regenerate artifacts and compare
         run: |
           PYTHONPATH=code python code/run_derivation.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_primdiff.py --artifacts artifacts_ci
           python ci/compare_artifacts.py artifacts artifacts_ci
 
   lean:
