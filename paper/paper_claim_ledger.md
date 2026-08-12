@@ -1254,3 +1254,180 @@ theorems; 291 total, all within {propext, Quot.sound}).
   labels).
 - **Python**: `completion_dependency_graph.json`,
   `completion_countermodels.json`, `completion_receipt.json`.
+
+
+## PR #12 — Primitive Difference contact and passage
+
+### CL-PD2-HORIZON
+- **Statement**: the generated run's complete record is characterized
+  at every stage by induction; quiescence, well-formedness, and
+  per-event acceptance hold at every horizon; the family
+  interpreter's budget semantics is pinned as a trichotomy (unchanged
+  / saturating decrement / explicit set) for every descriptor and
+  event, and the Python mirror implements exactly that semantics.
+- **Class**: theorem (horizon-free) + refuted-and-repaired prior
+  claim (see change log, PR #12 Phase I).
+- **Lean**: `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`,
+  `Horizon.worldAt_wf`, `Horizon.block_all_accepted`,
+  `Horizon.genesis_accepted`, `Horizon.gen_quiescent`,
+  `Horizon.gen_wf`, `Horizon.interp_budget_bound`,
+  `Horizon.budget_saturation_noop`,
+  `Horizon.mark_saturation_all_descs`.
+- **Python**: `test_budget_saturation_matches_lean_nat`,
+  `test_budget_trichotomy_every_descriptor_event`.
+
+### CL-PD2-MATRIX
+- **Statement**: nine candidate readings of primitive difference over
+  one signature; all 72 ordered implication cells settled: 17
+  implications proved, 51 minimum finite countermodels compiled, 4
+  located cells OPEN with exact metatheoretic scope (every decidable
+  relation is located; no internal countermodel can exist).
+  Cotransitivity is automatic on the two-element carrier, making the
+  three-element countermodels minimum-carrier.
+- **Class**: theorem + countermodel + OPEN (scoped), cross-verified
+  by exhaustive finite computation.
+- **Lean**: `PrimitiveCore.matrixCells`, the 68 `imp_*`/`nimp_*`
+  theorems, `PrimitiveCore.cotrans_auto_on_two`,
+  `PrimitiveCore.located_of_decidable`, `PrimitiveCore.D_iff_ne`,
+  `PrimitiveCore.e_empty_iff_d`.
+- **Python**: `primitive_candidates.json`,
+  `primitive_implication_matrix.json` (expected_equals_computed).
+
+### CL-PD2-INITIALITY
+- **Statement**: the oriented two-element realization is initial in
+  the category of ALL pointed witnessed relations (true universal
+  property, category laws proved); the symmetric realization is
+  initial exactly in the symmetric subcategory and not weakly initial
+  in the full one; initiality is unique up to isomorphism only,
+  distinct from presentation identity and from minimum cardinality;
+  pointed automorphisms are trivial for both realizations —
+  orientation lives in the pointing.
+- **Class**: theorem.
+- **Lean**: `PrimitiveCats.d2_initial`,
+  `PrimitiveCats.d2_initial_irrefl`, `PrimitiveCats.s2_initial_sym`,
+  `PrimitiveCats.s2_not_weakly_initial`, `PrimitiveCats.initials_iso`,
+  `PrimitiveCats.two_initials_not_identical`,
+  `PrimitiveCats.larger_not_initial`, `PrimitiveCats.pointed_rigid`.
+
+### CL-PD2-BRANCHING
+- **Statement**: the faithful-presentation category of a
+  three-occurrence source has no weakly terminal object: the maximal
+  observer cuts are incomparable and both retained.  On the two-point
+  source the branching vanishes but unrestricted terminality requires
+  a preimage-selection principle and is recorded OPEN (uniqueness
+  against surjective presentations is proved; no classical choice
+  used).  Cut census on carriers 2-5: 1, 2, 4, 8.
+- **Class**: theorem + OPEN (scoped) + finite computation.
+- **Lean**: `PrimitiveCats.no_terminal_pres`,
+  `PrimitiveCats.no_phom_mergeA_mergeB`,
+  `PrimitiveCats.phom2_unique_of_epi`, OPEN cell
+  `PrimitiveCats.openTerminalPres2`;
+  `HigherStructure.cut_census_growth`.
+
+### CL-PD2-APARTNESS
+- **Statement**: positive apartness (irreflexive, symmetric,
+  cotransitive) makes indistinguishability an equivalence, with each
+  law spent at exactly one clause; omissions are refuted by minimal
+  finite countermodels (carriers 1, 2, 3; minimality proved).  Both
+  orientations of the two-point relation generate the same apartness
+  and the same indistinguishability while remaining distinct data;
+  the oriented-witness preservers are exactly the identity, the
+  apartness preservers exactly the identity and the swap, constants
+  preserve neither; the closure of any admitted family preserves the
+  oriented witness iff every generator does.
+- **Class**: theorem + countermodel, exhaustively mirrored to
+  carrier 3 with preservation censuses to carrier 4.
+- **Lean**: `Apartness.indist_equivalence`,
+  `Apartness.bare_breaks_refl`, `Apartness.irrefl_alone_breaks_symm`,
+  `Apartness.subsingleton_indist_total`,
+  `Apartness.symm_without_cotrans_breaks_trans`,
+  `Apartness.two_point_indist_trans`, `Apartness.s2_isApart`,
+  `Apartness.orientations_same_apartness`,
+  `Apartness.orientations_differ`,
+  `Apartness.oriented_preserver_unique`,
+  `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff`,
+  `Apartness.oriented_family_trivial`.
+- **Python**: `apartness.json`.
+
+### CL-PD2-CONTACT
+- **Statement**: the declared contact package is absent at
+  blind-native-base and at completion; the contact phases terminate
+  CONTACT_INPUT_ABSENT; no contents invented; the native kernel
+  interface any future contact must meet is committed (kernel
+  binding, universal status, orientation fork, branching, matrix).
+- **Class**: declared protocol outcome + runtime check.
+- **Lean**: `PrimitiveContact.native_kernel_initial`.
+- **Python**: `primitive_contact.json`.
+
+### CL-PD2-PASSAGE
+- **Statement**: every arrow of the passage chain has exactly one
+  status with executable evidence; active obstruction is a
+  four-condition conjunction (retained, protected, observation
+  DECLARED, observer-zero) with every maximal proper subset refuted;
+  primitive difference precedes observation as a theorem; ZeroRel is
+  an equivalence before quotienting; THE TWO-RULE THEOREM: at an
+  active obstruction with an in-bounds protected pair, the same-level
+  repair family is nonempty or exhaustion is certified and the
+  extension family is provably nonempty — the obstruction is forced
+  to self-resolution or structure creation, under exactly these
+  hypotheses; refusal is an inert record, the terminal absorbs,
+  proposal is not execution; the represented next-family has
+  stop/nonempty/completeness theorems and its iteration remains
+  metatheoretic (stated).
+- **Class**: theorem (+ declarations priced as admission events with
+  countermodels).
+- **Lean**: `PrimitivePassage.obst_requires_observation`,
+  `PrimitivePassage.obst_conditions_independent`,
+  `PrimitivePassage.zero_refl`, `PrimitivePassage.zero_symm`,
+  `PrimitivePassage.zero_trans`, `PrimitivePassage.menu_complete`,
+  `PrimitivePassage.extension_always_available`,
+  `PrimitivePassage.two_rule`,
+  `PrimitivePassage.proposal_not_execution`,
+  `PrimitivePassage.budget_gates_execution`,
+  `PrimitivePassage.refusal_object_inert`,
+  `PrimitivePassage.terminal_absorbing`,
+  `PrimitivePassage.extension_resolves`,
+  `PrimitivePassage.nextFamilyP_stop`,
+  `PrimitivePassage.nextFamilyP_nonempty`.
+- **Python**: `primitive_passage.json` (arrows + growth reports).
+
+### CL-PD2-GROWTH
+- **Statement**: the growth driver iterates the passage; the grown
+  state at every stage is exactly the path graph with per-edge
+  protection and one observation column per resolved obstruction
+  (characterized by induction); each round's obstruction, nonempty
+  response family, resolution, and creation record are theorems;
+  quiescence is restored after every round; the connectivity residue
+  is 1 at every stage.
+- **Class**: theorem (horizon-free), mirrored to 15 rounds.
+- **Lean**: `HigherStructure.graphAt_spec`,
+  `HigherStructure.round_obstruction`,
+  `HigherStructure.round_two_rule`,
+  `HigherStructure.round_resolution`,
+  `HigherStructure.round_creation_record`,
+  `HigherStructure.graph_growth`,
+  `HigherStructure.graphAt_quiescent`,
+  `HigherStructure.path_connectivity_residue`.
+
+### CL-PD2-LADDER
+- **Statement**: the declared cell calculus admits a k+1-cell exactly
+  over a complete unfilled boundary of k-cells (the ladder invariant:
+  the two-rule shape at every dimension); horn guards are
+  load-bearing and the horn does not fill itself (higher structure
+  admitted, never forced); the four-occurrence demonstration grows
+  0-, 1-, 2-, 3-simplices in replayable creation order with the
+  1-skeleton equal to the passage witness store; the alternation
+  number runs 4, -2, 2, 1 along the stages; with declared integer
+  coefficients and boundaries the composite boundary vanishes on
+  every demonstration cell, and two distinct conventions both work —
+  the convention is declared content.
+- **Class**: theorem + finite computation; non-forcing by
+  countermodel.
+- **Lean**: `HigherStructure.ladder_dim2`,
+  `HigherStructure.ladder_dim3`,
+  `HigherStructure.horn_guard_load_bearing`,
+  `HigherStructure.filling_not_forced`, `HigherStructure.k4_builds`,
+  `HigherStructure.k4_skeleton_agrees`,
+  `HigherStructure.altNum_stages`,
+  `HigherStructure.d2_zero_triangles`, `HigherStructure.d2_zero_tet`,
+  `HigherStructure.boundary_not_forced`.

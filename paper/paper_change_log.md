@@ -496,3 +496,42 @@ two defects found and repaired:
 
 Verdicts C1, C2: hold as labeled.  C3, C4, C5, C7, C8, C9: already
 corrected by 42a33d9; re-verified against current Lean statements.
+
+
+## PR #12 — Phases II–IX: characterization, contact, passage, growth
+
+1. Native characterization (blind, committed before any contact
+   reading): nine candidate readings, 72-cell implication matrix (17
+   proved implications, 51 compiled minimum countermodels, 4 OPEN
+   located cells with exact scope), genuine categories with proved
+   laws, `d2_initial` as a true universal property, the orientation
+   fork retained, and the observer branching theorem
+   (`no_terminal_pres`).
+2. Contact: the declared package is absent; terminal
+   CONTACT_INPUT_ABSENT recorded with a runtime check; the native
+   kernel interface committed as the fixed target of any future
+   collision.  No contents invented.
+3. Apartness refinement (caller directive, mid-run): positive
+   apartness with indistinguishability proved an equivalence;
+   minimal insufficiency countermodels at carriers 1, 2, 3; the
+   orientation/apartness separation; the exact operation-preservation
+   characterization (identity only; identity and swap; constants
+   neither; closure iff generators).
+4. Passage: the full arrow chain with per-arrow statuses; the
+   four-condition active obstruction (observation declared vs
+   pre-observational, a refinement over the sealed three-condition
+   reading, with agreement and divergence proved); P1–P8 including
+   the two-rule theorem — at an active obstruction the response
+   universe never runs dry: same-level repair or certified
+   exhaustion plus a provably nonempty extension family.
+5. Growth: the first graph grows by iterated
+   obstruction-and-response, characterized at every horizon; the
+   0-, 1-, 2-, 3-simplices grow under horn-guarded declared cell
+   admission with replayable creation records; named invariants
+   (ladder invariant, connectivity residue, occurrence alternation
+   number, cut census, orientation residue, budget trichotomy);
+   d²=0 under the declared calculus with the convention proved
+   non-forced.  Higher structure: admitted, never forced.
+6. New claims CL-PD2-* in the ledger; papers
+   `primitive_difference_contact.md`,
+   `primitive_difference_passage.md`, `primitive_difference_map.md`.
