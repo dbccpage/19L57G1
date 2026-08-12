@@ -2,7 +2,7 @@ name: verify
 
 on:
   push:
-    branches: ["**"]
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -49,10 +49,10 @@ jobs:
       - name: Install pinned Lean toolchain
         working-directory: lean4
         run: |
-          for attempt in 1 2 3; do
+          for attempt in 1 2 3 4 5 6; do
             elan toolchain install "$(cat lean-toolchain)" && break
-            if [ "$attempt" -eq 3 ]; then exit 1; fi
-            sleep $((attempt * 5))
+            if [ "$attempt" -eq 6 ]; then exit 1; fi
+            sleep $((attempt * 10))
           done
       - name: lake build
         working-directory: lean4
