@@ -21,6 +21,8 @@ import Derivation.Horizon
 import Derivation.PrimitiveCore
 import Derivation.PrimitiveCats
 import Derivation.PrimitiveContact
+import Derivation.PrimitivePassage
+import Derivation.HigherStructure
 
 /-!
 # Axiom reports
@@ -496,3 +498,74 @@ open Derivation
 #print axioms PrimitiveCore.bool_class
 #print axioms PrimitiveCore.matrixCells_length
 #print axioms PrimitiveContact.native_kernel_initial
+#print axioms PrimitivePassage.zeroP_cons
+#print axioms PrimitivePassage.wit_independent_of_obs
+#print axioms PrimitivePassage.obst_requires_observation
+#print axioms PrimitivePassage.obst_agrees_when_declared
+#print axioms PrimitivePassage.obst_diverges_when_undeclared
+#print axioms PrimitivePassage.obst_conditions_independent
+#print axioms PrimitivePassage.retention_not_free
+#print axioms PrimitivePassage.retention_persists
+#print axioms PrimitivePassage.witness_no_protection
+#print axioms PrimitivePassage.no_protection_no_obstruction
+#print axioms PrimitivePassage.quotient_no_recovery
+#print axioms PrimitivePassage.sepCol_irrefl
+#print axioms PrimitivePassage.sepCol_symm
+#print axioms PrimitivePassage.sepCol_trans
+#print axioms PrimitivePassage.zero_refl
+#print axioms PrimitivePassage.zero_symm
+#print axioms PrimitivePassage.zero_trans
+#print axioms PrimitivePassage.menu_complete
+#print axioms PrimitivePassage.extension_always_available
+#print axioms PrimitivePassage.two_rule
+#print axioms PrimitivePassage.proposal_not_execution
+#print axioms PrimitivePassage.budget_gates_execution
+#print axioms PrimitivePassage.refusal_object_inert
+#print axioms PrimitivePassage.refusal_not_terminal
+#print axioms PrimitivePassage.step_halted
+#print axioms PrimitivePassage.terminal_absorbing
+#print axioms PrimitivePassage.no_outside_operational
+#print axioms PrimitivePassage.replay_deterministic
+#print axioms PrimitivePassage.replay_append
+#print axioms PrimitivePassage.extension_resolves
+#print axioms PrimitivePassage.nextFamilyP_stop
+#print axioms PrimitivePassage.nextFamilyP_nonempty
+#print axioms PrimitivePassage.nextFamilyP_complete_repair
+#print axioms PrimitivePassage.nextFamilyP_complete_ext
+#print axioms HigherStructure.grow_fresh
+#print axioms HigherStructure.grow_wit_not_mem
+#print axioms HigherStructure.grow_col_not_mem
+#print axioms HigherStructure.grow_cols_blind
+#print axioms HigherStructure.grow_col_separates
+#print axioms HigherStructure.grow_pair_separated
+#print axioms HigherStructure.grow_zero
+#print axioms HigherStructure.pstep_admit
+#print axioms HigherStructure.pstep_wit
+#print axioms HigherStructure.pstep_prot
+#print axioms HigherStructure.pstep_budget
+#print axioms HigherStructure.pstep_addCol
+#print axioms HigherStructure.colOk_some
+#print axioms HigherStructure.grow_len
+#print axioms HigherStructure.wit_guard
+#print axioms HigherStructure.prot_guard
+#print axioms HigherStructure.reach_preCol
+#print axioms HigherStructure.round_obstruction
+#print axioms HigherStructure.round_two_rule
+#print axioms HigherStructure.round_resolution
+#print axioms HigherStructure.round_creation_record
+#print axioms HigherStructure.graphAt_spec
+#print axioms HigherStructure.graph_growth
+#print axioms HigherStructure.graphAt_quiescent
+#print axioms HigherStructure.path_connectivity_residue
+#print axioms HigherStructure.ladder_dim2
+#print axioms HigherStructure.ladder_dim3
+#print axioms HigherStructure.horn_guard_load_bearing
+#print axioms HigherStructure.k4_skeleton_from_passage
+#print axioms HigherStructure.k4_builds
+#print axioms HigherStructure.k4_skeleton_agrees
+#print axioms HigherStructure.filling_not_forced
+#print axioms HigherStructure.altNum_stages
+#print axioms HigherStructure.cut_census_growth
+#print axioms HigherStructure.d2_zero_triangles
+#print axioms HigherStructure.d2_zero_tet
+#print axioms HigherStructure.boundary_not_forced

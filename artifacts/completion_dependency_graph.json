@@ -5959,6 +5959,943 @@
    "name": "PrimitiveContact.native_kernel_initial",
    "role": "preservation",
    "statement": ": PrimitiveCats.Initial PrimitiveCats.d2Obj"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.zeroP_cons",
+   "role": "preservation",
+   "statement": "(c : List Nat) (rest : List (List Nat)) (i j : Nat) : zeroP (c :: rest) i j = ((!sepCol c i j) && zeroP rest i j)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.wit_independent_of_obs",
+   "role": "preservation",
+   "statement": "(s : PState) (o : Option (List (List Nat))) (i j : Nat) : ((i, j) \u2208 ({ s with obs"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_requires_observation",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h : s.obs = none) : obstP s i j = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "HigherStructure.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_agrees_when_declared",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (h : s.obs = some cols) (i j : Nat) : obstP s i j = ((decide ((i, j) \u2208 s.wit)) && (decide ((i, j) \u2208 s.prot)) && zeroP cols i j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_diverges_when_undeclared",
+   "role": "preservation",
+   "statement": ": (((decide (((0 : Nat), (1 : Nat)) \u2208 [((0 : Nat), (1 : Nat))])) && (decide (((0 : Nat), (1 : Nat)) \u2208 [((0 : Nat), (1 : Nat))])) && zeroP [] 0 1) = true) \u2227 obstP { occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_conditions_independent",
+   "role": "preservation",
+   "statement": ": -- retained, protected, declared, but separated (zero fails) obstP { occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.retention_not_free",
+   "role": "preservation",
+   "statement": ": (replayP [.admitOcc 7, .admitOcc 8] genesisP).wit = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.retention_persists",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : (i, j) \u2208 s.wit) : (i, j) \u2208 (step s e).wit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.witness_no_protection",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : (step s (.admitWit i j)).prot = s.prot"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.no_protection_no_obstruction",
+   "role": "preservation",
+   "statement": ": obstP { occ"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.quotient_no_recovery",
+   "role": "preservation",
+   "statement": "{X Q : Type} (q : X \u2192 Q) (a b : X) (hq : q a = q b) (g : Q \u2192 Q \u2192 Prop) : g (q a) (q b) \u2194 g (q a) (q a)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.sepCol_irrefl",
+   "role": "preservation",
+   "statement": "(c : List Nat) (i : Nat) : sepCol c i i = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.sepCol_symm",
+   "role": "preservation",
+   "statement": "(c : List Nat) (i j : Nat) : sepCol c i j = sepCol c j i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.sepCol_trans",
+   "role": "preservation",
+   "statement": "(c : List Nat) (i j k : Nat) (h1 : sepCol c i j = false) (h2 : sepCol c j k = false) : sepCol c i k = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "DiffInterface.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.zero_refl",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (i : Nat) : zeroP cols i i = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "DiffInterface.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.zero_symm",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (i j : Nat) : zeroP cols i j = zeroP cols j i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "DiffInterface.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.zero_trans",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (i j k : Nat) (hij : zeroP cols i j = true) (hjk : zeroP cols j k = true) : zeroP cols i k = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.menu_complete",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (h : s.obs = some cols) (v : List Nat) (p : Nat) (hv : v \u2208 cols) (hp : p < s.occ.length) : (v, p) \u2208 responseMenu s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "HigherStructure.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.extension_always_available",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hobst : obstP s i j = true) (hij : i \u2260 j) (hi : i < s.occ.length) (hprot : ((i, j) \u2208 s.prot)) : [i] \u2208 extensionProposals s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.two_rule",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hobst : obstP s i j = true) (hij : i \u2260 j) (hi : i < s.occ.length) (hprot : (i, j) \u2208 s.prot) : repairFamily s i j \u2260 [] \u2228 (repairFamily s i j = [] \u2227 extensionProposals s i j \u2260 [])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.proposal_not_execution",
+   "role": "preservation",
+   "statement": "(s : PState) (c : List Nat) (h : s.licensed = false) (hh : s.halted = false) : step s (.addCol c) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.budget_gates_execution",
+   "role": "preservation",
+   "statement": "(s : PState) (c : List Nat) (h : s.budget = 0) (hh : s.halted = false) : step s (.addCol c) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-RULE1"
+   ],
+   "consumers": [
+    "Completion.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.refusal_object_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : ((step s (.refuse i j)).occ = s.occ) \u2227 ((step s (.refuse i j)).wit = s.wit) \u2227 ((step s (.refuse i j)).prot = s.prot) \u2227 ((step s (.refuse i j)).obs = s.obs) \u2227 ((step s (.refuse i j)).budget = s.budget)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.refusal_not_terminal",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : (step s (.refuse i j)).halted = s.halted"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.step_halted",
+   "role": "preservation",
+   "statement": "(t : PState) (e : PEvent) (h : t.halted = true) : step t e = t"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.terminal_absorbing",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : step (step s .halt) e = step s .halt"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.no_outside_operational",
+   "role": "preservation",
+   "statement": "(s t : PState) (e : PEvent) (h : s = t) : step s e = step t e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPLAY"
+   ],
+   "consumers": [
+    "Represented.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.replay_deterministic",
+   "role": "preservation",
+   "statement": "(h1 h2 : List PEvent) (heq : h1 = h2) : replayP h1 genesisP = replayP h2 genesisP"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-RP-REPLAY"
+   ],
+   "consumers": [
+    "HigherStructure.lean",
+    "Horizon.lean",
+    "Represented.lean"
+   ],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.replay_append",
+   "role": "preservation",
+   "statement": "(h1 h2 : List PEvent) (s : PState) : replayP (h1 ++ h2) s = replayP h2 (replayP h1 s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.extension_resolves",
+   "role": "preservation",
+   "statement": "(s : PState) (c : List Nat) (i j : Nat) (cols : List (List Nat)) (hcols : s.obs = some cols) (hok : colOk s c = true) (hsep : sepCol c i j = true) (hlic : s.licensed = true) (hbud : 0 < s.budget) (hh : s.halted = false) : obstP (step s (.addCol c)) i j = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.nextFamilyP_stop",
+   "role": "preservation",
+   "statement": "(s : PState) (hq : \u2200 r \u2208 s.prot, obstP s r.1 r.2 = false) : nextFamilyP s = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.nextFamilyP_nonempty",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hobst : obstP s i j = true) (hij : i \u2260 j) (hi : i < s.occ.length) (hprot : (i, j) \u2208 s.prot) : [PEvent.setBudget 1, PEvent.addCol [i]] \u2208 nextFamilyP s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.nextFamilyP_complete_repair",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (m : List Nat \u00d7 Nat) (hobst : obstP s i j = true) (hprot : (i, j) \u2208 s.prot) (hm : m \u2208 repairFamily s i j) : [PEvent.refineCol m.1 m.2] \u2208 nextFamilyP s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.nextFamilyP_complete_ext",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (c : List Nat) (hobst : obstP s i j = true) (hprot : (i, j) \u2208 s.prot) (hc : c \u2208 extensionProposals s i j) : [PEvent.setBudget 1, PEvent.addCol c] \u2208 nextFamilyP s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_fresh",
+   "role": "preservation",
+   "statement": "(m : Nat) : \u00ac (m + 2 \u2208 List.range (m + 2))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_wit_not_mem",
+   "role": "preservation",
+   "statement": "(m : Nat) : \u00ac ((m + 1, m + 2) \u2208 (List.range (m + 1)).map (fun i => (i, i + 1)))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_col_not_mem",
+   "role": "preservation",
+   "statement": "(m : Nat) : \u00ac (([m + 1] : List Nat) \u2208 (List.range (m + 1)).map (fun i => ([i] : List Nat)))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_cols_blind",
+   "role": "preservation",
+   "statement": "(m : Nat) {c : List Nat} (hc : c \u2208 (List.range (m + 1)).map (fun i => ([i] : List Nat))) : sepCol c (m + 1) (m + 2) = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_col_separates",
+   "role": "preservation",
+   "statement": "(m : Nat) : sepCol [m + 1] (m + 1) (m + 2) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_pair_separated",
+   "role": "preservation",
+   "statement": "(i : Nat) : sepCol [i] i (i + 1) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_zero",
+   "role": "preservation",
+   "statement": "(m : Nat) : zeroP ((List.range (m + 1)).map (fun i => [i])) (m + 1) (m + 2) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.pstep_admit",
+   "role": "preservation",
+   "statement": "{s : PState} {t : Nat} (hh : s.halted = false) (h : \u00ac t \u2208 s.occ) : step s (.admitOcc t) = { s with occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.pstep_wit",
+   "role": "preservation",
+   "statement": "{s : PState} {i j : Nat} (hh : s.halted = false) (hg : (wfPair s i j && !(decide ((i, j) \u2208 s.wit))) = true) : step s (.admitWit i j) = { s with wit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.pstep_prot",
+   "role": "preservation",
+   "statement": "{s : PState} {i j : Nat} (hh : s.halted = false) (hg : ((decide ((i, j) \u2208 s.wit)) && !(decide ((i, j) \u2208 s.prot))) = true) : step s (.protect i j) = { s with prot"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.pstep_budget",
+   "role": "preservation",
+   "statement": "{s : PState} (n : Nat) (hh : s.halted = false) : step s (.setBudget n) = { s with budget"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.pstep_addCol",
+   "role": "preservation",
+   "statement": "{s : PState} {c : List Nat} {cols : List (List Nat)} (hh : s.halted = false) (hobs : s.obs = some cols) (hg : (colOk s c && s.licensed && decide (0 < s.budget)) = true) : step s (.addCol c) = { s with obs"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.colOk_some",
+   "role": "preservation",
+   "statement": "{s : PState} {cols : List (List Nat)} (h : s.obs = some cols) (c : List Nat) : colOk s c = (c.all (fun p => decide (p < s.occ.length)) && !(decide (c \u2208 cols)) && (s.prot.any (fun r => obstP s r.1 r.2 && sepCol c r.1 r.2)))"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.grow_len",
+   "role": "preservation",
+   "statement": "(m : Nat) : (List.range (m + 2) ++ [m + 2]).length = m + 3"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.wit_guard",
+   "role": "preservation",
+   "statement": "(m : Nat) : (wfPair (g1 m) (m + 1) (m + 2) && !(decide ((m + 1, m + 2) \u2208 (g1 m).wit))) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.prot_guard",
+   "role": "preservation",
+   "statement": "(m : Nat) : ((decide ((m + 1, m + 2) \u2208 (g2 m).wit)) && !(decide ((m + 1, m + 2) \u2208 (g2 m).prot))) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.reach_preCol",
+   "role": "preservation",
+   "statement": "(m : Nat) : replayP [.admitOcc (m + 2), .admitWit (m + 1) (m + 2), .protect (m + 1) (m + 2), .setBudget 1] (pathState m) = preCol m"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.round_obstruction",
+   "role": "preservation",
+   "statement": "(m : Nat) : obstP (preCol m) (m + 1) (m + 2) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.round_two_rule",
+   "role": "preservation",
+   "statement": "(m : Nat) : [m + 1] \u2208 extensionProposals (preCol m) (m + 1) (m + 2)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.round_resolution",
+   "role": "preservation",
+   "statement": "(m : Nat) : step (preCol m) (.addCol [m + 1]) = pathState (m + 1)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.round_creation_record",
+   "role": "preservation",
+   "statement": "(m : Nat) : (growBlock (m + 2)).getLast? = some (.addCol [m + 1])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.graphAt_spec",
+   "role": "preservation",
+   "statement": "(k : Nat) : graphAt (k + 1) = pathState k"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.graph_growth",
+   "role": "preservation",
+   "statement": "(k : Nat) : (graphAt (k + 1)).occ.length = k + 2 \u2227 (graphAt (k + 1)).wit.length = k + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.graphAt_quiescent",
+   "role": "preservation",
+   "statement": "(k : Nat) : \u2200 r \u2208 (graphAt (k + 1)).prot, obstP (graphAt (k + 1)) r.1 r.2 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.path_connectivity_residue",
+   "role": "preservation",
+   "statement": "(k : Nat) : ((graphAt (k + 1)).occ.length : Int) - ((graphAt (k + 1)).wit.length : Int) = 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.ladder_dim2",
+   "role": "preservation",
+   "statement": "(C : Complex) (i j k : Nat) (h : horn2 C i j k = true) : (i, j, k) \u2208 (cstep C (.addT i j k)).c2 \u2227 cstep C (.addT i j k) \u2260 C"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.ladder_dim3",
+   "role": "preservation",
+   "statement": "(C : Complex) (i j k l : Nat) (h : horn3 C i j k l = true) : (i, j, k, l) \u2208 (cstep C (.addQ i j k l)).c3 \u2227 cstep C (.addQ i j k l) \u2260 C"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.horn_guard_load_bearing",
+   "role": "preservation",
+   "statement": ": cstep \u27e8[0, 1, 2], [(0, 1)], [], []\u27e9 (.addT 0 1 2) = \u27e8[0, 1, 2], [(0, 1)], [], []\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.k4_skeleton_from_passage",
+   "role": "preservation",
+   "statement": ": (replayP k4PassageHist genesisP).wit = [(0, 1), (1, 2), (2, 3), (0, 2), (1, 3), (0, 3)] \u2227 (replayP k4PassageHist genesisP).prot = [(0, 1), (1, 2), (2, 3), (0, 2), (1, 3), (0, 3)] \u2227 ((replayP k4PassageHist genesisP).prot.all (fun r => !obstP (replayP k4PassageHist genesisP) r.1 r.2)) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.k4_builds",
+   "role": "preservation",
+   "statement": ": k4 = \u27e8[0, 1, 2, 3], [(0, 1), (1, 2), (2, 3), (0, 2), (1, 3), (0, 3)], [(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)], [(0, 1, 2, 3)]\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.k4_skeleton_agrees",
+   "role": "preservation",
+   "statement": ": k4.c1 = (replayP k4PassageHist genesisP).wit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.filling_not_forced",
+   "role": "preservation",
+   "statement": ": horn3 k4Boundary 0 1 2 3 = true \u2227 k4Boundary.c3 = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.altNum_stages",
+   "role": "preservation",
+   "statement": ": altNum (creplay (k4Events.take 4) emptyComplex) = 4 \u2227 altNum (creplay (k4Events.take 10) emptyComplex) = -2 \u2227 altNum k4Boundary = 2 \u2227 altNum k4 = 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.cut_census_growth",
+   "role": "preservation",
+   "statement": ": cutCensus 2 0 1 = 1 \u2227 cutCensus 3 0 1 = 2 \u2227 cutCensus 4 0 1 = 4"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.d2_zero_triangles",
+   "role": "preservation",
+   "statement": ": (k4.c2.all (fun t => k4.c0.all (fun v => coeffV v (push1 (bd2 t)) == 0))) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.d2_zero_tet",
+   "role": "preservation",
+   "statement": ": (k4.c1.all (fun e => coeffE e (push2 (bd3 (0, 1, 2, 3))) == 0)) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "HigherStructure.lean",
+   "name": "HigherStructure.boundary_not_forced",
+   "role": "preservation",
+   "statement": ": bd2 (0, 1, 2) \u2260 bd2' (0, 1, 2) \u2227 (k4.c0.all (fun v => coeffV v (push1 (bd2 (0, 1, 2))) == 0)) = true \u2227 (k4.c0.all (fun v => coeffV v (push1 (bd2' (0, 1, 2))) == 0)) = true"
   }
  ]
 }
