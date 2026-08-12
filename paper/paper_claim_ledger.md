@@ -265,37 +265,39 @@ implementation.
 - **Falsifier / boundary**: a challenged accepted regime with no valid
   bounded response.
 
-### CL-ENDOGENOUS-EXISTS
-- **Statement**: The admitted structure generates its next unresolved
-  requirement endogenously — no presentation-token glyph inspection, no
-  fresh external datum, no new external goal kind, no assumed
-  continuation — via the least collapsed pair, until the fixpoint.
-- **Class**: definition + finite computation (token-blindness); the model
-  even lacks the vocabulary for glyph inspection (Lean regimes carry no
-  tokens).
-- **Deps**: CL-2-COLLAPSED. **Assumptions**: shared + declared canonical
-  order (admission order).
-- **Python**: `next_endogenous_challenge`;
-  `test_endogenous_generator_is_token_blind`,
-  `test_endogenous_generator_fixpoint`.
+### CL-CLOSURE-POLICY
+- **Statement**: No object-language endogenous demand generator was
+  derived: a collapsed pair is not an active obstruction unless
+  separation is required, and the requirement pattern originates
+  externally.  What is declared instead is the *pair-separation closure
+  policy*: reissue the admitted requirement pattern on collapsed pairs,
+  one challenge branch per automorphism orbit — token-blind, no fresh
+  data, no new goal kind, isomorphism-equivariant.
+- **Class**: declared metatheory + finite computation (token-blindness
+  and equivariance); the Lean model even lacks the vocabulary for glyph
+  inspection (regimes carry no tokens).
+- **Deps**: CL-2-COLLAPSED, CL-TRANSITION-EQUIVARIANCE.
+  **Assumptions**: shared + the declared policy itself.
+- **Python**: `closure_challenge_orbits`;
+  `test_closure_policy_is_token_blind`, `test_closure_policy_fixpoint`.
 - **Lean**: token-freeness by construction of `Regime`.
 - **Axioms**: n/a.
-- **Falsifier / boundary**: any dependence of the generated challenge on
-  token renaming.  Weakest-ness of this generator is a declared-metatheory
-  judgment, not a proved universal property.
+- **Falsifier / boundary**: any dependence of the challenge orbits on
+  token renaming or representative labeling.  Selection of this policy
+  among conceivable ones is a declared-metatheory judgment.
 
-### CL-ENDOGENOUS-TERMINATION
-- **Statement**: The native (closed-system) tower terminates: with the
-  external policy disabled, every maximal branch ends at the
-  all-pairs-separated fixpoint within n(n-1)/2 rounds (L: 1 round, 3
-  terminal branches, 0 budget-cut, 0 round-cut, 0 open; F: 3 rounds, 16
-  terminal branches, 0/0/0).  *Bounds: declared engine bounds; the
-  counting laws are grammar-wide theorems.*
+### CL-CLOSURE-TERMINATION
+- **Statement**: Pair-separation closure terminates: with the external
+  policy disabled, every maximal branch ends at the all-pairs-separated
+  fixpoint within n(n-1)/2 rounds (L: 1 round, 3 terminal branches, 0
+  budget-cut, 0 round-cut, 0 open; F: 3 rounds, 16 terminal branches,
+  0/0/0).  *Bounds: declared engine bounds; the counting laws are
+  grammar-wide but conditional (see Lean field).*
 - **Class**: bounded theorem.
-- **Deps**: CL-ENDOGENOUS-EXISTS, CL-PROGRESS. **Assumptions**: shared +
+- **Deps**: CL-CLOSURE-POLICY, CL-PROGRESS. **Assumptions**: shared +
   bounds.
-- **Python**: `claims.json:CL-ENDOGENOUS-TERMINATION` (branch reports
-  over *all* maximal branches, `every_maximal_branch_terminates = true`,
+- **Python**: `claims.json:CL-CLOSURE-TERMINATION` (branch reports over
+  *all* maximal branches, `every_maximal_branch_terminates = true`,
   `within_bound = true`);
   `test_no_supply_variant_terminates_within_pair_bound`,
   `test_closed_system_terminal_at_round_boundary`.
@@ -310,20 +312,46 @@ implementation.
 - **Falsifier / boundary**: a closed-system branch that is budget-cut,
   round-cut, open, or exceeds the pair bound.
 
-### CL-NATIVE-TOWER-STOPS
-- **Statement**: Beyond the fixpoint no endogenous continuation exists:
+### CL-CLOSURE-FIXPOINT
+- **Statement**: Beyond the fixpoint the closure policy yields nothing:
   the requirement language of n data has exactly n(n-1)/2 elements, all
   exhausted at the fixpoint; any further requirement needs a fresh datum
   (external supply) or a new requirement kind (external goal).  Further
   continuation requires the declared external continuation policy.
-- **Class**: theorem (language-size law) + definition (policy boundary).
-- **Deps**: CL-ENDOGENOUS-TERMINATION. **Assumptions**: shared + the
+- **Class**: theorem (language-size law) + declared metatheory (policy
+  boundary).
+- **Deps**: CL-CLOSURE-TERMINATION. **Assumptions**: shared + the
   admitted requirement language (separation over admitted data).
-- **Python**: `test_endogenous_generator_fixpoint`.
+- **Python**: `test_closure_policy_fixpoint`.
 - **Lean**: `allPairs_length`.
 - **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: an admitted-structure-only challenge issuable
   at the fixpoint.
+
+### CL-TRANSITION-EQUIVARIANCE
+- **Statement**: The quotiented transition is well defined: expanding a
+  regime by one challenge per automorphism orbit of collapsed pairs (all
+  non-isomorphic challenge orbits retained) commutes with renaming — for
+  every bijection, the renamed regime expands to exactly the same set of
+  child isomorphism classes.  Raw least-pair selection violates this:
+  on the regression regime (four data, one unary form, marks on data 2
+  and 3, collapsed pairs (0,1) and (2,3), renaming (2,3,0,1)) the
+  canonical keys agree while the same-index least-pair challenges produce
+  non-isomorphic children.
+- **Class**: finite computation (exhaustive congruence test over all
+  renamings of the sample regimes, including the regression) +
+  counterexample (against the old policy).
+- **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
+- **Python**: `tests/test_equivariance.py` (regression, orbit
+  distinctness, exhaustive congruence, orbit coverage);
+  `claims.json:CL-TRANSITION-EQUIVARIANCE` (policy record and
+  multi-orbit statistics: 0 in every exported run — the repaired defect
+  was latent within the explored bounds).
+- **Lean**: -- (transport under isomorphism unresolved; see paper
+  section 12).
+- **Axioms**: --.
+- **Falsifier / boundary**: a regime and bijection whose expansions
+  yield different child class sets.
 
 ### CL-BRANCH-REPORTS
 - **Statement**: Per-tree branch evidence — terminal, budget-cutoff,
@@ -345,7 +373,8 @@ implementation.
   them.*
 - **Class**: bounded theorem.
 - **Deps**: CL-ISO-SOUND, CL-PRUNE-STRUCTURAL, CL-REPLAY.
-- **Python**: `tree_L_mu2.json`, `tree_F_mu2.json`; stats in
+- **Python**: `tree_L_mu2_summary.json` / `full/tree_L_mu2.json.gz` and
+  the F analogues; stats in
   `claims.json:CL-TREE-SUMMARY`.
 - **Lean**: --. **Axioms**: --.
 - **Falsifier / boundary**: a reachable bounded node missing from the
@@ -379,13 +408,13 @@ implementation.
 - **Falsifier / boundary**: recount from exports; the boundary is the
   exported depth itself.
 
-### CL-ENDOGENOUS-VS-EXTERNAL
+### CL-CLOSURE-VS-EXTERNAL
 - **Statement**: Side-by-side comparison of the closed-system towers
   (4 / 20 nodes, all branches terminal) with the external-policy trees
   (963-1847 node complete mu2 quotients; 1200-node mu1 frontiers).
 - **Class**: finite computation.
-- **Deps**: CL-ENDOGENOUS-TERMINATION, CL-TREE-MU2-COMPLETE.
-- **Python**: `claims.json:CL-ENDOGENOUS-VS-EXTERNAL`.
+- **Deps**: CL-CLOSURE-TERMINATION, CL-TREE-MU2-COMPLETE.
+- **Python**: `claims.json:CL-CLOSURE-VS-EXTERNAL`.
 - **Lean**: --. **Axioms**: --.
 - **Falsifier / boundary**: recount from exports.
 
@@ -405,32 +434,46 @@ implementation.
 
 ### CL-TOKEN-ERASURE
 - **Statement**: The Lean development is a token-erased abstraction of
-  the token-aware admission semantics, connected by a proved simulation:
-  one token-aware step (with deduplicating admission) followed by erasure
-  equals one erased step of the erased event (a duplicate admission
-  erases to a bare supply), and the same holds for whole histories.
+  the token-aware admission semantics, connected by a proved simulation
+  that agrees on *repeated admission of every event kind*: instance,
+  rule, and requirement admission use deduplicating insertion
+  (`insertNew`) on both sides, matching the Python set semantics; datum
+  admission dedups on token identity, and a duplicate datum admission
+  erases to a bare supply (a proved no-op).  One token-aware step
+  followed by erasure equals one erased step of the erased event, and
+  the same holds for whole histories.
 - **Class**: theorem.
 - **Deps**: CL-0-INERTIA (`supply_no_op` makes the duplicate case a
   no-op). **Assumptions**: shared.
-- **Python**: token dedup behavior —
-  `test_admit_datum_dedups_on_presentation_identity`.
-- **Lean**: `erase_step`, `erase_replay` (with `replayT_cons`,
-  `replayE_cons`) in `Derivation/Erasure.lean`.
+- **Python**: set semantics of the admitted collections (frozensets in
+  `model.py`); `test_admit_datum_dedups_on_presentation_identity`.
+- **Lean**: `insertNew` (+ `mem_insertNew`, `insertNew_of_not_mem`,
+  `insertNew_of_mem`), `erase_step`, `erase_replay` (with
+  `replayT_cons`, `replayE_cons`) in `Derivation/Erasure.lean`.
 - **Axioms**: `propext, Quot.sound`.
-- **Falsifier / boundary**: a token-aware history whose erased replay
-  differs from its replayed erasure.  Boundary: the simulation covers the
-  event semantics; Python-side structures beyond events (e.g. token
-  strings vs numbers) are related by the declared opaque-token reading.
+- **Falsifier / boundary**: a repeated admission of any event kind on
+  which the two sides disagree, or a token-aware history whose erased
+  replay differs from its replayed erasure.  Boundary: Python-side
+  structures beyond events (token strings vs numbers) are related by the
+  declared opaque-token reading.
 
 ### CL-REPLAY
 - **Statement**: Every certified regime equals the replay of its recorded
   history from genesis; replay is compositional; tampering is detected.
+  The normalized DAG exports preserve replayability: every node's history
+  reconstructs from the root history along creation edges, and
+  `verify_full_export` independently replays every exported node and
+  checks its regime hash.
 - **Class**: theorem (compositionality) + finite computation
-  (certification of all 5236 exported nodes).
+  (certification of all 5240 exported nodes, in-engine and again from the
+  exports).
 - **Deps**: none. **Assumptions**: shared.
 - **Python**: `all_certified = true` in every tree;
   `test_replay_certify_and_tamper_detection`,
-  `test_replay_from_base_composes`.
+  `test_replay_from_base_composes`,
+  `test_full_export_replays_and_verifies`,
+  `test_verify_full_export_detects_tampering`;
+  `test_run_main_produces_all_artifacts` verifies every exported tree.
 - **Lean**: `replayE_append`, `historyL_replays`, `historyF_replays`.
 - **Axioms**: `propext, Quot.sound`; `propext`; `propext`.
 - **Falsifier / boundary**: a certified node whose history replays
@@ -454,15 +497,21 @@ implementation.
 - **Statement**: The implemented canonical form decides exactly the
   declared isomorphism relation: equality of refined canonical keys agrees
   with equality of brute-force keys, and the key is invariant under every
-  bijection pair.  *Bounds: verified exhaustively on the Challenge 3 class
-  representatives and mixed regimes; budget-guarded in general.*
+  bijection pair.  The automorphism search (used by the closure policy's
+  orbit decomposition) enumerates within isomorphism-invariant color
+  classes and is budget-guarded like canonicalization.  *Bounds: verified
+  exhaustively on the Challenge 3 class representatives and mixed
+  regimes; budget-guarded in general.*
 - **Class**: finite computation.
 - **Deps**: none. **Assumptions**: shared.
 - **Python**: `test_agreement_with_bruteforce_on_pairs`,
-  `test_canonical_invariant_under_rename`, `test_perm_budget_error`.
+  `test_canonical_invariant_under_rename`, `test_perm_budget_error`,
+  `test_regression_orbits_are_distinct_and_both_retained`,
+  `test_orbit_representatives_cover_all_collapsed_pairs`.
 - **Lean**: -- (unresolved). **Axioms**: --.
 - **Falsifier / boundary**: a pair of regimes on which refined and
-  brute-force equality disagree.
+  brute-force equality disagree, or an orbit decomposition that misses or
+  double-counts a collapsed pair.
 
 ### CL-COUNT-INVARIANCE
 - **Statement**: The unresolved-requirement count (collapsed pairs) is
@@ -471,21 +520,24 @@ implementation.
   and mixed regimes); the general Lean transport is **unresolved**.
 - **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
 - **Python**: canonical-invariance tests (the count is a component of the
-  canonical key); `test_endogenous_generator_is_token_blind`.
+  canonical key); `test_closure_policy_is_token_blind`.
 - **Lean**: language-size law `allPairs_length` only.
 - **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: a renaming changing the collapsed-pair count.
 
 ### CL-DETERMINISM
 - **Statement**: The entire artifact set is byte-identical across
-  independent runs.
+  independent runs on one platform; across platforms the JSON artifacts
+  are byte-identical and the compressed full exports are
+  content-identical and hash-pinned by the committed summaries.
 - **Class**: finite computation.
 - **Deps**: none. **Assumptions**: shared.
-- **Python**: dual-run hash comparison (recorded in change log entry 3);
-  `test_run_main_is_deterministic`,
-  `test_build_tree_small_deterministic_and_certified`.
+- **Python**: `test_run_main_is_deterministic`,
+  `test_write_json_and_gz_are_deterministic`,
+  `test_build_tree_small_deterministic_and_certified`;
+  `ci/compare_artifacts.py` (regeneration gate, run locally and in CI).
 - **Lean**: --. **Axioms**: --.
-- **Falsifier / boundary**: any byte difference across runs.
+- **Falsifier / boundary**: any content difference across runs.
 
 ### CL-READING-UNDERDETERMINATION
 - **Statement**: The challenge text underdetermines admission semantics;

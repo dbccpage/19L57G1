@@ -110,7 +110,63 @@ instantiated for both readings); reading-F existence witness
    conclusion-producing axioms; standard `propext` and `Quot.sound`
    dependencies remain (44 per-theorem reports).
 
-## 6. 2026-08-11 — Paper suite frozen
+## 6. 2026-08-11 — Third caller correction (7 points) applied
+
+1. Quotient-transition soundness repaired.  Raw least-pair challenge
+   selection was not isomorphism-equivariant: on the regression regime
+   (four data, one unary form, instances on data 2 and 3, collapsed
+   pairs (0,1) and (2,3), renaming (2,3,0,1)) the canonical keys agree
+   while the same-index least-pair selections produce non-isomorphic
+   children (`test_least_pair_selection_is_not_equivariant`).  Replaced
+   by one challenge branch per automorphism orbit of collapsed pairs,
+   all non-isomorphic orbits retained (`automorphisms`, `pair_orbits`,
+   `closure_challenge_orbits`); transition congruence under isomorphism
+   is tested exhaustively over all renamings of the sample regimes.
+   Every tree, count, role report, artifact, and dependent claim was
+   regenerated: the numbers are unchanged and
+   `expansions_with_multiple_orbits = 0` in every exported run — the
+   defect was latent within the explored bounds.
+2. Continuation rule reclassified: "endogenous generator" renamed to
+   *declared pair-separation closure policy*; `CL-ENDOGENOUS-*` replaced
+   by `CL-CLOSURE-*`; the paper now states that no object-language
+   endogenous demand generator was derived and that under the declared
+   policy the fixed finite datum set reaches an all-pairs-separated
+   fixpoint; "native tower stops" replaced by "pair-separation closure
+   terminates".
+3. Lean/Python bridge repaired: instance, rule, and requirement
+   admission in Lean now use deduplicating insertion (`insertNew`),
+   matching the Python set semantics; the erasure simulation was
+   re-proved over the new semantics, so repeated admission of every
+   event kind agrees.  The bridge is stated as an abstraction with a
+   proved simulation, not as an exact mirror.
+4. `wfCtx` gained the hole requirement (`none ∈ c.slots`), making the
+   Lean context space coincide with the Python enumeration; witnesses
+   and transfers repaired.
+5. Claim language corrected: "Least" removed from the paper title (and
+   the new PR title); the result is stated as beginning from an opaque
+   seed under declared external challenges; "admission never increases
+   expressive power" weakened to "admission need not increase expressive
+   power"; the remaining unboundedness sentence removed from the
+   `Progress.lean` module comment; the counting laws remain labeled
+   conditional.
+6. Independent verification added: pinned dependencies
+   (`requirements.txt`), GitHub Actions (`.github/workflows/verify.yml`)
+   running pytest with independent 95% line and branch gates
+   (`ci/check_coverage.py`), mypy strict, `lake build`, forbidden-token
+   and axiom audits (`ci/check_lean_audit.py`,
+   `ci/check_axiom_report.py`), prompt-hash verification
+   (`ci/check_prompt_hashes.py`, pinning both the supplied and the
+   repository-canonical bytes), and artifact regeneration with content
+   comparison (`ci/compare_artifacts.py`).
+7. Generated-artifact duplication reduced: trees now export as
+   normalized DAG records (root history, per-node regime hashes, edge
+   event-deltas, parent references — no per-node histories); committed
+   summaries carry statistics and the SHA-256 of each full export; full
+   exports live under `artifacts/full/*.json.gz`, reproducibly
+   compressed, and `verify_full_export` replays every node from the DAG
+   (the exported artifact footprint dropped from ~17 MB to ~320 KB).
+
+## 7. 2026-08-11 — Paper suite frozen
 
 `paper.md`, `paper_claim_ledger.md`, and this log written against the
 frozen artifacts; final gate run recorded in `paper.md` section 12.

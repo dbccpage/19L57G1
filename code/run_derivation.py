@@ -1,14 +1,16 @@
 """Produce every derivation artifact deterministically.
 
 Usage: python code/run_derivation.py [--artifacts DIR] [--rounds N]
-       [--budget N] [--max-arity N]
+       [--budget-mu1 N] [--budget-mu2 N] [--max-arity N]
 
-Outputs (all JSON, deterministic byte-for-byte):
+Outputs (all deterministic byte-for-byte):
 
 * ``bounds.json``      -- every declared resource bound;
 * ``challenges.json``  -- Challenge 0-3 analyses for both readings;
-* ``tree_<reading>_<measure>.json`` -- the quotiented branch trees;
-* ``nosupply_<reading>.json``       -- the termination variant;
+* ``tree_<reading>_<measure>_summary.json`` / ``closed_<reading>_summary
+  .json`` -- committed summaries with the SHA-256 of the full exports;
+* ``full/*.json.gz``   -- reproducibly compressed normalized DAG exports
+  (parent references and edge deltas; no per-node histories);
 * ``claims.json``      -- computed evidence per claim ledger entry.
 """
 
@@ -29,7 +31,12 @@ from derivation.engine import (
     challenge2_report,
     challenge3_report,
 )
-from derivation.export import tree_json, write_json
+from derivation.export import (
+    tree_full_json,
+    tree_summary_json,
+    write_json,
+    write_json_gz,
+)
 from derivation.iso import canonical
 from derivation.model import replay
 from derivation.observe import collapsed_pairs
@@ -101,24 +108,42 @@ def _claims(
                 for name, t in nosupply.items()
             },
         },
-        "CL-ENDOGENOUS-TERMINATION": {
+        "CL-CLOSURE-TERMINATION": {
             name: {
                 "branch_report": _branch_report(t),
                 "rounds_used": _rounds_used(t),
                 "pair_bound": _pair_bound(t),
                 "within_bound": _rounds_used(t) <= _pair_bound(t),
-                "note": "closed-system baseline: endogenous generator "
-                "only, no external continuation policy",
+                "note": "closed-system baseline: declared pair-separation "
+                "closure policy only, no external continuation policy. "
+                "No object-language endogenous demand generator was "
+                "derived; under the declared policy the fixed finite "
+                "datum set reaches an all-pairs-separated fixpoint "
+                "(pair-separation closure terminates).",
             }
             for name, t in nosupply.items()
         },
-        "CL-ENDOGENOUS-VS-EXTERNAL": {
+        "CL-CLOSURE-VS-EXTERNAL": {
             name: {
                 "closed_system": nosupply[name].stats(),
                 "external_policy_mu1": trees[f"{name}_mu1"].stats(),
                 "external_policy_mu2": trees[f"{name}_mu2"].stats(),
             }
             for name in nosupply
+        },
+        "CL-TRANSITION-EQUIVARIANCE": {
+            "policy": "one challenge branch per automorphism orbit of "
+            "collapsed pairs (isomorphism-equivariant); replaces raw "
+            "least-pair selection, which was not equivariant "
+            "(regression: test_least_pair_selection_is_not_equivariant; "
+            "congruence: test_orbit_policy_transition_congruence_"
+            "exhaustive)",
+            "expansions_with_multiple_orbits": {
+                key: t.stats()["expansions_with_multiple_orbits"]
+                for key, t in {**trees, **{
+                    f"closed_{n}": t for n, t in nosupply.items()
+                }}.items()
+            },
         },
         "CL-REPLAY-CERTIFIED": {
             key: t.stats()["all_certified"] for key, t in trees.items()
@@ -206,10 +231,17 @@ def main(argv: Optional[list[str]] = None) -> int:
         },
     )
     write_json(out / "challenges.json", challenges)
-    for key, tree in trees.items():
-        write_json(out / f"tree_{key}.json", tree_json(tree))
-    for name, tree in nosupply.items():
-        write_json(out / f"nosupply_{name}.json", tree_json(tree))
+    named: dict[str, Tree] = {
+        **{f"tree_{key}": t for key, t in trees.items()},
+        **{f"closed_{name}": t for name, t in nosupply.items()},
+    }
+    for name, tree in named.items():
+        sha = write_json_gz(
+            out / "full" / f"{name}.json.gz", tree_full_json(tree)
+        )
+        write_json(
+            out / f"{name}_summary.json", tree_summary_json(tree, sha)
+        )
     write_json(out / "claims.json", _claims(challenges, trees, nosupply))
 
     # Sanity: genesis regimes replay and are collapsed before Challenge 3.

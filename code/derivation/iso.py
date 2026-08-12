@@ -206,3 +206,69 @@ def group_by_canonical(
     for regime, payload in regimes:
         out.setdefault(canonical(regime, perm_budget), []).append(payload)
     return out
+
+
+def _inplace_class_perms(colors: Sequence[int]) -> Iterator[tuple[int, ...]]:
+    """All bijections mapping each color class onto itself (members permute
+    among their own original positions).  Automorphisms preserve the
+    isomorphism-invariant coloring, so searching these suffices."""
+    classes: dict[int, list[int]] = {}
+    for idx, c in enumerate(colors):
+        classes.setdefault(c, []).append(idx)
+    keys = sorted(classes)
+    for images in product(*(permutations(classes[c]) for c in keys)):
+        pi = [0] * len(colors)
+        for c, image in zip(keys, images):
+            for member, target in zip(classes[c], image):
+                pi[member] = target
+        yield tuple(pi)
+
+
+def automorphisms(
+    r: Regime, perm_budget: int = 100_000
+) -> list[tuple[tuple[int, ...], tuple[int, ...]]]:
+    """All automorphisms of the regime: bijection pairs under which the
+    renamed regime equals the regime itself (tokens ignored)."""
+    dcol, fcol = _refine(r)
+    total = _perm_count(dcol) * _perm_count(fcol)
+    if total > perm_budget:
+        raise IsoBudgetError(
+            f"{total} candidate bijections exceed the declared budget "
+            f"{perm_budget}"
+        )
+    identity_key = serialize(
+        r, tuple(range(r.n_data())), tuple(range(len(r.forms)))
+    )
+    return [
+        (pi, phi)
+        for pi in _inplace_class_perms(dcol)
+        for phi in _inplace_class_perms(fcol)
+        if serialize(r, pi, phi) == identity_key
+    ]
+
+
+def pair_orbits(
+    r: Regime, pairs: Sequence[Pair], perm_budget: int = 100_000
+) -> tuple[tuple[Pair, ...], ...]:
+    """Orbits of unordered data pairs under the automorphism group of the
+    regime, each orbit sorted, orbits ordered by their least member.
+
+    The orbit decomposition is isomorphism-equivariant: renaming the
+    regime by any bijection maps orbits onto orbits.  Selecting one
+    representative per orbit therefore yields an equivariant challenge
+    policy (unlike raw least-pair selection, which depends on the
+    representative labeling)."""
+    autos = automorphisms(r, perm_budget)
+    remaining = set(pairs)
+    orbits: list[tuple[Pair, ...]] = []
+    for pair in sorted(pairs):
+        if pair not in remaining:
+            continue
+        orbit = {
+            (min(pi[pair[0]], pi[pair[1]]), max(pi[pair[0]], pi[pair[1]]))
+            for (pi, _) in autos
+        }
+        orbit &= remaining
+        remaining -= orbit
+        orbits.append(tuple(sorted(orbit)))
+    return tuple(orbits)

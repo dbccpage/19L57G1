@@ -13,7 +13,7 @@ from derivation.engine import (
     challenge3_report,
     delta_label,
 )
-from derivation.export import tree_json
+from derivation.export import tree_full_json
 from derivation.model import replay
 from derivation.observe import collapsed_pairs
 
@@ -94,7 +94,7 @@ def test_delta_label_shapes() -> None:
 def test_build_tree_small_deterministic_and_certified() -> None:
     t1 = build_tree(READING_L, "mu2", BOUNDS, max_rounds=5, node_budget=40)
     t2 = build_tree(READING_L, "mu2", BOUNDS, max_rounds=5, node_budget=40)
-    assert tree_json(t1) == tree_json(t2)
+    assert tree_full_json(t1) == tree_full_json(t2)
     stats = t1.stats()
     assert stats["all_certified"] is True
     assert stats["max_depth"] == 5
@@ -181,10 +181,11 @@ def test_tree_terminal_when_no_response_within_bounds() -> None:
     assert len(t.nodes) == 1
 
 
-def test_endogenous_generator_is_token_blind() -> None:
-    """Renaming every presentation token leaves the generated challenge
-    unchanged: the endogenous generator reads no glyphs."""
-    from derivation.engine import next_endogenous_challenge
+def test_closure_policy_is_token_blind() -> None:
+    """Renaming every presentation token leaves the challenge orbits
+    unchanged: the declared pair-separation closure policy reads no
+    glyphs."""
+    from derivation.engine import closure_challenge_orbits
     from derivation.model import Regime
 
     r = replay(READING_F.genesis)
@@ -195,22 +196,22 @@ def test_endogenous_generator_is_token_blind() -> None:
         r.rules,
         r.reqs,
     )
-    assert next_endogenous_challenge(r) == next_endogenous_challenge(renamed)
-    assert next_endogenous_challenge(r) == (0, 1)
+    assert closure_challenge_orbits(r) == closure_challenge_orbits(renamed)
+    # all three data are collapsed and mutually symmetric: one orbit
+    assert closure_challenge_orbits(r) == ((0, 1),)
 
 
-def test_endogenous_generator_fixpoint() -> None:
-    """Once every pair is separated the endogenous generator yields
-    nothing: no unresolved requirement is generatable from the admitted
-    structure alone."""
-    from derivation.engine import next_endogenous_challenge
+def test_closure_policy_fixpoint() -> None:
+    """Once every pair is separated the closure policy yields nothing: no
+    unresolved requirement remains under the declared policy."""
+    from derivation.engine import closure_challenge_orbits
     from derivation.model import AdmitForm, AdmitInst
 
     r = replay(
         (AdmitForm(1), AdmitInst(0, (1,))),
         replay(READING_L.genesis),
     )
-    assert next_endogenous_challenge(r) is None
+    assert closure_challenge_orbits(r) == ()
 
 
 def test_closed_system_terminal_at_round_boundary() -> None:

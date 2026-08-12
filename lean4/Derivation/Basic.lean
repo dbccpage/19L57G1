@@ -3,9 +3,11 @@
 
 A *token-erased abstraction* of `code/derivation/model.py` and
 `observe.py`: presentation tokens are deliberately absent (data are
-counted, not named), so token-level admission deduplication is not
-represented here.  The bridge is the erasure simulation in
-`Derivation/Erasure.lean`.
+counted, not named); token-level datum deduplication is bridged by the
+erasure simulation in `Derivation/Erasure.lean`.  The admitted instance,
+rule, and requirement collections are sets in the Python model, so every
+admission here uses deduplicating insertion (`insertNew`): repeated
+admission of any event kind is idempotent, matching Python.
 
 A regime is the admitted state: a count of admitted data (internal identity
 is the index), a list of judgment-form arities, admitted judgment
@@ -17,6 +19,36 @@ namespace Derivation
 
 /-- Judgment instance: a form index and an argument tuple of datum indices. -/
 abbrev Inst := Nat × List Nat
+
+/-- Deduplicating insertion: the admitted collections are sets, so
+re-admission is a no-op. -/
+def insertNew {α : Type} [DecidableEq α] (l : List α) (a : α) : List α :=
+  if a ∈ l then l else l ++ [a]
+
+@[simp] theorem insertNew_nil {α : Type} [DecidableEq α] (a : α) :
+    insertNew [] a = [a] := rfl
+
+theorem insertNew_of_not_mem {α : Type} [DecidableEq α] {l : List α}
+    {a : α} (h : a ∉ l) : insertNew l a = l ++ [a] := by
+  simp [insertNew, h]
+
+theorem insertNew_of_mem {α : Type} [DecidableEq α] {l : List α}
+    {a : α} (h : a ∈ l) : insertNew l a = l := by
+  simp [insertNew, h]
+
+/-- Membership after deduplicating insertion. -/
+theorem mem_insertNew {α : Type} [DecidableEq α] {l : List α} {a x : α} :
+    x ∈ insertNew l a ↔ x ∈ l ∨ x = a := by
+  by_cases h : a ∈ l
+  · rw [insertNew_of_mem h]
+    constructor
+    · exact Or.inl
+    · intro hx
+      cases hx with
+      | inl hx => exact hx
+      | inr hx => exact hx ▸ h
+  · rw [insertNew_of_not_mem h]
+    simp [List.mem_append]
 
 structure Regime where
   data  : Nat
@@ -67,11 +99,14 @@ instance (n : Nat) (s : Option Nat) : Decidable (slotOk n s) :=
   | some x => Nat.decLt x n
 
 /-- Well-formed context relative to a regime: the form is admitted, the
-slot count matches the form's arity, and every filled slot names an
-admitted datum. -/
+slot count matches the form's arity, at least one slot is a hole (a
+context observes; a hole-free slot tuple is an instance, not a context —
+matching the Python enumeration), and every filled slot names an admitted
+datum. -/
 def wfCtx (r : Regime) (c : Ctx) : Prop :=
   c.form < r.forms.length ∧
   c.slots.length = r.forms.getD c.form 0 ∧
+  none ∈ c.slots ∧
   ∀ s ∈ c.slots, slotOk r.data s
 
 instance (r : Regime) (c : Ctx) : Decidable (wfCtx r c) := by
@@ -115,15 +150,15 @@ def stepE (r : Regime) : Event → Option Regime
   | .admitInst f args =>
       if f < r.forms.length ∧ args.length = r.forms.getD f 0 ∧
           (∀ x ∈ args, x < r.data) then
-        some { r with insts := r.insts ++ [(f, args)] }
+        some { r with insts := insertNew r.insts (f, args) }
       else none
   | .admitRuleAll f =>
       if f < r.forms.length then
-        some { r with rules := r.rules ++ [f] }
+        some { r with rules := insertNew r.rules f }
       else none
   | .impose i j =>
       if i < j ∧ j < r.data then
-        some { r with reqs := r.reqs ++ [(i, j)] }
+        some { r with reqs := insertNew r.reqs (i, j) }
       else none
 
 /-- Replay: fold the recorded history over a base regime.  All-or-nothing:
@@ -147,11 +182,11 @@ def applyItem (r : Regime) : Item → Option Regime
   | .newInst f args =>
       if f < r.forms.length ∧ args.length = r.forms.getD f 0 ∧
           (∀ x ∈ args, x < r.data) then
-        some { r with insts := r.insts ++ [(f, args)] }
+        some { r with insts := insertNew r.insts (f, args) }
       else none
   | .newRuleAll f =>
       if f < r.forms.length then
-        some { r with rules := r.rules ++ [f] }
+        some { r with rules := insertNew r.rules f }
       else none
 
 def applyDelta (r : Regime) (δ : List Item) : Option Regime :=

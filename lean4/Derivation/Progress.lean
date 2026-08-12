@@ -2,16 +2,18 @@ import Derivation.Basic
 import Derivation.Inertia
 
 /-!
-# Progress and pruning theorems
+# Response existence and pruning theorems
 
-* `mark_progress`: in any well-formed regime whose imposed requirements are
-  all separated, the fresh-mark response (one fresh unary form, one instance
-  on the second target datum) is a valid response to any separation
-  requirement.  Hence no branch ever stops for lack of a justified
-  response, and with the supply rule the process is unbounded.
+* `mark_progress`: in any well-formed regime whose imposed requirements
+  are all separated, the fresh-mark response (one fresh unary form, one
+  instance on the second target datum) is a valid response to any
+  *supplied* separation demand.  Response existence only: this proves
+  neither autonomous demand generation nor anything about the length of
+  the process.
 * `separable_of_subrules`: a separation witness never uses a uniformly
-  ruled form, so removing rule items preserves every separation — a delta
-  containing a uniform rule is never a minimum valid response.
+  ruled form, so shrinking the final rule set preserves every separation
+  (the delta-level pruning corollary is certified computationally; see
+  the theorem docstring).
 -/
 
 namespace Derivation
@@ -73,6 +75,9 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
     (hi : i < r.data) (hj : j < r.data) (hij : i ≠ j)
     (hreqs : ∀ q ∈ r.reqs, separable r q.1 q.2) :
     validResponse r i j [.newForm 1, .newInst r.forms.length [j]] := by
+  have hfresh : ((r.forms.length, [j]) : Inst) ∉ r.insts := by
+    intro hmem
+    exact Nat.lt_irrefl _ ((hwf.1 _ hmem).1)
   have happ : applyDelta r [.newForm 1, .newInst r.forms.length [j]] =
       some ⟨r.data, r.forms ++ [1],
             r.insts ++ [(r.forms.length, [j])], r.rules, r.reqs⟩ := by
@@ -80,15 +85,11 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
         some { r with forms := r.forms ++ [1] } := by
       simp only [applyItem]
       rw [if_pos (by omega)]
-    have h2 : applyItem { r with forms := r.forms ++ [1] }
-        (.newInst r.forms.length [j]) =
-        some ⟨r.data, r.forms ++ [1],
-              r.insts ++ [(r.forms.length, [j])], r.rules, r.reqs⟩ := by
-      simp only [applyItem]
-      rw [if_pos]
+    have hcond : r.forms.length < (r.forms ++ [1]).length ∧
+        ([j] : List Nat).length = (r.forms ++ [1]).getD r.forms.length 0 ∧
+        ∀ x ∈ ([j] : List Nat), x < r.data := by
       refine ⟨by simp, ?_, ?_⟩
-      · show ([j] : List Nat).length = (r.forms ++ [1]).getD r.forms.length 0
-        rw [getD_concat_self]
+      · rw [getD_concat_self]
         rfl
       · intro x hx
         have : x = j := by
@@ -97,6 +98,13 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
           | tail _ h => cases h
         subst this
         exact hj
+    have h2 : applyItem { r with forms := r.forms ++ [1] }
+        (.newInst r.forms.length [j]) =
+        some ⟨r.data, r.forms ++ [1],
+              r.insts ++ [(r.forms.length, [j])], r.rules, r.reqs⟩ := by
+      simp only [applyItem]
+      rw [if_pos hcond]
+      simp [insertNew_of_not_mem hfresh]
     calc applyDelta r [.newForm 1, .newInst r.forms.length [j]]
         = (applyItem r (.newForm 1)).bind
             (fun r1 => applyItem r1 (.newInst r.forms.length [j])) := by
@@ -109,7 +117,7 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
       _ = _ := by rw [h1]; exact h2
   refine ⟨_, happ, ?_, ?_⟩
   · -- the fresh context separates i from j
-    refine ⟨⟨r.forms.length, [none]⟩, ⟨by simp, ?_, ?_⟩, ?_⟩
+    refine ⟨⟨r.forms.length, [none]⟩, ⟨by simp, ?_, by simp, ?_⟩, ?_⟩
     · show ([none] : List (Option Nat)).length =
         (r.forms ++ [1]).getD r.forms.length 0
       rw [getD_concat_self]
@@ -165,7 +173,7 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
         intro d
         show c.form ≠ r.forms.length
         exact hform
-      refine ⟨c, ⟨?_, ?_, hwfc.2.2⟩, ?_⟩
+      refine ⟨c, ⟨?_, ?_, hwfc.2.2.1, hwfc.2.2.2⟩, ?_⟩
       · show c.form < (r.forms ++ [1]).length
         have := hwfc.1
         simp
