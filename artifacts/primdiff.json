@@ -1,0 +1,357 @@
+{
+ "carrier_table": {
+  "oriented": {
+   "1": 2,
+   "2": 2,
+   "3": 3,
+   "4": 3,
+   "5": 3,
+   "6": 3
+  },
+  "unordered": {
+   "1": 2,
+   "2": 3,
+   "3": 3,
+   "4": 4,
+   "5": 4,
+   "6": 4
+  }
+ },
+ "collapse": {
+  "clash_iff_pushforward_not_irreflexive": true,
+  "clash_transpose_invariant": true,
+  "identifying_witnessed_pair_always_clashes": true,
+  "merge_cases_checked": 27776,
+  "pushforward_always_exists": true,
+  "scope": "all pointed structures and merges, carrier <= 3"
+ },
+ "frontier_profile_countermodel": {
+  "left": {
+   "a": 0,
+   "b": 1,
+   "n": 2,
+   "rel": [
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "pointed_isomorphic": false,
+  "profiles_classify": false,
+  "profiles_equal": true,
+  "right": {
+   "a": 0,
+   "b": 1,
+   "n": 2,
+   "rel": [
+    [
+     1,
+     0
+    ]
+   ]
+  }
+ },
+ "implication_matrix": {
+  "candidates": [
+   "A1",
+   "A1i",
+   "A3",
+   "A4_all_constants",
+   "A4_empty",
+   "A4_merge_ab"
+  ],
+  "countermodels": {
+   "A1->A1i": {
+    "satisfies": "A1",
+    "structure": {
+     "a": 0,
+     "b": 0,
+     "n": 1,
+     "rel": [
+      [
+       0,
+       0
+      ]
+     ]
+    },
+    "violates": "A1i"
+   },
+   "A1->A3": {
+    "satisfies": "A1",
+    "structure": {
+     "a": 0,
+     "b": 0,
+     "n": 1,
+     "rel": [
+      [
+       0,
+       0
+      ]
+     ]
+    },
+    "violates": "A3"
+   },
+   "A1->A4_all_constants": {
+    "satisfies": "A1",
+    "structure": {
+     "a": 0,
+     "b": 0,
+     "n": 1,
+     "rel": [
+      [
+       0,
+       0
+      ]
+     ]
+    },
+    "violates": "A4_all_constants"
+   },
+   "A1->A4_empty": {
+    "satisfies": "A1",
+    "structure": {
+     "a": 0,
+     "b": 0,
+     "n": 1,
+     "rel": [
+      [
+       0,
+       0
+      ]
+     ]
+    },
+    "violates": "A4_empty"
+   },
+   "A1->A4_merge_ab": {
+    "satisfies": "A1",
+    "structure": {
+     "a": 0,
+     "b": 0,
+     "n": 1,
+     "rel": [
+      [
+       0,
+       0
+      ]
+     ]
+    },
+    "violates": "A4_merge_ab"
+   },
+   "A1i->A4_all_constants": {
+    "satisfies": "A1i",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "violates": "A4_all_constants"
+   },
+   "A1i->A4_merge_ab": {
+    "satisfies": "A1i",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "violates": "A4_merge_ab"
+   },
+   "A3->A1": {
+    "satisfies": "A3",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A1"
+   },
+   "A3->A1i": {
+    "satisfies": "A3",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A1i"
+   },
+   "A3->A4_all_constants": {
+    "satisfies": "A3",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A4_all_constants"
+   },
+   "A3->A4_merge_ab": {
+    "satisfies": "A3",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A4_merge_ab"
+   },
+   "A4_empty->A1": {
+    "satisfies": "A4_empty",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A1"
+   },
+   "A4_empty->A1i": {
+    "satisfies": "A4_empty",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A1i"
+   },
+   "A4_empty->A4_all_constants": {
+    "satisfies": "A4_empty",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A4_all_constants"
+   },
+   "A4_empty->A4_merge_ab": {
+    "satisfies": "A4_empty",
+    "structure": {
+     "a": 0,
+     "b": 1,
+     "n": 2,
+     "rel": []
+    },
+    "violates": "A4_merge_ab"
+   }
+  },
+  "implications": {
+   "A1->A1": true,
+   "A1->A1i": false,
+   "A1->A3": false,
+   "A1->A4_all_constants": false,
+   "A1->A4_empty": false,
+   "A1->A4_merge_ab": false,
+   "A1i->A1": true,
+   "A1i->A1i": true,
+   "A1i->A3": true,
+   "A1i->A4_all_constants": false,
+   "A1i->A4_empty": true,
+   "A1i->A4_merge_ab": false,
+   "A3->A1": false,
+   "A3->A1i": false,
+   "A3->A3": true,
+   "A3->A4_all_constants": false,
+   "A3->A4_empty": true,
+   "A3->A4_merge_ab": false,
+   "A4_all_constants->A1": true,
+   "A4_all_constants->A1i": true,
+   "A4_all_constants->A3": true,
+   "A4_all_constants->A4_all_constants": true,
+   "A4_all_constants->A4_empty": true,
+   "A4_all_constants->A4_merge_ab": true,
+   "A4_empty->A1": false,
+   "A4_empty->A1i": false,
+   "A4_empty->A3": true,
+   "A4_empty->A4_all_constants": false,
+   "A4_empty->A4_empty": true,
+   "A4_empty->A4_merge_ab": false,
+   "A4_merge_ab->A1": true,
+   "A4_merge_ab->A1i": true,
+   "A4_merge_ab->A3": true,
+   "A4_merge_ab->A4_all_constants": true,
+   "A4_merge_ab->A4_empty": true,
+   "A4_merge_ab->A4_merge_ab": true
+  },
+  "implications_nonvacuous": {
+   "A1->A1": true,
+   "A1->A1i": false,
+   "A1->A3": false,
+   "A1->A4_all_constants": false,
+   "A1->A4_empty": false,
+   "A1->A4_merge_ab": false,
+   "A1i->A1": true,
+   "A1i->A1i": true,
+   "A1i->A3": true,
+   "A1i->A4_all_constants": false,
+   "A1i->A4_empty": true,
+   "A1i->A4_merge_ab": false,
+   "A3->A1": false,
+   "A3->A1i": false,
+   "A3->A3": true,
+   "A3->A4_all_constants": false,
+   "A3->A4_empty": true,
+   "A3->A4_merge_ab": false,
+   "A4_empty->A1": false,
+   "A4_empty->A1i": false,
+   "A4_empty->A3": true,
+   "A4_empty->A4_all_constants": false,
+   "A4_empty->A4_empty": true,
+   "A4_empty->A4_merge_ab": false
+  },
+  "predicate_extents": {
+   "A1": 2337,
+   "A1i": 196,
+   "A3": 3104,
+   "A4_all_constants": 0,
+   "A4_empty": 3104,
+   "A4_merge_ab": 0
+  },
+  "scope": "all pointed structures, carrier <= 3",
+  "vacuous_candidates": [
+   "A4_all_constants",
+   "A4_merge_ab"
+  ]
+ },
+ "observer": {
+  "orientation_gap": true,
+  "rows": [
+   {
+    "definable_observers": 2,
+    "structure": "D2_oriented",
+    "unpointed_automorphisms": 1
+   },
+   {
+    "definable_observers": 0,
+    "structure": "S2_symmetric",
+    "unpointed_automorphisms": 2
+   }
+  ]
+ },
+ "two_element": {
+  "initiality_universal_within_scope": true,
+  "larger_witnessed_irreflexive_models_exist": true,
+  "minimal_carrier_by_axiom_set": {
+   "bare": 1,
+   "irreflexive": 2,
+   "irreflexive+symmetric": 2
+  },
+  "scope": "all witnessed pointed structures, carrier <= 3",
+  "two_element_not_forced_without_irreflexivity": true,
+  "unique_pointed_map_from_D2": 2337,
+  "witnessed_structures_checked": 2337
+ }
+}

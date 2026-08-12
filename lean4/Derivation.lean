@@ -6,6 +6,7 @@ import Derivation.Minimality
 import Derivation.Progress
 import Derivation.Erasure
 import Derivation.Ext
+import Derivation.PrimDiff
 
 /-!
 # Axiom reports
@@ -81,3 +82,37 @@ open Derivation
 #print axioms Derivation.applyItem_ext
 #print axioms Derivation.applyDelta_ext
 #print axioms Derivation.validResponse_ext
+
+-- Primitive difference (self-contained investigation)
+#print axioms PrimDiff.irrefl_witness_ne
+#print axioms PrimDiff.selfdiff_consistent
+#print axioms PrimDiff.symm_selfdiff_consistent
+#print axioms PrimDiff.meta_diff_without_assertion
+#print axioms PrimDiff.factors_through_point_iff
+#print axioms PrimDiff.no_witness_on_subsingleton
+#print axioms PrimDiff.D2_irrefl
+#print axioms PrimDiff.S2_irrefl
+#print axioms PrimDiff.D2_witness
+#print axioms PrimDiff.D2_initial_pointed
+#print axioms PrimDiff.one_point_hosts_bare_witness
+#print axioms PrimDiff.larger_witnessed_carrier_exists
+#print axioms PrimDiff.push_witness
+#print axioms PrimDiff.clash_of_identifying_witness
+#print axioms PrimDiff.clash_not_irrefl
+#print axioms PrimDiff.collapse_unobstructed_without_fidelity
+#print axioms PrimDiff.clash_transpose_invariant
+#print axioms PrimDiff.orientation_data_invisible_to_collapse
+#print axioms PrimDiff.symmetric_no_equivariant_classifier
+#print axioms PrimDiff.swap_is_S2_automorphism
+#print axioms PrimDiff.oriented_rigid
+#print axioms PrimDiff.oriented_classifier_exists
+#print axioms PrimDiff.single_oriented_witness_consistent
+#print axioms PrimDiff.multiplicity_invisible_to_presence
+#print axioms PrimDiff.repetition_no_new_content
+#print axioms PrimDiff.repetition_new_occurrence
+#print axioms PrimDiff.const_presentation_unfaithful
+#print axioms PrimDiff.id_presentation_faithful
+#print axioms PrimDiff.clos_empty_id
+#print axioms PrimDiff.irred_empty_iff_ne
+#print axioms PrimDiff.irred_antitone
+#print axioms PrimDiff.merger_erases
