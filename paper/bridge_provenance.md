@@ -5,9 +5,13 @@ irreflexive datum, or which components must be externally admitted?
 
 **Verdict up front (the bridge does not close silently).**  The
 inscription elaborates into *none* of the six ingredients.  Each has a
-precise external or declared price, proved below; the only witness shape
-reachable from the inscription alone is the *self-edge* — the exact
-degenerate countermodel that the primitive-difference layer excludes.
+theorem-level provenance boundary or a bounded computed price under the
+declared event alphabet; and under that external admission alphabet, a
+single deduplicated datum can support only a *diagonal* binary witness
+(a self-edge) — the exact degenerate countermodel that the
+primitive-difference layer excludes.  The form and instance of that
+self-edge remain externally admitted; nothing is derived from the
+inscription itself.
 The gap between `<>` and the witnessed irreflexive datum is therefore
 real, priced, and now explicitly itemized rather than silently filled by
 the metatheory.
@@ -71,15 +75,18 @@ admission never have a form: nothing derives a relation symbol.
 instance is admissible: the witness presupposes the externally admitted
 relation.
 
-**[finite computation]**  Sharpest single-inscription fact: within the
-declared alphabet and horizon, the **only inhabited witness shape
-reachable from `<>` alone is the self-edge** (form + diagonal instance
-on the single datum, 3 events).  From the inscription one can assert
-difference-of-itself — precisely the one-point self-difference that the
-primitive-difference layer proved consistent
-(`selfdiff_consistent`) and then excluded by the irreflexivity
-commitment.  The degenerate case is not an artifact of the earlier
-paper: it is what the inscription actually affords.
+**[finite computation]**  Sharpest single-token fact: within the
+declared alphabet and horizon, **given a single deduplicated datum,
+every admitted binary witness is necessarily a self-edge** (externally
+admitted form + externally admitted diagonal instance, 3 admissions).
+Nothing here is derived from the inscription itself — the form and
+instance are external events of the declared alphabet; the point is
+that with one deduplicated datum they can only ever land on the
+diagonal.  This is precisely the one-point self-difference that the
+primitive-difference layer proved consistent (`selfdiff_consistent`)
+and then excluded by the irreflexivity commitment: the degenerate case
+is not an artifact of the earlier paper, it is the only witness shape a
+single-datum carrier supports.
 
 ## B4. Occurrences, designation, and the position import
 
@@ -122,8 +129,7 @@ the two-element carrier, exactly 4 are swap-invariant, and exactly one
 is irreflexive-as-fact and inhabited: the symmetric pair.
 
 **[theorem]** (`order_visible_to_metatheory`,
-`order_erased_at_object_level`)  Supply order is present in the
-token-aware state (the two admission orders produce different token
+`order_erased_at_object_level`)  Admission order is present in the token-aware state (the two admission orders produce different token
 lists) and erased by token erasure (both orders have identical
 object-level states).  A metatheoretic orientation exists *for free*;
 internalizing it as object-level asymmetry requires an admitted
@@ -147,21 +153,25 @@ studied disciplines:**
 | relation (form) | externally admitted | nothing derives a signature | `no_admitForm_no_forms` |
 | witness (instance) | externally admitted (oriented); a declared equivariant rule reaches only `S2` | instances presuppose the form; equivariance obstruction | `no_forms_no_witness`, `equivariant_witness_is_S2`, `equivariant_not_D2` |
 | irreflexivity | as-fact constructible; **as-law declared only** | finite facts never entail the law | `irrefl_law_not_entailed` |
-| orientation | metatheoretically free (supply order), erased at object level; object-level orientation externally admitted | order-erasure pair of theorems; internalization = the oriented witness itself | `order_visible_to_metatheory`, `order_erased_at_object_level` |
+| orientation | metatheoretically free (admission order), erased at object level; object-level orientation externally admitted | order-erasure pair of theorems; internalization = the oriented witness itself | `order_visible_to_metatheory`, `order_erased_at_object_level` |
 
-**Minimal external budget** (within the studied alphabet) for the full
-witnessed irreflexive datum: one second distinct token (or the
+**Minimum state-changing admission count under the predeclared-token
+alphabet** for the full witnessed irreflexive datum: two datum
+admissions (the second requiring the predeclared distinct token, or the
 occurrence declaration), one form admission, one instance admission —
-four events to the oriented datum, five to the symmetric one — plus the
-declared irreflexivity law, plus (for `D2`) the orientation choice that
-no equivariant rule can make.
+four admissions to the oriented datum, five to the symmetric one.  The
+search predeclares its token alphabet and does not require a `Supply`
+before an `AdmitDatum`, so this is an admission count, not a full
+external-interaction budget; on top of it sit the declared
+irreflexivity law and (for `D2`) the orientation choice that no
+equivariant rule can make.
 
 ## B8. Countermodel index
 
 | countermodel / boundary | shows | where |
 |---|---|---|
 | every single-token history (exhaustive to 7 events) | carrier 2, oriented and symmetric witnesses unreachable | scenario `single_dedup`; `single_token_carrier_bound` |
-| self-edge state at 3 events | the inscription affords exactly the degenerate self-difference | scenario table; `selfdiff_consistent` (companion) |
+| self-edge state at 3 admissions | a single deduplicated datum supports only the diagonal witness (form and instance externally admitted) | scenario table; `selfdiff_consistent` (companion) |
 | self-edge extension of any fact set | irreflexivity-as-law underivable | `irrefl_law_not_entailed` |
 | the 4 swap-invariant relations | equivariant introduction reaches only `S2` | `equivariant_scan`; `equivariant_witness_is_S2` |
 | the two admission orders | orientation free in metatheory, erased at object level | `order_visible_to_metatheory` / `order_erased_at_object_level` |
@@ -219,7 +229,7 @@ carrier-2 verdict weakens from "second token required" to "second token
 or reflective refusal required"; if false, the refusal judgment is
 provably uninformative.  Either outcome is a theorem target.
 
-**F4. The order-erasure tower.**  Supply order is the third
+**F4. The order-erasure tower.**  Admission order is the third
 metatheoretic shadow found (after multiplicity and orientation in the
 companion): present in the token-aware state, erased at the object
 level.  *Conjecture:* the erasure maps of the three shadows compose into

@@ -266,7 +266,7 @@ def provenance_table() -> list[dict[str, object]]:
         },
         {
             "ingredient": "orientation",
-            "verdict": "metatheoretically present (supply order), "
+            "verdict": "metatheoretically present (admission order), "
             "erased at object level; object-level orientation is "
             "externally admitted",
             "mechanism": "the token-aware state distinguishes admission "

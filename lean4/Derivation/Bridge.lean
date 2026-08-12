@@ -282,7 +282,8 @@ theorem no_swap_fixed_offdiag_pair :
     ∀ x y : Bool, x ≠ y → (Bool.not x, Bool.not y) ≠ (x, y) := by
   decide
 
-/-! ## Supply order: metatheoretic orientation, erased at object level -/
+/-! ## Admission order: metatheoretic orientation, erased at object
+level -/
 
 /-- The two-token admission history in one order... -/
 def hist01 : List TEvent :=
@@ -292,9 +293,11 @@ def hist01 : List TEvent :=
 def hist10 : List TEvent :=
   [.supply 1, .admitDatum 1, .supply 0, .admitDatum 0]
 
-/-- Supply order is present in the token-aware state: the two orders
-produce different token lists.  A metatheoretic orientation (first-
-admitted versus second-admitted) exists for free. -/
+/-- Admission order is present in the token-aware state: the two
+admission orders produce different token lists (`Supply` itself is a
+proved no-op; the asymmetry comes from the `admitDatum` append order).
+A metatheoretic orientation (first-admitted versus second-admitted)
+exists for free. -/
 theorem order_visible_to_metatheory :
     replayT hist01 ⟨[], [], [], [], []⟩ ≠
       replayT hist10 ⟨[], [], [], [], []⟩ := by

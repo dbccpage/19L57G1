@@ -103,7 +103,7 @@
    "lean": "order_visible_to_metatheory, order_erased_at_object_level, equivariant_not_D2",
    "mechanism": "the token-aware state distinguishes admission orders; erasure identifies them; internalizing the order is the oriented witness itself",
    "python": "two_dedup scenario reaches oriented_witness only via an explicitly oriented instance event",
-   "verdict": "metatheoretically present (supply order), erased at object level; object-level orientation is externally admitted"
+   "verdict": "metatheoretically present (admission order), erased at object level; object-level orientation is externally admitted"
   }
  ],
  "scenarios": [
