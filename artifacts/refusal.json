@@ -1,0 +1,202 @@
+{
+ "capability_prices": [
+  {
+   "discipline": "silent",
+   "imports": [],
+   "note": "the first development's dedup; no refusal record anywhere"
+  },
+  {
+   "discipline": "meta",
+   "imports": [
+    "history-only refusal marker"
+   ],
+   "note": "state-identical to silent (silent_eq_meta); the marker is erased below the history level (markers_invisible)"
+  },
+  {
+   "discipline": "fact",
+   "imports": [
+    "admitted refusal counter"
+   ],
+   "note": "state difference without carrier growth; the counter attaches to no datum and separates no pair"
+  },
+  {
+   "discipline": "reify_untagged",
+   "imports": [
+    "reification (metatheoretic position identity)"
+   ],
+   "note": "provably identical to occurrence admission (reifyUntagged_eq_occurrence): repetition-refusal reified without a tag is occurrence admission under another name"
+  },
+  {
+   "discipline": "reify_tagged",
+   "imports": [
+    "reification (metatheoretic position identity)",
+    "built-in unary observable (= one form + one instance, tagged_translation_separable)",
+    "canonical orientation (per-declaration, not per-act)"
+   ],
+   "note": "witnessed oriented difference at two admissions from one token; the declaration bundles exactly the capabilities the explicit route admits one by one"
+  },
+  {
+   "discipline": "occurrence",
+   "imports": [
+    "metatheoretic position identity"
+   ],
+   "note": "carrier 2, collapsed; designation is a per-act choice (swap-invariant state)"
+  },
+  {
+   "discipline": "second_token",
+   "imports": [
+    "second external presentation"
+   ],
+   "note": "carrier 2, collapsed; witness and orientation priced as in the bridge investigation"
+  }
+ ],
+ "disciplines": [
+  {
+   "discipline": "silent",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": null,
+    "oriented_witnessed_pair": null,
+    "readmission_state_difference": null,
+    "witness_without_instances": null,
+    "witnessed_pair": null
+   },
+   "outcome": "no new object-level difference",
+   "states_reached": 5,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "discipline": "meta",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": null,
+    "oriented_witnessed_pair": null,
+    "readmission_state_difference": null,
+    "witness_without_instances": null,
+    "witnessed_pair": null
+   },
+   "outcome": "one object plus one (metatheoretic) event",
+   "states_reached": 5,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "discipline": "fact",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": null,
+    "oriented_witnessed_pair": null,
+    "readmission_state_difference": 2,
+    "witness_without_instances": null,
+    "witnessed_pair": null
+   },
+   "outcome": "two states only",
+   "states_reached": 20,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "discipline": "reify_untagged",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": 2,
+    "oriented_witnessed_pair": 4,
+    "readmission_state_difference": null,
+    "witness_without_instances": null,
+    "witnessed_pair": 4
+   },
+   "outcome": "two carrier objects",
+   "states_reached": 10,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "discipline": "reify_tagged",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": 2,
+    "oriented_witnessed_pair": 2,
+    "readmission_state_difference": null,
+    "witness_without_instances": 2,
+    "witnessed_pair": 2
+   },
+   "outcome": "two carrier objects",
+   "states_reached": 10,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "discipline": "occurrence",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": 2,
+    "oriented_witnessed_pair": 4,
+    "readmission_state_difference": null,
+    "witness_without_instances": null,
+    "witnessed_pair": 4
+   },
+   "outcome": "two carrier objects",
+   "states_reached": 10,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "discipline": "second_token",
+   "max_events": 7,
+   "min_events_to": {
+    "carrier_2": 2,
+    "oriented_witnessed_pair": 4,
+    "readmission_state_difference": null,
+    "witness_without_instances": null,
+    "witnessed_pair": 4
+   },
+   "outcome": "two carrier objects",
+   "states_reached": 18,
+   "tokens": [
+    "<>",
+    "<a>"
+   ]
+  }
+ ],
+ "equivalence": {
+  "occurrence_states": 10,
+  "reify_untagged_states": 10,
+  "scope": "single token, 7 events",
+  "state_sets_equal": true
+ },
+ "orientation": {
+  "tagged_separable_without_instances": true,
+  "tagged_state": {
+   "data": [
+    "<>",
+    "<>"
+   ],
+   "has_form": false,
+   "insts": [],
+   "refusals": 0,
+   "tags": [
+    1
+   ]
+  },
+  "tagged_swap_invariant": false,
+  "untagged_separable": false,
+  "untagged_state": {
+   "data": [
+    "<>",
+    "<>"
+   ],
+   "has_form": false,
+   "insts": [],
+   "refusals": 0,
+   "tags": []
+  },
+  "untagged_swap_invariant": true
+ }
+}
