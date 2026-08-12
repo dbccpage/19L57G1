@@ -9,6 +9,7 @@ import Derivation.Ext
 import Derivation.PrimDiff
 import Derivation.Bridge
 import Derivation.Refusal
+import Derivation.RefusalFrontier
 
 /-!
 # Axiom reports
@@ -154,3 +155,25 @@ open Derivation
 #print axioms Refusal.canonical_designation
 #print axioms Refusal.tagged_translation_separable
 #print axioms Refusal.untagged_translation_collapsed
+
+-- Frontier Run 006: refusal, reflection, and the remaining bridge
+#print axioms RefusalFrontier.silent_repetition_inert
+#print axioms RefusalFrontier.trace_erasure
+#print axioms RefusalFrontier.histories_collapse
+#print axioms RefusalFrontier.mono_code_swap_invariant
+#print axioms RefusalFrontier.distinct_code_not_swap_invariant
+#print axioms RefusalFrontier.singleton_algebra_monochrome
+#print axioms RefusalFrontier.distinction_needs_two_constructors
+#print axioms RefusalFrontier.judgment_variant_second_judgment_not_datum
+#print axioms RefusalFrontier.judgment_carrier_bound
+#print axioms RefusalFrontier.priced_bridge_closes
+#print axioms RefusalFrontier.priced_bridge_oriented
+#print axioms RefusalFrontier.min_witnessed_route_closes
+#print axioms RefusalFrontier.bridge_facts_not_law
+#print axioms RefusalFrontier.equivariant_output_invariant
+#print axioms RefusalFrontier.untyped_reflect_fixpoint
+#print axioms RefusalFrontier.toggle_two_cycle
+#print axioms RefusalFrontier.reflective_chain_growth
+#print axioms RefusalFrontier.reflective_chain_is_initial_segment
+#print axioms RefusalFrontier.reflective_chain_successor_relation
+#print axioms RefusalFrontier.reflective_chain_irreflexive_facts
