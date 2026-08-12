@@ -1,13 +1,5 @@
 # 19L57G1
 
-## INPUT
-
-```text
-<>
-```
-
-The whole inscription is initially uninterpreted. Do not inherit ordinary meanings for either mark. Do not decompose it unless a later proof requires that move.
-
 ## TASK
 
 Starting only from the input, construct the least finite formal system you can justify.
@@ -55,7 +47,12 @@ Formalize the substantive mathematical claims and countermodels. `lake build` mu
 
 `paper_claim_ledger.md` must give every claim a stable ID, exact statement, status, dependencies, Python evidence, Lean evidence, axiom report, and falsifier or surviving boundary.
 
-## DONE
+## PRIMARY DIRECTIVES
+1. Ensure the Python environment is up and working with all needed packages.
+2. Ensure LEAN4 and lake build is up and running and a .lean file can be compiled.
+3. Execute this prompt: "C:\Users\a343o\source\repos\19L57G1\prompt\seed_prompt.md".
+
+## DEFINITION OF DONE
 
 Finish only when:
 
