@@ -1,0 +1,16 @@
+{
+ "max_arity": 2,
+ "max_items": 2,
+ "max_rounds": 15,
+ "measures": [
+  "mu1",
+  "mu2"
+ ],
+ "node_budget_mu1": 1200,
+ "node_budget_mu2": 3000,
+ "perm_budget": 100000,
+ "readings": [
+  "L",
+  "F"
+ ]
+}

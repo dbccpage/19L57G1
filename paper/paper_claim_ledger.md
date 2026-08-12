@@ -1,0 +1,513 @@
+# Claim ledger
+
+Field key — **ID**: stable identifier. **Statement**: exact claim.
+**Class**: one of declared metatheory / definition / finite computation /
+theorem / bounded theorem / conjecture / counterexample / unresolved.
+**Deps**: claims this one depends on. **Assumptions**: declared metatheory
+it rests on. **Python**: evidence (artifact key and/or test).
+**Lean**: theorem name(s) in `lean4/Derivation/`. **Axioms**: from
+`artifacts/lean_axioms.txt` (`--` = no Lean formalization).
+**Falsifier / boundary**: what would refute it, or the boundary that
+survives.
+
+Shared assumptions for every claim: the metatheory of `paper.md`
+sections 2-3 (regimes, events, replay, contexts, profiles, declared
+separability), and — where marked *bounded* — the declared bounds of
+section 1.  Lean evidence is stated in the token-erased abstraction,
+connected to the token-aware semantics by the proved simulation
+CL-TOKEN-ERASURE; Lean is never claimed to literally mirror the Python
+implementation.
+
+---
+
+### CL-0-INERTIA
+- **Statement**: With nothing admitted, nothing is derivable and no
+  successor state is internally forced; a bare supply never changes the
+  admitted state.
+- **Class**: theorem.
+- **Deps**: none. **Assumptions**: shared only.
+- **Python**: `challenges.json:challenge0`; `test_challenge0_inertia`,
+  `test_supply_is_not_admission`.
+- **Lean**: `supply_no_op`, `genesis_underivable`, `underivable_of_empty`.
+- **Axioms**: `propext` (supply_no_op); none (the other two).
+- **Falsifier / boundary**: a derivation or state change from the empty
+  regime without an admission event.  None exists in the model; the
+  boundary is the model itself (transitions are event-indexed by
+  construction).
+
+### CL-0-NO-PROPOSAL-MUTATION
+- **Statement**: A proposed transition cannot alter admitted state without
+  a separate admission event; ill-formed admissions are rejected.
+- **Class**: theorem (model-scoped).
+- **Deps**: CL-0-INERTIA. **Assumptions**: shared.
+- **Python**: `test_model.py` (rejection of every ill-formed event kind);
+  `test_replay_certify_and_tamper_detection`.
+- **Lean**: `stepE` totality with `Option` rejection; `supply_no_op`.
+- **Axioms**: `propext`.
+- **Falsifier / boundary**: a state change reachable without an event.
+
+### CL-1-SUPPLY-NOT-ADMISSION
+- **Statement**: The Challenge 1 supply of `<a>` is a new external
+  presentation and not an admission; no internal observable distinction
+  arises.
+- **Class**: theorem.
+- **Deps**: CL-0-INERTIA. **Assumptions**: shared.
+- **Python**: `challenges.json:challenge1`;
+  `test_challenge1_supply_vs_admission_and_convergence`.
+- **Lean**: `supply_no_op`, `collapsed_of_no_insts`.
+- **Axioms**: `propext`; none.
+- **Falsifier / boundary**: an internal test distinguishing anything at
+  Challenge 1.
+
+### CL-1-READING-CONVERGENCE
+- **Statement**: The two Challenge 1 sub-readings (admit `<a>` on supply /
+  do not) converge to the same regime at Challenge 2 close.
+- **Class**: finite computation.
+- **Deps**: CL-1-SUPPLY-NOT-ADMISSION. **Assumptions**: shared +
+  presentation-identity dedup of admissions (declared).
+- **Python**: `challenges.json:challenge1.sub_readings_converge_at_
+  challenge2 = true`; same test.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: differing replays of the two extended
+  histories.
+
+### CL-2-COLLAPSED
+- **Statement**: After Challenge 2 both readings admit externally distinct
+  tokens whose every pair is observationally collapsed.
+- **Class**: theorem.
+- **Deps**: CL-0-INERTIA. **Assumptions**: shared.
+- **Python**: `challenges.json:challenge2` (observational classes = 1);
+  `test_challenge2_collapse_and_no_expressive_increase`.
+- **Lean**: `R2L_collapsed`, `R2F_collapsed`, `historyL_replays`,
+  `historyF_replays`.
+- **Axioms**: none; none; `propext`; `propext`.
+- **Falsifier / boundary**: a well-formed context separating any pair in
+  the Challenge 2 regime.
+
+### CL-2-NONINCREASE
+- **Statement**: A new external inscription does not necessarily increase
+  internal expressive power: admitting a fresh datum changes the state but
+  leaves the collapsed pair collapsed.
+- **Class**: counterexample (to the necessity claim).
+- **Deps**: CL-2-COLLAPSED. **Assumptions**: shared.
+- **Python**: `challenges.json:challenge2.*.expressive_increase_over_
+  challenge0 = false`.
+- **Lean**: `admission_without_expressive_increase`.
+- **Axioms**: `propext`.
+- **Falsifier / boundary**: n/a (a counterexample refutes the general
+  necessity claim; the boundary is that *some* inscriptions plus
+  judgments do increase power — Challenge 3).
+
+### CL-3-FAIL-CURRENT
+- **Statement**: The Challenge 2 regime does not satisfy the declared
+  internal separability of `<a>` and `<ab>` in either reading.
+- **Class**: theorem.
+- **Deps**: CL-2-COLLAPSED. **Assumptions**: shared + declared
+  separability (definition 3.5).
+- **Python**: `claims.json:CL-3-FAIL-CURRENT = {L: false, F: false}`;
+  `test_challenge3_reading_l_classes`.
+- **Lean**: `R2L_collapsed`, `R2F_collapsed` with
+  `separable_not_collapsed`.
+- **Axioms**: none.
+- **Falsifier / boundary**: a witness context in the unaugmented regime.
+
+### CL-3-COST1-IMPOSSIBLE
+- **Statement**: No delta of at most one item is a valid response to the
+  Challenge 3 requirement, in either reading.  *Bounds: none — absolute
+  over the item grammar (any arity, any argument tuple). Measure: mu1.*
+- **Class**: theorem.
+- **Deps**: CL-3-FAIL-CURRENT. **Assumptions**: shared + candidate grammar
+  (definition 3.6).
+- **Python**: `test_c3_cost1_all_fail_and_min_is_two` (exhaustive over the
+  bounded slice, consistent with the grammar-wide theorem).
+- **Lean**: `cost1_insufficient_general`, `cost1_insufficient`,
+  `cost1_insufficient_F`.
+- **Axioms**: `propext`.
+- **Falsifier / boundary**: a single admissible item separating the pair.
+
+### CL-3-MIN-TWO
+- **Statement**: The minimum valid response cost at Challenge 3 is exactly
+  two items in both readings.  *Bounds: none. Measure: mu1. Uniqueness:
+  see CL-3-NONUNIQUE-MU1.*
+- **Class**: theorem.
+- **Deps**: CL-3-COST1-IMPOSSIBLE. **Assumptions**: shared.
+- **Python**: `challenges.json:challenge3.*.mu1.minimum_cost = [2, -1]`.
+- **Lean**: existence — `deltaU0_valid`, `deltaU0F_valid`; floor —
+  CL-3-COST1-IMPOSSIBLE.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a valid one-item response (excluded) or
+  failure of the two-item witnesses (machine-checked).
+
+### CL-3-NONUNIQUE-MU1
+- **Statement**: Under mu1 the minimum corrective augmentation is not
+  unique: the unary mark and the binary link are both minimum valid
+  responses with non-isomorphic results.  *Bounds: none. Measure: mu1.
+  Uniqueness: refuted absolutely.*
+- **Class**: theorem.
+- **Deps**: CL-3-MIN-TWO. **Assumptions**: shared + implemented
+  isomorphism (definition 3.8).
+- **Python**: `claims.json:CL-3-NONUNIQUE-MU1 = {L: 3, F: 5}`.
+- **Lean**: `mu1_minimum_not_unique`, `U0_not_iso_BL`.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: an isomorphism between the mark and the link
+  (excluded: arity is an invariant).
+
+### CL-3-TIE-CLASSES
+- **Statement**: The tied mu1 minima at Challenge 3 form exactly 3
+  isomorphism classes in reading L (unary mark, binary link, binary
+  self-loop) and exactly 5 in reading F (adding link-to and link-from the
+  genesis datum).  *Bounds: max_items 2, max_arity 2. Measure: mu1.
+  Uniqueness: class counts complete only within these bounds.*
+- **Class**: bounded theorem.
+- **Deps**: CL-3-NONUNIQUE-MU1, CL-PRUNE-RULE, CL-PRUNE-STRUCTURAL,
+  CL-ISO-SOUND. **Assumptions**: shared + bounds.
+- **Python**: `challenges.json:challenge3` iso_classes; cross-check
+  against the unpruned space
+  (`test_pruned_cost2_contains_every_valid_full_delta`);
+  `test_challenge3_reading_f_has_five_classes`.
+- **Lean**: class distinctness — `U0_not_iso_BL`, `U0_not_iso_BD`,
+  `BL_not_iso_BD`; class collapse — `isoU1U0`.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a valid bounded delta outside the listed
+  classes, or a missed isomorphism.  Boundary: arity > 2 candidates exist
+  and are tied (CL-3-INFINITE-TIES).
+
+### CL-3-INFINITE-TIES
+- **Statement**: For every arity k >= 1 the k-ary mark is a two-item
+  minimum valid response, and distinct arities give non-isomorphic
+  results: the mu1 tie class is countably infinite.  *Bounds: none.
+  Measure: mu1.*
+- **Class**: theorem.
+- **Deps**: CL-3-COST1-IMPOSSIBLE. **Assumptions**: shared.
+- **Python**: consistent bounded slice (arities 1, 2 both appear).
+- **Lean**: `deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`,
+  `deltaK_applies`, `markK_separable`.
+- **Axioms**: `propext, Quot.sound` (`propext` only for the non-iso).
+- **Falsifier / boundary**: an isomorphism between marks of different
+  arity.
+
+### CL-3-UNIQUE-MU2-L
+- **Statement**: Under mu2, every valid two-item response with new-form
+  arity sum <= 1 in reading L produces a regime isomorphic to the unary
+  mark; with the cost floor this makes the mu2-minimum unique up to
+  isomorphism.  *Bounds: item grammar-wide. Measure: mu2. Uniqueness:
+  absolute over the grammar, up to the implemented isomorphism.*
+- **Class**: theorem.
+- **Deps**: CL-3-MIN-TWO. **Assumptions**: shared.
+- **Python**: `claims.json:CL-3-UNIQUE-MU2.L = 1`;
+  `test_c3_mu2_minimum_is_unary_mark`.
+- **Lean**: `mu2_unique` (with `isoRefl`, `isoU1U0`).
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a valid (2, <=1) delta with a non-mark result.
+
+### CL-3-UNIQUE-MU2-F
+- **Statement**: Under mu2 reading F has exactly one minimum class within
+  the declared bounds (the unary mark on a required datum).  *Bounds:
+  max_items 2, max_arity 2. Measure: mu2. Uniqueness: within bounds; the
+  grammar-wide analogue is unformalized.*
+- **Class**: bounded theorem.
+- **Deps**: CL-3-UNIQUE-MU2-L (method), CL-ISO-SOUND.
+- **Python**: `claims.json:CL-3-UNIQUE-MU2.F = 1`.
+- **Lean**: -- (grammar-wide version unresolved).
+- **Axioms**: --.
+- **Falsifier / boundary**: a second bounded class.  Boundary: Lean
+  formalization outstanding (paper section 12).
+
+### CL-PRUNE-RULE
+- **Statement**: (i) Separation witnesses never inhabit uniformly ruled
+  forms, so shrinking the final rule set preserves every separation —
+  proved.  (ii) The delta-level corollary "a delta containing a
+  uniform-rule item is never a minimum valid response" additionally needs
+  the bridge that rule items commute out of a delta leaving the same
+  regime with a smaller rule set — computational.
+- **Class**: (i) theorem; (ii) bounded theorem (full-space computational
+  check).
+- **Deps**: none. **Assumptions**: shared (+ bounds for (ii)).
+- **Python**: `test_rule_never_appears_in_minimum_responses` (full-space
+  check on a mixed regime: every valid rule-bearing delta has a valid
+  rule-free sub-delta).
+- **Lean**: (i) `separable_of_subrules`; (ii) -- (bridge unresolved).
+- **Axioms**: (i) none.
+- **Falsifier / boundary**: a minimum valid response containing a rule.
+
+### CL-PRUNE-STRUCTURAL
+- **Statement**: In the cost-2 enumeration, unreferenced fresh data and
+  unreferenced fresh forms never affect validity, and an instance-only
+  delta changes the target pair's separability only if some instance
+  mentions a target datum; the pruned enumeration therefore contains every
+  minimum.  *Bounds: cost <= 2 deltas over the declared grammar slice.*
+- **Class**: bounded theorem.
+- **Deps**: none. **Assumptions**: shared + bounds.
+- **Python**: `test_pruned_cost2_contains_every_valid_full_delta` (every
+  valid excluded delta has a valid strict sub-delta), plus
+  `test_new_datum_alone_never_separates`,
+  `test_fast_equals_naive_on_full_space`.
+- **Lean**: -- (unresolved).
+- **Axioms**: --.
+- **Falsifier / boundary**: a valid full-space delta absent from the
+  pruned space with no valid sub-delta.  Boundary: certified
+  computationally on bare, marked, and mixed base regimes; Lean proof
+  outstanding.
+
+### CL-PROGRESS
+- **Statement**: On any well-formed regime whose imposed requirements are
+  all separated, every *supplied* separation demand has a valid response
+  (fresh unary form + one mark) that preserves every existing separation.
+  Scope: response existence only — this claim does not assert autonomous
+  demand generation and does not assert an unbounded tower.
+- **Class**: theorem.
+- **Deps**: none. **Assumptions**: shared.
+- **Python**: engine assertion (no `terminal_no_response` node in any
+  run); `test_min_responses_cost1_path` and tree runs.
+- **Lean**: `mark_progress` (with `derivable_extend`,
+  `getD_concat_self`, `getD_append_lt`).
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a challenged accepted regime with no valid
+  bounded response.
+
+### CL-ENDOGENOUS-EXISTS
+- **Statement**: The admitted structure generates its next unresolved
+  requirement endogenously — no presentation-token glyph inspection, no
+  fresh external datum, no new external goal kind, no assumed
+  continuation — via the least collapsed pair, until the fixpoint.
+- **Class**: definition + finite computation (token-blindness); the model
+  even lacks the vocabulary for glyph inspection (Lean regimes carry no
+  tokens).
+- **Deps**: CL-2-COLLAPSED. **Assumptions**: shared + declared canonical
+  order (admission order).
+- **Python**: `next_endogenous_challenge`;
+  `test_endogenous_generator_is_token_blind`,
+  `test_endogenous_generator_fixpoint`.
+- **Lean**: token-freeness by construction of `Regime`.
+- **Axioms**: n/a.
+- **Falsifier / boundary**: any dependence of the generated challenge on
+  token renaming.  Weakest-ness of this generator is a declared-metatheory
+  judgment, not a proved universal property.
+
+### CL-ENDOGENOUS-TERMINATION
+- **Statement**: The native (closed-system) tower terminates: with the
+  external policy disabled, every maximal branch ends at the
+  all-pairs-separated fixpoint within n(n-1)/2 rounds (L: 1 round, 3
+  terminal branches, 0 budget-cut, 0 round-cut, 0 open; F: 3 rounds, 16
+  terminal branches, 0/0/0).  *Bounds: declared engine bounds; the
+  counting laws are grammar-wide theorems.*
+- **Class**: bounded theorem.
+- **Deps**: CL-ENDOGENOUS-EXISTS, CL-PROGRESS. **Assumptions**: shared +
+  bounds.
+- **Python**: `claims.json:CL-ENDOGENOUS-TERMINATION` (branch reports
+  over *all* maximal branches, `every_maximal_branch_terminates = true`,
+  `within_bound = true`);
+  `test_no_supply_variant_terminates_within_pair_bound`,
+  `test_closed_system_terminal_at_round_boundary`.
+- **Lean**: `index_le_strict_mono`, `strict_bounded_length`,
+  `no_supply_round_bound`, `allPairs_length`.  Conditionality: these are
+  abstract laws over strictly-growing bounded measures; that the engine's
+  accepted separation rounds satisfy the hypotheses (exactly one new
+  requirement per round, fixed datum count) is discharged computationally
+  for the exported runs; a Lean theorem connecting the hypotheses to the
+  transition system is unresolved.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a closed-system branch that is budget-cut,
+  round-cut, open, or exceeds the pair bound.
+
+### CL-NATIVE-TOWER-STOPS
+- **Statement**: Beyond the fixpoint no endogenous continuation exists:
+  the requirement language of n data has exactly n(n-1)/2 elements, all
+  exhausted at the fixpoint; any further requirement needs a fresh datum
+  (external supply) or a new requirement kind (external goal).  Further
+  continuation requires the declared external continuation policy.
+- **Class**: theorem (language-size law) + definition (policy boundary).
+- **Deps**: CL-ENDOGENOUS-TERMINATION. **Assumptions**: shared + the
+  admitted requirement language (separation over admitted data).
+- **Python**: `test_endogenous_generator_fixpoint`.
+- **Lean**: `allPairs_length`.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: an admitted-structure-only challenge issuable
+  at the fixpoint.
+
+### CL-BRANCH-REPORTS
+- **Statement**: Per-tree branch evidence — terminal, budget-cutoff,
+  round-cutoff, and open branch counts with the
+  every-maximal-branch-terminates flag — as tabulated in paper
+  section 8.3/8.4.
+- **Class**: finite computation.
+- **Deps**: CL-REPLAY. **Assumptions**: shared + bounds.
+- **Python**: `claims.json:CL-BRANCH-REPORTS`;
+  `test_run_main_produces_all_artifacts`.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: recount from the exported trees.
+
+### CL-TREE-MU2-COMPLETE
+- **Statement**: The isomorphism-quotient trees under mu2 are fully
+  enumerated to the requested 15 rounds with zero budget cutoff: 963
+  nodes / 1022 edges (L), 1847 / 1960 (F); all leaves are round-cut.
+  *Bounds: declared bounds; completeness is of the quotient tree within
+  them.*
+- **Class**: bounded theorem.
+- **Deps**: CL-ISO-SOUND, CL-PRUNE-STRUCTURAL, CL-REPLAY.
+- **Python**: `tree_L_mu2.json`, `tree_F_mu2.json`; stats in
+  `claims.json:CL-TREE-SUMMARY`.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: a reachable bounded node missing from the
+  export.
+
+### CL-TREE-MU1-FRONTIER
+- **Statement**: The mu1 trees are budget-bounded at 1200 nodes with exact
+  exported frontiers: depth 7 with 927 frontier leaves (L), depth 6 with
+  886 (F); enumeration is complete above the cut.
+- **Class**: finite computation.
+- **Deps**: as CL-TREE-MU2-COMPLETE.
+- **Python**: `tree_L_mu1.json`, `tree_F_mu1.json`.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: the frontier is the boundary, exported
+  exactly for continuation.
+
+### CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY
+- **Statement**: With the external continuation policy, the process
+  reaches the requested depth in the mu2 trees (15 of 15 rounds; mu1
+  trees reach 7 / 6 before the node budget).  Reaching a finite requested
+  depth is not a proof of unboundedness; no unboundedness claim is made,
+  and the behavior beyond the exported depths is unresolved.
+- **Class**: finite computation.
+- **Deps**: CL-PROGRESS (response existence only). **Assumptions**:
+  shared + bounds.
+- **Python**:
+  `claims.json:CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`.
+- **Lean**: supporting core — `mark_progress` (response existence for a
+  supplied demand; not demand generation, not a tower).  **Axioms**:
+  `propext, Quot.sound`.
+- **Falsifier / boundary**: recount from exports; the boundary is the
+  exported depth itself.
+
+### CL-ENDOGENOUS-VS-EXTERNAL
+- **Statement**: Side-by-side comparison of the closed-system towers
+  (4 / 20 nodes, all branches terminal) with the external-policy trees
+  (963-1847 node complete mu2 quotients; 1200-node mu1 frontiers).
+- **Class**: finite computation.
+- **Deps**: CL-ENDOGENOUS-TERMINATION, CL-TREE-MU2-COMPLETE.
+- **Python**: `claims.json:CL-ENDOGENOUS-VS-EXTERNAL`.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: recount from exports.
+
+### CL-ROLES
+- **Statement**: The recurring transition roles that emerge are supply,
+  discrimination (one instance), innovation (fresh form + instance), and
+  rare double discrimination (6 edges, F mu2 only); the enumerated
+  auxiliary-witness shape never appears among accepted minima in the
+  observed runs.
+- **Class**: finite computation.
+- **Deps**: CL-TREE-MU2-COMPLETE, CL-TREE-MU1-FRONTIER.
+- **Python**: role counts in `claims.json:CL-TREE-SUMMARY`;
+  `test_role_classification_of_rare_response_shapes`.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: bounded to the observed runs; deeper or
+  wider bounds could surface the auxiliary-witness role.
+
+### CL-TOKEN-ERASURE
+- **Statement**: The Lean development is a token-erased abstraction of
+  the token-aware admission semantics, connected by a proved simulation:
+  one token-aware step (with deduplicating admission) followed by erasure
+  equals one erased step of the erased event (a duplicate admission
+  erases to a bare supply), and the same holds for whole histories.
+- **Class**: theorem.
+- **Deps**: CL-0-INERTIA (`supply_no_op` makes the duplicate case a
+  no-op). **Assumptions**: shared.
+- **Python**: token dedup behavior —
+  `test_admit_datum_dedups_on_presentation_identity`.
+- **Lean**: `erase_step`, `erase_replay` (with `replayT_cons`,
+  `replayE_cons`) in `Derivation/Erasure.lean`.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a token-aware history whose erased replay
+  differs from its replayed erasure.  Boundary: the simulation covers the
+  event semantics; Python-side structures beyond events (e.g. token
+  strings vs numbers) are related by the declared opaque-token reading.
+
+### CL-REPLAY
+- **Statement**: Every certified regime equals the replay of its recorded
+  history from genesis; replay is compositional; tampering is detected.
+- **Class**: theorem (compositionality) + finite computation
+  (certification of all 5236 exported nodes).
+- **Deps**: none. **Assumptions**: shared.
+- **Python**: `all_certified = true` in every tree;
+  `test_replay_certify_and_tamper_detection`,
+  `test_replay_from_base_composes`.
+- **Lean**: `replayE_append`, `historyL_replays`, `historyF_replays`.
+- **Axioms**: `propext, Quot.sound`; `propext`; `propext`.
+- **Falsifier / boundary**: a certified node whose history replays
+  elsewhere.
+
+### CL-QUOT-BARRIER
+- **Statement**: If an abstraction identifies two cases, no operation
+  defined only on the abstraction recovers the distinction: every function
+  out of the quotient is constant on identified elements; instantiated at
+  the Challenge 2 collapse.
+- **Class**: theorem.
+- **Deps**: CL-2-COLLAPSED. **Assumptions**: shared.
+- **Python**: n/a (purely logical).
+- **Lean**: `quotient_barrier`, `quot_barrier`, `barrier_R2L`.
+- **Axioms**: `Quot.sound`.
+- **Falsifier / boundary**: none within the model; recovering the
+  distinction requires changing the abstraction (which is what
+  Challenge 3 forces).
+
+### CL-ISO-SOUND
+- **Statement**: The implemented canonical form decides exactly the
+  declared isomorphism relation: equality of refined canonical keys agrees
+  with equality of brute-force keys, and the key is invariant under every
+  bijection pair.  *Bounds: verified exhaustively on the Challenge 3 class
+  representatives and mixed regimes; budget-guarded in general.*
+- **Class**: finite computation.
+- **Deps**: none. **Assumptions**: shared.
+- **Python**: `test_agreement_with_bruteforce_on_pairs`,
+  `test_canonical_invariant_under_rename`, `test_perm_budget_error`.
+- **Lean**: -- (unresolved). **Axioms**: --.
+- **Falsifier / boundary**: a pair of regimes on which refined and
+  brute-force equality disagree.
+
+### CL-COUNT-INVARIANCE
+- **Statement**: The unresolved-requirement count (collapsed pairs) is
+  invariant under token renaming and index bijections.
+- **Class**: finite computation (exhaustive over the Challenge 3 classes
+  and mixed regimes); the general Lean transport is **unresolved**.
+- **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
+- **Python**: canonical-invariance tests (the count is a component of the
+  canonical key); `test_endogenous_generator_is_token_blind`.
+- **Lean**: language-size law `allPairs_length` only.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a renaming changing the collapsed-pair count.
+
+### CL-DETERMINISM
+- **Statement**: The entire artifact set is byte-identical across
+  independent runs.
+- **Class**: finite computation.
+- **Deps**: none. **Assumptions**: shared.
+- **Python**: dual-run hash comparison (recorded in change log entry 3);
+  `test_run_main_is_deterministic`,
+  `test_build_tree_small_deterministic_and_certified`.
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: any byte difference across runs.
+
+### CL-READING-UNDERDETERMINATION
+- **Statement**: The challenge text underdetermines admission semantics;
+  readings L and F both survive the full derivation and no internal fact
+  separates them.
+- **Class**: unresolved (deliberately retained branches; the Challenge 1
+  sub-reading convergence is finite computation, CL-1-READING-CONVERGENCE).
+- **Deps**: all Challenge results (computed for both readings).
+- **Python**: every artifact is produced per reading.
+- **Lean**: both `R2L` and `R2F` variants where formalized.
+- **Axioms**: as per constituent claims.
+- **Falsifier / boundary**: an internal criterion selecting a reading
+  (none exists: the difference is a metatheoretic fact about the
+  challenge text).
+
+### CL-NO-UNIVERSAL-PROPERTY
+- **Statement**: The final process is minimal or initial among a defined
+  class of finite processes satisfying the same challenges.
+- **Class**: unresolved — **claim refused**.  No universal property was
+  proved; per the discipline, the word "minimal" for the whole process is
+  therefore not used.
+- **Deps**: n/a. **Python / Lean / Axioms**: --.
+- **Falsifier / boundary**: what survives instead: per-stage minimality
+  with declared scope (CL-3-*), engine determinism (CL-DETERMINISM), and
+  bounded completeness (CL-TREE-MU2-COMPLETE).
