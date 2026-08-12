@@ -23,6 +23,7 @@ import Derivation.PrimitiveCats
 import Derivation.PrimitiveContact
 import Derivation.PrimitivePassage
 import Derivation.HigherStructure
+import Derivation.Apartness
 
 /-!
 # Axiom reports
@@ -569,3 +570,31 @@ open Derivation
 #print axioms HigherStructure.d2_zero_triangles
 #print axioms HigherStructure.d2_zero_tet
 #print axioms HigherStructure.boundary_not_forced
+#print axioms Apartness.indist_refl
+#print axioms Apartness.indist_symm
+#print axioms Apartness.indist_trans
+#print axioms Apartness.indist_equivalence
+#print axioms Apartness.bare_breaks_refl
+#print axioms Apartness.irrefl_alone_breaks_symm
+#print axioms Apartness.subsingleton_indist_total
+#print axioms Apartness.triSymRel_irrefl
+#print axioms Apartness.triSymRel_symm
+#print axioms Apartness.symm_without_cotrans_breaks_trans
+#print axioms Apartness.two_point_indist_trans
+#print axioms Apartness.s2_isApart
+#print axioms Apartness.s2_indist_equivalence
+#print axioms Apartness.orientations_same_apartness
+#print axioms Apartness.orientations_same_indist
+#print axioms Apartness.orientations_differ
+#print axioms Apartness.retained_orientation_not_swap_invariant
+#print axioms Apartness.oriented_pres_iff
+#print axioms Apartness.oriented_preserver_unique
+#print axioms Apartness.id_preserves_oriented
+#print axioms Apartness.apart_preserver_pair
+#print axioms Apartness.id_preserves_apart
+#print axioms Apartness.swap_preserves_apart
+#print axioms Apartness.swap_breaks_oriented
+#print axioms Apartness.collapse_preserves_neither
+#print axioms Apartness.oriented_comp
+#print axioms Apartness.clos_oriented_iff
+#print axioms Apartness.oriented_family_trivial

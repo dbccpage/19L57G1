@@ -1101,6 +1101,7 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
+    "Apartness.lean",
     "PrimitiveCore.lean"
    ],
    "kind": "generic",
@@ -1167,6 +1168,7 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
+    "Apartness.lean",
     "PrimitiveCats.lean",
     "PrimitiveContact.lean",
     "PrimitiveCore.lean"
@@ -1181,6 +1183,7 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
+    "Apartness.lean",
     "PrimitiveCats.lean",
     "PrimitiveCore.lean"
    ],
@@ -1372,6 +1375,7 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
+    "Apartness.lean",
     "PrimitiveCats.lean"
    ],
    "kind": "generic",
@@ -5150,7 +5154,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "Apartness.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.cotrans_auto_on_two",
@@ -6896,6 +6902,298 @@
    "name": "HigherStructure.boundary_not_forced",
    "role": "preservation",
    "statement": ": bd2 (0, 1, 2) \u2260 bd2' (0, 1, 2) \u2227 (k4.c0.all (fun v => coeffV v (push1 (bd2 (0, 1, 2))) == 0)) = true \u2227 (k4.c0.all (fun v => coeffV v (push1 (bd2' (0, 1, 2))) == 0)) = true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.indist_refl",
+   "role": "preservation",
+   "statement": "{X : Type} {r : X \u2192 X \u2192 Prop} (h : IsApart r) : \u2200 x, Indist r x x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.indist_symm",
+   "role": "preservation",
+   "statement": "{X : Type} {r : X \u2192 X \u2192 Prop} (h : IsApart r) {x y : X} (hxy : Indist r x y) : Indist r y x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.indist_trans",
+   "role": "preservation",
+   "statement": "{X : Type} {r : X \u2192 X \u2192 Prop} (h : IsApart r) {x y z : X} (hxy : Indist r x y) (hyz : Indist r y z) : Indist r x z"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.indist_equivalence",
+   "role": "preservation",
+   "statement": "{X : Type} {r : X \u2192 X \u2192 Prop} (h : IsApart r) : (\u2200 x, Indist r x x) \u2227 (\u2200 x y, Indist r x y \u2192 Indist r y x) \u2227 (\u2200 x y z, Indist r x y \u2192 Indist r y z \u2192 Indist r x z)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.bare_breaks_refl",
+   "role": "preservation",
+   "statement": ": \u00ac Indist (fun _ _ : Unit => True) () ()"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.irrefl_alone_breaks_symm",
+   "role": "preservation",
+   "statement": ": Indist D2 true false \u2227 \u00ac Indist D2 false true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.subsingleton_indist_total",
+   "role": "preservation",
+   "statement": "{X : Type} [Subsingleton X] {r : X \u2192 X \u2192 Prop} (hi : PrimDiff.Irrefl r) (x y : X) : Indist r x y"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.triSymRel_irrefl",
+   "role": "preservation",
+   "statement": ": PrimDiff.Irrefl triSymRel"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.triSymRel_symm",
+   "role": "preservation",
+   "statement": ": \u2200 x y, triSymRel x y \u2192 triSymRel y x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.symm_without_cotrans_breaks_trans",
+   "role": "preservation",
+   "statement": ": Indist triSymRel 0 2 \u2227 Indist triSymRel 2 1 \u2227 \u00ac Indist triSymRel 0 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.two_point_indist_trans",
+   "role": "preservation",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) (hi : PrimDiff.Irrefl r) {x y z : Bool} (hxy : Indist r x y) (hyz : Indist r y z) : Indist r x z"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.s2_isApart",
+   "role": "preservation",
+   "statement": ": IsApart S2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.s2_indist_equivalence",
+   "role": "preservation",
+   "statement": ": (\u2200 x, Indist S2 x x) \u2227 (\u2200 x y, Indist S2 x y \u2192 Indist S2 y x) \u2227 (\u2200 x y z, Indist S2 x y \u2192 Indist S2 y z \u2192 Indist S2 x z)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.orientations_same_apartness",
+   "role": "preservation",
+   "statement": ": \u2200 x y, PrimDiff.Sym D2 x y \u2194 PrimDiff.Sym D2rev x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.orientations_same_indist",
+   "role": "preservation",
+   "statement": ": \u2200 x y, Indist (PrimDiff.Sym D2) x y \u2194 Indist (PrimDiff.Sym D2rev) x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.orientations_differ",
+   "role": "preservation",
+   "statement": ": \u00ac (\u2200 x y, D2 x y \u2194 D2rev x y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.retained_orientation_not_swap_invariant",
+   "role": "preservation",
+   "statement": ": D2 false true \u2227 \u00ac D2 (Bool.not false) (Bool.not true)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.oriented_pres_iff",
+   "role": "preservation",
+   "statement": "(f : Bool \u2192 Bool) : PreservesOriented f \u2194 (f false = false \u2227 f true = true)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.oriented_preserver_unique",
+   "role": "preservation",
+   "statement": "(f : Bool \u2192 Bool) (h : PreservesOriented f) : f = id"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.id_preserves_oriented",
+   "role": "preservation",
+   "statement": ": PreservesOriented id"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.apart_preserver_pair",
+   "role": "preservation",
+   "statement": "(f : Bool \u2192 Bool) (h : PreservesApart f) : f = id \u2228 f = Bool.not"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.id_preserves_apart",
+   "role": "preservation",
+   "statement": ": PreservesApart id"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.swap_preserves_apart",
+   "role": "preservation",
+   "statement": ": PreservesApart Bool.not"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.swap_breaks_oriented",
+   "role": "preservation",
+   "statement": ": \u00ac PreservesOriented Bool.not"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.collapse_preserves_neither",
+   "role": "preservation",
+   "statement": "(v : Bool) : \u00ac PreservesOriented (fun _ => v) \u2227 \u00ac PreservesApart (fun _ => v)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.oriented_comp",
+   "role": "preservation",
+   "statement": "{f g : Bool \u2192 Bool} (hf : PreservesOriented f) (hg : PreservesOriented g) : PreservesOriented (f \u2218 g)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.clos_oriented_iff",
+   "role": "preservation",
+   "statement": "(F : (Bool \u2192 Bool) \u2192 Prop) : (\u2200 f, PrimDiff.Clos F f \u2192 PreservesOriented f) \u2194 (\u2200 f, F f \u2192 PreservesOriented f)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Apartness.lean",
+   "name": "Apartness.oriented_family_trivial",
+   "role": "preservation",
+   "statement": "(F : (Bool \u2192 Bool) \u2192 Prop) (h : \u2200 f, F f \u2192 PreservesOriented f) : \u2200 f, F f \u2192 f = id"
   }
  ]
 }
