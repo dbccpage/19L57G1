@@ -4,8 +4,9 @@
 Externally imposed challenge (caller request, 2026-08-12): a
 self-contained theorem package exposing the pipeline
 
-    reflection → retained/protected zero-pair → active obstruction
-               → orbit closure or extension proposal.
+    reflection certificate → retained/protected zero-pair
+      → active obstruction → map-saturated closure step
+      or separately represented extension proposal.
 
 Everything here is built from core Lean only; nothing is assumed about
 any downstream consumer.  An independent adapter mapping these native
@@ -15,10 +16,9 @@ here by design.
 Discipline carried over from the development: the three obstruction
 conditions (retained / observer-zero / protected) are separate
 predicates, never conflated; proposals are data, never applied;
-equivalence is proved before any quotient is constructed; no ordering
-on demands exists anywhere (demand sets are predicates, so there is no
-least representative to choose); and every countermodel is a concrete
-finite instance.
+equivalence is proved before any quotient is constructed; the abstract
+demand carrier is a predicate, so closure does not choose a preferred
+representative; and every countermodel is a concrete finite instance.
 -/
 
 namespace DiffInterface
@@ -85,8 +85,9 @@ A stage carries a liveness designation, a retention relation, a
 protection relation (`guarded` — "protected" is a reserved word; a
 guarded pair is one that must eventually be distinguished), and an
 observer.  The three predicates are independent fields; no coherence
-between them is assumed, and the countermodels below witness every
-separation. -/
+between them is assumed.  The blocking lemmas below isolate each
+necessary conjunct; the concrete countermodels later focus on examples
+where protection is absent. -/
 
 structure Stage (X R : Type) where
   live : X → Prop
@@ -122,7 +123,8 @@ theorem distinguished_not_active (S : Stage X R) (x y : X)
 /-! ## Bare reflection, factored
 
 The step is a bundle of declared data: an old-to-new embedding with a
-retraction, a genuinely fresh point, a declared parent, preservation
+retraction, a point outside the image of every old live point, a
+declared parent, preservation
 of old structure (zero-pairs preserved *and reflected* on the old live
 region; retention and protection preserved), and the retained,
 protected parent/new pair that the pre-closure observer considers
@@ -134,7 +136,7 @@ structure BareReflection (S : Stage X R) (S' : Stage X' R) where
   retract_embed : ∀ x, retract (embed x) = x
   fresh : X'
   fresh_live : S'.live fresh
-  fresh_genuine : ∀ x, S.live x → embed x ≠ fresh
+  fresh_from_live_image : ∀ x, S.live x → embed x ≠ fresh
   parent : X
   parent_live : S.live parent
   live_embed : ∀ x, S.live x → S'.live (embed x)
@@ -147,14 +149,14 @@ structure BareReflection (S : Stage X R) (S' : Stage X' R) where
   pair_guarded : S'.guarded (embed parent) fresh
   pair_zero : ZeroRel S'.obs (embed parent) fresh
 
-/-- **Bare reflection produces an active obstruction** — on a pair that
-is metatheoretically distinct (freshness), yet observer-zero, retained,
-and protected. -/
-theorem bare_reflection_active_obstruction
+/-- A bare-reflection certificate includes an active obstruction on its
+declared parent/new pair.  The conclusion uses the certificate's three
+pair fields; it is not derived from freshness alone. -/
+theorem bare_reflection_certifies_active_obstruction
     {S : Stage X R} {S' : Stage X' R} (B : BareReflection S S') :
     B.embed B.parent ≠ B.fresh ∧
       ActiveObstruction S' (B.embed B.parent) B.fresh :=
-  ⟨B.fresh_genuine _ B.parent_live,
+  ⟨B.fresh_from_live_image _ B.parent_live,
    B.pair_retained, B.pair_zero, B.pair_guarded⟩
 
 /-! ## Observer refinement -/
@@ -171,14 +173,15 @@ theorem refines_preserves_distinctions {O₂ O₁ : DiffObs X R}
     ∀ x y, ¬ ZeroRel O₁ x y → ¬ ZeroRel O₂ x y :=
   fun x y h1 h2 => h1 (h x y h2)
 
-/-! ## Symmetries, orbit-complete demands, closure steps
+/-! ## Preserving maps, map-saturated demands, closure steps
 
-Demands are a *predicate* `D : X → X → Prop`: there is no list, no
-ordering, and therefore no least representative anywhere in the
-interface.  Orbit-completeness requires closure under exchange and
-under every declared symmetry. -/
+Demands are an abstract predicate `D : X → X → Prop`, so the closure
+interface does not select a preferred representative.  Map saturation
+requires closure under exchange and under every declared map.  These
+maps preserve the named stage structure; no inverse or composition law
+is assumed. -/
 
-structure StageSym (S : Stage X R) where
+structure StageMaps (S : Stage X R) where
   maps : List (X → X)
   id_mem : (fun x => x) ∈ maps
   live_pres : ∀ g ∈ maps, ∀ x, S.live x → S.live (g x)
@@ -189,53 +192,54 @@ structure StageSym (S : Stage X R) where
   zero_pres : ∀ g ∈ maps, ∀ x y, S.live x → S.live y →
     ZeroRel S.obs x y → ZeroRel S.obs (g x) (g y)
 
-def OrbitComplete {S : Stage X R} (G : StageSym S)
+def MapSaturated {S : Stage X R} (G : StageMaps S)
     (D : X → X → Prop) : Prop :=
   (∀ x y, D x y → D y x) ∧
     (∀ g ∈ G.maps, ∀ x y, D x y → D (g x) (g y))
 
-/-- A same-carrier closure step: it discharges an orbit-complete set of
+/-- A same-carrier closure step: it discharges a map-saturated set of
 demands, all of which are active obstructions, by an observer
 refinement over the *same* carrier and the *same* result type. -/
-structure ClosureStep (S : Stage X R) (G : StageSym S) where
+structure ClosureStep (S : Stage X R) (G : StageMaps S) where
   D : X → X → Prop
   demands_active : ∀ x y, D x y → ActiveObstruction S x y
-  orbit_complete : OrbitComplete G D
+  demand_offdiag : ∀ x y, D x y → x ≠ y
+  map_saturated : MapSaturated G D
   obs' : DiffObs X R
   refines : Refines obs' S.obs
   discharges : ∀ x y, D x y → x ≠ y → ¬ ZeroRel obs' x y
 
-def ClosureStep.apply {S : Stage X R} {G : StageSym S}
+def ClosureStep.apply {S : Stage X R} {G : StageMaps S}
     (C : ClosureStep S G) : Stage X R := S.withObs C.obs'
 
 /-- Closure preserves every old distinction. -/
 theorem closure_preserves_old_distinctions {S : Stage X R}
-    {G : StageSym S} (C : ClosureStep S G) :
+    {G : StageMaps S} (C : ClosureStep S G) :
     ∀ x y, ¬ ZeroRel S.obs x y → ¬ ZeroRel C.apply.obs x y :=
   refines_preserves_distinctions C.refines
 
-/-- Every demanded (off-diagonal) pair stops being an active
-obstruction. -/
-theorem closure_kills_demanded {S : Stage X R} {G : StageSym S}
-    (C : ClosureStep S G) (x y : X) (hD : C.D x y) (hne : x ≠ y) :
+/-- Every demanded pair is off-diagonal by construction and stops being
+an active obstruction. -/
+theorem closure_kills_demanded {S : Stage X R} {G : StageMaps S}
+    (C : ClosureStep S G) (x y : X) (hD : C.D x y) :
     ¬ ActiveObstruction C.apply x y :=
-  fun ⟨_, hz, _⟩ => C.discharges x y hD hne hz
+  fun ⟨_, hz, _⟩ => C.discharges x y hD (C.demand_offdiag x y hD) hz
 
 /-- Closure creates no new active obstruction: activity after a step
-pulls back to activity before it.  Together with the previous theorem
-this is why any counting measure over the active pairs strictly
-decreases (the concrete measure is below). -/
-theorem closure_adds_no_obstruction {S : Stage X R} {G : StageSym S}
+pulls back to activity before it.  Together with discharge, this is an
+ingredient of a decrease proof; finiteness and a removed active pair are
+separate obligations, discharged for the concrete measure below. -/
+theorem closure_adds_no_obstruction {S : Stage X R} {G : StageMaps S}
     (C : ClosureStep S G) (x y : X) :
     ActiveObstruction C.apply x y → ActiveObstruction S x y :=
   fun ⟨hr, hz, hg⟩ => ⟨hr, C.refines x y hz, hg⟩
 
 /-! ## Extension proposals — data, never transitions
 
-When discharge would need a new carrier point or new observer
-structure, the pipeline returns a proposal.  Constructing one changes
-no stage; authorization is a separate act this package never
-performs. -/
+The interface can represent a request for a new carrier point or new
+observer structure as a proposal.  Constructing one changes no stage;
+authorization and proposal selection are separate acts this package
+never performs. -/
 
 inductive RequestKind where
   | carrierPoint
@@ -246,7 +250,7 @@ structure ExtensionProposal (X R : Type) where
   kind : RequestKind
   demanded : X → X → Prop
 
-inductive ClosureOutcome (S : Stage X R) (G : StageSym S) where
+inductive ClosureOutcome (S : Stage X R) (G : StageMaps S) where
   | step (C : ClosureStep S G)
   | propose (p : ExtensionProposal X R)
 
@@ -296,8 +300,8 @@ Carrier `Nat`; result type `Nat × Nat`; the observer is the kernel of
 the horizon-capped rank view `min · h`.  A closed stage at size `s`
 has horizon `s - 1` (every live point has its own rank); reflection
 adds a fresh point the *stale* observer cannot tell from its declared
-parent; closure re-synchronizes the horizon over the complete orbit of
-the demand — uniformly, with no representative chosen. -/
+parent; closure re-synchronizes the horizon over the full demand
+predicate — uniformly, with no preferred pair chosen. -/
 
 def cview (h i : Nat) : Nat := min i h
 
@@ -335,7 +339,7 @@ def towerReflection (n : Nat) :
   retract_embed _ := rfl
   fresh := n + 1
   fresh_live := by show n + 1 < n + 2; omega
-  fresh_genuine := fun x hx => by
+  fresh_from_live_image := fun x hx => by
     have hx' : x < n + 1 := hx
     show x ≠ n + 1
     omega
@@ -359,14 +363,14 @@ def towerReflection (n : Nat) :
     show min n n = min (n + 1) n
     omega
 
-/-- The tower's reflection instantiates the abstract theorem: an
-active obstruction on the genuinely fresh parent/new pair. -/
+/-- The tower's certificate instantiates the abstract theorem: an
+active obstruction on a parent/new pair outside the old live image. -/
 theorem tower_obstruction (n : Nat) :
     (n : Nat) ≠ n + 1 ∧ ActiveObstruction (mkStage (n + 2) n) n (n + 1) :=
-  bare_reflection_active_obstruction (towerReflection n)
+  bare_reflection_certifies_active_obstruction (towerReflection n)
 
-/-- The declared symmetry of the pre-closure stage: the identity and
-the top-swap exchanging the two rank-collided points. -/
+/-- A declared relation-preserving map of the pre-closure stage.  On
+the live region it exchanges the two rank-collided top points. -/
 def swapTop (n x : Nat) : Nat := if x < n then x else 2 * n + 1 - x
 
 theorem swapTop_view (n x : Nat) (hx : x < n + 2) :
@@ -379,7 +383,7 @@ theorem swapTop_live_inj (n x y : Nat) (hx : x < n + 2) (hy : y < n + 2)
   unfold swapTop at h
   split at h <;> split at h <;> omega
 
-def towerSym (n : Nat) : StageSym (mkStage (n + 2) n) where
+def towerMaps (n : Nat) : StageMaps (mkStage (n + 2) n) where
   maps := [fun x => x, swapTop n]
   id_mem := List.mem_cons_self
   live_pres := by
@@ -424,16 +428,15 @@ def towerSym (n : Nat) : StageSym (mkStage (n + 2) n) where
         exact hz
       · cases h0
 
-/-- The complete demand orbit of the tower's obstruction: both
-orientations of the collided pair — as a predicate, with no
-representative distinguished. -/
+/-- The map-saturated demand predicate for the tower's obstruction:
+both orientations of the collided pair. -/
 def towerDemand (n : Nat) (x y : Nat) : Prop :=
   (x = n ∧ y = n + 1) ∨ (x = n + 1 ∧ y = n)
 
 /-- The closure step of the tower: refine the observer to the new
-horizon, uniformly over the whole orbit. -/
+horizon uniformly over the full demand predicate. -/
 def towerClosure (n : Nat) :
-    ClosureStep (mkStage (n + 2) n) (towerSym n) where
+    ClosureStep (mkStage (n + 2) n) (towerMaps n) where
   D := towerDemand n
   demands_active := by
     intro x y hD
@@ -444,7 +447,10 @@ def towerClosure (n : Nat) :
     · exact ⟨⟨by omega, by omega⟩,
         by show min (n+1) n = min n n; omega,
         by omega, by omega, by omega⟩
-  orbit_complete := by
+  demand_offdiag := by
+    intro x y hD
+    rcases hD with ⟨hx, hy⟩ | ⟨hx, hy⟩ <;> omega
+  map_saturated := by
     constructor
     · intro x y hD
       rcases hD with ⟨hx, hy⟩ | ⟨hx, hy⟩
@@ -471,19 +477,18 @@ def towerClosure (n : Nat) :
     have h' : min x (n + 1) = min y (n + 1) := hz
     rcases hD with ⟨hx, hy⟩ | ⟨hx, hy⟩ <;> omega
 
-/-- **The trace composes exactly**: applying the closure step to the
-reflected stage *is* the next closed stage, definitionally. -/
+/-- The successor step composes exactly: applying the closure step to
+the reflected stage is the next closed stage, definitionally. -/
 theorem tower_step_composes (n : Nat) :
     (towerClosure n).apply = mkStage (n + 2) (n + 1) := rfl
 
-/-- **The infinite compatible trace** (no fuel): at every `n` there is
-a bare reflection from the closed stage and an orbit-complete closure
-step whose application is the next closed stage.  Every finite prefix
-of the tower is therefore a legal derivation, and the whole trace is
-uniform in `n`. -/
-theorem tower_infinite_trace (n : Nat) :
+/-- A uniform successor-step witness: for every index there is a bare
+reflection and a map-saturated closure step whose application is the
+next closed stage.  This theorem is pointwise; it does not construct a
+trace object or prove a separate finite-prefix induction theorem. -/
+theorem tower_successor_step (n : Nat) :
     ∃ (_ : BareReflection (mkStage (n + 1) n) (mkStage (n + 2) n))
-      (C : ClosureStep (mkStage (n + 2) n) (towerSym n)),
+      (C : ClosureStep (mkStage (n + 2) n) (towerMaps n)),
       C.apply = mkStage (n + 2) (n + 1) :=
   ⟨towerReflection n, towerClosure n, rfl⟩
 
@@ -556,14 +561,15 @@ theorem preclose_measure_pos (n : Nat) : 0 < measureC (n + 2) n := by
   | nil => exact absurd hp hne
   | cons a l => simp
 
-/-- The uniform orbit bound: the tower demand orbit has exactly two
-ordered pairs — `B = 2`, fixed across all stages. -/
-def towerOrbitList (n : Nat) : List (Nat × Nat) :=
+/-- Concrete finite evidence for the tower demand predicate.  Unlike
+the abstract predicate interface, this enumerator is a list so its
+cardinality can be checked. -/
+def towerDemandList (n : Nat) : List (Nat × Nat) :=
   [(n, n + 1), (n + 1, n)]
 
-theorem tower_orbit_characterized (n x y : Nat) :
-    towerDemand n x y ↔ (x, y) ∈ towerOrbitList n := by
-  unfold towerDemand towerOrbitList
+theorem tower_demand_characterized (n x y : Nat) :
+    towerDemand n x y ↔ (x, y) ∈ towerDemandList n := by
+  unfold towerDemand towerDemandList
   constructor
   · intro h
     rcases h with ⟨hx, hy⟩ | ⟨hx, hy⟩ <;> rw [hx, hy]
@@ -578,13 +584,13 @@ theorem tower_orbit_characterized (n x y : Nat) :
         exact Or.inr ⟨h1, h2⟩
       · cases h0
 
-theorem tower_orbit_bound (n : Nat) : (towerOrbitList n).length = 2 :=
+theorem tower_demand_bound (n : Nat) : (towerDemandList n).length = 2 :=
   rfl
 
 /-- The concrete driver: close if no active pair remains, else one
 same-carrier re-synchronization.  (This family never needs an
 extension — its result type has room at every horizon; the family that
-must propose is below.) -/
+has no closed view in its declared grammar is below.) -/
 def towerNext (st : Nat × Nat) :
     Option ((Nat × Nat) ⊕ ExtensionProposal Nat (Nat × Nat)) :=
   if activePairs st.1 st.2 = [] then none
@@ -615,13 +621,13 @@ theorem tower_fuel_terminates (s h fuel : Nat)
   drive_terminates towerNext (fun st => measureC st.1 st.2)
     towerNext_decrease fuel (s, h) hfuel
 
-/-! ## The family that must propose: bounded observer grammar
+/-! ## A bounded observer grammar with no closed view
 
 Three protected points, observers drawn from the Boolean-view grammar.
 Whatever view is chosen — including any refinement chosen later — two
-points collide, so an active obstruction survives every same-grammar
-closure.  Discharging this family requires new observer structure, and
-the pipeline returns that request as a *proposal*, applied nowhere. -/
+points collide, so no view in this grammar closes the stage.  A proposal
+requesting new observer structure is defined below as available data;
+no theorem here derives a decision procedure that must select it. -/
 
 theorem bool_view_pigeonhole (view : Nat → Bool) :
     view 0 = view 1 ∨ view 0 = view 2 ∨ view 1 = view 2 := by
@@ -646,16 +652,14 @@ theorem bool_grammar_obstruction (view : Nat → Bool) :
   · exact ⟨1, 2, by omega,
       ⟨by omega, by omega⟩, h, by omega, by omega, by omega⟩
 
-/-- No same-grammar refinement closes the family: for *any* refined
-Boolean view, an active obstruction survives on the same carrier. -/
-theorem bool_grammar_must_propose (view view' : Nat → Bool) :
-    ∃ x y, x ≠ y ∧
-      ActiveObstruction ((bStage view).withObs (kernelObs view')) x y :=
-  bool_grammar_obstruction view'
+/-- No Boolean view in the declared grammar closes the family. -/
+theorem no_bool_view_is_closed (view : Nat → Bool) :
+    ∃ x y, x ≠ y ∧ ActiveObstruction (bStage view) x y :=
+  bool_grammar_obstruction view
 
-/-- The proposal the pipeline returns for this family: a request for
-new observer structure carrying the undischarged demand set.  Data
-only — no stage is constructed from it here. -/
+/-- An available proposal for this family: a request for new observer
+structure carrying the undischarged demand set.  Data only — no stage
+is constructed from it here, and no decision theorem forces its use. -/
 def boolProposal (view' : Nat → Bool) :
     ExtensionProposal Nat (Bool × Bool) :=
   { kind := .observerStructure
@@ -665,11 +669,12 @@ def boolProposal (view' : Nat → Bool) :
 /-! ## Countermodels
 
 Each names a feature that does **not**, by itself, produce
-observer-visible difference or an active obstruction.  All are
-concrete finite instances. -/
+observer-visible difference.  Each accompanying stage is unprotected,
+and the theorem explicitly verifies that its displayed pair is not an
+active obstruction.  All are concrete finite instances. -/
 
-/-- **Freshness alone.**  The tower's fresh point `1` (fresh relative
-to the size-1 stage) is observer-zero with its parent under the stale
+/-- **Freshness alone.**  The tower's new point `1` (outside the live
+image of the size-1 stage) is observer-zero with its parent under the stale
 horizon; with protection removed, it is not an active obstruction
 either. -/
 def freshUnguarded : Stage Nat (Nat × Nat) :=
@@ -705,31 +710,52 @@ instance does not by itself separate (or orient) its endpoints. -/
 def edgeView (i : Nat) : Bool :=
   [((0 : Nat), (1 : Nat))].any fun e => e.1 == i || e.2 == i
 
+def edgeStage : Stage Nat (Bool × Bool) where
+  live i := i < 2
+  retained i j := i < 2 ∧ j < 2
+  guarded := fun _ _ => False
+  obs := kernelObs edgeView
+
 theorem cm_edge :
     edgeView 0 = true ∧ edgeView 1 = true ∧ ((0 : Nat) ≠ 1) ∧
-      ZeroRel (kernelObs edgeView) 0 1 := by
-  refine ⟨by decide, by decide, by decide, ?_⟩
+      ZeroRel edgeStage.obs 0 1 ∧ ¬ ActiveObstruction edgeStage 0 1 := by
+  refine ⟨by decide, by decide, by decide, ?_,
+    no_guard_no_obstruction _ (fun _ _ h => h) 0 1⟩
   show edgeView 0 = edgeView 1
   decide
 
-/-- **A new hash alone.**  A metatheoretically injective label (here
+/-- **A new hash alone.**  An injective label external to the observer (here
 the identity) that the observer does not read: distinct hashes, zero
-difference.  Receipts and hashes are metatheory until admitted into
-the observer. -/
+difference. -/
+def hashStage : Stage Nat (Unit × Unit) where
+  live i := i < 2
+  retained i j := i < 2 ∧ j < 2
+  guarded := fun _ _ => False
+  obs := kernelObs (fun _ : Nat => ())
+
 theorem cm_hash :
     (∀ i j : Nat, (fun x => x) i = (fun x => x) j → i = j) ∧
       ((0 : Nat) ≠ 1) ∧
-      ZeroRel (kernelObs (fun _ : Nat => ())) 0 1 :=
-  ⟨fun _ _ h => h, by decide, rfl⟩
+      ZeroRel hashStage.obs 0 1 ∧ ¬ ActiveObstruction hashStage 0 1 :=
+  ⟨fun _ _ h => h, by decide, rfl,
+   no_guard_no_obstruction _ (fun _ _ h => h) 0 1⟩
 
 /-- **Repetition alone.**  Two occurrence indices presenting one token:
 the token view collapses them; occurrence multiplicity is invisible to
 a presence-grade observer. -/
 def tokenOf : Nat → Unit := fun _ => ()
 
+def repetitionStage : Stage Nat (Unit × Unit) where
+  live i := i < 2
+  retained i j := i < 2 ∧ j < 2
+  guarded := fun _ _ => False
+  obs := kernelObs tokenOf
+
 theorem cm_repetition :
     tokenOf 0 = tokenOf 1 ∧ ((0 : Nat) ≠ 1) ∧
-      ZeroRel (kernelObs tokenOf) 0 1 :=
-  ⟨rfl, by decide, rfl⟩
+      ZeroRel repetitionStage.obs 0 1 ∧
+      ¬ ActiveObstruction repetitionStage 0 1 :=
+  ⟨rfl, by decide, rfl,
+   no_guard_no_obstruction _ (fun _ _ h => h) 0 1⟩
 
 end DiffInterface

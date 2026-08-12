@@ -6,13 +6,13 @@ Classification: metatheory apparatus for
 concrete realization deterministically and exports the trajectories:
 
 * the reflective tower (kernel observers of horizon-capped ranks),
-  its per-round obstruction pipeline (reflection -> retained/protected
-  zero-pair -> active obstruction -> orbit closure), the declared
-  measure, and the uniform orbit bound;
+  its per-round obstruction pipeline (reflection certificate ->
+  retained/protected zero-pair -> active obstruction -> map-saturated
+  closure), the declared measure, and the uniform demand bound;
 * the fuel driver and its termination behaviour;
 * the bounded-grammar family (Boolean views over three protected
-  points) where closure must return an extension proposal — checked
-  exhaustively over all eight views;
+  points), where no view closes the stage, together with available
+  extension-proposal data — checked exhaustively over all eight views;
 * the five countermodels (freshness, tagging, an edge, a new hash,
   repetition), each showing the feature without observer-visible
   difference and without an active obstruction when protection is
@@ -26,9 +26,18 @@ within its declared bounds.
 from __future__ import annotations
 
 from itertools import product
-from typing import Callable, Optional
+from typing import Callable, Literal, Optional
 
 ROUNDS = 15
+State = tuple[int, int]
+NextAction = (
+    tuple[Literal["step"], State]
+    | tuple[Literal["proposal"], object]
+)
+DriveResult = (
+    tuple[Literal["closed", "out_of_fuel"], State, None]
+    | tuple[Literal["proposal"], State, object]
+)
 
 
 def cview(h: int, i: int) -> int:
@@ -54,23 +63,26 @@ def swap_top(n: int, x: int) -> int:
     return x if x < n else 2 * n + 1 - x
 
 
-def tower_orbit(n: int) -> list[tuple[int, int]]:
-    """The complete demand orbit of the reflected pair under the
-    declared symmetries (identity and top-swap)."""
+def tower_demand_support(n: int) -> list[tuple[int, int]]:
+    """Finite evidence enumerating the map-saturated demand predicate.
+
+    The abstract interface uses a predicate; this sorted list is only
+    the deterministic concrete witness used for checking and export.
+    """
     base = [(n, n + 1), (n + 1, n)]
-    orbit = {(x, y) for (x, y) in base}
-    orbit |= {(swap_top(n, x), swap_top(n, y)) for (x, y) in base}
-    return sorted(orbit)
+    support = {(x, y) for (x, y) in base}
+    support |= {(swap_top(n, x), swap_top(n, y)) for (x, y) in base}
+    return sorted(support)
 
 
 def tower_round(n: int) -> dict[str, object]:
     """One pipeline round: closed stage -> bare reflection (stale
-    observer) -> active obstruction -> orbit closure -> next closed
+    observer) -> active obstruction -> map-saturated closure -> next closed
     stage."""
     closed_before = measure(n + 1, n)
     pre_close = measure(n + 2, n)
-    orbit = tower_orbit(n)
-    parent_fresh_zero = cview(n, n) == cview(n, n + 1)
+    support = tower_demand_support(n)
+    parent_new_zero = cview(n, n) == cview(n, n + 1)
     after = measure(n + 2, n + 1)
     old_pairs_preserved = all(
         cview(n + 1, i) != cview(n + 1, j)
@@ -82,10 +94,10 @@ def tower_round(n: int) -> dict[str, object]:
         "round": n,
         "closed_measure_before": closed_before,
         "reflected_pair": [n, n + 1],
-        "parent_fresh_zero_pre_closure": parent_fresh_zero,
+        "parent_new_zero_pre_closure": parent_new_zero,
         "preclose_measure": pre_close,
-        "demand_orbit": [list(p) for p in orbit],
-        "orbit_size": len(orbit),
+        "demand_support": [list(p) for p in support],
+        "demand_support_size": len(support),
         "closed_measure_after": after,
         "strict_decrease": after < pre_close,
         "old_distinctions_preserved": old_pairs_preserved,
@@ -94,10 +106,10 @@ def tower_round(n: int) -> dict[str, object]:
 
 def tower_report(rounds: int = ROUNDS) -> dict[str, object]:
     rows = [tower_round(n) for n in range(rounds)]
-    orbit_sizes = [len(tower_orbit(n)) for n in range(rounds)]
+    support_sizes = [len(tower_demand_support(n)) for n in range(rounds)]
     return {
         "rounds": rows,
-        "uniform_orbit_bound": max(orbit_sizes),
+        "uniform_demand_bound": max(support_sizes),
         "all_strictly_decrease": all(r["strict_decrease"] for r in rows),
         "all_preserve_old": all(
             r["old_distinctions_preserved"] for r in rows
@@ -112,27 +124,24 @@ def tower_report(rounds: int = ROUNDS) -> dict[str, object]:
 
 
 def drive(
-    next_fn: Callable[
-        [tuple[int, int]], Optional[tuple[str, tuple[int, int]]]
-    ],
+    next_fn: Callable[[State], Optional[NextAction]],
     fuel: int,
-    state: tuple[int, int],
-) -> tuple[str, tuple[int, int]]:
-    """The fuel driver: `closed`, `proposal`, or `out_of_fuel`."""
+    state: State,
+) -> DriveResult:
+    """Return the terminal state and preserve any proposal payload."""
     for _ in range(fuel):
-        step = next_fn(state)
-        if step is None:
-            return ("closed", state)
-        kind, nxt = step
-        if kind == "proposal":
-            return ("proposal", state)
-        state = nxt
-    return ("out_of_fuel", state)
+        action = next_fn(state)
+        if action is None:
+            return ("closed", state, None)
+        if action[0] == "proposal":
+            return ("proposal", state, action[1])
+        state = action[1]
+    return ("out_of_fuel", state, None)
 
 
 def tower_next(
-    state: tuple[int, int],
-) -> Optional[tuple[str, tuple[int, int]]]:
+    state: State,
+) -> Optional[tuple[Literal["step"], State]]:
     s, h = state
     if not active_pairs(s, h):
         return None
@@ -145,7 +154,9 @@ def fuel_report(rounds: int = ROUNDS) -> dict[str, object]:
     rows = []
     for n in range(rounds):
         mu = measure(n + 2, n)
-        outcome, final = drive(tower_next, mu + 1, (n + 2, n))
+        outcome, final, _proposal = drive(
+            tower_next, mu + 1, (n + 2, n)
+        )
         rows.append(
             {
                 "round": n,
@@ -171,8 +182,9 @@ def bool_views() -> list[tuple[int, ...]]:
 
 def bool_grammar_report() -> dict[str, object]:
     """Exhaustive over the grammar: every view (hence every in-grammar
-    refinement) leaves an active obstruction among three protected
-    points, so closure must return an extension proposal."""
+    replacement view) leaves an active obstruction among three protected
+    points.  Proposal data is available, but no decision procedure is
+    claimed here."""
     rows = []
     for view in bool_views():
         collisions = [
@@ -193,17 +205,22 @@ def bool_grammar_report() -> dict[str, object]:
         "every_view_obstructed": all(
             bool(r["surviving_obstructions"]) for r in rows
         ),
-        "proposal_required": all(
+        "no_view_closed": all(
             bool(r["surviving_obstructions"]) for r in rows
         ),
-        "proposal_kind": "observerStructure",
+        "available_proposal_kind": "observerStructure",
     }
+
+
+def obstruction_active(*, retained: bool, zero: bool, guarded: bool) -> bool:
+    """Compute the three-conjunct activity definition used by the report."""
+    return retained and zero and guarded
 
 
 def countermodel_report() -> dict[str, object]:
     """The five separations.  ``zero`` records observer-blindness on a
-    metatheoretically distinct pair; ``active_without_protection`` is
-    always false — protection is a separate, load-bearing condition."""
+    distinct pair.  Every row records an unprotected stage and computes
+    activity from the three conjuncts rather than storing the result."""
     fresh_zero = cview(0, 0) == cview(0, 1)
     tag = [int(0 < i) for i in range(3)]
     tag_zero = tag[1] == tag[2]
@@ -217,23 +234,33 @@ def countermodel_report() -> dict[str, object]:
     hash_zero = True  # constant view: delta lands on the diagonal
     token = ["<>", "<>"]
     rep_zero = token[0] == token[1]
-    rows = [
-        {"feature": "freshness", "feature_present": True,
-         "zero": fresh_zero, "active_without_protection": False},
-        {"feature": "tagging", "feature_present": tag[1] == 1 and
-         tag[2] == 1, "zero": tag_zero,
-         "active_without_protection": False},
-        {"feature": "edge", "feature_present": bool(edges),
-         "zero": edge_zero, "active_without_protection": False},
-        {"feature": "new_hash", "feature_present": hash_distinct,
-         "zero": hash_zero, "active_without_protection": False},
-        {"feature": "repetition", "feature_present": len(token) == 2,
-         "zero": rep_zero, "active_without_protection": False},
+    features = [
+        ("freshness", True, fresh_zero),
+        ("tagging", tag[1] == 1 and tag[2] == 1, tag_zero),
+        ("edge", bool(edges), edge_zero),
+        ("new_hash", hash_distinct, hash_zero),
+        ("repetition", len(token) == 2, rep_zero),
     ]
+    rows = []
+    for feature, feature_present, zero in features:
+        retained = True
+        guarded = False
+        rows.append(
+            {
+                "feature": feature,
+                "feature_present": feature_present,
+                "retained": retained,
+                "zero": zero,
+                "guarded": guarded,
+                "active": obstruction_active(
+                    retained=retained, zero=zero, guarded=guarded
+                ),
+            }
+        )
     return {
         "rows": rows,
         "all_zero_despite_feature": all(bool(r["zero"]) for r in rows),
-        "none_active": not any(
-            bool(r["active_without_protection"]) for r in rows
+        "all_unprotected_and_inactive": all(
+            not bool(r["guarded"]) and not bool(r["active"]) for r in rows
         ),
     }

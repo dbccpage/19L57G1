@@ -150,36 +150,37 @@ Derivation.lean:198:0: 'Generator.middle_swap_not_relation_preserving' depends o
 Derivation.lean:199:0: 'Generator.depth2_separates_near_ends_n4' depends on axioms: [propext, Quot.sound]
 Derivation.lean:200:0: 'Generator.depth2_obstruction_n5' depends on axioms: [propext, Quot.sound]
 Derivation.lean:203:0: 'DiffInterface.zeroRel_equivalence' does not depend on any axioms
-Derivation.lean:204:0: 'DiffInterface.obsQuotient_eq_of_zero' depends on axioms: [Quot.sound]
-Derivation.lean:205:0: 'DiffInterface.no_guard_no_obstruction' does not depend on any axioms
-Derivation.lean:206:0: 'DiffInterface.unretained_not_active' does not depend on any axioms
-Derivation.lean:207:0: 'DiffInterface.distinguished_not_active' does not depend on any axioms
-Derivation.lean:208:0: 'DiffInterface.bare_reflection_active_obstruction' does not depend on any axioms
-Derivation.lean:209:0: 'DiffInterface.refines_preserves_distinctions' does not depend on any axioms
-Derivation.lean:210:0: 'DiffInterface.closure_preserves_old_distinctions' does not depend on any axioms
-Derivation.lean:211:0: 'DiffInterface.closure_kills_demanded' does not depend on any axioms
-Derivation.lean:212:0: 'DiffInterface.closure_adds_no_obstruction' does not depend on any axioms
-Derivation.lean:213:0: 'DiffInterface.drive_terminates' depends on axioms: [propext, Quot.sound]
-Derivation.lean:214:0: 'DiffInterface.cview_distinct_mono' depends on axioms: [propext, Quot.sound]
-Derivation.lean:215:0: 'DiffInterface.tower_closed' depends on axioms: [propext, Quot.sound]
-Derivation.lean:216:0: 'DiffInterface.tower_obstruction' depends on axioms: [propext, Quot.sound]
-Derivation.lean:217:0: 'DiffInterface.swapTop_view' depends on axioms: [propext, Quot.sound]
-Derivation.lean:218:0: 'DiffInterface.swapTop_live_inj' depends on axioms: [propext, Quot.sound]
-Derivation.lean:219:0: 'DiffInterface.tower_step_composes' depends on axioms: [propext, Quot.sound]
-Derivation.lean:220:0: 'DiffInterface.tower_infinite_trace' depends on axioms: [propext, Quot.sound]
-Derivation.lean:221:0: 'DiffInterface.mem_activePairs' depends on axioms: [propext, Quot.sound]
-Derivation.lean:222:0: 'DiffInterface.mem_activePairs_iff_active' depends on axioms: [propext, Quot.sound]
-Derivation.lean:223:0: 'DiffInterface.closed_measure_zero' depends on axioms: [propext, Quot.sound]
-Derivation.lean:224:0: 'DiffInterface.preclose_measure_pos' depends on axioms: [propext, Quot.sound]
-Derivation.lean:225:0: 'DiffInterface.tower_orbit_characterized' depends on axioms: [propext]
-Derivation.lean:226:0: 'DiffInterface.tower_orbit_bound' does not depend on any axioms
-Derivation.lean:227:0: 'DiffInterface.towerNext_decrease' depends on axioms: [propext, Quot.sound]
-Derivation.lean:228:0: 'DiffInterface.tower_fuel_terminates' depends on axioms: [propext, Quot.sound]
-Derivation.lean:229:0: 'DiffInterface.bool_view_pigeonhole' does not depend on any axioms
-Derivation.lean:230:0: 'DiffInterface.bool_grammar_obstruction' depends on axioms: [propext, Quot.sound]
-Derivation.lean:231:0: 'DiffInterface.bool_grammar_must_propose' depends on axioms: [propext, Quot.sound]
-Derivation.lean:232:0: 'DiffInterface.cm_freshness' does not depend on any axioms
-Derivation.lean:233:0: 'DiffInterface.cm_tagging' does not depend on any axioms
-Derivation.lean:234:0: 'DiffInterface.cm_edge' does not depend on any axioms
-Derivation.lean:235:0: 'DiffInterface.cm_hash' does not depend on any axioms
-Derivation.lean:236:0: 'DiffInterface.cm_repetition' does not depend on any axioms
+Derivation.lean:204:0: 'DiffInterface.kernel_zeroRel' does not depend on any axioms
+Derivation.lean:205:0: 'DiffInterface.obsQuotient_eq_of_zero' depends on axioms: [Quot.sound]
+Derivation.lean:206:0: 'DiffInterface.no_guard_no_obstruction' does not depend on any axioms
+Derivation.lean:207:0: 'DiffInterface.unretained_not_active' does not depend on any axioms
+Derivation.lean:208:0: 'DiffInterface.distinguished_not_active' does not depend on any axioms
+Derivation.lean:209:0: 'DiffInterface.bare_reflection_certifies_active_obstruction' does not depend on any axioms
+Derivation.lean:210:0: 'DiffInterface.refines_preserves_distinctions' does not depend on any axioms
+Derivation.lean:211:0: 'DiffInterface.closure_preserves_old_distinctions' does not depend on any axioms
+Derivation.lean:212:0: 'DiffInterface.closure_kills_demanded' does not depend on any axioms
+Derivation.lean:213:0: 'DiffInterface.closure_adds_no_obstruction' does not depend on any axioms
+Derivation.lean:214:0: 'DiffInterface.drive_terminates' depends on axioms: [propext, Quot.sound]
+Derivation.lean:215:0: 'DiffInterface.cview_distinct_mono' depends on axioms: [propext, Quot.sound]
+Derivation.lean:216:0: 'DiffInterface.tower_closed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:217:0: 'DiffInterface.tower_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:218:0: 'DiffInterface.swapTop_view' depends on axioms: [propext, Quot.sound]
+Derivation.lean:219:0: 'DiffInterface.swapTop_live_inj' depends on axioms: [propext, Quot.sound]
+Derivation.lean:220:0: 'DiffInterface.tower_step_composes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:221:0: 'DiffInterface.tower_successor_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:222:0: 'DiffInterface.mem_activePairs' depends on axioms: [propext, Quot.sound]
+Derivation.lean:223:0: 'DiffInterface.mem_activePairs_iff_active' depends on axioms: [propext, Quot.sound]
+Derivation.lean:224:0: 'DiffInterface.closed_measure_zero' depends on axioms: [propext, Quot.sound]
+Derivation.lean:225:0: 'DiffInterface.preclose_measure_pos' depends on axioms: [propext, Quot.sound]
+Derivation.lean:226:0: 'DiffInterface.tower_demand_characterized' depends on axioms: [propext]
+Derivation.lean:227:0: 'DiffInterface.tower_demand_bound' does not depend on any axioms
+Derivation.lean:228:0: 'DiffInterface.towerNext_decrease' depends on axioms: [propext, Quot.sound]
+Derivation.lean:229:0: 'DiffInterface.tower_fuel_terminates' depends on axioms: [propext, Quot.sound]
+Derivation.lean:230:0: 'DiffInterface.bool_view_pigeonhole' does not depend on any axioms
+Derivation.lean:231:0: 'DiffInterface.bool_grammar_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:232:0: 'DiffInterface.no_bool_view_is_closed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:233:0: 'DiffInterface.cm_freshness' does not depend on any axioms
+Derivation.lean:234:0: 'DiffInterface.cm_tagging' does not depend on any axioms
+Derivation.lean:235:0: 'DiffInterface.cm_edge' does not depend on any axioms
+Derivation.lean:236:0: 'DiffInterface.cm_hash' does not depend on any axioms
+Derivation.lean:237:0: 'DiffInterface.cm_repetition' does not depend on any axioms

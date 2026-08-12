@@ -284,7 +284,7 @@ trichotomy) and the build's 151 axiom reports remain within
 
 Externally imposed challenge (caller request): a self-contained,
 adapter-independent theorem package —
-`lean4/Derivation/DiffInterface.lean` (core-only imports, 34 exported
+`lean4/Derivation/DiffInterface.lean` (core-only imports, 35 exported
 theorems), mirrored in `code/derivation/diff_interface.py` with
 artifact `diff_interface.json`, documented in
 `paper/difference_interface.md` with CL-DI-* ledger entries.
@@ -294,21 +294,24 @@ equivalence-before-quotient (the quotient consumes the Setoid built
 from the equivalence proof, so the ordering is dependency-enforced);
 retained / observer-zero / protected as independent predicates with
 active obstruction their conjunction; factored bare reflection
-(embedding + retraction, genuinely fresh point, declared parent,
-live-scoped preservation, retained + protected pre-closure zero-pair)
-producing an active obstruction; orbit-complete closure over demand
-*predicates* (no ordering, no least representative), preserving old
-distinctions and strictly decreasing the declared measure; extension
-requests returned as proposals (data), never applied; fuel
-termination via the generic driver with the fixed uniform orbit bound
-B = 2; the infinite compatible trace without fuel (closure application
-is definitionally the next closed stage).  The Boolean-view grammar
-over three protected points must propose (pigeonhole; exhaustive over
-all eight views).  Countermodels: freshness, tagging, an edge, a new
-hash, repetition — none yields observer-visible difference alone, none
-an active obstruction unprotected.
+(embedding + retraction, a point outside the old live image, declared
+parent, live-scoped preservation, and an explicitly retained,
+protected, observer-zero parent/new pair) certifying an active
+obstruction; map-saturated closure over abstract demand predicates
+under declared preserving maps (no inverse or composition assumed),
+preserving old distinctions and strictly decreasing the concrete
+declared measure.  Extension requests are represented as proposal data,
+never applied.  Fuel termination follows from the generic measure-based
+driver; the concrete two-element demand bound is a separate fact.  A
+uniform pointwise successor-step family is proved; no trace object or
+finite-prefix induction theorem is claimed.  Every Boolean view over
+three protected points remains obstructed (pigeonhole; exhaustive over
+all eight views); proposal data is available, but no decision theorem
+forces its selection.  Countermodels for freshness, tagging, an edge, a
+new hash, and repetition now each include an unprotected stage and an
+explicit inactivity proof.
 
 Further axiom-hygiene findings recorded: `List.eq_nil_iff_forall_not_mem`
 depends on `Classical.choice` in this toolchain (replaced by a
-cases-based proof); the build's 185 axiom reports remain within
+cases-based proof); the build's 186 axiom reports remain within
 {propext, Quot.sound}.

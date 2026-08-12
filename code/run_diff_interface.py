@@ -3,8 +3,8 @@
 Usage: python code/run_diff_interface.py [--artifacts DIR] [--rounds N]
 
 Writes ``diff_interface.json``: the reflective-tower pipeline rounds
-(reflection -> zero-pair -> active obstruction -> orbit closure), the
-fuel-driver outcomes, the bounded-grammar proposal check (exhaustive
+(reflection -> zero-pair -> active obstruction -> map-saturated closure),
+the fuel-driver outcomes, the bounded-grammar closure check (exhaustive
 over all eight Boolean views of three protected points), and the five
 countermodels."""
 
@@ -52,7 +52,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"fuel outcomes all closed: {fuel['all_terminate_closed']}")
     print(
         f"grammar views checked: {grammar['views_checked']}; "
-        f"proposal required: {grammar['proposal_required']}"
+        f"no view closed: {grammar['no_view_closed']}"
     )
     print(
         "countermodels zero-despite-feature: "

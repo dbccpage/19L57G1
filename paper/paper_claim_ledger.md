@@ -819,7 +819,7 @@ and `lean4/Derivation/Generator.lean`.
 
 Full statements, boundaries, and the delivery table:
 `paper/difference_interface.md`; evidence:
-`lean4/Derivation/DiffInterface.lean` (core-only imports, 34 exported
+`lean4/Derivation/DiffInterface.lean` (core-only imports, 35 exported
 theorems) and `artifacts/diff_interface.json`.  Externally imposed
 challenge (caller request, 2026-08-12); the caller's independent
 adapter is external evidence, assumed nowhere.
@@ -837,32 +837,36 @@ adapter is external evidence, assumed nowhere.
 
 ### CL-DI-OBSTRUCTION
 - **Statement**: retained / observer-zero / protected are independent
-  predicates; an active obstruction is exactly their conjunction;
-  every proper subset is realized without the conjunction (blocking
-  lemmas + the five countermodels).
+  fields; an active obstruction is exactly their conjunction.  The
+  blocking lemmas prove that absence of any conjunct prevents activity.
+  The five finite examples specifically exhibit feature-bearing,
+  observer-zero pairs in unprotected stages; they do not enumerate every
+  proper subset of the conjunction.
 - **Class**: definition + theorems.  **Lean**: `ActiveObstruction`,
   `no_guard_no_obstruction`, `unretained_not_active`,
   `distinguished_not_active`.
 
 ### CL-DI-REFLECTION
 - **Statement**: a bare reflection step (embedding + retraction,
-  genuinely fresh point, declared parent, old structure preserved on
+  a point outside the old live image, declared parent, old structure preserved on
   the live region, retained + protected parent/new pair, pre-closure
-  zero) produces an active obstruction on a metatheoretically
-  distinct pair.
+  zero) certifies an active obstruction on a distinct pair.  The active
+  conclusion uses the three declared pair fields and is not derived
+  from freshness alone.
 - **Class**: theorem.  **Lean**: `BareReflection`,
-  `bare_reflection_active_obstruction`; concrete instance
+  `bare_reflection_certifies_active_obstruction`; concrete instance
   `towerReflection`/`tower_obstruction`.
 
 ### CL-DI-CLOSURE
-- **Statement**: demands are predicates (no ordering, no least
-  representative anywhere); closure steps discharge orbit-complete
-  demand sets by same-carrier, same-result-type refinement; every
-  step preserves old distinctions, kills every demanded off-diagonal
-  pair, and creates no new active obstruction; the concrete declared
+- **Statement**: abstract demands are predicates, and closure selects no
+  preferred pair; closure steps discharge map-saturated demand sets
+  under declared structure-preserving maps, without assuming inverses
+  or composition.  `demand_offdiag` makes every demand off-diagonal;
+  every step preserves old distinctions, kills every demanded pair,
+  and creates no new active obstruction.  The concrete declared
   measure (count of retained, protected, observer-zero ordered pairs)
   strictly decreases (positive before, zero after).
-- **Class**: theorem.  **Lean**: `OrbitComplete`, `ClosureStep`,
+- **Class**: theorem.  **Lean**: `MapSaturated`, `StageMaps`, `ClosureStep`,
   `closure_preserves_old_distinctions`, `closure_kills_demanded`,
   `closure_adds_no_obstruction`, `mem_activePairs`,
   `closed_measure_zero`, `preclose_measure_pos`,
@@ -870,27 +874,31 @@ adapter is external evidence, assumed nowhere.
 
 ### CL-DI-PROPOSAL
 - **Statement**: when discharge needs new carrier or observer
-  structure, the pipeline returns an `ExtensionProposal` — data
-  carrying the request kind and the demanded set; no stage is ever
-  constructed from a proposal in this package.  In the Boolean-view
-  grammar over three protected points, every view and every
-  same-grammar refinement leaves an active obstruction (pigeonhole),
-  so closure must propose; checked exhaustively (8 views) in Python.
-- **Class**: theorem (per-grammar) + exhaustive computation.
+  structure, `ExtensionProposal` represents request data carrying the
+  request kind and demanded set; no stage is ever constructed from a
+  proposal in this package.  In the Boolean-view grammar over three
+  protected points, every replacement view leaves an active obstruction
+  (pigeonhole), so no view in the grammar closes the stage; checked
+  exhaustively (8 views) in Python.  `boolProposal` is separately
+  available data; no decision theorem forces its selection.
+- **Class**: theorem (no closed grammar view) + exhaustive computation;
+  proposal selection unresolved.
 - **Lean**: `bool_view_pigeonhole`, `bool_grammar_obstruction`,
-  `bool_grammar_must_propose`, `boolProposal`.
+  `no_bool_view_is_closed`, `boolProposal`.
 
 ### CL-DI-TERMINATION
 - **Statement**: with fuel exceeding the declared measure, the driver
   reaches `closed` or `proposal` (never out-of-fuel), given strict
-  per-step decrease; instantiated for the tower with the fixed
-  uniform orbit bound B = 2.  Without fuel, the tower is an infinite
-  compatible trace: at every n, a bare reflection and an
-  orbit-complete closure step whose application is definitionally the
-  next closed stage; old distinctions persist to every later horizon.
+  per-step decrease and instantiated for the tower.  Separately, the
+  concrete demand enumerator has fixed size 2.  At every `n`, a bare
+  reflection and map-saturated closure step are available whose
+  application is definitionally the next closed stage; this is a
+  pointwise successor-step family, not a formal trace object or a
+  finite-prefix induction theorem.  Old distinctions persist to every
+  later horizon.
 - **Class**: theorem.  **Lean**: `drive_terminates`,
-  `tower_fuel_terminates`, `tower_orbit_bound`,
-  `tower_orbit_characterized`, `tower_infinite_trace`,
+  `tower_fuel_terminates`, `tower_demand_bound`,
+  `tower_demand_characterized`, `tower_successor_step`,
   `tower_step_composes`, `cview_distinct_mono`, `tower_closed`.
 
 ### CL-DI-COUNTERMODELS
@@ -905,7 +913,7 @@ adapter is external evidence, assumed nowhere.
 - **Statement**: the package imports core Lean only and assumes
   nothing about downstream consumers; `zero_preserved`/`zero_pres`
   are live-region-scoped; the abstract termination theorem is
-  conditional on the declared measure decrease; axioms of all 34
+  conditional on the declared measure decrease; axioms of all 35
   exported theorems within {propext, Quot.sound}.
 - **Class**: boundary record.  **Falsifier**: an import of any
   development module or external vocabulary into

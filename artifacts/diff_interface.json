@@ -1,8 +1,8 @@
 {
  "bool_grammar": {
+  "available_proposal_kind": "observerStructure",
   "every_view_obstructed": true,
-  "proposal_kind": "observerStructure",
-  "proposal_required": true,
+  "no_view_closed": true,
   "rows": [
    {
     "surviving_obstructions": [
@@ -131,37 +131,47 @@
   "rounds": 15
  },
  "countermodels": {
+  "all_unprotected_and_inactive": true,
   "all_zero_despite_feature": true,
-  "none_active": true,
   "rows": [
    {
-    "active_without_protection": false,
+    "active": false,
     "feature": "freshness",
     "feature_present": true,
+    "guarded": false,
+    "retained": true,
     "zero": true
    },
    {
-    "active_without_protection": false,
+    "active": false,
     "feature": "tagging",
     "feature_present": true,
+    "guarded": false,
+    "retained": true,
     "zero": true
    },
    {
-    "active_without_protection": false,
+    "active": false,
     "feature": "edge",
     "feature_present": true,
+    "guarded": false,
+    "retained": true,
     "zero": true
    },
    {
-    "active_without_protection": false,
+    "active": false,
     "feature": "new_hash",
     "feature_present": true,
+    "guarded": false,
+    "retained": true,
     "zero": true
    },
    {
-    "active_without_protection": false,
+    "active": false,
     "feature": "repetition",
     "feature_present": true,
+    "guarded": false,
+    "retained": true,
     "zero": true
    }
   ]
@@ -330,7 +340,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       0,
       1
@@ -340,9 +350,9 @@
       0
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      0,
@@ -354,7 +364,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       1,
       2
@@ -364,9 +374,9 @@
       1
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      1,
@@ -378,7 +388,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       2,
       3
@@ -388,9 +398,9 @@
       2
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      2,
@@ -402,7 +412,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       3,
       4
@@ -412,9 +422,9 @@
       3
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      3,
@@ -426,7 +436,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       4,
       5
@@ -436,9 +446,9 @@
       4
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      4,
@@ -450,7 +460,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       5,
       6
@@ -460,9 +470,9 @@
       5
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      5,
@@ -474,7 +484,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       6,
       7
@@ -484,9 +494,9 @@
       6
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      6,
@@ -498,7 +508,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       7,
       8
@@ -508,9 +518,9 @@
       7
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      7,
@@ -522,7 +532,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       8,
       9
@@ -532,9 +542,9 @@
       8
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      8,
@@ -546,7 +556,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       9,
       10
@@ -556,9 +566,9 @@
       9
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      9,
@@ -570,7 +580,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       10,
       11
@@ -580,9 +590,9 @@
       10
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      10,
@@ -594,7 +604,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       11,
       12
@@ -604,9 +614,9 @@
       11
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      11,
@@ -618,7 +628,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       12,
       13
@@ -628,9 +638,9 @@
       12
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      12,
@@ -642,7 +652,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       13,
       14
@@ -652,9 +662,9 @@
       13
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      13,
@@ -666,7 +676,7 @@
    {
     "closed_measure_after": 0,
     "closed_measure_before": 0,
-    "demand_orbit": [
+    "demand_support": [
      [
       14,
       15
@@ -676,9 +686,9 @@
       14
      ]
     ],
+    "demand_support_size": 2,
     "old_distinctions_preserved": true,
-    "orbit_size": 2,
-    "parent_fresh_zero_pre_closure": true,
+    "parent_new_zero_pre_closure": true,
     "preclose_measure": 2,
     "reflected_pair": [
      14,
@@ -688,6 +698,6 @@
     "strict_decrease": true
    }
   ],
-  "uniform_orbit_bound": 2
+  "uniform_demand_bound": 2
  }
 }
