@@ -5947,6 +5947,18 @@
    "name": "PrimitiveCore.matrixCells_length",
    "role": "preservation",
    "statement": ": matrixCells.length = 72"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveContact.lean",
+   "name": "PrimitiveContact.native_kernel_initial",
+   "role": "preservation",
+   "statement": ": PrimitiveCats.Initial PrimitiveCats.d2Obj"
   }
  ]
 }

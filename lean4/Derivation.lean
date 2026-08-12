@@ -20,6 +20,7 @@ import Derivation.Initiality
 import Derivation.Horizon
 import Derivation.PrimitiveCore
 import Derivation.PrimitiveCats
+import Derivation.PrimitiveContact
 
 /-!
 # Axiom reports
@@ -494,3 +495,4 @@ open Derivation
 #print axioms PrimitiveCore.f_ops_irrelevant
 #print axioms PrimitiveCore.bool_class
 #print axioms PrimitiveCore.matrixCells_length
+#print axioms PrimitiveContact.native_kernel_initial

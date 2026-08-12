@@ -1,0 +1,27 @@
+{
+ "manifest_present": false,
+ "native_kernel_interface": {
+  "implication_matrix": "artifacts/primitive_implication_matrix.json (72 cells, PrimitiveCore.matrixCells)",
+  "kernel": "PDA_pointed_witnessed_irreflexive",
+  "lean_binding": "PrimitiveContact.NativeKernel",
+  "observer_branching": "PrimitiveCats.no_terminal_pres",
+  "orientation_fork": [
+   "PrimitiveCats.s2_initial_sym",
+   "PrimitiveCats.s2_not_weakly_initial",
+   "both branches retained"
+  ],
+  "universal_status": "PrimitiveCats.d2_initial (initial among all pointed witnessed relations)",
+  "witness": "PrimitiveContact.nativeKernelWitness"
+ },
+ "package_present": false,
+ "protocol": {
+  "absence_rule": "complete the native phases and terminate with CONTACT_INPUT_ABSENT; do not invent contents",
+  "manifest_required": "contact\\omega_primdiff\\CONTACT_MANIFEST.json",
+  "package_path": "contact/omega_primdiff/",
+  "read_order": [
+   "lean4/ only after the native characterization commit (Phase II)",
+   "prose/ only after the Lean-only comparison commit (Phase III)"
+  ]
+ },
+ "status": "CONTACT_INPUT_ABSENT"
+}
