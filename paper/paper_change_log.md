@@ -315,3 +315,44 @@ Further axiom-hygiene findings recorded: `List.eq_nil_iff_forall_not_mem`
 depends on `Classical.choice` in this toolchain (replaced by a
 cases-based proof); the build's 186 axiom reports remain within
 {propext, Quot.sound}.
+
+## 12. 2026-08-12 — Represented progress without an outside
+
+Externally imposed challenge (caller assignment): can all load-bearing
+causes of represented progress themselves be represented, with no
+hidden evaluator, selector, or source outside the replay semantics?
+
+New leg: `lean4/Derivation/Represented.lean` (native, core-only, 48
+exported theorems), `code/derivation/represented.py`,
+`code/run_represented.py`, `tests/test_represented.py`, artifact
+`represented.json`, `paper/represented_progress.md`, CL-RP-* ledger
+entries, CI regeneration line.
+
+Terminal, split by claim: REPRESENTED_KERNEL_EXISTS /
+HIDDEN_INPUT_CLASSES_REFUTED /
+CERTIFICATION_BOUNDED_BY_PANEL_QUOTIENT.  One kernel carries every
+load-bearing input in its state or history (evaluator, requirement,
+scheduler, tie-break, fresh names, fuel, authorization, stopping
+condition) and satisfies the eight target theorems: replay
+determinism/composition; the support theorem (result-affecting data
+occur in the represented support); complete tied successor families
+with replay-equivalence invariance; repair soundness (discharge +
+preservation); augmentation soundness (exact conservativity equation +
+verified expressive increase); represented progress (repair family
+non-empty or certified obstruction with accepted canonical
+augmentation; budget and license isolated as the represented
+load-bearing hypotheses; refusal only with a verified certificate);
+closure (new violations only from represented require events);
+productivity (one prefix-compatible unbounded run with carrier
+`range (k+1)` derived through the acceptance-guarded kernel) separated
+by proof from per-length witnessing (a represented Koenig failure).
+Internal certification is priced exactly: equivalent to the panel's
+joint separation, refuted as correspondence, non-monotone under panel
+extension.  The eight required countermodels each consume exactly one
+unrepresented input and are machine-checked; obstruction requires
+exhaustive failure of the declared response menu by definition, and
+the incomplete-search countermodel shows why.
+
+The `admit` event constructor is spelled `admitTok` (forbidden-token
+audit).  Test count 155 -> 175; the build's 234 axiom reports remain
+within {propext, Quot.sound} with no new hygiene exceptions.

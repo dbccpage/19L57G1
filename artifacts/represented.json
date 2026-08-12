@@ -1,0 +1,395 @@
+{
+ "bounds": {
+  "rounds": 15
+ },
+ "certification": {
+  "certification_is_panel_relative": true,
+  "outside_column_separates": true,
+  "panel_certifies_equivalent": true
+ },
+ "countermodels": {
+  "all_exhibited": true,
+  "rows": [
+   {
+    "differs": true,
+    "name": "unrecorded_scheduler"
+   },
+   {
+    "differs": true,
+    "name": "unrecorded_fresh_name_source"
+   },
+   {
+    "differs": true,
+    "name": "hidden_evaluator"
+   },
+   {
+    "differs": true,
+    "name": "incomplete_search_false_obstruction"
+   },
+   {
+    "differs": true,
+    "name": "destructive_rewrite_not_augmentation"
+   },
+   {
+    "differs": true,
+    "name": "repetition_mislabeled_as_progress"
+   },
+   {
+    "differs": true,
+    "name": "order_sensitive_semantics_splits_equivalents"
+   }
+  ]
+ },
+ "koenig": {
+  "sampled_infinite_sources_refuted": true,
+  "witness_at_every_length": true
+ },
+ "mutation": {
+  "every_single_event_mutation_detected": true,
+  "mutations_checked": 8,
+  "replay_deterministic": true
+ },
+ "productivity": {
+  "all_prefix_compatible": true,
+  "all_quiescent": true,
+  "carriers_are_initial_segments": true,
+  "rows": [
+   {
+    "carrier": [
+     0
+    ],
+    "extends_previous": true,
+    "history_length": 1,
+    "k": 0,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1
+    ],
+    "extends_previous": true,
+    "history_length": 5,
+    "k": 1,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2
+    ],
+    "extends_previous": true,
+    "history_length": 9,
+    "k": 2,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "extends_previous": true,
+    "history_length": 13,
+    "k": 3,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    "extends_previous": true,
+    "history_length": 17,
+    "k": 4,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "extends_previous": true,
+    "history_length": 21,
+    "k": 5,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ],
+    "extends_previous": true,
+    "history_length": 25,
+    "k": 6,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "extends_previous": true,
+    "history_length": 29,
+    "k": 7,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "extends_previous": true,
+    "history_length": 33,
+    "k": 8,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ],
+    "extends_previous": true,
+    "history_length": 37,
+    "k": 9,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "extends_previous": true,
+    "history_length": 41,
+    "k": 10,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ],
+    "extends_previous": true,
+    "history_length": 45,
+    "k": 11,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "extends_previous": true,
+    "history_length": 49,
+    "k": 12,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13
+    ],
+    "extends_previous": true,
+    "history_length": 53,
+    "k": 13,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "extends_previous": true,
+    "history_length": 57,
+    "k": 14,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   },
+   {
+    "carrier": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "extends_previous": true,
+    "history_length": 61,
+    "k": 15,
+    "prefix_of_next": true,
+    "quiescent": true,
+    "wf": true
+   }
+  ]
+ },
+ "progress_story": {
+  "augmentation_accepted": true,
+  "discharged_after_augmentation": true,
+  "obstructed_1_2": true,
+  "old_reqs_preserved": true,
+  "quiescent_after": true,
+  "repair_family_1_2": [],
+  "violated_1_2": true,
+  "wf": true,
+  "world": {
+   "aug_licensed": true,
+   "budget": 8,
+   "data": [
+    10,
+    20,
+    30
+   ],
+   "notes": [],
+   "refusals": [],
+   "reqs": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "views": [
+    [
+     0
+    ]
+   ]
+  }
+ }
+}
