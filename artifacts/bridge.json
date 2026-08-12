@@ -1,0 +1,163 @@
+{
+ "equivariant_scan": {
+  "irreflexive_inhabited_invariant": [
+   [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  ],
+  "swap_invariant_relations": [
+   [],
+   [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  ],
+  "unique_equivariant_witness_is_symmetric": true
+ },
+ "provenance_table": [
+  {
+   "ingredient": "carrier (size 1)",
+   "lean": null,
+   "mechanism": "retention/admission of the inscription; reading-dependent (L: never retained, F: at genesis)",
+   "python": "single_dedup scenario: max_carrier",
+   "verdict": "externally admitted"
+  },
+  {
+   "ingredient": "carrier (size 2)",
+   "lean": "single_token_carrier_bound, second_token_required",
+   "mechanism": "requires a second distinct external token, or a declared occurrence-admission discipline whose occurrence identity is metatheoretic position (flagged import)",
+   "python": "single_dedup vs two_dedup vs occurrence scenarios",
+   "verdict": "not derivable from one inscription"
+  },
+  {
+   "ingredient": "two designated occurrences",
+   "lean": "no_swap_fixed_offdiag_pair",
+   "mechanism": "designation is an external act; no equivariant ordered designation exists on the symmetric state",
+   "python": "equivariant_scan",
+   "verdict": "externally admitted / declared"
+  },
+  {
+   "ingredient": "relation (form)",
+   "lean": "no_admitForm_no_forms",
+   "mechanism": "no history without a form admission ever has a form; nothing derives a signature",
+   "python": "min_events_to.binary_form",
+   "verdict": "externally admitted"
+  },
+  {
+   "ingredient": "witness (instance)",
+   "lean": "no_forms_no_witness, equivariant_witness_is_S2, equivariant_not_D2",
+   "mechanism": "instances need a prior form; equivariant introduction reaches S2 only",
+   "python": "equivariant_scan, min_events_to.*_witness",
+   "verdict": "externally admitted (oriented) / declared closure rule reaches only the symmetric form"
+  },
+  {
+   "ingredient": "irreflexivity",
+   "lean": "irrefl_law_not_entailed",
+   "mechanism": "finite facts never entail the law (self-edge extension countermodel)",
+   "python": "min_events_to.self_edge (self-edges stay reachable in every scenario)",
+   "verdict": "as-fact: constructible; as-law: declared only"
+  },
+  {
+   "ingredient": "orientation",
+   "lean": "order_visible_to_metatheory, order_erased_at_object_level, equivariant_not_D2",
+   "mechanism": "the token-aware state distinguishes admission orders; erasure identifies them; internalizing the order is the oriented witness itself",
+   "python": "two_dedup scenario reaches oriented_witness only via an explicitly oriented instance event",
+   "verdict": "metatheoretically present (supply order), erased at object level; object-level orientation is externally admitted"
+  }
+ ],
+ "scenarios": [
+  {
+   "max_carrier": 1,
+   "max_events": 7,
+   "min_events_to": {
+    "binary_form": 1,
+    "carrier_2": null,
+    "oriented_witness": null,
+    "self_edge": 3,
+    "symmetric_witness": null
+   },
+   "occurrence_mode": false,
+   "scenario": "single_dedup",
+   "states_reached": 20,
+   "tokens": [
+    "<>"
+   ]
+  },
+  {
+   "max_carrier": 2,
+   "max_events": 7,
+   "min_events_to": {
+    "binary_form": 1,
+    "carrier_2": 2,
+    "oriented_witness": 4,
+    "self_edge": 3,
+    "symmetric_witness": 5
+   },
+   "occurrence_mode": false,
+   "scenario": "two_dedup",
+   "states_reached": 130,
+   "tokens": [
+    "<>",
+    "<a>"
+   ]
+  },
+  {
+   "max_carrier": 2,
+   "max_events": 7,
+   "min_events_to": {
+    "binary_form": 1,
+    "carrier_2": 2,
+    "oriented_witness": 4,
+    "self_edge": 3,
+    "symmetric_witness": 5
+   },
+   "occurrence_mode": true,
+   "scenario": "occurrence",
+   "states_reached": 69,
+   "tokens": [
+    "<>"
+   ]
+  }
+ ]
+}

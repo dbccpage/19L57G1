@@ -7,6 +7,7 @@ import Derivation.Progress
 import Derivation.Erasure
 import Derivation.Ext
 import Derivation.PrimDiff
+import Derivation.Bridge
 
 /-!
 # Axiom reports
@@ -121,3 +122,16 @@ open Derivation
 #print axioms PrimDiff.irred_empty_iff_ne
 #print axioms PrimDiff.irred_antitone
 #print axioms PrimDiff.merger_erases
+
+-- The bridge: provenance of the primitive-difference ingredients
+#print axioms Bridge.stepT_preserves_atMostTok
+#print axioms Bridge.single_token_carrier_bound
+#print axioms Bridge.second_token_required
+#print axioms Bridge.no_admitForm_no_forms
+#print axioms Bridge.no_forms_no_witness
+#print axioms Bridge.irrefl_law_not_entailed
+#print axioms Bridge.equivariant_witness_is_S2
+#print axioms Bridge.equivariant_not_D2
+#print axioms Bridge.no_swap_fixed_offdiag_pair
+#print axioms Bridge.order_visible_to_metatheory
+#print axioms Bridge.order_erased_at_object_level
