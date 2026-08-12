@@ -1,0 +1,841 @@
+{
+ "bounds": {
+  "observation_depths": [
+   1,
+   2
+  ],
+  "rounds_per_branch": 15,
+  "strategy_class_size": 5
+ },
+ "exclusion": {
+  "classification_table": {
+   "automark_presence": "fires_unrepaired",
+   "automark_valued": "generation_dead",
+   "depth2": "fires_unrepaired",
+   "none": "fires_unrepaired",
+   "per_pair_fresh_mark": "repairs_by_recurring_imports"
+  },
+  "endogenous_cycle_found": false,
+  "endogenous_cycle_strategies": [],
+  "rounds": 15,
+  "strategies": [
+   {
+    "classification": "fires_unrepaired",
+    "fired_ever": true,
+    "first_fire_round": 3,
+    "one_time_imports": [],
+    "per_round_import_rounds": 0,
+    "repaired_every_round": false,
+    "rounds": [
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 1
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 2
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 1,
+      "obstructions_before": 1,
+      "repairs": 0,
+      "round": 3
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 3,
+      "obstructions_before": 3,
+      "repairs": 0,
+      "round": 4
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 6,
+      "obstructions_before": 6,
+      "repairs": 0,
+      "round": 5
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 10,
+      "obstructions_before": 10,
+      "repairs": 0,
+      "round": 6
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 15,
+      "obstructions_before": 15,
+      "repairs": 0,
+      "round": 7
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 21,
+      "obstructions_before": 21,
+      "repairs": 0,
+      "round": 8
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 28,
+      "obstructions_before": 28,
+      "repairs": 0,
+      "round": 9
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 36,
+      "obstructions_before": 36,
+      "repairs": 0,
+      "round": 10
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 45,
+      "obstructions_before": 45,
+      "repairs": 0,
+      "round": 11
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 55,
+      "obstructions_before": 55,
+      "repairs": 0,
+      "round": 12
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 66,
+      "obstructions_before": 66,
+      "repairs": 0,
+      "round": 13
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 78,
+      "obstructions_before": 78,
+      "repairs": 0,
+      "round": 14
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 91,
+      "obstructions_before": 91,
+      "repairs": 0,
+      "round": 15
+     }
+    ],
+    "strategy": "none"
+   },
+   {
+    "classification": "repairs_by_recurring_imports",
+    "fired_ever": true,
+    "first_fire_round": 3,
+    "one_time_imports": [],
+    "per_round_import_rounds": 13,
+    "repaired_every_round": true,
+    "rounds": [
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 1
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 2
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 3
+     },
+     {
+      "first_pair": [
+       1,
+       3
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 4
+     },
+     {
+      "first_pair": [
+       1,
+       4
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 5
+     },
+     {
+      "first_pair": [
+       1,
+       5
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 6
+     },
+     {
+      "first_pair": [
+       1,
+       6
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 7
+     },
+     {
+      "first_pair": [
+       1,
+       7
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 8
+     },
+     {
+      "first_pair": [
+       1,
+       8
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 9
+     },
+     {
+      "first_pair": [
+       1,
+       9
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 10
+     },
+     {
+      "first_pair": [
+       1,
+       10
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 11
+     },
+     {
+      "first_pair": [
+       1,
+       11
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 12
+     },
+     {
+      "first_pair": [
+       1,
+       12
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 13
+     },
+     {
+      "first_pair": [
+       1,
+       13
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 14
+     },
+     {
+      "first_pair": [
+       1,
+       14
+      ],
+      "imports_this_round": 1,
+      "obstructions_after": 0,
+      "obstructions_before": 1,
+      "repairs": 1,
+      "round": 15
+     }
+    ],
+    "strategy": "per_pair_fresh_mark"
+   },
+   {
+    "classification": "fires_unrepaired",
+    "fired_ever": true,
+    "first_fire_round": 3,
+    "one_time_imports": [
+     "automark presence rule (vacuous: receipts are already tagged)"
+    ],
+    "per_round_import_rounds": 0,
+    "repaired_every_round": false,
+    "rounds": [
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 1
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 2
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 1,
+      "obstructions_before": 1,
+      "repairs": 0,
+      "round": 3
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 3,
+      "obstructions_before": 3,
+      "repairs": 0,
+      "round": 4
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 6,
+      "obstructions_before": 6,
+      "repairs": 0,
+      "round": 5
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 10,
+      "obstructions_before": 10,
+      "repairs": 0,
+      "round": 6
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 15,
+      "obstructions_before": 15,
+      "repairs": 0,
+      "round": 7
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 21,
+      "obstructions_before": 21,
+      "repairs": 0,
+      "round": 8
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 28,
+      "obstructions_before": 28,
+      "repairs": 0,
+      "round": 9
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 36,
+      "obstructions_before": 36,
+      "repairs": 0,
+      "round": 10
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 45,
+      "obstructions_before": 45,
+      "repairs": 0,
+      "round": 11
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 55,
+      "obstructions_before": 55,
+      "repairs": 0,
+      "round": 12
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 66,
+      "obstructions_before": 66,
+      "repairs": 0,
+      "round": 13
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 78,
+      "obstructions_before": 78,
+      "repairs": 0,
+      "round": 14
+     },
+     {
+      "first_pair": [
+       1,
+       2
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 91,
+      "obstructions_before": 91,
+      "repairs": 0,
+      "round": 15
+     }
+    ],
+    "strategy": "automark_presence"
+   },
+   {
+    "classification": "generation_dead",
+    "fired_ever": false,
+    "first_fire_round": null,
+    "one_time_imports": [
+     "automark valued rule (unbounded observable alphabet - identity-grade observation)"
+    ],
+    "per_round_import_rounds": 0,
+    "repaired_every_round": true,
+    "rounds": [
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 1
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 2
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 3
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 4
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 5
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 6
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 7
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 8
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 9
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 10
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 11
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 12
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 13
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 14
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 15
+     }
+    ],
+    "strategy": "automark_valued"
+   },
+   {
+    "classification": "fires_unrepaired",
+    "fired_ever": true,
+    "first_fire_round": 5,
+    "one_time_imports": [
+     "observation regime raised to depth 2"
+    ],
+    "per_round_import_rounds": 0,
+    "repaired_every_round": false,
+    "rounds": [
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 1
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 2
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 3
+     },
+     {
+      "first_pair": null,
+      "imports_this_round": 0,
+      "obstructions_after": 0,
+      "obstructions_before": 0,
+      "repairs": 0,
+      "round": 4
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 1,
+      "obstructions_before": 1,
+      "repairs": 0,
+      "round": 5
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 3,
+      "obstructions_before": 3,
+      "repairs": 0,
+      "round": 6
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 6,
+      "obstructions_before": 6,
+      "repairs": 0,
+      "round": 7
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 10,
+      "obstructions_before": 10,
+      "repairs": 0,
+      "round": 8
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 15,
+      "obstructions_before": 15,
+      "repairs": 0,
+      "round": 9
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 21,
+      "obstructions_before": 21,
+      "repairs": 0,
+      "round": 10
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 28,
+      "obstructions_before": 28,
+      "repairs": 0,
+      "round": 11
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 36,
+      "obstructions_before": 36,
+      "repairs": 0,
+      "round": 12
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 45,
+      "obstructions_before": 45,
+      "repairs": 0,
+      "round": 13
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 55,
+      "obstructions_before": 55,
+      "repairs": 0,
+      "round": 14
+     },
+     {
+      "first_pair": [
+       2,
+       3
+      ],
+      "imports_this_round": 0,
+      "obstructions_after": 66,
+      "obstructions_before": 66,
+      "repairs": 0,
+      "round": 15
+     }
+    ],
+    "strategy": "depth2"
+   }
+  ]
+ },
+ "lean_agreement": {
+  "depth1_obstructions_are_exactly_middle_pairs": true,
+  "depth2_obstruction_n5": true,
+  "depth2_separates_near_ends_n4": true,
+  "valued_marks_collapse_generation": true
+ }
+}
