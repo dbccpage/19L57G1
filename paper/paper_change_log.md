@@ -279,3 +279,36 @@ or disjunction *goals* introduces `Classical.choice` in this
 toolchain; all such uses were restructured (goal-splitting, explicit
 trichotomy) and the build's 151 axiom reports remain within
 {propext, Quot.sound}.
+
+## 11. 2026-08-12 — Native primitive-difference interface
+
+Externally imposed challenge (caller request): a self-contained,
+adapter-independent theorem package —
+`lean4/Derivation/DiffInterface.lean` (core-only imports, 34 exported
+theorems), mirrored in `code/derivation/diff_interface.py` with
+artifact `diff_interface.json`, documented in
+`paper/difference_interface.md` with CL-DI-* ledger entries.
+
+Pipeline delivered and proved: typed difference operation with
+equivalence-before-quotient (the quotient consumes the Setoid built
+from the equivalence proof, so the ordering is dependency-enforced);
+retained / observer-zero / protected as independent predicates with
+active obstruction their conjunction; factored bare reflection
+(embedding + retraction, genuinely fresh point, declared parent,
+live-scoped preservation, retained + protected pre-closure zero-pair)
+producing an active obstruction; orbit-complete closure over demand
+*predicates* (no ordering, no least representative), preserving old
+distinctions and strictly decreasing the declared measure; extension
+requests returned as proposals (data), never applied; fuel
+termination via the generic driver with the fixed uniform orbit bound
+B = 2; the infinite compatible trace without fuel (closure application
+is definitionally the next closed stage).  The Boolean-view grammar
+over three protected points must propose (pigeonhole; exhaustive over
+all eight views).  Countermodels: freshness, tagging, an edge, a new
+hash, repetition — none yields observer-visible difference alone, none
+an active obstruction unprotected.
+
+Further axiom-hygiene findings recorded: `List.eq_nil_iff_forall_not_mem`
+depends on `Classical.choice` in this toolchain (replaced by a
+cases-based proof); the build's 185 axiom reports remain within
+{propext, Quot.sound}.

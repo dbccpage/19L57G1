@@ -1,0 +1,693 @@
+{
+ "bool_grammar": {
+  "every_view_obstructed": true,
+  "proposal_kind": "observerStructure",
+  "proposal_required": true,
+  "rows": [
+   {
+    "surviving_obstructions": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "view": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      0,
+      1
+     ]
+    ],
+    "view": [
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      0,
+      2
+     ]
+    ],
+    "view": [
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      1,
+      2
+     ]
+    ],
+    "view": [
+     0,
+     1,
+     1
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      1,
+      2
+     ]
+    ],
+    "view": [
+     1,
+     0,
+     0
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      0,
+      2
+     ]
+    ],
+    "view": [
+     1,
+     0,
+     1
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      0,
+      1
+     ]
+    ],
+    "view": [
+     1,
+     1,
+     0
+    ]
+   },
+   {
+    "surviving_obstructions": [
+     [
+      0,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      2
+     ]
+    ],
+    "view": [
+     1,
+     1,
+     1
+    ]
+   }
+  ],
+  "views_checked": 8
+ },
+ "bounds": {
+  "rounds": 15
+ },
+ "countermodels": {
+  "all_zero_despite_feature": true,
+  "none_active": true,
+  "rows": [
+   {
+    "active_without_protection": false,
+    "feature": "freshness",
+    "feature_present": true,
+    "zero": true
+   },
+   {
+    "active_without_protection": false,
+    "feature": "tagging",
+    "feature_present": true,
+    "zero": true
+   },
+   {
+    "active_without_protection": false,
+    "feature": "edge",
+    "feature_present": true,
+    "zero": true
+   },
+   {
+    "active_without_protection": false,
+    "feature": "new_hash",
+    "feature_present": true,
+    "zero": true
+   },
+   {
+    "active_without_protection": false,
+    "feature": "repetition",
+    "feature_present": true,
+    "zero": true
+   }
+  ]
+ },
+ "fuel": {
+  "all_terminate_closed": true,
+  "rows": [
+   {
+    "final_state": [
+     2,
+     1
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 0
+   },
+   {
+    "final_state": [
+     3,
+     2
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 1
+   },
+   {
+    "final_state": [
+     4,
+     3
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 2
+   },
+   {
+    "final_state": [
+     5,
+     4
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 3
+   },
+   {
+    "final_state": [
+     6,
+     5
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 4
+   },
+   {
+    "final_state": [
+     7,
+     6
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 5
+   },
+   {
+    "final_state": [
+     8,
+     7
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 6
+   },
+   {
+    "final_state": [
+     9,
+     8
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 7
+   },
+   {
+    "final_state": [
+     10,
+     9
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 8
+   },
+   {
+    "final_state": [
+     11,
+     10
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 9
+   },
+   {
+    "final_state": [
+     12,
+     11
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 10
+   },
+   {
+    "final_state": [
+     13,
+     12
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 11
+   },
+   {
+    "final_state": [
+     14,
+     13
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 12
+   },
+   {
+    "final_state": [
+     15,
+     14
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 13
+   },
+   {
+    "final_state": [
+     16,
+     15
+    ],
+    "fuel": 3,
+    "measure": 2,
+    "outcome": "closed",
+    "round": 14
+   }
+  ]
+ },
+ "tower": {
+  "all_closed_before": true,
+  "all_obstruct_after_reflection": true,
+  "all_preserve_old": true,
+  "all_strictly_decrease": true,
+  "rounds": [
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     0,
+     1
+    ],
+    "round": 0,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      1,
+      2
+     ],
+     [
+      2,
+      1
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     1,
+     2
+    ],
+    "round": 1,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     2,
+     3
+    ],
+    "round": 2,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      3,
+      4
+     ],
+     [
+      4,
+      3
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     3,
+     4
+    ],
+    "round": 3,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      4,
+      5
+     ],
+     [
+      5,
+      4
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     4,
+     5
+    ],
+    "round": 4,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      5,
+      6
+     ],
+     [
+      6,
+      5
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     5,
+     6
+    ],
+    "round": 5,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      6,
+      7
+     ],
+     [
+      7,
+      6
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     6,
+     7
+    ],
+    "round": 6,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      7,
+      8
+     ],
+     [
+      8,
+      7
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     7,
+     8
+    ],
+    "round": 7,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      8
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     8,
+     9
+    ],
+    "round": 8,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      9,
+      10
+     ],
+     [
+      10,
+      9
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     9,
+     10
+    ],
+    "round": 9,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      10,
+      11
+     ],
+     [
+      11,
+      10
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     10,
+     11
+    ],
+    "round": 10,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      11,
+      12
+     ],
+     [
+      12,
+      11
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     11,
+     12
+    ],
+    "round": 11,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      12,
+      13
+     ],
+     [
+      13,
+      12
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     12,
+     13
+    ],
+    "round": 12,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      13,
+      14
+     ],
+     [
+      14,
+      13
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     13,
+     14
+    ],
+    "round": 13,
+    "strict_decrease": true
+   },
+   {
+    "closed_measure_after": 0,
+    "closed_measure_before": 0,
+    "demand_orbit": [
+     [
+      14,
+      15
+     ],
+     [
+      15,
+      14
+     ]
+    ],
+    "old_distinctions_preserved": true,
+    "orbit_size": 2,
+    "parent_fresh_zero_pre_closure": true,
+    "preclose_measure": 2,
+    "reflected_pair": [
+     14,
+     15
+    ],
+    "round": 14,
+    "strict_decrease": true
+   }
+  ],
+  "uniform_orbit_bound": 2
+ }
+}
