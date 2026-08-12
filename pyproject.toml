@@ -1,0 +1,23 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["code"]
+addopts = "-q"
+
+[tool.coverage.run]
+branch = true
+source = ["code"]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["code"]
+mypy_path = "code"
+explicit_package_bases = true
