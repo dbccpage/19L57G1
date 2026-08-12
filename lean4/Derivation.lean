@@ -8,6 +8,7 @@ import Derivation.Erasure
 import Derivation.Ext
 import Derivation.PrimDiff
 import Derivation.Bridge
+import Derivation.Refusal
 
 /-!
 # Axiom reports
@@ -135,3 +136,21 @@ open Derivation
 #print axioms Bridge.no_swap_fixed_offdiag_pair
 #print axioms Bridge.order_visible_to_metatheory
 #print axioms Bridge.order_erased_at_object_level
+
+-- Refusal as a difference source
+#print axioms Refusal.silent_eq_meta
+#print axioms Refusal.marker_state_invisible
+#print axioms Refusal.markers_invisible
+#print axioms Refusal.nonreify_carrier_bound
+#print axioms Refusal.fact_state_changes
+#print axioms Refusal.silent_state_fixed
+#print axioms Refusal.reifyUntagged_eq_occurrence
+#print axioms Refusal.reifyUntagged_replay_eq_occurrence
+#print axioms Refusal.reifyUntagged_two_admissions
+#print axioms Refusal.reifyTagged_two_admissions
+#print axioms Refusal.tag_separates
+#print axioms Refusal.occurrence_state_swap_invariant
+#print axioms Refusal.tagged_state_not_swap_invariant
+#print axioms Refusal.canonical_designation
+#print axioms Refusal.tagged_translation_separable
+#print axioms Refusal.untagged_translation_collapsed
