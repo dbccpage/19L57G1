@@ -131,7 +131,7 @@ def test_run_main_produces_all_artifacts(tmp_path: Path) -> None:
         assert report["round_cutoff_branches"] == 0
         assert report["open_branches"] == 0
         assert term[name]["within_bound"] is True
-    depth = claims["CL-REACHES-REQUESTED-DEPTH-WITH-SUPPLY"]
+    depth = claims["CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY"]
     for key in ("L_mu1", "L_mu2", "F_mu1", "F_mu2"):
         assert depth[key]["max_depth"] <= depth[key]["requested_rounds"]
     branch = claims["CL-BRANCH-REPORTS"]

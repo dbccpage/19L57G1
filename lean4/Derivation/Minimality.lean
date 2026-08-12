@@ -324,7 +324,8 @@ theorem deltaK_applies (k : Nat) (hk : 1 ≤ k) :
 
 theorem markK_separable (k : Nat) (hk : 1 ≤ k) :
     separable (markK k) 0 1 := by
-  refine ⟨⟨0, List.replicate k none⟩, ⟨by simp [markK], ?_⟩, ?_⟩
+  refine ⟨⟨0, List.replicate k none⟩,
+    ⟨by simp [markK], by simp [markK], ?_⟩, ?_⟩
   · intro s hs
     have : s = none := List.eq_of_mem_replicate hs
     rw [this]; trivial

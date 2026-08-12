@@ -42,7 +42,14 @@ theorem strict_bounded_length (f : Nat → Nat) (L B : Nat)
 requirement count is bounded by `n * (n - 1) / 2`, so a closed-system run
 (endogenous generator only, external continuation policy disabled) has at
 most `n * (n - 1) / 2 + 1` states, i.e. at most `n * (n - 1) / 2`
-accepted separation rounds. -/
+accepted separation rounds.
+
+Conditional: this law assumes strict growth and boundedness of the
+measure along the run.  That the engine's accepted separation rounds
+satisfy both hypotheses (each accepted round imposes exactly one new
+requirement over a fixed datum count) is discharged computationally for
+the exported runs; a Lean theorem connecting the hypotheses to the
+transition system itself is not proved here. -/
 theorem no_supply_round_bound (f : Nat → Nat) (L n : Nat)
     (hstrict : ∀ i, i + 1 < L → f i < f (i + 1))
     (hbound : ∀ i, i < L → f i ≤ n * (n - 1) / 2) :

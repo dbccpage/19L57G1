@@ -4,6 +4,7 @@ import Derivation.Quot
 import Derivation.Counting
 import Derivation.Minimality
 import Derivation.Progress
+import Derivation.Erasure
 
 /-!
 # Axiom reports
@@ -65,3 +66,8 @@ open Derivation
 -- Progress and pruning
 #print axioms Derivation.mark_progress
 #print axioms Derivation.separable_of_subrules
+
+-- Token-erasure simulation (Lean as an abstraction of the token-aware
+-- admission semantics)
+#print axioms Derivation.erase_step
+#print axioms Derivation.erase_replay

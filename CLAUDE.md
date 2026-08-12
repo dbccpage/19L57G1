@@ -55,8 +55,11 @@
   mutates admitted state without a separately defined admission event.
 - Receipts (hashes, test passes, parser success) are never treated as proof of
   an unverified mathematical payload.
-- No known theory is targeted or named during the derivation; comparisons
-  appear only in the final section of the paper.
+- No known theory is targeted or named during the derivation.  The
+  post-hoc comparison originally allowed in the paper's final section was
+  withheld by caller correction (2026-08-11): no external architecture,
+  theory, or project terminology appears anywhere in the repository
+  outside the read-only seed prompt.
 
 ## Proof gates
 

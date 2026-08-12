@@ -123,7 +123,7 @@ def _claims(
         "CL-REPLAY-CERTIFIED": {
             key: t.stats()["all_certified"] for key, t in trees.items()
         },
-        "CL-REACHES-REQUESTED-DEPTH-WITH-SUPPLY": {
+        "CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY": {
             key: {
                 "max_depth": t.stats()["max_depth"],
                 "requested_rounds": t.max_rounds,

@@ -1,12 +1,16 @@
 /-!
 # Core model
 
-Mirrors `code/derivation/model.py` and `observe.py`.
+A *token-erased abstraction* of `code/derivation/model.py` and
+`observe.py`: presentation tokens are deliberately absent (data are
+counted, not named), so token-level admission deduplication is not
+represented here.  The bridge is the erasure simulation in
+`Derivation/Erasure.lean`.
 
 A regime is the admitted state: a count of admitted data (internal identity
-is the index; presentation tokens are metatheory and deliberately absent), a
-list of judgment-form arities, admitted judgment instances, forms carrying
-the uniform all-tuples rule, and externally imposed separation requirements.
+is the index), a list of judgment-form arities, admitted judgment
+instances, forms carrying the uniform all-tuples rule, and externally
+imposed separation requirements.
 -/
 
 namespace Derivation
@@ -62,10 +66,13 @@ instance (n : Nat) (s : Option Nat) : Decidable (slotOk n s) :=
   | none => isTrue trivial
   | some x => Nat.decLt x n
 
-/-- Well-formed context relative to a regime: the form is admitted and every
-filled slot names an admitted datum. -/
+/-- Well-formed context relative to a regime: the form is admitted, the
+slot count matches the form's arity, and every filled slot names an
+admitted datum. -/
 def wfCtx (r : Regime) (c : Ctx) : Prop :=
-  c.form < r.forms.length ∧ ∀ s ∈ c.slots, slotOk r.data s
+  c.form < r.forms.length ∧
+  c.slots.length = r.forms.getD c.form 0 ∧
+  ∀ s ∈ c.slots, slotOk r.data s
 
 instance (r : Regime) (c : Ctx) : Decidable (wfCtx r c) := by
   unfold wfCtx; infer_instance

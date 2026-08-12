@@ -28,6 +28,16 @@ theorem getD_concat_self (l : List Nat) (a : Nat) :
   | nil => rfl
   | cons x xs ih => simpa using ih
 
+/-- Reading below the old length is unaffected by an append. -/
+theorem getD_append_lt (l l' : List Nat) (i : Nat) (h : i < l.length) :
+    (l ++ l').getD i 0 = l.getD i 0 := by
+  induction l generalizing i with
+  | nil => cases h
+  | cons x xs ih =>
+      cases i with
+      | zero => rfl
+      | succ n => simpa using ih n (Nat.lt_of_succ_lt_succ h)
+
 /-- Derivability transfers between a regime and its fresh-mark extension
 for every instance whose form is not the fresh one. -/
 theorem derivable_extend {r : Regime} (hwf : r.wf) (j : Nat) (x : Inst)
@@ -99,7 +109,11 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
       _ = _ := by rw [h1]; exact h2
   refine ⟨_, happ, ?_, ?_⟩
   · -- the fresh context separates i from j
-    refine ⟨⟨r.forms.length, [none]⟩, ⟨by simp, ?_⟩, ?_⟩
+    refine ⟨⟨r.forms.length, [none]⟩, ⟨by simp, ?_, ?_⟩, ?_⟩
+    · show ([none] : List (Option Nat)).length =
+        (r.forms ++ [1]).getD r.forms.length 0
+      rw [getD_concat_self]
+      rfl
     · intro sl hsl
       have : sl = none := by
         cases hsl with
@@ -151,11 +165,14 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
         intro d
         show c.form ≠ r.forms.length
         exact hform
-      refine ⟨c, ⟨?_, hwfc.2⟩, ?_⟩
+      refine ⟨c, ⟨?_, ?_, hwfc.2.2⟩, ?_⟩
       · show c.form < (r.forms ++ [1]).length
         have := hwfc.1
         simp
         omega
+      · show c.slots.length = (r.forms ++ [1]).getD c.form 0
+        rw [getD_append_lt _ _ _ hwfc.1]
+        exact hwfc.2.1
       · intro hiff
         apply hne
         constructor
@@ -167,9 +184,12 @@ theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
             (hiff.mpr ((derivable_extend hwf j _ (hplug q.2)).mpr h))
 
 /-- A separation witness never inhabits a uniformly ruled form, so
-shrinking the rule set preserves separability.  Consequently a delta
-containing a uniform-rule item is never a minimum valid response: dropping
-the rule item preserves validity at strictly smaller cost. -/
+shrinking the final rule set preserves separability.  Precisely this and
+no more: the delta-level pruning corollary ("dropping a rule item from a
+delta yields a shorter valid delta") additionally needs the fact that
+rule items commute out of a delta leaving the same regime with a smaller
+rule set; that bridge is certified computationally
+(`test_rule_never_appears_in_minimum_responses`), not proved here. -/
 theorem separable_of_subrules (s : Regime) (rs' : List Nat)
     (hsub : ∀ g ∈ rs', g ∈ s.rules) (d d' : Nat)
     (h : separable s d d') :
@@ -196,7 +216,7 @@ theorem separable_of_subrules (s : Regime) (rs' : List Nat)
         cases h with
         | inl h => exact Or.inl h
         | inr h => exact absurd h (hx ▸ hnr)
-    refine ⟨c, ⟨hwfc.1, hwfc.2⟩, ?_⟩
+    refine ⟨c, hwfc, ?_⟩
     intro hiff
     apply hne
     constructor

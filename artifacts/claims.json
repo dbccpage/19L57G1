@@ -286,7 +286,7 @@
    }
   }
  },
- "CL-REACHES-REQUESTED-DEPTH-WITH-SUPPLY": {
+ "CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY": {
   "F_mu1": {
    "max_depth": 6,
    "note": "reaching a finite requested depth; not a proof of unboundedness",
