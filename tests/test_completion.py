@@ -160,6 +160,35 @@ def test_negative_and_malformed_in_interp() -> None:
         interp_step(KERNEL_DESC, w, ("admit", "x"))
 
 
+def test_nat_domain_holds_for_every_descriptor() -> None:
+    """Disabled guards never license negative states: the Nat-domain
+    guards are unconditional, so every constitution descriptor agrees
+    with the Lean carrier — including the all-off descriptor."""
+    all_off = (False, False, False, False, False, False)
+    w = replay(PIGEON)
+    for d in [KERNEL_DESC, all_off]:
+        assert interp_step(d, w, ("admit", -7)) == w
+        assert interp_step(d, w, ("require", -1, 0)) == w
+        assert interp_step(d, w, ("require", 0, -1)) == w
+        assert interp_step(d, w, ("mark", (0,), -1)) == w
+        assert interp_step(d, w, ("mark", (-1,), 0)) == w
+        assert interp_step(d, w, ("addView", (-1,))) == w
+        assert interp_step(d, w, ("refuse", -1, -2)) == w
+    # and the all-off descriptor still acts on non-negative inputs
+    assert interp_step(all_off, w, ("require", 0, 0)) != w
+
+
+def test_freshness_scoped_to_tower_invariant() -> None:
+    from derivation.completion import fresh_name, tower_gen
+    from derivation.represented import World
+
+    for k in range(10):
+        w = replay(tower_gen(k))
+        assert fresh_name(w) not in w.data  # fresh on the invariant
+    collide = World(data=(1,))
+    assert fresh_name(collide) in collide.data  # not fresh in general
+
+
 def test_run_main_and_receipt(tmp_path: Path) -> None:
     out = tmp_path / "artifacts"
     out.mkdir()

@@ -1097,9 +1097,11 @@ theorems; 291 total, all within {propext, Quot.sound}).
   EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER;
   KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER;
   KERNEL_CONSTITUTION_REMAINS_META (outermost layer — the single OPEN
-  bridge); INITIAL_KERNEL_PROVED (in the declared 64-member class);
+  edge in the declared graph, which does not claim to exhaust every
+  possible bridge);
+  UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE_CLASS;
   ABSOLUTE_NO_OUTSIDE_UNFORMULABLE.  FULL_NATIVE_COMPOSITION is not
-  claimed.
+  claimed; categorical initiality is not claimed.
 - **Class**: theorem (relative closures) + boundary record (the OPEN
   bridge and the unformulable absolute).
 - **Falsifier**: a represented member of the constitution family that
@@ -1109,30 +1111,39 @@ theorems; 291 total, all within {propext, Quot.sound}).
 
 ### CL-NC-COMMON-STATE
 - **Statement**: one common native state carries the do-not-erase
-  distinctions as separate fields; the kernel, the reflective chain,
-  the two-element difference objects, and the early collapse
-  checkpoint transport with preservation theorems; witness does not
-  transport to separation, separation does not transport to witness,
-  and metatheoretic inequality is operationally inert.
+  distinctions as separate fields, with retention, protection, and
+  observer-zero as three independent obstruction conditions
+  (`obstC_conditions_independent`; the kernel transport instantiates
+  retention and protection from one store — a stated identification);
+  the kernel, the reflective chain, the two-element difference
+  objects, and the early collapse checkpoint transport with
+  preservation theorems; S2 symmetry is scoped to the relation store
+  (`s2_state_not_swap_invariant` for the whole-state boundary);
+  witness does not transport to separation, separation does not
+  transport to witness, and metatheoretic inequality is operationally
+  inert.
 - **Class**: definition + theorem + countermodels.
 - **Lean**: `ofWorld_sep`, `ofWorld_obstruction`, `ofWorld_quiescent`,
-  `chain_transport`, `d2_transport_oriented`,
-  `s2_transport_symmetric`, `witness_not_separation`,
+  `obstC_conditions_independent`, `chain_transport`,
+  `d2_transport_oriented`, `s2_transport_symmetric`,
+  `s2_state_not_swap_invariant`, `witness_not_separation`,
   `separation_not_witness`, `meta_distinctness_inert`,
   `early_collapse_transports`.
 
 ### CL-NC-RULE1
-- **Statement**: Rule 1's strongest forms — the exhaustive trichotomy
+- **Statement**: Rule 1's strongest forms — the operational
+  dichotomy (repair family versus exhaustion-plus-extension family)
   with tie-retained extension family (both orientations proved
-  accepted); refusal proved object-inert and outside the binary action
-  algebra (preserve-presentation / change-presentation, by the
-  signature measure); the fidelity reduction (no protected
-  requirement, no obstruction); the retraction countermodel bounding
-  the preservation law to what the acceptance guard buys.
-  Classification: derived for the fixed kernel, fidelity-relative in
-  general, primitive nowhere.
+  accepted); refusal a parallel, non-absorbing record, proved
+  object-inert and outside the binary action algebra
+  (preserve-presentation / change-presentation, by the signature
+  measure); budget/license execution a separate represented gate; the
+  fidelity reduction (no protected requirement, no obstruction); the
+  retraction countermodel bounding the preservation law to what the
+  acceptance guard buys.  Classification: derived for the fixed
+  kernel, fidelity-relative in general, primitive nowhere.
 - **Class**: conditional theorem + countermodels.
-- **Lean**: `rule1_trichotomy`, `augFamily_retains_ties`,
+- **Lean**: `rule1_repair_or_extension`, `augFamily_retains_ties`,
   `refusal_recordable`, `refusal_object_inert`,
   `refusal_non_absorbing`, `action_dichotomy`, `rule1_needs_fidelity`,
   `retraction_breaks_preservation`.
@@ -1155,14 +1166,20 @@ theorems; 291 total, all within {propext, Quot.sound}).
 
 ### CL-NC-EVENT-SOURCE
 - **Statement**: the event source is internalized relative to the
-  fixed interpreter: the policy is represented data; the interpreter
-  emits complete tied families (singleton for the tower — proved, so
-  execution involves no selection; both augmentation orientations for
-  closure); fresh names are canonical numerals (a recorded
-  arithmetic/ordering import); budget replenishment is an emitted
-  represented event; the stop outcome is the represented empty
-  family; and the driver reproduces the previously supplied tower
-  stream exactly (`driver_reproduces_tower`).
+  fixed interpreter, under metatheoretic iteration: the policy is
+  represented data; the generator invokes the next-family interpreter
+  on the replayed state and appends the unique family member
+  (state-derived, prefix-compatible generation — no internal-trigger
+  claim: no represented transition invokes the interpreter); the
+  interpreter emits complete tied families (singleton for the tower —
+  proved; both augmentation orientations for closure); fresh names
+  are canonical numerals, fresh on the tower invariant
+  (`freshName_fresh_on_tower`) and not in general
+  (`freshName_not_fresh_generally`) — a recorded arithmetic/ordering
+  import; budget replenishment is an emitted represented event; the
+  stop outcome is the represented empty family; and the generator
+  reproduces the previously supplied tower stream exactly
+  (`driver_reproduces_tower`).
 - **Class**: theorem (relative) + declared policy (the generation
   policy itself).
 - **Lean**: `nextFamily_tower_singleton`,
@@ -1175,12 +1192,12 @@ theorems; 291 total, all within {propext, Quot.sound}).
 
 ### CL-NC-AUTONOMY
 - **Statement**: autonomy separated from iterability by the
-  nine-level ladder, proved for the tower driver (steps, prefix
-  compatibility, computed families, internal trigger,
-  selection-freeness, represented replenishment, lawfulness across
-  extension, explicit productivity) — relative to the fixed
-  interpreter and declared policy data.  Arbitrary iterability is
-  levels 1-2 only.
+  nine-level ladder, assessed for the tower generation: levels 1-3
+  and 5-9 proved (steps, prefix compatibility, interpreter-computed
+  families, selection-freeness, represented replenishment, lawfulness
+  across extension, explicit productivity); level 4 (internal
+  trigger) explicitly NOT attained — the iteration is metatheoretic.
+  Arbitrary iterability is levels 1-2 only.
 - **Class**: theorem (relative).
 - **Lean**: `tower_driver_autonomy`.
 
@@ -1200,10 +1217,12 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Statement**: in the declared 64-member class under the declared
   probe battery: every guard is load-bearing (six concrete
   separations); the sealed kernel's description is the unique
-  compliant member; both declared cost orders agree on the singleton;
-  and the panel extension retracts onto the kernel (split retract).
-  Scope: class-relative; "most primitive engine" is underdetermined
-  as an absolute claim and proved as this class-relative one.
+  probe-compliant member; both declared cost orders agree on the
+  singleton; and the panel extension retracts onto the kernel (split
+  retract).  Categorical initiality is NOT claimed — a six-probe
+  singleton and one split retract do not establish it.  Scope:
+  class-relative; "most primitive engine" is underdetermined as an
+  absolute claim and proved as this class-relative one.
 - **Class**: theorem (class-scoped) + bounded computation (the
   64-member compliance table).
 - **Lean**: `dedup_load_bearing`, `require_guard_load_bearing`,

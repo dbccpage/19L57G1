@@ -55,7 +55,10 @@ deriving Repr, DecidableEq
 /-- Fresh identity: the canonical numeral of the current carrier
 length.  A deterministic name function, not a random oracle — and not
 free: it imports arithmetic and ordering (the successor structure the
-reflective chain already priced). -/
+reflective chain already priced).  Scope: freshness is a property of
+the *tower invariant* (`freshName_fresh_on_tower`), not of arbitrary
+worlds (`freshName_not_fresh_generally`) — the policy's domain is the
+invariant it maintains. -/
 def freshName (w : World) : Nat := w.data.length
 
 def towerBlock (w : World) : List Event :=
@@ -137,37 +140,63 @@ theorem nextFamily_stop {w : World} (hq : quiescentB w = true) :
   rw [hnil]
   rfl
 
-/-! ## G2 — the represented driver, and the reproduction theorem -/
+/-! ## G2 — state-derived generation under metatheoretic iteration -/
 
-/-- The driver-generated history: at each stage, execute the unique
-member of the tower family computed from the *replayed represented
-state*.  Nothing else is consumed. -/
+/-- The generated history: at each stage, the *next-family
+interpreter* is invoked on the replayed represented state (with the
+tower policy) and the unique member of the resulting family is
+appended.  Honest scope: this is **state-derived, prefix-compatible
+generation under metatheoretic iteration and a fixed interpreter** —
+the recursion here is metatheory; no represented transition invokes
+the interpreter, so this is not claimed to be internally triggered. -/
 def towerGen : Nat → List Event
   | 0 => [.admitTok 0]
   | k + 1 =>
-      towerGen k ++ towerBlock (replay (towerGen k) genesis)
+      towerGen k ++
+        (nextFamily ⟨replay (towerGen k) genesis, .tower⟩).headD []
 
 theorem towerBlock_eq (k : Nat) :
     towerBlock (worldAt k) = blockEvents (k + 1) := by
   unfold towerBlock blockEvents freshName
   rw [worldAt_growth]
 
-/-- **The event source, internalized (relative to the fixed
-interpreter).**  The driver's generated history equals the previously
-*supplied* tower stream: what entered PR #10 as a metatheoretic
-history producer is now computed, stage by stage, from the replayed
-represented state by the represented policy.  The remaining
-metatheory is the interpreter (`nextFamily`) and the arithmetic of
-the canonical fresh name — both fixed constitution, both recorded. -/
+/-- Freshness on the tower invariant, proved: along the generated run
+the canonical numeral is never already admitted. -/
+theorem freshName_fresh_on_tower (k : Nat) :
+    ¬ (freshName (worldAt k) ∈ (worldAt k).data) := by
+  intro hmem
+  unfold freshName at hmem
+  rw [worldAt_growth, worldAt_data] at hmem
+  have := List.mem_range.mp hmem
+  omega
+
+/-- And not fresh in general: on an arbitrary world the canonical
+numeral can collide with an admitted token — the scope of the
+freshness claim is the invariant, nothing wider. -/
+theorem freshName_not_fresh_generally :
+    freshName { data := [1], views := [], reqs := [], refusals := [],
+                budget := 0, augLicensed := true, notes := [] } ∈
+      ([1] : List Nat) := by decide
+
+/-- **The event source, internalized relative to the fixed
+interpreter.**  The generated history equals the previously *supplied*
+tower stream: what entered PR #10 as a metatheoretic history producer
+is now computed, stage by stage, by the next-family interpreter from
+the replayed represented state and the represented policy.  The
+remaining metatheory is the iteration, the interpreter (`nextFamily`),
+and the arithmetic of the canonical fresh name — all fixed
+constitution, all recorded. -/
 theorem driver_reproduces_tower : ∀ k, towerGen k = histUpTo k := by
   intro k
   induction k with
   | zero => rfl
   | succ m ih =>
-      show towerGen m ++ towerBlock (replay (towerGen m) genesis) =
-        histUpTo m ++ blockEvents (m + 1)
-      rw [ih, show replay (histUpTo m) genesis = worldAt m from rfl,
-        towerBlock_eq]
+      show towerGen m ++
+        (nextFamily ⟨replay (towerGen m) genesis, .tower⟩).headD [] =
+          histUpTo m ++ blockEvents (m + 1)
+      rw [ih, show replay (histUpTo m) genesis = worldAt m from rfl]
+      show histUpTo m ++ towerBlock (worldAt m) = _
+      rw [towerBlock_eq]
 
 /-- The complete-family form: the driver appends exactly the unique
 family member — the generation step is the represented family, not a
@@ -203,20 +232,23 @@ theorem gen_three_quiescent : quiescentB (genWorld 3).w = true := by
 
 /-! ## Phase VI — autonomy separated from iterability
 
-The nine-level ladder, proved for the tower driver.  Levels: (1) a
-step exists at every stage; (2) the trace is prefix-compatible; (3)
-the next family is computed from represented state; (4) the kernel
-itself triggers the family's execution (the driver's recursion
-consumes nothing external); (5–6) selection-freeness: the family is a
-proved singleton, so all ties are (vacuously) retained and no selector
-exists; (7) resources persist by represented replenishment events;
-(8) the process stays lawful across expressive extensions (each block
-ends in an accepted `addView`; instance-verified here, exhaustively
-bound-verified in the mirror); (9) productivity holds under the
-explicit measure (strict carrier growth).  An arbitrarily iterable
-theorem gives (1)–(2); autonomy in the sense proved here is
-(1)–(9) *relative to the fixed interpreter and the declared policy
-data*.  Nothing stronger is claimed. -/
+The nine-level ladder for the tower generation.  Levels: (1) a step
+exists at every stage; (2) the trace is prefix-compatible; (3) the
+next family is computed from represented state by the interpreter;
+(4) **not attained**: internal triggering would require a represented
+transition to invoke the next-family interpreter — here the iteration
+is metatheoretic, and this is stated, not laundered; (5–6)
+selection-freeness: the family is a proved singleton, so all ties are
+(vacuously) retained and no selector exists (the closure family
+retains ties non-vacuously); (7) resources persist by represented
+replenishment events; (8) the process stays lawful across expressive
+extensions (each block ends in an accepted `addView`;
+instance-verified here, exhaustively bound-verified in the mirror);
+(9) productivity holds under the explicit measure (strict carrier
+growth).  An arbitrarily iterable theorem gives (1)–(2); what is
+proved here is (1)–(3), (5)–(9) — *state-derived, selection-free,
+resource-explicit, productive generation under metatheoretic
+iteration and a fixed interpreter*.  Nothing stronger is claimed. -/
 theorem tower_driver_autonomy :
     (∀ k, towerGen k <+: towerGen (k + 1)) ∧
       (∀ k, nextFamily (genWorld k) =

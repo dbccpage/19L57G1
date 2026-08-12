@@ -5,6 +5,8 @@
  "G2_driver_reproduces_supplied_stream": true,
  "close_family_retains_both_orientations": true,
  "close_family_size_on_pigeonhole": 2,
+ "fresh_name_fresh_along_run": true,
  "fresh_name_source": "canonical numeral (arithmetic/ordering import, recorded)",
+ "generation_scope": "state-derived, prefix-compatible generation under metatheoretic iteration and a fixed interpreter",
  "stop_outcome_empty_family": true
 }

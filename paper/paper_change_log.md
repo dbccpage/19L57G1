@@ -424,3 +424,39 @@ form recorded as unformulable; the kernel's own description executes
 to the sealed step under the fixed family interpreter; the kernel is
 the unique compliant and initial member of its declared 64-member
 class.  No sealed theorem or claim was altered.
+
+## 15. 2026-08-12 — Ultra-closure correction pass (PR #11 verdict)
+
+One focused correction pass; no new research phase.
+
+1. Artifacts regenerated against the final paper and ledger state,
+   with the correction-pass edits applied first.
+2. Generation scoped honestly: `towerGen` now invokes the next-family
+   interpreter on the replayed state; the result is described
+   everywhere as state-derived, prefix-compatible generation under
+   metatheoretic iteration and a fixed interpreter; the
+   internal-trigger claim (ladder level 4) is withdrawn as NOT
+   attained.
+3. Freshness proved on the tower invariant
+   (`freshName_fresh_on_tower`) and refuted in general
+   (`freshName_not_fresh_generally`).
+4. Terminal renamed: INITIAL_KERNEL_PROVED ->
+   UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE_CLASS; a
+   six-probe singleton and one split retract do not prove categorical
+   initiality, and none is claimed.
+5. The common obstruction now has independent retention, protection,
+   and zero conditions (`obstC_conditions_independent`); the kernel
+   transport's identification of retention and protection is stated.
+6. S2 symmetry scoped: relation store swap-invariant; whole state not
+   (`s2_state_not_swap_invariant`).
+7. `rule1_trichotomy` renamed `rule1_repair_or_extension`: the action
+   alternative is binary; refusal is a parallel non-absorbing record;
+   budget/license execution remains a separate gate.
+8. Nat agreement enforced for every constitution descriptor: the
+   mirror's `interp_step` rejects negative tokens, endpoints, points,
+   and view members unconditionally, so disabled guards can never
+   license states unavailable in Lean.
+9. Graph scope stated: one OPEN edge in the declared graph; no claim
+   that the graph exhausts every possible bridge.
+
+Axiom reports 291 -> 295, all within {propext, Quot.sound}.

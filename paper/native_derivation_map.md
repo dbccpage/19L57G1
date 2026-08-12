@@ -4,7 +4,9 @@ One row per bridge of the completed dependency graph.  Machine form:
 `artifacts/completion_dependency_graph.json` (statuses are tested
 against the axiom artifact; DECLARED evidence names its declaration
 site).  Statuses: PROVED / DECLARED / COMPUTED_WITHIN_BOUNDS /
-FALSE_WITH_COUNTERMODEL / OPEN.
+FALSE_WITH_COUNTERMODEL / OPEN.  Scope: one OPEN edge in the
+*declared* graph; the graph classifies the declared bridges and does
+not claim to exhaust every possible bridge.
 
 | source | relation | target | status | Lean / evidence | countermodel or boundary |
 |---|---|---|---|---|---|
@@ -25,7 +27,7 @@ FALSE_WITH_COUNTERMODEL / OPEN.
 | protected requirement | necessary for | active obstruction | PROVED | `no_guard_no_obstruction`, `collapse_unobstructed_without_fidelity` | no fidelity, no obstruction |
 | active obstruction | checked against | response menu | DECLARED | `responseMenu` | the menu is constitution |
 | response menu | exhaustive failure gives | exhaustion certificate | PROVED | `incomplete_search_false_alarm` | truncated search falsely certifies |
-| active obstruction | trichotomy | same-level repair | PROVED | `represented_progress`, `rule1_trichotomy` | conditional on WF and constitution |
+| active obstruction | dichotomy (refusal parallel) | same-level repair | PROVED | `represented_progress`, `rule1_repair_or_extension` | conditional on WF and constitution |
 | exhaustion certificate | forces | extension proposal | PROVED | `represented_progress`, `no_bool_view_is_closed` | tied family, both orientations |
 | extension proposal | executes without authorization | extension execution | FALSE | `progress_needs_license`, `progress_needs_budget` | proposals never self-execute |
 | same-level repair | preserves satisfied | replay | PROVED | `step_mark_sound`, `aug_preserves_satisfied` | positive preservation only, by design |
@@ -35,7 +37,7 @@ FALSE_WITH_COUNTERMODEL / OPEN.
 | exhaustion certificate | recordable as | refusal | PROVED | `refusal_needs_certificate`, `refusals_are_represented` | certificate-bearing only |
 | refusal | terminalizes the run | terminal | FALSE | `refusal_non_absorbing` | status record; termination is the history producer's |
 | certification panel | certifies up to | Zero/ZeroRel | PROVED | `cert_scope`, `cert_not_correspondence`, `panel_equiv` | joint-quotient exactness; never correspondence |
-| next-event source | internalized as policy | replay | PROVED | `driver_reproduces_tower`, `nextFamily_complete` | relative to the fixed interpreter |
+| next-event source | internalized as policy | replay | PROVED | `driver_reproduces_tower`, `nextFamily_complete` | relative to the fixed interpreter, under metatheoretic iteration |
 | kernel constitution | represented as data | next-event source | PROVED | `interp_describe` | family-relative; verified self-description |
 | kernel constitution | interprets itself absolutely | kernel constitution | OPEN | stratification boundary | the named irreducible obligation |
 

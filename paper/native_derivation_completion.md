@@ -31,7 +31,7 @@ terminals hold simultaneously; they are stated exactly in §15.
 ## 3. Inventory of prior checkpoints
 
 Machine-derived, not transcribed: `completion_dependency_graph.json`
-carries one record per exported theorem (291), each with source
+carries one record per exported theorem (295), each with source
 module, source-extracted statement, axiom set (all within {propext,
 Quot.sound}), declared kind and role labels, consuming modules, and
 citing ledger claims.  A test pins the inventory to the axiom
@@ -51,8 +51,11 @@ represented kernel (Represented).
 Thirty bridges over twenty-seven notion nodes, every one classified
 (`completion_dependency_graph.json`; human-readable table in
 `paper/native_derivation_map.md`): 19 PROVED, 2 DECLARED, 8
-FALSE_WITH_COUNTERMODEL, 1 OPEN.  No bridge is implicit in prose; the
-single OPEN bridge is the named irreducible obligation of §10.
+FALSE_WITH_COUNTERMODEL, 1 OPEN.  No declared bridge is implicit in
+prose; the single OPEN edge — **in the declared graph** — is the named
+irreducible obligation of §10.  The graph classifies the declared
+bridges; it does not claim to exhaust every possible bridge between
+the notions.
 
 ## 5. The common native interface
 
@@ -66,12 +69,20 @@ preservation theorem):
 
 - the represented kernel: `ofWorld` with `ofWorld_sep`,
   `ofWorld_obstruction`, `ofWorld_quiescent` — the kernel's whole
-  requirement semantics transports exactly;
+  requirement semantics transports exactly.  The common obstruction
+  is the three-condition conjunction over *independent* retention,
+  protection, and zero fields (`obstC_conditions_independent`
+  witnesses all separations); the kernel realizes retention and
+  protection by one store, and the transport instantiates both fields
+  from it — a stated identification, not an erasure;
 - the reflective chain: `ofPState` with `chain_transport` — carrier
   `range (n+1)`, positive witness = successor edges, horizon-free;
 - the two-element difference objects: `d2Common`/`s2Common` with
-  `d2_transport_oriented` and `s2_transport_symmetric` — the
-  orientation/symmetry content survives the index swap exactly;
+  `d2_transport_oriented` and `s2_transport_symmetric` — scoped
+  exactly: the S2 *relation store* is swap-invariant as a set of
+  instances, while the whole encoded state is not
+  (`s2_state_not_swap_invariant`: the retained/protected bookkeeping
+  carries an ordered pair);
 - the early collapse checkpoint: `early_collapse_transports` (the
   Challenge-2 situation in common form); the full early `Regime`
   structure transports only through the sealed token-erasure
@@ -96,16 +107,19 @@ self-execute; refusal terminalizes nothing.
 
 ## 7. The strongest form of Rule 1
 
-**R1-A (operational trichotomy) — CONDITIONAL_THEOREM**
-(`Completion.rule1_trichotomy`).  Under replay well-formedness (an
-invariant, `wf_replay`) and a recorded violation: the same-level
-repair family is non-empty, or the exhaustion certificate holds and
-the extension family is non-empty **with both orientations retained**
-(`augFamily_retains_ties` — the earlier single-witness scoping is
-strengthened: no selector, not even the requirement's own
-orientation, chooses the augmentation).  Refusal is available exactly
-under the certificate (`refusal_recordable`) and is not a third
-action: `refusal_object_inert` proves it touches no object field.
+**R1-A (operational dichotomy, refusal parallel) —
+CONDITIONAL_THEOREM** (`Completion.rule1_repair_or_extension`).
+Under replay well-formedness (an invariant, `wf_replay`) and a
+recorded violation, the action-level alternative is binary: the
+same-level repair family is non-empty, or the exhaustion certificate
+holds and the extension family is non-empty **with both orientations
+retained** (`augFamily_retains_ties` — the earlier single-witness
+scoping is strengthened: no selector, not even the requirement's own
+orientation, chooses the augmentation).  Refusal is a parallel,
+non-absorbing *record*, available exactly under the certificate
+(`refusal_recordable`), and not an action: `refusal_object_inert`
+proves it touches no object field.  Budget/license execution remains
+a separate represented gate.
 
 **R1-B (binary compression) — DERIVED_THEOREM**
 (`action_dichotomy`).  On the represented signature (carrier length,
@@ -183,12 +197,22 @@ the constitution does not derive itself (§10).
   reflective chain priced.  Budget and authorization are emitted as
   represented events (`budget_replenishment_represented`); the stop
   outcome is the represented empty family (`nextFamily_stop`).
-- **G2 — represented driver** (`towerGen`): the driver iterates the
-  family from the replayed state.  **The reproduction theorem**
-  (`driver_reproduces_tower`): the generated history equals the
-  previously supplied stream, stage by stage.  What PR #10 consumed
-  as metatheory is now produced from represented state — *relative to
-  the fixed interpreter*.
+- **G2 — state-derived generation** (`towerGen`): at each stage the
+  next-family interpreter is invoked on the replayed represented
+  state and the unique member of the resulting family is appended.
+  Honest scope: **state-derived, prefix-compatible generation under
+  metatheoretic iteration and a fixed interpreter** — the iteration
+  is metatheory, no represented transition invokes the interpreter,
+  and no internal-trigger claim is made.  **The reproduction
+  theorem** (`driver_reproduces_tower`): the generated history equals
+  the previously supplied stream, stage by stage.  What PR #10
+  consumed as a supplied stream is now computed from represented
+  state — relative to the fixed interpreter and its metatheoretic
+  iteration.  Freshness of the canonical numeral is proved **on the
+  tower invariant** (`freshName_fresh_on_tower`) and refuted in
+  general (`freshName_not_fresh_generally`): the policy's freshness
+  is a property of the invariant it maintains, not of arbitrary
+  worlds.
 
 Fresh-name pricing (compared): externally supplied tokens (an
 exogenous act per name); occurrence identity (position import);
@@ -226,22 +250,25 @@ latter being the single OPEN bridge of the dependency graph.
 
 ## 11. Autonomy versus iterability
 
-The nine-level ladder (`tower_driver_autonomy`), proved for the tower
-driver: (1) a step exists at every stage; (2) the trace is
+The nine-level ladder (`tower_driver_autonomy`), assessed for the
+tower generation: (1) a step exists at every stage; (2) the trace is
 prefix-compatible; (3) the next family is computed from represented
-state; (4) the driver itself triggers execution (its recursion
-consumes nothing external); (5–6) selection-freeness — the family is
-a proved singleton, ties vacuously retained, and the closure policy
-retains all ties non-vacuously; (7) resources persist by represented
+state by the interpreter; (4) **not attained** — internal triggering
+would require a represented transition to invoke the next-family
+interpreter, and here the iteration is metatheoretic (stated, not
+laundered); (5–6) selection-freeness — the family is a proved
+singleton, ties vacuously retained, and the closure policy retains
+all ties non-vacuously; (7) resources persist by represented
 replenishment events (self-funding is a visible, priced policy
 choice); (8) lawfulness across expressive extensions
 (instance-verified in Lean at stage 3, exhaustively bound-verified in
 the mirror to 15); (9) productivity under the explicit strict-growth
 measure.  An arbitrarily iterable theorem yields (1)–(2) only —
-`Represented.productive_run` was exactly that; autonomy here means
-(1)–(9) **relative to the fixed interpreter and the declared policy
-data**.  Nothing stronger is claimed; adversarial obligation #4 is
-answered by this separation.
+`Represented.productive_run` was exactly that; what is proved here is
+(1)–(3), (5)–(9): **state-derived, selection-free, resource-explicit,
+productive generation under metatheoretic iteration and a fixed
+interpreter**.  Nothing stronger is claimed; adversarial obligation
+#4 is answered by this separation.
 
 ## 12. Minimality and universality
 
@@ -259,16 +286,19 @@ per guard, each calibrated on a sealed kernel theorem).  Results:
   this development, does not arise here because compliance is
   uniquely satisfied;
 - the panel extension retracts onto the kernel
-  (`extension_retract_replay`, split by `retract_section`): a
-  conservative-retract instance of initiality.
+  (`extension_retract_replay`, split by `retract_section`) — a split
+  retract, and only that.
 
-Terminal: **INITIAL_KERNEL_PROVED — in the declared class**.  The
-scope is the theorem: unique minimum and retract-initiality relative
-to this 64-member family and probe battery.  Whether the kernel is
-minimal in a wider, undeclared class is not a formulable claim until
-that class is declared; "most primitive obstruction engine possible"
-is therefore **underdetermined as an absolute claim and proved as a
-class-relative one** — the exact answer to final question 10.
+Terminal: **UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE_
+CLASS**.  A six-probe singleton and one split retract do not prove
+categorical initiality, and none is claimed: what is proved is unique
+probe-compliance in the declared 64-member toggle class, cost-order
+agreement on the singleton, and the one retract.  Whether the kernel
+is minimal in a wider, undeclared class is not a formulable claim
+until that class is declared; "most primitive obstruction engine
+possible" is therefore **underdetermined as an absolute claim and
+proved as this class-relative one** — the exact answer to final
+question 10.
 
 ## 13. The certification ceiling
 
@@ -317,7 +347,8 @@ OpaqueSeed
 → scoped certification                   [PROVED: joint-quotient
                                           exactness; ceiling]
 → represented next-event family or stop  [PROVED relative to fixed
-                                          interpreter:
+                                          interpreter under
+                                          metatheoretic iteration:
                                           driver_reproduces_tower;
                                           nextFamily_stop]
 ```
@@ -334,7 +365,7 @@ RELATIVE_REPLAY_CLOSURE_ONLY
 EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER
 KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER
 KERNEL_CONSTITUTION_REMAINS_META
-INITIAL_KERNEL_PROVED            (in the declared class)
+UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE_CLASS
 ABSOLUTE_NO_OUTSIDE_UNFORMULABLE
 ```
 
@@ -385,7 +416,11 @@ Phase V–VI: `nextFamily_tower_singleton`,
 Phase VII: six `*_load_bearing` separations, `unique_compliant`,
 `minimum_unique_in_class`, `extension_retract/_replay`,
 `retract_section`.
-All 291 exported reports within {propext, Quot.sound}.
+Correction pass: `rule1_repair_or_extension` (renamed from the
+trichotomy — the action alternative is binary, refusal parallel),
+`obstC_conditions_independent`, `s2_state_not_swap_invariant`,
+`freshName_fresh_on_tower`, `freshName_not_fresh_generally`.
+All 295 exported reports within {propext, Quot.sound}.
 
 ## 19. FRONTIER CONJECTURES
 

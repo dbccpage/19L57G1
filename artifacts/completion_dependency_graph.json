@@ -184,9 +184,9 @@
     "boundary": "repair family nonempty, or certificate + accepted augmentation, or recordable refusal; conditional on WF and the fixed constitution",
     "evidence": [
      "Represented.represented_progress",
-     "Completion.rule1_trichotomy"
+     "Completion.rule1_repair_or_extension"
     ],
-    "relation": "trichotomy",
+    "relation": "dichotomy (refusal parallel)",
     "source": "active obstruction",
     "status": "PROVED",
     "target": "same-level repair"
@@ -2821,7 +2821,9 @@
     "propext"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "Completion.lean"
+   ],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.bool_eq_of_iff",
@@ -3180,7 +3182,9 @@
    "citing_claims": [
     "CL-RP-PROGRESS"
    ],
-   "consumers": [],
+   "consumers": [
+    "Completion.lean"
+   ],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.progress_needs_budget",
@@ -3195,7 +3199,9 @@
    "citing_claims": [
     "CL-RP-PROGRESS"
    ],
-   "consumers": [],
+   "consumers": [
+    "Completion.lean"
+   ],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.progress_needs_license",
@@ -3267,7 +3273,9 @@
    "citing_claims": [
     "CL-RP-PRODUCTIVITY"
    ],
-   "consumers": [],
+   "consumers": [
+    "Constitution.lean"
+   ],
    "kind": "horizon-free",
    "module": "Represented.lean",
    "name": "Represented.worldAt_data",
@@ -3735,9 +3743,36 @@
    "consumers": [],
    "kind": "generic",
    "module": "Completion.lean",
-   "name": "Completion.rule1_trichotomy",
+   "name": "Completion.rule1_repair_or_extension",
    "role": "preservation",
    "statement": "{w : World} {i j : Nat} (hwf : WF w) (hviol : violB w (i, j) = true) : (\u2203 m, m \u2208 repairFamily w (i, j)) \u2228 (obstructedB w (i, j) = true \u2227 [i] \u2208 augFamily w (i, j) \u2227 [j] \u2208 augFamily w (i, j))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.obstC_conditions_independent",
+   "role": "preservation",
+   "statement": ": obstC { carrier"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-NC-COMMON-STATE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Completion.lean",
+   "name": "Completion.s2_state_not_swap_invariant",
+   "role": "preservation",
+   "statement": ": swapC s2Common \u2260 s2Common"
   },
   {
    "axioms": [
@@ -4147,6 +4182,36 @@
    "name": "Constitution.gen_three_quiescent",
    "role": "simulation",
    "statement": ": quiescentB (genWorld 3).w = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.freshName_fresh_on_tower",
+   "role": "simulation",
+   "statement": "(k : Nat) : \u00ac (freshName (worldAt k) \u2208 (worldAt k).data)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-NC-EVENT-SOURCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Constitution.lean",
+   "name": "Constitution.freshName_not_fresh_generally",
+   "role": "simulation",
+   "statement": ": freshName { data"
   },
   {
    "axioms": [

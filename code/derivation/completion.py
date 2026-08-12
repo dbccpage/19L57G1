@@ -435,10 +435,10 @@ BRIDGES: list[dict[str, object]] = [
                     "definition; truncated search falsely certifies",
     },
     {
-        "source": "active obstruction", "relation": "trichotomy",
+        "source": "active obstruction", "relation": "dichotomy (refusal parallel)",
         "target": "same-level repair", "status": "PROVED",
         "evidence": ["Represented.represented_progress",
-                     "Completion.rule1_trichotomy"],
+                     "Completion.rule1_repair_or_extension"],
         "boundary": "repair family nonempty, or certificate + accepted "
                     "augmentation, or recordable refusal; conditional on "
                     "WF and the fixed constitution",
@@ -663,6 +663,14 @@ def protocols_report(rounds: int = 15) -> dict[str, object]:
         "stop_outcome_empty_family": next_family(quiet, "close") == [],
         "fresh_name_source": "canonical numeral (arithmetic/ordering "
                              "import, recorded)",
+        "fresh_name_fresh_along_run": all(
+            fresh_name(replay(tower_gen(k)))
+            not in replay(tower_gen(k)).data
+            for k in range(rounds + 1)
+        ),
+        "generation_scope": "state-derived, prefix-compatible "
+                            "generation under metatheoretic iteration "
+                            "and a fixed interpreter",
     }
 
 
@@ -686,6 +694,10 @@ def all_descs() -> list[Desc]:
 
 
 def interp_step(d: Desc, w: World, e: Event) -> World:
+    """Nat-domain guards are unconditional: a disabled guard toggle
+    never licenses a negative state, matching the Lean carrier (where
+    negatives are unrepresentable) for every constitution
+    descriptor."""
     dedup, greq, gacc, gbud, glic, gcert = d
     kind = e[0]
     if kind == "admit":
@@ -697,12 +709,16 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
     if kind == "require":
         i, j = e[1], e[2]
         assert isinstance(i, int) and isinstance(j, int)
+        if i < 0 or j < 0:
+            return w
         if (not greq) or req_ok(w, i, j):
             return _replace(w, reqs=w.reqs + ((i, j),))
         return w
     if kind == "mark":
         v, p = e[1], e[2]
         assert isinstance(v, tuple) and isinstance(p, int)
+        if p < 0 or any(x < 0 for x in v):
+            return w
         if ((not gacc) or mark_ok(w, v, p)) and (
                 (not gbud) or w.budget > 0):
             return _replace(mark_apply(w, v, p), budget=w.budget - 1)
@@ -710,6 +726,8 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
     if kind == "addView":
         c = e[1]
         assert isinstance(c, tuple)
+        if any(x < 0 for x in c):
+            return w
         if (((not gacc) or aug_ok(w, c))
                 and ((not glic) or w.aug_licensed)
                 and ((not gbud) or w.budget > 0)):
@@ -718,6 +736,8 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
     if kind == "refuse":
         i, j = e[1], e[2]
         assert isinstance(i, int) and isinstance(j, int)
+        if i < 0 or j < 0:
+            return w
         if ((not gcert) or obstructed(w, (i, j))) and (
                 (i, j) not in w.refusals):
             return _replace(w, refusals=w.refusals + ((i, j),))

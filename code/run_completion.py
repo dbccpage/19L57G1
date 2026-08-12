@@ -34,7 +34,7 @@ TERMINALS = [
     "EVENT_SOURCE_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER",
     "KERNEL_CONSTITUTION_INTERNALIZED_RELATIVE_TO_FIXED_INTERPRETER",
     "KERNEL_CONSTITUTION_REMAINS_META",
-    "INITIAL_KERNEL_PROVED",
+    "UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE_CLASS",
     "ABSOLUTE_NO_OUTSIDE_UNFORMULABLE",
 ]
 
@@ -44,6 +44,12 @@ OPEN_BRIDGES = [
     "its own described family; the outermost interpretation relation "
     "remains metatheoretic (named irreducible obligation)",
 ]
+
+GRAPH_SCOPE = (
+    "one OPEN edge in the declared dependency graph; the graph "
+    "classifies the declared bridges and does not claim to exhaust "
+    "every possible bridge"
+)
 
 
 def sha256_of(path: Path) -> str:
@@ -82,6 +88,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         },
         "terminals": TERMINALS,
         "open_bridges": OPEN_BRIDGES,
+        "graph_scope": GRAPH_SCOPE,
         "terminal_evidence": {
             "RELATIVE_REPLAY_CLOSURE_ONLY": [
                 "NoOutside.effectual_outside_dichotomy",
@@ -102,7 +109,8 @@ def main(argv: Optional[list[str]] = None) -> int:
                 "stratification boundary (Constitution module header)",
                 "completion_receipt.json:open_bridges",
             ],
-            "INITIAL_KERNEL_PROVED": [
+            "UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE"
+            "_CLASS": [
                 "Initiality.unique_compliant",
                 "Initiality.extension_retract_replay",
                 "completion_minimality.json",

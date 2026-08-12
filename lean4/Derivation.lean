@@ -306,7 +306,9 @@ open Derivation
 #print axioms Completion.sepB_symm
 #print axioms Completion.augFamily_sound
 #print axioms Completion.augFamily_retains_ties
-#print axioms Completion.rule1_trichotomy
+#print axioms Completion.rule1_repair_or_extension
+#print axioms Completion.obstC_conditions_independent
+#print axioms Completion.s2_state_not_swap_invariant
 #print axioms Completion.refusal_recordable
 #print axioms Completion.refusal_object_inert
 #print axioms Completion.refusal_non_absorbing
@@ -335,6 +337,8 @@ open Derivation
 #print axioms Constitution.budget_replenishment_represented
 #print axioms Constitution.gen_growth
 #print axioms Constitution.gen_three_quiescent
+#print axioms Constitution.freshName_fresh_on_tower
+#print axioms Constitution.freshName_not_fresh_generally
 #print axioms Constitution.tower_driver_autonomy
 #print axioms Constitution.interp_describe
 #print axioms Constitution.allDescs_length

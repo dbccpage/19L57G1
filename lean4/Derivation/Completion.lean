@@ -43,6 +43,7 @@ structure CommonState where
   metaDistinct : List (Nat × Nat)
   posWitness : List (Nat × Nat)
   views : List (List Nat)
+  retained : List (Nat × Nat)
   protectedReqs : List (Nat × Nat)
   budget : Nat
   licensed : Bool
@@ -57,10 +58,15 @@ def sepC (s : CommonState) (i j : Nat) : Bool :=
 difference.  Positive witnesses do not enter — that is the point. -/
 def zeroC (s : CommonState) (i j : Nat) : Bool := !sepC s i j
 
-/-- Active obstruction: protected, retained, observer-zero — the
-three-condition conjunction, in common form. -/
+/-- Active obstruction: retained, protected, observer-zero — the
+three-condition conjunction with the three conditions as independent
+fields.  (The represented kernel realizes retention and protection by
+one store; the common state keeps them separate, and the kernel
+transport instantiates both from the same store — a stated
+identification, not an erasure.) -/
 def obstC (s : CommonState) (i j : Nat) : Bool :=
-  (decide ((i, j) ∈ s.protectedReqs)) && zeroC s i j
+  (decide ((i, j) ∈ s.retained))
+    && (decide ((i, j) ∈ s.protectedReqs)) && zeroC s i j
 
 /-! ## Transport: the represented-progress kernel -/
 
@@ -69,6 +75,7 @@ def ofWorld (w : World) : CommonState :=
     metaDistinct := []
     posWitness := []
     views := w.views
+    retained := w.reqs
     protectedReqs := w.reqs
     budget := w.budget
     licensed := w.augLicensed
@@ -78,13 +85,49 @@ theorem ofWorld_sep (w : World) (i j : Nat) :
     sepC (ofWorld w) i j = satB w (i, j) := rfl
 
 theorem ofWorld_obstruction (w : World) (i j : Nat) :
-    obstC (ofWorld w) i j = violB w (i, j) := rfl
+    obstC (ofWorld w) i j = violB w (i, j) := by
+  unfold obstC violB ofWorld zeroC sepC
+  cases decide ((i, j) ∈ w.reqs) <;> rfl
+
+/-- The three obstruction conditions are independent in the common
+state: retained-without-protection, protected-without-retention, and
+retained-and-protected-but-separated each fail to obstruct. -/
+theorem obstC_conditions_independent :
+    obstC { carrier := [0, 1], metaDistinct := [], posWitness := [],
+            views := [], retained := [(0, 1)], protectedReqs := [],
+            budget := 0, licensed := true, refusals := [] } 0 1
+        = false ∧
+      obstC { carrier := [0, 1], metaDistinct := [], posWitness := [],
+              views := [], retained := [], protectedReqs := [(0, 1)],
+              budget := 0, licensed := true, refusals := [] } 0 1
+        = false ∧
+      obstC { carrier := [0, 1], metaDistinct := [], posWitness := [],
+              views := [[0]], retained := [(0, 1)],
+              protectedReqs := [(0, 1)], budget := 0, licensed := true,
+              refusals := [] } 0 1 = false ∧
+      obstC { carrier := [0, 1], metaDistinct := [], posWitness := [],
+              views := [], retained := [(0, 1)],
+              protectedReqs := [(0, 1)], budget := 0, licensed := true,
+              refusals := [] } 0 1 = true := by decide
 
 /-- The kernel's whole requirement semantics transports exactly:
-violations, satisfaction, and (through them) the trichotomy below. -/
+violations, satisfaction, and (through them) the dichotomy below. -/
 theorem ofWorld_quiescent (w : World) :
     (w.reqs.all fun r => !obstC (ofWorld w) r.1 r.2) =
-      (w.reqs.all fun r => !violB w r) := rfl
+      (w.reqs.all fun r => !violB w r) := by
+  apply bool_eq_of_iff
+  simp only [List.all_eq_true]
+  constructor
+  · intro h r hr
+    have hx := h r hr
+    rw [show obstC (ofWorld w) r.1 r.2 = violB w (r.1, r.2) from
+      ofWorld_obstruction w r.1 r.2] at hx
+    exact hx
+  · intro h r hr
+    have hx := h r hr
+    rw [show obstC (ofWorld w) r.1 r.2 = violB w (r.1, r.2) from
+      ofWorld_obstruction w r.1 r.2]
+    exact hx
 
 /-! ## Transport: the reflective chain -/
 
@@ -94,6 +137,7 @@ def ofPState (s : PState) : CommonState :=
     metaDistinct := []
     posWitness := s.rel
     views := [s.tags]
+    retained := []
     protectedReqs := []
     budget := 0
     licensed := true
@@ -124,25 +168,37 @@ def swapC (s : CommonState) : CommonState :=
   { s with
     posWitness := s.posWitness.map (fun p => (swapIdx p.1, swapIdx p.2))
     views := s.views.map (fun c => c.map swapIdx)
+    retained := s.retained.map (fun p => (swapIdx p.1, swapIdx p.2))
     protectedReqs :=
       s.protectedReqs.map (fun p => (swapIdx p.1, swapIdx p.2)) }
 
 def d2Common : CommonState :=
   { carrier := [0, 1], metaDistinct := [(0, 1)],
-    posWitness := [(0, 1)], views := [], protectedReqs := [(0, 1)],
-    budget := 0, licensed := true, refusals := [] }
+    posWitness := [(0, 1)], views := [], retained := [(0, 1)],
+    protectedReqs := [(0, 1)], budget := 0, licensed := true,
+    refusals := [] }
 
 def s2Common : CommonState :=
   { d2Common with posWitness := [(0, 1), (1, 0)] }
 
 theorem d2_transport_oriented : swapC d2Common ≠ d2Common := by decide
 
+/-- S2 symmetry, scoped exactly: the *relation store* is
+swap-invariant as a set of instances — that is the transported
+symmetry content. -/
 theorem s2_transport_symmetric :
     (swapC s2Common).posWitness.length = s2Common.posWitness.length ∧
       ((0, 1) ∈ (swapC s2Common).posWitness ↔
         (0, 1) ∈ s2Common.posWitness) ∧
       ((1, 0) ∈ (swapC s2Common).posWitness ↔
         (1, 0) ∈ s2Common.posWitness) := by decide
+
+/-- And the whole *state* is not swap-invariant: the retained and
+protected stores carry an ordered pair, so the encoded S2 is
+symmetric in its relation and oriented in its protection bookkeeping.
+The symmetry claim is the component claim above, nothing more. -/
+theorem s2_state_not_swap_invariant : swapC s2Common ≠ s2Common := by
+  decide
 
 /-! ## Transport failures — first-class results
 
@@ -162,7 +218,7 @@ theorem witness_not_separation :
 the positive-witness store is empty.  Separation ≠ witness. -/
 def tagOnly : CommonState :=
   { carrier := [0, 1], metaDistinct := [], posWitness := [],
-    views := [[0]], protectedReqs := [], budget := 0,
+    views := [[0]], retained := [], protectedReqs := [], budget := 0,
     licensed := true, refusals := [] }
 
 theorem separation_not_witness :
@@ -184,23 +240,23 @@ full early `Regime` structure transports only through the token-erased
 simulation; that boundary is recorded in the map, not erased here.) -/
 theorem early_collapse_transports :
     zeroC { carrier := [0, 1], metaDistinct := [], posWitness := [],
-            views := [], protectedReqs := [], budget := 0,
-            licensed := true, refusals := [] } 0 1 = true := by decide
+            views := [], retained := [], protectedReqs := [],
+            budget := 0, licensed := true, refusals := [] } 0 1
+      = true := by decide
 
 /-! ## Phase III — Rule 1, settled for the fixed kernel
 
-### R1-A: the exhaustive trichotomy
+### R1-A: the operational dichotomy, with refusal parallel
 
 Under the explicit hypotheses (replay well-formedness and a recorded
-violation), exactly one of three represented situations obtains, and
-each carries its represented response:
-
-1. the same-level repair family is non-empty; or
-2. the exhaustion certificate holds and the extension family is
-   non-empty — with *both* orientations of the canonical augmentation
-   retained (no hidden selector); and in that case
-3. the refusal record is available (and only then — refusal requires
-   the certificate).
+violation), the action-level alternative is binary: the same-level
+repair family is non-empty, or the exhaustion certificate holds and
+the extension family is non-empty — with *both* orientations of the
+canonical augmentation retained (no hidden selector).  Refusal is not
+a third action branch: it is a parallel, non-absorbing *record*,
+available exactly under the certificate (`refusal_recordable`,
+`refusal_object_inert`).  Budget/license execution remains a separate
+represented gate (`progress_needs_budget`, `progress_needs_license`).
 -/
 
 /-- The extension family: both orientation-canonical singleton columns,
@@ -296,12 +352,14 @@ theorem augFamily_retains_ties {w : World} {i j : Nat} (hwf : WF w)
     refine ⟨List.mem_cons_of_mem _ List.mem_cons_self,
       haug j i (fun h => hne h.symm) hjb hib hsat_symm⟩
 
-/-- **Rule 1, strongest in-kernel form (R1-A trichotomy).**  Every
-recorded violation admits a non-empty same-level repair family, or a
-certified exhaustion together with a non-empty tied extension family.
-Exhaustive: there is no third possibility for a violation, and refusal
-is available exactly in the second case (`refusal_recordable`). -/
-theorem rule1_trichotomy {w : World} {i j : Nat} (hwf : WF w)
+/-- **Rule 1, strongest in-kernel form: repair family versus
+exhaustion-plus-extension family.**  Every recorded violation admits a
+non-empty same-level repair family, or a certified exhaustion together
+with a non-empty tied extension family.  There is no third action
+branch; refusal is a parallel, non-absorbing record available exactly
+in the second case (`refusal_recordable`), and execution of either
+branch is separately gated by the represented budget and license. -/
+theorem rule1_repair_or_extension {w : World} {i j : Nat} (hwf : WF w)
     (hviol : violB w (i, j) = true) :
     (∃ m, m ∈ repairFamily w (i, j)) ∨
       (obstructedB w (i, j) = true ∧
