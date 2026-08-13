@@ -693,7 +693,8 @@ replacements:
    `uniform_guarded_filler`: a theorem about guarded admission and
    strict extension, not homology.
 8. CL-PD2-LADDER and CL-PD2-LADDER-GENERAL reconciled in the
-   ledger; the general composite vanishing stays OPEN.
+   ledger; at this stage the general composite vanishing remained OPEN
+   (superseded by Goal 4 below).
 9. Part II delivered: target-relative presentation compression
    (`Compression`, 22 theorems, axiom-clean) — factorization iff
    fiber-constancy with image-scoped uniqueness; coarsest-adequate
