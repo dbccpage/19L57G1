@@ -87,6 +87,10 @@ def receipt() -> dict[str, Json]:
                 "6 states x 10 events (recorded in artifact)",
             "interpreter_family": 64,
             "interpreter_basis": "six probe worlds/events",
+            "attachment_rounds": 15,
+            "attachment_shape_carrier": 4,
+            "attachment_orbit_carrier": 3,
+            "ladder_general_dims_decided": [2, 3, 4, 5],
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -198,6 +202,43 @@ def receipt() -> dict[str, Json]:
             "absolute no-outside: not formulable in this calculus; "
             "not claimed (inherited scope)",
         ],
+        "extensions": [
+            {"tag": "D2_MAP_INJECTIVE_INTO_IRREFLEXIVE",
+             "status": "THEOREM",
+             "evidence": ["PrimitiveCats.d2_map_injective",
+                          "PrimitiveCats."
+                          "d2_map_not_injective_without_irrefl"]},
+            {"tag": "ATTACHMENT_TREES_POLICY_UNIFORM",
+             "status": "THEOREM",
+             "evidence": ["Attachment.treeAt_spec",
+                          "Attachment.attach_residue",
+                          "Attachment.parent_lt",
+                          "Attachment.parent_unique",
+                          "Attachment.parent_exists",
+                          "Attachment.all_reach"]},
+            {"tag": "GLOBAL_SHAPE_NOT_FORCED",
+             "status": "COUNTERMODEL",
+             "evidence": ["Attachment.path4_star4_not_isomorphic",
+                          "Attachment.tree4_concrete"]},
+            {"tag": "UP_FAMILY_COMPLETE_AND_PRESENTATION_INVARIANT",
+             "status": "THEOREM",
+             "evidence": ["Attachment.attachMoves_complete",
+                          "Attachment.attachMoves_length",
+                          "Attachment."
+                          "attachMoves_presentation_invariant",
+                          "orbit instances: Attachment."
+                          "star_orbit_swap / path_oriented_rigid / "
+                          "path_center_separate"]},
+            {"tag": "GENERAL_LADDER_THEOREM",
+             "status": "THEOREM",
+             "evidence": ["LadderGeneral.ladder_general (every "
+                          "dimension, generalized declared "
+                          "calculus)",
+                          "LadderGeneral.shell_refuses_general",
+                          "LadderGeneral.shell_no_self_fill",
+                          "LadderGeneral.d4_demo",
+                          "LadderGeneral.d4_guard_load_bearing"]},
+        ],
         "frontier_conjectures": [
             {"conjecture":
                 "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
@@ -209,11 +250,14 @@ def receipt() -> dict[str, Json]:
                 "diagonal differs only at the operationally inert "
                 "notes field, and no theorem links the uncoded "
                 "occurrence to the missed function"},
-            {"conjecture": "GENERAL_DIMENSIONAL_LADDER",
+            {"conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
              "missing_theorem":
-                "the two-rule shape is proved at dimensions 2 and 3 "
-                "(ladder_dim2, ladder_dim3); recurrence at every "
-                "dimension is conjectured, not proved"},
+                "the dimensional LADDER is now a theorem at every "
+                "dimension (LadderGeneral.ladder_general, upgrading "
+                "the review-pass conjecture); what remains is the "
+                "general vanishing of the composite boundary for "
+                "every dimension — decided at dimensions 2–5, "
+                "general case open"},
             {"conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
              "missing_theorem":
                 "a driver in which graph vertices and edges are "

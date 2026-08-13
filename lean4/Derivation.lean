@@ -26,6 +26,8 @@ import Derivation.HigherStructure
 import Derivation.Apartness
 import Derivation.InterpreterBoundary
 import Derivation.ControllerCategory
+import Derivation.Attachment
+import Derivation.LadderGeneral
 
 /-!
 # Axiom reports
@@ -684,3 +686,37 @@ open Derivation
 #print axioms ControllerCategory.sim_pinned
 #print axioms ControllerCategory.genesis_sims_agree_on_reachable
 #print axioms ControllerCategory.strict_agree_on_reachable
+#print axioms Attachment.par_le
+#print axioms Attachment.attach_fresh
+#print axioms Attachment.attach_pair_not_mem
+#print axioms Attachment.attach_len
+#print axioms Attachment.attach_wf_guard
+#print axioms Attachment.attach_wit_guard
+#print axioms Attachment.attach_prot_guard
+#print axioms Attachment.range_map_succ
+#print axioms Attachment.treeAt_spec
+#print axioms Attachment.attach_residue
+#print axioms Attachment.parent_lt
+#print axioms Attachment.parent_unique
+#print axioms Attachment.parent_exists
+#print axioms Attachment.all_reach_aux
+#print axioms Attachment.all_reach
+#print axioms Attachment.path_edges
+#print axioms Attachment.star_edges
+#print axioms Attachment.tree4_concrete
+#print axioms Attachment.path4_star4_not_isomorphic
+#print axioms Attachment.attachMoves_length
+#print axioms Attachment.attachMoves_complete
+#print axioms Attachment.attachMoves_nonempty
+#print axioms Attachment.attachMoves_presentation_invariant
+#print axioms Attachment.star_orbit_swap
+#print axioms Attachment.path_oriented_rigid
+#print axioms Attachment.path_center_separate
+#print axioms LadderGeneral.ladder_general
+#print axioms LadderGeneral.shell_refuses_general
+#print axioms LadderGeneral.shell_no_self_fill
+#print axioms LadderGeneral.d4_demo
+#print axioms LadderGeneral.d4_guard_load_bearing
+#print axioms LadderGeneral.d2_zero_dims_2_3_4
+#print axioms PrimitiveCats.d2_map_injective
+#print axioms PrimitiveCats.d2_map_not_injective_without_irrefl

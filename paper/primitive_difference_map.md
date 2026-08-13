@@ -244,7 +244,28 @@ transition-system simulations, and no claim links them to any
 enriched or higher-categorical structure; nothing here derives a
 metric, measure, or amplitude.
 
-## 8. Terminals, adversarial record, and receipt
+## 8. Attachment and the general ladder (next-goals pass)
+
+- The canonical map out of the kernel is injective exactly into
+  irreflexive targets (`d2_map_injective`; countermodel without).
+- One-edge attachment along any represented parent is lawful at
+  every stage for every policy; every policy grows a tree with
+  V−E=1 (`treeAt_spec`, `all_reach`, `attach_residue`) — tree-ness
+  is policy-uniform, global shape is not
+  (`path4_star4_not_isomorphic`).
+- `Up` is the complete extension family — one block per represented
+  parent, no selection — invariant under every size-preserving
+  re-presentation, with orbit-valued choices where symmetry remains
+  (star leaves one orbit; the ORIENTED path rigid: the orientation
+  residue refuses the undirected flip).
+- The ladder is now a THEOREM at every dimension in the generalized
+  declared calculus (`LadderGeneral.ladder_general`), demonstrated
+  through dimension 4 in Lean and 5 in Python; the general composite
+  boundary vanishing is the remaining conjecture.
+- Imported inputs, still explicit: fresh supply, protection,
+  observer transport, budget, activation.
+
+## 9. Terminals, adversarial record, and receipt
 
 The run ends with ten terminal codes, each mapped to theorem or
 countermodel evidence, five open obligations, the twenty-attack

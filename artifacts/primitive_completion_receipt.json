@@ -86,12 +86,15 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256": "f0916f5c85149d0f583f22f8c3bf6f61f2e0589a2edb27aab6866c0abd233ca9",
-  "theorem_count": 616
+  "sha256": "d10a00b4ad7bf1c1533919360c606fc6600e13317b5dc6b775d4280659f6ee4d",
+  "theorem_count": 650
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
   "apartness_exhaustive_carrier": 3,
+  "attachment_orbit_carrier": 3,
+  "attachment_rounds": 15,
+  "attachment_shape_carrier": 4,
   "cell_demonstration_carrier": 4,
   "controller_behavior_basis": "6 states x 10 events (recorded in artifact)",
   "controller_class": 1024,
@@ -104,6 +107,12 @@
   "growth_rounds": 15,
   "interpreter_basis": "six probe worlds/events",
   "interpreter_family": 64,
+  "ladder_general_dims_decided": [
+   2,
+   3,
+   4,
+   5
+  ],
   "matrix_universe": "carriers 1..3, declared ret/prot/ops decorations (see primitive_implication_matrix.json)",
   "preservation_census_carrier": 4
  },
@@ -112,14 +121,65 @@
   "package_present": false,
   "status": "CONTACT_INPUT_ABSENT"
  },
+ "extensions": [
+  {
+   "evidence": [
+    "PrimitiveCats.d2_map_injective",
+    "PrimitiveCats.d2_map_not_injective_without_irrefl"
+   ],
+   "status": "THEOREM",
+   "tag": "D2_MAP_INJECTIVE_INTO_IRREFLEXIVE"
+  },
+  {
+   "evidence": [
+    "Attachment.treeAt_spec",
+    "Attachment.attach_residue",
+    "Attachment.parent_lt",
+    "Attachment.parent_unique",
+    "Attachment.parent_exists",
+    "Attachment.all_reach"
+   ],
+   "status": "THEOREM",
+   "tag": "ATTACHMENT_TREES_POLICY_UNIFORM"
+  },
+  {
+   "evidence": [
+    "Attachment.path4_star4_not_isomorphic",
+    "Attachment.tree4_concrete"
+   ],
+   "status": "COUNTERMODEL",
+   "tag": "GLOBAL_SHAPE_NOT_FORCED"
+  },
+  {
+   "evidence": [
+    "Attachment.attachMoves_complete",
+    "Attachment.attachMoves_length",
+    "Attachment.attachMoves_presentation_invariant",
+    "orbit instances: Attachment.star_orbit_swap / path_oriented_rigid / path_center_separate"
+   ],
+   "status": "THEOREM",
+   "tag": "UP_FAMILY_COMPLETE_AND_PRESENTATION_INVARIANT"
+  },
+  {
+   "evidence": [
+    "LadderGeneral.ladder_general (every dimension, generalized declared calculus)",
+    "LadderGeneral.shell_refuses_general",
+    "LadderGeneral.shell_no_self_fill",
+    "LadderGeneral.d4_demo",
+    "LadderGeneral.d4_guard_load_bearing"
+   ],
+   "status": "THEOREM",
+   "tag": "GENERAL_LADDER_THEOREM"
+  }
+ ],
  "frontier_conjectures": [
   {
    "conjecture": "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
    "missing_theorem": "a denotational bridge connecting code, interpretation, lawful interpreter behavior, the uncoded evaluator role, and an OPERATIONALLY EFFECTIVE non-identification \u2014 the current diagonal differs only at the operationally inert notes field, and no theorem links the uncoded occurrence to the missed function"
   },
   {
-   "conjecture": "GENERAL_DIMENSIONAL_LADDER",
-   "missing_theorem": "the two-rule shape is proved at dimensions 2 and 3 (ladder_dim2, ladder_dim3); recurrence at every dimension is conjectured, not proved"
+   "conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
+   "missing_theorem": "the dimensional LADDER is now a theorem at every dimension (LadderGeneral.ladder_general, upgrading the review-pass conjecture); what remains is the general vanishing of the composite boundary for every dimension \u2014 decided at dimensions 2\u20135, general case open"
   },
   {
    "conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",

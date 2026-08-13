@@ -631,3 +631,29 @@ replacements:
 14. All artifacts, papers, ledger entries, and the receipt
     regenerated under the corrected statements.
 
+## PR #12 next-goals pass (caller directive)
+
+1. `d2_map_injective`: the unique map out of the two-element kernel
+   is injective into every irreflexive pointed witnessed
+   presentation; the hypothesis is not removable
+   (`d2_map_not_injective_without_irrefl`).
+2. One-edge attachment defined (fresh walking edge glued along a
+   represented parent); every attachment policy is lawful at every
+   stage, produces a tree, and preserves V−E=1 (policy-uniform
+   theorems).
+3. Path and star policies exhibited as non-isomorphic countermodels
+   to forced global shape (decided over all carrier bijections at
+   four occurrences).
+4. Up defined as the complete family of legal extensions (one block
+   per represented parent, never a selection); proved
+   presentation-invariant; orbit-valued choices demonstrated where
+   symmetry remains (star leaves one orbit; the oriented path rigid
+   — undirected flip refused by the oriented stores).
+5. The simplex ladder generalized to arbitrary finite dimension:
+   `ladder_general` upgrades the review-pass conjecture to a theorem
+   of the generalized declared calculus; dimension-4 demonstration
+   replayed in Lean, dimension 5 in Python; the general composite
+   boundary vanishing remains the open conjecture.
+6. Imported inputs kept explicit throughout: fresh supply,
+   protection, observer transport, budget, activation.
+

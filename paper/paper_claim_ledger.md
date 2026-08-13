@@ -1538,3 +1538,56 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Class**: finite computation (deterministic generator).
 - **Python**: `primitive_completion_receipt.json`,
   `run_primitive_receipt.py`.
+
+### CL-PD2-ATTACHMENT
+- **Statement**: one-edge attachment (a fresh walking edge glued
+  along a represented parent: assert, retain, protect) is lawful at
+  every stage for EVERY policy (`treeAt_spec`, by induction, policy
+  a free parameter); every policy produces a tree — unique
+  ascending parent per non-root occurrence, every occurrence reaches
+  the root — and preserves V−E=1; global shape is NOT forced (path
+  and star non-isomorphic at four occurrences, decided over all
+  carrier bijections); the unique map out of the two-element kernel
+  is injective into every irreflexive target and provably not so
+  without irreflexivity; Up is the complete family of legal
+  extensions (one block per represented parent, no selection),
+  invariant under every carrier-size-preserving re-presentation,
+  with orbit-valued choices where symmetry remains (star leaves one
+  orbit; the ORIENTED path rigid — the orientation residue at
+  work).  Imported inputs stated: fresh supply, protection, observer
+  transport, budget, activation.
+- **Class**: theorem + countermodel + finite computation.
+- **Lean**: `Attachment.treeAt_spec`, `Attachment.attach_residue`,
+  `Attachment.parent_lt`, `Attachment.parent_unique`,
+  `Attachment.parent_exists`, `Attachment.all_reach`,
+  `Attachment.path4_star4_not_isomorphic`,
+  `Attachment.attachMoves_complete`,
+  `Attachment.attachMoves_presentation_invariant`,
+  `Attachment.star_orbit_swap`, `Attachment.path_oriented_rigid`,
+  `Attachment.path_center_separate`,
+  `PrimitiveCats.d2_map_injective`,
+  `PrimitiveCats.d2_map_not_injective_without_irrefl`.
+- **Python**: `attachment_ladder.json` (policies to 15 rounds;
+  orbit computation via store automorphisms).
+
+### CL-PD2-LADDER-GENERAL
+- **Statement**: the hard-coded dimension-2/3 ladder generalizes:
+  in the dimension-indexed declared cell calculus, the shell guard
+  (complete unfilled boundary) is uniform in the dimension and the
+  LADDER IS A THEOREM AT EVERY DIMENSION (`ladder_general`) — the
+  review-pass frontier conjecture GENERAL_DIMENSIONAL_LADDER is
+  upgraded to a theorem of the generalized calculus; guards are
+  load-bearing and shells never self-fill at any dimension; the
+  dimension-4 demonstration replays completely (5/10/10/5/1 cells)
+  with its guard countermodel; the composite boundary vanishes at
+  dimensions 2–5 (decided/computed); the general composite
+  vanishing remains the open boundary-calculus conjecture.
+- **Class**: theorem (all dimensions) + finite computation +
+  CONJECTURE (general composite vanishing).
+- **Lean**: `LadderGeneral.ladder_general`,
+  `LadderGeneral.shell_refuses_general`,
+  `LadderGeneral.shell_no_self_fill`, `LadderGeneral.d4_demo`,
+  `LadderGeneral.d4_guard_load_bearing`,
+  `LadderGeneral.d2_zero_dims_2_3_4`.
+- **Python**: `attachment_ladder.json` (dims 2–5).
+

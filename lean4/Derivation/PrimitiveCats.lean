@@ -175,6 +175,33 @@ theorem d2_initial_irrefl (P : PtdRel) (_ : IrreflObj P) :
     ∃ h : Hom d2Obj P, ∀ h' : Hom d2Obj P, h' = h :=
   d2_initial P
 
+/-- **The unique map out of `d2Obj` is injective into every
+irreflexive pointed witnessed presentation**: the designated images
+are forced apart by the target's own witness and irreflexivity
+(`PrimDiff.irrefl_witness_ne`), and `Bool` has no other points.  For
+a general (non-irreflexive) target injectivity can fail — the
+one-point self-difference receives the collapsing map — so this is
+exactly where irreflexivity is spent on the morphism side. -/
+theorem d2_map_injective (P : PtdRel) (hP : IrreflObj P)
+    (h : Hom d2Obj P) :
+    ∀ x y : Bool, h.f x = h.f y → x = y := by
+  have hne : P.a ≠ P.b := PrimDiff.irrefl_witness_ne hP P.w
+  intro x y hxy
+  cases x <;> cases y
+  · rfl
+  · exact absurd ((h.ha.symm.trans hxy).trans h.hb) hne
+  · exact absurd ((h.hb.symm.trans hxy).trans h.ha) (fun e => hne e.symm)
+  · rfl
+
+/-- The injectivity hypothesis is not removable: into the one-point
+self-difference target the unique map collapses the two points. -/
+theorem d2_map_not_injective_without_irrefl :
+    ∃ (P : PtdRel) (h : Hom d2Obj P) (x y : Bool),
+      h.f x = h.f y ∧ x ≠ y := by
+  refine ⟨⟨Unit, fun _ _ => True, (), (), trivial⟩,
+    ⟨fun _ => (), rfl, rfl, fun _ _ _ => trivial⟩,
+    false, true, rfl, by decide⟩
+
 /-- `s2Obj` is initial in the symmetric full subcategory: the oriented
 half of the edge maps to `T.w`, the reversed half to its image under
 the symmetry of the target — which is exactly where the hypothesis
