@@ -1,0 +1,756 @@
+{
+ "bounds": {
+  "column_size_bound": 2,
+  "event_kinds": [
+   "admitOcc",
+   "assertWit",
+   "admitWit",
+   "protect",
+   "refineCol",
+   "addCol",
+   "declareObs",
+   "refuse",
+   "setBudget",
+   "setLicense",
+   "halt"
+  ],
+  "internal_trace_length": 2,
+  "probe_past_carrier": 1,
+  "sample_state_names": [
+   "genesis",
+   "pre_observational",
+   "blind_pair",
+   "separated_pair",
+   "refinable",
+   "supply_stages",
+   "path3",
+   "terminal"
+  ],
+  "sample_states": 8,
+  "tie_carrier": 4,
+  "transport_carrier": 3
+ },
+ "family": {
+  "block_shapes": {
+   "funded_extension": 6,
+   "other": 0,
+   "repair": 1
+  },
+  "every_block_has_a_declared_shape": true,
+  "families": {
+   "blind_pair": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ]
+   ],
+   "genesis": [],
+   "path3": [],
+   "pre_observational": [],
+   "refinable": [
+    [
+     [
+      "refineCol",
+      [
+       0
+      ],
+      2
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       2
+      ]
+     ]
+    ]
+   ],
+   "separated_pair": [],
+   "supply_stages": [],
+   "terminal": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ]
+   ]
+  },
+  "family_blocks_are_response_events": true,
+  "family_blocks_fix_graph_stores": true,
+  "family_ranges_over_existing_carrier": true
+ },
+ "field_invariance": {
+  "addCol_only_obs": true,
+  "control_kinds": [
+   "setBudget",
+   "setLicense",
+   "halt"
+  ],
+  "events_per_state": {
+   "blind_pair": 63,
+   "genesis": 15,
+   "path3": 111,
+   "pre_observational": 63,
+   "refinable": 111,
+   "separated_pair": 63,
+   "supply_stages": 111,
+   "terminal": 63
+  },
+  "every_supply_kind_moves_a_graph_store": true,
+  "fields_touched_by_kind": {
+   "addCol": [
+    "budget",
+    "obs"
+   ],
+   "admitOcc": [
+    "occ"
+   ],
+   "admitWit": [
+    "wit"
+   ],
+   "assertWit": [
+    "asserted"
+   ],
+   "declareObs": [
+    "obs"
+   ],
+   "halt": [
+    "halted"
+   ],
+   "protect": [
+    "prot"
+   ],
+   "refineCol": [
+    "budget",
+    "obs"
+   ],
+   "refuse": [
+    "refusals"
+   ],
+   "setBudget": [
+    "budget"
+   ],
+   "setLicense": [
+    "licensed"
+   ]
+  },
+  "graph_fields_move_only_under_supply": true,
+  "internal_events_fix_graph_stores": true,
+  "internal_kinds": [
+   "refineCol",
+   "addCol",
+   "declareObs",
+   "refuse"
+  ],
+  "probe_past_carrier": 1,
+  "refineCol_only_obs": true,
+  "response_events_fix_graph_stores": true,
+  "supply_kinds": [
+   "admitOcc",
+   "assertWit",
+   "admitWit",
+   "protect"
+  ],
+  "total_checks": 600
+ },
+ "imported_inputs": [
+  "fresh occurrence supply (canonical next numeral)",
+  "protection",
+  "budget/activation (declared, never carried by a proposal record)",
+  "the declared one-edge grammar",
+  "metatheoretic driver iteration"
+ ],
+ "internal_fragment": {
+  "all_graph_stores_fixed": true,
+  "max_trace_length": 2,
+  "per_state": [
+   {
+    "alphabet": 4,
+    "state": "genesis",
+    "traces": 21
+   },
+   {
+    "alphabet": 26,
+    "state": "pre_observational",
+    "traces": 703
+   },
+   {
+    "alphabet": 26,
+    "state": "blind_pair",
+    "traces": 703
+   },
+   {
+    "alphabet": 26,
+    "state": "separated_pair",
+    "traces": 703
+   },
+   {
+    "alphabet": 52,
+    "state": "refinable",
+    "traces": 2757
+   },
+   {
+    "alphabet": 52,
+    "state": "supply_stages",
+    "traces": 2757
+   },
+   {
+    "alphabet": 52,
+    "state": "path3",
+    "traces": 2757
+   },
+   {
+    "alphabet": 26,
+    "state": "terminal",
+    "traces": 703
+   }
+  ],
+  "traces_checked": 11104
+ },
+ "obstruction_lift": {
+  "complete_family": [
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      0
+     ]
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ]
+  ],
+  "every_obstruction_resolved_in_carrier": true,
+  "every_response_fixes_graph_stores": true,
+  "every_response_resolves": true,
+  "family_nonempty": true,
+  "four_conditions": {
+   "all_four": true,
+   "observation_declared": true,
+   "observer_zero_on_the_pair": true,
+   "protected": true,
+   "retained": true
+  },
+  "general_in_carrier_resolutions": [
+   {
+    "block_in_family": true,
+    "carrier_after": 2,
+    "carrier_before": 2,
+    "graph_stores_fixed": true,
+    "hypotheses_hold": true,
+    "obstructed_after": false,
+    "obstructed_before": true,
+    "pair": [
+     0,
+     1
+    ],
+    "resolved_in_carrier": true,
+    "state": "blind_pair"
+   },
+   {
+    "block_in_family": true,
+    "carrier_after": 3,
+    "carrier_before": 3,
+    "graph_stores_fixed": true,
+    "hypotheses_hold": true,
+    "obstructed_after": false,
+    "obstructed_before": true,
+    "pair": [
+     1,
+     2
+    ],
+    "resolved_in_carrier": true,
+    "state": "refinable"
+   },
+   {
+    "block_in_family": true,
+    "carrier_after": 2,
+    "carrier_before": 2,
+    "graph_stores_fixed": true,
+    "hypotheses_hold": false,
+    "obstructed_after": true,
+    "obstructed_before": true,
+    "pair": [
+     0,
+     1
+    ],
+    "resolved_in_carrier": false,
+    "state": "terminal"
+   }
+  ],
+  "no_response_grows_the_carrier": true,
+  "not_claimed": "that no other declared response family could grow the carrier; only the family the kernel computes from the represented state is covered",
+  "obstructions_meeting_the_hypotheses": 2,
+  "responses_checked_for_growth": 7,
+  "verdict": "irreducible: the four obstruction conditions are satisfiable at states whose complete internal response family is nonempty and resolves the obstruction with no carrier change, and no represented response at any declared sample state grows the carrier \u2014 so the growth demand is a separately declared premise, not an obstruction consequence",
+  "witness_state": {
+   "obs": [],
+   "occ": [
+    0,
+    1
+   ],
+   "prot": [
+    [
+     0,
+     1
+    ]
+   ],
+   "wit": [
+    [
+     0,
+     1
+    ]
+   ]
+  }
+ },
+ "proposals": {
+  "all_obligations_discharged": true,
+  "carries_no_authority_field": true,
+  "execution_is_separately_gated": true,
+  "obligation_keys": [
+   "block_complete",
+   "retract_embed_identity",
+   "token_fresh",
+   "preserves_asserted",
+   "preserves_wit",
+   "preserves_prot",
+   "preserves_separated",
+   "new_pair_provenance",
+   "parent_represented",
+   "fresh_position_is_next",
+   "carries_no_authority_field"
+  ],
+  "per_state": {
+   "blind_pair": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    }
+   ],
+   "genesis": [],
+   "path3": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    }
+   ],
+   "pre_observational": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    }
+   ],
+   "refinable": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 6,
+     "separated_pairs_before": 4,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 6,
+     "separated_pairs_before": 4,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 6,
+     "separated_pairs_before": 4,
+     "token_fresh": true
+    }
+   ],
+   "separated_pair": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 4,
+     "separated_pairs_before": 2,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 4,
+     "separated_pairs_before": 2,
+     "token_fresh": true
+    }
+   ],
+   "supply_stages": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    }
+   ],
+   "terminal": [
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    },
+    {
+     "block_complete": true,
+     "carries_no_authority_field": true,
+     "cost": 4,
+     "family_is_complete_not_selected": true,
+     "fresh_position_is_next": true,
+     "new_pair_provenance": true,
+     "parent_represented": true,
+     "preserves_asserted": true,
+     "preserves_prot": true,
+     "preserves_separated": true,
+     "preserves_wit": true,
+     "retract_embed_identity": true,
+     "separated_pairs_after": 0,
+     "separated_pairs_before": 0,
+     "token_fresh": true
+    }
+   ]
+  },
+  "record_fields": [
+   "block",
+   "embed",
+   "retract",
+   "new_pair",
+   "parent_pos",
+   "fresh_pos",
+   "cost"
+  ]
+ },
+ "ties": {
+  "blocks_differ": true,
+  "both_complete_members": true,
+  "carrier": 3,
+  "cost": 4,
+  "equal_cost": true,
+  "executions_non_isomorphic": true,
+  "family_size_equals_parent_count": true,
+  "iso_carrier": 4,
+  "left_edges": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    3
+   ]
+  ],
+  "right_edges": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    3
+   ]
+  ]
+ },
+ "transport": {
+  "act_up_comm_all_perms": true,
+  "carrier": 3,
+  "checks": 18,
+  "cost_invariant_under_renaming": true,
+  "permutation_group_size": 6,
+  "transported_block_is_complete_member": true,
+  "transported_obligations_discharged": true
+ }
+}
