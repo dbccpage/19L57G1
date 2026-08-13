@@ -529,7 +529,7 @@
  },
  "stable_content": {
   "carrier": 3,
-  "claim": "protected separation is SUFFICIENT for trace stability; the converse is FALSE (two countermodels); the exact characterization on the live funded class is OPEN",
+  "claim": "protected separation is SUFFICIENT for trace stability; the converse is FALSE (absorbed-state countermodel); a separate unfunded example is restricted-fragment only; the exact characterization on the live funded class is OPEN",
   "converse_false_absorbed": {
    "every_event_inert": true,
    "not_protected": true,
@@ -537,11 +537,11 @@
    "trace_stable_but_unprotected": true
   },
   "converse_false_unfunded": {
-   "internal_events_leave_budget_zero": true,
-   "internal_events_leave_obs_fixed": true,
-   "internally_stable_but_unprotected": true,
    "live": true,
    "not_protected": true,
+   "restricted_events_leave_budget_zero": true,
+   "restricted_events_leave_obs_fixed": true,
+   "restricted_stable_but_unprotected": true,
    "separated": true
   },
   "instability_needs_witness": {

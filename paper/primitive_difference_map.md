@@ -286,20 +286,26 @@ metric, measure, or amplitude.
   extended state is covered); block and family transport respecting
   identity and composition; the naturality square closing under
   composition; and the family carrying whole orbits with no selected
-  representative.  Only after those laws is `Up` called equivariant,
+  representative.  `upFamily_orbit_closed` names the exact transported
+  block, rather than proving only that the target family is nonempty.
+  Only after those laws is `Up` called equivariant,
   and the summary theorem states its exact scope.  Weaker data
-  supplies none of it: an arbitrary non-bijective map has no left
+  does not instantiate it: an arbitrary non-bijective map has no left
   inverse and its pushforward turns an irreflexive store into
-  self-pairs the guard refuses; equal carrier size and equal cost
-  supply no law at all.
+  self-pairs the guard refuses.  This does not rule out other monoid
+  actions by non-bijective maps; equal carrier size and equal cost do
+  not supply relatedness or identification.
 - Trace stability (`StableContent`, audit-repaired).  Protected
   separation is SUFFICIENT for trace stability - supply never
   touches observation, columns only add separators, and refinement
   is guarded by monotone preservation of protected separations -
   and that sufficiency is all that is proved.  The CONVERSE IS
-  FALSE: on an absorbed state every replay is inert, and on a live
-  but unfunded state no internal event can change the observation,
-  so in both an UNPROTECTED separation is stable.  Instability is
+  FALSE on an absorbed state, where every replay is inert.  A second,
+  narrower countermodel is live but unfunded: no event in the stated
+  restricted fragment changes the observation, so an UNPROTECTED
+  separation is stable for that fragment.  The restriction omits
+  occurrence admission, budget setting, and license setting and makes
+  no ownership claim.  Instability is
   witness-borne: it takes a funded accepted refinement routed
   through the separating column.  Whether stability coincides with
   protection on the live funded class is OPEN.  Quiescence is a

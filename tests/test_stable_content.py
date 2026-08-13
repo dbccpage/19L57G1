@@ -8,7 +8,7 @@ from derivation.primitive_passage import GENESIS_P, PS, pstep
 from derivation.stable_content import (
     event_battery,
     halted_countermodel,
-    is_env_event,
+    is_trace_excluded_event,
     persistence_check,
     prot_sep,
     quiescence_check,
@@ -50,27 +50,27 @@ def test_converse_is_false_absorbed() -> None:
 
 
 def test_converse_is_false_unfunded() -> None:
-    """Countermodel 2: a live but unfunded state admits no internal
-    observation change, so an UNPROTECTED separation is internally
-    stable."""
+    """Countermodel 2: a live but unfunded state admits no change in
+    the explicitly restricted trace fragment, so an UNPROTECTED
+    separation is restricted-stable."""
     cm = unfunded_countermodel()
     assert cm == {
         "live": True,
         "separated": True,
         "not_protected": True,
-        "internal_events_leave_obs_fixed": True,
-        "internal_events_leave_budget_zero": True,
-        "internally_stable_but_unprotected": True,
+        "restricted_events_leave_obs_fixed": True,
+        "restricted_events_leave_budget_zero": True,
+        "restricted_stable_but_unprotected": True,
     }
-    # the environment CAN refund — which is why budget is
-    # environment-owned and this is only internal stability
+    # setBudget leaves the restricted fragment.  This is a syntactic
+    # boundary, not a claim about who owns the event.
     s = PS(occ=(0, 1), obs=((0,),), budget=0)
     assert pstep(s, ("setBudget", 3)).budget == 3
-    assert is_env_event(("setBudget", 3))
-    assert is_env_event(("admitOcc", 5))
-    assert is_env_event(("setLicense", True))
-    assert not is_env_event(("refineCol", (0,), 1))
-    assert not is_env_event(("addCol", (0,)))
+    assert is_trace_excluded_event(("setBudget", 3))
+    assert is_trace_excluded_event(("admitOcc", 5))
+    assert is_trace_excluded_event(("setLicense", True))
+    assert not is_trace_excluded_event(("refineCol", (0,), 1))
+    assert not is_trace_excluded_event(("addCol", (0,)))
 
 
 def test_instability_needs_witness() -> None:
@@ -150,6 +150,6 @@ def test_runner_includes_repaired_section(tmp_path: object) -> None:
     assert sc["converse_false_absorbed"][
         "trace_stable_but_unprotected"] is True
     assert sc["converse_false_unfunded"][
-        "internally_stable_but_unprotected"] is True
+        "restricted_stable_but_unprotected"] is True
     assert sc["instability_needs_witness"][
         "after_broken_unprotected"] is True

@@ -11,7 +11,9 @@ transport of blocks and of the complete Up family respecting identity
 and composition; coherence of replay commutation under composed
 renamings; orbit closure with no selected representative; and the
 three countermodels — equal carrier size, equal cost, and an
-arbitrary non-bijective map — each supplying none of the laws."""
+arbitrary non-bijective map.  The last does not instantiate the
+inverse/group-action or equivariance structure; no claim is made
+against other monoid actions by non-bijective maps."""
 
 from __future__ import annotations
 
