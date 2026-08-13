@@ -97,6 +97,8 @@ def receipt() -> dict[str, Json]:
             "attachment_shape_carrier": 4,
             "attachment_orbit_carrier": 3,
             "ladder_general_dims_decided": [2, 3, 4, 5],
+            "renaming_symmetric_group": 6,
+            "renaming_assoc_triples": 216,
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -305,6 +307,34 @@ def receipt() -> dict[str, Json]:
                           "quiescence_is_protected_separation "
                           "(a statement about protSep, NOT about "
                           "trace stability)"]},
+            {"tag": "UP_IS_EQUIVARIANT_EARNED",
+             "status": "THEOREM + COUNTERMODEL",
+             "evidence": ["group laws: RenamingStructure.comp_id / "
+                          "id_comp / comp_assoc / inv_comp / "
+                          "comp_inv / inv_inv, via Renaming.ext",
+                          "action laws: RenamingStructure.act_id "
+                          "(unconditional) / act_comp (scope "
+                          "n <= occ.length) / act_inv",
+                          "transport respects the structure: "
+                          "upBlock_id / upBlock_comp / upFamily_id / "
+                          "upFamily_comp / upFamily_transport_id / "
+                          "upFamily_transport_comp",
+                          "coherence: act_up_comm_comp + "
+                          "act_up_comm_twostep (the naturality "
+                          "square closes under composition)",
+                          "no selected representative: "
+                          "upFamily_orbit_closed / "
+                          "star_orbit_both_present / "
+                          "upFamily_length",
+                          "countermodels supplying NO law: "
+                          "collapse_not_a_renaming + "
+                          "collapse_pushforward_ill_formed "
+                          "(arbitrary non-bijective map), "
+                          "equal_size_supplies_no_law, "
+                          "equal_cost_supplies_no_law",
+                          "the word 'equivariant' is used only in "
+                          "RenamingStructure.equivariance_summary, "
+                          "after the laws, with its exact scope"]},
             {"tag": "TARGET_RELATIVE_COMPRESSION",
              "status": "THEOREM + COUNTERMODEL",
              "evidence": ["Compression.factors_iff_fiberConstant + "

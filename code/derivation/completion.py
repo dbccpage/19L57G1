@@ -58,6 +58,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "LadderGeneral": ["LadderGeneral.lean"],
     "Compression": ["Compression.lean"],
     "StableContent": ["StableContent.lean"],
+    "RenamingStructure": ["RenamingStructure.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")

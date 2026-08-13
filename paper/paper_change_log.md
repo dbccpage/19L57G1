@@ -785,3 +785,30 @@ is therefore retained only as the OPEN obligation label
    with Git blobs is verified for the current tracked inputs, not made
    true by definition for arbitrary files.
 
+## Goal 1 - the renaming structure around Up (2026-08-13)
+
+`Attachment` transported a single renaming; a transported arrow is
+neither an action nor functoriality.  This pass supplies the missing
+structure and proves its laws BEFORE using the vocabulary.
+
+1. Identity, inverse and composition defined on `Renaming n`, with
+   the group laws proved via a componentwise extensionality
+   principle.
+2. `act` proved to be an action: identity unconditionally,
+   composition on the scope `n <= occ.length` (weakened from
+   equality precisely so the extended state is covered), inversion
+   as a consequence.
+3. Block and family transport proved to respect identity and
+   composition.
+4. Coherence proved: replay of an `Up` block commutes with a
+   composed renaming, and the composite and two-step routes agree.
+5. Orbit closure proved with no selected representative; the family
+   has exactly one block per represented parent.
+6. Three countermodels recorded: an arbitrary non-bijective map (no
+   left inverse; pushforward is not even a legal store), equal
+   carrier size, and equal cost.  They do not instantiate the proved
+   renaming/equivariance structure; no universal claim is made against
+   other monoid actions by non-bijective maps.
+7. Only then, in `equivariance_summary`, is `Up` described as
+   equivariant, with the exact scope stated in the same theorem.
+

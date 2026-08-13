@@ -4665,9 +4665,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
    "consumers": [
-    "ControllerCategory.lean"
+    "ControllerCategory.lean",
+    "RenamingStructure.lean"
    ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -4677,9 +4680,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
    "consumers": [
-    "ControllerCategory.lean"
+    "ControllerCategory.lean",
+    "RenamingStructure.lean"
    ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -4689,9 +4695,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
    "consumers": [
-    "ControllerCategory.lean"
+    "ControllerCategory.lean",
+    "RenamingStructure.lean"
    ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -7999,9 +8008,12 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
    "consumers": [
-    "PrimitiveCats.lean"
+    "PrimitiveCats.lean",
+    "RenamingStructure.lean"
    ],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8014,9 +8026,12 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
    "consumers": [
-    "PrimitiveCats.lean"
+    "PrimitiveCats.lean",
+    "RenamingStructure.lean"
    ],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8029,9 +8044,12 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
    "consumers": [
-    "PrimitiveCats.lean"
+    "PrimitiveCats.lean",
+    "RenamingStructure.lean"
    ],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8595,7 +8613,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.up_iff_legal",
@@ -8625,7 +8645,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.up_executes",
@@ -8648,7 +8670,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.Renaming.gbound",
@@ -8661,7 +8685,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.Renaming.gfix",
@@ -8674,7 +8700,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.Renaming.fbound_iff",
@@ -8686,7 +8714,9 @@
     "propext"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.getD_lt",
@@ -8715,7 +8745,9 @@
     "propext"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.act_occ_length",
@@ -8756,7 +8788,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.upBlock_transport",
@@ -8783,7 +8817,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.upFamily_transport",
@@ -8798,7 +8834,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.act_up_comm",
@@ -9209,7 +9247,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.equal_size_not_renaming_related",
@@ -9224,7 +9264,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "RenamingStructure.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.equal_cost_non_isomorphic_extensions",
@@ -9991,6 +10033,424 @@
    "name": "StableContent.quiescent_retained_protected_trace_stable",
    "role": "preservation",
    "statement": "(s : PState) (cols : List (List Nat)) (hobs : s.obs = some cols) (hq : quiescentP s) : \u2200 pr, pr \u2208 s.prot \u2192 pr \u2208 s.wit \u2192 TraceStableSep s pr.1 pr.2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [
+    "Represented.lean"
+   ],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.Renaming.ext",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (hf : \u03c3.f = \u03c4.f) (hg : \u03c3.g = \u03c4.g) : \u03c3 = \u03c4"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [
+    "ControllerCategory.lean",
+    "PrimitiveCats.lean"
+   ],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.comp_id",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : compRen \u03c3 (idRen n) = \u03c3"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [
+    "ControllerCategory.lean",
+    "PrimitiveCats.lean"
+   ],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.id_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : compRen (idRen n) \u03c3 = \u03c3"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [
+    "ControllerCategory.lean",
+    "PrimitiveCats.lean"
+   ],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.comp_assoc",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 \u03c1 : Renaming n) : compRen (compRen \u03c3 \u03c4) \u03c1 = compRen \u03c3 (compRen \u03c4 \u03c1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.inv_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : compRen (invRen \u03c3) \u03c3 = idRen n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.comp_inv",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : compRen \u03c3 (invRen \u03c3) = idRen n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.inv_inv",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : invRen (invRen \u03c3) = \u03c3"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.map_getD_range",
+   "role": "preservation",
+   "statement": "(l : List Nat) : (List.range l.length).map (fun j => l.getD j 0) = l"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.act_id",
+   "role": "preservation",
+   "statement": "(n : Nat) (s : PState) : act (idRen n) s = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.act_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n \u2264 s.occ.length) : act (compRen \u03c3 \u03c4) s = act \u03c3 (act \u03c4 s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.act_inv",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n \u2264 s.occ.length) : act (invRen \u03c3) (act \u03c3 s) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upBlock_id",
+   "role": "preservation",
+   "statement": "(n : Nat) (s : PState) (p : Nat) : upBlock (act (idRen n) s) ((idRen n).f p) = upBlock s p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upBlock_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n \u2264 s.occ.length) (p : Nat) : upBlock (act (compRen \u03c3 \u03c4) s) ((compRen \u03c3 \u03c4).f p) = upBlock (act \u03c3 (act \u03c4 s)) (\u03c3.f (\u03c4.f p))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upFamily_id",
+   "role": "preservation",
+   "statement": "(n : Nat) (s : PState) : upFamily (act (idRen n) s) = upFamily s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upFamily_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n \u2264 s.occ.length) : upFamily (act (compRen \u03c3 \u03c4) s) = upFamily (act \u03c3 (act \u03c4 s))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upFamily_transport_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n = s.occ.length) (p : Nat) : (upBlock s p \u2208 upFamily s \u2194 upBlock (act (compRen \u03c3 \u03c4) s) ((compRen \u03c3 \u03c4).f p) \u2208 upFamily (act (compRen \u03c3 \u03c4) s))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upFamily_transport_id",
+   "role": "preservation",
+   "statement": "(n : Nat) (s : PState) (p : Nat) : (upBlock s p \u2208 upFamily s \u2194 upBlock (act (idRen n) s) ((idRen n).f p) \u2208 upFamily (act (idRen n) s))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.wf_act",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) : WFStores (act \u03c3 s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.act_up_comm_comp",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : act (compRen \u03c3 \u03c4) (replayP (upBlock s p) s) = replayP (upBlock (act \u03c3 (act \u03c4 s)) (\u03c3.f (\u03c4.f p))) (act \u03c3 (act \u03c4 s))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.act_up_comm_twostep",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : act \u03c3 (act \u03c4 (replayP (upBlock s p) s)) = replayP (upBlock (act \u03c3 (act \u03c4 s)) (\u03c3.f (\u03c4.f p))) (act \u03c3 (act \u03c4 s))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upFamily_orbit_closed",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (b : List PEvent) (hb : b \u2208 upFamily s) : \u2203 b', b' \u2208 upFamily (act \u03c3 s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.star_orbit_both_present",
+   "role": "preservation",
+   "statement": ": upBlock (treeAt starPolL 2) 1 \u2208 upFamily (treeAt starPolL 2) \u2227 upBlock (treeAt starPolL 2) 2 \u2208 upFamily (treeAt starPolL 2) \u2227 upBlock (treeAt starPolL 2) 1 \u2260 upBlock (treeAt starPolL 2) 2"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.upFamily_length",
+   "role": "preservation",
+   "statement": "(s : PState) : (upFamily s).length = s.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.collapse_not_a_renaming",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 g : Nat \u2192 Nat, \u2200 x, g (collapseMap x) = x"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.collapse_pushforward_ill_formed",
+   "role": "preservation",
+   "statement": ": rawRenamePairs collapseMap (treeAt pathPolL 2).wit = [(0, 0), (0, 0)] \u2227 (\u2200 pr \u2208 rawRenamePairs collapseMap (treeAt pathPolL 2).wit, pr.1 = pr.2) \u2227 (\u2200 pr \u2208 (treeAt pathPolL 2).wit, pr.1 \u2260 pr.2)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.equal_size_supplies_no_law",
+   "role": "preservation",
+   "statement": ": (upFamily (treeAt starPolL 2) = upFamily (treeAt pathPolL 2)) \u2227 \u2200 (n : Nat) (\u03c3 : Renaming n), act \u03c3 (treeAt starPolL 2) \u2260 treeAt pathPolL 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.equal_cost_supplies_no_law",
+   "role": "preservation",
+   "statement": ": (upBlock (treeAt pathPolL 2) 1 \u2208 upFamily (treeAt pathPolL 2)) \u2227 (upBlock (treeAt pathPolL 2) 2 \u2208 upFamily (treeAt pathPolL 2)) \u2227 ((upBlock (treeAt pathPolL 2) 1).length = (upBlock (treeAt pathPolL 2) 2).length) \u2227 ((tuples4.all fun t => !(isoMatch t (replayP (upBlock (treeAt pathPolL 2) 1) (treeAt pathPolL 2)).wit (replayP (upBlock (treeAt pathPolL 2) 2) (treeAt pathPolL 2)).wit)) = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RenamingStructure.lean",
+   "name": "RenamingStructure.equivariance_summary",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : -- group laws compRen \u03c3 (idRen n) = \u03c3 \u2227 compRen (invRen \u03c3) \u03c3 = idRen n \u2227 -- action laws act (idRen n) s = s \u2227 act (compRen \u03c3 \u03c4) s = act \u03c3 (act \u03c4 s) \u2227 -- transport respects the structure upFamily (act (idRen n) s) = upFamily s \u2227 upFamily (act (compRen \u03c3 \u03c4) s) = upFamily (act \u03c3 (act \u03c4 s)) \u2227 -- coherence of replay commutation under composition act (compRen \u03c3 \u03c4) (replayP (upBlock s p) s) = replayP (upBlock (act \u03c3 (act \u03c4 s)) (\u03c3.f (\u03c4.f p))) (act \u03c3 (act \u03c4 s))"
   }
  ]
 }
