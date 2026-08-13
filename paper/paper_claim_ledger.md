@@ -2031,3 +2031,128 @@ CL-PD2-LADDER)
   duplicate policy, signed fixture, descent classification, and failed-climb
   dispositions. Bounds remain explicit.
 
+### CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)
+- **Statement**: the PR declares a finite one-step signature and proves
+  that every accepted transition in `WFClass` has exactly one of its
+  thirteen codes (`sig_eq_classSig`, `classSig_inj`,
+  `exists_unique_class`).  Erasing the guard leaves twelve declared
+  code values (`declared_codebook_size`,
+  `guard_erased_codebook_size`).  These are image sizes of this exact
+  event grammar and projection; they are not a native alphabet or a
+  quotient of histories.
+- **Load-bearing negative theorem**: code equality is not a right
+  congruence.  At genesis, `admitOcc 0` and `admitOcc 2` have the same
+  code, yet a common suffix `admitOcc 0` separates their results.
+  Likewise, two budget writes have one code but a following extension
+  distinguishes them (`classSig_not_right_congruent_occurrence`,
+  `classSig_not_right_congruent_budget`).  Codes must therefore never
+  replace raw events or states in replay.
+- **What the finite computation says**: over the declared 6,144-state,
+  18-event battery there are 21 full accepted profiles, 13 projected
+  signatures, and 12 guard-erased signatures.  All thirteen declared
+  codes occur in that finite well-formed space.  This does not prove
+  that every code is genesis-reachable or invariant under a different
+  presentation.
+- **Policy labels, not provenance**: the legacy `Origin` field is a
+  constructor classification.  It is not evidence of issuer,
+  capability, or causal origin: `nextFamilyP` itself emits
+  `setBudget 1`, classified as `environment`.  The exact emission and
+  non-emission theorems are retained, but no ownership conclusion is
+  drawn from the label.
+- **Scope limits**: no contextual quotient, renaming invariance,
+  presentation-independent cardinality, or DDA correspondence is
+  claimed.  Witness minimality is only exhaustive computation within
+  the declared finite space, not a Lean theorem or a reachable-state
+  theorem.
+- **Class**: declared projection + coverage theorem + countermodels +
+  bounded computation.
+- **Lean**: `TransitionAlphabet.accepted_eq_guardHolds`,
+  `.halted_accepts_nothing`, `.sig_eq_classSig`, `.classSig_inj`,
+  `.exists_unique_class`, `.wf_of_replay`,
+  `.declared_codebook_size`, `.guard_erased_codebook_size`,
+  `.classSig_not_right_congruent_occurrence`,
+  `.classSig_not_right_congruent_budget`,
+  `.refine_addCol_effect_merge`, `.refine_addCol_domain_countermodel`,
+  `.internal_family_emits_budget_write`,
+  `.internal_family_env_only_unit_funding`.
+- **Python**: `transition_alphabet.json` records all bounds, the three
+  image sizes, and both common-suffix countermodels.
+
+### CL-PD2-TRACE-ALGEBRA (Goal 3)
+- **Statement**: a typed transition record binds pre-state, event,
+  discharged guard, post-state, effect class, resource delta, and the
+  complete computed profile;
+  legal traces are aligned chains of well-formed records; and replay
+  ERASES typed traces back to the existing semantics
+  (`replay_erases`, `legal_trace_replays`).  From there the laws are
+  DERIVED, not assumed.
+  (i) Inertness is exact: a step is inert iff its guard fails
+  (`inert_iff_guard_fails`).  (ii) The terminal absorbs
+  (`terminal_absorbs`, `trace_absorbs`).  (iii) IDEMPOTENCE IS
+  UNIVERSAL, which is stronger than expected: `step_idem` holds for
+  EVERY event at EVERY state - the funded events are idempotent
+  because a refined column leaves the menu and a created column is
+  already present.  (iv) Three sufficient FRAME families are proved,
+  not a necessary or exhaustive classification: `frame_licS`,
+  `frame_budS` and `frame_occS` over declared insensitivity predicates give
+  `comm_setLicense`, `comm_setBudget`, `comm_setBudget_setLicense`,
+  `comm_admitOcc`.  (v) FIVE non-commutation countermodels
+  (`noncomm_license_extension`, `noncomm_budget_extension`,
+  `noncomm_terminal`, `noncomm_supply_retention`,
+  `noncomm_same_store`), with `same_store_observationally_equal`
+  keeping presentation identity apart from observational agreement.
+  (vi) Traces restricted by the declared policy classifier preserve
+  occurrence and license (`internal_trace_preserves_occ`,
+  `internal_trace_preserves_license`); this is a syntactic fragment,
+  not an issuer-provenance theorem.  (vii) Refusal records are
+  append-only under every event and every trace and cannot be erased
+  as inert syntax (`refusal_persists_step`, `refusal_persists_replay`,
+  `refusal_not_erasable`).  (viii) Replay equivalence is SCOPED:
+  `replay_eqv_scoped` holds on a declared start class while
+  `replay_eqv_not_unscoped` refutes the unscoped form.
+- **The rewrite system, and exactly where it is sound**: a two-rule
+  state-independent system on event lists - adjacent idempotence and
+  post-terminal absorption, closed under context.  Proved SOUND at
+  every start state (`rw_sound`, `rwStar_sound`), TERMINATING by
+  strict length decrease (`rw_length`), and CONFLUENT with unique
+  normal forms (`rw_confluent`, `nf_unique`, `nf_noRedex`,
+  `noRedex_nf_eq`).
+- **Not claimed: completeness of this rewrite system.**
+  `rewrite_not_complete` exhibits two lists that replay identically from
+  every state but receive different `nf` values. This refutes completeness
+  of this two-rule normalizer only; it does not prove impossibility of a richer
+  canonicalizer for universal or start-scoped replay equivalence. Commutation
+  reordering was not added because same-store writes need not commute, and
+  inert deletion is state-dependent.
+- **Scope limits, stated**: there is no general "disjoint support
+  implies commutes" theorem, and it is false, because guards read
+  fields their step never writes; only the three frame families are
+  theorems, and the remaining entries of the 153-pair commutation
+  matrix (91 commuting, 62 not) are battery computations.  Tightness
+  of the insensitivity predicates is checked, not characterized -
+  and three exclusions involving the terminal hold one-sidedly, which
+  is recorded as an explanation rather than a theorem.  Observational
+  equivalence is never converted into equality and no quotient is
+  claimed to be a congruence.
+- **Class**: theorem + countermodel + finite computation + explicit
+  incompleteness.
+- **Lean**: `TraceAlgebra.replay_erases`, `.legal_trace_replays`,
+  `.inert_iff_guard_fails`, `.terminal_absorbs`, `.trace_absorbs`,
+  `.step_idem`, `.frame_licS`, `.frame_budS`, `.frame_occS`,
+  `.comm_setLicense`, `.comm_setBudget`,
+  `.comm_setBudget_setLicense`, `.comm_admitOcc`,
+  `.noncomm_license_extension`, `.noncomm_budget_extension`,
+  `.noncomm_terminal`, `.noncomm_supply_retention`,
+  `.noncomm_same_store`, `.same_store_observationally_equal`,
+  `.internal_trace_preserves_occ`,
+  `.internal_trace_preserves_license`,
+  `.internal_blocks_cannot_supply_or_license`,
+  `.refusal_persists_step`, `.refusal_persists_replay`,
+  `.refusal_not_erasable`, `.replay_eqv_scoped`,
+  `.replay_eqv_not_unscoped`, `.rw_sound`, `.rwStar_sound`,
+  `.rw_length`, `.rw_confluent`, `.nf_unique`, `.nf_sound`,
+  `.rewrite_not_complete`.
+- **Python**: `trace_algebra.json` - declared bounds recorded there
+  (rewrite alphabet of 4 events, lists to length 3, 12 named
+  soundness states, the 153-pair commutation matrix).
+

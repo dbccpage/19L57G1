@@ -6093,7 +6093,8 @@
     "CL-PD2-PASSAGE"
    ],
    "consumers": [
-    "GraphGenesis.lean"
+    "GraphGenesis.lean",
+    "TransitionAlphabet.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6109,7 +6110,8 @@
    "citing_claims": [],
    "consumers": [
     "HigherStructure.lean",
-    "StableContent.lean"
+    "StableContent.lean",
+    "TransitionAlphabet.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6535,7 +6537,9 @@
    "consumers": [
     "Attachment.lean",
     "ControllerCategory.lean",
-    "StableContent.lean"
+    "StableContent.lean",
+    "TraceAlgebra.lean",
+    "TransitionAlphabet.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6551,7 +6555,9 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.terminal_absorbing",
@@ -9810,7 +9816,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "TransitionAlphabet.lean"
+   ],
    "kind": "generic",
    "module": "StableContent.lean",
    "name": "StableContent.sepP_append",
@@ -11831,6 +11839,2493 @@
    "name": "WeightProfile.finite_scope_summary",
    "role": "preservation",
    "statement": "(l : List Nat) (w v : Weights) (hw : 0 < total l w) (hv : 0 < total l v) (a : Nat) (ha : 0 < a) : (SameProfile l w v \u2194 \u2203 p q, 0 < p \u2227 0 < q \u2227 \u2200 x \u2208 l, p * w x = q * v x) \u2227 (SameProfile l (fun p => a * w p) w \u2227 0 < total l (fun p => a * w p)) \u2227 (\u2200 (m : Nat \u2192 Nat) (c : Nat \u2192 Nat), Presents l m c w \u2192 SameProfile l (fun p => m (c p)) w)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.accepted_true_iff",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : Accepted s e = true \u2194 step s e \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.accepted_false_iff",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : Accepted s e = false \u2194 step s e = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.halted_accepts_nothing",
+   "role": "preservation",
+   "statement": "(s : PState) (h : s.halted = true) (e : PEvent) : Accepted s e = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.halt_inert_on_halted",
+   "role": "preservation",
+   "statement": "(s : PState) (h : s.halted = true) : step s .halt = s \u2227 Accepted s .halt = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.append_ne",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (l : List \u03b1) (a : \u03b1) : l ++ [a] \u2260 l"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.occS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) : occS s t \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.assS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : assS s i j \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.witS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : witS s i j \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.protS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : protS s i j \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refuseS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : refuseS s i j \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obsS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (h : s.obs = none) : obsS s \u2260 s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.budS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (h : n \u2260 s.budget) : budS s n \u2260 s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.licS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (h : b \u2260 s.licensed) : licS s b \u2260 s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.haltS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (h : s.halted = false) : haltS s \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refineS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (hb : 0 < s.budget) : refineS s cols v p \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.colS_ne",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (c : List Nat) (hb : 0 < s.budget) : colS s cols c \u2260 s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refineOk_declared",
+   "role": "preservation",
+   "statement": "(s : PState) (v : List Nat) (p : Nat) (h : refineOk s v p = true) : \u2203 cols, s.obs = some cols"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.colOk_declared",
+   "role": "preservation",
+   "statement": "(s : PState) (c : List Nat) (h : colOk s c = true) : \u2203 cols, s.obs = some cols"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_admitOcc_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) (hh : s.halted = false) (hm : t \u2209 s.occ) : step s (.admitOcc t) = occS s t"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_admitOcc_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) (hh : s.halted = false) (hm : t \u2208 s.occ) : step s (.admitOcc t) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_assertWit_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : (wfPair s i j && !(decide ((i, j) \u2208 s.asserted))) = true) : step s (.assertWit i j) = assS s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_assertWit_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : (wfPair s i j && !(decide ((i, j) \u2208 s.asserted))) = false) : step s (.assertWit i j) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_admitWit_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : (wfPair s i j && (decide ((i, j) \u2208 s.asserted)) && !(decide ((i, j) \u2208 s.wit))) = true) : step s (.admitWit i j) = witS s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_admitWit_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : (wfPair s i j && (decide ((i, j) \u2208 s.asserted)) && !(decide ((i, j) \u2208 s.wit))) = false) : step s (.admitWit i j) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_protect_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : ((decide ((i, j) \u2208 s.wit)) && !(decide ((i, j) \u2208 s.prot))) = true) : step s (.protect i j) = protS s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_protect_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : ((decide ((i, j) \u2208 s.wit)) && !(decide ((i, j) \u2208 s.prot))) = false) : step s (.protect i j) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_declareObs_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (hh : s.halted = false) (ho : s.obs = none) : step s .declareObs = obsS s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_declareObs_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (hh : s.halted = false) (ho : s.obs = some cols) : step s .declareObs = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_refineCol_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (hh : s.halted = false) (ho : s.obs = some cols) (hok : refineOk s v p = true) (hb : 0 < s.budget) : step s (.refineCol v p) = refineS s cols v p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_refineCol_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (v : List Nat) (p : Nat) (hh : s.halted = false) (hg : (refineOk s v p && decide (0 < s.budget)) = false) : step s (.refineCol v p) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_addCol_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (c : List Nat) (hh : s.halted = false) (ho : s.obs = some cols) (hok : colOk s c = true) (hl : s.licensed = true) (hb : 0 < s.budget) : step s (.addCol c) = colS s cols c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_addCol_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (c : List Nat) (hh : s.halted = false) (hg : (colOk s c && s.licensed && decide (0 < s.budget)) = false) : step s (.addCol c) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_refuse_acc",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : (obstP s i j && !(decide ((i, j) \u2208 s.refusals))) = true) : step s (.refuse i j) = refuseS s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_refuse_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (hg : (obstP s i j && !(decide ((i, j) \u2208 s.refusals))) = false) : step s (.refuse i j) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_setBudget_live",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (hh : s.halted = false) : step s (.setBudget n) = budS s n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_setLicense_live",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (hh : s.halted = false) : step s (.setLicense b) = licS s b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.step_halt_eq",
+   "role": "preservation",
+   "statement": "(s : PState) : step s .halt = haltS s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.accepted_eq_guardHolds",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : Accepted s e = guardHolds s e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.filter_notmem_eq_nil",
+   "role": "preservation",
+   "statement": "(l m : List (Nat \u00d7 Nat)) (h : \u2200 x \u2208 l, x \u2208 m) : l.filter (fun r => !(decide (r \u2208 m))) = []"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.filter_congr_mem",
+   "role": "preservation",
+   "statement": "(l : List (Nat \u00d7 Nat)) (f g : (Nat \u00d7 Nat) \u2192 Bool) (h : \u2200 x \u2208 l, f x = g x) : l.filter f = l.filter g"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.filter_all_true",
+   "role": "preservation",
+   "statement": "(l : List (Nat \u00d7 Nat)) (f : (Nat \u00d7 Nat) \u2192 Bool) (h : \u2200 x \u2208 l, f x = true) : l.filter f = l"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.filter_all_false",
+   "role": "preservation",
+   "statement": "(l : List (Nat \u00d7 Nat)) (f : (Nat \u00d7 Nat) \u2192 Bool) (h : \u2200 x \u2208 l, f x = false) : l.filter f = []"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.list_ne_nil_of_mem",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {a : \u03b1} {l : List \u03b1} (h : a \u2208 l) : l \u2260 []"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.isEmpty_not_of_ne",
+   "role": "preservation",
+   "statement": "(l : List (Nat \u00d7 Nat)) (h : l \u2260 []) : (!l.isEmpty) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_sub",
+   "role": "preservation",
+   "statement": "(s : PState) : \u2200 r \u2208 obstructedPairs s, r \u2208 s.prot"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obst_of_mem_obstructedPairs",
+   "role": "preservation",
+   "statement": "(s : PState) (r : Nat \u00d7 Nat) (h : r \u2208 obstructedPairs s) : obstP s r.1 r.2 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.mem_obstructedPairs",
+   "role": "preservation",
+   "statement": "(s : PState) (r : Nat \u00d7 Nat) (h1 : r \u2208 s.prot) (h2 : obstP s r.1 r.2 = true) : r \u2208 obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.lost_nil_of_eq",
+   "role": "preservation",
+   "statement": "(s t : PState) (h : obstructedPairs t = obstructedPairs s) : lostPairs s t = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.gained_nil_of_eq",
+   "role": "preservation",
+   "statement": "(s t : PState) (h : obstructedPairs t = obstructedPairs s) : gainedPairs s t = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstMove_inert_of_eq",
+   "role": "preservation",
+   "statement": "(s t : PState) (h : obstructedPairs t = obstructedPairs s) : coarse (obstEffect s t) = .inert"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstEffect_split_of_inert",
+   "role": "preservation",
+   "statement": "(s t : PState) (h : obstructedPairs t = obstructedPairs s) : (obstructedPairs s = [] \u2192 obstEffect s t = .untouched) \u2227 (obstructedPairs s \u2260 [] \u2192 obstEffect s t = .preserved)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_eq_of_stores",
+   "role": "preservation",
+   "statement": "(s t : PState) (hw : t.wit = s.wit) (hp : t.prot = s.prot) (ho : t.obs = s.obs) : obstructedPairs t = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_occS",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) : obstructedPairs (occS s t) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_assS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : obstructedPairs (assS s i j) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_refuseS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : obstructedPairs (refuseS s i j) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_budS",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) : obstructedPairs (budS s n) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_licS",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) : obstructedPairs (licS s b) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_haltS",
+   "role": "preservation",
+   "statement": "(s : PState) : obstructedPairs (haltS s) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_witS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hsub : \u2200 p \u2208 s.prot, p \u2208 s.wit) : obstructedPairs (witS s i j) = obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_protS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : obstructedPairs (protS s i j) = obstructedPairs s ++ (if obstP (protS s i j) i j = true then [(i, j)] else [])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_obsS",
+   "role": "preservation",
+   "statement": "(s : PState) (ho : s.obs = none) (hsub : \u2200 p \u2208 s.prot, p \u2208 s.wit) : obstructedPairs (obsS s) = s.prot \u2227 obstructedPairs s = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "StableContent.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.sepP_append",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (c : List Nat) (i j : Nat) : sepP (cols ++ [c]) i j = (sepP cols i j || sepCol c i j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.zeroP_append_mono",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (c : List Nat) (i j : Nat) (h : zeroP (cols ++ [c]) i j = true) : zeroP cols i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_colS_sub",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (c : List Nat) (ho : s.obs = some cols) : \u2200 r \u2208 obstructedPairs (colS s cols c), r \u2208 obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.colS_lost_ne_nil",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (c : List Nat) (ho : s.obs = some cols) (hok : colOk s c = true) : lostPairs s (colS s cols c) \u2260 []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstEffect_colS",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (c : List Nat) (ho : s.obs = some cols) (hok : colOk s c = true) : obstEffect s (colS s cols c) = .removed"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.mem_map_refine",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (v : List Nat) (p : Nat) (hv : v \u2208 cols) : (p :: v) \u2208 cols.map (fun c => if c = v then p :: c else c)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstructedPairs_refineS_sub",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (ho : s.obs = some cols) (hok : refineOk s v p = true) : \u2200 r \u2208 obstructedPairs (refineS s cols v p), r \u2208 obstructedPairs s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refineS_lost_ne_nil",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (ho : s.obs = some cols) (hok : refineOk s v p = true) : lostPairs s (refineS s cols v p) \u2260 []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.obstEffect_refineS",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (ho : s.obs = some cols) (hok : refineOk s v p = true) : obstEffect s (refineS s cols v p) = .removed"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.bne_true_of_ne",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} [DecidableEq \u03b1] {a b : \u03b1} (h : a \u2260 b) : (a != b) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.map_replace_ne",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (v : List Nat) (p : Nat) (hv : v \u2208 cols) : cols.map (fun c => if c = v then p :: c else c) \u2260 cols"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_occS",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) : fieldDelta s (occS s t) = fdOcc"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_assS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : fieldDelta s (assS s i j) = fdAsserted"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_witS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : fieldDelta s (witS s i j) = fdWit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_protS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : fieldDelta s (protS s i j) = fdProt"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_refuseS",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : fieldDelta s (refuseS s i j) = fdRefusals"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_obsS",
+   "role": "preservation",
+   "statement": "(s : PState) (ho : s.obs = none) : fieldDelta s (obsS s) = fdObs"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_budS",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (h : n \u2260 s.budget) : fieldDelta s (budS s n) = fdBudget"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_licS",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (h : b \u2260 s.licensed) : fieldDelta s (licS s b) = fdLicensed"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_haltS",
+   "role": "preservation",
+   "statement": "(s : PState) (h : s.halted = false) : fieldDelta s (haltS s) = fdHalted"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_refineS",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (ho : s.obs = some cols) (hv : v \u2208 cols) (hb : 0 < s.budget) : fieldDelta s (refineS s cols v p) = fdObsBudget"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.fieldDelta_colS",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (c : List Nat) (ho : s.obs = some cols) (hb : 0 < s.budget) : fieldDelta s (colS s cols c) = fdObsBudget"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.continuityOf_live",
+   "role": "preservation",
+   "statement": "(t : PState) (h : t.halted = false) : continuityOf t = .continuation"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.continuityOf_halted",
+   "role": "preservation",
+   "statement": "(t : PState) (h : t.halted = true) : continuityOf t = .absorption"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.isEnvOwned_iff_origin",
+   "role": "preservation",
+   "statement": "(e : PEvent) : isEnvOwned e = true \u2194 originOf e = .environment"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.wf_of_wfB",
+   "role": "preservation",
+   "statement": "(s : PState) (h : wfB s = true) : WFClass s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.protSubWit_step",
+   "role": "preservation",
+   "statement": "(s : PState) (hinv : \u2200 p \u2208 s.prot, p \u2208 s.wit) (e : PEvent) : \u2200 p \u2208 (step s e).prot, p \u2208 (step s e).wit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.protSubWit_replay",
+   "role": "preservation",
+   "statement": "(h : List PEvent) : \u2200 p \u2208 (replayP h genesisP).prot, p \u2208 (replayP h genesisP).wit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.wf_of_replay",
+   "role": "preservation",
+   "statement": "(h : List PEvent) (hlive : (replayP h genesisP).halted = false) : WFClass (replayP h genesisP)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.sig_eq_classSig",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFClass s) (e : PEvent) (hacc : Accepted s e = true) : sigOf s e = classSig (classOf s e)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.classSig_inj",
+   "role": "preservation",
+   "statement": "(k\u2081 k\u2082 : EffectClass) (h : classSig k\u2081 = classSig k\u2082) : k\u2081 = k\u2082"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.classSig_pairwise_distinct",
+   "role": "preservation",
+   "statement": "(k\u2081 k\u2082 : EffectClass) (h : k\u2081 \u2260 k\u2082) : classSig k\u2081 \u2260 classSig k\u2082"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.exists_unique_class",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFClass s) (e : PEvent) (hacc : Accepted s e = true) : \u2203 k : EffectClass, sigOf s e = classSig k \u2227 \u2200 k' : EffectClass, sigOf s e = classSig k' \u2192 k' = k"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.allClasses_complete",
+   "role": "preservation",
+   "statement": "(k : EffectClass) : k \u2208 allClasses"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.declared_codebook_size",
+   "role": "preservation",
+   "statement": ": (dedup (allClasses.map classSig)).length = 13"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.guard_erased_codebook_size",
+   "role": "preservation",
+   "statement": ": (dedup (allClasses.map (fun k => eraseGuard (classSig k)))).length = 12"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.classSig_not_right_congruent_occurrence",
+   "role": "preservation",
+   "statement": ": Accepted genesisP (.admitOcc 0) = true \u2227 Accepted genesisP (.admitOcc 2) = true \u2227 sigOf genesisP (.admitOcc 0) = sigOf genesisP (.admitOcc 2) \u2227 step (step genesisP (.admitOcc 0)) (.admitOcc 0) \u2260 step (step genesisP (.admitOcc 2)) (.admitOcc 0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.classSig_not_right_congruent_budget",
+   "role": "preservation",
+   "statement": ": let s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refine_addCol_effect_merge",
+   "role": "preservation",
+   "statement": "(s\u2081 s\u2082 : PState) (hw\u2081 : WFClass s\u2081) (hw\u2082 : WFClass s\u2082) (v : List Nat) (p : Nat) (c : List Nat) (h\u2081 : Accepted s\u2081 (.refineCol v p) = true) (h\u2082 : Accepted s\u2082 (.addCol c) = true) : effectSigOf s\u2081 (.refineCol v p) = effectSigOf s\u2082 (.addCol c)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refine_addCol_domain_countermodel",
+   "role": "preservation",
+   "statement": ": Accepted wRefineUnlicensed (.refineCol [] 0) = true \u2227 Accepted wFundedUnlicensed (.addCol [0]) = false \u2227 Accepted wFunded (.addCol [0]) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.preserved_untouched_not_invariant",
+   "role": "preservation",
+   "statement": ": obstEffect genesisP (step genesisP (.admitOcc 0)) = .untouched \u2227 obstEffect wObstructed (step wObstructed (.admitOcc 5)) = .preserved \u2227 Accepted genesisP (.admitOcc 0) = true \u2227 Accepted wObstructed (.admitOcc 5) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.budgetDelta_not_invariant",
+   "role": "preservation",
+   "statement": ": budgetDeltaOf genesisP (step genesisP (.setBudget 3)) = .rewritten \u2227 budgetDeltaOf (budS genesisP 2) (step (budS genesisP 2) (.setBudget 1)) = .spentOne"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.budgetDelta_of_funded_guard",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFClass s) (e : PEvent) (hacc : Accepted s e = true) (hgk : guardOf e = .refinementAccepted \u2228 guardOf e = .columnAccepted) : budgetDeltaOf s (step s e) = .spentOne"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.refuse_preserves",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFClass s) (i j : Nat) (hacc : Accepted s (.refuse i j) = true) : obstEffect s (step s (.refuse i j)) = .preserved"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.retention_creates_outside_class",
+   "role": "preservation",
+   "statement": ": wfB outsideClass = false \u2227 Accepted outsideClass (.admitWit 0 1) = true \u2227 coarse (obstEffect outsideClass (step outsideClass (.admitWit 0 1))) = .creates"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.nextFamily_block_shape",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) : (\u2203 m : List Nat \u00d7 Nat, b = [PEvent.refineCol m.1 m.2]) \u2228 (\u2203 c : List Nat, b = [PEvent.setBudget 1, PEvent.addCol c])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.internal_family_no_occurrence_supply",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) (t : Nat) : PEvent.admitOcc t \u2209 b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.internal_family_no_license_write",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) (x : Bool) : PEvent.setLicense x \u2209 b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.internal_family_no_terminal",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) : PEvent.halt \u2209 b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.internal_family_emits_budget_write",
+   "role": "preservation",
+   "statement": ": [PEvent.setBudget 1, PEvent.addCol [0]] \u2208 nextFamilyP wObstructed"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.env_ownership_claim_refuted",
+   "role": "preservation",
+   "statement": ": \u2203 (s : PState) (b : List PEvent) (e : PEvent), b \u2208 nextFamilyP s \u2227 e \u2208 b \u2227 isEnvOwned e = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.internal_family_env_only_unit_funding",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) (e : PEvent) (he : e \u2208 b) (hen : isEnvOwned e = true) : e = PEvent.setBudget 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "TraceAlgebra.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.nonEnv_preserves_occ_licensed",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : isEnvOwned e = false) : (step s e).occ = s.occ \u2227 (step s e).licensed = s.licensed"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.class_witnesses",
+   "role": "preservation",
+   "statement": ": (wfB genesisP = true \u2227 Accepted genesisP (.admitOcc 0) = true \u2227 sigOf genesisP (.admitOcc 0) = classSig .supplyOccurrence) \u2227 (wfB wAssert = true \u2227 Accepted wAssert (.assertWit 0 1) = true \u2227 sigOf wAssert (.assertWit 0 1) = classSig .assertDifference) \u2227 (wfB wRetain = true \u2227 Accepted wRetain (.admitWit 0 1) = true \u2227 sigOf wRetain (.admitWit 0 1) = classSig .retainDifference) \u2227 (wfB wProtectQuiet = true \u2227 Accepted wProtectQuiet (.protect 0 1) = true \u2227 sigOf wProtectQuiet (.protect 0 1) = classSig .protectQuiet) \u2227 (wfB wProtectObstructing = true \u2227 Accepted wProtectObstructing (.protect 0 1) = true \u2227 sigOf wProtectObstructing (.protect 0 1) = classSig .protectObstructing) \u2227 (wfB genesisP = true \u2227 Accepted genesisP .declareObs = true \u2227 sigOf genesisP .declareObs = classSig .declareQuiet) \u2227 (wfB wDeclareObstructing = true \u2227 Accepted wDeclareObstructing .declareObs = true \u2227 sigOf wDeclareObstructing .declareObs = classSig .declareObstructing) \u2227 (wfB wRefine = true \u2227 Accepted wRefine (.refineCol [] 0) = true \u2227 sigOf wRefine (.refineCol [] 0) = classSig .refineObservation) \u2227 (wfB wFunded = true \u2227 Accepted wFunded (.addCol [0]) = true \u2227 sigOf wFunded (.addCol [0]) = classSig .extendObservation) \u2227 (wfB wObstructed = true \u2227 Accepted wObstructed (.refuse 0 1) = true \u2227 sigOf wObstructed (.refuse 0 1) = classSig .recordRefusal) \u2227 (wfB genesisP = true \u2227 Accepted genesisP (.setBudget 1) = true \u2227 sigOf genesisP (.setBudget 1) = classSig .writeBudget) \u2227 (wfB genesisP = true \u2227 Accepted genesisP (.setLicense false) = true \u2227 sigOf genesisP (.setLicense false) = classSig .writeLicense) \u2227 (wfB genesisP = true \u2227 Accepted genesisP .halt = true \u2227 sigOf genesisP .halt = classSig .absorbTerminal)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.class_witness_sizes",
+   "role": "preservation",
+   "statement": ": sizeP genesisP = 0 \u2227 sizeP wAssert = 2 \u2227 sizeP wRetain = 3 \u2227 sizeP wProtectQuiet = 4 \u2227 sizeP wProtectObstructing = 5 \u2227 sizeP wDeclareObstructing = 5 \u2227 sizeP wRefine = 8 \u2227 sizeP wFunded = 7 \u2227 sizeP wObstructed = 6"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.live_of_accepted",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : Accepted s e = true) : s.halted = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.live_of_guardHolds",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : guardHolds s e = true) : s.halted = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.step_eq_ite",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : step s e = if guardHolds s e = true then postOf s e else s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.inert_iff_guard_fails",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : step s e = s \u2194 guardHolds s e = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.terminal_absorbs",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : step (step s .halt) e = step s .halt"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.replayP_halted",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (s : PState) (h : s.halted = true) : replayP l s = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.trace_absorbs",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (s : PState) : replayP (.halt :: l) s = step s .halt"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.mem_append_singleton",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (l : List \u03b1) (a : \u03b1) : a \u2208 l ++ [a]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.v_not_mem_map",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (v : List Nat) (p : Nat) : v \u2209 cols.map (fun c => if c = v then p :: c else c)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.colOk_false_of_mem",
+   "role": "preservation",
+   "statement": "(t : PState) (cols : List (List Nat)) (c : List Nat) (ho : t.obs = some cols) (hc : c \u2208 cols) : colOk t c = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.refineOk_false_of_not_mem",
+   "role": "preservation",
+   "statement": "(t : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (ho : t.obs = some cols) (hv : v \u2209 cols) : refineOk t v p = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.guardHolds_post_false",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (hacc : Accepted s e = true) : guardHolds (step s e) e = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.step_idem",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : step (step s e) e = step s e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.retention_idem",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : step (step s (.admitWit i j)) (.admitWit i j) = step s (.admitWit i j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.terminal_idem",
+   "role": "preservation",
+   "statement": "(s : PState) : step (step s .halt) .halt = step s .halt"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.replayP_cons",
+   "role": "preservation",
+   "statement": "(a : PEvent) (l : List PEvent) (s : PState) : replayP (a :: l) s = replayP l (step s a)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.replay_erases",
+   "role": "preservation",
+   "statement": "(tr : List TRecord) (s : PState) (h : Aligned s tr) : replayP (eraseTrace tr) s = endState s tr"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.legal_trace_replays",
+   "role": "preservation",
+   "statement": "(tr : List TRecord) (s : PState) (h : LegalTrace s tr) : replayP (eraseTrace tr) s = endState s tr"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.ne_halt_of_licenseInsensitive",
+   "role": "preservation",
+   "statement": "(e : PEvent) (h : licenseInsensitive e = true) : e \u2260 .halt"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.ne_halt_of_budgetInsensitive",
+   "role": "preservation",
+   "statement": "(e : PEvent) (h : budgetInsensitive e = true) : e \u2260 .halt"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.ne_halt_of_occInsensitive",
+   "role": "preservation",
+   "statement": "(e : PEvent) (h : occInsensitive e = true) : e \u2260 .halt"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.postOf_halted",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : e \u2260 .halt) : (postOf s e).halted = s.halted"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.halted_frame",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : e \u2260 .halt) : (step s e).halted = s.halted"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.postOf_occ",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : occInsensitive e = true) : (postOf s e).occ = s.occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.occ_unchanged",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : occInsensitive e = true) : (step s e).occ = s.occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.guardHolds_licS",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (e : PEvent) (h : licenseInsensitive e = true) : guardHolds (licS s b) e = guardHolds s e"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.postOf_licS",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (e : PEvent) (h : licenseInsensitive e = true) : postOf (licS s b) e = licS (postOf s e) b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.frame_licS",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (e : PEvent) (h : licenseInsensitive e = true) : step (licS s b) e = licS (step s e) b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.comm_setLicense",
+   "role": "preservation",
+   "statement": "(s : PState) (b : Bool) (e : PEvent) (h : licenseInsensitive e = true) : step (step s (.setLicense b)) e = step (step s e) (.setLicense b)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.guardHolds_budS",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (e : PEvent) (h : budgetInsensitive e = true) : guardHolds (budS s n) e = guardHolds s e"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.postOf_budS",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (e : PEvent) (h : budgetInsensitive e = true) : postOf (budS s n) e = budS (postOf s e) n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.frame_budS",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (e : PEvent) (h : budgetInsensitive e = true) : step (budS s n) e = budS (step s e) n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.comm_setBudget",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (e : PEvent) (h : budgetInsensitive e = true) : step (step s (.setBudget n)) e = step (step s e) (.setBudget n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.comm_setBudget_setLicense",
+   "role": "preservation",
+   "statement": "(s : PState) (n : Nat) (b : Bool) : step (step s (.setBudget n)) (.setLicense b) = step (step s (.setLicense b)) (.setBudget n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.guardHolds_occS",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) (e : PEvent) (h : occInsensitive e = true) : guardHolds (occS s t) e = guardHolds s e"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.postOf_occS",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) (e : PEvent) (h : occInsensitive e = true) : postOf (occS s t) e = occS (postOf s e) t"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.frame_occS",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) (e : PEvent) (h : occInsensitive e = true) : step (occS s t) e = occS (step s e) t"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.comm_admitOcc",
+   "role": "preservation",
+   "statement": "(s : PState) (t : Nat) (e : PEvent) (h : occInsensitive e = true) : step (step s (.admitOcc t)) e = step (step s e) (.admitOcc t)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noncomm_license_extension",
+   "role": "preservation",
+   "statement": ": step (step wFunded (.setLicense false)) (.addCol [0]) \u2260 step (step wFunded (.addCol [0])) (.setLicense false)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noncomm_budget_extension",
+   "role": "preservation",
+   "statement": ": step (step wFunded (.setBudget 0)) (.addCol [0]) \u2260 step (step wFunded (.addCol [0])) (.setBudget 0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noncomm_terminal",
+   "role": "preservation",
+   "statement": ": step (step genesisP .halt) (.setLicense false) \u2260 step (step genesisP (.setLicense false)) .halt"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noncomm_supply_retention",
+   "role": "preservation",
+   "statement": ": step (step wOneOcc (.admitOcc 6)) (.admitWit 0 1) \u2260 step (step wOneOcc (.admitWit 0 1)) (.admitOcc 6)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noncomm_same_store",
+   "role": "preservation",
+   "statement": ": step (step wAssert (.assertWit 0 1)) (.assertWit 1 0) \u2260 step (step wAssert (.assertWit 1 0)) (.assertWit 0 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.same_store_observationally_equal",
+   "role": "preservation",
+   "statement": ": ((step (step wAssert (.assertWit 0 1)) (.assertWit 1 0)).asserted.all (fun p => decide (p \u2208 (step (step wAssert (.assertWit 1 0)) (.assertWit 0 1)).asserted)) = true) \u2227 ((step (step wAssert (.assertWit 1 0)) (.assertWit 0 1)).asserted.all (fun p => decide (p \u2208 (step (step wAssert (.assertWit 0 1)) (.assertWit 1 0)).asserted)) = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.internal_trace_preserves_occ",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (s : PState) (h : \u2200 e \u2208 l, isEnvOwned e = false) : (replayP l s).occ = s.occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.internal_trace_preserves_license",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (s : PState) (h : \u2200 e \u2208 l, isEnvOwned e = false) : (replayP l s).licensed = s.licensed"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.internal_blocks_cannot_supply_or_license",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) : (\u2200 e \u2208 b, e \u2260 PEvent.admitOcc 0) \u2227 (\u2200 e \u2208 b, e \u2260 PEvent.setLicense false)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.refusal_persists_step",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : (i, j) \u2208 s.refusals) : (i, j) \u2208 (step s e).refusals"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.refusal_persists_replay",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (s : PState) (i j : Nat) (h : (i, j) \u2208 s.refusals) : (i, j) \u2208 (replayP l s).refusals"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.refusal_not_erasable",
+   "role": "preservation",
+   "statement": ": (Accepted wObstructed (.refuse 0 1) = true) \u2227 ((step wObstructed (.refuse 0 1)).refusals = [(0, 1)])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.replay_eqv_scoped",
+   "role": "preservation",
+   "statement": ": ReplayEqvOn RepresentsZero [PEvent.admitOcc 0] []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.replay_eqv_not_unscoped",
+   "role": "preservation",
+   "statement": ": replayP [PEvent.admitOcc 0] genesisP \u2260 replayP [] genesisP"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rw_sound",
+   "role": "preservation",
+   "statement": "(l l' : List PEvent) (h : Rw l l') (s : PState) : replayP l s = replayP l' s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rwStar_sound",
+   "role": "preservation",
+   "statement": "(l l' : List PEvent) (h : RwStar l l') (s : PState) : replayP l s = replayP l' s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rw_length",
+   "role": "preservation",
+   "statement": "(l l' : List PEvent) (h : Rw l l') : l'.length < l.length"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_halt",
+   "role": "preservation",
+   "statement": "(l : List PEvent) : nf (PEvent.halt :: l) = [PEvent.halt]"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_cons_ne",
+   "role": "preservation",
+   "statement": "(e : PEvent) (l : List PEvent) (h : e \u2260 PEvent.halt) : nf (e :: l) = consNF e (nf l)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.consNF_idem",
+   "role": "preservation",
+   "statement": "(e : PEvent) (r : List PEvent) : consNF e (consNF e r) = consNF e r"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_idem_cons",
+   "role": "preservation",
+   "statement": "(e : PEvent) (l : List PEvent) : nf (e :: e :: l) = nf (e :: l)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_cons_congr",
+   "role": "preservation",
+   "statement": "(e : PEvent) (l l' : List PEvent) (h : nf l = nf l') : nf (e :: l) = nf (e :: l')"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rw_preserves_nf",
+   "role": "preservation",
+   "statement": "(l l' : List PEvent) (h : Rw l l') : nf l = nf l'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rwStar_preserves_nf",
+   "role": "preservation",
+   "statement": "(l l' : List PEvent) (h : RwStar l l') : nf l = nf l'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noRedex_consNF",
+   "role": "preservation",
+   "statement": "(e : PEvent) (r : List PEvent) (he : e \u2260 PEvent.halt) (h : noRedex r = true) : noRedex (consNF e r) = true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_noRedex",
+   "role": "preservation",
+   "statement": "(l : List PEvent) : noRedex (nf l) = true"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.noRedex_nf_eq",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (h : noRedex l = true) : nf l = l"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rwStar_cons",
+   "role": "preservation",
+   "statement": "(e : PEvent) (l l' : List PEvent) (h : RwStar l l') : RwStar (e :: l) (e :: l')"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rwStar_to_nf",
+   "role": "preservation",
+   "statement": "(l : List PEvent) : RwStar l (nf l)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rw_confluent",
+   "role": "preservation",
+   "statement": "(l a b : List PEvent) (ha : RwStar l a) (hb : RwStar l b) : \u2203 c, RwStar a c \u2227 RwStar b c"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_unique",
+   "role": "preservation",
+   "statement": "(l a b : List PEvent) (ha : RwStar l a) (hb : RwStar l b) (hna : noRedex a = true) (hnb : noRedex b = true) : a = b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.nf_sound",
+   "role": "preservation",
+   "statement": "(l : List PEvent) (s : PState) : replayP (nf l) s = replayP l s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-ALGEBRA (Goal 3)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TraceAlgebra.lean",
+   "name": "TraceAlgebra.rewrite_not_complete",
+   "role": "preservation",
+   "statement": ": (\u2200 s : PState, replayP [PEvent.setBudget 1, PEvent.setBudget 2] s = replayP [PEvent.setBudget 2] s) \u2227 nf [PEvent.setBudget 1, PEvent.setBudget 2] \u2260 nf [PEvent.setBudget 2]"
   }
  ]
 }

@@ -62,6 +62,8 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "GraphGenesis": ["GraphGenesis.lean"],
     "BoundaryCancellation": ["BoundaryCancellation.lean"],
     "WeightProfile": ["WeightProfile.lean"],
+    "TransitionAlphabet": ["TransitionAlphabet.lean"],
+    "TraceAlgebra": ["TraceAlgebra.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
