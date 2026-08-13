@@ -15,8 +15,9 @@ structure and its laws, and ONLY at the end is the vocabulary
    (`comp_id`, `id_comp`, `comp_assoc`, `inv_comp`, `comp_inv`) via a
    componentwise extensionality principle (`Renaming.ext`).
 2. **The action**: `act_id` (unconditional) and `act_comp` (on the
-   exact well-formed scope `n = s.occ.length`, which is where the
-   carrier re-indexing is meaningful at all).
+   proved scope `n <= s.occ.length`; equality is used at the source
+   of the `Up` naturality square and the weaker inequality also covers
+   its one-token extension).
 3. **Transport respects the structure**: block transport and
    `Up`-family transport each respect identity and composition.
 4. **Coherence**: `act_up_comm` composes — replay of an `Up` block
@@ -24,8 +25,10 @@ structure and its laws, and ONLY at the end is the vocabulary
 5. **No selected representative**: where a symmetry remains, the
    whole orbit of blocks sits inside the family; the family never
    picks one (`upFamily_orbit_closed`, `star_orbit_both_present`).
-6. **Countermodels**: equal carrier size, equal cost, and an
-   arbitrary NON-BIJECTIVE map each supply NONE of these laws.
+6. **Countermodels**: equal carrier size and equal cost do not supply
+   relatedness, while an arbitrary NON-BIJECTIVE map does not supply
+   a `Renaming`, its inverse, or the transport/equivariance laws proved
+   for renamings.
 
 Only after 1–5 does the closing section state the equivariance
 summary, and it states exactly the scope proved: the supply fragment
@@ -332,18 +335,17 @@ theorem act_up_comm_twostep {n : Nat} (σ τ : Renaming n) (s : PState)
 
 /-! ## 5. No selected representative -/
 
-/-- The family is closed under the action: transporting any member
-lands on a member.  The family therefore carries the WHOLE orbit of
-each block, and selects none of them. -/
+/-- The family is closed under the action, with the transported member
+named exactly.  Every source member is an `upBlock s p`, and its image
+is the corresponding `upBlock (act sigma s) (sigma.f p)`.  Thus the
+family carries the WHOLE orbit rather than merely remaining nonempty. -/
 theorem upFamily_orbit_closed {n : Nat} (σ : Renaming n) (s : PState)
     (hn : n = s.occ.length) (b : List PEvent) (hb : b ∈ upFamily s) :
-    ∃ b', b' ∈ upFamily (act σ s) := by
-  obtain ⟨p, hp, _⟩ := (up_iff_legal s b).mp hb
-  refine ⟨upBlock (act σ s) (σ.f p), ?_⟩
-  apply (up_iff_legal (act σ s) _).mpr
-  refine ⟨σ.f p, ?_, rfl⟩
-  rw [act_occ_length, ← hn]
-  exact (σ.fbound_iff p).mpr (hn ▸ hp)
+    ∃ p, p < s.occ.length ∧ b = upBlock s p ∧
+      upBlock (act σ s) (σ.f p) ∈ upFamily (act σ s) := by
+  obtain ⟨p, hp, heq⟩ := (up_iff_legal s b).mp hb
+  refine ⟨p, hp, heq, ?_⟩
+  exact (upFamily_transport σ s hn p).mp (heq ▸ hb)
 
 /-- **Both orbit members are present**: at the three-occurrence star
 the two leaves form one orbit, and the family contains the block at
@@ -363,16 +365,17 @@ theorem upFamily_length (s : PState) :
   rw [List.length_map]
   exact List.length_range
 
-/-! ## 6. Countermodels: what supplies NONE of these laws -/
+/-! ## 6. Countermodels: weaker data does not supply this structure -/
 
 /-- An arbitrary NON-BIJECTIVE map: everything to the root. -/
 def collapseMap : Nat → Nat := fun _ => 0
 
 /-- **Countermodel (non-bijective map)**: `collapseMap` admits no
 left inverse at all, so it cannot be the `f` of any renaming — the
-`fg` field is unsatisfiable.  An arbitrary map therefore supplies
-none of the structure: no identity law, no inverse, no composition
-law, and no action. -/
+`fg` field is unsatisfiable.  This rules out the inverse/group action
+and the transport/equivariance results established above.  It does
+not claim that non-bijective maps cannot form some different monoid
+action under composition. -/
 theorem collapse_not_a_renaming :
     ¬ ∃ g : Nat → Nat, ∀ x, g (collapseMap x) = x := by
   intro ⟨g, hg⟩
@@ -434,7 +437,7 @@ Only now, with 1–5 proved, is the vocabulary legitimate.
 the group laws (`comp_id`, `id_comp`, `comp_assoc`, `inv_comp`,
 `comp_inv`).  `act` is an ACTION of that structure on states:
 `act_id` unconditionally, `act_comp` on the well-formed scope
-`n = s.occ.length`, with `act_inv` as the consequence.  The `Up`
+`n <= s.occ.length`, with `act_inv` as the consequence.  The `Up`
 grammar is EQUIVARIANT for this action in the following exact sense
 and no other: blocks transport (`upBlock_transport`), the family
 transports (`upFamily_transport`), transport respects identity and

@@ -1817,13 +1817,16 @@ CL-PD2-LADDER)
   under the action, carries the whole orbit, and has exactly one
   block per represented parent (`upFamily_orbit_closed`,
   `star_orbit_both_present`, `upFamily_length`).
-  (vi) COUNTERMODELS — none of this is supplied by weaker data: an
+  (vi) COUNTERMODELS — weaker data does not supply this structure: an
   arbitrary NON-BIJECTIVE map has no left inverse
   (`collapse_not_a_renaming`) and its pushforward turns an
   irreflexive store into self-pairs that the well-formedness guard
-  refuses (`collapse_pushforward_ill_formed`); equal carrier size
-  supplies no law (`equal_size_supplies_no_law`); equal cost supplies
-  no law (`equal_cost_supplies_no_law`).
+  refuses (`collapse_pushforward_ill_formed`).  This excludes that map
+  from `Renaming` and from the inverse/group-action and equivariance
+  theorems here; it does not deny that non-bijective maps can compose
+  in a different monoid action.  Equal carrier size supplies no
+  relatedness (`equal_size_supplies_no_law`), and equal cost supplies
+  no identification (`equal_cost_supplies_no_law`).
 - **Scope of the earned vocabulary** (`equivariance_summary`): the
   supply fragment of the declared one-edge grammar, on live
   store-bounded states.  NOT the observation calculus, NOT

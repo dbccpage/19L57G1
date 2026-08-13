@@ -286,12 +286,15 @@ metric, measure, or amplitude.
   extended state is covered); block and family transport respecting
   identity and composition; the naturality square closing under
   composition; and the family carrying whole orbits with no selected
-  representative.  Only after those laws is `Up` called equivariant,
+  representative.  `upFamily_orbit_closed` names the exact transported
+  block, rather than proving only that the target family is nonempty.
+  Only after those laws is `Up` called equivariant,
   and the summary theorem states its exact scope.  Weaker data
-  supplies none of it: an arbitrary non-bijective map has no left
+  does not instantiate it: an arbitrary non-bijective map has no left
   inverse and its pushforward turns an irreflexive store into
-  self-pairs the guard refuses; equal carrier size and equal cost
-  supply no law at all.
+  self-pairs the guard refuses.  This does not rule out other monoid
+  actions by non-bijective maps; equal carrier size and equal cost do
+  not supply relatedness or identification.
 - Trace stability (`StableContent`, audit-repaired).  Protected
   separation is SUFFICIENT for trace stability - supply never
   touches observation, columns only add separators, and refinement

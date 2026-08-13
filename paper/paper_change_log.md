@@ -781,7 +781,9 @@ structure and proves its laws BEFORE using the vocabulary.
    has exactly one block per represented parent.
 6. Three countermodels recorded: an arbitrary non-bijective map (no
    left inverse; pushforward is not even a legal store), equal
-   carrier size, and equal cost - none supplies any law.
+   carrier size, and equal cost.  They do not instantiate the proved
+   renaming/equivariance structure; no universal claim is made against
+   other monoid actions by non-bijective maps.
 7. Only then, in `equivariance_summary`, is `Up` described as
    equivariant, with the exact scope stated in the same theorem.
 
