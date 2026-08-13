@@ -62,11 +62,11 @@
   },
   {
    "attack": "fixed interpreter sold as represented constitution",
-   "disposition": "BLOCKED: family_missed (the family provably misses an interpreter-grade function)"
+   "disposition": "BLOCKED AT THE DECLARED SCOPE: family_missed proves only that the finite family does not exhaust the step-function type; it does not rule out a coded evaluator"
   },
   {
    "attack": "self-description sold as self-interpretation",
-   "disposition": "BLOCKED: interp_describe vs family_missed (I4)"
+   "disposition": "NOT ESTABLISHED: interp_describe is a verified step description; family_missed is separate finite non-exhaustion and no self-interpretation impossibility follows"
   },
   {
    "attack": "finite model enumeration sold as unrestricted theorem",
@@ -86,8 +86,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256_canonical": "66118d30dddfbf5ee6427197fa1f29650fa951bdeeec5ee1a418f5afcbb91325",
-  "theorem_count": 753
+  "sha256_canonical": "3dd5d216bd51b0cc99d64f4b85793d1c0f3c31964c5154cc1722a15fa11d1db8",
+  "theorem_count": 726
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
@@ -114,9 +114,7 @@
    5
   ],
   "matrix_universe": "carriers 1..3, declared ret/prot/ops decorations (see primitive_implication_matrix.json)",
-  "preservation_census_carrier": 4,
-  "renaming_assoc_triples": 216,
-  "renaming_symmetric_group": 6
+  "preservation_census_carrier": 4
  },
  "contact": {
   "manifest_hash": null,
@@ -183,7 +181,7 @@
     "presentation invariance repaired: countermodel equal_size_not_renaming_related (equal size, equal family, no relating renaming)",
     "selection never forced: countermodel equal_cost_non_isomorphic_extensions",
     "well-formed cells: countermodel LadderGeneral.pseudo_cell_countermodel ([0,0] admitted by the legacy guard, refused now)",
-    "receipt bytes: canonical_sha256 = Git blob bytes; blob/checkout distinction and mutation detection tested"
+    "receipt generation is deterministic under declared CRLF-to-LF canonicalization and fixed inputs; equality with current Git blobs and mutation detection are tested"
    ],
    "status": "THEOREM + COUNTERMODEL",
    "tag": "PR12_REPAIRS"
@@ -191,25 +189,12 @@
   {
    "evidence": [
     "SUFFICIENCY ONLY: StableContent.protSep_trace_stable \u2014 protected AND separated implies separated after every replay (protSep_persists / protSep_replays)",
-    "CONVERSE IS FALSE, two countermodels: StableContent.halted_stable_not_protected (absorption \u2014 every replay inert, unprotected pair trace stable); StableContent.unfunded_internal_stable_not_protected (resource blocking \u2014 no internal event changes an unfunded observation)",
+    "CONVERSE IS FALSE: StableContent.halted_stable_not_protected (absorption \u2014 every replay inert, unprotected pair trace stable).  Separate restricted-fragment example: StableContent.unfunded_restricted_stable_not_protected (resource blocking in the explicit restricted trace fragment; no ownership or full-trace claim)",
     "instability is witness-borne: StableContent.separation_breakable + unprotected_separation_unstable",
     "quiescence: StableContent.quiescent_iff_protected_separated + quiescence_is_protected_separation (a statement about protSep, NOT about trace stability)"
    ],
-   "status": "THEOREM + COUNTERMODEL (converse FALSE)",
+   "status": "THEOREM + COUNTERMODEL + RESTRICTED EXAMPLE",
    "tag": "PROTECTED_SEPARATION_IS_TRACE_STABLE"
-  },
-  {
-   "evidence": [
-    "group laws: RenamingStructure.comp_id / id_comp / comp_assoc / inv_comp / comp_inv / inv_inv, via Renaming.ext",
-    "action laws: RenamingStructure.act_id (unconditional) / act_comp (scope n <= occ.length) / act_inv",
-    "transport respects the structure: upBlock_id / upBlock_comp / upFamily_id / upFamily_comp / upFamily_transport_id / upFamily_transport_comp",
-    "coherence: act_up_comm_comp + act_up_comm_twostep (the naturality square closes under composition)",
-    "no selected representative: upFamily_orbit_closed / star_orbit_both_present / upFamily_length",
-    "countermodels supplying NO law: collapse_not_a_renaming + collapse_pushforward_ill_formed (arbitrary non-bijective map), equal_size_supplies_no_law, equal_cost_supplies_no_law",
-    "the word 'equivariant' is used only in RenamingStructure.equivariance_summary, after the laws, with its exact scope"
-   ],
-   "status": "THEOREM + COUNTERMODEL",
-   "tag": "UP_IS_EQUIVARIANT_EARNED"
   },
   {
    "evidence": [
@@ -229,7 +214,7 @@
  "frontier_conjectures": [
   {
    "conjecture": "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
-   "missing_theorem": "a denotational bridge connecting code, interpretation, lawful interpreter behavior, the uncoded evaluator role, and an OPERATIONALLY EFFECTIVE non-identification \u2014 the current diagonal differs only at the operationally inert notes field, and no theorem links the uncoded occurrence to the missed function (InterpreterBoundary.openDenotationalBridge states the missing statement; the former i5_difference_grounded was renamed to i5_family_not_extensionally_complete because its statement is family_missed and mentions neither the boundary pair nor the uncoded occurrence)"
+   "missing_theorem": "a denotational bridge connecting code, interpretation, lawful interpreter behavior, the uncoded evaluator role, and an OPERATIONALLY EFFECTIVE non-identification \u2014 the current diagonal differs only at the operationally inert notes field, and no theorem links the uncoded occurrence to the missed function (InterpreterBoundary.arbitrary_uncoded_assignment proves that a freely chosen interpretation is vacuous; openDenotationalBridge names the missing obligation but is not a proposition; the former i5_difference_grounded was renamed to i5_family_not_extensionally_complete because its statement is family_missed and mentions neither the boundary pair nor the uncoded occurrence)"
   },
   {
    "conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",

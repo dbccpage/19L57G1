@@ -15,8 +15,8 @@ not itself a code.  This module mirrors that boundary finitely:
 * the explicit diagonal construction of ``tower_persists``: a function
   of interpreter type that differs from every coded interpreter at its
   indexed world, verified exhaustively over all 64 indices;
-* the typed-refusal evaluator ``eval_opt`` whose ``None`` code is the
-  named new top that REFUSES evaluation;
+* one typed-refusal evaluator ``eval_opt`` whose ``None`` input returns
+  ``None``; this construction carries no necessity claim;
 * the boundary as a primitive difference: the 65-occurrence carrier
   (64 codes plus the uncoded interpreter role), the witnessed pair
   (kernel description, interpreter role), and the exhaustively checked

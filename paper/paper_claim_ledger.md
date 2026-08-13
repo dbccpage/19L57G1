@@ -1506,9 +1506,9 @@ theorems; 291 total, all within {propext, Quot.sound}).
   the operationally inert notes field; NOT a self-interpretation
   impossibility, NOT "the evaluator cannot be coded", NOT a semantic
   tower theorem.  The declared 64-family has an exact universal
-  code/evaluator, scoped; a typed-refusal top closes by partiality
-  what totality cannot; description-level fixed point without an
-  evaluation-level one (`family_missed`).  A DECLARED model of the
+  code/evaluator, scoped; one typed-refusal extension is defined, with
+  no theorem that partiality is forced or total evaluation impossible;
+  `family_missed` proves finite image non-exhaustion only.  A DECLARED model of the
   description/interpreter boundary satisfies candidates A and F with
   obstructed collapse; its relation/retention/protection are
   inserted by definition, and no theorem links the uncoded
@@ -1520,8 +1520,8 @@ theorems; 291 total, all within {propext, Quot.sound}).
   CONJECTURE (boundary identification) + OPEN (absolute closure).
 - **Lean**: `InterpreterBoundary.tower_persists`,
   `InterpreterBoundary.i2_universal_in_class`,
-  `InterpreterBoundary.i3_partial_top_refuses`,
-  `InterpreterBoundary.i3_partial_covers`,
+  `InterpreterBoundary.i3_refusal_code_returns_none`,
+  `InterpreterBoundary.i3_coded_member_returns_some`,
   `InterpreterBoundary.family_missed`,
   `InterpreterBoundary.i5_boundary_is_A`,
   `InterpreterBoundary.i5_boundary_is_F`,
@@ -1529,8 +1529,10 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `InterpreterBoundary.i5_family_not_extensionally_complete`
   (audit repair: renamed from `i5_difference_grounded`, whose
   statement is `family_missed` and mentions neither the
-  boundary pair nor the uncoded occurrence; the denotational
-  bridge is recorded as the unproved Prop
+  boundary pair nor the uncoded occurrence;
+  `InterpreterBoundary.arbitrary_uncoded_assignment` proves a freely
+  chosen carrier interpretation is vacuous, and the denotational
+  bridge is only an OPEN obligation label in
   `InterpreterBoundary.openDenotationalBridge`).
 - **Python**: `primitive_interpreter.json`.
 
@@ -1711,10 +1713,10 @@ CL-PD2-LADDER)
   digest quantification over all signature functions).
 
 ### CL-PD2-RECEIPT-BYTES
-- **Statement**: the completion receipt is byte-reproducible
-  across platforms because every hashed prompt input is hashed in
-  CANONICAL BYTES — the Git blob bytes (LF), equal to the
-  CRLF→LF-normalized checkout bytes; the original supplied CRLF
+- **Statement**: the completion receipt generator is deterministic
+  under the declared CRLF→LF canonicalization and fixed generated
+  inputs.  For the current tracked inputs, those canonical hashes
+  equal the checked Git blob hashes.  The original supplied CRLF
   rendering of the seed prompt is recorded alongside as
   provenance.  The blob/checkout distinction is tested against
   `git show HEAD:...`; content mutation detection is tested (any
@@ -1734,23 +1736,24 @@ CL-PD2-LADDER)
 - **Statement** (native scope: the declared event grammar of the
   passage calculus).  Trace stability is now DEFINED, not assumed:
   `TraceStableSep s i j` says the pair stays separated by the
-  declared observation after EVERY replay; `IntStableSep` is the
-  same over the INTERNAL fragment only (no environment-owned
-  occurrence supply, budget setting, or license setting).
+  declared observation after EVERY replay; `RestrictedStableSep` is
+  the same over a syntactically restricted fragment omitting
+  occurrence admission, budget setting, and license setting.  No
+  ownership claim is made; generated blocks may contain `setBudget`.
   (i) **SUFFICIENCY (theorem)**: protected AND separated implies
   trace stable (`protSep_trace_stable`, via `protSep_persists` /
   `protSep_replays`) - supply events do not touch observation, new
   columns only add separators, and same-level refinement is guarded
   by precisely the monotone preservation of protected separations.
-  (ii) **THE CONVERSE IS FALSE - two countermodels.**  On an
+  (ii) **THE CONVERSE IS FALSE - one full-trace countermodel, plus one
+  restricted-fragment example.**  On an
   ABSORBED (halted) state every replay is inert, so an UNPROTECTED
   separation is trace stable (`halted_stable_not_protected`).  On a
-  LIVE but UNFUNDED state no internal event can change the
-  observation - the two structure-creating moves are budget-gated
-  and no internal event replenishes the budget - so an UNPROTECTED
-  separation is internally stable
-  (`unfunded_internal_stable_not_protected`).  Neither pair is
-  protected.
+  LIVE but UNFUNDED state no event in the restricted fragment can
+  change the observation, so an UNPROTECTED separation is stable only
+  for that fragment
+  (`unfunded_restricted_stable_not_protected`).  The latter is not a
+  second countermodel to full trace stability.  Neither pair is protected.
   (iii) **INSTABILITY IS WITNESS-BORNE (theorem)**: an unprotected
   separation is destroyed only when a concrete breaking witness
   exists - a funded, accepted refinement routed through the
@@ -1769,18 +1772,18 @@ CL-PD2-LADDER)
   `quiescence_is_protected_separation`).  The corollary that does
   follow is `quiescent_retained_protected_trace_stable`.
 - **Class**: theorem (sufficiency; witness-borne instability;
-  quiescence iff) + countermodel (converse, twice) + OPEN (exact
-  characterization) + finite computation.
+  quiescence iff) + countermodel (full converse, once) + restricted
+  example + OPEN (exact characterization) + finite computation.
 - **Lean**: `StableContent.protSep_trace_stable`,
   `StableContent.protSep_persists`,
   `StableContent.protSep_replays`,
-  `StableContent.trace_stable_int_stable`,
+  `StableContent.trace_stable_restricted_stable`,
   `StableContent.sep_preserved`, `StableContent.prot_mono`,
   `StableContent.sepP_refine`, `StableContent.replay_halted`,
   `StableContent.halted_stable_not_protected`,
-  `StableContent.internal_step_inert_unfunded`,
-  `StableContent.internal_replay_inert_unfunded`,
-  `StableContent.unfunded_internal_stable_not_protected`,
+  `StableContent.restricted_step_inert_unfunded`,
+  `StableContent.restricted_replay_inert_unfunded`,
+  `StableContent.unfunded_restricted_stable_not_protected`,
   `StableContent.separation_breakable`,
   `StableContent.unprotected_separation_unstable`,
   `StableContent.quiescent_iff_protected_separated`,
@@ -1788,8 +1791,9 @@ CL-PD2-LADDER)
   `StableContent.quiescent_retained_protected_trace_stable`;
   OPEN statement `StableContent.openExactStabilityCharacterization`.
 - **Python**: `primitive_passage.json` (`stable_content` section:
-  single-step and bounded-trace sufficiency, both converse
-  countermodels, the witness-borne instability countermodel, the
+  single-step and bounded-trace sufficiency, the full-converse
+  countermodel, the restricted-fragment example, the witness-borne
+  instability countermodel, the
   quiescence coincidence, and the recorded open gap; declared
   bounds: carrier 3, trace depth 2, breadth 24).
 
