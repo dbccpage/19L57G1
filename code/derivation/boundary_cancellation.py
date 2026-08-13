@@ -2,10 +2,12 @@
 
 The Lean module proves, for EVERY list ``sigma`` and EVERY ``tau``,
 that the composite boundary has coefficient zero at ``tau``, by pairing
-the two deletion orders of each codimension-two face and cancelling
-their signs.  This module re-checks the same statements
-EXHAUSTIVELY over declared finite bounds (all strictly ascending cells
-whose vertices are drawn from the first ``MAX_VERTICES`` numerals, in
+the two orders of each unordered pair of deleted positions and
+cancelling their signs.  Distinct unordered pairs can land on the same
+presented face when vertices repeat.  This module re-checks the same
+statements EXHAUSTIVELY over declared finite bounds (all strictly
+ascending cells whose vertices are drawn from the first
+``MAX_VERTICES`` numerals, in
 dimensions ``MIN_DIM`` through ``MAX_DIM``), and mirrors both required
 countermodels.
 

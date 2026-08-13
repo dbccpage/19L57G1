@@ -189,12 +189,15 @@ central structural discovery, named below.
   passage state carries no 2-cell data; the complete unfilled
   boundary is present and the filler absent until declared
   (`filling_not_forced`).
-- Chains/boundaries/d²=0: **declaration-relative** — with declared
-  integer coefficients and boundary maps the composite vanishes on
-  every demonstration cell (`d2_zero_triangles`, `d2_zero_tet`), and
-  two distinct conventions both work (`boundary_not_forced`), so the
-  convention carries real declared content; no vanishing statement
-  exists without the declarations.
+- Chains/boundaries/d²=0: **declaration-relative** — with the declared
+  integer coefficients and alternating boundary signs the composite
+  vanishes coefficientwise for every finite list
+  (`BoundaryCancellation.d2_zero_unrestricted`).  The older
+  demonstration-cell computations remain spot-checks.  The integer
+  signless countermodel is nonzero, while earlier finite exhibits also
+  show convention freedom (`boundary_not_forced`), so the realization
+  carries declared content; no vanishing statement exists without a
+  coefficient/sign declaration.
 - Metric/amplitude realizations: **unsupported** — nothing in the
   run supplies inner products, amplitudes, or state spaces; no such
   realization is claimed.
@@ -265,9 +268,11 @@ metric, measure, or amplitude.
   extension under the repaired well-formed guard (exact arity,
   strict ascent — the legacy guard's `[0,0]` pseudo-cell is the
   recorded countermodel), demonstrated through dimension 4 in Lean
-  and 5 in Python; well-formedness replays as an invariant; the
-  general composite boundary vanishing REMAINS the open
-  conjecture.
+  and 5 in Python; well-formedness replays as an invariant.  Separately,
+  `BoundaryCancellation.d2_zero_unrestricted` now proves the general
+  coefficientwise composite vanishing by deletion-order pairing.  Its
+  signs and integer coefficients remain declared; strict ascent is
+  needed for distinct-face results, not for cancellation.
 - Target-relative compression (`Compression`): factorization
   through the question signature iff fiber-constancy; the
   signature quotient is the coarsest adequate presentation with an

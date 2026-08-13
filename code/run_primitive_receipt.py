@@ -467,10 +467,11 @@ def receipt() -> dict[str, Json]:
              "missing_theorem":
                 "SETTLED (Goal 4), and settled more strongly than "
                 "conjectured: the coefficientwise composite boundary "
-                "vanishes at EVERY face of EVERY finite cell "
+                "vanishes at EVERY target presentation for EVERY "
+                "finite list "
                 "(BoundaryCancellation.d2_zero_unrestricted), proved "
-                "by pairing the two deletion orders for each "
-                "codimension-two face and cancelling their signs "
+                "by pairing the two orders for each unordered pair "
+                "of deleted positions and cancelling their signs "
                 "(eraseIdx_swap, sgn_cancel, dterm_cancel, "
                 "rect_zero) - not by computation.  The declared "
                 "hypotheses are recorded in d2_zero_general and "
@@ -480,9 +481,10 @@ def receipt() -> dict[str, Json]:
                 "codimension-two faces (codim2_distinct, "
                 "eraseIdx_inj_of_asc).  The signs and integer "
                 "coefficients remain DECLARED inputs: "
-                "signless_countermodel shows the composite is "
-                "nonzero without them, and the filler rule does not "
-                "force them"},
+                "the integer signless_countermodel is nonzero, and "
+                "the filler rule does not force the signs.  No claim "
+                "is made that the signless countermodel works in "
+                "every coefficient system"},
             {"conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
              "missing_theorem":
                 "SETTLED NEGATIVELY for this calculus (Goal 5): the "

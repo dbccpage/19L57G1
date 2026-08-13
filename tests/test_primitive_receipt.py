@@ -71,6 +71,16 @@ def test_receipt_binds_everything() -> None:
     # audit repair: openTerminalPres2 was closed constructively by
     # no_terminal_pres2 and is no longer an open obligation
     assert not any("openTerminalPres2" in str(o) for o in opens)
+    frontiers = r["frontier_conjectures"]
+    assert isinstance(frontiers, list)
+    boundary = next(
+        row for row in frontiers
+        if row["conjecture"] == "GENERAL_BOUNDARY_COMPOSITE_VANISHING")
+    boundary_scope = str(boundary["missing_theorem"])
+    assert "EVERY target presentation" in boundary_scope
+    assert "unordered pair of deleted positions" in boundary_scope
+    assert "every coefficient system" in boundary_scope
+    assert "each codimension-two face" not in boundary_scope
 
 
 def test_canonical_matches_checkout_on_every_rendering() -> None:

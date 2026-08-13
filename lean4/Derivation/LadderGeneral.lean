@@ -311,9 +311,10 @@ def coeffN (τ : List Nat) (ch : List (Int × List Nat)) : Int :=
   (ch.filter (fun p => p.2 == τ)).foldl (fun acc p => acc + p.1) 0
 
 /-- The composite boundary vanishes on the demonstration cells of
-dimensions 2, 3, and 4 (decided).  The general vanishing at every
-dimension is the remaining boundary-calculus conjecture, recorded in
-the receipt — declared coefficients and signs carry the content. -/
+dimensions 2, 3, and 4 (decided).  `BoundaryCancellation` proves the
+general coefficientwise theorem; this older computation is retained
+as a corollary spot-check.  Declared coefficients and signs still
+carry the content. -/
 theorem d2_zero_dims_2_3_4 :
     ((combs 5 2).all fun t =>
       (facets t).all fun e => coeffN e (pushN (bdN t)) == 0) = true ∧

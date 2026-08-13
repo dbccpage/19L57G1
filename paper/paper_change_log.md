@@ -655,8 +655,8 @@ replacements:
    the review-pass conjecture only in that narrowed sense - guarded
    admission plus strict extension, not a dimension-general two-rule
    or homology claim.)*  Dimension-4 demonstration replayed in Lean,
-   dimension 5 in Python; the general composite boundary vanishing
-   remains the open conjecture.
+   dimension 5 in Python; at this stage the general composite boundary
+   vanishing remained open (superseded by Goal 4 below).
 
 ## PR #12 final repair pass (caller directive, 2026-08-13)
 
@@ -823,7 +823,7 @@ closed.
 
 1. `d2_zero_unrestricted`: the coefficientwise composite boundary
    vanishes at every face of every finite cell.  The proof pairs the
-   two deletion orders for each codimension-two face and cancels
+   two orders for each unordered pair of deleted positions and cancels
    their signs; it is not a computation.
 2. `d2_zero_general` records the declared ascending hypotheses and
    discharges them from the stronger theorem.
