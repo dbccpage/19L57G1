@@ -405,7 +405,7 @@ TERMINAL_EVIDENCE: dict[str, list[str]] = {
         "InterpreterBoundary.i5_boundary_is_A",
         "InterpreterBoundary.i5_boundary_is_F",
         "InterpreterBoundary.i5_collapse_obstructed",
-        "InterpreterBoundary.i5_difference_grounded",
+        "InterpreterBoundary.i5_family_not_extensionally_complete",
     ],
 }
 

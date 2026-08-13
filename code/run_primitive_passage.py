@@ -132,10 +132,11 @@ def main(argv: Optional[list[str]] = None) -> int:
           f"not_forced={bc['boundary_not_forced']}")
     sc = payload["stable_content"]
     assert isinstance(sc, dict)
-    print(f"stable content: persists="
-          f"{sc['stable_content_persists_battery']} "
+    print(f"protected separation: sufficiency="
+          f"{sc['sufficiency_single_step']}/"
+          f"{sc['sufficiency_along_traces']} "
           f"quiescence_iff="
-          f"{sc['quiescence_iff_protected_in_stable_content']}")
+          f"{sc['quiescence_iff_protected_separated']}")
     print(f"artifact written to {out_path}")
     return 0
 

@@ -67,7 +67,10 @@ def test_receipt_binds_everything() -> None:
     assert all(isinstance(a, dict) and a["disposition"]
                for a in attacks)
     opens = r["open_obligations"]
-    assert isinstance(opens, list) and len(opens) == 5
+    assert isinstance(opens, list) and len(opens) == 4
+    # audit repair: openTerminalPres2 was closed constructively by
+    # no_terminal_pres2 and is no longer an open obligation
+    assert not any("openTerminalPres2" in str(o) for o in opens)
 
 
 def test_canonical_matches_checkout_on_every_rendering() -> None:

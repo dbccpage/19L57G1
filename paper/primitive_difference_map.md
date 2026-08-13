@@ -161,37 +161,25 @@ central structural discovery, named below.
 
 ## 5. Named invariants
 
-1. **The ladder recurrence** — the two-rule shape recurs one
+1. **The ladder recurrence** - the two-rule shape recurs one
    dimension up, PROVED at dimensions 2 and 3 (`ladder_dim2`,
-   `ladder_dim3`): boundary-complete-and-unfilled is the
-   dimension-`k` obstruction and the `k+1`-cell its structural
-   response.  Recurrence at every dimension is a FRONTIER
-   CONJECTURE (GENERAL_DIMENSIONAL_LADDER), not a theorem.
-2. **The connectivity residue** — occurrences minus witnessed edges
-   equals 1 at every growth stage (`path_connectivity_residue`).
-   The statistic alone proves neither connectedness nor acyclicity;
-   those follow from `graphAt_spec`, which proves the grown graph
-   is literally the path graph.
-3. **The occurrence alternation statistic** (`altNum`) — the
-   alternating sum of cell counts; along the demonstration: 4
-   (vertices), −2 (edges), 2 (closed shell), 1 (solid)
-   (`altNum_stages`).  A per-stage statistic (it changes across the
-   stages), not an invariant of the growth.
-4. **The cut census** — the number of faithful two-block
-   observations separating the designated pair: 1, 2, 4, 8 on
-   carriers 2, 3, 4, 5 (`cut_census_growth`); the count of observer
-   branches, 2^(n−2) as a finite computation.
-5. **The orientation residue** — the strictly finer data retention
-   carries above the apartness layer: both orientations generate the
-   same apartness and the same indistinguishability while remaining
-   distinct as data (`orientations_same_apartness`,
-   `orientations_differ`); its preserver monoid is trivial
-   (`oriented_preserver_unique`), while the apartness preservers
-   form the two-element swap pair (`apart_preserver_pair`).
-6. **The budget trichotomy** — every descriptor, every event: budget
-   unchanged, saturating decrement, or explicit set
-   (`Horizon.interp_budget_bound`) — the exact cross-language
-   invariant.
+   `ladder_dim3`) inside the passage-adjacent calculus:
+   boundary-complete-and-unfilled is the dimension-`k` obstruction
+   and the `k+1`-cell its structural response.  **Reconciliation
+   (audit repair).**  The former frontier conjecture
+   GENERAL_DIMENSIONAL_LADDER is now settled ONLY in a narrowed
+   sense, and only in the standalone generalized calculus: what is
+   proved at every dimension is the UNIFORM GUARDED FILLER theorem
+   (`LadderGeneral.uniform_guarded_filler`) - a complete well-formed
+   unfilled boundary admits its filler, and that admission strictly
+   extends the complex.  That is a statement about the declared
+   guarded step and NOTHING MORE.  It is not a homology claim, and
+   it does not transport the two-rule reading of `ladder_dim2/dim3`
+   to every dimension; the general vanishing of the composite
+   boundary is a separate question (see the boundary calculus
+   below).  Wherever earlier text said "the ladder is a theorem at
+   every dimension", read "the uniform guarded filler is a theorem
+   at every dimension".
 
 ## 6. What is forced, admitted, or unsupported (Phase IX verdicts)
 
@@ -291,16 +279,20 @@ metric, measure, or amplitude.
   evidential only through a new separating question.  Refinement
   is not unique and ties are retained (countermodels), and strict
   refinement chains are bounded by the declared domain.
-- Stable content (`StableContent`): what persists under every
-  event of the calculus is EXACTLY the protected separations —
-  supply never touches observation, columns only add separators,
-  and refinement is guarded by monotone preservation of protected
-  separations, while an accepted refinement can destroy an
-  unprotected one (protection is load-bearing).  Quiescence is the
-  statement that every retained protected pair already lies inside
-  the stable content.
-- Imported inputs, still explicit: fresh token supply, protection,
-  observer transport, budget, activation.
+- Trace stability (`StableContent`, audit-repaired).  Protected
+  separation is SUFFICIENT for trace stability - supply never
+  touches observation, columns only add separators, and refinement
+  is guarded by monotone preservation of protected separations -
+  and that sufficiency is all that is proved.  The CONVERSE IS
+  FALSE: on an absorbed state every replay is inert, and on a live
+  but unfunded state no internal event can change the observation,
+  so in both an UNPROTECTED separation is stable.  Instability is
+  witness-borne: it takes a funded accepted refinement routed
+  through the separating column.  Whether stability coincides with
+  protection on the live funded class is OPEN.  Quiescence is a
+  statement about protected separation, not about stability: no
+  pair obstructs exactly when every retained protected pair is
+  protected-separated.
 
 ## 9. Terminals, adversarial record, and receipt
 

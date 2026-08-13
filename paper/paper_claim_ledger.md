@@ -1526,7 +1526,12 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `InterpreterBoundary.i5_boundary_is_A`,
   `InterpreterBoundary.i5_boundary_is_F`,
   `InterpreterBoundary.i5_collapse_obstructed`,
-  `InterpreterBoundary.i5_difference_grounded`.
+  `InterpreterBoundary.i5_family_not_extensionally_complete`
+  (audit repair: renamed from `i5_difference_grounded`, whose
+  statement is `family_missed` and mentions neither the
+  boundary pair nor the uncoded occurrence; the denotational
+  bridge is recorded as the unproved Prop
+  `InterpreterBoundary.openDenotationalBridge`).
 - **Python**: `primitive_interpreter.json`.
 
 ### CL-PD2-RECEIPT
@@ -1720,38 +1725,70 @@ CL-PD2-LADDER)
   `tests/test_primitive_receipt.py` (blob/checkout distinction,
   mutation detection, dual seed hashes).
 
-### CL-PD2-STABLE-CONTENT
-- **Statement** (caller-requested finals, native scope: the
-  declared event grammar of the passage calculus): (i) **stable
-  content is exactly protected separation** — membership in the
-  stable content (protected AND separated by the declared
-  observation) is preserved by EVERY event
-  (`stable_content_persists`) and along every replay
-  (`stable_content_replays`): supply events do not touch
-  observation, new columns only add separators, and same-level
-  refinement is guarded by precisely the monotone preservation of
-  protected separations.  Protection is load-bearing: an accepted
-  refinement — discharging a protected obstruction while preserving
-  every protected separation — DESTROYS the separation of an
-  unprotected pair (`unprotected_separation_unstable`), so
-  separation as such is not stable; the protected separations are.
-  (ii) **quiescence ⟺ protected pairs inside the stable content**:
-  on a declared state, no pair is actively obstructed exactly when
-  every retained protected pair is separated
-  (`quiescent_iff_protected_separated`), equivalently exactly when
-  every retained protected pair belongs to the stable content
-  (`quiescence_is_stable_content`).  Nothing is claimed for other
-  calculi or for pre-observational states (which have no
-  separations to stabilize).
-- **Class**: theorem + countermodel + finite computation.
-- **Lean**: `StableContent.stable_content_persists`,
-  `StableContent.stable_content_replays`,
+### CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)
+- **WITHDRAWN CLAIM**: the review draft asserted "stable content is
+  exactly protected separation".  The word *exactly* was an
+  OVERCLAIM: only sufficiency was proved, and the converse is FALSE.
+  The claim is withdrawn and replaced by the following; every body,
+  receipt, and docstring site was weakened to match.
+- **Statement** (native scope: the declared event grammar of the
+  passage calculus).  Trace stability is now DEFINED, not assumed:
+  `TraceStableSep s i j` says the pair stays separated by the
+  declared observation after EVERY replay; `IntStableSep` is the
+  same over the INTERNAL fragment only (no environment-owned
+  occurrence supply, budget setting, or license setting).
+  (i) **SUFFICIENCY (theorem)**: protected AND separated implies
+  trace stable (`protSep_trace_stable`, via `protSep_persists` /
+  `protSep_replays`) - supply events do not touch observation, new
+  columns only add separators, and same-level refinement is guarded
+  by precisely the monotone preservation of protected separations.
+  (ii) **THE CONVERSE IS FALSE - two countermodels.**  On an
+  ABSORBED (halted) state every replay is inert, so an UNPROTECTED
+  separation is trace stable (`halted_stable_not_protected`).  On a
+  LIVE but UNFUNDED state no internal event can change the
+  observation - the two structure-creating moves are budget-gated
+  and no internal event replenishes the budget - so an UNPROTECTED
+  separation is internally stable
+  (`unfunded_internal_stable_not_protected`).  Neither pair is
+  protected.
+  (iii) **INSTABILITY IS WITNESS-BORNE (theorem)**: an unprotected
+  separation is destroyed only when a concrete breaking witness
+  exists - a funded, accepted refinement routed through the
+  separating column (`separation_breakable`), instantiated
+  concretely by `unprotected_separation_unstable`.  Protection is
+  load-bearing, but only against witnesses.
+  (iv) **OPEN**: sufficiency and witness-borne instability sandwich
+  the truth WITHOUT meeting.  Whether trace stability implies
+  protected separation on the live, funded class is OPEN and is
+  recorded as a Prop, never as a theorem
+  (`openExactStabilityCharacterization`).
+  (v) **Quiescence** (unchanged, and NOT a stability claim): on a
+  declared state, no pair is actively obstructed exactly when every
+  retained protected pair is protected-separated
+  (`quiescent_iff_protected_separated`,
+  `quiescence_is_protected_separation`).  The corollary that does
+  follow is `quiescent_retained_protected_trace_stable`.
+- **Class**: theorem (sufficiency; witness-borne instability;
+  quiescence iff) + countermodel (converse, twice) + OPEN (exact
+  characterization) + finite computation.
+- **Lean**: `StableContent.protSep_trace_stable`,
+  `StableContent.protSep_persists`,
+  `StableContent.protSep_replays`,
+  `StableContent.trace_stable_int_stable`,
   `StableContent.sep_preserved`, `StableContent.prot_mono`,
-  `StableContent.sepP_refine`,
+  `StableContent.sepP_refine`, `StableContent.replay_halted`,
+  `StableContent.halted_stable_not_protected`,
+  `StableContent.internal_step_inert_unfunded`,
+  `StableContent.internal_replay_inert_unfunded`,
+  `StableContent.unfunded_internal_stable_not_protected`,
+  `StableContent.separation_breakable`,
   `StableContent.unprotected_separation_unstable`,
   `StableContent.quiescent_iff_protected_separated`,
-  `StableContent.quiescence_is_stable_content`.
+  `StableContent.quiescence_is_protected_separation`,
+  `StableContent.quiescent_retained_protected_trace_stable`;
+  OPEN statement `StableContent.openExactStabilityCharacterization`.
 - **Python**: `primitive_passage.json` (`stable_content` section:
-  battery persistence, quiescence coincidence, the refinement
-  countermodel).
-
+  single-step and bounded-trace sufficiency, both converse
+  countermodels, the witness-borne instability countermodel, the
+  quiescence coincidence, and the recorded open gap; declared
+  bounds: carrier 3, trace depth 2, breadth 24).

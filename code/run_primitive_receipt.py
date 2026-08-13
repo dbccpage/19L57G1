@@ -197,9 +197,6 @@ def receipt() -> dict[str, Json]:
             "four OPEN located matrix cells (a->bl, bs->bl, bc->bl, "
             "f->bl): no internal countermodel can exist "
             "(located_of_decidable); independence is metatheoretic",
-            "PrimitiveCats.openTerminalPres2: two-point observer "
-            "terminality is selection-relative; unrestricted form "
-            "needs a preimage-selection principle",
             "cut census formula 2^(n-2): computed to carrier 5, "
             "conjectured generally",
             "absolute self-interpretation: the outermost "
@@ -285,22 +282,29 @@ def receipt() -> dict[str, Json]:
                           "receipt bytes: canonical_sha256 = Git "
                           "blob bytes; blob/checkout distinction "
                           "and mutation detection tested"]},
-            {"tag": "STABLE_CONTENT_IS_PROTECTED_SEPARATION",
-             "status": "THEOREM + COUNTERMODEL",
-             "evidence": ["StableContent.stable_content_persists / "
-                          "stable_content_replays (membership in "
-                          "the stable content survives every event "
-                          "and every replay)",
+            {"tag": "PROTECTED_SEPARATION_IS_TRACE_STABLE",
+             "status": "THEOREM + COUNTERMODEL (converse FALSE)",
+             "evidence": ["SUFFICIENCY ONLY: StableContent."
+                          "protSep_trace_stable — protected AND "
+                          "separated implies separated after every "
+                          "replay (protSep_persists / "
+                          "protSep_replays)",
+                          "CONVERSE IS FALSE, two countermodels: "
                           "StableContent."
-                          "unprotected_separation_unstable "
-                          "(protection is load-bearing: an accepted "
-                          "refinement destroys an unprotected "
-                          "separation)",
-                          "StableContent."
+                          "halted_stable_not_protected (absorption "
+                          "— every replay inert, unprotected pair "
+                          "trace stable); StableContent."
+                          "unfunded_internal_stable_not_protected "
+                          "(resource blocking — no internal event "
+                          "changes an unfunded observation)",
+                          "instability is witness-borne: "
+                          "StableContent.separation_breakable + "
+                          "unprotected_separation_unstable",
+                          "quiescence: StableContent."
                           "quiescent_iff_protected_separated + "
-                          "quiescence_is_stable_content "
-                          "(quiescence = protected pairs inside "
-                          "the stable content)"]},
+                          "quiescence_is_protected_separation "
+                          "(a statement about protSep, NOT about "
+                          "trace stability)"]},
             {"tag": "TARGET_RELATIVE_COMPRESSION",
              "status": "THEOREM + COUNTERMODEL",
              "evidence": ["Compression.factors_iff_fiberConstant + "
@@ -339,7 +343,13 @@ def receipt() -> dict[str, Json]:
                 "EFFECTIVE non-identification — the current "
                 "diagonal differs only at the operationally inert "
                 "notes field, and no theorem links the uncoded "
-                "occurrence to the missed function"},
+                "occurrence to the missed function "
+                "(InterpreterBoundary.openDenotationalBridge states "
+                "the missing statement; the former "
+                "i5_difference_grounded was renamed to "
+                "i5_family_not_extensionally_complete because its "
+                "statement is family_missed and mentions neither "
+                "the boundary pair nor the uncoded occurrence)"},
             {"conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
              "missing_theorem":
                 "the guarded filler is a theorem at every dimension "

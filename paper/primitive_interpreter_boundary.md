@@ -89,7 +89,11 @@ The novel possibility, formalized at the model level:
   endpoints loses irreflexivity in the pushforward — the collapse is
   obstructed under the protected law, exactly the passage's
   obstruction shape.
-- `i5_difference_grounded`: reuses `family_missed` (extensional
+- `i5_family_not_extensionally_complete` (audit repair: RENAMED
+  from `i5_difference_grounded`, which claimed a ground the
+  statement does not carry -- the statement mentions neither the
+  boundary pair nor the uncoded occurrence, and connects neither to
+  the missed function): reuses `family_missed` (extensional
   incompleteness).  Review-pass scope: the reused witness differs
   only at the inert notes field, so this grounds the
   non-identification EXTENSIONALLY, not operationally — see the
@@ -101,7 +105,7 @@ scope: `boundarySetting`'s relation, retention, and protection are
 inserted BY DEFINITION; no theorem identifies the uncoded occurrence
 `none` with the diagonal's missed function, interprets `none` as
 that function, or derives the boundary relation from interpretation
-behavior.  What `i5_difference_grounded` reuses is
+behavior.  What `i5_family_not_extensionally_complete` reuses is
 `family_missed` — extensional incompleteness — whose witness
 differs only at the inert notes field.
 
@@ -126,3 +130,24 @@ six-probe basis; the diagonal verified to miss all 64 members at
 their indexed worlds; a fake diagonal that copies a member is caught
 by the negative test.  All in `primitive_interpreter.json`, byte
 deterministic.
+
+## The denotational bridge stays OPEN (audit repair, 2026-08-13)
+
+The theorem formerly called `i5_difference_grounded` did not ground
+anything: its statement is literally `family_missed`.  It has been
+renamed `i5_family_not_extensionally_complete`, and the statement it
+would have needed is now recorded as an unproved proposition,
+`InterpreterBoundary.openDenotationalBridge`:
+
+> there is a function `f` missed by the whole declared family,
+> together with an interpretation `I` of the carrier under which `I`
+> sends the UNCODED occurrence `none` to exactly that `f`, while
+> every coded occurrence `some d` goes to `interpStep d`.
+
+Nothing in this development proves that proposition.  Until it is
+proved, the ground of the boundary difference is DECLARED -- the
+`ret` and `prot` stores of `boundarySetting` are supplied data --
+and the identification of the description/interpreter boundary with
+a Primitive Difference remains a frontier conjecture, recorded as
+one in the receipt.
+

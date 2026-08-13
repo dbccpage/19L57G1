@@ -46,9 +46,12 @@ module makes that boundary the object of study.
   both stores are declared data, priced as such),
   `i5_collapse_obstructed` (identifying the endpoints loses
   irreflexivity of the pushforward, via
-  `PrimDiff.obstruction_under_irrefl`), and `i5_difference_grounded`
-  (the non-identification is behavioral, not notational:
-  `family_missed`).
+  `PrimDiff.obstruction_under_irrefl`), and
+  `i5_family_not_extensionally_complete` (a RESTATEMENT of
+  `family_missed`: the family is extensionally incomplete — it does
+  NOT mention the boundary pair and does NOT connect the uncoded
+  occurrence to the missed function; the denotational bridge stays
+  OPEN, see `openDenotationalBridge`).
 
 Conclusion tags (review-pass scoping):
 FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE (`tower_persists`: a
@@ -278,8 +281,12 @@ The carrier `Option ConstitutionDesc` has the 64 coded occurrences
 `none`.  The witnessed difference is the pair (kernel description,
 interpreter role).  Retention and protection here are DECLARED: the
 stores are data supplied with the setting, and their price is recorded
-as such — what is NOT merely declared is the ground of the difference,
-which is behavioral (`i5_difference_grounded` below). -/
+as such.  The ground of the difference is likewise NOT derived here:
+the extensional side condition
+(`i5_family_not_extensionally_complete`) says only that the family
+misses some interpreter-grade function; it does not tie that function
+to the uncoded occurrence.  That tie — the denotational bridge — is
+OPEN (`openDenotationalBridge`). -/
 
 /-- The interpreter boundary as a `PrimitiveCore.Setting`: carrier
 `Option ConstitutionDesc` (65 occurrences), asserted difference =
@@ -328,16 +335,43 @@ theorem i5_collapse_obstructed {β : Type}
       boundarySetting.r q :=
   PrimDiff.obstruction_under_irrefl ⟨rfl, rfl⟩ hq
 
-/-- **I5, the ground of the difference** — the non-identification of
-(kernel code, interpreter role) is behaviorally grounded, not
-notational: by `family_missed` (the proof term of this theorem), no
-total same-type recoding absorbs the interpreter role into the coded
-occurrences — the family's own evaluation misses an interpreter-grade
-function, so the uncoded occurrence names a genuinely unabsorbed
-behavior, not a spelling. -/
-theorem i5_difference_grounded :
+/-- **I5, the extensional side condition (renamed, audit repair)** —
+the declared 64-family does not extensionally exhaust the
+interpreter-grade functions.  This is a RESTATEMENT of
+`family_missed` at the boundary setting: same statement, same proof
+term.
+
+Audit scope, stated exactly.  The former name
+`i5_difference_grounded` claimed more than the statement carries: the
+statement does NOT mention the boundary pair (kernel code, interpreter
+role), does NOT mention the uncoded occurrence `none`, and does NOT
+connect either to the missed function.  It is only the extensional
+incompleteness fact, restated in this section for convenience.
+
+THE DENOTATIONAL BRIDGE REMAINS OPEN.  What is missing — and is NOT
+proved anywhere in this development — is a theorem linking the uncoded
+occurrence `none` to the missed function `f`: that the specific
+occurrence which the coding omits is the specific behavior the family
+fails to realize.  Until such a theorem exists, the ground of the
+boundary difference is DECLARED (the stores of `boundarySetting`),
+not derived.  See `openDenotationalBridge` below. -/
+theorem i5_family_not_extensionally_complete :
     ∃ f : World → Event → World, ∀ d ∈ allDescs, f ≠ interpStep d :=
   family_missed
+
+/-- **The open denotational bridge, stated as a proposition and NOT
+proved.**  It would say: the function missed by the family is
+realized at the uncoded occurrence — i.e. there is a missed `f`
+together with an interpretation `I` of the carrier under which `I`
+sends the uncoded occurrence `none` to exactly that `f`, while every
+coded occurrence `some d` goes to `interpStep d`.  No such theorem is
+proved here; the boundary identification is a frontier conjecture and
+is recorded as one in the receipt. -/
+def openDenotationalBridge : Prop :=
+  ∃ f : World → Event → World,
+    (∀ d ∈ allDescs, f ≠ interpStep d) ∧
+    ∃ I : Option ConstitutionDesc → (World → Event → World),
+      I none = f ∧ ∀ d, I (some d) = interpStep d
 
 /-- The exported conclusion tags.  NOT included, and not claimed: any
 absolute no-outside tag — the theorems above bound finite represented

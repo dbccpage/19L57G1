@@ -7661,7 +7661,7 @@
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
-   "name": "InterpreterBoundary.i5_difference_grounded",
+   "name": "InterpreterBoundary.i5_family_not_extensionally_complete",
    "role": "preservation",
    "statement": ": \u2203 f : World \u2192 Event \u2192 World, \u2200 d \u2208 allDescs, f \u2260 interpStep d"
   },
@@ -9728,7 +9728,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -9743,7 +9743,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -9758,7 +9758,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -9773,14 +9773,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.stable_content_persists",
+   "name": "StableContent.protSep_persists",
    "role": "preservation",
-   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : stableSep s i j = true) : stableSep (step s e) i j = true"
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : protSep s i j = true) : protSep (step s e) i j = true"
   },
   {
    "axioms": [
@@ -9788,14 +9788,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.stable_content_replays",
+   "name": "StableContent.protSep_replays",
    "role": "preservation",
-   "statement": "(h : List PEvent) : \u2200 (s : PState) (i j : Nat), stableSep s i j = true \u2192 stableSep (replayP h s) i j = true"
+   "statement": "(h : List PEvent) : \u2200 (s : PState) (i j : Nat), protSep s i j = true \u2192 protSep (replayP h s) i j = true"
   },
   {
    "axioms": [
@@ -9803,14 +9803,134 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.protSep_trace_stable",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h : protSep s i j = true) : TraceStableSep s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.trace_stable_int_stable",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h : TraceStableSep s i j) : IntStableSep s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.replay_halted",
+   "role": "preservation",
+   "statement": "(h : List PEvent) : \u2200 s : PState, s.halted = true \u2192 replayP h s = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.halted_stable_not_protected",
+   "role": "preservation",
+   "statement": ": TraceStableSep sHalt 0 1 \u2227 protSep sHalt 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.internal_step_inert_unfunded",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (cols : List (List Nat)) (henv : IsEnvEvent e = false) (hobs : s.obs = some cols) (hb : s.budget = 0) : (step s e).obs = some cols \u2227 (step s e).budget = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.internal_replay_inert_unfunded",
+   "role": "preservation",
+   "statement": "(h : List PEvent) : \u2200 (s : PState) (cols : List (List Nat)), InternalTrace h \u2192 s.obs = some cols \u2192 s.budget = 0 \u2192 (replayP h s).obs = some cols \u2227 (replayP h s).budget = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.unfunded_internal_stable_not_protected",
+   "role": "preservation",
+   "statement": ": IntStableSep sUnfunded 0 1 \u2227 protSep sUnfunded 0 1 = false \u2227 sUnfunded.halted = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.separation_breakable",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (i j : Nat) (hh : s.halted = false) (hobs : s.obs = some cols) (hro : refineOk s v p = true) (hfund : 0 < s.budget) (hbroken : sepP (cols.map (fun c => if c = v then p :: c else c)) i j = false) : \u00ac SepHere (step s (.refineCol v p)) i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
    "name": "StableContent.unprotected_separation_unstable",
    "role": "preservation",
-   "statement": ": (sepP [[0]] 0 1 = true) \u2227 ((step sUnprot (.refineCol [0] 1)).obs = some [[1, 0]]) \u2227 (sepP [[1, 0]] 0 1 = false) \u2227 ((1, 2) \u2208 sUnprot.prot) \u2227 (sepP [[1, 0]] 1 2 = true)"
+   "statement": ": (sepP [[0]] 0 1 = true) \u2227 ((step sUnprot (.refineCol [0] 1)).obs = some [[1, 0]]) \u2227 (sepP [[1, 0]] 0 1 = false) \u2227 ((1, 2) \u2208 sUnprot.prot) \u2227 (sepP [[1, 0]] 1 2 = true) \u2227 (protSep sUnprot 0 1 = false)"
   },
   {
    "axioms": [
@@ -9818,7 +9938,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -9833,14 +9953,29 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-STABLE-CONTENT"
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.quiescence_is_stable_content",
+   "name": "StableContent.quiescence_is_protected_separation",
    "role": "preservation",
-   "statement": "(s : PState) (cols : List (List Nat)) (hobs : s.obs = some cols) : quiescentP s \u2194 (\u2200 pr, pr \u2208 s.prot \u2192 pr \u2208 s.wit \u2192 stableSep s pr.1 pr.2 = true)"
+   "statement": "(s : PState) (cols : List (List Nat)) (hobs : s.obs = some cols) : quiescentP s \u2194 (\u2200 pr, pr \u2208 s.prot \u2192 pr \u2208 s.wit \u2192 protSep s pr.1 pr.2 = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRACE-STABILITY (audit repair; supersedes the withdrawn CL-PD2-STABLE-CONTENT)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.quiescent_retained_protected_trace_stable",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (hobs : s.obs = some cols) (hq : quiescentP s) : \u2200 pr, pr \u2208 s.prot \u2192 pr \u2208 s.wit \u2192 TraceStableSep s pr.1 pr.2"
   }
  ]
 }
