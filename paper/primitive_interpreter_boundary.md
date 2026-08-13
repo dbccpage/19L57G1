@@ -52,25 +52,23 @@ the declared 64-member family exactly (`allDescs_complete` +
 `interp_describe`).  "Universal" is scoped to that class and no
 further — I1 is precisely the reason no unscoped reading survives.
 
-## I3 — partiality closes what totality cannot (THEOREM)
+## I3 — one typed-refusal extension (DEFINITION + EQUATIONS)
 
 `evalOpt : Option ConstitutionDesc → World → Event → Option World`
 adjoins one uncoded top that *refuses*: `evalOpt none = fun _ _ =>
-none` (`i3_partial_top_refuses`) while covering the family on the
-coded side (`i3_partial_covers`).  A total same-type top is
-impossible (I1); a typed-refusal top is a two-line construction.
-The boundary closes only by admitting refusal/partiality — refusal
-again carrying the structural load, as everywhere in this
-derivation.
+none` (`i3_refusal_code_returns_none`) while covering the family on
+the coded side (`i3_coded_member_returns_some`).  This is one
+available construction.  I1 does not prove that total evaluation is
+impossible, and these equations do not prove that partiality is
+forced or that the boundary is closed.
 
-## I4 — self-description without self-justification
+## I4 — verified description and finite non-exhaustion
 
 `kernelDesc` is a description-level fixed point
 (`interp_describe`).  `family_missed` (= `tower_persists` at
-`allDescs`, `interpStep`) shows the family provably misses an
-interpreter-grade function: there is no evaluation-level fixed point
-in the family.  Recursion delivers self-description; it does not
-deliver a self-justifying evaluator.
+`allDescs`, `interpStep`) shows only that the finite family misses a
+step function.  It neither excludes a code for an evaluator nor
+proves self-application impossible under another encoding.
 
 ## I5 — a declared boundary model satisfies A and F (THEOREM);
 the identification is a FRONTIER CONJECTURE
@@ -112,9 +110,8 @@ differs only at the inert notes field.
 **FRONTIER CONJECTURE (retained):
 INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE.**  The reading — the
 description/interpretation distinction as the next retained
-non-identification, its resolution options exactly the passage's
-(create a new top, refuse via the typed partial top, or terminalize)
-— is coherent and potentially important, and it is NOT proved by
+  non-identification — is coherent and potentially important, and it
+  is NOT proved by
 the notes-diagonal.  The missing theorem is a denotational bridge
 connecting: code, interpretation, lawful interpreter behavior, the
 uncoded evaluator role, and an OPERATIONALLY EFFECTIVE
@@ -135,17 +132,17 @@ deterministic.
 
 The theorem formerly called `i5_difference_grounded` did not ground
 anything: its statement is literally `family_missed`.  It has been
-renamed `i5_family_not_extensionally_complete`, and the statement it
-would have needed is now recorded as an unproved proposition,
-`InterpreterBoundary.openDenotationalBridge`:
+renamed `i5_family_not_extensionally_complete`.  More importantly,
+`arbitrary_uncoded_assignment` proves that for *any* chosen function
+one may freely define an interpretation sending `none` to it while
+preserving every coded meaning.  Existence of that assignment is
+therefore vacuous; it cannot serve as the missing bridge.
 
-> there is a function `f` missed by the whole declared family,
-> together with an interpretation `I` of the carrier under which `I`
-> sends the UNCODED occurrence `none` to exactly that `f`, while
-> every coded occurrence `some d` goes to `interpStep d`.
-
-Nothing in this development proves that proposition.  Until it is
-proved, the ground of the boundary difference is DECLARED -- the
+`InterpreterBoundary.openDenotationalBridge` is now an OPEN obligation
+label, not a proposition and not evidence.  A future theorem must
+independently constrain the uncoded role and prove an accessible
+behavioral consequence.  Until then, the ground of the boundary
+difference is DECLARED -- the
 `ret` and `prot` stores of `boundarySetting` are supplied data --
 and the identification of the description/interpreter boundary with
 a Primitive Difference remains a frontier conjecture, recorded as

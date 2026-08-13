@@ -5,11 +5,13 @@ Protected separation is SUFFICIENT for trace stability, and that is
 all that is claimed: once a PROTECTED pair is separated by the
 declared observation, every event of the declared grammar preserves
 the separation — checked here exhaustively over a deterministic
-event battery on sample states.  The CONVERSE IS FALSE, with two
-recorded countermodels: an absorbed (halted) state, where every
+event battery on sample states.  The CONVERSE IS FALSE, with one
+full-trace countermodel: an absorbed (halted) state, where every
 replay is inert so an unprotected separation is trace stable; and a
-live but unfunded state, where no internal event can change the
-observation at all.  Instability is witness-borne: an accepted,
+separate restricted-fragment example is a live but unfunded state,
+where no event in an explicitly restricted
+fragment can change the observation.  The restriction is syntactic,
+not an event-ownership claim.  Instability is witness-borne: an accepted,
 funded refinement routed through the separating column destroys an
 unprotected separation (the third countermodel).  The exact
 characterization of trace stability on the live funded class is OPEN
@@ -82,9 +84,13 @@ def sample_states(n: int) -> list[PS]:
     return [s0, s1, s2, s3]
 
 
-def is_env_event(e: PEvent) -> bool:
-    """Environment-owned events: occurrence supply, budget setting,
-    license setting.  These are imports, not internal moves."""
+def is_trace_excluded_event(e: PEvent) -> bool:
+    """Event forms omitted by the restricted trace fragment.
+
+    This is a syntactic classification only.  It does not assert who
+    owns or emits an event; generated blocks may themselves contain a
+    ``setBudget`` event.
+    """
     return e[0] in ("admitOcc", "setBudget", "setLicense")
 
 
@@ -140,20 +146,22 @@ def halted_countermodel() -> dict[str, Json]:
 
 def unfunded_countermodel() -> dict[str, Json]:
     """Countermodel 2 to the converse: on a live but UNFUNDED state
-    no internal event changes the observation, so an UNPROTECTED
-    separation is internally stable."""
+    no event in the restricted fragment changes the observation, so
+    an UNPROTECTED separation is restricted-stable.  This does not
+    establish stability under the full grammar."""
     s = PS(occ=(0, 1), obs=((0,),), budget=0, halted=False)
-    internal = [e for e in event_battery(2) if not is_env_event(e)]
-    obs_fixed = all(pstep(s, e).obs == s.obs for e in internal)
-    budget_fixed = all(pstep(s, e).budget == 0 for e in internal)
+    restricted = [e for e in event_battery(2)
+                  if not is_trace_excluded_event(e)]
+    obs_fixed = all(pstep(s, e).obs == s.obs for e in restricted)
+    budget_fixed = all(pstep(s, e).budget == 0 for e in restricted)
     assert s.obs is not None
     return {
         "live": not s.halted,
         "separated": sep_p(s.obs, 0, 1),
         "not_protected": not prot_sep(s, 0, 1),
-        "internal_events_leave_obs_fixed": obs_fixed,
-        "internal_events_leave_budget_zero": budget_fixed,
-        "internally_stable_but_unprotected": (
+        "restricted_events_leave_obs_fixed": obs_fixed,
+        "restricted_events_leave_budget_zero": budget_fixed,
+        "restricted_stable_but_unprotected": (
             obs_fixed and sep_p(s.obs, 0, 1)
             and not prot_sep(s, 0, 1)),
     }
@@ -204,7 +212,8 @@ def stable_content_report(n: int) -> dict[str, Json]:
         "trace_breadth_bound": 24,
         "claim":
             "protected separation is SUFFICIENT for trace stability; "
-            "the converse is FALSE (two countermodels); the exact "
+            "the converse is FALSE (absorbed-state countermodel); "
+            "a separate unfunded example is restricted-fragment only; the exact "
             "characterization on the live funded class is OPEN",
         "sufficiency_single_step": persistence_check(n),
         "sufficiency_along_traces": replay_persistence_check(n, 2),

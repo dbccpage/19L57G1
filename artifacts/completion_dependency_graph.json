@@ -7570,7 +7570,7 @@
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
-   "name": "InterpreterBoundary.i3_partial_top_refuses",
+   "name": "InterpreterBoundary.i3_refusal_code_returns_none",
    "role": "preservation",
    "statement": ": evalOpt none = fun _ _ => none"
   },
@@ -7585,9 +7585,24 @@
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
-   "name": "InterpreterBoundary.i3_partial_covers",
+   "name": "InterpreterBoundary.i3_coded_member_returns_some",
    "role": "preservation",
    "statement": "(d : ConstitutionDesc) (w : World) (e : Event) : evalOpt (some d) w e = some (interpStep d w e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.arbitrary_uncoded_assignment",
+   "role": "preservation",
+   "statement": "(f : World \u2192 Event \u2192 World) : \u2203 I : Option ConstitutionDesc \u2192 (World \u2192 Event \u2192 World), I none = f \u2227 \u2200 d, I (some d) = interpStep d"
   },
   {
    "axioms": [
@@ -9823,9 +9838,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.trace_stable_int_stable",
+   "name": "StableContent.trace_stable_restricted_stable",
    "role": "preservation",
-   "statement": "(s : PState) (i j : Nat) (h : TraceStableSep s i j) : IntStableSep s i j"
+   "statement": "(s : PState) (i j : Nat) (h : TraceStableSep s i j) : RestrictedStableSep s i j"
   },
   {
    "axioms": [
@@ -9868,9 +9883,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.internal_step_inert_unfunded",
+   "name": "StableContent.restricted_step_inert_unfunded",
    "role": "preservation",
-   "statement": "(s : PState) (e : PEvent) (cols : List (List Nat)) (henv : IsEnvEvent e = false) (hobs : s.obs = some cols) (hb : s.budget = 0) : (step s e).obs = some cols \u2227 (step s e).budget = 0"
+   "statement": "(s : PState) (e : PEvent) (cols : List (List Nat)) (henv : IsTraceExcludedEvent e = false) (hobs : s.obs = some cols) (hb : s.budget = 0) : (step s e).obs = some cols \u2227 (step s e).budget = 0"
   },
   {
    "axioms": [
@@ -9883,9 +9898,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.internal_replay_inert_unfunded",
+   "name": "StableContent.restricted_replay_inert_unfunded",
    "role": "preservation",
-   "statement": "(h : List PEvent) : \u2200 (s : PState) (cols : List (List Nat)), InternalTrace h \u2192 s.obs = some cols \u2192 s.budget = 0 \u2192 (replayP h s).obs = some cols \u2227 (replayP h s).budget = 0"
+   "statement": "(h : List PEvent) : \u2200 (s : PState) (cols : List (List Nat)), RestrictedTrace h \u2192 s.obs = some cols \u2192 s.budget = 0 \u2192 (replayP h s).obs = some cols \u2227 (replayP h s).budget = 0"
   },
   {
    "axioms": [
@@ -9898,9 +9913,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.unfunded_internal_stable_not_protected",
+   "name": "StableContent.unfunded_restricted_stable_not_protected",
    "role": "preservation",
-   "statement": ": IntStableSep sUnfunded 0 1 \u2227 protSep sUnfunded 0 1 = false \u2227 sUnfunded.halted = false"
+   "statement": ": RestrictedStableSep sUnfunded 0 1 \u2227 protSep sUnfunded 0 1 = false \u2227 sUnfunded.halted = false"
   },
   {
    "axioms": [
