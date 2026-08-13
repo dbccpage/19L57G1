@@ -22,18 +22,18 @@ from derivation.export import Json, write_json
 REPO = Path(__file__).resolve().parent.parent
 
 
-def sha256_of(path: Path) -> str:
-    """Raw byte hash — for files exempt from checkout normalization
-    (`prompt/**` and `artifacts/**` carry `-text`), whose bytes are
-    identical on every platform."""
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
-def sha256_normalized(path: Path) -> str:
-    """Line-ending-normalized hash — for tracked text files subject
-    to autocrlf (for example ``requirements.txt``): CRLF and LF
-    checkouts of the same committed content hash identically, so the
-    receipt is reproducible on every platform CI runs on."""
+def canonical_sha256(path: Path) -> str:
+    """THE canonical bytes of a tracked text file are its Git blob
+    bytes at HEAD — what every clean clone stores, on every platform.
+    They are computed here from the checkout bytes by CRLF-to-LF
+    normalization, which is exactly the checkout-time variance a
+    Windows working tree can introduce (and the one historical
+    staging normalization recorded in ``ci/check_prompt_hashes.py``).
+    The blob/checkout distinction is enforced by
+    ``test_blob_checkout_distinction`` (canonical(checkout) ==
+    sha256(blob), for every hashed file), and content sensitivity by
+    ``test_mutation_detected`` (any real content change moves the
+    canonical hash; a pure line-ending rendering change does not)."""
     crlf = b"\r\n"
     lf = b"\n"
     return hashlib.sha256(
@@ -53,23 +53,32 @@ def receipt() -> dict[str, Json]:
             "manifest_hash": None,
             "status": "CONTACT_INPUT_ABSENT",
         },
-        "prompt_sha256": {
-            "prompt/prompt.md": sha256_of(REPO / "prompt/prompt.md"),
+        "prompt_sha256_canonical": {
+            "prompt/prompt.md":
+                canonical_sha256(REPO / "prompt/prompt.md"),
             "prompt/seed_prompt.md":
-                sha256_of(REPO / "prompt/seed_prompt.md"),
+                canonical_sha256(REPO / "prompt/seed_prompt.md"),
             "prompt/prompt_pr12.md":
-                sha256_of(REPO / "prompt/prompt_pr12.md"),
+                canonical_sha256(REPO / "prompt/prompt_pr12.md"),
             "prompt/ultra_prompt_pr12.md":
-                sha256_of(REPO / "prompt/ultra_prompt_pr12.md"),
+                canonical_sha256(REPO / "prompt/ultra_prompt_pr12.md"),
         },
+        "seed_prompt_original_supplied_sha256":
+            "ee3ba0583fea2a11f129"
+            "4538c912c542b3faee5316355dc226efb92ef64646ab",
+        "seed_prompt_provenance":
+            "the original supplied working-tree rendering (CRLF) was "
+            "hashed at recording time; the repository-canonical blob "
+            "is its one-time LF staging normalization, accepted "
+            "alongside it by ci/check_prompt_hashes.py since PR #1",
         "toolchain": {
             "lean": (REPO / "lean4/lean-toolchain")
                 .read_text(encoding="utf-8").strip(),
-            "python_requirements_sha256_normalized":
-                sha256_normalized(REPO / "requirements.txt"),
+            "python_requirements_sha256_canonical":
+                canonical_sha256(REPO / "requirements.txt"),
         },
         "axiom_report": {
-            "sha256": sha256_of(lean_axioms),
+            "sha256_canonical": canonical_sha256(lean_axioms),
             "theorem_count": len(reports),
             "axioms_within": ["propext", "Quot.sound"],
         },
@@ -220,24 +229,105 @@ def receipt() -> dict[str, Json]:
              "status": "COUNTERMODEL",
              "evidence": ["Attachment.path4_star4_not_isomorphic",
                           "Attachment.tree4_concrete"]},
-            {"tag": "UP_FAMILY_COMPLETE_AND_PRESENTATION_INVARIANT",
+            {"tag": "UP_FAMILY_REGISTRY_IFF_AND_RENAMING_ACTION",
              "status": "THEOREM",
-             "evidence": ["Attachment.attachMoves_complete",
-                          "Attachment.attachMoves_length",
-                          "Attachment."
-                          "attachMoves_presentation_invariant",
+             "evidence": ["Attachment.up_iff_legal (membership iff "
+                          "declared one-edge legality)",
+                          "Attachment.up_exec_eq / up_executes "
+                          "(every block executes to a strict legal "
+                          "extension)",
+                          "Attachment.upBlock_transport / "
+                          "upFamily_transport / act_up_comm "
+                          "(genuine renaming action; replay "
+                          "commutes, supply fragment)",
+                          "Attachment.upFamily_grammar_uniform "
+                          "(carrier-identical uniformity only)",
                           "orbit instances: Attachment."
                           "star_orbit_swap / path_oriented_rigid / "
                           "path_center_separate"]},
-            {"tag": "GENERAL_LADDER_THEOREM",
+            {"tag": "UNIFORM_GUARDED_FILLER",
              "status": "THEOREM",
-             "evidence": ["LadderGeneral.ladder_general (every "
-                          "dimension, generalized declared "
-                          "calculus)",
+             "evidence": ["LadderGeneral.uniform_guarded_filler "
+                          "(admission + strict extension under the "
+                          "repaired well-formed guard, uniform in "
+                          "the dimension; NOT a homology claim)",
                           "LadderGeneral.shell_refuses_general",
                           "LadderGeneral.shell_no_self_fill",
+                          "LadderGeneral.wf_nreplay (well-formed "
+                          "cells are a replayed invariant)",
                           "LadderGeneral.d4_demo",
+                          "LadderGeneral.d4_wf",
                           "LadderGeneral.d4_guard_load_bearing"]},
+            {"tag": "PR12_REPAIRS",
+             "status": "THEOREM + COUNTERMODEL",
+             "evidence": ["no clamping: Attachment.LawfulPolicy, "
+                          "typed refusal Attachment."
+                          "attachChecked_refuses / unlawful_refused; "
+                          "countermodel clamp_rewrote_input",
+                          "occurrence identity: tokens vs positions "
+                          "resolved; Attachment.freshTok_fresh; "
+                          "countermodel "
+                          "length_not_fresh_countermodel; "
+                          "Attachment.freshTok_treeState + "
+                          "attachBlock_is_upBlock (coincide on "
+                          "canonical tree states)",
+                          "presentation invariance repaired: "
+                          "countermodel "
+                          "equal_size_not_renaming_related (equal "
+                          "size, equal family, no relating "
+                          "renaming)",
+                          "selection never forced: countermodel "
+                          "equal_cost_non_isomorphic_extensions",
+                          "well-formed cells: countermodel "
+                          "LadderGeneral.pseudo_cell_countermodel "
+                          "([0,0] admitted by the legacy guard, "
+                          "refused now)",
+                          "receipt bytes: canonical_sha256 = Git "
+                          "blob bytes; blob/checkout distinction "
+                          "and mutation detection tested"]},
+            {"tag": "STABLE_CONTENT_IS_PROTECTED_SEPARATION",
+             "status": "THEOREM + COUNTERMODEL",
+             "evidence": ["StableContent.stable_content_persists / "
+                          "stable_content_replays (membership in "
+                          "the stable content survives every event "
+                          "and every replay)",
+                          "StableContent."
+                          "unprotected_separation_unstable "
+                          "(protection is load-bearing: an accepted "
+                          "refinement destroys an unprotected "
+                          "separation)",
+                          "StableContent."
+                          "quiescent_iff_protected_separated + "
+                          "quiescence_is_stable_content "
+                          "(quiescence = protected pairs inside "
+                          "the stable content)"]},
+            {"tag": "TARGET_RELATIVE_COMPRESSION",
+             "status": "THEOREM + COUNTERMODEL",
+             "evidence": ["Compression.factors_iff_fiberConstant + "
+                          "factor_unique_on_image + "
+                          "factor_not_unique_off_image (A)",
+                          "Compression.pQ_exact / pQ_adequate / "
+                          "pQ_coarsest / pQ_unique_on_image (B: "
+                          "coarsest Q-adequate, universal property "
+                          "with exact scope)",
+                          "Compression.descent_witness (C: every "
+                          "merged-but-separated pair is witnessed)",
+                          "Compression.enlarge_refines + "
+                          "splits_iff_new_separator (D)",
+                          "Compression.absolute_adequacy_iff_"
+                          "injective (E: absolute adequacy = "
+                          "injectivity = no compression)",
+                          "Compression.dup_no_refine / "
+                          "postcompose_no_refine / "
+                          "refine_requires_separator (F: replay and "
+                          "digests add no separating question)",
+                          "Compression.refine_bounded / "
+                          "strict_split_increases / chain_bounded / "
+                          "strict_steps_lt (iteration bounded by "
+                          "the declared domain)",
+                          "countermodels: refinement_not_unique, "
+                          "refinement_tie (no unique, no "
+                          "unique-minimum refinement)"]},
         ],
         "frontier_conjectures": [
             {"conjecture":
@@ -252,9 +342,10 @@ def receipt() -> dict[str, Json]:
                 "occurrence to the missed function"},
             {"conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
              "missing_theorem":
-                "the dimensional LADDER is now a theorem at every "
-                "dimension (LadderGeneral.ladder_general, upgrading "
-                "the review-pass conjecture); what remains is the "
+                "the guarded filler is a theorem at every dimension "
+                "(LadderGeneral.uniform_guarded_filler, narrowed "
+                "scope: admission + strict extension, not "
+                "homology); what remains is the "
                 "general vanishing of the composite boundary for "
                 "every dimension — decided at dimensions 2–5, "
                 "general case open"},

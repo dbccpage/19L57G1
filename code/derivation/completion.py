@@ -56,6 +56,8 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "ControllerCategory": ["ControllerCategory.lean"],
     "Attachment": ["Attachment.lean"],
     "LadderGeneral": ["LadderGeneral.lean"],
+    "Compression": ["Compression.lean"],
+    "StableContent": ["StableContent.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -88,37 +90,48 @@ def parse_axiom_reports() -> list[dict[str, object]]:
     return out
 
 
+def declared_splits(qualified: str) -> list[tuple[str, str]]:
+    """Candidate (namespace, declared-name) pairs: a theorem may be
+    declared with a dotted name inside a shorter namespace (e.g.
+    ``theorem Renaming.f_inj`` inside ``namespace Attachment``)."""
+    parts = qualified.split(".")
+    return [
+        (".".join(parts[:cut]), ".".join(parts[cut:]))
+        for cut in range(len(parts) - 1, 0, -1)
+    ]
+
+
 def source_module(qualified: str) -> str:
     """The Lean file that declares the theorem (searched, not guessed)."""
-    ns, _, bare = qualified.rpartition(".")
-    for fname in NAMESPACE_FILES.get(ns, []):
-        path = LEAN_DIR / fname
-        if not path.exists():
-            continue
-        if re.search(
-            rf"^theorem {re.escape(bare)}[\s({{\[⟨]",
-            path.read_text(encoding="utf-8"),
-            re.MULTILINE,
-        ):
-            return fname
+    for ns, decl in declared_splits(qualified):
+        for fname in NAMESPACE_FILES.get(ns, []):
+            path = LEAN_DIR / fname
+            if not path.exists():
+                continue
+            if re.search(
+                rf"^theorem {re.escape(decl)}[\s({{\[⟨]",
+                path.read_text(encoding="utf-8"),
+                re.MULTILINE,
+            ):
+                return fname
     return "UNRESOLVED"
 
 
 def extract_statement(qualified: str, module: str) -> str:
     """The statement text from the source, up to the proof marker."""
-    bare = qualified.rpartition(".")[2]
     path = LEAN_DIR / module
     if not path.exists():
         return "UNRESOLVED"
     text = path.read_text(encoding="utf-8")
-    m = re.search(
-        rf"^theorem {re.escape(bare)}(?P<sig>.*?):=",
-        text,
-        re.MULTILINE | re.DOTALL,
-    )
-    if not m:
-        return "UNRESOLVED"
-    return re.sub(r"\s+", " ", m.group("sig")).strip()
+    for _, decl in declared_splits(qualified):
+        m = re.search(
+            rf"^theorem {re.escape(decl)}(?P<sig>.*?):=",
+            text,
+            re.MULTILINE | re.DOTALL,
+        )
+        if m:
+            return re.sub(r"\s+", " ", m.group("sig")).strip()
+    return "UNRESOLVED"
 
 
 def consuming_modules(qualified: str, own_module: str) -> list[str]:

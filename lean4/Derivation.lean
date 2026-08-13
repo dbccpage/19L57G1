@@ -28,6 +28,8 @@ import Derivation.InterpreterBoundary
 import Derivation.ControllerCategory
 import Derivation.Attachment
 import Derivation.LadderGeneral
+import Derivation.Compression
+import Derivation.StableContent
 
 /-!
 # Axiom reports
@@ -686,6 +688,30 @@ open Derivation
 #print axioms ControllerCategory.sim_pinned
 #print axioms ControllerCategory.genesis_sims_agree_on_reachable
 #print axioms ControllerCategory.strict_agree_on_reachable
+#print axioms Attachment.clamp_rewrote_input
+#print axioms Attachment.attachChecked_refuses
+#print axioms Attachment.unlawful_refused
+#print axioms Attachment.le_natMax_of_mem
+#print axioms Attachment.freshTok_fresh
+#print axioms Attachment.length_not_fresh_countermodel
+#print axioms Attachment.halted_up_inert
+#print axioms Attachment.up_iff_legal
+#print axioms Attachment.up_exec_eq
+#print axioms Attachment.up_executes
+#print axioms Attachment.Renaming.f_inj
+#print axioms Attachment.Renaming.gbound
+#print axioms Attachment.Renaming.gfix
+#print axioms Attachment.Renaming.fbound_iff
+#print axioms Attachment.getD_lt
+#print axioms Attachment.getD_append_lt
+#print axioms Attachment.act_occ_length
+#print axioms Attachment.act_occ_mem
+#print axioms Attachment.freshTok_act
+#print axioms Attachment.upBlock_transport
+#print axioms Attachment.upBlock_parent_inj
+#print axioms Attachment.upFamily_transport
+#print axioms Attachment.act_up_comm
+#print axioms Attachment.upFamily_grammar_uniform
 #print axioms Attachment.par_le
 #print axioms Attachment.attach_fresh
 #print axioms Attachment.attach_pair_not_mem
@@ -695,6 +721,12 @@ open Derivation
 #print axioms Attachment.attach_prot_guard
 #print axioms Attachment.range_map_succ
 #print axioms Attachment.treeAt_spec
+#print axioms Attachment.natMax_append_singleton
+#print axioms Attachment.natMax_range_le
+#print axioms Attachment.tree_occ_len
+#print axioms Attachment.freshTok_treeState
+#print axioms Attachment.attachBlock_is_upBlock
+#print axioms Attachment.treeState_wf
 #print axioms Attachment.attach_residue
 #print axioms Attachment.parent_lt
 #print axioms Attachment.parent_unique
@@ -705,18 +737,54 @@ open Derivation
 #print axioms Attachment.star_edges
 #print axioms Attachment.tree4_concrete
 #print axioms Attachment.path4_star4_not_isomorphic
-#print axioms Attachment.attachMoves_length
-#print axioms Attachment.attachMoves_complete
-#print axioms Attachment.attachMoves_nonempty
-#print axioms Attachment.attachMoves_presentation_invariant
 #print axioms Attachment.star_orbit_swap
 #print axioms Attachment.path_oriented_rigid
 #print axioms Attachment.path_center_separate
-#print axioms LadderGeneral.ladder_general
+#print axioms Attachment.equal_size_not_renaming_related
+#print axioms Attachment.equal_cost_non_isomorphic_extensions
+#print axioms LadderGeneral.uniform_guarded_filler
 #print axioms LadderGeneral.shell_refuses_general
 #print axioms LadderGeneral.shell_no_self_fill
+#print axioms LadderGeneral.pseudo_cell_countermodel
+#print axioms LadderGeneral.wf_empty
+#print axioms LadderGeneral.wf_stepV
+#print axioms LadderGeneral.wf_stepN
+#print axioms LadderGeneral.wf_nstep
+#print axioms LadderGeneral.wf_nreplay
 #print axioms LadderGeneral.d4_demo
+#print axioms LadderGeneral.d4_wf
 #print axioms LadderGeneral.d4_guard_load_bearing
 #print axioms LadderGeneral.d2_zero_dims_2_3_4
 #print axioms PrimitiveCats.d2_map_injective
 #print axioms PrimitiveCats.d2_map_not_injective_without_irrefl
+#print axioms Compression.sigEq_iff_sigList
+#print axioms Compression.factors_iff_fiberConstant
+#print axioms Compression.factor_unique_on_image
+#print axioms Compression.factor_not_unique_off_image
+#print axioms Compression.pQ_exact
+#print axioms Compression.pQ_adequate
+#print axioms Compression.pQ_coarsest
+#print axioms Compression.pQ_unique_on_image
+#print axioms Compression.descent_witness
+#print axioms Compression.enlarge_refines
+#print axioms Compression.splits_iff_new_separator
+#print axioms Compression.absolute_adequacy_iff_injective
+#print axioms Compression.dup_no_refine
+#print axioms Compression.postcompose_no_refine
+#print axioms Compression.refine_requires_separator
+#print axioms Compression.refinement_not_unique
+#print axioms Compression.refinement_tie
+#print axioms Compression.refine_bounded
+#print axioms Compression.classCount_pos
+#print axioms Compression.strict_split_increases
+#print axioms Compression.chain_bounded
+#print axioms Compression.strict_steps_lt
+#print axioms StableContent.sepP_append
+#print axioms StableContent.sepP_refine
+#print axioms StableContent.prot_mono
+#print axioms StableContent.sep_preserved
+#print axioms StableContent.stable_content_persists
+#print axioms StableContent.stable_content_replays
+#print axioms StableContent.unprotected_separation_unstable
+#print axioms StableContent.quiescent_iff_protected_separated
+#print axioms StableContent.quiescence_is_stable_content

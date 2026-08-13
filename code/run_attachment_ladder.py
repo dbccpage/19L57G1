@@ -3,14 +3,18 @@
 Usage: python code/run_attachment_ladder.py [--artifacts DIR]
        [--rounds N] [--max-dim D]
 
-Writes ``attachment_ladder.json``: tree growth under path, star, and
-zigzag policies checked against the characterized record (every
-policy yields a tree, V - E = 1 throughout, pre-observational); the
-non-forcing of global shape (path vs star non-isomorphic at four
-occurrences); the complete Up family with presentation invariance
-and orbit-valued parent choices; and the generalized ladder replayed
-at dimensions 2 through the bound with guard load-bearing and
-boundary-composite checks."""
+Writes ``attachment_ladder.json``: tree growth under lawful path,
+star, and zigzag policies checked against the characterized record
+(every lawful policy yields a tree, V - E = 1 throughout,
+pre-observational, every block IS an Up block); the non-forcing of
+global shape (path vs star non-isomorphic at four occurrences); the
+complete Up family as a registry iff, with the typed refusal, the
+clamp and length-as-token countermodels, and orbit-valued parent
+choices; the genuine renaming action with commutation over the full
+permutation group and the equal-size / equal-cost countermodels;
+and the generalized ladder replayed at dimensions 2 through the
+bound with the repaired well-formed guard, the [0,0] pseudo-cell
+countermodel, guard load-bearing, and boundary-composite checks."""
 
 from __future__ import annotations
 
@@ -21,6 +25,7 @@ from typing import Optional
 
 from derivation.attachment_ladder import (
     ladder_report,
+    renaming_report,
     shape_report,
     tree_report,
     up_report,
@@ -48,6 +53,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         "trees": tree_report(args.rounds),
         "shape": shape_report(),
         "up": up_report(),
+        "renaming": renaming_report(),
         "ladder": ladder_report(args.max_dim),
     }
     out_path = args.artifacts / "attachment_ladder.json"
@@ -61,6 +67,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     assert isinstance(shape, dict)
     print(f"shape not forced: "
           f"{shape['trees_but_shapes_differ']}")
+    ren = payload["renaming"]
+    assert isinstance(ren, dict)
+    print(f"renaming: comm={ren['act_up_comm_all_perms']} "
+          f"transport={ren['up_family_transport_all_perms']}")
     ladder = payload["ladder"]
     assert isinstance(ladder, dict)
     print(f"ladder dims {ladder['dims_checked']}: "

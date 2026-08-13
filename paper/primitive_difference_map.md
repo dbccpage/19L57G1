@@ -254,15 +254,52 @@ metric, measure, or amplitude.
   is policy-uniform, global shape is not
   (`path4_star4_not_isomorphic`).
 - `Up` is the complete extension family — one block per represented
-  parent, no selection — invariant under every size-preserving
-  re-presentation, with orbit-valued choices where symmetry remains
-  (star leaves one orbit; the ORIENTED path rigid: the orientation
-  residue refuses the undirected flip).
-- The ladder is now a THEOREM at every dimension in the generalized
-  declared calculus (`LadderGeneral.ladder_general`), demonstrated
-  through dimension 4 in Lean and 5 in Python; the general composite
-  boundary vanishing is the remaining conjecture.
-- Imported inputs, still explicit: fresh supply, protection,
+  parent, no selection — and completeness is REGISTRY-RELATIVE, an
+  iff against the declared one-edge grammar (`up_iff_legal`), with
+  every block executing to a strict legal extension
+  (`up_executes`).  Policies are lawful by proof (`LawfulPolicy`);
+  illegal choices meet a typed refusal, never a silent clamp
+  (countermodel `clamp_rewrote_input`).  Tokens and positions are
+  distinct throughout; the canonical fresh token is proved fresh on
+  every carrier, and length-as-token fails off the initial segment
+  (countermodel `length_not_fresh_countermodel`).
+- Presentation invariance is a genuine positional renaming ACTION:
+  replay of Up blocks commutes with it (`act_up_comm`); equal size
+  — even a literally equal family — is NOT relatedness
+  (countermodel `equal_size_not_renaming_related`), and two legal
+  equal-cost extensions genuinely diverge (countermodel
+  `equal_cost_non_isomorphic_extensions`).  Orbit-valued choices
+  where symmetry remains (star leaves one orbit; the ORIENTED path
+  rigid: the orientation residue refuses the undirected flip).
+- The generalized calculus carries the UNIFORM GUARDED FILLER
+  theorem (`LadderGeneral.uniform_guarded_filler` — narrowed from
+  the former "general ladder" naming): admission plus strict
+  extension under the repaired well-formed guard (exact arity,
+  strict ascent — the legacy guard's `[0,0]` pseudo-cell is the
+  recorded countermodel), demonstrated through dimension 4 in Lean
+  and 5 in Python; well-formedness replays as an invariant; the
+  general composite boundary vanishing REMAINS the open
+  conjecture.
+- Target-relative compression (`Compression`): factorization
+  through the question signature iff fiber-constancy; the
+  signature quotient is the coarsest adequate presentation with an
+  image-scoped universal property; descent failures are witnessed;
+  enlargement refines with an exact split characterization; NO
+  absolute adequacy without a declared family (adequacy for all
+  families = injectivity = no compression); repetition, digests,
+  and replay records separate nothing new — replay becomes
+  evidential only through a new separating question.  Refinement
+  is not unique and ties are retained (countermodels), and strict
+  refinement chains are bounded by the declared domain.
+- Stable content (`StableContent`): what persists under every
+  event of the calculus is EXACTLY the protected separations —
+  supply never touches observation, columns only add separators,
+  and refinement is guarded by monotone preservation of protected
+  separations, while an accepted refinement can destroy an
+  unprotected one (protection is load-bearing).  Quiescence is the
+  statement that every retained protected pair already lies inside
+  the stable content.
+- Imported inputs, still explicit: fresh token supply, protection,
   observer transport, budget, activation.
 
 ## 9. Terminals, adversarial record, and receipt

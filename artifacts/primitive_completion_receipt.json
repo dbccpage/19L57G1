@@ -86,8 +86,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256": "d10a00b4ad7bf1c1533919360c606fc6600e13317b5dc6b775d4280659f6ee4d",
-  "theorem_count": 650
+  "sha256_canonical": "51a5eee1454ccd60a9c077dc5b030501db59d5a65f33bed68b7f606ba7fbe351",
+  "theorem_count": 716
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
@@ -152,24 +152,62 @@
   },
   {
    "evidence": [
-    "Attachment.attachMoves_complete",
-    "Attachment.attachMoves_length",
-    "Attachment.attachMoves_presentation_invariant",
+    "Attachment.up_iff_legal (membership iff declared one-edge legality)",
+    "Attachment.up_exec_eq / up_executes (every block executes to a strict legal extension)",
+    "Attachment.upBlock_transport / upFamily_transport / act_up_comm (genuine renaming action; replay commutes, supply fragment)",
+    "Attachment.upFamily_grammar_uniform (carrier-identical uniformity only)",
     "orbit instances: Attachment.star_orbit_swap / path_oriented_rigid / path_center_separate"
    ],
    "status": "THEOREM",
-   "tag": "UP_FAMILY_COMPLETE_AND_PRESENTATION_INVARIANT"
+   "tag": "UP_FAMILY_REGISTRY_IFF_AND_RENAMING_ACTION"
   },
   {
    "evidence": [
-    "LadderGeneral.ladder_general (every dimension, generalized declared calculus)",
+    "LadderGeneral.uniform_guarded_filler (admission + strict extension under the repaired well-formed guard, uniform in the dimension; NOT a homology claim)",
     "LadderGeneral.shell_refuses_general",
     "LadderGeneral.shell_no_self_fill",
+    "LadderGeneral.wf_nreplay (well-formed cells are a replayed invariant)",
     "LadderGeneral.d4_demo",
+    "LadderGeneral.d4_wf",
     "LadderGeneral.d4_guard_load_bearing"
    ],
    "status": "THEOREM",
-   "tag": "GENERAL_LADDER_THEOREM"
+   "tag": "UNIFORM_GUARDED_FILLER"
+  },
+  {
+   "evidence": [
+    "no clamping: Attachment.LawfulPolicy, typed refusal Attachment.attachChecked_refuses / unlawful_refused; countermodel clamp_rewrote_input",
+    "occurrence identity: tokens vs positions resolved; Attachment.freshTok_fresh; countermodel length_not_fresh_countermodel; Attachment.freshTok_treeState + attachBlock_is_upBlock (coincide on canonical tree states)",
+    "presentation invariance repaired: countermodel equal_size_not_renaming_related (equal size, equal family, no relating renaming)",
+    "selection never forced: countermodel equal_cost_non_isomorphic_extensions",
+    "well-formed cells: countermodel LadderGeneral.pseudo_cell_countermodel ([0,0] admitted by the legacy guard, refused now)",
+    "receipt bytes: canonical_sha256 = Git blob bytes; blob/checkout distinction and mutation detection tested"
+   ],
+   "status": "THEOREM + COUNTERMODEL",
+   "tag": "PR12_REPAIRS"
+  },
+  {
+   "evidence": [
+    "StableContent.stable_content_persists / stable_content_replays (membership in the stable content survives every event and every replay)",
+    "StableContent.unprotected_separation_unstable (protection is load-bearing: an accepted refinement destroys an unprotected separation)",
+    "StableContent.quiescent_iff_protected_separated + quiescence_is_stable_content (quiescence = protected pairs inside the stable content)"
+   ],
+   "status": "THEOREM + COUNTERMODEL",
+   "tag": "STABLE_CONTENT_IS_PROTECTED_SEPARATION"
+  },
+  {
+   "evidence": [
+    "Compression.factors_iff_fiberConstant + factor_unique_on_image + factor_not_unique_off_image (A)",
+    "Compression.pQ_exact / pQ_adequate / pQ_coarsest / pQ_unique_on_image (B: coarsest Q-adequate, universal property with exact scope)",
+    "Compression.descent_witness (C: every merged-but-separated pair is witnessed)",
+    "Compression.enlarge_refines + splits_iff_new_separator (D)",
+    "Compression.absolute_adequacy_iff_injective (E: absolute adequacy = injectivity = no compression)",
+    "Compression.dup_no_refine / postcompose_no_refine / refine_requires_separator (F: replay and digests add no separating question)",
+    "Compression.refine_bounded / strict_split_increases / chain_bounded / strict_steps_lt (iteration bounded by the declared domain)",
+    "countermodels: refinement_not_unique, refinement_tie (no unique, no unique-minimum refinement)"
+   ],
+   "status": "THEOREM + COUNTERMODEL",
+   "tag": "TARGET_RELATIVE_COMPRESSION"
   }
  ],
  "frontier_conjectures": [
@@ -179,7 +217,7 @@
   },
   {
    "conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
-   "missing_theorem": "the dimensional LADDER is now a theorem at every dimension (LadderGeneral.ladder_general, upgrading the review-pass conjecture); what remains is the general vanishing of the composite boundary for every dimension \u2014 decided at dimensions 2\u20135, general case open"
+   "missing_theorem": "the guarded filler is a theorem at every dimension (LadderGeneral.uniform_guarded_filler, narrowed scope: admission + strict extension, not homology); what remains is the general vanishing of the composite boundary for every dimension \u2014 decided at dimensions 2\u20135, general case open"
   },
   {
    "conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
@@ -194,13 +232,15 @@
   "absolute self-interpretation: the outermost interpretation relation remains metatheoretic (inherited OPEN bridge); a DECLARED model of the boundary satisfies candidates A and F (Phase VIII), and the stronger identification is a frontier conjecture, not a result",
   "absolute no-outside: not formulable in this calculus; not claimed (inherited scope)"
  ],
- "prompt_sha256": {
+ "prompt_sha256_canonical": {
   "prompt/prompt.md": "a613a1965e4f02fee00df4d42041fceeca176abcfaa9202c3e769021305940b5",
   "prompt/prompt_pr12.md": "fc1625a46ca19be4d479b8e407f82cc0d8ba26beb8647437f6895486e67d7403",
-  "prompt/seed_prompt.md": "ee3ba0583fea2a11f1294538c912c542b3faee5316355dc226efb92ef64646ab",
+  "prompt/seed_prompt.md": "4ea4682e1da25363f9c7c1e9234b4b248f980097ae92d6f7dc1e8e8dd9bd4388",
   "prompt/ultra_prompt_pr12.md": "f73e6c8e7e7d6a826340df0043a567789cf52ec14a89247d430d0f096302fa7a"
  },
  "run": "PR #12 \u2014 Primitive Difference contact and passage",
+ "seed_prompt_original_supplied_sha256": "ee3ba0583fea2a11f1294538c912c542b3faee5316355dc226efb92ef64646ab",
+ "seed_prompt_provenance": "the original supplied working-tree rendering (CRLF) was hashed at recording time; the repository-canonical blob is its one-time LF staging normalization, accepted alongside it by ci/check_prompt_hashes.py since PR #1",
  "terminals": [
   {
    "code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -291,7 +331,7 @@
  ],
  "toolchain": {
   "lean": "leanprover/lean4:v4.33.0",
-  "python_requirements_sha256_normalized": "932fdecbe9d0acc035ce1c701b6e790b5ced06e16954fb9e5b1bd02f1839edd5"
+  "python_requirements_sha256_canonical": "932fdecbe9d0acc035ce1c701b6e790b5ced06e16954fb9e5b1bd02f1839edd5"
  },
  "withdrawn_or_repaired_claims": [
   "42a33d9 item 8 cross-language claim: REFUTED and repaired (C10; Horizon budget saturation pins)",

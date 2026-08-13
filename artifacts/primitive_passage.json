@@ -526,5 +526,17 @@
     "wit": 15
    }
   ]
+ },
+ "stable_content": {
+  "carrier": 3,
+  "quiescence_iff_protected_in_stable_content": true,
+  "stable_content_persists_battery": true,
+  "unprotected_separation_unstable": {
+   "after_broken_unprotected": true,
+   "before_separated_unprotected": true,
+   "protected_pair_now_separated": true,
+   "protected_stable_content_intact": true,
+   "refinement_accepted": true
+  }
  }
 }

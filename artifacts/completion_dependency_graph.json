@@ -6097,7 +6097,8 @@
    ],
    "citing_claims": [],
    "consumers": [
-    "HigherStructure.lean"
+    "HigherStructure.lean",
+    "StableContent.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6516,7 +6517,9 @@
    ],
    "citing_claims": [],
    "consumers": [
-    "ControllerCategory.lean"
+    "Attachment.lean",
+    "ControllerCategory.lean",
+    "StableContent.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -7009,7 +7012,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER"
+    "CL-PD2-LADDER",
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8470,6 +8474,48 @@
    "statement": "(u v : StrictSim fullCtrl noRefCtrl) (hist : List PEvent) : u.toSim.f (replayP hist genesisP) = v.toSim.f (replayP hist genesisP)"
   },
   {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.clamp_rewrote_input",
+   "role": "preservation",
+   "statement": ": clampedPar badChoice 0 = 0 \u2227 badChoice 1 \u2260 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.attachChecked_refuses",
+   "role": "preservation",
+   "statement": "(s : PState) (p : Nat) (hp : \u00ac (p < s.occ.length)) : attachChecked s p = .refusedParent p s.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.unlawful_refused",
+   "role": "preservation",
+   "statement": "(s : PState) (h3 : s.occ.length = 3) : attachChecked s (badChoice 2) = .refusedParent 9 3"
+  },
+  {
    "axioms": [
     "propext"
    ],
@@ -8477,9 +8523,294 @@
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
+   "name": "Attachment.le_natMax_of_mem",
+   "role": "preservation",
+   "statement": "{l : List Nat} {x : Nat} (h : x \u2208 l) : x \u2264 natMax l"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.freshTok_fresh",
+   "role": "preservation",
+   "statement": "(s : PState) : \u00ac (freshTok s \u2208 s.occ)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.length_not_fresh_countermodel",
+   "role": "preservation",
+   "statement": ": (replayP [.admitOcc 2, .assertWit 0 2, .admitWit 0 2, .protect 0 2] s12).occ.length = 2 \u2227 freshTok s12 = 3 \u2227 (replayP (upBlock s12 0) s12).occ.length = 3"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.halted_up_inert",
+   "role": "preservation",
+   "statement": "(s : PState) (h : s.halted = true) (p : Nat) : replayP (upBlock s p) s = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.up_iff_legal",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) : b \u2208 upFamily s \u2194 LegalOneEdgeExtension s b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.up_exec_eq",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : replayP (upBlock s p) s = upS4 s p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.up_executes",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : (replayP (upBlock s p) s).occ.length = s.occ.length + 1 \u2227 (replayP (upBlock s p) s).asserted.length = s.asserted.length + 1 \u2227 (replayP (upBlock s p) s).wit.length = s.wit.length + 1 \u2227 (replayP (upBlock s p) s).prot.length = s.prot.length + 1 \u2227 WFStores (replayP (upBlock s p) s)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.Renaming.f_inj",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) {x y : Nat} (h : \u03c3.f x = \u03c3.f y) : x = y"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.Renaming.gbound",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : \u2200 x, x < n \u2192 \u03c3.g x < n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.Renaming.gfix",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) : \u2200 x, n \u2264 x \u2192 \u03c3.g x = x"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.Renaming.fbound_iff",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (x : Nat) : (\u03c3.f x < n) \u2194 (x < n)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.getD_lt",
+   "role": "preservation",
+   "statement": "{l : List Nat} {i : Nat} (h : i < l.length) : l.getD i 0 = l[i]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PROGRESS"
+   ],
+   "consumers": [
+    "Progress.lean"
+   ],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.getD_append_lt",
+   "role": "preservation",
+   "statement": "{l l' : List Nat} {i : Nat} (h : i < l.length) : (l ++ l').getD i 0 = l.getD i 0"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.act_occ_length",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) : (act \u03c3 s).occ.length = s.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.act_occ_mem",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (x : Nat) : (x \u2208 (act \u03c3 s).occ) \u2194 (x \u2208 s.occ)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.freshTok_act",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) : freshTok (act \u03c3 s) = freshTok s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.upBlock_transport",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (p : Nat) : upBlock (act \u03c3 s) (\u03c3.f p) = [.admitOcc (freshTok s), .assertWit (\u03c3.f p) s.occ.length, .admitWit (\u03c3.f p) s.occ.length, .protect (\u03c3.f p) s.occ.length]"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.upBlock_parent_inj",
+   "role": "preservation",
+   "statement": "(s : PState) {p p' : Nat} (heq : upBlock s p = upBlock s p') : p = p'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.upFamily_transport",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (p : Nat) : upBlock s p \u2208 upFamily s \u2194 upBlock (act \u03c3 s) (\u03c3.f p) \u2208 upFamily (act \u03c3 s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.act_up_comm",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : act \u03c3 (replayP (upBlock s p) s) = replayP (upBlock (act \u03c3 s) (\u03c3.f p)) (act \u03c3 s)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.upFamily_grammar_uniform",
+   "role": "preservation",
+   "statement": "(s t : PState) (h : s.occ = t.occ) : upFamily s = upFamily t"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
    "name": "Attachment.par_le",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (k : Nat) : par \u03c0 k \u2264 k"
+   "statement": "(\u03c0 : LawfulPolicy) (k : Nat) : par \u03c0 k \u2264 k"
   },
   {
    "axioms": [
@@ -8505,7 +8836,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.attach_pair_not_mem",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : \u00ac ((par \u03c0 n, n + 1) \u2208 (List.range n).map (fun k => (par \u03c0 k, k + 1)))"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u00ac ((par \u03c0 n, n + 1) \u2208 (List.range n).map (fun k => (par \u03c0 k, k + 1)))"
   },
   {
    "axioms": [
@@ -8530,7 +8861,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.attach_wf_guard",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : (wfPair (t1 \u03c0 n) (par \u03c0 n) (n + 1) && !(decide ((par \u03c0 n, n + 1) \u2208 (t1 \u03c0 n).asserted))) = true"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : (wfPair (t1 \u03c0 n) (par \u03c0 n) (n + 1) && !(decide ((par \u03c0 n, n + 1) \u2208 (t1 \u03c0 n).asserted))) = true"
   },
   {
    "axioms": [
@@ -8543,7 +8874,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.attach_wit_guard",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : (wfPair (t2 \u03c0 n) (par \u03c0 n) (n + 1) && (decide ((par \u03c0 n, n + 1) \u2208 (t2 \u03c0 n).asserted)) && !(decide ((par \u03c0 n, n + 1) \u2208 (t2 \u03c0 n).wit))) = true"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : (wfPair (t2 \u03c0 n) (par \u03c0 n) (n + 1) && (decide ((par \u03c0 n, n + 1) \u2208 (t2 \u03c0 n).asserted)) && !(decide ((par \u03c0 n, n + 1) \u2208 (t2 \u03c0 n).wit))) = true"
   },
   {
    "axioms": [
@@ -8556,7 +8887,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.attach_prot_guard",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : ((decide ((par \u03c0 n, n + 1) \u2208 (t3 \u03c0 n).wit)) && !(decide ((par \u03c0 n, n + 1) \u2208 (t3 \u03c0 n).prot))) = true"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : ((decide ((par \u03c0 n, n + 1) \u2208 (t3 \u03c0 n).wit)) && !(decide ((par \u03c0 n, n + 1) \u2208 (t3 \u03c0 n).prot))) = true"
   },
   {
    "axioms": [
@@ -8568,7 +8899,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.range_map_succ",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : (List.range (n + 1)).map (fun k => (par \u03c0 k, k + 1)) = (List.range n).map (fun k => (par \u03c0 k, k + 1)) ++ [(par \u03c0 n, n + 1)]"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : (List.range (n + 1)).map (fun k => (par \u03c0 k, k + 1)) = (List.range n).map (fun k => (par \u03c0 k, k + 1)) ++ [(par \u03c0 n, n + 1)]"
   },
   {
    "axioms": [
@@ -8576,14 +8907,52 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.treeAt_spec",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : treeAt \u03c0 n = treeState \u03c0 n"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : treeAt \u03c0 n = treeState \u03c0 n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.natMax_append_singleton",
+   "role": "preservation",
+   "statement": "(l : List Nat) (x : Nat) : natMax (l ++ [x]) = max (natMax l) x"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.natMax_range_le",
+   "role": "preservation",
+   "statement": "(n : Nat) : natMax (List.range n) \u2264 n"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.tree_occ_len",
+   "role": "preservation",
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : (treeState \u03c0 n).occ.length = n + 1"
   },
   {
    "axioms": [
@@ -8591,14 +8960,59 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.freshTok_treeState",
+   "role": "preservation",
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : freshTok (treeState \u03c0 n) = n + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.attachBlock_is_upBlock",
+   "role": "preservation",
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : attachBlock \u03c0 n = upBlock (treeState \u03c0 n) (par \u03c0 n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.treeState_wf",
+   "role": "preservation",
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : WFStores (treeState \u03c0 n)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.attach_residue",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : (treeAt \u03c0 n).occ.length = n + 1 \u2227 (treeAt \u03c0 n).wit.length = n"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : (treeAt \u03c0 n).occ.length = n + 1 \u2227 (treeAt \u03c0 n).wit.length = n"
   },
   {
    "axioms": [
@@ -8606,14 +9020,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.parent_lt",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : \u2200 p \u2208 (treeAt \u03c0 n).wit, p.1 < p.2"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u2200 p \u2208 (treeAt \u03c0 n).wit, p.1 < p.2"
   },
   {
    "axioms": [
@@ -8621,14 +9035,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.parent_unique",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : \u2200 p q, p \u2208 (treeAt \u03c0 n).wit \u2192 q \u2208 (treeAt \u03c0 n).wit \u2192 p.2 = q.2 \u2192 p = q"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u2200 p q, p \u2208 (treeAt \u03c0 n).wit \u2192 q \u2208 (treeAt \u03c0 n).wit \u2192 p.2 = q.2 \u2192 p = q"
   },
   {
    "axioms": [
@@ -8636,14 +9050,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.parent_exists",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : \u2200 c, 1 \u2264 c \u2192 c < n + 1 \u2192 \u2203 p, (p, c) \u2208 (treeAt \u03c0 n).wit"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u2200 c, 1 \u2264 c \u2192 c < n + 1 \u2192 \u2203 p, (p, c) \u2208 (treeAt \u03c0 n).wit"
   },
   {
    "axioms": [
@@ -8656,7 +9070,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.all_reach_aux",
    "role": "preservation",
-   "statement": "(\u03c0 : Nat \u2192 Nat) (n : Nat) : \u2200 (bound v : Nat), v \u2264 bound \u2192 v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u2200 (bound v : Nat), v \u2264 bound \u2192 v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
   },
   {
    "axioms": [
@@ -8664,14 +9078,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.all_reach",
    "role": "preservation",
-   "statement": "_aux (\u03c0 : Nat \u2192 Nat) (n : Nat) : \u2200 (bound v : Nat), v \u2264 bound \u2192 v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
+   "statement": "_aux (\u03c0 : LawfulPolicy) (n : Nat) : \u2200 (bound v : Nat), v \u2264 bound \u2192 v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
   },
   {
    "axioms": [
@@ -8684,7 +9098,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.path_edges",
    "role": "preservation",
-   "statement": "(n : Nat) : (treeAt pathPol n).wit = (List.range n).map (fun k => (k, k + 1))"
+   "statement": "(n : Nat) : (treeAt pathPolL n).wit = (List.range n).map (fun k => (k, k + 1))"
   },
   {
    "axioms": [
@@ -8697,7 +9111,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.star_edges",
    "role": "preservation",
-   "statement": "(n : Nat) : (treeAt starPol n).wit = (List.range n).map (fun k => (0, k + 1))"
+   "statement": "(n : Nat) : (treeAt starPolL n).wit = (List.range n).map (fun k => (0, k + 1))"
   },
   {
    "axioms": [
@@ -8710,7 +9124,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.tree4_concrete",
    "role": "preservation",
-   "statement": ": (treeAt pathPol 3).wit = path4E \u2227 (treeAt starPol 3).wit = star4E"
+   "statement": ": (treeAt pathPolL 3).wit = path4E \u2227 (treeAt starPolL 3).wit = star4E"
   },
   {
    "axioms": [
@@ -8718,7 +9132,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8729,70 +9143,18 @@
   },
   {
    "axioms": [
-    "propext"
-   ],
-   "citing_claims": [],
-   "consumers": [],
-   "kind": "generic",
-   "module": "Attachment.lean",
-   "name": "Attachment.attachMoves_length",
-   "role": "preservation",
-   "statement": "(s : PState) : (attachMoves s).length = s.occ.length"
-  },
-  {
-   "axioms": [
     "propext",
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
-   ],
-   "consumers": [],
-   "kind": "generic",
-   "module": "Attachment.lean",
-   "name": "Attachment.attachMoves_complete",
-   "role": "preservation",
-   "statement": "(s : PState) (p : Nat) (hp : p < s.occ.length) : [PEvent.admitOcc s.occ.length, PEvent.assertWit p s.occ.length, PEvent.admitWit p s.occ.length, PEvent.protect p s.occ.length] \u2208 attachMoves s"
-  },
-  {
-   "axioms": [
-    "propext",
-    "Quot.sound"
-   ],
-   "citing_claims": [],
-   "consumers": [],
-   "kind": "generic",
-   "module": "Attachment.lean",
-   "name": "Attachment.attachMoves_nonempty",
-   "role": "preservation",
-   "statement": "(s : PState) (h : 0 < s.occ.length) : attachMoves s \u2260 []"
-  },
-  {
-   "axioms": [],
-   "citing_claims": [
-    "CL-PD2-ATTACHMENT"
-   ],
-   "consumers": [],
-   "kind": "generic",
-   "module": "Attachment.lean",
-   "name": "Attachment.attachMoves_presentation_invariant",
-   "role": "preservation",
-   "statement": "(s t : PState) (h : s.occ.length = t.occ.length) : attachMoves s = attachMoves t"
-  },
-  {
-   "axioms": [
-    "propext",
-    "Quot.sound"
-   ],
-   "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.star_orbit_swap",
    "role": "preservation",
-   "statement": ": (((replayP (blockAt 1 3) (treeAt starPol 2)).wit.map (renamePair swap12)).all (fun p => decide (p \u2208 (replayP (blockAt 2 3) (treeAt starPol 2)).wit)) = true) \u2227 (((replayP (blockAt 2 3) (treeAt starPol 2)).wit.map (renamePair swap12)).all (fun p => decide (p \u2208 (replayP (blockAt 1 3) (treeAt starPol 2)).wit)) = true)"
+   "statement": ": (((replayP (blockAt 1 3) (treeAt starPolL 2)).wit.map (renamePair swap12)).all (fun p => decide (p \u2208 (replayP (blockAt 2 3) (treeAt starPolL 2)).wit)) = true) \u2227 (((replayP (blockAt 2 3) (treeAt starPolL 2)).wit.map (renamePair swap12)).all (fun p => decide (p \u2208 (replayP (blockAt 1 3) (treeAt starPolL 2)).wit)) = true)"
   },
   {
    "axioms": [
@@ -8800,14 +9162,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.path_oriented_rigid",
    "role": "preservation",
-   "statement": ": (((replayP (blockAt 0 3) (treeAt pathPol 2)).wit.map (renamePair flip02)).all (fun p => decide (p \u2208 (replayP (blockAt 2 3) (treeAt pathPol 2)).wit)) = false)"
+   "statement": ": (((replayP (blockAt 0 3) (treeAt pathPolL 2)).wit.map (renamePair flip02)).all (fun p => decide (p \u2208 (replayP (blockAt 2 3) (treeAt pathPolL 2)).wit)) = false)"
   },
   {
    "axioms": [
@@ -8815,14 +9177,14 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.path_center_separate",
    "role": "preservation",
-   "statement": ": (((replayP (blockAt 0 3) (treeAt pathPol 2)).wit.map (renamePair flip02)).all (fun p => decide (p \u2208 (replayP (blockAt 1 3) (treeAt pathPol 2)).wit)) = false) \u2227 (((replayP (blockAt 0 3) (treeAt pathPol 2)).wit.map (renamePair id)).all (fun p => decide (p \u2208 (replayP (blockAt 1 3) (treeAt pathPol 2)).wit)) = false)"
+   "statement": ": (((replayP (blockAt 0 3) (treeAt pathPolL 2)).wit.map (renamePair flip02)).all (fun p => decide (p \u2208 (replayP (blockAt 1 3) (treeAt pathPolL 2)).wit)) = false) \u2227 (((replayP (blockAt 0 3) (treeAt pathPolL 2)).wit.map (renamePair id)).all (fun p => decide (p \u2208 (replayP (blockAt 1 3) (treeAt pathPolL 2)).wit)) = false)"
   },
   {
    "axioms": [
@@ -8830,12 +9192,42 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.equal_size_not_renaming_related",
+   "role": "preservation",
+   "statement": ": (upFamily (treeAt starPolL 2) = upFamily (treeAt pathPolL 2)) \u2227 \u2200 (n : Nat) (\u03c3 : Renaming n), act \u03c3 (treeAt starPolL 2) \u2260 treeAt pathPolL 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Attachment.lean",
+   "name": "Attachment.equal_cost_non_isomorphic_extensions",
+   "role": "preservation",
+   "statement": ": (upBlock (treeAt pathPolL 2) 1 \u2208 upFamily (treeAt pathPolL 2)) \u2227 (upBlock (treeAt pathPolL 2) 2 \u2208 upFamily (treeAt pathPolL 2)) \u2227 ((upBlock (treeAt pathPolL 2) 1).length = (upBlock (treeAt pathPolL 2) 2).length) \u2227 ((tuples4.all fun t => !(isoMatch t (replayP (upBlock (treeAt pathPolL 2) 1) (treeAt pathPolL 2)).wit (replayP (upBlock (treeAt pathPolL 2) 2) (treeAt pathPolL 2)).wit)) = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "LadderGeneral.lean",
-   "name": "LadderGeneral.ladder_general",
+   "name": "LadderGeneral.uniform_guarded_filler",
    "role": "preservation",
    "statement": "(C : ComplexN) (k : Nat) (\u03c3 : List Nat) (h : shellN C k \u03c3 = true) : \u03c3 \u2208 (stepN C k \u03c3).cells k \u2227 stepN C k \u03c3 \u2260 C"
   },
@@ -8845,7 +9237,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL"
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8860,7 +9252,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL"
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8875,7 +9267,86 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL"
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.pseudo_cell_countermodel",
+   "role": "preservation",
+   "statement": ": shellNLegacy oneVertex 1 [0, 0] = true \u2227 shellN oneVertex 1 [0, 0] = false \u2227 stepN oneVertex 1 [0, 0] = oneVertex"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.wf_empty",
+   "role": "preservation",
+   "statement": ": WFComplex emptyN"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.wf_stepV",
+   "role": "preservation",
+   "statement": "(C : ComplexN) (v : Nat) (h : WFComplex C) : WFComplex (stepV C v)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.wf_stepN",
+   "role": "preservation",
+   "statement": "(C : ComplexN) (k : Nat) (\u03c3 : List Nat) (h : WFComplex C) : WFComplex (stepN C k \u03c3)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.wf_nstep",
+   "role": "preservation",
+   "statement": "(C : ComplexN) (e : NEvent) (h : WFComplex C) : WFComplex (nstep C e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.wf_nreplay",
+   "role": "preservation",
+   "statement": "(h : List NEvent) : \u2200 C, WFComplex C \u2192 WFComplex (nreplay h C)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8890,7 +9361,22 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL"
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LadderGeneral.lean",
+   "name": "LadderGeneral.d4_wf",
+   "role": "preservation",
+   "statement": ": WFComplex d4Complex"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8902,7 +9388,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL"
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8914,7 +9400,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8926,7 +9412,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT"
+    "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -8934,6 +9420,427 @@
    "name": "PrimitiveCats.d2_map_not_injective_without_irrefl",
    "role": "preservation",
    "statement": ": \u2203 (P : PtdRel) (h : Hom d2Obj P) (x y : Bool), h.f x = h.f y \u2227 x \u2260 y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.sigEq_iff_sigList",
+   "role": "preservation",
+   "statement": "(Q : List (Nat \u2192 Nat)) (x x' : Nat) : SigEq Q x x' \u2194 sigList Q x = sigList Q x'"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.factors_iff_fiberConstant",
+   "role": "preservation",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : FactorsOn D p q \u2194 FiberConstant D p q"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.factor_unique_on_image",
+   "role": "preservation",
+   "statement": "(D : List Nat) (p q g g' : Nat \u2192 Nat) (h : \u2200 x, x \u2208 D \u2192 g (p x) = q x) (h' : \u2200 x, x \u2208 D \u2192 g' (p x) = q x) : \u2200 x, x \u2208 D \u2192 g (p x) = g' (p x)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.factor_not_unique_off_image",
+   "role": "preservation",
+   "statement": ": \u2203 (D : List Nat) (p q g g' : Nat \u2192 Nat), (\u2200 x, x \u2208 D \u2192 g (p x) = q x) \u2227 (\u2200 x, x \u2208 D \u2192 g' (p x) = q x) \u2227 g \u2260 g'"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.pQ_exact",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) : \u2200 x, x \u2208 D \u2192 \u2200 x', x' \u2208 D \u2192 (pQ D Q x = pQ D Q x' \u2194 SigEq Q x x')"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.pQ_adequate",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) : Adequate D Q (pQ D Q)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.pQ_coarsest",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) (p : Nat \u2192 Nat) (hp : Adequate D Q p) : FactorsOn D p (pQ D Q)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.pQ_unique_on_image",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) (p : Nat \u2192 Nat) (_hp : Adequate D Q p) (g g' : Nat \u2192 Nat) (hg : \u2200 x, x \u2208 D \u2192 g (p x) = pQ D Q x) (hg' : \u2200 x, x \u2208 D \u2192 g' (p x) = pQ D Q x) : \u2200 x, x \u2208 D \u2192 g (p x) = g' (p x)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.descent_witness",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) (p : Nat \u2192 Nat) (x x' : Nat) (hx : x \u2208 D) (hx' : x' \u2208 D) (hp : p x = p x') (hne : \u00ac SigEq Q x x') : \u2203 q, q \u2208 Q \u2227 q x \u2260 q x' \u2227 \u00ac FiberConstant D p q"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.enlarge_refines",
+   "role": "preservation",
+   "statement": "(Q Q' : List (Nat \u2192 Nat)) (hsub : \u2200 q, q \u2208 Q \u2192 q \u2208 Q') (x x' : Nat) : SigEq Q' x x' \u2192 SigEq Q x x'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.splits_iff_new_separator",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (x : Nat) (_hsub : \u2200 q, q \u2208 Q \u2192 q \u2208 Q') : SplitsAt D Q Q' x \u2194 \u2203 x', x' \u2208 D \u2227 SigEq Q x x' \u2227 \u2203 q', q' \u2208 Q' \u2227 q' x \u2260 q' x'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.absolute_adequacy_iff_injective",
+   "role": "preservation",
+   "statement": "(D : List Nat) (p : Nat \u2192 Nat) : (\u2200 Q : List (Nat \u2192 Nat), Adequate D Q p) \u2194 (\u2200 x, x \u2208 D \u2192 \u2200 x', x' \u2208 D \u2192 p x = p x' \u2192 x = x')"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.dup_no_refine",
+   "role": "preservation",
+   "statement": "(Q : List (Nat \u2192 Nat)) (x x' : Nat) : SigEq (Q ++ Q) x x' \u2194 SigEq Q x x'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.postcompose_no_refine",
+   "role": "preservation",
+   "statement": "(Q : List (Nat \u2192 Nat)) (f : List Nat \u2192 Nat) (x x' : Nat) : SigEq (Q ++ [fun z => f (sigList Q z)]) x x' \u2194 SigEq Q x x'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.refine_requires_separator",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (x : Nat) (h : SplitsAt D Q Q' x) : \u2203 q', q' \u2208 Q' \u2227 \u00ac (\u2203 f : List Nat \u2192 Nat, \u2200 z, q' z = f (sigList Q z))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.refinement_not_unique",
+   "role": "preservation",
+   "statement": ": \u2203 (D : List Nat) (Q Q1 Q2 : List (Nat \u2192 Nat)) (x : Nat), x \u2208 D \u2227 (\u2200 q, q \u2208 Q \u2192 q \u2208 Q1) \u2227 (\u2200 q, q \u2208 Q \u2192 q \u2208 Q2) \u2227 SplitsAt D Q Q1 x \u2227 SplitsAt D Q Q2 x \u2227 \u2203 y, y \u2208 D \u2227 \u2203 y', y' \u2208 D \u2227 SigEq Q1 y y' \u2227 \u00ac SigEq Q2 y y'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.refinement_tie",
+   "role": "preservation",
+   "statement": ": \u2203 (D : List Nat) (Q Q1 Q2 : List (Nat \u2192 Nat)) (x : Nat), Q1.length = Q2.length \u2227 x \u2208 D \u2227 SplitsAt D Q Q1 x \u2227 SplitsAt D Q Q2 x \u2227 \u00ac (\u2200 y, y \u2208 D \u2192 \u2200 y', y' \u2208 D \u2192 (SigEq Q1 y y' \u2194 SigEq Q2 y y'))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.refine_bounded",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) : classCount D Q \u2264 D.length"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.classCount_pos",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) (hD : D \u2260 []) : 1 \u2264 classCount D Q"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.strict_split_increases",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (hsub : \u2200 q, q \u2208 Q \u2192 q \u2208 Q') (x : Nat) (hx : x \u2208 D) (hs : SplitsAt D Q Q' x) : classCount D Q < classCount D Q'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.chain_bounded",
+   "role": "preservation",
+   "statement": "(D : List Nat) (hD : D \u2260 []) (L : List (List (Nat \u2192 Nat))) (hc : StrictChain D L) : L.length \u2264 D.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-COMPRESSION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Compression.lean",
+   "name": "Compression.strict_steps_lt",
+   "role": "preservation",
+   "statement": "(D : List Nat) (hD : D \u2260 []) (Q : List (Nat \u2192 Nat)) (t : List (List (Nat \u2192 Nat))) (hc : StrictChain D (Q :: t)) : t.length < D.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.sepP_append",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (c : List Nat) (i j : Nat) (h : sepP cols i j = true) : sepP (cols ++ [c]) i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.sepP_refine",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (v : List Nat) (p : Nat) (i j : Nat) (hobs : s.obs = some cols) (hro : refineOk s v p = true) (hp : (i, j) \u2208 s.prot) (hsep : sepP cols i j = true) : sepP (cols.map (fun c => if c = v then p :: c else c)) i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.prot_mono",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : (i, j) \u2208 s.prot) : (i, j) \u2208 (step s e).prot"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.sep_preserved",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (cols : List (List Nat)) (hobs : s.obs = some cols) (hp : (i, j) \u2208 s.prot) (hsep : sepP cols i j = true) : \u2203 cols', (step s e).obs = some cols' \u2227 sepP cols' i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.stable_content_persists",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : stableSep s i j = true) : stableSep (step s e) i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.stable_content_replays",
+   "role": "preservation",
+   "statement": "(h : List PEvent) : \u2200 (s : PState) (i j : Nat), stableSep s i j = true \u2192 stableSep (replayP h s) i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.unprotected_separation_unstable",
+   "role": "preservation",
+   "statement": ": (sepP [[0]] 0 1 = true) \u2227 ((step sUnprot (.refineCol [0] 1)).obs = some [[1, 0]]) \u2227 (sepP [[1, 0]] 0 1 = false) \u2227 ((1, 2) \u2208 sUnprot.prot) \u2227 (sepP [[1, 0]] 1 2 = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.quiescent_iff_protected_separated",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (hobs : s.obs = some cols) : quiescentP s \u2194 (\u2200 pr, pr \u2208 s.prot \u2192 pr \u2208 s.wit \u2192 sepP cols pr.1 pr.2 = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-STABLE-CONTENT"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "StableContent.lean",
+   "name": "StableContent.quiescence_is_stable_content",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (hobs : s.obs = some cols) : quiescentP s \u2194 (\u2200 pr, pr \u2208 s.prot \u2192 pr \u2208 s.wit \u2192 stableSep s pr.1 pr.2 = true)"
   }
  ]
 }

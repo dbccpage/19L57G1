@@ -657,3 +657,58 @@ replacements:
 6. Imported inputs kept explicit throughout: fresh supply,
    protection, observer transport, budget, activation.
 
+## PR #12 final repair pass (caller directive, 2026-08-13)
+
+1. Receipt bytes made platform-canonical: every prompt hash is the
+   Git blob hash (LF canonical bytes); the originally supplied CRLF
+   rendering of the seed prompt is recorded as provenance; the
+   blob/checkout distinction and content-mutation detection are
+   tested.
+2. Attachment policies are never clamped: `LawfulPolicy` carries
+   the representedness proof; illegal parents meet the typed
+   refusal `AttachOutcome.refusedParent`; the retired clamp is the
+   recorded countermodel (`clamp_rewrote_input`).
+3. Occurrence identity resolved: tokens (admission order) versus
+   positions (relational identities); canonical fresh token proved
+   fresh on every carrier; `length_not_fresh_countermodel` on the
+   non-initial carrier `[1, 2]`; on canonical tree states tokens
+   and positions provably coincide (`attachBlock_is_upBlock`).
+4. Completeness made registry-relative and an iff
+   (`up_iff_legal`); every Up block executes to a strict legal
+   extension (`up_exec_eq`, `up_executes`).
+5. Length equality replaced by a genuine positional renaming
+   action with transport and replay commutation (`act_up_comm`);
+   the old statement survives only as identical-carrier grammar
+   uniformity; countermodels: equal size with equal family but no
+   relating renaming; two legal equal-cost non-isomorphic
+   extensions.
+6. Generalized cells made well-formed: strict ascent in the shell
+   guard; the legacy guard's `[0, 0]` pseudo-cell recorded as the
+   required countermodel; well-formedness proved a replayed
+   invariant (`wf_nreplay`).
+7. `ladder_general` renamed and NARROWED to
+   `uniform_guarded_filler`: a theorem about guarded admission and
+   strict extension, not homology.
+8. CL-PD2-LADDER and CL-PD2-LADDER-GENERAL reconciled in the
+   ledger; the general composite vanishing stays OPEN.
+9. Part II delivered: target-relative presentation compression
+   (`Compression`, 22 theorems, axiom-clean) — factorization iff
+   fiber-constancy with image-scoped uniqueness; coarsest-adequate
+   quotient with exact universal property; witnessed descent
+   failures; enlargement refinement with exact split
+   characterization; absolute adequacy = injectivity; replay and
+   digests non-evidential without a new separator; refinement
+   non-unique with retained ties; strict chains bounded by the
+   domain.
+10. One axiom regression caught by the report and repaired:
+    `omega` on a conjunction goal proves it classically; the
+    conjunction is now split first, restoring
+    propext/Quot.sound-only across all 707 reports.
+
+11. Caller finals (stable content): stable content proved to be
+    exactly protected separation (persists at every event and along
+    every replay; an accepted refinement destroys an unprotected
+    separation — protection is load-bearing), and quiescence proved
+    equivalent to every retained protected pair lying inside the
+    stable content (`StableContent`, Lean + Python mirror).
+

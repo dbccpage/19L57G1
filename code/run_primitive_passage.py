@@ -42,6 +42,7 @@ from derivation.primitive_passage import (
     obst_p,
     preplay,
 )
+from derivation.stable_content import stable_content_report
 
 
 def cells_report() -> dict[str, Json]:
@@ -107,6 +108,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         "arrows": arrow_report(),
         "growth": growth_report(args.rounds),
         "cells": cells_report(),
+        "stable_content": stable_content_report(3),
     }
     out_path = args.artifacts / "primitive_passage.json"
     write_json(out_path, payload)
@@ -128,6 +130,12 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"cells: d2_zero={bc['d2_zero_triangles']} "
           f"and {bc['d2_zero_tet']}, "
           f"not_forced={bc['boundary_not_forced']}")
+    sc = payload["stable_content"]
+    assert isinstance(sc, dict)
+    print(f"stable content: persists="
+          f"{sc['stable_content_persists_battery']} "
+          f"quiescence_iff="
+          f"{sc['quiescence_iff_protected_in_stable_content']}")
     print(f"artifact written to {out_path}")
     return 0
 
