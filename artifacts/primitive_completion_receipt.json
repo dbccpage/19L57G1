@@ -86,8 +86,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256_canonical": "a5161347c09e1ad3e39b51b4168dd7da710b07a3d66d968893f2076add4a95aa",
-  "theorem_count": 781
+  "sha256_canonical": "7d2d124a59027ff52269562367ef707a457d9637ab2fe2a8c713dabaffb2012d",
+  "theorem_count": 818
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
@@ -95,6 +95,15 @@
   "attachment_orbit_carrier": 3,
   "attachment_rounds": 15,
   "attachment_shape_carrier": 4,
+  "boundary_cells_checked": 218,
+  "boundary_coefficient_checks": 3124,
+  "boundary_dims": [
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
   "cell_demonstration_carrier": 4,
   "controller_behavior_basis": "6 states x 10 events (recorded in artifact)",
   "controller_class": 1024,
@@ -203,6 +212,19 @@
   },
   {
    "evidence": [
+    "BoundaryCancellation.d2_zero_unrestricted (every finite cell, every face) and d2_zero_general (the declared ascending hypotheses, discharged from it)",
+    "the proof pairs deletion orders and cancels signs: eraseIdx_swap, sgn_cancel, dterm_cancel, coeff_rect, rect_zero, tri_transpose",
+    "connected to replay: BoundaryCancellation.d2_zero_replayed (via LadderGeneral.wf_nreplay) and d2_zero_d4",
+    "renaming independence for strictly monotone renamings: eraseIdx_map, ascB_map, d2_zero_renamed, d2_zero_shift",
+    "SIGNS ARE DECLARED, not derived: signless_countermodel and signless_countermodel_dim3 give nonzero composites without them",
+    "ill-formed cells: illformed_countermodel - strict ascent is load-bearing for DISTINCTNESS of codimension-two faces (codim2_distinct, eraseIdx_inj_of_asc), NOT for the vanishing",
+    "the filler rule does NOT force the coefficients or the signs; this is not claimed anywhere"
+   ],
+   "status": "THEOREM (general) + COUNTERMODEL",
+   "tag": "GENERAL_BOUNDARY_CANCELLATION"
+  },
+  {
+   "evidence": [
     "negative theorems: GraphGenesis.refineCol_only_obs / addCol_only_obs (seven fields provably unchanged; only obs/budget are outside the list)",
     "GraphGenesis.extensionProposals_range_over_existing / repairFamily_range_over_existing / nextFamilyP_block_shape / nextFamilyP_range_over_existing (the internal family ranges over columns on EXISTING occurrences only; no third block shape exists)",
     "GraphGenesis.internal_family_cannot_grow_carrier (occ/asserted/wit/prot fixed along every internal trace)",
@@ -249,7 +271,7 @@
   },
   {
    "conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
-   "missing_theorem": "the guarded filler is a theorem at every dimension (LadderGeneral.uniform_guarded_filler, narrowed scope: admission + strict extension, not homology); what remains is the general vanishing of the composite boundary for every dimension \u2014 decided at dimensions 2\u20135, general case open"
+   "missing_theorem": "SETTLED (Goal 4), and settled more strongly than conjectured: the coefficientwise composite boundary vanishes at EVERY face of EVERY finite cell (BoundaryCancellation.d2_zero_unrestricted), proved by pairing the two deletion orders for each codimension-two face and cancelling their signs (eraseIdx_swap, sgn_cancel, dterm_cancel, rect_zero) - not by computation.  The declared hypotheses are recorded in d2_zero_general and discharged from the stronger theorem; strict ascent turned out NOT to be load-bearing for the vanishing itself, only for distinctness of the codimension-two faces (codim2_distinct, eraseIdx_inj_of_asc).  The signs and integer coefficients remain DECLARED inputs: signless_countermodel shows the composite is nonzero without them, and the filler rule does not force them"
   },
   {
    "conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",

@@ -815,3 +815,29 @@ weakest premise that would change it, then the verdict.
    this calculus; whether some OTHER declared family could request
    the lift stays OPEN.
 
+## Goal 4 - general boundary cancellation (2026-08-13)
+
+The dimension-2-to-5 computation is replaced by a general theorem,
+and the standing conjecture GENERAL_BOUNDARY_COMPOSITE_VANISHING is
+closed.
+
+1. `d2_zero_unrestricted`: the coefficientwise composite boundary
+   vanishes at every face of every finite cell.  The proof pairs the
+   two deletion orders for each codimension-two face and cancels
+   their signs; it is not a computation.
+2. `d2_zero_general` records the declared ascending hypotheses and
+   discharges them from the stronger theorem.
+3. A premise of the task was false and is recorded as false: strict
+   ascent is NOT load-bearing for the vanishing.  It IS load-bearing
+   for distinctness of the codimension-two faces, which is what the
+   ill-formed countermodel now exhibits.
+4. Connected to replayed cells via `LadderGeneral.wf_nreplay`;
+   renaming independence proved for strictly monotone renamings, with
+   the non-monotone case stated exactly.
+5. The signless countermodel keeps the orientation convention
+   declared: without the signs the composite is nonzero, and nothing
+   claims the filler rule forced the coefficients.
+6. `LadderGeneral`'s docstring, the attachment/ladder mirror's
+   `general_d2_zero` field, and the receipt conjecture list are all
+   downgraded to corollaries or marked settled.
+

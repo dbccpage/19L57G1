@@ -14,11 +14,20 @@ admission strictly extends the complex.
 
 Scope, exactly: this is a theorem about the declared guarded step —
 dimension-uniform filler admission and strict extension — and
-nothing more.  It is NOT a homology claim; the general vanishing of
-the composite boundary (`∂∂ = 0` at every dimension) remains the
-open boundary-calculus conjecture, decided here only at dimensions
-2, 3, and 4 on the demonstration cells.  The review-pass conjecture
-GENERAL_DIMENSIONAL_LADDER is settled only in this narrowed sense.
+nothing more.  It is NOT a homology claim.  The review-pass
+conjecture GENERAL_DIMENSIONAL_LADDER is settled only in this
+narrowed sense.
+
+The general vanishing of the composite boundary is a SEPARATE
+question, and it is now settled elsewhere: `BoundaryCancellation`
+proves it for every finite cell and every face
+(`d2_zero_unrestricted`), by pairing the two deletion orders of each
+codimension-two face and cancelling their signs.  The
+dimension-bounded computation below (`d2_zero_dims_2_3_4`) is
+therefore a corollary spot-check, not the evidence.  Nothing about
+the filler rule forces the coefficients or the signs: without the
+signs the composite is nonzero
+(`BoundaryCancellation.signless_countermodel`).
 
 The repair over the review draft: the legacy guard had no
 well-formedness conjunct and admitted the repeated-vertex

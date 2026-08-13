@@ -567,8 +567,14 @@ def ladder_report(max_dim: int) -> dict[str, Json]:
         "pseudo_cell": pseudo_cell_countermodel(),
         "per_dim": per_dim_json,
         "general_d2_zero":
-            "conjecture beyond the checked dimensions; declared "
-            "coefficients and signs carry the content",
+            "SETTLED by Goal 4 (BoundaryCancellation."
+            "d2_zero_unrestricted): the coefficientwise composite "
+            "vanishes at every face of every finite cell, proved by "
+            "pairing deletion orders.  The dimension-bounded checks "
+            "here are now a corollary spot-check, not the evidence.  "
+            "Declared coefficients and signs still carry the "
+            "content: without the signs the composite is nonzero "
+            "(signless countermodel)",
         "filler_theorem_scope":
             "uniform guarded filler: admission and strict "
             "extension under the repaired guard, not a homology "
