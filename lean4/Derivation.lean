@@ -25,6 +25,7 @@ import Derivation.PrimitivePassage
 import Derivation.HigherStructure
 import Derivation.Apartness
 import Derivation.InterpreterBoundary
+import Derivation.ControllerCategory
 
 /-!
 # Axiom reports
@@ -611,3 +612,66 @@ open Derivation
 #print axioms InterpreterBoundary.i5_boundary_is_F
 #print axioms InterpreterBoundary.i5_collapse_obstructed
 #print axioms InterpreterBoundary.i5_difference_grounded
+#print axioms ControllerCategory.allKinds_length
+#print axioms ControllerCategory.mem_bools
+#print axioms ControllerCategory.allKinds_complete
+#print axioms ControllerCategory.interpK_full
+#print axioms ControllerCategory.live_census
+#print axioms ControllerCategory.fullK_live
+#print axioms ControllerCategory.obst5_certified
+#print axioms ControllerCategory.tworule_executable_of_live
+#print axioms ControllerCategory.obst0_certified
+#print axioms ControllerCategory.lobst_certified
+#print axioms ControllerCategory.battery_obst5_nonempty
+#print axioms ControllerCategory.battery_obst0_nonempty
+#print axioms ControllerCategory.battery_lobst_nonempty
+#print axioms ControllerCategory.dead_without_addcol
+#print axioms ControllerCategory.full_resolves_obst5
+#print axioms ControllerCategory.dead_without_budget
+#print axioms ControllerCategory.full_resolves_obst0
+#print axioms ControllerCategory.dead_without_refine
+#print axioms ControllerCategory.full_resolves_lobst
+#print axioms ControllerCategory.noRefK_live
+#print axioms ControllerCategory.noRefK_ne_fullK
+#print axioms ControllerCategory.nonrefuse_agree
+#print axioms ControllerCategory.refuse_distinguishes
+#print axioms ControllerCategory.sim_ext
+#print axioms ControllerCategory.comp_id
+#print axioms ControllerCategory.id_comp
+#print axioms ControllerCategory.comp_assoc
+#print axioms ControllerCategory.setRef_occ
+#print axioms ControllerCategory.setRef_wit
+#print axioms ControllerCategory.setRef_prot
+#print axioms ControllerCategory.setRef_obs
+#print axioms ControllerCategory.setRef_budget
+#print axioms ControllerCategory.setRef_licensed
+#print axioms ControllerCategory.setRef_refusals
+#print axioms ControllerCategory.setRef_halted
+#print axioms ControllerCategory.wfPair_setRef
+#print axioms ControllerCategory.obstP_setRef
+#print axioms ControllerCategory.refineOk_setRef
+#print axioms ControllerCategory.colOk_setRef
+#print axioms ControllerCategory.setRef_step_comm
+#print axioms ControllerCategory.erase_sim
+#print axioms ControllerCategory.eraseRef_not_id
+#print axioms ControllerCategory.halted0_ne_halted1
+#print axioms ControllerCategory.const_sims_distinct
+#print axioms ControllerCategory.two_endo_sims
+#print axioms ControllerCategory.every_pair_connected
+#print axioms ControllerCategory.sims_never_unique
+#print axioms ControllerCategory.no_initial_ctrl
+#print axioms ControllerCategory.no_initial_live_ctrl
+#print axioms ControllerCategory.const_not_strict
+#print axioms ControllerCategory.hasDup_append_fresh
+#print axioms ControllerCategory.hasDup_step
+#print axioms ControllerCategory.twistRef_step
+#print axioms ControllerCategory.twist_step_comm
+#print axioms ControllerCategory.twist_ne_erase_at_dup
+#print axioms ControllerCategory.strict_not_unique
+#print axioms ControllerCategory.replay_hasDup
+#print axioms ControllerCategory.reachable_no_dup
+#print axioms ControllerCategory.twist_eq_erase_of_no_dup
+#print axioms ControllerCategory.twist_erase_agree_reachable
+#print axioms ControllerCategory.sim_pinned
+#print axioms ControllerCategory.genesis_sims_agree_on_reachable
+#print axioms ControllerCategory.strict_agree_on_reachable

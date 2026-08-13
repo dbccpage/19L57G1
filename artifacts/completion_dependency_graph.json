@@ -4424,7 +4424,9 @@
    "citing_claims": [
     "CL-NC-INITIALITY"
    ],
-   "consumers": [],
+   "consumers": [
+    "ControllerCategory.lean"
+   ],
    "kind": "bounded",
    "module": "Initiality.lean",
    "name": "Initiality.unique_compliant",
@@ -4662,7 +4664,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ControllerCategory.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.comp_id",
@@ -4672,7 +4676,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ControllerCategory.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.id_comp",
@@ -4682,7 +4688,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ControllerCategory.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.comp_assoc",
@@ -6366,7 +6374,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ControllerCategory.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.step_halted",
@@ -7482,6 +7492,782 @@
    "name": "InterpreterBoundary.i5_difference_grounded",
    "role": "preservation",
    "statement": ": \u2203 f : World \u2192 Event \u2192 World, \u2200 d \u2208 allDescs, f \u2260 interpStep d"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.allKinds_length",
+   "role": "preservation",
+   "statement": ": allKinds.length = 1024"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.mem_bools",
+   "role": "preservation",
+   "statement": "(b : Bool) : b \u2208 bools"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.allKinds_complete",
+   "role": "preservation",
+   "statement": "(d : KindDesc) : d \u2208 allKinds"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.interpK_full",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : interpK fullK s e = step s e"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.live_census",
+   "role": "preservation",
+   "statement": ": (allKinds.filter ResponseLiveB).length = 128"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.fullK_live",
+   "role": "preservation",
+   "statement": ": ResponseLiveB fullK = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.obst5_certified",
+   "role": "preservation",
+   "statement": ": obstP OBST5 0 1 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.tworule_executable_of_live",
+   "role": "preservation",
+   "statement": "(d : KindDesc) (hlive : ResponseLiveB d = true) : obstP (interpK d (interpK d OBST5 (.setBudget 1)) (.addCol [0])) 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.obst0_certified",
+   "role": "preservation",
+   "statement": ": obstP OBST0 0 1 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.lobst_certified",
+   "role": "preservation",
+   "statement": ": obstP LOBST 0 1 = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.battery_obst5_nonempty",
+   "role": "preservation",
+   "statement": ": nextFamilyP OBST5 \u2260 []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.battery_obst0_nonempty",
+   "role": "preservation",
+   "statement": ": nextFamilyP OBST0 \u2260 []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.battery_lobst_nonempty",
+   "role": "preservation",
+   "statement": ": nextFamilyP LOBST \u2260 []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.dead_without_addcol",
+   "role": "preservation",
+   "statement": ": ((nextFamilyP OBST5).all fun blk => obstP (replayK noAddK blk OBST5) 0 1) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.full_resolves_obst5",
+   "role": "preservation",
+   "statement": ": obstP (replayK fullK [.setBudget 1, .addCol [0]] OBST5) 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.dead_without_budget",
+   "role": "preservation",
+   "statement": ": ((nextFamilyP OBST0).all fun blk => obstP (replayK noBudgetK blk OBST0) 0 1) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.full_resolves_obst0",
+   "role": "preservation",
+   "statement": ": obstP (replayK fullK [.setBudget 1, .addCol [0]] OBST0) 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.dead_without_refine",
+   "role": "preservation",
+   "statement": ": ((nextFamilyP LOBST).all fun blk => obstP (replayK noRefineK blk LOBST) 0 1) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.full_resolves_lobst",
+   "role": "preservation",
+   "statement": ": obstP (replayK fullK [.refineCol [] 0] LOBST) 0 1 = false"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.noRefK_live",
+   "role": "preservation",
+   "statement": ": ResponseLiveB noRefK = true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.noRefK_ne_fullK",
+   "role": "preservation",
+   "statement": ": noRefK \u2260 fullK"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.nonrefuse_agree",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : isRefuse e = false) : interpK fullK s e = interpK noRefK s e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.refuse_distinguishes",
+   "role": "preservation",
+   "statement": ": interpK fullK OBST5 (.refuse 0 1) \u2260 interpK noRefK OBST5 (.refuse 0 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.sim_ext",
+   "role": "preservation",
+   "statement": "{C1 C2 : Ctrl} {u v : Sim C1 C2} (h : u.f = v.f) : u = v"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.comp_id",
+   "role": "preservation",
+   "statement": "{A B : Ctrl} (u : Sim A B) : compSim u (idSim A) = u"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.id_comp",
+   "role": "preservation",
+   "statement": "{A B : Ctrl} (u : Sim A B) : compSim (idSim B) u = u"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.comp_assoc",
+   "role": "preservation",
+   "statement": "{A B C D : Ctrl} (k : Sim C D) (g : Sim B C) (u : Sim A B) : compSim (compSim k g) u = compSim k (compSim g u)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_occ",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).occ = s.occ"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_wit",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).wit = s.wit"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_prot",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).prot = s.prot"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_obs",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).obs = s.obs"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_budget",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).budget = s.budget"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_licensed",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).licensed = s.licensed"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_refusals",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).refusals = rs"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_halted",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) : (setRef rs s).halted = s.halted"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.wfPair_setRef",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) (i j : Nat) : wfPair (setRef rs s) i j = wfPair s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.obstP_setRef",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) (i j : Nat) : obstP (setRef rs s) i j = obstP s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.refineOk_setRef",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) (v : List Nat) (p : Nat) : refineOk (setRef rs s) v p = refineOk s v p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.colOk_setRef",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) (c : List Nat) : colOk (setRef rs s) c = colOk s c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.setRef_step_comm",
+   "role": "preservation",
+   "statement": "(rs : List (Nat \u00d7 Nat)) (s : PState) (e : PEvent) (h : isRefuse e = false) : setRef rs (step s e) = step (setRef rs s) e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.erase_sim",
+   "role": "preservation",
+   "statement": ": \u2203 u : Sim fullCtrl noRefCtrl, u.f = eraseRef"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.eraseRef_not_id",
+   "role": "preservation",
+   "statement": ": eraseRef { OBST5 with refusals"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.halted0_ne_halted1",
+   "role": "preservation",
+   "statement": ": HALTED0 \u2260 HALTED1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.const_sims_distinct",
+   "role": "preservation",
+   "statement": "(C T : Ctrl) : constSim C T HALTED0 rfl \u2260 constSim C T HALTED1 rfl"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.two_endo_sims",
+   "role": "preservation",
+   "statement": ": constSim fullCtrl fullCtrl HALTED0 rfl \u2260 idSim fullCtrl"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.every_pair_connected",
+   "role": "preservation",
+   "statement": "(C T : Ctrl) : Nonempty (Sim C T)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.sims_never_unique",
+   "role": "preservation",
+   "statement": "(C T : Ctrl) : \u2203 u v : Sim C T, u \u2260 v"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.no_initial_ctrl",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 C : Ctrl, InitialCtrl C"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.no_initial_live_ctrl",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 C : Ctrl, ResponseLiveB C.d = true \u2227 \u2200 T : Ctrl, ResponseLiveB T.d = true \u2192 \u2203 u : Sim C T, \u2200 v : Sim C T, v = u"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.const_not_strict",
+   "role": "preservation",
+   "statement": "{C T : Ctrl} (t : PState) (ht : t.halted = true) (u : StrictSim C T) : u.toSim.f \u2260 (fun _ => t)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.hasDup_append_fresh",
+   "role": "preservation",
+   "statement": "(l : List Nat) (t : Nat) (h : \u00ac t \u2208 l) : hasDup (l ++ [t]) = hasDup l"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.hasDup_step",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : hasDup (step s e).occ = hasDup s.occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.twistRef_step",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) : twistRef (step s e) = twistRef s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.twist_step_comm",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : isRefuse e = false) : twistF (step s e) = step (twistF s) e"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.twist_ne_erase_at_dup",
+   "role": "preservation",
+   "statement": ": twistF DUPSTATE \u2260 eraseRef DUPSTATE"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.strict_not_unique",
+   "role": "preservation",
+   "statement": ": \u2203 u v : StrictSim fullCtrl noRefCtrl, u \u2260 v"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.replay_hasDup",
+   "role": "preservation",
+   "statement": "(h : List PEvent) (s : PState) : hasDup (replayP h s).occ = hasDup s.occ"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.reachable_no_dup",
+   "role": "preservation",
+   "statement": "(h : List PEvent) : hasDup (replayP h genesisP).occ = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.twist_eq_erase_of_no_dup",
+   "role": "preservation",
+   "statement": "(s : PState) (hd : hasDup s.occ = false) : twistF s = eraseRef s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.twist_erase_agree_reachable",
+   "role": "preservation",
+   "statement": "(h : List PEvent) : twistF (replayP h genesisP) = eraseRef (replayP h genesisP)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.sim_pinned",
+   "role": "preservation",
+   "statement": "(u : Sim fullCtrl noRefCtrl) (hist : List PEvent) (s : PState) : u.f (replayP hist s) = List.foldl (interpK noRefCtrl.d) (u.f s) hist"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.genesis_sims_agree_on_reachable",
+   "role": "preservation",
+   "statement": "(u v : Sim fullCtrl noRefCtrl) (hu : u.f genesisP = genesisP) (hv : v.f genesisP = genesisP) (hist : List PEvent) : u.f (replayP hist genesisP) = v.f (replayP hist genesisP)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ControllerCategory.lean",
+   "name": "ControllerCategory.strict_agree_on_reachable",
+   "role": "preservation",
+   "statement": "(u v : StrictSim fullCtrl noRefCtrl) (hist : List PEvent) : u.toSim.f (replayP hist genesisP) = v.toSim.f (replayP hist genesisP)"
   }
  ]
 }

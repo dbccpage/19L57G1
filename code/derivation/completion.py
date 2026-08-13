@@ -53,6 +53,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "HigherStructure": ["HigherStructure.lean"],
     "Apartness": ["Apartness.lean"],
     "InterpreterBoundary": ["InterpreterBoundary.lean"],
+    "ControllerCategory": ["ControllerCategory.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")

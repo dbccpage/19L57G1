@@ -42,6 +42,7 @@ jobs:
           PYTHONPATH=code python code/run_primitive_contact.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_apartness.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_interpreter_boundary.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_controller_category.py --artifacts artifacts_ci
           python ci/compare_artifacts.py artifacts artifacts_ci
 
   lean:

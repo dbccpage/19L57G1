@@ -1,0 +1,522 @@
+{
+ "category": {
+  "constant_simulation_targets_inert": {
+   "halted0": true,
+   "halted1": true
+  },
+  "constants_distinct": true,
+  "note": "a constant map into a halted state commutes with every controller on the source side identically; the target-side inertia above is the entire proof obligation, mirrored from the Lean constSim",
+  "objects": 1024,
+  "two_distinct_endo_simulations_on_full": true
+ },
+ "class_size": 1024,
+ "initiality": "REFUTED_BY_CONSTANT_SIMULATIONS",
+ "live_census": 128,
+ "nonuniqueness": {
+  "agree_on_all_nonrefuse_basis_cells": true,
+  "behavioral_basis": {
+   "distinct_behavioral_classes": 128,
+   "events": [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "admitWit",
+     1,
+     0
+    ],
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "declareObs"
+    ],
+    [
+     "refineCol",
+     [],
+     0
+    ],
+    [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    [
+     "refuse",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     3
+    ],
+    [
+     "setLicense",
+     false
+    ],
+    [
+     "halt"
+    ]
+   ],
+   "live_members": 128,
+   "states": [
+    {
+     "budget": 5,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "budget": 5,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "budget": 5,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "budget": 5,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "budget": 3,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  "both_live": true,
+  "conclusion": "NONUNIQUE_CONTROLLER_FAMILY",
+  "differ_on_refuse_at_certified_obstruction": true,
+  "obstruction_certificate": true,
+  "pair": {
+   "full": {
+    "addCol": true,
+    "admitOcc": true,
+    "admitWit": true,
+    "declareObs": true,
+    "halt": true,
+    "protect": true,
+    "refineCol": true,
+    "refuse": true,
+    "setBudget": true,
+    "setLicense": true
+   },
+   "no_refuse": {
+    "addCol": true,
+    "admitOcc": true,
+    "admitWit": true,
+    "declareObs": true,
+    "halt": true,
+    "protect": true,
+    "refineCol": true,
+    "refuse": false,
+    "setBudget": true,
+    "setLicense": true
+   }
+  }
+ },
+ "response_kind_countermodels": {
+  "addCol": {
+   "battery": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ]
+   ],
+   "controller": {
+    "addCol": false,
+    "admitOcc": true,
+    "admitWit": true,
+    "declareObs": true,
+    "halt": true,
+    "protect": true,
+    "refineCol": true,
+    "refuse": true,
+    "setBudget": true,
+    "setLicense": true
+   },
+   "full_controller_resolves": true,
+   "obstruction_certified": true,
+   "obstruction_persists_on_all_blocks": true,
+   "state": {
+    "budget": 5,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     0,
+     1
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  },
+  "refineCol": {
+   "battery": [
+    [
+     [
+      "refineCol",
+      [],
+      0
+     ]
+    ],
+    [
+     [
+      "refineCol",
+      [],
+      1
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ]
+   ],
+   "controller": {
+    "addCol": true,
+    "admitOcc": true,
+    "admitWit": true,
+    "declareObs": true,
+    "halt": true,
+    "protect": true,
+    "refineCol": false,
+    "refuse": true,
+    "setBudget": true,
+    "setLicense": true
+   },
+   "full_controller_resolves": true,
+   "obstruction_certified": true,
+   "obstruction_persists_on_all_blocks": true,
+   "state": {
+    "budget": 5,
+    "halted": false,
+    "licensed": false,
+    "obs": [
+     []
+    ],
+    "occ": [
+     0,
+     1
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  },
+  "setBudget": {
+   "battery": [
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       0
+      ]
+     ]
+    ],
+    [
+     [
+      "setBudget",
+      1
+     ],
+     [
+      "addCol",
+      [
+       1
+      ]
+     ]
+    ]
+   ],
+   "controller": {
+    "addCol": true,
+    "admitOcc": true,
+    "admitWit": true,
+    "declareObs": true,
+    "halt": true,
+    "protect": true,
+    "refineCol": true,
+    "refuse": true,
+    "setBudget": false,
+    "setLicense": true
+   },
+   "full_controller_resolves": true,
+   "obstruction_certified": true,
+   "obstruction_persists_on_all_blocks": true,
+   "state": {
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     0,
+     1
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ "strict_refinement": {
+  "constants_excluded_by_liveness": true,
+  "erase_comm_on_battery": true,
+  "erase_is_strict": true,
+  "erase_value": {
+   "budget": 0,
+   "halted": false,
+   "licensed": true,
+   "obs": null,
+   "occ": [
+    5,
+    5
+   ],
+   "prot": [],
+   "refusals": [],
+   "wit": []
+  },
+  "global_uniqueness": "REFUTED_BY_INVARIANT_TWIST",
+  "reachable_orbit": {
+   "generator": "grow_hist(k) for k in range(6)",
+   "histories": 6,
+   "occurrence_stores_duplicate_free": true,
+   "twist_agrees_with_erase": true
+  },
+  "strict_demands": [
+   "genesis_preserved",
+   "nonhalted_preserved"
+  ],
+  "twist_comm_on_battery": true,
+  "twist_differs_from_erase_at": {
+   "budget": 0,
+   "halted": false,
+   "licensed": true,
+   "obs": null,
+   "occ": [
+    5,
+    5
+   ],
+   "prot": [],
+   "refusals": [
+    [
+     3,
+     4
+    ]
+   ],
+   "wit": []
+  },
+  "twist_is_strict": true,
+  "twist_ne_erase": true,
+  "twist_value": {
+   "budget": 0,
+   "halted": false,
+   "licensed": true,
+   "obs": null,
+   "occ": [
+    5,
+    5
+   ],
+   "prot": [],
+   "refusals": [
+    [
+     0,
+     0
+    ]
+   ],
+   "wit": []
+  }
+ },
+ "tworule_all_live_pass": true
+}
