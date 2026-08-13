@@ -1,53 +1,52 @@
 import Derivation.Compression
 
 /-!
-# Declared weight assignments, their profiles, and what a lift adds
+# Finite weight profiles and a declared signed-square shadow
 
-A weight assignment is a DECLARED datum: a count attached to each
-position of a finite carrier.  Nothing in the passage calculus
+A weight assignment is a DECLARED datum: a natural-number count at a
+label in a finite presentation.  Nothing in the passage calculus
 produces one; like protection, budget, and observer transport, it is
-supplied.  This module asks the only question the datum can answer on
-its own — what is fixed by the weights, and what is not — and it
-answers it in integer arithmetic, with no division and no reals.
+supplied.  Carrier-facing uses require a duplicate-free label list.
+The underlying list sum deliberately counts repeated labels with
+multiplicity, but such a list is not called a carrier here.
 
 1. **The profile, without division.**  Two assignments have the same
-   normalized profile exactly when they agree after cross-multiplying
-   by each other's totals (`SameProfile`).  This is an equivalence on
-   positive-total assignments (`profile_refl/symm/trans`), it is
-   invariant under positive rescaling (`profile_scale`), and its
-   classes are EXACTLY the positive rays (`profile_iff_ray`) — an
-   exact fiber classifier, not an approximation.
-2. **What the profile preserves**: support (`profile_support`) and
+   profile exactly when they agree after cross-multiplying by each
+   other's totals (`SameProfile`).  Reflexivity and symmetry hold on
+   all lists; transitivity requires a positive middle total.  Thus it
+   is an equivalence after restricting to positive-total assignments
+   (`profile_equivalence_positive`).  Positive scaling preserves both
+   the profile and the positive domain (`profile_scale_positive`).
+   Zero scaling satisfies the raw equations but leaves that domain.
+2. **What the profile preserves:** support (`profile_support`) and
    order (`profile_order`).  What it forgets: total mass
-   (`profile_forgets_total`).
-3. **A lift adds nothing to the profile.**  Call any assignment `c`
-   together with a declared modulus map `m` a DECORATED presentation
-   of `w` when `m ∘ c = w` pointwise.  Every decorated presentation
-   of `w` has `w`'s profile (`lift_profile_redundant`), and any two
-   decorated presentations of the same weights have the same profile
-   (`lifts_agree_on_profile`) — the decoration is invisible to the
-   profile.  The proof is one line, and that is the whole content.
-4. **But the decoration is not invisible to every question.**  Two
-   decorated presentations with identical moduli are separated by a
-   declared MIXING question (`decoration_visible_to_mixing`), so
-   redundancy is RELATIVE to the declared question family and never
-   absolute.  This is `Compression.absolute_adequacy_iff_injective`
-   at work: adequacy for every question is injectivity, i.e. no
-   compression at all.
-5. **Descent classification.**  A declared linear read-out descends
-   through the modulus-blind relation exactly when its support is at
-   most a single position (`descent_iff_subsingleton_support`);
-   anything that genuinely mixes two positions does not descend.
-6. **The climb, and what it costs.**  Section 6 states — as
-   PROPOSITIONS, none of them proved — the further declarations that
-   would be needed to single out a particular read-out law, and
-   proves the negative fact that makes them necessary: the weights do
-   NOT determine a decorated presentation
-   (`weights_do_not_force_decoration`), so no uniqueness claim
-   follows from the weights alone.
+   (`profile_forgets_total`).  Its positive-domain classes are exactly
+   common positive cross-multiples (`profile_iff_ray`).
+3. **A presentation adds nothing to the profile.**  Call any
+   assignment `c` together with a declared map `m` a decorated
+   presentation of `w` when the carrier list has no duplicates and
+   `m ∘ c = w` there.  The resulting weight assignment has `w`'s
+   profile (`presentation_profile_redundant`).
+4. **The signed-square witness is narrowly scoped.**  Squaring is
+   injective on natural counts, so an unsigned square presentation is
+   determined on the declared carrier.  Over integer decorations the
+   declared square map forgets a sign, and one declared two-input
+   mixing read-out sees that sign (`signed_square_presentations_split`).
+   This is a finite sign-shadow witness, not a construction of a
+   vector space, dynamics, or any richer carrier.
+5. **Descent classification.**  For exactly two integer coordinates,
+   a declared linear read-out followed by squaring is constant on
+   coordinate-square fibers exactly when one coefficient vanishes
+   (`descent_iff_subsingleton_support`).
+6. **There is no priced climb here.**  The previously proposed
+   decorated-carrier existential has an elementary witness, list
+   append additivity is a theorem (`total_append`), and the proposed
+   scalar uniqueness proposition is false by the zero read-out
+   (`claimedReadOutUniqueness_false`).
 
-Nothing here derives a representation, a dynamics, or a uniqueness
-law.  What is derived is exactly the redundancy and its scope.
+Nothing here derives a vector-space representation, dynamics, or a
+read-out uniqueness law.  What is derived is exactly the finite
+weight-profile algebra and the scope of one signed-square witness.
 -/
 
 namespace WeightProfile
@@ -56,6 +55,14 @@ namespace WeightProfile
 
 /-- A declared weight assignment: a count per position. -/
 abbrev Weights := Nat → Nat
+
+/-- Carrier policy for this module: labels are presented once.  Raw list
+algebra below remains meaningful with repetitions, where repetitions count
+with multiplicity, but no carrier claim is made for such a list. -/
+def CarrierList (l : List Nat) : Prop := l.Nodup
+
+theorem duplicate_list_not_carrier : ¬ CarrierList [0, 0] := by
+  simp [CarrierList]
 
 /-- The declared total over a finite carrier. -/
 def total (l : List Nat) (w : Weights) : Nat :=
@@ -80,6 +87,16 @@ theorem total_cons (p : Nat) (l : List Nat) (w : Weights) :
     = w p + (l.map w).foldl (fun a b => a + b) 0
   rw [foldl_add_acc]
   omega
+
+/-- Concatenation additivity belongs to the list sum already; it is not an
+additional representation premise.  Overlapping label lists are counted with
+multiplicity, as the definition says. -/
+theorem total_append (l₁ l₂ : List Nat) (w : Weights) :
+    total (l₁ ++ l₂) w = total l₁ w + total l₂ w := by
+  induction l₁ with
+  | nil => simp [total]
+  | cons p t ih =>
+      rw [List.cons_append, total_cons, total_cons, ih, Nat.add_assoc]
 
 theorem total_scale (l : List Nat) (a : Nat) (w : Weights) :
     total l (fun p => a * w p) = a * total l w := by
@@ -119,26 +136,62 @@ theorem profile_trans (l : List Nat) (w v u : Weights)
   have e2 := h2 p hp
   have s1 : total l v * (w p * total l u)
       = (w p * total l v) * total l u := by
-        simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+        ac_rfl
   have s2 : (v p * total l w) * total l u
       = (v p * total l u) * total l w := by
-        simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+        ac_rfl
   have s3 : (u p * total l v) * total l w
       = total l v * (u p * total l w) := by
-        simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+        ac_rfl
   have key : total l v * (w p * total l u)
       = total l v * (u p * total l w) := by
     rw [s1, e1, s2, e2, s3]
   exact Nat.eq_of_mul_eq_mul_left hv key
 
-/-- **Positive rescaling changes nothing.**  The profile depends only
-on the ray, not on the total. -/
-theorem profile_scale (l : List Nat) (a : Nat) (w : Weights) :
+/-- The raw cross-product equations are scale invariant even at scale zero.
+This theorem alone is not a positive-ray statement. -/
+theorem profile_scale_raw (l : List Nat) (a : Nat) (w : Weights) :
     SameProfile l (fun p => a * w p) w := by
   intro p _
   show a * w p * total l w = w p * total l (fun q => a * w q)
   rw [total_scale]
-  simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+  ac_rfl
+
+/-- Positive rescaling preserves both the profile and membership in the
+positive-total domain. -/
+theorem profile_scale_positive (l : List Nat) (a : Nat) (w : Weights)
+    (ha : 0 < a) (hw : 0 < total l w) :
+    SameProfile l (fun p => a * w p) w ∧
+      0 < total l (fun p => a * w p) := by
+  refine ⟨profile_scale_raw l a w, ?_⟩
+  rw [total_scale]
+  exact Nat.mul_pos ha hw
+
+/-- Exact equivalence-law package on the positive-total domain. -/
+theorem profile_equivalence_positive (l : List Nat) :
+    (∀ w : Weights, 0 < total l w → SameProfile l w w) ∧
+    (∀ w v : Weights, 0 < total l w → 0 < total l v →
+      SameProfile l w v → SameProfile l v w) ∧
+    (∀ w v u : Weights, 0 < total l w → 0 < total l v →
+      0 < total l u → SameProfile l w v → SameProfile l v u →
+      SameProfile l w u) := by
+  refine ⟨fun w _ => profile_refl l w, ?_, ?_⟩
+  · exact fun w v _ _ h => profile_symm l w v h
+  · exact fun w v u _ hv _ h₁ h₂ => profile_trans l w v u hv h₁ h₂
+
+/-- Zero scaling satisfies `SameProfile` syntactically but exits the
+positive-total domain whenever the source total is positive. -/
+theorem zero_scale_boundary (l : List Nat) (w : Weights)
+    (_hw : 0 < total l w) :
+    SameProfile l (fun _ => 0) w ∧
+      total l (fun _ => 0) = 0 ∧ ¬ 0 < total l (fun _ => 0) := by
+  refine ⟨?_, ?_, ?_⟩
+  · simpa using profile_scale_raw l 0 w
+  · simpa using total_scale l 0 w
+  · have hz : total l (fun _ => 0) = 0 := by
+      simpa using total_scale l 0 w
+    rw [hz]
+    omega
 
 /-- **Exact fiber classifier**: two positive-total assignments have
 the same profile EXACTLY when they lie on a common positive ray. -/
@@ -160,11 +213,11 @@ theorem profile_iff_ray (l : List Nat) (w v : Weights)
     intro p hp
     have hq := hab p hp
     have s1 : a * (w p * total l v) = (a * w p) * total l v := by
-      simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+      ac_rfl
     have s2 : (b * v p) * total l v = v p * (b * total l v) := by
-      simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+      ac_rfl
     have s3 : v p * (a * total l w) = a * (v p * total l w) := by
-      simp only [Nat.mul_comm, Nat.mul_assoc, Nat.mul_left_comm]
+      ac_rfl
     have key : a * (w p * total l v) = a * (v p * total l w) := by
       rw [s1, hq, s2, ← htot, s3]
     exact Nat.eq_of_mul_eq_mul_left ha key
@@ -226,16 +279,17 @@ theorem profile_forgets_total :
       (fun p => if p = 0 then 3 else 1) ∧
     total [0, 1] (fun p => 2 * (if p = 0 then 3 else 1))
       ≠ total [0, 1] (fun p => if p = 0 then 3 else 1) := by
-  refine ⟨profile_scale [0, 1] 2 _, by decide⟩
+  refine ⟨profile_scale_raw [0, 1] 2 _, by decide⟩
 
 /-! ## 3. A decorated presentation adds nothing to the profile -/
 
 /-- A DECORATED PRESENTATION of `w`: an assignment `c` of decorated
 values together with a declared modulus map `m` that returns the
-weights.  Both `c` and `m` are supplied; neither is derived. -/
+weights.  Both `c` and `m` are supplied; neither is derived.  The
+duplicate-free carrier policy is part of the predicate. -/
 def Presents (l : List Nat) (m : Nat → Nat) (c : Nat → Nat)
     (w : Weights) : Prop :=
-  ∀ p ∈ l, m (c p) = w p
+  CarrierList l ∧ ∀ p ∈ l, m (c p) = w p
 
 theorem total_congr (l : List Nat) (w v : Weights)
     (h : ∀ p ∈ l, w p = v p) : total l w = total l v := by
@@ -248,35 +302,30 @@ theorem total_congr (l : List Nat) (w v : Weights)
 /-- **Redundancy**: the profile read off a decorated presentation is
 the profile of the weights.  One line, and that is the entire
 content of the redundancy. -/
-theorem lift_profile_redundant (l : List Nat) (m : Nat → Nat)
+theorem presentation_profile_redundant (l : List Nat) (m : Nat → Nat)
     (c : Nat → Nat) (w : Weights) (h : Presents l m c w) :
     SameProfile l (fun p => m (c p)) w := by
   intro p hp
   show m (c p) * total l w = w p * total l (fun q => m (c q))
-  rw [h p hp, total_congr l (fun q => m (c q)) w h]
+  rw [h.2 p hp, total_congr l (fun q => m (c q)) w h.2]
 
 /-- **Any two decorated presentations of the same weights carry the
 same profile** — whatever else differs between them. -/
-theorem lifts_agree_on_profile (l : List Nat) (m : Nat → Nat)
+theorem presentations_agree_on_profile (l : List Nat) (m : Nat → Nat)
     (c d : Nat → Nat) (w : Weights)
     (hc : Presents l m c w) (hd : Presents l m d w)
     (hpos : 0 < total l w) :
     SameProfile l (fun p => m (c p)) (fun p => m (d p)) := by
-  have h1 := lift_profile_redundant l m c w hc
-  have h2 := lift_profile_redundant l m d w hd
+  have h1 := presentation_profile_redundant l m c w hc
+  have h2 := presentation_profile_redundant l m d w hd
   exact profile_trans l _ w _ hpos h1 (profile_symm l _ w h2)
 
-/-! ## 4. Over unsigned decorations the lift adds NOTHING AT ALL;
-the extra capacity is exactly a declared sign -/
+/-! ## 4. Unsigned determination and one declared signed-square shadow -/
 
 /-- The declared modulus of this section: squaring. -/
 def sq (x : Nat) : Nat := x * x
 
-/-- **Unsigned decorations carry no extra datum.**  Squaring is
-injective on counts, so a decorated presentation over unsigned values
-is DETERMINED by the weights it presents.  The redundancy here is
-total: the decoration is not merely invisible to the profile, it is
-not there at all. -/
+/-- Squaring is injective on natural counts. -/
 theorem sq_mono {c d : Nat} (h : c < d) : sq c < sq d := by
   show c * c < d * d
   have h1 : c * c ≤ c * d := Nat.mul_le_mul_left c (Nat.le_of_lt h)
@@ -299,42 +348,65 @@ theorem unsigned_decoration_determined (l : List Nat)
     (hc : Presents l sq c w) (hd : Presents l sq d w) :
     ∀ p ∈ l, c p = d p := by
   intro p hp
-  exact sq_injective (c p) (d p) ((hc p hp).trans (hd p hp).symm)
+  exact sq_injective (c p) (d p) ((hc.2 p hp).trans (hd.2 p hp).symm)
 
-/-- The declared MIXING read-out over SIGNED decorations: the modulus
-of the combination.  Nothing forces this read-out; it is declared,
-exactly like the modulus. -/
+/-- The declared integer square used only in this signed fixture. -/
+def sqInt (x : Int) : Int := x * x
+
+/-- A duplicate-free signed-square presentation of integer weights. -/
+def SignedSquarePresents (l : List Nat) (c : Nat → Int)
+    (w : Nat → Int) : Prop :=
+  CarrierList l ∧ ∀ p ∈ l, sqInt (c p) = w p
+
+/-- The declared two-input mixing read-out over integer decorations.
+Nothing forces this read-out; it is part of the fixture. -/
 def mixSum (x y : Int) : Int := (x + y) * (x + y)
 
-/-- **The extra representational capacity IS the declared sign.**
-Two SIGNED decorations with identical moduli at every position are
-separated by the declared mixing read-out.  So the capacity a lift is
-sometimes credited with does not come from the lift: it comes from
-declaring a sign, and that declaration is a separate import with its
-own price. -/
-theorem signed_decoration_visible_to_mixing :
-    ((1 : Int) * 1 = (1 : Int) * 1) ∧
-    ((-1 : Int) * (-1) = (1 : Int) * 1) ∧
-    mixSum 1 (-1) ≠ mixSum 1 1 := by
-  refine ⟨by decide, by decide, by decide⟩
+def signedPlus : Nat → Int := fun _ => 1
 
-/-- **Redundancy is relative, and the relativity is now located.**
-For the profile question a decorated presentation adds nothing
-(`lift_profile_redundant`); over unsigned decorations it adds nothing
-to ANY question, because it is determined
-(`unsigned_decoration_determined`); and the only way to make it add
-something is to declare a sign, after which a declared mixing
-question separates presentations the profile cannot
-(`signed_decoration_visible_to_mixing`).  Which of these holds is
-fixed by the declared data, never by the weights. -/
-theorem redundancy_is_relative (l : List Nat) (c d : Nat → Nat)
+def signedSplit : Nat → Int := fun p => if p = 0 then 1 else -1
+
+def unitIntWeights : Nat → Int := fun _ => 1
+
+/-- Two valid presentations of the SAME declared integer-square weights differ
+on the carrier and are separated by the PARTICULAR declared mixing read-out.
+This proves only a two-coordinate sign-shadow witness. -/
+theorem signed_square_presentations_split :
+    SignedSquarePresents [0, 1] signedPlus unitIntWeights ∧
+    SignedSquarePresents [0, 1] signedSplit unitIntWeights ∧
+    (∃ p ∈ [0, 1], signedPlus p ≠ signedSplit p) ∧
+    mixSum (signedPlus 0) (signedPlus 1) ≠
+      mixSum (signedSplit 0) (signedSplit 1) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · refine ⟨by simp [CarrierList], ?_⟩
+    intro p hp
+    rcases List.mem_cons.mp hp with h | h
+    · subst h; decide
+    · rcases List.mem_cons.mp h with h' | h'
+      · subst h'; decide
+      · cases h'
+  · refine ⟨by simp [CarrierList], ?_⟩
+    intro p hp
+    rcases List.mem_cons.mp hp with h | h
+    · subst h; decide
+    · rcases List.mem_cons.mp h with h' | h'
+      · subst h'; decide
+      · cases h'
+  · exact ⟨1, by decide, by decide⟩
+  · decide
+
+/-- The exact scoped summary: unsigned square presentations agree on the
+carrier, while the separate signed fixture above has two presentations that
+the separately declared mixing read-out distinguishes. -/
+theorem presentation_scope (l : List Nat) (c d : Nat → Nat)
     (w : Weights) (hc : Presents l sq c w) (hd : Presents l sq d w) :
     SameProfile l (fun p => sq (c p)) w ∧
     (∀ p ∈ l, c p = d p) ∧
-    mixSum 1 (-1) ≠ mixSum 1 1 :=
-  ⟨lift_profile_redundant l sq c w hc,
+    mixSum (signedPlus 0) (signedPlus 1) ≠
+      mixSum (signedSplit 0) (signedSplit 1) :=
+  ⟨presentation_profile_redundant l sq c w hc,
    unsigned_decoration_determined l c d w hc hd,
-   (signed_decoration_visible_to_mixing).2.2⟩
+   signed_square_presentations_split.2.2.2⟩
 
 /-! ## 5. Descent classification for declared linear read-outs -/
 
@@ -399,85 +471,52 @@ theorem descent_iff_subsingleton_support (a b : Int) :
         rw [hb, Int.zero_mul, Int.add_zero]
       rw [hr, hr, sq_mul, sq_mul, hx]
 
-/-! ## 6. The climb: what a uniqueness law would additionally cost
+/-! ## 6. Audit of the proposed climb -/
 
-Everything above is finite integer arithmetic over declared data.
-None of it singles out a read-out law.  What would?  The statements
-below are PROPOSITIONS, and NONE of them is proved here.  They are
-recorded so that anything downstream that wants a uniqueness law must
-declare them and pay for them, exactly as protection, budget, and
-observer transport are declared and paid for elsewhere. -/
+/-- The bare decorated-carrier shape previously listed as an open import is
+already inhabited by naturals with the identity map and addition.  This says
+nothing about a distinguished representation; it only shows that the old
+existential was too weak to be a rung. -/
+theorem decoratedCarrierShape_exists :
+    ∃ (D : Type) (m : D → Nat) (op : D → D → D),
+      (∀ n : Nat, ∃ d : D, m d = n) ∧
+      ∀ d e : D, m (op d e) = m (op e d) := by
+  refine ⟨Nat, (fun n => n), (fun d e => d + e), ?_, ?_⟩
+  · exact fun n => ⟨n, rfl⟩
+  · exact fun d e => Nat.add_comm d e
 
-/-- **Import 1 — a decorated carrier.**  There is a declared set of
-decorated values with a declared modulus map onto the weights, and a
-declared combination operation on it.  The weights alone do not
-supply one. -/
-def openDecoratedCarrierImport : Prop :=
-  ∃ (D : Type) (m : D → Nat) (op : D → D → D),
-    (∀ n : Nat, ∃ d : D, m d = n) ∧
-    ∀ d e : D, m (op d e) = m (op e d)
-
-/-- **Import 2 — additivity over disjoint parts.**  The read-out of a
-carrier split into two disjoint parts is the sum of the parts'
-read-outs.  Exact additivity is a DECLARED demand; the calculus does
-not entail it. -/
-def openDisjointAdditivityImport : Prop :=
-  ∀ (l1 l2 : List Nat) (w : Weights),
-    total (l1 ++ l2) w = total l1 w + total l2 w
-
-/-- **Import 3 — the uniqueness law.**  Among all read-outs that are
-modulus-blind, nonnegative, and additive over disjoint parts, exactly
-one is the profile.  This is the expensive import: it is what a
-uniqueness claim actually asserts, and nothing above proves it. -/
-def openReadOutUniquenessImport : Prop :=
+/-- The exact scalar uniqueness schema previously presented as an open import.
+It is retained only so that its failure can be stated and checked. -/
+def ClaimedReadOutUniqueness : Prop :=
   ∀ (F : List Nat → Weights → Nat) (l : List Nat) (w : Weights),
     0 < total l w →
     (∀ v, SameProfile l w v → F l w = F l v) →
     (∀ l1 l2 v, F (l1 ++ l2) v = F l1 v + F l2 v) →
     F l w = total l w
 
-/-- **The negative fact that makes the imports necessary**: the
-weights do NOT determine a decorated presentation.  Over the carrier
-`[0, 1]`, the weights `(4, 1)` are presented by two DIFFERENT
-decorations, and the declared mixing read-out separates them.  Any
-uniqueness claim therefore needs strictly more than the weights. -/
-def eA : Nat → Nat := fun p => if p = 0 then 2 else 1
+/-- The zero read-out satisfies the displayed invariance and append equations,
+but it is not the positive total on a singleton.  Hence the old uniqueness
+schema is inconsistent, not an unpaid theorem. -/
+theorem claimedReadOutUniqueness_false : ¬ ClaimedReadOutUniqueness := by
+  intro h
+  have hzero := h (fun _ _ => 0) [0] (fun _ => 1) (by decide)
+    (by intro _ _; rfl) (by intro _ _ _; rfl)
+  have hone : total [0] (fun _ => 1) = 1 := by decide
+  rw [hone] at hzero
+  omega
 
-def eB : Nat → Nat := fun p => if p = 0 then 2 else 3
-
-theorem weights_do_not_force_decoration :
-    Presents [0, 1] sq eA (fun p => if p = 0 then 4 else 1) ∧
-    (¬ Presents [0, 1] sq eB (fun p => if p = 0 then 4 else 1)) ∧
-    eA ≠ eB := by
-  refine ⟨?_, ?_, ?_⟩
-  · intro p hp
-    rcases List.mem_cons.mp hp with h | h
-    · subst h; decide
-    · rcases List.mem_cons.mp h with h2 | h2
-      · subst h2; decide
-      · cases h2
-  · intro hc
-    have := hc 1 (by decide)
-    exact absurd this (by decide)
-  · intro he
-    have := congrFun he 1
-    exact absurd this (by decide)
-
-/-- **The scope line, stated as a theorem about this module.**  What
-is derived: the profile is fixed by the weights up to a positive ray,
-a decorated presentation adds nothing to it, and a linear read-out
-descends exactly when it does not mix.  What is NOT derived and is
-recorded as an unproved import: a decorated carrier, exact disjoint
-additivity, and any read-out uniqueness law.  The weights do not force
-a decoration, so no uniqueness claim follows from them. -/
-theorem derived_and_imported (l : List Nat) (w v : Weights)
-    (hw : 0 < total l w) (hv : 0 < total l v) (a : Nat) :
+/-- The scope line for the corrected module.  It packages only results actually
+proved here: positive-ray classification, positive scaling, and presentation
+profile redundancy. -/
+theorem finite_scope_summary (l : List Nat) (w v : Weights)
+    (hw : 0 < total l w) (hv : 0 < total l v) (a : Nat) (ha : 0 < a) :
     (SameProfile l w v ↔
       ∃ p q, 0 < p ∧ 0 < q ∧ ∀ x ∈ l, p * w x = q * v x) ∧
-    SameProfile l (fun p => a * w p) w ∧
+    (SameProfile l (fun p => a * w p) w ∧
+      0 < total l (fun p => a * w p)) ∧
     (∀ (m : Nat → Nat) (c : Nat → Nat), Presents l m c w →
       SameProfile l (fun p => m (c p)) w) :=
-  ⟨profile_iff_ray l w v hw hv, profile_scale l a w,
-   fun m c h => lift_profile_redundant l m c w h⟩
+  ⟨profile_iff_ray l w v hw hv, profile_scale_positive l a w ha hw,
+   fun m c h => presentation_profile_redundant l m c w h⟩
 
 end WeightProfile

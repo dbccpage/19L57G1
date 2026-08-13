@@ -1977,64 +1977,42 @@ CL-PD2-LADDER)
   the involution report (bijection, involution, fixed-point-free,
   sign-reversing) per dimension; bounds recorded in the artifact.
 
-### CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)
-- **Statement**: a weight assignment is a DECLARED datum - a count
-  per carrier position - and this claim records exactly what it fixes
-  and what it does not, in integer arithmetic with no division and no
-  reals.
-  (i) **The profile, exactly**: two assignments have the same
-  normalized profile iff they agree after cross-multiplying by each
-  other's totals; this is an equivalence on positive-total
-  assignments, invariant under positive rescaling, and its classes
-  are EXACTLY the positive rays (`profile_iff_ray`) - an exact fiber
-  classifier.
-  (ii) **Kept and forgotten**: support (`profile_support`) and order
-  (`profile_order`) are preserved; the total is forgotten
-  (`profile_forgets_total`).
-  (iii) **A lift adds nothing to the profile**: every decorated
-  presentation of `w` carries `w`'s profile
-  (`lift_profile_redundant`) and any two carry the same
-  (`lifts_agree_on_profile`).  The proof is one line, and that is the
-  whole redundancy.
-  (iv) **CORRECTED DURING THE WORK, and sharper than first written**:
-  over UNSIGNED decorations the decoration is DETERMINED by the
-  weights, because squaring is injective on counts (`sq_injective`,
-  `unsigned_decoration_determined`) - so it adds nothing to ANY
-  question, not merely to the profile.  The first draft of this
-  module claimed a mixing question could separate two unsigned
-  decorations with equal moduli; the Python mirror refuted it, and
-  the claim was replaced by the true one.  The extra representational
-  capacity appears only once a SIGN is declared
-  (`signed_decoration_visible_to_mixing`), and that declaration is a
-  separate import with its own price.
-  (v) **Descent classification**: a declared linear read-out is
-  constant on modulus-blind inputs exactly when its cross term
-  vanishes (`descent_iff_subsingleton_support`); `sq_add_sub`
-  isolates the obstruction as four times the cross term.
-  (vi) **THE CLIMB, priced and NOT paid**: three further declarations
-  would be needed to single out a read-out law - a decorated carrier
-  with a modulus map and a combination operation
-  (`openDecoratedCarrierImport`), exact additivity over disjoint
-  parts (`openDisjointAdditivityImport`), and a uniqueness law
-  (`openReadOutUniquenessImport`).  All three are stated as
-  PROPOSITIONS and NONE is proved.  The negative fact that makes them
-  necessary is proved: the weights do not determine a decoration
-  (`weights_do_not_force_decoration`), so no uniqueness claim follows
-  from the weights alone.
-- **Class**: theorem + countermodel + named unproved imports + finite
-  computation.
-- **Lean**: `WeightProfile.profile_iff_ray`, `.profile_refl`,
-  `.profile_symm`, `.profile_trans`, `.profile_scale`,
+### CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)
+
+- **Statement**: this is finite natural/integer weight-profile algebra, not a
+  Hilbert lift. Carrier-facing lists are duplicate-free; raw list totals count
+  repetitions with multiplicity. On the positive-total domain `SameProfile`
+  is an equivalence, positive natural scaling preserves that domain, and
+  profile equality is exactly common positive cross-multiplication. Zero
+  scaling satisfies the raw equation but exits the domain. Support and order
+  are preserved and total mass is forgotten.
+- **Presentation result**: a valid duplicate-free decorated presentation
+  reproduces the declared weight profile. Unsigned square presentations of the
+  same weights are carrierwise equal. Separately, two valid integer-square
+  presentations `(1, 1)` and `(1, -1)` of weights `(1, 1)` are distinguished
+  by the declared two-input read-out `(x+y)^2`. This is a scoped sign-shadow
+  witness, not a general capacity or dynamics claim.
+- **Descent result**: for the declared two-coordinate integer linear read-out
+  followed by squaring, descent through coordinate-square fibers holds exactly
+  when one coefficient vanishes.
+- **Climb audit**: the former decorated-carrier existential is trivially
+  inhabited; append additivity is a theorem of `total`; the displayed read-out
+  uniqueness schema is false by the zero read-out. The invalid `eB` witness did
+  not present the weights and has been removed. No priced representation climb
+  remains.
+- **Class**: theorem + scoped counterexample + finite computation + refuted
+  overclaim.
+- **Lean**: `WeightProfile.CarrierList`, `.duplicate_list_not_carrier`,
+  `.total_append`, `.profile_equivalence_positive`,
+  `.profile_scale_positive`, `.zero_scale_boundary`, `.profile_iff_ray`,
   `.profile_support`, `.profile_order`, `.profile_forgets_total`,
-  `.total_ray`, `.total_scale`, `.total_congr`,
-  `.lift_profile_redundant`, `.lifts_agree_on_profile`,
+  `.presentation_profile_redundant`, `.presentations_agree_on_profile`,
   `.sq_injective`, `.unsigned_decoration_determined`,
-  `.signed_decoration_visible_to_mixing`, `.redundancy_is_relative`,
-  `.sq_add_sub`, `.sq_mul`, `.descent_iff_subsingleton_support`,
-  `.weights_do_not_force_decoration`, `.derived_and_imported`; the
-  unproved imports `.openDecoratedCarrierImport`,
-  `.openDisjointAdditivityImport`, `.openReadOutUniquenessImport`.
-- **Python**: `weight_profile.json` - exhaustive over carrier 2,
-  weights to 3, decorations to 3, coefficients to 3, inputs to 2;
-  bounds recorded in the artifact.
+  `.signed_square_presentations_split`, `.presentation_scope`, `.sq_add_sub`,
+  `.descent_iff_subsingleton_support`, `.decoratedCarrierShape_exists`,
+  `.claimedReadOutUniqueness_false`, and `.finite_scope_summary`.
+- **Python**: `weight_profile.json` checks carrier 2, weights/decorations to 3,
+  coefficients to 3, and inputs to 2. It mirrors the zero-scale boundary,
+  duplicate policy, signed fixture, descent classification, and failed-climb
+  dispositions. Bounds remain explicit.
 

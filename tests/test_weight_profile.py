@@ -7,10 +7,11 @@ from pathlib import Path
 import run_weight_profile
 from derivation.weight_profile import (
     all_weights,
+    carrier_list,
     climb_report,
     descends,
     descent_report,
-    lift_report,
+    presentation_report,
     mix_sum,
     presents,
     profile_report,
@@ -34,6 +35,9 @@ def test_profile_algebra_exhaustive() -> None:
     assert eq["symm"] is True
     assert eq["trans"] is True
     assert rep["scaling_invariant"] is True
+    assert rep["positive_scale_stays_positive"] is True
+    assert rep["zero_scale_raw_profile"] is True
+    assert rep["zero_scale_exits_positive_domain"] is True
     assert rep["classes_are_exactly_rays"] is True
     assert rep["support_preserved"] is True
     assert rep["order_preserved"] is True
@@ -52,19 +56,24 @@ def test_profile_primitives() -> None:
     # the total is genuinely forgotten
     assert total(carrier, scale(w, 5)) != total(carrier, w)
     assert len(all_weights(carrier, 2)) == 9
+    assert carrier_list(carrier)
+    assert not carrier_list((0, 0))
+    # Raw list algebra counts duplicates, but duplicates are not a carrier.
+    assert total((0, 0), {0: 3}) == 6
 
 
-def test_unsigned_lift_adds_nothing_signed_lift_does() -> None:
-    rep = lift_report(2, 3)
+def test_unsigned_square_determined_and_signed_fixture_scoped() -> None:
+    rep = presentation_report(2, 3)
     assert rep["profile_redundant_for_every_decoration"] is True
-    # over UNSIGNED decorations the lift is fully determined
+    # over UNSIGNED decorations the presentation is fully determined
     assert rep["unsigned_decoration_determined"] is True
     assert rep["unsigned_pairs_with_equal_moduli_that_differ"] == 0
-    # the extra capacity is exactly the declared sign
-    signed = rep["signed_mixing"]
+    # the separate signed-square fixture has two valid presentations
+    signed = rep["signed_square_fixture"]
     assert isinstance(signed, dict)
-    assert signed["same_modulus_at_each_position"] is True
-    assert signed["mixing_separates"] is True
+    assert signed["both_present_same_integer_square_weights"] is True
+    assert signed["presentations_differ"] is True
+    assert signed["declared_mixing_separates"] is True
     carrier = (0, 1)
     # a concrete decorated presentation, and the mixing separation
     assert presents(carrier, {0: 2, 1: 1}, {0: 4, 1: 1})
@@ -72,7 +81,8 @@ def test_unsigned_lift_adds_nothing_signed_lift_does() -> None:
     assert mix_sum(carrier, {0: 1, 1: 2}) == 9
     assert sq(3) == 9
     assert unsigned_decoration_determined(carrier, 5)
-    assert signed_mixing_separates()["mixing_separates"] is True
+    assert signed_mixing_separates()["declared_mixing_separates"] is True
+    assert not presents((0, 0), {0: 2}, {0: 4})
 
 
 def test_descent_classification() -> None:
@@ -86,18 +96,19 @@ def test_descent_classification() -> None:
     assert read_out(2, 3, 5, 7) == 31
 
 
-def test_climb_records_what_is_missing() -> None:
+def test_climb_overclaims_are_classified() -> None:
     rep = climb_report()
-    neg = rep["weights_do_not_force_decoration"]
-    assert isinstance(neg, dict)
-    assert neg["eA_presents_w"] is True
-    assert neg["eB_does_not_present_w"] is True
-    assert neg["decorations_differ"] is True
-    assert neg["mixing_separates_them"] is True
-    imports = rep["imports_required_and_not_discharged"]
-    assert isinstance(imports, list) and len(imports) == 3
-    status = rep["status"]
-    assert isinstance(status, str) and "none is discharged" in status
+    shape = rep["decorated_carrier_shape"]
+    add = rep["list_append_additivity"]
+    unique = rep["claimed_readout_uniqueness"]
+    assert isinstance(shape, dict) and shape["status"] == "PROVABLE_TRIVIALLY"
+    assert isinstance(add, dict) and add["status"] == \
+        "PROVED_FROM_TOTAL_DEFINITION"
+    assert isinstance(unique, dict) and unique["status"] == \
+        "FALSE_WITH_COUNTERMODEL"
+    assert unique["zero_readout"] == 0
+    assert unique["positive_singleton_total"] == 1
+    assert rep["status"] == "NO_PRICED_CLIMB_DERIVED"
 
 
 def test_report_shape_and_bounds() -> None:
@@ -106,9 +117,9 @@ def test_report_shape_and_bounds() -> None:
     assert isinstance(bounds, dict)
     assert bounds["carrier_size"] == 2
     assert bounds["max_weight"] == 3
-    split = rep["derived_vs_imported"]
+    split = rep["claim_ceiling"]
     assert isinstance(split, str)
-    assert "DERIVED" in split and "IMPORTED" in split
+    assert "no vector-space" in split
 
 
 def test_runner_byte_stable(tmp_path: Path) -> None:

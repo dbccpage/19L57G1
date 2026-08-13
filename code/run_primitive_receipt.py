@@ -316,43 +316,42 @@ def receipt() -> dict[str, Json]:
                           "quiescence_is_protected_separation "
                           "(a statement about protSep, NOT about "
                           "trace stability)"]},
-            {"tag": "WEIGHT_PROFILE_REDUNDANCY_AND_ITS_PRICE",
-             "status": "THEOREM + COUNTERMODEL + NAMED IMPORTS",
-             "evidence": ["the profile is fixed up to a positive "
-                          "ray, exactly: WeightProfile."
-                          "profile_iff_ray (fiber classifier, no "
-                          "division anywhere), with profile_refl / "
-                          "symm / trans / scale",
-                          "what it keeps and forgets: "
-                          "profile_support, profile_order, "
-                          "profile_forgets_total",
-                          "a decorated presentation adds NOTHING to "
-                          "the profile: lift_profile_redundant, "
-                          "lifts_agree_on_profile - one line, and "
-                          "that is the entire redundancy",
-                          "SHARPER, and corrected during the work: "
-                          "over UNSIGNED decorations the decoration "
-                          "is DETERMINED by the weights "
-                          "(sq_injective, "
-                          "unsigned_decoration_determined), so it "
-                          "adds nothing to ANY question; the extra "
-                          "capacity appears only once a SIGN is "
-                          "declared "
-                          "(signed_decoration_visible_to_mixing), "
-                          "and that declaration is its own import",
-                          "descent classification: "
-                          "descent_iff_subsingleton_support - a "
-                          "linear read-out descends through the "
-                          "modulus-blind relation exactly when its "
-                          "cross term vanishes; sq_add_sub isolates "
-                          "the obstruction",
-                          "THE CLIMB, priced not paid: "
-                          "openDecoratedCarrierImport, "
-                          "openDisjointAdditivityImport, "
-                          "openReadOutUniquenessImport are stated "
-                          "as unproved Props; "
-                          "weights_do_not_force_decoration is the "
-                          "negative fact that makes them necessary"]},
+            {"tag": "FINITE_WEIGHT_PROFILE_AND_SIGN_SHADOW",
+              "status": "FINITE THEOREMS + SCOPED COUNTERMODELS",
+              "evidence": ["on the positive-total domain the profile "
+                           "is classified exactly by common positive "
+                           "cross-multiples: WeightProfile."
+                           "profile_iff_ray, with "
+                           "profile_equivalence_positive and "
+                           "profile_scale_positive; zero scaling "
+                           "exits that domain (zero_scale_boundary)",
+                           "carrier-facing lists are duplicate-free; "
+                           "raw totals count repetitions with "
+                           "multiplicity (CarrierList, total_append)",
+                           "what it keeps and forgets: "
+                           "profile_support, profile_order, "
+                           "profile_forgets_total",
+                           "a valid decorated presentation reproduces "
+                           "the weight profile: "
+                           "presentation_profile_redundant and "
+                           "presentations_agree_on_profile",
+                           "unsigned square presentations are "
+                           "carrierwise determined; separately, two "
+                           "valid integer-square presentations in the "
+                           "declared two-coordinate fixture differ by "
+                           "sign and are split by its declared mixing "
+                           "read-out (signed_square_presentations_split)",
+                           "descent classification: "
+                           "descent_iff_subsingleton_support - a "
+                           "two-coordinate integer read-out followed "
+                           "by squaring descends through coordinate-"
+                           "square fibers exactly when one coefficient "
+                           "vanishes",
+                           "NO PRICED CLIMB: the former carrier shape "
+                           "is trivially inhabited, list additivity is "
+                           "proved, and the former uniqueness schema "
+                           "is false by the zero read-out "
+                           "(claimedReadOutUniqueness_false)"]},
             {"tag": "GENERAL_BOUNDARY_CANCELLATION",
              "status": "THEOREM (general) + COUNTERMODEL",
              "evidence": ["BoundaryCancellation."

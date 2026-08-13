@@ -1,15 +1,10 @@
 """Deterministic mirror of ``lean4/Derivation/WeightProfile.lean``.
 
-Declared weight assignments and their profiles, in exact integer
-arithmetic with no division: the profile classes are exactly the
-positive rays; support and order are preserved and the total is
-forgotten; a decorated presentation adds nothing to the profile but
-IS visible to a declared mixing question; a linear read-out descends
-through the modulus-blind relation exactly when it does not mix; and
-the weights do not determine a decoration, which is why any
-uniqueness law needs strictly more than the weights.
-
-Everything is checked exhaustively over declared finite bounds.
+This is finite ``Nat``/``Int`` arithmetic.  It checks the positive
+weight-profile relation, an explicit duplicate-free carrier policy,
+unsigned-square determination, one declared signed-square/mixing
+witness, and the exact two-coordinate descent classification.  It is
+not a vector-space construction, a dynamics, or a uniqueness result.
 """
 
 from __future__ import annotations
@@ -21,7 +16,13 @@ from derivation.export import Json
 Weights = dict[int, int]
 
 
+def carrier_list(carrier: tuple[int, ...]) -> bool:
+    """Carrier-facing reports require each label exactly once."""
+    return len(carrier) == len(set(carrier))
+
+
 def total(carrier: tuple[int, ...], w: Weights) -> int:
+    """Raw list total; repeated labels count with multiplicity."""
     return sum(w.get(p, 0) for p in carrier)
 
 
@@ -56,6 +57,7 @@ def profile_report(size: int, maxw: int, ray_bound: int
     """Equivalence, ray classification, support, order, and the
     forgotten total - exhaustive over the declared bounds."""
     carrier = tuple(range(size))
+    assert carrier_list(carrier)
     ws = [w for w in all_weights(carrier, maxw)
           if total(carrier, w) > 0]
     refl = all(same_profile(carrier, w, w) for w in ws)
@@ -68,6 +70,13 @@ def profile_report(size: int, maxw: int, ray_bound: int
     scale_inv = all(
         same_profile(carrier, scale(w, a), w)
         for w in ws for a in range(1, ray_bound + 1))
+    positive_scale_stays_positive = all(
+        total(carrier, scale(w, a)) > 0
+        for w in ws for a in range(1, ray_bound + 1))
+    zero_scale_raw_profile = all(
+        same_profile(carrier, scale(w, 0), w) for w in ws)
+    zero_scale_exits_domain = all(
+        total(carrier, scale(w, 0)) == 0 for w in ws)
     ray_iff = all(
         same_profile(carrier, w, v)
         == same_ray(carrier, w, v, max(total(carrier, w),
@@ -89,6 +98,9 @@ def profile_report(size: int, maxw: int, ray_bound: int
         "assignments_checked": len(ws),
         "equivalence": {"refl": refl, "symm": symm, "trans": trans},
         "scaling_invariant": scale_inv,
+        "positive_scale_stays_positive": positive_scale_stays_positive,
+        "zero_scale_raw_profile": zero_scale_raw_profile,
+        "zero_scale_exits_positive_domain": zero_scale_exits_domain,
         "classes_are_exactly_rays": ray_iff,
         "support_preserved": support,
         "order_preserved": order,
@@ -106,7 +118,8 @@ def sq(x: int) -> int:
 def presents(carrier: tuple[int, ...], c: Weights,
              w: Weights) -> bool:
     """``c`` is a decorated presentation of ``w`` under squaring."""
-    return all(sq(c.get(p, 0)) == w.get(p, 0) for p in carrier)
+    return carrier_list(carrier) and all(
+        sq(c.get(p, 0)) == w.get(p, 0) for p in carrier)
 
 
 def mix_sum(carrier: tuple[int, ...], c: Weights) -> int:
@@ -119,29 +132,33 @@ def unsigned_decoration_determined(carrier: tuple[int, ...],
                                    maxc: int) -> bool:
     """Over UNSIGNED decorations the modulus determines the
     decoration: squaring is injective on counts, so a decorated
-    presentation adds nothing to ANY question, not merely to the
-    profile."""
+    presentation adds no independent carrierwise datum in this
+    square-presentation model."""
     return all(
         (sq(a) != sq(b)) or a == b
         for a in range(maxc + 1) for b in range(maxc + 1))
 
 
 def signed_mixing_separates() -> dict[str, Json]:
-    """The extra capacity is exactly a declared SIGN: two signed
-    decorations with identical moduli are separated by the declared
-    mixing read-out."""
+    """One declared two-coordinate signed-square/mixing witness."""
+    carrier = (0, 1)
+    plus = {0: 1, 1: 1}
+    split = {0: 1, 1: -1}
+    weights = {0: 1, 1: 1}
     return {
-        "same_modulus_at_each_position": (sq(1) == sq(1)
-                                          and sq(-1) == sq(1)),
-        "mixing_separates": sq(1 + (-1)) != sq(1 + 1),
-        "capacity_is_the_declared_sign":
-            "unsigned decorations are determined by the weights; "
-            "only a declared sign creates a datum the profile "
-            "cannot see, and that declaration is its own import",
+        "carrier_is_duplicate_free": carrier_list(carrier),
+        "both_present_same_integer_square_weights": (
+            all(sq(plus[p]) == weights[p] for p in carrier)
+            and all(sq(split[p]) == weights[p] for p in carrier)),
+        "presentations_differ": plus != split,
+        "declared_mixing_separates": (
+            mix_sum(carrier, plus) != mix_sum(carrier, split)),
+        "scope": "two integer coordinates, the declared square map, "
+                 "and this declared mixing read-out only",
     }
 
 
-def lift_report(size: int, maxc: int) -> dict[str, Json]:
+def presentation_report(size: int, maxc: int) -> dict[str, Json]:
     """Redundancy for the profile question, visibility to the mixing
     question - both exhaustive over the declared bounds."""
     carrier = tuple(range(size))
@@ -168,13 +185,10 @@ def lift_report(size: int, maxc: int) -> dict[str, Json]:
             unsigned_decoration_determined(carrier, maxc),
         "unsigned_pairs_with_equal_moduli_that_differ":
             len(unsigned_pairs_differing),
-        "signed_mixing": signed_mixing_separates(),
-        "redundancy_is_relative":
-            "redundant for the declared profile question; over "
-            "UNSIGNED decorations redundant for every question, "
-            "because the decoration is determined; the extra "
-            "capacity appears only once a SIGN is declared, and "
-            "that declaration is a separate import",
+        "signed_square_fixture": signed_mixing_separates(),
+        "scope": "unsigned square presentations are carrierwise "
+                 "determined; a separate integer-square fixture has "
+                 "two sign choices seen by one declared mixing read-out",
     }
 
 
@@ -222,37 +236,30 @@ def descent_report(coeff_bound: int, input_bound: int
 
 
 # ---------------------------------------------------------------------------
-# The climb
+# Audit of the proposed climb
 
 def climb_report() -> dict[str, Json]:
-    """The negative fact that makes each import necessary, plus the
-    named imports themselves - stated, never discharged."""
-    carrier = (0, 1)
-    w = {0: 4, 1: 1}
-    eA = {0: 2, 1: 1}
-    eB = {0: 2, 1: 3}
+    """Two former imports are elementary; the third schema is false."""
+    singleton = (0,)
+    one = {0: 1}
+    zero_readout = 0
     return {
-        "weights_do_not_force_decoration": {
-            "eA_presents_w": presents(carrier, eA, w),
-            "eB_does_not_present_w": not presents(carrier, eB, w),
-            "decorations_differ": eA != eB,
-            "mixing_separates_them":
-                mix_sum(carrier, eA) != mix_sum(carrier, eB),
+        "decorated_carrier_shape": {
+            "status": "PROVABLE_TRIVIALLY",
+            "witness": "D=Nat, modulus=identity, operation=addition",
         },
-        "imports_required_and_not_discharged": [
-            "a decorated carrier with a declared modulus map and a "
-            "declared combination operation (the weights supply "
-            "none)",
-            "exact additivity over disjoint parts (a declared "
-            "demand, not entailed by the calculus)",
-            "a read-out uniqueness law singling out one modulus-"
-            "blind additive nonnegative read-out (the expensive "
-            "import; nothing above proves it)",
-        ],
-        "status":
-            "each import is stated as an unproved Prop in the Lean "
-            "module; none is discharged here or anywhere in this "
-            "development",
+        "list_append_additivity": {
+            "status": "PROVED_FROM_TOTAL_DEFINITION",
+            "overlap_policy": "repeated labels count with multiplicity",
+        },
+        "claimed_readout_uniqueness": {
+            "status": "FALSE_WITH_COUNTERMODEL",
+            "zero_readout": zero_readout,
+            "positive_singleton_total": total(singleton, one),
+            "reason": "the zero read-out is profile-invariant and "
+                      "append-additive but differs from positive total",
+        },
+        "status": "NO_PRICED_CLIMB_DERIVED",
     }
 
 
@@ -269,13 +276,11 @@ def weight_profile_report(size: int, maxw: int, maxc: int,
             "ray_search_bound": maxw * size + 1,
         },
         "profile": profile_report(size, maxw, maxw * size + 1),
-        "lift": lift_report(size, maxc),
+        "presentation": presentation_report(size, maxc),
         "descent": descent_report(coeff_bound, input_bound),
         "climb": climb_report(),
-        "derived_vs_imported":
-            "DERIVED: the profile is fixed up to a positive ray, a "
-            "decorated presentation adds nothing to it, and a linear "
-            "read-out descends exactly when it does not mix.  "
-            "IMPORTED and NOT discharged: a decorated carrier, exact "
-            "disjoint additivity, and any read-out uniqueness law.",
+        "claim_ceiling":
+            "finite Nat/Int weight profiles; one declared signed-square "
+            "mixing witness; no vector-space, dynamics, probability, "
+            "uniqueness, or representation-lift claim",
     }
