@@ -1,7 +1,7 @@
-"""Tests for the transition-alphabet mirror.
+"""Tests for the declared one-step transition-codebook mirror.
 
-The derived facts are re-derived here, not restated: the alphabet size
-is read off the computed class table, the partition is checked
+The code-image sizes are recomputed from the declared class table, and
+the partition is checked
 exhaustively over the declared space, and every negative result
 (the refuted environment-ownership claim, the two non-invariant profile
 components, the load-bearing well-formedness condition) has its own
@@ -22,7 +22,8 @@ from derivation.transition_alphabet import (
     EVENT_BATTERY,
     FIELDS,
     accepted,
-    alphabet_report,
+    codebook_report,
+    contextual_countermodel_report,
     budget_delta,
     class_of,
     continuity_of,
@@ -155,14 +156,18 @@ def test_partition_is_exhaustively_verified() -> None:
     assert rep["mixed_obstruction_steps"] == 0
     assert rep["halted_accepted_transitions"] == 0
     assert rep["all_classes_realized"] is True
+    assert rep["full_profile_image_size"] == 21
+    assert rep["declared_signature_image_size"] == 13
     assert rep["pairs_checked"] == 6144 * len(EVENT_BATTERY)
     assert rep["accepted_wellformed_transitions"] > 0
 
 
-def test_alphabet_size_is_derived_not_chosen() -> None:
-    rep = alphabet_report()
-    assert rep["alphabet_size_with_guard"] == len(ALL_CLASSES) == 13
-    assert rep["alphabet_size_guard_erased"] == 12
+def test_declared_codebook_sizes_are_recomputed() -> None:
+    rep = codebook_report()
+    assert rep["declared_codebook_size"] == len(ALL_CLASSES) == 13
+    assert rep["guard_erased_codebook_size"] == 12
+    assert rep["contextual_quotient"] is False
+    assert rep["dda_correspondence"] is False
     assert rep["merged_under_guard_erasure"] == [
         ["refineObservation", "extendObservation"]]
     # the merge is a fact about accepted transitions, not the table
@@ -172,6 +177,15 @@ def test_alphabet_size_is_derived_not_chosen() -> None:
         != sig_of(FUNDED, ("addCol", (0,)))
     assert erase_guard(CLASS_SIGS["refineObservation"]) \
         == erase_guard(CLASS_SIGS["extendObservation"])
+
+
+def test_declared_code_is_not_a_contextual_congruence() -> None:
+    rep = contextual_countermodel_report()
+    assert rep["occurrence_same_start_equal_code"] is True
+    assert rep["occurrence_common_suffix_separates"] is True
+    assert rep["budget_same_start_equal_code"] is True
+    assert rep["budget_common_suffix_separates"] is True
+    assert rep["safe_for_event_erasure"] is False
 
 
 def test_witnesses_are_minimal_in_the_declared_space() -> None:
@@ -216,7 +230,7 @@ def test_wellformedness_is_load_bearing() -> None:
             assert class_of(s, ("admitWit", 0, 1)) == "retainDifference"
 
 
-def test_environment_ownership_claim_is_refuted() -> None:
+def test_policy_class_is_not_provenance() -> None:
     rep = ownership_report()
     assert rep["no_occurrence_supply_emitted"] is True
     assert rep["no_license_write_emitted"] is True
@@ -224,7 +238,8 @@ def test_environment_ownership_claim_is_refuted() -> None:
     # the claim as stated is FALSE for the budget write
     assert rep["budget_write_claim_refuted"] is True
     assert rep["only_unit_funding_emitted"] is True
-    assert rep["environment_owned_emitted_internally"] == ["setBudget"]
+    assert rep["externally_classified_emitted_internally"] == ["setBudget"]
+    assert rep["classification_is_provenance"] is False
     assert "setBudget" in ENV_OWNED
     block = (("setBudget", 1), ("addCol", (0,)))
     assert block in next_family_p(OBSTRUCTED)

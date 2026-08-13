@@ -11786,7 +11786,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [
     "TraceAlgebra.lean"
@@ -11802,9 +11802,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -12265,7 +12263,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [
     "TraceAlgebra.lean"
@@ -12428,9 +12426,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -12932,7 +12928,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -12947,7 +12943,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -12959,7 +12955,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -12984,7 +12980,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -13010,12 +13006,12 @@
     "propext"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
-   "name": "TransitionAlphabet.alphabet_size",
+   "name": "TransitionAlphabet.declared_codebook_size",
    "role": "preservation",
    "statement": ": (dedup (allClasses.map classSig)).length = 13"
   },
@@ -13024,12 +13020,12 @@
     "propext"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
-   "name": "TransitionAlphabet.erased_alphabet_size",
+   "name": "TransitionAlphabet.guard_erased_codebook_size",
    "role": "preservation",
    "statement": ": (dedup (allClasses.map (fun k => eraseGuard (classSig k)))).length = 12"
   },
@@ -13039,7 +13035,37 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.classSig_not_right_congruent_occurrence",
+   "role": "preservation",
+   "statement": ": Accepted genesisP (.admitOcc 0) = true \u2227 Accepted genesisP (.admitOcc 2) = true \u2227 sigOf genesisP (.admitOcc 0) = sigOf genesisP (.admitOcc 2) \u2227 step (step genesisP (.admitOcc 0)) (.admitOcc 0) \u2260 step (step genesisP (.admitOcc 2)) (.admitOcc 0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionAlphabet.lean",
+   "name": "TransitionAlphabet.classSig_not_right_congruent_budget",
+   "role": "preservation",
+   "statement": ": let s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -13054,7 +13080,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -13068,9 +13094,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13083,9 +13107,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13098,9 +13120,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13113,9 +13133,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13128,9 +13146,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13143,9 +13159,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13158,9 +13172,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [
     "StableContent.lean",
     "TraceAlgebra.lean"
@@ -13176,9 +13188,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [
     "StableContent.lean",
     "TraceAlgebra.lean"
@@ -13194,9 +13204,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [
     "StableContent.lean"
    ],
@@ -13212,7 +13220,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [
     "StableContent.lean",
@@ -13229,9 +13237,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
@@ -13245,7 +13251,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
+    "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [
     "StableContent.lean"
@@ -13276,9 +13282,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-TRANSITION-ALPHABET (Goal 2)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",

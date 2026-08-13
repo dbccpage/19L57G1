@@ -34,6 +34,7 @@ from derivation.transition_alphabet import (
     accepted,
     budget_delta,
     class_of,
+    profile_of,
     enumerate_states,
     event_json,
     guard_holds,
@@ -103,12 +104,14 @@ class TRecord:
     post: PS
     cls: str
     spend: str
+    profile: tuple[tuple[bool, ...], str, str, str, str, str, bool]
 
 
 def make_record(s: PS, e: PEvent) -> TRecord:
     t = pstep(s, e)
     return TRecord(pre=s, ev=e, guard=GUARD_OF[cast(str, e[0])], post=t,
-                   cls=class_of(s, e), spend=budget_delta(s, t))
+                   cls=class_of(s, e), spend=budget_delta(s, t),
+                   profile=profile_of(s, e))
 
 
 def wf_record(r: TRecord) -> bool:
@@ -117,6 +120,7 @@ def wf_record(r: TRecord) -> bool:
             and r.guard == GUARD_OF[cast(str, r.ev[0])]
             and r.cls == class_of(r.pre, r.ev)
             and r.spend == budget_delta(r.pre, r.post)
+            and r.profile == profile_of(r.pre, r.ev)
             and accepted(r.pre, r.ev)
             and wf_class(r.pre))
 

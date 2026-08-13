@@ -1,150 +1,4 @@
 {
- "alphabet": {
-  "alphabet_size_guard_erased": 12,
-  "alphabet_size_with_guard": 13,
-  "class_signatures": {
-   "absorbTerminal": {
-    "continuity": "absorption",
-    "fields": [
-     "halted"
-    ],
-    "guard": "terminalDeclaration",
-    "obstruction_move": "inert",
-    "origin": "environment"
-   },
-   "assertDifference": {
-    "continuity": "continuation",
-    "fields": [
-     "asserted"
-    ],
-    "guard": "assertionWellFormed",
-    "obstruction_move": "inert",
-    "origin": "internal"
-   },
-   "declareObstructing": {
-    "continuity": "continuation",
-    "fields": [
-     "obs"
-    ],
-    "guard": "preObservational",
-    "obstruction_move": "creates",
-    "origin": "internal"
-   },
-   "declareQuiet": {
-    "continuity": "continuation",
-    "fields": [
-     "obs"
-    ],
-    "guard": "preObservational",
-    "obstruction_move": "inert",
-    "origin": "internal"
-   },
-   "extendObservation": {
-    "continuity": "continuation",
-    "fields": [
-     "obs",
-     "budget"
-    ],
-    "guard": "columnAccepted",
-    "obstruction_move": "removes",
-    "origin": "internal"
-   },
-   "protectObstructing": {
-    "continuity": "continuation",
-    "fields": [
-     "prot"
-    ],
-    "guard": "protectionOfRetained",
-    "obstruction_move": "creates",
-    "origin": "internal"
-   },
-   "protectQuiet": {
-    "continuity": "continuation",
-    "fields": [
-     "prot"
-    ],
-    "guard": "protectionOfRetained",
-    "obstruction_move": "inert",
-    "origin": "internal"
-   },
-   "recordRefusal": {
-    "continuity": "continuation",
-    "fields": [
-     "refusals"
-    ],
-    "guard": "obstructionCertified",
-    "obstruction_move": "inert",
-    "origin": "internal"
-   },
-   "refineObservation": {
-    "continuity": "continuation",
-    "fields": [
-     "obs",
-     "budget"
-    ],
-    "guard": "refinementAccepted",
-    "obstruction_move": "removes",
-    "origin": "internal"
-   },
-   "retainDifference": {
-    "continuity": "continuation",
-    "fields": [
-     "wit"
-    ],
-    "guard": "retentionOfAssertion",
-    "obstruction_move": "inert",
-    "origin": "internal"
-   },
-   "supplyOccurrence": {
-    "continuity": "continuation",
-    "fields": [
-     "occ"
-    ],
-    "guard": "occurrenceFresh",
-    "obstruction_move": "inert",
-    "origin": "environment"
-   },
-   "writeBudget": {
-    "continuity": "continuation",
-    "fields": [
-     "budget"
-    ],
-    "guard": "budgetWrite",
-    "obstruction_move": "inert",
-    "origin": "environment"
-   },
-   "writeLicense": {
-    "continuity": "continuation",
-    "fields": [
-     "licensed"
-    ],
-    "guard": "licenseWrite",
-    "obstruction_move": "inert",
-    "origin": "environment"
-   }
-  },
-  "classes": [
-   "supplyOccurrence",
-   "assertDifference",
-   "retainDifference",
-   "protectQuiet",
-   "protectObstructing",
-   "declareQuiet",
-   "declareObstructing",
-   "refineObservation",
-   "extendObservation",
-   "recordRefusal",
-   "writeBudget",
-   "writeLicense",
-   "absorbTerminal"
-  ],
-  "merged_under_guard_erasure": [
-   [
-    "refineObservation",
-    "extendObservation"
-   ]
-  ]
- },
  "bounds": {
   "budget_pool": [
    0,
@@ -166,12 +20,167 @@
   "refusal_pool": 2,
   "state_space": 6144
  },
+ "codebook": {
+  "class_signatures": {
+   "absorbTerminal": {
+    "continuity": "absorption",
+    "declared_policy_class": "environment",
+    "fields": [
+     "halted"
+    ],
+    "guard": "terminalDeclaration",
+    "obstruction_move": "inert"
+   },
+   "assertDifference": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "asserted"
+    ],
+    "guard": "assertionWellFormed",
+    "obstruction_move": "inert"
+   },
+   "declareObstructing": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "obs"
+    ],
+    "guard": "preObservational",
+    "obstruction_move": "creates"
+   },
+   "declareQuiet": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "obs"
+    ],
+    "guard": "preObservational",
+    "obstruction_move": "inert"
+   },
+   "extendObservation": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "obs",
+     "budget"
+    ],
+    "guard": "columnAccepted",
+    "obstruction_move": "removes"
+   },
+   "protectObstructing": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "prot"
+    ],
+    "guard": "protectionOfRetained",
+    "obstruction_move": "creates"
+   },
+   "protectQuiet": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "prot"
+    ],
+    "guard": "protectionOfRetained",
+    "obstruction_move": "inert"
+   },
+   "recordRefusal": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "refusals"
+    ],
+    "guard": "obstructionCertified",
+    "obstruction_move": "inert"
+   },
+   "refineObservation": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "obs",
+     "budget"
+    ],
+    "guard": "refinementAccepted",
+    "obstruction_move": "removes"
+   },
+   "retainDifference": {
+    "continuity": "continuation",
+    "declared_policy_class": "internal",
+    "fields": [
+     "wit"
+    ],
+    "guard": "retentionOfAssertion",
+    "obstruction_move": "inert"
+   },
+   "supplyOccurrence": {
+    "continuity": "continuation",
+    "declared_policy_class": "environment",
+    "fields": [
+     "occ"
+    ],
+    "guard": "occurrenceFresh",
+    "obstruction_move": "inert"
+   },
+   "writeBudget": {
+    "continuity": "continuation",
+    "declared_policy_class": "environment",
+    "fields": [
+     "budget"
+    ],
+    "guard": "budgetWrite",
+    "obstruction_move": "inert"
+   },
+   "writeLicense": {
+    "continuity": "continuation",
+    "declared_policy_class": "environment",
+    "fields": [
+     "licensed"
+    ],
+    "guard": "licenseWrite",
+    "obstruction_move": "inert"
+   }
+  },
+  "classes": [
+   "supplyOccurrence",
+   "assertDifference",
+   "retainDifference",
+   "protectQuiet",
+   "protectObstructing",
+   "declareQuiet",
+   "declareObstructing",
+   "refineObservation",
+   "extendObservation",
+   "recordRefusal",
+   "writeBudget",
+   "writeLicense",
+   "absorbTerminal"
+  ],
+  "contextual_quotient": false,
+  "dda_correspondence": false,
+  "declared_codebook_size": 13,
+  "guard_erased_codebook_size": 12,
+  "merged_under_guard_erasure": [
+   [
+    "refineObservation",
+    "extendObservation"
+   ]
+  ]
+ },
+ "contextual_countermodels": {
+  "budget_common_suffix_separates": true,
+  "budget_same_start_equal_code": true,
+  "occurrence_common_suffix_separates": true,
+  "occurrence_same_start_equal_code": true,
+  "safe_for_event_erasure": false
+ },
  "imported_inputs": [
   "the sealed passage step function and its guards",
-  "occurrence supply (environment-owned)",
-  "budget authority (environment-owned, but internally emitted as a unit funding write)",
-  "license authority (environment-owned)",
-  "the terminal declaration (environment-owned)",
+  "occurrence supply (externally classified)",
+  "budget authority (externally classified, but internally emitted as a unit funding write)",
+  "license authority (externally classified)",
+  "the terminal declaration (externally classified)",
   "the declared well-formed class: live, protection contained in retention"
  ],
  "invariance": {
@@ -187,21 +196,22 @@
  "ownership": {
   "blocks_generated": 2304,
   "budget_write_claim_refuted": true,
+  "classification_is_provenance": false,
   "constructors_emitted_internally": [
    "addCol",
    "refineCol",
    "setBudget"
   ],
-  "environment_owned_constructors": [
+  "externally_classified_constructors": [
    "admitOcc",
    "halt",
    "setBudget",
    "setLicense"
   ],
-  "environment_owned_emitted_internally": [
+  "externally_classified_emitted_internally": [
    "setBudget"
   ],
-  "environment_owned_events_emitted": [
+  "externally_classified_events_emitted": [
    "('setBudget', 1)"
   ],
   "no_license_write_emitted": true,
@@ -258,6 +268,8 @@
   "all_classes_realized": true,
   "ambiguous_classifications": 0,
   "class_signature_failures": 0,
+  "declared_signature_image_size": 13,
+  "full_profile_image_size": 21,
   "guard_agreement_failures": 0,
   "halted_accepted_transitions": 0,
   "mixed_obstruction_steps": 0,
@@ -279,6 +291,7 @@
   }
  },
  "scope": {
+  "codebook": "a declared one-step projection, not a quotient, right congruence, DDA map, or presentation-invariant cardinality",
   "minimality": "minimum over the declared well-formed class inside the declared finite state space, not over states reachable from genesis",
   "partition": "exhaustive over the declared state space and event battery; the Lean proof is universal"
  },
@@ -294,12 +307,12 @@
     "minimum_size": 0,
     "signature": {
      "continuity": "absorption",
+     "declared_policy_class": "environment",
      "fields": [
       "halted"
      ],
      "guard": "terminalDeclaration",
-     "obstruction_move": "inert",
-     "origin": "environment"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -323,12 +336,12 @@
     "minimum_size": 2,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "asserted"
      ],
      "guard": "assertionWellFormed",
-     "obstruction_move": "inert",
-     "origin": "internal"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -353,12 +366,12 @@
     "minimum_size": 2,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "obs"
      ],
      "guard": "preObservational",
-     "obstruction_move": "creates",
-     "origin": "internal"
+     "obstruction_move": "creates"
     },
     "state": {
      "asserted": [],
@@ -390,12 +403,12 @@
     "minimum_size": 0,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "obs"
      ],
      "guard": "preObservational",
-     "obstruction_move": "inert",
-     "origin": "internal"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -420,13 +433,13 @@
     "minimum_size": 5,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "obs",
       "budget"
      ],
      "guard": "columnAccepted",
-     "obstruction_move": "removes",
-     "origin": "internal"
+     "obstruction_move": "removes"
     },
     "state": {
      "asserted": [],
@@ -462,12 +475,12 @@
     "minimum_size": 2,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "prot"
      ],
      "guard": "protectionOfRetained",
-     "obstruction_move": "creates",
-     "origin": "internal"
+     "obstruction_move": "creates"
     },
     "state": {
      "asserted": [],
@@ -496,12 +509,12 @@
     "minimum_size": 1,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "prot"
      ],
      "guard": "protectionOfRetained",
-     "obstruction_move": "inert",
-     "origin": "internal"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -530,12 +543,12 @@
     "minimum_size": 3,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "refusals"
      ],
      "guard": "obstructionCertified",
-     "obstruction_move": "inert",
-     "origin": "internal"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -569,13 +582,13 @@
     "minimum_size": 6,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "obs",
       "budget"
      ],
      "guard": "refinementAccepted",
-     "obstruction_move": "removes",
-     "origin": "internal"
+     "obstruction_move": "removes"
     },
     "state": {
      "asserted": [],
@@ -613,12 +626,12 @@
     "minimum_size": 3,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "internal",
      "fields": [
       "wit"
      ],
      "guard": "retentionOfAssertion",
-     "obstruction_move": "inert",
-     "origin": "internal"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [
@@ -649,12 +662,12 @@
     "minimum_size": 0,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "environment",
      "fields": [
       "occ"
      ],
      "guard": "occurrenceFresh",
-     "obstruction_move": "inert",
-     "origin": "environment"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -677,12 +690,12 @@
     "minimum_size": 0,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "environment",
      "fields": [
       "budget"
      ],
      "guard": "budgetWrite",
-     "obstruction_move": "inert",
-     "origin": "environment"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],
@@ -705,12 +718,12 @@
     "minimum_size": 0,
     "signature": {
      "continuity": "continuation",
+     "declared_policy_class": "environment",
      "fields": [
       "licensed"
      ],
      "guard": "licenseWrite",
-     "obstruction_move": "inert",
-     "origin": "environment"
+     "obstruction_move": "inert"
     },
     "state": {
      "asserted": [],

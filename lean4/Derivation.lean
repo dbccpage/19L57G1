@@ -1016,8 +1016,10 @@ open Derivation
 #print axioms TransitionAlphabet.classSig_pairwise_distinct
 #print axioms TransitionAlphabet.exists_unique_class
 #print axioms TransitionAlphabet.allClasses_complete
-#print axioms TransitionAlphabet.alphabet_size
-#print axioms TransitionAlphabet.erased_alphabet_size
+#print axioms TransitionAlphabet.declared_codebook_size
+#print axioms TransitionAlphabet.guard_erased_codebook_size
+#print axioms TransitionAlphabet.classSig_not_right_congruent_occurrence
+#print axioms TransitionAlphabet.classSig_not_right_congruent_budget
 #print axioms TransitionAlphabet.refine_addCol_effect_merge
 #print axioms TransitionAlphabet.refine_addCol_domain_countermodel
 #print axioms TransitionAlphabet.preserved_untouched_not_invariant

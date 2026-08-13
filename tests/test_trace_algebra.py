@@ -104,11 +104,14 @@ def test_typed_records_and_legal_traces() -> None:
     bad = replace(tr[0], cls="writeBudget")
     assert not wf_record(bad)
     assert not legal_trace(GENESIS_P, (bad,))
+    bad_profile = replace(tr[0], profile=make_record(GENESIS_P, ("halt",)).profile)
+    assert not wf_record(bad_profile)
     # a record chain that does not start where it claims is not aligned
     assert not aligned(PS(occ=(9,)), tr)
     detached = TRecord(pre=GENESIS_P, ev=A, guard="occurrenceFresh",
                        post=GENESIS_P, cls="supplyOccurrence",
-                       spend="unchanged")
+                       spend="unchanged",
+                       profile=make_record(GENESIS_P, A).profile)
     assert not aligned(GENESIS_P, (detached,))
     assert not wf_record(detached)
     # an unaccepted attempt is not a record

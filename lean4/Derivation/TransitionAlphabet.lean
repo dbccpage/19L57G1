@@ -1,13 +1,13 @@
 import Derivation.PrimitivePassage
 
 /-!
-# The native transition alphabet of the passage dynamics
+# A declared one-step codebook for the passage dynamics
 
-Derivation, not prescription.  Nothing here selects a number of
-letters in advance: the alphabet is whatever the quotient of accepted
-transitions by their effect profile turns out to be, and the count is
-reported at the end of the file as a computed consequence of the
-`step` function of `Derivation.PrimitivePassage`.
+This file classifies accepted one-step transitions through a declared
+finite signature.  It does **not** construct a quotient of histories:
+the signature is not a right congruence for sequential composition, as
+the countermodels near `declared_codebook_size` prove.  Raw events and
+states therefore remain necessary for replay.
 
 The layers, in dependency order:
 
@@ -27,28 +27,29 @@ The layers, in dependency order:
    pre-state or of the event's numeric parameter, and both facts are
    proved with witnesses (`preserved_untouched_not_invariant`,
    `budgetDelta_not_invariant`).  The class signature is therefore the
-   invariant projection, and the split it drops is characterized
+   declared one-step projection, and the split it drops is characterized
    exactly (`obstEffect_split_of_inert`).
 3. **Partition.**  Every accepted transition of a well-formed state
    realizes exactly one class signature: existence
    (`sig_eq_classSig`) and uniqueness (`classSig_inj`).
-4. **Distinctness.**  One concrete minimum witness per class plus
-   pairwise distinctness of the thirteen signatures.
+4. **Distinctness.**  One concrete minimum witness per declared code
+   plus pairwise distinctness of the thirteen signatures.
 
 Two derived results are worth naming here because they contradict
 plausible expectations:
 
-* the internal response generator `nextFamilyP` **does** emit an
-  environment-owned constructor — every extension block begins with
+* the internal response generator `nextFamilyP` **does** emit a
+  constructor placed in the externally provisioned policy class —
+  every extension block begins with
   `setBudget 1` (`internal_family_emits_budget_write`).  The
-  classification "no environment-owned constructor is internally
+  classification "no externally classified constructor is internally
   generated" is therefore FALSE as stated; what is true is the exact
   repaired form `internal_family_env_only_unit_funding`, together
   with the two constructors that genuinely never appear
   (`internal_family_no_occurrence_supply`,
   `internal_family_no_license_write`);
-* with the discharged guard erased from the signature the alphabet
-  has twelve letters, not thirteen: `refineCol` and `addCol` have the
+* with the discharged guard erased from the signature the code image
+  has twelve values, not thirteen: `refineCol` and `addCol` have the
   same accepted effect on every well-formed state
   (`refine_addCol_effect_merge`).  Their difference is a difference of
   *acceptance domain* (the license), not of effect, and the license
@@ -59,6 +60,8 @@ quantified over the declared well-formed class `WFClass`, or is a
 concrete witness closed by `decide`.  Minimality of the witnesses is
 minimality within a declared finite battery; the exhaustive search is
 the Python mirror's, and is reported as computation, not as theorem.
+No renaming invariance, contextual congruence, DDA correspondence, or
+presentation-independent cardinality is claimed.
 -/
 
 namespace TransitionAlphabet
@@ -1107,9 +1110,11 @@ theorem continuityOf_halted (t : PState) (h : t.halted = true) :
     continuityOf t = .absorption := by
   unfold continuityOf; rw [h]; rfl
 
-/-- Who owns the constructor.  `environment` means the passage
-dynamics cannot propose it out of a represented state: it is written
-into the history from outside.  The claim is discharged for
+/-- A declared policy class attached to each constructor.  The legacy
+name `Origin` is retained for compatibility, but this field is not an
+issuer, capability, or causal-provenance record.  In particular,
+`nextFamilyP` emits `setBudget 1` even though `setBudget` is classified
+as `environment`.  The negative claim is discharged for
 occurrence supply, license writing and the terminal declaration
 (`internal_family_no_occurrence_supply`,
 `internal_family_no_license_write`, `internal_family_no_terminal`)
@@ -1158,12 +1163,11 @@ def profileOf (s : PState) (e : PEvent) : Profile :=
     origin := originOf e,
     accepted := Accepted s e }
 
-/-- The invariant projection of the profile.  The two components
-dropped here are dropped because they are provably *not* invariants of
-the transition (`preserved_untouched_not_invariant`,
-`budgetDelta_not_invariant`); everything they carry that IS invariant
-is recovered by `obstEffect_split_of_inert` and
-`budgetDelta_of_funded_guard`. -/
+/-- A declared one-step projection of the profile.  The two components
+dropped here vary within a constructor family.  This projection is not
+a contextual congruence: equal signatures can be separated by a common
+suffix (`classSig_not_right_congruent_occurrence` and
+`classSig_not_right_congruent_budget`). -/
 structure ClassSig where
   fields : FieldDelta
   guard : GuardKind
@@ -1315,15 +1319,15 @@ def outsideClass : PState :=
     obs := some [], budget := 0, licensed := true, refusals := [],
     halted := false }
 
-/-! ## 5. The effect classes
+/-! ## 5. The declared one-step codes
 
-The list of classes is not chosen: it is read off the classification
-proof below.  Ten of the eleven constructors contribute one class
-each; `protect` and `declareObs` contribute two each, because each of
-them can either create an active obstruction or leave the obstruction
-set alone, and that difference IS a difference of effect.  The count
-is therefore `11 - 2 + 4 = 13`, and it is recomputed independently by
-`alphabet_size`. -/
+`EffectClass` and `classOf` are declared together, then the theorem
+below proves that this table covers every accepted well-formed step.
+Ten of the eleven event constructors contribute one code each;
+`protect` and `declareObs` contribute two each.  Thus this declared
+projection has thirteen distinct signatures.  The count is relative
+to this exact event grammar and projection, not a native cardinality
+of the dynamics under arbitrary presentations. -/
 
 inductive EffectClass where
   | supplyOccurrence
@@ -1590,7 +1594,7 @@ theorem exists_unique_class (s : PState) (hwf : WFClass s) (e : PEvent)
     classSig_inj k (classOf s e)
       (hk.symm.trans (sig_eq_classSig s hwf e hacc))⟩
 
-/-! ## 6. How many letters, and why -/
+/-! ## 6. Size of the declared code image, and its limit -/
 
 def dedup {α : Type} [DecidableEq α] : List α → List α
   | [] => []
@@ -1605,15 +1609,41 @@ def allClasses : List EffectClass :=
 theorem allClasses_complete (k : EffectClass) : k ∈ allClasses := by
   cases k <;> decide
 
-/-- **Thirteen letters** with the discharged guard in the signature. -/
-theorem alphabet_size : (dedup (allClasses.map classSig)).length = 13 := by
+/-- The declared table has thirteen distinct signatures. -/
+theorem declared_codebook_size :
+    (dedup (allClasses.map classSig)).length = 13 := by
   decide
 
-/-- **Twelve letters** once the declared guard label is erased: the
+/-- The declared table has twelve values once the guard label is erased: the
 same-level refinement and the structure-creating extension have the
 same accepted effect. -/
-theorem erased_alphabet_size :
+theorem guard_erased_codebook_size :
     (dedup (allClasses.map (fun k => eraseGuard (classSig k)))).length = 12 := by
+  decide
+
+/-- Equal signatures at one start state are not preserved by a common
+suffix.  The two occurrence admissions have the same one-step code at
+genesis, but a second admission of `0` is inert after the first and
+accepted after the second. -/
+theorem classSig_not_right_congruent_occurrence :
+    Accepted genesisP (.admitOcc 0) = true ∧
+    Accepted genesisP (.admitOcc 2) = true ∧
+    sigOf genesisP (.admitOcc 0) = sigOf genesisP (.admitOcc 2) ∧
+    step (step genesisP (.admitOcc 0)) (.admitOcc 0) ≠
+      step (step genesisP (.admitOcc 2)) (.admitOcc 0) := by
+  decide
+
+/-- The coarser thirteen-code projection also forgets the amount of a
+budget write.  From the same obstructed funded state, writes to zero
+and one receive the same code, but a following extension is refused in
+the first case and accepted in the second. -/
+theorem classSig_not_right_congruent_budget :
+    let s := budS wObstructed 2
+    Accepted s (.setBudget 0) = true ∧
+    Accepted s (.setBudget 1) = true ∧
+    sigOf s (.setBudget 0) = sigOf s (.setBudget 1) ∧
+    step (step s (.setBudget 0)) (.addCol [0]) ≠
+      step (step s (.setBudget 1)) (.addCol [0]) := by
   decide
 
 /-- The merge, stated on transitions rather than on the class table:
@@ -1728,7 +1758,7 @@ theorem retention_creates_outside_class :
     coarse (obstEffect outsideClass (step outsideClass (.admitWit 0 1)))
       = .creates := by decide
 
-/-! ## 8. Environment ownership of constructors, and its exact limit -/
+/-! ## 8. The external-policy constructor class, and its exact limit -/
 
 theorem nextFamily_block_shape (s : PState) (b : List PEvent)
     (hb : b ∈ nextFamilyP s) :
@@ -1757,10 +1787,10 @@ theorem internal_family_no_terminal (s : PState) (b : List PEvent)
   rcases nextFamily_block_shape s b hb with ⟨m, he⟩ | ⟨c, he⟩ <;> subst he <;>
     simp
 
-/-- **REFUTATION.**  The classification "no environment-owned
+/-- **REFUTATION.**  The classification "no externally classified
 constructor is ever generated by the internal response family" is
 false as stated: every extension block the generator produces begins
-with a budget write.  The generator imports funding authority. -/
+with a budget write.  This shows why the class label is not provenance. -/
 theorem internal_family_emits_budget_write :
     [PEvent.setBudget 1, PEvent.addCol [0]] ∈ nextFamilyP wObstructed := by
   decide
@@ -1771,9 +1801,9 @@ theorem env_ownership_claim_refuted :
   ⟨wObstructed, [PEvent.setBudget 1, PEvent.addCol [0]], PEvent.setBudget 1,
     internal_family_emits_budget_write, by simp, rfl⟩
 
-/-- **The exact repaired statement.**  The only environment-owned
+/-- **The exact repaired statement.**  The only externally classified
 constructor the generator ever emits is the unit funding write; every
-other environment-owned constructor is unreachable from inside. -/
+other externally classified constructor is absent from these blocks. -/
 theorem internal_family_env_only_unit_funding (s : PState) (b : List PEvent)
     (hb : b ∈ nextFamilyP s) (e : PEvent) (he : e ∈ b)
     (hen : isEnvOwned e = true) : e = PEvent.setBudget 1 := by

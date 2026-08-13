@@ -1,17 +1,20 @@
 """Deterministic mirror of ``lean4/Derivation/TransitionAlphabet.lean``.
 
-The native transition alphabet of the passage dynamics: raw attempted
-events against accepted transitions, the effect profile of an accepted
-transition, the invariant projection of that profile, and the
-partition of accepted transitions into effect classes.
+This module checks a declared one-step codebook for the passage
+dynamics.  It does not construct a quotient of histories: equal codes
+can be separated by a common continuation, so raw events and states
+remain necessary for replay.
 
-Nothing here selects a number of letters in advance.  The class table
-is the one the Lean classification theorem proves, and this mirror
-CHECKS it exhaustively over a declared finite state space: every
+The class table and projection are declarations whose coverage is
+proved in Lean and checked here over a declared finite state space: every
 accepted transition of every well-formed state of the space is shown
 to realize exactly one class signature, and each class's minimum
 witness is found by exhaustive search over the same space (the Lean
 side only exhibits witnesses; minimality is this computation).
+
+The cardinalities 13 and 12 are therefore presentation-relative code
+image sizes, not a native alphabet, contextual congruence, DDA map, or
+presentation-invariant theorem.
 
 Every function mirrors its Lean namesake exactly.
 """
@@ -196,7 +199,7 @@ def profile_of(s: PS, e: PEvent) -> Profile:
 
 
 def sig_of(s: PS, e: PEvent) -> Sig:
-    """Lean ``sigOf``: the invariant projection of the profile."""
+    """Lean ``sigOf``: the declared one-step profile projection."""
     t = pstep(s, e)
     kind = cast(str, e[0])
     return (field_delta(s, t), GUARD_OF[kind], COARSE[obst_effect(s, t)],
@@ -397,7 +400,7 @@ def sig_json(g: Sig) -> dict[str, Json]:
         "guard": g[1],
         "obstruction_move": g[2],
         "continuity": g[3],
-        "origin": g[4],
+        "declared_policy_class": g[4],
     }
 
 
@@ -416,6 +419,8 @@ def partition_report() -> dict[str, Json]:
     class_mismatch = 0
     ambiguous = 0
     mixed = 0
+    full_profiles: set[Profile] = set()
+    projected_signatures: set[Sig] = set()
     per_class: dict[str, int] = {k: 0 for k in ALL_CLASSES}
     for s in enumerate_states():
         wf = wf_class(s)
@@ -428,6 +433,8 @@ def partition_report() -> dict[str, Json]:
             t = pstep(s, e)
             mixed += bool(gained_pairs(s, t)) and bool(lost_pairs(s, t))
             g = sig_of(s, e)
+            full_profiles.add(profile_of(s, e))
+            projected_signatures.add(g)
             k = class_of(s, e)
             class_mismatch += CLASS_SIGS[k] != g
             ambiguous += len(
@@ -446,12 +453,17 @@ def partition_report() -> dict[str, Json]:
         "halted_accepted_transitions": halted_accepts,
         "realized_per_class": cast(Json, per_class),
         "all_classes_realized": all(per_class[k] > 0 for k in ALL_CLASSES),
+        "full_profile_image_size": len(full_profiles),
+        "declared_signature_image_size": len(projected_signatures),
     }
 
 
-def alphabet_report() -> dict[str, Json]:
-    """The derived letter counts: with the discharged guard in the
-    signature, and with the guard label erased."""
+def codebook_report() -> dict[str, Json]:
+    """Sizes of the declared code image, with and without the guard.
+
+    These counts are relative to ``CLASS_SIGS`` and are not a quotient
+    or a presentation-invariant cardinality.
+    """
     with_guard = {CLASS_SIGS[k] for k in ALL_CLASSES}
     erased = {erase_guard(CLASS_SIGS[k]) for k in ALL_CLASSES}
     merged: list[list[str]] = []
@@ -461,11 +473,50 @@ def alphabet_report() -> dict[str, Json]:
             merged.append(group)
     return {
         "classes": list(ALL_CLASSES),
-        "alphabet_size_with_guard": len(with_guard),
-        "alphabet_size_guard_erased": len(erased),
+        "declared_codebook_size": len(with_guard),
+        "guard_erased_codebook_size": len(erased),
         "merged_under_guard_erasure": cast(Json, merged),
+        "contextual_quotient": False,
+        "dda_correspondence": False,
         "class_signatures": cast(
             Json, {k: sig_json(CLASS_SIGS[k]) for k in ALL_CLASSES}),
+    }
+
+
+def contextual_countermodel_report() -> dict[str, Json]:
+    """Concrete failures of right congruence for the one-step code.
+
+    A common suffix separates two equal signatures.  Therefore code
+    equality cannot replace raw events in a compositional trace.
+    """
+    occurrence_left = ("admitOcc", 0)
+    occurrence_right = ("admitOcc", 2)
+    occurrence_suffix = ("admitOcc", 0)
+    occurrence_equal = sig_of(GENESIS_P, occurrence_left) == sig_of(
+        GENESIS_P, occurrence_right)
+    occurrence_separated = pstep(
+        pstep(GENESIS_P, occurrence_left), occurrence_suffix) != pstep(
+            pstep(GENESIS_P, occurrence_right), occurrence_suffix)
+
+    budget_start = replace(
+        PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
+           prot=((0, 1),), obs=(), licensed=True),
+        budget=2,
+    )
+    budget_left = ("setBudget", 0)
+    budget_right = ("setBudget", 1)
+    budget_suffix = ("addCol", (0,))
+    budget_equal = sig_of(budget_start, budget_left) == sig_of(
+        budget_start, budget_right)
+    budget_separated = pstep(
+        pstep(budget_start, budget_left), budget_suffix) != pstep(
+            pstep(budget_start, budget_right), budget_suffix)
+    return {
+        "occurrence_same_start_equal_code": occurrence_equal,
+        "occurrence_common_suffix_separates": occurrence_separated,
+        "budget_same_start_equal_code": budget_equal,
+        "budget_common_suffix_separates": budget_separated,
+        "safe_for_event_erasure": False,
     }
 
 
@@ -540,12 +591,12 @@ def invariance_report() -> dict[str, Json]:
 
 
 def ownership_report() -> dict[str, Json]:
-    """Environment ownership of constructors, checked against the actual
+    """Declared constructor policy classes checked against the actual
     internal generator ``nextFamilyP`` over the declared space.
 
-    The classification "no environment-owned constructor is ever
+    The classification "no externally classified constructor is ever
     generated internally" is REFUTED: every extension block begins with
-    a unit budget write.  What survives is the exact repaired form."""
+    a unit budget write.  The labels are not issuer provenance."""
     blocks: list[tuple[PEvent, ...]] = []
     for s in enumerate_states():
         blocks.extend(next_family_p(s))
@@ -557,11 +608,12 @@ def ownership_report() -> dict[str, Json]:
     witness = PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
                  prot=((0, 1),), obs=())
     return {
-        "environment_owned_constructors": sorted(ENV_OWNED),
+        "externally_classified_constructors": sorted(ENV_OWNED),
         "blocks_generated": len(blocks),
         "constructors_emitted_internally": emitted,
-        "environment_owned_emitted_internally": env_emitted,
-        "environment_owned_events_emitted": env_events,
+        "externally_classified_emitted_internally": env_emitted,
+        "externally_classified_events_emitted": env_events,
+        "classification_is_provenance": False,
         "no_occurrence_supply_emitted": "admitOcc" not in emitted,
         "no_license_write_emitted": "setLicense" not in emitted,
         "no_terminal_emitted": "halt" not in emitted,

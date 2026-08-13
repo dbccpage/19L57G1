@@ -1,17 +1,18 @@
-"""Produce the transition-alphabet artifact deterministically.
+"""Produce the one-step transition-codebook artifact deterministically.
 
 Usage: python code/run_transition_alphabet.py [--artifacts DIR]
 
 Writes ``transition_alphabet.json``: the exhaustive partition check
 over the declared finite state space (guard agreement, one class per
 accepted transition of a well-formed state, no mixed obstruction step,
-nothing accepted at a halted state); the derived letter counts with
+nothing accepted at a halted state); the declared code-image sizes with
 and without the discharged guard, and the merge the erasure produces;
 the exhaustive minimum witness for every class; the two profile
 components that are provably not invariants of the transition; and the
-environment-ownership audit of the internal response generator,
-including the refutation of the claim that no environment-owned
-constructor is ever generated internally."""
+policy-class audit of the internal response generator, including the
+refutation of the claim that no externally classified constructor is
+ever generated internally; and explicit failures of contextual
+congruence."""
 
 from __future__ import annotations
 
@@ -23,7 +24,8 @@ from typing import Optional
 from derivation.export import Json, write_json
 from derivation.transition_alphabet import (
     EVENT_BATTERY,
-    alphabet_report,
+    codebook_report,
+    contextual_countermodel_report,
     enumerate_states,
     invariance_report,
     ownership_report,
@@ -49,11 +51,11 @@ def main(argv: Optional[list[str]] = None) -> int:
         },
         "imported_inputs": [
             "the sealed passage step function and its guards",
-            "occurrence supply (environment-owned)",
-            "budget authority (environment-owned, but internally "
+            "occurrence supply (externally classified)",
+            "budget authority (externally classified, but internally "
             "emitted as a unit funding write)",
-            "license authority (environment-owned)",
-            "the terminal declaration (environment-owned)",
+            "license authority (externally classified)",
+            "the terminal declaration (externally classified)",
             "the declared well-formed class: live, protection "
             "contained in retention",
         ],
@@ -63,9 +65,13 @@ def main(argv: Optional[list[str]] = None) -> int:
                            "over states reachable from genesis"),
             "partition": ("exhaustive over the declared state space and "
                           "event battery; the Lean proof is universal"),
+            "codebook": ("a declared one-step projection, not a quotient, "
+                         "right congruence, DDA map, or presentation-"
+                         "invariant cardinality"),
         },
         "partition": partition_report(),
-        "alphabet": alphabet_report(),
+        "codebook": codebook_report(),
+        "contextual_countermodels": contextual_countermodel_report(),
         "witnesses": witness_report(),
         "invariance": invariance_report(),
         "ownership": ownership_report(),
@@ -79,14 +85,14 @@ def main(argv: Optional[list[str]] = None) -> int:
           f"guard_fail={part['guard_agreement_failures']} "
           f"class_fail={part['class_signature_failures']} "
           f"ambiguous={part['ambiguous_classifications']}")
-    alpha = payload["alphabet"]
-    assert isinstance(alpha, dict)
-    print(f"alphabet: with_guard={alpha['alphabet_size_with_guard']} "
-          f"guard_erased={alpha['alphabet_size_guard_erased']} "
-          f"merged={alpha['merged_under_guard_erasure']}")
+    codes = payload["codebook"]
+    assert isinstance(codes, dict)
+    print(f"codebook: declared={codes['declared_codebook_size']} "
+          f"guard_erased={codes['guard_erased_codebook_size']} "
+          f"merged={codes['merged_under_guard_erasure']}")
     own = payload["ownership"]
     assert isinstance(own, dict)
-    print(f"ownership: emitted={own['constructors_emitted_internally']} "
+    print(f"policy-class: emitted={own['constructors_emitted_internally']} "
           f"budget_claim_refuted={own['budget_write_claim_refuted']} "
           f"only_unit_funding={own['only_unit_funding_emitted']}")
     print(f"artifact written to {out_path}")

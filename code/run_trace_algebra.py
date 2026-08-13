@@ -49,8 +49,8 @@ def main(argv: Optional[list[str]] = None) -> int:
         },
         "imported_inputs": [
             "the sealed passage step function and its guards",
-            "the effect-class table of the transition alphabet",
-            "the environment/internal ownership declaration",
+            "the declared one-step transition-code table",
+            "the external/internal policy-class declaration (not provenance)",
             "the declared well-formed class",
         ],
         "scope": {

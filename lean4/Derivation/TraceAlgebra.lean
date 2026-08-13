@@ -358,14 +358,16 @@ structure TRecord where
   post : PState
   cls : EffectClass
   spend : BudgetDelta
+  profile : Profile
 deriving Repr, DecidableEq
 
-/-- A record is well-formed when every one of its six components is
+/-- A record is well-formed when every component is
 the one the dynamics computes: no field of a record is free data. -/
 def WFRecord (r : TRecord) : Prop :=
   r.post = step r.pre r.ev ∧ r.guard = guardOf r.ev ∧
   r.cls = classOf r.pre r.ev ∧ r.spend = budgetDeltaOf r.pre r.post ∧
-  Accepted r.pre r.ev = true ∧ WFClass r.pre
+  r.profile = profileOf r.pre r.ev ∧ Accepted r.pre r.ev = true ∧
+  WFClass r.pre
 
 /-- Chaining: the first record starts at `s` and each post-state is
 the next pre-state.  Only the post-state equation is required here,
