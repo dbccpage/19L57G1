@@ -179,6 +179,13 @@ def test_distinctness_is_what_ascent_buys() -> None:
     assert not codim2_distinct(PSEUDO_CELL)
     assert not perfect_matching(PSEUDO_CELL)
     assert slot_multiplicity(PSEUDO_CELL, (0,)) == 4
+    # The four terms are two deletion orders for each of TWO distinct
+    # unordered position pairs that collapse to the same presented face.
+    # This prevents the false unrestricted gloss "each face has two".
+    pseudo_pairs_for_zero = [
+        (a, b) for b in range(len(PSEUDO_CELL)) for a in range(b)
+        if erase_idx(erase_idx(PSEUDO_CELL, b), a) == (0,)]
+    assert len(pseudo_pairs_for_zero) == 2
 
 
 def test_renaming_scope() -> None:

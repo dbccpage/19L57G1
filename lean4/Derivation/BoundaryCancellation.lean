@@ -13,10 +13,10 @@ cell `σ : List Nat` and EVERY `τ : List Nat`,
 The proof is the deletion-order pairing, not a brute-force decision
 procedure.  The double sum runs over ordered position pairs
 `(i, j)` with `i < σ.length` and `j < σ.length - 1`: delete position
-`i` from `σ`, then position `j` from the result.  Every codimension-two
-face arises from exactly two such ordered pairs — delete `b` then `a`,
-or delete `a` then the shifted position `b - 1` (`eraseIdx_swap`) —
-and the two signs are `sgn b * sgn a` and `sgn a * sgn (b - 1)`, which
+`i` from `σ`, then position `j` from the result.  Every unordered pair
+of deleted POSITIONS has exactly two orders — delete `b` then `a`, or
+delete `a` then the shifted position `b - 1` (`eraseIdx_swap`) — and
+the two signs are `sgn b * sgn a` and `sgn a * sgn (b - 1)`, which
 cancel because `b = (b - 1) + 1` (`sgn_cancel`).  The reindexing of the
 rectangle into unordered pairs is carried out exactly, by splitting each
 row at the diagonal and transposing the resulting triangle
@@ -33,7 +33,10 @@ extends the complex; it says nothing about coefficients, signs, or
 chains.  `signless_countermodel` below exhibits an ascending cell on
 which the SAME composite with all signs replaced by `1` is NONZERO,
 so the vanishing theorem is a theorem about the declared sign
-convention and cannot be attributed to the filler rule.
+convention and cannot be attributed to the filler rule.  This is an
+integer-coefficient countermodel; it is not a universal claim about
+all coefficient systems (for example, characteristic two changes the
+signless calculation).
 
 ## What strict ascent does and does not do here
 
@@ -599,8 +602,8 @@ there is no cancellation.**  On the strictly ascending 2-cell
 `[0]` (and at every vertex), while the signed composite has
 coefficient `0`.  Hence `d2_zero_general` is a theorem about the
 DECLARED sign convention: the filler rule
-`LadderGeneral.uniform_guarded_filler` does not force it, and no
-signless coefficient calculus satisfies it. -/
+`LadderGeneral.uniform_guarded_filler` does not force it, and this
+signless INTEGER coefficient calculus does not satisfy it. -/
 theorem signless_countermodel :
     ascB [0, 1, 2] = true ∧
     coeffN [0] (pushNoSign (bdNoSign [0, 1, 2])) = 2 ∧

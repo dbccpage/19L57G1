@@ -3,7 +3,7 @@
 Mirrors ``lean4/Derivation/GraphGenesis.lean``: the field-invariance
 battery, the internal fragment's carrier invariance, the proposal
 record's obligations, transport over the full permutation group, the
-retained equal-cost tie, and the Part-3 irreducibility witness.
+retained equal-cost tie, and the Part-3 non-entailment witness.
 """
 
 from __future__ import annotations
@@ -11,6 +11,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import run_graph_genesis
+from derivation.attachment_ladder import up_family
 from derivation.graph_genesis import (
     ALL_KINDS,
     GRAPH_FIELDS,
@@ -194,6 +195,15 @@ def test_proposal_record_obligations() -> None:
     checks = proposal_obligations(s, rec)
     for key in OBLIGATION_KEYS:
         assert checks[key] is True, key
+    assert checks["complete_family_retained_alongside_named_branch"] \
+        is True
+    # The record names one branch.  Membership does not make it the
+    # canonical or unique branch: a distinct parent-indexed proposal
+    # remains in the same complete family.
+    other = up_proposal(s, 2)
+    assert rec.block != other.block
+    assert list(rec.block) in up_family(s)
+    assert list(other.block) in up_family(s)
     assert checks["separated_pairs_before"] == 4
     assert checks["separated_pairs_after"] == 6
     # the separated-pair set is empty exactly pre-observationally
@@ -252,7 +262,7 @@ def test_part3_obstruction_does_not_request_the_lift() -> None:
     assert rep["no_response_grows_the_carrier"] is True
     assert rep["every_obstruction_resolved_in_carrier"] is True
     assert rep["obstructions_meeting_the_hypotheses"] == 2
-    assert "irreducible" in str(rep["verdict"])
+    assert "not entailed by nextFamilyP" in str(rep["verdict"])
     # the witness resolves in carrier, decided directly
     s = blind_pair()
     t = preplay((("setBudget", 1), ("addCol", (0,))), s)

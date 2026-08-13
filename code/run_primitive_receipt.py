@@ -23,17 +23,14 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def canonical_sha256(path: Path) -> str:
-    """THE canonical bytes of a tracked text file are its Git blob
-    bytes at HEAD — what every clean clone stores, on every platform.
-    They are computed here from the checkout bytes by CRLF-to-LF
-    normalization, which is exactly the checkout-time variance a
-    Windows working tree can introduce (and the one historical
-    staging normalization recorded in ``ci/check_prompt_hashes.py``).
-    The blob/checkout distinction is enforced by
-    ``test_blob_checkout_distinction`` (canonical(checkout) ==
-    sha256(blob), for every hashed file), and content sensitivity by
-    ``test_mutation_detected`` (any real content change moves the
-    canonical hash; a pure line-ending rendering change does not)."""
+    """Hash an explicitly CRLF-to-LF-normalized text rendering.
+
+    For every currently declared tracked input the result is tested
+    against the corresponding Git blob hash.  That equality is a
+    verified property of those inputs and repository attributes, not
+    the definition of this function for arbitrary byte strings.
+    ``test_mutation_detected`` separately checks content sensitivity.
+    """
     crlf = b"\r\n"
     lf = b"\n"
     return hashlib.sha256(
@@ -290,24 +287,27 @@ def receipt() -> dict[str, Json]:
                           "LadderGeneral.pseudo_cell_countermodel "
                           "([0,0] admitted by the legacy guard, "
                           "refused now)",
-                          "receipt bytes: canonical_sha256 = Git "
-                          "blob bytes; blob/checkout distinction "
-                          "and mutation detection tested"]},
+                          "receipt generation is deterministic under "
+                          "declared CRLF-to-LF canonicalization and "
+                          "fixed inputs; equality with current Git "
+                          "blobs and mutation detection are tested"]},
             {"tag": "PROTECTED_SEPARATION_IS_TRACE_STABLE",
-             "status": "THEOREM + COUNTERMODEL (converse FALSE)",
+             "status": "THEOREM + COUNTERMODEL + RESTRICTED EXAMPLE",
              "evidence": ["SUFFICIENCY ONLY: StableContent."
                           "protSep_trace_stable — protected AND "
                           "separated implies separated after every "
                           "replay (protSep_persists / "
                           "protSep_replays)",
-                          "CONVERSE IS FALSE, two countermodels: "
+                          "CONVERSE IS FALSE: "
                           "StableContent."
                           "halted_stable_not_protected (absorption "
                           "— every replay inert, unprotected pair "
-                          "trace stable); StableContent."
-                          "unfunded_internal_stable_not_protected "
-                          "(resource blocking — no internal event "
-                          "changes an unfunded observation)",
+                          "trace stable).  Separate restricted-fragment "
+                          "example: StableContent."
+                          "unfunded_restricted_stable_not_protected "
+                          "(resource blocking in the explicit "
+                          "restricted trace fragment; no ownership "
+                          "or full-trace claim)",
                           "instability is witness-borne: "
                           "StableContent.separation_breakable + "
                           "unprotected_separation_unstable",
@@ -496,8 +496,10 @@ def receipt() -> dict[str, Json]:
                 "diagonal differs only at the operationally inert "
                 "notes field, and no theorem links the uncoded "
                 "occurrence to the missed function "
-                "(InterpreterBoundary.openDenotationalBridge states "
-                "the missing statement; the former "
+                "(InterpreterBoundary.arbitrary_uncoded_assignment "
+                "proves that a freely chosen interpretation is "
+                "vacuous; openDenotationalBridge names the missing "
+                "obligation but is not a proposition; the former "
                 "i5_difference_grounded was renamed to "
                 "i5_family_not_extensionally_complete because its "
                 "statement is family_missed and mentions neither "
@@ -506,10 +508,11 @@ def receipt() -> dict[str, Json]:
              "missing_theorem":
                 "SETTLED (Goal 4), and settled more strongly than "
                 "conjectured: the coefficientwise composite boundary "
-                "vanishes at EVERY face of EVERY finite cell "
+                "vanishes at EVERY target presentation for EVERY "
+                "finite list "
                 "(BoundaryCancellation.d2_zero_unrestricted), proved "
-                "by pairing the two deletion orders for each "
-                "codimension-two face and cancelling their signs "
+                "by pairing the two orders for each unordered pair "
+                "of deleted positions and cancelling their signs "
                 "(eraseIdx_swap, sgn_cancel, dterm_cancel, "
                 "rect_zero) - not by computation.  The declared "
                 "hypotheses are recorded in d2_zero_general and "
@@ -519,9 +522,10 @@ def receipt() -> dict[str, Json]:
                 "codimension-two faces (codim2_distinct, "
                 "eraseIdx_inj_of_asc).  The signs and integer "
                 "coefficients remain DECLARED inputs: "
-                "signless_countermodel shows the composite is "
-                "nonzero without them, and the filler rule does not "
-                "force them"},
+                "the integer signless_countermodel is nonzero, and "
+                "the filler rule does not force the signs.  No claim "
+                "is made that the signless countermodel works in "
+                "every coefficient system"},
             {"conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
              "missing_theorem":
                 "SETTLED NEGATIVELY for this calculus (Goal 5): the "
@@ -535,10 +539,11 @@ def receipt() -> dict[str, Json]:
                 "is therefore not a conjecture about THIS driver "
                 "but the OPEN question whether some OTHER declared "
                 "response family could request a lawful "
-                "carrier-changing proposal; the weakest premise "
-                "that makes such a proposal well-formed is "
-                "delivered as GraphGenesis.ProposalRecord, and the "
-                "growth demand remains irreducibly declared"},
+                "carrier-changing proposal.  One explicit sufficient "
+                "proposal schema is delivered as "
+                "GraphGenesis.ProposalRecord; no minimality or "
+                "universal property is proved for that schema, and "
+                "growth is not entailed by nextFamilyP"},
         ],
         "adversarial_record": [
             {"attack": "metatheoretic inequality relabeled as "
@@ -614,13 +619,17 @@ def receipt() -> dict[str, Json]:
                             "agreement is the exact positive scope"},
             {"attack": "fixed interpreter sold as represented "
                        "constitution",
-             "disposition": "BLOCKED: family_missed (the family "
-                            "provably misses an interpreter-grade "
-                            "function)"},
+              "disposition": "BLOCKED AT THE DECLARED SCOPE: "
+                            "family_missed proves only that the finite "
+                            "family does not exhaust the step-function "
+                            "type; it does not rule out a coded "
+                            "evaluator"},
             {"attack": "self-description sold as "
                        "self-interpretation",
-             "disposition": "BLOCKED: interp_describe vs "
-                            "family_missed (I4)"},
+              "disposition": "NOT ESTABLISHED: interp_describe is a "
+                            "verified step description; family_missed "
+                            "is separate finite non-exhaustion and no "
+                            "self-interpretation impossibility follows"},
             {"attack": "finite model enumeration sold as "
                        "unrestricted theorem",
              "disposition": "BLOCKED: every bound declared in this "

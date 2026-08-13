@@ -551,8 +551,9 @@ corrected by 42a33d9; re-verified against current Lean statements.
 2. Interpreter boundary (Phase VIII): tower persistence proved by
    finite diagonalization (every finite closure has a new top);
    universal code/evaluator exact for the declared family; the
-   typed-refusal top closes by partiality what totality cannot;
-   self-description without self-justifying evaluation; and the
+   typed-refusal top was initially described as closing by partiality
+   what totality cannot (this necessity claim is withdrawn below);
+   verified self-description alongside finite non-exhaustion; and the
    boundary formalized as a Primitive Difference (candidates A and F
    satisfied, collapse obstructed, difference behaviorally grounded).
    Absolute no-outside not claimed.
@@ -655,13 +656,14 @@ replacements:
    the review-pass conjecture only in that narrowed sense - guarded
    admission plus strict extension, not a dimension-general two-rule
    or homology claim.)*  Dimension-4 demonstration replayed in Lean,
-   dimension 5 in Python; the general composite boundary vanishing
-   remains the open conjecture.
+   dimension 5 in Python; at this stage the general composite boundary
+   vanishing remained open (superseded by Goal 4 below).
 
 ## PR #12 final repair pass (caller directive, 2026-08-13)
 
-1. Receipt bytes made platform-canonical: every prompt hash is the
-   Git blob hash (LF canonical bytes); the originally supplied CRLF
+1. Receipt hashing made deterministic under explicit CRLF-to-LF
+   canonicalization; for the current tracked inputs each result equals
+   the Git blob hash.  The originally supplied CRLF
    rendering of the seed prompt is recorded as provenance; the
    blob/checkout distinction and content-mutation detection are
    tested.
@@ -691,7 +693,8 @@ replacements:
    `uniform_guarded_filler`: a theorem about guarded admission and
    strict extension, not homology.
 8. CL-PD2-LADDER and CL-PD2-LADDER-GENERAL reconciled in the
-   ledger; the general composite vanishing stays OPEN.
+   ledger; at this stage the general composite vanishing remained OPEN
+   (superseded by Goal 4 below).
 9. Part II delivered: target-relative presentation compression
    (`Compression`, 22 theorems, axiom-clean) — factorization iff
    fiber-constancy with image-scoped uniqueness; coarsest-adequate
@@ -717,16 +720,18 @@ Four repairs required before the next derivation goal.
 **A. "Stable content is exactly protected separation" was an
 overclaim; withdrawn and replaced.**  The actual trace-stability
 predicate is now DEFINED (`TraceStableSep`: separated after every
-replay; `IntStableSep`: after every internal replay, where
-occurrence supply, budget setting, and license setting are
-environment-owned).  Only SUFFICIENCY is proved
+replay; `RestrictedStableSep`: after every replay in a syntactically
+restricted fragment omitting occurrence admission, budget setting,
+and license setting).  This makes no ownership claim; generated blocks
+may contain `setBudget`.  Only SUFFICIENCY is proved
 (`protSep_trace_stable`).  The CONVERSE IS FALSE, with the two
 countermodels the audit demanded: an ABSORBED (halted) state, where
 `replay_halted` makes every trace inert so an unprotected separation
 is trace stable; and a LIVE but RESOURCE-BLOCKED state, where
-`internal_replay_inert_unfunded` shows no internal event can change
-an unfunded observation, so an unprotected separation is internally
-stable.  Instability is proved to be witness-borne
+`restricted_replay_inert_unfunded` shows no event in the stated
+restricted fragment can change an unfunded observation, so an
+unprotected separation is restricted-stable.  Instability is proved
+to be witness-borne
 (`separation_breakable`), and the residual gap - whether trace
 stability implies protection on the live funded class - is recorded
 as an unproved Prop (`openExactStabilityCharacterization`), never as
@@ -755,10 +760,31 @@ neither a homology claim nor a dimension-general transport of the
 was literally `family_missed`: it mentions neither the boundary pair
 nor the uncoded occurrence, and connects neither to the missed
 function.  It is renamed `i5_family_not_extensionally_complete` and
-its docstring now says exactly what it does and does not carry.  The
-denotational bridge - a theorem tying the uncoded occurrence to the
-missed function - is stated as the unproved Prop
-`openDenotationalBridge` and remains OPEN.
+its docstring now says exactly what it does and does not carry.
+`arbitrary_uncoded_assignment` further proves that a freely chosen
+meaning for the uncoded occurrence is vacuous.  The denotational bridge
+is therefore retained only as the OPEN obligation label
+`openDenotationalBridge`, not as a trivially inhabited proposition.
+
+## PR #13 carrier correction (adversarial repair, 2026-08-13)
+
+1. Withdrawn: `tower_persists` does not force partiality, rule out a
+   total evaluator, or prove self-application impossible.  I3 now
+   records only one optional typed-refusal construction and its two
+   definitional equations.
+2. Repaired the denotational frontier: the former existential carrier
+   was freely inhabitable.  `arbitrary_uncoded_assignment` proves that
+   defect directly; `openDenotationalBridge` is now an obligation label
+   requiring independent lawful semantics and an accessible behavioral
+   consequence.
+3. Removed the false event-ownership label from stability.  The second
+   countermodel is explicitly restricted to a syntactic trace fragment;
+   it is not a reachable-state necessity result and not a countermodel
+   to full trace stability.
+4. Narrowed reproducibility wording to deterministic generation under
+   the declared line-ending canonicalization and fixed inputs.  Equality
+   with Git blobs is verified for the current tracked inputs, not made
+   true by definition for arbitrary files.
 
 ## Goal 1 - the renaming structure around Up (2026-08-13)
 
@@ -781,14 +807,17 @@ structure and proves its laws BEFORE using the vocabulary.
    has exactly one block per represented parent.
 6. Three countermodels recorded: an arbitrary non-bijective map (no
    left inverse; pushforward is not even a legal store), equal
-   carrier size, and equal cost - none supplies any law.
+   carrier size, and equal cost.  They do not instantiate the proved
+   renaming/equivariance structure; no universal claim is made against
+   other monoid actions by non-bijective maps.
 7. Only then, in `equivariance_summary`, is `Up` described as
    equivariant, with the exact scope stated in the same theorem.
 
 ## Goal 5 - the true graph-genesis boundary (2026-08-13)
 
-First the negative theorems about the current calculus, then the
-weakest premise that would change it, then the verdict.
+First the negative theorems about the current calculus, then one
+explicit sufficient proposal schema that would change it, then the
+verdict.
 
 1. `refineCol` and `addCol` change observation structure only: seven
    other state fields are proved unchanged.
@@ -798,19 +827,22 @@ weakest premise that would change it, then the verdict.
    family cannot create occurrences, asserted, retained or protected
    pairs.
 4. Corollary: current graph growth is supplied by the external driver
-   or the `Up` grammar, never generated by the active obstruction.
-5. The weakest additional represented premise is delivered as
-   `ProposalRecord`: a COMPLETE-family member with its membership
+   or the `Up` grammar, never generated by `nextFamilyP`.
+5. One explicit sufficient represented proposal schema is delivered as
+   `ProposalRecord`: a NAMED complete-family member with its membership
    proof, embedding and retraction, fresh-token evidence,
    preservation obligations, the new pair with provenance, and a
    declared cost - with no license, execution or activation field.
+   The named branch is not certified canonical or unique, and no
+   minimality theorem is claimed for the schema.
    It transports under renaming and retains equal-cost
    non-isomorphic branches.
-6. Verdict: an obstruction cannot request the lift.  Every
+6. Verdict: `nextFamilyP` does not request the lift at an obstruction.  Every
    obstruction meeting the kernel's hypotheses is resolved inside the
    existing carrier, and no state admits an internal family member
-   that grows the carrier.  The growth demand is irreducibly a
-   separately declared premise.  The receipt's
+   that grows the carrier.  The growth demand is not entailed by this
+   represented response semantics and is separately declared.  The
+   receipt's
    GRAPH_GENESIS_BY_OBSTRUCTION conjecture is settled negatively for
    this calculus; whether some OTHER declared family could request
    the lift stays OPEN.
@@ -823,7 +855,7 @@ closed.
 
 1. `d2_zero_unrestricted`: the coefficientwise composite boundary
    vanishes at every face of every finite cell.  The proof pairs the
-   two deletion orders for each codimension-two face and cancels
+   two orders for each unordered pair of deleted positions and cancels
    their signs; it is not a computation.
 2. `d2_zero_general` records the declared ascending hypotheses and
    discharges them from the stronger theorem.
