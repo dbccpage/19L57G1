@@ -452,10 +452,11 @@ def receipt() -> dict[str, Json]:
                 "is therefore not a conjecture about THIS driver "
                 "but the OPEN question whether some OTHER declared "
                 "response family could request a lawful "
-                "carrier-changing proposal; the weakest premise "
-                "that makes such a proposal well-formed is "
-                "delivered as GraphGenesis.ProposalRecord, and the "
-                "growth demand remains irreducibly declared"},
+                "carrier-changing proposal.  One explicit sufficient "
+                "proposal schema is delivered as "
+                "GraphGenesis.ProposalRecord; no minimality or "
+                "universal property is proved for that schema, and "
+                "growth is not entailed by nextFamilyP"},
         ],
         "adversarial_record": [
             {"attack": "metatheoretic inequality relabeled as "

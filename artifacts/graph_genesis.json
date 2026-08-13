@@ -352,7 +352,7 @@
   "not_claimed": "that no other declared response family could grow the carrier; only the family the kernel computes from the represented state is covered",
   "obstructions_meeting_the_hypotheses": 2,
   "responses_checked_for_growth": 7,
-  "verdict": "irreducible: the four obstruction conditions are satisfiable at states whose complete internal response family is nonempty and resolves the obstruction with no carrier change, and no represented response at any declared sample state grows the carrier \u2014 so the growth demand is a separately declared premise, not an obstruction consequence",
+  "verdict": "not entailed by nextFamilyP: the four obstruction conditions are satisfiable at states whose complete internal response family is nonempty and resolves the obstruction with no carrier change, and no represented response at any declared sample state grows the carrier \u2014 so the growth demand is a separately declared premise, not a consequence of the represented nextFamilyP semantics",
   "witness_state": {
    "obs": [],
    "occ": [
@@ -395,8 +395,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -412,8 +412,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -432,8 +432,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -449,8 +449,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -466,8 +466,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -485,8 +485,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -502,8 +502,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -521,8 +521,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -538,8 +538,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -555,8 +555,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -574,8 +574,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -591,8 +591,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -610,8 +610,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -627,8 +627,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -644,8 +644,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -663,8 +663,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,
@@ -680,8 +680,8 @@
     {
      "block_complete": true,
      "carries_no_authority_field": true,
+     "complete_family_retained_alongside_named_branch": true,
      "cost": 4,
-     "family_is_complete_not_selected": true,
      "fresh_position_is_next": true,
      "new_pair_provenance": true,
      "parent_represented": true,

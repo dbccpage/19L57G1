@@ -71,6 +71,15 @@ def test_receipt_binds_everything() -> None:
     # audit repair: openTerminalPres2 was closed constructively by
     # no_terminal_pres2 and is no longer an open obligation
     assert not any("openTerminalPres2" in str(o) for o in opens)
+    frontiers = r["frontier_conjectures"]
+    assert isinstance(frontiers, list)
+    graph = next(row for row in frontiers
+                 if row["conjecture"] == "GRAPH_GENESIS_BY_OBSTRUCTION")
+    graph_scope = str(graph["missing_theorem"])
+    assert "not entailed by nextFamilyP" in graph_scope
+    assert "no minimality or universal property" in graph_scope
+    assert "weakest premise" not in graph_scope
+    assert "irreducibly declared" not in graph_scope
 
 
 def test_canonical_matches_checkout_on_every_rendering() -> None:

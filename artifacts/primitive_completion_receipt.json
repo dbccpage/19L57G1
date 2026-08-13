@@ -253,7 +253,7 @@
   },
   {
    "conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
-   "missing_theorem": "SETTLED NEGATIVELY for this calculus (Goal 5): the internal response family provably cannot create occurrences, asserted, retained or protected pairs (GraphGenesis.internal_family_cannot_grow_carrier, family_never_grows_carrier), and every obstruction meeting the kernel's own hypotheses is resolved inside the existing carrier (obstruction_resolved_in_carrier).  What remains is therefore not a conjecture about THIS driver but the OPEN question whether some OTHER declared response family could request a lawful carrier-changing proposal; the weakest premise that makes such a proposal well-formed is delivered as GraphGenesis.ProposalRecord, and the growth demand remains irreducibly declared"
+   "missing_theorem": "SETTLED NEGATIVELY for this calculus (Goal 5): the internal response family provably cannot create occurrences, asserted, retained or protected pairs (GraphGenesis.internal_family_cannot_grow_carrier, family_never_grows_carrier), and every obstruction meeting the kernel's own hypotheses is resolved inside the existing carrier (obstruction_resolved_in_carrier).  What remains is therefore not a conjecture about THIS driver but the OPEN question whether some OTHER declared response family could request a lawful carrier-changing proposal.  One explicit sufficient proposal schema is delivered as GraphGenesis.ProposalRecord; no minimality or universal property is proved for that schema, and growth is not entailed by nextFamilyP"
   }
  ],
  "graph_scope": "dependency records classify declared bridges; no claim exhausts every possible bridge (inherited scope)",
