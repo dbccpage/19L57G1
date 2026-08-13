@@ -1992,3 +1992,42 @@ CL-PD2-LADDER)
   the involution report (bijection, involution, fixed-point-free,
   sign-reversing) per dimension; bounds recorded in the artifact.
 
+### CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)
+
+- **Statement**: this is finite natural/integer weight-profile algebra, not a
+  Hilbert lift. Carrier-facing lists are duplicate-free; raw list totals count
+  repetitions with multiplicity. On the positive-total domain `SameProfile`
+  is an equivalence, positive natural scaling preserves that domain, and
+  profile equality is exactly common positive cross-multiplication. Zero
+  scaling satisfies the raw equation but exits the domain. Support and order
+  are preserved and total mass is forgotten.
+- **Presentation result**: a valid duplicate-free decorated presentation
+  reproduces the declared weight profile. Unsigned square presentations of the
+  same weights are carrierwise equal. Separately, two valid integer-square
+  presentations `(1, 1)` and `(1, -1)` of weights `(1, 1)` are distinguished
+  by the declared two-input read-out `(x+y)^2`. This is a scoped sign-shadow
+  witness, not a general capacity or dynamics claim.
+- **Descent result**: for the declared two-coordinate integer linear read-out
+  followed by squaring, descent through coordinate-square fibers holds exactly
+  when one coefficient vanishes.
+- **Climb audit**: the former decorated-carrier existential is trivially
+  inhabited; append additivity is a theorem of `total`; the displayed read-out
+  uniqueness schema is false by the zero read-out. The invalid `eB` witness did
+  not present the weights and has been removed. No priced representation climb
+  remains.
+- **Class**: theorem + scoped counterexample + finite computation + refuted
+  overclaim.
+- **Lean**: `WeightProfile.CarrierList`, `.duplicate_list_not_carrier`,
+  `.total_append`, `.profile_equivalence_positive`,
+  `.profile_scale_positive`, `.zero_scale_boundary`, `.profile_iff_ray`,
+  `.profile_support`, `.profile_order`, `.profile_forgets_total`,
+  `.presentation_profile_redundant`, `.presentations_agree_on_profile`,
+  `.sq_injective`, `.unsigned_decoration_determined`,
+  `.signed_square_presentations_split`, `.presentation_scope`, `.sq_add_sub`,
+  `.descent_iff_subsingleton_support`, `.decoratedCarrierShape_exists`,
+  `.claimedReadOutUniqueness_false`, and `.finite_scope_summary`.
+- **Python**: `weight_profile.json` checks carrier 2, weights/decorations to 3,
+  coefficients to 3, and inputs to 2. It mirrors the zero-scale boundary,
+  duplicate policy, signed fixture, descent classification, and failed-climb
+  dispositions. Bounds remain explicit.
+

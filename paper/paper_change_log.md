@@ -873,3 +873,24 @@ closed.
    `general_d2_zero` field, and the receipt conjecture list are all
    downgraded to corollaries or marked settled.
 
+## Contact response correction: finite weights, no Hilbert climb
+(2026-08-13)
+
+The PR 17 contact surface was repaired after adversarial review.
+
+1. Restricted profile equivalence and scaling to positive totals; zero scale
+   now has an explicit boundary theorem instead of being called a positive-ray
+   action.
+2. Added the duplicate-free carrier policy. Raw list sums retain their honest
+   multiplicity semantics.
+3. Renamed lift-facing theorems as presentation theorems and fenced them as
+   finite factorization identities.
+4. Replaced the invalid `eB` non-presentation with two valid integer-square
+   presentations differing by sign, scoped to one declared mixing read-out.
+5. Reclassified the three alleged climb imports: one is trivially inhabited,
+   one is proved by list algebra, and the proposed uniqueness schema is false
+   by the zero read-out.
+6. Rewrote the paper, ledger, receipt, artifact, and tests to state the actual
+   ceiling: finite `Nat`/`Int` profile algebra and a sign-shadow fixture, with
+   no Hilbert space, dynamics, probability law, or representation climb.
+

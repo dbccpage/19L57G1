@@ -105,6 +105,9 @@ def receipt() -> dict[str, Json]:
             "boundary_cells_checked": 218,
             "boundary_coefficient_checks": 3124,
             "boundary_dims": [2, 3, 4, 5, 6],
+            "weight_carrier": 2,
+            "weight_max": 3,
+            "weight_coeff_bound": 3,
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -313,6 +316,42 @@ def receipt() -> dict[str, Json]:
                           "quiescence_is_protected_separation "
                           "(a statement about protSep, NOT about "
                           "trace stability)"]},
+            {"tag": "FINITE_WEIGHT_PROFILE_AND_SIGN_SHADOW",
+              "status": "FINITE THEOREMS + SCOPED COUNTERMODELS",
+              "evidence": ["on the positive-total domain the profile "
+                           "is classified exactly by common positive "
+                           "cross-multiples: WeightProfile."
+                           "profile_iff_ray, with "
+                           "profile_equivalence_positive and "
+                           "profile_scale_positive; zero scaling "
+                           "exits that domain (zero_scale_boundary)",
+                           "carrier-facing lists are duplicate-free; "
+                           "raw totals count repetitions with "
+                           "multiplicity (CarrierList, total_append)",
+                           "what it keeps and forgets: "
+                           "profile_support, profile_order, "
+                           "profile_forgets_total",
+                           "a valid decorated presentation reproduces "
+                           "the weight profile: "
+                           "presentation_profile_redundant and "
+                           "presentations_agree_on_profile",
+                           "unsigned square presentations are "
+                           "carrierwise determined; separately, two "
+                           "valid integer-square presentations in the "
+                           "declared two-coordinate fixture differ by "
+                           "sign and are split by its declared mixing "
+                           "read-out (signed_square_presentations_split)",
+                           "descent classification: "
+                           "descent_iff_subsingleton_support - a "
+                           "two-coordinate integer read-out followed "
+                           "by squaring descends through coordinate-"
+                           "square fibers exactly when one coefficient "
+                           "vanishes",
+                           "NO PRICED CLIMB: the former carrier shape "
+                           "is trivially inhabited, list additivity is "
+                           "proved, and the former uniqueness schema "
+                           "is false by the zero read-out "
+                           "(claimedReadOutUniqueness_false)"]},
             {"tag": "GENERAL_BOUNDARY_CANCELLATION",
              "status": "THEOREM (general) + COUNTERMODEL",
              "evidence": ["BoundaryCancellation."
