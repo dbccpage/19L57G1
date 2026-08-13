@@ -29,7 +29,7 @@ from derivation.higher_structure import (
     cut_census,
     d2_zero_tet,
     d2_zero_triangles,
-    horn3,
+    shell3,
     k4,
     k4_boundary,
     k4_events,
@@ -73,7 +73,7 @@ def cells_report() -> dict[str, Json]:
             "horn_guard_load_bearing":
                 cstep(guard_state, ("addT", 0, 1, 2)) == guard_state,
             "filling_not_forced": (
-                horn3(shell, 0, 1, 2, 3) and shell.c3 == ()),
+                shell3(shell, 0, 1, 2, 3) and shell.c3 == ()),
         },
         "invariants": {
             "alt_num_stages": {

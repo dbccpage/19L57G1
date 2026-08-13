@@ -25,22 +25,31 @@ The provenance chain (sealed in PR #5, sharpened here):
    (`Apartness.bare_breaks_refl`).
 3. **The first law that earns anything is irreflexivity.**  With it,
    the witnessed pair forces endpoint distinctness (`imp_a_d`) and a
-   two-element carrier (`no_witness_on_subsingleton`).  **PD-A — the
-   pointed witnessed irreflexive relation — is the weakest candidate
-   that genuinely differentiates.**  The full 72-cell matrix
+   two-element carrier (`no_witness_on_subsingleton`).  **Within the
+   declared nine-candidate signature, PD-A — the witnessed
+   irreflexive relation — is the weakest studied positive-witness
+   candidate forcing distinct endpoints** (`imp_a_d` against
+   `nimp_w_d`).  The full 72-cell matrix
    (`primitive_implication_matrix.json`) places every other reading:
    symmetry, cotransitivity, locatedness, protection, retention, and
    operation-irreducibility are each separately priced additions,
-   none derivable from the others (51 compiled countermodels; 4
-   located cells OPEN with exact metatheoretic scope).
-4. **The universal status is genuine.**  The oriented two-element
-   realization is initial among ALL pointed witnessed relations
-   (`PrimitiveCats.d2_initial`) — a true universal property, not a
-   probe battery; unique up to isomorphism only
-   (`two_initials_not_identical`), distinct from minimum cardinality
-   (`larger_not_initial`).  The orientation fork is retained whole:
-   the symmetric object is initial exactly in the symmetric
-   subcategory and not weakly initial outside it.
+   none derivable from the others (51 finite countermodels compiled;
+   minimum carrier proved where cited; 4 located cells OPEN with
+   exact metatheoretic scope).
+4. **The universal status is genuine — and it belongs to W.**  The
+   oriented two-element realization is initial among ALL pointed
+   witnessed relations (`PrimitiveCats.d2_initial`) — a true
+   universal property, not a probe battery.  Since `PtdRel` carries
+   no irreflexivity, this initiality characterizes the bare-witness
+   reading W (the free pointed object on one witnessed arrow) and
+   restricts to the irreflexive subcategory (`d2_initial_irrefl`);
+   it does not itself select irreflexivity — the reason to prefer A
+   is the separate endpoint-forcing argument above.  Initiality is
+   unique up to isomorphism only (`two_initials_not_identical`),
+   distinct from minimum cardinality (`larger_not_initial`).  The
+   orientation fork is retained whole: the symmetric object is
+   initial exactly in the symmetric subcategory and not weakly
+   initial outside it.
 5. **Indistinguishability is earned, not assumed.**  Under the three
    positive apartness laws it is an equivalence
    (`Apartness.indist_equivalence`), with each law spent at exactly
@@ -54,8 +63,12 @@ The provenance chain (sealed in PR #5, sharpened here):
 Difference alone obstructs nothing.  The passage
 (`PrimitivePassage`) prices every further ingredient:
 
-- retention (`admitWit`) — else the witness evaporates
-  (`retention_not_free`);
+- assertion (`assertWit`) supplies the positive witness; retention
+  (`admitWit`) is a separate admission of an ASSERTED difference —
+  an asserted Primitive Difference does not retain itself
+  (`assertion_not_retained`, `retention_requires_assertion`), and
+  candidate A transports into the pre-retention passage state as a
+  theorem (`assert_transport`, `kernel_enters_preretained`);
 - protection (`protect`) — else collapse is unobstructed
   (`no_protection_no_obstruction`; fidelity is a demand, never a
   fact: `witness_no_protection`);
@@ -78,7 +91,9 @@ obstruction the response universe never runs dry —
 > certified and the extension-proposal family provably nonempty
 > (`extension_always_available`: the singleton column on the first
 > endpoint is fresh *because* the observation is blind to the pair —
-> the obstruction manufactures its own way out).
+> the obstruction identifies a separator already available in the
+> declared singleton-column extension universe; the grammar is
+> supplied by declaration, not manufactured by the obstruction).
 
 Refusal (an inert record) and terminalization (absorbing) are
 separately typed; proposal is not execution (license and budget
@@ -92,9 +107,18 @@ stronger claimed.
 
 The growth driver iterates that forcing (`HigherStructure`):
 
-    round k+2:  admitOcc (k+2); admitWit (k+1,k+2); protect;
+    round k+2:  admitOcc (k+2); assertWit; admitWit; protect;
                 setBudget 1;  ← obstruction active here (round_obstruction)
                 addCol [k+1]  ← the structural response (round_resolution)
+
+Provenance, stated exactly: the DRIVER supplies the graph data
+(occurrence, asserted difference, retention, protection, and the
+declared self-funding `setBudget 1`); what the OBSTRUCTION creates is
+the observation column that resolves it.  The driver creates graph
+structure; the obstruction creates observation structure.  A driver
+in which the graph data itself arises as extension proposals is a
+later experiment, recorded as the frontier conjecture
+GRAPH_GENESIS_BY_OBSTRUCTION.
 
 - `graphAt_spec` (induction): the grown state at stage `k+1` is
   exactly the **path graph** on `k+2` occurrences — vertices = admitted
@@ -114,9 +138,12 @@ carrier plus binary store, identity rather than force.  What is
 ## 4. The 0-, 1-, 2-, 3-simplices and the process that creates them
 
 The declared cell calculus (`CEvent`, `cstep`) admits a `k+1`-cell
-exactly over a complete, unfilled boundary of `k`-cells — the horn
-guards are load-bearing (`horn_guard_load_bearing`) and the horn
-does not fill itself (`filling_not_forced`).  The four-occurrence
+exactly over a complete, unfilled boundary of `k`-cells — the shell
+guards (complete-unfilled-boundary predicates `shell1/2/3`; they
+require ALL faces, so they are boundaries, deliberately NOT
+simplicial horns, which omit a face) are load-bearing
+(`shell_guard_load_bearing`) and the shell does not fill itself
+(`filling_not_forced`).  The four-occurrence
 demonstration (`k4_builds`) grows, in replayable creation order:
 
 | dim | cells | created by | count |
@@ -134,18 +161,22 @@ central structural discovery, named below.
 
 ## 5. Named invariants
 
-1. **The ladder invariant** — the two-rule shape recurs one
-   dimension up, indefinitely: boundary-complete-and-unfilled is the
-   dimension-`k` obstruction; the `k+1`-cell is its structural
-   response (`two_rule`; `ladder_dim2`; `ladder_dim3`).
+1. **The ladder recurrence** — the two-rule shape recurs one
+   dimension up, PROVED at dimensions 2 and 3 (`ladder_dim2`,
+   `ladder_dim3`): boundary-complete-and-unfilled is the
+   dimension-`k` obstruction and the `k+1`-cell its structural
+   response.  Recurrence at every dimension is a FRONTIER
+   CONJECTURE (GENERAL_DIMENSIONAL_LADDER), not a theorem.
 2. **The connectivity residue** — occurrences minus witnessed edges
-   equals 1 at every growth stage
-   (`path_connectivity_residue`): the growth never disconnects and
-   never closes a loop.
-3. **The occurrence alternation number** (`altNum`) — the
+   equals 1 at every growth stage (`path_connectivity_residue`).
+   The statistic alone proves neither connectedness nor acyclicity;
+   those follow from `graphAt_spec`, which proves the grown graph
+   is literally the path graph.
+3. **The occurrence alternation statistic** (`altNum`) — the
    alternating sum of cell counts; along the demonstration: 4
    (vertices), −2 (edges), 2 (closed shell), 1 (solid)
-   (`altNum_stages`).
+   (`altNum_stages`).  A per-stage statistic (it changes across the
+   stages), not an invariant of the growth.
 4. **The cut census** — the number of faithful two-block
    observations separating the designated pair: 1, 2, 4, 8 on
    carriers 2, 3, 4, 5 (`cut_census_growth`); the count of observer
@@ -167,8 +198,9 @@ central structural discovery, named below.
 - Graph: **identity** (a witnessed relation is a graph
   presentation); nothing to force.
 - 2-cells from repair diamonds: **admitted, not forced** — the
-  passage state carries no 2-cell data; the horn is present and the
-  filler absent until declared (`filling_not_forced`).
+  passage state carries no 2-cell data; the complete unfilled
+  boundary is present and the filler absent until declared
+  (`filling_not_forced`).
 - Chains/boundaries/d²=0: **declaration-relative** — with declared
   integer coefficients and boundary maps the composite vanishes on
   every demonstration cell (`d2_zero_triangles`, `d2_zero_tet`), and
@@ -190,7 +222,7 @@ laws actually proved, not to resemblance.
 
 | Native object (proved laws) | Known mathematics |
 |---|---|
-| D2, the oriented two-point witnessed irreflexive relation | the one-edge directed graph; the standard 1-simplex Δ¹ as a directed edge; the "walking arrow" |
+| D2, the oriented two-point witnessed irreflexive relation | the one-edge directed graph / directed edge; the walking-arrow category only after FREE completion with identities and composition (free completion, not identity) |
 | `d2_initial` (unique edge-preserving pointed map to any witnessed pair) | initiality of the free/representing object on one arrow |
 | S2, the symmetric two-point apartness | the complete graph K₂; the two-point set with its unique apartness |
 | `IsApart` (irreflexive + symmetric + cotransitive) and `Indist` an equivalence | apartness relation in constructive mathematics; the negation-equivalence is the standard apartness-to-equality passage |
@@ -198,12 +230,12 @@ laws actually proved, not to resemblance.
 | ZeroRel = agreement on all declared columns, an equivalence | the kernel of an observation map; observational/bisimulation equivalence |
 | observer cut, `no_terminal_pres`, cut census 2^(n−2) | bipartitions separating two marked points; failure of a terminal object in the poset of faithful quotients above three points |
 | the growth's path graph, connectivity residue 1 | the path graph Pₙ; \|V\| − \|E\| = 1 characterizing trees (Euler formula, tree case) |
-| cell calculus with horn guards; ladder invariant | simplicial complexes built by cell attachment; horn filling (the boundary-complete-and-unfilled condition is an outer-horn shape) |
+| cell calculus with shell guards; ladder recurrence (dims 2–3) | simplicial complexes built by cell attachment; boundary filling (complete boundaries, deliberately NOT simplicial horns, which omit a face) |
 | `altNum` values 4, −2, 2, 1; shell value 2; solid value 1 | Euler characteristic; χ(∂Δ³) = χ(S²) = 2; χ(Δ³) = 1 |
 | `bd1/bd2/bd3` with `d²=0`; `boundary_not_forced` | the simplicial boundary operator over ℤ; orientation-convention freedom |
 | two-rule at an obstruction | completion/attachment step: resolve within the presentation or attach a cell |
-| interpreter diagonalization (Phase VIII paper) | finite diagonal argument (Cantor-style) against a universal in-class evaluator |
-| description/interpretation non-identification (Phase VIII paper) | the use–mention distinction; stratified metalanguage hierarchies |
+| interpreter diagonal (Phase VIII paper) | finite diagonal argument for extensional incompleteness of a finite code family |
+| description/interpretation non-identification (Phase VIII paper; CONJECTURE level) | the use–mention distinction; stratified metalanguage hierarchies — comparison for the declared model only |
 
 Non-identifications, recorded deliberately: the passage's obstruction
 is *not* a homotopical obstruction class (no coefficient system is
@@ -221,20 +253,31 @@ withdrawn-or-repaired claims — all machine-readable in
 `artifacts/primitive_completion_receipt.json`.  Controller
 universality: refuted, with the reachable-orbit salvage
 (`paper/primitive_controller_universality.md`).  Interpreter
-boundary: tower persists; the boundary is a Primitive Difference
+boundary: finite code families are extensionally incomplete, and a
+DECLARED boundary model satisfies A and F; the identification of the
+boundary with a Primitive Difference is a frontier conjecture with
+its missing theorem stated
 (`paper/primitive_interpreter_boundary.md`).  The strongest
 defensible terminal statement of the whole run:
 
-> The weakest object deserving the name Primitive Difference is the
-> pointed witnessed irreflexive relation, initial in its category;
-> every further capacity — symmetry, cotransitivity, locatedness,
-> retention, protection, observation — is a separately priced
-> admission; the first obstruction exists only when a declared
-> observation collapses a protected retained difference, and it is
-> then forced to a response: same-level repair or structure
-> creation; iterating that forcing grows the first graph, and the
-> same forcing shape, one dimension up, grows the simplices; no
-> controller realizing this is categorically unique; and the
-> boundary between describing this system and running it is itself
-> the next Primitive Difference.
+> Within a declared common signature, a witnessed irreflexive
+> relation is the weakest studied positive-witness candidate that
+> forces distinct endpoints; the free pointed object on one
+> witnessed arrow is initial, and initiality restricts to — without
+> selecting — the irreflexive reading.  Positive apartness yields an
+> equivalence of indistinguishability only after symmetry and
+> cotransitivity are separately admitted.  Assertion, retention,
+> protection, observation, response grammars, budget, and
+> authorization are further independent purchases.  Once a retained,
+> protected difference is collapsed by a declared observer, the
+> declared finite response universe yields a same-level repair
+> family or a nonempty extension-proposal family.  A separate driver
+> iterates this scheme to grow path-graph data and observation
+> structure, and the same shell-filling shape is proved one and two
+> dimensions up.  No controller realizing this is categorically
+> unique; agreement is a replay theorem on the reachable orbit.
+> Higher cells and boundary operators remain declared realizations,
+> and the reading of the interpreter boundary as the next Primitive
+> Difference remains a frontier conjecture awaiting its denotational
+> bridge.
 

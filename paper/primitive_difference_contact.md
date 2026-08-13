@@ -91,8 +91,12 @@ morphisms preserving endpoints and edges (`Hom`), proves the category
 laws, and settles:
 
 1. **`d2Obj` is initial among ALL pointed witnessed relations**
-   (`d2_initial`) — irreflexivity of the target is not needed.  This
-   is a genuine universal property, not a probe battery.
+   (`d2_initial`) — irreflexivity of the target is not needed, so
+   this genuine universal property characterizes the bare-witness
+   reading W (the free pointed object on one witnessed arrow) and
+   restricts to the irreflexive subcategory (`d2_initial_irrefl`).
+   Initiality does not select irreflexivity; the independent reason
+   for A is `imp_a_d` against `nimp_w_d`.
 2. **`s2Obj` is initial exactly in the symmetric subcategory**
    (`s2_initial_sym`) and **not weakly initial in the full category**
    (`s2_no_hom_to_d2`, `s2_not_weakly_initial`).
@@ -115,11 +119,13 @@ For a three-occurrence source, the category of faithful presentations
 has **no weakly terminal object** (`no_terminal_pres`): the two
 maximal observer cuts (`mergeA`, `mergeB`) are incomparable, and any
 common receiver would identify the protected endpoints.  On the
-two-point source the branching vanishes, but terminality there is
-*selection-relative*: uniqueness holds against surjective
-presentations (`phom2_unique_of_epi`); unrestricted existence needs a
-preimage-selection principle and is recorded OPEN
-(`openTerminalPres2`) rather than closed by choice.  The observer is
+two-point source the cut-branching vanishes, but unrestricted
+terminality fails anyway, constructively: the free-point presentation
+gives every candidate target two distinct commuting maps
+(`no_terminal_pres2` — review-pass closure of the former OPEN cell).
+The positive fragment is exactly uniqueness against surjective
+presentations (`phom2_unique_of_epi`), where no free point exists.
+The observer is
 a *choice of maximal faithful collapse*; at three or more occurrences
 that choice is essentially non-unique (cut census: 1, 2, 4, 8 for
 carriers 2, 3, 4, 5).
@@ -167,7 +173,7 @@ metatheoretic inequality given by `imp_a_d` / `nimp_w_d` /
    conjectured for all `n ≥ 2` (finite computation; the bijection
    with free subsets of the non-designated occurrences is evident
    but not formalized).
-3. Two-point observer terminality is conjectured equivalent, over
-   the base theory, to a pointwise selection principle for
-   two-valued presentations; only the two concrete directions proved
-   here are claimed.
+3. (Closed in the review pass.)  Unrestricted two-point terminality
+   is refuted constructively (`no_terminal_pres2`); the earlier
+   selection-principle conjecture is superseded — the failure needs
+   no choice analysis, only a free point.

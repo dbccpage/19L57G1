@@ -10,7 +10,11 @@ constitution machinery (`ConstitutionDesc`, `interpStep`,
 The prior run left one OPEN bridge: the family interpreter is not a
 member of its own described family; the outermost interpretation
 relation is metatheoretic.  This phase attacks that boundary along
-the declared routes I0–I5 and returns two theorems, not a wish.
+the declared routes I0–I5.  Review-pass scoping: the two headline
+results are an extensional incompleteness theorem and a
+declared-model theorem; the identification of the boundary with a
+Primitive Difference is retained as a FRONTIER CONJECTURE with its
+missing theorem stated exactly.
 
 ## I0 — fixed external interpreter (sealed status, restated)
 
@@ -18,17 +22,28 @@ Quotation (inert data), executable description (`interpStep d`), and
 verified self-description (`interp_describe`) remain three separated
 levels.  Nothing here was rewritten.
 
-## I1 — every finite closure has a new top (THEOREM)
+## I1 — finite code families are extensionally incomplete (THEOREM)
 
 `tower_persists`: for ANY finite code list `cs : List C` and ANY
-evaluation map `ev : C → World → Event → World`, there exists an
-interpreter-grade function differing from every coded member.  The
+evaluation map `ev : C → World → Event → World`, there exists a
+function of the same type differing from every coded member.  The
 construction is a finite diagonal: at the world whose carrier length
 indexes code `c`, the diagonal extends the notes of `ev c`'s output
-by one element, so it disagrees with `ev c` there.  No appeal to
-infinity beyond the world type itself; the theorem is uniform in the
-level, so *stacking towers does not help* — each finite closure
-mints its next top.  Terminal: **INTERPRETER_TOWER_PERSISTS**.
+by one element, so it disagrees with `ev c` there.  The theorem is
+uniform in the level, and recoding the missed function yields a new
+finite family to which it applies again.
+
+Exact scope (review pass): the diagonal differs only at the
+operationally inert notes field.  This proves
+**FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE** — a finite family
+does not enumerate the function type — and nothing more.  It does
+NOT prove that no self-interpreter exists, NOT that the evaluator
+cannot be coded, NOT that every interpreter hierarchy has a new
+*semantic* top, and NOT that self-evaluation is impossible: a finite
+family may well contain a code for its own evaluator without
+containing every function of the evaluator's output type.  By the
+repository's own operational standard, a difference affecting no
+accessible operational verdict carries no operational authority.
 
 ## I2 — universal code and evaluator, in the declared class
 
@@ -57,9 +72,10 @@ interpreter-grade function: there is no evaluation-level fixed point
 in the family.  Recursion delivers self-description; it does not
 deliver a self-justifying evaluator.
 
-## I5 — the boundary IS a Primitive Difference (THEOREM)
+## I5 — a declared boundary model satisfies A and F (THEOREM);
+the identification is a FRONTIER CONJECTURE
 
-The novel possibility, formalized and proved rather than narrated:
+The novel possibility, formalized at the model level:
 
 - `boundarySetting`: carrier `Option ConstitutionDesc` — the 64
   coded occurrences plus ONE uncoded occurrence (`none`, the
@@ -73,21 +89,35 @@ The novel possibility, formalized and proved rather than narrated:
   endpoints loses irreflexivity in the pushforward — the collapse is
   obstructed under the protected law, exactly the passage's
   obstruction shape.
-- `i5_difference_grounded`: the non-identification is *behaviorally
-  grounded*, not notational — the diagonal (`family_missed`) shows
-  no total same-type recoding absorbs the interpreter role into the
-  coded occurrences.
+- `i5_difference_grounded`: reuses `family_missed` (extensional
+  incompleteness).  Review-pass scope: the reused witness differs
+  only at the inert notes field, so this grounds the
+  non-identification EXTENSIONALLY, not operationally — see the
+  frontier conjecture below for what operational grounding would
+  require.
 
-Terminal: **INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE**.  The
-residue at the boundary is not a defect to erase; it is the next
-retained non-identification — the same object this whole derivation
-began from, one level up.  The ladder invariant reaches the
-metatheory: the description/interpretation distinction is the
-dimension-raising difference of the interpreter tower, and its
-"resolution" options are exactly the passage's: create structure (a
-new top — I1 says this never terminates), or refuse (I3's typed
-partial top), or terminalize (stop the tower).  Absolute no-outside
-is NOT claimed; the operational scope is exactly the theorems above.
+Terminal: **DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F**.  Exact
+scope: `boundarySetting`'s relation, retention, and protection are
+inserted BY DEFINITION; no theorem identifies the uncoded occurrence
+`none` with the diagonal's missed function, interprets `none` as
+that function, or derives the boundary relation from interpretation
+behavior.  What `i5_difference_grounded` reuses is
+`family_missed` — extensional incompleteness — whose witness
+differs only at the inert notes field.
+
+**FRONTIER CONJECTURE (retained):
+INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE.**  The reading — the
+description/interpretation distinction as the next retained
+non-identification, its resolution options exactly the passage's
+(create a new top, refuse via the typed partial top, or terminalize)
+— is coherent and potentially important, and it is NOT proved by
+the notes-diagonal.  The missing theorem is a denotational bridge
+connecting: code, interpretation, lawful interpreter behavior, the
+uncoded evaluator role, and an OPERATIONALLY EFFECTIVE
+non-identification (one whose collapse changes an accessible
+operational verdict).  Until that bridge exists, the conjecture
+stays in this section.  Absolute no-outside is NOT claimed either
+way.
 
 ## Computation record
 

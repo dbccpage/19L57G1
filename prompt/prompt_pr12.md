@@ -1,9 +1,10 @@
 # PR #12 run inputs (recorded)
 
-This file records, verbatim, the externally supplied inputs of the
-PR #12 run ("Primitive Difference Contact and Passage").  It was
-written by the run itself as the binding record; the completion
-receipt carries its SHA-256.  Three inputs arrived, in order.
+This file records the externally supplied inputs of the PR #12 run
+("Primitive Difference Contact and Passage").  Inputs 1 and 3 are
+verbatim; Input 2 is summarized here and preserved byte-exact in
+`prompt/ultra_prompt_pr12.md`.  The completion receipt carries the
+SHA-256 of both files.  Three inputs arrived, in order.
 
 ## Input 1 — framing instruction (run start)
 
@@ -15,10 +16,17 @@ receipt carries its SHA-256.  Three inputs arrived, in order.
 > structure creation. Name any invariants you discover and any
 > mathematical objects identical to known math.
 
-(The simplex list is read as 0, 1, 2, and 3 — the run demonstrates
-all four dimensions.)
+ASSUMED_TYPO_CORRECTION: the caller's literal "0,1,3, and 3
+simplices" is read as "0, 1, 2, and 3" — the run demonstrates all
+four dimensions.  The reading is an assumption, labeled as such, not
+a record of the caller's bytes (which are preserved above).
 
 ## Input 2 — the ultra prompt (run start)
+
+The FULL VERBATIM BYTES of the ultra prompt are committed as
+`prompt/ultra_prompt_pr12.md`; the completion receipt binds that
+file's SHA-256.  This file is the run-input summary, not the byte
+record.  Head of the prompt, for orientation:
 
 # 19L57G1 Ultra Run — Primitive Difference Contact and Passage
 
@@ -47,7 +55,8 @@ Do not ask the user questions. Do not wait for guidance. Branch on
 genuine alternatives and return the strongest defensible terminal
 result.
 
-[Sections 0–18 of the ultra prompt follow in the run record: the
+[Summary of sections 0–18 — the byte record is
+`prompt/ultra_prompt_pr12.md`: the
 preconditions and repository discipline (branch, research PR,
 blind-native-base tag, sealed PRs #1–#11, contact package protocol
 with CONTACT_MANIFEST.json and the lean4-before-prose reading order,

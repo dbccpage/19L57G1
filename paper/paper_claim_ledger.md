@@ -1279,7 +1279,8 @@ theorems; 291 total, all within {propext, Quot.sound}).
 ### CL-PD2-MATRIX
 - **Statement**: nine candidate readings of primitive difference over
   one signature; all 72 ordered implication cells settled: 17
-  implications proved, 51 minimum finite countermodels compiled, 4
+  implications proved, 51 finite countermodels compiled (minimum
+  carrier proved where cited), 4
   located cells OPEN with exact metatheoretic scope (every decidable
   relation is located; no internal countermodel can exist).
   Cotransitivity is automatic on the two-element carrier, making the
@@ -1296,12 +1297,18 @@ theorems; 291 total, all within {propext, Quot.sound}).
 ### CL-PD2-INITIALITY
 - **Statement**: the oriented two-element realization is initial in
   the category of ALL pointed witnessed relations (true universal
-  property, category laws proved); the symmetric realization is
-  initial exactly in the symmetric subcategory and not weakly initial
-  in the full one; initiality is unique up to isomorphism only,
-  distinct from presentation identity and from minimum cardinality;
-  pointed automorphisms are trivial for both realizations —
-  orientation lives in the pointing.
+  property, category laws proved).  Scope (review pass): `PtdRel`
+  carries no irreflexivity, so this initiality characterizes the
+  bare-witness reading W — the free pointed object on one witnessed
+  arrow — and restricts to the irreflexive subcategory
+  (`d2_initial_irrefl`); initiality does not itself select
+  irreflexivity, whose independent justification is `imp_a_d`
+  against `nimp_w_d`.  The symmetric realization is initial exactly
+  in the symmetric subcategory and not weakly initial in the full
+  one; initiality is unique up to isomorphism only, distinct from
+  presentation identity and from minimum cardinality; pointed
+  automorphisms are trivial for both realizations — orientation
+  lives in the pointing.
 - **Class**: theorem.
 - **Lean**: `PrimitiveCats.d2_initial`,
   `PrimitiveCats.d2_initial_irrefl`, `PrimitiveCats.s2_initial_sym`,
@@ -1313,15 +1320,17 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Statement**: the faithful-presentation category of a
   three-occurrence source has no weakly terminal object: the maximal
   observer cuts are incomparable and both retained.  On the two-point
-  source the branching vanishes but unrestricted terminality requires
-  a preimage-selection principle and is recorded OPEN (uniqueness
-  against surjective presentations is proved; no classical choice
-  used).  Cut census on carriers 2-5: 1, 2, 4, 8.
+  source the cut-branching vanishes but unrestricted terminality
+  fails anyway, constructively (`no_terminal_pres2`, review-pass
+  closure of the former OPEN cell: the free-point presentation gives
+  every target two distinct commuting maps); the positive fragment
+  is uniqueness against surjective presentations (no classical
+  choice used).  Cut census on carriers 2-5: 1, 2, 4, 8.
 - **Class**: theorem + OPEN (scoped) + finite computation.
 - **Lean**: `PrimitiveCats.no_terminal_pres`,
   `PrimitiveCats.no_phom_mergeA_mergeB`,
-  `PrimitiveCats.phom2_unique_of_epi`, OPEN cell
-  `PrimitiveCats.openTerminalPres2`;
+  `PrimitiveCats.no_terminal_pres2`,
+  `PrimitiveCats.phom2_unique_of_epi`;
   `HigherStructure.cut_census_growth`.
 
 ### CL-PD2-APARTNESS
@@ -1360,23 +1369,41 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Python**: `primitive_contact.json`.
 
 ### CL-PD2-PASSAGE
-- **Statement**: every arrow of the passage chain has exactly one
-  status with executable evidence; active obstruction is a
+- **Statement**: each of the thirteen arrows of the passage chain
+  has exactly one status with executable evidence.  Review-pass
+  composition repair: the passage now carries a separate ASSERTED
+  store — `assertWit` supplies the positive witness, `admitWit`
+  retains an asserted difference — so a pre-retention Primitive
+  Difference state exists (`assertion_not_retained`), retention
+  demonstrably requires assertion (`retention_requires_assertion`),
+  and candidate A transports into the passage as a theorem
+  (`assert_transport` on every replayed state via the off-diagonal
+  invariant `asserted_offdiag`; canonical instance
+  `kernel_enters_preretained`).  Active obstruction is a
   four-condition conjunction (retained, protected, observation
   DECLARED, observer-zero) with every maximal proper subset refuted;
   primitive difference precedes observation as a theorem; ZeroRel is
-  an equivalence before quotienting; THE TWO-RULE THEOREM: at an
-  active obstruction with an in-bounds protected pair, the same-level
-  repair family is nonempty or exhaustion is certified and the
-  extension family is provably nonempty — the obstruction is forced
-  to self-resolution or structure creation, under exactly these
-  hypotheses; refusal is an inert record, the terminal absorbs,
-  proposal is not execution; the represented next-family has
+  an equivalence before quotienting; THE TWO-RULE THEOREM, exactly
+  scoped: under the DECLARED singleton-column extension universe
+  (which contains a separator for every well-formed pair — the
+  obstruction identifies one, it does not manufacture the
+  constructor) and the declared same-level menu, an active
+  obstruction with an in-bounds protected pair has a nonempty repair
+  family or certified exhaustion plus a nonempty extension family;
+  `setBudget 1` in emitted blocks is a declared self-funding policy;
+  refusal is an inert record, the terminal absorbs, proposal is not
+  execution; the represented next-family has
   stop/nonempty/completeness theorems and its iteration remains
   metatheoretic (stated).
 - **Class**: theorem (+ declarations priced as admission events with
   countermodels).
-- **Lean**: `PrimitivePassage.obst_requires_observation`,
+- **Lean**: `PrimitivePassage.assert_transport`,
+  `PrimitivePassage.kernel_enters_preretained`,
+  `PrimitivePassage.assertion_not_retained`,
+  `PrimitivePassage.retention_requires_assertion`,
+  `PrimitivePassage.asserted_offdiag`,
+  `PrimitivePassage.retained_sub_asserted`,
+  `PrimitivePassage.obst_requires_observation`,
   `PrimitivePassage.obst_conditions_independent`,
   `PrimitivePassage.zero_refl`, `PrimitivePassage.zero_symm`,
   `PrimitivePassage.zero_trans`, `PrimitivePassage.menu_complete`,
@@ -1398,7 +1425,11 @@ theorems; 291 total, all within {propext, Quot.sound}).
   (characterized by induction); each round's obstruction, nonempty
   response family, resolution, and creation record are theorems;
   quiescence is restored after every round; the connectivity residue
-  is 1 at every stage.
+  is 1 at every stage (the path form itself is `graphAt_spec`; the
+  residue alone proves neither connectedness nor acyclicity).
+  Provenance, exact: the DRIVER supplies the graph data (occurrence,
+  assertion, retention, protection); the OBSTRUCTION creates the
+  observation column that resolves it.
 - **Class**: theorem (horizon-free), mirrored to 15 rounds.
 - **Lean**: `HigherStructure.graphAt_spec`,
   `HigherStructure.round_obstruction`,
@@ -1411,21 +1442,25 @@ theorems; 291 total, all within {propext, Quot.sound}).
 
 ### CL-PD2-LADDER
 - **Statement**: the declared cell calculus admits a k+1-cell exactly
-  over a complete unfilled boundary of k-cells (the ladder invariant:
-  the two-rule shape at every dimension); horn guards are
-  load-bearing and the horn does not fill itself (higher structure
-  admitted, never forced); the four-occurrence demonstration grows
-  0-, 1-, 2-, 3-simplices in replayable creation order with the
-  1-skeleton equal to the passage witness store; the alternation
-  number runs 4, -2, 2, 1 along the stages; with declared integer
-  coefficients and boundaries the composite boundary vanishes on
-  every demonstration cell, and two distinct conventions both work —
-  the convention is declared content.
+  over a complete unfilled boundary of k-cells — the shell guards
+  `shell1/2/3` (complete boundaries, deliberately NOT simplicial
+  horns, which omit a face).  The ladder recurrence — the two-rule
+  shape one dimension up — is PROVED at dimensions 2 and 3
+  (`ladder_dim2`, `ladder_dim3`); recurrence at every dimension is a
+  frontier conjecture.  Shell guards are load-bearing and the shell
+  does not fill itself (higher structure admitted, never forced);
+  the four-occurrence demonstration grows 0-, 1-, 2-, 3-simplices in
+  replayable creation order with the 1-skeleton equal to the passage
+  witness store; the alternating cell-count statistic runs 4, -2, 2,
+  1 along the stages (a statistic, not an invariant); with declared
+  integer coefficients and boundaries the composite boundary
+  vanishes on every demonstration cell, and two distinct conventions
+  both work — the convention is declared content.
 - **Class**: theorem + finite computation; non-forcing by
   countermodel.
 - **Lean**: `HigherStructure.ladder_dim2`,
   `HigherStructure.ladder_dim3`,
-  `HigherStructure.horn_guard_load_bearing`,
+  `HigherStructure.shell_guard_load_bearing`,
   `HigherStructure.filling_not_forced`, `HigherStructure.k4_builds`,
   `HigherStructure.k4_skeleton_agrees`,
   `HigherStructure.altNum_stages`,
@@ -1465,18 +1500,24 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Python**: `primitive_controller_category.json`.
 
 ### CL-PD2-INTERPRETER
-- **Statement**: every finite code list under any evaluation map is
-  missed by a same-type interpreter function (finite diagonal;
-  uniform in the level, so every finite closure has a new top); the
-  declared 64-family has an exact universal code/evaluator, scoped;
-  a typed-refusal top closes by partiality what totality cannot;
-  description-level fixed point without evaluation-level fixed
-  point; and the boundary itself satisfies the native kernel
-  candidates A and F with obstructed collapse and behaviorally
-  grounded non-identification — the interpreter boundary IS a
-  Primitive Difference.  Absolute no-outside not claimed.
-- **Class**: theorem + countermodel + finite computation + OPEN
-  (absolute closure).
+- **Statement** (review-pass scope): every finite code list under
+  any evaluation map is missed by a same-type function — FINITE
+  extensional incompleteness, via a diagonal that differs only at
+  the operationally inert notes field; NOT a self-interpretation
+  impossibility, NOT "the evaluator cannot be coded", NOT a semantic
+  tower theorem.  The declared 64-family has an exact universal
+  code/evaluator, scoped; a typed-refusal top closes by partiality
+  what totality cannot; description-level fixed point without an
+  evaluation-level one (`family_missed`).  A DECLARED model of the
+  description/interpreter boundary satisfies candidates A and F with
+  obstructed collapse; its relation/retention/protection are
+  inserted by definition, and no theorem links the uncoded
+  occurrence to the missed function.  The identification of the
+  boundary with a Primitive Difference is a FRONTIER CONJECTURE
+  whose missing theorem (denotational/operational grounding) is
+  stated in the receipt.  Absolute no-outside not claimed.
+- **Class**: theorem + countermodel + finite computation +
+  CONJECTURE (boundary identification) + OPEN (absolute closure).
 - **Lean**: `InterpreterBoundary.tower_persists`,
   `InterpreterBoundary.i2_universal_in_class`,
   `InterpreterBoundary.i3_partial_top_refuses`,

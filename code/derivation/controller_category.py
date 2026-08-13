@@ -66,8 +66,13 @@ NO_REFUSE_K: KindDesc = full_without("refuse")
 
 
 def enabled(d: KindDesc, e: PEvent) -> bool:
-    """Whether the controller enables the event (Lean ``enabled``)."""
+    """Whether the controller enables the event (Lean ``enabled``).
+    The assertion event is supply-side grammar, present in every
+    controller of the declared class: the class toggles the ten
+    response/administrative kinds, not the supply of differences."""
     kind = e[0]
+    if kind == "assertWit":
+        return True
     if not isinstance(kind, str) or kind not in _KIND_INDEX:
         raise ValueError(f"unknown event kind: {kind!r}")
     return d[_KIND_INDEX[kind]]
@@ -95,7 +100,8 @@ def response_live(d: KindDesc) -> bool:
 # ---------------------------------------------------------------------------
 # Declared states (Lean namesakes) and the declared behavior basis
 
-OBST5 = PS(occ=(0, 1), wit=((0, 1),), prot=((0, 1),), obs=(),
+OBST5 = PS(occ=(0, 1), asserted=((0, 1), (1, 0)), wit=((0, 1),),
+           prot=((0, 1),), obs=(),
            budget=5, licensed=True, refusals=(), halted=False)
 OBST0 = replace(OBST5, budget=0)
 LOBST = replace(OBST5, obs=((),), licensed=False)

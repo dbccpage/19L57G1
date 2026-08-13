@@ -33,7 +33,8 @@ from derivation.primitive_passage import (
 from dataclasses import replace
 
 
-OBST = PS(occ=(0, 1), wit=((0, 1),), prot=((0, 1),), obs=(), budget=0)
+OBST = PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
+           prot=((0, 1),), obs=(), budget=0)
 FUNDED = replace(OBST, budget=5)
 
 
@@ -62,6 +63,7 @@ def test_step_guards_and_dedup() -> None:
     s = preplay([("admitOcc", 5), ("admitOcc", 5)], GENESIS_P)
     assert s.occ == (5,)
     # witness needs wf bounds
+    assert pstep(GENESIS_P, ("assertWit", 0, 1)) == GENESIS_P
     assert pstep(GENESIS_P, ("admitWit", 0, 1)) == GENESIS_P
     assert not wf_pair(GENESIS_P, 0, 1)
     # protection needs a retained witness
@@ -69,9 +71,12 @@ def test_step_guards_and_dedup() -> None:
     # declareObs only once
     s2 = pstep(pstep(s, ("declareObs",)), ("declareObs",))
     assert s2.obs == ()
-    # duplicate witness silently deduped
+    # retention requires a prior assertion, then dedups
     s3 = preplay([("admitOcc", 6)], s)
-    s4 = preplay([("admitWit", 0, 1), ("admitWit", 0, 1)], s3)
+    assert pstep(s3, ("admitWit", 0, 1)) == s3
+    s4 = preplay([("assertWit", 0, 1), ("assertWit", 0, 1),
+                  ("admitWit", 0, 1), ("admitWit", 0, 1)], s3)
+    assert s4.asserted == ((0, 1),)
     assert s4.wit == ((0, 1),)
     # duplicate protection deduped
     s5 = preplay([("protect", 0, 1), ("protect", 0, 1)], s4)
@@ -127,8 +132,8 @@ def test_gates_and_resolution() -> None:
 
 def test_refine_family_and_menu() -> None:
     # a refinable state: column () present, obstruction (0,1) active
-    s = PS(occ=(0, 1), wit=((0, 1),), prot=((0, 1),), obs=((),),
-           budget=3)
+    s = PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
+           prot=((0, 1),), obs=((),), budget=3)
     assert obst_p(s, 0, 1)
     menu = response_menu(s)
     assert ((), 0) in menu and ((), 1) in menu
@@ -169,7 +174,7 @@ def test_growth_matches_spec_to_fifteen_rounds() -> None:
 
 def test_round_records() -> None:
     for k in range(6):
-        pre = preplay(grow_block(k + 2)[:4], path_state(k))
+        pre = preplay(grow_block(k + 2)[:5], path_state(k))
         assert obst_p(pre, k + 1, k + 2)
         assert (k + 1,) in extension_proposals(pre, k + 1, k + 2)
         assert pstep(pre, ("addCol", (k + 1,))) == path_state(k + 1)

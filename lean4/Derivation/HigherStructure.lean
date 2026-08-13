@@ -71,11 +71,11 @@ obstruction — the first column; round `k+2` repeats the pattern one
 level up. -/
 def growBlock : Nat → List PEvent
   | 0 => [.admitOcc 0]
-  | 1 => [.admitOcc 1, .admitWit 0 1, .protect 0 1, .declareObs,
-          .setBudget 1, .addCol [0]]
-  | k + 2 => [.admitOcc (k + 2), .admitWit (k + 1) (k + 2),
-              .protect (k + 1) (k + 2), .setBudget 1,
-              .addCol [k + 1]]
+  | 1 => [.admitOcc 1, .assertWit 0 1, .admitWit 0 1, .protect 0 1,
+          .declareObs, .setBudget 1, .addCol [0]]
+  | k + 2 => [.admitOcc (k + 2), .assertWit (k + 1) (k + 2),
+              .admitWit (k + 1) (k + 2), .protect (k + 1) (k + 2),
+              .setBudget 1, .addCol [k + 1]]
 
 def growHist : Nat → List PEvent
   | 0 => growBlock 0
@@ -90,6 +90,7 @@ occurrences `0..k+1` (the 0-cells), witnessed pairs `(i, i+1)` (the
 column per resolved obstruction, budget spent, live. -/
 def pathState (k : Nat) : PState :=
   { occ := List.range (k + 2),
+    asserted := (List.range (k + 1)).map (fun i => (i, i + 1)),
     wit := (List.range (k + 1)).map (fun i => (i, i + 1)),
     prot := (List.range (k + 1)).map (fun i => (i, i + 1)),
     obs := some ((List.range (k + 1)).map (fun i => [i])),
@@ -190,8 +191,18 @@ theorem pstep_admit {s : PState} {t : Nat} (hh : s.halted = false)
   rw [if_neg (fun hc : false = true => Bool.noConfusion hc),
       if_neg h]
 
+theorem pstep_assert {s : PState} {i j : Nat} (hh : s.halted = false)
+    (hg : (wfPair s i j && !(decide ((i, j) ∈ s.asserted)))
+      = true) :
+    step s (.assertWit i j)
+      = { s with asserted := s.asserted ++ [(i, j)] } := by
+  simp only [step, hh]
+  rw [if_neg (fun hc : false = true => Bool.noConfusion hc),
+      if_pos hg]
+
 theorem pstep_wit {s : PState} {i j : Nat} (hh : s.halted = false)
-    (hg : (wfPair s i j && !(decide ((i, j) ∈ s.wit))) = true) :
+    (hg : (wfPair s i j && (decide ((i, j) ∈ s.asserted))
+      && !(decide ((i, j) ∈ s.wit))) = true) :
     step s (.admitWit i j) = { s with wit := s.wit ++ [(i, j)] } := by
   simp only [step, hh]
   rw [if_neg (fun hc : false = true => Bool.noConfusion hc),
@@ -236,14 +247,21 @@ theorem colOk_some {s : PState} {cols : List (List Nat)}
 /-- Stage inside round `m + 2` after occurrence admission. -/
 def g1 (m : Nat) : PState :=
   { occ := List.range (m + 2) ++ [m + 2],
+    asserted := (List.range (m + 1)).map (fun i => (i, i + 1)),
     wit := (List.range (m + 1)).map (fun i => (i, i + 1)),
     prot := (List.range (m + 1)).map (fun i => (i, i + 1)),
     obs := some ((List.range (m + 1)).map (fun i => [i])),
     budget := 0, licensed := true, refusals := [], halted := false }
 
+/-- Stage after witness assertion (supplied, not yet retained). -/
+def gA (m : Nat) : PState :=
+  { g1 m with
+    asserted := (List.range (m + 1)).map (fun i => (i, i + 1))
+      ++ [(m + 1, m + 2)] }
+
 /-- Stage after witness retention. -/
 def g2 (m : Nat) : PState :=
-  { g1 m with
+  { gA m with
     wit := (List.range (m + 1)).map (fun i => (i, i + 1))
       ++ [(m + 1, m + 2)] }
 
@@ -252,6 +270,8 @@ retention, protection, and funding — but before the structural
 response: the round's active obstruction is in force here. -/
 def preCol (m : Nat) : PState :=
   { occ := List.range (m + 2) ++ [m + 2],
+    asserted := (List.range (m + 1)).map (fun i => (i, i + 1))
+      ++ [(m + 1, m + 2)],
     wit := (List.range (m + 1)).map (fun i => (i, i + 1))
       ++ [(m + 1, m + 2)],
     prot := (List.range (m + 1)).map (fun i => (i, i + 1))
@@ -266,6 +286,8 @@ theorem grow_len (m : Nat) :
 /-- Stage after protection (budget not yet funded). -/
 def g3 (m : Nat) : PState :=
   { occ := List.range (m + 2) ++ [m + 2],
+    asserted := (List.range (m + 1)).map (fun i => (i, i + 1))
+      ++ [(m + 1, m + 2)],
     wit := (List.range (m + 1)).map (fun i => (i, i + 1))
       ++ [(m + 1, m + 2)],
     prot := (List.range (m + 1)).map (fun i => (i, i + 1))
@@ -273,9 +295,9 @@ def g3 (m : Nat) : PState :=
     obs := some ((List.range (m + 1)).map (fun i => [i])),
     budget := 0, licensed := true, refusals := [], halted := false }
 
-theorem wit_guard (m : Nat) :
+theorem assert_guard (m : Nat) :
     (wfPair (g1 m) (m + 1) (m + 2)
-      && !(decide ((m + 1, m + 2) ∈ (g1 m).wit))) = true := by
+      && !(decide ((m + 1, m + 2) ∈ (g1 m).asserted))) = true := by
   show (((m + 1 : Nat) != (m + 2))
       && decide (m + 1 < (List.range (m + 2) ++ [m + 2]).length)
       && decide (m + 2 < (List.range (m + 2) ++ [m + 2]).length)
@@ -286,6 +308,26 @@ theorem wit_guard (m : Nat) :
     decide_eq_false_iff_not]
   exact ⟨⟨⟨bne_iff_ne.mpr (by omega),
     decide_eq_true (by omega)⟩, decide_eq_true (by omega)⟩,
+    grow_wit_not_mem m⟩
+
+theorem wit_guard (m : Nat) :
+    (wfPair (gA m) (m + 1) (m + 2)
+      && (decide ((m + 1, m + 2) ∈ (gA m).asserted))
+      && !(decide ((m + 1, m + 2) ∈ (gA m).wit))) = true := by
+  show (((m + 1 : Nat) != (m + 2))
+      && decide (m + 1 < (List.range (m + 2) ++ [m + 2]).length)
+      && decide (m + 2 < (List.range (m + 2) ++ [m + 2]).length)
+      && (decide ((m + 1, m + 2) ∈ (List.range (m + 1)).map
+            (fun i => (i, i + 1)) ++ [(m + 1, m + 2)]))
+      && !(decide ((m + 1, m + 2) ∈ (List.range (m + 1)).map
+            (fun i => (i, i + 1))))) = true
+  rw [grow_len]
+  simp only [Bool.and_eq_true, Bool.not_eq_true',
+    decide_eq_false_iff_not]
+  exact ⟨⟨⟨⟨bne_iff_ne.mpr (by omega),
+    decide_eq_true (by omega)⟩, decide_eq_true (by omega)⟩,
+    decide_eq_true
+      (List.mem_append.mpr (Or.inr List.mem_cons_self))⟩,
     grow_wit_not_mem m⟩
 
 theorem prot_guard (m : Nat) :
@@ -301,19 +343,28 @@ theorem prot_guard (m : Nat) :
     (List.mem_append.mpr (Or.inr List.mem_cons_self)),
     grow_wit_not_mem m⟩
 
-/-- The first four events of round `m + 2` land on `preCol m`. -/
+/-- The first five events of round `m + 2` land on `preCol m`:
+the graph data (occurrence, asserted difference, retention,
+protection) is SUPPLIED by the driver here — the obstruction below
+creates only the observation column. -/
 theorem reach_preCol (m : Nat) :
-    replayP [.admitOcc (m + 2), .admitWit (m + 1) (m + 2),
-             .protect (m + 1) (m + 2), .setBudget 1]
+    replayP [.admitOcc (m + 2), .assertWit (m + 1) (m + 2),
+             .admitWit (m + 1) (m + 2), .protect (m + 1) (m + 2),
+             .setBudget 1]
       (pathState m) = preCol m := by
-  show step (step (step (step (pathState m) (.admitOcc (m + 2)))
+  show step (step (step (step (step (pathState m)
+    (.admitOcc (m + 2))) (.assertWit (m + 1) (m + 2)))
     (.admitWit (m + 1) (m + 2))) (.protect (m + 1) (m + 2)))
       (.setBudget 1) = preCol m
   have h1 : step (pathState m) (.admitOcc (m + 2)) = g1 m := by
     rw [pstep_admit rfl (by exact grow_fresh m)]
     rfl
   rw [h1]
-  have h2 : step (g1 m) (.admitWit (m + 1) (m + 2)) = g2 m := by
+  have hA : step (g1 m) (.assertWit (m + 1) (m + 2)) = gA m := by
+    rw [pstep_assert rfl (assert_guard m)]
+    rfl
+  rw [hA]
+  have h2 : step (gA m) (.admitWit (m + 1) (m + 2)) = g2 m := by
     rw [pstep_wit rfl (wit_guard m)]
     rfl
   rw [h2]
@@ -383,6 +434,8 @@ theorem round_resolution (m : Nat) :
     rfl
   rw [pstep_addCol rfl rfl hguard]
   show ({ occ := List.range (m + 2) ++ [m + 2],
+          asserted := (List.range (m + 1)).map (fun i => (i, i + 1))
+            ++ [(m + 1, m + 2)],
           wit := (List.range (m + 1)).map (fun i => (i, i + 1))
             ++ [(m + 1, m + 2)],
           prot := (List.range (m + 1)).map (fun i => (i, i + 1))
@@ -431,8 +484,9 @@ theorem graphAt_spec (k : Nat) : graphAt (k + 1) = pathState k := by
         = pathState (m + 1)
       rw [ih]
       show step (replayP [.admitOcc (m + 2),
-        .admitWit (m + 1) (m + 2), .protect (m + 1) (m + 2),
-        .setBudget 1] (pathState m)) (.addCol [m + 1])
+        .assertWit (m + 1) (m + 2), .admitWit (m + 1) (m + 2),
+        .protect (m + 1) (m + 2), .setBudget 1] (pathState m))
+        (.addCol [m + 1])
         = pathState (m + 1)
       rw [reach_preCol m, round_resolution m]
 
@@ -508,7 +562,7 @@ deriving Repr, DecidableEq
 def emptyComplex : Complex := ⟨[], [], [], []⟩
 
 /-- Dimension-1 horn: both endpoints present, edge absent. -/
-def horn1 (C : Complex) (i j : Nat) : Bool :=
+def shell1 (C : Complex) (i j : Nat) : Bool :=
   (decide (i ∈ C.c0)) && (decide (j ∈ C.c0)) && (i != j)
     && !(decide ((i, j) ∈ C.c1))
 
@@ -517,7 +571,7 @@ def edgeIn (C : Complex) (i j : Nat) : Bool :=
 
 /-- Dimension-2 horn: all three boundary edges present, face
 absent — two parallel edge-paths with no filler. -/
-def horn2 (C : Complex) (i j k : Nat) : Bool :=
+def shell2 (C : Complex) (i j k : Nat) : Bool :=
   edgeIn C i j && edgeIn C j k && edgeIn C i k
     && !(decide ((i, j, k) ∈ C.c2))
 
@@ -526,7 +580,7 @@ def triIn (C : Complex) (i j k : Nat) : Bool :=
 
 /-- Dimension-3 horn: all four boundary faces present, solid cell
 absent. -/
-def horn3 (C : Complex) (i j k l : Nat) : Bool :=
+def shell3 (C : Complex) (i j k l : Nat) : Bool :=
   triIn C j k l && triIn C i k l && triIn C i j l && triIn C i j k
     && !(decide ((i, j, k, l) ∈ C.c3))
 
@@ -543,12 +597,12 @@ shape. -/
 def cstep (C : Complex) : CEvent → Complex
   | .addV v => if v ∈ C.c0 then C else { C with c0 := C.c0 ++ [v] }
   | .addE i j =>
-      if horn1 C i j then { C with c1 := C.c1 ++ [(i, j)] } else C
+      if shell1 C i j then { C with c1 := C.c1 ++ [(i, j)] } else C
   | .addT i j k =>
-      if horn2 C i j k then { C with c2 := C.c2 ++ [(i, j, k)] }
+      if shell2 C i j k then { C with c2 := C.c2 ++ [(i, j, k)] }
       else C
   | .addQ i j k l =>
-      if horn3 C i j k l then
+      if shell3 C i j k l then
         { C with c3 := C.c3 ++ [(i, j, k, l)] }
       else C
 
@@ -560,7 +614,7 @@ boundary is the dimension-2 obstruction, and the accepted response
 creates exactly the filling 2-cell — the two-rule shape, one
 dimension up. -/
 theorem ladder_dim2 (C : Complex) (i j k : Nat)
-    (h : horn2 C i j k = true) :
+    (h : shell2 C i j k = true) :
     (i, j, k) ∈ (cstep C (.addT i j k)).c2 ∧
       cstep C (.addT i j k) ≠ C := by
   have hstep : cstep C (.addT i j k)
@@ -579,7 +633,7 @@ theorem ladder_dim2 (C : Complex) (i j k : Nat)
 /-- **The ladder invariant, dimension 3**: same shape, one dimension
 higher. -/
 theorem ladder_dim3 (C : Complex) (i j k l : Nat)
-    (h : horn3 C i j k l = true) :
+    (h : shell3 C i j k l = true) :
     (i, j, k, l) ∈ (cstep C (.addQ i j k l)).c3 ∧
       cstep C (.addQ i j k l) ≠ C := by
   have hstep : cstep C (.addQ i j k l)
@@ -597,7 +651,7 @@ theorem ladder_dim3 (C : Complex) (i j k l : Nat)
 
 /-- The horn guard is load-bearing: filling over an incomplete
 boundary is refused. -/
-theorem horn_guard_load_bearing :
+theorem shell_guard_load_bearing :
     cstep ⟨[0, 1, 2], [(0, 1)], [], []⟩ (.addT 0 1 2)
       = ⟨[0, 1, 2], [(0, 1)], [], []⟩ := by decide
 
@@ -609,8 +663,9 @@ protected difference accepted by the passage kernel (no obstruction
 arises: the grown observation already separates every chord). -/
 def k4PassageHist : List PEvent :=
   growHist 3 ++
-    [.admitWit 0 2, .protect 0 2, .admitWit 1 3, .protect 1 3,
-     .admitWit 0 3, .protect 0 3]
+    [.assertWit 0 2, .admitWit 0 2, .protect 0 2,
+     .assertWit 1 3, .admitWit 1 3, .protect 1 3,
+     .assertWit 0 3, .admitWit 0 3, .protect 0 3]
 
 /-- The passage accepts the whole K4 skeleton: six witnessed edges,
 all protected, all separated (quiescent). -/
@@ -657,7 +712,7 @@ theorem k4_skeleton_agrees :
 event the dimension-3 horn is present and the solid cell is absent.
 The horn does not fill itself. -/
 theorem filling_not_forced :
-    horn3 k4Boundary 0 1 2 3 = true ∧ k4Boundary.c3 = [] := by
+    shell3 k4Boundary 0 1 2 3 = true ∧ k4Boundary.c3 = [] := by
   decide
 
 /-! ### Named invariants of the demonstration -/

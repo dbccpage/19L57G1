@@ -415,6 +415,7 @@ open Derivation
 #print axioms PrimitiveCats.idPres2_epi
 #print axioms PrimitiveCats.swapPres2_epi
 #print axioms PrimitiveCats.phom2_unique_of_epi
+#print axioms PrimitiveCats.no_terminal_pres2
 #print axioms PrimitiveCats.phom2_exists_from_id
 #print axioms PrimitiveCats.phom2_exists_from_swap
 #print axioms PrimitiveCats.phom2_unique_exists_id
@@ -507,7 +508,15 @@ open Derivation
 #print axioms PrimitivePassage.obst_agrees_when_declared
 #print axioms PrimitivePassage.obst_diverges_when_undeclared
 #print axioms PrimitivePassage.obst_conditions_independent
+#print axioms PrimitivePassage.assertion_not_retained
 #print axioms PrimitivePassage.retention_not_free
+#print axioms PrimitivePassage.retention_requires_assertion
+#print axioms PrimitivePassage.assertion_persists
+#print axioms PrimitivePassage.asserted_offdiag
+#print axioms PrimitivePassage.retained_sub_asserted
+#print axioms PrimitivePassage.assert_transport
+#print axioms PrimitivePassage.kernel_enters_preretained
+#print axioms PrimitivePassage.retention_completes
 #print axioms PrimitivePassage.retention_persists
 #print axioms PrimitivePassage.witness_no_protection
 #print axioms PrimitivePassage.no_protection_no_obstruction
@@ -562,7 +571,7 @@ open Derivation
 #print axioms HigherStructure.path_connectivity_residue
 #print axioms HigherStructure.ladder_dim2
 #print axioms HigherStructure.ladder_dim3
-#print axioms HigherStructure.horn_guard_load_bearing
+#print axioms HigherStructure.shell_guard_load_bearing
 #print axioms HigherStructure.k4_skeleton_from_passage
 #print axioms HigherStructure.k4_builds
 #print axioms HigherStructure.k4_skeleton_agrees

@@ -391,17 +391,17 @@ def basis_report() -> list[dict[str, Json]]:
 
 
 TERMINALS: tuple[str, ...] = (
-    "INTERPRETER_TOWER_PERSISTS",
-    "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
+    "FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE",
+    "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F",
 )
 
 TERMINAL_EVIDENCE: dict[str, list[str]] = {
-    "INTERPRETER_TOWER_PERSISTS": [
+    "FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE": [
         "InterpreterBoundary.tower_persists",
         "InterpreterBoundary.family_missed",
         "diagonal_misses_all (exhaustive over the 64 indices)",
     ],
-    "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE": [
+    "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F": [
         "InterpreterBoundary.i5_boundary_is_A",
         "InterpreterBoundary.i5_boundary_is_F",
         "InterpreterBoundary.i5_collapse_obstructed",

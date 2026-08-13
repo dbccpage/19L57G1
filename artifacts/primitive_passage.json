@@ -1,5 +1,6 @@
 {
  "arrows": {
+  "assertion_not_retained": true,
   "budget_gates_execution": true,
   "extension_resolves": true,
   "next_family_nonempty_at_obstruction": true,
@@ -8,7 +9,9 @@
   "obstruction_requires_observation": true,
   "proposal_not_execution": true,
   "refusal_is_record_not_action": true,
+  "retention_completes_from_assertion": true,
   "retention_is_declaration": true,
+  "retention_requires_assertion": true,
   "terminal_absorbing": true,
   "two_rule_at_obstruction": true
  },

@@ -97,6 +97,10 @@ deriving Repr, DecidableEq
 /-- Whether the controller enables an event, read off its kind. -/
 def enabled (d : KindDesc) : PEvent → Bool
   | .admitOcc _ => d.kAdmitOcc
+  -- The assertion event is supply-side grammar, present in every
+  -- controller of the declared class: the class toggles the ten
+  -- response/administrative kinds, not the supply of differences.
+  | .assertWit _ _ => true
   | .admitWit _ _ => d.kAdmitWit
   | .protect _ _ => d.kProtect
   | .declareObs => d.kDeclareObs
@@ -172,7 +176,8 @@ theorem fullK_live : ResponseLiveB fullK = true := by decide
 
 /-- The concrete obstructed funded state. -/
 def OBST5 : PState :=
-  { occ := [0, 1], wit := [(0, 1)], prot := [(0, 1)], obs := some [],
+  { occ := [0, 1], asserted := [(0, 1), (1, 0)], wit := [(0, 1)],
+    prot := [(0, 1)], obs := some [],
     budget := 5, licensed := true, refusals := [], halted := false }
 
 theorem obst5_certified : obstP OBST5 0 1 = true := by decide
@@ -205,7 +210,8 @@ def OBST0 : PState := { OBST5 with budget := 0 }
 license-gated by the sealed step, so same-level refinement is the
 only resolving route. -/
 def LOBST : PState :=
-  { occ := [0, 1], wit := [(0, 1)], prot := [(0, 1)],
+  { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+    prot := [(0, 1)],
     obs := some [[]], budget := 5, licensed := false, refusals := [],
     halted := false }
 
@@ -377,15 +383,31 @@ theorem setRef_step_comm (rs : List (Nat × Nat)) (s : PState)
           rw [if_pos hm, if_pos hm'] <;> rfl
         · have hm' : ¬(t ∈ (setRef rs s).occ) := hm
           rw [if_neg hm, if_neg hm'] <;> rfl
+    | assertWit i j =>
+        simp only [step]
+        rw [if_neg hh, if_neg hh']
+        by_cases hg : (wfPair s i j
+            && !decide ((i, j) ∈ s.asserted)) = true
+        · have hg' : (wfPair (setRef rs s) i j
+              && !decide ((i, j) ∈ (setRef rs s).asserted))
+              = true := hg
+          rw [if_pos hg, if_pos hg'] <;> rfl
+        · have hg' : ¬((wfPair (setRef rs s) i j
+              && !decide ((i, j) ∈ (setRef rs s).asserted))
+              = true) := hg
+          rw [if_neg hg, if_neg hg'] <;> rfl
     | admitWit i j =>
         simp only [step]
         rw [if_neg hh, if_neg hh']
         by_cases hg : (wfPair s i j
+            && decide ((i, j) ∈ s.asserted)
             && !decide ((i, j) ∈ s.wit)) = true
         · have hg' : (wfPair (setRef rs s) i j
+              && decide ((i, j) ∈ (setRef rs s).asserted)
               && !decide ((i, j) ∈ (setRef rs s).wit)) = true := hg
           rw [if_pos hg, if_pos hg'] <;> rfl
         · have hg' : ¬((wfPair (setRef rs s) i j
+              && decide ((i, j) ∈ (setRef rs s).asserted)
               && !decide ((i, j) ∈ (setRef rs s).wit)) = true) := hg
           rw [if_neg hg, if_neg hg'] <;> rfl
     | protect i j =>
@@ -446,6 +468,8 @@ def eraseSim : Sim fullCtrl noRefCtrl where
     intro s e
     cases e with
     | admitOcc t => exact setRef_step_comm [] s (.admitOcc t) rfl
+    | assertWit i j =>
+        exact setRef_step_comm [] s (.assertWit i j) rfl
     | admitWit i j => exact setRef_step_comm [] s (.admitWit i j) rfl
     | protect i j => exact setRef_step_comm [] s (.protect i j) rfl
     | declareObs => exact setRef_step_comm [] s .declareObs rfl
@@ -640,6 +664,7 @@ def twistSim : Sim fullCtrl noRefCtrl where
     intro s e
     cases e with
     | admitOcc t => exact twist_step_comm s (.admitOcc t) rfl
+    | assertWit i j => exact twist_step_comm s (.assertWit i j) rfl
     | admitWit i j => exact twist_step_comm s (.admitWit i j) rfl
     | protect i j => exact twist_step_comm s (.protect i j) rfl
     | declareObs => exact twist_step_comm s .declareObs rfl
@@ -660,8 +685,9 @@ def twistStrict : StrictSim fullCtrl noRefCtrl :=
 /-- A duplicated occurrence store: representable, but unreachable —
 admission dedups (`reachable_no_dup`). -/
 def DUPSTATE : PState :=
-  { occ := [5, 5], wit := [], prot := [], obs := none, budget := 0,
-    licensed := true, refusals := [(3, 4)], halted := false }
+  { occ := [5, 5], asserted := [], wit := [], prot := [], obs := none,
+    budget := 0, licensed := true, refusals := [(3, 4)],
+    halted := false }
 
 theorem twist_ne_erase_at_dup :
     twistF DUPSTATE ≠ eraseRef DUPSTATE := by decide

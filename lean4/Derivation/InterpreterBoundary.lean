@@ -50,12 +50,31 @@ module makes that boundary the object of study.
   (the non-identification is behavioral, not notational:
   `family_missed`).
 
-Conclusion tags: INTERPRETER_TOWER_PERSISTS (`tower_persists`) and
-INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE (`i5_boundary_is_A` +
-`i5_collapse_obstructed` + `i5_difference_grounded`).  NOT claimed: an
-absolute no-outside.  These theorems bound every finite, represented
-closure of the code family; they do not — and in this calculus cannot
-— state that nothing exists beyond the represented apparatus.
+Conclusion tags (review-pass scoping):
+FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE (`tower_persists`: a
+finite code list under any evaluation map does not enumerate every
+function of the interpreter type; the diagonal differs only at the
+operationally inert notes field, so this is extensional
+incompleteness, NOT an impossibility of self-interpretation, NOT
+"the evaluator cannot be coded", and NOT a semantic-tower theorem)
+and DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F (`i5_boundary_is_A` +
+`i5_boundary_is_F` + `i5_collapse_obstructed`: a DECLARED model of
+the description/interpreter boundary satisfies candidates A and F —
+the relation, retention, and protection of `boundarySetting` are
+inserted by definition, and no theorem here identifies the uncoded
+occurrence `none` with the diagonal's missed function or derives the
+boundary relation from interpretation behavior).
+
+FRONTIER CONJECTURE (retained, not proved):
+INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE.  The missing theorem is
+a denotational bridge connecting code, interpretation, lawful
+interpreter behavior, the uncoded evaluator role, and an
+OPERATIONALLY EFFECTIVE non-identification — one whose collapse
+changes an accessible operational verdict, not only an inert field.
+NOT claimed: an absolute no-outside.  These theorems bound every
+finite, represented closure of the code family; they do not — and in
+this calculus cannot — state that nothing exists beyond the
+represented apparatus.
 -/
 
 namespace InterpreterBoundary
@@ -125,10 +144,14 @@ type differing from every coded interpreter.  Proof: the diagonal
 `diag cs ev` — against the code at position `i`, evaluate both at the
 world of carrier length `i`; the diagonal's notes are one element
 longer, so the functions differ at that argument.  Consequence, and
-the content of the tag INTERPRETER_TOWER_PERSISTS: every represented
-finite interpreter family misses an interpreter, at every level,
-uniformly — recoding the missed function as a 65th code only produces
-a new finite family to which the theorem applies again. -/
+the exact content of the tag
+FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE: a finite represented
+family does not exhaust the function type, and recoding the missed
+function as a 65th code produces a new finite family to which the
+theorem applies again.  Review-pass scope: the diagonal differs only
+at the operationally inert notes field; this theorem does NOT show
+that a family cannot contain a code for its own evaluator, and it
+does NOT establish a semantic interpreter tower. -/
 theorem tower_persists {C : Type} (cs : List C)
     (ev : C → World → Event → World) :
     ∃ f : World → Event → World, ∀ c ∈ cs, f ≠ ev c := by
@@ -321,7 +344,17 @@ absolute no-outside tag — the theorems above bound finite represented
 closures and say nothing about what lies beyond the represented
 apparatus. -/
 def conclusionTags : List String :=
-  ["INTERPRETER_TOWER_PERSISTS",
-   "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE"]
+  ["FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE",
+   "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F"]
+
+/-- The frontier conjecture retained from this phase, with its exact
+missing theorem: a denotational bridge from (code, interpretation,
+lawful interpreter behavior, uncoded evaluator role) to an
+operationally effective non-identification.  Until that bridge is a
+theorem, "the interpreter boundary IS a Primitive Difference" is a
+conjecture about the declared model, not a result. -/
+def frontierConjecture : String :=
+  "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE (conjecture; " ++
+  "missing: denotational/operational grounding theorem)"
 
 end InterpreterBoundary

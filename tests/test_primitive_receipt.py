@@ -20,8 +20,15 @@ def test_receipt_binds_everything() -> None:
     assert contact["package_present"] is False
     prompts = r["prompt_sha256"]
     assert isinstance(prompts, dict)
-    assert len(prompts) == 3
+    assert len(prompts) == 4
     assert all(len(str(v)) == 64 for v in prompts.values())
+    # the two original inputs keep their recorded byte-identity
+    assert prompts["prompt/prompt.md"] == (
+        "a613a1965e4f02fee0"
+        "0df4d42041fceeca176abcfaa9202c3e769021305940b5")
+    assert prompts["prompt/seed_prompt.md"] == (
+        "ee3ba0583fea2a11f129"
+        "4538c912c542b3faee5316355dc226efb92ef64646ab")
     ax = r["axiom_report"]
     assert isinstance(ax, dict)
     assert isinstance(ax["theorem_count"], int)
@@ -31,7 +38,10 @@ def test_receipt_binds_everything() -> None:
     codes = {t["code"] for t in terminals if isinstance(t, dict)}
     assert "CONTACT_INPUT_ABSENT" in codes
     assert "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED" in codes
-    assert "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE" in codes
+    assert "FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE" in codes
+    assert "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F" in codes
+    assert "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE" not in codes
+    assert "INTERPRETER_TOWER_PERSISTS" not in codes
     assert "HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED" in codes
     for t in terminals:
         assert isinstance(t, dict) and t["evidence"]

@@ -5,7 +5,8 @@ Run: PR #12.  Sources: `lean4/Derivation/PrimitivePassage.lean`,
 (growth side), Python mirrors `primitive_passage.py`, `apartness.py`,
 artifact `primitive_passage.json`, `apartness.json`.
 
-Every arrow of the passage chain has exactly one status — THEOREM,
+Each of the THIRTEEN arrows of the passage chain (fourteen stations)
+has exactly one status — THEOREM,
 DECLARATION (a separately priced admission event, with a countermodel
 showing the arrow is false without it), or FALSE without extra
 hypotheses — and executable evidence.
@@ -14,7 +15,7 @@ hypotheses — and executable evidence.
 
 | # | Arrow | Status | Evidence |
 |---|---|---|---|
-| 1 | PrimitiveDifference → RetainedDifference | DECLARATION (`admitWit`) | `retention_not_free`: occurrences alone retain nothing; once admitted, retention persists (`retention_persists`) |
+| 1 | PrimitiveDifference → RetainedDifference | DECLARATION (`assertWit` supplies; `admitWit` retains) | `assertion_not_retained`: an asserted difference is not yet retained; `retention_requires_assertion`; candidate A transports into the pre-retention state as a theorem (`assert_transport`, `kernel_enters_preretained`); once admitted, retention persists (`retention_persists`) |
 | 2 | RetainedDifference → FaithfulPresentation | DECLARATION (demand) | `PrimDiff.const_presentation_unfaithful`; faithfulness is never a fact |
 | 3 | FaithfulPresentation → DeclaredObservation | DECLARATION (`declareObs`) | `obs : Option …` — `none` is pre-observational, not "a blind observer" |
 | 4 | DeclaredObservation → ZeroRel | THEOREM | `zero_refl`, `zero_symm`, `zero_trans`: the zero relation of any declared observation is an equivalence, proved before any quotient (P4) |
@@ -104,6 +105,12 @@ diagram: it runs, at every horizon.
   acceptance law (the monotone clause of `refineOk`).
 - Extension execution costs budget (exactly one unit, saturating —
   `Horizon.interp_budget_bound` pins the shared semantics) and
-  requires license; it adds one column and loses nothing.
+  requires license.  Exact preservation statement: it preserves
+  admitted occurrences, asserted and retained witnesses, protected
+  demands, and every already-satisfied protected separation; it
+  consumes one budget unit and strictly refines the prior
+  observational equivalence classes (that refinement is its point).
+  The `setBudget 1` in emitted blocks is a declared self-funding
+  policy, not derived resource availability.
 - Refusal changes no object field.  The terminal ends everything —
   the one arrow that loses the future, priced as such.

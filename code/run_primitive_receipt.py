@@ -23,7 +23,21 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def sha256_of(path: Path) -> str:
+    """Raw byte hash — for files exempt from checkout normalization
+    (`prompt/**` and `artifacts/**` carry `-text`), whose bytes are
+    identical on every platform."""
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def sha256_normalized(path: Path) -> str:
+    """Line-ending-normalized hash — for tracked text files subject
+    to autocrlf (for example ``requirements.txt``): CRLF and LF
+    checkouts of the same committed content hash identically, so the
+    receipt is reproducible on every platform CI runs on."""
+    crlf = b"\r\n"
+    lf = b"\n"
+    return hashlib.sha256(
+        path.read_bytes().replace(crlf, lf)).hexdigest()
 
 
 def receipt() -> dict[str, Json]:
@@ -45,12 +59,14 @@ def receipt() -> dict[str, Json]:
                 sha256_of(REPO / "prompt/seed_prompt.md"),
             "prompt/prompt_pr12.md":
                 sha256_of(REPO / "prompt/prompt_pr12.md"),
+            "prompt/ultra_prompt_pr12.md":
+                sha256_of(REPO / "prompt/ultra_prompt_pr12.md"),
         },
         "toolchain": {
             "lean": (REPO / "lean4/lean-toolchain")
                 .read_text(encoding="utf-8").strip(),
-            "python_requirements_sha256":
-                sha256_of(REPO / "requirements.txt"),
+            "python_requirements_sha256_normalized":
+                sha256_normalized(REPO / "requirements.txt"),
         },
         "axiom_report": {
             "sha256": sha256_of(lean_axioms),
@@ -74,8 +90,21 @@ def receipt() -> dict[str, Json]:
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
-             "evidence": ["PrimitiveCore.matrixCells (72 cells)",
-                          "PrimitiveCats.d2_initial",
+             "scope": "within the declared nine-candidate signature, "
+                      "A (witnessed irreflexive relation) is the "
+                      "weakest studied positive-witness candidate "
+                      "forcing endpoint inequality (imp_a_d vs "
+                      "nimp_w_d); d2_initial is initiality of the "
+                      "free pointed witnessed relation (candidate W) "
+                      "and restricts to the irreflexive subcategory "
+                      "- initiality does not itself select "
+                      "irreflexivity",
+             "evidence": ["PrimitiveCore.matrixCells (72 cells: 17 "
+                          "implications, 51 finite countermodels "
+                          "with minimum carrier proved where cited, "
+                          "4 OPEN located cells)",
+                          "PrimitiveCats.d2_initial (W-initiality)",
+                          "PrimitiveCore.imp_a_d / nimp_w_d",
                           "primitive_implication_matrix.json"]},
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_BRANCHES",
              "evidence": ["PrimitiveCats.s2_initial_sym",
@@ -87,12 +116,29 @@ def receipt() -> dict[str, Json]:
              "evidence": ["primitive_contact.json",
                           "PrimitiveContact.contactStatus"]},
             {"code": "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED",
-             "evidence": ["PrimitivePassage (all fourteen arrows "
-                          "with statuses)",
+             "scope": "candidate A transports into the passage as a "
+                      "theorem: the asserted store induces a Setting "
+                      "satisfying A (assert_transport, "
+                      "kernel_enters_preretained) BEFORE retention, "
+                      "and retention/protection/observation are "
+                      "separate admissions; thirteen arrows, each "
+                      "THEOREM or DECLARATION-with-countermodel",
+             "evidence": ["PrimitivePassage.assert_transport",
+                          "PrimitivePassage.kernel_enters_preretained",
+                          "PrimitivePassage.assertion_not_retained",
+                          "PrimitivePassage.retention_requires_assertion",
                           "primitive_passage.json"]},
             {"code": "TWO_RULE_SCHEMA_PROVED_UNDER_"
                      "DECLARED_RESPONSE_UNIVERSE_AND_WF_PROTECTED_"
                      "PAIR",
+             "scope": "grammar-relative: the declared "
+                      "singleton-column extension universe contains "
+                      "a separator for every well-formed pair; the "
+                      "obstruction identifies a separator already "
+                      "available in that declared universe - it does "
+                      "not manufacture the constructor; setBudget 1 "
+                      "in emitted blocks is a declared self-funding "
+                      "policy",
              "evidence": ["PrimitivePassage.two_rule",
                           "PrimitivePassage."
                           "extension_always_available"]},
@@ -107,17 +153,28 @@ def receipt() -> dict[str, Json]:
                           "ControllerCategory."
                           "strict_agree_on_reachable (orbit-relative "
                           "salvage)"]},
-            {"code": "INTERPRETER_TOWER_PERSISTS",
+            {"code": "FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_"
+                     "COMPLETE",
+             "scope": "a finite code list under any evaluation map "
+                      "does not enumerate the function type (the "
+                      "diagonal differs only at the operationally "
+                      "inert notes field); NOT a self-interpretation "
+                      "impossibility, NOT 'the evaluator cannot be "
+                      "coded', NOT a semantic tower theorem",
              "evidence": ["InterpreterBoundary.tower_persists",
                           "primitive_interpreter.json "
                           "(diagonal_misses_all)"]},
-            {"code": "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
+            {"code": "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F",
+             "scope": "a DECLARED model of the description/"
+                      "interpreter boundary satisfies candidates A "
+                      "and F; the relation, retention, and "
+                      "protection are inserted by definition, and "
+                      "no theorem links the uncoded occurrence to "
+                      "the diagonal's missed function",
              "evidence": ["InterpreterBoundary.i5_boundary_is_A",
                           "InterpreterBoundary.i5_boundary_is_F",
                           "InterpreterBoundary."
-                          "i5_collapse_obstructed",
-                          "InterpreterBoundary."
-                          "i5_difference_grounded"]},
+                          "i5_collapse_obstructed"]},
             {"code": "HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED",
              "evidence": ["HigherStructure.filling_not_forced",
                           "HigherStructure.boundary_not_forced",
@@ -134,12 +191,36 @@ def receipt() -> dict[str, Json]:
             "conjectured generally",
             "absolute self-interpretation: the outermost "
             "interpretation relation remains metatheoretic "
-            "(inherited OPEN bridge), now POSITIVELY characterized: "
-            "the boundary satisfies the native kernel candidates A "
-            "and F (Phase VIII) — open as absolute closure, "
-            "structured as Primitive Difference",
+            "(inherited OPEN bridge); a DECLARED model of the "
+            "boundary satisfies candidates A and F (Phase VIII), "
+            "and the stronger identification is a frontier "
+            "conjecture, not a result",
             "absolute no-outside: not formulable in this calculus; "
             "not claimed (inherited scope)",
+        ],
+        "frontier_conjectures": [
+            {"conjecture":
+                "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
+             "missing_theorem":
+                "a denotational bridge connecting code, "
+                "interpretation, lawful interpreter behavior, the "
+                "uncoded evaluator role, and an OPERATIONALLY "
+                "EFFECTIVE non-identification — the current "
+                "diagonal differs only at the operationally inert "
+                "notes field, and no theorem links the uncoded "
+                "occurrence to the missed function"},
+            {"conjecture": "GENERAL_DIMENSIONAL_LADDER",
+             "missing_theorem":
+                "the two-rule shape is proved at dimensions 2 and 3 "
+                "(ladder_dim2, ladder_dim3); recurrence at every "
+                "dimension is conjectured, not proved"},
+            {"conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
+             "missing_theorem":
+                "a driver in which graph vertices and edges are "
+                "themselves extension proposals generated by "
+                "obstructions; in this run the driver SUPPLIES the "
+                "graph data and the obstruction creates observation "
+                "structure (a later experiment, out of scope here)"},
         ],
         "adversarial_record": [
             {"attack": "metatheoretic inequality relabeled as "
@@ -235,8 +316,11 @@ def receipt() -> dict[str, Json]:
             {"attack": "graph/cochain realization sold as forced "
                        "ontology",
              "disposition": "BLOCKED: filling_not_forced, "
-                            "boundary_not_forced; the post-hoc "
-                            "table is derivation-inert"},
+                            "boundary_not_forced; the driver "
+                            "supplies graph data and the "
+                            "obstruction creates observation "
+                            "columns (stated exactly); the "
+                            "post-hoc table is derivation-inert"},
         ],
         "withdrawn_or_repaired_claims": [
             "42a33d9 item 8 cross-language claim: REFUTED and "

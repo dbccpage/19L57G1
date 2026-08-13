@@ -144,9 +144,15 @@ theorem weaklyInitial_of_initial {R : PtdRel} (h : Initial R) :
 relations: the map sends `false ↦ T.a`, `true ↦ T.b`; the only edge is
 the witnessed one, so edge preservation needs only `T.w`; uniqueness is
 by `ha`/`hb`, since `Bool` is exhausted by the two designated points.
-Scope note: irreflexivity of the target is NOT needed — this is
-initiality in the full category, not merely in the irreflexive
-subcategory. -/
+Scope note (review pass): `PtdRel` requires NO irreflexivity, so this
+universal property characterizes the bare-witness reading (candidate
+W of `PrimitiveCore`) — the free pointed object on one witnessed
+arrow.  Initiality restricts to the irreflexive subcategory
+(`d2_initial_irrefl`) but does not itself select irreflexivity; the
+separate, independent reason for preferring candidate A is
+`PrimitiveCore.imp_a_d` (A forces distinct endpoints) against
+`PrimitiveCore.nimp_w_d` (W does not).  The two arguments are not to
+be merged. -/
 theorem d2_initial : Initial d2Obj := by
   intro T
   refine ⟨⟨fun t => cond t T.b T.a, rfl, rfl, ?_⟩, ?_⟩
@@ -507,7 +513,7 @@ Scope notes.  (i) Only *existence* of morphisms into `T` is assumed —
 no uniqueness — so this refutes weak terminality, which is a STRONGER
 result than refuting terminality.  (ii) On the two-point source the
 analogous branching obstruction vanishes (see `phom2_unique_of_epi`
-and the OPEN cell `openTerminalPres2`): the branching appears exactly
+and `no_terminal_pres2`): the cut-branching appears exactly
 when a third occurrence exists.  (iii) The choice of a maximal
 faithful collapse is the choice of an observer cut — cut A and cut B
 are incomparable (`no_phom_mergeA_mergeB`, `no_phom_mergeB_mergeA`)
@@ -538,7 +544,9 @@ identity-like presentation is NOT provable without a
 preimage-selection principle: what is proved is uniqueness against
 surjective presentations plus existence for the two concrete
 presentations below, and the remainder is recorded as an explicit OPEN
-cell (`openTerminalPres2`) rather than closed by choice. -/
+closure `no_terminal_pres2`: unrestricted terminality fails
+constructively at the free point; the positive fragment is scoped to
+surjective presentations. -/
 
 /-- A faithful presentation of the two-point source. -/
 structure Pres2 where
@@ -612,7 +620,8 @@ theorem phom2_unique_exists_swap :
    fun v => phom2_unique_of_epi swapPres2 swapPres2_epi v
      ⟨Bool.not, fun x => Bool.not_not x⟩⟩
 
-/-- OPEN cell (scope obstruction, recorded, not closed).  Unrestricted
+/-! Former OPEN cell, closed below by `no_terminal_pres2`.  The
+selection observation stands as scope context: unrestricted
 terminality of `idPres2` over ALL two-point presentations `P` requires
 producing `h : P.Q → Bool` with `h (P.q x) = x`, i.e. a retraction of
 the injective map `P.q` out of an arbitrary carrier `P.Q`.  Without
@@ -624,13 +633,48 @@ selection-relative constructively; the proved fragment is
 `phom2_unique_of_epi` + `phom2_unique_exists_id` +
 `phom2_unique_exists_swap`.  No classical choice is smuggled to close
 the gap. -/
-def openTerminalPres2 : String :=
-  "OPEN: unrestricted terminality of idPres2 over all two-point " ++
-  "presentations requires a preimage-selection principle (a " ++
-  "retraction of an arbitrary injective P.q : Bool -> P.Q); proved " ++
-  "fragment: uniqueness against surjective presentations " ++
-  "(phom2_unique_of_epi) and existence+uniqueness for the concrete " ++
-  "identity and swapped presentations; selection-relative, not closed."
+/-- The three-point presentation of the two-point source with one
+free point: `0` and `1` present the two occurrences; `2` is outside
+the image of the presenting map. -/
+def freePres2 : Pres2 :=
+  ⟨Fin 3, fun x => cond x 1 0, by decide⟩
+
+/-- **Unrestricted two-point observer-terminality fails,
+constructively** (review-pass closure of the former OPEN cell): for
+EVERY candidate target, the free-point presentation admits two
+distinct commuting maps — they agree on the image and differ at the
+free point, by the target's own faithfulness.  No choice principle
+enters on either side.  The positive fragment survives exactly as
+scoped: uniqueness against surjective presentations
+(`phom2_unique_of_epi`), where no free point exists. -/
+theorem no_terminal_pres2 :
+    ¬ ∃ T : Pres2, ∀ P : Pres2,
+      ∃ h : PHom2 P T, ∀ h' : PHom2 P T, h' = h := by
+  intro ⟨T, hT⟩
+  obtain ⟨h, huniq⟩ := hT freePres2
+  have hcomm0 : ∀ x : Bool,
+      (fun z : Fin 3 => if z.val = 1 then T.q true else T.q false)
+        (freePres2.q x) = T.q x := by
+    intro x
+    cases x <;> rfl
+  have hcomm1 : ∀ x : Bool,
+      (fun z : Fin 3 => if z.val = 0 then T.q false else T.q true)
+        (freePres2.q x) = T.q x := by
+    intro x
+    cases x <;> rfl
+  have e0 := huniq ⟨fun z : Fin 3 =>
+    if z.val = 1 then T.q true else T.q false, hcomm0⟩
+  have e1 := huniq ⟨fun z : Fin 3 =>
+    if z.val = 0 then T.q false else T.q true, hcomm1⟩
+  have heq : (⟨fun z : Fin 3 =>
+      if z.val = 1 then T.q true else T.q false, hcomm0⟩
+      : PHom2 freePres2 T)
+      = ⟨fun z : Fin 3 =>
+        if z.val = 0 then T.q false else T.q true, hcomm1⟩ :=
+    e0.trans e1.symm
+  have hat2 := congrArg
+    (fun u : PHom2 freePres2 T => u.h ⟨2, by omega⟩) heq
+  exact T.faithful hat2
 
 /-! ## Machine-readable findings -/
 
@@ -642,8 +686,8 @@ def catsFindings : List (String × String) :=
    ("INITIALS_ISO_NOT_IDENTICAL",
     "THEOREMS initials_iso, two_initials_not_identical"),
    ("NO_WEAKLY_TERMINAL_PRES_3", "THEOREM no_terminal_pres"),
-   ("TERMINAL_PRES_2_SELECTION_RELATIVE",
-    "THEOREM phom2_unique_of_epi + OPEN note"),
+   ("NO_UNRESTRICTED_TERMINAL_PRES_2",
+    "THEOREM no_terminal_pres2; positive scope phom2_unique_of_epi"),
    ("POINTED_AUTOS_TRIVIAL", "THEOREM pointed_rigid"),
    ("S2_SWAP_UNPOINTED_ONLY", "reused PrimDiff.swap_is_S2_automorphism")]
 

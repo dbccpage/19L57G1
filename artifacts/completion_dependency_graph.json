@@ -5139,6 +5139,21 @@
    "statement": "(P : Pres2) (he : Epi2 P) (u v : PHom2 P idPres2) : u = v"
   },
   {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BRANCHING"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveCats.lean",
+   "name": "PrimitiveCats.no_terminal_pres2",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 T : Pres2, \u2200 P : Pres2, \u2203 h : PHom2 P T, \u2200 h' : PHom2 P T, h' = h"
+  },
+  {
    "axioms": [],
    "citing_claims": [],
    "consumers": [],
@@ -5312,8 +5327,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
-   "consumers": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.nimp_w_d",
@@ -5384,8 +5403,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
-   "consumers": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
+   "consumers": [
+    "PrimitiveCats.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.imp_a_d",
@@ -6113,13 +6136,129 @@
     "propext",
     "Quot.sound"
    ],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.assertion_not_retained",
+   "role": "preservation",
+   "statement": ": (replayP [.admitOcc 7, .admitOcc 8, .assertWit 0 1] genesisP).asserted = [(0, 1)] \u2227 (replayP [.admitOcc 7, .admitOcc 8, .assertWit 0 1] genesisP).wit = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
    "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.retention_not_free",
    "role": "preservation",
-   "statement": ": (replayP [.admitOcc 7, .admitOcc 8] genesisP).wit = []"
+   "statement": ": (replayP [.admitOcc 7, .admitOcc 8] genesisP).asserted = [] \u2227 (replayP [.admitOcc 7, .admitOcc 8] genesisP).wit = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.retention_requires_assertion",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hh : s.halted = false) (h : \u00ac ((i, j) \u2208 s.asserted)) : step s (.admitWit i j) = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.assertion_persists",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (i j : Nat) (h : (i, j) \u2208 s.asserted) : (i, j) \u2208 (step s e).asserted"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.asserted_offdiag",
+   "role": "preservation",
+   "statement": "_step (s : PState) (hinv : \u2200 p \u2208 s.asserted, p.1 \u2260 p.2) (e : PEvent) : \u2200 p \u2208 (step s e).asserted, p.1 \u2260 p.2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.retained_sub_asserted",
+   "role": "preservation",
+   "statement": "_step (s : PState) (hinv : \u2200 p \u2208 s.wit, p \u2208 s.asserted) (e : PEvent) : \u2200 p \u2208 (step s e).wit, p \u2208 (step s e).asserted"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.assert_transport",
+   "role": "preservation",
+   "statement": "(h : List PEvent) (a b : Nat) (hm : (a, b) \u2208 (replayP h genesisP).asserted) : PrimitiveCore.A (inducedSetting (replayP h genesisP) a b)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.kernel_enters_preretained",
+   "role": "preservation",
+   "statement": ": PrimitiveCore.A (inducedSetting preRetained 0 1) \u2227 preRetained.wit = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.retention_completes",
+   "role": "preservation",
+   "statement": ": (step preRetained (.admitWit 0 1)).wit = [(0, 1)]"
   },
   {
    "axioms": [
@@ -6633,7 +6772,7 @@
    "module": "HigherStructure.lean",
    "name": "HigherStructure.pstep_wit",
    "role": "preservation",
-   "statement": "{s : PState} {i j : Nat} (hh : s.halted = false) (hg : (wfPair s i j && !(decide ((i, j) \u2208 s.wit))) = true) : step s (.admitWit i j) = { s with wit"
+   "statement": "{s : PState} {i j : Nat} (hh : s.halted = false) (hg : (wfPair s i j && (decide ((i, j) \u2208 s.asserted)) && !(decide ((i, j) \u2208 s.wit))) = true) : step s (.admitWit i j) = { s with wit"
   },
   {
    "axioms": [
@@ -6710,7 +6849,7 @@
    "module": "HigherStructure.lean",
    "name": "HigherStructure.wit_guard",
    "role": "preservation",
-   "statement": "(m : Nat) : (wfPair (g1 m) (m + 1) (m + 2) && !(decide ((m + 1, m + 2) \u2208 (g1 m).wit))) = true"
+   "statement": "(m : Nat) : (wfPair (gA m) (m + 1) (m + 2) && (decide ((m + 1, m + 2) \u2208 (gA m).asserted)) && !(decide ((m + 1, m + 2) \u2208 (gA m).wit))) = true"
   },
   {
    "axioms": [
@@ -6736,7 +6875,7 @@
    "module": "HigherStructure.lean",
    "name": "HigherStructure.reach_preCol",
    "role": "preservation",
-   "statement": "(m : Nat) : replayP [.admitOcc (m + 2), .admitWit (m + 1) (m + 2), .protect (m + 1) (m + 2), .setBudget 1] (pathState m) = preCol m"
+   "statement": "(m : Nat) : replayP [.admitOcc (m + 2), .assertWit (m + 1) (m + 2), .admitWit (m + 1) (m + 2), .protect (m + 1) (m + 2), .setBudget 1] (pathState m) = preCol m"
   },
   {
    "axioms": [
@@ -6868,7 +7007,7 @@
    "module": "HigherStructure.lean",
    "name": "HigherStructure.ladder_dim2",
    "role": "preservation",
-   "statement": "(C : Complex) (i j k : Nat) (h : horn2 C i j k = true) : (i, j, k) \u2208 (cstep C (.addT i j k)).c2 \u2227 cstep C (.addT i j k) \u2260 C"
+   "statement": "(C : Complex) (i j k : Nat) (h : shell2 C i j k = true) : (i, j, k) \u2208 (cstep C (.addT i j k)).c2 \u2227 cstep C (.addT i j k) \u2260 C"
   },
   {
    "axioms": [
@@ -6883,7 +7022,7 @@
    "module": "HigherStructure.lean",
    "name": "HigherStructure.ladder_dim3",
    "role": "preservation",
-   "statement": "(C : Complex) (i j k l : Nat) (h : horn3 C i j k l = true) : (i, j, k, l) \u2208 (cstep C (.addQ i j k l)).c3 \u2227 cstep C (.addQ i j k l) \u2260 C"
+   "statement": "(C : Complex) (i j k l : Nat) (h : shell3 C i j k l = true) : (i, j, k, l) \u2208 (cstep C (.addQ i j k l)).c3 \u2227 cstep C (.addQ i j k l) \u2260 C"
   },
   {
    "axioms": [
@@ -6896,7 +7035,7 @@
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
-   "name": "HigherStructure.horn_guard_load_bearing",
+   "name": "HigherStructure.shell_guard_load_bearing",
    "role": "preservation",
    "statement": ": cstep \u27e8[0, 1, 2], [(0, 1)], [], []\u27e9 (.addT 0 1 2) = \u27e8[0, 1, 2], [(0, 1)], [], []\u27e9"
   },
@@ -6956,7 +7095,7 @@
    "module": "HigherStructure.lean",
    "name": "HigherStructure.filling_not_forced",
    "role": "preservation",
-   "statement": ": horn3 k4Boundary 0 1 2 3 = true \u2227 k4Boundary.c3 = []"
+   "statement": ": shell3 k4Boundary 0 1 2 3 = true \u2227 k4Boundary.c3 = []"
   },
   {
    "axioms": [

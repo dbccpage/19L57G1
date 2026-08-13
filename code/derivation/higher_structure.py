@@ -31,17 +31,17 @@ class Complex:
 EMPTY_COMPLEX = Complex()
 
 
-def horn1(cx: Complex, i: int, j: int) -> bool:
+def shell1(cx: Complex, i: int, j: int) -> bool:
     return (i in cx.c0 and j in cx.c0 and i != j
             and (i, j) not in cx.c1)
 
 
-def horn2(cx: Complex, i: int, j: int, k: int) -> bool:
+def shell2(cx: Complex, i: int, j: int, k: int) -> bool:
     return ((i, j) in cx.c1 and (j, k) in cx.c1 and (i, k) in cx.c1
             and (i, j, k) not in cx.c2)
 
 
-def horn3(cx: Complex, i: int, j: int, k: int, l: int) -> bool:
+def shell3(cx: Complex, i: int, j: int, k: int, l: int) -> bool:
     return ((j, k, l) in cx.c2 and (i, k, l) in cx.c2
             and (i, j, l) in cx.c2 and (i, j, k) in cx.c2
             and (i, j, k, l) not in cx.c3)
@@ -58,21 +58,21 @@ def cstep(cx: Complex, e: CEvent) -> Complex:
     if kind == "addE":
         i, j = e[1], e[2]
         assert isinstance(i, int) and isinstance(j, int)
-        if horn1(cx, i, j):
+        if shell1(cx, i, j):
             return replace(cx, c1=cx.c1 + ((i, j),))
         return cx
     if kind == "addT":
         i, j, k = e[1], e[2], e[3]
         assert (isinstance(i, int) and isinstance(j, int)
                 and isinstance(k, int))
-        if horn2(cx, i, j, k):
+        if shell2(cx, i, j, k):
             return replace(cx, c2=cx.c2 + ((i, j, k),))
         return cx
     if kind == "addQ":
         i, j, k, l = e[1], e[2], e[3], e[4]
         assert (isinstance(i, int) and isinstance(j, int)
                 and isinstance(k, int) and isinstance(l, int))
-        if horn3(cx, i, j, k, l):
+        if shell3(cx, i, j, k, l):
             return replace(cx, c3=cx.c3 + ((i, j, k, l),))
         return cx
     raise ValueError(f"unknown cell event: {kind!r}")

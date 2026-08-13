@@ -27,6 +27,7 @@ class PS:
     """The passage state (Lean ``PState``)."""
 
     occ: tuple[int, ...] = ()
+    asserted: tuple[Pair, ...] = ()
     wit: tuple[Pair, ...] = ()
     prot: tuple[Pair, ...] = ()
     obs: Optional[Cols] = None
@@ -105,10 +106,17 @@ def pstep(s: PS, e: PEvent) -> PS:
         if t in s.occ:
             return s
         return replace(s, occ=s.occ + (t,))
+    if kind == "assertWit":
+        i, j = e[1], e[2]
+        assert isinstance(i, int) and isinstance(j, int)
+        if wf_pair(s, i, j) and (i, j) not in s.asserted:
+            return replace(s, asserted=s.asserted + ((i, j),))
+        return s
     if kind == "admitWit":
         i, j = e[1], e[2]
         assert isinstance(i, int) and isinstance(j, int)
-        if wf_pair(s, i, j) and (i, j) not in s.wit:
+        if (wf_pair(s, i, j) and (i, j) in s.asserted
+                and (i, j) not in s.wit):
             return replace(s, wit=s.wit + ((i, j),))
         return s
     if kind == "protect":
@@ -204,11 +212,12 @@ def grow_block(k: int) -> list[PEvent]:
     if k == 0:
         return [("admitOcc", 0)]
     if k == 1:
-        return [("admitOcc", 1), ("admitWit", 0, 1), ("protect", 0, 1),
+        return [("admitOcc", 1), ("assertWit", 0, 1),
+                ("admitWit", 0, 1), ("protect", 0, 1),
                 ("declareObs",), ("setBudget", 1), ("addCol", (0,))]
-    return [("admitOcc", k), ("admitWit", k - 1, k),
-            ("protect", k - 1, k), ("setBudget", 1),
-            ("addCol", (k - 1,))]
+    return [("admitOcc", k), ("assertWit", k - 1, k),
+            ("admitWit", k - 1, k), ("protect", k - 1, k),
+            ("setBudget", 1), ("addCol", (k - 1,))]
 
 
 def grow_hist(k: int) -> list[PEvent]:
@@ -226,6 +235,7 @@ def path_state(k: int) -> PS:
     """The characterized record (Lean ``pathState``): the grown state
     at stage ``k + 1``."""
     return PS(occ=tuple(range(k + 2)),
+              asserted=tuple((i, i + 1) for i in range(k + 1)),
               wit=tuple((i, i + 1) for i in range(k + 1)),
               prot=tuple((i, i + 1) for i in range(k + 1)),
               obs=tuple((i,) for i in range(k + 1)),
@@ -235,9 +245,9 @@ def path_state(k: int) -> PS:
 def k4_passage_hist() -> list[PEvent]:
     """The passage history of the complete four-occurrence graph."""
     return grow_hist(3) + [
-        ("admitWit", 0, 2), ("protect", 0, 2),
-        ("admitWit", 1, 3), ("protect", 1, 3),
-        ("admitWit", 0, 3), ("protect", 0, 3)]
+        ("assertWit", 0, 2), ("admitWit", 0, 2), ("protect", 0, 2),
+        ("assertWit", 1, 3), ("admitWit", 1, 3), ("protect", 1, 3),
+        ("assertWit", 0, 3), ("admitWit", 0, 3), ("protect", 0, 3)]
 
 
 # ---------------------------------------------------------------------------
@@ -254,7 +264,7 @@ def growth_report(rounds: int) -> dict[str, Json]:
     for k in range(rounds):
         g = graph_at(k + 1)
         spec = path_state(k)
-        pre = preplay(grow_block(k + 2)[:4], spec)
+        pre = preplay(grow_block(k + 2)[:5], spec)
         stages.append({
             "stage": k + 1,
             "occ": len(g.occ),
@@ -287,15 +297,25 @@ def growth_report(rounds: int) -> dict[str, Json]:
 def arrow_report() -> dict[str, Json]:
     """Status of every passage arrow, with executable witnesses."""
     s0 = preplay([("admitOcc", 7), ("admitOcc", 8)], GENESIS_P)
-    obst_state = PS(occ=(0, 1), wit=((0, 1),), prot=((0, 1),),
-                    obs=(), budget=0)
-    pre_obs = PS(occ=(0, 1), wit=((0, 1),), prot=((0, 1),), obs=None)
+    obst_state = PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
+                    prot=((0, 1),), obs=(), budget=0)
+    pre_obs = PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
+                 prot=((0, 1),), obs=None)
     unlicensed = replace(obst_state, licensed=False, budget=5)
     funded = replace(obst_state, budget=5)
     refused = pstep(funded, ("refuse", 0, 1))
     halted = pstep(funded, ("halt",))
+    pre_ret = preplay([("admitOcc", 7), ("admitOcc", 8),
+                       ("assertWit", 0, 1)], GENESIS_P)
     return {
         "retention_is_declaration": s0.wit == (),
+        "assertion_not_retained": (
+            pre_ret.asserted == ((0, 1),) and pre_ret.wit == ()),
+        "retention_requires_assertion": (
+            pstep(replace(s0, obs=None), ("admitWit", 0, 1))
+            == replace(s0, obs=None)),
+        "retention_completes_from_assertion": (
+            pstep(pre_ret, ("admitWit", 0, 1)).wit == ((0, 1),)),
         "obstruction_requires_observation":
             not obst_p(pre_obs, 0, 1),
         "obstruction_at_declared_blind": obst_p(obst_state, 0, 1),

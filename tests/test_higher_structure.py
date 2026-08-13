@@ -19,9 +19,9 @@ from derivation.higher_structure import (
     cut_census,
     d2_zero_tet,
     d2_zero_triangles,
-    horn1,
-    horn2,
-    horn3,
+    shell1,
+    shell2,
+    shell3,
     k4,
     k4_boundary,
     k4_events,
@@ -43,19 +43,19 @@ def test_horn_guards_load_bearing() -> None:
     guard = Complex(c0=(0, 1, 2), c1=((0, 1),))
     # incomplete boundary: triangle refused
     assert cstep(guard, ("addT", 0, 1, 2)) == guard
-    assert not horn2(guard, 0, 1, 2)
+    assert not shell2(guard, 0, 1, 2)
     # vertex dedup
     assert cstep(guard, ("addV", 0)) == guard
     # edge needs both endpoints and freshness
     assert cstep(guard, ("addE", 0, 1)) == guard
     assert cstep(guard, ("addE", 0, 7)) == guard
-    assert not horn1(guard, 0, 0)
+    assert not shell1(guard, 0, 0)
     # tetrahedron needs all four faces
     shell = k4_boundary()
-    assert horn3(shell, 0, 1, 2, 3)
+    assert shell3(shell, 0, 1, 2, 3)
     assert shell.c3 == ()
     partial_shell = creplay(k4_events()[:13], EMPTY_COMPLEX)
-    assert not horn3(partial_shell, 0, 1, 2, 3)
+    assert not shell3(partial_shell, 0, 1, 2, 3)
     assert cstep(partial_shell,
                  ("addQ", 0, 1, 2, 3)) == partial_shell
     # duplicate solid cell refused

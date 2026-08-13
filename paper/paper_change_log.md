@@ -562,3 +562,72 @@ corrected by 42a33d9; re-verified against current Lean statements.
    `primitive_controller_universality.md`,
    `primitive_interpreter_boundary.md`; ledger claims
    CL-PD2-CONTROLLER, CL-PD2-INTERPRETER, CL-PD2-RECEIPT.
+
+## PR #12 review pass (request-changes verdict applied)
+
+Fourteen-point correction pass; no candidate search reopened, no
+speculative idea deleted.  Old statements, countermodels/reasons, and
+replacements:
+
+1. Hosted CI red on artifact comparison: the receipt hashed
+   CRLF-checkout bytes of `requirements.txt`; replaced by a
+   line-ending-normalized hash (raw hashes retained for the
+   `-text`-pinned `prompt/**` and `artifacts/**` files).
+2. `prompt_pr12.md` claimed "verbatim" while summarizing the ultra
+   prompt; the exact bytes are now committed as
+   `prompt/ultra_prompt_pr12.md` and the receipt binds both; the
+   0,1,3,3 → 0,1,2,3 reading is labeled ASSUMED_TYPO_CORRECTION.
+3. Composition gap (blocking): the passage had no pre-retention
+   witness store — `admitWit` created witness and retention
+   together, so PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED overreached.
+   Repaired by construction: separate `asserted` store and
+   `assertWit` event; retention now requires assertion
+   (`retention_requires_assertion`); `assertion_not_retained` is the
+   pre-retention witness state; transport from candidate A proved
+   (`assert_transport` via the `asserted_offdiag` invariant;
+   `kernel_enters_preretained`; `retained_sub_asserted`).
+4. `d2_initial` scoped: `PtdRel` has no irreflexivity, so the
+   initiality characterizes the bare-witness reading W (free pointed
+   object on one witnessed arrow); A-initiality is the restriction
+   corollary; A's justification is `imp_a_d` vs `nimp_w_d` — the
+   two arguments are no longer merged anywhere.
+5. Native terminal rescoped: "within the declared nine-candidate
+   signature, A is the weakest studied positive-witness candidate
+   forcing endpoint inequality".
+6. Interpreter terminals replaced: INTERPRETER_TOWER_PERSISTS →
+   FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE (the diagonal
+   changes only the inert notes field; nothing about
+   self-interpretation follows); INTERPRETER_BOUNDARY_IS_PRIMITIVE_
+   DIFFERENCE → DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F (the
+   boundary model's relations are inserted by definition; no theorem
+   links the uncoded occurrence to the missed function).  The
+   stronger identification is retained as a frontier conjecture with
+   its missing denotational/operational-grounding theorem stated.
+7. `openTerminalPres2` was not open: closed constructively by
+   `no_terminal_pres2` (free-point presentation gives every target
+   two distinct commuting maps); positive fragment stays scoped to
+   surjective presentations.  The earlier selection-principle
+   frontier conjecture is superseded.
+8. Graph provenance stated exactly: the driver SUPPLIES occurrences,
+   assertions, retention, protection; the obstruction creates the
+   observation column.  Graph genesis by obstruction is recorded as
+   a frontier conjecture for a later experiment.
+9. `horn2`/`horn3` renamed `shell2`/`shell3` (complete unfilled
+   boundaries, not simplicial horns); `horn_guard_load_bearing` →
+   `shell_guard_load_bearing`.
+10. Higher-structure scoping: ladder proved only at dimensions 2–3
+    (general recurrence a conjecture); `altNum` relabeled a
+    statistic; path/no-cycle attributed to `graphAt_spec`, not
+    V−E=1; D2-to-walking-arrow labeled a free completion.
+11. Two-rule scoped grammar-relatively (the declared
+    singleton-column universe supplies the separator; `setBudget 1`
+    is declared self-funding); extension "loses nothing" replaced by
+    the exact preservation statement; arrow count fixed at thirteen.
+12. "51 minimum countermodels" → "51 finite countermodels; minimum
+    carrier proved where cited".
+13. Contact scope: this PR is the native characterization and
+    passage; the external collision is deferred to a future PR with
+    exact manifest and source hashes.
+14. All artifacts, papers, ledger entries, and the receipt
+    regenerated under the corrected statements.
+

@@ -1,4 +1,5 @@
 import Derivation.PrimDiff
+import Derivation.PrimitiveCore
 
 /-!
 # The passage through Primitive Difference
@@ -43,6 +44,7 @@ is admitted. -/
 
 structure PState where
   occ : List Nat
+  asserted : List (Nat × Nat)
   wit : List (Nat × Nat)
   prot : List (Nat × Nat)
   obs : Option (List (List Nat))
@@ -53,11 +55,12 @@ structure PState where
 deriving Repr, DecidableEq
 
 def genesisP : PState :=
-  { occ := [], wit := [], prot := [], obs := none, budget := 0,
-    licensed := true, refusals := [], halted := false }
+  { occ := [], asserted := [], wit := [], prot := [], obs := none,
+    budget := 0, licensed := true, refusals := [], halted := false }
 
 inductive PEvent where
   | admitOcc (t : Nat)
+  | assertWit (i j : Nat)
   | admitWit (i j : Nat)
   | protect (i j : Nat)
   | declareObs
@@ -139,7 +142,8 @@ theorem obst_diverges_when_undeclared :
     (((decide (((0 : Nat), (1 : Nat)) ∈ [((0 : Nat), (1 : Nat))]))
         && (decide (((0 : Nat), (1 : Nat)) ∈ [((0 : Nat), (1 : Nat))]))
         && zeroP [] 0 1) = true) ∧
-    obstP { occ := [0, 1], wit := [(0, 1)], prot := [(0, 1)],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+            prot := [(0, 1)],
             obs := none, budget := 0, licensed := true,
             refusals := [], halted := false } 0 1 = false := by
   constructor
@@ -152,23 +156,28 @@ concrete state that fails to obstruct, plus the non-vacuity witness
 with all four conditions. -/
 theorem obst_conditions_independent :
     -- retained, protected, declared, but separated (zero fails)
-    obstP { occ := [0, 1], wit := [(0, 1)], prot := [(0, 1)],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+            prot := [(0, 1)],
             obs := some [[0]], budget := 0, licensed := true,
             refusals := [], halted := false } 0 1 = false ∧
     -- retained, protected, zero-vacuous, but NOT declared
-    obstP { occ := [0, 1], wit := [(0, 1)], prot := [(0, 1)],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+            prot := [(0, 1)],
             obs := none, budget := 0, licensed := true,
             refusals := [], halted := false } 0 1 = false ∧
     -- retained, declared, zero, but not protected
-    obstP { occ := [0, 1], wit := [(0, 1)], prot := [],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+            prot := [],
             obs := some [], budget := 0, licensed := true,
             refusals := [], halted := false } 0 1 = false ∧
     -- protected, declared, zero, but not retained
-    obstP { occ := [0, 1], wit := [], prot := [(0, 1)],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [],
+            prot := [(0, 1)],
             obs := some [], budget := 0, licensed := true,
             refusals := [], halted := false } 0 1 = false ∧
     -- all four: obstructed
-    obstP { occ := [0, 1], wit := [(0, 1)], prot := [(0, 1)],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+            prot := [(0, 1)],
             obs := some [], budget := 0, licensed := true,
             refusals := [], halted := false } 0 1 = true := by
   decide
@@ -213,9 +222,15 @@ def step (s : PState) : PEvent → PState
   | .admitOcc t =>
       if s.halted then s
       else if t ∈ s.occ then s else { s with occ := s.occ ++ [t] }
+  | .assertWit i j =>
+      if s.halted then s
+      else if wfPair s i j && !(decide ((i, j) ∈ s.asserted)) then
+        { s with asserted := s.asserted ++ [(i, j)] }
+      else s
   | .admitWit i j =>
       if s.halted then s
-      else if wfPair s i j && !(decide ((i, j) ∈ s.wit)) then
+      else if wfPair s i j && (decide ((i, j) ∈ s.asserted))
+          && !(decide ((i, j) ∈ s.wit)) then
         { s with wit := s.wit ++ [(i, j)] }
       else s
   | .protect i j =>
@@ -268,12 +283,41 @@ required, with a countermodel showing the arrow is false without it),
 or false without extra hypotheses. -/
 
 /-- **PrimitiveDifference → RetainedDifference is a DECLARATION.**
-Supplying a witnessed difference does not retain it: retention is a
-separate admission event.  Countermodel: the genesis extension by
-occurrences alone retains nothing. -/
+The asserted-difference store (`assertWit`, the supplied positive
+witness) and the retained store (`admitWit`) are separate fields with
+separate admission events: an asserted Primitive Difference does not
+retain itself.  Concrete pre-retention witness: after assertion the
+asserted store carries the pair and the retained store is empty. -/
+theorem assertion_not_retained :
+    (replayP [.admitOcc 7, .admitOcc 8, .assertWit 0 1]
+      genesisP).asserted = [(0, 1)] ∧
+    (replayP [.admitOcc 7, .admitOcc 8, .assertWit 0 1]
+      genesisP).wit = [] := by
+  constructor
+  · decide
+  · decide
+
+/-- Occurrence admission alone asserts and retains nothing. -/
 theorem retention_not_free :
+    (replayP [.admitOcc 7, .admitOcc 8] genesisP).asserted = [] ∧
     (replayP [.admitOcc 7, .admitOcc 8] genesisP).wit = [] := by
-  decide
+  constructor
+  · decide
+  · decide
+
+/-- Retention requires a prior assertion: on a live state with the
+pair unasserted, the retention event is inert. -/
+theorem retention_requires_assertion (s : PState) (i j : Nat)
+    (hh : s.halted = false) (h : ¬ ((i, j) ∈ s.asserted)) :
+    step s (.admitWit i j) = s := by
+  have hg : ¬ ((wfPair s i j && (decide ((i, j) ∈ s.asserted))
+      && !(decide ((i, j) ∈ s.wit))) = true) := by
+    intro hc
+    simp only [Bool.and_eq_true, decide_eq_true_eq] at hc
+    exact h hc.1.2
+  simp only [step, hh]
+  rw [if_neg (fun hc : false = true => Bool.noConfusion hc),
+      if_neg hg]
 
 /-- Retention, once admitted, is a theorem-level invariant: the
 witness store is append-only under every event. -/
@@ -284,6 +328,140 @@ theorem retention_persists (s : PState) (e : PEvent) (i j : Nat)
     first
       | exact h
       | (simp only [List.mem_append]; exact Or.inl h)
+
+/-- The asserted store is append-only too: assertion persists. -/
+theorem assertion_persists (s : PState) (e : PEvent) (i j : Nat)
+    (h : (i, j) ∈ s.asserted) : (i, j) ∈ (step s e).asserted := by
+  cases e <;> simp only [step] <;> repeat' split
+  all_goals
+    first
+      | exact h
+      | (simp only [List.mem_append]; exact Or.inl h)
+
+/-! ### Transport: the native kernel enters the passage
+
+The composition of `PrimitiveCore` into the passage is a theorem,
+not a diagram: the asserted store of a replayed state induces a
+`PrimitiveCore.Setting`, the off-diagonal invariant of the assertion
+guard supplies irreflexivity, and the canonical two-element kernel
+reaches a pre-retention passage state realizing candidate A with the
+retained store still empty. -/
+
+/-- The setting induced by a passage state at designated
+endpoints: the asserted store is the relation, the retained and
+protected stores are the corresponding fields, no operations are
+admitted. -/
+def inducedSetting (s : PState) (a b : Nat) :
+    PrimitiveCore.Setting :=
+  { X := Nat,
+    r := fun x y => (x, y) ∈ s.asserted,
+    a := a, b := b,
+    ret := fun x y => (x, y) ∈ s.wit,
+    prot := fun x y => (x, y) ∈ s.prot,
+    Ops := fun _ => False }
+
+/-- The assertion guard keeps the asserted store off-diagonal:
+one step preserves the invariant. -/
+theorem asserted_offdiag_step (s : PState)
+    (hinv : ∀ p ∈ s.asserted, p.1 ≠ p.2) (e : PEvent) :
+    ∀ p ∈ (step s e).asserted, p.1 ≠ p.2 := by
+  cases e <;> simp only [step] <;> repeat' split
+  all_goals
+    first
+      | exact hinv
+      | (rename_i i j hh hg
+         intro p hp
+         rcases List.mem_append.mp hp with hp' | hp'
+         · exact hinv p hp'
+         · have hij : i ≠ j := by
+             simp only [Bool.and_eq_true] at hg
+             have h1 := hg.1
+             simp only [wfPair, Bool.and_eq_true, bne_iff_ne] at h1
+             exact h1.1.1
+           cases List.mem_singleton.mp hp'
+           exact hij)
+
+/-- The invariant from genesis: every replayed state has an
+off-diagonal asserted store. -/
+theorem asserted_offdiag (h : List PEvent) :
+    ∀ p ∈ (replayP h genesisP).asserted, p.1 ≠ p.2 := by
+  suffices hgen : ∀ (s : PState),
+      (∀ p ∈ s.asserted, p.1 ≠ p.2) →
+        ∀ p ∈ (replayP h s).asserted, p.1 ≠ p.2 by
+    exact hgen genesisP (by intro p hp; cases hp)
+  induction h with
+  | nil => intro s hs; exact hs
+  | cons e rest ih =>
+      intro s hs
+      exact ih (step s e) (asserted_offdiag_step s hs e)
+
+/-- The retained store never outruns the asserted store: one step. -/
+theorem retained_sub_asserted_step (s : PState)
+    (hinv : ∀ p ∈ s.wit, p ∈ s.asserted) (e : PEvent) :
+    ∀ p ∈ (step s e).wit, p ∈ (step s e).asserted := by
+  cases e <;> simp only [step] <;> repeat' split
+  all_goals
+    first
+      | exact hinv
+      | (intro p hp
+         simp only [List.mem_append]
+         exact Or.inl (hinv p hp))
+      | (rename_i i j hh hg
+         intro p hp
+         rcases List.mem_append.mp hp with hp' | hp'
+         · exact hinv p hp'
+         · have hmem : (i, j) ∈ s.asserted := by
+             simp only [Bool.and_eq_true, decide_eq_true_eq] at hg
+             exact hg.1.2
+           cases List.mem_singleton.mp hp'
+           exact hmem)
+
+/-- From genesis: retention is always retention OF an assertion. -/
+theorem retained_sub_asserted (h : List PEvent) :
+    ∀ p ∈ (replayP h genesisP).wit,
+      p ∈ (replayP h genesisP).asserted := by
+  suffices hgen : ∀ (s : PState),
+      (∀ p ∈ s.wit, p ∈ s.asserted) →
+        ∀ p ∈ (replayP h s).wit, p ∈ (replayP h s).asserted by
+    exact hgen genesisP (by intro p hp; cases hp)
+  induction h with
+  | nil => intro s hs; exact hs
+  | cons e rest ih =>
+      intro s hs
+      exact ih (step s e) (retained_sub_asserted_step s hs e)
+
+/-- **Transport, general form**: any replayed state whose asserted
+store carries the designated pair induces a setting satisfying
+candidate A — the witness from membership, irreflexivity from the
+off-diagonal invariant. -/
+theorem assert_transport (h : List PEvent) (a b : Nat)
+    (hm : (a, b) ∈ (replayP h genesisP).asserted) :
+    PrimitiveCore.A (inducedSetting (replayP h genesisP) a b) := by
+  constructor
+  · exact hm
+  · intro x hx
+    exact asserted_offdiag h (x, x) hx rfl
+
+/-- The canonical pre-retention state: two occurrences, one asserted
+difference, nothing retained. -/
+def preRetained : PState :=
+  replayP [.admitOcc 0, .admitOcc 1, .assertWit 0 1] genesisP
+
+/-- **The two-element kernel enters the passage pre-retention**: the
+induced setting satisfies candidate A while the retained store is
+still empty — Primitive Difference is in the passage before
+retention, and retention is a further priced step. -/
+theorem kernel_enters_preretained :
+    PrimitiveCore.A (inducedSetting preRetained 0 1) ∧
+      preRetained.wit = [] := by
+  constructor
+  · exact assert_transport
+      [.admitOcc 0, .admitOcc 1, .assertWit 0 1] 0 1 (by decide)
+  · decide
+
+/-- And retention completes from there as its own event. -/
+theorem retention_completes :
+    (step preRetained (.admitWit 0 1)).wit = [(0, 1)] := by decide
 
 /-- **P2: fidelity is separate.**  Admitting a witness never creates
 protection: the protection store is unchanged by witness admission,
@@ -297,7 +475,8 @@ theorem witness_no_protection (s : PState) (i j : Nat) :
 /-- P2 countermodel side: a retained, observed-collapsed witness with
 no protection is not an obstruction. -/
 theorem no_protection_no_obstruction :
-    obstP { occ := [0, 1], wit := [(0, 1)], prot := [],
+    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+            prot := [],
             obs := some [], budget := 9, licensed := true,
             refusals := [], halted := false } 0 1 = false := by decide
 
