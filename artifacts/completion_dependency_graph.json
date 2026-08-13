@@ -6092,7 +6092,9 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.obst_requires_observation",
@@ -6435,6 +6437,7 @@
     "CL-PD2-PASSAGE"
    ],
    "consumers": [
+    "GraphGenesis.lean",
     "HigherStructure.lean"
    ],
    "kind": "generic",
@@ -6466,7 +6469,9 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.proposal_not_execution",
@@ -6481,7 +6486,9 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.budget_gates_execution",
@@ -6609,7 +6616,9 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.extension_resolves",
@@ -6639,7 +6648,9 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.nextFamilyP_nonempty",
@@ -6814,7 +6825,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "HigherStructure.lean",
    "name": "HigherStructure.pstep_budget",
@@ -8568,7 +8581,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.freshTok_fresh",
@@ -8598,7 +8613,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.halted_up_inert",
@@ -8614,6 +8631,7 @@
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [
+    "GraphGenesis.lean",
     "RenamingStructure.lean"
    ],
    "kind": "generic",
@@ -8630,7 +8648,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.up_exec_eq",
@@ -8646,6 +8666,7 @@
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [
+    "GraphGenesis.lean",
     "RenamingStructure.lean"
    ],
    "kind": "generic",
@@ -8802,7 +8823,9 @@
     "propext"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "GraphGenesis.lean"
+   ],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.upBlock_parent_inj",
@@ -8818,6 +8841,7 @@
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [
+    "GraphGenesis.lean",
     "RenamingStructure.lean"
    ],
    "kind": "generic",
@@ -8832,9 +8856,11 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-ATTACHMENT (repaired, final pass)"
+    "CL-PD2-ATTACHMENT (repaired, final pass)",
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
    ],
    "consumers": [
+    "GraphGenesis.lean",
     "RenamingStructure.lean"
    ],
    "kind": "generic",
@@ -9265,6 +9291,7 @@
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
    "consumers": [
+    "GraphGenesis.lean",
     "RenamingStructure.lean"
    ],
    "kind": "generic",
@@ -10451,6 +10478,402 @@
    "name": "RenamingStructure.equivariance_summary",
    "role": "preservation",
    "statement": "{n : Nat} (\u03c3 \u03c4 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : -- group laws compRen \u03c3 (idRen n) = \u03c3 \u2227 compRen (invRen \u03c3) \u03c3 = idRen n \u2227 -- action laws act (idRen n) s = s \u2227 act (compRen \u03c3 \u03c4) s = act \u03c3 (act \u03c4 s) \u2227 -- transport respects the structure upFamily (act (idRen n) s) = upFamily s \u2227 upFamily (act (compRen \u03c3 \u03c4) s) = upFamily (act \u03c3 (act \u03c4 s)) \u2227 -- coherence of replay commutation under composition act (compRen \u03c3 \u03c4) (replayP (upBlock s p) s) = replayP (upBlock (act \u03c3 (act \u03c4 s)) (\u03c3.f (\u03c4.f p))) (act \u03c3 (act \u03c4 s))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.refineCol_only_obs",
+   "role": "preservation",
+   "statement": "(s : PState) (v : List Nat) (p : Nat) : ((step s (.refineCol v p)).occ = s.occ) \u2227 ((step s (.refineCol v p)).asserted = s.asserted) \u2227 ((step s (.refineCol v p)).wit = s.wit) \u2227 ((step s (.refineCol v p)).prot = s.prot) \u2227 ((step s (.refineCol v p)).refusals = s.refusals) \u2227 ((step s (.refineCol v p)).licensed = s.licensed) \u2227 ((step s (.refineCol v p)).halted = s.halted)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.addCol_only_obs",
+   "role": "preservation",
+   "statement": "(s : PState) (c : List Nat) : ((step s (.addCol c)).occ = s.occ) \u2227 ((step s (.addCol c)).asserted = s.asserted) \u2227 ((step s (.addCol c)).wit = s.wit) \u2227 ((step s (.addCol c)).prot = s.prot) \u2227 ((step s (.addCol c)).refusals = s.refusals) \u2227 ((step s (.addCol c)).licensed = s.licensed) \u2227 ((step s (.addCol c)).halted = s.halted)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.extensionProposals_range_over_existing",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : \u2200 c \u2208 extensionProposals s i j, \u2200 x \u2208 c, x < s.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.repairFamily_range_over_existing",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : \u2200 m \u2208 repairFamily s i j, m.2 < s.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.nextFamilyP_block_shape",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) : (\u2203 r \u2208 obstructedPairs s, \u2203 m \u2208 repairFamily s r.1 r.2, b = [PEvent.refineCol m.1 m.2]) \u2228 (\u2203 r \u2208 obstructedPairs s, \u2203 c \u2208 extensionProposals s r.1 r.2, b = [PEvent.setBudget 1, PEvent.addCol c])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.nextFamilyP_range_over_existing",
+   "role": "preservation",
+   "statement": "(s : PState) : \u2200 b \u2208 nextFamilyP s, \u2200 e \u2208 b, MentionsOnlyExisting s e"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.IsInternal_exact",
+   "role": "preservation",
+   "statement": ": (\u2200 v p, IsInternal (.refineCol v p) = true) \u2227 (\u2200 c, IsInternal (.addCol c) = true) \u2227 (IsInternal .declareObs = true) \u2227 (\u2200 i j, IsInternal (.refuse i j) = true) \u2227 (\u2200 t, IsInternal (.admitOcc t) = false) \u2227 (\u2200 i j, IsInternal (.assertWit i j) = false) \u2227 (\u2200 i j, IsInternal (.admitWit i j) = false) \u2227 (\u2200 i j, IsInternal (.protect i j) = false) \u2227 (\u2200 n, IsInternal (.setBudget n) = false) \u2227 (\u2200 b, IsInternal (.setLicense b) = false) \u2227 (IsInternal .halt = false)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.internal_is_response",
+   "role": "preservation",
+   "statement": "(e : PEvent) (h : IsInternal e = true) : IsResponseEvent e = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.response_step_fixes_graph",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : IsResponseEvent e = true) : GraphStoresFixed s (step s e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.internal_step_fixes_graph",
+   "role": "preservation",
+   "statement": "(s : PState) (e : PEvent) (h : IsInternal e = true) : GraphStoresFixed s (step s e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.replay_fixes_graph_of_all",
+   "role": "preservation",
+   "statement": "(P : PEvent \u2192 Bool) (hP : \u2200 (s : PState) (e : PEvent), P e = true \u2192 GraphStoresFixed s (step s e)) (h : List PEvent) : \u2200 (s : PState), (\u2200 e \u2208 h, P e = true) \u2192 GraphStoresFixed s (replayP h s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.internal_family_cannot_grow_carrier",
+   "role": "preservation",
+   "statement": "(h : List PEvent) (s : PState) (hint : \u2200 e \u2208 h, IsInternal e = true) : GraphStoresFixed s (replayP h s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.response_replay_fixes_graph",
+   "role": "preservation",
+   "statement": "(h : List PEvent) (s : PState) (hall : \u2200 e \u2208 h, IsResponseEvent e = true) : GraphStoresFixed s (replayP h s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.nextFamilyP_blocks_are_responses",
+   "role": "preservation",
+   "statement": "(s : PState) : \u2200 b \u2208 nextFamilyP s, \u2200 e \u2208 b, IsResponseEvent e = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.nextFamilyP_block_fixes_graph",
+   "role": "preservation",
+   "statement": "(s : PState) (b : List PEvent) (hb : b \u2208 nextFamilyP s) : GraphStoresFixed s (replayP b s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.graph_growth_is_supplied",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : (\u2200 b \u2208 nextFamilyP s, GraphStoresFixed s (replayP b s)) \u2227 (replayP (upBlock s p) s).occ.length = s.occ.length + 1 \u2227 (replayP (upBlock s p) s).asserted.length = s.asserted.length + 1 \u2227 (replayP (upBlock s p) s).wit.length = s.wit.length + 1 \u2227 (replayP (upBlock s p) s).prot.length = s.prot.length + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.proposal_confers_no_execution",
+   "role": "preservation",
+   "statement": "(s : PState) (P : ProposalRecord s) (h : s.halted = true) : replayP P.block s = s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.upProposal_executes",
+   "role": "preservation",
+   "statement": "(s : PState) (hwf : WFStores s) (hh : s.halted = false) (p : Nat) (hp : p < s.occ.length) : (upProposal s hwf hh p hp).newPair \u2208 (replayP (upProposal s hwf hh p hp).block s).wit \u2227 (upProposal s hwf hh p hp).newPair \u2208 (replayP (upProposal s hwf hh p hp).block s).prot \u2227 (replayP (upProposal s hwf hh p hp).block s).occ.length = s.occ.length + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.proposal_transports",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (hwf : WFStores s) (hh : s.halted = false) (P : ProposalRecord s) : \u2203 p, p < s.occ.length \u2227 P.block = upBlock s p \u2227 upBlock (act \u03c3 s) (\u03c3.f p) \u2208 upFamily (act \u03c3 s) \u2227 act \u03c3 (replayP P.block s) = replayP (upBlock (act \u03c3 s) (\u03c3.f p)) (act \u03c3 s) \u2227 (upBlock (act \u03c3 s) (\u03c3.f p)).length = P.block.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.tri_wf",
+   "role": "preservation",
+   "statement": ": WFStores tri"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.tri_live",
+   "role": "preservation",
+   "statement": ": tri.halted = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.tri_parent1",
+   "role": "preservation",
+   "statement": ": 1 < tri.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.tri_parent2",
+   "role": "preservation",
+   "statement": ": 2 < tri.occ.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.proposal_family_retains_ties",
+   "role": "preservation",
+   "statement": ": triProp1.cost = triProp2.cost \u2227 triProp1.block \u2260 triProp2.block \u2227 triProp1.block \u2208 upFamily tri \u2227 triProp2.block \u2208 upFamily tri \u2227 (tuples4.all fun t => !(isoMatch t (replayP triProp1.block tri).wit (replayP triProp2.block tri).wit)) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.obstruction_resolved_in_carrier",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (hobst : obstP s i j = true) (hij : i \u2260 j) (hi : i < s.occ.length) (hprot : (i, j) \u2208 s.prot) (hlic : s.licensed = true) (hh : s.halted = false) : [PEvent.setBudget 1, PEvent.addCol [i]] \u2208 nextFamilyP s \u2227 obstP (replayP [PEvent.setBudget 1, PEvent.addCol [i]] s) i j = false \u2227 GraphStoresFixed s (replayP [PEvent.setBudget 1, PEvent.addCol [i]] s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.family_never_grows_carrier",
+   "role": "preservation",
+   "statement": "(s : PState) : \u00ac FamilyGrowsCarrier s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.growth_demand_not_obstruction_consequence",
+   "role": "preservation",
+   "statement": ": obstP blindPair 0 1 = true \u2227 nextFamilyP blindPair = [[PEvent.setBudget 1, PEvent.addCol [0]], [PEvent.setBudget 1, PEvent.addCol [1]]] \u2227 (\u2200 b \u2208 nextFamilyP blindPair, obstP (replayP b blindPair) 0 1 = false) \u2227 (\u2200 b \u2208 nextFamilyP blindPair, GraphStoresFixed blindPair (replayP b blindPair)) \u2227 (\u2200 s : PState, \u00ac FamilyGrowsCarrier s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-GRAPH-GENESIS (Goal 5)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "GraphGenesis.lean",
+   "name": "GraphGenesis.blindPair_resolution_keeps_carrier",
+   "role": "preservation",
+   "statement": ": (replayP [PEvent.setBudget 1, PEvent.addCol [0]] blindPair).occ = [0, 1] \u2227 (replayP [PEvent.setBudget 1, PEvent.addCol [0]] blindPair).obs = some [[0]] \u2227 (replayP [PEvent.setBudget 1, PEvent.addCol [0]] blindPair).wit = [(0, 1)]"
   }
  ]
 }

@@ -46,6 +46,7 @@ jobs:
           PYTHONPATH=code python code/run_attachment_ladder.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_compression.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_renaming_structure.py --artifacts artifacts_ci
+          PYTHONPATH=code python code/run_graph_genesis.py --artifacts artifacts_ci
           PYTHONPATH=code python code/run_primitive_receipt.py --artifacts artifacts_ci
           python ci/compare_artifacts.py artifacts artifacts_ci
 

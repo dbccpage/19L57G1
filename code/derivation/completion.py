@@ -59,6 +59,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "Compression": ["Compression.lean"],
     "StableContent": ["StableContent.lean"],
     "RenamingStructure": ["RenamingStructure.lean"],
+    "GraphGenesis": ["GraphGenesis.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")

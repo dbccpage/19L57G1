@@ -31,6 +31,7 @@ import Derivation.LadderGeneral
 import Derivation.Compression
 import Derivation.StableContent
 import Derivation.RenamingStructure
+import Derivation.GraphGenesis
 
 /-!
 # Axiom reports
@@ -827,3 +828,31 @@ open Derivation
 #print axioms RenamingStructure.equal_size_supplies_no_law
 #print axioms RenamingStructure.equal_cost_supplies_no_law
 #print axioms RenamingStructure.equivariance_summary
+#print axioms GraphGenesis.refineCol_only_obs
+#print axioms GraphGenesis.addCol_only_obs
+#print axioms GraphGenesis.extensionProposals_range_over_existing
+#print axioms GraphGenesis.repairFamily_range_over_existing
+#print axioms GraphGenesis.nextFamilyP_block_shape
+#print axioms GraphGenesis.nextFamilyP_range_over_existing
+#print axioms GraphGenesis.IsInternal_exact
+#print axioms GraphGenesis.internal_is_response
+#print axioms GraphGenesis.response_step_fixes_graph
+#print axioms GraphGenesis.internal_step_fixes_graph
+#print axioms GraphGenesis.replay_fixes_graph_of_all
+#print axioms GraphGenesis.internal_family_cannot_grow_carrier
+#print axioms GraphGenesis.response_replay_fixes_graph
+#print axioms GraphGenesis.nextFamilyP_blocks_are_responses
+#print axioms GraphGenesis.nextFamilyP_block_fixes_graph
+#print axioms GraphGenesis.graph_growth_is_supplied
+#print axioms GraphGenesis.proposal_confers_no_execution
+#print axioms GraphGenesis.upProposal_executes
+#print axioms GraphGenesis.proposal_transports
+#print axioms GraphGenesis.tri_wf
+#print axioms GraphGenesis.tri_live
+#print axioms GraphGenesis.tri_parent1
+#print axioms GraphGenesis.tri_parent2
+#print axioms GraphGenesis.proposal_family_retains_ties
+#print axioms GraphGenesis.obstruction_resolved_in_carrier
+#print axioms GraphGenesis.family_never_grows_carrier
+#print axioms GraphGenesis.growth_demand_not_obstruction_consequence
+#print axioms GraphGenesis.blindPair_resolution_keeps_carrier
