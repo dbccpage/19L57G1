@@ -1,0 +1,600 @@
+{
+ "bounds": {
+  "max_dim": 5,
+  "orbit_carrier": 3,
+  "rounds": 15,
+  "shape_carrier": 4
+ },
+ "imported_inputs": [
+  "fresh occurrence supply (canonical next numeral)",
+  "protection",
+  "observer transport (unused: attachment is pre-observational)",
+  "budget/activation",
+  "cell encoding and boundary signs",
+  "metatheoretic driver iteration"
+ ],
+ "ladder": {
+  "all_d2_zero": true,
+  "all_guards_load_bearing": true,
+  "all_ladders_fire": true,
+  "all_wf": true,
+  "dims_checked": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "filler_theorem_scope": "uniform guarded filler: admission and strict extension under the repaired guard, not a homology claim",
+  "general_d2_zero": "conjecture beyond the checked dimensions; declared coefficients and signs carry the content",
+  "per_dim": {
+   "2": {
+    "cells_per_dim": {
+     "0": 3,
+     "1": 3,
+     "2": 1
+    },
+    "d2_zero_top": true,
+    "filled_has_top": true,
+    "guard_load_bearing": true,
+    "shell_admits_top": true,
+    "wf_invariant_holds": true
+   },
+   "3": {
+    "cells_per_dim": {
+     "0": 4,
+     "1": 6,
+     "2": 4,
+     "3": 1
+    },
+    "d2_zero_top": true,
+    "filled_has_top": true,
+    "guard_load_bearing": true,
+    "shell_admits_top": true,
+    "wf_invariant_holds": true
+   },
+   "4": {
+    "cells_per_dim": {
+     "0": 5,
+     "1": 10,
+     "2": 10,
+     "3": 5,
+     "4": 1
+    },
+    "d2_zero_top": true,
+    "filled_has_top": true,
+    "guard_load_bearing": true,
+    "shell_admits_top": true,
+    "wf_invariant_holds": true
+   },
+   "5": {
+    "cells_per_dim": {
+     "0": 6,
+     "1": 15,
+     "2": 20,
+     "3": 15,
+     "4": 6,
+     "5": 1
+    },
+    "d2_zero_top": true,
+    "filled_has_top": true,
+    "guard_load_bearing": true,
+    "shell_admits_top": true,
+    "wf_invariant_holds": true
+   }
+  },
+  "pseudo_cell": {
+   "legacy_admits_pseudo_cell": true,
+   "repaired_refuses": true,
+   "repaired_step_inert": true
+  }
+ },
+ "renaming": {
+  "act_up_comm_all_perms": true,
+  "equal_cost_divergence": {
+   "both_in_family": true,
+   "equal_cost": true,
+   "extensions_non_isomorphic": true
+  },
+  "equal_size_not_renaming_related": {
+   "families_equal": true,
+   "no_renaming_relates": true,
+   "same_carrier": true
+  },
+  "fresh_tok_invariant": true,
+  "up_family_transport_all_perms": true
+ },
+ "shape": {
+  "isomorphic_undirected": false,
+  "path4": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    2
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "star4": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    2
+   ],
+   [
+    0,
+    3
+   ]
+  ],
+  "trees_but_shapes_differ": true
+ },
+ "trees": {
+  "path": {
+   "all_blocks_are_up_blocks": true,
+   "all_residue_one": true,
+   "all_spec_match": true,
+   "all_trees": true,
+   "lawful_to_rounds": true,
+   "rows": [
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 0,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 1,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 2,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 3,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 4,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 5,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 6,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 7,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 8,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 9,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 10,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 11,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 12,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 13,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 14,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 15,
+     "pre_observational": true,
+     "spec_match": true
+    }
+   ]
+  },
+  "star": {
+   "all_blocks_are_up_blocks": true,
+   "all_residue_one": true,
+   "all_spec_match": true,
+   "all_trees": true,
+   "lawful_to_rounds": true,
+   "rows": [
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 0,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 1,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 2,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 3,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 4,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 5,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 6,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 7,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 8,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 9,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 10,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 11,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 12,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 13,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 14,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 15,
+     "pre_observational": true,
+     "spec_match": true
+    }
+   ]
+  },
+  "zigzag": {
+   "all_blocks_are_up_blocks": true,
+   "all_residue_one": true,
+   "all_spec_match": true,
+   "all_trees": true,
+   "lawful_to_rounds": true,
+   "rows": [
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 0,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 1,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 2,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 3,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 4,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 5,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 6,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 7,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 8,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 9,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 10,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 11,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 12,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 13,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 14,
+     "pre_observational": true,
+     "spec_match": true
+    },
+    {
+     "V_minus_E": 1,
+     "block_is_up_block": true,
+     "is_tree": true,
+     "n": 15,
+     "pre_observational": true,
+     "spec_match": true
+    }
+   ]
+  }
+ },
+ "up": {
+  "attached_ok": {
+   "occ_len": 4,
+   "outcome": "attached",
+   "wit_len": 3
+  },
+  "clamp_countermodel": {
+   "choice_was_not_root": true,
+   "clamped_to_root": true,
+   "rewritten_input_is_not_lawful": true
+  },
+  "every_legal_is_member": true,
+  "every_member_is_legal": true,
+  "family_length_equals_parents": true,
+  "grammar_uniform_same_carrier": true,
+  "length_not_fresh": {
+   "canonical_fresh_token": 3,
+   "old_block_fails_to_extend": true,
+   "repaired_block_extends": true
+  },
+  "oriented_path_rigid": true,
+  "out_of_registry_absent": true,
+  "path3_parent_orbits": [
+   [
+    0
+   ],
+   [
+    1
+   ],
+   [
+    2
+   ]
+  ],
+  "star3_parent_orbits": [
+   [
+    0
+   ],
+   [
+    1,
+    2
+   ]
+  ],
+  "star_leaves_one_orbit": true,
+  "typed_refusal": {
+   "bound": 3,
+   "outcome": "refusedParent",
+   "parent": 9
+  }
+ }
+}

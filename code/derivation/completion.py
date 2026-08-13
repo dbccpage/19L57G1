@@ -45,6 +45,19 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "NoOutside": ["NoOutside.lean"],
     "Constitution": ["Constitution.lean"],
     "Initiality": ["Initiality.lean"],
+    "Horizon": ["Horizon.lean"],
+    "PrimitiveCore": ["PrimitiveCore.lean"],
+    "PrimitiveCats": ["PrimitiveCats.lean"],
+    "PrimitiveContact": ["PrimitiveContact.lean"],
+    "PrimitivePassage": ["PrimitivePassage.lean"],
+    "HigherStructure": ["HigherStructure.lean"],
+    "Apartness": ["Apartness.lean"],
+    "InterpreterBoundary": ["InterpreterBoundary.lean"],
+    "ControllerCategory": ["ControllerCategory.lean"],
+    "Attachment": ["Attachment.lean"],
+    "LadderGeneral": ["LadderGeneral.lean"],
+    "Compression": ["Compression.lean"],
+    "StableContent": ["StableContent.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -77,37 +90,48 @@ def parse_axiom_reports() -> list[dict[str, object]]:
     return out
 
 
+def declared_splits(qualified: str) -> list[tuple[str, str]]:
+    """Candidate (namespace, declared-name) pairs: a theorem may be
+    declared with a dotted name inside a shorter namespace (e.g.
+    ``theorem Renaming.f_inj`` inside ``namespace Attachment``)."""
+    parts = qualified.split(".")
+    return [
+        (".".join(parts[:cut]), ".".join(parts[cut:]))
+        for cut in range(len(parts) - 1, 0, -1)
+    ]
+
+
 def source_module(qualified: str) -> str:
     """The Lean file that declares the theorem (searched, not guessed)."""
-    ns, _, bare = qualified.rpartition(".")
-    for fname in NAMESPACE_FILES.get(ns, []):
-        path = LEAN_DIR / fname
-        if not path.exists():
-            continue
-        if re.search(
-            rf"^theorem {re.escape(bare)}[\s({{\[⟨]",
-            path.read_text(encoding="utf-8"),
-            re.MULTILINE,
-        ):
-            return fname
+    for ns, decl in declared_splits(qualified):
+        for fname in NAMESPACE_FILES.get(ns, []):
+            path = LEAN_DIR / fname
+            if not path.exists():
+                continue
+            if re.search(
+                rf"^theorem {re.escape(decl)}[\s({{\[⟨]",
+                path.read_text(encoding="utf-8"),
+                re.MULTILINE,
+            ):
+                return fname
     return "UNRESOLVED"
 
 
 def extract_statement(qualified: str, module: str) -> str:
     """The statement text from the source, up to the proof marker."""
-    bare = qualified.rpartition(".")[2]
     path = LEAN_DIR / module
     if not path.exists():
         return "UNRESOLVED"
     text = path.read_text(encoding="utf-8")
-    m = re.search(
-        rf"^theorem {re.escape(bare)}(?P<sig>.*?):=",
-        text,
-        re.MULTILINE | re.DOTALL,
-    )
-    if not m:
-        return "UNRESOLVED"
-    return re.sub(r"\s+", " ", m.group("sig")).strip()
+    for _, decl in declared_splits(qualified):
+        m = re.search(
+            rf"^theorem {re.escape(decl)}(?P<sig>.*?):=",
+            text,
+            re.MULTILINE | re.DOTALL,
+        )
+        if m:
+            return re.sub(r"\s+", " ", m.group("sig")).strip()
+    return "UNRESOLVED"
 
 
 def consuming_modules(qualified: str, own_module: str) -> list[str]:
@@ -696,8 +720,11 @@ def all_descs() -> list[Desc]:
 def interp_step(d: Desc, w: World, e: Event) -> World:
     """Nat-domain guards are unconditional: a disabled guard toggle
     never licenses a negative state, matching the Lean carrier (where
-    negatives are unrepresentable) for every constitution
-    descriptor."""
+    negatives are unrepresentable) for every constitution descriptor.
+    Budget decrements saturate at zero (``max(0, budget - 1)``),
+    matching Lean ``Nat`` subtraction exactly — the gateBudget toggle
+    only controls whether a zero budget blocks the event, never
+    whether the decrement may underflow (PR #12 correction C10)."""
     dedup, greq, gacc, gbud, glic, gcert = d
     kind = e[0]
     if kind == "admit":
@@ -721,7 +748,8 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
             return w
         if ((not gacc) or mark_ok(w, v, p)) and (
                 (not gbud) or w.budget > 0):
-            return _replace(mark_apply(w, v, p), budget=w.budget - 1)
+            return _replace(mark_apply(w, v, p),
+                            budget=max(0, w.budget - 1))
         return w
     if kind == "addView":
         c = e[1]
@@ -731,7 +759,8 @@ def interp_step(d: Desc, w: World, e: Event) -> World:
         if (((not gacc) or aug_ok(w, c))
                 and ((not glic) or w.aug_licensed)
                 and ((not gbud) or w.budget > 0)):
-            return _replace(aug_apply(w, c), budget=w.budget - 1)
+            return _replace(aug_apply(w, c),
+                            budget=max(0, w.budget - 1))
         return w
     if kind == "refuse":
         i, j = e[1], e[2]

@@ -460,3 +460,255 @@ One focused correction pass; no new research phase.
    that the graph exhausts every possible bridge.
 
 Axiom reports 291 -> 295, all within {propext, Quot.sound}.
+
+## PR #12 — Primitive Difference contact and passage, Phase I corrections
+
+Pre-contact correction pass over PR #11's strongest labels
+(full audit: `paper/pr11_correction_ledger.md`).  Ten claims audited;
+two defects found and repaired:
+
+1. **C10 (cross-language exactness), refuted and repaired.**  Old
+   claim (42a33d9 item 8): "disabled guards can never license states
+   unavailable in Lean."  Countermodel: descriptor `(T,T,F,F,T,T)`,
+   world `{data=(10,20), views=((0,),), reqs=((0,1),), budget=0}`,
+   event `mark (1,) 0` — a Lean no-op but a Python state change to
+   budget `-1` (unsaturated subtraction under a disabled budget
+   gate).  Replacement: the mirror's two decrement sites now saturate
+   (`max(0, budget - 1)`); Lean pins the exact shared semantics
+   (`Horizon.interp_budget_bound`, `Horizon.budget_saturation_noop`,
+   `Horizon.mark_saturation_all_descs`); the Python suite asserts the
+   identical facts over all 64 descriptors on the declared basis.
+   Affected claims: 42a33d9 item 8 (recorded here as refuted; left in
+   place as history), `interp_step` docstring.
+
+2. **C6 (horizon lawfulness), closed upward.**  Old state: the only
+   Lean lawfulness fact for the generated run was the stage-3
+   quiescence instance, while CL-NC-AUTONOMY spoke of "lawfulness
+   across extension" citing a theorem with no lawfulness conjunct.
+   Replacement: `Derivation/Horizon.lean` proves the complete record
+   characterization of the generated world at every stage
+   (`worldAt_spec`, by induction) and derives quiescence,
+   well-formedness, and per-event acceptance at every horizon
+   (`worldAt_quiescent`, `worldAt_wf`, `block_all_accepted`,
+   `genesis_accepted`), lifted to the driver (`gen_quiescent`,
+   `gen_wf`).  Affected claims: CL-NC-AUTONOMY (rewritten, old defect
+   recorded inside the entry).
+
+Verdicts C1, C2: hold as labeled.  C3, C4, C5, C7, C8, C9: already
+corrected by 42a33d9; re-verified against current Lean statements.
+
+
+## PR #12 — Phases II–IX: characterization, contact, passage, growth
+
+1. Native characterization (blind, committed before any contact
+   reading): nine candidate readings, 72-cell implication matrix (17
+   proved implications, 51 compiled minimum countermodels, 4 OPEN
+   located cells with exact scope), genuine categories with proved
+   laws, `d2_initial` as a true universal property, the orientation
+   fork retained, and the observer branching theorem
+   (`no_terminal_pres`).
+2. Contact: the declared package is absent; terminal
+   CONTACT_INPUT_ABSENT recorded with a runtime check; the native
+   kernel interface committed as the fixed target of any future
+   collision.  No contents invented.
+3. Apartness refinement (caller directive, mid-run): positive
+   apartness with indistinguishability proved an equivalence;
+   minimal insufficiency countermodels at carriers 1, 2, 3; the
+   orientation/apartness separation; the exact operation-preservation
+   characterization (identity only; identity and swap; constants
+   neither; closure iff generators).
+4. Passage: the full arrow chain with per-arrow statuses; the
+   four-condition active obstruction (observation declared vs
+   pre-observational, a refinement over the sealed three-condition
+   reading, with agreement and divergence proved); P1–P8 including
+   the two-rule theorem — at an active obstruction the response
+   universe never runs dry: same-level repair or certified
+   exhaustion plus a provably nonempty extension family.
+5. Growth: the first graph grows by iterated
+   obstruction-and-response, characterized at every horizon; the
+   0-, 1-, 2-, 3-simplices grow under horn-guarded declared cell
+   admission with replayable creation records; named invariants
+   (ladder invariant, connectivity residue, occurrence alternation
+   number, cut census, orientation residue, budget trichotomy);
+   d²=0 under the declared calculus with the convention proved
+   non-forced.  Higher structure: admitted, never forced.
+6. New claims CL-PD2-* in the ledger; papers
+   `primitive_difference_contact.md`,
+   `primitive_difference_passage.md`, `primitive_difference_map.md`.
+
+
+## PR #12 — Phases VII–VIII and completion
+
+1. Controller category (Phase VII): the six-toggle proxy replaced by
+   a genuine 1024-member variable-event-grammar class with a
+   simulation category (laws proved).  Initiality REFUTED by the
+   constant-simulation countermodel, surviving restriction to the
+   live subcategory; NONUNIQUE_CONTROLLER_FAMILY proved (live census
+   128; refusal is response-invisible); strict refinement excludes
+   constants but global uniqueness still fails (invariant-twist
+   countermodel); uniqueness holds exactly on the genesis-reachable
+   orbit.  Agreement is a replay theorem, not a categorical one.
+2. Interpreter boundary (Phase VIII): tower persistence proved by
+   finite diagonalization (every finite closure has a new top);
+   universal code/evaluator exact for the declared family; the
+   typed-refusal top closes by partiality what totality cannot;
+   self-description without self-justifying evaluation; and the
+   boundary formalized as a Primitive Difference (candidates A and F
+   satisfied, collapse obstructed, difference behaviorally grounded).
+   Absolute no-outside not claimed.
+3. Completion: receipt with ten terminals, five open obligations,
+   the twenty-attack adversarial record, and the two
+   withdrawn-or-repaired claims; papers
+   `primitive_controller_universality.md`,
+   `primitive_interpreter_boundary.md`; ledger claims
+   CL-PD2-CONTROLLER, CL-PD2-INTERPRETER, CL-PD2-RECEIPT.
+
+## PR #12 review pass (request-changes verdict applied)
+
+Fourteen-point correction pass; no candidate search reopened, no
+speculative idea deleted.  Old statements, countermodels/reasons, and
+replacements:
+
+1. Hosted CI red on artifact comparison: the receipt hashed
+   CRLF-checkout bytes of `requirements.txt`; replaced by a
+   line-ending-normalized hash (raw hashes retained for the
+   `-text`-pinned `prompt/**` and `artifacts/**` files).
+2. `prompt_pr12.md` claimed "verbatim" while summarizing the ultra
+   prompt; the exact bytes are now committed as
+   `prompt/ultra_prompt_pr12.md` and the receipt binds both; the
+   0,1,3,3 → 0,1,2,3 reading is labeled ASSUMED_TYPO_CORRECTION.
+3. Composition gap (blocking): the passage had no pre-retention
+   witness store — `admitWit` created witness and retention
+   together, so PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED overreached.
+   Repaired by construction: separate `asserted` store and
+   `assertWit` event; retention now requires assertion
+   (`retention_requires_assertion`); `assertion_not_retained` is the
+   pre-retention witness state; transport from candidate A proved
+   (`assert_transport` via the `asserted_offdiag` invariant;
+   `kernel_enters_preretained`; `retained_sub_asserted`).
+4. `d2_initial` scoped: `PtdRel` has no irreflexivity, so the
+   initiality characterizes the bare-witness reading W (free pointed
+   object on one witnessed arrow); A-initiality is the restriction
+   corollary; A's justification is `imp_a_d` vs `nimp_w_d` — the
+   two arguments are no longer merged anywhere.
+5. Native terminal rescoped: "within the declared nine-candidate
+   signature, A is the weakest studied positive-witness candidate
+   forcing endpoint inequality".
+6. Interpreter terminals replaced: INTERPRETER_TOWER_PERSISTS →
+   FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE (the diagonal
+   changes only the inert notes field; nothing about
+   self-interpretation follows); INTERPRETER_BOUNDARY_IS_PRIMITIVE_
+   DIFFERENCE → DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F (the
+   boundary model's relations are inserted by definition; no theorem
+   links the uncoded occurrence to the missed function).  The
+   stronger identification is retained as a frontier conjecture with
+   its missing denotational/operational-grounding theorem stated.
+7. `openTerminalPres2` was not open: closed constructively by
+   `no_terminal_pres2` (free-point presentation gives every target
+   two distinct commuting maps); positive fragment stays scoped to
+   surjective presentations.  The earlier selection-principle
+   frontier conjecture is superseded.
+8. Graph provenance stated exactly: the driver SUPPLIES occurrences,
+   assertions, retention, protection; the obstruction creates the
+   observation column.  Graph genesis by obstruction is recorded as
+   a frontier conjecture for a later experiment.
+9. `horn2`/`horn3` renamed `shell2`/`shell3` (complete unfilled
+   boundaries, not simplicial horns); `horn_guard_load_bearing` →
+   `shell_guard_load_bearing`.
+10. Higher-structure scoping: ladder proved only at dimensions 2–3
+    (general recurrence a conjecture); `altNum` relabeled a
+    statistic; path/no-cycle attributed to `graphAt_spec`, not
+    V−E=1; D2-to-walking-arrow labeled a free completion.
+11. Two-rule scoped grammar-relatively (the declared
+    singleton-column universe supplies the separator; `setBudget 1`
+    is declared self-funding); extension "loses nothing" replaced by
+    the exact preservation statement; arrow count fixed at thirteen.
+12. "51 minimum countermodels" → "51 finite countermodels; minimum
+    carrier proved where cited".
+13. Contact scope: this PR is the native characterization and
+    passage; the external collision is deferred to a future PR with
+    exact manifest and source hashes.
+14. All artifacts, papers, ledger entries, and the receipt
+    regenerated under the corrected statements.
+
+## PR #12 next-goals pass (caller directive)
+
+1. `d2_map_injective`: the unique map out of the two-element kernel
+   is injective into every irreflexive pointed witnessed
+   presentation; the hypothesis is not removable
+   (`d2_map_not_injective_without_irrefl`).
+2. One-edge attachment defined (fresh walking edge glued along a
+   represented parent); every attachment policy is lawful at every
+   stage, produces a tree, and preserves V−E=1 (policy-uniform
+   theorems).
+3. Path and star policies exhibited as non-isomorphic countermodels
+   to forced global shape (decided over all carrier bijections at
+   four occurrences).
+4. Up defined as the complete family of legal extensions (one block
+   per represented parent, never a selection); proved
+   presentation-invariant; orbit-valued choices demonstrated where
+   symmetry remains (star leaves one orbit; the oriented path rigid
+   — undirected flip refused by the oriented stores).
+5. The simplex ladder generalized to arbitrary finite dimension:
+   `ladder_general` upgrades the review-pass conjecture to a theorem
+   of the generalized declared calculus; dimension-4 demonstration
+   replayed in Lean, dimension 5 in Python; the general composite
+   boundary vanishing remains the open conjecture.
+6. Imported inputs kept explicit throughout: fresh supply,
+   protection, observer transport, budget, activation.
+
+## PR #12 final repair pass (caller directive, 2026-08-13)
+
+1. Receipt bytes made platform-canonical: every prompt hash is the
+   Git blob hash (LF canonical bytes); the originally supplied CRLF
+   rendering of the seed prompt is recorded as provenance; the
+   blob/checkout distinction and content-mutation detection are
+   tested.
+2. Attachment policies are never clamped: `LawfulPolicy` carries
+   the representedness proof; illegal parents meet the typed
+   refusal `AttachOutcome.refusedParent`; the retired clamp is the
+   recorded countermodel (`clamp_rewrote_input`).
+3. Occurrence identity resolved: tokens (admission order) versus
+   positions (relational identities); canonical fresh token proved
+   fresh on every carrier; `length_not_fresh_countermodel` on the
+   non-initial carrier `[1, 2]`; on canonical tree states tokens
+   and positions provably coincide (`attachBlock_is_upBlock`).
+4. Completeness made registry-relative and an iff
+   (`up_iff_legal`); every Up block executes to a strict legal
+   extension (`up_exec_eq`, `up_executes`).
+5. Length equality replaced by a genuine positional renaming
+   action with transport and replay commutation (`act_up_comm`);
+   the old statement survives only as identical-carrier grammar
+   uniformity; countermodels: equal size with equal family but no
+   relating renaming; two legal equal-cost non-isomorphic
+   extensions.
+6. Generalized cells made well-formed: strict ascent in the shell
+   guard; the legacy guard's `[0, 0]` pseudo-cell recorded as the
+   required countermodel; well-formedness proved a replayed
+   invariant (`wf_nreplay`).
+7. `ladder_general` renamed and NARROWED to
+   `uniform_guarded_filler`: a theorem about guarded admission and
+   strict extension, not homology.
+8. CL-PD2-LADDER and CL-PD2-LADDER-GENERAL reconciled in the
+   ledger; the general composite vanishing stays OPEN.
+9. Part II delivered: target-relative presentation compression
+   (`Compression`, 22 theorems, axiom-clean) — factorization iff
+   fiber-constancy with image-scoped uniqueness; coarsest-adequate
+   quotient with exact universal property; witnessed descent
+   failures; enlargement refinement with exact split
+   characterization; absolute adequacy = injectivity; replay and
+   digests non-evidential without a new separator; refinement
+   non-unique with retained ties; strict chains bounded by the
+   domain.
+10. One axiom regression caught by the report and repaired:
+    `omega` on a conjunction goal proves it classically; the
+    conjunction is now split first, restoring
+    propext/Quot.sound-only across all 707 reports.
+
+11. Caller finals (stable content): stable content proved to be
+    exactly protected separation (persists at every event and along
+    every replay; an accepted refinement destroys an unprotected
+    separation — protection is load-bearing), and quiescence proved
+    equivalent to every retained protected pair lying inside the
+    stable content (`StableContent`, Lean + Python mirror).
+

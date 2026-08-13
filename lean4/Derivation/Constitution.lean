@@ -242,13 +242,16 @@ selection-freeness: the family is a proved singleton, so all ties are
 (vacuously) retained and no selector exists (the closure family
 retains ties non-vacuously); (7) resources persist by represented
 replenishment events; (8) the process stays lawful across expressive
-extensions (each block ends in an accepted `addView`;
-instance-verified here, exhaustively bound-verified in the mirror);
-(9) productivity holds under the explicit measure (strict carrier
-growth).  An arbitrarily iterable theorem gives (1)–(2); what is
-proved here is (1)–(3), (5)–(9) — *state-derived, selection-free,
-resource-explicit, productive generation under metatheoretic
-iteration and a fixed interpreter*.  Nothing stronger is claimed. -/
+extensions (instance-verified here at stage 3; proved at *every*
+stage by `Horizon.gen_quiescent`, `Horizon.gen_wf`, and
+`Horizon.block_all_accepted`; exhaustively bound-verified in the
+mirror); (9) productivity holds under the explicit measure (strict
+carrier growth).  An arbitrarily iterable theorem gives (1)–(2); what
+is proved in this module is (1)–(3), (5)–(7), (9) with level (8) at
+stage 3, and the `Horizon` module closes level (8) at every horizon —
+*state-derived, selection-free, resource-explicit, productive
+generation under metatheoretic iteration and a fixed interpreter*.
+Nothing stronger is claimed. -/
 theorem tower_driver_autonomy :
     (∀ k, towerGen k <+: towerGen (k + 1)) ∧
       (∀ k, nextFamily (genWorld k) =

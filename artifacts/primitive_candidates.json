@@ -1,0 +1,163 @@
+{
+ "bl_equals_a_in_finite_universe": true,
+ "bl_note": "In the finite encoded universe every relation is a decidable table, and a decidable relation is located (Lean: located_of_decidable), so Bl coincides extensionally with A here.  The Prop-level gap between A and locatedness is metatheoretic; the matrix cells from A-implying sources into Bl are therefore declared OPEN_LOCATED (EXPECTED_OPEN) instead of being closed by the finite search, which by construction finds no countermodel for them.",
+ "bounds": {
+  "carriers": [
+   1,
+   2,
+   3
+  ],
+  "designated_points": "all ordered pairs (a, b) in X x X",
+  "ops_choices": [
+   "empty",
+   "identity",
+   "const_0"
+  ],
+  "ops_note": "at n = 1 the identity and const_0 tables coincide; enumeration items are counted without deduplication",
+  "prot_choices": [
+   "empty",
+   "designated_pair"
+  ],
+  "relations": "all subsets of X x X, enumerated exhaustively",
+  "ret_choices": [
+   "empty",
+   "designated_pair"
+  ],
+  "settings_enumerated": 56088,
+  "witness_key": "(n, len(r), len(ret)+len(prot), len(ops), sorted(r), a, b); ties broken by (sorted(ret), sorted(prot), sorted(ops))"
+ },
+ "candidate_counts": {
+  "A": 2352,
+  "Bc": 1272,
+  "Bl": 2352,
+  "Bs": 312,
+  "C": 14022,
+  "D": 37248,
+  "E": 24832,
+  "F": 588,
+  "W": 28044
+ },
+ "presentation_branching": {
+  "coarseness": "q1 <= q2 iff ker(q1) subset-of ker(q2); a larger kernel identifies more, so maximal = coarsest faithful",
+  "faithful_surjection_count": 10,
+  "kernel_class_count": 3,
+  "kernel_classes": [
+   {
+    "image_size": 3,
+    "map_count": 6,
+    "partition": [
+     [
+      0
+     ],
+     [
+      1
+     ],
+     [
+      2
+     ]
+    ]
+   },
+   {
+    "image_size": 2,
+    "map_count": 2,
+    "partition": [
+     [
+      0
+     ],
+     [
+      1,
+      2
+     ]
+    ]
+   },
+   {
+    "image_size": 2,
+    "map_count": 2,
+    "partition": [
+     [
+      0,
+      2
+     ],
+     [
+      1
+     ]
+    ]
+   }
+  ],
+  "maximal_coarse_class_count": 2,
+  "maximal_coarse_partitions": [
+   [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   [
+    [
+     0,
+     2
+    ],
+    [
+     1
+    ]
+   ]
+  ],
+  "no_weakly_terminal": true,
+  "note": "Of the three two-block partitions of the carrier, {0,1}|{2} merges the designated edge and is unfaithful; the two faithful coarsest kernel classes are incomparable, so no faithful presentation is coarser-or-equal to all others (finite mirror of the no-weakly-terminal finding).",
+  "source": {
+   "edge": [
+    0,
+    1
+   ],
+   "n": 3
+  },
+  "two_block_partitions_total": 3,
+  "unfaithful_two_block_partitions": [
+   [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ]
+  ]
+ },
+ "two_element_classification": {
+  "carrier": 2,
+  "designated": [
+   0,
+   1
+  ],
+  "lean": "bool_irrefl_witness_classification",
+  "survivor_count": 2,
+  "survivors": [
+   {
+    "label": "oriented",
+    "r": [
+     [
+      0,
+      1
+     ]
+    ]
+   },
+   {
+    "label": "symmetric",
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   }
+  ]
+ }
+}

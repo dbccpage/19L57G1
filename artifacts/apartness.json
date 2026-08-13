@@ -1,0 +1,49 @@
+{
+ "bounds": {
+  "census_max_carrier": 4,
+  "equivalence_exhaustive_max_carrier": 3
+ },
+ "equivalence_exhaustive": true,
+ "insufficiency": {
+  "bare_breaks_refl": true,
+  "irrefl_alone_breaks_symm": true,
+  "symm_without_cotrans_breaks_trans": true,
+  "three_point_countermodel_minimal": true,
+  "two_point_countermodel_minimal": true
+ },
+ "operations": {
+  "formula_checked": true,
+  "formula_oriented": "n^(n-2) (endpoints fixed, free points unconstrained)",
+  "per_carrier": {
+   "2": {
+    "apart_preservers": 2,
+    "endofunctions": 4,
+    "oriented_preservers": 1
+   },
+   "3": {
+    "apart_preservers": 6,
+    "endofunctions": 27,
+    "oriented_preservers": 3
+   },
+   "4": {
+    "apart_preservers": 32,
+    "endofunctions": 256,
+    "oriented_preservers": 16
+   }
+  },
+  "two_point_apart_exactly_id_and_swap": true,
+  "two_point_census": {
+   "apart_preservers": 2,
+   "endofunctions": 4,
+   "oriented_preservers": 1
+  },
+  "two_point_constants_preserve_neither": true,
+  "two_point_oriented_exactly_id": true
+ },
+ "orientation": {
+  "apartness_is_apart": true,
+  "orientations_differ": true,
+  "same_apartness": true,
+  "swap_moves_retained_witness": true
+ }
+}

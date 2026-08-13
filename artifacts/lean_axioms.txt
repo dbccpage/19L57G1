@@ -1,295 +1,716 @@
-Derivation.lean:31:0: 'Derivation.supply_no_op' depends on axioms: [propext]
-Derivation.lean:32:0: 'Derivation.genesis_underivable' does not depend on any axioms
-Derivation.lean:33:0: 'Derivation.underivable_of_empty' does not depend on any axioms
-Derivation.lean:34:0: 'Derivation.collapsed_of_no_insts' depends on axioms: [propext]
-Derivation.lean:35:0: 'Derivation.R2L_collapsed' depends on axioms: [propext]
-Derivation.lean:36:0: 'Derivation.R2F_collapsed' depends on axioms: [propext]
-Derivation.lean:37:0: 'Derivation.historyL_replays' depends on axioms: [propext]
-Derivation.lean:38:0: 'Derivation.historyF_replays' depends on axioms: [propext]
-Derivation.lean:39:0: 'Derivation.admission_without_expressive_increase' depends on axioms: [propext]
-Derivation.lean:40:0: 'Derivation.replayE_append' depends on axioms: [propext, Quot.sound]
-Derivation.lean:41:0: 'Derivation.separable_not_collapsed' depends on axioms: [propext]
-Derivation.lean:44:0: 'Derivation.quotient_barrier' depends on axioms: [Quot.sound]
-Derivation.lean:45:0: 'Derivation.quot_barrier' depends on axioms: [Quot.sound]
-Derivation.lean:46:0: 'Derivation.barrier_R2L' depends on axioms: [propext, Quot.sound]
-Derivation.lean:49:0: 'Derivation.index_le_strict_mono' depends on axioms: [propext, Quot.sound]
-Derivation.lean:50:0: 'Derivation.strict_bounded_length' depends on axioms: [propext, Quot.sound]
-Derivation.lean:51:0: 'Derivation.no_supply_round_bound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:52:0: 'Derivation.allPairs_length' depends on axioms: [propext, Quot.sound]
-Derivation.lean:55:0: 'Derivation.U0_separable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:56:0: 'Derivation.U1_separable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:57:0: 'Derivation.BL_separable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:58:0: 'Derivation.BD_separable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:59:0: 'Derivation.deltaU0_valid' depends on axioms: [propext, Quot.sound]
-Derivation.lean:60:0: 'Derivation.deltaU1_valid' depends on axioms: [propext, Quot.sound]
-Derivation.lean:61:0: 'Derivation.deltaBL_valid' depends on axioms: [propext, Quot.sound]
-Derivation.lean:62:0: 'Derivation.deltaBD_valid' depends on axioms: [propext, Quot.sound]
-Derivation.lean:63:0: 'Derivation.cost1_insufficient_general' depends on axioms: [propext]
-Derivation.lean:64:0: 'Derivation.cost1_insufficient' depends on axioms: [propext]
-Derivation.lean:65:0: 'Derivation.cost1_insufficient_F' depends on axioms: [propext]
-Derivation.lean:66:0: 'Derivation.deltaU0F_valid' depends on axioms: [propext, Quot.sound]
-Derivation.lean:67:0: 'Derivation.U0_not_iso_BL' depends on axioms: [propext, Quot.sound]
-Derivation.lean:68:0: 'Derivation.U0_not_iso_BD' depends on axioms: [propext, Quot.sound]
-Derivation.lean:69:0: 'Derivation.BL_not_iso_BD' depends on axioms: [propext, Quot.sound]
-Derivation.lean:70:0: 'Derivation.mu1_minimum_not_unique' depends on axioms: [propext, Quot.sound]
-Derivation.lean:71:0: 'Derivation.deltaK_applies' depends on axioms: [propext, Quot.sound]
-Derivation.lean:72:0: 'Derivation.markK_separable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:73:0: 'Derivation.deltaK_valid' depends on axioms: [propext, Quot.sound]
-Derivation.lean:74:0: 'Derivation.deltaK_length' does not depend on any axioms
-Derivation.lean:75:0: 'Derivation.markK_pairwise_noniso' depends on axioms: [propext]
-Derivation.lean:76:0: 'Derivation.mu2_unique' depends on axioms: [propext, Quot.sound]
-Derivation.lean:79:0: 'Derivation.mark_progress' depends on axioms: [propext, Quot.sound]
-Derivation.lean:80:0: 'Derivation.separable_of_subrules' depends on axioms: [propext]
-Derivation.lean:84:0: 'Derivation.erase_step' depends on axioms: [propext, Quot.sound]
-Derivation.lean:85:0: 'Derivation.erase_replay' depends on axioms: [propext, Quot.sound]
-Derivation.lean:88:0: 'Derivation.derivable_ext' does not depend on any axioms
-Derivation.lean:89:0: 'Derivation.wfCtx_ext' depends on axioms: [propext]
-Derivation.lean:90:0: 'Derivation.collapsed_ext' depends on axioms: [propext]
-Derivation.lean:91:0: 'Derivation.separable_ext' depends on axioms: [propext]
-Derivation.lean:92:0: 'Derivation.applyItem_ext' depends on axioms: [propext]
-Derivation.lean:93:0: 'Derivation.applyDelta_ext' depends on axioms: [propext]
-Derivation.lean:94:0: 'Derivation.validResponse_ext' depends on axioms: [propext]
-Derivation.lean:97:0: 'PrimDiff.irrefl_witness_ne' does not depend on any axioms
-Derivation.lean:98:0: 'PrimDiff.selfdiff_consistent' does not depend on any axioms
-Derivation.lean:99:0: 'PrimDiff.symm_selfdiff_consistent' does not depend on any axioms
-Derivation.lean:100:0: 'PrimDiff.meta_diff_without_assertion' does not depend on any axioms
-Derivation.lean:101:0: 'PrimDiff.factors_through_point_iff' does not depend on any axioms
-Derivation.lean:102:0: 'PrimDiff.no_witness_on_subsingleton' does not depend on any axioms
-Derivation.lean:103:0: 'PrimDiff.D2_irrefl' does not depend on any axioms
-Derivation.lean:104:0: 'PrimDiff.S2_irrefl' does not depend on any axioms
-Derivation.lean:105:0: 'PrimDiff.D2_witness' does not depend on any axioms
-Derivation.lean:106:0: 'PrimDiff.D2_initial_pointed' does not depend on any axioms
-Derivation.lean:107:0: 'PrimDiff.one_point_hosts_bare_witness' does not depend on any axioms
-Derivation.lean:108:0: 'PrimDiff.witnessed_irrefl_on_every_larger_carrier' depends on axioms: [propext, Quot.sound]
-Derivation.lean:109:0: 'PrimDiff.push_witness' does not depend on any axioms
-Derivation.lean:110:0: 'PrimDiff.collision_of_identifying_witness' does not depend on any axioms
-Derivation.lean:111:0: 'PrimDiff.collision_not_irrefl' does not depend on any axioms
-Derivation.lean:112:0: 'PrimDiff.bare_collapse_admissible' does not depend on any axioms
-Derivation.lean:113:0: 'PrimDiff.obstruction_under_irrefl' does not depend on any axioms
-Derivation.lean:114:0: 'PrimDiff.collapse_unobstructed_without_fidelity' does not depend on any axioms
-Derivation.lean:115:0: 'PrimDiff.collision_transpose_invariant' does not depend on any axioms
-Derivation.lean:116:0: 'PrimDiff.orientation_data_invisible_to_collapse' does not depend on any axioms
-Derivation.lean:117:0: 'PrimDiff.bool_irrefl_witness_classification' depends on axioms: [propext, Quot.sound]
-Derivation.lean:118:0: 'PrimDiff.D2_not_pointed_iso_S2' does not depend on any axioms
-Derivation.lean:119:0: 'PrimDiff.D2_S2_collapse_equiv' does not depend on any axioms
-Derivation.lean:120:0: 'PrimDiff.symmetric_no_equivariant_classifier' does not depend on any axioms
-Derivation.lean:121:0: 'PrimDiff.swap_is_S2_automorphism' does not depend on any axioms
-Derivation.lean:122:0: 'PrimDiff.oriented_rigid' does not depend on any axioms
-Derivation.lean:123:0: 'PrimDiff.oriented_classifier_exists' does not depend on any axioms
-Derivation.lean:124:0: 'PrimDiff.single_oriented_witness_consistent' does not depend on any axioms
-Derivation.lean:125:0: 'PrimDiff.multiplicity_invisible_to_presence' depends on axioms: [propext, Quot.sound]
-Derivation.lean:126:0: 'PrimDiff.repetition_no_new_content' depends on axioms: [propext]
-Derivation.lean:127:0: 'PrimDiff.repetition_new_occurrence' depends on axioms: [propext]
-Derivation.lean:128:0: 'PrimDiff.const_presentation_unfaithful' does not depend on any axioms
-Derivation.lean:129:0: 'PrimDiff.id_presentation_faithful' does not depend on any axioms
-Derivation.lean:130:0: 'PrimDiff.clos_empty_id' does not depend on any axioms
-Derivation.lean:131:0: 'PrimDiff.irred_empty_iff_ne' does not depend on any axioms
-Derivation.lean:132:0: 'PrimDiff.irred_antitone' does not depend on any axioms
-Derivation.lean:133:0: 'PrimDiff.merger_erases' does not depend on any axioms
-Derivation.lean:136:0: 'Bridge.stepT_preserves_atMostTok' depends on axioms: [propext, Quot.sound]
-Derivation.lean:137:0: 'Bridge.single_token_carrier_bound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:138:0: 'Bridge.second_token_required' depends on axioms: [propext, Quot.sound]
-Derivation.lean:139:0: 'Bridge.no_admitForm_no_forms' depends on axioms: [propext, Quot.sound]
-Derivation.lean:140:0: 'Bridge.no_forms_no_witness' depends on axioms: [propext, Quot.sound]
-Derivation.lean:141:0: 'Bridge.irrefl_law_not_entailed' does not depend on any axioms
-Derivation.lean:142:0: 'Bridge.equivariant_witness_is_S2' does not depend on any axioms
-Derivation.lean:143:0: 'Bridge.equivariant_not_D2' does not depend on any axioms
-Derivation.lean:144:0: 'Bridge.no_swap_fixed_offdiag_pair' does not depend on any axioms
-Derivation.lean:145:0: 'Bridge.order_visible_to_metatheory' depends on axioms: [propext, Quot.sound]
-Derivation.lean:146:0: 'Bridge.order_erased_at_object_level' depends on axioms: [propext, Quot.sound]
-Derivation.lean:149:0: 'Refusal.silent_eq_meta' depends on axioms: [propext, Quot.sound]
-Derivation.lean:150:0: 'Refusal.marker_state_invisible' depends on axioms: [propext, Quot.sound]
-Derivation.lean:151:0: 'Refusal.markers_invisible' depends on axioms: [propext, Quot.sound]
-Derivation.lean:152:0: 'Refusal.nonreify_carrier_bound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:153:0: 'Refusal.fact_state_changes' depends on axioms: [propext, Quot.sound]
-Derivation.lean:154:0: 'Refusal.silent_state_fixed' depends on axioms: [propext, Quot.sound]
-Derivation.lean:155:0: 'Refusal.reifyUntagged_eq_occurrence' depends on axioms: [propext, Quot.sound]
-Derivation.lean:156:0: 'Refusal.reifyUntagged_replay_eq_occurrence' depends on axioms: [propext, Quot.sound]
-Derivation.lean:157:0: 'Refusal.reifyUntagged_two_admissions' depends on axioms: [propext, Quot.sound]
-Derivation.lean:158:0: 'Refusal.reifyTagged_two_admissions' depends on axioms: [propext, Quot.sound]
-Derivation.lean:159:0: 'Refusal.tag_separates' depends on axioms: [propext, Quot.sound]
-Derivation.lean:160:0: 'Refusal.occurrence_state_swap_invariant' depends on axioms: [propext, Quot.sound]
-Derivation.lean:161:0: 'Refusal.tagged_state_not_swap_invariant' depends on axioms: [propext, Quot.sound]
-Derivation.lean:162:0: 'Refusal.canonical_designation' depends on axioms: [propext, Quot.sound]
-Derivation.lean:163:0: 'Refusal.tagged_translation_separable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:164:0: 'Refusal.untagged_translation_collapsed' depends on axioms: [propext]
-Derivation.lean:167:0: 'RefusalFrontier.silent_repetition_inert' depends on axioms: [propext, Quot.sound]
-Derivation.lean:168:0: 'RefusalFrontier.trace_erasure' depends on axioms: [propext, Quot.sound]
-Derivation.lean:169:0: 'RefusalFrontier.histories_collapse' depends on axioms: [propext, Quot.sound]
-Derivation.lean:170:0: 'RefusalFrontier.mono_code_swap_invariant' does not depend on any axioms
-Derivation.lean:171:0: 'RefusalFrontier.distinct_code_not_swap_invariant' does not depend on any axioms
-Derivation.lean:172:0: 'RefusalFrontier.singleton_algebra_monochrome' depends on axioms: [propext]
-Derivation.lean:173:0: 'RefusalFrontier.distinction_needs_two_constructors' does not depend on any axioms
-Derivation.lean:174:0: 'RefusalFrontier.judgment_variant_second_judgment_not_datum' depends on axioms: [propext, Quot.sound]
-Derivation.lean:175:0: 'RefusalFrontier.judgment_carrier_bound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:176:0: 'RefusalFrontier.priced_bridge_closes' depends on axioms: [propext, Quot.sound]
-Derivation.lean:177:0: 'RefusalFrontier.priced_bridge_oriented' depends on axioms: [propext, Quot.sound]
-Derivation.lean:178:0: 'RefusalFrontier.min_witnessed_route_closes' depends on axioms: [propext]
-Derivation.lean:179:0: 'RefusalFrontier.bridge_facts_not_law' depends on axioms: [propext, Quot.sound]
-Derivation.lean:180:0: 'RefusalFrontier.equivariant_output_invariant' does not depend on any axioms
-Derivation.lean:181:0: 'RefusalFrontier.untyped_reflect_fixpoint' does not depend on any axioms
-Derivation.lean:182:0: 'RefusalFrontier.toggle_two_cycle' does not depend on any axioms
-Derivation.lean:183:0: 'RefusalFrontier.reflective_chain_growth' depends on axioms: [propext]
-Derivation.lean:184:0: 'RefusalFrontier.reflective_chain_is_initial_segment' depends on axioms: [propext]
-Derivation.lean:185:0: 'RefusalFrontier.reflective_chain_successor_relation' depends on axioms: [propext]
-Derivation.lean:186:0: 'RefusalFrontier.reflective_chain_irreflexive_facts' depends on axioms: [propext, Quot.sound]
-Derivation.lean:190:0: 'Generator.reflective_chain_tags' depends on axioms: [propext]
-Derivation.lean:191:0: 'Generator.chain_tagged_iff' depends on axioms: [propext, Quot.sound]
-Derivation.lean:192:0: 'Generator.chain_hasIn_iff' depends on axioms: [propext, Quot.sound]
-Derivation.lean:193:0: 'Generator.chain_hasOut_iff' depends on axioms: [propext, Quot.sound]
-Derivation.lean:194:0: 'Generator.middle_profile' depends on axioms: [propext, Quot.sound]
-Derivation.lean:195:0: 'Generator.endpoint0_profile' depends on axioms: [propext, Quot.sound]
-Derivation.lean:196:0: 'Generator.endpointN_profile' depends on axioms: [propext, Quot.sound]
-Derivation.lean:197:0: 'Generator.depth1_obstructions_are_exactly_middle_pairs' depends on axioms: [propext, Quot.sound]
-Derivation.lean:198:0: 'Generator.generation_never_dries' depends on axioms: [propext, Quot.sound]
-Derivation.lean:199:0: 'Generator.automark_presence_vacuous' depends on axioms: [propext, Quot.sound]
-Derivation.lean:200:0: 'Generator.le_foldr_max' depends on axioms: [propext, Quot.sound]
-Derivation.lean:201:0: 'Generator.finite_marks_outrun' depends on axioms: [propext, Quot.sound]
-Derivation.lean:202:0: 'Generator.valued_marks_collapse_generation' depends on axioms: [propext, Quot.sound]
-Derivation.lean:203:0: 'Generator.middle_swap_not_relation_preserving' depends on axioms: [propext, Quot.sound]
-Derivation.lean:204:0: 'Generator.depth2_separates_near_ends_n4' depends on axioms: [propext, Quot.sound]
-Derivation.lean:205:0: 'Generator.depth2_obstruction_n5' depends on axioms: [propext, Quot.sound]
-Derivation.lean:208:0: 'DiffInterface.zeroRel_equivalence' does not depend on any axioms
-Derivation.lean:209:0: 'DiffInterface.kernel_zeroRel' does not depend on any axioms
-Derivation.lean:210:0: 'DiffInterface.obsQuotient_eq_of_zero' depends on axioms: [Quot.sound]
-Derivation.lean:211:0: 'DiffInterface.no_guard_no_obstruction' does not depend on any axioms
-Derivation.lean:212:0: 'DiffInterface.unretained_not_active' does not depend on any axioms
-Derivation.lean:213:0: 'DiffInterface.distinguished_not_active' does not depend on any axioms
-Derivation.lean:214:0: 'DiffInterface.bare_reflection_certifies_active_obstruction' does not depend on any axioms
-Derivation.lean:215:0: 'DiffInterface.refines_preserves_distinctions' does not depend on any axioms
-Derivation.lean:216:0: 'DiffInterface.closure_preserves_old_distinctions' does not depend on any axioms
-Derivation.lean:217:0: 'DiffInterface.closure_kills_demanded' does not depend on any axioms
-Derivation.lean:218:0: 'DiffInterface.closure_adds_no_obstruction' does not depend on any axioms
-Derivation.lean:219:0: 'DiffInterface.drive_terminates' depends on axioms: [propext, Quot.sound]
-Derivation.lean:220:0: 'DiffInterface.cview_distinct_mono' depends on axioms: [propext, Quot.sound]
-Derivation.lean:221:0: 'DiffInterface.tower_closed' depends on axioms: [propext, Quot.sound]
-Derivation.lean:222:0: 'DiffInterface.tower_obstruction' depends on axioms: [propext, Quot.sound]
-Derivation.lean:223:0: 'DiffInterface.swapTop_view' depends on axioms: [propext, Quot.sound]
-Derivation.lean:224:0: 'DiffInterface.swapTop_live_inj' depends on axioms: [propext, Quot.sound]
-Derivation.lean:225:0: 'DiffInterface.tower_step_composes' depends on axioms: [propext, Quot.sound]
-Derivation.lean:226:0: 'DiffInterface.tower_successor_step' depends on axioms: [propext, Quot.sound]
-Derivation.lean:227:0: 'DiffInterface.mem_activePairs' depends on axioms: [propext, Quot.sound]
-Derivation.lean:228:0: 'DiffInterface.mem_activePairs_iff_active' depends on axioms: [propext, Quot.sound]
-Derivation.lean:229:0: 'DiffInterface.closed_measure_zero' depends on axioms: [propext, Quot.sound]
-Derivation.lean:230:0: 'DiffInterface.preclose_measure_pos' depends on axioms: [propext, Quot.sound]
-Derivation.lean:231:0: 'DiffInterface.tower_demand_characterized' depends on axioms: [propext]
-Derivation.lean:232:0: 'DiffInterface.tower_demand_bound' does not depend on any axioms
-Derivation.lean:233:0: 'DiffInterface.towerNext_decrease' depends on axioms: [propext, Quot.sound]
-Derivation.lean:234:0: 'DiffInterface.tower_fuel_terminates' depends on axioms: [propext, Quot.sound]
-Derivation.lean:235:0: 'DiffInterface.bool_view_pigeonhole' does not depend on any axioms
-Derivation.lean:236:0: 'DiffInterface.bool_grammar_obstruction' depends on axioms: [propext, Quot.sound]
-Derivation.lean:237:0: 'DiffInterface.no_bool_view_is_closed' depends on axioms: [propext, Quot.sound]
-Derivation.lean:238:0: 'DiffInterface.cm_freshness' does not depend on any axioms
-Derivation.lean:239:0: 'DiffInterface.cm_tagging' does not depend on any axioms
-Derivation.lean:240:0: 'DiffInterface.cm_edge' does not depend on any axioms
-Derivation.lean:241:0: 'DiffInterface.cm_hash' does not depend on any axioms
-Derivation.lean:242:0: 'DiffInterface.cm_repetition' does not depend on any axioms
-Derivation.lean:245:0: 'Represented.bool_eq_of_iff' depends on axioms: [propext]
-Derivation.lean:246:0: 'Represented.or_not_eq_true' depends on axioms: [propext]
-Derivation.lean:247:0: 'Represented.replay_deterministic' depends on axioms: [propext, Quot.sound]
-Derivation.lean:248:0: 'Represented.replay_nil' depends on axioms: [propext, Quot.sound]
-Derivation.lean:249:0: 'Represented.replay_append' depends on axioms: [propext, Quot.sound]
-Derivation.lean:250:0: 'Represented.support_determines' depends on axioms: [propext, Quot.sound]
-Derivation.lean:251:0: 'Represented.internal_support' depends on axioms: [propext, Quot.sound]
-Derivation.lean:252:0: 'Represented.notes_inert' depends on axioms: [propext, Quot.sound]
-Derivation.lean:253:0: 'Represented.repairFamily_sound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:254:0: 'Represented.repairFamily_complete' depends on axioms: [propext, Quot.sound]
-Derivation.lean:255:0: 'Represented.repairFamily_retains_ties' depends on axioms: [propext, Quot.sound]
-Derivation.lean:256:0: 'Represented.equiv_step' depends on axioms: [propext, Quot.sound]
-Derivation.lean:257:0: 'Represented.equiv_replay' depends on axioms: [propext, Quot.sound]
-Derivation.lean:258:0: 'Represented.equiv_repairFamily' depends on axioms: [propext, Quot.sound]
-Derivation.lean:259:0: 'Represented.mark_discharges' depends on axioms: [propext, Quot.sound]
-Derivation.lean:260:0: 'Represented.mark_preserves' depends on axioms: [propext, Quot.sound]
-Derivation.lean:261:0: 'Represented.step_mark_sound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:262:0: 'Represented.satB_aug' depends on axioms: [propext, Quot.sound]
-Derivation.lean:263:0: 'Represented.aug_preserves_satisfied' depends on axioms: [propext, Quot.sound]
-Derivation.lean:264:0: 'Represented.aug_increases' depends on axioms: [propext, Quot.sound]
-Derivation.lean:265:0: 'Represented.wf_genesis' does not depend on any axioms
-Derivation.lean:266:0: 'Represented.wf_step' depends on axioms: [propext, Quot.sound]
-Derivation.lean:267:0: 'Represented.wf_replay' depends on axioms: [propext, Quot.sound]
-Derivation.lean:268:0: 'Represented.represented_progress' depends on axioms: [propext, Quot.sound]
-Derivation.lean:269:0: 'Represented.progress_needs_budget' depends on axioms: [propext, Quot.sound]
-Derivation.lean:270:0: 'Represented.progress_needs_license' depends on axioms: [propext, Quot.sound]
-Derivation.lean:271:0: 'Represented.violation_only_from_require' depends on axioms: [propext, Quot.sound]
-Derivation.lean:272:0: 'Represented.quiescent_stable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:273:0: 'Represented.histUpTo_prefix' does not depend on any axioms
-Derivation.lean:274:0: 'Represented.admit_data_fresh' depends on axioms: [propext, Quot.sound]
-Derivation.lean:275:0: 'Represented.worldAt_data' depends on axioms: [propext, Quot.sound]
-Derivation.lean:276:0: 'Represented.worldAt_growth' depends on axioms: [propext, Quot.sound]
-Derivation.lean:277:0: 'Represented.productive_run' depends on axioms: [propext, Quot.sound]
-Derivation.lean:278:0: 'Represented.worldAt_three_quiescent' depends on axioms: [propext, Quot.sound]
-Derivation.lean:279:0: 'Represented.wit_all_lengths' depends on axioms: [propext, Quot.sound]
-Derivation.lean:280:0: 'Represented.wit_no_infinite' depends on axioms: [propext, Quot.sound]
-Derivation.lean:281:0: 'Represented.cert_scope' depends on axioms: [propext, Quot.sound]
-Derivation.lean:282:0: 'Represented.cert_not_correspondence' depends on axioms: [propext, Quot.sound]
-Derivation.lean:283:0: 'Represented.cert_panel_relative' depends on axioms: [propext, Quot.sound]
-Derivation.lean:284:0: 'Represented.scheduler_hidden' depends on axioms: [propext, Quot.sound]
-Derivation.lean:285:0: 'Represented.gensym_hidden' depends on axioms: [propext, Quot.sound]
-Derivation.lean:286:0: 'Represented.oracle_hidden' depends on axioms: [propext, Quot.sound]
-Derivation.lean:287:0: 'Represented.incomplete_search_false_alarm' depends on axioms: [propext, Quot.sound]
-Derivation.lean:288:0: 'Represented.augmentation_destroys_old_replay' depends on axioms: [propext, Quot.sound]
-Derivation.lean:289:0: 'Represented.repetition_not_progress' depends on axioms: [propext, Quot.sound]
-Derivation.lean:290:0: 'Represented.order_sensitivity_splits_equivalents' depends on axioms: [propext, Quot.sound]
-Derivation.lean:291:0: 'Represented.refusal_needs_certificate' depends on axioms: [propext, Quot.sound]
-Derivation.lean:292:0: 'Represented.refusals_are_represented' depends on axioms: [propext, Quot.sound]
-Derivation.lean:296:0: 'Completion.ofWorld_sep' depends on axioms: [propext, Quot.sound]
-Derivation.lean:297:0: 'Completion.ofWorld_obstruction' depends on axioms: [propext, Quot.sound]
-Derivation.lean:298:0: 'Completion.ofWorld_quiescent' depends on axioms: [propext, Quot.sound]
-Derivation.lean:299:0: 'Completion.chain_transport' depends on axioms: [propext]
-Derivation.lean:300:0: 'Completion.d2_transport_oriented' does not depend on any axioms
-Derivation.lean:301:0: 'Completion.s2_transport_symmetric' depends on axioms: [propext, Quot.sound]
-Derivation.lean:302:0: 'Completion.witness_not_separation' depends on axioms: [propext, Quot.sound]
-Derivation.lean:303:0: 'Completion.separation_not_witness' depends on axioms: [propext, Quot.sound]
-Derivation.lean:304:0: 'Completion.meta_distinctness_inert' depends on axioms: [propext, Quot.sound]
-Derivation.lean:305:0: 'Completion.early_collapse_transports' depends on axioms: [propext, Quot.sound]
-Derivation.lean:306:0: 'Completion.sepB_symm' depends on axioms: [propext, Quot.sound]
-Derivation.lean:307:0: 'Completion.augFamily_sound' depends on axioms: [propext, Quot.sound]
-Derivation.lean:308:0: 'Completion.augFamily_retains_ties' depends on axioms: [propext, Quot.sound]
-Derivation.lean:309:0: 'Completion.rule1_repair_or_extension' depends on axioms: [propext, Quot.sound]
-Derivation.lean:310:0: 'Completion.obstC_conditions_independent' depends on axioms: [propext, Quot.sound]
-Derivation.lean:311:0: 'Completion.s2_state_not_swap_invariant' does not depend on any axioms
-Derivation.lean:312:0: 'Completion.refusal_recordable' depends on axioms: [propext, Quot.sound]
-Derivation.lean:313:0: 'Completion.refusal_object_inert' depends on axioms: [propext, Quot.sound]
-Derivation.lean:314:0: 'Completion.refusal_non_absorbing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:315:0: 'Completion.action_dichotomy' depends on axioms: [propext, Quot.sound]
-Derivation.lean:316:0: 'Completion.rule1_needs_fidelity' depends on axioms: [propext, Quot.sound]
-Derivation.lean:317:0: 'Completion.retraction_breaks_preservation' depends on axioms: [propext, Quot.sound]
-Derivation.lean:318:0: 'NoOutside.support_replay' depends on axioms: [propext, Quot.sound]
-Derivation.lean:319:0: 'NoOutside.support_repairFamily' depends on axioms: [propext, Quot.sound]
-Derivation.lean:320:0: 'NoOutside.support_quiescent' depends on axioms: [propext, Quot.sound]
-Derivation.lean:321:0: 'NoOutside.support_obstructed' depends on axioms: [propext, Quot.sound]
-Derivation.lean:322:0: 'NoOutside.effectual_outside_dichotomy' depends on axioms: [propext, Quot.sound]
-Derivation.lean:323:0: 'NoOutside.equivariant_family_invariant' does not depend on any axioms
-Derivation.lean:324:0: 'NoOutside.stepC_conservative' depends on axioms: [propext, Quot.sound]
-Derivation.lean:325:0: 'NoOutside.admitEvaluator_base_inert' depends on axioms: [propext, Quot.sound]
-Derivation.lean:326:0: 'NoOutside.replayC_deterministic' depends on axioms: [propext, Quot.sound]
-Derivation.lean:327:0: 'NoOutside.panel_equiv' does not depend on any axioms
-Derivation.lean:328:0: 'NoOutside.certNeg_iff_panelEquiv' depends on axioms: [propext, Quot.sound]
-Derivation.lean:329:0: 'NoOutside.certC_ceiling' depends on axioms: [propext, Quot.sound]
-Derivation.lean:330:0: 'Constitution.nextFamily_tower_singleton' depends on axioms: [propext, Quot.sound]
-Derivation.lean:331:0: 'Constitution.closeBlocks_complete_repair' depends on axioms: [propext, Quot.sound]
-Derivation.lean:332:0: 'Constitution.closeBlocks_complete_aug' depends on axioms: [propext, Quot.sound]
-Derivation.lean:333:0: 'Constitution.nextFamily_stop' depends on axioms: [propext, Quot.sound]
-Derivation.lean:334:0: 'Constitution.towerBlock_eq' depends on axioms: [propext, Quot.sound]
-Derivation.lean:335:0: 'Constitution.driver_reproduces_tower' depends on axioms: [propext, Quot.sound]
-Derivation.lean:336:0: 'Constitution.nextFamily_complete' depends on axioms: [propext, Quot.sound]
-Derivation.lean:337:0: 'Constitution.budget_replenishment_represented' does not depend on any axioms
-Derivation.lean:338:0: 'Constitution.gen_growth' depends on axioms: [propext, Quot.sound]
-Derivation.lean:339:0: 'Constitution.gen_three_quiescent' depends on axioms: [propext, Quot.sound]
-Derivation.lean:340:0: 'Constitution.freshName_fresh_on_tower' depends on axioms: [propext, Quot.sound]
-Derivation.lean:341:0: 'Constitution.freshName_not_fresh_generally' depends on axioms: [propext, Quot.sound]
-Derivation.lean:342:0: 'Constitution.tower_driver_autonomy' depends on axioms: [propext, Quot.sound]
-Derivation.lean:343:0: 'Constitution.interp_describe' depends on axioms: [propext, Quot.sound]
-Derivation.lean:344:0: 'Constitution.allDescs_length' does not depend on any axioms
-Derivation.lean:345:0: 'Constitution.allDescs_complete' depends on axioms: [propext]
-Derivation.lean:346:0: 'Initiality.dedup_load_bearing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:347:0: 'Initiality.require_guard_load_bearing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:348:0: 'Initiality.accept_guard_load_bearing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:349:0: 'Initiality.budget_gate_load_bearing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:350:0: 'Initiality.license_gate_load_bearing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:351:0: 'Initiality.refusal_certificate_load_bearing' depends on axioms: [propext, Quot.sound]
-Derivation.lean:352:0: 'Initiality.unique_compliant' depends on axioms: [propext, Quot.sound]
-Derivation.lean:353:0: 'Initiality.minimum_unique_in_class' depends on axioms: [propext, Quot.sound]
-Derivation.lean:354:0: 'Initiality.extension_retract' depends on axioms: [propext, Quot.sound]
-Derivation.lean:355:0: 'Initiality.extension_retract_replay' depends on axioms: [propext, Quot.sound]
-Derivation.lean:356:0: 'Initiality.retract_section' does not depend on any axioms
+Derivation.lean:44:0: 'Derivation.supply_no_op' depends on axioms: [propext]
+Derivation.lean:45:0: 'Derivation.genesis_underivable' does not depend on any axioms
+Derivation.lean:46:0: 'Derivation.underivable_of_empty' does not depend on any axioms
+Derivation.lean:47:0: 'Derivation.collapsed_of_no_insts' depends on axioms: [propext]
+Derivation.lean:48:0: 'Derivation.R2L_collapsed' depends on axioms: [propext]
+Derivation.lean:49:0: 'Derivation.R2F_collapsed' depends on axioms: [propext]
+Derivation.lean:50:0: 'Derivation.historyL_replays' depends on axioms: [propext]
+Derivation.lean:51:0: 'Derivation.historyF_replays' depends on axioms: [propext]
+Derivation.lean:52:0: 'Derivation.admission_without_expressive_increase' depends on axioms: [propext]
+Derivation.lean:53:0: 'Derivation.replayE_append' depends on axioms: [propext, Quot.sound]
+Derivation.lean:54:0: 'Derivation.separable_not_collapsed' depends on axioms: [propext]
+Derivation.lean:57:0: 'Derivation.quotient_barrier' depends on axioms: [Quot.sound]
+Derivation.lean:58:0: 'Derivation.quot_barrier' depends on axioms: [Quot.sound]
+Derivation.lean:59:0: 'Derivation.barrier_R2L' depends on axioms: [propext, Quot.sound]
+Derivation.lean:62:0: 'Derivation.index_le_strict_mono' depends on axioms: [propext, Quot.sound]
+Derivation.lean:63:0: 'Derivation.strict_bounded_length' depends on axioms: [propext, Quot.sound]
+Derivation.lean:64:0: 'Derivation.no_supply_round_bound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:65:0: 'Derivation.allPairs_length' depends on axioms: [propext, Quot.sound]
+Derivation.lean:68:0: 'Derivation.U0_separable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:69:0: 'Derivation.U1_separable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:70:0: 'Derivation.BL_separable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:71:0: 'Derivation.BD_separable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:72:0: 'Derivation.deltaU0_valid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:73:0: 'Derivation.deltaU1_valid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:74:0: 'Derivation.deltaBL_valid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:75:0: 'Derivation.deltaBD_valid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:76:0: 'Derivation.cost1_insufficient_general' depends on axioms: [propext]
+Derivation.lean:77:0: 'Derivation.cost1_insufficient' depends on axioms: [propext]
+Derivation.lean:78:0: 'Derivation.cost1_insufficient_F' depends on axioms: [propext]
+Derivation.lean:79:0: 'Derivation.deltaU0F_valid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:80:0: 'Derivation.U0_not_iso_BL' depends on axioms: [propext, Quot.sound]
+Derivation.lean:81:0: 'Derivation.U0_not_iso_BD' depends on axioms: [propext, Quot.sound]
+Derivation.lean:82:0: 'Derivation.BL_not_iso_BD' depends on axioms: [propext, Quot.sound]
+Derivation.lean:83:0: 'Derivation.mu1_minimum_not_unique' depends on axioms: [propext, Quot.sound]
+Derivation.lean:84:0: 'Derivation.deltaK_applies' depends on axioms: [propext, Quot.sound]
+Derivation.lean:85:0: 'Derivation.markK_separable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:86:0: 'Derivation.deltaK_valid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:87:0: 'Derivation.deltaK_length' does not depend on any axioms
+Derivation.lean:88:0: 'Derivation.markK_pairwise_noniso' depends on axioms: [propext]
+Derivation.lean:89:0: 'Derivation.mu2_unique' depends on axioms: [propext, Quot.sound]
+Derivation.lean:92:0: 'Derivation.mark_progress' depends on axioms: [propext, Quot.sound]
+Derivation.lean:93:0: 'Derivation.separable_of_subrules' depends on axioms: [propext]
+Derivation.lean:97:0: 'Derivation.erase_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:98:0: 'Derivation.erase_replay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:101:0: 'Derivation.derivable_ext' does not depend on any axioms
+Derivation.lean:102:0: 'Derivation.wfCtx_ext' depends on axioms: [propext]
+Derivation.lean:103:0: 'Derivation.collapsed_ext' depends on axioms: [propext]
+Derivation.lean:104:0: 'Derivation.separable_ext' depends on axioms: [propext]
+Derivation.lean:105:0: 'Derivation.applyItem_ext' depends on axioms: [propext]
+Derivation.lean:106:0: 'Derivation.applyDelta_ext' depends on axioms: [propext]
+Derivation.lean:107:0: 'Derivation.validResponse_ext' depends on axioms: [propext]
+Derivation.lean:110:0: 'PrimDiff.irrefl_witness_ne' does not depend on any axioms
+Derivation.lean:111:0: 'PrimDiff.selfdiff_consistent' does not depend on any axioms
+Derivation.lean:112:0: 'PrimDiff.symm_selfdiff_consistent' does not depend on any axioms
+Derivation.lean:113:0: 'PrimDiff.meta_diff_without_assertion' does not depend on any axioms
+Derivation.lean:114:0: 'PrimDiff.factors_through_point_iff' does not depend on any axioms
+Derivation.lean:115:0: 'PrimDiff.no_witness_on_subsingleton' does not depend on any axioms
+Derivation.lean:116:0: 'PrimDiff.D2_irrefl' does not depend on any axioms
+Derivation.lean:117:0: 'PrimDiff.S2_irrefl' does not depend on any axioms
+Derivation.lean:118:0: 'PrimDiff.D2_witness' does not depend on any axioms
+Derivation.lean:119:0: 'PrimDiff.D2_initial_pointed' does not depend on any axioms
+Derivation.lean:120:0: 'PrimDiff.one_point_hosts_bare_witness' does not depend on any axioms
+Derivation.lean:121:0: 'PrimDiff.witnessed_irrefl_on_every_larger_carrier' depends on axioms: [propext, Quot.sound]
+Derivation.lean:122:0: 'PrimDiff.push_witness' does not depend on any axioms
+Derivation.lean:123:0: 'PrimDiff.collision_of_identifying_witness' does not depend on any axioms
+Derivation.lean:124:0: 'PrimDiff.collision_not_irrefl' does not depend on any axioms
+Derivation.lean:125:0: 'PrimDiff.bare_collapse_admissible' does not depend on any axioms
+Derivation.lean:126:0: 'PrimDiff.obstruction_under_irrefl' does not depend on any axioms
+Derivation.lean:127:0: 'PrimDiff.collapse_unobstructed_without_fidelity' does not depend on any axioms
+Derivation.lean:128:0: 'PrimDiff.collision_transpose_invariant' does not depend on any axioms
+Derivation.lean:129:0: 'PrimDiff.orientation_data_invisible_to_collapse' does not depend on any axioms
+Derivation.lean:130:0: 'PrimDiff.bool_irrefl_witness_classification' depends on axioms: [propext, Quot.sound]
+Derivation.lean:131:0: 'PrimDiff.D2_not_pointed_iso_S2' does not depend on any axioms
+Derivation.lean:132:0: 'PrimDiff.D2_S2_collapse_equiv' does not depend on any axioms
+Derivation.lean:133:0: 'PrimDiff.symmetric_no_equivariant_classifier' does not depend on any axioms
+Derivation.lean:134:0: 'PrimDiff.swap_is_S2_automorphism' does not depend on any axioms
+Derivation.lean:135:0: 'PrimDiff.oriented_rigid' does not depend on any axioms
+Derivation.lean:136:0: 'PrimDiff.oriented_classifier_exists' does not depend on any axioms
+Derivation.lean:137:0: 'PrimDiff.single_oriented_witness_consistent' does not depend on any axioms
+Derivation.lean:138:0: 'PrimDiff.multiplicity_invisible_to_presence' depends on axioms: [propext, Quot.sound]
+Derivation.lean:139:0: 'PrimDiff.repetition_no_new_content' depends on axioms: [propext]
+Derivation.lean:140:0: 'PrimDiff.repetition_new_occurrence' depends on axioms: [propext]
+Derivation.lean:141:0: 'PrimDiff.const_presentation_unfaithful' does not depend on any axioms
+Derivation.lean:142:0: 'PrimDiff.id_presentation_faithful' does not depend on any axioms
+Derivation.lean:143:0: 'PrimDiff.clos_empty_id' does not depend on any axioms
+Derivation.lean:144:0: 'PrimDiff.irred_empty_iff_ne' does not depend on any axioms
+Derivation.lean:145:0: 'PrimDiff.irred_antitone' does not depend on any axioms
+Derivation.lean:146:0: 'PrimDiff.merger_erases' does not depend on any axioms
+Derivation.lean:149:0: 'Bridge.stepT_preserves_atMostTok' depends on axioms: [propext, Quot.sound]
+Derivation.lean:150:0: 'Bridge.single_token_carrier_bound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:151:0: 'Bridge.second_token_required' depends on axioms: [propext, Quot.sound]
+Derivation.lean:152:0: 'Bridge.no_admitForm_no_forms' depends on axioms: [propext, Quot.sound]
+Derivation.lean:153:0: 'Bridge.no_forms_no_witness' depends on axioms: [propext, Quot.sound]
+Derivation.lean:154:0: 'Bridge.irrefl_law_not_entailed' does not depend on any axioms
+Derivation.lean:155:0: 'Bridge.equivariant_witness_is_S2' does not depend on any axioms
+Derivation.lean:156:0: 'Bridge.equivariant_not_D2' does not depend on any axioms
+Derivation.lean:157:0: 'Bridge.no_swap_fixed_offdiag_pair' does not depend on any axioms
+Derivation.lean:158:0: 'Bridge.order_visible_to_metatheory' depends on axioms: [propext, Quot.sound]
+Derivation.lean:159:0: 'Bridge.order_erased_at_object_level' depends on axioms: [propext, Quot.sound]
+Derivation.lean:162:0: 'Refusal.silent_eq_meta' depends on axioms: [propext, Quot.sound]
+Derivation.lean:163:0: 'Refusal.marker_state_invisible' depends on axioms: [propext, Quot.sound]
+Derivation.lean:164:0: 'Refusal.markers_invisible' depends on axioms: [propext, Quot.sound]
+Derivation.lean:165:0: 'Refusal.nonreify_carrier_bound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:166:0: 'Refusal.fact_state_changes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:167:0: 'Refusal.silent_state_fixed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:168:0: 'Refusal.reifyUntagged_eq_occurrence' depends on axioms: [propext, Quot.sound]
+Derivation.lean:169:0: 'Refusal.reifyUntagged_replay_eq_occurrence' depends on axioms: [propext, Quot.sound]
+Derivation.lean:170:0: 'Refusal.reifyUntagged_two_admissions' depends on axioms: [propext, Quot.sound]
+Derivation.lean:171:0: 'Refusal.reifyTagged_two_admissions' depends on axioms: [propext, Quot.sound]
+Derivation.lean:172:0: 'Refusal.tag_separates' depends on axioms: [propext, Quot.sound]
+Derivation.lean:173:0: 'Refusal.occurrence_state_swap_invariant' depends on axioms: [propext, Quot.sound]
+Derivation.lean:174:0: 'Refusal.tagged_state_not_swap_invariant' depends on axioms: [propext, Quot.sound]
+Derivation.lean:175:0: 'Refusal.canonical_designation' depends on axioms: [propext, Quot.sound]
+Derivation.lean:176:0: 'Refusal.tagged_translation_separable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:177:0: 'Refusal.untagged_translation_collapsed' depends on axioms: [propext]
+Derivation.lean:180:0: 'RefusalFrontier.silent_repetition_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:181:0: 'RefusalFrontier.trace_erasure' depends on axioms: [propext, Quot.sound]
+Derivation.lean:182:0: 'RefusalFrontier.histories_collapse' depends on axioms: [propext, Quot.sound]
+Derivation.lean:183:0: 'RefusalFrontier.mono_code_swap_invariant' does not depend on any axioms
+Derivation.lean:184:0: 'RefusalFrontier.distinct_code_not_swap_invariant' does not depend on any axioms
+Derivation.lean:185:0: 'RefusalFrontier.singleton_algebra_monochrome' depends on axioms: [propext]
+Derivation.lean:186:0: 'RefusalFrontier.distinction_needs_two_constructors' does not depend on any axioms
+Derivation.lean:187:0: 'RefusalFrontier.judgment_variant_second_judgment_not_datum' depends on axioms: [propext, Quot.sound]
+Derivation.lean:188:0: 'RefusalFrontier.judgment_carrier_bound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:189:0: 'RefusalFrontier.priced_bridge_closes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:190:0: 'RefusalFrontier.priced_bridge_oriented' depends on axioms: [propext, Quot.sound]
+Derivation.lean:191:0: 'RefusalFrontier.min_witnessed_route_closes' depends on axioms: [propext]
+Derivation.lean:192:0: 'RefusalFrontier.bridge_facts_not_law' depends on axioms: [propext, Quot.sound]
+Derivation.lean:193:0: 'RefusalFrontier.equivariant_output_invariant' does not depend on any axioms
+Derivation.lean:194:0: 'RefusalFrontier.untyped_reflect_fixpoint' does not depend on any axioms
+Derivation.lean:195:0: 'RefusalFrontier.toggle_two_cycle' does not depend on any axioms
+Derivation.lean:196:0: 'RefusalFrontier.reflective_chain_growth' depends on axioms: [propext]
+Derivation.lean:197:0: 'RefusalFrontier.reflective_chain_is_initial_segment' depends on axioms: [propext]
+Derivation.lean:198:0: 'RefusalFrontier.reflective_chain_successor_relation' depends on axioms: [propext]
+Derivation.lean:199:0: 'RefusalFrontier.reflective_chain_irreflexive_facts' depends on axioms: [propext, Quot.sound]
+Derivation.lean:203:0: 'Generator.reflective_chain_tags' depends on axioms: [propext]
+Derivation.lean:204:0: 'Generator.chain_tagged_iff' depends on axioms: [propext, Quot.sound]
+Derivation.lean:205:0: 'Generator.chain_hasIn_iff' depends on axioms: [propext, Quot.sound]
+Derivation.lean:206:0: 'Generator.chain_hasOut_iff' depends on axioms: [propext, Quot.sound]
+Derivation.lean:207:0: 'Generator.middle_profile' depends on axioms: [propext, Quot.sound]
+Derivation.lean:208:0: 'Generator.endpoint0_profile' depends on axioms: [propext, Quot.sound]
+Derivation.lean:209:0: 'Generator.endpointN_profile' depends on axioms: [propext, Quot.sound]
+Derivation.lean:210:0: 'Generator.depth1_obstructions_are_exactly_middle_pairs' depends on axioms: [propext, Quot.sound]
+Derivation.lean:211:0: 'Generator.generation_never_dries' depends on axioms: [propext, Quot.sound]
+Derivation.lean:212:0: 'Generator.automark_presence_vacuous' depends on axioms: [propext, Quot.sound]
+Derivation.lean:213:0: 'Generator.le_foldr_max' depends on axioms: [propext, Quot.sound]
+Derivation.lean:214:0: 'Generator.finite_marks_outrun' depends on axioms: [propext, Quot.sound]
+Derivation.lean:215:0: 'Generator.valued_marks_collapse_generation' depends on axioms: [propext, Quot.sound]
+Derivation.lean:216:0: 'Generator.middle_swap_not_relation_preserving' depends on axioms: [propext, Quot.sound]
+Derivation.lean:217:0: 'Generator.depth2_separates_near_ends_n4' depends on axioms: [propext, Quot.sound]
+Derivation.lean:218:0: 'Generator.depth2_obstruction_n5' depends on axioms: [propext, Quot.sound]
+Derivation.lean:221:0: 'DiffInterface.zeroRel_equivalence' does not depend on any axioms
+Derivation.lean:222:0: 'DiffInterface.kernel_zeroRel' does not depend on any axioms
+Derivation.lean:223:0: 'DiffInterface.obsQuotient_eq_of_zero' depends on axioms: [Quot.sound]
+Derivation.lean:224:0: 'DiffInterface.no_guard_no_obstruction' does not depend on any axioms
+Derivation.lean:225:0: 'DiffInterface.unretained_not_active' does not depend on any axioms
+Derivation.lean:226:0: 'DiffInterface.distinguished_not_active' does not depend on any axioms
+Derivation.lean:227:0: 'DiffInterface.bare_reflection_certifies_active_obstruction' does not depend on any axioms
+Derivation.lean:228:0: 'DiffInterface.refines_preserves_distinctions' does not depend on any axioms
+Derivation.lean:229:0: 'DiffInterface.closure_preserves_old_distinctions' does not depend on any axioms
+Derivation.lean:230:0: 'DiffInterface.closure_kills_demanded' does not depend on any axioms
+Derivation.lean:231:0: 'DiffInterface.closure_adds_no_obstruction' does not depend on any axioms
+Derivation.lean:232:0: 'DiffInterface.drive_terminates' depends on axioms: [propext, Quot.sound]
+Derivation.lean:233:0: 'DiffInterface.cview_distinct_mono' depends on axioms: [propext, Quot.sound]
+Derivation.lean:234:0: 'DiffInterface.tower_closed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:235:0: 'DiffInterface.tower_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:236:0: 'DiffInterface.swapTop_view' depends on axioms: [propext, Quot.sound]
+Derivation.lean:237:0: 'DiffInterface.swapTop_live_inj' depends on axioms: [propext, Quot.sound]
+Derivation.lean:238:0: 'DiffInterface.tower_step_composes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:239:0: 'DiffInterface.tower_successor_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:240:0: 'DiffInterface.mem_activePairs' depends on axioms: [propext, Quot.sound]
+Derivation.lean:241:0: 'DiffInterface.mem_activePairs_iff_active' depends on axioms: [propext, Quot.sound]
+Derivation.lean:242:0: 'DiffInterface.closed_measure_zero' depends on axioms: [propext, Quot.sound]
+Derivation.lean:243:0: 'DiffInterface.preclose_measure_pos' depends on axioms: [propext, Quot.sound]
+Derivation.lean:244:0: 'DiffInterface.tower_demand_characterized' depends on axioms: [propext]
+Derivation.lean:245:0: 'DiffInterface.tower_demand_bound' does not depend on any axioms
+Derivation.lean:246:0: 'DiffInterface.towerNext_decrease' depends on axioms: [propext, Quot.sound]
+Derivation.lean:247:0: 'DiffInterface.tower_fuel_terminates' depends on axioms: [propext, Quot.sound]
+Derivation.lean:248:0: 'DiffInterface.bool_view_pigeonhole' does not depend on any axioms
+Derivation.lean:249:0: 'DiffInterface.bool_grammar_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:250:0: 'DiffInterface.no_bool_view_is_closed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:251:0: 'DiffInterface.cm_freshness' does not depend on any axioms
+Derivation.lean:252:0: 'DiffInterface.cm_tagging' does not depend on any axioms
+Derivation.lean:253:0: 'DiffInterface.cm_edge' does not depend on any axioms
+Derivation.lean:254:0: 'DiffInterface.cm_hash' does not depend on any axioms
+Derivation.lean:255:0: 'DiffInterface.cm_repetition' does not depend on any axioms
+Derivation.lean:258:0: 'Represented.bool_eq_of_iff' depends on axioms: [propext]
+Derivation.lean:259:0: 'Represented.or_not_eq_true' depends on axioms: [propext]
+Derivation.lean:260:0: 'Represented.replay_deterministic' depends on axioms: [propext, Quot.sound]
+Derivation.lean:261:0: 'Represented.replay_nil' depends on axioms: [propext, Quot.sound]
+Derivation.lean:262:0: 'Represented.replay_append' depends on axioms: [propext, Quot.sound]
+Derivation.lean:263:0: 'Represented.support_determines' depends on axioms: [propext, Quot.sound]
+Derivation.lean:264:0: 'Represented.internal_support' depends on axioms: [propext, Quot.sound]
+Derivation.lean:265:0: 'Represented.notes_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:266:0: 'Represented.repairFamily_sound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:267:0: 'Represented.repairFamily_complete' depends on axioms: [propext, Quot.sound]
+Derivation.lean:268:0: 'Represented.repairFamily_retains_ties' depends on axioms: [propext, Quot.sound]
+Derivation.lean:269:0: 'Represented.equiv_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:270:0: 'Represented.equiv_replay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:271:0: 'Represented.equiv_repairFamily' depends on axioms: [propext, Quot.sound]
+Derivation.lean:272:0: 'Represented.mark_discharges' depends on axioms: [propext, Quot.sound]
+Derivation.lean:273:0: 'Represented.mark_preserves' depends on axioms: [propext, Quot.sound]
+Derivation.lean:274:0: 'Represented.step_mark_sound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:275:0: 'Represented.satB_aug' depends on axioms: [propext, Quot.sound]
+Derivation.lean:276:0: 'Represented.aug_preserves_satisfied' depends on axioms: [propext, Quot.sound]
+Derivation.lean:277:0: 'Represented.aug_increases' depends on axioms: [propext, Quot.sound]
+Derivation.lean:278:0: 'Represented.wf_genesis' does not depend on any axioms
+Derivation.lean:279:0: 'Represented.wf_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:280:0: 'Represented.wf_replay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:281:0: 'Represented.represented_progress' depends on axioms: [propext, Quot.sound]
+Derivation.lean:282:0: 'Represented.progress_needs_budget' depends on axioms: [propext, Quot.sound]
+Derivation.lean:283:0: 'Represented.progress_needs_license' depends on axioms: [propext, Quot.sound]
+Derivation.lean:284:0: 'Represented.violation_only_from_require' depends on axioms: [propext, Quot.sound]
+Derivation.lean:285:0: 'Represented.quiescent_stable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:286:0: 'Represented.histUpTo_prefix' does not depend on any axioms
+Derivation.lean:287:0: 'Represented.admit_data_fresh' depends on axioms: [propext, Quot.sound]
+Derivation.lean:288:0: 'Represented.worldAt_data' depends on axioms: [propext, Quot.sound]
+Derivation.lean:289:0: 'Represented.worldAt_growth' depends on axioms: [propext, Quot.sound]
+Derivation.lean:290:0: 'Represented.productive_run' depends on axioms: [propext, Quot.sound]
+Derivation.lean:291:0: 'Represented.worldAt_three_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:292:0: 'Represented.wit_all_lengths' depends on axioms: [propext, Quot.sound]
+Derivation.lean:293:0: 'Represented.wit_no_infinite' depends on axioms: [propext, Quot.sound]
+Derivation.lean:294:0: 'Represented.cert_scope' depends on axioms: [propext, Quot.sound]
+Derivation.lean:295:0: 'Represented.cert_not_correspondence' depends on axioms: [propext, Quot.sound]
+Derivation.lean:296:0: 'Represented.cert_panel_relative' depends on axioms: [propext, Quot.sound]
+Derivation.lean:297:0: 'Represented.scheduler_hidden' depends on axioms: [propext, Quot.sound]
+Derivation.lean:298:0: 'Represented.gensym_hidden' depends on axioms: [propext, Quot.sound]
+Derivation.lean:299:0: 'Represented.oracle_hidden' depends on axioms: [propext, Quot.sound]
+Derivation.lean:300:0: 'Represented.incomplete_search_false_alarm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:301:0: 'Represented.augmentation_destroys_old_replay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:302:0: 'Represented.repetition_not_progress' depends on axioms: [propext, Quot.sound]
+Derivation.lean:303:0: 'Represented.order_sensitivity_splits_equivalents' depends on axioms: [propext, Quot.sound]
+Derivation.lean:304:0: 'Represented.refusal_needs_certificate' depends on axioms: [propext, Quot.sound]
+Derivation.lean:305:0: 'Represented.refusals_are_represented' depends on axioms: [propext, Quot.sound]
+Derivation.lean:309:0: 'Completion.ofWorld_sep' depends on axioms: [propext, Quot.sound]
+Derivation.lean:310:0: 'Completion.ofWorld_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:311:0: 'Completion.ofWorld_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:312:0: 'Completion.chain_transport' depends on axioms: [propext]
+Derivation.lean:313:0: 'Completion.d2_transport_oriented' does not depend on any axioms
+Derivation.lean:314:0: 'Completion.s2_transport_symmetric' depends on axioms: [propext, Quot.sound]
+Derivation.lean:315:0: 'Completion.witness_not_separation' depends on axioms: [propext, Quot.sound]
+Derivation.lean:316:0: 'Completion.separation_not_witness' depends on axioms: [propext, Quot.sound]
+Derivation.lean:317:0: 'Completion.meta_distinctness_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:318:0: 'Completion.early_collapse_transports' depends on axioms: [propext, Quot.sound]
+Derivation.lean:319:0: 'Completion.sepB_symm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:320:0: 'Completion.augFamily_sound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:321:0: 'Completion.augFamily_retains_ties' depends on axioms: [propext, Quot.sound]
+Derivation.lean:322:0: 'Completion.rule1_repair_or_extension' depends on axioms: [propext, Quot.sound]
+Derivation.lean:323:0: 'Completion.obstC_conditions_independent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:324:0: 'Completion.s2_state_not_swap_invariant' does not depend on any axioms
+Derivation.lean:325:0: 'Completion.refusal_recordable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:326:0: 'Completion.refusal_object_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:327:0: 'Completion.refusal_non_absorbing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:328:0: 'Completion.action_dichotomy' depends on axioms: [propext, Quot.sound]
+Derivation.lean:329:0: 'Completion.rule1_needs_fidelity' depends on axioms: [propext, Quot.sound]
+Derivation.lean:330:0: 'Completion.retraction_breaks_preservation' depends on axioms: [propext, Quot.sound]
+Derivation.lean:331:0: 'NoOutside.support_replay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:332:0: 'NoOutside.support_repairFamily' depends on axioms: [propext, Quot.sound]
+Derivation.lean:333:0: 'NoOutside.support_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:334:0: 'NoOutside.support_obstructed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:335:0: 'NoOutside.effectual_outside_dichotomy' depends on axioms: [propext, Quot.sound]
+Derivation.lean:336:0: 'NoOutside.equivariant_family_invariant' does not depend on any axioms
+Derivation.lean:337:0: 'NoOutside.stepC_conservative' depends on axioms: [propext, Quot.sound]
+Derivation.lean:338:0: 'NoOutside.admitEvaluator_base_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:339:0: 'NoOutside.replayC_deterministic' depends on axioms: [propext, Quot.sound]
+Derivation.lean:340:0: 'NoOutside.panel_equiv' does not depend on any axioms
+Derivation.lean:341:0: 'NoOutside.certNeg_iff_panelEquiv' depends on axioms: [propext, Quot.sound]
+Derivation.lean:342:0: 'NoOutside.certC_ceiling' depends on axioms: [propext, Quot.sound]
+Derivation.lean:343:0: 'Constitution.nextFamily_tower_singleton' depends on axioms: [propext, Quot.sound]
+Derivation.lean:344:0: 'Constitution.closeBlocks_complete_repair' depends on axioms: [propext, Quot.sound]
+Derivation.lean:345:0: 'Constitution.closeBlocks_complete_aug' depends on axioms: [propext, Quot.sound]
+Derivation.lean:346:0: 'Constitution.nextFamily_stop' depends on axioms: [propext, Quot.sound]
+Derivation.lean:347:0: 'Constitution.towerBlock_eq' depends on axioms: [propext, Quot.sound]
+Derivation.lean:348:0: 'Constitution.driver_reproduces_tower' depends on axioms: [propext, Quot.sound]
+Derivation.lean:349:0: 'Constitution.nextFamily_complete' depends on axioms: [propext, Quot.sound]
+Derivation.lean:350:0: 'Constitution.budget_replenishment_represented' does not depend on any axioms
+Derivation.lean:351:0: 'Constitution.gen_growth' depends on axioms: [propext, Quot.sound]
+Derivation.lean:352:0: 'Constitution.gen_three_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:353:0: 'Constitution.freshName_fresh_on_tower' depends on axioms: [propext, Quot.sound]
+Derivation.lean:354:0: 'Constitution.freshName_not_fresh_generally' depends on axioms: [propext, Quot.sound]
+Derivation.lean:355:0: 'Constitution.tower_driver_autonomy' depends on axioms: [propext, Quot.sound]
+Derivation.lean:356:0: 'Constitution.interp_describe' depends on axioms: [propext, Quot.sound]
+Derivation.lean:357:0: 'Constitution.allDescs_length' does not depend on any axioms
+Derivation.lean:358:0: 'Constitution.allDescs_complete' depends on axioms: [propext]
+Derivation.lean:359:0: 'Initiality.dedup_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:360:0: 'Initiality.require_guard_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:361:0: 'Initiality.accept_guard_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:362:0: 'Initiality.budget_gate_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:363:0: 'Initiality.license_gate_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:364:0: 'Initiality.refusal_certificate_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:365:0: 'Initiality.unique_compliant' depends on axioms: [propext, Quot.sound]
+Derivation.lean:366:0: 'Initiality.minimum_unique_in_class' depends on axioms: [propext, Quot.sound]
+Derivation.lean:367:0: 'Initiality.extension_retract' depends on axioms: [propext, Quot.sound]
+Derivation.lean:368:0: 'Initiality.extension_retract_replay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:369:0: 'Initiality.retract_section' does not depend on any axioms
+Derivation.lean:370:0: 'Horizon.worldAt_spec' depends on axioms: [propext, Quot.sound]
+Derivation.lean:371:0: 'Horizon.worldAt_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:372:0: 'Horizon.worldAt_wf' depends on axioms: [propext, Quot.sound]
+Derivation.lean:373:0: 'Horizon.block_all_accepted' depends on axioms: [propext, Quot.sound]
+Derivation.lean:374:0: 'Horizon.genesis_accepted' depends on axioms: [propext, Quot.sound]
+Derivation.lean:375:0: 'Horizon.gen_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:376:0: 'Horizon.gen_wf' depends on axioms: [propext, Quot.sound]
+Derivation.lean:377:0: 'Horizon.interp_budget_bound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:378:0: 'Horizon.budget_saturation_noop' depends on axioms: [propext, Quot.sound]
+Derivation.lean:379:0: 'Horizon.mark_saturation_all_descs' depends on axioms: [propext, Quot.sound]
+Derivation.lean:380:0: 'PrimitiveCats.hom_ext' does not depend on any axioms
+Derivation.lean:381:0: 'PrimitiveCats.comp_id' does not depend on any axioms
+Derivation.lean:382:0: 'PrimitiveCats.id_comp' does not depend on any axioms
+Derivation.lean:383:0: 'PrimitiveCats.comp_assoc' does not depend on any axioms
+Derivation.lean:384:0: 'PrimitiveCats.d2Obj_irrefl' does not depend on any axioms
+Derivation.lean:385:0: 'PrimitiveCats.s2Obj_irrefl' does not depend on any axioms
+Derivation.lean:386:0: 'PrimitiveCats.s2Obj_sym' does not depend on any axioms
+Derivation.lean:387:0: 'PrimitiveCats.d2_not_obj_sym' does not depend on any axioms
+Derivation.lean:388:0: 'PrimitiveCats.weaklyInitial_of_initial' does not depend on any axioms
+Derivation.lean:389:0: 'PrimitiveCats.d2_initial' depends on axioms: [Quot.sound]
+Derivation.lean:390:0: 'PrimitiveCats.d2_initial_irrefl' depends on axioms: [Quot.sound]
+Derivation.lean:391:0: 'PrimitiveCats.s2_initial_sym' depends on axioms: [Quot.sound]
+Derivation.lean:392:0: 'PrimitiveCats.s2_no_hom_to_d2' does not depend on any axioms
+Derivation.lean:393:0: 'PrimitiveCats.s2_not_weakly_initial' does not depend on any axioms
+Derivation.lean:394:0: 'PrimitiveCats.s2_not_initial' does not depend on any axioms
+Derivation.lean:395:0: 'PrimitiveCats.d2Swap_initial' depends on axioms: [Quot.sound]
+Derivation.lean:396:0: 'PrimitiveCats.two_initials_not_identical' does not depend on any axioms
+Derivation.lean:397:0: 'PrimitiveCats.initials_iso' does not depend on any axioms
+Derivation.lean:398:0: 'PrimitiveCats.wideObj_irrefl' depends on axioms: [propext, Quot.sound]
+Derivation.lean:399:0: 'PrimitiveCats.ptd_on_every_larger_carrier' depends on axioms: [propext, Quot.sound]
+Derivation.lean:400:0: 'PrimitiveCats.bigHomA_ne_bigHomB' depends on axioms: [propext, Quot.sound]
+Derivation.lean:401:0: 'PrimitiveCats.larger_not_initial' depends on axioms: [propext, Quot.sound]
+Derivation.lean:402:0: 'PrimitiveCats.d2_autos' does not depend on any axioms
+Derivation.lean:403:0: 'PrimitiveCats.s2_swap_auto' does not depend on any axioms
+Derivation.lean:404:0: 'PrimitiveCats.s2_id_auto' does not depend on any axioms
+Derivation.lean:405:0: 'PrimitiveCats.not_bijective' does not depend on any axioms
+Derivation.lean:406:0: 'PrimitiveCats.s2_swap_isRelAuto' does not depend on any axioms
+Derivation.lean:407:0: 'PrimitiveCats.not_not_d2_auto' does not depend on any axioms
+Derivation.lean:408:0: 'PrimitiveCats.d2_swap_not_isRelAuto' does not depend on any axioms
+Derivation.lean:409:0: 'PrimitiveCats.pointed_rigid' does not depend on any axioms
+Derivation.lean:410:0: 'PrimitiveCats.phom_ext' does not depend on any axioms
+Derivation.lean:411:0: 'PrimitiveCats.pcomp_pid' does not depend on any axioms
+Derivation.lean:412:0: 'PrimitiveCats.pid_pcomp' does not depend on any axioms
+Derivation.lean:413:0: 'PrimitiveCats.pcomp_assoc' does not depend on any axioms
+Derivation.lean:414:0: 'PrimitiveCats.pres_initial' depends on axioms: [propext, Quot.sound]
+Derivation.lean:415:0: 'PrimitiveCats.no_phom_mergeA_mergeB' depends on axioms: [propext]
+Derivation.lean:416:0: 'PrimitiveCats.no_phom_mergeB_mergeA' depends on axioms: [propext]
+Derivation.lean:417:0: 'PrimitiveCats.no_terminal_pres' depends on axioms: [propext]
+Derivation.lean:418:0: 'PrimitiveCats.phom2_ext' does not depend on any axioms
+Derivation.lean:419:0: 'PrimitiveCats.idPres2_epi' does not depend on any axioms
+Derivation.lean:420:0: 'PrimitiveCats.swapPres2_epi' does not depend on any axioms
+Derivation.lean:421:0: 'PrimitiveCats.phom2_unique_of_epi' depends on axioms: [Quot.sound]
+Derivation.lean:422:0: 'PrimitiveCats.no_terminal_pres2' depends on axioms: [propext, Quot.sound]
+Derivation.lean:423:0: 'PrimitiveCats.phom2_exists_from_id' does not depend on any axioms
+Derivation.lean:424:0: 'PrimitiveCats.phom2_exists_from_swap' does not depend on any axioms
+Derivation.lean:425:0: 'PrimitiveCats.phom2_unique_exists_id' depends on axioms: [Quot.sound]
+Derivation.lean:426:0: 'PrimitiveCats.phom2_unique_exists_swap' depends on axioms: [Quot.sound]
+Derivation.lean:427:0: 'PrimitiveCore.D_iff_ne' does not depend on any axioms
+Derivation.lean:428:0: 'PrimitiveCore.located_of_decidable' does not depend on any axioms
+Derivation.lean:429:0: 'PrimitiveCore.cotrans_auto_on_two' does not depend on any axioms
+Derivation.lean:430:0: 'PrimitiveCore.not_bs_of_not_a' does not depend on any axioms
+Derivation.lean:431:0: 'PrimitiveCore.not_bc_of_not_a' does not depend on any axioms
+Derivation.lean:432:0: 'PrimitiveCore.not_bl_of_not_a' does not depend on any axioms
+Derivation.lean:433:0: 'PrimitiveCore.not_f_of_not_a' does not depend on any axioms
+Derivation.lean:434:0: 'PrimitiveCore.nimp_w_a' does not depend on any axioms
+Derivation.lean:435:0: 'PrimitiveCore.nimp_w_bs' does not depend on any axioms
+Derivation.lean:436:0: 'PrimitiveCore.nimp_w_bc' does not depend on any axioms
+Derivation.lean:437:0: 'PrimitiveCore.nimp_w_bl' does not depend on any axioms
+Derivation.lean:438:0: 'PrimitiveCore.nimp_w_c' does not depend on any axioms
+Derivation.lean:439:0: 'PrimitiveCore.nimp_w_d' does not depend on any axioms
+Derivation.lean:440:0: 'PrimitiveCore.nimp_w_e' does not depend on any axioms
+Derivation.lean:441:0: 'PrimitiveCore.nimp_w_f' does not depend on any axioms
+Derivation.lean:442:0: 'PrimitiveCore.imp_a_w' does not depend on any axioms
+Derivation.lean:443:0: 'PrimitiveCore.nimp_a_bs' does not depend on any axioms
+Derivation.lean:444:0: 'PrimitiveCore.nimp_a_bc' depends on axioms: [propext]
+Derivation.lean:445:0: 'PrimitiveCore.nimp_a_c' does not depend on any axioms
+Derivation.lean:446:0: 'PrimitiveCore.imp_a_d' does not depend on any axioms
+Derivation.lean:447:0: 'PrimitiveCore.nimp_a_e' does not depend on any axioms
+Derivation.lean:448:0: 'PrimitiveCore.nimp_a_f' does not depend on any axioms
+Derivation.lean:449:0: 'PrimitiveCore.imp_bs_w' does not depend on any axioms
+Derivation.lean:450:0: 'PrimitiveCore.imp_bs_a' does not depend on any axioms
+Derivation.lean:451:0: 'PrimitiveCore.nimp_bs_bc' depends on axioms: [propext]
+Derivation.lean:452:0: 'PrimitiveCore.nimp_bs_c' does not depend on any axioms
+Derivation.lean:453:0: 'PrimitiveCore.imp_bs_d' does not depend on any axioms
+Derivation.lean:454:0: 'PrimitiveCore.nimp_bs_e' does not depend on any axioms
+Derivation.lean:455:0: 'PrimitiveCore.nimp_bs_f' does not depend on any axioms
+Derivation.lean:456:0: 'PrimitiveCore.imp_bc_w' does not depend on any axioms
+Derivation.lean:457:0: 'PrimitiveCore.imp_bc_a' does not depend on any axioms
+Derivation.lean:458:0: 'PrimitiveCore.nimp_bc_bs' does not depend on any axioms
+Derivation.lean:459:0: 'PrimitiveCore.nimp_bc_c' does not depend on any axioms
+Derivation.lean:460:0: 'PrimitiveCore.imp_bc_d' does not depend on any axioms
+Derivation.lean:461:0: 'PrimitiveCore.nimp_bc_e' does not depend on any axioms
+Derivation.lean:462:0: 'PrimitiveCore.nimp_bc_f' does not depend on any axioms
+Derivation.lean:463:0: 'PrimitiveCore.imp_bl_w' does not depend on any axioms
+Derivation.lean:464:0: 'PrimitiveCore.imp_bl_a' does not depend on any axioms
+Derivation.lean:465:0: 'PrimitiveCore.nimp_bl_bs' does not depend on any axioms
+Derivation.lean:466:0: 'PrimitiveCore.nimp_bl_bc' depends on axioms: [propext]
+Derivation.lean:467:0: 'PrimitiveCore.nimp_bl_c' does not depend on any axioms
+Derivation.lean:468:0: 'PrimitiveCore.imp_bl_d' does not depend on any axioms
+Derivation.lean:469:0: 'PrimitiveCore.nimp_bl_e' does not depend on any axioms
+Derivation.lean:470:0: 'PrimitiveCore.nimp_bl_f' does not depend on any axioms
+Derivation.lean:471:0: 'PrimitiveCore.imp_c_w' does not depend on any axioms
+Derivation.lean:472:0: 'PrimitiveCore.nimp_c_a' does not depend on any axioms
+Derivation.lean:473:0: 'PrimitiveCore.nimp_c_bs' does not depend on any axioms
+Derivation.lean:474:0: 'PrimitiveCore.nimp_c_bc' does not depend on any axioms
+Derivation.lean:475:0: 'PrimitiveCore.nimp_c_bl' does not depend on any axioms
+Derivation.lean:476:0: 'PrimitiveCore.nimp_c_d' does not depend on any axioms
+Derivation.lean:477:0: 'PrimitiveCore.nimp_c_e' does not depend on any axioms
+Derivation.lean:478:0: 'PrimitiveCore.nimp_c_f' does not depend on any axioms
+Derivation.lean:479:0: 'PrimitiveCore.nimp_d_w' does not depend on any axioms
+Derivation.lean:480:0: 'PrimitiveCore.nimp_d_a' does not depend on any axioms
+Derivation.lean:481:0: 'PrimitiveCore.nimp_d_bs' does not depend on any axioms
+Derivation.lean:482:0: 'PrimitiveCore.nimp_d_bc' does not depend on any axioms
+Derivation.lean:483:0: 'PrimitiveCore.nimp_d_bl' does not depend on any axioms
+Derivation.lean:484:0: 'PrimitiveCore.nimp_d_c' does not depend on any axioms
+Derivation.lean:485:0: 'PrimitiveCore.nimp_d_e' does not depend on any axioms
+Derivation.lean:486:0: 'PrimitiveCore.nimp_d_f' does not depend on any axioms
+Derivation.lean:487:0: 'PrimitiveCore.nimp_e_w' does not depend on any axioms
+Derivation.lean:488:0: 'PrimitiveCore.nimp_e_a' does not depend on any axioms
+Derivation.lean:489:0: 'PrimitiveCore.nimp_e_bs' does not depend on any axioms
+Derivation.lean:490:0: 'PrimitiveCore.nimp_e_bc' does not depend on any axioms
+Derivation.lean:491:0: 'PrimitiveCore.nimp_e_bl' does not depend on any axioms
+Derivation.lean:492:0: 'PrimitiveCore.nimp_e_c' does not depend on any axioms
+Derivation.lean:493:0: 'PrimitiveCore.imp_e_d' does not depend on any axioms
+Derivation.lean:494:0: 'PrimitiveCore.nimp_e_f' does not depend on any axioms
+Derivation.lean:495:0: 'PrimitiveCore.imp_f_w' does not depend on any axioms
+Derivation.lean:496:0: 'PrimitiveCore.imp_f_a' does not depend on any axioms
+Derivation.lean:497:0: 'PrimitiveCore.nimp_f_bs' does not depend on any axioms
+Derivation.lean:498:0: 'PrimitiveCore.nimp_f_bc' depends on axioms: [propext]
+Derivation.lean:499:0: 'PrimitiveCore.imp_f_c' does not depend on any axioms
+Derivation.lean:500:0: 'PrimitiveCore.imp_f_d' does not depend on any axioms
+Derivation.lean:501:0: 'PrimitiveCore.nimp_f_e' does not depend on any axioms
+Derivation.lean:502:0: 'PrimitiveCore.e_empty_iff_d' does not depend on any axioms
+Derivation.lean:503:0: 'PrimitiveCore.prot_not_from_witness' does not depend on any axioms
+Derivation.lean:504:0: 'PrimitiveCore.ret_not_from_witness' does not depend on any axioms
+Derivation.lean:505:0: 'PrimitiveCore.f_ops_irrelevant' does not depend on any axioms
+Derivation.lean:506:0: 'PrimitiveCore.bool_class' depends on axioms: [propext, Quot.sound]
+Derivation.lean:507:0: 'PrimitiveCore.matrixCells_length' does not depend on any axioms
+Derivation.lean:508:0: 'PrimitiveContact.native_kernel_initial' depends on axioms: [Quot.sound]
+Derivation.lean:509:0: 'PrimitivePassage.zeroP_cons' depends on axioms: [propext, Quot.sound]
+Derivation.lean:510:0: 'PrimitivePassage.wit_independent_of_obs' does not depend on any axioms
+Derivation.lean:511:0: 'PrimitivePassage.obst_requires_observation' depends on axioms: [propext, Quot.sound]
+Derivation.lean:512:0: 'PrimitivePassage.obst_agrees_when_declared' depends on axioms: [propext, Quot.sound]
+Derivation.lean:513:0: 'PrimitivePassage.obst_diverges_when_undeclared' depends on axioms: [propext, Quot.sound]
+Derivation.lean:514:0: 'PrimitivePassage.obst_conditions_independent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:515:0: 'PrimitivePassage.assertion_not_retained' depends on axioms: [propext, Quot.sound]
+Derivation.lean:516:0: 'PrimitivePassage.retention_not_free' depends on axioms: [propext, Quot.sound]
+Derivation.lean:517:0: 'PrimitivePassage.retention_requires_assertion' depends on axioms: [propext, Quot.sound]
+Derivation.lean:518:0: 'PrimitivePassage.assertion_persists' depends on axioms: [propext, Quot.sound]
+Derivation.lean:519:0: 'PrimitivePassage.asserted_offdiag' depends on axioms: [propext, Quot.sound]
+Derivation.lean:520:0: 'PrimitivePassage.retained_sub_asserted' depends on axioms: [propext, Quot.sound]
+Derivation.lean:521:0: 'PrimitivePassage.assert_transport' depends on axioms: [propext, Quot.sound]
+Derivation.lean:522:0: 'PrimitivePassage.kernel_enters_preretained' depends on axioms: [propext, Quot.sound]
+Derivation.lean:523:0: 'PrimitivePassage.retention_completes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:524:0: 'PrimitivePassage.retention_persists' depends on axioms: [propext, Quot.sound]
+Derivation.lean:525:0: 'PrimitivePassage.witness_no_protection' depends on axioms: [propext, Quot.sound]
+Derivation.lean:526:0: 'PrimitivePassage.no_protection_no_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:527:0: 'PrimitivePassage.quotient_no_recovery' does not depend on any axioms
+Derivation.lean:528:0: 'PrimitivePassage.sepCol_irrefl' depends on axioms: [propext, Quot.sound]
+Derivation.lean:529:0: 'PrimitivePassage.sepCol_symm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:530:0: 'PrimitivePassage.sepCol_trans' depends on axioms: [propext, Quot.sound]
+Derivation.lean:531:0: 'PrimitivePassage.zero_refl' depends on axioms: [propext, Quot.sound]
+Derivation.lean:532:0: 'PrimitivePassage.zero_symm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:533:0: 'PrimitivePassage.zero_trans' depends on axioms: [propext, Quot.sound]
+Derivation.lean:534:0: 'PrimitivePassage.menu_complete' depends on axioms: [propext, Quot.sound]
+Derivation.lean:535:0: 'PrimitivePassage.extension_always_available' depends on axioms: [propext, Quot.sound]
+Derivation.lean:536:0: 'PrimitivePassage.two_rule' depends on axioms: [propext, Quot.sound]
+Derivation.lean:537:0: 'PrimitivePassage.proposal_not_execution' depends on axioms: [propext, Quot.sound]
+Derivation.lean:538:0: 'PrimitivePassage.budget_gates_execution' depends on axioms: [propext, Quot.sound]
+Derivation.lean:539:0: 'PrimitivePassage.refusal_object_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:540:0: 'PrimitivePassage.refusal_not_terminal' depends on axioms: [propext, Quot.sound]
+Derivation.lean:541:0: 'PrimitivePassage.step_halted' depends on axioms: [propext, Quot.sound]
+Derivation.lean:542:0: 'PrimitivePassage.terminal_absorbing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:543:0: 'PrimitivePassage.no_outside_operational' depends on axioms: [propext, Quot.sound]
+Derivation.lean:544:0: 'PrimitivePassage.replay_deterministic' depends on axioms: [propext, Quot.sound]
+Derivation.lean:545:0: 'PrimitivePassage.replay_append' depends on axioms: [propext, Quot.sound]
+Derivation.lean:546:0: 'PrimitivePassage.extension_resolves' depends on axioms: [propext, Quot.sound]
+Derivation.lean:547:0: 'PrimitivePassage.nextFamilyP_stop' depends on axioms: [propext, Quot.sound]
+Derivation.lean:548:0: 'PrimitivePassage.nextFamilyP_nonempty' depends on axioms: [propext, Quot.sound]
+Derivation.lean:549:0: 'PrimitivePassage.nextFamilyP_complete_repair' depends on axioms: [propext, Quot.sound]
+Derivation.lean:550:0: 'PrimitivePassage.nextFamilyP_complete_ext' depends on axioms: [propext, Quot.sound]
+Derivation.lean:551:0: 'HigherStructure.grow_fresh' depends on axioms: [propext, Quot.sound]
+Derivation.lean:552:0: 'HigherStructure.grow_wit_not_mem' depends on axioms: [propext, Quot.sound]
+Derivation.lean:553:0: 'HigherStructure.grow_col_not_mem' depends on axioms: [propext, Quot.sound]
+Derivation.lean:554:0: 'HigherStructure.grow_cols_blind' depends on axioms: [propext, Quot.sound]
+Derivation.lean:555:0: 'HigherStructure.grow_col_separates' depends on axioms: [propext, Quot.sound]
+Derivation.lean:556:0: 'HigherStructure.grow_pair_separated' depends on axioms: [propext, Quot.sound]
+Derivation.lean:557:0: 'HigherStructure.grow_zero' depends on axioms: [propext, Quot.sound]
+Derivation.lean:558:0: 'HigherStructure.pstep_admit' depends on axioms: [propext, Quot.sound]
+Derivation.lean:559:0: 'HigherStructure.pstep_wit' depends on axioms: [propext, Quot.sound]
+Derivation.lean:560:0: 'HigherStructure.pstep_prot' depends on axioms: [propext, Quot.sound]
+Derivation.lean:561:0: 'HigherStructure.pstep_budget' depends on axioms: [propext, Quot.sound]
+Derivation.lean:562:0: 'HigherStructure.pstep_addCol' depends on axioms: [propext, Quot.sound]
+Derivation.lean:563:0: 'HigherStructure.colOk_some' depends on axioms: [propext, Quot.sound]
+Derivation.lean:564:0: 'HigherStructure.grow_len' depends on axioms: [propext]
+Derivation.lean:565:0: 'HigherStructure.wit_guard' depends on axioms: [propext, Quot.sound]
+Derivation.lean:566:0: 'HigherStructure.prot_guard' depends on axioms: [propext, Quot.sound]
+Derivation.lean:567:0: 'HigherStructure.reach_preCol' depends on axioms: [propext, Quot.sound]
+Derivation.lean:568:0: 'HigherStructure.round_obstruction' depends on axioms: [propext, Quot.sound]
+Derivation.lean:569:0: 'HigherStructure.round_two_rule' depends on axioms: [propext, Quot.sound]
+Derivation.lean:570:0: 'HigherStructure.round_resolution' depends on axioms: [propext, Quot.sound]
+Derivation.lean:571:0: 'HigherStructure.round_creation_record' does not depend on any axioms
+Derivation.lean:572:0: 'HigherStructure.graphAt_spec' depends on axioms: [propext, Quot.sound]
+Derivation.lean:573:0: 'HigherStructure.graph_growth' depends on axioms: [propext, Quot.sound]
+Derivation.lean:574:0: 'HigherStructure.graphAt_quiescent' depends on axioms: [propext, Quot.sound]
+Derivation.lean:575:0: 'HigherStructure.path_connectivity_residue' depends on axioms: [propext, Quot.sound]
+Derivation.lean:576:0: 'HigherStructure.ladder_dim2' depends on axioms: [propext, Quot.sound]
+Derivation.lean:577:0: 'HigherStructure.ladder_dim3' depends on axioms: [propext, Quot.sound]
+Derivation.lean:578:0: 'HigherStructure.shell_guard_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:579:0: 'HigherStructure.k4_skeleton_from_passage' depends on axioms: [propext, Quot.sound]
+Derivation.lean:580:0: 'HigherStructure.k4_builds' depends on axioms: [propext, Quot.sound]
+Derivation.lean:581:0: 'HigherStructure.k4_skeleton_agrees' depends on axioms: [propext, Quot.sound]
+Derivation.lean:582:0: 'HigherStructure.filling_not_forced' depends on axioms: [propext, Quot.sound]
+Derivation.lean:583:0: 'HigherStructure.altNum_stages' depends on axioms: [propext, Quot.sound]
+Derivation.lean:584:0: 'HigherStructure.cut_census_growth' depends on axioms: [propext, Quot.sound]
+Derivation.lean:585:0: 'HigherStructure.d2_zero_triangles' depends on axioms: [propext, Quot.sound]
+Derivation.lean:586:0: 'HigherStructure.d2_zero_tet' depends on axioms: [propext, Quot.sound]
+Derivation.lean:587:0: 'HigherStructure.boundary_not_forced' depends on axioms: [propext, Quot.sound]
+Derivation.lean:588:0: 'Apartness.indist_refl' does not depend on any axioms
+Derivation.lean:589:0: 'Apartness.indist_symm' does not depend on any axioms
+Derivation.lean:590:0: 'Apartness.indist_trans' does not depend on any axioms
+Derivation.lean:591:0: 'Apartness.indist_equivalence' does not depend on any axioms
+Derivation.lean:592:0: 'Apartness.bare_breaks_refl' does not depend on any axioms
+Derivation.lean:593:0: 'Apartness.irrefl_alone_breaks_symm' does not depend on any axioms
+Derivation.lean:594:0: 'Apartness.subsingleton_indist_total' does not depend on any axioms
+Derivation.lean:595:0: 'Apartness.triSymRel_irrefl' depends on axioms: [propext]
+Derivation.lean:596:0: 'Apartness.triSymRel_symm' depends on axioms: [propext]
+Derivation.lean:597:0: 'Apartness.symm_without_cotrans_breaks_trans' depends on axioms: [propext]
+Derivation.lean:598:0: 'Apartness.two_point_indist_trans' does not depend on any axioms
+Derivation.lean:599:0: 'Apartness.s2_isApart' does not depend on any axioms
+Derivation.lean:600:0: 'Apartness.s2_indist_equivalence' does not depend on any axioms
+Derivation.lean:601:0: 'Apartness.orientations_same_apartness' does not depend on any axioms
+Derivation.lean:602:0: 'Apartness.orientations_same_indist' does not depend on any axioms
+Derivation.lean:603:0: 'Apartness.orientations_differ' does not depend on any axioms
+Derivation.lean:604:0: 'Apartness.retained_orientation_not_swap_invariant' does not depend on any axioms
+Derivation.lean:605:0: 'Apartness.oriented_pres_iff' does not depend on any axioms
+Derivation.lean:606:0: 'Apartness.oriented_preserver_unique' depends on axioms: [Quot.sound]
+Derivation.lean:607:0: 'Apartness.id_preserves_oriented' does not depend on any axioms
+Derivation.lean:608:0: 'Apartness.apart_preserver_pair' depends on axioms: [Quot.sound]
+Derivation.lean:609:0: 'Apartness.id_preserves_apart' does not depend on any axioms
+Derivation.lean:610:0: 'Apartness.swap_preserves_apart' does not depend on any axioms
+Derivation.lean:611:0: 'Apartness.swap_breaks_oriented' does not depend on any axioms
+Derivation.lean:612:0: 'Apartness.collapse_preserves_neither' does not depend on any axioms
+Derivation.lean:613:0: 'Apartness.oriented_comp' does not depend on any axioms
+Derivation.lean:614:0: 'Apartness.clos_oriented_iff' does not depend on any axioms
+Derivation.lean:615:0: 'Apartness.oriented_family_trivial' depends on axioms: [Quot.sound]
+Derivation.lean:616:0: 'InterpreterBoundary.indexWorld_len' depends on axioms: [propext]
+Derivation.lean:617:0: 'InterpreterBoundary.diag_hit' depends on axioms: [propext]
+Derivation.lean:618:0: 'InterpreterBoundary.tower_persists' depends on axioms: [propext, Quot.sound]
+Derivation.lean:619:0: 'InterpreterBoundary.i2_universal_in_class' depends on axioms: [propext, Quot.sound]
+Derivation.lean:620:0: 'InterpreterBoundary.i3_partial_top_refuses' depends on axioms: [propext, Quot.sound]
+Derivation.lean:621:0: 'InterpreterBoundary.i3_partial_covers' depends on axioms: [propext, Quot.sound]
+Derivation.lean:622:0: 'InterpreterBoundary.family_missed' depends on axioms: [propext, Quot.sound]
+Derivation.lean:623:0: 'InterpreterBoundary.i5_carrier_occurrences' does not depend on any axioms
+Derivation.lean:624:0: 'InterpreterBoundary.i5_boundary_is_A' does not depend on any axioms
+Derivation.lean:625:0: 'InterpreterBoundary.i5_boundary_is_F' does not depend on any axioms
+Derivation.lean:626:0: 'InterpreterBoundary.i5_collapse_obstructed' does not depend on any axioms
+Derivation.lean:627:0: 'InterpreterBoundary.i5_difference_grounded' depends on axioms: [propext, Quot.sound]
+Derivation.lean:628:0: 'ControllerCategory.allKinds_length' does not depend on any axioms
+Derivation.lean:629:0: 'ControllerCategory.mem_bools' depends on axioms: [propext]
+Derivation.lean:630:0: 'ControllerCategory.allKinds_complete' depends on axioms: [propext, Quot.sound]
+Derivation.lean:631:0: 'ControllerCategory.interpK_full' depends on axioms: [propext, Quot.sound]
+Derivation.lean:632:0: 'ControllerCategory.live_census' does not depend on any axioms
+Derivation.lean:633:0: 'ControllerCategory.fullK_live' does not depend on any axioms
+Derivation.lean:634:0: 'ControllerCategory.obst5_certified' depends on axioms: [propext, Quot.sound]
+Derivation.lean:635:0: 'ControllerCategory.tworule_executable_of_live' depends on axioms: [propext, Quot.sound]
+Derivation.lean:636:0: 'ControllerCategory.obst0_certified' depends on axioms: [propext, Quot.sound]
+Derivation.lean:637:0: 'ControllerCategory.lobst_certified' depends on axioms: [propext, Quot.sound]
+Derivation.lean:638:0: 'ControllerCategory.battery_obst5_nonempty' depends on axioms: [propext, Quot.sound]
+Derivation.lean:639:0: 'ControllerCategory.battery_obst0_nonempty' depends on axioms: [propext, Quot.sound]
+Derivation.lean:640:0: 'ControllerCategory.battery_lobst_nonempty' depends on axioms: [propext, Quot.sound]
+Derivation.lean:641:0: 'ControllerCategory.dead_without_addcol' depends on axioms: [propext, Quot.sound]
+Derivation.lean:642:0: 'ControllerCategory.full_resolves_obst5' depends on axioms: [propext, Quot.sound]
+Derivation.lean:643:0: 'ControllerCategory.dead_without_budget' depends on axioms: [propext, Quot.sound]
+Derivation.lean:644:0: 'ControllerCategory.full_resolves_obst0' depends on axioms: [propext, Quot.sound]
+Derivation.lean:645:0: 'ControllerCategory.dead_without_refine' depends on axioms: [propext, Quot.sound]
+Derivation.lean:646:0: 'ControllerCategory.full_resolves_lobst' depends on axioms: [propext, Quot.sound]
+Derivation.lean:647:0: 'ControllerCategory.noRefK_live' does not depend on any axioms
+Derivation.lean:648:0: 'ControllerCategory.noRefK_ne_fullK' does not depend on any axioms
+Derivation.lean:649:0: 'ControllerCategory.nonrefuse_agree' depends on axioms: [propext, Quot.sound]
+Derivation.lean:650:0: 'ControllerCategory.refuse_distinguishes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:651:0: 'ControllerCategory.sim_ext' depends on axioms: [propext, Quot.sound]
+Derivation.lean:652:0: 'ControllerCategory.comp_id' depends on axioms: [propext, Quot.sound]
+Derivation.lean:653:0: 'ControllerCategory.id_comp' depends on axioms: [propext, Quot.sound]
+Derivation.lean:654:0: 'ControllerCategory.comp_assoc' depends on axioms: [propext, Quot.sound]
+Derivation.lean:655:0: 'ControllerCategory.setRef_occ' does not depend on any axioms
+Derivation.lean:656:0: 'ControllerCategory.setRef_wit' does not depend on any axioms
+Derivation.lean:657:0: 'ControllerCategory.setRef_prot' does not depend on any axioms
+Derivation.lean:658:0: 'ControllerCategory.setRef_obs' does not depend on any axioms
+Derivation.lean:659:0: 'ControllerCategory.setRef_budget' does not depend on any axioms
+Derivation.lean:660:0: 'ControllerCategory.setRef_licensed' does not depend on any axioms
+Derivation.lean:661:0: 'ControllerCategory.setRef_refusals' does not depend on any axioms
+Derivation.lean:662:0: 'ControllerCategory.setRef_halted' does not depend on any axioms
+Derivation.lean:663:0: 'ControllerCategory.wfPair_setRef' does not depend on any axioms
+Derivation.lean:664:0: 'ControllerCategory.obstP_setRef' depends on axioms: [propext, Quot.sound]
+Derivation.lean:665:0: 'ControllerCategory.refineOk_setRef' depends on axioms: [propext, Quot.sound]
+Derivation.lean:666:0: 'ControllerCategory.colOk_setRef' depends on axioms: [propext, Quot.sound]
+Derivation.lean:667:0: 'ControllerCategory.setRef_step_comm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:668:0: 'ControllerCategory.erase_sim' depends on axioms: [propext, Quot.sound]
+Derivation.lean:669:0: 'ControllerCategory.eraseRef_not_id' does not depend on any axioms
+Derivation.lean:670:0: 'ControllerCategory.halted0_ne_halted1' does not depend on any axioms
+Derivation.lean:671:0: 'ControllerCategory.const_sims_distinct' depends on axioms: [propext, Quot.sound]
+Derivation.lean:672:0: 'ControllerCategory.two_endo_sims' depends on axioms: [propext, Quot.sound]
+Derivation.lean:673:0: 'ControllerCategory.every_pair_connected' depends on axioms: [propext, Quot.sound]
+Derivation.lean:674:0: 'ControllerCategory.sims_never_unique' depends on axioms: [propext, Quot.sound]
+Derivation.lean:675:0: 'ControllerCategory.no_initial_ctrl' depends on axioms: [propext, Quot.sound]
+Derivation.lean:676:0: 'ControllerCategory.no_initial_live_ctrl' depends on axioms: [propext, Quot.sound]
+Derivation.lean:677:0: 'ControllerCategory.const_not_strict' depends on axioms: [propext, Quot.sound]
+Derivation.lean:678:0: 'ControllerCategory.hasDup_append_fresh' depends on axioms: [propext, Quot.sound]
+Derivation.lean:679:0: 'ControllerCategory.hasDup_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:680:0: 'ControllerCategory.twistRef_step' depends on axioms: [propext, Quot.sound]
+Derivation.lean:681:0: 'ControllerCategory.twist_step_comm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:682:0: 'ControllerCategory.twist_ne_erase_at_dup' depends on axioms: [propext, Quot.sound]
+Derivation.lean:683:0: 'ControllerCategory.strict_not_unique' depends on axioms: [propext, Quot.sound]
+Derivation.lean:684:0: 'ControllerCategory.replay_hasDup' depends on axioms: [propext, Quot.sound]
+Derivation.lean:685:0: 'ControllerCategory.reachable_no_dup' depends on axioms: [propext, Quot.sound]
+Derivation.lean:686:0: 'ControllerCategory.twist_eq_erase_of_no_dup' depends on axioms: [propext, Quot.sound]
+Derivation.lean:687:0: 'ControllerCategory.twist_erase_agree_reachable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:688:0: 'ControllerCategory.sim_pinned' depends on axioms: [propext, Quot.sound]
+Derivation.lean:689:0: 'ControllerCategory.genesis_sims_agree_on_reachable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:690:0: 'ControllerCategory.strict_agree_on_reachable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:691:0: 'Attachment.clamp_rewrote_input' does not depend on any axioms
+Derivation.lean:692:0: 'Attachment.attachChecked_refuses' depends on axioms: [propext, Quot.sound]
+Derivation.lean:693:0: 'Attachment.unlawful_refused' depends on axioms: [propext, Quot.sound]
+Derivation.lean:694:0: 'Attachment.le_natMax_of_mem' depends on axioms: [propext]
+Derivation.lean:695:0: 'Attachment.freshTok_fresh' depends on axioms: [propext, Quot.sound]
+Derivation.lean:696:0: 'Attachment.length_not_fresh_countermodel' depends on axioms: [propext, Quot.sound]
+Derivation.lean:697:0: 'Attachment.halted_up_inert' depends on axioms: [propext, Quot.sound]
+Derivation.lean:698:0: 'Attachment.up_iff_legal' depends on axioms: [propext, Quot.sound]
+Derivation.lean:699:0: 'Attachment.up_exec_eq' depends on axioms: [propext, Quot.sound]
+Derivation.lean:700:0: 'Attachment.up_executes' depends on axioms: [propext, Quot.sound]
+Derivation.lean:701:0: 'Attachment.Renaming.f_inj' does not depend on any axioms
+Derivation.lean:702:0: 'Attachment.Renaming.gbound' depends on axioms: [propext, Quot.sound]
+Derivation.lean:703:0: 'Attachment.Renaming.gfix' depends on axioms: [propext, Quot.sound]
+Derivation.lean:704:0: 'Attachment.Renaming.fbound_iff' depends on axioms: [propext, Quot.sound]
+Derivation.lean:705:0: 'Attachment.getD_lt' depends on axioms: [propext]
+Derivation.lean:706:0: 'Attachment.getD_append_lt' depends on axioms: [propext, Quot.sound]
+Derivation.lean:707:0: 'Attachment.act_occ_length' depends on axioms: [propext]
+Derivation.lean:708:0: 'Attachment.act_occ_mem' depends on axioms: [propext, Quot.sound]
+Derivation.lean:709:0: 'Attachment.freshTok_act' depends on axioms: [propext, Quot.sound]
+Derivation.lean:710:0: 'Attachment.upBlock_transport' depends on axioms: [propext, Quot.sound]
+Derivation.lean:711:0: 'Attachment.upBlock_parent_inj' depends on axioms: [propext]
+Derivation.lean:712:0: 'Attachment.upFamily_transport' depends on axioms: [propext, Quot.sound]
+Derivation.lean:713:0: 'Attachment.act_up_comm' depends on axioms: [propext, Quot.sound]
+Derivation.lean:714:0: 'Attachment.upFamily_grammar_uniform' does not depend on any axioms
+Derivation.lean:715:0: 'Attachment.par_le' does not depend on any axioms
+Derivation.lean:716:0: 'Attachment.attach_fresh' depends on axioms: [propext, Quot.sound]
+Derivation.lean:717:0: 'Attachment.attach_pair_not_mem' depends on axioms: [propext, Quot.sound]
+Derivation.lean:718:0: 'Attachment.attach_len' depends on axioms: [propext]
+Derivation.lean:719:0: 'Attachment.attach_wf_guard' depends on axioms: [propext, Quot.sound]
+Derivation.lean:720:0: 'Attachment.attach_wit_guard' depends on axioms: [propext, Quot.sound]
+Derivation.lean:721:0: 'Attachment.attach_prot_guard' depends on axioms: [propext, Quot.sound]
+Derivation.lean:722:0: 'Attachment.range_map_succ' depends on axioms: [propext]
+Derivation.lean:723:0: 'Attachment.treeAt_spec' depends on axioms: [propext, Quot.sound]
+Derivation.lean:724:0: 'Attachment.natMax_append_singleton' depends on axioms: [propext, Quot.sound]
+Derivation.lean:725:0: 'Attachment.natMax_range_le' depends on axioms: [propext, Quot.sound]
+Derivation.lean:726:0: 'Attachment.tree_occ_len' depends on axioms: [propext]
+Derivation.lean:727:0: 'Attachment.freshTok_treeState' depends on axioms: [propext, Quot.sound]
+Derivation.lean:728:0: 'Attachment.attachBlock_is_upBlock' depends on axioms: [propext, Quot.sound]
+Derivation.lean:729:0: 'Attachment.treeState_wf' depends on axioms: [propext, Quot.sound]
+Derivation.lean:730:0: 'Attachment.attach_residue' depends on axioms: [propext, Quot.sound]
+Derivation.lean:731:0: 'Attachment.parent_lt' depends on axioms: [propext, Quot.sound]
+Derivation.lean:732:0: 'Attachment.parent_unique' depends on axioms: [propext, Quot.sound]
+Derivation.lean:733:0: 'Attachment.parent_exists' depends on axioms: [propext, Quot.sound]
+Derivation.lean:734:0: 'Attachment.all_reach_aux' depends on axioms: [propext, Quot.sound]
+Derivation.lean:735:0: 'Attachment.all_reach' depends on axioms: [propext, Quot.sound]
+Derivation.lean:736:0: 'Attachment.path_edges' depends on axioms: [propext, Quot.sound]
+Derivation.lean:737:0: 'Attachment.star_edges' depends on axioms: [propext, Quot.sound]
+Derivation.lean:738:0: 'Attachment.tree4_concrete' depends on axioms: [propext, Quot.sound]
+Derivation.lean:739:0: 'Attachment.path4_star4_not_isomorphic' depends on axioms: [propext, Quot.sound]
+Derivation.lean:740:0: 'Attachment.star_orbit_swap' depends on axioms: [propext, Quot.sound]
+Derivation.lean:741:0: 'Attachment.path_oriented_rigid' depends on axioms: [propext, Quot.sound]
+Derivation.lean:742:0: 'Attachment.path_center_separate' depends on axioms: [propext, Quot.sound]
+Derivation.lean:743:0: 'Attachment.equal_size_not_renaming_related' depends on axioms: [propext, Quot.sound]
+Derivation.lean:744:0: 'Attachment.equal_cost_non_isomorphic_extensions' depends on axioms: [propext, Quot.sound]
+Derivation.lean:745:0: 'LadderGeneral.uniform_guarded_filler' depends on axioms: [propext, Quot.sound]
+Derivation.lean:746:0: 'LadderGeneral.shell_refuses_general' depends on axioms: [propext, Quot.sound]
+Derivation.lean:747:0: 'LadderGeneral.shell_no_self_fill' depends on axioms: [propext, Quot.sound]
+Derivation.lean:748:0: 'LadderGeneral.pseudo_cell_countermodel' depends on axioms: [propext, Quot.sound]
+Derivation.lean:749:0: 'LadderGeneral.wf_empty' does not depend on any axioms
+Derivation.lean:750:0: 'LadderGeneral.wf_stepV' depends on axioms: [propext, Quot.sound]
+Derivation.lean:751:0: 'LadderGeneral.wf_stepN' depends on axioms: [propext, Quot.sound]
+Derivation.lean:752:0: 'LadderGeneral.wf_nstep' depends on axioms: [propext, Quot.sound]
+Derivation.lean:753:0: 'LadderGeneral.wf_nreplay' depends on axioms: [propext, Quot.sound]
+Derivation.lean:754:0: 'LadderGeneral.d4_demo' depends on axioms: [propext, Quot.sound]
+Derivation.lean:755:0: 'LadderGeneral.d4_wf' depends on axioms: [propext, Quot.sound]
+Derivation.lean:756:0: 'LadderGeneral.d4_guard_load_bearing' depends on axioms: [propext, Quot.sound]
+Derivation.lean:757:0: 'LadderGeneral.d2_zero_dims_2_3_4' does not depend on any axioms
+Derivation.lean:758:0: 'PrimitiveCats.d2_map_injective' does not depend on any axioms
+Derivation.lean:759:0: 'PrimitiveCats.d2_map_not_injective_without_irrefl' does not depend on any axioms
+Derivation.lean:760:0: 'Compression.sigEq_iff_sigList' does not depend on any axioms
+Derivation.lean:761:0: 'Compression.factors_iff_fiberConstant' depends on axioms: [Quot.sound]
+Derivation.lean:762:0: 'Compression.factor_unique_on_image' does not depend on any axioms
+Derivation.lean:763:0: 'Compression.factor_not_unique_off_image' does not depend on any axioms
+Derivation.lean:764:0: 'Compression.pQ_exact' depends on axioms: [Quot.sound]
+Derivation.lean:765:0: 'Compression.pQ_adequate' depends on axioms: [Quot.sound]
+Derivation.lean:766:0: 'Compression.pQ_coarsest' depends on axioms: [Quot.sound]
+Derivation.lean:767:0: 'Compression.pQ_unique_on_image' does not depend on any axioms
+Derivation.lean:768:0: 'Compression.descent_witness' does not depend on any axioms
+Derivation.lean:769:0: 'Compression.enlarge_refines' does not depend on any axioms
+Derivation.lean:770:0: 'Compression.splits_iff_new_separator' does not depend on any axioms
+Derivation.lean:771:0: 'Compression.absolute_adequacy_iff_injective' does not depend on any axioms
+Derivation.lean:772:0: 'Compression.dup_no_refine' depends on axioms: [propext]
+Derivation.lean:773:0: 'Compression.postcompose_no_refine' depends on axioms: [propext]
+Derivation.lean:774:0: 'Compression.refine_requires_separator' does not depend on any axioms
+Derivation.lean:775:0: 'Compression.refinement_not_unique' does not depend on any axioms
+Derivation.lean:776:0: 'Compression.refinement_tie' does not depend on any axioms
+Derivation.lean:777:0: 'Compression.refine_bounded' depends on axioms: [propext, Quot.sound]
+Derivation.lean:778:0: 'Compression.classCount_pos' does not depend on any axioms
+Derivation.lean:779:0: 'Compression.strict_split_increases' depends on axioms: [propext, Quot.sound]
+Derivation.lean:780:0: 'Compression.chain_bounded' depends on axioms: [propext, Quot.sound]
+Derivation.lean:781:0: 'Compression.strict_steps_lt' depends on axioms: [propext, Quot.sound]
+Derivation.lean:782:0: 'StableContent.sepP_append' depends on axioms: [propext, Quot.sound]
+Derivation.lean:783:0: 'StableContent.sepP_refine' depends on axioms: [propext, Quot.sound]
+Derivation.lean:784:0: 'StableContent.prot_mono' depends on axioms: [propext, Quot.sound]
+Derivation.lean:785:0: 'StableContent.sep_preserved' depends on axioms: [propext, Quot.sound]
+Derivation.lean:786:0: 'StableContent.stable_content_persists' depends on axioms: [propext, Quot.sound]
+Derivation.lean:787:0: 'StableContent.stable_content_replays' depends on axioms: [propext, Quot.sound]
+Derivation.lean:788:0: 'StableContent.unprotected_separation_unstable' depends on axioms: [propext, Quot.sound]
+Derivation.lean:789:0: 'StableContent.quiescent_iff_protected_separated' depends on axioms: [propext, Quot.sound]
+Derivation.lean:790:0: 'StableContent.quiescence_is_stable_content' depends on axioms: [propext, Quot.sound]

@@ -1197,9 +1197,21 @@ theorems; 291 total, all within {propext, Quot.sound}).
   families, selection-freeness, represented replenishment, lawfulness
   across extension, explicit productivity); level 4 (internal
   trigger) explicitly NOT attained — the iteration is metatheoretic.
-  Arbitrary iterability is levels 1-2 only.
+  Arbitrary iterability is levels 1-2 only.  Level 8 (lawfulness) is
+  carried by the Horizon module at every stage, not only at stage 3:
+  the generated world's complete record is characterized by induction
+  (`worldAt_spec`), quiescence and well-formedness hold at every
+  horizon (`gen_quiescent`, `gen_wf`), and every emitted event of
+  every block is accepted (`block_all_accepted`,
+  `genesis_accepted`).  PR #12 correction C6: the prior version of
+  this entry cited `tower_driver_autonomy` alone for "lawfulness
+  across extension", but that theorem has no lawfulness conjunct —
+  the only Lean lawfulness fact was the stage-3 instance
+  `gen_three_quiescent`.  The gap is closed upward, not rescoped.
 - **Class**: theorem (relative).
-- **Lean**: `tower_driver_autonomy`.
+- **Lean**: `tower_driver_autonomy`, `Horizon.worldAt_spec`,
+  `Horizon.gen_quiescent`, `Horizon.gen_wf`,
+  `Horizon.block_all_accepted`, `Horizon.genesis_accepted`.
 
 ### CL-NC-CONSTITUTION
 - **Statement**: the kernel constitution is represented as data
@@ -1242,3 +1254,504 @@ theorems; 291 total, all within {propext, Quot.sound}).
   labels).
 - **Python**: `completion_dependency_graph.json`,
   `completion_countermodels.json`, `completion_receipt.json`.
+
+
+## PR #12 — Primitive Difference contact and passage
+
+### CL-PD2-HORIZON
+- **Statement**: the generated run's complete record is characterized
+  at every stage by induction; quiescence, well-formedness, and
+  per-event acceptance hold at every horizon; the family
+  interpreter's budget semantics is pinned as a trichotomy (unchanged
+  / saturating decrement / explicit set) for every descriptor and
+  event, and the Python mirror implements exactly that semantics.
+- **Class**: theorem (horizon-free) + refuted-and-repaired prior
+  claim (see change log, PR #12 Phase I).
+- **Lean**: `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`,
+  `Horizon.worldAt_wf`, `Horizon.block_all_accepted`,
+  `Horizon.genesis_accepted`, `Horizon.gen_quiescent`,
+  `Horizon.gen_wf`, `Horizon.interp_budget_bound`,
+  `Horizon.budget_saturation_noop`,
+  `Horizon.mark_saturation_all_descs`.
+- **Python**: `test_budget_saturation_matches_lean_nat`,
+  `test_budget_trichotomy_every_descriptor_event`.
+
+### CL-PD2-MATRIX
+- **Statement**: nine candidate readings of primitive difference over
+  one signature; all 72 ordered implication cells settled: 17
+  implications proved, 51 finite countermodels compiled (minimum
+  carrier proved where cited), 4
+  located cells OPEN with exact metatheoretic scope (every decidable
+  relation is located; no internal countermodel can exist).
+  Cotransitivity is automatic on the two-element carrier, making the
+  three-element countermodels minimum-carrier.
+- **Class**: theorem + countermodel + OPEN (scoped), cross-verified
+  by exhaustive finite computation.
+- **Lean**: `PrimitiveCore.matrixCells`, the 68 `imp_*`/`nimp_*`
+  theorems, `PrimitiveCore.cotrans_auto_on_two`,
+  `PrimitiveCore.located_of_decidable`, `PrimitiveCore.D_iff_ne`,
+  `PrimitiveCore.e_empty_iff_d`.
+- **Python**: `primitive_candidates.json`,
+  `primitive_implication_matrix.json` (expected_equals_computed).
+
+### CL-PD2-INITIALITY
+- **Statement**: the oriented two-element realization is initial in
+  the category of ALL pointed witnessed relations (true universal
+  property, category laws proved).  Scope (review pass): `PtdRel`
+  carries no irreflexivity, so this initiality characterizes the
+  bare-witness reading W — the free pointed object on one witnessed
+  arrow — and restricts to the irreflexive subcategory
+  (`d2_initial_irrefl`); initiality does not itself select
+  irreflexivity, whose independent justification is `imp_a_d`
+  against `nimp_w_d`.  The symmetric realization is initial exactly
+  in the symmetric subcategory and not weakly initial in the full
+  one; initiality is unique up to isomorphism only, distinct from
+  presentation identity and from minimum cardinality; pointed
+  automorphisms are trivial for both realizations — orientation
+  lives in the pointing.
+- **Class**: theorem.
+- **Lean**: `PrimitiveCats.d2_initial`,
+  `PrimitiveCats.d2_initial_irrefl`, `PrimitiveCats.s2_initial_sym`,
+  `PrimitiveCats.s2_not_weakly_initial`, `PrimitiveCats.initials_iso`,
+  `PrimitiveCats.two_initials_not_identical`,
+  `PrimitiveCats.larger_not_initial`, `PrimitiveCats.pointed_rigid`.
+
+### CL-PD2-BRANCHING
+- **Statement**: the faithful-presentation category of a
+  three-occurrence source has no weakly terminal object: the maximal
+  observer cuts are incomparable and both retained.  On the two-point
+  source the cut-branching vanishes but unrestricted terminality
+  fails anyway, constructively (`no_terminal_pres2`, review-pass
+  closure of the former OPEN cell: the free-point presentation gives
+  every target two distinct commuting maps); the positive fragment
+  is uniqueness against surjective presentations (no classical
+  choice used).  Cut census on carriers 2-5: 1, 2, 4, 8.
+- **Class**: theorem + OPEN (scoped) + finite computation.
+- **Lean**: `PrimitiveCats.no_terminal_pres`,
+  `PrimitiveCats.no_phom_mergeA_mergeB`,
+  `PrimitiveCats.no_terminal_pres2`,
+  `PrimitiveCats.phom2_unique_of_epi`;
+  `HigherStructure.cut_census_growth`.
+
+### CL-PD2-APARTNESS
+- **Statement**: positive apartness (irreflexive, symmetric,
+  cotransitive) makes indistinguishability an equivalence, with each
+  law spent at exactly one clause; omissions are refuted by minimal
+  finite countermodels (carriers 1, 2, 3; minimality proved).  Both
+  orientations of the two-point relation generate the same apartness
+  and the same indistinguishability while remaining distinct data;
+  the oriented-witness preservers are exactly the identity, the
+  apartness preservers exactly the identity and the swap, constants
+  preserve neither; the closure of any admitted family preserves the
+  oriented witness iff every generator does.
+- **Class**: theorem + countermodel, exhaustively mirrored to
+  carrier 3 with preservation censuses to carrier 4.
+- **Lean**: `Apartness.indist_equivalence`,
+  `Apartness.bare_breaks_refl`, `Apartness.irrefl_alone_breaks_symm`,
+  `Apartness.subsingleton_indist_total`,
+  `Apartness.symm_without_cotrans_breaks_trans`,
+  `Apartness.two_point_indist_trans`, `Apartness.s2_isApart`,
+  `Apartness.orientations_same_apartness`,
+  `Apartness.orientations_differ`,
+  `Apartness.oriented_preserver_unique`,
+  `Apartness.apart_preserver_pair`, `Apartness.clos_oriented_iff`,
+  `Apartness.oriented_family_trivial`.
+- **Python**: `apartness.json`.
+
+### CL-PD2-CONTACT
+- **Statement**: the declared contact package is absent at
+  blind-native-base and at completion; the contact phases terminate
+  CONTACT_INPUT_ABSENT; no contents invented; the native kernel
+  interface any future contact must meet is committed (kernel
+  binding, universal status, orientation fork, branching, matrix).
+- **Class**: declared protocol outcome + runtime check.
+- **Lean**: `PrimitiveContact.native_kernel_initial`.
+- **Python**: `primitive_contact.json`.
+
+### CL-PD2-PASSAGE
+- **Statement**: each of the thirteen arrows of the passage chain
+  has exactly one status with executable evidence.  Review-pass
+  composition repair: the passage now carries a separate ASSERTED
+  store — `assertWit` supplies the positive witness, `admitWit`
+  retains an asserted difference — so a pre-retention Primitive
+  Difference state exists (`assertion_not_retained`), retention
+  demonstrably requires assertion (`retention_requires_assertion`),
+  and candidate A transports into the passage as a theorem
+  (`assert_transport` on every replayed state via the off-diagonal
+  invariant `asserted_offdiag`; canonical instance
+  `kernel_enters_preretained`).  Active obstruction is a
+  four-condition conjunction (retained, protected, observation
+  DECLARED, observer-zero) with every maximal proper subset refuted;
+  primitive difference precedes observation as a theorem; ZeroRel is
+  an equivalence before quotienting; THE TWO-RULE THEOREM, exactly
+  scoped: under the DECLARED singleton-column extension universe
+  (which contains a separator for every well-formed pair — the
+  obstruction identifies one, it does not manufacture the
+  constructor) and the declared same-level menu, an active
+  obstruction with an in-bounds protected pair has a nonempty repair
+  family or certified exhaustion plus a nonempty extension family;
+  `setBudget 1` in emitted blocks is a declared self-funding policy;
+  refusal is an inert record, the terminal absorbs, proposal is not
+  execution; the represented next-family has
+  stop/nonempty/completeness theorems and its iteration remains
+  metatheoretic (stated).
+- **Class**: theorem (+ declarations priced as admission events with
+  countermodels).
+- **Lean**: `PrimitivePassage.assert_transport`,
+  `PrimitivePassage.kernel_enters_preretained`,
+  `PrimitivePassage.assertion_not_retained`,
+  `PrimitivePassage.retention_requires_assertion`,
+  `PrimitivePassage.asserted_offdiag`,
+  `PrimitivePassage.retained_sub_asserted`,
+  `PrimitivePassage.obst_requires_observation`,
+  `PrimitivePassage.obst_conditions_independent`,
+  `PrimitivePassage.zero_refl`, `PrimitivePassage.zero_symm`,
+  `PrimitivePassage.zero_trans`, `PrimitivePassage.menu_complete`,
+  `PrimitivePassage.extension_always_available`,
+  `PrimitivePassage.two_rule`,
+  `PrimitivePassage.proposal_not_execution`,
+  `PrimitivePassage.budget_gates_execution`,
+  `PrimitivePassage.refusal_object_inert`,
+  `PrimitivePassage.terminal_absorbing`,
+  `PrimitivePassage.extension_resolves`,
+  `PrimitivePassage.nextFamilyP_stop`,
+  `PrimitivePassage.nextFamilyP_nonempty`.
+- **Python**: `primitive_passage.json` (arrows + growth reports).
+
+### CL-PD2-GROWTH
+- **Statement**: the growth driver iterates the passage; the grown
+  state at every stage is exactly the path graph with per-edge
+  protection and one observation column per resolved obstruction
+  (characterized by induction); each round's obstruction, nonempty
+  response family, resolution, and creation record are theorems;
+  quiescence is restored after every round; the connectivity residue
+  is 1 at every stage (the path form itself is `graphAt_spec`; the
+  residue alone proves neither connectedness nor acyclicity).
+  Provenance, exact: the DRIVER supplies the graph data (occurrence,
+  assertion, retention, protection); the OBSTRUCTION creates the
+  observation column that resolves it.
+- **Class**: theorem (horizon-free), mirrored to 15 rounds.
+- **Lean**: `HigherStructure.graphAt_spec`,
+  `HigherStructure.round_obstruction`,
+  `HigherStructure.round_two_rule`,
+  `HigherStructure.round_resolution`,
+  `HigherStructure.round_creation_record`,
+  `HigherStructure.graph_growth`,
+  `HigherStructure.graphAt_quiescent`,
+  `HigherStructure.path_connectivity_residue`.
+
+### CL-PD2-LADDER
+- **Statement**: the declared cell calculus admits a k+1-cell exactly
+  over a complete unfilled boundary of k-cells — the shell guards
+  `shell1/2/3` (complete boundaries, deliberately NOT simplicial
+  horns, which omit a face).  The ladder recurrence — the two-rule
+  shape one dimension up — is PROVED at dimensions 2 and 3
+  (`ladder_dim2`, `ladder_dim3`); recurrence at every dimension is a
+  frontier conjecture.  Shell guards are load-bearing and the shell
+  does not fill itself (higher structure admitted, never forced);
+  the four-occurrence demonstration grows 0-, 1-, 2-, 3-simplices in
+  replayable creation order with the 1-skeleton equal to the passage
+  witness store; the alternating cell-count statistic runs 4, -2, 2,
+  1 along the stages (a statistic, not an invariant); with declared
+  integer coefficients and boundaries the composite boundary
+  vanishes on every demonstration cell, and two distinct conventions
+  both work — the convention is declared content.
+- **Class**: theorem + finite computation; non-forcing by
+  countermodel.
+- **Lean**: `HigherStructure.ladder_dim2`,
+  `HigherStructure.ladder_dim3`,
+  `HigherStructure.shell_guard_load_bearing`,
+  `HigherStructure.filling_not_forced`, `HigherStructure.k4_builds`,
+  `HigherStructure.k4_skeleton_agrees`,
+  `HigherStructure.altNum_stages`,
+  `HigherStructure.d2_zero_triangles`, `HigherStructure.d2_zero_tet`,
+  `HigherStructure.boundary_not_forced`.
+
+### CL-PD2-CONTROLLER
+- **Statement**: in the declared 1024-member variable-event-grammar
+  class, response-liveness is exactly the two-rule support (all 128
+  live members execute the resolution at the certified obstruction;
+  each response kind load-bearing by countermodel); the live family
+  is essentially non-unique (full vs no-refuse agree on every
+  refusal-free event, differ at a certified obstruction) — the sealed
+  six-toggle uniqueness is class-relative; the simulation category
+  has proved laws, every ordered pair is connected by constant
+  simulations, and initiality is refuted everywhere (including the
+  live subcategory); the strict refinement excludes constants yet
+  global uniqueness still fails by an invariant-twist countermodel;
+  uniqueness holds exactly on the genesis-reachable orbit.
+- **Class**: theorem + countermodel + finite computation.
+- **Lean**: `ControllerCategory.allKinds_complete`,
+  `ControllerCategory.interpK_full`,
+  `ControllerCategory.live_census`,
+  `ControllerCategory.tworule_executable_of_live`,
+  `ControllerCategory.dead_without_addcol`,
+  `ControllerCategory.dead_without_budget`,
+  `ControllerCategory.dead_without_refine`,
+  `ControllerCategory.nonrefuse_agree`,
+  `ControllerCategory.refuse_distinguishes`,
+  `ControllerCategory.erase_sim`,
+  `ControllerCategory.every_pair_connected`,
+  `ControllerCategory.no_initial_ctrl`,
+  `ControllerCategory.no_initial_live_ctrl`,
+  `ControllerCategory.const_not_strict`,
+  `ControllerCategory.strict_not_unique`,
+  `ControllerCategory.strict_agree_on_reachable`.
+- **Python**: `primitive_controller_category.json`.
+
+### CL-PD2-INTERPRETER
+- **Statement** (review-pass scope): every finite code list under
+  any evaluation map is missed by a same-type function — FINITE
+  extensional incompleteness, via a diagonal that differs only at
+  the operationally inert notes field; NOT a self-interpretation
+  impossibility, NOT "the evaluator cannot be coded", NOT a semantic
+  tower theorem.  The declared 64-family has an exact universal
+  code/evaluator, scoped; a typed-refusal top closes by partiality
+  what totality cannot; description-level fixed point without an
+  evaluation-level one (`family_missed`).  A DECLARED model of the
+  description/interpreter boundary satisfies candidates A and F with
+  obstructed collapse; its relation/retention/protection are
+  inserted by definition, and no theorem links the uncoded
+  occurrence to the missed function.  The identification of the
+  boundary with a Primitive Difference is a FRONTIER CONJECTURE
+  whose missing theorem (denotational/operational grounding) is
+  stated in the receipt.  Absolute no-outside not claimed.
+- **Class**: theorem + countermodel + finite computation +
+  CONJECTURE (boundary identification) + OPEN (absolute closure).
+- **Lean**: `InterpreterBoundary.tower_persists`,
+  `InterpreterBoundary.i2_universal_in_class`,
+  `InterpreterBoundary.i3_partial_top_refuses`,
+  `InterpreterBoundary.i3_partial_covers`,
+  `InterpreterBoundary.family_missed`,
+  `InterpreterBoundary.i5_boundary_is_A`,
+  `InterpreterBoundary.i5_boundary_is_F`,
+  `InterpreterBoundary.i5_collapse_obstructed`,
+  `InterpreterBoundary.i5_difference_grounded`.
+- **Python**: `primitive_interpreter.json`.
+
+### CL-PD2-RECEIPT
+- **Statement**: the completion receipt binds base commit, contact
+  status, prompt hashes, toolchain pins, the axiom-report hash, all
+  declared finite bounds, ten terminal claims each mapped to theorem
+  or countermodel evidence, five open obligations, the twenty-attack
+  adversarial record, and the two withdrawn-or-repaired claims.
+- **Class**: finite computation (deterministic generator).
+- **Python**: `primitive_completion_receipt.json`,
+  `run_primitive_receipt.py`.
+
+### CL-PD2-ATTACHMENT (repaired, final pass)
+- **Statement**: one-edge attachment (a fresh walking edge glued
+  along a represented parent: assert, retain, protect) is lawful at
+  every stage for every LAWFUL policy — a `LawfulPolicy` carries
+  the proof that each chosen parent is represented; NO CLAMPING
+  occurs anywhere (the retired clamp survives only as the recorded
+  countermodel `clamp_rewrote_input`, and an illegal choice meets
+  the typed refusal `AttachOutcome.refusedParent`, never a
+  rewrite).  Occurrence identity is resolved: `occ` stores TOKENS
+  in admission order, POSITIONS are the identities used by every
+  relational store; the canonical fresh token is one past the
+  maximum, fresh on EVERY carrier (`freshTok_fresh`), while
+  length-as-token fails on non-initial carriers
+  (`length_not_fresh_countermodel`); on canonical tree states
+  tokens and positions provably coincide and the tree block IS the
+  Up block (`freshTok_treeState`, `attachBlock_is_upBlock`).
+  Completeness is REGISTRY-RELATIVE and an iff:
+  `b ∈ Up(s) ↔ LegalOneEdgeExtension s b` (`up_iff_legal`), for the
+  exact declared one-edge grammar and nothing else; every Up block
+  executes to a strict legal extension on live store-bounded states
+  (`up_exec_eq`, `up_executes`), and tree states are store-bounded
+  (`treeState_wf`).  Presentation invariance is a genuine
+  positional renaming ACTION: blocks and the family transport along
+  it and replay commutes with it on the supply fragment
+  (`upBlock_transport`, `upFamily_transport`, `act_up_comm`);
+  the old length-equality survives only as grammar uniformity over
+  an IDENTICAL carrier (`upFamily_grammar_uniform`) — equal-size
+  states with literally equal families need not be related by any
+  renaming (`equal_size_not_renaming_related`).  Every lawful
+  policy produces a tree — unique ascending parent, root
+  reachability, V−E=1 (`treeAt_spec`, `all_reach`,
+  `attach_residue`); global shape is NOT forced
+  (`path4_star4_not_isomorphic`), and two legal equal-cost
+  extensions genuinely diverge
+  (`equal_cost_non_isomorphic_extensions`) — the complete family
+  never selects.  Orbit-valued choices where symmetry remains (star
+  leaves one orbit; the ORIENTED path rigid — the orientation
+  residue at work).  The unique map out of the two-element kernel
+  is injective into every irreflexive target and provably not so
+  without irreflexivity.  Imported inputs stated: fresh token
+  supply, protection, observer transport, budget, activation.
+- **Class**: theorem + countermodel + finite computation.
+- **Lean**: `Attachment.up_iff_legal`, `Attachment.up_exec_eq`,
+  `Attachment.up_executes`, `Attachment.attachChecked_refuses`,
+  `Attachment.unlawful_refused`, `Attachment.clamp_rewrote_input`,
+  `Attachment.freshTok_fresh`,
+  `Attachment.length_not_fresh_countermodel`,
+  `Attachment.freshTok_treeState`,
+  `Attachment.attachBlock_is_upBlock`, `Attachment.treeState_wf`,
+  `Attachment.upBlock_transport`, `Attachment.upFamily_transport`,
+  `Attachment.act_up_comm`, `Attachment.upFamily_grammar_uniform`,
+  `Attachment.equal_size_not_renaming_related`,
+  `Attachment.equal_cost_non_isomorphic_extensions`,
+  `Attachment.treeAt_spec`, `Attachment.attach_residue`,
+  `Attachment.parent_lt`, `Attachment.parent_unique`,
+  `Attachment.parent_exists`, `Attachment.all_reach`,
+  `Attachment.path4_star4_not_isomorphic`,
+  `Attachment.star_orbit_swap`, `Attachment.path_oriented_rigid`,
+  `Attachment.path_center_separate`,
+  `Attachment.halted_up_inert`,
+  `PrimitiveCats.d2_map_injective`,
+  `PrimitiveCats.d2_map_not_injective_without_irrefl`.
+- **Python**: `attachment_ladder.json` (lawful policies to 15
+  rounds; registry iff; renaming commutation over the full
+  permutation group on the sample carriers; both countermodels;
+  orbit computation via store automorphisms).
+
+### CL-PD2-LADDER-GENERAL (repaired and reconciled with
+CL-PD2-LADDER)
+- **Statement**: the dimension-indexed declared cell calculus
+  carries ONE well-formed shell guard uniform in the dimension —
+  exact arity, STRICT ASCENT (the legacy guard admitted the
+  repeated-vertex pseudo-cell `[0, 0]`;
+  `pseudo_cell_countermodel`), complete unfilled boundary — and
+  the UNIFORM GUARDED FILLER THEOREM (`uniform_guarded_filler`,
+  renamed and NARROWED from the former "general ladder theorem"):
+  at every dimension a complete well-formed unfilled boundary
+  admits its filler and the admission strictly extends the
+  complex.  This is a theorem about the declared guarded step, NOT
+  a homology claim.  Reconciliation with CL-PD2-LADDER: the
+  hard-coded `ladder_dim2/dim3` are the dimension-2/3 instances of
+  the two-rule shape inside the PASSAGE-ADJACENT calculus of
+  `HigherStructure`; `uniform_guarded_filler` is its
+  dimension-uniform generalization in the standalone generalized
+  calculus, and the review-pass conjecture
+  GENERAL_DIMENSIONAL_LADDER is settled ONLY in this narrowed
+  filler sense.  Well-formedness is a replayed invariant
+  (`wf_nreplay`, `d4_wf`); guards are load-bearing and shells
+  never self-fill; the dimension-4 demonstration replays
+  completely (5/10/10/5/1); the composite boundary vanishes at
+  dimensions 2–5 (decided/computed); the GENERAL composite
+  vanishing (∂∂ = 0 at every dimension) REMAINS OPEN — recorded as
+  the boundary-calculus conjecture, not claimed.
+- **Class**: theorem (uniform guarded filler; wf invariant) +
+  countermodel (pseudo-cell; guard load-bearing) + finite
+  computation (dims 2–5) + CONJECTURE (general composite
+  vanishing).
+- **Lean**: `LadderGeneral.uniform_guarded_filler`,
+  `LadderGeneral.shell_refuses_general`,
+  `LadderGeneral.shell_no_self_fill`,
+  `LadderGeneral.pseudo_cell_countermodel`,
+  `LadderGeneral.wf_nreplay`, `LadderGeneral.d4_demo`,
+  `LadderGeneral.d4_wf`, `LadderGeneral.d4_guard_load_bearing`,
+  `LadderGeneral.d2_zero_dims_2_3_4`.
+- **Python**: `attachment_ladder.json` (dims 2–5; repaired guard;
+  pseudo-cell countermodel; wf invariant).
+
+### CL-PD2-COMPRESSION
+- **Statement** (target-relative presentation compression; all
+  notions relative to a DECLARED finite domain `D` and DECLARED
+  represented question family `Q`): (A) a presentation map factors
+  through the Q-signature exactly when it is constant on
+  Q-signature fibers over `D` (`factors_iff_fiberConstant`); the
+  factoring map is unique ON THE IMAGE of `D` and provably not
+  unique off it (`factor_unique_on_image`,
+  `factor_not_unique_off_image`).  (B) the signature quotient `pQ`
+  is exact, Q-adequate, and COARSEST among Q-adequate
+  presentations, with the universal property scoped to the image
+  (`pQ_exact`, `pQ_adequate`, `pQ_coarsest`,
+  `pQ_unique_on_image`) — no claim off-image or for undeclared
+  families.  (C) every descent failure — two points merged by the
+  compression yet separated by some declared question — is
+  witnessed by an explicit separator (`descent_witness`).  (D)
+  enlarging the family refines the agreement relation, and a class
+  SPLITS exactly when the enlargement contains a NEW separator for
+  previously agreeing points (`enlarge_refines`,
+  `splits_iff_new_separator`).  (E) there is NO absolute adequacy
+  without a declared family: adequacy for every family is exactly
+  injectivity on `D` — no compression at all
+  (`absolute_adequacy_iff_injective`, forward by indicator
+  questions).  (F) repetition, digests/hashes, and replay records
+  are functions of the old signature and separate nothing new
+  (`dup_no_refine`, `postcompose_no_refine`,
+  `refine_requires_separator`) — what makes replay EVIDENTIAL is
+  a new separating question, never re-presentation.  Iteration is
+  bounded by the declared domain: class counts are positive,
+  bounded by `|D|`, strictly increase on splits, and any strict
+  refinement chain has fewer than `|D|` steps (`refine_bounded`,
+  `classCount_pos`, `strict_split_increases`, `chain_bounded`,
+  `strict_steps_lt`).  Repaired-attachment connection tested and
+  bounded by countermodel: refinement is NOT unique and ties are
+  retained (`refinement_not_unique`, `refinement_tie`) — no
+  unique-minimum refinement, no endogenous selection, no unlimited
+  iteration.
+- **Class**: theorem + countermodel + finite computation
+  (exhaustive within declared bounds n ≤ 3, m ≤ 3, |Q| ≤ 2).
+- **Lean**: `Compression.factors_iff_fiberConstant`,
+  `Compression.factor_unique_on_image`,
+  `Compression.factor_not_unique_off_image`,
+  `Compression.pQ_exact`, `Compression.pQ_adequate`,
+  `Compression.pQ_coarsest`, `Compression.pQ_unique_on_image`,
+  `Compression.descent_witness`, `Compression.enlarge_refines`,
+  `Compression.splits_iff_new_separator`,
+  `Compression.absolute_adequacy_iff_injective`,
+  `Compression.dup_no_refine`, `Compression.postcompose_no_refine`,
+  `Compression.refine_requires_separator`,
+  `Compression.refinement_not_unique`,
+  `Compression.refinement_tie`, `Compression.refine_bounded`,
+  `Compression.classCount_pos`,
+  `Compression.strict_split_increases`,
+  `Compression.chain_bounded`, `Compression.strict_steps_lt`,
+  `Compression.sigEq_iff_sigList`.
+- **Python**: `compression.json` (757 families per size pair up to
+  (3,3); 37736 witnessed descent instances; 10006 split instances;
+  digest quantification over all signature functions).
+
+### CL-PD2-RECEIPT-BYTES
+- **Statement**: the completion receipt is byte-reproducible
+  across platforms because every hashed prompt input is hashed in
+  CANONICAL BYTES — the Git blob bytes (LF), equal to the
+  CRLF→LF-normalized checkout bytes; the original supplied CRLF
+  rendering of the seed prompt is recorded alongside as
+  provenance.  The blob/checkout distinction is tested against
+  `git show HEAD:...`; content mutation detection is tested (any
+  content byte change moves the canonical hash; a pure line-ending
+  re-rendering does not — it is the same canonical content).
+- **Class**: finite computation + tests.
+- **Python**: `run_primitive_receipt.py` (`canonical_sha256`),
+  `tests/test_primitive_receipt.py` (blob/checkout distinction,
+  mutation detection, dual seed hashes).
+
+### CL-PD2-STABLE-CONTENT
+- **Statement** (caller-requested finals, native scope: the
+  declared event grammar of the passage calculus): (i) **stable
+  content is exactly protected separation** — membership in the
+  stable content (protected AND separated by the declared
+  observation) is preserved by EVERY event
+  (`stable_content_persists`) and along every replay
+  (`stable_content_replays`): supply events do not touch
+  observation, new columns only add separators, and same-level
+  refinement is guarded by precisely the monotone preservation of
+  protected separations.  Protection is load-bearing: an accepted
+  refinement — discharging a protected obstruction while preserving
+  every protected separation — DESTROYS the separation of an
+  unprotected pair (`unprotected_separation_unstable`), so
+  separation as such is not stable; the protected separations are.
+  (ii) **quiescence ⟺ protected pairs inside the stable content**:
+  on a declared state, no pair is actively obstructed exactly when
+  every retained protected pair is separated
+  (`quiescent_iff_protected_separated`), equivalently exactly when
+  every retained protected pair belongs to the stable content
+  (`quiescence_is_stable_content`).  Nothing is claimed for other
+  calculi or for pre-observational states (which have no
+  separations to stabilize).
+- **Class**: theorem + countermodel + finite computation.
+- **Lean**: `StableContent.stable_content_persists`,
+  `StableContent.stable_content_replays`,
+  `StableContent.sep_preserved`, `StableContent.prot_mono`,
+  `StableContent.sepP_refine`,
+  `StableContent.unprotected_separation_unstable`,
+  `StableContent.quiescent_iff_protected_separated`,
+  `StableContent.quiescence_is_stable_content`.
+- **Python**: `primitive_passage.json` (`stable_content` section:
+  battery persistence, quiescence coincidence, the refinement
+  countermodel).
+

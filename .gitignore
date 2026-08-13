@@ -7,3 +7,4 @@ htmlcov/
 lean4/.lake/
 artifacts2/
 lake_build_*.log
+2026-*.txt
