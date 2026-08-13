@@ -548,9 +548,8 @@ def rewrite_report(max_len: int = 3) -> dict[str, Json]:
             "identified_by_rewriting":
                 nf(incomplete_left) == nf(incomplete_right),
         },
-        "no_global_normal_form_claim": (
-            "replay determinism identifies event lists only relative to a "
-            "start state; the rewrite system is state-independent and "
-            "strictly weaker, and no normal form for replay equivalence "
-            "is claimed"),
+        "normal_form_claim_ceiling": (
+            "the witness refutes completeness of this two-rule normalizer; "
+            "it does not rule out a richer universal or start-scoped "
+            "canonicalizer"),
     }

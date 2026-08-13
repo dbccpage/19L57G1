@@ -900,13 +900,13 @@ vocabulary, and only the closing section of
    an ownership conclusion.
 7. The trace algebra derives its laws rather than assuming them, and
    one is stronger than expected: idempotence is universal, holding
-   for every event at every state.  Commutation holds only under an
-   exact frame condition - "disjoint support implies commutes" is
-   false, because guards read fields their step never writes - with
-   five non-commutation countermodels.
-8. The rewrite system is proved sound, terminating and confluent on
-   the fragment where its rules hold, and is explicitly NOT claimed
-   complete: two lists that replay identically from every state are
-   not identified.  Replay determinism gives no normal form, because
-   replay equivalence is state-relative while a rewrite rule is not.
+   for every event at every state. Three sufficient frame families are
+   proved; necessity and exhaustiveness are not. "Disjoint support
+   implies commutes" is false because guards read fields their step
+   never writes, with five non-commutation countermodels.
+8. The two-rule rewrite system is sound, terminating and confluent, but
+   not complete for universal replay equivalence: two universally
+   replay-equivalent lists receive different `nf` values. This refutes
+   completeness of this normalizer, not the possible existence of every
+   richer universal or start-scoped canonicalizer.
 

@@ -2099,9 +2099,9 @@ CL-PD2-LADDER)
   UNIVERSAL, which is stronger than expected: `step_idem` holds for
   EVERY event at EVERY state - the funded events are idempotent
   because a refined column leaves the menu and a created column is
-  already present.  (iv) Commutation holds under an exact FRAME
-  condition, not under "disjoint support": `frame_licS`, `frame_budS`
-  and `frame_occS` over declared insensitivity predicates give
+  already present.  (iv) Three sufficient FRAME families are proved,
+  not a necessary or exhaustive classification: `frame_licS`,
+  `frame_budS` and `frame_occS` over declared insensitivity predicates give
   `comm_setLicense`, `comm_setBudget`, `comm_setBudget_setLicense`,
   `comm_admitOcc`.  (v) FIVE non-commutation countermodels
   (`noncomm_license_extension`, `noncomm_budget_extension`,
@@ -2124,14 +2124,13 @@ CL-PD2-LADDER)
   strict length decrease (`rw_length`), and CONFLUENT with unique
   normal forms (`rw_confluent`, `nf_unique`, `nf_noRedex`,
   `noRedex_nf_eq`).
-- **NOT claimed: completeness, and the reason is proved.**
-  `rewrite_not_complete` exhibits two lists that replay identically
-  from EVERY state and are not identified by the system.  Replay
-  determinism gives NO normal form on event lists: replay equivalence
-  is state-relative while a rewrite rule is not.  Commutation
-  reordering rules were deliberately not added (unsound in general -
-  same-store writes do not commute) and neither was inert deletion
-  (state-dependent).
+- **Not claimed: completeness of this rewrite system.**
+  `rewrite_not_complete` exhibits two lists that replay identically from
+  every state but receive different `nf` values. This refutes completeness
+  of this two-rule normalizer only; it does not prove impossibility of a richer
+  canonicalizer for universal or start-scoped replay equivalence. Commutation
+  reordering was not added because same-store writes need not commute, and
+  inert deletion is state-dependent.
 - **Scope limits, stated**: there is no general "disjoint support
   implies commutes" theorem, and it is false, because guards read
   fields their step never writes; only the three frame families are

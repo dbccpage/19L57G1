@@ -29,11 +29,10 @@ What is derived here, in order:
    (the refined column leaves the menu, the created column is already
    present).
 4. **Commutation.**  Disjoint support is *not* sufficient: guards read
-   fields that their own step never writes.  The exact provable
-   hypothesis is a FRAME condition — `guardHolds` is insensitive to
-   the written field and the two post-state constructors commute —
-   discharged for the license write, the budget write, and occurrence
-   supply, over explicitly declared insensitivity predicates.  Five
+   fields that their own step never writes.  Three sufficient FRAME
+   families are proved — for license writes, budget writes, and
+   occurrence supply — using declared insensitivity predicates.  They
+   are not proved necessary or exhaustive. Five
    countermodels record what fails: license against extension, budget
    against extension, the terminal against any write, occurrence
    supply against retention, and two writes into the SAME list store
@@ -57,8 +56,10 @@ What is derived here, in order:
    unique normal form.  It is deliberately much weaker than replay
    equivalence, and the gap is exhibited: `rewrite_not_complete`
    gives two event lists that replay identically from every state and
-   are not identified by the system.  Determinism of replay does not
-   give a normal form on event lists, and no such claim is made.
+   are not identified by the system. This refutes completeness of this
+   particular two-rule normalizer; it does not prove that no complete
+   canonicalizer for universal or start-scoped replay equivalence can
+   exist.
 -/
 
 namespace TraceAlgebra
@@ -410,14 +411,16 @@ theorem legal_trace_replays (tr : List TRecord) (s : PState)
 /-! ## 4. Commutation
 
 Disjoint written support is NOT sufficient for commutation: a guard
-reads fields its own step never writes.  The hypothesis that IS
-provable is a frame condition, declared field by field:
+reads fields its own step never writes. Three sufficient frame families
+are declared field by field. In each family:
 
 * `guardHolds` is insensitive to the written field, and
 * the two post-state constructors commute as record updates.
 
-Both halves are `rfl` for the declared insensitive events, and both
-fail for the excluded ones — with countermodels. -/
+Both halves are `rfl` for the declared insensitive events. Selected
+excluded cases have Lean countermodels; the Python mirror audits every
+excluded event only over its declared finite battery. Necessity and
+exhaustiveness are not proved. -/
 
 def licenseInsensitive : PEvent → Bool
   | .addCol _ => false
@@ -744,13 +747,11 @@ theorem replay_eqv_not_unscoped :
 
 Two rules, on event lists alone.  They are sound for EVERY start
 state, which is strictly stronger than soundness relative to one
-state.  The price is that the system is far from complete for replay
-equivalence — and it cannot be complete, because replay equivalence
-is state-relative (§7) while a rewrite rule is not.  Even the
-state-independent fragment is not captured: `rewrite_not_complete`
-exhibits two lists that replay identically from EVERY state and are
-not identified here.  **Determinism of replay does not give a normal
-form on event lists, and no such claim is made.** -/
+state. The present two-rule system is not complete even for the
+state-independent fragment: `rewrite_not_complete` exhibits two lists
+that replay identically from EVERY state and are not identified here.
+This does not rule out a richer universal canonicalizer, and it does
+not address a quotient scoped to one fixed start state. -/
 
 inductive Rw : List PEvent → List PEvent → Prop where
   | idem (e : PEvent) (l : List PEvent) : Rw (e :: e :: l) (e :: l)
@@ -974,12 +975,12 @@ theorem nf_sound (l : List PEvent) (s : PState) :
     replayP (nf l) s = replayP l s :=
   (rwStar_sound l (nf l) (rwStar_to_nf l) s).symm
 
-/-- **The system is deliberately incomplete.**  Two budget writes in a
-row replay identically to the second one alone, at EVERY state, and
-the rewrite system does not identify them.  A complete system would
-have to decide state-relative equalities, which §7 shows are not
-state-independent.  Replay determinism gives no normal form on event
-lists. -/
+/-- **The system is deliberately incomplete.** Two budget writes in a
+row replay identically to the second one alone at every state, but this
+two-rule normalizer assigns different normal forms. Thus `nf` is not
+complete for universal replay equivalence. This witness does not rule
+out some richer complete canonicalizer, nor does it address a fixed
+start-state quotient. -/
 theorem rewrite_not_complete :
     (∀ s : PState, replayP [PEvent.setBudget 1, PEvent.setBudget 2] s
       = replayP [PEvent.setBudget 2] s) ∧
