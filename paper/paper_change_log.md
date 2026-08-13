@@ -841,3 +841,28 @@ closed.
    `general_d2_zero` field, and the receipt conjecture list are all
    downgraded to corollaries or marked settled.
 
+## Contact response: declared weights, their profile, and the climb
+(2026-08-13)
+
+A contact package supplied by the caller asks whether a normalization
+result and an optional lift follow from declared additive weights.
+The native derivation was done FIRST, in this repository's own
+vocabulary, and only the closing section of
+`paper/weight_profile_contact.md` matches it against the package.
+
+1. The profile is exactly the positive ray of the weights, proved
+   without division by cross-multiplication; support and order are
+   preserved, the total is forgotten.
+2. A decorated presentation adds nothing to the profile.  One line.
+3. Sharper, and a correction made mid-work: over UNSIGNED decorations
+   the decoration is DETERMINED by the weights, so it adds nothing to
+   ANY question.  The first draft claimed a mixing question separates
+   unsigned decorations with equal moduli; the Python mirror refuted
+   it and the claim was replaced.  The extra capacity is exactly a
+   declared SIGN, and the sign is its own import.
+4. A declared linear read-out descends through the modulus-blind
+   relation exactly when its cross term vanishes.
+5. The climb is priced, not paid: three imports are stated as
+   unproved Props, and the negative fact that makes them necessary is
+   proved - the weights do not determine a decoration.
+

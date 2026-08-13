@@ -1,0 +1,57 @@
+{
+ "bounds": {
+  "carrier_size": 2,
+  "coefficient_bound": 3,
+  "input_bound": 2,
+  "max_decoration": 3,
+  "max_weight": 3,
+  "ray_search_bound": 7
+ },
+ "climb": {
+  "imports_required_and_not_discharged": [
+   "a decorated carrier with a declared modulus map and a declared combination operation (the weights supply none)",
+   "exact additivity over disjoint parts (a declared demand, not entailed by the calculus)",
+   "a read-out uniqueness law singling out one modulus-blind additive nonnegative read-out (the expensive import; nothing above proves it)"
+  ],
+  "status": "each import is stated as an unproved Prop in the Lean module; none is discharged here or anywhere in this development",
+  "weights_do_not_force_decoration": {
+   "decorations_differ": true,
+   "eA_presents_w": true,
+   "eB_does_not_present_w": true,
+   "mixing_separates_them": true
+  }
+ },
+ "derived_vs_imported": "DERIVED: the profile is fixed up to a positive ray, a decorated presentation adds nothing to it, and a linear read-out descends exactly when it does not mix.  IMPORTED and NOT discharged: a decorated carrier, exact disjoint additivity, and any read-out uniqueness law.",
+ "descent": {
+  "coefficient_bound": 3,
+  "descent_iff_cross_term_zero": true,
+  "input_bound": 2,
+  "rows_checked": 49,
+  "sign_gap_identity": true
+ },
+ "lift": {
+  "decorations_checked": 15,
+  "profile_redundant_for_every_decoration": true,
+  "redundancy_is_relative": "redundant for the declared profile question; over UNSIGNED decorations redundant for every question, because the decoration is determined; the extra capacity appears only once a SIGN is declared, and that declaration is a separate import",
+  "signed_mixing": {
+   "capacity_is_the_declared_sign": "unsigned decorations are determined by the weights; only a declared sign creates a datum the profile cannot see, and that declaration is its own import",
+   "mixing_separates": true,
+   "same_modulus_at_each_position": true
+  },
+  "unsigned_decoration_determined": true,
+  "unsigned_pairs_with_equal_moduli_that_differ": 0
+ },
+ "profile": {
+  "assignments_checked": 15,
+  "classes_are_exactly_rays": true,
+  "equivalence": {
+   "refl": true,
+   "symm": true,
+   "trans": true
+  },
+  "order_preserved": true,
+  "scaling_invariant": true,
+  "support_preserved": true,
+  "total_is_forgotten": true
+ }
+}

@@ -33,6 +33,7 @@ import Derivation.StableContent
 import Derivation.RenamingStructure
 import Derivation.GraphGenesis
 import Derivation.BoundaryCancellation
+import Derivation.WeightProfile
 
 /-!
 # Axiom reports
@@ -893,3 +894,28 @@ open Derivation
 #print axioms BoundaryCancellation.signless_countermodel
 #print axioms BoundaryCancellation.signless_countermodel_dim3
 #print axioms BoundaryCancellation.illformed_countermodel
+#print axioms WeightProfile.foldl_add_acc
+#print axioms WeightProfile.total_cons
+#print axioms WeightProfile.total_scale
+#print axioms WeightProfile.total_ray
+#print axioms WeightProfile.profile_refl
+#print axioms WeightProfile.profile_symm
+#print axioms WeightProfile.profile_trans
+#print axioms WeightProfile.profile_scale
+#print axioms WeightProfile.profile_iff_ray
+#print axioms WeightProfile.profile_support
+#print axioms WeightProfile.profile_order
+#print axioms WeightProfile.profile_forgets_total
+#print axioms WeightProfile.total_congr
+#print axioms WeightProfile.lift_profile_redundant
+#print axioms WeightProfile.lifts_agree_on_profile
+#print axioms WeightProfile.sq_mono
+#print axioms WeightProfile.sq_injective
+#print axioms WeightProfile.unsigned_decoration_determined
+#print axioms WeightProfile.signed_decoration_visible_to_mixing
+#print axioms WeightProfile.redundancy_is_relative
+#print axioms WeightProfile.sq_mul
+#print axioms WeightProfile.sq_add_sub
+#print axioms WeightProfile.descent_iff_subsingleton_support
+#print axioms WeightProfile.weights_do_not_force_decoration
+#print axioms WeightProfile.derived_and_imported

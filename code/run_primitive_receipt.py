@@ -108,6 +108,9 @@ def receipt() -> dict[str, Json]:
             "boundary_cells_checked": 218,
             "boundary_coefficient_checks": 3124,
             "boundary_dims": [2, 3, 4, 5, 6],
+            "weight_carrier": 2,
+            "weight_max": 3,
+            "weight_coeff_bound": 3,
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -313,6 +316,43 @@ def receipt() -> dict[str, Json]:
                           "quiescence_is_protected_separation "
                           "(a statement about protSep, NOT about "
                           "trace stability)"]},
+            {"tag": "WEIGHT_PROFILE_REDUNDANCY_AND_ITS_PRICE",
+             "status": "THEOREM + COUNTERMODEL + NAMED IMPORTS",
+             "evidence": ["the profile is fixed up to a positive "
+                          "ray, exactly: WeightProfile."
+                          "profile_iff_ray (fiber classifier, no "
+                          "division anywhere), with profile_refl / "
+                          "symm / trans / scale",
+                          "what it keeps and forgets: "
+                          "profile_support, profile_order, "
+                          "profile_forgets_total",
+                          "a decorated presentation adds NOTHING to "
+                          "the profile: lift_profile_redundant, "
+                          "lifts_agree_on_profile - one line, and "
+                          "that is the entire redundancy",
+                          "SHARPER, and corrected during the work: "
+                          "over UNSIGNED decorations the decoration "
+                          "is DETERMINED by the weights "
+                          "(sq_injective, "
+                          "unsigned_decoration_determined), so it "
+                          "adds nothing to ANY question; the extra "
+                          "capacity appears only once a SIGN is "
+                          "declared "
+                          "(signed_decoration_visible_to_mixing), "
+                          "and that declaration is its own import",
+                          "descent classification: "
+                          "descent_iff_subsingleton_support - a "
+                          "linear read-out descends through the "
+                          "modulus-blind relation exactly when its "
+                          "cross term vanishes; sq_add_sub isolates "
+                          "the obstruction",
+                          "THE CLIMB, priced not paid: "
+                          "openDecoratedCarrierImport, "
+                          "openDisjointAdditivityImport, "
+                          "openReadOutUniquenessImport are stated "
+                          "as unproved Props; "
+                          "weights_do_not_force_decoration is the "
+                          "negative fact that makes them necessary"]},
             {"tag": "GENERAL_BOUNDARY_CANCELLATION",
              "status": "THEOREM (general) + COUNTERMODEL",
              "evidence": ["BoundaryCancellation."

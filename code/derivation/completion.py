@@ -61,6 +61,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "RenamingStructure": ["RenamingStructure.lean"],
     "GraphGenesis": ["GraphGenesis.lean"],
     "BoundaryCancellation": ["BoundaryCancellation.lean"],
+    "WeightProfile": ["WeightProfile.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
