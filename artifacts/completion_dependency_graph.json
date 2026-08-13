@@ -7598,7 +7598,7 @@
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
-   "name": "InterpreterBoundary.i3_partial_top_refuses",
+   "name": "InterpreterBoundary.i3_refusal_code_returns_none",
    "role": "preservation",
    "statement": ": evalOpt none = fun _ _ => none"
   },
@@ -7613,9 +7613,24 @@
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
-   "name": "InterpreterBoundary.i3_partial_covers",
+   "name": "InterpreterBoundary.i3_coded_member_returns_some",
    "role": "preservation",
    "statement": "(d : ConstitutionDesc) (w : World) (e : Event) : evalOpt (some d) w e = some (interpStep d w e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.arbitrary_uncoded_assignment",
+   "role": "preservation",
+   "statement": "(f : World \u2192 Event \u2192 World) : \u2203 I : Option ConstitutionDesc \u2192 (World \u2192 Event \u2192 World), I none = f \u2227 \u2200 d, I (some d) = interpStep d"
   },
   {
    "axioms": [
@@ -9652,9 +9667,7 @@
    "citing_claims": [
     "CL-PD2-COMPRESSION"
    ],
-   "consumers": [
-    "WeightProfile.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Compression.lean",
    "name": "Compression.absolute_adequacy_iff_injective",
@@ -9913,9 +9926,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.trace_stable_int_stable",
+   "name": "StableContent.trace_stable_restricted_stable",
    "role": "preservation",
-   "statement": "(s : PState) (i j : Nat) (h : TraceStableSep s i j) : IntStableSep s i j"
+   "statement": "(s : PState) (i j : Nat) (h : TraceStableSep s i j) : RestrictedStableSep s i j"
   },
   {
    "axioms": [
@@ -9958,9 +9971,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.internal_step_inert_unfunded",
+   "name": "StableContent.restricted_step_inert_unfunded",
    "role": "preservation",
-   "statement": "(s : PState) (e : PEvent) (cols : List (List Nat)) (henv : IsEnvEvent e = false) (hobs : s.obs = some cols) (hb : s.budget = 0) : (step s e).obs = some cols \u2227 (step s e).budget = 0"
+   "statement": "(s : PState) (e : PEvent) (cols : List (List Nat)) (henv : IsTraceExcludedEvent e = false) (hobs : s.obs = some cols) (hb : s.budget = 0) : (step s e).obs = some cols \u2227 (step s e).budget = 0"
   },
   {
    "axioms": [
@@ -9973,9 +9986,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.internal_replay_inert_unfunded",
+   "name": "StableContent.restricted_replay_inert_unfunded",
    "role": "preservation",
-   "statement": "(h : List PEvent) : \u2200 (s : PState) (cols : List (List Nat)), InternalTrace h \u2192 s.obs = some cols \u2192 s.budget = 0 \u2192 (replayP h s).obs = some cols \u2227 (replayP h s).budget = 0"
+   "statement": "(h : List PEvent) : \u2200 (s : PState) (cols : List (List Nat)), RestrictedTrace h \u2192 s.obs = some cols \u2192 s.budget = 0 \u2192 (replayP h s).obs = some cols \u2227 (replayP h s).budget = 0"
   },
   {
    "axioms": [
@@ -9988,9 +10001,9 @@
    "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
-   "name": "StableContent.unfunded_internal_stable_not_protected",
+   "name": "StableContent.unfunded_restricted_stable_not_protected",
    "role": "preservation",
-   "statement": ": IntStableSep sUnfunded 0 1 \u2227 protSep sUnfunded 0 1 = false \u2227 sUnfunded.halted = false"
+   "statement": ": RestrictedStableSep sUnfunded 0 1 \u2227 protSep sUnfunded 0 1 = false \u2227 sUnfunded.halted = false"
   },
   {
    "axioms": [
@@ -10379,7 +10392,7 @@
    "module": "RenamingStructure.lean",
    "name": "RenamingStructure.upFamily_orbit_closed",
    "role": "preservation",
-   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (b : List PEvent) (hb : b \u2208 upFamily s) : \u2203 b', b' \u2208 upFamily (act \u03c3 s)"
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (b : List PEvent) (hb : b \u2208 upFamily s) : \u2203 p, p < s.occ.length \u2227 b = upBlock s p \u2227 upBlock (act \u03c3 s) (\u03c3.f p) \u2208 upFamily (act \u03c3 s)"
   },
   {
    "axioms": [
@@ -11173,6 +11186,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with",
     "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
    ],
    "consumers": [
@@ -11412,6 +11426,20 @@
   },
   {
    "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "WeightProfile.lean",
+   "name": "WeightProfile.duplicate_list_not_carrier",
+   "role": "preservation",
+   "statement": ": \u00ac CarrierList [0, 0]"
+  },
+  {
+   "axioms": [
     "propext",
     "Quot.sound"
    ],
@@ -11429,8 +11457,21 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "WeightProfile.lean",
+   "name": "WeightProfile.total_append",
+   "role": "preservation",
+   "statement": "(l\u2081 l\u2082 : List Nat) (w : Weights) : total (l\u2081 ++ l\u2082) w = total l\u2081 w + total l\u2082 w"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11443,9 +11484,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11455,9 +11494,7 @@
   },
   {
    "axioms": [],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11467,9 +11504,7 @@
   },
   {
    "axioms": [],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11479,11 +11514,10 @@
   },
   {
    "axioms": [
-    "propext"
+    "propext",
+    "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11496,13 +11530,11 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.profile_scale",
+   "name": "WeightProfile.profile_scale_raw",
    "role": "preservation",
    "statement": "(l : List Nat) (a : Nat) (w : Weights) : SameProfile l (fun p => a * w p) w"
   },
@@ -11512,7 +11544,52 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "WeightProfile.lean",
+   "name": "WeightProfile.profile_scale_positive",
+   "role": "preservation",
+   "statement": "(l : List Nat) (a : Nat) (w : Weights) (ha : 0 < a) (hw : 0 < total l w) : SameProfile l (fun p => a * w p) w \u2227 0 < total l (fun p => a * w p)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "WeightProfile.lean",
+   "name": "WeightProfile.profile_equivalence_positive",
+   "role": "preservation",
+   "statement": "(l : List Nat) : (\u2200 w : Weights, 0 < total l w \u2192 SameProfile l w w) \u2227 (\u2200 w v : Weights, 0 < total l w \u2192 0 < total l v \u2192 SameProfile l w v \u2192 SameProfile l v w) \u2227 (\u2200 w v u : Weights, 0 < total l w \u2192 0 < total l v \u2192 0 < total l u \u2192 SameProfile l w v \u2192 SameProfile l v u \u2192 SameProfile l w u)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "WeightProfile.lean",
+   "name": "WeightProfile.zero_scale_boundary",
+   "role": "preservation",
+   "statement": "(l : List Nat) (w : Weights) (_hw : 0 < total l w) : SameProfile l (fun _ => 0) w \u2227 total l (fun _ => 0) = 0 \u2227 \u00ac 0 < total l (fun _ => 0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11527,7 +11604,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11539,7 +11616,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11554,7 +11631,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11568,9 +11645,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11584,12 +11659,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.lift_profile_redundant",
+   "name": "WeightProfile.presentation_profile_redundant",
    "role": "preservation",
    "statement": "(l : List Nat) (m : Nat \u2192 Nat) (c : Nat \u2192 Nat) (w : Weights) (h : Presents l m c w) : SameProfile l (fun p => m (c p)) w"
   },
@@ -11599,12 +11674,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.lifts_agree_on_profile",
+   "name": "WeightProfile.presentations_agree_on_profile",
    "role": "preservation",
    "statement": "(l : List Nat) (m : Nat \u2192 Nat) (c d : Nat \u2192 Nat) (w : Weights) (hc : Presents l m c w) (hd : Presents l m d w) (hpos : 0 < total l w) : SameProfile l (fun p => m (c p)) (fun p => m (d p))"
   },
@@ -11627,7 +11702,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11642,7 +11717,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11652,16 +11727,19 @@
    "statement": "(l : List Nat) (c d : Nat \u2192 Nat) (w : Weights) (hc : Presents l sq c w) (hd : Presents l sq d w) : \u2200 p \u2208 l, c p = d p"
   },
   {
-   "axioms": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.signed_decoration_visible_to_mixing",
+   "name": "WeightProfile.signed_square_presentations_split",
    "role": "preservation",
-   "statement": ": ((1 : Int) * 1 = (1 : Int) * 1) \u2227 ((-1 : Int) * (-1) = (1 : Int) * 1) \u2227 mixSum 1 (-1) \u2260 mixSum 1 1"
+   "statement": ": SignedSquarePresents [0, 1] signedPlus unitIntWeights \u2227 SignedSquarePresents [0, 1] signedSplit unitIntWeights \u2227 (\u2203 p \u2208 [0, 1], signedPlus p \u2260 signedSplit p) \u2227 mixSum (signedPlus 0) (signedPlus 1) \u2260 mixSum (signedSplit 0) (signedSplit 1)"
   },
   {
    "axioms": [
@@ -11669,22 +11747,20 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.redundancy_is_relative",
+   "name": "WeightProfile.presentation_scope",
    "role": "preservation",
-   "statement": "(l : List Nat) (c d : Nat \u2192 Nat) (w : Weights) (hc : Presents l sq c w) (hd : Presents l sq d w) : SameProfile l (fun p => sq (c p)) w \u2227 (\u2200 p \u2208 l, c p = d p) \u2227 mixSum 1 (-1) \u2260 mixSum 1 1"
+   "statement": "(l : List Nat) (c d : Nat \u2192 Nat) (w : Weights) (hc : Presents l sq c w) (hd : Presents l sq d w) : SameProfile l (fun p => sq (c p)) w \u2227 (\u2200 p \u2208 l, c p = d p) \u2227 mixSum (signedPlus 0) (signedPlus 1) \u2260 mixSum (signedSplit 0) (signedSplit 1)"
   },
   {
    "axioms": [
     "propext"
    ],
-   "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
@@ -11698,7 +11774,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11713,7 +11789,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -11723,19 +11799,16 @@
    "statement": "(a b : Int) : (\u2200 x y x' y', ModulusBlind x y x' y' \u2192 readOut a b x y * readOut a b x y = readOut a b x' y' * readOut a b x' y') \u2194 a * b = 0"
   },
   {
-   "axioms": [
-    "propext",
-    "Quot.sound"
-   ],
+   "axioms": [],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.weights_do_not_force_decoration",
+   "name": "WeightProfile.decoratedCarrierShape_exists",
    "role": "preservation",
-   "statement": ": Presents [0, 1] sq eA (fun p => if p = 0 then 4 else 1) \u2227 (\u00ac Presents [0, 1] sq eB (fun p => if p = 0 then 4 else 1)) \u2227 eA \u2260 eB"
+   "statement": ": \u2203 (D : Type) (m : D \u2192 Nat) (op : D \u2192 D \u2192 D), (\u2200 n : Nat, \u2203 d : D, m d = n) \u2227 \u2200 d e : D, m (op d e) = m (op e d)"
   },
   {
    "axioms": [
@@ -11743,14 +11816,29 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)"
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "WeightProfile.lean",
-   "name": "WeightProfile.derived_and_imported",
+   "name": "WeightProfile.claimedReadOutUniqueness_false",
    "role": "preservation",
-   "statement": "(l : List Nat) (w v : Weights) (hw : 0 < total l w) (hv : 0 < total l v) (a : Nat) : (SameProfile l w v \u2194 \u2203 p q, 0 < p \u2227 0 < q \u2227 \u2200 x \u2208 l, p * w x = q * v x) \u2227 SameProfile l (fun p => a * w p) w \u2227 (\u2200 (m : Nat \u2192 Nat) (c : Nat \u2192 Nat), Presents l m c w \u2192 SameProfile l (fun p => m (c p)) w)"
+   "statement": ": \u00ac ClaimedReadOutUniqueness"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "WeightProfile.lean",
+   "name": "WeightProfile.finite_scope_summary",
+   "role": "preservation",
+   "statement": "(l : List Nat) (w v : Weights) (hw : 0 < total l w) (hv : 0 < total l v) (a : Nat) (ha : 0 < a) : (SameProfile l w v \u2194 \u2203 p q, 0 < p \u2227 0 < q \u2227 \u2200 x \u2208 l, p * w x = q * v x) \u2227 (SameProfile l (fun p => a * w p) w \u2227 0 < total l (fun p => a * w p)) \u2227 (\u2200 (m : Nat \u2192 Nat) (c : Nat \u2192 Nat), Presents l m c w \u2192 SameProfile l (fun p => m (c p)) w)"
   },
   {
    "axioms": [
@@ -13174,7 +13262,6 @@
    ],
    "citing_claims": [],
    "consumers": [
-    "StableContent.lean",
     "TraceAlgebra.lean"
    ],
    "kind": "generic",
@@ -13190,7 +13277,6 @@
    ],
    "citing_claims": [],
    "consumers": [
-    "StableContent.lean",
     "TraceAlgebra.lean"
    ],
    "kind": "generic",
@@ -13205,9 +13291,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "StableContent.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
    "name": "TransitionAlphabet.internal_family_no_terminal",
@@ -13223,7 +13307,6 @@
     "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
    "consumers": [
-    "StableContent.lean",
     "TraceAlgebra.lean"
    ],
    "kind": "generic",
@@ -13253,9 +13336,7 @@
    "citing_claims": [
     "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
-   "consumers": [
-    "StableContent.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
    "name": "TransitionAlphabet.internal_family_env_only_unit_funding",

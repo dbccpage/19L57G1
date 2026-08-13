@@ -7,21 +7,24 @@
   "max_weight": 3,
   "ray_search_bound": 7
  },
+ "claim_ceiling": "finite Nat/Int weight profiles; one declared signed-square mixing witness; no vector-space, dynamics, probability, uniqueness, or representation-lift claim",
  "climb": {
-  "imports_required_and_not_discharged": [
-   "a decorated carrier with a declared modulus map and a declared combination operation (the weights supply none)",
-   "exact additivity over disjoint parts (a declared demand, not entailed by the calculus)",
-   "a read-out uniqueness law singling out one modulus-blind additive nonnegative read-out (the expensive import; nothing above proves it)"
-  ],
-  "status": "each import is stated as an unproved Prop in the Lean module; none is discharged here or anywhere in this development",
-  "weights_do_not_force_decoration": {
-   "decorations_differ": true,
-   "eA_presents_w": true,
-   "eB_does_not_present_w": true,
-   "mixing_separates_them": true
-  }
+  "claimed_readout_uniqueness": {
+   "positive_singleton_total": 1,
+   "reason": "the zero read-out is profile-invariant and append-additive but differs from positive total",
+   "status": "FALSE_WITH_COUNTERMODEL",
+   "zero_readout": 0
+  },
+  "decorated_carrier_shape": {
+   "status": "PROVABLE_TRIVIALLY",
+   "witness": "D=Nat, modulus=identity, operation=addition"
+  },
+  "list_append_additivity": {
+   "overlap_policy": "repeated labels count with multiplicity",
+   "status": "PROVED_FROM_TOTAL_DEFINITION"
+  },
+  "status": "NO_PRICED_CLIMB_DERIVED"
  },
- "derived_vs_imported": "DERIVED: the profile is fixed up to a positive ray, a decorated presentation adds nothing to it, and a linear read-out descends exactly when it does not mix.  IMPORTED and NOT discharged: a decorated carrier, exact disjoint additivity, and any read-out uniqueness law.",
  "descent": {
   "coefficient_bound": 3,
   "descent_iff_cross_term_zero": true,
@@ -29,14 +32,16 @@
   "rows_checked": 49,
   "sign_gap_identity": true
  },
- "lift": {
+ "presentation": {
   "decorations_checked": 15,
   "profile_redundant_for_every_decoration": true,
-  "redundancy_is_relative": "redundant for the declared profile question; over UNSIGNED decorations redundant for every question, because the decoration is determined; the extra capacity appears only once a SIGN is declared, and that declaration is a separate import",
-  "signed_mixing": {
-   "capacity_is_the_declared_sign": "unsigned decorations are determined by the weights; only a declared sign creates a datum the profile cannot see, and that declaration is its own import",
-   "mixing_separates": true,
-   "same_modulus_at_each_position": true
+  "scope": "unsigned square presentations are carrierwise determined; a separate integer-square fixture has two sign choices seen by one declared mixing read-out",
+  "signed_square_fixture": {
+   "both_present_same_integer_square_weights": true,
+   "carrier_is_duplicate_free": true,
+   "declared_mixing_separates": true,
+   "presentations_differ": true,
+   "scope": "two integer coordinates, the declared square map, and this declared mixing read-out only"
   },
   "unsigned_decoration_determined": true,
   "unsigned_pairs_with_equal_moduli_that_differ": 0
@@ -50,8 +55,11 @@
    "trans": true
   },
   "order_preserved": true,
+  "positive_scale_stays_positive": true,
   "scaling_invariant": true,
   "support_preserved": true,
-  "total_is_forgotten": true
+  "total_is_forgotten": true,
+  "zero_scale_exits_positive_domain": true,
+  "zero_scale_raw_profile": true
  }
 }

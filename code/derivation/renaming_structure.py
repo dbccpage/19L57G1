@@ -11,9 +11,12 @@ over the whole symmetric group; the action laws (identity
 unconditionally, composition on the well-formed scope); transport of
 blocks and of the complete ``Up`` family respecting identity and
 composition; coherence of replay commutation under composed
-renamings; orbit closure with no selected representative; and the
-three countermodels — equal carrier size, equal cost, and an
-arbitrary non-bijective map — each supplying none of the laws.
+renamings; exact orbit transport with no selected representative; and
+three countermodels — equal carrier size, equal cost, and an arbitrary
+non-bijective map.  The last is not a ``Renaming`` and therefore does
+not inherit the inverse/group-action or equivariance results; no claim
+is made that non-bijective maps cannot support a different monoid
+action.
 """
 
 from __future__ import annotations
@@ -157,7 +160,7 @@ def coherence(n: int) -> dict[str, Json]:
 
 
 def orbit_no_selection(n: int) -> dict[str, Json]:
-    """The family carries whole orbits and selects no member."""
+    """Every named source block has its exact named orbit image."""
     perms = list(permutations(range(n)))
     star = tree_at(star_pol, n - 1)
     closed = all(
@@ -167,6 +170,7 @@ def orbit_no_selection(n: int) -> dict[str, Json]:
     return {
         "family_length_equals_parents": len(fam) == len(star.occ),
         "orbit_closed_under_action": closed,
+        "every_source_block_has_exact_named_transport": closed,
         "star_both_leaves_present": (
             up_block(star, 1) in fam and up_block(star, 2) in fam),
         "leaf_blocks_distinct": up_block(star, 1) != up_block(star, 2),
@@ -192,7 +196,11 @@ def raw_rename_pairs(f: object,
 
 def non_bijective_countermodel() -> dict[str, Json]:
     """An arbitrary map admits no left inverse and its pushforward is
-    not a legal store: no law of the structure survives."""
+    not a legal store, so it does not instantiate this renaming action.
+
+    This is deliberately not a claim about all possible monoid actions
+    by non-bijective maps.
+    """
     # a left inverse would have to send 0 to both 0 and 1
     has_left_inverse = collapse_map(0) != collapse_map(1)
     path3 = tree_at(path_pol, 2)

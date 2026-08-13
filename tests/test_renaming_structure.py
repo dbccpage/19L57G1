@@ -73,6 +73,7 @@ def test_orbit_carries_no_representative() -> None:
     rep = orbit_no_selection(3)
     assert rep["family_length_equals_parents"] is True
     assert rep["orbit_closed_under_action"] is True
+    assert rep["every_source_block_has_exact_named_transport"] is True
     assert rep["star_both_leaves_present"] is True
     assert rep["leaf_blocks_distinct"] is True
     star = tree_at(star_pol, 2)
@@ -80,6 +81,12 @@ def test_orbit_carries_no_representative() -> None:
     # every parent's block is present; none is dropped
     assert len(fam) == 3
     assert all(up_block(star, p) in fam for p in range(3))
+    for a in permutations(range(3)):
+        target = act(a, star)
+        for p in range(3):
+            source_block = up_block(star, p)
+            assert source_block in fam
+            assert up_block(target, a[p]) in up_family(target)
 
 
 def test_non_bijective_supplies_nothing() -> None:

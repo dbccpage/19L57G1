@@ -59,6 +59,7 @@
   "inv_inv": true
  },
  "orbit_no_selection": {
+  "every_source_block_has_exact_named_transport": true,
   "family_length_equals_parents": true,
   "leaf_blocks_distinct": true,
   "orbit_closed_under_action": true,

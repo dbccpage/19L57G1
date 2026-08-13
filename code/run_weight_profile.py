@@ -1,16 +1,15 @@
-"""Produce the weight-profile artifact deterministically.
+"""Produce the finite weight-profile artifact deterministically.
 
 Usage: python code/run_weight_profile.py [--artifacts DIR]
        [--carrier N] [--max-weight W] [--max-decoration C]
        [--coeff-bound A] [--input-bound X]
 
-Writes ``weight_profile.json``: the profile equivalence and its exact
-ray classification; support and order preservation with the forgotten
-total; redundancy of a decorated presentation for the profile
-question together with its visibility to a declared mixing question;
-the descent classification for linear read-outs; and the climb - the
-negative fact that the weights do not force a decoration, plus the
-named imports a uniqueness law would need, none of them discharged."""
+Writes ``weight_profile.json``: the positive-domain profile and exact
+common-cross-multiple classification; the zero-scale boundary;
+duplicate-free carrier policy; unsigned-square determination; one
+declared signed-square/mixing witness; the exact two-coordinate
+descent classification; and the audit showing that the former climb
+contained two elementary facts and one false uniqueness schema."""
 
 from __future__ import annotations
 
@@ -43,16 +42,19 @@ def main(argv: Optional[list[str]] = None) -> int:
     print(f"profile: rays={prof['classes_are_exactly_rays']} "
           f"support={prof['support_preserved']} "
           f"forgets_total={prof['total_is_forgotten']}")
-    lift = payload["lift"]
-    assert isinstance(lift, dict)
-    print(f"lift: redundant="
-          f"{lift['profile_redundant_for_every_decoration']} "
+    presentation = payload["presentation"]
+    assert isinstance(presentation, dict)
+    print(f"presentation: redundant="
+          f"{presentation['profile_redundant_for_every_decoration']} "
           f"unsigned_determined="
-          f"{lift['unsigned_decoration_determined']}")
+          f"{presentation['unsigned_decoration_determined']}")
     desc = payload["descent"]
     assert isinstance(desc, dict)
     print(f"descent: classified="
           f"{desc['descent_iff_cross_term_zero']}")
+    climb = payload["climb"]
+    assert isinstance(climb, dict)
+    print(f"climb audit: {climb['status']}")
     print(f"artifact written to {out_path}")
     return 0
 

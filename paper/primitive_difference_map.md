@@ -189,12 +189,15 @@ central structural discovery, named below.
   passage state carries no 2-cell data; the complete unfilled
   boundary is present and the filler absent until declared
   (`filling_not_forced`).
-- Chains/boundaries/d²=0: **declaration-relative** — with declared
-  integer coefficients and boundary maps the composite vanishes on
-  every demonstration cell (`d2_zero_triangles`, `d2_zero_tet`), and
-  two distinct conventions both work (`boundary_not_forced`), so the
-  convention carries real declared content; no vanishing statement
-  exists without the declarations.
+- Chains/boundaries/d²=0: **declaration-relative** — with the declared
+  integer coefficients and alternating boundary signs the composite
+  vanishes coefficientwise for every finite list
+  (`BoundaryCancellation.d2_zero_unrestricted`).  The older
+  demonstration-cell computations remain spot-checks.  The integer
+  signless countermodel is nonzero, while earlier finite exhibits also
+  show convention freedom (`boundary_not_forced`), so the realization
+  carries declared content; no vanishing statement exists without a
+  coefficient/sign declaration.
 - Metric/amplitude realizations: **unsupported** — nothing in the
   run supplies inner products, amplitudes, or state spaces; no such
   realization is claimed.
@@ -265,9 +268,11 @@ metric, measure, or amplitude.
   extension under the repaired well-formed guard (exact arity,
   strict ascent — the legacy guard's `[0,0]` pseudo-cell is the
   recorded countermodel), demonstrated through dimension 4 in Lean
-  and 5 in Python; well-formedness replays as an invariant; the
-  general composite boundary vanishing REMAINS the open
-  conjecture.
+  and 5 in Python; well-formedness replays as an invariant.  Separately,
+  `BoundaryCancellation.d2_zero_unrestricted` now proves the general
+  coefficientwise composite vanishing by deletion-order pairing.  Its
+  signs and integer coefficients remain declared; strict ascent is
+  needed for distinct-face results, not for cancellation.
 - Target-relative compression (`Compression`): factorization
   through the question signature iff fiber-constancy; the
   signature quotient is the coarsest adequate presentation with an
@@ -286,20 +291,26 @@ metric, measure, or amplitude.
   extended state is covered); block and family transport respecting
   identity and composition; the naturality square closing under
   composition; and the family carrying whole orbits with no selected
-  representative.  Only after those laws is `Up` called equivariant,
+  representative.  `upFamily_orbit_closed` names the exact transported
+  block, rather than proving only that the target family is nonempty.
+  Only after those laws is `Up` called equivariant,
   and the summary theorem states its exact scope.  Weaker data
-  supplies none of it: an arbitrary non-bijective map has no left
+  does not instantiate it: an arbitrary non-bijective map has no left
   inverse and its pushforward turns an irreflexive store into
-  self-pairs the guard refuses; equal carrier size and equal cost
-  supply no law at all.
+  self-pairs the guard refuses.  This does not rule out other monoid
+  actions by non-bijective maps; equal carrier size and equal cost do
+  not supply relatedness or identification.
 - Trace stability (`StableContent`, audit-repaired).  Protected
   separation is SUFFICIENT for trace stability - supply never
   touches observation, columns only add separators, and refinement
   is guarded by monotone preservation of protected separations -
   and that sufficiency is all that is proved.  The CONVERSE IS
-  FALSE: on an absorbed state every replay is inert, and on a live
-  but unfunded state no internal event can change the observation,
-  so in both an UNPROTECTED separation is stable.  Instability is
+  FALSE on an absorbed state, where every replay is inert.  A second,
+  narrower countermodel is live but unfunded: no event in the stated
+  restricted fragment changes the observation, so an UNPROTECTED
+  separation is stable for that fragment.  The restriction omits
+  occurrence admission, budget setting, and license setting and makes
+  no ownership claim.  Instability is
   witness-borne: it takes a funded accepted refinement routed
   through the separating column.  Whether stability coincides with
   protection on the live funded class is OPEN.  Quiescence is a

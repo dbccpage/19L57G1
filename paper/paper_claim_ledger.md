@@ -1506,9 +1506,9 @@ theorems; 291 total, all within {propext, Quot.sound}).
   the operationally inert notes field; NOT a self-interpretation
   impossibility, NOT "the evaluator cannot be coded", NOT a semantic
   tower theorem.  The declared 64-family has an exact universal
-  code/evaluator, scoped; a typed-refusal top closes by partiality
-  what totality cannot; description-level fixed point without an
-  evaluation-level one (`family_missed`).  A DECLARED model of the
+  code/evaluator, scoped; one typed-refusal extension is defined, with
+  no theorem that partiality is forced or total evaluation impossible;
+  `family_missed` proves finite image non-exhaustion only.  A DECLARED model of the
   description/interpreter boundary satisfies candidates A and F with
   obstructed collapse; its relation/retention/protection are
   inserted by definition, and no theorem links the uncoded
@@ -1520,8 +1520,8 @@ theorems; 291 total, all within {propext, Quot.sound}).
   CONJECTURE (boundary identification) + OPEN (absolute closure).
 - **Lean**: `InterpreterBoundary.tower_persists`,
   `InterpreterBoundary.i2_universal_in_class`,
-  `InterpreterBoundary.i3_partial_top_refuses`,
-  `InterpreterBoundary.i3_partial_covers`,
+  `InterpreterBoundary.i3_refusal_code_returns_none`,
+  `InterpreterBoundary.i3_coded_member_returns_some`,
   `InterpreterBoundary.family_missed`,
   `InterpreterBoundary.i5_boundary_is_A`,
   `InterpreterBoundary.i5_boundary_is_F`,
@@ -1529,8 +1529,10 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `InterpreterBoundary.i5_family_not_extensionally_complete`
   (audit repair: renamed from `i5_difference_grounded`, whose
   statement is `family_missed` and mentions neither the
-  boundary pair nor the uncoded occurrence; the denotational
-  bridge is recorded as the unproved Prop
+  boundary pair nor the uncoded occurrence;
+  `InterpreterBoundary.arbitrary_uncoded_assignment` proves a freely
+  chosen carrier interpretation is vacuous, and the denotational
+  bridge is only an OPEN obligation label in
   `InterpreterBoundary.openDenotationalBridge`).
 - **Python**: `primitive_interpreter.json`.
 
@@ -1633,14 +1635,16 @@ CL-PD2-LADDER)
   filler sense.  Well-formedness is a replayed invariant
   (`wf_nreplay`, `d4_wf`); guards are load-bearing and shells
   never self-fill; the dimension-4 demonstration replays
-  completely (5/10/10/5/1); the composite boundary vanishes at
-  dimensions 2–5 (decided/computed); the GENERAL composite
-  vanishing (∂∂ = 0 at every dimension) REMAINS OPEN — recorded as
-  the boundary-calculus conjecture, not claimed.
+  completely (5/10/10/5/1); the older dimension-2–5 computations are
+  retained as spot-checks.  The GENERAL coefficientwise composite
+  vanishing is now proved in `BoundaryCancellation.d2_zero_unrestricted`
+  (see CL-PD2-BOUNDARY-CANCELLATION); it is declaration-relative to the
+  alternating signs and integer chain calculus and is not a consequence
+  of the filler guard.
 - **Class**: theorem (uniform guarded filler; wf invariant) +
   countermodel (pseudo-cell; guard load-bearing) + finite
-  computation (dims 2–5) + CONJECTURE (general composite
-  vanishing).
+  computation (dims 2–5).  The separate general boundary theorem is
+  classified under CL-PD2-BOUNDARY-CANCELLATION.
 - **Lean**: `LadderGeneral.uniform_guarded_filler`,
   `LadderGeneral.shell_refuses_general`,
   `LadderGeneral.shell_no_self_fill`,
@@ -1711,10 +1715,10 @@ CL-PD2-LADDER)
   digest quantification over all signature functions).
 
 ### CL-PD2-RECEIPT-BYTES
-- **Statement**: the completion receipt is byte-reproducible
-  across platforms because every hashed prompt input is hashed in
-  CANONICAL BYTES — the Git blob bytes (LF), equal to the
-  CRLF→LF-normalized checkout bytes; the original supplied CRLF
+- **Statement**: the completion receipt generator is deterministic
+  under the declared CRLF→LF canonicalization and fixed generated
+  inputs.  For the current tracked inputs, those canonical hashes
+  equal the checked Git blob hashes.  The original supplied CRLF
   rendering of the seed prompt is recorded alongside as
   provenance.  The blob/checkout distinction is tested against
   `git show HEAD:...`; content mutation detection is tested (any
@@ -1734,23 +1738,24 @@ CL-PD2-LADDER)
 - **Statement** (native scope: the declared event grammar of the
   passage calculus).  Trace stability is now DEFINED, not assumed:
   `TraceStableSep s i j` says the pair stays separated by the
-  declared observation after EVERY replay; `IntStableSep` is the
-  same over the INTERNAL fragment only (no environment-owned
-  occurrence supply, budget setting, or license setting).
+  declared observation after EVERY replay; `RestrictedStableSep` is
+  the same over a syntactically restricted fragment omitting
+  occurrence admission, budget setting, and license setting.  No
+  ownership claim is made; generated blocks may contain `setBudget`.
   (i) **SUFFICIENCY (theorem)**: protected AND separated implies
   trace stable (`protSep_trace_stable`, via `protSep_persists` /
   `protSep_replays`) - supply events do not touch observation, new
   columns only add separators, and same-level refinement is guarded
   by precisely the monotone preservation of protected separations.
-  (ii) **THE CONVERSE IS FALSE - two countermodels.**  On an
+  (ii) **THE CONVERSE IS FALSE - one full-trace countermodel, plus one
+  restricted-fragment example.**  On an
   ABSORBED (halted) state every replay is inert, so an UNPROTECTED
   separation is trace stable (`halted_stable_not_protected`).  On a
-  LIVE but UNFUNDED state no internal event can change the
-  observation - the two structure-creating moves are budget-gated
-  and no internal event replenishes the budget - so an UNPROTECTED
-  separation is internally stable
-  (`unfunded_internal_stable_not_protected`).  Neither pair is
-  protected.
+  LIVE but UNFUNDED state no event in the restricted fragment can
+  change the observation, so an UNPROTECTED separation is stable only
+  for that fragment
+  (`unfunded_restricted_stable_not_protected`).  The latter is not a
+  second countermodel to full trace stability.  Neither pair is protected.
   (iii) **INSTABILITY IS WITNESS-BORNE (theorem)**: an unprotected
   separation is destroyed only when a concrete breaking witness
   exists - a funded, accepted refinement routed through the
@@ -1769,18 +1774,18 @@ CL-PD2-LADDER)
   `quiescence_is_protected_separation`).  The corollary that does
   follow is `quiescent_retained_protected_trace_stable`.
 - **Class**: theorem (sufficiency; witness-borne instability;
-  quiescence iff) + countermodel (converse, twice) + OPEN (exact
-  characterization) + finite computation.
+  quiescence iff) + countermodel (full converse, once) + restricted
+  example + OPEN (exact characterization) + finite computation.
 - **Lean**: `StableContent.protSep_trace_stable`,
   `StableContent.protSep_persists`,
   `StableContent.protSep_replays`,
-  `StableContent.trace_stable_int_stable`,
+  `StableContent.trace_stable_restricted_stable`,
   `StableContent.sep_preserved`, `StableContent.prot_mono`,
   `StableContent.sepP_refine`, `StableContent.replay_halted`,
   `StableContent.halted_stable_not_protected`,
-  `StableContent.internal_step_inert_unfunded`,
-  `StableContent.internal_replay_inert_unfunded`,
-  `StableContent.unfunded_internal_stable_not_protected`,
+  `StableContent.restricted_step_inert_unfunded`,
+  `StableContent.restricted_replay_inert_unfunded`,
+  `StableContent.unfunded_restricted_stable_not_protected`,
   `StableContent.separation_breakable`,
   `StableContent.unprotected_separation_unstable`,
   `StableContent.quiescent_iff_protected_separated`,
@@ -1788,8 +1793,9 @@ CL-PD2-LADDER)
   `StableContent.quiescent_retained_protected_trace_stable`;
   OPEN statement `StableContent.openExactStabilityCharacterization`.
 - **Python**: `primitive_passage.json` (`stable_content` section:
-  single-step and bounded-trace sufficiency, both converse
-  countermodels, the witness-borne instability countermodel, the
+  single-step and bounded-trace sufficiency, the full-converse
+  countermodel, the restricted-fragment example, the witness-borne
+  instability countermodel, the
   quiescence coincidence, and the recorded open gap; declared
   bounds: carrier 3, trace depth 2, breadth 24).
 
@@ -1817,13 +1823,16 @@ CL-PD2-LADDER)
   under the action, carries the whole orbit, and has exactly one
   block per represented parent (`upFamily_orbit_closed`,
   `star_orbit_both_present`, `upFamily_length`).
-  (vi) COUNTERMODELS — none of this is supplied by weaker data: an
+  (vi) COUNTERMODELS — weaker data does not supply this structure: an
   arbitrary NON-BIJECTIVE map has no left inverse
   (`collapse_not_a_renaming`) and its pushforward turns an
   irreflexive store into self-pairs that the well-formedness guard
-  refuses (`collapse_pushforward_ill_formed`); equal carrier size
-  supplies no law (`equal_size_supplies_no_law`); equal cost supplies
-  no law (`equal_cost_supplies_no_law`).
+  refuses (`collapse_pushforward_ill_formed`).  This excludes that map
+  from `Renaming` and from the inverse/group-action and equivariance
+  theorems here; it does not deny that non-bijective maps can compose
+  in a different monoid action.  Equal carrier size supplies no
+  relatedness (`equal_size_supplies_no_law`), and equal cost supplies
+  no identification (`equal_cost_supplies_no_law`).
 - **Scope of the earned vocabulary** (`equivariance_summary`): the
   supply fragment of the declared one-edge grammar, on live
   store-bounded states.  NOT the observation calculus, NOT
@@ -1847,7 +1856,8 @@ CL-PD2-LADDER)
 
 ### CL-PD2-GRAPH-GENESIS (Goal 5)
 - **Statement, part 1 (the negative theorems)**: in the declared
-  calculus, graph growth is SUPPLIED, not generated by obstruction.
+  calculus, graph growth is SUPPLIED, not generated by the represented
+  `nextFamilyP` response semantics.
   `refineCol` and `addCol` provably leave seven state fields
   unchanged - occurrences, asserted, retained, protected, refusals,
   license, halted - so only observation and budget are even
@@ -1860,11 +1870,11 @@ CL-PD2-LADDER)
   four graph stores are fixed
   (`internal_family_cannot_grow_carrier`).  The corollary states it
   in one line: growth comes from the external driver or the `Up`
-  grammar, never from the active obstruction
+  grammar, never from `nextFamilyP`
   (`graph_growth_is_supplied`).
-- **Statement, part 2 (the weakest additional premise)**:
-  `ProposalRecord s` carries exactly - one member of the COMPLETE
-  `Up` family with its membership proof (never a selected
+- **Statement, part 2 (an explicit sufficient proposal schema)**:
+  `ProposalRecord s` carries exactly - one NAMED member of the COMPLETE
+  `Up` family with its membership proof (not a canonical or unique
   representative); an old-position embedding with its retraction and
   the retraction law; fresh-token evidence; preservation of every old
   asserted, retained, protected and separated item; the new pair with
@@ -1875,8 +1885,8 @@ CL-PD2-LADDER)
   within exactly `act_up_comm`'s scope (`proposal_transports`) and
   retains equal-cost non-isomorphic branches
   (`proposal_family_retains_ties`).
-- **Statement, part 3 (the verdict)**: an active obstruction CANNOT
-  request the carrier-changing lift.  On the blind pair - all four
+- **Statement, part 3 (the verdict)**: `nextFamilyP` does NOT request
+  the carrier-changing lift at an active obstruction.  On the blind pair - all four
   obstruction conditions satisfied - the complete internal family is
   nonempty, every member discharges the obstruction, and every member
   leaves the graph stores fixed; and no state anywhere admits an
@@ -1884,8 +1894,10 @@ CL-PD2-LADDER)
   (`family_never_grows_carrier`).  Generalized:
   `obstruction_resolved_in_carrier` answers every obstruction meeting
   the kernel's own hypotheses inside the existing carrier.  Therefore
-  the growth demand is a SEPARATELY DECLARED PREMISE, irreducible to
-  obstruction (`growth_demand_not_obstruction_consequence`).
+  the growth demand is a SEPARATELY DECLARED PREMISE, not entailed by
+  the represented `nextFamilyP` semantics
+  (`growth_demand_not_obstruction_consequence`).  No minimality or
+  universal property is proved for `ProposalRecord`.
 - **Scope limits, stated**: the field-invariance theorems prove
   invariance of the other seven fields only and do not claim that
   observation or budget do change (guards may refuse).
@@ -1922,11 +1934,12 @@ CL-PD2-LADDER)
 - **Statement**: the coefficientwise composite boundary vanishes.
   For EVERY finite list of vertices and EVERY face,
   `coeffN tau (pushN (bdN sigma)) = 0` (`d2_zero_unrestricted`); the
-  declared form with strict ascent and dimension at least two is
-  `d2_zero_general`, whose hypotheses are recorded and discharged
-  from the stronger theorem.  The proof is a PAIRING, not a
-  computation: for each codimension-two face the two deletion orders
-  are matched by `eraseIdx_swap`
+  declared form with strict ascent and list length at least two (cell
+  dimension at least one) is `d2_zero_general`, whose hypotheses are
+  recorded and discharged from the stronger theorem.  The proof is a
+  PAIRING, not a
+  computation: for each unordered pair of deleted positions the two
+  deletion orders are matched by `eraseIdx_swap`
   (`(l.eraseIdx b).eraseIdx a = (l.eraseIdx a).eraseIdx (b-1)` for
   `a < b`), their signs cancel by `sgn_cancel`
   (`sgn b * sgn a + sgn a * sgn (b-1) = 0`), the double sum is
@@ -1952,10 +1965,12 @@ CL-PD2-LADDER)
   `ascB_map`, `d2_zero_renamed`, `d2_zero_shift`).  For injective but
   NON-monotone renamings ascent can be destroyed; the vanishing still
   holds, but only via the unrestricted theorem - stated exactly.
-- **The signs and coefficients remain DECLARED**: without the signs
-  the composite is nonzero (`signless_countermodel`,
-  `signless_countermodel_dim3`).  Nothing here claims the filler rule
-  forced them; the orientation convention is declared content.
+- **The signs and coefficients remain DECLARED**: in the declared
+  integer calculus, replacing all signs by `1` makes the composite
+  nonzero (`signless_countermodel`, `signless_countermodel_dim3`).
+  Nothing here claims the filler rule forced them, or that the same
+  countermodel works in every coefficient system; the orientation
+  convention is declared content.
 - **Not formalized**: the quantitative statement that every
   codimension-two face of an ascending cell collects exactly two of
   the ordered pairs.  It follows from `codim2_distinct` by counting;
@@ -1977,66 +1992,44 @@ CL-PD2-LADDER)
   the involution report (bijection, involution, fixed-point-free,
   sign-reversing) per dimension; bounds recorded in the artifact.
 
-### CL-PD2-WEIGHT-PROFILE (contact response; derived natively first)
-- **Statement**: a weight assignment is a DECLARED datum - a count
-  per carrier position - and this claim records exactly what it fixes
-  and what it does not, in integer arithmetic with no division and no
-  reals.
-  (i) **The profile, exactly**: two assignments have the same
-  normalized profile iff they agree after cross-multiplying by each
-  other's totals; this is an equivalence on positive-total
-  assignments, invariant under positive rescaling, and its classes
-  are EXACTLY the positive rays (`profile_iff_ray`) - an exact fiber
-  classifier.
-  (ii) **Kept and forgotten**: support (`profile_support`) and order
-  (`profile_order`) are preserved; the total is forgotten
-  (`profile_forgets_total`).
-  (iii) **A lift adds nothing to the profile**: every decorated
-  presentation of `w` carries `w`'s profile
-  (`lift_profile_redundant`) and any two carry the same
-  (`lifts_agree_on_profile`).  The proof is one line, and that is the
-  whole redundancy.
-  (iv) **CORRECTED DURING THE WORK, and sharper than first written**:
-  over UNSIGNED decorations the decoration is DETERMINED by the
-  weights, because squaring is injective on counts (`sq_injective`,
-  `unsigned_decoration_determined`) - so it adds nothing to ANY
-  question, not merely to the profile.  The first draft of this
-  module claimed a mixing question could separate two unsigned
-  decorations with equal moduli; the Python mirror refuted it, and
-  the claim was replaced by the true one.  The extra representational
-  capacity appears only once a SIGN is declared
-  (`signed_decoration_visible_to_mixing`), and that declaration is a
-  separate import with its own price.
-  (v) **Descent classification**: a declared linear read-out is
-  constant on modulus-blind inputs exactly when its cross term
-  vanishes (`descent_iff_subsingleton_support`); `sq_add_sub`
-  isolates the obstruction as four times the cross term.
-  (vi) **THE CLIMB, priced and NOT paid**: three further declarations
-  would be needed to single out a read-out law - a decorated carrier
-  with a modulus map and a combination operation
-  (`openDecoratedCarrierImport`), exact additivity over disjoint
-  parts (`openDisjointAdditivityImport`), and a uniqueness law
-  (`openReadOutUniquenessImport`).  All three are stated as
-  PROPOSITIONS and NONE is proved.  The negative fact that makes them
-  necessary is proved: the weights do not determine a decoration
-  (`weights_do_not_force_decoration`), so no uniqueness claim follows
-  from the weights alone.
-- **Class**: theorem + countermodel + named unproved imports + finite
-  computation.
-- **Lean**: `WeightProfile.profile_iff_ray`, `.profile_refl`,
-  `.profile_symm`, `.profile_trans`, `.profile_scale`,
+### CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)
+
+- **Statement**: this is finite natural/integer weight-profile algebra, not a
+  Hilbert lift. Carrier-facing lists are duplicate-free; raw list totals count
+  repetitions with multiplicity. On the positive-total domain `SameProfile`
+  is an equivalence, positive natural scaling preserves that domain, and
+  profile equality is exactly common positive cross-multiplication. Zero
+  scaling satisfies the raw equation but exits the domain. Support and order
+  are preserved and total mass is forgotten.
+- **Presentation result**: a valid duplicate-free decorated presentation
+  reproduces the declared weight profile. Unsigned square presentations of the
+  same weights are carrierwise equal. Separately, two valid integer-square
+  presentations `(1, 1)` and `(1, -1)` of weights `(1, 1)` are distinguished
+  by the declared two-input read-out `(x+y)^2`. This is a scoped sign-shadow
+  witness, not a general capacity or dynamics claim.
+- **Descent result**: for the declared two-coordinate integer linear read-out
+  followed by squaring, descent through coordinate-square fibers holds exactly
+  when one coefficient vanishes.
+- **Climb audit**: the former decorated-carrier existential is trivially
+  inhabited; append additivity is a theorem of `total`; the displayed read-out
+  uniqueness schema is false by the zero read-out. The invalid `eB` witness did
+  not present the weights and has been removed. No priced representation climb
+  remains.
+- **Class**: theorem + scoped counterexample + finite computation + refuted
+  overclaim.
+- **Lean**: `WeightProfile.CarrierList`, `.duplicate_list_not_carrier`,
+  `.total_append`, `.profile_equivalence_positive`,
+  `.profile_scale_positive`, `.zero_scale_boundary`, `.profile_iff_ray`,
   `.profile_support`, `.profile_order`, `.profile_forgets_total`,
-  `.total_ray`, `.total_scale`, `.total_congr`,
-  `.lift_profile_redundant`, `.lifts_agree_on_profile`,
+  `.presentation_profile_redundant`, `.presentations_agree_on_profile`,
   `.sq_injective`, `.unsigned_decoration_determined`,
-  `.signed_decoration_visible_to_mixing`, `.redundancy_is_relative`,
-  `.sq_add_sub`, `.sq_mul`, `.descent_iff_subsingleton_support`,
-  `.weights_do_not_force_decoration`, `.derived_and_imported`; the
-  unproved imports `.openDecoratedCarrierImport`,
-  `.openDisjointAdditivityImport`, `.openReadOutUniquenessImport`.
-- **Python**: `weight_profile.json` - exhaustive over carrier 2,
-  weights to 3, decorations to 3, coefficients to 3, inputs to 2;
-  bounds recorded in the artifact.
+  `.signed_square_presentations_split`, `.presentation_scope`, `.sq_add_sub`,
+  `.descent_iff_subsingleton_support`, `.decoratedCarrierShape_exists`,
+  `.claimedReadOutUniqueness_false`, and `.finite_scope_summary`.
+- **Python**: `weight_profile.json` checks carrier 2, weights/decorations to 3,
+  coefficients to 3, and inputs to 2. It mirrors the zero-scale boundary,
+  duplicate policy, signed fixture, descent classification, and failed-climb
+  dispositions. Bounds remain explicit.
 
 ### CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)
 - **Statement**: the PR declares a finite one-step signature and proves
