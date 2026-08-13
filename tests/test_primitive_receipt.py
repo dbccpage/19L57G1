@@ -1,5 +1,5 @@
-"""Tests for the PR #12 completion receipt, including the canonical
-byte definition, the Git-blob/checkout distinction, and content
+"""Tests for the PR #12 completion receipt, including declared
+line-ending canonicalization, current Git-blob parity, and content
 mutation sensitivity."""
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ def test_receipt_binds_everything() -> None:
     assert isinstance(prompts, dict)
     assert len(prompts) == 4
     assert all(len(str(v)) == 64 for v in prompts.values())
-    # canonical values: repository blob bytes, platform-independent
+    # declared canonical values for the current tracked inputs
     assert prompts["prompt/prompt.md"] == PROMPT_MD_CANONICAL
     assert prompts["prompt/seed_prompt.md"] == SEED_CANONICAL
     # provenance: the original supplied rendering, recorded alongside
@@ -67,7 +67,10 @@ def test_receipt_binds_everything() -> None:
     assert all(isinstance(a, dict) and a["disposition"]
                for a in attacks)
     opens = r["open_obligations"]
-    assert isinstance(opens, list) and len(opens) == 5
+    assert isinstance(opens, list) and len(opens) == 4
+    # audit repair: openTerminalPres2 was closed constructively by
+    # no_terminal_pres2 and is no longer an open obligation
+    assert not any("openTerminalPres2" in str(o) for o in opens)
 
 
 def test_canonical_matches_checkout_on_every_rendering() -> None:
@@ -86,9 +89,9 @@ def test_canonical_matches_checkout_on_every_rendering() -> None:
             assert raw == want
 
 
-def test_blob_checkout_distinction() -> None:
-    """The canonical bytes ARE the Git blob bytes: for every hashed
-    prompt file, canonical(checkout) == sha256(blob at HEAD)."""
+def test_current_inputs_match_git_blobs() -> None:
+    """For each current tracked prompt input, the declared checkout
+    canonicalization agrees with the Git blob at HEAD."""
     if shutil.which("git") is None:
         pytest.skip("git unavailable")
     for rel in ["prompt/prompt.md", "prompt/seed_prompt.md",

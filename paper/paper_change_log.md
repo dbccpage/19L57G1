@@ -551,8 +551,9 @@ corrected by 42a33d9; re-verified against current Lean statements.
 2. Interpreter boundary (Phase VIII): tower persistence proved by
    finite diagonalization (every finite closure has a new top);
    universal code/evaluator exact for the declared family; the
-   typed-refusal top closes by partiality what totality cannot;
-   self-description without self-justifying evaluation; and the
+   typed-refusal top was initially described as closing by partiality
+   what totality cannot (this necessity claim is withdrawn below);
+   verified self-description alongside finite non-exhaustion; and the
    boundary formalized as a Primitive Difference (candidates A and F
    satisfied, collapse obstructed, difference behaviorally grounded).
    Absolute no-outside not claimed.
@@ -649,18 +650,20 @@ replacements:
    presentation-invariant; orbit-valued choices demonstrated where
    symmetry remains (star leaves one orbit; the oriented path rigid
    — undirected flip refused by the oriented stores).
-5. The simplex ladder generalized to arbitrary finite dimension:
-   `ladder_general` upgrades the review-pass conjecture to a theorem
-   of the generalized declared calculus; dimension-4 demonstration
-   replayed in Lean, dimension 5 in Python; the general composite
-   boundary vanishing remains the open conjecture.
-6. Imported inputs kept explicit throughout: fresh supply,
-   protection, observer transport, budget, activation.
+5. The simplex ladder generalized to arbitrary finite dimension.
+   *(Superseded by the audit repair below: `ladder_general` was
+   renamed and NARROWED to `uniform_guarded_filler`, and it upgrades
+   the review-pass conjecture only in that narrowed sense - guarded
+   admission plus strict extension, not a dimension-general two-rule
+   or homology claim.)*  Dimension-4 demonstration replayed in Lean,
+   dimension 5 in Python; the general composite boundary vanishing
+   remains the open conjecture.
 
 ## PR #12 final repair pass (caller directive, 2026-08-13)
 
-1. Receipt bytes made platform-canonical: every prompt hash is the
-   Git blob hash (LF canonical bytes); the originally supplied CRLF
+1. Receipt hashing made deterministic under explicit CRLF-to-LF
+   canonicalization; for the current tracked inputs each result equals
+   the Git blob hash.  The originally supplied CRLF
    rendering of the seed prompt is recorded as provenance; the
    blob/checkout distinction and content-mutation detection are
    tested.
@@ -705,10 +708,80 @@ replacements:
     conjunction is now split first, restoring
     propext/Quot.sound-only across all 707 reports.
 
-11. Caller finals (stable content): stable content proved to be
-    exactly protected separation (persists at every event and along
-    every replay; an accepted refinement destroys an unprotected
-    separation — protection is load-bearing), and quiescence proved
-    equivalent to every retained protected pair lying inside the
-    stable content (`StableContent`, Lean + Python mirror).
+11. Caller finals (stable content).  *(Overclaimed; corrected by
+    the audit repair section below.)*  What was actually proved is
+    the SUFFICIENCY direction and the quiescence iff.
+
+## Audit repair gate (caller directive, 2026-08-13)
+
+Four repairs required before the next derivation goal.
+
+**A. "Stable content is exactly protected separation" was an
+overclaim; withdrawn and replaced.**  The actual trace-stability
+predicate is now DEFINED (`TraceStableSep`: separated after every
+replay; `RestrictedStableSep`: after every replay in a syntactically
+restricted fragment omitting occurrence admission, budget setting,
+and license setting).  This makes no ownership claim; generated blocks
+may contain `setBudget`.  Only SUFFICIENCY is proved
+(`protSep_trace_stable`).  The CONVERSE IS FALSE, with the two
+countermodels the audit demanded: an ABSORBED (halted) state, where
+`replay_halted` makes every trace inert so an unprotected separation
+is trace stable; and a LIVE but RESOURCE-BLOCKED state, where
+`restricted_replay_inert_unfunded` shows no event in the stated
+restricted fragment can change an unfunded observation, so an
+unprotected separation is restricted-stable.  Instability is proved
+to be witness-borne
+(`separation_breakable`), and the residual gap - whether trace
+stability implies protection on the live funded class - is recorded
+as an unproved Prop (`openExactStabilityCharacterization`), never as
+a theorem.  Ledger, receipt, module docstring, Python mirror, and
+tests were all weakened together; `stableSep` was renamed `protSep`
+because it names protected separation, not stability.
+
+**B. Stale open obligation removed.**  `openTerminalPres2` was
+closed constructively by `no_terminal_pres2` in the PR #11
+correction pass but was still listed among the receipt's open
+obligations.  It is removed and the artifact regenerated; the
+receipt now carries four open obligations, and the test pins both
+the count and the absence of the retired entry.
+
+**C. Synthesis paper reconciled with the narrowed result.**  The
+synthesis paper still described GENERAL_DIMENSIONAL_LADDER as an
+open frontier conjecture about dimension-general recurrence.  It now
+states the reconciliation explicitly: what is proved at every
+dimension is the UNIFORM GUARDED FILLER
+(`LadderGeneral.uniform_guarded_filler`) - guarded admission plus
+strict extension in the standalone generalized calculus - which is
+neither a homology claim nor a dimension-general transport of the
+`ladder_dim2/dim3` two-rule reading.
+
+**D. `i5_difference_grounded` renamed and narrowed.**  Its statement
+was literally `family_missed`: it mentions neither the boundary pair
+nor the uncoded occurrence, and connects neither to the missed
+function.  It is renamed `i5_family_not_extensionally_complete` and
+its docstring now says exactly what it does and does not carry.
+`arbitrary_uncoded_assignment` further proves that a freely chosen
+meaning for the uncoded occurrence is vacuous.  The denotational bridge
+is therefore retained only as the OPEN obligation label
+`openDenotationalBridge`, not as a trivially inhabited proposition.
+
+## PR #13 carrier correction (adversarial repair, 2026-08-13)
+
+1. Withdrawn: `tower_persists` does not force partiality, rule out a
+   total evaluator, or prove self-application impossible.  I3 now
+   records only one optional typed-refusal construction and its two
+   definitional equations.
+2. Repaired the denotational frontier: the former existential carrier
+   was freely inhabitable.  `arbitrary_uncoded_assignment` proves that
+   defect directly; `openDenotationalBridge` is now an obligation label
+   requiring independent lawful semantics and an accessible behavioral
+   consequence.
+3. Removed the false event-ownership label from stability.  The second
+   countermodel is explicitly restricted to a syntactic trace fragment;
+   it is not a reachable-state necessity result and not a countermodel
+   to full trace stability.
+4. Narrowed reproducibility wording to deterministic generation under
+   the declared line-ending canonicalization and fixed inputs.  Equality
+   with Git blobs is verified for the current tracked inputs, not made
+   true by definition for arbitrary files.
 

@@ -529,14 +529,33 @@
  },
  "stable_content": {
   "carrier": 3,
-  "quiescence_iff_protected_in_stable_content": true,
-  "stable_content_persists_battery": true,
-  "unprotected_separation_unstable": {
+  "claim": "protected separation is SUFFICIENT for trace stability; the converse is FALSE (absorbed-state countermodel); a separate unfunded example is restricted-fragment only; the exact characterization on the live funded class is OPEN",
+  "converse_false_absorbed": {
+   "every_event_inert": true,
+   "not_protected": true,
+   "separated": true,
+   "trace_stable_but_unprotected": true
+  },
+  "converse_false_unfunded": {
+   "live": true,
+   "not_protected": true,
+   "restricted_events_leave_budget_zero": true,
+   "restricted_events_leave_obs_fixed": true,
+   "restricted_stable_but_unprotected": true,
+   "separated": true
+  },
+  "instability_needs_witness": {
    "after_broken_unprotected": true,
    "before_separated_unprotected": true,
    "protected_pair_now_separated": true,
-   "protected_stable_content_intact": true,
+   "protected_separation_intact": true,
    "refinement_accepted": true
-  }
+  },
+  "open_exact_characterization": "whether trace stability implies protected separation on live funded states is OPEN; not claimed",
+  "quiescence_iff_protected_separated": true,
+  "sufficiency_along_traces": true,
+  "sufficiency_single_step": true,
+  "trace_breadth_bound": 24,
+  "trace_depth_bound": 2
  }
 }

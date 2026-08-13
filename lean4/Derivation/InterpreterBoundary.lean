@@ -25,20 +25,18 @@ module makes that boundary the object of study.
   with evaluator `interpStep` covers the declared 64-family exactly
   (a restatement of `allDescs_complete` + `interp_describe`;
   "universal" is scoped to this declared class and nothing wider).
-* **I3** — `evalOpt`: the typed-refusal evaluator over
-  `Option ConstitutionDesc`.  The `none` code is a named new top that
-  refuses self-evaluation (`i3_partial_top_refuses`); adding it is
-  consistent (the definition compiles and its verdicts are `rfl`),
-  while a total same-type top absorbed into a finite code family is
-  impossible by `tower_persists`.  The boundary closes only by
-  admitting typed refusal — partiality of the extended evaluator —
-  never by a total same-type recoding.
-* **I4** — `family_missed`: the recursion route.  `kernelDesc` is a
-  description-level fixed point (`interp_describe`) and NOT an
-  evaluation-level one: instantiating `tower_persists` at
-  `cs := allDescs`, `ev := interpStep` yields a function of
-  interpreter type that no family member evaluates to.
-* **I5** — the boundary IS a primitive difference: `boundarySetting`
+* **I3** — `evalOpt`: one typed-refusal extension over
+  `Option ConstitutionDesc`.  The `none` input returns `none`
+  (`i3_refusal_code_returns_none`) and coded inputs return the former
+  result wrapped in `some` (`i3_coded_member_returns_some`).  This is
+  an available construction, not a necessity theorem: nothing here
+  rules out other total evaluators or proves that partiality is forced.
+* **I4** — `family_missed`: instantiating `tower_persists` at
+  `cs := allDescs`, `ev := interpStep` yields a function of the step
+  type that no family member denotes.  This coexists with the verified
+  self-description `interp_describe`; it is not a theorem excluding a
+  coded evaluator or self-application under some larger typing.
+* **I5** — a declared boundary model: `boundarySetting`
   places the 64 coded occurrences and one uncoded occurrence (the
   interpreter role, `none`) on a single carrier and witnesses the pair
   (kernel description, interpreter role).  `i5_boundary_is_A` (pointed
@@ -46,9 +44,12 @@ module makes that boundary the object of study.
   both stores are declared data, priced as such),
   `i5_collapse_obstructed` (identifying the endpoints loses
   irreflexivity of the pushforward, via
-  `PrimDiff.obstruction_under_irrefl`), and `i5_difference_grounded`
-  (the non-identification is behavioral, not notational:
-  `family_missed`).
+  `PrimDiff.obstruction_under_irrefl`), and
+  `i5_family_not_extensionally_complete` (a RESTATEMENT of
+  `family_missed`: the family is extensionally incomplete — it does
+  NOT mention the boundary pair and does NOT connect the uncoded
+  occurrence to the missed function; the denotational bridge stays
+  OPEN, see `openDenotationalBridge`).
 
 Conclusion tags (review-pass scoping):
 FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE (`tower_persists`: a
@@ -106,7 +107,7 @@ def i0_status : String :=
     ++ "verified self-description are separated by "
     ++ "Constitution.interp_describe and Constitution.allDescs_complete."
 
-/-! ## I1 — every finite closure has a new top -/
+/-! ## I1 — every finite image misses a step function -/
 
 /-- The world whose carrier length encodes the index `i`: its data
 store is `List.range i`.  Only the length is load-bearing. -/
@@ -182,12 +183,12 @@ as data):
   `d` by the fixed family evaluator;
 * **self-description** — `interp_describe` verifies the kernel's own
   code against the sealed step;
-* **self-application** — ill-typed at the family level: the evaluator
-  consumes codes and is not itself coded, and by `tower_persists` no
-  finite recoding closes this (each recoding yields a finite family
-  that again misses an interpreter);
-* **verified fixed point** — `interp_describe` is a description-level
-  fixed point, NOT an evaluation-level one (see `family_missed`). -/
+* **self-application** — not expressed by the present family typing:
+  the evaluator consumes codes and is not itself a code.  This typing
+  observation is not an impossibility theorem;
+* **verified fixed point** — `interp_describe` verifies one coded step
+  description; `family_missed` separately proves non-exhaustion of the
+  step-function type. -/
 
 /-- **I2.**  The code type `ConstitutionDesc` with evaluator
 `interpStep` covers the declared 64-family exactly: every code is
@@ -211,25 +212,21 @@ def tag_self_description : String :=
   "self-description: interp_describe verifies kernelDesc against the sealed step"
 
 def tag_self_application : String :=
-  "self-application: ill-typed at the family level - the evaluator "
-    ++ "consumes codes and is not itself coded; tower_persists shows no "
-    ++ "finite recoding closes this"
+  "self-application: not expressed by the present family typing; "
+    ++ "this is not an impossibility theorem"
 
 def tag_verified_fixed_point : String :=
-  "verified fixed point: interp_describe is description-level, not evaluation-level"
+  "verified step description: interp_describe; family_missed is a separate non-exhaustion result"
 
-/-! ## I3 — typed refusal closes what totality cannot
+/-! ## I3 — one typed-refusal extension
 
 The evaluator is extended by one occurrence: the code store becomes
-`Option ConstitutionDesc`, and the `none` code is the named new top
-that REFUSES evaluation.  The refusing top is consistent — the
-construction compiles and both verdicts below are `rfl`.  A TOTAL
-same-type top is impossible: by `tower_persists`, any finite family of
-codes evaluated into `World → Event → World` misses a function of that
-type, so no finite total recoding absorbs the evaluator role.  The
-boundary closes only by admitting typed refusal — partiality of the
-extended evaluator, carried in the `Option` codomain as data — never
-by totality. -/
+`Option ConstitutionDesc`, and the `none` input is the named addition
+that returns `none`.  The construction compiles and both equations
+below are `rfl`.  It demonstrates one possible typed refusal.  It does
+not show that the boundary is thereby closed, that a total evaluator is
+impossible, or that partiality is forced: `tower_persists` proves only
+that a finite image does not exhaust the full step-function type. -/
 
 /-- The typed-refusal evaluator: coded members evaluate as before
 (wrapped in `some`); the uncoded top `none` refuses. -/
@@ -239,47 +236,48 @@ def evalOpt (c : Option ConstitutionDesc) (w : World) (e : Event) :
   | some d => some (interpStep d w e)
   | none => none
 
-/-- The named new top refuses self-evaluation — by definition, and
-that is the point: refusal here is a typed verdict (`none` in the
-codomain), not a hidden failure. -/
-theorem i3_partial_top_refuses :
+/-- The named added input returns the typed verdict `none`, by
+definition.  No necessity claim is attached to this equation. -/
+theorem i3_refusal_code_returns_none :
     evalOpt none = fun _ _ => none := rfl
 
 /-- The extended evaluator covers the declared family exactly: on
 coded members it is the sealed family evaluation, wrapped. -/
-theorem i3_partial_covers (d : ConstitutionDesc) (w : World)
+theorem i3_coded_member_returns_some (d : ConstitutionDesc) (w : World)
     (e : Event) : evalOpt (some d) w e = some (interpStep d w e) := rfl
 
-/-! ## I4 — recursion route: self-description without self-evaluation
+/-! ## I4 — verified description and finite non-exhaustion
 
 `kernelDesc` is a description-level fixed point: `interp_describe`
-proves its execution equals the sealed step.  An evaluation-level
-fixed point would require a family member to BE the evaluator; the
-members' step functions have type `World → Event → World` while the
-evaluator has type `ConstitutionDesc → World → Event → World`, so the
-identification is ill-typed — definitionally, not merely unproved.
-The honest content theorem is the instantiation of `tower_persists`
-at the sealed family itself: -/
+proves its execution equals the sealed step.  The family members have
+step-function type while the evaluator additionally consumes a code,
+so self-application is not expressed by this particular typing.  That
+observation does not rule out a different encoding.  The theorem below
+is exactly the instantiation of `tower_persists` at the sealed family: -/
 
-/-- **I4.**  The declared 64-family, evaluated by its own fixed
-evaluator, provably misses an interpreter-grade function: direct
+/-- **I4.**  The declared 64-family, evaluated by its fixed
+evaluator, provably misses a step function: direct
 instantiation of `tower_persists` at `cs := allDescs`,
-`ev := interpStep`.  Self-description (`interp_describe`) therefore
-never becomes self-evaluation: description-level closure coexists
-with evaluation-level escape. -/
+`ev := interpStep`.  This is finite image non-exhaustion.  It does not
+turn the separate typing observation into a self-evaluation
+impossibility theorem. -/
 theorem family_missed :
     ∃ f : World → Event → World, ∀ d ∈ allDescs, f ≠ interpStep d :=
   tower_persists allDescs interpStep
 
-/-! ## I5 — the boundary IS a primitive difference
+/-! ## I5 — a declared boundary model
 
 The carrier `Option ConstitutionDesc` has the 64 coded occurrences
 (`some d`) plus ONE uncoded occurrence — the interpreter role,
 `none`.  The witnessed difference is the pair (kernel description,
 interpreter role).  Retention and protection here are DECLARED: the
 stores are data supplied with the setting, and their price is recorded
-as such — what is NOT merely declared is the ground of the difference,
-which is behavioral (`i5_difference_grounded` below). -/
+as such.  The ground of the difference is likewise NOT derived here:
+the extensional side condition
+(`i5_family_not_extensionally_complete`) says only that the family
+misses some interpreter-grade function; it does not tie that function
+to the uncoded occurrence.  That tie — the denotational bridge — is
+OPEN (`openDenotationalBridge`). -/
 
 /-- The interpreter boundary as a `PrimitiveCore.Setting`: carrier
 `Option ConstitutionDesc` (65 occurrences), asserted difference =
@@ -328,16 +326,52 @@ theorem i5_collapse_obstructed {β : Type}
       boundarySetting.r q :=
   PrimDiff.obstruction_under_irrefl ⟨rfl, rfl⟩ hq
 
-/-- **I5, the ground of the difference** — the non-identification of
-(kernel code, interpreter role) is behaviorally grounded, not
-notational: by `family_missed` (the proof term of this theorem), no
-total same-type recoding absorbs the interpreter role into the coded
-occurrences — the family's own evaluation misses an interpreter-grade
-function, so the uncoded occurrence names a genuinely unabsorbed
-behavior, not a spelling. -/
-theorem i5_difference_grounded :
+/-- **I5, the extensional side condition (renamed, audit repair)** —
+the declared 64-family does not extensionally exhaust the
+interpreter-grade functions.  This is a RESTATEMENT of
+`family_missed` at the boundary setting: same statement, same proof
+term.
+
+Audit scope, stated exactly.  The former name
+`i5_difference_grounded` claimed more than the statement carries: the
+statement does NOT mention the boundary pair (kernel code, interpreter
+role), does NOT mention the uncoded occurrence `none`, and does NOT
+connect either to the missed function.  It is only the extensional
+incompleteness fact, restated in this section for convenience.
+
+THE DENOTATIONAL BRIDGE REMAINS OPEN.  What is missing — and is NOT
+proved anywhere in this development — is a theorem linking the uncoded
+occurrence `none` to the missed function `f`: that the specific
+occurrence which the coding omits is the specific behavior the family
+fails to realize.  Until such a theorem exists, the ground of the
+boundary difference is DECLARED (the stores of `boundarySetting`),
+not derived.  See `openDenotationalBridge` below. -/
+theorem i5_family_not_extensionally_complete :
     ∃ f : World → Event → World, ∀ d ∈ allDescs, f ≠ interpStep d :=
   family_missed
+
+/-- Any chosen step function can be assigned to `none` while the coded
+members retain their old meanings.  This proves why mere existence of
+such an assignment carries no denotational or operational ground. -/
+theorem arbitrary_uncoded_assignment
+    (f : World → Event → World) :
+    ∃ I : Option ConstitutionDesc → (World → Event → World),
+      I none = f ∧ ∀ d, I (some d) = interpStep d := by
+  refine ⟨fun c => match c with
+    | none => f
+    | some d => interpStep d, rfl, ?_⟩
+  intro d
+  rfl
+
+/-- The denotational bridge is an OPEN obligation label, not a
+proposition and not evidence.  A future statement must independently
+constrain the meaning of the uncoded role and prove an accessible
+behavioral consequence.  `arbitrary_uncoded_assignment` shows that a
+freely selected interpretation cannot do this work. -/
+def openDenotationalBridge : String :=
+  "OPEN: independently specify lawful meaning for the uncoded role " ++
+  "and prove an accessible behavioral non-identification; a freely " ++
+  "chosen assignment is vacuous"
 
 /-- The exported conclusion tags.  NOT included, and not claimed: any
 absolute no-outside tag — the theorems above bound finite represented

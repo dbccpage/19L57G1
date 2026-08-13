@@ -1,65 +1,123 @@
-"""Tests for the stable-content mirror."""
+"""Tests for the protected-separation / trace-stability mirror
+(audit repair): sufficiency holds, the converse fails with two
+countermodels, instability is witness-borne."""
 
 from __future__ import annotations
 
-from derivation.primitive_passage import GENESIS_P, PS, pstep, preplay
+from derivation.primitive_passage import GENESIS_P, PS, pstep
 from derivation.stable_content import (
     event_battery,
+    halted_countermodel,
+    is_trace_excluded_event,
     persistence_check,
+    prot_sep,
     quiescence_check,
     quiescent_p,
+    replay_persistence_check,
     sample_states,
     stable_content_report,
-    stable_sep,
+    unfunded_countermodel,
     unprotected_unstable,
 )
 
 
-def test_stable_sep_basics() -> None:
-    # pre-observational states have no stable content
-    assert not stable_sep(GENESIS_P, 0, 1)
+def test_prot_sep_basics() -> None:
+    # pre-observational states carry no protected separation
+    assert not prot_sep(GENESIS_P, 0, 1)
     s = PS(occ=(0, 1), asserted=((0, 1),), wit=((0, 1),),
            prot=((0, 1),), obs=((0,),))
-    assert stable_sep(s, 0, 1)
-    # unprotected pair is not in the stable content, even separated
+    assert prot_sep(s, 0, 1)
+    # an unprotected pair is not protected-separated, even separated
     t = PS(occ=(0, 1), obs=((0,),))
-    assert not stable_sep(t, 0, 1)
+    assert not prot_sep(t, 0, 1)
 
 
-def test_persistence_and_quiescence_battery() -> None:
+def test_sufficiency_single_step_and_traces() -> None:
     assert persistence_check(3)
-    assert quiescence_check(3)
-    rep = stable_content_report(3)
-    assert rep["stable_content_persists_battery"] is True
-    assert rep["quiescence_iff_protected_in_stable_content"] is True
+    assert replay_persistence_check(3, 2)
 
 
-def test_unprotected_countermodel() -> None:
+def test_converse_is_false_absorbed() -> None:
+    """Countermodel 1: a halted state absorbs the whole grammar, so
+    an UNPROTECTED separation is trace stable."""
+    cm = halted_countermodel()
+    assert cm == {
+        "separated": True,
+        "not_protected": True,
+        "every_event_inert": True,
+        "trace_stable_but_unprotected": True,
+    }
+
+
+def test_converse_is_false_unfunded() -> None:
+    """Countermodel 2: a live but unfunded state admits no change in
+    the explicitly restricted trace fragment, so an UNPROTECTED
+    separation is restricted-stable."""
+    cm = unfunded_countermodel()
+    assert cm == {
+        "live": True,
+        "separated": True,
+        "not_protected": True,
+        "restricted_events_leave_obs_fixed": True,
+        "restricted_events_leave_budget_zero": True,
+        "restricted_stable_but_unprotected": True,
+    }
+    # setBudget leaves the restricted fragment.  This is a syntactic
+    # boundary, not a claim about who owns the event.
+    s = PS(occ=(0, 1), obs=((0,),), budget=0)
+    assert pstep(s, ("setBudget", 3)).budget == 3
+    assert is_trace_excluded_event(("setBudget", 3))
+    assert is_trace_excluded_event(("admitOcc", 5))
+    assert is_trace_excluded_event(("setLicense", True))
+    assert not is_trace_excluded_event(("refineCol", (0,), 1))
+    assert not is_trace_excluded_event(("addCol", (0,)))
+
+
+def test_instability_needs_witness() -> None:
+    """Countermodel 3: with a funded accepted refinement routed
+    through the separating column, the unprotected separation dies
+    while the protected content survives."""
     cm = unprotected_unstable()
     assert cm == {
         "before_separated_unprotected": True,
         "refinement_accepted": True,
         "after_broken_unprotected": True,
         "protected_pair_now_separated": True,
-        "protected_stable_content_intact": True,
+        "protected_separation_intact": True,
     }
 
 
-def test_sample_states_shapes() -> None:
+def test_report_records_the_open_gap() -> None:
+    rep = stable_content_report(3)
+    assert rep["sufficiency_single_step"] is True
+    assert rep["sufficiency_along_traces"] is True
+    assert rep["quiescence_iff_protected_separated"] is True
+    assert rep["trace_depth_bound"] == 2
+    assert rep["trace_breadth_bound"] == 24
+    claim = rep["claim"]
+    assert isinstance(claim, str)
+    assert "SUFFICIENT" in claim and "converse is FALSE" in claim
+    assert "OPEN" in claim
+    gap = rep["open_exact_characterization"]
+    assert isinstance(gap, str) and "OPEN" in gap
+    # the report must not contain the retired "exactly" tag
+    assert "stable_content_persists_battery" not in rep
+
+
+def test_quiescence_battery() -> None:
+    assert quiescence_check(3)
     s0, s1, s2, s3 = sample_states(3)
     assert s0.obs == ()
     assert s1.obs == ((0,),)
     assert s2.obs == ((0,), (1,))
-    # the refinement fired from s1 (obstruction discharged while
-    # every protected separation is preserved)
     assert s3 != s1
     assert s3.obs == ((2, 0),)
-    # quiescence flips as observation grows
     assert not quiescent_p(s0, 3)
     assert quiescent_p(s2, 3)
     assert quiescent_p(s3, 3)
+    # quiescence is about protected separation, not trace stability
     assert quiescent_p(s3, 3) == all(
-        stable_sep(s3, i, j)
+        prot_sep(s3, i, j)
         for (i, j) in s3.prot if (i, j) in s3.wit)
 
 
@@ -68,18 +126,19 @@ def test_battery_covers_every_kind() -> None:
     assert kinds == {"declareObs", "setBudget", "setLicense",
                      "admitOcc", "assertWit", "admitWit", "protect",
                      "refuse", "addCol", "refineCol", "halt"}
-    # halted states keep their stable content too
+    # halted states keep their protected separations too
     s = sample_states(3)[3]
     h = pstep(s, ("halt",))
     for i in range(3):
         for j in range(3):
-            assert stable_sep(h, i, j) == stable_sep(s, i, j)
+            assert prot_sep(h, i, j) == prot_sep(s, i, j)
 
 
-def test_runner_includes_stable_content(tmp_path: object) -> None:
-    import run_primitive_passage
-    from pathlib import Path
+def test_runner_includes_repaired_section(tmp_path: object) -> None:
     import json
+    from pathlib import Path
+
+    import run_primitive_passage
 
     d = tmp_path if isinstance(tmp_path, Path) else Path(str(tmp_path))
     assert run_primitive_passage.main(
@@ -87,7 +146,10 @@ def test_runner_includes_stable_content(tmp_path: object) -> None:
     payload = json.loads(
         (d / "primitive_passage.json").read_text(encoding="utf-8"))
     sc = payload["stable_content"]
-    assert sc["stable_content_persists_battery"] is True
-    assert sc["quiescence_iff_protected_in_stable_content"] is True
-    cm = sc["unprotected_separation_unstable"]
-    assert cm["after_broken_unprotected"] is True
+    assert sc["sufficiency_single_step"] is True
+    assert sc["converse_false_absorbed"][
+        "trace_stable_but_unprotected"] is True
+    assert sc["converse_false_unfunded"][
+        "restricted_stable_but_unprotected"] is True
+    assert sc["instability_needs_witness"][
+        "after_broken_unprotected"] is True

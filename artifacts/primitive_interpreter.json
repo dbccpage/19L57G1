@@ -177,7 +177,7 @@
    "InterpreterBoundary.i5_boundary_is_A",
    "InterpreterBoundary.i5_boundary_is_F",
    "InterpreterBoundary.i5_collapse_obstructed",
-   "InterpreterBoundary.i5_difference_grounded"
+   "InterpreterBoundary.i5_family_not_extensionally_complete"
   ],
   "FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE": [
    "InterpreterBoundary.tower_persists",

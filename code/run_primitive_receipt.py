@@ -23,17 +23,14 @@ REPO = Path(__file__).resolve().parent.parent
 
 
 def canonical_sha256(path: Path) -> str:
-    """THE canonical bytes of a tracked text file are its Git blob
-    bytes at HEAD — what every clean clone stores, on every platform.
-    They are computed here from the checkout bytes by CRLF-to-LF
-    normalization, which is exactly the checkout-time variance a
-    Windows working tree can introduce (and the one historical
-    staging normalization recorded in ``ci/check_prompt_hashes.py``).
-    The blob/checkout distinction is enforced by
-    ``test_blob_checkout_distinction`` (canonical(checkout) ==
-    sha256(blob), for every hashed file), and content sensitivity by
-    ``test_mutation_detected`` (any real content change moves the
-    canonical hash; a pure line-ending rendering change does not)."""
+    """Hash an explicitly CRLF-to-LF-normalized text rendering.
+
+    For every currently declared tracked input the result is tested
+    against the corresponding Git blob hash.  That equality is a
+    verified property of those inputs and repository attributes, not
+    the definition of this function for arbitrary byte strings.
+    ``test_mutation_detected`` separately checks content sensitivity.
+    """
     crlf = b"\r\n"
     lf = b"\n"
     return hashlib.sha256(
@@ -197,9 +194,6 @@ def receipt() -> dict[str, Json]:
             "four OPEN located matrix cells (a->bl, bs->bl, bc->bl, "
             "f->bl): no internal countermodel can exist "
             "(located_of_decidable); independence is metatheoretic",
-            "PrimitiveCats.openTerminalPres2: two-point observer "
-            "terminality is selection-relative; unrestricted form "
-            "needs a preimage-selection principle",
             "cut census formula 2^(n-2): computed to carrier 5, "
             "conjectured generally",
             "absolute self-interpretation: the outermost "
@@ -282,25 +276,35 @@ def receipt() -> dict[str, Json]:
                           "LadderGeneral.pseudo_cell_countermodel "
                           "([0,0] admitted by the legacy guard, "
                           "refused now)",
-                          "receipt bytes: canonical_sha256 = Git "
-                          "blob bytes; blob/checkout distinction "
-                          "and mutation detection tested"]},
-            {"tag": "STABLE_CONTENT_IS_PROTECTED_SEPARATION",
-             "status": "THEOREM + COUNTERMODEL",
-             "evidence": ["StableContent.stable_content_persists / "
-                          "stable_content_replays (membership in "
-                          "the stable content survives every event "
-                          "and every replay)",
+                          "receipt generation is deterministic under "
+                          "declared CRLF-to-LF canonicalization and "
+                          "fixed inputs; equality with current Git "
+                          "blobs and mutation detection are tested"]},
+            {"tag": "PROTECTED_SEPARATION_IS_TRACE_STABLE",
+             "status": "THEOREM + COUNTERMODEL + RESTRICTED EXAMPLE",
+             "evidence": ["SUFFICIENCY ONLY: StableContent."
+                          "protSep_trace_stable — protected AND "
+                          "separated implies separated after every "
+                          "replay (protSep_persists / "
+                          "protSep_replays)",
+                          "CONVERSE IS FALSE: "
                           "StableContent."
-                          "unprotected_separation_unstable "
-                          "(protection is load-bearing: an accepted "
-                          "refinement destroys an unprotected "
-                          "separation)",
-                          "StableContent."
+                          "halted_stable_not_protected (absorption "
+                          "— every replay inert, unprotected pair "
+                          "trace stable).  Separate restricted-fragment "
+                          "example: StableContent."
+                          "unfunded_restricted_stable_not_protected "
+                          "(resource blocking in the explicit "
+                          "restricted trace fragment; no ownership "
+                          "or full-trace claim)",
+                          "instability is witness-borne: "
+                          "StableContent.separation_breakable + "
+                          "unprotected_separation_unstable",
+                          "quiescence: StableContent."
                           "quiescent_iff_protected_separated + "
-                          "quiescence_is_stable_content "
-                          "(quiescence = protected pairs inside "
-                          "the stable content)"]},
+                          "quiescence_is_protected_separation "
+                          "(a statement about protSep, NOT about "
+                          "trace stability)"]},
             {"tag": "TARGET_RELATIVE_COMPRESSION",
              "status": "THEOREM + COUNTERMODEL",
              "evidence": ["Compression.factors_iff_fiberConstant + "
@@ -339,7 +343,15 @@ def receipt() -> dict[str, Json]:
                 "EFFECTIVE non-identification — the current "
                 "diagonal differs only at the operationally inert "
                 "notes field, and no theorem links the uncoded "
-                "occurrence to the missed function"},
+                "occurrence to the missed function "
+                "(InterpreterBoundary.arbitrary_uncoded_assignment "
+                "proves that a freely chosen interpretation is "
+                "vacuous; openDenotationalBridge names the missing "
+                "obligation but is not a proposition; the former "
+                "i5_difference_grounded was renamed to "
+                "i5_family_not_extensionally_complete because its "
+                "statement is family_missed and mentions neither "
+                "the boundary pair nor the uncoded occurrence)"},
             {"conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
              "missing_theorem":
                 "the guarded filler is a theorem at every dimension "
@@ -431,13 +443,17 @@ def receipt() -> dict[str, Json]:
                             "agreement is the exact positive scope"},
             {"attack": "fixed interpreter sold as represented "
                        "constitution",
-             "disposition": "BLOCKED: family_missed (the family "
-                            "provably misses an interpreter-grade "
-                            "function)"},
+              "disposition": "BLOCKED AT THE DECLARED SCOPE: "
+                            "family_missed proves only that the finite "
+                            "family does not exhaust the step-function "
+                            "type; it does not rule out a coded "
+                            "evaluator"},
             {"attack": "self-description sold as "
                        "self-interpretation",
-             "disposition": "BLOCKED: interp_describe vs "
-                            "family_missed (I4)"},
+              "disposition": "NOT ESTABLISHED: interp_describe is a "
+                            "verified step description; family_missed "
+                            "is separate finite non-exhaustion and no "
+                            "self-interpretation impossibility follows"},
             {"attack": "finite model enumeration sold as "
                        "unrestricted theorem",
              "disposition": "BLOCKED: every bound declared in this "
