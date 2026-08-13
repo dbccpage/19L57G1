@@ -86,8 +86,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256_canonical": "26972d494ce1cc8b0cbbdd6fb776922de7f289cba677d9fdc5f6b1f882dde196",
-  "theorem_count": 725
+  "sha256_canonical": "66118d30dddfbf5ee6427197fa1f29650fa951bdeeec5ee1a418f5afcbb91325",
+  "theorem_count": 753
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
@@ -114,7 +114,9 @@
    5
   ],
   "matrix_universe": "carriers 1..3, declared ret/prot/ops decorations (see primitive_implication_matrix.json)",
-  "preservation_census_carrier": 4
+  "preservation_census_carrier": 4,
+  "renaming_assoc_triples": 216,
+  "renaming_symmetric_group": 6
  },
  "contact": {
   "manifest_hash": null,
@@ -195,6 +197,19 @@
    ],
    "status": "THEOREM + COUNTERMODEL (converse FALSE)",
    "tag": "PROTECTED_SEPARATION_IS_TRACE_STABLE"
+  },
+  {
+   "evidence": [
+    "group laws: RenamingStructure.comp_id / id_comp / comp_assoc / inv_comp / comp_inv / inv_inv, via Renaming.ext",
+    "action laws: RenamingStructure.act_id (unconditional) / act_comp (scope n <= occ.length) / act_inv",
+    "transport respects the structure: upBlock_id / upBlock_comp / upFamily_id / upFamily_comp / upFamily_transport_id / upFamily_transport_comp",
+    "coherence: act_up_comm_comp + act_up_comm_twostep (the naturality square closes under composition)",
+    "no selected representative: upFamily_orbit_closed / star_orbit_both_present / upFamily_length",
+    "countermodels supplying NO law: collapse_not_a_renaming + collapse_pushforward_ill_formed (arbitrary non-bijective map), equal_size_supplies_no_law, equal_cost_supplies_no_law",
+    "the word 'equivariant' is used only in RenamingStructure.equivariance_summary, after the laws, with its exact scope"
+   ],
+   "status": "THEOREM + COUNTERMODEL",
+   "tag": "UP_IS_EQUIVARIANT_EARNED"
   },
   {
    "evidence": [

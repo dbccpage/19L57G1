@@ -1,0 +1,74 @@
+{
+ "action_laws": {
+  "act_comp": true,
+  "act_id": true,
+  "act_inv": true,
+  "act_preserves_carrier_size": true,
+  "fresh_tok_invariant": true
+ },
+ "bounds": {
+  "assoc_triples_checked": 216,
+  "carrier": 3,
+  "sample_states": [
+   "star",
+   "path"
+  ],
+  "symmetric_group_order": 6
+ },
+ "coherence": {
+  "act_up_comm_composed": true,
+  "act_up_comm_twostep_agrees": true
+ },
+ "countermodels": {
+  "equal_carrier_size": {
+   "families_literally_equal": true,
+   "no_renaming_relates": true,
+   "same_carrier": true
+  },
+  "equal_cost": {
+   "both_in_family": true,
+   "equal_cost": true,
+   "executions_non_isomorphic": true
+  },
+  "non_bijective_map": {
+   "no_left_inverse": true,
+   "original_store_irreflexive": true,
+   "pushforward": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "pushforward_all_self_pairs": true,
+   "pushforward_refused_by_wf_guard": true
+  }
+ },
+ "equivariance_scope": "the supply fragment of the declared one-edge grammar on live store-bounded states; NOT the observation calculus, NOT multi-edge extensions, NOT maps that are not renamings",
+ "group_laws": {
+  "carrier": 3,
+  "comp_assoc": true,
+  "comp_id": true,
+  "comp_inv": true,
+  "group_order": 6,
+  "id_comp": true,
+  "inv_comp": true,
+  "inv_inv": true
+ },
+ "orbit_no_selection": {
+  "family_length_equals_parents": true,
+  "leaf_blocks_distinct": true,
+  "orbit_closed_under_action": true,
+  "star_both_leaves_present": true
+ },
+ "transport_laws": {
+  "block_comp": true,
+  "block_id": true,
+  "family_comp": true,
+  "family_id": true,
+  "membership_transport": true
+ }
+}

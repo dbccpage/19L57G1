@@ -279,6 +279,19 @@ metric, measure, or amplitude.
   evidential only through a new separating question.  Refinement
   is not unique and ties are retained (countermodels), and strict
   refinement chains are bounded by the declared domain.
+- The renaming structure around `Up` (Goal 1) is now complete:
+  identity, inverse and composition with their group laws; `act` an
+  action (identity unconditional, composition on the well-formed
+  scope `n <= occ.length`, weakened from equality precisely so the
+  extended state is covered); block and family transport respecting
+  identity and composition; the naturality square closing under
+  composition; and the family carrying whole orbits with no selected
+  representative.  Only after those laws is `Up` called equivariant,
+  and the summary theorem states its exact scope.  Weaker data
+  supplies none of it: an arbitrary non-bijective map has no left
+  inverse and its pushforward turns an irreflexive store into
+  self-pairs the guard refuses; equal carrier size and equal cost
+  supply no law at all.
 - Trace stability (`StableContent`, audit-repaired).  Protected
   separation is SUFFICIENT for trace stability - supply never
   touches observation, columns only add separators, and refinement

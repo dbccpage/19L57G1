@@ -1792,3 +1792,56 @@ CL-PD2-LADDER)
   countermodels, the witness-borne instability countermodel, the
   quiescence coincidence, and the recorded open gap; declared
   bounds: carrier 3, trace depth 2, breadth 24).
+
+### CL-PD2-RENAMING-STRUCTURE (Goal 1)
+- **Statement**: the renaming structure around `Up` is completed and
+  its laws proved, and only afterwards is the vocabulary
+  "equivariant" used.  (i) `Renaming n` carries IDENTITY (`idRen`),
+  INVERSE (`invRen`) and COMPOSITION (`compRen`) satisfying the group
+  laws `comp_id`, `id_comp`, `comp_assoc`, `inv_comp`, `comp_inv`,
+  `inv_inv`, proved through a componentwise extensionality principle
+  (`Renaming.ext`: the two remaining fields are propositions, so a
+  renaming is its function pair).  (ii) `act` is an ACTION:
+  `act_id` holds UNCONDITIONALLY, and `act_comp` holds on the exact
+  scope `n <= s.occ.length` — the scope in which positional
+  re-indexing of the carrier is meaningful, and deliberately weaker
+  than equality so that the EXTENDED state (length `n+1`) is covered
+  too; `act_inv` follows.  (iii) block and family transport respect
+  identity and composition (`upBlock_id`, `upBlock_comp`,
+  `upFamily_id`, `upFamily_comp`, `upFamily_transport_id`,
+  `upFamily_transport_comp`).  (iv) COHERENCE: replay of an `Up`
+  block commutes with a COMPOSED renaming and the composite route
+  equals the two-step route (`act_up_comm_comp`,
+  `act_up_comm_twostep`) — the naturality square closes under
+  composition.  (v) NO SELECTED REPRESENTATIVE: the family is closed
+  under the action, carries the whole orbit, and has exactly one
+  block per represented parent (`upFamily_orbit_closed`,
+  `star_orbit_both_present`, `upFamily_length`).
+  (vi) COUNTERMODELS — none of this is supplied by weaker data: an
+  arbitrary NON-BIJECTIVE map has no left inverse
+  (`collapse_not_a_renaming`) and its pushforward turns an
+  irreflexive store into self-pairs that the well-formedness guard
+  refuses (`collapse_pushforward_ill_formed`); equal carrier size
+  supplies no law (`equal_size_supplies_no_law`); equal cost supplies
+  no law (`equal_cost_supplies_no_law`).
+- **Scope of the earned vocabulary** (`equivariance_summary`): the
+  supply fragment of the declared one-edge grammar, on live
+  store-bounded states.  NOT the observation calculus, NOT
+  multi-edge or relational extensions, NOT any map that is not a
+  renaming.
+- **Class**: theorem + countermodel + finite computation.
+- **Lean**: `RenamingStructure.Renaming.ext`, `.comp_id`,
+  `.id_comp`, `.comp_assoc`, `.inv_comp`, `.comp_inv`, `.inv_inv`,
+  `.map_getD_range`, `.act_id`, `.act_comp`, `.act_inv`,
+  `.upBlock_id`, `.upBlock_comp`, `.upFamily_id`, `.upFamily_comp`,
+  `.upFamily_transport_id`, `.upFamily_transport_comp`, `.wf_act`,
+  `.act_up_comm_comp`, `.act_up_comm_twostep`,
+  `.upFamily_orbit_closed`, `.star_orbit_both_present`,
+  `.upFamily_length`, `.collapse_not_a_renaming`,
+  `.collapse_pushforward_ill_formed`, `.equal_size_supplies_no_law`,
+  `.equal_cost_supplies_no_law`, `.equivariance_summary`.
+- **Python**: `renaming_structure.json` — exhaustive over the whole
+  symmetric group at carrier 3 (216 associativity triples, all 6
+  permutations against both sample states for every action,
+  transport, and coherence law) plus all three countermodels.
+

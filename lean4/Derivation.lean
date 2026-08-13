@@ -30,6 +30,7 @@ import Derivation.Attachment
 import Derivation.LadderGeneral
 import Derivation.Compression
 import Derivation.StableContent
+import Derivation.RenamingStructure
 
 /-!
 # Axiom reports
@@ -797,3 +798,31 @@ open Derivation
 #print axioms StableContent.quiescent_iff_protected_separated
 #print axioms StableContent.quiescence_is_protected_separation
 #print axioms StableContent.quiescent_retained_protected_trace_stable
+#print axioms RenamingStructure.Renaming.ext
+#print axioms RenamingStructure.comp_id
+#print axioms RenamingStructure.id_comp
+#print axioms RenamingStructure.comp_assoc
+#print axioms RenamingStructure.inv_comp
+#print axioms RenamingStructure.comp_inv
+#print axioms RenamingStructure.inv_inv
+#print axioms RenamingStructure.map_getD_range
+#print axioms RenamingStructure.act_id
+#print axioms RenamingStructure.act_comp
+#print axioms RenamingStructure.act_inv
+#print axioms RenamingStructure.upBlock_id
+#print axioms RenamingStructure.upBlock_comp
+#print axioms RenamingStructure.upFamily_id
+#print axioms RenamingStructure.upFamily_comp
+#print axioms RenamingStructure.upFamily_transport_comp
+#print axioms RenamingStructure.upFamily_transport_id
+#print axioms RenamingStructure.wf_act
+#print axioms RenamingStructure.act_up_comm_comp
+#print axioms RenamingStructure.act_up_comm_twostep
+#print axioms RenamingStructure.upFamily_orbit_closed
+#print axioms RenamingStructure.star_orbit_both_present
+#print axioms RenamingStructure.upFamily_length
+#print axioms RenamingStructure.collapse_not_a_renaming
+#print axioms RenamingStructure.collapse_pushforward_ill_formed
+#print axioms RenamingStructure.equal_size_supplies_no_law
+#print axioms RenamingStructure.equal_cost_supplies_no_law
+#print axioms RenamingStructure.equivariance_summary
