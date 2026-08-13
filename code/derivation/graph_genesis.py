@@ -15,9 +15,10 @@ Lean module proves:
    internal fragment (``refineCol``, ``addCol``, ``declareObs``,
    ``refuse``) up to the declared length leaves ``occ``,
    ``asserted``, ``wit`` and ``prot`` fixed.
-3. **The proposal record** — the weakest additional represented
-   premise, with its obligations as computable checks: membership in
-   the COMPLETE Up family (never a selected representative), an
+3. **The proposal record** — one explicit sufficient represented
+   proposal schema, with its obligations as computable checks: a named
+   branch plus membership in the COMPLETE Up family (without a
+   canonicality or uniqueness claim), an
    embedding with its retraction, freshness of the supplied token,
    preservation of every old asserted / retained / protected pair
    and of every separated pair, the new pair's provenance, and a
@@ -27,7 +28,8 @@ Lean module proves:
    renaming action, checked over the FULL permutation group on the
    declared carrier.
 5. **Ties retained** — two equal-cost proposals whose executions are
-   non-isomorphic; the family records both and never selects.
+   non-isomorphic; the family records both and certifies neither as
+   canonical.
 6. **The Part-3 witness** — a state satisfying all four obstruction
    conditions whose complete internal response family is nonempty
    and resolves the obstruction with no carrier change, plus the
@@ -365,7 +367,7 @@ def family_report() -> dict[str, Json]:
 
 
 # ---------------------------------------------------------------------------
-# The proposal record: the weakest additional represented premise
+# The proposal record: one explicit sufficient represented schema
 
 AUTHORITY_WORDS: tuple[str, ...] = (
     "licen", "execut", "activ", "authorit", "budget", "gate")
@@ -375,8 +377,9 @@ AUTHORITY_WORDS: tuple[str, ...] = (
 class ProposalRecord:
     """A represented growth proposal (Lean ``ProposalRecord``).
 
-    Fields, and nothing else: the block (a member of the complete Up
-    family), the old-position embedding and its retraction, the new
+    Fields, and nothing else: one named block (proved to be a member of
+    the complete Up family, but not canonical or unique), the
+    old-position embedding and its retraction, the new
     pair with its provenance (parent position, fresh position), and
     the declared cost.  There is no license field, no execution
     field, and no activation field: the record is a PROPOSAL and
@@ -405,7 +408,7 @@ def carries_no_authority() -> bool:
 
 
 def up_proposal(s: PS, p: int) -> ProposalRecord:
-    """The canonical proposal at a represented parent position, with
+    """The parent-indexed proposal at a represented position, with
     the identity embedding: the declared one-edge grammar keeps every
     old position where it was.  Cost is the declared block length."""
     n = len(s.occ)
@@ -444,7 +447,8 @@ def proposal_obligations(s: PS, rec: ProposalRecord) -> dict[str, Json]:
     new_sep = separated_pairs(t.obs, len(t.occ))
     return {
         "block_complete": list(rec.block) in up_family(s),
-        "family_is_complete_not_selected": len(up_family(s)) == n,
+        "complete_family_retained_alongside_named_branch":
+            len(up_family(s)) == n and list(rec.block) in up_family(s),
         "retract_embed_identity": all(rec.retract[emb[x]] == x
                                       for x in range(n)),
         "token_fresh": all(tok not in s.occ for tok in tokens),
@@ -534,7 +538,8 @@ def transport_report(carrier: int = 3) -> dict[str, Json]:
 
 def tie_report() -> dict[str, Json]:
     """Two equal-cost proposals whose executions are
-    non-isomorphic: the family retains both and never selects."""
+    non-isomorphic: the family retains both and certifies neither as
+    canonical."""
     s = tree_at(path_pol, 2)
     first = up_proposal(s, 1)
     second = up_proposal(s, 2)
@@ -560,7 +565,7 @@ def tie_report() -> dict[str, Json]:
 
 
 # ---------------------------------------------------------------------------
-# Part 3: can an active obstruction request the carrier-changing lift?
+# Part 3: does nextFamilyP request the lift at an obstruction?
 
 def in_carrier_resolution(s: PS, i: int, j: int) -> dict[str, Json]:
     """The general in-carrier resolution (Lean
@@ -591,7 +596,7 @@ def in_carrier_resolution(s: PS, i: int, j: int) -> dict[str, Json]:
 
 
 def part3_report() -> dict[str, Json]:
-    """The Part-3 witness and the general irreducibility check."""
+    """Witness that growth is not entailed by ``nextFamilyP``."""
     s = blind_pair()
     cols = cast(Cols, s.obs)
     family = next_family_p(s)
@@ -635,13 +640,14 @@ def part3_report() -> dict[str, Json]:
         "obstructions_meeting_the_hypotheses": live_checks,
         "every_obstruction_resolved_in_carrier": all(resolutions),
         "verdict": (
-            "irreducible: the four obstruction conditions are "
+            "not entailed by nextFamilyP: the four obstruction "
+            "conditions are "
             "satisfiable at states whose complete internal response "
             "family is nonempty and resolves the obstruction with no "
             "carrier change, and no represented response at any "
             "declared sample state grows the carrier — so the growth "
-            "demand is a separately declared premise, not an "
-            "obstruction consequence"),
+            "demand is a separately declared premise, not a "
+            "consequence of the represented nextFamilyP semantics"),
         "not_claimed": (
             "that no other declared response family could grow the "
             "carrier; only the family the kernel computes from the "
