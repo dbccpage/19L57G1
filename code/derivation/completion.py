@@ -60,6 +60,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "StableContent": ["StableContent.lean"],
     "RenamingStructure": ["RenamingStructure.lean"],
     "GraphGenesis": ["GraphGenesis.lean"],
+    "BoundaryCancellation": ["BoundaryCancellation.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")

@@ -102,6 +102,9 @@ def receipt() -> dict[str, Json]:
             "genesis_sample_states": 8,
             "genesis_battery_checks": 600,
             "genesis_internal_traces": 11104,
+            "boundary_cells_checked": 218,
+            "boundary_coefficient_checks": 3124,
+            "boundary_dims": [2, 3, 4, 5, 6],
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -310,6 +313,36 @@ def receipt() -> dict[str, Json]:
                           "quiescence_is_protected_separation "
                           "(a statement about protSep, NOT about "
                           "trace stability)"]},
+            {"tag": "GENERAL_BOUNDARY_CANCELLATION",
+             "status": "THEOREM (general) + COUNTERMODEL",
+             "evidence": ["BoundaryCancellation."
+                          "d2_zero_unrestricted (every finite cell, "
+                          "every face) and d2_zero_general (the "
+                          "declared ascending hypotheses, "
+                          "discharged from it)",
+                          "the proof pairs deletion orders and "
+                          "cancels signs: eraseIdx_swap, sgn_cancel, "
+                          "dterm_cancel, coeff_rect, rect_zero, "
+                          "tri_transpose",
+                          "connected to replay: "
+                          "BoundaryCancellation.d2_zero_replayed "
+                          "(via LadderGeneral.wf_nreplay) and "
+                          "d2_zero_d4",
+                          "renaming independence for strictly "
+                          "monotone renamings: eraseIdx_map, "
+                          "ascB_map, d2_zero_renamed, d2_zero_shift",
+                          "SIGNS ARE DECLARED, not derived: "
+                          "signless_countermodel and "
+                          "signless_countermodel_dim3 give nonzero "
+                          "composites without them",
+                          "ill-formed cells: illformed_countermodel "
+                          "- strict ascent is load-bearing for "
+                          "DISTINCTNESS of codimension-two faces "
+                          "(codim2_distinct, eraseIdx_inj_of_asc), "
+                          "NOT for the vanishing",
+                          "the filler rule does NOT force the "
+                          "coefficients or the signs; this is not "
+                          "claimed anywhere"]},
             {"tag": "GRAPH_GROWTH_IS_SUPPLIED_NOT_GENERATED",
              "status": "THEOREM + COUNTERMODEL",
              "evidence": ["negative theorems: "
@@ -434,13 +467,26 @@ def receipt() -> dict[str, Json]:
                 "the boundary pair nor the uncoded occurrence)"},
             {"conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
              "missing_theorem":
-                "the guarded filler is a theorem at every dimension "
-                "(LadderGeneral.uniform_guarded_filler, narrowed "
-                "scope: admission + strict extension, not "
-                "homology); what remains is the "
-                "general vanishing of the composite boundary for "
-                "every dimension — decided at dimensions 2–5, "
-                "general case open"},
+                "SETTLED (Goal 4), and settled more strongly than "
+                "conjectured: the coefficientwise composite boundary "
+                "vanishes at EVERY target presentation for EVERY "
+                "finite list "
+                "(BoundaryCancellation.d2_zero_unrestricted), proved "
+                "by pairing the two orders for each unordered pair "
+                "of deleted positions and cancelling their signs "
+                "(eraseIdx_swap, sgn_cancel, dterm_cancel, "
+                "rect_zero) - not by computation.  The declared "
+                "hypotheses are recorded in d2_zero_general and "
+                "discharged from the stronger theorem; strict "
+                "ascent turned out NOT to be load-bearing for the "
+                "vanishing itself, only for distinctness of the "
+                "codimension-two faces (codim2_distinct, "
+                "eraseIdx_inj_of_asc).  The signs and integer "
+                "coefficients remain DECLARED inputs: "
+                "the integer signless_countermodel is nonzero, and "
+                "the filler rule does not force the signs.  No claim "
+                "is made that the signless countermodel works in "
+                "every coefficient system"},
             {"conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
              "missing_theorem":
                 "SETTLED NEGATIVELY for this calculus (Goal 5): the "

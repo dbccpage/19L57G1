@@ -73,6 +73,14 @@ def test_receipt_binds_everything() -> None:
     assert not any("openTerminalPres2" in str(o) for o in opens)
     frontiers = r["frontier_conjectures"]
     assert isinstance(frontiers, list)
+    boundary = next(
+        row for row in frontiers
+        if row["conjecture"] == "GENERAL_BOUNDARY_COMPOSITE_VANISHING")
+    boundary_scope = str(boundary["missing_theorem"])
+    assert "EVERY target presentation" in boundary_scope
+    assert "unordered pair of deleted positions" in boundary_scope
+    assert "every coefficient system" in boundary_scope
+    assert "each codimension-two face" not in boundary_scope
     graph = next(row for row in frontiers
                  if row["conjecture"] == "GRAPH_GENESIS_BY_OBSTRUCTION")
     graph_scope = str(graph["missing_theorem"])

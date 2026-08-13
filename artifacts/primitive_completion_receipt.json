@@ -86,8 +86,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256_canonical": "3dd5d216bd51b0cc99d64f4b85793d1c0f3c31964c5154cc1722a15fa11d1db8",
-  "theorem_count": 726
+  "sha256_canonical": "13d6b9edd528dd339891fafba767cb5cee94d948b286934c0fda93ef742f0091",
+  "theorem_count": 819
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
@@ -95,6 +95,15 @@
   "attachment_orbit_carrier": 3,
   "attachment_rounds": 15,
   "attachment_shape_carrier": 4,
+  "boundary_cells_checked": 218,
+  "boundary_coefficient_checks": 3124,
+  "boundary_dims": [
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
   "cell_demonstration_carrier": 4,
   "controller_behavior_basis": "6 states x 10 events (recorded in artifact)",
   "controller_class": 1024,
@@ -104,6 +113,9 @@
    4,
    5
   ],
+  "genesis_battery_checks": 600,
+  "genesis_internal_traces": 11104,
+  "genesis_sample_states": 8,
   "growth_rounds": 15,
   "interpreter_basis": "six probe worlds/events",
   "interpreter_family": 64,
@@ -114,7 +126,9 @@
    5
   ],
   "matrix_universe": "carriers 1..3, declared ret/prot/ops decorations (see primitive_implication_matrix.json)",
-  "preservation_census_carrier": 4
+  "preservation_census_carrier": 4,
+  "renaming_assoc_triples": 216,
+  "renaming_symmetric_group": 6
  },
  "contact": {
   "manifest_hash": null,
@@ -198,6 +212,45 @@
   },
   {
    "evidence": [
+    "BoundaryCancellation.d2_zero_unrestricted (every finite cell, every face) and d2_zero_general (the declared ascending hypotheses, discharged from it)",
+    "the proof pairs deletion orders and cancels signs: eraseIdx_swap, sgn_cancel, dterm_cancel, coeff_rect, rect_zero, tri_transpose",
+    "connected to replay: BoundaryCancellation.d2_zero_replayed (via LadderGeneral.wf_nreplay) and d2_zero_d4",
+    "renaming independence for strictly monotone renamings: eraseIdx_map, ascB_map, d2_zero_renamed, d2_zero_shift",
+    "SIGNS ARE DECLARED, not derived: signless_countermodel and signless_countermodel_dim3 give nonzero composites without them",
+    "ill-formed cells: illformed_countermodel - strict ascent is load-bearing for DISTINCTNESS of codimension-two faces (codim2_distinct, eraseIdx_inj_of_asc), NOT for the vanishing",
+    "the filler rule does NOT force the coefficients or the signs; this is not claimed anywhere"
+   ],
+   "status": "THEOREM (general) + COUNTERMODEL",
+   "tag": "GENERAL_BOUNDARY_CANCELLATION"
+  },
+  {
+   "evidence": [
+    "negative theorems: GraphGenesis.refineCol_only_obs / addCol_only_obs (seven fields provably unchanged; only obs/budget are outside the list)",
+    "GraphGenesis.extensionProposals_range_over_existing / repairFamily_range_over_existing / nextFamilyP_block_shape / nextFamilyP_range_over_existing (the internal family ranges over columns on EXISTING occurrences only; no third block shape exists)",
+    "GraphGenesis.internal_family_cannot_grow_carrier (occ/asserted/wit/prot fixed along every internal trace)",
+    "GraphGenesis.graph_growth_is_supplied (the corollary: growth comes from the Up grammar, never from the internal response family)",
+    "PROPOSAL RECORD (Part 2): complete Up membership proof, embedding+retraction, fresh-token evidence, preservation of asserted/retained/protected/separated content, new pair with provenance, declared cost, and NO license, execution or activation field; GraphGenesis.proposal_confers_no_execution",
+    "GraphGenesis.proposal_transports + proposal_family_retains_ties (transport under renaming; equal-cost non-isomorphic branches retained, no selection)",
+    "PART 3 VERDICT (irreducibility): GraphGenesis.growth_demand_not_obstruction_consequence + family_never_grows_carrier + obstruction_resolved_in_carrier - an active obstruction is answered INSIDE the existing carrier, so the carrier-changing growth demand is a separately declared premise, not an obstruction consequence"
+   ],
+   "status": "THEOREM + COUNTERMODEL",
+   "tag": "GRAPH_GROWTH_IS_SUPPLIED_NOT_GENERATED"
+  },
+  {
+   "evidence": [
+    "group laws: RenamingStructure.comp_id / id_comp / comp_assoc / inv_comp / comp_inv / inv_inv, via Renaming.ext",
+    "action laws: RenamingStructure.act_id (unconditional) / act_comp (scope n <= occ.length) / act_inv",
+    "transport respects the structure: upBlock_id / upBlock_comp / upFamily_id / upFamily_comp / upFamily_transport_id / upFamily_transport_comp",
+    "coherence: act_up_comm_comp + act_up_comm_twostep (the naturality square closes under composition)",
+    "no selected representative: upFamily_orbit_closed / star_orbit_both_present / upFamily_length",
+    "countermodels supplying NO law: collapse_not_a_renaming + collapse_pushforward_ill_formed (arbitrary non-bijective map), equal_size_supplies_no_law, equal_cost_supplies_no_law",
+    "the word 'equivariant' is used only in RenamingStructure.equivariance_summary, after the laws, with its exact scope"
+   ],
+   "status": "THEOREM + COUNTERMODEL",
+   "tag": "UP_IS_EQUIVARIANT_EARNED"
+  },
+  {
+   "evidence": [
     "Compression.factors_iff_fiberConstant + factor_unique_on_image + factor_not_unique_off_image (A)",
     "Compression.pQ_exact / pQ_adequate / pQ_coarsest / pQ_unique_on_image (B: coarsest Q-adequate, universal property with exact scope)",
     "Compression.descent_witness (C: every merged-but-separated pair is witnessed)",
@@ -218,11 +271,11 @@
   },
   {
    "conjecture": "GENERAL_BOUNDARY_COMPOSITE_VANISHING",
-   "missing_theorem": "the guarded filler is a theorem at every dimension (LadderGeneral.uniform_guarded_filler, narrowed scope: admission + strict extension, not homology); what remains is the general vanishing of the composite boundary for every dimension \u2014 decided at dimensions 2\u20135, general case open"
+   "missing_theorem": "SETTLED (Goal 4), and settled more strongly than conjectured: the coefficientwise composite boundary vanishes at EVERY target presentation for EVERY finite list (BoundaryCancellation.d2_zero_unrestricted), proved by pairing the two orders for each unordered pair of deleted positions and cancelling their signs (eraseIdx_swap, sgn_cancel, dterm_cancel, rect_zero) - not by computation.  The declared hypotheses are recorded in d2_zero_general and discharged from the stronger theorem; strict ascent turned out NOT to be load-bearing for the vanishing itself, only for distinctness of the codimension-two faces (codim2_distinct, eraseIdx_inj_of_asc).  The signs and integer coefficients remain DECLARED inputs: the integer signless_countermodel is nonzero, and the filler rule does not force the signs.  No claim is made that the signless countermodel works in every coefficient system"
   },
   {
    "conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
-   "missing_theorem": "a driver in which graph vertices and edges are themselves extension proposals generated by obstructions; in this run the driver SUPPLIES the graph data and the obstruction creates observation structure (a later experiment, out of scope here)"
+   "missing_theorem": "SETTLED NEGATIVELY for this calculus (Goal 5): the internal response family provably cannot create occurrences, asserted, retained or protected pairs (GraphGenesis.internal_family_cannot_grow_carrier, family_never_grows_carrier), and every obstruction meeting the kernel's own hypotheses is resolved inside the existing carrier (obstruction_resolved_in_carrier).  What remains is therefore not a conjecture about THIS driver but the OPEN question whether some OTHER declared response family could request a lawful carrier-changing proposal.  One explicit sufficient proposal schema is delivered as GraphGenesis.ProposalRecord; no minimality or universal property is proved for that schema, and growth is not entailed by nextFamilyP"
   }
  ],
  "graph_scope": "dependency records classify declared bridges; no claim exhausts every possible bridge (inherited scope)",

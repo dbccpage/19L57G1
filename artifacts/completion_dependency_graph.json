@@ -9308,7 +9308,9 @@
    "citing_claims": [
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
-   "consumers": [],
+   "consumers": [
+    "BoundaryCancellation.lean"
+   ],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.uniform_guarded_filler",
@@ -9353,7 +9355,9 @@
    "citing_claims": [
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
-   "consumers": [],
+   "consumers": [
+    "BoundaryCancellation.lean"
+   ],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.pseudo_cell_countermodel",
@@ -9363,7 +9367,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "BoundaryCancellation.lean"
+   ],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.wf_empty",
@@ -9415,9 +9421,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with",
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
    ],
-   "consumers": [],
+   "consumers": [
+    "BoundaryCancellation.lean"
+   ],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.wf_nreplay",
@@ -9474,7 +9483,9 @@
    "citing_claims": [
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
-   "consumers": [],
+   "consumers": [
+    "BoundaryCancellation.lean"
+   ],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.d2_zero_dims_2_3_4",
@@ -10373,7 +10384,7 @@
    "module": "RenamingStructure.lean",
    "name": "RenamingStructure.upFamily_orbit_closed",
    "role": "preservation",
-   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (b : List PEvent) (hb : b \u2208 upFamily s) : \u2203 b', b' \u2208 upFamily (act \u03c3 s)"
+   "statement": "{n : Nat} (\u03c3 : Renaming n) (s : PState) (hn : n = s.occ.length) (b : List PEvent) (hb : b \u2208 upFamily s) : \u2203 p, p < s.occ.length \u2227 b = upBlock s p \u2227 upBlock (act \u03c3 s) (\u03c3.f p) \u2208 upFamily (act \u03c3 s)"
   },
   {
    "axioms": [
@@ -10874,6 +10885,523 @@
    "name": "GraphGenesis.blindPair_resolution_keeps_carrier",
    "role": "preservation",
    "statement": ": (replayP [PEvent.setBudget 1, PEvent.addCol [0]] blindPair).occ = [0, 1] \u2227 (replayP [PEvent.setBudget 1, PEvent.addCol [0]] blindPair).obs = some [[0]] \u2227 (replayP [PEvent.setBudget 1, PEvent.addCol [0]] blindPair).wit = [(0, 1)]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sumTo_const_zero",
+   "role": "preservation",
+   "statement": "(m : Nat) : sumTo (fun _ => (0 : Int)) m = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sumTo_congr",
+   "role": "preservation",
+   "statement": "(f g : Nat \u2192 Int) (m : Nat) (h : \u2200 t, t < m \u2192 f t = g t) : sumTo f m = sumTo g m"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sumTo_add",
+   "role": "preservation",
+   "statement": "(f g : Nat \u2192 Int) (m : Nat) : sumTo (fun t => f t + g t) m = sumTo f m + sumTo g m"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sumTo_split",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Int) (a m : Nat) : sumTo f (a + m) = sumTo f a + sumFrom f a m"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sumFrom_shift",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Int) (a m : Nat) : sumFrom f a m = sumFrom (fun b => f (b - 1)) (a + 1) m"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.tri_transpose",
+   "role": "preservation",
+   "statement": "(F : Nat \u2192 Nat \u2192 Int) (n : Nat) : rowTri F n = colTri F n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.eraseIdx_eraseIdx_succ",
+   "role": "preservation",
+   "statement": ": \u2200 (l : List Nat) (a c : Nat), a \u2264 c \u2192 (l.eraseIdx (c + 1)).eraseIdx a = (l.eraseIdx a).eraseIdx c | [], _, _, _ => rfl | _ :: _, 0, _, _ => rfl | x :: t, a + 1, c, h => by obtain \u27e8c', rfl\u27e9 : \u2203 c', c = c' + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.eraseIdx_swap",
+   "role": "preservation",
+   "statement": "(l : List Nat) (a b : Nat) (h : a < b) : (l.eraseIdx b).eraseIdx a = (l.eraseIdx a).eraseIdx (b - 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sgn_succ",
+   "role": "preservation",
+   "statement": "(c : Nat) : sgn (c + 1) = -sgn c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.sgn_cancel",
+   "role": "preservation",
+   "statement": "(a b : Nat) (h : 0 < b) : sgn b * sgn a + sgn a * sgn (b - 1) = 0"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeffN_nil",
+   "role": "preservation",
+   "statement": "(\u03c4 : List Nat) : coeffN \u03c4 [] = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.foldl_acc",
+   "role": "preservation",
+   "statement": "(l : List (Int \u00d7 List Nat)) (z : Int) : l.foldl (fun acc p => acc + p.1) z = z + l.foldl (fun acc p => acc + p.1) 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeffN_append",
+   "role": "preservation",
+   "statement": "(\u03c4 : List Nat) (a b : List (Int \u00d7 List Nat)) : coeffN \u03c4 (a ++ b) = coeffN \u03c4 a + coeffN \u03c4 b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeffN_singleton",
+   "role": "preservation",
+   "statement": "(\u03c4 : List Nat) (p : Int \u00d7 List Nat) : coeffN \u03c4 [p] = if (p.2 == \u03c4) = true then p.1 else 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeffN_map_range",
+   "role": "preservation",
+   "statement": "(\u03c4 : List Nat) (f : Nat \u2192 Int \u00d7 List Nat) (m : Nat) : coeffN \u03c4 ((List.range m).map f) = sumTo (fun j => if ((f j).2 == \u03c4) = true then (f j).1 else 0) m"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeffN_flatMap_range",
+   "role": "preservation",
+   "statement": "(\u03c4 : List Nat) (h : Nat \u2192 List (Int \u00d7 List Nat)) (n : Nat) : coeffN \u03c4 ((List.range n).flatMap h) = sumTo (fun i => coeffN \u03c4 (h i)) n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeff_push_bd",
+   "role": "preservation",
+   "statement": "(\u03c3 \u03c4 : List Nat) : coeffN \u03c4 (pushN (bdN \u03c3)) = sumTo (fun i => sumTo (dterm \u03c3 \u03c4 i) (\u03c3.eraseIdx i).length) \u03c3.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.coeff_rect",
+   "role": "preservation",
+   "statement": "(\u03c3 \u03c4 : List Nat) : coeffN \u03c4 (pushN (bdN \u03c3)) = sumTo (fun i => sumTo (dterm \u03c3 \u03c4 i) (\u03c3.length - 1)) \u03c3.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.ite_pair_cancel",
+   "role": "preservation",
+   "statement": "(c : Bool) (u v : Int) (h : u + v = 0) : (if c = true then u else 0) + (if c = true then v else 0) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.dterm_cancel",
+   "role": "preservation",
+   "statement": "(\u03c3 \u03c4 : List Nat) (a b : Nat) (h : a < b) : dterm \u03c3 \u03c4 b a + dterm \u03c3 \u03c4 a (b - 1) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.rect_zero",
+   "role": "preservation",
+   "statement": "(\u03c3 \u03c4 : List Nat) : sumTo (fun i => sumTo (dterm \u03c3 \u03c4 i) (\u03c3.length - 1)) \u03c3.length = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-LADDER-GENERAL (repaired and reconciled with",
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [
+    "LadderGeneral.lean"
+   ],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_unrestricted",
+   "role": "preservation",
+   "statement": "(\u03c3 \u03c4 : List Nat) : coeffN \u03c4 (pushN (bdN \u03c3)) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_general",
+   "role": "preservation",
+   "statement": "(\u03c3 : List Nat) (_hasc : ascB \u03c3 = true) (_hlen : 2 \u2264 \u03c3.length) (\u03c4 : List Nat) : coeffN \u03c4 (pushN (bdN \u03c3)) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_facets",
+   "role": "preservation",
+   "statement": "(\u03c3 : List Nat) (_hasc : ascB \u03c3 = true) (_hlen : 2 \u2264 \u03c3.length) : \u2200 \u03c4 \u2208 facets \u03c3, coeffN \u03c4 (pushN (bdN \u03c3)) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_replayed",
+   "role": "preservation",
+   "statement": "(h : List NEvent) (k : Nat) (\u03c3 : List Nat) (hk : 1 \u2264 k) (hmem : \u03c3 \u2208 (nreplay h emptyN).cells k) (\u03c4 : List Nat) : coeffN \u03c4 (pushN (bdN \u03c3)) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_d4",
+   "role": "preservation",
+   "statement": "(k : Nat) (\u03c3 : List Nat) (hk : 1 \u2264 k) (hmem : \u03c3 \u2208 d4Complex.cells k) (\u03c4 : List Nat) : coeffN \u03c4 (pushN (bdN \u03c3)) = 0"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.ascB_tail",
+   "role": "preservation",
+   "statement": "(x y : Nat) (t : List Nat) (h : ascB (x :: y :: t) = true) : ascB (y :: t) = true"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.ascB_head_lt",
+   "role": "preservation",
+   "statement": "(x : Nat) : \u2200 (l : List Nat), ascB (x :: l) = true \u2192 \u2200 z \u2208 l, x < z | [], _, _, hz => absurd hz (by simp) | y :: t, h, z, hz => by have h' : ascB (x :: y :: t) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.eraseIdx_inj_of_asc",
+   "role": "preservation",
+   "statement": ": \u2200 (l : List Nat), ascB l = true \u2192 \u2200 i j, i < l.length \u2192 j < l.length \u2192 l.eraseIdx i = l.eraseIdx j \u2192 i = j | [], _, _, _, hi, _, _ => absurd hi (by simp) | [_], _, i, j, hi, hj, _ => by simp only [List.length_cons, List.length_nil] at hi hj omega | x :: y :: t, h, i, j, hi, hj, he => by have hasc : ascB (x :: y :: t) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.codim2_distinct",
+   "role": "preservation",
+   "statement": ": \u2200 (l : List Nat), ascB l = true \u2192 \u2200 a b c d, a < b \u2192 c < d \u2192 b < l.length \u2192 d < l.length \u2192 (l.eraseIdx b).eraseIdx a = (l.eraseIdx d).eraseIdx c \u2192 a = c \u2227 b = d | [], _, _, _, _, _, _, _, hb, _, _ => absurd hb (by simp) | [_], _, a, b, _, _, hab, _, hb, _, _ => by simp only [List.length_cons, List.length_nil] at hb exact absurd hab (by omega) | x :: y :: t, h, a, b, c, d, hab, hcd, hb, hd, he => by obtain \u27e8b', rfl\u27e9 : \u2203 b', b = b' + 1"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.eraseIdx_map",
+   "role": "preservation",
+   "statement": "(r : Nat \u2192 Nat) : \u2200 (l : List Nat) (i : Nat), (l.map r).eraseIdx i = (l.eraseIdx i).map r | [], _ => rfl | _ :: _, 0 => rfl | _ :: t, i + 1 => by simp only [List.map_cons, List.eraseIdx_cons_succ, eraseIdx_map r t i] /-- A strictly monotone renaming of vertices preserves strict ascent. -/ theorem ascB_map (r : Nat \u2192 Nat) (hr : \u2200 x y, x < y \u2192 r x < r y) : \u2200 \u03c3 : List Nat, ascB \u03c3 = true \u2192 ascB (\u03c3.map r) = true | [], _ => rfl | [_], _ => rfl | x :: y :: t, h => by have hasc : ascB (x :: y :: t) = true"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.ascB_map",
+   "role": "preservation",
+   "statement": "(r : Nat \u2192 Nat) (hr : \u2200 x y, x < y \u2192 r x < r y) : \u2200 \u03c3 : List Nat, ascB \u03c3 = true \u2192 ascB (\u03c3.map r) = true | [], _ => rfl | [_], _ => rfl | x :: y :: t, h => by have hasc : ascB (x :: y :: t) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_renamed",
+   "role": "preservation",
+   "statement": "(r : Nat \u2192 Nat) (hr : \u2200 x y, x < y \u2192 r x < r y) (\u03c3 : List Nat) (hasc : ascB \u03c3 = true) (hlen : 2 \u2264 \u03c3.length) : ascB (\u03c3.map r) = true \u2227 (\u03c3.map r).length = \u03c3.length \u2227 (\u2200 i, (\u03c3.map r).eraseIdx i = (\u03c3.eraseIdx i).map r) \u2227 (\u2200 \u03c4 : List Nat, coeffN \u03c4 (pushN (bdN (\u03c3.map r))) = 0)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.d2_zero_shift",
+   "role": "preservation",
+   "statement": "(\u03c3 : List Nat) (hasc : ascB \u03c3 = true) (hlen : 2 \u2264 \u03c3.length) : ascB (\u03c3.map (fun x => x + 1)) = true \u2227 (\u2200 \u03c4 : List Nat, coeffN \u03c4 (pushN (bdN (\u03c3.map (fun x => x + 1)))) = 0)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [
+    "LadderGeneral.lean"
+   ],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.signless_countermodel",
+   "role": "preservation",
+   "statement": ": ascB [0, 1, 2] = true \u2227 coeffN [0] (pushNoSign (bdNoSign [0, 1, 2])) = 2 \u2227 coeffN [1] (pushNoSign (bdNoSign [0, 1, 2])) = 2 \u2227 coeffN [2] (pushNoSign (bdNoSign [0, 1, 2])) = 2 \u2227 coeffN [0] (pushN (bdN [0, 1, 2])) = 0 \u2227 coeffN [1] (pushN (bdN [0, 1, 2])) = 0 \u2227 coeffN [2] (pushN (bdN [0, 1, 2])) = 0"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.signless_countermodel_dim3",
+   "role": "preservation",
+   "statement": ": ascB [0, 1, 2, 3] = true \u2227 coeffN [0, 1] (pushNoSign (bdNoSign [0, 1, 2, 3])) = 2 \u2227 coeffN [0, 1] (pushN (bdN [0, 1, 2, 3])) = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "BoundaryCancellation.lean",
+   "name": "BoundaryCancellation.illformed_countermodel",
+   "role": "preservation",
+   "statement": ": ascB [0, 0, 1] = false \u2227 ([0, 0, 1] : List Nat).eraseIdx 0 = ([0, 0, 1] : List Nat).eraseIdx 1 \u2227 [0, 1] \u2208 facets [0, 0, 1] \u2227 coeffN [0, 1] (bdN [0, 0, 1]) = 0 \u2227 ((pushN (bdN [0, 0, 1])).filter (fun p => p.2 == [0])).length = 4 \u2227 ((pushN (bdN [0, 1, 2])).filter (fun p => p.2 == [0])).length = 2 \u2227 coeffN [0] (pushN (bdN [0, 0, 1])) = 0 \u2227 coeffN [1] (pushN (bdN [0, 0, 1])) = 0"
   }
  ]
 }

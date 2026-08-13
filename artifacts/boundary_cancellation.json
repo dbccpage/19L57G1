@@ -1,0 +1,347 @@
+{
+ "cancellation": {
+  "all_cancel": true,
+  "all_distinct": true,
+  "bounds": {
+   "cells_checked": 218,
+   "coefficient_checks": 3124,
+   "max_dim": 6,
+   "max_vertices": 8,
+   "min_dim": 2,
+   "sgn_range": 64
+  },
+  "per_dim": {
+   "2": {
+    "all_ascending": true,
+    "all_cancel": true,
+    "all_codim2_distinct": true,
+    "all_erase_injective": true,
+    "all_pairs_cancel": true,
+    "all_perfect_matching": true,
+    "all_rect_identity": true,
+    "all_swap_identity": true,
+    "cells": 56,
+    "coefficient_checks": 448,
+    "involution": {
+     "fixed_point_free": true,
+     "is_bijection": true,
+     "is_involution": true,
+     "maps_into_rectangle": true,
+     "n": 3,
+     "rectangle_size": 6,
+     "sign_reversing": true
+    },
+    "vertices_per_cell": 3
+   },
+   "3": {
+    "all_ascending": true,
+    "all_cancel": true,
+    "all_codim2_distinct": true,
+    "all_erase_injective": true,
+    "all_pairs_cancel": true,
+    "all_perfect_matching": true,
+    "all_rect_identity": true,
+    "all_swap_identity": true,
+    "cells": 70,
+    "coefficient_checks": 840,
+    "involution": {
+     "fixed_point_free": true,
+     "is_bijection": true,
+     "is_involution": true,
+     "maps_into_rectangle": true,
+     "n": 4,
+     "rectangle_size": 12,
+     "sign_reversing": true
+    },
+    "vertices_per_cell": 4
+   },
+   "4": {
+    "all_ascending": true,
+    "all_cancel": true,
+    "all_codim2_distinct": true,
+    "all_erase_injective": true,
+    "all_pairs_cancel": true,
+    "all_perfect_matching": true,
+    "all_rect_identity": true,
+    "all_swap_identity": true,
+    "cells": 56,
+    "coefficient_checks": 952,
+    "involution": {
+     "fixed_point_free": true,
+     "is_bijection": true,
+     "is_involution": true,
+     "maps_into_rectangle": true,
+     "n": 5,
+     "rectangle_size": 20,
+     "sign_reversing": true
+    },
+    "vertices_per_cell": 5
+   },
+   "5": {
+    "all_ascending": true,
+    "all_cancel": true,
+    "all_codim2_distinct": true,
+    "all_erase_injective": true,
+    "all_pairs_cancel": true,
+    "all_perfect_matching": true,
+    "all_rect_identity": true,
+    "all_swap_identity": true,
+    "cells": 28,
+    "coefficient_checks": 644,
+    "involution": {
+     "fixed_point_free": true,
+     "is_bijection": true,
+     "is_involution": true,
+     "maps_into_rectangle": true,
+     "n": 6,
+     "rectangle_size": 30,
+     "sign_reversing": true
+    },
+    "vertices_per_cell": 6
+   },
+   "6": {
+    "all_ascending": true,
+    "all_cancel": true,
+    "all_codim2_distinct": true,
+    "all_erase_injective": true,
+    "all_pairs_cancel": true,
+    "all_perfect_matching": true,
+    "all_rect_identity": true,
+    "all_swap_identity": true,
+    "cells": 8,
+    "coefficient_checks": 240,
+    "involution": {
+     "fixed_point_free": true,
+     "is_bijection": true,
+     "is_involution": true,
+     "maps_into_rectangle": true,
+     "n": 7,
+     "rectangle_size": 42,
+     "sign_reversing": true
+    },
+    "vertices_per_cell": 7
+   }
+  },
+  "sgn_alternates": true,
+  "sgn_cancel_pairs": true
+ },
+ "countermodels": {
+  "illformed": {
+   "ascending": false,
+   "boundary_forgets_a_facet": true,
+   "codim2_distinct": false,
+   "composite_still_vanishes": true,
+   "erase_injective": false,
+   "facets": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "perfect_matching": false,
+   "pseudo_cell": [
+    0,
+    0,
+    1
+   ],
+   "slot_multiplicity_pseudo": 4,
+   "slot_multiplicity_well_formed": 2,
+   "two_positions_one_facet": true,
+   "verdict": "strict ascent is not load-bearing for the coefficientwise vanishing (it still holds); it is load-bearing for distinctness, which fails here"
+  },
+  "signless": {
+   "all_signed_zero": true,
+   "all_signless_nonzero": true,
+   "cells": {
+    "[0, 1, 2, 3, 4]": {
+     "ascending": true,
+     "signed_zero_everywhere": true,
+     "signless_coefficients": [
+      [
+       [
+        0,
+        1,
+        2
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        1,
+        3
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        1,
+        4
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        2,
+        3
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        2,
+        4
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        3,
+        4
+       ],
+       2
+      ],
+      [
+       [
+        1,
+        2,
+        3
+       ],
+       2
+      ],
+      [
+       [
+        1,
+        2,
+        4
+       ],
+       2
+      ],
+      [
+       [
+        1,
+        3,
+        4
+       ],
+       2
+      ],
+      [
+       [
+        2,
+        3,
+        4
+       ],
+       2
+      ]
+     ],
+     "signless_nonzero_somewhere": true
+    },
+    "[0, 1, 2, 3]": {
+     "ascending": true,
+     "signed_zero_everywhere": true,
+     "signless_coefficients": [
+      [
+       [
+        0,
+        1
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        2
+       ],
+       2
+      ],
+      [
+       [
+        0,
+        3
+       ],
+       2
+      ],
+      [
+       [
+        1,
+        2
+       ],
+       2
+      ],
+      [
+       [
+        1,
+        3
+       ],
+       2
+      ],
+      [
+       [
+        2,
+        3
+       ],
+       2
+      ]
+     ],
+     "signless_nonzero_somewhere": true
+    },
+    "[0, 1, 2]": {
+     "ascending": true,
+     "signed_zero_everywhere": true,
+     "signless_coefficients": [
+      [
+       [
+        0
+       ],
+       2
+      ],
+      [
+       [
+        1
+       ],
+       2
+      ],
+      [
+       [
+        2
+       ],
+       2
+      ]
+     ],
+     "signless_nonzero_somewhere": true
+    }
+   },
+   "verdict": "the alternating sign convention is a DECLARED input; the uniform guarded filler rule does not force it, and the signless calculus refutes the vanishing"
+  }
+ },
+ "declared_inputs": [
+  "the ascending-list cell encoding",
+  "integer coefficients",
+  "the alternating sign convention (-1)^i"
+ ],
+ "renaming": {
+  "cells": 218,
+  "faces_transport": true,
+  "monotone_cancels": true,
+  "monotone_keeps_distinctness": true,
+  "monotone_preserves_ascent": true,
+  "monotone_preserves_length": true,
+  "non_monotone_breaks_ascent": true,
+  "non_monotone_still_cancels": true,
+  "renaming": "x |-> 2 * x + 3 (strictly monotone, injective)",
+  "scope": "the vanishing needs no hypothesis on the renaming; strict monotonicity is what transports the well-formedness hypotheses (ascent, arity) and the distinctness statements"
+ },
+ "scope": "the vanishing is proved in Lean for EVERY list and every presentation (d2_zero_unrestricted); the ascent and dimension hypotheses of d2_zero_general are recorded, not used.  Strict ascent is load-bearing only for the distinctness statements.  Nothing here is a homology claim: the coefficients and signs are declared inputs, not consequences of the filler rule."
+}

@@ -1635,14 +1635,16 @@ CL-PD2-LADDER)
   filler sense.  Well-formedness is a replayed invariant
   (`wf_nreplay`, `d4_wf`); guards are load-bearing and shells
   never self-fill; the dimension-4 demonstration replays
-  completely (5/10/10/5/1); the composite boundary vanishes at
-  dimensions 2–5 (decided/computed); the GENERAL composite
-  vanishing (∂∂ = 0 at every dimension) REMAINS OPEN — recorded as
-  the boundary-calculus conjecture, not claimed.
+  completely (5/10/10/5/1); the older dimension-2–5 computations are
+  retained as spot-checks.  The GENERAL coefficientwise composite
+  vanishing is now proved in `BoundaryCancellation.d2_zero_unrestricted`
+  (see CL-PD2-BOUNDARY-CANCELLATION); it is declaration-relative to the
+  alternating signs and integer chain calculus and is not a consequence
+  of the filler guard.
 - **Class**: theorem (uniform guarded filler; wf invariant) +
   countermodel (pseudo-cell; guard load-bearing) + finite
-  computation (dims 2–5) + CONJECTURE (general composite
-  vanishing).
+  computation (dims 2–5).  The separate general boundary theorem is
+  classified under CL-PD2-BOUNDARY-CANCELLATION.
 - **Lean**: `LadderGeneral.uniform_guarded_filler`,
   `LadderGeneral.shell_refuses_general`,
   `LadderGeneral.shell_no_self_fill`,
@@ -1927,4 +1929,66 @@ CL-PD2-LADDER)
   checks (probing one past the carrier), 11104 internal traces of
   length at most 2, the full symmetric group at carrier 3 for
   transport, tie carrier 4; bounds recorded in the artifact.
+
+### CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)
+- **Statement**: the coefficientwise composite boundary vanishes.
+  For EVERY finite list of vertices and EVERY face,
+  `coeffN tau (pushN (bdN sigma)) = 0` (`d2_zero_unrestricted`); the
+  declared form with strict ascent and list length at least two (cell
+  dimension at least one) is `d2_zero_general`, whose hypotheses are
+  recorded and discharged from the stronger theorem.  The proof is a
+  PAIRING, not a
+  computation: for each unordered pair of deleted positions the two
+  deletion orders are matched by `eraseIdx_swap`
+  (`(l.eraseIdx b).eraseIdx a = (l.eraseIdx a).eraseIdx (b-1)` for
+  `a < b`), their signs cancel by `sgn_cancel`
+  (`sgn b * sgn a + sgn a * sgn (b-1) = 0`), the double sum is
+  rearranged by `coeff_rect` and `tri_transpose`, and `rect_zero`
+  closes it.
+- **A premise of the task was false, and is recorded as false.**
+  Strict ascent is NOT load-bearing for the vanishing: the
+  deletion-order involution cancels each pair whether or not a third
+  term lands in the same slot, so the theorem holds for
+  repeated-vertex lists too (`illformed_countermodel` confirms the
+  pseudo-cell composite is still zero at every face).  What ascent IS
+  load-bearing for is DISTINCTNESS of the codimension-two faces:
+  `eraseIdx_inj_of_asc` and `codim2_distinct` are both false for
+  `[0, 0, 1]`.  The ill-formed exhibit is therefore a distinctness
+  countermodel plus a boundary-degeneracy exhibit, not a cancellation
+  countermodel.
+- **Connected to replay**: every cell of every complex replayed from
+  the empty complex satisfies the vanishing (`d2_zero_replayed`, via
+  `LadderGeneral.wf_nreplay`), including the dimension-4
+  demonstration (`d2_zero_d4`).
+- **Renaming independence**: for strictly monotone renamings ascent
+  is preserved and the vanishing transports (`eraseIdx_map`,
+  `ascB_map`, `d2_zero_renamed`, `d2_zero_shift`).  For injective but
+  NON-monotone renamings ascent can be destroyed; the vanishing still
+  holds, but only via the unrestricted theorem - stated exactly.
+- **The signs and coefficients remain DECLARED**: in the declared
+  integer calculus, replacing all signs by `1` makes the composite
+  nonzero (`signless_countermodel`, `signless_countermodel_dim3`).
+  Nothing here claims the filler rule forced them, or that the same
+  countermodel works in every coefficient system; the orientation
+  convention is declared content.
+- **Not formalized**: the quantitative statement that every
+  codimension-two face of an ascending cell collects exactly two of
+  the ordered pairs.  It follows from `codim2_distinct` by counting;
+  the count is checked exhaustively in the Python mirror and decided
+  on the exhibits, but is not a Lean theorem.  Recorded, not claimed.
+- **Class**: theorem (general) + countermodel (signless; ill-formed
+  distinctness) + finite computation (mirror).
+- **Lean**: `BoundaryCancellation.d2_zero_unrestricted`,
+  `.d2_zero_general`, `.d2_zero_facets`, `.d2_zero_replayed`,
+  `.d2_zero_d4`, `.eraseIdx_swap`, `.eraseIdx_eraseIdx_succ`,
+  `.sgn_succ`, `.sgn_cancel`, `.dterm_cancel`, `.coeff_rect`,
+  `.rect_zero`, `.tri_transpose`, `.eraseIdx_inj_of_asc`,
+  `.codim2_distinct`, `.eraseIdx_map`, `.ascB_map`,
+  `.d2_zero_renamed`, `.d2_zero_shift`, `.signless_countermodel`,
+  `.signless_countermodel_dim3`, `.illformed_countermodel`.
+- **Python**: `boundary_cancellation.json` - 218 cells (all ascending
+  cells over the first 8 numerals, dimensions 2 to 6), 3124
+  coefficient checks, sign alternation over all pairs below 64, and
+  the involution report (bijection, involution, fixed-point-free,
+  sign-reversing) per dimension; bounds recorded in the artifact.
 

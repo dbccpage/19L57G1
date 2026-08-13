@@ -14,11 +14,20 @@ admission strictly extends the complex.
 
 Scope, exactly: this is a theorem about the declared guarded step —
 dimension-uniform filler admission and strict extension — and
-nothing more.  It is NOT a homology claim; the general vanishing of
-the composite boundary (`∂∂ = 0` at every dimension) remains the
-open boundary-calculus conjecture, decided here only at dimensions
-2, 3, and 4 on the demonstration cells.  The review-pass conjecture
-GENERAL_DIMENSIONAL_LADDER is settled only in this narrowed sense.
+nothing more.  It is NOT a homology claim.  The review-pass
+conjecture GENERAL_DIMENSIONAL_LADDER is settled only in this
+narrowed sense.
+
+The general vanishing of the composite boundary is a SEPARATE
+question, and it is now settled elsewhere: `BoundaryCancellation`
+proves it for every finite cell and every face
+(`d2_zero_unrestricted`), by pairing the two deletion orders of each
+codimension-two face and cancelling their signs.  The
+dimension-bounded computation below (`d2_zero_dims_2_3_4`) is
+therefore a corollary spot-check, not the evidence.  Nothing about
+the filler rule forces the coefficients or the signs: without the
+signs the composite is nonzero
+(`BoundaryCancellation.signless_countermodel`).
 
 The repair over the review draft: the legacy guard had no
 well-formedness conjunct and admitted the repeated-vertex
@@ -302,9 +311,10 @@ def coeffN (τ : List Nat) (ch : List (Int × List Nat)) : Int :=
   (ch.filter (fun p => p.2 == τ)).foldl (fun acc p => acc + p.1) 0
 
 /-- The composite boundary vanishes on the demonstration cells of
-dimensions 2, 3, and 4 (decided).  The general vanishing at every
-dimension is the remaining boundary-calculus conjecture, recorded in
-the receipt — declared coefficients and signs carry the content. -/
+dimensions 2, 3, and 4 (decided).  `BoundaryCancellation` proves the
+general coefficientwise theorem; this older computation is retained
+as a corollary spot-check.  Declared coefficients and signs still
+carry the content. -/
 theorem d2_zero_dims_2_3_4 :
     ((combs 5 2).all fun t =>
       (facets t).all fun e => coeffN e (pushN (bdN t)) == 0) = true ∧

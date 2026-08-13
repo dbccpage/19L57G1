@@ -32,6 +32,7 @@ import Derivation.Compression
 import Derivation.StableContent
 import Derivation.RenamingStructure
 import Derivation.GraphGenesis
+import Derivation.BoundaryCancellation
 
 /-!
 # Axiom reports
@@ -856,3 +857,40 @@ open Derivation
 #print axioms GraphGenesis.family_never_grows_carrier
 #print axioms GraphGenesis.growth_demand_not_obstruction_consequence
 #print axioms GraphGenesis.blindPair_resolution_keeps_carrier
+#print axioms BoundaryCancellation.sumTo_const_zero
+#print axioms BoundaryCancellation.sumTo_congr
+#print axioms BoundaryCancellation.sumTo_add
+#print axioms BoundaryCancellation.sumTo_split
+#print axioms BoundaryCancellation.sumFrom_shift
+#print axioms BoundaryCancellation.tri_transpose
+#print axioms BoundaryCancellation.eraseIdx_eraseIdx_succ
+#print axioms BoundaryCancellation.eraseIdx_swap
+#print axioms BoundaryCancellation.sgn_succ
+#print axioms BoundaryCancellation.sgn_cancel
+#print axioms BoundaryCancellation.coeffN_nil
+#print axioms BoundaryCancellation.foldl_acc
+#print axioms BoundaryCancellation.coeffN_append
+#print axioms BoundaryCancellation.coeffN_singleton
+#print axioms BoundaryCancellation.coeffN_map_range
+#print axioms BoundaryCancellation.coeffN_flatMap_range
+#print axioms BoundaryCancellation.coeff_push_bd
+#print axioms BoundaryCancellation.coeff_rect
+#print axioms BoundaryCancellation.ite_pair_cancel
+#print axioms BoundaryCancellation.dterm_cancel
+#print axioms BoundaryCancellation.rect_zero
+#print axioms BoundaryCancellation.d2_zero_unrestricted
+#print axioms BoundaryCancellation.d2_zero_general
+#print axioms BoundaryCancellation.d2_zero_facets
+#print axioms BoundaryCancellation.d2_zero_replayed
+#print axioms BoundaryCancellation.d2_zero_d4
+#print axioms BoundaryCancellation.ascB_tail
+#print axioms BoundaryCancellation.ascB_head_lt
+#print axioms BoundaryCancellation.eraseIdx_inj_of_asc
+#print axioms BoundaryCancellation.codim2_distinct
+#print axioms BoundaryCancellation.eraseIdx_map
+#print axioms BoundaryCancellation.ascB_map
+#print axioms BoundaryCancellation.d2_zero_renamed
+#print axioms BoundaryCancellation.d2_zero_shift
+#print axioms BoundaryCancellation.signless_countermodel
+#print axioms BoundaryCancellation.signless_countermodel_dim3
+#print axioms BoundaryCancellation.illformed_countermodel
