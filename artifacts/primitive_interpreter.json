@@ -1,0 +1,192 @@
+{
+ "basis": [
+  {
+   "event": [
+    "admit",
+    5
+   ],
+   "name": "dedup_admit",
+   "world": {
+    "aug_licensed": true,
+    "budget": 9,
+    "data": [
+     5
+    ],
+    "notes": [],
+    "refusals": [],
+    "reqs": [],
+    "views": []
+   }
+  },
+  {
+   "event": [
+    "require",
+    0,
+    0
+   ],
+   "name": "guard_require",
+   "world": {
+    "aug_licensed": true,
+    "budget": 9,
+    "data": [
+     5
+    ],
+    "notes": [],
+    "refusals": [],
+    "reqs": [],
+    "views": []
+   }
+  },
+  {
+   "event": [
+    "mark",
+    [
+     0
+    ],
+    1
+   ],
+   "name": "guard_accept",
+   "world": {
+    "aug_licensed": true,
+    "budget": 9,
+    "data": [
+     10,
+     20
+    ],
+    "notes": [],
+    "refusals": [],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "views": [
+     [
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "event": [
+    "mark",
+    [],
+    0
+   ],
+   "name": "gate_budget",
+   "world": {
+    "aug_licensed": true,
+    "budget": 0,
+    "data": [
+     10,
+     20
+    ],
+    "notes": [],
+    "refusals": [],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "views": [
+     []
+    ]
+   }
+  },
+  {
+   "event": [
+    "addView",
+    [
+     0
+    ]
+   ],
+   "name": "gate_license",
+   "world": {
+    "aug_licensed": false,
+    "budget": 9,
+    "data": [
+     10,
+     20
+    ],
+    "notes": [],
+    "refusals": [],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "views": [
+     []
+    ]
+   }
+  },
+  {
+   "event": [
+    "refuse",
+    0,
+    1
+   ],
+   "name": "cert_refusal",
+   "world": {
+    "aug_licensed": true,
+    "budget": 9,
+    "data": [
+     10,
+     20
+    ],
+    "notes": [],
+    "refusals": [],
+    "reqs": [
+     [
+      0,
+      1
+     ]
+    ],
+    "views": [
+     [
+      0
+     ]
+    ]
+   }
+  }
+ ],
+ "behaviorally_distinct_on_basis": 64,
+ "boundary_setting": {
+  "candidates": {
+   "A": true,
+   "F": true
+  },
+  "carrier": "Option ConstitutionDesc (65 occurrences)",
+  "collapse_obstructed": true,
+  "occurrences": 65,
+  "retention_protection": "DECLARED",
+  "witness": [
+   "kernelDesc",
+   "interpreter-role"
+  ]
+ },
+ "diagonal_misses_all": true,
+ "family_size": 64,
+ "partial_top": "REFUSES",
+ "self_description_on_basis": true,
+ "terminal_evidence": {
+  "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE": [
+   "InterpreterBoundary.i5_boundary_is_A",
+   "InterpreterBoundary.i5_boundary_is_F",
+   "InterpreterBoundary.i5_collapse_obstructed",
+   "InterpreterBoundary.i5_difference_grounded"
+  ],
+  "INTERPRETER_TOWER_PERSISTS": [
+   "InterpreterBoundary.tower_persists",
+   "InterpreterBoundary.family_missed",
+   "diagonal_misses_all (exhaustive over the 64 indices)"
+  ]
+ },
+ "terminals": [
+  "INTERPRETER_TOWER_PERSISTS",
+  "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE"
+ ]
+}

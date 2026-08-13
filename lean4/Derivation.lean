@@ -24,6 +24,7 @@ import Derivation.PrimitiveContact
 import Derivation.PrimitivePassage
 import Derivation.HigherStructure
 import Derivation.Apartness
+import Derivation.InterpreterBoundary
 
 /-!
 # Axiom reports
@@ -598,3 +599,15 @@ open Derivation
 #print axioms Apartness.oriented_comp
 #print axioms Apartness.clos_oriented_iff
 #print axioms Apartness.oriented_family_trivial
+#print axioms InterpreterBoundary.indexWorld_len
+#print axioms InterpreterBoundary.diag_hit
+#print axioms InterpreterBoundary.tower_persists
+#print axioms InterpreterBoundary.i2_universal_in_class
+#print axioms InterpreterBoundary.i3_partial_top_refuses
+#print axioms InterpreterBoundary.i3_partial_covers
+#print axioms InterpreterBoundary.family_missed
+#print axioms InterpreterBoundary.i5_carrier_occurrences
+#print axioms InterpreterBoundary.i5_boundary_is_A
+#print axioms InterpreterBoundary.i5_boundary_is_F
+#print axioms InterpreterBoundary.i5_collapse_obstructed
+#print axioms InterpreterBoundary.i5_difference_grounded

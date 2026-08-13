@@ -1285,7 +1285,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "InterpreterBoundary.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.obstruction_under_irrefl",
@@ -3837,7 +3839,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-RULE1"
+    "CL-NC-RULE1",
+    "CL-PD2-PASSAGE"
    ],
    "consumers": [
     "PrimitivePassage.lean"
@@ -4286,7 +4289,8 @@
     "CL-NC-CONSTITUTION"
    ],
    "consumers": [
-    "Initiality.lean"
+    "Initiality.lean",
+    "InterpreterBoundary.lean"
    ],
    "kind": "generic",
    "module": "Constitution.lean",
@@ -4313,7 +4317,9 @@
    "citing_claims": [
     "CL-NC-CONSTITUTION"
    ],
-   "consumers": [],
+   "consumers": [
+    "InterpreterBoundary.lean"
+   ],
    "kind": "generic",
    "module": "Constitution.lean",
    "name": "Constitution.allDescs_complete",
@@ -4488,7 +4494,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-AUTONOMY"
+    "CL-NC-AUTONOMY",
+    "CL-PD2-HORIZON"
    ],
    "consumers": [],
    "kind": "generic",
@@ -4502,7 +4509,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-HORIZON"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
@@ -4515,7 +4524,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-HORIZON"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
@@ -4529,7 +4540,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-AUTONOMY"
+    "CL-NC-AUTONOMY",
+    "CL-PD2-HORIZON"
    ],
    "consumers": [
     "Constitution.lean"
@@ -4546,7 +4558,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-AUTONOMY"
+    "CL-NC-AUTONOMY",
+    "CL-PD2-HORIZON"
    ],
    "consumers": [],
    "kind": "generic",
@@ -4561,7 +4574,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-AUTONOMY"
+    "CL-NC-AUTONOMY",
+    "CL-PD2-HORIZON"
    ],
    "consumers": [
     "Constitution.lean"
@@ -4578,7 +4592,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-AUTONOMY"
+    "CL-NC-AUTONOMY",
+    "CL-PD2-HORIZON"
    ],
    "consumers": [
     "Constitution.lean"
@@ -4594,7 +4609,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-HORIZON"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
@@ -4607,7 +4624,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-HORIZON"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
@@ -4620,7 +4639,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-HORIZON"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
@@ -4722,7 +4743,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [
     "PrimitiveContact.lean"
    ],
@@ -4736,7 +4759,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -4748,7 +4773,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [
     "PrimitiveContact.lean"
    ],
@@ -4770,7 +4797,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [
     "PrimitiveContact.lean"
    ],
@@ -4804,7 +4833,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -4814,7 +4845,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -4866,7 +4899,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -4946,7 +4981,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INITIALITY"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -5011,7 +5048,9 @@
    "axioms": [
     "propext"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-BRANCHING"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -5035,7 +5074,9 @@
    "axioms": [
     "propext"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-BRANCHING"
+   ],
    "consumers": [
     "PrimitiveContact.lean"
    ],
@@ -5079,7 +5120,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-BRANCHING"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -5133,7 +5176,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-MATRIX"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
@@ -5143,7 +5188,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-MATRIX"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
@@ -5153,7 +5200,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-MATRIX"
+   ],
    "consumers": [
     "Apartness.lean"
    ],
@@ -5893,7 +5942,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-MATRIX"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
@@ -5958,7 +6009,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveContact.lean",
@@ -5994,7 +6047,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6035,7 +6090,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6149,7 +6206,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [
     "DiffInterface.lean"
    ],
@@ -6164,7 +6223,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [
     "DiffInterface.lean"
    ],
@@ -6179,7 +6240,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [
     "DiffInterface.lean"
    ],
@@ -6194,7 +6257,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6207,7 +6272,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [
     "HigherStructure.lean"
    ],
@@ -6222,7 +6289,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6235,7 +6304,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6248,7 +6319,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6262,7 +6335,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-RULE1"
+    "CL-NC-RULE1",
+    "CL-PD2-PASSAGE"
    ],
    "consumers": [
     "Completion.lean"
@@ -6304,7 +6378,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6366,7 +6442,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6379,7 +6457,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6392,7 +6472,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6651,7 +6733,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6664,7 +6748,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6677,7 +6763,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6687,7 +6775,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6700,7 +6790,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6713,7 +6805,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6726,7 +6820,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6739,7 +6835,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-GROWTH"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6752,7 +6850,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6765,7 +6865,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6778,7 +6880,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6804,7 +6908,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6817,7 +6923,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6830,7 +6938,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6843,7 +6953,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6856,7 +6968,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-BRANCHING"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6869,7 +6983,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6882,7 +6998,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6895,7 +7013,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-LADDER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "HigherStructure.lean",
@@ -6935,7 +7055,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -6945,7 +7067,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -6955,7 +7079,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -6965,7 +7091,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7001,7 +7129,9 @@
    "axioms": [
     "propext"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7011,7 +7141,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7021,7 +7153,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7041,7 +7175,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7061,7 +7197,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7093,7 +7231,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7115,7 +7255,9 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7175,7 +7317,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
@@ -7187,13 +7331,157 @@
    "axioms": [
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-APARTNESS"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.oriented_family_trivial",
    "role": "preservation",
    "statement": "(F : (Bool \u2192 Bool) \u2192 Prop) (h : \u2200 f, F f \u2192 PreservesOriented f) : \u2200 f, F f \u2192 f = id"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.indexWorld_len",
+   "role": "preservation",
+   "statement": "(i : Nat) : (indexWorld i).data.length = i"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.diag_hit",
+   "role": "preservation",
+   "statement": "{C : Type} {cs : List C} (ev : C \u2192 World \u2192 Event \u2192 World) {w : World} {c : C} (h : cs[w.data.length]? = some c) (e : Event) : diag cs ev w e = { ev c w e with notes"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.tower_persists",
+   "role": "preservation",
+   "statement": "{C : Type} (cs : List C) (ev : C \u2192 World \u2192 Event \u2192 World) : \u2203 f : World \u2192 Event \u2192 World, \u2200 c \u2208 cs, f \u2260 ev c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i2_universal_in_class",
+   "role": "preservation",
+   "statement": ": (\u2200 d : ConstitutionDesc, d \u2208 allDescs) \u2227 (\u2200 (w : World) (e : Event), interpStep kernelDesc w e = step w e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i3_partial_top_refuses",
+   "role": "preservation",
+   "statement": ": evalOpt none = fun _ _ => none"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i3_partial_covers",
+   "role": "preservation",
+   "statement": "(d : ConstitutionDesc) (w : World) (e : Event) : evalOpt (some d) w e = some (interpStep d w e)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.family_missed",
+   "role": "preservation",
+   "statement": ": \u2203 f : World \u2192 Event \u2192 World, \u2200 d \u2208 allDescs, f \u2260 interpStep d"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i5_carrier_occurrences",
+   "role": "preservation",
+   "statement": ": ((allDescs.map Option.some) ++ ([none] : List (Option ConstitutionDesc))).length = 65"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i5_boundary_is_A",
+   "role": "preservation",
+   "statement": ": PrimitiveCore.A boundarySetting"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i5_boundary_is_F",
+   "role": "preservation",
+   "statement": ": PrimitiveCore.F boundarySetting"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i5_collapse_obstructed",
+   "role": "preservation",
+   "statement": "{\u03b2 : Type} (q : Option ConstitutionDesc \u2192 \u03b2) (hq : q (some kernelDesc) = q none) : PrimDiff.FidelityObstruction PrimDiff.Irrefl boundarySetting.r q"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "InterpreterBoundary.lean",
+   "name": "InterpreterBoundary.i5_difference_grounded",
+   "role": "preservation",
+   "statement": ": \u2203 f : World \u2192 Event \u2192 World, \u2200 d \u2208 allDescs, f \u2260 interpStep d"
   }
  ]
 }
