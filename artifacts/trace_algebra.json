@@ -1,0 +1,6055 @@
+{
+ "bounds": {
+  "max_rewrite_list_length": 3,
+  "rewrite_alphabet": 4,
+  "rewrite_soundness_states": 12
+ },
+ "commutation": {
+  "battery_events": 18,
+  "battery_states": 3073,
+  "commuting_pairs": [
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "assertWit",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "assertWit",
+     1,
+     0
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "admitWit",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "protect",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "declareObs"
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "refuse",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "protect",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "declareObs"
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "refuse",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "admitOcc",
+     2
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "protect",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "declareObs"
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "refineCol",
+     [],
+     0
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "addCol",
+     [
+      0
+     ]
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "refuse",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "admitWit",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "protect",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "declareObs"
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "refineCol",
+     [],
+     0
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "addCol",
+     [
+      0
+     ]
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "refuse",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "assertWit",
+     1,
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "declareObs"
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "admitWit",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "declareObs"
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "protect",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "refineCol",
+     [],
+     0
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "declareObs"
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [],
+     0
+    ],
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [],
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [],
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "addCol",
+     [
+      0
+     ]
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "addCol",
+     [
+      1
+     ]
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "refuse",
+     0,
+     1
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "refineCol",
+     [
+      0
+     ],
+     1
+    ],
+    [
+     "halt"
+    ]
+   ],
+   [
+    [
+     "refuse",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     0
+    ]
+   ],
+   [
+    [
+     "refuse",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     1
+    ]
+   ],
+   [
+    [
+     "refuse",
+     0,
+     1
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   [
+    [
+     "refuse",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "refuse",
+     0,
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     0
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     true
+    ]
+   ],
+   [
+    [
+     "setBudget",
+     2
+    ],
+    [
+     "setLicense",
+     false
+    ]
+   ]
+  ],
+  "non_commuting_pairs": [
+   {
+    "left": [
+     "admitOcc",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "admitOcc",
+     2
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      2,
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "admitOcc",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refineCol",
+     [],
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "admitOcc",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 4
+   },
+   {
+    "left": [
+     "admitOcc",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "assertWit",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 1
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       1,
+       0
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "assertWit",
+     1,
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 1
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "admitWit",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      2
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refineCol",
+     [],
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      2
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      2
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      2
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 4
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      2
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "admitOcc",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      2
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "assertWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "assertWit",
+     1,
+     0
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       1,
+       0
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "assertWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "admitWit",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "assertWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "assertWit",
+     1,
+     0
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       1,
+       0
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "admitWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "protect",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 3
+   },
+   {
+    "left": [
+     "admitWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refineCol",
+     [],
+     0
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 7
+   },
+   {
+    "left": [
+     "admitWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "admitWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "admitWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refuse",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "admitWit",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 3
+   },
+   {
+    "left": [
+     "protect",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refineCol",
+     [],
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "protect",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 4
+   },
+   {
+    "left": [
+     "protect",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "protect",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refuse",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "protect",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 1
+   },
+   {
+    "left": [
+     "declareObs"
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 4
+   },
+   {
+    "left": [
+     "declareObs"
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "declareObs"
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refuse",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 2
+   },
+   {
+    "left": [
+     "declareObs"
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [],
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [],
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 7
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refuse",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     2
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "refineCol",
+     [],
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refuse",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 4
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     2
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 4
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setLicense",
+     true
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setLicense",
+     false
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       0
+      ]
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "refuse",
+     0,
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     0
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setBudget",
+     2
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 5
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setLicense",
+     true
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": false,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "setLicense",
+     false
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": false,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "addCol",
+     [
+      1
+     ]
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [
+      [
+       1
+      ]
+     ],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 6
+   },
+   {
+    "left": [
+     "refuse",
+     0,
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [
+      [
+       0,
+       1
+      ]
+     ],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witness_size": 3
+   },
+   {
+    "left": [
+     "setBudget",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "setBudget",
+     1
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setBudget",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "setBudget",
+     2
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setBudget",
+     0
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 1
+   },
+   {
+    "left": [
+     "setBudget",
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 2,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "setBudget",
+     2
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setBudget",
+     1
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 1,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setBudget",
+     2
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 2,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setLicense",
+     true
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": false,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "setLicense",
+     false
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setLicense",
+     true
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": false,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": false,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   },
+   {
+    "left": [
+     "setLicense",
+     false
+    ],
+    "left_then_right": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": false,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "right": [
+     "halt"
+    ],
+    "right_then_left": {
+     "asserted": [],
+     "budget": 0,
+     "halted": true,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witness_size": 0
+   }
+  ],
+  "unordered_pairs": 153
+ },
+ "frames": {
+  "budget_insensitive": [
+   "admitOcc",
+   "admitWit",
+   "assertWit",
+   "declareObs",
+   "protect",
+   "refuse",
+   "setLicense"
+  ],
+  "excluded_and_really_failing": [
+   "budget:addCol",
+   "budget:refineCol",
+   "budget:setBudget",
+   "license:addCol",
+   "license:setLicense",
+   "occurrence:addCol",
+   "occurrence:admitOcc",
+   "occurrence:admitWit",
+   "occurrence:assertWit",
+   "occurrence:refineCol"
+  ],
+  "excluded_but_actually_framing": [
+   "budget:halt",
+   "license:halt",
+   "occurrence:halt"
+  ],
+  "frames_verified": 20,
+  "frames_violated": 0,
+  "license_insensitive": [
+   "admitOcc",
+   "admitWit",
+   "assertWit",
+   "declareObs",
+   "protect",
+   "refineCol",
+   "refuse",
+   "setBudget"
+  ],
+  "occurrence_insensitive": [
+   "declareObs",
+   "protect",
+   "refuse",
+   "setBudget",
+   "setLicense"
+  ],
+  "why_the_terminal_is_excluded": "the terminal satisfies the one-sided frame law but is excluded from every insensitivity predicate because commutation needs the frame in both directions and the post-terminal state accepts nothing: see the terminal countermodel in the commutation report"
+ },
+ "identity": {
+  "every_event_idempotent": true,
+  "idempotence_failures": 0,
+  "inertness_criterion_failures": 0,
+  "pairs_checked": 110592,
+  "step_normal_form_failures": 0,
+  "terminal_absorption_failures": 0
+ },
+ "imported_inputs": [
+  "the sealed passage step function and its guards",
+  "the effect-class table of the transition alphabet",
+  "the environment/internal ownership declaration",
+  "the declared well-formed class"
+ ],
+ "internal": {
+  "budget_claim_not_made": "the internal generator emits setBudget 1; no internal-trace budget-preservation claim is made",
+  "internal_events": [
+   [
+    "assertWit",
+    0,
+    1
+   ],
+   [
+    "assertWit",
+    1,
+    0
+   ],
+   [
+    "admitWit",
+    0,
+    1
+   ],
+   [
+    "protect",
+    0,
+    1
+   ],
+   [
+    "declareObs"
+   ],
+   [
+    "refineCol",
+    [],
+    0
+   ],
+   [
+    "refineCol",
+    [
+     0
+    ],
+    1
+   ],
+   [
+    "addCol",
+    [
+     0
+    ]
+   ],
+   [
+    "addCol",
+    [
+     1
+    ]
+   ],
+   [
+    "refuse",
+    0,
+    1
+   ]
+  ],
+  "internal_trace_preserves_license": true,
+  "internal_trace_preserves_occurrences": true,
+  "refusal_is_accepted": true,
+  "refusal_recorded": [
+   [
+    0,
+    1
+   ]
+  ],
+  "refusal_survives_every_event": true,
+  "refusal_survives_terminal": true
+ },
+ "rewriting": {
+  "confluence_failures": 0,
+  "incompleteness_witness": {
+   "identified_by_rewriting": false,
+   "left": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   "right": [
+    [
+     "setBudget",
+     2
+    ]
+   ],
+   "same_replay_everywhere": true
+  },
+  "lists_checked": 85,
+  "max_list_length": 3,
+  "no_global_normal_form_claim": "replay determinism identifies event lists only relative to a start state; the rewrite system is state-independent and strictly weaker, and no normal form for replay equivalence is claimed",
+  "normal_form_fixpoint_failures": 0,
+  "rewrite_alphabet": [
+   [
+    "admitOcc",
+    0
+   ],
+   [
+    "setBudget",
+    1
+   ],
+   [
+    "refuse",
+    0,
+    1
+   ],
+   [
+    "halt"
+   ]
+  ],
+  "rules": [
+   "adjacent idempotence: e :: e :: l  ->  e :: l",
+   "terminal absorption: halt :: r :: l  ->  [halt]"
+  ],
+  "soundness_failures": 0,
+  "states_checked": 12,
+  "termination_failures": 0
+ },
+ "scope": {
+  "commutation": "checked over the declared commutation battery; the frame theorems are universal in Lean, the countermodels are concrete",
+  "rewriting": "sound at every start state, but far weaker than replay equivalence, which is itself state-relative"
+ },
+ "scoping": {
+  "equivalent_at_genesis": false,
+  "equivalent_on_scope": true,
+  "left": [
+   [
+    "admitOcc",
+    0
+   ]
+  ],
+  "right": [],
+  "scope": "states already representing occurrence 0",
+  "unscoped_countermodel": {
+   "asserted": [],
+   "budget": 0,
+   "halted": false,
+   "licensed": true,
+   "obs": null,
+   "occ": [],
+   "prot": [],
+   "refusals": [],
+   "wit": []
+  }
+ },
+ "trace": {
+  "classes": [
+   "supplyOccurrence",
+   "supplyOccurrence",
+   "assertDifference",
+   "retainDifference",
+   "protectQuiet",
+   "declareObstructing",
+   "recordRefusal",
+   "writeBudget",
+   "extendObservation",
+   "absorbTerminal"
+  ],
+  "erased": [
+   [
+    "admitOcc",
+    0
+   ],
+   [
+    "admitOcc",
+    1
+   ],
+   [
+    "assertWit",
+    0,
+    1
+   ],
+   [
+    "admitWit",
+    0,
+    1
+   ],
+   [
+    "protect",
+    0,
+    1
+   ],
+   [
+    "declareObs"
+   ],
+   [
+    "refuse",
+    0,
+    1
+   ],
+   [
+    "setBudget",
+    1
+   ],
+   [
+    "addCol",
+    [
+     0
+    ]
+   ],
+   [
+    "halt"
+   ]
+  ],
+  "guards": [
+   "occurrenceFresh",
+   "occurrenceFresh",
+   "assertionWellFormed",
+   "retentionOfAssertion",
+   "protectionOfRetained",
+   "preObservational",
+   "obstructionCertified",
+   "budgetWrite",
+   "columnAccepted",
+   "terminalDeclaration"
+  ],
+  "history_length": 12,
+  "legal_trace": true,
+  "raw_history_same_end_state": true,
+  "records": 10,
+  "refused_attempts": 2,
+  "replay_erases": true,
+  "spends": [
+   "unchanged",
+   "unchanged",
+   "unchanged",
+   "unchanged",
+   "unchanged",
+   "unchanged",
+   "unchanged",
+   "rewritten",
+   "spentOne",
+   "unchanged"
+  ]
+ }
+}

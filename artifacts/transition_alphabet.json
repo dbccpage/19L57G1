@@ -1,0 +1,730 @@
+{
+ "alphabet": {
+  "alphabet_size_guard_erased": 12,
+  "alphabet_size_with_guard": 13,
+  "class_signatures": {
+   "absorbTerminal": {
+    "continuity": "absorption",
+    "fields": [
+     "halted"
+    ],
+    "guard": "terminalDeclaration",
+    "obstruction_move": "inert",
+    "origin": "environment"
+   },
+   "assertDifference": {
+    "continuity": "continuation",
+    "fields": [
+     "asserted"
+    ],
+    "guard": "assertionWellFormed",
+    "obstruction_move": "inert",
+    "origin": "internal"
+   },
+   "declareObstructing": {
+    "continuity": "continuation",
+    "fields": [
+     "obs"
+    ],
+    "guard": "preObservational",
+    "obstruction_move": "creates",
+    "origin": "internal"
+   },
+   "declareQuiet": {
+    "continuity": "continuation",
+    "fields": [
+     "obs"
+    ],
+    "guard": "preObservational",
+    "obstruction_move": "inert",
+    "origin": "internal"
+   },
+   "extendObservation": {
+    "continuity": "continuation",
+    "fields": [
+     "obs",
+     "budget"
+    ],
+    "guard": "columnAccepted",
+    "obstruction_move": "removes",
+    "origin": "internal"
+   },
+   "protectObstructing": {
+    "continuity": "continuation",
+    "fields": [
+     "prot"
+    ],
+    "guard": "protectionOfRetained",
+    "obstruction_move": "creates",
+    "origin": "internal"
+   },
+   "protectQuiet": {
+    "continuity": "continuation",
+    "fields": [
+     "prot"
+    ],
+    "guard": "protectionOfRetained",
+    "obstruction_move": "inert",
+    "origin": "internal"
+   },
+   "recordRefusal": {
+    "continuity": "continuation",
+    "fields": [
+     "refusals"
+    ],
+    "guard": "obstructionCertified",
+    "obstruction_move": "inert",
+    "origin": "internal"
+   },
+   "refineObservation": {
+    "continuity": "continuation",
+    "fields": [
+     "obs",
+     "budget"
+    ],
+    "guard": "refinementAccepted",
+    "obstruction_move": "removes",
+    "origin": "internal"
+   },
+   "retainDifference": {
+    "continuity": "continuation",
+    "fields": [
+     "wit"
+    ],
+    "guard": "retentionOfAssertion",
+    "obstruction_move": "inert",
+    "origin": "internal"
+   },
+   "supplyOccurrence": {
+    "continuity": "continuation",
+    "fields": [
+     "occ"
+    ],
+    "guard": "occurrenceFresh",
+    "obstruction_move": "inert",
+    "origin": "environment"
+   },
+   "writeBudget": {
+    "continuity": "continuation",
+    "fields": [
+     "budget"
+    ],
+    "guard": "budgetWrite",
+    "obstruction_move": "inert",
+    "origin": "environment"
+   },
+   "writeLicense": {
+    "continuity": "continuation",
+    "fields": [
+     "licensed"
+    ],
+    "guard": "licenseWrite",
+    "obstruction_move": "inert",
+    "origin": "environment"
+   }
+  },
+  "classes": [
+   "supplyOccurrence",
+   "assertDifference",
+   "retainDifference",
+   "protectQuiet",
+   "protectObstructing",
+   "declareQuiet",
+   "declareObstructing",
+   "refineObservation",
+   "extendObservation",
+   "recordRefusal",
+   "writeBudget",
+   "writeLicense",
+   "absorbTerminal"
+  ],
+  "merged_under_guard_erasure": [
+   [
+    "refineObservation",
+    "extendObservation"
+   ]
+  ]
+ },
+ "bounds": {
+  "budget_pool": [
+   0,
+   1
+  ],
+  "event_battery": 18,
+  "observation_pool": 4,
+  "occurrence_positions": 2,
+  "pair_pool": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "refusal_pool": 2,
+  "state_space": 6144
+ },
+ "imported_inputs": [
+  "the sealed passage step function and its guards",
+  "occurrence supply (environment-owned)",
+  "budget authority (environment-owned, but internally emitted as a unit funding write)",
+  "license authority (environment-owned)",
+  "the terminal declaration (environment-owned)",
+  "the declared well-formed class: live, protection contained in retention"
+ ],
+ "invariance": {
+  "budget_delta_rewritten": "rewritten",
+  "budget_delta_spent_one_by_environment": "spentOne",
+  "funded_guards_always_spend_one": true,
+  "licence_separates_refine_from_extend": true,
+  "obstruction_split_preserved": "preserved",
+  "obstruction_split_untouched": "untouched",
+  "outside_class_retention_creates": true,
+  "refusal_always_preserved": "preserved"
+ },
+ "ownership": {
+  "blocks_generated": 2304,
+  "budget_write_claim_refuted": true,
+  "constructors_emitted_internally": [
+   "addCol",
+   "refineCol",
+   "setBudget"
+  ],
+  "environment_owned_constructors": [
+   "admitOcc",
+   "halt",
+   "setBudget",
+   "setLicense"
+  ],
+  "environment_owned_emitted_internally": [
+   "setBudget"
+  ],
+  "environment_owned_events_emitted": [
+   "('setBudget', 1)"
+  ],
+  "no_license_write_emitted": true,
+  "no_occurrence_supply_emitted": true,
+  "no_terminal_emitted": true,
+  "only_unit_funding_emitted": true,
+  "refutation_witness": {
+   "block": [
+    [
+     "setBudget",
+     1
+    ],
+    [
+     "addCol",
+     [
+      0
+     ]
+    ]
+   ],
+   "block_is_generated": true,
+   "state": {
+    "asserted": [
+     [
+      0,
+      1
+     ]
+    ],
+    "budget": 0,
+    "halted": false,
+    "licensed": true,
+    "obs": [],
+    "occ": [
+     0,
+     1
+    ],
+    "prot": [
+     [
+      0,
+      1
+     ]
+    ],
+    "refusals": [],
+    "wit": [
+     [
+      0,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ "partition": {
+  "accepted_wellformed_transitions": 22480,
+  "all_classes_realized": true,
+  "ambiguous_classifications": 0,
+  "class_signature_failures": 0,
+  "guard_agreement_failures": 0,
+  "halted_accepted_transitions": 0,
+  "mixed_obstruction_steps": 0,
+  "pairs_checked": 110592,
+  "realized_per_class": {
+   "absorbTerminal": 3456,
+   "assertDifference": 1152,
+   "declareObstructing": 480,
+   "declareQuiet": 384,
+   "extendObservation": 240,
+   "protectObstructing": 576,
+   "protectQuiet": 576,
+   "recordRefusal": 288,
+   "refineObservation": 160,
+   "retainDifference": 192,
+   "supplyOccurrence": 4608,
+   "writeBudget": 6912,
+   "writeLicense": 3456
+  }
+ },
+ "scope": {
+  "minimality": "minimum over the declared well-formed class inside the declared finite state space, not over states reachable from genesis",
+  "partition": "exhaustive over the declared state space and event battery; the Lean proof is universal"
+ },
+ "witnesses": {
+  "search_space_events": 18,
+  "search_space_states": 6144,
+  "size_measure": "occ + asserted + wit + prot + refusals + budget + (0 if pre-observational else 1 + columns)",
+  "witnesses": {
+   "absorbTerminal": {
+    "event": [
+     "halt"
+    ],
+    "minimum_size": 0,
+    "signature": {
+     "continuity": "absorption",
+     "fields": [
+      "halted"
+     ],
+     "guard": "terminalDeclaration",
+     "obstruction_move": "inert",
+     "origin": "environment"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "assertDifference": {
+    "event": [
+     "assertWit",
+     0,
+     1
+    ],
+    "minimum_size": 2,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "asserted"
+     ],
+     "guard": "assertionWellFormed",
+     "obstruction_move": "inert",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 4
+   },
+   "declareObstructing": {
+    "event": [
+     "declareObs"
+    ],
+    "minimum_size": 2,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "obs"
+     ],
+     "guard": "preObservational",
+     "obstruction_move": "creates",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witnesses_at_minimum_size": 4
+   },
+   "declareQuiet": {
+    "event": [
+     "declareObs"
+    ],
+    "minimum_size": 0,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "obs"
+     ],
+     "guard": "preObservational",
+     "obstruction_move": "inert",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "extendObservation": {
+    "event": [
+     "addCol",
+     [
+      0
+     ]
+    ],
+    "minimum_size": 5,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "obs",
+      "budget"
+     ],
+     "guard": "columnAccepted",
+     "obstruction_move": "removes",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "protectObstructing": {
+    "event": [
+     "protect",
+     0,
+     1
+    ],
+    "minimum_size": 2,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "prot"
+     ],
+     "guard": "protectionOfRetained",
+     "obstruction_move": "creates",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "protectQuiet": {
+    "event": [
+     "protect",
+     0,
+     1
+    ],
+    "minimum_size": 1,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "prot"
+     ],
+     "guard": "protectionOfRetained",
+     "obstruction_move": "inert",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "recordRefusal": {
+    "event": [
+     "refuse",
+     0,
+     1
+    ],
+    "minimum_size": 3,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "refusals"
+     ],
+     "guard": "obstructionCertified",
+     "obstruction_move": "inert",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": [],
+     "occ": [],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "refineObservation": {
+    "event": [
+     "refineCol",
+     [],
+     0
+    ],
+    "minimum_size": 6,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "obs",
+      "budget"
+     ],
+     "guard": "refinementAccepted",
+     "obstruction_move": "removes",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 1,
+     "halted": false,
+     "licensed": true,
+     "obs": [
+      []
+     ],
+     "occ": [
+      0
+     ],
+     "prot": [
+      [
+       0,
+       1
+      ]
+     ],
+     "refusals": [],
+     "wit": [
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    "witnesses_at_minimum_size": 4
+   },
+   "retainDifference": {
+    "event": [
+     "admitWit",
+     0,
+     1
+    ],
+    "minimum_size": 3,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "wit"
+     ],
+     "guard": "retentionOfAssertion",
+     "obstruction_move": "inert",
+     "origin": "internal"
+    },
+    "state": {
+     "asserted": [
+      [
+       0,
+       1
+      ]
+     ],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [
+      0,
+      1
+     ],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 2
+   },
+   "supplyOccurrence": {
+    "event": [
+     "admitOcc",
+     0
+    ],
+    "minimum_size": 0,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "occ"
+     ],
+     "guard": "occurrenceFresh",
+     "obstruction_move": "inert",
+     "origin": "environment"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 4
+   },
+   "writeBudget": {
+    "event": [
+     "setBudget",
+     1
+    ],
+    "minimum_size": 0,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "budget"
+     ],
+     "guard": "budgetWrite",
+     "obstruction_move": "inert",
+     "origin": "environment"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 4
+   },
+   "writeLicense": {
+    "event": [
+     "setLicense",
+     false
+    ],
+    "minimum_size": 0,
+    "signature": {
+     "continuity": "continuation",
+     "fields": [
+      "licensed"
+     ],
+     "guard": "licenseWrite",
+     "obstruction_move": "inert",
+     "origin": "environment"
+    },
+    "state": {
+     "asserted": [],
+     "budget": 0,
+     "halted": false,
+     "licensed": true,
+     "obs": null,
+     "occ": [],
+     "prot": [],
+     "refusals": [],
+     "wit": []
+    },
+    "witnesses_at_minimum_size": 2
+   }
+  }
+ }
+}
