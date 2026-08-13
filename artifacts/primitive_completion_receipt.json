@@ -1,0 +1,217 @@
+{
+ "adversarial_record": [
+  {
+   "attack": "metatheoretic inequality relabeled as object-level difference",
+   "disposition": "BLOCKED: PrimitiveCore.D_iff_ne, nimp_w_d, PrimDiff.meta_diff_without_assertion"
+  },
+  {
+   "attack": "witness relabeled as observer separation",
+   "disposition": "BLOCKED: Completion.witness_not_separation, PrimitivePassage.wit_independent_of_obs"
+  },
+  {
+   "attack": "two-ness relabeled as relation",
+   "disposition": "BLOCKED: two-ness forced only under irreflexivity (no_witness_on_subsingleton); bare one-point witness countermodel"
+  },
+  {
+   "attack": "finite off-diagonal facts relabeled as an irreflexivity law",
+   "disposition": "BLOCKED: laws only by admission; RefusalFrontier.bridge_facts_not_law (sealed); OPEN located cells kept OPEN"
+  },
+  {
+   "attack": "orientation imported through ordered endpoint names",
+   "disposition": "BLOCKED: Apartness.orientations_same_apartness + orientations_differ price the orientation as retained data; PrimitiveCats.pointed_rigid"
+  },
+  {
+   "attack": "protection silently merged with retention",
+   "disposition": "BLOCKED: separate stores throughout; matrix cells separate C/F; the sealed ofWorld identification is stated"
+  },
+  {
+   "attack": "observer imported into Primitive Difference",
+   "disposition": "BLOCKED: obst_requires_observation (theorem); the candidate signature has no observation field"
+  },
+  {
+   "attack": "quotient no-recovery applied without a protected distinction",
+   "disposition": "BLOCKED: quotient_no_recovery takes the identification hypothesis; no_protection_no_obstruction"
+  },
+  {
+   "attack": "repair-family existence sold as execution",
+   "disposition": "BLOCKED: proposal_not_execution, budget_gates_execution"
+  },
+  {
+   "attack": "extension proposal sold as authorization",
+   "disposition": "BLOCKED: license and budget gates are separate events in every funded block"
+  },
+  {
+   "attack": "refusal record sold as terminal",
+   "disposition": "BLOCKED: refusal_not_terminal vs terminal_absorbing, separately typed"
+  },
+  {
+   "attack": "recursive definition sold as internal triggering",
+   "disposition": "BLOCKED: next-family iteration stated metatheoretic; sealed autonomy level 4 remains NOT attained"
+  },
+  {
+   "attack": "singleton policy family sold as absence of policy",
+   "disposition": "BLOCKED: the growth policy is a declared driver; the closure family is non-singleton at obstructions (nextFamilyP_complete_*)"
+  },
+  {
+   "attack": "probe-compliance uniqueness sold as initiality",
+   "disposition": "SETTLED AGAINST INITIALITY: Phase VII refutation in a genuine category; live census 128"
+  },
+  {
+   "attack": "one split retract sold as a universal property",
+   "disposition": "BLOCKED: erase_sim is one morphism; initiality refuted; orbit-relative agreement is the exact positive scope"
+  },
+  {
+   "attack": "fixed interpreter sold as represented constitution",
+   "disposition": "BLOCKED: family_missed (the family provably misses an interpreter-grade function)"
+  },
+  {
+   "attack": "self-description sold as self-interpretation",
+   "disposition": "BLOCKED: interp_describe vs family_missed (I4)"
+  },
+  {
+   "attack": "finite model enumeration sold as unrestricted theorem",
+   "disposition": "BLOCKED: every bound declared in this receipt; formulas beyond bounds are computations or conjectures"
+  },
+  {
+   "attack": "contact comments sold as contact Lean results",
+   "disposition": "MOOT AND GUARDED: no contact input exists; the committed protocol reads statements only"
+  },
+  {
+   "attack": "graph/cochain realization sold as forced ontology",
+   "disposition": "BLOCKED: filling_not_forced, boundary_not_forced; the post-hoc table is derivation-inert"
+  }
+ ],
+ "axiom_report": {
+  "axioms_within": [
+   "propext",
+   "Quot.sound"
+  ],
+  "sha256": "aa8c830ee425e042cf364e75c71172173608c8e751239a6c5437ecc44a388501",
+  "theorem_count": 607
+ },
+ "blind_native_base": "ccd3a53",
+ "bounds": {
+  "apartness_exhaustive_carrier": 3,
+  "cell_demonstration_carrier": 4,
+  "controller_behavior_basis": "6 states x 10 events (recorded in artifact)",
+  "controller_class": 1024,
+  "cut_census_carriers": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "growth_rounds": 15,
+  "interpreter_basis": "six probe worlds/events",
+  "interpreter_family": 64,
+  "matrix_universe": "carriers 1..3, declared ret/prot/ops decorations (see primitive_implication_matrix.json)",
+  "preservation_census_carrier": 4
+ },
+ "contact": {
+  "manifest_hash": null,
+  "package_present": false,
+  "status": "CONTACT_INPUT_ABSENT"
+ },
+ "graph_scope": "dependency records classify declared bridges; no claim exhausts every possible bridge (inherited scope)",
+ "open_obligations": [
+  "four OPEN located matrix cells (a->bl, bs->bl, bc->bl, f->bl): no internal countermodel can exist (located_of_decidable); independence is metatheoretic",
+  "PrimitiveCats.openTerminalPres2: two-point observer terminality is selection-relative; unrestricted form needs a preimage-selection principle",
+  "cut census formula 2^(n-2): computed to carrier 5, conjectured generally",
+  "absolute self-interpretation: the outermost interpretation relation remains metatheoretic (inherited OPEN bridge), now POSITIVELY characterized: the boundary satisfies the native kernel candidates A and F (Phase VIII) \u2014 open as absolute closure, structured as Primitive Difference",
+  "absolute no-outside: not formulable in this calculus; not claimed (inherited scope)"
+ ],
+ "prompt_sha256": {
+  "prompt/prompt.md": "a613a1965e4f02fee00df4d42041fceeca176abcfaa9202c3e769021305940b5",
+  "prompt/prompt_pr12.md": "e3c6bc4eb04a03e0650618f890a882a6865da036d0eac076037bc5385b4259fa",
+  "prompt/seed_prompt.md": "ee3ba0583fea2a11f1294538c912c542b3faee5316355dc226efb92ef64646ab"
+ },
+ "run": "PR #12 \u2014 Primitive Difference contact and passage",
+ "terminals": [
+  {
+   "code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
+   "evidence": [
+    "PrimitiveCore.matrixCells (72 cells)",
+    "PrimitiveCats.d2_initial",
+    "primitive_implication_matrix.json"
+   ]
+  },
+  {
+   "code": "NATIVE_PRIMITIVE_DIFFERENCE_BRANCHES",
+   "evidence": [
+    "PrimitiveCats.s2_initial_sym",
+    "PrimitiveCats.s2_not_weakly_initial",
+    "PrimitiveCats.no_terminal_pres",
+    "orientation fork and observer cut both retained"
+   ]
+  },
+  {
+   "code": "CONTACT_INPUT_ABSENT",
+   "evidence": [
+    "primitive_contact.json",
+    "PrimitiveContact.contactStatus"
+   ]
+  },
+  {
+   "code": "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED",
+   "evidence": [
+    "PrimitivePassage (all fourteen arrows with statuses)",
+    "primitive_passage.json"
+   ]
+  },
+  {
+   "code": "TWO_RULE_SCHEMA_PROVED_UNDER_DECLARED_RESPONSE_UNIVERSE_AND_WF_PROTECTED_PAIR",
+   "evidence": [
+    "PrimitivePassage.two_rule",
+    "PrimitivePassage.extension_always_available"
+   ]
+  },
+  {
+   "code": "NONUNIQUE_CONTROLLER_FAMILY",
+   "evidence": [
+    "ControllerCategory.live_census",
+    "ControllerCategory.nonrefuse_agree",
+    "ControllerCategory.refuse_distinguishes"
+   ]
+  },
+  {
+   "code": "INITIALITY_REFUTED_BY_CONSTANT_SIMULATIONS_COUNTERMODEL",
+   "evidence": [
+    "ControllerCategory.no_initial_ctrl",
+    "ControllerCategory.no_initial_live_ctrl",
+    "ControllerCategory.strict_agree_on_reachable (orbit-relative salvage)"
+   ]
+  },
+  {
+   "code": "INTERPRETER_TOWER_PERSISTS",
+   "evidence": [
+    "InterpreterBoundary.tower_persists",
+    "primitive_interpreter.json (diagonal_misses_all)"
+   ]
+  },
+  {
+   "code": "INTERPRETER_BOUNDARY_IS_PRIMITIVE_DIFFERENCE",
+   "evidence": [
+    "InterpreterBoundary.i5_boundary_is_A",
+    "InterpreterBoundary.i5_boundary_is_F",
+    "InterpreterBoundary.i5_collapse_obstructed",
+    "InterpreterBoundary.i5_difference_grounded"
+   ]
+  },
+  {
+   "code": "HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED",
+   "evidence": [
+    "HigherStructure.filling_not_forced",
+    "HigherStructure.boundary_not_forced",
+    "HigherStructure.ladder_dim2/dim3"
+   ]
+  }
+ ],
+ "toolchain": {
+  "lean": "leanprover/lean4:v4.33.0",
+  "python_requirements_sha256": "bfe7283f51a19b579fa08f8c7e6b19a714885166607277b94928bb8a23885bbf"
+ },
+ "withdrawn_or_repaired_claims": [
+  "42a33d9 item 8 cross-language claim: REFUTED and repaired (C10; Horizon budget saturation pins)",
+  "CL-NC-AUTONOMY lawfulness citation: OVERSTATED and closed upward (C6; Horizon every-horizon theorems)"
+ ]
+}

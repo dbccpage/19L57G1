@@ -211,3 +211,30 @@ derived, only declared); the controller category's simulations are
 transition-system simulations, and no claim links them to any
 enriched or higher-categorical structure; nothing here derives a
 metric, measure, or amplitude.
+
+## 8. Terminals, adversarial record, and receipt
+
+The run ends with ten terminal codes, each mapped to theorem or
+countermodel evidence, five open obligations, the twenty-attack
+adversarial record (every attack with its disposition), and the two
+withdrawn-or-repaired claims — all machine-readable in
+`artifacts/primitive_completion_receipt.json`.  Controller
+universality: refuted, with the reachable-orbit salvage
+(`paper/primitive_controller_universality.md`).  Interpreter
+boundary: tower persists; the boundary is a Primitive Difference
+(`paper/primitive_interpreter_boundary.md`).  The strongest
+defensible terminal statement of the whole run:
+
+> The weakest object deserving the name Primitive Difference is the
+> pointed witnessed irreflexive relation, initial in its category;
+> every further capacity — symmetry, cotransitivity, locatedness,
+> retention, protection, observation — is a separately priced
+> admission; the first obstruction exists only when a declared
+> observation collapses a protected retained difference, and it is
+> then forced to a response: same-level repair or structure
+> creation; iterating that forcing grows the first graph, and the
+> same forcing shape, one dimension up, grows the simplices; no
+> controller realizing this is categorically unique; and the
+> boundary between describing this system and running it is itself
+> the next Primitive Difference.
+

@@ -1431,3 +1431,69 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `HigherStructure.altNum_stages`,
   `HigherStructure.d2_zero_triangles`, `HigherStructure.d2_zero_tet`,
   `HigherStructure.boundary_not_forced`.
+
+### CL-PD2-CONTROLLER
+- **Statement**: in the declared 1024-member variable-event-grammar
+  class, response-liveness is exactly the two-rule support (all 128
+  live members execute the resolution at the certified obstruction;
+  each response kind load-bearing by countermodel); the live family
+  is essentially non-unique (full vs no-refuse agree on every
+  refusal-free event, differ at a certified obstruction) — the sealed
+  six-toggle uniqueness is class-relative; the simulation category
+  has proved laws, every ordered pair is connected by constant
+  simulations, and initiality is refuted everywhere (including the
+  live subcategory); the strict refinement excludes constants yet
+  global uniqueness still fails by an invariant-twist countermodel;
+  uniqueness holds exactly on the genesis-reachable orbit.
+- **Class**: theorem + countermodel + finite computation.
+- **Lean**: `ControllerCategory.allKinds_complete`,
+  `ControllerCategory.interpK_full`,
+  `ControllerCategory.live_census`,
+  `ControllerCategory.tworule_executable_of_live`,
+  `ControllerCategory.dead_without_addcol`,
+  `ControllerCategory.dead_without_budget`,
+  `ControllerCategory.dead_without_refine`,
+  `ControllerCategory.nonrefuse_agree`,
+  `ControllerCategory.refuse_distinguishes`,
+  `ControllerCategory.erase_sim`,
+  `ControllerCategory.every_pair_connected`,
+  `ControllerCategory.no_initial_ctrl`,
+  `ControllerCategory.no_initial_live_ctrl`,
+  `ControllerCategory.const_not_strict`,
+  `ControllerCategory.strict_not_unique`,
+  `ControllerCategory.strict_agree_on_reachable`.
+- **Python**: `primitive_controller_category.json`.
+
+### CL-PD2-INTERPRETER
+- **Statement**: every finite code list under any evaluation map is
+  missed by a same-type interpreter function (finite diagonal;
+  uniform in the level, so every finite closure has a new top); the
+  declared 64-family has an exact universal code/evaluator, scoped;
+  a typed-refusal top closes by partiality what totality cannot;
+  description-level fixed point without evaluation-level fixed
+  point; and the boundary itself satisfies the native kernel
+  candidates A and F with obstructed collapse and behaviorally
+  grounded non-identification — the interpreter boundary IS a
+  Primitive Difference.  Absolute no-outside not claimed.
+- **Class**: theorem + countermodel + finite computation + OPEN
+  (absolute closure).
+- **Lean**: `InterpreterBoundary.tower_persists`,
+  `InterpreterBoundary.i2_universal_in_class`,
+  `InterpreterBoundary.i3_partial_top_refuses`,
+  `InterpreterBoundary.i3_partial_covers`,
+  `InterpreterBoundary.family_missed`,
+  `InterpreterBoundary.i5_boundary_is_A`,
+  `InterpreterBoundary.i5_boundary_is_F`,
+  `InterpreterBoundary.i5_collapse_obstructed`,
+  `InterpreterBoundary.i5_difference_grounded`.
+- **Python**: `primitive_interpreter.json`.
+
+### CL-PD2-RECEIPT
+- **Statement**: the completion receipt binds base commit, contact
+  status, prompt hashes, toolchain pins, the axiom-report hash, all
+  declared finite bounds, ten terminal claims each mapped to theorem
+  or countermodel evidence, five open obligations, the twenty-attack
+  adversarial record, and the two withdrawn-or-repaired claims.
+- **Class**: finite computation (deterministic generator).
+- **Python**: `primitive_completion_receipt.json`,
+  `run_primitive_receipt.py`.

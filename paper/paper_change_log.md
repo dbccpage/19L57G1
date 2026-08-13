@@ -535,3 +535,30 @@ corrected by 42a33d9; re-verified against current Lean statements.
 6. New claims CL-PD2-* in the ledger; papers
    `primitive_difference_contact.md`,
    `primitive_difference_passage.md`, `primitive_difference_map.md`.
+
+
+## PR #12 — Phases VII–VIII and completion
+
+1. Controller category (Phase VII): the six-toggle proxy replaced by
+   a genuine 1024-member variable-event-grammar class with a
+   simulation category (laws proved).  Initiality REFUTED by the
+   constant-simulation countermodel, surviving restriction to the
+   live subcategory; NONUNIQUE_CONTROLLER_FAMILY proved (live census
+   128; refusal is response-invisible); strict refinement excludes
+   constants but global uniqueness still fails (invariant-twist
+   countermodel); uniqueness holds exactly on the genesis-reachable
+   orbit.  Agreement is a replay theorem, not a categorical one.
+2. Interpreter boundary (Phase VIII): tower persistence proved by
+   finite diagonalization (every finite closure has a new top);
+   universal code/evaluator exact for the declared family; the
+   typed-refusal top closes by partiality what totality cannot;
+   self-description without self-justifying evaluation; and the
+   boundary formalized as a Primitive Difference (candidates A and F
+   satisfied, collapse obstructed, difference behaviorally grounded).
+   Absolute no-outside not claimed.
+3. Completion: receipt with ten terminals, five open obligations,
+   the twenty-attack adversarial record, and the two
+   withdrawn-or-repaired claims; papers
+   `primitive_controller_universality.md`,
+   `primitive_interpreter_boundary.md`; ledger claims
+   CL-PD2-CONTROLLER, CL-PD2-INTERPRETER, CL-PD2-RECEIPT.

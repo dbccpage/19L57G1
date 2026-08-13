@@ -7380,7 +7380,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7393,7 +7395,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7406,7 +7410,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7419,7 +7425,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7432,7 +7440,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7452,7 +7462,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7462,7 +7474,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7472,7 +7486,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7485,7 +7501,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-INTERPRETER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "InterpreterBoundary.lean",
@@ -7520,7 +7538,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7533,7 +7553,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7543,7 +7565,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7579,7 +7603,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7657,7 +7683,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7683,7 +7711,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7709,7 +7739,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7755,7 +7787,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7768,7 +7802,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -7981,7 +8017,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8040,7 +8078,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8066,7 +8106,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8079,7 +8121,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8092,7 +8136,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8170,7 +8216,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
@@ -8261,7 +8309,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTROLLER"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
