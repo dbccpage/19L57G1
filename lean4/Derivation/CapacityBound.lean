@@ -203,7 +203,8 @@ theorem capacity_bound (colour v : Nat → Nat) (k d n : Nat)
 
 The bound must not be an unfalsifiable refusal.  A local view that DOES
 separate a deep pair below the threshold shows the threshold is doing
-work; a constant colouring shows the bound is attained. -/
+work; a constant colouring exhibits the degenerate one-colour case.
+No threshold minimality or tightness is claimed. -/
 
 /-- With one colour the bound is `1 ^ (2 * d + 1) = 1`, and indeed the
 view is constant, so it separates nothing.  This is the degenerate end
