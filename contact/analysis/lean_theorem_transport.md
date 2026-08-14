@@ -5,7 +5,7 @@ Run: primitive-difference contact collision, 2026-08-13. Pre-contact base
 `ebb1e0b`.
 
 **Anchor, stated exactly.** Not everything cited here is at `ebb1e0b`. Five
-declarations are UNCOMMITTED working-tree additions made after that commit,
+declarations were added after that commit and committed in this collision,
 verified absent at `ebb1e0b` by `git grep`: `ContactKernel.toDiffObs`,
 `ContactKernel.toDiffObs_fields`, `ContactKernel.toDiffObs_apart`,
 `ContactBridge.collapse_collision_is_pair_blocked`,
@@ -13,10 +13,10 @@ verified absent at `ebb1e0b` by `git grep`: `ContactKernel.toDiffObs`,
 among them carries a matching `#print axioms` line in `lean4/Derivation.lean`,
 and `artifacts/lean_axioms.txt` was regenerated to match (1149 reports over 42
 sources, all within `{propext, Quot.sound}`). Throughout this document **"on
-disk" means the working tree of this run = `ebb1e0b` + those five**; nothing
+disk" means the collision tree = `ebb1e0b` + those five**; nothing
 outside that set is cited. Line numbers are working-tree line numbers, which
 for `ContactBridge.lean`, `ContactKernel.lean` and `PrimitiveContact.lean`
-differ from the `ebb1e0b` numbers. The working tree also carries docstring
+differ from the `ebb1e0b` numbers. The collision tree also carries docstring
 corrections (scope qualifiers on the minimality remarks, `sufficiency only` on
 `kernel_two_point_presentation`, and the superseded-terminal stamp in
 `PrimitiveContact`) that are text-only and change no statement.
@@ -53,9 +53,9 @@ vocabulary firewall keeps supplied identifiers out of `lean4/`, `code/`, and
 
 The same ruling binds this repository's own prose: the native module
 doc-comments quoted or paraphrased below are navigational only; every claim
-here is anchored to a named declaration that exists on disk in the working tree
-of this run — commit `ebb1e0b` plus the five uncommitted declarations named in
-the anchor note above, five and no more.
+here is anchored to a named declaration that exists on disk in the collision
+tree of this run — commit `ebb1e0b` plus the five later-committed declarations
+named in the anchor note above, five and no more.
 
 ---
 
@@ -103,8 +103,8 @@ sharpened in §2.16.
 Legend for the transport tables:
 
 - **PROVED** — a named Lean declaration on disk (anchor note above: `ebb1e0b`
-  plus the five uncommitted declarations) establishes the direction; its exact
-  hypotheses are listed.
+  plus the five later-committed declarations) establishes the direction; its
+  exact hypotheses are listed.
 - **PROVED-UNDER-H** — established only under the listed extra hypothesis
   (always an explicit `Decidable` instance argument; never a classical
   principle used as a proof step).
@@ -405,7 +405,7 @@ operations.
 | direction | status | Lean | exact hypotheses |
 |---|---|---|---|
 | observer + chosen pair → kernel | PROVED | `ContactKernel.ofDiffObs` (`:216`) | `a b : X` **and** `hw : ¬ ZeroRel O a b` |
-| observer alone → kernel | **REFUTED** | `ContactKernel.pair_choice_load_bearing` (`:228`) — one `Bool` observer offers both a non-zero pair and a zero pair | carrier 2; minimality trivially forced (a subsingleton carrier has one pair, and by `no_kernel_on_subsingleton` supports no kernel at all) |
+| observer alone → kernel | NON-UNIQUE (pair choice load-bearing) | `ContactKernel.pair_choice_load_bearing` (`:228`) — one `Bool` observer offers both a non-zero pair and a zero pair; `ofDiffObs` still applies to the witnessed pair | carrier 2; carrier remark METATHEORY (a subsingleton carrier has one pair, and by `no_kernel_on_subsingleton` supports no kernel at all) |
 | supplied-shape structure alone → any witness | **REFUTED** | `ContactKernel.kernel_no_witness_from_collapse` (`:248`) — over the all-zero observer *no* pair is complement-witnessed | carrier 2; minimality as above |
 | kernel → observer (promote to the law fields) | **REFUTED** (symmetry) | `ContactKernel.kernel_not_observer` (`:299`) — the oriented two-element kernel's difference and zero data extend to no `DiffObs`, because the symmetry law field would force symmetry of the zero relation | **2**; minimal — on a subsingleton every relation is symmetric (METATHEORY) |
 | kernel → observer (promote to the law fields) | **REFUTED** (transitivity) | `ContactKernel.kernel_zero_not_trans` (`:319`) — the three-point complement kernel's zero chain breaks | **3**; minimal, inherited from the sealed `Apartness.symm_without_cotrans_breaks_trans` data and, on the contact side, from `ContactBridge.bool_bs_repr` (positive at carrier 2) |
@@ -634,7 +634,7 @@ count is 36 — the machine census of the same separation.
 Every countermodel cited above, with its carrier and minimality status. All 19
 are theorems on disk at `ebb1e0b` itself (checked by `git grep` at that commit:
 4 in `ContactBridge.lean`, 12 in `ContactKernel.lean`, 3 in `ObsDescent.lean`);
-none of them is among the five uncommitted declarations.
+none of them is among the five later-committed declarations.
 
 | # | Lean theorem | carrier | refutes | minimality |
 |---|---|---|---|---|
@@ -651,9 +651,9 @@ none of them is among the five uncommitted declarations.
 | 11 | `ObsDescent.collapseAllObs_no_delta_descend` | 2 | unconditional descent of the difference map | minimal — subsingleton ⇒ every view class-constant |
 | 12 | `ObsDescent.collapseAllObs_no_view_descend` | 2 | unconditional descent of views | minimal — as row 11 |
 | 13 | `ObsDescent.fiberConstant_fixed_D_not_classConstant` | `Nat`, `D = []` | removability of the `∀ D` quantifier in the dictionary | extreme point (empty domain); no stronger claim |
-| 14 | `ContactKernel.pair_choice_load_bearing` | 2 | kernel realization from an observer **without** a chosen non-zero pair | forced (subsingleton supports no kernel) |
-| 15 | `ContactKernel.kernel_no_witness_from_collapse` | 2 | existence of any complement witness over the total collapse | forced, as row 14 |
-| 16 | `ContactKernel.vhom_not_unique` | 2 | carrier-map determinacy of valued kernel morphisms | forced, as row 14 |
+| 14 | `ContactKernel.pair_choice_load_bearing` | 2 | kernel realization from an observer is non-unique: a witnessed pair still yields a kernel via `ofDiffObs`; the pair is load-bearing data | METATHEORY (subsingleton supports no kernel) |
+| 15 | `ContactKernel.kernel_no_witness_from_collapse` | 2 | existence of any complement witness over the total collapse | METATHEORY (subsingleton supports no kernel), as row 14 |
+| 16 | `ContactKernel.vhom_not_unique` | 2 | carrier-map determinacy of valued kernel morphisms | METATHEORY (subsingleton supports no kernel), as row 14 |
 | 17 | `ContactKernel.kernel_no_terminal` | 3 | any terminal collector of kernels (free-point branching) | carrier 3 as stated; minimality **unclaimed** |
 | 18 | `ContactKernel.kernel_gateways_not_identical` | 2 | presentation-identity of initial gateways | matches sealed `PrimitiveCats.two_initials_not_identical` scope |
 | 19 | `ContactKernel.kernel_not_e_merged` | 2 | E-transport under one declared merger | inherits the sealed `PrimDiff.merger_erases` pattern |

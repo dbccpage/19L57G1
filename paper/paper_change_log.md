@@ -1170,3 +1170,26 @@ terminal code was renamed.
    `PrimitiveContact.contactStatus` keeps its sealed value and loses
    its misleading doc-comment.  `artifacts/lean_axioms.txt` grows
    from 1145 to 1149 reports, all within {propext, Quot.sound}.
+
+## Review repair - firewall scan, pair-choice grade, committed anchor
+(2026-08-13)
+
+Three leftover-prose findings from the collision review, none of
+which change a theorem, a terminal, or an artifact:
+
+1. **Vocabulary firewall is now scanned.**  `tests/test_primitive_contact.py`
+   walks `git ls-files` against the working denylist of 102
+   (full census minus the nine native-or-core names).  A hit outside
+   `contact/analysis/` fails, except the documented native subject
+   name `PrimitiveDifference` (verified at `a5caee2`).  The 111/102
+   census pins in `tests/test_primitive_receipt.py` are unchanged.
+2. **`pair_choice_load_bearing` is non-uniqueness, not a refutation
+   of existence.**  The observer-alone row in
+   `contact/analysis/lean_theorem_transport.md` is relabeled
+   NON-UNIQUE / pair choice load-bearing; `ofDiffObs` still applies
+   to a witnessed pair.  The word "forced" on that carrier remark is
+   replaced by METATHEORY.  The collapse row remains the existence
+   refutation.
+3. **Anchor no longer says UNCOMMITTED.**  The five declarations
+   added after `ebb1e0b` are described as committed in this
+   collision.  Companion wording in `lean_definition_map.md` matches.

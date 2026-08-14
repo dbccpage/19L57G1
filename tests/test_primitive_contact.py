@@ -6,6 +6,8 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shutil
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -239,6 +241,74 @@ def test_external_file_hash_when_present() -> None:
         pytest.skip("external contact file not present")
     got = hashlib.sha256(external.read_bytes()).hexdigest()
     assert got == EXTERNAL_SHA
+
+
+# Native subject name: in the working denylist of 102, verified
+# native at a5caee2, and the only working-denylist token permitted
+# outside contact/analysis/.
+_NATIVE_SUBJECT = "PrimitiveDifference"
+
+
+def _identifier_token(name: str) -> re.Pattern[str]:
+    return re.compile(r"(?<![\w])" + re.escape(name) + r"(?![\w])")
+
+
+def _working_denylist() -> list[str]:
+    payload = json.loads(
+        (REPO / "contact" / "analysis" / "contact_countermodels.json")
+        .read_text(encoding="utf-8"))
+    block = payload["denylist"]
+    assert isinstance(block, dict)
+    full = block["full_census"]
+    subtracted = block["subtracted_as_native_or_core"]
+    assert isinstance(full, list)
+    assert isinstance(subtracted, list)
+    names = [n for n in full if isinstance(n, str)
+             and n not in set(subtracted)]
+    assert len(full) == 111
+    assert len(names) == 102
+    return names
+
+
+def test_vocabulary_firewall_token_boundaries() -> None:
+    """Negative: identifier-boundary matching catches a leak token
+    and does not fire on a proper prefix or a glued suffix."""
+    pat = _identifier_token("AaBbToken")
+    assert pat.search("uses AaBbToken here")
+    assert not pat.search("AaBbTokenMod")
+    assert not pat.search("notAaBbToken")
+
+
+def test_vocabulary_firewall_scan() -> None:
+    """Working denylist identifiers must not appear as identifier
+    tokens outside contact/analysis/. Census counts stay pinned in
+    test_primitive_receipt; this test walks the tree."""
+    if shutil.which("git") is None:
+        pytest.skip("git unavailable")
+    names = _working_denylist()
+    patterns = [(n, _identifier_token(n)) for n in names
+                if n != _NATIVE_SUBJECT]
+    proc = subprocess.run(
+        ["git", "ls-files", "-z"],
+        capture_output=True, cwd=REPO, check=False)
+    if proc.returncode != 0:
+        pytest.skip("git ls-files failed")
+    leaks: list[str] = []
+    for raw in proc.stdout.split(b"\0"):
+        if not raw:
+            continue
+        rel = raw.decode("utf-8", errors="replace").replace("\\", "/")
+        if rel.startswith("contact/analysis/"):
+            continue
+        path = REPO / rel
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        for name, pat in patterns:
+            if pat.search(text):
+                leaks.append(f"{rel}:{name}")
+    assert leaks == []
 
 
 def test_runner_byte_stable(tmp_path: Path) -> None:

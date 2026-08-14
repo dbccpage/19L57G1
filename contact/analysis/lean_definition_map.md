@@ -2,8 +2,9 @@
 
 Run: primitive-difference contact collision, 2026-08-13. Pre-contact base
 `a5caee2`; sealed blind-native-base `ccd3a53`; contact Lean spine committed at
-`ebb1e0b`, **plus five uncommitted working-tree declarations** verified absent
-at `ebb1e0b`: `ContactKernel.toDiffObs`, `.toDiffObs_fields`,
+`ebb1e0b`, **plus five declarations added after that commit and committed
+in this collision**, verified absent at `ebb1e0b`: `ContactKernel.toDiffObs`,
+`.toDiffObs_fields`,
 `.toDiffObs_apart`, `ContactBridge.collapse_collision_is_pair_blocked`,
 `.pair_blocked_iff_collapse_collision` (see the anchor note in
 `lean_theorem_transport.md`). "On disk" below means that working tree, and
