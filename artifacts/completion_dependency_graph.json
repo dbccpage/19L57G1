@@ -16377,7 +16377,9 @@
     "propext"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "CapacityBound.lean"
+   ],
    "kind": "generic",
    "module": "SeparationCapacity.lean",
    "name": "SeparationCapacity.ball_length",
@@ -16798,6 +16800,239 @@
    "name": "PresentationNaturality.heterogeneous_naturality_separates",
    "role": "preservation",
    "statement": ": (\u2203 s : HSec twoFamilyPos, HIsNatural twoFamilyPos s) \u2227 \u00ac \u2203 s : HSec twoFamilyNeg, HIsNatural twoFamilyNeg s"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.nodup_length_le",
+   "role": "preservation",
+   "statement": ": \u2200 (B : Nat) (l : List Nat), List.Nodup l \u2192 (\u2200 x \u2208 l, x < B) \u2192 l.length \u2264 B | 0, l, _, hb => by cases l with | nil => exact Nat.le_refl 0 | cons x t => exact absurd (hb x (List.mem_cons_self ..)) (Nat.not_lt_zero x) | B + 1, l, hnd, hb => by have hsplit"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-DI-PROPOSAL",
+    "CL-RP-PROGRESS",
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [
+    "CapacityBound.lean",
+    "SeparationCapacity.lean"
+   ],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.pigeonhole",
+   "role": "preservation",
+   "statement": "(B : Nat) (f : Nat \u2192 Nat) (hf : \u2200 p, p < B + 1 \u2192 f p < B) : \u2203 p, p < B + 1 \u2227 \u2203 q, q < B + 1 \u2227 p \u2260 q \u2227 f p = f q"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.map_nodup_of_inj",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Nat) : \u2200 n : Nat, (\u2200 p, p < n \u2192 \u2200 q, q < n \u2192 p \u2260 q \u2192 f p \u2260 f q) \u2192 List.Nodup ((upto n).map f) | 0, _ => List.Pairwise.nil | n + 1, hinj => by show List.Nodup (f n :: (upto n).map f) refine List.Pairwise.cons ?_ ?_ \u00b7 intro a ha obtain \u27e8x, hx, rfl\u27e9"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.nodup_filter_eq_le_one",
+   "role": "preservation",
+   "statement": "(B : Nat) : \u2200 l : List Nat, List.Nodup l \u2192 (l.filter (fun x => decide (x = B))).length \u2264 1 | [], _ => Nat.zero_le 1 | x :: t, hnd => by rw [List.filter_cons] cases hp : (decide (x = B)) with | true => show (x :: t.filter (fun y => decide (y = B))).length \u2264 1 have hxB : x = B"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.filter_nodup",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, List.Nodup l \u2192 List.Nodup (l.filter p) | [], _ => List.Pairwise.nil | x :: t, hnd => by rw [List.filter_cons] have iht"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.length_filter_split",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, (l.filter p).length + (l.filter (fun x => !p x)).length = l.length | [] => rfl | x :: t => by have ih"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.upto_length",
+   "role": "preservation",
+   "statement": ": \u2200 n, (upto n).length = n | 0 => rfl | n + 1 => by show (upto n).length + 1 = n + 1 rw [upto_length n] theorem upto_mem : \u2200 (n x : Nat), x \u2208 upto n \u2192 x < n | 0, x, hx => absurd hx (List.not_mem_nil) | n + 1, x, hx => by rcases List.mem_cons.mp hx with h | h \u00b7 omega \u00b7 have"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Pigeonhole.lean",
+   "name": "Pigeonhole.upto_mem",
+   "role": "preservation",
+   "statement": ": \u2200 (n x : Nat), x \u2208 upto n \u2192 x < n | 0, x, hx => absurd hx (List.not_mem_nil) | n + 1, x, hx => by rcases List.mem_cons.mp hx with h | h \u00b7 omega \u00b7 have"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.encode_lt",
+   "role": "preservation",
+   "statement": "(k : Nat) : \u2200 l : List Nat, (\u2200 x \u2208 l, x < k) \u2192 encode k l < k ^ l.length | [], _ => by show 0 < k ^ 0 exact Nat.zero_lt_one | x :: t, h => by have hx : x < k"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.encode_inj",
+   "role": "preservation",
+   "statement": "(k : Nat) : \u2200 l m : List Nat, l.length = m.length \u2192 (\u2200 x \u2208 l, x < k) \u2192 (\u2200 x \u2208 m, x < k) \u2192 encode k l = encode k m \u2192 l = m | [], [], _, _, _, _ => rfl | [], _ :: _, hlen, _, _, _ => Nat.noConfusion hlen | _ :: _, [], hlen, _, _, _ => Nat.noConfusion hlen | x :: t, y :: u, hlen, hx, hy, henc => by have hxk : x < k"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.colourBall_length",
+   "role": "preservation",
+   "statement": "(colour : Nat \u2192 Nat) (i d : Nat) : (colourBall colour i d).length = 2 * d + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.colourBall_bounded",
+   "role": "preservation",
+   "statement": "(colour : Nat \u2192 Nat) (k : Nat) (hc : \u2200 x, colour x < k) (i d : Nat) : \u2200 z \u2208 colourBall colour i d, z < k"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.local_view_blind",
+   "role": "preservation",
+   "statement": "{v colour : Nat \u2192 Nat} {d : Nat} (hloc : ViewLocal v colour d) {i j : Nat} (hball : colourBall colour i d = colourBall colour j d) : v i = v j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.capacity_bound",
+   "role": "preservation",
+   "statement": "(colour v : Nat \u2192 Nat) (k d n : Nat) (hk : \u2200 x, colour x < k) (hloc : ViewLocal v colour d) (hn : k ^ (2 * d + 1) + 2 * d + 2 \u2264 n) : \u2203 i j, i \u2260 j \u2227 d < i \u2227 i + d < n \u2227 d < j \u2227 j + d < n \u2227 v i = v j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.capacity_at_one_colour",
+   "role": "preservation",
+   "statement": "(d n : Nat) (hn : 2 * d + 3 \u2264 n) : \u2203 i j, i \u2260 j \u2227 d < i \u2227 i + d < n \u2227 d < j \u2227 j + d < n \u2227 (fun _ : Nat => 0) i = (fun _ : Nat => 0) j"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CapacityBound.lean",
+   "name": "CapacityBound.local_view_can_separate",
+   "role": "preservation",
+   "statement": ": \u2203 (colour v : Nat \u2192 Nat) (d : Nat), ViewLocal v colour d \u2227 v 1 \u2260 v 2"
   }
  ]
 }

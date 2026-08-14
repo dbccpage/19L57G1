@@ -69,6 +69,8 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "ContactBridge": ["ContactBridge.lean"],
     "ContactKernel": ["ContactKernel.lean"],
     "PresentationNaturality": ["PresentationNaturality.lean"],
+    "Pigeonhole": ["Pigeonhole.lean"],
+    "CapacityBound": ["CapacityBound.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
