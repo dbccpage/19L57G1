@@ -2989,3 +2989,64 @@ CL-PD2-LADDER)
   selector exists"; citing it as a categorical or groupoid statement;
   citing the co-statement as a derivation.
 
+### CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)
+- **Narrows**: the one-object bound recorded in
+  CL-PN-NATURAL-SELECTION.  That entry stands as the record of what was
+  proved at the time; this entry records what is proved now.
+- **Root cause of the old bound**: `Family` declared its arrows as a
+  flat `Arr` with `src`/`tgt` functions, which forced ONE carrier `X`
+  and ONE residual type `R` across every object, and made an
+  endomorphism a propositional condition (`src f = tgt f`) rather than
+  a typed one.  `HFamily` indexes arrows as `Hom a b`, so an
+  endomorphism is definitionally an inhabitant of `Hom a a`, and the
+  carrier and residual type become object-indexed (`car`, `res`).  No
+  dependent transport appears anywhere in the new development.
+- **Statement**: `no_natural_section_of_endo` — a declared
+  endomorphism at ANY object of a heterogeneous family, fixing no
+  admissible pair there, already rules out a natural section of the
+  whole family.  The carrier and residual type may differ from object
+  to object.
+- **Coherence of the transported bundle**: `mapPair_refl`,
+  `mapPair_trans`, `mapPair_symm_left`, `mapPair_symm_right`.  These
+  are the bundle-level companions of the §3 component laws.  They are
+  statements about `mapPair` and `PresIso`, NOT about `HFamily`, and
+  they still assert no categorical structure.
+- **Both boundaries, over a genuinely heterogeneous two-object
+  family** (`Bool`/`boolEqObs` and `Card4`/`card4Obs`, different
+  carriers and different residual types):
+  - `twoFamilyNeg_no_section` — negation at the `Bool` object fixes no
+    admissible pair, so the WHOLE family has no natural section, even
+    though its `Card4` component alone does.
+  - `twoFamilyPos_has_section` — replacing only that automorphism by
+    the identity yields a natural section.
+  - `heterogeneous_naturality_separates` states both.  Same objects,
+    same carriers, same admissible pairs: only the declared
+    automorphism differs, so the obstruction is carried by the
+    declared arrows and not by heterogeneity.
+- **Bridge**: `hAuto_iff_auto` — over ONE object, a natural section
+  exists for the flat `autoFamily` exactly when one exists for the
+  indexed `hAutoFamily`.  Both endpoint structures are named.
+- **Still OPEN, exactly**:
+  - A general embedding of `Family` into `HFamily`.  `hAuto_iff_auto`
+    covers the one-object case only; `Family` is RETAINED and is not
+    superseded.
+  - Naturality under arrows that genuinely CROSS objects with
+    different carriers.  The two-object fixtures declare no arrow
+    between their objects, so that case is not exercised.
+  - `HFamily` still assumes NO closure: no composition, no inverses,
+    no identities.  `Hom a b` is a list of declared isomorphisms, not
+    a hom-set of a category.  No categorical structure is claimed.
+  - Deriving `ContactKernel.no_equivariant_pair_valued_map` remains
+    OPEN and untouched by this entry.
+- **Evidence (Lean)**: `PresentationNaturality.mapPair_refl`,
+  `.mapPair_trans`, `.mapPair_symm_left`, `.mapPair_symm_right`,
+  `.no_natural_section_of_endo`, `.hAuto_iff_auto`,
+  `.twIso_fixes_card4Pair`, `.twoFamilyNeg_no_section`,
+  `.twoFamilyPos_natural`, `.twoFamilyPos_has_section`,
+  `.heterogeneous_naturality_separates`.  All eleven are axiom-free.
+- **Python evidence**: none; Lean-only, no new runner or artifact.
+- **Falsifier**: exhibiting a natural section over `twoFamilyNeg`;
+  exhibiting a heterogeneous family where the endo obstruction fails;
+  citing `HFamily` as a category or its `Hom` as a hom-set; citing the
+  one-object bridge as a general embedding.
+

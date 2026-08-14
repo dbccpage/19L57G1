@@ -1200,3 +1200,14 @@ Derivation.lean:1297:0: 'PresentationNaturality.card4_natural_section' does not 
 Derivation.lean:1298:0: 'PresentationNaturality.card4_has_natural_section' does not depend on any axioms
 Derivation.lean:1299:0: 'PresentationNaturality.naturality_separates_presentations' does not depend on any axioms
 Derivation.lean:1300:0: 'PresentationNaturality.bool_obstruction_and_sealed_selector' depends on axioms: [Quot.sound]
+Derivation.lean:1302:0: 'PresentationNaturality.mapPair_refl' does not depend on any axioms
+Derivation.lean:1303:0: 'PresentationNaturality.mapPair_trans' does not depend on any axioms
+Derivation.lean:1304:0: 'PresentationNaturality.mapPair_symm_left' does not depend on any axioms
+Derivation.lean:1305:0: 'PresentationNaturality.mapPair_symm_right' does not depend on any axioms
+Derivation.lean:1306:0: 'PresentationNaturality.no_natural_section_of_endo' does not depend on any axioms
+Derivation.lean:1307:0: 'PresentationNaturality.hAuto_iff_auto' does not depend on any axioms
+Derivation.lean:1308:0: 'PresentationNaturality.twIso_fixes_card4Pair' does not depend on any axioms
+Derivation.lean:1309:0: 'PresentationNaturality.twoFamilyNeg_no_section' does not depend on any axioms
+Derivation.lean:1310:0: 'PresentationNaturality.twoFamilyPos_natural' does not depend on any axioms
+Derivation.lean:1311:0: 'PresentationNaturality.twoFamilyPos_has_section' does not depend on any axioms
+Derivation.lean:1312:0: 'PresentationNaturality.heterogeneous_naturality_separates' does not depend on any axioms
