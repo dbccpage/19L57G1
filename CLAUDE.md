@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # CLAUDE.md — Execution Plan
 
 ## Repository boundary
@@ -103,3 +107,162 @@
   initial file; and the paper states the strongest defensible terminal result,
   including termination or failure, without targeting a predetermined
   conclusion.
+
+---
+
+# Operating manual
+
+Everything below is metatheoretic apparatus (how to drive the toolchain and
+where things live), not object-language input. It records the verification
+contract already enforced by `.github/workflows/verify.yml` and `ci/`.
+
+## Commands
+
+Run from the repository root. Shell examples are PowerShell (the primary
+platform is Windows).
+
+### Tests
+
+```powershell
+python -m pytest                      # whole suite (pyproject sets testpaths=tests, pythonpath=code)
+python -m pytest tests/test_iso.py    # one file
+python -m pytest tests/test_iso.py::test_tokens_are_forgotten   # one test
+python -m pytest -k equivariance      # by keyword
+```
+
+`pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
+outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
+
+### The five gates CI enforces
+
+```powershell
+# 1. prompt byte-identity (read-only inputs)
+python ci/check_prompt_hashes.py
+
+# 2. tests under coverage, then the independent dual 95% gate
+coverage run -m pytest -q; coverage json -q; coverage report
+python ci/check_coverage.py           # line AND branch must each reach 95%
+
+# 3. strict typing (config in pyproject: strict = true, files = ["code"])
+python -m mypy
+
+# 4. artifact regeneration must be byte-identical (see below)
+
+# 5. Lean build + forbidden-token/axiom audit (see below)
+```
+
+`ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
+the measured source. It reads `coverage.json`, so run `coverage json` first.
+
+### Artifacts
+
+Every `code/run_*.py` writes deterministic JSON into `--artifacts DIR`
+(default `artifacts`). To check that the committed artifacts still match
+what the code produces:
+
+```powershell
+$env:PYTHONPATH = "code"
+Get-ChildItem code/run_*.py | ForEach-Object { python $_.FullName --artifacts artifacts2 }
+python ci/compare_artifacts.py artifacts artifacts2
+```
+
+`artifacts2/` is gitignored, so it is the scratch directory for this check.
+To intentionally update the committed artifacts, rerun with
+`--artifacts artifacts` and commit the diff.
+
+### Lean
+
+```powershell
+cd lean4
+lake build 2>&1 | Tee-Object -FilePath ../lake_build_local.log
+cd ..
+python ci/check_lean_audit.py lake_build_local.log     # forbidden tokens + axiom whitelist
+python ci/check_axiom_report.py lake_build_local.log   # log must match artifacts/lean_axioms.txt
+```
+
+`lake_build_*.log` is gitignored. The axiom report is produced by compiling
+`lean4/Derivation.lean`; if the log comes back with no `#print axioms` lines,
+force that root module to rebuild before auditing.
+
+## Architecture
+
+### The one pattern to know: a topic is a five-file family
+
+Almost every subject in this repository appears five times under the same
+stem, and changing one member usually obliges the others:
+
+| role | path |
+|---|---|
+| computation | `code/derivation/<topic>.py` |
+| artifact writer | `code/run_<topic>.py` |
+| tests | `tests/test_<topic>.py` |
+| proofs | `lean4/Derivation/<Topic>.lean` |
+| output | `artifacts/<topic>.json` |
+
+Prose lives in `paper/`, but not one-per-topic: `paper/paper.md` is the
+spine, and the other `paper/*.md` files are per-investigation write-ups.
+Every claim carries a stable `CL-*` ID in `paper/paper_claim_ledger.md`,
+which names its Python evidence (artifact key and/or test name) and its Lean
+theorem names. `artifacts/claims.json` holds the computed values for the
+ledger IDs, so ledger prose and machine output are cross-checkable.
+
+### The kernel, read in this order
+
+The first six modules are the whole object language; the ~25 other modules in
+`code/derivation/` are studies layered on top of them.
+
+1. `model.py` — `Regime` (frozen: `data`, `forms`, `insts`, `rules`, `reqs`)
+   plus the event types. State changes *only* through admission events
+   (`AdmitDatum/Form/Inst/RuleAll`) or `Impose`; `Supply` is an external
+   presentation event that provably does not change state. `replay` rebuilds
+   a regime from an event list — this is what makes every result replayable
+   from genesis.
+2. `observe.py` — contexts (a form plus a slot tuple with holes), profiles
+   (which pluggings are derivable), and the declared sense of *internally
+   separable*: two data are separable exactly when their profiles differ.
+3. `candidates.py` — the declared candidate space of one-step augmentations
+   (deltas) and the two declared cost measures `mu1`/`mu2`, plus
+   `min_responses`. The cost-2 enumeration is pruned by four named lemmas,
+   each with an unpruned cross-check test.
+4. `iso.py` — the implemented isomorphism relation and `canonical` keys.
+   Presentation tokens are deliberately forgotten. This is the *only*
+   sanctioned way to quotient branches, and it is cross-checked against a
+   brute-force minimum over all bijection pairs.
+5. `engine.py` — Challenges 0–3 and the branch tree. Carries two admission
+   *readings* (L and F) as separate genesis histories, and separates the
+   declared pair-separation closure policy from the external supply policy
+   (`supply=False` runs are the closed-system baseline).
+6. `export.py` — deterministic JSON, normalized DAG tree exports, and
+   `verify_full_export`, which replays every node and checks its regime hash.
+
+### Invariants that break CI if you miss them
+
+- **Byte-determinism.** Exports carry no timestamps and no environment data,
+  keys are sorted, and `.json.gz` uses a fixed mtime and compression level.
+  Any change to a derivation module means regenerating and committing the
+  affected artifacts, or gate 4 fails.
+- **The CI runner list is hand-enumerated.** `.github/workflows/verify.yml`
+  names each `run_*.py` explicitly. A new entry point is not regeneration-
+  checked until it is added there.
+- **Lean may only use `propext` and `Quot.sound`.** `ci/check_lean_audit.py`
+  rejects anything else, so `Classical.choice` is out — decidability has to
+  be constructive.
+- **The forbidden-token scan is plain text over whole `.lean` files.** It
+  matches `sorry`, `admit`, `unsafe`, `partial` and leading `axiom` anywhere,
+  including inside comments and doc strings. Phrase Lean prose around those
+  words.
+- **Each exported theorem the paper cites needs a `#print axioms` line** in
+  `lean4/Derivation.lean` (which also imports every module), and
+  `artifacts/lean_axioms.txt` must match the fresh build log.
+- **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
+  `artifacts/**` as `-text`. Never let an editor or a CRLF conversion rewrite
+  those files — it breaks both the prompt hash gate and byte comparison.
+
+### Claim hygiene
+
+`paper/paper_change_log.md` records material changes newest-last, including
+withdrawn and repaired claims; `paper/pr11_correction_ledger.md` is a worked
+example of narrowing an overclaim. When a proof turns out to cover less than
+the prose asserted, the established move in this repository is to weaken the
+statement in the ledger and the paper — never to keep the wording and lean on
+the receipt.
