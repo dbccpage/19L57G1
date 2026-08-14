@@ -1573,14 +1573,43 @@ records what replaced them.
    condition the proof had to meet, and `ViewLocal` is what meets it.
 
 5. **Non-vacuity is exhibited, not assumed.**  `capacity_at_one_colour` is the
-   degenerate end; `local_view_can_separate` exhibits a local view that DOES
-   separate a deep pair.
+   degenerate end; `local_view_can_separate` fixes `k = 2`, `d = 0`, and
+   `n = 3`, proves indices `1` and `2` deep and `3` strictly below the
+   threshold `4`, and exhibits a local parity view that separates every
+   distinct deep pair (including `1` and `2`). This refutes the existential
+   forced-collision conclusion below threshold, not merely collision of one
+   selected pair.
 
 Not claimed: tightness of `k ^ (2d + 1)`; anything about views that do not
 factor through the ball; anything about the sealed `Generator.profile2`
-colouring in particular.  `LocalStrategy`, class exclusion, identity-grade
-observation, absolute interior and "no outside" remain absent.  The general-`n`
-radius correspondence remains OPEN and is untouched.  See CL-CAP-BOUND.
+colouring in particular. The general-`n` radius correspondence and a
+repair-strategy-class consequence are the two OPEN residuals. Identity-grade
+observation, absolute interior, and "no outside" are outside this
+investigation's statement language. See CL-CAP-BOUND.
 
 Axiom reports 1213 → 1229 (sixteen added, none removed), all within
 {propext, Quot.sound}.  `lake build` clean at 48 jobs, lean audit 46 sources.
+
+## 2026-08-14 — Separation-capacity clearance repair
+
+The capacity theorem was already proved, but its residual document and the
+`SeparationCapacity` module header still called the capacity/pigeonhole layer
+OPEN. Both headers now state the closed capacity result and name exactly two
+remaining obligations: the general-`n` `Generator.profile2` correspondence
+and a repair-strategy-class consequence. Identity-grade observation,
+absolute interior, and "no outside" remain outside this investigation's
+statement language rather than additional OPEN cells.
+
+`CapacityBound.local_view_can_separate` now carries its entire non-vacuity
+claim in the theorem type: `k = 2`, `d = 0`, `n = 3`, deep indices `1` and
+`2`, strict position below threshold `4`, locality, bounded colour values,
+explicit separation of `1` and `2`, and separation of every distinct deep
+pair. Wording that called enumerated reports "axiom-free" now says
+exactly that they are choice-free within `{propext, Quot.sound}`.
+
+The completion inventory now stops equation-style theorem statements before
+their first proof clause; resolves qualified references and known theorem
+member suffixes; permits backticked bare ledger shorthand only when the final
+component is globally unique; and has explicit semantic metadata for the
+`Pigeonhole` and `CapacityBound` namespaces. Ambiguous ledger citations are
+now qualified at their source. Regression tests pin each repair.

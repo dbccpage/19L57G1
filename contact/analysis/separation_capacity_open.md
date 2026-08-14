@@ -1,13 +1,19 @@
-# The separation capacity bound — OPEN, with the exact residual
+# The separation-capacity bound — CLOSED, with two exact residuals
 
-Status: **OPEN**. This document records what is proved, what is not, and
-precisely where the remaining obstruction sits, so that the gap is not
-mistaken for a gap in motivation.
+Status: **CAPACITY BOUND PROVED**. Exactly two obligations remain OPEN in
+this investigation: the general-`n` correspondence between
+`Generator.profile2` and `SeparationCapacity.profileD · · 1`, and a
+repair-strategy-class consequence built from the capacity theorem. This
+document records the proved boundary and those residuals so neither is
+mistaken for an unproved capacity bound.
 
 `lean4/Derivation/SeparationCapacity.lean` proves the STRUCTURAL half
-only. Nothing about coloured views, finite view alphabets, repair
-strategies, or "no absolute interior" is proved anywhere in this
-repository, and no declaration in `lean4/` carries those names.
+and the two sealed radius correspondences. The companion modules
+`Pigeonhole.lean` and `CapacityBound.lean` prove the finite-alphabet
+coloured capacity bound. A strategy-class consequence remains OPEN.
+Identity-grade observation, absolute interior, and "no outside" are
+outside this investigation's statement language; they are not counted
+as additional OPEN residuals here.
 
 ---
 
@@ -58,7 +64,7 @@ withdrawn and replaced by the scope above.
 
 ---
 
-## 2. What is NOT proved
+## 2. What remains OPEN
 
 **The capacity bound is now PROVED and this section is narrowed
 accordingly.** It reads, as stated here originally: "a view that
@@ -78,15 +84,17 @@ depends on the radius and the alphabet and not on `n`. That is what
 makes the statement a capacity bound rather than the ordinary global
 pigeonhole §4 warns about.
 
-Still absent, and none of it should be cited as if it existed:
+Exactly two residuals remain OPEN:
 
-- any `LocalStrategy` / repair-strategy class exclusion;
-- any statement about identity-grade observation;
-- any "no absolute interior" or "no outside" result.
+- the general-`n` radius correspondence: §1 records the two sealed
+  instances that ARE transported, but nothing in this repository
+  relates `Generator.profile2` to `profileD · · 1` for arbitrary `n`;
+- a `LocalStrategy` / repair-strategy-class exclusion derived from the
+  capacity theorem.
 
-Also not proved: the general-`n` radius correspondence. §1 records the
-two sealed instances that ARE transported; nothing in this repository
-relates `Generator.profile2` to `profileD · · 1` for arbitrary `n`.
+Identity-grade observation, absolute interior, and "no outside" are
+outside this investigation's statement language. This document makes no
+claim about them and does not list them as additional OPEN obligations.
 
 ---
 
@@ -115,9 +123,9 @@ rather than `erase`. Target lemma:
 by induction on `B`, splitting `l` into `filter (· == B)` (length ≤ 1
 because `l` is duplicate-free) and `filter (!· == B)` (length ≤ `B` by
 the induction hypothesis, since its elements are `< B`). From it,
-`pigeonhole` follows via `Decidable.byContradiction` — which is
-axiom-free, provided the existential is written so each binder is
-immediately guarded by its bound:
+`pigeonhole` follows via `Decidable.byContradiction` — whose enumerated
+axiom report is choice-free, provided the existential is written so each
+binder is immediately guarded by its bound:
 
 ```
 ∃ p, p < B + 1 ∧ ∃ q, q < B + 1 ∧ p ≠ q ∧ f p = f q
@@ -172,8 +180,9 @@ leaked identically, so neither the recursion machinery nor any cited
 lemma was responsible.
 
 The fix is to use `decide (x = B)` in place of `x == B`;
-`of_decide_eq_true`, `of_decide_eq_false` and `decide_eq_false` are
-axiom-free. `List.range` is still avoided, since `List.nodup_range` is
+`of_decide_eq_true`, `of_decide_eq_false` and `decide_eq_false` have
+choice-free enumerated reports. `List.range` is still avoided, since
+`List.nodup_range` is
 choice-dependent; `Pigeonhole.upto` is used instead. The development is
 `lean4/Derivation/Pigeonhole.lean`: `nodup_length_le` and `pigeonhole`
 both report `propext, Quot.sound`.
@@ -231,10 +240,15 @@ becomes inert, and the statement degenerates to §4's warning.
 - `colour` is an arbitrary bounded colouring. Nothing is claimed about
   the sealed `Generator.profile2` colouring in particular, and nothing
   here relates the two.
-- `LocalStrategy`, repair-strategy class exclusion, identity-grade
-  observation, absolute interior and "no outside" remain absent, exactly
-  as §2 states.
+- The general-`n` correspondence and a repair-strategy-class consequence
+  remain the two OPEN residuals recorded in §2.
+- Identity-grade observation, absolute interior, and "no outside" remain
+  outside this investigation's statement language.
 - Non-vacuity is exhibited rather than assumed:
   `capacity_at_one_colour` is the degenerate end, and
-  `local_view_can_separate` exhibits a local view separating a deep
-  pair, so the bound is not vacuously true of every local view.
+  `local_view_can_separate` fixes `k = 2`, `d = 0`, and `n = 3`, proves
+  that indices `1` and `2` are deep and below the threshold `4`, and
+  exhibits a local parity view separating every distinct deep pair (and
+  explicitly `1` from `2`). Thus the forced-collision conclusion is
+  false at this below-threshold instance rather than merely false for
+  one selected pair.

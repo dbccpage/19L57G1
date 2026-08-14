@@ -26,8 +26,9 @@ So every route through `x == B` on `Nat` carries the dependency,
 however the surrounding proof is written; and the equation compiler,
 the `induction` tactic, `omega`, `List.mem_filter`, `List.filter_cons`
 and `Decidable.byContradiction` are all clear.  Replacing `x == B` by
-`decide (x = B)` removes it: `of_decide_eq_true`, `of_decide_eq_false`
-and `decide_eq_false` are free of any axiom.
+`decide (x = B)` removes the `Classical.choice` dependency:
+`of_decide_eq_true`, `of_decide_eq_false` and `decide_eq_false` are
+choice-free in their enumerated axiom reports.
 
 The filter-based shape of the argument is the one the residual note
 proposed; the `erase`-based route is avoided, since `List.length_erase`

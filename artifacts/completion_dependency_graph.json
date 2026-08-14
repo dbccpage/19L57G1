@@ -368,10 +368,7 @@
     "CL-1-SUPPLY-NOT-ADMISSION",
     "CL-TOKEN-ERASURE"
    ],
-   "consumers": [
-    "Basic.lean",
-    "Erasure.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Inertia.lean",
    "name": "Derivation.supply_no_op",
@@ -548,9 +545,7 @@
     "CL-QUOT-BARRIER",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Quot.lean",
    "name": "Derivation.quot_barrier",
@@ -1137,9 +1132,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.meta_diff_without_assertion",
@@ -1161,10 +1154,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactKernel.lean",
-    "PrimitiveCore.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.no_witness_on_subsingleton",
@@ -1175,7 +1165,6 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
-    "Apartness.lean",
     "ContactKernel.lean",
     "PrimitiveCats.lean",
     "PrimitiveContact.lean",
@@ -1243,9 +1232,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "PrimitiveCats.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.witnessed_irrefl_on_every_larger_carrier",
@@ -1307,9 +1294,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "Completion.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.collapse_unobstructed_without_fidelity",
@@ -1387,7 +1372,6 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
-    "Apartness.lean",
     "PrimitiveCats.lean"
    ],
    "kind": "generic",
@@ -1468,9 +1452,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "PrimitivePassage.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.const_presentation_unfaithful",
@@ -1525,7 +1507,6 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
    "consumers": [
-    "ContactBridge.lean",
     "ContactKernel.lean",
     "PrimitiveCore.lean"
    ],
@@ -1603,9 +1584,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "RefusalFrontier.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Bridge.lean",
    "name": "Bridge.irrefl_law_not_entailed",
@@ -1615,9 +1594,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "RefusalFrontier.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Bridge.lean",
    "name": "Bridge.equivariant_witness_is_S2",
@@ -1629,9 +1606,7 @@
    "citing_claims": [
     "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Bridge.lean",
    "name": "Bridge.equivariant_not_D2",
@@ -1643,9 +1618,7 @@
    "citing_claims": [
     "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Bridge.lean",
    "name": "Bridge.no_swap_fixed_offdiag_pair",
@@ -2132,8 +2105,7 @@
     "CL-FR6-T8-DYNAMICS"
    ],
    "consumers": [
-    "Completion.lean",
-    "Generator.lean"
+    "Completion.lean"
    ],
    "kind": "horizon-free",
    "module": "RefusalFrontier.lean",
@@ -2303,9 +2275,7 @@
     "CL-G-TERMINAL",
     "CL-G-GENERATION"
    ],
-   "consumers": [
-    "SeparationCapacity.lean"
-   ],
+   "consumers": [],
    "kind": "horizon-free",
    "module": "Generator.lean",
    "name": "Generator.generation_never_dries",
@@ -2921,9 +2891,7 @@
    "citing_claims": [
     "CL-RP-REPLAY"
    ],
-   "consumers": [
-    "PrimitivePassage.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.replay_deterministic",
@@ -2954,10 +2922,7 @@
     "CL-RP-REPLAY"
    ],
    "consumers": [
-    "Attachment.lean",
-    "HigherStructure.lean",
-    "Horizon.lean",
-    "PrimitivePassage.lean"
+    "Horizon.lean"
    ],
    "kind": "generic",
    "module": "Represented.lean",
@@ -3242,7 +3207,6 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-DI-BOUNDARIES",
     "CL-RP-PROGRESS"
    ],
    "consumers": [],
@@ -3260,9 +3224,7 @@
    "citing_claims": [
     "CL-RP-PROGRESS"
    ],
-   "consumers": [
-    "Completion.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.progress_needs_budget",
@@ -3277,9 +3239,7 @@
    "citing_claims": [
     "CL-RP-PROGRESS"
    ],
-   "consumers": [
-    "Completion.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Represented.lean",
    "name": "Represented.progress_needs_license",
@@ -3401,8 +3361,7 @@
     "CL-RP-PRODUCTIVITY"
    ],
    "consumers": [
-    "Constitution.lean",
-    "Horizon.lean"
+    "Constitution.lean"
    ],
    "kind": "concrete",
    "module": "Represented.lean",
@@ -3802,9 +3761,7 @@
    "citing_claims": [
     "CL-NC-RULE1"
    ],
-   "consumers": [
-    "Constitution.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Completion.lean",
    "name": "Completion.augFamily_retains_ties",
@@ -3874,12 +3831,9 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-RULE1",
-    "CL-PD2-PASSAGE"
+    "CL-NC-RULE1"
    ],
-   "consumers": [
-    "PrimitivePassage.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Completion.lean",
    "name": "Completion.refusal_object_inert",
@@ -4261,9 +4215,7 @@
     "CL-NC-EVENT-SOURCE",
     "CL-NC-AUTONOMY"
    ],
-   "consumers": [
-    "Horizon.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Constitution.lean",
    "name": "Constitution.gen_three_quiescent",
@@ -4324,7 +4276,6 @@
     "CL-NC-CONSTITUTION"
    ],
    "consumers": [
-    "Initiality.lean",
     "InterpreterBoundary.lean"
    ],
    "kind": "generic",
@@ -4459,9 +4410,7 @@
    "citing_claims": [
     "CL-NC-INITIALITY"
    ],
-   "consumers": [
-    "ControllerCategory.lean"
-   ],
+   "consumers": [],
    "kind": "bounded",
    "module": "Initiality.lean",
    "name": "Initiality.unique_compliant",
@@ -4580,9 +4529,7 @@
     "CL-NC-AUTONOMY",
     "CL-PD2-HORIZON"
    ],
-   "consumers": [
-    "Constitution.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
    "name": "Horizon.block_all_accepted",
@@ -4614,9 +4561,7 @@
     "CL-NC-AUTONOMY",
     "CL-PD2-HORIZON"
    ],
-   "consumers": [
-    "Constitution.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
    "name": "Horizon.gen_quiescent",
@@ -4632,9 +4577,7 @@
     "CL-NC-AUTONOMY",
     "CL-PD2-HORIZON"
    ],
-   "consumers": [
-    "Constitution.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Horizon.lean",
    "name": "Horizon.gen_wf",
@@ -4698,13 +4641,8 @@
   },
   {
    "axioms": [],
-   "citing_claims": [
-    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
-   ],
-   "consumers": [
-    "ControllerCategory.lean",
-    "RenamingStructure.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.comp_id",
@@ -4713,13 +4651,8 @@
   },
   {
    "axioms": [],
-   "citing_claims": [
-    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
-   ],
-   "consumers": [
-    "ControllerCategory.lean",
-    "RenamingStructure.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.id_comp",
@@ -4728,13 +4661,8 @@
   },
   {
    "axioms": [],
-   "citing_claims": [
-    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
-   ],
-   "consumers": [
-    "ControllerCategory.lean",
-    "RenamingStructure.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.comp_assoc",
@@ -4831,10 +4759,7 @@
    "citing_claims": [
     "CL-PD2-INITIALITY"
    ],
-   "consumers": [
-    "ContactKernel.lean",
-    "PrimitiveContact.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.s2_initial_sym",
@@ -4856,9 +4781,7 @@
    "citing_claims": [
     "CL-PD2-INITIALITY"
    ],
-   "consumers": [
-    "PrimitiveContact.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.s2_not_weakly_initial",
@@ -4893,9 +4816,7 @@
     "CL-PD2-INITIALITY",
     "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.two_initials_not_identical",
@@ -4907,9 +4828,7 @@
    "citing_claims": [
     "CL-PD2-INITIALITY"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.initials_iso",
@@ -5138,9 +5057,7 @@
    "citing_claims": [
     "CL-PD2-BRANCHING"
    ],
-   "consumers": [
-    "PrimitiveContact.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.no_terminal_pres",
@@ -5185,9 +5102,7 @@
     "CL-PD2-BRANCHING",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.phom2_unique_of_epi",
@@ -5202,9 +5117,7 @@
    "citing_claims": [
     "CL-PD2-BRANCHING"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.no_terminal_pres2",
@@ -5288,8 +5201,7 @@
     "CL-PD2-MATRIX"
    ],
    "consumers": [
-    "Apartness.lean",
-    "ContactKernel.lean"
+    "Apartness.lean"
    ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
@@ -5392,9 +5304,7 @@
    "citing_claims": [
     "CL-PD2-INITIALITY"
    ],
-   "consumers": [
-    "PrimitiveCats.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.nimp_w_d",
@@ -5470,8 +5380,7 @@
    ],
    "consumers": [
     "ContactBridge.lean",
-    "ContactKernel.lean",
-    "PrimitiveCats.lean"
+    "ContactKernel.lean"
    ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
@@ -5976,9 +5885,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.imp_f_a",
@@ -6055,9 +5962,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.prot_not_from_witness",
@@ -6067,9 +5972,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.ret_not_from_witness",
@@ -6360,9 +6263,7 @@
     "CL-PD2-PASSAGE",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.obst_conditions_independent",
@@ -6657,12 +6558,7 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [
-    "ContactBridge.lean",
-    "ContactKernel.lean",
-    "DiffInterface.lean",
-    "ObsDescent.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.zero_refl",
@@ -6678,12 +6574,7 @@
     "CL-PD2-PASSAGE",
     "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
-   "consumers": [
-    "ContactBridge.lean",
-    "ContactKernel.lean",
-    "DiffInterface.lean",
-    "ObsDescent.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.zero_symm",
@@ -6698,12 +6589,7 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [
-    "ContactBridge.lean",
-    "ContactKernel.lean",
-    "DiffInterface.lean",
-    "ObsDescent.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.zero_trans",
@@ -6766,9 +6652,7 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [
-    "GraphGenesis.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.proposal_not_execution",
@@ -6783,9 +6667,7 @@
    "citing_claims": [
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [
-    "GraphGenesis.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.budget_gates_execution",
@@ -6798,12 +6680,9 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-NC-RULE1",
     "CL-PD2-PASSAGE"
    ],
-   "consumers": [
-    "Completion.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.refusal_object_inert",
@@ -6877,12 +6756,8 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-RP-REPLAY"
-   ],
-   "consumers": [
-    "Represented.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.replay_deterministic",
@@ -6894,14 +6769,10 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-RP-REPLAY"
-   ],
+   "citing_claims": [],
    "consumers": [
     "Attachment.lean",
-    "HigherStructure.lean",
-    "Horizon.lean",
-    "Represented.lean"
+    "HigherStructure.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -7335,8 +7206,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-LADDER",
-    "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
+    "CL-PD2-LADDER"
    ],
    "consumers": [],
    "kind": "generic",
@@ -7511,9 +7381,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.indist_refl",
@@ -7523,9 +7391,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.indist_symm",
@@ -7535,9 +7401,7 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.indist_trans",
@@ -7561,9 +7425,7 @@
    "citing_claims": [
     "CL-PD2-APARTNESS"
    ],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.bare_breaks_refl",
@@ -7575,9 +7437,7 @@
    "citing_claims": [
     "CL-PD2-APARTNESS"
    ],
-   "consumers": [
-    "ContactBridge.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.irrefl_alone_breaks_symm",
@@ -7700,9 +7560,7 @@
    "citing_claims": [
     "CL-PD2-APARTNESS"
    ],
-   "consumers": [
-    "Attachment.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.orientations_differ",
@@ -8337,13 +8195,8 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
-   ],
-   "consumers": [
-    "PrimitiveCats.lean",
-    "RenamingStructure.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
    "name": "ControllerCategory.comp_id",
@@ -8355,13 +8208,8 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
-   ],
-   "consumers": [
-    "PrimitiveCats.lean",
-    "RenamingStructure.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
    "name": "ControllerCategory.id_comp",
@@ -8373,13 +8221,8 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
-   ],
-   "consumers": [
-    "PrimitiveCats.lean",
-    "RenamingStructure.lean"
-   ],
+   "citing_claims": [],
+   "consumers": [],
    "kind": "generic",
    "module": "ControllerCategory.lean",
    "name": "ControllerCategory.comp_assoc",
@@ -9007,9 +8850,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "RenamingStructure.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.Renaming.gbound",
@@ -9022,9 +8863,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "RenamingStructure.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.Renaming.gfix",
@@ -9037,9 +8876,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "RenamingStructure.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.Renaming.fbound_iff",
@@ -9068,9 +8905,7 @@
    "citing_claims": [
     "CL-PROGRESS"
    ],
-   "consumers": [
-    "Progress.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.getD_append_lt",
@@ -9125,9 +8960,7 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [
-    "RenamingStructure.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Attachment.lean",
    "name": "Attachment.upBlock_transport",
@@ -9624,9 +9457,7 @@
    "citing_claims": [
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
-   "consumers": [
-    "BoundaryCancellation.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.uniform_guarded_filler",
@@ -9671,9 +9502,7 @@
    "citing_claims": [
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
-   "consumers": [
-    "BoundaryCancellation.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.pseudo_cell_countermodel",
@@ -9799,9 +9628,7 @@
    "citing_claims": [
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with"
    ],
-   "consumers": [
-    "BoundaryCancellation.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "LadderGeneral.lean",
    "name": "LadderGeneral.d2_zero_dims_2_3_4",
@@ -9881,9 +9708,7 @@
     "CL-PD2-COMPRESSION",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "Compression.lean",
    "name": "Compression.factor_not_unique_off_image",
@@ -10134,9 +9959,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "TransitionAlphabet.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "StableContent.lean",
    "name": "StableContent.sepP_append",
@@ -10403,11 +10226,7 @@
    "citing_claims": [
     "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
    ],
-   "consumers": [
-    "ContactKernel.lean",
-    "PresentationNaturality.lean",
-    "Represented.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "RenamingStructure.lean",
    "name": "RenamingStructure.Renaming.ext",
@@ -10419,10 +10238,7 @@
    "citing_claims": [
     "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
    ],
-   "consumers": [
-    "ControllerCategory.lean",
-    "PrimitiveCats.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "RenamingStructure.lean",
    "name": "RenamingStructure.comp_id",
@@ -10434,10 +10250,7 @@
    "citing_claims": [
     "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
    ],
-   "consumers": [
-    "ControllerCategory.lean",
-    "PrimitiveCats.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "RenamingStructure.lean",
    "name": "RenamingStructure.id_comp",
@@ -10449,10 +10262,7 @@
    "citing_claims": [
     "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
    ],
-   "consumers": [
-    "ControllerCategory.lean",
-    "PrimitiveCats.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "RenamingStructure.lean",
    "name": "RenamingStructure.comp_assoc",
@@ -11307,7 +11117,7 @@
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.eraseIdx_eraseIdx_succ",
    "role": "preservation",
-   "statement": ": \u2200 (l : List Nat) (a c : Nat), a \u2264 c \u2192 (l.eraseIdx (c + 1)).eraseIdx a = (l.eraseIdx a).eraseIdx c | [], _, _, _ => rfl | _ :: _, 0, _, _ => rfl | x :: t, a + 1, c, h => by obtain \u27e8c', rfl\u27e9 : \u2203 c', c = c' + 1"
+   "statement": ": \u2200 (l : List Nat) (a c : Nat), a \u2264 c \u2192 (l.eraseIdx (c + 1)).eraseIdx a = (l.eraseIdx a).eraseIdx c"
   },
   {
    "axioms": [
@@ -11509,9 +11319,7 @@
     "CL-PD2-LADDER-GENERAL (repaired and reconciled with",
     "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
    ],
-   "consumers": [
-    "LadderGeneral.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.d2_zero_unrestricted",
@@ -11600,7 +11408,7 @@
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.ascB_head_lt",
    "role": "preservation",
-   "statement": "(x : Nat) : \u2200 (l : List Nat), ascB (x :: l) = true \u2192 \u2200 z \u2208 l, x < z | [], _, _, hz => absurd hz (by simp) | y :: t, h, z, hz => by have h' : ascB (x :: y :: t) = true"
+   "statement": "(x : Nat) : \u2200 (l : List Nat), ascB (x :: l) = true \u2192 \u2200 z \u2208 l, x < z"
   },
   {
    "axioms": [
@@ -11615,7 +11423,7 @@
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.eraseIdx_inj_of_asc",
    "role": "preservation",
-   "statement": ": \u2200 (l : List Nat), ascB l = true \u2192 \u2200 i j, i < l.length \u2192 j < l.length \u2192 l.eraseIdx i = l.eraseIdx j \u2192 i = j | [], _, _, _, hi, _, _ => absurd hi (by simp) | [_], _, i, j, hi, hj, _ => by simp only [List.length_cons, List.length_nil] at hi hj omega | x :: y :: t, h, i, j, hi, hj, he => by have hasc : ascB (x :: y :: t) = true"
+   "statement": ": \u2200 (l : List Nat), ascB l = true \u2192 \u2200 i j, i < l.length \u2192 j < l.length \u2192 l.eraseIdx i = l.eraseIdx j \u2192 i = j"
   },
   {
    "axioms": [
@@ -11630,7 +11438,7 @@
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.codim2_distinct",
    "role": "preservation",
-   "statement": ": \u2200 (l : List Nat), ascB l = true \u2192 \u2200 a b c d, a < b \u2192 c < d \u2192 b < l.length \u2192 d < l.length \u2192 (l.eraseIdx b).eraseIdx a = (l.eraseIdx d).eraseIdx c \u2192 a = c \u2227 b = d | [], _, _, _, _, _, _, _, hb, _, _ => absurd hb (by simp) | [_], _, a, b, _, _, hab, _, hb, _, _ => by simp only [List.length_cons, List.length_nil] at hb exact absurd hab (by omega) | x :: y :: t, h, a, b, c, d, hab, hcd, hb, hd, he => by obtain \u27e8b', rfl\u27e9 : \u2203 b', b = b' + 1"
+   "statement": ": \u2200 (l : List Nat), ascB l = true \u2192 \u2200 a b c d, a < b \u2192 c < d \u2192 b < l.length \u2192 d < l.length \u2192 (l.eraseIdx b).eraseIdx a = (l.eraseIdx d).eraseIdx c \u2192 a = c \u2227 b = d"
   },
   {
    "axioms": [
@@ -11644,7 +11452,7 @@
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.eraseIdx_map",
    "role": "preservation",
-   "statement": "(r : Nat \u2192 Nat) : \u2200 (l : List Nat) (i : Nat), (l.map r).eraseIdx i = (l.eraseIdx i).map r | [], _ => rfl | _ :: _, 0 => rfl | _ :: t, i + 1 => by simp only [List.map_cons, List.eraseIdx_cons_succ, eraseIdx_map r t i] /-- A strictly monotone renaming of vertices preserves strict ascent. -/ theorem ascB_map (r : Nat \u2192 Nat) (hr : \u2200 x y, x < y \u2192 r x < r y) : \u2200 \u03c3 : List Nat, ascB \u03c3 = true \u2192 ascB (\u03c3.map r) = true | [], _ => rfl | [_], _ => rfl | x :: y :: t, h => by have hasc : ascB (x :: y :: t) = true"
+   "statement": "(r : Nat \u2192 Nat) : \u2200 (l : List Nat) (i : Nat), (l.map r).eraseIdx i = (l.eraseIdx i).map r"
   },
   {
    "axioms": [
@@ -11658,7 +11466,7 @@
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.ascB_map",
    "role": "preservation",
-   "statement": "(r : Nat \u2192 Nat) (hr : \u2200 x y, x < y \u2192 r x < r y) : \u2200 \u03c3 : List Nat, ascB \u03c3 = true \u2192 ascB (\u03c3.map r) = true | [], _ => rfl | [_], _ => rfl | x :: y :: t, h => by have hasc : ascB (x :: y :: t) = true"
+   "statement": "(r : Nat \u2192 Nat) (hr : \u2200 x y, x < y \u2192 r x < r y) : \u2200 \u03c3 : List Nat, ascB \u03c3 = true \u2192 ascB (\u03c3.map r) = true"
   },
   {
    "axioms": [
@@ -11695,9 +11503,7 @@
    "citing_claims": [
     "CL-PD2-BOUNDARY-CANCELLATION (Goal 4; supersedes the dimension-2-to-5 computation and closes the standing conjecture)"
    ],
-   "consumers": [
-    "LadderGeneral.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "BoundaryCancellation.lean",
    "name": "BoundaryCancellation.signless_countermodel",
@@ -12978,9 +12784,7 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [
-    "StableContent.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
    "name": "TransitionAlphabet.sepP_append",
@@ -13626,9 +13430,7 @@
    "citing_claims": [
     "CL-PD2-TRANSITION-CODEBOOK (Goal 2, repaired)"
    ],
-   "consumers": [
-    "TraceAlgebra.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "TransitionAlphabet.lean",
    "name": "TransitionAlphabet.internal_family_emits_budget_write",
@@ -14684,9 +14486,7 @@
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.obsQuotient_mk_surjective",
@@ -14807,9 +14607,7 @@
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.classConstant_pair_iff",
@@ -14967,9 +14765,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.int_sub_ne_zero_iff",
@@ -14984,9 +14780,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.int_sub_ne_zero_of_gt",
@@ -15001,9 +14795,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.int_shift_cancel",
@@ -15018,9 +14810,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.int_two_mul_eq_zero_iff",
@@ -15035,9 +14825,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.int_add_sub_cancel",
@@ -15052,9 +14840,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.value_orientation_survives",
@@ -15130,9 +14916,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.classConstant_iff_fiberConstant_all",
@@ -15147,9 +14931,7 @@
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.descend_iff_factorsOn_all",
@@ -15161,9 +14943,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.fiberConstant_fixed_D_not_classConstant",
@@ -15177,9 +14957,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ObsDescent.lean",
    "name": "ObsDescent.sigEq_append_iff",
@@ -15264,9 +15042,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.obsSetting_bs",
@@ -15278,9 +15054,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.obsApart_cotrans",
@@ -15304,9 +15078,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.obsSetting_bl",
@@ -15366,9 +15138,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.kernel_prot_independent",
@@ -15392,9 +15162,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.apartObs_roundtrip",
@@ -15406,9 +15174,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.isApart_repr",
@@ -15420,9 +15186,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.obsApart_isApart",
@@ -15434,9 +15198,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.indist_obsApart_iff",
@@ -15448,9 +15210,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.obsApart_repr_iff",
@@ -15462,9 +15222,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.unit_total_not_repr",
@@ -15477,7 +15235,6 @@
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
    "consumers": [
-    "ContactKernel.lean",
     "PrimitiveContact.lean"
    ],
    "kind": "generic",
@@ -15493,9 +15250,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.triSym_not_obs_complement",
@@ -15507,9 +15262,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.bool_bs_repr",
@@ -15521,9 +15274,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.d_not_witnessed_repr",
@@ -15535,9 +15286,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.cotrans_schema_iff_wlem",
@@ -15549,9 +15298,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.stability_schema_iff_dne",
@@ -15564,9 +15311,7 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.located_schema_implies_wlem",
@@ -15582,9 +15327,7 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.declared_zero_as_view",
@@ -15600,9 +15343,7 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.observation_stage_realizes_observer",
@@ -15615,9 +15356,7 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.kernel_stage_no_obstruction",
@@ -15632,9 +15371,7 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [
-    "ContactKernel.lean"
-   ],
+   "consumers": [],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.pair_blocked_is_collapse_collision",
@@ -16453,9 +16190,7 @@
   },
   {
    "axioms": [],
-   "citing_claims": [
-    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "PresentationNaturality.lean",
@@ -16813,8 +16548,8 @@
    "kind": "generic",
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.nodup_length_le",
-   "role": "preservation",
-   "statement": ": \u2200 (B : Nat) (l : List Nat), List.Nodup l \u2192 (\u2200 x \u2208 l, x < B) \u2192 l.length \u2264 B | 0, l, _, hb => by cases l with | nil => exact Nat.le_refl 0 | cons x t => exact absurd (hb x (List.mem_cons_self ..)) (Nat.not_lt_zero x) | B + 1, l, hnd, hb => by have hsplit"
+   "role": "termination",
+   "statement": ": \u2200 (B : Nat) (l : List Nat), List.Nodup l \u2192 (\u2200 x \u2208 l, x < B) \u2192 l.length \u2264 B"
   },
   {
    "axioms": [
@@ -16822,18 +16557,15 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-DI-PROPOSAL",
-    "CL-RP-PROGRESS",
     "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
    ],
    "consumers": [
-    "CapacityBound.lean",
-    "SeparationCapacity.lean"
+    "CapacityBound.lean"
    ],
    "kind": "generic",
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.pigeonhole",
-   "role": "preservation",
+   "role": "existence",
    "statement": "(B : Nat) (f : Nat \u2192 Nat) (hf : \u2200 p, p < B + 1 \u2192 f p < B) : \u2203 p, p < B + 1 \u2227 \u2203 q, q < B + 1 \u2227 p \u2260 q \u2227 f p = f q"
   },
   {
@@ -16849,7 +16581,7 @@
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.map_nodup_of_inj",
    "role": "preservation",
-   "statement": "(f : Nat \u2192 Nat) : \u2200 n : Nat, (\u2200 p, p < n \u2192 \u2200 q, q < n \u2192 p \u2260 q \u2192 f p \u2260 f q) \u2192 List.Nodup ((upto n).map f) | 0, _ => List.Pairwise.nil | n + 1, hinj => by show List.Nodup (f n :: (upto n).map f) refine List.Pairwise.cons ?_ ?_ \u00b7 intro a ha obtain \u27e8x, hx, rfl\u27e9"
+   "statement": "(f : Nat \u2192 Nat) : \u2200 n : Nat, (\u2200 p, p < n \u2192 \u2200 q, q < n \u2192 p \u2260 q \u2192 f p \u2260 f q) \u2192 List.Nodup ((upto n).map f)"
   },
   {
    "axioms": [
@@ -16863,7 +16595,7 @@
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.nodup_filter_eq_le_one",
    "role": "preservation",
-   "statement": "(B : Nat) : \u2200 l : List Nat, List.Nodup l \u2192 (l.filter (fun x => decide (x = B))).length \u2264 1 | [], _ => Nat.zero_le 1 | x :: t, hnd => by rw [List.filter_cons] cases hp : (decide (x = B)) with | true => show (x :: t.filter (fun y => decide (y = B))).length \u2264 1 have hxB : x = B"
+   "statement": "(B : Nat) : \u2200 l : List Nat, List.Nodup l \u2192 (l.filter (fun x => decide (x = B))).length \u2264 1"
   },
   {
    "axioms": [
@@ -16877,7 +16609,7 @@
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.filter_nodup",
    "role": "preservation",
-   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, List.Nodup l \u2192 List.Nodup (l.filter p) | [], _ => List.Pairwise.nil | x :: t, hnd => by rw [List.filter_cons] have iht"
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, List.Nodup l \u2192 List.Nodup (l.filter p)"
   },
   {
    "axioms": [
@@ -16892,7 +16624,7 @@
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.length_filter_split",
    "role": "preservation",
-   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, (l.filter p).length + (l.filter (fun x => !p x)).length = l.length | [] => rfl | x :: t => by have ih"
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, (l.filter p).length + (l.filter (fun x => !p x)).length = l.length"
   },
   {
    "axioms": [],
@@ -16904,7 +16636,7 @@
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.upto_length",
    "role": "preservation",
-   "statement": ": \u2200 n, (upto n).length = n | 0 => rfl | n + 1 => by show (upto n).length + 1 = n + 1 rw [upto_length n] theorem upto_mem : \u2200 (n x : Nat), x \u2208 upto n \u2192 x < n | 0, x, hx => absurd hx (List.not_mem_nil) | n + 1, x, hx => by rcases List.mem_cons.mp hx with h | h \u00b7 omega \u00b7 have"
+   "statement": ": \u2200 n, (upto n).length = n"
   },
   {
    "axioms": [
@@ -16919,7 +16651,7 @@
    "module": "Pigeonhole.lean",
    "name": "Pigeonhole.upto_mem",
    "role": "preservation",
-   "statement": ": \u2200 (n x : Nat), x \u2208 upto n \u2192 x < n | 0, x, hx => absurd hx (List.not_mem_nil) | n + 1, x, hx => by rcases List.mem_cons.mp hx with h | h \u00b7 omega \u00b7 have"
+   "statement": ": \u2200 (n x : Nat), x \u2208 upto n \u2192 x < n"
   },
   {
    "axioms": [
@@ -16933,8 +16665,8 @@
    "kind": "generic",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.encode_lt",
-   "role": "preservation",
-   "statement": "(k : Nat) : \u2200 l : List Nat, (\u2200 x \u2208 l, x < k) \u2192 encode k l < k ^ l.length | [], _ => by show 0 < k ^ 0 exact Nat.zero_lt_one | x :: t, h => by have hx : x < k"
+   "role": "classification",
+   "statement": "(k : Nat) : \u2200 l : List Nat, (\u2200 x \u2208 l, x < k) \u2192 encode k l < k ^ l.length"
   },
   {
    "axioms": [
@@ -16948,8 +16680,8 @@
    "kind": "generic",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.encode_inj",
-   "role": "preservation",
-   "statement": "(k : Nat) : \u2200 l m : List Nat, l.length = m.length \u2192 (\u2200 x \u2208 l, x < k) \u2192 (\u2200 x \u2208 m, x < k) \u2192 encode k l = encode k m \u2192 l = m | [], [], _, _, _, _ => rfl | [], _ :: _, hlen, _, _, _ => Nat.noConfusion hlen | _ :: _, [], hlen, _, _, _ => Nat.noConfusion hlen | x :: t, y :: u, hlen, hx, hy, henc => by have hxk : x < k"
+   "role": "uniqueness",
+   "statement": "(k : Nat) : \u2200 l m : List Nat, l.length = m.length \u2192 (\u2200 x \u2208 l, x < k) \u2192 (\u2200 x \u2208 m, x < k) \u2192 encode k l = encode k m \u2192 l = m"
   },
   {
    "axioms": [
@@ -16962,7 +16694,7 @@
    "kind": "generic",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.colourBall_length",
-   "role": "preservation",
+   "role": "classification",
    "statement": "(colour : Nat \u2192 Nat) (i d : Nat) : (colourBall colour i d).length = 2 * d + 1"
   },
   {
@@ -17001,10 +16733,10 @@
     "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
    ],
    "consumers": [],
-   "kind": "generic",
+   "kind": "horizon-free",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.capacity_bound",
-   "role": "preservation",
+   "role": "countermodel",
    "statement": "(colour v : Nat \u2192 Nat) (k d n : Nat) (hk : \u2200 x, colour x < k) (hloc : ViewLocal v colour d) (hn : k ^ (2 * d + 1) + 2 * d + 2 \u2264 n) : \u2203 i j, i \u2260 j \u2227 d < i \u2227 i + d < n \u2227 d < j \u2227 j + d < n \u2227 v i = v j"
   },
   {
@@ -17016,23 +16748,26 @@
     "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
    ],
    "consumers": [],
-   "kind": "generic",
+   "kind": "horizon-free",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.capacity_at_one_colour",
-   "role": "preservation",
+   "role": "example",
    "statement": "(d n : Nat) (hn : 2 * d + 3 \u2264 n) : \u2203 i j, i \u2260 j \u2227 d < i \u2227 i + d < n \u2227 d < j \u2227 j + d < n \u2227 (fun _ : Nat => 0) i = (fun _ : Nat => 0) j"
   },
   {
-   "axioms": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
    "citing_claims": [
     "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
    ],
    "consumers": [],
-   "kind": "generic",
+   "kind": "concrete",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.local_view_can_separate",
-   "role": "preservation",
-   "statement": ": \u2203 (colour v : Nat \u2192 Nat) (d : Nat), ViewLocal v colour d \u2227 v 1 \u2260 v 2"
+   "role": "countermodel",
+   "statement": ": \u2203 (colour v : Nat \u2192 Nat), (\u2200 x, colour x < 2) \u2227 ViewLocal v colour 0 \u2227 0 < 1 \u2227 1 + 0 < 3 \u2227 0 < 2 \u2227 2 + 0 < 3 \u2227 3 < 2 ^ (2 * 0 + 1) + 2 * 0 + 2 \u2227 v 1 \u2260 v 2 \u2227 (\u2200 i j, 0 < i \u2192 i + 0 < 3 \u2192 0 < j \u2192 j + 0 < 3 \u2192 i \u2260 j \u2192 v i \u2260 v j)"
   }
  ]
 }

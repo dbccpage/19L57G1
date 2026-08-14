@@ -18,7 +18,8 @@ without a hypothesis forcing the view to factor through the ball the
 radius plays no role and the result is ordinary global pigeonhole.
 
 Both are addressed here.  The pigeonhole is `Pigeonhole.pigeonhole`,
-which is axiom-free.  The locality hypothesis is `ViewLocal`, and it is
+whose enumerated axiom report is choice-free.  The locality hypothesis
+is `ViewLocal`, and it is
 load-bearing in a specific way worth stating up front: it is what turns
 `B` from an ASSUMPTION into a CONSEQUENCE.  For a view factoring
 through the radius-`d` ball over a `k`-colour alphabet, the number of
@@ -162,7 +163,7 @@ theorem local_view_blind {v colour : Nat → Nat} {d : Nat}
 /-! ## 3. The capacity bound -/
 
 /-- **The coloured separation-capacity bound.**  Let `colour` take
-fewer than `k` values and let `v` factor through the radius-`d` colour
+values below `k` and let `v` factor through the radius-`d` colour
 ball.  Once
 
   `n ≥ k ^ (2 * d + 1) + 2 * d + 2`
@@ -215,17 +216,38 @@ theorem capacity_at_one_colour (d n : Nat) (hn : 2 * d + 3 ≤ n) :
   have : (1 : Nat) ^ (2 * d + 1) = 1 := Nat.one_pow _
   omega
 
-/-- **The locality hypothesis is load-bearing.**  Below the threshold a
-local view can separate a deep pair: at radius `0` with two colours,
-the identity-parity view separates two adjacent deep points.  So
-`capacity_bound` is not vacuously true of every local view, and the
-threshold is not decoration. -/
+/-- **The locality hypothesis is load-bearing.**  At exactly `k = 2`,
+`d = 0`, and `n = 3`, the deep indices `1` and `2` lie strictly below
+the threshold `2 ^ (2 * 0 + 1) + 2 * 0 + 2 = 4`, and the local parity
+view separates every distinct deep pair (and, in particular, separates
+`1` and `2`). Thus the forced-collision conclusion is false at this
+below-threshold instance: `capacity_bound` is not vacuously true of
+every local view, and its threshold is not decoration. -/
 theorem local_view_can_separate :
-    ∃ (colour v : Nat → Nat) (d : Nat),
-      ViewLocal v colour d ∧ v 1 ≠ v 2 := by
-  refine ⟨fun x => x % 2, fun x => x % 2, 0, ⟨fun l => l.headD 0, ?_⟩, by decide⟩
-  intro i
-  show i % 2 = (colourBall (fun x => x % 2) i 0).headD 0
-  rfl
+    ∃ (colour v : Nat → Nat),
+      (∀ x, colour x < 2) ∧
+      ViewLocal v colour 0 ∧
+      0 < 1 ∧ 1 + 0 < 3 ∧ 0 < 2 ∧ 2 + 0 < 3 ∧
+      3 < 2 ^ (2 * 0 + 1) + 2 * 0 + 2 ∧
+      v 1 ≠ v 2 ∧
+      (∀ i j, 0 < i → i + 0 < 3 → 0 < j → j + 0 < 3 →
+        i ≠ j → v i ≠ v j) := by
+  refine ⟨fun x => x % 2, fun x => x % 2,
+    fun x => Nat.mod_lt x (by decide),
+    ⟨fun l => l.headD 0, ?_⟩, by decide, by decide, by decide, by decide,
+    by decide, by decide, ?_⟩
+  · intro i
+    show i % 2 = (colourBall (fun x => x % 2) i 0).headD 0
+    rfl
+  · intro i j hi0 hi1 hj0 hj1 hij
+    have hi : i = 1 ∨ i = 2 := by omega
+    have hj : j = 1 ∨ j = 2 := by omega
+    rcases hi with rfl | rfl
+    · rcases hj with rfl | rfl
+      · exact (hij rfl).elim
+      · decide
+    · rcases hj with rfl | rfl
+      · decide
+      · exact (hij rfl).elim
 
 end CapacityBound
