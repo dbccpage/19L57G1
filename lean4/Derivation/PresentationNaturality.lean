@@ -7,7 +7,13 @@ import Derivation.ContactKernel
 -equivariant map, on one carrier, for one action: total maps
 `DiffObs Bool Bool → Bool × Bool` commuting with Bool negation.  Its own
 docstring says it is not a general refutation of a preferred choice.
-This module supplies the general statement it was standing in for.
+This module does NOT subsume that theorem, and does not claim to.  It
+supplies a PARALLEL obstruction — arguably the same phenomenon, but
+over different objects — together with the transport machinery that
+makes natural selection a well-typed question across presentations at
+all.  The derivation that would make the sealed theorem an instance of
+the general obstruction is OPEN.  Until it is proved, the sealed
+theorem stands on its own scope and nothing here licenses it.
 
 The construction is:
 
@@ -42,6 +48,14 @@ The construction is:
 * The obstruction is relative to the DECLARED family.  `autoFamily O F`
   contains exactly one object and one isomorphism, the exhibited `F`.
   Nothing is claimed about families this module does not construct.
+* Everything proved here is over ONE-OBJECT families.  `Family` itself
+  is general, and it deliberately requires neither composition nor
+  inverses — naturality is with respect to exactly the arrows listed.
+  Multi-object families, naturality under a generating set, and
+  coherence of `mapPair` with `trans` and `symm` beyond the one-object
+  case are FUTURE WORK, not results of this module.  Both fixtures
+  below, negative and positive, are one-object; they separate two
+  one-object situations, not two presentation theories.
 * No claim that selection is impossible.  A raw section exists in the
   very case where no natural one does; the obstruction concerns natural
   selection only.

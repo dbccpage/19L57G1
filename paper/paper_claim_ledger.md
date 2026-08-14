@@ -2945,6 +2945,18 @@ CL-PD2-LADDER)
   - The obstruction is RELATIVE to the declared family.  `autoFamily`
     lists exactly one object and one isomorphism.  Nothing is claimed
     about families not constructed here.
+  - Everything proved is over ONE-OBJECT families, including both
+    fixtures.  They separate two one-object situations, not two
+    presentation theories.  `Family` requires neither composition nor
+    inverses, so naturality is with respect to exactly the arrows
+    listed.  Multi-object families, naturality under a generating set,
+    and coherence of `mapPair` with `trans`/`symm` beyond the
+    one-object case are FUTURE WORK, not results.
+  - This entry does NOT subsume
+    `ContactKernel.no_equivariant_pair_valued_map` and must not be
+    described as the general form of it.  Describing it that way was an
+    earlier framing, now WITHDRAWN: the OPEN derivation below denies
+    exactly that subsumption.
   - No claim that selection is impossible in any sense, and no choice
     principle is claimed, used, or refuted — every theorem in the
     module except the co-statement is axiom-free.

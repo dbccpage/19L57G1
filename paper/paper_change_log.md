@@ -1427,9 +1427,15 @@ sources.
 
 `ContactKernel.no_equivariant_pair_valued_map` rules out one relabelling-
 equivariant map, on one carrier, for one action, and its own docstring says it
-is not a general refutation of a preferred choice.  This entry records the
-general statement it was standing in for, in a new module
-`lean4/Derivation/PresentationNaturality.lean`.
+is not a general refutation of a preferred choice.  This entry records a
+PARALLEL obstruction and the transport machinery it needs, in a new module
+`lean4/Derivation/PresentationNaturality.lean`.  It does NOT subsume the
+sealed theorem: the derivation that would make that theorem an instance is
+OPEN, and until it is proved the sealed result stands on its own scope.  An
+earlier draft of this entry, of the module header, and of the pull request
+described the module as supplying "the general statement it was standing in
+for".  That was aspirational — it asserted a subsumption the OPEN status
+denies — and it is WITHDRAWN.
 
 1. **A presentation isomorphism is now a typed object.**  `PresIso` carries a
    bijection of carriers and a bijection of residual values, with transport
