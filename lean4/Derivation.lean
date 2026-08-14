@@ -1205,6 +1205,8 @@ open Derivation
 #print axioms ContactKernel.ofSetting_exact
 #print axioms ContactKernel.ofSetting_ret_irrelevant
 #print axioms ContactKernel.pair_choice_load_bearing
+#print axioms ContactKernel.kernel_from_obs_iff_pair
+#print axioms ContactKernel.eq_ofDiffObs_of_fields
 #print axioms ContactKernel.kernel_no_witness_from_collapse
 #print axioms ContactKernel.toDiffObs_fields
 #print axioms ContactKernel.toDiffObs_apart

@@ -11,7 +11,7 @@ verified absent at `ebb1e0b` by `git grep`: `ContactKernel.toDiffObs`,
 `ContactBridge.collapse_collision_is_pair_blocked`,
 `ContactBridge.pair_blocked_iff_collapse_collision`. Each of the four theorems
 among them carries a matching `#print axioms` line in `lean4/Derivation.lean`,
-and `artifacts/lean_axioms.txt` was regenerated to match (1149 reports over 42
+and `artifacts/lean_axioms.txt` was regenerated to match (1151 reports over 42
 sources, all within `{propext, Quot.sound}`). Throughout this document **"on
 disk" means the collision tree = `ebb1e0b` + those five**; nothing
 outside that set is cited. Line numbers are working-tree line numbers, which
@@ -405,6 +405,8 @@ operations.
 | direction | status | Lean | exact hypotheses |
 |---|---|---|---|
 | observer + chosen pair → kernel | PROVED | `ContactKernel.ofDiffObs` (`:216`) | `a b : X` **and** `hw : ¬ ZeroRel O a b` |
+| same-data kernel exists ↔ a non-zero pair exists | PROVED | `ContactKernel.kernel_from_obs_iff_pair` | none — existence only; not uniqueness of the pair |
+| such a kernel is `ofDiffObs` at its own endpoints | PROVED | `ContactKernel.eq_ofDiffObs_of_fields` | `K.delta = O.delta` and `K.Zero = O.Zero`; factorization, not unique pair |
 | observer alone → kernel | NON-UNIQUE (pair choice load-bearing) | `ContactKernel.pair_choice_load_bearing` (`:228`) — one `Bool` observer offers both a non-zero pair and a zero pair; `ofDiffObs` still applies to the witnessed pair | carrier 2; carrier remark METATHEORY (a subsingleton carrier has one pair, and by `no_kernel_on_subsingleton` supports no kernel at all) |
 | supplied-shape structure alone → any witness | **REFUTED** | `ContactKernel.kernel_no_witness_from_collapse` (`:248`) — over the all-zero observer *no* pair is complement-witnessed | carrier 2; minimality as above |
 | kernel → observer (promote to the law fields) | **REFUTED** (symmetry) | `ContactKernel.kernel_not_observer` (`:299`) — the oriented two-element kernel's difference and zero data extend to no `DiffObs`, because the symmetry law field would force symmetry of the zero relation | **2**; minimal — on a subsingleton every relation is symmetric (METATHEORY) |

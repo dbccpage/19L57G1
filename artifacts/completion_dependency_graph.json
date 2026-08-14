@@ -6139,7 +6139,8 @@
    ],
    "citing_claims": [
     "CL-PD2-PASSAGE",
-    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)",
+    "CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)"
    ],
    "consumers": [
     "ContactKernel.lean",
@@ -6189,7 +6190,8 @@
    ],
    "citing_claims": [
     "CL-PD2-PASSAGE",
-    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)",
+    "CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)"
    ],
    "consumers": [
     "ContactKernel.lean"
@@ -6363,7 +6365,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -15518,7 +15522,8 @@
    "axioms": [],
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
-    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -15530,8 +15535,33 @@
   {
    "axioms": [],
    "citing_claims": [
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_from_obs_iff_pair",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : (\u2203 K : WitnessedDiff X R, K.delta = O.delta \u2227 K.Zero = O.Zero) \u2194 (\u2203 a b : X, \u00ac ZeroRel O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.eq_ofDiffObs_of_fields",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (K : WitnessedDiff X R) (hd : K.delta = O.delta) (hz : K.Zero = O.Zero) : K = ofDiffObs O K.a K.b (by change \u00ac O.Zero (O.delta K.a K.b) rw [\u2190 hd, \u2190 hz] exact K.apart_ab)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
-    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",

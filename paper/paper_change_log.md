@@ -1193,3 +1193,32 @@ which change a theorem, a terminal, or an artifact:
 3. **Anchor no longer says UNCOMMITTED.**  The five declarations
    added after `ebb1e0b` are described as committed in this
    collision.  Companion wording in `lean_definition_map.md` matches.
+
+## Packet 5 audit and packet 2 pair-choice lemma (2026-08-14)
+
+Base `bd2e8c8` (PR #19 merged).  Mission
+`prompt/flw_mission_pr14.md`.  AuthorityEffect None.
+
+1. **Packet 5 — audit only, no new Lean.**
+   `PrimitivePassage.obst_conditions_independent` already exhibits
+   the four maximal proper subsets of the `obstP` conjunction
+   (retained / protected / declared / zero), each with a concrete
+   non-obstructing state, plus the all-four witness.  The predicate
+   reads only `wit`, `prot`, and `obs`; the independence states vary
+   those stores alone.  Companions
+   `obst_requires_observation`, `no_protection_no_obstruction`,
+   `obst_agrees_when_declared`, `obst_diverges_when_undeclared`
+   confirm the declared-observation conjunct is not a convention.
+   Scope: independence of *this* four-conjunct Bool predicate, not a
+   reverse-mathematics claim that no other activation signature
+   exists.  `two_rule` may keep citing it as the activation theorem.
+
+2. **Packet 2 — pair-choice necessity as a reusable lemma.**
+   `ContactKernel.kernel_from_obs_iff_pair`: a kernel carrying an
+   observer's `delta` and `Zero` exists iff a non-zero pair exists.
+   `ContactKernel.eq_ofDiffObs_of_fields`: any such kernel equals
+   `ofDiffObs` at its own endpoints.  Neither statement claims
+   uniqueness of the pair (`pair_choice_load_bearing` remains the
+   non-uniqueness witness; `kernel_no_witness_from_collapse` remains
+   the no-pair witness).  Axiom reports 1149 → 1151, both new
+   theorems axiom-free.

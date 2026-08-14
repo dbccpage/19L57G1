@@ -1114,36 +1114,38 @@ Derivation.lean:1204:0: 'ContactKernel.toSetting_A' does not depend on any axiom
 Derivation.lean:1205:0: 'ContactKernel.ofSetting_exact' does not depend on any axioms
 Derivation.lean:1206:0: 'ContactKernel.ofSetting_ret_irrelevant' does not depend on any axioms
 Derivation.lean:1207:0: 'ContactKernel.pair_choice_load_bearing' does not depend on any axioms
-Derivation.lean:1208:0: 'ContactKernel.kernel_no_witness_from_collapse' does not depend on any axioms
-Derivation.lean:1209:0: 'ContactKernel.toDiffObs_fields' does not depend on any axioms
-Derivation.lean:1210:0: 'ContactKernel.toDiffObs_apart' does not depend on any axioms
-Derivation.lean:1211:0: 'ContactKernel.kernel_not_observer' does not depend on any axioms
-Derivation.lean:1212:0: 'ContactKernel.kernel_zero_not_trans' depends on axioms: [propext]
-Derivation.lean:1213:0: 'ContactKernel.kernel_not_bs' does not depend on any axioms
-Derivation.lean:1214:0: 'ContactKernel.kernel_not_bc' depends on axioms: [propext]
-Derivation.lean:1215:0: 'ContactKernel.kernel_located_of_decidable' does not depend on any axioms
-Derivation.lean:1216:0: 'ContactKernel.kernel_not_c' does not depend on any axioms
-Derivation.lean:1217:0: 'ContactKernel.kernel_not_f' does not depend on any axioms
-Derivation.lean:1218:0: 'ContactKernel.kernel_to_w' does not depend on any axioms
-Derivation.lean:1219:0: 'ContactKernel.kernel_to_d' does not depend on any axioms
-Derivation.lean:1220:0: 'ContactKernel.kernel_to_e_empty' does not depend on any axioms
-Derivation.lean:1221:0: 'ContactKernel.kernel_not_e_merged' does not depend on any axioms
-Derivation.lean:1222:0: 'ContactKernel.no_kernel_over_allzero' does not depend on any axioms
-Derivation.lean:1223:0: 'ContactKernel.value_presentation_fork' does not depend on any axioms
-Derivation.lean:1224:0: 'ContactKernel.vhom_not_unique' does not depend on any axioms
-Derivation.lean:1225:0: 'ContactKernel.vhom_unique_of_onto' depends on axioms: [Quot.sound]
-Derivation.lean:1226:0: 'ContactKernel.boolKernel_apart_iff' does not depend on any axioms
-Derivation.lean:1227:0: 'ContactKernel.apartObj_irrefl' does not depend on any axioms
-Derivation.lean:1228:0: 'ContactKernel.apartObj_sym_of_observer' does not depend on any axioms
-Derivation.lean:1229:0: 'ContactKernel.kernel_gateway_unique' depends on axioms: [Quot.sound]
-Derivation.lean:1230:0: 'ContactKernel.kernel_gateway_injective' does not depend on any axioms
-Derivation.lean:1231:0: 'ContactKernel.kernel_gateways_not_identical' does not depend on any axioms
-Derivation.lean:1232:0: 'ContactKernel.kernel_no_terminal' depends on axioms: [propext]
-Derivation.lean:1233:0: 'ContactKernel.kernel_no_terminal_collector' depends on axioms: [propext]
-Derivation.lean:1234:0: 'ContactKernel.passage_gateway_unique' depends on axioms: [propext, Quot.sound]
-Derivation.lean:1235:0: 'ContactKernel.kernel_licenses_entry' depends on axioms: [propext, Quot.sound]
-Derivation.lean:1236:0: 'ContactKernel.entry_pre_observation' depends on axioms: [propext, Quot.sound]
-Derivation.lean:1237:0: 'ContactKernel.kernel_two_point_presentation' does not depend on any axioms
-Derivation.lean:1238:0: 'ContactKernel.contactCells_length' does not depend on any axioms
-Derivation.lean:1242:0: 'PrimitiveContact.contact_status_count' does not depend on any axioms
-Derivation.lean:1243:0: 'PrimitiveContact.native_interface_not_representable' does not depend on any axioms
+Derivation.lean:1208:0: 'ContactKernel.kernel_from_obs_iff_pair' does not depend on any axioms
+Derivation.lean:1209:0: 'ContactKernel.eq_ofDiffObs_of_fields' does not depend on any axioms
+Derivation.lean:1210:0: 'ContactKernel.kernel_no_witness_from_collapse' does not depend on any axioms
+Derivation.lean:1211:0: 'ContactKernel.toDiffObs_fields' does not depend on any axioms
+Derivation.lean:1212:0: 'ContactKernel.toDiffObs_apart' does not depend on any axioms
+Derivation.lean:1213:0: 'ContactKernel.kernel_not_observer' does not depend on any axioms
+Derivation.lean:1214:0: 'ContactKernel.kernel_zero_not_trans' depends on axioms: [propext]
+Derivation.lean:1215:0: 'ContactKernel.kernel_not_bs' does not depend on any axioms
+Derivation.lean:1216:0: 'ContactKernel.kernel_not_bc' depends on axioms: [propext]
+Derivation.lean:1217:0: 'ContactKernel.kernel_located_of_decidable' does not depend on any axioms
+Derivation.lean:1218:0: 'ContactKernel.kernel_not_c' does not depend on any axioms
+Derivation.lean:1219:0: 'ContactKernel.kernel_not_f' does not depend on any axioms
+Derivation.lean:1220:0: 'ContactKernel.kernel_to_w' does not depend on any axioms
+Derivation.lean:1221:0: 'ContactKernel.kernel_to_d' does not depend on any axioms
+Derivation.lean:1222:0: 'ContactKernel.kernel_to_e_empty' does not depend on any axioms
+Derivation.lean:1223:0: 'ContactKernel.kernel_not_e_merged' does not depend on any axioms
+Derivation.lean:1224:0: 'ContactKernel.no_kernel_over_allzero' does not depend on any axioms
+Derivation.lean:1225:0: 'ContactKernel.value_presentation_fork' does not depend on any axioms
+Derivation.lean:1226:0: 'ContactKernel.vhom_not_unique' does not depend on any axioms
+Derivation.lean:1227:0: 'ContactKernel.vhom_unique_of_onto' depends on axioms: [Quot.sound]
+Derivation.lean:1228:0: 'ContactKernel.boolKernel_apart_iff' does not depend on any axioms
+Derivation.lean:1229:0: 'ContactKernel.apartObj_irrefl' does not depend on any axioms
+Derivation.lean:1230:0: 'ContactKernel.apartObj_sym_of_observer' does not depend on any axioms
+Derivation.lean:1231:0: 'ContactKernel.kernel_gateway_unique' depends on axioms: [Quot.sound]
+Derivation.lean:1232:0: 'ContactKernel.kernel_gateway_injective' does not depend on any axioms
+Derivation.lean:1233:0: 'ContactKernel.kernel_gateways_not_identical' does not depend on any axioms
+Derivation.lean:1234:0: 'ContactKernel.kernel_no_terminal' depends on axioms: [propext]
+Derivation.lean:1235:0: 'ContactKernel.kernel_no_terminal_collector' depends on axioms: [propext]
+Derivation.lean:1236:0: 'ContactKernel.passage_gateway_unique' depends on axioms: [propext, Quot.sound]
+Derivation.lean:1237:0: 'ContactKernel.kernel_licenses_entry' depends on axioms: [propext, Quot.sound]
+Derivation.lean:1238:0: 'ContactKernel.entry_pre_observation' depends on axioms: [propext, Quot.sound]
+Derivation.lean:1239:0: 'ContactKernel.kernel_two_point_presentation' does not depend on any axioms
+Derivation.lean:1240:0: 'ContactKernel.contactCells_length' does not depend on any axioms
+Derivation.lean:1244:0: 'PrimitiveContact.contact_status_count' does not depend on any axioms
+Derivation.lean:1245:0: 'PrimitiveContact.native_interface_not_representable' does not depend on any axioms

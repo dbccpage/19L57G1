@@ -32,7 +32,8 @@ other, never kernel content.
    protection, and operations (`ofSetting_ret_irrelevant`); an
    observer yields a kernel only *together with a chosen non-zero
    pair*, and the choice is genuine new data
-   (`pair_choice_load_bearing`, `kernel_no_witness_from_collapse`);
+   (`pair_choice_load_bearing`, `kernel_from_obs_iff_pair`,
+   `eq_ofDiffObs_of_fields`, `kernel_no_witness_from_collapse`);
    in the other direction the kernel *plus the two law declarations*
    is an observer, field-for-field and losslessly (`toDiffObs`,
    `toDiffObs_fields`, `toDiffObs_apart`) — a record identity, not a
@@ -241,6 +242,38 @@ theorem pair_choice_load_bearing :
     decide
   · exact fun h => Bool.noConfusion h
   · rfl
+
+/-- Existence of a kernel that carries an observer's difference and
+zero data is equivalent to existence of a non-zero pair.  The pair is
+therefore necessary for the observer→kernel map; it is not recovered
+from the observer record alone (`pair_choice_load_bearing`). -/
+theorem kernel_from_obs_iff_pair (O : DiffObs X R) :
+    (∃ K : WitnessedDiff X R, K.delta = O.delta ∧ K.Zero = O.Zero) ↔
+      (∃ a b : X, ¬ ZeroRel O a b) := by
+  constructor
+  · rintro ⟨K, hd, hz⟩
+    refine ⟨K.a, K.b, ?_⟩
+    change ¬ O.Zero (O.delta K.a K.b)
+    rw [← hd, ← hz]
+    exact K.apart_ab
+  · rintro ⟨a, b, hw⟩
+    exact ⟨ofDiffObs O a b hw, rfl, rfl⟩
+
+/-- Any kernel with an observer's difference and zero data is
+`ofDiffObs` at that kernel's own endpoints.  This is factorization
+through an explicit pair, not uniqueness of the pair. -/
+theorem eq_ofDiffObs_of_fields (O : DiffObs X R)
+    (K : WitnessedDiff X R)
+    (hd : K.delta = O.delta) (hz : K.Zero = O.Zero) :
+    K = ofDiffObs O K.a K.b (by
+      change ¬ O.Zero (O.delta K.a K.b)
+      rw [← hd, ← hz]
+      exact K.apart_ab) := by
+  cases K
+  cases O
+  cases hd
+  cases hz
+  rfl
 
 /-- A supplied-style structure alone can have no witness at all: over
 the total collapse no pair is complement-witnessed, so no kernel

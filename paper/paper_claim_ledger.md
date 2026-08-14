@@ -2225,7 +2225,7 @@ CL-PD2-LADDER)
   `.collapseAllObs_id_not_classConstant`,
   `.collapseAllObs_no_view_descend`.
 - **Axioms**: every report of the three collision modules lies within
-  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1149 reports;
+  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1151 reports;
   `ci/check_axiom_report.py`).
 - **Python**: `primitive_contact.json:enumerations.E3_descent_dictionary`
   (64 combinations, 28 descending, 36 fixed-domain divergences) and
@@ -2726,4 +2726,37 @@ CL-PD2-LADDER)
   only; comments are never evidence, no prose stage was supplied, and
   any future strictly-stronger reading must be stated against the
   enlarged corpus, never the sealed one.
+
+### CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)
+- **Statement**: a kernel that carries an observer's difference map
+  and zero predicate exists if and only if a non-zero pair exists
+  (`kernel_from_obs_iff_pair`).  Any such kernel equals `ofDiffObs`
+  at its own endpoints (`eq_ofDiffObs_of_fields`).  The pair is
+  therefore necessary data for the observer→kernel map.  This does
+  NOT claim uniqueness of the pair or of the kernel
+  (`pair_choice_load_bearing`) and does NOT claim every observer
+  yields a pair (`kernel_no_witness_from_collapse`).
+- **Class**: DERIVED_THEOREM.
+- **Evidence**: `ContactKernel.kernel_from_obs_iff_pair`,
+  `ContactKernel.eq_ofDiffObs_of_fields`; both `#print axioms` in
+  `lean4/Derivation.lean`.
+- **Deps**: CL-PD2-CONTACT-KERNEL.
+- **Lean**: the two theorems above.
+- **Axioms**: expected empty (definitional + structure cases).
+- **Falsifier**: treating the iff as uniqueness; closing
+  `open_kernel_grade` from this lemma.
+
+### CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)
+- **Statement**: `obst_conditions_independent` already proves each
+  of the four `obstP` conjuncts (retained, protected, declared,
+  zero) is necessary and that all four together suffice, by five
+  concrete states.  No hidden store is read.  Scope is this
+  predicate, not a claim that no other activation signature exists.
+- **Class**: AUDIT of a sealed DERIVED_THEOREM.  No new Lean.
+- **Evidence**: `PrimitivePassage.obst_conditions_independent`
+  (`:157`), companions `obst_requires_observation`,
+  `no_protection_no_obstruction`.
+- **Deps**: the sealed passage record.
+- **Falsifier**: treating the audit as a new theorem or as
+  reverse-mathematics completeness.
 
