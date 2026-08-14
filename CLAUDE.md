@@ -1,7 +1,5 @@
 # CLAUDE.md — Execution Plan
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Repository boundary
 
 - All work uses only this repository. No network research, no external files,
@@ -131,26 +129,42 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The five gates CI enforces
+### The six gate families CI enforces
+
+`.github/workflows/verify.yml` runs two jobs, `python` and `lean`. Between
+them they are six gate families. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
 python ci/check_prompt_hashes.py
 
-# 2. tests under coverage, then the independent dual 95% gate
+# 2. transport document citations bound to Lean sources
+python ci/check_transport_citations.py
+
+# 3. tests under coverage, then the independent dual 95% gate
 coverage run -m pytest -q; coverage json -q; coverage report
 python ci/check_coverage.py           # line AND branch must each reach 95%
 
-# 3. strict typing (config in pyproject: strict = true, files = ["code"])
+# 4. strict typing (config in pyproject: strict = true, files = ["code"])
 python -m mypy
 
-# 4. artifact regeneration must be byte-identical (see below)
+# 5. artifact regeneration must be byte-identical (see below)
 
-# 5. Lean build + forbidden-token/axiom audit (see below)
+# 6. Lean build, forbidden-token/axiom audit, and byte-identical
+#    regeneration of the axiom artifact (see below)
 ```
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
 the measured source. It reads `coverage.json`, so run `coverage json` first.
+
+`ci/check_transport_citations.py` enumerates the citation population of
+`contact/analysis/lean_theorem_transport.md` *independently of the parser
+that classifies it* — every backticked token ending in a colon and digits —
+so a citation the classifier cannot see fails the totality check instead of
+cancelling out on both sides of it. Path-prefixed citations count, and
+`--fix` preserves those prefixes when it regenerates line anchors. A
+totality invariant computed with the classifier's own pattern proves
+nothing; that was a real defect, not a hypothetical one.
 
 ### Artifacts
 
@@ -181,6 +195,22 @@ python ci/check_axiom_report.py lake_build_local.log   # log must match artifact
 `lake_build_*.log` is gitignored. The axiom report is produced by compiling
 `lean4/Derivation.lean`; if the log comes back with no `#print axioms` lines,
 force that root module to rebuild before auditing.
+
+When a theorem is renamed, added, or removed, `artifacts/lean_axioms.txt` is
+rewritten by `python ci/regen_axiom_artifact.py <log>`, which writes bytes
+explicitly so a shell redirect cannot reintroduce CRLF. It overwrites the
+committed artifact, so run it deliberately, then commit the diff. Artifacts
+derived from it — the completion receipts and the dependency graph — must be
+regenerated *after* it, not before; that ordering is the whole coupling, and
+no Python source hard-codes Lean theorem names.
+
+**The axiom boundary, stated exactly.** The audit's reach is the set of
+declarations enumerated by the committed `#print axioms` inventory in
+`lean4/Derivation.lean`. It certifies that every report in that inventory
+lies within `{propext, Quot.sound}`. It does not by itself establish that the
+inventory names every exported declaration, nor that every report is present.
+Read "axiom-clean" as a claim about the enumerated reports only, unless
+declaration completeness or report completeness is independently proved.
 
 ## Architecture
 
