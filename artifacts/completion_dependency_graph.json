@@ -1627,7 +1627,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [
     "ContactKernel.lean"
@@ -1641,7 +1641,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [
     "ContactKernel.lean"
@@ -6676,7 +6676,7 @@
    ],
    "citing_claims": [
     "CL-PD2-PASSAGE",
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [
     "ContactBridge.lean",
@@ -15748,10 +15748,8 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
-    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
     "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)",
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -15763,8 +15761,10 @@
   {
    "axioms": [],
    "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
     "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)",
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -15828,7 +15828,7 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16186,7 +16186,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16198,7 +16198,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16210,7 +16210,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16222,7 +16222,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16234,7 +16234,10 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)",
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16266,7 +16269,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16278,7 +16281,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16292,7 +16295,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -16318,12 +16321,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
    "module": "ContactKernel.lean",
-   "name": "ContactKernel.no_swap_equivariant_pair_selector",
+   "name": "ContactKernel.no_equivariant_pair_valued_map",
    "role": "preservation",
    "statement": ": \u00ac \u2203 sel : DiffObs Bool Bool \u2192 Bool \u00d7 Bool, \u2200 O : DiffObs Bool Bool, sel (swapObs O) = (!((sel O).1), !((sel O).2))"
   },

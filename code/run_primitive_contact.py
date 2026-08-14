@@ -63,9 +63,15 @@ SCOPE_INCOMPARABLE = (
     "no_kernel_over_allzero; Bc, Bl and F carry no separate "
     "countermodel and fail through the A-conjunct models cited in "
     "contact/analysis/contact_countermodels.json.  Protection, "
-    "retention, operations, and the designated pair are underivable "
-    "(ContactKernel.kernel_not_c, ContactKernel.kernel_not_f, "
-    "ContactKernel.pair_choice_load_bearing).  Supplied -> native: an "
+    "retention, and operations are underivable "
+    "(ContactKernel.kernel_not_c, ContactKernel.kernel_not_f).  A "
+    "same-data kernel exists exactly when an explicit non-zero pair "
+    "exists (ContactKernel.kernel_from_obs_iff_pair); valid Bool "
+    "presentations are non-unique "
+    "(ContactKernel.kernel_not_unique_of_pair), while the collapsed "
+    "observer supplies none "
+    "(ContactKernel.kernel_no_witness_from_collapse).  Supplied -> "
+    "native: an "
     "ABSENCE claim about the sealed corpus, NOT a refutation - the "
     "supplied global quotient-descent layer "
     "(existence-iff-compatibility, global uniqueness, mod-setoid "
@@ -90,8 +96,10 @@ SCOPE_KERNEL = (
     "admissions, NO retention/protection/operations): realized from "
     "native candidate-A settings (ofSetting; exact under pointwise "
     "decidability, double-negation-coarse otherwise - recorded OPEN) "
-    "and from valued observers plus a chosen non-zero pair (ofDiffObs; "
-    "the pair proved load-bearing); meets the sealed pre-contact "
+    "and from valued observers plus an explicit non-zero pair "
+    "(ofDiffObs; inhabitation is exactly kernel_from_obs_iff_pair, "
+    "the collapsed observer supplies none, and an inhabited observer "
+    "has non-unique same-data presentations); meets the sealed pre-contact "
     "interface (toNativeKernel : WitnessedDiff X R -> "
     "PrimitiveContact.NativeKernel); universal status proved: initial "
     "gateway inherited from sealed d2_initial (kernel_gateway_unique), "
@@ -573,8 +581,9 @@ def contact_report(repo_root: Path) -> dict[str, Json]:
                     "ContactKernel.ofSetting (exact under Decidable: "
                     "ofSetting_exact; open_kernel_grade otherwise)",
                 "realized_from_supplied_shape":
-                    "ContactKernel.ofDiffObs (chosen non-zero pair; "
-                    "ContactKernel.pair_choice_load_bearing)",
+                    "ContactKernel.ofPair / ofDiffObs (explicit "
+                    "NonZeroPair; inhabitation classified by "
+                    "ContactKernel.kernel_from_obs_iff_pair)",
                 "meets_interface": "ContactKernel.toNativeKernel",
             },
         },

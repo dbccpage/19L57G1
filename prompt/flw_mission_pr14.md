@@ -5,7 +5,7 @@ mode: coding
 authority_effect: None
 receipt_path: artifacts/primitive_completion_receipt.json
 
-one_sentence: Audit obst_conditions_independent as already proved, then add the reusable pair-choice necessity lemma for observer→kernel.
+one_sentence: WITHDRAWN 2026-08-14 — the original PR14 objective is stale and is retained below only as historical provenance.
 
 ## owned_paths
 
@@ -57,20 +57,55 @@ radius, plus the OPEN record for the capacity bound it does NOT prove.
 - contact/analysis/separation_capacity_open.md
 - code/derivation/completion.py (namespace registry entry only)
 
-Every path in both amendments is listed BEFORE the writes in this repair,
-except the two in Amendment 1, which are listed after and labelled as such.
+### Amendment 4 (2026-08-14) — root coverage receipt
+
+PR #20 also regenerated the root `coverage.json` outside the original
+`owned_paths`.  The write is retained because it records the checked
+99.20% line / 96.92% branch baseline used by that repair, and this amendment
+explicitly authorizes that path for the review-repair artifact refresh.  Like
+Amendment 1, this is an after-the-fact record of the earlier scope violation,
+not a claim that the write was authorized when made.
+
+- coverage.json
+
+The paths in Amendments 2 and 3 were listed for their corresponding repair
+writes.  Amendments 1 and 4 instead record earlier out-of-scope writes after
+the fact and label them as violations.
+
+### Evidence-boundary reconciliation at `de080af`
+
+The original collision/packet-2 audit tracked seven named declarations added
+after `ebb1e0b`: `ContactKernel.toDiffObs`, `.toDiffObs_fields`,
+`.toDiffObs_apart`, `ContactBridge.collapse_collision_is_pair_blocked`,
+`.pair_blocked_iff_collapse_collision`,
+`ContactKernel.kernel_from_obs_iff_pair`, and
+`.eq_ofDiffObs_of_fields`.  All seven were verified absent at `ebb1e0b`, but
+they are not a census of `de080af`: packet 2R, packet 5R, and
+`SeparationCapacity` were added later.  The current evidence boundary is
+`de080af` plus this repair diff.  The citation checker establishes name and
+line-anchor consistency, not commit provenance or a declaration count.
 
 ## forbidden_summary
 
 Do not edit prompt/prompt.md or prompt/seed_prompt.md. Do not copy or mutate docs_external_to_this_repo/. Do not invent owned_paths beyond this list. Do not import branded vocabulary into native theorem names or statements. Do not treat comments or names as evidence. Do not close open_kernel_grade without an explicit constructive principle. Do not push origin/main. AuthorityEffect None.
 
-## done_definition
+## done_definition — WITHDRAWN 2026-08-14
 
-- Packet 5 audit recorded: obst_conditions_independent remains the four-conjunct independence theorem; no new Lean.
-- Packet 2: ContactKernel.kernel_from_obs_iff_pair states existence of a same-data kernel iff a non-zero pair exists; eq_ofDiffObs_of_fields recovers ofDiffObs at the kernel endpoints.
-- #print axioms lines added; lake build clean; axiom reports within {propext, Quot.sound}.
-- Receipt and ledger cite the new lemma with exact scope (existence/factorization, not uniqueness of the kernel).
-- Tests pass.
+The entire original acceptance contract is withdrawn as an active mission.
+It is preserved here only to make the repair history auditable:
+
+- The Packet 5 bullet was false: `obst_conditions_independent` did not then
+  prove four-way independence.  The valid replacement has four gates in the
+  proved factorization, while `obstP` itself has the three written factors
+  recorded by `obstP_strict_factors`; the four `gate_*_independent` theorems
+  carry the independence result.
+- The Packet 2 inhabitation and factorization results remain historical
+  delivered facts: `kernel_from_obs_iff_pair` and
+  `eq_ofDiffObs_of_fields`.  Presentation-grade non-uniqueness is the separate
+  `kernel_not_unique_of_pair`; collapsed-observer failure is
+  `kernel_no_witness_from_collapse`.
+- The former build, axiom-report, receipt, and test bullets describe an earlier
+  checkpoint and are not acceptance criteria for the current repair.
 
 ## falsifiers
 
@@ -83,6 +118,11 @@ Do not edit prompt/prompt.md or prompt/seed_prompt.md. Do not copy or mutate doc
 - Writing outside owned_paths.
 - Reading a table of verdicts as a factorization theorem (the PR #20 failure).
 - Citing `obstP_factors` alone as four-way independence.
+- Saying `obstP` itself has four factors.  It has three written factors;
+  there are four gates in the proved factorization.
+- Treating "no quotient object occurs in the proposition or construction" as
+  an axiom-free claim: the fixed-action proof's `funext` step is reported
+  under `Quot.sound` by Lean core.
 - Regenerating `artifacts/lean_axioms.txt` with a shell redirect (writes CRLF
   on Windows; use `ci/regen_axiom_artifact.py`).
 

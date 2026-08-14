@@ -1172,7 +1172,7 @@ Derivation.lean:1263:0: 'ContactKernel.two_kernels_from_one_observer' does not d
 Derivation.lean:1264:0: 'ContactKernel.pair_choice_not_unique' does not depend on any axioms
 Derivation.lean:1265:0: 'ContactKernel.swapObs_boolEqObs' depends on axioms: [Quot.sound]
 Derivation.lean:1266:0: 'ContactKernel.no_equivariant_pair_at_fixed_point' depends on axioms: [Quot.sound]
-Derivation.lean:1267:0: 'ContactKernel.no_swap_equivariant_pair_selector' depends on axioms: [Quot.sound]
+Derivation.lean:1267:0: 'ContactKernel.no_equivariant_pair_valued_map' depends on axioms: [Quot.sound]
 Derivation.lean:1268:0: 'ContactKernel.contactCells_length' does not depend on any axioms
 Derivation.lean:1272:0: 'PrimitiveContact.contact_status_count' does not depend on any axioms
 Derivation.lean:1273:0: 'PrimitiveContact.native_interface_not_representable' does not depend on any axioms

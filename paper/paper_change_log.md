@@ -1183,13 +1183,16 @@ which change a theorem, a terminal, or an artifact:
    `contact/analysis/` fails, except the documented native subject
    name `PrimitiveDifference` (verified at `a5caee2`).  The 111/102
    census pins in `tests/test_primitive_receipt.py` are unchanged.
-2. **`pair_choice_load_bearing` is non-uniqueness, not a refutation
-   of existence.**  The observer-alone row in
-   `contact/analysis/lean_theorem_transport.md` is relabeled
-   NON-UNIQUE / pair choice load-bearing; `ofDiffObs` still applies
-   to a witnessed pair.  The word "forced" on that carrier remark is
-   replaced by METATHEORY.  The collapse row remains the existence
-   refutation.
+2. **The pair-choice grade is corrected.**  The original wording
+   misclassified `pair_choice_load_bearing` as non-uniqueness; that
+   lemma says only that an arbitrary pair may fail its side
+   condition.  The observer-alone row in
+   `contact/analysis/lean_theorem_transport.md` now uses
+   `kernel_not_unique_of_pair` for presentation-grade non-uniqueness,
+   while `kernel_from_obs_iff_pair` carries the inhabitation boundary
+   and `kernel_no_witness_from_collapse` carries the collapsed-observer
+   failure.  Row 14 and §2.11 were verified at `de080af`; they were not
+   rewritten in this repair.
 3. **Anchor no longer says UNCOMMITTED.**  The five declarations
    added after `ebb1e0b` are described as committed in this
    collision.  Companion wording in `lean_definition_map.md` matches.
@@ -1238,9 +1241,11 @@ than softened, and both withdrawals are quoted at their original
 sites above.
 
 1. **The four-way independence claim was false; it is now proved.**
-   `obstP` as written has three factors.  Four TOTAL gates
-   (`retainedP`, `protectedP`, `declaredP`, `zeroDeclP`) are now
-   defined, `obstP_factors` proves the four-gate factorization at
+   `obstP` as written has three factors
+   (`obstP_strict_factors`).  There are four gates in the proved
+   factorization: the TOTAL gates `retainedP`, `protectedP`,
+   `declaredP`, `zeroDeclP` are now defined, and `obstP_factors`
+   proves their conjunction equals `obstP` at
    every state and pair, `obst_of_gates` / `gates_of_obst` name both
    directions, and four `gate_*_independent` theorems prove — over
    ALL states and pairs, as pairs of `¬ ∀` statements — that no gate
@@ -1254,8 +1259,8 @@ sites above.
    unreachable); and `strict_gate_entails_declared` prices the
    `none => true` convention on gate 4.
 
-2. **Pair choice: correspondence, non-uniqueness, and no
-   equivariant selector.**  `pair_choice_load_bearing` proved only
+2. **Pair choice: correspondence, presentation non-uniqueness, and a
+   fixed-action obstruction.**  `pair_choice_load_bearing` proved only
    that an arbitrary pair may fail; its docstring now says so.  The
    inhabitation equivalence is upgraded to a bijection —
    `toPair` / `ofPair` between `NonZeroPair O` and
@@ -1264,36 +1269,44 @@ sites above.
    proves non-uniqueness generally (any observer with an admissible
    pair has at least two distinct same-data kernels), with
    `(false, true)` / `(true, false)` over `boolEqObs` as the
-   concrete instance.  `no_swap_equivariant_pair_selector` supplies
-   the no-canonical-choice theorem the review said would be
-   required, scoped to total selectors under the negation
-   relabelling.  Scope declared in the ledger: PRESENTATION GRADE,
+   concrete instance.  `no_equivariant_pair_valued_map` rules out
+   total maps `DiffObs Bool Bool → Bool × Bool` satisfying the
+   Bool-negation equivariance law at `boolEqObs`; it says nothing
+   about other carriers, actions, or non-equivariant maps.  Scope
+   declared in the ledger: PRESENTATION GRADE,
    resting on the ADMITTED `zero_symm` field, and claiming no
    priority over the native relation-stratum obstruction
-   (`Bridge.no_swap_fixed_offdiag_pair`).
+   (`Bridge.no_swap_fixed_offdiag_pair`).  Its statement and
+   construction contain no quotient object, while its axiom report
+   includes `Quot.sound` because Lean core realizes the `funext` step
+   through that principle.
 
 3. **Declaration is selected semantics, and the divergence is now
    checked.**  The `none => false` branch is reclassified
    DECLARED_POLICY; `obst_requires_observation` is documented as an
    unfolding of that branch and not evidence about the choice.  The
-   review's suggested wording would have left the divergence
+   review's suggested wording would have left the divergence witness
    unproved, so instead the rival reading is NAMED (`obstEmptyObs`)
-   and compared: `obst_policies_agree_when_declared` (the two agree
-   exactly on declared states) and `obst_policies_differ` (they
-   disagree at a named pre-observational state, both predicates
-   applied to that same state).  Also recorded: the older
+   and compared.  The policies agree on every declared state
+   (`obst_policies_agree_when_declared`) and differ at one named
+   undeclared state (`obst_policies_differ`, both predicates applied
+   to that same state).  A complete divergence characterization
+   remains OPEN.  Also recorded: the older
    `obst_diverges_when_undeclared` does NOT carry this content — its
    first conjunct writes the lists out instead of projecting them
    from the state, so it is a closed truth mentioning no state at
    all.  It is retained as the historical witness only.
 
 4. **The transport document's evidence boundary is regenerated and
-   now machine-checked.**  The anchor said five post-anchor
-   declarations; there are seven (verified absent at `ebb1e0b` by
-   `git grep`).  Stale line citations are corrected, and
+   now machine-checked.**  The seven named post-`ebb1e0b`
+   declarations were the historical collision/packet-2 audit set,
+   not a census of `de080af`: packet 2R, packet 5R, and
+   `SeparationCapacity` landed later.  The current boundary is the
+   `de080af` tree plus this repair.  Stale line citations are corrected, and
    `ci/check_transport_citations.py` with
    `tests/test_transport_citations.py` now fails the build on any
-   future drift, so the boundary cannot go stale silently again.
+   future drift or unclassified citation token.  It checks names and
+   current line anchors, not commit provenance or declaration counts.
 
 5. **The owned-path firewall violation is recorded, not
    retroactively legalized.**  PR #20 wrote

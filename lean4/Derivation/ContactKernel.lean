@@ -82,8 +82,11 @@ other, never kernel content.
 Metatheory used (declared): structures, functions, propositional
 logic, finite case analysis discharged by `decide`, case analysis on
 explicitly hypothesized `Decidable` instances, and the sealed
-theorems cited by name.  No choice, no excluded middle, no quotient
-machinery.
+theorems cited by name.  No choice or excluded middle is invoked, and
+no quotient object occurs in these propositions or constructions.
+The axiom report for the fixed-action result nevertheless includes
+`Quot.sound`, because Lean core realizes its `funext` step through
+that principle; “no quotient object” is not an axiom-freedom claim.
 -/
 
 namespace ContactKernel
@@ -228,11 +231,11 @@ offers both a non-zero pair and a zero pair, so a pair cannot simply
 be picked without checking.
 
 Exact scope: this is a statement about *pairs*, not about kernels.
-It does NOT exhibit two valid choices, two distinct kernels, or the
-absence of a canonical selector.  Those are separate, and are proved
-separately below by `transpose_kernel_ne`,
+It does NOT exhibit two valid choices, two distinct kernels, or an
+equivariance obstruction.  Those are separate, and are proved below by
+`transpose_kernel_ne`,
 `kernel_not_unique_of_pair`, `pair_choice_not_unique` and
-`no_swap_equivariant_pair_selector`.  Cite this lemma only for the
+`no_equivariant_pair_valued_map`.  Cite this lemma only for the
 weak claim it carries. -/
 theorem pair_choice_load_bearing :
     ∃ (O : DiffObs Bool Bool) (a₁ b₁ a₂ b₂ : Bool),
@@ -284,7 +287,7 @@ theorem eq_ofDiffObs_of_fields (O : DiffObs X R)
   rfl
 
 /-! ## The pair choice, exactly: correspondence, non-uniqueness, and
-no relabelling-equivariant selector -/
+no relabelling-equivariant pair-valued map -/
 
 /-- Two observers that agree on the difference map and the zero
 predicate are equal: the three law fields are `Prop`-valued, so they
@@ -463,11 +466,11 @@ theorem swapObs_boolEqObs : swapObs boolEqObs = boolEqObs := by
   decide
 
 /-- The obstruction, at the single fixed point.  Beyond `sel` being a
-TOTAL function on `DiffObs Bool Bool`, the only hypothesis is one
-instance of the negation law, taken at `boolEqObs`.  Because the
+TOTAL pair-valued map on `DiffObs Bool Bool`, the only hypothesis is
+one instance of the negation law, taken at `boolEqObs`.  Because the
 proof consumes only `sel boolEqObs`, the same argument covers any
-selector whose domain contains `boolEqObs` and is closed under
-`swapObs` — including selectors restricted to observers that have an
+map whose domain contains `boolEqObs` and is closed under
+`swapObs` — including maps restricted to observers that have an
 admissible pair. -/
 theorem no_equivariant_pair_at_fixed_point
     (sel : DiffObs Bool Bool → Bool × Bool)
@@ -479,18 +482,19 @@ theorem no_equivariant_pair_at_fixed_point
     (congrArg (fun p : Bool × Bool => p.1) heq).symm
   exact hfix (sel boolEqObs).1 h1
 
-/-- **No relabelling-equivariant pair selector**: no total choice of
-an ordered pair from a two-element observer commutes with the
-negation relabelling.  SCOPE: total selectors on `DiffObs Bool Bool`
-under this ONE action.  Nothing is claimed about other carriers,
-other actions, other equivariance laws, or selectors that are not
-required to be equivariant — a non-equivariant selector on
+/-- **No relabelling-equivariant pair-valued map**: no total map to an
+ordered Boolean pair commutes with negation relabelling at every
+observer; the contradiction already occurs at the fixed point
+`boolEqObs`.  Exact scope: total maps
+`DiffObs Bool Bool → Bool × Bool` satisfying the Bool-negation
+equivariance law at `boolEqObs`; nothing about other carriers,
+actions, or non-equivariant maps.  A non-equivariant map on
 `DiffObs Bool Bool` trivially exists.  This is NOT a general
 refutation of a preferred choice.  At the relation stratum the same
 obstruction is already native (`Bridge.no_swap_fixed_offdiag_pair`,
 `Bridge.equivariant_not_D2`); this transports it to the observer
 stratum and claims no priority over it. -/
-theorem no_swap_equivariant_pair_selector :
+theorem no_equivariant_pair_valued_map :
     ¬ ∃ sel : DiffObs Bool Bool → Bool × Bool,
         ∀ O : DiffObs Bool Bool,
           sel (swapObs O) = (!((sel O).1), !((sel O).2)) := by

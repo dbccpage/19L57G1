@@ -206,9 +206,10 @@ discipline against the fixed interface above.
    transitivity, no stores.  Realized from native candidate-A
    settings (`ofSetting`, exact under pointwise decidability —
    `ofSetting_exact`; the gap without it recorded OPEN) and from
-   observers plus a chosen non-zero pair (`ofDiffObs`; the pair
-   proved load-bearing — `pair_choice_load_bearing`); and in the
-   reverse direction the kernel *plus the two law declarations* is
+   observers plus a chosen non-zero pair (`ofDiffObs`; the exact
+   inhabitation boundary is `kernel_from_obs_iff_pair`, with the
+   collapsed-observer failure `kernel_no_witness_from_collapse`);
+   and in the reverse direction the kernel *plus the two law declarations* is
    the observer record itself, field-for-field and losslessly
    (`toDiffObs`, `toDiffObs_fields`, `toDiffObs_apart`) — a record
    identity at DEFINITION grade, not a derivation.  It meets the
@@ -260,10 +261,12 @@ is an equivalence and the relation is stable under double negation
 (`obsApart_repr_iff`); at other value types only the forward
 direction of that biconditional is available (from `obsApart_stable`
 and the sealed `zeroRel_equivalence`).  Protection, retention,
-operations, and the
-designated pair are never derivable (`kernel_not_c`,
-`kernel_not_f`, `kernel_prot_independent`,
-`pair_choice_load_bearing`).  The dropped hypotheses are priced —
+operations are never derivable, and the observer alone neither
+guarantees a non-zero pair nor determines a same-data kernel
+presentation (`kernel_not_c`, `kernel_not_f`,
+`kernel_prot_independent`, `kernel_from_obs_iff_pair`,
+`kernel_no_witness_from_collapse`, `kernel_not_unique_of_pair`).
+The dropped hypotheses are priced —
 two of them exactly, as equivalences: the unconditional
 cotransitivity schema for observer complements IS the weak law of
 excluded middle (`cotrans_schema_iff_wlem`) and the stability schema

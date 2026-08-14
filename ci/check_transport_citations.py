@@ -21,6 +21,8 @@ from __future__ import annotations
 import pathlib
 import re
 import sys
+from dataclasses import dataclass
+from typing import TypeAlias
 
 DOC = pathlib.Path("contact") / "analysis" / "lean_theorem_transport.md"
 LEAN_DIR = pathlib.Path("lean4") / "Derivation"
@@ -38,6 +40,61 @@ BACKTICKED = re.compile(r"`([^`]*)`")
 IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_.']*")
 
 
+@dataclass(frozen=True)
+class Verified:
+    """A raw citation token with enough context to check against Lean."""
+
+    doc_line: int
+    raw_token: str
+    module: str
+    name: str
+    cited_line: int
+    token_start: int
+    token_end: int
+
+
+@dataclass(frozen=True)
+class Unresolvable:
+    """A citation with no preceding backticked declaration segment."""
+
+    doc_line: int
+    raw_token: str
+    cited_line: int
+    token_start: int
+    token_end: int
+
+
+@dataclass(frozen=True)
+class WrappedIdentifier:
+    """A citation preceded by a backticked segment that is not an identifier."""
+
+    doc_line: int
+    raw_token: str
+    cited_line: int
+    preceding_segment: str
+    token_start: int
+    token_end: int
+
+
+@dataclass(frozen=True)
+class UnknownModule:
+    """A citation whose explicit or inherited module is absent from the index."""
+
+    doc_line: int
+    raw_token: str
+    cited_line: int
+    module: str
+    name: str
+    token_start: int
+    token_end: int
+
+
+CitationClassification: TypeAlias = (
+    Verified | Unresolvable | WrappedIdentifier | UnknownModule
+)
+ClassificationError: TypeAlias = Unresolvable | WrappedIdentifier | UnknownModule
+
+
 def index_sources() -> dict[str, dict[str, int]]:
     """Map module stem -> declaration name -> 1-indexed line number."""
     index: dict[str, dict[str, int]] = {}
@@ -53,10 +110,21 @@ def index_sources() -> dict[str, dict[str, int]]:
     return index
 
 
-def citations(
-    text: str, known: frozenset[str]
-) -> list[tuple[int, str, str, int]]:
-    """Yield (doc_line, module, decl_name, cited_line) for each citation.
+def raw_token_count(text: str) -> int:
+    """Count every raw ``...:NNN`` citation token recognized by the checker."""
+    return sum(1 for _ in CITE.finditer(text))
+
+
+def _assert_totality(raw_count: int, classified_count: int) -> None:
+    """Assert that the parser classified every raw citation token exactly once."""
+    assert raw_count == classified_count, (
+        "citation classification is not total: "
+        f"{raw_count} raw token(s), {classified_count} classified"
+    )
+
+
+def citations(text: str, known: frozenset[str]) -> list[CitationClassification]:
+    """Return one typed classification for every raw citation token.
 
     The declaration name is the nearest backticked dotted identifier
     preceding the citation on the same line.  Its own namespace prefix wins
@@ -65,33 +133,72 @@ def citations(
     ``ContactBridge.lean``); otherwise the most recently named file is
     inherited.
     """
-    out: list[tuple[int, str, str, int]] = []
+    out: list[CitationClassification] = []
+    raw_count = 0
     current = ""
-    for lineno, line in enumerate(text.splitlines(), start=1):
+    line_start = 0
+    for lineno, line in enumerate(text.splitlines(keepends=True), start=1):
         for m in CITE.finditer(line):
+            raw_count += 1
+            token_start = line_start + m.start()
+            token_end = line_start + m.end()
             if m.group("file"):
                 current = m.group("file")
             before = line[: m.start()]
             segments = BACKTICKED.findall(before)
             if not segments:
-                continue
-            # The name must be the IMMEDIATELY preceding backticked segment.
-            # If that segment is not a plain dotted identifier -- e.g.
-            # `hsurj : DeltaOnto K` -- the citation is left unresolved rather
-            # than mis-attributed to an earlier name on the same line.
-            raw = segments[-1].lstrip(".")
-            if IDENT.fullmatch(raw) is None:
-                continue
-            parts = raw.split(".")
-            if len(parts) > 1 and parts[0] in known:
-                module, rest = parts[0], parts[1:]
+                classification: CitationClassification = Unresolvable(
+                    doc_line=lineno,
+                    raw_token=m.group(0),
+                    cited_line=int(m.group("line")),
+                    token_start=token_start,
+                    token_end=token_end,
+                )
             else:
-                module, rest = current, parts
-            if not module:
-                continue
-            # A declaration may itself be dotted (`ObsQuotient.mk`), so try the
-            # longest remaining suffix first and fall back to the last segment.
-            out.append((lineno, module, ".".join(rest), int(m.group("line"))))
+                # The name must be the IMMEDIATELY preceding backticked
+                # segment.  A wrapped proposition such as
+                # `hsurj : DeltaOnto K` is not silently attributed to an
+                # earlier name on the line.
+                raw = segments[-1].lstrip(".")
+                if IDENT.fullmatch(raw) is None:
+                    classification = WrappedIdentifier(
+                        doc_line=lineno,
+                        raw_token=m.group(0),
+                        cited_line=int(m.group("line")),
+                        preceding_segment=segments[-1],
+                        token_start=token_start,
+                        token_end=token_end,
+                    )
+                else:
+                    parts = raw.split(".")
+                    if len(parts) > 1 and parts[0] in known:
+                        module, rest = parts[0], parts[1:]
+                    else:
+                        module, rest = current, parts
+                    name = ".".join(rest)
+                    if module not in known:
+                        classification = UnknownModule(
+                            doc_line=lineno,
+                            raw_token=m.group(0),
+                            cited_line=int(m.group("line")),
+                            module=module,
+                            name=name,
+                            token_start=token_start,
+                            token_end=token_end,
+                        )
+                    else:
+                        classification = Verified(
+                            doc_line=lineno,
+                            raw_token=m.group(0),
+                            module=module,
+                            name=name,
+                            cited_line=int(m.group("line")),
+                            token_start=token_start,
+                            token_end=token_end,
+                        )
+            out.append(classification)
+        line_start += len(line)
+    _assert_totality(raw_count, len(out))
     return out
 
 
@@ -107,28 +214,23 @@ def resolve(table: dict[str, int], name: str) -> int | None:
 
 def rewrite(text: str, index: dict[str, dict[str, int]], known: frozenset[str]) -> str:
     """Return the document with every resolvable citation line corrected."""
-    lines = text.splitlines(keepends=True)
-    fixes: dict[tuple[int, int], int] = {}
-    for doc_line, module, name, cited in citations(text, known):
-        table = index.get(module)
-        if table is None:
-            continue
-        actual = resolve(table, name)
-        if actual is not None:
-            fixes[(doc_line, cited)] = actual
-    for (doc_line, cited), actual in fixes.items():
-        if actual == cited:
-            continue
-        raw = lines[doc_line - 1]
-
-        def sub(m: re.Match[str], _c: int = cited, _a: int = actual) -> str:
-            if int(m.group("line")) != _c:
-                return m.group(0)
-            prefix = f"{m.group('file')}.lean" if m.group("file") else ""
-            return f"`{prefix}:{_a}`"
-
-        lines[doc_line - 1] = CITE.sub(sub, raw)
-    return "".join(lines)
+    fixes: list[tuple[int, int, str]] = []
+    for row in citations(text, known):
+        # Typed errors are deliberately excluded: --fix may only rewrite a
+        # token whose module and declaration context were classified.
+        if isinstance(row, Verified):
+            actual = resolve(index[row.module], row.name)
+            if actual is not None and actual != row.cited_line:
+                match = CITE.fullmatch(row.raw_token)
+                assert match is not None
+                prefix = f"{match.group('file')}.lean" if match.group("file") else ""
+                fixes.append(
+                    (row.token_start, row.token_end, f"`{prefix}:{actual}`")
+                )
+    fixed = text
+    for token_start, token_end, replacement in reversed(fixes):
+        fixed = fixed[:token_start] + replacement + fixed[token_end:]
+    return fixed
 
 
 def main() -> int:
@@ -151,28 +253,57 @@ def main() -> int:
     checked = 0
     drift: list[str] = []
     unknown: list[str] = []
-    for doc_line, module, name, cited in citations(text, known):
-        table = index.get(module)
-        if table is None:
+    classification_errors: list[str] = []
+    for row in citations(text, known):
+        if not isinstance(row, Verified):
+            classification_errors.append(format_classification_error(row))
             continue
-        actual = resolve(table, name)
+        actual = resolve(index[row.module], row.name)
         if actual is None:
-            unknown.append(f"  {DOC}:{doc_line}: {module}.{name} not found in source")
+            unknown.append(
+                f"  {DOC}:{row.doc_line}: "
+                f"{row.module}.{row.name} not found in source"
+            )
             continue
         checked += 1
-        if actual != cited:
+        if actual != row.cited_line:
             drift.append(
-                f"  {DOC}:{doc_line}: {module}.{name} cited :{cited}, actual :{actual}"
+                f"  {DOC}:{row.doc_line}: {row.module}.{row.name} "
+                f"cited :{row.cited_line}, actual :{actual}"
             )
+    failed = False
+    if classification_errors:
+        failed = True
+        print(
+            f"FAIL: {len(classification_errors)} unclassifiable citation(s) in {DOC}"
+        )
+        for row in classification_errors:
+            print(row)
     if drift:
+        failed = True
         print(f"FAIL: {len(drift)} stale line citation(s) in {DOC}")
         for row in drift:
             print(row)
+    if unknown:
+        failed = True
+        print(f"FAIL: {len(unknown)} unresolved declaration citation(s) in {DOC}")
+        for row in unknown:
+            print(row)
+    if failed:
         return 1
-    print(f"transport citations clean: {checked} verified, {len(unknown)} unresolved")
-    for row in unknown:
-        print(row)
+    print(f"transport citations clean: {checked} verified, 0 unresolved")
     return 0
+
+
+def format_classification_error(row: ClassificationError) -> str:
+    """Render a typed parser failure for the CI diagnostic."""
+    prefix = f"  {DOC}:{row.doc_line}: {type(row).__name__}: {row.raw_token}"
+    if isinstance(row, Unresolvable):
+        return f"{prefix} has no preceding backticked declaration"
+    if isinstance(row, WrappedIdentifier):
+        return f"{prefix} follows `{row.preceding_segment}`, not a plain identifier"
+    module = row.module or "<no inherited module>"
+    return f"{prefix} names unknown module {module}"
 
 
 if __name__ == "__main__":

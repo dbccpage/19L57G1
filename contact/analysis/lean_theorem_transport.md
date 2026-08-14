@@ -4,24 +4,29 @@ Run: primitive-difference contact collision, 2026-08-13. Pre-contact base
 `a5caee2`; sealed blind-native-base `ccd3a53`; contact Lean spine committed at
 `ebb1e0b`.
 
-**Anchor, stated exactly.** Not everything cited here is at `ebb1e0b`. Seven
-declarations were added after that commit, verified absent at `ebb1e0b` by
-`git grep`: `ContactKernel.toDiffObs`, `ContactKernel.toDiffObs_fields`,
+**Evidence boundary, stated exactly.** Not everything cited here is at
+`ebb1e0b`. Seven declarations in the original collision/packet-2 audit were
+added after that commit and verified absent at `ebb1e0b` by `git grep`:
+`ContactKernel.toDiffObs`, `ContactKernel.toDiffObs_fields`,
 `ContactKernel.toDiffObs_apart`,
 `ContactBridge.collapse_collision_is_pair_blocked`,
 `ContactBridge.pair_blocked_iff_collapse_collision` (the collision run), plus
 `ContactKernel.kernel_from_obs_iff_pair` and
-`ContactKernel.eq_ofDiffObs_of_fields` (packet 2). Each of the six theorems
-among them carries a matching `#print axioms` line in `lean4/Derivation.lean`.
+`ContactKernel.eq_ofDiffObs_of_fields` (packet 2). That historical seven-item
+list is **not** a census of the current tree: packet 2R, packet 5R, and the
+depth-d `SeparationCapacity` work were added later. The current evidence
+boundary is PR #21 base `de080af8511f35bfe0ce3075270be62a7fb8ce5b` plus
+this repair diff. `ci/check_transport_citations.py` checks current names and
+line anchors; it does not establish commit ancestry or a declaration census.
 
 *Anchor history.* This paragraph said "Five" after packet 2 had already added
 two more, and its line citations were not regenerated when
 `ContactKernel.lean` grew — every `ContactKernel` reference below the
 insertion point had drifted, in the worst case by 255 lines. Both faults are
-repaired here, and neither can recur silently: `ci/check_transport_citations.py`
-recomputes every cited line from the Lean sources and fails on drift
-(`--fix` regenerates them), and `tests/test_transport_citations.py` runs it.
-As of this revision **173 citations are verified and none is unresolved**.
+repaired here. The citation checker now classifies every raw citation token,
+fails on every unresolved classification or count mismatch, and only rewrites
+classified declarations (`--fix` regenerates those line anchors).
+`tests/test_transport_citations.py` exercises both drift and totality failures.
 
 `artifacts/lean_axioms.txt` carries 1184 reports over 43 sources, all within
 `{propext, Quot.sound}`. Throughout this document **"on disk" means the
@@ -63,9 +68,8 @@ vocabulary firewall keeps supplied identifiers out of `lean4/`, `code/`, and
 
 The same ruling binds this repository's own prose: the native module
 doc-comments quoted or paraphrased below are navigational only; every claim
-here is anchored to a named declaration that exists on disk in the collision
-tree of this run — commit `ebb1e0b` plus the seven later-committed
-declarations named in the anchor note above, seven and no more.
+here is anchored to a named declaration that exists on disk at the evidence
+boundary above. No fixed post-`ebb1e0b` declaration count is claimed.
 
 ---
 
@@ -112,9 +116,8 @@ sharpened in §2.16.
 
 Legend for the transport tables:
 
-- **PROVED** — a named Lean declaration on disk (anchor note above: `ebb1e0b`
-  plus the seven later-committed declarations) establishes the direction; its
-  exact hypotheses are listed.
+- **PROVED** — a named Lean declaration on disk at the evidence boundary above
+  establishes the direction; its exact hypotheses are listed.
 - **PROVED-UNDER-H** — established only under the listed extra hypothesis
   (always an explicit `Decidable` instance argument; never a classical
   principle used as a proof step).
@@ -362,8 +365,9 @@ marked **unclaimed** are the rows whose own §4 entries say so:
 a carrier bound. Any summary that calls all nine "minimum finite
 countermodels" overstates this table.
 
-Bc, Bl and F fail *through their A-conjunct*: the sealed models `d2Bare_bc`
-(`PrimitiveCore.lean:351`), `d2Bare_bl` (`:357`) and `d2Protected_f` (`:336`)
+Bc, Bl and F fail *through their A-conjunct*: the sealed models
+`PrimitiveCore.d2Bare_bc` (`PrimitiveCore.lean:351`),
+`PrimitiveCore.d2Bare_bl` (`:357`) and `PrimitiveCore.d2Protected_f` (`:336`)
 all carry the oriented two-point relation, which `d2_not_obs_complement`
 refutes. Those three rows therefore inherit carrier 2 and inherit its
 minimality argument; **no separate countermodel is claimed for them** — they
@@ -394,19 +398,19 @@ is `rfl`).
 declarable over* an observer and *never derivable from* it — both halves in one
 statement: `ContactBridge.kernel_prot_independent` (`:304`), which exhibits C
 holding after one `prot` declaration and failing without it. This is the
-observer-stratum echo of the sealed `PrimitiveCore.prot_not_from_witness`
-(`:804`) and `ret_not_from_witness` (`:809`).
+observer-stratum echo of the sealed `PrimitiveCore.prot_not_from_witness` (`PrimitiveCore.lean:804`)
+and `PrimitiveCore.ret_not_from_witness` (`:809`).
 
 **Scope of the E row, stated exactly.** `obsSetting_e` claims E only at the
 empty operation family. With one admitted merger E dies; the sealed
 `PrimDiff.merger_erases` (`PrimDiff.lean:455`) is the mechanism, and the kernel
-stratum instantiates it as `ContactKernel.kernel_not_e_merged`
-(`ContactKernel.lean:402`) with carrier 2. Nothing here claims E beyond the
+stratum instantiates it as `ContactKernel.kernel_not_e_merged` (`ContactKernel.lean:661`)
+with carrier 2. Nothing here claims E beyond the
 empty-store translation.
 
 ### 2.11 Observer ↔ common replacement kernel
 
-The kernel is `ContactKernel.WitnessedDiff` (`ContactKernel.lean:103`): a valued
+The kernel is `ContactKernel.WitnessedDiff` (`ContactKernel.lean:106`): a valued
 difference map, a zero predicate, designated endpoints `a b`, a diagonal-zero
 law, and a refutation-grade non-zero witness `apart_ab : ¬ Zero (delta a b)`.
 **Deliberately absent:** symmetry, transitivity, retention, protection,
@@ -414,22 +418,22 @@ operations.
 
 | direction | status | Lean | exact hypotheses |
 |---|---|---|---|
-| observer + chosen pair → kernel | PROVED | `ContactKernel.ofDiffObs` (`:217`) | `a b : X` **and** `hw : ¬ ZeroRel O a b` |
+| observer + chosen pair → kernel | PROVED | `ContactKernel.ofDiffObs` (`:220`) | `a b : X` **and** `hw : ¬ ZeroRel O a b` |
 | same-data kernel exists ↔ a non-zero pair exists | PROVED | `ContactKernel.kernel_from_obs_iff_pair` | none — existence only; not uniqueness of the pair |
 | such a kernel is `ofDiffObs` at its own endpoints | PROVED | `ContactKernel.eq_ofDiffObs_of_fields` | `K.delta = O.delta` and `K.Zero = O.Zero`; factorization, not unique pair |
-| an arbitrary pair may fail the side condition | PROVED | `ContactKernel.pair_choice_load_bearing` (`:237`) — one `Bool` observer offers both a non-zero pair and a zero pair. This is a statement about PAIRS; it exhibits no two valid choices and no two kernels | carrier 2; carrier remark METATHEORY (a subsingleton carrier has one pair, and by `no_kernel_on_subsingleton` supports no kernel at all) |
+| an arbitrary pair may fail the side condition | PROVED | `ContactKernel.pair_choice_load_bearing` (`:240`) — one `Bool` observer offers both a non-zero pair and a zero pair. This is a statement about PAIRS; it exhibits no two valid choices and no two kernels | carrier 2; carrier remark METATHEORY (a subsingleton carrier has one pair, and by `no_kernel_on_subsingleton` supports no kernel at all) |
 | admissible pairs ↔ same-data kernels (fixed observer) | PROVED, bijection | `ContactKernel.toPair` / `ofPair` with both round trips `toPair_ofPair`, `ofPair_toPair` and `ofPair_injective` — the pair choice IS the kernel choice | none |
 | observer alone → kernel | NON-UNIQUE, PROVED | `ContactKernel.kernel_not_unique_of_pair` — any observer with an admissible pair has at least two distinct same-data kernels, via `transpose_kernel_ne`; concretely `pair_choice_not_unique` over `boolEqObs` | no carrier or value-type bound within the hypothesis; PRESENTATION GRADE (same `delta`, same `Zero`, same induced `kernelApart`; differing designated endpoints), resting on the ADMITTED `zero_symm` field |
-| no relabelling-equivariant pair selector | PROVED, scoped | `ContactKernel.no_swap_equivariant_pair_selector` via `swapObs_boolEqObs` | total selectors on `DiffObs Bool Bool` under the negation action ONLY; transports `Bridge.no_swap_fixed_offdiag_pair` to the observer stratum and claims no priority over it |
-| supplied-shape structure alone → any witness | **REFUTED** | `ContactKernel.kernel_no_witness_from_collapse` (`:503`) — over the all-zero observer *no* pair is complement-witnessed | carrier 2; minimality as above |
-| kernel → observer (promote to the law fields) | **REFUTED** (symmetry) | `ContactKernel.kernel_not_observer` (`:554`) — the oriented two-element kernel's difference and zero data extend to no `DiffObs`, because the symmetry law field would force symmetry of the zero relation | **2**; minimal — on a subsingleton every relation is symmetric (METATHEORY) |
-| kernel → observer (promote to the law fields) | **REFUTED** (transitivity) | `ContactKernel.kernel_zero_not_trans` (`:574`) — the three-point complement kernel's zero chain breaks | **3**; minimal, inherited from the sealed `Apartness.symm_without_cotrans_breaks_trans` data and, on the contact side, from `ContactBridge.bool_bs_repr` (positive at carrier 2) |
-| candidate-A setting → kernel | PROVED | `ContactKernel.ofSetting` (`:176`) | `h : PrimitiveCore.A S` (witness + irreflexivity) |
-| …with the relation recovered exactly | PROVED-UNDER-H | `ContactKernel.ofSetting_exact` (`:189`) | additionally `[∀ x y, Decidable (S.r x y)]` |
-| …without decidability | PRICED-OPEN | `ContactKernel.open_kernel_grade` (`:201`) | the round trip is double-negation-coarse; the residual schema is priced at DNE via `ContactBridge.stability_schema_iff_dne`; no internal countermodel can exist because the gap schema is classically true |
-| kernel meets the sealed pre-contact interface | PROVED | `ContactKernel.toNativeKernel` (`:168`) : `WitnessedDiff X R → PrimitiveContact.NativeKernel`, via `toSetting_A` (`:161`) | none — by construction |
-| kernel is blind to retention/protection/operations | PROVED | `ContactKernel.ofSetting_ret_irrelevant` (`:207`), by `rfl` | none |
-| kernel **+ the two law declarations** → observer | PROVED (record identity) | `ContactKernel.toDiffObs` (`:514`), with `toDiffObs_fields` (`:528`) — fields carried unchanged and `ofDiffObs (toDiffObs K hs ht) K.a K.b K.apart_ab = K`, all three by `rfl` — and `toDiffObs_apart` (`:539`): `obsApart (toDiffObs K hs ht) x y ↔ kernelApart K x y` | `hs`, `ht`: the symmetry and transitivity of the zero side, exactly the two declarations the kernel omits; nothing else |
+| no equivariant pair-valued map for one action | PROVED, scoped | `ContactKernel.no_equivariant_pair_valued_map` via `swapObs_boolEqObs` | total maps `DiffObs Bool Bool → Bool × Bool` satisfying the Bool-negation equivariance law at `boolEqObs` ONLY; nothing about other carriers, actions, or non-equivariant maps; transports `Bridge.no_swap_fixed_offdiag_pair` to the observer stratum and claims no priority over it |
+| supplied-shape structure alone → any witness | **REFUTED** | `ContactKernel.kernel_no_witness_from_collapse` (`:507`) — over the all-zero observer *no* pair is complement-witnessed | carrier 2; minimality as above |
+| kernel → observer (promote to the law fields) | **REFUTED** (symmetry) | `ContactKernel.kernel_not_observer` (`:558`) — the oriented two-element kernel's difference and zero data extend to no `DiffObs`, because the symmetry law field would force symmetry of the zero relation | **2**; minimal — on a subsingleton every relation is symmetric (METATHEORY) |
+| kernel → observer (promote to the law fields) | **REFUTED** (transitivity) | `ContactKernel.kernel_zero_not_trans` (`:578`) — the three-point complement kernel's zero chain breaks | **3**; minimal, inherited from the sealed `Apartness.symm_without_cotrans_breaks_trans` data and, on the contact side, from `ContactBridge.bool_bs_repr` (positive at carrier 2) |
+| candidate-A setting → kernel | PROVED | `ContactKernel.ofSetting` (`:179`) | `h : PrimitiveCore.A S` (witness + irreflexivity) |
+| …with the relation recovered exactly | PROVED-UNDER-H | `ContactKernel.ofSetting_exact` (`:192`) | additionally `[∀ x y, Decidable (S.r x y)]` |
+| …without decidability | PRICED-OPEN | `ContactKernel.open_kernel_grade` (`:204`) | the round trip is double-negation-coarse; the residual schema is priced at DNE via `ContactBridge.stability_schema_iff_dne`; no internal countermodel can exist because the gap schema is classically true |
+| kernel meets the sealed pre-contact interface | PROVED | `ContactKernel.toNativeKernel` (`:171`) : `WitnessedDiff X R → PrimitiveContact.NativeKernel`, via `toSetting_A` (`:164`) | none — by construction |
+| kernel is blind to retention/protection/operations | PROVED | `ContactKernel.ofSetting_ret_irrelevant` (`:210`), by `rfl` | none |
+| kernel **+ the two law declarations** → observer | PROVED (record identity) | `ContactKernel.toDiffObs` (`:518`), with `toDiffObs_fields` (`:532`) — fields carried unchanged and `ofDiffObs (toDiffObs K hs ht) K.a K.b K.apart_ab = K`, all three by `rfl` — and `toDiffObs_apart` (`:543`): `obsApart (toDiffObs K hs ht) x y ↔ kernelApart K x y` | `hs`, `ht`: the symmetry and transitivity of the zero side, exactly the two declarations the kernel omits; nothing else |
 
 **The two supplied law fields are exactly the admissions separating observer
 from kernel, priced at carriers 2 and 3** — matching the sealed apartness
@@ -445,19 +449,20 @@ both halves rather than prose on one.
 
 | reading | K → reading | reading → K |
 |---|---|---|
-| W | PROVED — `ContactKernel.kernel_to_w` (`:639`) | REFUTED — `ContactKernel.no_kernel_on_subsingleton` (`:130`), carrier 1 (native model `unitBare` cited); minimal by construction (carrier 1 is least) |
-| A | PROVED — `ContactKernel.toSetting_A` (`:161`) | PROVED-UNDER-H — `ContactKernel.ofSetting` (`:176`) + `ofSetting_exact` (`:189`) under `[∀ x y, Decidable (S.r x y)]`; otherwise `open_kernel_grade` |
-| Bs | REFUTED — `ContactKernel.kernel_not_bs` (`:585`), carrier **2**, minimal (subsingleton ⇒ symmetric) | PROVED — `ofSetting`, Bs being within A |
-| Bc | REFUTED — `ContactKernel.kernel_not_bc` (`:599`), carrier **3**, minimality inherited from sealed `PrimitiveCore.cotrans_auto_on_two` (`:121`) | PROVED — `ofSetting`, Bc within A |
-| Bl | PROVED-UNDER-H — `ContactKernel.kernel_located_of_decidable` (`:614`) under `[∀ v, Decidable (K.Zero v)]`; unconditional cell PRICED-OPEN as `ContactKernel.open_kernel_bl` (`:623`) | PROVED — `ofSetting`, Bl within A |
-| C | REFUTED — `ContactKernel.kernel_not_c` (`:628`), for every kernel; freely declarable, never derivable (`ContactBridge.kernel_prot_independent`) | REFUTED — `no_kernel_on_subsingleton`, carrier 1 (native model `unitFull` cited) |
-| D | PROVED — `ContactKernel.kernel_to_d` (`:644`), via sealed `imp_a_d` | REFUTED — `ContactKernel.no_kernel_over_allzero` (`:671`), carrier 2; **minimality unclaimed at the carrier** — the content is the witness gap, not the carrier size (`boolEmpty_d` cited) |
-| E | PROVED at empty operations — `ContactKernel.kernel_to_e_empty` (`:650`); REFUTED under one declared merger — `ContactKernel.kernel_not_e_merged` (`:657`), carrier 2 | REFUTED — `no_kernel_over_allzero`, carrier 2, minimality unclaimed as for D (`boolEmpty_e` cited) |
-| F | REFUTED — `ContactKernel.kernel_not_f` (`:634`), for every kernel | PROVED — `ofSetting` via sealed `imp_f_a`, together with `ofSetting_ret_irrelevant` |
+| W | PROVED — `ContactKernel.kernel_to_w` (`:643`) | REFUTED — `ContactKernel.no_kernel_on_subsingleton` (`:133`), carrier 1 (native model `unitBare` cited); minimal by construction (carrier 1 is least) |
+| A | PROVED — `ContactKernel.toSetting_A` (`:164`) | PROVED-UNDER-H — `ContactKernel.ofSetting` (`:179`) + `ofSetting_exact` (`:192`) under `[∀ x y, Decidable (S.r x y)]`; otherwise `open_kernel_grade` |
+| Bs | REFUTED — `ContactKernel.kernel_not_bs` (`:589`), carrier **2**, minimal (subsingleton ⇒ symmetric) | PROVED — `ofSetting`, Bs being within A |
+| Bc | REFUTED — `ContactKernel.kernel_not_bc` (`:603`), carrier **3**, minimality inherited from sealed `PrimitiveCore.cotrans_auto_on_two` (`:121`) | PROVED — `ofSetting`, Bc within A |
+| Bl | PROVED-UNDER-H — `ContactKernel.kernel_located_of_decidable` (`:618`) under `[∀ v, Decidable (K.Zero v)]`; unconditional cell PRICED-OPEN as `ContactKernel.open_kernel_bl` (`:627`) | PROVED — `ofSetting`, Bl within A |
+| C | REFUTED — `ContactKernel.kernel_not_c` (`:632`), for every kernel; freely declarable, never derivable (`ContactBridge.kernel_prot_independent`) | REFUTED — `no_kernel_on_subsingleton`, carrier 1 (native model `unitFull` cited) |
+| D | PROVED — `ContactKernel.kernel_to_d` (`:648`), via sealed `imp_a_d` | REFUTED — `ContactKernel.no_kernel_over_allzero` (`:675`), carrier 2; **minimality unclaimed at the carrier** — the content is the witness gap, not the carrier size (`boolEmpty_d` cited) |
+| E | PROVED at empty operations — `ContactKernel.kernel_to_e_empty` (`:654`); REFUTED under one declared merger — `ContactKernel.kernel_not_e_merged` (`:661`), carrier 2 | REFUTED — `no_kernel_over_allzero`, carrier 2, minimality unclaimed as for D (`boolEmpty_e` cited) |
+| F | REFUTED — `ContactKernel.kernel_not_f` (`:638`), for every kernel | PROVED — `ofSetting` via sealed `imp_f_a`, together with `ofSetting_ret_irrelevant` |
 
 The machine-readable version of this matrix, spanning both strata, is
-`ContactKernel.contactCells` (`ContactKernel.lean:956`), 37 literal rows, with
-`ContactKernel.contactCells_length : contactCells.length = 37 := rfl` (`:764`).
+`ContactKernel.contactCells` (`ContactKernel.lean:960`), 37 literal rows, with
+`ContactKernel.contactCells_length` (`:1023`) proving
+`contactCells.length = 37` by reflexivity.
 What is machine-checked there is the **count** and the byte-level agreement of
 the Lean literal with its artifact mirror
 (`tests/test_primitive_contact.py::test_collision_cells_mirror_lean_literal`);
@@ -470,9 +475,9 @@ evidence.
 | statement | Lean | reading |
 |---|---|---|
 | difference *values* carry orientation; the zero *relation* cannot | `ObsDescent.value_orientation_survives` (`ObsDescent.lean:417`): `intDiffObs.delta 0 1 ≠ intDiffObs.delta 1 0 ∧ (ZeroRel intDiffObs 0 1 ↔ ZeroRel intDiffObs 1 0)` | the orientation the native side asserts lives in the values, not in the induced relation |
-| two kernels, same induced apartness, different difference maps | `ContactKernel.value_presentation_fork` (`ContactKernel.lean:705`) on `unitValKernel` (`:683`) / `twoValKernel` (`:693`), carrier 2 | value data is strictly finer than the apartness it induces |
-| valued kernel morphisms are **not** determined by the carrier map | `ContactKernel.vhom_not_unique` (`:733`), carrier 2 | off-image value freedom; the kernel echo of the sealed `Compression.factor_not_unique_off_image` (`Compression.lean:200`) |
-| …uniqueness restored exactly at the epi grade | `ContactKernel.vhom_unique_of_onto` (`:759`) under `hsurj : DeltaOnto K` (`:496`) | the kernel echo of the sealed `PrimitiveCats.phom2_unique_of_epi` (`PrimitiveCats.lean:619`) |
+| two kernels, same induced apartness, different difference maps | `ContactKernel.value_presentation_fork` (`ContactKernel.lean:709`) on `unitValKernel` (`:687`) / `twoValKernel` (`:697`), carrier 2 | value data is strictly finer than the apartness it induces |
+| valued kernel morphisms are **not** determined by the carrier map | `ContactKernel.vhom_not_unique` (`:737`), carrier 2 | off-image value freedom; the kernel echo of the sealed `Compression.factor_not_unique_off_image` (`Compression.lean:200`) |
+| …uniqueness restored exactly at the epi grade | `ContactKernel.vhom_unique_of_onto` (`:763`) under `ContactKernel.DeltaOnto` (`:755`) | the kernel echo of the sealed `PrimitiveCats.phom2_unique_of_epi` (`PrimitiveCats.lean:619`) |
 
 **Relation status: `incomparable` at value grade.** Neither side's value
 assignment is recoverable from the other's induced relation
@@ -490,12 +495,11 @@ the difference is exactly one fact:
 
 - Global on the quotient side **because the projection is epi**:
   `ObsDescent.obsQuotient_mk_surjective` (`ObsDescent.lean:96`), from which
-  `ObsDescent.descend_unique` (`:134`) and `ObsDescent.deltaDescend_unique`
-  (`:188`) follow by `funext` + quotient induction.
+  `ObsDescent.descend_unique` (`:134`) and `ObsDescent.deltaDescend_unique` (`:188`)
+  follow by `funext` + quotient induction.
 - Image-scoped on the presentation side, and provably so:
   `Compression.factor_unique_on_image` (`Compression.lean:192`) together with
-  the countermodel `Compression.factor_not_unique_off_image`
-  (`Compression.lean:200`).
+  the countermodel `Compression.factor_not_unique_off_image` (`Compression.lean:200`).
 - The kernel stratum reproduces both halves in one pair:
   `ContactKernel.vhom_not_unique` vs `ContactKernel.vhom_unique_of_onto`.
 
@@ -520,15 +524,15 @@ at this grade; see non-identification 1 immediately below.
 1. The passage obstruction predicate is written with three factors and is
    PROVED equal to the product of **four** total gates (retained, protected,
    declared, plus the collision) by
-   `PrimitivePassage.obstP_factors` (`PrimitivePassage.lean:196`); no one of
+   `PrimitivePassage.obstP_factors` (`PrimitivePassage.lean:198`); no one of
    the four follows from the other three
-   (`PrimitivePassage.gate_zero_independent` (`:499`) and its three
+   (`PrimitivePassage.gate_zero_independent` (`:501`) and its three
    companions), and the five witness states are
-   `PrimitivePassage.obst_conditions_independent` (`:454`). The native
+   `PrimitivePassage.obst_conditions_independent` (`:456`). The native
    obstruction is therefore **strictly finer at passage grade**; the flagship
    shape is only its collision conjunct. Scope: independence means
    non-entailment; the gates are NOT jointly free
-   (`PrimitivePassage.obs_gates_not_both_false` (`:259`)).
+   (`PrimitivePassage.obs_gates_not_both_false` (`:261`)).
 2. The flagship obstruction is a **fixed-quotient descent failure**. The sealed
    `PrimitiveCats.no_terminal_pres` (`PrimitiveCats.lean:548`) and
    `no_terminal_pres2` (`:677`) are **non-existence of universal
@@ -542,16 +546,17 @@ at this grade; see non-identification 1 immediately below.
 | the passage's declared zero relation **is** a kernel observer's zero relation | `ContactBridge.declared_zero_as_view` (`:628`): `PrimitivePassage.zeroP cols i j = true ↔ ZeroRel (kernelObs (colView cols)) i j` | `cols : List (List Nat)`, `i j : Nat`; proof by list induction over `PrimitivePassage.zeroP_cons` |
 | the declared observation stage realizes an observer outright | `ContactBridge.observation_stage_realizes_observer` (`:648`) | `cols`; shipped at the kernel observer's paired value type `List Bool × List Bool` |
 | a stage carrying only an observer admits no active obstruction | `ContactBridge.kernel_stage_no_obstruction` (`:666`) over `ContactBridge.kernelStage` (`:657`) | none |
-| the kernel licenses passage entry pre-retention | `ContactKernel.kernel_licenses_entry` (`ContactKernel.lean:917`) | none beyond a kernel; reuses sealed `PrimitivePassage.kernel_enters_preretained`. **Scope**: of the three conjuncts only the first (`K.a ≠ K.b`) mentions `K`; conjuncts 2 and 3 are sealed constants about `preRetained` holding with or without any kernel, and no map from an arbitrary kernel into the passage state is constructed — "licenses" names exactly this conjunction, not a transport theorem |
-| entry precedes protection and observation, and nothing is obstructed there | `ContactKernel.entry_pre_observation` (`:932`) | none; third conjunct spends sealed `PrimitivePassage.obst_requires_observation` |
-| a total two-point presentation costs decidable equality of the carrier | `ContactKernel.kernel_two_point_presentation` (`:945`) | `[DecidableEq X]` — the honest price of totality |
+| the kernel licenses passage entry pre-retention | `ContactKernel.kernel_licenses_entry` (`ContactKernel.lean:921`) | none beyond a kernel; reuses sealed `PrimitivePassage.kernel_enters_preretained`. **Scope**: of the three conjuncts only the first (`K.a ≠ K.b`) mentions `K`; conjuncts 2 and 3 are sealed constants about `preRetained` holding with or without any kernel, and no map from an arbitrary kernel into the passage state is constructed — "licenses" names exactly this conjunction, not a transport theorem |
+| entry precedes protection and observation, and nothing is obstructed there | `ContactKernel.entry_pre_observation` (`:936`) | none; third conjunct spends sealed `PrimitivePassage.obst_requires_observation` |
+| a total two-point presentation costs decidable equality of the carrier | `ContactKernel.kernel_two_point_presentation` (`:949`) | `[DecidableEq X]` — the honest price of totality |
 
 **H1 verified and sharpened:** the supplied primitive is an *admitted observer
 at the zero-relation stage*, not a pre-observational witness. At that stage the
 native side **proves** (equality grade, via the sealed kernel construction) the
 three laws the supplied side admits as fields. **The asymmetry is at the
-instance level, not between the signatures** — native `DiffInterface.DiffObs`
-carries the same three laws as fields (`DiffInterface.lean:33`), which is what
+instance level, not between the signatures** — native
+`DiffInterface.DiffObs` (`DiffInterface.lean:33`) carries the same three laws
+as fields, which is what
 `H_struct` asserts; what differs is that every concrete observer **of the
 sealed corpus at `a5caee2`** is a `kernelObs`, where the laws come out by
 `rfl`/`.symm`/`.trans` (verified: at `a5caee2` the only `DiffObs _ _ where`
@@ -559,8 +564,8 @@ in `lean4/` is the structure declaration itself; `kernelObs` is the sole
 constructor).
 
 **Scope — this is NOT a universal claim about native observers.** This run
-itself adds observers that are not `kernelObs`: `ObsDescent.intDiffObs`
-(`ObsDescent.lean:359`, laws by linear arithmetic — §2.17),
+itself adds observers that are not `kernelObs`:
+`ObsDescent.intDiffObs` (`ObsDescent.lean:359`, laws by linear arithmetic — §2.17),
 `ObsDescent.collapseAllObs` (`:437`, laws by `trivial`),
 `ContactBridge.wlemZero` (`ContactBridge.lean:454`), the anonymous two-point
 observers inside `stability_schema_iff_dne` (`:550`) and
@@ -655,7 +660,7 @@ count is 36 — the machine census of the same separation.
 Every countermodel cited above, with its carrier and minimality status. All 19
 are theorems on disk at `ebb1e0b` itself (checked by `git grep` at that commit:
 4 in `ContactBridge.lean`, 12 in `ContactKernel.lean`, 3 in `ObsDescent.lean`);
-none of them is among the seven later-committed declarations.
+none belongs to the historical seven-item addition list above.
 
 | # | Lean theorem | carrier | refutes | minimality |
 |---|---|---|---|---|
@@ -680,12 +685,13 @@ none of them is among the seven later-committed declarations.
 | 19 | `ContactKernel.kernel_not_e_merged` | 2 | E-transport under one declared merger | inherits the sealed `PrimDiff.merger_erases` pattern |
 
 Universal status, for completeness (not countermodels): the initial gateway is
-**inherited, never re-proved** — `ContactKernel.kernel_gateway_unique` (`:811`)
-*is* `PrimitiveCats.d2_initial` instantiated; `kernel_gateway_injective`
-(`:565`) is `PrimitiveCats.d2_map_injective` instantiated;
-`ContactKernel.apartObj_sym_of_observer` (`:802`) places observer-derived
+**inherited, never re-proved** — `ContactKernel.kernel_gateway_unique` (`:815`)
+*is* `PrimitiveCats.d2_initial` instantiated;
+`ContactKernel.kernel_gateway_injective` (`:824`) is
+`PrimitiveCats.d2_map_injective` instantiated;
+`ContactKernel.apartObj_sym_of_observer` (`:806`) places observer-derived
 kernels in the symmetric subcategory where `PrimitiveCats.s2_initial_sym`
-applies; and `ContactKernel.kernel_no_terminal_collector` (`:886`) derives
+applies; and `ContactKernel.kernel_no_terminal_collector` (`:890`) derives
 from row 17.
 
 ---
@@ -701,8 +707,8 @@ refutation.
 |---|---|---|
 | unconditional cotransitivity of an observer complement | `ContactBridge.open_bridge_cotrans` (`:607`) | **exactly** WLEM — `ContactBridge.cotrans_schema_iff_wlem` (`:519`); discharged by pointwise decidability (`obsApart_cotrans`) |
 | unconditional locatedness of an observer complement | `ContactBridge.open_bridge_located` (`:612`) | **implies** WLEM — `ContactBridge.located_schema_implies_wlem` (`:578`); converse explicitly not claimed (would need function comprehension beyond WLEM); discharged by decidability (`obsSetting_bl`) |
-| kernel round-trip grade without decidability | `ContactKernel.open_kernel_grade` (`:201`) | double-negation-coarse; residual schema priced at DNE via `ContactBridge.stability_schema_iff_dne` (`:550`); exact under `ofSetting_exact` |
-| kernel locatedness without decidability | `ContactKernel.open_kernel_bl` (`:623`) | discharged by `ContactKernel.kernel_located_of_decidable` (`:614`); underivability from the kernel fields alone is METATHEORY, so `Located` remains separate data |
+| kernel round-trip grade without decidability | `ContactKernel.open_kernel_grade` (`:204`) | double-negation-coarse; residual schema priced at DNE via `ContactBridge.stability_schema_iff_dne` (`:550`); exact under `ofSetting_exact` |
+| kernel locatedness without decidability | `ContactKernel.open_kernel_bl` (`:627`) | discharged by `ContactKernel.kernel_located_of_decidable` (`:618`); underivability from the kernel fields alone is METATHEORY, so `Located` remains separate data |
 
 These follow the sealed open-cell discipline already in the corpus (the
 `open_cell_*_bl` pattern), and each record states its own price in full.
@@ -793,8 +799,8 @@ each report "does not depend on any axioms", matching theirs.
 ## 7. What the transport supports
 
 Stated only to the strength the theorems above carry. The recorded terminal
-codes are in `PrimitiveContact.contactStatusCurrent` /
-`contactVerdictPrimary` (`PrimitiveContact.lean:126`, `:126`) and in
+codes are `PrimitiveContact.contactStatusCurrent` (`PrimitiveContact.lean:122`)
+and `PrimitiveContact.contactVerdictPrimary` (`:126`), and they also occur in
 `artifacts/primitive_contact.json`; this section says what the transport
 evidence does and does not establish, and nothing further.
 

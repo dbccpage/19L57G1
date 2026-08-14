@@ -38,11 +38,100 @@ def test_no_citation_is_left_unresolved() -> None:
     known = frozenset(index)
     text = checker.DOC.read_text(encoding="utf-8")
     unresolved = [
-        (module, name)
-        for _, module, name, _ in checker.citations(text, known)
-        if module in index and checker.resolve(index[module], name) is None
+        (row.module, row.name)
+        for row in checker.citations(text, known)
+        if isinstance(row, checker.Verified)
+        and checker.resolve(index[row.module], row.name) is None
     ]
     assert unresolved == []
+
+
+def test_every_raw_token_receives_a_classification() -> None:
+    index = checker.index_sources()
+    text = checker.DOC.read_text(encoding="utf-8")
+    rows = checker.citations(text, frozenset(index))
+
+    assert checker.raw_token_count(text) == 188
+    assert len(rows) == checker.raw_token_count(text)
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("orphan `:12`", checker.Unresolvable),
+        ("`hsurj : DeltaOnto K` (`:12`)", checker.WrappedIdentifier),
+        ("`Missing.someDecl` (`Missing.lean:12`)", checker.UnknownModule),
+    ],
+)
+def test_previously_silent_paths_are_typed(
+    text: str, expected: type[object]
+) -> None:
+    rows = checker.citations(text, frozenset({"ContactKernel"}))
+
+    assert len(rows) == 1
+    assert isinstance(rows[0], expected)
+
+
+def test_unclassifiable_token_makes_the_checker_fail(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    doc = tmp_path / "transport.md"
+    doc.write_text("orphan `:12`\n", encoding="utf-8")
+    monkeypatch.setattr(checker, "DOC", doc)
+
+    assert checker.main() == 1
+    assert "Unresolvable" in capsys.readouterr().out
+
+
+def test_unknown_declaration_makes_the_checker_fail(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    doc = tmp_path / "transport.md"
+    doc.write_text(
+        "`ContactKernel.not_a_declaration` (`ContactKernel.lean:12`)\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(checker, "DOC", doc)
+
+    assert checker.main() == 1
+    assert "unresolved declaration" in capsys.readouterr().out
+
+
+def test_fix_does_not_rewrite_unclassifiable_tokens() -> None:
+    index = checker.index_sources()
+    known = frozenset(index)
+    texts = [
+        "orphan `:12`\n",
+        "`hsurj : DeltaOnto K` (`:12`)\n",
+        "`Missing.someDecl` (`Missing.lean:12`)\n",
+    ]
+
+    for text in texts:
+        assert checker.rewrite(text, index, known) == text
+
+
+def test_fix_does_not_rewrite_an_error_with_the_same_line_number() -> None:
+    index = {"Known": {"decl": 5}}
+    text = "`Known.decl` (`Known.lean:12`) then orphan `:12`\n"
+
+    fixed = checker.rewrite(text, index, frozenset(index))
+
+    assert fixed == "`Known.decl` (`Known.lean:5`) then orphan `:12`\n"
+
+
+def test_totality_assertion_rejects_a_dropped_classification() -> None:
+    text = "orphan `:12` and `wrapped identifier` (`:13`)"
+    rows = checker.citations(text, frozenset())
+    assert len(rows) == 2
+
+    # Models a future edit that reintroduces a silent ``continue`` after one
+    # of the two raw matches instead of appending its typed classification.
+    with pytest.raises(AssertionError, match="2 raw token.*1 classified"):
+        checker._assert_totality(checker.raw_token_count(text), len(rows) - 1)
 
 
 def test_checker_detects_injected_drift() -> None:
@@ -50,20 +139,31 @@ def test_checker_detects_injected_drift() -> None:
     index = checker.index_sources()
     known = frozenset(index)
     text = checker.DOC.read_text(encoding="utf-8")
-    rows = checker.citations(text, known)
+    rows = [
+        row
+        for row in checker.citations(text, known)
+        if isinstance(row, checker.Verified)
+    ]
     assert rows, "no citations parsed at all"
 
-    doc_line, module, name, cited = rows[0]
+    row = rows[0]
     lines = text.splitlines(keepends=True)
-    lines[doc_line - 1] = lines[doc_line - 1].replace(f":{cited}`", f":{cited + 9999}`")
+    lines[row.doc_line - 1] = lines[row.doc_line - 1].replace(
+        f":{row.cited_line}`", f":{row.cited_line + 9999}`"
+    )
     broken = "".join(lines)
 
     still_drifted = [
-        (m, n)
-        for _, m, n, c in checker.citations(broken, known)
-        if m in index
-        and (actual := checker.resolve(index[m], n)) is not None
-        and actual != c
+        (candidate.module, candidate.name)
+        for candidate in checker.citations(broken, known)
+        if isinstance(candidate, checker.Verified)
+        and (
+            actual := checker.resolve(
+                index[candidate.module], candidate.name
+            )
+        )
+        is not None
+        and actual != candidate.cited_line
     ]
     assert still_drifted, "injected drift was not detected"
 
@@ -72,4 +172,4 @@ def test_index_finds_known_declarations() -> None:
     index = checker.index_sources()
     assert "ContactKernel" in index
     assert "obstP_factors" in index["PrimitivePassage"]
-    assert "no_swap_equivariant_pair_selector" in index["ContactKernel"]
+    assert "no_equivariant_pair_valued_map" in index["ContactKernel"]

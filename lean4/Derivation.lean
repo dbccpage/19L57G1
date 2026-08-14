@@ -1264,7 +1264,7 @@ open Derivation
 #print axioms ContactKernel.pair_choice_not_unique
 #print axioms ContactKernel.swapObs_boolEqObs
 #print axioms ContactKernel.no_equivariant_pair_at_fixed_point
-#print axioms ContactKernel.no_swap_equivariant_pair_selector
+#print axioms ContactKernel.no_equivariant_pair_valued_map
 #print axioms ContactKernel.contactCells_length
 
 -- Contact collision (2026-08-13): the executed-collision record in

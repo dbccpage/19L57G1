@@ -20,7 +20,7 @@ hypotheses — and executable evidence.
 | 3 | FaithfulPresentation → DeclaredObservation | DECLARATION (`declareObs`) | `obs : Option …` — `none` is pre-observational, not "a blind observer" |
 | 4 | DeclaredObservation → ZeroRel | THEOREM | `zero_refl`, `zero_symm`, `zero_trans`: the zero relation of any declared observation is an equivalence, proved before any quotient (P4) |
 | 5 | ZeroRel → ProtectedCollapse | THEOREM (conditional on protection) | zero on a protected retained pair is exactly the collapse in force |
-| 6 | ProtectedCollapse → ActiveObstruction | DEFINITION + THEOREM | `obstP`: the FOUR-condition conjunction; every maximal proper subset fails (`obst_conditions_independent`, P5) |
+| 6 | ProtectedCollapse → ActiveObstruction | DEFINITION + THEOREM | `obstP` has three written factors (`obstP_strict_factors`); there are four gates in the proved factorization, and every maximal proper gate subset fails (P5) |
 | 7 | ActiveObstruction → ExhaustiveSameLevelFamily | THEOREM | `menu_complete`: the response menu contains every declared column × in-bounds point |
 | 8 | → RepairFamily \| ExtensionProposalFamily | THEOREM (P7, the two-rule) | `two_rule`: repair nonempty, or certified exhaustion + provably nonempty extension family (`extension_always_available`) |
 | 9 | → AuthorizationAndBudget | DECLARATION (gates) | `proposal_not_execution`, `budget_gates_execution`: proposing is free, executing is licensed and funded |
@@ -41,9 +41,11 @@ blind*:
 - `wit_independent_of_obs`: the witness store never depends on the
   observation field (P1, half 1 — Primitive Difference precedes
   observation, as a theorem);
-- `obst_agrees_when_declared` / `obst_diverges_when_undeclared`: the
-  exact agreement and the exact divergence with the three-condition
-  reading.
+- `obst_policies_agree_when_declared` / `obst_policies_differ`: the
+  policies agree on every declared state and differ at one named
+  undeclared state.  A complete divergence characterization remains
+  OPEN; the older `obst_diverges_when_undeclared` is only a historical
+  witness and does not compare both predicates on one state.
 
 ## P-theorems
 
@@ -63,9 +65,10 @@ blind*:
   irreflexivity, symmetry from symmetry, transitivity from
   cotransitivity (automatic here because separation-by-columns is
   cotransitive: `sepCol_trans` is its finite avatar).
-- **P5** — the four-gate factorization and independence.  `obstP` is
-  written with three factors and PROVED equal to the product of four
-  TOTAL gates (`obstP_factors`); no gate follows from the other
+- **P5** — the four-gate factorization and independence.  `obstP`
+  itself has the three written factors recorded by
+  `obstP_strict_factors`; there are four gates in the proved
+  factorization (`obstP_factors`).  No gate follows from the other
   three, and no maximal proper subset entails obstruction — each a
   pair of `¬ ∀` statements over all states and pairs
   (`gate_zero_independent`, `gate_declared_independent`,

@@ -179,7 +179,8 @@ def receipt() -> dict[str, Json]:
                           "ContactBridge.unit_total_not_repr",
                           "ContactBridge.triSym_not_obs_complement",
                           "ContactBridge.d_not_witnessed_repr",
-                          "ContactKernel.pair_choice_load_bearing",
+                          "ContactKernel.kernel_from_obs_iff_pair",
+                          "ContactKernel.kernel_not_unique_of_pair",
                           "ContactKernel."
                           "kernel_no_witness_from_collapse",
                           "ContactKernel.kernel_not_c",

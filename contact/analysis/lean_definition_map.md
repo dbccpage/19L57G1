@@ -2,13 +2,17 @@
 
 Run: primitive-difference contact collision, 2026-08-13. Pre-contact base
 `a5caee2`; sealed blind-native-base `ccd3a53`; contact Lean spine committed at
-`ebb1e0b`, **plus five declarations added after that commit and committed
-in this collision**, verified absent at `ebb1e0b`: `ContactKernel.toDiffObs`,
-`.toDiffObs_fields`,
+`ebb1e0b`.  The original collision/packet-2 audit tracked **seven declarations
+added after that commit**, all verified absent at `ebb1e0b`:
+`ContactKernel.toDiffObs`, `.toDiffObs_fields`,
 `.toDiffObs_apart`, `ContactBridge.collapse_collision_is_pair_blocked`,
-`.pair_blocked_iff_collapse_collision` (see the anchor note in
-`lean_theorem_transport.md`). "On disk" below means that working tree, and
-line numbers are working-tree line numbers.
+`.pair_blocked_iff_collapse_collision`,
+`ContactKernel.kernel_from_obs_iff_pair`, and
+`.eq_ofDiffObs_of_fields` (see the anchor note in
+`lean_theorem_transport.md`).  That list is historical, not a current-tree
+census: packet 2R, packet 5R, and `SeparationCapacity` were added later.
+"On disk" below means PR #21 base `de080af` plus this repair diff, and line
+numbers are working-tree line numbers.
 
 Supplied external file
 `docs_external_to_this_repo/primitive_difference.lean`, sha256
@@ -1943,24 +1947,24 @@ structure PointedPrimitiveDifference (α : Type u) (β : Type v)
 - **Neutral content.** A difference datum with a designated carrier point —
   bare data.
 - **Native counterpart.** The input data of `ContactKernel.ofDiffObs`
-  (`ContactKernel.lean:216`): an observer *plus a chosen pair* `a b : X`
+  (`ContactKernel.lean:220`): an observer *plus a chosen pair* `a b : X`
   *plus a refutation-grade non-zero witness* `hw : ¬ ZeroRel O a b`; the
   resulting structure is `ContactKernel.WitnessedDiff`
-  (`ContactKernel.lean:102`) with fields `a`, `b`, `apart_ab`.
+  (`ContactKernel.lean:106`) with fields `a`, `b`, `apart_ab`.
 - **Relation status.** **`incomparable`.** Neither direction holds:
   1. Supplied → native fails: the supplied bundle carries **one** law-free
      point, from which no witnessed pair can be extracted. Witness:
      `ContactKernel.kernel_no_witness_from_collapse`
-     (`ContactKernel.lean:248`) — over the all-zero observer *no* pair is
+    (`ContactKernel.lean:507`) — over the all-zero observer *no* pair is
      complement-witnessed, so an observer plus any point yields no kernel.
      Carrier 2; minimality is inherited from item 32's remark (subsingleton
      carriers admit no obstruction at all).
-  2. Native → supplied fails as a *determination*: one observer carries both a
-     witnessed pair and a zero pair, so the observer does not determine the
-     designated data — `ContactKernel.pair_choice_load_bearing`
-     (`ContactKernel.lean:228`), carrier 2. Minimality unclaimed: the theorem
-     is an existence statement about a specific two-point observer; no smaller
-     carrier is possible because a subsingleton carrier has only one pair.
+  2. Native → supplied fails as a *determination*: whenever an observer has
+     one admissible pair, it has two distinct same-data kernel presentations —
+     `ContactKernel.kernel_not_unique_of_pair`, presentation grade.  The
+     concrete `Bool` witness uses the two ordered off-diagonal pairs
+     (`pair_choice_not_unique`).  No claim is made up to isomorphism, `VHom`,
+     or observational equivalence.
 
 ### 79. `zeroClass` — def (lines 771–773, in `namespace PointedPrimitiveDifference`)
 

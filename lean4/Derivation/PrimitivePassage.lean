@@ -30,12 +30,14 @@ The `none => false` branch of `obstP` is a DECLARED_POLICY, not a
 derived necessity: `obst_requires_observation` unfolds that branch
 and proves nothing about whether it had to be chosen.  The rival
 reading — treat `none` as an observation declaring no columns — is
-named (`obstEmptyObs`), and the two readings are proved to agree
-exactly on declared states (`obst_policies_agree_when_declared`) and
-to differ at a named pre-observational state
+named (`obstEmptyObs`), and the two readings are proved to agree on
+every declared state (`obst_policies_agree_when_declared`) and to
+differ at one named pre-observational state
 (`obst_policies_differ`).  The relation to the sealed
 three-condition predicate is proved separately
 (`obst_agrees_when_declared`, `obst_diverges_when_undeclared`).
+No complete characterization of every undeclared state on which the
+two policies differ is claimed.
 
 Naming discipline: "forced", "complete", "exhaustive" appear only
 with a proof over a declared finite universe.  Refusal is a record;
