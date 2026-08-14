@@ -1193,6 +1193,8 @@ open Derivation
 #print axioms ContactBridge.observation_stage_realizes_observer
 #print axioms ContactBridge.kernel_stage_no_obstruction
 #print axioms ContactBridge.pair_blocked_is_collapse_collision
+#print axioms ContactBridge.collapse_collision_is_pair_blocked
+#print axioms ContactBridge.pair_blocked_iff_collapse_collision
 
 -- Contact collision (2026-08-13): the common replacement kernel,
 -- universal status, passage entry
@@ -1204,6 +1206,8 @@ open Derivation
 #print axioms ContactKernel.ofSetting_ret_irrelevant
 #print axioms ContactKernel.pair_choice_load_bearing
 #print axioms ContactKernel.kernel_no_witness_from_collapse
+#print axioms ContactKernel.toDiffObs_fields
+#print axioms ContactKernel.toDiffObs_apart
 #print axioms ContactKernel.kernel_not_observer
 #print axioms ContactKernel.kernel_zero_not_trans
 #print axioms ContactKernel.kernel_not_bs

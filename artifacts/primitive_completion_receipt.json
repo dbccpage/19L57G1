@@ -2,7 +2,7 @@
  "adversarial_record": [
   {
    "attack": "metatheoretic inequality relabeled as object-level difference",
-   "disposition": "BLOCKED: PrimitiveCore.D_iff_ne, nimp_w_d, PrimDiff.meta_diff_without_assertion"
+   "disposition": "BLOCKED: PrimitiveCore.D_iff_ne, nimp_w_d, PrimDiff.meta_diff_without_assertion; contact update: the supplied physics-labeled tail is metatheoretic inequality rendered on Int - subsumed by five native one-line lemmas (ObsDescent.int_sub_ne_zero_iff, int_sub_ne_zero_of_gt, int_shift_cancel, int_two_mul_eq_zero_iff, int_add_sub_cancel)"
   },
   {
    "attack": "witness relabeled as observer separation",
@@ -18,7 +18,7 @@
   },
   {
    "attack": "orientation imported through ordered endpoint names",
-   "disposition": "BLOCKED: Apartness.orientations_same_apartness + orientations_differ price the orientation as retained data; PrimitiveCats.pointed_rigid"
+   "disposition": "BLOCKED: Apartness.orientations_same_apartness + orientations_differ price the orientation as retained data; PrimitiveCats.pointed_rigid; contact update: orientation is not importable through a zero-complement over any value type (ContactBridge.d2_not_obs_complement); the value channel carries orientation separately and the zero relation cannot (ObsDescent.value_orientation_survives, ContactKernel.value_presentation_fork)"
   },
   {
    "attack": "protection silently merged with retention",
@@ -26,7 +26,7 @@
   },
   {
    "attack": "observer imported into Primitive Difference",
-   "disposition": "BLOCKED: obst_requires_observation (theorem); the candidate signature has no observation field"
+   "disposition": "BLOCKED: obst_requires_observation (theorem); the candidate signature has no observation field; contact update: the supplied stratum is an ADMITTED observer at the zero-relation stage, not a pre-observational witness (ContactBridge.kernelStage, declared_zero_as_view, observation_stage_realizes_observer); the common kernel carries no observer (ContactKernel.kernel_not_observer)"
   },
   {
    "attack": "quotient no-recovery applied without a protected distinction",
@@ -74,7 +74,11 @@
   },
   {
    "attack": "contact comments sold as contact Lean results",
-   "disposition": "MOOT AND GUARDED: no contact input exists; the committed protocol reads statements only"
+   "disposition": "EXECUTED AND BLOCKED: contact input arrived this run and was read under the committed statements-only discipline; every comment-vs-content gap in the supplied file has a recorded disposition (G1-G20 in contact/analysis/contact_countermodels.json); comment-borne physics vocabulary was REFUSED transport into the formal record - only stated theorems collided"
+  },
+  {
+   "attack": "proof-theoretic non-derivability asserted in comments over undefined predicates (the supplied authority-firewall claim)",
+   "disposition": "REFUSED TRANSPORT: the comment claims a non-derivability between two predicates never defined in the file; no proof system or derivability relation exists there; the actual formal content is integer subtraction (a difference of two free integers is nonzero when they differ) and was reconstructed at exactly that strength (ObsDescent.int_sub_ne_zero_iff); the G12 row of the analysis file records the gap"
   },
   {
    "attack": "graph/cochain realization sold as forced ontology",
@@ -86,8 +90,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256_canonical": "7fa3944324e32e44470975dd71d954cc264a453b8ca8c4eb9758420b54cb20c9",
-  "theorem_count": 1037
+  "sha256_canonical": "efd9921236bdb5272921f2f95d2583617fb64334086c70d58db6b3c2f210dbca",
+  "theorem_count": 1149
  },
  "blind_native_base": "ccd3a53",
  "bounds": {
@@ -105,6 +109,13 @@
    6
   ],
   "cell_demonstration_carrier": 4,
+  "collision_cells": 37,
+  "contact_carrier_max": 3,
+  "contact_relation_counts": [
+   2,
+   16,
+   512
+  ],
   "controller_behavior_basis": "6 states x 10 events (recorded in artifact)",
   "controller_class": 1024,
   "cut_census_carriers": [
@@ -113,6 +124,9 @@
    4,
    5
   ],
+  "denylist_definitions": "full census = every supplied top-level identifier plus field names (111); working subtraction file = census minus 9 identifiers verified native-at-base or Lean-core (102)",
+  "denylist_entries_full_census": 111,
+  "denylist_entries_working": 102,
   "genesis_battery_checks": 600,
   "genesis_internal_traces": 11104,
   "genesis_sample_states": 8,
@@ -129,14 +143,19 @@
   "preservation_census_carrier": 4,
   "renaming_assoc_triples": 216,
   "renaming_symmetric_group": 6,
+  "supplied_declarations": 103,
   "weight_carrier": 2,
   "weight_coeff_bound": 3,
   "weight_max": 3
  },
  "contact": {
-  "manifest_hash": null,
-  "package_present": false,
-  "status": "CONTACT_INPUT_ABSENT"
+  "manifest_hash": "3b65253d8338b5f0283a29a194fe673d0200ca091284ab92ef315246e328065f",
+  "package_present": true,
+  "status": "CONTACT_PROCESSED_LEAN_ONLY",
+  "status_history": [
+   "CONTACT_INPUT_ABSENT (pre-contact, blind-native-base ccd3a53)",
+   "CONTACT_PROCESSED_LEAN_ONLY (2026-08-13, base a5caee2)"
+  ]
  },
  "extensions": [
   {
@@ -292,11 +311,23 @@
   {
    "conjecture": "GRAPH_GENESIS_BY_OBSTRUCTION",
    "missing_theorem": "SETTLED NEGATIVELY for this calculus (Goal 5): the internal response family provably cannot create occurrences, asserted, retained or protected pairs (GraphGenesis.internal_family_cannot_grow_carrier, family_never_grows_carrier), and every obstruction meeting the kernel's own hypotheses is resolved inside the existing carrier (obstruction_resolved_in_carrier).  What remains is therefore not a conjecture about THIS driver but the OPEN question whether some OTHER declared response family could request a lawful carrier-changing proposal.  One explicit sufficient proposal schema is delivered as GraphGenesis.ProposalRecord; no minimality or universal property is proved for that schema, and growth is not entailed by nextFamilyP"
+  },
+  {
+   "conjecture": "ENLARGED_CORPUS_CONTAINS_RECONSTRUCTED_SUPPLIED_ABSTRACT_HALF",
+   "missing_theorem": "RECORDED AT THE COLLISION (2026-08-13).  Post-reconstruction, the enlarged native corpus is conjectured to contain strictly the reconstructed image of the supplied abstract half, while the converse containment remains signature-impossible by the native -> supplied countermodels (ContactBridge.d2_not_obs_complement and the nine-reading row).  MISSING: any formal notion of corpus containment inside the calculus - the statement is METATHEORY about two corpora, not a proposition of the development; consequently no strictly-stronger verdict is issued this run, and any future one must be stated relative to the enlarged corpus, never the sealed one"
+  },
+  {
+   "conjecture": "LOCATEDNESS_SCHEMA_EQUALS_WLEM",
+   "missing_theorem": "RECORDED AT THE COLLISION (2026-08-13).  The forward price is proved (ContactBridge.located_schema_implies_wlem: the locatedness schema quantified over all observers implies the weak law of excluded middle).  MISSING: the converse.  Deriving the locating boolean for an arbitrary observer from WLEM alone appears to need a function-comprehension principle beyond it, so the equivalence is conjectured to FAIL at WLEM and to require a stronger principle; the OPEN cell ContactBridge.open_bridge_located carries the same obligation, and no internal countermodel can exist because the schema is classically true"
   }
  ],
  "graph_scope": "dependency records classify declared bridges; no claim exhausts every possible bridge (inherited scope)",
  "open_obligations": [
   "four OPEN located matrix cells (a->bl, bs->bl, bc->bl, f->bl): no internal countermodel can exist (located_of_decidable); independence is metatheoretic",
+  "COLLISION OPEN CELL (bridge, cotransitivity; ContactBridge.open_bridge_cotrans): the cotransitivity schema for observer complements, quantified over all observers, is exactly the weak law of excluded middle (cotrans_schema_iff_wlem) - PRICE: WLEM; pointwise decidability of the zero relation discharges it (obsApart_cotrans); no internal countermodel can exist because the schema is classically true",
+  "COLLISION OPEN CELL (bridge, locatedness; ContactBridge.open_bridge_located): the locatedness schema implies the weak law of excluded middle (located_schema_implies_wlem) - PRICE: a WLEM-implication, forward direction only; the converse is OPEN and would need a function-comprehension principle beyond WLEM; pointwise decidability discharges the schema (obsSetting_bl)",
+  "COLLISION OPEN CELL (kernel, read-back grade; ContactKernel.open_kernel_grade): without pointwise decidability of the asserted relation the kernel read back from a candidate-A setting carries the double negation of that relation - PRICE: double-negation elimination (ContactBridge.stability_schema_iff_dne); exact under the explicit Decidable hypothesis (ofSetting_exact); no internal countermodel can exist",
+  "COLLISION OPEN CELL (kernel, locatedness; ContactKernel.open_kernel_bl): underivability of Located from the kernel fields alone is METATHEORETIC - no internal countermodel exists, since every kernel with a pointwise-decidable zero predicate has a located apartness (kernel_located_of_decidable); Located remains separate declared data",
   "cut census formula 2^(n-2): computed to carrier 5, conjectured generally",
   "absolute self-interpretation: the outermost interpretation relation remains metatheoretic (inherited OPEN bridge); a DECLARED model of the boundary satisfies candidates A and F (Phase VIII), and the stronger identification is a frontier conjecture, not a result",
   "absolute no-outside: not formulable in this calculus; not claimed (inherited scope)"
@@ -333,9 +364,58 @@
   {
    "code": "CONTACT_INPUT_ABSENT",
    "evidence": [
-    "primitive_contact.json",
-    "PrimitiveContact.contactStatus"
-   ]
+    "primitive_contact.json (history)",
+    "PrimitiveContact.contactStatus (sealed)",
+    "PrimitiveContact.contactStatusHistory"
+   ],
+   "scope": "SEALED HISTORY: the pre-contact terminal of the blind-native phase (ccd3a53), preserved as history[0]; superseded by CONTACT_PROCESSED_LEAN_ONLY at base a5caee2"
+  },
+  {
+   "code": "CONTACT_INCOMPARABLE_WITH_COUNTERMODELS",
+   "evidence": [
+    "ContactBridge.d2_not_obs_complement",
+    "ContactBridge.obsApart_repr_iff",
+    "ContactBridge.unit_total_not_repr",
+    "ContactBridge.triSym_not_obs_complement",
+    "ContactBridge.d_not_witnessed_repr",
+    "ContactKernel.pair_choice_load_bearing",
+    "ContactKernel.kernel_no_witness_from_collapse",
+    "ContactKernel.kernel_not_c",
+    "ContactKernel.kernel_not_f",
+    "ObsDescent (reconstruction corpus)",
+    "primitive_contact.json (verdict, collision_cells, enumerations)"
+   ],
+   "scope": "Sealed native corpus at a5caee2 versus the supplied single-file development (sha256 d9cdb350a53c513e3e211e72f17262be6ba85d7da6159f910388c7137e814a89), Lean content only (manifest: prose_supplied = false, PROSE_INPUT_ABSENT).  WITH_COUNTERMODELS covers the native -> supplied direction only; the other direction is an absence claim, stated as such below.  Native -> supplied: refuted at signature level - no valued observer's zero-complement equals the oriented two-element witness over any value type (ContactBridge.d2_not_obs_complement); for Prop-valued observers (DiffObs X Prop) the representable class is exactly the double-negation-stable complements of equivalences (ContactBridge.obsApart_repr_iff - no claim is made for observers at other value types, where only the forward direction is available); each of the nine native candidate readings fails representability or witness-transport, with finite countermodels exhibited at carrier sizes 1,2,3,2,2,1,2,2,2.  MINIMALITY of those carriers is proved for exactly one reading - Bs at 3, by the positive ContactBridge.bool_bs_repr at carrier 2; the remaining sizes are the least carrier at which the reading can be posed at all (a reading demanding a distinguished pair cannot be stated below carrier 2), which is METATHEORY, not a proved minimum, and contact/analysis/lean_theorem_transport.md records carrier minimality as unclaimed for d_not_witnessed_repr and no_kernel_over_allzero; Bc, Bl and F carry no separate countermodel and fail through the A-conjunct models cited in contact/analysis/contact_countermodels.json.  Protection, retention, operations, and the designated pair are underivable (ContactKernel.kernel_not_c, ContactKernel.kernel_not_f, ContactKernel.pair_choice_load_bearing).  Supplied -> native: an ABSENCE claim about the sealed corpus, NOT a refutation - the supplied global quotient-descent layer (existence-iff-compatibility, global uniqueness, mod-setoid transport) does not occur in the sealed corpus (FINITE_COMPUTATION over the corpus text plus METATHEORY), whose image-scoped uniqueness plus off-image countermodel (Compression.factor_not_unique_off_image) is deliberately weaker on arbitrary presentations; no countermodel refutes the layer, and its content is in fact derivable natively for the Nat-scoped kernel observers of the dictionary (ObsDescent.descend_iff_factorsOn_all); reconstructed this run (ObsDescent) in native vocabulary under identical axiom budget within {propext, Quot.sound}.  The incomparability is asymmetric in kind: signature-level and permanent against the supplied side; content-level and closed-this-run against the native side."
+  },
+  {
+   "code": "COMMON_PRIMITIVE_KERNEL_REPLACES_BOTH",
+   "evidence": [
+    "ContactKernel.WitnessedDiff",
+    "ContactKernel.ofSetting",
+    "ContactKernel.ofSetting_exact",
+    "ContactKernel.ofDiffObs",
+    "ContactKernel.toDiffObs (with toDiffObs_fields, toDiffObs_apart: the observer-side record identity)",
+    "ContactKernel.toNativeKernel",
+    "ContactKernel.kernel_gateway_unique",
+    "ContactKernel.kernel_no_terminal_collector",
+    "ContactKernel.vhom_unique_of_onto",
+    "ContactKernel.kernel_licenses_entry",
+    "ContactKernel.entry_pre_observation"
+   ],
+   "scope": "The kernel ContactKernel.WitnessedDiff (valued difference presentation + designated endpoints + diagonal-zero law + refutation-grade non-zero witness; NO symmetry/transitivity admissions, NO retention/protection/operations): realized from native candidate-A settings (ofSetting; exact under pointwise decidability, double-negation-coarse otherwise - recorded OPEN) and from valued observers plus a chosen non-zero pair (ofDiffObs; the pair proved load-bearing); meets the sealed pre-contact interface (toNativeKernel : WitnessedDiff X R -> PrimitiveContact.NativeKernel); universal status proved: initial gateway inherited from sealed d2_initial (kernel_gateway_unique), no terminal collector AT THE INDUCED-APARTNESS MORPHISM GRADE (kernel_no_terminal_collector, kernel_no_terminal: morphisms of the induced pointed-relation presentations apartObj, which discard the value data; nothing is proved about terminality in the valued morphism category VHom), value grade is presentation with off-image non-uniqueness (vhom_not_unique) rigidified UNDER delta-surjectivity (vhom_unique_of_onto - sufficiency plus one non-onto countermodel; no equivalence is proved, so necessity is not claimed); licenses passage entry pre-retention/pre-observation (kernel_licenses_entry), where the kernel contributes ENDPOINT DISTINCTNESS ONLY - the other two conjuncts (candidate A at the sealed pre-retention state, empty retention store) are sealed constants that do not mention the kernel, and no map from an arbitrary kernel into the passage state is claimed (entry_pre_observation).  'Replaces' is scoped to the OVERLAP: entry-level content of both sides is the kernel + separately declared additions.  Supplied side, DEFINITION not derivation: the kernel together with the two law declarations IS the observer record, field-for-field and losslessly (toDiffObs, toDiffObs_fields, toDiffObs_apart), and the two declarations are priced at carriers two and three (kernel_not_observer, kernel_zero_not_trans).  Native side, DERIVED_THEOREM: toSetting_A, kernel_to_w, kernel_to_d, kernel_to_e_empty, with the declarations shown separable (ofSetting_ret_irrelevant, ContactBridge.kernel_prot_independent).  It does NOT replace native orientation, retention/protection, operations, or passage dynamics - native-only surplus."
+  },
+  {
+   "code": "CONTACT_EQUIVALENT_UNDER_DECIDABLE_ZERO_PLUS_APARTNESS_ADMISSIONS",
+   "evidence": [
+    "ContactBridge.isApart_repr",
+    "ContactBridge.obsApart_isApart",
+    "ContactBridge.apartObs_roundtrip",
+    "ContactBridge.indist_obsApart_iff",
+    "ContactBridge.cotrans_schema_iff_wlem",
+    "ContactBridge.stability_schema_iff_dne",
+    "ContactBridge.located_schema_implies_wlem"
+   ],
+   "scope": "On the relational core only.  Premise 1 - the supplied core structure and the native DiffObs correspond field-for-field at the observer stratum - is a mechanical scratch check run OUTSIDE the repository (FINITE_COMPUTATION; file and log sha256 recorded in contact/analysis/contact_countermodels.json, field correspondence_map.scratch_bridge_check).  The vocabulary firewall forbids committing that check, so it is NOT reproducible from this repository: no CI job, test, or reviewer re-runs it.  Premise 2 is TWO decidability admissions, one per direction, and they are NOT interchangeable.  Apartness -> observer spends pointwise decidability of the ASSERTED APARTNESS relation (ContactBridge.isApart_repr, ContactBridge.apartObs_roundtrip: [forall x y, Decidable (r x y)]).  Observer -> apartness spends pointwise decidability of the ZERO relation (ContactBridge.obsApart_isApart, ContactBridge.indist_obsApart_iff: [forall x y, Decidable (ZeroRel O x y)]).  The two do not substitute for each other: the zero relation of the observer built from an apartness is the negation of that apartness, and Decidable of a negation does not return Decidable of the statement - that residue is exactly what stability_schema_iff_dne prices at double-negation elimination.  Under both admissions and the three IsApart admissions the native apartness and the supplied-style observer are inter-constructible with matching relations in both round trips.  Dropping decidability is priced: cotransitivity-schema <-> WLEM (cotrans_schema_iff_wlem), stability-schema <-> DNE (stability_schema_iff_dne), locatedness-schema -> WLEM (located_schema_implies_wlem; forward direction only, converse OPEN).  Dropping any IsApart admission is refuted at carriers 1/2/3 (sealed countermodels cited).  Statement scope: carriers and value types range over Type (universe 0), where the supplied structure is universe-polymorphic; the apartness -> observer direction produces a Prop-valued observer.  Valuation data, orientation, and everything dynamic is OUTSIDE this scope (the other terminal codes govern there)."
   },
   {
    "code": "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED",

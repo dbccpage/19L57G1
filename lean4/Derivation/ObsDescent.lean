@@ -51,8 +51,8 @@ earns, and nothing more:
    (`collapseAllObs_not_deltaConstant`,
    `collapseAllObs_no_delta_descend`,
    `collapseAllObs_id_not_classConstant`,
-   `collapseAllObs_no_view_descend`).  The carrier `Bool` is minimal:
-   on a subsingleton carrier every map is class-constant
+   `collapseAllObs_no_view_descend`).  `Bool` is minimal — METATHEORY,
+   not a Lean theorem: on a subsingleton every map is class-constant
    (`Subsingleton.elim`), so no descent obstruction can live there.
 9. **The factorization dictionary**: global quotient descent for a
    kernel observer is exactly the native list-scoped factorization

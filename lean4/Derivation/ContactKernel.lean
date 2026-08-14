@@ -32,7 +32,11 @@ other, never kernel content.
    protection, and operations (`ofSetting_ret_irrelevant`); an
    observer yields a kernel only *together with a chosen non-zero
    pair*, and the choice is genuine new data
-   (`pair_choice_load_bearing`, `kernel_no_witness_from_collapse`).
+   (`pair_choice_load_bearing`, `kernel_no_witness_from_collapse`);
+   in the other direction the kernel *plus the two law declarations*
+   is an observer, field-for-field and losslessly (`toDiffObs`,
+   `toDiffObs_fields`, `toDiffObs_apart`) — a record identity, not a
+   derivation.
 3. **What the kernel does not carry** (`kernel_not_observer`,
    `kernel_zero_not_trans`, `kernel_not_bs`, `kernel_not_bc`,
    `kernel_located_of_decidable`, `open_kernel_bl`, `kernel_not_c`,
@@ -68,8 +72,8 @@ other, never kernel content.
    `kernel_two_point_presentation`): the kernel enters the sealed
    passage at the pre-retention state — before retention, protection,
    and observation, each of which remains a separately priced event —
-   and a total two-point presentation of the endpoints costs exactly
-   decidable equality of the carrier.
+   and a total two-point presentation of the endpoints costs
+   decidable equality of the carrier (sufficiency only).
 7. **The machine-checkable matrix** (`contactCells`,
    `contactCells_length`): the 37 collision cells spanning the kernel
    stratum and the observer stratum, one literal row each.
@@ -246,13 +250,52 @@ theorem kernel_no_witness_from_collapse :
       ¬ ContactBridge.obsApart ObsDescent.collapseAllObs a b :=
   fun _ _ h => h trivial
 
+/-- **The kernel plus the two law declarations is an observer**: the
+observer-side half of the replacement claim, stated as a record
+identity rather than a derivation.  The two hypotheses are exactly
+the declarations the kernel deliberately omits, each priced below at
+carriers two and three (`kernel_not_observer`,
+`kernel_zero_not_trans`); no other data is supplied. -/
+def toDiffObs (K : WitnessedDiff X R)
+    (hs : ∀ x y, K.Zero (K.delta x y) → K.Zero (K.delta y x))
+    (ht : ∀ x y z, K.Zero (K.delta x y) → K.Zero (K.delta y z) →
+      K.Zero (K.delta x z)) : DiffObs X R where
+  delta := K.delta
+  Zero := K.Zero
+  zero_refl := K.diag_zero
+  zero_symm := fun {x y} h => hs x y h
+  zero_trans := fun {x y z} h₁ h₂ => ht x y z h₁ h₂
+
+/-- The identification is field-for-field and lossless: difference
+map and zero predicate are carried unchanged, and the kernel is
+recovered from the observer it yields together with its own
+designated pair. -/
+theorem toDiffObs_fields (K : WitnessedDiff X R)
+    (hs : ∀ x y, K.Zero (K.delta x y) → K.Zero (K.delta y x))
+    (ht : ∀ x y z, K.Zero (K.delta x y) → K.Zero (K.delta y z) →
+      K.Zero (K.delta x z)) :
+    (toDiffObs K hs ht).delta = K.delta ∧
+      (toDiffObs K hs ht).Zero = K.Zero ∧
+      ofDiffObs (toDiffObs K hs ht) K.a K.b K.apart_ab = K :=
+  ⟨rfl, rfl, rfl⟩
+
+/-- The relation matches in both readings: the yielded observer's
+complement is the kernel's induced apartness. -/
+theorem toDiffObs_apart (K : WitnessedDiff X R)
+    (hs : ∀ x y, K.Zero (K.delta x y) → K.Zero (K.delta y x))
+    (ht : ∀ x y z, K.Zero (K.delta x y) → K.Zero (K.delta y z) →
+      K.Zero (K.delta x z)) :
+    ∀ x y, ContactBridge.obsApart (toDiffObs K hs ht) x y ↔
+      kernelApart K x y :=
+  fun _ _ => Iff.rfl
+
 /-! ## What the kernel does not carry: the observer admissions
 priced -/
 
 /-- The kernel is not an observer: the oriented two-element kernel's
 difference and zero data extend to no `DiffObs`, because the symmetry
 law field would force symmetry of the zero relation and the oriented
-data refuses it.  Minimum carrier two. -/
+data refuses it.  Minimum carrier two: METATHEORY, not proved here. -/
 theorem kernel_not_observer :
     ∃ K : WitnessedDiff Bool Prop,
       ¬ ∃ O : DiffObs Bool Prop,
@@ -272,7 +315,7 @@ theorem kernel_not_observer :
 the symmetric three-point relation is a kernel whose zero chain
 through the third point breaks — the sealed
 `Apartness.symm_without_cotrans_breaks_trans` data replayed as kernel
-content.  Minimum carrier three. -/
+content.  Minimum carrier three: INHERITED, not proved here. -/
 theorem kernel_zero_not_trans :
     ∃ K : WitnessedDiff (Fin 3) Prop,
       K.Zero (K.delta 0 2) ∧ K.Zero (K.delta 2 1) ∧
@@ -282,8 +325,8 @@ theorem kernel_zero_not_trans :
             apart_ab := fun hn => hn (Or.inl ⟨rfl, rfl⟩) }, ?_⟩
   exact Apartness.symm_without_cotrans_breaks_trans
 
-/-- The induced apartness need not be symmetric: the oriented
-two-element kernel refuses Bs.  Minimum carrier two. -/
+/-- The induced apartness need not be symmetric: the oriented two-element
+kernel refuses Bs.  Minimum carrier two: METATHEORY, not proved here. -/
 theorem kernel_not_bs :
     ∃ K : WitnessedDiff Bool Prop,
       ¬ ∀ x y, kernelApart K x y → kernelApart K y x := by
@@ -296,8 +339,8 @@ theorem kernel_not_bs :
 
 /-- The induced apartness need not be cotransitive: the three-point
 complement kernel refuses Bc at the third point.  Minimum carrier
-three, inherited from the sealed `PrimitiveCore.cotrans_auto_on_two`
-minimality. -/
+three: INHERITED from the sealed `PrimitiveCore.cotrans_auto_on_two`
+minimality, not proved here. -/
 theorem kernel_not_bc :
     ∃ K : WitnessedDiff (Fin 3) Prop,
       ¬ PrimitiveCore.Cotrans (kernelApart K) := by
@@ -640,10 +683,10 @@ theorem entry_pre_observation :
    PrimitivePassage.obst_requires_observation
      PrimitivePassage.preRetained 0 1 (by decide)⟩
 
-/-- A total two-point presentation of the endpoints costs exactly
-decidable equality of the carrier — the honest price of totality,
-mirroring the locatedness pricing.  Without it only the licensing
-form above is claimed. -/
+/-- A total two-point presentation of the endpoints costs decidable
+equality of the carrier — the honest price of totality.  Sufficiency
+only: no converse is proved, so necessity is not claimed.  Without it
+only the licensing form above is claimed. -/
 theorem kernel_two_point_presentation {X R : Type} [DecidableEq X]
     (K : WitnessedDiff X R) : ∃ p : X → Nat, p K.a = 0 ∧ p K.b = 1 :=
   ⟨fun x => if x = K.a then 0 else 1, if_pos rfl,
@@ -660,7 +703,7 @@ def contactCells : List (String × String × String) :=
    ("W_to_K", "COUNTERMODEL size 1",
     "no_kernel_on_subsingleton (unitBare cited)"),
    ("K_to_A", "IMPLIES", "toSetting_A"),
-   ("A_to_K", "EQUIV_UNDER_DEC",
+   ("A_to_K", "EQUIV_UNDER_DEC (asserted relation S.r)",
     "ofSetting, ofSetting_exact, open_kernel_grade"),
    ("K_to_Bs", "COUNTERMODEL size 2", "kernel_not_bs"),
    ("Bs_to_K", "IMPLIES", "ofSetting (Bs within A)"),
@@ -694,7 +737,7 @@ def contactCells : List (String × String × String) :=
    ("total_repr (W/C)", "COUNTERMODEL size 1", "unit_total_not_repr"),
    ("witness_repr (D/E)", "COUNTERMODEL size 2",
     "d_not_witnessed_repr"),
-   ("meet_roundtrip", "EQUIV_UNDER_DEC",
+   ("meet_roundtrip", "EQUIV_UNDER_DEC (apartness r one way, ZeroRel back)",
     "isApart_repr, obsApart_isApart, apartObs_roundtrip, indist_obsApart_iff"),
    ("stability_price", "OPEN_PRICED", "stability_schema_iff_dne"),
    ("descent_vs_factorsOn", "SAME_THIRD_NOTION",

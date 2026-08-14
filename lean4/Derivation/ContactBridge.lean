@@ -79,10 +79,15 @@ earns:
    admits no active obstruction: the observer stratum sits at the
    zero-relation stage, after nothing.
 8. **The flagship obstruction at passage grade**
-   (`pair_blocked_is_collapse_collision`): a zero-pair separated by a
-   view is a collapse collision at the quotient projection — the
+   (`pair_blocked_is_collapse_collision`,
+   `collapse_collision_is_pair_blocked`,
+   `pair_blocked_iff_collapse_collision`): a zero-pair separated by a
+   view is a collapse collision at the quotient projection, and
+   conversely — proved in both directions, so at *this* grade the
    descent obstruction and the native collision are the same event in
-   two vocabularies.
+   two vocabularies.  The sealed passage obstruction predicate adds
+   retention, protection, and declaration conditions on top, and is
+   strictly finer than both.
 
 The stores of `obsSetting` are empty by construction: an observer
 carries no retention, protection, or operation content, so its
@@ -340,8 +345,8 @@ theorem obsApart_repr_iff (r : X → X → Prop) :
 
 /-- The total relation on the one-point carrier is not an observer
 complement: irreflexivity of the complement is free, so bare
-self-difference is unrepresentable (minimum carrier one; serves the
-W- and C-readings, native models `unitBare` / `unitFull`). -/
+self-difference is unrepresentable (minimum carrier one — METATHEORY,
+not proved here; readings W and C, models `unitBare`, `unitFull`). -/
 theorem unit_total_not_repr :
     ¬ ∃ O : DiffObs Unit Prop,
         ∀ x y, obsApart O x y ↔ (fun _ _ : Unit => True) x y := by
@@ -351,9 +356,9 @@ theorem unit_total_not_repr :
 /-- **Orientation cannot arrive as a complement, over any value
 type**: no observer on the two-point carrier has the oriented witness
 as its zero-complement — symmetry of the complement is free and the
-oriented relation refuses it.  Minimum carrier two.  This is the
-signature-level refutation of the native→observer direction at the
-sealed interface object. -/
+oriented relation refuses it.  Minimum carrier two — METATHEORY
+(subsingleton ⇒ symmetric), not proved here.  This is the
+signature-level refutation of native→observer at the sealed object. -/
 theorem d2_not_obs_complement :
     ¬ ∃ (R : Type) (O : DiffObs Bool R),
         ∀ x y, obsApart O x y ↔ PrimDiff.D2 x y := by
@@ -368,7 +373,7 @@ theorem d2_not_obs_complement :
 over any value type: transitivity of the zero relation collapses
 double negations along the chain through the third point, against the
 sealed `Apartness.symm_without_cotrans_breaks_trans` data.  Minimum
-carrier three (`bool_bs_repr` below). -/
+carrier three — PROVED, by the positive `bool_bs_repr` below. -/
 theorem triSym_not_obs_complement :
     ¬ ∃ (R : Type) (O : DiffObs (Fin 3) R),
         ∀ x y, obsApart O x y ↔ Apartness.triSymRel x y := by
@@ -676,5 +681,30 @@ theorem pair_blocked_is_collapse_collision {Z : Type}
     PrimDiff.CollapseCollision (fun u v => ψ u ≠ ψ v)
       (ObsQuotient.mk O) :=
   ⟨x, y, hne, obsQuotient_eq_of_zero O hxy⟩
+
+/-- The converse, by exactness of the quotient: every collapse
+collision of the view-difference relation at the projection is a
+zero-pair the view separates. -/
+theorem collapse_collision_is_pair_blocked {Z : Type}
+    (O : DiffObs X R) (ψ : X → Z)
+    (h : PrimDiff.CollapseCollision (fun u v => ψ u ≠ ψ v)
+      (ObsQuotient.mk O)) :
+    ∃ x y, ZeroRel O x y ∧ ψ x ≠ ψ y := by
+  obtain ⟨u, v, hne, hc⟩ := h
+  exact ⟨u, v, (ObsDescent.obsQuotient_mk_eq_iff O u v).mp hc, hne⟩
+
+/-- **Both directions**: blocked descent and collapse collision are
+one event in two vocabularies, at this grade.  The sealed passage
+obstruction predicate adds retention, protection, and declaration
+conditions on top — proved independent there — so the passage-grade
+notion is strictly finer than either side of this equivalence. -/
+theorem pair_blocked_iff_collapse_collision {Z : Type}
+    (O : DiffObs X R) (ψ : X → Z) :
+    (∃ x y, ZeroRel O x y ∧ ψ x ≠ ψ y) ↔
+      PrimDiff.CollapseCollision (fun u v => ψ u ≠ ψ v)
+        (ObsQuotient.mk O) :=
+  ⟨fun ⟨_, _, hz, hne⟩ =>
+      pair_blocked_is_collapse_collision O ψ hz hne,
+   collapse_collision_is_pair_blocked O ψ⟩
 
 end ContactBridge

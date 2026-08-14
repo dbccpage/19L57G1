@@ -33,8 +33,14 @@ def test_receipt_binds_everything() -> None:
     assert r["blind_native_base"] == "ccd3a53"
     contact = r["contact"]
     assert isinstance(contact, dict)
-    assert contact["status"] == "CONTACT_INPUT_ABSENT"
-    assert contact["package_present"] is False
+    assert contact["status"] == "CONTACT_PROCESSED_LEAN_ONLY"
+    assert contact["package_present"] is True
+    assert isinstance(contact["manifest_hash"], str)
+    assert len(contact["manifest_hash"]) == 64
+    hist = contact["status_history"]
+    assert isinstance(hist, list) and len(hist) == 2
+    assert str(hist[0]).startswith("CONTACT_INPUT_ABSENT")
+    assert str(hist[1]).startswith("CONTACT_PROCESSED_LEAN_ONLY")
     prompts = r["prompt_sha256_canonical"]
     assert isinstance(prompts, dict)
     assert len(prompts) == 4
@@ -53,6 +59,15 @@ def test_receipt_binds_everything() -> None:
     assert isinstance(terminals, list)
     codes = {t["code"] for t in terminals if isinstance(t, dict)}
     assert "CONTACT_INPUT_ABSENT" in codes
+    sealed = next(t for t in terminals if isinstance(t, dict)
+                  and t["code"] == "CONTACT_INPUT_ABSENT")
+    assert str(sealed["scope"]).startswith("SEALED HISTORY")
+    assert "CONTACT_INCOMPARABLE_WITH_COUNTERMODELS" in codes
+    assert "COMMON_PRIMITIVE_KERNEL_REPLACES_BOTH" in codes
+    assert ("CONTACT_EQUIVALENT_UNDER_DECIDABLE_ZERO_PLUS_"
+            "APARTNESS_ADMISSIONS") in codes
+    assert "CONTACT_STRICTLY_STRONGER" not in codes
+    assert "NATIVE_STRICTLY_STRONGER" not in codes
     assert "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED" in codes
     assert "FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE" in codes
     assert "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F" in codes
@@ -61,18 +76,47 @@ def test_receipt_binds_everything() -> None:
     assert "HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED" in codes
     for t in terminals:
         assert isinstance(t, dict) and t["evidence"]
+    bounds = r["bounds"]
+    assert isinstance(bounds, dict)
+    assert bounds["collision_cells"] == 37
+    assert bounds["contact_relation_counts"] == [2, 16, 512]
+    assert bounds["supplied_declarations"] == 103
+    assert bounds["denylist_entries_full_census"] == 111
+    assert bounds["denylist_entries_working"] == 102
     attacks = r["adversarial_record"]
     assert isinstance(attacks, list)
-    assert len(attacks) == 20
+    assert len(attacks) == 21
     assert all(isinstance(a, dict) and a["disposition"]
                for a in attacks)
     opens = r["open_obligations"]
-    assert isinstance(opens, list) and len(opens) == 4
+    assert isinstance(opens, list) and len(opens) == 8
     # audit repair: openTerminalPres2 was closed constructively by
     # no_terminal_pres2 and is no longer an open obligation
     assert not any("openTerminalPres2" in str(o) for o in opens)
+    # audit repair (2026-08-13): the four OPEN cells declared by the
+    # collision are registered here, each with its price
+    collision_opens = [str(o) for o in opens
+                       if str(o).startswith("COLLISION OPEN CELL")]
+    assert len(collision_opens) == 4
+    for name in ("ContactBridge.open_bridge_cotrans",
+                 "ContactBridge.open_bridge_located",
+                 "ContactKernel.open_kernel_grade",
+                 "ContactKernel.open_kernel_bl"):
+        assert any(name in o for o in collision_opens)
+    prices = " ".join(collision_opens)
+    assert "PRICE: WLEM" in prices
+    assert "PRICE: a WLEM-implication" in prices
+    assert "PRICE: double-negation elimination" in prices
+    assert "METATHEORETIC" in prices
     frontiers = r["frontier_conjectures"]
     assert isinstance(frontiers, list)
+    collision_conjectures = {
+        "ENLARGED_CORPUS_CONTAINS_RECONSTRUCTED_SUPPLIED_ABSTRACT_"
+        "HALF",
+        "LOCATEDNESS_SCHEMA_EQUALS_WLEM",
+    }
+    named = {str(row["conjecture"]) for row in frontiers}
+    assert collision_conjectures <= named
     boundary = next(
         row for row in frontiers
         if row["conjecture"] == "GENERAL_BOUNDARY_COMPOSITE_VANISHING")

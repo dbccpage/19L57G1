@@ -545,9 +545,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-QUOT-BARRIER"
+    "CL-QUOT-BARRIER",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "Quot.lean",
    "name": "Derivation.quot_barrier",
@@ -1134,7 +1137,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.meta_diff_without_assertion",
@@ -1157,6 +1162,7 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
+    "ContactKernel.lean",
     "PrimitiveCore.lean"
    ],
    "kind": "generic",
@@ -1170,6 +1176,7 @@
    "citing_claims": [],
    "consumers": [
     "Apartness.lean",
+    "ContactKernel.lean",
     "PrimitiveCats.lean",
     "PrimitiveContact.lean",
     "PrimitiveCore.lean"
@@ -1198,6 +1205,8 @@
    "axioms": [],
    "citing_claims": [],
    "consumers": [
+    "ContactBridge.lean",
+    "ContactKernel.lean",
     "PrimitiveCats.lean",
     "PrimitiveContact.lean",
     "PrimitiveCore.lean"
@@ -1512,8 +1521,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
    "consumers": [
+    "ContactBridge.lean",
+    "ContactKernel.lean",
     "PrimitiveCore.lean"
    ],
    "kind": "generic",
@@ -2395,7 +2408,8 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-DI-EQUIVALENCE"
+    "CL-DI-EQUIVALENCE",
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -2421,7 +2435,10 @@
    "citing_claims": [
     "CL-DI-EQUIVALENCE"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean",
+    "ObsDescent.lean"
+   ],
    "kind": "generic",
    "module": "DiffInterface.lean",
    "name": "DiffInterface.obsQuotient_eq_of_zero",
@@ -4763,9 +4780,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-INITIALITY"
+    "CL-PD2-INITIALITY",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
    "consumers": [
+    "ContactKernel.lean",
     "PrimitiveContact.lean"
    ],
    "kind": "generic",
@@ -4796,6 +4816,7 @@
     "CL-PD2-INITIALITY"
    ],
    "consumers": [
+    "ContactKernel.lean",
     "PrimitiveContact.lean"
    ],
    "kind": "generic",
@@ -4853,9 +4874,12 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-INITIALITY"
+    "CL-PD2-INITIALITY",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.two_initials_not_identical",
@@ -4867,7 +4891,9 @@
    "citing_claims": [
     "CL-PD2-INITIALITY"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.initials_iso",
@@ -5140,9 +5166,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-BRANCHING"
+    "CL-PD2-BRANCHING",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.phom2_unique_of_epi",
@@ -5157,7 +5186,9 @@
    "citing_claims": [
     "CL-PD2-BRANCHING"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.no_terminal_pres2",
@@ -5225,7 +5256,10 @@
    "citing_claims": [
     "CL-PD2-MATRIX"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean",
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.located_of_decidable",
@@ -5238,7 +5272,8 @@
     "CL-PD2-MATRIX"
    ],
    "consumers": [
-    "Apartness.lean"
+    "Apartness.lean",
+    "ContactKernel.lean"
    ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
@@ -5418,6 +5453,8 @@
     "CL-PD2-INITIALITY"
    ],
    "consumers": [
+    "ContactBridge.lean",
+    "ContactKernel.lean",
     "PrimitiveCats.lean"
    ],
    "kind": "generic",
@@ -5923,7 +5960,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.imp_f_a",
@@ -5987,7 +6026,10 @@
    "citing_claims": [
     "CL-PD2-MATRIX"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean",
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.e_empty_iff_d",
@@ -5997,7 +6039,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.prot_not_from_witness",
@@ -6007,7 +6051,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCore.lean",
    "name": "PrimitiveCore.ret_not_from_witness",
@@ -6067,7 +6113,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.zeroP_cons",
@@ -6090,9 +6138,11 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PASSAGE"
+    "CL-PD2-PASSAGE",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
    "consumers": [
+    "ContactKernel.lean",
     "GraphGenesis.lean",
     "TransitionAlphabet.lean"
    ],
@@ -6138,9 +6188,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PASSAGE"
+    "CL-PD2-PASSAGE",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.obst_conditions_independent",
@@ -6254,9 +6307,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PASSAGE"
+    "CL-PD2-PASSAGE",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.kernel_enters_preretained",
@@ -6373,7 +6429,10 @@
     "CL-PD2-PASSAGE"
    ],
    "consumers": [
-    "DiffInterface.lean"
+    "ContactBridge.lean",
+    "ContactKernel.lean",
+    "DiffInterface.lean",
+    "ObsDescent.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6390,7 +6449,10 @@
     "CL-PD2-PASSAGE"
    ],
    "consumers": [
-    "DiffInterface.lean"
+    "ContactBridge.lean",
+    "ContactKernel.lean",
+    "DiffInterface.lean",
+    "ObsDescent.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6407,7 +6469,10 @@
     "CL-PD2-PASSAGE"
    ],
    "consumers": [
-    "DiffInterface.lean"
+    "ContactBridge.lean",
+    "ContactKernel.lean",
+    "DiffInterface.lean",
+    "ObsDescent.lean"
    ],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -7216,7 +7281,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.indist_refl",
@@ -7226,7 +7293,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.indist_symm",
@@ -7236,7 +7305,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.indist_trans",
@@ -7260,7 +7331,9 @@
    "citing_claims": [
     "CL-PD2-APARTNESS"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.bare_breaks_refl",
@@ -7272,7 +7345,9 @@
    "citing_claims": [
     "CL-PD2-APARTNESS"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.irrefl_alone_breaks_symm",
@@ -7296,7 +7371,9 @@
     "propext"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.triSymRel_irrefl",
@@ -7322,7 +7399,10 @@
    "citing_claims": [
     "CL-PD2-APARTNESS"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactBridge.lean",
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "Apartness.lean",
    "name": "Apartness.symm_without_cotrans_breaks_trans",
@@ -9503,7 +9583,9 @@
    "citing_claims": [
     "CL-PD2-ATTACHMENT (repaired, final pass)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
    "name": "PrimitiveCats.d2_map_injective",
@@ -9541,7 +9623,9 @@
    "citing_claims": [
     "CL-PD2-COMPRESSION"
    ],
-   "consumers": [],
+   "consumers": [
+    "ObsDescent.lean"
+   ],
    "kind": "generic",
    "module": "Compression.lean",
    "name": "Compression.factors_iff_fiberConstant",
@@ -9551,7 +9635,8 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-COMPRESSION"
+    "CL-PD2-COMPRESSION",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -9563,9 +9648,12 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-COMPRESSION"
+    "CL-PD2-COMPRESSION",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "Compression.lean",
    "name": "Compression.factor_not_unique_off_image",
@@ -14326,6 +14414,1541 @@
    "name": "TraceAlgebra.rewrite_not_complete",
    "role": "preservation",
    "statement": ": (\u2200 s : PState, replayP [PEvent.setBudget 1, PEvent.setBudget 2] s = replayP [PEvent.setBudget 2] s) \u2227 nf [PEvent.setBudget 1, PEvent.setBudget 2] \u2260 nf [PEvent.setBudget 2]"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.obsQuotient_exact",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) {x y : X} (h : ObsQuotient.mk O x = ObsQuotient.mk O y) : ZeroRel O x y"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactBridge.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.obsQuotient_mk_eq_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (x y : X) : ObsQuotient.mk O x = ObsQuotient.mk O y \u2194 ZeroRel O x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.obsQuotient_mk_surjective",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (q : ObsQuotient O) : \u2203 x, ObsQuotient.mk O x = q"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descend_mk",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (hf : ClassConstant O f) (x : X) : descend O f hf (ObsQuotient.mk O x) = f x"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descend_exists_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) : (\u2203 F : ObsQuotient O \u2192 Y, \u2200 x, F (ObsQuotient.mk O x) = f x) \u2194 ClassConstant O f"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descend_unique",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (F G : ObsQuotient O \u2192 Y) (hF : \u2200 x, F (ObsQuotient.mk O x) = f x) (hG : \u2200 x, G (ObsQuotient.mk O x) = f x) : F = G"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descend_blocked_of_witness",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) {x y : X} (hxy : ZeroRel O x y) (hne : f x \u2260 f y) : \u00ac \u2203 F : ObsQuotient O \u2192 Y, \u2200 z, F (ObsQuotient.mk O z) = f z"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.deltaDescend_mk",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (h : DeltaConstant O) (x y : X) : deltaDescend O h (ObsQuotient.mk O x) (ObsQuotient.mk O y) = O.delta x y"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.deltaDescend_exists_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : (\u2203 F : ObsQuotient O \u2192 ObsQuotient O \u2192 R, \u2200 x y, F (ObsQuotient.mk O x) (ObsQuotient.mk O y) = O.delta x y) \u2194 DeltaConstant O"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.deltaDescend_unique",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (F G : ObsQuotient O \u2192 ObsQuotient O \u2192 R) (hF : \u2200 x y, F (ObsQuotient.mk O x) (ObsQuotient.mk O y) = O.delta x y) (hG : \u2200 x y, G (ObsQuotient.mk O x) (ObsQuotient.mk O y) = O.delta x y) : F = G"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.deltaDescend_blocked_of_witness",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) {x x' y y' : X} (hx : ZeroRel O x x') (hy : ZeroRel O y y') (hne : O.delta x y \u2260 O.delta x' y') : \u00ac \u2203 F : ObsQuotient O \u2192 ObsQuotient O \u2192 R, \u2200 x y, F (ObsQuotient.mk O x) (ObsQuotient.mk O y) = O.delta x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.classConstant_pair_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (g : X \u2192 Z) : ClassConstant O (fun x => (f x, g x)) \u2194 ClassConstant O f \u2227 ClassConstant O g"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.pair_descend_exists_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (g : X \u2192 Z) : (\u2203 F : ObsQuotient O \u2192 Y \u00d7 Z, \u2200 x, F (ObsQuotient.mk O x) = (f x, g x)) \u2194 (\u2203 Fy : ObsQuotient O \u2192 Y, \u2200 x, Fy (ObsQuotient.mk O x) = f x) \u2227 (\u2203 Fz : ObsQuotient O \u2192 Z, \u2200 x, Fz (ObsQuotient.mk O x) = g x)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.view_descends_pair_blocked",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (g : X \u2192 Z) (hf : ClassConstant O f) {x y : X} (hxy : ZeroRel O x y) (hg : g x \u2260 g y) : (\u2203 F : ObsQuotient O \u2192 Y, \u2200 z, F (ObsQuotient.mk O z) = f z) \u2227 \u00ac \u2203 F : ObsQuotient O \u2192 Y \u00d7 Z, \u2200 z, F (ObsQuotient.mk O z) = (f z, g z)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.coarsenMap_mk",
+   "role": "preservation",
+   "statement": "(S T : Setoid Y) (h : \u2200 a b, S.r a b \u2192 T.r a b) (a : Y) : coarsenMap S T h (Quotient.mk S a) = Quotient.mk T a"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.classConstant_comp_mk_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (S : Setoid Y) : ClassConstant O (fun x => Quotient.mk S (f x)) \u2194 \u2200 x y, ZeroRel O x y \u2192 S.r (f x) (f y)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descendMod_exists_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (S : Setoid Y) : (\u2203 F : ObsQuotient O \u2192 Quotient S, \u2200 x, F (ObsQuotient.mk O x) = Quotient.mk S (f x)) \u2194 \u2200 x y, ZeroRel O x y \u2192 S.r (f x) (f y)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.deltaDescendMod_exists_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (S : Setoid R) : (\u2203 F : ObsQuotient O \u2192 ObsQuotient O \u2192 Quotient S, \u2200 x y, F (ObsQuotient.mk O x) (ObsQuotient.mk O y) = Quotient.mk S (O.delta x y)) \u2194 \u2200 x x' y y', ZeroRel O x x' \u2192 ZeroRel O y y' \u2192 S.r (O.delta x y) (O.delta x' y')"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.pairSetoid_mk_eq_iff",
+   "role": "preservation",
+   "statement": "(S : Setoid Y) (T : Setoid Z) (p q : Y \u00d7 Z) : Quotient.mk (pairSetoid S T) p = Quotient.mk (pairSetoid S T) q \u2194 S.r p.1 q.1 \u2227 T.r p.2 q.2"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descendMod_exists_of_coarsen",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (f : X \u2192 Y) (S T : Setoid Y) (h : \u2200 a b, S.r a b \u2192 T.r a b) : (\u2203 F : ObsQuotient O \u2192 Quotient S, \u2200 x, F (ObsQuotient.mk O x) = Quotient.mk S (f x)) \u2192 \u2203 F : ObsQuotient O \u2192 Quotient T, \u2200 x, F (ObsQuotient.mk O x) = Quotient.mk T (f x)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.tag_view_zeroRel",
+   "role": "preservation",
+   "statement": "{K X G : Type} (\u03c6 : X \u2192 G) (s t : K \u00d7 X) : ZeroRel (kernelObs fun p : K \u00d7 X => \u03c6 p.2) s t \u2194 \u03c6 s.2 = \u03c6 t.2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.intDiffObs_zeroRel",
+   "role": "preservation",
+   "statement": "(a b : Int) : ZeroRel intDiffObs a b \u2194 a = b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.int_sub_ne_zero_iff",
+   "role": "preservation",
+   "statement": "(a b : Int) : a - b \u2260 0 \u2194 a \u2260 b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.int_sub_ne_zero_of_gt",
+   "role": "preservation",
+   "statement": "(a b : Int) (h : b < a) : a - b \u2260 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.int_shift_cancel",
+   "role": "preservation",
+   "statement": "(a c b : Int) : (a + c + 2 * b) - (a + c) = 2 * b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.int_two_mul_eq_zero_iff",
+   "role": "preservation",
+   "statement": "(b : Int) : 2 * b = 0 \u2194 b = 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.int_add_sub_cancel",
+   "role": "preservation",
+   "statement": "(s d : Int) : (s + d) - s = d"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.value_orientation_survives",
+   "role": "preservation",
+   "statement": ": intDiffObs.delta 0 1 \u2260 intDiffObs.delta 1 0 \u2227 (ZeroRel intDiffObs 0 1 \u2194 ZeroRel intDiffObs 1 0)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.collapseAllObs_all_zero",
+   "role": "preservation",
+   "statement": ": \u2200 a b : Bool, ZeroRel collapseAllObs a b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.collapseAllObs_not_deltaConstant",
+   "role": "preservation",
+   "statement": ": \u00ac DeltaConstant collapseAllObs"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.collapseAllObs_no_delta_descend",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 F : ObsQuotient collapseAllObs \u2192 ObsQuotient collapseAllObs \u2192 Bool, \u2200 x y, F (ObsQuotient.mk collapseAllObs x) (ObsQuotient.mk collapseAllObs y) = collapseAllObs.delta x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.collapseAllObs_id_not_classConstant",
+   "role": "preservation",
+   "statement": ": \u00ac ClassConstant collapseAllObs (fun x => x)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.collapseAllObs_no_view_descend",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 F : ObsQuotient collapseAllObs \u2192 Bool, \u2200 x, F (ObsQuotient.mk collapseAllObs x) = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.classConstant_iff_fiberConstant_all",
+   "role": "preservation",
+   "statement": "(p q : Nat \u2192 Nat) : ClassConstant (kernelObs p) q \u2194 \u2200 D : List Nat, Compression.FiberConstant D p q"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.descend_iff_factorsOn_all",
+   "role": "preservation",
+   "statement": "(p q : Nat \u2192 Nat) : (\u2203 F : ObsQuotient (kernelObs p) \u2192 Nat, \u2200 x, F (ObsQuotient.mk (kernelObs p) x) = q x) \u2194 \u2200 D : List Nat, Compression.FactorsOn D p q"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.fiberConstant_fixed_D_not_classConstant",
+   "role": "preservation",
+   "statement": ": Compression.FiberConstant [] (fun _ => 0) (fun x => x) \u2227 \u00ac ClassConstant (kernelObs fun _ : Nat => 0) (fun x => x)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ObsDescent.lean",
+   "name": "ObsDescent.sigEq_append_iff",
+   "role": "preservation",
+   "statement": "(Q\u2081 Q\u2082 : List (Nat \u2192 Nat)) (x x' : Nat) : Compression.SigEq (Q\u2081 ++ Q\u2082) x x' \u2194 Compression.SigEq Q\u2081 x x' \u2227 Compression.SigEq Q\u2082 x x'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsApart_irrefl",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : PrimDiff.Irrefl (obsApart O)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsApart_symm",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : \u2200 x y, obsApart O x y \u2192 obsApart O y x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsApart_stable",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : \u2200 x y, \u00ac \u00ac obsApart O x y \u2192 obsApart O x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.zeroRel_indist",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : \u2200 x y, ZeroRel O x y \u2192 Apartness.Indist (obsApart O) x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_w",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) : PrimitiveCore.W (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_a",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) : PrimitiveCore.A (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_bs",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) : PrimitiveCore.Bs (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsApart_cotrans",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) [inst : \u2200 x y, Decidable (ZeroRel O x y)] : PrimitiveCore.Cotrans (obsApart O)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_bc",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) [\u2200 x y, Decidable (ZeroRel O x y)] : PrimitiveCore.Bc (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_bl",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) [\u2200 x y, Decidable (ZeroRel O x y)] : PrimitiveCore.Bl (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_d",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) : PrimitiveCore.D (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_e",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) : PrimitiveCore.E (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_not_c",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) : \u00ac PrimitiveCore.C (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsSetting_not_f",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) : \u00ac PrimitiveCore.F (obsSetting O a b)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.kernel_prot_independent",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hab : obsApart O a b) : PrimitiveCore.C { obsSetting O a b with prot"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.apartObs_zeroRel",
+   "role": "preservation",
+   "statement": "(r : X \u2192 X \u2192 Prop) (h : Apartness.IsApart r) : \u2200 x y, ZeroRel (apartObs r h) x y \u2194 Apartness.Indist r x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.apartObs_roundtrip",
+   "role": "preservation",
+   "statement": "(r : X \u2192 X \u2192 Prop) (h : Apartness.IsApart r) [inst : \u2200 x y, Decidable (r x y)] : \u2200 x y, obsApart (apartObs r h) x y \u2194 r x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.isApart_repr",
+   "role": "preservation",
+   "statement": "(r : X \u2192 X \u2192 Prop) (h : Apartness.IsApart r) [\u2200 x y, Decidable (r x y)] : \u2203 O : DiffObs X Prop, \u2200 x y, obsApart O x y \u2194 r x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsApart_isApart",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) [\u2200 x y, Decidable (ZeroRel O x y)] : Apartness.IsApart (obsApart O)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.indist_obsApart_iff",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) [inst : \u2200 x y, Decidable (ZeroRel O x y)] : \u2200 x y, Apartness.Indist (obsApart O) x y \u2194 ZeroRel O x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.obsApart_repr_iff",
+   "role": "preservation",
+   "statement": "(r : X \u2192 X \u2192 Prop) : (\u2203 O : DiffObs X Prop, \u2200 x y, obsApart O x y \u2194 r x y) \u2194 (Equivalence (fun x y => \u00ac r x y) \u2227 \u2200 x y, \u00ac \u00ac r x y \u2192 r x y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.unit_total_not_repr",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 O : DiffObs Unit Prop, \u2200 x y, obsApart O x y \u2194 (fun _ _ : Unit => True) x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean",
+    "PrimitiveContact.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.d2_not_obs_complement",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 (R : Type) (O : DiffObs Bool R), \u2200 x y, obsApart O x y \u2194 PrimDiff.D2 x y"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.triSym_not_obs_complement",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 (R : Type) (O : DiffObs (Fin 3) R), \u2200 x y, obsApart O x y \u2194 Apartness.triSymRel x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.bool_bs_repr",
+   "role": "preservation",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) (hw : r false true) (hi : PrimDiff.Irrefl r) (hs : \u2200 x y, r x y \u2192 r y x) : \u2203 O : DiffObs Bool Prop, \u2200 x y, obsApart O x y \u2194 r x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.d_not_witnessed_repr",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 (R : Type) (O : DiffObs Bool R), (\u2200 x y, obsApart O x y \u2194 (fun _ _ : Bool => False) x y) \u2227 obsApart O false true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.cotrans_schema_iff_wlem",
+   "role": "preservation",
+   "statement": ": (\u2200 (X R : Type) (O : DiffObs X R), PrimitiveCore.Cotrans (obsApart O)) \u2194 \u2200 P : Prop, \u00ac P \u2228 \u00ac \u00ac P"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.stability_schema_iff_dne",
+   "role": "preservation",
+   "statement": ": (\u2200 (X R : Type) (O : DiffObs X R) (x y : X), Apartness.Indist (obsApart O) x y \u2192 ZeroRel O x y) \u2194 \u2200 P : Prop, \u00ac \u00ac P \u2192 P"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.located_schema_implies_wlem",
+   "role": "preservation",
+   "statement": ": (\u2200 (X R : Type) (O : DiffObs X R), PrimitiveCore.Located (obsApart O)) \u2192 \u2200 P : Prop, \u00ac P \u2228 \u00ac \u00ac P"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.declared_zero_as_view",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) (i j : Nat) : PrimitivePassage.zeroP cols i j = true \u2194 ZeroRel (kernelObs (colView cols)) i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.observation_stage_realizes_observer",
+   "role": "preservation",
+   "statement": "(cols : List (List Nat)) : \u2203 O : DiffObs Nat (List Bool \u00d7 List Bool), \u2200 i j, (PrimitivePassage.zeroP cols i j = true) \u2194 ZeroRel O i j"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.kernel_stage_no_obstruction",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) : \u2200 x y, \u00ac DiffInterface.ActiveObstruction (kernelStage O) x y"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.pair_blocked_is_collapse_collision",
+   "role": "preservation",
+   "statement": "{Z : Type} (O : DiffObs X R) (\u03c8 : X \u2192 Z) {x y : X} (hxy : ZeroRel O x y) (hne : \u03c8 x \u2260 \u03c8 y) : PrimDiff.CollapseCollision (fun u v => \u03c8 u \u2260 \u03c8 v) (ObsQuotient.mk O)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.collapse_collision_is_pair_blocked",
+   "role": "preservation",
+   "statement": "{Z : Type} (O : DiffObs X R) (\u03c8 : X \u2192 Z) (h : PrimDiff.CollapseCollision (fun u v => \u03c8 u \u2260 \u03c8 v) (ObsQuotient.mk O)) : \u2203 x y, ZeroRel O x y \u2227 \u03c8 x \u2260 \u03c8 y"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactBridge.lean",
+   "name": "ContactBridge.pair_blocked_iff_collapse_collision",
+   "role": "preservation",
+   "statement": "{Z : Type} (O : DiffObs X R) (\u03c8 : X \u2192 Z) : (\u2203 x y, ZeroRel O x y \u2227 \u03c8 x \u2260 \u03c8 y) \u2194 PrimDiff.CollapseCollision (fun u v => \u03c8 u \u2260 \u03c8 v) (ObsQuotient.mk O)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernelApart_irrefl",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : \u2200 x, \u00ac kernelApart K x x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_endpoints_ne",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : K.a \u2260 K.b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.no_kernel_on_subsingleton",
+   "role": "preservation",
+   "statement": "{X R : Type} [Subsingleton X] (K : WitnessedDiff X R) : False"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.toSetting_A",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : PrimitiveCore.A (toSetting K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.ofSetting_exact",
+   "role": "preservation",
+   "statement": "(S : PrimitiveCore.Setting) (h : PrimitiveCore.A S) [inst : \u2200 x y, Decidable (S.r x y)] : \u2200 x y, kernelApart (ofSetting S h) x y \u2194 S.r x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.ofSetting_ret_irrelevant",
+   "role": "preservation",
+   "statement": "(S : PrimitiveCore.Setting) (h : PrimitiveCore.A S) (ret' prot' : S.X \u2192 S.X \u2192 Prop) (Ops' : (S.X \u2192 S.X) \u2192 Prop) : ofSetting { S with ret"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.pair_choice_load_bearing",
+   "role": "preservation",
+   "statement": ": \u2203 (O : DiffObs Bool Bool) (a\u2081 b\u2081 a\u2082 b\u2082 : Bool), \u00ac ZeroRel O a\u2081 b\u2081 \u2227 ZeroRel O a\u2082 b\u2082"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_no_witness_from_collapse",
+   "role": "preservation",
+   "statement": ": \u2200 a b : Bool, \u00ac ContactBridge.obsApart ObsDescent.collapseAllObs a b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.toDiffObs_fields",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) (hs : \u2200 x y, K.Zero (K.delta x y) \u2192 K.Zero (K.delta y x)) (ht : \u2200 x y z, K.Zero (K.delta x y) \u2192 K.Zero (K.delta y z) \u2192 K.Zero (K.delta x z)) : (toDiffObs K hs ht).delta = K.delta \u2227 (toDiffObs K hs ht).Zero = K.Zero \u2227 ofDiffObs (toDiffObs K hs ht) K.a K.b K.apart_ab = K"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.toDiffObs_apart",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) (hs : \u2200 x y, K.Zero (K.delta x y) \u2192 K.Zero (K.delta y x)) (ht : \u2200 x y z, K.Zero (K.delta x y) \u2192 K.Zero (K.delta y z) \u2192 K.Zero (K.delta x z)) : \u2200 x y, ContactBridge.obsApart (toDiffObs K hs ht) x y \u2194 kernelApart K x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_observer",
+   "role": "preservation",
+   "statement": ": \u2203 K : WitnessedDiff Bool Prop, \u00ac \u2203 O : DiffObs Bool Prop, O.delta = K.delta \u2227 O.Zero = K.Zero"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_zero_not_trans",
+   "role": "preservation",
+   "statement": ": \u2203 K : WitnessedDiff (Fin 3) Prop, K.Zero (K.delta 0 2) \u2227 K.Zero (K.delta 2 1) \u2227 \u00ac K.Zero (K.delta 0 1)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_bs",
+   "role": "preservation",
+   "statement": ": \u2203 K : WitnessedDiff Bool Prop, \u00ac \u2200 x y, kernelApart K x y \u2192 kernelApart K y x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_bc",
+   "role": "preservation",
+   "statement": ": \u2203 K : WitnessedDiff (Fin 3) Prop, \u00ac PrimitiveCore.Cotrans (kernelApart K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_located_of_decidable",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) [inst : \u2200 v, Decidable (K.Zero v)] : PrimitiveCore.Located (kernelApart K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_c",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : \u00ac PrimitiveCore.C (toSetting K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_f",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : \u00ac PrimitiveCore.F (toSetting K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_to_w",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : PrimitiveCore.W (toSetting K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_to_d",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : PrimitiveCore.D (toSetting K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_to_e_empty",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : PrimitiveCore.E (toSetting K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_e_merged",
+   "role": "preservation",
+   "statement": ": \u2203 K : WitnessedDiff Bool Bool, PrimitiveCore.E (toSetting K) \u2227 \u00ac PrimitiveCore.E { toSetting K with Ops"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.no_kernel_over_allzero",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 K : WitnessedDiff Bool Bool, K.delta = ObsDescent.collapseAllObs.delta \u2227 K.Zero = ObsDescent.collapseAllObs.Zero"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.value_presentation_fork",
+   "role": "preservation",
+   "statement": ": (\u2200 x y, kernelApart unitValKernel x y \u2194 kernelApart twoValKernel x y) \u2227 unitValKernel.delta \u2260 twoValKernel.delta"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.vhom_not_unique",
+   "role": "preservation",
+   "statement": ": \u2203 h\u2081 h\u2082 : VHom unitValKernel boolKernel, h\u2081.f = h\u2082.f \u2227 h\u2081 \u2260 h\u2082"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.vhom_unique_of_onto",
+   "role": "preservation",
+   "statement": "{X R X' R' : Type} (K : WitnessedDiff X R) (K' : WitnessedDiff X' R') (hsurj : DeltaOnto K) (h\u2081 h\u2082 : VHom K K') (hf : h\u2081.f = h\u2082.f) : h\u2081 = h\u2082"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.boolKernel_apart_iff",
+   "role": "preservation",
+   "statement": ": \u2200 x y, kernelApart boolKernel x y \u2194 PrimDiff.D2 x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.apartObj_irrefl",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : PrimitiveCats.IrreflObj (apartObj K)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.apartObj_sym_of_observer",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hw : \u00ac ZeroRel O a b) : PrimitiveCats.SymObj (apartObj (ofDiffObs O a b hw))"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_gateway_unique",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : \u2203 h : PrimitiveCats.Hom PrimitiveCats.d2Obj (apartObj K), \u2200 h' : PrimitiveCats.Hom PrimitiveCats.d2Obj (apartObj K), h' = h"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_gateway_injective",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) (h : PrimitiveCats.Hom PrimitiveCats.d2Obj (apartObj K)) : \u2200 x y : Bool, h.f x = h.f y \u2192 x = y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_gateways_not_identical",
+   "role": "preservation",
+   "statement": ": boolKernel \u2260 boolKernelSwap"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_no_terminal",
+   "role": "preservation",
+   "statement": "{X' R' : Type} (K' : WitnessedDiff X' R') : \u2203 h\u2081 h\u2082 : PrimitiveCats.Hom (apartObj freeKernel) (apartObj K'), h\u2081 \u2260 h\u2082"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_no_terminal_collector",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 (X' R' : Type) (K' : WitnessedDiff X' R'), \u2200 (X R : Type) (K : WitnessedDiff X R), \u2203 h : PrimitiveCats.Hom (apartObj K) (apartObj K'), \u2200 h', h' = h"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.passage_gateway_unique",
+   "role": "preservation",
+   "statement": ": \u2203 h : PrimitiveCats.Hom PrimitiveCats.d2Obj passageObj, \u2200 h' : PrimitiveCats.Hom PrimitiveCats.d2Obj passageObj, h' = h"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_licenses_entry",
+   "role": "preservation",
+   "statement": "(K : WitnessedDiff X R) : K.a \u2260 K.b \u2227 PrimitiveCore.A (PrimitivePassage.inducedSetting PrimitivePassage.preRetained 0 1) \u2227 PrimitivePassage.preRetained.wit = []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.entry_pre_observation",
+   "role": "preservation",
+   "statement": ": PrimitivePassage.preRetained.prot = [] \u2227 PrimitivePassage.preRetained.obs = none \u2227 PrimitivePassage.obstP PrimitivePassage.preRetained 0 1 = false"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_two_point_presentation",
+   "role": "preservation",
+   "statement": "{X R : Type} [DecidableEq X] (K : WitnessedDiff X R) : \u2203 p : X \u2192 Nat, p K.a = 0 \u2227 p K.b = 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.contactCells_length",
+   "role": "preservation",
+   "statement": ": contactCells.length = 37"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveContact.lean",
+   "name": "PrimitiveContact.contact_status_count",
+   "role": "preservation",
+   "statement": ": contactStatusHistory.length = 2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
+    "CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitiveContact.lean",
+   "name": "PrimitiveContact.native_interface_not_representable",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 (R : Type) (O : DiffInterface.DiffObs Bool R), \u2200 x y, ContactBridge.obsApart O x y \u2194 PrimDiff.D2 x y"
   }
  ]
 }

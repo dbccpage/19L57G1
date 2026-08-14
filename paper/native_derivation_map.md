@@ -44,3 +44,36 @@ not claim to exhaust every possible bridge.
 Theorem-name prefixes omitted for width; each resolves uniquely in
 `artifacts/lean_axioms.txt`, and the JSON form carries the qualified
 names.
+
+**Scope note (2026-08-13).**  This table is the completed
+dependency graph of its own run, written while the declared contact
+input was absent; no row changed status at the executed collision
+(`paper/primitive_difference_contact.md`), and no bridge was added to
+the graph.  Two rows acquired external company, recorded here so the
+table is not read as the whole story: the *observer/difference map →
+Zero/ZeroRel* row is exactly the station where the arriving
+development ADMITS as three fields what this row PROVES
+(`ContactBridge.declared_zero_as_view`,
+`observation_stage_realizes_observer`) — at the INSTANCE level, to be
+exact: native `DiffInterface.DiffObs` carries the same three laws as
+fields, so the two signatures are not asymmetric; what is asymmetric
+is that every concrete observer of the SEALED CORPUS AT `a5caee2` is
+a KERNEL OBSERVER, where the laws are proved rather than admitted,
+and the declared observation stage is such an observer.  **This is
+not a universal claim about native observers**: the collision modules
+themselves add observers that are not kernel observers —
+`ObsDescent.intDiffObs` (laws by linear arithmetic),
+`ObsDescent.collapseAllObs` (laws by `trivial`), and
+`ContactBridge.apartObs`, whose three law fields are discharged by
+the three ADMITTED `Apartness.IsApart` fields, spent one-for-one, so
+at that observer the laws are exactly as admitted as on the arriving
+side.  The *irreflexivity fact →
+irreflexivity law* FALSE row is echoed on the other side, where the
+symmetry and transitivity fields are likewise admissions and not
+derivable (`ContactKernel.kernel_not_bs`, `.kernel_zero_not_trans`).
+`artifacts/lean_axioms.txt` now carries 1149 reports, including the
+three collision modules; every one remains within {propext,
+Quot.sound}, and no theorem name of this table became ambiguous
+against the new declarations (checked name by name against all 1149
+reports; the three non-theorem entries name their declaration site,
+as the header already states).

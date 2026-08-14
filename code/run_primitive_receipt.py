@@ -6,8 +6,10 @@ Writes ``primitive_completion_receipt.json``: the binding record of
 the contact-and-passage run — base commit, contact status, prompt
 hashes, toolchain and dependency pins, the axiom-report hash, all
 declared finite bounds, every terminal claim with its evidence, all
-open obligations, and the adversarial record (twenty attacks, each
-with its disposition)."""
+open obligations (including the four OPEN cells the collision
+declared, each with its price), the frontier conjectures, and the
+adversarial record (twenty-one attacks, each with its
+disposition)."""
 
 from __future__ import annotations
 
@@ -18,6 +20,12 @@ from pathlib import Path
 from typing import Optional
 
 from derivation.export import Json, write_json
+from run_primitive_contact import (
+    SCOPE_EQUIVALENT,
+    SCOPE_INCOMPARABLE,
+    SCOPE_KERNEL,
+    VERDICT_PRIMARY,
+)
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -42,13 +50,25 @@ def receipt() -> dict[str, Json]:
     reports = [ln for ln in
                lean_axioms.read_text(encoding="utf-8").splitlines()
                if "axioms" in ln]
+    manifest = (REPO / "contact" / "omega_primdiff"
+                / "CONTACT_MANIFEST.json")
+    manifest_hash: Json = None
+    if manifest.exists():
+        manifest_hash = hashlib.sha256(
+            manifest.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
     return {
         "run": "PR #12 — Primitive Difference contact and passage",
         "blind_native_base": "ccd3a53",
         "contact": {
             "package_present": (REPO / "contact").exists(),
-            "manifest_hash": None,
-            "status": "CONTACT_INPUT_ABSENT",
+            "manifest_hash": manifest_hash,
+            "status": "CONTACT_PROCESSED_LEAN_ONLY",
+            "status_history": [
+                "CONTACT_INPUT_ABSENT (pre-contact, "
+                "blind-native-base ccd3a53)",
+                "CONTACT_PROCESSED_LEAN_ONLY (2026-08-13, "
+                "base a5caee2)",
+            ],
         },
         "prompt_sha256_canonical": {
             "prompt/prompt.md":
@@ -108,6 +128,17 @@ def receipt() -> dict[str, Json]:
             "weight_carrier": 2,
             "weight_max": 3,
             "weight_coeff_bound": 3,
+            "contact_carrier_max": 3,
+            "contact_relation_counts": [2, 16, 512],
+            "collision_cells": 37,
+            "supplied_declarations": 103,
+            "denylist_entries_full_census": 111,
+            "denylist_entries_working": 102,
+            "denylist_definitions":
+                "full census = every supplied top-level identifier "
+                "plus field names (111); working subtraction file = "
+                "census minus 9 identifiers verified native-at-base "
+                "or Lean-core (102)",
         },
         "terminals": [
             {"code": "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
@@ -134,8 +165,55 @@ def receipt() -> dict[str, Json]:
                           "orientation fork and observer cut both "
                           "retained"]},
             {"code": "CONTACT_INPUT_ABSENT",
-             "evidence": ["primitive_contact.json",
-                          "PrimitiveContact.contactStatus"]},
+             "scope": "SEALED HISTORY: the pre-contact terminal of "
+                      "the blind-native phase (ccd3a53), preserved as "
+                      "history[0]; superseded by "
+                      "CONTACT_PROCESSED_LEAN_ONLY at base a5caee2",
+             "evidence": ["primitive_contact.json (history)",
+                          "PrimitiveContact.contactStatus (sealed)",
+                          "PrimitiveContact.contactStatusHistory"]},
+            {"code": VERDICT_PRIMARY,
+             "scope": SCOPE_INCOMPARABLE,
+             "evidence": ["ContactBridge.d2_not_obs_complement",
+                          "ContactBridge.obsApart_repr_iff",
+                          "ContactBridge.unit_total_not_repr",
+                          "ContactBridge.triSym_not_obs_complement",
+                          "ContactBridge.d_not_witnessed_repr",
+                          "ContactKernel.pair_choice_load_bearing",
+                          "ContactKernel."
+                          "kernel_no_witness_from_collapse",
+                          "ContactKernel.kernel_not_c",
+                          "ContactKernel.kernel_not_f",
+                          "ObsDescent (reconstruction corpus)",
+                          "primitive_contact.json (verdict, "
+                          "collision_cells, enumerations)"]},
+            {"code": "COMMON_PRIMITIVE_KERNEL_REPLACES_BOTH",
+             "scope": SCOPE_KERNEL,
+             "evidence": ["ContactKernel.WitnessedDiff",
+                          "ContactKernel.ofSetting",
+                          "ContactKernel.ofSetting_exact",
+                          "ContactKernel.ofDiffObs",
+                          "ContactKernel.toDiffObs (with "
+                          "toDiffObs_fields, toDiffObs_apart: the "
+                          "observer-side record identity)",
+                          "ContactKernel.toNativeKernel",
+                          "ContactKernel.kernel_gateway_unique",
+                          "ContactKernel."
+                          "kernel_no_terminal_collector",
+                          "ContactKernel.vhom_unique_of_onto",
+                          "ContactKernel.kernel_licenses_entry",
+                          "ContactKernel.entry_pre_observation"]},
+            {"code": "CONTACT_EQUIVALENT_UNDER_DECIDABLE_ZERO_PLUS_"
+                     "APARTNESS_ADMISSIONS",
+             "scope": SCOPE_EQUIVALENT,
+             "evidence": ["ContactBridge.isApart_repr",
+                          "ContactBridge.obsApart_isApart",
+                          "ContactBridge.apartObs_roundtrip",
+                          "ContactBridge.indist_obsApart_iff",
+                          "ContactBridge.cotrans_schema_iff_wlem",
+                          "ContactBridge.stability_schema_iff_dne",
+                          "ContactBridge."
+                          "located_schema_implies_wlem"]},
             {"code": "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED",
              "scope": "candidate A transports into the passage as a "
                       "theorem: the asserted store induces a Setting "
@@ -205,6 +283,37 @@ def receipt() -> dict[str, Json]:
             "four OPEN located matrix cells (a->bl, bs->bl, bc->bl, "
             "f->bl): no internal countermodel can exist "
             "(located_of_decidable); independence is metatheoretic",
+            "COLLISION OPEN CELL (bridge, cotransitivity; "
+            "ContactBridge.open_bridge_cotrans): the cotransitivity "
+            "schema for observer complements, quantified over all "
+            "observers, is exactly the weak law of excluded middle "
+            "(cotrans_schema_iff_wlem) - PRICE: WLEM; pointwise "
+            "decidability of the zero relation discharges it "
+            "(obsApart_cotrans); no internal countermodel can exist "
+            "because the schema is classically true",
+            "COLLISION OPEN CELL (bridge, locatedness; "
+            "ContactBridge.open_bridge_located): the locatedness "
+            "schema implies the weak law of excluded middle "
+            "(located_schema_implies_wlem) - PRICE: a WLEM-"
+            "implication, forward direction only; the converse is "
+            "OPEN and would need a function-comprehension principle "
+            "beyond WLEM; pointwise decidability discharges the "
+            "schema (obsSetting_bl)",
+            "COLLISION OPEN CELL (kernel, read-back grade; "
+            "ContactKernel.open_kernel_grade): without pointwise "
+            "decidability of the asserted relation the kernel read "
+            "back from a candidate-A setting carries the double "
+            "negation of that relation - PRICE: double-negation "
+            "elimination (ContactBridge.stability_schema_iff_dne); "
+            "exact under the explicit Decidable hypothesis "
+            "(ofSetting_exact); no internal countermodel can exist",
+            "COLLISION OPEN CELL (kernel, locatedness; "
+            "ContactKernel.open_kernel_bl): underivability of Located "
+            "from the kernel fields alone is METATHEORETIC - no "
+            "internal countermodel exists, since every kernel with a "
+            "pointwise-decidable zero predicate has a located "
+            "apartness (kernel_located_of_decidable); Located remains "
+            "separate declared data",
             "cut census formula 2^(n-2): computed to carrier 5, "
             "conjectured generally",
             "absolute self-interpretation: the outermost "
@@ -544,13 +653,55 @@ def receipt() -> dict[str, Json]:
                 "GraphGenesis.ProposalRecord; no minimality or "
                 "universal property is proved for that schema, and "
                 "growth is not entailed by nextFamilyP"},
+            {"conjecture":
+                "ENLARGED_CORPUS_CONTAINS_RECONSTRUCTED_SUPPLIED_"
+                "ABSTRACT_HALF",
+             "missing_theorem":
+                "RECORDED AT THE COLLISION (2026-08-13).  "
+                "Post-reconstruction, the enlarged native corpus is "
+                "conjectured to contain strictly the reconstructed "
+                "image of the supplied abstract half, while the "
+                "converse containment remains signature-impossible "
+                "by the native -> supplied countermodels "
+                "(ContactBridge.d2_not_obs_complement and the "
+                "nine-reading row).  MISSING: any formal notion of "
+                "corpus containment inside the calculus - the "
+                "statement is METATHEORY about two corpora, not a "
+                "proposition of the development; consequently no "
+                "strictly-stronger verdict is issued this run, and "
+                "any future one must be stated relative to the "
+                "enlarged corpus, never the sealed one"},
+            {"conjecture": "LOCATEDNESS_SCHEMA_EQUALS_WLEM",
+             "missing_theorem":
+                "RECORDED AT THE COLLISION (2026-08-13).  The "
+                "forward price is proved "
+                "(ContactBridge.located_schema_implies_wlem: the "
+                "locatedness schema quantified over all observers "
+                "implies the weak law of excluded middle).  MISSING: "
+                "the converse.  Deriving the locating boolean for an "
+                "arbitrary observer from WLEM alone appears to need "
+                "a function-comprehension principle beyond it, so "
+                "the equivalence is conjectured to FAIL at WLEM and "
+                "to require a stronger principle; the OPEN cell "
+                "ContactBridge.open_bridge_located carries the same "
+                "obligation, and no internal countermodel can exist "
+                "because the schema is classically true"},
         ],
         "adversarial_record": [
             {"attack": "metatheoretic inequality relabeled as "
                        "object-level difference",
              "disposition": "BLOCKED: PrimitiveCore.D_iff_ne, "
                             "nimp_w_d, "
-                            "PrimDiff.meta_diff_without_assertion"},
+                            "PrimDiff.meta_diff_without_assertion; "
+                            "contact update: the supplied "
+                            "physics-labeled tail is metatheoretic "
+                            "inequality rendered on Int - subsumed "
+                            "by five native one-line lemmas "
+                            "(ObsDescent.int_sub_ne_zero_iff, "
+                            "int_sub_ne_zero_of_gt, "
+                            "int_shift_cancel, "
+                            "int_two_mul_eq_zero_iff, "
+                            "int_add_sub_cancel)"},
             {"attack": "witness relabeled as observer separation",
              "disposition": "BLOCKED: "
                             "Completion.witness_not_separation, "
@@ -572,7 +723,17 @@ def receipt() -> dict[str, Json]:
                             "Apartness.orientations_same_apartness "
                             "+ orientations_differ price the "
                             "orientation as retained data; "
-                            "PrimitiveCats.pointed_rigid"},
+                            "PrimitiveCats.pointed_rigid; contact "
+                            "update: orientation is not importable "
+                            "through a zero-complement over any "
+                            "value type "
+                            "(ContactBridge.d2_not_obs_complement); "
+                            "the value channel carries orientation "
+                            "separately and the zero relation "
+                            "cannot (ObsDescent."
+                            "value_orientation_survives, "
+                            "ContactKernel."
+                            "value_presentation_fork)"},
             {"attack": "protection silently merged with retention",
              "disposition": "BLOCKED: separate stores throughout; "
                             "matrix cells separate C/F; the sealed "
@@ -581,7 +742,15 @@ def receipt() -> dict[str, Json]:
              "disposition": "BLOCKED: "
                             "obst_requires_observation (theorem); "
                             "the candidate signature has no "
-                            "observation field"},
+                            "observation field; contact update: the "
+                            "supplied stratum is an ADMITTED "
+                            "observer at the zero-relation stage, "
+                            "not a pre-observational witness "
+                            "(ContactBridge.kernelStage, "
+                            "declared_zero_as_view, "
+                            "observation_stage_realizes_observer); "
+                            "the common kernel carries no observer "
+                            "(ContactKernel.kernel_not_observer)"},
             {"attack": "quotient no-recovery applied without a "
                        "protected distinction",
              "disposition": "BLOCKED: quotient_no_recovery takes "
@@ -637,9 +806,33 @@ def receipt() -> dict[str, Json]:
                             "computations or conjectures"},
             {"attack": "contact comments sold as contact Lean "
                        "results",
-             "disposition": "MOOT AND GUARDED: no contact input "
-                            "exists; the committed protocol reads "
-                            "statements only"},
+             "disposition": "EXECUTED AND BLOCKED: contact input "
+                            "arrived this run and was read under "
+                            "the committed statements-only "
+                            "discipline; every comment-vs-content "
+                            "gap in the supplied file has a "
+                            "recorded disposition (G1-G20 in "
+                            "contact/analysis/"
+                            "contact_countermodels.json); "
+                            "comment-borne physics vocabulary was "
+                            "REFUSED transport into the formal "
+                            "record - only stated theorems "
+                            "collided"},
+            {"attack": "proof-theoretic non-derivability asserted "
+                       "in comments over undefined predicates "
+                       "(the supplied authority-firewall claim)",
+             "disposition": "REFUSED TRANSPORT: the comment claims "
+                            "a non-derivability between two "
+                            "predicates never defined in the file; "
+                            "no proof system or derivability "
+                            "relation exists there; the actual "
+                            "formal content is integer subtraction "
+                            "(a difference of two free integers is "
+                            "nonzero when they differ) and was "
+                            "reconstructed at exactly that "
+                            "strength (ObsDescent."
+                            "int_sub_ne_zero_iff); the G12 row of "
+                            "the analysis file records the gap"},
             {"attack": "graph/cochain realization sold as forced "
                        "ontology",
              "disposition": "BLOCKED: filling_not_forced, "

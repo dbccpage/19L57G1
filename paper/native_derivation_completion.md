@@ -22,6 +22,18 @@ terminals hold simultaneously; they are stated exactly in §15.
 - No external repository, architecture, or theory inspected or
   targeted; this document contains no external comparison section —
   nothing outside the repository was needed, so none is used.
+  **Scope note (2026-08-13)**: true of THIS run and unchanged as a
+  statement about it; it is not a standing property of the
+  repository.  A declared contact package has since arrived and been
+  processed under the committed statements-only discipline
+  (`paper/primitive_difference_contact.md`; status
+  CONTACT_PROCESSED_LEAN_ONLY).  The comparison lives entirely in
+  that run's modules and in `contact/analysis/` — the sole location
+  permitted to quote the arriving vocabulary.  No result of this
+  document was revised, weakened, or withdrawn; the collision REUSES
+  them — above all the difference interface and its zero-relation
+  equivalence (`DiffInterface`, `zeroRel_equivalence`), on which the
+  whole reconstruction `ObsDescent` is built.
 - Prompt files byte-identical:
   `prompt/prompt.md` =
   `a613a1965e4f02fee00df4d42041fceeca176abcfaa9202c3e769021305940b5`;

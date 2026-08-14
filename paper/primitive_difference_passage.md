@@ -114,3 +114,60 @@ diagram: it runs, at every horizon.
   policy, not derived resource availability.
 - Refusal changes no object field.  The terminal ends everything —
   the one arrow that loses the future, priced as such.
+
+## Scope note (2026-08-13): the executed contact collision
+
+Everything above is the PR #12 record, written while the declared
+contact input was absent.  That input now exists and the collision has
+been executed (`paper/primitive_difference_contact.md`).  Nothing in
+this paper is withdrawn or restated: no arrow changed status, no
+P-theorem was reopened, and the coverage map of the arriving
+development (103 declaration rows,
+`contact/analysis/contact_countermodels.json`) contains no declaration
+bearing on retention, protection, budget, license, response families
+or growth.  What the collision ADDS, all of it new material citing
+this chain rather than revising it:
+
+- **Arrow 4, placed exactly.**  What the arriving structure ADMITS as
+  three equivalence-law fields, arrow 4 PROVES — but the asymmetry is
+  at the INSTANCE level, not between the two signatures: native
+  `DiffInterface.DiffObs` carries the same three laws as fields, and
+  the arriving structure is field-for-field the same record.  The
+  asymmetry is that every concrete observer of the SEALED CORPUS AT
+  `a5caee2` is a KERNEL OBSERVER (`kernelObs` at a view), where the
+  three laws are proved rather than admitted; at the declared
+  observation stage that is a theorem
+  (`ContactBridge.declared_zero_as_view`,
+  `observation_stage_realizes_observer`), so the arriving stratum
+  sits at the zero-relation station, not before it
+  (`ContactBridge.kernelStage`, `kernel_stage_no_obstruction`).
+  **Scope, not a universal claim about native observers**: the
+  collision modules add observers that are not kernel observers —
+  `ObsDescent.intDiffObs` (laws by linear arithmetic),
+  `ObsDescent.collapseAllObs` (laws by `trivial`), and
+  `ContactBridge.apartObs`, whose three law fields are discharged by
+  the three ADMITTED `Apartness.IsApart` fields, spent one-for-one,
+  so at that observer the three laws are exactly as admitted as on
+  the arriving side.  The two placement theorems named above are
+  scoped to the declared observation stage and are unaffected.
+- **Arrows 1-3, licensed not shortened.**  The common replacement
+  kernel enters at the same pre-retention station, reusing
+  `kernel_enters_preretained` rather than re-proving it
+  (`ContactKernel.kernel_licenses_entry`), where protection is empty,
+  no observation is declared, and `obstP` is false
+  (`entry_pre_observation`).  Of the three conjuncts of
+  `kernel_licenses_entry` only the first mentions the kernel
+  (endpoint distinctness); the other two are sealed constants about
+  `preRetained` that hold with or without a kernel, and no map from
+  an arbitrary kernel into the passage state is claimed.  Retention,
+  protection and observation remain separately priced admission
+  events.
+- **Arrow 6, kept strictly finer.**  The arriving descent obstruction
+  is collapse-collision at the quotient projection, proved in both
+  directions (`ContactBridge.pair_blocked_is_collapse_collision`,
+  `collapse_collision_is_pair_blocked`,
+  `pair_blocked_iff_collapse_collision`); the four-condition `obstP`
+  with `obst_conditions_independent` is strictly finer, and the two
+  are not identified.
+
+Ledger: CL-PD2-CONTACT-ENTRY, CL-PD2-CONTACT-BRIDGE.

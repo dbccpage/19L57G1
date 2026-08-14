@@ -1,5 +1,271 @@
 {
- "manifest_present": false,
+ "collision_cells": [
+  [
+   "K_to_W",
+   "IMPLIES",
+   "kernel_to_w"
+  ],
+  [
+   "W_to_K",
+   "COUNTERMODEL size 1",
+   "no_kernel_on_subsingleton (unitBare cited)"
+  ],
+  [
+   "K_to_A",
+   "IMPLIES",
+   "toSetting_A"
+  ],
+  [
+   "A_to_K",
+   "EQUIV_UNDER_DEC (asserted relation S.r)",
+   "ofSetting, ofSetting_exact, open_kernel_grade"
+  ],
+  [
+   "K_to_Bs",
+   "COUNTERMODEL size 2",
+   "kernel_not_bs"
+  ],
+  [
+   "Bs_to_K",
+   "IMPLIES",
+   "ofSetting (Bs within A)"
+  ],
+  [
+   "K_to_Bc",
+   "COUNTERMODEL size 3",
+   "kernel_not_bc"
+  ],
+  [
+   "Bc_to_K",
+   "IMPLIES",
+   "ofSetting (Bc within A)"
+  ],
+  [
+   "K_to_Bl",
+   "CONDITIONAL_DEC + OPEN_PRICED",
+   "kernel_located_of_decidable, open_kernel_bl"
+  ],
+  [
+   "Bl_to_K",
+   "IMPLIES",
+   "ofSetting (Bl within A)"
+  ],
+  [
+   "K_to_C",
+   "COUNTERMODEL (never derivable, freely declarable)",
+   "kernel_not_c, kernel_prot_independent"
+  ],
+  [
+   "C_to_K",
+   "COUNTERMODEL size 1",
+   "no_kernel_on_subsingleton (unitFull cited)"
+  ],
+  [
+   "K_to_D",
+   "IMPLIES",
+   "kernel_to_d"
+  ],
+  [
+   "D_to_K",
+   "COUNTERMODEL size 2",
+   "no_kernel_over_allzero"
+  ],
+  [
+   "K_to_E",
+   "IMPLIES (empty Ops) / COUNTERMODEL (merged)",
+   "kernel_to_e_empty, kernel_not_e_merged"
+  ],
+  [
+   "E_to_K",
+   "COUNTERMODEL size 2",
+   "no_kernel_over_allzero (boolEmpty_e cited)"
+  ],
+  [
+   "K_to_F",
+   "COUNTERMODEL (never derivable)",
+   "kernel_not_f"
+  ],
+  [
+   "F_to_K",
+   "IMPLIES",
+   "ofSetting via imp_f_a, ofSetting_ret_irrelevant"
+  ],
+  [
+   "Obs_to_Bs",
+   "IMPLIES",
+   "obsSetting_bs"
+  ],
+  [
+   "Obs_to_Bc",
+   "CONDITIONAL_DEC + OPEN_PRICED",
+   "obsApart_cotrans, cotrans_schema_iff_wlem, open_bridge_cotrans"
+  ],
+  [
+   "Obs_to_Bl",
+   "CONDITIONAL_DEC + OPEN_PRICED",
+   "obsSetting_bl, located_schema_implies_wlem, open_bridge_located"
+  ],
+  [
+   "repr_crown",
+   "CHARACTERIZATION",
+   "obsApart_repr_iff"
+  ],
+  [
+   "D2_repr (H3)",
+   "COUNTERMODEL size 2",
+   "d2_not_obs_complement"
+  ],
+  [
+   "Bs_repr",
+   "COUNTERMODEL size 3, positive at 2",
+   "triSym_not_obs_complement, bool_bs_repr"
+  ],
+  [
+   "total_repr (W/C)",
+   "COUNTERMODEL size 1",
+   "unit_total_not_repr"
+  ],
+  [
+   "witness_repr (D/E)",
+   "COUNTERMODEL size 2",
+   "d_not_witnessed_repr"
+  ],
+  [
+   "meet_roundtrip",
+   "EQUIV_UNDER_DEC (apartness r one way, ZeroRel back)",
+   "isApart_repr, obsApart_isApart, apartObs_roundtrip, indist_obsApart_iff"
+  ],
+  [
+   "stability_price",
+   "OPEN_PRICED",
+   "stability_schema_iff_dne"
+  ],
+  [
+   "descent_vs_factorsOn",
+   "SAME_THIRD_NOTION",
+   "descend_iff_factorsOn_all, classConstant_iff_fiberConstant_all"
+  ],
+  [
+   "fixed_D_strict",
+   "COUNTERMODEL (D = [])",
+   "fiberConstant_fixed_D_not_classConstant"
+  ],
+  [
+   "uniqueness_scope",
+   "SAME_THIRD_NOTION",
+   "obsQuotient_mk_surjective (+ sealed citations)"
+  ],
+  [
+   "quot_barrier",
+   "NATIVE_MORE_GENERAL",
+   "Derivation.quot_barrier (citation)"
+  ],
+  [
+   "pairing_dict",
+   "SAME_THIRD_NOTION",
+   "classConstant_pair_iff, sigEq_append_iff"
+  ],
+  [
+   "flagship_vs_obstP",
+   "SAME_THIRD_NOTION (native finer)",
+   "pair_blocked_is_collapse_collision (+ obst_conditions_independent cited)"
+  ],
+  [
+   "tail_subsumption",
+   "SAME_THIRD_NOTION",
+   "intDiffObs, int_sub_ne_zero_iff, int_sub_ne_zero_of_gt, int_shift_cancel, int_two_mul_eq_zero_iff, int_add_sub_cancel"
+  ],
+  [
+   "observer_placement (H1)",
+   "IMPLIES (native proves what supplied fields declare)",
+   "declared_zero_as_view, observation_stage_realizes_observer, kernelStage, kernel_stage_no_obstruction"
+  ],
+  [
+   "value_orientation",
+   "INCOMPARABLE_SUBROW",
+   "value_orientation_survives, value_presentation_fork"
+  ]
+ ],
+ "enumerations": {
+  "E1_bool_observers": {
+   "delta_tables": 16,
+   "diag_zero_pairs": 24,
+   "observer_law_pairs": 20,
+   "oriented_complement_observers": 0,
+   "witnessed_kernel_quadruples": 8,
+   "zero_predicates": 4
+  },
+  "E2_settings_kernels": {
+   "a_setting_counts": [
+    0,
+    4,
+    192
+   ],
+   "bell_numbers": [
+    1,
+    2,
+    5
+   ],
+   "carriers": [
+    1,
+    2,
+    3
+   ],
+   "cotrans_equals_complement_transitivity": true,
+   "relation_counts": [
+    2,
+    16,
+    512
+   ],
+   "representable_relation_counts": [
+    1,
+    2,
+    5
+   ],
+   "witnessed_kernel_counts_matching": [
+    0,
+    4,
+    192
+   ],
+   "witnessed_representable_counts": [
+    0,
+    1,
+    3
+   ]
+  },
+  "E3_descent_dictionary": {
+   "combinations": 64,
+   "descend_count": 28,
+   "fixed_domain_divergence_count": 36
+  },
+  "E4_flagship_census": {
+   "triples": 120
+  },
+  "E5_value_fork": {
+   "oriented_class_presentations": 2,
+   "tables": 81,
+   "value_type_size": 3
+  },
+  "bounds": {
+   "bool_delta_tables": 16,
+   "carrier_max": 3,
+   "descent_combinations": 64,
+   "flagship_triples_universe": 512,
+   "relation_counts": [
+    2,
+    16,
+    512
+   ],
+   "value_fork_tables": 81
+  }
+ },
+ "external_file_sha256_per_manifest": "d9cdb350a53c513e3e211e72f17262be6ba85d7da6159f910388c7137e814a89",
+ "history": [
+  "CONTACT_INPUT_ABSENT (pre-contact, blind-native-base ccd3a53)",
+  "CONTACT_PROCESSED_LEAN_ONLY (2026-08-13, base a5caee2)"
+ ],
+ "manifest_present": true,
+ "manifest_sha256": "3b65253d8338b5f0283a29a194fe673d0200ca091284ab92ef315246e328065f",
  "native_kernel_interface": {
   "implication_matrix": "artifacts/primitive_implication_matrix.json (72 cells, PrimitiveCore.matrixCells)",
   "kernel": "PDA_pointed_witnessed_irreflexive",
@@ -13,15 +279,63 @@
   "universal_status": "PrimitiveCats.d2_initial (initial among all pointed witnessed relations)",
   "witness": "PrimitiveContact.nativeKernelWitness"
  },
- "package_present": false,
+ "package_present": true,
+ "prose_status": "PROSE_INPUT_ABSENT",
  "protocol": {
   "absence_rule": "complete the native phases and terminate with CONTACT_INPUT_ABSENT; do not invent contents",
-  "manifest_required": "contact\\omega_primdiff\\CONTACT_MANIFEST.json",
+  "manifest_required": "contact/omega_primdiff/CONTACT_MANIFEST.json",
   "package_path": "contact/omega_primdiff/",
   "read_order": [
    "lean4/ only after the native characterization commit (Phase II)",
    "prose/ only after the Lean-only comparison commit (Phase III)"
   ]
  },
- "status": "CONTACT_INPUT_ABSENT"
+ "status": "CONTACT_PROCESSED_LEAN_ONLY",
+ "verdict": {
+  "carried_unchanged": [
+   "NATIVE_PRIMITIVE_DIFFERENCE_CHARACTERIZED",
+   "PRIMITIVE_DIFFERENCE_PASSAGE_COMPOSED",
+   "TWO_RULE_SCHEMA_PROVED_UNDER_DECLARED_RESPONSE_UNIVERSE_AND_WF_PROTECTED_PAIR"
+  ],
+  "frontier_conjecture": "post-reconstruction, the enlarged native corpus strictly contains the reconstructed image of the supplied abstract half while the converse containment remains signature-impossible; any future strictly-stronger verdict must be stated relative to the enlarged corpus",
+  "kernel": {
+   "gateway": "ContactKernel.kernel_gateway_unique (inherited from PrimitiveCats.d2_initial)",
+   "meets_interface": "ContactKernel.toNativeKernel",
+   "no_terminal_collector": "ContactKernel.kernel_no_terminal_collector (morphism grade: PrimitiveCats.Hom of the induced apartObj presentations, value data discarded; no terminality claim at VHom grade)",
+   "observer_side_identity": "ContactKernel.toDiffObs with toDiffObs_fields and toDiffObs_apart (record identity: kernel + the two law declarations = the observer record; DEFINITION, not a derivation)",
+   "realized_from_native": "ContactKernel.ofSetting (exact under Decidable: ofSetting_exact; open_kernel_grade otherwise)",
+   "realized_from_supplied_shape": "ContactKernel.ofDiffObs (chosen non-zero pair; ContactKernel.pair_choice_load_bearing)",
+   "structure": "ContactKernel.WitnessedDiff",
+   "value_rigidity": "ContactKernel.vhom_unique_of_onto (sufficiency under delta-surjectivity) with ContactKernel.vhom_not_unique (one non-onto countermodel); no equivalence proved"
+  },
+  "not_issued": [
+   {
+    "code": "CONTACT_STRICTLY_STRONGER",
+    "reason": "refuted by the native->supplied countermodels of the primary bundle"
+   },
+   {
+    "code": "NATIVE_STRICTLY_STRONGER",
+    "reason": "as a sealed-corpus claim it would launder this run's reconstruction into the sealed record - the sealed corpus lacks the global quotient-descent layer; recorded instead: every supplied abstract-half theorem now has a native counterpart (ObsDescent) while the converse direction retains countermodels; the supplied physics-labeled tail adds no content beyond five native one-line lemmas"
+   },
+   {
+    "code": "CONTACT_INPUT_ABSENT",
+    "reason": "superseded; preserved as sealed history (history[0])"
+   }
+  ],
+  "primary": "CONTACT_INCOMPARABLE_WITH_COUNTERMODELS",
+  "terminals": [
+   {
+    "code": "CONTACT_INCOMPARABLE_WITH_COUNTERMODELS",
+    "scope": "Sealed native corpus at a5caee2 versus the supplied single-file development (sha256 d9cdb350a53c513e3e211e72f17262be6ba85d7da6159f910388c7137e814a89), Lean content only (manifest: prose_supplied = false, PROSE_INPUT_ABSENT).  WITH_COUNTERMODELS covers the native -> supplied direction only; the other direction is an absence claim, stated as such below.  Native -> supplied: refuted at signature level - no valued observer's zero-complement equals the oriented two-element witness over any value type (ContactBridge.d2_not_obs_complement); for Prop-valued observers (DiffObs X Prop) the representable class is exactly the double-negation-stable complements of equivalences (ContactBridge.obsApart_repr_iff - no claim is made for observers at other value types, where only the forward direction is available); each of the nine native candidate readings fails representability or witness-transport, with finite countermodels exhibited at carrier sizes 1,2,3,2,2,1,2,2,2.  MINIMALITY of those carriers is proved for exactly one reading - Bs at 3, by the positive ContactBridge.bool_bs_repr at carrier 2; the remaining sizes are the least carrier at which the reading can be posed at all (a reading demanding a distinguished pair cannot be stated below carrier 2), which is METATHEORY, not a proved minimum, and contact/analysis/lean_theorem_transport.md records carrier minimality as unclaimed for d_not_witnessed_repr and no_kernel_over_allzero; Bc, Bl and F carry no separate countermodel and fail through the A-conjunct models cited in contact/analysis/contact_countermodels.json.  Protection, retention, operations, and the designated pair are underivable (ContactKernel.kernel_not_c, ContactKernel.kernel_not_f, ContactKernel.pair_choice_load_bearing).  Supplied -> native: an ABSENCE claim about the sealed corpus, NOT a refutation - the supplied global quotient-descent layer (existence-iff-compatibility, global uniqueness, mod-setoid transport) does not occur in the sealed corpus (FINITE_COMPUTATION over the corpus text plus METATHEORY), whose image-scoped uniqueness plus off-image countermodel (Compression.factor_not_unique_off_image) is deliberately weaker on arbitrary presentations; no countermodel refutes the layer, and its content is in fact derivable natively for the Nat-scoped kernel observers of the dictionary (ObsDescent.descend_iff_factorsOn_all); reconstructed this run (ObsDescent) in native vocabulary under identical axiom budget within {propext, Quot.sound}.  The incomparability is asymmetric in kind: signature-level and permanent against the supplied side; content-level and closed-this-run against the native side."
+   },
+   {
+    "code": "COMMON_PRIMITIVE_KERNEL_REPLACES_BOTH",
+    "scope": "The kernel ContactKernel.WitnessedDiff (valued difference presentation + designated endpoints + diagonal-zero law + refutation-grade non-zero witness; NO symmetry/transitivity admissions, NO retention/protection/operations): realized from native candidate-A settings (ofSetting; exact under pointwise decidability, double-negation-coarse otherwise - recorded OPEN) and from valued observers plus a chosen non-zero pair (ofDiffObs; the pair proved load-bearing); meets the sealed pre-contact interface (toNativeKernel : WitnessedDiff X R -> PrimitiveContact.NativeKernel); universal status proved: initial gateway inherited from sealed d2_initial (kernel_gateway_unique), no terminal collector AT THE INDUCED-APARTNESS MORPHISM GRADE (kernel_no_terminal_collector, kernel_no_terminal: morphisms of the induced pointed-relation presentations apartObj, which discard the value data; nothing is proved about terminality in the valued morphism category VHom), value grade is presentation with off-image non-uniqueness (vhom_not_unique) rigidified UNDER delta-surjectivity (vhom_unique_of_onto - sufficiency plus one non-onto countermodel; no equivalence is proved, so necessity is not claimed); licenses passage entry pre-retention/pre-observation (kernel_licenses_entry), where the kernel contributes ENDPOINT DISTINCTNESS ONLY - the other two conjuncts (candidate A at the sealed pre-retention state, empty retention store) are sealed constants that do not mention the kernel, and no map from an arbitrary kernel into the passage state is claimed (entry_pre_observation).  'Replaces' is scoped to the OVERLAP: entry-level content of both sides is the kernel + separately declared additions.  Supplied side, DEFINITION not derivation: the kernel together with the two law declarations IS the observer record, field-for-field and losslessly (toDiffObs, toDiffObs_fields, toDiffObs_apart), and the two declarations are priced at carriers two and three (kernel_not_observer, kernel_zero_not_trans).  Native side, DERIVED_THEOREM: toSetting_A, kernel_to_w, kernel_to_d, kernel_to_e_empty, with the declarations shown separable (ofSetting_ret_irrelevant, ContactBridge.kernel_prot_independent).  It does NOT replace native orientation, retention/protection, operations, or passage dynamics - native-only surplus."
+   },
+   {
+    "code": "CONTACT_EQUIVALENT_UNDER_DECIDABLE_ZERO_PLUS_APARTNESS_ADMISSIONS",
+    "scope": "On the relational core only.  Premise 1 - the supplied core structure and the native DiffObs correspond field-for-field at the observer stratum - is a mechanical scratch check run OUTSIDE the repository (FINITE_COMPUTATION; file and log sha256 recorded in contact/analysis/contact_countermodels.json, field correspondence_map.scratch_bridge_check).  The vocabulary firewall forbids committing that check, so it is NOT reproducible from this repository: no CI job, test, or reviewer re-runs it.  Premise 2 is TWO decidability admissions, one per direction, and they are NOT interchangeable.  Apartness -> observer spends pointwise decidability of the ASSERTED APARTNESS relation (ContactBridge.isApart_repr, ContactBridge.apartObs_roundtrip: [forall x y, Decidable (r x y)]).  Observer -> apartness spends pointwise decidability of the ZERO relation (ContactBridge.obsApart_isApart, ContactBridge.indist_obsApart_iff: [forall x y, Decidable (ZeroRel O x y)]).  The two do not substitute for each other: the zero relation of the observer built from an apartness is the negation of that apartness, and Decidable of a negation does not return Decidable of the statement - that residue is exactly what stability_schema_iff_dne prices at double-negation elimination.  Under both admissions and the three IsApart admissions the native apartness and the supplied-style observer are inter-constructible with matching relations in both round trips.  Dropping decidability is priced: cotransitivity-schema <-> WLEM (cotrans_schema_iff_wlem), stability-schema <-> DNE (stability_schema_iff_dne), locatedness-schema -> WLEM (located_schema_implies_wlem; forward direction only, converse OPEN).  Dropping any IsApart admission is refuted at carriers 1/2/3 (sealed countermodels cited).  Statement scope: carriers and value types range over Type (universe 0), where the supplied structure is universe-polymorphic; the apartness -> observer direction produces a Prop-valued observer.  Valuation data, orientation, and everything dynamic is OUTSIDE this scope (the other terminal codes govern there)."
+   }
+  ]
+ }
 }

@@ -15,12 +15,17 @@ The run protocol declares a contact package
       prose/
 
 to be read in two stages (Lean before prose), each only after the
-corresponding native commitment.  **The package is absent from the
-repository**: no `contact/` directory exists at the pre-contact commit
-(`blind-native-base`) or at completion.  Per the protocol, the native
-phases complete and the contact phases terminate with
-`CONTACT_INPUT_ABSENT`; no contents are invented, no comparison is
-fabricated, and no agreement pressure exists.
+corresponding native commitment.
+
+**SEALED PRE-CONTACT TEXT — true at the blind-native-base `ccd3a53`,
+SUPERSEDED on 2026-08-13 by the addendum below.  Do not read the
+following sentences as a description of the current repository; the
+package arrived at `e4aed9e` and the collision was executed.**  "The
+package is absent from the repository: no `contact/` directory exists
+at the pre-contact commit (`blind-native-base`) or at completion.  Per
+the protocol, the native phases complete and the contact phases
+terminate with `CONTACT_INPUT_ABSENT`; no contents are invented, no
+comparison is fabricated, and no agreement pressure exists."
 
 What this module does record, so that any FUTURE contact meets a fixed
 interface rather than a movable one:
@@ -65,7 +70,13 @@ terminal is preserved as the first entry of `contactStatusHistory`.
 
 namespace PrimitiveContact
 
-/-- The contact terminal for this run. -/
+/-- **SUPERSEDED — the sealed pre-contact terminal**, recorded at the
+blind-native base and preserved unchanged for the record.  It is NOT
+the status of this repository at any commit from `e4aed9e` onward.
+The current terminal is `contactStatusCurrent`
+(`CONTACT_PROCESSED_LEAN_ONLY`) and the full history is
+`contactStatusHistory`; a consumer reading this constant alone gets
+the value superseded on 2026-08-13. -/
 def contactStatus : String := "CONTACT_INPUT_ABSENT"
 
 /-- The native kernel, under its contact-facing name: settings
