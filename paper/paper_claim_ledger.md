@@ -962,8 +962,9 @@ challenge (caller assignment, 2026-08-12).
 ### CL-RP-REPLAY
 - **Statement**: replay determinism (definitional for the kernel — the
   step type admits no unrepresented argument) and composition
-  (`replay_append`).  **Class**: theorem.
-- **Lean**: `replay_deterministic`, `replay_nil`, `replay_append`.
+  (`Represented.replay_append`).  **Class**: theorem.
+- **Lean**: `Represented.replay_deterministic`, `replay_nil`,
+  `Represented.replay_append`.
 
 ### CL-RP-SUPPORT
 - **Statement**: operational-support factorization — the step factors
@@ -1144,7 +1145,7 @@ theorems; 291 total, all within {propext, Quot.sound}).
   kernel, fidelity-relative in general, primitive nowhere.
 - **Class**: conditional theorem + countermodels.
 - **Lean**: `rule1_repair_or_extension`, `augFamily_retains_ties`,
-  `refusal_recordable`, `refusal_object_inert`,
+  `refusal_recordable`, `Completion.refusal_object_inert`,
   `refusal_non_absorbing`, `action_dichotomy`, `rule1_needs_fidelity`,
   `retraction_breaks_preservation`.
 
@@ -1818,7 +1819,8 @@ CL-PD2-LADDER)
   its laws proved, and only afterwards is the vocabulary
   "equivariant" used.  (i) `Renaming n` carries IDENTITY (`idRen`),
   INVERSE (`invRen`) and COMPOSITION (`compRen`) satisfying the group
-  laws `comp_id`, `id_comp`, `comp_assoc`, `inv_comp`, `comp_inv`,
+  laws `RenamingStructure.comp_id`, `RenamingStructure.id_comp`,
+  `RenamingStructure.comp_assoc`, `inv_comp`, `comp_inv`,
   `inv_inv`, proved through a componentwise extensionality principle
   (`Renaming.ext`: the two remaining fields are propositions, so a
   renaming is its function pair).  (ii) `act` is an ACTION:
@@ -1853,8 +1855,9 @@ CL-PD2-LADDER)
   multi-edge or relational extensions, NOT any map that is not a
   renaming.
 - **Class**: theorem + countermodel + finite computation.
-- **Lean**: `RenamingStructure.Renaming.ext`, `.comp_id`,
-  `.id_comp`, `.comp_assoc`, `.inv_comp`, `.comp_inv`, `.inv_inv`,
+- **Lean**: `RenamingStructure.Renaming.ext`,
+  `RenamingStructure.comp_id`, `RenamingStructure.id_comp`,
+  `RenamingStructure.comp_assoc`, `.inv_comp`, `.comp_inv`, `.inv_inv`,
   `.map_getD_range`, `.act_id`, `.act_comp`, `.act_inv`,
   `.upBlock_id`, `.upBlock_comp`, `.upFamily_id`, `.upFamily_comp`,
   `.upFamily_transport_id`, `.upFamily_transport_comp`, `.wf_act`,
@@ -3049,4 +3052,64 @@ CL-PD2-LADDER)
   exhibiting a heterogeneous family where the endo obstruction fails;
   citing `HFamily` as a category or its `Hom` as a hom-set; citing the
   one-object bridge as a general embedding.
+
+### CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)
+- **Closes**: the OPEN residual recorded in
+  `contact/analysis/separation_capacity_open.md` §2 and §3.  That
+  document's §2 previously said the capacity bound was "not in this
+  repository" and that "the pigeonhole is the blocker"; both statements
+  are WITHDRAWN there, at their original site.
+- **Statement** (`CapacityBound.capacity_bound`): let `colour` take
+  values below `k`, and let `v` factor through the radius-`d` colour
+  ball (`CapacityBound.ViewLocal`).  Then once
+  `n ≥ k ^ (2d + 1) + 2d + 2`, the deep interior of `reflState n` holds
+  two distinct points that `v` does not separate.  This is exactly the
+  form the residual document stated as the target,
+  `n ≥ B + 2d + 2`, with `B = k ^ (2d + 1)`.
+- **Why it is a capacity statement and not global pigeonhole**: `B` is
+  DERIVED, not assumed.  It counts the colourings of a radius-`d` ball,
+  so it depends on the radius and the alphabet and NOT on `n`.  The
+  deep interior holds `n - 2d - 1` points, so the threshold is exactly
+  where that interior first holds `B + 1` points.  Without `ViewLocal`
+  the radius is inert and the statement degenerates — which is the trap
+  §4 of the residual document names, and `ViewLocal` is what meets it.
+- **Class**: theorem, with two exhibited boundary fixtures.
+- **Supporting**: `encode`/`encode_lt`/`encode_inj` carry bounded
+  colour lists into `Nat` and back injectively at fixed length;
+  `Pigeonhole.pigeonhole` supplies the counting; its enumerated report
+  is choice-free and lies within `{propext, Quot.sound}`.
+- **Non-vacuity, exhibited not assumed**: `capacity_at_one_colour` is
+  the degenerate end (one colour, constant view);
+  `local_view_can_separate` fixes `k = 2`, `d = 0`, and `n = 3`, proves
+  that indices `1` and `2` are deep and that `3` lies strictly below
+  the threshold `4`, and exhibits a local parity view that separates
+  every distinct deep pair (including `1` and `2`). Thus the existential
+  forced-collision conclusion is false at this below-threshold instance,
+  rather than merely false for one selected pair.
+- **Exact non-claims**:
+  - `k ^ (2d + 1)` is an UPPER bound on the number of distinguishable
+    balls.  No matching lower bound is proved; no tightness is claimed.
+  - Nothing is claimed for views that do not factor through the ball.
+  - `colour` is an arbitrary bounded colouring.  Nothing is claimed
+    about the sealed `Generator.profile2` colouring in particular, and
+    nothing here relates the two.
+  - The general-`n` radius correspondence and a repair-strategy-class
+    consequence are the two OPEN residuals of this investigation.
+  - Identity-grade observation, absolute interior, and any "no outside"
+    result are outside this investigation's statement language. This
+    entry does not license any of them.
+- **Evidence (Lean)**: `CapacityBound.capacity_bound`, `.ViewLocal`,
+  `.local_view_blind`, `.encode_lt`, `.encode_inj`,
+  `.colourBall_length`, `.colourBall_bounded`,
+  `.capacity_at_one_colour`, `.local_view_can_separate`;
+  `Pigeonhole.nodup_length_le`, `.pigeonhole`, `.map_nodup_of_inj`,
+  `.nodup_filter_eq_le_one`, `.filter_nodup`, `.length_filter_split`,
+  `.upto_length`, `.upto_mem`. Their enumerated reports are all within
+  `{propext, Quot.sound}` and contain no `Classical.choice`.
+- **Python evidence**: none; Lean-only, no new runner or artifact.
+- **Falsifier**: a local view over a `k`-colour alphabet separating
+  every deep pair at some `n ≥ k ^ (2d + 1) + 2d + 2`; citing the
+  bound for a view without the `ViewLocal` hypothesis; citing
+  `k ^ (2d + 1)` as tight; reading the bound as a statement about the
+  sealed profile colouring.
 

@@ -21,6 +21,7 @@ axioms artifact and the repository.
 from __future__ import annotations
 
 import re
+from functools import cache
 from pathlib import Path
 
 LEAN_DIR = Path("lean4") / "Derivation"
@@ -69,6 +70,8 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "ContactBridge": ["ContactBridge.lean"],
     "ContactKernel": ["ContactKernel.lean"],
     "PresentationNaturality": ["PresentationNaturality.lean"],
+    "Pigeonhole": ["Pigeonhole.lean"],
+    "CapacityBound": ["CapacityBound.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -77,6 +80,31 @@ VALID_ROLES = (
     "termination", "example", "countermodel", "equivalence",
     "classification", "simulation",
 )
+
+REFERENCE_MEMBER_SUFFIXES = ("1", "2", "mp", "mpr", "symm")
+
+
+@cache
+def lean_source(fname: str) -> str:
+    """Read one immutable Lean source once per inventory process."""
+    return (LEAN_DIR / fname).read_text(encoding="utf-8")
+
+
+@cache
+def ledger_claim_blocks() -> tuple[str, ...]:
+    """Split the immutable claim ledger once per inventory process."""
+    text = LEDGER_FILE.read_text(encoding="utf-8")
+    return tuple(re.split(r"^### ", text, flags=re.MULTILINE)[1:])
+
+
+@cache
+def exported_final_counts() -> dict[str, int]:
+    """Count exported theorem final components for shorthand resolution."""
+    counts: dict[str, int] = {}
+    for rec in parse_axiom_reports():
+        final = str(rec["name"]).rpartition(".")[2]
+        counts[final] = counts.get(final, 0) + 1
+    return counts
 
 
 def parse_axiom_reports() -> list[dict[str, object]]:
@@ -121,7 +149,7 @@ def source_module(qualified: str) -> str:
                 continue
             if re.search(
                 rf"^theorem {re.escape(decl)}[\s({{\[⟨]",
-                path.read_text(encoding="utf-8"),
+                lean_source(fname),
                 re.MULTILINE,
             ):
                 return fname
@@ -133,10 +161,10 @@ def extract_statement(qualified: str, module: str) -> str:
     path = LEAN_DIR / module
     if not path.exists():
         return "UNRESOLVED"
-    text = path.read_text(encoding="utf-8")
+    text = lean_source(module)
     for _, decl in declared_splits(qualified):
         m = re.search(
-            rf"^theorem {re.escape(decl)}(?P<sig>.*?):=",
+            rf"^theorem {re.escape(decl)}(?P<sig>.*?)(?:[ \t]*:=|^[ \t]*\|)",
             text,
             re.MULTILINE | re.DOTALL,
         )
@@ -145,28 +173,155 @@ def extract_statement(qualified: str, module: str) -> str:
     return "UNRESOLVED"
 
 
+@cache
+def qualified_reference_pattern(qualified: str) -> re.Pattern[str]:
+    """Match qualified names and only known theorem-result members."""
+    spellings = {qualified}
+    for ns, decl in declared_splits(qualified):
+        if ns in NAMESPACE_FILES and "." in decl:
+            spellings.add(decl)
+    alternatives = "|".join(
+        re.escape(spelling)
+        for spelling in sorted(spellings, key=len, reverse=True)
+    )
+    suffixes = "|".join(map(re.escape, REFERENCE_MEMBER_SUFFIXES))
+    return re.compile(
+        rf"(?<![\w.])(?:{alternatives})"
+        rf"(?=(?:\.(?:{suffixes}))*(?![\w.]))"
+    )
+
+
+def _lean_code(text: str) -> str:
+    """Replace comments and strings with spaces, preserving line breaks."""
+    out: list[str] = []
+    i = 0
+    block_depth = 0
+    in_line = False
+    in_string = False
+    escaped = False
+    while i < len(text):
+        pair = text[i : i + 2]
+        char = text[i]
+        if in_line:
+            if char == "\n":
+                in_line = False
+                out.append(char)
+            else:
+                out.append(" ")
+            i += 1
+            continue
+        if block_depth:
+            if pair == "/-":
+                block_depth += 1
+                out.extend((" ", " "))
+                i += 2
+            elif pair == "-/":
+                block_depth -= 1
+                out.extend((" ", " "))
+                i += 2
+            else:
+                out.append(char if char == "\n" else " ")
+                i += 1
+            continue
+        if in_string:
+            out.append(" ")
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            i += 1
+            continue
+        if pair == "--":
+            in_line = True
+            out.extend((" ", " "))
+            i += 2
+        elif pair == "/-":
+            block_depth = 1
+            out.extend((" ", " "))
+            i += 2
+        elif char == '"':
+            in_string = True
+            out.append(" ")
+            i += 1
+        else:
+            out.append(char)
+            i += 1
+    return "".join(out)
+
+
+@cache
+def lean_module_code(fname: str) -> str:
+    """Comment- and string-free code for one immutable Lean module."""
+    return _lean_code(lean_source(fname))
+
+
+def _declaring_namespace(qualified: str) -> str:
+    for ns, _ in declared_splits(qualified):
+        if ns in NAMESPACE_FILES:
+            return ns
+    return qualified.rpartition(".")[0]
+
+
+def _bare_reference_in_scope(qualified: str, code: str) -> bool:
+    """Allow bare code references only where the namespace is current/open."""
+    namespace = _declaring_namespace(qualified)
+    ns = re.escape(namespace)
+    if re.search(rf"^[ \t]*namespace[ \t]+{ns}(?:[ \t]|$)", code,
+                 re.MULTILINE):
+        return True
+    for match in re.finditer(r"^[ \t]*open[ \t]+([^\n]+)", code,
+                             re.MULTILINE):
+        if namespace in match.group(1).split():
+            return True
+    return False
+
+
+@cache
+def _bare_reference_pattern(qualified: str) -> re.Pattern[str]:
+    bare = re.escape(qualified.rpartition(".")[2])
+    suffixes = "|".join(map(re.escape, REFERENCE_MEMBER_SUFFIXES))
+    return re.compile(
+        rf"(?<![\w.]){bare}(?=(?:\.(?:{suffixes}))*(?![\w.]))"
+    )
+
+
+@cache
+def _ledger_reference_pattern(qualified: str) -> re.Pattern[str]:
+    """Qualified names, plus globally unique backticked shorthand."""
+    bare_name = qualified.rpartition(".")[2]
+    bare = re.escape(bare_name)
+    qualified_pattern = qualified_reference_pattern(qualified).pattern
+    if exported_final_counts().get(bare_name) == 1:
+        return re.compile(rf"(?:{qualified_pattern}|`(?:\.)?{bare}`)")
+    return re.compile(qualified_pattern)
+
+
 def consuming_modules(qualified: str, own_module: str) -> list[str]:
-    """Every other module whose source mentions the theorem."""
-    bare = qualified.rpartition(".")[2]
+    """Every other module containing a resolved theorem reference."""
+    qualified_pattern = qualified_reference_pattern(qualified)
+    bare_pattern = _bare_reference_pattern(qualified)
     out = []
     for path in sorted(LEAN_DIR.glob("*.lean")):
         if path.name == own_module:
             continue
-        if re.search(rf"\b{re.escape(bare)}\b",
-                     path.read_text(encoding="utf-8")):
+        code = lean_module_code(path.name)
+        if qualified_pattern.search(code) or (
+            _bare_reference_in_scope(qualified, code)
+            and bare_pattern.search(code)
+        ):
             out.append(path.name)
     return out
 
 
 def citing_claims(qualified: str) -> list[str]:
-    """Ledger claim IDs whose block mentions the bare theorem name."""
-    bare = qualified.rpartition(".")[2]
-    text = LEDGER_FILE.read_text(encoding="utf-8")
-    blocks = re.split(r"^### ", text, flags=re.MULTILINE)
+    """Ledger claim IDs with qualified or unique backticked references."""
+    pattern = _ledger_reference_pattern(qualified)
     out = []
-    for block in blocks[1:]:
+    for block in ledger_claim_blocks():
         claim_id = block.splitlines()[0].strip()
-        if re.search(rf"\b{re.escape(bare)}\b", block):
+        if pattern.search(block):
             out.append(claim_id)
     return out
 
@@ -190,6 +345,8 @@ NAMESPACE_DEFAULTS: dict[str, tuple[str, str]] = {
     "NoOutside": ("generic", "preservation"),
     "Constitution": ("generic", "simulation"),
     "Initiality": ("bounded", "minimality"),
+    "Pigeonhole": ("generic", "preservation"),
+    "CapacityBound": ("generic", "preservation"),
 }
 
 KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
@@ -296,6 +453,15 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
     "Represented.cert_panel_relative": ("concrete", "countermodel"),
     "Represented.worldAt_three_quiescent": ("concrete", "example"),
     "Represented.notes_inert": ("concrete", "example"),
+    # choice-free counting and coloured separation capacity
+    "Pigeonhole.nodup_length_le": ("generic", "termination"),
+    "Pigeonhole.pigeonhole": ("generic", "existence"),
+    "CapacityBound.encode_lt": ("generic", "classification"),
+    "CapacityBound.encode_inj": ("generic", "uniqueness"),
+    "CapacityBound.colourBall_length": ("generic", "classification"),
+    "CapacityBound.capacity_bound": ("horizon-free", "countermodel"),
+    "CapacityBound.capacity_at_one_colour": ("horizon-free", "example"),
+    "CapacityBound.local_view_can_separate": ("concrete", "countermodel"),
 }
 
 

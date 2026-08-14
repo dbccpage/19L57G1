@@ -1531,3 +1531,85 @@ result was over one-object families.  This entry narrows that bound.
 Axiom reports 1202 → 1213 (eleven added, none removed), all within
 {propext, Quot.sound}; all eleven new theorems are axiom-free.  `lake build`
 clean at 46 jobs, lean audit 44 sources.
+
+## 2026-08-14 — The coloured separation-capacity bound, closed
+
+`contact/analysis/separation_capacity_open.md` recorded, since it was written,
+that the capacity bound was "not in this repository" and that "the pigeonhole
+is the blocker".  Both are now WITHDRAWN at their original site; this entry
+records what replaced them.
+
+1. **The pigeonhole leak was not where the residual document said it was.**
+   That document proposed bisecting `nodup_length_le`, on the reasoning that
+   "the leak is inside it, not in any lemma it cites".  The bisection would not
+   have found it.  Every lemma it listed as checked-and-clean was checked at
+   the wrong place: `#print axioms F` reports the axioms of `F`'s own proof
+   term, NOT of the instances a use site supplies.  The carrier was the
+   `ReflBEq Nat` INSTANCE, required by `beq_self_eq_true` at `Nat`:
+   `LawfulBEq Nat` is clean, `ReflBEq Nat` is not.  Controls: the equation
+   compiler alone reports no axioms and the `induction`-tactic variant leaked
+   identically, so neither the recursion machinery nor any cited lemma was
+   responsible.  Using `decide (x = B)` in place of `x == B` removes it.
+   `lean4/Derivation/Pigeonhole.lean` reports `propext, Quot.sound` throughout.
+
+2. **The same trap recurred once more, and is recorded here so it is not
+   rediscovered a third time.**  A bare `simp` closing a length-mismatch case
+   in `CapacityBound.encode_inj` pulled `Classical.choice` from the default
+   simp set; `Nat.noConfusion` cleared it.  Neither leak was in a cited lemma.
+   Both were in something the proof text did not name — an instance, and a
+   simp set.
+
+3. **The capacity bound** (`CapacityBound.capacity_bound`): for a colouring
+   below `k` and a view factoring through the radius-`d` colour ball, once
+   `n ≥ k ^ (2d + 1) + 2d + 2` the deep interior of `reflState n` holds two
+   distinct points the view does not separate.  This is exactly the target form
+   `n ≥ B + 2d + 2` the residual document stated, with `B = k ^ (2d + 1)`.
+
+4. **The locality hypothesis is what makes it a capacity statement.**  `B` is
+   DERIVED by counting colourings of a radius-`d` ball, so it depends on the
+   radius and the alphabet and not on `n`.  §4 of the residual document warned
+   that an unconstrained view makes the radius inert and the result ordinary
+   global pigeonhole; that warning is retained, because it is precisely the
+   condition the proof had to meet, and `ViewLocal` is what meets it.
+
+5. **Non-vacuity is exhibited, not assumed.**  `capacity_at_one_colour` is the
+   degenerate end; `local_view_can_separate` fixes `k = 2`, `d = 0`, and
+   `n = 3`, proves indices `1` and `2` deep and `3` strictly below the
+   threshold `4`, and exhibits a local parity view that separates every
+   distinct deep pair (including `1` and `2`). This refutes the existential
+   forced-collision conclusion below threshold, not merely collision of one
+   selected pair.
+
+Not claimed: tightness of `k ^ (2d + 1)`; anything about views that do not
+factor through the ball; anything about the sealed `Generator.profile2`
+colouring in particular. The general-`n` radius correspondence and a
+repair-strategy-class consequence are the two OPEN residuals. Identity-grade
+observation, absolute interior, and "no outside" are outside this
+investigation's statement language. See CL-CAP-BOUND.
+
+Axiom reports 1213 → 1229 (sixteen added, none removed), all within
+{propext, Quot.sound}.  `lake build` clean at 48 jobs, lean audit 46 sources.
+
+## 2026-08-14 — Separation-capacity clearance repair
+
+The capacity theorem was already proved, but its residual document and the
+`SeparationCapacity` module header still called the capacity/pigeonhole layer
+OPEN. Both headers now state the closed capacity result and name exactly two
+remaining obligations: the general-`n` `Generator.profile2` correspondence
+and a repair-strategy-class consequence. Identity-grade observation,
+absolute interior, and "no outside" remain outside this investigation's
+statement language rather than additional OPEN cells.
+
+`CapacityBound.local_view_can_separate` now carries its entire non-vacuity
+claim in the theorem type: `k = 2`, `d = 0`, `n = 3`, deep indices `1` and
+`2`, strict position below threshold `4`, locality, bounded colour values,
+explicit separation of `1` and `2`, and separation of every distinct deep
+pair. Wording that called enumerated reports "axiom-free" now says
+exactly that they are choice-free within `{propext, Quot.sound}`.
+
+The completion inventory now stops equation-style theorem statements before
+their first proof clause; resolves qualified references and known theorem
+member suffixes; permits backticked bare ledger shorthand only when the final
+component is globally unique; and has explicit semantic metadata for the
+`Pigeonhole` and `CapacityBound` namespaces. Ambiguous ledger citations are
+now qualified at their source. Regression tests pin each repair.

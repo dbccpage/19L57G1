@@ -41,6 +41,8 @@ import Derivation.ObsDescent
 import Derivation.ContactBridge
 import Derivation.ContactKernel
 import Derivation.PresentationNaturality
+import Derivation.Pigeonhole
+import Derivation.CapacityBound
 
 /-!
 # Axiom reports
@@ -1310,3 +1312,21 @@ open Derivation
 #print axioms PresentationNaturality.twoFamilyPos_natural
 #print axioms PresentationNaturality.twoFamilyPos_has_section
 #print axioms PresentationNaturality.heterogeneous_naturality_separates
+
+#print axioms Pigeonhole.nodup_length_le
+#print axioms Pigeonhole.pigeonhole
+#print axioms Pigeonhole.map_nodup_of_inj
+#print axioms Pigeonhole.nodup_filter_eq_le_one
+#print axioms Pigeonhole.filter_nodup
+#print axioms Pigeonhole.length_filter_split
+#print axioms Pigeonhole.upto_length
+#print axioms Pigeonhole.upto_mem
+
+#print axioms CapacityBound.encode_lt
+#print axioms CapacityBound.encode_inj
+#print axioms CapacityBound.colourBall_length
+#print axioms CapacityBound.colourBall_bounded
+#print axioms CapacityBound.local_view_blind
+#print axioms CapacityBound.capacity_bound
+#print axioms CapacityBound.capacity_at_one_colour
+#print axioms CapacityBound.local_view_can_separate

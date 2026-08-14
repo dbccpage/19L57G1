@@ -19,10 +19,14 @@ from derivation.completion import (
     aug_family,
     close_blocks,
     compliant,
+    citing_claims,
+    classify,
+    consuming_modules,
     cost_capabilities,
     cost_lex,
     countermodels_report,
     dependency_graph,
+    extract_statement,
     interp_step,
     inventory,
     minimality_report,
@@ -30,6 +34,7 @@ from derivation.completion import (
     parse_axiom_reports,
     probe_results,
     protocols_report,
+    qualified_reference_pattern,
     tower_block,
     tower_gen,
 )
@@ -58,6 +63,69 @@ def test_inventory_covers_axiom_artifact_exactly() -> None:
         axioms = rec["axioms"]
         assert isinstance(axioms, list)
         assert set(axioms) <= {"propext", "Quot.sound"}
+
+
+def test_equation_style_statements_stop_before_proof_clauses() -> None:
+    split = extract_statement("Pigeonhole.length_filter_split", "Pigeonhole.lean")
+    assert split == (
+        "{α : Type} (p : α → Bool) : ∀ l : List α, "
+        "(l.filter p).length + (l.filter (fun x => !p x)).length = "
+        "l.length"
+    )
+    encode = extract_statement("CapacityBound.encode_lt", "CapacityBound.lean")
+    assert encode == (
+        "(k : Nat) : ∀ l : List Nat, (∀ x ∈ l, x < k) → encode k l < k ^ l.length"
+    )
+    assert "| []" not in split
+    assert "| []" not in encode
+
+
+def test_inventory_references_are_qualified_not_bare_word_hits() -> None:
+    name = "Pigeonhole.pigeonhole"
+    assert consuming_modules(name, "Pigeonhole.lean") == ["CapacityBound.lean"]
+    assert citing_claims(name) == [
+        "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
+    ]
+    assert consuming_modules("Derivation.supply_no_op", "Inertia.lean") == []
+    assert "CL-0-INERTIA" in citing_claims("Derivation.supply_no_op")
+
+
+def test_qualified_references_accept_only_known_member_suffixes() -> None:
+    name = "Generator.depth2_obstruction_n5"
+    pattern = qualified_reference_pattern(name)
+    for suffix in (".1", ".2", ".mp", ".mpr", ".symm", ".1.2"):
+        assert pattern.search(name + suffix), suffix
+    for suffix in ("_extra", ".other", ".mp.other"):
+        assert pattern.search(name + suffix) is None, suffix
+    assert consuming_modules(name, "Generator.lean") == ["SeparationCapacity.lean"]
+
+
+def test_ambiguous_ledger_shorthand_requires_qualification() -> None:
+    renaming_claim = "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
+    assert renaming_claim in citing_claims("RenamingStructure.comp_id")
+    assert renaming_claim not in citing_claims("PrimitiveCats.comp_id")
+    assert renaming_claim not in citing_claims("ControllerCategory.comp_id")
+
+    replay_claim = "CL-RP-REPLAY"
+    assert replay_claim in citing_claims("Represented.replay_append")
+    assert replay_claim not in citing_claims("PrimitivePassage.replay_append")
+
+    rule_claim = "CL-NC-RULE1"
+    assert rule_claim in citing_claims("Completion.refusal_object_inert")
+    assert rule_claim not in citing_claims("PrimitivePassage.refusal_object_inert")
+
+    # A globally unique final component still permits explicit local
+    # shorthand, preserving the existing ledger's concise citations.
+    assert "CL-0-INERTIA" in citing_claims("Derivation.supply_no_op")
+
+
+def test_capacity_namespaces_have_explicit_semantic_metadata() -> None:
+    assert classify("Pigeonhole.pigeonhole") == ("generic", "existence")
+    assert classify("CapacityBound.capacity_bound") == ("horizon-free", "countermodel")
+    assert classify("CapacityBound.local_view_can_separate") == (
+        "concrete",
+        "countermodel",
+    )
 
 
 def test_dependency_graph_statuses_and_evidence_resolve() -> None:
@@ -111,7 +179,7 @@ def test_protocols_report_flags() -> None:
 
 
 def test_interp_kernel_desc_matches_step() -> None:
-    for (_, w, e) in PROBES:
+    for _, w, e in PROBES:
         assert interp_step(KERNEL_DESC, w, e) == step(w, e)
     for k in range(4):
         w = replay(hist_up_to(k))
@@ -121,9 +189,7 @@ def test_interp_kernel_desc_matches_step() -> None:
 
 def test_each_guard_is_load_bearing() -> None:
     for idx in range(6):
-        d = tuple(
-            (i != idx) for i in range(6)
-        )  # all guards on except idx
+        d = tuple((i != idx) for i in range(6))  # all guards on except idx
         results = probe_results(d)  # type: ignore[arg-type]
         assert not all(results.values()), idx
     assert all(probe_results(KERNEL_DESC).values())
@@ -188,13 +254,11 @@ def test_budget_saturation_matches_lean_nat() -> None:
     correction the Python mirror produced budget ``-1`` here."""
     from derivation.represented import World
 
-    sat_noop = World(data=(10, 20), views=((0,),), reqs=((0, 1),),
-                     budget=0)
+    sat_noop = World(data=(10, 20), views=((0,),), reqs=((0, 1),), budget=0)
     for d in all_descs():
         assert interp_step(d, sat_noop, ("mark", (1,), 0)) == sat_noop
     audit_desc = (True, True, False, False, True, True)
-    assert interp_step(audit_desc, sat_noop,
-                       ("mark", (1,), 0)) == sat_noop
+    assert interp_step(audit_desc, sat_noop, ("mark", (1,), 0)) == sat_noop
 
 
 def test_budget_trichotomy_every_descriptor_event() -> None:
@@ -205,8 +269,7 @@ def test_budget_trichotomy_every_descriptor_event() -> None:
     and never negative."""
     from derivation.represented import World
 
-    sat0 = World(data=(10, 20), views=((0,),), reqs=((0, 1),),
-                 budget=0)
+    sat0 = World(data=(10, 20), views=((0,),), reqs=((0, 1),), budget=0)
     worlds = [w for (_, w, _) in PROBES] + [sat0]
     events: list[tuple[object, ...]] = [e for (_, _, e) in PROBES] + [
         ("mark", (1,), 0),
@@ -225,8 +288,7 @@ def test_budget_trichotomy_every_descriptor_event() -> None:
                 if e[0] == "setBudget":
                     assert w2.budget == e[1]
                 else:
-                    assert w2.budget in (w.budget,
-                                         max(0, w.budget - 1))
+                    assert w2.budget in (w.budget, max(0, w.budget - 1))
 
 
 def test_freshness_scoped_to_tower_invariant() -> None:
@@ -247,21 +309,16 @@ def test_run_main_and_receipt(tmp_path: Path) -> None:
     # the runner reads the repository's own artifacts directory for
     # the hash and writes the five outputs to --artifacts
     assert run_completion.main(["--artifacts", str(out)]) == 0
-    receipt = json.loads(
-        (out / "completion_receipt.json").read_text(encoding="utf-8")
-    )
+    receipt = json.loads((out / "completion_receipt.json").read_text(encoding="utf-8"))
     assert receipt["base_commit"] == "2c605e2"
-    assert receipt["prompt_sha256"]["prompt/prompt.md"].startswith(
-        "a613a196"
-    )
+    assert receipt["prompt_sha256"]["prompt/prompt.md"].startswith("a613a196")
     assert receipt["theorem_count"] == len(parse_axiom_reports())
     assert "RELATIVE_REPLAY_CLOSURE_ONLY" in receipt["terminals"]
     assert receipt["open_bridges"]
     for terminal in receipt["terminals"]:
         assert terminal in receipt["terminal_evidence"]
     graph = json.loads(
-        (out / "completion_dependency_graph.json").read_text(
-            encoding="utf-8")
+        (out / "completion_dependency_graph.json").read_text(encoding="utf-8")
     )
     assert graph["graph"]["statuses"]["OPEN"] == 1
     out2 = tmp_path / "artifacts2"

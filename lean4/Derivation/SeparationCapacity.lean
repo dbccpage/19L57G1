@@ -21,17 +21,20 @@ radius-one `profileD` equality are the SAME relation, decided
 elementwise, and each sealed theorem is then carried across it.  The
 general-`n` form of that correspondence is NOT proved.
 
-**What is proved here and what is not.**  Proved: for every fixed
+**What is proved here and what remains open.**  Proved here: for every fixed
 radius, all deep-interior points share one depth-`d` profile
 (`depth_d_outrun`), horizon-free — no bound on `n` beyond deepness of
 the two points — and a colliding deep pair exists from `n ≥ 2d + 3`
 (`depth_d_obstruction`); and, on the two sealed chains only, the radius
-correspondence of §3.  NOT proved here: the general-`n` radius
-correspondence, and any statement about COLOURED views, finite view
-alphabets, repair strategies, or the capacity bound that would need a
-pigeonhole.  Those remain OPEN; see
-`contact/analysis/separation_capacity_open.md` for the exact residual
-and why it is not discharged in this commit.
+correspondence of §3.  The companion modules `Pigeonhole` and
+`CapacityBound` now prove the coloured finite-alphabet capacity bound.
+The remaining OPEN obligations in this investigation are only the
+general-`n` correspondence between `Generator.profile2` and
+`profileD · · 1`, and a repair-strategy-class consequence built from
+the capacity theorem.  Identity-grade observation, absolute interior,
+and "no outside" are outside this module's statement language rather
+than OPEN obligations of this investigation.  See
+`contact/analysis/separation_capacity_open.md` for the exact boundary.
 -/
 
 namespace SeparationCapacity
