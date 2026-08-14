@@ -223,9 +223,17 @@ def ofDiffObs (O : DiffObs X R) (a b : X)
   diag_zero := O.zero_refl
   apart_ab := hw
 
-/-- **The chosen pair is load-bearing**: one observer offers both a
-non-zero pair and a zero pair, so the observer alone does not
-determine the kernel — the pair choice is genuine new data. -/
+/-- **An arbitrary pair may fail the side condition**: one observer
+offers both a non-zero pair and a zero pair, so a pair cannot simply
+be picked without checking.
+
+Exact scope: this is a statement about *pairs*, not about kernels.
+It does NOT exhibit two valid choices, two distinct kernels, or the
+absence of a canonical selector.  Those are separate, and are proved
+separately below by `transpose_kernel_ne`,
+`kernel_not_unique_of_pair`, `pair_choice_not_unique` and
+`no_swap_equivariant_pair_selector`.  Cite this lemma only for the
+weak claim it carries. -/
 theorem pair_choice_load_bearing :
     ∃ (O : DiffObs Bool Bool) (a₁ b₁ a₂ b₂ : Bool),
       ¬ ZeroRel O a₁ b₁ ∧ ZeroRel O a₂ b₂ := by
@@ -274,6 +282,220 @@ theorem eq_ofDiffObs_of_fields (O : DiffObs X R)
   cases hd
   cases hz
   rfl
+
+/-! ## The pair choice, exactly: correspondence, non-uniqueness, and
+no relabelling-equivariant selector -/
+
+/-- Two observers that agree on the difference map and the zero
+predicate are equal: the three law fields are `Prop`-valued, so they
+are recovered by definitional proof irrelevance. -/
+theorem obs_eq_of_fields {X R : Type} (O₁ O₂ : DiffObs X R)
+    (hd : O₁.delta = O₂.delta) (hz : O₁.Zero = O₂.Zero) : O₁ = O₂ := by
+  cases O₁
+  cases O₂
+  cases hd
+  cases hz
+  rfl
+
+/-- The admissible pairs of an observer: exactly the data `ofDiffObs`
+consumes beyond the observer record. -/
+abbrev NonZeroPair (O : DiffObs X R) : Type :=
+  { p : X × X // ¬ ZeroRel O p.1 p.2 }
+
+/-- The kernels that carry an observer's difference map and zero
+predicate unchanged. -/
+abbrev SameDataKernel (O : DiffObs X R) : Type :=
+  { K : WitnessedDiff X R // K.delta = O.delta ∧ K.Zero = O.Zero }
+
+/-- Forward leg: a same-data kernel yields its own designated pair,
+admissible because the kernel's witness transports along the two
+field equations. -/
+def toPair (O : DiffObs X R) (K : SameDataKernel O) : NonZeroPair O :=
+  ⟨(K.val.a, K.val.b), by
+    have h := K.val.apart_ab
+    rw [K.property.1, K.property.2] at h
+    exact h⟩
+
+/-- Backward leg: an admissible pair yields the kernel `ofDiffObs`
+builds, whose two data fields are the observer's by construction. -/
+def ofPair (O : DiffObs X R) (p : NonZeroPair O) : SameDataKernel O :=
+  ⟨ofDiffObs O p.val.1 p.val.2 p.property, rfl, rfl⟩
+
+/-- Round trip one: the pair is recovered exactly. -/
+theorem toPair_ofPair (O : DiffObs X R) (p : NonZeroPair O) :
+    toPair O (ofPair O p) = p := by
+  apply Subtype.ext
+  rfl
+
+/-- Round trip two: the kernel is recovered exactly.  The two field
+equations do the work (`eq_ofDiffObs_of_fields`); the `Prop`-valued
+fields `diag_zero` and `apart_ab` are recovered by definitional proof
+irrelevance, so nothing beyond the pair is ever chosen. -/
+theorem ofPair_toPair (O : DiffObs X R) (K : SameDataKernel O) :
+    ofPair O (toPair O K) = K := by
+  apply Subtype.ext
+  exact (eq_ofDiffObs_of_fields O K.val K.property.1 K.property.2).symm
+
+/-- **Distinct admissible pairs build distinct kernels**: `ofPair` is
+injective, by the first round trip.  With the two round trips this is
+the exact upgrade of the inhabitation statement
+`kernel_from_obs_iff_pair`: for a FIXED observer, admissible pairs
+and same-data kernels correspond one for one, so the pair choice IS
+the kernel choice. -/
+theorem ofPair_injective (O : DiffObs X R) {p q : NonZeroPair O}
+    (h : ofPair O p = ofPair O q) : p = q :=
+  (toPair_ofPair O p).symm.trans
+    ((congrArg (toPair O) h).trans (toPair_ofPair O q))
+
+/-- **The transpose is always a second admissible pair**: the zero
+side of an observer is symmetric, so an admissible pair has an
+admissible transpose, and the two kernels differ in the designated
+first endpoint.
+
+Two scope declarations.  (1) PRESENTATION GRADE: the two kernels
+carry the same difference map and the same zero predicate, hence
+induce the SAME `kernelApart`; they differ only in the designated
+endpoints.  Nothing is claimed up to isomorphism, up to `VHom`, or up
+to observational equivalence — the same scope as
+`kernel_gateways_not_identical`.  (2) The symmetry used here is the
+ADMITTED `zero_symm` field of `DiffObs`, priced separately at carrier
+two (`kernel_not_observer`), not a derived fact; the corresponding
+statement fails for a bare `WitnessedDiff`, which carries no
+symmetry. -/
+theorem transpose_kernel_ne (O : DiffObs X R) (a b : X)
+    (hw : ¬ ZeroRel O a b) :
+    ofDiffObs O a b hw ≠
+      ofDiffObs O b a (fun h => hw (O.zero_symm h)) := by
+  intro he
+  have hab : a = b := congrArg (fun K => K.a) he
+  apply hw
+  rw [hab]
+  exact O.zero_refl b
+
+/-- **An observer that determines a kernel at all never determines
+only one**: whenever an observer has an admissible pair —
+equivalently, by `kernel_from_obs_iff_pair`, whenever a kernel
+carrying its difference map and zero predicate exists at all — there
+are at least two distinct such kernels.  The hypothesis is
+load-bearing: an observer with no admissible pair has no such kernel
+whatsoever (`kernel_no_witness_from_collapse`).  Within the
+hypothesis there is no carrier bound and no value-type bound.  Same
+two scope declarations as `transpose_kernel_ne`: PRESENTATION GRADE,
+and resting on the ADMITTED `zero_symm` field.  This is
+non-uniqueness, NOT non-existence of a selector: no claim is made
+that some function from observers to kernels fails to exist. -/
+theorem kernel_not_unique_of_pair (O : DiffObs X R)
+    (h : ∃ a b : X, ¬ ZeroRel O a b) :
+    ∃ K₁ K₂ : WitnessedDiff X R,
+      K₁.delta = O.delta ∧ K₁.Zero = O.Zero ∧
+        K₂.delta = O.delta ∧ K₂.Zero = O.Zero ∧ K₁ ≠ K₂ := by
+  obtain ⟨a, b, hw⟩ := h
+  exact ⟨ofDiffObs O a b hw,
+         ofDiffObs O b a (fun hz => hw (O.zero_symm hz)),
+         rfl, rfl, rfl, rfl, transpose_kernel_ne O a b hw⟩
+
+/-- The two-element observer whose zero relation is equality: both
+ordered off-diagonal pairs are admissible. -/
+def boolEqObs : DiffObs Bool Bool where
+  delta x y := xor x y
+  Zero v := v = false
+  zero_refl := by decide
+  zero_symm := by
+    intro x y
+    revert x y
+    decide
+  zero_trans := by
+    intro x y z
+    revert x y z
+    decide
+
+/-- The first ordered off-diagonal pair is admissible. -/
+theorem boolEqObs_nonzero_ft : ¬ ZeroRel boolEqObs false true :=
+  fun h => Bool.noConfusion h
+
+/-- The second ordered off-diagonal pair is admissible. -/
+theorem boolEqObs_nonzero_tf : ¬ ZeroRel boolEqObs true false :=
+  fun h => Bool.noConfusion h
+
+/-- **Two distinct kernels over one observer, concretely**: both
+ordered off-diagonal pairs of `boolEqObs` are admissible, and the
+kernels they build differ in the designated first endpoint.
+PRESENTATION GRADE, as `transpose_kernel_ne`. -/
+theorem two_kernels_from_one_observer :
+    ofDiffObs boolEqObs false true boolEqObs_nonzero_ft ≠
+      ofDiffObs boolEqObs true false boolEqObs_nonzero_tf :=
+  fun he => Bool.noConfusion (congrArg (fun K => K.a) he)
+
+/-- **One observer, two same-data kernels**, exhibited without a
+hypothesis: `boolEqObs` carries two distinct kernels with its own
+difference map and zero predicate.  This is the non-uniqueness
+statement; `pair_choice_load_bearing` is strictly weaker — it says
+only that some pair fails the side condition.  PRESENTATION GRADE, as
+`transpose_kernel_ne`. -/
+theorem pair_choice_not_unique :
+    ∃ (O : DiffObs Bool Bool) (K₁ K₂ : WitnessedDiff Bool Bool),
+      K₁.delta = O.delta ∧ K₁.Zero = O.Zero ∧
+        K₂.delta = O.delta ∧ K₂.Zero = O.Zero ∧ K₁ ≠ K₂ :=
+  ⟨boolEqObs,
+   ofDiffObs boolEqObs false true boolEqObs_nonzero_ft,
+   ofDiffObs boolEqObs true false boolEqObs_nonzero_tf,
+   rfl, rfl, rfl, rfl, two_kernels_from_one_observer⟩
+
+/-- The relabelling action on two-element observers: negate both
+arguments of the difference map.  The zero predicate and the three
+law fields are carried over unchanged. -/
+def swapObs (O : DiffObs Bool R) : DiffObs Bool R where
+  delta x y := O.delta (!x) (!y)
+  Zero := O.Zero
+  zero_refl := fun x => O.zero_refl (!x)
+  zero_symm := fun h => O.zero_symm h
+  zero_trans := fun h₁ h₂ => O.zero_trans h₁ h₂
+
+/-- `boolEqObs` is a fixed point of the relabelling action: negating
+both arguments leaves its difference map pointwise unchanged.  The
+only non-definitional step is `funext`, which in Lean 4 core is
+proved from `Quot.sound`; the report for this theorem records that
+dependency. -/
+theorem swapObs_boolEqObs : swapObs boolEqObs = boolEqObs := by
+  refine obs_eq_of_fields _ _ ?_ rfl
+  funext x y
+  revert x y
+  decide
+
+/-- The obstruction, at the single fixed point.  Beyond `sel` being a
+TOTAL function on `DiffObs Bool Bool`, the only hypothesis is one
+instance of the negation law, taken at `boolEqObs`.  Because the
+proof consumes only `sel boolEqObs`, the same argument covers any
+selector whose domain contains `boolEqObs` and is closed under
+`swapObs` — including selectors restricted to observers that have an
+admissible pair. -/
+theorem no_equivariant_pair_at_fixed_point
+    (sel : DiffObs Bool Bool → Bool × Bool)
+    (heq : sel (swapObs boolEqObs) =
+      (!((sel boolEqObs).1), !((sel boolEqObs).2))) : False := by
+  rw [swapObs_boolEqObs] at heq
+  have hfix : ∀ x : Bool, (!x) ≠ x := by decide
+  have h1 : (!((sel boolEqObs).1)) = (sel boolEqObs).1 :=
+    (congrArg (fun p : Bool × Bool => p.1) heq).symm
+  exact hfix (sel boolEqObs).1 h1
+
+/-- **No relabelling-equivariant pair selector**: no total choice of
+an ordered pair from a two-element observer commutes with the
+negation relabelling.  SCOPE: total selectors on `DiffObs Bool Bool`
+under this ONE action.  Nothing is claimed about other carriers,
+other actions, other equivariance laws, or selectors that are not
+required to be equivariant — a non-equivariant selector on
+`DiffObs Bool Bool` trivially exists.  This is NOT a general
+refutation of a preferred choice.  At the relation stratum the same
+obstruction is already native (`Bridge.no_swap_fixed_offdiag_pair`,
+`Bridge.equivariant_not_D2`); this transports it to the observer
+stratum and claims no priority over it. -/
+theorem no_swap_equivariant_pair_selector :
+    ¬ ∃ sel : DiffObs Bool Bool → Bool × Bool,
+        ∀ O : DiffObs Bool Bool,
+          sel (swapObs O) = (!((sel O).1), !((sel O).2)) := by
+  rintro ⟨sel, heq⟩
+  exact no_equivariant_pair_at_fixed_point sel (heq boolEqObs)
 
 /-- A supplied-style structure alone can have no witness at all: over
 the total collapse no pair is complement-witnessed, so no kernel

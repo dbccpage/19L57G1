@@ -1,5 +1,5 @@
 {
- "axiom_report_sha256": "eda16787b1be282f985956b14c3f6220d406a7e47cc1ba41429c23b6b5ce4571",
+ "axiom_report_sha256": "83adee7bdebb139fd6f916a4555672a9de5dbaddecc1841982545b9c52963dcb",
  "base_commit": "2c605e2",
  "gates": {
   "artifacts": "ci/compare_artifacts.py",
@@ -54,5 +54,5 @@
   "UNIQUE_PROBE_COMPLIANT_DESCRIPTOR_IN_DECLARED_TOGGLE_CLASS",
   "ABSOLUTE_NO_OUTSIDE_UNFORMULABLE"
  ],
- "theorem_count": 1151
+ "theorem_count": 1178
 }

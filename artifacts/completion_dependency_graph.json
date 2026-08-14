@@ -1626,8 +1626,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
-   "consumers": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "Bridge.lean",
    "name": "Bridge.equivariant_not_D2",
@@ -1636,8 +1640,12 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
-   "consumers": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [
+    "ContactKernel.lean"
+   ],
    "kind": "generic",
    "module": "Bridge.lean",
    "name": "Bridge.no_swap_fixed_offdiag_pair",
@@ -6140,7 +6148,7 @@
    "citing_claims": [
     "CL-PD2-PASSAGE",
     "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)",
-    "CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)"
+    "CL-PD2-PACKET-05P (the pre-observational policy, priced, 2026-08-14)"
    ],
    "consumers": [
     "ContactKernel.lean",
@@ -6175,7 +6183,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-05P (the pre-observational policy, priced, 2026-08-14)"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6189,9 +6199,158 @@
     "Quot.sound"
    ],
    "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obstP_strict_factors",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : obstP s i j = (retainedP s i j && protectedP s i j && zeroStrictP s i j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obstP_factors",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : obstP s i j = (retainedP s i j && protectedP s i j && declaredP s && zeroDeclP s i j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_of_gates",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h1 : retainedP s i j = true) (h2 : protectedP s i j = true) (h3 : declaredP s = true) (h4 : zeroDeclP s i j = true) : obstP s i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.gates_of_obst",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h : obstP s i j = true) : retainedP s i j = true \u2227 protectedP s i j = true \u2227 declaredP s = true \u2227 zeroDeclP s i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obstP_reads_three_stores",
+   "role": "preservation",
+   "statement": "(s t : PState) (i j : Nat) (hw : s.wit = t.wit) (hp : s.prot = t.prot) (ho : s.obs = t.obs) : obstP s i j = obstP t i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.undeclared_gates",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h : s.obs = none) : declaredP s = false \u2227 zeroDeclP s i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obs_gates_not_both_false",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) : (declaredP s || zeroDeclP s i j) = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.strict_gate_entails_declared",
+   "role": "preservation",
+   "statement": "(s : PState) (i j : Nat) (h : zeroStrictP s i j = true) : declaredP s = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05P (the pre-observational policy, priced, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_policies_agree_when_declared",
+   "role": "preservation",
+   "statement": "(s : PState) (cols : List (List Nat)) (h : s.obs = some cols) (i j : Nat) : obstP s i j = obstEmptyObs s i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05P (the pre-observational policy, priced, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.obst_policies_differ",
+   "role": "preservation",
+   "statement": ": obstEmptyObs preRetainedObstructed 0 1 = true \u2227 obstP preRetainedObstructed 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
     "CL-PD2-PASSAGE",
-    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)",
-    "CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)"
+    "CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)"
    ],
    "consumers": [
     "ContactKernel.lean"
@@ -6200,7 +6359,67 @@
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.obst_conditions_independent",
    "role": "preservation",
-   "statement": ": -- retained, protected, declared, but separated (zero fails) obstP { occ"
+   "statement": ": -- gate 4 omitted: retained, protected, declared, but the -- declared observation separates the pair (retainedP gateWitnessNoZero 0 1 = true \u2227 protectedP gateWitnessNoZero 0 1 = true \u2227 declaredP gateWitnessNoZero = true \u2227 zeroDeclP gateWitnessNoZero 0 1 = false \u2227 obstP gateWitnessNoZero 0 1 = false) \u2227 -- gate 3 omitted: retained, protected, vacuously zero, but no -- observation is declared (retainedP gateWitnessNoDeclaration 0 1 = true \u2227 protectedP gateWitnessNoDeclaration 0 1 = true \u2227 declaredP gateWitnessNoDeclaration = false \u2227 zeroDeclP gateWitnessNoDeclaration 0 1 = true \u2227 obstP gateWitnessNoDeclaration 0 1 = false) \u2227 -- gate 2 omitted: retained, declared, zero, but not protected (retainedP gateWitnessNoProtection 0 1 = true \u2227 protectedP gateWitnessNoProtection 0 1 = false \u2227 declaredP gateWitnessNoProtection = true \u2227 zeroDeclP gateWitnessNoProtection 0 1 = true \u2227 obstP gateWitnessNoProtection 0 1 = false) \u2227 -- gate 1 omitted: protected, declared, zero, but not retained (retainedP gateWitnessNoRetention 0 1 = false \u2227 protectedP gateWitnessNoRetention 0 1 = true \u2227 declaredP gateWitnessNoRetention = true \u2227 zeroDeclP gateWitnessNoRetention 0 1 = true \u2227 obstP gateWitnessNoRetention 0 1 = false) \u2227 -- all four gates: obstructed (retainedP gateWitnessAll 0 1 = true \u2227 protectedP gateWitnessAll 0 1 = true \u2227 declaredP gateWitnessAll = true \u2227 zeroDeclP gateWitnessAll 0 1 = true \u2227 obstP gateWitnessAll 0 1 = true)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.gate_zero_independent",
+   "role": "preservation",
+   "statement": ": (\u00ac (\u2200 (s : PState) (i j : Nat), retainedP s i j = true \u2192 protectedP s i j = true \u2192 declaredP s = true \u2192 zeroDeclP s i j = true)) \u2227 (\u00ac (\u2200 (s : PState) (i j : Nat), retainedP s i j = true \u2192 protectedP s i j = true \u2192 declaredP s = true \u2192 obstP s i j = true))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.gate_declared_independent",
+   "role": "preservation",
+   "statement": ": (\u00ac (\u2200 (s : PState) (i j : Nat), retainedP s i j = true \u2192 protectedP s i j = true \u2192 zeroDeclP s i j = true \u2192 declaredP s = true)) \u2227 (\u00ac (\u2200 (s : PState) (i j : Nat), retainedP s i j = true \u2192 protectedP s i j = true \u2192 zeroDeclP s i j = true \u2192 obstP s i j = true))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.gate_protection_independent",
+   "role": "preservation",
+   "statement": ": (\u00ac (\u2200 (s : PState) (i j : Nat), retainedP s i j = true \u2192 declaredP s = true \u2192 zeroDeclP s i j = true \u2192 protectedP s i j = true)) \u2227 (\u00ac (\u2200 (s : PState) (i j : Nat), retainedP s i j = true \u2192 declaredP s = true \u2192 zeroDeclP s i j = true \u2192 obstP s i j = true))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PrimitivePassage.lean",
+   "name": "PrimitivePassage.gate_retention_independent",
+   "role": "preservation",
+   "statement": ": (\u00ac (\u2200 (s : PState) (i j : Nat), protectedP s i j = true \u2192 declaredP s = true \u2192 zeroDeclP s i j = true \u2192 retainedP s i j = true)) \u2227 (\u00ac (\u2200 (s : PState) (i j : Nat), protectedP s i j = true \u2192 declaredP s = true \u2192 zeroDeclP s i j = true \u2192 obstP s i j = true))"
   },
   {
    "axioms": [
@@ -6365,9 +6584,7 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [
-    "CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)"
-   ],
+   "citing_claims": [],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6450,7 +6667,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PASSAGE"
+    "CL-PD2-PASSAGE",
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
    ],
    "consumers": [
     "ContactBridge.lean",
@@ -10178,6 +10396,7 @@
     "CL-PD2-RENAMING-STRUCTURE (Goal 1)"
    ],
    "consumers": [
+    "ContactKernel.lean",
     "Represented.lean"
    ],
    "kind": "generic",
@@ -15523,7 +15742,8 @@
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
-    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)"
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)",
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -15535,7 +15755,8 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)"
+    "CL-PD2-PACKET-02 (pair-choice necessity, 2026-08-14)",
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -15598,7 +15819,8 @@
    "axioms": [],
    "citing_claims": [
     "CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)",
-    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)"
+    "CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)",
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
    ],
    "consumers": [],
    "kind": "generic",
@@ -15942,6 +16164,160 @@
    "name": "ContactKernel.kernel_two_point_presentation",
    "role": "preservation",
    "statement": "{X R : Type} [DecidableEq X] (K : WitnessedDiff X R) : \u2203 p : X \u2192 Nat, p K.a = 0 \u2227 p K.b = 1"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.obs_eq_of_fields",
+   "role": "preservation",
+   "statement": "{X R : Type} (O\u2081 O\u2082 : DiffObs X R) (hd : O\u2081.delta = O\u2082.delta) (hz : O\u2081.Zero = O\u2082.Zero) : O\u2081 = O\u2082"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.toPair_ofPair",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (p : NonZeroPair O) : toPair O (ofPair O p) = p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.ofPair_toPair",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (K : SameDataKernel O) : ofPair O (toPair O K) = K"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.ofPair_injective",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) {p q : NonZeroPair O} (h : ofPair O p = ofPair O q) : p = q"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.transpose_kernel_ne",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (a b : X) (hw : \u00ac ZeroRel O a b) : ofDiffObs O a b hw \u2260 ofDiffObs O b a (fun h => hw (O.zero_symm h))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.kernel_not_unique_of_pair",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (h : \u2203 a b : X, \u00ac ZeroRel O a b) : \u2203 K\u2081 K\u2082 : WitnessedDiff X R, K\u2081.delta = O.delta \u2227 K\u2081.Zero = O.Zero \u2227 K\u2082.delta = O.delta \u2227 K\u2082.Zero = O.Zero \u2227 K\u2081 \u2260 K\u2082"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.boolEqObs_nonzero_ft",
+   "role": "preservation",
+   "statement": ": \u00ac ZeroRel boolEqObs false true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.boolEqObs_nonzero_tf",
+   "role": "preservation",
+   "statement": ": \u00ac ZeroRel boolEqObs true false"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.two_kernels_from_one_observer",
+   "role": "preservation",
+   "statement": ": ofDiffObs boolEqObs false true boolEqObs_nonzero_ft \u2260 ofDiffObs boolEqObs true false boolEqObs_nonzero_tf"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.pair_choice_not_unique",
+   "role": "preservation",
+   "statement": ": \u2203 (O : DiffObs Bool Bool) (K\u2081 K\u2082 : WitnessedDiff Bool Bool), K\u2081.delta = O.delta \u2227 K\u2081.Zero = O.Zero \u2227 K\u2082.delta = O.delta \u2227 K\u2082.Zero = O.Zero \u2227 K\u2081 \u2260 K\u2082"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.swapObs_boolEqObs",
+   "role": "preservation",
+   "statement": ": swapObs boolEqObs = boolEqObs"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.no_equivariant_pair_at_fixed_point",
+   "role": "preservation",
+   "statement": "(sel : DiffObs Bool Bool \u2192 Bool \u00d7 Bool) (heq : sel (swapObs boolEqObs) = (!((sel boolEqObs).1), !((sel boolEqObs).2))) : False"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ContactKernel.lean",
+   "name": "ContactKernel.no_swap_equivariant_pair_selector",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 sel : DiffObs Bool Bool \u2192 Bool \u00d7 Bool, \u2200 O : DiffObs Bool Bool, sel (swapObs O) = (!((sel O).1), !((sel O).2))"
   },
   {
    "axioms": [],

@@ -63,8 +63,19 @@ blind*:
   irreflexivity, symmetry from symmetry, transitivity from
   cotransitivity (automatic here because separation-by-columns is
   cotransitive: `sepCol_trans` is its finite avatar).
-- **P5** — the four-condition independence, all maximal proper
-  subsets refuted concretely.
+- **P5** — the four-gate factorization and independence.  `obstP` is
+  written with three factors and PROVED equal to the product of four
+  TOTAL gates (`obstP_factors`); no gate follows from the other
+  three, and no maximal proper subset entails obstruction — each a
+  pair of `¬ ∀` statements over all states and pairs
+  (`gate_zero_independent`, `gate_declared_independent`,
+  `gate_protection_independent`, `gate_retention_independent`), with
+  the five concrete witnesses in `obst_conditions_independent`.
+  Scope: independence is non-entailment; the gates are NOT jointly
+  free, since gates 3 and 4 both read `obs`
+  (`obs_gates_not_both_false`).  Cite the factorization and the
+  independence theorems together — the factorization alone is
+  near-definitional.
 - **P6** — same-level completeness certified by construction
   (`menu_complete`), repair family = the exhaustive filter; the
   extension side is a *separate* family with its own gates, refusal

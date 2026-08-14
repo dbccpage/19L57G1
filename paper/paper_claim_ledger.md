@@ -2225,7 +2225,7 @@ CL-PD2-LADDER)
   `.collapseAllObs_id_not_classConstant`,
   `.collapseAllObs_no_view_descend`.
 - **Axioms**: every report of the three collision modules lies within
-  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1151 reports;
+  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1178 reports;
   `ci/check_axiom_report.py`).
 - **Python**: `primitive_contact.json:enumerations.E3_descent_dictionary`
   (64 combinations, 28 descending, 36 fixed-domain divergences) and
@@ -2745,18 +2745,137 @@ CL-PD2-LADDER)
 - **Axioms**: expected empty (definitional + structure cases).
 - **Falsifier**: treating the iff as uniqueness; closing
   `open_kernel_grade` from this lemma.
+- **Correction 2026-08-14**: this entry cited
+  `pair_choice_load_bearing` as the non-uniqueness witness.  It is
+  not one — see CL-PD2-PACKET-02R.  The iff itself is unaffected.
+
+### CL-PD2-PACKET-02R (pair choice: correspondence, non-uniqueness, no equivariant selector, 2026-08-14)
+- **Withdrawn claim**: "`pair_choice_load_bearing` is
+  non-uniqueness."  FALSE as stated.  That theorem exhibits one
+  admissible pair and one inadmissible pair at one observer; it says
+  an arbitrary pair may fail the side condition.  It exhibits no two
+  valid choices, no two distinct kernels, and no absence of a
+  canonical selector.  Its docstring has been rewritten to the weak
+  claim it carries.
+- **Statement 1 — correspondence (the honest upgrade of the iff)**:
+  for a FIXED observer, admissible pairs and same-data kernels
+  correspond one for one.  `toPair` and `ofPair` between
+  `NonZeroPair O` and `SameDataKernel O`, with BOTH round trips
+  proved (`toPair_ofPair`, `ofPair_toPair`) and injectivity
+  (`ofPair_injective`).  This replaces the inhabitation equivalence
+  `kernel_from_obs_iff_pair` with a bijection: the pair choice IS
+  the kernel choice.
+- **Statement 2 — non-uniqueness, generally**: whenever an observer
+  has an admissible pair at all, it has at least two distinct
+  same-data kernels (`kernel_not_unique_of_pair`, via
+  `transpose_kernel_ne`).  No carrier bound, no value-type bound.
+  Concretely `pair_choice_not_unique` and
+  `two_kernels_from_one_observer` exhibit `(false, true)` and
+  `(true, false)` over `boolEqObs`.
+- **Statement 3 — no canonical choice, scoped**: no TOTAL selector
+  on `DiffObs Bool Bool` commutes with the negation relabelling
+  (`no_swap_equivariant_pair_selector`), because `boolEqObs` is a
+  fixed point of the action (`swapObs_boolEqObs`) and negation fixes
+  no pair.
+- **Class**: DERIVED_THEOREM (13 new declarations).
+- **Scope, stated exactly**: Statement 2 is PRESENTATION GRADE — the
+  two kernels carry the same difference map and zero predicate and
+  induce the SAME `kernelApart`; they differ only in the designated
+  endpoints.  Nothing is claimed up to isomorphism, up to `VHom`, or
+  up to observational equivalence.  Statement 2 rests on the
+  ADMITTED `zero_symm` field, priced at carrier two
+  (`kernel_not_observer`); the corresponding statement fails for a
+  bare `WitnessedDiff`, which carries no symmetry.  Statement 3 is
+  scoped to total selectors on `DiffObs Bool Bool` under this ONE
+  action — nothing is claimed about other carriers, other actions,
+  other equivariance laws, or non-equivariant selectors, which
+  trivially exist.  This is not a general refutation of a preferred
+  choice.  The same obstruction is already native at the relation
+  stratum (`Bridge.no_swap_fixed_offdiag_pair`,
+  `Bridge.equivariant_not_D2`); this transports it to the observer
+  stratum and claims no priority over it.
+- **Axioms**: Statements 1–2 axiom-free; Statement 3 within
+  {Quot.sound} (via `funext`).
+- **Falsifier**: citing `pair_choice_load_bearing` for any of the
+  three statements; reading Statement 2 as distinctness up to
+  isomorphism; reading Statement 3 as a general no-canonical-choice
+  theorem.
 
 ### CL-PD2-PACKET-05 (obstruction independence audit, 2026-08-14)
-- **Statement**: `obst_conditions_independent` already proves each
-  of the four `obstP` conjuncts (retained, protected, declared,
-  zero) is necessary and that all four together suffice, by five
-  concrete states.  No hidden store is read.  Scope is this
-  predicate, not a claim that no other activation signature exists.
-- **Class**: AUDIT of a sealed DERIVED_THEOREM.  No new Lean.
-- **Evidence**: `PrimitivePassage.obst_conditions_independent`
-  (`:157`), companions `obst_requires_observation`,
-  `no_protection_no_obstruction`.
-- **Deps**: the sealed passage record.
-- **Falsifier**: treating the audit as a new theorem or as
-  reverse-mathematics completeness.
+- **Status**: **WITHDRAWN 2026-08-14** and replaced by
+  CL-PD2-PACKET-05R.  The withdrawn statement read: "`obst_
+  conditions_independent` already proves each of the four `obstP`
+  conjuncts (retained, protected, declared, zero) is necessary and
+  that all four together suffice, by five concrete states."  That
+  was false as stated.  `obstP` as written has THREE factors, the
+  third being a single `obs`-reading match; and the theorem cited
+  was five `obstP … = false/true` atoms, which assert nothing about
+  any conjunct, gate, or subset.  The four-way reading lived only
+  in the doc-comment, and CLAUDE.md forbids comments as evidence.
+- **Falsifier that fired**: reading a table of verdicts as a
+  factorization theorem.
+
+### CL-PD2-PACKET-05R (four obstruction gates, proved, 2026-08-14)
+- **Statement**: `obstP` is EQUAL, at every state and every pair, to
+  the product of four TOTAL `Bool` gates `retainedP`, `protectedP`,
+  `declaredP`, `zeroDeclP` (`obstP_factors`), with both directions
+  named (`obst_of_gates`, `gates_of_obst`); and no one of the four
+  gates follows from the conjunction of the other three, nor does
+  any maximal proper subset of them entail obstruction
+  (`gate_zero_independent`, `gate_declared_independent`,
+  `gate_protection_independent`, `gate_retention_independent`, each
+  a pair of `¬ ∀` statements quantified over ALL states and pairs).
+- **Class**: DERIVED_THEOREM (13 new declarations).
+- **Scope, stated exactly**: independence means non-entailment, and
+  nothing more.  It is NOT claimed that all sixteen gate valuations
+  occur — `obs_gates_not_both_false` proves they do not, gates 3 and
+  4 both reading `obs`.  It is NOT claimed that four is the only
+  decomposition of this predicate, nor that no other activation
+  signature exists.  `obstP_factors` alone is near-definitional (any
+  `Bool` splits as `true && c`); it is the four independence
+  theorems that carry the content, and the two must be cited
+  together.
+- **Declared convention**: `zeroDeclP` answers `true` on
+  pre-observational states.  That value is a DECLARED CONVENTION,
+  exhibited by `undeclared_gates`, priced by
+  `obs_gates_not_both_false`, and shown load-bearing by
+  `strict_gate_entails_declared` (under the rival `none => false`
+  convention gate 4 would entail gate 3, and the omission witness
+  would be unavailable).
+- **Evidence**: the thirteen declarations above plus
+  `obstP_strict_factors` (the three written factors, by `rfl`) and
+  `obstP_reads_three_stores` (at most `wit`, `prot`, `obs` are
+  read); `#print axioms` for each in `lean4/Derivation.lean`.
+- **Axioms**: within {propext, Quot.sound}.
+- **Falsifier**: citing `obstP_factors` alone as a four-way
+  independence result; claiming all sixteen valuations occur;
+  claiming necessity of the gates for any notion of obstruction
+  other than this predicate.
+
+### CL-PD2-PACKET-05P (the pre-observational policy, priced, 2026-08-14)
+- **Statement**: the `none => false` branch of `obstP` is a selected
+  semantics, not a derived necessity.  `obst_requires_observation`
+  unfolds that branch and proves nothing about whether it had to be
+  chosen.  The rival reading — treat `none` as an observation
+  declaring no columns — is now NAMED (`obstEmptyObs`), and the two
+  readings are proved to agree exactly on declared states
+  (`obst_policies_agree_when_declared`) and to differ at a named
+  pre-observational state (`obst_policies_differ`).
+- **Class**: DECLARED_POLICY, with a proved divergence.
+- **Supersedes**: the prior claim that declared observation "is not
+  a convention", which is WITHDRAWN.  What is licensed instead: the
+  selected passage semantics makes declaration an explicit gate, and
+  it differs from treating `none` as an empty observer — provably,
+  at a named state.  What is NOT licensed: that the selected branch
+  was forced.
+- **Note on the older witness**: `obst_diverges_when_undeclared` does
+  NOT carry this content.  Its first conjunct writes the lists out
+  rather than projecting them from the state, so it is a closed
+  truth mentioning no state at all; only its second conjunct is
+  about the state.  It is retained as the historical witness and is
+  not evidence of divergence.
+- **Evidence**: `PrimitivePassage.obstEmptyObs`,
+  `obst_policies_agree_when_declared`, `obst_policies_differ`.
+- **Falsifier**: asserting the branch is forced; citing
+  `obst_requires_observation` as evidence about the choice.
 

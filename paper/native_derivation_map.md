@@ -71,10 +71,14 @@ side.  The *irreflexivity fact →
 irreflexivity law* FALSE row is echoed on the other side, where the
 symmetry and transitivity fields are likewise admissions and not
 derivable (`ContactKernel.kernel_not_bs`, `.kernel_zero_not_trans`).
-`artifacts/lean_axioms.txt` now carries 1151 reports, including the
-three collision modules plus the packet-2 pair-choice lemmas; every
-one remains within {propext,
+`artifacts/lean_axioms.txt` now carries 1178 reports, including the
+three collision modules, the packet-2 pair-choice lemmas, and the
+review-repair additions (the four obstruction gates and their
+independence theorems, the pair/kernel correspondence, and the named
+rival pre-observational policy); every one remains within {propext,
 Quot.sound}, and no theorem name of this table became ambiguous
-against the new declarations (checked name by name against all 1151
+against the new declarations (checked name by name against all 1178
 reports; the three non-theorem entries name their declaration site,
-as the header already states).
+as the header already states).  The artifact is LF-only and its raw
+and canonicalized hashes coincide, bound by
+`tests/test_axiom_artifact_bytes.py`.

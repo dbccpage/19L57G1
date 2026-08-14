@@ -17,6 +17,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Prompt byte-identity
         run: python ci/check_prompt_hashes.py
+      - name: Transport document citations bound to Lean sources
+        run: python ci/check_transport_citations.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q
@@ -85,3 +87,9 @@ jobs:
         run: python3 ci/check_lean_audit.py lake_build.log
       - name: Axiom report matches committed artifact
         run: python3 ci/check_axiom_report.py lake_build.log
+      - name: Axiom artifact regenerates byte-identically (LF, no CRLF)
+        run: |
+          cp artifacts/lean_axioms.txt /tmp/lean_axioms.committed
+          python3 ci/regen_axiom_artifact.py lake_build.log
+          diff /tmp/lean_axioms.committed artifacts/lean_axioms.txt
+          git diff --check -- artifacts/lean_axioms.txt

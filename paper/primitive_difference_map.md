@@ -403,7 +403,7 @@ and `paper/` carry none of it.
 **Where the new theorems live.**  Three modules, 2015 lines in the
 working tree (539 + 710 + 766; 1942 at the spine commit `ebb1e0b`),
 every `#print axioms` report inside {propext, Quot.sound}
-(`artifacts/lean_axioms.txt`, 1151 reports):
+(`artifacts/lean_axioms.txt`, 1178 reports):
 
 | module | content | headline names |
 |---|---|---|

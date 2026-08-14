@@ -1200,25 +1200,124 @@ Base `bd2e8c8` (PR #19 merged).  Mission
 `prompt/flw_mission_pr14.md`.  AuthorityEffect None.
 
 1. **Packet 5 — audit only, no new Lean.**
-   `PrimitivePassage.obst_conditions_independent` already exhibits
+   **WITHDRAWN 2026-08-14 — see the review-repair entry below.**  The
+   withdrawn text claimed that
+   `PrimitivePassage.obst_conditions_independent` "already exhibits
    the four maximal proper subsets of the `obstP` conjunction
-   (retained / protected / declared / zero), each with a concrete
-   non-obstructing state, plus the all-four witness.  The predicate
-   reads only `wit`, `prot`, and `obs`; the independence states vary
-   those stores alone.  Companions
-   `obst_requires_observation`, `no_protection_no_obstruction`,
-   `obst_agrees_when_declared`, `obst_diverges_when_undeclared`
-   confirm the declared-observation conjunct is not a convention.
-   Scope: independence of *this* four-conjunct Bool predicate, not a
-   reverse-mathematics claim that no other activation signature
-   exists.  `two_rule` may keep citing it as the activation theorem.
+   (retained / protected / declared / zero)" and that the companion
+   theorems "confirm the declared-observation conjunct is not a
+   convention."  Both were false.  `obstP` as written has three
+   factors, not four conjuncts; the cited theorem was five verdict
+   atoms asserting nothing about any subset; and
+   `obst_requires_observation` unfolds a chosen definitional branch,
+   so it cannot establish that the branch is not a convention.  The
+   surviving true remainder: the predicate reads only `wit`, `prot`
+   and `obs` (now a theorem, `obstP_reads_three_stores`), and
+   `two_rule` may keep citing the activation theorem.
 
 2. **Packet 2 — pair-choice necessity as a reusable lemma.**
    `ContactKernel.kernel_from_obs_iff_pair`: a kernel carrying an
    observer's `delta` and `Zero` exists iff a non-zero pair exists.
    `ContactKernel.eq_ofDiffObs_of_fields`: any such kernel equals
    `ofDiffObs` at its own endpoints.  Neither statement claims
-   uniqueness of the pair (`pair_choice_load_bearing` remains the
-   non-uniqueness witness; `kernel_no_witness_from_collapse` remains
-   the no-pair witness).  Axiom reports 1149 → 1151, both new
+   uniqueness of the pair; `kernel_no_witness_from_collapse` remains
+   the no-pair witness.  Axiom reports 1149 → 1151, both new
    theorems axiom-free.
+   **Correction 2026-08-14**: the parenthesis calling
+   `pair_choice_load_bearing` "the non-uniqueness witness" is
+   WITHDRAWN — that theorem is not one.  See the review-repair entry
+   below.
+
+## Review repair of PR #20 (2026-08-14)
+
+Head under review `cbcee09`.  A review requested changes on six
+findings; all six are confirmed and repaired here.  Where the repair
+could be made by strengthening the mathematics rather than weakening
+the prose, it was.  Two prose claims are WITHDRAWN outright rather
+than softened, and both withdrawals are quoted at their original
+sites above.
+
+1. **The four-way independence claim was false; it is now proved.**
+   `obstP` as written has three factors.  Four TOTAL gates
+   (`retainedP`, `protectedP`, `declaredP`, `zeroDeclP`) are now
+   defined, `obstP_factors` proves the four-gate factorization at
+   every state and pair, `obst_of_gates` / `gates_of_obst` name both
+   directions, and four `gate_*_independent` theorems prove — over
+   ALL states and pairs, as pairs of `¬ ∀` statements — that no gate
+   follows from the other three and no maximal proper subset entails
+   obstruction.  The five witness states are unchanged and are now
+   named definitions stating their own gate values.  Recorded
+   honestly: `obstP_factors` alone is near-definitional and must be
+   cited together with the independence theorems;
+   `obs_gates_not_both_false` proves the gates are NOT jointly free
+   (gates 3 and 4 both read `obs`, so four of sixteen valuations are
+   unreachable); and `strict_gate_entails_declared` prices the
+   `none => true` convention on gate 4.
+
+2. **Pair choice: correspondence, non-uniqueness, and no
+   equivariant selector.**  `pair_choice_load_bearing` proved only
+   that an arbitrary pair may fail; its docstring now says so.  The
+   inhabitation equivalence is upgraded to a bijection —
+   `toPair` / `ofPair` between `NonZeroPair O` and
+   `SameDataKernel O` with both round trips and injectivity, so the
+   pair choice IS the kernel choice.  `kernel_not_unique_of_pair`
+   proves non-uniqueness generally (any observer with an admissible
+   pair has at least two distinct same-data kernels), with
+   `(false, true)` / `(true, false)` over `boolEqObs` as the
+   concrete instance.  `no_swap_equivariant_pair_selector` supplies
+   the no-canonical-choice theorem the review said would be
+   required, scoped to total selectors under the negation
+   relabelling.  Scope declared in the ledger: PRESENTATION GRADE,
+   resting on the ADMITTED `zero_symm` field, and claiming no
+   priority over the native relation-stratum obstruction
+   (`Bridge.no_swap_fixed_offdiag_pair`).
+
+3. **Declaration is selected semantics, and the divergence is now
+   checked.**  The `none => false` branch is reclassified
+   DECLARED_POLICY; `obst_requires_observation` is documented as an
+   unfolding of that branch and not evidence about the choice.  The
+   review's suggested wording would have left the divergence
+   unproved, so instead the rival reading is NAMED (`obstEmptyObs`)
+   and compared: `obst_policies_agree_when_declared` (the two agree
+   exactly on declared states) and `obst_policies_differ` (they
+   disagree at a named pre-observational state, both predicates
+   applied to that same state).  Also recorded: the older
+   `obst_diverges_when_undeclared` does NOT carry this content — its
+   first conjunct writes the lists out instead of projecting them
+   from the state, so it is a closed truth mentioning no state at
+   all.  It is retained as the historical witness only.
+
+4. **The transport document's evidence boundary is regenerated and
+   now machine-checked.**  The anchor said five post-anchor
+   declarations; there are seven (verified absent at `ebb1e0b` by
+   `git grep`).  Stale line citations are corrected, and
+   `ci/check_transport_citations.py` with
+   `tests/test_transport_citations.py` now fails the build on any
+   future drift, so the boundary cannot go stale silently again.
+
+5. **The owned-path firewall violation is recorded, not
+   retroactively legalized.**  PR #20 wrote
+   `paper/native_derivation_map.md` and
+   `paper/primitive_difference_map.md`, neither in
+   `prompt/flw_mission_pr14.md`'s `owned_paths`.  The edits were
+   necessary (they carry the axiom-report count, which would
+   otherwise contradict the artifact), so the paths are added by a
+   DATED AMENDMENT that names the violation as a violation.
+
+6. **The axiom artifact is restored to LF and its bytes are now
+   bound.**  PR #20 flipped all 1151 lines LF → CRLF; because
+   `.gitattributes` marks `artifacts/** -text`, those bytes were
+   committed verbatim and `git diff --check` failed on every line.
+   The two receipts bound different domains — raw bytes in
+   `completion_receipt.axiom_report_sha256`, LF-canonicalized bytes
+   in `primitive_completion_receipt`, and nothing compared them
+   (`ci/compare_artifacts.py` covers only `*.json` and
+   `full/*.json.gz`).  The artifact is regenerated LF-only by
+   `ci/regen_axiom_artifact.py`, which writes bytes explicitly so a
+   shell redirect can never reintroduce CRLF, and
+   `tests/test_axiom_artifact_bytes.py` binds the newline discipline
+   AND the raw/canonical parity — the two hashes now coincide at
+   `83adee7b…`, which holds exactly when the file is LF-only.
+
+Axiom reports 1151 → 1178 (27 new theorems), all within
+{propext, Quot.sound}; `lake build` clean at 44 jobs.
