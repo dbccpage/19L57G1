@@ -1,15 +1,25 @@
 """Verify the transport document's Lean citations against the sources.
 
 ``contact/analysis/lean_theorem_transport.md`` cites Lean declarations by
-file and line, in two forms::
+file and line, in three forms::
 
     `ContactBridge.obsApart` (`ContactBridge.lean:116`)   -- explicit file
     `ContactBridge.obsApart_irrefl` (`:119`)              -- inherits the file
+    `Derivation.quot_barrier` (`lean4/Derivation/Quot.lean:23`)  -- path
 
 PR #20 added declarations to ``ContactKernel.lean`` without regenerating
 these citations, so every ``ContactKernel`` line reference downstream of the
 insertion drifted by about 33 lines and nothing caught it.  This checker
 recomputes each cited line from the Lean sources and fails on any drift.
+
+The raw population and the classifier are defined by SEPARATE patterns, on
+purpose.  While ``raw_token_count`` reused the classifier's own regex the
+totality assertion compared the parser with itself: the two path-prefixed
+citations the classifier could not match were missing from both sides of the
+comparison, so the check passed while the checker's domain was two citations
+short.  ``RAW_CITE`` therefore states the population directly -- every
+backticked token, on one line, ending in a colon and digits -- and never
+mentions ``CITE``.
 
 Usage::
 
@@ -33,8 +43,17 @@ DECL = re.compile(
     r"(?:theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+"
     r"(?P<name>[A-Za-z_][A-Za-z0-9_.']*)"
 )
-# A citation: `Foo.lean:123` or `:123`, always inside backticks.
-CITE = re.compile(r"`(?:(?P<file>[A-Za-z_][A-Za-z0-9_]*)\.lean)?:(?P<line>\d+)`")
+# A citation: `Foo.lean:123`, `lean4/Derivation/Foo.lean:123`, or `:123`,
+# always inside backticks.  Any path prefix is captured so --fix can put it
+# back; without the prefix group a path-prefixed citation matched nothing.
+CITE = re.compile(
+    r"`(?P<path>(?:[A-Za-z0-9_.\-]+/)*)"
+    r"(?:(?P<file>[A-Za-z_][A-Za-z0-9_]*)\.lean)?"
+    r":(?P<line>\d+)`"
+)
+# The raw population, stated WITHOUT reference to CITE: every backticked
+# token, on one line, whose final characters are a colon and digits.
+RAW_CITE = re.compile(r"`[^`\n]*?:\d+`")
 # Any backticked segment, and the shape a segment must have to name a decl.
 BACKTICKED = re.compile(r"`([^`]*)`")
 IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_.']*")
@@ -111,8 +130,15 @@ def index_sources() -> dict[str, dict[str, int]]:
 
 
 def raw_token_count(text: str) -> int:
-    """Count every raw ``...:NNN`` citation token recognized by the checker."""
-    return sum(1 for _ in CITE.finditer(text))
+    """Count the raw citation population, independently of the parser.
+
+    A raw citation is any backticked token, on one line, whose final
+    characters are a colon followed by digits.  This must never be
+    expressed in terms of :data:`CITE`: :func:`_assert_totality` is a real
+    cross-check only while the population and the classifier are defined
+    apart, and it is vacuous the moment they share a pattern.
+    """
+    return sum(1 for _ in RAW_CITE.finditer(text))
 
 
 def _assert_totality(raw_count: int, classified_count: int) -> None:
@@ -134,12 +160,10 @@ def citations(text: str, known: frozenset[str]) -> list[CitationClassification]:
     inherited.
     """
     out: list[CitationClassification] = []
-    raw_count = 0
     current = ""
     line_start = 0
     for lineno, line in enumerate(text.splitlines(keepends=True), start=1):
         for m in CITE.finditer(line):
-            raw_count += 1
             token_start = line_start + m.start()
             token_end = line_start + m.end()
             if m.group("file"):
@@ -198,7 +222,11 @@ def citations(text: str, known: frozenset[str]) -> list[CitationClassification]:
                         )
             out.append(classification)
         line_start += len(line)
-    _assert_totality(raw_count, len(out))
+    # The cross-check that matters: the independently enumerated population
+    # against what the classifier actually produced.  Comparing CITE with
+    # itself, as this line used to, cannot detect a citation CITE is blind
+    # to -- both sides simply lose it together.
+    _assert_totality(raw_token_count(text), len(out))
     return out
 
 
@@ -223,7 +251,9 @@ def rewrite(text: str, index: dict[str, dict[str, int]], known: frozenset[str]) 
             if actual is not None and actual != row.cited_line:
                 match = CITE.fullmatch(row.raw_token)
                 assert match is not None
-                prefix = f"{match.group('file')}.lean" if match.group("file") else ""
+                prefix = match.group("path")
+                if match.group("file"):
+                    prefix += f"{match.group('file')}.lean"
                 fixes.append(
                     (row.token_start, row.token_end, f"`{prefix}:{actual}`")
                 )

@@ -1180,5 +1180,5 @@ Derivation.lean:1275:0: 'SeparationCapacity.ball_length' depends on axioms: [pro
 Derivation.lean:1276:0: 'SeparationCapacity.profileD_deep' depends on axioms: [propext, Quot.sound]
 Derivation.lean:1277:0: 'SeparationCapacity.depth_d_outrun' depends on axioms: [propext, Quot.sound]
 Derivation.lean:1278:0: 'SeparationCapacity.depth_d_obstruction' depends on axioms: [propext, Quot.sound]
-Derivation.lean:1279:0: 'SeparationCapacity.sealed_depth2_is_radius_one' depends on axioms: [propext, Quot.sound]
-Derivation.lean:1280:0: 'SeparationCapacity.deep_interior_singleton_at_four' depends on axioms: [propext, Quot.sound]
+Derivation.lean:1279:0: 'SeparationCapacity.radius_one_agrees_with_sealed_depth2_n5' depends on axioms: [propext, Quot.sound]
+Derivation.lean:1280:0: 'SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4' depends on axioms: [propext, Quot.sound]

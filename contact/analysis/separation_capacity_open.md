@@ -18,21 +18,43 @@ repository, and no declaration in `lean4/` carries those names.
 | `SeparationCapacity.profileD_deep` | every deep radius-`d` ball has the constant profile | `propext, Quot.sound` |
 | `SeparationCapacity.depth_d_outrun` | all deep-interior points share one depth-`d` profile; horizon-free | `propext, Quot.sound` |
 | `SeparationCapacity.depth_d_obstruction` | a colliding deep pair exists from `n ≥ 2d + 3` | `propext, Quot.sound` |
-| `SeparationCapacity.sealed_depth2_is_radius_one` | the sealed `depth2_obstruction_n5` threshold is the `d = 1` instance | `propext, Quot.sound` |
-| `SeparationCapacity.deep_interior_singleton_at_four` | at `n = 4`, radius 1, the deep interior is `{2}` | `propext, Quot.sound` |
+| `SeparationCapacity.radius_one_agrees_with_sealed_depth2_n5` | over the interior of `reflState 5`, sealed `Generator.profile2` equality and radius-one `profileD` equality are the same relation; plus the sealed `Generator.depth2_obstruction_n5` collision carried across it | `propext, Quot.sound` |
+| `SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4` | the same equivalence over the interior of `reflState 4`; plus the sealed `Generator.depth2_separates_near_ends_n4` separation carried across it, and the arithmetic fact that at `n = 4`, radius 1, the deep interior is `{2}` | `propext, Quot.sound` |
 
-These are bound to the sealed generator: `profileD` is built from
-`Generator.profile1` on `Generator.reflState`, and `profileD_deep`
-spends `Generator.middle_profile`. They are not a private mirror.
+`profileD` is built from `Generator.profile1` on `Generator.reflState`,
+and `profileD_deep` spends `Generator.middle_profile`, so these
+statements are about the sealed chain rather than a private mirror. The
+two §3 theorems go further and consume the sealed theorems themselves;
+the next paragraph says exactly how far that reaches and where it stops.
 
-**Radius convention (residual closed).** Sealed `Generator.profile2`
-(`Generator.lean:277`) reads the centre plus its in- and out-neighbour
-profiles — the ball `{i-1, i, i+1}`, radius ONE. So sealed "depth `k`"
-indexes radius `k-1`, and `2 * d + 3` at `d = 1` is `n = 5`, exactly
+**Radius convention (sealed instances transported; general `n` OPEN).**
+Sealed `Generator.profile2` (`Generator.lean:277`) reads the centre plus
+its in- and out-neighbour profiles — the ball `{i-1, i, i+1}`, radius
+ONE. Under that reading sealed "depth `k`" indexes radius `k-1`, and
+`2 * d + 3` at `d = 1` is `n = 5`, the length of
 `Generator.depth2_obstruction_n5`. A prior mirror that put the first
 depth-2 collision at `n = 7` was computing radius 2, i.e. sealed depth
-3. Both were correct; they indexed differently. The two theorems in §3
-of the module record the correspondence.
+3. Both were correct; they indexed differently.
+
+What §3 of the module proves is a typed equivalence, one per sealed
+chain: over the interior indices of `reflState 5` (resp. `reflState 4`),
+`Generator.profile2 s i = Generator.profile2 s j` holds exactly when
+`profileD n i 1 = profileD n j 1`, decided elementwise. Each sealed
+theorem is then carried across its own equivalence, so
+`profileD 5 2 1 = profileD 5 3 1` is derived FROM
+`Generator.depth2_obstruction_n5` rather than re-instantiated from
+`depth_d_obstruction`, and `profileD 4 1 1 ≠ profileD 4 3 1` is derived
+from `Generator.depth2_separates_near_ends_n4`.
+
+**What that does not settle.** The equivalence is decided on those two
+chains only. No general-`n` statement relating `Generator.profile2` to
+`profileD · · 1` is proved, so the radius convention is reconciled at
+the sealed instances and remains OPEN as a general claim. An earlier
+version of this document called that residual closed, and the module
+docstring said both sealed instances were "recovered"; at that time §3
+contained no theorem mentioning `Generator.profile2` at all and neither
+of its theorems consumed a sealed theorem. Both statements are
+withdrawn and replaced by the scope above.
 
 ---
 
@@ -50,6 +72,10 @@ cited as if it did:
 - any `LocalStrategy` / repair-strategy class exclusion;
 - any statement about identity-grade observation;
 - any "no absolute interior" or "no outside" result.
+
+Also not proved: the general-`n` radius correspondence. §1 records the
+two sealed instances that ARE transported; nothing in this repository
+relates `Generator.profile2` to `profileD · · 1` for arbitrary `n`.
 
 ---
 

@@ -1276,5 +1276,5 @@ open Derivation
 #print axioms SeparationCapacity.profileD_deep
 #print axioms SeparationCapacity.depth_d_outrun
 #print axioms SeparationCapacity.depth_d_obstruction
-#print axioms SeparationCapacity.sealed_depth2_is_radius_one
-#print axioms SeparationCapacity.deep_interior_singleton_at_four
+#print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n5
+#print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4

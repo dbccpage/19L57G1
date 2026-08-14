@@ -1374,3 +1374,51 @@ sealed generator, not a mirror: `profileD` is `Generator.profile1` on
 Axiom reports 1178 → 1184 (6 new theorems), all within
 {propext, Quot.sound}; `lake build` clean at 45 jobs, lean audit 43
 sources.
+
+## PR #21 clearance repair: citation domain and radius correspondence (2026-08-14)
+
+Reviewer amendment "FINAL CLEARANCE REPAIR", items 1 and 2. Both withdraw a
+receipt that did not cover its prose.
+
+1. **The transport-citation gate was checking a domain two citations short,
+   and could not notice.**  `citations()` counted its raw population with the
+   SAME `CITE` regex it classified with, so `_assert_totality` compared the
+   parser against itself and was vacuous by construction.  `CITE`'s file group
+   `[A-Za-z_][A-Za-z0-9_]*` cannot span a path separator, so the two
+   path-prefixed citations in `contact/analysis/lean_theorem_transport.md`
+   matched nothing, went missing from both sides of the comparison, and were
+   never line-checked — while the gate reported success.  The population is now
+   stated independently (`RAW_CITE`: every backticked token, on one line,
+   ending in a colon and digits), the totality assertion is made against THAT
+   number, and `CITE` gained a path group, so all 190 tokens are parsed,
+   classified and verified; `--fix` preserves path prefixes.
+   `tests/test_transport_citations.py` pins the population at 190 and adds a
+   regression that reinstates the old blind regex and proves the path-prefixed
+   token stays in the raw count and surfaces as a totality failure instead of
+   cancelling out on both sides.  This narrows the claim made in item 4 of the
+   "PR #20 review findings" entry above, which said the checker failed the
+   build on any unclassified citation token: it did not, for a citation the
+   regex could not match at all.
+
+2. **The radius-convention "correspondence" did not transport, and is now
+   proved or scoped.**  `SeparationCapacity.sealed_depth2_is_radius_one` never
+   mentioned `Generator.profile2` and never consumed
+   `Generator.depth2_obstruction_n5`; it re-instantiated this module's own
+   `depth_d_obstruction` at `d = 1, n = 5`.
+   `deep_interior_singleton_at_four` mentioned no profile at all and was pure
+   arithmetic under a geometric name.  Both are replaced by
+   `radius_one_agrees_with_sealed_depth2_n5` and
+   `radius_one_agrees_with_sealed_depth2_n4`, whose STATEMENTS mention both
+   `profileD` and `Generator.profile2` and whose PROOFS consume the sealed
+   theorems.  Each proves that over its chain's interior indices the two
+   profile equalities are the same relation, then carries the sealed instance
+   across that equivalence.  Withdrawn with them: the module docstring's
+   "recovered" and "reconciled" wording, and
+   `contact/analysis/separation_capacity_open.md`'s "Radius convention
+   (residual closed)".  The equivalence is decided on those two chains only;
+   the general-`n` correspondence is not proved and is recorded as OPEN.
+   Item 2 of the entry above is narrowed accordingly.
+
+Axiom reports 1184 → 1184 (two theorems renamed and restated, no net change),
+all within {propext, Quot.sound}; `lake build` clean at 45 jobs, lean audit 43
+sources.

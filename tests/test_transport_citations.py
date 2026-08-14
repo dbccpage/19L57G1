@@ -12,6 +12,7 @@ This test reads it.
 
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -51,7 +52,7 @@ def test_every_raw_token_receives_a_classification() -> None:
     text = checker.DOC.read_text(encoding="utf-8")
     rows = checker.citations(text, frozenset(index))
 
-    assert checker.raw_token_count(text) == 188
+    assert checker.raw_token_count(text) == 190
     assert len(rows) == checker.raw_token_count(text)
 
 
@@ -173,3 +174,71 @@ def test_index_finds_known_declarations() -> None:
     assert "ContactKernel" in index
     assert "obstP_factors" in index["PrimitivePassage"]
     assert "no_equivariant_pair_valued_map" in index["ContactKernel"]
+
+
+def test_path_prefixed_citations_reach_the_classifier() -> None:
+    """The two citations the pre-repair classifier regex could not see.
+
+    ``lean4/Derivation/DiffInterface.lean:33`` and
+    ``lean4/Derivation/Quot.lean:23`` carry a path prefix.  The old file
+    group ``[A-Za-z_][A-Za-z0-9_]*`` cannot span ``/``, so neither token
+    matched and neither was ever classified or line-checked.
+    """
+    index = checker.index_sources()
+    known = frozenset(index)
+    text = checker.DOC.read_text(encoding="utf-8")
+
+    prefixed = [
+        row
+        for row in checker.citations(text, known)
+        if isinstance(row, checker.Verified) and "/" in row.raw_token
+    ]
+
+    assert len(prefixed) == 2
+    assert {(row.module, row.name) for row in prefixed} == {
+        ("DiffInterface", "DiffObs"),
+        ("Quot", "Derivation.quot_barrier"),
+    }
+
+
+def test_a_path_prefixed_citation_cannot_leave_the_raw_count(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The raw population is not defined by the classifier.
+
+    Reinstating the pre-repair ``CITE`` makes the path-prefixed token
+    vanish from the CLASSIFIER.  It must not vanish from the raw count
+    too: the loss has to surface as a totality failure instead of
+    cancelling out on both sides, which is precisely what the
+    shared-regex version could never do.
+    """
+    text = "`Derivation.quot_barrier` (`lean4/Derivation/Quot.lean:23`)\n"
+    blind = re.compile(
+        r"`(?:(?P<file>[A-Za-z_][A-Za-z0-9_]*)\.lean)?:(?P<line>\d+)`"
+    )
+    assert blind.search(text) is None
+
+    monkeypatch.setattr(checker, "CITE", blind)
+
+    assert checker.raw_token_count(text) == 1
+    with pytest.raises(AssertionError, match="1 raw token.*0 classified"):
+        checker.citations(text, frozenset({"Quot"}))
+
+
+def test_fix_preserves_a_path_prefix() -> None:
+    """--fix may not quietly rewrite a path-prefixed citation to a bare one."""
+    index = {"Quot": {"quot_barrier": 5}}
+    text = "`Derivation.quot_barrier` (`lean4/Derivation/Quot.lean:23`)\n"
+
+    fixed = checker.rewrite(text, index, frozenset(index))
+
+    assert fixed == "`Derivation.quot_barrier` (`lean4/Derivation/Quot.lean:5`)\n"
+
+
+def test_fix_rewrites_an_inherited_bare_citation() -> None:
+    index = {"Known": {"decl": 5, "other": 7}}
+    text = "`Known.decl` (`Known.lean:12`) and `Known.other` (`:99`)\n"
+
+    fixed = checker.rewrite(text, index, frozenset(index))
+
+    assert fixed == "`Known.decl` (`Known.lean:5`) and `Known.other` (`:7`)\n"

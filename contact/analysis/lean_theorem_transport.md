@@ -23,10 +23,22 @@ line anchors; it does not establish commit ancestry or a declaration census.
 two more, and its line citations were not regenerated when
 `ContactKernel.lean` grew — every `ContactKernel` reference below the
 insertion point had drifted, in the worst case by 255 lines. Both faults are
-repaired here. The citation checker now classifies every raw citation token,
-fails on every unresolved classification or count mismatch, and only rewrites
-classified declarations (`--fix` regenerates those line anchors).
-`tests/test_transport_citations.py` exercises both drift and totality failures.
+repaired here. The checker classifies every raw citation token, fails on every
+unresolved classification or count mismatch, and only rewrites classified
+declarations (`--fix` regenerates those line anchors, path prefixes included).
+`tests/test_transport_citations.py` exercises drift, totality and prefix
+failures.
+
+*Domain correction (2026-08-14).* The paragraph above previously asserted that
+the checker classified every raw citation token. It did not. Its raw count
+reused the classifier's own regex, whose file group could not span a path
+separator, so the two path-prefixed citations in this document — the DiffObs
+citation in section 1 and the quot_barrier citation in section 2.18 — matched
+nothing, were absent from BOTH sides of the totality comparison, and were
+never line-checked. The population is now enumerated independently, as every
+backticked token ending in a colon and digits. It is 190; the two above are
+exactly the ones the earlier regex could not see, and all 190 are now
+classified and verified against the sources.
 
 `artifacts/lean_axioms.txt` carries 1184 reports over 43 sources, all within
 `{propext, Quot.sound}`. Throughout this document **"on disk" means the

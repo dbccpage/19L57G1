@@ -11,18 +11,25 @@ This module generalizes the structural half to every fixed radius.
 **Radius convention, stated exactly.**  Here `d` is the GRAPH RADIUS of
 the observed ball.  The sealed `Generator.profile2` observes the centre
 together with its in- and out-neighbour profiles, i.e. the ball
-`{i-1, i, i+1}` — radius ONE, not two.  Sealed "depth `k`" therefore
-indexes radius `k-1`, and the threshold `2 * d + 3` at `d = 1` gives
-`n = 5`, which is exactly `depth2_obstruction_n5`.  §3 records that
-correspondence as two theorems rather than a remark.
+`{i-1, i, i+1}` — radius ONE, not two.  Under that reading sealed
+"depth `k`" indexes radius `k-1`, and the threshold `2 * d + 3` at
+`d = 1` gives `n = 5`, the length of the sealed `depth2_obstruction_n5`
+instance.  §3 turns the reading into a typed correspondence on each of
+the two sealed chains: over the interior indices of `reflState 4` and
+of `reflState 5`, sealed `Generator.profile2` equality and this module's
+radius-one `profileD` equality are the SAME relation, decided
+elementwise, and each sealed theorem is then carried across it.  The
+general-`n` form of that correspondence is NOT proved.
 
 **What is proved here and what is not.**  Proved: for every fixed
 radius, all deep-interior points share one depth-`d` profile
 (`depth_d_outrun`), horizon-free — no bound on `n` beyond deepness of
 the two points — and a colliding deep pair exists from `n ≥ 2d + 3`
-(`depth_d_obstruction`).  NOT proved here: any statement about
-COLOURED views, finite view alphabets, repair strategies, or the
-capacity bound that would need a pigeonhole.  Those remain OPEN; see
+(`depth_d_obstruction`); and, on the two sealed chains only, the radius
+correspondence of §3.  NOT proved here: the general-`n` radius
+correspondence, and any statement about COLOURED views, finite view
+alphabets, repair strategies, or the capacity bound that would need a
+pigeonhole.  Those remain OPEN; see
 `contact/analysis/separation_capacity_open.md` for the exact residual
 and why it is not discharged in this commit.
 -/
@@ -84,25 +91,59 @@ theorem depth_d_obstruction (d n : Nat) (hn : 2 * d + 3 ≤ n) :
    depth_d_outrun n (d + 1) (d + 2) d (by omega) (by omega)
      (by omega) (by omega)⟩
 
-/-! ## Correspondence with the sealed depth-2 instances
+/-! ## Radius correspondence with the sealed depth-2 instances
 
 Sealed `Generator.profile2` reads the radius-ONE ball, so the sealed
-depth-2 constants are this module's `d = 1` case.  Both sealed
-instances are recovered, so the two conventions are reconciled rather
-than left as a naming residual. -/
+depth-2 constants belong to this module's `d = 1` case.  Each theorem
+below states that correspondence as a typed equivalence on ONE sealed
+chain — `Generator.profile2` equality holds exactly where radius-one
+`profileD` equality holds, over that chain's interior indices — and then
+carries the matching sealed theorem across it.  Both are decided on
+their own chain.  Neither is a general-`n` statement, and neither
+re-instantiates `depth_d_obstruction` in place of the sealed result. -/
 
-/-- The sealed `depth2_obstruction_n5` threshold is this module's
-`d = 1` instance: `2 * 1 + 3 = 5`. -/
-theorem sealed_depth2_is_radius_one :
-    ∃ i j, i ≠ j ∧ 1 < i ∧ i + 1 < 5 ∧ 1 < j ∧ j + 1 < 5 ∧
-      profileD 5 i 1 = profileD 5 j 1 :=
-  depth_d_obstruction 1 5 (by omega)
+/-- **The `n = 5` correspondence, and the sealed collision carried
+across it.**  First conjunct: over the interior indices `1, 2, 3, 4` of
+`reflState 5`, sealed `Generator.profile2` equality and radius-one
+`profileD` equality are the same relation.  Second and third conjuncts:
+the deep pair `(2, 3)` of `Generator.depth2_obstruction_n5`, transported
+— the proof consumes that sealed theorem and does not appeal to
+`depth_d_obstruction`. -/
+theorem radius_one_agrees_with_sealed_depth2_n5 :
+    (∀ i ∈ [1, 2, 3, 4], ∀ j ∈ [1, 2, 3, 4],
+        (profile2 (reflState 5) i = profile2 (reflState 5) j ↔
+          profileD 5 i 1 = profileD 5 j 1))
+      ∧ profileD 5 2 1 = profileD 5 3 1 ∧ (2 : Nat) ≠ 3 :=
+  have corr : ∀ i ∈ [1, 2, 3, 4], ∀ j ∈ [1, 2, 3, 4],
+      (profile2 (reflState 5) i = profile2 (reflState 5) j ↔
+        profileD 5 i 1 = profileD 5 j 1) := by decide
+  ⟨corr,
+   (corr 2 (by decide) 3 (by decide)).mp depth2_obstruction_n5.1,
+   depth2_obstruction_n5.2⟩
 
-/-- At `n = 4` and radius one the deep interior is the singleton `{2}`,
-so this module claims NO collision there.  That is why the sealed
-`depth2_separates_near_ends_n4` is consistent with the outrun: the pair
-`(1, 3)` it separates is not deep. -/
-theorem deep_interior_singleton_at_four (i : Nat)
-    (h0 : 1 < i) (h1 : i + 1 < 4) : i = 2 := by omega
+/-- **The `n = 4` correspondence, and the sealed separation carried
+across it.**  First conjunct: the same equivalence over the interior
+indices `1, 2, 3` of `reflState 4`.  Second conjunct: the pair `(1, 3)`
+that `Generator.depth2_separates_near_ends_n4` separates is separated by
+the radius-one profile too — again proved from the sealed theorem.
+Third conjunct: the arithmetic reason this is consistent with
+`depth_d_outrun` rather than a counterexample to it — at `n = 4` and
+radius one the deepness side-conditions `1 < i` and `i + 1 < 4` hold
+only at `i = 2`, so `(1, 3)` is not a deep pair.  That conjunct is
+arithmetic and mentions no profile; it is stated inside this theorem so
+the reason travels with the result it explains. -/
+theorem radius_one_agrees_with_sealed_depth2_n4 :
+    (∀ i ∈ [1, 2, 3], ∀ j ∈ [1, 2, 3],
+        (profile2 (reflState 4) i = profile2 (reflState 4) j ↔
+          profileD 4 i 1 = profileD 4 j 1))
+      ∧ profileD 4 1 1 ≠ profileD 4 3 1
+      ∧ ∀ i, 1 < i → i + 1 < 4 → i = 2 :=
+  have corr : ∀ i ∈ [1, 2, 3], ∀ j ∈ [1, 2, 3],
+      (profile2 (reflState 4) i = profile2 (reflState 4) j ↔
+        profileD 4 i 1 = profileD 4 j 1) := by decide
+  ⟨corr,
+   fun h => depth2_separates_near_ends_n4
+     ((corr 1 (by decide) 3 (by decide)).mpr h),
+   fun i h0 h1 => by omega⟩
 
 end SeparationCapacity
