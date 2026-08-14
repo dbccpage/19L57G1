@@ -1,0 +1,1033 @@
+{
+ "candidate_reading_countermodel_sizes": {
+  "A": 2,
+  "Bc": 2,
+  "Bl": 2,
+  "Bs": 3,
+  "C": 1,
+  "D": 2,
+  "E": 2,
+  "F": 2,
+  "W": 1,
+  "note": "CARRIER SIZE of the exhibited countermodel per native candidate reading for the native-to-supplied direction; the verdict scope's size list 1,2,3,2,2,1,2,2,2 enumerates W,A,Bs,Bc,Bl,C,D,E,F in that order.  These are NOT all proved minima.  Carrier minimality is proved in Lean for Bs only (3, by the positive ContactBridge.bool_bs_repr at carrier 2).  For W, A and C minimality is METATHEORY (the reading cannot be posed below that carrier: a distinguished pair needs two points; every relation on a subsingleton is symmetric).  For D and E carrier minimality is explicitly UNCLAIMED - d_not_witnessed_repr and no_kernel_over_allzero refute a witness gap, not a carrier bound (lean_theorem_transport.md section 4).  Bc/Bl/F carry no separate countermodel at all: they fail through the A-conjunct countermodel (d2Bare_bc, d2Bare_bl, d2Protected_f cited) and inherit its carrier and its minimality argument"
+ },
+ "correspondence_map": {
+  "field_rows": [
+   {
+    "delta": "spelling only",
+    "native_field": "delta : X \u2192 X \u2192 R",
+    "supplied_field": "\u03b4 : \u03b1 \u2192 \u03b1 \u2192 \u03b2"
+   },
+   {
+    "delta": "none",
+    "native_field": "Zero : R \u2192 Prop",
+    "supplied_field": "Zero : \u03b2 \u2192 Prop"
+   },
+   {
+    "delta": "none",
+    "native_field": "zero_refl : \u2200 x, Zero (delta x x)",
+    "supplied_field": "zero_refl : \u2200 x, Zero (\u03b4 x x)"
+   },
+   {
+    "delta": "binder implicitness only",
+    "native_field": "zero_symm : \u2200 {x y}, Zero (delta x y) \u2192 Zero (delta y x)",
+    "supplied_field": "zero_symm : \u2200 x y, Zero (\u03b4 x y) \u2192 Zero (\u03b4 y x)"
+   },
+   {
+    "delta": "binder implicitness only",
+    "native_field": "zero_trans : \u2200 {x y z}, Zero (delta x y) \u2192 Zero (delta y z) \u2192 Zero (delta x z)",
+    "supplied_field": "zero_trans : \u2200 x y z, Zero (\u03b4 x y) \u2192 Zero (\u03b4 y z) \u2192 Zero (\u03b4 x z)"
+   }
+  ],
+  "scratch_bridge_check": {
+   "bridge_check_lean_sha256": "627195699cb222e8bdd88c0a644fa96dd8529503000690b149b5ad49c311d481",
+   "bridge_check_log_sha256": "cdabe0ecab0256aac914dd3662977bb6f49b5b70384df7eecfe3c9b7bfb6fd3e",
+   "evidence_class": "FINITE_COMPUTATION",
+   "location": "OUTSIDE the repository (scratch): contact_scratch/bridge_check.lean, compiled with the pinned toolchain via lake env lean; never committed",
+   "reproducibility": "NOT REPRODUCIBLE FROM THIS REPOSITORY: the vocabulary firewall forbids committing the check, so no CI job, test, or reviewer can re-run it; the two sha256 values above are the entire record.  Every claim resting on this premise - in particular the CONTACT_EQUIVALENT_UNDER_DECIDABLE_ZERO_PLUS_APARTNESS_ADMISSIONS terminal, whose first premise it is - inherits that limitation, and the artifact and receipt scopes state it",
+   "round_trip_result": "to_of_id and of_to_id proved by rfl-grade structure conversion at Type 0; zeroRel_matches proved; all three reports: does not depend on any axioms"
+  },
+  "universe_note": "the supplied structure is universe-polymorphic (Type u/v); the native structure is monomorphic (Type); at Type 0 the two are definitionally interconvertible.  Consequence carried at every citation site: every contact theorem quantifies over Type (universe 0) only, and the Prop-valued restriction of obsApart_repr_iff and unit_total_not_repr is a further narrowing inside that"
+ },
+ "countermodel_table": [
+  {
+   "carrier": 1,
+   "refutes": "representability of the total one-point relation (native readings W and C; models unitBare/unitFull cited)",
+   "theorem": "ContactBridge.unit_total_not_repr"
+  },
+  {
+   "carrier": 2,
+   "refutes": "representability of the oriented two-point witness over ANY value type (reading A and the sealed interface object; H3)",
+   "theorem": "ContactBridge.d2_not_obs_complement"
+  },
+  {
+   "carrier": 3,
+   "refutes": "representability of the symmetric three-point relation (reading Bs); minimal by bool_bs_repr (positive at carrier 2)",
+   "theorem": "ContactBridge.triSym_not_obs_complement"
+  },
+  {
+   "carrier": 2,
+   "refutes": "witness transport over the empty relation (readings D and E; boolEmpty_d/boolEmpty_e cited)",
+   "theorem": "ContactBridge.d_not_witnessed_repr"
+  },
+  {
+   "carrier": 1,
+   "refutes": "kernel realization from W- or C-grade data (unitBare/unitFull cited)",
+   "theorem": "ContactKernel.no_kernel_on_subsingleton"
+  },
+  {
+   "carrier": 2,
+   "refutes": "kernel realization over the total collapse (readings D and E)",
+   "theorem": "ContactKernel.no_kernel_over_allzero"
+  },
+  {
+   "carrier": 2,
+   "refutes": "kernel-to-observer promotion (symmetry law field)",
+   "theorem": "ContactKernel.kernel_not_observer"
+  },
+  {
+   "carrier": 3,
+   "refutes": "kernel-to-observer promotion (transitivity law field)",
+   "theorem": "ContactKernel.kernel_zero_not_trans"
+  },
+  {
+   "carrier": 2,
+   "refutes": "K to Bs at the kernel stratum",
+   "theorem": "ContactKernel.kernel_not_bs"
+  },
+  {
+   "carrier": 3,
+   "refutes": "K to Bc at the kernel stratum",
+   "theorem": "ContactKernel.kernel_not_bc"
+  },
+  {
+   "carrier": 2,
+   "refutes": "unconditional descent of the difference map",
+   "theorem": "ObsDescent.collapseAllObs_no_delta_descend"
+  },
+  {
+   "carrier": 2,
+   "refutes": "unconditional descent of views (quotient no-recovery, observer incarnation)",
+   "theorem": "ObsDescent.collapseAllObs_no_view_descend"
+  },
+  {
+   "carrier": "Nat with D = []",
+   "refutes": "removability of the for-all-domains quantifier in the factorization dictionary",
+   "theorem": "ObsDescent.fiberConstant_fixed_D_not_classConstant"
+  },
+  {
+   "carrier": 2,
+   "refutes": "kernel realization from an observer WITHOUT a chosen non-zero pair",
+   "theorem": "ContactKernel.pair_choice_load_bearing"
+  },
+  {
+   "carrier": 2,
+   "refutes": "existence of any complement witness over the total collapse",
+   "theorem": "ContactKernel.kernel_no_witness_from_collapse"
+  },
+  {
+   "carrier": 2,
+   "refutes": "carrier-map determinacy of valued kernel morphisms (off-image value freedom)",
+   "theorem": "ContactKernel.vhom_not_unique"
+  },
+  {
+   "carrier": 3,
+   "refutes": "any terminal collector of kernels (free-point branching)",
+   "theorem": "ContactKernel.kernel_no_terminal"
+  },
+  {
+   "carrier": 2,
+   "refutes": "presentation-identity of initial gateways (iso-only, matching two_initials_not_identical)",
+   "theorem": "ContactKernel.kernel_gateways_not_identical"
+  },
+  {
+   "carrier": 2,
+   "refutes": "E-transport under one declared merger (merger_erases pattern)",
+   "theorem": "ContactKernel.kernel_not_e_merged"
+  }
+ ],
+ "coverage_map": [
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "supplied is universe-polymorphic; native is monomorphic Type - presentation only",
+   "kind": "structure",
+   "native": "DiffInterface.DiffObs (sealed at base; field-for-field, see correspondence_map)",
+   "supplied": "PrimitiveDifference"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "DiffInterface.ZeroRel (sealed at base)",
+   "supplied": "ZeroRel"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "DiffInterface.zeroRel_equivalence (refl component; re-export of a law field)",
+   "supplied": "zeroRel_refl"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "DiffInterface.zeroRel_equivalence (symm component)",
+   "supplied": "zeroRel_symm"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "DiffInterface.zeroRel_equivalence (trans component)",
+   "supplied": "zeroRel_trans"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "DiffInterface.zeroRel_equivalence (sealed at base; same name is native property)",
+   "supplied": "zeroRel_equivalence"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "DiffInterface.obsSetoid (sealed at base)",
+   "supplied": "zeroSetoid"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "DiffInterface.ObsQuotient (sealed at base)",
+   "supplied": "ResidualQuotient"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "DiffInterface.ObsQuotient.mk (sealed at base)",
+   "supplied": "classOf"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "DiffInterface.obsQuotient_eq_of_zero (sealed at base)",
+   "supplied": "classOf_eq_of_zero"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.obsQuotient_mk_eq_iff (NEW this run; exactness half obsQuotient_exact)",
+   "supplied": "classOf_eq_iff_zeroRel"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.DeltaConstant (NEW)",
+   "supplied": "DeltaCongruent"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.deltaDescend (NEW)",
+   "supplied": "deltaFactor"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescend_mk (NEW; rfl grade)",
+   "supplied": "deltaFactor_classOf_classOf"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescend_exists_iff (mp direction)",
+   "supplied": "deltaFactor_requires_congruence"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescend_exists_iff (NEW)",
+   "supplied": "deltaFactor_exists_iff_deltaCongruent"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "supplied pins one side to the canonical lift; equivalent given the computation rule deltaDescend_mk",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescend_unique (NEW; symmetric two-map form)",
+   "supplied": "deltaFactor_unique"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.deltaDescend_exists_iff",
+   "supplied": "deltaFactor_no_factor_of_not_deltaCongruent"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescend_blocked_of_witness (NEW)",
+   "supplied": "deltaFactor_no_factor_of_zeroRel_ne"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "right-hand side of ObsDescent.deltaDescendMod_exists_iff (mod layer collapsed to the equality layer)",
+   "supplied": "DeltaCongruentMod"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "witness of ObsDescent.deltaDescendMod_exists_iff (mpr)",
+   "supplied": "deltaFactorMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "computation rule of the deltaDescendMod_exists_iff witness (rfl grade)",
+   "supplied": "deltaFactorMod_classOf_classOf"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescendMod_exists_iff (mp direction)",
+   "supplied": "deltaFactorMod_requires_congruence"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.deltaDescendMod_exists_iff (NEW)",
+   "supplied": "deltaFactorMod_exists_iff_deltaCongruentMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.deltaDescendMod_exists_iff",
+   "supplied": "deltaFactorMod_no_factor_of_not_deltaCongruentMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.deltaDescendMod_exists_iff at a four-point witness",
+   "supplied": "deltaFactorMod_no_factor_of_zeroRel_not_rel"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.coarsenMap (NEW)",
+   "supplied": "quotientMapOfSetoidImp"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.coarsenMap_mk (NEW; rfl grade)",
+   "supplied": "quotientMapOfSetoidImp_mk"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "pointwise composition of the compatibility with the coarsening implication (one-liner over ObsDescent.classConstant_comp_mk_iff)",
+   "supplied": "deltaCongruentMod_of_setoid_imp"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descendMod_exists_of_coarsen (NEW; unary transport, binary via deltaDescendMod_exists_iff)",
+   "supplied": "deltaFactorMod_exists_of_setoid_imp"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.collapseAllObs (NEW)",
+   "supplied": "boolAllZeroNonconstant"
+  },
+  {
+   "evidence_class": "COUNTERMODEL",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.collapseAllObs_not_deltaConstant (NEW)",
+   "supplied": "boolAllZeroNonconstant_not_deltaCongruent"
+  },
+  {
+   "evidence_class": "COUNTERMODEL",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.collapseAllObs_no_delta_descend (NEW)",
+   "supplied": "boolAllZeroNonconstant_no_factorization"
+  },
+  {
+   "evidence_class": "COUNTERMODEL",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.collapseAllObs_id_not_classConstant (NEW)",
+   "supplied": "boolAllZeroNonconstant_classifier_not_invariantCongruent"
+  },
+  {
+   "evidence_class": "COUNTERMODEL",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.collapseAllObs_no_view_descend (NEW)",
+   "supplied": "boolAllZeroNonconstant_no_invariant_factorization"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.ClassConstant (NEW)",
+   "supplied": "InvariantCongruent"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.descend (NEW)",
+   "supplied": "invariantFactor"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descend_mk (NEW; rfl grade)",
+   "supplied": "invariantFactor_classOf"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "supplied pins one side to the canonical lift; equivalent given descend_mk",
+   "kind": "theorem",
+   "native": "ObsDescent.descend_unique (NEW; symmetric two-map form)",
+   "supplied": "invariantFactor_unique"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descend_exists_iff (mp direction)",
+   "supplied": "invariantFactor_requires_congruence"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descend_exists_iff (NEW)",
+   "supplied": "invariantFactor_exists_iff_invariantCongruent"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.descend_exists_iff",
+   "supplied": "invariantFactor_no_factor_of_not_invariant"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descend_blocked_of_witness (NEW)",
+   "supplied": "invariantFactor_no_factor_of_zeroRel_ne"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.classConstant_pair_iff (NEW)",
+   "supplied": "invariantCongruent_pair_iff"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.pair_descend_exists_iff + descend_exists_iff + classConstant_pair_iff",
+   "supplied": "invariantFactor_pair_exists_iff"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.pair_descend_exists_iff (NEW)",
+   "supplied": "invariantFactor_pair_exists_iff_component_factors"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.pair_descend_exists_iff (left component)",
+   "supplied": "invariantPair_no_factor_of_left_not_invariant"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.pair_descend_exists_iff (right component)",
+   "supplied": "invariantPair_no_factor_of_right_not_invariant"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "the witness step inside ObsDescent.descend_blocked_of_witness (two-point refutation of class-constancy)",
+   "supplied": "not_invariantCongruent_of_zeroRel_ne"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "slogan branding in the supplied name not imported; content is the conjunction exactly",
+   "kind": "theorem",
+   "native": "ObsDescent.view_descends_pair_blocked shape via pair_descend_exists_iff (negation-hypothesis form)",
+   "supplied": "localGreenGlobalRed_pair_obstruction"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.view_descends_pair_blocked (NEW; witness form)",
+   "supplied": "localGreenGlobalRed_pair_obstruction_of_witness"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.view_descends_pair_blocked + the two witness conjuncts (hf applied to the zero-pair; pair inequality from the second-component witness)",
+   "supplied": "localGreenGlobalRed_pair_witness_and_obstruction"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "value type differs (Prop vs pair); zero relations agree definitionally",
+   "kind": "def",
+   "native": "DiffInterface.kernelObs of the tag-forgetting view (ObsDescent.tag_view_zeroRel); Prop-valued vs paired-value is presentation",
+   "supplied": "contextFingerprintPD"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "view composed with the second projection (native function composition; no new declaration needed)",
+   "supplied": "contextLocal"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "second view composed with the second projection",
+   "supplied": "contextGlobal"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.tag_view_zeroRel + descend_exists_iff (the tag-forgetting view is class-constant)",
+   "supplied": "contextFingerprint_invariant"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.tag_view_zeroRel (mpr at equal fingerprints)",
+   "supplied": "context_witness_zero_related"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "the witness hypothesis of ObsDescent.view_descends_pair_blocked at the tag observer",
+   "supplied": "context_global_differs"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.view_descends_pair_blocked at the tag observer (tag_view_zeroRel supplies the zero-pair)",
+   "supplied": "localGreenGlobalRed_context_obstruction_of_witness"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "right-hand side of ObsDescent.descendMod_exists_iff (via classConstant_comp_mk_iff)",
+   "supplied": "InvariantCongruentMod"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "witness of ObsDescent.descendMod_exists_iff (mpr)",
+   "supplied": "invariantFactorMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "computation rule of the descendMod_exists_iff witness (rfl grade)",
+   "supplied": "invariantFactorMod_classOf"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descendMod_exists_iff (mp direction)",
+   "supplied": "invariantFactorMod_requires_congruence"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descendMod_exists_iff (NEW)",
+   "supplied": "invariantFactorMod_exists_iff_invariantCongruentMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.descendMod_exists_iff",
+   "supplied": "invariantFactorMod_no_factor_of_not_invariantCongruentMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of ObsDescent.descendMod_exists_iff at a two-point witness",
+   "supplied": "invariantFactorMod_no_factor_of_zeroRel_not_rel"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "pointwise composition with the coarsening implication (over classConstant_comp_mk_iff)",
+   "supplied": "invariantCongruentMod_of_setoid_imp"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descendMod_exists_of_coarsen (NEW)",
+   "supplied": "invariantFactorMod_exists_of_setoid_imp"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.pairSetoid (NEW)",
+   "supplied": "productSetoid"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.classConstant_comp_mk_iff + pairSetoid_mk_eq_iff + classConstant_pair_iff",
+   "supplied": "invariantCongruentMod_pair_iff"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descendMod_exists_iff at pairSetoid + pairSetoid_mk_eq_iff",
+   "supplied": "invariantFactorMod_pair_exists_iff"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.descendMod_exists_iff componentwise + pairSetoid_mk_eq_iff",
+   "supplied": "invariantFactorMod_pair_exists_iff_component_factors"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of the pairSetoid instance (left)",
+   "supplied": "invariantPairMod_no_factor_of_left_not_invariantCongruentMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "contrapositive of the pairSetoid instance (right)",
+   "supplied": "invariantPairMod_no_factor_of_right_not_invariantCongruentMod"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.view_descends_pair_blocked at Quotient.mk-composed views via classConstant_comp_mk_iff",
+   "supplied": "localGreenGlobalRed_pair_mod_obstruction"
+  },
+  {
+   "evidence_class": "DERIVED_THEOREM",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "same, witness form",
+   "supplied": "localGreenGlobalRed_pair_mod_obstruction_of_witness"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "declaration-only bundling",
+   "kind": "structure",
+   "native": "DiffInterface.DiffObs bundled with an ObsDescent.DeltaConstant hypothesis (bundling is presentation; no native bundle needed)",
+   "supplied": "QuotientCompatiblePrimitiveDifference"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "the supplied bundle carries the pair as fields; natively the pair is an explicit argument",
+   "kind": "structure",
+   "native": "input data of ContactKernel.ofDiffObs (observer + chosen pair); the chosen pair is genuine new data (ContactKernel.pair_choice_load_bearing)",
+   "supplied": "PointedPrimitiveDifference"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "the class of a point under DiffInterface.ObsQuotient.mk (declaration-only)",
+   "supplied": "zeroClass"
+  },
+  {
+   "evidence_class": "DEFINITION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "class membership = ZeroRel via ObsDescent.obsQuotient_mk_eq_iff",
+   "supplied": "IsZeroClass"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs at shifted arguments (subsumed)",
+   "supplied": "interferencePrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_add_sub_cancel (subsumed)",
+   "supplied": "interferencePrimitiveDifference_eq"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_add_sub_cancel + int_sub_ne_zero_iff (subsumed)",
+   "supplied": "interference_nonzero_of_delta_nonzero"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs at cross-multiplied integers (subsumed)",
+   "supplied": "productDefectPrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_iff (mpr; subsumed)",
+   "supplied": "product_defect_nonzero_of_nonfactor"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "contextualityPrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_iff (mpr; subsumed)",
+   "supplied": "contextuality_nonzero_of_parity_failure"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "cptpTraceNormPrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_of_gt (subsumed)",
+   "supplied": "cptp_trace_norm_nonzero_of_residual"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "holonomyCurvaturePrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_iff (mpr; subsumed)",
+   "supplied": "holonomy_curvature_nonzero_of_nonabelian"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "authorityNonPromotionPrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "comment overclaim; formal content reconstructed at real strength only",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_iff (mpr; subsumed) - see gap row G12: the comment's derivability claim has no formal counterpart anywhere",
+   "supplied": "authority_non_promotion_nonzero_of_unsealed"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "gellMannDecoherencePrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_shift_cancel (subsumed)",
+   "supplied": "gellMannDecoherencePrimitiveDifference_eq_offdiagonal"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_shift_cancel + int_two_mul_eq_zero_iff (subsumed)",
+   "supplied": "gellMannDecoherencePrimitiveDifference_eq_zero_iff"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "negated form of the previous row (subsumed)",
+   "supplied": "gellMannDecoherencePrimitiveDifference_ne_zero_iff"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_iff (mpr; subsumed)",
+   "supplied": "decoherence_nonzero_of_offdiagonal"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_shift_cancel + int_two_mul_eq_zero_iff (subsumed)",
+   "supplied": "decoherence_nonzero_of_offdiagonal_weight"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "thresholdRepairCapacityPrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_of_gt (subsumed)",
+   "supplied": "threshold_repair_nonzero_of_unabsorbed"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "def",
+   "native": "ObsDescent.intDiffObs (subsumed)",
+   "supplied": "classicalLimitPrimitiveDifference"
+  },
+  {
+   "evidence_class": "FINITE_COMPUTATION",
+   "hypothesis_delta": "none",
+   "kind": "theorem",
+   "native": "ObsDescent.int_sub_ne_zero_iff (mpr; subsumed)",
+   "supplied": "classical_limit_nonzero_of_unprojected"
+  }
+ ],
+ "denylist": {
+  "full_census": [
+   "DeltaCongruent",
+   "DeltaCongruentMod",
+   "InvariantCongruent",
+   "InvariantCongruentMod",
+   "IsZeroClass",
+   "OmegaCore",
+   "PointedPrimitiveDifference",
+   "PrimitiveDifference",
+   "QuotientCompatiblePrimitiveDifference",
+   "ResidualQuotient",
+   "Zero",
+   "ZeroRel",
+   "authorityNonPromotionPrimitiveDifference",
+   "authority_non_promotion_nonzero_of_unsealed",
+   "boolAllZeroNonconstant",
+   "boolAllZeroNonconstant_classifier_not_invariantCongruent",
+   "boolAllZeroNonconstant_no_factorization",
+   "boolAllZeroNonconstant_no_invariant_factorization",
+   "boolAllZeroNonconstant_not_deltaCongruent",
+   "classOf",
+   "classOf_eq_iff_zeroRel",
+   "classOf_eq_of_zero",
+   "classicalLimitPrimitiveDifference",
+   "classical_limit_nonzero_of_unprojected",
+   "contextFingerprintPD",
+   "contextFingerprint_invariant",
+   "contextGlobal",
+   "contextLocal",
+   "context_global_differs",
+   "context_witness_zero_related",
+   "contextualityPrimitiveDifference",
+   "contextuality_nonzero_of_parity_failure",
+   "cptpTraceNormPrimitiveDifference",
+   "cptp_trace_norm_nonzero_of_residual",
+   "decoherence_nonzero_of_offdiagonal",
+   "decoherence_nonzero_of_offdiagonal_weight",
+   "deltaCongruentMod_of_setoid_imp",
+   "deltaFactor",
+   "deltaFactorMod",
+   "deltaFactorMod_classOf_classOf",
+   "deltaFactorMod_exists_iff_deltaCongruentMod",
+   "deltaFactorMod_exists_of_setoid_imp",
+   "deltaFactorMod_no_factor_of_not_deltaCongruentMod",
+   "deltaFactorMod_no_factor_of_zeroRel_not_rel",
+   "deltaFactorMod_requires_congruence",
+   "deltaFactor_classOf_classOf",
+   "deltaFactor_exists_iff_deltaCongruent",
+   "deltaFactor_no_factor_of_not_deltaCongruent",
+   "deltaFactor_no_factor_of_zeroRel_ne",
+   "deltaFactor_requires_congruence",
+   "deltaFactor_unique",
+   "delta_congr",
+   "gellMannDecoherencePrimitiveDifference",
+   "gellMannDecoherencePrimitiveDifference_eq_offdiagonal",
+   "gellMannDecoherencePrimitiveDifference_eq_zero_iff",
+   "gellMannDecoherencePrimitiveDifference_ne_zero_iff",
+   "holonomyCurvaturePrimitiveDifference",
+   "holonomy_curvature_nonzero_of_nonabelian",
+   "interferencePrimitiveDifference",
+   "interferencePrimitiveDifference_eq",
+   "interference_nonzero_of_delta_nonzero",
+   "invariantCongruentMod_of_setoid_imp",
+   "invariantCongruentMod_pair_iff",
+   "invariantCongruent_pair_iff",
+   "invariantFactor",
+   "invariantFactorMod",
+   "invariantFactorMod_classOf",
+   "invariantFactorMod_exists_iff_invariantCongruentMod",
+   "invariantFactorMod_exists_of_setoid_imp",
+   "invariantFactorMod_no_factor_of_not_invariantCongruentMod",
+   "invariantFactorMod_no_factor_of_zeroRel_not_rel",
+   "invariantFactorMod_pair_exists_iff",
+   "invariantFactorMod_pair_exists_iff_component_factors",
+   "invariantFactorMod_requires_congruence",
+   "invariantFactor_classOf",
+   "invariantFactor_exists_iff_invariantCongruent",
+   "invariantFactor_no_factor_of_not_invariant",
+   "invariantFactor_no_factor_of_zeroRel_ne",
+   "invariantFactor_pair_exists_iff",
+   "invariantFactor_pair_exists_iff_component_factors",
+   "invariantFactor_requires_congruence",
+   "invariantFactor_unique",
+   "invariantPairMod_no_factor_of_left_not_invariantCongruentMod",
+   "invariantPairMod_no_factor_of_right_not_invariantCongruentMod",
+   "invariantPair_no_factor_of_left_not_invariant",
+   "invariantPair_no_factor_of_right_not_invariant",
+   "localGreenGlobalRed_context_obstruction_of_witness",
+   "localGreenGlobalRed_pair_mod_obstruction",
+   "localGreenGlobalRed_pair_mod_obstruction_of_witness",
+   "localGreenGlobalRed_pair_obstruction",
+   "localGreenGlobalRed_pair_obstruction_of_witness",
+   "localGreenGlobalRed_pair_witness_and_obstruction",
+   "not_invariantCongruent_of_zeroRel_ne",
+   "productDefectPrimitiveDifference",
+   "productSetoid",
+   "product_defect_nonzero_of_nonfactor",
+   "quotientMapOfSetoidImp",
+   "quotientMapOfSetoidImp_mk",
+   "thresholdRepairCapacityPrimitiveDifference",
+   "threshold_repair_nonzero_of_unabsorbed",
+   "zero",
+   "zeroClass",
+   "zeroRel_equivalence",
+   "zeroRel_refl",
+   "zeroRel_symm",
+   "zeroRel_trans",
+   "zeroSetoid",
+   "zero_refl",
+   "zero_symm",
+   "zero_trans",
+   "\u03b4"
+  ],
+  "full_census_count": 111,
+  "subtracted_as_native_or_core": [
+   "ZeroRel",
+   "zeroRel_equivalence",
+   "zero_refl",
+   "zero_symm",
+   "zero_trans",
+   "classOf",
+   "Zero",
+   "zero",
+   "\u03b4"
+  ],
+  "working_subtraction_count": 102
+ },
+ "external_file_sha256": "d9cdb350a53c513e3e211e72f17262be6ba85d7da6159f910388c7137e814a89",
+ "gap_dispositions": {
+  "G1": "comment advertises a norm/L1 reading; code is integer identity (definition equals its own summand); RECORDED, physics vocabulary refused transport",
+  "G10": "comment advertises 2 != 0 for a commutator; never instantiated; content is a != b -> a - b != 0",
+  "G11": "comment invokes scoring and sealing; both are free integers; RECORDED",
+  "G12": "LARGEST GAP: comment asserts a proof-theoretic non-derivability between two predicates never defined anywhere in the file; no proof system or derivability relation exists there; the comment's hypotheses also differ from the actual hypothesis; formal content is a != b -> a - b != 0, reconstructed at exactly that strength (int_sub_ne_zero_iff); transport of the derivability claim REFUSED",
+  "G13": "honest comment (explicitly disclaims probability/positivity/normalization); name-flavor only; RECORDED",
+  "G14": "integer identity real (int_shift_cancel); decoherence-matrix reading exists only in the caller's substitution; RECORDED",
+  "G15": "both iffs are 2b = 0 <-> b = 0 over Int (int_two_mul_eq_zero_iff); naming only",
+  "G16": "near-honest; global/local/off-diagonal remain uninterpreted names; content subsumed",
+  "G17": "comment invokes syndrome repair and B^1; code is a > b -> a - b != 0 (int_sub_ne_zero_of_gt); positivity claimed in comment, not stated",
+  "G18": "comment invokes U(1) cochains and projections; code is a != b -> a - b != 0; RECORDED",
+  "G19": "section headers carry external program tags with no link established by anything in the file; transport REFUSED",
+  "G2": "comment brands d != 0 -> d != 0 as a non-factorization theorem; no factorization appears; content subsumed by int_add_sub_cancel + int_sub_ne_zero_iff",
+  "G20": "slogan branding in theorem names of the abstract half; the statements are exactly the factorization/obstruction conjunctions and are correctly proved; no formal overclaim; the branding is not imported into native names",
+  "G3": "comment describes a division-normalized defect; code is the cross-multiplied form; RECORDED",
+  "G4": "comment claims marginal non-factorization; hypothesis IS the restated claim; content is u != v -> u - v != 0",
+  "G5": "comment invokes parity cochains; code is two free integers; RECORDED",
+  "G6": "comment advertises a contextuality obstruction with (+1)/(-1) instance; never instantiated; content is a != b -> a - b != 0",
+  "G7": "comment invokes density operators and trace norms; code is two free integers; RECORDED",
+  "G8": "comment claims positivity; statement proves only nonzero; order-hypothesis form subsumed by int_sub_ne_zero_of_gt",
+  "G9": "comment invokes Wilson loops and Q8; code is two free integers; RECORDED"
+ },
+ "metatheory_scope_notes": [
+  "uniqueness scope: supplied uniqueness is global because quotient projections are epi by induction (ObsDescent.obsQuotient_mk_surjective); native presentation uniqueness is image-scoped (Compression.factor_unique_on_image, factor_not_unique_off_image, PrimitiveCats.phom2_unique_of_epi) - the difference is exactly codomain coverage by the projection",
+  "selection discipline: the native factorization layer prices representedness and first-match selection where the supplied layer prices Quot.sound gluing - same third notion (ObsDescent.descend_iff_factorsOn_all), two priced realizations",
+  "flagship vs no_terminal_pres: the supplied flagship obstruction is a fixed-quotient descent failure; the sealed no_terminal_pres/no_terminal_pres2 are non-existence of universal presentations - related but NOT identified; the honest bridge is ContactBridge.pair_blocked_is_collapse_collision",
+  "quot_barrier: the native raw-Quot barrier (Derivation.quot_barrier) is strictly more general - the supplied machinery requires the setoid; citation-only cell",
+  "subsingleton carriers make every view class-constant (Subsingleton.elim), so the Bool carrier of the all-zero countermodel is minimal - METATHEORY remark, no extra Lean"
+ ],
+ "role": "SUPPLIED_INPUT-labeled analysis; the ONLY repository location permitted to quote supplied vocabulary",
+ "run": "primitive-difference contact collision (2026-08-13, base a5caee2)",
+ "supplied_declarations": 103
+}

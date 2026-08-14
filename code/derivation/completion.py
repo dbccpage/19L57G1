@@ -64,6 +64,9 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "WeightProfile": ["WeightProfile.lean"],
     "TransitionAlphabet": ["TransitionAlphabet.lean"],
     "TraceAlgebra": ["TraceAlgebra.lean"],
+    "ObsDescent": ["ObsDescent.lean"],
+    "ContactBridge": ["ContactBridge.lean"],
+    "ContactKernel": ["ContactKernel.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")

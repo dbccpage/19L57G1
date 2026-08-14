@@ -94,3 +94,21 @@ constitution actually buys.
 Terminals: NONUNIQUE_CONTROLLER_FAMILY,
 INITIALITY_REFUTED_BY_constant_simulations_countermodel (with
 STRICT_UNIQUENESS_ON_REACHABLE_ORBIT as the proved positive scope).
+
+## Scope note (2026-08-13): the executed contact collision
+
+This paper is the PR #12 record, written while the declared contact
+input was absent.  That input now exists and the collision has been
+executed (`paper/primitive_difference_contact.md`), and this paper is
+unaffected: swept declaration by declaration against the arriving
+development's coverage map (103 rows,
+`contact/analysis/contact_countermodels.json`), which contains no
+controller, no simulation, no event grammar and no orbit claim.  Both
+terminals above stand as issued, and none of the three collision
+terminals bears on them.  The one adjacent fact worth recording: the
+collision's positive universal statement is an inherited initiality
+in the sealed pointed witnessed category
+(`ContactKernel.kernel_gateway_unique` from
+`PrimitiveCats.d2_initial`, unique up to isomorphism only) —
+that is a different category from the controller category refuted
+here, and no transfer between them is claimed.

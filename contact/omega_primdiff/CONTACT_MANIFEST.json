@@ -1,0 +1,21 @@
+{
+ "copy_date": "2026-08-13",
+ "files": [
+  {
+   "original_path": "docs_external_to_this_repo/primitive_difference.lean",
+   "role": "lean4",
+   "sha256": "d9cdb350a53c513e3e211e72f17262be6ba85d7da6159f910388c7137e814a89"
+  }
+ ],
+ "notes": [
+  "The supplied file is caller-designated reference-only input: its nomenclature, stated proofs, idioms, and lexical/syntactic material are not imported into this repository's own development; the collision reconstructs mathematical content independently in native vocabulary.",
+  "The file is retained OUTSIDE the repository at its caller-supplied path (the directory name 'docs_external_to_this_repo' is the caller's explicit external designation); it is bound here by SHA-256 and is never modified.",
+  "Verification of the hash is performed by the test suite when the external file is present and is skipped when absent, so artifact regeneration is deterministic with or without the external file.",
+  "No prose package was supplied: the prose phase of the contact protocol records PROSE_INPUT_ABSENT and the contact verdict rests on the Lean development alone."
+ ],
+ "prose_supplied": false,
+ "scope_declaration": "One Lean 4 source file constituting the external Primitive Difference development; Lean only; no prose, no build files, no commit history supplied.",
+ "source_commit": "UNKNOWN (not supplied by caller; no commit metadata accompanied the file)",
+ "source_repository": "UNKNOWN (external development supplied by caller as a single file; upstream repository not identified)",
+ "supplied_at_run": "research/primitive-difference-contact (pre-contact base commit a5caee2; sealed native blind-native-base ccd3a53)"
+}

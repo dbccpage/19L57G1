@@ -148,3 +148,22 @@ and the identification of the description/interpreter boundary with
 a Primitive Difference remains a frontier conjecture, recorded as
 one in the receipt.
 
+## Scope note (2026-08-13): the executed contact collision
+
+This paper is the PR #12 record (with the dated audit repair above),
+written while the declared contact input was absent.  That input now
+exists and the collision has been executed
+(`paper/primitive_difference_contact.md`).  Nothing here is
+superseded: the arriving development's coverage map (103 rows,
+`contact/analysis/contact_countermodels.json`) carries no code
+family, no evaluation map, no quotation level and no interpretation
+relation, so I0-I5, the incompleteness theorem, and the OPEN
+denotational bridge stand exactly as stated.  Recorded so it cannot
+be misread as help: the arriving file's comment-borne
+non-derivability claim was REFUSED transport — it asserts a
+proof-theoretic relation between two predicates the file never
+defines, and its actual formal content is integer subtraction
+(disposition G12, reconstructed only at that strength as
+`ObsDescent.int_sub_ne_zero_iff`).  No second party has narrowed this
+boundary; the frontier conjecture keeps its missing theorem.
+

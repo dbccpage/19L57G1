@@ -1367,6 +1367,19 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Class**: declared protocol outcome + runtime check.
 - **Lean**: `PrimitiveContact.native_kernel_initial`.
 - **Python**: `primitive_contact.json`.
+- **Scope note (2026-08-13)**: true at its run and unchanged as
+  stated — the package WAS absent at `blind-native-base` and at
+  completion, and the interface committed there was met, not revised.
+  The package has since arrived and the collision has been executed
+  against exactly that interface; the pre-contact terminal is
+  preserved as sealed history (`PrimitiveContact.contactStatus`,
+  `contactStatusHistory[0]`, `primitive_contact.json:history[0]`, and
+  the receipt's CONTACT_INPUT_ABSENT entry with its sealed-history
+  scope field), and the current status is
+  CONTACT_PROCESSED_LEAN_ONLY.  The new content is claimed in
+  CL-PD2-CONTACT-RECONSTRUCTION, -BRIDGE, -COUNTERMODELS,
+  -DICTIONARY, -KERNEL, -ENTRY and -VERDICT below; nothing in this
+  entry is withdrawn.
 
 ### CL-PD2-PASSAGE
 - **Statement**: each of the thirteen arrows of the passage chain
@@ -2155,4 +2168,562 @@ CL-PD2-LADDER)
 - **Python**: `trace_algebra.json` - declared bounds recorded there
   (rewrite alphabet of 4 events, lists to length 3, 12 named
   soundness states, the 153-pair commutation matrix).
+
+### CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)
+- **Statement**: the arriving development's quotient-descent layer had
+  no counterpart in the sealed corpus and is reconstructed in native
+  vocabulary as `ObsDescent`, over the sealed observer interface, with
+  no new type-level structure.  Exactness: the observer quotient
+  identifies exactly the zero-related pairs and its projection is
+  surjective (`obsQuotient_exact`, `obsQuotient_mk_eq_iff`,
+  `obsQuotient_mk_surjective`).  Descent: a view descends iff it is
+  class-constant, any two descents agree, and one zero-related pair
+  with distinct values blocks descent outright (`descend_exists_iff`,
+  `descend_unique`, `descend_blocked_of_witness`); the same three
+  statements hold for the difference map itself
+  (`deltaDescend_exists_iff`, `deltaDescend_unique`,
+  `deltaDescend_blocked_of_witness`).  Pairing splits componentwise
+  (`classConstant_pair_iff`, `pair_descend_exists_iff`), and the
+  flagship shape is exact: a class-constant view descends while its
+  pairing with a blocked component does not
+  (`view_descends_pair_blocked`).  The whole mod-setoid family
+  collapses to the equality layer at `Quotient.mk S ∘ f`
+  (`classConstant_comp_mk_iff`, with `descendMod_exists_iff`,
+  `deltaDescendMod_exists_iff`, `descendMod_exists_of_coarsen`,
+  `coarsenMap`, `pairSetoid`, `pairSetoid_mk_eq_iff`).  The arriving
+  integer tail never instantiates its own core structure; it is
+  subsumed by one native instance plus five one-line lemmas, and
+  `value_orientation_survives` records the residue exactly: the value
+  channel carries orientation, the zero relation cannot.
+- **Class**: theorem + definition + countermodel.  Evidence classes:
+  DERIVED_THEOREM (the descent, exactness, pairing and mod-layer
+  statements), DEFINITION (`ClassConstant`, `descend`,
+  `DeltaConstant`, `deltaDescend`, `coarsenMap`, `pairSetoid`,
+  `intDiffObs`, `collapseAllObs`), COUNTERMODEL ×4 (the all-zero
+  observer on `Bool`).
+- **Deps**: CL-DI-EQUIVALENCE (the sealed observer interface and its
+  quotient), CL-PD2-CONTACT (the interface the collision was executed
+  against).  **Assumptions**: shared.
+- **Lean**: `ObsDescent.obsQuotient_exact`, `.obsQuotient_mk_eq_iff`,
+  `.obsQuotient_mk_surjective`, `.ClassConstant`, `.descend`,
+  `.descend_mk`, `.descend_exists_iff`, `.descend_unique`,
+  `.descend_blocked_of_witness`, `.DeltaConstant`, `.deltaDescend`,
+  `.deltaDescend_mk`, `.deltaDescend_exists_iff`,
+  `.deltaDescend_unique`, `.deltaDescend_blocked_of_witness`,
+  `.classConstant_pair_iff`, `.pair_descend_exists_iff`,
+  `.view_descends_pair_blocked`, `.coarsenMap`, `.coarsenMap_mk`,
+  `.classConstant_comp_mk_iff`, `.descendMod_exists_iff`,
+  `.deltaDescendMod_exists_iff`, `.pairSetoid`,
+  `.pairSetoid_mk_eq_iff`, `.descendMod_exists_of_coarsen`,
+  `.tag_view_zeroRel`, `.intDiffObs`, `.intDiffObs_zeroRel`,
+  `.int_sub_ne_zero_iff`, `.int_sub_ne_zero_of_gt`,
+  `.int_shift_cancel`, `.int_two_mul_eq_zero_iff`,
+  `.int_add_sub_cancel`, `.value_orientation_survives`,
+  `.collapseAllObs`, `.collapseAllObs_all_zero`,
+  `.collapseAllObs_not_deltaConstant`,
+  `.collapseAllObs_no_delta_descend`,
+  `.collapseAllObs_id_not_classConstant`,
+  `.collapseAllObs_no_view_descend`.
+- **Axioms**: every report of the three collision modules lies within
+  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1149 reports;
+  `ci/check_axiom_report.py`).
+- **Python**: `primitive_contact.json:enumerations.E3_descent_dictionary`
+  (64 combinations, 28 descending, 36 fixed-domain divergences) and
+  `E4_flagship_census` (120 triples of a 512-triple universe);
+  `tests/test_primitive_contact.py::test_enum_descent_dictionary_pinned`,
+  `::test_enum_flagship_and_value_fork_pinned`.
+- **Falsifier / boundary**: a descending view without class-constancy,
+  or two descents of one view that differ.  Boundary: the
+  reconstruction is NEW native content, not a sealed-corpus claim -
+  every strictly-stronger reading must be stated against the enlarged
+  corpus (recorded as a CONJECTURE in
+  `primitive_contact.json:verdict.frontier_conjecture`).
+
+### CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)
+- **Statement**: difference in the arriving sense is exactly negation
+  of the zero relation, and identifying that with the native asserted
+  relation is a bridge whose every further native law is priced.
+  `obsApart O := ¬ ZeroRel O` is irreflexive, symmetric
+  and double-negation stable for FREE (from the three observer law
+  fields), and, GIVEN a chosen apart pair as hypothesis, the induced
+  setting satisfies the native candidate readings W, A, Bs and D with
+  no further admission, E at the empty operation family only (a
+  nonempty admitted merger family kills it — the sealed
+  `merger_erases`), and Bc and Bl UNDER pointwise decidability of the
+  zero relation (`obsSetting_bc`, `obsSetting_bl`: sufficiency, one
+  direction; necessity for a fixed observer is NOT proved — what the
+  pricing theorems below establish is the price of the schema
+  quantified over all observers, which is a different statement).  In
+  the other direction a native apartness becomes an observer
+  (`apartObs`), and the two round trips return matching relations —
+  but under TWO different admissions, one per direction, not
+  interchangeable: apartness → observer carries
+  `[∀ x y, Decidable (r x y)]` on the ASSERTED APARTNESS
+  (`apartObs_roundtrip`, `isApart_repr`), observer → apartness
+  carries `[∀ x y, Decidable (ZeroRel O x y)]` on the ZERO relation
+  (`obsApart_isApart`, `indist_obsApart_iff`).  Neither yields the
+  other: for `apartObs r h` the zero relation is `¬ r`, and
+  `Decidable (¬ P)` does not return `Decidable P` constructively —
+  precisely the gap `stability_schema_iff_dne` prices at DNE.  The
+  dropped hypotheses are priced exactly,
+  as schema equivalences with classical principles: the unconditional
+  cotransitivity schema IS the weak law of excluded middle
+  (`cotrans_schema_iff_wlem`), the unconditional stability schema IS
+  double-negation elimination (`stability_schema_iff_dne`), and the
+  unconditional locatedness schema implies the weak law
+  (`located_schema_implies_wlem`; converse OPEN, and it would need a
+  function-comprehension principle beyond the weak law).  Placement:
+  what the arriving side ADMITS as three law fields, the native side
+  PROVES equality-grade at the passage's declared observation stage
+  (`declared_zero_as_view`, `observation_stage_realizes_observer`), so
+  the arriving stratum is an admitted observer at the zero-relation
+  stage, not a pre-observational witness; with no retention and no
+  guarding nothing obstructs there (`kernelStage`,
+  `kernel_stage_no_obstruction`).
+- **Class**: theorem + bounded theorem (decidability-conditional) +
+  unresolved.  Evidence classes: DERIVED_THEOREM (the free laws, the
+  W/A/Bs/D/E cells, the three pricing theorems, the placement
+  theorems), CONDITIONAL_THEOREM (`obsApart_cotrans`,
+  `obsSetting_bc`, `obsSetting_bl`, `apartObs_roundtrip`,
+  `isApart_repr`, `obsApart_isApart`, `indist_obsApart_iff` - all on
+  a hypothesized `Decidable` instance, never on excluded middle),
+  DEFINITION (`obsApart`, `obsSetting`, `apartObs`, `kernelStage`,
+  `colView`, `wlemZero`), OPEN ×2 (`open_bridge_cotrans`,
+  `open_bridge_located` — both registered as open obligations in
+  `artifacts/primitive_completion_receipt.json:open_obligations`,
+  each with its price; the converse of `located_schema_implies_wlem`
+  is additionally registered under `frontier_conjectures` as
+  LOCATEDNESS_SCHEMA_EQUALS_WLEM).
+- **Deps**: CL-PD2-MATRIX (the nine candidate readings),
+  CL-PD2-APARTNESS (`IsApart`, `Indist`), CL-PD2-PASSAGE (the
+  declared observation stage), CL-DI-EQUIVALENCE.
+  **Assumptions**: shared.
+- **Lean**: `ContactBridge.obsApart`, `.obsApart_irrefl`,
+  `.obsApart_symm`, `.obsApart_stable`, `.zeroRel_indist`,
+  `.obsSetting`, `.obsSetting_w`, `.obsSetting_a`, `.obsSetting_bs`,
+  `.obsApart_cotrans`, `.obsSetting_bc`, `.obsSetting_bl`,
+  `.obsSetting_d`, `.obsSetting_e`, `.apartObs`, `.apartObs_zeroRel`,
+  `.apartObs_roundtrip`, `.isApart_repr`, `.obsApart_isApart`,
+  `.indist_obsApart_iff`, `.cotrans_schema_iff_wlem`,
+  `.stability_schema_iff_dne`, `.located_schema_implies_wlem`,
+  `.open_bridge_cotrans`, `.open_bridge_located`, `.colView`,
+  `.declared_zero_as_view`, `.observation_stage_realizes_observer`,
+  `.kernelStage`, `.kernel_stage_no_obstruction`,
+  `.pair_blocked_is_collapse_collision`,
+  `.collapse_collision_is_pair_blocked`,
+  `.pair_blocked_iff_collapse_collision`.
+- **Axioms**: within {propext, Quot.sound}; the classical principles
+  occur only as quantified STATEMENTS inside the pricing theorems,
+  never as proof steps.
+- **Python**: `primitive_contact.json:collision_cells` rows
+  `Obs_to_Bs`, `Obs_to_Bc`, `Obs_to_Bl`, `meet_roundtrip`,
+  `stability_price`, `observer_placement (H1)`;
+  `enumerations.E2_settings_kernels.cotrans_equals_complement_transitivity`
+  (true on the finite decidable carriers 1-3, exactly as the pricing
+  predicts); `tests/test_primitive_contact.py::test_enum_settings_kernels_pinned`.
+- **Falsifier / boundary**: an observer whose complement fails
+  cotransitivity while its zero relation is pointwise decidable; or a
+  proof of either unconditional schema inside the ambient theory
+  (which would prove the corresponding classical principle).
+  Boundary: the two unconditional schemas admit NO internal
+  countermodel - each is classically true - so they stay OPEN with
+  their price, mirroring the sealed located-cell discipline.
+
+### CL-PD2-CONTACT-COUNTERMODELS (executed collision, 2026-08-13)
+- **Statement**: the native side is NOT representable in the arriving
+  signature, and the failure is characterized rather than sampled.
+  The crown, FOR PROP-VALUED OBSERVERS: a relation is the
+  zero-complement of some `DiffObs X Prop` exactly when its
+  complement is an equivalence and the relation is double-negation
+  stable (`obsApart_repr_iff`, both directions constructive, both
+  sides of the biconditional quantifying `∃ O : DiffObs X Prop`; at
+  other value types only the forward direction is available, from
+  `obsApart_stable` and the sealed `zeroRel_equivalence`).  All
+  statements in this block quantify over `Type` (universe 0), while
+  the arriving structure is universe-polymorphic.  The instances: the
+  total one-point relation fails for Prop-valued observers (carrier
+  1, `unit_total_not_repr`, which refutes `∃ O : DiffObs Unit Prop`
+  only); the ORIENTED two-element
+  witness fails over ANY value type (carrier 2,
+  `d2_not_obs_complement`) - orientation cannot arrive through a
+  difference-map presentation, and this is re-exported at the sealed
+  interface as `PrimitiveContact.native_interface_not_representable`;
+  the symmetric three-point relation fails (carrier 3,
+  `triSym_not_obs_complement`), minimally, because on `Bool` witness
+  plus irreflexivity plus symmetry already force representability
+  with no decidability (`bool_bs_repr`); and an endpoint witness over
+  the empty relation fails (carrier 2, `d_not_witnessed_repr`).
+  Protection, retention, operations and the designated pair are never
+  derivable from an observer (`obsSetting_not_c`, `obsSetting_not_f`,
+  `kernel_prot_independent`, `kernel_not_c`, `kernel_not_f`,
+  `pair_choice_load_bearing`, `kernel_no_witness_from_collapse`), and
+  the two arriving law fields are exactly the admissions separating
+  observer from kernel, priced at carriers 2 and 3
+  (`kernel_not_observer`, `kernel_not_bs`, `kernel_zero_not_trans`,
+  `kernel_not_bc`).
+- **Class**: countermodel (compiled, concrete, minimum carrier where
+  claimed) + theorem (the characterization).  Evidence classes:
+  COUNTERMODEL (the refutations named below, compiled finite models
+  at the stated carriers), CONDITIONAL_THEOREM
+  (`no_kernel_on_subsingleton`, on a `Subsingleton` carrier),
+  DERIVED_THEOREM (`obsApart_repr_iff`, `bool_bs_repr`, and the
+  never-derivable rows `kernel_not_c` / `kernel_not_f`),
+  FINITE_COMPUTATION (the enumerated mirrors E1 and E2).
+- **Deps**: CL-PD2-CONTACT-BRIDGE, CL-PD2-MATRIX,
+  CL-PD2-APARTNESS.  **Assumptions**: shared.
+- **Lean**: `ContactBridge.obsApart_repr_iff`,
+  `.unit_total_not_repr`, `.d2_not_obs_complement`,
+  `.triSym_not_obs_complement`, `.bool_bs_repr`,
+  `.d_not_witnessed_repr`, `.obsSetting_not_c`, `.obsSetting_not_f`,
+  `.kernel_prot_independent`;
+  `ContactKernel.kernel_not_observer`, `.kernel_not_bs`,
+  `.kernel_zero_not_trans`, `.kernel_not_bc`, `.kernel_not_c`,
+  `.kernel_not_f`, `.no_kernel_on_subsingleton`,
+  `.no_kernel_over_allzero`, `.kernel_not_e_merged`,
+  `.pair_choice_load_bearing`, `.kernel_no_witness_from_collapse`;
+  `PrimitiveContact.native_interface_not_representable`.
+- **Axioms**: within {propext, Quot.sound}.
+- **Python**: `primitive_contact.json:enumerations.E1_bool_observers`
+  - over all 16 difference tables x 4 zero predicates on `Bool`, 24
+  diagonal-zero holders, 20 full observer-law holders, 8 witnessed
+  kernel quadruples, and ZERO observers whose complement is the
+  oriented table (the finite mirror of `d2_not_obs_complement`);
+  `E2_settings_kernels` - carriers 1-3, relation counts 2/16/512,
+  candidate-A settings [0, 4, 192] matching exact-apartness kernels
+  [0, 4, 192], representable relations [1, 2, 5] (the Bell numbers,
+  as the crown predicts), witnessed representable [0, 1, 3];
+  `contact/analysis/contact_countermodels.json:countermodel_table`
+  (19 rows) and `candidate_reading_countermodel_sizes`;
+  `tests/test_primitive_contact.py::test_enum_bool_observers_pinned`,
+  `::test_enum_settings_kernels_pinned`.
+- **Falsifier / boundary**: any observer, over any value type, whose
+  zero-complement is the oriented two-element witness.  Boundary: the
+  countermodels refute REPRESENTABILITY in the arriving signature;
+  they say nothing about what a differently signed structure could
+  do, and nothing about the arriving side's own theorems, all of
+  which are reconstructed above.  Minimality boundary: of the nine
+  candidate readings, CARRIER MINIMALITY is proved for Bs only (at
+  3, by the positive `bool_bs_repr` at 2).  The other listed sizes
+  are the least carrier at which the reading can be posed —
+  METATHEORY, not a proved minimum — and
+  `contact/analysis/lean_theorem_transport.md` records minimality as
+  explicitly unclaimed for `d_not_witnessed_repr` and
+  `no_kernel_over_allzero`; Bc, Bl and F carry no separate
+  countermodel and fail through the A-conjunct models.
+
+### CL-PD2-CONTACT-DICTIONARY (executed collision, 2026-08-13)
+- **Statement**: global quotient descent and the sealed
+  target-relative factorization are the SAME third notion, at exactly
+  measurable distance.  Scope of the identification: kernel observers
+  on the carrier `Nat` with `Nat`-valued views (`p q : Nat → Nat`,
+  the typing forced by the sealed `Compression` layer's
+  `D : List Nat`) — for such an observer, a view descends to the
+  observer quotient iff it factors through the presentation at EVERY
+  represented domain (`descend_iff_factorsOn_all`, via
+  `classConstant_iff_fiberConstant_all`).  Kernel observers at other
+  carriers or view types are outside the proved statements.  Per
+  FIXED domain the
+  native notion is strictly weaker: over the empty domain every
+  question is vacuously fiber-constant while the identity view over a
+  constant presentation is not class-constant, so the `∀ D`
+  quantifier is not removable
+  (`fiberConstant_fixed_D_not_classConstant`).  The pairing law has
+  the same two forms (`classConstant_pair_iff` and the question-family
+  `sigEq_append_iff`).  The uniqueness-scope difference is exactly
+  codomain coverage by the projection: the arriving uniqueness is
+  global because quotient projections are epi by induction
+  (`obsQuotient_mk_surjective`), while native presentation uniqueness
+  is image-scoped with an off-image countermodel
+  (`Compression.factor_unique_on_image`, `.factor_not_unique_off_image`,
+  `PrimitiveCats.phom2_unique_of_epi`).  The sealed raw-quotient
+  barrier stays strictly more general than anything the arriving
+  SETOID-BASED machinery can state (`Derivation.quot_barrier`) —
+  METATHEORY, a citation-only comparison of two signatures with no
+  transport theorem in either direction — and the arriving descent
+  obstruction is collapse-collision at the projection, proved in BOTH
+  directions (`pair_blocked_is_collapse_collision`,
+  `collapse_collision_is_pair_blocked`, packaged as
+  `pair_blocked_iff_collapse_collision`), and strictly coarser than
+  the four-condition passage obstruction
+  (`PrimitivePassage.obst_conditions_independent`).
+- **Class**: theorem + countermodel + declared metatheory (the scope
+  reconciliation).  Evidence classes: DERIVED_THEOREM (the
+  dictionary, its class-constancy form, the pairing form, and
+  surjectivity of the projection), COUNTERMODEL (fixed domain, the
+  empty represented domain), METATHEORY (the
+  uniqueness-scope and flagship-vs-branching notes, recorded as rows
+  in `contact/analysis/contact_countermodels.json:metatheory_scope_notes`).
+- **Deps**: CL-PD2-COMPRESSION, CL-PD2-CONTACT-RECONSTRUCTION,
+  CL-PD2-BRANCHING.  **Assumptions**: shared.
+- **Lean**: `ObsDescent.descend_iff_factorsOn_all`,
+  `.classConstant_iff_fiberConstant_all`,
+  `.fiberConstant_fixed_D_not_classConstant`, `.sigEq_append_iff`,
+  `.obsQuotient_mk_surjective`;
+  `ContactBridge.pair_blocked_is_collapse_collision`,
+  `.collapse_collision_is_pair_blocked`,
+  `.pair_blocked_iff_collapse_collision`.
+- **Axioms**: within {propext, Quot.sound}.
+- **Python**: `primitive_contact.json:collision_cells` rows
+  `descent_vs_factorsOn`, `fixed_D_strict`, `uniqueness_scope`,
+  `quot_barrier`, `pairing_dict`, `flagship_vs_obstP`;
+  `enumerations.E3_descent_dictionary` (36 fixed-domain divergences
+  of 64 combinations).
+- **Falsifier / boundary**: a view factoring at every represented
+  domain that does not descend, or a descending view failing to
+  factor at some domain.  Boundary: the two realizations are NOT
+  identified in cost - the arriving side pays `Quot.sound` gluing,
+  the native side pays representedness and first-match selection;
+  the flagship obstruction is NOT identified with the sealed
+  no-terminal-presentation results.
+
+### CL-PD2-CONTACT-KERNEL (executed collision, 2026-08-13)
+- **Statement**: a common replacement kernel exists, is CONSTRUCTED,
+  and is realized from both sides.  `WitnessedDiff` is the meet:
+  valued difference presentation, designated endpoints, a
+  diagonal-zero law, and a refutation-grade non-zero witness at the
+  designated pair - no symmetry, no transitivity, no retention, no
+  protection, no operation family.  Its induced apartness is
+  irreflexive and its endpoints are provably distinct
+  (`kernelApart_irrefl`, `kernel_endpoints_ne`), and no kernel exists
+  on a subsingleton carrier (`no_kernel_on_subsingleton`).  It is
+  realized from any native candidate-A setting (`ofSetting`; exactly,
+  under pointwise decidability OF THE ASSERTED RELATION `S.r`
+  (`[∀ x y, Decidable (S.r x y)]`) — NOT of any zero relation; the two
+  decidability admissions of this run are not interchangeable — by
+  `ofSetting_exact`, the residual double-negation gap recorded OPEN in
+  `open_kernel_grade`) and from
+  any arriving-shape observer PLUS a chosen non-zero pair
+  (`ofDiffObs`), where the pair is proved to be genuine new data
+  (`pair_choice_load_bearing`, `kernel_no_witness_from_collapse`).  It
+  meets the sealed pre-contact interface by construction
+  (`toNativeKernel : WitnessedDiff X R → PrimitiveContact.NativeKernel`,
+  via `toSetting_A`) and is blind to retention, protection and
+  operations (`ofSetting_ret_irrelevant`).  Universal status: the
+  initial gateway is INHERITED, unconditionally, from the sealed
+  `PrimitiveCats.d2_initial` (`kernel_gateway_unique`,
+  `kernel_gateway_injective`, `boolKernel_apart_iff`), the gateway
+  object is pinned only up to isomorphism — the oppositely pointed
+  canonical kernel is a different presentation
+  (`kernel_gateways_not_identical`, the kernel echo of the sealed
+  `two_initials_not_identical`) — there is
+  provably no terminal collector AT THE INDUCED-APARTNESS MORPHISM
+  GRADE (`kernel_no_terminal`, `kernel_no_terminal_collector`: both
+  quantify over `PrimitiveCats.Hom (apartObj K) (apartObj K')`,
+  morphisms of the induced pointed-relation presentations, which
+  discard the value data; nothing is proved about terminality in the
+  valued morphism category `VHom`), and observer-derived kernels land
+  in the symmetric subcategory (`apartObj_sym_of_observer`).  Value
+  grade is presentation: two kernels with different value data induce
+  the same apartness (`value_presentation_fork`), morphisms are not
+  determined by their carrier component (`vhom_not_unique`), and
+  uniqueness is restored UNDER surjectivity of the difference map
+  (`vhom_unique_of_onto` — sufficiency, with `vhom_not_unique` as the
+  one non-onto countermodel; no equivalence is proved, so
+  delta-surjectivity is not claimed necessary).  In the reverse
+  direction of the realization, the kernel TOGETHER WITH the two
+  omitted law declarations is the observer record itself,
+  field-for-field and losslessly (`toDiffObs`, with
+  `toDiffObs_fields` proving the fields are carried unchanged and the
+  kernel recovered from the result, and `toDiffObs_apart` proving the
+  relations match) — a record identity at DEFINITION grade, not a
+  derivation, with the two declarations priced separately at carriers
+  two and three (`kernel_not_observer`, `kernel_zero_not_trans`).
+- **Class**: definition + theorem + countermodel + unresolved.
+  Evidence classes: DEFINITION (`WitnessedDiff`, `kernelApart`,
+  `toSetting`, `toNativeKernel`, `ofSetting`, `ofDiffObs`,
+  `toDiffObs` with its two identity theorems `toDiffObs_fields` and
+  `toDiffObs_apart` — the record identity is definitional,
+  `rfl`-proved, and is NOT claimed as a derivation,
+  `apartObj`, `VHom`, `DeltaOnto`, `boolKernel`, `boolKernelSwap`,
+  `freeKernel`, `unitValKernel`, `twoValKernel`), DERIVED_THEOREM
+  (the realizations, the inherited gateway, the non-collector),
+  CONDITIONAL_THEOREM (`ofSetting_exact`, `kernel_located_of_decidable`,
+  `vhom_unique_of_onto`, `no_kernel_on_subsingleton`,
+  `kernel_two_point_presentation`), COUNTERMODEL
+  (`value_presentation_fork`, `vhom_not_unique`, and the
+  admission-pricing models of CL-PD2-CONTACT-COUNTERMODELS), OPEN ×2
+  (`open_kernel_grade`, `open_kernel_bl` — both registered as open
+  obligations in
+  `artifacts/primitive_completion_receipt.json:open_obligations`,
+  each with its price).
+- **Deps**: CL-PD2-CONTACT (the interface met), CL-PD2-INITIALITY
+  (the inherited gateway), CL-PD2-MATRIX, CL-PD2-CONTACT-BRIDGE.
+  **Assumptions**: shared.
+- **Lean**: `ContactKernel.WitnessedDiff`, `.kernelApart`,
+  `.kernelApart_irrefl`, `.kernel_endpoints_ne`,
+  `.no_kernel_on_subsingleton`, `.boolKernel`, `.toSetting`,
+  `.toSetting_A`, `.toNativeKernel`, `.ofSetting`, `.ofSetting_exact`,
+  `.open_kernel_grade`, `.ofSetting_ret_irrelevant`, `.ofDiffObs`,
+  `.pair_choice_load_bearing`, `.kernel_no_witness_from_collapse`,
+  `.toDiffObs`, `.toDiffObs_fields`, `.toDiffObs_apart`,
+  `.kernel_located_of_decidable`, `.open_kernel_bl`, `.kernel_to_w`,
+  `.kernel_to_d`, `.kernel_to_e_empty`, `.unitValKernel`,
+  `.twoValKernel`, `.value_presentation_fork`, `.VHom`,
+  `.vhom_not_unique`, `.DeltaOnto`, `.vhom_unique_of_onto`,
+  `.boolKernel_apart_iff`, `.apartObj`, `.apartObj_irrefl`,
+  `.apartObj_sym_of_observer`, `.kernel_gateway_unique`,
+  `.kernel_gateway_injective`, `.boolKernelSwap`,
+  `.kernel_gateways_not_identical`, `.freeKernel`,
+  `.kernel_no_terminal`, `.kernel_no_terminal_collector`.
+- **Axioms**: within {propext, Quot.sound}.
+- **Python**: `primitive_contact.json:verdict.kernel` (structure,
+  both realizations, interface, gateway, no-collector, value
+  rigidity), `collision_cells` rows `K_to_*` / `*_to_K` (18 of the 37),
+  `enumerations.E2_settings_kernels` (candidate-A settings and exact
+  kernels agree in count at carriers 1-3: [0, 4, 192]) and
+  `E5_value_fork` (81 tables, 2 oriented class presentations);
+  `tests/test_primitive_contact.py::test_verdict_block`,
+  `::test_collision_cells_mirror_lean_literal`.
+- **Falsifier / boundary**: a candidate-A setting or an
+  observer-plus-pair that admits no kernel, or a second morphism from
+  the sealed initial object into some kernel's presented object.
+  Boundary: "replaces both" is scoped to the OVERLAP.  The kernel
+  does not carry orientation beyond the pointing, retention,
+  protection, operations, or any passage dynamics - all native-only
+  surplus - and gateway uniqueness is initiality up to isomorphism,
+  never a minimality or constitution-class claim.
+
+### CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)
+- **Statement**: the common kernel enters the passage at the same
+  station the sealed record fixed, and no earlier.  Every kernel has
+  distinct endpoints, the sealed pre-retention state satisfies
+  candidate A, and the retention store there is still empty
+  (`kernel_licenses_entry`, reusing
+  `PrimitivePassage.kernel_enters_preretained` rather than re-proving
+  it); at that state protection is empty, no observation is declared,
+  and the four-condition obstruction is false
+  (`entry_pre_observation`, the third conjunct discharged by the
+  sealed `obst_requires_observation`).  Entry into the passage and
+  entry into every kernel factor through ONE initial presentation
+  (`passage_gateway_unique`, `kernel_gateway_unique`, both
+  instantiations of the sealed `PrimitiveCats.d2_initial`).  A TOTAL
+  two-point presentation of the endpoints costs decidable equality of
+  the carrier (`kernel_two_point_presentation`) — SUFFICIENCY ONLY:
+  the theorem is `[DecidableEq X] (K : WitnessedDiff X R) : ∃ p, …`,
+  one direction, and no converse is proved, so necessity is NOT
+  claimed; without it only the licensing form is claimed.
+- **Class**: theorem + bounded theorem.  Evidence classes:
+  DERIVED_THEOREM (`kernel_licenses_entry`, `passage_gateway_unique`),
+  FINITE_COMPUTATION (`entry_pre_observation`, decided on the sealed
+  pre-retention state), CONDITIONAL_THEOREM
+  (`kernel_two_point_presentation`, on `DecidableEq`), DEFINITION
+  (`passageObj`).
+- **Deps**: CL-PD2-PASSAGE (arrows 1-4 and the obstruction
+  conditions), CL-PD2-CONTACT-KERNEL, CL-PD2-INITIALITY.
+  **Assumptions**: shared.
+- **Lean**: `ContactKernel.passageObj`, `.passage_gateway_unique`,
+  `.kernel_licenses_entry`, `.entry_pre_observation`,
+  `.kernel_two_point_presentation`;
+  `ContactBridge.kernelStage`, `.kernel_stage_no_obstruction`,
+  `.declared_zero_as_view`, `.observation_stage_realizes_observer`.
+- **Axioms**: within {propext, Quot.sound}.
+- **Python**: `primitive_contact.json:collision_cells` row
+  `observer_placement (H1)`; the passage arrows themselves remain in
+  `primitive_passage.json` and are unchanged.
+- **Falsifier / boundary**: an obstruction active at the
+  pre-retention entry state, or a kernel whose endpoints coincide.
+  Boundary: entry is LICENSED, not forced - retention, protection and
+  observation each remain separately priced admission events exactly
+  as in the sealed thirteen-arrow chain, and nothing here shortens
+  that chain.  Sharper: of the three conjuncts of
+  `kernel_licenses_entry` only the FIRST mentions the kernel
+  (endpoint distinctness).  The second and third are sealed constants
+  about `PrimitivePassage.preRetained` that hold with or without any
+  kernel, and no map from an arbitrary kernel into the passage state
+  is constructed or claimed - "licenses" is exactly this conjunction,
+  not a transport theorem.
+
+### CL-PD2-CONTACT-VERDICT (executed collision, 2026-08-13)
+- **Statement**: the contact status is CONTACT_PROCESSED_LEAN_ONLY
+  (Lean content only; PROSE_INPUT_ABSENT), and three terminals are
+  issued, each only because its evidence bundle compiled.  PRIMARY -
+  CONTACT_INCOMPARABLE_WITH_COUNTERMODELS: as supplied, the two
+  developments are incomparable, and the incomparability is
+  asymmetric IN KIND - the native -> arriving direction is refuted at
+  signature level and permanently (the countermodels of
+  CL-PD2-CONTACT-COUNTERMODELS), while the arriving -> native gap was
+  content-level and is closed this run by the reconstruction under
+  the identical axiom budget.  The `WITH_COUNTERMODELS` half of the
+  code therefore covers ONE direction: the arriving -> native half is
+  an ABSENCE claim about what the sealed corpus contains (METATHEORY
+  plus a finite computation over the corpus text), not a refutation,
+  and the notion in question is in fact derivable natively at the
+  `Nat` scope of the dictionary (`descend_iff_factorsOn_all`) - which
+  is precisely why NATIVE_STRICTLY_STRONGER is not issued.
+  COMMON_PRIMITIVE_KERNEL_REPLACES_BOTH,
+  scoped to the overlap only.
+  CONTACT_EQUIVALENT_UNDER_DECIDABLE_ZERO_PLUS_APARTNESS_ADMISSIONS,
+  on the relational core only, with every dropped hypothesis priced,
+  and with the decidability premise counted as TWO admissions (one
+  per direction, not interchangeable - see CL-PD2-CONTACT-BRIDGE).
+  NOT issued, with recorded reasons: CONTACT_STRICTLY_STRONGER
+  (refuted) and NATIVE_STRICTLY_STRONGER (it would launder this run's
+  reconstruction into the sealed record).  The pre-contact terminal
+  CONTACT_INPUT_ABSENT is preserved as sealed history, not deleted.
+  The collision is recorded as 37 cells with their statuses and
+  evidence names; what is machine-checked there is the COUNT
+  (`contactCells_length = 37`) and the byte-level agreement of the
+  Lean literal with its artifact mirror - each row's status and size
+  annotation is a declared label naming the theorem that carries it,
+  and that theorem, not the row, is the evidence.  The collision also
+  ADDS unresolved obligations: its four OPEN cells and two
+  conjectures are registered in the receipt, taking `open_obligations`
+  from four entries to eight and `frontier_conjectures` from three to
+  five.
+- **Class**: declared protocol outcome + theorem-backed terminal
+  codes + finite computation.  Evidence classes: DECLARED_POLICY (the
+  status and verdict strings, `contactStatusHistory`,
+  `contactStatusCurrent`, `contactVerdictPrimary`),
+  FINITE_COMPUTATION (`contact_status_count`, `contactCells_length`
+  and the E1-E5 enumerations), DERIVED_THEOREM and COUNTERMODEL (the
+  bundles cited by each terminal's scope), CONJECTURE (the
+  enlarged-corpus containment and the converse of
+  `located_schema_implies_wlem`, both registered in
+  `primitive_completion_receipt.json:frontier_conjectures`), OPEN
+  (the four collision cells `open_bridge_cotrans`,
+  `open_bridge_located`, `open_kernel_grade`, `open_kernel_bl`, all
+  registered with their prices in the same file's
+  `open_obligations`), REFUSED (the arriving comment-borne
+  physics and authority claims, dispositions G1-G20).
+- **Deps**: CL-PD2-CONTACT-RECONSTRUCTION, -BRIDGE, -COUNTERMODELS,
+  -DICTIONARY, -KERNEL, -ENTRY; CL-PD2-CONTACT (the sealed
+  pre-contact record).  **Assumptions**: shared.
+- **Lean**: `PrimitiveContact.contactStatusHistory`,
+  `.contactStatusCurrent`, `.contactVerdictPrimary`,
+  `.contact_status_count`, `.native_interface_not_representable`;
+  `ContactKernel.contactCells`, `.contactCells_length`.
+- **Axioms**: within {propext, Quot.sound}; the declared strings
+  carry no report.
+- **Python**: `primitive_contact.json` (`status`, `history`,
+  `manifest_sha256`, `external_file_sha256_per_manifest`,
+  `prose_status`, `verdict` with the full terminal scopes and the
+  not-issued reasons, `collision_cells`, `enumerations`);
+  `primitive_completion_receipt.json` (thirteen terminals, the
+  sealed-history scope on CONTACT_INPUT_ABSENT, the contact block and
+  bounds, the twenty-first adversarial attack);
+  the four files of `contact/analysis/` — `contact_dictionary.md`,
+  `contact_countermodels.json`, `lean_definition_map.md`,
+  `lean_theorem_transport.md` (SUPPLIED_INPUT throughout; 103
+  declaration rows, G1-G20 dispositions, the per-declaration map and
+  the transport tables; the directory, not any two of its files, is
+  the permitted quotation location);
+  `tests/test_primitive_contact.py::test_contact_processed_state`,
+  `::test_verdict_block`, `::test_status_branches`,
+  `::test_collision_cells_mirror_lean_literal`,
+  `::test_runner_byte_stable`,
+  `::test_equivalence_scope_splits_the_two_decidability_admissions`,
+  `::test_incomparable_scope_bounds_minimality_and_absence`,
+  `::test_kernel_scope_states_grades_and_record_identity`;
+  `tests/test_primitive_receipt.py::test_receipt_binds_everything`
+  (which pins the eight open obligations, the four registered
+  collision cells with their prices, and the two collision
+  conjectures).
+- **Falsifier / boundary**: a failed bundle - any listed theorem not
+  compiling, any report outside {propext, Quot.sound}, or any
+  enumeration disagreeing with the Lean literal (the generator raises
+  and blocks regeneration).  Boundary: the verdict compares the
+  SEALED corpus at `a5caee2` with the arriving file's Lean statements
+  only; comments are never evidence, no prose stage was supplied, and
+  any future strictly-stronger reading must be stated against the
+  enlarged corpus, never the sealed one.
 

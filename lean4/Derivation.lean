@@ -36,6 +36,9 @@ import Derivation.BoundaryCancellation
 import Derivation.WeightProfile
 import Derivation.TransitionAlphabet
 import Derivation.TraceAlgebra
+import Derivation.ObsDescent
+import Derivation.ContactBridge
+import Derivation.ContactKernel
 
 /-!
 # Axiom reports
@@ -1115,3 +1118,126 @@ open Derivation
 #print axioms TraceAlgebra.nf_unique
 #print axioms TraceAlgebra.nf_sound
 #print axioms TraceAlgebra.rewrite_not_complete
+
+-- Contact collision (2026-08-13): observer descent reconstruction
+#print axioms ObsDescent.obsQuotient_exact
+#print axioms ObsDescent.obsQuotient_mk_eq_iff
+#print axioms ObsDescent.obsQuotient_mk_surjective
+#print axioms ObsDescent.descend_mk
+#print axioms ObsDescent.descend_exists_iff
+#print axioms ObsDescent.descend_unique
+#print axioms ObsDescent.descend_blocked_of_witness
+#print axioms ObsDescent.deltaDescend_mk
+#print axioms ObsDescent.deltaDescend_exists_iff
+#print axioms ObsDescent.deltaDescend_unique
+#print axioms ObsDescent.deltaDescend_blocked_of_witness
+#print axioms ObsDescent.classConstant_pair_iff
+#print axioms ObsDescent.pair_descend_exists_iff
+#print axioms ObsDescent.view_descends_pair_blocked
+#print axioms ObsDescent.coarsenMap_mk
+#print axioms ObsDescent.classConstant_comp_mk_iff
+#print axioms ObsDescent.descendMod_exists_iff
+#print axioms ObsDescent.deltaDescendMod_exists_iff
+#print axioms ObsDescent.pairSetoid_mk_eq_iff
+#print axioms ObsDescent.descendMod_exists_of_coarsen
+#print axioms ObsDescent.tag_view_zeroRel
+#print axioms ObsDescent.intDiffObs_zeroRel
+#print axioms ObsDescent.int_sub_ne_zero_iff
+#print axioms ObsDescent.int_sub_ne_zero_of_gt
+#print axioms ObsDescent.int_shift_cancel
+#print axioms ObsDescent.int_two_mul_eq_zero_iff
+#print axioms ObsDescent.int_add_sub_cancel
+#print axioms ObsDescent.value_orientation_survives
+#print axioms ObsDescent.collapseAllObs_all_zero
+#print axioms ObsDescent.collapseAllObs_not_deltaConstant
+#print axioms ObsDescent.collapseAllObs_no_delta_descend
+#print axioms ObsDescent.collapseAllObs_id_not_classConstant
+#print axioms ObsDescent.collapseAllObs_no_view_descend
+#print axioms ObsDescent.classConstant_iff_fiberConstant_all
+#print axioms ObsDescent.descend_iff_factorsOn_all
+#print axioms ObsDescent.fiberConstant_fixed_D_not_classConstant
+#print axioms ObsDescent.sigEq_append_iff
+
+-- Contact collision (2026-08-13): the bridge, its countermodels,
+-- and the pricing
+#print axioms ContactBridge.obsApart_irrefl
+#print axioms ContactBridge.obsApart_symm
+#print axioms ContactBridge.obsApart_stable
+#print axioms ContactBridge.zeroRel_indist
+#print axioms ContactBridge.obsSetting_w
+#print axioms ContactBridge.obsSetting_a
+#print axioms ContactBridge.obsSetting_bs
+#print axioms ContactBridge.obsApart_cotrans
+#print axioms ContactBridge.obsSetting_bc
+#print axioms ContactBridge.obsSetting_bl
+#print axioms ContactBridge.obsSetting_d
+#print axioms ContactBridge.obsSetting_e
+#print axioms ContactBridge.obsSetting_not_c
+#print axioms ContactBridge.obsSetting_not_f
+#print axioms ContactBridge.kernel_prot_independent
+#print axioms ContactBridge.apartObs_zeroRel
+#print axioms ContactBridge.apartObs_roundtrip
+#print axioms ContactBridge.isApart_repr
+#print axioms ContactBridge.obsApart_isApart
+#print axioms ContactBridge.indist_obsApart_iff
+#print axioms ContactBridge.obsApart_repr_iff
+#print axioms ContactBridge.unit_total_not_repr
+#print axioms ContactBridge.d2_not_obs_complement
+#print axioms ContactBridge.triSym_not_obs_complement
+#print axioms ContactBridge.bool_bs_repr
+#print axioms ContactBridge.d_not_witnessed_repr
+#print axioms ContactBridge.cotrans_schema_iff_wlem
+#print axioms ContactBridge.stability_schema_iff_dne
+#print axioms ContactBridge.located_schema_implies_wlem
+#print axioms ContactBridge.declared_zero_as_view
+#print axioms ContactBridge.observation_stage_realizes_observer
+#print axioms ContactBridge.kernel_stage_no_obstruction
+#print axioms ContactBridge.pair_blocked_is_collapse_collision
+#print axioms ContactBridge.collapse_collision_is_pair_blocked
+#print axioms ContactBridge.pair_blocked_iff_collapse_collision
+
+-- Contact collision (2026-08-13): the common replacement kernel,
+-- universal status, passage entry
+#print axioms ContactKernel.kernelApart_irrefl
+#print axioms ContactKernel.kernel_endpoints_ne
+#print axioms ContactKernel.no_kernel_on_subsingleton
+#print axioms ContactKernel.toSetting_A
+#print axioms ContactKernel.ofSetting_exact
+#print axioms ContactKernel.ofSetting_ret_irrelevant
+#print axioms ContactKernel.pair_choice_load_bearing
+#print axioms ContactKernel.kernel_no_witness_from_collapse
+#print axioms ContactKernel.toDiffObs_fields
+#print axioms ContactKernel.toDiffObs_apart
+#print axioms ContactKernel.kernel_not_observer
+#print axioms ContactKernel.kernel_zero_not_trans
+#print axioms ContactKernel.kernel_not_bs
+#print axioms ContactKernel.kernel_not_bc
+#print axioms ContactKernel.kernel_located_of_decidable
+#print axioms ContactKernel.kernel_not_c
+#print axioms ContactKernel.kernel_not_f
+#print axioms ContactKernel.kernel_to_w
+#print axioms ContactKernel.kernel_to_d
+#print axioms ContactKernel.kernel_to_e_empty
+#print axioms ContactKernel.kernel_not_e_merged
+#print axioms ContactKernel.no_kernel_over_allzero
+#print axioms ContactKernel.value_presentation_fork
+#print axioms ContactKernel.vhom_not_unique
+#print axioms ContactKernel.vhom_unique_of_onto
+#print axioms ContactKernel.boolKernel_apart_iff
+#print axioms ContactKernel.apartObj_irrefl
+#print axioms ContactKernel.apartObj_sym_of_observer
+#print axioms ContactKernel.kernel_gateway_unique
+#print axioms ContactKernel.kernel_gateway_injective
+#print axioms ContactKernel.kernel_gateways_not_identical
+#print axioms ContactKernel.kernel_no_terminal
+#print axioms ContactKernel.kernel_no_terminal_collector
+#print axioms ContactKernel.passage_gateway_unique
+#print axioms ContactKernel.kernel_licenses_entry
+#print axioms ContactKernel.entry_pre_observation
+#print axioms ContactKernel.kernel_two_point_presentation
+#print axioms ContactKernel.contactCells_length
+
+-- Contact collision (2026-08-13): the executed-collision record in
+-- the sealed contact module
+#print axioms PrimitiveContact.contact_status_count
+#print axioms PrimitiveContact.native_interface_not_representable
