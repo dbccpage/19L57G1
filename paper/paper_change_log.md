@@ -1321,3 +1321,43 @@ sites above.
 
 Axiom reports 1151 → 1178 (27 new theorems), all within
 {propext, Quot.sound}; `lake build` clean at 44 jobs.
+
+## Depth-`d` outrun on the reflective chain (2026-08-14)
+
+`lean4/Derivation/SeparationCapacity.lean` generalizes the sealed
+generator's structural outrun to every fixed radius.  Bound to the
+sealed generator, not a mirror: `profileD` is `Generator.profile1` on
+`Generator.reflState`, and `profileD_deep` spends
+`Generator.middle_profile`.
+
+1. **`depth_d_outrun`** — all deep-interior points share one depth-`d`
+   profile.  Horizon-free: the statement carries no threshold, only
+   deepness of the two points.  **`depth_d_obstruction`** derives the
+   threshold `n ≥ 2d + 3` rather than assuming it — it is exactly the
+   least `n` at which the deep interior holds two distinct points.
+
+2. **The radius convention is reconciled, as two theorems.**  Sealed
+   `Generator.profile2` reads the ball `{i-1, i, i+1}` — radius ONE,
+   not two.  So sealed "depth `k`" indexes radius `k-1`, and `2d + 3`
+   at `d = 1` is `n = 5`, exactly `Generator.depth2_obstruction_n5`
+   (`sealed_depth2_is_radius_one`).  At `n = 4` the deep interior is
+   the singleton `{2}` (`deep_interior_singleton_at_four`), which is
+   why `depth2_separates_near_ends_n4` separating `(1, 3)` is
+   consistent — that pair is not deep.
+
+3. **Scope, stated in the module.**  This is the STRUCTURAL profile
+   only.  No coloured view, no finite view alphabet, no repair
+   strategy, and no capacity bound is proved; those need a finite
+   pigeonhole that stays within {propext, Quot.sound}, which is OPEN.
+   `contact/analysis/separation_capacity_open.md` records the exact
+   residual: core's `List.length_erase`,
+   `List.Nodup.mem_erase_iff`, `List.filter_eq_nil_iff` and
+   `List.nodup_range` are each `Classical.choice`-dependent, and so is
+   Mathlib's `Fintype.card_le_of_injective`, so the counting argument
+   must be rebuilt from `filter`.  Five of six supporting lemmas were
+   brought within the gate; `nodup_length_le` still leaks and the
+   source is not isolated.  Recorded as OPEN rather than admitted.
+
+Axiom reports 1178 → 1184 (6 new theorems), all within
+{propext, Quot.sound}; `lake build` clean at 45 jobs, lean audit 43
+sources.

@@ -2225,7 +2225,7 @@ CL-PD2-LADDER)
   `.collapseAllObs_id_not_classConstant`,
   `.collapseAllObs_no_view_descend`.
 - **Axioms**: every report of the three collision modules lies within
-  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1178 reports;
+  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1184 reports;
   `ci/check_axiom_report.py`).
 - **Python**: `primitive_contact.json:enumerations.E3_descent_dictionary`
   (64 combinations, 28 descending, 36 fixed-domain divergences) and

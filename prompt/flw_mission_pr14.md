@@ -48,6 +48,15 @@ are closed by new checkers and tests.  Added:
 - .github/workflows/verify.yml
 - paper/primitive_difference_passage.md
 
+### Amendment 3 (2026-08-14) — depth-`d` outrun
+
+The sealed generator's structural outrun generalized to every fixed
+radius, plus the OPEN record for the capacity bound it does NOT prove.
+
+- lean4/Derivation/SeparationCapacity.lean
+- contact/analysis/separation_capacity_open.md
+- code/derivation/completion.py (namespace registry entry only)
+
 Every path in both amendments is listed BEFORE the writes in this repair,
 except the two in Amendment 1, which are listed after and labelled as such.
 

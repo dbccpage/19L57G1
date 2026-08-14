@@ -2240,7 +2240,9 @@
    "citing_claims": [
     "CL-G-OBSTRUCTIONS-EXACT"
    ],
-   "consumers": [],
+   "consumers": [
+    "SeparationCapacity.lean"
+   ],
    "kind": "horizon-free",
    "module": "Generator.lean",
    "name": "Generator.middle_profile",
@@ -2301,7 +2303,9 @@
     "CL-G-TERMINAL",
     "CL-G-GENERATION"
    ],
-   "consumers": [],
+   "consumers": [
+    "SeparationCapacity.lean"
+   ],
    "kind": "horizon-free",
    "module": "Generator.lean",
    "name": "Generator.generation_never_dries",
@@ -2391,7 +2395,9 @@
    "citing_claims": [
     "CL-G-DEPTH2"
    ],
-   "consumers": [],
+   "consumers": [
+    "SeparationCapacity.lean"
+   ],
    "kind": "concrete",
    "module": "Generator.lean",
    "name": "Generator.depth2_separates_near_ends_n4",
@@ -2406,7 +2412,9 @@
    "citing_claims": [
     "CL-G-DEPTH2"
    ],
-   "consumers": [],
+   "consumers": [
+    "SeparationCapacity.lean"
+   ],
    "kind": "concrete",
    "module": "Generator.lean",
    "name": "Generator.depth2_obstruction_n5",
@@ -16355,6 +16363,83 @@
    "name": "PrimitiveContact.native_interface_not_representable",
    "role": "preservation",
    "statement": ": \u00ac \u2203 (R : Type) (O : DiffInterface.DiffObs Bool R), \u2200 x y, ContactBridge.obsApart O x y \u2194 PrimDiff.D2 x y"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.ball_length",
+   "role": "preservation",
+   "statement": "(i d : Nat) : (ball i d).length = 2 * d + 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.profileD_deep",
+   "role": "preservation",
+   "statement": "(n i d : Nat) (hlo : d < i) (hhi : i + d < n) : profileD n i d = (List.range (2 * d + 1)).map (fun _ => (true, true, true))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.depth_d_outrun",
+   "role": "preservation",
+   "statement": "(n i j d : Nat) (hi0 : d < i) (hi1 : i + d < n) (hj0 : d < j) (hj1 : j + d < n) : profileD n i d = profileD n j d"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.depth_d_obstruction",
+   "role": "preservation",
+   "statement": "(d n : Nat) (hn : 2 * d + 3 \u2264 n) : \u2203 i j, i \u2260 j \u2227 d < i \u2227 i + d < n \u2227 d < j \u2227 j + d < n \u2227 profileD n i d = profileD n j d"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.sealed_depth2_is_radius_one",
+   "role": "preservation",
+   "statement": ": \u2203 i j, i \u2260 j \u2227 1 < i \u2227 i + 1 < 5 \u2227 1 < j \u2227 j + 1 < 5 \u2227 profileD 5 i 1 = profileD 5 j 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.deep_interior_singleton_at_four",
+   "role": "preservation",
+   "statement": "(i : Nat) (h0 : 1 < i) (h1 : i + 1 < 4) : i = 2"
   }
  ]
 }

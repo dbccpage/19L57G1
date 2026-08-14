@@ -23,7 +23,7 @@ recomputes every cited line from the Lean sources and fails on drift
 (`--fix` regenerates them), and `tests/test_transport_citations.py` runs it.
 As of this revision **173 citations are verified and none is unresolved**.
 
-`artifacts/lean_axioms.txt` carries 1178 reports over 42 sources, all within
+`artifacts/lean_axioms.txt` carries 1184 reports over 43 sources, all within
 `{propext, Quot.sound}`. Throughout this document **"on disk" means the
 current working tree**, and every line number below is machine-verified
 against it rather than asserted. The collision tree also carries docstring

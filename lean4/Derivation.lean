@@ -11,6 +11,7 @@ import Derivation.Bridge
 import Derivation.Refusal
 import Derivation.RefusalFrontier
 import Derivation.Generator
+import Derivation.SeparationCapacity
 import Derivation.DiffInterface
 import Derivation.Represented
 import Derivation.Completion
@@ -1270,3 +1271,10 @@ open Derivation
 -- the sealed contact module
 #print axioms PrimitiveContact.contact_status_count
 #print axioms PrimitiveContact.native_interface_not_representable
+
+#print axioms SeparationCapacity.ball_length
+#print axioms SeparationCapacity.profileD_deep
+#print axioms SeparationCapacity.depth_d_outrun
+#print axioms SeparationCapacity.depth_d_obstruction
+#print axioms SeparationCapacity.sealed_depth2_is_radius_one
+#print axioms SeparationCapacity.deep_interior_singleton_at_four
