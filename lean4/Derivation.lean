@@ -40,6 +40,7 @@ import Derivation.TraceAlgebra
 import Derivation.ObsDescent
 import Derivation.ContactBridge
 import Derivation.ContactKernel
+import Derivation.PresentationNaturality
 
 /-!
 # Axiom reports
@@ -1278,3 +1279,22 @@ open Derivation
 #print axioms SeparationCapacity.depth_d_obstruction
 #print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n5
 #print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4
+
+#print axioms PresentationNaturality.Bij.fwd_injective
+#print axioms PresentationNaturality.zeroRel_transport
+#print axioms PresentationNaturality.refl_car
+#print axioms PresentationNaturality.trans_car
+#print axioms PresentationNaturality.symm_car_left
+#print axioms PresentationNaturality.symm_car_right
+#print axioms PresentationNaturality.symm_symm_car
+#print axioms PresentationNaturality.viable_transport
+#print axioms PresentationNaturality.no_natural_section_of_fixed_point_free
+#print axioms PresentationNaturality.fixed_pair_of_natural_section
+#print axioms PresentationNaturality.negIso_fixed_point_free
+#print axioms PresentationNaturality.no_natural_section_boolEq
+#print axioms PresentationNaturality.selection_is_possible_naturality_is_not
+#print axioms PresentationNaturality.tw_involutive
+#print axioms PresentationNaturality.card4_natural_section
+#print axioms PresentationNaturality.card4_has_natural_section
+#print axioms PresentationNaturality.naturality_separates_presentations
+#print axioms PresentationNaturality.bool_obstruction_and_sealed_selector

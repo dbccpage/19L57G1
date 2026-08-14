@@ -10405,6 +10405,7 @@
    ],
    "consumers": [
     "ContactKernel.lean",
+    "PresentationNaturality.lean",
     "Represented.lean"
    ],
    "kind": "generic",
@@ -16321,9 +16322,12 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)"
+    "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)",
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationNaturality.lean"
+   ],
    "kind": "generic",
    "module": "ContactKernel.lean",
    "name": "ContactKernel.no_equivariant_pair_valued_map",
@@ -16443,6 +16447,224 @@
    "name": "SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4",
    "role": "preservation",
    "statement": ": (\u2200 i \u2208 [1, 2, 3], \u2200 j \u2208 [1, 2, 3], (profile2 (reflState 4) i = profile2 (reflState 4) j \u2194 profileD 4 i 1 = profileD 4 j 1)) \u2227 profileD 4 1 1 \u2260 profileD 4 3 1 \u2227 \u2200 i, 1 < i \u2192 i + 1 < 4 \u2192 i = 2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.Bij.fwd_injective",
+   "role": "preservation",
+   "statement": "(f : Bij A B) {a a' : A} (h : f.fwd a = f.fwd a') : a = a'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.zeroRel_transport",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (x y : X) : ZeroRel O x y \u2194 ZeroRel O' (F.car.fwd x) (F.car.fwd y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.refl_car",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (x : X) : (PresIso.refl O).car.fwd x = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.trans_car",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} {O'' : DiffObs X'' R''} (F : PresIso O O') (G : PresIso O' O'') (x : X) : (F.trans G).car.fwd x = G.car.fwd (F.car.fwd x)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.symm_car_left",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (x : X) : F.symm.car.fwd (F.car.fwd x) = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.symm_car_right",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (x' : X') : F.car.fwd (F.symm.car.fwd x') = x'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.symm_symm_car",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (x : X) : F.symm.symm.car.fwd x = F.car.fwd x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.viable_transport",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (h : Nonempty (NonZeroPair O)) : Nonempty (NonZeroPair O')"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.no_natural_section_of_fixed_point_free",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (F : PresIso O O) (hfree : \u2200 p : NonZeroPair O, F.mapPair p \u2260 p) : \u00ac \u2203 s : Sec (autoFamily O F), IsNatural (autoFamily O F) s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.fixed_pair_of_natural_section",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (F : PresIso O O) (s : Sec (autoFamily O F)) (hs : IsNatural (autoFamily O F) s) : \u2203 p : NonZeroPair O, F.mapPair p = p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.negIso_fixed_point_free",
+   "role": "preservation",
+   "statement": "(p : NonZeroPair boolEqObs) : negIso.mapPair p \u2260 p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.no_natural_section_boolEq",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 s : Sec (autoFamily boolEqObs negIso), IsNatural (autoFamily boolEqObs negIso) s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.selection_is_possible_naturality_is_not",
+   "role": "preservation",
+   "statement": ": Nonempty (Sec (autoFamily boolEqObs negIso)) \u2227 \u00ac \u2203 s : Sec (autoFamily boolEqObs negIso), IsNatural (autoFamily boolEqObs negIso) s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.tw_involutive",
+   "role": "preservation",
+   "statement": ": \u2200 x, tw (tw x) = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.card4_natural_section",
+   "role": "preservation",
+   "statement": ": IsNatural (autoFamily card4Obs twIso) card4Section"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.card4_has_natural_section",
+   "role": "preservation",
+   "statement": ": \u2203 s : Sec (autoFamily card4Obs twIso), IsNatural (autoFamily card4Obs twIso) s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.naturality_separates_presentations",
+   "role": "preservation",
+   "statement": ": (\u2203 s : Sec (autoFamily card4Obs twIso), IsNatural (autoFamily card4Obs twIso) s) \u2227 \u00ac \u2203 s : Sec (autoFamily boolEqObs negIso), IsNatural (autoFamily boolEqObs negIso) s"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.bool_obstruction_and_sealed_selector",
+   "role": "preservation",
+   "statement": ": (\u2200 p : NonZeroPair boolEqObs, negIso.mapPair p \u2260 p) \u2227 (\u00ac \u2203 s : Sec (autoFamily boolEqObs negIso), IsNatural (autoFamily boolEqObs negIso) s) \u2227 (\u00ac \u2203 sel : DiffObs Bool Bool \u2192 Bool \u00d7 Bool, \u2200 O : DiffObs Bool Bool, sel (swapObs O) = (!((sel O).1), !((sel O).2)))"
   }
  ]
 }
