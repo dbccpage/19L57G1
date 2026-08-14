@@ -1481,3 +1481,53 @@ Axiom reports 1184 → 1202 (eighteen added, none removed), all within
 `bool_obstruction_and_sealed_selector`, which inherits `Quot.sound` from the
 sealed theorem it co-states.  `lake build` clean at 46 jobs, lean audit 44
 sources.
+
+## 2026-08-14 — Heterogeneous many-object transport, and bundle coherence
+
+Review of the entry above recorded a scope defect: `Family` fixed ONE carrier
+`X` and ONE residual type `R` for every object, so heterogeneous families with
+object-indexed carrier and residual types were not representable, and every
+result was over one-object families.  This entry narrows that bound.
+
+1. **The cause was the arrow encoding, not an accident.**  `Family` declared
+   arrows as a flat `Arr` with `src`/`tgt` functions.  That makes an
+   endomorphism a propositional side condition (`src f = tgt f`) rather than a
+   typed one, and it forces a common carrier, since `obs : Obj → DiffObs X R`
+   cannot depend on the object.  `HFamily` indexes arrows as `Hom a b`, so an
+   endomorphism is definitionally an inhabitant of `Hom a a`, and `car`, `res`
+   and `obs` become object-indexed.  No dependent transport appears anywhere in
+   the new development.
+
+2. **The obstruction over many objects.**  `no_natural_section_of_endo`: a
+   declared endomorphism at ANY object, fixing no admissible pair there,
+   already rules out a natural section of the whole family, with carrier and
+   residual type varying by object.
+
+3. **Coherence of the transported bundle**, which the earlier entry left as
+   future work: `mapPair_refl`, `mapPair_trans`, `mapPair_symm_left`,
+   `mapPair_symm_right`.  These are the bundle-level companions of the earlier
+   component laws.  They remain statements about `mapPair` and `PresIso`, not
+   about `HFamily`, and no categorical structure is claimed by either.
+
+4. **Both boundaries, on a genuinely heterogeneous two-object family** —
+   `Bool` with `boolEqObs` and `Card4` with `card4Obs`, different carriers and
+   different residual types.  `twoFamilyNeg_no_section`: negation at the `Bool`
+   object sinks the whole family, though its `Card4` component alone carries a
+   natural section.  `twoFamilyPos_has_section`: replacing only that one
+   automorphism by the identity restores it.
+   `heterogeneous_naturality_separates` states both — same objects, same
+   carriers, same admissible pairs, and only the declared automorphism differs.
+   So the obstruction is carried by the declared arrows, not by heterogeneity.
+
+5. **What remains OPEN, narrowed rather than removed.**  A general embedding of
+   `Family` into `HFamily` is not proved; `hAuto_iff_auto` bridges the two at
+   ONE object only, and `Family` is retained.  Arrows that genuinely CROSS
+   objects with different carriers are still not exercised — the two-object
+   fixtures declare no arrow between their objects.  `HFamily` still assumes no
+   composition, no inverses and no identities.  Deriving
+   `ContactKernel.no_equivariant_pair_valued_map` remains OPEN and untouched.
+   See CL-PN-HETEROGENEOUS-TRANSPORT.
+
+Axiom reports 1202 → 1213 (eleven added, none removed), all within
+{propext, Quot.sound}; all eleven new theorems are axiom-free.  `lake build`
+clean at 46 jobs, lean audit 44 sources.

@@ -1298,3 +1298,15 @@ open Derivation
 #print axioms PresentationNaturality.card4_has_natural_section
 #print axioms PresentationNaturality.naturality_separates_presentations
 #print axioms PresentationNaturality.bool_obstruction_and_sealed_selector
+
+#print axioms PresentationNaturality.mapPair_refl
+#print axioms PresentationNaturality.mapPair_trans
+#print axioms PresentationNaturality.mapPair_symm_left
+#print axioms PresentationNaturality.mapPair_symm_right
+#print axioms PresentationNaturality.no_natural_section_of_endo
+#print axioms PresentationNaturality.hAuto_iff_auto
+#print axioms PresentationNaturality.twIso_fixes_card4Pair
+#print axioms PresentationNaturality.twoFamilyNeg_no_section
+#print axioms PresentationNaturality.twoFamilyPos_natural
+#print axioms PresentationNaturality.twoFamilyPos_has_section
+#print axioms PresentationNaturality.heterogeneous_naturality_separates

@@ -16323,7 +16323,8 @@
    ],
    "citing_claims": [
     "CL-PD2-PACKET-02R (pair choice: correspondence, presentation non-uniqueness, fixed-action obstruction, 2026-08-14)",
-    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)",
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
    ],
    "consumers": [
     "PresentationNaturality.lean"
@@ -16665,6 +16666,138 @@
    "name": "PresentationNaturality.bool_obstruction_and_sealed_selector",
    "role": "preservation",
    "statement": ": (\u2200 p : NonZeroPair boolEqObs, negIso.mapPair p \u2260 p) \u2227 (\u00ac \u2203 s : Sec (autoFamily boolEqObs negIso), IsNatural (autoFamily boolEqObs negIso) s) \u2227 (\u00ac \u2203 sel : DiffObs Bool Bool \u2192 Bool \u00d7 Bool, \u2200 O : DiffObs Bool Bool, sel (swapObs O) = (!((sel O).1), !((sel O).2)))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.mapPair_refl",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (p : NonZeroPair O) : (PresIso.refl O).mapPair p = p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.mapPair_trans",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} {O'' : DiffObs X'' R''} (F : PresIso O O') (G : PresIso O' O'') (p : NonZeroPair O) : (F.trans G).mapPair p = G.mapPair (F.mapPair p)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.mapPair_symm_left",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (p : NonZeroPair O) : F.symm.mapPair (F.mapPair p) = p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.mapPair_symm_right",
+   "role": "preservation",
+   "statement": "{O : DiffObs X R} {O' : DiffObs X' R'} (F : PresIso O O') (q : NonZeroPair O') : F.mapPair (F.symm.mapPair q) = q"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.no_natural_section_of_endo",
+   "role": "preservation",
+   "statement": "(D : HFamily) (a : D.Obj) (h : D.Hom a a) (hfree : \u2200 p : NonZeroPair (D.obs a), (D.iso a a h).mapPair p \u2260 p) : \u00ac \u2203 s : HSec D, HIsNatural D s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.hAuto_iff_auto",
+   "role": "preservation",
+   "statement": "(O : DiffObs X R) (F : PresIso O O) : (\u2203 s : HSec (hAutoFamily O F), HIsNatural (hAutoFamily O F) s) \u2194 (\u2203 s : Sec (autoFamily O F), IsNatural (autoFamily O F) s)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.twIso_fixes_card4Pair",
+   "role": "preservation",
+   "statement": ": twIso.mapPair card4Pair = card4Pair"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.twoFamilyNeg_no_section",
+   "role": "preservation",
+   "statement": ": \u00ac \u2203 s : HSec twoFamilyNeg, HIsNatural twoFamilyNeg s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.twoFamilyPos_natural",
+   "role": "preservation",
+   "statement": ": HIsNatural twoFamilyPos twoSectionPos"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.twoFamilyPos_has_section",
+   "role": "preservation",
+   "statement": ": \u2203 s : HSec twoFamilyPos, HIsNatural twoFamilyPos s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-HETEROGENEOUS-TRANSPORT (many objects, indexed carriers, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationNaturality.lean",
+   "name": "PresentationNaturality.heterogeneous_naturality_separates",
+   "role": "preservation",
+   "statement": ": (\u2203 s : HSec twoFamilyPos, HIsNatural twoFamilyPos s) \u2227 \u00ac \u2203 s : HSec twoFamilyNeg, HIsNatural twoFamilyNeg s"
   }
  ]
 }
