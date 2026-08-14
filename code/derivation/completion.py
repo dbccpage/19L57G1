@@ -68,6 +68,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "ObsDescent": ["ObsDescent.lean"],
     "ContactBridge": ["ContactBridge.lean"],
     "ContactKernel": ["ContactKernel.lean"],
+    "PresentationNaturality": ["PresentationNaturality.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
