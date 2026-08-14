@@ -1,8 +1,6 @@
-# CLAUDE.md
+# CLAUDE.md — Execution Plan
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-# CLAUDE.md — Execution Plan
 
 ## Repository boundary
 
@@ -209,7 +207,10 @@ ledger IDs, so ledger prose and machine output are cross-checkable.
 ### The kernel, read in this order
 
 The first six modules are the whole object language; the ~25 other modules in
-`code/derivation/` are studies layered on top of them.
+`code/derivation/` are studies layered on top of them. This is the
+*computational* object language only — the Python side. It is not a reading
+order for `lean4/`, whose contact and passage modules are entered through
+`paper/paper_claim_ledger.md`, not through this sequence.
 
 1. `model.py` — `Regime` (frozen: `data`, `forms`, `insts`, `rules`, `reqs`)
    plus the event types. State changes *only* through admission events
