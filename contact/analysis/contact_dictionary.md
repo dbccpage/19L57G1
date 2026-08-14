@@ -106,8 +106,11 @@ zero-complement of some `DiffObs X Prop` exactly when its complement
 is an equivalence and it is ¬¬-stable (`obsApart_repr_iff`; at other
 value types only the forward direction is available).  All statements
 quantify over `Type` (universe 0).  Protection, retention,
-operations, and the designated pair are never derivable
-(`kernel_not_c`, `kernel_not_f`, `pair_choice_load_bearing`).
+operations are never derivable, and the observer alone neither
+guarantees a non-zero pair nor determines a same-data kernel
+presentation (`kernel_not_c`, `kernel_not_f`,
+`kernel_from_obs_iff_pair`, `kernel_no_witness_from_collapse`,
+`kernel_not_unique_of_pair`).
 
 ## Scoped equivalence and prices
 

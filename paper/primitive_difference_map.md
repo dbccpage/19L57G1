@@ -403,7 +403,7 @@ and `paper/` carry none of it.
 **Where the new theorems live.**  Three modules, 2015 lines in the
 working tree (539 + 710 + 766; 1942 at the spine commit `ebb1e0b`),
 every `#print axioms` report inside {propext, Quot.sound}
-(`artifacts/lean_axioms.txt`, 1149 reports):
+(`artifacts/lean_axioms.txt`, 1184 reports):
 
 | module | content | headline names |
 |---|---|---|
@@ -501,8 +501,10 @@ declarations (`contactStatus`, `NativeKernel`, `nativeKernelWitness`,
   settings (`ofSetting`, exact under pointwise decidability by
   `ofSetting_exact`, the gap otherwise recorded OPEN in
   `open_kernel_grade`) and from arriving-shape observers plus a
-  chosen non-zero pair (`ofDiffObs`, the pair proved load-bearing by
-  `pair_choice_load_bearing`); in the reverse direction the kernel
+  chosen non-zero pair (`ofDiffObs`; the exact inhabitation boundary is
+  `kernel_from_obs_iff_pair`, with the collapsed-observer failure
+  `kernel_no_witness_from_collapse`); in the reverse direction the
+  kernel
   together with the two law declarations IS the observer record,
   field-for-field and losslessly (`toDiffObs`, `toDiffObs_fields`,
   `toDiffObs_apart` — a record identity, DEFINITION grade, not a

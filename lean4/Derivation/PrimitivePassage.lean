@@ -19,13 +19,25 @@ extra hypotheses), necessity countermodels, and the P1–P8 theorems.
 
 The single deliberate refinement over the sealed `Completion.obstC`:
 observation here is an `Option` — `none` is *pre-observational*, not
-"an observer that sees nothing".  Active obstruction is therefore a
-FOUR-condition conjunction (retained, protected, observation
-declared, observer-zero on the pair), and the pre-observational
-purity of Primitive Difference is a theorem
-(`obst_requires_observation`), not a convention.  The exact relation
-to the sealed three-condition predicate is proved
+"an observer that sees nothing".  Active obstruction is written with
+three factors and PROVED equal to the product of four TOTAL gates
+(retained, protected, observation declared, observer-zero on the
+pair; `obstP_factors`), no one of which follows from the other three
+(`gate_zero_independent`, `gate_declared_independent`,
+`gate_protection_independent`, `gate_retention_independent`).
+
+The `none => false` branch of `obstP` is a DECLARED_POLICY, not a
+derived necessity: `obst_requires_observation` unfolds that branch
+and proves nothing about whether it had to be chosen.  The rival
+reading — treat `none` as an observation declaring no columns — is
+named (`obstEmptyObs`), and the two readings are proved to agree on
+every declared state (`obst_policies_agree_when_declared`) and to
+differ at one named pre-observational state
+(`obst_policies_differ`).  The relation to the sealed
+three-condition predicate is proved separately
 (`obst_agrees_when_declared`, `obst_diverges_when_undeclared`).
+No complete characterization of every undeclared state on which the
+two policies differ is claimed.
 
 Naming discipline: "forced", "complete", "exhaustive" appear only
 with a proof over a declared finite universe.  Refusal is a record;
@@ -95,37 +107,214 @@ theorem zeroP_cons (c : List Nat) (rest : List (List Nat))
   unfold zeroP sepP
   simp [List.any_cons, Bool.not_or]
 
-/-! ## Active obstruction: the four-condition conjunction -/
+/-! ## Active obstruction: three written factors, four proved gates -/
 
 /-- Active obstruction: the pair is retained, protected, an
 observation IS declared, and the declared observation does not
-separate the pair.  Four independent conditions. -/
+separate the pair.
+
+As written below this is a product of THREE factors: membership in
+`wit`, membership in `prot`, and one factor reading `obs` that
+answers `false` before any observation is declared
+(`obstP_strict_factors`).  `obstP_factors` proves it EQUAL to the
+product of four TOTAL gates, and the four `gate_*_independent`
+theorems prove that none of those gates follows from the other
+three.  Cite the two together, never `obstP_factors` alone: any
+`Bool` splits as `true && c`, so the factorization by itself is
+near-definitional and it is the independence theorems that make the
+four-way reading non-trivial.  Neither statement claims that four is
+the only possible decomposition of this predicate. -/
 def obstP (s : PState) (i j : Nat) : Bool :=
   (decide ((i, j) ∈ s.wit)) && (decide ((i, j) ∈ s.prot))
     && (match s.obs with
         | none => false
         | some cols => zeroP cols i j)
 
-/-- **P1, half 1: Primitive Difference precedes observation.**  The
-witness store is independent of the observation field: states
-differing only in `obs` retain the same witnesses. -/
+/-! ### The four gates
+
+Four TOTAL `Bool` functions of the state.  `retainedP` reads `wit`,
+`protectedP` reads `prot`, and `declaredP` and `zeroDeclP` BOTH read
+`obs` — which is exactly why they are not jointly free
+(`obs_gates_not_both_false`).  `zeroDeclP` must answer on
+pre-observational states, where there is no zero relation to consult
+at all; it answers `true` there.  That value is a DECLARED
+CONVENTION (vacuous truth), exhibited by `undeclared_gates` and
+priced by `obs_gates_not_both_false`.  It is not a claim that a
+pre-observational state carries a blind observer:
+`obst_requires_observation` shows the convention can never make
+anything obstructed. -/
+
+/-- Gate 1: the pair is retained. -/
+def retainedP (s : PState) (i j : Nat) : Bool :=
+  decide ((i, j) ∈ s.wit)
+
+/-- Gate 2: the pair carries a protected demand. -/
+def protectedP (s : PState) (i j : Nat) : Bool :=
+  decide ((i, j) ∈ s.prot)
+
+/-- Gate 3: an observation is declared. -/
+def declaredP (s : PState) : Bool :=
+  match s.obs with
+  | none => false
+  | some _ => true
+
+/-- Gate 4: the declared observation does not separate the pair —
+vacuously `true` before any observation is declared (DECLARED
+CONVENTION; see `undeclared_gates`, `obs_gates_not_both_false`). -/
+def zeroDeclP (s : PState) (i j : Nat) : Bool :=
+  match s.obs with
+  | none => true
+  | some cols => zeroP cols i j
+
+/-- The ALTERNATIVE convention for gate 4: `false` before any
+observation is declared.  This is exactly the third factor of
+`obstP` as written (`obstP_strict_factors`).  It is declared here
+only so that the claim about the convention is a theorem
+(`strict_gate_entails_declared`) and not a remark; no other
+declaration uses it. -/
+def zeroStrictP (s : PState) (i j : Nat) : Bool :=
+  match s.obs with
+  | none => false
+  | some cols => zeroP cols i j
+
+/-- `obstP` as written is a product of THREE factors, the third being
+`zeroStrictP`.  Definitional. -/
+theorem obstP_strict_factors (s : PState) (i j : Nat) :
+    obstP s i j =
+      (retainedP s i j && protectedP s i j && zeroStrictP s i j) :=
+  rfl
+
+/-- **The four-gate factorization.**  Active obstruction is the
+product of the four total gates, at every state and every pair: an
+identity of `Bool`-valued functions, not a table of examples.  Its
+two directions are `obst_of_gates` and `gates_of_obst`.
+
+By itself this is near-definitional — the gates are defined so that
+it holds, and any `Bool` splits as `true && c`.  What makes the
+four-way reading non-trivial is the four `gate_*_independent`
+theorems.  It does NOT claim that this decomposition is the only
+one, nor that the four gates are jointly free
+(`obs_gates_not_both_false` refutes that). -/
+theorem obstP_factors (s : PState) (i j : Nat) :
+    obstP s i j =
+      (retainedP s i j && protectedP s i j && declaredP s
+        && zeroDeclP s i j) := by
+  unfold obstP retainedP protectedP declaredP zeroDeclP
+  cases s.obs <;> simp
+
+/-- **Sufficiency, generally.**  All four gates true gives
+obstruction, at every state and every pair — not at one witness. -/
+theorem obst_of_gates (s : PState) (i j : Nat)
+    (h1 : retainedP s i j = true) (h2 : protectedP s i j = true)
+    (h3 : declaredP s = true) (h4 : zeroDeclP s i j = true) :
+    obstP s i j = true := by
+  rw [obstP_factors, h1, h2, h3, h4]
+  rfl
+
+/-- **Necessity of each gate, generally.**  Obstruction gives all
+four gates.  Necessity is relative to THIS predicate: each gate is
+necessary for `obstP`, not for any notion of obstruction. -/
+theorem gates_of_obst (s : PState) (i j : Nat)
+    (h : obstP s i j = true) :
+    retainedP s i j = true ∧ protectedP s i j = true
+      ∧ declaredP s = true ∧ zeroDeclP s i j = true := by
+  rw [obstP_factors] at h
+  simp only [Bool.and_eq_true] at h
+  exact ⟨h.1.1.1, h.1.1.2, h.1.2, h.2⟩
+
+/-- Obstruction depends on AT MOST three stores: two states agreeing
+on `wit`, `prot` and `obs` obstruct the same pairs, whatever their
+occurrences, assertions, budget, license, refusals or terminal flag.
+This is what licenses "no hidden store is read".  That each of the
+three IS in fact read is a separate matter, witnessed by
+`obst_conditions_independent` (whose states differ from
+`gateWitnessAll` in exactly `wit`, `prot` and `obs` respectively) —
+not by this theorem. -/
+theorem obstP_reads_three_stores (s t : PState) (i j : Nat)
+    (hw : s.wit = t.wit) (hp : s.prot = t.prot)
+    (ho : s.obs = t.obs) : obstP s i j = obstP t i j := by
+  unfold obstP
+  rw [hw, hp, ho]
+
+/-- **The pre-observational convention, exhibited.**  Before any
+observation is declared, gate 3 is false and gate 4 is vacuously
+true.  The `true` is the declared convention;
+`strict_gate_entails_declared` shows what it buys, and
+`obs_gates_not_both_false` what it costs. -/
+theorem undeclared_gates (s : PState) (i j : Nat)
+    (h : s.obs = none) :
+    declaredP s = false ∧ zeroDeclP s i j = true := by
+  unfold declaredP zeroDeclP
+  rw [h]
+  exact ⟨rfl, rfl⟩
+
+/-- **The four gates are not jointly free.**  Gates 3 and 4 both read
+`obs`, and the convention makes the joint value `(false, false)`
+unreachable.  The other three joint values do occur, at the
+witnesses of `obst_conditions_independent` — so "exactly one of the
+four joint values is unreachable" is licensed by the two theorems
+TOGETHER, not by this one.  Consequently
+`obst_conditions_independent` is independence in the "no gate
+follows from the other three" sense only; the stronger reading —
+that all sixteen gate valuations occur — is FALSE and is not claimed
+here. -/
+theorem obs_gates_not_both_false (s : PState) (i j : Nat) :
+    (declaredP s || zeroDeclP s i j) = true := by
+  unfold declaredP zeroDeclP
+  cases s.obs <;> rfl
+
+/-- **The convention is load-bearing, as a theorem.**  Under the
+alternative convention (`zeroStrictP`, i.e. `none => false`) the
+fourth gate ENTAILS the third, so the two could not be separately
+falsified and the omission witness `gateWitnessNoDeclaration` would
+be unavailable.  This is why gate 4 is defined with `none => true`
+and not otherwise. -/
+theorem strict_gate_entails_declared (s : PState) (i j : Nat)
+    (h : zeroStrictP s i j = true) : declaredP s = true := by
+  unfold zeroStrictP at h
+  unfold declaredP
+  revert h
+  cases s.obs with
+  | none => intro h; exact Bool.noConfusion h
+  | some c => intro _; rfl
+
+/-- **P1, half 1 — retention and observation are separate fields.**
+States differing only in `obs` retain the same witnesses.
+
+Exact status: definitional.  The proof term is `Iff.rfl`; `wit` and
+`obs` are distinct fields of `PState`, so this records the field
+separation and is true by projection.  It says retention is readable
+with no observation declared; it does not say obstruction cannot
+precede observation — that is the DECLARED_POLICY at `obstP`. -/
 theorem wit_independent_of_obs (s : PState)
     (o : Option (List (List Nat))) (i j : Nat) :
     ((i, j) ∈ ({ s with obs := o } : PState).wit)
       ↔ ((i, j) ∈ s.wit) := Iff.rfl
 
-/-- **P1, half 2: obstruction does not precede observation.**  In a
-pre-observational state nothing is obstructed, whatever is retained
-and protected. -/
+/-- **P1, half 2 — the declaration gate, unfolded.**  Under the
+selected semantics a pre-observational state obstructs nothing,
+whatever is retained and protected.
+
+Exact status: DECLARED_POLICY unfolding, NOT a necessity proof.  The
+`none => false` branch is part of the definition of `obstP`, so this
+lemma restates that branch and is true by definition; it establishes
+nothing about whether the branch had to be chosen, and it is not
+evidence in any argument about the choice.  That the choice has
+content is a separate, proved matter: `obst_policies_differ`
+exhibits a named state where this reading and the rival
+empty-observer reading (`obstEmptyObs`) disagree. -/
 theorem obst_requires_observation (s : PState) (i j : Nat)
     (h : s.obs = none) : obstP s i j = false := by
   unfold obstP
   rw [h]
   simp
 
-/-- The declared-observation refinement, exact relation to a
+/-- The declared-observation refinement, exact relation to the sealed
 three-condition reading: once an observation is declared, the
-four-condition form is the three-condition form. -/
+declaration gate is discharged and `obstP` reads as retained,
+protected, and observer-zero on the declared columns.  (Gate-wise:
+`declaredP` is `true` there, so `obstP_factors` collapses to the same
+three.) -/
 theorem obst_agrees_when_declared (s : PState)
     (cols : List (List Nat)) (h : s.obs = some cols) (i j : Nat) :
     obstP s i j =
@@ -134,10 +323,21 @@ theorem obst_agrees_when_declared (s : PState)
   unfold obstP
   rw [h]
 
-/-- And they diverge exactly on pre-observational states: a
-three-condition reading that treats "no observation" as "observer
-zero" calls this state obstructed; the four-condition form does not.
-Concrete divergence witness. -/
+/-- **Two Bool values at one pre-observational state.**  Second
+conjunct: `obstP` is `false` at the state below — the same state and
+the same value as the "NOT declared" row of
+`obst_conditions_independent`.  First conjunct: the written-out
+expression `decide ((0,1) ∈ [(0,1)]) && decide ((0,1) ∈ [(0,1)]) &&
+zeroP [] 0 1` is `true`.
+
+Exact status, METATHEORY: that the first conjunct IS the rival
+empty-observer reading applied to THAT state is not checked here.
+The lists are written out, not projected from the state, so the
+first conjunct is a closed truth mentioning no state at all.  For
+the checked comparison of the two readings — same state, both
+predicates applied to it — use `obst_policies_differ` together with
+`obst_policies_agree_when_declared`; this theorem is retained only
+as the historical witness and is not evidence of divergence. -/
 theorem obst_diverges_when_undeclared :
     (((decide (((0 : Nat), (1 : Nat)) ∈ [((0 : Nat), (1 : Nat))]))
         && (decide (((0 : Nat), (1 : Nat)) ∈ [((0 : Nat), (1 : Nat))]))
@@ -150,37 +350,218 @@ theorem obst_diverges_when_undeclared :
   · decide
   · decide
 
-/-- **P5: every proper subset of the four obstruction conditions is
-insufficient.**  The four maximal proper subsets, each realized by a
-concrete state that fails to obstruct, plus the non-vacuity witness
-with all four conditions. -/
+/-! ### The rival pre-observational reading, named and compared
+
+The `none => false` branch of `obstP` is a DECLARED_POLICY.  The
+rival policy — treat "no observation declared" as "an observation
+declaring no columns", i.e. an observer that separates nothing — is
+named here so that the comparison is a checked theorem about two
+predicates applied to one state, not a remark. -/
+
+/-- The rival reading of a pre-observational state. -/
+def obstEmptyObs (s : PState) (i j : Nat) : Bool :=
+  (decide ((i, j) ∈ s.wit)) && (decide ((i, j) ∈ s.prot))
+    && (match s.obs with
+        | none => zeroP [] i j
+        | some cols => zeroP cols i j)
+
+/-- Once an observation IS declared the two policies agree: the whole
+difference between them lives on pre-observational states. -/
+theorem obst_policies_agree_when_declared (s : PState)
+    (cols : List (List Nat)) (h : s.obs = some cols) (i j : Nat) :
+    obstP s i j = obstEmptyObs s i j := by
+  unfold obstP obstEmptyObs
+  rw [h]
+
+/-- A pre-observational state that is retained and protected. -/
+def preRetainedObstructed : PState :=
+  { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+    prot := [(0, 1)],
+    obs := none, budget := 0, licensed := true,
+    refusals := [], halted := false }
+
+/-- **The two policies genuinely differ**, at one named state, with
+both predicates applied to that same state.  This is the checked
+content that `obst_diverges_when_undeclared` does not carry: the
+selected semantics is a choice with consequences, and this theorem
+prices it.  It does NOT show the selected branch was forced. -/
+theorem obst_policies_differ :
+    obstEmptyObs preRetainedObstructed 0 1 = true ∧
+    obstP preRetainedObstructed 0 1 = false := by
+  constructor
+  · decide
+  · decide
+
+/-! ### Gate-omission witnesses
+
+Five concrete states over two occurrences, all read at the pair
+`(0, 1)`.  Each of the first four falsifies exactly one gate while
+satisfying the other three; the fifth satisfies all four.  They are
+named definitions so that the omission theorems can state the gate
+values themselves, not only the obstruction verdict. -/
+
+/-- Retained, protected, observation declared — and the declared
+observation separates the pair, so gate 4 fails. -/
+def gateWitnessNoZero : PState :=
+  { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+    prot := [(0, 1)],
+    obs := some [[0]], budget := 0, licensed := true,
+    refusals := [], halted := false }
+
+/-- Retained, protected, vacuously zero — and no observation is
+declared, so gate 3 fails. -/
+def gateWitnessNoDeclaration : PState :=
+  { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+    prot := [(0, 1)],
+    obs := none, budget := 0, licensed := true,
+    refusals := [], halted := false }
+
+/-- Retained, declared, zero — and the pair carries no protected
+demand, so gate 2 fails. -/
+def gateWitnessNoProtection : PState :=
+  { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+    prot := [],
+    obs := some [], budget := 0, licensed := true,
+    refusals := [], halted := false }
+
+/-- Protected, declared, zero — and the pair is not retained, so
+gate 1 fails. -/
+def gateWitnessNoRetention : PState :=
+  { occ := [0, 1], asserted := [(0, 1)], wit := [],
+    prot := [(0, 1)],
+    obs := some [], budget := 0, licensed := true,
+    refusals := [], halted := false }
+
+/-- All four gates. -/
+def gateWitnessAll : PState :=
+  { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
+    prot := [(0, 1)],
+    obs := some [], budget := 0, licensed := true,
+    refusals := [], halted := false }
+
+/-- **P5, the witness record.**  Five concrete states with all four
+gate values stated at each: for every gate there is a state
+satisfying the other three gates, falsifying that one, and NOT
+obstructed; the fifth satisfies all four and IS obstructed, so the
+four-gate conjunction is not empty.  This theorem is the table.  The
+quantified consequences — that no gate follows from the other three,
+and that no maximal proper subset of the gates entails obstruction —
+are the four `gate_*_independent` theorems below, stated there and
+not merely read off here.
+
+Exact scope: these four gates over `PState`, at the pair `(0, 1)`.
+It is NOT claimed that all sixteen gate valuations occur
+(`obs_gates_not_both_false` refutes that), nor that no other
+predicate could serve as an activation condition. -/
 theorem obst_conditions_independent :
-    -- retained, protected, declared, but separated (zero fails)
-    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
-            prot := [(0, 1)],
-            obs := some [[0]], budget := 0, licensed := true,
-            refusals := [], halted := false } 0 1 = false ∧
-    -- retained, protected, zero-vacuous, but NOT declared
-    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
-            prot := [(0, 1)],
-            obs := none, budget := 0, licensed := true,
-            refusals := [], halted := false } 0 1 = false ∧
-    -- retained, declared, zero, but not protected
-    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
-            prot := [],
-            obs := some [], budget := 0, licensed := true,
-            refusals := [], halted := false } 0 1 = false ∧
-    -- protected, declared, zero, but not retained
-    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [],
-            prot := [(0, 1)],
-            obs := some [], budget := 0, licensed := true,
-            refusals := [], halted := false } 0 1 = false ∧
-    -- all four: obstructed
-    obstP { occ := [0, 1], asserted := [(0, 1)], wit := [(0, 1)],
-            prot := [(0, 1)],
-            obs := some [], budget := 0, licensed := true,
-            refusals := [], halted := false } 0 1 = true := by
+    -- gate 4 omitted: retained, protected, declared, but the
+    -- declared observation separates the pair
+    (retainedP gateWitnessNoZero 0 1 = true
+      ∧ protectedP gateWitnessNoZero 0 1 = true
+      ∧ declaredP gateWitnessNoZero = true
+      ∧ zeroDeclP gateWitnessNoZero 0 1 = false
+      ∧ obstP gateWitnessNoZero 0 1 = false) ∧
+    -- gate 3 omitted: retained, protected, vacuously zero, but no
+    -- observation is declared
+    (retainedP gateWitnessNoDeclaration 0 1 = true
+      ∧ protectedP gateWitnessNoDeclaration 0 1 = true
+      ∧ declaredP gateWitnessNoDeclaration = false
+      ∧ zeroDeclP gateWitnessNoDeclaration 0 1 = true
+      ∧ obstP gateWitnessNoDeclaration 0 1 = false) ∧
+    -- gate 2 omitted: retained, declared, zero, but not protected
+    (retainedP gateWitnessNoProtection 0 1 = true
+      ∧ protectedP gateWitnessNoProtection 0 1 = false
+      ∧ declaredP gateWitnessNoProtection = true
+      ∧ zeroDeclP gateWitnessNoProtection 0 1 = true
+      ∧ obstP gateWitnessNoProtection 0 1 = false) ∧
+    -- gate 1 omitted: protected, declared, zero, but not retained
+    (retainedP gateWitnessNoRetention 0 1 = false
+      ∧ protectedP gateWitnessNoRetention 0 1 = true
+      ∧ declaredP gateWitnessNoRetention = true
+      ∧ zeroDeclP gateWitnessNoRetention 0 1 = true
+      ∧ obstP gateWitnessNoRetention 0 1 = false) ∧
+    -- all four gates: obstructed
+    (retainedP gateWitnessAll 0 1 = true
+      ∧ protectedP gateWitnessAll 0 1 = true
+      ∧ declaredP gateWitnessAll = true
+      ∧ zeroDeclP gateWitnessAll 0 1 = true
+      ∧ obstP gateWitnessAll 0 1 = true) := by
   decide
+
+/-! ### P5, the quantified form
+
+One theorem per gate.  Each states, over ALL states and ALL pairs,
+that the other three gates entail neither the omitted gate nor
+obstruction.  Together they say: no gate follows from the
+conjunction of the other three, and no maximal proper subset of the
+four gates entails obstruction — hence no proper subset does, every
+smaller subset being contained in a maximal one. -/
+
+/-- **Gate 4 is independent.**  Witness `gateWitnessNoZero`. -/
+theorem gate_zero_independent :
+    (¬ (∀ (s : PState) (i j : Nat),
+        retainedP s i j = true → protectedP s i j = true →
+        declaredP s = true → zeroDeclP s i j = true)) ∧
+    (¬ (∀ (s : PState) (i j : Nat),
+        retainedP s i j = true → protectedP s i j = true →
+        declaredP s = true → obstP s i j = true)) := by
+  constructor
+  · intro h
+    exact absurd (h gateWitnessNoZero 0 1 (by decide) (by decide)
+      (by decide)) (by decide)
+  · intro h
+    exact absurd (h gateWitnessNoZero 0 1 (by decide) (by decide)
+      (by decide)) (by decide)
+
+/-- **Gate 3 is independent.**  Witness `gateWitnessNoDeclaration`.
+This clause is exactly the one the pre-observational convention buys
+(`strict_gate_entails_declared`). -/
+theorem gate_declared_independent :
+    (¬ (∀ (s : PState) (i j : Nat),
+        retainedP s i j = true → protectedP s i j = true →
+        zeroDeclP s i j = true → declaredP s = true)) ∧
+    (¬ (∀ (s : PState) (i j : Nat),
+        retainedP s i j = true → protectedP s i j = true →
+        zeroDeclP s i j = true → obstP s i j = true)) := by
+  constructor
+  · intro h
+    exact absurd (h gateWitnessNoDeclaration 0 1 (by decide)
+      (by decide) (by decide)) (by decide)
+  · intro h
+    exact absurd (h gateWitnessNoDeclaration 0 1 (by decide)
+      (by decide) (by decide)) (by decide)
+
+/-- **Gate 2 is independent.**  Witness `gateWitnessNoProtection`. -/
+theorem gate_protection_independent :
+    (¬ (∀ (s : PState) (i j : Nat),
+        retainedP s i j = true → declaredP s = true →
+        zeroDeclP s i j = true → protectedP s i j = true)) ∧
+    (¬ (∀ (s : PState) (i j : Nat),
+        retainedP s i j = true → declaredP s = true →
+        zeroDeclP s i j = true → obstP s i j = true)) := by
+  constructor
+  · intro h
+    exact absurd (h gateWitnessNoProtection 0 1 (by decide)
+      (by decide) (by decide)) (by decide)
+  · intro h
+    exact absurd (h gateWitnessNoProtection 0 1 (by decide)
+      (by decide) (by decide)) (by decide)
+
+/-- **Gate 1 is independent.**  Witness `gateWitnessNoRetention`. -/
+theorem gate_retention_independent :
+    (¬ (∀ (s : PState) (i j : Nat),
+        protectedP s i j = true → declaredP s = true →
+        zeroDeclP s i j = true → retainedP s i j = true)) ∧
+    (¬ (∀ (s : PState) (i j : Nat),
+        protectedP s i j = true → declaredP s = true →
+        zeroDeclP s i j = true → obstP s i j = true)) := by
+  constructor
+  · intro h
+    exact absurd (h gateWitnessNoRetention 0 1 (by decide)
+      (by decide) (by decide)) (by decide)
+  · intro h
+    exact absurd (h gateWitnessNoRetention 0 1 (by decide)
+      (by decide) (by decide)) (by decide)
 
 /-! ## The step function
 

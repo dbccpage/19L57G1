@@ -39,6 +39,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "Refusal": ["Refusal.lean"],
     "RefusalFrontier": ["RefusalFrontier.lean"],
     "Generator": ["Generator.lean"],
+    "SeparationCapacity": ["SeparationCapacity.lean"],
     "DiffInterface": ["DiffInterface.lean"],
     "Represented": ["Represented.lean"],
     "Completion": ["Completion.lean"],

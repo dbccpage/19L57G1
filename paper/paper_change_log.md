@@ -1183,13 +1183,242 @@ which change a theorem, a terminal, or an artifact:
    `contact/analysis/` fails, except the documented native subject
    name `PrimitiveDifference` (verified at `a5caee2`).  The 111/102
    census pins in `tests/test_primitive_receipt.py` are unchanged.
-2. **`pair_choice_load_bearing` is non-uniqueness, not a refutation
-   of existence.**  The observer-alone row in
-   `contact/analysis/lean_theorem_transport.md` is relabeled
-   NON-UNIQUE / pair choice load-bearing; `ofDiffObs` still applies
-   to a witnessed pair.  The word "forced" on that carrier remark is
-   replaced by METATHEORY.  The collapse row remains the existence
-   refutation.
+2. **The pair-choice grade is corrected.**  The original wording
+   misclassified `pair_choice_load_bearing` as non-uniqueness; that
+   lemma says only that an arbitrary pair may fail its side
+   condition.  The observer-alone row in
+   `contact/analysis/lean_theorem_transport.md` now uses
+   `kernel_not_unique_of_pair` for presentation-grade non-uniqueness,
+   while `kernel_from_obs_iff_pair` carries the inhabitation boundary
+   and `kernel_no_witness_from_collapse` carries the collapsed-observer
+   failure.  Row 14 and §2.11 were verified at `de080af`; they were not
+   rewritten in this repair.
 3. **Anchor no longer says UNCOMMITTED.**  The five declarations
    added after `ebb1e0b` are described as committed in this
    collision.  Companion wording in `lean_definition_map.md` matches.
+
+## Packet 5 audit and packet 2 pair-choice lemma (2026-08-14)
+
+Base `bd2e8c8` (PR #19 merged).  Mission
+`prompt/flw_mission_pr14.md`.  AuthorityEffect None.
+
+1. **Packet 5 — audit only, no new Lean.**
+   **WITHDRAWN 2026-08-14 — see the review-repair entry below.**  The
+   withdrawn text claimed that
+   `PrimitivePassage.obst_conditions_independent` "already exhibits
+   the four maximal proper subsets of the `obstP` conjunction
+   (retained / protected / declared / zero)" and that the companion
+   theorems "confirm the declared-observation conjunct is not a
+   convention."  Both were false.  `obstP` as written has three
+   factors, not four conjuncts; the cited theorem was five verdict
+   atoms asserting nothing about any subset; and
+   `obst_requires_observation` unfolds a chosen definitional branch,
+   so it cannot establish that the branch is not a convention.  The
+   surviving true remainder: the predicate reads only `wit`, `prot`
+   and `obs` (now a theorem, `obstP_reads_three_stores`), and
+   `two_rule` may keep citing the activation theorem.
+
+2. **Packet 2 — pair-choice necessity as a reusable lemma.**
+   `ContactKernel.kernel_from_obs_iff_pair`: a kernel carrying an
+   observer's `delta` and `Zero` exists iff a non-zero pair exists.
+   `ContactKernel.eq_ofDiffObs_of_fields`: any such kernel equals
+   `ofDiffObs` at its own endpoints.  Neither statement claims
+   uniqueness of the pair; `kernel_no_witness_from_collapse` remains
+   the no-pair witness.  Axiom reports 1149 → 1151, both new
+   theorems axiom-free.
+   **Correction 2026-08-14**: the parenthesis calling
+   `pair_choice_load_bearing` "the non-uniqueness witness" is
+   WITHDRAWN — that theorem is not one.  See the review-repair entry
+   below.
+
+## Review repair of PR #20 (2026-08-14)
+
+Head under review `cbcee09`.  A review requested changes on six
+findings; all six are confirmed and repaired here.  Where the repair
+could be made by strengthening the mathematics rather than weakening
+the prose, it was.  Two prose claims are WITHDRAWN outright rather
+than softened, and both withdrawals are quoted at their original
+sites above.
+
+1. **The four-way independence claim was false; it is now proved.**
+   `obstP` as written has three factors
+   (`obstP_strict_factors`).  There are four gates in the proved
+   factorization: the TOTAL gates `retainedP`, `protectedP`,
+   `declaredP`, `zeroDeclP` are now defined, and `obstP_factors`
+   proves their conjunction equals `obstP` at
+   every state and pair, `obst_of_gates` / `gates_of_obst` name both
+   directions, and four `gate_*_independent` theorems prove — over
+   ALL states and pairs, as pairs of `¬ ∀` statements — that no gate
+   follows from the other three and no maximal proper subset entails
+   obstruction.  The five witness states are unchanged and are now
+   named definitions stating their own gate values.  Recorded
+   honestly: `obstP_factors` alone is near-definitional and must be
+   cited together with the independence theorems;
+   `obs_gates_not_both_false` proves the gates are NOT jointly free
+   (gates 3 and 4 both read `obs`, so four of sixteen valuations are
+   unreachable); and `strict_gate_entails_declared` prices the
+   `none => true` convention on gate 4.
+
+2. **Pair choice: correspondence, presentation non-uniqueness, and a
+   fixed-action obstruction.**  `pair_choice_load_bearing` proved only
+   that an arbitrary pair may fail; its docstring now says so.  The
+   inhabitation equivalence is upgraded to a bijection —
+   `toPair` / `ofPair` between `NonZeroPair O` and
+   `SameDataKernel O` with both round trips and injectivity, so the
+   pair choice IS the kernel choice.  `kernel_not_unique_of_pair`
+   proves non-uniqueness generally (any observer with an admissible
+   pair has at least two distinct same-data kernels), with
+   `(false, true)` / `(true, false)` over `boolEqObs` as the
+   concrete instance.  `no_equivariant_pair_valued_map` rules out
+   total maps `DiffObs Bool Bool → Bool × Bool` satisfying the
+   Bool-negation equivariance law at `boolEqObs`; it says nothing
+   about other carriers, actions, or non-equivariant maps.  Scope
+   declared in the ledger: PRESENTATION GRADE,
+   resting on the ADMITTED `zero_symm` field, and claiming no
+   priority over the native relation-stratum obstruction
+   (`Bridge.no_swap_fixed_offdiag_pair`).  Its statement and
+   construction contain no quotient object, while its axiom report
+   includes `Quot.sound` because Lean core realizes the `funext` step
+   through that principle.
+
+3. **Declaration is selected semantics, and the divergence is now
+   checked.**  The `none => false` branch is reclassified
+   DECLARED_POLICY; `obst_requires_observation` is documented as an
+   unfolding of that branch and not evidence about the choice.  The
+   review's suggested wording would have left the divergence witness
+   unproved, so instead the rival reading is NAMED (`obstEmptyObs`)
+   and compared.  The policies agree on every declared state
+   (`obst_policies_agree_when_declared`) and differ at one named
+   undeclared state (`obst_policies_differ`, both predicates applied
+   to that same state).  A complete divergence characterization
+   remains OPEN.  Also recorded: the older
+   `obst_diverges_when_undeclared` does NOT carry this content — its
+   first conjunct writes the lists out instead of projecting them
+   from the state, so it is a closed truth mentioning no state at
+   all.  It is retained as the historical witness only.
+
+4. **The transport document's evidence boundary is regenerated and
+   now machine-checked.**  The seven named post-`ebb1e0b`
+   declarations were the historical collision/packet-2 audit set,
+   not a census of `de080af`: packet 2R, packet 5R, and
+   `SeparationCapacity` landed later.  The current boundary is the
+   `de080af` tree plus this repair.  Stale line citations are corrected, and
+   `ci/check_transport_citations.py` with
+   `tests/test_transport_citations.py` now fails the build on any
+   future drift or unclassified citation token.  It checks names and
+   current line anchors, not commit provenance or declaration counts.
+
+5. **The owned-path firewall violation is recorded, not
+   retroactively legalized.**  PR #20 wrote
+   `paper/native_derivation_map.md` and
+   `paper/primitive_difference_map.md`, neither in
+   `prompt/flw_mission_pr14.md`'s `owned_paths`.  The edits were
+   necessary (they carry the axiom-report count, which would
+   otherwise contradict the artifact), so the paths are added by a
+   DATED AMENDMENT that names the violation as a violation.
+
+6. **The axiom artifact is restored to LF and its bytes are now
+   bound.**  PR #20 flipped all 1151 lines LF → CRLF; because
+   `.gitattributes` marks `artifacts/** -text`, those bytes were
+   committed verbatim and `git diff --check` failed on every line.
+   The two receipts bound different domains — raw bytes in
+   `completion_receipt.axiom_report_sha256`, LF-canonicalized bytes
+   in `primitive_completion_receipt`, and nothing compared them
+   (`ci/compare_artifacts.py` covers only `*.json` and
+   `full/*.json.gz`).  The artifact is regenerated LF-only by
+   `ci/regen_axiom_artifact.py`, which writes bytes explicitly so a
+   shell redirect can never reintroduce CRLF, and
+   `tests/test_axiom_artifact_bytes.py` binds the newline discipline
+   AND the raw/canonical parity — the two hashes now coincide at
+   `83adee7b…`, which holds exactly when the file is LF-only.
+
+Axiom reports 1151 → 1178 (27 new theorems), all within
+{propext, Quot.sound}; `lake build` clean at 44 jobs.
+
+## Depth-`d` outrun on the reflective chain (2026-08-14)
+
+`lean4/Derivation/SeparationCapacity.lean` generalizes the sealed
+generator's structural outrun to every fixed radius.  Bound to the
+sealed generator, not a mirror: `profileD` is `Generator.profile1` on
+`Generator.reflState`, and `profileD_deep` spends
+`Generator.middle_profile`.
+
+1. **`depth_d_outrun`** — all deep-interior points share one depth-`d`
+   profile.  Horizon-free: the statement carries no threshold, only
+   deepness of the two points.  **`depth_d_obstruction`** derives the
+   threshold `n ≥ 2d + 3` rather than assuming it — it is exactly the
+   least `n` at which the deep interior holds two distinct points.
+
+2. **The radius convention is reconciled, as two theorems.**  Sealed
+   `Generator.profile2` reads the ball `{i-1, i, i+1}` — radius ONE,
+   not two.  So sealed "depth `k`" indexes radius `k-1`, and `2d + 3`
+   at `d = 1` is `n = 5`, exactly `Generator.depth2_obstruction_n5`
+   (`sealed_depth2_is_radius_one`).  At `n = 4` the deep interior is
+   the singleton `{2}` (`deep_interior_singleton_at_four`), which is
+   why `depth2_separates_near_ends_n4` separating `(1, 3)` is
+   consistent — that pair is not deep.
+
+3. **Scope, stated in the module.**  This is the STRUCTURAL profile
+   only.  No coloured view, no finite view alphabet, no repair
+   strategy, and no capacity bound is proved; those need a finite
+   pigeonhole that stays within {propext, Quot.sound}, which is OPEN.
+   `contact/analysis/separation_capacity_open.md` records the exact
+   residual: core's `List.length_erase`,
+   `List.Nodup.mem_erase_iff`, `List.filter_eq_nil_iff` and
+   `List.nodup_range` are each `Classical.choice`-dependent, and so is
+   Mathlib's `Fintype.card_le_of_injective`, so the counting argument
+   must be rebuilt from `filter`.  Five of six supporting lemmas were
+   brought within the gate; `nodup_length_le` still leaks and the
+   source is not isolated.  Recorded as OPEN rather than admitted.
+
+Axiom reports 1178 → 1184 (6 new theorems), all within
+{propext, Quot.sound}; `lake build` clean at 45 jobs, lean audit 43
+sources.
+
+## PR #21 clearance repair: citation domain and radius correspondence (2026-08-14)
+
+Reviewer amendment "FINAL CLEARANCE REPAIR", items 1 and 2. Both withdraw a
+receipt that did not cover its prose.
+
+1. **The transport-citation gate was checking a domain two citations short,
+   and could not notice.**  `citations()` counted its raw population with the
+   SAME `CITE` regex it classified with, so `_assert_totality` compared the
+   parser against itself and was vacuous by construction.  `CITE`'s file group
+   `[A-Za-z_][A-Za-z0-9_]*` cannot span a path separator, so the two
+   path-prefixed citations in `contact/analysis/lean_theorem_transport.md`
+   matched nothing, went missing from both sides of the comparison, and were
+   never line-checked — while the gate reported success.  The population is now
+   stated independently (`RAW_CITE`: every backticked token, on one line,
+   ending in a colon and digits), the totality assertion is made against THAT
+   number, and `CITE` gained a path group, so all 190 tokens are parsed,
+   classified and verified; `--fix` preserves path prefixes.
+   `tests/test_transport_citations.py` pins the population at 190 and adds a
+   regression that reinstates the old blind regex and proves the path-prefixed
+   token stays in the raw count and surfaces as a totality failure instead of
+   cancelling out on both sides.  This narrows the claim made in item 4 of the
+   "PR #20 review findings" entry above, which said the checker failed the
+   build on any unclassified citation token: it did not, for a citation the
+   regex could not match at all.
+
+2. **The radius-convention "correspondence" did not transport, and is now
+   proved or scoped.**  `SeparationCapacity.sealed_depth2_is_radius_one` never
+   mentioned `Generator.profile2` and never consumed
+   `Generator.depth2_obstruction_n5`; it re-instantiated this module's own
+   `depth_d_obstruction` at `d = 1, n = 5`.
+   `deep_interior_singleton_at_four` mentioned no profile at all and was pure
+   arithmetic under a geometric name.  Both are replaced by
+   `radius_one_agrees_with_sealed_depth2_n5` and
+   `radius_one_agrees_with_sealed_depth2_n4`, whose STATEMENTS mention both
+   `profileD` and `Generator.profile2` and whose PROOFS consume the sealed
+   theorems.  Each proves that over its chain's interior indices the two
+   profile equalities are the same relation, then carries the sealed instance
+   across that equivalence.  Withdrawn with them: the module docstring's
+   "recovered" and "reconciled" wording, and
+   `contact/analysis/separation_capacity_open.md`'s "Radius convention
+   (residual closed)".  The equivalence is decided on those two chains only;
+   the general-`n` correspondence is not proved and is recorded as OPEN.
+   Item 2 of the entry above is narrowed accordingly.
+
+Axiom reports 1184 → 1184 (two theorems renamed and restated, no net change),
+all within {propext, Quot.sound}; `lake build` clean at 45 jobs, lean audit 43
+sources.

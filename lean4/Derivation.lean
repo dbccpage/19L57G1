@@ -11,6 +11,7 @@ import Derivation.Bridge
 import Derivation.Refusal
 import Derivation.RefusalFrontier
 import Derivation.Generator
+import Derivation.SeparationCapacity
 import Derivation.DiffInterface
 import Derivation.Represented
 import Derivation.Completion
@@ -520,7 +521,21 @@ open Derivation
 #print axioms PrimitivePassage.obst_requires_observation
 #print axioms PrimitivePassage.obst_agrees_when_declared
 #print axioms PrimitivePassage.obst_diverges_when_undeclared
+#print axioms PrimitivePassage.obstP_strict_factors
+#print axioms PrimitivePassage.obstP_factors
+#print axioms PrimitivePassage.obst_of_gates
+#print axioms PrimitivePassage.gates_of_obst
+#print axioms PrimitivePassage.obstP_reads_three_stores
+#print axioms PrimitivePassage.undeclared_gates
+#print axioms PrimitivePassage.obs_gates_not_both_false
+#print axioms PrimitivePassage.strict_gate_entails_declared
+#print axioms PrimitivePassage.obst_policies_agree_when_declared
+#print axioms PrimitivePassage.obst_policies_differ
 #print axioms PrimitivePassage.obst_conditions_independent
+#print axioms PrimitivePassage.gate_zero_independent
+#print axioms PrimitivePassage.gate_declared_independent
+#print axioms PrimitivePassage.gate_protection_independent
+#print axioms PrimitivePassage.gate_retention_independent
 #print axioms PrimitivePassage.assertion_not_retained
 #print axioms PrimitivePassage.retention_not_free
 #print axioms PrimitivePassage.retention_requires_assertion
@@ -1205,6 +1220,8 @@ open Derivation
 #print axioms ContactKernel.ofSetting_exact
 #print axioms ContactKernel.ofSetting_ret_irrelevant
 #print axioms ContactKernel.pair_choice_load_bearing
+#print axioms ContactKernel.kernel_from_obs_iff_pair
+#print axioms ContactKernel.eq_ofDiffObs_of_fields
 #print axioms ContactKernel.kernel_no_witness_from_collapse
 #print axioms ContactKernel.toDiffObs_fields
 #print axioms ContactKernel.toDiffObs_apart
@@ -1235,9 +1252,29 @@ open Derivation
 #print axioms ContactKernel.kernel_licenses_entry
 #print axioms ContactKernel.entry_pre_observation
 #print axioms ContactKernel.kernel_two_point_presentation
+#print axioms ContactKernel.obs_eq_of_fields
+#print axioms ContactKernel.toPair_ofPair
+#print axioms ContactKernel.ofPair_toPair
+#print axioms ContactKernel.ofPair_injective
+#print axioms ContactKernel.transpose_kernel_ne
+#print axioms ContactKernel.kernel_not_unique_of_pair
+#print axioms ContactKernel.boolEqObs_nonzero_ft
+#print axioms ContactKernel.boolEqObs_nonzero_tf
+#print axioms ContactKernel.two_kernels_from_one_observer
+#print axioms ContactKernel.pair_choice_not_unique
+#print axioms ContactKernel.swapObs_boolEqObs
+#print axioms ContactKernel.no_equivariant_pair_at_fixed_point
+#print axioms ContactKernel.no_equivariant_pair_valued_map
 #print axioms ContactKernel.contactCells_length
 
 -- Contact collision (2026-08-13): the executed-collision record in
 -- the sealed contact module
 #print axioms PrimitiveContact.contact_status_count
 #print axioms PrimitiveContact.native_interface_not_representable
+
+#print axioms SeparationCapacity.ball_length
+#print axioms SeparationCapacity.profileD_deep
+#print axioms SeparationCapacity.depth_d_outrun
+#print axioms SeparationCapacity.depth_d_obstruction
+#print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n5
+#print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4

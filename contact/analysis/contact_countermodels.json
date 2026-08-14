@@ -117,8 +117,8 @@
   },
   {
    "carrier": 2,
-   "refutes": "kernel realization from an observer WITHOUT a chosen non-zero pair",
-   "theorem": "ContactKernel.pair_choice_load_bearing"
+   "refutes": "uniqueness of a same-data kernel presentation for an observer with a non-zero pair",
+   "theorem": "ContactKernel.kernel_not_unique_of_pair"
   },
   {
    "carrier": 2,
@@ -690,7 +690,7 @@
    "evidence_class": "DEFINITION",
    "hypothesis_delta": "the supplied bundle carries the pair as fields; natively the pair is an explicit argument",
    "kind": "structure",
-   "native": "input data of ContactKernel.ofDiffObs (observer + chosen pair); the chosen pair is genuine new data (ContactKernel.pair_choice_load_bearing)",
+   "native": "input data of ContactKernel.ofDiffObs (observer + chosen non-zero pair); exact inhabitation boundary: ContactKernel.kernel_from_obs_iff_pair",
    "supplied": "PointedPrimitiveDifference"
   },
   {
