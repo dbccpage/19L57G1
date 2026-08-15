@@ -93,3 +93,16 @@ jobs:
           python3 ci/regen_axiom_artifact.py lake_build.log
           diff /tmp/lean_axioms.committed artifacts/lean_axioms.txt
           git diff --check -- artifacts/lean_axioms.txt
+      # Must stay LAST in this job and must not write to lake_build.log: the
+      # three steps above compare that log against artifacts/lean_axioms.txt.
+      # `lake build` only builds defaultTargets, so a module the root does not
+      # import is never elaborated and a type error in it merges green. This
+      # globs the directory rather than listing modules, so it needs no
+      # exception list and covers parked modules automatically.
+      - name: Every Lean module elaborates
+        working-directory: lean4
+        run: |
+          set -o pipefail
+          for f in Derivation/*.lean; do
+            lake build "Derivation.$(basename "$f" .lean)"
+          done

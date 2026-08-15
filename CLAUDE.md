@@ -283,8 +283,20 @@ order for `lean4/`, whose contact and passage modules are entered through
   including inside comments and doc strings. Phrase Lean prose around those
   words.
 - **Each exported theorem the paper cites needs a `#print axioms` line** in
-  `lean4/Derivation.lean` (which also imports every module), and
-  `artifacts/lean_axioms.txt` must match the fresh build log.
+  `lean4/Derivation.lean`, and `artifacts/lean_axioms.txt` must match the
+  fresh build log.
+- **Every module elaborates, whether or not the root imports it.** `lake
+  build` only builds `defaultTargets`, so a module absent from
+  `lean4/Derivation.lean`'s imports was never typechecked by CI — the
+  forbidden-token scan reads `.lean` files as text and does not elaborate
+  them, so a type error in such a module used to merge green. The `lean` job
+  now builds every `lean4/Derivation/*.lean` as its own Lake target. An
+  earlier version of this line claimed the root "imports every module"; that
+  became false when the first parked modules landed, nothing detected it, and
+  the claim is WITHDRAWN in favour of the enforced one above. Being
+  unimported no longer means being unchecked — but it still means
+  contributing no `#print axioms` report, which the axiom-boundary paragraph
+  above already scopes.
 - **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
   `artifacts/**` as `-text`. Never let an editor or a CRLF conversion rewrite
   those files — it breaks both the prompt hash gate and byte comparison.
