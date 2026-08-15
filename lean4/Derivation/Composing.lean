@@ -10,8 +10,15 @@ said the module "imports NOTHING", which was false; the claim is
 WITHDRAWN.
 
 What IS claimed is narrower, and is about USE rather than dependency:
-nothing below uses arithmetic, lists, indexing, succession, ordering,
-counting or magnitude.
+nothing below uses arithmetic, lists, natural-number indexing,
+succession, an order relation on a carrier, counting or magnitude.
+
+It DOES use dependent indexing, and that is load-bearing rather than
+incidental.  `Arr : Node → Node → Type` is a family indexed by two
+nodes, and the source and target positions matter — `Composes` is
+stated over `Arr a b`, `Arr b c`, `Arr a c` precisely so the endpoints
+line up.  An earlier version of this header claimed "no indexing",
+which is false of the defining shape; that claim is WITHDRAWN.
 
 A category supplies composition as an OPERATION: `∘` takes two arrows
 and delivers a third, for every composable pair, always, uniquely.
@@ -39,6 +46,16 @@ does not DETERMINE an operation, not that selection is impossible.
 
 The proofs are one to four lines each.  The content is the choice of
 shape — a relation rather than an operator — not the difficulty.
+
+## Verification boundary
+
+This module is PARKED: `lean4/Derivation.lean` does not import it and
+`defaultTargets = ["Derivation"]`, so the repository's `lake build`
+gate does NOT elaborate anything here.  The forbidden-token scan reads
+this file as text but does not typecheck it.  A green CI run on a pull
+request touching this module is therefore NOT evidence that it
+compiles.  It is compiled by `lake build Derivation.Composing`, run
+separately, and that is the only thing that checks it.
 -/
 
 namespace Composing
@@ -71,6 +88,18 @@ theorem composition_may_fail :
     ¬ Composable noneCompose () () () true true := by
   rintro ⟨_, hfalse⟩
   exact hfalse
+
+/-- An identity at `a`: an arrow composing neutrally on both sides. -/
+def HasIdentity (W : Web) (a : W.Node) : Prop :=
+  ∃ i : W.Arr a a,
+    (∀ (b : W.Node) (f : W.Arr a b), W.Composes a a b i f f) ∧
+    (∀ (b : W.Node) (f : W.Arr b a), W.Composes b a a f i f)
+
+/-- **Identities may fail too**, against a stated predicate rather than
+by assertion.  Where nothing composes, nothing can be neutral. -/
+theorem noneCompose_no_identity : ¬ HasIdentity noneCompose () := by
+  rintro ⟨_, hleft, _⟩
+  exact hleft () true
 
 /-! ## 2. Uniqueness may fail — but selection remains possible -/
 
@@ -167,9 +196,16 @@ theorem skew_not_relAssoc : ¬ RelAssoc skewCompose :=
   generated.
 * It does not claim selection is impossible.  `selection_is_possible`
   proves the opposite where uniqueness fails.
-* It does not supply identities, inverses, associativity or totality,
-  and does not claim they are unavailable — only that they are extra,
-  and each is exhibited failing.
+* Totality, single-valuedness, associativity and identity each have a
+  stated predicate and a negative result: `composition_may_fail`,
+  `composite_may_be_nonunique`, `skew_not_relAssoc`, and
+  `noneCompose_no_identity`.
+* INVERSES are merely NOT SUPPLIED.  No inverse law is defined here and
+  none is refuted, so nothing about inverses should be read off this
+  module.  An earlier version said identities and inverses were "each
+  exhibited failing", which was true of neither at the time and is now
+  true only of identities; the claim is WITHDRAWN and replaced by the
+  two bullets above.
 * It supplies no magnitude, weight, measure or summing.  There is no
   integral, no norm and no scalar, so this is composition without the
   sum; anything numeric needs imports this module does not make.

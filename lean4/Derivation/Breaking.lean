@@ -20,9 +20,10 @@ supplied element**.  That is all.  In particular:
 * `Break` carries NO inhabitance law.  `emptyBreak` satisfies every
   field over an empty carrier, so nothing here asserts that anything
   exists.
-* `Break` carries NO single-orbit law.  `fourBreak` satisfies every
-  field with two disjoint reflected pairs, so nothing here asserts that
-  there are exactly two things.
+* `Break` carries NO single-orbit law.  `SingleOrbit` is defined, and
+  `fourBreak_not_singleOrbit` refutes it for a four-element model while
+  `boolBreak_singleOrbit` confirms it for a two-element one, so nothing
+  here asserts that there are exactly two things.
 
 Both are exhibited below rather than described.  An earlier version of
 this module said "two-ness is not a field, `two_arises` derives it".
@@ -33,10 +34,28 @@ above.
 
 ## Weight
 
-Every proof is one to four lines and each is an immediate corollary of
-a field.  The content is the choice of primitive, not the difficulty,
-and the primitive assumes the distinction it is sometimes said to
-produce.
+The STRUCTURAL results — `ne_image`, `two_cycle`,
+`no_orbit_constant_equivariant_endomap` — are immediate consequences of
+the fields.  The EXAMPLES are not: `constFalse_represents`,
+`constFalse_not_equivariant`, `boolBreak_singleOrbit`,
+`fourBreak_not_singleOrbit` and the two countermodels are finite case
+analyses over `Bool` and `Bool × Bool`, using definitional reduction
+and composition of earlier results.  An earlier version said every
+proof was "an immediate corollary of a field", which was false of the
+examples; that claim is WITHDRAWN.
+
+The content is the choice of primitive, not the difficulty, and the
+primitive assumes the distinction it is sometimes said to produce.
+
+## Verification boundary
+
+This module is PARKED: `lean4/Derivation.lean` does not import it and
+`defaultTargets = ["Derivation"]`, so the repository's `lake build`
+gate does NOT elaborate anything here.  The forbidden-token scan reads
+this file as text but does not typecheck it.  A green CI run on a pull
+request touching this module is therefore NOT evidence that it
+compiles.  It is compiled by `lake build Derivation.Breaking`, run
+separately, and that is the only thing that checks it.
 -/
 
 namespace Breaking
@@ -56,8 +75,8 @@ structure Break where
 
 /-- Nothing is its own reflection, in the other direction.  This is the
 `e_no_fixed` FIELD restated, not a derivation of distinctness from
-anything weaker — the content sits in the field, and citing this
-theorem as though distinction were derived would misreport it. -/
+anything weaker.  The content sits in the field; citing this result as
+though distinction were derived would misreport it. -/
 theorem ne_image (B : Break) (w : B.Whole) : w ≠ B.e w :=
   fun h => B.e_no_fixed w h.symm
 
@@ -67,6 +86,12 @@ theorem two_cycle (B : Break) (w : B.Whole) : B.e (B.e w) = w :=
   B.e_involutive w
 
 /-! ## The two omissions, exhibited -/
+
+/-- Everything lies on one reflected pair: any two elements are equal
+or reflections of each other.  Stated without counting — no numeral,
+no cardinality, no enumeration appears. -/
+def SingleOrbit (B : Break) : Prop :=
+  ∀ w w' : B.Whole, w' = w ∨ w' = B.e w
 
 /-- **No inhabitance.**  Every field holds vacuously over an empty
 carrier, so `Break` does not assert that anything exists. -/
@@ -91,6 +116,16 @@ def fourBreak : Break where
     intro w h
     cases w with
     | mk a b => cases a <;> exact Bool.noConfusion (congrArg Prod.fst h)
+
+/-- `fourBreak` really does fail the single-orbit law: the second
+coordinate is untouched by the reflection, so elements differing in it
+are neither equal nor reflections.  This is the theorem the module's
+ceiling depends on; an earlier version asserted it in prose only. -/
+theorem fourBreak_not_singleOrbit : ¬ SingleOrbit fourBreak := by
+  intro h
+  rcases h (false, false) (false, true) with heq | hrefl
+  · exact Bool.noConfusion (congrArg Prod.snd heq)
+  · exact Bool.noConfusion (congrArg Prod.snd hrefl)
 
 /-! ## Selectors -/
 
@@ -132,6 +167,17 @@ def boolBreak : Break where
   e := not
   e_involutive := by intro w; cases w <;> rfl
   e_no_fixed := by intro w h; cases w <;> exact Bool.noConfusion h
+
+/-- The two-element carrier DOES satisfy the single-orbit law, so
+`SingleOrbit` is a real condition separating the two models rather than
+a predicate nothing meets. -/
+theorem boolBreak_singleOrbit : SingleOrbit boolBreak := by
+  intro w w'
+  cases w <;> cases w'
+  · exact Or.inl rfl
+  · exact Or.inr rfl
+  · exact Or.inr rfl
+  · exact Or.inl rfl
 
 def constFalse : Selector boolBreak := fun _ => false
 
