@@ -3113,3 +3113,85 @@ CL-PD2-LADDER)
   `k ^ (2d + 1)` as tight; reading the bound as a statement about the
   sealed profile colouring.
 
+### CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)
+- **Statement, relative identity**: on a supplied finite list `D`,
+  `PresentationIdentityOn D p q` is mutual `FactorsOn`.
+  `presentationIdentity_iff_fiberIdentity` proves that this is exactly
+  equality of the two induced fiber relations on represented pairs;
+  `presentationIdentity_iff_residualEmpty` proves that it is exactly
+  absence of a `DirectionalResidual` in either direction.
+  `presentationIdentity_equivalence` proves that this relation is
+  reflexive, symmetric, and transitive.
+  `self_comparison_has_empty_residual` is the exact self-comparison
+  corollary, not a self-certification theorem.
+- **Question-family form**: `identityRelativeToQuestions_iff`
+  identifies relative identity with the fibers of the supplied ordered
+  first-match signature `pQ D Q`. For `x ∈ D`,
+  `splitsAt_iff_directionalResidualAt` proves that
+  `SplitsAt D Q Q' x` is exactly an old-family identification separated
+  by the new family at `x`. If `Q'` contains `Q`,
+  `family_enlargement_split_is_strict` combines the refinement
+  direction with failure of mutual factorization.
+- **Comparison-forced refinement**: if the supplied `q` fails to factor
+  through `p` on `D`, `forced_split_of_factorization_failure` returns
+  represented `x,y` with `p x = p y` and `q x ≠ q y`; every `r`
+  carrying both `p` and `q` separates that pair and satisfies
+  `classCount D [p] < classCount D [r]`.
+  `directionalResidual_of_factorization_failure` packages the witness.
+  `jointPresentation_strict_of_factorization_failure` exhibits one
+  adequate refinement, `pQ D [p,q]`, whose left and right factorization
+  laws are proved separately. Its ordered first-match encoding is
+  declared; no naturality or preference follows.
+- **Operational witnesses**: within the seven-field `World` schema,
+  `supportNotesView` is injective while `supp` can identify records that
+  the larger view separates; changing only `notes` preserves the
+  enumerated kernel results. Under evaluator admission, panel
+  equivalence refines and enlarged-panel negative certification implies
+  source certification for a nonempty source panel; a fixed panel
+  fixture shows the converse can fail without changing the stored
+  world. The generator fixture supplies `id` as an identity-grade
+  comparison and instantiates the forced-refinement theorem for every
+  `n ≥ 3`.
+- **Ambient diagnostic only**:
+  `PresentationRelativity.Metatheory.attempted_absolute_identification_collapses_to_equality`
+  and
+  `PresentationRelativity.Metatheory.attempted_absolute_polarities_are_refuted`
+  quantify over ambient Lean functions. They diagnose an attempted
+  all-view quantifier; they do not admit such views to `World`,
+  `CWorld`, or replay.
+- **Class**: finite common-carrier theorems, plus one concrete panel
+  fixture and three horizon-free generator consequences.
+- **Exact non-claims**:
+  - The comparison `q` is supplied. No first presentation,
+    continuation policy, physical time, cosmological origin, or
+    distinguished external fact is generated.
+  - No capital-T truth object is defined. “Identity relative to
+    questions” is the typed mutual-factorization relation above.
+  - No heterogeneous-carrier version of the forced-split/class-count
+    theorem is proved.
+  - A forced split does not make a complete refinement unique, natural,
+    canonical, or preferred.
+  - `supportNotesView` is complete only for the declared `World` fields;
+    no observer-complete view or all-view survey is claimed.
+  - No general evaluator self-certification, self-cutting, or endogenous
+    comparison-demand theorem is present.
+  - `ABSOLUTE_NO_OUTSIDE_UNFORMULABLE` remains unchanged. Inside/outside
+    predicates are absent from these object-level statements; their
+    ontological nonexistence is not asserted as a theorem.
+  - The generator instance uses the supplied identity comparison and
+    therefore does not close G1's non-identity repair-channel
+    obligation.
+- **Evidence (Lean)**: all 32 `PresentationRelativity.*` theorem reports
+  enumerated by `lean4/Derivation.lean`; in particular the four identity
+  equivalences, the split/refinement spine, the joint-presentation laws,
+  the two `Metatheory` diagnostics, the support/panel laws, and the three
+  declared-generator results.
+- **Python evidence**: inventory and receipt binding only; no new
+  solver, runner, or computed mathematical evidence.
+- **Falsifier**: a represented pair on which mutual factorization holds
+  but fiber identity fails; a directional factorization failure with no
+  residual pair; an `r` carrying both supplied maps but not splitting
+  the witness or not increasing class count; or any citation of the
+  joint presentation as natural/preferred or of the common-carrier
+  theorem as heterogeneous.
+

@@ -2275,7 +2275,9 @@
     "CL-G-TERMINAL",
     "CL-G-GENERATION"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "horizon-free",
    "module": "Generator.lean",
    "name": "Generator.generation_never_dries",
@@ -2335,7 +2337,9 @@
    "citing_claims": [
     "CL-G-REPAIR-FATES"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "horizon-free",
    "module": "Generator.lean",
    "name": "Generator.valued_marks_collapse_generation",
@@ -3968,7 +3972,9 @@
    "citing_claims": [
     "CL-NC-RULE2"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "generic",
    "module": "NoOutside.lean",
    "name": "NoOutside.effectual_outside_dichotomy",
@@ -4010,7 +4016,9 @@
    "citing_claims": [
     "CL-NC-RULE2"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "generic",
    "module": "NoOutside.lean",
    "name": "NoOutside.admitEvaluator_base_inert",
@@ -4050,7 +4058,9 @@
    "citing_claims": [
     "CL-NC-RULE2"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "generic",
    "module": "NoOutside.lean",
    "name": "NoOutside.certNeg_iff_panelEquiv",
@@ -9681,7 +9691,8 @@
     "CL-PD2-COMPRESSION"
    ],
    "consumers": [
-    "ObsDescent.lean"
+    "ObsDescent.lean",
+    "PresentationRelativity.lean"
    ],
    "kind": "generic",
    "module": "Compression.lean",
@@ -9722,7 +9733,9 @@
    "citing_claims": [
     "CL-PD2-COMPRESSION"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "generic",
    "module": "Compression.lean",
    "name": "Compression.pQ_exact",
@@ -9786,7 +9799,9 @@
    "citing_claims": [
     "CL-PD2-COMPRESSION"
    ],
-   "consumers": [],
+   "consumers": [
+    "PresentationRelativity.lean"
+   ],
    "kind": "generic",
    "module": "Compression.lean",
    "name": "Compression.enlarge_refines",
@@ -16768,6 +16783,421 @@
    "name": "CapacityBound.local_view_can_separate",
    "role": "countermodel",
    "statement": ": \u2203 (colour v : Nat \u2192 Nat), (\u2200 x, colour x < 2) \u2227 ViewLocal v colour 0 \u2227 0 < 1 \u2227 1 + 0 < 3 \u2227 0 < 2 \u2227 2 + 0 < 3 \u2227 3 < 2 ^ (2 * 0 + 1) + 2 * 0 + 2 \u2227 v 1 \u2260 v 2 \u2227 (\u2200 i j, 0 < i \u2192 i + 0 < 3 \u2192 0 < j \u2192 j + 0 < 3 \u2192 i \u2260 j \u2192 v i \u2260 v j)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.presentationIdentity_iff_fiberIdentity",
+   "role": "equivalence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : PresentationIdentityOn D p q \u2194 FiberIdentityOn D p q"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.directionalResidual_refutes_identity",
+   "role": "classification",
+   "statement": "{D : List Nat} {p q : Nat \u2192 Nat} (residual : DirectionalResidual D p q) : \u00ac PresentationIdentityOn D p q"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.presentationIdentity_iff_residualEmpty",
+   "role": "equivalence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : PresentationIdentityOn D p q \u2194 ResidualEmptyOn D p q"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.presentationIdentity_equivalence",
+   "role": "equivalence",
+   "statement": "(D : List Nat) : Equivalence (PresentationIdentityOn D)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.self_comparison_has_empty_residual",
+   "role": "preservation",
+   "statement": "(D : List Nat) (p : Nat \u2192 Nat) : ResidualEmptyOn D p p"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.identityRelativeToQuestions_iff",
+   "role": "equivalence",
+   "statement": "(D : List Nat) (Q : List (Nat \u2192 Nat)) (p : Nat \u2192 Nat) : IdentityRelativeToQuestions D Q p \u2194 \u2200 x, x \u2208 D \u2192 \u2200 y, y \u2208 D \u2192 (p x = p y \u2194 SigEq Q x y)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.splitsAt_iff_directionalResidualAt",
+   "role": "equivalence",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (x : Nat) (hx : x \u2208 D) : SplitsAt D Q Q' x \u2194 DirectionalResidualAt D (pQ D Q) (pQ D Q') x"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.family_enlargement_refines",
+   "role": "preservation",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (hsub : \u2200 q, q \u2208 Q \u2192 q \u2208 Q') : FactorsOn D (pQ D Q') (pQ D Q)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.family_split_refuses_relative_identity",
+   "role": "classification",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (x : Nat) (hx : x \u2208 D) (hs : SplitsAt D Q Q' x) : \u00ac PresentationIdentityOn D (pQ D Q) (pQ D Q')"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.family_enlargement_split_is_strict",
+   "role": "classification",
+   "statement": "(D : List Nat) (Q Q' : List (Nat \u2192 Nat)) (hsub : \u2200 q, q \u2208 Q \u2192 q \u2208 Q') (x : Nat) (hx : x \u2208 D) (hs : SplitsAt D Q Q' x) : FactorsOn D (pQ D Q') (pQ D Q) \u2227 \u00ac PresentationIdentityOn D (pQ D Q) (pQ D Q')"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.classCount_lt_of_refinement_split",
+   "role": "minimality",
+   "statement": "(D : List Nat) (p r : Nat \u2192 Nat) (hrp : FactorsOn D r p) (x y : Nat) (hx : x \u2208 D) (hy : y \u2208 D) (hpxy : p x = p y) (hrxy : r x \u2260 r y) : classCount D [p] < classCount D [r]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.forced_split_of_factorization_failure",
+   "role": "existence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) (hfail : \u00ac FactorsOn D p q) : \u2203 x, x \u2208 D \u2227 \u2203 y, y \u2208 D \u2227 p x = p y \u2227 q x \u2260 q y \u2227 \u2200 r : Nat \u2192 Nat, FactorsOn D r p \u2192 FactorsOn D r q \u2192 r x \u2260 r y \u2227 classCount D [p] < classCount D [r]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.jointPresentation_factors_left",
+   "role": "preservation",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : FactorsOn D (jointPresentation D p q) p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.jointPresentation_factors_right",
+   "role": "preservation",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : FactorsOn D (jointPresentation D p q) q"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.jointPresentation_strict_of_factorization_failure",
+   "role": "existence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) (hfail : \u00ac FactorsOn D p q) : FactorsOn D (jointPresentation D p q) p \u2227 FactorsOn D (jointPresentation D p q) q \u2227 classCount D [p] < classCount D [jointPresentation D p q]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.directionalResidual_of_factorization_failure",
+   "role": "existence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) (hfail : \u00ac FactorsOn D p q) : Nonempty (DirectionalResidual D p q)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.Metatheory.attempted_absolute_identification_collapses_to_equality",
+   "role": "equivalence",
+   "statement": "{X : Type} (x y : X) : AllViewsIdentify x y \u2194 x = y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.Metatheory.attempted_absolute_polarities_are_refuted",
+   "role": "countermodel",
+   "statement": "{X : Type} {x y : X} (hne : x \u2260 y) : (\u00ac \u2200 (Y : Type) (view : X \u2192 Y), ViewSeparates view x y) \u2227 (\u00ac \u2200 (Y : Type) (view : X \u2192 Y), ViewIdentifies view x y)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.world_eq_iff_support_eq_and_notes_eq",
+   "role": "equivalence",
+   "statement": "(w w' : World) : w = w' \u2194 supp w = supp w' \u2227 w.notes = w'.notes"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.supportNotesView_injective",
+   "role": "uniqueness",
+   "statement": ": Function.Injective supportNotesView"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.support_identifies_while_supportNotes_separates",
+   "role": "classification",
+   "statement": "{w w' : World} (hs : supp w = supp w') (hn : w.notes \u2260 w'.notes) : ViewIdentifies supp w w' \u2227 ViewSeparates supportNotesView w w'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.notes_update_kernel_results_agree",
+   "role": "preservation",
+   "statement": "(w : World) (newNotes : List Nat) (history : List Event) (r : Req) : supp (replay history { w with notes"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.panelEquiv_antitone",
+   "role": "preservation",
+   "statement": "{small large : List Evaluator} {i j : Nat} (hsub : \u2200 E, E \u2208 small \u2192 E \u2208 large) (hlarge : PanelEquiv large i j) : PanelEquiv small i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.panel_members_preserved_by_extension",
+   "role": "preservation",
+   "statement": "(cw : CWorld) (E : Evaluator) : \u2200 A, A \u2208 cw.panel \u2192 A \u2208 (stepC cw (.admitEvaluator E)).panel"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.panel_extension_refines_equivalence",
+   "role": "preservation",
+   "statement": "(cw : CWorld) (E : Evaluator) (i j : Nat) (hextended : PanelEquiv (stepC cw (.admitEvaluator E)).panel i j) : PanelEquiv cw.panel i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.certNeg_extension_implies_source",
+   "role": "preservation",
+   "statement": "(cw : CWorld) (E : Evaluator) (i j : Nat) (hne : cw.panel \u2260 []) (hextended : certNegC (stepC cw (.admitEvaluator E)) i j = true) : certNegC cw i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.panel_extension_changes_verdict_not_world",
+   "role": "countermodel",
+   "statement": "(w : World) : (extendedPanelWorld w).base = (sourcePanelWorld w).base \u2227 certNegC (sourcePanelWorld w) 0 1 = true \u2227 certNegC (extendedPanelWorld w) 0 1 = false"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.encodeDepthOneProfile_injective",
+   "role": "uniqueness",
+   "statement": ": Function.Injective encodeDepthOneProfile"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.depthOnePresentation_eq_iff",
+   "role": "equivalence",
+   "statement": "(s : PState) (i j : Nat) : depthOnePresentation s i = depthOnePresentation s j \u2194 profile1 s i = profile1 s j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.declared_generator_index_comparison_does_not_factor",
+   "role": "countermodel",
+   "statement": "(n : Nat) (h : 3 \u2264 n) : \u00ac FactorsOn (generatorDomain n) (depthOnePresentation (reflState n)) id"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.declared_generator_index_comparison_forces_refinement",
+   "role": "existence",
+   "statement": "(n : Nat) (h : 3 \u2264 n) : \u2203 x, x \u2208 generatorDomain n \u2227 \u2203 y, y \u2208 generatorDomain n \u2227 depthOnePresentation (reflState n) x = depthOnePresentation (reflState n) y \u2227 id x \u2260 id y \u2227 \u2200 r : Nat \u2192 Nat, FactorsOn (generatorDomain n) r (depthOnePresentation (reflState n)) \u2192 FactorsOn (generatorDomain n) r id \u2192 r x \u2260 r y \u2227 classCount (generatorDomain n) [depthOnePresentation (reflState n)] < classCount (generatorDomain n) [r]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "PresentationRelativity.lean",
+   "name": "PresentationRelativity.declared_generator_profiles_disagree_at_pair",
+   "role": "countermodel",
+   "statement": "(n : Nat) (h : 3 \u2264 n) : ViewIdentifies (profile1 (reflState n)) 1 2 \u2227 ViewSeparates (profileV (reflState n)) 1 2"
   }
  ]
 }

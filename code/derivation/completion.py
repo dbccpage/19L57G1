@@ -72,6 +72,8 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "PresentationNaturality": ["PresentationNaturality.lean"],
     "Pigeonhole": ["Pigeonhole.lean"],
     "CapacityBound": ["CapacityBound.lean"],
+    "PresentationRelativity": ["PresentationRelativity.lean"],
+    "PresentationRelativity.Metatheory": ["PresentationRelativity.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -347,6 +349,8 @@ NAMESPACE_DEFAULTS: dict[str, tuple[str, str]] = {
     "Initiality": ("bounded", "minimality"),
     "Pigeonhole": ("generic", "preservation"),
     "CapacityBound": ("generic", "preservation"),
+    "PresentationRelativity": ("generic", "classification"),
+    "PresentationRelativity.Metatheory": ("generic", "classification"),
 }
 
 KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
@@ -462,6 +466,75 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
     "CapacityBound.capacity_bound": ("horizon-free", "countermodel"),
     "CapacityBound.capacity_at_one_colour": ("horizon-free", "example"),
     "CapacityBound.local_view_can_separate": ("concrete", "countermodel"),
+    # presentation-relative identity and comparison-forced refinement
+    "PresentationRelativity.presentationIdentity_iff_fiberIdentity":
+        ("generic", "equivalence"),
+    "PresentationRelativity.directionalResidual_refutes_identity":
+        ("generic", "classification"),
+    "PresentationRelativity.presentationIdentity_iff_residualEmpty":
+        ("generic", "equivalence"),
+    "PresentationRelativity.presentationIdentity_equivalence":
+        ("generic", "equivalence"),
+    "PresentationRelativity.self_comparison_has_empty_residual":
+        ("generic", "preservation"),
+    "PresentationRelativity.identityRelativeToQuestions_iff":
+        ("generic", "equivalence"),
+    "PresentationRelativity.splitsAt_iff_directionalResidualAt":
+        ("generic", "equivalence"),
+    "PresentationRelativity.family_enlargement_refines":
+        ("generic", "preservation"),
+    "PresentationRelativity.family_split_refuses_relative_identity":
+        ("generic", "classification"),
+    "PresentationRelativity.family_enlargement_split_is_strict":
+        ("generic", "classification"),
+    "PresentationRelativity.classCount_lt_of_refinement_split":
+        ("generic", "minimality"),
+    "PresentationRelativity.forced_split_of_factorization_failure":
+        ("generic", "existence"),
+    "PresentationRelativity.jointPresentation_factors_left":
+        ("generic", "preservation"),
+    "PresentationRelativity.jointPresentation_factors_right":
+        ("generic", "preservation"),
+    "PresentationRelativity.jointPresentation_strict_of_factorization_failure":
+        ("generic", "existence"),
+    "PresentationRelativity.directionalResidual_of_factorization_failure":
+        ("generic", "existence"),
+    "PresentationRelativity.Metatheory."
+    "attempted_absolute_identification_collapses_to_equality":
+        ("generic", "equivalence"),
+    "PresentationRelativity.Metatheory."
+    "attempted_absolute_polarities_are_refuted":
+        ("generic", "countermodel"),
+    "PresentationRelativity.world_eq_iff_support_eq_and_notes_eq":
+        ("generic", "equivalence"),
+    "PresentationRelativity.supportNotesView_injective":
+        ("generic", "uniqueness"),
+    "PresentationRelativity.support_identifies_while_supportNotes_separates":
+        ("generic", "classification"),
+    "PresentationRelativity.notes_update_kernel_results_agree":
+        ("generic", "preservation"),
+    "PresentationRelativity.panelEquiv_antitone":
+        ("generic", "preservation"),
+    "PresentationRelativity.panel_members_preserved_by_extension":
+        ("generic", "preservation"),
+    "PresentationRelativity.panel_extension_refines_equivalence":
+        ("generic", "preservation"),
+    "PresentationRelativity.certNeg_extension_implies_source":
+        ("generic", "preservation"),
+    "PresentationRelativity.panel_extension_changes_verdict_not_world":
+        ("concrete", "countermodel"),
+    "PresentationRelativity.encodeDepthOneProfile_injective":
+        ("concrete", "uniqueness"),
+    "PresentationRelativity.depthOnePresentation_eq_iff":
+        ("generic", "equivalence"),
+    "PresentationRelativity."
+    "declared_generator_index_comparison_does_not_factor":
+        ("horizon-free", "countermodel"),
+    "PresentationRelativity."
+    "declared_generator_index_comparison_forces_refinement":
+        ("horizon-free", "existence"),
+    "PresentationRelativity.declared_generator_profiles_disagree_at_pair":
+        ("horizon-free", "countermodel"),
 }
 
 

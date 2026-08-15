@@ -5,8 +5,9 @@
 element at every round, and the pair-separation closure policy of the
 first checkpoint demands the separation of every retained pair.  Is
 their composite the development's first *self-sustaining* challenge
-generator — obstructions arising forever with no per-round external
-act?  And is the full obstruction-*repair* cycle self-sustaining, or
+generator — obstructions arising forever with no additional event
+supplied per round after the declared transition and closure policy are
+fixed? And is the full obstruction-*repair* cycle self-sustaining, or
 does every repair strategy in a declared class either import per
 repair, act vacuously, or end generation?
 
@@ -47,8 +48,12 @@ Split by claim, since the two halves of F5 come apart:
   every demand rather than repairing a demand that fired.  Scope:
   horizon-free Lean cores for the four depth-1 strategies;
   instance-backed and bounded evidence for depth 2 (Lean instances at
-  lengths 4 and 5, trajectories to the 15-round bound); the general
-  depth-d statement remains the open conjecture G2.
+  lengths 4 and 5, trajectories to the 15-round bound). The structural
+  fixed-depth outrun is now proved by
+  `SeparationCapacity.depth_d_outrun` and `depth_d_obstruction`. The
+  general-`n` correspondence between sealed `Generator.profile2` and
+  radius-one `SeparationCapacity.profileD`, and a repair-strategy-class
+  consequence of the coloured capacity theorem, remain OPEN.
 
 The remaining bridge obligation, exactly stated: **a repair channel
 that separates without minting identity-grade distinctions** — or a
@@ -84,16 +89,21 @@ proof that none exists (G1).  Nothing in this run produces one.
   per repaired pair (per-pair marking — recurring), or the unbounded
   valued alphabet (identity-grade observation — one declaration that
   ends generation), or the depth-2 regime (one declaration, outrun at
-  the proved switch point and within the declared bound).  The
-  all-depth version is G2, not a result of this run.
-* **Open**: G1 (no non-identity repair channel — class-general), G2
-  (general depth-d outrun), G3 (repair-power = generation-poison as a
-  conservation law), G4 (the sealed engine as the import branch), and
-  the carried F4 (chain initiality).
-* **Single best next theorem target**: G2's general form — for every
-  fixed depth d, deep-interior elements of a long enough chain share
-  depth-d profiles — turning the exclusion's depth-2 bounded leg into
-  a theorem for every regime in the depth family at once.
+  the proved switch point and within the declared bound). The
+  structural all-depth outrun is now a theorem; the interface and
+  strategy consequences named below are not.
+* **Open**: G1 (no non-identity repair channel — class-general), the
+  general-`n` `Generator.profile2`/`profileD · · 1` interface
+  correspondence, a repair-strategy-class consequence of
+  `CapacityBound.capacity_bound`, G3 (repair-power = generation-poison
+  as a conservation law), G4 (the sealed engine as the import branch),
+  and carried F4 (chain initiality). The former G2 structural depth-`d`
+  outrun is CLOSED.
+* **Single best next theorem target**: derive a declared
+  repair-strategy-class exclusion from `CapacityBound.capacity_bound`.
+  The capacity theorem bounds local finite-alphabet views; it does not
+  itself quantify over strategies or prove the class-general cycle
+  exclusion.
 
 ---
 
@@ -140,10 +150,11 @@ of them at length `n` (count computed; growth quadratic).
 **[theorem]** (`generation_never_dries`)  For every `n ≥ 3`, elements 1
 and 2 are distinct carrier elements with equal depth-1 profiles.  The
 composite fires at every round from the third on, forever, and the only
-event consumed is the internally enabled reflection.  This is the
-first horizon-free challenge generator exhibited in the development
-with **no per-round external act**.  No minimality or uniqueness
-theorem is claimed.
+event consumed is the internally enabled reflection. No additional
+event is supplied per round after the declared reflective transition
+and closure policy are fixed. This is self-continuation relative to
+those declarations, not absolute self-origination. No minimality or
+uniqueness theorem is claimed.
 
 The chain already auto-tags every receipt
 (`automark_presence_vacuous`), so generation survives presence-grade
@@ -179,8 +190,9 @@ clears every firing round, and avoids recurring imports.  The valued
 strategy prevents demands instead of repairing fired ones.  For the
 four depth-1 strategies the stated cores are horizon-free theorems;
 for depth 2 the switch points (lengths 4 and 5) are Lean-verified and
-the trajectory is computed to round 15.  The general depth-d fate is
-G2, open.
+the trajectory is computed to round 15. The structural fixed-depth
+outrun is proved separately; the general-`n` sealed-profile interface
+and the repair-strategy-class consequence remain open.
 
 ## FG7. The direct transposition fails
 
@@ -196,9 +208,11 @@ classification therefore remains open.
 
 The conjecture split.  Its generation half is a theorem for the
 declared composite: refusal
-supplies the datum, closure supplies the demand, and no per-round
-external act remains — the composite is genuinely autonomous *as a
-generator*.  Its cycle half is not realized by any of the five
+supplies the datum, closure supplies the demand, and after those
+declarations no additional event is supplied per round. The composite
+is self-continuing relative to the declared transition and closure
+policy; it does not originate those declarations. Its cycle half is
+not realized by any of the five
 declared strategies through the 15-round search.  The theorem cores
 explain the depth-1 fates, while the class-general cycle claim remains
 open.  The bridge obligation left standing is G1: a repair channel
@@ -206,6 +220,18 @@ that separates the interior of an unbounded chain without minting
 identity-grade distinctions, or a proof that no such channel exists.
 Until one or the other arrives, the bounded evidence reads:
 **endogenous demands, exogenous payments.**
+
+`PresentationRelativity` supplies the conditional refinement mechanism
+beneath this trade-off. If a supplied comparison `q` does not factor
+through a presentation `p`,
+`forced_split_of_factorization_failure` extracts a represented pair
+identified by `p` and separated by `q`; every presentation carrying
+both must split that pair and strictly increase represented class
+count. `jointPresentation_strict_of_factorization_failure` constructs
+one ordered-first-match joint refinement. In the generator fixture the
+supplied comparison is `id`, hence identity-grade by declaration. The
+theorem neither generates that comparison nor supplies the
+non-identity repair channel required by G1.
 
 ---
 
@@ -219,12 +245,14 @@ unbounded observable alphabet — i.e. is identity-grade — and therefore
 kills generation.  The valued/per-pair routes realize the two ways of
 paying (all at once / one at a time); G1 says there is no third way.
 
-**G2. General depth-d outrun.**  *Conjecture:* for every fixed depth
-`d`, all elements at distance greater than `d` from both ends of the
-chain share depth-`d` profiles, so obstructions recur from length about
-`2d + 3` on.  Proved here for `d = 1` (horizon-free) and verified at
-the switch points for `d = 2`; the general form would make the
-exclusion theorem-level across the whole depth family.
+**G2. General depth-`d` outrun — CLOSED structurally; interface
+residual OPEN.** `SeparationCapacity.depth_d_outrun` proves that all
+deep-interior points share the declared radius-`d` `profileD`, and
+`depth_d_obstruction` supplies a distinct colliding deep pair from
+`n ≥ 2d + 3`. What remains OPEN is not this structural statement: it is
+the general-`n` correspondence between sealed `Generator.profile2` and
+`profileD · · 1` (only the `n = 4,5` instances are transported) and the
+repair-strategy consequence named under G1.
 
 **G3. Repair-power = generation-poison, class-general.**  *Conjecture:*
 the F1 choice-cost conservation extends to demands: any declaration

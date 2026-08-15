@@ -128,6 +128,64 @@ def test_capacity_namespaces_have_explicit_semantic_metadata() -> None:
     )
 
 
+def test_presentation_relativity_inventory_surface_is_exact() -> None:
+    expected = {
+        "presentationIdentity_iff_fiberIdentity": ("generic", "equivalence"),
+        "directionalResidual_refutes_identity": ("generic", "classification"),
+        "presentationIdentity_iff_residualEmpty": ("generic", "equivalence"),
+        "presentationIdentity_equivalence": ("generic", "equivalence"),
+        "self_comparison_has_empty_residual": ("generic", "preservation"),
+        "identityRelativeToQuestions_iff": ("generic", "equivalence"),
+        "splitsAt_iff_directionalResidualAt": ("generic", "equivalence"),
+        "family_enlargement_refines": ("generic", "preservation"),
+        "family_split_refuses_relative_identity":
+            ("generic", "classification"),
+        "family_enlargement_split_is_strict": ("generic", "classification"),
+        "classCount_lt_of_refinement_split": ("generic", "minimality"),
+        "forced_split_of_factorization_failure": ("generic", "existence"),
+        "jointPresentation_factors_left": ("generic", "preservation"),
+        "jointPresentation_factors_right": ("generic", "preservation"),
+        "jointPresentation_strict_of_factorization_failure":
+            ("generic", "existence"),
+        "directionalResidual_of_factorization_failure":
+            ("generic", "existence"),
+        "Metatheory.attempted_absolute_identification_collapses_to_equality":
+            ("generic", "equivalence"),
+        "Metatheory.attempted_absolute_polarities_are_refuted":
+            ("generic", "countermodel"),
+        "world_eq_iff_support_eq_and_notes_eq": ("generic", "equivalence"),
+        "supportNotesView_injective": ("generic", "uniqueness"),
+        "support_identifies_while_supportNotes_separates":
+            ("generic", "classification"),
+        "notes_update_kernel_results_agree": ("generic", "preservation"),
+        "panelEquiv_antitone": ("generic", "preservation"),
+        "panel_members_preserved_by_extension": ("generic", "preservation"),
+        "panel_extension_refines_equivalence": ("generic", "preservation"),
+        "certNeg_extension_implies_source": ("generic", "preservation"),
+        "panel_extension_changes_verdict_not_world":
+            ("concrete", "countermodel"),
+        "encodeDepthOneProfile_injective": ("concrete", "uniqueness"),
+        "depthOnePresentation_eq_iff": ("generic", "equivalence"),
+        "declared_generator_index_comparison_does_not_factor":
+            ("horizon-free", "countermodel"),
+        "declared_generator_index_comparison_forces_refinement":
+            ("horizon-free", "existence"),
+        "declared_generator_profiles_disagree_at_pair":
+            ("horizon-free", "countermodel"),
+    }
+    prefix = "PresentationRelativity."
+    rows = [rec for rec in inventory() if str(rec["name"]).startswith(prefix)]
+    actual_names = {str(rec["name"])[len(prefix):] for rec in rows}
+    assert actual_names == set(expected)
+    assert len(rows) == 32
+    for rec in rows:
+        qualified = str(rec["name"])
+        local_name = qualified[len(prefix):]
+        assert rec["module"] == "PresentationRelativity.lean", qualified
+        assert rec["statement"] != "UNRESOLVED", qualified
+        assert classify(qualified) == expected[local_name], qualified
+
+
 def test_dependency_graph_statuses_and_evidence_resolve() -> None:
     graph = dependency_graph()
     names = {str(r["name"]) for r in parse_axiom_reports()}
