@@ -16,13 +16,15 @@ The central result is exact:
 
 * coherent round trips produce a faithful common descent;
 * any faithful common descent forces both round trips to cohere;
-* therefore a failed round trip forbids faithful elimination of the
-  presentation index.
+* therefore a failed round trip for this declared translation pair
+  forbids faithful elimination of its presentation index.
 
 Nothing discovers a new object or decides which distinctions matter.
 When coherence fails, the former identification simply cannot descend
-without collapsing one of the presentations internally.  The two
-presentations must remain typed separately at this interface.
+through the declared arrows without collapsing one of the presentations
+internally.  The two presentations must remain typed separately at this
+interface.  Another translation pair may still be coherent; no universal
+impossibility over all possible or admissible arrows is claimed.
 
 No metric, addition, scalar, magnitude, observer, truth predicate,
 global world, preferred quotient, or authority is introduced.
@@ -55,8 +57,9 @@ inductive TranslationGap {P Q : Type} (t : PartialTranslationPair P Q)
   | forward (p : P) (missing : t.forward p = none)
   | backward (q : Q) (missing : t.backward q = none)
 
-/-- An undefined translation prevents any totalization of the same
-partial arrows. -/
+/-- An undefined translation prevents any totalization that preserves
+the exact declared partial-arrow equations.  This says nothing about a
+different arrow obtained by overwriting or extending those constraints. -/
 theorem translation_gap_refuses_totalization
     {P Q : Type} {t : PartialTranslationPair P Q}
     (gap : TranslationGap t) :
@@ -112,6 +115,13 @@ def coherent_to_bij
 
 /-! ## 3. Faithful common descent is equivalent to coherence -/
 
+/-- The two presentation maps have exactly the same image in a supplied
+carrier.  This excludes the trivial claim that the coproduct `P ⊕ Q` is
+already a descent merely because it is a common carrier. -/
+def CoincidentImages {P Q C : Type} (left : P -> C) (right : Q -> C) : Prop :=
+  (forall p, exists q, left p = right q) ∧
+    (forall q, exists p, right q = left p)
+
 /-- A proposed elimination of the presentation index.  `Carrier` is
 existential output data, not a common world assumed before `P` and
 `Q`.  Injectivity prevents the descent from manufacturing coherence by
@@ -126,6 +136,18 @@ structure FaithfulCommonDescent
   right_injective : Function.Injective right
   forward_identified : forall p, left p = right (u.forward p)
   backward_identified : forall q, right q = left (u.backward q)
+
+/-- The defining translation equalities make the two embedded images
+coincident.  This is derived independently from round-trip coherence. -/
+theorem faithful_common_descent_has_coincident_images
+    {P Q : Type} {t : PartialTranslationPair P Q}
+    {u : Totalization t} (d : FaithfulCommonDescent u) :
+    CoincidentImages d.left d.right := by
+  constructor
+  · intro p
+    exact ⟨u.forward p, d.forward_identified p⟩
+  · intro q
+    exact ⟨u.backward q, d.backward_identified q⟩
 
 /-- Coherent translations make the indices eliminable.  The witness
 uses `P` as one possible descent carrier; it is not a preferred or
@@ -177,10 +199,12 @@ theorem faithful_descent_iff_round_trip_coherent
   · intro h
     exact ⟨coherent_to_faithful_descent h⟩
 
-/-- Failure of coherence forbids every faithful common descent.  A
-descent could still be forced by dropping injectivity, but that would
-erase a distinction internal to `P` or `Q` rather than close the
-translations faithfully. -/
+/-- Failure of coherence for this declared totalization forbids every
+faithful common descent compatible with it.  A different translation
+pair may still close.  A descent for this pair could be forced only by
+dropping injectivity or one of the identification equations; that would
+erase an internal distinction or cease to represent the declared
+translations. -/
 theorem incoherence_forces_index_retention
     {P Q : Type} {t : PartialTranslationPair P Q}
     {u : Totalization t} (hfail : Not (RoundTripCoherent u)) :
@@ -188,8 +212,9 @@ theorem incoherence_forces_index_retention
   intro hdescent
   exact hfail ((faithful_descent_iff_round_trip_coherent u).mp hdescent)
 
-/-- A concrete residual is therefore enough to force retention of the
-two typed presentations at this interface. -/
+/-- A concrete residual for the declared arrows is therefore enough to
+force retention of the two typed presentations at this interface.  It
+does not quantify over alternative translation pairs. -/
 theorem residual_forces_index_retention
     {P Q : Type} {t : PartialTranslationPair P Q}
     {u : Totalization t} (residual : CoherenceResidual u) :
