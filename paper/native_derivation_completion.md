@@ -326,6 +326,29 @@ certification never reaches correspondence.  What certification
 establishes: membership in the panel's joint quotient, replayably.
 What it does not: anything about columns outside the panel.
 
+`PresentationRelativity` makes the relative content exact. On a
+supplied finite carrier `D`, two presentations are identical relative
+to `D` when they mutually factor;
+`presentationIdentity_iff_fiberIdentity` proves that this is exactly
+equality of their induced fiber relations, and
+`presentationIdentity_iff_residualEmpty` proves that it is exactly
+two-sided directional-residual emptiness. For declared question
+families, `splitsAt_iff_directionalResidualAt` identifies a class split
+with a prior-family agreement separated by the enlarged family. Panel
+admission realizes one operational instance:
+`panel_extension_refines_equivalence` proves that the enlarged panel's
+equivalence refines the source equivalence,
+`certNeg_extension_implies_source` transports a successful negative
+certificate back to a nonempty source panel, and
+`panel_extension_changes_verdict_not_world` exhibits the strict
+direction while the stored `World` remains unchanged. These are
+presentation-indexed results. They do not quantify over columns not
+supplied to the panel and do not supply a canonical next evaluator.
+
+Here “outside” is only the inherited name of the operational
+factorization boundary in `NoOutside`; no spatial, cosmological, or
+observer-from-nowhere predicate is introduced.
+
 ## 14. The final derivation chain
 
 ```text
@@ -445,9 +468,15 @@ All 295 exported reports within {propext, Quot.sound}.
   event grammars (not only guard toggles) where compliance is
   non-singleton — testing whether initiality survives or the
   tied-family phenomenon returns at the kernel level.
-- **NC3 (panel dynamics).**  Certification under panel growth as a
-  represented process: joint quotients refine along replay; is there
-  a represented analogue of the expressiveness ceiling for panels?
+- **NC3 (panel dynamics — PARTIALLY CLOSED).** One represented
+  evaluator-admission step now has a proved refinement law:
+  larger-panel agreement implies source-panel agreement, a successful
+  enlarged-panel negative certificate implies the source certificate
+  when the source panel is nonempty, and a fixed fixture shows that the
+  converse can fail while the stored world is unchanged. Still OPEN: a
+  quantitative or class-general expressiveness ceiling for arbitrary
+  panel-growth histories, and any rule that generates the next
+  evaluator rather than receiving it as a declared event.
 - **NC4 (fidelity provenance).**  Rule 1 reduced to preservation +
   fidelity; fidelity itself is always declared.  Conjecture: in any
   kernel of the declared shape, no represented event can *derive* a
@@ -512,6 +541,6 @@ conditions are represented and replayable, whose event source and
 constitution are themselves represented and executable relative to
 one fixed family interpreter, which is the unique compliant and
 initial member of its declared comparison class, and whose one
-remaining outside is exactly named: the outermost interpretation
-relation.  The derivation is closed relative to its constitution and
-honestly open above it.
+remaining metatheoretic dependency is exactly named: the outermost
+interpretation relation. The derivation is closed relative to its
+constitution and honestly open above it.

@@ -1613,3 +1613,38 @@ member suffixes; permits backticked bare ledger shorthand only when the final
 component is globally unique; and has explicit semantic metadata for the
 `Pigeonhole` and `CapacityBound` namespaces. Ambiguous ledger citations are
 now qualified at their source. Regression tests pin each repair.
+
+## 2026-08-14 — Presentation-relative identity and comparison-forced refinement
+
+`PresentationRelativity.lean` removes spatial polarity from the formal
+statement. On a supplied finite carrier, mutual factorization is proved
+equivalent both to equality of induced fiber relations and to two-sided
+directional-residual emptiness. A declared question-family split is proved
+exactly equivalent to an old-family agreement separated by the new family.
+
+A failed supplied comparison now has a necessity theorem and a bounded
+construction. The necessity theorem extracts the exact collapsed/separated
+pair and proves that every presentation carrying both maps must split it and
+strictly increase represented class count. The construction
+`jointPresentation` supplies one ordered first-match joint refinement. The
+comparison is not generated and the construction is not claimed natural,
+canonical, unique, or preferred.
+
+The operational witnesses are presentation-indexed: support versus
+support-plus-notes, source versus extended certification panel, and depth-one
+versus identity-grade generator comparison. The ambient all-view declarations
+are fenced in `PresentationRelativity.Metatheory` as diagnostics only.
+`ABSOLUTE_NO_OUTSIDE_UNFORMULABLE` is retained; no physical-time,
+cosmological-origin, capital-T truth, observer-completeness, heterogeneous
+forced-split, or self-certification claim is added.
+
+`native_derivation_completion.md` records NC3 as partially closed at the
+one-step refinement law. `endogenous_generator.md` is corrected to record the
+already-proved structural G2 depth-`d` outrun while retaining the general-`n`
+profile correspondence and repair-strategy consequence as OPEN. The
+identity-grade supplied comparison does not close G1.
+
+Axiom reports 1229 → 1261 (32 added, none removed), all within
+{propext, Quot.sound}. `lake build` is clean at 49 jobs; the Lean audit
+covers 47 sources. Final Python coverage and artifact-replay counts are
+recorded from the publication gate rather than inferred here.
