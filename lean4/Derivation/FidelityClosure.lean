@@ -4,11 +4,11 @@ import Derivation.QuotientRetention
 # Endogenous fidelity closure
 
 A translation network supplies presentation indices, their heterogeneous
-carriers, and attempted partial translation pairs.  It does not supply an
+carriers, and scoped translation attempts. It does not supply an
 equivalence relation on the indices.
 
 The index-fidelity relation is generated internally.  A single step is admitted
-only when its declared partial arrows have a totalization and the two
+only when its declared scoped arrows have a totalization and the two
 round trips cohere.  Reflexive, symmetric, and transitive path constructors
 then generate every permitted identification.  Every generated path
 composes to an actual carrier bijection.
@@ -45,9 +45,9 @@ structure TranslationNetwork where
   Carrier : Index -> Type
   Attempt : Index -> Index -> Type
   pair : {i j : Index} -> Attempt i j ->
-    PartialTranslationPair (Carrier i) (Carrier j)
+    TranslationAttempt (Carrier i) (Carrier j)
 
-/-- A fidelity path contains only translation attempts whose exact partial
+/-- A fidelity path contains only translation attempts whose exact scoped
 arrows totalize and whose two round trips cohere.  Symmetry is justified by
 the mutual translations inside each admitted step, not by assuming a reverse
 network arrow. -/
@@ -132,7 +132,7 @@ regardless of an incoherent attempted endomorphism.  This is the smallest
 counterexample to universalizing one failed round trip. -/
 theorem failed_endomorphism_does_not_refute_self_fidelity
     {N : TranslationNetwork} {i : N.Index}
-    {t : PartialTranslationPair (N.Carrier i) (N.Carrier i)}
+    {t : TranslationAttempt (N.Carrier i) (N.Carrier i)}
     {u : Totalization t} (_ : CoherenceResidual u) :
     FidelityRel N i i :=
   fidelity_refl N i

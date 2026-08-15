@@ -45,6 +45,12 @@ import Derivation.Pigeonhole
 import Derivation.CapacityBound
 import Derivation.PresentationRelativity
 import Derivation.ClosureSymmetry
+import Derivation.ResidualClosure
+import Derivation.PresentationDescent
+import Derivation.QuotientRetention
+import Derivation.FidelityClosure
+import Derivation.NoOutsideFidelity
+import Derivation.EndogenousFidelityGenerator
 
 /-!
 # Axiom reports
@@ -1375,3 +1381,61 @@ open Derivation
 #print axioms ClosureSymmetry.residual_nonempty_iff_internal_symmetry_break_nonempty
 #print axioms ClosureSymmetry.residual_refutes_factorization
 #print axioms ClosureSymmetry.closure_failure_iff_internal_symmetry_break
+
+-- Current residual closure under a common refinement
+#print axioms ResidualClosure.factorization_preserves_invariance
+#print axioms ResidualClosure.carrying_right_face_loses_generating_invariance
+#print axioms ResidualClosure.carrying_right_face_splits_generating_pair
+#print axioms ResidualClosure.common_refinement_strictly_splits_left_face
+#print axioms ResidualClosure.current_directional_residual_is_empty
+#print axioms ResidualClosure.current_internal_symmetry_break_is_empty
+#print axioms ResidualClosure.common_refinement_closes_current_obstruction
+
+-- Heterogeneous presentation descent and exact index erasure
+#print axioms PresentationDescent.translation_gap_refuses_totalization
+#print axioms PresentationDescent.coherence_residual_refutes_round_trip
+#print axioms PresentationDescent.faithful_common_descent_has_coincident_images
+#print axioms PresentationDescent.faithful_descent_to_coherent
+#print axioms PresentationDescent.faithful_descent_iff_round_trip_coherent
+#print axioms PresentationDescent.incoherence_forces_index_retention
+#print axioms PresentationDescent.residual_forces_index_retention
+
+-- Failed identifications retain quotient multiplicity
+#print axioms QuotientRetention.RelationRefinement.refl
+#print axioms QuotientRetention.RelationRefinement.trans
+#print axioms QuotientRetention.collapseMap_mk
+#print axioms QuotientRetention.collapseMap_surjective
+#print axioms QuotientRetention.failed_identification_retains_two_classes
+#print axioms QuotientRetention.failed_identification_makes_collapse_noninjective
+#print axioms QuotientRetention.collapseMap_injective_iff_reverse_refinement
+#print axioms QuotientRetention.symmetry_failure_retains_multiplicity
+#print axioms QuotientRetention.collapseMap_compose
+
+-- Fidelity-generated coherence paths, holonomy, and label descent
+#print axioms FidelityClosure.fidelity_refl
+#print axioms FidelityClosure.fidelity_symm
+#print axioms FidelityClosure.fidelity_trans
+#print axioms FidelityClosure.class_eq_iff_coherent_path
+#print axioms FidelityClosure.no_coherent_path_retains_indices
+#print axioms FidelityClosure.failed_endomorphism_does_not_refute_self_fidelity
+#print axioms FidelityClosure.holonomy_residual_refuses_faithful_network_descent
+#print axioms FidelityClosure.faithful_network_descent_forces_trivial_loops
+#print axioms FidelityClosure.label_descends_iff_fidelity_invariant
+#print axioms FidelityClosure.coherent_disagreement_refuses_label_descent
+#print axioms FidelityClosure.polarity_flip_is_presentation_relative
+
+-- The operational notes fiber cannot be faithfully erased
+#print axioms NoOutsideFidelity.support_fiber_contains_distinct_notes
+#print axioms NoOutsideFidelity.support_projection_not_injective
+#print axioms NoOutsideFidelity.support_translation_never_round_trip_coherent
+#print axioms NoOutsideFidelity.support_translation_never_faithfully_erases_index
+#print axioms NoOutsideFidelity.no_support_inverse_faithfully_erases_index
+#print axioms NoOutsideFidelity.notes_fiber_has_no_operational_authority
+
+-- The endogenous generator is the least coherent-path equivalence
+#print axioms EndogenousFidelityGenerator.admitted_step_has_fidelity_path
+#print axioms EndogenousFidelityGenerator.fidelity_is_least_equivalence_containing_admitted_steps
+#print axioms EndogenousFidelityGenerator.fidelity_refines_indiscrete
+#print axioms EndogenousFidelityGenerator.universalCollapse_surjective
+#print axioms EndogenousFidelityGenerator.no_coherent_path_retains_multiplicity
+#print axioms EndogenousFidelityGenerator.generated_structure_is_failed_erasure

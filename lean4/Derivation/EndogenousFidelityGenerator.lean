@@ -5,7 +5,7 @@ import Derivation.FidelityClosure
 
 `FidelityClosure.fidelitySetoid N` is the least equivalence relation on
 presentation indices containing every attempted translation whose exact
-partial arrows totalize and whose round trips cohere.
+scoped arrows totalize and whose round trips cohere.
 
 This universal property removes the supplied `fine` relation from the
 retained-multiplicity theorem.  Compare the generated fidelity quotient

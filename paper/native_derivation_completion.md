@@ -470,6 +470,33 @@ All 295 exported reports within {propext, Quot.sound}.
 
 ## 19. FRONTIER CONJECTURES
 
+### Premetric fidelity closure and retained multiplicity
+
+The derivation now has a heterogeneous layer upstream of finite
+classification. `PresentationDescent` takes two carrier types and a declared
+scoped `TranslationAttempt`. A `TranslationGap` refuses only totalizations that
+preserve the declared `some` equations. `RoundTripCoherent` is the exact
+two-sided inverse law, while `FaithfulCommonDescent` is independently defined
+by injective embeddings with coincident images. The theorem
+`faithful_descent_iff_round_trip_coherent` proves that these two forms of index
+erasure coincide. Thus failure of one declared pair is scoped to that pair;
+it is not a theorem that no other equivalence can exist.
+
+`FidelityClosure` then closes only the admitted coherent translation steps
+under reflexivity, symmetry, and composition. Its quotient erases precisely
+the indices joined by such a path. A missing path retains two quotient
+classes; a failed direct round trip alone does not refute self-fidelity.
+Holonomy and label disagreement are separate residuals: either prevents the
+corresponding global descent without introducing an evaluator.
+
+`EndogenousFidelityGenerator` proves the universal property: the fidelity
+relation is the least equivalence containing the admitted coherent steps.
+Relative to an attempted indiscrete erasure, failed coherence is exactly
+multiplicity that survives quotienting. The network, its first indices, and
+its attempted translations remain supplied. No observer, finite common
+carrier, metric, preferred selector, continuation policy, or authority effect
+is introduced.
+
 - **NC1 (interpreter tower).**  A staged family of interpreters, each
   describing the one below, with a represented fixed point — or a
   no-go theorem that every such tower has a metatheoretic top.  The

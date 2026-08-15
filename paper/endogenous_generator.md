@@ -242,6 +242,26 @@ This identifies obstruction with failed closure under the attempt's
 own symmetry; it does not generate `q`, authorize a repair, or close
 G1.
 
+The heterogeneous fidelity layer removes the finite common carrier from this
+account. `PresentationDescent` makes index erasure equivalent to a faithful
+common descent with coincident images, or equivalently to coherent round
+trips for the declared total translation pair. `FidelityClosure` generates
+the least equivalence relation containing those coherent steps, and
+`EndogenousFidelityGenerator.generated_structure_is_failed_erasure` states
+the resulting multiplicity as failure of the attempted universal collapse.
+This is endogenous closure relative to a supplied translation network. It
+does not generate the first presentations, declare which translations are
+admissible, or solve G1's chain-specific repair-capacity problem.
+
+`NoOutsideFidelity` binds the operational half to the existing `World` record.
+For every proposed backward map from `Supp` to `World`, the exact support
+projection fails the round-trip law because distinct notes inhabit one
+support fiber. Consequently that index cannot be faithfully erased by the
+declared translation. The theorem says neither that no arbitrary common type
+exists nor that an ontological outside has been disproved; it proves the
+failure of this exact correspondence, while the existing kernel theorem keeps
+the notes field authority-inert.
+
 ---
 
 # FRONTIER CONJECTURES

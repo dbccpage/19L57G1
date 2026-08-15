@@ -6,7 +6,7 @@ import Derivation.PresentationNaturality
 This module starts with two presentation carriers `P` and `Q`.  They
 are not assumed to be views of a prior common carrier.
 
-Partial typed translations are the 1-cells.  When both translations
+Scoped typed translations are the 1-cells.  When both translations
 are totalized, their two round-trip equations are the coherence
 2-cell.  A faithful common descent is not primitive: it is a proposed
 carrier together with injective presentation maps that identify the
@@ -34,34 +34,34 @@ namespace PresentationDescent
 
 open PresentationNaturality
 
-/-! ## 1. Partial translations and totalization -/
+/-! ## 1. Scoped translations and totalization -/
 
-/-- Two typed partial translations.  Neither carrier is declared to be
+/-- Two typed scoped translations. Neither carrier is declared to be
 the substrate of the other. -/
-structure PartialTranslationPair (P Q : Type) where
+structure TranslationAttempt (P Q : Type) where
   forward : P -> Option Q
   backward : Q -> Option P
 
-/-- A supplied total realization of both partial translations.  The
-realizing equations bind the total maps to the original partial
+/-- A supplied total realization of both scoped translations. The
+realizing equations bind the total maps to the original scoped
 arrows; totality is not inferred from their types. -/
-structure Totalization {P Q : Type} (t : PartialTranslationPair P Q) where
+structure Totalization {P Q : Type} (t : TranslationAttempt P Q) where
   forward : P -> Q
   backward : Q -> P
   forward_realizes : forall p, t.forward p = some (forward p)
   backward_realizes : forall q, t.backward q = some (backward q)
 
-/-- An explicit failure of one partial arrow to be defined. -/
-inductive TranslationGap {P Q : Type} (t : PartialTranslationPair P Q)
+/-- An explicit failure of one scoped arrow to be defined. -/
+inductive TranslationGap {P Q : Type} (t : TranslationAttempt P Q)
     where
   | forward (p : P) (missing : t.forward p = none)
   | backward (q : Q) (missing : t.backward q = none)
 
 /-- An undefined translation prevents any totalization that preserves
-the exact declared partial-arrow equations.  This says nothing about a
+the exact declared scoped-arrow equations. This says nothing about a
 different arrow obtained by overwriting or extending those constraints. -/
 theorem translation_gap_refuses_totalization
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     (gap : TranslationGap t) :
     Not (Nonempty (Totalization t)) := by
   rintro ⟨u⟩
@@ -81,20 +81,20 @@ theorem translation_gap_refuses_totalization
 the coherence 2-cell; it is data/proof between the two composites, not
 an observation made from another presentation. -/
 structure RoundTripCoherent
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     (u : Totalization t) : Prop where
   left : forall p, u.backward (u.forward p) = p
   right : forall q, u.forward (u.backward q) = q
 
 /-- A round-trip failure.  It is internal to the two supplied arrows. -/
 inductive CoherenceResidual
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     (u : Totalization t) : Type where
   | left (p : P) (not_closed : u.backward (u.forward p) ≠ p)
   | right (q : Q) (not_closed : u.forward (u.backward q) ≠ q)
 
 theorem coherence_residual_refutes_round_trip
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (residual : CoherenceResidual u) :
     Not (RoundTripCoherent u) := by
   intro h
@@ -106,7 +106,7 @@ theorem coherence_residual_refutes_round_trip
 enter the repository's existing presentation-isomorphism carrier
 layer.  This bridge does not add observations or residual values. -/
 def coherent_to_bij
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (h : RoundTripCoherent u) : Bij P Q where
   fwd := u.forward
   bwd := u.backward
@@ -127,7 +127,7 @@ existential output data, not a common world assumed before `P` and
 `Q`.  Injectivity prevents the descent from manufacturing coherence by
 collapsing either presentation internally. -/
 structure FaithfulCommonDescent
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     (u : Totalization t) where
   Carrier : Type
   left : P -> Carrier
@@ -140,7 +140,7 @@ structure FaithfulCommonDescent
 /-- The defining translation equalities make the two embedded images
 coincident.  This is derived independently from round-trip coherence. -/
 theorem faithful_common_descent_has_coincident_images
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (d : FaithfulCommonDescent u) :
     CoincidentImages d.left d.right := by
   constructor
@@ -153,7 +153,7 @@ theorem faithful_common_descent_has_coincident_images
 uses `P` as one possible descent carrier; it is not a preferred or
 natural choice. -/
 def coherent_to_faithful_descent
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (h : RoundTripCoherent u) :
     FaithfulCommonDescent u where
   Carrier := P
@@ -171,7 +171,7 @@ def coherent_to_faithful_descent
 proof uses only the two identification laws and injectivity of the
 presentation maps. -/
 theorem faithful_descent_to_coherent
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (d : FaithfulCommonDescent u) :
     RoundTripCoherent u where
   left p := by
@@ -190,7 +190,7 @@ theorem faithful_descent_to_coherent
 /-- **Presentation indices are faithfully eliminable exactly when the
 two translations close coherently.** -/
 theorem faithful_descent_iff_round_trip_coherent
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     (u : Totalization t) :
     Nonempty (FaithfulCommonDescent u) ↔ RoundTripCoherent u := by
   constructor
@@ -206,7 +206,7 @@ dropping injectivity or one of the identification equations; that would
 erase an internal distinction or cease to represent the declared
 translations. -/
 theorem incoherence_forces_index_retention
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (hfail : Not (RoundTripCoherent u)) :
     Not (Nonempty (FaithfulCommonDescent u)) := by
   intro hdescent
@@ -216,7 +216,7 @@ theorem incoherence_forces_index_retention
 force retention of the two typed presentations at this interface.  It
 does not quantify over alternative translation pairs. -/
 theorem residual_forces_index_retention
-    {P Q : Type} {t : PartialTranslationPair P Q}
+    {P Q : Type} {t : TranslationAttempt P Q}
     {u : Totalization t} (residual : CoherenceResidual u) :
     Not (Nonempty (FaithfulCommonDescent u)) :=
   incoherence_forces_index_retention

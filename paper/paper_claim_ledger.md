@@ -3236,3 +3236,66 @@ CL-PD2-LADDER)
   `p`; or an internal symmetry break that does not refute
   factorization.
 
+### CL-FIDELITY-DESCENT (heterogeneous index erasure, 2026-08-14)
+- **Statement**: for supplied carrier types `P,Q` and a supplied scoped
+  `TranslationAttempt`, `TranslationGap` blocks exactly a totalization that must
+  preserve the declared translation equation. For a total pair,
+  `faithful_descent_iff_round_trip_coherent` proves equivalence between
+  two-sided round-trip closure and an independently defined common carrier
+  with injective embeddings and coincident images.
+- **Residual**: `CoherenceResidual` is failure of one of the two declared
+  round trips. `residual_forces_index_retention` says that this declared pair
+  does not faithfully erase its two indices.
+- **Exact non-claims**: failure of one pair does not rule out every other
+  equivalence; undefinedness alone does not rule out arbitrary extensions;
+  disjoint union is not called descent; no observer, evaluator, metric, or
+  authority is present.
+- **Evidence**: the seven `PresentationDescent.*` theorem reports in the
+  aggregate axiom artifact.
+
+### CL-QUOTIENT-RETENTION (multiplicity survives failed collapse, 2026-08-14)
+- **Statement**: for arbitrary carrier `I` and supplied setoids `fine,coarse`,
+  refinement induces a surjective collapse map. An identification made by
+  `coarse` but refused by `fine` yields two distinct fine classes with one
+  coarse image and therefore makes the collapse non-injective. The collapse
+  is injective exactly when the reverse refinement also holds.
+- **Interpretation**: failed descent creates no object; it prevents an
+  attempted identification from erasing an already supplied index.
+- **Exact non-claims**: no finite carrier, count, observer, canonical
+  representative, or ontology is derived.
+- **Evidence**: the nine `QuotientRetention.*` theorem reports.
+
+### CL-FIDELITY-CLOSURE (coherent paths and descent residuals, 2026-08-14)
+- **Statement**: a `TranslationNetwork` supplies heterogeneous carriers and
+  attempted translation pairs. `FidelityPath` freely closes only total,
+  round-trip-coherent steps under identity, reversal, and composition. Its
+  induced setoid identifies exactly path-connected indices. Missing paths
+  retain distinct quotient classes. Holonomy and coherent label disagreement
+  separately refuse faithful network or label descent.
+- **Scope fence**: one failed endomorphism does not refute self-fidelity;
+  reachability of indices is not a proof of path-independent global carrier
+  data.
+- **Evidence**: the eleven `FidelityClosure.*` theorem reports.
+
+### CL-ENDOGENOUS-FIDELITY-GENERATOR (least closure, 2026-08-14)
+- **Statement**: `fidelity_is_least_equivalence_containing_admitted_steps`
+  proves that fidelity is the least equivalence relation containing the
+  admitted coherent translation steps. `generated_structure_is_failed_erasure`
+  compares its quotient with the attempted indiscrete collapse: if no coherent
+  path joins two supplied indices, they survive as distinct generated classes
+  although the universal collapse identifies their images.
+- **Operational witness**: `NoOutsideFidelity` proves that the existing support
+  projection cannot participate in a coherent round trip with any proposed
+  backward map because a notes fiber contains distinct `World` values; the
+  notes field remains operationally authority-inert.
+- **Exact non-claims**: the network, initial indices, attempts, and admission
+  criterion are supplied. No first presentation, self-certification,
+  strategy, physical time, ontological inside/outside theorem, or authority
+  effect is generated. `AuthorityEffect: None`.
+- **Evidence**: six `EndogenousFidelityGenerator.*`, six
+  `NoOutsideFidelity.*`, and seven `ResidualClosure.*` theorem reports.
+- **Falsifier**: an admitted coherent step absent from fidelity; an
+  equivalence containing every admitted step that fails to contain fidelity;
+  a missing coherent path whose indices nevertheless have equal fidelity
+  classes; or a faithful support descent preserving the exact projection.
+

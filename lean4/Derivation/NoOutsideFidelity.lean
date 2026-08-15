@@ -43,10 +43,10 @@ theorem support_projection_not_injective :
   obtain ⟨w, w', hsupp, _, hne⟩ := support_fiber_contains_distinct_notes
   exact hne (hinjective hsupp)
 
-/-- The partial translation pair associated with a proposed inverse.  Both
+/-- The scoped translation pair associated with a proposed inverse. Both
 arrows are total as functions, but coherence remains a separate obligation. -/
 def supportTranslationPair (backward : Supp -> World) :
-    PartialTranslationPair World Supp where
+    TranslationAttempt World Supp where
   forward w := some (supp w)
   backward s := some (backward s)
 
