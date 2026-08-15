@@ -8,6 +8,7 @@ from pathlib import Path
 
 from derivation.completion import (
     BRIDGES,
+    KIND_ROLE_OVERRIDES,
     KERNEL_DESC,
     NODES,
     PIGEON,
@@ -209,6 +210,83 @@ def test_closure_symmetry_inventory_surface_is_exact() -> None:
         assert rec["module"] == "ClosureSymmetry.lean", qualified
         assert rec["statement"] != "UNRESOLVED", qualified
         assert classify(qualified) == expected[local_name], qualified
+
+
+def test_fidelity_descent_inventory_surfaces_are_exact() -> None:
+    expected = {
+        "ResidualClosure": {
+            "factorization_preserves_invariance",
+            "carrying_right_face_loses_generating_invariance",
+            "carrying_right_face_splits_generating_pair",
+            "common_refinement_strictly_splits_left_face",
+            "current_directional_residual_is_empty",
+            "current_internal_symmetry_break_is_empty",
+            "common_refinement_closes_current_obstruction",
+        },
+        "PresentationDescent": {
+            "translation_gap_refuses_totalization",
+            "coherence_residual_refutes_round_trip",
+            "faithful_common_descent_has_coincident_images",
+            "faithful_descent_to_coherent",
+            "faithful_descent_iff_round_trip_coherent",
+            "incoherence_forces_index_retention",
+            "residual_forces_index_retention",
+        },
+        "QuotientRetention": {
+            "RelationRefinement.refl",
+            "RelationRefinement.trans",
+            "collapseMap_mk",
+            "collapseMap_surjective",
+            "failed_identification_retains_two_classes",
+            "failed_identification_makes_collapse_noninjective",
+            "collapseMap_injective_iff_reverse_refinement",
+            "symmetry_failure_retains_multiplicity",
+            "collapseMap_compose",
+        },
+        "FidelityClosure": {
+            "fidelity_refl",
+            "fidelity_symm",
+            "fidelity_trans",
+            "class_eq_iff_coherent_path",
+            "no_coherent_path_retains_indices",
+            "failed_endomorphism_does_not_refute_self_fidelity",
+            "holonomy_residual_refuses_faithful_network_descent",
+            "faithful_network_descent_forces_trivial_loops",
+            "label_descends_iff_fidelity_invariant",
+            "coherent_disagreement_refuses_label_descent",
+            "polarity_flip_is_presentation_relative",
+        },
+        "NoOutsideFidelity": {
+            "support_fiber_contains_distinct_notes",
+            "support_projection_not_injective",
+            "support_translation_never_round_trip_coherent",
+            "support_translation_never_faithfully_erases_index",
+            "no_support_inverse_faithfully_erases_index",
+            "notes_fiber_has_no_operational_authority",
+        },
+        "EndogenousFidelityGenerator": {
+            "admitted_step_has_fidelity_path",
+            "fidelity_is_least_equivalence_containing_admitted_steps",
+            "fidelity_refines_indiscrete",
+            "universalCollapse_surjective",
+            "no_coherent_path_retains_multiplicity",
+            "generated_structure_is_failed_erasure",
+        },
+    }
+    inventory_rows = inventory()
+    for namespace, local_names in expected.items():
+        prefix = f"{namespace}."
+        rows = [
+            rec for rec in inventory_rows
+            if str(rec["name"]).startswith(prefix)
+        ]
+        assert {str(rec["name"])[len(prefix):] for rec in rows} == local_names
+        assert len(rows) == len(local_names)
+        for rec in rows:
+            qualified = str(rec["name"])
+            assert rec["module"] == f"{namespace}.lean", qualified
+            assert rec["statement"] != "UNRESOLVED", qualified
+            assert qualified in KIND_ROLE_OVERRIDES, qualified
 
 
 def test_dependency_graph_statuses_and_evidence_resolve() -> None:

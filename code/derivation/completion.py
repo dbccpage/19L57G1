@@ -75,6 +75,12 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "PresentationRelativity": ["PresentationRelativity.lean"],
     "PresentationRelativity.Metatheory": ["PresentationRelativity.lean"],
     "ClosureSymmetry": ["ClosureSymmetry.lean"],
+    "ResidualClosure": ["ResidualClosure.lean"],
+    "PresentationDescent": ["PresentationDescent.lean"],
+    "QuotientRetention": ["QuotientRetention.lean"],
+    "FidelityClosure": ["FidelityClosure.lean"],
+    "NoOutsideFidelity": ["NoOutsideFidelity.lean"],
+    "EndogenousFidelityGenerator": ["EndogenousFidelityGenerator.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -353,6 +359,12 @@ NAMESPACE_DEFAULTS: dict[str, tuple[str, str]] = {
     "PresentationRelativity": ("generic", "classification"),
     "PresentationRelativity.Metatheory": ("generic", "classification"),
     "ClosureSymmetry": ("generic", "equivalence"),
+    "ResidualClosure": ("generic", "classification"),
+    "PresentationDescent": ("generic", "classification"),
+    "QuotientRetention": ("generic", "classification"),
+    "FidelityClosure": ("generic", "classification"),
+    "NoOutsideFidelity": ("generic", "classification"),
+    "EndogenousFidelityGenerator": ("generic", "classification"),
 }
 
 KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
@@ -548,6 +560,97 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
         ("generic", "countermodel"),
     "ClosureSymmetry.closure_failure_iff_internal_symmetry_break":
         ("generic", "equivalence"),
+    # current closure and loss of generating symmetry
+    "ResidualClosure.factorization_preserves_invariance":
+        ("generic", "preservation"),
+    "ResidualClosure.carrying_right_face_loses_generating_invariance":
+        ("generic", "classification"),
+    "ResidualClosure.carrying_right_face_splits_generating_pair":
+        ("generic", "classification"),
+    "ResidualClosure.common_refinement_strictly_splits_left_face":
+        ("generic", "minimality"),
+    "ResidualClosure.current_directional_residual_is_empty":
+        ("generic", "classification"),
+    "ResidualClosure.current_internal_symmetry_break_is_empty":
+        ("generic", "classification"),
+    "ResidualClosure.common_refinement_closes_current_obstruction":
+        ("generic", "preservation"),
+    # heterogeneous descent and faithful index erasure
+    "PresentationDescent.translation_gap_refuses_totalization":
+        ("generic", "countermodel"),
+    "PresentationDescent.coherence_residual_refutes_round_trip":
+        ("generic", "classification"),
+    "PresentationDescent.faithful_common_descent_has_coincident_images":
+        ("generic", "preservation"),
+    "PresentationDescent.faithful_descent_to_coherent":
+        ("generic", "preservation"),
+    "PresentationDescent.faithful_descent_iff_round_trip_coherent":
+        ("generic", "equivalence"),
+    "PresentationDescent.incoherence_forces_index_retention":
+        ("generic", "classification"),
+    "PresentationDescent.residual_forces_index_retention":
+        ("generic", "classification"),
+    # quotient retention
+    "QuotientRetention.RelationRefinement.refl":
+        ("generic", "preservation"),
+    "QuotientRetention.RelationRefinement.trans":
+        ("generic", "preservation"),
+    "QuotientRetention.collapseMap_mk": ("generic", "preservation"),
+    "QuotientRetention.collapseMap_surjective": ("generic", "existence"),
+    "QuotientRetention.failed_identification_retains_two_classes":
+        ("generic", "countermodel"),
+    "QuotientRetention.failed_identification_makes_collapse_noninjective":
+        ("generic", "countermodel"),
+    "QuotientRetention.collapseMap_injective_iff_reverse_refinement":
+        ("generic", "equivalence"),
+    "QuotientRetention.symmetry_failure_retains_multiplicity":
+        ("generic", "classification"),
+    "QuotientRetention.collapseMap_compose": ("generic", "preservation"),
+    # fidelity closure, holonomy, and presentation-relative labels
+    "FidelityClosure.fidelity_refl": ("generic", "preservation"),
+    "FidelityClosure.fidelity_symm": ("generic", "preservation"),
+    "FidelityClosure.fidelity_trans": ("generic", "preservation"),
+    "FidelityClosure.class_eq_iff_coherent_path": ("generic", "equivalence"),
+    "FidelityClosure.no_coherent_path_retains_indices":
+        ("generic", "classification"),
+    "FidelityClosure.failed_endomorphism_does_not_refute_self_fidelity":
+        ("generic", "countermodel"),
+    "FidelityClosure.holonomy_residual_refuses_faithful_network_descent":
+        ("generic", "countermodel"),
+    "FidelityClosure.faithful_network_descent_forces_trivial_loops":
+        ("generic", "preservation"),
+    "FidelityClosure.label_descends_iff_fidelity_invariant":
+        ("generic", "equivalence"),
+    "FidelityClosure.coherent_disagreement_refuses_label_descent":
+        ("generic", "classification"),
+    "FidelityClosure.polarity_flip_is_presentation_relative":
+        ("generic", "classification"),
+    # operational no-outside witness
+    "NoOutsideFidelity.support_fiber_contains_distinct_notes":
+        ("concrete", "countermodel"),
+    "NoOutsideFidelity.support_projection_not_injective":
+        ("concrete", "countermodel"),
+    "NoOutsideFidelity.support_translation_never_round_trip_coherent":
+        ("generic", "countermodel"),
+    "NoOutsideFidelity.support_translation_never_faithfully_erases_index":
+        ("generic", "classification"),
+    "NoOutsideFidelity.no_support_inverse_faithfully_erases_index":
+        ("generic", "countermodel"),
+    "NoOutsideFidelity.notes_fiber_has_no_operational_authority":
+        ("generic", "preservation"),
+    # least coherent closure as endogenous generator
+    "EndogenousFidelityGenerator.admitted_step_has_fidelity_path":
+        ("generic", "existence"),
+    "EndogenousFidelityGenerator.fidelity_is_least_equivalence_containing_admitted_steps":
+        ("generic", "minimality"),
+    "EndogenousFidelityGenerator.fidelity_refines_indiscrete":
+        ("generic", "preservation"),
+    "EndogenousFidelityGenerator.universalCollapse_surjective":
+        ("generic", "existence"),
+    "EndogenousFidelityGenerator.no_coherent_path_retains_multiplicity":
+        ("generic", "classification"),
+    "EndogenousFidelityGenerator.generated_structure_is_failed_erasure":
+        ("generic", "classification"),
 }
 
 

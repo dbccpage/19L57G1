@@ -9693,7 +9693,8 @@
    "consumers": [
     "ClosureSymmetry.lean",
     "ObsDescent.lean",
-    "PresentationRelativity.lean"
+    "PresentationRelativity.lean",
+    "ResidualClosure.lean"
    ],
    "kind": "generic",
    "module": "Compression.lean",
@@ -16925,7 +16926,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ResidualClosure.lean"
+   ],
    "kind": "generic",
    "module": "PresentationRelativity.lean",
    "name": "PresentationRelativity.classCount_lt_of_refinement_split",
@@ -17069,7 +17072,9 @@
     "Quot.sound"
    ],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "NoOutsideFidelity.lean"
+   ],
    "kind": "generic",
    "module": "PresentationRelativity.lean",
    "name": "PresentationRelativity.notes_update_kernel_results_agree",
@@ -17271,7 +17276,9 @@
    "citing_claims": [
     "CL-CLOSURE-SYMMETRY (failed closure as internal symmetry loss, 2026-08-14)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ResidualClosure.lean"
+   ],
    "kind": "generic",
    "module": "ClosureSymmetry.lean",
    "name": "ClosureSymmetry.residual_refutes_factorization",
@@ -17286,12 +17293,564 @@
    "citing_claims": [
     "CL-CLOSURE-SYMMETRY (failed closure as internal symmetry loss, 2026-08-14)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ResidualClosure.lean"
+   ],
    "kind": "generic",
    "module": "ClosureSymmetry.lean",
    "name": "ClosureSymmetry.closure_failure_iff_internal_symmetry_break",
    "role": "equivalence",
    "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : (\u00ac FactorsOn D p q) \u2194 Nonempty (InternalSymmetryBreak D p q)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.factorization_preserves_invariance",
+   "role": "preservation",
+   "statement": "{D : List Nat} {r q sigma : Nat -> Nat} (hrq : FactorsOn D r q) (hsigma : forall x, x \u2208 D -> sigma x \u2208 D) (hr : InvariantUnderOn D r sigma) : InvariantUnderOn D q sigma"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.carrying_right_face_loses_generating_invariance",
+   "role": "classification",
+   "statement": "{D : List Nat} {p q r : Nat -> Nat} (b : InternalSymmetryBreak D p q) (hrq : FactorsOn D r q) : Not (InvariantUnderOn D r b.symmetry)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.carrying_right_face_splits_generating_pair",
+   "role": "classification",
+   "statement": "{D : List Nat} {p q r : Nat -> Nat} (b : InternalSymmetryBreak D p q) (hrq : FactorsOn D r q) : r (b.symmetry b.point) \u2260 r b.point"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.common_refinement_strictly_splits_left_face",
+   "role": "minimality",
+   "statement": "{D : List Nat} {p q r : Nat -> Nat} (b : InternalSymmetryBreak D p q) (hrp : FactorsOn D r p) (hrq : FactorsOn D r q) : classCount D [p] < classCount D [r]"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.current_directional_residual_is_empty",
+   "role": "classification",
+   "statement": "{D : List Nat} {r q : Nat -> Nat} (hrq : FactorsOn D r q) : Not (Nonempty (DirectionalResidual D r q))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.current_internal_symmetry_break_is_empty",
+   "role": "classification",
+   "statement": "{D : List Nat} {r q : Nat -> Nat} (hrq : FactorsOn D r q) : Not (Nonempty (InternalSymmetryBreak D r q))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ResidualClosure.lean",
+   "name": "ResidualClosure.common_refinement_closes_current_obstruction",
+   "role": "preservation",
+   "statement": "{D : List Nat} {p q r : Nat -> Nat} (b : InternalSymmetryBreak D p q) (hrp : FactorsOn D r p) (hrq : FactorsOn D r q) : Not (InvariantUnderOn D r b.symmetry) \u2227 r (b.symmetry b.point) \u2260 r b.point \u2227 classCount D [p] < classCount D [r] \u2227 Not (Nonempty (DirectionalResidual D r q)) \u2227 Not (Nonempty (InternalSymmetryBreak D r q))"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.translation_gap_refuses_totalization",
+   "role": "countermodel",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} (gap : TranslationGap t) : Not (Nonempty (Totalization t))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.coherence_residual_refutes_round_trip",
+   "role": "classification",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} {u : Totalization t} (residual : CoherenceResidual u) : Not (RoundTripCoherent u)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.faithful_common_descent_has_coincident_images",
+   "role": "preservation",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} {u : Totalization t} (d : FaithfulCommonDescent u) : CoincidentImages d.left d.right"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.faithful_descent_to_coherent",
+   "role": "preservation",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} {u : Totalization t} (d : FaithfulCommonDescent u) : RoundTripCoherent u where left p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FIDELITY-DESCENT (heterogeneous index erasure, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.faithful_descent_iff_round_trip_coherent",
+   "role": "equivalence",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} (u : Totalization t) : Nonempty (FaithfulCommonDescent u) \u2194 RoundTripCoherent u"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "NoOutsideFidelity.lean"
+   ],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.incoherence_forces_index_retention",
+   "role": "classification",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} {u : Totalization t} (hfail : Not (RoundTripCoherent u)) : Not (Nonempty (FaithfulCommonDescent u))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-FIDELITY-DESCENT (heterogeneous index erasure, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "PresentationDescent.lean",
+   "name": "PresentationDescent.residual_forces_index_retention",
+   "role": "classification",
+   "statement": "{P Q : Type} {t : TranslationAttempt P Q} {u : Totalization t} (residual : CoherenceResidual u) : Not (Nonempty (FaithfulCommonDescent u))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "EndogenousFidelityGenerator.lean"
+   ],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.RelationRefinement.refl",
+   "role": "preservation",
+   "statement": "{I : Type} (s : Setoid I) : RelationRefinement s s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PN-NATURAL-SELECTION (naturality obstruction across presentations, 2026-08-14)"
+   ],
+   "consumers": [
+    "EndogenousFidelityGenerator.lean"
+   ],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.RelationRefinement.trans",
+   "role": "preservation",
+   "statement": "{I : Type} {fine middle coarse : Setoid I} (hfm : RelationRefinement fine middle) (hmc : RelationRefinement middle coarse) : RelationRefinement fine coarse"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.collapseMap_mk",
+   "role": "preservation",
+   "statement": "{I : Type} {fine coarse : Setoid I} (h : RelationRefinement fine coarse) (x : I) : collapseMap h (Quotient.mk fine x) = Quotient.mk coarse x"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "EndogenousFidelityGenerator.lean"
+   ],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.collapseMap_surjective",
+   "role": "existence",
+   "statement": "{I : Type} {fine coarse : Setoid I} (h : RelationRefinement fine coarse) : Function.Surjective (collapseMap h)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "EndogenousFidelityGenerator.lean"
+   ],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.failed_identification_retains_two_classes",
+   "role": "countermodel",
+   "statement": "{I : Type} {fine coarse : Setoid I} (h : RelationRefinement fine coarse) {x y : I} (hcoarse : coarse.r x y) (hfine : Not (fine.r x y)) : Quotient.mk fine x \u2260 Quotient.mk fine y \u2227 collapseMap h (Quotient.mk fine x) = collapseMap h (Quotient.mk fine y)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.failed_identification_makes_collapse_noninjective",
+   "role": "countermodel",
+   "statement": "{I : Type} {fine coarse : Setoid I} (h : RelationRefinement fine coarse) {x y : I} (hcoarse : coarse.r x y) (hfine : Not (fine.r x y)) : Not (Function.Injective (collapseMap h))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.collapseMap_injective_iff_reverse_refinement",
+   "role": "equivalence",
+   "statement": "{I : Type} {fine coarse : Setoid I} (h : RelationRefinement fine coarse) : Function.Injective (collapseMap h) \u2194 (forall {x y}, coarse.r x y -> fine.r x y)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.symmetry_failure_retains_multiplicity",
+   "role": "classification",
+   "statement": "{I : Type} {fine coarse : Setoid I} (h : RelationRefinement fine coarse) (sigma : I -> I) (x : I) (hbefore : coarse.r x (sigma x)) (hafter : Not (fine.r x (sigma x))) : exists a b : Quotient fine, a \u2260 b \u2227 collapseMap h a = collapseMap h b"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "QuotientRetention.lean",
+   "name": "QuotientRetention.collapseMap_compose",
+   "role": "preservation",
+   "statement": "{I : Type} {fine middle coarse : Setoid I} (hfm : RelationRefinement fine middle) (hmc : RelationRefinement middle coarse) : collapseMap (hfm.trans hmc) = collapseMap hmc \u2218 collapseMap hfm"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.fidelity_refl",
+   "role": "preservation",
+   "statement": "(N : TranslationNetwork) (i : N.Index) : FidelityRel N i i"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.fidelity_symm",
+   "role": "preservation",
+   "statement": "{N : TranslationNetwork} {i j : N.Index} (h : FidelityRel N i j) : FidelityRel N j i"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.fidelity_trans",
+   "role": "preservation",
+   "statement": "{N : TranslationNetwork} {i j k : N.Index} (hij : FidelityRel N i j) (hjk : FidelityRel N j k) : FidelityRel N i k"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.class_eq_iff_coherent_path",
+   "role": "equivalence",
+   "statement": "(N : TranslationNetwork) (i j : N.Index) : classOf N i = classOf N j \u2194 FidelityRel N i j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.no_coherent_path_retains_indices",
+   "role": "classification",
+   "statement": "(N : TranslationNetwork) {i j : N.Index} (h : NoCoherentPath N i j) : classOf N i \u2260 classOf N j"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.failed_endomorphism_does_not_refute_self_fidelity",
+   "role": "countermodel",
+   "statement": "{N : TranslationNetwork} {i : N.Index} {t : TranslationAttempt (N.Carrier i) (N.Carrier i)} {u : Totalization t} (_ : CoherenceResidual u) : FidelityRel N i i"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.holonomy_residual_refuses_faithful_network_descent",
+   "role": "countermodel",
+   "statement": "{N : TranslationNetwork} (residual : HolonomyResidual N) : Not (Nonempty (FaithfulNetworkDescent N))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.faithful_network_descent_forces_trivial_loops",
+   "role": "preservation",
+   "statement": "{N : TranslationNetwork} (d : FaithfulNetworkDescent N) : AllLoopsTrivial N"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.label_descends_iff_fidelity_invariant",
+   "role": "equivalence",
+   "statement": "{N : TranslationNetwork} {Y : Type} (label : N.Index -> Y) : LabelDescends label \u2194 LabelInvariant label"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.coherent_disagreement_refuses_label_descent",
+   "role": "classification",
+   "statement": "{N : TranslationNetwork} {Y : Type} (label : N.Index -> Y) {i j : N.Index} (hpath : FidelityRel N i j) (hneq : label i \u2260 label j) : Not (LabelDescends label)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FidelityClosure.lean",
+   "name": "FidelityClosure.polarity_flip_is_presentation_relative",
+   "role": "classification",
+   "statement": "{N : TranslationNetwork} (polarity : N.Index -> Bool) {i j : N.Index} (hpath : FidelityRel N i j) (hflip : polarity i \u2260 polarity j) : Not (LabelDescends polarity)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "NoOutsideFidelity.lean",
+   "name": "NoOutsideFidelity.support_fiber_contains_distinct_notes",
+   "role": "countermodel",
+   "statement": ": exists w w' : World, supp w = supp w' \u2227 w.notes \u2260 w'.notes \u2227 w \u2260 w'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "NoOutsideFidelity.lean",
+   "name": "NoOutsideFidelity.support_projection_not_injective",
+   "role": "countermodel",
+   "statement": ": Not (Function.Injective supp)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutsideFidelity.lean",
+   "name": "NoOutsideFidelity.support_translation_never_round_trip_coherent",
+   "role": "countermodel",
+   "statement": "(backward : Supp -> World) : Not (RoundTripCoherent (supportTotalization backward))"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutsideFidelity.lean",
+   "name": "NoOutsideFidelity.support_translation_never_faithfully_erases_index",
+   "role": "classification",
+   "statement": "(backward : Supp -> World) : Not (Nonempty (FaithfulCommonDescent (supportTotalization backward)))"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutsideFidelity.lean",
+   "name": "NoOutsideFidelity.no_support_inverse_faithfully_erases_index",
+   "role": "countermodel",
+   "statement": ": Not (exists backward : Supp -> World, Nonempty (FaithfulCommonDescent (supportTotalization backward)))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "NoOutsideFidelity.lean",
+   "name": "NoOutsideFidelity.notes_fiber_has_no_operational_authority",
+   "role": "preservation",
+   "statement": "(w : World) (newNotes : List Nat) (history : List Event) (requirement : Req) : supp (replay history { w with notes"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "EndogenousFidelityGenerator.lean",
+   "name": "EndogenousFidelityGenerator.admitted_step_has_fidelity_path",
+   "role": "existence",
+   "statement": "{N : TranslationNetwork} {i j : N.Index} (h : AdmittedStep N i j) : FidelityRel N i j"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-ENDOGENOUS-FIDELITY-GENERATOR (least closure, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "EndogenousFidelityGenerator.lean",
+   "name": "EndogenousFidelityGenerator.fidelity_is_least_equivalence_containing_admitted_steps",
+   "role": "minimality",
+   "statement": "(N : TranslationNetwork) (S : Setoid N.Index) (hadmit : forall {i j}, AdmittedStep N i j -> S.r i j) : forall {i j}, FidelityRel N i j -> S.r i j"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "EndogenousFidelityGenerator.lean",
+   "name": "EndogenousFidelityGenerator.fidelity_refines_indiscrete",
+   "role": "preservation",
+   "statement": "(N : TranslationNetwork) : RelationRefinement (fidelitySetoid N) (indiscreteSetoid N.Index)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "EndogenousFidelityGenerator.lean",
+   "name": "EndogenousFidelityGenerator.universalCollapse_surjective",
+   "role": "existence",
+   "statement": "(N : TranslationNetwork) : Function.Surjective (universalCollapse N)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "EndogenousFidelityGenerator.lean",
+   "name": "EndogenousFidelityGenerator.no_coherent_path_retains_multiplicity",
+   "role": "classification",
+   "statement": "(N : TranslationNetwork) {i j : N.Index} (hno : NoCoherentPath N i j) : classOf N i \u2260 classOf N j \u2227 universalCollapse N (classOf N i) = universalCollapse N (classOf N j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-ENDOGENOUS-FIDELITY-GENERATOR (least closure, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "EndogenousFidelityGenerator.lean",
+   "name": "EndogenousFidelityGenerator.generated_structure_is_failed_erasure",
+   "role": "classification",
+   "statement": "(N : TranslationNetwork) {i j : N.Index} (hno : NoCoherentPath N i j) : exists a b : GeneratedMultiplicity N, a \u2260 b \u2227 universalCollapse N a = universalCollapse N b"
   }
  ]
 }

@@ -1670,3 +1670,33 @@ at 50 jobs; the Lean audit covers 48 sources and admits only
 `{propext, Quot.sound}`. The exact new inventory regression passes;
 the broad completion test file hit the six-minute host command timeout
 without reporting an assertion failure and is left to repository CI.
+
+## 2026-08-14 — Heterogeneous fidelity closure and endogenous quotient generator
+
+Six source modules are integrated as one reviewed chain. `ResidualClosure`
+closes the current finite residual without claiming future quiescence.
+`PresentationDescent` removes the common-carrier assumption: coherent round
+trips for one declared total translation pair are proved equivalent to a
+faithful common descent whose injective images coincide. Translation gaps
+refuse only exact constraint-preserving totalizations.
+
+`QuotientRetention` proves the carrier-independent quotient statement:
+failed identification retains two fine classes and makes the attempted
+collapse non-injective. `FidelityClosure` generates coherent paths from
+admitted steps and separates missing paths, holonomy, and label descent.
+`EndogenousFidelityGenerator` proves that this path relation is the least
+equivalence containing the admitted steps; multiplicity is precisely what the
+attempted indiscrete erasure fails to remove.
+
+`NoOutsideFidelity` supplies the bounded operational witness. The exact
+`World → Supp` projection has no coherent inverse for any proposed backward
+map because distinct notes occupy one support fiber, while the notes field has
+no kernel authority. This is not an ontological no-outside theorem.
+
+The integrated surface adds 46 theorem reports: 1,268 → 1,314. The aggregate
+build completes 56 jobs; the Lean audit covers 54 sources and admits only
+`{propext, Quot.sound}`. The focused exact-surface regressions pass, and the
+artifact replay reproduces 37 JSON files byte-for-byte plus six hash-pinned
+exports. No observer, finite common carrier, metric, canonical selector,
+first presentation, continuation authority, or automatic admission is added.
+`AuthorityEffect: None`.
