@@ -90,8 +90,8 @@
    "propext",
    "Quot.sound"
   ],
-  "sha256_canonical": "db4f28753d882c284e3feb8837b4b09e7a74915f508cf0dcad09ff19d8816c79",
-  "theorem_count": 1261
+  "sha256_canonical": "484047d009fe725de312feeb173a8b6466fd081cd0d2e9b1d57a28d20bb822de",
+  "theorem_count": 1268
  },
  "blind_native_base": "ccd3a53",
  "bounds": {

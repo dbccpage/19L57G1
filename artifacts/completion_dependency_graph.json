@@ -9691,6 +9691,7 @@
     "CL-PD2-COMPRESSION"
    ],
    "consumers": [
+    "ClosureSymmetry.lean",
     "ObsDescent.lean",
     "PresentationRelativity.lean"
    ],
@@ -16995,7 +16996,9 @@
    "citing_claims": [
     "CL-PREL-RELATIVE-IDENTITY (presentation-relative identity and comparison-forced refinement, 2026-08-14)"
    ],
-   "consumers": [],
+   "consumers": [
+    "ClosureSymmetry.lean"
+   ],
    "kind": "generic",
    "module": "PresentationRelativity.lean",
    "name": "PresentationRelativity.directionalResidual_of_factorization_failure",
@@ -17198,6 +17201,97 @@
    "name": "PresentationRelativity.declared_generator_profiles_disagree_at_pair",
    "role": "countermodel",
    "statement": "(n : Nat) (h : 3 \u2264 n) : ViewIdentifies (profile1 (reflState n)) 1 2 \u2227 ViewSeparates (profileV (reflState n)) 1 2"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.transpose_left",
+   "role": "classification",
+   "statement": "(a b : Nat) : transpose a b a = b"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.transpose_right",
+   "role": "classification",
+   "statement": "(a b : Nat) : transpose a b b = a"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.transpose_fixed",
+   "role": "classification",
+   "statement": "{a b x : Nat} (ha : x \u2260 a) (hb : x \u2260 b) : transpose a b x = x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.transpose_involutive",
+   "role": "equivalence",
+   "statement": "(a b : Nat) : \u2200 x, transpose a b (transpose a b x) = x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-SYMMETRY (failed closure as internal symmetry loss, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.residual_nonempty_iff_internal_symmetry_break_nonempty",
+   "role": "equivalence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : Nonempty (DirectionalResidual D p q) \u2194 Nonempty (InternalSymmetryBreak D p q)"
+  },
+  {
+   "axioms": [
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-SYMMETRY (failed closure as internal symmetry loss, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.residual_refutes_factorization",
+   "role": "countermodel",
+   "statement": "{D : List Nat} {p q : Nat \u2192 Nat} (r : DirectionalResidual D p q) : \u00ac FactorsOn D p q"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-SYMMETRY (failed closure as internal symmetry loss, 2026-08-14)"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ClosureSymmetry.lean",
+   "name": "ClosureSymmetry.closure_failure_iff_internal_symmetry_break",
+   "role": "equivalence",
+   "statement": "(D : List Nat) (p q : Nat \u2192 Nat) : (\u00ac FactorsOn D p q) \u2194 Nonempty (InternalSymmetryBreak D p q)"
   }
  ]
 }

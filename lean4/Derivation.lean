@@ -44,6 +44,7 @@ import Derivation.PresentationNaturality
 import Derivation.Pigeonhole
 import Derivation.CapacityBound
 import Derivation.PresentationRelativity
+import Derivation.ClosureSymmetry
 
 /-!
 # Axiom reports
@@ -1365,3 +1366,12 @@ open Derivation
 #print axioms PresentationRelativity.declared_generator_index_comparison_does_not_factor
 #print axioms PresentationRelativity.declared_generator_index_comparison_forces_refinement
 #print axioms PresentationRelativity.declared_generator_profiles_disagree_at_pair
+
+-- Failed closure is loss of invariance under an internal symmetry
+#print axioms ClosureSymmetry.transpose_left
+#print axioms ClosureSymmetry.transpose_right
+#print axioms ClosureSymmetry.transpose_fixed
+#print axioms ClosureSymmetry.transpose_involutive
+#print axioms ClosureSymmetry.residual_nonempty_iff_internal_symmetry_break_nonempty
+#print axioms ClosureSymmetry.residual_refutes_factorization
+#print axioms ClosureSymmetry.closure_failure_iff_internal_symmetry_break

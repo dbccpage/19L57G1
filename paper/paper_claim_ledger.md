@@ -3195,3 +3195,44 @@ CL-PD2-LADDER)
   joint presentation as natural/preferred or of the common-carrier
   theorem as heterogeneous.
 
+### CL-CLOSURE-SYMMETRY (failed closure as internal symmetry loss, 2026-08-14)
+- **Statement**: for two internal faces `p,q : Nat → Nat` of one
+  attempted closure on represented finite domain `D`, failure of
+  `FactorsOn D p q` is equivalent to the existence of a represented
+  involution `σ` that preserves `D` and `p` but under which `q` is not
+  invariant at a represented point. A `DirectionalResidual D p q`
+  constructs `σ` as the transposition of its two points; conversely the
+  non-invariant point reconstructs the residual.
+- **Exact equivalence**:
+  `closure_failure_iff_internal_symmetry_break` proves
+  `¬ FactorsOn D p q ↔ Nonempty (InternalSymmetryBreak D p q)`.
+  `residual_nonempty_iff_internal_symmetry_break_nonempty` identifies
+  the residual and symmetry-break forms directly.
+  `residual_refutes_factorization` is the one-directional closure
+  obstruction used by the reverse implication.
+- **Internality**: `p`, `q`, `σ`, the represented domain, and the
+  residual pair are fields or arguments of the same typed attempt.
+  Neither `p` nor `q` is an evaluator, subject, truth source, inside,
+  outside, or observer from nowhere.
+- **Class**: finite common-carrier equivalence and explicit
+  transposition construction.
+- **Exact non-claims**:
+  - No replacement face, repair, continuation, or comparison demand is
+    selected or authorized.
+  - No face is preferred, canonical, more true, or externally
+    certified.
+  - No heterogeneous-carrier or infinite-domain theorem is claimed.
+  - The result does not prove an ontological absence of inside/outside;
+    those predicates do not occur in the object language.
+  - No self-evaluator, self-certifier, or claim that a knife literally
+    acts on itself is formalized. The proved content is invariance and
+    factorization of one represented closure attempt.
+- **Evidence (Lean)**: the seven `ClosureSymmetry.*` theorem reports
+  enumerated by `lean4/Derivation.lean`; strongest axiom surface
+  `{propext, Quot.sound}`.
+- **Python evidence**: inventory and receipt binding only.
+- **Falsifier**: a failed factorization with no represented internal
+  symmetry break; a residual whose transposition does not preserve
+  `p`; or an internal symmetry break that does not refute
+  factorization.
+

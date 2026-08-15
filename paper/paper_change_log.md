@@ -1648,3 +1648,25 @@ Axiom reports 1229 → 1261 (32 added, none removed), all within
 {propext, Quot.sound}. `lake build` is clean at 49 jobs; the Lean audit
 covers 47 sources. Final Python coverage and artifact-replay counts are
 recorded from the publication gate rather than inferred here.
+
+## 2026-08-14 — Closure failure as loss of internal symmetry invariance
+
+`ClosureSymmetry.lean` removes an evaluator-shaped reading of the
+relative obstruction. The two maps `p` and `q` are internal faces of
+one attempted closure. A directional residual constructs the
+transposition of its represented pair; that involution preserves the
+represented domain and leaves `p` invariant, while `q` ceases to be
+invariant. Conversely, any represented involutive symmetry with that
+invariance break reconstructs the residual.
+
+The load-bearing theorem
+`closure_failure_iff_internal_symmetry_break` identifies failed
+factorization, represented residual, and symmetry loss. It supplies no
+evaluator, observer from nowhere, repair authority, preferred face,
+next comparison, or ontological inside/outside predicate.
+
+Seven theorem reports are added: 1,261 → 1,268. `lake build` is clean
+at 50 jobs; the Lean audit covers 48 sources and admits only
+`{propext, Quot.sound}`. The exact new inventory regression passes;
+the broad completion test file hit the six-minute host command timeout
+without reporting an assertion failure and is left to repository CI.

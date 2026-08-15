@@ -349,6 +349,17 @@ Here “outside” is only the inherited name of the operational
 factorization boundary in `NoOutside`; no spatial, cosmological, or
 observer-from-nowhere predicate is introduced.
 
+`ClosureSymmetry` removes the remaining evaluator-shaped reading from
+the obstruction itself. An attempted closure carries two internal
+faces `p` and `q`. A directional residual generates the transposition
+of its represented pair; `p` is invariant under that involution while
+`q` is not. Conversely, every represented involutive symmetry that
+preserves `p` but not `q` reconstructs the residual. Therefore
+`closure_failure_iff_internal_symmetry_break` proves that failure of
+`q` to factor through `p` is exactly loss of `q`-invariance under an
+internal symmetry of `p`. Neither face is an evaluator, truth source,
+inside, or outside; both are fields of one attempted closure.
+
 ## 14. The final derivation chain
 
 ```text
