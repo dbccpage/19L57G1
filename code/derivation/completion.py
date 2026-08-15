@@ -74,6 +74,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "CapacityBound": ["CapacityBound.lean"],
     "PresentationRelativity": ["PresentationRelativity.lean"],
     "PresentationRelativity.Metatheory": ["PresentationRelativity.lean"],
+    "ClosureSymmetry": ["ClosureSymmetry.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -351,6 +352,7 @@ NAMESPACE_DEFAULTS: dict[str, tuple[str, str]] = {
     "CapacityBound": ("generic", "preservation"),
     "PresentationRelativity": ("generic", "classification"),
     "PresentationRelativity.Metatheory": ("generic", "classification"),
+    "ClosureSymmetry": ("generic", "equivalence"),
 }
 
 KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
@@ -535,6 +537,17 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
         ("horizon-free", "existence"),
     "PresentationRelativity.declared_generator_profiles_disagree_at_pair":
         ("horizon-free", "countermodel"),
+    # closure failure as loss of invariance under an internal symmetry
+    "ClosureSymmetry.transpose_left": ("generic", "classification"),
+    "ClosureSymmetry.transpose_right": ("generic", "classification"),
+    "ClosureSymmetry.transpose_fixed": ("generic", "classification"),
+    "ClosureSymmetry.transpose_involutive": ("generic", "equivalence"),
+    "ClosureSymmetry.residual_nonempty_iff_internal_symmetry_break_nonempty":
+        ("generic", "equivalence"),
+    "ClosureSymmetry.residual_refutes_factorization":
+        ("generic", "countermodel"),
+    "ClosureSymmetry.closure_failure_iff_internal_symmetry_break":
+        ("generic", "equivalence"),
 }
 
 

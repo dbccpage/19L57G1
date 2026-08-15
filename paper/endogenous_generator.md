@@ -233,6 +233,15 @@ supplied comparison is `id`, hence identity-grade by declaration. The
 theorem neither generates that comparison nor supplies the
 non-identity repair channel required by G1.
 
+`ClosureSymmetry` sharpens what this obstruction means without adding
+a new agent. The `p` and `q` maps are internal faces of one attempted
+closure. Every residual pair generates its transposition: `p` remains
+invariant under that symmetry and `q` does not. Conversely, every such
+represented invariance break is a residual and refutes factorization.
+This identifies obstruction with failed closure under the attempt's
+own symmetry; it does not generate `q`, authorize a repair, or close
+G1.
+
 ---
 
 # FRONTIER CONJECTURES

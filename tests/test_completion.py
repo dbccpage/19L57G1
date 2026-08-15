@@ -186,6 +186,31 @@ def test_presentation_relativity_inventory_surface_is_exact() -> None:
         assert classify(qualified) == expected[local_name], qualified
 
 
+def test_closure_symmetry_inventory_surface_is_exact() -> None:
+    expected = {
+        "transpose_left": ("generic", "classification"),
+        "transpose_right": ("generic", "classification"),
+        "transpose_fixed": ("generic", "classification"),
+        "transpose_involutive": ("generic", "equivalence"),
+        "residual_nonempty_iff_internal_symmetry_break_nonempty":
+            ("generic", "equivalence"),
+        "residual_refutes_factorization": ("generic", "countermodel"),
+        "closure_failure_iff_internal_symmetry_break":
+            ("generic", "equivalence"),
+    }
+    prefix = "ClosureSymmetry."
+    rows = [rec for rec in inventory() if str(rec["name"]).startswith(prefix)]
+    actual_names = {str(rec["name"])[len(prefix):] for rec in rows}
+    assert actual_names == set(expected)
+    assert len(rows) == 7
+    for rec in rows:
+        qualified = str(rec["name"])
+        local_name = qualified[len(prefix):]
+        assert rec["module"] == "ClosureSymmetry.lean", qualified
+        assert rec["statement"] != "UNRESOLVED", qualified
+        assert classify(qualified) == expected[local_name], qualified
+
+
 def test_dependency_graph_statuses_and_evidence_resolve() -> None:
     graph = dependency_graph()
     names = {str(r["name"]) for r in parse_axiom_reports()}
