@@ -2,8 +2,16 @@
 # Composition as a relation that is not required to be total, single-valued,
 or associative
 
-This module imports NOTHING.  No arithmetic, no lists, no indexing, no
-succession, no ordering, no counting, no magnitude.
+This module has NO EXPLICIT IMPORTS.  It is not dependency-free: with
+no `prelude` command Lean implicitly imports `Init`, and
+`lake env lean --deps` reports an `Init.olean` dependency accordingly.
+That dependency is real and is not denied here.  An earlier version
+said the module "imports NOTHING", which was false; the claim is
+WITHDRAWN.
+
+What IS claimed is narrower, and is about USE rather than dependency:
+nothing below uses arithmetic, lists, indexing, succession, ordering,
+counting or magnitude.
 
 A category supplies composition as an OPERATION: `∘` takes two arrows
 and delivers a third, for every composable pair, always, uniquely.
@@ -98,15 +106,35 @@ theorem selection_is_possible :
 
 /-! ## 3. Associativity may fail, against a stated predicate -/
 
-/-- Relational associativity: every composite reachable by bracketing
-on the left is reachable by bracketing on the right.  Stated for a
-multivalued relation, where exhibiting two different bracketing results
-would NOT by itself refute anything. -/
+/-- A result reachable by bracketing on the left. -/
+def LeftReach (W : Web) (a b c d : W.Node)
+    (f : W.Arr a b) (g : W.Arr b c) (k : W.Arr c d) (w : W.Arr a d) : Prop :=
+  ∃ u : W.Arr a c, W.Composes a b c f g u ∧ W.Composes a c d u k w
+
+/-- A result reachable by bracketing on the right. -/
+def RightReach (W : Web) (a b c d : W.Node)
+    (f : W.Arr a b) (g : W.Arr b c) (k : W.Arr c d) (w : W.Arr a d) : Prop :=
+  ∃ v : W.Arr b d, W.Composes b c d g k v ∧ W.Composes a b d f v w
+
+/-- **Full relational associativity**: the two bracketings reach exactly
+the same results.  For a multivalued relation this is an equality of
+reachable-result relations, so it is an `Iff` and not an implication. -/
 def RelAssoc (W : Web) : Prop :=
   ∀ (a b c d : W.Node) (f : W.Arr a b) (g : W.Arr b c) (k : W.Arr c d)
-    (u : W.Arr a c) (w : W.Arr a d),
-    W.Composes a b c f g u → W.Composes a c d u k w →
-    ∃ v : W.Arr b d, W.Composes b c d g k v ∧ W.Composes a b d f v w
+    (w : W.Arr a d),
+    LeftReach W a b c d f g k w ↔ RightReach W a b c d f g k w
+
+/-- The one-way law: everything reachable on the left is reachable on
+the right.  Named for what it is, since an earlier version defined only
+this and called it relational associativity. -/
+def RelAssocLeft (W : Web) : Prop :=
+  ∀ (a b c d : W.Node) (f : W.Arr a b) (g : W.Arr b c) (k : W.Arr c d)
+    (w : W.Arr a d),
+    LeftReach W a b c d f g k w → RightReach W a b c d f g k w
+
+theorem relAssocLeft_of_relAssoc (W : Web) (h : RelAssoc W) :
+    RelAssocLeft W :=
+  fun a b c d f g k w hl => (h a b c d f g k w).mp hl
 
 /-- A composition relation that is not associative. -/
 def skewCompose : Web where
@@ -114,14 +142,20 @@ def skewCompose : Web where
   Arr _ _ := Bool
   Composes _ _ _ f g h := h = (f && !g)
 
-/-- **Relational associativity fails**, against the predicate above
-rather than by exhibiting two results and calling it a refutation. -/
-theorem skew_not_relAssoc : ¬ RelAssoc skewCompose := by
+/-- **Even the one-way law fails.**  The witness is a result reachable
+on the left and not on the right. -/
+theorem skew_not_relAssocLeft : ¬ RelAssocLeft skewCompose := by
   intro h
   obtain ⟨v, hv, hw⟩ :=
-    h () () () () true false true true false rfl rfl
+    h () () () () true false true false ⟨true, rfl, rfl⟩
   rw [hv] at hw
   exact Bool.noConfusion hw
+
+/-- **Full relational associativity fails**, against the `Iff`
+predicate rather than by exhibiting two results and calling it a
+refutation. -/
+theorem skew_not_relAssoc : ¬ RelAssoc skewCompose :=
+  fun h => skew_not_relAssocLeft (relAssocLeft_of_relAssoc skewCompose h)
 
 /-! ## What this does NOT claim
 

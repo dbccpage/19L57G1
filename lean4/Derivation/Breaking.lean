@@ -1,8 +1,16 @@
 /-!
 # A fixed-point-free reflection, and the two-cycle through each element
 
-This module imports NOTHING.  No arithmetic, no lists, no indexing, no
-succession, no ordering, no counting, no magnitude.
+This module has NO EXPLICIT IMPORTS.  It is not dependency-free: with
+no `prelude` command Lean implicitly imports `Init`, and
+`lake env lean --deps` reports an `Init.olean` dependency accordingly.
+That dependency is real and is not denied here.  An earlier version
+said the module "imports NOTHING", which was false; the claim is
+WITHDRAWN.
+
+What IS claimed is narrower, and is about USE rather than dependency:
+nothing below uses arithmetic, lists, indexing, succession, ordering,
+counting or magnitude.
 
 ## The exact ceiling, stated before anything else
 
