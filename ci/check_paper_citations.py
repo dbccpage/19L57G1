@@ -34,6 +34,24 @@ An earlier draft justified this gate by claiming a working-tree check
 incident above -- the cited file was on neither ``main`` nor the citing
 branch, so existence alone would have caught it. The gate is worth having
 for the plain reason, not the elaborate one.
+
+POPULATION: NOTHING IS TRUNCATED
+
+There is no cap, no sampling, and no "first N" anywhere here. Every source
+under ``paper/`` is read and every match in it is checked. Enumeration
+finding *nothing* fails closed, because a census that returns an empty set
+is broken rather than clean.
+
+The source walk is RECURSIVE, so a document placed in a subdirectory of
+``paper/`` cannot escape it. ``paper/`` is flat today, so recursion changes
+no current result; it is here because the Lean module census had to learn
+the same lesson, and a non-recursive walk is silent exactly when a
+subdirectory appears.
+
+Two things are deduplicated rather than dropped: a path cited twice in one
+document is checked once, and the reported count is of DISTINCT paths per
+document, not of occurrences. That affects the number printed, never
+whether a dead path is caught.
 """
 
 import pathlib
@@ -52,7 +70,7 @@ def main() -> int:
         print(f"FAIL: {PAPER} is not a directory")
         return 1
 
-    sources = sorted(PAPER.glob("*.md"))
+    sources = sorted(PAPER.rglob("*.md"))
     if not sources:
         print(f"FAIL: no *.md found under {PAPER} - the enumeration is broken")
         return 1
