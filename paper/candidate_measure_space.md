@@ -86,6 +86,12 @@ select a minimum so much as fail to reduce, and the same holds for
 `mu_type`, since every valid delta carries the type signature
 `(0, 1, 1, 0)` — one new form, one new instance, nothing else.
 
+That is a fact about the **bounds**, not about `mu1`. Outside them `mu1`
+would discriminate by item count against responses of cost 3 or more,
+while remaining non-unique at the floor — the arity-indexed tie family
+sits at cost 2 across arities. "Fails to reduce" is confined to
+`max_items=2` and is not a general property of the measure.
+
 **(b) `mu_arity` is equivalent to `mu2` here, provably rather than by
 coincidence.** Every valid delta contains exactly one `NewForm`: two forms
 at cost 2 leave no room for an instance, and a form without an instance
