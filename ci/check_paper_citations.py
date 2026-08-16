@@ -21,9 +21,14 @@ Widening the grammar to allow ``/`` also admitted traversal. ``..`` and
 ``paper/../README.md`` matched, and ``is_file`` followed it out of the
 directory to a file that really exists -- the citation would have been
 reported as resolving. Segments are therefore validated, and the resolved
-path must stay under ``paper/``. ``SELF_CHECK`` pins that behaviour so a
-regression is caught on a flat tree, where no real nested or traversing
-citation exists to catch it.
+path must stay under ``paper/``.
+
+``EXTRACTS`` and ``ACCEPTS`` pin the two halves separately, because they
+regress independently: the grammar can narrow while the segment rule stays
+correct, and vice versa. A flat tree contains no real nested or traversing
+citation, so without these the gate has nothing to detect such a regression
+with. An earlier version tested only acceptance while claiming to pin both
+-- replacing ``CITE`` with a pattern matching nothing left it green.
 
 On a ``pull_request`` event ``actions/checkout`` materializes the merge
 commit, so the tree CI sees is the state that would land and existence has
@@ -43,7 +48,29 @@ PAPER = pathlib.Path("paper")
 
 CITE = re.compile(r"\bpaper/(?:[A-Za-z0-9_.-]+/)*[A-Za-z0-9_.-]+\.md\b")
 
-SELF_CHECK: tuple[tuple[str, bool], ...] = (
+# Two INDEPENDENT properties, pinned separately, because they can regress
+# independently. An earlier version tested only the second and claimed to
+# pin both; replacing CITE with a pattern matching nothing left it green.
+#
+# 1. EXTRACTION -- does CITE take the whole token?
+EXTRACTS: tuple[tuple[str, bool], ...] = (
+    ("paper/flat.md", True),
+    ("paper/sub/nested.md", True),
+    ("paper/a/b/deep.md", True),
+    # Traversal is extracted and then refused; it must not be invisible,
+    # or it would be silently uncheckable rather than reported.
+    ("paper/../README.md", True),
+    ("paper/foo/../../README.md", True),
+    ("paper/./flat.md", True),
+    # Guards against an over-broad pattern.
+    ("notpaper/flat.md", False),
+    ("paper/flat.txt", False),
+    # Deliberate prose placeholders must stay out of the population.
+    ("paper/*.md", False),
+)
+
+# 2. ACCEPTANCE -- does rejection() let the extracted token through?
+ACCEPTS: tuple[tuple[str, bool], ...] = (
     ("paper/flat.md", True),
     ("paper/sub/nested.md", True),
     ("paper/a/b/deep.md", True),
@@ -65,13 +92,22 @@ def rejection(raw: str) -> str | None:
 
 
 def self_check() -> list[str]:
-    """The classifier must behave as declared, on a flat tree too."""
+    """Both halves must behave as declared, on a flat tree too.
+
+    Extraction and acceptance are checked separately against ``CITE`` and
+    ``rejection`` respectively, so that weakening either one is reported.
+    """
     wrong = []
-    for token, want_ok in SELF_CHECK:
+    for token, want_match in EXTRACTS:
+        got_match = CITE.fullmatch(token) is not None
+        if got_match != want_match:
+            verb = "extracted" if got_match else "not extracted"
+            wrong.append(f"self-check extraction: {token} was {verb}")
+    for token, want_ok in ACCEPTS:
         got_ok = rejection(token) is None
         if got_ok != want_ok:
             verb = "accepted" if got_ok else "rejected"
-            wrong.append(f"self-check: {token} was {verb}")
+            wrong.append(f"self-check acceptance: {token} was {verb}")
     return wrong
 
 
