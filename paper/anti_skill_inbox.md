@@ -67,3 +67,29 @@ gate is added later under its own review.
 - **Related skill:** claims-audit (this is its reverse)
 - **Source:** the grep miscount, and the transport-citation circularity that
   `ci/check_transport_citations.py` now avoids with an independent pattern
+
+## 2026-08-16 — report a negative from an unverified or mis-keyed lookup
+
+- **Anti-pattern:** stating that something is absent — no such pull
+  request, no such report, no such entry — from a lookup that was never
+  run, or was run against the wrong key
+- **Why it is anti:** it manufactures residuals that do not exist, in the
+  most persuasive and least checkable form a claim can take. "I checked
+  and found nothing" reads as diligence, and an absence leaves no artifact
+  to audit. It happened twice in one session. First, an assertion that
+  pull request #42 did not exist, made before querying; it existed at
+  `809913db`. Second, a search of `artifacts/lean_axioms.txt` for
+  `Minimality.` returning 0, reported as a finding — the inventory keys
+  declarations by NAMESPACE, not by module, and every one of those
+  theorems was present under `Derivation.` all along. Had that stood, the
+  representative-selection analysis would have claimed its audited
+  substrate was unaudited, inventing a gap in exactly the place the
+  argument was most load-bearing. This is the review template's §8 ("re-run
+  anything that returned 'nothing found' with a different tool") appearing
+  in a new place: not a broken flag, but a keyed inventory searched with a
+  key it does not use
+- **Related skill:** pin (its "check your own tooling" step is the reverse
+  of this); claims-audit
+- **Source:** both incidents self-caught during the succession and
+  representative-selection analyses, the second only because the count of
+  zero was surprising enough to re-check
