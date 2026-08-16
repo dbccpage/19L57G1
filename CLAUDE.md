@@ -281,10 +281,52 @@ order for `lean4/`, whose contact and passage modules are entered through
 - **The forbidden-token scan is plain text over whole `.lean` files.** It
   matches `sorry`, `admit`, `unsafe`, `partial` and leading `axiom` anywhere,
   including inside comments and doc strings. Phrase Lean prose around those
-  words.
+  words — and mind line WRAPPING: the pattern is `^\s*axiom\s`, so a prose
+  line that happens to wrap onto the word `axiom` fails the gate even though
+  the sentence is innocuous. This has happened; so has a docstring line
+  wrapping onto `theorem` and defeating a grep-based theorem count.
 - **Each exported theorem the paper cites needs a `#print axioms` line** in
-  `lean4/Derivation.lean` (which also imports every module), and
-  `artifacts/lean_axioms.txt` must match the fresh build log.
+  `lean4/Derivation.lean`, and `artifacts/lean_axioms.txt` must match the
+  fresh build log.
+- **Every module elaborates, whether or not the root imports it.** `lake
+  build` only builds `defaultTargets`, so a module absent from
+  `lean4/Derivation.lean`'s imports was never typechecked by CI — the
+  forbidden-token scan reads `.lean` files as text and does not elaborate
+  them, so a type error in such a module used to merge green. The `lean` job
+  now builds every `lean4/Derivation/**/*.lean` as its own Lake target, from
+  a recursive census matching `ci/check_lean_audit.py`'s `rglob`, so a module
+  in a subdirectory cannot escape it either. An
+  earlier version of this line claimed the root "imports every module"; that
+  became false when the first parked modules landed, nothing detected it, and
+  the claim is WITHDRAWN in favour of the enforced one above.
+- **The census is pinned, not merely computed.** It is diffed against
+  `artifacts/elaborated_modules.txt`, so adding or removing a module fails
+  the `lean` job until that artifact is regenerated. An empty-census guard
+  catches an enumeration that finds *nothing*; only the diff catches one that
+  finds *some*. Regenerate from the repository root with:
+
+  ```powershell
+  cd lean4
+  $m = Get-ChildItem -Recurse -Filter *.lean -Path Derivation | ForEach-Object {
+    $rel = $_.FullName.Substring($_.FullName.IndexOf("Derivation"))
+    ($rel -replace "\.lean$","") -replace "\\","."
+  }
+  $s = [System.Collections.Generic.List[string]]$m
+  $s.Sort([System.StringComparer]::Ordinal)   # ordinal, to match LC_ALL=C sort
+  [System.IO.File]::WriteAllText("$PWD\..\artifacts\elaborated_modules.txt",
+    ($s -join "`n") + "`n")                    # LF only; artifacts/** is -text
+  ```
+
+- **Elaboration is not auditing — the open residual.** A module the root does
+  not import is now typechecked, but it still contributes no `#print axioms`
+  report, so `ci/check_lean_audit.py`'s axiom whitelist never sees it. A
+  parked module could therefore depend on `Classical.choice` and no gate
+  would fail. The forbidden-token scan still reads it, and it still must
+  compile; its *axioms* are unchecked. Do not read "every module elaborates"
+  as "every module is audited". Closing this needs a declaration census for
+  parked modules, and the obvious regex approach is the one already known to
+  break here — a docstring line beginning with the word `theorem` defeated a
+  grep count twice — so it is left OPEN rather than closed badly.
 - **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
   `artifacts/**` as `-text`. Never let an editor or a CRLF conversion rewrite
   those files — it breaks both the prompt hash gate and byte comparison.

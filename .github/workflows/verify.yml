@@ -93,3 +93,33 @@ jobs:
           python3 ci/regen_axiom_artifact.py lake_build.log
           diff /tmp/lean_axioms.committed artifacts/lean_axioms.txt
           git diff --check -- artifacts/lean_axioms.txt
+      # Must stay LAST in this job and must not write to lake_build.log: the
+      # three steps above compare that log against artifacts/lean_axioms.txt.
+      # `lake build` only builds defaultTargets, so a module the root does not
+      # import is never elaborated and a type error in it merges green.
+      #
+      # The census is RECURSIVE, matching ci/check_lean_audit.py's rglob, so a
+      # subdirectory module cannot escape it, and it is PINNED against
+      # artifacts/elaborated_modules.txt. The pin is what closes partial
+      # silence: an empty guard catches a census that finds nothing, but only
+      # a diff catches one that finds SOME of the modules. Adding or removing
+      # a module fails here until the artifact is regenerated, which makes
+      # "every module was elaborated" a checkable receipt rather than a
+      # workflow claim. Regenerate with the command in CLAUDE.md.
+      - name: Every Lean module elaborates
+        working-directory: lean4
+        timeout-minutes: 20
+        run: |
+          set -o pipefail
+          find Derivation -name '*.lean' \
+            | sed -e 's/\.lean$//' -e 's#/#.#g' \
+            | LC_ALL=C sort > /tmp/census.txt
+          if [ ! -s /tmp/census.txt ]; then
+            echo "census enumerated no modules - the enumeration is broken" >&2
+            exit 1
+          fi
+          echo "source census: $(wc -l < /tmp/census.txt) modules"
+          diff ../artifacts/elaborated_modules.txt /tmp/census.txt
+          while IFS= read -r m; do
+            lake build "$m"
+          done < /tmp/census.txt
