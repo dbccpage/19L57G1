@@ -53,10 +53,12 @@ in the formalism pushes.
 This is the load-bearing result, and it is the one that had not been stated
 as a fact about succession.
 
-A successive-state model needs `next` to be a **function**. Given a state
-and an occasion, there must be *the* successor. What the derivation
-computed is that the minimum valid response to a separation requirement is
-not unique:
+A **deterministic** successive-state model needs `next` to be a
+**function**. Given a state and an occasion, there must be *the* successor.
+(A nondeterministic transition system may take `next` as a relation and is
+not the target here; the claim below concerns the single-valued notion.)
+What the derivation computed is that the minimum valid response to a
+separation requirement is not unique:
 
 | claim ledger key | reading L | reading F |
 |---|---|---|
@@ -65,7 +67,12 @@ not unique:
 | `CL-3-UNIQUE-MU2` (refined measure) | 1 | 1 |
 
 and, beyond the tabulated bound, a **countably infinite tie family indexed
-by arity** — one non-isomorphic member for every arity `k >= 1` (§11(d)).
+by arity** — one member for every arity `k >= 1` (§11(d)).
+
+The tabulated counts carry the scope §11(d) gives them: the tie counts of 3
+and 5 are a **[bounded theorem]** within the declared bounds, and the
+refined-measure uniqueness is grammar-wide for reading L but only within
+bounds for reading F. Neither is asserted beyond that.
 
 So a demand determines a *set* of minimal responses, not a state. Under one
 declared measure that set is infinite. Single-valued succession is therefore
@@ -114,15 +121,26 @@ pull against each other here, and invariance was chosen.
 
 Assembling a next-state relation in this system requires:
 
+Two residual freedoms are in play and an earlier version of this table
+conflated them in one row. They sit on opposite sides of the step: one
+picks the *demand*, the other picks the *response*.
+
 | declaration | what it fixes | derived? |
 |---|---|---|
 | a cost measure | which responses count as minimal | no — `mu1` and `mu2` are declared, and disagree |
 | an invariance requirement | that the rule ignore presentation | no — declared; rejects least-pair selection |
-| a representative selection | which member of a tie class is taken | no — residual freedom inside an orbit |
+| a **demand** selection | which collapsed pair is challenged | no — constrained to one branch per automorphism orbit; residual wherever several orbits exist, which is latent in the present exports since `expansions_with_multiple_orbits` is 0 throughout |
+| a **response** selection | which minimal delta is taken from a tie class | no — 3 and 5 classes under `mu1` plus the arity family; collapses to uniqueness up to isomorphism under `mu2` |
 | a continuation policy | that there be a next demand at all | no — declared external metatheory |
 
-Four declarations, none derived, and the first two are in tension. That is
-the itemized answer to what a successive-state model must import.
+Five declarations, none derived. The cost measure and the invariance
+requirement are coupled rather than merely co-present: the measure creates
+the non-uniqueness that makes a selection necessary, and the invariance
+requirement constrains which selection rules are permitted. The collision
+actually exhibited in code is narrower and sharper than that coupling —
+**determinism against invariance**, in the rejection of least-pair
+selection. That is the itemized answer to what a successive-state model
+must import.
 
 ---
 
@@ -151,12 +169,30 @@ the itemized answer to what a successive-state model must import.
 
 ## 6. Open
 
-* Whether the four declarations in §4 are **minimal** — whether some
+* Whether the five declarations in §4 are **minimal** — whether some
   smaller set suffices to state a successor relation — is not proved. That
   would need the Challenge-3 treatment applied to succession policies: a
   declared candidate space of policies, a cost measure over them, and
   exhaustive enumeration. It is not attempted here.
 * The tension in §3 between determinism and invariance is exhibited on one
-  example (least-pair selection) and is not characterized. Whether every
-  presentation-independent selection rule is multivalued at the minimum is
-  **OPEN**.
+  example (least-pair selection) and is not characterized.
+
+  An earlier version of this section asked whether every
+  presentation-independent selection rule is multivalued at the minimum,
+  and stated it as OPEN. **That question is already answered "no" as
+  posed**: under `mu2` the minimum is unique up to isomorphism. The
+  question is only open under a scope that excludes measures which
+  themselves force uniqueness, and the unscoped form is WITHDRAWN.
+
+  The scoped forms, both **OPEN**:
+
+  1. For a measure that does not itself force uniqueness at the minimum,
+     is every presentation-independent selection rule multivalued there?
+  2. Is that so *independently of measure choice*, quantifying over
+     measures that are themselves presentation-independent?
+
+  A positive answer to (2) would be materially stronger than anything
+  proved here: it would say single-valued succession is unavailable
+  without breaking one of the other declared constraints, rather than
+  merely that this system does not supply it. That is a reason to state
+  the question carefully, not a reason to reach for the answer.
