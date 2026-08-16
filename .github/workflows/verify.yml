@@ -25,6 +25,13 @@ jobs:
       # DECLARATION and the SHAPE, never whether a procedure was followed.
       - name: Skills declare no authority
         run: python ci/check_skills.py
+      # A paper page citing a sibling that exists only on a branch is a dead
+      # link on main. That shipped in a pull request once and a reviewer, not
+      # a gate, caught it. On a pull_request event actions/checkout checks out
+      # the MERGE COMMIT, so the tree here is the state that would land and a
+      # plain existence check has merge-result semantics.
+      - name: Paper cross-references resolve
+        run: python ci/check_paper_citations.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q

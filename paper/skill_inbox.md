@@ -44,10 +44,14 @@ Candidates only. AuthorityEffect: None. Nothing here is approved or scheduled.
 ## 2026-08-16 — cross-reference gate, resolved against the merge result
 
 - **Need:** a `paper/*.md` file can cite a sibling that exists only on a
-  branch. Nothing catches it. `paper/primitive_difference_ascent.md`
-  shipped in a pull request citing `paper/representative_selection.md`,
-  which was written but unmerged, so the citation was dead on `main`. A
-  reviewer caught it; no gate did
+  branch. Nothing catches it. The ascent analysis shipped in a pull request
+  citing the representative-selection analysis, which was written but
+  unmerged, so the citation was dead on `main`. A reviewer caught it; no
+  gate did. (Those two documents are named here in prose rather than by
+  path, because the gate proposed below treats any written-out
+  `paper/…​.md` as a pointer a reader will follow, and will not distinguish
+  a live citation from a narrative mention of a dead one — see the note on
+  its population below)
 - **Proposed behaviour:** for every `paper/*.md` path cited inside
   `paper/`, verify the path exists **in the merge result** — the state CI
   actually builds — and fail by name otherwise. Same genre as
@@ -57,10 +61,25 @@ Candidates only. AuthorityEffect: None. Nothing here is approved or scheduled.
 - **Not in scope:** judging whether a citation is *apt*, rewriting or
   inserting citations, and any authority over merge order. It reports a
   dead path; it does not decide whether the sibling should land first
-- **Source:** the incident above. Note the trap that makes this worth
-  gating rather than remembering: the obvious check is against the working
-  tree, and a working-tree check **passes** on the very defect it is meant
-  to catch, because the cited file is present on the branch doing the
-  citing. My own post-incident sweep of all 18 cited paths passed for
-  exactly that reason and would not have found the original. The gate is
-  only worth building if it resolves against the merge result
+- **Known limit of the population:** the gate cannot tell a live citation
+  from a prose mention of a path that is deliberately dead — an incident
+  narrative, a withdrawal notice, a worked example. Both look identical.
+  The resolution taken is that prose must not write a `paper/…​.md` path it
+  does not want a reader to follow, and should name such documents
+  descriptively instead. This entry had to be rewritten on exactly that
+  ground, which is the first evidence the constraint bites
+- **Source:** the incident above. An earlier version of this entry claimed
+  that a working-tree check "**passes** on the very defect it is meant to
+  catch, because the cited file is present on the branch doing the
+  citing", and that "my own post-incident sweep … would not have found the
+  original". **Both are WITHDRAWN — they are false.**
+  `representative_selection.md` was on its own branch, present on neither
+  `main` nor the citing branch, so a plain existence check on the citing
+  branch would have failed and caught it. The sweep passed for a duller
+  reason: it was run *after* the citation had already been removed. The
+  motivation is therefore weaker than claimed — a plain path-existence
+  check suffices for this incident, and the merge-result framing is a
+  strictly stronger property covering the case where `main` moves under a
+  branch, not a necessity for the defect that occurred. Recorded this way
+  because a gate justified by a trap that did not apply is a gate built on
+  a false premise

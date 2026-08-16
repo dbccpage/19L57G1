@@ -129,10 +129,10 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The seven gate families CI enforces
+### The eight gate families CI enforces
 
 `.github/workflows/verify.yml` runs two jobs, `python` and `lean`. Between
-them they are seven gate families. The local equivalents:
+them they are eight gate families. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
@@ -157,6 +157,9 @@ python -m mypy
 
 # 7. skills are well formed and declare no authority
 python ci/check_skills.py
+
+# 8. every paper/*.md path cited inside paper/ resolves
+python ci/check_paper_citations.py
 ```
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
@@ -311,6 +314,17 @@ order for `lean4/`, whose contact and passage modules are entered through
   skill is prose plus commands, and no CI step can check that a human or a
   model obeyed it. Read a pass as "well formed and claiming no authority",
   never as "the skills are right".
+- **A cited paper path must resolve.** `ci/check_paper_citations.py` walks
+  every `paper/<name>.md` token appearing inside `paper/` and requires the
+  file to exist. A page citing a sibling that lives only on a branch is a
+  dead link on `main`; that shipped once and a reviewer, not a gate, caught
+  it. On a `pull_request` event `actions/checkout` checks out the merge
+  commit, so the tree CI sees is the state that would land, and plain
+  existence therefore has merge-result semantics. The gate cannot tell a
+  live citation from a prose mention of a deliberately dead path — an
+  incident narrative, a withdrawal notice — so prose must not write a
+  `paper/<name>.md` path it does not want a reader to follow, and should
+  name such documents descriptively instead.
 - **Lean may only use `propext` and `Quot.sound`.** `ci/check_lean_audit.py`
   rejects anything else, so `Classical.choice` is out — decidability has to
   be constructive.
@@ -392,6 +406,8 @@ What has actually been injected, and what failed:
 | Skill authority | probe skill with no `AuthorityEffect: None` line | `FAIL: ... does not declare 'AuthorityEffect: None'` |
 | Skill identity | frontmatter `name` ≠ directory name | `FAIL: ... frontmatter name 'wrong_name' does not match directory` |
 | Skill shape | directory with no `SKILL.md`; body with no frontmatter | both named individually |
+| Paper cross-reference | citation to a sibling that exists on no branch | `FAIL: … cites paper/zzz_probe_absent.md, which does not exist` |
+| Paper cross-reference, real case | the original dead link re-injected verbatim | `FAIL: … cites paper/representative_selection.md, which does not exist` |
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.
