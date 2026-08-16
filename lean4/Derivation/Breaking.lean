@@ -60,6 +60,14 @@ repository's `lake build` gate elaborates nothing here and that a green
 run is therefore not evidence that this module compiles.  That was true
 when written and became false when the elaboration gate landed; it is
 WITHDRAWN.
+
+But elaboration is not auditing, and the difference is the open
+residual.  Because no `#print axioms` line names anything here, the
+whitelist in `ci/check_lean_audit.py` never sees this module: a
+dependency on `Classical.choice` in this file would fail no gate.  The
+reports quoted above were taken by hand and are not enforced by CI.
+Read "this module elaborates" as exactly that, and not as "this module
+is audited".
 -/
 
 namespace Breaking
