@@ -35,6 +35,19 @@ Stated limit: the timestamp check is conservative in one direction. Touching
 a source file without changing its contents will fail the gate until the
 report is regenerated. That is the safe direction for a gate to err, and it
 is preferred to trusting a report of unknown age.
+
+Second stated limit -- the CLOCK DOMAIN. ``meta.timestamp`` is written by
+coverage and read back with ``datetime.fromisoformat``; the mtimes come from
+``datetime.fromtimestamp``. Both are naive local times, so the comparison
+assumes the report writer and this gate ran against a SHARED CLOCK. That
+holds in CI, where checkout and the coverage run happen on one runner, and
+it holds for ordinary local use. It is unproven across machines, across
+timezones, and under clock skew, where the check could false-fail or -- in
+principle, by up to the offset -- false-pass. Recorded rather than fixed:
+making it robust means either an aware timestamp coverage does not emit, or
+a monotonic marker written beside the report, and neither is worth adding
+before a case exists. This is a bound on the CHECK, not on the gate's other
+two conditions.
 """
 
 import datetime
