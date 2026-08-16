@@ -18,10 +18,12 @@ remaining declaration — representative selection — actually is.
 The engine already implements **quotient succession**: from a regime class,
 under a declared measure and the orbit policy, the set of child classes is
 well defined and equivariant. Measure refinement stops at a class containing
-two concrete deltas. The only remaining route to a single concrete successor
-is symmetry-breaking, whose correspondence to that pair is **unproved** and
-whose obstruction lives in a **parked, axiom-unaudited** module. Residual
-honesty therefore stops at refusing single-valued concrete succession.
+two concrete deltas. The route to a single concrete successor identified
+here is symmetry-breaking, whose correspondence to that pair is **unproved**
+and whose obstruction lives in a **parked, axiom-unaudited** module — and it
+is *not* claimed to be the only route, since establishing that is precisely
+what the unproved correspondence would do. Residual honesty therefore stops
+at refusing single-valued concrete succession.
 
 ---
 
@@ -160,9 +162,16 @@ state.
 
 That is not a gap awaiting closure. On present evidence it is what the
 system supplies, and the further step to one concrete successor is a
-declaration the system does not make — obtainable only by branching, by a
-quotient-valued next state, or by a presentation-dependent or external
-tie-break.
+declaration the system does not make.
+
+Three routes to that step are visible here: branching, a quotient-valued
+next state, or a presentation-dependent or external tie-break. **They are
+not claimed exhaustive.** An earlier version of this sentence said the step
+was "obtainable *only*" by those three; that word is WITHDRAWN. Their
+exhaustiveness is exactly what Layer 2 would establish — and Layer 2 is
+parked and axiom-unaudited, and applies to this pair only if the Layer 3
+correspondence holds, which is unproved. Asserting "only" here would have
+spent the obstruction result while §4 was still quoting it.
 
 ---
 
@@ -189,6 +198,12 @@ equivariance. The **if** is not discharged.
   reviewed change with its own axiom audit — not something that rides in on
   a green elaboration gate.
 * It does **not** claim `Break` is forced. It is a declared shape.
+* It does **not** claim the routes to a concrete successor listed in §6 are
+  **exhaustive**. Two earlier sentences said "only" — in the thesis and in
+  §6 — and both are WITHDRAWN. Exhaustiveness is what Layer 2 would
+  establish, and Layer 2 is parked, axiom-unaudited, and reaches this pair
+  only through the unproved Layer 3 correspondence. Spending it while §4
+  still quotes it would be the promotion this page exists to avoid.
 * It does **not** claim single-valued succession is impossible in every
   account. It claims this system does not supply it and that measure
   refinement cannot manufacture it.
