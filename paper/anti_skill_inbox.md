@@ -93,3 +93,35 @@ gate is added later under its own review.
 - **Source:** both incidents self-caught during the succession and
   representative-selection analyses, the second only because the count of
   zero was surprising enough to re-check
+
+## 2026-08-16 — verify through a parallel path instead of the production one
+
+- **Anti-pattern:** writing a check that exercises its own re-implementation
+  of the behaviour under test, rather than calling the operation production
+  calls
+- **Why it is anti:** the check then certifies the copy. It passes while the
+  real path is broken, and it is most convincing exactly when it is most
+  wrong, because a green self-test reads as stronger evidence than no test.
+  This occurred **twice in pull request #49**, both times in machinery
+  written to prevent precisely this. At `baa8d06` the citation gate's
+  self-check called only its segment validator and never its extraction
+  pattern — substituting a pattern that matched *nothing* left it green. At
+  `0b11904`, after that was split into two tables, the extraction half
+  called `fullmatch` while production called `findall`; an anchored pattern
+  then passed the self-check while making every citation embedded in prose
+  invisible. Neither was found by any gate. Both were found by a reviewer
+  substituting values into the code and observing what survived. The repair
+  at `02bd6ea` was structural rather than additive — route both paths
+  through **one** extraction function, so the boundary where they could
+  diverge stops existing — and it is a third commit, not a third
+  occurrence. An earlier version of this entry said "three times", counting
+  the repair as an instance; that is WITHDRAWN, for the same reason the
+  merge-on-green entry above had to withdraw its own tally. As written the
+  repair lives on that branch and is **not on `main`**
+- **Related skill:** inject (this is its reverse — an injection that cannot
+  reach the production path proves nothing about it); gates
+- **Source:** review of the paper cross-reference gate. Distinct from the
+  citation-totality circularity already recorded above, which was one
+  pattern shared between population and classifier. This is the opposite
+  arrangement: two implementations that were supposed to agree and were
+  never compared

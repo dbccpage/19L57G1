@@ -49,6 +49,14 @@ artifacts, not from the paper's own earlier sentences.
 for Lean modules. The runner census is a live glob over the top level of
 `code/`, with `artifacts/` as its own pin.
 
+**The skills themselves.** `.claude/skills/*/SKILL.md` describe procedures
+and cite gate counts, file paths and command names. Nothing compares them
+with `.github/workflows/verify.yml`, so they drift exactly like paper prose
+does — the `gates` skill listed six gate families for as long as there were
+eight, having gone unrevised on the day one of the missing gates was
+written. When auditing, read the workflow's step list and check it against
+the skill that claims to run it.
+
 ## Independence
 
 Enumerate the population by a route that does not share machinery with
