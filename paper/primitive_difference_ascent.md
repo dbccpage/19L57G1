@@ -90,7 +90,7 @@ discharges the other. Each of the five is accounted for here:
 | succession declaration | status for this ascent |
 |---|---|
 | cost measure | **out of scope.** No minimality question arises; the ascent selects nothing. |
-| invariance requirement | **same genre, different equivalence.** Congruence demands that the difference respect the zero relation; succession's invariance demands that a rule respect presentation isomorphism. Both are "a map must respect an equivalence", and **neither implies the other** — they quantify over different relations on different carriers. |
+| invariance requirement | **Not the same requirement.** The congruence licence required for the ascent is *not* succession's invariance requirement. They share a structural shape — a map must respect an equivalence — but act on different relations over different carriers: congruence demands the difference respect the zero relation, succession's invariance demands a rule respect presentation isomorphism. **Satisfying either does not entail satisfying the other.** |
 | demand selection | **out of scope.** No demands are issued in the ascent. |
 | response selection | **out of scope.** No responses, hence no tie classes. |
 | continuation policy | **out of scope.** No succession is involved; nothing steps. |
@@ -98,7 +98,22 @@ discharges the other. Each of the five is accounted for here:
 Nothing from the five is claimed discharged, and nothing is treated as
 free. The two declarations in this section are **additional** to that bill,
 not a subset of it, and the only relation between the two lists is the
-generic one recorded in the second row.
+structural one recorded in the second row.
+
+Two things "out of scope" does **not** mean, recorded because the phrase is
+easy to erode:
+
+* **It does not mean optional.** The four rows above are out of scope *for
+  this ascent*, which does not select, issue demands, form tie classes, or
+  step. They remain **open obligations for any successive-state account**,
+  exactly as `paper/cost_bill.md` states them. Nothing here reduces that
+  bill, and a later document may not cite this cross-walk as licence to
+  treat any of the four as already paid.
+* **It does not make the ascent cheap.** Zero-as-equivalence and the
+  congruence licence remain **declarations, paid and not derived** — §2
+  shows neither follows from `A1i`, and `deltaDescend_exists_iff` settles
+  descent *given* congruence rather than establishing it. Four succession
+  items being absent lowers the ascent's price by nothing.
 
 ---
 
