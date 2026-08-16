@@ -9,3 +9,4 @@ artifacts2/
 lake_build_*.log
 .claude/worktrees/
 2026-*.txt
+coverage.json
