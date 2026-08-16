@@ -4,8 +4,8 @@ Classification: **analysis of already-certified results**. No new derivation
 run, no object-language notion, no new claim. `AuthorityEffect: None`.
 
 Sibling to `paper/succession_declarations.md`,
-`paper/candidate_measure_space.md`, `paper/computation_declarations.md`
-and `paper/representative_selection.md`.
+`paper/candidate_measure_space.md` and
+`paper/computation_declarations.md`.
 
 This page answers one question: *what still has to be declared to climb
 from the pre-quotient difference germ to the quotient-and-descent layer?*
@@ -39,7 +39,7 @@ and `lean4/Derivation/ObsDescent.lean` carry the quotient machinery, and
 their theorems are **audited**: they appear in `artifacts/lean_axioms.txt`
 with `#print axioms` reports, within `{propext, Quot.sound}`. Among them:
 
-| declaration | what it settles |
+| theorem | what it settles |
 |---|---|
 | `ObsDescent.deltaDescend_exists_iff` | descent of the two-place difference holds *exactly when* the congruence condition does |
 | `ObsDescent.deltaDescend_unique` | the descended map is unique |
