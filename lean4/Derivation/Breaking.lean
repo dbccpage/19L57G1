@@ -49,13 +49,17 @@ primitive assumes the distinction it is sometimes said to produce.
 
 ## Verification boundary
 
-This module is PARKED: `lean4/Derivation.lean` does not import it and
-`defaultTargets = ["Derivation"]`, so the repository's `lake build`
-gate does NOT elaborate anything here.  The forbidden-token scan reads
-this file as text but does not typecheck it.  A green CI run on a pull
-request touching this module is therefore NOT evidence that it
-compiles.  It is compiled by `lake build Derivation.Breaking`, run
-separately, and that is the only thing that checks it.
+This module is PARKED in one exact sense: `lean4/Derivation.lean` does
+not import it, so it contributes no `#print axioms` report and appears
+in no axiom inventory or claim ledger entry.
+
+It is NOT unchecked.  The `lean` job's final step elaborates every
+`lean4/Derivation/**/*.lean` as its own Lake target, so CI does
+typecheck this file.  An earlier version of this paragraph said the
+repository's `lake build` gate elaborates nothing here and that a green
+run is therefore not evidence that this module compiles.  That was true
+when written and became false when the elaboration gate landed; it is
+WITHDRAWN.
 -/
 
 namespace Breaking

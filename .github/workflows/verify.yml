@@ -96,13 +96,22 @@ jobs:
       # Must stay LAST in this job and must not write to lake_build.log: the
       # three steps above compare that log against artifacts/lean_axioms.txt.
       # `lake build` only builds defaultTargets, so a module the root does not
-      # import is never elaborated and a type error in it merges green. This
-      # globs the directory rather than listing modules, so it needs no
-      # exception list and covers parked modules automatically.
+      # import is never elaborated and a type error in it merges green. The
+      # census is RECURSIVE, matching ci/check_lean_audit.py's rglob, so a
+      # module in a subdirectory cannot escape it; a flat glob missed that.
+      # The empty-census guard matters: a find that silently returns nothing
+      # would make this step pass having checked nothing.
       - name: Every Lean module elaborates
         working-directory: lean4
         run: |
           set -o pipefail
-          for f in Derivation/*.lean; do
-            lake build "Derivation.$(basename "$f" .lean)"
+          mapfile -t sources < <(find Derivation -name '*.lean' | sort)
+          echo "source census: ${#sources[@]} modules under Derivation/"
+          if [ "${#sources[@]}" -eq 0 ]; then
+            echo "census enumerated no modules - the enumeration is broken" >&2
+            exit 1
+          fi
+          for f in "${sources[@]}"; do
+            m="${f%.lean}"
+            lake build "${m//\//.}"
           done

@@ -290,7 +290,9 @@ order for `lean4/`, whose contact and passage modules are entered through
   `lean4/Derivation.lean`'s imports was never typechecked by CI — the
   forbidden-token scan reads `.lean` files as text and does not elaborate
   them, so a type error in such a module used to merge green. The `lean` job
-  now builds every `lean4/Derivation/*.lean` as its own Lake target. An
+  now builds every `lean4/Derivation/**/*.lean` as its own Lake target, from
+  a recursive census matching `ci/check_lean_audit.py`'s `rglob`, so a module
+  in a subdirectory cannot escape it either. An
   earlier version of this line claimed the root "imports every module"; that
   became false when the first parked modules landed, nothing detected it, and
   the claim is WITHDRAWN in favour of the enforced one above. Being
