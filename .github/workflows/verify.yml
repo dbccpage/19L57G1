@@ -28,32 +28,39 @@ jobs:
         run: python ci/check_coverage.py
       - name: mypy strict
         run: python -m mypy
+      # The runner census is a GLOB, not a hand list. The previous version
+      # named all 24 entry points explicitly, so a new code/run_*.py was not
+      # regeneration-checked until someone remembered to add it here, and
+      # nothing detected the omission.
+      #
+      # No committed census artifact is needed here, unlike the Lean module
+      # census, because artifacts/ IS the pin: ci/compare_artifacts.py walks
+      # the COMMITTED directory and reports both directions. A committed
+      # artifact with no regeneration - runner renamed, deleted, or dropped
+      # from the census - fails as a missing regeneration. A regenerated
+      # artifact that was never committed fails too, which is what stops a
+      # newly globbed runner from producing output nothing compares.
+      #
+      # DOMAIN: the top level of code/ only, matching the convention CLAUDE.md
+      # documents and the local Get-ChildItem procedure. A runner placed in a
+      # SUBDIRECTORY of code/ is NOT enumerated by this census.
+      #
+      # Execution order is free. All 24 runners were verified to produce
+      # byte-identical artifacts under LC_ALL=C order rather than the previous
+      # hand order; no runner reads another runner's artifact.
       - name: Regenerate artifacts and compare
         run: |
-          PYTHONPATH=code python code/run_derivation.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_primdiff.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_bridge.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_refusal.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_refusal_frontier.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_generator.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_diff_interface.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_represented.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_completion.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_primitive_core.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_primitive_passage.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_primitive_contact.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_apartness.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_interpreter_boundary.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_controller_category.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_attachment_ladder.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_compression.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_renaming_structure.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_graph_genesis.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_boundary_cancellation.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_weight_profile.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_transition_alphabet.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_trace_algebra.py --artifacts artifacts_ci
-          PYTHONPATH=code python code/run_primitive_receipt.py --artifacts artifacts_ci
+          set -o pipefail
+          find code -maxdepth 1 -name 'run_*.py' \
+            | LC_ALL=C sort > /tmp/runners.txt
+          if [ ! -s /tmp/runners.txt ]; then
+            echo "census enumerated no runners - the enumeration is broken" >&2
+            exit 1
+          fi
+          echo "runner census: $(wc -l < /tmp/runners.txt) entry points"
+          while IFS= read -r r; do
+            PYTHONPATH=code python "$r" --artifacts artifacts_ci
+          done < /tmp/runners.txt
           python ci/compare_artifacts.py artifacts artifacts_ci
 
   lean:

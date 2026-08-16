@@ -272,9 +272,19 @@ order for `lean4/`, whose contact and passage modules are entered through
   keys are sorted, and `.json.gz` uses a fixed mtime and compression level.
   Any change to a derivation module means regenerating and committing the
   affected artifacts, or gate 4 fails.
-- **The CI runner list is hand-enumerated.** `.github/workflows/verify.yml`
-  names each `run_*.py` explicitly. A new entry point is not regeneration-
-  checked until it is added there.
+- **The CI runner census is a glob, and `artifacts/` is its own pin.**
+  `.github/workflows/verify.yml` enumerates `code/run_*.py` at the TOP LEVEL
+  of `code/` instead of naming each entry point, so a new runner is
+  regeneration-checked without anyone remembering to register it. An earlier
+  version of this line said the list was hand-enumerated and that a new entry
+  point went unchecked until added there; that is WITHDRAWN as of the census
+  change. Drift is caught in both directions by `ci/compare_artifacts.py`: a
+  committed artifact with no regeneration fails, and a regenerated artifact
+  that was never committed fails. No separate census artifact is needed for
+  the runners, because the committed export set already plays that role — the
+  Lean module census needs `artifacts/elaborated_modules.txt` precisely
+  because elaboration leaves no committed output behind to compare. A runner
+  placed in a SUBDIRECTORY of `code/` is outside the census.
 - **Lean may only use `propext` and `Quot.sound`.** `ci/check_lean_audit.py`
   rejects anything else, so `Classical.choice` is out — decidability has to
   be constructive.
@@ -330,6 +340,34 @@ order for `lean4/`, whose contact and passage modules are entered through
 - **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
   `artifacts/**` as `-text`. Never let an editor or a CRLF conversion rewrite
   those files — it breaks both the prompt hash gate and byte comparison.
+
+### Proving a gate: the injection record
+
+A gate is not proved by being green. It is proved by failing on the exact
+defect it exists to catch, with the failure naming the injected object, and
+by recovering when the injection is reversed. Green before and after, with
+nothing in between, shows only that the gate is quiet.
+
+Injections are minimal and reversible, and receipts are NEVER regenerated
+while one is live — regenerating `elaborated_modules.txt` or
+`lean_axioms.txt` under an injection adopts the defect as the new baseline
+and destroys the test.
+
+What has actually been injected, and what failed:
+
+| Gate | Injection | Observed failure |
+|---|---|---|
+| Lean census pin | added `Derivation/PinProbe.lean` | `diff` against `elaborated_modules.txt` |
+| Per-module elaboration | type error in a parked module | root `lake build` stayed green; the per-module loop failed |
+| Runner census | new unregistered `code/run_zzz_probe.py` | census went 24 → 25 with no registration, then `FAIL: regenerated but not committed: zzz_probe.json` |
+| Regeneration, committed side | deleted one regenerated `*.json` | `FAIL: missing regeneration: apartness.json` |
+| Regeneration, other side | stray `*.json` in the regenerated dir only | `FAIL: regenerated but not committed` |
+| Empty-census guard | census pointed at a directory with no matches | guard fired before the pin was consulted |
+
+What injection does NOT prove: that the population is the right
+mathematical object. A perfect pin of the wrong set is still the wrong set.
+It also cannot close the parked-module axiom residual above — it can only
+demonstrate that the residual is still live.
 
 ### Claim hygiene
 
