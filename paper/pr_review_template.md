@@ -10,6 +10,29 @@ is the specific set of things that have actually failed here.
 
 ---
 
+## What this document is not
+
+**It is not a gate.** Nothing fails if a reviewer ignores it, and
+nothing fails if an author does.
+
+Applied to itself, the single question at the end — *if this claim were
+false, which gate would fail?* — has the answer **none**. By its own
+standard this file is apparatus, not protection. Treating it as
+protection is exactly the failure it warns about: a receipt that looks
+protective and enforces nothing.
+
+CI could in principle check an author's pull request body for the
+presence of a disposition line and a verification boundary. It cannot
+check a reviewer's behaviour at all, and presence is not truth — a
+required field can be filled with anything. So the enforceable fraction
+is smaller than it first appears, and none of it makes a review
+correct.
+
+Use this because the failures it lists are real and recur, not because
+anything obliges you to.
+
+---
+
 ## Disposition line, required, first
 
 `approve` / `changes requested` / `blocking` on exact head, full
@@ -20,15 +43,26 @@ forty-character SHA.
 ## 0. Pin the object before reading anything
 
 ```bash
-gh pr view N --json headRefOid,baseRefName,mergeStateStatus
-git merge-base origin/main <head>
-git diff --stat origin/main...<head>     # THREE dots
+gh pr view N --json headRefOid,baseRefOid,mergeStateStatus
+git fetch origin
+git merge-base <baseRefOid> <headRefOid>
+git diff --stat <mergeBaseSha> <headRefOid>
 ```
 
-Use three-dot diffs. A two-dot diff compares tips, so unrelated commits
-on `main` appear as deletions in the branch — that once produced a
-false "this pull request deletes 3083 lines" finding. If `main` moves
-during the review, re-pin and restate rather than reconciling.
+Record **all three SHAs** in the review — base, head, and merge-base —
+and diff the PINNED SHAs. Never diff against a branch name.
+`origin/main` is a moving ref: it is the wrong base for a stacked pull
+request or a non-main base, it is stale if the remote was not fetched,
+and it can move under you mid-review. An earlier version of this
+section queried `baseRefName`, then ignored it and hardcoded
+`origin/main`, which reintroduces the problem the section exists to
+prevent.
+
+Diff from the merge-base rather than between tips. A tip-to-tip diff
+reports commits that are on the base and not on the branch as
+deletions — that once produced a false "this pull request deletes 3083
+lines" finding. If any pinned SHA changes during the review, re-pin and
+restate rather than reconciling.
 
 ---
 
@@ -47,6 +81,13 @@ Do this FIRST. Everything downstream is conditional on it.
 A green run is evidence only about what it inspected. This repository
 has merged Lean modules that `lake build` never elaborated, on three
 consecutive pull requests, each reported as "CI green".
+
+That specific hole is closed: the `lean` job now elaborates every
+module from a census pinned against `artifacts/elaborated_modules.txt`.
+The general lesson is not closed and cannot be — a gate's domain is
+still only what it inspects, and elaboration is still not auditing,
+since parked modules contribute no `#print axioms` report. Ask the
+domain question every time; do not assume this section is now historical.
 
 ---
 
@@ -87,7 +128,13 @@ For each gate or receipt the change cites:
 ## 5. Non-vacuity and boundaries
 
 - Is there a POSITIVE case, or does the structure admit only refusals?
-  A theorem that cannot be satisfied by anything is unfalsifiable.
+  If the prose claims realizability or non-vacuity, require an inhabitant
+  or a positive model. Otherwise record explicitly that the result is
+  vacuous on the empty carrier. Keep the three apart: an unsatisfied
+  predicate is UNSATISFIABLE, a universal statement over an empty carrier
+  is VACUOUSLY TRUE, and neither is the same as UNFALSIFIABLE. An earlier
+  version of this line said a theorem nothing satisfies is unfalsifiable,
+  conflating all three; that is WITHDRAWN.
 - Does the obstruction require an inhabitant? Does the carrier admit
   empty models, or larger ones than the prose claims?
 - Is every advertised ceiling a PREDICATE WITH A PROOF, or is some of
