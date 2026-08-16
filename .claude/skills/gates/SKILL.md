@@ -1,6 +1,6 @@
 ---
 name: gates
-description: Run the six CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
+description: Run the eight CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
 ---
 
 # Run the verification contract
@@ -102,6 +102,39 @@ reports the last element of the pipeline, not the build. That has produced
 a false clean here. Re-run without the pipe if the status matters.
 
 Only `propext` and `Quot.sound` are permitted. `Classical.choice` fails.
+
+### 7. Skills are well formed and declare no authority
+
+```powershell
+python ci/check_skills.py
+```
+
+Checks frontmatter shape, that each declared `name` matches its directory,
+and the literal `AuthorityEffect: None`. It never inspects whether a
+procedure is correct or was followed.
+
+### 8. Every cited paper path resolves
+
+```powershell
+python ci/check_paper_citations.py
+```
+
+One `extract` function serves both the walk and the self-check, so a
+pattern cannot pass the self-check and behave differently in production.
+Traversal segments are refused and the resolved target must stay under
+`paper/`. Prose must not write a `paper/<name>.md` path it does not want a
+reader to follow — the gate cannot tell a live citation from a narrative
+mention of a dead one.
+
+## This file drifts, and nothing checks it
+
+Steps 7 and 8 were missing for as long as those gates have existed. The
+citation gate was added and this procedure — the one whose whole job is to
+run the gates — was not updated the same day.
+
+No gate compares this file with `.github/workflows/verify.yml`. When they
+disagree the workflow is right. Before trusting a count here, read the
+workflow's step list and confirm it matches.
 
 ## Reporting
 
