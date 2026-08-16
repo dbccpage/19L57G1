@@ -22,9 +22,19 @@ gate is added later under its own review.
   of UNSTABLE means checks are still pending, and a head can move between
   review and merge — so the approval must name a SHA, not a branch
 - **Related skill:** pin (this is its reverse)
-- **Source:** the defect that motivated the per-module elaboration gate;
-  on 2026-08-16 four pull requests were each held until UNSTABLE → CLEAN
-  and re-pinned immediately before merging
+- **Source:** the defect that motivated the per-module elaboration gate.
+  An earlier draft of this entry added that "on 2026-08-16 four pull
+  requests were each held until UNSTABLE → CLEAN and re-pinned immediately
+  before merging". Review flagged that clause as author-attested rather
+  than gate-proved, and checking it found it wrong twice over: FIVE pull
+  requests merged that date (#33, #34, #35, #36, #37), and only THREE of
+  them (#35, #36, #37) were observed transitioning out of UNSTABLE — the
+  other two returned CLEAN on first query, so no transition was witnessed.
+  What is accurate: every merge was preceded by re-querying the exact head
+  SHA and reading CLEAN immediately before merging. The clause is
+  WITHDRAWN and replaced by that sentence. The anti-pattern does not
+  depend on the count, and an operational tally in a log nothing checks is
+  exactly the kind of prose this repository is supposed to distrust.
 
 ## 2026-08-16 — trust a committed receipt
 
