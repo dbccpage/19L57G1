@@ -39,14 +39,20 @@ and `lean4/Derivation/ObsDescent.lean` carry the quotient machinery, and
 their theorems are **audited**: they appear in `artifacts/lean_axioms.txt`
 with `#print axioms` reports, within `{propext, Quot.sound}`. Among them:
 
-| theorem | what it settles |
-|---|---|
-| `ObsDescent.deltaDescend_exists_iff` | descent of the two-place difference holds *exactly when* the congruence condition does |
-| `ObsDescent.deltaDescend_unique` | the descended map is unique |
-| `ObsDescent.deltaDescend_blocked_of_witness` | a witness blocks descent |
-| `ObsDescent.collapseAllObs_all_zero` | total collapse: the zero relation holds everywhere |
-| `ObsDescent.collapseAllObs_not_deltaConstant` | and the difference is still not class-constant there |
-| `ObsDescent.collapseAllObs_no_view_descend` | one-place views fail to descend in that model |
+Provenance is given per row, because a table of names otherwise reads as
+though every row is equally backed. Every row below is **gated**: it
+carries a `#print axioms` report in `artifacts/lean_axioms.txt`, which CI
+checks against a fresh build log. No row in this table is computed only
+inside this analysis.
+
+| theorem | what it settles | provenance |
+|---|---|---|
+| `ObsDescent.deltaDescend_exists_iff` | descent of the two-place difference holds *exactly when* the congruence condition does | gated; `[Quot.sound]` |
+| `ObsDescent.deltaDescend_unique` | the descended map is unique | gated; `[Quot.sound]` |
+| `ObsDescent.deltaDescend_blocked_of_witness` | a witness blocks descent | gated; `[Quot.sound]` |
+| `ObsDescent.collapseAllObs_all_zero` | total collapse: the zero relation holds everywhere | gated; **axiom-free** |
+| `ObsDescent.collapseAllObs_not_deltaConstant` | and the difference is still not class-constant there | gated; **axiom-free** |
+| `ObsDescent.collapseAllObs_no_view_descend` | one-place views fail to descend in that model | gated; `[Quot.sound]` |
 
 The upper layer is not the lower layer with more theorems. It is the lower
 layer **plus declarations**, and the point of this page is to name them.
@@ -74,6 +80,25 @@ What it does **not** supply, and what no theorem in it derives:
 So the ascent is not blocked by a missing proof. It is priced by two
 declarations, of the same genre as the five in
 `succession_declarations.md` §4.
+
+**Cross-walk against those five, stated rather than assumed.** Two is not
+five compressed. The two ladders climb different objects — succession is
+about stating a next-state relation in the regime model; the ascent is
+about quotient and descent on a difference interface — and neither
+discharges the other. Each of the five is accounted for here:
+
+| succession declaration | status for this ascent |
+|---|---|
+| cost measure | **out of scope.** No minimality question arises; the ascent selects nothing. |
+| invariance requirement | **same genre, different equivalence.** Congruence demands that the difference respect the zero relation; succession's invariance demands that a rule respect presentation isomorphism. Both are "a map must respect an equivalence", and **neither implies the other** — they quantify over different relations on different carriers. |
+| demand selection | **out of scope.** No demands are issued in the ascent. |
+| response selection | **out of scope.** No responses, hence no tie classes. |
+| continuation policy | **out of scope.** No succession is involved; nothing steps. |
+
+Nothing from the five is claimed discharged, and nothing is treated as
+free. The two declarations in this section are **additional** to that bill,
+not a subset of it, and the only relation between the two lists is the
+generic one recorded in the second row.
 
 ---
 
