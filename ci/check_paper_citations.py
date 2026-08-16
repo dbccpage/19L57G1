@@ -80,6 +80,18 @@ ACCEPTS: tuple[tuple[str, bool], ...] = (
 )
 
 
+def extract(text: str) -> list[str]:
+    """The one extraction operation.
+
+    ``main`` and ``self_check`` both go through this, so the self-check
+    cannot pass on a pattern that production would use differently. Testing
+    ``fullmatch`` while production called ``findall`` left an anchored
+    pattern green in the self-check and blind to every citation embedded in
+    prose.
+    """
+    return CITE.findall(text)
+
+
 def rejection(raw: str) -> str | None:
     """Reason the token is not a well-formed paper path, or None."""
     parts = raw.split("/")
@@ -99,7 +111,9 @@ def self_check() -> list[str]:
     """
     wrong = []
     for token, want_match in EXTRACTS:
-        got_match = CITE.fullmatch(token) is not None
+        # Exercise the PRODUCTION operation, on a token embedded in prose
+        # exactly as a real citation is.
+        got_match = extract(f"see `{token}` here") == [token]
         if got_match != want_match:
             verb = "extracted" if got_match else "not extracted"
             wrong.append(f"self-check extraction: {token} was {verb}")
@@ -132,7 +146,7 @@ def main() -> int:
     citations = 0
     for source in sources:
         text = source.read_text(encoding="utf-8")
-        for cited in sorted(set(CITE.findall(text))):
+        for cited in sorted(set(extract(text))):
             citations += 1
             reason = rejection(cited)
             if reason is not None:
