@@ -40,3 +40,27 @@ Candidates only. AuthorityEffect: None. Nothing here is approved or scheduled.
 - **Source:** recorded OPEN in CLAUDE.md and in paper section 12; `leagent`
   (`leanprover/leagent`) is a candidate route, tested only through Lean
   v4.32.2 against this repository's v4.33.0
+
+## 2026-08-16 — cross-reference gate, resolved against the merge result
+
+- **Need:** a `paper/*.md` file can cite a sibling that exists only on a
+  branch. Nothing catches it. `paper/primitive_difference_ascent.md`
+  shipped in a pull request citing `paper/representative_selection.md`,
+  which was written but unmerged, so the citation was dead on `main`. A
+  reviewer caught it; no gate did
+- **Proposed behaviour:** for every `paper/*.md` path cited inside
+  `paper/`, verify the path exists **in the merge result** — the state CI
+  actually builds — and fail by name otherwise. Same genre as
+  `ci/check_transport_citations.py`, which already binds citations to
+  sources, but for intra-repository document paths rather than Lean
+  declarations
+- **Not in scope:** judging whether a citation is *apt*, rewriting or
+  inserting citations, and any authority over merge order. It reports a
+  dead path; it does not decide whether the sibling should land first
+- **Source:** the incident above. Note the trap that makes this worth
+  gating rather than remembering: the obvious check is against the working
+  tree, and a working-tree check **passes** on the very defect it is meant
+  to catch, because the cited file is present on the branch doing the
+  citing. My own post-incident sweep of all 18 cited paths passed for
+  exactly that reason and would not have found the original. The gate is
+  only worth building if it resolves against the merge result
