@@ -19,6 +19,12 @@ jobs:
         run: python ci/check_prompt_hashes.py
       - name: Transport document citations bound to Lean sources
         run: python ci/check_transport_citations.py
+      # Skills are apparatus and hold no authority here. The declaration is
+      # checked mechanically because prose drifts: a skill cannot acquire
+      # authority by rewording its own description. This gate checks the
+      # DECLARATION and the SHAPE, never whether a procedure was followed.
+      - name: Skills declare no authority
+        run: python ci/check_skills.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q

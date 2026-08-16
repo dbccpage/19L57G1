@@ -129,10 +129,10 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The six gate families CI enforces
+### The seven gate families CI enforces
 
 `.github/workflows/verify.yml` runs two jobs, `python` and `lean`. Between
-them they are six gate families. The local equivalents:
+them they are seven gate families. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
@@ -142,7 +142,12 @@ python ci/check_prompt_hashes.py
 python ci/check_transport_citations.py
 
 # 3. tests under coverage, then the independent dual 95% gate
-coverage run -m pytest -q; coverage json -q; coverage report
+#    DELETE coverage.json first: it is TRACKED, so check_coverage.py will
+#    happily report a stale file's numbers at exit 0. Use `python -m
+#    coverage`, never bare `coverage` -- the bare name is not always on
+#    PATH, and that failure is silent in exactly this way.
+Remove-Item coverage.json -Force -ErrorAction SilentlyContinue
+python -m coverage run -m pytest -q; python -m coverage json -q
 python ci/check_coverage.py           # line AND branch must each reach 95%
 
 # 4. strict typing (config in pyproject: strict = true, files = ["code"])
@@ -152,6 +157,9 @@ python -m mypy
 
 # 6. Lean build, forbidden-token/axiom audit, and byte-identical
 #    regeneration of the axiom artifact (see below)
+
+# 7. skills are well formed and declare no authority
+python ci/check_skills.py
 ```
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
@@ -285,6 +293,17 @@ order for `lean4/`, whose contact and passage modules are entered through
   Lean module census needs `artifacts/elaborated_modules.txt` precisely
   because elaboration leaves no committed output behind to compare. A runner
   placed in a SUBDIRECTORY of `code/` is outside the census.
+- **Skills hold no authority, and the declaration is enforced.** Skills
+  live in `.claude/skills/<name>/SKILL.md`, are tracked, and each must
+  carry the literal line `AuthorityEffect: None`. `ci/check_skills.py`
+  checks that, plus frontmatter shape and that the declared `name` matches
+  its directory, so an invoked skill and the tracked file cannot diverge.
+  The mechanical check exists because prose drifts: without it a skill
+  could acquire authority by rewording its own description. What the gate
+  does NOT do is judge whether a procedure is correct or was followed — a
+  skill is prose plus commands, and no CI step can check that a human or a
+  model obeyed it. Read a pass as "well formed and claiming no authority",
+  never as "the skills are right".
 - **Lean may only use `propext` and `Quot.sound`.** `ci/check_lean_audit.py`
   rejects anything else, so `Classical.choice` is out — decidability has to
   be constructive.
@@ -363,6 +382,9 @@ What has actually been injected, and what failed:
 | Regeneration, committed side | deleted one regenerated `*.json` | `FAIL: missing regeneration: apartness.json` |
 | Regeneration, other side | stray `*.json` in the regenerated dir only | `FAIL: regenerated but not committed` |
 | Empty-census guard | census pointed at a directory with no matches | guard fired before the pin was consulted |
+| Skill authority | probe skill with no `AuthorityEffect: None` line | `FAIL: ... does not declare 'AuthorityEffect: None'` |
+| Skill identity | frontmatter `name` ≠ directory name | `FAIL: ... frontmatter name 'wrong_name' does not match directory` |
+| Skill shape | directory with no `SKILL.md`; body with no frontmatter | both named individually |
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.
