@@ -141,12 +141,9 @@ python ci/check_prompt_hashes.py
 # 2. transport document citations bound to Lean sources
 python ci/check_transport_citations.py
 
-# 3. tests under coverage, then the independent dual 95% gate
-#    DELETE coverage.json first: it is TRACKED, so check_coverage.py will
-#    happily report a stale file's numbers at exit 0. Use `python -m
-#    coverage`, never bare `coverage` -- the bare name is not always on
-#    PATH, and that failure is silent in exactly this way.
-Remove-Item coverage.json -Force -ErrorAction SilentlyContinue
+# 3. tests under coverage, then the independent dual 95% gate.
+#    Use `python -m coverage`, never bare `coverage` -- the bare name is
+#    not always on PATH, and that failure used to be silent.
 python -m coverage run -m pytest -q; python -m coverage json -q
 python ci/check_coverage.py           # line AND branch must each reach 95%
 
@@ -163,7 +160,17 @@ python ci/check_skills.py
 ```
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
-the measured source. It reads `coverage.json`, so run `coverage json` first.
+the measured source. It reads `coverage.json`, so generate that first — and
+it now refuses to believe a report it cannot date. `coverage.json` is
+**untracked** (it was tracked, which meant a fresh clone shipped a report and
+a branch switch silently restored it over a fresh one — that happened, and
+reverted a just-measured report to a two-day-old one). The gate fails by name
+if the report is missing, if its file set differs from `code/**/*.py`, or if
+any measured source has been modified since `meta.timestamp`. The file-set
+check alone is not enough: across that branch-switch swap the file set was
+identical, so only the timestamp check catches it. The timestamp check errs
+conservatively — touching a source without changing it fails until you
+regenerate, which is the safe direction.
 
 `ci/check_transport_citations.py` enumerates the citation population of
 `contact/analysis/lean_theorem_transport.md` *independently of the parser
