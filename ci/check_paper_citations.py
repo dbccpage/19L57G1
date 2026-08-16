@@ -42,11 +42,19 @@ under ``paper/`` is read and every match in it is checked. Enumeration
 finding *nothing* fails closed, because a census that returns an empty set
 is broken rather than clean.
 
+Both SIDES are nested-aware, and they had to be fixed separately.
+
 The source walk is RECURSIVE, so a document placed in a subdirectory of
-``paper/`` cannot escape it. ``paper/`` is flat today, so recursion changes
-no current result; it is here because the Lean module census had to learn
-the same lesson, and a non-recursive walk is silent exactly when a
-subdirectory appears.
+``paper/`` cannot escape being read. The citation pattern also admits path
+segments, so a nested TARGET such as ``paper/sub/doc.md`` is checked rather
+than skipped.
+
+Fixing only the source walk left the target side holding the identical
+hole: a citation to a nested document matched nothing, so a dead one passed
+silently. ``paper/`` is flat today and neither change alters a current
+result; both are here because a non-recursive walk and a flat-only pattern
+are silent at exactly the moment a subdirectory first appears, which is the
+lesson the Lean module census already paid for.
 
 Two things are deduplicated rather than dropped: a path cited twice in one
 document is checked once, and the reported count is of DISTINCT paths per
@@ -62,7 +70,13 @@ PAPER = pathlib.Path("paper")
 
 # Deliberately narrow: a repository-relative path to a prose document.
 # Anchored on the directory name so prose about "paper" is not swept in.
-CITE = re.compile(r"\bpaper/[A-Za-z0-9_.-]+\.md\b")
+#
+# Path segments are allowed, so a NESTED target such as paper/sub/doc.md is
+# in the population. An earlier version matched only flat paths, which left
+# the target side with exactly the hole the recursive source walk had just
+# closed on the source side: a citation to a nested document was invisible,
+# and a dead one would have passed.
+CITE = re.compile(r"\bpaper/(?:[A-Za-z0-9_.-]+/)*[A-Za-z0-9_.-]+\.md\b")
 
 
 def main() -> int:
