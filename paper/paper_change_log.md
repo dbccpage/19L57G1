@@ -1700,3 +1700,46 @@ artifact replay reproduces 37 JSON files byte-for-byte plus six hash-pinned
 exports. No observer, finite common carrier, metric, canonical selector,
 first presentation, continuation authority, or automatic admission is added.
 `AuthorityEffect: None`.
+
+## 2026-08-16 — The paper's own receipts were stale; measured and withdrawn
+
+No object-language content changes here. This entry records a correction to
+the paper's metatheoretic receipts, and nothing else.
+
+Section 12 reported gate status "at freeze" as 82 tests passing, line
+coverage 99.77%, branch coverage 98.75%, and 51 exported axiom reports.
+Every one of those figures had been overtaken by the development and none
+had been re-measured. The true values, measured on this date: **435 tests
+passing; line coverage 99.10%; branch coverage 96.73%; 1,314 exported
+reports, of which 413 are axiom-free; `lake build` clean across 56
+sources**, with the audit admitting only `{propext, Quot.sound}` and the
+committed `artifacts/lean_axioms.txt` matching the fresh log exactly.
+
+The old figures are quoted at the site and WITHDRAWN rather than silently
+overwritten, so the fact that the paper carried false receipts stays in the
+record. The failure mode is worth naming: a receipt that is not re-measured
+is a claim about the past wearing the tense of the present. The coverage
+figures in particular had drifted DOWNWARD (99.77 → 99.10, 98.75 → 96.73),
+so the stale text was not merely old, it was flattering.
+
+The substantive derivation results were checked in the same pass and are
+NOT affected. Every number in Section 11 verifies against
+`artifacts/claims.json`: minimum response cost two in both readings
+(`CL-3-MIN-TWO`); three tied classes in reading L and five in reading F
+under the item-count measure (`CL-3-NONUNIQUE-MU1`); uniqueness up to
+isomorphism under the refined measure (`CL-3-UNIQUE-MU2`); and the
+refined-measure trees fully enumerated at 963 and 1,847 nodes, both at
+depth 15 (`CL-TREE-SUMMARY`). The terminal statement stands as written.
+
+One open obstruction is added to Section 12, carried over from the
+verification apparatus rather than from the object language: **elaboration
+is not auditing**. Every module under `lean4/Derivation/` is now elaborated
+against a pinned census, but a module the root does not import emits no
+`#print axioms` report, so the whitelist never inspects it. "Axiom-clean"
+is a claim about the 1,314 enumerated reports, not about every declaration
+in the tree. Closing it needs a compiler-emitted declaration census; the
+regex approach is known to fail here and is refused rather than adopted
+badly.
+
+No theorem is added, strengthened, or withdrawn. No claim ledger entry
+changes. `AuthorityEffect: None`.
