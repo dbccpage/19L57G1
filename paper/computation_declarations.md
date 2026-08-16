@@ -67,6 +67,16 @@ under the item-count measure, plus a countably infinite family indexed by
 arity, and collapses to uniqueness only *up to isomorphism* under the
 refined measure.
 
+And uniqueness up to isomorphism is not enough for **C2**.
+`paper/candidate_measure_space.md` §5 records that even the unique class
+under the refined measure contains **two concrete deltas**, related by the
+transposition swapping the requirement pair. So no refinement of the cost
+measure reaches a single-valued step: the measure can at best deliver a
+singleton *class*, and the remaining step to one concrete response is the
+representative-selection declaration, not a further measure. **C2** is
+therefore not merely expensive — it is unreachable by the mechanism that
+supplies the other declarations.
+
 ---
 
 ## What this does NOT claim
