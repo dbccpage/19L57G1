@@ -629,14 +629,31 @@ Within the declared metatheory and candidate grammar:
 * **[unresolved]** The admission-reading underdetermination (L vs F) is a
   fact about the challenge text, not about the object language; it cannot
   be internally resolved.
-* Coverage and build gates at freeze: 82 tests passing; line coverage
-  99.77%, branch coverage 98.75% (independent gates at 95% each,
-  enforced locally and in CI); `lake build` clean.  Axiom status,
-  exactly: no `sorry`, no `admit`, no custom conclusion-producing
-  axioms, no `unsafe`, no `partial`; the standard Lean-core dependencies
-  `propext` and `Quot.sound` remain, per-theorem in
-  `artifacts/lean_axioms.txt` (51 exported reports; several theorems are
-  axiom-free), audited mechanically in CI.
+* Gate status, **measured on 2026-08-16** rather than quoted from an
+  earlier freeze: 435 tests passing; line coverage 99.10%, branch
+  coverage 96.73% (independent gates at 95% each, enforced locally and in
+  CI); `lake build` clean across 56 sources.  Axiom status, exactly: no
+  `sorry`, no `admit`, no custom conclusion-producing axioms, no
+  `unsafe`, no `partial`; the standard Lean-core dependencies `propext`
+  and `Quot.sound` remain, per-theorem in `artifacts/lean_axioms.txt`
+  (1314 exported reports, of which 413 are axiom-free), audited
+  mechanically in CI.  An earlier version of this bullet reported the
+  status "at freeze" as "82 tests passing", "line coverage 99.77%, branch
+  coverage 98.75%" and "51 exported reports".  Those figures were true of
+  an earlier state and were not updated as the development continued;
+  they are WITHDRAWN in favour of the measured values above.  A receipt
+  that is not re-measured is a claim about the past wearing the tense of
+  the present.
+* **[open obstruction — metatheoretic]** Elaboration is not auditing.
+  Every module under `lean4/Derivation/` is elaborated by CI against a
+  pinned census, but a module the root does not import contributes no
+  `#print axioms` report, so the axiom whitelist never inspects it.
+  "Axiom-clean" is therefore a claim about the 1314 enumerated reports,
+  not about every declaration in the tree.  Closing this needs a
+  compiler-emitted declaration census; the obvious regex approach is the
+  one already known to fail here — a docstring line beginning with the
+  word `theorem` defeated a grep count twice — so it is left OPEN rather
+  than closed badly.
 
 ## 13. Post-hoc comparison
 

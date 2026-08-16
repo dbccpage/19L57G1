@@ -466,7 +466,13 @@ Correction pass: `rule1_repair_or_extension` (renamed from the
 trichotomy — the action alternative is binary, refusal parallel),
 `obstC_conditions_independent`, `s2_state_not_swap_invariant`,
 `freshName_fresh_on_tower`, `freshName_not_fresh_generally`.
-All 295 exported reports within {propext, Quot.sound}.
+All 295 exported reports within {propext, Quot.sound}, as measured when
+this investigation was completed.  That figure is a SNAPSHOT and is not
+re-measured here: the global report count has since grown to 1,314
+(`artifacts/lean_axioms.txt`, verified 2026-08-16 against a fresh build
+log).  The whitelist claim itself still holds at the larger count — the
+audit admits only `{propext, Quot.sound}` across all 1,314 — so what was
+stale was the number, not the containment.
 
 ## 19. FRONTIER CONJECTURES
 
