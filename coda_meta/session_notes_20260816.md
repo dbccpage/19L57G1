@@ -48,17 +48,20 @@ are attempts.
   Inter-repo map; no tree dump.
 - Runner — `coda_meta/LONG_HORIZON_PROMPT.md`. Copy-paste for
   Opus/Fable.
-- Skeletons — `paper/coda/foc`, `paper/coda/fda`. Point at the binds;
-  not the binds.
 
-Reserved `paper/coda/` is the clean-slate recreation tree. Canon for
-new writing is `coda/`.
+An earlier draft of this file said the FOC/FDA `paper/coda`
+skeletons were bound. That was **false**. Commit `5b6a9d9` and
+PR #52 contain no `paper/coda` files. Local untracked
+`paper/coda/` is reserved recreation only, not in the PR, and
+`CLAUDE.md` still seals all of `paper/`. Canon for new writing
+is `coda/`. WITHDRAWN: "Skeletons — paper/coda/foc, paper/coda/fda.
+Point at the binds; not the binds."
 
 ## External frames already used
 
 - Hidden FOC series `002_finite_obstruction_calculus` (Fable's hidden
   papers). FOC-001 live folder is **missing**; text is in
-  `001_coda/012_calculus_of_observers_and_observation/merged_sources/001_the_observer_object.md`.
+  `omega_research/programs/001_coda/012_calculus_of_observers_and_observation/merged_sources/001_the_observer_object.md`.
 - Public CODA names `001_coda` are **guides**, months old, mostly
   unfinished. OR closest. LinkedIn master: what an observer is.
 - 198 fires:
@@ -75,7 +78,8 @@ new writing is `coda/`.
 ## Next sitting
 
 1. Read `LONG_HORIZON_PROMPT.md`.
-2. Open `001_coda/002_coda_mur` (README + first page + nonclaims).
+2. Open `omega_research/programs/001_coda/002_coda_mur`
+   (README + first page + nonclaims).
 3. Bind transport or log why it is still only a guide.
 4. Do not start OR in the same sitting unless MUR is a stub.
 

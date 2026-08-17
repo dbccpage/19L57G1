@@ -27,8 +27,9 @@ matches are **beyond**. Name them. Do not derive them in this workflow.
 
 ## Forbidden
 
-- Edit `prompt/`, `paper/paper.md`, `paper/*.md` except `paper/coda/`,
-  `code/derivation/`, `lean4/Derivation/`, `artifacts/` except `artifacts/coda/`.
+- Edit `prompt/`, `paper/`, `code/`, `artifacts/`, or
+  `lean4/Derivation/`. `CLAUDE.md` seals those wholes. No
+  `paper/coda` carve is in force.
 - Full-tree scans of `anomalonpy`. Use Filter–Select–Read or a named path.
 - `pytest` of whole directories. One file at a time.
 - Push to `origin/main`. No PR unless the human asks.
@@ -46,11 +47,11 @@ Do **not** list `omega_research/programs/`. Start here:
 - hidden FOC — `omega_research/programs/002_finite_obstruction_calculus/`
 - public CODA names — `omega_research/programs/001_coda/` (guides)
 - observer drawer —
-  `001_coda/012_calculus_of_observers_and_observation/merged_sources/`
+  `omega_research/programs/001_coda/012_calculus_of_observers_and_observation/merged_sources/`
 - public grammar —
-  `999_published_in_general_media/linkedin_article_001_what_the_hell_is_an_observer_v001.md`
+  `omega_research/programs/999_published_in_general_media/linkedin_article_001_what_the_hell_is_an_observer_v001.md`
 - first science-facing paper —
-  `004_projection_obstruction/000_projection_obstruction/`
+  `omega_research/programs/004_projection_obstruction/000_projection_obstruction/`
 - 198 fires —
   `omega_engine_frontier_research/_work_review_queue/primitive_projection_spine_20260814/`
 - Lean night —
@@ -77,18 +78,15 @@ Write:
 
 - `coda/` object papers
 - `coda_meta/` apparatus (this file, maps, inbound log)
-- `paper/coda/` skeletons if still the reserved clean-slate
-- `lean4/Coda/` only when a ledger row has surface `lean`
 
 Do not write:
 
-- sealed derivation
-- `paper/` except `paper/coda/`
-- `lean4/Derivation/`
+- `prompt/`, `paper/`, `code/`, `artifacts/`, `lean4/Derivation/`
+- `lean4/Coda/` until a carve exists (a reserved folder is not a carve)
 - new general-theory titles
 
-`code/coda/` is named under the sealed `code/` contract in `CLAUDE.md`.
-Do not put CODA runtime there until that carve is explicit.
+`CLAUDE.md` already says a future `code/coda/` would sit inside the
+sealed `code/` contract. Do not put CODA runtime there.
 
 ## Horizon (repeatable sitting)
 
@@ -97,7 +95,8 @@ are the same object.
 
 ### Track A — inbound memory (when a human or email names a paper)
 
-1. Open `zenodo_records.md`. Match title / number / record URL.
+1. Open `omega_research/programs/zenodo_records.md`. Match title /
+   number / record URL.
 2. Open **only** that package README + first page of the paper.
 3. Write one row in `coda_meta/inbound_memory.md` (create if missing):
 
@@ -109,8 +108,8 @@ are the same object.
 ### Track B — bind the finished pair (FOC then FDA)
 
 Sitting B1. Read-only: spine ledger rows D010–D016 and hidden FOC-003
-(`002_finite_obstruction_calculus/003_l1_native_cohomology/`).
-Write into `coda/` (or update `paper/coda/foc/` skeleton) **one system
+(`omega_research/programs/002_finite_obstruction_calculus/003_l1_native_cohomology/`).
+Write into `coda/` **one system
 page**: leftover is weighted L1 distance to a declared **affine** repair
 image; still a presentation; diagnosis is not standing.
 Cite anomalonpy paths as external frames. Do not import claim ledgers.
@@ -141,8 +140,7 @@ pass. Emit a receipt under this directory or the frontier queue. Do not
 edit 19L57G1 sealed paths. Do not open a PR.
 
 **This session (already contaminated across both repos):** may write
-`coda/` / `coda_meta/` / `paper/coda/` as above. Still no seal edit.
-Still one sitting.
+`coda/` and `coda_meta/` only. Still no seal edit. Still one sitting.
 
 **Sister metatheory agents** on 19L57G1 sealed work stay blind. They do
 not run this card.

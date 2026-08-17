@@ -34,9 +34,11 @@ nothing to write.
 
 ## Sealed — do not touch
 
-`19L57G1/prompt/`, `paper/paper.md`, `paper/*.md` except `paper/coda/`,
-`code/derivation/`, `lean4/Derivation/`, `artifacts/` except
-`artifacts/coda/`.
+`CLAUDE.md` seals **all** of `prompt/`, `paper/`, `code/`,
+`artifacts/`, and `lean4/Derivation/`. There is no `paper/coda`
+carve in force. Do not write those trees. Do not invent exceptions.
+
+Write only `coda/` (object) and `coda_meta/` (apparatus).
 
 The sealed derivation is evidence, not a predecessor. Cite; do not
 revise.
@@ -98,8 +100,8 @@ Do **not** list `omega_research/programs/`.
    **update** the flypaper page (withdrawal in place). Same for FDA.
 8. If it is MUR/OR and he asked to bind that layer this sitting,
    write or extend `coda/mur/` or `coda/or/` the way FOC/FDA were
-   written: short system page, claims ledger, change log, point the
-   `paper/coda/<acr>/` skeleton at it.
+   written: short system page, claims ledger, change log. Do not
+   write `paper/coda/`.
 9. Stop. Do not start a second paper unless the first was a redirect
    stub with no content.
 
@@ -107,12 +109,13 @@ Default order (skip if already logged):
 
 1. Hidden FOC-003 L1 cohomology (already cited on flypaper — log it).
 2. Hidden FOC-000 / FOC-001 (observer packet; text also in
-   `001_coda/012_.../merged_sources/`).
-3. `001_coda/002_coda_mur` — **next real bind**.
-4. `001_coda/003_coda_or`.
-5. `001_coda/004_coda_cs` (window only).
+   `omega_research/programs/001_coda/012_calculus_of_observers_and_observation/merged_sources/`).
+3. `omega_research/programs/001_coda/002_coda_mur` — **next real
+   bind**.
+4. `omega_research/programs/001_coda/003_coda_or`.
+5. `omega_research/programs/001_coda/004_coda_cs` (window only).
 6. Term papers only when an inbound email names them
-   (`zenodo_records.md`).
+   (`omega_research/programs/zenodo_records.md`).
 7. QM series: do not re-walk `qm_000`–`qm_110`; already sorted on
    flypaper. New QM paper = spike or import unless it is leftover.
 8. GR-002 toy: already named. Do not promote Track A.
@@ -144,7 +147,8 @@ authority. No hash as truth.
 - Tree dumps of anomalonpy.
 - Whole-directory pytest.
 - Push to `origin/main`. No PR unless he asks.
-- Editing the sealed derivation.
+- Editing `prompt/`, `paper/`, `code/`, `artifacts/`, or
+  `lean4/Derivation/`.
 - Importing Omega / Woland names into sealed paths.
 - Calling a bind `finished science` or `GlobalGreen`.
 - Writing MUR as a theory of everything (it is transport).
