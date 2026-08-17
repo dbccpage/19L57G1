@@ -11,6 +11,13 @@ waits on an explicit go after that review.
 
 - `SPINE.md` — tracks, promotion, first program nodes
 - `multi_repo.md` — prefixes for future remotes (bits 0–3)
+- `repo_split.md` — four first remotes; pull pins; crates
+  are not remotes
+- `archives.md` — Omega Engine and Anomalon dumps as hashed
+  history, not a build input
+- `oes.md` — Omega Engine Search: FTS + embeddings stay;
+  spine/lock is the research layer; audit then fixture then
+  toys
 - `woland_community.md` — swarm + research + core, shared
   review with Claude's worktree
 - `vault_layout.md` — human folders and the paper triad

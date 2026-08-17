@@ -8,17 +8,29 @@ reviewing this same planning tree in a separate worktree. Grok
 lands planning only under `coda_meta/planning/`. Neither worktree
 implements the vault until you say go.
 
-## Three communities, one project
+## Four first remotes, one project
+
+How they are cut is `repo_split.md`. Short form:
 
 - Research — claims, Lean, private library. Prefix OER
-  (`19L57G1`).
-- Core — mathematics engine (Python proto, Rust PROD). Prefix
-  OEC.
-- Swarms — OS, base swarm, policy, research host, Techne.
-  Prefixes OEOS, OEAS, OEAG, OEAR, OETC.
+  (`19L57G1`). Cites. Does not ship the engine.
+- Engine — mathematics. Prefix OEC. Publishes crates and/or
+  a release binary. Consumers pin a tag or SHA.
+- Swarm base — OEAS. A library to inherit. Not a binary.
+- Governance — OEAG. Versioned policy packs.
+
+OS, research-swarm, and Techne (OEOS, OEAR, OETC) stay
+directories until they earn a remote. They instantiate OEAS;
+they do not start as remotes of their own.
 
 Estate papers in anomalonpy stay **frames** (OEE). They are not
-renumbered as OER papers.
+renumbered as OER papers. The Omega Engine archive and the
+Anomalon archive are hashed history, not frames and not
+products; see `archives.md`.
+
+The earlier "three communities" grouping (research / core /
+swarms-as-one-bucket) is withdrawn as the first-cut map. The
+swarm **law** below is not withdrawn.
 
 ## Source-of-record split (from the external note)
 

@@ -27,3 +27,12 @@ frame.
 
 Do not treat the external file as a second catalog. If it
 drifts from these pages, quote and withdraw here.
+
+## OES working note (2026-08-17), folded and deleted
+
+A scratch file
+`docs_external_to_this_repo/finding_jewels_among_garbage.md`
+held the eight questions, a Grok-team lock, and a GLM
+gate-fix. Consensus now lives in `oes.md`. The scratch file
+is deleted so it cannot drift. A third answer (Cerebras) was
+already withdrawn before the fold.
