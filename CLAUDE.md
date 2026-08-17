@@ -41,8 +41,32 @@ lived only in `coda_meta/LONG_HORIZON_PROMPT.md` and
 repository in `fd7e392` — so it is restated here, in the file that is always
 loaded, rather than in a card that can leave.
 
-`coda/` and `coda_meta/` are governed by their own rules, declared in their
-respective READMEs. External citation is permitted there and nowhere else.
+**`coda/` and `coda_meta/` are gone from this repository.** They were
+added on 2026-08-16 under their own rules and moved to
+[`dbccpage/CODA`](https://github.com/dbccpage/CODA) on 2026-08-17 —
+`coda_meta/` in `fd7e392`, `coda/` here. Every file was confirmed present
+at the destination before removal: the 21 planning documents, and all 40
+files under `coda/`, checked path by path against
+`a83e4872f6a6ef7a78101af660274c08fb719dfd` rather than assumed.
+
+An earlier version of this paragraph read: *"`coda/` and `coda_meta/` are
+governed by their own rules, declared in their respective READMEs.
+External citation is permitted there and nowhere else."* **WITHDRAWN** —
+those READMEs no longer exist here, so the sentence pointed at nothing.
+
+The permission it granted is withdrawn with it. **External citation is
+not permitted anywhere in this repository.** With the CODA trees gone,
+what remains is the sealed derivation alone, and the blind protocol
+governs all of it. That is a narrowing, not a loosening: the exception
+existed only for directories that have left.
+
+The record of what moved, and the withdrawal that came with it, is kept
+here rather than in the repository a reader may not be able to open —
+`dbccpage/CODA` is **private**. `coda_meta/README.md` carried this note,
+which concerns *this* repository and so survives its own file:
+*"An earlier draft said the FOC/FDA `paper/coda` skeletons were bound.
+That was false. Commit `5b6a9d9` and PR #52 contain no `paper/coda`
+files."*
 
 - Within the sealed derivation: all work uses only this repository. No
   network research, no external files, no prior project instructions, no
@@ -100,14 +124,23 @@ respective READMEs. External citation is permitted there and nowhere else.
 - No known theory is targeted or named during the derivation.  The
   post-hoc comparison originally allowed in the paper's final section was
   withheld by caller correction (2026-08-11): no external architecture,
-  theory, or project terminology appears anywhere in the **sealed
-  derivation** outside the read-only seed prompt.  As written this clause
-  said "anywhere in the repository"; that is scoped, not withdrawn — the
-  derivation's directories are unchanged, and `coda/` and `coda_meta/`
-  were added under separate rules on 2026-08-16.  The vocabulary firewall
-  in `tests/test_primitive_contact.py` is unaffected and still walks the
-  whole tree: the 102 working-denylist identifiers remain barred outside
-  `contact/analysis/` everywhere, CODA included.
+  theory, or project terminology appears **anywhere in this repository**
+  outside the read-only seed prompt.
+
+  That is the clause's original wording, and it holds again without
+  exception.  Between 2026-08-16 and 2026-08-17 it was scoped to "the
+  sealed derivation" rather than the repository, because `coda/` and
+  `coda_meta/` had been added under separate rules permitting external
+  citation.  Those directories have moved to `dbccpage/CODA`, so the
+  exception has no subject and the unscoped statement is restored.  This
+  is a return to the stronger claim, not a new one — recorded because a
+  reader comparing revisions would otherwise see the clause widen and
+  reasonably suspect it of being quietly strengthened.
+
+  The vocabulary firewall in `tests/test_primitive_contact.py` is
+  unaffected and still walks the whole tree via `git ls-files`: the 102
+  working-denylist identifiers remain barred outside
+  `contact/analysis/`.
 
 ## Proof gates
 
