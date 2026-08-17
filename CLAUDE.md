@@ -18,6 +18,17 @@ therefore fall inside the sealed contract, and inside mypy, coverage, and
 artifact regeneration. Carve those the same way before putting CODA code
 under them.
 
+**No `paper/coda/` carve is in force. Do not write that tree, and do not
+invent an exception to this paragraph.** `paper/` is named whole above, so a
+subpath of it is inside the seal until an amendment here says otherwise —
+and amending this contract is the author's act, not an agent's. This is
+stated explicitly because it was breached: pull request #55 landed 30 files
+under `paper/coda/` and they were removed in `6c3d880`. The rule previously
+lived only in `coda_meta/LONG_HORIZON_PROMPT.md` and
+`coda_meta/inter_repo_horizon_workflow.md`, both of which moved out of this
+repository in `fd7e392` — so it is restated here, in the file that is always
+loaded, rather than in a card that can leave.
+
 `coda/` and `coda_meta/` are governed by their own rules, declared in their
 respective READMEs. External citation is permitted there and nowhere else.
 
