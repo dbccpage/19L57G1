@@ -49,4 +49,9 @@ machine and should be checked against the machine before it is trusted.
 Object binds live in `coda/foc/` and `coda/fda/`. Next default paper is
 MUR.
 
+## Institute library (plan only)
+
+Wide-team review lives under [`planning/`](planning/README.md).
+No vault folders, no SQLite, no paper moves in that tree.
+
 `AuthorityEffect: None.`
