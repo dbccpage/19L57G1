@@ -37,4 +37,16 @@ document with `.github/workflows/verify.yml`. Anything written here that
 cites a gate count, a file path, or a command name is a claim about the
 machine and should be checked against the machine before it is trusted.
 
+## Horizon runner (2026-08-16)
+
+- `LONG_HORIZON_PROMPT.md` — copy to Opus / Fable / Grok. One paper
+  per sitting.
+- `session_notes_20260816.md` — what this bind sitting already
+  decided.
+- `bringover_log.md` — what was classified and what was bound.
+- `inter_repo_horizon_workflow.md` — lookup table and forbidden list.
+
+Object binds live in `coda/foc/` and `coda/fda/`. Next default paper is
+MUR.
+
 `AuthorityEffect: None.`
