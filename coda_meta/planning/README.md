@@ -11,9 +11,13 @@ waits on an explicit go after that review.
 
 - `SPINE.md` — tracks, promotion, first program nodes
 - `multi_repo.md` — prefixes for future remotes (bits 0–3)
+- `woland_community.md` — swarm + research + core, shared
+  review with Claude's worktree
 - `vault_layout.md` — human folders and the paper triad
-- `bit_index.md` — 64-bit structured key
+- `bit_index.md` — 128-bit structured key
+- `id_schemes.md` — UUID v7 and friends, not the PK
 - `catalog_schema.md` — planned SQL (not a live database)
 - `open_conflicts.md` — seal clashes and migration holds
+- `sources.md` — external `planning_doc_000.md` citation
 
 Do not implement from these files until the team says go.
