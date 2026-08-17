@@ -2,9 +2,28 @@
 
 ## Repository boundary
 
-- All work uses only this repository. No network research, no external files,
-  no prior project instructions, no plugins/agents/skills/memories, no user
-  guidance during the derivation.
+**The blind protocol is scoped to the sealed derivation, not to the whole
+repository.** It governs exactly `prompt/`, `paper/`, `code/`,
+`lean4/Derivation/`, and `artifacts/`. The derivation's entire value is that
+it was carried out blind; retiring the boundary retroactively would destroy
+the only thing that makes it evidence. So it is sealed, not amended.
+
+Its stopping conditions were run and reported met on 2026-08-16. **No gate
+consumes that report**, and this scoping change is not its source — treat it
+as an operator claim to be re-run, not a receipt.
+
+Scoping note: `lean4/` is carved to `lean4/Derivation/`, but `code/`,
+`paper/`, and `artifacts/` are named whole. A future `code/coda/` would
+therefore fall inside the sealed contract, and inside mypy, coverage, and
+artifact regeneration. Carve those the same way before putting CODA code
+under them.
+
+`coda/` and `coda_meta/` are governed by their own rules, declared in their
+respective READMEs. External citation is permitted there and nowhere else.
+
+- Within the sealed derivation: all work uses only this repository. No
+  network research, no external files, no prior project instructions, no
+  plugins/agents/skills/memories, no user guidance during the derivation.
 - `prompt/prompt.md` and `prompt/seed_prompt.md` are read-only inputs and must
   remain byte-identical (SHA-256 recorded in the paper).
 - Toolchains already installed on this machine (Python 3.14, pytest, coverage,
@@ -58,8 +77,14 @@
 - No known theory is targeted or named during the derivation.  The
   post-hoc comparison originally allowed in the paper's final section was
   withheld by caller correction (2026-08-11): no external architecture,
-  theory, or project terminology appears anywhere in the repository
-  outside the read-only seed prompt.
+  theory, or project terminology appears anywhere in the **sealed
+  derivation** outside the read-only seed prompt.  As written this clause
+  said "anywhere in the repository"; that is scoped, not withdrawn — the
+  derivation's directories are unchanged, and `coda/` and `coda_meta/`
+  were added under separate rules on 2026-08-16.  The vocabulary firewall
+  in `tests/test_primitive_contact.py` is unaffected and still walks the
+  whole tree: the 102 working-denylist identifiers remain barred outside
+  `contact/analysis/` everywhere, CODA included.
 
 ## Proof gates
 
