@@ -9,12 +9,19 @@ Resolve in review. Do not "fix" by creating folders.
 
 The vault wants `code/`, `art/`, and `lean/` at repo root.
 
-Until a carve is written, do not create those names. Options
-for later:
+Until a carve is written, do not create those names. This is
+a residual: no `lean/` or `code/` track mirror while it is
+open. Discharge is explicit supersession, rename, or
+permanent “do not create”. Ad-hoc overwrite, shadow, or fork
+is refused.
+
+Options for later:
 
 - vault lives under `vault/` (not a sealed name)
 - vault `lean/` ≠ `lean4/Derivation/`
 - vault `code/` ≠ sealed `code/`
+- human receipts under `art/` once defined as a projection
+  of ResidualCertificates (`vault_layout.md`)
 
 ## 2. Null spine vs sealed derivation
 
@@ -35,18 +42,22 @@ file.
 
 ## 5. Repo bits
 
-Only `0000` = 19L57G1 is assigned. Other prefixes wait on the
-wide-team letter list. `repo_split.md` names four first
-remotes (OER, OEC, OEAS, OEAG) without assigning the TBD
-codes.
+The 16-row table is `prefix_table.md`. Assigned: `0000` OER,
+`0001` unknown/other. Every other row is reserved until an
+admit names the letter. First-remote letters (OEC, OEAS,
+OEAG) are vocabulary, not codes. Ad-hoc allocation is a
+defect. Overflow of the 4-bit field is residual 4 on
+`multi_repo.md`.
 
 ## 6. Dual source of truth
 
 anomalonpy remains product/code record. This repo remains
-research-claim record. One-way `lib/` later. No live two-way
-link. The Omega Engine archive and the Anomalon archive are
-history dumps, not a third source of record; see
-`archives.md`.
+research-claim record. `lib/` holds a one-way markdown
+copy (hold only; not the ordered spine). Off-repo is a
+later discussion (`open_conflicts.md` §10). No live
+two-way link. The Omega Engine archive and the Anomalon
+archive are history dumps, not a third source of record;
+see `archives.md`.
 
 ## 7. Cool names too early
 
@@ -59,3 +70,32 @@ stage is actually reached. Neutral stage numbers until then.
 assumption discipline is the single source for object-language
 types. Reconcile the two lists before any live ledger uses the
 SQL enum.
+
+## 9. Axiom is not a ledger
+
+The free org `ooutwire-c95u` (`axiom.md`) is a derived
+query surface. A dashboard, APL result, or monitor must
+not be treated as identity, lock state, or jewel status.
+Free-tier quota is a residual: ingest that would blow it
+is refused. Paying, or standing up a second org, is an
+earn-a-remote / earn-a-bill decision, not a silent
+upgrade. Tokens stay out of git. Swarm JSONL and UNS
+bodies that would blow the quota stay in the one-day
+local window, or ship as UTS lines plus hashes.
+
+## 10. Encyclopedia bodies vs this repo
+
+Parked. `lib/markdown` stays a hold. Off-repo starts to
+matter if the system is put online for money, not in
+this phase. Do not ingest the bodies into Axiom.
+
+## 11. Self-output at paid scale
+
+A live Woland / Symbol Game loop can emit terabytes
+because it eats its own traces, antibodies, and
+proposed skills. The free Axiom org cannot be that
+store. Discharge is an explicit earn-a-bill (or
+refusal to run the loop unattended) *before* going
+online for money. Until then: one-day local window,
+UTS-first ship, no “Axiom is the intelligence.”
+A log is not an admission. See `axiom.md`.

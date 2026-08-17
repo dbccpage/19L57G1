@@ -54,6 +54,29 @@ OEAS is the base class. Techne (OETC), governance (OEAG), and
 research swarm (OEAR) instantiate it. They call OEC. They cite
 OER. They do not promote OER papers.
 
+## Streams (not a local archive)
+
+Woland bouts, other OEAS instances, UNS, UTS/UTC,
+Symbol Game packets, and skill / anti-skill proposals
+are streamed to Axiom (`axiom.md`). Local
+`_intelligence/` is a **~1 day** hot window. After a
+successful ship, rotate it. This research vault does
+not grow those files.
+
+Cited product surface (anomalonpy, not this tree):
+
+- `omega_engine_operations/controllers/woland_bout_controller.py`
+- `omega_engine_operations/use_cases/woland_bout/`
+- `omega_engine_operations/domain/symbol_game_bridge/unified_oe_trace.py`
+- `UnifiedNarrativeScriptEmitter` in
+  `omega_engine_operations/domain/symbol_game_bridge/symbol_game_engine.py`
+
+A shipped event is not a jewel and not a live skill.
+A paid, unattended loop can emit terabytes by eating
+its own output; that store is an earn-a-bill residual
+(`axiom.md`, `open_conflicts.md` §11), not the free
+org.
+
 ## How we review together
 
 1. Planning PRs land only under `coda_meta/planning/`.
