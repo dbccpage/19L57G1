@@ -39,7 +39,12 @@ that the payload is true, minimal, or still wanted.
   products start clean and **pull selected history** if a
   later review names it.
 - Do not assign bit keys to archive papers from this folder.
-  Only `0000` is assigned (`open_conflicts.md` §5).
+  `prefix_table.md` assigns only `0000` and `0001`. OEE has
+  no code yet.
+- History objects named under OEE are never live sources of
+  claim units or observational edges unless a
+  residual-gated promotion moves them into a live prefix.
+  Archive locks are historical candidates only.
 - Do not confuse these dumps with
   `C:\Users\a343o\source\repos\anomalon`, which
   `multi_repo.md` already records as an abandoned

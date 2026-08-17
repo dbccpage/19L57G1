@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nsa000-no-self-authorization"
+version = "0.1.0"
+description = "Illustration package for NSA-000: evaluation vs selection"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Jeremy H. Carroll" }]
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.7.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "jupyter>=1.0.0",
+    "ipywidgets>=8.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["src/nsa000"]
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+skip_empty = true

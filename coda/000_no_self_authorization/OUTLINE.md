@@ -1,11 +1,14 @@
 # Outline — a language model cannot authorize its own output
 
-Status: **superseded in part.** `paper.md` and `linkedin_essay.md` now exist
-in this folder; the essay is complete prose and the paper is abstract plus
-two written pages with §§1–6 scaffolded. An earlier version of this line
-said "outline only, nothing drafted, nothing claimed" — WITHDRAWN. This file
-is retained as the structural plan and as the record of what was intended
-before drafting.
+Status: **superseded as the live document.** The manuscript is
+`000_no_self_authorization.md` (v0.1 draft; no DOI until the
+author mints it). `linkedin_essay.md` is the public face.
+Counts cite `coda/figures.md`. The word `complete` is not a
+status of this paper. The lift from the counted ties to every
+meta-presentation is OPEN. Standing attack list:
+`attack_list.md`. Situating (known work) is unstarted:
+`situating.md`. An earlier version of this line said "outline
+only, nothing drafted, nothing claimed" — WITHDRAWN.
 
 `AuthorityEffect: None.`
 
