@@ -10,11 +10,12 @@ implements the vault until you say go.
 
 ## Three communities, one project
 
-| Community | Job | Repo prefix (planned) |
-| --- | --- | --- |
-| Research | claims, Lean research, private library | OER = `19L57G1` |
-| Core | mathematics engine (Python proto, Rust PROD) | OEC |
-| Swarms | OS + base swarm + policy + research host + Techne | OEOS, OEAS, OEAG, OEAR, OETC |
+- Research — claims, Lean, private library. Prefix OER
+  (`19L57G1`).
+- Core — mathematics engine (Python proto, Rust PROD). Prefix
+  OEC.
+- Swarms — OS, base swarm, policy, research host, Techne.
+  Prefixes OEOS, OEAS, OEAG, OEAR, OETC.
 
 Estate papers in anomalonpy stay **frames** (OEE). They are not
 renumbered as OER papers.
