@@ -43,11 +43,24 @@ terminals hold simultaneously; they are stated exactly in §15.
 ## 3. Inventory of prior checkpoints
 
 Machine-derived, not transcribed: `completion_dependency_graph.json`
-carries one record per exported theorem (295), each with source
+carries one record per exported theorem, each with source
 module, source-extracted statement, axiom set (all within {propext,
 Quot.sound}), declared kind and role labels, consuming modules, and
 citing ledger claims.  A test pins the inventory to the axiom
-artifact exactly — no orphan, no phantom.  The ten checkpoints of the
+artifact exactly — no orphan, no phantom.
+
+**Count, dated.** That inventory held **295** records when this
+investigation was completed, and holds **1314** as re-measured on
+2026-08-17 against a full 56-module build log (`lean_axioms.txt`
+carries the same 1314, and the two were compared record by record,
+not assumed equal).  An earlier version of the sentence above wrote
+"(295)" in the present tense with no date; that figure was a
+SNAPSHOT and is WITHDRAWN as a current reading.  §18 already handled
+the same number correctly, so the file previously carried it both
+dated and undated — the undated one is what is repaired here.  The
+containment claim is unaffected at either count: every report lies
+within {propext, Quot.sound}.  A receipt that is not re-measured is
+a claim about the past wearing the tense of the present.  The ten checkpoints of the
 assignment map onto the modules as: seed inertia and
 supply/admission (Basic/Inertia), collapse and quotient no-recovery
 (Basic/Quot), bounded minimum search with tied minima

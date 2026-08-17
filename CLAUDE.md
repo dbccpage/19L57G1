@@ -12,6 +12,18 @@ Its stopping conditions were run and reported met on 2026-08-16. **No gate
 consumes that report**, and this scoping change is not its source — treat it
 as an operator claim to be re-run, not a receipt.
 
+Re-run on 2026-08-17 with output captured in `verification_20260817.md`.
+All eight gate families pass at `052e657` (line 99.10%, branch 96.73%, 1314
+axiom reports within `{propext, Quot.sound}`, artifacts byte-identical,
+prompt hashes matching). **That discharges the mechanical clauses only.**
+The clauses requiring judgement — that every notion carries a source
+classification, that every theorem-level claim has Lean evidence or is
+downgraded, that tied minima are retained unless eliminated by proof, and
+that the paper states the strongest defensible terminal result — are **not**
+discharged by any gate and remain operator claims. The 2026-08-16 sentence
+above is therefore narrowed, not withdrawn: what was unverified about it is
+still unverified, and now says so precisely.
+
 Scoping note: `lean4/` is carved to `lean4/Derivation/`, but `code/`,
 `paper/`, and `artifacts/` are named whole. A future `code/coda/` would
 therefore fall inside the sealed contract, and inside mypy, coverage, and
