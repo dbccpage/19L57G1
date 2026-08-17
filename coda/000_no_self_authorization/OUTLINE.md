@@ -1,6 +1,11 @@
 # Outline — a language model cannot authorize its own output
 
-Target: five pages. Status: outline only, nothing drafted, nothing claimed.
+Status: **superseded in part.** `paper.md` and `linkedin_essay.md` now exist
+in this folder; the essay is complete prose and the paper is abstract plus
+two written pages with §§1–6 scaffolded. An earlier version of this line
+said "outline only, nothing drafted, nothing claimed" — WITHDRAWN. This file
+is retained as the structural plan and as the record of what was intended
+before drafting.
 
 `AuthorityEffect: None.`
 
@@ -45,6 +50,13 @@ them into a single reported verdict is the failure this paper is about.
 
 The load-bearing section. Everything after depends on it and nothing before
 it is needed.
+
+**Every figure below is a RESTATEMENT.** The source is the sealed
+derivation's exported claim data, and no gate compares these copies against
+it — if they drifted, nothing would fail. Before drafting, re-read them
+from the ledger rather than from this file. The same applies to the copies
+in `paper.md` and `linkedin_essay.md`: three restatements now exist and none
+is checked.
 
 **Evaluation does not determine selection.** In the worked system: a single
 separation demand has **3 tied minimal responses** under one reading and
@@ -110,8 +122,12 @@ Not detection. **Declaration.**
   moves from "which gauge" to "which symmetry," and a symmetry is
   *checkable* in a way a gauge choice is not.
 - Verification by something that did not generate the claim. A checker
-  exercising its own copy of the logic certifies the copy — observed three
-  times in one change during §4's session.
+  exercising its own copy of the logic certifies the copy — observed
+  **twice** in one change during §4's session. An earlier version of this
+  line said three; that counted the repair commit as an occurrence, and is
+  WITHDRAWN. The same tally was already withdrawn once in
+  `paper/anti_skill_inbox.md` and then rewritten here, which is why counts
+  in this chain must name their commits rather than be recalled.
 
 The claim is not that lying can be prevented. It is that an unauthorized
 selection can be made to **fail a gate instead of a conscience**.

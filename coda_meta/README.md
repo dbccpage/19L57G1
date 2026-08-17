@@ -21,9 +21,14 @@ Apparatus about CODA, not content of it.
 
 ## Rules
 
-Same as `coda/`: external citation permitted, vocabulary firewall applies,
-all eight gate families apply, claim typing carries over, withdrawal in
-place.
+Same as `coda/`: external citation permitted, the vocabulary firewall
+applies, claim typing follows `CLAUDE.md` (single source — do not restate
+it), withdrawal in place.
+
+**And the same warning.** None of the eight gate families reads
+`coda_meta/` either. The firewall walks the tree; nothing else here is
+gate-protected. Given that this directory's subject *is* what a gate
+certifies, saying otherwise would be the failure it exists to describe.
 
 One addition. **Apparatus drifts and nothing checks it.** The `gates` skill
 documented six gate families for as long as there were eight, including one

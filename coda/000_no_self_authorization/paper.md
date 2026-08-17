@@ -194,8 +194,13 @@ and this paper does not ask anyone to accept one.]*
 - No claim about consciousness, intent, or what a system understands.
 - No safety guarantee. A declared selection may still be a poor one. It is
   merely checkable.
-- The counts in §2 hold under declared bounds and are not asserted beyond
-  them. The infinite family is proved; the tabulated counts are bounded.
+- **Every figure in this paper is currently a restatement, not a result of
+  it.** The counts originate in the sealed derivation's exported claim data;
+  §2 is a draft placeholder and does not yet reproduce the enumeration. In
+  the source, the arity-indexed family is proved and the tabulated counts
+  are bounded theorems under declared bounds — but until §2 is written,
+  this paper asserts none of that on its own authority, and no gate compares
+  these copies against the source.
 - §4 is one session, adversarially reviewed. It is a worked instance, not a
   frequency estimate.
 - No result here is mechanized. Nothing is proof-assistant checked.

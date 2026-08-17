@@ -4,11 +4,19 @@
 
 **The blind protocol is scoped to the sealed derivation, not to the whole
 repository.** It governs exactly `prompt/`, `paper/`, `code/`,
-`lean4/Derivation/`, and `artifacts/`. Those directories are a finished
-artifact: every stopping condition below was verified met on 2026-08-16, and
-the derivation's entire value is that it was carried out blind. Retiring the
-boundary retroactively would destroy the only thing that makes it evidence.
-So it is sealed, not amended.
+`lean4/Derivation/`, and `artifacts/`. The derivation's entire value is that
+it was carried out blind; retiring the boundary retroactively would destroy
+the only thing that makes it evidence. So it is sealed, not amended.
+
+Its stopping conditions were run and reported met on 2026-08-16. **No gate
+consumes that report**, and this scoping change is not its source — treat it
+as an operator claim to be re-run, not a receipt.
+
+Scoping note: `lean4/` is carved to `lean4/Derivation/`, but `code/`,
+`paper/`, and `artifacts/` are named whole. A future `code/coda/` would
+therefore fall inside the sealed contract, and inside mypy, coverage, and
+artifact regeneration. Carve those the same way before putting CODA code
+under them.
 
 `coda/` and `coda_meta/` are governed by their own rules, declared in their
 respective READMEs. External citation is permitted there and nowhere else.
