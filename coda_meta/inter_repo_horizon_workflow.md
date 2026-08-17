@@ -136,8 +136,9 @@ Pontryagin packet is the honest finite→∞ rail if anyone asks.
 ## Fable tomorrow vs this session
 
 **Fable (anomalonpy-side or inter-repo map):** Track A or B1 read-only
-pass. Emit a receipt under this directory or the frontier queue. Do not
-edit 19L57G1 sealed paths. Do not open a PR.
+pass. If there is something to record, write the receipt under
+19L57G1's `coda_meta/` only. Do not write the anomalonpy frontier
+queue, edit 19L57G1 sealed paths, or open a PR.
 
 **This session (already contaminated across both repos):** may write
 `coda/` and `coda_meta/` only. Still no seal edit. Still one sitting.
