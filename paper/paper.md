@@ -609,17 +609,45 @@ Within the declared metatheory and candidate grammar:
   selection), and the external continuation policy are declared, not
   derived.  Different declarations could yield different towers; the
   mu1/mu2 split documents one such sensitivity precisely.
-* **[unresolved]** Lean formalizations of: the three structural pruning
-  lemmas (datum/form irrelevance, mention lemma) and the delta-level
-  rule-removal bridge (the proved `separable_of_subrules` covers witness
-  transfer under a shrunken final rule set; the bridge from delta items
-  to shrunken rule sets is computational); grammar-wide mu2 uniqueness
-  for reading F; count-invariance and transition-congruence transport
-  under isomorphism (both certified exhaustively in Python, the latter
-  including the equivariance regression); a theorem connecting the
-  strict-growth/boundedness hypotheses of the counting laws to the
-  transition system; the behavior of the external continuation policy
-  beyond the exported depths.
+* **[unresolved]** Eight residuals, itemized below rather than left as a
+  list, because they are **not the same kind of gap** and a reader
+  entitled to know what is unproved is entitled to know in what way.
+  An earlier version of this bullet ran them together in one sentence;
+  that wording is WITHDRAWN in favour of the register (2026-08-17). No
+  status changed — only the resolution at which it is reported.
+
+  Five kinds appear: **(a)** exhaustively certified in Python, Lean
+  absent; **(b)** partial Lean, with the bridge to the used form
+  computational; **(c)** proved for one reading, bounded for the other;
+  **(d)** a genuine unknown with no evidence either way; **(e)** a gap in
+  the audit rather than in the mathematics.
+
+  | # | Residual | Kind | Evidence that exists | What closing it needs |
+  |---|---|---|---|---|
+  | R1 | Unreferenced fresh **data** never affect a minimum response | a | `test_pruned_cost2_contains_every_valid_full_delta`, cross-checked against the *unpruned* space over bare, marked, and structurally mixed base regimes | a Lean irrelevance lemma |
+  | R2 | Unreferenced fresh **forms** never affect a minimum response | a | same test, same cross-check | as R1 |
+  | R3 | **Mention lemma**: an instance-only delta changes the target pair's profiles only if some instance mentions a target datum | a | same test | a Lean mention lemma |
+  | R4 | **Delta-level rule-removal bridge** | b | `separable_of_subrules` is **proved** — witness transfer under a shrunken final rule set. The step from delta *items* to shrunken rule sets is computational only | a Lean theorem over delta items, not final rule sets |
+  | R5 | **Grammar-wide mu2 uniqueness for reading F** | c | `mu2_unique` is proved grammar-wide for reading **L**; reading F is a **[bounded theorem]** from engine enumeration within the declared bounds | the reading-F analogue of `mu2_unique` |
+  | R6 | **Count-invariance** transport under regime isomorphism | a | `test_canonical_invariant_under_rename`, exhaustive over the Challenge 3 classes; `allPairs_length` proves the requirement-language size law but not the transport | a Lean transport proof |
+  | R7 | **Transition-congruence** transport under regime isomorphism | a | `test_orbit_policy_transition_congruence_exhaustive` over every data bijection of each sample regime, including the adversarial regression `test_least_pair_selection_is_not_equivariant` | a Lean transport proof |
+  | R8 | Counting-law **hypotheses** connected to the transition system | b | `strict_bounded_length`, `no_supply_round_bound`, `allPairs_length` are proved as *conditional abstract* laws; that each accepted round imposes exactly one new requirement over a fixed datum count is discharged computationally, for the exported runs only | a Lean theorem discharging the hypotheses for the transition system itself |
+
+  **R1–R3, R6, R7 are kind (a): the evidence is not missing, the Lean
+  is.** Each is certified by exhaustive computation over a declared
+  finite space, and each is reported as **[finite computation]** where
+  the paper uses it — never as a theorem. R4 and R8 are kind (b): a
+  weaker statement is genuinely proved and the bridge to the form
+  actually used is computational. R5 is kind (c) and is asymmetric by
+  reading, which is stated wherever it is cited.
+
+* **[unresolved — kind (d), a genuine unknown]** The behavior of the
+  external continuation policy beyond the exported depths. Unlike
+  R1–R8 this is not a missing formalization of something already
+  computed: no evidence exists in either direction, and **no claim is
+  made**. Reaching every requested depth tried is exactly that, and is
+  not a proof of unboundedness (`CL-REACHES-REQUESTED-DEPTH-WITH-
+  EXTERNAL-SUPPLY`).
 * **[bounded theorem]** All tree-level results are relative to the
   declared bounds (items <= 2, arity <= 2 concrete, 15 rounds, node guards); the exact frontiers are exported for continuation.  The
   multi-orbit statistic is 0 within these bounds; beyond them, states
@@ -644,7 +672,16 @@ Within the declared metatheory and candidate grammar:
   they are WITHDRAWN in favour of the measured values above.  A receipt
   that is not re-measured is a claim about the past wearing the tense of
   the present.
-* **[open obstruction — metatheoretic]** Elaboration is not auditing.
+
+  **Re-measured 2026-08-17 and unchanged**: 435 tests, line 99.10%,
+  branch 96.73%, 56 Lean sources, 1314 axiom reports within {propext,
+  Quot.sound}.  Captured output in `verification_20260817.md`.  Two
+  independent measurements a day apart agreeing is a stronger receipt
+  than one, and it is recorded here so that the next reader does not
+  have to take a single reading on trust.  It remains a receipt: it says
+  what the commands printed, not that the mathematics is right.
+* **[open obstruction — metatheoretic; kind (e), a gap in the audit
+  rather than in the mathematics]** Elaboration is not auditing.
   Every module under `lean4/Derivation/` is elaborated by CI against a
   pinned census, but a module the root does not import contributes no
   `#print axioms` report, so the axiom whitelist never inspects it.
