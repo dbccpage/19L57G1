@@ -36,9 +36,24 @@ file.
 ## 5. Repo bits
 
 Only `0000` = 19L57G1 is assigned. Other prefixes wait on the
-wide-team letter list.
+wide-team letter list. `repo_split.md` names four first
+remotes (OER, OEC, OEAS, OEAG) without assigning the TBD
+codes.
 
-## 6. Claim class lists
+## 6. Dual source of truth
+
+anomalonpy remains product/code record. This repo remains
+research-claim record. One-way `lib/` later. No live two-way
+link. The Omega Engine archive and the Anomalon archive are
+history dumps, not a third source of record; see
+`archives.md`.
+
+## 7. Cool names too early
+
+Do not name folders Witten, strings, or M-theory until that
+stage is actually reached. Neutral stage numbers until then.
+
+## 8. Claim class lists
 
 `catalog_schema.md` uses a short class enum. `CLAUDE.md`
 assumption discipline is the single source for object-language

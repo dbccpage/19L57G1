@@ -37,7 +37,8 @@ CREATE TABLE program_node (
 
 CREATE TABLE paper (
   paper_id      INTEGER PRIMARY KEY,
-  bit_key       BLOB NOT NULL UNIQUE,
+  bit_key       BLOB NOT NULL UNIQUE
+                  CHECK (length(bit_key) = 16),
   repo_id       INTEGER NOT NULL REFERENCES repo(repo_id),
   visibility_id INTEGER NOT NULL REFERENCES visibility(visibility_id),
   track_id      INTEGER NOT NULL REFERENCES track(track_id),
@@ -55,7 +56,8 @@ CREATE TABLE paper (
 
 CREATE TABLE claim (
   claim_id  INTEGER PRIMARY KEY,
-  bit_key   BLOB NOT NULL UNIQUE,
+  bit_key   BLOB NOT NULL UNIQUE
+              CHECK (length(bit_key) = 16),
   paper_id  INTEGER NOT NULL REFERENCES paper(paper_id),
   claim_seq INTEGER NOT NULL,
   prefix    TEXT NOT NULL,
