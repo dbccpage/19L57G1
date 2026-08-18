@@ -404,7 +404,9 @@
     "propext"
    ],
    "citing_claims": [
-    "CL-1-SUPPLY-NOT-ADMISSION"
+    "CL-1-SUPPLY-NOT-ADMISSION",
+    "CL-2-COLLAPSED",
+    "CL-QUOT-BARRIER"
    ],
    "consumers": [
     "Minimality.lean",
@@ -1903,7 +1905,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-FR6-T2-TRACE"
+    "CL-FR6-T2-TRACE",
+    "CL-FR6-T3-CONSTRUCTORS"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -5061,7 +5064,9 @@
    "axioms": [
     "propext"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-BRANCHING"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitiveCats.lean",
@@ -6062,7 +6067,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6853,7 +6860,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -6866,7 +6875,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD2-PASSAGE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimitivePassage.lean",
@@ -17422,7 +17433,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-FIDELITY-DESCENT (heterogeneous index erasure, 2026-08-14)"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PresentationDescent.lean",

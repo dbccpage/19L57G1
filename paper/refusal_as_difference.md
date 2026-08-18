@@ -150,8 +150,10 @@ a recorded countermodel.  Holding chains:
 `witnessed_irreflexive → witnessed_relation → separable_pair →
 second_sort → two_carrier`, and `two_tokens / two_occurrences →
 two_carrier`.  Notable refutations: `two_carrier ↛ separable_pair`
-(occurrence state), `separable_pair ↛ two_result_constructors` (the tag
-route separates under a singleton algebra), `two_result_constructors ↛
+(occurrence state), `separable_pair ↛ two_result_constructors` (the relation
+route separates under a singleton algebra — the recorded countermodel
+has `autorel: true, tagging: false`; an earlier version said the tag
+route, corrected 2026-08-18), `two_result_constructors ↛
 two_carrier` (judgment mode sees both constructors with one datum).
 
 **In-class structural fact** (`witnessed_relation →

@@ -71,8 +71,9 @@ by arity** — one member for every arity `k >= 1` (§11(d)).
 
 The tabulated counts carry the scope §11(d) gives them: the tie counts of 3
 and 5 are a **[bounded theorem]** within the declared bounds, and the
-refined-measure uniqueness is grammar-wide for reading L but only within
-bounds for reading F. Neither is asserted beyond that.
+refined-measure uniqueness is grammar-wide in both readings (the
+reading-F bound was removed 2026-08-18 by `mu2_unique_F`). The tie
+counts are not asserted beyond their bounds.
 
 So a demand determines a *set* of minimal responses, not a state. Under one
 declared measure that set is infinite. Single-valued succession is therefore

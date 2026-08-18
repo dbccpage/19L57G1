@@ -300,10 +300,12 @@ absence of valid (2, 0) deltas (any two-item delta without a new form
 cannot carry an instance on a form-less regime), the mu2-minimum is
 **unique up to isomorphism**: mu2 = (2, 1), the unary mark.
 
-**[bounded theorem]** (engine) Reading F: exactly one mu2 class within the
-declared bounds (the unary mark on either required datum; the mark on the
-genesis datum fails the target and is refuted).  The grammar-wide Lean
-analogue for reading F is **[unresolved]** (not formalized).
+**[theorem]** (`mu2_unique_F`, 2026-08-18) Reading F: exactly one mu2
+class, grammar-wide — the unary mark on either required datum; the mark
+on the genesis datum fails the target and is refuted by the mention
+lemma.  The engine enumeration within the declared bounds is retained
+as independent evidence (an earlier version of this paragraph was
+tagged [bounded theorem] with the grammar-wide analogue unresolved).
 
 **[finite computation]** Uniqueness is *measure-relative*: the answer to
 "is a minimum corrective augmentation necessarily unique?" is **no** under
@@ -342,9 +344,13 @@ transition depended on the representative labeling.
 one challenge branch per automorphism orbit of collapsed pairs, all
 non-isomorphic challenge orbits retained (the regression regime has
 automorphism group of order 4 and two distinct orbits, both challenged).
-Scope, stated honestly: no general transport theorem is claimed — the
-transports of candidates, costs, validity, minima, and children under
-regime isomorphism are **[unresolved]** as theorems.  What exists is
+Scope, stated honestly: as of 2026-08-18 the transports of candidates,
+costs, validity, steps and children under a datum renaming are
+**[theorem]** at the relation level (`transStep_rename_fwd`,
+`transStep_image_total`, `validCount_rename`); the conversion to equal
+canonical-key class sets remains computational with CL-ISO-SOUND, and
+form bijections are not exercised (an earlier version of this sentence
+said the transports were unresolved as theorems).  What also exists is
 finite adversarial evidence: for every data bijection of each sample
 regime, including the regression regime chosen adversarially against the
 old policy, the expansion produces exactly the same set of child
@@ -360,25 +366,33 @@ explored bounds.
 **[theorem]** (`mark_progress`) Response existence: on any well-formed
 regime whose imposed requirements are all separated, every *supplied*
 separation demand has a valid response (one fresh unary form plus one
-mark), which moreover preserves every existing separation.  This theorem
+mark), which moreover keeps every imposed requirement separated (the
+proved conjunct quantifies over the requirement store, not over all
+separable pairs — wording aligned with CL-PROGRESS 2026-08-18).  This theorem
 is exactly response existence — it does **not** prove autonomous demand
 generation, and it does **not** prove an unbounded tower.  Its observed
 consequence: no `terminal_no_response` node occurs in any exported run.
 
 ### 8.3 Pruning lemmas for the cost-2 enumeration
 
-* **[theorem]** (`separable_of_subrules`) A separation witness never
-  inhabits a uniformly ruled form, so removing rule items preserves every
-  separation: a delta containing a uniform rule is never a minimum valid
-  response.
+* **[theorem]** (`separable_of_subrules`; delta-level corollary
+  `rule_item_never_minimal`, 2026-08-18) A separation witness never
+  inhabits a uniformly ruled form, so removing rule items preserves
+  every separation, and a delta containing a uniform rule is never a
+  minimum valid response — the corollary needs the item-level bridge
+  (`applyDelta_dropRules`), which an earlier version of this bullet
+  silently charged to `separable_of_subrules` alone.
 * **[bounded theorem]** (cross-check `test_pruned_cost2_contains_every_
   valid_full_delta` over bare, marked, and structurally mixed base
   regimes) Unreferenced fresh data and unreferenced fresh forms never
   matter, and an instance-only delta changes the profiles of the target
   pair only if some instance mentions a target datum.  Lean
-  formalizations of these three structural prunings: **[unresolved]**;
-  they enter every tree computation and are certified computationally
-  against the unpruned space.
+  formalizations of these three structural prunings: **[theorem]** as of
+  2026-08-17 (`collapsed_fresh_datum`, `collapsed_fresh_form`,
+  `collapsed_append_unmentioning`; an earlier version of this sentence
+  said unresolved).  They enter every tree computation and remain
+  certified computationally against the unpruned space as independent
+  evidence.
 
 ### 8.4 Branch trees (external continuation policy enabled)
 
@@ -436,11 +450,16 @@ never exceeds B has at most B+1 states, and the requirement language of a
 regime with n data has exactly n(n-1)/2 elements (stated division-free as
 `2 * length = n * (n - 1)`).
 
-**[finite computation]** The connection of those hypotheses to the actual
-transition system — each accepted separation round imposes exactly one
-new requirement over a fixed datum count — is discharged computationally
-for the exported runs; a Lean theorem connecting the hypotheses to the
-transition system itself is **[unresolved]**.
+**[theorem, under the declared round shape]** The connection of those
+hypotheses to the transition system is proved as of 2026-08-18: under
+the declared round shape (a fresh imposed target, a response admitting
+no fresh datum) each round grows the requirement count by exactly one
+over a fixed datum count, and a closed run from an empty store makes at
+most n(n-1)/2 rounds (`round_reqs_succ`, `round_data_eq`,
+`closedRun_round_bound_from_empty`).  **[finite computation]** What
+remains computational is that each exported round has the declared
+shape (an earlier version of this passage said the connecting theorem
+was unresolved).
 
 **[bounded theorem]** Closed-system termination: within the declared
 bounds, every maximal branch of both baselines ends at the
@@ -520,7 +539,8 @@ longer or infinite tower is forced.
 6. *Is a minimum corrective augmentation necessarily unique?*
    **Measure-relative** — **[theorem]** not unique under mu1 (with an
    infinite tie family across arities); unique up to isomorphism under
-   mu2 (grammar-wide for reading L; **[bounded theorem]** for reading F).
+   mu2, grammar-wide in both readings (**[theorem]**; the reading-F
+   bound was removed 2026-08-18 by `mu2_unique_F`).
    Every uniqueness statement above carries its bounds and measure
    (section 7).
 7. *What additional rule, if any, makes a long or unbounded sequence of
@@ -536,9 +556,13 @@ longer or infinite tower is forced.
    computation]** the unresolved count (collapsed pairs) is preserved
    under all token renamings and index bijections (canonicalization
    invariance tests, exhaustive over the Challenge 3 classes); the
-   requirement-language size law is **[theorem]** (`allPairs_length`).  A
-   Lean transport proof of count invariance under regime isomorphism:
-   **[unresolved]**.
+   requirement-language size law is **[theorem]** (`allPairs_length`).
+   The Lean transport of count invariance is **[theorem]** for
+   datum-index bijections as of 2026-08-17 (`collapsed_rename`,
+   `collapsedCount_rename`); token renaming is inexpressible in the
+   Lean model and form bijections are not transported, so those
+   conjuncts remain **[finite computation]** (an earlier version of
+   this item said the transport was unresolved).
 9. *What recurring transition roles emerge from the derivation itself?*
    **[finite computation]** supply, discrimination, innovation, rare
    double discrimination; auxiliary-witness enumerated but never minimal
@@ -581,8 +605,10 @@ Within the declared metatheory and candidate grammar:
   reading F within the declared bounds (**[bounded theorem]**), and a
   countably infinite tie family indexed by arity (one member for every
   arity k >= 1).  Under the
-  refined measure the minimum is unique up to isomorphism (grammar-wide
-  for reading L; within bounds for reading F).
+  refined measure the minimum is unique up to isomorphism, grammar-wide
+  in both readings (the reading-F bound was removed 2026-08-18 by
+  `mu2_unique_F`; an earlier version of this clause read "within bounds
+  for reading F").
 * (e) **[theorem]** Response existence: every supplied separation demand
   on a well-formed accepted regime is answerable.
 * (f) **[bounded theorem]** No object-language endogenous demand
@@ -609,16 +635,28 @@ Within the declared metatheory and candidate grammar:
   selection), and the external continuation policy are declared, not
   derived.  Different declarations could yield different towers; the
   mu1/mu2 split documents one such sensitivity precisely.
-* **[unresolved]** Four residuals, itemized below rather than left as a
-  list, because they are **not the same kind of gap** and a reader
-  entitled to know what is unproved is entitled to know in what way.
-  An earlier version of this bullet ran them together in one sentence;
-  that wording is WITHDRAWN in favour of the register (2026-08-17). No
-  status changed at that point — only the resolution at which it is
-  reported.
+* **[discharged register — boundaries recorded]** The residual
+  register is CLOSED as of 2026-08-18: all eight rows are struck, each
+  by a Lean proof of the statement its row asked for.  The register is
+  retained below rather than deleted, struck row by struck row, so a
+  reader comparing revisions can see exactly what left and when.  An
+  earlier version of this bullet ran the residuals together in one
+  sentence; that wording was WITHDRAWN in favour of the register
+  (2026-08-17), and the register then emptied over 2026-08-17/18.
 
-  **R1, R2, R3 and R6 have since been discharged and are struck from
-  the register (2026-08-17).**  R1-R3 were one argument, not three: a
+  Closing the register did not close every computational boundary, and
+  two narrowed boundaries REPLACE rows R7 and R8 rather than vanish:
+  for R7, the relation-level congruence is proved and the conversion to
+  equal canonical-key class sets stays with CL-ISO-SOUND on the Python
+  side; for R8, the counting hypotheses are proved for the transition
+  system under the declared round shape, and what stays computational
+  is only that each exported round has that shape.  Both are stated in
+  the corresponding ledger entries, which is where they belong: they
+  are the ordinary Python-decides/Lean-states division this paper runs
+  on, not missing formalizations of already-computed facts.
+
+  **R1, R2, R3 and R6 were discharged 2026-08-17; R4, R5, R7 and R8
+  on 2026-08-18.**  R1-R3 were one argument, not three: a
   well-formed context always has a hole, so a plugged instance always
   mentions its datum, and a context that reaches outside the regime
   fails derivability on BOTH sides of the iff and therefore separates
@@ -718,13 +756,21 @@ Within the declared metatheory and candidate grammar:
   1314/56 reading above is left standing rather than overwritten: it was
   true when taken, and a receipt that is silently edited to match a later
   state is no longer a receipt.
+
+  **Superseded again by the register closure (2026-08-18)**: the R1-R3
+  and R4/R5/R7/R8 modules move the figures to 62 sources and 1417 axiom
+  reports, still entirely within {propext, Quot.sound}; 435 tests
+  collected (434 passed, 1 skipped), line 99.10%, branch 96.73%,
+  measured on a clean single-process run.  The 57/1322 reading above
+  stands as taken.
 * **[open obstruction — metatheoretic; kind (e), a gap in the audit
   rather than in the mathematics]** Elaboration is not auditing.
   Every module under `lean4/Derivation/` is elaborated by CI against a
   pinned census, but a module the root does not import contributes no
   `#print axioms` report, so the axiom whitelist never inspects it.
-  "Axiom-clean" is therefore a claim about the 1314 enumerated reports,
-  not about every declaration in the tree.  Closing this needs a
+  "Axiom-clean" is therefore a claim about the enumerated reports
+  (1417 as of 2026-08-18; the figure tracks the inventory and earlier
+  read 1314), not about every declaration in the tree.  Closing this needs a
   compiler-emitted declaration census; the obvious regex approach is the
   one already known to fail here — a docstring line beginning with the
   word `theorem` defeated a grep count twice — so it is left OPEN rather

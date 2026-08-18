@@ -68,7 +68,7 @@ theorem derivable_extend {r : Regime} (hwf : r.wf) (j : Nat) (x : Inst)
     | inr h => exact Or.inr h
 
 /-- The fresh-mark response is always available: it applies, separates the
-target, and preserves every existing separation.  This is the progress
+target, and keeps every imposed requirement separated.  This is the progress
 theorem: no separation challenge is ever unanswerable within the declared
 candidate space. -/
 theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
