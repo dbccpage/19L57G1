@@ -18912,9 +18912,41 @@
    "consumers": [],
    "kind": "generic",
    "module": "Rounds.lean",
+   "name": "Derivation.nodup_head'",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {x : \u03b1} {t : List \u03b1} (h : List.Nodup (x :: t)) : \u2200 a \u2208 t, x \u2260 a"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_tail'",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {x : \u03b1} {t : List \u03b1} (h : List.Nodup (x :: t)) : List.Nodup t"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
    "name": "Derivation.filter_none_of_all_false",
    "role": "preservation",
    "statement": "{\u03b1 : Type} {p : \u03b1 \u2192 Bool} : \u2200 {l : List \u03b1}, (\u2200 x \u2208 l, p x = false) \u2192 l.filter p = []"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.filter_nodup'",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 {l : List \u03b1}, l.Nodup \u2192 (l.filter p).Nodup"
   },
   {
    "axioms": [
@@ -18993,6 +19025,19 @@
    "name": "Derivation.nodup_map_of_inj",
    "role": "preservation",
    "statement": "{\u03b1 : Type} {g : Nat \u2192 \u03b1} : \u2200 (l : List Nat), l.Nodup \u2192 (\u2200 i \u2208 l, \u2200 j \u2208 l, g i = g j \u2192 i = j) \u2192 (l.map g).Nodup"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.range_nodup'",
+   "role": "preservation",
+   "statement": ": \u2200 n : Nat, (List.range n).Nodup"
   },
   {
    "axioms": [

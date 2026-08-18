@@ -123,7 +123,10 @@ def parse_axiom_reports() -> list[dict[str, object]]:
     out: list[dict[str, object]] = []
     text = AXIOMS_FILE.read_text(encoding="utf-8")
     for line in text.splitlines():
-        m = re.search(r"'(?P<name>[^']+)' (?P<rest>.*)", line)
+        # Non-greedy: a primed theorem name ends in a quote, so the
+        # blind [^']+ capture cannot parse its report and silently
+        # skipped it. Found live 2026-08-18; same fix as the ci parsers.
+        m = re.search(r"'(?P<name>.+?)' (?P<rest>(?:depends on axioms|does not depend).*)", line)
         if not m:
             continue
         name = m.group("name")

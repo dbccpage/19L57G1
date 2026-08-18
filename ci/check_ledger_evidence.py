@@ -118,7 +118,7 @@ FIELD_ANY = re.compile(r"\*\*[A-Z][^*\n]*\*\*:")
 TOKEN = re.compile(r"`([^`]+)`", re.S)
 
 REPORT = re.compile(
-    r"^Derivation\.lean:\d+:\d+: '(?P<name>[^']+)' "
+    r"^Derivation\.lean:\d+:\d+: '(?P<name>.+?)' "
     r"(?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
 )
 DECL = re.compile(
