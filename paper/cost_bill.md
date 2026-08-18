@@ -63,8 +63,8 @@ That is a code change with a test, not a reading.
 item-count measure: 3 tied non-isomorphic classes in reading L, 5 in
 reading F, within the declared bounds — plus a countably infinite tie
 family, one member for every arity `k >= 1`. Under the refined measure the
-minimum is unique up to isomorphism, grammar-wide for reading L and within
-bounds for reading F.
+minimum is unique up to isomorphism, grammar-wide in both readings
+(the reading-F bound was removed 2026-08-18 by `mu2_unique_F`).
 
 **Refining the measure does not reach a single-valued step.** Even the
 unique class under the refined measure contains **two concrete deltas**,

@@ -55,7 +55,9 @@ implementation.
 - **Python**: `challenges.json:challenge1`;
   `test_challenge1_supply_vs_admission_and_convergence`.
 - **Lean**: `supply_no_op`, `collapsed_of_no_insts`.
-- **Axioms**: `propext`; none.
+- **Axioms**: `propext`; `propext` (per `artifacts/lean_axioms.txt`; an
+  earlier version recorded the second as axiom-free, which the artifact
+  refutes — corrected 2026-08-18).
 - **Falsifier / boundary**: an internal test distinguishing anything at
   Challenge 1.
 
@@ -80,7 +82,10 @@ implementation.
   `test_challenge2_collapse_and_no_expressive_increase`.
 - **Lean**: `R2L_collapsed`, `R2F_collapsed`, `historyL_replays`,
   `historyF_replays`.
-- **Axioms**: none; none; `propext`; `propext`.
+- **Axioms**: `propext`; `propext`; `propext`; `propext` (all four per
+  `artifacts/lean_axioms.txt` — the collapse theorems instantiate
+  `collapsed_of_no_insts`, which carries `propext`; an earlier version
+  recorded the first two as axiom-free — corrected 2026-08-18).
 - **Falsifier / boundary**: a well-formed context separating any pair in
   the Challenge 2 regime.
 
@@ -142,12 +147,18 @@ implementation.
 - **Statement**: Under mu1 the minimum corrective augmentation is not
   unique: the unary mark and the binary link are both minimum valid
   responses with non-isomorphic results.  *Bounds: none. Measure: mu1.
-  Uniqueness: refuted absolutely.*
-- **Class**: theorem.
+  Uniqueness: refuted absolutely — in reading L; reading F
+  non-uniqueness rests on the Lean cost floor plus the bounded
+  enumeration (see Class).*
+- **Class**: theorem for reading L (the cited Lean is stated over
+  `R2L`); for reading F, finite computation — the {F: 5} count is the
+  bounded enumeration of CL-3-TIE-CLASSES, and no reading-F
+  non-isomorphism theorem exists in Lean (scope made explicit
+  2026-08-18; the entry was previously reading-silent).
 - **Deps**: CL-3-MIN-TWO. **Assumptions**: shared + implemented
   isomorphism (definition 3.8).
 - **Python**: `claims.json:CL-3-NONUNIQUE-MU1 = {L: 3, F: 5}`.
-- **Lean**: `mu1_minimum_not_unique`, `U0_not_iso_BL`.
+- **Lean**: `mu1_minimum_not_unique`, `U0_not_iso_BL` (both reading L).
 - **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: an isomorphism between the mark and the link
   (excluded: arity is an invariant).
@@ -163,10 +174,16 @@ implementation.
   CL-ISO-SOUND. **Assumptions**: shared + bounds.
 - **Python**: `challenges.json:challenge3` iso_classes; cross-check
   against the unpruned space
-  (`test_pruned_cost2_contains_every_valid_full_delta`);
+  (`test_pruned_cost2_contains_every_valid_full_delta` — its base
+  regimes are the reading-L base and mixed regimes, not the reading-F
+  base, so the unpruned certification covers reading L only);
   `test_challenge3_reading_f_has_five_classes`.
 - **Lean**: class distinctness — `U0_not_iso_BL`, `U0_not_iso_BD`,
-  `BL_not_iso_BD`; class collapse — `isoU1U0`.
+  `BL_not_iso_BD`; class collapse — `isoU1U0`.  All four are stated
+  over the reading-L regimes; no Lean theorem distinguishes the five
+  reading-F classes, whose count rests on the pruned enumeration
+  quotiented by the implemented isomorphism (CL-ISO-SOUND).  Scope made
+  explicit 2026-08-18.
 - **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: a valid bounded delta outside the listed
   classes, or a missed isomorphism.  Boundary: arity > 2 candidates exist
@@ -174,10 +191,13 @@ implementation.
 
 ### CL-3-INFINITE-TIES
 - **Statement**: For every arity k >= 1 the k-ary mark is a two-item
-  minimum valid response, and distinct arities give non-isomorphic
-  results: the mu1 tie class is countably infinite.  *Bounds: none.
-  Measure: mu1.*
-- **Class**: theorem.
+  minimum valid response in reading L, and distinct arities give
+  non-isomorphic results: the reading-L mu1 tie class is countably
+  infinite.  *Bounds: none.  Measure: mu1.  Reading: L — every cited
+  Lean theorem is stated over the reading-L regime, and no F-side
+  analogue of the k-ary family is formalized (scope made explicit
+  2026-08-18; the entry was previously reading-silent).*
+- **Class**: theorem (reading L).
 - **Deps**: CL-3-COST1-IMPOSSIBLE. **Assumptions**: shared.
 - **Python**: consistent bounded slice (arities 1, 2 both appear).
 - **Lean**: `deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`,
@@ -278,9 +298,12 @@ implementation.
 ### CL-PROGRESS
 - **Statement**: On any well-formed regime whose imposed requirements are
   all separated, every *supplied* separation demand has a valid response
-  (fresh unary form + one mark) that preserves every existing separation.
-  Scope: response existence only — this claim does not assert autonomous
-  demand generation and does not assert an unbounded tower.
+  (fresh unary form + one mark) that keeps every imposed requirement
+  separated.  Scope: response existence only — this claim does not
+  assert autonomous demand generation and does not assert an unbounded
+  tower.  (An earlier version said "preserves every existing
+  separation"; the proved preservation conjunct of validity quantifies
+  over the imposed requirements only — narrowed 2026-08-18.)
 - **Class**: theorem.
 - **Deps**: none. **Assumptions**: shared.
 - **Python**: engine assertion (no `terminal_no_response` node in any
@@ -317,7 +340,9 @@ implementation.
   policy disabled, every maximal branch ends at the all-pairs-separated
   fixpoint within n(n-1)/2 rounds (L: 1 round, 3 terminal branches, 0
   guard-cut, 0 round-cut, 0 open; F: 3 rounds, 16 terminal branches,
-  0/0/0).  *Bounds: declared engine bounds; the counting laws are
+  0/0/0).  *Bounds: declared engine bounds, closed-system runs under
+  measure mu1 only (both exported baselines fix mu1; no mu2 closed run
+  is exported — scope made explicit 2026-08-18); the counting laws are
   grammar-wide but conditional (see Lean field).*
 - **Class**: bounded theorem.
 - **Deps**: CL-CLOSURE-POLICY, CL-PROGRESS. **Assumptions**: shared +
@@ -366,8 +391,11 @@ implementation.
 - **Statement**: The quotiented transition is well defined: expanding a
   regime by one challenge per automorphism orbit of collapsed pairs (all
   non-isomorphic challenge orbits retained) commutes with renaming — for
-  every bijection, the renamed regime expands to exactly the same set of
-  child isomorphism classes.  Raw least-pair selection violates this:
+  every datum bijection (identity on forms: the space both the Lean
+  transport and the exhaustive test cover; a general isomorphism here is
+  a PAIR of bijections, and the form component is not exercised), the
+  renamed regime expands to exactly the same set of child isomorphism
+  classes.  Raw least-pair selection violates this:
   on the regression regime (four data, one unary form, marks on data 2
   and 3, collapsed pairs (0,1) and (2,3), renaming (2,3,0,1)) the
   canonical keys agree while the same-index least-pair challenges produce
@@ -424,9 +452,12 @@ implementation.
   enumerated to the requested 15 rounds with zero guard cutoff: 963
   nodes / 1022 edges (L), 1847 / 1960 (F); all leaves are round-cut.
   *Bounds: declared bounds; completeness is of the quotient tree within
-  them.*
+  them, and is conditional on the orbit challenge policy losing no
+  child classes — the class-set form of CL-TRANSITION-EQUIVARIANCE,
+  which is computational (dependency made explicit 2026-08-18).*
 - **Class**: bounded theorem.
-- **Deps**: CL-ISO-SOUND, CL-PRUNE-STRUCTURAL, CL-REPLAY.
+- **Deps**: CL-ISO-SOUND, CL-PRUNE-STRUCTURAL, CL-REPLAY,
+  CL-TRANSITION-EQUIVARIANCE.
 - **Python**: `tree_L_mu2_summary.json` / `full/tree_L_mu2.json.gz` and
   the F analogues; stats in
   `claims.json:CL-TREE-SUMMARY`.
@@ -499,8 +530,12 @@ implementation.
   collections are sets, Lean's are deduplicated lists, and under the
   proved relation `RegimeExt` every observable transports — derivability,
   context well-formedness, collapse, separability, item/delta
-  application, response validity — so no exported claim depends on list
-  order or representation.
+  application, response validity — so no claim stated in terms of these
+  observables depends on list order or representation.  (An earlier
+  version said "no exported claim"; claims stated at the representation
+  level — the concrete replay equalities — are covered only up to
+  `RegimeExt`, and nothing proves every exported claim factors through
+  the listed observables — narrowed 2026-08-18.)
 - **Class**: theorem.
 - **Deps**: CL-0-INERTIA (`supply_no_op` makes the duplicate case a
   no-op). **Assumptions**: shared.
@@ -558,7 +593,10 @@ implementation.
 - **Deps**: CL-2-COLLAPSED. **Assumptions**: shared.
 - **Python**: n/a (purely logical).
 - **Lean**: `quotient_barrier`, `quot_barrier`, `barrier_R2L`.
-- **Axioms**: `Quot.sound`.
+- **Axioms**: `Quot.sound`; `Quot.sound`; `propext, Quot.sound`
+  (per-theorem, matching the artifact; the instantiation at the
+  Challenge 2 collapse inherits `propext` through
+  `collapsed_of_no_insts`).
 - **Falsifier / boundary**: none within the model; recovering the
   distinction requires changing the abstraction (which is what
   Challenge 3 forces).
@@ -586,9 +624,15 @@ implementation.
 ### CL-COUNT-INVARIANCE
 - **Statement**: The unresolved-requirement count (collapsed pairs) is
   invariant under token renaming and index bijections.
-- **Class**: theorem (transport proved in Lean, 2026-08-17); the
-  exhaustive Python certification over the Challenge 3 classes and mixed
-  regimes is retained as independent evidence.
+- **Class**: theorem for datum-index bijections (the Lean transport,
+  over a caller-supplied candidate list); token renaming and form-index
+  bijections remain finite computation — presentation tokens do not
+  exist in the Lean model (`data : Nat`), so token blindness is
+  inexpressible there, and `renameRegime` maps datum indices only
+  (split made explicit 2026-08-18; an earlier version read as if the
+  whole conjunction were Lean-proved).  The exhaustive Python
+  certification over the Challenge 3 classes and mixed regimes covers
+  all three conjuncts and is retained as independent evidence.
 - **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
 - **Python**: canonical-invariance tests (the count is a component of the
   canonical key); `test_closure_policy_is_token_blind`.
@@ -610,9 +654,12 @@ implementation.
 
 ### CL-DETERMINISM
 - **Statement**: The entire artifact set is byte-identical across
-  independent runs on one platform; across platforms the JSON artifacts
-  are byte-identical and the compressed full exports are
-  content-identical and hash-pinned by the committed summaries.
+  independent runs on one platform; across the two platforms exercised
+  (Windows locally, Linux in CI) the JSON artifacts are byte-identical
+  and the compressed full exports are content-identical and hash-pinned
+  by the committed summaries.  (An earlier version said "across
+  platforms" without naming them; no third platform is exercised —
+  scope made explicit 2026-08-18.)
 - **Class**: finite computation.
 - **Deps**: none. **Assumptions**: shared.
 - **Python**: `test_run_main_is_deterministic`,
@@ -683,13 +730,17 @@ Full statements, dependencies, and boundaries:
 - **Lean**: `RefusalFrontier.silent_repetition_inert`.
 
 ### CL-FR6-T2-TRACE
-- **Statement**: result streams never feed back; distinct histories
-  erase to one object state.  **Class**: theorem.
+- **Statement**: result streams never feed back (per-event, every
+  state); metatheoretically distinct histories — one vs two
+  presentations of one token — erase to one object state (the collapse
+  theorem is that single witness pair, not a universal over histories;
+  narrowed 2026-08-18).  **Class**: theorem.
 - **Lean**: `trace_erasure`, `histories_collapse`.
 
 ### CL-FR6-T3-CONSTRUCTORS
 - **Statement**: constructor-channel dependency (singleton algebras are
-  monochrome, swap-invariant, collapsed); the search scopes the three
+  monochrome, swap-invariant, and — by the refusal translation —
+  collapsed); the search scopes the three
   import channels *by target* — constructors are required for
   result-outcome distinction, tags or relations for carrier-pair
   separability, relations for witnessed relations.  Result codes never
@@ -698,9 +749,16 @@ Full statements, dependencies, and boundaries:
 - **Class**: theorem + bounded computation.
 - **Lean**: `singleton_algebra_monochrome`, `mono_code_swap_invariant`,
   `distinct_code_not_swap_invariant`,
-  `distinction_needs_two_constructors`.
+  `distinction_needs_two_constructors`; `histories_collapse` (the
+  collapse half, shared with CL-FR6-T2-TRACE — cited here 2026-08-18,
+  previously the collapsed adjective was uncovered by this entry's
+  list).
 - **Python**: matrix cell `separable_pair -> two_result_constructors`
-  refuted (tag-route countermodel); target-relative checks
+  refuted (recorded countermodel: the relation route — datum retention
+  plus relation rule under a singleton algebra; an earlier version said
+  "tag-route countermodel", but the artifact's recorded countermodel
+  for this cell is the relation route, the tag route also refuting it
+  in class — corrected 2026-08-18); target-relative checks
   `separable_without_tag_or_relation`,
   `oriented_without_tag_or_relation`,
   `result_distinction_without_binary_algebra` all empty in class.
@@ -729,16 +787,25 @@ Full statements, dependencies, and boundaries:
 ### CL-FR6-T6-LAW
 - **Statement**: bridge facts do not entail the irreflexivity law; in
   class every refusal link is born off-diagonal (receipts fresh).
-- **Class**: theorem + bounded computation.
-- **Lean**: `bridge_facts_not_law`.
+- **Class**: theorem (first clause) + bounded computation (the in-class
+  clause).
+- **Lean**: `bridge_facts_not_law` (first clause only).
+- **Python**: `test_refusal_links_are_born_irreflexive_in_class`
+  (exhaustive over the class at the declared event bound — the named
+  evidence for the in-class clause; named 2026-08-18, previously the
+  clause rested on a Lean theorem that does not cover it).
 
 ### CL-FR6-T7-CEILING
 - **Statement**: the invariance ceiling, general form: equivariant
-  constructions fix outputs of symmetry-fixed states; tagged/relational
-  refusal states bypass it by never being fixed points.
-- **Class**: theorem (general lemma).
+  constructions fix outputs of symmetry-fixed states; the bypass is
+  exhibited — the bridge state is not a fixed point of the swap.
+- **Class**: theorem (general lemma) + exhibited bypass (one state).
+  An earlier version said tagged/relational states bypass the ceiling
+  "by never being fixed points"; the cited Lean proves non-fixedness of
+  the one exemplar, not a universal over the class — narrowed
+  2026-08-18.
 - **Lean**: `equivariant_output_invariant`; bypass
-  `priced_bridge_oriented`.
+  `priced_bridge_oriented` (the bridge exemplar).
 
 ### CL-FR6-T8-DYNAMICS
 - **Statement**: reflective dynamics classified — fixpoint, two-cycle,
@@ -767,8 +834,9 @@ Full statements, dependencies, and boundaries:
 
 ### CL-FR6-T10-NORMAL-FORM
 - **Statement**: target-relative provenance dependencies, each checked
-  exhaustively over the 44 protocols, claims matching checks
-  one-for-one: every witnessed-irreflexive reacher makes a declared
+  exhaustively over the 44 protocols at the declared 6-event horizon
+  (carrier cap 4; bounds declared in the FR6 write-up — "reacher" is
+  horizon-relative), claims matching checks one-for-one: every witnessed-irreflexive reacher makes a declared
   purchase (zero violations); witnessed relations require the relation
   rule; one-token carrier growth requires reification or occurrence
   retention; separable and oriented pairs require a tag or a relation;
@@ -1117,8 +1185,8 @@ challenge (caller assignment, 2026-08-12).
   `cert_panel_relative`.
 
 ### CL-RP-COUNTERMODELS
-- **Statement**: eight minimal machine-checked witnesses, split by
-  class.  Hidden runtime inputs (an input in neither state nor
+- **Statement**: eight small (not proved minimal) machine-checked
+  witnesses, split by class.  Hidden runtime inputs (an input in neither state nor
   history): unrecorded scheduler, unrecorded fresh-name source, hidden
   evaluator, order-sensitive tie-break.  Neighboring
   semantic/inference failures (no hidden input; a wrong definition or
@@ -1219,7 +1287,9 @@ theorems; 291 total, all within {propext, Quot.sound}).
   calculus); the family-valued invariance ceiling; the certification
   panel replay-integrated by a conservative extension, with
   panel-induced non-separation proved an equivalence and the
-  certificate proved equal to joint-quotient membership.
+  certificate proved equal to joint-quotient membership for a non-empty
+  panel (the empty panel certifies nothing while its joint quotient is
+  vacuously total — non-emptiness scope made explicit 2026-08-18).
 - **Class**: theorem + boundary record.
 - **Lean**: `support_replay`, `support_repairFamily`,
   `support_obstructed`, `support_quiescent`,
@@ -1327,7 +1397,9 @@ theorems; 291 total, all within {propext, Quot.sound}).
   per-event acceptance hold at every horizon; the family
   interpreter's budget semantics is pinned as a trichotomy (unchanged
   / saturating decrement / explicit set) for every descriptor and
-  event, and the Python mirror implements exactly that semantics.
+  event, and the Python mirror asserts the identical facts on the same
+  declared finite basis (all 64 descriptors over the probe worlds and
+  events — the module header's own wording, restored here 2026-08-18).
 - **Class**: theorem (horizon-free) + refuted-and-repaired prior
   claim (see change log, PR #12 Phase I).
 - **Lean**: `Horizon.worldAt_spec`, `Horizon.worldAt_quiescent`,
@@ -1388,13 +1460,20 @@ theorems; 291 total, all within {propext, Quot.sound}).
   closure of the former OPEN cell: the free-point presentation gives
   every target two distinct commuting maps); the positive fragment
   is uniqueness against surjective presentations (no classical
-  choice used).  Cut census on carriers 2-5: 1, 2, 4, 8.
+  choice used).  Cut census on carriers 2-4: 1, 2, 4 (Lean); carrier
+  5: 8 (finite computation — the Lean census theorem stops at carrier
+  4, and the carrier-5 value was previously uncited; evidence named
+  2026-08-18).
 - **Class**: theorem + OPEN (scoped) + finite computation.
 - **Lean**: `PrimitiveCats.no_terminal_pres`,
   `PrimitiveCats.no_phom_mergeA_mergeB`,
+  `PrimitiveCats.no_phom_mergeB_mergeA` (the B-to-A half of
+  incomparability, previously uncited — added 2026-08-18),
   `PrimitiveCats.no_terminal_pres2`,
   `PrimitiveCats.phom2_unique_of_epi`;
-  `HigherStructure.cut_census_growth`.
+  `HigherStructure.cut_census_growth` (carriers 2-4 only).
+- **Python**: `primitive_passage.json:cells.invariants.cut_census`
+  (carriers 2-5: 1, 2, 4, 8), `test_cut_census`.
 
 ### CL-PD2-APARTNESS
 - **Statement**: positive apartness (irreflexive, symmetric,
@@ -1454,12 +1533,16 @@ theorems; 291 total, all within {propext, Quot.sound}).
   demonstrably requires assertion (`retention_requires_assertion`),
   and candidate A transports into the passage as a theorem
   (`assert_transport` on every replayed state via the off-diagonal
-  invariant `asserted_offdiag`; canonical instance
-  `kernel_enters_preretained`).  Active obstruction has three written
+  invariant `asserted_offdiag`; named instance
+  `kernel_enters_preretained` — previously "canonical instance", a
+  restricted word with no uniqueness or minimality proof for that
+  state; narrowed 2026-08-18).  Active obstruction has three written
   factors, with four gates in the proved factorization (retained,
   protected, observation DECLARED, observer-zero) and every maximal
   proper gate subset refuted;
-  primitive difference precedes observation as a theorem; ZeroRel is
+  primitive difference precedes observation as a theorem
+  (`wit_independent_of_obs` — definitional field separation: states
+  differing only in observation keep the same witnesses); ZeroRel is
   an equivalence before quotienting; THE TWO-RULE THEOREM, exactly
   scoped: under the DECLARED singleton-column extension universe
   (which contains a separator for every well-formed pair — the
@@ -1480,6 +1563,7 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `PrimitivePassage.retention_requires_assertion`,
   `PrimitivePassage.asserted_offdiag`,
   `PrimitivePassage.retained_sub_asserted`,
+  `PrimitivePassage.wit_independent_of_obs`,
   `PrimitivePassage.obst_requires_observation`,
   `PrimitivePassage.obst_conditions_independent`,
   `PrimitivePassage.zero_refl`, `PrimitivePassage.zero_symm`,
@@ -1492,7 +1576,11 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `PrimitivePassage.terminal_absorbing`,
   `PrimitivePassage.extension_resolves`,
   `PrimitivePassage.nextFamilyP_stop`,
-  `PrimitivePassage.nextFamilyP_nonempty`.
+  `PrimitivePassage.nextFamilyP_nonempty`,
+  `PrimitivePassage.nextFamilyP_complete_repair`,
+  `PrimitivePassage.nextFamilyP_complete_ext` (the precedence and
+  completeness citations were previously asserted in the Statement
+  but unnamed here — added 2026-08-18).
 - **Python**: `primitive_passage.json` (arrows + growth reports).
 
 ### CL-PD2-GROWTH
@@ -1556,7 +1644,10 @@ theorems; 291 total, all within {propext, Quot.sound}).
   simulations, and initiality is refuted everywhere (including the
   live subcategory); the strict refinement excludes constants yet
   global uniqueness still fails by an invariant-twist countermodel;
-  uniqueness holds exactly on the genesis-reachable orbit.
+  uniqueness holds exactly on the genesis-reachable orbit — proved for
+  the exhibited hom-set (the all-on controller into the refusal-free
+  controller, the same pair carrying the twist countermodel); no other
+  ordered pair is claimed (pair scope made explicit 2026-08-18).
 - **Class**: theorem + countermodel + finite computation.
 - **Lean**: `ControllerCategory.allKinds_complete`,
   `ControllerCategory.interpK_full`,
@@ -1622,6 +1713,12 @@ theorems; 291 total, all within {propext, Quot.sound}).
 - **Class**: finite computation (deterministic generator).
 - **Python**: `primitive_completion_receipt.json`,
   `run_primitive_receipt.py`.
+- **Scope note (2026-08-18)**: the ten/five/twenty counts above are
+  the PR #12 close figures.  The receipt has since been extended in
+  place (its extensions list has twelve entries): the committed
+  artifact now binds thirteen terminal claims, eight open obligations,
+  and a twenty-one-entry adversarial record — recounted from the
+  artifact this date; the two withdrawn-or-repaired claims stand.
 
 ### CL-PD2-ATTACHMENT (repaired, final pass)
 - **Statement**: one-edge attachment (a fresh walking edge glued
@@ -1760,7 +1857,10 @@ CL-PD2-LADDER)
   (`dup_no_refine`, `postcompose_no_refine`,
   `refine_requires_separator`) — what makes replay EVIDENTIAL is
   a new separating question, never re-presentation.  Iteration is
-  bounded by the declared domain: class counts are positive,
+  bounded by the declared domain: on a NONEMPTY domain — the
+  positivity and chain bounds carry the hypothesis that `D` is
+  nonempty, and on the empty domain the class count is zero (scope
+  made explicit 2026-08-18) — class counts are positive,
   bounded by `|D|`, strictly increase on splits, and any strict
   refinement chain has fewer than `|D|` steps (`refine_bounded`,
   `classCount_pos`, `strict_split_increases`, `chain_bounded`,
@@ -1798,9 +1898,13 @@ CL-PD2-LADDER)
   equal the checked Git blob hashes.  The original supplied CRLF
   rendering of the seed prompt is recorded alongside as
   provenance.  The blob/checkout distinction is tested against
-  `git show HEAD:...`; content mutation detection is tested (any
-  content byte change moves the canonical hash; a pure line-ending
-  re-rendering does not — it is the same canonical content).
+  `git show HEAD:...`; content mutation detection is spot-tested (a
+  flipped content byte and an appended byte each move the canonical
+  hash; a pure line-ending re-rendering does not — it is the same
+  canonical content).  An earlier version said "any content byte
+  change moves the canonical hash" as tested; the universal is a
+  property of the hash construction, not of the two sampled mutations
+  — scope made explicit 2026-08-18.
 - **Class**: finite computation + tests.
 - **Python**: `run_primitive_receipt.py` (`canonical_sha256`),
   `tests/test_primitive_receipt.py` (blob/checkout distinction,
@@ -1833,12 +1937,17 @@ CL-PD2-LADDER)
   for that fragment
   (`unfunded_restricted_stable_not_protected`).  The latter is not a
   second countermodel to full trace stability.  Neither pair is protected.
-  (iii) **INSTABILITY IS WITNESS-BORNE (theorem)**: an unprotected
-  separation is destroyed only when a concrete breaking witness
-  exists - a funded, accepted refinement routed through the
-  separating column (`separation_breakable`), instantiated
-  concretely by `unprotected_separation_unstable`.  Protection is
-  load-bearing, but only against witnesses.
+  (iii) **INSTABILITY GIVEN A WITNESS (theorem)**: a concrete
+  breaking witness - a funded, accepted refinement routed through the
+  separating column - destroys an unprotected separation in one step
+  (`separation_breakable`), instantiated concretely by
+  `unprotected_separation_unstable`.  Whether every destruction
+  requires such a witness is unproved and belongs to the OPEN
+  characterization in (iv); protection is load-bearing against
+  witnesses.  (An earlier version read "destroyed only when a
+  concrete breaking witness exists" - the necessity direction, which
+  no cited theorem proves; narrowed to the proved sufficiency
+  2026-08-18.)
   (iv) **OPEN**: sufficiency and witness-borne instability sandwich
   the truth WITHOUT meeting.  Whether trace stability implies
   protected separation on the live, funded class is OPEN and is
@@ -1850,7 +1959,7 @@ CL-PD2-LADDER)
   (`quiescent_iff_protected_separated`,
   `quiescence_is_protected_separation`).  The corollary that does
   follow is `quiescent_retained_protected_trace_stable`.
-- **Class**: theorem (sufficiency; witness-borne instability;
+- **Class**: theorem (sufficiency; instability given a witness;
   quiescence iff) + countermodel (full converse, once) + restricted
   example + OPEN (exact characterization) + finite computation.
 - **Lean**: `StableContent.protSep_trace_stable`,
@@ -2419,9 +2528,14 @@ CL-PD2-LADDER)
   plus irreflexivity plus symmetry already force representability
   with no decidability (`bool_bs_repr`); and an endpoint witness over
   the empty relation fails (carrier 2, `d_not_witnessed_repr`).
-  Protection, retention and operations are never derivable from an
-  observer (`obsSetting_not_c`, `obsSetting_not_f`,
-  `kernel_prot_independent`, `kernel_not_c`, `kernel_not_f`).  The
+  Protection and retention are never derivable from an observer
+  (`obsSetting_not_c`, `obsSetting_not_f`,
+  `kernel_prot_independent`; the kernel-side echoes are
+  `kernel_not_c`, `kernel_not_f`); the operation family is empty by
+  construction in both translations — a definitional fact, not a
+  separate non-derivability theorem (an earlier version listed
+  "operations" under the same theorem citations; split made explicit
+  2026-08-18).  The
   pair boundary is exact: same-data kernel inhabitation is equivalent
   to a non-zero pair (`kernel_from_obs_iff_pair`), the collapsed
   observer supplies no such pair (`kernel_no_witness_from_collapse`),
@@ -2515,15 +2629,24 @@ CL-PD2-LADDER)
   directions (`pair_blocked_is_collapse_collision`,
   `collapse_collision_is_pair_blocked`, packaged as
   `pair_blocked_iff_collapse_collision`), and strictly coarser than
-  the four-condition passage obstruction
-  (`PrimitivePassage.obst_conditions_independent`).
+  the four-condition passage obstruction — METATHEORY, like the
+  quot_barrier note: `obstP` conjoins retention, protection and
+  declaration gates proved mutually independent within the passage
+  (`PrimitivePassage.obst_conditions_independent`), but no transport
+  theorem relates collapse-collision to `obstP` in either direction,
+  and the comparison is recorded only as the `flagship_vs_obstP`
+  collision row (flagged METATHEORY 2026-08-18; the clause previously
+  read as a proved comparison).
 - **Class**: theorem + countermodel + declared metatheory (the scope
   reconciliation).  Evidence classes: DERIVED_THEOREM (the
   dictionary, its class-constancy form, the pairing form, and
   surjectivity of the projection), COUNTERMODEL (fixed domain, the
   empty represented domain), METATHEORY (the
   uniqueness-scope and flagship-vs-branching notes, recorded as rows
-  in `contact/analysis/contact_countermodels.json:metatheory_scope_notes`).
+  in `contact/analysis/contact_countermodels.json:metatheory_scope_notes`;
+  and, added to this class 2026-08-18, the coarseness comparison
+  against the passage obstruction, recorded only as the
+  `flagship_vs_obstP` collision row).
 - **Deps**: CL-PD2-COMPRESSION, CL-PD2-CONTACT-RECONSTRUCTION,
   CL-PD2-BRANCHING.  **Assumptions**: shared.
 - **Lean**: `ObsDescent.descend_iff_factorsOn_all`,
@@ -2660,7 +2783,12 @@ CL-PD2-LADDER)
 
 ### CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)
 - **Statement**: the common kernel enters the passage at the same
-  station the sealed record fixed, and no earlier.  Every kernel has
+  station the sealed record fixed, and not before the pair's
+  assertion — at definition grade: the candidate-A witness conjunct
+  at the induced setting is membership in the asserted store, empty
+  before `assertWit` (an earlier version said "and no earlier", a
+  minimality-flavored clause no cited theorem carries; narrowed to
+  this definitional ground 2026-08-18).  Every kernel has
   distinct endpoints, the sealed pre-retention state satisfies
   candidate A, and the retention store there is still empty
   (`kernel_licenses_entry`, reusing
@@ -2776,12 +2904,15 @@ CL-PD2-LADDER)
   `primitive_completion_receipt.json` (thirteen terminals, the
   sealed-history scope on CONTACT_INPUT_ABSENT, the contact block and
   bounds, the twenty-first adversarial attack);
-  the four files of `contact/analysis/` — `contact_dictionary.md`,
+  the four collision-run files of `contact/analysis/` —
+  `contact_dictionary.md`,
   `contact_countermodels.json`, `lean_definition_map.md`,
   `lean_theorem_transport.md` (SUPPLIED_INPUT throughout; 103
   declaration rows, G1-G20 dispositions, the per-declaration map and
   the transport tables; the directory, not any two of its files, is
-  the permitted quotation location);
+  the permitted quotation location — the directory has since gained
+  `separation_capacity_open.md`, so the four-file count is the
+  collision-run set, not an exhaustive census; scoped 2026-08-18);
   `tests/test_primitive_contact.py::test_contact_processed_state`,
   `::test_verdict_block`, `::test_status_branches`,
   `::test_collision_cells_mirror_lean_literal`,
@@ -2904,8 +3035,10 @@ CL-PD2-LADDER)
   (`gate_zero_independent`, `gate_declared_independent`,
   `gate_protection_independent`, `gate_retention_independent`, each
   a pair of `¬ ∀` statements quantified over ALL states and pairs).
-- **Class**: DERIVED_THEOREM (14 new reported theorems; supporting
-  definitions are counted separately).
+- **Class**: DERIVED_THEOREM (12 new reported theorems cited here;
+  14 across this entry and CL-PD2-PACKET-05P, whose two policy
+  theorems are classed DECLARED_POLICY there — count scoped
+  2026-08-18; supporting definitions are counted separately).
 - **Scope, stated exactly**: independence means non-entailment, and
   nothing more.  It is NOT claimed that all sixteen gate valuations
   occur — `obs_gates_not_both_false` proves they do not, gates 3 and
@@ -3304,7 +3437,13 @@ CL-PD2-LADDER)
   preserve the declared translation equation. For a total pair,
   `faithful_descent_iff_round_trip_coherent` proves equivalence between
   two-sided round-trip closure and an independently defined common carrier
-  with injective embeddings and coincident images.
+  with injective embeddings satisfying the two declared identification
+  equations that bind them to the totalized translations; coincident
+  images of the two embeddings is a derived consequence
+  (`faithful_common_descent_has_coincident_images`), not a defining
+  condition.  (An earlier version described the right-hand side as
+  "injective embeddings and coincident images", omitting the
+  load-bearing identification equations — corrected 2026-08-18.)
 - **Residual**: `CoherenceResidual` is failure of one of the two declared
   round trips. `residual_forces_index_retention` says that this declared pair
   does not faithfully erase its two indices.

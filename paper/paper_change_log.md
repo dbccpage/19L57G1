@@ -1915,3 +1915,106 @@ tonight's work (a backticked formula, a backticked field name) before
 they landed. Injected and reversed: a broken test reference failed by
 claim ID, token, and reason.
 
+## The walk: every ledger claim audited wording-against-evidence (2026-08-18)
+
+All 127 ledger claims, plus the section 11 terminal statement, the
+closed register, and a restricted-word sweep, were audited for the one
+question no gate can check: does the wording say more than the named
+evidence proves?  Every finding was then adversarially verified by an
+independent pass instructed to refute it.  94 findings were raised; 13
+survived verification and are applied below; 5 were refuted with
+reasons; the remainder were low-severity and are held in the walk
+report rather than silently dropped.
+
+No finding was high-severity: nothing in the ledger asserted a result
+that does not exist.  Every confirmed defect was a scope or bookkeeping
+divergence — the exact class of drift this audit exists to catch:
+
+- **Three stale axiom fields** (CL-1-SUPPLY-NOT-ADMISSION,
+  CL-2-COLLAPSED, CL-QUOT-BARRIER): recorded axiom sets contradicted
+  `artifacts/lean_axioms.txt`, the field's own declared source.  All
+  three now match the artifact per-theorem.
+- **Reading-silent statements** (CL-3-NONUNIQUE-MU1, CL-3-TIE-CLASSES):
+  Lean evidence stated over reading L only, while the entries read as
+  covering both readings.  Scope now explicit: reading F rests on the
+  bounded enumeration.
+- **"Every bijection" narrowed to datum bijections**
+  (CL-TRANSITION-EQUIVARIANCE): an isomorphism here is a PAIR of
+  bijections, and neither the Lean transport nor the exhaustive test
+  exercises the form component.
+- **A missing dependency** (CL-TREE-MU2-COMPLETE): tree completeness is
+  conditional on the orbit policy losing no child classes — the
+  class-set form of CL-TRANSITION-EQUIVARIANCE — which the Deps now
+  name.
+- **A conjunction reading as fully Lean-proved** (CL-COUNT-INVARIANCE):
+  the Lean transport covers datum-index bijections; token renaming is
+  inexpressible in the Lean model and form bijections are not
+  transported.  Split made explicit.
+- **A universal proved as an instance** (CL-FR6-T7-CEILING): "never
+  being fixed points" was backed by non-fixedness of one exemplar.
+  Narrowed to the exhibited bypass.
+- **An in-class clause resting on a theorem that does not cover it**
+  (CL-FR6-T6-LAW): the covering exhaustive test is now named.
+- **A horizon-relative universal with no horizon stated**
+  (CL-FR6-T10-NORMAL-FORM): the 6-event horizon and carrier cap are now
+  in the entry.
+- **The restricted word "minimal" with no minimality relation**
+  (CL-RP-COUNTERMODELS): now "small (not proved minimal)".
+- **"Implements exactly that semantics" without its basis**
+  (CL-PD2-HORIZON): the module header's own declared-finite-basis
+  wording is restored in the ledger.
+
+Two of the thirteen were against entries written during the register
+closure the previous day (CL-COUNT-INVARIANCE's class line,
+CL-TRANSITION-EQUIVARIANCE's statement): the walk catches its own
+operator, which is the point of running it.
+
+## The walk, wave two: the overflow verified, the ledger narrowed (2026-08-18)
+
+The 76 findings the first verification pass could not reach were each
+adversarially verified: 42 confirmed, 34 refuted.  With wave one that
+makes 94 raised, 55 confirmed, 39 refuted, all confirmed findings
+applied.  Still zero high-severity: every confirmed defect is a scope
+or bookkeeping divergence, none a claim of a result that does not
+exist.
+
+**The walk caught a false receipt in this change log.**  The
+register-closure session ran one script applying several paper edits
+with a single write at the end; a failed assertion midway killed it
+after the first three edits had been logged as applied but before the
+write.  This log then claimed "Section 11(d) is strengthened" about an
+edit that never touched the file, and sections 7, 8, 10 and 11
+contradicted section 12 for a day.  All six passages are now actually
+applied, each with a dated note.  The mechanism is recorded so it is
+not rebuilt: batch edits must write incrementally or verify the final
+file state, never trust in-memory success.
+
+**The body prose is aligned with the closed register.**  Sections 7.4,
+8.2, 8.3, 8.5 and 10 no longer call the discharged results unresolved;
+the gate-figures bullet gains a third dated supersession (62 sources,
+1417 reports, 435 tests, line 99.10% / branch 96.73%); the kind-(e)
+bullet's enumerated-report figure tracks the inventory.
+
+**Twenty-one ledger entries narrowed** in the established idiom —
+weaken to what the evidence proves, name the missing scope, date the
+correction: reading-L scope on the infinite tie family; the progress
+theorem's conjunct quantifies over imposed requirements, not all
+separations (docstring and paper wording aligned); receipt counts
+gain a dated scope note with the current artifact's counts (13
+terminals, 8 open obligations, 21 adversarial entries, 12 extensions);
+universals proved as instances are reworded witness-shaped
+(CL-PD2-RECEIPT-BYTES, CL-FR6-T2-TRACE, CL-PD2-CONTROLLER); a
+direction-of-implication error in CL-PD2-TRACE-STABILITY is repaired
+(sufficiency proved, necessity routed to its own OPEN item); the
+CL-FR6-T3 countermodel is re-attributed from the tag route to the
+relation route, confirmed against the artifact's recorded protocol
+(`autorel: true, tagging: false`); platform scope, panel non-emptiness,
+nonempty-domain hypotheses, and cited-count corrections land where the
+verifiers confirmed them.
+
+**Thirty-nine findings refuted** are recorded as evidence the entries
+were right: each refutation names where the scope was already stated.
+One follow-up was noted and not silently fixed: the prose of
+`StableContent.lean` was not re-checked against the narrowed (iii) of
+CL-PD2-TRACE-STABILITY.
+
