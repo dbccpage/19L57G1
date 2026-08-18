@@ -4,6 +4,10 @@ import Derivation.Quot
 import Derivation.Counting
 import Derivation.CountTransport
 import Derivation.Mention
+import Derivation.TransitionTransport
+import Derivation.MinimalityF
+import Derivation.RuleBridge
+import Derivation.Rounds
 import Derivation.Minimality
 import Derivation.Progress
 import Derivation.Erasure
@@ -1463,3 +1467,99 @@ open Derivation
 #print axioms Derivation.collapsed_fresh_datum
 #print axioms Derivation.getD_append_left
 #print axioms Derivation.collapsed_fresh_form
+
+-- R4, R5, R7, R8 discharged: the rule-removal bridge, reading-F
+-- mu2 uniqueness, transition-congruence transport, and the
+-- counting-law hypotheses at the transition system.
+-- TransitionTransport:
+#print axioms Derivation.padF_lt
+#print axioms Derivation.padF_ge
+#print axioms Derivation.padF_fg
+#print axioms Derivation.padF_gf
+#print axioms Derivation.padF_inj
+#print axioms Derivation.padF_bound
+#print axioms Derivation.mapReq_cases
+#print axioms Derivation.mapReq_ordered
+#print axioms Derivation.mapReq_inj_ordered
+#print axioms Derivation.mapReq_g_f
+#print axioms Derivation.renameR_reqs_wf
+#print axioms Derivation.collapsed_reqs_irrel
+#print axioms Derivation.separable_reqs_irrel
+#print axioms Derivation.collapsed_renameR
+#print axioms Derivation.collapsed_symm
+#print axioms Derivation.separable_rename
+#print axioms Derivation.separable_renameR
+#print axioms Derivation.separable_symm
+#print axioms Derivation.mapItem_pad_f_g
+#print axioms Derivation.insertNew_map_on
+#print axioms Derivation.applyItem_data_mono
+#print axioms Derivation.applyItem_reqs
+#print axioms Derivation.applyDelta_nil
+#print axioms Derivation.applyDelta_cons
+#print axioms Derivation.applyDelta_data_mono
+#print axioms Derivation.applyDelta_reqs
+#print axioms Derivation.applyItem_rename
+#print axioms Derivation.applyDelta_rename
+#print axioms Derivation.map_congr_mem
+#print axioms Derivation.DRen.inv_f
+#print axioms Derivation.DRen.inv_g
+#print axioms Derivation.mapReq_inv_pair
+#print axioms Derivation.renameRegimeR_inv_pair
+#print axioms Derivation.renameRegimeR_g_f
+#print axioms Derivation.renameRegimeR_pad_f_g
+#print axioms Derivation.renameRegimeR_padF_agree
+#print axioms Derivation.rename_insts_bound
+#print axioms Derivation.stepE_impose_rename
+#print axioms Derivation.respond_reqs_ordered
+#print axioms Derivation.respond_rename
+#print axioms Derivation.validResponse_symm
+#print axioms Derivation.validResponse_rename
+#print axioms Derivation.transStep_rename_fwd
+#print axioms Derivation.transStep_image_total
+#print axioms Derivation.mapItem_length
+#print axioms Derivation.formAritySum_map
+#print axioms Derivation.validCount_rename
+#print axioms Derivation.regSwapFun_invol
+#print axioms Derivation.regSwapFun_bound
+#print axioms Derivation.one_unary_form_ctx_char
+#print axioms Derivation.reg_collapsed_01
+#print axioms Derivation.reg_renamed_collapsed_01
+#print axioms Derivation.least_pair_selection_not_congruent
+-- MinimalityF:
+#print axioms Derivation.genesis_mark_not_separable
+#print axioms Derivation.mu2_unique_F
+-- RuleBridge:
+#print axioms Derivation.applyItem_rules_mono
+#print axioms Derivation.applyDelta_rules_mono
+#print axioms Derivation.applyDelta_dropRules
+#print axioms Derivation.dropRules_length_le
+#print axioms Derivation.dropRules_length_lt
+#print axioms Derivation.aritySum_dropRules
+#print axioms Derivation.validResponse_dropRules
+#print axioms Derivation.rule_item_never_minimal
+-- Rounds:
+#print axioms Derivation.filter_length_split
+#print axioms Derivation.nodup_head'
+#print axioms Derivation.nodup_tail'
+#print axioms Derivation.filter_none_of_all_false
+#print axioms Derivation.filter_nodup'
+#print axioms Derivation.nodup_filter_self_length
+#print axioms Derivation.nodup_subset_length
+#print axioms Derivation.nodup_append_singleton
+#print axioms Derivation.allPairs_mem_bound
+#print axioms Derivation.mem_allPairs
+#print axioms Derivation.nodup_map_of_inj
+#print axioms Derivation.range_nodup'
+#print axioms Derivation.nodup_append_disjoint
+#print axioms Derivation.allPairs_nodup
+#print axioms Derivation.applyItem_data_eq
+#print axioms Derivation.applyDelta_data_eq
+#print axioms Derivation.respond_anatomy
+#print axioms Derivation.round_reqs_succ
+#print axioms Derivation.round_data_eq
+#print axioms Derivation.closedRun_data_eq
+#print axioms Derivation.closedRun_reqs_length
+#print axioms Derivation.closedRun_reqs_nodup
+#print axioms Derivation.closedRun_reqs_wf
+#print axioms Derivation.closedRun_round_bound
+#print axioms Derivation.closedRun_round_bound_from_empty

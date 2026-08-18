@@ -1815,3 +1815,103 @@ silently.
 
 The register is down to four: R4, R5, R7, R8.
 
+## The register closes: R4, R5, R7, R8 discharged (2026-08-18)
+
+Section 12's residual register is empty. Each of the four remaining
+rows closed by a Lean proof of the statement its row asked for, and the
+computational evidence is retained everywhere as independent.
+
+**R7** (`lean4/Derivation/TransitionTransport.lean`, the largest): the
+transition — impose, then respond — reads the requirement store, which
+the collapse action deliberately ignores, so the action is EXTENDED to
+`renameRegimeR` with requirement pairs renormalized to ordered form,
+and padded (`padF`) across the fresh data a response admits. The
+congruence is stated at the relation level as mapping
+(`transStep_rename_fwd`) plus image totality (`transStep_image_total`)
+— deliberately NOT an equality-form iff over an arbitrary child, which
+would be FALSE: `mapReq` renormalizes, so the action is not injective
+on disordered-requirement regimes. `validCount_rename` carries minima
+and counts of both declared measures.
+`least_pair_selection_not_congruent` witnesses in Lean, on the
+regression regime, that the SELECTION is not congruent even though the
+relation is — keeping the module consistent with
+`test_least_pair_selection_is_not_equivariant` rather than appearing
+to contradict it. CL-TRANSITION-EQUIVARIANCE is reclassified; the
+conversion to equal canonical-key class sets stays with CL-ISO-SOUND.
+
+**R5** (`lean4/Derivation/MinimalityF.lean`): `mu2_unique_F`,
+grammar-wide, by transfer of the L case tree — R2F shares with R2L the
+only two structural facts the tree uses (form-less and instance-less;
+a singleton requirement list). The one genuinely new case, the mark on
+the genesis datum outside the requirement pair, dies by the R3 mention
+lemma: its instance mentions neither required datum, so the pair stays
+collapsed and validity fails. A residual closed on 2026-08-17 closed a
+case of a residual closed on 2026-08-18. Section 11(d) is strengthened:
+mu2 uniqueness is now grammar-wide in BOTH readings.
+
+**R4** (`lean4/Derivation/RuleBridge.lean`): the bridge is
+definitional, which is why it was provable at all — no `applyItem`
+guard reads the rule field and only `newRuleAll` writes it, so rule
+items commute out of a delta over ANY replacement rule field
+(`applyDelta_dropRules`, parametrized so the subset condition enters
+only at the final `separable_of_subrules` call).
+`rule_item_never_minimal`: valid, strictly shorter, arity sum
+unchanged — never a minimum under either declared measure.
+CL-PRUNE-RULE (ii) is reclassified from bounded theorem to theorem.
+
+**R8** (`lean4/Derivation/Rounds.lean`): `ClosedRun` is the first
+Lean object representing a run — a round is an imposed FRESH target
+plus a response admitting NO fresh datum, mirroring the engine's
+asserted invariants. Under that declared shape: exactly-one growth
+(`round_reqs_succ`), datum fixity (`round_data_eq`), and
+`closedRun_round_bound_from_empty` — 2 * rounds bounded by
+n * (n - 1), the division-free n(n-1)/2 — via a new choice-free
+subset-counting lemma (`nodup_subset_length`) built with the
+decide-filter technique recorded in `Pigeonhole.lean`, since
+`List.nodup_range` and the erase route carry `Classical.choice` on
+this toolchain. What stays computational NARROWS to: each exported
+round has the declared shape. CL-CLOSURE-TERMINATION's conditionality
+note is rewritten accordingly.
+
+## Two gate defects found and repaired in passing (2026-08-18)
+
+**Primed theorem names were invisible to the axiom artifact.** The
+report parser in `ci/regen_axiom_artifact.py` and
+`ci/check_axiom_report.py` used `'[^']+'` to capture names, which
+cannot parse a report for a primed name — the closing quote of
+`'Derivation.nodup_head'' ...` is ambiguous under that pattern — so
+four reports were silently absent from `artifacts/lean_axioms.txt`
+while the match gate stayed green, BOTH SIDES sharing the blind
+pattern. This is the exact defect class the transport-citation gate
+documents: a totality invariant computed with the classifier's own
+pattern proves nothing. Both parsers now use a non-greedy capture; the
+audit's independent line count (1417) now agrees with the artifact.
+
+**A doc comment wrapped onto the word theorem.** The module header of
+`MinimalityF.lean` wrapped a sentence onto a line beginning with that
+word, and a name-extraction pass grepping declaration heads captured
+the following word as a theorem name. CLAUDE.md records this exact
+failure twice before; it happened again, to the person who had just
+re-read the warning. The line is rewrapped. The lesson is unchanged:
+never derive an inventory from a text grep of declaration heads.
+
+## A ledger evidence gate (2026-08-18)
+
+`ci/check_ledger_evidence.py` verifies that every evidence citation in
+`paper/paper_claim_ledger.md` resolves: Lean names against
+`artifacts/lean_axioms.txt`, test names against `tests/`, artifact keys
+against the committed exports — with the citation population enumerated
+independently of the classifier, per the `check_transport_citations.py`
+discipline. Wired into CI as a ninth gate family.
+
+On its FIRST real run it found three dead references: CL-TREE-MU1-
+FRONTIER cited `tree_L_mu1.json` and `tree_F_mu1.json`, which do not
+exist (the exports are the `_summary` files and the gzipped full
+trees), and CL-PD2-INTERPRETER cited a theorem name that survives only
+in a rename note. All three repaired; the historical name is now
+mentioned without backticks, because a deliberately dead citation must
+not look live. The gate then caught two of the very edits recording
+tonight's work (a backticked formula, a backticked field name) before
+they landed. Injected and reversed: a broken test reference failed by
+claim ID, token, and reason.
+

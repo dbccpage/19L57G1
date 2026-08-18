@@ -491,6 +491,9 @@ What has actually been injected, and what failed:
 | Paper cross-reference, real case | the original dead link re-injected verbatim | `FAIL: … cites paper/representative_selection.md, which does not exist` |
 | Axiom-report pin, new theorem | dropped `collapsed_rename` from `artifacts/lean_axioms.txt` | `FAIL: axiom reports differ between CI build and artifact`, naming the missing report |
 | Lean census pin, new module | removed `Derivation.CountTransport` from `elaborated_modules.txt` | census diff named the module and the check exited non-zero |
+| Ledger evidence gate | renamed a cited test to `test_supply_is_not_admission_zzz_probe` | `FAIL: ... CL-0-INERTIA [python] ... matches no test, code def, artifact key, artifact text, or source literal` |
+| Ledger evidence gate, real case | first real run, no injection | three dead references found and named: two stale tree-export filenames, one renamed theorem surviving only in a rename note |
+| Axiom-report parser, primed names | (found live, not injected) four primed theorems absent from `lean_axioms.txt` while the match gate stayed green — both parsers shared the blind `'[^']+'` pattern | audit line count 1417 vs artifact 1413 exposed it; non-greedy capture fixed both, counts agree |
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.

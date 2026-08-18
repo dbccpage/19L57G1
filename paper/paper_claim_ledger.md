@@ -201,17 +201,24 @@ implementation.
 - **Falsifier / boundary**: a valid (2, <=1) delta with a non-mark result.
 
 ### CL-3-UNIQUE-MU2-F
-- **Statement**: Under mu2 reading F has exactly one minimum class within
-  the declared bounds (the unary mark on a required datum).  *Bounds:
-  max_items 2, max_arity 2. Measure: mu2. Uniqueness: within bounds; the
-  grammar-wide analogue is unformalized.*
-- **Class**: bounded theorem.
+- **Statement**: Under mu2 reading F has exactly one minimum class (the
+  unary mark on a required datum): every valid two-item response with
+  new-form arity sum <= 1 produces a regime isomorphic to `U0F`.
+  *Measure: mu2. Uniqueness: grammar-wide, same scope as the L twin.*
+- **Class**: theorem (grammar-wide, 2026-08-18); the engine enumeration
+  within the declared bounds is retained as independent evidence.
 - **Deps**: CL-3-UNIQUE-MU2-L (method), CL-ISO-SOUND.
 - **Python**: `claims.json:CL-3-UNIQUE-MU2.F = 1`.
-- **Lean**: -- (grammar-wide version unresolved).
-- **Axioms**: --.
-- **Falsifier / boundary**: a second bounded class.  Boundary: Lean
-  formalization outstanding (paper section 12).
+- **Lean**: `mu2_unique_F`, with `genesis_mark_not_separable` closing
+  the one case reading F adds over reading L — the mark on the genesis
+  datum, killed by the R3 mention lemma
+  (`collapsed_append_unmentioning`): its instance mentions neither
+  required datum, so the pair stays collapsed and validity fails.
+  `isoU2F_U0F` collapses the two required-datum marks to one class;
+  `cost1_insufficient_F` and `deltaU0F_valid` were already in place.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a valid two-item arity-<=1 response in
+  reading F not isomorphic to `U0F`.
 
 ### CL-PRUNE-RULE
 - **Statement**: (i) Separation witnesses never inhabit uniformly ruled
@@ -220,14 +227,21 @@ implementation.
   uniform-rule item is never a minimum valid response" additionally needs
   the bridge that rule items commute out of a delta leaving the same
   regime with a smaller rule set — computational.
-- **Class**: (i) theorem; (ii) bounded theorem (full-space computational
-  check).
-- **Deps**: none. **Assumptions**: shared (+ bounds for (ii)).
+- **Class**: (i) theorem; (ii) theorem (bridge proved 2026-08-18); the
+  full-space computational check is retained as independent evidence.
+- **Deps**: none. **Assumptions**: shared.
 - **Python**: `test_rule_never_appears_in_minimum_responses` (full-space
   check on a mixed regime: every valid rule-bearing delta has a valid
   rule-free sub-delta).
-- **Lean**: (i) `separable_of_subrules`; (ii) -- (bridge unresolved).
-- **Axioms**: (i) none.
+- **Lean**: (i) `separable_of_subrules`; (ii) `applyDelta_dropRules`
+  (rule items commute out of a delta over ANY replacement rule field —
+  the bridge is definitional: no `applyItem` guard reads the rule
+  field, and only `newRuleAll` writes it), `validResponse_dropRules`,
+  `rule_item_never_minimal` (valid, strictly shorter, arity sum
+  unchanged: never a minimum under either declared measure), with
+  `applyDelta_rules_mono`, `dropRules_length_lt`, `aritySum_dropRules`
+  as the supporting steps.
+- **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: a minimum valid response containing a rule.
 
 ### CL-PRUNE-STRUCTURAL
@@ -314,12 +328,20 @@ implementation.
   `test_no_supply_variant_terminates_within_pair_bound`,
   `test_closed_system_terminal_at_round_boundary`.
 - **Lean**: `index_le_strict_mono`, `strict_bounded_length`,
-  `no_supply_round_bound`, `allPairs_length`.  Conditionality: these are
-  abstract laws over strictly-growing bounded measures; that the engine's
-  accepted separation rounds satisfy the hypotheses (exactly one new
-  requirement per round, fixed datum count) is discharged computationally
-  for the exported runs; a Lean theorem connecting the hypotheses to the
-  transition system is unresolved.
+  `no_supply_round_bound`, `allPairs_length`; and, 2026-08-18, the
+  hypotheses discharged for the transition system itself: under the
+  declared round shape (`ClosedRun`: impose a FRESH target, respond
+  with a delta admitting NO fresh datum) each round grows the
+  requirement count by exactly one (`round_reqs_succ`) over a fixed
+  datum count (`round_data_eq`), requirements stay ordered, bounded and
+  duplicate-free, and `closedRun_round_bound_from_empty` proves
+  2 * rounds <= n * (n - 1) — the division-free form of the
+  n(n-1)/2 bound — by choice-free subset counting into `allPairs`
+  (`nodup_subset_length`).  What remains computational is narrowed to
+  exactly this: that each EXPORTED round has the declared syntactic
+  shape.  Discharging the freshness condition from the closure policy
+  itself would need collapsed-pair selection and acceptance semantics
+  formalized, which this row does not claim.
 - **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: a closed-system branch that is guard-cut,
   round-cut, open, or exceeds the pair bound.
@@ -350,12 +372,13 @@ implementation.
   and 3, collapsed pairs (0,1) and (2,3), renaming (2,3,0,1)) the
   canonical keys agree while the same-index least-pair challenges produce
   non-isomorphic children.
-- **Class**: finite computation — **finite adversarial evidence only**
-  (exhaustive congruence over all renamings of the sample regimes,
-  including the adversarially chosen regression) + counterexample
+- **Class**: theorem (relation-level transport, 2026-08-18) + finite
+  computation (the child-CLASS-set formulation, below) + counterexample
   (against the old policy).  The general transports — candidates, costs,
-  validity, minima, and children under regime isomorphism — are
-  **unresolved** as theorems; no general transport is claimed.
+  validity, steps and children under a datum renaming — are now proved
+  at the relation level; the conversion from "children correspond under
+  the explicit padded renaming" to "equal canonical-key class sets"
+  remains with CL-ISO-SOUND on the Python side.
 - **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
 - **Python**: `tests/test_equivariance.py` (regression, orbit
   distinctness, exhaustive congruence, orbit coverage);
@@ -364,12 +387,25 @@ implementation.
   was latent within the explored bounds); every merge edge in every
   export carries an explicitly verified isomorphism certificate
   (CL-REPLAY).
-- **Lean**: -- (transport under isomorphism unresolved; see paper
-  section 12).
-- **Axioms**: --.
+- **Lean**: `transStep_rename_fwd` (every step maps to a step of the
+  renamed regime, children corresponding under the padded renaming) and
+  `transStep_image_total` (every step of the renamed regime is such an
+  image: the renamed relation is EXACTLY the image, not a superset),
+  over `renameRegimeR` (the action extended to requirements, since the
+  transition — unlike collapse — reads them) with `respond_rename`,
+  `validResponse_rename`, `stepE_impose_rename`, `applyDelta_rename` as
+  the chain; `validCount_rename` + `mapItem_length` + `formAritySum_map`
+  carry minima and counts of both declared measures;
+  `least_pair_selection_not_congruent` witnesses the boundary in Lean on
+  the regression regime.  Deliberately NOT an equality-form iff over an
+  arbitrary child: `mapReq` renormalizes pairs, so the action is not
+  injective on disordered-requirement regimes, and mapping plus image
+  totality is the honest packaging.
+- **Axioms**: `propext, Quot.sound`.
 - **Falsifier / boundary**: a regime and bijection whose expansions
-  yield different child class sets; boundary: the sampled regimes and
-  their full symmetric groups.
+  yield different child class sets; boundary: the class-SET statement
+  stays computational (sampled regimes, full symmetric groups); the
+  relation-level statement is grammar-wide.
 
 ### CL-BRANCH-REPORTS
 - **Statement**: Per-tree branch evidence — terminal, guard-cutoff,
@@ -404,7 +440,8 @@ implementation.
   886 (F); enumeration is complete above the cut.
 - **Class**: finite computation.
 - **Deps**: as CL-TREE-MU2-COMPLETE.
-- **Python**: `tree_L_mu1.json`, `tree_F_mu1.json`.
+- **Python**: `tree_L_mu1_summary.json`, `tree_F_mu1_summary.json`;
+  full exports `full/tree_L_mu1.json.gz`, `full/tree_F_mu1.json.gz`.
 - **Lean**: --. **Axioms**: --.
 - **Falsifier / boundary**: the frontier is the boundary, exported
   exactly for continuation.
@@ -1567,7 +1604,7 @@ theorems; 291 total, all within {propext, Quot.sound}).
   `InterpreterBoundary.i5_boundary_is_F`,
   `InterpreterBoundary.i5_collapse_obstructed`,
   `InterpreterBoundary.i5_family_not_extensionally_complete`
-  (audit repair: renamed from `i5_difference_grounded`, whose
+  (audit repair: renamed from the earlier i5_difference_grounded, whose
   statement is `family_missed` and mentions neither the
   boundary pair nor the uncoded occurrence;
   `InterpreterBoundary.arbitrary_uncoded_assignment` proves a freely

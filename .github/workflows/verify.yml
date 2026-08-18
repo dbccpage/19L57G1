@@ -32,6 +32,14 @@ jobs:
       # plain existence check has merge-result semantics.
       - name: Paper cross-references resolve
         run: python ci/check_paper_citations.py
+      # Every evidence citation in the claim ledger must resolve: Lean
+      # theorem names against artifacts/lean_axioms.txt, test names
+      # against tests/, artifact keys against the committed exports.
+      # The population is enumerated independently of the classifier
+      # (the check_transport_citations.py discipline), so an
+      # unclassifiable token fails totality instead of cancelling out.
+      - name: Ledger evidence resolves
+        run: python ci/check_ledger_evidence.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q

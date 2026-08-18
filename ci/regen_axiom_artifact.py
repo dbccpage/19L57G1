@@ -23,7 +23,7 @@ import re
 import sys
 
 REPORT = re.compile(
-    r"'(?P<name>[^']+)' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
+    r"'(?P<name>.+?)' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
 )
 ARTIFACT = pathlib.Path("artifacts") / "lean_axioms.txt"
 
