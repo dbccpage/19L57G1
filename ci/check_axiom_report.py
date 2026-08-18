@@ -12,7 +12,7 @@ def normalize(text: str) -> list[str]:
     out = []
     for line in text.splitlines():
         m = re.search(
-            r"'(?P<name>[^']+)' (?P<rest>(depends on axioms: "
+            r"'(?P<name>.+?)' (?P<rest>(depends on axioms: "
             r"\[[^\]]*\]|does not depend on any axioms))",
             line,
         )

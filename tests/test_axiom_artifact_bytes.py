@@ -24,8 +24,10 @@ AXIOMS = REPO / "artifacts" / "lean_axioms.txt"
 COMPLETION_RECEIPT = REPO / "artifacts" / "completion_receipt.json"
 PRIMITIVE_RECEIPT = REPO / "artifacts" / "primitive_completion_receipt.json"
 
+# Non-greedy name capture: primed theorem names end in a quote and the
+# blind [^']+ pattern cannot parse their reports (found live 2026-08-18).
 REPORT = re.compile(
-    r"'(?P<name>[^']+)' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
+    r"'(?P<name>.+?)' (?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
 )
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
 

@@ -13,6 +13,7 @@ Derivation.Constitution
 Derivation.ContactBridge
 Derivation.ContactKernel
 Derivation.ControllerCategory
+Derivation.CountTransport
 Derivation.Counting
 Derivation.DiffInterface
 Derivation.EndogenousFidelityGenerator
@@ -27,7 +28,9 @@ Derivation.Inertia
 Derivation.Initiality
 Derivation.InterpreterBoundary
 Derivation.LadderGeneral
+Derivation.Mention
 Derivation.Minimality
+Derivation.MinimalityF
 Derivation.NoOutside
 Derivation.NoOutsideFidelity
 Derivation.ObsDescent
@@ -48,8 +51,11 @@ Derivation.RefusalFrontier
 Derivation.RenamingStructure
 Derivation.Represented
 Derivation.ResidualClosure
+Derivation.Rounds
+Derivation.RuleBridge
 Derivation.SeparationCapacity
 Derivation.StableContent
 Derivation.TraceAlgebra
 Derivation.TransitionAlphabet
+Derivation.TransitionTransport
 Derivation.WeightProfile

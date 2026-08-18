@@ -408,6 +408,7 @@
    ],
    "consumers": [
     "Minimality.lean",
+    "MinimalityF.lean",
     "Refusal.lean"
    ],
    "kind": "generic",
@@ -515,7 +516,9 @@
     "CL-3-FAIL-CURRENT"
    ],
    "consumers": [
-    "Minimality.lean"
+    "CountTransport.lean",
+    "Minimality.lean",
+    "MinimalityF.lean"
    ],
    "kind": "generic",
    "module": "Basic.lean",
@@ -622,7 +625,9 @@
     "CL-CLOSURE-FIXPOINT",
     "CL-COUNT-INVARIANCE"
    ],
-   "consumers": [],
+   "consumers": [
+    "Rounds.lean"
+   ],
    "kind": "generic",
    "module": "Counting.lean",
    "name": "Derivation.allPairs_length",
@@ -768,7 +773,8 @@
     "propext"
    ],
    "citing_claims": [
-    "CL-3-COST1-IMPOSSIBLE"
+    "CL-3-COST1-IMPOSSIBLE",
+    "CL-3-UNIQUE-MU2-F"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -783,7 +789,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-3-MIN-TWO"
+    "CL-3-MIN-TWO",
+    "CL-3-UNIQUE-MU2-F"
    ],
    "consumers": [],
    "kind": "generic",
@@ -962,7 +969,9 @@
    "citing_claims": [
     "CL-PRUNE-RULE"
    ],
-   "consumers": [],
+   "consumers": [
+    "RuleBridge.lean"
+   ],
    "kind": "generic",
    "module": "Progress.lean",
    "name": "Derivation.separable_of_subrules",
@@ -17851,6 +17860,1350 @@
    "name": "EndogenousFidelityGenerator.generated_structure_is_failed_erasure",
    "role": "classification",
    "statement": "(N : TranslationNetwork) {i j : N.Index} (hno : NoCoherentPath N i j) : exists a b : GeneratedMultiplicity N, a \u2260 b \u2227 universalCollapse N a = universalCollapse N b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [
+    "TransitionTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.plug_mapCtx",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Nat) (c : Ctx) (d : Nat) : plug (mapCtx f c) (f d) = mapInst f (plug c d)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [
+    "TransitionTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.derivable_rename",
+   "role": "preservation",
+   "statement": "{f : Nat \u2192 Nat} (hf : \u2200 {x y}, f x = f y \u2192 x = y) (r : Regime) (i : Inst) : derivable (renameRegime f r) (mapInst f i) \u2194 derivable r i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [
+    "TransitionTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.wfCtx_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (c : Ctx) : wfCtx (renameRegime \u03c3.f r) (mapCtx \u03c3.f c) \u2194 wfCtx r c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [
+    "TransitionTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.collapsed_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (d d' : Nat) : collapsed (renameRegime \u03c3.f r) (\u03c3.f d) (\u03c3.f d') \u2194 collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.collapsedCount_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (p q : Nat \u00d7 Nat \u2192 Bool) (hp : \u2200 x : Nat \u00d7 Nat, p x = true \u2194 collapsed r x.1 x.2) (hq : \u2200 x : Nat \u00d7 Nat, q x = true \u2194 collapsed (renameRegime \u03c3.f r) x.1 x.2) (L : List (Nat \u00d7 Nat)) : (L.map (fun x => (\u03c3.f x.1, \u03c3.f x.2))).countP q = L.countP p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.rename_insts_wf",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (h : \u2200 p \u2208 r.insts, p.1 < r.forms.length \u2227 p.2.length = r.forms.getD p.1 0 \u2227 \u2200 a \u2208 p.2, a < r.data) : \u2200 p \u2208 (renameRegime \u03c3.f r).insts, p.1 < r.forms.length \u2227 p.2.length = r.forms.getD p.1 0 \u2227 \u2200 a \u2208 p.2, a < r.data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.cm_separable",
+   "role": "preservation",
+   "statement": ": separable cmRegime 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.non_injective_does_not_transport",
+   "role": "preservation",
+   "statement": ": collapsed (renameRegime (fun _ => 0) cmRegime) ((fun _ => 0) 0) ((fun _ => 0) 1) \u2227 \u00ac collapsed cmRegime 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.mem_plug_of_hole",
+   "role": "preservation",
+   "statement": "{c : Ctx} (h : none \u2208 c.slots) (d : Nat) : d \u2208 (plug c d).2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.not_mem_of_arg_out_of_range",
+   "role": "preservation",
+   "statement": "{r : Regime} (hwf : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) {i : Inst} {a : Nat} (ha : a \u2208 i.2) (hbig : \u00ac a < r.data) : i \u2209 r.insts"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.exists_out_of_range_slot",
+   "role": "preservation",
+   "statement": "(n : Nat) : \u2200 l : List (Option Nat), \u00ac (\u2200 s \u2208 l, slotOk n s) \u2192 \u2203 x, some x \u2208 l \u2227 \u00ac x < n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-UNIQUE-MU2-F",
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [
+    "MinimalityF.lean"
+   ],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.collapsed_append_unmentioning",
+   "role": "preservation",
+   "statement": "(r : Regime) (new : List Inst) (d d' : Nat) (hd : \u2200 p \u2208 new, d \u2209 p.2) (hd' : \u2200 p \u2208 new, d' \u2209 p.2) : collapsed { r with insts"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.collapsed_fresh_datum",
+   "role": "preservation",
+   "statement": "(r : Regime) (d d' : Nat) (hwf : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) : collapsed { r with data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.getD_append_left",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (l m : List \u03b1) (i : Nat) (dflt : \u03b1) (h : i < l.length) : (l ++ m).getD i dflt = l.getD i dflt"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.collapsed_fresh_form",
+   "role": "preservation",
+   "statement": "(r : Regime) (d d' : Nat) (k : Nat) (hinst : \u2200 p \u2208 r.insts, p.1 < r.forms.length) (hrule : \u2200 f \u2208 r.rules, f < r.forms.length) : collapsed { r with forms"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.padF_lt",
+   "role": "preservation",
+   "statement": "{n : Nat} (f : Nat \u2192 Nat) {x : Nat} (h : x < n) : padF n f x = f x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.padF_ge",
+   "role": "preservation",
+   "statement": "{n : Nat} (f : Nat \u2192 Nat) {x : Nat} (h : \u00ac x < n) : padF n f x = x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.padF_fg",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) : \u2200 x, padF n \u03c3.g (padF n \u03c3.f x) = x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.padF_gf",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) : \u2200 x, padF n \u03c3.f (padF n \u03c3.g x) = x"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.padF_inj",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) : \u2200 {x y}, padF n \u03c3.f x = padF n \u03c3.f y \u2192 x = y"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.padF_bound",
+   "role": "preservation",
+   "statement": "{n m : Nat} (\u03c3 : DRen n) (hm : n \u2264 m) : \u2200 x, x < m \u2192 padF n \u03c3.f x < m"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapReq_cases",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Nat) (p : Nat \u00d7 Nat) : mapReq f p = (f p.1, f p.2) \u2228 mapReq f p = (f p.2, f p.1)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapReq_ordered",
+   "role": "preservation",
+   "statement": "{f : Nat \u2192 Nat} (hf : \u2200 {x y}, f x = f y \u2192 x = y) {i j : Nat} (hij : i < j) : (mapReq f (i, j)).1 < (mapReq f (i, j)).2"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapReq_inj_ordered",
+   "role": "preservation",
+   "statement": "{f : Nat \u2192 Nat} (hf : \u2200 {x y}, f x = f y \u2192 x = y) {p q : Nat \u00d7 Nat} (hp : p.1 < p.2) (hq : q.1 < q.2) (h : mapReq f p = mapReq f q) : p = q"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapReq_g_f",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) {i j : Nat} (hij : i < j) : mapReq \u03c3.g (mapReq \u03c3.f (i, j)) = (i, j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.renameR_reqs_wf",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (h : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) : \u2200 q \u2208 (renameRegimeR \u03c3.f r).reqs, q.1 < q.2 \u2227 q.2 < r.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.collapsed_reqs_irrel",
+   "role": "preservation",
+   "statement": "(r : Regime) (Q : List (Nat \u00d7 Nat)) (d d' : Nat) : collapsed { r with reqs"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.separable_reqs_irrel",
+   "role": "preservation",
+   "statement": "(r : Regime) (Q : List (Nat \u00d7 Nat)) (d d' : Nat) : separable { r with reqs"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.collapsed_renameR",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (d d' : Nat) : collapsed (renameRegimeR \u03c3.f r) (\u03c3.f d) (\u03c3.f d') \u2194 collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.collapsed_symm",
+   "role": "preservation",
+   "statement": "(r : Regime) (d d' : Nat) : collapsed r d d' \u2194 collapsed r d' d"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.separable_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (d d' : Nat) : separable (renameRegime \u03c3.f r) (\u03c3.f d) (\u03c3.f d') \u2194 separable r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.separable_renameR",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (d d' : Nat) : separable (renameRegimeR \u03c3.f r) (\u03c3.f d) (\u03c3.f d') \u2194 separable r d d'"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.separable_symm",
+   "role": "preservation",
+   "statement": "(r : Regime) (d d' : Nat) : separable r d d' \u2194 separable r d' d"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapItem_pad_f_g",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (it : Item) : mapItem (padF n \u03c3.f) (mapItem (padF n \u03c3.g) it) = it"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.insertNew_map_on",
+   "role": "preservation",
+   "statement": "{\u03b1 \u03b2 : Type} [DecidableEq \u03b1] [DecidableEq \u03b2] {h : \u03b1 \u2192 \u03b2} (l : List \u03b1) (a : \u03b1) (hinj : \u2200 x \u2208 l, h x = h a \u2192 x = a) : (insertNew l a).map h = insertNew (l.map h) (h a)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyItem_data_mono",
+   "role": "preservation",
+   "statement": "{r s : Regime} {it : Item} (h : applyItem r it = some s) : r.data \u2264 s.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyItem_reqs",
+   "role": "preservation",
+   "statement": "{r s : Regime} {it : Item} (h : applyItem r it = some s) : s.reqs = r.reqs"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyDelta_nil",
+   "role": "preservation",
+   "statement": "(r : Regime) : applyDelta r [] = some r"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "Rounds.lean",
+    "RuleBridge.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyDelta_cons",
+   "role": "preservation",
+   "statement": "(r : Regime) (it : Item) (\u03b4 : List Item) : applyDelta r (it :: \u03b4) = (applyItem r it).bind (fun s => applyDelta s \u03b4)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyDelta_data_mono",
+   "role": "preservation",
+   "statement": "{\u03b4 : List Item} : \u2200 {r s : Regime}, applyDelta r \u03b4 = some s \u2192 r.data \u2264 s.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "Rounds.lean"
+   ],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyDelta_reqs",
+   "role": "preservation",
+   "statement": "{\u03b4 : List Item} : \u2200 {r s : Regime}, applyDelta r \u03b4 = some s \u2192 s.reqs = r.reqs"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyItem_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : n \u2264 r.data) (it : Item) : applyItem (renameRegimeR (padF n \u03c3.f) r) (mapItem (padF n \u03c3.f) it) = Option.map (renameRegimeR (padF n \u03c3.f)) (applyItem r it)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.applyDelta_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) {\u03b4 : List Item} : \u2200 {r : Regime}, n \u2264 r.data \u2192 applyDelta (renameRegimeR (padF n \u03c3.f) r) (\u03b4.map (mapItem (padF n \u03c3.f))) = Option.map (renameRegimeR (padF n \u03c3.f)) (applyDelta r \u03b4)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.map_congr_mem",
+   "role": "preservation",
+   "statement": "{\u03b1 \u03b2 : Type} {f g : \u03b1 \u2192 \u03b2} : \u2200 (l : List \u03b1), (\u2200 a \u2208 l, f a = g a) \u2192 l.map f = l.map g"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.DRen.inv_f",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) : \u03c3.inv.f = \u03c3.g"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.DRen.inv_g",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) : \u03c3.inv.g = \u03c3.f"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapReq_inv_pair",
+   "role": "preservation",
+   "statement": "{f g : Nat \u2192 Nat} (hfg : \u2200 x, g (f x) = x) {i j : Nat} (hij : i < j) : mapReq g (mapReq f (i, j)) = (i, j)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.renameRegimeR_inv_pair",
+   "role": "preservation",
+   "statement": "{f g : Nat \u2192 Nat} (hfg : \u2200 x, g (f x) = x) (r : Regime) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2) : renameRegimeR g (renameRegimeR f r) = r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.renameRegimeR_g_f",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2) : renameRegimeR \u03c3.g (renameRegimeR \u03c3.f r) = r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.renameRegimeR_pad_f_g",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (s : Regime) (hreq : \u2200 q \u2208 s.reqs, q.1 < q.2) : renameRegimeR (padF n \u03c3.f) (renameRegimeR (padF n \u03c3.g) s) = s"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.renameRegimeR_padF_agree",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hinst : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) : renameRegimeR (padF n \u03c3.f) r = renameRegimeR \u03c3.f r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.rename_insts_bound",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (h : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) : \u2200 p \u2208 (renameRegimeR \u03c3.f r).insts, \u2200 a \u2208 p.2, a < r.data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.stepE_impose_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) {i j : Nat} (hij : i < j) (hj : j < r.data) : stepE (renameRegimeR \u03c3.f r) (.impose (mapReq \u03c3.f (i, j)).1 (mapReq \u03c3.f (i, j)).2) = Option.map (renameRegimeR \u03c3.f) (stepE r (.impose i j))"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.respond_reqs_ordered",
+   "role": "preservation",
+   "statement": "{r s : Regime} {i j : Nat} {\u03b4 : List Item} (h : respond r i j \u03b4 = some s) (hr : \u2200 q \u2208 r.reqs, q.1 < q.2) : \u2200 q \u2208 s.reqs, q.1 < q.2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.respond_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hinst : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) {i j : Nat} (hij : i < j) (hj : j < r.data) (\u03b4 : List Item) : respond (renameRegimeR \u03c3.f r) (mapReq \u03c3.f (i, j)).1 (mapReq \u03c3.f (i, j)).2 (\u03b4.map (mapItem (padF n \u03c3.f))) = Option.map (renameRegimeR (padF n \u03c3.f)) (respond r i j \u03b4)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.validResponse_symm",
+   "role": "preservation",
+   "statement": "(r : Regime) (a b : Nat) (\u03b4 : List Item) : validResponse r a b \u03b4 \u2194 validResponse r b a \u03b4"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.validResponse_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hinst : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) {i j : Nat} (hi : i < r.data) (hj : j < r.data) (\u03b4 : List Item) : validResponse (renameRegimeR \u03c3.f r) (\u03c3.f i) (\u03c3.f j) (\u03b4.map (mapItem (padF n \u03c3.f))) \u2194 validResponse r i j \u03b4"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.transStep_rename_fwd",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hinst : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) {i j : Nat} {\u03b4 : List Item} {s : Regime} (h : TransStep r i j \u03b4 s) : TransStep (renameRegimeR \u03c3.f r) (mapReq \u03c3.f (i, j)).1 (mapReq \u03c3.f (i, j)).2 (\u03b4.map (mapItem (padF n \u03c3.f))) (renameRegimeR (padF n \u03c3.f) s)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.transStep_image_total",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hinst : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) {i' j' : Nat} {\u03b4' : List Item} {s' : Regime} (h : TransStep (renameRegimeR \u03c3.f r) i' j' \u03b4' s') : \u2203 i j \u03b4 s, TransStep r i j \u03b4 s \u2227 (i', j') = mapReq \u03c3.f (i, j) \u2227 \u03b4' = \u03b4.map (mapItem (padF n \u03c3.f)) \u2227 s' = renameRegimeR (padF n \u03c3.f) s"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.mapItem_length",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Nat) (\u03b4 : List Item) : (\u03b4.map (mapItem f)).length = \u03b4.length"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.formAritySum_map",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Nat) (\u03b4 : List Item) : formAritySum (\u03b4.map (mapItem f)) = formAritySum \u03b4"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.validCount_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (hinst : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) (hreq : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) {i j : Nat} (hi : i < r.data) (hj : j < r.data) (p q : List Item \u2192 Bool) (hp : \u2200 \u03b4, p \u03b4 = true \u2194 validResponse r i j \u03b4) (hq : \u2200 \u03b4, q \u03b4 = true \u2194 validResponse (renameRegimeR \u03c3.f r) (\u03c3.f i) (\u03c3.f j) \u03b4) (L : List (List Item)) : (L.map (fun \u03b4 => \u03b4.map (mapItem (padF n \u03c3.f)))).countP q = L.countP p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.regSwapFun_invol",
+   "role": "preservation",
+   "statement": ": \u2200 x, regSwapFun (regSwapFun x) = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.regSwapFun_bound",
+   "role": "preservation",
+   "statement": ": \u2200 x, x < 4 \u2192 regSwapFun x < 4"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.one_unary_form_ctx_char",
+   "role": "preservation",
+   "statement": "(r : Regime) (hf : r.forms = [1]) (c : Ctx) : wfCtx r c \u2194 c = \u27e80, [none]\u27e9"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.reg_collapsed_01",
+   "role": "preservation",
+   "statement": ": collapsed regRegime 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.reg_renamed_collapsed_01",
+   "role": "preservation",
+   "statement": ": collapsed (renameRegimeR regSwap.f regRegime) 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-TRANSITION-EQUIVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "TransitionTransport.lean",
+   "name": "Derivation.least_pair_selection_not_congruent",
+   "role": "preservation",
+   "statement": ": collapsed regRegime 0 1 \u2227 collapsed (renameRegimeR regSwap.f regRegime) 0 1 \u2227 mapReq regSwap.f (0, 1) \u2260 (0, 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-UNIQUE-MU2-F"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "MinimalityF.lean",
+   "name": "Derivation.genesis_mark_not_separable",
+   "role": "preservation",
+   "statement": ": \u00ac separable (\u27e83, [1], [(0, [0])], [], [(1, 2)]\u27e9 : Regime) 1 2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-3-UNIQUE-MU2-F"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "MinimalityF.lean",
+   "name": "Derivation.mu2_unique_F",
+   "role": "preservation",
+   "statement": "(a b : Item) (hval : validResponse R2F 1 2 [a, b]) (har : aritySum [a, b] \u2264 1) : \u2203 s, applyDelta R2F [a, b] = some s \u2227 Nonempty (Iso s U0F)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.applyItem_rules_mono",
+   "role": "preservation",
+   "statement": "{r s : Regime} {it : Item} (h : applyItem r it = some s) : \u2200 g \u2208 r.rules, g \u2208 s.rules"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.applyDelta_rules_mono",
+   "role": "preservation",
+   "statement": "{\u03b4 : List Item} : \u2200 {r s : Regime}, applyDelta r \u03b4 = some s \u2192 \u2200 g \u2208 r.rules, g \u2208 s.rules"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.applyDelta_dropRules",
+   "role": "preservation",
+   "statement": "{\u03b4 : List Item} : \u2200 {r s : Regime} (rs : List Nat), applyDelta r \u03b4 = some s \u2192 applyDelta \u27e8r.data, r.forms, r.insts, rs, r.reqs\u27e9 (dropRules \u03b4) = some \u27e8s.data, s.forms, s.insts, rs, s.reqs\u27e9"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.dropRules_length_le",
+   "role": "preservation",
+   "statement": "(\u03b4 : List Item) : (dropRules \u03b4).length \u2264 \u03b4.length"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.dropRules_length_lt",
+   "role": "preservation",
+   "statement": "{\u03b4 : List Item} {f : Nat} (h : Item.newRuleAll f \u2208 \u03b4) : (dropRules \u03b4).length < \u03b4.length"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.aritySum_dropRules",
+   "role": "preservation",
+   "statement": "(\u03b4 : List Item) : aritySum (dropRules \u03b4) = aritySum \u03b4"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.validResponse_dropRules",
+   "role": "preservation",
+   "statement": "{r : Regime} {i j : Nat} {\u03b4 : List Item} (h : validResponse r i j \u03b4) : validResponse r i j (dropRules \u03b4)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-RULE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "RuleBridge.lean",
+   "name": "Derivation.rule_item_never_minimal",
+   "role": "preservation",
+   "statement": "{r : Regime} {i j : Nat} {\u03b4 : List Item} {f : Nat} (hf : Item.newRuleAll f \u2208 \u03b4) (h : validResponse r i j \u03b4) : validResponse r i j (dropRules \u03b4) \u2227 (dropRules \u03b4).length < \u03b4.length \u2227 aritySum (dropRules \u03b4) = aritySum \u03b4"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.filter_length_split",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 l : List \u03b1, (l.filter p).length + (l.filter (fun x => !(p x))).length = l.length"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_head'",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {x : \u03b1} {t : List \u03b1} (h : List.Nodup (x :: t)) : \u2200 a \u2208 t, x \u2260 a"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_tail'",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {x : \u03b1} {t : List \u03b1} (h : List.Nodup (x :: t)) : List.Nodup t"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.filter_none_of_all_false",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {p : \u03b1 \u2192 Bool} : \u2200 {l : List \u03b1}, (\u2200 x \u2208 l, p x = false) \u2192 l.filter p = []"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.filter_nodup'",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (p : \u03b1 \u2192 Bool) : \u2200 {l : List \u03b1}, l.Nodup \u2192 (l.filter p).Nodup"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_filter_self_length",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} [DecidableEq \u03b1] (a : \u03b1) : \u2200 (l : List \u03b1), l.Nodup \u2192 a \u2208 l \u2192 (l.filter (fun x => decide (x = a))).length = 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_subset_length",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} [DecidableEq \u03b1] : \u2200 (l L : List \u03b1), l.Nodup \u2192 L.Nodup \u2192 (\u2200 x \u2208 l, x \u2208 L) \u2192 l.length \u2264 L.length"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_append_singleton",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {a : \u03b1} : \u2200 {l : List \u03b1}, a \u2209 l \u2192 l.Nodup \u2192 (l ++ [a]).Nodup"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.allPairs_mem_bound",
+   "role": "preservation",
+   "statement": ": \u2200 (n : Nat) (q : Nat \u00d7 Nat), q \u2208 allPairs n \u2192 q.1 < q.2 \u2227 q.2 < n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.mem_allPairs",
+   "role": "preservation",
+   "statement": ": \u2200 (n : Nat) (q : Nat \u00d7 Nat), q.1 < q.2 \u2192 q.2 < n \u2192 q \u2208 allPairs n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_map_of_inj",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} {g : Nat \u2192 \u03b1} : \u2200 (l : List Nat), l.Nodup \u2192 (\u2200 i \u2208 l, \u2200 j \u2208 l, g i = g j \u2192 i = j) \u2192 (l.map g).Nodup"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.range_nodup'",
+   "role": "preservation",
+   "statement": ": \u2200 n : Nat, (List.range n).Nodup"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.nodup_append_disjoint",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} : \u2200 {l1 l2 : List \u03b1}, l1.Nodup \u2192 l2.Nodup \u2192 (\u2200 x \u2208 l1, x \u2209 l2) \u2192 (l1 ++ l2).Nodup"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.allPairs_nodup",
+   "role": "preservation",
+   "statement": ": \u2200 n : Nat, (allPairs n).Nodup"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.applyItem_data_eq",
+   "role": "preservation",
+   "statement": "{r s : Regime} {it : Item} (hne : it \u2260 Item.newDatum) (h : applyItem r it = some s) : s.data = r.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.applyDelta_data_eq",
+   "role": "preservation",
+   "statement": "{\u03b4 : List Item} : \u2200 {r s : Regime}, Item.newDatum \u2209 \u03b4 \u2192 applyDelta r \u03b4 = some s \u2192 s.data = r.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.respond_anatomy",
+   "role": "preservation",
+   "statement": "{r s : Regime} {i j : Nat} {\u03b4 : List Item} (h : respond r i j \u03b4 = some s) : i < j \u2227 j < r.data \u2227 s.reqs = insertNew r.reqs (i, j) \u2227 applyDelta { r with reqs"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.round_reqs_succ",
+   "role": "preservation",
+   "statement": "{r s : Regime} {i j : Nat} {\u03b4 : List Item} (hfresh : (i, j) \u2209 r.reqs) (h : respond r i j \u03b4 = some s) : s.reqs.length = r.reqs.length + 1"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.round_data_eq",
+   "role": "preservation",
+   "statement": "{r s : Regime} {i j : Nat} {\u03b4 : List Item} (hnd : Item.newDatum \u2209 \u03b4) (h : respond r i j \u03b4 = some s) : s.data = r.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.closedRun_data_eq",
+   "role": "preservation",
+   "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) : t.data = r.data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.closedRun_reqs_length",
+   "role": "preservation",
+   "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) : t.reqs.length = r.reqs.length + rds.length"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.closedRun_reqs_nodup",
+   "role": "preservation",
+   "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) (hn : r.reqs.Nodup) : t.reqs.Nodup"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.closedRun_reqs_wf",
+   "role": "preservation",
+   "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) (hwf : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) : \u2200 q \u2208 t.reqs, q.1 < q.2 \u2227 q.2 < t.data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.closedRun_round_bound",
+   "role": "preservation",
+   "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) (hn : r.reqs.Nodup) (hwf : \u2200 q \u2208 r.reqs, q.1 < q.2 \u2227 q.2 < r.data) : 2 * (r.reqs.length + rds.length) \u2264 r.data * (r.data - 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-CLOSURE-TERMINATION"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Rounds.lean",
+   "name": "Derivation.closedRun_round_bound_from_empty",
+   "role": "preservation",
+   "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) (he : r.reqs = []) : 2 * rds.length \u2264 r.data * (r.data - 1)"
   }
  ]
 }

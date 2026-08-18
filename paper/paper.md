@@ -609,12 +609,40 @@ Within the declared metatheory and candidate grammar:
   selection), and the external continuation policy are declared, not
   derived.  Different declarations could yield different towers; the
   mu1/mu2 split documents one such sensitivity precisely.
-* **[unresolved]** Eight residuals, itemized below rather than left as a
+* **[unresolved]** Four residuals, itemized below rather than left as a
   list, because they are **not the same kind of gap** and a reader
   entitled to know what is unproved is entitled to know in what way.
   An earlier version of this bullet ran them together in one sentence;
   that wording is WITHDRAWN in favour of the register (2026-08-17). No
-  status changed — only the resolution at which it is reported.
+  status changed at that point — only the resolution at which it is
+  reported.
+
+  **R1, R2, R3 and R6 have since been discharged and are struck from
+  the register (2026-08-17).**  R1-R3 were one argument, not three: a
+  well-formed context always has a hole, so a plugged instance always
+  mentions its datum, and a context that reaches outside the regime
+  fails derivability on BOTH sides of the iff and therefore separates
+  nothing.  `lean4/Derivation/Mention.lean` proves
+  `collapsed_append_unmentioning` (R3) with `collapsed_fresh_datum` (R1)
+  and `collapsed_fresh_form` (R2) as corollaries; the hypotheses of the
+  latter two are conjuncts of `Regime.wf` rather than new assumptions.
+
+  What that does NOT do is promote `CL-PRUNE-STRUCTURAL` to a theorem.
+  Its three irrelevance inputs are now proved; the enclosing claim that
+  the pruned enumeration contains every minimum still quantifies over
+  the declared grammar slice and stays a **[bounded theorem]** on
+  computational evidence.  Three inputs became theorems; the enumeration
+  did not.
+
+  On R6: It read "count-invariance transport under regime
+  isomorphism", kind (a), needing "a Lean transport proof". That proof
+  now exists: `collapsed_rename` in `lean4/Derivation/CountTransport.lean`
+  proves that observational collapse transports under a renaming of the
+  datum indices, and `collapsedCount_rename` carries it to the count.
+  `CL-COUNT-INVARIANCE` is reclassified from **[finite computation]** to
+  **[theorem]**. The count is now eight-minus-one, not eight, and the
+  numbering of the surviving rows is left unchanged so that a reader
+  comparing revisions can see exactly which row left.
 
   Five kinds appear: **(a)** exhaustively certified in Python, Lean
   absent; **(b)** partial Lean, with the bridge to the used form
@@ -624,22 +652,23 @@ Within the declared metatheory and candidate grammar:
 
   | # | Residual | Kind | Evidence that exists | What closing it needs |
   |---|---|---|---|---|
-  | R1 | Unreferenced fresh **data** never affect a minimum response | a | `test_pruned_cost2_contains_every_valid_full_delta`, cross-checked against the *unpruned* space over bare, marked, and structurally mixed base regimes | a Lean irrelevance lemma |
-  | R2 | Unreferenced fresh **forms** never affect a minimum response | a | same test, same cross-check | as R1 |
-  | R3 | **Mention lemma**: an instance-only delta changes the target pair's profiles only if some instance mentions a target datum | a | same test | a Lean mention lemma |
-  | R4 | **Delta-level rule-removal bridge** | b | `separable_of_subrules` is **proved** — witness transfer under a shrunken final rule set. The step from delta *items* to shrunken rule sets is computational only | a Lean theorem over delta items, not final rule sets |
-  | R5 | **Grammar-wide mu2 uniqueness for reading F** | c | `mu2_unique` is proved grammar-wide for reading **L**; reading F is a **[bounded theorem]** from engine enumeration within the declared bounds | the reading-F analogue of `mu2_unique` |
-  | R6 | **Count-invariance** transport under regime isomorphism | a | `test_canonical_invariant_under_rename`, exhaustive over the Challenge 3 classes; `allPairs_length` proves the requirement-language size law but not the transport | a Lean transport proof |
-  | R7 | **Transition-congruence** transport under regime isomorphism | a | `test_orbit_policy_transition_congruence_exhaustive` over every data bijection of each sample regime, including the adversarial regression `test_least_pair_selection_is_not_equivariant` | a Lean transport proof |
-  | R8 | Counting-law **hypotheses** connected to the transition system | b | `strict_bounded_length`, `no_supply_round_bound`, `allPairs_length` are proved as *conditional abstract* laws; that each accepted round imposes exactly one new requirement over a fixed datum count is discharged computationally, for the exported runs only | a Lean theorem discharging the hypotheses for the transition system itself |
+  | ~~R1~~ | DISCHARGED 2026-08-17 — Unreferenced fresh **data** never affect a minimum response | a | `test_pruned_cost2_contains_every_valid_full_delta`, cross-checked against the *unpruned* space over bare, marked, and structurally mixed base regimes; `collapsed_fresh_datum` (Lean) | nothing; closed |
+  | ~~R2~~ | DISCHARGED 2026-08-17 — Unreferenced fresh **forms** never affect a minimum response | a | same test, same cross-check; `collapsed_fresh_form` (Lean) | nothing; closed |
+  | ~~R3~~ | DISCHARGED 2026-08-17 — **Mention lemma**: an instance-only delta changes the target pair's profiles only if some instance mentions a target datum | a | same test; `collapsed_append_unmentioning` (Lean) | nothing; closed |
+  | ~~R4~~ | **Delta-level rule-removal bridge** — **DISCHARGED 2026-08-18** | — | `applyDelta_dropRules`, `validResponse_dropRules`, `rule_item_never_minimal` (Lean); `separable_of_subrules` as before | nothing; closed |
+  | ~~R5~~ | **Grammar-wide mu2 uniqueness for reading F** — **DISCHARGED 2026-08-18** | — | `mu2_unique_F`, the reading-F analogue asked for, with `genesis_mark_not_separable` closing the one new case via the R3 mention lemma | nothing; closed |
+  | ~~R6~~ | **Count-invariance** transport under regime isomorphism — **DISCHARGED 2026-08-17** | — | `collapsed_rename`, `collapsedCount_rename` (Lean); `test_canonical_invariant_under_rename` retained as independent exhaustive evidence | nothing; closed |
+  | ~~R7~~ | **Transition-congruence** transport under regime isomorphism — **DISCHARGED 2026-08-18** (relation level; the class-set conversion stays with CL-ISO-SOUND) | — | `transStep_rename_fwd`, `transStep_image_total`, `validCount_rename` (Lean); the exhaustive tests retained as independent evidence | nothing; closed |
+  | ~~R8~~ | Counting-law **hypotheses** connected to the transition system — **DISCHARGED 2026-08-18** (under the declared round shape; that exported rounds have that shape stays computational) | — | `ClosedRun`, `round_reqs_succ`, `round_data_eq`, `closedRun_round_bound_from_empty` (Lean); the abstract laws as before | nothing; closed |
 
-  **R1–R3, R6, R7 are kind (a): the evidence is not missing, the Lean
-  is.** Each is certified by exhaustive computation over a declared
-  finite space, and each is reported as **[finite computation]** where
-  the paper uses it — never as a theorem. R4 and R8 are kind (b): a
-  weaker statement is genuinely proved and the bridge to the form
-  actually used is computational. R5 is kind (c) and is asymmetric by
-  reading, which is stated wherever it is cited.
+  **No live row remains.**  Every kind-(a) residual went by the same
+  route: the exhaustive computation stood, and the Lean caught up to
+  it.  The kind-(b) rows (R4, R8) closed by proving the bridge each one
+  named; the kind-(c) row (R5) closed by removing the reading
+  asymmetry.  The claims these rows guarded are reclassified in the
+  ledger, each with its scope stated exactly; the computational
+  evidence is retained everywhere as independent, not discarded as
+  superseded.
 
 * **[unresolved — kind (d), a genuine unknown]** The behavior of the
   external continuation policy beyond the exported depths. Unlike
@@ -680,6 +709,15 @@ Within the declared metatheory and candidate grammar:
   than one, and it is recorded here so that the next reader does not
   have to take a single reading on trust.  It remains a receipt: it says
   what the commands printed, not that the mathematics is right.
+
+  **Superseded the same day by the R6 work**: adding
+  `lean4/Derivation/CountTransport.lean` moves the Lean figures to 57
+  sources and 1322 axiom reports, still entirely within {propext,
+  Quot.sound}.  The Python figures are unchanged, because the residual
+  it discharges was one whose Python evidence already existed.  The
+  1314/56 reading above is left standing rather than overwritten: it was
+  true when taken, and a receipt that is silently edited to match a later
+  state is no longer a receipt.
 * **[open obstruction — metatheoretic; kind (e), a gap in the audit
   rather than in the mathematics]** Elaboration is not auditing.
   Every module under `lean4/Derivation/` is elaborated by CI against a
