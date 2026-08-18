@@ -489,6 +489,8 @@ What has actually been injected, and what failed:
 | Skill shape | directory with no `SKILL.md`; body with no frontmatter | both named individually |
 | Paper cross-reference | citation to a sibling that exists on no branch | `FAIL: … cites paper/zzz_probe_absent.md, which does not exist` |
 | Paper cross-reference, real case | the original dead link re-injected verbatim | `FAIL: … cites paper/representative_selection.md, which does not exist` |
+| Axiom-report pin, new theorem | dropped `collapsed_rename` from `artifacts/lean_axioms.txt` | `FAIL: axiom reports differ between CI build and artifact`, naming the missing report |
+| Lean census pin, new module | removed `Derivation.CountTransport` from `elaborated_modules.txt` | census diff named the module and the check exited non-zero |
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.

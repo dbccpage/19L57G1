@@ -242,8 +242,20 @@ implementation.
   valid excluded delta has a valid strict sub-delta), plus
   `test_new_datum_alone_never_separates`,
   `test_fast_equals_naive_on_full_space`.
-- **Lean**: -- (unresolved).
-- **Axioms**: --.
+- **Lean**: the three irrelevance facts are now proved —
+  `collapsed_fresh_datum` (R1), `collapsed_fresh_form` (R2),
+  `collapsed_append_unmentioning` (R3), with `mem_plug_of_hole`,
+  `not_mem_of_arg_out_of_range`, `exists_out_of_range_slot` and
+  `getD_append_left` as the supporting steps (2026-08-17).
+- **Axioms**: `propext, Quot.sound`.
+- **Scope, exactly**: the Lean proves each irrelevance fact as an `iff`
+  about `collapsed` for a pair that already exists.  It does NOT prove
+  the enclosing statement "the pruned enumeration therefore contains
+  every minimum", which quantifies over the declared cost-2 grammar
+  slice and remains the bounded computational result certified by
+  `test_pruned_cost2_contains_every_valid_full_delta`.  The class stays
+  **bounded theorem** for that reason: three of its inputs became
+  theorems, the enumeration claim did not.
 - **Falsifier / boundary**: a valid full-space delta absent from the
   pruned space with no valid sub-delta.  Boundary: certified
   computationally on bare, marked, and mixed base regimes; Lean proof
@@ -537,13 +549,26 @@ implementation.
 ### CL-COUNT-INVARIANCE
 - **Statement**: The unresolved-requirement count (collapsed pairs) is
   invariant under token renaming and index bijections.
-- **Class**: finite computation (exhaustive over the Challenge 3 classes
-  and mixed regimes); the general Lean transport is **unresolved**.
+- **Class**: theorem (transport proved in Lean, 2026-08-17); the
+  exhaustive Python certification over the Challenge 3 classes and mixed
+  regimes is retained as independent evidence.
 - **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
 - **Python**: canonical-invariance tests (the count is a component of the
   canonical key); `test_closure_policy_is_token_blind`.
-- **Lean**: language-size law `allPairs_length` only.
+- **Lean**: `collapsed_rename` (observational collapse transports under a
+  datum renaming) and `collapsedCount_rename` (the count over any
+  candidate pair list is preserved), with `plug_mapCtx`,
+  `derivable_rename`, `wfCtx_rename` as the supporting steps; language-size
+  law `allPairs_length` as before.
 - **Axioms**: `propext, Quot.sound`.
+- **Scope, exactly**: `collapsed_rename` is unconditional in the renaming's
+  bounds — it needs only bijectivity. The bound fields are used solely by
+  `wfCtx_rename`. `collapsedCount_rename` takes the decision procedure as
+  a parameter with a proof that it tracks `collapsed`: nothing here decides
+  `collapsed`, whose quantifier ranges over the infinite type `Ctx`. The
+  requirement conjunct of `Regime.wf` is NOT claimed to transport — a
+  bijection need not preserve the `q.1 < q.2` ordering — and does not need
+  to, because `collapsed` reads only `forms`, `data`, `insts` and `rules`.
 - **Falsifier / boundary**: a renaming changing the collapsed-pair count.
 
 ### CL-DETERMINISM

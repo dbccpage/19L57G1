@@ -1743,3 +1743,75 @@ badly.
 
 No theorem is added, strengthened, or withdrawn. No claim ledger entry
 changes. `AuthorityEffect: None`.
+
+## R6 discharged: count-invariance is now a theorem (2026-08-17)
+
+Section 12's residual register listed eight residuals in five kinds. R6
+— "count-invariance transport under regime isomorphism", kind (a),
+needing "a Lean transport proof" — is now proved and struck from the
+register.
+
+`lean4/Derivation/CountTransport.lean` adds `DRen`, an action on
+regimes, and the chain `plug_mapCtx` → `derivable_rename` →
+`wfCtx_rename` → `collapsed_rename` → `collapsedCount_rename`. Six new
+`#print axioms` reports, all within `{propext, Quot.sound}`; the axiom
+inventory goes 1314 → 1320 and the module census 55 → 56.
+
+`CL-COUNT-INVARIANCE` is reclassified **[finite computation]** →
+**[theorem]**. The exhaustive Python certification is retained as
+independent evidence rather than replaced.
+
+What made the proof clean is worth recording, because it is a fact about
+the definitions and not a convenience: `collapsed` reads only `forms`,
+`data`, `insts` and `rules`. It never reads `reqs`. A renaming need not
+preserve the `q.1 < q.2` ordering that `Regime.wf` imposes on
+requirements, and that would have been a genuine obstruction had collapse
+depended on them. It does not, so the action leaves `reqs` alone.
+
+Scope stated rather than implied: `collapsed_rename` needs only
+bijectivity, not the bound fields, which are used solely by
+`wfCtx_rename`. `collapsedCount_rename` takes the decision procedure as
+a parameter with a proof that it tracks `collapsed` — nothing here
+decides `collapsed`, whose quantifier ranges over the infinite type
+`Ctx`. The requirement conjunct of `Regime.wf` is not claimed to
+transport.
+
+The four remaining kind-(a) residuals (R1, R2, R3, R7) are open by the
+same route. That the route worked once is not a claim that they are
+done.
+
+## R1, R2, R3 discharged: the mention lemma (2026-08-17)
+
+`lean4/Derivation/Mention.lean` proves the three pruning residuals. They
+were one argument, not three.
+
+`wfCtx` requires `none ∈ c.slots`, so a well-formed context always has a
+hole, and `plug c d` therefore always mentions `d` at that hole. An
+instance that does not mention `d` can never be `plug c d`. That is R3
+(`collapsed_append_unmentioning`).
+
+R1 and R2 are not instances of R3, because a fresh datum or form
+genuinely enlarges the space of well-formed contexts — new contexts do
+appear. What is proved is that every new context mentions something no
+instance mentions, so BOTH plugs fail membership and the iff in
+`collapsed` holds by failing on both sides. A context that reaches
+outside the regime does not separate; it only fails twice. Their
+hypotheses are conjuncts of `Regime.wf`, not new assumptions.
+
+Seven new `#print axioms` reports, all within `{propext, Quot.sound}`;
+the inventory goes 1322 → 1329 and the census 56 → 57.
+
+`CL-PRUNE-STRUCTURAL` gains Lean evidence for its three irrelevance
+inputs and **stays a [bounded theorem]**. The enclosing claim — that the
+pruned enumeration contains every minimum — quantifies over the declared
+cost-2 grammar slice and is still computational. Three inputs became
+theorems; the enumeration did not, and the class is not upgraded on the
+strength of its parts.
+
+`by_contra` is a Mathlib tactic and this development imports only core,
+so `exists_out_of_range_slot` extracts its witness by induction instead.
+Recorded because the constructive-only constraint is easy to breach
+silently.
+
+The register is down to four: R4, R5, R7, R8.
+

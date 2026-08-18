@@ -2,6 +2,8 @@ import Derivation.Basic
 import Derivation.Inertia
 import Derivation.Quot
 import Derivation.Counting
+import Derivation.CountTransport
+import Derivation.Mention
 import Derivation.Minimality
 import Derivation.Progress
 import Derivation.Erasure
@@ -1439,3 +1441,25 @@ open Derivation
 #print axioms EndogenousFidelityGenerator.universalCollapse_surjective
 #print axioms EndogenousFidelityGenerator.no_coherent_path_retains_multiplicity
 #print axioms EndogenousFidelityGenerator.generated_structure_is_failed_erasure
+
+-- R6 discharged: observational collapse, and hence the collapsed-pair
+-- count, transports under a renaming of the datum indices.
+#print axioms Derivation.plug_mapCtx
+#print axioms Derivation.derivable_rename
+#print axioms Derivation.wfCtx_rename
+#print axioms Derivation.collapsed_rename
+#print axioms Derivation.collapsedCount_rename
+#print axioms Derivation.rename_insts_wf
+#print axioms Derivation.cm_separable
+#print axioms Derivation.non_injective_does_not_transport
+
+-- R1, R2, R3 discharged: the mention lemma and its two irrelevance
+-- corollaries.  A context that reaches outside the regime fails twice
+-- and therefore separates nothing.
+#print axioms Derivation.mem_plug_of_hole
+#print axioms Derivation.not_mem_of_arg_out_of_range
+#print axioms Derivation.exists_out_of_range_slot
+#print axioms Derivation.collapsed_append_unmentioning
+#print axioms Derivation.collapsed_fresh_datum
+#print axioms Derivation.getD_append_left
+#print axioms Derivation.collapsed_fresh_form

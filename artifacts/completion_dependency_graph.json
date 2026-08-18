@@ -515,6 +515,7 @@
     "CL-3-FAIL-CURRENT"
    ],
    "consumers": [
+    "CountTransport.lean",
     "Minimality.lean"
    ],
    "kind": "generic",
@@ -17851,6 +17852,219 @@
    "name": "EndogenousFidelityGenerator.generated_structure_is_failed_erasure",
    "role": "classification",
    "statement": "(N : TranslationNetwork) {i j : N.Index} (hno : NoCoherentPath N i j) : exists a b : GeneratedMultiplicity N, a \u2260 b \u2227 universalCollapse N a = universalCollapse N b"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.plug_mapCtx",
+   "role": "preservation",
+   "statement": "(f : Nat \u2192 Nat) (c : Ctx) (d : Nat) : plug (mapCtx f c) (f d) = mapInst f (plug c d)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.derivable_rename",
+   "role": "preservation",
+   "statement": "{f : Nat \u2192 Nat} (hf : \u2200 {x y}, f x = f y \u2192 x = y) (r : Regime) (i : Inst) : derivable (renameRegime f r) (mapInst f i) \u2194 derivable r i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.wfCtx_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (c : Ctx) : wfCtx (renameRegime \u03c3.f r) (mapCtx \u03c3.f c) \u2194 wfCtx r c"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.collapsed_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (d d' : Nat) : collapsed (renameRegime \u03c3.f r) (\u03c3.f d) (\u03c3.f d') \u2194 collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.collapsedCount_rename",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (p q : Nat \u00d7 Nat \u2192 Bool) (hp : \u2200 x : Nat \u00d7 Nat, p x = true \u2194 collapsed r x.1 x.2) (hq : \u2200 x : Nat \u00d7 Nat, q x = true \u2194 collapsed (renameRegime \u03c3.f r) x.1 x.2) (L : List (Nat \u00d7 Nat)) : (L.map (fun x => (\u03c3.f x.1, \u03c3.f x.2))).countP q = L.countP p"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.rename_insts_wf",
+   "role": "preservation",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (h : \u2200 p \u2208 r.insts, p.1 < r.forms.length \u2227 p.2.length = r.forms.getD p.1 0 \u2227 \u2200 a \u2208 p.2, a < r.data) : \u2200 p \u2208 (renameRegime \u03c3.f r).insts, p.1 < r.forms.length \u2227 p.2.length = r.forms.getD p.1 0 \u2227 \u2200 a \u2208 p.2, a < r.data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.cm_separable",
+   "role": "preservation",
+   "statement": ": separable cmRegime 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "CountTransport.lean",
+   "name": "Derivation.non_injective_does_not_transport",
+   "role": "preservation",
+   "statement": ": collapsed (renameRegime (fun _ => 0) cmRegime) ((fun _ => 0) 0) ((fun _ => 0) 1) \u2227 \u00ac collapsed cmRegime 0 1"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.mem_plug_of_hole",
+   "role": "preservation",
+   "statement": "{c : Ctx} (h : none \u2208 c.slots) (d : Nat) : d \u2208 (plug c d).2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.not_mem_of_arg_out_of_range",
+   "role": "preservation",
+   "statement": "{r : Regime} (hwf : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) {i : Inst} {a : Nat} (ha : a \u2208 i.2) (hbig : \u00ac a < r.data) : i \u2209 r.insts"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.exists_out_of_range_slot",
+   "role": "preservation",
+   "statement": "(n : Nat) : \u2200 l : List (Option Nat), \u00ac (\u2200 s \u2208 l, slotOk n s) \u2192 \u2203 x, some x \u2208 l \u2227 \u00ac x < n"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.collapsed_append_unmentioning",
+   "role": "preservation",
+   "statement": "(r : Regime) (new : List Inst) (d d' : Nat) (hd : \u2200 p \u2208 new, d \u2209 p.2) (hd' : \u2200 p \u2208 new, d' \u2209 p.2) : collapsed { r with insts"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.collapsed_fresh_datum",
+   "role": "preservation",
+   "statement": "(r : Regime) (d d' : Nat) (hwf : \u2200 p \u2208 r.insts, \u2200 a \u2208 p.2, a < r.data) : collapsed { r with data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.getD_append_left",
+   "role": "preservation",
+   "statement": "{\u03b1 : Type} (l m : List \u03b1) (i : Nat) (dflt : \u03b1) (h : i < l.length) : (l ++ m).getD i dflt = l.getD i dflt"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PRUNE-STRUCTURAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Mention.lean",
+   "name": "Derivation.collapsed_fresh_form",
+   "role": "preservation",
+   "statement": "(r : Regime) (d d' : Nat) (k : Nat) (hinst : \u2200 p \u2208 r.insts, p.1 < r.forms.length) (hrule : \u2200 f \u2208 r.rules, f < r.forms.length) : collapsed { r with forms"
   }
  ]
 }

@@ -31,6 +31,7 @@ LEDGER_FILE = Path("paper") / "paper_claim_ledger.md"
 DERIVATION_FILES = [
     "Basic.lean", "Inertia.lean", "Quot.lean", "Counting.lean",
     "Minimality.lean", "Progress.lean", "Erasure.lean", "Ext.lean",
+    "CountTransport.lean", "Mention.lean",
 ]
 
 NAMESPACE_FILES: dict[str, list[str]] = {
