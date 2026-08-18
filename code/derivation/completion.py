@@ -90,6 +90,10 @@ VALID_ROLES = (
     "existence", "uniqueness", "minimality", "preservation",
     "termination", "example", "countermodel", "equivalence",
     "classification", "simulation",
+    # The explicit absence of a classification.  Not a role a theorem
+    # plays -- the honest record that its namespace has never been
+    # classified.  See classify().
+    "undeclared",
 )
 
 REFERENCE_MEMBER_SUFFIXES = ("1", "2", "mp", "mpr", "symm")
@@ -663,7 +667,15 @@ def classify(qualified: str) -> tuple[str, str]:
     if qualified in KIND_ROLE_OVERRIDES:
         return KIND_ROLE_OVERRIDES[qualified]
     ns = qualified.rpartition(".")[0]
-    return NAMESPACE_DEFAULTS.get(ns, ("generic", "preservation"))
+    # No silent default role.  An undeclared namespace previously came
+    # back ("generic", "preservation") -- a positive assertion about what
+    # the theorem DOES, applied to 912 of the 1417 exported theorems,
+    # none of which had ever been classified.  "generic" is the honest
+    # weakest kind and is kept; the role is now the explicit absence, and
+    # test_every_namespace_declares_a_default fails while any namespace
+    # is unclassified.  This deletes a false label; it does not invent a
+    # true one.
+    return NAMESPACE_DEFAULTS.get(ns, ("generic", "undeclared"))
 
 
 def inventory() -> list[dict[str, object]]:

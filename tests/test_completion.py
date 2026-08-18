@@ -493,3 +493,53 @@ def test_run_main_and_receipt(tmp_path: Path) -> None:
         "completion_receipt.json",
     ]:
         assert (out / name).read_bytes() == (out2 / name).read_bytes()
+
+
+def test_unclassified_namespaces_are_pinned() -> None:
+    """The classification debt is pinned: it may shrink, never grow.
+
+    classify() no longer stamps an unclassified namespace with a role.
+    Before 2026-08-18 an undeclared namespace came back
+    ("generic", "preservation") -- a positive assertion about what the
+    theorem DOES, applied to 912 of 1417 exported theorems that had
+    never been classified.  The false role is deleted; those theorems now
+    carry the explicit absence "undeclared".
+
+    Classifying the namespaces below is real work and is NOT done here;
+    inventing 24 classifications quickly would replace one loud lie with
+    24 quiet ones.  So the debt is pinned in the census idiom this
+    repository already uses for Lean modules and artifact runners: a new
+    unclassified namespace fails this test, and every namespace removed
+    from the list must be removed here deliberately.
+    """
+    from derivation.completion import NAMESPACE_DEFAULTS, NAMESPACE_FILES
+
+    KNOWN_UNCLASSIFIED = ['Apartness', 'Attachment', 'BoundaryCancellation', 'Compression', 'ContactBridge', 'ContactKernel', 'ControllerCategory', 'GraphGenesis', 'HigherStructure', 'Horizon', 'InterpreterBoundary', 'LadderGeneral', 'ObsDescent', 'PresentationNaturality', 'PrimitiveCats', 'PrimitiveContact', 'PrimitiveCore', 'PrimitivePassage', 'RenamingStructure', 'SeparationCapacity', 'StableContent', 'TraceAlgebra', 'TransitionAlphabet', 'WeightProfile']
+    undeclared = sorted(set(NAMESPACE_FILES) - set(NAMESPACE_DEFAULTS))
+    new = sorted(set(undeclared) - set(KNOWN_UNCLASSIFIED))
+    assert new == [], (
+        f"{len(new)} namespace(s) added without a declared (kind, role): {new}. "
+        "Add them to NAMESPACE_DEFAULTS, or to KNOWN_UNCLASSIFIED with a reason."
+    )
+    gone = sorted(set(KNOWN_UNCLASSIFIED) - set(undeclared))
+    assert gone == [], (
+        f"{len(gone)} namespace(s) now classified: {gone}. "
+        "Remove them from KNOWN_UNCLASSIFIED -- the pin must track the debt."
+    )
+
+
+def test_no_theorem_claims_a_role_its_namespace_never_declared() -> None:
+    """Undeclared namespaces report the absence, not a role."""
+    from derivation.completion import (
+        KIND_ROLE_OVERRIDES, NAMESPACE_DEFAULTS, inventory,
+    )
+
+    for rec in inventory():
+        name = str(rec["name"])
+        if name in KIND_ROLE_OVERRIDES:
+            continue
+        if name.rpartition(".")[0] not in NAMESPACE_DEFAULTS:
+            assert rec["role"] == "undeclared", (
+                f"{name} claims role {rec['role']!r} from an unclassified "
+                "namespace"
+            )

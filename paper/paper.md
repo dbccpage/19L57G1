@@ -101,9 +101,12 @@ idempotence alone:
   observable transports — derivability, context well-formedness,
   collapse, separability, item and delta application, and response
   validity (`derivable_ext` … `validResponse_ext`).  Two list
-  representations of the same admitted sets therefore support exactly
-  the same claims; no exported result depends on list order or
-  representation.  **[theorem]**
+  representations of the same admitted sets therefore agree on every
+  one of those observables, so no claim **stated in terms of them**
+  depends on list order or representation.  **[theorem]**  That every
+  exported claim factors through these observables is not proved and is
+  not asserted (CL-TOKEN-ERASURE, narrowed 2026-08-18; an earlier
+  version of this sentence made the unrestricted claim).
 
 1. **Regime** `(data, forms, insts, rules, reqs)`: admitted data in
    admission order (entries record presentation tokens, visible only to
@@ -262,10 +265,14 @@ both is measured at cost 2, never 1 (negative test
 ### 7.3 Non-uniqueness under mu1
 
 **[theorem]** (`mu1_minimum_not_unique`) — *bounds: none for the
-statement; measure: mu1; scope: absolute.*  There exist two valid two-item
-responses (unary mark; binary link) whose results are non-isomorphic
-(arity is an isomorphism invariant), while no response of at most one item
-is valid.  The minimum corrective augmentation is **not unique**.
+statement; measure: mu1; scope: absolute over the grammar, **reading L**.*
+There exist two valid two-item responses (unary mark; binary link) whose
+results are non-isomorphic (arity is an isomorphism invariant), while no
+response of at most one item is valid.  The minimum corrective
+augmentation is **not unique** in reading L.  The cited theorems are
+stated over `R2L`; reading-F non-uniqueness is the `{F: 5}` engine
+enumeration and carries its bounds (CL-3-NONUNIQUE-MU1; scope made
+explicit 2026-08-18, an earlier version read as covering both readings).
 
 **[bounded theorem]** (engine enumeration, `artifacts/challenges.json`) —
 *bounds: max_items 2, max_arity 2; measure: mu1; scope: complete within
@@ -283,7 +290,10 @@ bijection must preserve the requirement pair (`test_direction_relative_
 to_requirement_matters`, `F_OUT`/`F_IN`).
 
 **[theorem]** (`deltaK_valid`, `deltaK_length`, `markK_pairwise_noniso`) —
-*bounds: none; measure: mu1; scope: absolute.*  For every arity k >= 1 the
+*bounds: none; measure: mu1; scope: absolute over the grammar, **reading
+L** — the family is stated over `R2L` and no reading-F analogue is
+formalized (CL-3-INFINITE-TIES; scope made explicit 2026-08-18).*  For
+every arity k >= 1 the
 k-ary mark is a valid two-item (hence minimum) response, and distinct
 arities give non-isomorphic results: **the mu1 tie class is countably
 infinite**.  Any concrete enumeration is therefore complete only relative
@@ -600,11 +610,15 @@ Within the declared metatheory and candidate grammar:
 * (c) **[theorem]** The first separability requirement has minimum
   response cost exactly two items, absolutely over the item grammar, in
   both admission readings.
-* (d) **[theorem]** Under the item-count measure the minimum is not
-  unique — three non-isomorphic tied classes in reading L and five in
-  reading F within the declared bounds (**[bounded theorem]**), and a
+* (d) **[theorem, reading L]** Under the item-count measure the minimum
+  is not unique — three non-isomorphic tied classes in reading L, and a
   countably infinite tie family indexed by arity (one member for every
-  arity k >= 1).  Under the
+  arity k >= 1), both stated over `R2L`.  **[bounded theorem]** Five
+  classes in reading F within the declared bounds, by engine
+  enumeration; no reading-F Lean non-uniqueness or k-ary family exists.
+  (Reading scope made explicit 2026-08-18: an earlier version of this
+  clause tagged the whole sentence **[theorem]** and read as covering
+  both readings.)  Under the
   refined measure the minimum is unique up to isomorphism, grammar-wide
   in both readings (the reading-F bound was removed 2026-08-18 by
   `mu2_unique_F`; an earlier version of this clause read "within bounds

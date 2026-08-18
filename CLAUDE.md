@@ -13,7 +13,7 @@ consumes that report**, and this scoping change is not its source — treat it
 as an operator claim to be re-run, not a receipt.
 
 Re-run on 2026-08-17 with output captured in `verification_20260817.md`.
-All eight gate families pass at `052e657` (line 99.10%, branch 96.73%, 1314
+All eight gate families then defined pass at `052e657` (line 99.10%, branch 96.73%, 1314
 axiom reports within `{propext, Quot.sound}`, artifacts byte-identical,
 prompt hashes matching). **That discharges the mechanical clauses only.**
 The clauses requiring judgement — that every notion carries a source
@@ -210,10 +210,10 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The eight gate families CI enforces
+### The nine gate families CI enforces
 
 `.github/workflows/verify.yml` runs two jobs, `python` and `lean`. Between
-them they are eight gate families. The local equivalents:
+them they are nine gate families. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
@@ -241,6 +241,12 @@ python ci/check_skills.py
 
 # 8. every paper/*.md path cited inside paper/ resolves
 python ci/check_paper_citations.py
+
+# 9. every evidence citation in the claim ledger resolves. Population
+#    enumerated independently of the classifier, so an unplaceable token
+#    fails totality rather than cancelling out on both sides. It checks
+#    that names RESOLVE, never that wording matches proof.
+python ci/check_ledger_evidence.py
 ```
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of

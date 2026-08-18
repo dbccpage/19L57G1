@@ -1,6 +1,6 @@
 ---
 name: gates
-description: Run the eight CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
+description: Run the nine CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
 ---
 
 # Run the verification contract
@@ -126,9 +126,29 @@ Traversal segments are refused and the resolved target must stay under
 reader to follow — the gate cannot tell a live citation from a narrative
 mention of a dead one.
 
+### 9. Every ledger evidence citation resolves
+
+```powershell
+python ci/check_ledger_evidence.py
+```
+
+Every backticked token in the `**Python**` / `**Lean**` fields of every
+`CL-*` entry must resolve: Lean names against `artifacts/lean_axioms.txt`,
+tests against `tests/`, artifact keys against the committed exports. The
+citation population is enumerated INDEPENDENTLY of the classifier, so a
+token the classifier cannot place fails totality instead of cancelling out
+on both sides.
+
+What it does NOT do: judge wording. `Class: theorem` with `Lean: --`
+passes. It cannot discharge "every theorem-level claim has Lean evidence";
+that clause stays an operator claim, and the gate's own header says so.
+
 ## This file drifts, and nothing checks it
 
-Steps 7 and 8 were missing for as long as those gates have existed. The
+Steps 7 and 8 were missing for as long as those gates have existed, and
+step 9 was missing from the moment the ledger gate landed — added to
+`verify.yml` and to CLAUDE.md's list in the same pull request that this
+file was not updated by, found by review on 2026-08-18. The
 citation gate was added and this procedure — the one whose whole job is to
 run the gates — was not updated the same day.
 

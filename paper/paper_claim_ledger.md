@@ -113,7 +113,10 @@ implementation.
   `test_challenge3_reading_l_classes`.
 - **Lean**: `R2L_collapsed`, `R2F_collapsed` with
   `separable_not_collapsed`.
-- **Axioms**: none.
+- **Axioms**: `propext`; `propext`; `propext` (per-theorem, matching
+  `artifacts/lean_axioms.txt`; an earlier version recorded all three as
+  axiom-free — corrected 2026-08-18, the fourth entry of the same class
+  and the one the walk's sweep missed).
 - **Falsifier / boundary**: a witness context in the unaugmented regime.
 
 ### CL-3-COST1-IMPOSSIBLE

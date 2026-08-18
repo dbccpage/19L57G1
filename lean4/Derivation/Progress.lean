@@ -68,9 +68,10 @@ theorem derivable_extend {r : Regime} (hwf : r.wf) (j : Nat) (x : Inst)
     | inr h => exact Or.inr h
 
 /-- The fresh-mark response is always available: it applies, separates the
-target, and keeps every imposed requirement separated.  This is the progress
-theorem: no separation challenge is ever unanswerable within the declared
-candidate space. -/
+target, and keeps every imposed requirement separated.  What is proved is
+that ONE concrete two-item delta is a valid response under the stated
+hypotheses; the statement does not quantify over the candidate grammar,
+and no claim about that grammar is made here. -/
 theorem mark_progress (r : Regime) (hwf : r.wf) (i j : Nat)
     (hi : i < r.data) (hj : j < r.data) (hij : i ≠ j)
     (hreqs : ∀ q ∈ r.reqs, separable r q.1 q.2) :
