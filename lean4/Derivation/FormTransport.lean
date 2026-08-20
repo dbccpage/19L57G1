@@ -1,7 +1,7 @@
 import Derivation.FormRenaming
 
 /-!
-# Observational transport under a form renaming, and the combined isomorphism
+# Observational transport under a form renaming, and the combined data/form action
 
 `CountTransport.lean` transports observational collapse under a **datum**
 renaming (`renameRegime`, R6); `TransitionTransport.lean` lifts that to the
@@ -9,7 +9,8 @@ transition relation, both over datum bijections *with the identity on
 forms* (its own scope note).  This module supplies the missing half: the
 same observational transport under a **form** renaming (`renameForms`,
 `FormRenaming.lean`), and then the two composed into a combined data+form
-action -- the record-level shape of a full regime isomorphism.
+action.  This is an *action* -- an equality of renamed regimes -- and is
+**not** the canonical regime isomorphism; see the scope note below.
 
 The one new ingredient over the datum side is arity: a form renaming
 permutes the form-arity list, so `wfCtx`'s arity lookup
@@ -30,6 +31,11 @@ Not yet: connecting this transport to the canonical isomorphism relation
 relation states membership conditions between two regimes, not an action
 equation, so collapse across it is a separate proof and is the next unit --
 `collapsed_congr` below (collapse ignores `reqs`) is one of its pieces.
+The action here is in fact *strictly stronger* than `Iso`, not the same
+notion repackaged: `Iso` identifies regimes differing only by duplicate
+instances (`[p]` vs `[p, p]` -- equal as sets, unequal as lists), which no
+rename action can equate.  So neither subsumes the other for free, and the
+connection must be proved, not assumed.
 Also not yet: `separable`, `respond`, `validResponse`, and `TransStep` under
 the form (hence combined) action; the datum half already exists
 (`transStep_rename_fwd`, `transStep_image_total`) and the form half will
