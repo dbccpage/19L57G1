@@ -6,20 +6,27 @@ import Derivation.FormRenaming
 # The relabelling action is an isomorphism, and canonical-key soundness
 
 `code/derivation/iso.py` decides isomorphism by a **canonical key**: the
-minimum, over arity-preserving datum/form bijection pairs, of a total
-serialization of the regime.  `serialize(r, π, φ)` is exactly the combined
-action of this development applied under the bijection pair -- `mapReq` *is*
-`sortPair` of the mapped endpoints (proved below), and arities move by
-`renameForms_arity`.  So the whole key machinery rests on one fact: relabelling
-a regime by a bijection pair yields a regime **isomorphic** to it, in the sense
-of the sealed `Minimality.Iso`.
+minimum, over color-class-preserving datum/form bijection pairs, of a total
+serialization of the regime (`canonical`; the brute-force reference minimizes
+over all pairs, and equality of keys agrees between the two).
+`serialize(r, π, φ)` reads off the combined action of this development applied
+under the bijection pair, then sorts `insts`, `rules`, and `reqs`
+componentwise -- `mapReq` *is* `sortPair` of the mapped endpoints (proved
+below), and arities move by `renameForms_arity`.  The action half of the key
+machinery therefore rests on one fact: relabelling a regime by a bijection
+pair yields a regime **isomorphic** to it, in the sense of the sealed
+`Minimality.Iso`.  The sort half is scoped below.
 
-This module proves that (`relabel_iso`), makes `Iso` an equivalence relation by
-adding `Iso.trans` (reflexivity and symmetry already exist as `isoRefl` and
-`Iso.symm`), and derives the **soundness kernel**: two regimes whose
-relabellings coincide are isomorphic (`iso_of_relabel_eq`).  That is the
-direction that makes "dedup by canonical key" safe -- equal key ⇒ genuinely
-isomorphic ⇒ never merges two distinct classes.
+This module proves that (`relabel_iso`), makes `Iso` an equivalence relation
+on regimes with ordered requirement pairs -- as `Regime.wf` gives; reflexivity
+is conditional on exactly that, via `isoRefl` -- by adding `Iso.trans`
+(symmetry is `Iso.symm`), and derives the **soundness kernel**: two regimes
+whose relabellings coincide *as regimes* are isomorphic (`iso_of_relabel_eq`).
+That is the kernel of the direction that makes "dedup by canonical key" safe,
+not yet that direction in full: equal keys give relabellings equal only up to
+`serialize`'s componentwise sorts, and the list-reorder step from there to
+`Iso` is not proved here -- it needs the same normalization hypotheses as the
+converse below.
 
 The converse (isomorphic ⇒ equal key, the non-redundancy half) is **not** here:
 it needs a no-duplicate/normalization hypothesis, since `Minimality.Iso` is a
@@ -28,6 +35,8 @@ serialization equates.  That is the next unit.
 
 `relabel_iso`'s `reqs_bwd` needs `r`'s requirements ordered (as `Regime.wf`
 gives); everything else is unconditional in the bijection bounds.
+`iso_of_relabel_eq` accordingly needs both regimes' requirements ordered
+(`hr`, `hs`).
 
 AuthorityEffect: None.  Parked module (not imported by `Derivation.lean`);
 axioms within `{propext, Quot.sound}`, verified by hand, not by the root gate.
@@ -54,7 +63,7 @@ theorem mapReq_eq_sortPair (f : Nat → Nat) (q : Nat × Nat) :
   rw [sortPair_eq_minmax]; rfl
 
 /-- Sorting the endpoints before mapping does not change the sorted image. -/
-theorem sortPair_map (f : Nat → Nat) (a b : Nat) :
+theorem sortPair_map_sortPair (f : Nat → Nat) (a b : Nat) :
     sortPair (f (sortPair (a, b)).1, f (sortPair (a, b)).2) = sortPair (f a, f b) := by
   rcases Nat.le_total a b with h | h
   · rw [sortPair_eq_minmax a b, Nat.min_eq_left h, Nat.max_eq_right h]
@@ -70,8 +79,10 @@ variable {r s t : Regime}
 
 /-! ## `Iso` is transitive -/
 
-/-- Compose two isomorphisms.  With `isoRefl` and `Iso.symm`, `Iso` is an
-equivalence relation on regimes. -/
+/-- Compose two isomorphisms (unconditional).  With `isoRefl` -- whose
+ordered-`reqs` hypothesis is genuinely needed: a regime with an unordered
+requirement pair is not `Iso` to itself -- and `Iso.symm`, `Iso` is an
+equivalence relation on regimes with ordered requirement pairs. -/
 def trans (h : Iso r s) (k : Iso s t) : Iso r t where
   dmap := k.dmap ∘ h.dmap
   dinv := h.dinv ∘ k.dinv
@@ -106,18 +117,18 @@ def trans (h : Iso r s) (k : Iso s t) : Iso r t where
   rules_bwd := fun f hf => h.rules_bwd _ (k.rules_bwd f hf)
   reqs_fwd := fun q hq => by
     have h2 := k.reqs_fwd _ (h.reqs_fwd q hq)
-    rwa [sortPair_map] at h2
+    rwa [sortPair_map_sortPair] at h2
   reqs_bwd := fun q hq => by
     have h2 := h.reqs_bwd _ (k.reqs_bwd q hq)
-    rwa [sortPair_map] at h2
+    rwa [sortPair_map_sortPair] at h2
 
 end Iso
 
 /-! ## The relabelling action -/
 
 /-- Relabel a regime by a datum bijection `π` and a form bijection `φ`: the
-combined transition-and-form action.  This is `serialize`'s action, as a
-regime. -/
+combined transition-and-form action.  This is the regime `serialize` reads
+off before its componentwise sorts. -/
 def relabel (r : Regime) (π : DRen r.data) (φ : DRen r.forms.length) : Regime :=
   renameForms φ.f φ.g (renameRegimeR π.f r)
 
@@ -162,10 +173,9 @@ def relabel_iso (r : Regime) (π : DRen r.data) (φ : DRen r.forms.length)
     exact φ.gbound f hf'
   finv_fmap := fun f _ => φ.fg f
   fmap_finv := fun f _ => φ.gf f
-  arity := fun f hf => by
-    have hf' : f < r.forms.length := List.mem_range.mp hf
-    show (permForms φ.g r.forms).getD (φ.f f) 0 = r.forms.getD f 0
-    rw [permForms_getD φ.g r.forms (φ.fbound f hf'), φ.fg]
+  arity := fun f hf =>
+    renameForms_arity φ.f φ.g (renameRegimeR π.f r)
+      (φ.fbound f (List.mem_range.mp hf)) (φ.fg f)
   insts_fwd := fun p hp => by
     show (φ.f p.1, p.2.map π.f) ∈ (r.insts.map (mapInst π.f)).map (mapInstForm φ.f)
     exact List.mem_map.mpr ⟨mapInst π.f p, List.mem_map.mpr ⟨p, hp, rfl⟩, rfl⟩
@@ -179,8 +189,8 @@ def relabel_iso (r : Regime) (π : DRen r.data) (φ : DRen r.forms.length)
         (mapInstForm φ.f (mapInst π.f p0)).2.map π.g) = p0 := by
       show (φ.g (φ.f p0.1), (p0.2.map π.f).map π.g) = p0
       rw [φ.fg, List.map_map]
-      have : (p0.2.map (π.g ∘ π.f)) = p0.2 := by
-        rw [show (π.g ∘ π.f) = id from funext π.fg, List.map_id]
+      have : (p0.2.map (π.g ∘ π.f)) = p0.2 :=
+        map_eq_self_of_mem (fun a _ => π.fg a)
       rw [this]
     rw [e]; exact hp0
   rules_fwd := fun f hf => List.mem_map.mpr ⟨f, hf, rfl⟩
@@ -194,16 +204,20 @@ def relabel_iso (r : Regime) (π : DRen r.data) (φ : DRen r.forms.length)
   reqs_bwd := fun q hq => by
     obtain ⟨q0, hq0, hq0e⟩ := List.mem_map.mp hq
     show sortPair (π.g q.1, π.g q.2) ∈ r.reqs
-    rw [← hq0e, mapReq_eq_sortPair, sortPair_map, π.fg, π.fg,
+    rw [← hq0e, mapReq_eq_sortPair, sortPair_map_sortPair, π.fg, π.fg,
         sortPair_of_le (hord q0 hq0)]
     exact hq0
 
 /-! ## Soundness kernel -/
 
-/-- **Soundness kernel.**  If two regimes relabel to the same regime, they are
-isomorphic.  This is the content behind "equal canonical key ⇒ isomorphic":
-the key is a minimum of `relabel` over bijection pairs, and equal minima are
-attained by relabellings that coincide. -/
+/-- **Soundness kernel.**  If two regimes relabel to the same regime -- with
+both regimes' requirements ordered (`hr`, `hs`) -- they are isomorphic.  This
+is the kernel of "equal canonical key ⇒ isomorphic", not the whole of it: the
+key is the minimum of `serialize`, which sorts `insts`/`rules`/`reqs` after
+the action, so equal keys yield relabellings that coincide only up to those
+sorts, and as lists they may differ -- then `heq` is not available.  Closing
+that list-reorder gap needs the same normalization hypotheses as the converse;
+it belongs to the next unit. -/
 def iso_of_relabel_eq {r s : Regime}
     (πr : DRen r.data) (φr : DRen r.forms.length)
     (πs : DRen s.data) (φs : DRen s.forms.length)

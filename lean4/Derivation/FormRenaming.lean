@@ -12,8 +12,11 @@ half was never exercised.  This module builds its record level: the form
 action on a regime, its inverse within the fixed-form-length fibre, and
 arity preservation -- mirroring the data-side idioms.  Transporting `wf`,
 contexts, derivability, collapse, and transitions under form renaming is
-the remaining P1 step, and "full regime isomorphism" stays future work
-until those land.
+the remaining P1 step.  An earlier version of this line added that "full
+regime isomorphism" stays future work until those land; `IsoCanon.lean` has
+since proved the combined action a `Minimality.Iso` (`relabel_iso`) without
+them, so what remains future work is those transports, not the isomorphism
+connection itself.
 
 A form renaming is a bounded index bijection `DRen m` with
 `m = r.forms.length` -- a pair of maps `f, g` each inverting the other

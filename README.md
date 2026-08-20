@@ -139,7 +139,7 @@ failing on the exact defect it exists to catch.
 ```powershell
 python -m pytest                    # 435 tests
 python -m mypy                      # strict, over code/
-cd lean4; lake build; cd ..         # default Derivation target; CI census/audit covers all 68 modules
+cd lean4; lake build; cd ..         # default Derivation target; CI census elaborates all 68 modules
 ```
 
 Artifacts regenerate deterministically:
