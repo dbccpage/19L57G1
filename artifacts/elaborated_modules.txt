@@ -30,6 +30,8 @@ Derivation.Horizon
 Derivation.Inertia
 Derivation.Initiality
 Derivation.InterpreterBoundary
+Derivation.IsoCollapse
+Derivation.IsoCollapseCompat
 Derivation.LadderGeneral
 Derivation.Mention
 Derivation.Minimality
