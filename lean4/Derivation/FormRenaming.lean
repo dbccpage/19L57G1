@@ -14,9 +14,10 @@ arity preservation -- mirroring the data-side idioms.  Transporting `wf`,
 contexts, derivability, collapse, and transitions under form renaming is
 the remaining P1 step.  An earlier version of this line added that "full
 regime isomorphism" stays future work until those land; `IsoCanon.lean` has
-since proved the combined action a `Minimality.Iso` (`relabel_iso`) without
-them, so what remains future work is those transports, not the isomorphism
-connection itself.
+since proved the combined action a `Minimality.Iso` (`relabel_iso`) -- on
+regimes with ordered requirement pairs (as `Regime.wf` gives), and without
+those transports -- so what remains future work is the transports, not the
+isomorphism connection itself.
 
 A form renaming is a bounded index bijection `DRen m` with
 `m = r.forms.length` -- a pair of maps `f, g` each inverting the other
