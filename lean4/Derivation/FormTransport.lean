@@ -31,20 +31,25 @@ Not yet: connecting this transport to the canonical isomorphism relation
 relation states membership conditions between two regimes, not an action
 equation, so collapse across it is a separate proof and is the next unit --
 `collapsed_congr` below (collapse ignores `reqs`) is one of its pieces.
-The action here and `Iso` are in fact *incomparable* -- neither implies the
-other -- so the connection must be proved, not assumed:
+The action here and `Iso` are not the same relation, so the connection must
+be proved, not assumed:
 * `Iso` does not imply the action: `Iso` identifies regimes differing only
   by duplicate instances (`[p]` vs `[p, p]` -- equal as sets, unequal as
   lists), which no rename action can equate.
-* the action does not imply `Iso`: the collapse-level action here uses
-  `renameRegime`, which leaves `reqs` untouched, whereas `Iso` requires
-  `reqs` to map with the datum bijection (`reqs_fwd`).  A regime with `reqs`
-  `[(0, 1)]` under a datum map sending `0, 1` to `1, 2` keeps `[(0, 1)]`
-  under the action but would need `(1, 2)` to satisfy `Iso`.
+* the action is not an `Iso` witnessed by *its own* maps: the collapse-level
+  action here uses `renameRegime`, which leaves `reqs` untouched, so with
+  `dmap = σ.f` the `reqs_fwd` conjunct fails -- a `reqs` `[(0, 1)]` under
+  `σ.f` sending `0, 1` to `1, 2` stays `[(0, 1)]`, but `reqs_fwd` for that
+  map would need `(1, 2)`.  Since `Iso` chooses its maps existentially,
+  ruling out *every* choice needs a forcing regime (distinct arities and
+  instances pinning the bijection); that stronger claim is not asserted here.
 Also not yet: `separable`, `respond`, `validResponse`, and `TransStep` under
-the form (hence combined) action; the datum half already exists
-(`transStep_rename_fwd`, `transStep_image_total`) and the form half will
-compose with it exactly as `collapsed` does here.
+the form (hence combined) action.  This does **not** compose "exactly as
+collapse": collapse uses the `reqs`-free `renameRegime`, while the datum-side
+`transStep` transport uses the requirement-carrying `renameRegimeR`
+(`validResponse` reads `reqs`).  So the form lift needs additional work -- a
+form action on `reqs` and its transport, and a bridge to `renameRegimeR` --
+before it can compose with `transStep_rename_fwd` / `transStep_image_total`.
 
 AuthorityEffect: None.  Parked module (not imported by `Derivation.lean`);
 its axioms are within `{propext, Quot.sound}`, verified by hand, not by the
