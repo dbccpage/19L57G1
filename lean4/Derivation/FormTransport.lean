@@ -1,5 +1,4 @@
 import Derivation.FormRenaming
-import Derivation.TransitionTransport
 
 /-!
 # Observational transport under a form renaming, and the combined isomorphism
@@ -24,13 +23,17 @@ renaming leaves a context's slots (which name data, not forms) untouched.
 Proved: `collapsed` and its readers (`wfCtx`, `derivable`) transport under a
 form renaming, and the combined data+form action transports `collapsed`
 (datum pair moved by the datum map only, since a form renaming does not
-touch datum indices).  The combined isomorphism `Iso r s` is defined and
-`collapsed` is shown to transport across it.
+touch datum indices).
 
-Not yet: `separable`, `respond`, `validResponse`, and `TransStep` under the
-form (hence the combined) action.  Those are the next P1 unit; the datum
-half already exists (`transStep_rename_fwd`, `transStep_image_total`) and
-the form half will compose with it exactly as `collapsed` does here.
+Not yet: connecting this transport to the canonical isomorphism relation
+`Iso` (already defined in `Minimality.lean`, mirroring `iso.py`).  That
+relation states membership conditions between two regimes, not an action
+equation, so collapse across it is a separate proof and is the next unit --
+`collapsed_congr` below (collapse ignores `reqs`) is one of its pieces.
+Also not yet: `separable`, `respond`, `validResponse`, and `TransStep` under
+the form (hence combined) action; the datum half already exists
+(`transStep_rename_fwd`, `transStep_image_total`) and the form half will
+compose with it exactly as `collapsed` does here.
 
 AuthorityEffect: None.  Parked module (not imported by `Derivation.lean`);
 its axioms are within `{propext, Quot.sound}`, verified by hand, not by the
@@ -172,30 +175,5 @@ theorem collapsed_renameDataForm {n : Nat} (σ : DRen n) (r : Regime)
       ↔ collapsed r d d' := by
   rw [collapsed_renameForms (renameRegime σ.f r) τ (σ.f d) (σ.f d')]
   exact collapsed_rename σ r hn d d'
-
-/-! ## The combined isomorphism -/
-
-/-- A combined data+form isomorphism exhibiting `s` as `r` relabelled: a
-datum bijection `σ` and an arity-preserving form bijection `τ` whose full
-action -- data indices, forms, instances, rules, and requirements -- carries
-`r` to `s`.  Requirements use the `reqs`-carrying `renameRegimeR`, so this
-is the full structural action, not the collapse-only one. -/
-structure Iso (r s : Regime) where
-  σ : DRen r.data
-  τ : DRen r.forms.length
-  onData : s = renameForms τ.f τ.g (renameRegimeR σ.f r)
-
-/-- **Collapse transports across an `Iso`.**  The datum pair is carried by
-the isomorphism's datum bijection; the form bijection and the requirement
-carriage do not affect collapse (it never reads `reqs`). -/
-theorem Iso.collapsed_iff {r s : Regime} (h : Iso r s) (d d' : Nat) :
-    collapsed s (h.σ.f d) (h.σ.f d') ↔ collapsed r d d' := by
-  obtain ⟨σ, τ, onData⟩ := h
-  subst onData
-  have key : collapsed (renameForms τ.f τ.g (renameRegimeR σ.f r)) (σ.f d) (σ.f d')
-      ↔ collapsed (renameForms τ.f τ.g (renameRegime σ.f r)) (σ.f d) (σ.f d') :=
-    collapsed_congr rfl rfl rfl rfl (σ.f d) (σ.f d')
-  rw [key]
-  exact collapsed_renameDataForm σ r rfl τ d d'
 
 end Derivation
