@@ -15,5 +15,9 @@ This module IS those two imports.  It carries no declarations; its only job
 is to force the root and the parked module into one environment, so the
 census build fails on any such collision at the source, not downstream.
 
+Scope: this probe covers `FormTransport` (and, transitively, `FormRenaming`)
+only.  The older parked modules `Breaking` and `Composing` are not probed
+here; a full guard would add one probe per parked module.
+
 AuthorityEffect: None.  Parked; no declarations, hence no axiom footprint.
 -/

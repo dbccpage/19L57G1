@@ -31,11 +31,16 @@ Not yet: connecting this transport to the canonical isomorphism relation
 relation states membership conditions between two regimes, not an action
 equation, so collapse across it is a separate proof and is the next unit --
 `collapsed_congr` below (collapse ignores `reqs`) is one of its pieces.
-The action here is in fact *strictly stronger* than `Iso`, not the same
-notion repackaged: `Iso` identifies regimes differing only by duplicate
-instances (`[p]` vs `[p, p]` -- equal as sets, unequal as lists), which no
-rename action can equate.  So neither subsumes the other for free, and the
-connection must be proved, not assumed.
+The action here and `Iso` are in fact *incomparable* -- neither implies the
+other -- so the connection must be proved, not assumed:
+* `Iso` does not imply the action: `Iso` identifies regimes differing only
+  by duplicate instances (`[p]` vs `[p, p]` -- equal as sets, unequal as
+  lists), which no rename action can equate.
+* the action does not imply `Iso`: the collapse-level action here uses
+  `renameRegime`, which leaves `reqs` untouched, whereas `Iso` requires
+  `reqs` to map with the datum bijection (`reqs_fwd`).  A regime with `reqs`
+  `[(0, 1)]` under a datum map sending `0, 1` to `1, 2` keeps `[(0, 1)]`
+  under the action but would need `(1, 2)` to satisfy `Iso`.
 Also not yet: `separable`, `respond`, `validResponse`, and `TransStep` under
 the form (hence combined) action; the datum half already exists
 (`transStep_rename_fwd`, `transStep_image_total`) and the form half will
@@ -148,9 +153,10 @@ theorem collapsed_renameForms (r : Regime) (σ : DRen r.forms.length)
 /-! ## Collapse depends only on data, forms, insts, rules -/
 
 /-- Two regimes agreeing on every field `collapse` reads (all but `reqs`)
-collapse the same pairs.  Used to move the combined action's `reqs`-carrying
-form (`renameRegimeR`) to its `reqs`-free form (`renameRegime`), which is
-all collapse needs. -/
+collapse the same pairs.  A future bridge, not yet called in this module:
+connecting collapse transport to `Iso` (which renames `reqs`) will need to
+pass between a `reqs`-carrying action and its `reqs`-free form, and this says
+collapse cannot tell them apart. -/
 theorem collapsed_congr {r s : Regime}
     (hf : r.forms = s.forms) (hd : r.data = s.data)
     (hi : r.insts = s.insts) (hru : r.rules = s.rules)
