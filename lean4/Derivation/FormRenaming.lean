@@ -8,17 +8,24 @@ Data renaming (`renameRegime`, `Derivation/CountTransport.lean`) relabels
 datum indices inside instance argument tuples and leaves form indices
 alone: `mapInst f (i.1, i.2) = (i.1, i.2.map f)`.  A full regime
 isomorphism also permutes the **form** indices, arity-preserving.  That
-half was never exercised; this module builds it, mirroring the data-side
-idioms exactly.
+half was never exercised.  This module builds its record level: the form
+action on a regime, its inverse within the fixed-form-length fibre, and
+arity preservation -- mirroring the data-side idioms.  Transporting `wf`,
+contexts, derivability, collapse, and transitions under form renaming is
+the remaining P1 step, and "full regime isomorphism" stays future work
+until those land.
 
-A form renaming is a bounded self-inverse index bijection `DRen m` with
-`m = r.forms.length` -- the same structure the data side uses, reused so
-form and datum renamings share one bijection type.
+A form renaming is a bounded index bijection `DRen m` with
+`m = r.forms.length` -- a pair of maps `f, g` each inverting the other
+(not necessarily a self-inverse), the same structure the data side uses,
+reused so form and datum renamings share one bijection type.
 
 AuthorityEffect: None.  This is new object-level structure, not a claim.
 Nothing here is wired into the sealed theorem set; it is a parked module,
-elaborated by CI but outside the paper's cited axiom inventory.  It stands
-or falls on its own `lake build`, with every proof complete.
+elaborated by the per-module CI census (and `lake build
+Derivation.FormRenaming`) but not by the default `lake build` target, and
+outside the paper's cited axiom inventory.  Its axioms are verified here by
+hand, not preserved by the root axiom gate.
 -/
 
 namespace Derivation
@@ -99,10 +106,13 @@ theorem mapInstForm_gf (φ g : Nat → Nat) (i : Inst) (h : g (φ i.1) = i.1) :
 
 /-- The form action, undone.  A form renaming `σ : DRen r.forms.length`
 acting by `σ.f` is inverted by acting by `σ.g`: `renameForms σ.g σ.f`
-composed after `renameForms σ.f σ.g` is the identity on the regime.  This
-is one half of "`renameForms` is an isomorphism" -- it has a two-sided
-inverse, hence is a bijection on regimes.  The data-side counterpart is
-`renameRegime`'s inverse-pair lemma. -/
+composed after `renameForms σ.f σ.g` is the identity on `r`.  So on the
+fibre of regimes sharing this form-arity length the record transform has a
+two-sided inverse -- a bijection at the record level, within that fibre.
+It is *not* yet an automorphism of unqualified `Regime`, nor a transport
+of `wf`, contexts, derivability, collapse, or transitions; those are the
+remaining P1 steps.  The data-side counterpart is `renameRegime`'s
+inverse-pair lemma. -/
 theorem renameForms_gf (r : Regime) (σ : DRen r.forms.length) :
     renameForms σ.g σ.f (renameForms σ.f σ.g r) = r := by
   have hforms : permForms σ.f (permForms σ.g r.forms) = r.forms := by

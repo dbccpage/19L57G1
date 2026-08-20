@@ -19,7 +19,7 @@ proved, and — stated with equal precision — what was not.
 | | |
 |---|---|
 | Python | 54 modules; the computational object language and its studies |
-| Lean 4 | 61 modules, 59 imported and audited, 2 parked |
+| Lean 4 | 62 modules, 59 imported and audited, 3 parked |
 | Tests | 34 files, 435 tests, line 99.10% / branch 96.73% |
 | Artifacts | 37 deterministic JSON exports plus 6 full gzipped trees |
 | Claims | 127 ledger entries, each naming its own evidence |
@@ -92,7 +92,7 @@ the rest.
   byte comparisons say what the commands printed. They do not say the
   mathematics is right.
 * **"Axiom-clean" is a claim about the enumerated reports** (1417), not
-  about every declaration in the tree. Two parked modules elaborate but
+  about every declaration in the tree. Three parked modules elaborate but
   emit no report; their axioms are unchecked. This is recorded as an
   open obstruction, not closed quietly.
 * **The ledger gate checks that names resolve, never that wording
@@ -139,7 +139,7 @@ failing on the exact defect it exists to catch.
 ```powershell
 python -m pytest                    # 435 tests
 python -m mypy                      # strict, over code/
-cd lean4; lake build; cd ..         # 61 modules, no sorry/axiom/unsafe/partial
+cd lean4; lake build; cd ..         # 62 modules, no sorry/axiom/unsafe/partial
 ```
 
 Artifacts regenerate deterministically:
