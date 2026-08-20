@@ -20,6 +20,7 @@ Derivation.EndogenousFidelityGenerator
 Derivation.Erasure
 Derivation.Ext
 Derivation.FidelityClosure
+Derivation.FormRenaming
 Derivation.Generator
 Derivation.GraphGenesis
 Derivation.HigherStructure
