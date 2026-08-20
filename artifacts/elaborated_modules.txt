@@ -30,6 +30,8 @@ Derivation.Horizon
 Derivation.Inertia
 Derivation.Initiality
 Derivation.InterpreterBoundary
+Derivation.IsoBridge
+Derivation.IsoBridgeCompat
 Derivation.IsoCanon
 Derivation.IsoCanonCompat
 Derivation.IsoCollapse
