@@ -8,9 +8,11 @@ import Derivation.FormRenaming
 `code/derivation/iso.py` decides isomorphism, within its configured
 permutation budget, by a **canonical key**: the minimum, over
 color-class-preserving datum/form bijection pairs, of a total serialization of
-the regime (`canonical`; the brute-force reference minimizes over all pairs,
-and equality of keys agrees between the two).  Above the budget the API raises
-rather than deciding.
+the regime (`canonical`; the brute-force reference minimizes over all pairs).
+Above the budget the API raises rather than deciding.  The two key computations
+agree on the declared Challenge-3 representatives and the mixed-regime test
+corpus -- finite test evidence, not a proved general agreement, and distinct
+from the still-open general key-to-isomorphism bridge below.
 `serialize(r, π, φ)` reads off the combined action of this development applied
 under the bijection pair, then sorts `insts`, `rules`, and `reqs`
 componentwise -- `mapReq` *is* `sortPair` of the mapped endpoints (proved
