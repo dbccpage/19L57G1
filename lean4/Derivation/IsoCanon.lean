@@ -5,10 +5,12 @@ import Derivation.FormRenaming
 /-!
 # The relabelling action is an isomorphism, and canonical-key soundness
 
-`code/derivation/iso.py` decides isomorphism by a **canonical key**: the
-minimum, over color-class-preserving datum/form bijection pairs, of a total
-serialization of the regime (`canonical`; the brute-force reference minimizes
-over all pairs, and equality of keys agrees between the two).
+`code/derivation/iso.py` decides isomorphism, within its configured
+permutation budget, by a **canonical key**: the minimum, over
+color-class-preserving datum/form bijection pairs, of a total serialization of
+the regime (`canonical`; the brute-force reference minimizes over all pairs,
+and equality of keys agrees between the two).  Above the budget the API raises
+rather than deciding.
 `serialize(r, π, φ)` reads off the combined action of this development applied
 under the bijection pair, then sorts `insts`, `rules`, and `reqs`
 componentwise -- `mapReq` *is* `sortPair` of the mapped endpoints (proved
