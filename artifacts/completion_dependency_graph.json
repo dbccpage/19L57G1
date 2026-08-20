@@ -14509,7 +14509,8 @@
     "CL-PD2-CONTACT-RECONSTRUCTION (executed collision, 2026-08-13)"
    ],
    "consumers": [
-    "ContactBridge.lean"
+    "ContactBridge.lean",
+    "DiffAnchor.lean"
    ],
    "kind": "generic",
    "module": "ObsDescent.lean",
@@ -15364,7 +15365,9 @@
     "CL-PD2-CONTACT-BRIDGE (executed collision, 2026-08-13)",
     "CL-PD2-CONTACT-ENTRY (executed collision, 2026-08-13)"
    ],
-   "consumers": [],
+   "consumers": [
+    "DiffAnchor.lean"
+   ],
    "kind": "generic",
    "module": "ContactBridge.lean",
    "name": "ContactBridge.declared_zero_as_view",
@@ -17934,6 +17937,7 @@
     "CL-COUNT-INVARIANCE"
    ],
    "consumers": [
+    "FormTransport.lean",
     "TransitionTransport.lean"
    ],
    "kind": "generic",
