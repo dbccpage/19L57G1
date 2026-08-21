@@ -49,7 +49,8 @@ silently.
 
 ## The exports
 
-Eighteen declarations across two pinned modules. Grouped by what they do.
+Twenty-three declarations across three pinned modules. Grouped by what
+they do.
 
 ### The difference interface
 
@@ -118,6 +119,39 @@ neither family.
 
 State is a function of represented history. This is what makes any
 result here re-derivable from genesis rather than asserted.
+
+### The equivariance obstruction
+
+| name | kind | what it is |
+|---|---|---|
+| `Symmetry` | STRUCTURE | A carrier, a type of symbols, an action, and one field: **no point is fixed by every symbol**. No involution law, no group law, no identity, no inverses, no composition. |
+| `no_orbit_constant_equivariant_selector` | THEOREM | Given an inhabitant, no selector is both orbit-constant and equivariant. |
+| `no_orbit_constant_equivariant_endomap` | THEOREM | The single-involution case, subsumed by the above via `ofBreak`. |
+| `no_fixed_point_free_involution_on_Tri` | THEOREM | No fixed-point-free involution exists on a three-point carrier. |
+| `selector_exists_at_common_fixed_point` | THEOREM | Where a point IS fixed by every symbol, the constant selector at it is both — so the hypothesis is spent, not decorative. |
+
+All five report **no axiom dependency at all** — not `propext`, not
+`Quot.sound`. The proof is two equations composed: orbit-constancy says
+the value does not move when the argument does, equivariance says it
+moves exactly as the argument does, and together they say it does not
+move at all.
+
+`no_fixed_point_free_involution_on_Tri` is why the general form is not
+cosmetic. A fixed-point-free involution pairs its carrier into
+two-cycles, so a finite single-involution carrier has **even**
+cardinality — a three-fold symmetric situation is outside that shape for
+an arithmetic reason, not a deep one.
+
+**The scope, which is the part most likely to be misread.** This says
+that where a symmetry has no common fixed point, a selector cannot be
+both blind to the symmetry and compatible with it. It does **not** say
+that ties in this development are unbreakable. In this repository the
+tied minimal responses are separated by an isomorphism invariant, and an
+invariant measure already selects among them uniquely; the obstruction
+bites *within* a tie class, where two concrete presentations are
+exchanged by a transposition, not *across* classes. An importer that
+carries this over as "choice can never be derived" will have imported
+something the exporting side disproves.
 
 ## What an importer must NOT assume
 
