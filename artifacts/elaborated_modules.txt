@@ -50,6 +50,11 @@ Derivation.PresentationDescent
 Derivation.PresentationNaturality
 Derivation.PresentationRelativity
 Derivation.PrimDiff
+Derivation.PrimDiffAlternation
+Derivation.PrimDiffMultRung
+Derivation.PrimDiffRung2
+Derivation.PrimDiffRung3
+Derivation.PrimDiffRung4
 Derivation.PrimitiveCats
 Derivation.PrimitiveContact
 Derivation.PrimitiveCore
