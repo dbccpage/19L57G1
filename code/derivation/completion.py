@@ -83,6 +83,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     "FidelityClosure": ["FidelityClosure.lean"],
     "NoOutsideFidelity": ["NoOutsideFidelity.lean"],
     "EndogenousFidelityGenerator": ["EndogenousFidelityGenerator.lean"],
+    "Breaking": ["Breaking.lean"],
 }
 
 VALID_KINDS = ("concrete", "generic", "bounded", "horizon-free")
@@ -374,6 +375,13 @@ NAMESPACE_DEFAULTS: dict[str, tuple[str, str]] = {
     "FidelityClosure": ("generic", "classification"),
     "NoOutsideFidelity": ("generic", "classification"),
     "EndogenousFidelityGenerator": ("generic", "classification"),
+    # Classified on arrival rather than added to KNOWN_UNCLASSIFIED.
+    # That list pins a debt of 24 legacy namespaces whose classification
+    # is real work; this namespace has seven theorems written in the same
+    # change, so declaring them is cheap and deferring would grow the
+    # debt for no reason.  Every one is also overridden individually
+    # below, so the default is a fallback, not the operative label.
+    "Breaking": ("generic", "countermodel"),
 }
 
 KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
@@ -660,6 +668,19 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
         ("generic", "classification"),
     "EndogenousFidelityGenerator.generated_structure_is_failed_erasure":
         ("generic", "classification"),
+    # equivariance obstruction
+    "Breaking.no_orbit_constant_equivariant_endomap":
+        ("generic", "countermodel"),
+    "Breaking.no_orbit_constant_equivariant_selector":
+        ("generic", "countermodel"),
+    "Breaking.no_selector_of_no_common_fixed_point":
+        ("generic", "countermodel"),
+    "Breaking.no_common_fixed_point": ("generic", "classification"),
+    "Breaking.no_fixed_point_free_involution_on_Tri":
+        ("concrete", "countermodel"),
+    "Breaking.selector_exists_at_common_fixed_point":
+        ("generic", "existence"),
+    "Breaking.selector_iff_common_fixed_point": ("generic", "equivalence"),
 }
 
 

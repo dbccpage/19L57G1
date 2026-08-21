@@ -57,6 +57,7 @@ import Derivation.QuotientRetention
 import Derivation.FidelityClosure
 import Derivation.NoOutsideFidelity
 import Derivation.EndogenousFidelityGenerator
+import Derivation.Breaking
 
 /-!
 # Axiom reports
@@ -1563,3 +1564,15 @@ open Derivation
 #print axioms Derivation.closedRun_reqs_wf
 #print axioms Derivation.closedRun_round_bound
 #print axioms Derivation.closedRun_round_bound_from_empty
+
+-- The equivariance obstruction. Previously PARKED: the module elaborated
+-- under the per-module gate but the root did not import it, so it emitted
+-- no report and its axiom surface was inspected by no gate. That residual
+-- is closed for this module here; it remains open for the others.
+#print axioms Breaking.no_orbit_constant_equivariant_endomap
+#print axioms Breaking.no_orbit_constant_equivariant_selector
+#print axioms Breaking.no_selector_of_no_common_fixed_point
+#print axioms Breaking.no_common_fixed_point
+#print axioms Breaking.no_fixed_point_free_involution_on_Tri
+#print axioms Breaking.selector_exists_at_common_fixed_point
+#print axioms Breaking.selector_iff_common_fixed_point

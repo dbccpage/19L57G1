@@ -2,7 +2,7 @@
 
 ## Result
 
-At sealed snapshot `a1738fad5de7e1961ec60a16ddfa8d5b36ceab7d`, an
+At sealed snapshot `77327ed3f9d580c87f21f4908a3b8ce2dac290c1`, an
 unqualified endogenous-push conclusion is **not established**.  The result is
 instead a source-boundary analysis plus a separate declared finite fixture.
 After that fixture admits a seed, labels, an anchor, and a successor grammar,
@@ -125,9 +125,18 @@ system can be represented by a container.
 
 ## Verification boundary
 
-None of the checks below is run by `.github/workflows/verify.yml`, and nothing
-under `ci/` reads this tree.  Each item is a manual receipt for the tree it was
-run on, and it goes stale silently until someone reruns it.  The commands,
+Three of the four checks below are run by `.github/workflows/verify.yml`:
+the `research` job runs `verify_manifest.py`, the unit tests, and `mypy` on
+every push and pull request.  An earlier version of this paragraph said none
+of them was run by CI and that nothing under `ci/` read this tree; that was
+true when written and is **WITHDRAWN** — the job landed in pull request #79,
+after merging #76 and #77 left five of these tests failing on `main` while
+the workflow reported SUCCESS.
+
+`verify_lean.py` is the exception and is NOT run.  It builds this tree's Lake
+package, which needs elan and compiles the sealed package as a dependency —
+the expense the job exists to avoid.  Its receipts below are therefore still
+manual, and they go stale silently until someone reruns them.  The commands,
 from the repository root, with the last two run inside
 `research/primitive_difference_tower/`:
 

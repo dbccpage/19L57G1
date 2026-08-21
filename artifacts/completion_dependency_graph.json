@@ -19221,6 +19221,76 @@
    "name": "Derivation.closedRun_round_bound_from_empty",
    "role": "preservation",
    "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) (he : r.reqs = []) : 2 * rds.length \u2264 r.data * (r.data - 1)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Breaking.lean",
+   "name": "Breaking.no_orbit_constant_equivariant_endomap",
+   "role": "countermodel",
+   "statement": "(B : Break) (w : B.Whole) (s : Selector B) (hconst : OrbitConstant B s) (hequi : Equivariant B s) : False"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Breaking.lean",
+   "name": "Breaking.no_orbit_constant_equivariant_selector",
+   "role": "countermodel",
+   "statement": "(S : Symmetry) (w : S.Whole) (s : SymSelector S) (hconst : SymOrbitConstant S s) (hequi : SymEquivariant S s) : False"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Breaking.lean",
+   "name": "Breaking.no_selector_of_no_common_fixed_point",
+   "role": "countermodel",
+   "statement": "{W Sym : Type} (act : Sym \u2192 W \u2192 W) (w : W) (s : W \u2192 W) (hnone : \u00ac \u2203 p, \u2200 g, act g p = p) (hconst : \u2200 g w, s (act g w) = s w) (hequi : \u2200 g w, s (act g w) = act g (s w)) : False"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Breaking.lean",
+   "name": "Breaking.no_common_fixed_point",
+   "role": "classification",
+   "statement": "(S : Symmetry) : \u00ac \u2203 p, \u2200 g, S.act g p = p"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "Breaking.lean",
+   "name": "Breaking.no_fixed_point_free_involution_on_Tri",
+   "role": "countermodel",
+   "statement": "(e : Tri \u2192 Tri) (hinv : \u2200 w, e (e w) = w) (hfix : \u2200 w, e w \u2260 w) : False"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Breaking.lean",
+   "name": "Breaking.selector_exists_at_common_fixed_point",
+   "role": "existence",
+   "statement": "{W Sym : Type} (act : Sym \u2192 W \u2192 W) (p : W) (hp : \u2200 g, act g p = p) : \u2203 s : W \u2192 W, (\u2200 g w, s (act g w) = s w) \u2227 (\u2200 g w, s (act g w) = act g (s w))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Breaking.lean",
+   "name": "Breaking.selector_iff_common_fixed_point",
+   "role": "equivalence",
+   "statement": "{W Sym : Type} (act : Sym \u2192 W \u2192 W) (w : W) : (\u2203 s : W \u2192 W, (\u2200 g w, s (act g w) = s w) \u2227 (\u2200 g w, s (act g w) = act g (s w))) \u2194 (\u2203 p, \u2200 g, act g p = p)"
   }
  ]
 }

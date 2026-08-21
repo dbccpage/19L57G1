@@ -19,11 +19,19 @@ The engine already implements **quotient succession**: from a regime class,
 under a declared measure and the orbit policy, the set of child classes is
 well defined and equivariant. Measure refinement stops at a class containing
 two concrete deltas. The route to a single concrete successor identified
-here is symmetry-breaking, whose correspondence to that pair is **unproved**
-and whose obstruction lives in a **parked, axiom-unaudited** module — and it
-is *not* claimed to be the only route, since establishing that is precisely
-what the unproved correspondence would do. Residual honesty therefore stops
-at refusing single-valued concrete succession.
+here is symmetry-breaking, whose correspondence to that pair is
+**unproved** — and it is *not* claimed to be the only route, since
+establishing that is precisely what the unproved correspondence would do.
+Residual honesty therefore stops at refusing single-valued concrete
+succession.
+
+An earlier version of this thesis added that the obstruction "lives in a
+**parked, axiom-unaudited** module". That is **WITHDRAWN**: the root now
+imports `Derivation.Breaking` and reports every one of its exported
+theorems, each depending on no axioms at all. The change narrows what is
+missing rather than supplying it — the correspondence is exactly as
+unproved as before, and it is now the *only* thing missing, which is a
+sharper statement than the one it replaces.
 
 ---
 
@@ -107,18 +115,57 @@ with `deltaU0`, `deltaU1`, `swap01` and `isoU1U0 : Iso U1 U0` as
 definitions. So the two concrete deltas and the transposition relating
 their results are Lean objects, not merely enumeration output.
 
-**Layer 2 — proved, NOT audited.** `lean4/Derivation/Breaking.lean` proves,
-for a carrier with a fixed-point-free involution:
+**Layer 2 — proved, and now AUDITED.** `lean4/Derivation/Breaking.lean`
+proves, for a carrier with a fixed-point-free involution:
 
 * `no_orbit_constant_equivariant_endomap` — given an inhabitant, no
   selector is both `OrbitConstant` and `Equivariant`;
 * `imposable_but_not_equivariant` — a selector *can* be `Represents` and
   `OrbitConstant`, and fails exactly at `Equivariant`.
 
-The module is **parked**. It elaborates under the per-module gate, but the
-root does not import it, so it emits no `#print axioms` report and its
-axiom surface is not inspected by any gate. Its own ceiling states the
-limit:
+It also proves the obstruction in a form the involution shape cannot
+reach:
+
+* `no_orbit_constant_equivariant_selector` — the same conclusion for any
+  family of transformations with **no common fixed point**. No involution
+  law, no group law, no identity, no inverses, no composition. `ofBreak`
+  exhibits `Break` as the one-symbol case, so the general result subsumes
+  the involution one rather than sitting beside it.
+* `no_fixed_point_free_involution_on_Tri` — **why the generalization is
+  not cosmetic.** The three-point carrier admits no fixed-point-free
+  involution at all, so `Break` cannot be instantiated over it while
+  `Symmetry` can. An earlier version of this bullet explained that by
+  the general fact — a fixed-point-free involution pairs its carrier
+  into two-cycles, so every finite `Break` carrier has even cardinality.
+  That general statement is **not proved anywhere in this repository**;
+  it is WITHDRAWN as an assertion and left OPEN. What is proved is the
+  three-point case, and only it is cited here.
+* `selector_exists_at_common_fixed_point` — the hypothesis is spent, not
+  decorative: where a point IS fixed by every symbol, the constant
+  selector at it is both orbit-constant and equivariant.
+* `no_selector_of_no_common_fixed_point` — the obstruction under the
+  **weakest** premise it actually spends: not that every point is moved
+  by some symbol, but only that no point is fixed by every symbol.
+  `no_common_fixed_point` derives that premise from `Symmetry`'s field,
+  in that direction only; the converse needs a decidability this
+  development does not assume.
+* `selector_iff_common_fixed_point` — **the exact characterization.**
+  Given an inhabitant, an orbit-constant equivariant selector exists
+  *precisely* when some point is fixed by every symbol. Both directions
+  are proved, so what the obstruction costs is now stated rather than
+  asserted. An earlier version of this page said `Symmetry`'s field was
+  "exactly what the obstruction costs"; that was WITHDRAWN when the
+  field turned out to be sufficient but stronger than needed.
+
+An earlier version of this paragraph said the module is **parked** — that
+it elaborated under the per-module gate while the root did not import it,
+so it emitted no `#print axioms` report and no gate inspected its axiom
+surface. **That is WITHDRAWN.** The root now imports it and reports all
+seven exported theorems, each of which *does not depend on any axioms* at
+all. The parked-module residual is closed for this module and remains
+open for the others; closing it here is not evidence about them.
+
+What has NOT changed is the ceiling:
 
 > It proves nothing about `DiffObs`, `PresIso`, `NonZeroPair`, or any
 > other structure in this repository. No bridge is proved.
@@ -135,20 +182,84 @@ the **only** branch remaining once a single concrete orbit-constant
 representative is demanded, and equivariance would be the price. That
 conditional is stated, not discharged.
 
+### Which tie the obstruction reaches, and which it does not
+
+The obstruction bites **within** a tie class and **not across** classes.
+The distinction is easy to lose and worth stating in one place, because
+losing it converts a narrow result into a false one.
+
+*Across* the tied classes there is no symmetry to obstruct. The three
+reading-L classes and five reading-F classes are separated by an
+**isomorphism invariant** — `U0_not_iso_BL`, `U0_not_iso_BD`,
+`BL_not_iso_BD`, and `markK_pairwise_noniso` for the arity family — so an
+equivariant rule is permitted to read what distinguishes them. It is not
+merely permitted in principle: `mu2` is presentation-independent and
+selects uniquely, grammar-wide (`mu2_unique`, `mu2_unique_F`). Any claim
+that no invariant rule can break the Challenge-3 tie is therefore
+**refuted by a theorem already in this repository**.
+
+An earlier version added a parity remark said to reinforce it: that a
+fixed-point-free involution pairs its carrier into two-cycles, so a
+finite `Break` carrier has even cardinality, and since three and five
+are odd, `Break` could not be instantiated on the tie sets at any choice
+of involution. **That is WITHDRAWN.** No theorem in this repository
+proves the general even-cardinality statement; only the three-point case
+is proved (`no_fixed_point_free_involution_on_Tri`), and the five-element
+reading-F tie set was never covered by it at all. The remark is removed
+rather than repaired, because the paragraph above does not need it: the
+tie is already refuted by `mu2_unique` and `mu2_unique_F`, which are
+proved.
+
+*Within* a class the symmetry is real. Each class contains exactly two
+concrete deltas, exchanged by the transposition of the required pair
+(`swap01`, `swap12`, with `isoU1U0` and `isoU2F_U0F` collapsing them).
+That two-element orbit is the shape `Break` describes, and it is exactly
+what Layer 3 would have to package. The obstruction, if bridged, says
+that choosing one of the two concrete presentations cannot be done
+equivariantly — a claim about presentation, not about which minimal
+response the mathematics prefers.
+
+Both readings can be true at once, and only one of them is a claim about
+what the system forces.
+
 ---
 
-## 5. The parked residual, now with a price
+## 5. The parked residual, and the price that was paid
 
 `CLAUDE.md` records **elaboration is not auditing** as an open residual: a
 module the root does not import is typechecked but contributes no axiom
-report. Until now that has been a recorded limitation with no consequence.
+report. For most of this page's life that was a recorded limitation with
+no consequence.
 
-Here it has one. The single theorem this analysis would most want to lean
-on — the orbit-constant/equivariant obstruction — is precisely the theorem
-no gate inspects. The substrate (Layer 1) is audited; the obstruction
-(Layer 2) is not; the link (Layer 3) does not exist. That ordering is the
-finding, and it is why this page argues from the code and the audited layer
-and quotes Layer 2 rather than resting on it.
+Here it acquired one, and the consequence is what forced the repair. The
+single theorem this analysis would most want to lean on — the
+orbit-constant/equivariant obstruction — was precisely the theorem no gate
+inspected. The substrate (Layer 1) was audited; the obstruction (Layer 2)
+was not; the link (Layer 3) did not exist.
+
+**Layer 2 is now audited.** The root imports `Derivation.Breaking`, and
+each of its seven exported theorems has a `#print axioms` report inside
+the whitelist — in fact inside nothing at all, since every report reads
+*does not depend on any axioms*. An earlier version of this section
+described the unaudited state in the present tense throughout; those
+sentences are moved to the past above rather than deleted, because the
+ordering they record is still the finding.
+
+Two things did **not** change, and conflating them with the repair would
+be the error this page exists to avoid:
+
+* **Layer 3 still does not exist.** No proof connects `Break` or
+  `Symmetry` to the tied delta pair. Auditing Layer 2 makes the
+  obstruction citable; it does not make it *applicable* here.
+* **The residual is closed for one module, not in general.** Every other
+  module the root does not import is still typechecked and still
+  unaudited. The general fix — a declaration census for parked modules —
+  is untouched, and `CLAUDE.md` records why the obvious regex approach is
+  the one already known to break.
+
+So this page still argues from the code and from Layer 1, and cites Layer
+2 rather than resting on it. What changed is that the citation is now to
+audited theorems; what did not change is that the bridge is missing.
 
 ---
 
@@ -168,10 +279,17 @@ Three routes to that step are visible here: branching, a quotient-valued
 next state, or a presentation-dependent or external tie-break. **They are
 not claimed exhaustive.** An earlier version of this sentence said the step
 was "obtainable *only*" by those three; that word is WITHDRAWN. Their
-exhaustiveness is exactly what Layer 2 would establish — and Layer 2 is
-parked and axiom-unaudited, and applies to this pair only if the Layer 3
-correspondence holds, which is unproved. Asserting "only" here would have
-spent the obstruction result while §4 was still quoting it.
+exhaustiveness is exactly what Layer 2 would establish — and Layer 2
+applies to this pair only if the Layer 3 correspondence holds, which is
+unproved. Asserting "only" here would have spent the obstruction result
+while §4 was still quoting it.
+
+This sentence previously gave a second reason: that Layer 2 was "parked
+and axiom-unaudited". That reason is **withdrawn as obsolete** — it is
+audited now (§5) — and the withdrawal changes nothing, because the first
+reason was always the load-bearing one. An audited theorem about a
+structure nobody has connected to the delta pair is exactly as unusable
+here as an unaudited one.
 
 ---
 
@@ -193,17 +311,24 @@ equivariance. The **if** is not discharged.
 
 * It does **not** prove the Layer 3 bridge, and does not assert the delta
   pair is a `Break`-model.
-* It does **not** un-park `Breaking.lean` or promote its theorems into the
-  audited inventory. Any such import would be a deliberate, separately
-  reviewed change with its own axiom audit — not something that rides in on
-  a green elaboration gate.
+* It does **not** claim the audited status of `Breaking.lean` makes its
+  theorems applicable to the delta pair. An earlier version of this
+  bullet said the page does not un-park the module and that any such
+  import "would be a deliberate, separately reviewed change with its own
+  axiom audit — not something that rides in on a green elaboration gate."
+  The import has since happened, on exactly those terms: deliberate, with
+  seven `#print axioms` reports and a pinned axiom artifact. The bullet
+  is **WITHDRAWN as a description of the tree** and kept as the standard
+  the change was held to.
 * It does **not** claim `Break` is forced. It is a declared shape.
 * It does **not** claim the routes to a concrete successor listed in §6 are
   **exhaustive**. Two earlier sentences said "only" — in the thesis and in
   §6 — and both are WITHDRAWN. Exhaustiveness is what Layer 2 would
-  establish, and Layer 2 is parked, axiom-unaudited, and reaches this pair
-  only through the unproved Layer 3 correspondence. Spending it while §4
-  still quotes it would be the promotion this page exists to avoid.
+  establish, and Layer 2 reaches this pair only through the unproved
+  Layer 3 correspondence. Spending it while §4 still quotes it would be
+  the promotion this page exists to avoid. (This bullet also described
+  Layer 2 as "parked, axiom-unaudited"; that clause is obsolete per §5
+  and is dropped. The unproved correspondence is what carries the point.)
 * It does **not** claim single-valued succession is impossible in every
   account. It claims this system does not supply it and that measure
   refinement cannot manufacture it.

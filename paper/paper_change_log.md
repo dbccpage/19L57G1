@@ -2062,3 +2062,74 @@ the mathematics.  It does not say a supplied vocabulary never could,
 and it does not discharge the two supply facts recorded above.
 
 
+
+## The equivariance obstruction generalized, audited, narrowed (2026-08-21)
+
+`Derivation.Breaking` previously held one obstruction: for a declared
+fixed-point-free involution, no endomap is both orbit-constant and
+equivariant.  Three things changed, and only the first is an addition.
+
+**Generalized.**  `Symmetry` replaces the single involution with a
+family of transformations having no common fixed point — no involution
+law, no group law, no identity, no inverses, no composition.
+`no_orbit_constant_equivariant_selector` proves the same conclusion
+there, and `ofBreak` exhibits `Break` as the one-symbol case, so the
+general result SUBSUMES the involution one rather than sitting beside
+it.  `triSymmetry` and `no_fixed_point_free_involution_on_Tri` witness
+that the generalization is not cosmetic: `Symmetry` is inhabited at a
+three-point carrier where `Break` is not.
+
+**Audited.**  `lean4/Derivation.lean` now imports the module and prints
+an axiom report for each of its seven exported theorems.  All seven
+report *does not depend on any axioms* — not `propext`, not
+`Quot.sound`.  The parked-module residual recorded in `CLAUDE.md` is
+closed FOR THIS MODULE and remains open for every other module the root
+does not import.  Closing it here is not evidence about those.
+
+**Narrowed, on review.**  Three claims made in the first version of
+this work did not survive, and are recorded here rather than quietly
+fixed.
+
+1. *The premise was overstated.*  `Symmetry.no_common_fixed` says every
+   point is moved by some symbol.  The argument never needs that: the
+   two selector laws compose to make the selected value a common fixed
+   point, so the weaker `¬ ∃ p, ∀ g, act g p = p` suffices, and does so
+   constructively.  `no_selector_of_no_common_fixed_point` now proves
+   the obstruction from that premise over a bare action;
+   `no_common_fixed_point` derives it from the field in the one
+   direction available.  The claim that the field is "exactly what the
+   obstruction costs" is **WITHDRAWN**, and replaced by a theorem:
+   `selector_iff_common_fixed_point` characterizes, in both directions,
+   when an orbit-constant equivariant selector exists.  The repair
+   strengthened the result; that is why it is recorded as a repair and
+   not as a correction.
+
+2. *A parity claim was asserted without proof.*  The module and
+   `paper/representative_selection.md` both stated that a
+   fixed-point-free involution pairs any finite carrier into two-cycles,
+   so every finite `Break` carrier has even cardinality, and applied it
+   to tie sets of size three and five.  Only the three-point case is
+   proved.  The general statement needs counting, which the module does
+   not use, and it is **WITHDRAWN** and left OPEN rather than kept on
+   the strength of the case that is proved.  The application was doubly
+   wrong: even granting the general fact, the cited theorem never
+   reached the five-element set.  Nothing depended on the remark — the
+   tie it was said to reinforce is refuted by `mu2_unique` and
+   `mu2_unique_F`, which are proved — so it is removed, not repaired.
+
+3. *The paper contradicted itself about its own verification state.*
+   `representative_selection.md` withdrew "parked" in one section while
+   four others still called the obstruction parked and axiom-unaudited,
+   and §8 still promised the module would not be un-parked without a
+   separate review.  All five passages are reconciled: the import
+   happened on exactly the terms §8 demanded, and the sentences are
+   moved to the past rather than deleted, because the ordering they
+   record — audited substrate, unaudited obstruction, absent link — is
+   still the finding.
+
+**What did NOT change.**  Layer 3 still does not exist: no proof
+connects `Break` or `Symmetry` to the tied delta pair.  Auditing the
+obstruction makes it citable, not applicable.  An audited theorem about
+a structure nobody has connected to the pair is exactly as unusable here
+as an unaudited one, and the page still argues from the code and from
+the audited substrate.

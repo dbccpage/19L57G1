@@ -1,6 +1,6 @@
 {
   "schema": "portable_interface_source_pins/v1",
-  "snapshot_commit": "74628e4cf4003c22a24add3cb82f83902c7fc4b2",
+  "snapshot_commit": "77327ed3f9d580c87f21f4908a3b8ce2dac290c1",
   "policy": "Export surface. Only declarations this repository constructs are named. Nothing external is named here, in either direction.",
   "modules": [
     {
@@ -12,6 +12,11 @@
       "path": "lean4/Derivation/PrimitivePassage.lean",
       "sha256": "EC48FE566F97FE5593DB6997BF0F036DAA82F04DB817DF48B2CFB99B0F275E03",
       "role": "gate factorization, response rule, replay"
+    },
+    {
+      "path": "lean4/Derivation/Breaking.lean",
+      "sha256": "542F74ADFB6EB96E627AD9161DF6C7EEE66961F8A33BE90184F8C62DB4BEAF5B",
+      "role": "the equivariance obstruction, general form"
     }
   ],
   "exports": [
@@ -103,6 +108,46 @@
     {
       "name": "replay_append",
       "module": "lean4/Derivation/PrimitivePassage.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "Symmetry",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "STRUCTURE"
+    },
+    {
+      "name": "no_orbit_constant_equivariant_selector",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "no_orbit_constant_equivariant_endomap",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "no_fixed_point_free_involution_on_Tri",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "selector_exists_at_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "no_selector_of_no_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "no_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "selector_iff_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
       "kind": "THEOREM"
     }
   ]
