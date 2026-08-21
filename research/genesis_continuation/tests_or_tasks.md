@@ -13,9 +13,17 @@ and none should be reported as if it did.
 ## T1 — a gate that detects OB-3
 
 **Do**: add a check that fails when a file under `paper/` contains a
-comparison heading, with an explicit allowlist of zero entries. All six
-current sections use the same two heading forms, so a literal-heading
-scan catches every one of them.
+comparison heading, against an explicit allowlist. All six current
+sections use one of two heading forms, so a literal-heading scan catches
+every one of them.
+
+The allowlist is the design decision, not the scan. Five sections are
+unfenced; the sixth is fenced and claims a run directive. An allowlist of
+zero treats them alike and will fail on the fenced one; an allowlist of
+one encodes a judgment that the fenced one is authorized — which
+`CLAUDE.md`'s "again without exception" currently contradicts. Decide
+that first, because the gate will make whichever answer is chosen
+permanent.
 
 **Proves**: that the six known sections are detected, and that a seventh
 cannot be added silently.

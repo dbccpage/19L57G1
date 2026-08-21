@@ -204,20 +204,32 @@ falsifier.
   Six files under `paper/` carry comparison sections naming external
   mathematics.
 - **Class**: observation. **New here.**
-- **Evidence**: `paper/bridge_provenance.md:243`;
-  `paper/endogenous_generator.md:302`;
-  `paper/primitive_difference.md:407`;
-  `paper/primitive_difference_map.md:213` (a "Known mathematics" table
-  column); `paper/refusal_as_difference.md:393`;
-  `paper/refusal_difference.md:267`. Each was read, not inferred from its
-  heading.
-- **Falsifier / boundary**: show that those sections name no external
-  theory, or that `CLAUDE.md`'s prohibition does not reach them. No gate
-  detects this: the paper-citation gate checks that cited paths resolve,
-  and the vocabulary firewall bars a denylist of identifiers, not prose
-  naming. The attestation is an operator claim and is currently wrong.
-  This packet records it and repairs nothing — the repair is a
-  claim-level act on sealed prose.
+- **Evidence**: five unfenced sections headed "Post-hoc comparison with
+  existing names" — `paper/bridge_provenance.md:243`,
+  `paper/endogenous_generator.md:302`,
+  `paper/primitive_difference.md:407`,
+  `paper/refusal_as_difference.md:393`,
+  `paper/refusal_difference.md:267` — and one that is different in kind,
+  `paper/primitive_difference_map.md:213`, a fenced "Post-hoc
+  realization table" with a "Known mathematics" column which claims its
+  own authorization from a run directive. Each was read, not inferred
+  from its heading.
+- **Boundary — do not collapse the six.** The fenced one may have been
+  separately authorized; the other five carry no fence. The attestation
+  still fails either way, because §13 quantifies over the repository
+  ("named anywhere") and all six name external mathematics. Separately,
+  `CLAUDE.md` records the 2026-08-11 clause as restored and holding
+  "again without exception", which leaves no room for the fenced one
+  either — the only exception ever recorded was for `coda/` and
+  `coda_meta/`, both since removed.
+- **Falsifier**: show that those sections name no external theory, or
+  produce the instrument that authorizes them and reconcile it with
+  `CLAUDE.md`'s no-exception wording. At most two of the three
+  instruments — §13, the run directive, the restoration — can be right.
+- **Not repaired here.** No gate detects this: the paper-citation gate
+  checks that cited paths resolve, and the vocabulary firewall bars a
+  denylist of identifiers, not prose naming. The repair is a claim-level
+  act on sealed prose and an author call.
 
 ### GC-16 — OB-4
 - **Statement**: `README.md` records nine gate families, 1417 axiom

@@ -105,20 +105,40 @@ call.
   "No external theory, architecture, or terminology is named anywhere in
   this repository outside the read-only seed prompt." Six other files
   under `paper/` carry comparison sections that do name external
-  mathematics:
+  mathematics. They do not all have the same standing, and collapsing
+  them would overstate the finding:
 
-      paper/bridge_provenance.md:243
-      paper/endogenous_generator.md:302
-      paper/primitive_difference.md:407
-      paper/primitive_difference_map.md:213   (a "Known mathematics" table column)
-      paper/refusal_as_difference.md:393
-      paper/refusal_difference.md:267
+      paper/bridge_provenance.md:243        headed "Post-hoc comparison with existing names"
+      paper/endogenous_generator.md:302     same heading
+      paper/primitive_difference.md:407     same heading
+      paper/refusal_as_difference.md:393    same heading
+      paper/refusal_difference.md:267       same heading
+      paper/primitive_difference_map.md:213 "Post-hoc realization table", fenced,
+                                            with a "Known mathematics" table column
 
-  No gate detects this: `ci/check_paper_citations.py` checks that cited
-  `paper/*.md` paths resolve, and the vocabulary firewall in
+  The last is different in kind. It is explicitly fenced — "comparison
+  only — nothing above depends on this section" — and claims its own
+  authorization, "Recorded per the run directive to name mathematical
+  objects identical to known mathematics." The other five carry no such
+  fence.
+
+  **Either way the attestation fails.** §13's sentence quantifies over
+  the repository — "named anywhere" — and all six name external
+  mathematics, authorized or not. And `CLAUDE.md`'s current wording
+  leaves no room for the authorized one: it records the 2026-08-11
+  clause as restored and holding "again without exception", the only
+  exception ever recorded having been for `coda/` and `coda_meta/`,
+  which have since left the repository.
+
+  So the finding is a conflict between three instruments — §13's
+  attestation, the fenced section's claimed run directive, and
+  `CLAUDE.md`'s no-exception restoration — and at most two of them can
+  be right. Resolving it is an author act, and this packet does not.
+
+  No gate detects any of it: `ci/check_paper_citations.py` checks that
+  cited `paper/*.md` paths resolve, and the vocabulary firewall in
   `tests/test_primitive_contact.py` bars a denylist of CamelCase
-  identifiers, not prose naming of external theories. The attestation is
-  an operator claim, and it is currently wrong.
+  identifiers, not prose naming of external theories.
 
 * **OB-4 — `README.md` counts are stale.** It records nine gate families
   (there are ten since the `research` job landed), 1417 axiom reports
