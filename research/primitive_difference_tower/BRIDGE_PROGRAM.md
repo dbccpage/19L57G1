@@ -30,3 +30,42 @@ two-coordinate fixture declares the coordinate swap, the diagonal repair map
 a boundary in that table, and the boundary image is stable under the swap.
 Those are computed facts about supplied data, not an origin story for the
 data.
+
+## B2 selection boundary
+
+The residual orbit is exactly `(1,0)` and `(0,1)`, exchanged by the declared
+swap.  Exhaustive Python enumeration and
+`SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton` both show
+that neither member is fixed.  A singleton can still be used after a labelled
+anchor import; the report records that anchor as `ADMITTED`, and does not call
+the resulting choice equivariant.
+
+## B3 declared repair boundary
+
+The complete declared repair table has two rows: `(0) -> (0,0)` and
+`(1) -> (1,1)`.  `certify_declared_repair_obstruction` enumerates those rows
+and rejects an attempted certificate if a modified table already contains the
+residual.  The corresponding Lean statement is
+`SymmetryObstructionBridge.residual_not_in_declared_boundary_image`.  This is
+finite table nonmembership only.
+
+## B4 continuation grammar
+
+`continuation_trilemma.py` permits exactly three kinds of response: an
+anchored singleton with a named imported anchor, the complete retained orbit,
+or explicit refusal.  If two different anchors are supplied, both branches
+are retained in supplied order.  The aggregate and refusal forms expose no
+singleton; `SymmetryObstructionBridge.continuation_cases` and
+`nonanchored_continuations_have_no_singleton` prove the matching finite Lean
+grammar facts.
+
+## B5 replayable receipt
+
+`run_symmetry_obstruction_bridge.py` regenerates
+`receipts/symmetry_obstruction_bridge.json` from the declared fixture.  Its
+SHA-256 is
+`518537CEBCCA2508B443F59036418776E51F3D5285BB4824DEC81E51749A9AB8`.
+`verify_manifest.py` regenerates both this receipt and the pre-existing tower
+receipt, then requires `CLAIM_LEDGER.md` and `FINDINGS.md` to retain both
+receipt hashes and the unchanged sealed-source snapshot.  This is still a
+manual verification relation, not a CI gate or a mathematical proof.

@@ -25,6 +25,15 @@ HERE = Path(__file__).resolve().parent
 LEAN_ROOT = HERE / "lean"
 AXIOM_REPORT_MODULE = "PrimitiveDifferenceTower.AxiomReport"
 AXIOM_REPORT_SOURCE = "PrimitiveDifferenceTower/AxiomReport.lean"
+BRIDGE_AXIOM_REPORT_DECLARATIONS = (
+    "SymmetryObstructionBridge.swap_involutive",
+    "SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton",
+    "SymmetryObstructionBridge.residual_not_in_declared_boundary_image",
+    "SymmetryObstructionBridge.anchoredChoice_retains_import",
+    "SymmetryObstructionBridge.continuation_cases",
+    "SymmetryObstructionBridge.nonanchored_continuations_have_no_singleton",
+)
+
 AXIOM_REPORT_DECLARATIONS = (
     "PrimitiveDifferenceTower.towerDown_after_towerUp",
     "PrimitiveDifferenceTower.towerUpMorphism_comp_certified",
@@ -35,12 +44,7 @@ AXIOM_REPORT_DECLARATIONS = (
     "PrimitiveDifferenceTower.no_bool_single_pair_selector",
     "PrimitiveDifferenceTower.raw_bool_single_pair_selector_exists",
     "PrimitiveDifferenceTower.collapsed_source_has_no_witness",
-    "SymmetryObstructionBridge.swap_involutive",
-    "SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton",
-    "SymmetryObstructionBridge.residual_not_in_declared_boundary_image",
-    "SymmetryObstructionBridge.anchoredChoice_retains_import",
-    "SymmetryObstructionBridge.continuation_cases",
-    "SymmetryObstructionBridge.nonanchored_continuations_have_no_singleton",
+    *BRIDGE_AXIOM_REPORT_DECLARATIONS,
 )
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
 FORBIDDEN_TOKENS = (

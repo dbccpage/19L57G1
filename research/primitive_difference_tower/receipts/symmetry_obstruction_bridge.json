@@ -1,0 +1,238 @@
+{
+  "checks": {
+    "anchored_branches_are_explicit_imports": true,
+    "declared_repair_obstruction": true,
+    "full_orbit_is_retained": true,
+    "no_equivariant_residual_singleton": true,
+    "refusal_has_no_singleton": true,
+    "tied_anchor_branches_retained": true
+  },
+  "continuations": [
+    {
+      "continuation": {
+        "mode": "anchored-singleton",
+        "selection": {
+          "anchor": {
+            "label": "left-coordinate-anchor",
+            "origin": "admitted"
+          },
+          "choice": [
+            1,
+            0
+          ]
+        }
+      },
+      "selected_singleton": [
+        1,
+        0
+      ],
+      "swap_stable": false
+    },
+    {
+      "continuation": {
+        "mode": "anchored-singleton",
+        "selection": {
+          "anchor": {
+            "label": "right-coordinate-anchor",
+            "origin": "admitted"
+          },
+          "choice": [
+            0,
+            1
+          ]
+        }
+      },
+      "selected_singleton": [
+        0,
+        1
+      ],
+      "swap_stable": false
+    },
+    {
+      "continuation": {
+        "members": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "mode": "retain-orbit",
+        "provenance": {
+          "label": "computed-full-residual-orbit",
+          "origin": "computed"
+        }
+      },
+      "selected_singleton": null,
+      "swap_stable": true
+    },
+    {
+      "continuation": {
+        "mode": "refuse",
+        "provenance": {
+          "label": "explicit-continuation-refusal",
+          "origin": "refused"
+        },
+        "reason": "withhold a free singleton under the declared swap"
+      },
+      "selected_singleton": null,
+      "swap_stable": true
+    }
+  ],
+  "contract": {
+    "repair": {
+      "boundary_image": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "images": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "potentials": [
+        [
+          0
+        ],
+        [
+          1
+        ]
+      ],
+      "provenance": {
+        "label": "diagonal-boundary-map",
+        "origin": "declared"
+      },
+      "zero": [
+        0,
+        0
+      ]
+    },
+    "repair_image_is_symmetric": true,
+    "residual": [
+      1,
+      0
+    ],
+    "residual_is_boundary": false,
+    "residual_orbit": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "residual_provenance": {
+      "label": "displayed-residual",
+      "origin": "declared"
+    },
+    "symmetry": {
+      "carrier": [
+        0,
+        1
+      ],
+      "image": [
+        1,
+        0
+      ],
+      "provenance": {
+        "label": "coordinate-swap",
+        "origin": "declared"
+      }
+    }
+  },
+  "lean_axiom_inventory": [
+    "SymmetryObstructionBridge.swap_involutive",
+    "SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton",
+    "SymmetryObstructionBridge.residual_not_in_declared_boundary_image",
+    "SymmetryObstructionBridge.anchoredChoice_retains_import",
+    "SymmetryObstructionBridge.continuation_cases",
+    "SymmetryObstructionBridge.nonanchored_continuations_have_no_singleton"
+  ],
+  "repair_obstruction": {
+    "provenance": {
+      "label": "enumerated-declared-repair-nonmembership",
+      "origin": "computed"
+    },
+    "repair_table": [
+      {
+        "image": [
+          0,
+          0
+        ],
+        "potential": [
+          0
+        ]
+      },
+      {
+        "image": [
+          1,
+          1
+        ],
+        "potential": [
+          1
+        ]
+      }
+    ],
+    "residual": [
+      1,
+      0
+    ],
+    "scope": "nonmembership in this declared finite repair table only"
+  },
+  "schema": "primitive_difference_tower_symmetry_obstruction_bridge/v1",
+  "scope": "A deterministic assessment of one declared two-coordinate fixture; not a native-stage bridge, a general cohomology result, or a physical claim.",
+  "selection": {
+    "anchored_imports": [
+      {
+        "anchor": {
+          "label": "left-coordinate-anchor",
+          "origin": "admitted"
+        },
+        "choice": [
+          1,
+          0
+        ]
+      },
+      {
+        "anchor": {
+          "label": "right-coordinate-anchor",
+          "origin": "admitted"
+        },
+        "choice": [
+          0,
+          1
+        ]
+      }
+    ],
+    "residual_singleton_choices": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "singleton_equivariance": {
+      "[0, 1]": false,
+      "[1, 0]": false
+    }
+  }
+}

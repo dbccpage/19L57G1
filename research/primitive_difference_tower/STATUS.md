@@ -59,3 +59,18 @@ receipt is `verify_manifest.py`; Lean axiom output is separately verified by
 `verify_lean.py`, which parses each `#print axioms` line rather than inferring
 anything from a plain `lake build`.  Neither verifier is run by CI: both are
 manual receipts, and `FINDINGS.md` records the commands and what was run.
+
+## Finite symmetry--obstruction--repair bridge
+
+The five-goal bridge adds one separate two-coordinate declared fixture.  Its
+carrier, coordinate swap, diagonal repair table, residual, anchor imports,
+and continuation grammar are inputs, not outputs of a source-stage map.  In
+that fixture only, the residual orbit has no swap-fixed singleton; the
+residual is absent from the declared repair table; and the available response
+forms are explicit anchored selection, full-orbit retention, or refusal.
+The deterministic report is `receipts/symmetry_obstruction_bridge.json`,
+SHA-256 `518537CEBCCA2508B443F59036418776E51F3D5285BB4824DEC81E51749A9AB8`.
+It is regenerated and checked by the manual `verify_manifest.py` relation
+alongside the earlier tower receipt.  It does not establish a native-stage
+bridge, general cohomology result, endogenous structure creation, or physical
+interpretation.

@@ -22,15 +22,17 @@ import re
 import subprocess
 import sys
 from pathlib import Path, PurePosixPath
-from typing import Any, Sequence
+from typing import Any, Callable, Sequence
 
 from finite_tower import MAX_HORIZON, render_report
+from symmetry_obstruction_bridge import render_bridge_report
 
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 MANIFEST_PATH = HERE / "SOURCE_MANIFEST.json"
 RECEIPT_PATH = HERE / "receipts" / "finite_tower_0_15.json"
+BRIDGE_RECEIPT_PATH = HERE / "receipts" / "symmetry_obstruction_bridge.json"
 PROSE_PATHS = (HERE / "CLAIM_LEDGER.md", HERE / "FINDINGS.md")
 SCHEMA = "primitive_difference_tower_source_manifest/v4"
 SOURCE_TREE = "lean4/Derivation/"
@@ -50,6 +52,20 @@ _CHAR_LITERAL = re.compile(r"'(?:\\(?:x[0-9A-Fa-f]{2}|u\{[0-9A-Fa-f]+\}|.)|[^'\\
 _IDENTIFIER_CHAR = re.compile(r"[A-Za-z0-9_'!?.]")
 _IMPORT_LINE = re.compile(r"(?m)^\s*import\s+([A-Za-z_][A-Za-z0-9_.]*)\s*$")
 _QUALIFIED_NAME = re.compile(r"\b([A-Z][A-Za-z0-9_]*)\.([A-Za-z_][A-Za-z0-9_']*)")
+RECEIPT_RENDERERS: tuple[tuple[Path, str, str, Callable[[], bytes]], ...] = (
+    (
+        RECEIPT_PATH,
+        f"render_report({MAX_HORIZON})",
+        "run_finite_tower.py",
+        lambda: render_report(MAX_HORIZON),
+    ),
+    (
+        BRIDGE_RECEIPT_PATH,
+        "render_bridge_report()",
+        "run_symmetry_obstruction_bridge.py",
+        lambda: render_bridge_report(),
+    ),
+)
 
 
 def _git_bytes(*args: str) -> bytes:
@@ -419,33 +435,43 @@ def verify_protected_paths() -> list[str]:
 
 
 def verify_receipt_and_prose() -> list[str]:
-    """Check the committed receipt against the code and the prose against both.
+    """Check each committed receipt against the code and prose against all of them.
 
-    The receipt hash and the snapshot commit are quoted in two prose files; a
-    regeneration or a repin that forgets either one fails here by name.
+    Every receipt hash and the snapshot commit are quoted in two prose files;
+    a regeneration or a repin that forgets any of them fails here by name.
     """
 
-    expected = render_report(MAX_HORIZON)
-    actual = RECEIPT_PATH.read_bytes()
-    receipt_name = RECEIPT_PATH.relative_to(HERE).as_posix()
-    if actual != expected:
-        raise ValueError(
-            f"{receipt_name} differs from render_report({MAX_HORIZON}); "
-            "regenerate it with run_finite_tower.py"
-        )
-    digest = hashlib.sha256(actual).hexdigest().upper()
+    receipt_tokens: list[tuple[str, str]] = []
+    lines: list[str] = []
+    for receipt_path, renderer_name, runner_name, renderer in RECEIPT_RENDERERS:
+        expected = renderer()
+        actual = receipt_path.read_bytes()
+        receipt_name = receipt_path.relative_to(HERE).as_posix()
+        if actual != expected:
+            raise ValueError(
+                f"{receipt_name} differs from {renderer_name}; "
+                f"regenerate it with {runner_name}"
+            )
+        digest = hashlib.sha256(actual).hexdigest().upper()
+        receipt_tokens.append((receipt_name, digest))
+        lines.append(f"receipt: {receipt_name} {digest}")
     snapshot_commit, _ = _source_snapshot(_read_manifest())
-    lines = [f"receipt: {receipt_name} {digest}"]
     for prose in PROSE_PATHS:
         text = prose.read_text(encoding="utf-8")
         missing = [
             label
-            for label, token in (("receipt SHA-256", digest), ("snapshot commit", snapshot_commit))
+            for label, token in (
+                *(
+                    (f"receipt SHA-256 {receipt_name}", digest)
+                    for receipt_name, digest in receipt_tokens
+                ),
+                ("snapshot commit", snapshot_commit),
+            )
             if token not in text
         ]
         if missing:
             raise ValueError(f"{prose.name} does not cite the current {' and '.join(missing)}")
-        lines.append(f"prose cites receipt and snapshot: {prose.name}")
+        lines.append(f"prose cites receipts and snapshot: {prose.name}")
     return lines
 
 
