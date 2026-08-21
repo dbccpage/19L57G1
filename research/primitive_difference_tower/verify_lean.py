@@ -37,6 +37,7 @@ AXIOM_REPORT_DECLARATIONS = (
     "PrimitiveDifferenceTower.collapsed_source_has_no_witness",
     "SymmetryObstructionBridge.swap_involutive",
     "SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton",
+    "SymmetryObstructionBridge.residual_not_in_declared_boundary_image",
     "SymmetryObstructionBridge.anchoredChoice_retains_import",
 )
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

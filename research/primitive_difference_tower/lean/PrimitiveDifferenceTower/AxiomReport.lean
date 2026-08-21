@@ -12,4 +12,5 @@ import PrimitiveDifferenceTower.SymmetryObstructionBridge
 #print axioms PrimitiveDifferenceTower.collapsed_source_has_no_witness
 #print axioms SymmetryObstructionBridge.swap_involutive
 #print axioms SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton
+#print axioms SymmetryObstructionBridge.residual_not_in_declared_boundary_image
 #print axioms SymmetryObstructionBridge.anchoredChoice_retains_import

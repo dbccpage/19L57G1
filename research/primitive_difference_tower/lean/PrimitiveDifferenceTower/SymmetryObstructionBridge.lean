@@ -29,6 +29,11 @@ theorem residual_orbit_has_no_fixed_singleton (cochain : Cochain)
     (member : InResidualOrbit cochain) : swap cochain ≠ cochain := by
   rcases member with rfl | rfl <;> decide
 
+theorem residual_not_in_declared_boundary_image :
+    ¬ ∃ potential : Bool, boundary potential = residual := by
+  rintro ⟨potential, equality⟩
+  cases potential <;> cases equality
+
 /- An anchor is an additional datum.  The definition below exposes it rather
 than deriving a singleton from the swap action. -/
 structure AnchorImport where
