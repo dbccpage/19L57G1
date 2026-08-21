@@ -49,25 +49,27 @@ primitive assumes the distinction it is sometimes said to produce.
 
 ## Verification boundary
 
-This module is PARKED in one exact sense: `lean4/Derivation.lean` does
-not import it, so it contributes no `#print axioms` report and appears
-in no axiom inventory or claim ledger entry.
+`lean4/Derivation.lean` imports this module and prints an axiom report
+for each of its exported theorems, so they appear in
+`artifacts/lean_axioms.txt` and are covered by the whitelist in
+`ci/check_lean_audit.py`.  Every one of them reports NO axiom
+dependency at all -- not `propext`, not `Quot.sound`.
 
-It is NOT unchecked.  The `lean` job's final step elaborates every
-`lean4/Derivation/**/*.lean` as its own Lake target, so CI does
-typecheck this file.  An earlier version of this paragraph said the
-repository's `lake build` gate elaborates nothing here and that a green
-run is therefore not evidence that this module compiles.  That was true
-when written and became false when the elaboration gate landed; it is
-WITHDRAWN.
+An earlier version of this section said the module was PARKED: that the
+root did not import it, that it therefore contributed no `#print
+axioms` report and appeared in no axiom inventory, and that a
+dependency on `Classical.choice` here would consequently fail no gate.
+All three sentences were true when written and became false together
+when the import landed.  They are WITHDRAWN.
 
-But elaboration is not auditing, and the difference is the open
-residual.  Because no `#print axioms` line names anything here, the
-whitelist in `ci/check_lean_audit.py` never sees this module: a
-dependency on `Classical.choice` in this file would fail no gate.  The
-reports quoted above were taken by hand and are not enforced by CI.
-Read "this module elaborates" as exactly that, and not as "this module
-is audited".
+The parked-module residual recorded in `CLAUDE.md` is closed FOR THIS
+MODULE and remains open for every other module the root does not
+import.  Closing it here does not close it there, and this module is
+not evidence about those.
+
+What is still NOT claimed: the audit's reach is the enumerated `#print
+axioms` inventory.  "Axiom-free" here means those enumerated reports,
+not a proof that the inventory names every declaration in this file.
 -/
 
 namespace Breaking
@@ -217,12 +219,21 @@ theorem imposable_but_not_equivariant :
 
 /-! ## The general case: a family of transformations, not one involution
 
-`Break` fixes a single involution, and that restriction is not free.  A
-fixed-point-free involution pairs the carrier into two-cycles, so a
-FINITE `Break` carrier has EVEN cardinality: a three-fold or five-fold
-symmetric situation is outside `Break` entirely, for an arithmetic
-reason rather than a deep one.  `no_fixed_point_free_involution_on_Tri`
-below exhibits that at the smallest odd carrier.
+`Break` fixes a single involution, and that restriction is not free.
+`no_fixed_point_free_involution_on_Tri` below proves that the
+three-point carrier admits NO fixed-point-free involution at all, so
+`Break` cannot be instantiated over `Tri`.
+
+That is a theorem about `Tri` and about nothing wider.  An earlier
+version of this paragraph asserted the general fact behind it -- that a
+fixed-point-free involution pairs any finite carrier into two-cycles,
+so EVERY finite `Break` carrier has even cardinality, putting
+three-fold and five-fold situations outside `Break` for an arithmetic
+reason.  That statement is plausible and is **not proved here**: it
+needs counting, which this module deliberately does not use, and no
+declaration below establishes it.  It is WITHDRAWN as an assertion and
+downgraded to OPEN rather than kept on the strength of the `Tri` case.
+Nothing in this module or in the paper depends on it.
 
 `Symmetry` asks for less.  There is no involution law, no group law, no
 identity, no inverses, and no composition -- only a family of
@@ -245,6 +256,34 @@ def SymOrbitConstant (S : Symmetry) (s : SymSelector S) : Prop :=
 def SymEquivariant (S : Symmetry) (s : SymSelector S) : Prop :=
   ∀ g w, s (S.act g w) = S.act g (s w)
 
+/-- **The premise the obstruction actually spends.**  It is not that
+every point is moved by SOME symbol; it is only that NO point is fixed
+by EVERY symbol.  That asks for strictly less, and it is exactly what
+the two selector laws contradict: composed, they force the selected
+value to be fixed by every symbol, so a carrier with no such point
+admits no such value.
+
+Stated over a bare action rather than over `Symmetry`, because the
+premise is weaker than that structure's field and stating it there
+would hide the difference. -/
+theorem no_selector_of_no_common_fixed_point
+    {W Sym : Type} (act : Sym → W → W) (w : W) (s : W → W)
+    (hnone : ¬ ∃ p, ∀ g, act g p = p)
+    (hconst : ∀ g w, s (act g w) = s w)
+    (hequi : ∀ g w, s (act g w) = act g (s w)) : False :=
+  hnone ⟨s w, fun g => (hequi g w).symm.trans (hconst g w)⟩
+
+/-- `Symmetry`'s field implies that weaker premise.
+
+The converse is NOT proved here and is not constructively available:
+recovering `∀ w, ∃ g, act g w ≠ w` from `¬ ∃ p, ∀ g, act g p = p`
+requires deciding a proposition for which this module assumes no
+decidability.  The two are therefore related in one direction only, and
+the proved direction is the one the obstruction uses. -/
+theorem no_common_fixed_point (S : Symmetry) :
+    ¬ ∃ p, ∀ g, S.act g p = p :=
+  fun h => h.elim (fun p hp => (S.no_common_fixed p).elim (fun g hg => hg (hp g)))
+
 /-- **No selector is both orbit-constant and equivariant**, given an
 inhabitant, for any family of transformations with no common fixed
 point.
@@ -255,15 +294,20 @@ exactly as the argument does; together they say the value does not move
 at all, under any symbol.  A carrier where no point is fixed by
 everything admits no such value, hence no such selector.
 
+This is now a COROLLARY of `no_selector_of_no_common_fixed_point`
+rather than a direct proof from the field.  An earlier version proved
+it directly by extracting a moving symbol at `s w`, which spent more of
+the field than the argument needs.
+
 The same two honesty notes as the involution case apply.  No
 `Represents` hypothesis is spent, so carrying one would overstate what
 is needed.  An inhabitant IS needed: over an empty carrier every
 selector is vacuously both and there is no obstruction. -/
 theorem no_orbit_constant_equivariant_selector
     (S : Symmetry) (w : S.Whole) (s : SymSelector S)
-    (hconst : SymOrbitConstant S s) (hequi : SymEquivariant S s) : False := by
-  obtain ⟨g, hg⟩ := S.no_common_fixed (s w)
-  exact hg ((hequi g w).symm.trans (hconst g w))
+    (hconst : SymOrbitConstant S s) (hequi : SymEquivariant S s) : False :=
+  no_selector_of_no_common_fixed_point S.act w s
+    (no_common_fixed_point S) hconst hequi
 
 /-- `Break` is the one-symbol case, so the general theorem SUBSUMES
 `no_orbit_constant_equivariant_endomap` rather than sitting beside it. -/
@@ -342,13 +386,41 @@ theorem no_fixed_point_free_involution_on_Tri
 
 /-- The hypothesis is spent, not decorative.  Where some point IS fixed
 by every symbol, the constant selector at it is both orbit-constant and
-equivariant, so `no_common_fixed` is exactly the field that fails and
-exactly what the obstruction costs. -/
+equivariant.
+
+An earlier version of this comment added that `Symmetry.no_common_fixed`
+is therefore "exactly the field that fails and exactly what the
+obstruction costs".  That is WITHDRAWN: the field is SUFFICIENT but
+strictly more than the argument spends, as
+`no_selector_of_no_common_fixed_point` shows.  The exact condition is
+recorded in `selector_iff_common_fixed_point` below, where it is proved
+in both directions instead of asserted. -/
 theorem selector_exists_at_common_fixed_point
     {W Sym : Type} (act : Sym → W → W) (p : W) (hp : ∀ g, act g p = p) :
     ∃ s : W → W,
       (∀ g w, s (act g w) = s w) ∧ (∀ g w, s (act g w) = act g (s w)) :=
   ⟨fun _ => p, fun _ _ => rfl, fun g _ => (hp g).symm⟩
+
+/-- **The exact characterization**, given an inhabitant: an
+orbit-constant equivariant selector exists precisely when some point is
+fixed by every symbol.
+
+Both directions are proved, so this is a statement of what the
+obstruction costs rather than a claim about it.  The forward direction
+needs the inhabitant and is the obstruction; the backward direction is
+the constant selector above.  Nothing here is about `Symmetry`: the
+condition is a property of the action alone, and `Symmetry`'s field is
+one way -- not the only way, and more than is needed -- to secure its
+negation. -/
+theorem selector_iff_common_fixed_point
+    {W Sym : Type} (act : Sym → W → W) (w : W) :
+    (∃ s : W → W,
+        (∀ g w, s (act g w) = s w) ∧ (∀ g w, s (act g w) = act g (s w)))
+      ↔ (∃ p, ∀ g, act g p = p) :=
+  ⟨fun h => h.elim (fun s hs =>
+      ⟨s w, fun g => (hs.2 g w).symm.trans (hs.1 g w)⟩),
+   fun h => h.elim (fun p hp =>
+      selector_exists_at_common_fixed_point act p hp)⟩
 
 /-! ## What this does NOT claim
 

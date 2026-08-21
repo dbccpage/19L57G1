@@ -134,6 +134,21 @@
       "name": "selector_exists_at_common_fixed_point",
       "module": "lean4/Derivation/Breaking.lean",
       "kind": "THEOREM"
+    },
+    {
+      "name": "no_selector_of_no_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "no_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
+    },
+    {
+      "name": "selector_iff_common_fixed_point",
+      "module": "lean4/Derivation/Breaking.lean",
+      "kind": "THEOREM"
     }
   ]
 }

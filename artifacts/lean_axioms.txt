@@ -1417,5 +1417,8 @@ Derivation.lean:1565:0: 'Derivation.closedRun_round_bound' depends on axioms: [p
 Derivation.lean:1566:0: 'Derivation.closedRun_round_bound_from_empty' depends on axioms: [propext, Quot.sound]
 Derivation.lean:1572:0: 'Breaking.no_orbit_constant_equivariant_endomap' does not depend on any axioms
 Derivation.lean:1573:0: 'Breaking.no_orbit_constant_equivariant_selector' does not depend on any axioms
-Derivation.lean:1574:0: 'Breaking.no_fixed_point_free_involution_on_Tri' does not depend on any axioms
-Derivation.lean:1575:0: 'Breaking.selector_exists_at_common_fixed_point' does not depend on any axioms
+Derivation.lean:1574:0: 'Breaking.no_selector_of_no_common_fixed_point' does not depend on any axioms
+Derivation.lean:1575:0: 'Breaking.no_common_fixed_point' does not depend on any axioms
+Derivation.lean:1576:0: 'Breaking.no_fixed_point_free_involution_on_Tri' does not depend on any axioms
+Derivation.lean:1577:0: 'Breaking.selector_exists_at_common_fixed_point' does not depend on any axioms
+Derivation.lean:1578:0: 'Breaking.selector_iff_common_fixed_point' does not depend on any axioms

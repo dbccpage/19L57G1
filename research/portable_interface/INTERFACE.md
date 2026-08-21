@@ -43,13 +43,22 @@ document names anything real. That is why the second check exists.
 repin, this document must be re-read by hand, because a moved source can
 change what its declarations mean without changing whether they exist.
 
-**Not run by CI.** Like the sibling research tree, this is a manual
-receipt: evidence about the commit it was run on, and it goes stale
-silently.
+**Run by CI, with one exception.** The `research` job runs this pin
+check, this tree's tests, and its strict typing on every push and pull
+request. An earlier version of this paragraph said the tree was not run
+by CI and was a purely manual receipt like its sibling; that was true
+when written and is **WITHDRAWN** — the job landed in pull request #79,
+after both research trees were left silently broken on `main` by two
+pull requests that no gate read.
+
+The exception is Lean. No job builds the sealed package on this tree's
+behalf, so the axiom claims below remain a manual receipt and go stale
+silently. That is the same residual the sibling tree records, and it is
+not closed here.
 
 ## The exports
 
-Twenty-three declarations across three pinned modules. Grouped by what
+Twenty-six declarations across three pinned modules. Grouped by what
 they do.
 
 ### The difference interface
@@ -125,22 +134,44 @@ result here re-derivable from genesis rather than asserted.
 | name | kind | what it is |
 |---|---|---|
 | `Symmetry` | STRUCTURE | A carrier, a type of symbols, an action, and one field: **no point is fixed by every symbol**. No involution law, no group law, no identity, no inverses, no composition. |
-| `no_orbit_constant_equivariant_selector` | THEOREM | Given an inhabitant, no selector is both orbit-constant and equivariant. |
-| `no_orbit_constant_equivariant_endomap` | THEOREM | The single-involution case, subsumed by the above via `ofBreak`. |
+| `no_selector_of_no_common_fixed_point` | THEOREM | The obstruction under the weakest premise it spends: no point fixed by every symbol. Stated over a bare action, not over `Symmetry`. |
+| `no_common_fixed_point` | THEOREM | `Symmetry`'s field implies that premise. One direction only. |
+| `no_orbit_constant_equivariant_selector` | THEOREM | Given an inhabitant, no selector is both orbit-constant and equivariant. A corollary of the two above. |
+| `no_orbit_constant_equivariant_endomap` | THEOREM | The single-involution case, subsumed via `ofBreak`. |
 | `no_fixed_point_free_involution_on_Tri` | THEOREM | No fixed-point-free involution exists on a three-point carrier. |
 | `selector_exists_at_common_fixed_point` | THEOREM | Where a point IS fixed by every symbol, the constant selector at it is both — so the hypothesis is spent, not decorative. |
+| `selector_iff_common_fixed_point` | THEOREM | **Exact characterization**: given an inhabitant, such a selector exists precisely when some point is fixed by every symbol. |
 
-All five report **no axiom dependency at all** — not `propext`, not
-`Quot.sound`. The proof is two equations composed: orbit-constancy says
-the value does not move when the argument does, equivariance says it
-moves exactly as the argument does, and together they say it does not
-move at all.
+All **seven theorems** report *does not depend on any axioms* — not
+`propext`, not `Quot.sound`. `Symmetry` is a structure and has no axiom
+report; an earlier version of this paragraph said "all five report no
+axiom dependency", counting the structure among the reports. That count
+is **WITHDRAWN**: structures are not reported, and the number was wrong
+besides.
+
+The proof is two equations composed: orbit-constancy says the value does
+not move when the argument does, equivariance says it moves exactly as
+the argument does, and together they say it does not move at all.
+
+**Import the characterization, not the field.** `Symmetry.no_common_fixed`
+is *sufficient* for the obstruction but stronger than the argument spends
+— `no_selector_of_no_common_fixed_point` needs only that no point is
+fixed by every symbol, and `selector_iff_common_fixed_point` shows that
+condition is exactly right in both directions. An earlier version of this
+file, and the paper, described the field as "exactly what the obstruction
+costs". That was wrong and is WITHDRAWN. An importer that reproduces the
+field will have imported a hypothesis it does not need; the converse
+direction is not constructively available, so the difference is real and
+not a matter of presentation.
 
 `no_fixed_point_free_involution_on_Tri` is why the general form is not
-cosmetic. A fixed-point-free involution pairs its carrier into
+cosmetic: `Break` cannot be instantiated over a three-point carrier at
+all, while `Symmetry` can. An earlier version explained this by the
+general fact that a fixed-point-free involution pairs its carrier into
 two-cycles, so a finite single-involution carrier has **even**
-cardinality — a three-fold symmetric situation is outside that shape for
-an arithmetic reason, not a deep one.
+cardinality. That statement is **not proved** in the exporting
+repository, is WITHDRAWN here, and must not be imported. Only the
+three-point case is a theorem.
 
 **The scope, which is the part most likely to be misread.** This says
 that where a symmetry has no common fixed point, a selector cannot be

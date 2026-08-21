@@ -1571,5 +1571,8 @@ open Derivation
 -- is closed for this module here; it remains open for the others.
 #print axioms Breaking.no_orbit_constant_equivariant_endomap
 #print axioms Breaking.no_orbit_constant_equivariant_selector
+#print axioms Breaking.no_selector_of_no_common_fixed_point
+#print axioms Breaking.no_common_fixed_point
 #print axioms Breaking.no_fixed_point_free_involution_on_Tri
 #print axioms Breaking.selector_exists_at_common_fixed_point
+#print axioms Breaking.selector_iff_common_fixed_point
