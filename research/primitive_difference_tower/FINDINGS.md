@@ -149,29 +149,34 @@ Passed on the tree committed with this wording:
   `PrimitiveDifferenceTower.lean`; the source snapshot is an ancestor of
   `HEAD` and no commit since it touched a protected path, walked with
   `git log --full-history` so that a touch a later commit reverts is still
-  refused; the protected working tree is clean; the committed receipt equals
-  `render_report(15)`, and its hash and the snapshot commit are cited here
-  and in `CLAIM_LEDGER.md`.  Untracked protected paths are reported as local,
-  non-Git/blob inputs rather than compared with an author-specific baseline.
+  refused; the protected working tree is clean; both committed receipts equal
+  `render_report(15)` and `render_bridge_report()`, and both hashes and the
+  snapshot commit are cited here and in `CLAIM_LEDGER.md`.  The bridge receipt
+  is `receipts/symmetry_obstruction_bridge.json`, SHA-256
+  `518537CEBCCA2508B443F59036418776E51F3D5285BB4824DEC81E51749A9AB8`.
+  Untracked protected paths are reported as local, non-Git/blob inputs rather
+  than compared with an author-specific baseline.
   The verifier does not require `HEAD` to equal the pre-research snapshot.
-- `verify_lean.py`: the forbidden-token scan over the three research Lean
+- `verify_lean.py`: the forbidden-token scan over the four research Lean
   files; `lake build PrimitiveDifferenceTower.AxiomReport`, then
-  `lake env lean` on the report file; the nine `#print axioms` lines parsed,
+  `lake env lean` on the report file; the fifteen `#print axioms` lines parsed,
   each axiom list checked to lie within `{propext, Quot.sound}` (six depend
-  on exactly that pair, three on no axioms), and the nine names checked
+  on exactly that pair, nine on no axioms), and the fifteen names checked
   against the inventory written in `AxiomReport.lean`.  The reach is that
   inventory only.  An earlier version of this script only looked for each
   name as a substring of the output, which a disallowed axiom would not have
   disturbed; a plain `lake build` now elaborates `AxiomReport.lean` because
   the lakefile names it as a root, but the audit does not rely on that.
-- 32 standard-library unit tests under Python 3.14.2, and `mypy --strict`
-  over the four modules and three test files.  The tests include negative
+- 55 standard-library unit tests, and `mypy --strict` over the eighteen
+  listed modules and test files.  The tests include negative
   cases for the former defects: an axiom list containing `Classical.choice`
   with the declaration name still present, a transitive module used without
   an explicit citation, a citation naming an unused symbol, a commit touching
   a protected path that the endpoint diff cannot see, an undecided ancestry
   query, a backslash-encoded `..` path, an unterminated string literal, a
-  stale receipt, and prose that drops the receipt hash.
+  stale receipt (including the bridge receipt), and prose that drops a receipt
+  hash.  The bridge tests additionally reject a tampered finite report and
+  confirm that its Lean inventory is named by `AxiomReport.lean`.
 
 Not established or not run:
 

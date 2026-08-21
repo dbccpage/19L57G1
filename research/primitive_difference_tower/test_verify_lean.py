@@ -74,7 +74,12 @@ class VerifyLeanTests(unittest.TestCase):
         sources = verify_lean.research_lean_sources()
         self.assertEqual(
             sorted(path.name for path in sources),
-            ["AxiomReport.lean", "PrimitiveDifferenceTower.lean", "lakefile.lean"],
+            [
+                "AxiomReport.lean",
+                "PrimitiveDifferenceTower.lean",
+                "SymmetryObstructionBridge.lean",
+                "lakefile.lean",
+            ],
         )
         self.assertEqual(verify_lean.scan_forbidden_tokens(sources), [])
 

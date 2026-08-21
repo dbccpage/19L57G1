@@ -199,11 +199,15 @@ class VerifyManifestTests(unittest.TestCase):
     def test_receipt_matches_code_and_prose_cites_it(self) -> None:
         lines = verify_manifest.verify_receipt_and_prose()
         self.assertTrue(lines[0].startswith("receipt: receipts/finite_tower_0_15.json "), lines)
+        self.assertTrue(
+            lines[1].startswith("receipt: receipts/symmetry_obstruction_bridge.json "),
+            lines,
+        )
         self.assertEqual(
-            lines[1:],
+            lines[2:],
             [
-                "prose cites receipt and snapshot: CLAIM_LEDGER.md",
-                "prose cites receipt and snapshot: FINDINGS.md",
+                "prose cites receipts and snapshot: CLAIM_LEDGER.md",
+                "prose cites receipts and snapshot: FINDINGS.md",
             ],
         )
 
@@ -212,13 +216,18 @@ class VerifyManifestTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "differs from render_report"):
                 verify_manifest.verify_receipt_and_prose()
 
+    def test_stale_bridge_receipt_is_refused(self) -> None:
+        with patch.object(verify_manifest, "render_bridge_report", return_value=b"{}\n"):
+            with self.assertRaisesRegex(ValueError, "symmetry_obstruction_bridge.json"):
+                verify_manifest.verify_receipt_and_prose()
+
     def test_prose_that_drops_the_receipt_hash_is_refused(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             stale = Path(temporary) / "STALE.md"
             stale.write_text(f"snapshot {SNAPSHOT} but no receipt hash", encoding="utf-8")
             with patch.object(verify_manifest, "PROSE_PATHS", (stale,)):
                 with self.assertRaisesRegex(
-                    ValueError, "STALE.md does not cite the current receipt SHA-256$"
+                    ValueError, "STALE.md does not cite the current receipt SHA-256"
                 ):
                     verify_manifest.verify_receipt_and_prose()
 
