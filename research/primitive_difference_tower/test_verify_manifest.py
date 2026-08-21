@@ -14,8 +14,6 @@ from unittest.mock import patch
 import verify_manifest
 
 
-SNAPSHOT = "f74ea9b7e40741429f74708c1f7671647b0962b6"
-SNAPSHOT_TREE = "4755d647c83db9926a2465e71c51aabb078cba9c"
 SOURCE_TREE = "lean4/Derivation/"
 
 
@@ -24,6 +22,17 @@ def _manifest() -> dict[str, Any]:
         verify_manifest.MANIFEST_PATH.read_text(encoding="utf-8")
     )
     return payload
+
+
+# Read from the manifest, not pinned as literals.  A repin after a sealed
+# change moves the snapshot, and the git mocks below answer only for the
+# snapshot they were told about; pinned literals therefore made the
+# documented repair path unexercisable without editing its own regression
+# tests.  That is what happened when the snapshot moved from
+# f74ea9b7 to a1738fad: three tests failed with "unexpected git call"
+# against the new commit, none of them for the reason they exist.
+SNAPSHOT: str = str(_manifest()["source_snapshot"]["commit"])
+SNAPSHOT_TREE: str = str(_manifest()["source_snapshot"]["tree"])
 
 
 class VerifyManifestTests(unittest.TestCase):
