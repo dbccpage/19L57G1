@@ -151,3 +151,53 @@ jobs:
           while IFS= read -r m; do
             lake build "$m"
           done < /tmp/census.txt
+
+  # The TENTH gate family, and the only one EXPECTED to go red on a change
+  # that is entirely legitimate. Read the next three paragraphs before
+  # reacting to a failure here.
+  #
+  # research/ is outside the sealed boundary and its verifiers are manual
+  # receipts by design; no other job in this workflow reads that tree. The
+  # cost of that was paid on 2026-08-21. Merging #76 and #77 left main with
+  # five failing research tests while this workflow reported SUCCESS: #77
+  # edited a module that SOURCE_MANIFEST.json pins by SHA-256, #76 shipped
+  # the tests that read the pin, and the two only interact once both are
+  # present. Every gate was green and the repository was broken.
+  #
+  # This job makes that drift VISIBLE. It does not decide whether drift
+  # BLOCKS -- that is branch protection, and it is the author's policy call.
+  # A sealed pull request that edits a module pinned in the manifest SHOULD
+  # show this job red. That is the signal to repin, not a defect in the PR,
+  # and it is the coupling that kept this tree out of CI in the first place.
+  # The repair is `verify_manifest.py --repin` followed by the prose revision
+  # it demands; review a repin by diffing the PARSED json, because --repin
+  # re-serializes and rewrites far more lines than it changes values.
+  #
+  # NOT run here: verify_lean.py. It builds the research Lake package, which
+  # needs elan and compiles the sealed package as a dependency -- exactly the
+  # expense this job exists to avoid. The research tree's AXIOMS therefore
+  # remain a manual receipt, unchecked by any gate. Do not read a green run
+  # here as covering them.
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      # fetch-depth: 0 is load-bearing, not hygiene. verify_manifest.py walks
+      # history from the pinned snapshot with --full-history and resolves
+      # canonical git blobs; the default shallow checkout makes both silently
+      # unavailable, which would turn this gate into a green no-op.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Install pinned dependencies
+        run: pip install -r requirements.txt
+      - name: Research source pins match the sealed blobs
+        run: python research/primitive_difference_tower/verify_manifest.py
+      - name: Research tree tests
+        working-directory: research/primitive_difference_tower
+        run: python -m unittest discover -s . -p "test_*.py"
+      - name: Research tree strict typing
+        working-directory: research/primitive_difference_tower
+        run: python -m mypy
