@@ -1,0 +1,37 @@
+{
+  "schema": "primitive_difference_tower_source_manifest/v1",
+  "repository_commit": "f74ea9b7e40741429f74708c1f7671647b0962b6",
+  "repository_tree": "4755d647c83db9926a2465e71c51aabb078cba9c",
+  "source_policy": "read-only sealed inputs; semantic roots are explicit; transitive modules are compilation inputs only unless named in explicit_transitive_citations",
+  "semantic_roots": [
+    "Derivation.DiffInterface",
+    "Derivation.ObsDescent",
+    "Derivation.PresentationNaturality"
+  ],
+  "explicit_transitive_citations": [
+    {
+      "module": "Derivation.ContactKernel",
+      "symbols": ["boolEqObs", "kernel_no_witness_from_collapse"],
+      "use": "Boolean selector fixture and source-boundary countermodel only; no bridge to the local fixture"
+    },
+    {
+      "module": "Derivation.ContactBridge",
+      "symbols": ["obsApart"],
+      "use": "type appearing in the explicitly cited ContactKernel theorem"
+    }
+  ],
+  "modules": [
+    {"module": "Derivation.DiffInterface", "path": "lean4/Derivation/DiffInterface.lean", "sha256": "1B76A3080E54DB1F3888D0AA5CEDFD1CFF8AEB63763A05A2154023D1CF7C3A32", "role": "semantic root"},
+    {"module": "Derivation.ObsDescent", "path": "lean4/Derivation/ObsDescent.lean", "sha256": "D7332774CBCD85CF5DEB9923C6E1AE7DDFC1D29B53748BE1462D6EB88ED7C6D4", "role": "semantic root"},
+    {"module": "Derivation.PresentationNaturality", "path": "lean4/Derivation/PresentationNaturality.lean", "sha256": "F014274CA0AF29E6DEE6B0B2AD8D7BA749BC0EC04190F8353C58906EDA50D8EA", "role": "semantic root"},
+    {"module": "Derivation.Compression", "path": "lean4/Derivation/Compression.lean", "sha256": "4196C0013A5AA3C6CD87A5F5CE8FCD7E17A5D79AAC102F2317AA4DEDF9DF13C0", "role": "transitive compilation input"},
+    {"module": "Derivation.PrimitiveCore", "path": "lean4/Derivation/PrimitiveCore.lean", "sha256": "63E2D3B6263930769263504385604F8861C34F2684F171026D3B7491769D88FF", "role": "transitive compilation input"},
+    {"module": "Derivation.PrimDiff", "path": "lean4/Derivation/PrimDiff.lean", "sha256": "5C29AC10418DA31213CD0CC6DF5BB3AB2B6A94E93CA839201A4238E4D948FC68", "role": "transitive compilation input"},
+    {"module": "Derivation.ContactKernel", "path": "lean4/Derivation/ContactKernel.lean", "sha256": "6F2BBCB59B24397258E026959A31B4B02181CEB2A507A002EF4BDA242C97C4E4", "role": "transitive compilation input"},
+    {"module": "Derivation.ContactBridge", "path": "lean4/Derivation/ContactBridge.lean", "sha256": "87A881477E2F352FF832613170851AC3B8004C07D3C77D3575C43367BCAE5524", "role": "transitive compilation input"},
+    {"module": "Derivation.PrimitiveContact", "path": "lean4/Derivation/PrimitiveContact.lean", "sha256": "9413BF8D66ADCC59509D4FC0A7ED4BB6286B2F0F9C8E6BEBFDC571AFCECBF486", "role": "transitive compilation input"},
+    {"module": "Derivation.PrimitivePassage", "path": "lean4/Derivation/PrimitivePassage.lean", "sha256": "54C5D38D90FEFF43B9E836DC1AF64D6EF6C1D76949C021FBA814331EAC5F7715", "role": "transitive compilation input"},
+    {"module": "Derivation.PrimitiveCats", "path": "lean4/Derivation/PrimitiveCats.lean", "sha256": "2FF065F572792D69557EDE20E7E6695F752CBC1927617A4D288F986C77028103", "role": "transitive compilation input"},
+    {"module": "Derivation.Apartness", "path": "lean4/Derivation/Apartness.lean", "sha256": "AB08FD0DC417D66BA8756672676B797F73D2281A0947435F2629C060821B0288", "role": "transitive compilation input"}
+  ]
+}
