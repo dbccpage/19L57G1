@@ -1,0 +1,155 @@
+# The portable interface
+
+An **export surface**: the objects this repository constructs that are
+stable enough to be imported elsewhere, each pinned to the source it was
+written against and each carrying its own honest scope.
+
+## What this tree is, and the rule that makes it work
+
+This is one half of a one-way bridge. It names only declarations this
+repository builds, in this repository's own vocabulary. **Nothing
+external is named here, and nothing external may be added.**
+
+That rule is not decoration and it is not inherited politeness. It is
+what makes the bridge a bridge rather than a merge. If a name from
+another system enters this file, the direction collapses: the importing
+system's carving starts steering the exporting system's exposition, and
+the exporting side loses the ability to say which of its results are
+structure and which are vocabulary. This repository has already paid
+that cost once, through a supplied station vocabulary that reached its
+prose but not its mathematics. The second time would not be so cheap.
+
+Translation is therefore the **importer's** job, done on the importer's
+side. This file is the thing being translated, not the translation.
+
+## Verifying it
+
+```powershell
+python research/portable_interface/verify_pins.py
+```
+
+Two checks, and neither implies the other:
+
+- every pinned module still hashes to its recorded SHA-256, so this file
+  describes the sources it was written against;
+- every exported name is actually declared in the module it is
+  attributed to, so this file cannot cite a theorem that does not exist
+  or has been renamed.
+
+A hash pin proves the source did not move. It does **not** prove this
+document names anything real. That is why the second check exists.
+
+`--repin` rewrites the hashes from `HEAD` and verifies nothing; after a
+repin, this document must be re-read by hand, because a moved source can
+change what its declarations mean without changing whether they exist.
+
+**Not run by CI.** Like the sibling research tree, this is a manual
+receipt: evidence about the commit it was run on, and it goes stale
+silently.
+
+## The exports
+
+Eighteen declarations across two pinned modules. Grouped by what they do.
+
+### The difference interface
+
+| name | kind | what it is |
+|---|---|---|
+| `DiffObs` | STRUCTURE | An observer: a `delta` into a result type, a `Zero` predicate on results, and three laws — `zero_refl`, `zero_symm`, `zero_trans`. |
+| `ZeroRel` | DEFINITION | `ZeroRel O x y` iff the observer's difference value is zero. |
+| `zeroRel_equivalence` | THEOREM | The zero relation of any observer is an equivalence. |
+| `ObsQuotient` | DEFINITION | The quotient by that relation. |
+| `obsQuotient_eq_of_zero` | THEOREM | The quotient identifies exactly the zero pairs (soundness half). |
+
+The transferable part is not the quotient — it is the **ordering**. The
+equivalence is proved *before* the quotient is constructed, and the
+quotient's definition depends on that proof, so the discipline is
+enforced by the dependency graph rather than by anyone remembering it.
+An importer that builds the quotient first has not imported this.
+
+### The stage and its obstruction
+
+| name | kind | what it is |
+|---|---|---|
+| `Stage` | STRUCTURE | Four **independent** fields: `live`, `retained`, `guarded`, `obs`. No coherence between them is assumed. |
+| `ActiveObstruction` | DEFINITION | Exactly the conjunction `retained x y ∧ ZeroRel obs x y ∧ guarded x y`. |
+
+Note `guarded`, not "protected" — the latter is a reserved word, and the
+field has carried the native name from the start.
+
+### The gate factorization
+
+| name | kind | what it is |
+|---|---|---|
+| `obstP_factors` | THEOREM | The obstruction equals the conjunction of four total gates: retained, protected, observation declared, observer-zero on the pair. |
+| `gate_zero_independent` | THEOREM | Countermodel: the zero gate does not follow from the other three. |
+| `gate_declared_independent` | THEOREM | Countermodel: nor does the declared gate. |
+| `gate_protection_independent` | THEOREM | Countermodel: nor does protection. |
+| `gate_retention_independent` | THEOREM | Countermodel: nor does retention. |
+| `obst_requires_observation` | THEOREM | Pre-observational states obstruct nothing, whatever is retained and protected. |
+
+**This is the sharpest thing in the surface, and it is easy to import
+wrongly.** `obstP_factors` alone is near-definitional — the gates are
+defined so that it holds, and any Boolean splits as `true && c`. What
+makes the four-way reading non-trivial is the four independence
+theorems. Import the factorization without them and you have imported a
+tautology wearing a result's clothes.
+
+### The response rule
+
+| name | kind | what it is |
+|---|---|---|
+| `two_rule` | THEOREM | Under its hypotheses: either the same-level repair family is nonempty, or it is empty and the extension-proposal family is nonempty. |
+| `extension_always_available` | THEOREM | The extension family is provably nonempty where the rule needs it. |
+| `extension_resolves` | THEOREM | The executed response kills the obstruction on re-evaluation. |
+
+`two_rule` is **conditional**, on four hypotheses: the obstruction holds,
+the two points are distinct, the first is in range, and the pair is
+protected. It is not an unconditional dichotomy and must not be cited as
+one. Refusal and the terminal are separately typed records, members of
+neither family.
+
+### Replay
+
+| name | kind | what it is |
+|---|---|---|
+| `replay_deterministic` | THEOREM | Equal histories replay to equal states. |
+| `replay_append` | THEOREM | Replay respects concatenation of histories. |
+
+State is a function of represented history. This is what makes any
+result here re-derivable from genesis rather than asserted.
+
+## What an importer must NOT assume
+
+This section is the reason the file exists. Everything above is only
+safe to use with it.
+
+- **`obstP_factors` is not a uniqueness claim.** It does not say the
+  decomposition is the only one, and it does not say the four gates are
+  jointly free — `obs_gates_not_both_false` refutes the latter.
+- **The four independence theorems are countermodels, not a basis
+  theorem.** They show no gate follows from the other three. They do not
+  show the four are in any sense canonical or minimal.
+- **`two_rule` is conditional.** See its hypotheses above.
+- **`Stage`'s four fields are independent by construction, not by
+  proof.** Nothing here says a coherent stage is impossible; the point
+  is that coherence is never assumed.
+- **The axioms of this tree are unchecked.** `verify_pins.py` does not
+  build Lean. The sealed modules' `#print axioms` reports are audited by
+  the sealed workflow, within `{propext, Quot.sound}` — but that audit
+  covers the enumerated inventory, not this file's selection from it.
+- **Nothing here is a claim about any system outside this repository.**
+  A correspondence between one of these objects and an object elsewhere
+  is a claim the importer makes and must justify on its own side. This
+  file supplies no such correspondence and licenses none.
+
+## Provenance
+
+The station vocabulary of the passage these objects sit in was supplied,
+not derived — see `paper/primitive_difference_passage.md`, which records
+the supply and keeps the supplied labels separate from the native ones.
+Of sixteen supplied names, two were ever Lean identifiers. Both appear
+in this surface: `ZeroRel`, already classified native-or-core, and
+`ActiveObstruction`, definitionally a conjunction of three native
+`Stage` fields. Neither is load-bearing *as a name*, which is why they
+export cleanly.

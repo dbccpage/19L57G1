@@ -201,3 +201,17 @@ jobs:
       - name: Research tree strict typing
         working-directory: research/primitive_difference_tower
         run: python -m mypy
+      # The export surface is pinned the same way and for the same reason.
+      # Its second check is the one the sibling tree lacks: every exported
+      # name must actually be DECLARED in the module it is attributed to,
+      # so the interface cannot cite a theorem that was renamed away. A
+      # hash pin proves the source did not move; it does not prove the
+      # document names anything real.
+      - name: Portable interface pins and exports resolve
+        run: python research/portable_interface/verify_pins.py
+      - name: Portable interface tests
+        working-directory: research/portable_interface
+        run: python -m unittest discover -s . -p "test_*.py"
+      - name: Portable interface strict typing
+        working-directory: research/portable_interface
+        run: python -m mypy
