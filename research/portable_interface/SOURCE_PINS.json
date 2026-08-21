@@ -1,6 +1,6 @@
 {
   "schema": "portable_interface_source_pins/v1",
-  "snapshot_commit": "4d5fd13c21248ba620d4b4bb63218656e508875e",
+  "snapshot_commit": "77327ed3f9d580c87f21f4908a3b8ce2dac290c1",
   "policy": "Export surface. Only declarations this repository constructs are named. Nothing external is named here, in either direction.",
   "modules": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "path": "lean4/Derivation/Breaking.lean",
-      "sha256": "B43D4D4FEC568E525E639704BBC195A4E1A9D991EE359CDF240F381CEDFC0A29",
+      "sha256": "542F74ADFB6EB96E627AD9161DF6C7EEE66961F8A33BE90184F8C62DB4BEAF5B",
       "role": "the equivariance obstruction, general form"
     }
   ],
