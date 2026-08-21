@@ -19221,6 +19221,54 @@
    "name": "Derivation.closedRun_round_bound_from_empty",
    "role": "preservation",
    "statement": "{r t : Regime} {rds : List Round} (h : ClosedRun r rds t) (he : r.reqs = []) : 2 * rds.length \u2264 r.data * (r.data - 1)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "Breaking.lean"
+   ],
+   "kind": "generic",
+   "module": "UNRESOLVED",
+   "name": "Breaking.no_orbit_constant_equivariant_endomap",
+   "role": "undeclared",
+   "statement": "UNRESOLVED"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "Breaking.lean"
+   ],
+   "kind": "generic",
+   "module": "UNRESOLVED",
+   "name": "Breaking.no_orbit_constant_equivariant_selector",
+   "role": "undeclared",
+   "statement": "UNRESOLVED"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "Breaking.lean"
+   ],
+   "kind": "generic",
+   "module": "UNRESOLVED",
+   "name": "Breaking.no_fixed_point_free_involution_on_Tri",
+   "role": "undeclared",
+   "statement": "UNRESOLVED"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [
+    "Breaking.lean"
+   ],
+   "kind": "generic",
+   "module": "UNRESOLVED",
+   "name": "Breaking.selector_exists_at_common_fixed_point",
+   "role": "undeclared",
+   "statement": "UNRESOLVED"
   }
  ]
 }

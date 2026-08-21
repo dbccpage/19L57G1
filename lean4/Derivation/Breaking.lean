@@ -215,9 +215,149 @@ theorem imposable_but_not_equivariant :
   ⟨⟨constFalse_represents, constFalse_orbitConstant⟩,
    constFalse_not_equivariant⟩
 
+/-! ## The general case: a family of transformations, not one involution
+
+`Break` fixes a single involution, and that restriction is not free.  A
+fixed-point-free involution pairs the carrier into two-cycles, so a
+FINITE `Break` carrier has EVEN cardinality: a three-fold or five-fold
+symmetric situation is outside `Break` entirely, for an arithmetic
+reason rather than a deep one.  `no_fixed_point_free_involution_on_Tri`
+below exhibits that at the smallest odd carrier.
+
+`Symmetry` asks for less.  There is no involution law, no group law, no
+identity, no inverses, and no composition -- only a family of
+transformations with no point that all of them fix.  The obstruction
+never used more than that. -/
+
+structure Symmetry where
+  Whole : Type
+  Sym : Type
+  act : Sym → Whole → Whole
+  no_common_fixed : ∀ w, ∃ g, act g w ≠ w
+
+def SymSelector (S : Symmetry) : Type := S.Whole → S.Whole
+
+/-- Constant on each orbit: the selector ignores the symmetry. -/
+def SymOrbitConstant (S : Symmetry) (s : SymSelector S) : Prop :=
+  ∀ g w, s (S.act g w) = s w
+
+/-- Commutes with the symmetry. -/
+def SymEquivariant (S : Symmetry) (s : SymSelector S) : Prop :=
+  ∀ g w, s (S.act g w) = S.act g (s w)
+
+/-- **No selector is both orbit-constant and equivariant**, given an
+inhabitant, for any family of transformations with no common fixed
+point.
+
+The proof is two equations composed.  Orbit-constancy says the value
+does not move when the argument does; equivariance says the value moves
+exactly as the argument does; together they say the value does not move
+at all, under any symbol.  A carrier where no point is fixed by
+everything admits no such value, hence no such selector.
+
+The same two honesty notes as the involution case apply.  No
+`Represents` hypothesis is spent, so carrying one would overstate what
+is needed.  An inhabitant IS needed: over an empty carrier every
+selector is vacuously both and there is no obstruction. -/
+theorem no_orbit_constant_equivariant_selector
+    (S : Symmetry) (w : S.Whole) (s : SymSelector S)
+    (hconst : SymOrbitConstant S s) (hequi : SymEquivariant S s) : False := by
+  obtain ⟨g, hg⟩ := S.no_common_fixed (s w)
+  exact hg ((hequi g w).symm.trans (hconst g w))
+
+/-- `Break` is the one-symbol case, so the general theorem SUBSUMES
+`no_orbit_constant_equivariant_endomap` rather than sitting beside it. -/
+def ofBreak (B : Break) : Symmetry where
+  Whole := B.Whole
+  Sym := Unit
+  act _ := B.e
+  no_common_fixed w := ⟨(), B.e_no_fixed w⟩
+
+/-! ### The smallest carrier the involution form cannot reach -/
+
+inductive Tri where
+  | t0 | t1 | t2
+  deriving DecidableEq
+
+def rot : Tri → Tri
+  | .t0 => .t1
+  | .t1 => .t2
+  | .t2 => .t0
+
+/-- A three-point carrier under a three-fold rotation.  Witness that
+the generalization is not cosmetic: the theorem applies here, and
+`Break` cannot be instantiated here at all. -/
+def triSymmetry : Symmetry where
+  Whole := Tri
+  Sym := Unit
+  act _ := rot
+  no_common_fixed w := ⟨(), by cases w <;> decide⟩
+
+/-- **Parity, exhibited rather than described.**  No fixed-point-free
+involution exists on the three-point carrier.
+
+Stated concretely for `Tri` instead of in general, because a general
+statement would need counting and this module uses none.  The case
+analysis is the whole content: fixing where `t0` goes forces where its
+image goes, and the remaining point is left fixed. -/
+theorem no_fixed_point_free_involution_on_Tri
+    (e : Tri → Tri) (hinv : ∀ w, e (e w) = w) (hfix : ∀ w, e w ≠ w) :
+    False := by
+  cases h0 : e .t0 with
+  | t0 => exact hfix .t0 h0
+  | t1 =>
+      have h1 : e .t1 = .t0 := by
+        have hb := hinv .t0
+        rw [h0] at hb
+        exact hb
+      cases h2 : e .t2 with
+      | t0 =>
+          have hb := hinv .t2
+          rw [h2] at hb
+          rw [h0] at hb
+          exact Tri.noConfusion hb
+      | t1 =>
+          have hb := hinv .t2
+          rw [h2] at hb
+          rw [h1] at hb
+          exact Tri.noConfusion hb
+      | t2 => exact hfix .t2 h2
+  | t2 =>
+      have h1 : e .t2 = .t0 := by
+        have hb := hinv .t0
+        rw [h0] at hb
+        exact hb
+      cases h2 : e .t1 with
+      | t0 =>
+          have hb := hinv .t1
+          rw [h2] at hb
+          rw [h0] at hb
+          exact Tri.noConfusion hb
+      | t1 => exact hfix .t1 h2
+      | t2 =>
+          have hb := hinv .t1
+          rw [h2] at hb
+          rw [h1] at hb
+          exact Tri.noConfusion hb
+
+/-- The hypothesis is spent, not decorative.  Where some point IS fixed
+by every symbol, the constant selector at it is both orbit-constant and
+equivariant, so `no_common_fixed` is exactly the field that fails and
+exactly what the obstruction costs. -/
+theorem selector_exists_at_common_fixed_point
+    {W Sym : Type} (act : Sym → W → W) (p : W) (hp : ∀ g, act g p = p) :
+    ∃ s : W → W,
+      (∀ g w, s (act g w) = s w) ∧ (∀ g w, s (act g w) = act g (s w)) :=
+  ⟨fun _ => p, fun _ _ => rfl, fun g _ => (hp g).symm⟩
+
 /-! ## What this does NOT claim
 
 * It does not claim `Break` is forced.  It is a declared shape.
+* It does not claim `Symmetry` is forced either, nor that the tied
+  minimal responses of this repository form one of its orbits.  They do
+  NOT: those classes are separated by an isomorphism invariant, and an
+  invariant measure already selects among them.  The obstruction here
+  bites WITHIN a class, not across classes.
 * It does not derive distinctness, two-ness, or existence.  `ne_image`
   restates a field; `emptyBreak` and `fourBreak` show the carrier
   admits zero and four elements.

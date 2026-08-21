@@ -107,18 +107,40 @@ with `deltaU0`, `deltaU1`, `swap01` and `isoU1U0 : Iso U1 U0` as
 definitions. So the two concrete deltas and the transposition relating
 their results are Lean objects, not merely enumeration output.
 
-**Layer 2 — proved, NOT audited.** `lean4/Derivation/Breaking.lean` proves,
-for a carrier with a fixed-point-free involution:
+**Layer 2 — proved, and now AUDITED.** `lean4/Derivation/Breaking.lean`
+proves, for a carrier with a fixed-point-free involution:
 
 * `no_orbit_constant_equivariant_endomap` — given an inhabitant, no
   selector is both `OrbitConstant` and `Equivariant`;
 * `imposable_but_not_equivariant` — a selector *can* be `Represents` and
   `OrbitConstant`, and fails exactly at `Equivariant`.
 
-The module is **parked**. It elaborates under the per-module gate, but the
-root does not import it, so it emits no `#print axioms` report and its
-axiom surface is not inspected by any gate. Its own ceiling states the
-limit:
+It also proves the obstruction in a form the involution shape cannot
+reach:
+
+* `no_orbit_constant_equivariant_selector` — the same conclusion for any
+  family of transformations with **no common fixed point**. No involution
+  law, no group law, no identity, no inverses, no composition. `ofBreak`
+  exhibits `Break` as the one-symbol case, so the general result subsumes
+  the involution one rather than sitting beside it.
+* `no_fixed_point_free_involution_on_Tri` — **why the generalization is
+  not cosmetic.** A fixed-point-free involution pairs its carrier into
+  two-cycles, so a finite `Break` carrier has EVEN cardinality. A
+  three-fold symmetric situation is outside `Break` for an arithmetic
+  reason, and this theorem exhibits that at the smallest odd carrier.
+* `selector_exists_at_common_fixed_point` — the hypothesis is spent, not
+  decorative: where a point IS fixed by every symbol, the constant
+  selector at it is both orbit-constant and equivariant.
+
+An earlier version of this paragraph said the module is **parked** — that
+it elaborated under the per-module gate while the root did not import it,
+so it emitted no `#print axioms` report and no gate inspected its axiom
+surface. **That is WITHDRAWN.** The root now imports it and reports all
+four theorems, each of which *does not depend on any axioms* at all. The
+parked-module residual is closed for this module and remains open for the
+others.
+
+What has NOT changed is the ceiling:
 
 > It proves nothing about `DiffObs`, `PresIso`, `NonZeroPair`, or any
 > other structure in this repository. No bridge is proved.
@@ -134,6 +156,40 @@ isomorphism-invariant" would not be one option among several. It would be
 the **only** branch remaining once a single concrete orbit-constant
 representative is demanded, and equivariance would be the price. That
 conditional is stated, not discharged.
+
+### Which tie the obstruction reaches, and which it does not
+
+The obstruction bites **within** a tie class and **not across** classes.
+The distinction is easy to lose and worth stating in one place, because
+losing it converts a narrow result into a false one.
+
+*Across* the tied classes there is no symmetry to obstruct. The three
+reading-L classes and five reading-F classes are separated by an
+**isomorphism invariant** — `U0_not_iso_BL`, `U0_not_iso_BD`,
+`BL_not_iso_BD`, and `markK_pairwise_noniso` for the arity family — so an
+equivariant rule is permitted to read what distinguishes them. It is not
+merely permitted in principle: `mu2` is presentation-independent and
+selects uniquely, grammar-wide (`mu2_unique`, `mu2_unique_F`). Any claim
+that no invariant rule can break the Challenge-3 tie is therefore
+**refuted by a theorem already in this repository**.
+
+A parity remark reinforces it. A fixed-point-free involution pairs its
+carrier into two-cycles, so a finite `Break` carrier has even
+cardinality; three and five are odd. `Break` cannot be instantiated on
+the tie sets at any choice of involution, whatever else were true. See
+`no_fixed_point_free_involution_on_Tri`.
+
+*Within* a class the symmetry is real. Each class contains exactly two
+concrete deltas, exchanged by the transposition of the required pair
+(`swap01`, `swap12`, with `isoU1U0` and `isoU2F_U0F` collapsing them).
+That two-element orbit is the shape `Break` describes, and it is exactly
+what Layer 3 would have to package. The obstruction, if bridged, says
+that choosing one of the two concrete presentations cannot be done
+equivariantly — a claim about presentation, not about which minimal
+response the mathematics prefers.
+
+Both readings can be true at once, and only one of them is a claim about
+what the system forces.
 
 ---
 
