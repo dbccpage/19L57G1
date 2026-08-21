@@ -2018,3 +2018,47 @@ One follow-up was noted and not silently fixed: the prose of
 `StableContent.lean` was not re-checked against the narrowed (iii) of
 CL-PD2-TRACE-STABILITY.
 
+## Passage stations renamed to native labels; the supply disclosed
+(2026-08-21)
+
+**The station names of the Phase VI passage were SUPPLIED, and this is
+the first entry to say so.**  `prompt/ultra_prompt_pr12.md` lines
+453-471 give the fourteen stations and thirteen arrows verbatim, under
+the instruction "construct the exact passage".  They are an
+EXTERNALLY IMPOSED CHALLENGE.  `paper/primitive_difference_passage.md`
+previously presented the chain as its object of study without naming
+its origin; a reader could reasonably have concluded the carving was
+found rather than given.  That omission is repaired, not restated.
+
+Two further supply facts are recorded with it.  Four of the six files
+in `prompt/` — including the one carrying this chain — are declared as
+inputs nowhere in the paper and pinned by no hash gate; only
+`prompt/prompt.md` and `prompt/seed_prompt.md` are.  And the
+vocabulary firewall in `tests/test_primitive_contact.py` derives its
+denylist from the supplied *Lean* file, so the prompt's vocabulary is
+a second supply channel that no denylist enumerates.  Neither is
+repaired here; both are recorded so that the next reader does not have
+to rediscover them.
+
+**What the rename moved: nothing.**  The Arrow column and the module
+docstrings now name the objects the development constructs.  Of the
+sixteen supplied names, exactly two were ever Lean identifiers —
+`ZeroRel`, already classified native-or-core, and `ActiveObstruction`,
+definitionally the conjunction of three native `Stage` fields.  The
+other fourteen existed only as prose.  One supplied word had already
+been refused on contact: the chain says "protected" and the stage
+field is `guarded`.
+
+The claim that nothing moved is checked, not asserted: `lake build`
+followed by `ci/check_axiom_report.py` reports 1417 axiom reports
+matching `artifacts/lean_axioms.txt`, with the name-blind count
+agreeing at 1417, and the ledger's 1055 evidence tokens all still
+resolve.  No theorem, definition, countermodel, or artifact changed,
+because none of them depended on a label.
+
+That is a result about this development and not a general one.  It
+says the supplied vocabulary steered the exposition and did not reach
+the mathematics.  It does not say a supplied vocabulary never could,
+and it does not discharge the two supply facts recorded above.
+
+
