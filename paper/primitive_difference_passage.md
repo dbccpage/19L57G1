@@ -11,23 +11,84 @@ DECLARATION (a separately priced admission event, with a countermodel
 showing the arrow is false without it), or FALSE without extra
 hypotheses — and executable evidence.
 
+## Provenance of the station names
+
+**The station labels and their order were SUPPLIED, not derived.**
+`prompt/ultra_prompt_pr12.md` lines 453-471 give the chain verbatim,
+under the heading "Phase VI — pass through Primitive Difference" and
+the instruction "construct the exact passage".  They are an
+EXTERNALLY IMPOSED CHALLENGE in the sense of the assumption
+discipline.  An earlier version of this page presented the chain as
+its object of study without saying where the chain came from; a
+reader could reasonably have concluded it was found.  It was given.
+
+Nothing about the arrow grades changes.  What changes is that the
+Arrow column below now names the objects this development actually
+constructs, and the supplied labels are kept separately in the
+mapping table at the end of this section, so the two vocabularies
+stay distinguishable instead of merging into one.
+
+The mapping was cheap to make because **every station already had a
+native name** — they are the identifiers in the Evidence column, and
+they were there all along.  Of the sixteen supplied names, exactly two
+were ever adopted as Lean identifiers: `ZeroRel` and
+`ActiveObstruction`, both in `Derivation.DiffInterface`, the first of
+which was already classified native-or-core.  The other fourteen
+existed only as prose.  One supplied word was refused on contact —
+the chain says "protected", while the stage field is `guarded`,
+because "protected" is a reserved word (`DiffInterface`, the `Stage`
+docstring).
+
 ## The chain, arrow by arrow
 
 | # | Arrow | Status | Evidence |
 |---|---|---|---|
-| 1 | PrimitiveDifference → RetainedDifference | DECLARATION (`assertWit` supplies; `admitWit` retains) | `assertion_not_retained`: an asserted difference is not yet retained; `retention_requires_assertion`; candidate A transports into the pre-retention state as a theorem (`assert_transport`, `kernel_enters_preretained`); once admitted, retention persists (`retention_persists`) |
-| 2 | RetainedDifference → FaithfulPresentation | DECLARATION (demand) | `PrimDiff.const_presentation_unfaithful`; faithfulness is never a fact |
-| 3 | FaithfulPresentation → DeclaredObservation | DECLARATION (`declareObs`) | `obs : Option …` — `none` is pre-observational, not "a blind observer" |
-| 4 | DeclaredObservation → ZeroRel | THEOREM | `zero_refl`, `zero_symm`, `zero_trans`: the zero relation of any declared observation is an equivalence, proved before any quotient (P4) |
-| 5 | ZeroRel → ProtectedCollapse | THEOREM (conditional on protection) | zero on a protected retained pair is exactly the collapse in force |
-| 6 | ProtectedCollapse → ActiveObstruction | DEFINITION + THEOREM | `obstP` has three written factors (`obstP_strict_factors`); there are four gates in the proved factorization, and every maximal proper gate subset fails (P5) |
-| 7 | ActiveObstruction → ExhaustiveSameLevelFamily | THEOREM | `menu_complete`: the response menu contains every declared column × in-bounds point |
-| 8 | → RepairFamily \| ExtensionProposalFamily | THEOREM (P7, the two-rule) | `two_rule`: repair nonempty, or certified exhaustion + provably nonempty extension family (`extension_always_available`) |
-| 9 | → AuthorizationAndBudget | DECLARATION (gates) | `proposal_not_execution`, `budget_gates_execution`: proposing is free, executing is licensed and funded |
-| 10 | → Replay | THEOREM | `replay_deterministic`, `replay_append`: state is a function of represented history |
-| 11 | → Remeasurement | THEOREM | `extension_resolves`: the executed response kills the obstruction on re-evaluation |
-| 12 | → RefusalRecord \| Terminal | DEFINITION, separately typed | `refusal_object_inert` + `refusal_not_terminal` (record, non-absorbing) vs `terminal_absorbing` (absorbing) — never one word |
-| 13 | → RepresentedNextFamily | THEOREM | `nextFamilyP_stop` (silence is a verdict), `nextFamilyP_nonempty`, `nextFamilyP_complete_repair/_ext`; iteration of the family remains metatheoretic, stated |
+| 1 | asserted witness → retained witness | DECLARATION (`assertWit` supplies; `admitWit` retains) | `assertion_not_retained`: an asserted difference is not yet retained; `retention_requires_assertion`; candidate A transports into the pre-retention state as a theorem (`assert_transport`, `kernel_enters_preretained`); once admitted, retention persists (`retention_persists`) |
+| 2 | retained witness → faithful presentation | DECLARATION (demand) | `PrimDiff.const_presentation_unfaithful`; faithfulness is never a fact |
+| 3 | faithful presentation → declared observation | DECLARATION (`declareObs`) | `obs : Option …` — `none` is pre-observational, not "a blind observer" |
+| 4 | declared observation → observer zero | THEOREM | `zero_refl`, `zero_symm`, `zero_trans`: the zero relation of any declared observation is an equivalence, proved before any quotient (P4) |
+| 5 | observer zero → guarded collapse | THEOREM (conditional on protection) | zero on a protected retained pair is exactly the collapse in force |
+| 6 | guarded collapse → active obstruction | DEFINITION + THEOREM | `obstP` has three written factors (`obstP_strict_factors`); there are four gates in the proved factorization, and every maximal proper gate subset fails (P5) |
+| 7 | active obstruction → complete response menu | THEOREM | `menu_complete`: the response menu contains every declared column × in-bounds point |
+| 8 | → repair family \| extension family | THEOREM (P7, the two-rule) | `two_rule`: repair nonempty, or certified exhaustion + provably nonempty extension family (`extension_always_available`) |
+| 9 | → licensing and budget | DECLARATION (gates) | `proposal_not_execution`, `budget_gates_execution`: proposing is free, executing is licensed and funded |
+| 10 | → replay | THEOREM | `replay_deterministic`, `replay_append`: state is a function of represented history |
+| 11 | → re-evaluation | THEOREM | `extension_resolves`: the executed response kills the obstruction on re-evaluation |
+| 12 | → refusal record \| terminal | DEFINITION, separately typed | `refusal_object_inert` + `refusal_not_terminal` (record, non-absorbing) vs `terminal_absorbing` (absorbing) — never one word |
+| 13 | → represented next family | THEOREM | `nextFamilyP_stop` (silence is a verdict), `nextFamilyP_nonempty`, `nextFamilyP_complete_repair/_ext`; iteration of the family remains metatheoretic, stated |
+
+## Supplied labels, and what became of them
+
+The left column is the supplied text at `prompt/ultra_prompt_pr12.md`
+lines 453-471.  The right column records whether that name was ever
+adopted as a Lean identifier in this development.
+
+| supplied station | native label used above | adopted as an identifier? |
+|---|---|---|
+| PrimitiveDifference | asserted witness | no — prose only |
+| RetainedDifference | retained witness | no — prose only |
+| FaithfulPresentation | faithful presentation | no — prose only |
+| DeclaredObservation | declared observation | no — prose only |
+| ZeroRel | observer zero | **yes** — `DiffInterface`, already classified native-or-core |
+| ProtectedCollapse | guarded collapse | no — and the word was refused; the field is `guarded` |
+| ActiveObstruction | active obstruction | **yes** — `DiffInterface`, a conjunction of three native `Stage` fields |
+| ExhaustiveSameLevelFamily | complete response menu | no — prose only |
+| RepairFamily \| ExtensionProposalFamily | repair family \| extension family | no — prose only |
+| AuthorizationAndBudget | licensing and budget | no — prose only |
+| Replay | replay | no — prose only |
+| Remeasurement | re-evaluation | no — prose only |
+| RefusalRecord \| Terminal | refusal record \| terminal | no — prose only |
+| RepresentedNextFamily | represented next family | no — prose only |
+
+**Two of sixteen.**  The supplied chain was narrative scaffolding laid
+over objects that already carried their own names — the identifiers in
+the Evidence column above, which is where the mapping was read off.
+No theorem, definition, countermodel, or artifact changed when the
+labels were rewritten, because none of them depended on a label.
+
+That is a result about this development, not a general one: it says
+the supplied vocabulary steered the *exposition* and did not reach the
+mathematics.  It does not say a supplied vocabulary never could.
 
 ## The four-condition refinement
 

@@ -5,17 +5,37 @@ import Derivation.PrimitiveCore
 # The passage through Primitive Difference
 
 Phase VI of the contact-and-passage run.  A minimal, self-contained
-dynamics carrying exactly the passage chain
+dynamics carrying exactly the passage chain, written here in the names
+of the objects this development actually constructs:
 
-  PrimitiveDifference → RetainedDifference → FaithfulPresentation →
-  DeclaredObservation → ZeroRel → ProtectedCollapse →
-  ActiveObstruction → ExhaustiveSameLevelFamily →
-  RepairFamily | ExtensionProposalFamily → AuthorizationAndBudget →
-  Replay → Remeasurement → RefusalRecord | Terminal →
-  RepresentedNextFamily
+  asserted witness → retained witness → faithful presentation →
+  declared observation → observer zero → guarded collapse →
+  active obstruction → complete response menu →
+  repair family | extension family → licensing and budget →
+  replay → re-evaluation → refusal record | terminal →
+  represented next family
 
 with one status per arrow (theorem, declaration, or false without
 extra hypotheses), necessity countermodels, and the P1–P8 theorems.
+
+## Provenance of the station names
+
+The thirteen arrows and their station labels were SUPPLIED, not
+derived.  `prompt/ultra_prompt_pr12.md` lines 453-471 give the chain
+verbatim, under the instruction "construct the exact passage".  They
+are an EXTERNALLY IMPOSED CHALLENGE in the sense of the assumption
+discipline, and nothing below treats the carving as derived.
+
+The labels above are this file's own object names; the supplied labels
+are retained beside them in `paper/primitive_difference_passage.md` so
+that the two vocabularies stay distinguishable rather than merging.
+
+Two supplied station names were ever adopted as Lean identifiers --
+`ZeroRel` and `ActiveObstruction`, both defined in
+`Derivation.DiffInterface`, the first already classified native.  The
+remaining twelve appear in this development only as prose.  One
+supplied word was refused on contact: the chain says "protected",
+while the stage field is and remains `guarded`.
 
 The single deliberate refinement over the sealed `Completion.obstC`:
 observation here is an `Option` — `none` is *pre-observational*, not
@@ -663,7 +683,7 @@ Each passage arrow is a theorem, a declaration (an admission event is
 required, with a countermodel showing the arrow is false without it),
 or false without extra hypotheses. -/
 
-/-- **PrimitiveDifference → RetainedDifference is a DECLARATION.**
+/-- **asserted witness → retained witness is a DECLARATION.**
 The asserted-difference store (`assertWit`, the supplied positive
 witness) and the retained store (`admitWit`) are separate fields with
 separate admission events: an asserted Primitive Difference does not
@@ -862,7 +882,7 @@ theorem no_protection_no_obstruction :
             refusals := [], halted := false } 0 1 = false := by decide
 
 /-!
-**RetainedDifference → FaithfulPresentation is a DECLARATION**:
+**retained witness → faithful presentation is a DECLARATION**:
 faithfulness of a presentation is a demand on the presenting map, not
 a fact following from retention
 (`PrimDiff.const_presentation_unfaithful` is the countermodel:
@@ -879,7 +899,7 @@ theorem quotient_no_recovery {X Q : Type} (q : X → Q) (a b : X)
     g (q a) (q b) ↔ g (q a) (q a) := by rw [hq]
 
 /-!
-**FaithfulPresentation → DeclaredObservation is a DECLARATION** with
+**faithful presentation → declared observation is a DECLARATION** with
 its own event (`declareObs`); the zero relation exists only after it
 (`obst_requires_observation`).  P4 demands the ZeroRel laws before
 any quotient is taken: -/
@@ -1156,7 +1176,7 @@ theorem replay_append (h1 h2 : List PEvent) (s : PState) :
     replayP (h1 ++ h2) s = replayP h2 (replayP h1 s) := by
   simp [replayP, List.foldl_append]
 
-/-! ## Remeasurement: the executed response resolves the obstruction -/
+/-! ## Re-evaluation: the executed response resolves the obstruction -/
 
 /-- Executing an accepted extension column that separates the pair
 kills the obstruction: remeasurement after structure creation
@@ -1189,7 +1209,7 @@ theorem extension_resolves (s : PState) (c : List Nat) (i j : Nat)
   rw [hnew]
   simp
 
-/-! ## RepresentedNextFamily: the policy-driven closure family
+/-! ## Represented next family: the policy-driven closure family
 
 The passage's last arrow: the next-event family is computed from the
 represented state by a fixed interpreter — repair blocks for every
