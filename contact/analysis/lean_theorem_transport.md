@@ -536,15 +536,15 @@ at this grade; see non-identification 1 immediately below.
 1. The passage obstruction predicate is written with three factors and is
    PROVED equal to the product of **four** total gates (retained, protected,
    declared, plus the collision) by
-   `PrimitivePassage.obstP_factors` (`PrimitivePassage.lean:198`); no one of
+   `PrimitivePassage.obstP_factors` (`PrimitivePassage.lean:218`); no one of
    the four follows from the other three
-   (`PrimitivePassage.gate_zero_independent` (`:501`) and its three
+   (`PrimitivePassage.gate_zero_independent` (`:521`) and its three
    companions), and the five witness states are
-   `PrimitivePassage.obst_conditions_independent` (`:456`). The native
+   `PrimitivePassage.obst_conditions_independent` (`:476`). The native
    obstruction is therefore **strictly finer at passage grade**; the flagship
    shape is only its collision conjunct. Scope: independence means
    non-entailment; the gates are NOT jointly free
-   (`PrimitivePassage.obs_gates_not_both_false` (`:261`)).
+   (`PrimitivePassage.obs_gates_not_both_false` (`:281`)).
 2. The flagship obstruction is a **fixed-quotient descent failure**. The sealed
    `PrimitiveCats.no_terminal_pres` (`PrimitiveCats.lean:548`) and
    `no_terminal_pres2` (`:677`) are **non-existence of universal
