@@ -35,6 +35,9 @@ AXIOM_REPORT_DECLARATIONS = (
     "PrimitiveDifferenceTower.no_bool_single_pair_selector",
     "PrimitiveDifferenceTower.raw_bool_single_pair_selector_exists",
     "PrimitiveDifferenceTower.collapsed_source_has_no_witness",
+    "SymmetryObstructionBridge.swap_involutive",
+    "SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton",
+    "SymmetryObstructionBridge.anchoredChoice_retains_import",
 )
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
 FORBIDDEN_TOKENS = (

@@ -1,4 +1,5 @@
 import PrimitiveDifferenceTower
+import PrimitiveDifferenceTower.SymmetryObstructionBridge
 
 #print axioms PrimitiveDifferenceTower.towerDown_after_towerUp
 #print axioms PrimitiveDifferenceTower.towerUpMorphism_comp_certified
@@ -9,3 +10,6 @@ import PrimitiveDifferenceTower
 #print axioms PrimitiveDifferenceTower.no_bool_single_pair_selector
 #print axioms PrimitiveDifferenceTower.raw_bool_single_pair_selector_exists
 #print axioms PrimitiveDifferenceTower.collapsed_source_has_no_witness
+#print axioms SymmetryObstructionBridge.swap_involutive
+#print axioms SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton
+#print axioms SymmetryObstructionBridge.anchoredChoice_retains_import
