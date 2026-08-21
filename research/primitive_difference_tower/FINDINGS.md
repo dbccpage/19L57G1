@@ -2,7 +2,7 @@
 
 ## Result
 
-At sealed snapshot `f74ea9b7e40741429f74708c1f7671647b0962b6`, an
+At sealed snapshot `a1738fad5de7e1961ec60a16ddfa8d5b36ceab7d`, an
 unqualified endogenous-push conclusion is **not established**.  The result is
 instead a source-boundary analysis plus a separate declared finite fixture.
 After that fixture admits a seed, labels, an anchor, and a successor grammar,
