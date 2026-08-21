@@ -118,11 +118,14 @@ system can be represented by a container.
 
 Passed:
 
-- `verify_manifest.py` checked the exact commit/tree, every listed source
-  hash, the manifest's explicit transitive-citation declarations, and the
-  unchanged sealed protected paths plus their baseline untracked set.  The
-  successful Lean build separately resolved the cited source symbols used by
-  the local fixture.
+- `verify_manifest.py` checked every listed source hash against the canonical
+  Git blob at the verification commit, the manifest's explicit
+  transitive-citation declarations, and the unchanged sealed protected paths
+  with no untracked protected files.  The manifest records the sealed
+  commit/tree as source provenance; the verifier intentionally does not
+  require the research checkout's `HEAD` to equal that pre-research snapshot.
+  The successful Lean build separately resolved the cited source symbols used
+  by the local fixture.
 - The local Lean package built, including `AxiomReport`; the reported fixture
   results use only the displayed standard library axioms or none.  The build
   emitted only pre-existing unused-variable linter warnings in

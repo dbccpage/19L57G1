@@ -589,7 +589,8 @@ def model_report(horizon: int = MAX_HORIZON) -> dict[str, Any]:
     """Return a deterministic, scope-labelled report for stages zero through 15."""
 
     stages = build_tower(horizon)
-    provisional = up(genesis()).target
+    lifts = tuple(up(stage) for stage in stages)
+    provisional = lifts[0].target
     candidates = candidate_grammar(provisional)
     ties = retained_ties(candidates)
     all_carrier = aggregate_effect(provisional, "aggregate_all_carrier")
@@ -601,12 +602,11 @@ def model_report(horizon: int = MAX_HORIZON) -> dict[str, Any]:
         "horizon": horizon,
         "laws_checked": {
             "each_emitted_round_closure_decreases_active_measure": all(
-                active_measure(up(stage).target)
-                > active_measure(closure(up(stage).target))
-                for stage in stages[:-1]
+                active_measure(lift.target) > active_measure(closure(lift.target))
+                for lift in lifts[:-1]
             ),
             "descent_after_certified_up_is_identity": all(
-                down(up(stage)) == stage for stage in stages
+                down(lift) == stage for stage, lift in zip(stages, lifts)
             ),
             "old_distinctions_are_preserved": all(
                 set(before.edges).issubset(after.edges)

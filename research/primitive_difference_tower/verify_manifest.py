@@ -25,9 +25,6 @@ PROTECTED_PREFIXES = (
     "lean4/Derivation/",
     "artifacts/",
 )
-INITIAL_UNTRACKED_PROTECTED = {"prompt/prompt_pr14.md"}
-
-
 def _git(*args: str) -> str:
     process = subprocess.run(
         ["git", *args],
@@ -39,8 +36,21 @@ def _git(*args: str) -> str:
     return process.stdout.strip()
 
 
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+def _git_bytes(*args: str) -> bytes:
+    process = subprocess.run(
+        ["git", *args],
+        cwd=REPO,
+        check=True,
+        capture_output=True,
+    )
+    return process.stdout
+
+
+def _sha256_git_blob(revision: str, relative: Path) -> str:
+    """Hash a canonical Git blob, independent of checkout line endings."""
+
+    object_name = f"{revision}:{relative.as_posix()}"
+    return hashlib.sha256(_git_bytes("show", object_name)).hexdigest().upper()
 
 
 def _read_manifest() -> dict[str, Any]:
@@ -63,16 +73,20 @@ def verify_manifest() -> list[str]:
     manifest = _read_manifest()
     lines: list[str] = []
     actual_commit = _git("rev-parse", "HEAD")
-    actual_tree = _git("rev-parse", "HEAD^{tree}")
-    if actual_commit != manifest["repository_commit"]:
-        raise ValueError(
-            f"commit mismatch: expected {manifest['repository_commit']}, got {actual_commit}"
+    source_snapshot = manifest.get("source_snapshot")
+    if not isinstance(source_snapshot, dict):
+        raise ValueError("source_snapshot must be an object")
+    snapshot_commit = source_snapshot.get("commit")
+    snapshot_tree = source_snapshot.get("tree")
+    if not isinstance(snapshot_commit, str) or not isinstance(snapshot_tree, str):
+        raise ValueError("source_snapshot must name commit and tree strings")
+    lines.extend(
+        (
+            f"verification commit: {actual_commit}",
+            f"declared source snapshot: {snapshot_commit} / {snapshot_tree}",
+            "hash basis: canonical Git blobs at verification commit",
         )
-    if actual_tree != manifest["repository_tree"]:
-        raise ValueError(
-            f"tree mismatch: expected {manifest['repository_tree']}, got {actual_tree}"
-        )
-    lines.extend((f"commit: {actual_commit}", f"tree: {actual_tree}"))
+    )
     modules = manifest.get("modules")
     if not isinstance(modules, list) or not modules:
         raise ValueError("manifest modules must be a nonempty list")
@@ -85,7 +99,7 @@ def verify_manifest() -> list[str]:
             raise ValueError(f"duplicate manifest module: {module_name}")
         module_roles[module_name] = str(item["role"])
         relative = _assert_safe_relative(str(item["path"]))
-        actual_hash = _sha256(REPO / relative)
+        actual_hash = _sha256_git_blob("HEAD", relative)
         expected_hash = str(item["sha256"])
         if actual_hash != expected_hash:
             raise ValueError(
@@ -95,23 +109,23 @@ def verify_manifest() -> list[str]:
     semantic_roots = manifest.get("semantic_roots")
     if not isinstance(semantic_roots, list) or not semantic_roots:
         raise ValueError("semantic_roots must be a nonempty list")
-    for module_name in semantic_roots:
-        if not isinstance(module_name, str) or module_roles.get(module_name) != "semantic root":
-            raise ValueError(f"semantic root is not marked as such: {module_name}")
-        lines.append(f"semantic root: {module_name}")
+    for semantic_root in semantic_roots:
+        if not isinstance(semantic_root, str) or module_roles.get(semantic_root) != "semantic root":
+            raise ValueError(f"semantic root is not marked as such: {semantic_root}")
+        lines.append(f"semantic root: {semantic_root}")
     citations = manifest.get("explicit_transitive_citations", [])
     if not isinstance(citations, list):
         raise ValueError("explicit_transitive_citations must be a list")
     for citation in citations:
         if not isinstance(citation, dict):
             raise ValueError("explicit transitive citation must be an object")
-        module_name = citation.get("module")
+        citation_module = citation.get("module")
         symbols = citation.get("symbols")
-        if not isinstance(module_name, str) or module_roles.get(module_name) != "transitive compilation input":
-            raise ValueError(f"citation is not a declared transitive input: {module_name}")
+        if not isinstance(citation_module, str) or module_roles.get(citation_module) != "transitive compilation input":
+            raise ValueError(f"citation is not a declared transitive input: {citation_module}")
         if not isinstance(symbols, list) or not symbols or not all(isinstance(symbol, str) for symbol in symbols):
-            raise ValueError(f"citation has no symbols: {module_name}")
-        lines.append(f"explicit transitive citation: {module_name} {', '.join(symbols)}")
+            raise ValueError(f"citation has no symbols: {citation_module}")
+        lines.append(f"explicit transitive citation: {citation_module} {', '.join(symbols)}")
     return lines
 
 
@@ -121,12 +135,9 @@ def verify_protected_paths() -> list[str]:
         raise ValueError(f"tracked protected-path changes:\n{changed}")
     untracked = _git("ls-files", "--others", "--exclude-standard", "--", *PROTECTED_PREFIXES)
     actual = {line.replace("\\", "/") for line in untracked.splitlines() if line}
-    if actual != INITIAL_UNTRACKED_PROTECTED:
-        raise ValueError(
-            "protected untracked set changed: "
-            f"expected {sorted(INITIAL_UNTRACKED_PROTECTED)}, got {sorted(actual)}"
-        )
-    return ["protected tracked paths: unchanged", "protected untracked paths: baseline matches"]
+    if actual:
+        raise ValueError(f"untracked protected paths: {sorted(actual)}")
+    return ["protected tracked paths: unchanged", "protected untracked paths: none"]
 
 
 def main() -> int:
