@@ -54,4 +54,6 @@ derives the listed inputs, equates the local active-edge counter with the
 source obstruction predicate, or establishes an endogenous unique successor.
 
 The scoped evidence and verification limits are in `FINDINGS.md`.  The finite
-machine receipt is `receipts/finite_tower_0_15.json`.
+machine receipt is `receipts/finite_tower_0_15.json`.  The source-boundary
+receipt is `verify_manifest.py`; Lean axiom output is separately verified by
+`verify_lean.py`, not inferred from a plain `lake build`.

@@ -120,16 +120,14 @@ Passed:
 
 - `verify_manifest.py` checked every listed source hash against the canonical
   Git blob at the verification commit, the manifest's explicit
-  transitive-citation declarations, and the unchanged sealed protected paths
-  with no untracked protected files.  The manifest records the sealed
-  commit/tree as source provenance; the verifier intentionally does not
+  transitive-citation declarations, and the declared imports and qualified
+  source-symbol uses in `PrimitiveDifferenceTower.lean`.  It also checks that
+  the source snapshot is an ancestor of `HEAD`, that no protected path changed
+  anywhere in that history, and that the protected working tree is clean.
+  Untracked protected paths are reported as local, non-Git/blob inputs rather
+  than compared with an author-specific baseline.  The manifest records the
+  sealed commit/tree as source provenance; the verifier intentionally does not
   require the research checkout's `HEAD` to equal that pre-research snapshot.
-  The successful Lean build separately resolved the cited source symbols used
-  by the local fixture.
-- The local Lean package built, including `AxiomReport`; the reported fixture
-  results use only the displayed standard library axioms or none.  The build
-  emitted only pre-existing unused-variable linter warnings in
-  `Derivation/Apartness.lean`.
 - A local forbidden-token scan found no `sorry`, `admit`, `unsafe`, `partial`,
   or user-declared `axiom` in the research Lean files.
 - Eight standard-library Python unit tests passed, and the generated receipt
@@ -140,6 +138,11 @@ Not established or not run:
 
 - No Python 3.14 verification or strict type-check was run in this session, so
   neither is claimed as a receipt.
+- A plain `lake build` does not establish the axiom report: on the prior
+  package configuration it did not elaborate `AxiomReport.lean`.  The repaired
+  configuration names that module as a default root, and `verify_lean.py`
+  explicitly builds it then forces `#print axioms` output with `lake env lean`.
+  No pass for that repaired Lean command is claimed until it is run.
 - No global candidate-space enumeration or presentation quotient was
   performed.
 - No formal bridge maps an arbitrary native stage or source active obstruction
