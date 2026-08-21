@@ -792,7 +792,52 @@ Within the declared metatheory and candidate grammar:
 
 ## 13. Post-hoc comparison
 
-Withheld in full, per the caller's blind-protocol correction of
-2026-08-11 (`paper_change_log.md`, entry 4).  No external theory,
-architecture, or terminology is named anywhere in this repository outside
-the read-only seed prompt.
+**This section is withheld in full**, per the caller's blind-protocol
+correction of 2026-08-11 (`paper_change_log.md`, entry 4).  Nothing in
+this paper names an external theory, architecture, or terminology, and
+nothing above depends on any such name.
+
+An earlier version of this section added a second sentence: *"No
+external theory, architecture, or terminology is named anywhere in this
+repository outside the read-only seed prompt."*  **That sentence is
+WITHDRAWN.  It was false when read literally, and it is narrowed here
+rather than defended.**
+
+Six documents under `paper/` do name external mathematics, in sections
+placed at their ends:
+
+| document | section |
+|---|---|
+| `paper/bridge_provenance.md` | *Post-hoc comparison with existing names* |
+| `paper/endogenous_generator.md` | same |
+| `paper/primitive_difference.md` | same |
+| `paper/refusal_as_difference.md` | same |
+| `paper/refusal_difference.md` | same |
+| `paper/primitive_difference_map.md` | *Post-hoc realization table*, fenced, with a "Known mathematics" column |
+
+They do not all have the same standing, and collapsing them would
+misreport the situation in the other direction.  The first five carry no
+fence.  The sixth is explicitly fenced — *"comparison only — nothing
+above depends on this section"* — and cites its own authorization, *"per
+the run directive to name mathematical objects identical to known
+mathematics."*
+
+Three instruments therefore disagree, and at most two of them can be
+right: the withdrawn sentence above; the run directive that sixth
+section cites; and `CLAUDE.md`, which records the 2026-08-11 clause as
+restored and holding *"again without exception"*.  **Resolving that
+disagreement is the author's act, not the paper's.**  What this section
+can do, and now does, is stop asserting the strongest of the three as
+though it were settled.
+
+What survives, and is checked: the derivation itself was carried out
+blind, and no external name appears in `prompt/`, `code/`,
+`lean4/Derivation/`, `artifacts/`, or in the body of any `paper/`
+document above its final comparison section.  That is the claim the
+evidence supports.  The withdrawn sentence claimed more.
+
+No gate detects any of this.  `ci/check_paper_citations.py` checks that
+a cited path resolves; the vocabulary firewall in
+`tests/test_primitive_contact.py` bars a denylist of identifiers, not
+prose naming of a theory.  The attestation was, and the narrowed version
+remains, an operator claim.
