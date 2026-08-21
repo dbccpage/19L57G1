@@ -210,10 +210,13 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The nine gate families CI enforces
+### The ten gate families CI enforces
 
-`.github/workflows/verify.yml` runs two jobs, `python` and `lean`. Between
-them they are nine gate families. The local equivalents:
+`.github/workflows/verify.yml` runs three jobs, `python`, `lean`, and
+`research`. Between them they are ten gate families. An earlier version of
+this line said two jobs and nine families; that is WITHDRAWN, and the
+tenth is described at the end of the list because it is unlike the other
+nine. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
@@ -247,7 +250,47 @@ python ci/check_paper_citations.py
 #    fails totality rather than cancelling out on both sides. It checks
 #    that names RESOLVE, never that wording matches proof.
 python ci/check_ledger_evidence.py
+
+# 10. the research tree's source pins still match the sealed blobs, and
+#     its own tests and strict typing pass. NOT a sealed-derivation gate:
+#     it guards `research/`, which is outside the seal. Run from the
+#     repository root, then from inside the tree:
+python research/primitive_difference_tower/verify_manifest.py
 ```
+
+```powershell
+cd research/primitive_difference_tower
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
+```
+
+**Gate 10 is the only one EXPECTED to go red on a legitimate change**, and
+it is worth understanding before reacting to a failure. A pull request that
+edits a module pinned in `research/primitive_difference_tower/SOURCE_MANIFEST.json`
+will fail it. That is the signal to repin — not a defect in the pull
+request — and that coupling is exactly why this tree was kept out of CI
+originally. The job makes drift VISIBLE; whether drift BLOCKS is branch
+protection, which is a policy setting rather than a property of this file.
+
+Why it was added: on 2026-08-21, merging #76 and #77 left `main` with five
+failing research tests **while the workflow reported SUCCESS**. Neither
+pull request could see it — the two changes only interact once both are
+present, and no job read the tree. Every gate was green and the repository
+was broken. That is an observed instance, not a hypothetical.
+
+What gate 10 does NOT cover: `verify_lean.py`. It builds the research Lake
+package, which needs elan and compiles the sealed package as a dependency —
+the expense the job exists to avoid. **The research tree's axioms therefore
+remain a manual receipt, unchecked by any gate.** This is a second live
+residual alongside the parked-module one, and it is recorded rather than
+closed badly.
+
+Repairing a gate-10 failure: `verify_manifest.py --repin`, then revise the
+prose it names (`CLAIM_LEDGER.md`, `FINDINGS.md`) — the verifier fails until
+the prose matches. Review a repin by diffing the PARSED JSON, not the text:
+`--repin` re-serializes with `indent=2` and rewrote 135 lines to change 3
+values the one time it has been run.
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
 the measured source. It reads `coverage.json`, so generate that first — and
@@ -500,6 +543,8 @@ What has actually been injected, and what failed:
 | Ledger evidence gate | renamed a cited test to `test_supply_is_not_admission_zzz_probe` | `FAIL: ... CL-0-INERTIA [python] ... matches no test, code def, artifact key, artifact text, or source literal` |
 | Ledger evidence gate, real case | first real run, no injection | three dead references found and named: two stale tree-export filenames, one renamed theorem surviving only in a rename note |
 | Axiom-report parser, primed names | (found live, not injected) four primed theorems absent from `lean_axioms.txt` while the match gate stayed green — both parsers shared the blind `'[^']+'` pattern | audit line count 1417 vs artifact 1413 exposed it; non-greedy capture fixed both, counts agree |
+| Research pin drift (gate 10) | restored the stale `PrimitivePassage.lean` hash in `SOURCE_MANIFEST.json` | `FAIL: hash mismatch for lean4/Derivation/PrimitivePassage.lean`, exit 1, naming the module; exit 0 after reversal. The exit status was checked directly, NOT through a pipeline — `$?` after `\| tail` reports tail's status and showed 0 while the script was returning 1 |
+| Research pin drift, real case | (found live, not injected) merging #76 and #77 | five research tests failed on `main` at `a1738fa` while the CI rollup reported SUCCESS; no job read the tree, and the two changes only interact once both are present |
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.
