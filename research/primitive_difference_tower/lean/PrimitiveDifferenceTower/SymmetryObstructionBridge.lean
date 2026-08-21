@@ -45,4 +45,28 @@ def anchoredChoice (anchor : AnchorImport) : Cochain := anchor.selected
 theorem anchoredChoice_retains_import (anchor : AnchorImport) :
     anchoredChoice anchor = anchor.selected := rfl
 
+/- This is the complete continuation grammar for this finite fixture only. -/
+inductive Continuation where
+  | anchored (anchor : AnchorImport)
+  | retainOrbit
+  | refuse
+
+def singletonChoice? : Continuation → Option Cochain
+  | .anchored anchor => some anchor.selected
+  | .retainOrbit => none
+  | .refuse => none
+
+theorem continuation_cases (continuation : Continuation) :
+    (∃ anchor, continuation = .anchored anchor) ∨
+      continuation = .retainOrbit ∨ continuation = .refuse := by
+  cases continuation with
+  | anchored anchor => exact Or.inl ⟨anchor, rfl⟩
+  | retainOrbit => exact Or.inr (Or.inl rfl)
+  | refuse => exact Or.inr (Or.inr rfl)
+
+theorem nonanchored_continuations_have_no_singleton (continuation : Continuation)
+    (notAnchored : continuation = .retainOrbit ∨ continuation = .refuse) :
+    singletonChoice? continuation = none := by
+  rcases notAnchored with rfl | rfl <;> rfl
+
 end SymmetryObstructionBridge

@@ -3,6 +3,7 @@ python_version = "3.14"
 strict = true
 files = [
   "bridge_contract.py",
+  "continuation_trilemma.py",
   "equivariant_selection.py",
   "finite_tower.py",
   "repair_obstruction.py",
@@ -11,6 +12,7 @@ files = [
   "verify_lean.py",
   "test_finite_tower.py",
   "test_bridge_contract.py",
+  "test_continuation_trilemma.py",
   "test_equivariant_selection.py",
   "test_repair_obstruction.py",
   "test_verify_manifest.py",

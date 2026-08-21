@@ -39,6 +39,8 @@ AXIOM_REPORT_DECLARATIONS = (
     "SymmetryObstructionBridge.residual_orbit_has_no_fixed_singleton",
     "SymmetryObstructionBridge.residual_not_in_declared_boundary_image",
     "SymmetryObstructionBridge.anchoredChoice_retains_import",
+    "SymmetryObstructionBridge.continuation_cases",
+    "SymmetryObstructionBridge.nonanchored_continuations_have_no_singleton",
 )
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
 FORBIDDEN_TOKENS = (
