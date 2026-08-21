@@ -2,11 +2,13 @@
 python_version = "3.14"
 strict = true
 files = [
+  "bridge_contract.py",
   "finite_tower.py",
   "run_finite_tower.py",
   "verify_manifest.py",
   "verify_lean.py",
   "test_finite_tower.py",
+  "test_bridge_contract.py",
   "test_verify_manifest.py",
   "test_verify_lean.py",
 ]

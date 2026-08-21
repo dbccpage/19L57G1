@@ -472,10 +472,8 @@ def repin_manifest() -> list[str]:
         item["sha256"] = new_hash
     previous_commit, _ = _source_snapshot(manifest)
     manifest["source_snapshot"] = {"commit": head, "tree": tree}
-    MANIFEST_PATH.write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=True) + "\n",
-        encoding="utf-8",
-        newline="\n",
+    MANIFEST_PATH.write_bytes(
+        (json.dumps(manifest, indent=2, ensure_ascii=True) + "\n").encode("utf-8")
     )
     lines.append(f"source snapshot: {previous_commit} -> {head}")
     lines.append(
