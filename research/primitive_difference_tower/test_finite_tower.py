@@ -18,6 +18,7 @@ from finite_tower import (
     candidate_grammar,
     closure,
     degree_profile,
+    descent_rejects,
     down,
     genesis,
     model_report,
@@ -26,6 +27,7 @@ from finite_tower import (
     replay,
     replay_invariant,
     retained_ties,
+    structural_descent,
     symmetric_single_pair_failure,
     up,
     write_report,
@@ -57,6 +59,23 @@ class FiniteTowerTests(unittest.TestCase):
         self.assertEqual(active_measure(provisional), 1)
         self.assertEqual(active_measure(completed), 0)
         self.assertTrue(replay_invariant(completed).holds)
+
+    def test_structural_descent_agrees_with_certified_descent_and_can_fail(self) -> None:
+        for stage in build_tower(15):
+            record = up(stage)
+            self.assertEqual(structural_descent(record.target), down(record))
+            # Genesis has no history and every completed stage ends in a closure.
+            with self.assertRaises(ValueError):
+                structural_descent(stage)
+        record = up(genesis())
+        moved_anchor = replace(record.target, anchor=1)
+        self.assertNotEqual(structural_descent(moved_anchor), record.source)
+
+    def test_descent_rejects_reports_uncertified_records_without_raising(self) -> None:
+        record = up(genesis())
+        self.assertFalse(descent_rejects(record))
+        self.assertTrue(descent_rejects(replace(record, target=closure(record.target))))
+        self.assertTrue(descent_rejects(replace(record, fresh=99)))
 
     def test_replay_reconstructs_each_history_and_rejects_tampering(self) -> None:
         for stage in build_tower(15):
@@ -115,6 +134,17 @@ class FiniteTowerTests(unittest.TestCase):
         payload = json.loads(first)
         self.assertEqual(payload["schema"], "finite-replay-lift-descent-v1")
         self.assertEqual(len(payload["stages"]), 16)
+        self.assertEqual(
+            set(payload["laws_checked"]),
+            {
+                "descent_rejects_an_uncertified_lift_record",
+                "each_emitted_round_closure_decreases_active_measure",
+                "old_distinctions_are_preserved",
+                "replay_invariant_holds",
+                "replay_reconstructs_every_completed_stage",
+                "structural_descent_inverts_each_certified_lift",
+            },
+        )
         self.assertTrue(all(payload["laws_checked"].values()))
         self.assertFalse(payload["retained_ties"]["same_effect"])
         self.assertEqual(payload["scope"]["status"], "conditional-finite-fixture")

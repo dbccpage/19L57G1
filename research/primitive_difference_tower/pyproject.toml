@@ -1,8 +1,16 @@
 [tool.mypy]
 python_version = "3.14"
 strict = true
-files = ["finite_tower.py", "run_finite_tower.py", "verify_manifest.py", "verify_lean.py"]
+files = [
+  "finite_tower.py",
+  "run_finite_tower.py",
+  "verify_manifest.py",
+  "verify_lean.py",
+  "test_finite_tower.py",
+  "test_verify_manifest.py",
+  "test_verify_lean.py",
+]
 
 [tool.coverage.run]
 branch = true
-source = ["finite_tower"]
+source = ["finite_tower", "run_finite_tower", "verify_manifest", "verify_lean"]

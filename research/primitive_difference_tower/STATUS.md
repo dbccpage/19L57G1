@@ -56,4 +56,6 @@ source obstruction predicate, or establishes an endogenous unique successor.
 The scoped evidence and verification limits are in `FINDINGS.md`.  The finite
 machine receipt is `receipts/finite_tower_0_15.json`.  The source-boundary
 receipt is `verify_manifest.py`; Lean axiom output is separately verified by
-`verify_lean.py`, not inferred from a plain `lake build`.
+`verify_lean.py`, which parses each `#print axioms` line rather than inferring
+anything from a plain `lake build`.  Neither verifier is run by CI: both are
+manual receipts, and `FINDINGS.md` records the commands and what was run.

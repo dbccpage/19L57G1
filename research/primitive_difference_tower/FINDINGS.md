@@ -60,7 +60,10 @@ declared.
 
 `LiftedMap` stores a parent map and a proof that the raw map is its lift.
 Accordingly, `towerDown_after_towerUp` proves
-`D (U f) = f` only on the certified lift image.  This is a split retraction,
+`D (U f) = f` only on the certified lift image.  Because `LiftedMap` stores
+its parent, that equation holds by `rfl`; the fact with content is
+`clampedRestriction_certified`, which computes the parent from the raw map and
+finds the stored one.  This is a split retraction,
 not an inverse or canonical descent for arbitrary larger maps.  The separate
 total `clampedRestriction` operation shows the loss explicitly:
 `down_freshPoint` maps the fresh point to the anchor.  It is also distinct
@@ -84,10 +87,16 @@ endogenous unbounded tower from raw data.
 
 `receipts/finite_tower_0_15.json` is the byte-stable report for completed
 stages 0 through 15.  Its SHA-256 is
-`ED444E23F3D567C731A264FF142081A1982F825DFE11C7D4F6953A0B77BFB1B1`.
+`C35E5DCCB3253C0263B8BB4295E33F39FCA1313B8E11570B538D493E0FDB3232`.
 For each of the fifteen emitted lift/closure transitions, it checks a strict
-drop in the declared active-edge measure; it also checks exact replay, old-edge
-retention, and certified up/down identity for the emitted stages.
+drop in the declared active-edge measure; it also checks exact replay and
+old-edge retention for the emitted stages, that a certificate-free structural
+descent of each emitted lift (remove the fresh label and the extension edge
+named by the last event, then drop that event) agrees with the certified
+`down`, and that `down` refuses a record whose target `up` did not produce.
+An earlier receipt also listed `descent_after_certified_up_is_identity`.  That
+entry was true by construction, since `down` returns the parent stored in the
+record, and it was removed so that every listed law is one that can fail.
 
 The candidate grammar is exhaustive only over its five listed kinds and their
 declared status/cost labels.  In it, `aggregate_all_carrier` and
@@ -116,33 +125,59 @@ system can be represented by a container.
 
 ## Verification boundary
 
-Passed:
+None of the checks below is run by `.github/workflows/verify.yml`, and nothing
+under `ci/` reads this tree.  Each item is a manual receipt for the tree it was
+run on, and it goes stale silently until someone reruns it.  The commands,
+from the repository root, with the last two run inside
+`research/primitive_difference_tower/`:
 
-- `verify_manifest.py` checked every listed source hash against the canonical
-  Git blob at the verification commit, the manifest's explicit
-  transitive-citation declarations, and the declared imports and qualified
-  source-symbol uses in `PrimitiveDifferenceTower.lean`.  It also checks that
-  the source snapshot is an ancestor of `HEAD`, that no protected path changed
-  anywhere in that history, and that the protected working tree is clean.
-  Untracked protected paths are reported as local, non-Git/blob inputs rather
-  than compared with an author-specific baseline.  The manifest records the
-  sealed commit/tree as source provenance; the verifier intentionally does not
-  require the research checkout's `HEAD` to equal that pre-research snapshot.
-- A local forbidden-token scan found no `sorry`, `admit`, `unsafe`, `partial`,
-  or user-declared `axiom` in the research Lean files.
-- Eight standard-library Python unit tests passed, and the generated receipt
-  matched `render_report(15)` byte-for-byte.  These executions used the
-  available Python 3.9 runtime.
+    python research/primitive_difference_tower/verify_manifest.py
+    python research/primitive_difference_tower/verify_lean.py
+    python -m unittest discover -s . -p "test_*.py"
+    python -m mypy
+
+`verify_manifest.py` prints the commit it ran at.  A repin after a sealed
+change is `verify_manifest.py --repin`, which rewrites the module hashes from
+the blobs at `HEAD`, moves the snapshot there, and then fails until the prose
+citing the old snapshot is revised.
+
+Passed on the tree committed with this wording:
+
+- `verify_manifest.py`: every listed source hash against the canonical Git
+  blob at the verification commit; the transitive-citation policy in both
+  directions against the imports and qualified symbol uses in
+  `PrimitiveDifferenceTower.lean`; the source snapshot is an ancestor of
+  `HEAD` and no commit since it touched a protected path, walked with
+  `git log --full-history` so that a touch a later commit reverts is still
+  refused; the protected working tree is clean; the committed receipt equals
+  `render_report(15)`, and its hash and the snapshot commit are cited here
+  and in `CLAIM_LEDGER.md`.  Untracked protected paths are reported as local,
+  non-Git/blob inputs rather than compared with an author-specific baseline.
+  The verifier does not require `HEAD` to equal the pre-research snapshot.
+- `verify_lean.py`: the forbidden-token scan over the three research Lean
+  files; `lake build PrimitiveDifferenceTower.AxiomReport`, then
+  `lake env lean` on the report file; the nine `#print axioms` lines parsed,
+  each axiom list checked to lie within `{propext, Quot.sound}` (six depend
+  on exactly that pair, three on no axioms), and the nine names checked
+  against the inventory written in `AxiomReport.lean`.  The reach is that
+  inventory only.  An earlier version of this script only looked for each
+  name as a substring of the output, which a disallowed axiom would not have
+  disturbed; a plain `lake build` now elaborates `AxiomReport.lean` because
+  the lakefile names it as a root, but the audit does not rely on that.
+- 32 standard-library unit tests under Python 3.14.2, and `mypy --strict`
+  over the four modules and three test files.  The tests include negative
+  cases for the former defects: an axiom list containing `Classical.choice`
+  with the declaration name still present, a transitive module used without
+  an explicit citation, a citation naming an unused symbol, a commit touching
+  a protected path that the endpoint diff cannot see, an undecided ancestry
+  query, a backslash-encoded `..` path, an unterminated string literal, a
+  stale receipt, and prose that drops the receipt hash.
 
 Not established or not run:
 
-- No Python 3.14 verification or strict type-check was run in this session, so
-  neither is claimed as a receipt.
-- A plain `lake build` does not establish the axiom report: on the prior
-  package configuration it did not elaborate `AxiomReport.lean`.  The repaired
-  configuration names that module as a default root, and `verify_lean.py`
-  explicitly builds it then forces `#print axioms` output with `lake env lean`.
-  No pass for that repaired Lean command is claimed until it is run.
+- Every receipt above was produced on Windows, with Lean `v4.33.0`.  Paths in
+  verifier output are rendered with POSIX separators and no test asserts a
+  platform-specific form, but no other platform was run.
 - No global candidate-space enumeration or presentation quotient was
   performed.
 - No formal bridge maps an arbitrary native stage or source active obstruction

@@ -8,7 +8,7 @@ of the initial finite state.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum
 from hashlib import sha256
 import json
@@ -321,12 +321,53 @@ def up(stage: Stage) -> Lift:
 
 
 def down(record: Lift) -> Stage:
-    """Forget exactly one certified lift; arbitrary larger stages are excluded."""
+    """Forget exactly one certified lift; arbitrary larger stages are excluded.
+
+    This returns the parent stored in the record, so ``down(up(stage))`` is
+    ``stage`` by construction and is not a check of anything.  The checkable
+    fact is that ``structural_descent`` agrees with it on every emitted lift.
+    """
 
     expected = up(record.source)
     if record != expected:
         raise ValueError("descent requires a certified lift record")
     return record.source
+
+
+def descent_rejects(record: Lift) -> bool:
+    """Report whether ``down`` refuses a record, without raising."""
+
+    try:
+        down(record)
+    except ValueError:
+        return True
+    return False
+
+
+def structural_descent(stage: Stage) -> Stage:
+    """Forget the most recent lift using only the target's own structure.
+
+    No certificate is consulted: the fresh label and extension edge named by
+    the last event are removed and the event is dropped.  Agreement with the
+    certified ``down`` is therefore a fact about what ``up`` builds, not a
+    consequence of how ``Lift`` stores its parent.  It is the Python analogue
+    of the Lean fixture's ``clampedRestriction_certified``.
+    """
+
+    if not stage.history or stage.history[-1].action != "lift":
+        raise ValueError("structural descent requires a stage whose last event is a lift")
+    event = stage.history[-1]
+    if event.fresh is None or event.edge is None:
+        raise ValueError("a lift event must name its fresh label and extension edge")
+    return Stage(
+        index=stage.index - 1,
+        carrier=tuple(label for label in stage.carrier if label != event.fresh),
+        edges=tuple(edge for edge in stage.edges if edge != event.edge),
+        settled=stage.settled,
+        anchor=stage.anchor,
+        admissions=stage.admissions,
+        history=stage.history[:-1],
+    )
 
 
 def closure(stage: Stage) -> Stage:
@@ -573,23 +614,29 @@ def negative_single_pair_candidate() -> Candidate:
     )
 
 
-def _stage_data(stage: Stage) -> dict[str, Any]:
+def _stage_data(stage: Stage, invariant: ReplayInvariant) -> dict[str, Any]:
     return {
         "active_obstruction": active_measure(stage),
         "carrier": list(stage.carrier),
         "distinctions": [list(edge) for edge in stage.edges],
         "n": stage.index,
-        "replay_invariant": replay_invariant(stage).to_data(),
+        "replay_invariant": invariant.to_data(),
         "settled": [list(edge) for edge in stage.settled],
         "state_key": state_key(stage),
     }
 
 
 def model_report(horizon: int = MAX_HORIZON) -> dict[str, Any]:
-    """Return a deterministic, scope-labelled report for stages zero through 15."""
+    """Return a deterministic, scope-labelled report for stages zero through 15.
+
+    Every entry of ``laws_checked`` can fail: each compares two independently
+    computed objects or exercises a rejection path.  A check that held by
+    construction, ``down(up(stage)) == stage``, was removed for that reason.
+    """
 
     stages = build_tower(horizon)
     lifts = tuple(up(stage) for stage in stages)
+    invariants = tuple(replay_invariant(stage) for stage in stages)
     provisional = lifts[0].target
     candidates = candidate_grammar(provisional)
     ties = retained_ties(candidates)
@@ -605,16 +652,19 @@ def model_report(horizon: int = MAX_HORIZON) -> dict[str, Any]:
                 active_measure(lift.target) > active_measure(closure(lift.target))
                 for lift in lifts[:-1]
             ),
-            "descent_after_certified_up_is_identity": all(
-                down(lift) == stage for stage, lift in zip(stages, lifts)
+            "descent_rejects_an_uncertified_lift_record": all(
+                descent_rejects(replace(lift, target=closure(lift.target))) for lift in lifts
             ),
             "old_distinctions_are_preserved": all(
                 set(before.edges).issubset(after.edges)
                 for before, after in zip(stages, stages[1:])
             ),
-            "replay_invariant_holds": all(replay_invariant(stage).holds for stage in stages),
+            "replay_invariant_holds": all(invariant.holds for invariant in invariants),
             "replay_reconstructs_every_completed_stage": all(
                 replay(stage.history) == stage for stage in stages
+            ),
+            "structural_descent_inverts_each_certified_lift": all(
+                structural_descent(lift.target) == down(lift) for lift in lifts
             ),
         },
         "negative_fixture": {
@@ -644,7 +694,9 @@ def model_report(horizon: int = MAX_HORIZON) -> dict[str, Any]:
                 "No unqualified endogenous or unbounded tower conclusion is issued.",
             ],
         },
-        "stages": [_stage_data(stage) for stage in stages],
+        "stages": [
+            _stage_data(stage, invariant) for stage, invariant in zip(stages, invariants)
+        ],
     }
 
 
