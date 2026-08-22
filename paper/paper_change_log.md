@@ -2133,3 +2133,55 @@ obstruction makes it citable, not applicable.  An audited theorem about
 a structure nobody has connected to the pair is exactly as unusable here
 as an unaudited one, and the page still argues from the code and from
 the audited substrate.
+
+## The blindness attestation narrowed to what is true (2026-08-21)
+
+Section 13 of the paper carried two sentences.  The first withheld the
+post-hoc comparison.  The second said: *"No external theory,
+architecture, or terminology is named anywhere in this repository
+outside the read-only seed prompt."*
+
+The second sentence was false, and had been for some time.  Six
+documents under `paper/` carry end-placed sections that name external
+mathematics -- `bridge_provenance.md`, `endogenous_generator.md`,
+`primitive_difference.md`, `refusal_as_difference.md`,
+`refusal_difference.md`, and the fenced realization table in
+`primitive_difference_map.md`.  Each was read before being listed, not
+inferred from its heading.
+
+**The sentence is WITHDRAWN and the section narrowed.**  This is the
+established move here -- weaken the statement, never keep the wording
+and lean on the receipt -- and it is the same move
+`pr11_correction_ledger.md` documents.
+
+Three points, because the narrowing is easy to over- or under-state.
+
+1. *The six are not alike.*  Five carry no fence.  The sixth is fenced
+   ("comparison only -- nothing above depends on this section") and
+   cites a run directive as its authorization.  Listing them as six
+   equal violations would replace one wrong sentence with another.
+
+2. *Three instruments disagree and at most two can be right*: the
+   withdrawn sentence, the run directive the sixth section cites, and
+   `CLAUDE.md`'s record that the 2026-08-11 clause is restored and holds
+   "again without exception".  Section 13 no longer asserts the
+   strongest of the three.  Choosing among them is the author's act and
+   is not performed here.
+
+3. *What survives is still substantial, and is what the evidence
+   supports*: the derivation was carried out blind, and no external name
+   appears in `prompt/`, `code/`, `lean4/Derivation/`, `artifacts/`, or
+   in the body of any `paper/` document above its final comparison
+   section.
+
+No gate detects the defect or the repair.  `ci/check_paper_citations.py`
+checks that a cited path resolves; the vocabulary firewall bars a
+denylist of identifiers, not prose naming of a theory.  The attestation
+was an operator claim before this change and the narrowed version still
+is.  A gate over comparison headings is possible -- all six sections use
+one of two heading forms, so a literal scan would catch them -- but its
+allowlist encodes the very judgment point 2 leaves open: an allowlist of
+zero treats the fenced section like the other five, and an allowlist of
+one asserts an authorization `CLAUDE.md` currently contradicts.  Deciding
+that first is the point; a gate would make whichever answer is chosen
+permanent.  So none is added here.
