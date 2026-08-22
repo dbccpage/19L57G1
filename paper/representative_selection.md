@@ -162,8 +162,17 @@ it elaborated under the per-module gate while the root did not import it,
 so it emitted no `#print axioms` report and no gate inspected its axiom
 surface. **That is WITHDRAWN.** The root now imports it and reports all
 seven exported theorems, each of which *does not depend on any axioms* at
-all. The parked-module residual is closed for this module and remains
-open for the others; closing it here is not evidence about them.
+all. The parked-module residual was then closed for this module and open
+for the others; closing it here was not evidence about them.
+
+It is now closed for the others too, by a different mechanism:
+`lean4/ParkedAudit.lean` reports every theorem of the twelve modules the
+root does not import, without importing them into the root — which for five
+of them is impossible, since they begin with `import Derivation` and the
+root importing them is a cycle. The general fix this page called untouched
+therefore exists. What it does not cover is definitions: the parked
+isomorphism material is `def`-valued, so `IsoBridge.lean` still contributes
+no report.
 
 What has NOT changed is the ceiling:
 

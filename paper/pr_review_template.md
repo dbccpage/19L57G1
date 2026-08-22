@@ -85,9 +85,14 @@ consecutive pull requests, each reported as "CI green".
 That specific hole is closed: the `lean` job now elaborates every
 module from a census pinned against `artifacts/elaborated_modules.txt`.
 The general lesson is not closed and cannot be — a gate's domain is
-still only what it inspects, and elaboration is still not auditing,
-since parked modules contribute no `#print axioms` report. Ask the
-domain question every time; do not assume this section is now historical.
+still only what it inspects. The particular instance has moved on, and the
+sentence that used to sit here ("elaboration is still not auditing, since
+parked modules contribute no `#print axioms` report") is **WITHDRAWN**:
+`lean4/ParkedAudit.lean` reports their theorems. The domain question is
+unchanged and is the reason this page exists — that census reports theorems
+and not definitions, and no census in the repository covers a top-level
+`lean4/*.lean` at all. Ask what a gate inspects every time; do not assume
+this section is now historical.
 
 ---
 

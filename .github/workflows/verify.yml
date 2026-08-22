@@ -40,6 +40,32 @@ jobs:
       # unclassifiable token fails totality instead of cancelling out.
       - name: Ledger evidence resolves
         run: python ci/check_ledger_evidence.py
+      # Every module UNDER lean4/Derivation/ that is outside Derivation.lean's
+      # import closure must be named in lean4/ParkedAudit.lean, which is what
+      # emits its axiom reports. The scope clause is load-bearing: a top-level
+      # lean4/*.lean is outside this gate's census, outside the
+      # elaborated_modules.txt pin, and outside the axiom inventory unless it
+      # is a defaultTarget -- ParkedAudit.lean is itself such a file, so it
+      # audits every module except itself. An earlier version of this comment
+      # said "every module", which is wider than the enforced population.
+      #
+      # This step also checks that ParkedAudit is still IN defaultTargets and
+      # still contributing its pinned number of reports. Without that the
+      # whole audit was one word deep: deleting "ParkedAudit" from the
+      # lakefile dropped all 48 reports with every other gate green, and the
+      # documented repair for the resulting diff would have completed the
+      # disable.
+      #
+      # This is a PYTHON gate rather than a Lean one because the blind spot
+      # is only visible from outside Lean: ParkedAudit checks its own list
+      # against the compiled environment, but a module nothing imports is
+      # absent from that environment, so Lean cannot see that it is missing.
+      # Adding a parked module fails the elaborated_modules.txt census pin
+      # below -- and the documented repair for THAT is to regenerate the pin,
+      # which on its own would leave the module elaborated, pinned, and
+      # unaudited. This closes that gap by enumerating from the source tree.
+      - name: Parked modules are all named for audit
+        run: python ci/check_parked_audit.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q
@@ -126,8 +152,17 @@ jobs:
       # `lake build` only builds defaultTargets, so a module the root does not
       # import is never elaborated and a type error in it merges green.
       #
-      # The census is RECURSIVE, matching ci/check_lean_audit.py's rglob, so a
-      # subdirectory module cannot escape it, and it is PINNED against
+      # The census is RECURSIVE under Derivation/, so a subdirectory module
+      # cannot escape it. It does NOT match ci/check_lean_audit.py's rglob:
+      # that reads lean4/**/*.lean (74 sources) while this reads
+      # `find Derivation` (72). The difference is the top-level roots,
+      # lean4/Derivation.lean and lean4/ParkedAudit.lean, which are covered
+      # by being defaultTargets rather than by this census -- so a new
+      # top-level lean4/*.lean that is NOT a default target would be read
+      # only by the plain-text token scan. An earlier version of this comment
+      # asserted the two enumerations matched; that is WITHDRAWN.
+      #
+      # The census is also PINNED against
       # artifacts/elaborated_modules.txt. The pin is what closes partial
       # silence: an empty guard catches a census that finds nothing, but only
       # a diff catches one that finds SOME of the modules. Adding or removing
@@ -152,7 +187,12 @@ jobs:
             lake build "$m"
           done < /tmp/census.txt
 
-  # The TENTH gate family, and the only one EXPECTED to go red on a change
+  # The ELEVENTH gate family, and the only one EXPECTED to go red on a change
+  #
+  # It was the tenth until ci/check_parked_audit.py took that number. The
+  # numbering is shared with CLAUDE.md, and leaving this comment at TENTH
+  # pointed "expected to go red" at the parked-module gate, which is not
+  # expected to go red and has a completely different repair.
   # that is entirely legitimate. Read the next three paragraphs before
   # reacting to a failure here.
   #

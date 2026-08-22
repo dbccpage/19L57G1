@@ -768,7 +768,7 @@
    "module": "Minimality.lean",
    "name": "Derivation.cost1_insufficient",
    "role": "minimality",
-   "statement": "_general (r : Regime) (hforms : r.forms = []) (hinsts : r.insts = []) (i j : Nat) (\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse r i j \u03b4"
+   "statement": "(\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse R2L 0 1 \u03b4"
   },
   {
    "axioms": [
@@ -1699,7 +1699,7 @@
    "module": "Refusal.lean",
    "name": "Refusal.markers_invisible",
    "role": "equivalence",
-   "statement": "_from (m : Mode) (h : List REvent) : \u2200 s, (h.filter fun e => !isMarker e).foldl (stepR m) s = h.foldl (stepR m) s"
+   "statement": "(m : Mode) (h : List REvent) : replayR m (h.filter fun e => !isMarker e) = replayR m h"
   },
   {
    "axioms": [
@@ -6425,7 +6425,7 @@
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.asserted_offdiag",
    "role": "undeclared",
-   "statement": "_step (s : PState) (hinv : \u2200 p \u2208 s.asserted, p.1 \u2260 p.2) (e : PEvent) : \u2200 p \u2208 (step s e).asserted, p.1 \u2260 p.2"
+   "statement": "(h : List PEvent) : \u2200 p \u2208 (replayP h genesisP).asserted, p.1 \u2260 p.2"
   },
   {
    "axioms": [
@@ -6440,7 +6440,7 @@
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.retained_sub_asserted",
    "role": "undeclared",
-   "statement": "_step (s : PState) (hinv : \u2200 p \u2208 s.wit, p \u2208 s.asserted) (e : PEvent) : \u2200 p \u2208 (step s e).wit, p \u2208 (step s e).asserted"
+   "statement": "(h : List PEvent) : \u2200 p \u2208 (replayP h genesisP).wit, p \u2208 (replayP h genesisP).asserted"
   },
   {
    "axioms": [
@@ -9343,7 +9343,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.all_reach",
    "role": "undeclared",
-   "statement": "_aux (\u03c0 : LawfulPolicy) (n : Nat) : \u2200 (bound v : Nat), v \u2264 bound \u2192 v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u2200 v, v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
   },
   {
    "axioms": [
@@ -19291,6 +19291,593 @@
    "name": "Breaking.selector_iff_common_fixed_point",
    "role": "equivalence",
    "statement": "{W Sym : Type} (act : Sym \u2192 W \u2192 W) (w : W) : (\u2203 s : W \u2192 W, (\u2200 g w, s (act g w) = s w) \u2227 (\u2200 g w, s (act g w) = act g (s w))) \u2194 (\u2203 p, \u2200 g, act g p = p)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.composite_may_be_nonunique",
+   "role": "undeclared",
+   "statement": ": \u2203 h h' : allCompose.Arr () (), h \u2260 h' \u2227 allCompose.Composes () () () true true h \u2227 allCompose.Composes () () () true true h'"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.composition_may_fail",
+   "role": "undeclared",
+   "statement": ": \u00ac Composable noneCompose () () () true true"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.noneCompose_no_identity",
+   "role": "undeclared",
+   "statement": ": \u00ac HasIdentity noneCompose ()"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.relAssocLeft_of_relAssoc",
+   "role": "undeclared",
+   "statement": "(W : Web) (h : RelAssoc W) : RelAssocLeft W"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.selection_is_possible",
+   "role": "undeclared",
+   "statement": ": \u2200 (a b c : allCompose.Node) (f : allCompose.Arr a b) (g : allCompose.Arr b c), allCompose.Composes a b c f g (allSelect a b c f g)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.skew_not_relAssoc",
+   "role": "undeclared",
+   "statement": ": \u00ac RelAssoc skewCompose"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "Composing.lean",
+   "name": "Composing.skew_not_relAssocLeft",
+   "role": "undeclared",
+   "statement": ": \u00ac RelAssocLeft skewCompose"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffAnchor.lean",
+   "name": "DiffAnchor.colObs_deltaConstant",
+   "role": "undeclared",
+   "statement": "(cols : List (List Nat)) : DeltaConstant (colObs cols)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffAnchor.lean",
+   "name": "DiffAnchor.colObs_quotient_eq_iff_zeroP",
+   "role": "undeclared",
+   "statement": "(cols : List (List Nat)) (i j : Nat) : ObsQuotient.mk (colObs cols) i = ObsQuotient.mk (colObs cols) j \u2194 PrimitivePassage.zeroP cols i j = true"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "DiffAnchor.lean",
+   "name": "DiffAnchor.colObs_zeroRel_iff_zeroP",
+   "role": "undeclared",
+   "statement": "(cols : List (List Nat)) (i j : Nat) : ZeroRel (colObs cols) i j \u2194 PrimitivePassage.zeroP cols i j = true"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.Regime.ext'",
+   "role": "undeclared",
+   "statement": "{r s : Regime} (hd : r.data = s.data) (hf : r.forms = s.forms) (hi : r.insts = s.insts) (hru : r.rules = s.rules) (hq : r.reqs = s.reqs) : r = s"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.mapInstForm_gf",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (i : Inst) (h : g (\u03c6 i.1) = i.1) : mapInstForm g (mapInstForm \u03c6 i) = i"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "FormTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.permForms_getD",
+   "role": "undeclared",
+   "statement": "(g : Nat \u2192 Nat) (forms : List Nat) {j : Nat} (hj : j < forms.length) : (permForms g forms).getD j 0 = forms.getD (g j) 0"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "FormTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.permForms_length",
+   "role": "undeclared",
+   "statement": "(g : Nat \u2192 Nat) (forms : List Nat) : (permForms g forms).length = forms.length"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "IsoCanon.lean"
+   ],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.renameForms_arity",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) {i : Nat} (hbound : \u03c6 i < r.forms.length) (hgf : g (\u03c6 i) = i) : (renameForms \u03c6 g r).forms.getD (\u03c6 i) 0 = r.forms.getD i 0"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "FormTransport.lean"
+   ],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.renameForms_data",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).data = r.data"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.renameForms_forms_length",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).forms.length = r.forms.length"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.renameForms_gf",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c3 : DRen r.forms.length) : renameForms \u03c3.g \u03c3.f (renameForms \u03c3.f \u03c3.g r) = r"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormRenaming.lean",
+   "name": "Derivation.renameForms_reqs",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).reqs = r.reqs"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.collapsed_congr",
+   "role": "undeclared",
+   "statement": "{r s : Regime} (hf : r.forms = s.forms) (hd : r.data = s.data) (hi : r.insts = s.insts) (hru : r.rules = s.rules) (d d' : Nat) : collapsed r d d' \u2194 collapsed s d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.collapsed_renameDataForm",
+   "role": "undeclared",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (\u03c4 : DRen r.forms.length) (d d' : Nat) : collapsed (renameForms \u03c4.f \u03c4.g (renameRegime \u03c3.f r)) (\u03c3.f d) (\u03c3.f d') \u2194 collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.collapsed_renameForms",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c3 : DRen r.forms.length) (d d' : Nat) : collapsed (renameForms \u03c3.f \u03c3.g r) d d' \u2194 collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.derivable_renameForms",
+   "role": "undeclared",
+   "statement": "{\u03c6 : Nat \u2192 Nat} (h\u03c6 : \u2200 {x y}, \u03c6 x = \u03c6 y \u2192 x = y) (g : Nat \u2192 Nat) (r : Regime) (i : Inst) : derivable (renameForms \u03c6 g r) (mapInstForm \u03c6 i) \u2194 derivable r i"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.mapCtxForm_f_g",
+   "role": "undeclared",
+   "statement": "{n : Nat} (\u03c3 : DRen n) (c : Ctx) : mapCtxForm \u03c3.f (mapCtxForm \u03c3.g c) = c"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.mapInstForm_inj",
+   "role": "undeclared",
+   "statement": "{\u03c6 : Nat \u2192 Nat} (h\u03c6 : \u2200 {x y}, \u03c6 x = \u03c6 y \u2192 x = y) {i j : Inst} (h : mapInstForm \u03c6 i = mapInstForm \u03c6 j) : i = j"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.plug_mapCtxForm",
+   "role": "undeclared",
+   "statement": "(\u03c6 : Nat \u2192 Nat) (c : Ctx) (d : Nat) : plug (mapCtxForm \u03c6 c) d = mapInstForm \u03c6 (plug c d)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.renameForms_forms",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).forms = permForms g r.forms"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.renameForms_insts",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).insts = r.insts.map (mapInstForm \u03c6)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.renameForms_rules",
+   "role": "undeclared",
+   "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).rules = r.rules.map \u03c6"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "FormTransport.lean",
+   "name": "Derivation.wfCtx_renameForms",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c3 : DRen r.forms.length) (c : Ctx) : wfCtx (renameForms \u03c3.f \u03c3.g r) (mapCtxForm \u03c3.f c) \u2194 wfCtx r c"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.mapReq_eq_sortPair",
+   "role": "undeclared",
+   "statement": "(f : Nat \u2192 Nat) (q : Nat \u00d7 Nat) : mapReq f q = sortPair (f q.1, f q.2)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.relabel_data",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).data = r.data"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.relabel_forms",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).forms = permForms \u03c6.g r.forms"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.relabel_insts",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).insts = (r.insts.map (mapInst \u03c0.f)).map (mapInstForm \u03c6.f)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.relabel_reqs",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).reqs = r.reqs.map (mapReq \u03c0.f)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.relabel_rules",
+   "role": "undeclared",
+   "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).rules = r.rules.map \u03c6.f"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.sortPair_comm",
+   "role": "undeclared",
+   "statement": "(x y : Nat) : sortPair (x, y) = sortPair (y, x)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.sortPair_eq_minmax",
+   "role": "undeclared",
+   "statement": "(x y : Nat) : sortPair (x, y) = (min x y, max x y)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.sortPair_map_sortPair",
+   "role": "undeclared",
+   "statement": "(f : Nat \u2192 Nat) (a b : Nat) : sortPair (f (sortPair (a, b)).1, f (sortPair (a, b)).2) = sortPair (f a, f b)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "IsoBridge.lean"
+   ],
+   "kind": "generic",
+   "module": "IsoCanon.lean",
+   "name": "Derivation.sortPair_of_le",
+   "role": "undeclared",
+   "statement": "{x y : Nat} (h : x \u2264 y) : sortPair (x, y) = (x, y)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.Iso.collapsed_fwd",
+   "role": "undeclared",
+   "statement": "(h : Iso r s) {d d' : Nat} (hd : d < r.data) (hd' : d' < r.data) (H : collapsed s (h.dmap d) (h.dmap d')) : collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.Iso.collapsed_transport",
+   "role": "undeclared",
+   "statement": "(h : Iso r s) {d d' : Nat} (hd : d < r.data) (hd' : d' < r.data) : collapsed s (h.dmap d) (h.dmap d') \u2194 collapsed r d d'"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.Iso.derivable_imap",
+   "role": "undeclared",
+   "statement": "(h : Iso r s) {i : Inst} (hf : i.1 < r.forms.length) (ha : \u2200 a \u2208 i.2, a < r.data) : derivable s (h.imap i) \u2194 derivable r i"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.Iso.plug_cmap",
+   "role": "undeclared",
+   "statement": "(h : Iso r s) (c : Ctx) (d : Nat) : plug (h.cmap c) (h.dmap d) = h.imap (plug c d)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.Iso.symm_dmap",
+   "role": "undeclared",
+   "statement": "(h : Iso r s) : h.symm.dmap = h.dinv"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.Iso.wfCtx_cmap",
+   "role": "undeclared",
+   "statement": "(h : Iso r s) {c : Ctx} (hc : wfCtx r c) : wfCtx s (h.cmap c)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [],
+   "consumers": [
+    "IsoCanon.lean"
+   ],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.map_eq_self_of_mem",
+   "role": "undeclared",
+   "statement": "{l : List Nat} {f : Nat \u2192 Nat} (hf : \u2200 a \u2208 l, f a = a) : l.map f = l"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "IsoCollapse.lean",
+   "name": "Derivation.plug_args_lt",
+   "role": "undeclared",
+   "statement": "{r : Regime} {c : Ctx} (hc : wfCtx r c) {d : Nat} (hd : d < r.data) : \u2200 a \u2208 (plug c d).2, a < r.data"
   }
  ]
 }

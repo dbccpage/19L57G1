@@ -777,18 +777,28 @@ Within the declared metatheory and candidate grammar:
   collected (434 passed, 1 skipped), line 99.10%, branch 96.73%,
   measured on a clean single-process run.  The 57/1322 reading above
   stands as taken.
-* **[open obstruction — metatheoretic; kind (e), a gap in the audit
-  rather than in the mathematics]** Elaboration is not auditing.
-  Every module under `lean4/Derivation/` is elaborated by CI against a
-  pinned census, but a module the root does not import contributes no
-  `#print axioms` report, so the axiom whitelist never inspects it.
-  "Axiom-clean" is therefore a claim about the enumerated reports
-  (1417 as of 2026-08-18; the figure tracks the inventory and earlier
-  read 1314), not about every declaration in the tree.  Closing this needs a
-  compiler-emitted declaration census; the obvious regex approach is the
-  one already known to fail here — a docstring line beginning with the
-  word `theorem` defeated a grep count twice — so it is left OPEN rather
-  than closed badly.
+* **[metatheoretic; kind (e), a gap in the audit rather than in the
+  mathematics — NARROWED, formerly an open obstruction]** Elaboration is
+  not auditing.  This bullet formerly read that a module the root does not
+  import "contributes no `#print axioms` report, so the axiom whitelist
+  never inspects it", and that closing it "needs a compiler-emitted
+  declaration census ... so it is left OPEN rather than closed badly".
+  The census now exists: `lean4/ParkedAudit.lean` reads the compiled
+  environment rather than the source text, and reports every theorem of the
+  twelve modules outside the root's import closure.  The inventory is 1472
+  reports (the figure tracks the inventory and earlier read 1417, and 1314
+  before that), all within `{propext, Quot.sound}`.
+  
+  What remains open is narrower and is stated here rather than dropped.
+  The census reports **theorems**, so a definition carrying an axiom that
+  no theorem reaches is still uninspected — and that is not vacuous: the
+  parked isomorphism material is `def`-valued because
+  `Derivation.Minimality.Iso` is Type-valued, so `IsoBridge.lean` yields
+  zero reports and its content is unaudited.  Separately, every census in
+  the repository is rooted at `lean4/Derivation/`, so a top-level
+  `lean4/*.lean` — including the census module itself — is named by none of
+  them.  "Axiom-clean" therefore remains a claim about the enumerated
+  reports, now over a wider and mechanically-maintained population.
 
 ## 13. Post-hoc comparison
 

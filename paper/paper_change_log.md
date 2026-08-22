@@ -2185,3 +2185,79 @@ zero treats the fenced section like the other five, and an allowlist of
 one asserts an authorization `CLAUDE.md` currently contradicts.  Deciding
 that first is the point; a gate would make whichever answer is chosen
 permanent.  So none is added here.
+
+
+## The parked-module audit residual closed, and narrowed (2026-08-22)
+
+Section 12 carried, as an open obstruction: *"Elaboration is not
+auditing ... a module the root does not import contributes no `#print
+axioms` report, so the axiom whitelist never inspects it ... it is left
+OPEN rather than closed badly."*  It is closed, and the bullet is
+rewritten rather than deleted.
+
+**What closed it.**  `lean4/ParkedAudit.lean` enumerates the twelve
+modules outside `lean4/Derivation.lean`'s import closure and emits one
+axiom report per theorem, in the shape `#print axioms` produces, so the
+existing whitelist reads them unchanged.  The inventory moves from 1417
+reports (1424 after the intervening equivariance work) to 1472; every
+one lies within `{propext, Quot.sound}`.
+
+Two design points, both forced rather than chosen.  The census is a
+second `defaultTargets` entry and not an import of the root, because
+five of the twelve begin with `import Derivation` and the root importing
+them is a cycle Lake rejects -- being unimportable by the root is what
+"parked" meant for those five.  And the population is read from the
+compiled environment (`Environment.getModuleIdx?`,
+`ModuleData.constNames`, `ConstantInfo.isTheorem`) rather than from
+source text, because the obvious pattern approach is the one already
+known to fail here: a doc-string line beginning with the word `theorem`
+has twice defeated a text count.
+
+**The residual was demonstrated before it was closed.**  With a
+`Classical.em` theorem placed in the parked
+`Derivation/IsoCollapseCompat.lean`, the previous single-target build
+reported `lean audit clean: 74 sources, 1424 axiom reports, axioms
+within ['Quot.sound', 'propext']`; the same working tree with the census
+enabled reported `FAIL: disallowed axioms ['Classical.choice']`, naming
+the declaration.  Both states were observed minutes apart and the
+injection reversed.
+
+**What is NOT closed, stated here because the first draft of this work
+overstated it.**  The census reports *theorems*.  A definition carrying
+an axiom that no theorem reaches is unreported, and that is not the dead
+letter it was first called: `Derivation.Minimality.Iso` is Type-valued,
+so the parked isomorphism material is `def`-valued, `IsoBridge.lean`
+contributes zero reports, and its content is unaudited.  Separately,
+every census in the repository is rooted at `lean4/Derivation/`, so a
+top-level `lean4/*.lean` is named by none of them -- including the
+census module itself.
+
+**Repairs made in the same change, each of which was a false or
+misleading statement rather than a missing feature.**
+
+1. `code/derivation/completion.py` resolved a theorem's module with a
+   name terminator and its statement without one, so `theorem foo`
+   matched the source line `theorem fooBar`.  Six committed records
+   carried another theorem's statement, among them
+   `Derivation.cost1_insufficient`, which the claim ledger cites.  Both
+   patterns now share one terminator.
+2. Adding the parked files to `DERIVATION_FILES` routed 31 of the 48 new
+   theorems into `Derivation`'s declared role, stamping a commutativity
+   and a strict bound as `preservation` -- the exact false label deleted
+   on 2026-08-18.  They now resolve to the explicit absence, pinned by
+   `test_unclassified_modules_are_pinned`.
+3. `ci/check_ledger_evidence.py` anchored its report pattern to
+   `Derivation.lean:`, so it read 1424 of the artifact's 1472 names and
+   every parked theorem was invisible to its strongest matching tier.
+4. Nothing read `defaultTargets`, so deleting one word disabled all 48
+   reports with every gate green.  `ci/check_parked_audit.py` now checks
+   the target and pins the report count; the disable was injected and
+   the gate named it.
+5. `ci/check_parked_audit.py` claimed an `import` "cannot be commented
+   into existence"; it read raw text.  Comments are now stripped, which
+   makes the claim true rather than narrower.
+
+The paper, `README.md`, `paper/representative_selection.md`,
+`paper/pr_review_template.md` and `.claude/skills/inject/SKILL.md` all
+asserted the residual was open and are corrected here.  No gate reads
+any of those sentences.

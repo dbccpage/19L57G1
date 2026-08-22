@@ -210,13 +210,14 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The ten gate families CI enforces
+### The eleven gate families CI enforces
 
 `.github/workflows/verify.yml` runs three jobs, `python`, `lean`, and
-`research`. Between them they are ten gate families. An earlier version of
-this line said two jobs and nine families; that is WITHDRAWN, and the
-tenth is described at the end of the list because it is unlike the other
-nine. The local equivalents:
+`research`. Between them they are eleven gate families. Earlier versions of
+this line said two jobs and nine, then three jobs and ten; both are
+WITHDRAWN. The eleventh arrived with the parked-module axiom census and is
+numbered 10 below, next to the census pin it completes; the research job
+stays last because it is unlike the others. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
@@ -251,7 +252,17 @@ python ci/check_paper_citations.py
 #    that names RESOLVE, never that wording matches proof.
 python ci/check_ledger_evidence.py
 
-# 10. the research tree's source pins still match the sealed blobs, and
+# 10. every module UNDER `lean4/Derivation/` and outside `Derivation.lean`'s
+#     import closure is named in `lean4/ParkedAudit.lean`, which is what
+#     emits its axiom reports. The scope clause is load-bearing: a
+#     top-level `lean4/*.lean` is outside every census in this repository,
+#     including this one, and `ParkedAudit.lean` is itself such a file.
+#     Python rather than Lean on purpose: `ParkedAudit` checks its own
+#     list against the compiled environment, but a module NOTHING imports
+#     is absent from that environment, so Lean cannot see it is missing.
+python ci/check_parked_audit.py
+
+# 11. the research tree's source pins still match the sealed blobs, and
 #     its own tests and strict typing pass. NOT a sealed-derivation gate:
 #     it guards `research/`, which is outside the seal. Run from the
 #     repository root, then from inside the tree:
@@ -265,7 +276,7 @@ python -m mypy
 cd ../..
 ```
 
-**Gate 10 is the only one EXPECTED to go red on a legitimate change**, and
+**Gate 11 is the only one EXPECTED to go red on a legitimate change**, and
 it is worth understanding before reacting to a failure. A pull request that
 edits a module pinned in `research/primitive_difference_tower/SOURCE_MANIFEST.json`
 will fail it. That is the signal to repin — not a defect in the pull
@@ -279,14 +290,16 @@ pull request could see it — the two changes only interact once both are
 present, and no job read the tree. Every gate was green and the repository
 was broken. That is an observed instance, not a hypothetical.
 
-What gate 10 does NOT cover: `verify_lean.py`. It builds the research Lake
+What gate 11 does NOT cover: `verify_lean.py`. It builds the research Lake
 package, which needs elan and compiles the sealed package as a dependency —
 the expense the job exists to avoid. **The research tree's axioms therefore
-remain a manual receipt, unchecked by any gate.** This is a second live
-residual alongside the parked-module one, and it is recorded rather than
+remain a manual receipt, unchecked by any gate.** An earlier version of this
+line called it "a second live residual alongside the parked-module one". The
+parked-module one is now closed by `lean4/ParkedAudit.lean`, so this is the
+last of the two and that comparison is WITHDRAWN. It is recorded rather than
 closed badly.
 
-Repairing a gate-10 failure: `verify_manifest.py --repin`, then revise the
+Repairing a gate-11 failure: `verify_manifest.py --repin`, then revise the
 prose it names (`CLAIM_LEDGER.md`, `FINDINGS.md`) — the verifier fails until
 the prose matches. Review a repin by diffing the PARSED JSON, not the text:
 `--repin` re-serializes with `indent=2` and rewrote 135 lines to change 3
@@ -341,8 +354,11 @@ python ci/check_axiom_report.py lake_build_local.log   # log must match artifact
 ```
 
 `lake_build_*.log` is gitignored. The axiom report is produced by compiling
-`lean4/Derivation.lean`; if the log comes back with no `#print axioms` lines,
-force that root module to rebuild before auditing.
+BOTH default targets: `lean4/Derivation.lean` for its hand-maintained
+`#print axioms` inventory, and `lean4/ParkedAudit.lean` for the twelve modules
+the root does not import. If the log comes back with no `#print axioms` lines,
+force those roots to rebuild before auditing — touching both is what
+regenerates the full report set.
 
 When a theorem is renamed, added, or removed, `artifacts/lean_axioms.txt` is
 rewritten by `python ci/regen_axiom_artifact.py <log>`, which writes bytes
@@ -352,13 +368,28 @@ derived from it — the completion receipts and the dependency graph — must be
 regenerated *after* it, not before; that ordering is the whole coupling, and
 no Python source hard-codes Lean theorem names.
 
-**The axiom boundary, stated exactly.** The audit's reach is the set of
-declarations enumerated by the committed `#print axioms` inventory in
-`lean4/Derivation.lean`. It certifies that every report in that inventory
-lies within `{propext, Quot.sound}`. It does not by itself establish that the
-inventory names every exported declaration, nor that every report is present.
-Read "axiom-clean" as a claim about the enumerated reports only, unless
-declaration completeness or report completeness is independently proved.
+**The axiom boundary, stated exactly.** The audit's reach is the union of two
+populations, gathered differently, and the difference matters. The first is
+the set of declarations enumerated by the committed `#print axioms` inventory
+in `lean4/Derivation.lean` — hand-maintained, so it does not by itself
+establish that it names every exported declaration in the root's closure. The
+second is every **theorem** of the twelve modules named in
+`lean4/ParkedAudit.lean`, enumerated from the compiled environment rather than
+by hand.
+
+An earlier version of this paragraph said the second population was "every
+non-internal declaration" and that "within those twelve modules it IS
+declaration-complete". That is **WITHDRAWN** — it was false, and it was the
+worse kind of false, because this is the paragraph a reader quotes instead of
+re-deriving. `ParkedAudit.lean` filters on `ConstantInfo.isTheorem`, so
+definitions, structures, and generated constructors are not reported, and the
+twelve modules carry roughly two dozen such declarations. The narrower
+statement 150 lines below was right and this one was not.
+
+The audit certifies that every report in that union lies within
+`{propext, Quot.sound}`. Read "axiom-clean" accordingly: **theorems only** in
+both halves, complete over the parked twelve's theorems, and a claim about
+the enumerated reports only for the root inventory.
 
 ## Architecture
 
@@ -497,16 +528,59 @@ order for `lean4/`, whose contact and passage modules are entered through
     ($s -join "`n") + "`n")                    # LF only; artifacts/** is -text
   ```
 
-- **Elaboration is not auditing — the open residual.** A module the root does
-  not import is now typechecked, but it still contributes no `#print axioms`
-  report, so `ci/check_lean_audit.py`'s axiom whitelist never sees it. A
-  parked module could therefore depend on `Classical.choice` and no gate
-  would fail. The forbidden-token scan still reads it, and it still must
-  compile; its *axioms* are unchecked. Do not read "every module elaborates"
-  as "every module is audited". Closing this needs a declaration census for
-  parked modules, and the obvious regex approach is the one already known to
-  break here — a docstring line beginning with the word `theorem` defeated a
-  grep count twice — so it is left OPEN rather than closed badly.
+- **Elaboration is not auditing — CLOSED, and how.** An earlier version of
+  this entry said a module the root does not import "contributes no `#print
+  axioms` report", that a parked module "could therefore depend on
+  `Classical.choice` and no gate would fail", and left the residual OPEN
+  because the obvious regex approach was already known to break here. That is
+  **WITHDRAWN**. `lean4/ParkedAudit.lean` now emits one report per theorem
+  for all twelve modules outside the root's import closure — 48 of them,
+  taking the audit from 1424 reports to 1472. All are within the whitelist:
+  nothing was hiding, but the hole was real.
+
+  Reach, stated exactly: **theorems**, as Lean classifies them, not
+  definitions. That matches what `artifacts/lean_axioms.txt` has always been
+  — every one of the 1424 prior reports is a theorem — and keeps one
+  `inductive` from adding a dozen generated names to a pinned artifact. What
+  it leaves: a *definition* carrying `Classical.choice` that no theorem
+  reaches is unreported. Anything a theorem reaches is caught, since
+  `collectAxioms` walks the whole graph, so what escapes is dead code.
+
+  The defect was demonstrated live before being closed, not argued about.
+  With a `Classical.em` theorem injected into
+  `Derivation/IsoCollapseCompat.lean`, the old single-target build reported
+  `lean audit clean: 74 sources, 1424 axiom reports, axioms within
+  ['Quot.sound', 'propext']`. The same tree with the census enabled reported
+  `FAIL: disallowed axioms ['Classical.choice']`, naming the declaration.
+  Both states were observed on the same working tree, minutes apart.
+
+  **The census does not read the source.** It reads the compiled environment
+  — `Environment.getModuleIdx?` to resolve each module, and
+  `ModuleData.constNames` for what that module actually added — so the defect
+  that broke two grep counts here, a doc-string line beginning with the word
+  `theorem`, cannot move it. Compiler-internal names are skipped via
+  `Name.isInternalDetail`, which loses nothing the audit needs:
+  `collectAxioms` walks the whole dependency graph, so a theorem reaching
+  `Classical.choice` through an internal helper still reports it.
+
+  It is a SECOND `defaultTargets` entry, not an import of the root, and that
+  is forced rather than chosen: `DiffAnchorCompat`, `FormTransportCompat`,
+  `IsoBridgeCompat`, `IsoCanonCompat`, and `IsoCollapseCompat` each begin with
+  `import Derivation`, so the root importing them is a genuine cycle and Lake
+  rejects it as one. Being unimportable by the root is what "parked" MEANT for
+  those five. Ordering is deterministic because the census transitively
+  imports the root and so cannot finish first; the artifact was confirmed to
+  regenerate byte-identically across two independent builds.
+
+  That twelve is the RIGHT number is a separate claim, and it is now
+  checked too. `ci/check_parked_audit.py` enumerates the modules from the
+  source tree, computes the root's transitive import closure, and requires
+  the difference to equal the list in `ParkedAudit.lean` — failing in both
+  directions. It is Python and not Lean because the blind spot is invisible
+  from inside Lean: a module NOTHING imports is absent from the compiled
+  environment, so `ParkedAudit`'s own self-check cannot see that it is
+  missing. That was confirmed by injection, not assumed — a parked
+  `ZzzProbe.lean` left the in-Lean check green and failed the Python one.
 - **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
   `artifacts/**` as `-text`. Never let an editor or a CRLF conversion rewrite
   those files — it breaks both the prompt hash gate and byte comparison.
@@ -543,13 +617,20 @@ What has actually been injected, and what failed:
 | Ledger evidence gate | renamed a cited test to `test_supply_is_not_admission_zzz_probe` | `FAIL: ... CL-0-INERTIA [python] ... matches no test, code def, artifact key, artifact text, or source literal` |
 | Ledger evidence gate, real case | first real run, no injection | three dead references found and named: two stale tree-export filenames, one renamed theorem surviving only in a rename note |
 | Axiom-report parser, primed names | (found live, not injected) four primed theorems absent from `lean_axioms.txt` while the match gate stayed green — both parsers shared the blind `'[^']+'` pattern | audit line count 1417 vs artifact 1413 exposed it; non-greedy capture fixed both, counts agree |
-| Research pin drift (gate 10) | restored the stale `PrimitivePassage.lean` hash in `SOURCE_MANIFEST.json` | `FAIL: hash mismatch for lean4/Derivation/PrimitivePassage.lean`, exit 1, naming the module; exit 0 after reversal. The exit status was checked directly, NOT through a pipeline — `$?` after `\| tail` reports tail's status and showed 0 while the script was returning 1 |
+| Parked-audit completeness, unnamed module | added `Derivation/ZzzProbe.lean`, imported by nothing | `FAIL: Derivation.ZzzProbe is outside Derivation.lean's import closure but is not named in lean4/ParkedAudit.lean`; exit 0 after deletion. The in-Lean self-check stayed GREEN throughout — a module nothing imports is absent from the environment, which is why this gate is Python |
+| Parked-audit completeness, other direction | added `import Derivation.Composing` to the root | `FAIL: Derivation.Composing is named in lean4/ParkedAudit.lean but IS inside Derivation.lean's import closure`; exit 0 after reversal |
+| Research pin drift (gate 11) | restored the stale `PrimitivePassage.lean` hash in `SOURCE_MANIFEST.json` | `FAIL: hash mismatch for lean4/Derivation/PrimitivePassage.lean`, exit 1, naming the module; exit 0 after reversal. The exit status was checked directly, NOT through a pipeline — `$?` after `\| tail` reports tail's status and showed 0 while the script was returning 1 |
+| Parked-module axiom census | `Classical.em` theorem added to the parked `Derivation/IsoCollapseCompat.lean` | `FAIL: disallowed axioms ['Classical.choice']`, naming `zzz_probe_choice`; plus the counterfactual on the same tree — reverting `defaultTargets` to `["Derivation"]` made the identical injection report `lean audit clean`, which is the residual itself, observed rather than argued |
 | Research pin drift, real case | (found live, not injected) merging #76 and #77 | five research tests failed on `main` at `a1738fa` while the CI rollup reported SUCCESS; no job read the tree, and the two changes only interact once both are present |
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.
-It also cannot close the parked-module axiom residual above — it can only
-demonstrate that the residual is still live.
+An earlier version added that it "cannot close the parked-module axiom
+residual above — it can only demonstrate that the residual is still live".
+That is WITHDRAWN as to the parked-module residual, which is closed, and
+injection is exactly how the closure was shown to bite. The general point
+survives and still applies to the research-tree axiom receipt above:
+injection demonstrates that a residual is live; it does not close one.
 
 ### Claim hygiene
 
