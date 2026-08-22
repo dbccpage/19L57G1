@@ -33,10 +33,27 @@ DERIVATION_FILES = [
     "Minimality.lean", "Progress.lean", "Erasure.lean", "Ext.lean",
     "CountTransport.lean", "Mention.lean", "TransitionTransport.lean",
     "MinimalityF.lean", "RuleBridge.lean", "Rounds.lean",
+    # Parked modules that also open `namespace Derivation`.  They are outside
+    # `Derivation.lean`'s import closure, so their theorems reached this
+    # inventory only once `lean4/ParkedAudit.lean` began reporting them.
+    "FormRenaming.lean", "FormTransport.lean",
+    "IsoBridge.lean", "IsoCanon.lean", "IsoCollapse.lean",
 ]
 
 NAMESPACE_FILES: dict[str, list[str]] = {
     "Derivation": DERIVATION_FILES,
+    # Parked modules with namespaces of their own.  Deliberately absent from
+    # NAMESPACE_DEFAULTS: they fall back to ("generic", "undeclared"), which
+    # is the honest record for work the paper never classified, and is what
+    # that role exists for.  Giving them a role here would assert a place in
+    # the claim structure they do not have.
+    "Composing": ["Composing.lean"],
+    "DiffAnchor": ["DiffAnchor.lean"],
+    # `Derivation.Iso` is a nested namespace: these files open `Derivation`
+    # and then `Iso`, so a theorem in them is `Derivation.Iso.foo` while the
+    # source reads `theorem foo`. Without this entry the search falls back to
+    # ns `Derivation` and looks for `theorem Iso.foo`, which no file spells.
+    "Derivation.Iso": ["IsoBridge.lean", "IsoCanon.lean", "IsoCollapse.lean"],
     "PrimDiff": ["PrimDiff.lean"],
     "Bridge": ["Bridge.lean"],
     "Refusal": ["Refusal.lean"],
@@ -98,6 +115,18 @@ VALID_ROLES = (
 )
 
 REFERENCE_MEMBER_SUFFIXES = ("1", "2", "mp", "mpr", "symm")
+
+#: An optional same-line attribute before `theorem`, as in
+#: `@[simp] theorem relabel_data ...`.  An attribute on its OWN line needs
+#: nothing, because the `theorem` keyword still starts a line.
+#:
+#: This gap was latent, not new.  `Basic.lean` has carried `@[simp] theorem`
+#: since long before the parked-module census, but the hand-maintained
+#: `#print axioms` inventory in `lean4/Derivation.lean` never listed one, so
+#: no report ever reached this pattern.  `lean4/ParkedAudit.lean` enumerates
+#: from the compiled environment instead of by hand, which is exactly why it
+#: surfaced: a complete population finds the holes a curated one hides.
+ATTR_PREFIX = r"(?:@\[[^\]]*\][ \t]*)?"
 
 
 @cache
@@ -167,7 +196,7 @@ def source_module(qualified: str) -> str:
             if not path.exists():
                 continue
             if re.search(
-                rf"^theorem {re.escape(decl)}[\s({{\[⟨]",
+                rf"^{ATTR_PREFIX}theorem {re.escape(decl)}[\s({{\[⟨]",
                 lean_source(fname),
                 re.MULTILINE,
             ):
@@ -183,7 +212,8 @@ def extract_statement(qualified: str, module: str) -> str:
     text = lean_source(module)
     for _, decl in declared_splits(qualified):
         m = re.search(
-            rf"^theorem {re.escape(decl)}(?P<sig>.*?)(?:[ \t]*:=|^[ \t]*\|)",
+            rf"^{ATTR_PREFIX}theorem {re.escape(decl)}"
+            rf"(?P<sig>.*?)(?:[ \t]*:=|^[ \t]*\|)",
             text,
             re.MULTILINE | re.DOTALL,
         )

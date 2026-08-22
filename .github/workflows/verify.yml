@@ -40,6 +40,19 @@ jobs:
       # unclassifiable token fails totality instead of cancelling out.
       - name: Ledger evidence resolves
         run: python ci/check_ledger_evidence.py
+      # Every module outside Derivation.lean's import closure must be named
+      # in lean4/ParkedAudit.lean, which is what emits its axiom reports.
+      #
+      # This is a PYTHON gate rather than a Lean one because the blind spot
+      # is only visible from outside Lean: ParkedAudit checks its own list
+      # against the compiled environment, but a module nothing imports is
+      # absent from that environment, so Lean cannot see that it is missing.
+      # Adding a parked module fails the elaborated_modules.txt census pin
+      # below -- and the documented repair for THAT is to regenerate the pin,
+      # which on its own would leave the module elaborated, pinned, and
+      # unaudited. This closes that gap by enumerating from the source tree.
+      - name: Parked modules are all named for audit
+        run: python ci/check_parked_audit.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q
