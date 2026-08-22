@@ -1,6 +1,6 @@
 ---
 name: gates
-description: Run the nine CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
+description: Run the eleven CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
 ---
 
 # Run the verification contract

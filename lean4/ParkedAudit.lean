@@ -1,4 +1,7 @@
-import Lean
+-- Narrowed from a bare `import Lean`, which pulled in 2385 modules and cost
+-- about 23s of every build; these two are what the census actually uses.
+import Lean.Elab.Command
+import Lean.Util.CollectAxioms
 import Derivation.Composing
 import Derivation.DiffAnchor
 import Derivation.DiffAnchorCompat
@@ -26,9 +29,10 @@ on `Classical.choice` with every gate green.  That residual was recorded as
 OPEN in `CLAUDE.md`.
 
 This module closes it for the twelve modules outside that closure, by
-importing them and emitting one axiom report per declaration, in the exact
-shape `#print axioms` produces, so the existing audit reads them with no
-change to the gate.
+importing them and emitting one axiom report per THEOREM, in the exact shape
+`#print axioms` produces, so the existing audit reads them with no change to
+the gate.  "Per declaration" appeared here once and was wrong in the widest
+possible direction; see "Exact reach" below, which is the statement to trust.
 
 ## Why this is a second root and not an import of the first
 
@@ -65,20 +69,36 @@ comment, a doc-string, or a line wrap cannot move it.
 Reported: every **theorem** the twelve modules declare, as Lean classifies it
 (`ConstantInfo.thmInfo`), not as a pattern guesses it.
 
-Not reported: definitions, structures, and the constructors, recursors, and
-`noConfusion` helpers Lean generates alongside an inductive.  Excluding them
-is what keeps this artifact the theorem inventory that
-`artifacts/lean_axioms.txt` and `code/derivation/completion.py` have always
-taken it to be -- every one of the 1424 reports that predate this file is a
-theorem -- and it keeps a single `inductive` from adding a dozen generated
-names to a pinned artifact.
+Not reported: definitions, structures, the constructors, recursors and
+`noConfusion` helpers Lean generates alongside an inductive, and -- the
+exclusion an earlier version of this list omitted -- the `.inj`, `.injEq` and
+`.sizeOf_spec` lemmas generated beside a constructor, which ARE theorems and
+are dropped by `isConstructorDerived`.  Excluding all of these is what keeps
+this artifact the theorem inventory that `artifacts/lean_axioms.txt` and
+`code/derivation/completion.py` have always taken it to be -- every one of
+the 1424 reports that predate this file is a theorem -- and it keeps a single
+`inductive` from adding a dozen generated names to a pinned artifact.
 
 The residual that leaves, stated rather than glossed: a **definition** in a
-parked module could carry `Classical.choice` without being reported here.  It
-is inert where it matters.  `collectAxioms` walks the whole dependency graph,
-so any theorem that uses such a definition -- directly or through further
-definitions -- reports the axiom and fails the audit.  What escapes is a
-non-theorem declaration that no theorem reaches, which is dead code.
+parked module can carry `Classical.choice` without being reported here.  A
+theorem that uses such a definition, directly or through further definitions,
+still reports the axiom, because `collectAxioms` walks the whole dependency
+graph.
+
+An earlier version added that "what escapes is a non-theorem declaration that
+no theorem reaches, which is dead code".  That is **WITHDRAWN**, and the
+counterexample is in this very list.  `Derivation.Minimality.Iso` is
+Type-valued, not `Prop`-valued, so every proof about isomorphisms in the
+parked modules is a `def`.  `IsoBridge.lean` therefore contributes **zero**
+reports: its sole declaration is `def of_components`, whose own doc calls it
+"the missing forward step".  That is unaudited content, not dead code, and
+the same holds for `IsoCanon.lean`'s `iso_of_relabel_eq` and `relabel_iso`.
+
+Zero reports from a module is also indistinguishable, in the artifact, from a
+module the census silently skipped.  `EXPECTED_PARKED_REPORTS` in
+`ci/check_parked_audit.py` pins the total for that reason; it does not pin
+the per-module split, so read "IsoBridge is audited" as false rather than as
+vacuously true.
 
 That the twelve modules below are EVERY module outside the root's import
 closure is a separate claim, held by a separate mechanism.  The `run_cmd` at
@@ -91,6 +111,22 @@ the environment, so Lean has no way to notice it is missing.
 instead -- census minus the root's transitive import closure must equal the
 list below.  Both halves were proved by injection; the in-Lean check stayed
 green for an unimported probe module while the Python gate named it.
+
+## What audits this file
+
+Nothing.  Every census in this repository is rooted at `lean4/Derivation/`:
+the workflow's `find Derivation`, the `artifacts/elaborated_modules.txt` pin
+it diffs against, and `ci/check_parked_audit.py`'s own `rglob`.  This file is
+a top-level `lean4/*.lean`, so it is named by none of them and emits no
+report about itself.  A theorem added HERE would be compiled -- it is a
+default target -- and read by the forbidden-token scan, but its axioms would
+go uninspected.
+
+That is narrower than it sounds, because this file is apparatus and declares
+no mathematics; the point is that "every module is audited" remains false and
+this module is the current witness.  A future top-level `lean4/Helper.lean`
+that is *not* a default target would be worse: never elaborated, never
+pinned, never audited, and read only as text.
 -/
 
 namespace ParkedAudit
@@ -130,15 +166,25 @@ and the gate failed on its own doc-string -- which is the documented hazard
 working, not a surprise.) -/
 def importClosure (env : Environment) (root : Name) : NameSet := Id.run do
   let mut seen : NameSet := NameSet.empty.insert root
+  let mut frontier : Array Name := #[root]
+  -- The bound is retained as a guard, but the frontier empties long before
+  -- it is reached.  An earlier version expanded the WHOLE set once per
+  -- loaded module with no early exit: from `Derivation` the fixpoint arrives
+  -- in 8 rounds, and the remaining rounds re-walked a 692-element set for
+  -- nothing.
   for _ in [0:env.header.moduleNames.size] do
-    let mut next := seen
-    for m in seen.toList do
+    if frontier.isEmpty then
+      break
+    let mut next : Array Name := #[]
+    for m in frontier do
       match env.getModuleIdx? m with
       | none => pure ()
       | some i =>
         for imp in env.header.moduleData[i.toNat]!.imports do
-          next := next.insert imp.module
-    seen := next
+          if !seen.contains imp.module then
+            seen := seen.insert imp.module
+            next := next.push imp.module
+    frontier := next
   return seen
 
 /-- Every `Derivation.*` module the root does not reach, read off the
@@ -172,16 +218,35 @@ genuine theorems, so `ConstantInfo.isTheorem` admits them, but they are not
 written in the source and so have no statement for the claim inventory in
 `code/derivation/completion.py` to extract.
 
-The test is asked of the environment, not of the name: strip the last
-component and check whether what remains is a CONSTRUCTOR.  A hand-written
-theorem cannot be a child of a constructor, and a new generated form would be
-caught by the same test without this file needing a new suffix added to a
-list. -/
+Two conditions, deliberately conjoined: the last component is one of the
+names Lean generates, AND the parent resolves to a CONSTRUCTOR.
+
+An earlier version tested only the parent and justified it with "a
+hand-written theorem cannot be a child of a constructor".  That is false --
+Lean accepts `theorem Composing.Web.mk.foo`, and `Composing.Web.mk` is a live
+constructor namespace in an audited module -- so the filter could have
+swallowed a hand-written theorem, unreported and unaudited, which is the
+exact failure this file exists to prevent.  Requiring the generated name too
+makes that impossible without someone deliberately naming a theorem `.inj`
+under a constructor, and `EXPECTED_PARKED_REPORTS` in
+`ci/check_parked_audit.py` would then show the count drop.
+
+KNOWN GAP, and it fails LOUDLY rather than silently: `@[ext]` on a structure
+in a parked module generates `Foo.ext` and `Foo.ext_iff` whose parent is the
+TYPE, not a constructor, so they pass this filter and get reported. No source
+line spells them, so `completion.py`'s `source_module` returns "UNRESOLVED"
+and `test_inventory_covers_axiom_artifact_exactly` fails by name. The repair
+is to add the attribute's generated names here. It is left unhandled because
+no parked module carries `@[ext]` today, and a loud failure with a named
+theorem is a better placeholder than machinery guessing at attributes. -/
 def isConstructorDerived (env : Environment) : Name → Bool
-  | .str parent _ =>
-    match env.find? parent with
-    | some (.ctorInfo _) => true
-    | _ => false
+  | .str parent last =>
+    if last == "inj" || last == "injEq" || last == "sizeOf_spec" then
+      match env.find? parent with
+      | some (.ctorInfo _) => true
+      | _ => false
+    else
+      false
   | _ => false
 
 /-- Render one axiom report in the shape `#print axioms` emits, so that
@@ -199,6 +264,20 @@ end ParkedAudit
 open Lean Elab Command ParkedAudit in
 run_cmd do
   let env ← getEnv
+  -- Resolution FIRST, and it is not merely a reordering.  A declared module
+  -- whose `import` line is missing is absent from the environment, so
+  -- `expectedParked` omits it, so the mismatch check below fired instead and
+  -- reported it as "audited but INSIDE the root's import closure" -- the
+  -- opposite cause, whose repair is to DELETE the entry and silently drop the
+  -- module from the audit.  It also made the diagnostic below unreachable for
+  -- every input, since a declared-but-absent module always makes the sets
+  -- differ.
+  for modName in parkedModules do
+    if (env.getModuleIdx? modName).isNone then
+      throwError
+        "parked audit names a module that is not imported: {modName}\n\
+         Add `import {modName}` at the head of lean4/ParkedAudit.lean. Do NOT \
+         remove it from parkedModules -- that would drop it from the audit."
   -- The list is checked against the environment before it is used, so a
   -- module parked later cannot quietly go unaudited.
   let expected := expectedParked env
@@ -214,8 +293,7 @@ run_cmd do
        artifacts/lean_axioms.txt."
   for modName in parkedModules do
     match env.getModuleIdx? modName with
-    | none =>
-      throwError "parked audit names a module that is not imported: {modName}"
+    | none => pure ()   -- unreachable: resolved above, before any comparison
     | some idx =>
       let data := env.header.moduleData[idx.toNat]!
       -- Theorem-hood is asked of the environment, never inferred from the

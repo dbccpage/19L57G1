@@ -73,9 +73,14 @@ produced false clean results here, for author and reviewer alike.
 - **That the population is the right mathematical object.** A perfect pin
   of the wrong set is still the wrong set. Injection shows only that the
   gate fires when the live enumeration diverges from the committed pin.
-- **That parked modules are free of classical dependencies.** They
-  elaborate but emit no `#print axioms` report, so the whitelist never
-  sees them. Injection can demonstrate that residual; it cannot close it.
+- **That every declaration is free of classical dependencies.** An
+  earlier version of this bullet said parked modules "emit no `#print
+  axioms` report, so the whitelist never sees them"; that is WITHDRAWN, and
+  injection is how the closure was shown to bite — the same defect went
+  green before `lean4/ParkedAudit.lean` and failed after. What injection
+  still cannot close: the census reports theorems, so a definition carrying
+  an axiom that no theorem reaches is unreported, and no census covers a
+  top-level `lean4/*.lean`.
 - **That a reviewer will follow a procedure.** Behaviour outside the
   machine is outside the domain of any injection.
 

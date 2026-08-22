@@ -128,6 +128,25 @@ REFERENCE_MEMBER_SUFFIXES = ("1", "2", "mp", "mpr", "symm")
 #: surfaced: a complete population finds the holes a curated one hides.
 ATTR_PREFIX = r"(?:@\[[^\]]*\][ \t]*)?"
 
+#: Asserts a theorem name ENDED here, so `theorem foo` cannot match the source
+#: line `theorem fooBar`.  A negative lookahead rather than a positive
+#: terminator class, because it consumes nothing and so can be shared by a
+#: pattern that stops at the name and one that goes on to capture a signature.
+#:
+#: The two patterns disagreeing is what made this necessary.  `source_module`
+#: terminated the name with ``[\s({\[⟨]`` and `extract_statement` terminated it
+#: with nothing at all, so every prefix-named pair silently mismatched: the
+#: module was resolved from the right declaration and the statement copied from
+#: whichever same-prefixed theorem appeared first.  Six records shipped that
+#: way, among them `Derivation.cost1_insufficient` carrying
+#: `cost1_insufficient_general`'s statement -- a theorem the claim ledger
+#: cites.  `test_inventory_covers_axiom_artifact_exactly` could not see it: the
+#: field was populated, just populated from the wrong theorem.
+#:
+#: `'`, `?` and `!` are excluded alongside `\w` because Lean admits them in
+#: identifiers, so `foo` must not match `foo'` or `foo?` either.
+DECL_END = r"(?![\w'?!])"
+
 
 @cache
 def lean_source(fname: str) -> str:
@@ -196,7 +215,7 @@ def source_module(qualified: str) -> str:
             if not path.exists():
                 continue
             if re.search(
-                rf"^{ATTR_PREFIX}theorem {re.escape(decl)}[\s({{\[⟨]",
+                rf"^{ATTR_PREFIX}theorem {re.escape(decl)}{DECL_END}",
                 lean_source(fname),
                 re.MULTILINE,
             ):
@@ -212,7 +231,7 @@ def extract_statement(qualified: str, module: str) -> str:
     text = lean_source(module)
     for _, decl in declared_splits(qualified):
         m = re.search(
-            rf"^{ATTR_PREFIX}theorem {re.escape(decl)}"
+            rf"^{ATTR_PREFIX}theorem {re.escape(decl)}{DECL_END}"
             rf"(?P<sig>.*?)(?:[ \t]*:=|^[ \t]*\|)",
             text,
             re.MULTILINE | re.DOTALL,
@@ -313,12 +332,38 @@ def _declaring_namespace(qualified: str) -> str:
     return qualified.rpartition(".")[0]
 
 
+def _namespace_is_current(namespace: str, code: str) -> bool:
+    """True when `namespace` is entered, in either spelling Lean allows.
+
+    A nested namespace has two spellings -- `namespace Derivation.Iso`, and
+    `namespace Derivation` followed by `namespace Iso` -- and the sources here
+    use the second. Matching only the dotted form made this test False in
+    every module for `Derivation.Iso`, which silently disabled bare-name
+    consumer detection for the six theorems in it: `consuming_modules` could
+    only ever return the qualified-reference matches. The shipped
+    `consumers: []` values were right only because every current reference is
+    intra-module; the first sibling to use one of these theorems by its bare
+    name -- the normal spelling inside that scope -- would have been recorded
+    as consuming nothing.
+    """
+    dotted = re.escape(namespace)
+    if re.search(rf"^[ \t]*namespace[ \t]+{dotted}(?:[ \t]|$)", code,
+                 re.MULTILINE):
+        return True
+    parts = namespace.split(".")
+    if len(parts) == 1:
+        return False
+    return all(
+        re.search(rf"^[ \t]*namespace[ \t]+{re.escape(part)}(?:[ \t]|$)",
+                  code, re.MULTILINE)
+        for part in parts
+    )
+
+
 def _bare_reference_in_scope(qualified: str, code: str) -> bool:
     """Allow bare code references only where the namespace is current/open."""
     namespace = _declaring_namespace(qualified)
-    ns = re.escape(namespace)
-    if re.search(rf"^[ \t]*namespace[ \t]+{ns}(?:[ \t]|$)", code,
-                 re.MULTILINE):
+    if _namespace_is_current(namespace, code):
         return True
     for match in re.finditer(r"^[ \t]*open[ \t]+([^\n]+)", code,
                              re.MULTILINE):
@@ -714,9 +759,35 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
 }
 
 
-def classify(qualified: str) -> tuple[str, str]:
+#: Modules whose theorems have never been classified, but which declare into
+#: a namespace that HAS a default.  Without this, joining such a module to
+#: `DERIVATION_FILES` silently stamps every theorem in it with that namespace's
+#: role -- and the namespace pin cannot see it, because the pin compares
+#: NAMESPACE_FILES keys against NAMESPACE_DEFAULTS keys and no new key appears.
+#:
+#: That happened here.  Adding the five parked modules below routed 31 of the
+#: 48 newly reported theorems into `Derivation`'s ("generic", "preservation"),
+#: which is the exact false-role shape deleted on 2026-08-18 and re-labelled
+#: `Derivation.sortPair_comm` (a commutativity) and `Derivation.plug_args_lt`
+#: (a strict bound) as preservation results.  A role is a positive assertion
+#: about what a theorem DOES; none of these was ever asserted by anyone.
+#:
+#: Pinned by `test_unclassified_modules_are_pinned`, so this set may shrink but
+#: not grow unnoticed.
+UNCLASSIFIED_MODULES: frozenset[str] = frozenset({
+    "FormRenaming.lean",
+    "FormTransport.lean",
+    "IsoBridge.lean",
+    "IsoCanon.lean",
+    "IsoCollapse.lean",
+})
+
+
+def classify(qualified: str, module: str | None = None) -> tuple[str, str]:
     if qualified in KIND_ROLE_OVERRIDES:
         return KIND_ROLE_OVERRIDES[qualified]
+    if module in UNCLASSIFIED_MODULES:
+        return ("generic", "undeclared")
     ns = qualified.rpartition(".")[0]
     # No silent default role.  An undeclared namespace previously came
     # back ("generic", "preservation") -- a positive assertion about what
@@ -734,7 +805,7 @@ def inventory() -> list[dict[str, object]]:
     for rec in parse_axiom_reports():
         name = str(rec["name"])
         module = source_module(name)
-        kind, role = classify(name)
+        kind, role = classify(name, module)
         out.append(
             {
                 "name": name,

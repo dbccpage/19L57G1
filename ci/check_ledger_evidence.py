@@ -117,8 +117,21 @@ FIELD_ANY = re.compile(r"\*\*[A-Z][^*\n]*\*\*:")
 # The classifier's token pattern.  The population count NEVER uses it.
 TOKEN = re.compile(r"`([^`]+)`", re.S)
 
+#: Prefix-agnostic, deliberately.  This was anchored `^Derivation\.lean:`,
+#: which was true while one root emitted every report.  `lean4/ParkedAudit.lean`
+#: is a second root, so the anchored form saw 1424 of the artifact's 1472
+#: names and every parked theorem was invisible here -- a ledger entry citing
+#: one would miss the strong `lean-theorem` tier and fall through to the
+#: bare-name file scan, while this gate still printed success.
+#:
+#: Every other reader of this artifact is already prefix-agnostic
+#: (`check_axiom_report.normalize`, `regen_axiom_artifact.REPORT`,
+#: `completion.parse_axiom_reports`, `tests/test_axiom_artifact_bytes`), so
+#: this was the lone disagreeing parser -- the same one-artifact-two-parsers
+#: shape as the 2026-08-18 primed-name defect this file's own docstring
+#: narrates.
 REPORT = re.compile(
-    r"^Derivation\.lean:\d+:\d+: '(?P<name>.+?)' "
+    r"^[^\s:]+\.lean:\d+:\d+: '(?P<name>.+?)' "
     r"(?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
 )
 DECL = re.compile(

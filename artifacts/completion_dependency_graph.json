@@ -768,7 +768,7 @@
    "module": "Minimality.lean",
    "name": "Derivation.cost1_insufficient",
    "role": "minimality",
-   "statement": "_general (r : Regime) (hforms : r.forms = []) (hinsts : r.insts = []) (i j : Nat) (\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse r i j \u03b4"
+   "statement": "(\u03b4 : List Item) (hlen : \u03b4.length \u2264 1) : \u00ac validResponse R2L 0 1 \u03b4"
   },
   {
    "axioms": [
@@ -1699,7 +1699,7 @@
    "module": "Refusal.lean",
    "name": "Refusal.markers_invisible",
    "role": "equivalence",
-   "statement": "_from (m : Mode) (h : List REvent) : \u2200 s, (h.filter fun e => !isMarker e).foldl (stepR m) s = h.foldl (stepR m) s"
+   "statement": "(m : Mode) (h : List REvent) : replayR m (h.filter fun e => !isMarker e) = replayR m h"
   },
   {
    "axioms": [
@@ -6425,7 +6425,7 @@
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.asserted_offdiag",
    "role": "undeclared",
-   "statement": "_step (s : PState) (hinv : \u2200 p \u2208 s.asserted, p.1 \u2260 p.2) (e : PEvent) : \u2200 p \u2208 (step s e).asserted, p.1 \u2260 p.2"
+   "statement": "(h : List PEvent) : \u2200 p \u2208 (replayP h genesisP).asserted, p.1 \u2260 p.2"
   },
   {
    "axioms": [
@@ -6440,7 +6440,7 @@
    "module": "PrimitivePassage.lean",
    "name": "PrimitivePassage.retained_sub_asserted",
    "role": "undeclared",
-   "statement": "_step (s : PState) (hinv : \u2200 p \u2208 s.wit, p \u2208 s.asserted) (e : PEvent) : \u2200 p \u2208 (step s e).wit, p \u2208 (step s e).asserted"
+   "statement": "(h : List PEvent) : \u2200 p \u2208 (replayP h genesisP).wit, p \u2208 (replayP h genesisP).asserted"
   },
   {
    "axioms": [
@@ -9343,7 +9343,7 @@
    "module": "Attachment.lean",
    "name": "Attachment.all_reach",
    "role": "undeclared",
-   "statement": "_aux (\u03c0 : LawfulPolicy) (n : Nat) : \u2200 (bound v : Nat), v \u2264 bound \u2192 v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
+   "statement": "(\u03c0 : LawfulPolicy) (n : Nat) : \u2200 v, v < n + 1 \u2192 Reaches ((treeState \u03c0 n).wit) v"
   },
   {
    "axioms": [
@@ -19350,7 +19350,7 @@
    "module": "Composing.lean",
    "name": "Composing.skew_not_relAssoc",
    "role": "undeclared",
-   "statement": "Left : \u00ac RelAssocLeft skewCompose"
+   "statement": ": \u00ac RelAssoc skewCompose"
   },
   {
    "axioms": [],
@@ -19420,7 +19420,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.mapInstForm_gf",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (i : Inst) (h : g (\u03c6 i.1) = i.1) : mapInstForm g (mapInstForm \u03c6 i) = i"
   },
   {
@@ -19434,7 +19434,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.permForms_getD",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(g : Nat \u2192 Nat) (forms : List Nat) {j : Nat} (hj : j < forms.length) : (permForms g forms).getD j 0 = forms.getD (g j) 0"
   },
   {
@@ -19449,7 +19449,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.permForms_length",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(g : Nat \u2192 Nat) (forms : List Nat) : (permForms g forms).length = forms.length"
   },
   {
@@ -19463,7 +19463,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.renameForms_arity",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) {i : Nat} (hbound : \u03c6 i < r.forms.length) (hgf : g (\u03c6 i) = i) : (renameForms \u03c6 g r).forms.getD (\u03c6 i) 0 = r.forms.getD i 0"
   },
   {
@@ -19477,7 +19477,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.renameForms_data",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).data = r.data"
   },
   {
@@ -19490,7 +19490,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.renameForms_forms_length",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).forms.length = r.forms.length"
   },
   {
@@ -19503,7 +19503,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.renameForms_gf",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c3 : DRen r.forms.length) : renameForms \u03c3.g \u03c3.f (renameForms \u03c3.f \u03c3.g r) = r"
   },
   {
@@ -19515,7 +19515,7 @@
    "kind": "generic",
    "module": "FormRenaming.lean",
    "name": "Derivation.renameForms_reqs",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).reqs = r.reqs"
   },
   {
@@ -19527,7 +19527,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.collapsed_congr",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{r s : Regime} (hf : r.forms = s.forms) (hd : r.data = s.data) (hi : r.insts = s.insts) (hru : r.rules = s.rules) (d d' : Nat) : collapsed r d d' \u2194 collapsed s d d'"
   },
   {
@@ -19540,7 +19540,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.collapsed_renameDataForm",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{n : Nat} (\u03c3 : DRen n) (r : Regime) (hn : r.data = n) (\u03c4 : DRen r.forms.length) (d d' : Nat) : collapsed (renameForms \u03c4.f \u03c4.g (renameRegime \u03c3.f r)) (\u03c3.f d) (\u03c3.f d') \u2194 collapsed r d d'"
   },
   {
@@ -19553,7 +19553,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.collapsed_renameForms",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c3 : DRen r.forms.length) (d d' : Nat) : collapsed (renameForms \u03c3.f \u03c3.g r) d d' \u2194 collapsed r d d'"
   },
   {
@@ -19566,7 +19566,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.derivable_renameForms",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{\u03c6 : Nat \u2192 Nat} (h\u03c6 : \u2200 {x y}, \u03c6 x = \u03c6 y \u2192 x = y) (g : Nat \u2192 Nat) (r : Regime) (i : Inst) : derivable (renameForms \u03c6 g r) (mapInstForm \u03c6 i) \u2194 derivable r i"
   },
   {
@@ -19578,7 +19578,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.mapCtxForm_f_g",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{n : Nat} (\u03c3 : DRen n) (c : Ctx) : mapCtxForm \u03c3.f (mapCtxForm \u03c3.g c) = c"
   },
   {
@@ -19590,7 +19590,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.mapInstForm_inj",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{\u03c6 : Nat \u2192 Nat} (h\u03c6 : \u2200 {x y}, \u03c6 x = \u03c6 y \u2192 x = y) {i j : Inst} (h : mapInstForm \u03c6 i = mapInstForm \u03c6 j) : i = j"
   },
   {
@@ -19600,7 +19600,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.plug_mapCtxForm",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 : Nat \u2192 Nat) (c : Ctx) (d : Nat) : plug (mapCtxForm \u03c6 c) d = mapInstForm \u03c6 (plug c d)"
   },
   {
@@ -19612,7 +19612,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.renameForms_forms",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).forms = permForms g r.forms"
   },
   {
@@ -19624,7 +19624,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.renameForms_insts",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).insts = r.insts.map (mapInstForm \u03c6)"
   },
   {
@@ -19636,7 +19636,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.renameForms_rules",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(\u03c6 g : Nat \u2192 Nat) (r : Regime) : (renameForms \u03c6 g r).rules = r.rules.map \u03c6"
   },
   {
@@ -19649,7 +19649,7 @@
    "kind": "generic",
    "module": "FormTransport.lean",
    "name": "Derivation.wfCtx_renameForms",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c3 : DRen r.forms.length) (c : Ctx) : wfCtx (renameForms \u03c3.f \u03c3.g r) (mapCtxForm \u03c3.f c) \u2194 wfCtx r c"
   },
   {
@@ -19661,7 +19661,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.mapReq_eq_sortPair",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(f : Nat \u2192 Nat) (q : Nat \u00d7 Nat) : mapReq f q = sortPair (f q.1, f q.2)"
   },
   {
@@ -19673,7 +19673,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.relabel_data",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).data = r.data"
   },
   {
@@ -19685,7 +19685,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.relabel_forms",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).forms = permForms \u03c6.g r.forms"
   },
   {
@@ -19697,7 +19697,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.relabel_insts",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).insts = (r.insts.map (mapInst \u03c0.f)).map (mapInstForm \u03c6.f)"
   },
   {
@@ -19709,7 +19709,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.relabel_reqs",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).reqs = r.reqs.map (mapReq \u03c0.f)"
   },
   {
@@ -19721,7 +19721,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.relabel_rules",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(r : Regime) (\u03c0 : DRen r.data) (\u03c6 : DRen r.forms.length) : (relabel r \u03c0 \u03c6).rules = r.rules.map \u03c6.f"
   },
   {
@@ -19733,7 +19733,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.sortPair_comm",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(x y : Nat) : sortPair (x, y) = sortPair (y, x)"
   },
   {
@@ -19745,7 +19745,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.sortPair_eq_minmax",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(x y : Nat) : sortPair (x, y) = (min x y, max x y)"
   },
   {
@@ -19757,7 +19757,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.sortPair_map_sortPair",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "(f : Nat \u2192 Nat) (a b : Nat) : sortPair (f (sortPair (a, b)).1, f (sortPair (a, b)).2) = sortPair (f a, f b)"
   },
   {
@@ -19771,7 +19771,7 @@
    "kind": "generic",
    "module": "IsoCanon.lean",
    "name": "Derivation.sortPair_of_le",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{x y : Nat} (h : x \u2264 y) : sortPair (x, y) = (x, y)"
   },
   {
@@ -19863,7 +19863,7 @@
    "kind": "generic",
    "module": "IsoCollapse.lean",
    "name": "Derivation.map_eq_self_of_mem",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{l : List Nat} {f : Nat \u2192 Nat} (hf : \u2200 a \u2208 l, f a = a) : l.map f = l"
   },
   {
@@ -19876,7 +19876,7 @@
    "kind": "generic",
    "module": "IsoCollapse.lean",
    "name": "Derivation.plug_args_lt",
-   "role": "preservation",
+   "role": "undeclared",
    "statement": "{r : Regime} {c : Ctx} (hc : wfCtx r c) {d : Nat} (hd : d < r.data) : \u2200 a \u2208 (plug c d).2, a < r.data"
   }
  ]

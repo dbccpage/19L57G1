@@ -252,8 +252,11 @@ python ci/check_paper_citations.py
 #    that names RESOLVE, never that wording matches proof.
 python ci/check_ledger_evidence.py
 
-# 10. every module outside `Derivation.lean`'s import closure is named
-#     in `lean4/ParkedAudit.lean`, which is what emits its axiom reports.
+# 10. every module UNDER `lean4/Derivation/` and outside `Derivation.lean`'s
+#     import closure is named in `lean4/ParkedAudit.lean`, which is what
+#     emits its axiom reports. The scope clause is load-bearing: a
+#     top-level `lean4/*.lean` is outside every census in this repository,
+#     including this one, and `ParkedAudit.lean` is itself such a file.
 #     Python rather than Lean on purpose: `ParkedAudit` checks its own
 #     list against the compiled environment, but a module NOTHING imports
 #     is absent from that environment, so Lean cannot see it is missing.
@@ -370,14 +373,23 @@ populations, gathered differently, and the difference matters. The first is
 the set of declarations enumerated by the committed `#print axioms` inventory
 in `lean4/Derivation.lean` — hand-maintained, so it does not by itself
 establish that it names every exported declaration in the root's closure. The
-second is every non-internal declaration of the twelve modules named in
+second is every **theorem** of the twelve modules named in
 `lean4/ParkedAudit.lean`, enumerated from the compiled environment rather than
-by hand, so within those twelve modules it IS declaration-complete.
+by hand.
+
+An earlier version of this paragraph said the second population was "every
+non-internal declaration" and that "within those twelve modules it IS
+declaration-complete". That is **WITHDRAWN** — it was false, and it was the
+worse kind of false, because this is the paragraph a reader quotes instead of
+re-deriving. `ParkedAudit.lean` filters on `ConstantInfo.isTheorem`, so
+definitions, structures, and generated constructors are not reported, and the
+twelve modules carry roughly two dozen such declarations. The narrower
+statement 150 lines below was right and this one was not.
 
 The audit certifies that every report in that union lies within
-`{propext, Quot.sound}`. Read "axiom-clean" accordingly: declaration-complete
-for the parked twelve, and a claim about the enumerated reports only for the
-root inventory, unless its completeness is independently proved.
+`{propext, Quot.sound}`. Read "axiom-clean" accordingly: **theorems only** in
+both halves, complete over the parked twelve's theorems, and a claim about
+the enumerated reports only for the root inventory.
 
 ## Architecture
 

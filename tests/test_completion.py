@@ -496,7 +496,17 @@ def test_run_main_and_receipt(tmp_path: Path) -> None:
 
 
 def test_unclassified_namespaces_are_pinned() -> None:
-    """The classification debt is pinned: it may shrink, never grow.
+    """The classification debt is pinned, and every change to it is deliberate.
+
+    An earlier version of this line read "it may shrink, never grow". That is
+    **WITHDRAWN**: the debt grew from 24 entries to 27 when
+    `lean4/ParkedAudit.lean` brought three previously unexported namespaces
+    into the inventory, and the sentence would otherwise stand false beside
+    the edit that broke it. What the pin actually guarantees is weaker and
+    still worth having -- no namespace enters or leaves this list without a
+    visible edit here, which is what makes an unnoticed regression
+    distinguishable from a sanctioned addition.
+
 
     classify() no longer stamps an unclassified namespace with a role.
     Before 2026-08-18 an undeclared namespace came back
@@ -544,6 +554,71 @@ def test_unclassified_namespaces_are_pinned() -> None:
     assert gone == [], (
         f"{len(gone)} namespace(s) now classified: {gone}. "
         "Remove them from KNOWN_UNCLASSIFIED -- the pin must track the debt."
+    )
+
+
+def test_unclassified_modules_are_pinned() -> None:
+    """The namespace pin above cannot see debt that hides in a CLASSIFIED
+    namespace, so the module-level debt is pinned separately.
+
+    A file added to `DERIVATION_FILES` declares into `namespace Derivation`,
+    which has a default of ("generic", "preservation"). Its theorems inherit
+    that role without anyone classifying them, and the namespace pin stays
+    green because no new NAMESPACE_FILES key appears. That is exactly what
+    happened when `lean4/ParkedAudit.lean` first exported the parked modules:
+    31 of 48 new theorems were stamped `preservation`, among them a
+    commutativity and a strict bound.
+
+    `UNCLASSIFIED_MODULES` routes those files to the explicit absence
+    instead. This pins the set so it cannot grow unnoticed, and so that
+    classifying a module for real is a visible removal from it.
+    """
+    from derivation.completion import (
+        DERIVATION_FILES,
+        LEAN_DIR,
+        UNCLASSIFIED_MODULES,
+    )
+
+    for name in sorted(UNCLASSIFIED_MODULES):
+        assert (LEAN_DIR / name).exists(), (
+            f"UNCLASSIFIED_MODULES names {name}, which does not exist. "
+            "Remove it, or fix the name."
+        )
+        assert name in DERIVATION_FILES, (
+            f"{name} is in UNCLASSIFIED_MODULES but not DERIVATION_FILES, so "
+            "it declares into no classified namespace and the entry is inert."
+        )
+
+    KNOWN_UNCLASSIFIED_MODULES = {
+        "FormRenaming.lean",
+        "FormTransport.lean",
+        "IsoBridge.lean",
+        "IsoCanon.lean",
+        "IsoCollapse.lean",
+    }
+    assert set(UNCLASSIFIED_MODULES) == KNOWN_UNCLASSIFIED_MODULES, (
+        "UNCLASSIFIED_MODULES changed. Adding a module here records new "
+        "classification debt; removing one asserts its theorems have been "
+        "classified. Either way, update this pin deliberately."
+    )
+
+
+def test_parked_theorems_carry_no_invented_role() -> None:
+    """No theorem from an unclassified module ships a positive role.
+
+    The guard that matters, stated over the artifact rather than over the
+    tables: whatever the namespace tables say, a theorem whose source module
+    has never been classified must come back "undeclared".
+    """
+    from derivation.completion import UNCLASSIFIED_MODULES, inventory
+
+    stamped = [
+        r["name"] for r in inventory()
+        if r["module"] in UNCLASSIFIED_MODULES and r["role"] != "undeclared"
+    ]
+    assert stamped == [], (
+        f"{len(stamped)} theorem(s) from unclassified modules carry a role "
+        f"nobody declared: {stamped[:10]}"
     )
 
 

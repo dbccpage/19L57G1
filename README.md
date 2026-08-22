@@ -19,11 +19,11 @@ proved, and — stated with equal precision — what was not.
 | | |
 |---|---|
 | Python | 54 modules; the computational object language and its studies |
-| Lean 4 | 72 modules, 59 imported and audited, 13 parked |
+| Lean 4 | 72 modules, 60 in the root's import closure, 12 parked and audited separately |
 | Tests | 34 files, 435 tests, line 99.10% / branch 96.73% |
 | Artifacts | 37 deterministic JSON exports plus 6 full gzipped trees |
 | Claims | 127 ledger entries, each naming its own evidence |
-| Axioms | 1417 `#print axioms` reports, all within `{propext, Quot.sound}` |
+| Axioms | 1472 axiom reports, all within `{propext, Quot.sound}` |
 
 The derivation's result is not that some structure was built. It is
 that at the first point where the system had to answer, **the
@@ -70,7 +70,7 @@ can contradict.
   evidence (artifact key and/or test name), its Lean theorem names, and
   its falsifier. A gate verifies every one of those names still resolves.
 
-## Nine gate families
+## Eleven gate families
 
 ```
 1  prompt byte-identity          6  Lean build, forbidden-token and axiom audit
@@ -91,10 +91,13 @@ the rest.
 * **A gate proves a receipt, not a payload.** Hashes, test passes, and
   byte comparisons say what the commands printed. They do not say the
   mathematics is right.
-* **"Axiom-clean" is a claim about the enumerated reports** (1417), not
-  about every declaration in the tree. Thirteen parked modules elaborate but
-  emit no report; their axioms are unchecked. This is recorded as an
-  open obstruction, not closed quietly.
+* **"Axiom-clean" is a claim about the enumerated reports** (1472), not
+  about every declaration in the tree. An earlier version of this bullet
+  said thirteen parked modules "emit no report; their axioms are unchecked";
+  that is WITHDRAWN — `lean4/ParkedAudit.lean` now reports the twelve
+  modules outside the root's import closure. What the phrase still excludes:
+  **definitions**, since the census reports theorems, and any top-level
+  `lean4/*.lean`, since every census is rooted at `lean4/Derivation/`.
 * **The ledger gate checks that names resolve, never that wording
   matches proof.** `Class: theorem` with no Lean evidence passes it.
   Whether a claim overclaims is a judgement no gate can make — it was

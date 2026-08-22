@@ -1,8 +1,27 @@
 """Regenerate ``artifacts/lean_axioms.txt`` from a ``lake build`` log.
 
-The artifact is the sequence of ``#print axioms`` reports emitted by
-``lean4/Derivation.lean``, with Lean's ``info: `` prefix stripped and the
-build-log ordering (which is `Derivation.lean` line order) preserved.
+The artifact is the sequence of axiom reports emitted by BOTH default
+targets, with Lean's ``info: `` prefix stripped and the build-log ordering
+preserved.
+
+An earlier version of this paragraph said the reports come from
+``lean4/Derivation.lean`` and that the ordering "is `Derivation.lean` line
+order". Both are **WITHDRAWN**. ``lean4/ParkedAudit.lean`` is a second root
+and contributes 48 reports, ordered by parked module and then by name, and
+its whole block is anchored at that file's ``run_cmd`` position rather than
+at each theorem's own line.
+
+Two consequences worth knowing before regenerating:
+
+* Forcing only ``Derivation.lean`` to rebuild produces an artifact missing
+  every parked report, which ``ci/check_axiom_report.py`` then rejects.
+  Touch both roots.
+* Because the parked block carries one shared source position, editing the
+  prose above ``run_cmd`` in ``ParkedAudit.lean`` shifts all 48 lines. The
+  position is stripped by every gate that compares NAMES, so the only signal
+  is the workflow's byte ``diff``, and the repair is the full cascade:
+  regenerate this artifact, then the receipts that pin its SHA-256, then the
+  research manifest.
 
 Newlines are written explicitly as ``\\n``.  This is the whole point of the
 script: ``.gitattributes`` marks ``artifacts/** -text``, so whatever bytes
