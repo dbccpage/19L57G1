@@ -514,7 +514,26 @@ def test_unclassified_namespaces_are_pinned() -> None:
     """
     from derivation.completion import NAMESPACE_DEFAULTS, NAMESPACE_FILES
 
-    KNOWN_UNCLASSIFIED = ['Apartness', 'Attachment', 'BoundaryCancellation', 'Compression', 'ContactBridge', 'ContactKernel', 'ControllerCategory', 'GraphGenesis', 'HigherStructure', 'Horizon', 'InterpreterBoundary', 'LadderGeneral', 'ObsDescent', 'PresentationNaturality', 'PrimitiveCats', 'PrimitiveContact', 'PrimitiveCore', 'PrimitivePassage', 'RenamingStructure', 'SeparationCapacity', 'StableContent', 'TraceAlgebra', 'TransitionAlphabet', 'WeightProfile']
+    KNOWN_UNCLASSIFIED = [
+        'Apartness', 'Attachment', 'BoundaryCancellation', 'Compression',
+        'ContactBridge', 'ContactKernel', 'ControllerCategory', 'GraphGenesis',
+        'HigherStructure', 'Horizon', 'InterpreterBoundary', 'LadderGeneral',
+        'ObsDescent', 'PresentationNaturality', 'PrimitiveCats',
+        'PrimitiveContact', 'PrimitiveCore', 'PrimitivePassage',
+        'RenamingStructure', 'SeparationCapacity', 'StableContent',
+        'TraceAlgebra', 'TransitionAlphabet', 'WeightProfile',
+        # Added with lean4/ParkedAudit.lean, which brought the twelve modules
+        # outside Derivation.lean's import closure into the axiom inventory.
+        # Their theorems had never been exported before, so their namespaces
+        # had never needed a (kind, role) -- the paper does not cite them and
+        # never classified them.
+        #
+        # Listed here rather than in NAMESPACE_DEFAULTS on this test's own
+        # reasoning: a role is a positive assertion about what a theorem DOES,
+        # and inventing three to turn this test green is precisely the trade
+        # the docstring above refuses. The debt is recorded instead.
+        'Composing', 'DiffAnchor', 'Derivation.Iso',
+    ]
     undeclared = sorted(set(NAMESPACE_FILES) - set(NAMESPACE_DEFAULTS))
     new = sorted(set(undeclared) - set(KNOWN_UNCLASSIFIED))
     assert new == [], (
