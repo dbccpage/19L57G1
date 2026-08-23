@@ -255,3 +255,17 @@ jobs:
       - name: Portable interface strict typing
         working-directory: research/portable_interface
         run: python -m mypy
+      # The blind-restart kernel is pinned to the artifacts its scoring
+      # key reads, and its third check is unlike either sibling's: it
+      # proves the prompt does not contain the answers. A staged prompt
+      # that states its own expected results is a leading question, and a
+      # solver agreeing with it is not evidence. Nothing here runs a
+      # solver or gates on one -- a reply is outside the machine.
+      - name: Blind restart pins, key resolution, and leak gate
+        run: python research/blind_restart/verify_pins.py
+      - name: Blind restart tests
+        working-directory: research/blind_restart
+        run: python -m unittest discover -s . -p "test_*.py"
+      - name: Blind restart strict typing
+        working-directory: research/blind_restart
+        run: python -m mypy

@@ -1,0 +1,15 @@
+{
+  "schema": "blind_restart_source_pins/v1",
+  "note": "Artifacts the scoring key reads. The key hard-codes no derivation result; it resolves every expected value from these exports at run time, so these hashes are what bind it to a state of the derivation.",
+  "snapshot_commit": "44a5b32897ea721649dcbb5dbfae91c10269def6",
+  "artifacts": [
+    {
+      "path": "artifacts/challenges.json",
+      "sha256": "D5DDC3F84F6A4B463E27EE2F3DE3AB98F82D3DD663AFE1CE8CB2854296A1AB46"
+    },
+    {
+      "path": "artifacts/claims.json",
+      "sha256": "B63350CA4A05BBC3F9F19DDF5436CCD941B5E20D400A15FCA496F6522B83A42A"
+    }
+  ]
+}
