@@ -81,9 +81,10 @@ def test_reflection_grows_to_cap() -> None:
 def test_refusal_links_are_born_irreflexive_in_class() -> None:
     """Structural fact of the class: a receipt is always fresh, so no
     refusal link is a self-edge — witnessed implies irreflexive-as-fact
-    within this protocol space."""
+    within this protocol space. Exhaustive at the declared 6-event
+    horizon."""
     for p in enumerate_protocols():
-        for s in reachable_f(p, 5):
+        for s in reachable_f(p, 6):
             assert all(a != b for (a, b) in s.rel)
 
 
@@ -124,8 +125,9 @@ def test_witnessed_minimum_unique_under_both_orders() -> None:
     """The witnessed milestones have a single minimum protocol, and it
     is the same one under both cost orders: datum retention + the
     relation rule, no tag, singleton algebra, one token.  The multiple
-    minima live only at the weaker milestones."""
-    mt = minimum_table(5)
+    minima live only at the weaker milestones. Exhaustive at the
+    declared 6-event horizon."""
+    mt = minimum_table(6)
     for order in ("A_total_imports", "B_lex"):
         for milestone in ("witnessed_relation", "witnessed_irreflexive"):
             cell = mt[order][milestone]
