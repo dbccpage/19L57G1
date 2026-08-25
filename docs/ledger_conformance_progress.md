@@ -38,14 +38,17 @@ Not a gate, not a ledger row, not a claim registration.
 - **lake build**: succeeded (77 jobs) at `e6168a9`.
 - **sorry / admit / axiom counts**: 0 / 0 / 0.
 
-## Iterations 2–3 — WITHDRAWN
+## Iterations 2–3 — not in this PR
 
-Paper edits to `paper/paper_claim_ledger.md` (Class/Scope splits and
-FR6 falsifier backfill) were reverted. The tracked CLAUDE.md seals
-`paper/`; mechanical checks cannot authorize a mutation of the sealed
-ledger. Mixed Class rows (theorem for one reading, finite computation
-for another) are therefore left as they were: the checker still reports
-them as Class-outside, and this tree does not split or reclassify them.
+A draft backfill edited `paper/paper_claim_ledger.md` and was dropped
+from the branch. The reason recorded here previously — "CLAUDE.md seals
+`paper/` so ledger edits are unauthorized" — was false. CLAUDE.md's
+`paper/` paragraph bars creating `paper/coda/`; it does not bar ledger
+edits, and `main` already contains many commits that edit
+`paper/paper_claim_ledger.md`. This PR still does not backfill: it
+lands the checker first. Gap sets stay at the merge-base snapshot
+because no backfill is in the commit, not because the ledger is
+uneditable.
 
 The operator log previously stored under a filename that named an
 external project was renamed to this path.
@@ -56,12 +59,28 @@ external project was renamed to this path.
 - **Claim IDs**: none.
 - **What changed**:
   - frozen `KNOWN_CLAIM_IDS` census of all 127 headings; population is
-    `### ` lines, not the ID classifier;
+    CommonMark ATX h3 (`#{3}` plus space or tab), not the ID classifier;
   - qualified Lean tokens no longer fall back to last-segment match;
   - Lean/Evidence field text concatenates every matching field in
     source order (hash-seed independent);
   - this log renamed off the barred project name.
-- **Could not do**: ledger backfill remains unauthorized. Mixed-class
-  rows remain in `KNOWN_CLASS_OUTSIDE_VOCAB`.
+- **Could not do**: mixed-class rows remain in
+  `KNOWN_CLASS_OUTSIDE_VOCAB` until a backfill commit edits them.
 - **Open obligations added**: 0.
 - **Escalations added**: 0.
+
+## Iteration 5 — presence-only holes (no ledger edits)
+
+Mutation review of `47752ac`: empty fields, a lie that kept every key,
+and a tab heading all stayed green. Fixes:
+
+- ATX population accepts tab after `###`; a tab heading is classified
+  and then fails the census.
+- Required fields without a letter are missing. Lean/Axioms `--` remains
+  the none-sentinel.
+- Per-claim SHA-256 body pin in `tests/claim_ledger_body_pin.txt`.
+- Declaration index is theorem/lemma/def/constructor heads after
+  comment stripping; match-arms and `/ - -/` prose words are not names.
+- `Derivation.*` does not resolve. Module wildcards still do.
+- Injection tests reproduce the mutations. CLAUDE.md injection table
+  gained the corresponding rows.

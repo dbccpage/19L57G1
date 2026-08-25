@@ -1,24 +1,31 @@
 """Schema conformance for ``paper/paper_claim_ledger.md``.
 
 The ledger header declares required fields and a closed Class vocabulary.
-Until this file, nothing checked that entries obey either.  Evidence-token
-resolution is a different gate (``ci/check_ledger_evidence.py``); this
-module checks the record shape, Class membership, falsifier presence,
-Python-evidence presence, unique IDs, and that every named Lean theorem
-exists as a declaration in ``lean4/``.
+Evidence-token resolution is a different gate
+(``ci/check_ledger_evidence.py``).  This module checks record shape,
+closed Class membership, falsifier presence, Python-evidence presence,
+unique IDs, a frozen heading census, a frozen per-claim body pin, and
+that every named Lean theorem exists as a declaration head in ``lean4/``.
 
-Population and classification are independent.  Claim IDs come from
-``### CL-*`` headings and that regex never mentions field names.  Field
-presence is judged by a second pattern.  A heading the field parser cannot
-place still counts, so a malformed entry fails instead of vanishing.
+Population and classification are independent.  The heading *population*
+is CommonMark ATX h3 (``#{3}`` plus a space or tab, optional 0-3 leading
+spaces) and never mentions ``CL-``.  The classifier extracts the ID.
+A heading the classifier cannot place fails totality instead of vanishing
+from both sides.  A tab-separated ``###\\\\tCL-…`` is a heading.
+
+A field opener is not enough: Statement/Class/Falsifier/Deps/Assumptions
+with no letter are missing.  Lean ``--`` is the declared none-sentinel.
+Body pins catch a rewrite that keeps the field keys.
 
 KNOWN_* ratchets freeze HEAD gaps so the suite is green.  Tests require
-equality with the live gap sets: a new gap fails the "no extras" direction;
-an entry that no longer fails must be removed from the ratchet.
+equality with the live gap sets: a new gap fails; an entry that no
+longer fails must leave the set.  The body pin is a second equality
+ratchet over content, not over IDs.
 """
 
 from __future__ import annotations
 
+import hashlib
 import re
 import sys
 from dataclasses import dataclass
@@ -28,8 +35,12 @@ REPO = Path(__file__).resolve().parent.parent
 LEDGER = REPO / "paper" / "paper_claim_ledger.md"
 LEAN_ROOT = REPO / "lean4"
 AXIOMS = REPO / "artifacts" / "lean_axioms.txt"
+BODY_PIN = REPO / "tests" / "claim_ledger_body_pin.txt"
 
-HEADING = re.compile(r"^### (?P<id>CL-[A-Za-z0-9-]+)")
+# Population: CommonMark ATX h3.  Never mentions CL-.
+ATX_H3 = re.compile(r"^ {0,3}#{3}[ \t]+")
+# Classifier: extracts the ID.  Space and tab are both ATX separators.
+HEADING = re.compile(r"^ {0,3}#{3}[ \t]+(?P<id>CL-[A-Za-z0-9-]+)")
 # A field opener is a bold key followed by a colon.  The optional tail
 # between the closing ** and the colon absorbs parenthetical scopes
 # (``**Statement** (review-pass scope):``).
@@ -44,7 +55,11 @@ DECL = re.compile(
     r"(?:theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+"
     r"(?P<name>[A-Za-z_][A-Za-z0-9_.']*)"
 )
-CTOR = re.compile(r"^\s*\|\s*\.?(?P<name>[A-Za-z_][A-Za-z0-9_']*)")
+# Inductive constructors: ``| name :`` or ``| name (args``.  Match-arms
+# ``| name =>`` and ``| name x =>`` do not match.
+CTOR_HEAD = re.compile(
+    r"^\s*\|\s*\.?(?P<name>[A-Za-z_][A-Za-z0-9_']*)\s*(?::|\(|$)"
+)
 AXIOM_REPORT = re.compile(
     r"^Derivation\.lean:\d+:\d+: '(?P<name>.+?)' "
     r"(?:depends on axioms: \[[^\]]*\]|does not depend on any axioms)"
@@ -122,6 +137,11 @@ VACUOUS_PYTHON = re.compile(
     re.I,
 )
 
+# A field with no letter is an empty slot, not content.  Lean/Axioms
+# may use the declared none-sentinel ``--``.
+LEAN_NONE = "--"
+ROOT_WILDCARD_PREFIXES = frozenset({"Derivation.", "Derivation_"})
+
 
 def _norm_body(text: str) -> str:
     text = re.sub(r"\s+", " ", text).strip()
@@ -193,6 +213,10 @@ def load_ledger() -> list[Claim]:
     return parse_claims(LEDGER.read_text(encoding="utf-8"))
 
 
+def _has_letter(text: str) -> bool:
+    return re.search(r"[A-Za-z]", text) is not None
+
+
 def has_field(claim: Claim, keys: frozenset[str]) -> bool:
     if any(kind in keys for kind, _value in claim.field_list):
         return True
@@ -215,7 +239,20 @@ def field_text(claim: Claim, keys: frozenset[str]) -> str:
 
 
 def missing_required(claim: Claim, keys: frozenset[str]) -> bool:
-    return not has_field(claim, keys)
+    if not has_field(claim, keys):
+        return True
+    body = field_text(claim, keys)
+    if _has_letter(body):
+        return False
+    if keys & LEAN_KEYS or keys & AXIOM_KEYS:
+        if _norm_body(body).rstrip(".") == LEAN_NONE:
+            return False
+    if "Statement" in keys and "**Statement" in claim.body:
+        after = claim.body.split("**Statement", 1)[1]
+        stop = re.search(r"\n- \*\*", after)
+        chunk = after if stop is None else after[: stop.start()]
+        return not _has_letter(chunk)
+    return True
 
 
 def class_value(claim: Claim) -> str | None:
@@ -235,7 +272,7 @@ def python_is_vacuous(claim: Claim) -> bool:
 def falsifier_is_missing(claim: Claim) -> bool:
     if not has_field(claim, FALSIFIER_KEYS):
         return True
-    return _norm_body(field_text(claim, FALSIFIER_KEYS)) == ""
+    return not _has_letter(field_text(claim, FALSIFIER_KEYS))
 
 
 def lean_names_in(claim: Claim) -> list[str]:
@@ -260,36 +297,80 @@ def lean_names_in(claim: Claim) -> list[str]:
     return names
 
 
-def load_lean_decls() -> tuple[frozenset[str], frozenset[str]]:
-    """Return (last-segment names, file- and namespace-qualified names)."""
+def strip_lean_comments(src: str) -> str:
+    """Drop nested ``/- -/`` blocks and ``--`` line comments."""
+    out: list[str] = []
+    i = 0
+    n = len(src)
+    depth = 0
+    while i < n:
+        if depth == 0 and src.startswith("/-", i):
+            depth = 1
+            i += 2
+            continue
+        if depth > 0:
+            if src.startswith("/-", i):
+                depth += 1
+                i += 2
+                continue
+            if src.startswith("-/", i):
+                depth -= 1
+                i += 2
+                out.append(" ")
+                continue
+            i += 1
+            continue
+        if src.startswith("--", i):
+            while i < n and src[i] != "\n":
+                i += 1
+            continue
+        out.append(src[i])
+        i += 1
+    return "".join(out)
+
+
+def index_lean_source(src: str, stem: str, rel: str) -> tuple[set[str], set[str]]:
+    """Index declaration heads only.  Match-arms and comment words are not names."""
     last: set[str] = set()
     qualified: set[str] = set()
     ns_open = re.compile(r"^namespace\s+([A-Za-z_][A-Za-z0-9_.]*)")
     ns_end = re.compile(r"^end\s+([A-Za-z_][A-Za-z0-9_.]*)")
+    stack: list[str] = []
+    for line in strip_lean_comments(src).splitlines():
+        opened = ns_open.match(line)
+        if opened:
+            stack.append(opened.group(1))
+            continue
+        closed = ns_end.match(line)
+        if closed and stack and stack[-1] == closed.group(1):
+            stack.pop()
+            continue
+        m = DECL.match(line) or CTOR_HEAD.match(line)
+        if not m:
+            continue
+        name = m.group("name")
+        short = name.split(".")[-1]
+        last.add(short)
+        qualified.add(name)
+        qualified.add(f"{stem}.{short}")
+        qualified.add(f"{rel}.{short}")
+        if stack:
+            qualified.add(".".join([*stack, short]))
+    return last, qualified
+
+
+def load_lean_decls() -> tuple[frozenset[str], frozenset[str]]:
+    """Return (last-segment names, file- and namespace-qualified names)."""
+    last: set[str] = set()
+    qualified: set[str] = set()
     for path in sorted(LEAN_ROOT.rglob("*.lean")):
-        stack: list[str] = []
         stem = path.stem
         rel = ".".join(path.relative_to(LEAN_ROOT).with_suffix("").parts)
-        for line in path.read_text(encoding="utf-8").splitlines():
-            opened = ns_open.match(line)
-            if opened:
-                stack.append(opened.group(1))
-                continue
-            closed = ns_end.match(line)
-            if closed and stack and stack[-1] == closed.group(1):
-                stack.pop()
-                continue
-            m = DECL.match(line) or CTOR.match(line)
-            if not m:
-                continue
-            name = m.group("name")
-            short = name.split(".")[-1]
-            last.add(short)
-            qualified.add(name)
-            qualified.add(f"{stem}.{short}")
-            qualified.add(f"{rel}.{short}")
-            if stack:
-                qualified.add(".".join([*stack, short]))
+        file_last, file_qual = index_lean_source(
+            path.read_text(encoding="utf-8"), stem, rel
+        )
+        last |= file_last
+        qualified |= file_qual
     if AXIOMS.exists():
         for line in AXIOMS.read_text(encoding="utf-8").splitlines():
             reported = AXIOM_REPORT.match(line)
@@ -303,6 +384,8 @@ def lean_name_resolves(
 ) -> bool:
     if name.endswith(".*") or name.endswith("_*"):
         prefix = name[:-1]
+        if prefix in ROOT_WILDCARD_PREFIXES:
+            return False
         return any(
             q == prefix or q.startswith(prefix) or ("." + prefix) in q
             for q in qualified
@@ -310,6 +393,27 @@ def lean_name_resolves(
     if "." in name:
         return name in qualified
     return name in last
+
+
+def claim_fingerprint(claim: Claim) -> str:
+    return hashlib.sha256(claim.body.encode("utf-8")).hexdigest()
+
+
+def load_body_pin() -> dict[str, str]:
+    pin: dict[str, str] = {}
+    if not BODY_PIN.exists():
+        return pin
+    for line in BODY_PIN.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        cid, digest = line.split(" ", 1)
+        pin[cid] = digest
+    return pin
+
+
+def render_body_pin(claims: list[Claim]) -> str:
+    rows = [f"{c.claim_id} {claim_fingerprint(c)}" for c in claims]
+    return "\n".join(rows) + "\n"
 
 
 # ---------------------------------------------------------------------------
@@ -1020,8 +1124,8 @@ def test_claim_ids_are_unique() -> None:
 
 
 def hash_heading_lines(text: str) -> list[str]:
-    """Population: every ``### `` line.  This pattern never mentions CL-."""
-    return [ln for ln in text.splitlines() if ln.startswith("### ")]
+    """Population: every CommonMark ATX h3.  This pattern never mentions CL-."""
+    return [ln for ln in text.splitlines() if ATX_H3.match(ln)]
 
 
 def test_heading_population_is_total() -> None:
@@ -1109,6 +1213,19 @@ def test_python_evidence_present_and_nonvacuous() -> None:
     )
 
 
+def test_claim_bodies_match_frozen_pin() -> None:
+    claims = load_ledger()
+    pin = load_body_pin()
+    assert pin, "body pin is empty — the pin file is missing or unread"
+    live = {c.claim_id: claim_fingerprint(c) for c in claims}
+    extra = sorted(set(live) - set(pin))
+    missing = sorted(set(pin) - set(live))
+    changed = sorted(cid for cid in live.keys() & pin.keys() if live[cid] != pin[cid])
+    assert extra == [], f"unpinned claim bodies: {extra}"
+    assert missing == [], f"pinned claim IDs missing from the ledger: {missing}"
+    assert changed == [], f"claim body changed: {changed}"
+
+
 def test_lean_names_resolve_in_sources() -> None:
     claims = load_ledger()
     last, qualified = load_lean_decls()
@@ -1185,6 +1302,92 @@ def test_field_text_aggregates_every_matching_field_in_source_order() -> None:
     assert lean_names_in(lean_then_evidence) == ["beta_two", "alpha_one"]
 
 
+def test_match_arm_and_comment_words_are_not_declarations() -> None:
+    src = (
+        "/- that worth of carrying -/\n"
+        "inductive Item where\n"
+        "  | newRuleAll (form : Nat)\n"
+        "  | admitTok (tok : Nat)\n"
+        "theorem realName : True := by\n"
+        "  cases x with\n"
+        "  | exact => trivial\n"
+        "  | inl => trivial\n"
+        "  | admitTok t => trivial\n"
+        "-- some step four n _\n"
+    )
+    last, qualified = index_lean_source(src, "Mod", "Derivation.Mod")
+    assert "realName" in last
+    assert "newRuleAll" in last
+    assert "admitTok" in last
+    for noise in ("exact", "cases", "inl", "some", "step", "four", "x", "n", "_",
+                  "that", "worth", "of", "carrying"):
+        assert noise not in last, noise
+    assert "Mod.realName" in qualified
+
+
+def test_root_namespace_wildcard_does_not_resolve() -> None:
+    last, qualified = load_lean_decls()
+    assert not lean_name_resolves("Derivation.*", last, qualified)
+    assert lean_name_resolves("PresentationRelativity.*", last, qualified)
+
+
+def test_injection_tab_heading_is_not_invisible() -> None:
+    text = LEDGER.read_text(encoding="utf-8")
+    if not text.endswith("\n"):
+        text += "\n"
+    text += "###\tCL-ZZZ-SMUGGLED\n- **Statement**: smuggled.\n"
+    atx = hash_heading_lines(text)
+    ids = [m.group("id") for ln in atx if (m := HEADING.match(ln))]
+    assert "CL-ZZZ-SMUGGLED" in ids
+    unclassified = [ln for ln in atx if HEADING.match(ln) is None]
+    assert unclassified == []
+    assert tuple(ids) != KNOWN_CLAIM_IDS
+
+
+def test_injection_empty_fields_are_missing_not_present() -> None:
+    c = _mini(
+        "- **Statement**: .\n"
+        "- **Class**: .\n"
+        "- **Deps**: .\n"
+        "- **Assumptions**: .\n"
+        "- **Lean**: .\n"
+        "- **Axioms**: .\n"
+        "- **Falsifier / boundary**: .\n"
+    )
+    assert missing_required(c, STATEMENT_KEYS)
+    assert missing_required(c, CLASS_KEYS)
+    assert missing_required(c, DEPS_KEYS)
+    assert missing_required(c, ASSUMPTIONS_KEYS)
+    assert missing_required(c, LEAN_KEYS)
+    assert missing_required(c, AXIOM_KEYS)
+    assert falsifier_is_missing(c)
+    assert lean_names_in(c) == []
+
+
+def test_injection_rewritten_inertia_body_breaks_the_pin() -> None:
+    original = load_ledger()
+    inertia = next(c for c in original if c.claim_id == "CL-0-INERTIA")
+    lied = Claim(
+        claim_id=inertia.claim_id,
+        heading_line=inertia.heading_line,
+        body=(
+            "### CL-0-INERTIA\n"
+            "- **Statement**: P = NP, and every claim in this ledger is a "
+            "verified fact.\n"
+            "- **Class**: theorem.\n"
+            "- **Deps**: none. **Assumptions**: shared only.\n"
+            "- **Python**: `challenges.json:challenge0`.\n"
+            "- **Lean**: `supply_no_op`.\n"
+            "- **Axioms**: `propext`.\n"
+            "- **Falsifier / boundary**: nothing could refute this.\n"
+        ),
+        field_list=inertia.field_list,
+    )
+    pin = load_body_pin()
+    assert pin.get("CL-0-INERTIA") == claim_fingerprint(inertia)
+    assert claim_fingerprint(lied) != pin["CL-0-INERTIA"]
+
+
 def test_parser_vacuous_python_counts_as_absent() -> None:
     present = _mini("- **Python**: `claims.json:CL-X`.\n")
     vacant = _mini("- **Python**: n/a (purely logical).\n")
@@ -1217,6 +1420,10 @@ def dump_ratchets() -> None:
     payload["KNOWN_UNRESOLVED_LEAN"] = [list(p) for p in sorted(unresolved)]
     payload["KNOWN_CLAIM_IDS"] = [c.claim_id for c in claims]
     payload["claim_count"] = len(claims)
+    if "--write-pin" in sys.argv:
+        BODY_PIN.write_text(render_body_pin(claims), encoding="utf-8", newline="\n")
+        payload["body_pin_path"] = str(BODY_PIN)
+        payload["body_pin_rows"] = len(claims)
     print(json.dumps(payload, indent=2))
     print("class values outside:", file=sys.stderr)
     for c in claims:
