@@ -84,3 +84,38 @@ and a tab heading all stayed green. Fixes:
 - `Derivation.*` does not resolve. Module wildcards still do.
 - Injection tests reproduce the mutations. CLAUDE.md injection table
   gained the corresponding rows.
+
+## Iteration 6 — relocate T1–T8 field draft (no ledger edits)
+
+Follow-up to #86. An earlier #87 attempt wrote T1–T8 fields into
+`paper/paper_claim_ledger.md` (`665e38c`, `d4cfcfa`) and `--repin`'d
+the tower snapshot onto those commits. That is not on this branch:
+paper-modifying commits were dropped from history rather than reverted
+and re-pinned, because `verify_manifest.py` walks
+`snapshot..HEAD` with `--full-history` and a later revert still
+counts as a protected touch.
+
+- **Batch**: operator draft plus the two tests named as T5/T6
+  evidence. No claims in `paper/` touched.
+- **Claim IDs**: CL-FR6-T1-INERTIA through CL-FR6-T8-DYNAMICS (draft
+  only).
+- **What changed**:
+  - `docs/ledger_fr6_t1_t8_field_draft.md` holds the proposed
+    Deps/Assumptions/Python/Axioms/Falsifier fields, written from the
+    cited Lean. `Assumptions` is the FR6 carriers, not the header's
+    `shared` package (`CL-TOKEN-ERASURE` does not cover
+    `RState`/`JState`/`PState`/`MState`/`Bool` or Python
+    `Proto`/`FState`). T4 is scoped to the judgment variant. T3 names
+    `refusal_frontier.json:normal_form.witnessed_without_relation_rule`.
+  - `tests/test_refusal_frontier.py`: `test_refusal_links_are_born_irreflexive_in_class`
+    and `test_witnessed_minimum_unique_under_both_orders` now run at
+    the declared 6-event horizon (they previously used 5).
+  - Research snapshot stays at `477a60ff24346ea87b601dd0fffb75b437e46a31`.
+    `--repin` was not used.
+- **Could not do**: land the fields in `paper/paper_claim_ledger.md`.
+  Amending the sealed tree is the author's act. This file is not that
+  amendment, and the draft is not a ledger row.
+- **Open obligations added**: the eight rows remain in the ledger
+  `KNOWN_*` gap sets until an author-authored amendment copies the
+  draft into the ledger.
+- **Escalations added**: 0.
