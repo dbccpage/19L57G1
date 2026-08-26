@@ -334,8 +334,10 @@
  ],
  "prompt_sha256_canonical": {
   "prompt/prompt.md": "a613a1965e4f02fee00df4d42041fceeca176abcfaa9202c3e769021305940b5",
+  "prompt/seed_prompt.md": "4ea4682e1da25363f9c7c1e9234b4b248f980097ae92d6f7dc1e8e8dd9bd4388"
+ },
+ "retired_prompt_sha256_canonical": {
   "prompt/prompt_pr12.md": "fc1625a46ca19be4d479b8e407f82cc0d8ba26beb8647437f6895486e67d7403",
-  "prompt/seed_prompt.md": "4ea4682e1da25363f9c7c1e9234b4b248f980097ae92d6f7dc1e8e8dd9bd4388",
   "prompt/ultra_prompt_pr12.md": "f73e6c8e7e7d6a826340df0043a567789cf52ec14a89247d430d0f096302fa7a"
  },
  "run": "PR #12 \u2014 Primitive Difference contact and passage",

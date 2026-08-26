@@ -75,10 +75,14 @@ def receipt() -> dict[str, Json]:
                 canonical_sha256(REPO / "prompt/prompt.md"),
             "prompt/seed_prompt.md":
                 canonical_sha256(REPO / "prompt/seed_prompt.md"),
+        },
+        "retired_prompt_sha256_canonical": {
             "prompt/prompt_pr12.md":
-                canonical_sha256(REPO / "prompt/prompt_pr12.md"),
+                "fc1625a46ca19be4d479b8e407f82cc0"
+                "d8ba26beb8647437f6895486e67d7403",
             "prompt/ultra_prompt_pr12.md":
-                canonical_sha256(REPO / "prompt/ultra_prompt_pr12.md"),
+                "f73e6c8e7e7d6a826340df0043a56778"
+                "9cf52ec14a89247d430d0f096302fa7a",
         },
         "seed_prompt_original_supplied_sha256":
             "ee3ba0583fea2a11f129"
