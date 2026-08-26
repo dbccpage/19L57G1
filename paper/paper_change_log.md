@@ -2309,6 +2309,11 @@ horizon-free theorem over an exact declared class.
    module/kind/role records, pinned by an exact-surface test. Ordered
    regeneration updated the completion graph and both axiom-dependent
    receipts; no `UNRESOLVED` record remains.
+10. The next full run exposed the independent claim-schema boundary. All
+    eight new claim IDs now carry explicit dependencies, assumptions,
+    closed-vocabulary classes, Python/Lean/axiom fields, and falsifiers. The
+    frozen heading census and generated body pin were deliberately extended
+    to 135 entries; no new omission was added to a legacy-gap ratchet.
 
 Terminals: LOCAL_STRATEGY_CLASS_DEFINED /
 FIVE_STRATEGIES_CLASSIFIED / T5_PROFILE_CORRESPONDENCE_PROVED /

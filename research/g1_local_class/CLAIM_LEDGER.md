@@ -184,6 +184,14 @@ records. The expanded axiom bytes required ordered regeneration of
 `primitive_completion_receipt.json`; the all-runner comparison named exactly
 those three before regeneration.
 
+The subsequent full suite exposed the ledger's independent schema gate: all
+eight new `CL-G1-*` entries were unpinned and lacked required explicit fields.
+The repair did not add them to any legacy-gap ratchet. Instead every entry now
+states dependencies and assumptions, uses the closed Class vocabulary, and
+has nonvacuous Python, Lean, axiom, and falsifier fields as applicable. The
+heading census and generated claim-body pin were extended to 135 entries.
+All 26 conformance tests then passed.
+
 ## OPEN
 
 - OB-1 / CL-CLOSURE-POLICY remains OPEN outside the declared
