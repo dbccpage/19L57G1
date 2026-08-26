@@ -43,11 +43,20 @@ def test_receipt_binds_everything() -> None:
     assert str(hist[1]).startswith("CONTACT_PROCESSED_LEAN_ONLY")
     prompts = r["prompt_sha256_canonical"]
     assert isinstance(prompts, dict)
-    assert len(prompts) == 4
+    assert len(prompts) == 2
     assert all(len(str(v)) == 64 for v in prompts.values())
     # declared canonical values for the current tracked inputs
     assert prompts["prompt/prompt.md"] == PROMPT_MD_CANONICAL
     assert prompts["prompt/seed_prompt.md"] == SEED_CANONICAL
+    retired = r["retired_prompt_sha256_canonical"]
+    assert retired == {
+        "prompt/prompt_pr12.md":
+            "fc1625a46ca19be4d479b8e407f82cc0"
+            "d8ba26beb8647437f6895486e67d7403",
+        "prompt/ultra_prompt_pr12.md":
+            "f73e6c8e7e7d6a826340df0043a56778"
+            "9cf52ec14a89247d430d0f096302fa7a",
+    }
     # provenance: the original supplied rendering, recorded alongside
     assert r["seed_prompt_original_supplied_sha256"] == \
         SEED_ORIGINAL_SUPPLIED
@@ -155,9 +164,7 @@ def test_current_inputs_match_git_blobs() -> None:
     canonicalization agrees with the Git blob at HEAD."""
     if shutil.which("git") is None:
         pytest.skip("git unavailable")
-    for rel in ["prompt/prompt.md", "prompt/seed_prompt.md",
-                "prompt/prompt_pr12.md",
-                "prompt/ultra_prompt_pr12.md"]:
+    for rel in ["prompt/prompt.md", "prompt/seed_prompt.md"]:
         proc = subprocess.run(
             ["git", "show", f"HEAD:{rel}"],
             capture_output=True, cwd=REPO)
@@ -165,6 +172,8 @@ def test_current_inputs_match_git_blobs() -> None:
             pytest.skip(f"{rel} not in HEAD yet")
         blob_hash = hashlib.sha256(proc.stdout).hexdigest()
         assert canonical_sha256(REPO / rel) == blob_hash, rel
+    assert not (REPO / "prompt/prompt_pr12.md").exists()
+    assert not (REPO / "prompt/ultra_prompt_pr12.md").exists()
 
 
 def test_mutation_detected(tmp_path: Path) -> None:
