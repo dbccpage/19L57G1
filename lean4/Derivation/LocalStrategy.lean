@@ -51,9 +51,14 @@ structure BaseObstructed (n i j : Nat) : Prop where
 def Fires {d : Nat} (_S : LocalStrategy d) : Prop :=
   ∃ n0, ∀ n, n0 ≤ n → ∃ i j, BaseObstructed n i j
 
-/-- The proposed repair view separates every inherited obstructed pair. -/
+/-- The proposed repair view separates every inherited obstructed pair
+at one chain length. -/
+def ClearsOn {d : Nat} (S : LocalStrategy d) (n : Nat) : Prop :=
+  ∀ i j, BaseObstructed n i j → S.view n i ≠ S.view n j
+
+/-- The proposed repair view clears at every chain length. -/
 def Clears {d : Nat} (S : LocalStrategy d) : Prop :=
-  ∀ n i j, BaseObstructed n i j → S.view n i ≠ S.view n j
+  ∀ n, ClearsOn S n
 
 /-- The repair view separates every distinct carrier pair. -/
 def IdentityGrade {d : Nat} (S : LocalStrategy d) : Prop :=
@@ -67,9 +72,8 @@ def OneTimeIdentity {d : Nat} (S : LocalStrategy d) : Prop :=
 theorem fires_every_strategy {d : Nat} (S : LocalStrategy d) : Fires S := by
   refine ⟨3, ?_⟩
   intro n hn
-  refine ⟨1, 2, ⟨by omega, by omega, by omega, ?_⟩⟩
-  rw [middle_profile n 1 (by omega) (by omega),
-      middle_profile n 2 (by omega) (by omega)]
+  have hgenerated := generation_never_dries n hn
+  exact ⟨1, 2, ⟨by omega, by omega, hgenerated.1, hgenerated.2⟩⟩
 
 theorem identityGrade_implies_clears {d : Nat} {S : LocalStrategy d}
     (h : IdentityGrade S) : Clears S := by
@@ -182,6 +186,20 @@ theorem depthTwo_finite : FiniteDeclaration 8 depthTwo := by
   intro n i
   exact profileCode_lt_eight _
 
+/-- The depth-two member really clears one nontrivial finite chain; the
+class is not populated only by failures. -/
+theorem depthTwo_clears_n4 : ClearsOn depthTwo 4 := by
+  intro i j hij
+  rcases hij with ⟨hi, hj, hne, hprofile⟩
+  have hinterior :=
+    (depth1_obstructions_are_exactly_middle_pairs 4 i j
+      (by omega) hi hj hne).mp hprofile
+  have hiCases : i = 1 ∨ i = 2 ∨ i = 3 := by omega
+  have hjCases : j = 1 ∨ j = 2 ∨ j = 3 := by omega
+  rcases hiCases with (rfl | rfl | rfl) <;>
+    rcases hjCases with (rfl | rfl | rfl) <;>
+      first | contradiction | decide
+
 theorem perPair_recurring : RecurringImport perPairFreshMark := rfl
 
 theorem perPair_identityGrade : IdentityGrade perPairFreshMark := by
@@ -205,6 +223,11 @@ theorem valued_not_finite (k : Nat) : ¬ FiniteDeclaration k valued := by
 
 theorem valued_clears : Clears valued :=
   identityGrade_implies_clears valued_oneTimeIdentity.2
+
+theorem class_nonvacuity :
+    Fires bare ∧ ClearsOn depthTwo 4 ∧ IdentityGrade valued :=
+  ⟨fires_every_strategy bare, depthTwo_clears_n4,
+   valued_oneTimeIdentity.2⟩
 
 theorem bare_not_identityGrade : ¬ IdentityGrade bare := by
   intro h

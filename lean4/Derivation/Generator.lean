@@ -278,8 +278,8 @@ def profile2 (s : PState) (i : Nat) :
     (Bool × Bool × Bool) × List (Bool × Bool × Bool) ×
       List (Bool × Bool × Bool) :=
   (profile1 s i,
-   (s.rel.filter (fun p => p.2 == i)).map (fun p => profile1 s p.1),
-   (s.rel.filter (fun p => p.1 == i)).map (fun p => profile1 s p.2))
+   (s.rel.filter (fun p => decide (p.2 = i))).map (fun p => profile1 s p.1),
+   (s.rel.filter (fun p => decide (p.1 = i))).map (fun p => profile1 s p.2))
 
 /-- Depth 2 separates the pair (1, 3) that depth 1 could not: their
 neighbours' profiles differ.  Raising the regime is a genuine local

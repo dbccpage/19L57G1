@@ -39,48 +39,44 @@ open Generator RefusalFrontier
 
 /-! ## List lemmas for the sealed successor relation -/
 
-theorem filter_range_succ_eq (n i : Nat) (hpos : 0 < i) (hle : i ≤ n) :
-    (List.range n).filter (fun k => k + 1 == i) = [i - 1] := by
+theorem filter_range_decide_eq (n i : Nat) :
+    (List.range n).filter (fun k => decide (k = i)) =
+      if i < n then [i] else [] := by
   induction n with
-  | zero => omega
+  | zero => simp
   | succ n ih =>
-      rw [List.range_succ, List.filter_append]
-      by_cases hi : i = n + 1
+      rw [List.range_succ, List.filter_append, ih]
+      rcases Nat.lt_trichotomy i n with hlt | heq | hgt
+      · have hne : ¬n = i := by omega
+        have hout : i < n + 1 := by omega
+        simp [hlt, hne, hout]
       · subst i
-        have hnil :
-            (List.range n).filter (fun k => k + 1 == n + 1) = [] := by
-          rw [List.filter_eq_nil_iff]
-          intro a ha htrue
-          have halt := List.mem_range.mp ha
-          simp only [beq_iff_eq] at htrue
-          omega
-        rw [hnil]
-        simp
-      · have hle' : i ≤ n := by omega
-        rw [ih hle']
-        have hne : ¬n + 1 = i := by omega
-        simp [hne]
+        have hnot : ¬n < n := Nat.lt_irrefl n
+        have hout : n < n + 1 := by omega
+        simp [hnot, hout]
+      · have hnot : ¬i < n := by omega
+        have hne : ¬n = i := by omega
+        have hout : ¬i < n + 1 := by omega
+        simp [hnot, hne, hout]
+
+theorem filter_range_succ_eq (n i : Nat) (hpos : 0 < i) (hle : i ≤ n) :
+    (List.range n).filter (fun k => decide (k + 1 = i)) = [i - 1] := by
+  have hpred : (fun k => decide (k + 1 = i)) =
+      (fun k => decide (k = i - 1)) := by
+    funext k
+    by_cases h : k + 1 = i
+    · have h' : k = i - 1 := by omega
+      have hrestore : i - 1 + 1 = i := Nat.sub_add_cancel (by omega)
+      simp [h', hrestore]
+    · have h' : ¬k = i - 1 := by omega
+      simp [h, h']
+  rw [hpred, filter_range_decide_eq]
+  simp [show i - 1 < n by omega]
 
 theorem filter_range_eq (n i : Nat) (hlt : i < n) :
-    (List.range n).filter (fun k => k == i) = [i] := by
-  induction n with
-  | zero => omega
-  | succ n ih =>
-      rw [List.range_succ, List.filter_append]
-      by_cases hi : i = n
-      · subst i
-        have hnil : (List.range n).filter (fun k => k == n) = [] := by
-          rw [List.filter_eq_nil_iff]
-          intro a ha htrue
-          have halt := List.mem_range.mp ha
-          simp only [beq_iff_eq] at htrue
-          omega
-        rw [hnil]
-        simp
-      · have hlt' : i < n := by omega
-        rw [ih hlt']
-        have hne : ¬n = i := by omega
-        simp [hne]
+    (List.range n).filter (fun k => decide (k = i)) = [i] := by
+  rw [filter_range_decide_eq]
+  simp [hlt]
 
 /-- Ordered radius-`d` ball around `i`: `[i-d, …, i+d]`.  Unclipped;
 on the deep interior no clipping occurs, which is the content of
@@ -145,18 +141,18 @@ shapes and then the equality correspondence for arbitrary `n`.
 -/
 
 theorem incoming_edges_interior (n i : Nat) (hpos : 0 < i) (hle : i ≤ n) :
-    (reflState n).rel.filter (fun p => p.2 == i) = [(i - 1, i)] := by
+    (reflState n).rel.filter (fun p => decide (p.2 = i)) = [(i - 1, i)] := by
   rw [reflective_chain_successor_relation, List.filter_map]
   change List.map (fun k => (k, k + 1))
-    ((List.range n).filter (fun k => k + 1 == i)) = [(i - 1, i)]
+    ((List.range n).filter (fun k => decide (k + 1 = i))) = [(i - 1, i)]
   rw [filter_range_succ_eq n i hpos hle]
   simp [Nat.sub_add_cancel hpos]
 
 theorem outgoing_edges_interior (n i : Nat) (hlt : i < n) :
-    (reflState n).rel.filter (fun p => p.1 == i) = [(i, i + 1)] := by
+    (reflState n).rel.filter (fun p => decide (p.1 = i)) = [(i, i + 1)] := by
   rw [reflective_chain_successor_relation, List.filter_map]
   change List.map (fun k => (k, k + 1))
-    ((List.range n).filter (fun k => k == i)) = [(i, i + 1)]
+    ((List.range n).filter (fun k => decide (k = i))) = [(i, i + 1)]
   rw [filter_range_eq n i hlt]
   rfl
 
@@ -209,17 +205,9 @@ theorem radius_one_agrees_with_sealed_depth2_n5 :
       ∧ profileD 5 2 1 = profileD 5 3 1 ∧ (2 : Nat) ≠ 3 :=
   have corr : ∀ i ∈ [1, 2, 3, 4], ∀ j ∈ [1, 2, 3, 4],
       (profile2 (reflState 5) i = profile2 (reflState 5) j ↔
-        profileD 5 i 1 = profileD 5 j 1) := by
-    intro i hi j hj
-    have hib : 0 < i ∧ i < 5 := by
-      simp at hi
-      rcases hi with (rfl | rfl | rfl | rfl) <;> omega
-    have hjb : 0 < j ∧ j < 5 := by
-      simp at hj
-      rcases hj with (rfl | rfl | rfl | rfl) <;> omega
-    exact radius_one_agrees_with_sealed_depth2 5 i j hib.1 hib.2 hjb.1 hjb.2
+        profileD 5 i 1 = profileD 5 j 1) := by decide
   ⟨corr,
-   (corr 2 (by simp) 3 (by simp)).mp depth2_obstruction_n5.1,
+   (corr 2 (by decide) 3 (by decide)).mp depth2_obstruction_n5.1,
    depth2_obstruction_n5.2⟩
 
 /-- **The `n = 4` correspondence, and the sealed separation carried
@@ -241,18 +229,10 @@ theorem radius_one_agrees_with_sealed_depth2_n4 :
       ∧ ∀ i, 1 < i → i + 1 < 4 → i = 2 :=
   have corr : ∀ i ∈ [1, 2, 3], ∀ j ∈ [1, 2, 3],
       (profile2 (reflState 4) i = profile2 (reflState 4) j ↔
-        profileD 4 i 1 = profileD 4 j 1) := by
-    intro i hi j hj
-    have hib : 0 < i ∧ i < 4 := by
-      simp at hi
-      rcases hi with (rfl | rfl | rfl) <;> omega
-    have hjb : 0 < j ∧ j < 4 := by
-      simp at hj
-      rcases hj with (rfl | rfl | rfl) <;> omega
-    exact radius_one_agrees_with_sealed_depth2 4 i j hib.1 hib.2 hjb.1 hjb.2
+        profileD 4 i 1 = profileD 4 j 1) := by decide
   ⟨corr,
    fun h => depth2_separates_near_ends_n4
-     ((corr 1 (by simp) 3 (by simp)).mpr h),
+     ((corr 1 (by decide) 3 (by decide)).mpr h),
    fun i h0 h1 => by omega⟩
 
 end SeparationCapacity

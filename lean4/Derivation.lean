@@ -49,6 +49,7 @@ import Derivation.ContactKernel
 import Derivation.PresentationNaturality
 import Derivation.Pigeonhole
 import Derivation.CapacityBound
+import Derivation.G1Class
 import Derivation.PresentationRelativity
 import Derivation.ClosureSymmetry
 import Derivation.ResidualClosure
@@ -1294,6 +1295,14 @@ open Derivation
 #print axioms SeparationCapacity.profileD_deep
 #print axioms SeparationCapacity.depth_d_outrun
 #print axioms SeparationCapacity.depth_d_obstruction
+#print axioms SeparationCapacity.filter_range_decide_eq
+#print axioms SeparationCapacity.filter_range_succ_eq
+#print axioms SeparationCapacity.filter_range_eq
+#print axioms SeparationCapacity.incoming_edges_interior
+#print axioms SeparationCapacity.outgoing_edges_interior
+#print axioms SeparationCapacity.profile2_interior
+#print axioms SeparationCapacity.profileD_radius_one
+#print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2
 #print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n5
 #print axioms SeparationCapacity.radius_one_agrees_with_sealed_depth2_n4
 
@@ -1345,6 +1354,34 @@ open Derivation
 #print axioms CapacityBound.capacity_bound
 #print axioms CapacityBound.capacity_at_one_colour
 #print axioms CapacityBound.local_view_can_separate
+
+-- Local finite-alphabet strategy class and G1 class exclusion
+#print axioms LocalFiniteAlphabet.profileCode_lt_eight
+#print axioms LocalFiniteAlphabet.fires_every_strategy
+#print axioms LocalFiniteAlphabet.identityGrade_implies_clears
+#print axioms LocalFiniteAlphabet.strategy_capacity_collision
+#print axioms LocalFiniteAlphabet.finite_local_not_clears
+#print axioms LocalFiniteAlphabet.finite_local_not_identityGrade
+#print axioms LocalFiniteAlphabet.g1_local_finite_alphabet_class
+#print axioms LocalFiniteAlphabet.bare_finite
+#print axioms LocalFiniteAlphabet.presence_finite
+#print axioms LocalFiniteAlphabet.presence_eq_bare
+#print axioms LocalFiniteAlphabet.depthTwo_finite
+#print axioms LocalFiniteAlphabet.depthTwo_clears_n4
+#print axioms LocalFiniteAlphabet.perPair_recurring
+#print axioms LocalFiniteAlphabet.perPair_identityGrade
+#print axioms LocalFiniteAlphabet.perPair_not_finite
+#print axioms LocalFiniteAlphabet.valued_oneTimeIdentity
+#print axioms LocalFiniteAlphabet.valued_not_finite
+#print axioms LocalFiniteAlphabet.valued_clears
+#print axioms LocalFiniteAlphabet.class_nonvacuity
+#print axioms LocalFiniteAlphabet.bare_not_identityGrade
+#print axioms LocalFiniteAlphabet.bare_classification
+#print axioms LocalFiniteAlphabet.presence_classification
+#print axioms LocalFiniteAlphabet.depthTwo_classification
+#print axioms G1Class.local_strategy_cycle_impossible
+#print axioms G1Class.g1_class_exclusion
+#print axioms G1Class.clears_does_not_imply_not_fires
 
 -- Presentation-relative identity and comparison-forced refinement
 #print axioms PresentationRelativity.presentationIdentity_iff_fiberIdentity
