@@ -84,13 +84,17 @@ depends on the radius and the alphabet and not on `n`. That is what
 makes the statement a capacity bound rather than the ordinary global
 pigeonhole §4 warns about.
 
-Exactly two residuals remain OPEN:
-
-- the general-`n` radius correspondence: §1 records the two sealed
-  instances that ARE transported, but nothing in this repository
-  relates `Generator.profile2` to `profileD · · 1` for arbitrary `n`;
-- a `LocalStrategy` / repair-strategy-class exclusion derived from the
-  capacity theorem.
+The following former residual statement is WITHDRAWN as of 2026-08-26:
+"Exactly two residuals remain OPEN: the general-`n` radius
+correspondence, and a `LocalStrategy` / repair-strategy-class exclusion
+derived from the capacity theorem." Both are now closed in their exact
+declared scopes. `radius_one_agrees_with_sealed_depth2` proves the first
+for arbitrary interior indices and chain length.
+`LocalFiniteAlphabet.strategy_capacity_collision` applies
+`CapacityBound.capacity_bound` to every member of the explicitly
+declared class, and `G1Class.g1_class_exclusion` proves the class-relative
+cycle exclusion. The latter does not quantify over every possible repair
+channel and leaves OB-1 unchanged.
 
 Identity-grade observation, absolute interior, and "no outside" are
 outside this investigation's statement language. This document makes no
@@ -240,8 +244,10 @@ becomes inert, and the statement degenerates to §4's warning.
 - `colour` is an arbitrary bounded colouring. Nothing is claimed about
   the sealed `Generator.profile2` colouring in particular, and nothing
   here relates the two.
-- The general-`n` correspondence and a repair-strategy-class consequence
-  remain the two OPEN residuals recorded in §2.
+- The former sentence saying the general-`n` correspondence and a
+  repair-strategy-class consequence remained OPEN is WITHDRAWN. Their
+  exact scoped closures are recorded in §2. Unrestricted repair channels
+  remain outside the theorem, so OB-1 is unchanged.
 - Identity-grade observation, absolute interior, and "no outside" remain
   outside this investigation's statement language.
 - Non-vacuity is exhibited rather than assumed:

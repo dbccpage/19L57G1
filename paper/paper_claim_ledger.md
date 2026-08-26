@@ -3503,3 +3503,153 @@ CL-PD2-LADDER)
   a missing coherent path whose indices nevertheless have equal fidelity
   classes; or a faithful support descent preserving the exact projection.
 
+## Local finite-alphabet G1 class claims (2026-08-26)
+
+These entries supersede `CL-G-OPEN` only for the exact T5 and declared-class
+T6 residuals named below. They do not withdraw unrestricted G1 or discharge
+the closure-policy obligation. Full exact quotes, per-theorem reports, and
+finite bounds are bound by `artifacts/g1_class_receipt.json`.
+
+### CL-G1-LOCAL-CLASS
+
+- **Statement**: `LocalStrategy d` consists of one fixed import discipline,
+  colouring and repair view, with the view factored through a radius-`d`
+  colour ball at every length. `FiniteDeclaration k S` uses one alphabet
+  bound independent of chain length. `Fires`, `Clears`, `RecurringImport`,
+  and `IdentityGrade` are distinct predicates.
+- **Class**: admitted metatheory definition.
+- **Python**: `code/derivation/local_strategy.py`; negative fiber test
+  `test_unconstrained_view_fails_locality_fiber_check`.
+- **Lean**: exact definitions in `Derivation.LocalStrategy`; the receipt
+  quotes them byte-for-text.
+- **Axioms**: definitions are not claimed axiom-clean. Every cited theorem
+  below has an inventory report within `{propext, Quot.sound}`.
+- **Falsifier / boundary**: equal radius balls with unequal views falsify
+  locality; an alphabet growing with length falsifies `FiniteDeclaration`.
+  Such strategies are outside the class, not disproved.
+
+### CL-G1-T5-GENERAL
+
+- **Statement**: for every chain length and every pair of interior indices,
+  sealed depth-two profile equality is equivalent to radius-one structural
+  profile equality.
+- **Class**: theorem. This withdraws the earlier general-`n` OPEN sentence.
+- **Lean**: `SeparationCapacity.radius_one_agrees_with_sealed_depth2`, with
+  `filter_range_decide_eq`, `filter_range_succ_eq`, `filter_range_eq`,
+  `incoming_edges_interior`, `outgoing_edges_interior`,
+  `profile2_interior`, and `profileD_radius_one`.
+- **Axioms**: each of the eight reports is exactly
+  `{propext, Quot.sound}`.
+- **Python**: none; the earlier length-4/5 computations remain witnesses, not
+  the general proof.
+- **Falsifier / boundary**: an interior pair on which the two equality
+  relations disagree. The theorem is radius one and is not the class
+  exclusion.
+
+### CL-G1-CAPACITY-APPLICATION
+
+- **Statement**: every member with `FiniteDeclaration k S` has a distinct
+  deep equal-view pair once
+  `k ^ (2 * d + 1) + 2 * d + 2 <= n`; therefore it cannot clear every
+  inherited depth-one obstruction. The capacity `k ^ (2*d+1)` is derived,
+  not assumed.
+- **Class**: theorem consuming the existing capacity theorem.
+- **Lean**: `LocalFiniteAlphabet.strategy_capacity_collision`,
+  `finite_local_not_clears`, and `finite_local_not_identityGrade`.
+- **Axioms**: each report is within `{propext, Quot.sound}`.
+- **Python**: `artifacts/local_strategy.json`, concrete thresholds 10, 10,
+  and 516 for bare, presence, and depth-two.
+- **Falsifier / boundary**: a class member satisfying the hypotheses whose
+  view separates every deep pair at the displayed threshold. No claim is
+  made for a nonlocal view or an unbounded alphabet.
+
+### CL-G1-CLASS-EXCLUSION
+
+- **Statement**: every finite declared local member fires on the inherited
+  reflective family, fails to clear every chain length, and cannot satisfy
+  `Fires S and Clears S and not RecurringImport S`.
+- **Class**: horizon-free theorem over a declared class; not finite search.
+- **Lean**: `LocalFiniteAlphabet.fires_every_strategy`,
+  `g1_local_finite_alphabet_class`,
+  `G1Class.local_strategy_cycle_impossible`, and
+  `G1Class.g1_class_exclusion`.
+- **Axioms**: each report is exactly `{propext, Quot.sound}`.
+- **Python**: `artifacts/local_strategy.json` supplies bounded witnesses and
+  five concrete rows only.
+- **Falsifier / boundary**: a member of the exact quoted class satisfying the
+  full cycle. This theorem does not range over every repair channel:
+  `OB1_UNCHANGED`; `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`.
+
+### CL-G1-FIVE-STRATEGIES
+
+- **Statement**: bare, presence, and depth-two are finite members that fire
+  and fail to clear globally; per-pair fresh marking is recurring and not
+  finite; valued marking is one-time identity-grade, clearing, and not
+  finite. Presence equals bare, while depth-two clears length 4.
+- **Class**: theorem classification plus deterministic bounded mirror.
+- **Lean**: `profileCode_lt_eight`, `bare_finite`, `presence_finite`,
+  `presence_eq_bare`, `depthTwo_finite`, `depthTwo_clears_n4`,
+  `perPair_recurring`, `perPair_identityGrade`, `perPair_not_finite`,
+  `valued_oneTimeIdentity`, `valued_not_finite`, `valued_clears`,
+  `class_nonvacuity`, `bare_not_identityGrade`, and the three
+  classification theorems `bare_classification`,
+  `presence_classification`, and `depthTwo_classification`.
+- **Axioms**: every named report lies within
+  `{propext, Quot.sound}`; `profileCode_lt_eight` has none.
+- **Python**: `artifacts/local_strategy.json`, five strategies through chain
+  length 15; its classification is not used to prove the general theorem.
+- **Falsifier / boundary**: disagreement between a row and its proposition,
+  or acceptance of the constant-colour/index-view negative locality probe.
+
+### CL-G1-G3-COUNTEREXAMPLE
+
+- **Statement**: `Clears S` does not imply `not Fires S` under the current
+  definitions. The valued strategy witnesses both, so G3 needs an additional
+  state-transition hypothesis relating repair to future demand production.
+- **Class**: theorem counterexample; G3 remains conjectural.
+- **Lean**: `G1Class.clears_does_not_imply_not_fires`.
+- **Axioms**: exactly `{propext, Quot.sound}`.
+- **Python**: the valued row in `artifacts/local_strategy.json` is a bounded
+  mirror only.
+- **Falsifier / boundary**: a derivation of the proposed implication from the
+  present predicates. No unrestricted conservation law is claimed.
+
+### CL-G1-G4-FINITE
+
+- **Statement**: all 455 depth-one obstruction pairs at lengths 3 through 15
+  were passed through the actual Challenge-3 minimum-response engine in
+  readings L/F and measures mu1/mu2, with the existing isomorphism quotient.
+  Under mu2 every minimum class is an endpoint mark. Under mu1, reading F
+  first fails at length 3 because two minimum classes use an outside-target
+  argument.
+- **Class**: deterministic finite computation.
+- **Python**: `code/derivation/g4_engine_import_branch.py`,
+  `tests/test_g4_engine_import_branch.py`, and
+  `artifacts/g4_engine_import_branch.json`; `max_items=2`, `max_arity=2`.
+- **Lean**: none; no theorem-level generalization is made.
+- **Falsifier / boundary**: a checked mu2 non-mark minimum, or absence of the
+  recorded reading-F/mu1 class. No identity with an object-language generator
+  or historical process is claimed.
+
+### CL-G1-TERMINAL-20260826
+
+- **Statement**: the current terminals are
+  `LOCAL_STRATEGY_CLASS_DEFINED`, `FIVE_STRATEGIES_CLASSIFIED`,
+  `T5_PROFILE_CORRESPONDENCE_PROVED`,
+  `CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER`,
+  `G1_CLASS_EXCLUSION_PROVED`, `G3_REMAINS_CONJECTURE`,
+  `G4_HOLDS_UNDER_MU2`,
+  `G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>`,
+  `OB1_UNCHANGED`, and `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`, plus
+  explicit H1-H6 done/skipped dispositions. The earlier three-line terminal
+  is withdrawn as the current complete block; its generation theorem remains
+  supported and its two bounded repair findings remain historical evidence.
+- **Class**: mixed theorem / finite computation / OPEN boundary, split by the
+  entries above.
+- **Evidence**: `artifacts/g1_class_receipt.json`, which binds 34 new theorem
+  reports, exact source declarations, supporting payloads, bounds, OPEN and
+  WITHDRAWN sentences, base commit, task hash, prompt hashes, and Python lock.
+- **Falsifier / boundary**: a missing terminal boundary, stale supporting
+  payload, unresolved theorem name, or changed pinned input that regenerates
+  without failure. OB-1 remains open outside the declared class.
+

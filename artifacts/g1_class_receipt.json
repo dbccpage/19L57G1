@@ -1,0 +1,1225 @@
+{
+ "exact_source_quotes": {
+  "Clears": "def Clears {d : Nat} (S : LocalStrategy d) : Prop :=\n  \u2200 n, ClearsOn S n",
+  "ClearsOn": "def ClearsOn {d : Nat} (S : LocalStrategy d) (n : Nat) : Prop :=\n  \u2200 i j, BaseObstructed n i j \u2192 S.view n i \u2260 S.view n j",
+  "FiniteDeclaration": "def FiniteDeclaration {d : Nat} (k : Nat) (S : LocalStrategy d) : Prop :=\n  \u2200 n x, S.colour n x < k",
+  "Fires": "def Fires {d : Nat} (_S : LocalStrategy d) : Prop :=\n  \u2203 n0, \u2200 n, n0 \u2264 n \u2192 \u2203 i j, BaseObstructed n i j",
+  "IdentityGrade": "def IdentityGrade {d : Nat} (S : LocalStrategy d) : Prop :=\n  \u2200 n i j, i \u2264 n \u2192 j \u2264 n \u2192 i \u2260 j \u2192 S.view n i \u2260 S.view n j",
+  "LocalStrategy": "structure LocalStrategy (d : Nat) where\n  importDiscipline : ImportDiscipline\n  colour : Nat \u2192 Nat \u2192 Nat\n  view : Nat \u2192 Nat \u2192 Nat\n  locality : \u2200 n, ViewLocal (view n) (colour n) d",
+  "RecurringImport": "def RecurringImport {d : Nat} (S : LocalStrategy d) : Prop :=\n  S.importDiscipline = .recurring",
+  "ViewLocal": "def ViewLocal (v : Nat \u2192 Nat) (colour : Nat \u2192 Nat) (d : Nat) : Prop :=\n  \u2203 g : List Nat \u2192 Nat, \u2200 i, v i = g (colourBall colour i d)",
+  "class_exclusion": "theorem g1_class_exclusion {d : Nat} (S : LocalStrategy d) (k : Nat)\n    (hfinite : FiniteDeclaration k S) :\n    Fires S \u2227 \u00ac Clears S \u2227\n      \u00ac (Fires S \u2227 Clears S \u2227 \u00ac RecurringImport S) :="
+ },
+ "finite_bounds": {
+  "capacity_examples": [
+   {
+    "collision": [
+     1,
+     2
+    ],
+    "name": "none",
+    "threshold": 10
+   },
+   {
+    "collision": [
+     1,
+     2
+    ],
+    "name": "automark_presence",
+    "threshold": 10
+   },
+   {
+    "collision": [
+     2,
+     3
+    ],
+    "name": "depth2",
+    "threshold": 516
+   }
+  ],
+  "capacity_threshold_formula": "k ^ (2 * d + 1) + 2 * d + 2",
+  "depth_two_nonvacuity_chain": 4,
+  "g4_first_n": 3,
+  "g4_last_n": 15,
+  "g4_max_arity": 2,
+  "g4_max_items": 2,
+  "g4_measures": [
+   "mu1",
+   "mu2"
+  ],
+  "g4_obstructions_checked": 455,
+  "g4_readings": [
+   "L",
+   "F"
+  ],
+  "strategy_checks_max_chain": 15,
+  "strategy_count": 5
+ },
+ "hygiene": {
+  "H1": "HYGIENE_H1_SKIPPED",
+  "H2": "HYGIENE_H2_SKIPPED",
+  "H3": "HYGIENE_H3_SKIPPED",
+  "H4": "HYGIENE_H4_DONE",
+  "H5": "HYGIENE_H5_DONE",
+  "H6": "HYGIENE_H6_SKIPPED"
+ },
+ "new_theorem_axiom_reports": [
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.filter_range_decide_eq' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.filter_range_decide_eq"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.filter_range_succ_eq' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.filter_range_succ_eq"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.filter_range_eq' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.filter_range_eq"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.incoming_edges_interior' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.incoming_edges_interior"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.outgoing_edges_interior' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.outgoing_edges_interior"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.profile2_interior' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.profile2_interior"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.profileD_radius_one' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.profileD_radius_one"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'SeparationCapacity.radius_one_agrees_with_sealed_depth2' depends on axioms: [propext, Quot.sound]",
+   "theorem": "SeparationCapacity.radius_one_agrees_with_sealed_depth2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.fires_every_strategy' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.fires_every_strategy"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.identityGrade_implies_clears' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.identityGrade_implies_clears"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.strategy_capacity_collision' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.strategy_capacity_collision"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.finite_local_not_clears' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.finite_local_not_clears"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.finite_local_not_identityGrade' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.finite_local_not_identityGrade"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.g1_local_finite_alphabet_class' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.g1_local_finite_alphabet_class"
+  },
+  {
+   "axioms": [],
+   "report": "'LocalFiniteAlphabet.profileCode_lt_eight' does not depend on any axioms",
+   "theorem": "LocalFiniteAlphabet.profileCode_lt_eight"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.bare_finite' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.bare_finite"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.presence_finite' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.presence_finite"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.presence_eq_bare' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.presence_eq_bare"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.depthTwo_finite' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.depthTwo_finite"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.depthTwo_clears_n4' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.depthTwo_clears_n4"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "report": "'LocalFiniteAlphabet.perPair_recurring' depends on axioms: [propext]",
+   "theorem": "LocalFiniteAlphabet.perPair_recurring"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "report": "'LocalFiniteAlphabet.perPair_identityGrade' depends on axioms: [propext]",
+   "theorem": "LocalFiniteAlphabet.perPair_identityGrade"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "report": "'LocalFiniteAlphabet.perPair_not_finite' depends on axioms: [propext]",
+   "theorem": "LocalFiniteAlphabet.perPair_not_finite"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "report": "'LocalFiniteAlphabet.valued_oneTimeIdentity' depends on axioms: [propext]",
+   "theorem": "LocalFiniteAlphabet.valued_oneTimeIdentity"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "report": "'LocalFiniteAlphabet.valued_not_finite' depends on axioms: [propext]",
+   "theorem": "LocalFiniteAlphabet.valued_not_finite"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.valued_clears' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.valued_clears"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.class_nonvacuity' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.class_nonvacuity"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.bare_not_identityGrade' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.bare_not_identityGrade"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.bare_classification' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.bare_classification"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.presence_classification' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.presence_classification"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'LocalFiniteAlphabet.depthTwo_classification' depends on axioms: [propext, Quot.sound]",
+   "theorem": "LocalFiniteAlphabet.depthTwo_classification"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'G1Class.local_strategy_cycle_impossible' depends on axioms: [propext, Quot.sound]",
+   "theorem": "G1Class.local_strategy_cycle_impossible"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'G1Class.g1_class_exclusion' depends on axioms: [propext, Quot.sound]",
+   "theorem": "G1Class.g1_class_exclusion"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "report": "'G1Class.clears_does_not_imply_not_fires' depends on axioms: [propext, Quot.sound]",
+   "theorem": "G1Class.clears_does_not_imply_not_fires"
+  }
+ ],
+ "nonclaims": [
+  "No theorem ranges over strategies outside the quoted class.",
+  "No object-language generator or self-origination from <> is claimed.",
+  "No functoriality, initiality, canonical strategy, or unrestricted G1 is claimed.",
+  "The finite G4 result is not an identification of the historical engine with a generator."
+ ],
+ "open_sentences": [
+  "OB-1 / CL-CLOSURE-POLICY remains OPEN outside the declared LocalStrategy class.",
+  "G3 remains a CONJECTURE because no state-transition hypothesis connects post-repair clearing to the absence of future pre-repair demands.",
+  "Strategies outside the fixed-radius finite-alphabet LocalStrategy class remain OPEN, including index-inspecting views and alphabets that grow with chain length.",
+  "F4 chain initiality remains carried and OPEN.",
+  "The definition-level axiom residual remains OPEN and is not addressed by this run.",
+  "The comparison-heading conflict recorded as OB-3 remains OPEN for an author act."
+ ],
+ "pins": {
+  "g1_class_base_commit": "24bd2464fc4546d8fb3d244809aa769b37c22964",
+  "operator_task_sha256": "E2CAF8EA7CD849F09BFF587EB31229AC678F5552EFA51F1B33AAE5A6D5F04559",
+  "python_lock": {
+   "lines": [
+    "pytest==9.0.3",
+    "coverage==7.13.1",
+    "mypy==1.19.1"
+   ],
+   "path": "requirements.txt",
+   "sha256": "BFE7283F51A19B579FA08F8C7E6B19A714885166607277B94928BB8A23885BBF"
+  },
+  "sealed_prompt_sha256": {
+   "prompt.md": "A613A1965E4F02FEE00DF4D42041FCEECA176ABCFAA9202C3E769021305940B5",
+   "seed_prompt.md": "4EA4682E1DA25363F9C7C1E9234B4B248F980097AE92D6F7DC1E8E8DD9BD4388"
+  },
+  "toolchains": {
+   "lake": "5.0.0",
+   "lean": "4.33.0",
+   "python": "3.14.2"
+  }
+ },
+ "schema": "g1-class-receipt-v1",
+ "statuses": {
+  "g1": "G1_CLASS_EXCLUSION_PROVED",
+  "g3": "G3_REMAINS_CONJECTURE",
+  "g4": [
+   "G4_HOLDS_UNDER_MU2",
+   "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>"
+  ],
+  "ob1": "OB1_UNCHANGED",
+  "object_language": "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
+  "t5": "T5_PROFILE_CORRESPONDENCE_PROVED"
+ },
+ "strategy_membership_verdicts": [
+  {
+   "alphabet_size": 8,
+   "classification": "fires_unrepaired",
+   "clears_within_bound": false,
+   "finite_declaration_within_bound": true,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": false,
+   "import_discipline": "one_time",
+   "name": "none",
+   "radius": 0
+  },
+  {
+   "alphabet_size": null,
+   "classification": "repairs_by_recurring_imports",
+   "clears_within_bound": true,
+   "finite_declaration_within_bound": false,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": true,
+   "import_discipline": "recurring",
+   "name": "per_pair_fresh_mark",
+   "radius": 0
+  },
+  {
+   "alphabet_size": 8,
+   "classification": "fires_unrepaired",
+   "clears_within_bound": false,
+   "finite_declaration_within_bound": true,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": false,
+   "import_discipline": "one_time",
+   "name": "automark_presence",
+   "radius": 0
+  },
+  {
+   "alphabet_size": null,
+   "classification": "generation_dead",
+   "clears_within_bound": true,
+   "finite_declaration_within_bound": false,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": true,
+   "import_discipline": "one_time",
+   "name": "automark_valued",
+   "radius": 0
+  },
+  {
+   "alphabet_size": 8,
+   "classification": "fires_unrepaired",
+   "clears_within_bound": false,
+   "finite_declaration_within_bound": true,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": false,
+   "import_discipline": "one_time",
+   "name": "depth2",
+   "radius": 1
+  }
+ ],
+ "supporting_artifacts": {
+  "g4_engine_import_branch.json": {
+   "payload": {
+    "adapter": "each ordered chain-pair endpoint is mapped to the corresponding Challenge-3 target endpoint",
+    "bounds": {
+     "first_n": 3,
+     "last_n": 15,
+     "max_arity": 2,
+     "max_items": 2,
+     "measures": [
+      "mu1",
+      "mu2"
+     ],
+     "readings": [
+      "L",
+      "F"
+     ]
+    },
+    "first_failure": {
+     "chain_pair": [
+      1,
+      2
+     ],
+     "class": {
+      "accepted_pair_mark": false,
+      "class_size": 2,
+      "mark_class": "outside_target_argument",
+      "representative": [
+       {
+        "arity": 2,
+        "kind": "form"
+       },
+       {
+        "args": [
+         1,
+         0
+        ],
+        "form": 0,
+        "kind": "inst"
+       }
+      ]
+     },
+     "measure": "mu1",
+     "n": 3,
+     "reading": "F"
+    },
+    "measure_holds_in_every_reading": {
+     "mu1": false,
+     "mu2": true
+    },
+    "minimum_iso_classes": {
+     "F": {
+      "mu1": [
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "unary_endpoint_mark",
+        "representative": [
+         {
+          "arity": 1,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       },
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "pair_only_fresh_mark",
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1,
+           1
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       },
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "pair_only_fresh_mark",
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1,
+           2
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       },
+       {
+        "accepted_pair_mark": false,
+        "class_size": 2,
+        "mark_class": "outside_target_argument",
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1,
+           0
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       },
+       {
+        "accepted_pair_mark": false,
+        "class_size": 2,
+        "mark_class": "outside_target_argument",
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           0,
+           1
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       }
+      ],
+      "mu2": [
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "unary_endpoint_mark",
+        "representative": [
+         {
+          "arity": 1,
+          "kind": "form"
+         },
+         {
+          "args": [
+           1
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       }
+      ]
+     },
+     "L": {
+      "mu1": [
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "unary_endpoint_mark",
+        "representative": [
+         {
+          "arity": 1,
+          "kind": "form"
+         },
+         {
+          "args": [
+           0
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       },
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "pair_only_fresh_mark",
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           0,
+           0
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       },
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "pair_only_fresh_mark",
+        "representative": [
+         {
+          "arity": 2,
+          "kind": "form"
+         },
+         {
+          "args": [
+           0,
+           1
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       }
+      ],
+      "mu2": [
+       {
+        "accepted_pair_mark": true,
+        "class_size": 2,
+        "mark_class": "unary_endpoint_mark",
+        "representative": [
+         {
+          "arity": 1,
+          "kind": "form"
+         },
+         {
+          "args": [
+           0
+          ],
+          "form": 0,
+          "kind": "inst"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "nonclaim": "finite correspondence only; no identification of the sealed engine with an object-language generator",
+    "rounds": [
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 1
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 1
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 1
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 1
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 3,
+      "obstruction_count": 1
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 3
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 3
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 3
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 3
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 4,
+      "obstruction_count": 3
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 6
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 6
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 6
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 6
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 5,
+      "obstruction_count": 6
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 10
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 10
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 10
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 10
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 6,
+      "obstruction_count": 10
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 15
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 15
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 15
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 15
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 7,
+      "obstruction_count": 15
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 21
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 21
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 21
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 21
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 8,
+      "obstruction_count": 21
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 28
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 28
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 28
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 28
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 9,
+      "obstruction_count": 28
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 36
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 36
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 36
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 36
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 10,
+      "obstruction_count": 36
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 45
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 45
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 45
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 45
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 11,
+      "obstruction_count": 45
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 55
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 55
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 55
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 55
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 12,
+      "obstruction_count": 55
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 66
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 66
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 66
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 66
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 13,
+      "obstruction_count": 66
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 78
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 78
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 78
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 78
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 14,
+      "obstruction_count": 78
+     },
+     {
+      "checks": {
+       "F": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": false,
+         "pairs_checked": 91
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 91
+        }
+       },
+       "L": {
+        "mu1": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 91
+        },
+        "mu2": {
+         "all_minimum_iso_classes_are_pair_marks": true,
+         "pairs_checked": 91
+        }
+       }
+      },
+      "first_obstruction": [
+       1,
+       2
+      ],
+      "n": 15,
+      "obstruction_count": 91
+     }
+    ],
+    "terminals": [
+     "G4_HOLDS_UNDER_MU2",
+     "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>"
+    ],
+    "total_obstructions_checked": 455
+   },
+   "sha256": "F72AB14C2AE77F0651A06557B8C1D3028EC3F6E1FE4F9ACBC419DDB48F6073B6"
+  },
+  "local_strategy.json": {
+   "payload": {
+    "bounds": {
+     "finite_checks_max_chain": 15,
+     "strategy_class_size": 5
+    },
+    "capacity_witnesses": [
+     {
+      "collision": [
+       1,
+       2
+      ],
+      "name": "none",
+      "threshold": 10
+     },
+     {
+      "collision": [
+       1,
+       2
+      ],
+      "name": "automark_presence",
+      "threshold": 10
+     },
+     {
+      "collision": [
+       2,
+       3
+      ],
+      "name": "depth2",
+      "threshold": 516
+     }
+    ],
+    "class": {
+     "finite_declaration": "one fixed alphabet bound independent of chain length",
+     "lean_theorems": [
+      "LocalFiniteAlphabet.strategy_capacity_collision",
+      "LocalFiniteAlphabet.finite_local_not_clears",
+      "LocalFiniteAlphabet.g1_local_finite_alphabet_class"
+     ],
+     "locality": "view factors through one fixed-radius colour ball"
+    },
+    "negative_locality_probe": {
+     "constant_colour_identity_view_accepted": false,
+     "reason": "same radius-zero colour ball receives two view values"
+    },
+    "strategies": [
+     {
+      "alphabet_size": 8,
+      "classification": "fires_unrepaired",
+      "clears_within_bound": false,
+      "finite_declaration_within_bound": true,
+      "fires_within_bound": true,
+      "identity_grade_within_bound": false,
+      "import_discipline": "one_time",
+      "name": "none",
+      "radius": 0
+     },
+     {
+      "alphabet_size": null,
+      "classification": "repairs_by_recurring_imports",
+      "clears_within_bound": true,
+      "finite_declaration_within_bound": false,
+      "fires_within_bound": true,
+      "identity_grade_within_bound": true,
+      "import_discipline": "recurring",
+      "name": "per_pair_fresh_mark",
+      "radius": 0
+     },
+     {
+      "alphabet_size": 8,
+      "classification": "fires_unrepaired",
+      "clears_within_bound": false,
+      "finite_declaration_within_bound": true,
+      "fires_within_bound": true,
+      "identity_grade_within_bound": false,
+      "import_discipline": "one_time",
+      "name": "automark_presence",
+      "radius": 0
+     },
+     {
+      "alphabet_size": null,
+      "classification": "generation_dead",
+      "clears_within_bound": true,
+      "finite_declaration_within_bound": false,
+      "fires_within_bound": true,
+      "identity_grade_within_bound": true,
+      "import_discipline": "one_time",
+      "name": "automark_valued",
+      "radius": 0
+     },
+     {
+      "alphabet_size": 8,
+      "classification": "fires_unrepaired",
+      "clears_within_bound": false,
+      "finite_declaration_within_bound": true,
+      "fires_within_bound": true,
+      "identity_grade_within_bound": false,
+      "import_discipline": "one_time",
+      "name": "depth2",
+      "radius": 1
+     }
+    ],
+    "terminals": {
+     "closure_policy": "OB1_UNCHANGED",
+     "g1": "G1_CLASS_EXCLUSION_PROVED",
+     "object_language": "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE"
+    }
+   },
+   "sha256": "D4521C1577CDF0DCD31D77AA605C38B482FE83AE18EA48889A937AEF30B81722"
+  }
+ },
+ "terminals": [
+  "ENDOGENOUS_GENERATION_PROVED",
+  "LOCAL_STRATEGY_CLASS_DEFINED",
+  "FIVE_STRATEGIES_CLASSIFIED",
+  "T5_PROFILE_CORRESPONDENCE_PROVED",
+  "CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER",
+  "G1_CLASS_EXCLUSION_PROVED",
+  "G3_REMAINS_CONJECTURE",
+  "G4_HOLDS_UNDER_MU2",
+  "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>",
+  "OB1_UNCHANGED",
+  "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
+  "HYGIENE_H1_SKIPPED",
+  "HYGIENE_H2_SKIPPED",
+  "HYGIENE_H3_SKIPPED",
+  "HYGIENE_H4_DONE",
+  "HYGIENE_H5_DONE",
+  "HYGIENE_H6_SKIPPED"
+ ],
+ "withdrawn_sentences": [
+  "The previous three-line TERMINAL block is WITHDRAWN as the current complete terminal; its generation theorem remains supported.",
+  "The statement that the general-n Generator.profile2/profileD radius-one correspondence remains OPEN is WITHDRAWN.",
+  "The statement that the repair-strategy-class consequence of CapacityBound.capacity_bound remains OPEN is WITHDRAWN.",
+  "The first T5 proof shape using generic Nat equality filtering is WITHDRAWN because its use-site axiom report exposed Classical.choice; the repaired proof uses decide.",
+  "G4 as an unqualified conjecture is WITHDRAWN only for the declared finite check: mu2 holds, while reading-F/mu1 fails at n=3."
+ ]
+}

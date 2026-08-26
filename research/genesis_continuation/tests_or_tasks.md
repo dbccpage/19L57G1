@@ -163,6 +163,21 @@ class-general cycle exclusion". Forcing it would produce a proof of a
 weaker statement wearing the stronger one's name, which is the failure
 mode `paper/pr11_correction_ledger.md` exists to document.
 
+**Status, 2026-08-26 — T5 CLOSED.**
+`SeparationCapacity.radius_one_agrees_with_sealed_depth2` proves the
+general-`n` correspondence for arbitrary interior indices. An initial
+choice-dependent filter proof was withdrawn after its use-site axiom
+report exposed the dependency; the final constructive proof uses
+`decide`, and all eight new T5/helper reports lie within
+`{propext, Quot.sound}`.
+
+**Status, 2026-08-26 — T6 CLOSED IN THE DECLARED CLASS.**
+`LocalFiniteAlphabet.strategy_capacity_collision` consumes
+`CapacityBound.capacity_bound`, and `G1Class.g1_class_exclusion` proves
+the horizon-free cycle exclusion for every fixed-radius,
+fixed-finite-alphabet local strategy. This is not the 15-round search.
+The ceiling stated above remains exact: `OB1_UNCHANGED`.
+
 ---
 
 ## T7 — the parked-module axiom census

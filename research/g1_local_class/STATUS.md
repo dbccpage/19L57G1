@@ -51,3 +51,43 @@ Any class-relative theorem must preserve the locality factorization
 hypothesis, the fixed finite-alphabet hypothesis, and the distinction between
 a declared strategy and recurring per-instance imports. A finite codomain
 without locality is not an admissible substitute.
+
+## Current result — 2026-08-26
+
+STATUS: G1_CLASS_EXCLUSION_PROVED
+
+The Phase I boundary above remains in force. The new result is a theorem over
+the explicitly quoted `LocalStrategy` class: one fixed radius, a repair view
+factoring through the corresponding colour ball, and one alphabet bound that
+does not depend on chain length. For every member of that class,
+`CapacityBound.capacity_bound` supplies a collision at the derived threshold
+`k ^ (2 * d + 1) + 2 * d + 2`; the inherited depth-one profile identifies
+that collision as a live obstruction. Hence no class member clears every
+chain length, and the fire/clear/no-recurring-import cycle is impossible in
+the class. This is horizon-free and is not the old 15-round empty search.
+
+The five concrete strategies are classified without being forced into the
+class. Bare, presence, and depth-two are finite local members and fail to
+clear all lengths. Per-pair fresh marking clears by recurring imports and has
+no chain-independent finite alphabet. Valued marking is one-time and
+identity-grade, clears, and likewise has no chain-independent finite
+alphabet. `class_nonvacuity` exhibits firing, a genuine depth-two finite
+clearance, and an identity-grade strategy.
+
+T5 is closed by the general theorem
+`SeparationCapacity.radius_one_agrees_with_sealed_depth2`. G3 remains a
+conjecture: `G1Class.clears_does_not_imply_not_fires` shows that the current
+post-repair `Clears` predicate does not imply absence of the inherited
+pre-repair `Fires`; a state-transition hypothesis is missing. G4 is decided
+only in its declared finite domain: it holds under `mu2` in both readings and
+fails at chain length 3 under `mu1` in reading F because two minimum
+isomorphism classes use an argument outside the target pair.
+
+The exact receipt is `artifacts/g1_class_receipt.json`. The terminal boundary
+remains:
+
+- `OB1_UNCHANGED`
+- `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`
+
+Optional hygiene: H1, H2, H3, and H6 were skipped; H4 and H5 were done. None
+of those dispositions advances OB-1.

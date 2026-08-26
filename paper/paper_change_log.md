@@ -2261,3 +2261,53 @@ The paper, `README.md`, `paper/representative_selection.md`,
 `paper/pr_review_template.md` and `.claude/skills/inject/SKILL.md` all
 asserted the residual was open and are corrected here.  No gate reads
 any of those sentences.
+
+## G1 local finite-alphabet class theorem (2026-08-26)
+
+The generator paper's old three-line terminal is preserved verbatim and
+marked WITHDRAWN as the current complete block. Its generation theorem
+remains supported. Its two five-strategy, 15-round repair findings remain
+historical finite evidence, while the new result is recorded separately as a
+horizon-free theorem over an exact declared class.
+
+1. `Derivation.LocalStrategy` defines fixed-radius local strategies, a
+   chain-independent finite declaration, firing, clearing, recurring import,
+   and identity grade without conflating them. The locality proof is a field,
+   not prose.
+2. `strategy_capacity_collision` consumes
+   `CapacityBound.capacity_bound` at the derived threshold
+   `k ^ (2*d+1) + 2*d + 2`. `finite_local_not_clears` and
+   `G1Class.g1_class_exclusion` prove the class-relative cycle exclusion with
+   no finite horizon.
+3. The five existing strategies are classified without forced membership.
+   Bare, presence, and depth-two are finite local failures; per-pair marking
+   is recurring and not finite; valued marking is one-time identity-grade,
+   clearing, and not finite. A separate theorem supplies non-vacuity.
+4. T5 is closed at general length by
+   `radius_one_agrees_with_sealed_depth2`. The first proof shape was withdrawn
+   after its use-site axiom report exposed a choice dependency; the repaired
+   `decide`-based filter proof and all new use sites lie within
+   `{propext, Quot.sound}`.
+5. G3 remains conjectural. `clears_does_not_imply_not_fires` exhibits why the
+   current pre-repair/post-repair predicates do not support the proposed
+   corollary without a state-transition hypothesis.
+6. G4 is a finite split result, not a prose closure. The existing engine was
+   run over 455 obstruction pairs, lengths 3-15, both readings and both cost
+   measures. It holds under mu2 and fails under reading-F/mu1 at length 3 on
+   two outside-target minimum classes.
+7. `g1_class_receipt.json` deterministically binds the base and task hashes,
+   toolchains, Python lock, prompt hashes, exact declarations, 34 new theorem
+   reports, every finite bound, the five strategy verdicts, all terminals,
+   and every OPEN/WITHDRAWN sentence introduced here.
+8. Three new decision points were demonstrated by reversible injections: an
+   inconsistent local fiber, a hidden outside-target G4 argument, and a
+   missing named axiom report each failed the intended test by name and
+   recovered after reversal. No artifact was regenerated under injection.
+
+Terminals: LOCAL_STRATEGY_CLASS_DEFINED /
+FIVE_STRATEGIES_CLASSIFIED / T5_PROFILE_CORRESPONDENCE_PROVED /
+CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER / G1_CLASS_EXCLUSION_PROVED /
+G3_REMAINS_CONJECTURE / G4_HOLDS_UNDER_MU2 /
+G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument> / OB1_UNCHANGED /
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. H1-H3 and H6 were skipped; H4-H5
+were done. None of those hygiene dispositions advances OB-1.
