@@ -169,6 +169,21 @@ object-language declaration.
    failed with `missing axiom report: G1Class.g1_class_exclusion`. Reversal
    restored the passing receipt test.
 
+## Full-gate integration finding
+
+The first full completion-inventory run failed by name at
+`LocalFiniteAlphabet.profileCode_lt_eight`: the new namespaces were absent
+from the source-module map, so all 26 LocalFiniteAlphabet/G1Class reports were
+`UNRESOLVED`. This was a real live defect, not an injection. The repair adds
+both exact module mappings and individual kind/role classifications for all
+34 new reports, including the eight T5 reports in the otherwise unclassified
+SeparationCapacity namespace. `test_g1_local_inventory_surface_is_exact`
+pins the complete set. The inventory test then recovered with 1,506 resolved
+records. The expanded axiom bytes required ordered regeneration of
+`completion_dependency_graph.json`, `completion_receipt.json`, and
+`primitive_completion_receipt.json`; the all-runner comparison named exactly
+those three before regeneration.
+
 ## OPEN
 
 - OB-1 / CL-CLOSURE-POLICY remains OPEN outside the declared
@@ -190,4 +205,3 @@ object-language declaration.
   WITHDRAWN and replaced by the constructive `decide` form.
 - G4 as an unqualified conjecture is WITHDRAWN only for its declared finite
   check; its split result is retained rather than flattened.
-

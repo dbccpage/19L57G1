@@ -3648,7 +3648,9 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   entries above.
 - **Evidence**: `artifacts/g1_class_receipt.json`, which binds 34 new theorem
   reports, exact source declarations, supporting payloads, bounds, OPEN and
-  WITHDRAWN sentences, base commit, task hash, prompt hashes, and Python lock.
+  WITHDRAWN sentences, base commit, task hash, prompt hashes, and Python lock;
+  `artifacts/completion_dependency_graph.json` independently resolves the
+  source statement and explicit kind/role of every new theorem report.
 - **Falsifier / boundary**: a missing terminal boundary, stale supporting
   payload, unresolved theorem name, or changed pinned input that regenerates
   without failure. OB-1 remains open outside the declared class.

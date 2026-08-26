@@ -2303,6 +2303,12 @@ horizon-free theorem over an exact declared class.
    inconsistent local fiber, a hidden outside-target G4 argument, and a
    missing named axiom report each failed the intended test by name and
    recovered after reversal. No artifact was regenerated under injection.
+9. The first full completion-inventory test exposed a real integration
+   defect: all LocalFiniteAlphabet/G1Class reports lacked source-module
+   resolution. Both namespaces and all 34 new reports now carry explicit
+   module/kind/role records, pinned by an exact-surface test. Ordered
+   regeneration updated the completion graph and both axiom-dependent
+   receipts; no `UNRESOLVED` record remains.
 
 Terminals: LOCAL_STRATEGY_CLASS_DEFINED /
 FIVE_STRATEGIES_CLASSIFIED / T5_PROFILE_CORRESPONDENCE_PROVED /
