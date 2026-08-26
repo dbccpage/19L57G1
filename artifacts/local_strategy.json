@@ -1,0 +1,107 @@
+{
+ "bounds": {
+  "finite_checks_max_chain": 15,
+  "strategy_class_size": 5
+ },
+ "capacity_witnesses": [
+  {
+   "collision": [
+    1,
+    2
+   ],
+   "name": "none",
+   "threshold": 10
+  },
+  {
+   "collision": [
+    1,
+    2
+   ],
+   "name": "automark_presence",
+   "threshold": 10
+  },
+  {
+   "collision": [
+    2,
+    3
+   ],
+   "name": "depth2",
+   "threshold": 516
+  }
+ ],
+ "class": {
+  "finite_declaration": "one fixed alphabet bound independent of chain length",
+  "lean_theorems": [
+   "LocalFiniteAlphabet.strategy_capacity_collision",
+   "LocalFiniteAlphabet.finite_local_not_clears",
+   "LocalFiniteAlphabet.g1_local_finite_alphabet_class"
+  ],
+  "locality": "view factors through one fixed-radius colour ball"
+ },
+ "negative_locality_probe": {
+  "constant_colour_identity_view_accepted": false,
+  "reason": "same radius-zero colour ball receives two view values"
+ },
+ "strategies": [
+  {
+   "alphabet_size": 8,
+   "classification": "fires_unrepaired",
+   "clears_within_bound": false,
+   "finite_declaration_within_bound": true,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": false,
+   "import_discipline": "one_time",
+   "name": "none",
+   "radius": 0
+  },
+  {
+   "alphabet_size": null,
+   "classification": "repairs_by_recurring_imports",
+   "clears_within_bound": true,
+   "finite_declaration_within_bound": false,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": true,
+   "import_discipline": "recurring",
+   "name": "per_pair_fresh_mark",
+   "radius": 0
+  },
+  {
+   "alphabet_size": 8,
+   "classification": "fires_unrepaired",
+   "clears_within_bound": false,
+   "finite_declaration_within_bound": true,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": false,
+   "import_discipline": "one_time",
+   "name": "automark_presence",
+   "radius": 0
+  },
+  {
+   "alphabet_size": null,
+   "classification": "generation_dead",
+   "clears_within_bound": true,
+   "finite_declaration_within_bound": false,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": true,
+   "import_discipline": "one_time",
+   "name": "automark_valued",
+   "radius": 0
+  },
+  {
+   "alphabet_size": 8,
+   "classification": "fires_unrepaired",
+   "clears_within_bound": false,
+   "finite_declaration_within_bound": true,
+   "fires_within_bound": true,
+   "identity_grade_within_bound": false,
+   "import_discipline": "one_time",
+   "name": "depth2",
+   "radius": 1
+  }
+ ],
+ "terminals": {
+  "closure_policy": "OB1_UNCHANGED",
+  "g1": "G1_CLASS_EXCLUSION_PROVED",
+  "object_language": "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE"
+ }
+}
