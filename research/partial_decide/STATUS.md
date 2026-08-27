@@ -149,3 +149,33 @@ probe was live.
 These injections show that the registered checks catch those four defects.
 They do not prove that the declared measures, bounds, readings, or target are
 the right declarations.
+
+### Exact verifier and custody campaign
+
+The following independent campaign was run from detached worktrees at
+`a9aef3090d37a79434eaf053168407a46fa7be4e`. Each committed probe has that
+commit as its parent. Every named verifier failure exited one; the type probe
+made mypy exit one. The relevant check returned exit zero after every reversal.
+
+| probe | injection commit | observed failure |
+|---|---|---|
+| removed `mu2` from one reading while duplicating `mu1` | `43b57b9311ba4cacfde58904732b6bd0c1a211e8` | `reading L grades keys differ: missing ['mu2'], extra []` |
+| called dynamic `builtins.__import__` in a receipt consumer | `61c172657bcde93d9fc4f9773785807a8ea4f560` | `c3_receipt.py uses prohibited dynamic execution/import attribute __import__` |
+| omitted `derivation.observe` from the source closure | `e24548b0ee503ba249ebae19628ccfd477cef8b6` | `derivation.candidates has unpinned derivation dependencies: derivation.observe` |
+| removed inherited `G4_REMAINS_CONJECTURE` | `ae5d1f651dee47e34a0138df1caf2590e20551b8` | `status input required_terminals differ from G3/G4 freeze` |
+| mapped `derivation.model` to `observe.py` | `3f5fdd16cafbf82304b512e7196c289d16b8d4d6` | `module/path mismatch for derivation.model` |
+| registered a local `derivation.py` shadow | `12b9f3de4287456a20a2b7b26e34871cb795c18b` | `reserved derivation shadow path: research/partial_decide/derivation.py` |
+| replaced the pinned source-package tree with zeroes | `6b30c490aebcc52f80f548a34f3458f65b0b947e` | `source package tree mismatch`, naming wanted, snapshot, and HEAD trees |
+| replaced the exact refusal declaration with a totalizing policy | `1f5ee586fd7890fdb8d9cae9b9141886dba761e6` | `source policy differs from the exact refusal declaration` |
+| replaced the source snapshot id with symbolic `HEAD` | `15c8ab7d57d80bbefdd129f82013881131349d47` | `source snapshot commit must be an exact 40-digit lowercase hex id` |
+| dirtied tracked `c3_receipt.py` before custody preflight | worktree-only | `partial-Decide executable package or transport policy has worktree changes before custody preflight`, naming the file |
+| committed an unlisted consumer | `758ec430baaa946177a5948676f4049a4d86333f` | `tracked package census differs across declaration, HEAD, and index` |
+| added an uncommitted type-invalid consumer | worktree-only | mypy reported the incompatible assignment and checked six rather than five source files |
+| changed the receipt transport attribute from `-text` to `text` | `80ddae268710c4d0a5be671ad254cfa7b4fa6944` | `receipt transport attribute must be committed as -text` |
+| committed the receipt with CRLF bytes under `-text` | `5e1eb4b2ac42e06f565272b55130bbe9dd9819b9` | `partial_decide_c3.json contains CR bytes` |
+
+All three campaign worktrees ended clean at the exact baseline. The final
+verifier and mypy runs exited zero, the receipt remained `i/lf w/lf attr/-text`,
+and its SHA-256 remained
+`87D2F5E8885B64797CDED3F6A2BF2688B7CED973760F7A881B0B5CA94D3FB127`.
+No receipt or source pin was regenerated while any probe was live.

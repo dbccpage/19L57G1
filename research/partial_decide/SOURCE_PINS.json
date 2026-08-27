@@ -97,6 +97,7 @@
         "_assert_module_origin",
         "_controlled_imports",
         "_fresh_receipt",
+        "_format_package_census_difference",
         "_internal_dependencies",
         "_parse_tree_records",
         "_require_hex",

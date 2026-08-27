@@ -497,6 +497,34 @@ def _tracked_package_files() -> set[PurePosixPath]:
     return _index_files(PACKAGE_PREFIX)
 
 
+def _format_package_census_difference(
+    declared_files: set[PurePosixPath],
+    head_files: set[PurePosixPath],
+    tracked_files: set[PurePosixPath],
+) -> str:
+    populations = (
+        ("declaration", declared_files),
+        ("HEAD", head_files),
+        ("index", tracked_files),
+    )
+    differing = [
+        path
+        for path in sorted(declared_files | head_files | tracked_files)
+        if len({path in files for _, files in populations}) != 1
+    ]
+    if not differing:
+        raise ValueError("package census formatter received equal populations")
+    return "; ".join(
+        f"{path} ["
+        + ", ".join(
+            f"{label}={'yes' if path in files else 'no'}"
+            for label, files in populations
+        )
+        + "]"
+        for path in differing
+    )
+
+
 def _status_records(
     *pathspecs: str,
 ) -> list[tuple[str, tuple[PurePosixPath, ...]]]:
@@ -554,7 +582,12 @@ def _bootstrap_custody(
     tracked_files = _tracked_package_files()
     if not (declared_files == head_files == tracked_files):
         raise ValueError(
-            "tracked package census differs across declaration, HEAD, and index"
+            "tracked package census differs across declaration, HEAD, and index: "
+            + _format_package_census_difference(
+                declared_files,
+                head_files,
+                tracked_files,
+            )
         )
 
     attributes_path = PurePosixPath(".gitattributes")

@@ -41,6 +41,7 @@ from verify_pins import (
     _assert_module_origin,
     _controlled_imports,
     _fresh_receipt,
+    _format_package_census_difference,
     _internal_dependencies,
     _parse_tree_records,
     _require_hex,
@@ -454,6 +455,19 @@ class ReceiptAndPinTests(unittest.TestCase):
                 raw += b"\tcode/derivation/probe.py\0"
                 with self.assertRaisesRegex(ValueError, "non-regular"):
                     _parse_tree_records(raw, "probe")
+
+    def test_package_census_difference_names_each_disputed_path(self) -> None:
+        declared = {PurePosixPath("research/partial_decide/declared.py")}
+        head = {
+            PurePosixPath("research/partial_decide/declared.py"),
+            PurePosixPath("research/partial_decide/zzz_consumer_probe.py"),
+        }
+        tracked = set(head)
+        self.assertEqual(
+            _format_package_census_difference(declared, head, tracked),
+            "research/partial_decide/zzz_consumer_probe.py "
+            "[declaration=no, HEAD=yes, index=yes]",
+        )
 
     def test_consumer_scan_rejects_dynamic_loaders_and_external_helpers(self) -> None:
         cases = (
