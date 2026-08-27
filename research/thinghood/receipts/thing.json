@@ -1,0 +1,1719 @@
+{
+  "AuthorityEffect": "None",
+  "adversarial_attacks": {
+    "1_datum_is_thing": {
+      "countermodel": {
+        "asserted_pair": [
+          0,
+          0
+        ],
+        "bill": {
+          "asserted_admissions": 1,
+          "carrier_points": 1,
+          "law_atoms": 0,
+          "meta_constraints": 0,
+          "relation_edges": 1,
+          "resource_admissions": 0,
+          "store_admissions": 0,
+          "total": 3
+        },
+        "budget_admitted": false,
+        "carrier_size": 1,
+        "designated_pair": [
+          0,
+          0
+        ],
+        "law": "none",
+        "license_admitted": false,
+        "meta_inequality": false,
+        "relation": [
+          [
+            0,
+            0
+          ]
+        ],
+        "stores": []
+      },
+      "disposition": "REFUSED",
+      "reason": "The bare admitted pair has no law and is not a thing.",
+      "status": "COUNTERMODEL"
+    },
+    "2_bare_asserted_pair_is_thing": {
+      "countermodel": {
+        "asserted_pair": [
+          0,
+          0
+        ],
+        "bill": {
+          "asserted_admissions": 1,
+          "carrier_points": 1,
+          "law_atoms": 0,
+          "meta_constraints": 0,
+          "relation_edges": 1,
+          "resource_admissions": 0,
+          "store_admissions": 0,
+          "total": 3
+        },
+        "budget_admitted": false,
+        "carrier_size": 1,
+        "designated_pair": [
+          0,
+          0
+        ],
+        "law": "none",
+        "license_admitted": false,
+        "meta_inequality": false,
+        "relation": [
+          [
+            0,
+            0
+          ]
+        ],
+        "stores": []
+      },
+      "disposition": "REFUSED",
+      "sealed_evidence": [
+        "selfdiff_consistent",
+        "bare_collapse_admissible"
+      ],
+      "status": "COUNTERMODEL"
+    },
+    "3_collapse_is_the_law": {
+      "disposition": "A collapse is a map; failure is not P(Push r c).",
+      "machine_check": "law=none candidates never satisfy collapse_fails_law",
+      "status": "REFUSED"
+    },
+    "4_primitive_difference_is_definitionally_the_thing": {
+      "countermodel": {
+        "asserted_pair": [
+          0,
+          1
+        ],
+        "bill": {
+          "asserted_admissions": 1,
+          "carrier_points": 2,
+          "law_atoms": 1,
+          "meta_constraints": 0,
+          "relation_edges": 1,
+          "resource_admissions": 0,
+          "store_admissions": 0,
+          "total": 5
+        },
+        "budget_admitted": false,
+        "carrier_size": 2,
+        "designated_pair": [
+          0,
+          1
+        ],
+        "law": "asymmetric",
+        "license_admitted": false,
+        "meta_inequality": false,
+        "relation": [
+          [
+            0,
+            1
+          ]
+        ],
+        "stores": []
+      },
+      "disposition": "The local A1i member is retained without renaming; the tied asymmetric member prevents uniqueness.",
+      "status": "REFUSED"
+    },
+    "5_two_rule_forces_structure_from_seed": {
+      "countermodel": {
+        "obstP": false,
+        "state": "genesisP",
+        "stores": {
+          "observation_declared": false,
+          "observer_zero": false,
+          "protected": false,
+          "retained": false
+        },
+        "why": "A collapsed-pair story supplies no retained, protected, declared, zero-gate certificate; two_rule is therefore inapplicable."
+      },
+      "disposition": "REFUSED",
+      "sealed_evidence": [
+        "two_rule",
+        "paper/paper.md:175"
+      ],
+      "status": "COUNTERMODEL"
+    },
+    "6_active_obstruction_follows_from_inscription": {
+      "countermodel": {
+        "obstP": false,
+        "state": "genesisP",
+        "stores": {
+          "observation_declared": false,
+          "observer_zero": false,
+          "protected": false,
+          "retained": false
+        },
+        "why": "A collapsed-pair story supplies no retained, protected, declared, zero-gate certificate; two_rule is therefore inapplicable."
+      },
+      "disposition": "REFUSED",
+      "sealed_evidence": [
+        "obst_requires_observation",
+        "obst_conditions_independent"
+      ],
+      "status": "COUNTERMODEL"
+    },
+    "7_cheapest_thing_includes_observer": {
+      "disposition": "Observer stores are independently priced; the no-store A1i minimum is cheaper than every nonempty passage state.",
+      "machine_check": true,
+      "status": "FINITE_COMPUTATION"
+    },
+    "8_candidate_list_is_closed_by_narrative": {
+      "disposition": "The result is complete only for the declared finite grammar; any unlisted law or store remains open.",
+      "machine_check": true,
+      "status": "OPEN"
+    }
+  },
+  "apparatus_ethics": {
+    "authority_effect": "None",
+    "counts_without_min_response_witness_are_not_claims": true,
+    "withdrawals_remain_withdrawals": true
+  },
+  "authority_effect": "None",
+  "candidate_space": {
+    "candidate_count": 120640,
+    "carrier_sizes": [
+      1,
+      2,
+      3
+    ],
+    "laws": [
+      "none",
+      "irreflexive",
+      "asymmetric",
+      "symmetric",
+      "transitive",
+      "irreflexive+transitive"
+    ],
+    "maximum_relation_edges": 3,
+    "passage_store_options": [
+      [],
+      [
+        "retained"
+      ],
+      [
+        "protected"
+      ],
+      [
+        "retained",
+        "protected"
+      ],
+      [
+        "observed"
+      ],
+      [
+        "retained",
+        "observed"
+      ],
+      [
+        "protected",
+        "observed"
+      ],
+      [
+        "retained",
+        "protected",
+        "observed"
+      ]
+    ],
+    "predicate": "collapse_fails_law",
+    "resource_options": {
+      "budget_admitted": [
+        false,
+        true
+      ],
+      "license_admitted": [
+        false,
+        true
+      ]
+    }
+  },
+  "class_results": {
+    "required_classes": {
+      "a1_asserted_pair_symmetry_only": {
+        "can_fail_law": false,
+        "countermodel": {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "asserted_admissions": 1,
+              "carrier_points": 2,
+              "law_atoms": 1,
+              "meta_constraints": 0,
+              "relation_edges": 2,
+              "resource_admissions": 0,
+              "store_admissions": 0,
+              "total": 6
+            },
+            "budget_admitted": false,
+            "carrier_size": 2,
+            "designated_pair": [
+              0,
+              1
+            ],
+            "law": "symmetric",
+            "license_admitted": false,
+            "meta_inequality": false,
+            "relation": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "stores": []
+          },
+          "reason": "No candidate in this class satisfies the collapse-fails-law predicate within the declared finite space."
+        },
+        "member_count": 2816,
+        "representative": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 2,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 6
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "symmetric",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "stores": []
+        },
+        "witness": null,
+        "witness_candidate": null
+      },
+      "a1_bare_asserted_pair": {
+        "can_fail_law": false,
+        "countermodel": {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              0
+            ],
+            "bill": {
+              "asserted_admissions": 1,
+              "carrier_points": 1,
+              "law_atoms": 0,
+              "meta_constraints": 0,
+              "relation_edges": 1,
+              "resource_admissions": 0,
+              "store_admissions": 0,
+              "total": 3
+            },
+            "budget_admitted": false,
+            "carrier_size": 1,
+            "designated_pair": [
+              0,
+              0
+            ],
+            "law": "none",
+            "license_admitted": false,
+            "meta_inequality": false,
+            "relation": [
+              [
+                0,
+                0
+              ]
+            ],
+            "stores": []
+          },
+          "reason": "No candidate in this class satisfies the collapse-fails-law predicate within the declared finite space."
+        },
+        "member_count": 19136,
+        "representative": {
+          "asserted_pair": [
+            0,
+            0
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 1,
+            "law_atoms": 0,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 3
+          },
+          "budget_admitted": false,
+          "carrier_size": 1,
+          "designated_pair": [
+            0,
+            0
+          ],
+          "law": "none",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "stores": []
+        },
+        "witness": null,
+        "witness_candidate": null
+      },
+      "a1i_asserted_pair_irreflexive": {
+        "can_fail_law": true,
+        "countermodel": null,
+        "member_count": 6400,
+        "representative": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 5
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "irreflexive",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ]
+          ],
+          "stores": []
+        },
+        "witness": {
+          "function": [
+            0,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            1
+          ]
+        },
+        "witness_candidate": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 5
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "irreflexive",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ]
+          ],
+          "stores": []
+        }
+      },
+      "a3_meta_inequality": {
+        "can_fail_law": false,
+        "countermodel": {
+          "candidate": {
+            "asserted_pair": null,
+            "bill": {
+              "asserted_admissions": 0,
+              "carrier_points": 2,
+              "law_atoms": 0,
+              "meta_constraints": 1,
+              "relation_edges": 0,
+              "resource_admissions": 0,
+              "store_admissions": 0,
+              "total": 3
+            },
+            "budget_admitted": false,
+            "carrier_size": 2,
+            "designated_pair": [
+              0,
+              1
+            ],
+            "law": "none",
+            "license_admitted": false,
+            "meta_inequality": true,
+            "relation": [],
+            "stores": []
+          },
+          "reason": "No candidate in this class satisfies the collapse-fails-law predicate within the declared finite space."
+        },
+        "member_count": 256,
+        "representative": {
+          "asserted_pair": null,
+          "bill": {
+            "asserted_admissions": 0,
+            "carrier_points": 2,
+            "law_atoms": 0,
+            "meta_constraints": 1,
+            "relation_edges": 0,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 3
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "none",
+          "license_admitted": false,
+          "meta_inequality": true,
+          "relation": [],
+          "stores": []
+        },
+        "witness": null,
+        "witness_candidate": null
+      },
+      "carrier_no_relation_no_law": {
+        "can_fail_law": false,
+        "countermodel": {
+          "candidate": {
+            "asserted_pair": null,
+            "bill": {
+              "asserted_admissions": 0,
+              "carrier_points": 1,
+              "law_atoms": 0,
+              "meta_constraints": 0,
+              "relation_edges": 0,
+              "resource_admissions": 0,
+              "store_admissions": 0,
+              "total": 1
+            },
+            "budget_admitted": false,
+            "carrier_size": 1,
+            "designated_pair": null,
+            "law": "none",
+            "license_admitted": false,
+            "meta_inequality": false,
+            "relation": [],
+            "stores": []
+          },
+          "reason": "No candidate in this class satisfies the collapse-fails-law predicate within the declared finite space."
+        },
+        "member_count": 32,
+        "representative": {
+          "asserted_pair": null,
+          "bill": {
+            "asserted_admissions": 0,
+            "carrier_points": 1,
+            "law_atoms": 0,
+            "meta_constraints": 0,
+            "relation_edges": 0,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 1
+          },
+          "budget_admitted": false,
+          "carrier_size": 1,
+          "designated_pair": null,
+          "law": "none",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [],
+          "stores": []
+        },
+        "witness": null,
+        "witness_candidate": null
+      },
+      "richer_law": {
+        "can_fail_law": true,
+        "countermodel": null,
+        "member_count": 16544,
+        "representative": {
+          "asserted_pair": [
+            0,
+            0
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 1,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 4
+          },
+          "budget_admitted": false,
+          "carrier_size": 1,
+          "designated_pair": [
+            0,
+            0
+          ],
+          "law": "transitive",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "stores": []
+        },
+        "witness": {
+          "function": [
+            0,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            1
+          ]
+        },
+        "witness_candidate": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 5
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "asymmetric",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ]
+          ],
+          "stores": []
+        }
+      },
+      "sealed_passage_state": {
+        "can_fail_law": true,
+        "member_count": 105560,
+        "options": {
+          "not_admitted": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 0,
+                "total": 5
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": []
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 0,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "observed": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 1,
+                "total": 6
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "observed"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 1,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "protected": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 1,
+                "total": 6
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "protected"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 1,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "protected+observed": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 2,
+                "total": 7
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "protected",
+                "observed"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 2,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "retained": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 1,
+                "total": 6
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "retained"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 1,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "retained+observed": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 2,
+                "total": 7
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "retained",
+                "observed"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 2,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "retained+protected": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 2,
+                "total": 7
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "retained",
+                "protected"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 2,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          },
+          "retained+protected+observed": {
+            "can_fail_law": true,
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "asserted_admissions": 1,
+                "carrier_points": 2,
+                "law_atoms": 1,
+                "meta_constraints": 0,
+                "relation_edges": 1,
+                "resource_admissions": 0,
+                "store_admissions": 3,
+                "total": 8
+              },
+              "budget_admitted": false,
+              "carrier_size": 2,
+              "designated_pair": [
+                0,
+                1
+              ],
+              "law": "irreflexive",
+              "license_admitted": false,
+              "meta_inequality": false,
+              "relation": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "stores": [
+                "retained",
+                "protected",
+                "observed"
+              ]
+            },
+            "note": "not_admitted is the zero-store baseline and is not a distinct free observer; every nonempty store is charged independently",
+            "store_admissions": 3,
+            "witness": {
+              "function": [
+                0,
+                0
+              ],
+              "pushed_relation": [
+                [
+                  0,
+                  0
+                ]
+              ],
+              "source_pair": [
+                0,
+                1
+              ]
+            }
+          }
+        }
+      }
+    },
+    "richer_laws": {
+      "asymmetric": {
+        "can_fail_law": true,
+        "countermodel": null,
+        "member_count": 3584,
+        "witness": {
+          "function": [
+            0,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            1
+          ]
+        },
+        "witness_candidate": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 5
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "asymmetric",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ]
+          ],
+          "stores": []
+        }
+      },
+      "irreflexive+transitive": {
+        "can_fail_law": true,
+        "countermodel": null,
+        "member_count": 2432,
+        "witness": {
+          "function": [
+            0,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            1
+          ]
+        },
+        "witness_candidate": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 2,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 6
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "irreflexive+transitive",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ]
+          ],
+          "stores": []
+        }
+      },
+      "transitive": {
+        "can_fail_law": true,
+        "countermodel": null,
+        "member_count": 10528,
+        "witness": {
+          "function": [
+            0,
+            1,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            2
+          ]
+        },
+        "witness_candidate": {
+          "asserted_pair": [
+            0,
+            2
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 3,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 3,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 8
+          },
+          "budget_admitted": false,
+          "carrier_size": 3,
+          "designated_pair": [
+            0,
+            2
+          ],
+          "law": "transitive",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "stores": []
+        }
+      }
+    }
+  },
+  "dynamics": {
+    "claims": [
+      {
+        "evidence": [
+          "paper/paper.md:175",
+          "paper/paper.md:488-492"
+        ],
+        "hypotheses": [
+          "Challenge 0 / initial inscription",
+          "no extra object-language admission"
+        ],
+        "id": "TH-Q2-01",
+        "machine_check": true,
+        "statement": "The inscription alone forces no object-language successor.",
+        "status": "CONDITIONAL_THEOREM"
+      },
+      {
+        "countermodel": {
+          "obstP": false,
+          "state": "genesisP",
+          "stores": {
+            "observation_declared": false,
+            "observer_zero": false,
+            "protected": false,
+            "retained": false
+          },
+          "why": "A collapsed-pair story supplies no retained, protected, declared, zero-gate certificate; two_rule is therefore inapplicable."
+        },
+        "evidence": [
+          "lean4/Derivation/PrimitivePassage.lean:326-328",
+          "lean4/Derivation/PrimitivePassage.lean:476-518"
+        ],
+        "hypotheses": [
+          "obstP requires retained, protected, declared-observation, and observer-zero gates",
+          "no gate is supplied by collision alone"
+        ],
+        "id": "TH-Q2-02",
+        "machine_check": true,
+        "statement": "A collapsed pair is not an active obstruction by itself.",
+        "status": "CONDITIONAL_THEOREM"
+      },
+      {
+        "evidence": [
+          "obstP_factors",
+          "obst_conditions_independent",
+          "gate_zero_independent",
+          "gate_declared_independent",
+          "gate_protection_independent",
+          "gate_retention_independent"
+        ],
+        "hypotheses": [
+          "the repository's obstP definition and declared observation policy",
+          "the four named independence witnesses"
+        ],
+        "id": "TH-Q2-03",
+        "machine_check": true,
+        "statement": "obstP has four independent gates in its declared reading.",
+        "status": "CONDITIONAL_THEOREM"
+      },
+      {
+        "countermodel": {
+          "obstP": false,
+          "state": "genesisP",
+          "stores": {
+            "observation_declared": false,
+            "observer_zero": false,
+            "protected": false,
+            "retained": false
+          },
+          "why": "A collapsed-pair story supplies no retained, protected, declared, zero-gate certificate; two_rule is therefore inapplicable."
+        },
+        "evidence": [
+          "two_rule",
+          "proposal_not_execution",
+          "extension_always_available"
+        ],
+        "hypotheses": [
+          "hobst : obstP s i j = true",
+          "hij : i != j",
+          "hi : i is in bounds",
+          "hprot : (i,j) is protected"
+        ],
+        "id": "TH-Q2-04",
+        "machine_check": true,
+        "statement": "two_rule is applicable only at an active, in-bounds protected obstruction.",
+        "status": "CONDITIONAL_THEOREM"
+      },
+      {
+        "evidence": [
+          "two_rule",
+          "paper/paper.md:488-492",
+          "research/genesis_continuation/continuation_plan.md:86-90"
+        ],
+        "hypotheses": [
+          "TH-Q2-01 through TH-Q2-04",
+          "the response grammar is declared metatheory"
+        ],
+        "id": "TH-Q2-05",
+        "machine_check": true,
+        "statement": "two_rule is a response menu at an active obstruction, not a law of the inscription.",
+        "status": "CONDITIONAL_THEOREM"
+      }
+    ],
+    "forbidden_closures": {
+      "OB-1": true,
+      "S6_item_6": true,
+      "S9_last_bullet": true
+    },
+    "open_terminals": [
+      "OB1_UNCHANGED",
+      "S66_UNCHANGED",
+      "S9_LAST_UNCHANGED"
+    ],
+    "terminal": "NO_FORCED_DYNAMICAL_LAW",
+    "terminal_scope": "the five conditional claims above; Q2 only; no claim that Q1 has a unique survivor"
+  },
+  "law_order": {
+    "asymmetric_implies_irreflexive": true,
+    "irreflexive_not_implies_asymmetric": true,
+    "relations_checked": 147,
+    "reverse_countermodel": {
+      "carrier_size": 2,
+      "law": "irreflexive",
+      "relation": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "violates": "asymmetric"
+    },
+    "strictly_richer_in_declared_law_order": true
+  },
+  "limit_scope": {
+    "evidence": [
+      "generation_never_dries",
+      "g1_class_exclusion"
+    ],
+    "scope": "LocalStrategy + FiniteDeclaration",
+    "status": "CONDITIONAL_THEOREM",
+    "unbounded_extension_claim": false
+  },
+  "minimality": {
+    "below_minimum_count": 270,
+    "below_minimum_survivor_count": 0,
+    "candidate_count": 120640,
+    "cost_measure": "mu_additive_atoms: one unit per carrier point, relation edge, asserted admission, law atom, metatheoretic inequality, passage store admission, budget admission, and license admission",
+    "every_below_minimum_fails": true,
+    "every_minimum_satisfies": true,
+    "minimum_cost": 5,
+    "minimum_isomorphism_class_count": 2,
+    "minimum_representatives": [
+      {
+        "asserted_pair": [
+          0,
+          1
+        ],
+        "bill": {
+          "asserted_admissions": 1,
+          "carrier_points": 2,
+          "law_atoms": 1,
+          "meta_constraints": 0,
+          "relation_edges": 1,
+          "resource_admissions": 0,
+          "store_admissions": 0,
+          "total": 5
+        },
+        "budget_admitted": false,
+        "carrier_size": 2,
+        "collapse_witness": {
+          "function": [
+            0,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            1
+          ]
+        },
+        "designated_pair": [
+          0,
+          1
+        ],
+        "law": "asymmetric",
+        "license_admitted": false,
+        "meta_inequality": false,
+        "relation": [
+          [
+            0,
+            1
+          ]
+        ],
+        "stores": []
+      },
+      {
+        "asserted_pair": [
+          0,
+          1
+        ],
+        "bill": {
+          "asserted_admissions": 1,
+          "carrier_points": 2,
+          "law_atoms": 1,
+          "meta_constraints": 0,
+          "relation_edges": 1,
+          "resource_admissions": 0,
+          "store_admissions": 0,
+          "total": 5
+        },
+        "budget_admitted": false,
+        "carrier_size": 2,
+        "collapse_witness": {
+          "function": [
+            0,
+            0
+          ],
+          "pushed_relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "source_pair": [
+            0,
+            1
+          ]
+        },
+        "designated_pair": [
+          0,
+          1
+        ],
+        "law": "irreflexive",
+        "license_admitted": false,
+        "meta_inequality": false,
+        "relation": [
+          [
+            0,
+            1
+          ]
+        ],
+        "stores": []
+      }
+    ],
+    "non_unique_first_answer": true,
+    "raw_minimum_count": 4,
+    "survivor_count": 12800
+  },
+  "prompt_sha256": "ad70e80ec1eb9fd884671cad00881405b4ea4301d1f756472c35e105ebaf8bfc",
+  "schema": "thinghood-v1",
+  "scope": {
+    "external_citations": false,
+    "sealed_paths": [
+      "prompt/",
+      "paper/",
+      "code/",
+      "lean4/Derivation/",
+      "artifacts/",
+      "CLAUDE.md",
+      ".github/workflows/verify.yml",
+      "sibling research trees"
+    ],
+    "write_root": "research/thinghood/"
+  },
+  "terminal_scopes": {
+    "CANDIDATE_SPACE_OPEN": "unlisted axioms and stores are not silently exhausted",
+    "NO_FORCED_DYNAMICAL_LAW": "Q2 only, under the five conditional claims in dynamics",
+    "OB1_UNCHANGED": "object-language endogenous demand generation remains open",
+    "S66_UNCHANGED": "the static difference object does not gain a derived successor law",
+    "S9_LAST_UNCHANGED": "carrier, occurrences, relation, witness, irreflexivity, and orientation remain un-derived",
+    "THINGHOOD_CHARACTERIZED": "all candidates in the declared finite grammar",
+    "THING_COINCIDES_WITH_A1I": "one minimum isomorphism class is the local A1i law-bearing class",
+    "THING_STRICTLY_RICHER_THAN_A1I": "a tied minimum uses the strictly stronger asymmetric law; this is not a unique delta"
+  },
+  "terminals": [
+    "THINGHOOD_CHARACTERIZED",
+    "THING_COINCIDES_WITH_A1I",
+    "THING_STRICTLY_RICHER_THAN_A1I",
+    "NO_FORCED_DYNAMICAL_LAW",
+    "OB1_UNCHANGED",
+    "S66_UNCHANGED",
+    "S9_LAST_UNCHANGED",
+    "CANDIDATE_SPACE_OPEN",
+    "REFUSED"
+  ],
+  "thing_difference_datum_lattice": {
+    "all_arrows_checked_over": "all candidates in the declared finite space",
+    "definitions": {
+      "datum": "an admitted asserted pair",
+      "difference": "the local A1i law-bearing candidate predicate",
+      "thing": "collapse_fails_law"
+    },
+    "edges": {
+      "datum->difference": {
+        "countermodel": {
+          "asserted_pair": [
+            0,
+            0
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 1,
+            "law_atoms": 0,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 3
+          },
+          "budget_admitted": false,
+          "carrier_size": 1,
+          "designated_pair": [
+            0,
+            0
+          ],
+          "law": "none",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "stores": []
+        },
+        "holds_in_declared_space": false
+      },
+      "datum->thing": {
+        "countermodel": {
+          "asserted_pair": [
+            0,
+            0
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 1,
+            "law_atoms": 0,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 3
+          },
+          "budget_admitted": false,
+          "carrier_size": 1,
+          "designated_pair": [
+            0,
+            0
+          ],
+          "law": "none",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              0
+            ]
+          ],
+          "stores": []
+        },
+        "holds_in_declared_space": false
+      },
+      "difference->datum": {
+        "countermodel": null,
+        "holds_in_declared_space": true
+      },
+      "difference->thing": {
+        "countermodel": null,
+        "holds_in_declared_space": true
+      },
+      "thing->datum": {
+        "countermodel": null,
+        "holds_in_declared_space": true
+      },
+      "thing->difference": {
+        "countermodel": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "bill": {
+            "asserted_admissions": 1,
+            "carrier_points": 2,
+            "law_atoms": 1,
+            "meta_constraints": 0,
+            "relation_edges": 1,
+            "resource_admissions": 0,
+            "store_admissions": 0,
+            "total": 5
+          },
+          "budget_admitted": false,
+          "carrier_size": 2,
+          "designated_pair": [
+            0,
+            1
+          ],
+          "law": "asymmetric",
+          "license_admitted": false,
+          "meta_inequality": false,
+          "relation": [
+            [
+              0,
+              1
+            ]
+          ],
+          "stores": []
+        },
+        "holds_in_declared_space": false
+      }
+    },
+    "identification_status": "REFUSED: the local A1i minimum is not renamed in the sealed papers; a tied asymmetric minimum remains a distinct law-bearing class"
+  }
+}
