@@ -20,7 +20,7 @@ instruction to add structure.
 | B2 | Equivariant-selection boundary | The displayed swap orbit has no invariant singleton selection, with an explicit anchored positive alternative. | No universal no-selector theorem. |
 | B3 | Declared-repair obstruction | The displayed residual is outside the declared boundary image, while the image is symmetry-stable. | No theorem about a different repair grammar or general cohomology. |
 | B4 | Continuation trilemma | The declared candidate grammar classifies anchored singleton import, full-orbit retention, and refusal; no category is silently selected. | No claim that an obstruction creates its own continuation. |
-| B5 | Replayable evidence | Python report, Lean statements, adversarial tests, axiom inventory, and claim ledger agree on the same finite scope. | Manual receipts remain manual unless a future CI contract explicitly adopts them. |
+| B5 | Replayable evidence | Python report, Lean statements, adversarial tests, axiom inventory, and claim ledger agree on the same finite scope. | CI runs the source/receipt relation, tests, and typing; the separate research Lean/axiom receipt remains manual. |
 
 ## B1 contract
 
@@ -67,5 +67,7 @@ SHA-256 is
 `518537CEBCCA2508B443F59036418776E51F3D5285BB4824DEC81E51749A9AB8`.
 `verify_manifest.py` regenerates both this receipt and the pre-existing tower
 receipt, then requires `CLAIM_LEDGER.md` and `FINDINGS.md` to retain both
-receipt hashes and the unchanged sealed-source snapshot.  This is still a
-manual verification relation, not a CI gate or a mathematical proof.
+receipt hashes and the pinned sealed-source snapshot.  The `research` job runs
+this relation on every pull request and push to `main`; it is a CI provenance
+and finite-replay gate, not a mathematical proof.  `verify_lean.py` remains a
+separate manual Lean/axiom receipt.

@@ -14,9 +14,10 @@ The second check is the one that matters most. A hash pin proves the
 source did not move; it does not prove the interface names anything real.
 Both directions are needed and neither implies the other.
 
-Nothing in ``.github/workflows`` runs this script by default. Like the
-sibling research tree, this is a manual receipt: it is evidence about the
-commit it was run on, and it goes stale silently.
+The ``research`` workflow job runs this script on every pull request and push
+to ``main``, followed by this tree's unit tests and strict typing. That gate
+checks hashes and declaration resolution; it does not build Lean or judge the
+interface prose.
 
 This tree is an EXPORT surface. It names only objects this repository
 constructs, in this repository's own vocabulary. Nothing external is
