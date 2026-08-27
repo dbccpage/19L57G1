@@ -1255,6 +1255,8 @@ def build_receipt() -> dict[str, Any]:
             ],
             "not_imported": True,
             "search": searches,
+            "next_event_found_scope": "object_derived_event_only",
+            "external_challenges_do_not_set_next_event_found": True,
             "object_derived_next_event_count": sum(
                 1 for report in searches.values() if report["next_event_found"]
             ),

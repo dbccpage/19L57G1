@@ -7,8 +7,10 @@
   },
   "event_grammar": {
     "classification": "DEFINITION",
+    "external_challenges_do_not_set_next_event_found": true,
     "external_next_event_count": 3,
     "guarded_response_not_found_count": 3,
+    "next_event_found_scope": "object_derived_event_only",
     "no_endogenous_successor_derived": true,
     "not_imported": true,
     "object_derived_next_event_count": 2,

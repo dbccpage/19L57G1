@@ -60,6 +60,8 @@ def test_event_search_uses_constructed_objects_not_a_requirements_table() -> Non
     encoded = json.dumps(receipt, sort_keys=True)
     assert "TICK_REQUIREMENTS" not in encoded
     assert "machine_check" not in encoded
+    assert receipt["event_grammar"]["next_event_found_scope"] == "object_derived_event_only"
+    assert receipt["event_grammar"]["external_challenges_do_not_set_next_event_found"] is True
     searches = receipt["event_grammar"]["search"]
     assert set(searches) == {"collision", "equal_profiles", "directional_residual"}
     assert searches["collision"]["next_event_found"] is False
