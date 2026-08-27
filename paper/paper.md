@@ -814,31 +814,25 @@ WITHDRAWN.  It was false when read literally, and it is narrowed here
 rather than defended.**
 
 Six documents under `paper/` do name external mathematics, in sections
-placed at their ends:
+placed at their ends. The D7 repair chosen here is to fence comparison,
+not to use those sections as evidence:
 
 | document | section |
 |---|---|
-| `paper/bridge_provenance.md` | *Post-hoc comparison with existing names* |
+| `paper/bridge_provenance.md` | *Post-hoc comparison with existing names*, fenced |
 | `paper/endogenous_generator.md` | same |
 | `paper/primitive_difference.md` | same |
 | `paper/refusal_as_difference.md` | same |
 | `paper/refusal_difference.md` | same |
 | `paper/primitive_difference_map.md` | *Post-hoc realization table*, fenced, with a "Known mathematics" column |
 
-They do not all have the same standing, and collapsing them would
-misreport the situation in the other direction.  The first five carry no
-fence.  The sixth is explicitly fenced — *"comparison only — nothing
-above depends on this section"* — and cites its own authorization, *"per
-the run directive to name mathematical objects identical to known
-mathematics."*
-
-Three instruments therefore disagree, and at most two of them can be
-right: the withdrawn sentence above; the run directive that sixth
-section cites; and `CLAUDE.md`, which records the 2026-08-11 clause as
-restored and holding *"again without exception"*.  **Resolving that
-disagreement is the author's act, not the paper's.**  What this section
-can do, and now does, is stop asserting the strongest of the three as
-though it were settled.
+All six now carry the same explicit fence: post-hoc comparison only,
+not derivational input, theorem evidence, or authorization, and nothing
+above depends on the section. `CLAUDE.md` remains the stricter operating
+boundary for future derivational work; this paper repair does not amend
+that authority record. What this section can do, and now does, is stop
+asserting the strongest repository-wide blindness sentence as though it
+were settled.
 
 What survives, and is checked: the derivation itself was carried out
 blind, and no external name appears in `prompt/`, `code/`,

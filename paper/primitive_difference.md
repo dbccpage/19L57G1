@@ -406,7 +406,8 @@ minimality) one level down.
 
 # Post-hoc comparison with existing names
 
-*(Comparison authorized at the end only; nothing above depended on it.)*
+*(Post-hoc comparison only. This section is not derivational input,
+theorem evidence, or authorization; nothing above depends on it.)*
 
 * **A1/A1i vs constructive apartness.**  A1i is a pointed, inhabited
   fragment of an apartness relation in the sense of constructive

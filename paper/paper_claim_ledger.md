@@ -861,7 +861,10 @@ and `lean4/Derivation/Generator.lean`.
   composite of reflective growth and pair-separation closure has a
   live obstruction at every round from the third on, horizon-free,
   with no per-round external act: the first horizon-free generator
-  exhibited here, without a minimality or uniqueness claim);
+  exhibited here, without a minimality or uniqueness claim, and not
+  genesis from `<>`); OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE (the theorem
+  is demand persistence for a declared reflective chain and declared
+  closure policy, not an object-language demand generator);
   ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS (over the five declared
   strategies and 15-round computation, the
   fires-repairs-never-imports class is empty);

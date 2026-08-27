@@ -213,9 +213,10 @@ Terminal for this phase: **HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED**.
 ## 7. Post-hoc realization table (comparison only — nothing above
 depends on this section)
 
-Recorded per the run directive to name mathematical objects
-identical to known mathematics.  Identity claims are keyed to the
-laws actually proved, not to resemblance.
+This is post-hoc comparison only. It is not derivational input, theorem
+evidence, or authorization; nothing above depends on it. Recorded per the
+run directive to name mathematical objects identical to known mathematics.
+Identity claims are keyed to the laws actually proved, not to resemblance.
 
 | Native object (proved laws) | Known mathematics |
 |---|---|

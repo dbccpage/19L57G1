@@ -266,7 +266,8 @@ refusal discipline whose reified violations are afterwards separated.
 
 # Post-hoc comparison with existing names
 
-*(End-only, as before.)*
+*(Post-hoc comparison only. This section is not derivational input,
+theorem evidence, or authorization; nothing above depends on it.)*
 
 * The strict hierarchy (history / state / carrier / witnessed) parallels
   the ladder from trace equivalence to state equivalence to

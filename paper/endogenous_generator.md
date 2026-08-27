@@ -20,11 +20,15 @@ whether their union needs any per-round supplement.
 
 ```text
 ENDOGENOUS_GENERATION_PROVED
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE
 ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS
 GENERATION_REPAIR_EXCLUSION_IN_CLASS
 ```
 
-Split by claim, since the two halves of F5 come apart:
+Split by claim, since the two halves of F5 come apart. The generation
+line is demand persistence for the declared reflective chain and declared
+closure policy, not genesis from `<>` and not an object-language demand
+generator.
 
 * **Generation — proved, horizon-free** (`generation_never_dries`):
   from the third round on, the composite always has a live obstruction
@@ -301,7 +305,8 @@ rather than an accident of its design.  A finite check away.
 
 # Post-hoc comparison with existing names
 
-*(End-only.)*
+*(Post-hoc comparison only. This section is not derivational input,
+theorem evidence, or authorization; nothing above depends on it.)*
 
 * The exclusion is a finite capacity bound of the familiar shape:
   separating `n` items needs enough distinguishable observables, and

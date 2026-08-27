@@ -242,7 +242,8 @@ tower with the provenance prices found here.
 
 # Post-hoc comparison with existing names
 
-*(End-only, as before.)*
+*(Post-hoc comparison only. This section is not derivational input,
+theorem evidence, or authorization; nothing above depends on it.)*
 
 * The carrier-bound theorem is a token-level pigeonhole: with dedup, the
   admitted set is the image of the supplied token set, so one token

@@ -256,12 +256,13 @@ New research leg answering F5 of `paper/refusal_as_difference.md`:
 entries, CI regeneration line.
 
 Terminal, split by claim: ENDOGENOUS_GENERATION_PROVED /
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE /
 ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS /
 GENERATION_REPAIR_EXCLUSION_IN_CLASS.  The composite of reflective
 growth and pair-separation closure fires at every round from the third
-on, horizon-free, with no per-round external act — the first such
+on, horizon-free, with no per-round external act -- the first such
 generator exhibited in the development, without a minimality or
-uniqueness claim.  Its obstruction set is
+uniqueness claim, and not genesis from `<>`.  Its obstruction set is
 identified exactly (interior pairs, an iff).  Over the declared
 five-strategy repair class within the 15-round computation, no branch
 fires, repairs, and never
@@ -2156,17 +2157,21 @@ and lean on the receipt -- and it is the same move
 
 Three points, because the narrowing is easy to over- or under-state.
 
-1. *The six are not alike.*  Five carry no fence.  The sixth is fenced
-   ("comparison only -- nothing above depends on this section") and
-   cites a run directive as its authorization.  Listing them as six
-   equal violations would replace one wrong sentence with another.
+1. *The six were not alike at this date.*  Five carried no fence. The
+   sixth was fenced ("comparison only -- nothing above depends on this
+   section") and cited a run directive as its authorization. Listing them as
+   six equal violations would have replaced one wrong sentence with another.
+   **Superseded 2026-08-27:** all six comparison sections now carry an
+   explicit local fence.
 
-2. *Three instruments disagree and at most two can be right*: the
+2. *Historical conflict, superseded 2026-08-27*: the
    withdrawn sentence, the run directive the sixth section cites, and
    `CLAUDE.md`'s record that the 2026-08-11 clause is restored and holds
    "again without exception".  Section 13 no longer asserts the
-   strongest of the three.  Choosing among them is the author's act and
-   is not performed here.
+   strongest of the three.  Choosing among them was not performed in this
+   entry. **Superseded 2026-08-27:** the paper takes the fence path and
+   leaves `CLAUDE.md` as the stricter operating boundary for future
+   derivational work.
 
 3. *What survives is still substantial, and is what the evidence
    supports*: the derivation was carried out blind, and no external name
@@ -2179,12 +2184,9 @@ checks that a cited path resolves; the vocabulary firewall bars a
 denylist of identifiers, not prose naming of a theory.  The attestation
 was an operator claim before this change and the narrowed version still
 is.  A gate over comparison headings is possible -- all six sections use
-one of two heading forms, so a literal scan would catch them -- but its
-allowlist encodes the very judgment point 2 leaves open: an allowlist of
-zero treats the fenced section like the other five, and an allowlist of
-one asserts an authorization `CLAUDE.md` currently contradicts.  Deciding
-that first is the point; a gate would make whichever answer is chosen
-permanent.  So none is added here.
+one of two heading forms, so a literal scan would catch them -- but no such
+gate was added in this entry. **Superseded 2026-08-27:** the comparison
+sections are locally fenced; no automation is added here.
 
 
 ## The parked-module audit residual closed, and narrowed (2026-08-22)
@@ -2355,3 +2357,15 @@ CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER / G1_CLASS_EXCLUSION_PROVED /
 G3_REMAINS_CONJECTURE / G4_REMAINS_CONJECTURE / OB1_UNCHANGED /
 OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. No new event, generator, carrier
 adapter, reading selection, or authorization rule is introduced.
+
+## The D7 comparison fence made explicit (2026-08-27)
+
+D7 is repaired by the fence path. The six end-placed comparison sections
+listed in `paper/paper.md` section 13 now all say the same thing locally:
+they are post-hoc comparison only, not derivational input, theorem evidence,
+or authorization, and nothing above depends on them.
+
+`CLAUDE.md` is left as the stricter operating boundary for future
+derivational work. This change does not amend that authority record; it stops
+the public paper and README from treating unfenced historical comparison
+sections as part of the derivational claim.

@@ -167,7 +167,7 @@ blindness claim is narrower: `prompt/`, `code/`, `lean4/Derivation/`,
 `partial_decide` —
 carry provenance, test, and typing checks; other research packets are not
 silently included in that claim. `paper/paper.md` section 13 records the
-unresolved conflict between comparison sections and the broader operating
-prohibition as an author decision; this README does not resolve it.
+chosen D7 repair: the comparison sections are fenced as post-hoc apparatus,
+not derivational inputs, theorem evidence, or authorization.
 
 `AuthorityEffect: None` — this repository records. It does not certify.
