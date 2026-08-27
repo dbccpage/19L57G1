@@ -25,12 +25,12 @@ falsifier.
 | GC-8 | finite computation | tied non-isomorphic continuations are all retained |
 | GC-9 | declared metatheory + bounded theorem | no object-language endogenous demand generator was derived — **OB-1** |
 | GC-10 | bounded theorem | pair-separation closure terminates with the external policy disabled |
-| GC-11 | theorem + finite computation + open | generation is proved for a declared rule; repair is empty in the declared bounded class |
+| GC-11 | theorem + finite computation + open | generation and the finite-local class exclusion are horizon-free theorems; the 15-round search is historical witness only |
 | GC-12 | **refused** | no universal property or initiality for the process |
 | GC-13 | unresolved | two admission readings survive with no internal fact separating them |
 | GC-14 | declared metatheory | four declarations the process does not derive |
 | GC-15 | observation | the blindness attestation is false at HEAD — **OB-3** |
-| GC-16 | observation | `README.md` counts are stale — **OB-4** |
+| GC-16 | observation | `README.md` refreshed from the `24d1bc64` census; **OB-4 DISCHARGED by this update** |
 | GC-17 | observation | this tree is not read by any gate |
 
 ---
@@ -155,19 +155,21 @@ falsifier.
 - **Statement**: For the declared reflective chain rule, generation is
   proved horizon-free (`generation_never_dries`): from the third round on
   a live obstruction always exists and the only event consumed is the
-  internally enabled reflection. Over the five declared repair
-  strategies, the class that fires, clears every firing round, and avoids
-  recurring imports is **empty within the declared 15-round computation**.
-- **Class**: theorem (generation) + finite computation within declared
-  bounds (the exclusion) + **open** (the class-general cycle claim).
-- **Python**: `code/derivation/generator.py`; `artifacts/generator.json`,
-  key `endogenous_cycle_found: false`.
-- **Lean**: `generation_never_dries`, `automark_presence_vacuous`,
-  `finite_marks_outrun`, `valued_marks_collapse_generation`.
+  internally enabled reflection. For every fixed-radius, fixed-finite-
+  alphabet member of `LocalStrategy`, the capacity theorem gives a deep
+  collision and `g1_class_exclusion` proves the full cycle impossible.
+- **Class**: theorem (generation) + theorem (the declared finite-local class
+  exclusion) + finite computation (historical five-strategy witness) +
+  **open** (strategies outside the declared class).
+- **Python**: `code/derivation/generator.py`; `artifacts/generator.json`, key
+  `endogenous_cycle_found: false`, is the bounded 15-round historical witness,
+  not the class proof. `artifacts/g1_class_receipt.json` binds the class result.
+- **Lean**: `Generator.generation_never_dries`,
+  `LocalFiniteAlphabet.strategy_capacity_collision`, and
+  `G1Class.g1_class_exclusion`.
 - **Falsifier / boundary**: the generating rule is itself **declared**.
-  This does not close GC-9. The remaining obligation is stated by the
-  repository as G1: a repair channel that separates without minting
-  identity-grade distinctions, or a proof that none exists.
+  This does not close GC-9 or quantify over repair channels outside
+  `LocalStrategy d` with `FiniteDeclaration k`. `OB1_UNCHANGED`.
 
 ### GC-12
 - **Statement**: The process is minimal or initial among a defined class
@@ -232,15 +234,25 @@ falsifier.
   act on sealed prose and an author call.
 
 ### GC-16 — OB-4
-- **Statement**: `README.md` records nine gate families, 1417 axiom
-  reports, and 13 parked Lean modules. At HEAD there are ten gate
-  families, 1424 reports, and 12 parked modules.
-- **Class**: observation. **New here.**
-- **Evidence**: `.github/workflows/verify.yml` (three jobs, ten
-  families); `artifacts/lean_axioms.txt`; `lean4/Derivation.lean` imports
-  `Derivation.Breaking`.
-- **Boundary**: `README.md` is outside the sealed paths, so this is a
-  cheap repair; it is recorded, not done.
+- **Previous statement — WITHDRAWN as current**: “`README.md` records nine
+  gate families, 1417 axiom reports, and 13 parked Lean modules. At HEAD
+  there are ten gate families, 1424 reports, and 12 parked modules.” Both
+  sides of that comparison subsequently drifted.
+- **Statement**: `README.md` now records the `24d1bc64` census: eleven gate
+  families; 58 typed Python sources; 74 Lean modules, comprising 62 in the
+  root import closure and 12 parked; 37 test files with 481 collected cases
+  (480 passed, one skipped on GitHub `verify` run #267); 39 deterministic JSON
+  exports plus six full exports; 135 `CL-*` headings; and 1506 axiom reports.
+- **Class**: observation. **OB-4 DISCHARGED by this README update, using the
+  `24d1bc64` census.**
+- **Evidence**: `.github/workflows/verify.yml`; `ci/check_parked_audit.py`;
+  `artifacts/elaborated_modules.txt`; `artifacts/lean_axioms.txt`;
+  `artifacts/completion_receipt.json`; the tracked source, test, artifact, and
+  claim-heading censuses; GitHub `verify` run #267 on `89c9239`, whose tree
+  `2e80261ef11b9bcd2fc3a87597892aafec83dbf6` is identical to merge commit
+  `24d1bc64`.
+- **Boundary**: this is a dated repository census, not mathematical evidence.
+  A later source, test, artifact, claim, or workflow change can make it stale.
 
 ### GC-17
 - **Statement**: No gate reads `research/genesis_continuation/`.

@@ -57,8 +57,9 @@ The scoped evidence and verification limits are in `FINDINGS.md`.  The finite
 machine receipt is `receipts/finite_tower_0_15.json`.  The source-boundary
 receipt is `verify_manifest.py`; Lean axiom output is separately verified by
 `verify_lean.py`, which parses each `#print axioms` line rather than inferring
-anything from a plain `lake build`.  Neither verifier is run by CI: both are
-manual receipts, and `FINDINGS.md` records the commands and what was run.
+anything from a plain `lake build`.  The `research` workflow job runs
+`verify_manifest.py`; `verify_lean.py` remains a manual receipt. `FINDINGS.md`
+records both commands and exactly what each one checks.
 
 ## Finite symmetry--obstruction--repair bridge
 
@@ -70,7 +71,7 @@ residual is absent from the declared repair table; and the available response
 forms are explicit anchored selection, full-orbit retention, or refusal.
 The deterministic report is `receipts/symmetry_obstruction_bridge.json`,
 SHA-256 `518537CEBCCA2508B443F59036418776E51F3D5285BB4824DEC81E51749A9AB8`.
-It is regenerated and checked by the manual `verify_manifest.py` relation
+It is regenerated and checked by the CI-run `verify_manifest.py` relation
 alongside the earlier tower receipt.  It does not establish a native-stage
 bridge, general cohomology result, endogenous structure creation, or physical
 interpretation.

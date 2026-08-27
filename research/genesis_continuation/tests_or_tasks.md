@@ -54,8 +54,13 @@ failing-on-five naming the right files, then restore it.
 
 ## T2 — refresh `README.md`
 
-**Do**: nine gate families to ten; 1417 axiom reports to 1424; "13
-parked" to 12.
+**Status, 2026-08-27 — DONE by this README update from the `24d1bc64`
+census.** The former instruction “nine gate families to ten; 1417 axiom
+reports to 1424; 13 parked to 12” is WITHDRAWN as current because both sides
+later drifted. `README.md` now records the live eleven-family,
+58-Python-source, 74-Lean-module (62 root + 12 parked), 481-collected-test
+(480 passed + one skipped), 39-JSON + six-full-export, 135-claim-heading, and
+1506-report census.
 
 **Proves**: nothing. It is a correction, not evidence.
 

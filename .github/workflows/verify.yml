@@ -92,7 +92,7 @@ jobs:
       # documents and the local Get-ChildItem procedure. A runner placed in a
       # SUBDIRECTORY of code/ is NOT enumerated by this census.
       #
-      # Execution order is free. All 24 runners were verified to produce
+      # Execution order is free. The globbed runners were verified to produce
       # byte-identical artifacts under LC_ALL=C order rather than the previous
       # hand order; no runner reads another runner's artifact.
       - name: Regenerate artifacts and compare
@@ -154,8 +154,8 @@ jobs:
       #
       # The census is RECURSIVE under Derivation/, so a subdirectory module
       # cannot escape it. It does NOT match ci/check_lean_audit.py's rglob:
-      # that reads lean4/**/*.lean (74 sources) while this reads
-      # `find Derivation` (72). The difference is the top-level roots,
+      # that reads lean4/**/*.lean while this reads `find Derivation`.
+      # The difference is the two top-level roots,
       # lean4/Derivation.lean and lean4/ParkedAudit.lean, which are covered
       # by being defaultTargets rather than by this census -- so a new
       # top-level lean4/*.lean that is NOT a default target would be read
@@ -187,18 +187,18 @@ jobs:
             lake build "$m"
           done < /tmp/census.txt
 
-  # The ELEVENTH gate family, and the only one EXPECTED to go red on a change
+  # The ELEVENTH gate family, and the only one EXPECTED to go red on a change;
+  # that is entirely legitimate. Read the next three paragraphs before
+  # reacting to a failure here.
   #
   # It was the tenth until ci/check_parked_audit.py took that number. The
   # numbering is shared with CLAUDE.md, and leaving this comment at TENTH
   # pointed "expected to go red" at the parked-module gate, which is not
   # expected to go red and has a completely different repair.
-  # that is entirely legitimate. Read the next three paragraphs before
-  # reacting to a failure here.
   #
-  # research/ is outside the sealed boundary and its verifiers are manual
-  # receipts by design; no other job in this workflow reads that tree. The
-  # cost of that was paid on 2026-08-21. Merging #76 and #77 left main with
+  # research/ is outside the sealed boundary. Before this job landed, its
+  # verifiers were manual receipts and no workflow job read that tree. The
+  # cost of that was paid on 2026-08-21: merging #76 and #77 left main with
   # five failing research tests while this workflow reported SUCCESS: #77
   # edited a module that SOURCE_MANIFEST.json pins by SHA-256, #76 shipped
   # the tests that read the pin, and the two only interact once both are

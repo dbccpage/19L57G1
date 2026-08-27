@@ -1,10 +1,11 @@
 # 19L57G1
 
-Forcing a universe without observers from nowhere.
+A blind finite derivation of what follows from an opaque seed — and where
+derivation stops.
 
-A formal system derived from an opaque seed under externally imposed
+A finite formal record developed from an opaque seed under externally imposed
 challenges, carried out **blind** — no external research, no target
-theory, no prior instructions — and verified across four independent
+theory, no prior instructions — and verified across four cross-checking
 layers that each constrain the others.
 
 ---
@@ -12,18 +13,18 @@ layers that each constrain the others.
 ## What is actually here
 
 A finite object language (data, forms, instances, rules, requirements)
-that changes state only through admission events, together with a
-complete audit trail of what was derived, what was computed, what was
+that changes state only through admission events, together with an
+explicit audit trail of what was derived, what was computed, what was
 proved, and — stated with equal precision — what was not.
 
 | | |
 |---|---|
-| Python | 54 modules; the computational object language and its studies |
-| Lean 4 | 72 modules, 60 in the root's import closure, 12 parked and audited separately |
-| Tests | 34 files, 435 tests, line 99.10% / branch 96.73% |
-| Artifacts | 37 deterministic JSON exports plus 6 full gzipped trees |
-| Claims | 127 ledger entries, each naming its own evidence |
-| Axioms | 1472 axiom reports, all within `{propext, Quot.sound}` |
+| Python | 58 typed source files; the computational object language and its studies |
+| Lean 4 | 74 modules, 62 in the root's import closure, 12 parked and audited separately |
+| Tests | 37 files, 481 collected: 480 passed / 1 skipped; line 99.09% / branch 96.71% |
+| Artifacts | 39 deterministic JSON exports plus 6 full gzipped trees |
+| Claims | 135 `CL-*` headings; schema and evidence ratchets expose the remaining legacy gaps |
+| Axioms | 1506 axiom reports, all within `{propext, Quot.sound}` |
 
 The derivation's result is not that some structure was built. It is
 that at the first point where the system had to answer, **the
@@ -66,18 +67,20 @@ can contradict.
   `lean4/Derivation/` is elaborated as its own build target against a
   pinned census, so a module the root does not import cannot escape
   typechecking.
-* **The ledger is the join.** Each claim carries a class, its Python
-  evidence (artifact key and/or test name), its Lean theorem names, and
-  its falsifier. A gate verifies every one of those names still resolves.
+* **The ledger is the join, with explicit legacy debt.** Its 135 `CL-*`
+  headings provide the schema for class, Python evidence, Lean names, and
+  falsifier fields. Conformance ratchets expose the known missing fields;
+  the evidence gate verifies that citations which are present still resolve.
 
 ## Eleven gate families
 
 ```
-1  prompt byte-identity          6  Lean build, forbidden-token and axiom audit
-2  transport citations           7  skills well formed, declaring no authority
-3  dual 95% line/branch gates    8  paper cross-references resolve
-4  strict typing (mypy)          9  ledger evidence citations resolve
-5  artifact regeneration
+1   prompt byte-identity          7   skills well formed, declaring no authority
+2   transport citations           8   paper cross-references resolve
+3   dual 95% line/branch gates    9   ledger evidence citations resolve
+4   strict typing (mypy)         10   parked-module census and audit wiring
+5   artifact regeneration        11   research provenance, tests, and typing
+6   Lean build, forbidden-token and axiom audit
 ```
 
 Run them with `.claude/skills/gates`, which enforces freshness so a
@@ -91,7 +94,7 @@ the rest.
 * **A gate proves a receipt, not a payload.** Hashes, test passes, and
   byte comparisons say what the commands printed. They do not say the
   mathematics is right.
-* **"Axiom-clean" is a claim about the enumerated reports** (1472), not
+* **"Axiom-clean" is a claim about the enumerated reports** (1506), not
   about every declaration in the tree. An earlier version of this bullet
   said thirteen parked modules "emit no report; their axioms are unchecked";
   that is WITHDRAWN — `lean4/ParkedAudit.lean` now reports the twelve
@@ -118,11 +121,12 @@ the rest.
 metatheory; 4–8 are the derivation; **11 is the strongest defensible
 terminal result** and 12 is the limitations register.
 
-**The evidence** — `paper/paper_claim_ledger.md`. Every `CL-*` entry
-names what backs it. Start here when you doubt a sentence in the paper.
+**The evidence ledger** — `paper/paper_claim_ledger.md`. It records backing
+where present and keeps known legacy gaps explicit rather than treating a
+green ratchet as completion. Start here when you doubt a paper sentence.
 
-**The kernel** — read these six in order; the other ~25 Python modules
-are studies layered on them:
+**The kernel** — read these six in order; 25 study modules plus the package
+initializer are layered on them:
 
 ```
 code/derivation/model.py       regimes, events, replay
@@ -134,33 +138,35 @@ code/derivation/model.py       regimes, events, replay
 ```
 
 **The apparatus** — `CLAUDE.md` is the operating manual: commands,
-invariants that break CI, and an injection record showing each gate
-failing on the exact defect it exists to catch.
+invariants that break CI, and an injection record for the gate failure modes
+that have actually been tested.
 
 ## Quick start
 
 ```powershell
-python -m pytest                    # 435 tests
+python -m pytest                    # 480 passed, 1 skipped on the current census
 python -m mypy                      # strict, over code/
-cd lean4; lake build; cd ..         # default Derivation target; CI census elaborates all 72 modules
+cd lean4; lake build; cd ..         # default targets; CI census elaborates all 74 modules
 ```
 
-Artifacts regenerate deterministically:
-
-```powershell
-$env:PYTHONPATH = "code"
-Get-ChildItem code/run_*.py | ForEach-Object { python $_.FullName --artifacts artifacts2 }
-python ci/compare_artifacts.py artifacts artifacts2
-```
+Artifacts regenerate deterministically. Family 5 in
+`.claude/skills/gates/SKILL.md` first proves its scratch path is inside the
+repository, clears it, rejects an empty runner census, runs every top-level
+runner, and compares both export sets.
 
 ## Boundary
 
 `prompt/prompt.md` and `prompt/seed_prompt.md` are read-only inputs and
-must remain byte-identical; their hashes are recorded in the paper. The
-blind protocol governs the whole repository: no external theory,
-architecture, or terminology appears anywhere outside the sealed seed
-prompt. That is why the paper's post-hoc comparison section is withheld,
-and it is the only thing that makes the derivation evidence rather than
-a retelling.
+must remain byte-identical; their hashes are recorded in the paper. The seal
+contract names `prompt/`, `paper/`, `code/`, `lean4/Derivation/`, and
+`artifacts/`; none of those paths is amended here. The evidence-backed
+blindness claim is narrower: `prompt/`, `code/`, `lean4/Derivation/`,
+`artifacts/`, and each paper document above its final comparison section.
+`research/` is outside the derivational seal. Its three registered trees —
+`primitive_difference_tower`, `portable_interface`, and `blind_restart` —
+carry provenance, test, and typing checks; other research packets are not
+silently included in that claim. `paper/paper.md` section 13 records the
+unresolved conflict between comparison sections and the broader operating
+prohibition as an author decision; this README does not resolve it.
 
 `AuthorityEffect: None` — this repository records. It does not certify.
