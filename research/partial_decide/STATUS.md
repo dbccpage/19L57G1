@@ -40,6 +40,15 @@ deltas. A separate already-separated fixture returns
 `UniqueDelta(())`, witnessing that the constructor is live without falsely
 assigning it to C3.
 
+Candidate enumeration is live in these computations. To form quotient keys,
+`decide` replays `Impose` and each candidate delta's admission-event values
+against the supplied regime into a newly constructed, ephemeral comparison
+child. Those children exist only for classification: no child replaces the
+declared base, no candidate is authorized, and no response or event is
+persistently applied or committed to that base. This bounded candidate
+enumeration is distinct from an object-language demand generator; no such
+generator is defined here.
+
 The machine-readable record is `partial_decide_c3.json`. Every class member
 is retained. No field names a representative, selected delta, authorized
 delta, or transition to apply.
@@ -52,25 +61,32 @@ engine's admitted-data indices by a declared carrier/pair correspondence. This
 tree therefore records:
 
 ```text
-PANEL_TO_ENGINE_LINK_NOT_DEFINED
+NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION
+NO_EVENT_COMMITTED_TO_DECLARED_BASE
+NO_PANEL_DERIVED_INPUT
 NO_PANEL_ENGINE_ADAPTER
-NO_DECISION_INPUT_SELECTION
 NO_RESPONSE_AUTHORIZATION
-NO_RESPONSE_APPLICATION
-NO_OBJECT_LANGUAGE_EVENT
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE
+PANEL_TO_ENGINE_LINK_NOT_DEFINED
 ```
 
-A panel may motivate a separately declared request supplied to `decide`; it
-cannot choose the engine regime, pair, reading, measure, bounds, quotient
-member, or response. Absence of that correspondence is not encoded as the
-function's `None` result. The absence statement is a scoped source audit: the
-verifier enforces package custody and import syntax but does not recognize
-every possible semantic adapter.
+A panel may motivate a separately declared request supplied to `decide`, but
+this tree derives no decision input from the panel and supplies no adapter by
+which the panel chooses the engine regime, pair, reading, measure, bounds,
+quotient member, or response. Absence of that correspondence is not encoded
+as the function's `None` result. The absence statement is a scoped source
+audit: the verifier enforces package custody and import syntax but does not
+recognize every possible semantic adapter.
 
-## Explicit nonclaims
+## Explicit scope and nonclaims
 
-- No candidate or demand is generated.
-- No new requirement or admission event is derived.
+- Candidates and their admission-event values are enumerated by the declared
+  bounded computation and replayed only into ephemeral comparison children.
+- No panel-derived input or candidate authorization is declared; no response
+  is authorized or persistently applied, and no event is committed to the
+  declared base.
+- No object-language demand generator is defined. Candidate enumeration for
+  a supplied bounded request is not such a generator.
 - No L/F reading, measure, bound, or endpoint is preferred.
 - No quotient representative is selected.
 - No Map C, chain/local-view correspondence, or G4 adapter is defined.
@@ -101,14 +117,24 @@ receipt rendering, the mechanically pinned G3/G4 labels, an independently
 literal C3 receipt contract, receipt transport policy, complete package
 custody, and byte-identical receipt regeneration. The documented writer uses
 that verified isolated renderer and refuses to write when its custody
-preflight fails. These are syntactic/provenance checks; they do not recognize
-every possible semantic adapter.
+preflight fails. If writing is requested, it also refuses an existing target
+that is a symlink, reparse point, directory, or other non-regular file. It
+writes exact binary LF bytes to an exclusively created same-directory regular
+temporary file, flushes and synchronizes that file, rechecks the target,
+atomically replaces it with no fallible post-commit step, and cleans the
+temporary file after an error. These are
+syntactic/provenance/transport checks; they do not recognize every possible
+semantic adapter.
 
 Python necessarily starts `verify_pins.py` (or the small writer entry point)
-before that file can check its own Git custody. No partial-Decide consumer or
-derivation module is parsed or executed until the verifier's early custody
-preflight succeeds; the running verifier, standard library, Git executable,
-and parsed pin JSON are the explicit bootstrap boundary.
+before that file can check its own Git custody. That already-running parent,
+the invoking interpreter and standard library, the Git executable, and the
+parsed pin JSON are the explicit bootstrap boundary. After the early custody
+preflight, receipt rendering starts a fresh `-I -B -S` child, installs the
+child's audit boundary and explicit project paths, and only then imports the
+receipt and derivation modules. The flags exclude environment/user-site
+influence, ordinary `site` initialization, and bytecode writes in that child;
+they do not retroactively authenticate the parent bootstrap.
 
 Run from the repository root:
 
@@ -128,6 +154,11 @@ Push-Location research/partial_decide
 python run_receipt.py --write
 Pop-Location
 ```
+
+`--write` delegates to the public `write_receipt_atomic` helper described
+above. The helper is deliberately small so its special-target refusal,
+temporary-file cleanup, and atomic-replacement behavior can be tested without
+regenerating the committed receipt.
 
 Receipt equality witnesses byte-identical regeneration in that invocation;
 the repeated-call test separately checks equality for the tested inputs. It
@@ -158,6 +189,11 @@ probes has that commit as its parent. Every verifier failure exited one; the
 type probe made mypy exit one. The relevant check returned exit zero after
 every reversal.
 
+All campaign commits were local throwaway objects and are not reachable from
+a branch or tag; they may be pruned and are not the durable evidence. The
+tracked mutation descriptions, commands, exact diagnostics, exits, and
+recovery results below are the replay record.
+
 | probe | injection commit | observed failure |
 |---|---|---|
 | removed `mu2` from one reading while duplicating `mu1` | `43b57b9311ba4cacfde58904732b6bd0c1a211e8` | `reading L grades keys differ: missing ['mu2'], extra []` |
@@ -177,12 +213,49 @@ every reversal.
 
 The unnamed census diagnostic was repaired at
 `a1368cc48f64491ca1141b5b66d6239284140066` and the same defect was injected
-again at `431d172d3f48c44c2540a90cbd5ab25e66f637cd`. The verifier then exited one
+again at `431d172bee890ae37fa7e5fabcadefa5e19f0fda`. The verifier then exited one
 with:
 
 ```text
 FAIL: tracked package census differs across declaration, HEAD, and index: research/partial_decide/zzz_consumer_probe.py [declaration=no, HEAD=yes, index=yes]
 ```
+
+The exact replay, from repository root with a clean detached
+`a1368cc48f64491ca1141b5b66d6239284140066`, is independent of that now-
+unreachable commit object. `apply_patch` added this exact file:
+
+```diff
+*** Begin Patch
+*** Add File: research/partial_decide/zzz_consumer_probe.py
++"""INJECTION: unlisted partial-Decide consumer for census diagnostics."""
+*** End Patch
+```
+
+The remaining commands were:
+
+```powershell
+git add -- research/partial_decide/zzz_consumer_probe.py
+git diff --cached --check
+git commit -m "INJECTION: add unlisted partial decision consumer"
+$env:PYTHONPATH = "<worktree>\code"
+uv run --isolated --no-managed-python `
+  --python C:\Users\a343o\AppData\Local\Python\pythoncore-3.14-64\python.exe `
+  --with-requirements requirements.txt `
+  python research/partial_decide/verify_pins.py
+```
+
+The commit command produced
+`431d172bee890ae37fa7e5fabcadefa5e19f0fda`; the verifier command exited one
+and printed exactly the `FAIL:` line above. Reversal and recovery used:
+
+```powershell
+git switch --detach a1368cc48f64491ca1141b5b66d6239284140066
+# Repeat the identical PYTHONPATH and uv verifier command above.
+```
+
+The recovery verifier exited zero and printed receipt SHA-256
+`87D2F5E8885B64797CDED3F6A2BF2688B7CED973760F7A881B0B5CA94D3FB127`
+and `AuthorityEffect: None`.
 
 After reversal, the custody worktree was clean at `a1368cc`, and its verifier
 returned exit zero. The other two campaign worktrees ended clean at the

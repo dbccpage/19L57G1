@@ -295,6 +295,27 @@ python -m mypy
 cd ../..
 ```
 
+The partial-Decide computation enumerates candidates and replays each
+candidate's `Impose` and admission-event values only into an ephemeral
+comparison child used to compute a quotient key. It derives no decision input
+from the panel, authorizes no candidate, persistently applies no response,
+and commits no event to the declared base. This bounded enumeration is not an
+object-language demand generator; no such generator is supplied by that
+package. Its corresponding scoped terminals are
+`NO_PANEL_DERIVED_INPUT`,
+`NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION`, and
+`NO_EVENT_COMMITTED_TO_DECLARED_BASE`, alongside the narrower adapter,
+authorization, and generator refusals recorded in its receipt.
+
+After the partial-Decide verifier's early custody preflight, receipt rendering
+runs in a fresh `-I -B -S` child that installs its audit boundary and explicit
+project paths before importing the receipt or derivation modules. That does
+not authenticate the already-running verifier/entry point, interpreter,
+standard library, Git executable, or parsed pin JSON. Deliberate receipt
+writing refuses an existing link, reparse point, directory, or other
+non-regular target and atomically replaces a safe target through a flushed,
+synchronized, exclusively created same-directory temporary regular file.
+
 The primitive-difference portion of gate 11 is expected to go red on a
 legitimate change to one of its protected paths, while the other registered
 research checks should remain green unless one of their exact inputs or
@@ -660,7 +681,7 @@ What has actually been injected, and what failed:
 | Partial-Decide exact snapshot | replaced the commit id with `HEAD` at `15c8ab7d57d80bbefdd129f82013881131349d47` | `FAIL: source snapshot commit must be an exact 40-digit lowercase hex id`; exit 1, then 0 after reversal |
 | Partial-Decide early custody | dirtied tracked `c3_receipt.py` before preflight | `FAIL: partial-Decide executable package or transport policy has worktree changes before custody preflight`, naming the file; exit 1, then 0 after reversal |
 | Partial-Decide package census, first diagnostic | committed an unlisted consumer at `758ec430baaa946177a5948676f4049a4d86333f` | `FAIL: tracked package census differs across declaration, HEAD, and index`; exit 1, then 0 after reversal. It detected divergence but did not name the injected file, so this first probe did not meet the diagnostic standard |
-| Partial-Decide package census, repaired diagnostic | repeated the unlisted consumer at `431d172d3f48c44c2540a90cbd5ab25e66f637cd` | `FAIL: ... research/partial_decide/zzz_consumer_probe.py [declaration=no, HEAD=yes, index=yes]`; exit 1, then 0 after reversal |
+| Partial-Decide package census, repaired diagnostic | repeated the unlisted consumer at `431d172bee890ae37fa7e5fabcadefa5e19f0fda` | `FAIL: ... research/partial_decide/zzz_consumer_probe.py [declaration=no, HEAD=yes, index=yes]`; exit 1, then 0 after reversal |
 | Partial-Decide mypy census | added an uncommitted type-invalid consumer | mypy named the incompatible assignment and checked six source files; exit 1, then five clean files and exit 0 after reversal |
 | Partial-Decide transport attribute | changed `-text` to `text` at `80ddae268710c4d0a5be671ad254cfa7b4fa6944` | `FAIL: receipt transport attribute must be committed as -text`; exit 1, then 0 after reversal |
 | Partial-Decide CRLF refusal | committed CRLF receipt bytes at `5e1eb4b2ac42e06f565272b55130bbe9dd9819b9` | `FAIL: partial_decide_c3.json contains CR bytes`; exit 1, then 0 after reversal |
@@ -669,6 +690,12 @@ What has actually been injected, and what failed:
 | Ledger conformance, rewritten body | CL-0-INERTIA statement replaced with a lie that keeps every key | `test_injection_rewritten_inertia_body_breaks_the_pin`: body pin digest moves; ID ratchets would have stayed green |
 | Ledger conformance, match-arm index | synthetic `| exact =>` / comment words `that worth of carrying` | `test_match_arm_and_comment_words_are_not_declarations`: those strings are absent from the declaration index; constructors `| name (` still index |
 | Ledger conformance, root wildcard | token `Derivation.*` | `test_root_namespace_wildcard_does_not_resolve`: returns false. `PresentationRelativity.*` still resolves |
+
+The Partial-Decide injection commit IDs above are local throwaway objects with
+no branch or tag reachability; they may be pruned and are locators rather than
+durable evidence. `research/partial_decide/STATUS.md` records the exact
+mutation, command, diagnostic, exit, and recovery needed to replay the repaired
+package-census probe without relying on its commit object.
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.

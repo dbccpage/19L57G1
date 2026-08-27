@@ -1,8 +1,12 @@
 """Deterministic Challenge-3 receipt for the partial decision grade.
 
 The readings, targets, candidate measures, and bounds consumed here are the
-ones already declared by the sealed engine.  This module records their
-outputs; it does not select or extend any of them.
+ones already declared by the sealed engine.  The bounded computation
+enumerates candidates and replays their admission-event values only into
+ephemeral comparison children used for quotienting.  This module records the
+four predeclared outputs; it derives no input from the panel, authorizes no
+candidate, persistently applies no response, commits no event to the declared
+base, and supplies no object-language demand generator.
 
 AuthorityEffect: None
 """
@@ -136,10 +140,10 @@ def receipt_payload() -> dict[str, object]:
             "C3_MU2_UNIQUE_CLASS_INHABITED",
             "G3_REMAINS_CONJECTURE",
             "G4_REMAINS_CONJECTURE",
-            "NO_DECISION_INPUT_SELECTION",
-            "NO_OBJECT_LANGUAGE_EVENT",
+            "NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION",
+            "NO_EVENT_COMMITTED_TO_DECLARED_BASE",
+            "NO_PANEL_DERIVED_INPUT",
             "NO_PANEL_ENGINE_ADAPTER",
-            "NO_RESPONSE_APPLICATION",
             "NO_RESPONSE_AUTHORIZATION",
             "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
             "PANEL_TO_ENGINE_LINK_NOT_DEFINED",

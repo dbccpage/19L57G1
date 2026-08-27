@@ -1,9 +1,11 @@
 """A partial metatheoretic grade for a declared separation request.
 
 This module records what the existing bounded candidate computation returns.
+It enumerates candidates and replays their ``Impose`` and admission-event
+values only into ephemeral comparison children used to compute quotient keys.
 It does not choose a request, reading, measure, bound, response, or
-representative, and it performs no object-language event beyond those already
-used by the candidate computation when constructing comparison children.
+representative; authorize a candidate; persistently apply a response; commit
+an event to the declared base; or supply an object-language demand generator.
 
 ``decide`` classifies a valid request when the bounded minimum and quotient
 computations complete. Invalid targets, unsupported bounds, rule-bearing
@@ -249,8 +251,10 @@ def decide(
 
     ``None`` means only that the finite candidate search found no response
     inside ``bounds``.  It does not mean that no response exists globally.
-    The function never chooses any of its arguments and never applies a
-    returned delta.
+    Candidate enumeration is live.  Quotienting replays each candidate's
+    ``Impose`` and admission-event values into an ephemeral comparison child.
+    The function never chooses any argument, authorizes a candidate,
+    persistently applies a response, or commits an event to ``regime``.
     """
 
     checked_measure = _validate_request(

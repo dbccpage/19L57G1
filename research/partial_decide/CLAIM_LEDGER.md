@@ -19,7 +19,10 @@
 - **Falsifier:** A valid input for which the returned tag disagrees with the
   retained raw/class counts, or a bounded absence represented by any tag other
   than `None`, or budget exhaustion represented as `None`.
-- **Nonclaim:** No input is selected and no returned delta is applied.
+- **Nonclaim:** No input is derived from the panel. Candidate admission-event
+  values are replayed only into ephemeral comparison children for quotienting;
+  no candidate is authorized and no response or event is persistently applied
+  or committed to the declared base.
 
 ## PD-GRADE-2 — Challenge-3 grades
 
@@ -60,21 +63,23 @@ These labels are scope-qualified receipt statuses at the pinned source
 snapshot, displayed bounds, and permutation budget. They are not engine
 termination, repository completion, satisfaction of the global stopping
 conditions, or authority. The two C3 labels are computed here; the panel,
-input-selection, authorization, application, object-language-event, and
-generator labels are refusal/interface boundaries. The G3/G4 labels are
-inherited from the mechanically pinned
+authorization, persistent-application, declared-base-event, and generator
+labels are refusal/interface boundaries. Candidate enumeration and
+admission-event replay into ephemeral comparison children are live; they are
+not an authorization, persistent base mutation, or object-language demand
+generator. The G3/G4 labels are inherited from the mechanically pinned
 `artifacts/g1_class_receipt.json`, not produced by `decide`.
 
 ```text
 C3_UNIQUE_DELTA_EMPTY
 C3_MU2_UNIQUE_CLASS_INHABITED
-PANEL_TO_ENGINE_LINK_NOT_DEFINED
-NO_PANEL_ENGINE_ADAPTER
-NO_DECISION_INPUT_SELECTION
-NO_RESPONSE_AUTHORIZATION
-NO_RESPONSE_APPLICATION
-NO_OBJECT_LANGUAGE_EVENT
 G3_REMAINS_CONJECTURE
 G4_REMAINS_CONJECTURE
+NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION
+NO_EVENT_COMMITTED_TO_DECLARED_BASE
+NO_PANEL_DERIVED_INPUT
+NO_PANEL_ENGINE_ADAPTER
+NO_RESPONSE_AUTHORIZATION
 OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE
+PANEL_TO_ENGINE_LINK_NOT_DEFINED
 ```
