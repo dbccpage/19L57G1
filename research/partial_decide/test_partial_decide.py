@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import copy
+import json
 import shutil
+import stat
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -37,15 +40,22 @@ from partial_decide import (
 )
 from run_receipt import main as run_receipt_main
 from verify_pins import (
+    FINITE_G4_WITHDRAWAL,
+    FRESH_RENDERER_FLAGS,
     RECEIPT_PATH,
+    REQUIRED_TERMINALS,
     _assert_module_origin,
     _controlled_imports,
     _fresh_receipt,
     _format_package_census_difference,
     _internal_dependencies,
     _parse_tree_records,
+    _read_pins,
     _require_hex,
+    _require_regular_receipt_target,
     _safe_relative,
+    _validate_g3_g4_status_payload,
+    _validate_pin_structure,
     _validate_receipt_contract,
     verify,
 )
@@ -60,6 +70,34 @@ PINNED_MODULE_PATHS = {
     "derivation.iso": PurePosixPath("code/derivation/iso.py"),
     "derivation.engine": PurePosixPath("code/derivation/engine.py"),
 }
+
+
+def _literal_contract_payload() -> dict[str, object]:
+    """Adapt only the terminals until the semantic integration commit lands."""
+
+    serialized: object = json.loads(json.dumps(receipt_payload()))
+    if not isinstance(serialized, dict):
+        raise AssertionError("serialized receipt payload must be an object")
+    payload = cast(dict[str, object], serialized)
+    payload["terminals"] = list(REQUIRED_TERMINALS)
+    return payload
+
+
+def _receipt_grade_at(
+    payload: dict[str, object], reading_index: int, measure: str
+) -> dict[str, object]:
+    readings = cast(list[dict[str, object]], payload["readings"])
+    grades = cast(dict[str, object], readings[reading_index]["grades"])
+    option = cast(dict[str, object], grades[measure])
+    return cast(dict[str, object], option["grade"])
+
+
+def _g1_status_payload() -> dict[str, object]:
+    path = RECEIPT_PATH.parents[2] / "artifacts" / "g1_class_receipt.json"
+    payload: object = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise AssertionError("G1 status receipt must be an object")
+    return cast(dict[str, object], payload)
 
 
 def _c3_grade(
@@ -282,31 +320,19 @@ class ReceiptAndPinTests(unittest.TestCase):
         assert isinstance(terminals, list)
         self.assertEqual(
             terminals,
-            [
-                "C3_UNIQUE_DELTA_EMPTY",
-                "C3_MU2_UNIQUE_CLASS_INHABITED",
-                "G3_REMAINS_CONJECTURE",
-                "G4_REMAINS_CONJECTURE",
-                "NO_DECISION_INPUT_SELECTION",
-                "NO_OBJECT_LANGUAGE_EVENT",
-                "NO_PANEL_ENGINE_ADAPTER",
-                "NO_RESPONSE_APPLICATION",
-                "NO_RESPONSE_AUTHORIZATION",
-                "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
-                "PANEL_TO_ENGINE_LINK_NOT_DEFINED",
-            ],
+            list(REQUIRED_TERMINALS),
         )
         self.assertEqual(payload["authority_effect"], "None")
 
     def test_literal_receipt_contract_rejects_renderer_constant_drift(self) -> None:
-        payload = receipt_payload()
+        payload = _literal_contract_payload()
         _validate_receipt_contract(
             payload,
             snapshot_commit=SNAPSHOT_COMMIT,
             snapshot_tree=SNAPSHOT_TREE,
         )
         with patch("c3_receipt.MEASURES", ("mu1", "mu1")):
-            drifted = receipt_payload()
+            drifted = _literal_contract_payload()
         with self.assertRaisesRegex(ValueError, "grades"):
             _validate_receipt_contract(
                 drifted,
@@ -314,21 +340,21 @@ class ReceiptAndPinTests(unittest.TestCase):
                 snapshot_tree=SNAPSHOT_TREE,
             )
         _validate_receipt_contract(
-            receipt_payload(),
+            _literal_contract_payload(),
             snapshot_commit=SNAPSHOT_COMMIT,
             snapshot_tree=SNAPSHOT_TREE,
         )
 
     def test_literal_receipt_contract_rejects_snapshot_bounds_and_counts(self) -> None:
         mutations: list[tuple[str, dict[str, object], str]] = []
-        wrong_snapshot = copy.deepcopy(receipt_payload())
+        wrong_snapshot = copy.deepcopy(_literal_contract_payload())
         wrong_snapshot["source_snapshot"] = {
             "commit": "0" * 40,
             "tree": SNAPSHOT_TREE,
         }
         mutations.append(("snapshot", wrong_snapshot, "source_snapshot"))
 
-        wrong_bounds = copy.deepcopy(receipt_payload())
+        wrong_bounds = copy.deepcopy(_literal_contract_payload())
         readings = cast(list[dict[str, object]], wrong_bounds["readings"])
         grades = cast(dict[str, object], readings[0]["grades"])
         option = cast(dict[str, object], grades["mu1"])
@@ -336,7 +362,7 @@ class ReceiptAndPinTests(unittest.TestCase):
         grade["bounds"] = {"max_arity": 2, "max_items": 1}
         mutations.append(("bounds", wrong_bounds, "bounds"))
 
-        wrong_count = copy.deepcopy(receipt_payload())
+        wrong_count = copy.deepcopy(_literal_contract_payload())
         readings = cast(list[dict[str, object]], wrong_count["readings"])
         grades = cast(dict[str, object], readings[1]["grades"])
         option = cast(dict[str, object], grades["mu2"])
@@ -352,6 +378,168 @@ class ReceiptAndPinTests(unittest.TestCase):
                         snapshot_commit=SNAPSHOT_COMMIT,
                         snapshot_tree=SNAPSHOT_TREE,
                     )
+
+    def test_literal_receipt_contract_rejects_bool_integer_substitutions(self) -> None:
+        bool_target = copy.deepcopy(_literal_contract_payload())
+        readings = cast(list[dict[str, object]], bool_target["readings"])
+        readings[0]["target"] = [False, True]
+        for measure in ("mu1", "mu2"):
+            _receipt_grade_at(bool_target, 0, measure)["target"] = [False, True]
+
+        bool_count = copy.deepcopy(_literal_contract_payload())
+        _receipt_grade_at(bool_count, 0, "mu2")["iso_class_count"] = True
+
+        bool_cost = copy.deepcopy(_literal_contract_payload())
+        minimum_cost = cast(
+            dict[str, object],
+            _receipt_grade_at(bool_cost, 0, "mu2")["minimum_cost"],
+        )
+        minimum_cost["new_form_arity_sum"] = True
+
+        mutations = (
+            ("target", bool_target, "target"),
+            ("class_count", bool_count, "class count"),
+            ("minimum_cost", bool_cost, "minimum cost"),
+        )
+        for name, mutated, message in mutations:
+            with self.subTest(name=name):
+                with self.assertRaisesRegex(ValueError, message):
+                    _validate_receipt_contract(
+                        mutated,
+                        snapshot_commit=SNAPSHOT_COMMIT,
+                        snapshot_tree=SNAPSHOT_TREE,
+                    )
+
+    def test_literal_receipt_contract_rejects_null_and_duplicate_minima(self) -> None:
+        null_minima = copy.deepcopy(_literal_contract_payload())
+        grade = _receipt_grade_at(null_minima, 0, "mu1")
+        grade["raw_minima"] = [None] * 6
+        classes = cast(list[dict[str, object]], grade["classes"])
+        for response_class in classes:
+            response_class["members"] = [None] * cast(int, response_class["size"])
+        with self.assertRaisesRegex(ValueError, "delta must be a list"):
+            _validate_receipt_contract(
+                null_minima,
+                snapshot_commit=SNAPSHOT_COMMIT,
+                snapshot_tree=SNAPSHOT_TREE,
+            )
+
+        duplicate_minima = copy.deepcopy(_literal_contract_payload())
+        grade = _receipt_grade_at(duplicate_minima, 0, "mu1")
+        raw_minima = cast(list[object], grade["raw_minima"])
+        first = copy.deepcopy(raw_minima[0])
+        grade["raw_minima"] = [copy.deepcopy(first) for _ in raw_minima]
+        classes = cast(list[dict[str, object]], grade["classes"])
+        for response_class in classes:
+            response_class["members"] = [
+                copy.deepcopy(first) for _ in range(cast(int, response_class["size"]))
+            ]
+        with self.assertRaisesRegex(ValueError, "raw minima are not unique"):
+            _validate_receipt_contract(
+                duplicate_minima,
+                snapshot_commit=SNAPSHOT_COMMIT,
+                snapshot_tree=SNAPSHOT_TREE,
+            )
+
+    def test_literal_receipt_contract_closes_delta_and_canonical_key_shapes(self) -> None:
+        selected_delta = copy.deepcopy(_literal_contract_payload())
+        raw_minima = cast(
+            list[list[dict[str, object]]],
+            _receipt_grade_at(selected_delta, 0, "mu1")["raw_minima"],
+        )
+        raw_minima[0][0]["selected_delta"] = "INJECTION"
+        with self.assertRaisesRegex(ValueError, "keys differ"):
+            _validate_receipt_contract(
+                selected_delta,
+                snapshot_commit=SNAPSHOT_COMMIT,
+                snapshot_tree=SNAPSHOT_TREE,
+            )
+
+        adapter_key = copy.deepcopy(_literal_contract_payload())
+        classes = cast(
+            list[dict[str, object]],
+            _receipt_grade_at(adapter_key, 0, "mu1")["classes"],
+        )
+        classes[0]["canonical_key"] = ["panel_adapter", [], [], [], []]
+        with self.assertRaisesRegex(ValueError, "nonnegative integer"):
+            _validate_receipt_contract(
+                adapter_key,
+                snapshot_commit=SNAPSHOT_COMMIT,
+                snapshot_tree=SNAPSHOT_TREE,
+            )
+
+    def test_source_pin_schema_rejects_extra_root_and_nested_keys(self) -> None:
+        base = _read_pins()
+        _validate_pin_structure(base)
+        mutations: list[tuple[str, dict[str, object], str]] = []
+
+        extra_root = copy.deepcopy(base)
+        extra_root["response_authorization"] = {"selected_delta": 0}
+        mutations.append(("root", extra_root, "SOURCE_PINS keys differ"))
+
+        extra_snapshot = copy.deepcopy(base)
+        cast(dict[str, object], extra_snapshot["source_snapshot"])["symbolic"] = "HEAD"
+        mutations.append(("snapshot", extra_snapshot, "source_snapshot keys differ"))
+
+        extra_package = copy.deepcopy(base)
+        cast(dict[str, object], extra_package["source_package"])["adapter"] = True
+        mutations.append(("source_package", extra_package, "source_package keys differ"))
+
+        extra_module = copy.deepcopy(base)
+        cast(list[dict[str, object]], extra_module["modules"])[0]["authority"] = "yes"
+        mutations.append(("module", extra_module, "modules\\[0\\] keys differ"))
+
+        extra_status = copy.deepcopy(base)
+        cast(list[dict[str, object]], extra_status["status_inputs"])[0][
+            "totalized"
+        ] = True
+        mutations.append(("status", extra_status, "status_inputs\\[0\\] keys differ"))
+
+        extra_import = copy.deepcopy(base)
+        authorized = cast(
+            dict[str, dict[str, object]], extra_import["authorized_imports"]
+        )
+        authorized["research/partial_decide/partial_decide.py"][
+            "response_authorization"
+        ] = ["selected_delta"]
+        mutations.append(("import", extra_import, "invalid authorized module"))
+
+        extra_consumer = copy.deepcopy(base)
+        authorized = cast(
+            dict[str, dict[str, object]], extra_consumer["authorized_imports"]
+        )
+        authorized["research/partial_decide/zzz_adapter.py"] = {}
+        mutations.append(("consumer", extra_consumer, "consumer keys differ"))
+
+        for name, mutated, message in mutations:
+            with self.subTest(name=name):
+                with self.assertRaisesRegex(ValueError, message):
+                    _validate_pin_structure(mutated)
+
+    def test_g3_g4_status_contract_rejects_drift_and_competing_terminals(self) -> None:
+        base = _g1_status_payload()
+        _validate_g3_g4_status_payload(base)
+
+        status_drift = copy.deepcopy(base)
+        cast(dict[str, object], status_drift["statuses"])["g4"] = "G4_HOLDS"
+
+        competing = copy.deepcopy(base)
+        cast(list[str], competing["terminals"]).append("G4_HOLDS_UNDER_MU2")
+
+        lost_withdrawal = copy.deepcopy(base)
+        cast(list[str], lost_withdrawal["withdrawn_sentences"]).remove(
+            FINITE_G4_WITHDRAWAL
+        )
+
+        mutations = (
+            ("status", status_drift, "statuses.g3/g4"),
+            ("competing", competing, "competing G3/G4 terminals"),
+            ("withdrawal", lost_withdrawal, "finite-G4 withdrawal"),
+        )
+        for name, mutated, message in mutations:
+            with self.subTest(name=name):
+                with self.assertRaisesRegex(ValueError, message):
+                    _validate_g3_g4_status_payload(mutated)
 
     def test_panel_metadata_cannot_replace_engine_grade(self) -> None:
         payload = receipt_payload()
@@ -517,6 +705,48 @@ class ReceiptAndPinTests(unittest.TestCase):
             snapshot_tree=SNAPSHOT_TREE,
         )
         self.assertEqual(rendered, receipt_bytes())
+
+    def test_fresh_renderer_flags_exclude_site_and_ambient_packages(self) -> None:
+        self.assertEqual(FRESH_RENDERER_FLAGS, ("-I", "-B", "-S"))
+        result = subprocess.run(
+            [
+                sys.executable,
+                *FRESH_RENDERER_FLAGS,
+                "-c",
+                (
+                    "import sys; "
+                    "print('site' in sys.modules); "
+                    "print(any('site-packages' in item.replace('\\\\', '/').lower() "
+                    "for item in sys.path))"
+                ),
+            ],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.splitlines(), ["False", "False"])
+
+    def test_receipt_target_requires_regular_non_reparse_file(self) -> None:
+        probe = Path("receipt-probe.json")
+        regular = SimpleNamespace(st_mode=stat.S_IFREG, st_file_attributes=0)
+        with patch.object(Path, "lstat", return_value=regular):
+            _require_regular_receipt_target(probe)
+
+        missing = FileNotFoundError("INJECTION missing receipt")
+        with patch.object(Path, "lstat", side_effect=missing):
+            with self.assertRaisesRegex(ValueError, "existing regular file"):
+                _require_regular_receipt_target(probe)
+
+        symlink = SimpleNamespace(st_mode=stat.S_IFLNK, st_file_attributes=0)
+        with patch.object(Path, "lstat", return_value=symlink):
+            with self.assertRaisesRegex(ValueError, "regular non-symlink"):
+                _require_regular_receipt_target(probe)
+
+        reparse = SimpleNamespace(st_mode=stat.S_IFREG, st_file_attributes=0x400)
+        with patch.object(Path, "lstat", return_value=reparse):
+            with self.assertRaisesRegex(ValueError, "non-reparse"):
+                _require_regular_receipt_target(probe)
 
     def test_custody_preflight_precedes_source_parsing(self) -> None:
         with patch(

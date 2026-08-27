@@ -21,6 +21,7 @@ import importlib
 import json
 import os
 import re
+import stat
 import subprocess
 import sys
 import tempfile
@@ -38,19 +39,20 @@ SCHEMA = "partial_decide_source_pins/v2"
 RECEIPT_SCHEMA = "partial_decide_c3_receipt/v1"
 POLICY = (
     "Exact sealed source inputs for a bounded metatheoretic recorder. "
-    "No source correspondence, panel adapter, generator, measure choice, "
-    "reading choice, response authorization, or object-language event is "
-    "declared."
+    "No panel-derived decision input, panel adapter, object-language generator, "
+    "measure choice, reading choice, response authorization, authorized or "
+    "persistent response application, or event committed to the declared base "
+    "is declared."
 )
 REQUIRED_TERMINALS = (
     "C3_UNIQUE_DELTA_EMPTY",
     "C3_MU2_UNIQUE_CLASS_INHABITED",
     "G3_REMAINS_CONJECTURE",
     "G4_REMAINS_CONJECTURE",
-    "NO_DECISION_INPUT_SELECTION",
-    "NO_OBJECT_LANGUAGE_EVENT",
+    "NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION",
+    "NO_EVENT_COMMITTED_TO_DECLARED_BASE",
+    "NO_PANEL_DERIVED_INPUT",
     "NO_PANEL_ENGINE_ADAPTER",
-    "NO_RESPONSE_APPLICATION",
     "NO_RESPONSE_AUTHORIZATION",
     "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
     "PANEL_TO_ENGINE_LINK_NOT_DEFINED",
@@ -85,6 +87,24 @@ EXPECTED_RECEIPT_READINGS: dict[
     "F": ((1, 2), {"mu1": ("tie", 10, 5), "mu2": ("unique_class", 2, 1)}),
 }
 REGULAR_BLOB_MODES = {"100644", "100755"}
+FRESH_RENDERER_FLAGS = ("-I", "-B", "-S")
+G3_STATUS = "G3_REMAINS_CONJECTURE"
+G4_STATUS = "G4_REMAINS_CONJECTURE"
+FINITE_G4_WITHDRAWAL = (
+    "The terminals G4_HOLDS_UNDER_MU2 and "
+    "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument> are WITHDRAWN "
+    "because no chain correspondence was computed."
+)
+PIN_ROOT_KEYS = {
+    "authorized_imports",
+    "modules",
+    "package_files",
+    "policy",
+    "schema",
+    "source_package",
+    "source_snapshot",
+    "status_inputs",
+}
 
 
 def _git_bytes(*args: str) -> bytes:
@@ -572,6 +592,27 @@ def _format_status_records(
     )
 
 
+def _require_regular_receipt_target(path: Path = RECEIPT_PATH) -> None:
+    """Reject a missing, non-regular, symlink, or Windows reparse target."""
+
+    try:
+        target_stat = path.lstat()
+    except FileNotFoundError as error:
+        raise ValueError(
+            f"receipt worktree target must be an existing regular file: {path}"
+        ) from error
+    file_attributes = getattr(target_stat, "st_file_attributes", 0)
+    if (
+        not stat.S_ISREG(target_stat.st_mode)
+        or stat.S_ISLNK(target_stat.st_mode)
+        or bool(file_attributes & 0x400)
+    ):
+        raise ValueError(
+            "receipt worktree target must be a regular non-symlink, "
+            f"non-reparse file: {path}"
+        )
+
+
 def _bootstrap_custody(
     pins: dict[str, Any], *, allow_receipt_dirty: bool
 ) -> tuple[set[PurePosixPath], list[tuple[str, tuple[PurePosixPath, ...]]]]:
@@ -624,6 +665,8 @@ def _bootstrap_custody(
             "worktree changes before custody preflight:\n"
             + _format_status_records(disallowed_changes)
         )
+    if allow_receipt_dirty:
+        _require_regular_receipt_target()
 
     derivation_changes = _status_records("code/derivation")
     if derivation_changes:
@@ -745,6 +788,247 @@ def _expect_exact_keys(
         )
 
 
+def _expect_exact_integer(value: object, expected: int, where: str) -> None:
+    if isinstance(value, bool) or not isinstance(value, int) or value != expected:
+        raise ValueError(f"{where} must be the exact integer {expected}")
+
+
+def _nonnegative_integer(value: object, where: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise ValueError(f"{where} must be a nonnegative integer")
+    return value
+
+
+def _expect_exact_integer_sequence(
+    value: object, expected: tuple[int, ...], where: str
+) -> None:
+    if not isinstance(value, list) or len(value) != len(expected):
+        raise ValueError(f"{where} must be the exact integer list {list(expected)}")
+    for index, expected_item in enumerate(expected):
+        _expect_exact_integer(value[index], expected_item, f"{where}[{index}]")
+
+
+def _validate_pin_structure(pins: dict[str, Any]) -> None:
+    """Reject undeclared structure before any pin value can carry a claim."""
+
+    _expect_exact_keys(pins, PIN_ROOT_KEYS, "SOURCE_PINS")
+
+    snapshot = _object_dict(pins["source_snapshot"], "source_snapshot")
+    _expect_exact_keys(snapshot, {"commit", "tree"}, "source_snapshot")
+    source_package = _object_dict(pins["source_package"], "source_package")
+    _expect_exact_keys(
+        source_package, {"module", "path", "tree"}, "source_package"
+    )
+
+    modules_value = pins["modules"]
+    if not isinstance(modules_value, list) or not modules_value:
+        raise ValueError("modules must be a nonempty list")
+    module_names: set[str] = set()
+    for index, raw_entry in enumerate(modules_value):
+        entry = _object_dict(raw_entry, f"modules[{index}]")
+        _expect_exact_keys(
+            entry, {"module", "path", "sha256"}, f"modules[{index}]"
+        )
+        module_name = _required_string(entry, "module", f"modules[{index}]")
+        if DERIVATION_MODULE_RE.fullmatch(module_name) is None:
+            raise ValueError(f"invalid pinned derivation module name: {module_name}")
+        if module_name in module_names:
+            raise ValueError(f"duplicate pinned module: {module_name}")
+        module_names.add(module_name)
+
+    status_inputs = pins["status_inputs"]
+    if not isinstance(status_inputs, list) or not status_inputs:
+        raise ValueError("status_inputs must be a nonempty list")
+    for index, raw_entry in enumerate(status_inputs):
+        entry = _object_dict(raw_entry, f"status_inputs[{index}]")
+        _expect_exact_keys(
+            entry,
+            {"path", "required_terminals", "sha256"},
+            f"status_inputs[{index}]",
+        )
+
+    declared_files = _declared_package_files(pins)
+    declared_python = {path for path in declared_files if path.suffix == ".py"}
+    local_modules = set(_local_module_paths(declared_python))
+    allowed_modules = module_names | local_modules
+    authorized = _object_dict(pins["authorized_imports"], "authorized_imports")
+    expected_consumers = {path.as_posix() for path in declared_python}
+    if set(authorized) != expected_consumers:
+        raise ValueError(
+            "authorized_imports consumer keys differ from declared Python files"
+        )
+    for consumer, declaration in authorized.items():
+        _declared_imports(declaration, consumer, allowed_modules)
+
+
+def _validate_g3_g4_status_payload(payload: dict[str, object]) -> None:
+    statuses = _object_dict(payload.get("statuses"), "G1 class statuses")
+    if statuses.get("g3") != G3_STATUS or statuses.get("g4") != G4_STATUS:
+        raise ValueError("G1 class receipt statuses.g3/g4 differ from conjecture freeze")
+
+    terminals = payload.get("terminals")
+    if not isinstance(terminals, list) or not all(
+        isinstance(item, str) for item in terminals
+    ):
+        raise ValueError("G1 class status receipt terminals must be strings")
+    for required in (G3_STATUS, G4_STATUS):
+        if terminals.count(required) != 1:
+            raise ValueError(
+                f"G1 class receipt must contain exactly one {required} terminal"
+            )
+    competing = sorted(
+        item
+        for item in terminals
+        if (item.startswith("G3_") or item.startswith("G4_"))
+        and item not in {G3_STATUS, G4_STATUS}
+    )
+    if competing:
+        raise ValueError(
+            "G1 class receipt contains competing G3/G4 terminals: "
+            + ", ".join(competing)
+        )
+
+    withdrawn = payload.get("withdrawn_sentences")
+    if not isinstance(withdrawn, list) or not all(
+        isinstance(item, str) for item in withdrawn
+    ):
+        raise ValueError("G1 class receipt withdrawn_sentences must be strings")
+    if withdrawn.count(FINITE_G4_WITHDRAWAL) != 1:
+        raise ValueError("G1 class receipt lost the exact finite-G4 withdrawal")
+
+
+def _validate_delta_item(
+    value: object, where: str
+) -> tuple[int, int, tuple[int, ...]]:
+    item = _object_dict(value, where)
+    kind = item.get("kind")
+    if kind == "datum":
+        _expect_exact_keys(item, {"kind"}, where)
+        return (0, 0, ())
+    if kind == "form":
+        _expect_exact_keys(item, {"arity", "kind"}, where)
+        arity = _nonnegative_integer(item["arity"], f"{where}.arity")
+        return (1, arity, ())
+    if kind == "rule_all":
+        _expect_exact_keys(item, {"form", "kind"}, where)
+        form = _nonnegative_integer(item["form"], f"{where}.form")
+        return (2, form, ())
+    if kind == "inst":
+        _expect_exact_keys(item, {"args", "form", "kind"}, where)
+        form = _nonnegative_integer(item["form"], f"{where}.form")
+        raw_args = item["args"]
+        if not isinstance(raw_args, list):
+            raise ValueError(f"{where}.args must be an integer list")
+        args = tuple(
+            _nonnegative_integer(argument, f"{where}.args[{index}]")
+            for index, argument in enumerate(raw_args)
+        )
+        return (3, form, args)
+    raise ValueError(f"{where}.kind is not a closed delta-item kind: {kind!r}")
+
+
+def _validate_delta(value: object, where: str, *, expected_items: int) -> str:
+    if not isinstance(value, list):
+        raise ValueError(f"{where} delta must be a list")
+    if len(value) != expected_items:
+        raise ValueError(f"{where} delta must contain exactly {expected_items} items")
+    item_keys = [
+        _validate_delta_item(item, f"{where}[{index}]")
+        for index, item in enumerate(value)
+    ]
+    if len(set(item_keys)) != len(item_keys):
+        raise ValueError(f"{where} delta contains duplicate items")
+    if item_keys != sorted(item_keys):
+        raise ValueError(f"{where} delta items are not in canonical order")
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
+
+
+def _validate_canonical_key(value: object, where: str) -> str:
+    if not isinstance(value, list) or len(value) != 5:
+        raise ValueError(f"{where} canonical_key must be a five-item list")
+    n_data = _nonnegative_integer(value[0], f"{where}.canonical_key[0]")
+
+    raw_forms = value[1]
+    if not isinstance(raw_forms, list):
+        raise ValueError(f"{where} canonical_key forms must be an integer list")
+    forms = tuple(
+        _nonnegative_integer(arity, f"{where}.canonical_key.forms[{index}]")
+        for index, arity in enumerate(raw_forms)
+    )
+
+    raw_insts = value[2]
+    if not isinstance(raw_insts, list):
+        raise ValueError(f"{where} canonical_key insts must be a list")
+    insts: list[tuple[int, tuple[int, ...]]] = []
+    for index, raw_inst in enumerate(raw_insts):
+        if not isinstance(raw_inst, list) or len(raw_inst) != 2:
+            raise ValueError(
+                f"{where}.canonical_key.insts[{index}] must be [form, args]"
+            )
+        form = _nonnegative_integer(
+            raw_inst[0], f"{where}.canonical_key.insts[{index}].form"
+        )
+        raw_args = raw_inst[1]
+        if not isinstance(raw_args, list):
+            raise ValueError(
+                f"{where}.canonical_key.insts[{index}].args must be an integer list"
+            )
+        args = tuple(
+            _nonnegative_integer(
+                argument,
+                f"{where}.canonical_key.insts[{index}].args[{arg_index}]",
+            )
+            for arg_index, argument in enumerate(raw_args)
+        )
+        if form >= len(forms) or len(args) != forms[form] or any(
+            argument >= n_data for argument in args
+        ):
+            raise ValueError(
+                f"{where}.canonical_key.insts[{index}] is outside its form/data table"
+            )
+        insts.append((form, args))
+    if insts != sorted(set(insts)):
+        raise ValueError(f"{where} canonical_key insts must be unique and sorted")
+
+    raw_rules = value[3]
+    if not isinstance(raw_rules, list):
+        raise ValueError(f"{where} canonical_key rules must be an integer list")
+    rules = tuple(
+        _nonnegative_integer(rule, f"{where}.canonical_key.rules[{index}]")
+        for index, rule in enumerate(raw_rules)
+    )
+    if any(rule >= len(forms) for rule in rules) or list(rules) != sorted(set(rules)):
+        raise ValueError(
+            f"{where} canonical_key rules must be in-range, unique, and sorted"
+        )
+
+    raw_requirements = value[4]
+    if not isinstance(raw_requirements, list):
+        raise ValueError(f"{where} canonical_key requirements must be a list")
+    requirements: list[tuple[int, int]] = []
+    for index, raw_pair in enumerate(raw_requirements):
+        if not isinstance(raw_pair, list) or len(raw_pair) != 2:
+            raise ValueError(
+                f"{where}.canonical_key.requirements[{index}] must be an integer pair"
+            )
+        left = _nonnegative_integer(
+            raw_pair[0], f"{where}.canonical_key.requirements[{index}][0]"
+        )
+        right = _nonnegative_integer(
+            raw_pair[1], f"{where}.canonical_key.requirements[{index}][1]"
+        )
+        if not left < right < n_data:
+            raise ValueError(
+                f"{where}.canonical_key.requirements[{index}] is not ordered/in-range"
+            )
+        requirements.append((left, right))
+    if requirements != sorted(set(requirements)):
+        raise ValueError(
+            f"{where} canonical_key requirements must be unique and sorted"
+        )
+    return json.dumps(value, sort_keys=True, separators=(",", ":"))
+
+
 def _validate_receipt_contract(
     payload: dict[str, object], *, snapshot_commit: str, snapshot_tree: str
 ) -> None:
@@ -802,8 +1086,9 @@ def _validate_receipt_contract(
                 f"receipt reading order/name differs at index {index}: "
                 f"expected {reading_name}"
             )
-        if row["target"] != list(expected_target):
-            raise ValueError(f"receipt target differs for reading {reading_name}")
+        _expect_exact_integer_sequence(
+            row["target"], expected_target, f"receipt target for reading {reading_name}"
+        )
         grades = _object_dict(row["grades"], f"reading {reading_name} grades")
         _expect_exact_keys(
             grades, {"mu1", "mu2"}, f"reading {reading_name} grades"
@@ -842,45 +1127,120 @@ def _validate_receipt_contract(
                 raise ValueError(
                     f"receipt grade kind differs for {reading_name}/{measure}"
                 )
-            if grade["measure"] != measure or grade["target"] != list(expected_target):
+            if grade["measure"] != measure:
                 raise ValueError(
                     f"receipt grade request differs for {reading_name}/{measure}"
                 )
-            if grade["bounds"] != {"max_arity": 2, "max_items": 2}:
+            _expect_exact_integer_sequence(
+                grade["target"],
+                expected_target,
+                f"receipt grade target for {reading_name}/{measure}",
+            )
+            bounds = _object_dict(
+                grade["bounds"], f"receipt bounds for {reading_name}/{measure}"
+            )
+            _expect_exact_keys(
+                bounds,
+                {"max_arity", "max_items"},
+                f"receipt bounds for {reading_name}/{measure}",
+            )
+            try:
+                _expect_exact_integer(
+                    bounds["max_arity"],
+                    2,
+                    f"receipt bounds.max_arity for {reading_name}/{measure}",
+                )
+                _expect_exact_integer(
+                    bounds["max_items"],
+                    2,
+                    f"receipt bounds.max_items for {reading_name}/{measure}",
+                )
+            except ValueError as error:
                 raise ValueError(
                     f"receipt bounds differ for {reading_name}/{measure}"
+                ) from error
+            minimum_cost = _object_dict(
+                grade["minimum_cost"],
+                f"receipt minimum cost for {reading_name}/{measure}",
+            )
+            _expect_exact_keys(
+                minimum_cost,
+                {"items", "new_form_arity_sum"},
+                f"receipt minimum cost for {reading_name}/{measure}",
+            )
+            try:
+                _expect_exact_integer(
+                    minimum_cost["items"],
+                    2,
+                    f"receipt minimum cost items for {reading_name}/{measure}",
                 )
-            expected_cost = {
-                "items": 2,
-                "new_form_arity_sum": None if measure == "mu1" else 1,
-            }
-            if grade["minimum_cost"] != expected_cost:
+                if measure == "mu1":
+                    if minimum_cost["new_form_arity_sum"] is not None:
+                        raise ValueError("mu1 arity sum must be null")
+                else:
+                    _expect_exact_integer(
+                        minimum_cost["new_form_arity_sum"],
+                        1,
+                        f"receipt minimum arity cost for {reading_name}/{measure}",
+                    )
+            except ValueError as error:
                 raise ValueError(
                     f"receipt minimum cost differs for {reading_name}/{measure}"
+                ) from error
+            try:
+                _expect_exact_integer(
+                    grade["iso_perm_budget"],
+                    100_000,
+                    f"receipt permutation budget for {reading_name}/{measure}",
                 )
-            if grade["iso_perm_budget"] != 100_000:
+            except ValueError as error:
                 raise ValueError(
                     f"receipt permutation budget differs for {reading_name}/{measure}"
+                ) from error
+            try:
+                _expect_exact_integer(
+                    grade["raw_minimum_count"],
+                    raw_count,
+                    f"receipt raw-minimum count for {reading_name}/{measure}",
                 )
-            if grade["raw_minimum_count"] != raw_count:
+            except ValueError as error:
                 raise ValueError(
                     f"receipt raw-minimum count differs for {reading_name}/{measure}"
-                )
+                ) from error
             raw_minima = grade["raw_minima"]
             if not isinstance(raw_minima, list) or len(raw_minima) != raw_count:
                 raise ValueError(
                     f"receipt raw-minimum population differs for {reading_name}/{measure}"
                 )
-            if grade["iso_class_count"] != class_count:
+            normalized_raw = [
+                _validate_delta(
+                    delta,
+                    f"receipt raw minimum {reading_name}/{measure}/{raw_index}",
+                    expected_items=2,
+                )
+                for raw_index, delta in enumerate(raw_minima)
+            ]
+            if len(set(normalized_raw)) != len(normalized_raw):
+                raise ValueError(
+                    f"receipt raw minima are not unique for {reading_name}/{measure}"
+                )
+            try:
+                _expect_exact_integer(
+                    grade["iso_class_count"],
+                    class_count,
+                    f"receipt class count for {reading_name}/{measure}",
+                )
+            except ValueError as error:
                 raise ValueError(
                     f"receipt class count differs for {reading_name}/{measure}"
-                )
+                ) from error
             classes = grade["classes"]
             if not isinstance(classes, list) or len(classes) != class_count:
                 raise ValueError(
                     f"receipt class population differs for {reading_name}/{measure}"
                 )
-            retained_members: list[object] = []
+            retained_members: set[str] = set()
+            canonical_keys: set[str] = set()
             for class_index, raw_class in enumerate(classes):
                 response_class = _object_dict(
                     raw_class,
@@ -891,29 +1251,55 @@ def _validate_receipt_contract(
                     {"canonical_key", "members", "size"},
                     f"reading {reading_name} grade {measure} class {class_index}",
                 )
+                canonical_key = _validate_canonical_key(
+                    response_class["canonical_key"],
+                    f"receipt class {reading_name}/{measure}/{class_index}",
+                )
+                if canonical_key in canonical_keys:
+                    raise ValueError(
+                        f"receipt canonical keys are not unique for "
+                        f"{reading_name}/{measure}"
+                    )
+                canonical_keys.add(canonical_key)
                 members = response_class["members"]
                 size = response_class["size"]
-                if (
-                    not isinstance(members, list)
-                    or isinstance(size, bool)
-                    or not isinstance(size, int)
-                    or size != len(members)
-                    or size <= 0
-                ):
+                if not isinstance(members, list) or not members:
                     raise ValueError(
                         f"receipt class membership differs for "
                         f"{reading_name}/{measure}/{class_index}"
                     )
-                retained_members.extend(members)
-            raw_keys = sorted(
-                json.dumps(item, sort_keys=True, separators=(",", ":"))
-                for item in raw_minima
-            )
-            retained_keys = sorted(
-                json.dumps(item, sort_keys=True, separators=(",", ":"))
-                for item in retained_members
-            )
-            if retained_keys != raw_keys:
+                try:
+                    _expect_exact_integer(
+                        size,
+                        len(members),
+                        f"receipt class size for {reading_name}/{measure}/{class_index}",
+                    )
+                except ValueError as error:
+                    raise ValueError(
+                        f"receipt class membership differs for "
+                        f"{reading_name}/{measure}/{class_index}"
+                    ) from error
+                normalized_members = {
+                    _validate_delta(
+                        member,
+                        f"receipt class member "
+                        f"{reading_name}/{measure}/{class_index}/{member_index}",
+                        expected_items=2,
+                    )
+                    for member_index, member in enumerate(members)
+                }
+                if len(normalized_members) != len(members):
+                    raise ValueError(
+                        f"receipt class contains duplicate members for "
+                        f"{reading_name}/{measure}/{class_index}"
+                    )
+                overlap = retained_members & normalized_members
+                if overlap:
+                    raise ValueError(
+                        f"receipt classes overlap for {reading_name}/{measure}"
+                    )
+                retained_members.update(normalized_members)
+            if retained_members != set(normalized_raw):
                 raise ValueError(
                     f"receipt classes do not retain every raw minimum for "
                     f"{reading_name}/{measure}"
@@ -937,10 +1323,16 @@ def _fresh_receipt(
         for name, relative in module_paths.items()
     }
     child = r"""
+import sys
+
+if "site" in sys.modules:
+    raise RuntimeError("fresh renderer started with ambient site loaded")
+if any("site-packages" in item.replace("\\", "/").lower() for item in sys.path):
+    raise RuntimeError("fresh renderer started with ambient site-packages")
+
 import json
 import os
 import pathlib
-import sys
 
 code, here, cache, expected_json = sys.argv[1:5]
 sys.pycache_prefix = cache
@@ -1037,8 +1429,7 @@ sys.stdout.buffer.write(rendered)
         result = subprocess.run(
             [
                 sys.executable,
-                "-I",
-                "-B",
+                *FRESH_RENDERER_FLAGS,
                 "-c",
                 child,
                 str(CODE),
@@ -1075,6 +1466,11 @@ def _verify_status_inputs(
     entry = raw_inputs[0]
     if not isinstance(entry, dict):
         raise ValueError("status input must be an object")
+    _expect_exact_keys(
+        entry,
+        {"path", "required_terminals", "sha256"},
+        "status input",
+    )
     relative = _safe_relative(_required_string(entry, "path", "status input"))
     if relative != PurePosixPath("artifacts/g1_class_receipt.json"):
         raise ValueError("status input must be artifacts/g1_class_receipt.json")
@@ -1093,20 +1489,13 @@ def _verify_status_inputs(
             f"status input hash mismatch for {relative}: wanted {wanted}, "
             f"snapshot {snapshot_hash}, HEAD {head_hash}"
         )
-    payload: object = json.loads(_git_bytes("show", f"HEAD:{relative.as_posix()}"))
-    if not isinstance(payload, dict):
+    payload_object: object = json.loads(
+        _git_bytes("show", f"HEAD:{relative.as_posix()}")
+    )
+    if not isinstance(payload_object, dict):
         raise ValueError("G1 class status receipt must contain an object")
-    terminals = payload.get("terminals")
-    if not isinstance(terminals, list) or not all(
-        isinstance(item, str) for item in terminals
-    ):
-        raise ValueError("G1 class status receipt terminals must be strings")
-    missing = [item for item in expected_terminals if item not in terminals]
-    if missing:
-        raise ValueError(
-            "G1 class status receipt lost inherited terminal(s): "
-            + ", ".join(missing)
-        )
+    payload = _object_dict(payload_object, "G1 class status receipt")
+    _validate_g3_g4_status_payload(payload)
     return (
         [f"inherited status: {relative} {wanted} G3/G4 conjectural"],
         [relative.as_posix()],
@@ -1115,6 +1504,7 @@ def _verify_status_inputs(
 
 def _verify(*, compare_receipt: bool) -> tuple[list[str], bytes]:
     pins = _read_pins()
+    _validate_pin_structure(pins)
     if _required_string(pins, "schema", "pins") != SCHEMA:
         raise ValueError("unsupported SOURCE_PINS schema")
     if _required_string(pins, "policy", "pins") != POLICY:

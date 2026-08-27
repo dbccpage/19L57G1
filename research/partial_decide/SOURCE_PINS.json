@@ -93,15 +93,22 @@
         "main"
       ],
       "verify_pins": [
+        "FINITE_G4_WITHDRAWAL",
+        "FRESH_RENDERER_FLAGS",
         "RECEIPT_PATH",
+        "REQUIRED_TERMINALS",
         "_assert_module_origin",
         "_controlled_imports",
         "_fresh_receipt",
         "_format_package_census_difference",
         "_internal_dependencies",
         "_parse_tree_records",
+        "_read_pins",
         "_require_hex",
+        "_require_regular_receipt_target",
         "_safe_relative",
+        "_validate_g3_g4_status_payload",
+        "_validate_pin_structure",
         "_validate_receipt_contract",
         "verify"
       ]
@@ -152,7 +159,7 @@
     "research/partial_decide/test_partial_decide.py",
     "research/partial_decide/verify_pins.py"
   ],
-  "policy": "Exact sealed source inputs for a bounded metatheoretic recorder. No source correspondence, panel adapter, generator, measure choice, reading choice, response authorization, or object-language event is declared.",
+  "policy": "Exact sealed source inputs for a bounded metatheoretic recorder. No panel-derived decision input, panel adapter, object-language generator, measure choice, reading choice, response authorization, authorized or persistent response application, or event committed to the declared base is declared.",
   "schema": "partial_decide_source_pins/v2",
   "source_package": {
     "module": "derivation",
