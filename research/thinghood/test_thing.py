@@ -22,6 +22,7 @@ from thing import (
     law_order_report,
     minimality_report,
     prompt_hash,
+    tick_analysis,
 )
 
 
@@ -66,6 +67,8 @@ def test_required_classes_have_witnesses_or_countermodels() -> None:
     assert classes["a1i_asserted_pair_irreflexive"]["can_fail_law"] is True
     assert classes["a1_asserted_pair_symmetry_only"]["can_fail_law"] is False
     assert classes["richer_law"]["can_fail_law"] is True
+    assert classes["richer_law"]["representative_is_witness"] is True
+    assert classes["richer_law"]["witness"] is not None
     for name in (
         "carrier_no_relation_no_law",
         "a1_bare_asserted_pair",
@@ -155,8 +158,25 @@ def test_dynamics_has_all_five_conditions_and_three_opens() -> None:
     assert report["machine_check_status"] == "NOT_RUN"
     assert "does not elaborate or resolve" in report["machine_check_reason"]
     assert all(claim["machine_check"] is False for claim in report["claims"])
+    assert report["declared_composite"]["not_inscription_forced"] is True
+    assert report["declared_composite"]["repair_derived"] is False
     assert report["forbidden_closures"] == {"S6_item_6": True, "S9_last_bullet": True, "OB-1": True}
     assert report["claims"][3]["hypotheses"][:1] == ["hobst : obstP s i j = true"]
+
+
+def test_resource_free_tick_probe_keeps_three_residuals_open() -> None:
+    report = tick_analysis()
+    assert report["candidate_kinds"] == ["collision", "equal_profiles", "directional_residual"]
+    assert report["resource_free_survivor_count"] == 0
+    assert report["all_three_fail_without_extra"] is True
+    assert report["endogenous_successor_derived"] is False
+    assert report["open_scope"].startswith("The three-kind probe does not close")
+    fallbacks = {probe["kind"]: probe["fallback_classification"] for probe in report["probes"]}
+    assert fallbacks == {
+        "collision": "VOID_CYCLE",
+        "equal_profiles": "CHALLENGE_0",
+        "directional_residual": "VOID_CYCLE",
+    }
 
 
 def test_limit_theorem_scope_is_not_widened() -> None:

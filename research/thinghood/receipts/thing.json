@@ -311,6 +311,7 @@
           ],
           "stores": []
         },
+        "representative_is_witness": false,
         "witness": null,
         "witness_candidate": null
       },
@@ -384,6 +385,7 @@
           ],
           "stores": []
         },
+        "representative_is_witness": false,
         "witness": null,
         "witness_candidate": null
       },
@@ -423,6 +425,7 @@
           ],
           "stores": []
         },
+        "representative_is_witness": true,
         "witness": {
           "function": [
             0,
@@ -526,6 +529,7 @@
           "relation": [],
           "stores": []
         },
+        "representative_is_witness": false,
         "witness": null,
         "witness_candidate": null
       },
@@ -577,6 +581,7 @@
           "relation": [],
           "stores": []
         },
+        "representative_is_witness": false,
         "witness": null,
         "witness_candidate": null
       },
@@ -587,35 +592,36 @@
         "representative": {
           "asserted_pair": [
             0,
-            0
+            1
           ],
           "bill": {
             "asserted_admissions": 1,
-            "carrier_points": 1,
+            "carrier_points": 2,
             "law_atoms": 1,
             "meta_constraints": 0,
             "relation_edges": 1,
             "resource_admissions": 0,
             "store_admissions": 0,
-            "total": 4
+            "total": 5
           },
           "budget_admitted": false,
-          "carrier_size": 1,
+          "carrier_size": 2,
           "designated_pair": [
             0,
-            0
+            1
           ],
-          "law": "transitive",
+          "law": "asymmetric",
           "license_admitted": false,
           "meta_inequality": false,
           "relation": [
             [
               0,
-              0
+              1
             ]
           ],
           "stores": []
         },
+        "representative_is_witness": true,
         "witness": {
           "function": [
             0,
@@ -1397,6 +1403,21 @@
         "status": "CONDITIONAL_THEOREM"
       }
     ],
+    "declared_composite": {
+      "evidence": [
+        "generation_never_dries"
+      ],
+      "hypotheses": [
+        "stepRefl",
+        "pair-separation closure",
+        "n >= 3"
+      ],
+      "machine_check": false,
+      "not_inscription_forced": true,
+      "repair_derived": false,
+      "statement": "Under declared stepRefl and pair-separation closure, generation_never_dries supplies a live demand from n >= 3; this is demand persistence relative to those declarations, not a genesis law or a repair rule.",
+      "status": "CONDITIONAL_THEOREM"
+    },
     "forbidden_closures": {
       "OB-1": true,
       "S6_item_6": true,
@@ -1410,7 +1431,7 @@
       "S9_LAST_UNCHANGED"
     ],
     "terminal": "NO_FORCED_DYNAMICAL_LAW",
-    "terminal_scope": "the five conditional claims above; Q2 only; no claim that Q1 has a unique survivor"
+    "terminal_scope": "no endogenous successor or repair is forced by the inscription; the declared-composite demand stream and the finite three-kind tick probe are reported separately; no claim that Q1 has a unique survivor"
   },
   "law_order": {
     "asymmetric_implies_irreflexive": true,
@@ -1717,5 +1738,105 @@
       }
     },
     "identification_status": "REFUSED: the local A1i minimum is not renamed in the sealed papers; a tied asymmetric minimum remains a distinct law-bearing class"
+  },
+  "tick_analysis": {
+    "all_three_fail_without_extra": true,
+    "baseline": {
+      "asserted_pair": true,
+      "closure_policy": false,
+      "comparison_policy": false,
+      "demand_source": false,
+      "observer": false,
+      "profile_context": false,
+      "protected_law": true,
+      "store": false,
+      "two_presentations": false
+    },
+    "candidate_kinds": [
+      "collision",
+      "equal_profiles",
+      "directional_residual"
+    ],
+    "endogenous_successor_derived": false,
+    "external_challenge_still_possible": true,
+    "open_scope": "The three-kind probe does not close S6 item 6, S9 last bullet, or OB-1; a wider tick grammar or a declared policy remains open.",
+    "probes": [
+      {
+        "classification_scope": "declared no-store/no-observer/no-closure baseline; this is not a theorem about wider tick grammars",
+        "endogenous_without_extra": false,
+        "fallback_classification": "VOID_CYCLE",
+        "kind": "collision",
+        "missing_resource_groups": [
+          "demand_source or closure_policy"
+        ],
+        "required_resource_groups": [
+          [
+            "asserted_pair"
+          ],
+          [
+            "protected_law"
+          ],
+          [
+            "demand_source",
+            "closure_policy"
+          ]
+        ],
+        "source_if_used": "EXTERNAL_CHALLENGE_ONLY",
+        "well_formed_without_extra": false
+      },
+      {
+        "classification_scope": "declared no-store/no-observer/no-closure baseline; this is not a theorem about wider tick grammars",
+        "endogenous_without_extra": false,
+        "fallback_classification": "CHALLENGE_0",
+        "kind": "equal_profiles",
+        "missing_resource_groups": [
+          "observer",
+          "profile_context",
+          "demand_source or closure_policy"
+        ],
+        "required_resource_groups": [
+          [
+            "observer"
+          ],
+          [
+            "profile_context"
+          ],
+          [
+            "demand_source",
+            "closure_policy"
+          ]
+        ],
+        "source_if_used": "EXTERNAL_CHALLENGE_ONLY",
+        "well_formed_without_extra": false
+      },
+      {
+        "classification_scope": "declared no-store/no-observer/no-closure baseline; this is not a theorem about wider tick grammars",
+        "endogenous_without_extra": false,
+        "fallback_classification": "VOID_CYCLE",
+        "kind": "directional_residual",
+        "missing_resource_groups": [
+          "two_presentations",
+          "comparison_policy",
+          "demand_source or closure_policy"
+        ],
+        "required_resource_groups": [
+          [
+            "two_presentations"
+          ],
+          [
+            "comparison_policy"
+          ],
+          [
+            "demand_source",
+            "closure_policy"
+          ]
+        ],
+        "source_if_used": "EXTERNAL_CHALLENGE_ONLY",
+        "well_formed_without_extra": false
+      }
+    ],
+    "resource_free_survivor_count": 0,
+    "status": "FINITE_COMPUTATION",
+    "terminal": "NO_FORCED_DYNAMICAL_LAW"
   }
 }

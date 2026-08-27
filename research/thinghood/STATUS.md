@@ -104,8 +104,19 @@ obstruction; and `two_rule` is a response menu at that obstruction, not a law
 of the inscription.  Their `machine_check` field is `false` and the receipt
 records `machine_check_status=NOT_RUN`: this tree does not elaborate or
 resolve the sealed theorem names, so `CONDITIONAL_THEOREM` is a downgrade,
-not a dual-witness theorem.  The same-level repair/create-structure ceiling
-is kept; no dynamical law and no cosmology is written.
+not a dual-witness theorem.
+
+The result is split by source.  Under declared `stepRefl` plus
+pair-separation closure, `generation_never_dries` supplies a live demand from
+`n >= 3`; that is demand persistence relative to a declared composite, not a
+successor or repair forced by the inscription.  The bounded `tick_analysis`
+probe then checks collision, equal profiles, and directional residual with no
+store, observer, closure policy, or demand source: all three have zero
+resource-free endogenous survivors.  Their declared fallback classifications
+are `VOID_CYCLE`, `CHALLENGE_0`, and `VOID_CYCLE`, respectively.  This is a
+finite accounting result only; S6.6, S9's last bullet, and OB-1 remain open to
+a wider tick grammar.  The same-level repair/create-structure ceiling is
+kept; no object-language generator and no cosmology is written.
 
 The three required opens remain explicit:
 

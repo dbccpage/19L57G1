@@ -50,6 +50,50 @@ PASSAGE_STORE_OPTIONS: tuple[tuple[str, ...], ...] = tuple(
     for mask in range(1 << len(STORE_NAMES))
 )
 
+# A deliberately small probe for the three residuals named by the Q2
+# review.  The baseline keeps only static pair/law data.  It does not admit a
+# store, observer, comparison policy, closure policy, or demand source.  The
+# probe is a finite accounting result, not a claim that this is the only
+# possible notion of a tick.
+TICK_KINDS: tuple[str, ...] = (
+    "collision",
+    "equal_profiles",
+    "directional_residual",
+)
+TICK_BASELINE: dict[str, bool] = {
+    "asserted_pair": True,
+    "protected_law": True,
+    "observer": False,
+    "profile_context": False,
+    "two_presentations": False,
+    "comparison_policy": False,
+    "store": False,
+    "closure_policy": False,
+    "demand_source": False,
+}
+TICK_REQUIREMENTS: dict[str, tuple[tuple[str, ...], ...]] = {
+    "collision": (
+        ("asserted_pair",),
+        ("protected_law",),
+        ("demand_source", "closure_policy"),
+    ),
+    "equal_profiles": (
+        ("observer",),
+        ("profile_context",),
+        ("demand_source", "closure_policy"),
+    ),
+    "directional_residual": (
+        ("two_presentations",),
+        ("comparison_policy",),
+        ("demand_source", "closure_policy"),
+    ),
+}
+TICK_FALLBACKS: dict[str, str] = {
+    "collision": "VOID_CYCLE",
+    "equal_profiles": "CHALLENGE_0",
+    "directional_residual": "VOID_CYCLE",
+}
+
 # This is the hash of the prompt at the start of the run.  It is checked by
 # the runner and tests so an accidental edit cannot be silently treated as a
 # completed execution.
@@ -533,12 +577,17 @@ def _class_result(
 ) -> dict[str, object]:
     members = [candidate for candidate in all_candidates() if tag in candidate_tags(candidate)]
     survivors = [candidate for candidate in members if is_thing(candidate)]
-    representative = preferred if preferred is not None else (members[0] if members else None)
     witness_candidate = survivors[0] if survivors else None
+    representative = preferred if preferred is not None else (
+        witness_candidate if witness_candidate is not None else (members[0] if members else None)
+    )
     return {
         "member_count": len(members),
         "can_fail_law": bool(survivors),
         "representative": _candidate_json(representative),
+        "representative_is_witness": (
+            representative is not None and representative == witness_candidate
+        ),
         "witness_candidate": _candidate_json(witness_candidate),
         "witness": _witness_json(witness_candidate),
         "countermodel": (
@@ -734,6 +783,52 @@ def law_order_report() -> dict[str, object]:
     }
 
 
+def _tick_probe(kind: str) -> dict[str, object]:
+    """Account for the resources needed to turn one residual into a tick."""
+
+    groups = TICK_REQUIREMENTS[kind]
+    missing = [
+        " or ".join(group)
+        for group in groups
+        if not any(TICK_BASELINE[name] for name in group)
+    ]
+    return {
+        "kind": kind,
+        "required_resource_groups": [list(group) for group in groups],
+        "missing_resource_groups": missing,
+        "well_formed_without_extra": not missing,
+        "endogenous_without_extra": False,
+        "source_if_used": "EXTERNAL_CHALLENGE_ONLY",
+        "fallback_classification": TICK_FALLBACKS[kind],
+        "classification_scope": (
+            "declared no-store/no-observer/no-closure baseline; this is not a "
+            "theorem about wider tick grammars"
+        ),
+    }
+
+
+def tick_analysis() -> dict[str, object]:
+    """Run the bounded collision/profile/residual tick accounting probe."""
+
+    probes = [_tick_probe(kind) for kind in TICK_KINDS]
+    survivors = [probe for probe in probes if probe["well_formed_without_extra"]]
+    return {
+        "status": "FINITE_COMPUTATION",
+        "candidate_kinds": list(TICK_KINDS),
+        "baseline": dict(TICK_BASELINE),
+        "probes": probes,
+        "resource_free_survivor_count": len(survivors),
+        "all_three_fail_without_extra": len(survivors) == 0,
+        "endogenous_successor_derived": False,
+        "external_challenge_still_possible": True,
+        "terminal": "NO_FORCED_DYNAMICAL_LAW",
+        "open_scope": (
+            "The three-kind probe does not close S6 item 6, S9 last bullet, or "
+            "OB-1; a wider tick grammar or a declared policy remains open."
+        ),
+    }
+
+
 def _dynamics_countermodel() -> dict[str, object]:
     return {
         "state": "genesisP",
@@ -829,6 +924,20 @@ def dynamics_report() -> dict[str, object]:
     assert all(claim["machine_check"] is False for claim in claims)
     return {
         "claims": claims,
+        "declared_composite": {
+            "status": "CONDITIONAL_THEOREM",
+            "statement": (
+                "Under declared stepRefl and pair-separation closure, "
+                "generation_never_dries supplies a live demand from n >= 3; "
+                "this is demand persistence relative to those declarations, "
+                "not a genesis law or a repair rule."
+            ),
+            "hypotheses": ["stepRefl", "pair-separation closure", "n >= 3"],
+            "evidence": ["generation_never_dries"],
+            "machine_check": False,
+            "not_inscription_forced": True,
+            "repair_derived": False,
+        },
         "machine_check_status": "NOT_RUN",
         "machine_check_reason": (
             "This unregistered research tree does not elaborate or resolve the "
@@ -836,8 +945,10 @@ def dynamics_report() -> dict[str, object]:
         ),
         "terminal": "NO_FORCED_DYNAMICAL_LAW",
         "terminal_scope": (
-            "the five conditional claims above; Q2 only; no claim that Q1 has "
-            "a unique survivor"
+            "no endogenous successor or repair is forced by the inscription; "
+            "the declared-composite demand stream and the finite three-kind "
+            "tick probe are reported separately; no claim that Q1 has a unique "
+            "survivor"
         ),
         "open_terminals": [
             "OB1_UNCHANGED",
@@ -968,6 +1079,7 @@ def build_receipt() -> dict[str, object]:
         "class_results": class_results(),
         "thing_difference_datum_lattice": implication_lattice(),
         "law_order": law_order_report(),
+        "tick_analysis": tick_analysis(),
         "limit_scope": {
             "status": "CONDITIONAL_THEOREM",
             "evidence": ["generation_never_dries", "g1_class_exclusion"],
@@ -1017,6 +1129,7 @@ __all__ = [
     "collapse_fails_law",
     "collapse_witness",
     "dynamics_report",
+    "tick_analysis",
     "implication_lattice",
     "is_datum",
     "is_difference",

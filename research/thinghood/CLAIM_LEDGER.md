@@ -6,7 +6,8 @@ outputs of `thing.py` and the deterministic receipt, not unscoped theorems.
 hypotheses copied here; no new Lean declaration is claimed in this tree.
 Every row carries a falsifier.  The Q2 rows are explicitly downgraded:
 `machine_check=NOT_RUN` because this unregistered tree does not elaborate or
-resolve the sealed theorem names.  `AuthorityEffect: None`.
+resolve the sealed theorem names.  The finite three-kind tick probe is a
+bounded accounting result, not a closure of the open obstruction.  `AuthorityEffect: None`.
 
 | ID | Status | Claim, with scope | Evidence | Falsifier |
 |---|---|---|---|---|
@@ -29,6 +30,8 @@ resolve the sealed theorem names.  `AuthorityEffect: None`.
 | TH-Q2-03 | CONDITIONAL_THEOREM | In the declared reading, `obstP` factors through four gates and no one gate follows from the other three. | `obstP_factors`, `obst_conditions_independent`, `gate_zero_independent`, `gate_declared_independent`, `gate_protection_independent`, `gate_retention_independent` | Any named independence witness stops falsifying its omitted gate. |
 | TH-Q2-04 | CONDITIONAL_THEOREM | `two_rule` applies only with `hobst`, distinct in-bounds endpoints, and a protected pair; without `hobst` it is inapplicable, and proposal is not execution. | `two_rule`, `extension_always_available`, `proposal_not_execution`; receipt dynamics countermodel | A theorem or execution trace applying `two_rule` at genesis without those hypotheses. |
 | TH-Q2-05 | CONDITIONAL_THEOREM | `two_rule` is a response menu at an already active obstruction, not a dynamical law of the inscription. | TH-Q2-01--04; `paper/paper.md:488-492`; `continuation_plan.md:86-93` | A derivation of the obstruction and response from the inscription alone. |
+| TH-Q2-06 | CONDITIONAL_THEOREM | Under declared `stepRefl` plus pair-separation closure, `generation_never_dries` supplies a live demand from `n >= 3`; this is conditional demand persistence, not a genesis law or repair rule. | `dynamics_report()["declared_composite"]`; sealed `generation_never_dries` | A proof that the demand persists without those declarations, or that it executes a repair. |
+| TH-Q2-TICK | FINITE_COMPUTATION | In the declared no-store/no-observer/no-closure probe, collision, equal profiles, and directional residual have zero resource-free endogenous next-challenge survivors; fallback classifications are recorded, while wider tick grammars remain OPEN. | `tick_analysis`; receipt `tick_analysis` | Any of the three probe kinds becomes well-formed without the listed resources, or the open scope is silently closed. |
 | TH-LIMIT-SCOPE | CONDITIONAL_THEOREM | The existing limit statements remain scoped to `LocalStrategy` plus `FiniteDeclaration`; this run adds no infinite extension claim. | `generation_never_dries`, `g1_class_exclusion`; `STATUS.md` result | A receipt or paper sentence claiming an unrestricted infinite sequence. |
 | TH-S66 | OPEN | S6 item 6 stays open: the static difference object does not derive an endogenous next challenge. | `paper/primitive_difference.md:250-254`; receipt `S66_UNCHANGED` | A new admissible derivation from the static tuple, which this run does not provide. |
 | TH-S9 | OPEN | S9 last bullet stays open: no silent elaboration of the companion inscription into a witnessed irreflexive datum; carrier, two occurrences, relation, witness, irreflexivity, and orientation remain admissions if used. | `paper/primitive_difference.md:332-340`; receipt `S9_LAST_UNCHANGED` | A witnessed bridge with all priced admissions recorded. |
