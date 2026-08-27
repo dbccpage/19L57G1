@@ -26,17 +26,25 @@ does not contain.
 ## Event search
 
 The search constructs the local `Admit`, `Supply`, `Impose`, `Observe`, and
-guarded passage constructors from the existing names.  Each object admits an
-external `Impose` candidate from its two data.  The guarded response family
-has no candidate in the current state because retained witness, protection,
-and a declared observation/closure path are not all present.  The directional
-object additionally has concrete `Observe("p")` and `Observe("q")` candidates.
+guarded passage constructors from the existing names.  `Impose` candidates
+are recorded in a separate external-challenge column and never set the
+object-level `next_event_found` field.  An object-level event is reported only
+when its payload is a field of that object: the equal-profile context yields
+one `Observe` event, and the two residual presentation maps yield `Observe("p")`
+and `Observe("q")`.  The collision therefore has no object-derived next event;
+its asserted pair and identifying map are explicitly recorded as fields
+outside the reconstructed grammar state.
+
+The guarded response family has no candidate in the current state because
+retained witness, protection, and a declared observation/closure path are not
+all present.  The no-payload `declareObs` constructor is shown separately as a
+grammar offer, never counted as an object-derived event.
 
 The resulting terminals are:
 
 ```text
 THREE_OBJECTS_BUILT
-NEXT_EVENT_FOUND          # external challenge scope
+NEXT_EVENT_FOUND          # object-derived Observe scope only
 NEXT_EVENT_NOT_FOUND     # guarded response scope
 REFUSED                   # genesis two_rule and table-as-computation
 ```

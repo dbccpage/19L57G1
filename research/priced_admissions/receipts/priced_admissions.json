@@ -11,6 +11,7 @@
     "guarded_response_not_found_count": 3,
     "no_endogenous_successor_derived": true,
     "not_imported": true,
+    "object_derived_next_event_count": 2,
     "reconstructed_from_names": [
       "AdmitDatum",
       "AdmitForm",
@@ -29,12 +30,9 @@
     ],
     "search": {
       "collision": {
-        "constructed_admission_events": [
-          {
-            "kind": "declareObs"
-          }
-        ],
-        "constructed_external_challenges": [
+        "constructed_guarded_responses": [],
+        "endogenous_successor_found": false,
+        "external_challenge_candidates": [
           {
             "kind": "Impose",
             "pair": [
@@ -43,10 +41,33 @@
             ]
           }
         ],
-        "constructed_guarded_responses": [],
-        "constructed_observation_events": [],
-        "endogenous_successor_found": false,
         "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "asserted_pair",
+          "identifying_map",
+          "pushed_edges"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "kind": "declareObs"
+          }
+        ],
+        "grammar_state_fields": [
+          "asserted",
+          "budget",
+          "data",
+          "forms",
+          "instances",
+          "licensed",
+          "observation",
+          "occurrences",
+          "presentations",
+          "protected",
+          "refusals",
+          "requirements",
+          "rules",
+          "witnesses"
+        ],
         "guarded_response_found": false,
         "missing_admissions_for_guarded_response": [
           "retained witness",
@@ -55,24 +76,38 @@
           "observer-zero certificate",
           "pair-separation closure policy"
         ],
-        "next_event_found": true,
+        "next_event_found": false,
         "next_event_not_found_scope": "guarded_response_family",
         "object": "collision",
+        "object_derived_events": [],
+        "object_fields": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "identifying_map": [
+            0,
+            0
+          ],
+          "pushed_edges": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
         "source_classification": {
-          "admission_events": "DECLARED_POLICY",
           "conclusion": "FINITE_COMPUTATION",
           "external_challenges": "SUPPLIED_INPUT",
+          "grammar_offers_without_object_ingredient": "DEFINITION",
           "guarded_responses": "DEFINITION",
-          "observation_events": "DEFINITION"
+          "object_derived_events": "FINITE_COMPUTATION"
         }
       },
       "directional_residual": {
-        "constructed_admission_events": [
-          {
-            "kind": "declareObs"
-          }
-        ],
-        "constructed_external_challenges": [
+        "constructed_guarded_responses": [],
+        "endogenous_successor_found": false,
+        "external_challenge_candidates": [
           {
             "kind": "Impose",
             "pair": [
@@ -81,19 +116,33 @@
             ]
           }
         ],
-        "constructed_guarded_responses": [],
-        "constructed_observation_events": [
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "left_presentation",
+          "residual_pair",
+          "right_presentation"
+        ],
+        "grammar_offers_without_object_ingredient": [
           {
-            "kind": "Observe",
-            "label": "p"
-          },
-          {
-            "kind": "Observe",
-            "label": "q"
+            "kind": "declareObs"
           }
         ],
-        "endogenous_successor_found": false,
-        "external_challenge_found": true,
+        "grammar_state_fields": [
+          "asserted",
+          "budget",
+          "data",
+          "forms",
+          "instances",
+          "licensed",
+          "observation",
+          "occurrences",
+          "presentations",
+          "protected",
+          "refusals",
+          "requirements",
+          "rules",
+          "witnesses"
+        ],
         "guarded_response_found": false,
         "missing_admissions_for_guarded_response": [
           "declared comparison policy",
@@ -105,21 +154,56 @@
         "next_event_found": true,
         "next_event_not_found_scope": "guarded_response_family",
         "object": "directional_residual",
+        "object_derived_events": [
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "p"
+            },
+            "source_field": "left_presentation",
+            "source_value": [
+              0,
+              0
+            ]
+          },
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "q"
+            },
+            "source_field": "right_presentation",
+            "source_value": [
+              0,
+              1
+            ]
+          }
+        ],
+        "object_fields": {
+          "left_presentation": [
+            0,
+            0
+          ],
+          "residual_pair": [
+            0,
+            1
+          ],
+          "right_presentation": [
+            0,
+            1
+          ]
+        },
         "source_classification": {
-          "admission_events": "DECLARED_POLICY",
           "conclusion": "FINITE_COMPUTATION",
           "external_challenges": "SUPPLIED_INPUT",
+          "grammar_offers_without_object_ingredient": "DEFINITION",
           "guarded_responses": "DEFINITION",
-          "observation_events": "DEFINITION"
+          "object_derived_events": "FINITE_COMPUTATION"
         }
       },
       "equal_profiles": {
-        "constructed_admission_events": [
-          {
-            "kind": "declareObs"
-          }
-        ],
-        "constructed_external_challenges": [
+        "constructed_guarded_responses": [],
+        "endogenous_successor_found": false,
+        "external_challenge_candidates": [
           {
             "kind": "Impose",
             "pair": [
@@ -128,15 +212,33 @@
             ]
           }
         ],
-        "constructed_guarded_responses": [],
-        "constructed_observation_events": [
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "contexts",
+          "equal_pair",
+          "profiles"
+        ],
+        "grammar_offers_without_object_ingredient": [
           {
-            "kind": "Observe",
-            "label": "equal-profile-context"
+            "kind": "declareObs"
           }
         ],
-        "endogenous_successor_found": false,
-        "external_challenge_found": true,
+        "grammar_state_fields": [
+          "asserted",
+          "budget",
+          "data",
+          "forms",
+          "instances",
+          "licensed",
+          "observation",
+          "occurrences",
+          "presentations",
+          "protected",
+          "refusals",
+          "requirements",
+          "rules",
+          "witnesses"
+        ],
         "guarded_response_found": false,
         "missing_admissions_for_guarded_response": [
           "derivable instance distinguishing the pair",
@@ -148,12 +250,47 @@
         "next_event_found": true,
         "next_event_not_found_scope": "guarded_response_family",
         "object": "equal_profiles",
+        "object_derived_events": [
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "equal-profile-context"
+            },
+            "source_field": "contexts",
+            "source_value": [
+              [
+                0,
+                [
+                  null
+                ]
+              ]
+            ]
+          }
+        ],
+        "object_fields": {
+          "contexts": [
+            [
+              0,
+              [
+                null
+              ]
+            ]
+          ],
+          "equal_pair": [
+            0,
+            1
+          ],
+          "profiles": [
+            [],
+            []
+          ]
+        },
         "source_classification": {
-          "admission_events": "DECLARED_POLICY",
           "conclusion": "FINITE_COMPUTATION",
           "external_challenges": "SUPPLIED_INPUT",
+          "grammar_offers_without_object_ingredient": "DEFINITION",
           "guarded_responses": "DEFINITION",
-          "observation_events": "DEFINITION"
+          "object_derived_events": "FINITE_COMPUTATION"
         }
       }
     }

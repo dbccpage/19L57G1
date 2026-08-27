@@ -7,8 +7,6 @@ import sys
 import tempfile
 from pathlib import Path
 
-import pytest
-
 HERE = Path(__file__).resolve().parent
 if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
@@ -64,14 +62,23 @@ def test_event_search_uses_constructed_objects_not_a_requirements_table() -> Non
     assert "machine_check" not in encoded
     searches = receipt["event_grammar"]["search"]
     assert set(searches) == {"collision", "equal_profiles", "directional_residual"}
-    for report in searches.values():
-        assert report["next_event_found"] is True
+    assert searches["collision"]["next_event_found"] is False
+    assert searches["equal_profiles"]["next_event_found"] is True
+    assert searches["directional_residual"]["next_event_found"] is True
+    for name, report in searches.items():
         assert report["external_challenge_found"] is True
+        assert report["external_challenge_candidates"] == [
+            {"kind": "Impose", "pair": [0, 1]}
+        ]
         assert report["guarded_response_found"] is False
         assert report["endogenous_successor_found"] is False
         assert report["missing_admissions_for_guarded_response"]
-    assert searches["equal_profiles"]["constructed_observation_events"]
-    assert searches["directional_residual"]["constructed_observation_events"]
+        assert report["next_event_found"] == bool(report["object_derived_events"])
+    assert searches["collision"]["object_derived_events"] == []
+    assert "asserted_pair" in searches["collision"]["fields_outside_grammar_state"]
+    assert "identifying_map" in searches["collision"]["fields_outside_grammar_state"]
+    assert searches["equal_profiles"]["object_derived_events"]
+    assert searches["directional_residual"]["object_derived_events"]
 
 
 def test_orientation_is_an_atom_and_order_is_not_forgotten() -> None:
@@ -150,6 +157,6 @@ def test_receipt_replay_is_byte_identical() -> None:
     assert b"\r\n" not in expected
 
 
-@pytest.mark.parametrize("bad_terminal", ["OB1_CLOSED", "S66_CLOSED", "S9_LAST_CLOSED"])
-def test_unknown_closure_terminal_is_not_legal(bad_terminal: str) -> None:
-    assert bad_terminal not in LEGAL_TERMINALS
+def test_unknown_closure_terminals_are_not_legal() -> None:
+    for bad_terminal in ("OB1_CLOSED", "S66_CLOSED", "S9_LAST_CLOSED"):
+        assert bad_terminal not in LEGAL_TERMINALS

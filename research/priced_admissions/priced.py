@@ -19,7 +19,7 @@ import json
 from dataclasses import dataclass
 from itertools import combinations, permutations
 from pathlib import Path
-from typing import Any, Iterable, Optional, Sequence, Union
+from typing import Any, Iterable, Mapping, Optional, Sequence, Union
 
 Pair = tuple[int, int]
 Function = tuple[int, ...]
@@ -731,29 +731,39 @@ def _event_search(
     state: GrammarState,
     pair: Pair,
     absent: Sequence[str],
-    presentation_labels: Sequence[str],
-    observation_labels: Sequence[str],
+    object_fields: Mapping[str, Any],
+    observation_sources: Sequence[tuple[str, str]],
 ) -> dict[str, Any]:
     """Search constructors, then separately apply the guarded response rule.
 
-    The report is derived from the concrete state and pair.  There is no
+    The report is derived from the concrete state and pair.  External
+    ``Impose`` is recorded separately and never makes ``next_event_found``
+    true.  An ``Observe`` offer is admitted to that field only when its label
+    and source field are carried by the concrete object.  There is no
     requirement table and no synthetic demand-source field.
     """
 
-    admissions: list[Event] = []
-    observations: list[Event] = []
+    object_derived: list[dict[str, Any]] = []
     external: list[Event] = []
     guarded_responses: list[Event] = []
+    grammar_offers_without_object_ingredient: list[Event] = []
     if pair[1] < len(state.data) and pair[0] < pair[1]:
         external.append(ImposeEvent(pair))
-    if state.observation is None and presentation_labels:
-        admissions.append(DeclareObservationEvent())
-    observations.extend(ObserveEvent(label) for label in observation_labels)
-    for label in presentation_labels:
-        if label not in state.presentations:
-            admissions.append(SupplyEvent(label))
-        if label not in state.data:
-            admissions.append(AdmitDatumEvent(label))
+    if state.observation is None:
+        # ``declareObs`` has no payload, so it is intentionally not an
+        # object-derived event.  Keeping it visible prevents a no-argument
+        # constructor from masquerading as a priced observation.
+        grammar_offers_without_object_ingredient.append(DeclareObservationEvent())
+    for label, source_field in observation_sources:
+        if source_field not in object_fields:
+            raise ValueError(f"observation source is not an object field: {source_field}")
+        object_derived.append(
+            {
+                "event": event_json(ObserveEvent(label)),
+                "source_field": source_field,
+                "source_value": object_fields[source_field],
+            }
+        )
     if _active_obstruction(state, pair):
         guarded_responses.extend(
             (
@@ -764,19 +774,26 @@ def _event_search(
     response_not_found = not guarded_responses
     return {
         "object": name,
-        "constructed_admission_events": [event_json(event) for event in admissions],
-        "constructed_observation_events": [event_json(event) for event in observations],
-        "constructed_external_challenges": [event_json(event) for event in external],
+        "object_fields": dict(object_fields),
+        "grammar_state_fields": sorted(state_json(state)),
+        "fields_outside_grammar_state": sorted(
+            field for field in object_fields if field not in state_json(state)
+        ),
+        "object_derived_events": object_derived,
+        "grammar_offers_without_object_ingredient": [
+            event_json(event) for event in grammar_offers_without_object_ingredient
+        ],
+        "external_challenge_candidates": [event_json(event) for event in external],
         "constructed_guarded_responses": [event_json(event) for event in guarded_responses],
-        "next_event_found": bool(admissions or observations or external or guarded_responses),
+        "next_event_found": bool(object_derived or guarded_responses),
         "next_event_not_found_scope": "guarded_response_family" if response_not_found else None,
         "guarded_response_found": bool(guarded_responses),
         "endogenous_successor_found": False,
         "external_challenge_found": bool(external),
         "missing_admissions_for_guarded_response": list(absent) if response_not_found else [],
         "source_classification": {
-            "admission_events": "DECLARED_POLICY",
-            "observation_events": "DEFINITION",
+            "object_derived_events": "FINITE_COMPUTATION",
+            "grammar_offers_without_object_ingredient": "DEFINITION",
             "external_challenges": "SUPPLIED_INPUT",
             "guarded_responses": "DEFINITION",
             "conclusion": "FINITE_COMPUTATION",
@@ -794,7 +811,11 @@ def event_search_report() -> dict[str, Any]:
             collision.event_state,
             collision.asserted_pair,
             collision.absent,
-            ("<a>", "<ab>"),
+            {
+                "asserted_pair": list(collision.asserted_pair),
+                "identifying_map": list(collision.identifying_map),
+                "pushed_edges": [list(edge) for edge in collision.pushed_edges],
+            },
             (),
         ),
         "equal_profiles": _event_search(
@@ -802,16 +823,32 @@ def event_search_report() -> dict[str, Any]:
             profiles.event_state,
             profiles.equal_pair,
             profiles.absent,
-            ("<a>", "<ab>"),
-            ("equal-profile-context",),
+            {
+                "equal_pair": list(profiles.equal_pair),
+                "contexts": [
+                    [form, list(slots)] for form, slots in profiles.contexts
+                ],
+                "profiles": [
+                    [[form, list(slots)] for form, slots in row]
+                    for row in profiles.profiles
+                ],
+            },
+            (("equal-profile-context", "contexts"),),
         ),
         "directional_residual": _event_search(
             "directional_residual",
             residual.event_state,
             residual.residual_pair,
             residual.absent,
-            ("L", "F"),
-            ("p", "q"),
+            {
+                "residual_pair": list(residual.residual_pair),
+                "left_presentation": list(residual.left_presentation),
+                "right_presentation": list(residual.right_presentation),
+            },
+            (
+                ("p", "left_presentation"),
+                ("q", "right_presentation"),
+            ),
         ),
     }
 
@@ -1218,6 +1255,9 @@ def build_receipt() -> dict[str, Any]:
             ],
             "not_imported": True,
             "search": searches,
+            "object_derived_next_event_count": sum(
+                1 for report in searches.values() if report["next_event_found"]
+            ),
             "external_next_event_count": sum(
                 1 for report in searches.values() if report["external_challenge_found"]
             ),
