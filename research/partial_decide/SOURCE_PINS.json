@@ -90,7 +90,8 @@
         "grade_payload"
       ],
       "run_receipt": [
-        "main"
+        "main",
+        "write_receipt_atomic"
       ],
       "verify_pins": [
         "FINITE_G4_WITHDRAWAL",

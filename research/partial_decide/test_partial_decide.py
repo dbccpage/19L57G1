@@ -38,7 +38,7 @@ from partial_decide import (
     grade_kind,
     grade_payload,
 )
-from run_receipt import main as run_receipt_main
+from run_receipt import main as run_receipt_main, write_receipt_atomic
 from verify_pins import (
     FINITE_G4_WITHDRAWAL,
     FRESH_RENDERER_FLAGS,
@@ -775,6 +775,55 @@ class ReceiptAndPinTests(unittest.TestCase):
             ), patch("run_receipt.render_verified_receipt", return_value=expected):
                 self.assertEqual(run_receipt_main(), 0)
             self.assertEqual(output.read_bytes(), expected)
+
+    def test_atomic_writer_replaces_only_with_exact_lf_bytes(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="partial-decide-atomic-") as raw:
+            directory = Path(raw)
+            target = directory / "receipt.json"
+            write_receipt_atomic(target, b'{"first":1}\n')
+            self.assertEqual(target.read_bytes(), b'{"first":1}\n')
+            write_receipt_atomic(target, b'{"second":2}\n')
+            self.assertEqual(target.read_bytes(), b'{"second":2}\n')
+            self.assertEqual(list(directory.glob(".receipt.json.*.tmp")), [])
+
+            for invalid in (b'{"cr":1}\r\n', b'{"missing":1}', b'{}\n\n'):
+                with self.subTest(invalid=invalid):
+                    with self.assertRaises(ValueError):
+                        write_receipt_atomic(target, invalid)
+                    self.assertEqual(target.read_bytes(), b'{"second":2}\n')
+
+    def test_atomic_writer_refuses_special_or_changed_target_and_cleans(self) -> None:
+        payload = b'{"safe":true}\n'
+        with tempfile.TemporaryDirectory(prefix="partial-decide-target-") as raw:
+            directory = Path(raw)
+            target = directory / "receipt.json"
+
+            symlink = SimpleNamespace(
+                st_mode=stat.S_IFLNK,
+                st_file_attributes=0,
+                st_reparse_tag=0,
+            )
+            with patch("run_receipt.os.lstat", return_value=symlink):
+                with self.assertRaisesRegex(OSError, "regular non-reparse"):
+                    write_receipt_atomic(target, payload)
+
+            reparse = SimpleNamespace(
+                st_mode=stat.S_IFREG,
+                st_file_attributes=0x400,
+                st_reparse_tag=1,
+            )
+            with patch("run_receipt.os.lstat", return_value=reparse):
+                with self.assertRaisesRegex(OSError, "regular non-reparse"):
+                    write_receipt_atomic(target, payload)
+
+            with patch(
+                "run_receipt._existing_target_mode",
+                side_effect=(0o644, OSError("INJECTION target type changed")),
+            ):
+                with self.assertRaisesRegex(OSError, "target type changed"):
+                    write_receipt_atomic(target, payload)
+            self.assertFalse(target.exists())
+            self.assertEqual(list(directory.glob(".receipt.json.*.tmp")), [])
 
     def test_runtime_origin_checks_file_spec_and_package_path(self) -> None:
         expected = Path.cwd() / "probe.py"
