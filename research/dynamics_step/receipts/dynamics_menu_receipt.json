@@ -1,0 +1,27 @@
+{
+ "challenge3_base_menu": {
+  "mu1": {
+   "attained_cost": [
+    2,
+    -1
+   ],
+   "candidate_count": 6,
+   "is_tied": true
+  },
+  "mu2": {
+   "attained_cost": [
+    2,
+    1
+   ],
+   "candidate_count": 2,
+   "is_tied": true
+  }
+ },
+ "five_atom_collapse_exhibit": {
+  "atom_cost": 5,
+  "law_failed_in_quotient": true,
+  "quotient_holds": false,
+  "status": "EXHIBIT_ONLY_NOT_UNIQUENESS_SEARCH",
+  "uncollapsed_holds": true
+ }
+}
