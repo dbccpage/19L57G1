@@ -1,0 +1,682 @@
+{
+  "admission_bill": {
+    "chosen_total": 1,
+    "definition": "one atom for each extra admission chosen in this run",
+    "lines": [
+      {
+        "atom_cost": 1,
+        "constructor": "assertWit",
+        "field": "asserted_pair",
+        "paid": true,
+        "status": "ADMITTED"
+      },
+      {
+        "atom_cost": 1,
+        "constructor": "admitWit",
+        "field": "retained_witness",
+        "note": "not silently free; the conditional response is not fired",
+        "paid": false,
+        "status": "CONDITIONAL"
+      },
+      {
+        "atom_cost": 1,
+        "constructor": "protect",
+        "field": "protected_pair",
+        "note": "requires the retained-witness admission first",
+        "paid": false,
+        "status": "CONDITIONAL"
+      },
+      {
+        "atom_cost": null,
+        "constructor": "declareObs",
+        "field": "declared_observation",
+        "note": "no object ingredient; not selected as an endogenous response",
+        "paid": false,
+        "status": "DECLARED_POLICY"
+      },
+      {
+        "atom_cost": null,
+        "constructor": null,
+        "field": "identifying_map",
+        "note": "no named map-admission constructor is declared",
+        "paid": false,
+        "status": "LEFT_OUTSIDE"
+      },
+      {
+        "atom_cost": null,
+        "constructor": null,
+        "field": "comparison_policy",
+        "note": "COMPARISON_EXCLUDED; the residual stays open",
+        "paid": false,
+        "status": "DECLARED_POLICY"
+      }
+    ],
+    "measure_name": "mu_leftover_admission",
+    "minimum_claim": false,
+    "no_free_store_admissions": true
+  },
+  "admission_choice": {
+    "admitted": true,
+    "bill_atom": "asserted_pair",
+    "constructor": {
+      "kind": "assertWit",
+      "pair": [
+        0,
+        1
+      ]
+    },
+    "field": "asserted_pair",
+    "history_after": [
+      {
+        "kind": "Supply",
+        "token": "<a>"
+      },
+      {
+        "kind": "Supply",
+        "token": "<ab>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<a>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<ab>"
+      },
+      {
+        "kind": "assertWit",
+        "pair": [
+          0,
+          1
+        ]
+      }
+    ],
+    "history_before": [
+      {
+        "kind": "Supply",
+        "token": "<a>"
+      },
+      {
+        "kind": "Supply",
+        "token": "<ab>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<a>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<ab>"
+      }
+    ],
+    "identifying_map": [
+      0,
+      0
+    ],
+    "identifying_map_in_state": false,
+    "identifying_map_leftover": "No named map-admission constructor is chosen; the map remains outside state.",
+    "search_after_admission": {
+      "endogenous_successor_found": false,
+      "external_challenge": [
+        {
+          "applied_to_state": false,
+          "classification": "SUPPLIED_INPUT",
+          "event": {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        }
+      ],
+      "external_challenge_found": true,
+      "guarded_response": [
+        {
+          "endogenous": false,
+          "event": {
+            "kind": "admitWit",
+            "pair": [
+              0,
+              1
+            ]
+          },
+          "fires_in_current_state": false,
+          "requires_extra_admission": "admitWit atom",
+          "status": "CONDITIONAL"
+        }
+      ],
+      "guarded_response_conditional": true,
+      "guarded_response_found": false,
+      "label_only": false,
+      "no_op_labels_do_not_set_state_change_found": true,
+      "object": "collision",
+      "object_derived_noop_label": [],
+      "object_derived_state_change": [],
+      "search_scope": "the post-admission local state only",
+      "state_change_found": false
+    },
+    "state_after": {
+      "asserted": [
+        [
+          0,
+          1
+        ]
+      ],
+      "data": [
+        "<a>",
+        "<ab>"
+      ],
+      "forms": [],
+      "instances": [],
+      "observation": null,
+      "presentations": [
+        "<a>",
+        "<ab>"
+      ],
+      "protected": [],
+      "requirements": [],
+      "witnesses": []
+    },
+    "state_before": {
+      "asserted": [],
+      "data": [
+        "<a>",
+        "<ab>"
+      ],
+      "forms": [],
+      "instances": [],
+      "observation": null,
+      "presentations": [
+        "<a>",
+        "<ab>"
+      ],
+      "protected": [],
+      "requirements": [],
+      "witnesses": []
+    }
+  },
+  "comparison": {
+    "atom_cost": null,
+    "constructor": null,
+    "leftover": "comparison policy remains OPEN",
+    "status": "DECLARED_POLICY",
+    "terminal": "COMPARISON_EXCLUDED"
+  },
+  "count_policy": "No count is a minimum or completeness claim without a collapse witness or min-response.",
+  "distinctions": {
+    "datum": "admitted data entries",
+    "difference": "Primitive Difference remains distinct and is not renamed",
+    "thing": "no thinghood identification is made in this packet"
+  },
+  "evidence_class": "FINITE_COMPUTATION",
+  "grammar_fit_receipt_sha256": "133f12896a0d8ae819d5ceb780eb82a16127c9b922446a124b34d3adcea7b61b",
+  "leftover": "The asserted pair was admitted by assertWit and charged one atom. The identifying map remains outside state, comparison is excluded, and the guarded family is conditional and unfired.",
+  "measure": {
+    "chosen_total": 1,
+    "definition": "one atom for each extra admission chosen in this run",
+    "lines": [
+      {
+        "atom_cost": 1,
+        "constructor": "assertWit",
+        "field": "asserted_pair",
+        "paid": true,
+        "status": "ADMITTED"
+      },
+      {
+        "atom_cost": 1,
+        "constructor": "admitWit",
+        "field": "retained_witness",
+        "note": "not silently free; the conditional response is not fired",
+        "paid": false,
+        "status": "CONDITIONAL"
+      },
+      {
+        "atom_cost": 1,
+        "constructor": "protect",
+        "field": "protected_pair",
+        "note": "requires the retained-witness admission first",
+        "paid": false,
+        "status": "CONDITIONAL"
+      },
+      {
+        "atom_cost": null,
+        "constructor": "declareObs",
+        "field": "declared_observation",
+        "note": "no object ingredient; not selected as an endogenous response",
+        "paid": false,
+        "status": "DECLARED_POLICY"
+      },
+      {
+        "atom_cost": null,
+        "constructor": null,
+        "field": "identifying_map",
+        "note": "no named map-admission constructor is declared",
+        "paid": false,
+        "status": "LEFT_OUTSIDE"
+      },
+      {
+        "atom_cost": null,
+        "constructor": null,
+        "field": "comparison_policy",
+        "note": "COMPARISON_EXCLUDED; the residual stays open",
+        "paid": false,
+        "status": "DECLARED_POLICY"
+      }
+    ],
+    "measure_name": "mu_leftover_admission",
+    "minimum_claim": false,
+    "no_free_store_admissions": true
+  },
+  "open_boundaries": {
+    "OB-1": "OPEN",
+    "S6_item_6": "OPEN",
+    "S9_last_bullet": "OPEN",
+    "candidate_space": "OPEN outside the named finite input",
+    "comparison_policy": "OPEN for the directional residual",
+    "guarded_family": "OPEN and unfired",
+    "identifying_map": "OPEN outside grammar state"
+  },
+  "orientation": {
+    "atom_cost": 1,
+    "forward_key": "(2, ((0, 1),), (0, 1), 'irreflexive', True)",
+    "forward_reverse_keys_differ": true,
+    "inherited_read_only": true,
+    "iso_key_preserves_ordered_pair": true,
+    "reverse_same_pair_key": "(2, ((0, 1),), (1, 0), 'irreflexive', True)",
+    "terminal": "ORIENTATION_PRICED",
+    "tie_class_count": 2,
+    "ties_retained": true
+  },
+  "profile_case": {
+    "equal_profiles": false,
+    "grammar_state": {
+      "asserted": [],
+      "data": [
+        "<a>",
+        "<ab>"
+      ],
+      "forms": [
+        1
+      ],
+      "instances": [
+        [
+          0,
+          [
+            0
+          ]
+        ]
+      ],
+      "observation": null,
+      "presentations": [
+        "<a>",
+        "<ab>"
+      ],
+      "protected": [],
+      "requirements": [],
+      "witnesses": []
+    },
+    "history": [
+      {
+        "kind": "Supply",
+        "token": "<a>"
+      },
+      {
+        "kind": "Supply",
+        "token": "<ab>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<a>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<ab>"
+      },
+      {
+        "arity": 1,
+        "kind": "AdmitForm"
+      },
+      {
+        "args": [
+          0
+        ],
+        "form": 0,
+        "kind": "AdmitInst"
+      }
+    ],
+    "input_rows_match_computation": true,
+    "instance_holds": [
+      true,
+      false
+    ],
+    "internally_separable": true,
+    "pair": [
+      0,
+      1
+    ],
+    "profiles_computed_from_state": [
+      [
+        [
+          0,
+          [
+            null
+          ]
+        ]
+      ],
+      []
+    ]
+  },
+  "prompt_sha256": "1a432270017e81c5963d78072f84c349fa366a1c2de875cec97c52794cd4eb62",
+  "receipt_replay": {
+    "byte_identical_required": true,
+    "rule": "build_receipt() recomputes this timestamp-free JSON from the two hash-pinned inputs"
+  },
+  "reconstruction": {
+    "classification": "METATHEORY",
+    "constructors": [
+      "Supply",
+      "AdmitDatum",
+      "AdmitForm",
+      "AdmitInst",
+      "Impose",
+      "Observe",
+      "assertWit",
+      "admitWit",
+      "protect",
+      "declareObs"
+    ],
+    "imports_sealed_implementation": false,
+    "module": "research/admit_leftover/admit_leftover.py",
+    "passage_guard_policy": {
+      "admitWit_requires": [
+        "asserted pair"
+      ],
+      "declareObs_has_object_ingredient": false,
+      "protect_requires": [
+        "retained witness"
+      ]
+    }
+  },
+  "refusals": [
+    {
+      "rule": "FW-DYNAMICS",
+      "scope": "two_rule is not fired at genesis and no dynamic successor is inferred",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-OB1",
+      "scope": "OB-1, S6.6, and S9 last bullet receive no closure terminal",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-TABLE",
+      "scope": "a missing-flag table is DECLARED_POLICY, not FINITE_COMPUTATION",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-MAP",
+      "scope": "the identifying map remains outside state without a named admission",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-SEAL",
+      "scope": "no sealed path or sibling receipt is written",
+      "status": "REFUSED"
+    }
+  ],
+  "s9_bridge": {
+    "all_unpaid": true,
+    "extra_admission_not_in_supply_history": true,
+    "history": [
+      {
+        "kind": "Supply",
+        "token": "<>"
+      }
+    ],
+    "lines": [
+      {
+        "line": "carrier",
+        "missing": "AdmitDatum for two occurrences",
+        "paid": false,
+        "required": "a carrier with two points"
+      },
+      {
+        "line": "occurrences",
+        "missing": "two AdmitDatum events",
+        "paid": false,
+        "required": [
+          "left occurrence",
+          "right occurrence"
+        ]
+      },
+      {
+        "line": "relation",
+        "missing": "relation admission is not in the inscription",
+        "paid": false,
+        "required": "one admitted ordered edge"
+      },
+      {
+        "line": "witness",
+        "missing": "assertWit/admitWit passage admissions",
+        "paid": false,
+        "required": "retained asserted pair"
+      },
+      {
+        "line": "irreflexivity",
+        "missing": "law admission",
+        "paid": false,
+        "required": "a named irreflexive law"
+      },
+      {
+        "line": "orientation",
+        "missing": "orientation admission",
+        "paid": false,
+        "required": "ordered-pair admission"
+      }
+    ],
+    "paid_lines": [],
+    "replayed_state": {
+      "asserted": [],
+      "data": [],
+      "forms": [],
+      "instances": [],
+      "observation": null,
+      "presentations": [
+        "<>"
+      ],
+      "protected": [],
+      "requirements": [],
+      "witnesses": []
+    },
+    "supply_is_not_admission": true,
+    "terminal": "S9_BRIDGE_PRICED",
+    "unpaid_lines": [
+      "carrier",
+      "occurrences",
+      "relation",
+      "witness",
+      "irreflexivity",
+      "orientation"
+    ]
+  },
+  "schema": "admit-leftover-v1",
+  "sealed_paths": [
+    "prompt/",
+    "paper/",
+    "code/",
+    "lean4/Derivation/",
+    "artifacts/",
+    "CLAUDE.md",
+    ".github/workflows/verify.yml",
+    "research/grammar_fit/",
+    "research/priced_admissions/",
+    "research/thinghood/",
+    "research/genesis_continuation/"
+  ],
+  "sealed_paths_touched": [],
+  "search_after_each_choice": {
+    "collision": {
+      "endogenous_successor_found": false,
+      "external_challenge": [
+        {
+          "applied_to_state": false,
+          "classification": "SUPPLIED_INPUT",
+          "event": {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        }
+      ],
+      "external_challenge_found": true,
+      "guarded_response": [
+        {
+          "endogenous": false,
+          "event": {
+            "kind": "admitWit",
+            "pair": [
+              0,
+              1
+            ]
+          },
+          "fires_in_current_state": false,
+          "requires_extra_admission": "admitWit atom",
+          "status": "CONDITIONAL"
+        }
+      ],
+      "guarded_response_conditional": true,
+      "guarded_response_found": false,
+      "label_only": false,
+      "no_op_labels_do_not_set_state_change_found": true,
+      "object": "collision",
+      "object_derived_noop_label": [],
+      "object_derived_state_change": [],
+      "search_scope": "the post-admission local state only",
+      "state_change_found": false
+    },
+    "directional_residual": {
+      "endogenous_successor_found": false,
+      "external_challenge": [
+        {
+          "applied_to_state": false,
+          "classification": "SUPPLIED_INPUT",
+          "event": {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        }
+      ],
+      "external_challenge_found": true,
+      "guarded_response": [],
+      "guarded_response_conditional": false,
+      "guarded_response_found": false,
+      "label_only": true,
+      "no_op_labels_do_not_set_state_change_found": true,
+      "object": "directional_residual",
+      "object_derived_noop_label": [
+        {
+          "classification": "OBJECT_DERIVED_NO_OP_LABEL",
+          "event": {
+            "kind": "Observe",
+            "label": "p"
+          },
+          "mutates_state": false,
+          "source_field": "left_presentation",
+          "source_value": [
+            0,
+            0
+          ],
+          "state_unchanged": true
+        },
+        {
+          "classification": "OBJECT_DERIVED_NO_OP_LABEL",
+          "event": {
+            "kind": "Observe",
+            "label": "q"
+          },
+          "mutates_state": false,
+          "source_field": "right_presentation",
+          "source_value": [
+            0,
+            1
+          ],
+          "state_unchanged": true
+        }
+      ],
+      "object_derived_state_change": [],
+      "search_scope": "the post-admission local state only",
+      "state_change_found": false
+    },
+    "equal_profiles": {
+      "endogenous_successor_found": false,
+      "external_challenge": [
+        {
+          "applied_to_state": false,
+          "classification": "SUPPLIED_INPUT",
+          "event": {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        }
+      ],
+      "external_challenge_found": true,
+      "guarded_response": [],
+      "guarded_response_conditional": false,
+      "guarded_response_found": false,
+      "label_only": true,
+      "no_op_labels_do_not_set_state_change_found": true,
+      "object": "equal_profiles",
+      "object_derived_noop_label": [
+        {
+          "classification": "OBJECT_DERIVED_NO_OP_LABEL",
+          "event": {
+            "kind": "Observe",
+            "label": "profile-context"
+          },
+          "mutates_state": false,
+          "source_field": "profiles_computed_from_state",
+          "source_value": [
+            0,
+            [
+              null
+            ]
+          ],
+          "state_unchanged": true
+        }
+      ],
+      "object_derived_state_change": [],
+      "search_scope": "the post-admission local state only",
+      "state_change_found": false
+    }
+  },
+  "source_inputs": {
+    "grammar_fit_receipt": "research/grammar_fit/receipts/grammar_fit.json",
+    "grammar_fit_receipt_read_only": true
+  },
+  "terminals": [
+    "LEFTOVER_ADMITTED",
+    "LEFTOVER_LEFT_OUTSIDE",
+    "STATE_CHANGE_NOT_FOUND",
+    "LABEL_ONLY",
+    "GUARDED_CONDITIONAL",
+    "COMPARISON_EXCLUDED",
+    "ORIENTATION_PRICED",
+    "S9_BRIDGE_PRICED",
+    "TIES_RETAINED",
+    "OB1_UNCHANGED",
+    "S66_UNCHANGED",
+    "S9_LAST_UNCHANGED",
+    "CANDIDATE_SPACE_OPEN",
+    "REFUSED"
+  ],
+  "write_root": "research/admit_leftover/"
+}
