@@ -1,0 +1,1078 @@
+{
+  "distinctions": {
+    "datum": "an admitted occurrence/pair in the local grammar",
+    "difference": "the asserted ordered pair plus a declared law-bearing relation",
+    "primitive_difference_not_renamed": true,
+    "thing": "a finite candidate whose identifying map violates its named law"
+  },
+  "event_grammar": {
+    "classification": "DEFINITION",
+    "external_challenges_do_not_set_next_event_found": true,
+    "external_next_event_count": 3,
+    "guarded_response_not_found_count": 3,
+    "next_event_found_scope": "object_derived_event_only",
+    "no_endogenous_successor_derived": true,
+    "not_imported": true,
+    "object_derived_next_event_count": 2,
+    "reconstructed_from_names": [
+      "AdmitDatum",
+      "AdmitForm",
+      "AdmitInst",
+      "AdmitRuleAll",
+      "Supply",
+      "Impose",
+      "Observe",
+      "assertWit",
+      "admitWit",
+      "protect",
+      "declareObs",
+      "refineCol",
+      "addCol",
+      "refuse"
+    ],
+    "search": {
+      "collision": {
+        "constructed_guarded_responses": [],
+        "endogenous_successor_found": false,
+        "external_challenge_candidates": [
+          {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        ],
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "asserted_pair",
+          "identifying_map",
+          "pushed_edges"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "kind": "declareObs"
+          }
+        ],
+        "grammar_state_fields": [
+          "asserted",
+          "budget",
+          "data",
+          "forms",
+          "instances",
+          "licensed",
+          "observation",
+          "occurrences",
+          "presentations",
+          "protected",
+          "refusals",
+          "requirements",
+          "rules",
+          "witnesses"
+        ],
+        "guarded_response_found": false,
+        "missing_admissions_for_guarded_response": [
+          "retained witness",
+          "protected pair",
+          "declared observation",
+          "observer-zero certificate",
+          "pair-separation closure policy"
+        ],
+        "next_event_found": false,
+        "next_event_not_found_scope": "guarded_response_family",
+        "object": "collision",
+        "object_derived_events": [],
+        "object_fields": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "identifying_map": [
+            0,
+            0
+          ],
+          "pushed_edges": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "source_classification": {
+          "conclusion": "FINITE_COMPUTATION",
+          "external_challenges": "SUPPLIED_INPUT",
+          "grammar_offers_without_object_ingredient": "DEFINITION",
+          "guarded_responses": "DEFINITION",
+          "object_derived_events": "FINITE_COMPUTATION"
+        }
+      },
+      "directional_residual": {
+        "constructed_guarded_responses": [],
+        "endogenous_successor_found": false,
+        "external_challenge_candidates": [
+          {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        ],
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "left_presentation",
+          "residual_pair",
+          "right_presentation"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "kind": "declareObs"
+          }
+        ],
+        "grammar_state_fields": [
+          "asserted",
+          "budget",
+          "data",
+          "forms",
+          "instances",
+          "licensed",
+          "observation",
+          "occurrences",
+          "presentations",
+          "protected",
+          "refusals",
+          "requirements",
+          "rules",
+          "witnesses"
+        ],
+        "guarded_response_found": false,
+        "missing_admissions_for_guarded_response": [
+          "declared comparison policy",
+          "retained witness",
+          "protected pair",
+          "declared observation event",
+          "pair-separation closure policy"
+        ],
+        "next_event_found": true,
+        "next_event_not_found_scope": "guarded_response_family",
+        "object": "directional_residual",
+        "object_derived_events": [
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "p"
+            },
+            "source_field": "left_presentation",
+            "source_value": [
+              0,
+              0
+            ]
+          },
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "q"
+            },
+            "source_field": "right_presentation",
+            "source_value": [
+              0,
+              1
+            ]
+          }
+        ],
+        "object_fields": {
+          "left_presentation": [
+            0,
+            0
+          ],
+          "residual_pair": [
+            0,
+            1
+          ],
+          "right_presentation": [
+            0,
+            1
+          ]
+        },
+        "source_classification": {
+          "conclusion": "FINITE_COMPUTATION",
+          "external_challenges": "SUPPLIED_INPUT",
+          "grammar_offers_without_object_ingredient": "DEFINITION",
+          "guarded_responses": "DEFINITION",
+          "object_derived_events": "FINITE_COMPUTATION"
+        }
+      },
+      "equal_profiles": {
+        "constructed_guarded_responses": [],
+        "endogenous_successor_found": false,
+        "external_challenge_candidates": [
+          {
+            "kind": "Impose",
+            "pair": [
+              0,
+              1
+            ]
+          }
+        ],
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "contexts",
+          "equal_pair",
+          "profiles"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "kind": "declareObs"
+          }
+        ],
+        "grammar_state_fields": [
+          "asserted",
+          "budget",
+          "data",
+          "forms",
+          "instances",
+          "licensed",
+          "observation",
+          "occurrences",
+          "presentations",
+          "protected",
+          "refusals",
+          "requirements",
+          "rules",
+          "witnesses"
+        ],
+        "guarded_response_found": false,
+        "missing_admissions_for_guarded_response": [
+          "derivable instance distinguishing the pair",
+          "retained witness",
+          "protected pair",
+          "declared observation",
+          "pair-separation closure policy"
+        ],
+        "next_event_found": true,
+        "next_event_not_found_scope": "guarded_response_family",
+        "object": "equal_profiles",
+        "object_derived_events": [
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "equal-profile-context"
+            },
+            "source_field": "contexts",
+            "source_value": [
+              [
+                0,
+                [
+                  null
+                ]
+              ]
+            ]
+          }
+        ],
+        "object_fields": {
+          "contexts": [
+            [
+              0,
+              [
+                null
+              ]
+            ]
+          ],
+          "equal_pair": [
+            0,
+            1
+          ],
+          "profiles": [
+            [],
+            []
+          ]
+        },
+        "source_classification": {
+          "conclusion": "FINITE_COMPUTATION",
+          "external_challenges": "SUPPLIED_INPUT",
+          "grammar_offers_without_object_ingredient": "DEFINITION",
+          "guarded_responses": "DEFINITION",
+          "object_derived_events": "FINITE_COMPUTATION"
+        }
+      }
+    }
+  },
+  "evidence_class": "FINITE_COMPUTATION",
+  "falsifiers": {
+    "events": "Admit an unlisted response ingredient or mark a guarded response found; event-search tests fail.",
+    "objects": "Delete one concrete carrier/map/profile field and object construction tests fail.",
+    "opens": "Add an OB-1, S6.6, or S9-last closure terminal; the forbidden-closure test fails.",
+    "orientation": "Replace the ordered-pair key with an unordered pair key; the forward/reverse mutation test fails.",
+    "s9": "Replay an AdmitDatum after Supply or mark a bill line paid; the replay/negative test fails."
+  },
+  "law_lattice": {
+    "law_list": [
+      "none",
+      "irreflexive",
+      "asymmetric",
+      "symmetric",
+      "transitive",
+      "irreflexive+transitive"
+    ],
+    "law_list_was_enlarged": false,
+    "rows": {
+      "asymmetric": {
+        "declared_in_finite_law_list": true,
+        "identifying_witnessed_pair_can_violate": true,
+        "witness": {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 8,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "asymmetric",
+            "orientation_admitted": true
+          },
+          "collapse": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "irreflexive": {
+        "declared_in_finite_law_list": true,
+        "identifying_witnessed_pair_can_violate": true,
+        "witness": {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 8,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "irreflexive",
+            "orientation_admitted": true
+          },
+          "collapse": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "irreflexive+transitive": {
+        "declared_in_finite_law_list": true,
+        "identifying_witnessed_pair_can_violate": true,
+        "witness": {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 2,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 9,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "irreflexive+transitive",
+            "orientation_admitted": true
+          },
+          "collapse": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "none": {
+        "declared_in_finite_law_list": true,
+        "identifying_witnessed_pair_can_violate": false,
+        "witness": null
+      },
+      "symmetric": {
+        "declared_in_finite_law_list": true,
+        "identifying_witnessed_pair_can_violate": false,
+        "witness": null
+      },
+      "transitive": {
+        "declared_in_finite_law_list": true,
+        "identifying_witnessed_pair_can_violate": true,
+        "witness": {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              2
+            ],
+            "bill": {
+              "carrier": 3,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 3,
+              "total": 11,
+              "witness": 1
+            },
+            "carrier_size": 3,
+            "edges": [
+              [
+                0,
+                1
+              ],
+              [
+                0,
+                2
+              ],
+              [
+                1,
+                2
+              ]
+            ],
+            "law": "transitive",
+            "orientation_admitted": true
+          },
+          "collapse": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              1,
+              0
+            ],
+            "pair": [
+              0,
+              2
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "uncompared_laws_remain_open": true
+  },
+  "objects": {
+    "collision": {
+      "absent": [
+        "retained witness",
+        "protected pair",
+        "declared observation",
+        "observer-zero certificate",
+        "pair-separation closure policy"
+      ],
+      "asserted_pair": [
+        0,
+        1
+      ],
+      "carrier": [
+        0,
+        1
+      ],
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "event_state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [],
+        "presentations": [
+          "<a>",
+          "<ab>"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      },
+      "identifying_map": [
+        0,
+        0
+      ],
+      "kind": "collision",
+      "law_after": false,
+      "law_before": true,
+      "protected_law": "irreflexive",
+      "pushed_edges": [
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "directional_residual": {
+      "absent": [
+        "declared comparison policy",
+        "retained witness",
+        "protected pair",
+        "declared observation event",
+        "pair-separation closure policy"
+      ],
+      "carrier": [
+        0,
+        1
+      ],
+      "comparison_policy": null,
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "event_state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "L",
+          "F"
+        ],
+        "forms": [],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [],
+        "presentations": [
+          "L",
+          "F"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      },
+      "kind": "directional_residual",
+      "left_image": [
+        [
+          0,
+          0
+        ]
+      ],
+      "left_presentation": [
+        0,
+        0
+      ],
+      "residual_pair": [
+        0,
+        1
+      ],
+      "right_image": [
+        [
+          0,
+          1
+        ]
+      ],
+      "right_presentation": [
+        0,
+        1
+      ]
+    },
+    "equal_profiles": {
+      "absent": [
+        "derivable instance distinguishing the pair",
+        "retained witness",
+        "protected pair",
+        "declared observation",
+        "pair-separation closure policy"
+      ],
+      "carrier": [
+        0,
+        1
+      ],
+      "contexts": [
+        [
+          0,
+          [
+            null
+          ]
+        ]
+      ],
+      "edges": [],
+      "equal_pair": [
+        0,
+        1
+      ],
+      "event_state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [
+          1
+        ],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [],
+        "presentations": [
+          "<a>",
+          "<ab>"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      },
+      "forms": [
+        1
+      ],
+      "instances": [],
+      "kind": "equal_profiles",
+      "profiles": [
+        [],
+        []
+      ]
+    }
+  },
+  "objects_are_concrete_data": true,
+  "open_boundaries": {
+    "OB-1": "OPEN",
+    "S6_item_6": "OPEN",
+    "S9_last_bullet": "OPEN",
+    "candidate_space": "OPEN outside the named finite enumeration",
+    "comparison_policy": "OPEN for the directional residual"
+  },
+  "orientation": {
+    "atom_cost": 1,
+    "bill_atom": "orientation",
+    "forward_key": "(2, ((0, 1),), (0, 1), 'irreflexive', True)",
+    "forward_reverse_keys_differ": true,
+    "iso_key_preserves_ordered_pair": true,
+    "minimum_with_orientation": {
+      "candidate_count": 882,
+      "cost_measure": "mu_oriented_s9: additive atoms for carrier, two occurrences, relation, witness, named law, and orientation",
+      "minimum_cost": 8,
+      "minimum_isomorphism_class_count": 2,
+      "non_unique_first_answer": true,
+      "raw_minimum_count": 4,
+      "representatives": [
+        {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 8,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "asymmetric",
+            "orientation_admitted": true
+          },
+          "class_key": "(2, ((0, 1),), (0, 1), 'asymmetric', True)",
+          "class_size": 2,
+          "collapse_witness": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 8,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "irreflexive",
+            "orientation_admitted": true
+          },
+          "class_key": "(2, ((0, 1),), (0, 1), 'irreflexive', True)",
+          "class_size": 2,
+          "collapse_witness": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "survivor_count": 200
+    },
+    "minimum_without_orientation": {
+      "candidate_count": 882,
+      "cost_measure": "mu_oriented_s9: additive atoms for carrier, two occurrences, relation, witness, named law, and orientation",
+      "minimum_cost": 7,
+      "minimum_isomorphism_class_count": 2,
+      "non_unique_first_answer": true,
+      "raw_minimum_count": 4,
+      "representatives": [
+        {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 0,
+              "relation": 1,
+              "total": 7,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "asymmetric",
+            "orientation_admitted": false
+          },
+          "class_key": "(2, ((0, 1),), (0, 1), 'asymmetric', False)",
+          "class_size": 2,
+          "collapse_witness": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 0,
+              "relation": 1,
+              "total": 7,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "irreflexive",
+            "orientation_admitted": false
+          },
+          "class_key": "(2, ((0, 1),), (0, 1), 'irreflexive', False)",
+          "class_size": 2,
+          "collapse_witness": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "survivor_count": 200
+    },
+    "open_scope": "The finite carrier <= 3, relation-edge <= 3, six-law list is the declared candidate space; other admissions and laws remain OPEN.",
+    "orientation_price": 1,
+    "policy": "ORIENTATION_INCLUDED_AND_PRICED",
+    "reverse_same_pair_key": "(2, ((0, 1),), (1, 0), 'irreflexive', True)",
+    "ties_retained": true
+  },
+  "prompt_sha256": "4914cd2a087437830ab5119c25338e4a82cca883a42c555aa32d63906cb6e1ef",
+  "refusals": [
+    {
+      "rule": "FW-DYNAMICS",
+      "scope": "two_rule is not fired at genesis and is not a law of the inscription",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-OB1",
+      "scope": "no closure terminal is issued for OB-1, S6.6, or S9 last bullet",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-TABLE",
+      "scope": "the object reports are constructed data; no requirement table is used",
+      "status": "REFUSED"
+    }
+  ],
+  "s9_bill": {
+    "all_unpaid": true,
+    "history": [
+      {
+        "kind": "Supply",
+        "token": "<>"
+      }
+    ],
+    "lines": [
+      {
+        "line": "carrier",
+        "missing": "AdmitDatum for two occurrences",
+        "paid": false,
+        "required": "a carrier with two points"
+      },
+      {
+        "line": "occurrences",
+        "missing": "two AdmitDatum events",
+        "paid": false,
+        "required": [
+          "left occurrence",
+          "right occurrence"
+        ]
+      },
+      {
+        "line": "relation",
+        "missing": "relation admission is not in the inscription",
+        "paid": false,
+        "required": "one admitted ordered edge"
+      },
+      {
+        "line": "witness",
+        "missing": "assertWit/admitWit passage admissions",
+        "paid": false,
+        "required": "retained asserted pair"
+      },
+      {
+        "line": "irreflexivity",
+        "missing": "law admission",
+        "paid": false,
+        "required": "a named irreflexive law"
+      },
+      {
+        "line": "orientation",
+        "missing": "orientation admission",
+        "paid": false,
+        "required": "ordered-pair admission"
+      }
+    ],
+    "paid_lines": [],
+    "replayed_state": {
+      "asserted": [],
+      "budget": 0,
+      "data": [],
+      "forms": [],
+      "instances": [],
+      "licensed": true,
+      "observation": null,
+      "occurrences": [],
+      "presentations": [
+        "<>"
+      ],
+      "protected": [],
+      "refusals": [],
+      "requirements": [],
+      "rules": [],
+      "witnesses": []
+    },
+    "schema": "s9-six-line-bill-v1",
+    "supply_is_not_admission": true,
+    "unpaid_lines": [
+      "carrier",
+      "occurrences",
+      "relation",
+      "witness",
+      "irreflexivity",
+      "orientation"
+    ]
+  },
+  "schema": "priced-admissions-v1",
+  "sealed_paths": [
+    "prompt/",
+    "paper/",
+    "code/",
+    "lean4/Derivation/",
+    "artifacts/",
+    "CLAUDE.md",
+    ".github/workflows/verify.yml",
+    "research/thinghood/",
+    "research/genesis_continuation/"
+  ],
+  "sealed_paths_touched": [],
+  "terminals": [
+    "THREE_OBJECTS_BUILT",
+    "NEXT_EVENT_FOUND",
+    "NEXT_EVENT_NOT_FOUND",
+    "ORIENTATION_PRICED",
+    "S9_BRIDGE_PRICED",
+    "TIES_RETAINED",
+    "OB1_UNCHANGED",
+    "S66_UNCHANGED",
+    "S9_LAST_UNCHANGED",
+    "CANDIDATE_SPACE_OPEN",
+    "REFUSED"
+  ],
+  "write_root": "research/priced_admissions"
+}

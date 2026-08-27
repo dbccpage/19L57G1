@@ -1,0 +1,1329 @@
+{
+  "comparison": {
+    "constructor_spends_atom": null,
+    "policy": null,
+    "priced": false,
+    "residual_leftover": "comparison policy remains OPEN",
+    "status": "DECLARED_POLICY",
+    "terminal": "COMPARISON_EXCLUDED"
+  },
+  "event_fit": {
+    "classification": "FINITE_COMPUTATION",
+    "external_challenge_count": 3,
+    "external_challenges_do_not_set_next_event_found": true,
+    "guarded_response_count": 0,
+    "label_only_count": 2,
+    "next_event_found_scope": "object_derived_state_change_only",
+    "no_op_labels_do_not_set_next_event_found": true,
+    "not_used_as_passage": {
+      "names": [
+        "refineCol",
+        "addCol"
+      ],
+      "reason": "Those names are not reconstructed or upgraded here; no-op labels are not passage constructors.",
+      "status": "REFUSED"
+    },
+    "object_derived_state_change_count": 0,
+    "reconstructed_constructor_names": [
+      "Supply",
+      "AdmitDatum",
+      "AdmitForm",
+      "AdmitInst",
+      "AdmitRuleAll",
+      "Impose",
+      "Observe",
+      "assertWit",
+      "admitWit",
+      "protect",
+      "declareObs",
+      "refuse"
+    ],
+    "search": {
+      "collision": {
+        "endogenous_successor_found": false,
+        "external_challenge": [
+          {
+            "classification": "SUPPLIED_INPUT",
+            "event": {
+              "kind": "Impose",
+              "pair": [
+                0,
+                1
+              ]
+            }
+          }
+        ],
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "asserted_pair",
+          "identifying_map",
+          "pushed_edges"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "classification": "GRAMMAR_OFFER_WITHOUT_OBJECT_INGREDIENT",
+            "counts_as_next_event": false,
+            "event": {
+              "kind": "declareObs"
+            }
+          }
+        ],
+        "grammar_state_field_names": [
+          "presentations",
+          "data",
+          "forms",
+          "instances",
+          "rules",
+          "requirements",
+          "occurrences",
+          "asserted",
+          "witnesses",
+          "protected",
+          "observation",
+          "refusals",
+          "budget",
+          "licensed"
+        ],
+        "guarded_response": [],
+        "guarded_response_found": false,
+        "label_only": false,
+        "missing_admissions_for_guarded_response": [
+          "retained witness",
+          "protected pair",
+          "declared observation",
+          "observer-zero certificate",
+          "pair-separation closure policy"
+        ],
+        "next_event_found": false,
+        "next_event_not_found_scope": "object_derived_state_change_and_guarded_response",
+        "no_op_replay_checks": [],
+        "object": "collision",
+        "object_derived_noop_label": [],
+        "object_derived_state_change": [],
+        "object_fields": {
+          "asserted_pair": [
+            0,
+            1
+          ],
+          "identifying_map": [
+            0,
+            0
+          ],
+          "pushed_edges": [
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "state_change_found": false
+      },
+      "directional_residual": {
+        "endogenous_successor_found": false,
+        "external_challenge": [
+          {
+            "classification": "SUPPLIED_INPUT",
+            "event": {
+              "kind": "Impose",
+              "pair": [
+                0,
+                1
+              ]
+            }
+          }
+        ],
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "left_presentation",
+          "residual_pair",
+          "right_presentation"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "classification": "GRAMMAR_OFFER_WITHOUT_OBJECT_INGREDIENT",
+            "counts_as_next_event": false,
+            "event": {
+              "kind": "declareObs"
+            }
+          }
+        ],
+        "grammar_state_field_names": [
+          "presentations",
+          "data",
+          "forms",
+          "instances",
+          "rules",
+          "requirements",
+          "occurrences",
+          "asserted",
+          "witnesses",
+          "protected",
+          "observation",
+          "refusals",
+          "budget",
+          "licensed"
+        ],
+        "guarded_response": [],
+        "guarded_response_found": false,
+        "label_only": true,
+        "missing_admissions_for_guarded_response": [
+          "declared comparison policy",
+          "retained witness",
+          "protected pair",
+          "declared observation event",
+          "pair-separation closure policy"
+        ],
+        "next_event_found": false,
+        "next_event_not_found_scope": "object_derived_state_change_and_guarded_response",
+        "no_op_replay_checks": [
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "p"
+            },
+            "state_unchanged": true
+          },
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "q"
+            },
+            "state_unchanged": true
+          }
+        ],
+        "object": "directional_residual",
+        "object_derived_noop_label": [
+          {
+            "classification": "OBJECT_DERIVED_NO_OP_LABEL",
+            "event": {
+              "kind": "Observe",
+              "label": "p"
+            },
+            "mutates_state": false,
+            "source_field": "left_presentation",
+            "source_value": [
+              0,
+              0
+            ]
+          },
+          {
+            "classification": "OBJECT_DERIVED_NO_OP_LABEL",
+            "event": {
+              "kind": "Observe",
+              "label": "q"
+            },
+            "mutates_state": false,
+            "source_field": "right_presentation",
+            "source_value": [
+              0,
+              1
+            ]
+          }
+        ],
+        "object_derived_state_change": [],
+        "object_fields": {
+          "left_presentation": [
+            0,
+            0
+          ],
+          "residual_pair": [
+            0,
+            1
+          ],
+          "right_presentation": [
+            0,
+            1
+          ]
+        },
+        "state_change_found": false
+      },
+      "equal_profiles": {
+        "endogenous_successor_found": false,
+        "external_challenge": [
+          {
+            "classification": "SUPPLIED_INPUT",
+            "event": {
+              "kind": "Impose",
+              "pair": [
+                0,
+                1
+              ]
+            }
+          }
+        ],
+        "external_challenge_found": true,
+        "fields_outside_grammar_state": [
+          "contexts",
+          "equal_pair",
+          "profiles"
+        ],
+        "grammar_offers_without_object_ingredient": [
+          {
+            "classification": "GRAMMAR_OFFER_WITHOUT_OBJECT_INGREDIENT",
+            "counts_as_next_event": false,
+            "event": {
+              "kind": "declareObs"
+            }
+          }
+        ],
+        "grammar_state_field_names": [
+          "presentations",
+          "data",
+          "forms",
+          "instances",
+          "rules",
+          "requirements",
+          "occurrences",
+          "asserted",
+          "witnesses",
+          "protected",
+          "observation",
+          "refusals",
+          "budget",
+          "licensed"
+        ],
+        "guarded_response": [],
+        "guarded_response_found": false,
+        "label_only": true,
+        "missing_admissions_for_guarded_response": [
+          "derivable instance distinguishing the pair",
+          "retained witness",
+          "protected pair",
+          "declared observation",
+          "pair-separation closure policy"
+        ],
+        "next_event_found": false,
+        "next_event_not_found_scope": "object_derived_state_change_and_guarded_response",
+        "no_op_replay_checks": [
+          {
+            "event": {
+              "kind": "Observe",
+              "label": "equal-profile-context"
+            },
+            "state_unchanged": true
+          }
+        ],
+        "object": "equal_profiles",
+        "object_derived_noop_label": [
+          {
+            "classification": "OBJECT_DERIVED_NO_OP_LABEL",
+            "event": {
+              "kind": "Observe",
+              "label": "equal-profile-context"
+            },
+            "mutates_state": false,
+            "source_field": "contexts",
+            "source_value": [
+              [
+                0,
+                [
+                  null
+                ]
+              ]
+            ]
+          }
+        ],
+        "object_derived_state_change": [],
+        "object_fields": {
+          "contexts": [
+            [
+              0,
+              [
+                null
+              ]
+            ]
+          ],
+          "equal_pair": [
+            0,
+            1
+          ],
+          "profiles": [
+            [],
+            []
+          ]
+        },
+        "state_change_found": false
+      }
+    }
+  },
+  "evidence_class": "FINITE_COMPUTATION",
+  "laws": {
+    "added_laws": [],
+    "disposition": "No law is added by grammar_fit; the priced finite list is read-only input.",
+    "law_list_was_enlarged": false,
+    "named_law_list": {
+      "law_list": [
+        "none",
+        "irreflexive",
+        "asymmetric",
+        "symmetric",
+        "transitive",
+        "irreflexive+transitive"
+      ],
+      "law_list_was_enlarged": false,
+      "rows": {
+        "asymmetric": {
+          "declared_in_finite_law_list": true,
+          "identifying_witnessed_pair_can_violate": true,
+          "witness": {
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "carrier": 2,
+                "law": 1,
+                "occurrences": 2,
+                "orientation": 1,
+                "relation": 1,
+                "total": 8,
+                "witness": 1
+              },
+              "carrier_size": 2,
+              "edges": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "law": "asymmetric",
+              "orientation_admitted": true
+            },
+            "collapse": {
+              "law_after": false,
+              "law_before": true,
+              "map": [
+                0,
+                0
+              ],
+              "pair": [
+                0,
+                1
+              ],
+              "pushed_edges": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            }
+          }
+        },
+        "irreflexive": {
+          "declared_in_finite_law_list": true,
+          "identifying_witnessed_pair_can_violate": true,
+          "witness": {
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "carrier": 2,
+                "law": 1,
+                "occurrences": 2,
+                "orientation": 1,
+                "relation": 1,
+                "total": 8,
+                "witness": 1
+              },
+              "carrier_size": 2,
+              "edges": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "law": "irreflexive",
+              "orientation_admitted": true
+            },
+            "collapse": {
+              "law_after": false,
+              "law_before": true,
+              "map": [
+                0,
+                0
+              ],
+              "pair": [
+                0,
+                1
+              ],
+              "pushed_edges": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            }
+          }
+        },
+        "irreflexive+transitive": {
+          "declared_in_finite_law_list": true,
+          "identifying_witnessed_pair_can_violate": true,
+          "witness": {
+            "candidate": {
+              "asserted_pair": [
+                0,
+                1
+              ],
+              "bill": {
+                "carrier": 2,
+                "law": 2,
+                "occurrences": 2,
+                "orientation": 1,
+                "relation": 1,
+                "total": 9,
+                "witness": 1
+              },
+              "carrier_size": 2,
+              "edges": [
+                [
+                  0,
+                  1
+                ]
+              ],
+              "law": "irreflexive+transitive",
+              "orientation_admitted": true
+            },
+            "collapse": {
+              "law_after": false,
+              "law_before": true,
+              "map": [
+                0,
+                0
+              ],
+              "pair": [
+                0,
+                1
+              ],
+              "pushed_edges": [
+                [
+                  0,
+                  0
+                ]
+              ]
+            }
+          }
+        },
+        "none": {
+          "declared_in_finite_law_list": true,
+          "identifying_witnessed_pair_can_violate": false,
+          "witness": null
+        },
+        "symmetric": {
+          "declared_in_finite_law_list": true,
+          "identifying_witnessed_pair_can_violate": false,
+          "witness": null
+        },
+        "transitive": {
+          "declared_in_finite_law_list": true,
+          "identifying_witnessed_pair_can_violate": true,
+          "witness": {
+            "candidate": {
+              "asserted_pair": [
+                0,
+                2
+              ],
+              "bill": {
+                "carrier": 3,
+                "law": 1,
+                "occurrences": 2,
+                "orientation": 1,
+                "relation": 3,
+                "total": 11,
+                "witness": 1
+              },
+              "carrier_size": 3,
+              "edges": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ]
+              ],
+              "law": "transitive",
+              "orientation_admitted": true
+            },
+            "collapse": {
+              "law_after": false,
+              "law_before": true,
+              "map": [
+                0,
+                1,
+                0
+              ],
+              "pair": [
+                0,
+                2
+              ],
+              "pushed_edges": [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  0
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "uncompared_laws_remain_open": true
+    },
+    "uncompared_laws_remain_open": true
+  },
+  "leftover": "No endogenous successor is derived.  Comparison policy remains OPEN, the finite candidate space remains OPEN outside its declared bounds, and the three named opens remain OPEN.",
+  "measure": {
+    "candidate": {
+      "asserted_pair": [
+        0,
+        1
+      ],
+      "bill": {
+        "carrier": 2,
+        "law": 1,
+        "occurrences": 2,
+        "orientation": 1,
+        "relation": 1,
+        "total": 8,
+        "witness": 1
+      },
+      "carrier_size": 2,
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "law": "asymmetric",
+      "orientation_admitted": true
+    },
+    "candidate_cost": 8,
+    "definition": "additive atoms for carrier, two occurrences, relation, witness, named law, and orientation",
+    "name": "mu_fit_oriented_s9",
+    "old_measure_reused": false,
+    "only_measure": true,
+    "rank_change_test": "not applicable: one named measure is retained"
+  },
+  "objects": {
+    "collision": {
+      "fields_outside_grammar_state": [
+        "asserted_pair",
+        "identifying_map",
+        "pushed_edges"
+      ],
+      "grammar_state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [
+          "<a>",
+          "<ab>"
+        ],
+        "presentations": [
+          "<a>",
+          "<ab>"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      },
+      "grammar_state_field_names": [
+        "presentations",
+        "data",
+        "forms",
+        "instances",
+        "rules",
+        "requirements",
+        "occurrences",
+        "asserted",
+        "witnesses",
+        "protected",
+        "observation",
+        "refusals",
+        "budget",
+        "licensed"
+      ],
+      "history": [
+        {
+          "kind": "Supply",
+          "token": "<a>"
+        },
+        {
+          "kind": "Supply",
+          "token": "<ab>"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "<a>"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "<ab>"
+        }
+      ],
+      "kind": "collision",
+      "object_fields": {
+        "asserted_pair": [
+          0,
+          1
+        ],
+        "identifying_map": [
+          0,
+          0
+        ],
+        "pushed_edges": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "outside_state_explanation": "The asserted pair, identifying map, and pushed edges are fields of the collision report, not fields produced by these constructors.",
+      "seated": true
+    },
+    "directional_residual": {
+      "fields_outside_grammar_state": [
+        "left_presentation",
+        "residual_pair",
+        "right_presentation"
+      ],
+      "grammar_state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "L",
+          "F"
+        ],
+        "forms": [],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [
+          "L",
+          "F"
+        ],
+        "presentations": [
+          "L",
+          "F"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      },
+      "grammar_state_field_names": [
+        "presentations",
+        "data",
+        "forms",
+        "instances",
+        "rules",
+        "requirements",
+        "occurrences",
+        "asserted",
+        "witnesses",
+        "protected",
+        "observation",
+        "refusals",
+        "budget",
+        "licensed"
+      ],
+      "history": [
+        {
+          "kind": "Supply",
+          "token": "L"
+        },
+        {
+          "kind": "Supply",
+          "token": "F"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "L"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "F"
+        }
+      ],
+      "kind": "directional_residual",
+      "object_fields": {
+        "left_presentation": [
+          0,
+          0
+        ],
+        "residual_pair": [
+          0,
+          1
+        ],
+        "right_presentation": [
+          0,
+          1
+        ]
+      },
+      "outside_state_explanation": "The two presentations and residual pair are comparison fields; they are not admissions in this grammar state.",
+      "seated": true
+    },
+    "equal_profiles": {
+      "fields_outside_grammar_state": [
+        "contexts",
+        "equal_pair",
+        "profiles"
+      ],
+      "grammar_state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [
+          1
+        ],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [
+          "<a>",
+          "<ab>"
+        ],
+        "presentations": [
+          "<a>",
+          "<ab>"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      },
+      "grammar_state_field_names": [
+        "presentations",
+        "data",
+        "forms",
+        "instances",
+        "rules",
+        "requirements",
+        "occurrences",
+        "asserted",
+        "witnesses",
+        "protected",
+        "observation",
+        "refusals",
+        "budget",
+        "licensed"
+      ],
+      "history": [
+        {
+          "kind": "Supply",
+          "token": "<a>"
+        },
+        {
+          "kind": "Supply",
+          "token": "<ab>"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "<a>"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "<ab>"
+        },
+        {
+          "arity": 1,
+          "kind": "AdmitForm"
+        }
+      ],
+      "kind": "equal_profiles",
+      "object_fields": {
+        "contexts": [
+          [
+            0,
+            [
+              null
+            ]
+          ]
+        ],
+        "equal_pair": [
+          0,
+          1
+        ],
+        "profiles": [
+          [],
+          []
+        ]
+      },
+      "outside_state_explanation": "Contexts, profiles, and the selected equal pair are report data; Observe is a no-op and no constructor admits these values.",
+      "seated": true
+    }
+  },
+  "open_boundaries": {
+    "OB-1": "OPEN",
+    "S6_item_6": "OPEN",
+    "S9_last_bullet": "OPEN",
+    "candidate_space": "OPEN outside the named finite enumeration",
+    "comparison_policy": "OPEN for the directional residual",
+    "no_terminal_claims": [
+      "OB-1",
+      "S6_item_6",
+      "S9_last_bullet"
+    ]
+  },
+  "orientation": {
+    "atom_cost": 1,
+    "forward_key": "(2, ((0, 1),), (0, 1), 'irreflexive', True)",
+    "forward_reverse_keys_differ": true,
+    "iso_key_preserves_ordered_pair": true,
+    "minimum_with_orientation": {
+      "candidate_count": 882,
+      "cost_measure": "mu_oriented_s9: additive atoms for carrier, two occurrences, relation, witness, named law, and orientation",
+      "minimum_cost": 8,
+      "minimum_isomorphism_class_count": 2,
+      "non_unique_first_answer": true,
+      "raw_minimum_count": 4,
+      "representatives": [
+        {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 8,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "asymmetric",
+            "orientation_admitted": true
+          },
+          "class_key": "(2, ((0, 1),), (0, 1), 'asymmetric', True)",
+          "class_size": 2,
+          "collapse_witness": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "asserted_pair": [
+              0,
+              1
+            ],
+            "bill": {
+              "carrier": 2,
+              "law": 1,
+              "occurrences": 2,
+              "orientation": 1,
+              "relation": 1,
+              "total": 8,
+              "witness": 1
+            },
+            "carrier_size": 2,
+            "edges": [
+              [
+                0,
+                1
+              ]
+            ],
+            "law": "irreflexive",
+            "orientation_admitted": true
+          },
+          "class_key": "(2, ((0, 1),), (0, 1), 'irreflexive', True)",
+          "class_size": 2,
+          "collapse_witness": {
+            "law_after": false,
+            "law_before": true,
+            "map": [
+              0,
+              0
+            ],
+            "pair": [
+              0,
+              1
+            ],
+            "pushed_edges": [
+              [
+                0,
+                0
+              ]
+            ]
+          }
+        }
+      ],
+      "survivor_count": 200
+    },
+    "policy": "ORIENTATION_INCLUDED_AND_PRICED",
+    "reverse_same_pair_key": "(2, ((0, 1),), (1, 0), 'irreflexive', True)",
+    "terminal": "ORIENTATION_PRICED",
+    "tie_class_count": 2,
+    "ties_retained": true
+  },
+  "priced_receipt_sha256": "60ad3a4854eb303c1c6b3138822fa694eac7bf8e6c63dee3fa9ed0e5dac81dac",
+  "profile_case": {
+    "context": [
+      0,
+      [
+        null
+      ]
+    ],
+    "empty_profile_falsifier": {
+      "empty_profiles_are_not_the_built_case": true,
+      "history_without_instance": [
+        {
+          "kind": "Supply",
+          "token": "<a>"
+        },
+        {
+          "kind": "Supply",
+          "token": "<ab>"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "<a>"
+        },
+        {
+          "kind": "AdmitDatum",
+          "token": "<ab>"
+        },
+        {
+          "arity": 1,
+          "kind": "AdmitForm"
+        }
+      ],
+      "profiles": [
+        [],
+        []
+      ],
+      "state": {
+        "asserted": [],
+        "budget": 0,
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [
+          1
+        ],
+        "instances": [],
+        "licensed": true,
+        "observation": null,
+        "occurrences": [
+          "<a>",
+          "<ab>"
+        ],
+        "presentations": [
+          "<a>",
+          "<ab>"
+        ],
+        "protected": [],
+        "refusals": [],
+        "requirements": [],
+        "rules": [],
+        "witnesses": []
+      }
+    },
+    "equal_profiles": false,
+    "grammar_state": {
+      "asserted": [],
+      "budget": 0,
+      "data": [
+        "<a>",
+        "<ab>"
+      ],
+      "forms": [
+        1
+      ],
+      "instances": [
+        [
+          0,
+          [
+            0
+          ]
+        ]
+      ],
+      "licensed": true,
+      "observation": null,
+      "occurrences": [
+        "<a>",
+        "<ab>"
+      ],
+      "presentations": [
+        "<a>",
+        "<ab>"
+      ],
+      "protected": [],
+      "refusals": [],
+      "requirements": [],
+      "rules": [],
+      "witnesses": []
+    },
+    "history": [
+      {
+        "kind": "Supply",
+        "token": "<a>"
+      },
+      {
+        "kind": "Supply",
+        "token": "<ab>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<a>"
+      },
+      {
+        "kind": "AdmitDatum",
+        "token": "<ab>"
+      },
+      {
+        "arity": 1,
+        "kind": "AdmitForm"
+      },
+      {
+        "args": [
+          0
+        ],
+        "form": 0,
+        "kind": "AdmitInst"
+      }
+    ],
+    "instance_holds": [
+      true,
+      false
+    ],
+    "internally_separable": true,
+    "pair": [
+      0,
+      1
+    ],
+    "profile_algorithm": "admitted unary instances and all-tuples rules with one-hole contexts",
+    "profile_rows_computed_from_state": true,
+    "profiles": [
+      [
+        [
+          0,
+          [
+            null
+          ]
+        ]
+      ],
+      []
+    ],
+    "terminal": "PROFILE_CASE_BUILT"
+  },
+  "prompt_sha256": "4fdbbec4fe44f29f5aa8ead53d8013de24aca335f0b8081dc79ca986354673e4",
+  "receipt_replay": {
+    "byte_identical_required": true,
+    "rule": "build_receipt() recomputes this timestamp-free JSON from the two hash-pinned inputs"
+  },
+  "reconstruction": {
+    "classification": "METATHEORY",
+    "constructors": [
+      "Supply",
+      "AdmitDatum",
+      "AdmitForm",
+      "AdmitInst",
+      "AdmitRuleAll",
+      "Impose",
+      "Observe",
+      "assertWit",
+      "admitWit",
+      "protect",
+      "declareObs",
+      "refuse"
+    ],
+    "imports_sealed_implementation": false,
+    "module": "research/grammar_fit/grammar_fit.py"
+  },
+  "refusals": [
+    {
+      "rule": "FW-PASSAGE",
+      "scope": "refineCol and addCol are not reconstructed or upgraded to passage constructors in this packet",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-DYNAMICS",
+      "scope": "two_rule remains a menu at an already active obstruction; no genesis event",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-OB1",
+      "scope": "no closure terminal is issued for OB-1, S6.6, or S9 last bullet",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-TABLE",
+      "scope": "a missing-flag table is DECLARED_POLICY, not a finite computation",
+      "status": "REFUSED"
+    },
+    {
+      "rule": "FW-SEAL",
+      "scope": "no sealed path or sibling receipt is written",
+      "status": "REFUSED"
+    }
+  ],
+  "s9_bridge": {
+    "all_unpaid": true,
+    "history": [
+      {
+        "kind": "Supply",
+        "token": "<>"
+      }
+    ],
+    "lines": [
+      {
+        "line": "carrier",
+        "missing": "AdmitDatum for two occurrences",
+        "paid": false,
+        "required": "a carrier with two points"
+      },
+      {
+        "line": "occurrences",
+        "missing": "two AdmitDatum events",
+        "paid": false,
+        "required": [
+          "left occurrence",
+          "right occurrence"
+        ]
+      },
+      {
+        "line": "relation",
+        "missing": "relation admission is not in the inscription",
+        "paid": false,
+        "required": "one admitted ordered edge"
+      },
+      {
+        "line": "witness",
+        "missing": "assertWit/admitWit passage admissions",
+        "paid": false,
+        "required": "retained asserted pair"
+      },
+      {
+        "line": "irreflexivity",
+        "missing": "law admission",
+        "paid": false,
+        "required": "a named irreflexive law"
+      },
+      {
+        "line": "orientation",
+        "missing": "orientation admission",
+        "paid": false,
+        "required": "ordered-pair admission"
+      }
+    ],
+    "paid_lines": [],
+    "replayed_state": {
+      "asserted": [],
+      "budget": 0,
+      "data": [],
+      "forms": [],
+      "instances": [],
+      "licensed": true,
+      "observation": null,
+      "occurrences": [],
+      "presentations": [
+        "<>"
+      ],
+      "protected": [],
+      "refusals": [],
+      "requirements": [],
+      "rules": [],
+      "witnesses": []
+    },
+    "schema": "s9-six-line-bill-v1",
+    "supply_is_not_admission": true,
+    "terminal": "S9_BRIDGE_PRICED",
+    "unpaid_lines": [
+      "carrier",
+      "occurrences",
+      "relation",
+      "witness",
+      "irreflexivity",
+      "orientation"
+    ]
+  },
+  "schema": "grammar-fit-v1",
+  "sealed_paths": [
+    "prompt/",
+    "paper/",
+    "code/",
+    "lean4/Derivation/",
+    "artifacts/",
+    "CLAUDE.md",
+    ".github/workflows/verify.yml",
+    "research/priced_admissions/",
+    "research/thinghood/",
+    "research/genesis_continuation/"
+  ],
+  "sealed_paths_touched": [],
+  "source_inputs": {
+    "priced_receipt": "research/priced_admissions/receipts/priced_admissions.json",
+    "priced_receipt_read_only": true,
+    "thinghood_tick_table_used_as_evidence": false
+  },
+  "terminals": [
+    "OBJECTS_SEATED",
+    "STATE_CHANGE_NOT_FOUND",
+    "LABEL_ONLY",
+    "PROFILE_CASE_BUILT",
+    "COMPARISON_EXCLUDED",
+    "ORIENTATION_PRICED",
+    "S9_BRIDGE_PRICED",
+    "TIES_RETAINED",
+    "OB1_UNCHANGED",
+    "S66_UNCHANGED",
+    "S9_LAST_UNCHANGED",
+    "CANDIDATE_SPACE_OPEN",
+    "REFUSED"
+  ],
+  "write_root": "research/grammar_fit/"
+}
