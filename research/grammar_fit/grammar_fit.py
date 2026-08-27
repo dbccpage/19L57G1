@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, replace
 from hashlib import sha256
+from itertools import product
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence, TypeAlias
 
@@ -193,16 +194,6 @@ class DeclareObservationEvent:
 
 
 @dataclass(frozen=True)
-class RefineColumnEvent:
-    label: str
-
-
-@dataclass(frozen=True)
-class AddColumnEvent:
-    label: str
-
-
-@dataclass(frozen=True)
 class RefuseEvent:
     reason: str
 
@@ -219,8 +210,6 @@ Event: TypeAlias = (
     | RetainWitnessEvent
     | ProtectEvent
     | DeclareObservationEvent
-    | RefineColumnEvent
-    | AddColumnEvent
     | RefuseEvent
 )
 
@@ -301,10 +290,6 @@ def step(state: GrammarState, event: Event) -> GrammarState:
         if state.observation is not None:
             return state
         return replace(state, observation="declared")
-    if isinstance(event, RefineColumnEvent):
-        return replace(state, requirements=state.requirements)
-    if isinstance(event, AddColumnEvent):
-        return replace(state, requirements=state.requirements)
     if isinstance(event, RefuseEvent):
         return replace(state, refusals=state.refusals + (event.reason,))
     raise TypeError(f"unhandled event: {event!r}")
@@ -340,10 +325,6 @@ def event_json(event: Event) -> dict[str, Any]:
         return {"kind": "protect", "pair": [event.i, event.j]}
     if isinstance(event, DeclareObservationEvent):
         return {"kind": "declareObs"}
-    if isinstance(event, RefineColumnEvent):
-        return {"kind": "refineCol", "label": event.label}
-    if isinstance(event, AddColumnEvent):
-        return {"kind": "addCol", "label": event.label}
     if isinstance(event, RefuseEvent):
         return {"kind": "refuse", "reason": event.reason}
     raise TypeError(f"unhandled event: {event!r}")
@@ -394,6 +375,44 @@ def _state_from_json(raw: Mapping[str, Any]) -> GrammarState:
         budget=int(raw["budget"]),
         licensed=bool(raw["licensed"]),
     )
+
+
+def profile_rows(state: GrammarState) -> tuple[tuple[tuple[int, tuple[int | None, ...]], ...], ...]:
+    """Compute profile rows from admitted forms, instances, and rules.
+
+    A context has one hole.  A context is in a datum's profile when an
+    admitted instance (or an admitted all-tuples rule) is derivable after
+    plugging that datum into the hole.  The implementation is intentionally
+    finite and constructive; no profile row is supplied by the caller.
+    """
+
+    rows: list[tuple[tuple[int, tuple[int | None, ...]], ...]] = []
+    data_count = len(state.data)
+    for datum in range(data_count):
+        contexts: list[tuple[int, tuple[int | None, ...]]] = []
+        for form, arity in enumerate(state.forms):
+            for hole in range(arity):
+                other_positions = tuple(position for position in range(arity) if position != hole)
+                for fixed_values in product(range(data_count), repeat=len(other_positions)):
+                    fixed = dict(zip(other_positions, fixed_values))
+                    context_slots = tuple(
+                        None if position == hole else fixed[position]
+                        for position in range(arity)
+                    )
+                    derivable = form in state.rules
+                    if not derivable:
+                        for instance_form, arguments in state.instances:
+                            if instance_form != form or arguments[hole] != datum:
+                                continue
+                            if all(arguments[position] == fixed[position] for position in other_positions):
+                                derivable = True
+                                break
+                    context = (form, context_slots)
+                    if derivable and context not in contexts:
+                        contexts.append(context)
+        contexts.sort(key=repr)
+        rows.append(tuple(contexts))
+    return tuple(rows)
 
 
 def _history_json(history: Sequence[Event]) -> list[dict[str, Any]]:
@@ -590,10 +609,13 @@ def fit_events(
             "admitWit",
             "protect",
             "declareObs",
-            "refineCol",
-            "addCol",
             "refuse",
         ],
+        "not_used_as_passage": {
+            "names": ["refineCol", "addCol"],
+            "status": "REFUSED",
+            "reason": "Those names are not reconstructed or upgraded here; no-op labels are not passage constructors.",
+        },
         "next_event_found_scope": "object_derived_state_change_only",
         "external_challenges_do_not_set_next_event_found": True,
         "no_op_labels_do_not_set_next_event_found": True,
@@ -621,13 +643,15 @@ def nontrivial_profile_case() -> dict[str, Any]:
         AdmitInstanceEvent(0, (0,)),
     )
     state = replay(history)
-    context = [0, [None]]
-    profiles = [[[0, [None]]], []]
-    instance_holds = [True, False]
-    if profiles[0] == profiles[1] or instance_holds[0] == instance_holds[1]:
+    computed_rows = profile_rows(state)
+    profiles = _jsonable(computed_rows)
+    context = _jsonable(computed_rows[0][0]) if computed_rows[0] else None
+    instance_holds = [bool(computed_rows[0]), bool(computed_rows[1])]
+    if context is None or profiles[0] == profiles[1] or instance_holds != [True, False]:
         raise AssertionError("non-trivial profile case collapsed")
     empty_history = history[:-1]
     empty_state = replay(empty_history)
+    empty_profiles = _jsonable(profile_rows(empty_state))
     return {
         "terminal": "PROFILE_CASE_BUILT",
         "history": _history_json(history),
@@ -635,12 +659,14 @@ def nontrivial_profile_case() -> dict[str, Any]:
         "context": context,
         "pair": [0, 1],
         "profiles": profiles,
+        "profile_rows_computed_from_state": True,
+        "profile_algorithm": "admitted unary instances and all-tuples rules with one-hole contexts",
         "instance_holds": instance_holds,
         "equal_profiles": False,
         "internally_separable": True,
         "empty_profile_falsifier": {
             "history_without_instance": _history_json(empty_history),
-            "profiles": [[], []],
+            "profiles": empty_profiles,
             "state": state_json(empty_state),
             "empty_profiles_are_not_the_built_case": True,
         },
@@ -772,6 +798,11 @@ def open_boundaries() -> dict[str, Any]:
 
 def refusals() -> list[dict[str, str]]:
     return [
+        {
+            "rule": "FW-PASSAGE",
+            "scope": "refineCol and addCol are not reconstructed or upgraded to passage constructors in this packet",
+            "status": "REFUSED",
+        },
         {
             "rule": "FW-DYNAMICS",
             "scope": "two_rule remains a menu at an already active obstruction; no genesis event",

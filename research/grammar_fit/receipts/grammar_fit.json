@@ -15,6 +15,14 @@
     "label_only_count": 2,
     "next_event_found_scope": "object_derived_state_change_only",
     "no_op_labels_do_not_set_next_event_found": true,
+    "not_used_as_passage": {
+      "names": [
+        "refineCol",
+        "addCol"
+      ],
+      "reason": "Those names are not reconstructed or upgraded here; no-op labels are not passage constructors.",
+      "status": "REFUSED"
+    },
     "object_derived_state_change_count": 0,
     "reconstructed_constructor_names": [
       "Supply",
@@ -28,8 +36,6 @@
       "admitWit",
       "protect",
       "declareObs",
-      "refineCol",
-      "addCol",
       "refuse"
     ],
     "search": {
@@ -1139,6 +1145,8 @@
       0,
       1
     ],
+    "profile_algorithm": "admitted unary instances and all-tuples rules with one-hole contexts",
+    "profile_rows_computed_from_state": true,
     "profiles": [
       [
         [
@@ -1171,14 +1179,17 @@
       "admitWit",
       "protect",
       "declareObs",
-      "refineCol",
-      "addCol",
       "refuse"
     ],
     "imports_sealed_implementation": false,
     "module": "research/grammar_fit/grammar_fit.py"
   },
   "refusals": [
+    {
+      "rule": "FW-PASSAGE",
+      "scope": "refineCol and addCol are not reconstructed or upgraded to passage constructors in this packet",
+      "status": "REFUSED"
+    },
     {
       "rule": "FW-DYNAMICS",
       "scope": "two_rule remains a menu at an already active obstruction; no genesis event",

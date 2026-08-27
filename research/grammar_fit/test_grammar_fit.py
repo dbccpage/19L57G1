@@ -48,7 +48,13 @@ def test_three_objects_are_seated_without_smuggling_fields() -> None:
 
 
 def test_event_columns_keep_external_and_noop_separate() -> None:
-    search = _receipt()["event_fit"]["search"]
+    event_fit = _receipt()["event_fit"]
+    search = event_fit["search"]
+    assert event_fit["not_used_as_passage"] == {
+        "names": ["refineCol", "addCol"],
+        "status": "REFUSED",
+        "reason": "Those names are not reconstructed or upgraded here; no-op labels are not passage constructors.",
+    }
     assert all(not report["object_derived_state_change"] for report in search.values())
     assert all(not report["guarded_response"] for report in search.values())
     assert all(not report["next_event_found"] for report in search.values())
@@ -80,6 +86,7 @@ def test_nontrivial_profile_case_is_built() -> None:
     assert case["equal_profiles"] is False
     assert case["internally_separable"] is True
     assert case["instance_holds"] == [True, False]
+    assert case["profile_rows_computed_from_state"] is True
     assert case["grammar_state"]["instances"] == [[0, [0]]]
     assert case["empty_profile_falsifier"]["empty_profiles_are_not_the_built_case"]
 

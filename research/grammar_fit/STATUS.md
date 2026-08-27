@@ -44,6 +44,10 @@ candidate leaves the state byte-for-byte equivalent, so no no-op label or
 external challenge sets `NEXT_EVENT_FOUND`.  The receipt therefore issues
 `STATE_CHANGE_NOT_FOUND` and `LABEL_ONLY`; it issues no endogenous successor.
 
+The names `refineCol` and `addCol` are explicitly refused here.  They are not
+reconstructed as passage constructors and are not silently treated as
+state-changers; a later packet would have to declare and guard them separately.
+
 The guarded response family remains unavailable because retained witness,
 protection, observation/closure, and (for the residual) comparison policy are
 not admitted.  `two_rule` stays a menu at an already active obstruction and is
@@ -52,8 +56,10 @@ not fired at genesis.
 ## Profile, comparison, and measure
 
 The non-trivial profile case admits a unary form and an instance holding of
-datum 0 but not datum 1.  Its profiles are therefore unequal; the empty
-profile construction is retained only as a falsifier, not as the built case.
+datum 0 but not datum 1.  The profile rows are computed from that admitted
+state by the one-hole instance/rule algorithm, not written as supplied rows.
+Its profiles are therefore unequal; the empty-profile construction is retained
+only as a falsifier, not as the built case.
 
 Directional comparison is explicitly excluded as `DECLARED_POLICY`, so its
 leftover remains `OPEN`.  The sole retained cost measure is
