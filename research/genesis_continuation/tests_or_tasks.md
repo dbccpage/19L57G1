@@ -10,23 +10,24 @@ and none should be reported as if it did.
 
 ---
 
-## T1 — a gate that detects OB-3
+## T1 — an exact comparison-policy gate after the OB-3 author act
 
-**Do**: add a check that fails when a file under `paper/` contains a
-comparison heading, against an explicit allowlist. All six current
-sections use one of two heading forms, so a literal-heading scan catches
-every one of them.
+**Do not implement before the author act.** After the author declares
+instruction precedence and an exact allowed path set, add a check that fails
+when a file under `paper/` carries an unlisted comparison surface or an
+allowed end-only surface has substantive sections after it. A literal heading
+scan can cover the six observed headings, but a path/section allowlist must
+also catch a table or differently worded surface.
 
-The allowlist is the design decision, not the scan. Five sections are
-unfenced; the sixth is fenced and claims a run directive. An allowlist of
-zero treats them alike and will fail on the fenced one; an allowlist of
-one encodes a judgment that the fenced one is authorized — which
-`CLAUDE.md`'s "again without exception" currently contradicts. Decide
-that first, because the gate will make whichever answer is chosen
-permanent.
+The allowlist and precedence rule are the design decision, not the scan. All
+five same-heading surfaces carry explicit end-only markers; the map surface
+explicitly cites a run directive. Two current surfaces violate end-only
+placement because later substantive sections follow them. Any zero, one, or
+six-path answer encodes authority this packet does not have.
 
-**Proves**: that the six known sections are detected, and that a seventh
-cannot be added silently.
+**Proves**: that the six known sections and the two current placement defects
+are detected, and that a seventh surface or a new post-comparison substantive
+section cannot be added silently.
 
 **Does not prove**: that the remaining prose names no external theory. A
 heading scan is a heading scan. External naming outside a comparison
@@ -35,16 +36,15 @@ instance is a *table column* under a differently-worded heading, so the
 scan must be written against the observed forms and verified against all
 six, not against one.
 
-**Also does not do**: decide what to do about the six. The gate makes the
-state visible; whether to delete the sections, or to amend the
-attestation in `paper.md` §13 to match reality, is a claim-level author
-choice. `CLAUDE.md` records that amending the contract is the author's
-act, and §13's sentence is the contract's attestation in the paper.
+**Also does not do**: decide what to do about the six. Section 13 has already
+withdrawn the old paper-global sentence, but its replacement inventory is not
+exact. The remaining author choice is whether the run directives or the
+no-exception prohibition govern, which exact sealed paths, if any, survive
+that choice, and how the two placement defects are repaired.
 
-**Kill condition**: if the intended resolution is to amend §13 rather
-than remove the sections, the gate is pointless — build the allowlist
-first, then decide whether a gate over an allowlist of six is worth
-having.
+**Kill condition**: no author declaration of precedence and exact path set.
+In that state the gate would be a policy smuggling mechanism, so leave
+`OB3_COMPARISON_POLICY_OPEN`.
 
 **Injection required before believing it** (`CLAUDE.md`'s discipline):
 remove one known section, confirm the gate goes from failing-on-six to

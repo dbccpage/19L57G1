@@ -36,23 +36,24 @@ What is forbidden outright, and named separately in `CLAUDE.md`:
 ### Paths safe to touch for this packet
 
 `research/genesis_continuation/` — this directory. It is outside all five
-sealed paths and follows the precedent already established by two sibling
-trees, `research/primitive_difference_tower/` and
-`research/portable_interface/`.
+sealed paths. The research job now registers four other trees explicitly:
+`research/primitive_difference_tower/`, `research/portable_interface/`,
+`research/blind_restart/`, and `research/partial_decide/`.
 
 ### Paths this packet does not touch
 
-Every sealed path above, and both sibling research trees.
+Every sealed path above, and the other research trees.
 
 ### Verification status of this tree
 
-**Not gated.** `.github/workflows/verify.yml`'s `research` job names its
-two trees explicitly by path; it does not glob `research/`. This tree is
-therefore invisible to CI, exactly as the sibling trees were before that
-job existed. This packet contains prose only — no code, no tests, no
-pinned hashes — so there is nothing here for a gate to check. If anything
-executable is added later, registering it in that job is a separate act,
-and until then its receipts go stale silently.
+**Not gated.** `.github/workflows/verify.yml`'s `research` job names
+`primitive_difference_tower`, `portable_interface`, `blind_restart`, and
+`partial_decide` explicitly by path; it does not glob `research/` and names no
+step for `genesis_continuation`. This tree is therefore invisible to CI. This
+packet contains prose only — no code, no tests, no pinned hashes — so there is
+nothing here for a gate to check. If anything executable is added later,
+registering it in that job is a separate act, and until then its receipts go
+stale silently.
 
 ## Assumptions
 
@@ -101,13 +102,12 @@ Recorded because they bear on the repository boundary. OB-3 remains a
 claim-level author act on sealed prose. OB-4 was repository hygiene outside
 the sealed paths and is discharged below.
 
-* **OB-3 — the blindness attestation is false at HEAD.** `paper/paper.md`
-  §13 states that the post-hoc comparison is "Withheld in full" and that
-  "No external theory, architecture, or terminology is named anywhere in
-  this repository outside the read-only seed prompt." Six other files
-  under `paper/` carry comparison sections that do name external
-  mathematics. They do not all have the same standing, and collapsing
-  them would overstate the finding:
+* **OB-3 — paper-global sentence withdrawn; comparison policy OPEN.** The
+  former claim that §13 still asserts the repository-wide sentence is
+  WITHDRAWN as current. Section 13 withdraws that sentence and narrows the
+  evidenced boundary, but its replacement inventory is not exact: it says all
+  six comparison surfaces are at document ends and describes the first five
+  as unfenced.
 
       paper/bridge_provenance.md:243        headed "Post-hoc comparison with existing names"
       paper/endogenous_generator.md:302     same heading
@@ -117,29 +117,30 @@ the sealed paths and is discharged below.
       paper/primitive_difference_map.md:213 "Post-hoc realization table", fenced,
                                             with a "Known mathematics" table column
 
-  The last is different in kind. It is explicitly fenced — "comparison
-  only — nothing above depends on this section" — and claims its own
-  authorization, "Recorded per the run directive to name mathematical
-  objects identical to known mathematics." The other five carry no such
-  fence.
+  All five surfaces headed “Post-hoc comparison with existing names” carry
+  explicit end-only markers: “End-only, as before”, “End-only”, “Comparison
+  authorized at the end only; nothing above depended on it”, “End-only”, and
+  “End-only, as before”, respectively. The map surface is different because
+  it explicitly cites the run directive to name identical mathematical
+  objects; the other five do not cite that directive.
 
-  **Either way the attestation fails.** §13's sentence quantifies over
-  the repository — "named anywhere" — and all six name external
-  mathematics, authorized or not. And `CLAUDE.md`'s current wording
-  leaves no room for the authorized one: it records the 2026-08-11
-  clause as restored and holding "again without exception", the only
-  exception ever recorded having been for `coda/` and `coda_meta/`,
-  which have since left the repository.
+  The live conflict is between the immutable run directives, which permit or
+  require end-only comparison, and `CLAUDE.md`'s restored no-exception
+  prohibition, with those six sealed surfaces still present. Two are not
+  actually final: substantive sections follow the comparisons in
+  `paper/endogenous_generator.md` and `paper/primitive_difference_map.md`.
+  Resolving the precedence rule, exact allowed path set, and sealed-paper
+  repair is an author act, and this packet does not perform it.
 
-  So the finding is a conflict between three instruments — §13's
-  attestation, the fenced section's claimed run directive, and
-  `CLAUDE.md`'s no-exception restoration — and at most two of them can
-  be right. Resolving it is an author act, and this packet does not.
+  No gate should encode an allowlist before the author chooses it.
+  `ci/check_paper_citations.py` checks only that cited paths resolve, and the
+  vocabulary firewall is not a comparison-policy gate. Current terminal:
 
-  No gate detects any of it: `ci/check_paper_citations.py` checks that
-  cited `paper/*.md` paths resolve, and the vocabulary firewall in
-  `tests/test_primitive_contact.py` bars a denylist of CamelCase
-  identifiers, not prose naming of external theories.
+      OB3_PAPER_GLOBAL_SENTENCE_WITHDRAWN
+      OB3_SECTION13_INVENTORY_INEXACT
+      OB3_END_ONLY_PLACEMENT_DEFECTS=2
+      OB3_COMPARISON_POLICY_OPEN
+      AuthorityEffect: None
 
 * **OB-4 — DISCHARGED by this README update from the `24d1bc64` census.**
   The former stale-count paragraph is WITHDRAWN as current. `README.md` now

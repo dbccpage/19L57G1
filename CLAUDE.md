@@ -262,11 +262,15 @@ python ci/check_ledger_evidence.py
 #     is absent from that environment, so Lean cannot see it is missing.
 python ci/check_parked_audit.py
 
-# 11. the research tree's source pins still match the sealed blobs, and
-#     its own tests and strict typing pass. NOT a sealed-derivation gate:
+# 11. the registered research trees' source pins still match their inputs,
+#     and their own tests and strict typing pass. NOT a sealed-derivation gate:
 #     it guards `research/`, which is outside the seal. Run from the
 #     repository root, then from inside the tree:
 python research/primitive_difference_tower/verify_manifest.py
+python research/portable_interface/verify_pins.py
+python research/blind_restart/verify_pins.py
+$env:PYTHONPATH = "$PWD/code"
+python research/partial_decide/verify_pins.py
 ```
 
 ```powershell
@@ -274,10 +278,27 @@ cd research/primitive_difference_tower
 python -m unittest discover -s . -p "test_*.py"
 python -m mypy
 cd ../..
+
+cd research/portable_interface
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
+
+cd research/blind_restart
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
+
+cd research/partial_decide
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
 ```
 
-**Gate 11 is the only one EXPECTED to go red on a legitimate change**, and
-it is worth understanding before reacting to a failure. A pull request that
+The primitive-difference portion of gate 11 is expected to go red on a
+legitimate change to one of its protected paths, while the other registered
+research checks should remain green unless one of their exact inputs or
+contracts moved. A pull request that
 edits a module pinned in `research/primitive_difference_tower/SOURCE_MANIFEST.json`
 will fail it. That is the signal to repin — not a defect in the pull
 request — and that coupling is exactly why this tree was kept out of CI
@@ -303,7 +324,9 @@ Repairing a gate-11 failure: `verify_manifest.py --repin`, then revise the
 prose it names (`CLAIM_LEDGER.md`, `FINDINGS.md`) — the verifier fails until
 the prose matches. Review a repin by diffing the PARSED JSON, not the text:
 `--repin` re-serializes with `indent=2` and rewrote 135 lines to change 3
-values the one time it has been run.
+values the one time it has been run. That procedure applies only to the
+primitive-difference manifest. The other registered trees have their own
+pin policies; partial Decide deliberately provides no automatic repin.
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
 the measured source. It reads `coverage.json`, so generate that first — and
@@ -622,6 +645,10 @@ What has actually been injected, and what failed:
 | Research pin drift (gate 11) | restored the stale `PrimitivePassage.lean` hash in `SOURCE_MANIFEST.json` | `FAIL: hash mismatch for lean4/Derivation/PrimitivePassage.lean`, exit 1, naming the module; exit 0 after reversal. The exit status was checked directly, NOT through a pipeline — `$?` after `\| tail` reports tail's status and showed 0 while the script was returning 1 |
 | Parked-module axiom census | `Classical.em` theorem added to the parked `Derivation/IsoCollapseCompat.lean` | `FAIL: disallowed axioms ['Classical.choice']`, naming `zzz_probe_choice`; plus the counterfactual on the same tree — reverting `defaultTargets` to `["Derivation"]` made the identical injection report `lean audit clean`, which is the residual itself, observed rather than argued |
 | Research pin drift, real case | (found live, not injected) merging #76 and #77 | five research tests failed on `main` at `a1738fa` while the CI rollup reported SUCCESS; no job read the tree, and the two changes only interact once both are present |
+| Partial-Decide source pin | changed the first byte of the pinned `model.py` digest | `FAIL: hash mismatch for code/derivation/model.py`, printing wanted, snapshot, and HEAD hashes; exit 1, then 0 after reversal |
+| Partial-Decide import authority | added `from derivation.represented import cert_neg` to the production consumer | `FAIL: authorized import mismatch`, naming the extra module and symbol; exit 1, then 0 after reversal |
+| Partial-Decide receipt bytes | changed `authority_effect` in the committed receipt | `FAIL: partial_decide_c3.json differs from the deterministic renderer`; exit 1, then 0 after reversal |
+| Partial-Decide grade separation | changed the live-tie return to bounded `None` | `test_c3_mu1_retains_all_tied_classes` failed for both L and F and receipt equality failed; exit 1, then 0 after reversal |
 | Ledger conformance, tab heading | `###\tCL-ZZZ-SMUGGLED` appended to the ledger text | `test_injection_tab_heading_is_not_invisible`: the ATX population sees it, the classifier names it, `KNOWN_CLAIM_IDS` fails. A space-only `### ` scan would have dropped it from both sides |
 | Ledger conformance, empty fields | `**Statement**: .` (and the other seven keys) | `test_injection_empty_fields_are_missing_not_present`: each required field is missing; a presence-only check stayed green |
 | Ledger conformance, rewritten body | CL-0-INERTIA statement replaced with a lie that keeps every key | `test_injection_rewritten_inertia_body_breaks_the_pin`: body pin digest moves; ID ratchets would have stayed green |

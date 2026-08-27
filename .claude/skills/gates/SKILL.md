@@ -249,28 +249,77 @@ default-target wiring; it does not turn definitions into reported theorems.
 
 ```powershell
 python research/primitive_difference_tower/verify_manifest.py
+if ($LASTEXITCODE -ne 0) { throw "primitive-difference manifest verification failed" }
 Push-Location research/primitive_difference_tower
-python -m unittest discover -s . -p "test_*.py"
-python -m mypy
-Pop-Location
+try {
+  python -m unittest discover -s . -p "test_*.py"
+  if ($LASTEXITCODE -ne 0) { throw "primitive-difference tests failed" }
+  python -m mypy
+  if ($LASTEXITCODE -ne 0) { throw "primitive-difference typing failed" }
+}
+finally {
+  Pop-Location
+}
 
 python research/portable_interface/verify_pins.py
+if ($LASTEXITCODE -ne 0) { throw "portable-interface pin verification failed" }
 Push-Location research/portable_interface
-python -m unittest discover -s . -p "test_*.py"
-python -m mypy
-Pop-Location
+try {
+  python -m unittest discover -s . -p "test_*.py"
+  if ($LASTEXITCODE -ne 0) { throw "portable-interface tests failed" }
+  python -m mypy
+  if ($LASTEXITCODE -ne 0) { throw "portable-interface typing failed" }
+}
+finally {
+  Pop-Location
+}
 
 python research/blind_restart/verify_pins.py
+if ($LASTEXITCODE -ne 0) { throw "blind-restart pin verification failed" }
 Push-Location research/blind_restart
-python -m unittest discover -s . -p "test_*.py"
-python -m mypy
-Pop-Location
+try {
+  python -m unittest discover -s . -p "test_*.py"
+  if ($LASTEXITCODE -ne 0) { throw "blind-restart tests failed" }
+  python -m mypy
+  if ($LASTEXITCODE -ne 0) { throw "blind-restart typing failed" }
+}
+finally {
+  Pop-Location
+}
+
+$partialDecideOldPythonPath = $env:PYTHONPATH
+$partialDecideCode = (Resolve-Path code).Path
+try {
+  $env:PYTHONPATH = $partialDecideCode
+  python research/partial_decide/verify_pins.py
+  if ($LASTEXITCODE -ne 0) { throw "partial-Decide pin/receipt verification failed" }
+  Push-Location research/partial_decide
+  try {
+    python -m unittest discover -s . -p "test_*.py"
+    if ($LASTEXITCODE -ne 0) { throw "partial-Decide tests failed" }
+    python -m mypy
+    if ($LASTEXITCODE -ne 0) { throw "partial-Decide typing failed" }
+  }
+  finally {
+    Pop-Location
+  }
+}
+finally {
+  if ($null -eq $partialDecideOldPythonPath) {
+    Remove-Item Env:PYTHONPATH -ErrorAction SilentlyContinue
+  }
+  else {
+    $env:PYTHONPATH = $partialDecideOldPythonPath
+  }
+}
 ```
 
 The manifest verifier requires full Git history. A protected-history failure
 is the signal for an explicit provenance decision, not permission to run
 `--repin` automatically. `research/primitive_difference_tower/verify_lean.py`
 remains a separate manual Lean/axiom receipt and is not part of CI.
+The partial-Decide verifier has no automatic repin: its sealed source snapshot
+and import authority list move only by an inspected provenance edit.
 
 ## This file can drift, and nothing checks it
 

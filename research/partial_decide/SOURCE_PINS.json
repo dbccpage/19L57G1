@@ -1,0 +1,175 @@
+{
+  "authorized_imports": {
+    "research/partial_decide/c3_receipt.py": {
+      "derivation.candidates": [
+        "Bounds"
+      ],
+      "derivation.engine": [
+        "READING_F",
+        "READING_L",
+        "Reading"
+      ],
+      "derivation.model": [
+        "replay"
+      ],
+      "partial_decide": [
+        "Grade",
+        "Measure",
+        "UniqueClass",
+        "UniqueDelta",
+        "decide",
+        "grade_kind",
+        "grade_payload"
+      ]
+    },
+    "research/partial_decide/partial_decide.py": {
+      "derivation.candidates": [
+        "Bounds",
+        "Delta",
+        "MinResponses",
+        "NewDatum",
+        "NewForm",
+        "NewInst",
+        "NewRuleAll",
+        "delta_events",
+        "item_key",
+        "min_responses"
+      ],
+      "derivation.iso": [
+        "CanonKey",
+        "canonical"
+      ],
+      "derivation.model": [
+        "Impose",
+        "Pair",
+        "Regime",
+        "replay"
+      ]
+    },
+    "research/partial_decide/run_receipt.py": {
+      "verify_pins": [
+        "RECEIPT_PATH",
+        "render_verified_receipt"
+      ]
+    },
+    "research/partial_decide/test_partial_decide.py": {
+      "derivation.candidates": [
+        "Bounds"
+      ],
+      "derivation.engine": [
+        "READING_F",
+        "READING_L",
+        "Reading",
+        "challenge3_report"
+      ],
+      "derivation.iso": [
+        "IsoBudgetError"
+      ],
+      "derivation.model": [
+        "AdmitDatum",
+        "AdmitForm",
+        "AdmitInst",
+        "AdmitRuleAll",
+        "replay"
+      ],
+      "c3_receipt": [
+        "BOUNDS",
+        "MEASURES",
+        "receipt_bytes",
+        "receipt_payload"
+      ],
+      "partial_decide": [
+        "DecisionInputError",
+        "Grade",
+        "Measure",
+        "Tie",
+        "UniqueClass",
+        "UniqueDelta",
+        "decide",
+        "grade_kind",
+        "grade_payload"
+      ],
+      "run_receipt": [
+        "main"
+      ],
+      "verify_pins": [
+        "RECEIPT_PATH",
+        "_assert_module_origin",
+        "_controlled_imports",
+        "_fresh_receipt",
+        "_internal_dependencies",
+        "_parse_tree_records",
+        "_require_hex",
+        "_safe_relative",
+        "_validate_receipt_contract",
+        "verify"
+      ]
+    },
+    "research/partial_decide/verify_pins.py": {}
+  },
+  "modules": [
+    {
+      "module": "derivation",
+      "path": "code/derivation/__init__.py",
+      "sha256": "0FABCB53DC46712447A727F6CEB661E5AAB3267A3E8B50BDEA11044B64F853AF"
+    },
+    {
+      "module": "derivation.model",
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "module": "derivation.observe",
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA"
+    },
+    {
+      "module": "derivation.candidates",
+      "path": "code/derivation/candidates.py",
+      "sha256": "856CE42FABA2DC2AE1217207ECC8AF893EAC29B50AE8A374DC06D2BA22C957BB"
+    },
+    {
+      "module": "derivation.iso",
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "module": "derivation.engine",
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E"
+    }
+  ],
+  "package_files": [
+    "research/partial_decide/CLAIM_LEDGER.md",
+    "research/partial_decide/SOURCE_PINS.json",
+    "research/partial_decide/STATUS.md",
+    "research/partial_decide/c3_receipt.py",
+    "research/partial_decide/partial_decide.py",
+    "research/partial_decide/partial_decide_c3.json",
+    "research/partial_decide/pyproject.toml",
+    "research/partial_decide/run_receipt.py",
+    "research/partial_decide/test_partial_decide.py",
+    "research/partial_decide/verify_pins.py"
+  ],
+  "policy": "Exact sealed source inputs for a bounded metatheoretic recorder. No source correspondence, panel adapter, generator, measure choice, reading choice, response authorization, or object-language event is declared.",
+  "schema": "partial_decide_source_pins/v2",
+  "source_package": {
+    "module": "derivation",
+    "path": "code/derivation",
+    "tree": "811c2f568aa29b8bee91610df373116c41faa4e9"
+  },
+  "status_inputs": [
+    {
+      "path": "artifacts/g1_class_receipt.json",
+      "required_terminals": [
+        "G3_REMAINS_CONJECTURE",
+        "G4_REMAINS_CONJECTURE"
+      ],
+      "sha256": "0302646FD1125692E1260CCC09768F1A5C1BE8A6A90885E9DAA16D27ED758230"
+    }
+  ],
+  "source_snapshot": {
+    "commit": "24d1bc64bace9721472430347ca9d3af303e1347",
+    "tree": "2e80261ef11b9bcd2fc3a87597892aafec83dbf6"
+  }
+}
