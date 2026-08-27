@@ -127,4 +127,3 @@ def test_receipt_replays_byte_identically() -> None:
         second = admit_leftover.write_receipt(Path(directory) / "second.json").read_bytes()
     assert first == second == committed
     assert b"\r" not in committed
-
