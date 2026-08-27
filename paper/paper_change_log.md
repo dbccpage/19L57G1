@@ -2261,3 +2261,97 @@ The paper, `README.md`, `paper/representative_selection.md`,
 `paper/pr_review_template.md` and `.claude/skills/inject/SKILL.md` all
 asserted the residual was open and are corrected here.  No gate reads
 any of those sentences.
+
+## G1 local finite-alphabet class theorem (2026-08-26)
+
+The generator paper's old three-line terminal is preserved verbatim and
+marked WITHDRAWN as the current complete block. Its generation theorem
+remains supported. Its two five-strategy, 15-round repair findings remain
+historical finite evidence, while the new result is recorded separately as a
+horizon-free theorem over an exact declared class.
+
+1. `Derivation.LocalStrategy` defines fixed-radius local strategies, a
+   chain-independent finite declaration, firing, clearing, recurring import,
+   and identity grade without conflating them. The locality proof is a field,
+   not prose.
+2. `strategy_capacity_collision` consumes
+   `CapacityBound.capacity_bound` at the derived threshold
+   `k ^ (2*d+1) + 2*d + 2`. `finite_local_not_clears` and
+   `G1Class.g1_class_exclusion` prove the class-relative cycle exclusion with
+   no finite horizon.
+3. The five existing strategies are classified without forced membership.
+   Bare, presence, and depth-two are finite local failures; per-pair marking
+   is recurring and not finite; valued marking is one-time identity-grade,
+   clearing, and not finite. A separate theorem supplies non-vacuity.
+4. T5 is closed at general length by
+   `radius_one_agrees_with_sealed_depth2`. The first proof shape was withdrawn
+   after its use-site axiom report exposed a choice dependency; the repaired
+   `decide`-based filter proof and all new use sites lie within
+   `{propext, Quot.sound}`.
+5. G3 remains conjectural. `clears_does_not_imply_not_fires` exhibits why the
+   current pre-repair/post-repair predicates do not support the proposed
+   corollary without a state-transition hypothesis.
+6. **WITHDRAWN by the correction below.** This item said G4 was a finite split
+   obtained by running the engine over 455 obstruction pairs. The loop did not
+   pass those pairs to the engine; it repeated the four fixed Challenge-3
+   catalogs.
+7. `g1_class_receipt.json` deterministically binds the base and task hashes,
+   toolchains, Python lock, prompt hashes, exact declarations, 34 new theorem
+   reports, every finite bound, the five strategy verdicts, all terminals,
+   and every OPEN/WITHDRAWN sentence introduced here.
+8. Three new decision points were demonstrated by reversible injections: an
+   inconsistent local fiber, a hidden outside-target G4 argument, and a
+   missing named axiom report each failed the intended test by name and
+   recovered after reversal. No artifact was regenerated under injection.
+9. The first full completion-inventory test exposed a real integration
+   defect: all LocalFiniteAlphabet/G1Class reports lacked source-module
+   resolution. Both namespaces and all 34 new reports now carry explicit
+   module/kind/role records, pinned by an exact-surface test. Ordered
+   regeneration updated the completion graph and both axiom-dependent
+   receipts; no `UNRESOLVED` record remains.
+10. The next full run exposed the independent claim-schema boundary. All
+    eight new claim IDs now carry explicit dependencies, assumptions,
+    closed-vocabulary classes, Python/Lean/axiom fields, and falsifiers. The
+    frozen heading census and generated body pin were deliberately extended
+    to 135 entries; no new omission was added to a legacy-gap ratchet.
+
+Terminals: LOCAL_STRATEGY_CLASS_DEFINED /
+FIVE_STRATEGIES_CLASSIFIED / T5_PROFILE_CORRESPONDENCE_PROVED /
+CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER / G1_CLASS_EXCLUSION_PROVED /
+G3_REMAINS_CONJECTURE / G4_HOLDS_UNDER_MU2 /
+G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument> / OB1_UNCHANGED /
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. H1-H3 and H6 were skipped; H4-H5
+were done. The two G4 strings in this historical block are WITHDRAWN by the
+correction below. None of those hygiene dispositions advances OB-1.
+
+## G4 correspondence and lock-receipt correction (2026-08-26)
+
+1. The statements that all 455 chain obstructions reached the Challenge-3
+   engine, that G4 held under `mu2`, and that its first `mu1` failure occurred
+   at a derived chain coordinate are **WITHDRAWN**. The enumerated `pair` was
+   used only as a label; `min_responses` always received the fixed target of
+   reading L or F.
+2. The false G4 runner, artifact, and dedicated test are removed. The
+   surviving computation is the pre-existing Challenge-3 classification in
+   `artifacts/challenges.json`: three `mu1` classes in L, five in F, and one
+   `mu2` isomorphism class in each reading, all under their original declared
+   bounds. No chain pair is quantified.
+3. No collapse-preserving carrier encoding or L/F choice is silently made to
+   replace the deleted loop. Such an adapter would be new declared structure;
+   the existing minima do not authorize it. G4 therefore returns to
+   `G4_REMAINS_CONJECTURE`.
+4. The Python-lock receipt now pins the canonical LF Git blob of
+   `requirements.txt`, SHA-256
+   `932FDECBE9D0ACC035CE1C701B6E790B5CED06E16954FB9E5B1BD02F1839EDD5`.
+   `.gitattributes` fixes that path as byte-preserving, and tests reject CRLF
+   conversion rather than accepting a platform-specific checkout hash.
+5. `g1_class_receipt.json` advances to schema v2, removes all G4 finite bounds
+   and payloads, records the withdrawal, and retains the G1 class theorem,
+   G3 conjecture, OB-1, and object-language boundaries unchanged.
+
+Current terminals: LOCAL_STRATEGY_CLASS_DEFINED /
+FIVE_STRATEGIES_CLASSIFIED / T5_PROFILE_CORRESPONDENCE_PROVED /
+CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER / G1_CLASS_EXCLUSION_PROVED /
+G3_REMAINS_CONJECTURE / G4_REMAINS_CONJECTURE / OB1_UNCHANGED /
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. No new event, generator, carrier
+adapter, reading selection, or authorization rule is introduced.

@@ -25,6 +25,7 @@ Derivation.FidelityClosure
 Derivation.FormRenaming
 Derivation.FormTransport
 Derivation.FormTransportCompat
+Derivation.G1Class
 Derivation.Generator
 Derivation.GraphGenesis
 Derivation.HigherStructure
@@ -39,6 +40,7 @@ Derivation.IsoCanonCompat
 Derivation.IsoCollapse
 Derivation.IsoCollapseCompat
 Derivation.LadderGeneral
+Derivation.LocalStrategy
 Derivation.Mention
 Derivation.Minimality
 Derivation.MinimalityF

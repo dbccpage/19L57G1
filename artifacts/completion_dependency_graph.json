@@ -2134,7 +2134,8 @@
    ],
    "consumers": [
     "Completion.lean",
-    "Generator.lean"
+    "Generator.lean",
+    "SeparationCapacity.lean"
    ],
    "kind": "horizon-free",
    "module": "RefusalFrontier.lean",
@@ -2225,6 +2226,7 @@
     "CL-G-OBSTRUCTIONS-EXACT"
    ],
    "consumers": [
+    "LocalStrategy.lean",
     "SeparationCapacity.lean"
    ],
    "kind": "horizon-free",
@@ -2271,7 +2273,9 @@
    "citing_claims": [
     "CL-G-OBSTRUCTIONS-EXACT"
    ],
-   "consumers": [],
+   "consumers": [
+    "LocalStrategy.lean"
+   ],
    "kind": "horizon-free",
    "module": "Generator.lean",
    "name": "Generator.depth1_obstructions_are_exactly_middle_pairs",
@@ -2288,6 +2292,7 @@
     "CL-G-GENERATION"
    ],
    "consumers": [
+    "LocalStrategy.lean",
     "PresentationRelativity.lean"
    ],
    "kind": "horizon-free",
@@ -16207,6 +16212,126 @@
     "propext",
     "Quot.sound"
    ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.filter_range_decide_eq",
+   "role": "classification",
+   "statement": "(n i : Nat) : (List.range n).filter (fun k => decide (k = i)) = if i < n then [i] else []"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.filter_range_succ_eq",
+   "role": "classification",
+   "statement": "(n i : Nat) (hpos : 0 < i) (hle : i \u2264 n) : (List.range n).filter (fun k => decide (k + 1 = i)) = [i - 1]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.filter_range_eq",
+   "role": "classification",
+   "statement": "(n i : Nat) (hlt : i < n) : (List.range n).filter (fun k => decide (k = i)) = [i]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.incoming_edges_interior",
+   "role": "classification",
+   "statement": "(n i : Nat) (hpos : 0 < i) (hle : i \u2264 n) : (reflState n).rel.filter (fun p => decide (p.2 = i)) = [(i - 1, i)]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.outgoing_edges_interior",
+   "role": "classification",
+   "statement": "(n i : Nat) (hlt : i < n) : (reflState n).rel.filter (fun p => decide (p.1 = i)) = [(i, i + 1)]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.profile2_interior",
+   "role": "classification",
+   "statement": "(n i : Nat) (hpos : 0 < i) (hlt : i < n) : profile2 (reflState n) i = (profile1 (reflState n) i, [profile1 (reflState n) (i - 1)], [profile1 (reflState n) (i + 1)])"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.profileD_radius_one",
+   "role": "classification",
+   "statement": "(n i : Nat) (hpos : 0 < i) : profileD n i 1 = [profile1 (reflState n) (i - 1), profile1 (reflState n) i, profile1 (reflState n) (i + 1)]"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-T5-GENERAL"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "SeparationCapacity.lean",
+   "name": "SeparationCapacity.radius_one_agrees_with_sealed_depth2",
+   "role": "equivalence",
+   "statement": "(n i j : Nat) (hi0 : 0 < i) (hi1 : i < n) (hj0 : 0 < j) (hj1 : j < n) : (profile2 (reflState n) i = profile2 (reflState n) j \u2194 profileD n i 1 = profileD n j 1)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
    "citing_claims": [],
    "consumers": [],
    "kind": "generic",
@@ -16772,7 +16897,9 @@
    "citing_claims": [
     "CL-CAP-BOUND (the coloured separation-capacity bound, 2026-08-14)"
    ],
-   "consumers": [],
+   "consumers": [
+    "LocalStrategy.lean"
+   ],
    "kind": "horizon-free",
    "module": "CapacityBound.lean",
    "name": "CapacityBound.capacity_bound",
@@ -16808,6 +16935,394 @@
    "name": "CapacityBound.local_view_can_separate",
    "role": "countermodel",
    "statement": ": \u2203 (colour v : Nat \u2192 Nat), (\u2200 x, colour x < 2) \u2227 ViewLocal v colour 0 \u2227 0 < 1 \u2227 1 + 0 < 3 \u2227 0 < 2 \u2227 2 + 0 < 3 \u2227 3 < 2 ^ (2 * 0 + 1) + 2 * 0 + 2 \u2227 v 1 \u2260 v 2 \u2227 (\u2200 i j, 0 < i \u2192 i + 0 < 3 \u2192 0 < j \u2192 j + 0 < 3 \u2192 i \u2260 j \u2192 v i \u2260 v j)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.profileCode_lt_eight",
+   "role": "classification",
+   "statement": "(p : Bool \u00d7 Bool \u00d7 Bool) : profileCode p < 8"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CLASS-EXCLUSION"
+   ],
+   "consumers": [
+    "G1Class.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.fires_every_strategy",
+   "role": "existence",
+   "statement": "{d : Nat} (S : LocalStrategy d) : Fires S"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [],
+   "consumers": [],
+   "kind": "generic",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.identityGrade_implies_clears",
+   "role": "preservation",
+   "statement": "{d : Nat} {S : LocalStrategy d} (h : IdentityGrade S) : Clears S"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CAPACITY-APPLICATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.strategy_capacity_collision",
+   "role": "countermodel",
+   "statement": "{d : Nat} (S : LocalStrategy d) (k n : Nat) (hfinite : FiniteDeclaration k S) (hn : k ^ (2 * d + 1) + 2 * d + 2 \u2264 n) : \u2203 i j, i \u2260 j \u2227 d < i \u2227 i + d < n \u2227 d < j \u2227 j + d < n \u2227 S.view n i = S.view n j"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CAPACITY-APPLICATION"
+   ],
+   "consumers": [
+    "G1Class.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.finite_local_not_clears",
+   "role": "countermodel",
+   "statement": "{d : Nat} (S : LocalStrategy d) (k : Nat) (hfinite : FiniteDeclaration k S) : \u00ac Clears S"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CAPACITY-APPLICATION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.finite_local_not_identityGrade",
+   "role": "countermodel",
+   "statement": "{d : Nat} (S : LocalStrategy d) (k : Nat) (hfinite : FiniteDeclaration k S) : \u00ac IdentityGrade S"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CLASS-EXCLUSION"
+   ],
+   "consumers": [
+    "G1Class.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.g1_local_finite_alphabet_class",
+   "role": "countermodel",
+   "statement": "{d : Nat} (S : LocalStrategy d) (k : Nat) (hfinite : FiniteDeclaration k S) : Fires S \u2227 \u00ac Clears S \u2227 \u00ac (Fires S \u2227 Clears S \u2227 \u00ac RecurringImport S)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.bare_finite",
+   "role": "classification",
+   "statement": ": FiniteDeclaration 8 bare"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.presence_finite",
+   "role": "classification",
+   "statement": ": FiniteDeclaration 8 presence"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.presence_eq_bare",
+   "role": "equivalence",
+   "statement": ": presence = bare"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.depthTwo_finite",
+   "role": "classification",
+   "statement": ": FiniteDeclaration 8 depthTwo"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.depthTwo_clears_n4",
+   "role": "example",
+   "statement": ": ClearsOn depthTwo 4"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.perPair_recurring",
+   "role": "classification",
+   "statement": ": RecurringImport perPairFreshMark"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.perPair_identityGrade",
+   "role": "classification",
+   "statement": ": IdentityGrade perPairFreshMark"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.perPair_not_finite",
+   "role": "countermodel",
+   "statement": "(k : Nat) : \u00ac FiniteDeclaration k perPairFreshMark"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.valued_oneTimeIdentity",
+   "role": "classification",
+   "statement": ": OneTimeIdentity valued"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.valued_not_finite",
+   "role": "countermodel",
+   "statement": "(k : Nat) : \u00ac FiniteDeclaration k valued"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [
+    "G1Class.lean"
+   ],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.valued_clears",
+   "role": "classification",
+   "statement": ": Clears valued"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.class_nonvacuity",
+   "role": "existence",
+   "statement": ": Fires bare \u2227 ClearsOn depthTwo 4 \u2227 IdentityGrade valued"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.bare_not_identityGrade",
+   "role": "countermodel",
+   "statement": ": \u00ac IdentityGrade bare"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.bare_classification",
+   "role": "classification",
+   "statement": ": FiniteDeclaration 8 bare \u2227 Fires bare \u2227 \u00ac Clears bare \u2227 \u00ac RecurringImport bare"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.presence_classification",
+   "role": "classification",
+   "statement": ": FiniteDeclaration 8 presence \u2227 Fires presence \u2227 \u00ac Clears presence \u2227 \u00ac RecurringImport presence"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-FIVE-STRATEGIES"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "LocalStrategy.lean",
+   "name": "LocalFiniteAlphabet.depthTwo_classification",
+   "role": "classification",
+   "statement": ": FiniteDeclaration 8 depthTwo \u2227 Fires depthTwo \u2227 \u00ac Clears depthTwo \u2227 \u00ac RecurringImport depthTwo"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CLASS-EXCLUSION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "G1Class.lean",
+   "name": "G1Class.local_strategy_cycle_impossible",
+   "role": "countermodel",
+   "statement": "{d : Nat} (S : LocalStrategy d) (k : Nat) (hfinite : FiniteDeclaration k S) : \u00ac (Fires S \u2227 Clears S \u2227 \u00ac RecurringImport S)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-CLASS-EXCLUSION"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "G1Class.lean",
+   "name": "G1Class.g1_class_exclusion",
+   "role": "countermodel",
+   "statement": "{d : Nat} (S : LocalStrategy d) (k : Nat) (hfinite : FiniteDeclaration k S) : Fires S \u2227 \u00ac Clears S \u2227 \u00ac (Fires S \u2227 Clears S \u2227 \u00ac RecurringImport S)"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-G1-G3-COUNTEREXAMPLE"
+   ],
+   "consumers": [],
+   "kind": "horizon-free",
+   "module": "G1Class.lean",
+   "name": "G1Class.clears_does_not_imply_not_fires",
+   "role": "countermodel",
+   "statement": ": \u2203 S : LocalStrategy 0, Clears S \u2227 Fires S"
   },
   {
    "axioms": [

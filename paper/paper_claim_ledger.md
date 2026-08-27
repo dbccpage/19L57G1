@@ -3503,3 +3503,199 @@ CL-PD2-LADDER)
   a missing coherent path whose indices nevertheless have equal fidelity
   classes; or a faithful support descent preserving the exact projection.
 
+## Local finite-alphabet G1 class claims (2026-08-26)
+
+These entries supersede `CL-G-OPEN` only for the exact T5 and declared-class
+T6 residuals named below. They do not withdraw unrestricted G1 or discharge
+the closure-policy obligation. Full exact quotes, per-theorem reports, and
+finite bounds are bound by `artifacts/g1_class_receipt.json`.
+
+### CL-G1-LOCAL-CLASS
+
+- **Statement**: `LocalStrategy d` consists of one fixed import discipline,
+  colouring and repair view, with the view factored through a radius-`d`
+  colour ball at every length. `FiniteDeclaration k S` uses one alphabet
+  bound independent of chain length. `Fires`, `Clears`, `RecurringImport`,
+  and `IdentityGrade` are distinct predicates.
+- **Class**: declared metatheory.
+- **Deps**: none; this entry declares the strategy-class vocabulary.
+- **Assumptions**: one fixed radius and one fixed alphabet bound independent
+  of chain length, with the view factored through the declared colour ball.
+- **Python**: `code/derivation/local_strategy.py`; negative fiber test
+  `test_unconstrained_view_fails_locality_fiber_check`.
+- **Lean**: exact definitions `LocalFiniteAlphabet.LocalStrategy`,
+  `LocalFiniteAlphabet.FiniteDeclaration`,
+  `LocalFiniteAlphabet.RecurringImport`, `LocalFiniteAlphabet.Fires`,
+  `LocalFiniteAlphabet.Clears`, and `LocalFiniteAlphabet.IdentityGrade`; the
+  receipt quotes them byte-for-text.
+- **Axioms**: definitions are not claimed axiom-clean. Every cited theorem
+  below has an inventory report within `{propext, Quot.sound}`.
+- **Falsifier / boundary**: equal radius balls with unequal views falsify
+  locality; an alphabet growing with length falsifies `FiniteDeclaration`.
+  Such strategies are outside the class, not disproved.
+
+### CL-G1-T5-GENERAL
+
+- **Statement**: for every chain length and every pair of interior indices,
+  sealed depth-two profile equality is equivalent to radius-one structural
+  profile equality.
+- **Class**: theorem.
+- **Deps**: `CL-G-DEPTH2`, `CL-CAP-BOUND`.
+- **Assumptions**: both indices are interior points of the same finite
+  reflective chain; radius is one. This withdraws the earlier general-`n`
+  OPEN sentence.
+- **Lean**: `SeparationCapacity.radius_one_agrees_with_sealed_depth2`, with
+  `filter_range_decide_eq`, `filter_range_succ_eq`, `filter_range_eq`,
+  `incoming_edges_interior`, `outgoing_edges_interior`,
+  `profile2_interior`, and `profileD_radius_one`.
+- **Axioms**: each of the eight reports is exactly
+  `{propext, Quot.sound}`.
+- **Python**: `code/derivation/g1_class_receipt.py` resolves and binds the
+  eight exact T5/helper reports; the earlier length-4/5 computations remain
+  witnesses, not the general proof.
+- **Falsifier / boundary**: an interior pair on which the two equality
+  relations disagree. The theorem is radius one and is not the class
+  exclusion.
+
+### CL-G1-CAPACITY-APPLICATION
+
+- **Statement**: every member with `FiniteDeclaration k S` has a distinct
+  deep equal-view pair once
+  `k ^ (2 * d + 1) + 2 * d + 2 <= n`; therefore it cannot clear every
+  inherited depth-one obstruction. The capacity `k ^ (2*d+1)` is derived,
+  not assumed.
+- **Class**: theorem.
+- **Deps**: `CL-CAP-BOUND`, `CL-G-GENERATION`.
+- **Assumptions**: `S` satisfies the quoted locality factorization and
+  `FiniteDeclaration k S`; the displayed threshold holds.
+- **Lean**: `LocalFiniteAlphabet.strategy_capacity_collision`,
+  `finite_local_not_clears`, and `finite_local_not_identityGrade`.
+- **Axioms**: each report is within `{propext, Quot.sound}`.
+- **Python**: `artifacts/local_strategy.json`, concrete thresholds 10, 10,
+  and 516 for bare, presence, and depth-two.
+- **Falsifier / boundary**: a class member satisfying the hypotheses whose
+  view separates every deep pair at the displayed threshold. No claim is
+  made for a nonlocal view or an unbounded alphabet.
+
+### CL-G1-CLASS-EXCLUSION
+
+- **Statement**: every finite declared local member fires on the inherited
+  reflective family, fails to clear every chain length, and cannot satisfy
+  `Fires S and Clears S and not RecurringImport S`.
+- **Class**: theorem.
+- **Deps**: `CL-G1-LOCAL-CLASS`, `CL-G1-CAPACITY-APPLICATION`,
+  `CL-G-GENERATION`.
+- **Assumptions**: `S` is a member of the declared class and satisfies one
+  fixed `FiniteDeclaration k S`; no finite horizon is assumed.
+- **Lean**: `LocalFiniteAlphabet.fires_every_strategy`,
+  `g1_local_finite_alphabet_class`,
+  `G1Class.local_strategy_cycle_impossible`, and
+  `G1Class.g1_class_exclusion`.
+- **Axioms**: each report is exactly `{propext, Quot.sound}`.
+- **Python**: `artifacts/local_strategy.json` supplies bounded witnesses and
+  five concrete rows only.
+- **Falsifier / boundary**: a member of the exact quoted class satisfying the
+  full cycle. This theorem does not range over every repair channel:
+  `OB1_UNCHANGED`; `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`.
+
+### CL-G1-FIVE-STRATEGIES
+
+- **Statement**: bare, presence, and depth-two are finite members that fire
+  and fail to clear globally; per-pair fresh marking is recurring and not
+  finite; valued marking is one-time identity-grade, clearing, and not
+  finite. Presence equals bare, while depth-two clears length 4.
+- **Class**: theorem.
+- **Deps**: `CL-G1-LOCAL-CLASS`, `CL-G1-CLASS-EXCLUSION`,
+  `CL-G-REPAIR-FATES`.
+- **Assumptions**: the five strategy definitions are exactly those named in
+  `Derivation.LocalStrategy`; the Python mirror uses check bound 15 only for
+  its concrete rows.
+- **Lean**: `profileCode_lt_eight`, `bare_finite`, `presence_finite`,
+  `presence_eq_bare`, `depthTwo_finite`, `depthTwo_clears_n4`,
+  `perPair_recurring`, `perPair_identityGrade`, `perPair_not_finite`,
+  `valued_oneTimeIdentity`, `valued_not_finite`, `valued_clears`,
+  `class_nonvacuity`, `bare_not_identityGrade`, and the three
+  classification theorems `bare_classification`,
+  `presence_classification`, and `depthTwo_classification`.
+- **Axioms**: every named report lies within
+  `{propext, Quot.sound}`; `profileCode_lt_eight` has none.
+- **Python**: `artifacts/local_strategy.json`, five strategies through chain
+  length 15; its classification is not used to prove the general theorem.
+- **Falsifier / boundary**: disagreement between a row and its proposition,
+  or acceptance of the constant-colour/index-view negative locality probe.
+
+### CL-G1-G3-COUNTEREXAMPLE
+
+- **Statement**: `Clears S` does not imply `not Fires S` under the current
+  definitions. The valued strategy witnesses both, so G3 needs an additional
+  state-transition hypothesis relating repair to future demand production.
+- **Class**: counterexample.
+- **Deps**: `CL-G1-LOCAL-CLASS`, `CL-G1-FIVE-STRATEGIES`.
+- **Assumptions**: `Fires` retains its inherited pre-repair meaning and
+  `Clears` its proposed post-repair meaning. G3 remains conjectural.
+- **Lean**: `G1Class.clears_does_not_imply_not_fires`.
+- **Axioms**: exactly `{propext, Quot.sound}`.
+- **Python**: the valued row in `artifacts/local_strategy.json` is a bounded
+  mirror only.
+- **Falsifier / boundary**: a derivation of the proposed implication from the
+  present predicates. No unrestricted conservation law is claimed.
+
+### CL-G1-G4-FINITE
+
+- **Statement**: **WITHDRAWN** — the former statement said that all 455
+  depth-one chain obstructions were passed through the Challenge-3 engine.
+  The loop never supplied its chain pair to `min_responses`; it repeated the
+  four fixed Challenge-3 catalogs. No finite chain correspondence was
+  computed, so G4 remains a conjecture. The surviving Challenge-3 facts are
+  the already registered L/F `mu1` tie counts and the single `mu2`
+  isomorphism class under the declared candidate bounds.
+- **Class**: conjecture.
+- **Deps**: `CL-3-MIN-TWO`, `CL-3-TIE-CLASSES`,
+  `CL-3-UNIQUE-MU2-L`, `CL-3-UNIQUE-MU2-F`, `CL-G-GENERATION`.
+- **Assumptions**: the surviving computation concerns only the sealed
+  Challenge-3 targets, readings L/F, measures mu1/mu2, `max_items=2`,
+  `max_arity=2`, and the implemented regime isomorphism quotient. No
+  chain-to-regime adapter is assumed.
+- **Python**: `code/derivation/engine.py`, `tests/test_engine.py`, and
+  `artifacts/challenges.json`; `test_challenge3_reading_l_classes` and
+  `test_challenge3_reading_f_has_five_classes` check the surviving catalogs.
+- **Lean**: no Lean theorem is claimed for G4.
+- **Axioms**: not applicable to the surviving finite computation.
+- **Falsifier / boundary**: a declared collapse-preserving adapter that passes
+  each actual chain pair to the engine, followed by a replayable finite run.
+  Until then the chain claim is OPEN; Challenge-3 minima authorize no adapter.
+
+### CL-G1-TERMINAL-20260826
+
+- **Statement**: the current terminals are
+  `LOCAL_STRATEGY_CLASS_DEFINED`, `FIVE_STRATEGIES_CLASSIFIED`,
+  `T5_PROFILE_CORRESPONDENCE_PROVED`,
+  `CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER`,
+  `G1_CLASS_EXCLUSION_PROVED`, `G3_REMAINS_CONJECTURE`,
+  `G4_REMAINS_CONJECTURE`,
+  `OB1_UNCHANGED`, and `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`, plus
+  explicit H1-H6 done/skipped dispositions. The earlier three-line terminal
+  is withdrawn as the current complete block; its generation theorem remains
+  supported and its two bounded repair findings remain historical evidence.
+- **Class**: declared metatheory.
+- **Deps**: `CL-G1-LOCAL-CLASS`, `CL-G1-T5-GENERAL`,
+  `CL-G1-CAPACITY-APPLICATION`, `CL-G1-CLASS-EXCLUSION`,
+  `CL-G1-FIVE-STRATEGIES`, `CL-G1-G3-COUNTEREXAMPLE`, and
+  `CL-G1-G4-FINITE`.
+- **Assumptions**: each component retains the exact assumptions and evidence
+  class in its own entry; this terminal aggregates them without flattening.
+- **Python**: `code/derivation/g1_class_receipt.py` recomputes the concrete
+  strategy payload, validates the pinned inputs, records the G4 withdrawal,
+  and exports the exact terminal list.
+- **Axioms**: theorem components lie within `{propext, Quot.sound}`; the
+  G4 conjecture has no Lean claim.
+- **Evidence**: `artifacts/g1_class_receipt.json`, which binds 34 new theorem
+  reports, exact source declarations, supporting payloads, bounds, OPEN and
+  WITHDRAWN sentences, base commit, task hash, prompt hashes, and Python lock;
+  `artifacts/completion_dependency_graph.json` independently resolves the
+  source statement and explicit kind/role of every new theorem report.
+- **Falsifier / boundary**: a missing terminal boundary, stale supporting
+  payload, unresolved theorem name, changed pinned input that regenerates
+  without failure, or reintroduction of a chain G4 terminal without a live
+  adapter. OB-1 remains open outside the declared class.
+

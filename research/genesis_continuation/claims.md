@@ -257,3 +257,18 @@ falsifier.
 **Withheld**, for the reason recorded in `continuation_plan.md`. No
 external theory is named in this packet, and no claim above depends on
 one.
+
+### GC-18 — T5 and T6 scoped closure (2026-08-26)
+
+- **Statement**: the general radius-one/depth-two equality
+  correspondence is proved, and the capacity theorem now yields a
+  horizon-free exclusion for every member of the declared fixed-radius,
+  finite-alphabet local-strategy class.
+- **Class**: theorem.
+- **Evidence**: `SeparationCapacity.radius_one_agrees_with_sealed_depth2`,
+  `LocalFiniteAlphabet.strategy_capacity_collision`, and
+  `G1Class.g1_class_exclusion`; exact reports and declarations in
+  `artifacts/g1_class_receipt.json`.
+- **Boundary**: this closes T5 and T6 in their stated scopes only. It does
+  not derive the class, quantify over every repair channel, or advance
+  OB-1. `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`; `OB1_UNCHANGED`.

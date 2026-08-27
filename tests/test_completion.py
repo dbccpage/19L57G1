@@ -122,11 +122,97 @@ def test_ambiguous_ledger_shorthand_requires_qualification() -> None:
 
 def test_capacity_namespaces_have_explicit_semantic_metadata() -> None:
     assert classify("Pigeonhole.pigeonhole") == ("generic", "existence")
-    assert classify("CapacityBound.capacity_bound") == ("horizon-free", "countermodel")
+    assert classify("CapacityBound.capacity_bound") == (
+        "horizon-free",
+        "countermodel",
+    )
     assert classify("CapacityBound.local_view_can_separate") == (
         "concrete",
         "countermodel",
     )
+
+
+def test_g1_local_inventory_surface_is_exact() -> None:
+    expected = {
+        "SeparationCapacity.filter_range_decide_eq":
+            ("generic", "classification"),
+        "SeparationCapacity.filter_range_succ_eq":
+            ("generic", "classification"),
+        "SeparationCapacity.filter_range_eq":
+            ("generic", "classification"),
+        "SeparationCapacity.incoming_edges_interior":
+            ("generic", "classification"),
+        "SeparationCapacity.outgoing_edges_interior":
+            ("generic", "classification"),
+        "SeparationCapacity.profile2_interior":
+            ("generic", "classification"),
+        "SeparationCapacity.profileD_radius_one":
+            ("generic", "classification"),
+        "SeparationCapacity.radius_one_agrees_with_sealed_depth2":
+            ("horizon-free", "equivalence"),
+        "LocalFiniteAlphabet.profileCode_lt_eight":
+            ("generic", "classification"),
+        "LocalFiniteAlphabet.fires_every_strategy":
+            ("horizon-free", "existence"),
+        "LocalFiniteAlphabet.identityGrade_implies_clears":
+            ("generic", "preservation"),
+        "LocalFiniteAlphabet.strategy_capacity_collision":
+            ("horizon-free", "countermodel"),
+        "LocalFiniteAlphabet.finite_local_not_clears":
+            ("horizon-free", "countermodel"),
+        "LocalFiniteAlphabet.finite_local_not_identityGrade":
+            ("horizon-free", "countermodel"),
+        "LocalFiniteAlphabet.g1_local_finite_alphabet_class":
+            ("horizon-free", "countermodel"),
+        "LocalFiniteAlphabet.bare_finite":
+            ("concrete", "classification"),
+        "LocalFiniteAlphabet.presence_finite":
+            ("concrete", "classification"),
+        "LocalFiniteAlphabet.presence_eq_bare":
+            ("concrete", "equivalence"),
+        "LocalFiniteAlphabet.depthTwo_finite":
+            ("concrete", "classification"),
+        "LocalFiniteAlphabet.depthTwo_clears_n4":
+            ("concrete", "example"),
+        "LocalFiniteAlphabet.perPair_recurring":
+            ("concrete", "classification"),
+        "LocalFiniteAlphabet.perPair_identityGrade":
+            ("horizon-free", "classification"),
+        "LocalFiniteAlphabet.perPair_not_finite":
+            ("horizon-free", "countermodel"),
+        "LocalFiniteAlphabet.valued_oneTimeIdentity":
+            ("horizon-free", "classification"),
+        "LocalFiniteAlphabet.valued_not_finite":
+            ("horizon-free", "countermodel"),
+        "LocalFiniteAlphabet.valued_clears":
+            ("horizon-free", "classification"),
+        "LocalFiniteAlphabet.class_nonvacuity":
+            ("horizon-free", "existence"),
+        "LocalFiniteAlphabet.bare_not_identityGrade":
+            ("concrete", "countermodel"),
+        "LocalFiniteAlphabet.bare_classification":
+            ("horizon-free", "classification"),
+        "LocalFiniteAlphabet.presence_classification":
+            ("horizon-free", "classification"),
+        "LocalFiniteAlphabet.depthTwo_classification":
+            ("horizon-free", "classification"),
+        "G1Class.local_strategy_cycle_impossible":
+            ("horizon-free", "countermodel"),
+        "G1Class.g1_class_exclusion":
+            ("horizon-free", "countermodel"),
+        "G1Class.clears_does_not_imply_not_fires":
+            ("horizon-free", "countermodel"),
+    }
+    rows = {
+        str(record["name"]): record
+        for record in inventory()
+        if str(record["name"]) in expected
+    }
+    assert set(rows) == set(expected)
+    for name, role in expected.items():
+        assert rows[name]["module"] != "UNRESOLVED", name
+        assert rows[name]["statement"] != "UNRESOLVED", name
+        assert classify(name, str(rows[name]["module"])) == role, name
 
 
 def test_presentation_relativity_inventory_surface_is_exact() -> None:

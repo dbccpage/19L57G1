@@ -1,3 +1,4 @@
 prompt/** -text
 artifacts/** -text
+requirements.txt -text
 *.json.gz binary

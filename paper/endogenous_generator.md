@@ -325,3 +325,145 @@ rather than an accident of its design.  A finite check away.
   half of F5, refutes its cycle half in the declared bounded class,
   proves that one direct transposition is not a symmetry, and names G1
   as the remaining bridge obligation.
+
+---
+
+# 2026-08-26 — local finite-alphabet class theorem
+
+This dated section updates the status without rewriting the historical
+terminal above. It is entirely class-relative. It does not derive its
+strategy class, a first challenge, or a repair channel outside that class.
+
+## Prior terminal disposition
+
+The former block was:
+
+```text
+ENDOGENOUS_GENERATION_PROVED
+ENDOGENOUS_REPAIR_FAILS_IN_DECLARED_CLASS
+GENERATION_REPAIR_EXCLUSION_IN_CLASS
+```
+
+That three-line block is **WITHDRAWN as the current complete terminal**.
+Its first line remains supported by `generation_never_dries`. The two repair
+lines were bounded to five strategies and 15 rounds; they are retained as
+historical bounded findings and superseded, for the newly quoted class, by a
+horizon-free theorem. This does not turn the word "class" into a claim about
+every possible repair channel.
+
+## Current terminal
+
+```text
+ENDOGENOUS_GENERATION_PROVED
+LOCAL_STRATEGY_CLASS_DEFINED
+FIVE_STRATEGIES_CLASSIFIED
+T5_PROFILE_CORRESPONDENCE_PROVED
+CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER
+G1_CLASS_EXCLUSION_PROVED
+G3_REMAINS_CONJECTURE
+G4_REMAINS_CONJECTURE
+OB1_UNCHANGED
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE
+HYGIENE_H1_SKIPPED
+HYGIENE_H2_SKIPPED
+HYGIENE_H3_SKIPPED
+HYGIENE_H4_DONE
+HYGIENE_H5_DONE
+HYGIENE_H6_SKIPPED
+```
+
+## The class and the exclusion
+
+**[declared metatheory]** `LocalFiniteAlphabet.LocalStrategy d` fixes an
+import discipline, a colour family, a repair-view family, and a proof that
+the view factors through the radius-`d` colour ball at every chain length.
+`FiniteDeclaration k S` requires one `k` that bounds every colour at every
+length. Thus both radius and alphabet are fixed independently of chain
+length. The exact Lean declarations are quoted in
+`artifacts/g1_class_receipt.json`.
+
+**[theorem]** `strategy_capacity_collision` applies
+`CapacityBound.capacity_bound` directly. Its threshold is derived as
+`k ^ (2 * d + 1) + 2 * d + 2`; no independent view-capacity bound is
+assumed. `finite_local_not_clears` turns the resulting equal-view deep pair
+into an inherited depth-one obstruction. Consequently
+`G1Class.g1_class_exclusion` proves, for every finite declared local member,
+that the inherited challenge fires, the strategy does not clear every chain
+length, and the fire/clear/no-recurring-import cycle is impossible. The
+theorem has no 15-round premise.
+
+The predicates remain separate. `Fires` is about a pre-repair obstruction in
+the inherited reflective family. `Clears` is about the proposed post-repair
+view. `RecurringImport` is the declared response-data discipline.
+`IdentityGrade` means that the repair view separates every distinct carrier
+pair. The class theorem does not collapse any two of these notions.
+
+## Five strategies, without forced membership
+
+- Bare and presence are the same finite radius-zero member. They fire and do
+  not clear all lengths; presence is not a repair.
+- Depth-two is a finite radius-one member. It genuinely clears the length-4
+  case and still fails to clear all lengths.
+- Per-pair fresh marking clears by recurring imports. Its point code has no
+  chain-independent finite alphabet, so it is outside
+  `FiniteDeclaration`.
+- Valued marking is one-time, identity-grade, and clearing. Its point code
+  likewise has no chain-independent finite alphabet, so it is outside the
+  finite class.
+
+`class_nonvacuity` carries three witnesses together: a firing class member, a
+nontrivial finite depth-two clearance, and an identity-grade strategy. The
+exclusion is therefore not obtained by defining every capability away.
+
+## T5, G3, and G4
+
+**T5 — proved at general length.**
+`SeparationCapacity.radius_one_agrees_with_sealed_depth2` proves that, for
+arbitrary interior indices, equality of sealed depth-two profiles is
+equivalent to equality of radius-one structural profiles. The former
+sentences in this paper saying that only lengths 4 and 5 were transported and
+that the general correspondence remained OPEN are **WITHDRAWN**. An initial
+proof shape using generic natural-number equality filtering was also
+withdrawn after the use-site report exposed an out-of-whitelist dependency;
+the final proof uses constructive `decide` filters and all new use-site
+reports lie within `{propext, Quot.sound}`.
+
+**G3 — still a conjecture.** The proposed corollary does not follow from the
+current predicates. `G1Class.clears_does_not_imply_not_fires` exhibits the
+one-time valued strategy with both `Clears` and `Fires`: the former is
+post-repair, the latter pre-repair. A state-transition hypothesis relating a
+repair to the absence of later inherited demands is missing. No conservation
+law is asserted.
+
+**G4 — remains a conjecture.** The statement that the actual Challenge-3
+minimum-response engine was run on all 455 depth-one obstruction pairs is
+**WITHDRAWN**. The deleted computation enumerated those pairs but never passed
+one to `min_responses`; every iteration recomputed the four fixed Challenge-3
+catalogs at `READING_L.target` or `READING_F.target`. Thus 455 was an
+obstruction-stream count, not an engine-run count, and neither former G4
+terminal was established.
+
+The surviving result is only the already recorded Challenge-3 classification:
+within `max_items = 2` and `max_arity = 2`, `mu1` has three tied classes in L
+and five in F, while `mu2` has one unary-endpoint isomorphism class in each
+reading. That is measure- and reading-relative 5Q evidence on the sealed
+Challenge-3 targets. It quantifies over no chain pair and supplies no unique
+response or chain adapter. No internally established fact selects a
+collapse-preserving carrier encoding or identifies L with F; making either
+choice would be a new declared adapter, not a derivation from the present
+engine.
+
+## Surviving boundary
+
+The class is declared, not derived. Views that inspect indices directly,
+alphabets that grow with chain length, and any other strategy outside the
+quoted fixed-radius finite-alphabet class remain unclassified by the theorem.
+The result does not select a preferred repair, prove an initial process, or
+generate a first challenge. F4 remains carried. G3 and G4 remain conjectural.
+The definition-level axiom residual remains open. Most importantly, the
+inherited closure-policy obligation is unchanged:
+
+```text
+OB1_UNCHANGED
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE
+```
