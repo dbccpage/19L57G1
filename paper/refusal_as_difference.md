@@ -392,7 +392,8 @@ sharp, falsifiable next target.
 
 # Post-hoc comparison with existing names
 
-*(End-only.)*
+*(Post-hoc comparison only. This section is not derivational input,
+theorem evidence, or authorization; nothing above depends on it.)*
 
 * The three binary-import channels mirror the standard trichotomy of
   distinguishing data in semantics: return values, labels, and edges;
