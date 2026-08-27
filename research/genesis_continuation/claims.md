@@ -203,31 +203,31 @@ falsifier.
 - **Previous statement — WITHDRAWN as current**: “`paper/paper.md` §13
   asserts a repository-wide no-comparison sentence which is false at HEAD.”
   Section 13 now explicitly withdraws that paper-global sentence and narrows
-  the evidence-backed blindness boundary. Its replacement inventory is not
-  yet exact: it says all six comparison surfaces are at document ends and
-  describes the first five as unfenced.
+  the evidence-backed blindness boundary. The replacement inventory is now
+  exact about the local paper fence and still records the two placement
+  defects rather than hiding them.
 - **Statement**: the live OB-3 conflict is between the immutable run
   directives, which permit or require end-only comparison, and `CLAUDE.md`'s
   restored no-exception prohibition, while six sealed comparison surfaces
-  remain. All five surfaces headed “Post-hoc comparison with existing names”
-  carry an explicit end-only marker. Two surfaces are not actually final:
+  remain. All six known surfaces carry the uniform fence: post-hoc comparison
+  only, not derivational input, theorem evidence, or authorization. Two
+  surfaces are not actually final:
   substantive sections follow the comparison in `paper/endogenous_generator.md`
   and `paper/primitive_difference_map.md`. The exact allowed path set,
   precedence rule, and sealed-paper repair remain author acts.
 - **Class**: observation + OPEN author act.
-- **Evidence**: the five same-heading surfaces and their markers are
-  `paper/bridge_provenance.md:243` (“End-only, as before”),
-  `paper/endogenous_generator.md:302` (“End-only”),
-  `paper/primitive_difference.md:407` (“Comparison authorized at the end only;
-  nothing above depended on it”), `paper/refusal_as_difference.md:393`
-  (“End-only”), and `paper/refusal_difference.md:267` (“End-only, as before”).
+- **Evidence**: the five same-heading surfaces are
+  `paper/bridge_provenance.md:243`, `paper/endogenous_generator.md:302`,
+  `paper/primitive_difference.md:407`,
+  `paper/refusal_as_difference.md:393`, and
+  `paper/refusal_difference.md:267`.
   The sixth, `paper/primitive_difference_map.md:213`, is a “Post-hoc
-  realization table” with a “Known mathematics” column and explicitly cites
-  a run directive. Each surface and the following section structure was read,
-  not inferred from a heading.
+  realization table” with a “Known mathematics” column. Each surface and the
+  following section structure was read, not inferred from a heading.
 - **Boundary — do not collapse the six.** All six are comparison-labelled;
-  the map surface is different because it explicitly cites the run directive.
-  The markers do not select an allowlist or weaken the no-exception rule.
+  the map surface is different because it is a table rather than the shared
+  heading. The fence does not select an allowlist or weaken the no-exception
+  rule.
 - **Falsifier / closure condition**: an author declares which instruction has
   precedence and an exact comparison-path allowlist (possibly empty), then
   reconciles the sealed surfaces, repairs the two end-placement defects, and
@@ -237,9 +237,9 @@ falsifier.
 
   ```text
   OB3_PAPER_GLOBAL_SENTENCE_WITHDRAWN
-  OB3_SECTION13_INVENTORY_INEXACT
+  OB3_PAPER_FENCE_UNIFORM
   OB3_END_ONLY_PLACEMENT_DEFECTS=2
-  OB3_COMPARISON_POLICY_OPEN
+  OB3_COMPARISON_POLICY_STILL_OPEN
   AuthorityEffect: None
   ```
 

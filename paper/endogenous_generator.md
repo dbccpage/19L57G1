@@ -94,14 +94,15 @@ proof that none exists (G1).  Nothing in this run produces one.
   valued alphabet (identity-grade observation — one declaration that
   ends generation), or the depth-2 regime (one declaration, outrun at
   the proved switch point and within the declared bound). The
-  structural all-depth outrun is now a theorem; the interface and
-  strategy consequences named below are not.
-* **Open**: G1 (no non-identity repair channel — class-general), the
-  general-`n` `Generator.profile2`/`profileD · · 1` interface
-  correspondence, a repair-strategy-class consequence of
-  `CapacityBound.capacity_bound`, G3 (repair-power = generation-poison
-  as a conservation law), G4 (the sealed engine as the import branch),
-  and carried F4 (chain initiality). The former G2 structural depth-`d`
+  structural all-depth outrun is now a theorem. At this historical point the
+  interface and strategy consequences named below were still open.
+* **Superseded open list**: the earlier G1 phrasing, the general-`n`
+  `Generator.profile2`/`profileD · · 1` interface correspondence, and a
+  repair-strategy-class consequence of `CapacityBound.capacity_bound` were
+  recorded here as open. The 2026-08-26 section below withdraws that as the
+  current status: T5 is proved at general length and the local
+  finite-alphabet class exclusion is proved. Still open after that dated
+  repair: G3, G4, carried F4, and OB1. The former G2 structural depth-`d`
   outrun is CLOSED.
 * **Single best next theorem target**: derive a declared
   repair-strategy-class exclusion from `CapacityBound.capacity_bound`.

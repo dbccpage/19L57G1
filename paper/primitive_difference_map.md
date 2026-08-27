@@ -214,9 +214,10 @@ Terminal for this phase: **HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED**.
 depends on this section)
 
 This is post-hoc comparison only. It is not derivational input, theorem
-evidence, or authorization; nothing above depends on it. Recorded per the
-run directive to name mathematical objects identical to known mathematics.
-Identity claims are keyed to the laws actually proved, not to resemblance.
+evidence, or authorization; nothing above depends on it. A historical run
+directive asked for comparison with known mathematics, but this section does
+not use that directive as present authorization. Identity claims are keyed to
+the laws actually proved, not to resemblance.
 
 | Native object (proved laws) | Known mathematics |
 |---|---|

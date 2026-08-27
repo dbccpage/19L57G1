@@ -105,9 +105,8 @@ the sealed paths and is discharged below.
 * **OB-3 — paper-global sentence withdrawn; comparison policy OPEN.** The
   former claim that §13 still asserts the repository-wide sentence is
   WITHDRAWN as current. Section 13 withdraws that sentence and narrows the
-  evidenced boundary, but its replacement inventory is not exact: it says all
-  six comparison surfaces are at document ends and describes the first five
-  as unfenced.
+  evidenced boundary. The replacement inventory now records the uniform local
+  fence and the two remaining placement defects explicitly.
 
       paper/bridge_provenance.md:243        headed "Post-hoc comparison with existing names"
       paper/endogenous_generator.md:302     same heading
@@ -117,12 +116,9 @@ the sealed paths and is discharged below.
       paper/primitive_difference_map.md:213 "Post-hoc realization table", fenced,
                                             with a "Known mathematics" table column
 
-  All five surfaces headed “Post-hoc comparison with existing names” carry
-  explicit end-only markers: “End-only, as before”, “End-only”, “Comparison
-  authorized at the end only; nothing above depended on it”, “End-only”, and
-  “End-only, as before”, respectively. The map surface is different because
-  it explicitly cites the run directive to name identical mathematical
-  objects; the other five do not cite that directive.
+  All six surfaces carry the uniform fence: post-hoc comparison only, not
+  derivational input, theorem evidence, or authorization. The map surface is
+  different because it is a table rather than the shared heading.
 
   The live conflict is between the immutable run directives, which permit or
   require end-only comparison, and `CLAUDE.md`'s restored no-exception
@@ -137,9 +133,9 @@ the sealed paths and is discharged below.
   vocabulary firewall is not a comparison-policy gate. Current terminal:
 
       OB3_PAPER_GLOBAL_SENTENCE_WITHDRAWN
-      OB3_SECTION13_INVENTORY_INEXACT
+      OB3_PAPER_FENCE_UNIFORM
       OB3_END_ONLY_PLACEMENT_DEFECTS=2
-      OB3_COMPARISON_POLICY_OPEN
+      OB3_COMPARISON_POLICY_STILL_OPEN
       AuthorityEffect: None
 
 * **OB-4 — DISCHARGED by this README update from the `24d1bc64` census.**

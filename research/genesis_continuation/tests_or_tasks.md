@@ -20,10 +20,11 @@ scan can cover the six observed headings, but a path/section allowlist must
 also catch a table or differently worded surface.
 
 The allowlist and precedence rule are the design decision, not the scan. All
-five same-heading surfaces carry explicit end-only markers; the map surface
-explicitly cites a run directive. Two current surfaces violate end-only
-placement because later substantive sections follow them. Any zero, one, or
-six-path answer encodes authority this packet does not have.
+six known surfaces now carry the uniform local fence: post-hoc comparison
+only, not derivational input, theorem evidence, or authorization. Two current
+surfaces violate end-only placement because later substantive sections follow
+them. Any zero, one, or six-path answer encodes authority this packet does not
+have.
 
 **Proves**: that the six known sections and the two current placement defects
 are detected, and that a seventh surface or a new post-comparison substantive
@@ -37,14 +38,14 @@ scan must be written against the observed forms and verified against all
 six, not against one.
 
 **Also does not do**: decide what to do about the six. Section 13 has already
-withdrawn the old paper-global sentence, but its replacement inventory is not
-exact. The remaining author choice is whether the run directives or the
-no-exception prohibition govern, which exact sealed paths, if any, survive
-that choice, and how the two placement defects are repaired.
+withdrawn the old paper-global sentence and now names the uniform fence plus
+the two placement defects. The remaining author choice is whether the run
+directives or the no-exception prohibition govern, which exact sealed paths,
+if any, survive that choice, and how the two placement defects are repaired.
 
 **Kill condition**: no author declaration of precedence and exact path set.
 In that state the gate would be a policy smuggling mechanism, so leave
-`OB3_COMPARISON_POLICY_OPEN`.
+`OB3_COMPARISON_POLICY_STILL_OPEN`.
 
 **Injection required before believing it** (`CLAUDE.md`'s discipline):
 remove one known section, confirm the gate goes from failing-on-six to

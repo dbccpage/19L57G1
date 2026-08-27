@@ -813,9 +813,9 @@ repository outside the read-only seed prompt."*  **That sentence is
 WITHDRAWN.  It was false when read literally, and it is narrowed here
 rather than defended.**
 
-Six documents under `paper/` do name external mathematics, in sections
-placed at their ends. The D7 repair chosen here is to fence comparison,
-not to use those sections as evidence:
+Six documents under `paper/` do name external mathematics in comparison
+sections. The paper repair chosen here is to fence comparison, not to use
+those sections as evidence and not to amend the stricter authority record:
 
 | document | section |
 |---|---|
@@ -834,11 +834,24 @@ that authority record. What this section can do, and now does, is stop
 asserting the strongest repository-wide blindness sentence as though it
 were settled.
 
+Two placement defects remain: substantive sections still follow the
+comparison surfaces in `paper/endogenous_generator.md` and
+`paper/primitive_difference_map.md`. The paper fence is therefore local
+claim hygiene, not a constitution repair:
+
+```text
+OB3_PAPER_FENCE_UNIFORM
+OB3_END_ONLY_PLACEMENT_DEFECTS=2
+OB3_COMPARISON_POLICY_STILL_OPEN
+AuthorityEffect: None
+```
+
 What survives, and is checked: the derivation itself was carried out
 blind, and no external name appears in `prompt/`, `code/`,
-`lean4/Derivation/`, `artifacts/`, or in the body of any `paper/`
-document above its final comparison section.  That is the claim the
-evidence supports.  The withdrawn sentence claimed more.
+`lean4/Derivation/`, or `artifacts/`. In `paper/`, the six known
+comparison surfaces are fenced, but exact comparison-policy precedence,
+allowed sealed paths, and end-only placement remain open author acts. The
+withdrawn sentence claimed more.
 
 No gate detects any of this.  `ci/check_paper_citations.py` checks that
 a cited path resolves; the vocabulary firewall in

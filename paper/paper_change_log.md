@@ -2358,14 +2358,26 @@ G3_REMAINS_CONJECTURE / G4_REMAINS_CONJECTURE / OB1_UNCHANGED /
 OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. No new event, generator, carrier
 adapter, reading selection, or authorization rule is introduced.
 
-## The D7 comparison fence made explicit (2026-08-27)
+## The D7 paper fence made explicit; policy still open (2026-08-27)
 
-D7 is repaired by the fence path. The six end-placed comparison sections
-listed in `paper/paper.md` section 13 now all say the same thing locally:
-they are post-hoc comparison only, not derivational input, theorem evidence,
-or authorization, and nothing above depends on them.
+The D7 paper fence is made uniform, but D7 is not constitutionally closed.
+The six comparison sections listed in `paper/paper.md` section 13 now all
+say the same thing locally: they are post-hoc comparison only, not
+derivational input, theorem evidence, or authorization, and nothing above
+depends on them.
 
 `CLAUDE.md` is left as the stricter operating boundary for future
 derivational work. This change does not amend that authority record; it stops
 the public paper and README from treating unfenced historical comparison
 sections as part of the derivational claim.
+
+Two placement defects remain recorded rather than hidden:
+`paper/endogenous_generator.md` and `paper/primitive_difference_map.md` still
+have substantive sections after their comparison surfaces. Terminal:
+
+```text
+OB3_PAPER_FENCE_UNIFORM
+OB3_END_ONLY_PLACEMENT_DEFECTS=2
+OB3_COMPARISON_POLICY_STILL_OPEN
+AuthorityEffect: None
+```
