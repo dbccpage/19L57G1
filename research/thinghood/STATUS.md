@@ -132,3 +132,19 @@ The previously established limit statements remain scoped to
 `LocalStrategy` plus `FiniteDeclaration`; this run does not turn a finite
 local alphabet into an infinite extension sequence.  Withdrawals remain
 withdrawals, and the receipt carries `AuthorityEffect: None`.
+
+## Next bounded packets (open)
+
+These are follow-up constructions, not current terminals and not inputs to
+the sealed derivation:
+
+- widen the finite law lattice with small Horn axioms and record which laws
+  transfer soundness under an identifying map;
+- price orientation as an explicit atom and rerun the minimum/isomorphism
+  calculation without forgetting the ordered edge;
+- price the six admissions in the S9 bridge (carrier, occurrences, relation,
+  witness, irreflexivity, orientation) and test whether supply alone reaches
+  the thinghood bill.
+
+Each packet must remain under its own research boundary, retain tied minima,
+and leave `S6.6`, `S9`'s last bullet, and `OB-1` open.
