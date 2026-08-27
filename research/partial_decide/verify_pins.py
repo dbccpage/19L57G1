@@ -90,6 +90,7 @@ REGULAR_BLOB_MODES = {"100644", "100755"}
 FRESH_RENDERER_FLAGS = ("-I", "-B", "-S")
 G3_STATUS = "G3_REMAINS_CONJECTURE"
 G4_STATUS = "G4_REMAINS_CONJECTURE"
+EXPECTED_G1_STATUS_KEYS = {"g1", "g3", "g4", "ob1", "object_language", "t5"}
 FINITE_G4_WITHDRAWAL = (
     "The terminals G4_HOLDS_UNDER_MU2 and "
     "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument> are WITHDRAWN "
@@ -127,8 +128,24 @@ def _sha256_git_blob(revision: str, relative: PurePosixPath) -> str:
     ).hexdigest().upper()
 
 
+def _loads_no_duplicate_keys(raw: str | bytes, where: str) -> object:
+    """Decode JSON while refusing last-wins duplicate object names."""
+
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        decoded: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in decoded:
+                raise ValueError(f"{where}: duplicate JSON key {key!r}")
+            decoded[key] = value
+        return decoded
+
+    return json.loads(raw, object_pairs_hook=reject_duplicates)
+
+
 def _read_pins() -> dict[str, Any]:
-    payload: object = json.loads(PINS_PATH.read_text(encoding="utf-8"))
+    payload = _loads_no_duplicate_keys(
+        PINS_PATH.read_text(encoding="utf-8"), "SOURCE_PINS.json"
+    )
     if not isinstance(payload, dict):
         raise ValueError("SOURCE_PINS.json must contain an object")
     return payload
@@ -863,7 +880,12 @@ def _validate_pin_structure(pins: dict[str, Any]) -> None:
 
 def _validate_g3_g4_status_payload(payload: dict[str, object]) -> None:
     statuses = _object_dict(payload.get("statuses"), "G1 class statuses")
-    if statuses.get("g3") != G3_STATUS or statuses.get("g4") != G4_STATUS:
+    _expect_exact_keys(
+        statuses,
+        EXPECTED_G1_STATUS_KEYS,
+        "G1 class statuses",
+    )
+    if statuses["g3"] != G3_STATUS or statuses["g4"] != G4_STATUS:
         raise ValueError("G1 class receipt statuses.g3/g4 differ from conjecture freeze")
 
     terminals = payload.get("terminals")
@@ -941,6 +963,84 @@ def _validate_delta(value: object, where: str, *, expected_items: int) -> str:
     if item_keys != sorted(item_keys):
         raise ValueError(f"{where} delta items are not in canonical order")
     return json.dumps(value, sort_keys=True, separators=(",", ":"))
+
+
+def _computed_member_canonical_key(
+    value: object,
+    *,
+    reading_name: str,
+    target: tuple[int, int],
+    perm_budget: int,
+    where: str,
+) -> str:
+    """Recompute a class member's key from the pinned engine semantics."""
+
+    # The production verifier calls this helper only after the custody/import
+    # checks have pinned these blobs and verified their runtime origins.
+    from derivation.candidates import (
+        NewDatum,
+        NewForm,
+        NewInst,
+        NewRuleAll,
+        delta_events,
+    )
+    from derivation.engine import READING_F, READING_L
+    from derivation.iso import canonical
+    from derivation.model import Impose, replay
+
+    readings = {"F": READING_F, "L": READING_L}
+    reading = readings.get(reading_name)
+    if reading is None or reading.target != target:
+        raise ValueError(f"{where} has no pinned reading/target semantics")
+    if not isinstance(value, list):
+        raise ValueError(f"{where} delta must be a list")
+
+    items: list[NewDatum | NewForm | NewInst | NewRuleAll] = []
+    for index, raw_item in enumerate(value):
+        item_where = f"{where}[{index}]"
+        item = _object_dict(raw_item, item_where)
+        kind = item.get("kind")
+        if kind == "datum":
+            _expect_exact_keys(item, {"kind"}, item_where)
+            items.append(NewDatum())
+        elif kind == "form":
+            _expect_exact_keys(item, {"arity", "kind"}, item_where)
+            items.append(
+                NewForm(_nonnegative_integer(item["arity"], f"{item_where}.arity"))
+            )
+        elif kind == "rule_all":
+            _expect_exact_keys(item, {"form", "kind"}, item_where)
+            items.append(
+                NewRuleAll(_nonnegative_integer(item["form"], f"{item_where}.form"))
+            )
+        elif kind == "inst":
+            _expect_exact_keys(item, {"args", "form", "kind"}, item_where)
+            raw_args = item["args"]
+            if not isinstance(raw_args, list):
+                raise ValueError(f"{item_where}.args must be an integer list")
+            args = tuple(
+                _nonnegative_integer(argument, f"{item_where}.args[{arg_index}]")
+                for arg_index, argument in enumerate(raw_args)
+            )
+            items.append(
+                NewInst(
+                    _nonnegative_integer(item["form"], f"{item_where}.form"),
+                    args,
+                )
+            )
+        else:
+            raise ValueError(
+                f"{item_where}.kind is not a closed delta-item kind: {kind!r}"
+            )
+
+    regime = replay(reading.genesis)
+    child = replay(
+        (Impose(target[0], target[1]),) + delta_events(regime, tuple(items)),
+        regime,
+    )
+    return json.dumps(
+        canonical(child, perm_budget), sort_keys=True, separators=(",", ":")
+    )
 
 
 def _validate_canonical_key(value: object, where: str) -> str:
@@ -1282,7 +1382,7 @@ def _validate_receipt_contract(
                 normalized_members = {
                     _validate_delta(
                         member,
-                        f"receipt class member "
+                        "receipt class member "
                         f"{reading_name}/{measure}/{class_index}/{member_index}",
                         expected_items=2,
                     )
@@ -1312,6 +1412,69 @@ def _validate_receipt_contract(
         )
 
 
+def _validate_receipt_class_bindings(payload: dict[str, object]) -> None:
+    """Bind every retained member to its independently recomputed class key."""
+
+    readings = payload.get("readings")
+    if not isinstance(readings, list) or len(readings) != 2:
+        raise ValueError("receipt readings must be exactly [L, F]")
+    for reading_index, (reading_name, expected) in enumerate(
+        EXPECTED_RECEIPT_READINGS.items()
+    ):
+        expected_target, expected_grades = expected
+        row = _object_dict(readings[reading_index], f"receipt readings[{reading_index}]")
+        grades = _object_dict(row.get("grades"), f"reading {reading_name} grades")
+        for measure in expected_grades:
+            option = _object_dict(
+                grades.get(measure),
+                f"reading {reading_name} grade {measure} option",
+            )
+            grade = _object_dict(
+                option.get("grade"), f"reading {reading_name} grade {measure}"
+            )
+            perm_budget = _nonnegative_integer(
+                grade.get("iso_perm_budget"),
+                f"receipt permutation budget for {reading_name}/{measure}",
+            )
+            classes = grade.get("classes")
+            if not isinstance(classes, list):
+                raise ValueError(
+                    f"receipt class population differs for {reading_name}/{measure}"
+                )
+            for class_index, raw_class in enumerate(classes):
+                response_class = _object_dict(
+                    raw_class,
+                    f"reading {reading_name} grade {measure} class {class_index}",
+                )
+                canonical_key = _validate_canonical_key(
+                    response_class.get("canonical_key"),
+                    f"receipt class {reading_name}/{measure}/{class_index}",
+                )
+                members = response_class.get("members")
+                if not isinstance(members, list):
+                    raise ValueError(
+                        f"receipt class membership differs for "
+                        f"{reading_name}/{measure}/{class_index}"
+                    )
+                for member_index, member in enumerate(members):
+                    member_where = (
+                        "receipt class member "
+                        f"{reading_name}/{measure}/{class_index}/{member_index}"
+                    )
+                    computed_key = _computed_member_canonical_key(
+                        member,
+                        reading_name=reading_name,
+                        target=expected_target,
+                        perm_budget=perm_budget,
+                        where=member_where,
+                    )
+                    if computed_key != canonical_key:
+                        raise ValueError(
+                            "receipt class member canonical key differs for "
+                            f"{reading_name}/{measure}/{class_index}/{member_index}"
+                        )
+
+
 def _fresh_receipt(
     module_paths: dict[str, PurePosixPath],
     *,
@@ -1337,7 +1500,16 @@ import pathlib
 code, here, cache, expected_json = sys.argv[1:5]
 sys.pycache_prefix = cache
 sys.path[:] = [code, here, *sys.path]
-expected = json.loads(expected_json)
+
+def reject_duplicates(pairs):
+    decoded = {}
+    for key, value in pairs:
+        if key in decoded:
+            raise RuntimeError(f"fresh renderer duplicate JSON key {key!r}")
+        decoded[key] = value
+    return decoded
+
+expected = json.loads(expected_json, object_pairs_hook=reject_duplicates)
 if not isinstance(expected, dict):
     raise RuntimeError("fresh renderer expected-origin map is not an object")
 allowed_project_modules = set(expected) | {"c3_receipt", "partial_decide"}
@@ -1445,7 +1617,7 @@ sys.stdout.buffer.write(rendered)
         stderr = result.stderr.decode("utf-8", errors="replace").strip()
         raise ValueError(f"fresh receipt renderer failed: {stderr}")
     rendered = result.stdout
-    payload_object: object = json.loads(rendered.decode("utf-8"))
+    payload_object = _loads_no_duplicate_keys(rendered, "fresh receipt")
     if not isinstance(payload_object, dict):
         raise ValueError("fresh receipt renderer did not return a JSON object")
     payload = _object_dict(payload_object, "fresh receipt")
@@ -1489,8 +1661,9 @@ def _verify_status_inputs(
             f"status input hash mismatch for {relative}: wanted {wanted}, "
             f"snapshot {snapshot_hash}, HEAD {head_hash}"
         )
-    payload_object: object = json.loads(
-        _git_bytes("show", f"HEAD:{relative.as_posix()}")
+    payload_object = _loads_no_duplicate_keys(
+        _git_bytes("show", f"HEAD:{relative.as_posix()}"),
+        "G1 class status receipt",
     )
     if not isinstance(payload_object, dict):
         raise ValueError("G1 class status receipt must contain an object")
@@ -1734,11 +1907,12 @@ def _verify(*, compare_receipt: bool) -> tuple[list[str], bytes]:
         )
 
     lines.extend(_verify_runtime_origins(module_paths))
-    expected_receipt, _ = _fresh_receipt(
+    expected_receipt, expected_payload = _fresh_receipt(
         module_paths,
         snapshot_commit=snapshot_commit,
         snapshot_tree=snapshot_tree,
     )
+    _validate_receipt_class_bindings(expected_payload)
     _verify_runtime_origins(module_paths)
     receipt_for_digest = expected_receipt
     if compare_receipt:

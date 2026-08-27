@@ -110,11 +110,31 @@
         "_safe_relative",
         "_validate_g3_g4_status_payload",
         "_validate_pin_structure",
+        "_validate_receipt_class_bindings",
         "_validate_receipt_contract",
         "verify"
       ]
     },
-    "research/partial_decide/verify_pins.py": {}
+    "research/partial_decide/verify_pins.py": {
+      "derivation.candidates": [
+        "NewDatum",
+        "NewForm",
+        "NewInst",
+        "NewRuleAll",
+        "delta_events"
+      ],
+      "derivation.engine": [
+        "READING_F",
+        "READING_L"
+      ],
+      "derivation.iso": [
+        "canonical"
+      ],
+      "derivation.model": [
+        "Impose",
+        "replay"
+      ]
+    }
   },
   "modules": [
     {

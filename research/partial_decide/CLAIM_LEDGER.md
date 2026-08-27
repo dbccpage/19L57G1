@@ -30,8 +30,12 @@
 - **Statement:** At the pinned source snapshot and declared C3 bounds, L/mu1
   has six raw minima in three classes, F/mu1 has ten in five classes, and both
   mu2 cases have two raw minima in one class. Hence C3 has no `UniqueDelta`,
-  while its mu2 `UniqueClass` is inhabited.
-- **Evidence:** `partial_decide_c3.json`; `test_partial_decide.py`.
+  while its mu2 `UniqueClass` is inhabited. After source custody and runtime-
+  origin checks, the verifier independently replays every retained member and
+  requires its computed canonical key to equal the class key recorded beside
+  it.
+- **Evidence:** `partial_decide_c3.json`; `verify_pins.py`;
+  `test_partial_decide.py`.
 - **Assumptions:** The sealed engine's retained L/F readings and targets, the
   declared mu1/mu2 measures, `Bounds(2, 2)`, and permutation budget 100000.
 - **Falsifier:** Receipt regeneration or direct computation produces different

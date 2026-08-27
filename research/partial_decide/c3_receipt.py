@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 from derivation.candidates import Bounds
 from derivation.engine import READING_F, READING_L, Reading
@@ -37,8 +38,24 @@ HERE = Path(__file__).resolve().parent
 PINS_PATH = HERE / "SOURCE_PINS.json"
 
 
+def _loads_no_duplicate_keys(raw: str, where: str) -> object:
+    """Decode JSON without Python's last-wins duplicate-key behavior."""
+
+    def reject_duplicates(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        decoded: dict[str, Any] = {}
+        for key, value in pairs:
+            if key in decoded:
+                raise RuntimeError(f"{where}: duplicate JSON key {key!r}")
+            decoded[key] = value
+        return decoded
+
+    return json.loads(raw, object_pairs_hook=reject_duplicates)
+
+
 def _source_snapshot() -> dict[str, str]:
-    payload: object = json.loads(PINS_PATH.read_text(encoding="utf-8"))
+    payload = _loads_no_duplicate_keys(
+        PINS_PATH.read_text(encoding="utf-8"), "SOURCE_PINS.json"
+    )
     if not isinstance(payload, dict):
         raise RuntimeError("SOURCE_PINS.json must contain an object")
     snapshot = payload.get("source_snapshot")

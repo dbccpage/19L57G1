@@ -126,8 +126,8 @@ def main() -> int:
         "--write",
         action="store_true",
         help=(
-            "atomically install the current deterministic bytes at an absent "
-            "or existing regular receipt target"
+            "atomically replace the existing regular receipt target with the "
+            "current verified deterministic bytes"
         ),
     )
     args = parser.parse_args()

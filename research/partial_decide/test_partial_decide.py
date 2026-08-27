@@ -56,6 +56,7 @@ from verify_pins import (
     _safe_relative,
     _validate_g3_g4_status_payload,
     _validate_pin_structure,
+    _validate_receipt_class_bindings,
     _validate_receipt_contract,
     verify,
 )
@@ -468,6 +469,40 @@ class ReceiptAndPinTests(unittest.TestCase):
                 snapshot_tree=SNAPSHOT_TREE,
             )
 
+    def test_literal_receipt_contract_binds_members_to_canonical_classes(self) -> None:
+        wrong_partition = copy.deepcopy(_literal_contract_payload())
+        classes = cast(
+            list[dict[str, object]],
+            _receipt_grade_at(wrong_partition, 0, "mu1")["classes"],
+        )
+        first_members = cast(list[object], classes[0]["members"])
+        second_members = cast(list[object], classes[1]["members"])
+        first_members[0], second_members[0] = second_members[0], first_members[0]
+        _validate_receipt_contract(
+            wrong_partition,
+            snapshot_commit=SNAPSHOT_COMMIT,
+            snapshot_tree=SNAPSHOT_TREE,
+        )
+        with self.assertRaisesRegex(ValueError, "canonical key differs"):
+            _validate_receipt_class_bindings(wrong_partition)
+
+    def test_json_decoder_rejects_root_and_nested_duplicate_keys(self) -> None:
+        duplicates = (
+            '{"policy":"refusal","policy":"authorization"}',
+            (
+                '{"receipt":{"authority_effect":"None",'
+                '"authority_effect":"Granted"}}'
+            ),
+        )
+        with tempfile.TemporaryDirectory(prefix="partial-decide-json-") as raw_dir:
+            pins_path = Path(raw_dir) / "SOURCE_PINS.json"
+            for raw in duplicates:
+                with self.subTest(raw=raw):
+                    pins_path.write_text(raw, encoding="utf-8")
+                    with patch("verify_pins.PINS_PATH", pins_path):
+                        with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
+                            _read_pins()
+
     def test_source_pin_schema_rejects_extra_root_and_nested_keys(self) -> None:
         base = _read_pins()
         _validate_pin_structure(base)
@@ -523,6 +558,20 @@ class ReceiptAndPinTests(unittest.TestCase):
         status_drift = copy.deepcopy(base)
         cast(dict[str, object], status_drift["statuses"])["g4"] = "G4_HOLDS"
 
+        status_namespace = copy.deepcopy(base)
+        cast(dict[str, object], status_namespace["statuses"])[
+            "g4_result"
+        ] = "G4_HOLDS_UNDER_MU2"
+
+        missing_status_key = copy.deepcopy(base)
+        del cast(dict[str, object], missing_status_key["statuses"])["t5"]
+
+        unclaimed_status_value = copy.deepcopy(base)
+        cast(dict[str, object], unclaimed_status_value["statuses"])[
+            "g1"
+        ] = "NOT_RECLASSIFIED_HERE"
+        _validate_g3_g4_status_payload(unclaimed_status_value)
+
         competing = copy.deepcopy(base)
         cast(list[str], competing["terminals"]).append("G4_HOLDS_UNDER_MU2")
 
@@ -533,6 +582,8 @@ class ReceiptAndPinTests(unittest.TestCase):
 
         mutations = (
             ("status", status_drift, "statuses.g3/g4"),
+            ("namespace", status_namespace, "statuses keys differ"),
+            ("missing-key", missing_status_key, "statuses keys differ"),
             ("competing", competing, "competing G3/G4 terminals"),
             ("withdrawal", lost_withdrawal, "finite-G4 withdrawal"),
         )
@@ -706,6 +757,11 @@ class ReceiptAndPinTests(unittest.TestCase):
         )
         self.assertEqual(rendered, receipt_bytes())
 
+    def test_fresh_renderer_rejects_duplicate_receipt_names(self) -> None:
+        injection = "    return b'{\"schema\":\"first\",\"schema\":\"second\"}\\n'"
+        with self.assertRaisesRegex(ValueError, "duplicate JSON key 'schema'"):
+            _fresh_receipt_with_c3_injection(injection)
+
     def test_fresh_renderer_flags_exclude_site_and_ambient_packages(self) -> None:
         self.assertEqual(FRESH_RENDERER_FLAGS, ("-I", "-B", "-S"))
         result = subprocess.run(
@@ -752,10 +808,13 @@ class ReceiptAndPinTests(unittest.TestCase):
         with patch(
             "verify_pins._bootstrap_custody",
             side_effect=ValueError("INJECTION dirty executable probe"),
-        ), patch("verify_pins._source_text") as source_text:
+        ), patch("verify_pins._source_text") as source_text, patch(
+            "verify_pins._validate_receipt_class_bindings"
+        ) as class_bindings:
             with self.assertRaisesRegex(ValueError, "dirty executable probe"):
                 verify()
             source_text.assert_not_called()
+            class_bindings.assert_not_called()
 
     def test_writer_refuses_unverified_render_then_recovers(self) -> None:
         with tempfile.TemporaryDirectory(prefix="partial-decide-writer-") as raw:
@@ -775,6 +834,21 @@ class ReceiptAndPinTests(unittest.TestCase):
             ), patch("run_receipt.render_verified_receipt", return_value=expected):
                 self.assertEqual(run_receipt_main(), 0)
             self.assertEqual(output.read_bytes(), expected)
+
+    def test_writer_help_matches_existing_verified_target_policy(self) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(RECEIPT_PATH.with_name("run_receipt.py")),
+                "--help",
+            ],
+            capture_output=True,
+            check=False,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("existing regular receipt target", result.stdout)
+        self.assertNotIn("absent", result.stdout)
 
     def test_atomic_writer_replaces_only_with_exact_lf_bytes(self) -> None:
         with tempfile.TemporaryDirectory(prefix="partial-decide-atomic-") as raw:

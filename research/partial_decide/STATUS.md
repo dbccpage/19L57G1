@@ -114,7 +114,9 @@ exact consumer and local-import censuses, symbol resolution, static transitive
 closure, resolved runtime import origins, prohibited dynamic-loader constructs
 in the non-verifier consumers, an import audit and origin census through
 receipt rendering, the mechanically pinned G3/G4 labels, an independently
-literal C3 receipt contract, receipt transport policy, complete package
+literal C3 receipt contract, duplicate-free JSON decoding, a closed inherited
+status map, independent replay and canonicalization of every retained class
+member after custody/origin checks, receipt transport policy, complete package
 custody, and byte-identical receipt regeneration. The documented writer uses
 that verified isolated renderer and refuses to write when its custody
 preflight fails. If writing is requested, it also refuses an existing target
@@ -263,3 +265,36 @@ original exact baseline. The receipt remained `i/lf w/lf attr/-text`, and its
 SHA-256 remained
 `87D2F5E8885B64797CDED3F6A2BF2688B7CED973760F7A881B0B5CA94D3FB127`.
 No receipt or source pin was regenerated while any probe was live.
+
+### Integrated hardening review
+
+At exact pre-repair head
+`4869cb2c52f17e79813c79bd78828a8aaa07fe0e`, an independent detached review
+found three accepted mutations in the then-current verifier: exchanging one
+member between two L/mu1 classes, adding duplicate JSON names whose last value
+carried an authorization claim, and adding
+`statuses.g4_result = G4_HOLDS_UNDER_MU2`. The first preserved every count,
+key shape, raw minimum, and disjoint-partition check; the other two crossed
+otherwise closed schemas through Python's last-wins decoder or an open status
+namespace.
+
+The repaired gate now:
+
+- independently replays and canonicalizes every retained member using only
+  the already pinned derivation modules, after the production verifier has
+  completed custody and runtime-origin checks;
+- refuses duplicate object names at every external JSON decode, including
+  nested names; and
+- requires the exact inherited status-key set and exact G3/G4 values before
+  checking the G3/G4 terminals and finite-G4 withdrawal. Other inherited
+  status values are not reclassified as claims of this package.
+
+The corresponding in-memory mutation tests are
+`test_literal_receipt_contract_binds_members_to_canonical_classes`,
+`test_json_decoder_rejects_root_and_nested_duplicate_keys`, and the status-
+namespace arm of
+`test_g3_g4_status_contract_rejects_drift_and_competing_terminals`. The tests
+invoke small validators directly as injection checks; that direct invocation
+is not a custody claim. Production semantic recomputation occurs in
+`_verify` only after the custody/import/origin boundary. The receipt was not
+regenerated and remains byte-identical.
