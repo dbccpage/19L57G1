@@ -1574,7 +1574,7 @@
     "raw_minimum_count": 4,
     "survivor_count": 12800
   },
-  "prompt_sha256": "ad70e80ec1eb9fd884671cad00881405b4ea4301d1f756472c35e105ebaf8bfc",
+  "prompt_sha256": "161697652dcac867e1a44daa3e4c072ac3bb7cc2579bbe4eb0e200f38dee8779",
   "schema": "thinghood-v1",
   "scope": {
     "external_citations": false,

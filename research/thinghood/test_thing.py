@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 import json
+import sys
+import tempfile
 from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
 
 import run_thing
 from thing import (
@@ -41,9 +47,11 @@ def _candidate(**kwargs: object) -> Candidate:
 
 
 def test_prompt_is_byte_identical() -> None:
-    prompt = Path(__file__).with_name("PROMPT.md")
+    prompt = HERE / "PROMPT.md"
+    raw = prompt.read_bytes()
     assert prompt_hash() == PROMPT_SHA256
-    assert prompt.read_bytes()
+    assert b"\r" not in raw
+    assert raw
 
 
 def test_declared_space_is_finite_and_well_formed() -> None:
@@ -208,14 +216,16 @@ def test_adversarial_attacks_cannot_smuggle_closures() -> None:
     assert attacks["8_candidate_list_is_closed_by_narrative"]["status"] == "OPEN"
 
 
-def test_receipt_is_sorted_timestamp_free_and_replayable(tmp_path: Path) -> None:
-    first = tmp_path / "one"
-    second = tmp_path / "two"
-    assert run_thing.main(["--artifacts", str(first)]) == 0
-    assert run_thing.main(["--artifacts", str(second)]) == 0
-    first_bytes = (first / "thing.json").read_bytes()
-    second_bytes = (second / "thing.json").read_bytes()
-    assert first_bytes == second_bytes
+def test_receipt_is_sorted_timestamp_free_and_replayable() -> None:
+    committed = (HERE / "receipts" / "thing.json").read_bytes()
+    with tempfile.TemporaryDirectory() as scratch:
+        first = Path(scratch) / "one"
+        second = Path(scratch) / "two"
+        assert run_thing.main(["--artifacts", str(first)]) == 0
+        assert run_thing.main(["--artifacts", str(second)]) == 0
+        first_bytes = (first / "thing.json").read_bytes()
+        second_bytes = (second / "thing.json").read_bytes()
+    assert first_bytes == second_bytes == committed
     assert b"\r" not in first_bytes
     payload = json.loads(first_bytes)
     assert payload["schema"] == "thinghood-v1"
@@ -232,3 +242,20 @@ def test_receipt_is_sorted_timestamp_free_and_replayable(tmp_path: Path) -> None
         "CANDIDATE_SPACE_OPEN",
         "REFUSED",
     ]
+
+
+if __name__ == "__main__":
+    import traceback
+
+    failed = 0
+    for name, fn in sorted(globals().items()):
+        if not name.startswith("test_") or not callable(fn):
+            continue
+        try:
+            fn()
+            print(f"PASS {name}")
+        except Exception as exc:
+            failed += 1
+            print(f"FAIL {name}: {exc}")
+            traceback.print_exc()
+    raise SystemExit(failed)

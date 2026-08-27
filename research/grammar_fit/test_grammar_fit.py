@@ -157,3 +157,20 @@ def test_receipt_replay_is_byte_identical() -> None:
         first = grammar_fit.write_receipt(Path(directory) / "first.json").read_bytes()
         second = grammar_fit.write_receipt(Path(directory) / "second.json").read_bytes()
     assert first == second == committed
+
+
+if __name__ == "__main__":
+    import traceback
+
+    failed = 0
+    for name, fn in sorted(globals().items()):
+        if not name.startswith("test_") or not callable(fn):
+            continue
+        try:
+            fn()
+            print(f"PASS {name}")
+        except Exception as exc:
+            failed += 1
+            print(f"FAIL {name}: {exc}")
+            traceback.print_exc()
+    raise SystemExit(failed)

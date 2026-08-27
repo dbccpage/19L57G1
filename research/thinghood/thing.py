@@ -97,7 +97,7 @@ TICK_FALLBACKS: dict[str, str] = {
 # This is the hash of the prompt at the start of the run.  It is checked by
 # the runner and tests so an accidental edit cannot be silently treated as a
 # completed execution.
-PROMPT_SHA256 = "ad70e80ec1eb9fd884671cad00881405b4ea4301d1f756472c35e105ebaf8bfc"
+PROMPT_SHA256 = "161697652dcac867e1a44daa3e4c072ac3bb7cc2579bbe4eb0e200f38dee8779"
 
 
 @dataclass(frozen=True)

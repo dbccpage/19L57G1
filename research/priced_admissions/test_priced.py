@@ -162,3 +162,20 @@ def test_receipt_replay_is_byte_identical() -> None:
 def test_unknown_closure_terminals_are_not_legal() -> None:
     for bad_terminal in ("OB1_CLOSED", "S66_CLOSED", "S9_LAST_CLOSED"):
         assert bad_terminal not in LEGAL_TERMINALS
+
+
+if __name__ == "__main__":
+    import traceback
+
+    failed = 0
+    for name, fn in sorted(globals().items()):
+        if not name.startswith("test_") or not callable(fn):
+            continue
+        try:
+            fn()
+            print(f"PASS {name}")
+        except Exception as exc:
+            failed += 1
+            print(f"FAIL {name}: {exc}")
+            traceback.print_exc()
+    raise SystemExit(failed)

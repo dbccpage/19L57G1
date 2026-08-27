@@ -59,7 +59,7 @@ solver works only under `research/thinghood/`.  It does not amend
 ## Result of the 2026-08-27 run
 
 The prompt was executed with `PROMPT.md` byte hash
-`ad70e80ec1eb9fd884671cad00881405b4ea4301d1f756472c35e105ebaf8bfc`.
+`161697652dcac867e1a44daa3e4c072ac3bb7cc2579bbe4eb0e200f38dee8779`.
 All writes are under this directory.  The sealed paths named above were not
 edited or regenerated.
 
