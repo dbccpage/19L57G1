@@ -5,8 +5,11 @@ checker: a successful run verifies source bytes, the declared boundary, and
 that the committed finite receipt and the prose citing it agree with the code.
 It does not prove any mathematical claim made by the research modules.
 
-Nothing in ``.github/workflows`` runs this script.  A pass is a manual receipt
-for the commit it names, and it goes stale silently until someone reruns it.
+The ``research`` workflow job runs this script on every pull request and push
+to ``main``.
+
+``verify_lean.py`` remains the separate manual receipt; this source/provenance
+check does not stand in for that Lean build and axiom audit.
 
 ``--repin`` rewrites ``SOURCE_MANIFEST.json`` from the canonical blobs at
 ``HEAD`` and moves the source snapshot to ``HEAD``.  Prose that cites the old

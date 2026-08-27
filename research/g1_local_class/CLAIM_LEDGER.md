@@ -200,6 +200,8 @@ All 26 conformance tests then passed.
   `LocalStrategy` class.
 - G3 remains a CONJECTURE because no state-transition hypothesis connects
   post-repair clearing to absence of future pre-repair demands.
+- G4 remains a CONJECTURE because no collapse-preserving chain-pair-to-engine
+  adapter is defined or authorized.
 - Strategies outside the fixed-radius finite-alphabet class remain OPEN.
 - F4 chain initiality remains carried and OPEN.
 - The definition-level axiom residual remains OPEN.

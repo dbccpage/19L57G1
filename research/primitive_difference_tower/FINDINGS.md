@@ -2,7 +2,7 @@
 
 ## Result
 
-At sealed snapshot `23f53ced460399a4b3df32e8e9cdebe291798ccb`, an
+At sealed snapshot `8805163fa3bdd0fc09a1318687114ba58d00cb25`, an
 unqualified endogenous-push conclusion is **not established**.  The result is
 instead a source-boundary analysis plus a separate declared finite fixture.
 After that fixture admits a seed, labels, an anchor, and a successor grammar,
@@ -127,9 +127,9 @@ system can be represented by a container.
 
 Three of the four checks below are run by `.github/workflows/verify.yml`:
 the `research` job runs `verify_manifest.py`, the unit tests, and `mypy` on
-every push and pull request.  An earlier version of this paragraph said none
-of them was run by CI and that nothing under `ci/` read this tree; that was
-true when written and is **WITHDRAWN** — the job landed in pull request #79,
+every pull request and push to `main`.  An earlier version of this paragraph
+said none of them was run by CI and that nothing under `ci/` read this tree;
+that was true when written and is **WITHDRAWN** — the job landed in pull request #79,
 after merging #76 and #77 left five of these tests failing on `main` while
 the workflow reported SUCCESS.
 

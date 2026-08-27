@@ -44,9 +44,9 @@ repin, this document must be re-read by hand, because a moved source can
 change what its declarations mean without changing whether they exist.
 
 **Run by CI, with one exception.** The `research` job runs this pin
-check, this tree's tests, and its strict typing on every push and pull
-request. An earlier version of this paragraph said the tree was not run
-by CI and was a purely manual receipt like its sibling; that was true
+check, this tree's tests, and its strict typing on every pull request and
+push to `main`. An earlier version of this paragraph said the tree was not
+run by CI and was a purely manual receipt like its sibling; that was true
 when written and is **WITHDRAWN** — the job landed in pull request #79,
 after both research trees were left silently broken on `main` by two
 pull requests that no gate read.

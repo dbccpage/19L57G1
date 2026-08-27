@@ -1,35 +1,37 @@
 ---
 name: gates
-description: Run the eleven CI gate families locally, in the order CI runs them, with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
+description: Run the eleven CI gate families locally with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
 ---
 
 # Run the verification contract
 
 **AuthorityEffect: None.** This skill runs commands and reports what they
-printed. It approves nothing, merges nothing, registers no claim, and
-mutates no artifact. A gate result it reports is evidence only about the
-command that produced it. If this file disagrees with
+printed. It approves nothing, merges nothing, and registers no claim. It
+writes ignored logs and scratch exports; the Lean freshness check temporarily
+rewrites one tracked artifact and restores its original bytes in a `finally`
+block. A gate result it reports is evidence only about the command that
+produced it. If this file disagrees with
 `.github/workflows/verify.yml`, the workflow is correct and this file is
 wrong.
 
 ## The rule that matters most
 
-**A gate that did not run is not a gate that passed.** Every step below
-prints an exit status. If an upstream command fails, its downstream check
+**A gate that did not run is not a gate that passed.** Every command has an
+exit status; capture and check it. If an upstream command fails, its downstream check
 may still exit 0 by reading a stale file. Report a gate as passing only
 when you have seen its own command succeed in the same session.
 
-This is not hypothetical. `ci/check_coverage.py` reads `coverage.json`,
-which is TRACKED IN THE REPOSITORY and absent from `.gitignore`. On a
-machine where `coverage` is not on PATH, `coverage run` and `coverage json`
-both fail, and `check_coverage.py` then reports the committed file's old
-numbers at exit 0. That has happened. It is why step 3 deletes the file
-first.
+This is not hypothetical. `ci/check_coverage.py` reads the untracked,
+gitignored `coverage.json`. An old local copy can survive a failed generation
+command. On a machine where `coverage` is not on PATH, `coverage run` and
+`coverage json` can both fail while a later check reads that old file. That
+has happened. It is why step 3 deletes the file first.
 
-## Order
+## Families
 
 Run from the repository root. `code/` must be on `PYTHONPATH` for anything
-outside pytest.
+outside pytest. The numbered families are the stable reporting census; the
+workflow's job/step order is authoritative when reproducing CI exactly.
 
 ### 1. Prompt byte-identity
 
@@ -52,10 +54,18 @@ into one pattern.
 ### 3. Tests under coverage — delete the stale file FIRST
 
 ```powershell
-Remove-Item coverage.json -Force -ErrorAction SilentlyContinue
+$coveragePath = Join-Path (Resolve-Path -LiteralPath ".").Path "coverage.json"
+if (Test-Path -LiteralPath $coveragePath) {
+  Remove-Item -LiteralPath $coveragePath -Force -ErrorAction Stop
+}
+if (Test-Path -LiteralPath $coveragePath) { throw "stale coverage report remains" }
 python -m coverage run -m pytest -q
+if ($LASTEXITCODE -ne 0) { throw "coverage test run failed" }
 python -m coverage json -q
+if ($LASTEXITCODE -ne 0) { throw "coverage JSON generation failed" }
+if (-not (Test-Path -LiteralPath $coveragePath)) { throw "coverage report missing" }
 python ci/check_coverage.py
+if ($LASTEXITCODE -ne 0) { throw "coverage threshold/freshness check failed" }
 ```
 
 Use `python -m coverage`, not `coverage` — the bare name is not always on
@@ -78,28 +88,109 @@ The runner census is a glob over the TOP LEVEL of `code/` — not a hand
 list, and not recursive.
 
 ```powershell
+$repoRoot = (Resolve-Path -LiteralPath ".").Path
+$artifactScratch = [IO.Path]::GetFullPath((Join-Path $repoRoot "artifacts2"))
+$insideRoot = $artifactScratch.StartsWith(
+  $repoRoot.TrimEnd([IO.Path]::DirectorySeparatorChar) + [IO.Path]::DirectorySeparatorChar,
+  [StringComparison]::OrdinalIgnoreCase)
+if (-not $insideRoot) { throw "artifact scratch escaped repository root" }
+if (Test-Path -LiteralPath $artifactScratch) {
+  Remove-Item -LiteralPath $artifactScratch -Recurse -Force -ErrorAction Stop
+}
+New-Item -ItemType Directory -Path $artifactScratch -ErrorAction Stop | Out-Null
+$runners = @(Get-ChildItem -LiteralPath (Join-Path $repoRoot "code") `
+  -Filter "run_*.py" -File | Sort-Object Name)
+if ($runners.Count -eq 0) { throw "runner census enumerated no entry points" }
 $env:PYTHONPATH = "code"
-Get-ChildItem code/run_*.py | ForEach-Object { python $_.FullName --artifacts artifacts2 }
-python ci/compare_artifacts.py artifacts artifacts2
+foreach ($runner in $runners) {
+  python $runner.FullName --artifacts $artifactScratch
+  if ($LASTEXITCODE -ne 0) { throw "runner failed: $($runner.Name)" }
+}
+python ci/compare_artifacts.py artifacts $artifactScratch
+if ($LASTEXITCODE -ne 0) { throw "artifact comparison failed" }
 ```
 
-`artifacts2/` is gitignored. The comparison checks the export sets in both
-directions: a committed artifact with no regeneration, and a regenerated
-artifact never committed, both fail by name.
+`artifacts2/` is gitignored, but it is deleted only after its resolved path is
+proved to be inside the repository. The reset prevents a removed or failed
+runner from borrowing stale output. The nonempty guard proves the census ran.
+The comparison then checks export sets in both directions: a committed artifact
+with no regeneration, and a regenerated artifact never committed, both fail by
+name.
 
 ### 6. Lean
 
 ```powershell
-cd lean4
-lake build 2>&1 | Tee-Object -FilePath ../lake_build_local.log
-cd ..
+$repoRoot = (Resolve-Path -LiteralPath ".").Path
+Push-Location lean4
+try {
+  lake clean
+  if ($LASTEXITCODE -ne 0) { throw "lake clean failed" }
+  lake build *> ../lake_build_local.log
+  $buildExit = $LASTEXITCODE
+} finally {
+  Pop-Location
+}
+if ($buildExit -ne 0) {
+  Get-Content lake_build_local.log -ErrorAction Stop
+  throw "default Lean build failed"
+}
+Write-Host "default Lean build: PASS (full output in lake_build_local.log)"
 python ci/check_lean_audit.py lake_build_local.log
+if ($LASTEXITCODE -ne 0) { throw "Lean audit failed" }
 python ci/check_axiom_report.py lake_build_local.log
+if ($LASTEXITCODE -ne 0) { throw "axiom report comparison failed" }
+
+$axiomPath = (Resolve-Path -LiteralPath "artifacts/lean_axioms.txt").Path
+$originalAxiomBytes = [IO.File]::ReadAllBytes($axiomPath)
+$originalAxiomHash = (Get-FileHash -LiteralPath $axiomPath -Algorithm SHA256).Hash
+try {
+  python ci/regen_axiom_artifact.py lake_build_local.log
+  if ($LASTEXITCODE -ne 0) { throw "axiom regeneration failed" }
+  $regeneratedAxiomHash = (Get-FileHash -LiteralPath $axiomPath -Algorithm SHA256).Hash
+  $regeneratedHasCr = [IO.File]::ReadAllBytes($axiomPath) -contains 13
+} finally {
+  [IO.File]::WriteAllBytes($axiomPath, $originalAxiomBytes)
+}
+if ($regeneratedAxiomHash -cne $originalAxiomHash) {
+  throw "regenerated axiom artifact is not byte-identical"
+}
+if ($regeneratedHasCr) { throw "regenerated axiom artifact contains CR bytes" }
+Write-Host "axiom artifact regeneration: PASS (byte-identical, LF-only)"
+
+Push-Location lean4
+try {
+  $modules = Get-ChildItem -Recurse -Filter *.lean -Path Derivation -File |
+    ForEach-Object {
+      $relative = $_.FullName.Substring($_.FullName.IndexOf("Derivation"))
+      ($relative -replace "\.lean$", "") -replace "\\", "."
+    }
+  $census = [Collections.Generic.List[string]]$modules
+  $census.Sort([StringComparer]::Ordinal)
+  if ($census.Count -eq 0) { throw "Lean census enumerated no modules" }
+  $censusText = ([string]::Join("`n", $census)) + "`n"
+  $pinnedText = [IO.File]::ReadAllText(
+    (Join-Path $repoRoot "artifacts/elaborated_modules.txt"))
+  if ($censusText -cne $pinnedText) { throw "Lean census differs from its pin" }
+  foreach ($module in $census) {
+    $moduleOutput = & lake build $module 2>&1
+    $moduleExit = $LASTEXITCODE
+    if ($moduleExit -ne 0) {
+      $moduleOutput | Write-Output
+      throw "Lean target failed: $module"
+    }
+  }
+  Write-Host "per-module elaboration: PASS ($($census.Count) pinned targets)"
+} finally {
+  Pop-Location
+}
 ```
 
-Do not read `$LASTEXITCODE` after a pipeline to judge `lake build` — it
-reports the last element of the pipeline, not the build. That has produced
-a false clean here. Re-run without the pipe if the status matters.
+The default build writes its log by redirection rather than a pipeline, so the
+captured exit code belongs to `lake build`. `lake clean` ensures the two default
+roots actually emit fresh axiom reports. The regeneration is byte-compared and
+LF-checked, then the original artifact bytes are restored even on failure. The
+recursive census is nonempty, matches its committed pin, and every enumerated
+module is built as its own target.
 
 Only `propext` and `Quot.sound` are permitted. `Classical.choice` fails.
 
@@ -143,14 +234,50 @@ What it does NOT do: judge wording. `Class: theorem` with `Lean: --`
 passes. It cannot discharge "every theorem-level claim has Lean evidence";
 that clause stays an operator claim, and the gate's own header says so.
 
-## This file drifts, and nothing checks it
+### 10. Every parked Lean module is named for audit
 
-Steps 7 and 8 were missing for as long as those gates have existed, and
-step 9 was missing from the moment the ledger gate landed — added to
-`verify.yml` and to CLAUDE.md's list in the same pull request that this
-file was not updated by, found by review on 2026-08-18. The
-citation gate was added and this procedure — the one whose whole job is to
-run the gates — was not updated the same day.
+```powershell
+python ci/check_parked_audit.py
+```
+
+This independently computes the recursive module census and the transitive
+import closure of `lean4/Derivation.lean`, then requires their difference to
+equal `ParkedAudit.parkedModules`. A pass proves census/list agreement and
+default-target wiring; it does not turn definitions into reported theorems.
+
+### 11. Registered research provenance, tests, and typing
+
+```powershell
+python research/primitive_difference_tower/verify_manifest.py
+Push-Location research/primitive_difference_tower
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+Pop-Location
+
+python research/portable_interface/verify_pins.py
+Push-Location research/portable_interface
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+Pop-Location
+
+python research/blind_restart/verify_pins.py
+Push-Location research/blind_restart
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+Pop-Location
+```
+
+The manifest verifier requires full Git history. A protected-history failure
+is the signal for an explicit provenance decision, not permission to run
+`--repin` automatically. `research/primitive_difference_tower/verify_lean.py`
+remains a separate manual Lean/axiom receipt and is not part of CI.
+
+## This file can drift, and nothing checks it
+
+Steps 7 and 8 were missing for as long as those gates existed, step 9 was
+missing from the moment the ledger gate landed, and steps 10–11 later existed
+in the workflow without appearing here. Those are historical examples of why
+the workflow, not this prose, is authoritative.
 
 No gate compares this file with `.github/workflows/verify.yml`. When they
 disagree the workflow is right. Before trusting a count here, read the

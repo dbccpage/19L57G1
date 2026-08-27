@@ -85,10 +85,11 @@ Two such points were reached and are recorded rather than crossed:
 * **OB-1** — the challenge source. No object-language endogenous demand
   generator was derived (`CL-CLOSURE-POLICY`, `paper.md` §11(f)). The one
   horizon-free generator exhibited (`generation_never_dries`) is for a
-  declared reflective rule, and its repair half is empty in the declared
-  bounded class. Continuing past this requires either a repair channel
-  that separates without minting identity-grade distinctions, or a proof
-  that none exists. The repository names this G1 and does not have it.
+  declared reflective rule. `G1Class.g1_class_exclusion` now proves the
+  cycle impossible for every fixed-radius, fixed-finite-alphabet member of
+  `LocalStrategy`; the earlier five-strategy, 15-round computation remains a
+  historical witness only. Continuing past this requires an out-of-class
+  repair channel or a theorem for a wider declared class. `OB1_UNCHANGED`.
 * **OB-2** — initiality. `CL-NO-UNIVERSAL-PROPERTY` is **refused**: no
   universal property was proved for the process among a defined class.
   Per the repository's own discipline the word "minimal" is therefore not
@@ -96,9 +97,9 @@ Two such points were reached and are recorded rather than crossed:
 
 ## Two boundary observations found while reading
 
-Recorded because they bear on the repository boundary, not repaired here.
-Repairing either is a claim-level act on sealed prose and is the author's
-call.
+Recorded because they bear on the repository boundary. OB-3 remains a
+claim-level author act on sealed prose. OB-4 was repository hygiene outside
+the sealed paths and is discharged below.
 
 * **OB-3 — the blindness attestation is false at HEAD.** `paper/paper.md`
   §13 states that the post-hoc comparison is "Withheld in full" and that
@@ -140,12 +141,13 @@ call.
   `tests/test_primitive_contact.py` bars a denylist of CamelCase
   identifiers, not prose naming of external theories.
 
-* **OB-4 — `README.md` counts are stale.** It records nine gate families
-  (there are ten since the `research` job landed), 1417 axiom reports
-  (1424), and "72 modules, 59 imported and 13 parked" (12 parked since
-  `Derivation.Breaking` was imported). `README.md` is outside the sealed
-  paths, so this is a cheap repair; it is listed rather than done because
-  it is not what this packet was asked for.
+* **OB-4 — DISCHARGED by this README update from the `24d1bc64` census.**
+  The former stale-count paragraph is WITHDRAWN as current. `README.md` now
+  records eleven gate families, 58
+  Python sources, 74 Lean modules (62 root-closure plus 12 parked), 37 test
+  files / 481 collected cases (480 passed, one skipped), 39 deterministic
+  JSON exports plus six full exports, 135 `CL-*` headings, and 1506 axiom
+  reports. These are dated repository measurements, not mathematical claims.
 
 ## What this packet claims
 

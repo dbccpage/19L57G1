@@ -228,18 +228,18 @@ directly on N4, and the two halves come apart:
   only event consumed is the internally enabled reflection. This is the
   first horizon-free challenge generator exhibited in the development. No
   minimality or uniqueness claim is attached to it.
-* **Repair is not.** Over the five declared repair strategies every
-  branch lands in exactly one of three fates: fires unrepaired, repairs
-  but imports afresh at every firing round, or generation dies. The class
-  that fires, clears every firing round, and avoids recurring imports is
-  **empty within the declared 15-round computation**. The class-general
-  claim remains open.
+* **Repair is excluded for the declared finite-local class.**
+  `G1Class.g1_class_exclusion` proves horizon-free that no fixed-radius,
+  fixed-finite-alphabet member of `LocalStrategy` fires, clears, and avoids
+  recurring import. The earlier five-strategy, 15-round computation remains
+  a bounded historical witness: its branches fire unrepaired, repair by
+  recurring import, or kill generation. Strategies outside the proved class
+  remain open.
 
 The rule that generates is itself declared. So the record does not yet
-contain a demand the object language raises unaided, and the remaining
-obligation is stated by the repository as G1: **a repair channel that
-separates without minting identity-grade distinctions, or a proof that
-none exists.**
+contain a demand the object language raises unaided. The unrestricted
+remainder is an out-of-class repair channel, or a theorem for a wider declared
+class. `OB1_UNCHANGED`.
 
 P stops here. Continuing would require an undeclared measure or an author
 choice, and `continuation_plan.md` records that as a stopping condition
