@@ -162,8 +162,9 @@ contract names `prompt/`, `paper/`, `code/`, `lean4/Derivation/`, and
 `artifacts/`; none of those paths is amended here. The evidence-backed
 blindness claim is narrower: `prompt/`, `code/`, `lean4/Derivation/`,
 `artifacts/`, and each paper document above its final comparison section.
-`research/` is outside the derivational seal. Its three registered trees —
-`primitive_difference_tower`, `portable_interface`, and `blind_restart` —
+`research/` is outside the derivational seal. Its four registered trees —
+`primitive_difference_tower`, `portable_interface`, `blind_restart`, and
+`partial_decide` —
 carry provenance, test, and typing checks; other research packets are not
 silently included in that claim. `paper/paper.md` section 13 records the
 unresolved conflict between comparison sections and the broader operating

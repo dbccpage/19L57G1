@@ -41,14 +41,12 @@ Not a gate, not a ledger row, not a claim registration.
 ## Iterations 2–3 — not in this PR
 
 A draft backfill edited `paper/paper_claim_ledger.md` and was dropped
-from the branch. The reason recorded here previously — "CLAUDE.md seals
-`paper/` so ledger edits are unauthorized" — was false. CLAUDE.md's
-`paper/` paragraph bars creating `paper/coda/`; it does not bar ledger
-edits, and `main` already contains many commits that edit
-`paper/paper_claim_ledger.md`. This PR still does not backfill: it
-lands the checker first. Gap sets stay at the merge-base snapshot
-because no backfill is in the commit, not because the ledger is
-uneditable.
+from the branch. The seal preserves the derivational boundary: it neither
+authorizes arbitrary edits nor categorically forbids ordinary claim-hygiene
+edits to `paper/`. This PR deliberately lands the checker without a backfill.
+The proposed T1–T8 fields do not cover the global debt, and some affected rows
+need scope correction rather than mechanical field insertion; a separately
+reviewed claim-hygiene change is therefore required before any backfill lands.
 
 The operator log previously stored under a filename that named an
 external project was renamed to this path.
@@ -112,10 +110,59 @@ counts as a protected touch.
     the declared 6-event horizon (they previously used 5).
   - Research snapshot stays at `477a60ff24346ea87b601dd0fffb75b437e46a31`.
     `--repin` was not used.
-- **Could not do**: land the fields in `paper/paper_claim_ledger.md`.
-  Amending the sealed tree is the author's act. This file is not that
-  amendment, and the draft is not a ledger row.
+- **Did not do**: land the fields in `paper/paper_claim_ledger.md`. This
+  iteration is the checker and operator draft, not a separately reviewed
+  claim-hygiene change, and the draft is not a ledger row.
 - **Open obligations added**: the eight rows remain in the ledger
-  `KNOWN_*` gap sets until an author-authored amendment copies the
-  draft into the ledger.
+  `KNOWN_*` gap sets until a separately reviewed change resolves their
+  scopes and fields in the ledger.
 - **Escalations added**: 0.
+
+## Iteration 7 — exact legacy-debt terminal (no ledger edits)
+
+`STATUS: LEGACY_LEDGER_GAPS_REMAIN`
+
+`AuthorityEffect: None`
+
+The conformance checker is a drift ratchet, not a completion certificate. At
+the current 135-heading ledger population its exact frozen debts are:
+
+| Gap | Count |
+|---|---:|
+| Missing Statement | 1 |
+| Missing Class | 6 |
+| Missing Deps | 84 |
+| Missing Assumptions | 92 |
+| Missing Lean/Evidence | 14 |
+| Missing Axioms | 79 |
+| Missing Falsifier | 69 |
+| Missing/vacuous Python | 52 |
+| Class outside closed vocabulary | 84 |
+| Unresolved Lean names | 0 |
+
+The gap sets overlap: these rows are separate projections of the frozen debt,
+not additive counts of distinct claims.
+
+The snapshot is bound by SHA-256 over the LF tracked Git-blob payload bytes:
+
+```text
+paper/paper_claim_ledger.md            B32FD411BC7297974826377D41FDB46E1098375722D842C1E7A2F21B206B3F16
+tests/test_claim_ledger_conformance.py  1040199FD5D7B6E08CEDFFDC169D65D1BF470A98A38688F82C78E419135838C5
+tests/claim_ledger_body_pin.txt         0C9B39840C72CF9575F7DF3A6DC346DBFADEE57F0C8D6C79434E9358B6A14D8D
+```
+
+The live test requires exact equality with every `KNOWN_*` set and the body
+pin. Therefore green means the listed gaps neither grew nor silently vanished;
+it does not mean the claims acquired the missing fields or semantics.
+
+```text
+LEDGER_BACKFILL_NOT_PERFORMED
+RATCHET_GREEN_MEANS_NO_NEW_OR_STALE_GAPS_NOT_COMPLETION
+LEDGER_BACKFILL_REQUIRES_SEPARATE_SCOPE_REVIEW
+KNOWN_UNRESOLVED_LEAN=0
+```
+
+Backfill remains unperformed. The T1–T8 draft is only a proposal and must not
+be copied mechanically into `paper/paper_claim_ledger.md`: it does not cover
+the global debt, and some rows need scope correction rather than field
+insertion.

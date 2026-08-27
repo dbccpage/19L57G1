@@ -29,7 +29,7 @@ falsifier.
 | GC-12 | **refused** | no universal property or initiality for the process |
 | GC-13 | unresolved | two admission readings survive with no internal fact separating them |
 | GC-14 | declared metatheory | four declarations the process does not derive |
-| GC-15 | observation | the blindness attestation is false at HEAD — **OB-3** |
+| GC-15 | observation + open author act | the old global attestation is withdrawn; comparison-policy precedence remains **OB-3** |
 | GC-16 | observation | `README.md` refreshed from the `24d1bc64` census; **OB-4 DISCHARGED by this update** |
 | GC-17 | observation | this tree is not read by any gate |
 
@@ -200,38 +200,48 @@ falsifier.
   uniqueness at the first answerable question.
 
 ### GC-15 — OB-3
-- **Statement**: `paper/paper.md` §13 asserts that no external theory,
-  architecture, or terminology is named anywhere in this repository
-  outside the read-only seed prompt. That assertion is **false at HEAD**.
-  Six files under `paper/` carry comparison sections naming external
-  mathematics.
-- **Class**: observation. **New here.**
-- **Evidence**: five unfenced sections headed "Post-hoc comparison with
-  existing names" — `paper/bridge_provenance.md:243`,
-  `paper/endogenous_generator.md:302`,
-  `paper/primitive_difference.md:407`,
-  `paper/refusal_as_difference.md:393`,
-  `paper/refusal_difference.md:267` — and one that is different in kind,
-  `paper/primitive_difference_map.md:213`, a fenced "Post-hoc
-  realization table" with a "Known mathematics" column which claims its
-  own authorization from a run directive. Each was read, not inferred
-  from its heading.
-- **Boundary — do not collapse the six.** The fenced one may have been
-  separately authorized; the other five carry no fence. The attestation
-  still fails either way, because §13 quantifies over the repository
-  ("named anywhere") and all six name external mathematics. Separately,
-  `CLAUDE.md` records the 2026-08-11 clause as restored and holding
-  "again without exception", which leaves no room for the fenced one
-  either — the only exception ever recorded was for `coda/` and
-  `coda_meta/`, both since removed.
-- **Falsifier**: show that those sections name no external theory, or
-  produce the instrument that authorizes them and reconcile it with
-  `CLAUDE.md`'s no-exception wording. At most two of the three
-  instruments — §13, the run directive, the restoration — can be right.
-- **Not repaired here.** No gate detects this: the paper-citation gate
-  checks that cited paths resolve, and the vocabulary firewall bars a
-  denylist of identifiers, not prose naming. The repair is a claim-level
-  act on sealed prose and an author call.
+- **Previous statement — WITHDRAWN as current**: “`paper/paper.md` §13
+  asserts a repository-wide no-comparison sentence which is false at HEAD.”
+  Section 13 now explicitly withdraws that paper-global sentence and narrows
+  the evidence-backed blindness boundary. Its replacement inventory is not
+  yet exact: it says all six comparison surfaces are at document ends and
+  describes the first five as unfenced.
+- **Statement**: the live OB-3 conflict is between the immutable run
+  directives, which permit or require end-only comparison, and `CLAUDE.md`'s
+  restored no-exception prohibition, while six sealed comparison surfaces
+  remain. All five surfaces headed “Post-hoc comparison with existing names”
+  carry an explicit end-only marker. Two surfaces are not actually final:
+  substantive sections follow the comparison in `paper/endogenous_generator.md`
+  and `paper/primitive_difference_map.md`. The exact allowed path set,
+  precedence rule, and sealed-paper repair remain author acts.
+- **Class**: observation + OPEN author act.
+- **Evidence**: the five same-heading surfaces and their markers are
+  `paper/bridge_provenance.md:243` (“End-only, as before”),
+  `paper/endogenous_generator.md:302` (“End-only”),
+  `paper/primitive_difference.md:407` (“Comparison authorized at the end only;
+  nothing above depended on it”), `paper/refusal_as_difference.md:393`
+  (“End-only”), and `paper/refusal_difference.md:267` (“End-only, as before”).
+  The sixth, `paper/primitive_difference_map.md:213`, is a “Post-hoc
+  realization table” with a “Known mathematics” column and explicitly cites
+  a run directive. Each surface and the following section structure was read,
+  not inferred from a heading.
+- **Boundary — do not collapse the six.** All six are comparison-labelled;
+  the map surface is different because it explicitly cites the run directive.
+  The markers do not select an allowlist or weaken the no-exception rule.
+- **Falsifier / closure condition**: an author declares which instruction has
+  precedence and an exact comparison-path allowlist (possibly empty), then
+  reconciles the sealed surfaces, repairs the two end-placement defects, and
+  installs a zero/exact-allowlist and placement gate.
+- **Not repaired here.** A gate before that declaration would silently encode
+  the missing policy choice. This packet records only:
+
+  ```text
+  OB3_PAPER_GLOBAL_SENTENCE_WITHDRAWN
+  OB3_SECTION13_INVENTORY_INEXACT
+  OB3_END_ONLY_PLACEMENT_DEFECTS=2
+  OB3_COMPARISON_POLICY_OPEN
+  AuthorityEffect: None
+  ```
 
 ### GC-16 — OB-4
 - **Previous statement — WITHDRAWN as current**: “`README.md` records nine
@@ -258,8 +268,9 @@ falsifier.
 - **Statement**: No gate reads `research/genesis_continuation/`.
 - **Class**: observation.
 - **Evidence**: `.github/workflows/verify.yml`'s `research` job names
-  `research/primitive_difference_tower` and `research/portable_interface`
-  by path and does not glob `research/`.
+  `research/primitive_difference_tower`, `research/portable_interface`,
+  `research/blind_restart`, and `research/partial_decide` by path and does not
+  glob `research/`.
 - **Boundary**: this packet is prose only, so there is nothing here for a
   gate to check. If anything executable is added, registering it is a
   separate act.

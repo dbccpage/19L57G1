@@ -262,11 +262,15 @@ python ci/check_ledger_evidence.py
 #     is absent from that environment, so Lean cannot see it is missing.
 python ci/check_parked_audit.py
 
-# 11. the research tree's source pins still match the sealed blobs, and
-#     its own tests and strict typing pass. NOT a sealed-derivation gate:
+# 11. the registered research trees' source pins still match their inputs,
+#     and their own tests and strict typing pass. NOT a sealed-derivation gate:
 #     it guards `research/`, which is outside the seal. Run from the
 #     repository root, then from inside the tree:
 python research/primitive_difference_tower/verify_manifest.py
+python research/portable_interface/verify_pins.py
+python research/blind_restart/verify_pins.py
+$env:PYTHONPATH = "$PWD/code"
+python research/partial_decide/verify_pins.py
 ```
 
 ```powershell
@@ -274,10 +278,48 @@ cd research/primitive_difference_tower
 python -m unittest discover -s . -p "test_*.py"
 python -m mypy
 cd ../..
+
+cd research/portable_interface
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
+
+cd research/blind_restart
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
+
+cd research/partial_decide
+python -m unittest discover -s . -p "test_*.py"
+python -m mypy
+cd ../..
 ```
 
-**Gate 11 is the only one EXPECTED to go red on a legitimate change**, and
-it is worth understanding before reacting to a failure. A pull request that
+The partial-Decide computation enumerates candidates and replays each
+candidate's `Impose` and admission-event values only into an ephemeral
+comparison child used to compute a quotient key. It derives no decision input
+from the panel, authorizes no candidate, persistently applies no response,
+and commits no event to the declared base. This bounded enumeration is not an
+object-language demand generator; no such generator is supplied by that
+package. Its corresponding scoped terminals are
+`NO_PANEL_DERIVED_INPUT`,
+`NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION`, and
+`NO_EVENT_COMMITTED_TO_DECLARED_BASE`, alongside the narrower adapter,
+authorization, and generator refusals recorded in its receipt.
+
+After the partial-Decide verifier's early custody preflight, receipt rendering
+runs in a fresh `-I -B -S` child that installs its audit boundary and explicit
+project paths before importing the receipt or derivation modules. That does
+not authenticate the already-running verifier/entry point, interpreter,
+standard library, Git executable, or parsed pin JSON. Deliberate receipt
+writing refuses an existing link, reparse point, directory, or other
+non-regular target and atomically replaces a safe target through a flushed,
+synchronized, exclusively created same-directory temporary regular file.
+
+The primitive-difference portion of gate 11 is expected to go red on a
+legitimate change to one of its protected paths, while the other registered
+research checks should remain green unless one of their exact inputs or
+contracts moved. A pull request that
 edits a module pinned in `research/primitive_difference_tower/SOURCE_MANIFEST.json`
 will fail it. That is the signal to repin — not a defect in the pull
 request — and that coupling is exactly why this tree was kept out of CI
@@ -303,7 +345,9 @@ Repairing a gate-11 failure: `verify_manifest.py --repin`, then revise the
 prose it names (`CLAIM_LEDGER.md`, `FINDINGS.md`) — the verifier fails until
 the prose matches. Review a repin by diffing the PARSED JSON, not the text:
 `--repin` re-serializes with `indent=2` and rewrote 135 lines to change 3
-values the one time it has been run.
+values the one time it has been run. That procedure applies only to the
+primitive-difference manifest. The other registered trees have their own
+pin policies; partial Decide deliberately provides no automatic repin.
 
 `ci/check_coverage.py` lives outside `code/` on purpose so it is not part of
 the measured source. It reads `coverage.json`, so generate that first — and
@@ -622,11 +666,39 @@ What has actually been injected, and what failed:
 | Research pin drift (gate 11) | restored the stale `PrimitivePassage.lean` hash in `SOURCE_MANIFEST.json` | `FAIL: hash mismatch for lean4/Derivation/PrimitivePassage.lean`, exit 1, naming the module; exit 0 after reversal. The exit status was checked directly, NOT through a pipeline — `$?` after `\| tail` reports tail's status and showed 0 while the script was returning 1 |
 | Parked-module axiom census | `Classical.em` theorem added to the parked `Derivation/IsoCollapseCompat.lean` | `FAIL: disallowed axioms ['Classical.choice']`, naming `zzz_probe_choice`; plus the counterfactual on the same tree — reverting `defaultTargets` to `["Derivation"]` made the identical injection report `lean audit clean`, which is the residual itself, observed rather than argued |
 | Research pin drift, real case | (found live, not injected) merging #76 and #77 | five research tests failed on `main` at `a1738fa` while the CI rollup reported SUCCESS; no job read the tree, and the two changes only interact once both are present |
+| Partial-Decide source pin | changed the first byte of the pinned `model.py` digest | `FAIL: hash mismatch for code/derivation/model.py`, printing wanted, snapshot, and HEAD hashes; exit 1, then 0 after reversal |
+| Partial-Decide import authority | added `from derivation.represented import cert_neg` to the production consumer | `FAIL: authorized import mismatch`, naming the extra module and symbol; exit 1, then 0 after reversal |
+| Partial-Decide receipt bytes | changed `authority_effect` in the committed receipt | `FAIL: partial_decide_c3.json differs from the deterministic renderer`; exit 1, then 0 after reversal |
+| Partial-Decide grade separation | changed the live-tie return to bounded `None` | `test_c3_mu1_retains_all_tied_classes` failed for both L and F and receipt equality failed; exit 1, then 0 after reversal |
+| Partial-Decide measure totality | removed `mu2` from one reading at `43b57b9311ba4cacfde58904732b6bd0c1a211e8` | `FAIL: reading L grades keys differ: missing ['mu2'], extra []`; exit 1, then 0 after reversal |
+| Partial-Decide dynamic-import refusal | called `builtins.__import__` at `61c172657bcde93d9fc4f9773785807a8ea4f560` | `FAIL: ... uses prohibited dynamic execution/import attribute __import__`; exit 1, then 0 after reversal |
+| Partial-Decide source closure | omitted `derivation.observe` at `e24548b0ee503ba249ebae19628ccfd477cef8b6` | `FAIL: derivation.candidates has unpinned derivation dependencies: derivation.observe`; exit 1, then 0 after reversal |
+| Partial-Decide conjecture freeze | removed inherited `G4_REMAINS_CONJECTURE` at `ae5d1f651dee47e34a0138df1caf2590e20551b8` | `FAIL: status input required_terminals differ from G3/G4 freeze`; exit 1, then 0 after reversal |
+| Partial-Decide module mapping | mapped `derivation.model` to `observe.py` at `3f5fdd16cafbf82304b512e7196c289d16b8d4d6` | `FAIL: module/path mismatch for derivation.model`; exit 1, then 0 after reversal |
+| Partial-Decide shadow refusal | registered local `derivation.py` at `12b9f3de4287456a20a2b7b26e34871cb795c18b` | `FAIL: reserved derivation shadow path: research/partial_decide/derivation.py`; exit 1, then 0 after reversal |
+| Partial-Decide package-tree pin | replaced the pinned tree with zeroes at `6b30c490aebcc52f80f548a34f3458f65b0b947e` | `FAIL: source package tree mismatch`, naming wanted, snapshot, and HEAD trees; exit 1, then 0 after reversal |
+| Partial-Decide refusal-policy pin | replaced the refusal with a totalizing policy at `1f5ee586fd7890fdb8d9cae9b9141886dba761e6` | `FAIL: source policy differs from the exact refusal declaration`; exit 1, then 0 after reversal |
+| Partial-Decide exact snapshot | replaced the commit id with `HEAD` at `15c8ab7d57d80bbefdd129f82013881131349d47` | `FAIL: source snapshot commit must be an exact 40-digit lowercase hex id`; exit 1, then 0 after reversal |
+| Partial-Decide early custody | dirtied tracked `c3_receipt.py` before preflight | `FAIL: partial-Decide executable package or transport policy has worktree changes before custody preflight`, naming the file; exit 1, then 0 after reversal |
+| Partial-Decide package census, first diagnostic | committed an unlisted consumer at `758ec430baaa946177a5948676f4049a4d86333f` | `FAIL: tracked package census differs across declaration, HEAD, and index`; exit 1, then 0 after reversal. It detected divergence but did not name the injected file, so this first probe did not meet the diagnostic standard |
+| Partial-Decide package census, repaired diagnostic | repeated the unlisted consumer at `431d172bee890ae37fa7e5fabcadefa5e19f0fda` | `FAIL: ... research/partial_decide/zzz_consumer_probe.py [declaration=no, HEAD=yes, index=yes]`; exit 1, then 0 after reversal |
+| Partial-Decide mypy census | added an uncommitted type-invalid consumer | mypy named the incompatible assignment and checked six source files; exit 1, then five clean files and exit 0 after reversal |
+| Partial-Decide transport attribute | changed `-text` to `text` at `80ddae268710c4d0a5be671ad254cfa7b4fa6944` | `FAIL: receipt transport attribute must be committed as -text`; exit 1, then 0 after reversal |
+| Partial-Decide CRLF refusal | committed CRLF receipt bytes at `5e1eb4b2ac42e06f565272b55130bbe9dd9819b9` | `FAIL: partial_decide_c3.json contains CR bytes`; exit 1, then 0 after reversal |
+| Partial-Decide class-key binding | exchanged members between two L/mu1 classes while preserving counts and the exact partition | `test_literal_receipt_contract_binds_members_to_canonical_classes` now reports `canonical key differs`; the pre-repair verifier at `4869cb2` accepted the same mutation |
+| Partial-Decide duplicate JSON names | duplicated root `policy` and nested `authority_effect` names with authorization-bearing last values | `test_json_decoder_rejects_root_and_nested_duplicate_keys` reports `duplicate JSON key`; the pre-repair decoder accepted both through last-wins semantics |
+| Partial-Decide status namespace | added `statuses.g4_result = G4_HOLDS_UNDER_MU2` | the status mutation test reports `G1 class statuses keys differ`; the pre-repair verifier at `4869cb2` accepted it |
 | Ledger conformance, tab heading | `###\tCL-ZZZ-SMUGGLED` appended to the ledger text | `test_injection_tab_heading_is_not_invisible`: the ATX population sees it, the classifier names it, `KNOWN_CLAIM_IDS` fails. A space-only `### ` scan would have dropped it from both sides |
 | Ledger conformance, empty fields | `**Statement**: .` (and the other seven keys) | `test_injection_empty_fields_are_missing_not_present`: each required field is missing; a presence-only check stayed green |
 | Ledger conformance, rewritten body | CL-0-INERTIA statement replaced with a lie that keeps every key | `test_injection_rewritten_inertia_body_breaks_the_pin`: body pin digest moves; ID ratchets would have stayed green |
 | Ledger conformance, match-arm index | synthetic `| exact =>` / comment words `that worth of carrying` | `test_match_arm_and_comment_words_are_not_declarations`: those strings are absent from the declaration index; constructors `| name (` still index |
 | Ledger conformance, root wildcard | token `Derivation.*` | `test_root_namespace_wildcard_does_not_resolve`: returns false. `PresentationRelativity.*` still resolves |
+
+The Partial-Decide injection commit IDs above are local throwaway objects with
+no branch or tag reachability; they may be pruned and are locators rather than
+durable evidence. `research/partial_decide/STATUS.md` records the exact
+mutation, command, diagnostic, exit, and recovery needed to replay the repaired
+package-census probe without relying on its commit object.
 
 What injection does NOT prove: that the population is the right
 mathematical object. A perfect pin of the wrong set is still the wrong set.

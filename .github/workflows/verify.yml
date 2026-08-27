@@ -269,3 +269,21 @@ jobs:
       - name: Blind restart strict typing
         working-directory: research/blind_restart
         run: python -m mypy
+      # Partial Decide is a recorder over the already declared bounded
+      # candidate computation. Its source/import verifier is load-bearing:
+      # without it a new engine or panel import could silently widen the
+      # syntactic/provenance surface this package explicitly declares.
+      - name: Partial Decide pins, imports, and receipt
+        run: python research/partial_decide/verify_pins.py
+        env:
+          PYTHONPATH: ${{ github.workspace }}/code
+      - name: Partial Decide tests
+        working-directory: research/partial_decide
+        run: python -m unittest discover -s . -p "test_*.py"
+        env:
+          PYTHONPATH: ${{ github.workspace }}/code
+      - name: Partial Decide strict typing
+        working-directory: research/partial_decide
+        run: python -m mypy
+        env:
+          PYTHONPATH: ${{ github.workspace }}/code

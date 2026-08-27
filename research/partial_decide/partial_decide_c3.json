@@ -1,0 +1,966 @@
+{
+  "authority_effect": "None",
+  "classification": "deterministic metatheoretic computation",
+  "contract": {
+    "none": "no minimum inside the declared finite candidate bounds",
+    "tie": "at least two quotient classes",
+    "unique_class": "one quotient class with multiple raw deltas",
+    "unique_delta": "one literal raw minimum"
+  },
+  "panel_input": {
+    "meaning": "certNeg and PanelEquiv may motivate a separately declared request but do not choose this engine pair",
+    "status": "not_connected_without_a_declared_correspondence"
+  },
+  "readings": [
+    {
+      "grades": {
+        "mu1": {
+          "grade": {
+            "bounds": {
+              "max_arity": 2,
+              "max_items": 2
+            },
+            "classes": [
+              {
+                "canonical_key": [
+                  2,
+                  [
+                    1
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        0
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              },
+              {
+                "canonical_key": [
+                  2,
+                  [
+                    2
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0,
+                        0
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        0,
+                        0
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1,
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              },
+              {
+                "canonical_key": [
+                  2,
+                  [
+                    2
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0,
+                        1
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        0,
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1,
+                        0
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              }
+            ],
+            "iso_class_count": 3,
+            "iso_perm_budget": 100000,
+            "kind": "tie",
+            "measure": "mu1",
+            "minimum_cost": {
+              "items": 2,
+              "new_form_arity_sum": null
+            },
+            "raw_minima": [
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    0
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    0,
+                    0
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    0,
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1,
+                    0
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1,
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ]
+            ],
+            "raw_minimum_count": 6,
+            "target": [
+              0,
+              1
+            ]
+          },
+          "option": "some"
+        },
+        "mu2": {
+          "grade": {
+            "bounds": {
+              "max_arity": 2,
+              "max_items": 2
+            },
+            "classes": [
+              {
+                "canonical_key": [
+                  2,
+                  [
+                    1
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        0
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              }
+            ],
+            "iso_class_count": 1,
+            "iso_perm_budget": 100000,
+            "kind": "unique_class",
+            "measure": "mu2",
+            "minimum_cost": {
+              "items": 2,
+              "new_form_arity_sum": 1
+            },
+            "raw_minima": [
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    0
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ]
+            ],
+            "raw_minimum_count": 2,
+            "target": [
+              0,
+              1
+            ]
+          },
+          "option": "some"
+        }
+      },
+      "reading": "L",
+      "target": [
+        0,
+        1
+      ]
+    },
+    {
+      "grades": {
+        "mu1": {
+          "grade": {
+            "bounds": {
+              "max_arity": 2,
+              "max_items": 2
+            },
+            "classes": [
+              {
+                "canonical_key": [
+                  3,
+                  [
+                    1
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        2
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              },
+              {
+                "canonical_key": [
+                  3,
+                  [
+                    2
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0,
+                        0
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1,
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        2,
+                        2
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              },
+              {
+                "canonical_key": [
+                  3,
+                  [
+                    2
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0,
+                        1
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      1
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1,
+                        2
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        2,
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              },
+              {
+                "canonical_key": [
+                  3,
+                  [
+                    2
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0,
+                        1
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1,
+                        0
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        2,
+                        0
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              },
+              {
+                "canonical_key": [
+                  3,
+                  [
+                    2
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0,
+                        1
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      1,
+                      2
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        0,
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 2,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        0,
+                        2
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              }
+            ],
+            "iso_class_count": 5,
+            "iso_perm_budget": 100000,
+            "kind": "tie",
+            "measure": "mu1",
+            "minimum_cost": {
+              "items": 2,
+              "new_form_arity_sum": null
+            },
+            "raw_minima": [
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    2
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    0,
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    0,
+                    2
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1,
+                    0
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1,
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1,
+                    2
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    2,
+                    0
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    2,
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 2,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    2,
+                    2
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ]
+            ],
+            "raw_minimum_count": 10,
+            "target": [
+              1,
+              2
+            ]
+          },
+          "option": "some"
+        },
+        "mu2": {
+          "grade": {
+            "bounds": {
+              "max_arity": 2,
+              "max_items": 2
+            },
+            "classes": [
+              {
+                "canonical_key": [
+                  3,
+                  [
+                    1
+                  ],
+                  [
+                    [
+                      0,
+                      [
+                        0
+                      ]
+                    ]
+                  ],
+                  [],
+                  [
+                    [
+                      0,
+                      2
+                    ]
+                  ]
+                ],
+                "members": [
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        1
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ],
+                  [
+                    {
+                      "arity": 1,
+                      "kind": "form"
+                    },
+                    {
+                      "args": [
+                        2
+                      ],
+                      "form": 0,
+                      "kind": "inst"
+                    }
+                  ]
+                ],
+                "size": 2
+              }
+            ],
+            "iso_class_count": 1,
+            "iso_perm_budget": 100000,
+            "kind": "unique_class",
+            "measure": "mu2",
+            "minimum_cost": {
+              "items": 2,
+              "new_form_arity_sum": 1
+            },
+            "raw_minima": [
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    1
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ],
+              [
+                {
+                  "arity": 1,
+                  "kind": "form"
+                },
+                {
+                  "args": [
+                    2
+                  ],
+                  "form": 0,
+                  "kind": "inst"
+                }
+              ]
+            ],
+            "raw_minimum_count": 2,
+            "target": [
+              1,
+              2
+            ]
+          },
+          "option": "some"
+        }
+      },
+      "reading": "F",
+      "target": [
+        1,
+        2
+      ]
+    }
+  ],
+  "schema": "partial_decide_c3_receipt/v1",
+  "source_snapshot": {
+    "commit": "24d1bc64bace9721472430347ca9d3af303e1347",
+    "tree": "2e80261ef11b9bcd2fc3a87597892aafec83dbf6"
+  },
+  "terminals": [
+    "C3_UNIQUE_DELTA_EMPTY",
+    "C3_MU2_UNIQUE_CLASS_INHABITED",
+    "G3_REMAINS_CONJECTURE",
+    "G4_REMAINS_CONJECTURE",
+    "NO_AUTHORIZED_OR_PERSISTENT_RESPONSE_APPLICATION",
+    "NO_EVENT_COMMITTED_TO_DECLARED_BASE",
+    "NO_PANEL_DERIVED_INPUT",
+    "NO_PANEL_ENGINE_ADAPTER",
+    "NO_RESPONSE_AUTHORIZATION",
+    "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
+    "PANEL_TO_ENGINE_LINK_NOT_DEFINED"
+  ]
+}
