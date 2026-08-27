@@ -152,10 +152,11 @@ the right declarations.
 
 ### Exact verifier and custody campaign
 
-The following independent campaign was run from detached worktrees at
-`a9aef3090d37a79434eaf053168407a46fa7be4e`. Each committed probe has that
-commit as its parent. Every named verifier failure exited one; the type probe
-made mypy exit one. The relevant check returned exit zero after every reversal.
+The first fourteen probes in this independent campaign were run from detached
+worktrees at `a9aef3090d37a79434eaf053168407a46fa7be4e`. Each of their committed
+probes has that commit as its parent. Every verifier failure exited one; the
+type probe made mypy exit one. The relevant check returned exit zero after
+every reversal.
 
 | probe | injection commit | observed failure |
 |---|---|---|
@@ -169,13 +170,23 @@ made mypy exit one. The relevant check returned exit zero after every reversal.
 | replaced the exact refusal declaration with a totalizing policy | `1f5ee586fd7890fdb8d9cae9b9141886dba761e6` | `source policy differs from the exact refusal declaration` |
 | replaced the source snapshot id with symbolic `HEAD` | `15c8ab7d57d80bbefdd129f82013881131349d47` | `source snapshot commit must be an exact 40-digit lowercase hex id` |
 | dirtied tracked `c3_receipt.py` before custody preflight | worktree-only | `partial-Decide executable package or transport policy has worktree changes before custody preflight`, naming the file |
-| committed an unlisted consumer | `758ec430baaa946177a5948676f4049a4d86333f` | `tracked package census differs across declaration, HEAD, and index` |
+| committed an unlisted consumer before diagnostic repair | `758ec430baaa946177a5948676f4049a4d86333f` | `tracked package census differs across declaration, HEAD, and index`; this detected the divergence but did not name the file, so it did not meet the injection diagnostic standard |
 | added an uncommitted type-invalid consumer | worktree-only | mypy reported the incompatible assignment and checked six rather than five source files |
 | changed the receipt transport attribute from `-text` to `text` | `80ddae268710c4d0a5be671ad254cfa7b4fa6944` | `receipt transport attribute must be committed as -text` |
 | committed the receipt with CRLF bytes under `-text` | `5e1eb4b2ac42e06f565272b55130bbe9dd9819b9` | `partial_decide_c3.json contains CR bytes` |
 
-All three campaign worktrees ended clean at the exact baseline. The final
-verifier and mypy runs exited zero, the receipt remained `i/lf w/lf attr/-text`,
-and its SHA-256 remained
+The unnamed census diagnostic was repaired at
+`a1368cc48f64491ca1141b5b66d6239284140066` and the same defect was injected
+again at `431d172d3f48c44c2540a90cbd5ab25e66f637cd`. The verifier then exited one
+with:
+
+```text
+FAIL: tracked package census differs across declaration, HEAD, and index: research/partial_decide/zzz_consumer_probe.py [declaration=no, HEAD=yes, index=yes]
+```
+
+After reversal, the custody worktree was clean at `a1368cc`, and its verifier
+returned exit zero. The other two campaign worktrees ended clean at the
+original exact baseline. The receipt remained `i/lf w/lf attr/-text`, and its
+SHA-256 remained
 `87D2F5E8885B64797CDED3F6A2BF2688B7CED973760F7A881B0B5CA94D3FB127`.
 No receipt or source pin was regenerated while any probe was live.
