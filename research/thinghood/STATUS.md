@@ -148,3 +148,7 @@ the sealed derivation:
 
 Each packet must remain under its own research boundary, retain tied minima,
 and leave `S6.6`, `S9`'s last bullet, and `OB-1` open.
+
+The current tick probe is not a theorem-name resolver or a new Lean
+declaration; it is the finite accounting witness for this packet's scoped
+negative only.
