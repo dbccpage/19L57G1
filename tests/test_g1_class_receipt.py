@@ -42,6 +42,31 @@ def test_receipt_binds_exact_class_theorem_reports_and_boundaries() -> None:
     assert "G1_CLASS_EXCLUSION_PROVED" in terminals
     assert "OB1_UNCHANGED" in terminals
     assert payload["statuses"]["g3"] == "G3_REMAINS_CONJECTURE"  # type: ignore[index]
+    assert payload["statuses"]["g4"] == "G4_REMAINS_CONJECTURE"  # type: ignore[index]
+    assert "G4_HOLDS_UNDER_MU2" not in terminals
+    assert "g4_engine_import_branch.json" not in payload["supporting_artifacts"]
+    assert not any(
+        str(key).startswith("g4_") for key in payload["finite_bounds"]  # type: ignore[union-attr]
+    )
+
+
+def test_python_lock_is_repository_canonical_lf() -> None:
+    attributes = (ROOT / ".gitattributes").read_text(encoding="utf-8").splitlines()
+    assert "requirements.txt -text" in attributes
+    raw = require_sha256(
+        ROOT / "requirements.txt", REQUIREMENTS_SHA256, "Python lock"
+    )
+    assert b"\r\n" not in raw
+    assert raw.endswith(b"\n")
+
+
+def test_python_lock_rejects_line_ending_conversion(tmp_path: Path) -> None:
+    canonical = (ROOT / "requirements.txt").read_bytes()
+    assert b"\r\n" not in canonical
+    converted = tmp_path / "requirements.txt"
+    converted.write_bytes(canonical.replace(b"\n", b"\r\n"))
+    with pytest.raises(ValueError, match="Python lock SHA-256 mismatch"):
+        require_sha256(converted, REQUIREMENTS_SHA256, "Python lock")
 
 
 def test_hash_guard_fails_by_label(tmp_path: Path) -> None:
@@ -83,6 +108,6 @@ def test_runner_is_byte_deterministic(tmp_path: Path) -> None:
     right = second / "g1_class_receipt.json"
     assert left.read_bytes() == right.read_bytes()
     payload = json.loads(left.read_text(encoding="utf-8"))
-    assert payload["schema"] == "g1-class-receipt-v1"
+    assert payload["schema"] == "g1-class-receipt-v2"
     assert payload["pins"]["python_lock"]["sha256"] == REQUIREMENTS_SHA256
 

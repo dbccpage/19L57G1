@@ -3642,25 +3642,28 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
 
 ### CL-G1-G4-FINITE
 
-- **Statement**: all 455 depth-one obstruction pairs at lengths 3 through 15
-  were passed through the actual Challenge-3 minimum-response engine in
-  readings L/F and measures mu1/mu2, with the existing isomorphism quotient.
-  Under mu2 every minimum class is an endpoint mark. Under mu1, reading F
-  first fails at length 3 because two minimum classes use an outside-target
-  argument.
-- **Class**: finite computation.
-- **Deps**: `CL-3-MIN-TWO`, `CL-3-TIE-CLASSES`, `CL-G-GENERATION`.
-- **Assumptions**: chain lengths 3 through 15, readings L/F, measures
-  mu1/mu2, `max_items=2`, `max_arity=2`, and the implemented regime
-  isomorphism quotient.
-- **Python**: `code/derivation/g4_engine_import_branch.py`,
-  `tests/test_g4_engine_import_branch.py`, and
-  `artifacts/g4_engine_import_branch.json`; `max_items=2`, `max_arity=2`.
-- **Lean**: no Lean theorem is claimed for this finite computation.
-- **Axioms**: not applicable to this finite computation.
-- **Falsifier / boundary**: a checked mu2 non-mark minimum, or absence of the
-  recorded reading-F/mu1 class. No identity with an object-language generator
-  or historical process is claimed.
+- **Statement**: **WITHDRAWN** — the former statement said that all 455
+  depth-one chain obstructions were passed through the Challenge-3 engine.
+  The loop never supplied its chain pair to `min_responses`; it repeated the
+  four fixed Challenge-3 catalogs. No finite chain correspondence was
+  computed, so G4 remains a conjecture. The surviving Challenge-3 facts are
+  the already registered L/F `mu1` tie counts and the single `mu2`
+  isomorphism class under the declared candidate bounds.
+- **Class**: conjecture.
+- **Deps**: `CL-3-MIN-TWO`, `CL-3-TIE-CLASSES`,
+  `CL-3-UNIQUE-MU2-L`, `CL-3-UNIQUE-MU2-F`, `CL-G-GENERATION`.
+- **Assumptions**: the surviving computation concerns only the sealed
+  Challenge-3 targets, readings L/F, measures mu1/mu2, `max_items=2`,
+  `max_arity=2`, and the implemented regime isomorphism quotient. No
+  chain-to-regime adapter is assumed.
+- **Python**: `code/derivation/engine.py`, `tests/test_engine.py`, and
+  `artifacts/challenges.json`; `test_challenge3_reading_l_classes` and
+  `test_challenge3_reading_f_has_five_classes` check the surviving catalogs.
+- **Lean**: no Lean theorem is claimed for G4.
+- **Axioms**: not applicable to the surviving finite computation.
+- **Falsifier / boundary**: a declared collapse-preserving adapter that passes
+  each actual chain pair to the engine, followed by a replayable finite run.
+  Until then the chain claim is OPEN; Challenge-3 minima authorize no adapter.
 
 ### CL-G1-TERMINAL-20260826
 
@@ -3669,8 +3672,7 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   `T5_PROFILE_CORRESPONDENCE_PROVED`,
   `CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER`,
   `G1_CLASS_EXCLUSION_PROVED`, `G3_REMAINS_CONJECTURE`,
-  `G4_HOLDS_UNDER_MU2`,
-  `G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>`,
+  `G4_REMAINS_CONJECTURE`,
   `OB1_UNCHANGED`, and `OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE`, plus
   explicit H1-H6 done/skipped dispositions. The earlier three-line terminal
   is withdrawn as the current complete block; its generation theorem remains
@@ -3683,16 +3685,17 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
 - **Assumptions**: each component retains the exact assumptions and evidence
   class in its own entry; this terminal aggregates them without flattening.
 - **Python**: `code/derivation/g1_class_receipt.py` recomputes the concrete
-  strategy and G4 payloads, validates the pinned inputs, and exports the exact
-  terminal list.
+  strategy payload, validates the pinned inputs, records the G4 withdrawal,
+  and exports the exact terminal list.
 - **Axioms**: theorem components lie within `{propext, Quot.sound}`; the
-  finite G4 component has no Lean claim.
+  G4 conjecture has no Lean claim.
 - **Evidence**: `artifacts/g1_class_receipt.json`, which binds 34 new theorem
   reports, exact source declarations, supporting payloads, bounds, OPEN and
   WITHDRAWN sentences, base commit, task hash, prompt hashes, and Python lock;
   `artifacts/completion_dependency_graph.json` independently resolves the
   source statement and explicit kind/role of every new theorem report.
 - **Falsifier / boundary**: a missing terminal boundary, stale supporting
-  payload, unresolved theorem name, or changed pinned input that regenerates
-  without failure. OB-1 remains open outside the declared class.
+  payload, unresolved theorem name, changed pinned input that regenerates
+  without failure, or reintroduction of a chain G4 terminal without a live
+  adapter. OB-1 remains open outside the declared class.
 

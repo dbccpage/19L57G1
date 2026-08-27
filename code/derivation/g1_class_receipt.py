@@ -14,13 +14,12 @@ from pathlib import Path
 from typing import Sequence
 
 from derivation.export import Json, dumps_deterministic
-from derivation.g4_engine_import_branch import BOUNDS, FIRST_N, LAST_N, g4_report
 from derivation.local_strategy import DEFAULT_MAX_CHAIN, STRATEGIES, artifact_payload
 
 BASE_COMMIT = "24bd2464fc4546d8fb3d244809aa769b37c22964"
 TASK_SHA256 = "E2CAF8EA7CD849F09BFF587EB31229AC678F5552EFA51F1B33AAE5A6D5F04559"
 REQUIREMENTS_SHA256 = (
-    "BFE7283F51A19B579FA08F8C7E6B19A714885166607277B94928BB8A23885BBF"
+    "932FDECBE9D0ACC035CE1C701B6E790B5CED06E16954FB9E5B1BD02F1839EDD5"
 )
 LEAN_VERSION = "4.33.0"
 LAKE_VERSION = "5.0.0"
@@ -71,8 +70,7 @@ TERMINALS = (
     "CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER",
     "G1_CLASS_EXCLUSION_PROVED",
     "G3_REMAINS_CONJECTURE",
-    "G4_HOLDS_UNDER_MU2",
-    "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>",
+    "G4_REMAINS_CONJECTURE",
     "OB1_UNCHANGED",
     "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
     "HYGIENE_H1_SKIPPED",
@@ -88,6 +86,7 @@ OPEN_SENTENCES = (
     "G3 remains a CONJECTURE because no state-transition hypothesis connects post-repair clearing to the absence of future pre-repair demands.",
     "Strategies outside the fixed-radius finite-alphabet LocalStrategy class remain OPEN, including index-inspecting views and alphabets that grow with chain length.",
     "F4 chain initiality remains carried and OPEN.",
+    "G4 remains a CONJECTURE because no collapse-preserving chain-pair-to-engine adapter is defined or authorized.",
     "The definition-level axiom residual remains OPEN and is not addressed by this run.",
     "The comparison-heading conflict recorded as OB-3 remains OPEN for an author act.",
 )
@@ -97,7 +96,8 @@ WITHDRAWN_SENTENCES = (
     "The statement that the general-n Generator.profile2/profileD radius-one correspondence remains OPEN is WITHDRAWN.",
     "The statement that the repair-strategy-class consequence of CapacityBound.capacity_bound remains OPEN is WITHDRAWN.",
     "The first T5 proof shape using generic Nat equality filtering is WITHDRAWN because its use-site axiom report exposed Classical.choice; the repaired proof uses decide.",
-    "G4 as an unqualified conjecture is WITHDRAWN only for the declared finite check: mu2 holds, while reading-F/mu1 fails at n=3.",
+    "The statement that all 455 chain obstructions were passed through the Challenge-3 engine is WITHDRAWN; the loop re-ran the four fixed Challenge-3 catalogs and never supplied its chain pair to the engine.",
+    "The terminals G4_HOLDS_UNDER_MU2 and G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument> are WITHDRAWN because no chain correspondence was computed.",
 )
 
 _AXIOM_RE = re.compile(
@@ -249,24 +249,14 @@ def build_receipt(root: Path) -> dict[str, Json]:
         (root / "artifacts/lean_axioms.txt").read_text(encoding="utf-8")
     )
     local = artifact_payload(DEFAULT_MAX_CHAIN)
-    g4 = g4_report()
     strategies = local["strategies"]
     assert isinstance(strategies, list)
-    g4_terminals = g4["terminals"]
-    assert isinstance(g4_terminals, list)
-    expected_g4 = [
-        "G4_HOLDS_UNDER_MU2",
-        "G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>",
-    ]
-    if g4_terminals != expected_g4:
-        raise ValueError(f"unexpected G4 terminals: {g4_terminals}")
     if len(strategies) != len(STRATEGIES):
         raise ValueError("strategy membership table is incomplete")
 
     local_raw = dumps_deterministic(local)
-    g4_raw = dumps_deterministic(g4)
     return {
-        "schema": "g1-class-receipt-v1",
+        "schema": "g1-class-receipt-v2",
         "pins": {
             "g1_class_base_commit": BASE_COMMIT,
             "operator_task_sha256": TASK_SHA256,
@@ -290,22 +280,11 @@ def build_receipt(root: Path) -> dict[str, Json]:
             "capacity_threshold_formula": "k ^ (2 * d + 1) + 2 * d + 2",
             "capacity_examples": local["capacity_witnesses"],
             "depth_two_nonvacuity_chain": 4,
-            "g4_first_n": FIRST_N,
-            "g4_last_n": LAST_N,
-            "g4_max_items": BOUNDS.max_items,
-            "g4_max_arity": BOUNDS.max_arity,
-            "g4_obstructions_checked": g4["total_obstructions_checked"],
-            "g4_measures": ["mu1", "mu2"],
-            "g4_readings": ["L", "F"],
         },
         "supporting_artifacts": {
             "local_strategy.json": {
                 "sha256": sha256_bytes(local_raw),
                 "payload": local,
-            },
-            "g4_engine_import_branch.json": {
-                "sha256": sha256_bytes(g4_raw),
-                "payload": g4,
             },
         },
         "strategy_membership_verdicts": strategies,
@@ -313,7 +292,7 @@ def build_receipt(root: Path) -> dict[str, Json]:
             "t5": "T5_PROFILE_CORRESPONDENCE_PROVED",
             "g1": "G1_CLASS_EXCLUSION_PROVED",
             "g3": "G3_REMAINS_CONJECTURE",
-            "g4": g4_terminals,
+            "g4": "G4_REMAINS_CONJECTURE",
             "ob1": "OB1_UNCHANGED",
             "object_language": "OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE",
         },
@@ -332,7 +311,8 @@ def build_receipt(root: Path) -> dict[str, Json]:
             "No theorem ranges over strategies outside the quoted class.",
             "No object-language generator or self-origination from <> is claimed.",
             "No functoriality, initiality, canonical strategy, or unrestricted G1 is claimed.",
-            "The finite G4 result is not an identification of the historical engine with a generator.",
+            "No chain pair is passed through the Challenge-3 engine by this receipt.",
+            "The existing Challenge-3 minima retain their original reading- and measure-relative scope and authorize no chain adapter.",
         ],
     }
 

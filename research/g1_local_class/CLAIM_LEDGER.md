@@ -94,26 +94,26 @@ object-language declaration.
 
 ### G1-LC-G4
 
-- **Statement**: for every depth-one obstruction at chain lengths 3 through
-  15, the actual Challenge-3 minimum-response engine is checked under both
-  readings and both cost measures, quotienting by implemented regime
-  isomorphism. All minima are endpoint/pair marks under `mu2`. Under `mu1`,
-  reading F first fails at length 3 because two minimum classes use a datum
-  outside the target pair.
-- **Class**: deterministic finite computation.
-- **Python**: `artifacts/g4_engine_import_branch.json`; 455 obstruction pairs,
-  `max_items = 2`, `max_arity = 2`, readings L/F, measures mu1/mu2.
-- **Falsifier**: a checked pair with a non-mark `mu2` minimum, or absence of
-  the recorded reading-F/`mu1` outside-target class.
-- **Boundary**: no historical or object-language identity is inferred.
+- **Statement**: **WITHDRAWN** — the former 455-pair computation never passed
+  its enumerated chain pair to the engine. It repeated the four fixed
+  Challenge-3 catalogs, so no finite chain correspondence was established and
+  G4 remains a conjecture. The original Challenge-3 L/F and `mu1`/`mu2`
+  minima remain available only in their prior scope.
+- **Class**: refuted finite claim; surviving G4 status is conjecture.
+- **Python**: `artifacts/challenges.json`, `code/derivation/engine.py`, and
+  `tests/test_engine.py` support only the surviving Challenge-3 catalogs.
+- **Falsifier**: a declared collapse-preserving chain adapter followed by a
+  replayable run in which every counted pair reaches `min_responses`.
+- **Boundary**: Challenge-3 minima do not authorize a carrier encoding, a
+  reading, or an identification with an object-language generator.
 
 ### G1-LC-RECEIPT
 
 - **Statement**: the deterministic receipt binds the base commit, operator
   task hash, toolchains, exact Python lock, prompt hashes, exact class and
   exclusion quotes, 34 new theorem reports, every finite bound, all five
-  verdicts, T5/G3/G4 status, and every OPEN/WITHDRAWN sentence introduced by
-  this run.
+  verdicts, T5/G3 status, the G4 withdrawal, and every OPEN/WITHDRAWN sentence
+  introduced by this run.
 - **Class**: receipt binding, not mathematical proof.
 - **Python**: `code/derivation/g1_class_receipt.py`,
   `tests/test_g1_class_receipt.py`, `artifacts/g1_class_receipt.json`.

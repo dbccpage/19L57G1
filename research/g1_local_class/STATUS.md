@@ -2,17 +2,18 @@
 
 STATUS: PHASE_I_PINNED
 
-This page is the Phase I refusal record. It is committed before any G1
-class definition, theorem, executable mirror, or derived artifact. It fixes
-the reviewed repository state and the boundary of the investigation; it is
-not evidence for an object-language generator.
+This opening block records the Phase I refusal state committed as
+`495defef538eb99cf1d5c40ab7bdf93529e095fa`, before any G1 class definition,
+theorem, executable mirror, or derived artifact. It fixes that historical
+review boundary; it is not the current repository sequence and is not
+evidence for an object-language generator.
 
 ## Exact pins
 
 - `g1-class-base: 24bd2464fc4546d8fb3d244809aa769b37c22964`
 - `operator-task-sha256: E2CAF8EA7CD849F09BFF587EB31229AC678F5552EFA51F1B33AAE5A6D5F04559`
 - `python: 3.14.2`
-- `requirements-sha256: BFE7283F51A19B579FA08F8C7E6B19A714885166607277B94928BB8A23885BBF`
+- `requirements-sha256: 932FDECBE9D0ACC035CE1C701B6E790B5CED06E16954FB9E5B1BD02F1839EDD5`
 - `lean: 4.33.0`
 - `lake: 5.0.0`
 
@@ -78,10 +79,11 @@ T5 is closed by the general theorem
 `SeparationCapacity.radius_one_agrees_with_sealed_depth2`. G3 remains a
 conjecture: `G1Class.clears_does_not_imply_not_fires` shows that the current
 post-repair `Clears` predicate does not imply absence of the inherited
-pre-repair `Fires`; a state-transition hypothesis is missing. G4 is decided
-only in its declared finite domain: it holds under `mu2` in both readings and
-fails at chain length 3 under `mu1` in reading F because two minimum
-isomorphism classes use an argument outside the target pair.
+pre-repair `Fires`; a state-transition hypothesis is missing. No result in
+this branch decides G4. The former 455-pair claim is withdrawn because
+the loop never passed its chain pair to the Challenge-3 engine. The existing
+Challenge-3 minima retain their original reading- and measure-relative scope;
+they supply no chain adapter. G4 therefore remains a conjecture.
 
 The exact receipt is `artifacts/g1_class_receipt.json`. The terminal boundary
 remains:

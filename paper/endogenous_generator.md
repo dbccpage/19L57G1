@@ -361,8 +361,7 @@ T5_PROFILE_CORRESPONDENCE_PROVED
 CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER
 G1_CLASS_EXCLUSION_PROVED
 G3_REMAINS_CONJECTURE
-G4_HOLDS_UNDER_MU2
-G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument>
+G4_REMAINS_CONJECTURE
 OB1_UNCHANGED
 OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE
 HYGIENE_H1_SKIPPED
@@ -436,15 +435,23 @@ post-repair, the latter pre-repair. A state-transition hypothesis relating a
 repair to the absence of later inherited demands is missing. No conservation
 law is asserted.
 
-**G4 — finite split result.** The actual Challenge-3 minimum-response engine
-was run on all 455 depth-one obstruction pairs at chain lengths 3 through 15,
-under both readings and both cost measures, with `max_items = 2` and
-`max_arity = 2`, and quotiented by the implemented regime isomorphism. Under
-`mu2`, every minimum class is a unary endpoint mark in both readings. Under
-`mu1`, reading L has only accepted endpoint/pair marks, but reading F first
-fails at length 3: two minimum isomorphism classes use an argument outside
-the target pair. The unqualified G4 conjecture is withdrawn only for this
-finite check; the computation is not an identity claim about the engine.
+**G4 — remains a conjecture.** The statement that the actual Challenge-3
+minimum-response engine was run on all 455 depth-one obstruction pairs is
+**WITHDRAWN**. The deleted computation enumerated those pairs but never passed
+one to `min_responses`; every iteration recomputed the four fixed Challenge-3
+catalogs at `READING_L.target` or `READING_F.target`. Thus 455 was an
+obstruction-stream count, not an engine-run count, and neither former G4
+terminal was established.
+
+The surviving result is only the already recorded Challenge-3 classification:
+within `max_items = 2` and `max_arity = 2`, `mu1` has three tied classes in L
+and five in F, while `mu2` has one unary-endpoint isomorphism class in each
+reading. That is measure- and reading-relative 5Q evidence on the sealed
+Challenge-3 targets. It quantifies over no chain pair and supplies no unique
+response or chain adapter. No internally established fact selects a
+collapse-preserving carrier encoding or identifies L with F; making either
+choice would be a new declared adapter, not a derivation from the present
+engine.
 
 ## Surviving boundary
 
@@ -452,8 +459,8 @@ The class is declared, not derived. Views that inspect indices directly,
 alphabets that grow with chain length, and any other strategy outside the
 quoted fixed-radius finite-alphabet class remain unclassified by the theorem.
 The result does not select a preferred repair, prove an initial process, or
-generate a first challenge. F4 remains carried. G3 remains conjectural. The
-definition-level axiom residual remains open. Most importantly, the
+generate a first challenge. F4 remains carried. G3 and G4 remain conjectural.
+The definition-level axiom residual remains open. Most importantly, the
 inherited closure-policy obligation is unchanged:
 
 ```text

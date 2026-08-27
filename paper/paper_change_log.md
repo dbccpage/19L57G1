@@ -2291,10 +2291,10 @@ horizon-free theorem over an exact declared class.
 5. G3 remains conjectural. `clears_does_not_imply_not_fires` exhibits why the
    current pre-repair/post-repair predicates do not support the proposed
    corollary without a state-transition hypothesis.
-6. G4 is a finite split result, not a prose closure. The existing engine was
-   run over 455 obstruction pairs, lengths 3-15, both readings and both cost
-   measures. It holds under mu2 and fails under reading-F/mu1 at length 3 on
-   two outside-target minimum classes.
+6. **WITHDRAWN by the correction below.** This item said G4 was a finite split
+   obtained by running the engine over 455 obstruction pairs. The loop did not
+   pass those pairs to the engine; it repeated the four fixed Challenge-3
+   catalogs.
 7. `g1_class_receipt.json` deterministically binds the base and task hashes,
    toolchains, Python lock, prompt hashes, exact declarations, 34 new theorem
    reports, every finite bound, the five strategy verdicts, all terminals,
@@ -2321,4 +2321,37 @@ CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER / G1_CLASS_EXCLUSION_PROVED /
 G3_REMAINS_CONJECTURE / G4_HOLDS_UNDER_MU2 /
 G4_FAILS_AT_<3,mu1,reading_F_outside_target_argument> / OB1_UNCHANGED /
 OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. H1-H3 and H6 were skipped; H4-H5
-were done. None of those hygiene dispositions advances OB-1.
+were done. The two G4 strings in this historical block are WITHDRAWN by the
+correction below. None of those hygiene dispositions advances OB-1.
+
+## G4 correspondence and lock-receipt correction (2026-08-26)
+
+1. The statements that all 455 chain obstructions reached the Challenge-3
+   engine, that G4 held under `mu2`, and that its first `mu1` failure occurred
+   at a derived chain coordinate are **WITHDRAWN**. The enumerated `pair` was
+   used only as a label; `min_responses` always received the fixed target of
+   reading L or F.
+2. The false G4 runner, artifact, and dedicated test are removed. The
+   surviving computation is the pre-existing Challenge-3 classification in
+   `artifacts/challenges.json`: three `mu1` classes in L, five in F, and one
+   `mu2` isomorphism class in each reading, all under their original declared
+   bounds. No chain pair is quantified.
+3. No collapse-preserving carrier encoding or L/F choice is silently made to
+   replace the deleted loop. Such an adapter would be new declared structure;
+   the existing minima do not authorize it. G4 therefore returns to
+   `G4_REMAINS_CONJECTURE`.
+4. The Python-lock receipt now pins the canonical LF Git blob of
+   `requirements.txt`, SHA-256
+   `932FDECBE9D0ACC035CE1C701B6E790B5CED06E16954FB9E5B1BD02F1839EDD5`.
+   `.gitattributes` fixes that path as byte-preserving, and tests reject CRLF
+   conversion rather than accepting a platform-specific checkout hash.
+5. `g1_class_receipt.json` advances to schema v2, removes all G4 finite bounds
+   and payloads, records the withdrawal, and retains the G1 class theorem,
+   G3 conjecture, OB-1, and object-language boundaries unchanged.
+
+Current terminals: LOCAL_STRATEGY_CLASS_DEFINED /
+FIVE_STRATEGIES_CLASSIFIED / T5_PROFILE_CORRESPONDENCE_PROVED /
+CAPACITY_APPLIES_TO_EVERY_CLASS_MEMBER / G1_CLASS_EXCLUSION_PROVED /
+G3_REMAINS_CONJECTURE / G4_REMAINS_CONJECTURE / OB1_UNCHANGED /
+OBJECT_LANGUAGE_GENERATOR_NOT_IN_SCOPE. No new event, generator, carrier
+adapter, reading selection, or authorization rule is introduced.
