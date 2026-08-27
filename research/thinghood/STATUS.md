@@ -101,8 +101,11 @@ The five conditional claims in `CLAIM_LEDGER.md` and the receipt issue
 successor; a collapsed pair is not an active obstruction; `obstP` has four
 independent gates; `two_rule` requires an active, in-bounds protected
 obstruction; and `two_rule` is a response menu at that obstruction, not a law
-of the inscription.  The same-level repair/create-structure ceiling is kept;
-no dynamical law and no cosmology is written.
+of the inscription.  Their `machine_check` field is `false` and the receipt
+records `machine_check_status=NOT_RUN`: this tree does not elaborate or
+resolve the sealed theorem names, so `CONDITIONAL_THEOREM` is a downgrade,
+not a dual-witness theorem.  The same-level repair/create-structure ceiling
+is kept; no dynamical law and no cosmology is written.
 
 The three required opens remain explicit:
 

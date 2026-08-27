@@ -1306,7 +1306,7 @@
           "no extra object-language admission"
         ],
         "id": "TH-Q2-01",
-        "machine_check": true,
+        "machine_check": false,
         "statement": "The inscription alone forces no object-language successor.",
         "status": "CONDITIONAL_THEOREM"
       },
@@ -1331,7 +1331,7 @@
           "no gate is supplied by collision alone"
         ],
         "id": "TH-Q2-02",
-        "machine_check": true,
+        "machine_check": false,
         "statement": "A collapsed pair is not an active obstruction by itself.",
         "status": "CONDITIONAL_THEOREM"
       },
@@ -1349,7 +1349,7 @@
           "the four named independence witnesses"
         ],
         "id": "TH-Q2-03",
-        "machine_check": true,
+        "machine_check": false,
         "statement": "obstP has four independent gates in its declared reading.",
         "status": "CONDITIONAL_THEOREM"
       },
@@ -1377,7 +1377,7 @@
           "hprot : (i,j) is protected"
         ],
         "id": "TH-Q2-04",
-        "machine_check": true,
+        "machine_check": false,
         "statement": "two_rule is applicable only at an active, in-bounds protected obstruction.",
         "status": "CONDITIONAL_THEOREM"
       },
@@ -1392,7 +1392,7 @@
           "the response grammar is declared metatheory"
         ],
         "id": "TH-Q2-05",
-        "machine_check": true,
+        "machine_check": false,
         "statement": "two_rule is a response menu at an active obstruction, not a law of the inscription.",
         "status": "CONDITIONAL_THEOREM"
       }
@@ -1402,6 +1402,8 @@
       "S6_item_6": true,
       "S9_last_bullet": true
     },
+    "machine_check_reason": "This unregistered research tree does not elaborate or resolve the sealed theorem names; CONDITIONAL_THEOREM is the explicit downgrade.",
+    "machine_check_status": "NOT_RUN",
     "open_terminals": [
       "OB1_UNCHANGED",
       "S66_UNCHANGED",

@@ -152,7 +152,9 @@ def test_dynamics_has_all_five_conditions_and_three_opens() -> None:
     report = dynamics_report()
     assert report["terminal"] == "NO_FORCED_DYNAMICAL_LAW"
     assert report["open_terminals"] == ["OB1_UNCHANGED", "S66_UNCHANGED", "S9_LAST_UNCHANGED"]
-    assert all(claim["machine_check"] for claim in report["claims"])
+    assert report["machine_check_status"] == "NOT_RUN"
+    assert "does not elaborate or resolve" in report["machine_check_reason"]
+    assert all(claim["machine_check"] is False for claim in report["claims"])
     assert report["forbidden_closures"] == {"S6_item_6": True, "S9_last_bullet": True, "OB-1": True}
     assert report["claims"][3]["hypotheses"][:1] == ["hobst : obstP s i j = true"]
 

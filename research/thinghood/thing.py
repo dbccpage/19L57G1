@@ -761,7 +761,7 @@ def dynamics_report() -> dict[str, object]:
             "statement": "The inscription alone forces no object-language successor.",
             "hypotheses": ["Challenge 0 / initial inscription", "no extra object-language admission"],
             "evidence": ["paper/paper.md:175", "paper/paper.md:488-492"],
-            "machine_check": True,
+            "machine_check": False,
         },
         {
             "id": "TH-Q2-02",
@@ -776,7 +776,7 @@ def dynamics_report() -> dict[str, object]:
                 "lean4/Derivation/PrimitivePassage.lean:476-518",
             ],
             "countermodel": _dynamics_countermodel(),
-            "machine_check": True,
+            "machine_check": False,
         },
         {
             "id": "TH-Q2-03",
@@ -794,7 +794,7 @@ def dynamics_report() -> dict[str, object]:
                 "gate_protection_independent",
                 "gate_retention_independent",
             ],
-            "machine_check": True,
+            "machine_check": False,
         },
         {
             "id": "TH-Q2-04",
@@ -808,7 +808,7 @@ def dynamics_report() -> dict[str, object]:
             ],
             "evidence": ["two_rule", "proposal_not_execution", "extension_always_available"],
             "countermodel": _dynamics_countermodel(),
-            "machine_check": True,
+            "machine_check": False,
         },
         {
             "id": "TH-Q2-05",
@@ -823,12 +823,17 @@ def dynamics_report() -> dict[str, object]:
                 "paper/paper.md:488-492",
                 "research/genesis_continuation/continuation_plan.md:86-90",
             ],
-            "machine_check": True,
+            "machine_check": False,
         },
     ]
-    assert all(bool(claim["machine_check"]) for claim in claims)
+    assert all(claim["machine_check"] is False for claim in claims)
     return {
         "claims": claims,
+        "machine_check_status": "NOT_RUN",
+        "machine_check_reason": (
+            "This unregistered research tree does not elaborate or resolve the "
+            "sealed theorem names; CONDITIONAL_THEOREM is the explicit downgrade."
+        ),
         "terminal": "NO_FORCED_DYNAMICAL_LAW",
         "terminal_scope": (
             "the five conditional claims above; Q2 only; no claim that Q1 has "

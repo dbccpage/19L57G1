@@ -4,7 +4,9 @@ This ledger is local to `research/thinghood/`.  `FINITE_COMPUTATION` rows are
 outputs of `thing.py` and the deterministic receipt, not unscoped theorems.
 `CONDITIONAL_THEOREM` rows rely on the named sealed statements with their
 hypotheses copied here; no new Lean declaration is claimed in this tree.
-Every row carries a falsifier.  `AuthorityEffect: None`.
+Every row carries a falsifier.  The Q2 rows are explicitly downgraded:
+`machine_check=NOT_RUN` because this unregistered tree does not elaborate or
+resolve the sealed theorem names.  `AuthorityEffect: None`.
 
 | ID | Status | Claim, with scope | Evidence | Falsifier |
 |---|---|---|---|---|
