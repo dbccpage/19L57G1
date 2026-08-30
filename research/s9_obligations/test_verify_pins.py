@@ -12,7 +12,9 @@ written under the seal.
 from __future__ import annotations
 
 import copy
+import hashlib
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -289,6 +291,97 @@ class CommonHelperTests(unittest.TestCase):
         )
         self.assertEqual(common.render_relation(((1, 0), (1, 0), (0, 0))), [[0, 0], [1, 0]])
         self.assertEqual(common.render_relation(()), [])
+
+
+class LeanWriteRootBoundaryTests(unittest.TestCase):
+    """The Lean build must leave nothing outside research/s9_obligations/.
+
+    A reviewer of pull request 96 showed that the Lake path dependency on
+    ../../../lean4 built the sealed package in lean4/.lake/ on a clean
+    checkout, outside the write root and outside verify_pins' sealed
+    prefixes.  The package now compiles a byte-pinned staged copy instead.
+    """
+
+    def test_lakefile_declares_no_dependency_and_a_staged_sealed_library(self) -> None:
+        lakefile = (verify_lean.LEAN_ROOT / "lakefile.lean").read_text(encoding="utf-8")
+        self.assertNotIn("require ", lakefile)
+        self.assertIn('srcDir := "sealed"', lakefile)
+        self.assertIn("`Derivation.PrimDiff", lakefile)
+        manifest = (verify_lean.LEAN_ROOT / "lake-manifest.json").read_text(encoding="utf-8")
+        self.assertIn('"packages": []', manifest)
+        ignore = (verify_lean.LEAN_ROOT / ".gitignore").read_text(encoding="utf-8")
+        self.assertIn("sealed/", ignore)
+
+    def test_staged_sealed_source_is_the_pinned_snapshot_blob(self) -> None:
+        lines = verify_lean.stage_sealed_sources()
+        self.assertEqual(len(lines), len(verify_lean.STAGED_SEALED_SOURCES))
+        manifest = verify_pins.read_manifest()
+        pins = {item["path"]: item["sha256"] for item in manifest["sources"]}
+        for repo_path, staged in verify_lean.STAGED_SEALED_SOURCES:
+            target = verify_lean.STAGED_ROOT / staged
+            self.assertTrue(target.is_relative_to(common.TREE))
+            digest = hashlib.sha256(target.read_bytes()).hexdigest().upper()
+            self.assertEqual(digest, pins[repo_path])
+            self.assertNotIn(target, verify_lean.research_lean_sources())
+
+    def test_staging_refuses_a_source_the_manifest_does_not_pin(self) -> None:
+        manifest = tampered()
+        manifest["sources"] = [
+            item for item in manifest["sources"] if item["path"] != "lean4/Derivation/PrimDiff.lean"
+        ]
+        with self.assertRaisesRegex(ValueError, "not pinned in the manifest"):
+            verify_lean.stage_sealed_sources(manifest)
+
+    def test_staging_refuses_a_blob_that_does_not_match_the_pin(self) -> None:
+        manifest = tampered()
+        for item in manifest["sources"]:
+            if item["path"] == "lean4/Derivation/PrimDiff.lean":
+                item["sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "manifest pins 0{64}"):
+            verify_lean.stage_sealed_sources(manifest)
+
+    def test_writes_outside_root_names_a_new_lean4_build_product(self) -> None:
+        before = frozenset({"!! coverage.json", "!! lean4/.lake/build/old.olean"})
+        after = before | {
+            "!! lean4/.lake/build/lib/Derivation/PrimDiff.olean",
+            "!! research/s9_obligations/lean/.lake/build/lib/S9Obligations.olean",
+            "!! research/s9_obligations/lean/sealed/Derivation/PrimDiff.lean",
+        }
+        self.assertEqual(
+            verify_lean.writes_outside_root(before, after),
+            ["!! lean4/.lake/build/lib/Derivation/PrimDiff.olean"],
+        )
+        self.assertEqual(verify_lean.writes_outside_root(after, after), [])
+        self.assertEqual(
+            verify_lean.writes_outside_root(
+                before, before | {"R  paper/a.md -> research/s9_obligations/b.md"}
+            ),
+            ["R  paper/a.md -> research/s9_obligations/b.md"],
+        )
+        with self.assertRaisesRegex(ValueError, "malformed git status record"):
+            verify_lean.writes_outside_root(before, before | {"lean4/.lake"})
+
+    def test_clean_build_leaves_lean4_untouched_and_stays_inside_the_root(self) -> None:
+        """Clean-checkout boundary test: no lean4/.lake after a fresh build."""
+        if shutil.which("lake") is None:
+            self.skipTest("lake is not on PATH")
+        sealed_cache = common.REPO / "lean4" / ".lake"
+        had_sealed_cache = sealed_cache.exists()
+        shutil.rmtree(verify_lean.LEAN_ROOT / ".lake", ignore_errors=True)
+        shutil.rmtree(verify_lean.STAGED_ROOT, ignore_errors=True)
+        before = verify_lean.repository_records()
+        result = subprocess.run(
+            [sys.executable, str(common.TREE / "verify_lean.py")],
+            cwd=common.REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("write root respected", result.stdout)
+        self.assertEqual(verify_lean.writes_outside_root(before, verify_lean.repository_records()), [])
+        self.assertEqual(sealed_cache.exists(), had_sealed_cache)
+        self.assertTrue((verify_lean.LEAN_ROOT / ".lake").exists())
 
 
 SAMPLE_REPORT = (

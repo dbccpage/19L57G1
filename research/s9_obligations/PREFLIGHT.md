@@ -214,22 +214,47 @@ false) and `bound_reached`.
 
 ## The Lake package skeleton (step 27) and its build receipt
 
-`research/s9_obligations/lean/` is modeled on
+`research/s9_obligations/lean/` was modeled on
 `research/primitive_difference_tower/lean/`: package `s9_obligations`,
 library `S9Obligations` with roots `S9Obligations` and
-`S9Obligations.AxiomReport`, `require derivation from "../../../lean4"`,
-a `lake-manifest.json` with the same path-dependency shape, `.gitignore`
-holding `.lake/`, and `lean-toolchain` byte-identical to the blob
-`HEAD:lean4/lean-toolchain` (`leanprover/lean4:v4.33.0` plus LF; checked
-by comparing bytes with `git show`).  The root imports
-`Derivation.PrimDiff` and nothing else yet; it adds no module under
-`lean4/Derivation/`.  `S9Obligations/AxiomReport.lean` imports the root
-and holds the report inventory, appended per part.
+`S9Obligations.AxiomReport`, `.gitignore` holding `.lake/`, and
+`lean-toolchain` byte-identical to the blob `HEAD:lean4/lean-toolchain`
+(`leanprover/lean4:v4.33.0` plus LF; checked by comparing bytes with
+`git show`).  The root imports `Derivation.PrimDiff` and nothing else
+yet; it adds no module under `lean4/Derivation/`.
+`S9Obligations/AxiomReport.lean` imports the root and holds the report
+inventory, appended per part.
 
-Build receipt: `cd research/s9_obligations/lean && lake build` exited 0;
-last line `Build completed successfully (6 jobs).`  The sealed package
-was consumed from its existing build under `lean4/.lake/`; nothing under
-`lean4/` was written.
+As first written the package declared `require derivation from
+"../../../lean4"`, a path dependency like the sibling's, and this
+section's build receipt said "the sealed package was consumed from its
+existing build under `lean4/.lake/`; nothing under `lean4/` was
+written".  That was true of the machine it ran on and false of a clean
+checkout: Lake builds a path dependency in the dependency's own
+directory, so a first build writes `lean4/.lake/` -- outside the write
+root of step 2 and outside the sealed prefixes `verify_pins.py` scans.
+The reviewer of pull request 96 demonstrated it.  The dependency is
+WITHDRAWN: `lakefile.lean` now declares a `Derivation` library with
+`srcDir := "sealed"`, `verify_lean.py` stages the snapshot blob of
+`lean4/Derivation/PrimDiff.lean` -- byte-checked against the manifest
+pin -- into `lean/sealed/Derivation/PrimDiff.lean` (gitignored) before
+every build, `lake-manifest.json` lists no packages, and the verifier
+compares a repository-wide `git status --ignored` before and after the
+build and fails by name on any new record outside
+`research/s9_obligations/`.  `test_clean_build_leaves_lean4_untouched_and_stays_inside_the_root`
+deletes the tree's build cache and rebuilds, asserting `lean4/.lake` is
+exactly as present or absent as before.  Step 27's intent -- the sealed
+package read, never re-derived, no module added under
+`lean4/Derivation/` -- is kept; its letter, "requiring the sealed
+package as a dependency", is what the write root forbids and is recorded
+here as the deviation.
+
+Build receipt, re-run after the review repairs with both `lean4/.lake`
+and the tree's `.lake` deleted first: `python
+research/s9_obligations/verify_lean.py` exited 0, printed `staged:
+lean4/Derivation/PrimDiff.lean at db1d2b225b57 -> lean/sealed/...` and
+`write root respected: no new file outside research/s9_obligations/`,
+and `lean4/.lake` did not exist afterwards.
 
 ## Manual receipt (step 29)
 

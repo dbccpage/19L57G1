@@ -522,6 +522,7 @@ fails on the exact defect.  No receipt, Lean source, or result changed.
 |---|---|---|---|
 | 1. the claimed snapshot was never verified | `verify_pins.py` checked that `snapshot_commit` was 40 hex digits and then verified every input against HEAD; forty zeroes passed | the verifier now resolves `<snapshot>^{commit}`, requires it to be HEAD or an ancestor of HEAD (`git merge-base --is-ancestor`), requires it to carry the recorded tree, hashes every pinned blob and the prompt blob at the snapshot AND at HEAD, and fails if any tracked sealed path differs between the two | `test_well_formed_but_nonexistent_snapshot_is_refused` (forty zeroes: `does not resolve to a commit object`), `test_snapshot_that_is_not_an_ancestor_is_refused`, `test_snapshot_tree_mismatch_is_refused`, `test_blob_that_moved_since_the_snapshot_is_refused`, `test_sealed_path_moved_since_the_snapshot_is_refused` |
 | 2. a clean run wrote inside a sealed path without detection | importing `code/derivation/primdiff.py` created `code/derivation/__pycache__/*.pyc`; the root `.gitignore` ignores `__pycache__` and the porcelain scan excluded ignored files | `common.py` sets `sys.dont_write_bytecode = True` before any sealed module is imported, and every module of this tree imports `common` first (`morphism_classes.py` and `test_morphism_classes.py` were reordered); the porcelain scan now passes `--ignored=matching` and treats a `!!` record under a sealed prefix as a violation, naming the file and the cleanup (`git clean -fdX code`); the registration diff sets `PYTHONDONTWRITEBYTECODE=1` on the test step | `test_importing_common_first_leaves_no_pycache_behind` (a subprocess without `PYTHONDONTWRITEBYTECODE` imports `common` then a scratch module and no `__pycache__` appears), `test_sealed_prefix_check_refuses_ignored_bytecode_under_the_seal`, `test_live_porcelain_asks_git_for_ignored_files` |
+| 4. (second review) Lake dependency outputs escaped the write root | `lake build` with `require derivation from "../../../lean4"` builds the dependency in `lean4/.lake/`, gitignored, outside `research/s9_obligations/` and outside the sealed prefixes `verify_pins.py` scans; a clean checkout showed it | the path dependency is withdrawn: `lakefile.lean` declares a `Derivation` library with `srcDir := "sealed"`, `verify_lean.py` stages the snapshot blob of `lean4/Derivation/PrimDiff.lean` (SHA-256 checked against the manifest pin) into `lean/sealed/` (gitignored) before building, `lake-manifest.json` lists no packages, and the verifier diffs a repository-wide `git status --ignored` before and after the build, failing by name on any new record outside the write root; the build is thereby bound to the pinned snapshot rather than to the checkout's `lean4/` | `test_clean_build_leaves_lean4_untouched_and_stays_inside_the_root` (deletes the tree's cache, rebuilds, asserts `lean4/.lake` is as present or absent as before), `test_writes_outside_root_names_a_new_lean4_build_product`, `test_staged_sealed_source_is_the_pinned_snapshot_blob`, `test_staging_refuses_a_blob_that_does_not_match_the_pin`, `test_lakefile_declares_no_dependency_and_a_staged_sealed_library` |
 | 3. the run invented the pin format step 3 forbids inventing | the file was `SOURCE_PINS.json` with schema `s9_obligations_source_pins/v1` and a list key of its own | renamed to `SOURCE_MANIFEST.json`, schema `s9_obligations_source_manifest/v1`, in the shape of `research/primitive_difference_tower/SOURCE_MANIFEST.json`: `source_snapshot` `{commit, tree}`, `hash_basis`, `source_policy`, and `sources` entries `{path, sha256, role}`; the pinned values are unchanged | `test_manifest_follows_the_established_shape` |
 
 A consequence for local use: the root test suite writes
@@ -534,3 +535,15 @@ failure message says what to run.
 The reviewer also noted that the GitHub `verify` run was red with zero
 steps and no allocated runner, so CI had not executed the code; that is
 a runner-allocation state outside this tree and is not repaired here.
+
+Repair 4 is a recorded deviation from the letter of PROMPT.md step 27
+("requiring the sealed package as a dependency, exactly as the existing
+research package does"): the existing research package's path dependency
+is exactly what writes `lean4/.lake/`, so the letter and the write root
+of step 2 cannot both hold, and the write root wins.  The intent -- the
+sealed source read and never re-derived, no module under
+`lean4/Derivation/` -- is kept, and the staged copy is stronger
+provenance than the dependency was: it is the pinned snapshot blob, not
+whatever `lean4/` holds at build time.  The sibling
+`research/primitive_difference_tower/lean/` has the same leak and is not
+this run's to change.

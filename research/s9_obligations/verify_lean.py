@@ -1,13 +1,35 @@
 """Build this tree's Lean package and audit the axiom reports it prints.
 
-The package under ``lean/`` requires the sealed package as a read-only
-dependency and adds no module under ``lean4/Derivation/`` (PROMPT.md step
-27).  This script builds it with ``lake build``, applies the sealed tree's
-forbidden-token scan to every ``.lean`` file under ``lean/`` outside
-``.lake``, parses every ``#print axioms`` line with a non-greedy name
-capture, requires the set of reported declarations to equal the inventory
-``AXIOM_REPORT_DECLARATIONS`` declared below, and requires every report to
-lie within ``{propext, Quot.sound}`` (PROMPT.md step 28).
+The package under ``lean/`` reads the sealed module ``Derivation.PrimDiff``
+and adds no module under ``lean4/Derivation/`` (PROMPT.md step 27).  It
+does NOT declare the sealed package as a Lake path dependency: Lake builds
+a path dependency in that dependency's own directory, so a clean run wrote
+``lean4/.lake/`` -- outside this tree's declared write root and invisible
+to ``verify_pins.py``, which scans ``lean4/Derivation`` only.  A reviewer
+of pull request 96 demonstrated that on a clean checkout.  This script
+therefore STAGES the sealed source before building: it reads the blob of
+``lean4/Derivation/PrimDiff.lean`` at the manifest's snapshot commit, checks
+its SHA-256 against the pin in ``SOURCE_MANIFEST.json``, and writes those
+exact bytes to ``lean/sealed/Derivation/PrimDiff.lean`` (gitignored), which
+the ``Derivation`` library of ``lakefile.lean`` compiles inside
+``lean/.lake/``.  The build is thereby bound to the pinned snapshot, not to
+whatever ``lean4/`` currently holds, and every build product stays under
+``research/s9_obligations/``.
+
+The write-root boundary is then checked, not assumed: the repository-wide
+``git status --porcelain --untracked-files=all --ignored=matching`` is
+taken before staging and again after the build, and any record that is
+new and not under ``research/s9_obligations/`` fails the run by name.
+That is a before/after comparison on purpose -- other trees leave their
+own ignored build products (``lean4/.lake/`` from the sealed build,
+``coverage.json``), and those are not this run's writes.
+
+It then applies the sealed tree's forbidden-token scan to every ``.lean``
+file under ``lean/`` outside ``.lake`` and ``sealed``, parses every
+``#print axioms`` line with a non-greedy name capture, requires the set of
+reported declarations to equal the inventory ``AXIOM_REPORT_DECLARATIONS``
+declared below, and requires every report to lie within
+``{propext, Quot.sound}`` (PROMPT.md step 28).
 
 The inventory starts empty and the Lean stage appends to it, one name per
 exported theorem, in the same order as ``S9Obligations/AxiomReport.lean``.
@@ -22,17 +44,33 @@ AuthorityEffect: None.
 
 from __future__ import annotations
 
+import sys
+
+sys.dont_write_bytecode = True
+
+import hashlib
 import re
 import subprocess
-import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Iterable, Mapping, Sequence
+
+import verify_pins
 
 
 HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+WRITE_ROOT = "research/s9_obligations/"
 LEAN_ROOT = HERE / "lean"
+STAGED_ROOT = LEAN_ROOT / "sealed"
 AXIOM_REPORT_MODULE = "S9Obligations.AxiomReport"
 AXIOM_REPORT_SOURCE = "S9Obligations/AxiomReport.lean"
+
+# The sealed sources the package compiles, as (repository path, staged path
+# relative to ``lean/sealed``).  Each must be pinned in SOURCE_MANIFEST.json;
+# the staged bytes are the snapshot blob, never the checkout file.
+STAGED_SEALED_SOURCES: tuple[tuple[str, str], ...] = (
+    ("lean4/Derivation/PrimDiff.lean", "Derivation/PrimDiff.lean"),
+)
 
 # Appended per part by the Lean stage.  Initially empty on purpose.
 AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
@@ -208,7 +246,89 @@ def declared_report_inventory(source: str) -> tuple[str, ...]:
 
 
 def research_lean_sources() -> list[Path]:
-    return sorted(path for path in LEAN_ROOT.rglob("*.lean") if ".lake" not in path.parts)
+    """This tree's own Lean sources: not the build cache, not the staged copy."""
+
+    return sorted(
+        path
+        for path in LEAN_ROOT.rglob("*.lean")
+        if ".lake" not in path.parts and "sealed" not in path.parts
+    )
+
+
+def stage_sealed_sources(manifest: Mapping[str, object] | None = None) -> list[str]:
+    """Write the pinned snapshot blob of each sealed source under ``lean/sealed``.
+
+    The bytes come from ``git show <snapshot>:<path>`` and must hash to the
+    manifest's pin, so the build compiles exactly the sealed source the
+    receipts were computed against; the checkout copy is never read.
+    """
+
+    if manifest is None:
+        manifest = verify_pins.read_manifest()
+    snapshot_block = manifest.get("source_snapshot")
+    if not isinstance(snapshot_block, dict):
+        raise ValueError("manifest must carry a 'source_snapshot' object")
+    snapshot = snapshot_block.get("commit")
+    if not isinstance(snapshot, str) or not re.fullmatch(r"[0-9a-f]{40}", snapshot):
+        raise ValueError("manifest snapshot commit must be an exact 40-digit lowercase hex id")
+    sources = manifest.get("sources")
+    if not isinstance(sources, list):
+        raise ValueError("manifest must list sources")
+    pins: dict[str, str] = {}
+    for item in sources:
+        if isinstance(item, dict) and isinstance(item.get("path"), str):
+            pins[item["path"]] = str(item.get("sha256", ""))
+    lines: list[str] = []
+    for repo_path, staged_relative in STAGED_SEALED_SOURCES:
+        wanted = pins.get(repo_path)
+        if wanted is None:
+            raise ValueError(f"staged sealed source is not pinned in the manifest: {repo_path}")
+        blob = verify_pins._git_bytes("show", f"{snapshot}:{repo_path}")
+        actual = hashlib.sha256(blob).hexdigest().upper()
+        if actual != wanted:
+            raise ValueError(
+                f"staged sealed source {repo_path} at {snapshot} hashes to {actual}, "
+                f"manifest pins {wanted}"
+            )
+        target = (STAGED_ROOT / PurePosixPath(staged_relative)).resolve()
+        if not target.is_relative_to(LEAN_ROOT.resolve()):
+            raise ValueError(f"staged path escapes the tree: {staged_relative}")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.exists() or target.read_bytes() != blob:
+            target.write_bytes(blob)
+        lines.append(f"staged: {repo_path} at {snapshot[:12]} -> lean/sealed/{staged_relative} {actual}")
+    return lines
+
+
+def repository_records() -> frozenset[str]:
+    """Every porcelain record in the repository, ignored files included."""
+
+    output = verify_pins._git_bytes(
+        "status", "--porcelain=v1", "--untracked-files=all", "--ignored=matching"
+    ).decode("utf-8")
+    return frozenset(line for line in output.splitlines() if line.strip())
+
+
+def writes_outside_root(
+    before: Iterable[str], after: Iterable[str], root: str = WRITE_ROOT
+) -> list[str]:
+    """Records new in ``after`` whose path is not under ``root``.
+
+    Pure, so the boundary refusal can be tested on synthetic records.  A
+    record that was already present before the build is not this run's
+    write and is not reported; a rename record is reported if either side
+    lies outside the root.
+    """
+
+    new = sorted(set(after) - set(before))
+    violations: list[str] = []
+    for line in new:
+        if len(line) < 4 or line[2] != " ":
+            raise ValueError(f"malformed git status record: {line!r}")
+        paths = [part.strip().strip('"') for part in line[3:].split(" -> ")]
+        if any(not path.startswith(root) for path in paths):
+            violations.append(line)
+    return violations
 
 
 def scan_forbidden_tokens(paths: Iterable[Path]) -> list[str]:
@@ -240,12 +360,22 @@ def verify_axiom_report() -> list[str]:
     failures = scan_forbidden_tokens(sources)
     if failures:
         raise ValueError("forbidden tokens in research Lean sources:\n" + "\n".join(failures))
+    before = repository_records()
+    staged = stage_sealed_sources()
     _run_lake(("build",))
     output = _run_lake(("env", "lean", AXIOM_REPORT_SOURCE))
+    escaped = writes_outside_root(before, repository_records())
+    if escaped:
+        raise ValueError(
+            "the Lean build wrote outside the write root "
+            f"{WRITE_ROOT} (PROMPT.md step 2):\n  " + "\n  ".join(escaped)
+        )
     report_lines = check_axiom_reports(parse_axiom_report(output))
     lines = [
         f"Lean sources scanned for forbidden tokens: {len(sources)}",
+        *staged,
         "Lean package built: lake build (exit 0)",
+        f"write root respected: no new file outside {WRITE_ROOT}",
         f"Lean axiom-report target: {AXIOM_REPORT_MODULE}",
         f"Lean #print axioms declarations: {len(report_lines)} within {sorted(ALLOWED_AXIOMS)}",
         *report_lines,
