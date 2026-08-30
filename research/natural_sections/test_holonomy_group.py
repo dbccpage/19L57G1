@@ -167,6 +167,75 @@ class PredictionK3Tests(unittest.TestCase):
                 self.assertNotEqual(total, hg.identity(3), name)
 
 
+class PredictionK4Tests(unittest.TestCase):
+    """The k = 4 predictions written into STATUS.md before the run."""
+
+    def verdict(self, name: str) -> hg.VerdictK:
+        for n, sites, edges in hg.fixtures_k4():
+            if n == name:
+                return hg.analyse_k(name, sites, edges, 4)
+        raise AssertionError(name)
+
+    def test_vacuous_and_frozen_fixtures(self) -> None:
+        for name in ("chain_P2", "chain_P3", "triangle_C3"):
+            self.assertEqual(self.verdict(name).objects, 0, name)
+        for name in ("chain_P4", "square_2x2", "star_K13"):
+            v = self.verdict(name)
+            self.assertEqual(v.objects, 1, name)
+            self.assertTrue(v.section_exists, name)
+
+    def test_chains_are_trivial(self) -> None:
+        for name in ("chain_P5", "chain_P6"):
+            v = self.verdict(name)
+            self.assertEqual(len(v.components), 1)
+            self.assertTrue(v.components[0].trivial, name)
+            self.assertTrue(v.section_exists, name)
+
+    def test_ladder_is_the_full_symmetric_group_on_four(self) -> None:
+        v = self.verdict("ladder_2x3")
+        self.assertEqual(len(v.components), 1)
+        self.assertEqual(v.components[0].group_order, 24)
+        self.assertEqual(v.components[0].common_fixed, ())
+        self.assertFalse(v.section_exists)
+        self.assertFalse(v.parity_says_clean)
+
+    def test_square_plus_edge_separates_nontrivial_from_no_fixed_pair(self) -> None:
+        v = self.verdict("square_plus_edge")
+        by_base = {c.base: c for c in v.components}
+        self.assertEqual(set(by_base), {(0, 1, 2, 3), (0, 1, 2, 4), (0, 1, 4, 5)})
+        frozen = by_base[(0, 1, 2, 3)]
+        self.assertTrue(frozen.trivial)
+        three = by_base[(0, 1, 2, 4)]
+        self.assertEqual(three.group_order, 3)
+        self.assertTrue(three.all_even)
+        self.assertEqual(three.common_fixed, (3,))
+        self.assertFalse(three.fixed_pair_exists)
+        two_on_square = by_base[(0, 1, 4, 5)]
+        self.assertEqual(two_on_square.group_order, 2)
+        self.assertFalse(two_on_square.all_even)
+        self.assertEqual(two_on_square.common_fixed, (2, 3))
+        self.assertTrue(two_on_square.fixed_pair_exists)
+        self.assertFalse(two_on_square.trivial)
+        self.assertEqual(two_on_square.witness_perm, (1, 0, 2, 3))
+        summary = hg.summary_k4()["square_plus_edge"]
+        self.assertEqual(summary["components_nontrivial_with_fixed_pair"], 1)
+        self.assertEqual(summary["components_even_without_fixed_pair"], 1)
+
+    def test_frozen_edge_particles_never_move_index(self) -> None:
+        """In the two-on-the-square component every hop fixes indices 2 and 3."""
+        edges = hg.square_plus_edge()
+        objs = [(x, y, 4, 5) for x in range(4) for y in range(x + 1, 4)]
+        hops = 0
+        for a in objs:
+            for b in objs:
+                perm = hg.hop_perm(edges, a, b)
+                if perm is not None:
+                    hops += 1
+                    self.assertEqual(perm[2], 2, (a, b))
+                    self.assertEqual(perm[3], 3, (a, b))
+        self.assertEqual(hops, 16)
+
+
 class ReceiptTests(unittest.TestCase):
     def test_receipt_replays_byte_identically_and_matches_the_committed_file(self) -> None:
         with tempfile.TemporaryDirectory(dir=TREE) as scratch:

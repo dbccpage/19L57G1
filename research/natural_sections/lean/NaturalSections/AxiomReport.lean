@@ -1,6 +1,7 @@
 import NaturalSections
 import NaturalSections.HopFixture
 import NaturalSections.HopFixture3
+import NaturalSections.HopFixture4
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -50,3 +51,10 @@ import NaturalSections.HopFixture3
 #print axioms NaturalSections.Hop3.chain3_natural_section
 #print axioms NaturalSections.Hop3.chain3_has_natural_section
 #print axioms NaturalSections.Hop3.chain3_star3_square3_separation
+#print axioms NaturalSections.Hop4.swap01_invol
+#print axioms NaturalSections.Hop4.pair_ext
+#print axioms NaturalSections.Hop4.walk_transport_val
+#print axioms NaturalSections.Hop4.walk_moves_pair01
+#print axioms NaturalSections.Hop4.constant23_natural
+#print axioms NaturalSections.Hop4.section_exists
+#print axioms NaturalSections.Hop4.nontrivial_holonomy_with_natural_section

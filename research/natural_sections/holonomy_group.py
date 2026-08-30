@@ -242,6 +242,38 @@ def _tree_path(parent: dict[Config, Config | None], a: Config) -> list[Config]:
     return path
 
 
+def square_plus_edge() -> list[Edge]:
+    """The square `0-1, 0-2, 1-3, 2-3` plus a disjoint edge `4-5`."""
+
+    return two.grid(2, 2) + [(4, 5)]
+
+
+def fixtures_k4() -> list[tuple[str, int, list[Edge]]]:
+    """The nine graphs of the two-label run plus the designed tenth."""
+
+    return list(two.fixtures()) + [("square_plus_edge", 6, square_plus_edge())]
+
+
+def summary_k4() -> dict[str, dict[str, object]]:
+    """Per fixture at k = 4: the verdict, and the per-component separation flags."""
+
+    out: dict[str, dict[str, object]] = {}
+    for name, sites, edges in fixtures_k4():
+        v = analyse_k(name, sites, edges, 4)
+        out[name] = {
+            "objects": v.objects,
+            "section_exists": v.section_exists,
+            "parity_says_clean": v.parity_says_clean,
+            "components_nontrivial_with_fixed_pair": sum(
+                1 for c in v.components if not c.trivial and c.fixed_pair_exists
+            ),
+            "components_even_without_fixed_pair": sum(
+                1 for c in v.components if c.all_even and not c.fixed_pair_exists
+            ),
+        }
+    return out
+
+
 def k2_agreement() -> dict[str, bool]:
     """Per fixture: the general code at k = 2 agrees with the flip-bit verdict."""
 
@@ -261,10 +293,12 @@ def summary_k3() -> dict[str, dict[str, bool]]:
 
 
 def report() -> dict[str, object]:
-    runs: dict[str, list[dict[str, object]]] = {"k2": [], "k3": []}
+    runs: dict[str, list[dict[str, object]]] = {"k2": [], "k3": [], "k4": []}
     for name, sites, edges in two.fixtures():
         runs["k2"].append(analyse_k(name, sites, edges, 2).json())
         runs["k3"].append(analyse_k(name, sites, edges, 3).json())
+    for name, sites, edges in fixtures_k4():
+        runs["k4"].append(analyse_k(name, sites, edges, 4).json())
     return {
         "family": {
             "object": "sorted k-subset of occupied sites (unlabelled)",
@@ -277,4 +311,5 @@ def report() -> dict[str, object]:
         "k2_agrees_with_flip_bit_receipt": k2_agreement(),
         "runs": runs,
         "summary_k3": summary_k3(),
+        "summary_k4": summary_k4(),
     }

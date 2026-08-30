@@ -100,6 +100,14 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Hop3.chain3_natural_section",
     "NaturalSections.Hop3.chain3_has_natural_section",
     "NaturalSections.Hop3.chain3_star3_square3_separation",
+    # Four-label fixture (NaturalSections/HopFixture4.lean).
+    "NaturalSections.Hop4.swap01_invol",
+    "NaturalSections.Hop4.pair_ext",
+    "NaturalSections.Hop4.walk_transport_val",
+    "NaturalSections.Hop4.walk_moves_pair01",
+    "NaturalSections.Hop4.constant23_natural",
+    "NaturalSections.Hop4.section_exists",
+    "NaturalSections.Hop4.nontrivial_holonomy_with_natural_section",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

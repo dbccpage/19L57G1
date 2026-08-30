@@ -984,6 +984,580 @@
         "section_exists": true,
         "sites": 3
       }
+    ],
+    "k4": [
+      {
+        "arrows": 0,
+        "components": [],
+        "edges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "k": 4,
+        "name": "chain_P2",
+        "objects": 0,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 2
+      },
+      {
+        "arrows": 0,
+        "components": [],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "k": 4,
+        "name": "chain_P3",
+        "objects": 0,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 3
+      },
+      {
+        "arrows": 0,
+        "components": [
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 1,
+            "size": 1,
+            "trivial": true,
+            "witness_closed_walk": null,
+            "witness_permutation": null
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "k": 4,
+        "name": "chain_P4",
+        "objects": 1,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 4
+      },
+      {
+        "arrows": 8,
+        "components": [
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 1,
+            "size": 5,
+            "trivial": true,
+            "witness_closed_walk": null,
+            "witness_permutation": null
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "k": 4,
+        "name": "chain_P5",
+        "objects": 5,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 5
+      },
+      {
+        "arrows": 40,
+        "components": [
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 1,
+            "size": 15,
+            "trivial": true,
+            "witness_closed_walk": null,
+            "witness_permutation": null
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "k": 4,
+        "name": "chain_P6",
+        "objects": 15,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 6
+      },
+      {
+        "arrows": 0,
+        "components": [
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 1,
+            "size": 1,
+            "trivial": true,
+            "witness_closed_walk": null,
+            "witness_permutation": null
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "k": 4,
+        "name": "square_2x2",
+        "objects": 1,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 4
+      },
+      {
+        "arrows": 56,
+        "components": [
+          {
+            "all_even": false,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [],
+            "fixed_pair_exists": false,
+            "group_order": 24,
+            "size": 15,
+            "trivial": false,
+            "witness_closed_walk": [
+              [
+                0,
+                1,
+                2,
+                3
+              ],
+              [
+                0,
+                1,
+                3,
+                5
+              ],
+              [
+                0,
+                1,
+                3,
+                4
+              ],
+              [
+                0,
+                2,
+                3,
+                4
+              ],
+              [
+                0,
+                1,
+                2,
+                3
+              ]
+            ],
+            "witness_permutation": [
+              0,
+              2,
+              1,
+              3
+            ]
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "k": 4,
+        "name": "ladder_2x3",
+        "objects": 15,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": false,
+        "section_exists": false,
+        "sites": 6
+      },
+      {
+        "arrows": 0,
+        "components": [
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 1,
+            "size": 1,
+            "trivial": true,
+            "witness_closed_walk": null,
+            "witness_permutation": null
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "k": 4,
+        "name": "star_K13",
+        "objects": 1,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 4
+      },
+      {
+        "arrows": 0,
+        "components": [],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "k": 4,
+        "name": "triangle_C3",
+        "objects": 0,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": true,
+        "section_exists": true,
+        "sites": 3
+      },
+      {
+        "arrows": 40,
+        "components": [
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "common_fixed_points": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 1,
+            "size": 1,
+            "trivial": true,
+            "witness_closed_walk": null,
+            "witness_permutation": null
+          },
+          {
+            "all_even": true,
+            "base": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "common_fixed_points": [
+              3
+            ],
+            "fixed_pair_exists": false,
+            "group_order": 3,
+            "size": 8,
+            "trivial": false,
+            "witness_closed_walk": [
+              [
+                0,
+                1,
+                2,
+                4
+              ],
+              [
+                0,
+                2,
+                3,
+                4
+              ],
+              [
+                1,
+                2,
+                3,
+                4
+              ],
+              [
+                0,
+                1,
+                3,
+                4
+              ],
+              [
+                0,
+                1,
+                2,
+                4
+              ]
+            ],
+            "witness_permutation": [
+              1,
+              2,
+              0,
+              3
+            ]
+          },
+          {
+            "all_even": false,
+            "base": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "common_fixed_points": [
+              2,
+              3
+            ],
+            "fixed_pair_exists": true,
+            "group_order": 2,
+            "size": 6,
+            "trivial": false,
+            "witness_closed_walk": [
+              [
+                0,
+                1,
+                4,
+                5
+              ],
+              [
+                0,
+                3,
+                4,
+                5
+              ],
+              [
+                0,
+                2,
+                4,
+                5
+              ],
+              [
+                1,
+                2,
+                4,
+                5
+              ],
+              [
+                0,
+                1,
+                4,
+                5
+              ]
+            ],
+            "witness_permutation": [
+              1,
+              0,
+              2,
+              3
+            ]
+          }
+        ],
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "k": 4,
+        "name": "square_plus_edge",
+        "objects": 15,
+        "parity_and_fixed_pair_agree": true,
+        "parity_says_clean": false,
+        "section_exists": false,
+        "sites": 6
+      }
     ]
   },
   "summary_k3": {
@@ -1020,6 +1594,78 @@
       "section_exists": true
     },
     "triangle_C3": {
+      "parity_says_clean": true,
+      "section_exists": true
+    }
+  },
+  "summary_k4": {
+    "chain_P2": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 0,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "chain_P3": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 0,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "chain_P4": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 1,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "chain_P5": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 5,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "chain_P6": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 15,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "ladder_2x3": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 15,
+      "parity_says_clean": false,
+      "section_exists": false
+    },
+    "square_2x2": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 1,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "square_plus_edge": {
+      "components_even_without_fixed_pair": 1,
+      "components_nontrivial_with_fixed_pair": 1,
+      "objects": 15,
+      "parity_says_clean": false,
+      "section_exists": false
+    },
+    "star_K13": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 1,
+      "parity_says_clean": true,
+      "section_exists": true
+    },
+    "triangle_C3": {
+      "components_even_without_fixed_pair": 0,
+      "components_nontrivial_with_fixed_pair": 0,
+      "objects": 0,
       "parity_says_clean": true,
       "section_exists": true
     }
