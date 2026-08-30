@@ -26,12 +26,12 @@ question open.  Two questions:
 
 ## Results (Lean, `lean/NaturalSections.lean`; 24 reports, every one
 "does not depend on any axioms".  The TREE's totals grew with each
-later section and are recorded once, in the commands table at the end
--- currently `100` reports within `{propext, Quot.sound}`, `67` with no
-axioms; per-section counts below are historical and correct for their
-own sections.  An earlier version of this heading carried a tree total
-that went stale twice; a reviewer caught it, and the number now lives
-in one place.)
+later section and are recorded in ONE place, the commands table at the
+end of this file; per-section counts below are historical and correct
+for their own sections.  An earlier version of this heading carried a
+tree total that went stale twice, and a repaired version still repeated
+the table's numbers here -- both caught by a reviewer.  This heading now
+carries no number at all.)
 
 * **`natural_section_iff_fixed_pair`** -- over `autoFamily O F`, a natural
   section exists **iff** `F` fixes an admissible pair:
