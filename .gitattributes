@@ -3,3 +3,5 @@ artifacts/** -text
 requirements.txt -text
 *.json.gz binary
 research/partial_decide/partial_decide_c3.json -text
+research/natural_sections/receipts/** -text
+research/family_embedding/receipts/** -text
