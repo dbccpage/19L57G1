@@ -192,6 +192,14 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Budgets.two_pow_escapes",
     "NaturalSections.Budgets.two_pow_not_polyBounded",
     "NaturalSections.Budgets.generators_decide_the_class",
+    "NaturalSections.Budgets.dominated_polyBounded",
+    "NaturalSections.Budgets.polyBounded_dominated",
+    "NaturalSections.Budgets.polyBounded_iff_dominated",
+    "NaturalSections.Budgets.linear_mono",
+    "NaturalSections.Budgets.gen_linear_mono",
+    "NaturalSections.Budgets.parity_polyBounded",
+    "NaturalSections.Budgets.parity_not_gen_linear",
+    "NaturalSections.Budgets.polyBounded_without_gen_linear",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

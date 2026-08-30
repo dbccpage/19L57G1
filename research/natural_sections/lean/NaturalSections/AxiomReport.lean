@@ -142,3 +142,11 @@ import NaturalSections.Budgets
 #print axioms NaturalSections.Budgets.two_pow_escapes
 #print axioms NaturalSections.Budgets.two_pow_not_polyBounded
 #print axioms NaturalSections.Budgets.generators_decide_the_class
+#print axioms NaturalSections.Budgets.dominated_polyBounded
+#print axioms NaturalSections.Budgets.polyBounded_dominated
+#print axioms NaturalSections.Budgets.polyBounded_iff_dominated
+#print axioms NaturalSections.Budgets.linear_mono
+#print axioms NaturalSections.Budgets.gen_linear_mono
+#print axioms NaturalSections.Budgets.parity_polyBounded
+#print axioms NaturalSections.Budgets.parity_not_gen_linear
+#print axioms NaturalSections.Budgets.polyBounded_without_gen_linear

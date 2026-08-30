@@ -24,7 +24,7 @@ class DeciderTests(unittest.TestCase):
         self.assertTrue(r["decider_all_verdicts_match"])
         rows = r["decider"]
         assert isinstance(rows, list)
-        self.assertGreaterEqual(len(rows), 30)  # fixtures x rounds x re-presentation
+        self.assertEqual(len(rows), 54)  # nine fixtures x three rounds x two presentations
 
     def test_instances_cover_rounds_and_re_presentations(self) -> None:
         names = [name for name, _, _, _ in bm.instances()]

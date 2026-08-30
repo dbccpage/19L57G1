@@ -1,22 +1,30 @@
 import NaturalSections
 
 /-!
-# Budget closure: the operations are forced, the generators are declared
+# Budget closure: operations and generators are BOTH declarations
 
-A budget maps a size to a step allowance.  The tower forces two
-operations on budgets: COMPOSITION (chaining: costs substitute) and
-POINTWISE PRODUCT (nesting: costs multiply).  `Gen B` is the closure of
-a declared generator set `B` under exactly those two operations.
+A budget maps a size to a step allowance.  `Gen B` is the closure of a
+declared generator set `B` under two DECLARED operations: COMPOSITION
+(chaining: costs substitute) and POINTWISE PRODUCT (nesting: costs
+multiply).  An earlier header called the operations "forced by the
+tower"; a reviewer observed that nothing here connects them to walks,
+refinement, or re-presentation, and no exhaustiveness theorem shows
+they are the only operations available.  That wording is WITHDRAWN:
+absent a bridge and an exhaustiveness proof, the operations are
+classified as declarations, exactly as the generators are.
 
 Results: the closure of the linear budgets is polynomially bounded
 (`gen_linear_polyBounded`) and reaches every polynomial bound
-(`pow_in_gen_linear`); adjoining one budget outside -- the doubling
+(`pow_in_gen_linear`); the polynomial class is exactly the downward
+DOMINATION closure of `Gen Linear` (`polyBounded_iff_dominated`) and
+not `Gen Linear` itself, whose members are all monotone while the
+parity budget is polynomially bounded and is not
+(`parity_not_gen_linear`); adjoining one budget outside -- the doubling
 budget -- makes the closure escape every polynomial bound
 (`two_pow_not_polyBounded`, `generators_decide_the_class`).  So the
-class of polynomial budgets is exactly what the two forced operations
-make of LINEAR generators; the operations are forced, the choice of
-generators is a declaration, and changing it changes the class.
-AuthorityEffect: None.
+class of polynomial budgets is what the two declared operations make of
+LINEAR generators, up to domination; changing the generators changes
+the class.  AuthorityEffect: None.
 -/
 
 namespace NaturalSections.Budgets
@@ -182,5 +190,75 @@ theorem generators_decide_the_class :
       Gen (fun f => Linear f ∨ f = TwoPow) TwoPow ∧
       ¬ PolyBounded TwoPow :=
   ⟨fun _ h => gen_linear_polyBounded h, Gen.base (Or.inr rfl), two_pow_not_polyBounded⟩
+
+/-! ## Reviewer repairs (PR #99): domination, and the parity countermodel
+
+`PolyBounded` is NOT `Gen Linear`: every member of the closure is
+monotone (`gen_linear_mono`), while the parity budget `n % 2` is
+polynomially bounded and not monotone.  The repaired BC1 statement is
+DOMINATION: `PolyBounded` is exactly the downward closure of
+`Gen Linear` under pointwise `<=` (`polyBounded_iff_dominated`). -/
+
+/-- Dominated by some member of the closure: the downward closure of
+`Gen B` under pointwise `<=`. -/
+def Dominated (B : Budget → Prop) (f : Budget) : Prop :=
+  ∃ g, Gen B g ∧ ∀ n, f n ≤ g n
+
+theorem dominated_polyBounded {f : Budget} (h : Dominated Linear f) :
+    PolyBounded f := by
+  obtain ⟨g, hg, hle⟩ := h
+  obtain ⟨k, c, hb⟩ := gen_linear_polyBounded hg
+  exact ⟨k, c, fun n => Nat.le_trans (hle n) (hb n)⟩
+
+theorem polyBounded_dominated {f : Budget} (h : PolyBounded f) :
+    Dominated Linear f := by
+  obtain ⟨k, c, hb⟩ := h
+  have hc : Gen Linear (fun _ => c) := Gen.base ⟨0, c, fun n => by simp⟩
+  exact ⟨fun n => c * (n + 1) ^ k,
+    gen_congr (fun n => rfl) (Gen.mul hc (pow_in_gen_linear k)), hb⟩
+
+/-- **BC1, repaired**: the polynomial class is exactly the downward
+domination closure of `Gen Linear` -- not `Gen Linear` itself; see
+`parity_not_gen_linear`. -/
+theorem polyBounded_iff_dominated (f : Budget) :
+    PolyBounded f ↔ Dominated Linear f :=
+  ⟨polyBounded_dominated, dominated_polyBounded⟩
+
+/-- Pointwise monotone. -/
+def Mono (f : Budget) : Prop := ∀ m n, m ≤ n → f m ≤ f n
+
+theorem linear_mono {f : Budget} (h : Linear f) : Mono f := by
+  obtain ⟨a, b, hf⟩ := h
+  intro m n hmn
+  rw [hf m, hf n]
+  have := Nat.mul_le_mul_left a hmn
+  omega
+
+/-- Everything in the closure of the linear budgets is monotone. -/
+theorem gen_linear_mono {f : Budget} (h : Gen Linear f) : Mono f := by
+  induction h with
+  | base hb => exact linear_mono hb
+  | comp _ _ ihf ihg => exact fun m n hmn => ihf _ _ (ihg m n hmn)
+  | mul _ _ ihf ihg =>
+    exact fun m n hmn => Nat.mul_le_mul (ihf m n hmn) (ihg m n hmn)
+
+/-- The parity budget, the reviewer's separating example. -/
+def Parity : Budget := fun n => n % 2
+
+theorem parity_polyBounded : PolyBounded Parity := by
+  refine ⟨0, 1, fun n => ?_⟩
+  show n % 2 ≤ 1 * (n + 1) ^ 0
+  have h : n % 2 < 2 := Nat.mod_lt n (by omega)
+  rw [Nat.pow_zero, Nat.mul_one]
+  omega
+
+theorem parity_not_gen_linear : ¬ Gen Linear Parity := fun h =>
+  absurd (gen_linear_mono h 1 2 (by omega)) (by decide)
+
+/-- **The separation**: a polynomially bounded budget outside the
+closure of the linear budgets. -/
+theorem polyBounded_without_gen_linear :
+    PolyBounded Parity ∧ ¬ Gen Linear Parity :=
+  ⟨parity_polyBounded, parity_not_gen_linear⟩
 
 end NaturalSections.Budgets
