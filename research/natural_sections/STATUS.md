@@ -552,6 +552,106 @@ labels that already carry a fixed pair changes nothing (`k = 4`, the
 frozen pair).  What the fibre does not see: amplitudes, weights, or any
 cancellation -- a holonomy is a group element, never a sum.
 
+## Weighted layer: the types crossed, the predictions, written before the computation ran
+
+Every theorem so far is about group elements; this layer is where sums
+enter, and it enters as a NEW layer over `HFamily`: nothing below it is
+changed.  Declared in `lean/NaturalSections/WeightedLayer.lean`:
+
+* `Weighting D R`: an amplitude `amp h : R` and a reverse amplitude
+  `ramp h : R` for every declared arrow.  `R` is any type with `Mul`,
+  `One` (for products) and `Add`, `Zero` (for sums).  Commutativity,
+  distributivity and the ring axioms are NOT assumed; the prediction
+  below is that no theorem of this layer needs them, and that is
+  recorded as a finding if it holds.
+* `Walk.weight w : R`: the product of the step amplitudes, `1` on `nil`;
+  a backward step contributes `ramp h`.
+* `total ws : R`: the sum of the weights of a DECLARED finite list `ws`
+  of closed walks at a base `r`.  The set of all closed walks is
+  infinite; the finite list is the object the theorems are about.
+* `twisted ws p : R`: the sum over `ws` of `weight w` if `w` fixes the
+  admissible pair `p` and `0` otherwise -- the sum "read in the local
+  convention `p`".  Deciding `w.transport p = p` needs decidable
+  equality on the fibre at `r`, which is supplied as an argument.
+
+The proposed theorem, as stated: "if a natural section exists, the
+weighted sum over closed walks at a base factors through the section:
+the section partitions the admissible pairs into orbits on which the
+transport is constant, and the sum reduces to a sum over orbit
+representatives times an orbit weight."
+
+Predictions:
+
+| claim | prediction |
+|---|---|
+| **A1** (section collapses the convention) | PROVED, for every `R` and every `ws`: if `s` is a natural section then `twisted ws (s r) = total ws`.  Every closed walk fixes `s r` (`Walk.transport_of_natural`), so every term is read in full.  No ring law is used. |
+| **A2** (orbit form) | NOT true as stated.  `twisted ws` is constant on a holonomy orbit only when `ws` is closed under conjugation by the holonomy with weight preserved; a single generator walk on a family whose holonomy group is transitive on pairs but has non-identity elements with fixed pairs (four labels, the ladder, holonomy the full symmetric group) gives two pairs in one orbit with different twisted sums.  The counterexample is computed; the repaired hypothesis is stated, not proved. |
+| **A3** (converse of A1 fails) | `twisted ws p = total ws` does NOT imply a section: on the two-label square (no section) with amplitudes `+-1` in the integers, a list of three closed walks -- the empty walk, the exchange walk with weight `-1`, and a backtrack-then-exchange walk with weight `+1` -- has `twisted = total = 1` at every pair with every amplitude nonzero.  PROVED as a countermodel. |
+| **B1** (counting detects the class) | With unit weights in the natural numbers, `twisted ws p = total ws` iff every walk in `ws` fixes `p`; hence if `ws` carries a walk moving every pair (as it does when `ws` contains the forest generators of a family with no section), `twisted ws p < total ws` for every `p`.  PROVED. |
+| **B2** (ring sums are silent) | For every value `v` in the ring there is a weighting with `twisted ws p = v`, on the obstructed square and on the unobstructed chain alike (a backtrack walk with amplitude `v`).  The class constrains NOTHING about the value of a ring-weighted sum: no cancellation is forced, no bound, no lower bound on distinct orbits reachable by the value.  PROVED as a theorem, on both families. |
+| **B3** (what the class does force) | Structure, not value: no section means for every pair `p` some closed walk moves `p`, so `twisted ws p` misses the weight of at least one walk of `ws` whenever `ws` contains that walk.  Whether the missing weight is visible in the value depends on `R`: in the natural numbers yes (B1), in a ring it can be `0` (A3).  PROVED as `twisted ws p = total ws - moved ws p` with `moved` the sum over the moving walks, in the natural numbers. |
+| existing theorems needing change | NONE.  `Step`, `Walk`, `transport`, `Forest`, both iff theorems and every fixture are imported as they are; the layer uses `Walk.transport_of_natural` and nothing else from them. |
+
+Computed fixtures (`weighted_sum.py`): closed walks at the base up to a
+declared length on the chain `P4` and the square at `k = 2` (unit
+weights, sign weights `amp = -1` on flipping hops) and on the ladder at
+`k = 4` (the orbit counterexample).  Predicted: on the chain `twisted =
+total` at every pair; on the square `twisted < total` at every pair
+under unit weights and `twisted = number of even-parity walks` under
+sign weights; on the ladder, with `ws` the generator walks, two pairs of
+one holonomy orbit with different twisted sums.
+
+Reading, agreed in advance.  If A1 fails, the definition of `twisted`
+is not reading the convention it claims to.  If B2 fails, the ring is
+constraining the sum through some law the layer did not declare.  If
+the ladder shows twisted sums constant on every orbit, A2 holds more
+generally than predicted and the conjugation hypothesis is not needed.
+
+### Results, written after the run (`weighted_sum.py`, receipt
+`receipts/weighted_sum.json`; Lean `lean/NaturalSections/WeightedLayer.lean`)
+
+A slip, recorded first.  The first version of the sign weighting for A3
+put `-1` on the arrow `{0,1} -> {1,2}`, which the exchange walk does not
+traverse (it uses `{1,2} -> {0,1}`); `decide` refuted the claimed weight
+`-1`, which is the kernel doing its job.  The weighting was corrected to
+`-1` on both arrows between `{0,1}` and `{1,2}`, giving the exchange
+`-1` and backtrack-then-exchange `+1` as pre-registered.  No prediction
+changed; a witness was mis-specified and the checker caught it.
+
+A second catch, by the axiom audit: the first version of
+`value_silent_about_class` packaged the two existentials with
+`Exists.choose`, and `verify_lean.py` refused it by name --
+`depends on disallowed axioms: ['Classical.choice']`.  The goal is a
+`Prop`, so `Exists.elim` does the job without choice, and the audit
+passes again.  Recorded because it is the whitelist biting on a real
+proof, not on an injection.
+
+Every prediction held:
+
+| claim | outcome | evidence |
+|---|---|---|
+| A1 | PROVED for every `R` with `Mul`, `One`, `Add`, `Zero`, every weighting, every list: `twisted ws (s r) = total ws` when `s` is natural. | `twisted_of_natural`, no axioms |
+| A2 | As predicted, not true as stated.  Ladder, four labels, `ws` = one generator walk of holonomy the transposition `(0, 2, 1, 3)`: the pairs `(0, 3)` and `(1, 0)` lie in one holonomy orbit (the group is the full symmetric group, transitive on ordered pairs) and have twisted sums `1` and `0`.  The hypothesis the orbit form needs is closure of `ws` under conjugation by the holonomy with weight preserved; it is stated, not proved. | `orbit_counterexample`, `test_orbit_counterexample` |
+| A3 | PROVED countermodel over the integers with every amplitude nonzero: on the square, `ws = [nil, exchange, backtrack ; exchange]` with weights `1, -1, +1`, `twisted = total = 1` at both pairs, and the square has no natural section. | `Sq.sum_blind_to_obstruction`, `Sq.weights_ws3` |
+| B1 | PROVED: with unit weights in the natural numbers `twisted ws p = total ws` iff every walk in `ws` fixes `p`, and one moving walk in `ws` makes `twisted ws p < total ws`. | `count_eq_length_iff`, `count_lt_of_mover`, `count_le_length`, `total_unit` |
+| B2 | PROVED: for every integer `v` a weighting with `twisted = total = v` exists on the obstructed square and on the unobstructed chain alike (a backtrack walk with amplitude `v`).  The class constrains nothing about the value of a ring-weighted sum. | `Sq.every_value_square`, `Ch.every_value_chain`, `value_silent_about_class`, `every_value` |
+| B3 | The forced content is structural: no section means every pair is moved by some closed walk, and in the natural numbers that is visible (B1); in a ring it can vanish (A3).  Computed: chain `18` closed walks up to length `6`, `twisted = total` at both pairs; square `147` walks, `twisted = 95 < 147` at both pairs with `52` movers, and under sign weights `twisted = 95` (the even walks) while `total = 43 = 95 - 52`; star `31` walks, `twisted = 29` with `2` movers. | receipt `fixtures`, `test_square_twisted_below_total_and_sign_twisted_counts_even_walks` |
+| existing theorems changed | NONE.  `WeightedLayer.lean` imports `NaturalSections` and `HopFixture` as they are and uses `Walk.transport_of_natural`, `Step.inv_transport`, `square_no_natural_section` and the fixtures' walks; no definition below the layer was edited. | the diff |
+
+A finding about the types, as predicted: no theorem of the layer uses
+commutativity, associativity, distributivity, or any ring law.  `R`
+needs `Mul` and `One` for products and `Add` and `Zero` for sums, and
+the counting results need the natural numbers' order.  "Commutative
+ring" was the declared ambition; what the theorems consume is two
+monoid-shaped operations, and the layer's signature says so.
+
+What a natural section buys for a weighted sum, in one sentence: the
+freedom to read every closed walk in one convention, so that the
+convention-dependent sum `twisted` is the convention-free sum `total`
+(A1); and what its absence forces is that no single convention reads
+every walk (B3), which the value shows only when the weights cannot
+cancel (B1 versus A3, B2).
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -604,10 +704,11 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 72 within ['Quot.sound', 'propext']`; 7 in `Hop3`, 6 in `Hop4` and 12 in `HopPhase` on `['propext']` (the `if`-decided maps and what is built on them), the other 47 `no axioms`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 84 within ['Quot.sound', 'propext']`; 51 `no axioms`; 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 69 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 12 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 78 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 15 source files |

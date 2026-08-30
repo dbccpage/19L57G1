@@ -3,6 +3,7 @@ import NaturalSections.HopFixture
 import NaturalSections.HopFixture3
 import NaturalSections.HopFixture4
 import NaturalSections.HopFixturePhase
+import NaturalSections.WeightedLayer
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -76,3 +77,15 @@ import NaturalSections.HopFixturePhase
 #print axioms NaturalSections.HopPhase.constant_natural_of_zero_flux
 #print axioms NaturalSections.HopPhase.section_iff_flux_zero
 #print axioms NaturalSections.HopPhase.section_iff_flux_zero_fin4
+#print axioms NaturalSections.sumList_map_congr
+#print axioms NaturalSections.twisted_of_natural
+#print axioms NaturalSections.unit_weight
+#print axioms NaturalSections.total_unit
+#print axioms NaturalSections.count_le_length
+#print axioms NaturalSections.count_eq_length_iff
+#print axioms NaturalSections.count_lt_of_mover
+#print axioms NaturalSections.Sq.weights_ws3
+#print axioms NaturalSections.Sq.sum_blind_to_obstruction
+#print axioms NaturalSections.Sq.every_value_square
+#print axioms NaturalSections.Ch.every_value_chain
+#print axioms NaturalSections.value_silent_about_class

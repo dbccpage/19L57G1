@@ -126,6 +126,19 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.HopPhase.constant_natural_of_zero_flux",
     "NaturalSections.HopPhase.section_iff_flux_zero",
     "NaturalSections.HopPhase.section_iff_flux_zero_fin4",
+    # The weighted layer (NaturalSections/WeightedLayer.lean).
+    "NaturalSections.sumList_map_congr",
+    "NaturalSections.twisted_of_natural",
+    "NaturalSections.unit_weight",
+    "NaturalSections.total_unit",
+    "NaturalSections.count_le_length",
+    "NaturalSections.count_eq_length_iff",
+    "NaturalSections.count_lt_of_mover",
+    "NaturalSections.Sq.weights_ws3",
+    "NaturalSections.Sq.sum_blind_to_obstruction",
+    "NaturalSections.Sq.every_value_square",
+    "NaturalSections.Ch.every_value_chain",
+    "NaturalSections.value_silent_about_class",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
