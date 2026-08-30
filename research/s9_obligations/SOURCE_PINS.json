@@ -1,0 +1,31 @@
+{
+  "schema": "s9_obligations_source_pins/v1",
+  "note": "Sealed files this run reads, pinned by the SHA-256 of the Git blob bytes at HEAD (independent of checkout line endings), plus the governing prompt pinned by its Git blob id. The pins bind the run's receipts to a state of the sealed derivation; they prove nothing about the mathematics computed from those inputs. The list key is 'sealed_inputs' rather than the sibling's 'artifacts' because the paper and the Lean module are not artifacts; the entry shape {path, sha256} is the sibling's.",
+  "snapshot_commit": "db1d2b225b577d5212780ff02700efd693c8e446",
+  "prompt": {
+    "path": "research/s9_obligations/PROMPT.md",
+    "blob": "1642e3f6ac746002678e4997f738e0fabd1248c9"
+  },
+  "sealed_inputs": [
+    {
+      "path": "lean4/Derivation/PrimDiff.lean",
+      "sha256": "69AC9CA08179680D28D74ECE54BC90F94854DB98F3D113DF17D0ABBCA86E23B6"
+    },
+    {
+      "path": "code/derivation/primdiff.py",
+      "sha256": "A7FE540B4C0D766C9701631449A6AC3D1661C850B9F694B1B01E9D47E83E2ADA"
+    },
+    {
+      "path": "code/run_primdiff.py",
+      "sha256": "4369DA516F4096882E25F435B5C65A786E9FBA034848838DFBE50ED74C8F1E4C"
+    },
+    {
+      "path": "artifacts/primdiff.json",
+      "sha256": "D6991342399160B9B6AD7F3D3E1460E4D2472A03EC975BD097581614549B860C"
+    },
+    {
+      "path": "paper/primitive_difference.md",
+      "sha256": "F69DA9978691945D588C8F7A9283AC50C2FA3F53ADFD1A2CABA90F912ECC0BEC"
+    }
+  ]
+}
