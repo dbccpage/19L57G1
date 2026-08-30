@@ -1,4 +1,4 @@
-# Natural sections at one object: the fixed-pair criterion is an iff
+# Natural sections: the fixed-pair criterion, its fixtures, and its layers
 
 AuthorityEffect: None.  This tree proposes nothing for the sealed
 derivation and amends nothing under `prompt/`, `paper/`, `code/`,
@@ -25,9 +25,13 @@ question open.  Two questions:
    anywhere in the repository?
 
 ## Results (Lean, `lean/NaturalSections.lean`; 24 reports, every one
-"does not depend on any axioms" -- the tree's 48 reports in all are
-within `{propext, Quot.sound}`, 41 with no axioms and 7 in `Hop3` on
-`propext`, as the fixture sections say)
+"does not depend on any axioms".  The TREE's totals grew with each
+later section and are recorded once, in the commands table at the end
+-- currently `100` reports within `{propext, Quot.sound}`, `67` with no
+axioms; per-section counts below are historical and correct for their
+own sections.  An earlier version of this heading carried a tree total
+that went stale twice; a reviewer caught it, and the number now lives
+in one place.)
 
 * **`natural_section_iff_fixed_pair`** -- over `autoFamily O F`, a natural
   section exists **iff** `F` fixes an admissible pair:

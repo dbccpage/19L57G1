@@ -1,9 +1,15 @@
-# Claim ledger -- natural sections at one object
+# Claim ledger -- natural sections: the criterion, its fixtures, its layers
 
-Each row names its evidence: a Lean theorem in `lean/NaturalSections.lean`
-(every one in `verify_lean.py`'s inventory, reported with no axioms) or a
-test in `test_natural_sections.py`.  Classifications are exactly one of
-proved theorem, countermodel, finite computation, open.
+Each row names its evidence: a fully qualified Lean theorem from this
+tree's package (every one in `verify_lean.py`'s inventory, with a
+`#print axioms` report within `{propext, Quot.sound}` -- the per-report
+axiom sets are in the audit output, not assumed zero), a test in one of
+this tree's `test_*.py` files, or a receipt key under `receipts/`.
+Classifications are exactly one of proved theorem, countermodel, finite
+computation, open.  An earlier version of this introduction said every
+report was axiom-free and named two files; both claims aged out as the
+tree grew and a reviewer caught the drift -- the audit output is the
+receipt, this paragraph only points at it.
 
 | ID | statement | class | evidence |
 |---|---|---|---|
