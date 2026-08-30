@@ -120,3 +120,12 @@ import NaturalSections.Refinement
 #print axioms NaturalSections.natural_section_iff_repl
 #print axioms NaturalSections.square_repl_obstructed
 #print axioms NaturalSections.chain_repl_section
+#print axioms NaturalSections.ReplE.push_natural
+#print axioms NaturalSections.ReplE.h0_equation
+#print axioms NaturalSections.ReplE.h0r_equation
+#print axioms NaturalSections.ReplE.pull_natural
+#print axioms NaturalSections.natural_section_iff_replE
+#print axioms NaturalSections.square_replE_obstructed
+#print axioms NaturalSections.chain_replE_section
+#print axioms NaturalSections.replE_square_inhabited
+#print axioms NaturalSections.replE_chain_inhabited

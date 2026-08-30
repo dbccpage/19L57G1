@@ -838,6 +838,21 @@ A reviewer found four defects; each is repaired here, with the record.
    `square_repl_obstructed` and `chain_repl_section` quantify over every
    one-step replacement.  The retained version stands as the weaker
    sibling it always was.
+   **Second round**: the reviewer then observed that `Repl` removes only
+   ONE oriented declaration while the fixtures declare every hop in both
+   directions, so the reverse arrow survived with the same constraint.
+   `ReplE` is the edge replacement: BOTH oriented declarations removed
+   through one shared midpoint with all four half-arrows declared; the
+   instruction additionally carries `ne0` (an edge, not a loop) and
+   `rev_inverts` (the declared reverse transport inverts the declared
+   forward one -- what makes two oriented declarations ONE edge; every
+   fixture satisfies it).  The removed forward equation is derived from
+   the halves (`ReplE.h0_equation`), the removed reverse equation from
+   the forward one and `rev_inverts` (`ReplE.h0r_equation`);
+   `natural_section_iff_replE` is the iff, `square_replE_obstructed` and
+   `chain_replE_section` the quantified corollaries, and `sqReplE` /
+   `chReplE` are concrete instances showing they are not vacuous.
+   `Repl` stands as the one-orientation special case.
 2. **The commands table (the single source of totals) was stale again**;
    it is refreshed below and remains the only place totals live.
 3. **NS-51 said objects and hops double.**  Objects follow
@@ -904,7 +919,7 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 112 within ['Quot.sound', 'propext']`; 79 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 121 within ['Quot.sound', 'propext']`; 88 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
