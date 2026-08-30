@@ -776,6 +776,100 @@ the class can bite on; the reading -- which walks count as returning to
 themselves -- is where the class enters, and that reading is exactly
 what a natural section makes globally consistent.
 
+## Refinement: the class is a mesh invariant -- predictions, written before the computation ran
+
+The question: what survives refining a family?  A SUBDIVISION of a
+declared arrow `h0 : a0 -> b0` is: a fresh midpoint object with a
+declared presentation, a declared factorization `F` of `h0`'s transport
+(first half `F`, second half `F.symm ; iso h0`), and the two half-arrows
+added.  The original arrow is RETAINED: its naturality equation is
+implied by the two halves' (the halves compose to it), so retention and
+deletion agree on sections while retention needs no arrow-removal
+machinery; that equivalence is stated in prose, not proved.
+
+Predictions:
+
+| claim | prediction |
+|---|---|
+| **R1** (single-step invariance, Lean, general) | PROVED for every `HFamily`, every arrow, every declared midpoint and factorization: a natural section exists iff one exists for the subdivided family (`natural_section_iff_subdiv`).  Forward: the midpoint's value is FORCED -- `F.mapPair (s a0)` -- so refining adds no freedom; backward: restrict to the old objects.  Finite chains of subdivisions compose by transitivity of the iff. |
+| **R2** (the fixtures' verdicts never move) | Every one-step subdivision of the two-label square is obstructed and every one of the chain keeps its section (`square_subdiv_obstructed`, `chain_subdiv_section`, quantified over ALL declared subdivisions at once).  Computed: subdividing every hop of the square, chain and star once and twice (each hop replaced by two, the flip bit carried by the first half) leaves every verdict identical while objects and hops roughly double and closed-walk counts grow. |
+| **R3** (what refinement means here) | Per-step quantities (walk counts, hop counts) are NOT refinement invariants; the class, and parity per cycle, are.  "Has meaning in the limit" = "is a refinement invariant" becomes a checkable definition, and nothing in it orders the refinement sequence: the verdicts cannot tell which refinement came first. |
+
+Reading, agreed in advance.  If some subdivision of the square comes
+out clean, the factorization is leaking freedom into the midpoint (the
+forced-value lemma is wrong); if the chain loses its section, the
+half-arrows fail to compose to the original transport.
+
+### Results, written after the run (`refinement.py`, receipt
+`receipts/refinement.json`; Lean `lean/NaturalSections/Refinement.lean`)
+
+All three predictions held.
+
+* **R1 PROVED** (`natural_section_iff_subdiv`, no axioms; 6 reports):
+  for every family, arrow, midpoint presentation and factorization, a
+  natural section exists iff one exists after the subdivision.  The
+  midpoint's value is forced (`Subdiv.push`), the backward direction is
+  restriction (`Subdiv.pull`); the only sealed facts used are
+  `mapPair_trans` and `mapPair_symm_left`.  `class_refinement_invariant`
+  is the contrapositive.
+* **R2 held**: `square_subdiv_obstructed` and `chain_subdiv_section`
+  quantify over EVERY declared one-step subdivision at once.  Computed
+  over two rounds of subdividing every hop: square `6/8 -> 14/16 ->
+  30/32` objects/hops with odd generators `2, 2, 2` and no section at
+  every round; chain `6/6 -> 12/12 -> 24/24`, section at every round;
+  star odd generators `1, 1, 1`, no section at every round.
+* **R3**: per-step quantities changed, the class and the per-cycle
+  parity count did not.  "Has meaning under refinement" = "is a
+  refinement invariant" is now a checkable definition, and nothing in
+  the verdicts orders the rounds.
+
+### Review repairs (pull request 98)
+
+A reviewer found four defects; each is repaired here, with the record.
+
+1. **The Lean theorem covered retention, the fixtures replacement.**
+   `Subdiv.family` keeps the original arrow; `refinement.py` removes it.
+   The prose note that the two agree was not a proof.  Now proved:
+   `Repl` is the REPLACEMENT operation -- the arrow removed from the
+   family, the two decidabilities that let the instruction point at it
+   (`decObj`, `dec0`) declared as data -- and
+   `natural_section_iff_repl` carries the iff with the removed arrow's
+   equation DERIVED from the two halves (`Repl.h0_equation`).
+   `square_repl_obstructed` and `chain_repl_section` quantify over every
+   one-step replacement.  The retained version stands as the weaker
+   sibling it always was.
+   **Second round**: the reviewer then observed that `Repl` removes only
+   ONE oriented declaration while the fixtures declare every hop in both
+   directions, so the reverse arrow survived with the same constraint.
+   `ReplE` is the edge replacement: BOTH oriented declarations removed
+   through one shared midpoint with all four half-arrows declared; the
+   instruction additionally carries `ne0` (an edge, not a loop) and
+   `rev_inverts` (the declared reverse transport inverts the declared
+   forward one -- what makes two oriented declarations ONE edge; every
+   fixture satisfies it).  The removed forward equation is derived from
+   the halves (`ReplE.h0_equation`), the removed reverse equation from
+   the forward one and `rev_inverts` (`ReplE.h0r_equation`);
+   `natural_section_iff_replE` is the iff, `square_replE_obstructed` and
+   `chain_replE_section` the quantified corollaries, and `sqReplE` /
+   `chReplE` are concrete instances showing they are not vacuous, and
+   `sqReplEFlip` (the flipping edge `{0,1} -- {1,2}`) discharges
+   `rev_inverts` nontrivially, by the swap being an involution -- a
+   reviewer's hardening suggestion.
+   `Repl` stands as the one-orientation special case.
+2. **The commands table (the single source of totals) was stale again**;
+   it is refreshed below and remains the only place totals live.
+3. **NS-51 said objects and hops double.**  Objects follow
+   `V' = V + E`, only hops double (`E' = 2E`): square `6 -> 14 -> 30`
+   objects against `8 -> 16 -> 32` hops.  The ledger row is corrected
+   and the recurrence is now asserted by a test.
+4. **"Closed-walk counts grow" was asserted, not computed, and is false
+   under the fixed length-6 budget**: they DECREASE -- square
+   `147 -> 33 -> 29`, chain `18 -> 10 -> 9`, star `31 -> 29 -> 29` --
+   because each old hop becomes two steps.  The counts are now in the
+   receipt (`closed_walks_len6`) and pinned by a test; the correct
+   statement, which is all R3 needs, is that the counts CHANGE while
+   the verdicts do not.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -828,12 +922,13 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 100 within ['Quot.sound', 'propext']`; 67 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 122 within ['Quot.sound', 'propext']`; 89 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 91 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 21 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 98 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 24 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |

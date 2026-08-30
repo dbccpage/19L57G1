@@ -6,6 +6,7 @@ import NaturalSections.HopFixturePhase
 import NaturalSections.WeightedLayer
 import NaturalSections.Represent
 import NaturalSections.CutAndCounts
+import NaturalSections.Refinement
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -107,3 +108,25 @@ import NaturalSections.CutAndCounts
 #print axioms NaturalSections.reWalk_unWalk
 #print axioms NaturalSections.reWalk_length
 #print axioms NaturalSections.dynamics_blind_to_class
+#print axioms NaturalSections.Subdiv.push_natural
+#print axioms NaturalSections.Subdiv.pull_natural
+#print axioms NaturalSections.natural_section_iff_subdiv
+#print axioms NaturalSections.class_refinement_invariant
+#print axioms NaturalSections.square_subdiv_obstructed
+#print axioms NaturalSections.chain_subdiv_section
+#print axioms NaturalSections.Repl.push_natural
+#print axioms NaturalSections.Repl.h0_equation
+#print axioms NaturalSections.Repl.pull_natural
+#print axioms NaturalSections.natural_section_iff_repl
+#print axioms NaturalSections.square_repl_obstructed
+#print axioms NaturalSections.chain_repl_section
+#print axioms NaturalSections.ReplE.push_natural
+#print axioms NaturalSections.ReplE.h0_equation
+#print axioms NaturalSections.ReplE.h0r_equation
+#print axioms NaturalSections.ReplE.pull_natural
+#print axioms NaturalSections.natural_section_iff_replE
+#print axioms NaturalSections.square_replE_obstructed
+#print axioms NaturalSections.chain_replE_section
+#print axioms NaturalSections.replE_square_inhabited
+#print axioms NaturalSections.replE_chain_inhabited
+#print axioms NaturalSections.replE_square_flip_inhabited

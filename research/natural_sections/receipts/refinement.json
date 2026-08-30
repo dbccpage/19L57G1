@@ -1,0 +1,97 @@
+{
+  "move": "each hop (a, b, flip) becomes (a, m, flip) and (m, b, False), m fresh",
+  "rounds": {
+    "chain_P4": [
+      {
+        "closed_walks_len6": 18,
+        "components": 1,
+        "hops": 6,
+        "objects": 6,
+        "odd_generators": 0,
+        "round": 0,
+        "section_exists": true
+      },
+      {
+        "closed_walks_len6": 10,
+        "components": 1,
+        "hops": 12,
+        "objects": 12,
+        "odd_generators": 0,
+        "round": 1,
+        "section_exists": true
+      },
+      {
+        "closed_walks_len6": 9,
+        "components": 1,
+        "hops": 24,
+        "objects": 24,
+        "odd_generators": 0,
+        "round": 2,
+        "section_exists": true
+      }
+    ],
+    "square_2x2": [
+      {
+        "closed_walks_len6": 147,
+        "components": 1,
+        "hops": 8,
+        "objects": 6,
+        "odd_generators": 2,
+        "round": 0,
+        "section_exists": false
+      },
+      {
+        "closed_walks_len6": 33,
+        "components": 1,
+        "hops": 16,
+        "objects": 14,
+        "odd_generators": 2,
+        "round": 1,
+        "section_exists": false
+      },
+      {
+        "closed_walks_len6": 29,
+        "components": 1,
+        "hops": 32,
+        "objects": 30,
+        "odd_generators": 2,
+        "round": 2,
+        "section_exists": false
+      }
+    ],
+    "star_K13": [
+      {
+        "closed_walks_len6": 31,
+        "components": 1,
+        "hops": 6,
+        "objects": 6,
+        "odd_generators": 1,
+        "round": 0,
+        "section_exists": false
+      },
+      {
+        "closed_walks_len6": 29,
+        "components": 1,
+        "hops": 12,
+        "objects": 12,
+        "odd_generators": 1,
+        "round": 1,
+        "section_exists": false
+      },
+      {
+        "closed_walks_len6": 29,
+        "components": 1,
+        "hops": 24,
+        "objects": 24,
+        "odd_generators": 1,
+        "round": 2,
+        "section_exists": false
+      }
+    ]
+  },
+  "verdict_invariant_across_rounds": {
+    "chain_P4": true,
+    "square_2x2": true,
+    "star_K13": true
+  }
+}
