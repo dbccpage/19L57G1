@@ -1014,6 +1014,45 @@ filled the section exists; and the sum over the outer boundary alone
 cannot see an interior obstruction that the faces see.  The
 obstruction lives on faces, not on the bulk total.
 
+### Results, written after the run (`two_complex.py`, receipt
+`receipts/two_complex.json`; Lean `lean/NaturalSections/TwoComplex.lean`)
+
+* **TC1 PROVED**: `outer_flux_eq_add` -- the outer walk's flux is the
+  sum of the two face fluxes, the shared chord cancelling, by the five
+  group laws alone (no commutativity, no finiteness, no decidability
+  of the fibre).
+* **TC2 PROVED**: `section_iff_faces_zero` -- a natural section of the
+  chord-square family exists iff BOTH face fluxes vanish.  Forward:
+  walk each triangle, fix the pair, cancel in the group
+  (`fluxT1_zero_of_fixed`, `fluxT2_zero_of_fixed`).  Backward: the
+  explicit potential `theta` (zero at `0`, following the tree `0-1-3`
+  and the edge `2-0`), one `pair_step` per oriented hop, ten cases.
+* **TC3 PROVED**: `outer_zero_but_obstructed` -- for every nonzero
+  `Phi`, the assignment `Phi` on `1-3`, `-Phi` on `3-2`, zero
+  elsewhere has outer flux zero and no natural section.  And
+  `fill_transfers`: with `T1`'s flux zero, the section criterion is
+  exactly `T2`'s flux -- admitting a face moves the whole residual
+  obstruction onto the faces that remain.
+* **TC4 CONFIRMED, every count as pre-registered**: over `Z_N` for
+  `N in {2, 3, 4}`, brute-force potential existence agrees with
+  `(fluxT1, fluxT2) = (0, 0)` on all `N^5` assignments; the boundary
+  identity holds everywhere; sections `8, 27, 64` (`N^3`); outer-zero
+  `16, 81, 256` (`N^4`); outer-zero-but-obstructed `8, 54, 192`
+  (`N^4 - N^3`); with `T1` filled, `N^4` assignments remain of which
+  exactly `N^3` admit sections.  No misses this rung.
+
+What the rung answers, internally.  A face is a constraint event: its
+admission forces the flux around its boundary to zero, and TC2 says
+that when every face is admitted the keyed convention exists -- the
+first two-dimensional instance of remove-the-obstruction /
+build-the-structure pricing.  TC3 is the sharp point: the OUTER
+boundary total can vanish while the class is still obstructed, so the
+obstruction is not a bulk number; it lives on the faces, and only
+admitting the chord's faces makes it visible or removable.  Counts
+remain blind exactly as on the one-dimensional rungs: the outer-zero
+class splits `N^3` sectioned against `N^4 - N^3` obstructed with the
+same outer flux.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1066,14 +1105,15 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 141 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems included); 89 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 165 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems and the 24 faces theorems included); 95 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 105 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 111 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
 | `cd research/natural_sections && python -m mypy` | 0 | strict, 27 source files |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
