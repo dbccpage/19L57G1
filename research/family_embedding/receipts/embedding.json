@@ -1,0 +1,97 @@
+{
+  "clean": {
+    "admissible_pair_count": 2,
+    "arrows": [
+      {
+        "iso": "id",
+        "name": "loopA",
+        "src": "a",
+        "tgt": "a"
+      },
+      {
+        "iso": "id",
+        "name": "loopB",
+        "src": "b",
+        "tgt": "b"
+      },
+      {
+        "iso": "id",
+        "name": "crossAB",
+        "src": "a",
+        "tgt": "b"
+      },
+      {
+        "iso": "id",
+        "name": "crossBA",
+        "src": "b",
+        "tgt": "a"
+      }
+    ],
+    "flat_and_h_agree": true,
+    "flat_natural_section": true,
+    "h_natural_section": true,
+    "hom_inhabited": true,
+    "hom_occupancy": {
+      "a->a": 1,
+      "a->b": 1,
+      "b->a": 1,
+      "b->b": 1
+    },
+    "name": "clean",
+    "negIso_fixed_point_free_on_carrier": true,
+    "objects": [
+      "a",
+      "b"
+    ],
+    "uses_negIso": false
+  },
+  "hom_construction": "{ f : F.Arr // F.src f = a \u2227 F.tgt f = b }",
+  "iff_on_fixtures": true,
+  "obstructed": {
+    "admissible_pair_count": 2,
+    "arrows": [
+      {
+        "iso": "neg",
+        "name": "loopA",
+        "src": "a",
+        "tgt": "a"
+      },
+      {
+        "iso": "neg",
+        "name": "loopB",
+        "src": "b",
+        "tgt": "b"
+      },
+      {
+        "iso": "id",
+        "name": "crossAB",
+        "src": "a",
+        "tgt": "b"
+      },
+      {
+        "iso": "id",
+        "name": "crossBA",
+        "src": "b",
+        "tgt": "a"
+      }
+    ],
+    "flat_and_h_agree": true,
+    "flat_natural_section": false,
+    "h_natural_section": false,
+    "hom_inhabited": true,
+    "hom_occupancy": {
+      "a->a": 1,
+      "a->b": 1,
+      "b->a": 1,
+      "b->b": 1
+    },
+    "name": "obstructed",
+    "negIso_fixed_point_free_on_carrier": true,
+    "objects": [
+      "a",
+      "b"
+    ],
+    "uses_negIso": true
+  },
+  "schema": "family_embedding_fixtures/v1"
+}
