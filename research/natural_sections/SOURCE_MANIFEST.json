@@ -1,0 +1,86 @@
+{
+  "schema": "natural_sections_source_manifest/v1",
+  "source_snapshot": {
+    "commit": "a36d34948ffd2a24ee99ec717f903f57141095c7",
+    "tree": "603478526a6c06de116c843956da7e76d280c4b6"
+  },
+  "hash_basis": "SHA-256 of canonical Git blobs, checked at the source snapshot AND at the verification HEAD; independent of checkout line endings",
+  "source_policy": "read-only sealed inputs; the module list is exactly the import closure of the semantic roots, computed from the import lines of the snapshot blobs and checked in both directions; the snapshot commit must resolve, must be an ancestor of HEAD, and must carry the recorded tree; nothing under a sealed prefix may differ between the snapshot and HEAD, be modified, be untracked, or be ignored-but-present in the worktree; the Lean package compiles staged copies of these blobs and declares no Lake dependency, so no build product leaves research/natural_sections/",
+  "semantic_roots": [
+    "Derivation.PresentationNaturality"
+  ],
+  "modules": [
+    {
+      "module": "Derivation.Apartness",
+      "path": "lean4/Derivation/Apartness.lean",
+      "sha256": "E9AF3393BBCFF170CE220145182B704DA34881054FD7BEB97691EF04B288D684",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.Compression",
+      "path": "lean4/Derivation/Compression.lean",
+      "sha256": "61DAE37D53399EF40159648DD65D644ECFC666B6C324E72E7386A71377859E95",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.ContactBridge",
+      "path": "lean4/Derivation/ContactBridge.lean",
+      "sha256": "1B23A9E7F1B730AB41F6C55BD9F82FB43EF8EEFDCEBEDED9888A507AE2ECC54C",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.ContactKernel",
+      "path": "lean4/Derivation/ContactKernel.lean",
+      "sha256": "CCD296F84F091EF7F9BA6A4DE589A04FEAF8E13DB583F262EE1112A2C13EE2D7",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.DiffInterface",
+      "path": "lean4/Derivation/DiffInterface.lean",
+      "sha256": "1548AB6EAF991E4DF5F2E6FD8BB8ABC9A6C17C249B18BA73522BCE59D6240469",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.ObsDescent",
+      "path": "lean4/Derivation/ObsDescent.lean",
+      "sha256": "33B0EC0DF9E7FE5ACE93972802B6D23E83AD829E24E4E05AF91A0806FE1BDE03",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.PresentationNaturality",
+      "path": "lean4/Derivation/PresentationNaturality.lean",
+      "sha256": "9CEAF49ADCD21CA01FBF52C06B39E9816F00A505DC4AC63277BC9CDED6D28CA7",
+      "role": "semantic root"
+    },
+    {
+      "module": "Derivation.PrimDiff",
+      "path": "lean4/Derivation/PrimDiff.lean",
+      "sha256": "69AC9CA08179680D28D74ECE54BC90F94854DB98F3D113DF17D0ABBCA86E23B6",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.PrimitiveCats",
+      "path": "lean4/Derivation/PrimitiveCats.lean",
+      "sha256": "A6EC08D67334D89008CE5F631EE698336C0F0FC322124702A35CCC3E0BE6E5B1",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.PrimitiveContact",
+      "path": "lean4/Derivation/PrimitiveContact.lean",
+      "sha256": "400DB03613A0960DFA5FEBBFE780EA36C0C85F79F1489E7CE24ABACA3328CEBD",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.PrimitiveCore",
+      "path": "lean4/Derivation/PrimitiveCore.lean",
+      "sha256": "013507ABBE2BE33B5E3049A086D8566A3C0EC615645BCBEEC260DB08421FCC56",
+      "role": "transitive compilation input"
+    },
+    {
+      "module": "Derivation.PrimitivePassage",
+      "path": "lean4/Derivation/PrimitivePassage.lean",
+      "sha256": "EC48FE566F97FE5593DB6997BF0F036DAA82F04DB817DF48B2CFB99B0F275E03",
+      "role": "transitive compilation input"
+    }
+  ]
+}

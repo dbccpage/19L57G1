@@ -1,0 +1,45 @@
+{
+  "claim": "the square and its cover share every closed-walk count; the convention-read counts differ",
+  "convention_read_identical": false,
+  "counts_identical": true,
+  "cover": {
+    "convention_read_at_01": [
+      1,
+      0,
+      2,
+      0,
+      16,
+      0,
+      128
+    ],
+    "counts_by_length": [
+      1,
+      0,
+      2,
+      0,
+      16,
+      0,
+      128
+    ]
+  },
+  "square": {
+    "convention_read_at_01": [
+      1,
+      0,
+      2,
+      0,
+      12,
+      0,
+      80
+    ],
+    "counts_by_length": [
+      1,
+      0,
+      2,
+      0,
+      16,
+      0,
+      128
+    ]
+  }
+}

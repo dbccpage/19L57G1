@@ -1,0 +1,117 @@
+{
+  "every_value": {
+    "chain_P4": [
+      -3,
+      -1,
+      0,
+      2,
+      7
+    ],
+    "square_2x2": [
+      -3,
+      -1,
+      0,
+      2,
+      7
+    ]
+  },
+  "fixtures": [
+    {
+      "base": [
+        0,
+        1
+      ],
+      "closed_walks": 18,
+      "k": 2,
+      "max_len": 6,
+      "name": "chain_P4_k2",
+      "pairs": {
+        "0,1": {
+          "movers": 0,
+          "twisted_sign": 18,
+          "twisted_unit": 18
+        },
+        "1,0": {
+          "movers": 0,
+          "twisted_sign": 18,
+          "twisted_unit": 18
+        }
+      },
+      "total_sign": 18,
+      "total_unit": 18
+    },
+    {
+      "base": [
+        0,
+        1
+      ],
+      "closed_walks": 147,
+      "k": 2,
+      "max_len": 6,
+      "name": "square_2x2_k2",
+      "pairs": {
+        "0,1": {
+          "movers": 52,
+          "twisted_sign": 95,
+          "twisted_unit": 95
+        },
+        "1,0": {
+          "movers": 52,
+          "twisted_sign": 95,
+          "twisted_unit": 95
+        }
+      },
+      "total_sign": 43,
+      "total_unit": 147
+    },
+    {
+      "base": [
+        0,
+        1
+      ],
+      "closed_walks": 31,
+      "k": 2,
+      "max_len": 6,
+      "name": "star_K13_k2",
+      "pairs": {
+        "0,1": {
+          "movers": 2,
+          "twisted_sign": 29,
+          "twisted_unit": 29
+        },
+        "1,0": {
+          "movers": 2,
+          "twisted_sign": 29,
+          "twisted_unit": 29
+        }
+      },
+      "total_sign": 27,
+      "total_unit": 31
+    }
+  ],
+  "layer": {
+    "amplitude": "an integer per directed hop; a walk's weight is the product",
+    "total": "the sum of weights",
+    "twisted(p)": "the sum of weights of walks whose holonomy fixes the ordered pair p",
+    "walks": "every closed walk at the base up to the declared length, forward steps"
+  },
+  "orbit_counterexample": {
+    "generator_holonomy": [
+      0,
+      2,
+      1,
+      3
+    ],
+    "pair_fixed": [
+      0,
+      3
+    ],
+    "pair_moved": [
+      1,
+      0
+    ],
+    "same_orbit_note": "the holonomy group is the full symmetric group, transitive on ordered pairs",
+    "twisted_at_fixed": 1,
+    "twisted_at_moved": 0
+  }
+}
