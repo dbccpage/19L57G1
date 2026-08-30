@@ -870,6 +870,74 @@ A reviewer found four defects; each is repaired here, with the record.
    statement, which is all R3 needs, is that the counts CHANGE while
    the verdicts do not.
 
+## Budget closure: is "polynomial" forced or declared? -- predictions, written before the computation ran
+
+The question, stated internally.  A budget is a function from a size to
+a step allowance.  The tower forces exactly two operations on budgets:
+COMPOSITION (chaining -- a walk of refinements, a re-presentation of a
+re-presentation: costs substitute) and POINTWISE PRODUCT (nesting -- a
+walk of walks, a phase per step: costs multiply).  What it does not
+force is the set of GENERATORS: which single moves are declared cheap.
+The received robustness claim about computation is, in this vocabulary,
+the declaration that presentation moves are linear, plus the two forced
+closures.  Predictions:
+
+| claim | prediction |
+|---|---|
+| **BC1** (the forced closure of linear is polynomial) | PROVED in Lean: every budget in the closure of the linear budgets under composition and pointwise product is polynomially bounded (`gen_linear_polyBounded`), and every polynomial bound `(n+1)^k` is reached (`pow_in_gen_linear`).  So "polynomial" = the two forced operations applied to linear generators: the OPERATIONS are forced, the class is theirs. |
+| **BC2** (the generators are not forced) | PROVED in Lean: adjoin one budget outside (the doubling budget `2^n`) as a declared generator and the closure escapes every polynomial bound (`two_pow_not_polyBounded`, `generators_decide_the_class`).  The class is determined by the declared generators, not by the closure operations alone.  "Polynomial" is therefore forced RELATIVE to the declaration that elementary moves cost linearly -- a declaration, not a theorem, and now visibly so. |
+| **BC3** (the decision layer fits the forced class; the summation layer does not) | Computed: an instrumented section-decider (parity potentials plus a generator check) stays within a DECLARED linear budget `steps <= 60 * (V + E)` on every fixture, across refinement rounds and re-presentations; the instrumented closed-walk summation meter exceeds that same budget on the square at walk-length budget `6` and grows by a factor above `2` per added length `2`.  Deciding whether a keyed convention exists is cheap in the forced class; evaluating keyless sums is not. |
+
+Reading, agreed in advance.  If the decider breaches its declared
+linear budget, the potential construction is not the linear-time object
+it claims to be and the budget or the code is wrong -- say which.  If
+the summation meter fits the linear budget, the contrast claim dies.
+BC1/BC2 are theorems and can only fail by being unprovable; a blocked
+lemma is recorded with its blocker.
+
+What this answers, in the tree's own words.  A keyed convention (a
+natural section) either exists or does not, and deciding which is a
+computation inside the closure the tower forces on linear declarations.
+The obstruction's cost lives elsewhere: in sums read without a key.
+And the key that survives gauge is never among the attributes gauge
+moves (the re-presentation theorem): when it exists at all, it is a
+reference pair no walk moves -- the boundary, not the bulk.
+
+### Results, written after the run (`budget_meter.py`, receipt
+`receipts/budget_meter.json`; Lean `lean/NaturalSections/Budgets.lean`)
+
+* **BC1 PROVED** (11 reports): `gen_linear_polyBounded` -- every budget
+  in the closure of the linear budgets under composition and pointwise
+  product is polynomially bounded -- and `pow_in_gen_linear` -- every
+  bound `(n+1)^k` is reached.  The class of polynomial budgets is
+  exactly what the two forced operations make of linear generators.
+* **BC2 PROVED**: `two_pow_escapes` exhibits, for every `k` and `c`, a
+  size where the doubling budget beats `c (n+1)^k` (the witness is
+  `n = k (k+c+4) + c + 1`, through `s*s <= 2^s` for `s >= 4`);
+  `two_pow_not_polyBounded` and `generators_decide_the_class` package
+  it: one adjoined generator changes the class.  "Polynomial" is forced
+  RELATIVE to the declaration that elementary moves cost linearly; the
+  declaration is now visible as such.
+* **BC3 held, with one detail missed and recorded.**  The instrumented
+  decider stayed within the declared budget `steps <= 60 (V+E)` on all
+  `36` instances (four graphs, three refinement rounds each, with and
+  without a nontrivial re-presentation), every verdict matching the
+  reference computation.  The summation meter on the square: `11, 91,
+  731, 5851` steps at length budgets `2, 4, 6, 8`, growth factors
+  `8.27, 8.03, 8.00` -- above `2` per added length as predicted -- but
+  the breach of the linear budget comes at length `8`, not `6` as
+  pre-registered: `731 <= 840` fits.  The miss is pinned by
+  `test_sum_meter_breaches_the_linear_budget_at_length_8_not_6`; the
+  contrast claim itself stands.
+
+What the run answers, internally.  Deciding whether a keyed convention
+exists is a computation inside the closure the tower forces on linear
+declarations -- cheap, and provably in the forced class.  Evaluating
+keyless sums is not: its cost tracks the walk count, which no budget in
+that closure covers.  The received robustness of "polynomial" is the
+sum of one theorem (the closure) and one declaration (linear
+generators), and the two are now separated by proof.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -922,13 +990,14 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 122 within ['Quot.sound', 'propext']`; 89 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 133 within ['Quot.sound', 'propext']`; 89 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 98 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 24 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 105 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 27 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |

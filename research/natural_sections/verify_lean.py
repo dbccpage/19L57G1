@@ -180,6 +180,18 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.replE_square_inhabited",
     "NaturalSections.replE_chain_inhabited",
     "NaturalSections.replE_square_flip_inhabited",
+    # Budget closure (NaturalSections/Budgets.lean).
+    "NaturalSections.Budgets.linear_polyBounded",
+    "NaturalSections.Budgets.polyBounded_mul",
+    "NaturalSections.Budgets.polyBounded_comp",
+    "NaturalSections.Budgets.gen_linear_polyBounded",
+    "NaturalSections.Budgets.gen_congr",
+    "NaturalSections.Budgets.pow_in_gen_linear",
+    "NaturalSections.Budgets.sq_le_two_pow",
+    "NaturalSections.Budgets.self_lt_two_pow",
+    "NaturalSections.Budgets.two_pow_escapes",
+    "NaturalSections.Budgets.two_pow_not_polyBounded",
+    "NaturalSections.Budgets.generators_decide_the_class",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
