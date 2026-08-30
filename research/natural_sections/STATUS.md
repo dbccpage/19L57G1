@@ -985,6 +985,35 @@ Four findings, all accepted, repaired at this commit:
    everywhere and pinned
    (`test_decider_within_declared_budget_everywhere_with_matching_verdicts`).
 
+## Faces: the first two-dimensional rung -- predictions, written before the computation ran
+
+The tower so far is one-dimensional: objects and hops, walks, flux.
+This rung adds FACES.  The fixture is the chord square: four objects,
+the four square hops, and one chord `0-3`, giving five edges and two
+triangular faces (`T1 = 0-1-3`, `T2 = 0-3-2`) whose boundaries share
+the chord and compose to the outer square walk.  Phases live in an
+arbitrary `AbGroup`, as on the phase rung: no finiteness, no
+decidability of the fibre.  A face is ADMITTED by imposing that the
+flux around its boundary is zero -- admission is a constraint event,
+exactly as everywhere else in this tree.  Predictions:
+
+| claim | prediction |
+|---|---|
+| **TC1** (boundary identity) | PROVED in Lean: the outer walk's flux is the sum of the two face fluxes, `fluxOuter = fluxT1 + fluxT2`, by group laws alone (no commutativity, no finiteness). |
+| **TC2** (sections = all faces flat) | PROVED in Lean: over the chord-square family a natural section exists iff `fluxT1 = 0` and `fluxT2 = 0`.  Forward by walking each triangle and cancelling; backward by an explicit potential on the four objects. |
+| **TC3** (the outer boundary is blind) | PROVED in Lean: for every nonzero `Phi` there is a phase assignment with `fluxOuter = 0` and no natural section (`fluxT1 = Phi`, `fluxT2 = -Phi`).  Filling one face transfers the whole obstruction to the other (`fluxT1 = 0` makes the section criterion exactly `fluxT2 = 0`). |
+| **TC4** (the finite instances) | Computed over `Z_N`, `N in {2, 3, 4}`: brute-force potential existence agrees with `(fluxT1, fluxT2) = (0, 0)` on all `N^5` assignments; section count `N^3` (8, 27, 64); outer-flux-zero count `N^4` (16, 81, 256); outer-zero-but-obstructed count `N^4 - N^3` (8, 54, 192); among the `N^4` assignments with face `T1` filled, exactly `N^3` admit sections. |
+
+Reading, agreed in advance.  If TC3 fails, the outer boundary
+determines the class and faces add nothing at this size -- record it.
+If the TC4 counts miss, the pre-registration was wrong and the miss is
+recorded next to the computed value, as on the budget rung.  What TC1
++ TC2 + TC3 would say together: admitting a face is the event that
+forces its boundary flux to zero; when every independent loop is
+filled the section exists; and the sum over the outer boundary alone
+cannot see an interior obstruction that the faces see.  The
+obstruction lives on faces, not on the bulk total.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
