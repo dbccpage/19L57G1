@@ -382,7 +382,7 @@ rules of steps 36, 37 and 40 stay a manual check.
 | the three protected opens are untouched | yes | `test_documents_carry_no_claim_on_a_protected_open`, `test_every_mention_of_a_protected_open_carries_a_marker`, `test_proposed_text_touches_none_of_the_protected_bullets` |
 | the prompt hash is stable | yes | `verify_pins.py` exit 0 at synthesis (blob `1642e3f6ac746002678e4997f738e0fabd1248c9`) |
 | the receipts replay byte-identically | yes | "Replay" above |
-| tests with `unittest`, strict `mypy` clean (step 34) | yes, since repair round 3 | "Commands and receipts" below: `Ran 191 tests`, `OK`; `Success: no issues found in 14 source files` |
+| tests with `unittest`, strict `mypy` clean (step 34) | yes, since repair round 3 | "Commands and receipts" below: `Ran 207 tests`, `OK`; `Success: no issues found in 14 source files` |
 | Lean: no forbidden token, every report within {propext, Quot.sound} (step 28) | yes, as a manual receipt | `verify_lean.py` exit 0, 83 declarations; "Manual receipt" |
 | the manual-receipt sentence is in `STATUS.md` in the prompt's words (step 29) | yes | "Manual receipt" above |
 | the registration diff is included as text and the workflow is not edited (step 31) | yes | "Registration diff" above; `test_no_workflow_step_names_this_tree` |
@@ -396,7 +396,7 @@ Re-run after repair round 3; the numbers are that run's.
 
 | command | exit | key line |
 |---|---|---|
-| `cd research/s9_obligations && python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 191 tests`, `OK` (189 with one failure after repair round 2; the census pin repaired and two tests added in repair round 3) |
+| `cd research/s9_obligations && python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 207 tests`, `OK` at the reviewed head (191 at the synthesis pass; 189 with one failure after repair round 2; the review repairs of pull request 96 added ten provenance tests and six write-root and staging tests -- a reviewer caught this row still saying 191 after they landed) |
 | `cd research/s9_obligations && python -m unittest test_forbidden` | 0 | `Ran 38 tests`, `OK` |
 | `cd research/s9_obligations && python -m mypy` | 0 | `Success: no issues found in 14 source files` |
 | `python research/s9_obligations/verify_pins.py` | 0 | `sealed prefixes clean: prompt paper code lean4/Derivation artifacts`; the exit status read directly, not through a pipe; re-run after the review repairs: `snapshot commit: db1d2b22... tree d27086ab... (an ancestor of HEAD)`, five `pin: ... (at snapshot and HEAD)` lines, `sealed prefixes unchanged between snapshot and HEAD` |
