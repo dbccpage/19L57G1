@@ -61,6 +61,19 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.fixed_point_without_natural_section",
     "NaturalSections.blindObs_no_admissible_pair",
     "NaturalSections.identity_fixes_everything_no_section",
+    # Walks, forests, and the iff (sections 4-5).
+    "NaturalSections.Step.inv_transport",
+    "NaturalSections.Step.transport_inv",
+    "NaturalSections.Walk.transport_append",
+    "NaturalSections.Walk.reverse_transport_transport",
+    "NaturalSections.Walk.transport_reverse_transport",
+    "NaturalSections.Step.transport_of_natural",
+    "NaturalSections.Walk.transport_of_natural",
+    "NaturalSections.Forest.gen_transport",
+    "NaturalSections.natural_section_iff_generators",
+    "NaturalSections.walk_maps_of_closed_fixed",
+    "NaturalSections.natural_section_iff_holonomy",
+    "NaturalSections.one_object_recovered",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

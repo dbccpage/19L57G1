@@ -12,3 +12,15 @@ import NaturalSections
 #print axioms NaturalSections.fixed_point_without_natural_section
 #print axioms NaturalSections.blindObs_no_admissible_pair
 #print axioms NaturalSections.identity_fixes_everything_no_section
+#print axioms NaturalSections.Step.inv_transport
+#print axioms NaturalSections.Step.transport_inv
+#print axioms NaturalSections.Walk.transport_append
+#print axioms NaturalSections.Walk.reverse_transport_transport
+#print axioms NaturalSections.Walk.transport_reverse_transport
+#print axioms NaturalSections.Step.transport_of_natural
+#print axioms NaturalSections.Walk.transport_of_natural
+#print axioms NaturalSections.Forest.gen_transport
+#print axioms NaturalSections.natural_section_iff_generators
+#print axioms NaturalSections.walk_maps_of_closed_fixed
+#print axioms NaturalSections.natural_section_iff_holonomy
+#print axioms NaturalSections.one_object_recovered

@@ -24,7 +24,7 @@ question open.  Two questions:
 2. What is the necessary and sufficient condition, and is it stated
    anywhere in the repository?
 
-## Results (Lean, `lean/NaturalSections.lean`; 12 reports, every one
+## Results (Lean, `lean/NaturalSections.lean`; 24 reports, every one
 "does not depend on any axioms")
 
 * **`natural_section_iff_fixed_pair`** -- over `autoFamily O F`, a natural
@@ -55,69 +55,79 @@ question open.  Two questions:
   neither the condition nor sufficient; "fixes an admissible pair" is
   the condition at one object.
 
-## The many-object criterion: stated, assessed, NOT proved
+## The many-object criterion: walks, forests, and the iff (sections 4-5)
 
-Over a declared `Family` or `HFamily` -- arrows listed with no closure,
-`IsNatural` quantifying over exactly the listed arrows -- the proposed
-necessary and sufficient condition is:
+Over a declared `HFamily` -- arrows listed with no closure, `HIsNatural`
+quantifying over exactly the listed arrows -- the necessary and
+sufficient condition is now a theorem, in two forms.
 
-> Relative to a declared spanning forest `T` of the undirected graph
-> whose vertices are the objects and whose edges are the declared
-> arrows, a natural section exists **iff** at each root of `T` some
-> admissible pair is fixed by every holonomy at that root, where a
-> holonomy is the transport around a closed walk that may traverse
-> declared arrows forward (`mapPair`) or backward (`.symm.mapPair`).
+Definitions.  `Step D a b`: a declared arrow traversed forward (`fwd h`)
+or backward (`bwd h`); `Walk D a b`: a list of steps with chained
+endpoints; `Step.transport` / `Walk.transport`: the composite of the
+declared transports, `mapPair` forward and `.symm.mapPair` backward;
+`Walk.append`, `Walk.reverse`.  `Forest D`: a base object `root a` for
+every object and a walk `path a : Walk D (root a) a` -- DATA, declared,
+so no choice principle is used anywhere.  `Forest.gen h` for a declared
+arrow `h : a → b` is the walk `path a ; fwd h ; (path b).reverse` from
+`root a` to `root b`; `Forest.spread p` is the section that transports
+the base pair `p (root a)` out along `path a`.
 
-Assessment, recorded here because it is the next target and the claim
-must not be read as proved:
+* **`natural_section_iff_generators`** (generator form; NO condition on
+  the forest) -- a natural section exists iff some choice of pairs `p`
+  satisfies, for every declared arrow `h : a → b`,
+  `(T.gen h).transport (p (root a)) = p (root b)`.  Necessity is
+  `Walk.transport_of_natural`: a natural section is carried to itself
+  along every walk, backward steps included (`Step.transport_of_natural`
+  uses the sealed `mapPair_symm_left`).  Sufficiency is the spread: the
+  generator equation, after cancelling `(path b).reverse` against
+  `path b` (`Walk.transport_reverse_transport`), is exactly naturality at
+  `h`.  **Proved theorem**, with no axioms.
+* **`natural_section_iff_holonomy`** (holonomy form; bases constant
+  along arrows, `hroot : Hom a b → root a = root b`, i.e. one base per
+  connected component) -- a natural section exists iff some choice of
+  pairs is fixed by every closed walk at its base.  Derived from the
+  generator form through `walk_maps_of_closed_fixed`, which turns
+  "fixed by every closed walk at `r`" into "carried along any walk from
+  `r` to a base equal to `r`" by substituting the equality of bases.
+  **Proved theorem**, with no axioms.
+* **`one_object_recovered`** -- the general theorem, specialised to
+  `hAutoFamily O F` with the trivial forest (`root _ = ()`,
+  `path _ = nil`), is the one-object iff of section 1: the single
+  generator is `F` itself.  A consistency check, not new content.
+  **Proved theorem.**
 
-* The statement is right, with these clauses load-bearing.  (a) Backward
-  traversal is legitimate and necessary: each `mapPair` is a bijection
-  on admissible pairs (the sealed `mapPair_symm_left/right`), so the
-  arrow equation `mapPair f (s a) = s b` is equivalent to
-  `s a = f.symm.mapPair (s b)`, and a family with no closure still
-  constrains both ways.  (b) A forest has exactly one root per connected
-  component; an arrow-less object is its own component, and there the
-  condition reduces to viability (some admissible pair exists).  (c) The
-  fixed pair must be common to every holonomy at the same root; pairs at
-  different roots are independent.  (d) It suffices to check the
-  generators `T_b⁻¹ ∘ f ∘ T_a` for each declared arrow `f : a → b`,
-  where `T_x` is the tree path from the root to `x`; every closed walk
-  is a product of those, so a pair fixed by the generators is fixed by
-  all holonomies.  With finitely many objects and arrows that is a
-  finite check.  (e) On a component, a natural section is determined by
-  its value at the root: `s b = T_b (s root)` for any walk, all agreeing
-  exactly because the holonomies fix that value.  So the choice of `T`
-  changes the *construction* of the section, not whether one exists.
-* Sufficiency is constructive only because `T` is data: to build the
-  section one transports the root pair along the tree path to each
-  object, and choosing a walk per object without a declared forest would
-  need a choice principle the repository forbids.  The theorem must
-  therefore be stated relative to a declared forest, not to an
-  existential one.
-* The sealed `no_natural_section_of_endo` is the length-one-loop case of
-  the necessary direction; the one-object iff above is the case where
-  every holonomy is a power of one `F` (a pair fixed by `F` is fixed by
-  all its powers).  The parity case -- admissible pairs at the root are
-  `{(a, b), (b, a)}` and every transport is identity or swap -- is the
-  case where the holonomy group is the two-element group and the
-  condition reads "every cycle has even swap-parity"; `boolEqObs` with
-  `negIso` is the nontrivial class on a one-cycle.
-* **Not stated anywhere in the repository.**  `PresentationNaturality`
-  §"Non-claims" and §14 list multi-object families, naturality under a
-  generating set, and arrows crossing objects as OPEN; the claim ledger
-  entry for `no_natural_section_of_endo` repeats that and lists "a
-  heterogeneous family where the endo obstruction fails" as a falsifier.
-  The research tower imports `IsNatural` only for the Boolean instance.
-  No walk, holonomy, or section-from-fixed-pair construction exists
-  anywhere in `lean4/` or `research/`.
-* What would carry it: a `Walk` type over a declared family (a list of
-  arrows with directions, endpoints checked), `transport` along a walk
-  by folding `mapPair`/`.symm.mapPair`, a `Forest` structure supplying a
-  root and a tree walk per object with the endpoint proofs as fields,
-  and the iff with the section built by transport along the tree walks.
-  Everything is finite data and needs no choice principle.  **Open;
-  not attempted here.**
+What the proofs settled about the clauses assessed before they were
+written.  (a) Backward traversal: built into `Step.bwd`; the two
+cancellation lemmas `Walk.reverse_transport_transport` and
+`Walk.transport_reverse_transport` rest on the sealed
+`mapPair_symm_left/right` and nothing else.  (b) One base per
+component: needed only for the holonomy form (`hroot`); the generator
+form holds for ANY assignment of bases and walks, including one that is
+not a forest at all.  That is stronger than the assessed statement.  (c)
+The fixed pair is common per base: it is `p (root a)`, one value per
+base.  (d) The generators suffice: the generator form IS the theorem;
+the holonomy form is derived from it, not the other way round.  (e) The
+section is determined by its base values: it is `Forest.spread p`, and
+the choice of walks changes the construction, not existence.
+Existential per-base pairs would need choice to assemble; the theorem
+quantifies over a function `p : HSec D` instead, which is the
+constructive statement and the one that says the same thing.
+
+Relation to the sealed module.  `no_natural_section_of_endo` is the
+length-one-loop case of `Walk.transport_of_natural`; the sealed
+non-claims -- multi-object families, naturality under a generating set,
+arrows crossing objects with different carriers -- are now covered by
+these theorems as far as `HFamily` reaches, and `HFamily` already
+allows carriers and residual types to vary with the object.  The
+sealed module is not amended; it is imported.
+
+Still open.  No fixture exercises the holonomy form on a family with a
+genuinely nontrivial closed walk of length above one, and no finite
+computation of holonomy classes exists yet; the parity case
+(admissible pairs `{(a, b), (b, a)}`, every transport identity or
+swap) is where the first such fixture belongs.  A general embedding of
+the flat `Family` into `HFamily` is untouched and remains the sealed
+module's OPEN item.
 
 ## Boundary and write root
 
@@ -153,12 +163,13 @@ is the same shape as the sibling steps; it is not applied here.
 
 ## Non-claims
 
-* Nothing here is about many-object families beyond the one-object
-  bridge the sealed module already proves; the forest criterion above
-  is an assessed target, not a result.
-* No categorical structure is claimed for `Family`, `HFamily`, or the
-  walks described; "holonomy" above names a composite of declared
-  transports, nothing more.
+* No categorical structure is claimed for `Family`, `HFamily`, `Step`,
+  `Walk`, or `Forest`; a walk is a list, "holonomy" names the transport
+  along a closed walk, and no groupoid, fundamental group, or covering
+  is asserted.
+* A `Forest` is any assignment of bases and walks; nothing here proves
+  that a spanning forest exists for a given family, and the theorems do
+  not need one to.
 * Nothing here derives `ContactKernel.no_equivariant_pair_valued_map`
   or touches the OPEN items the sealed module records.
 * The countermodels separate the fixed-point reading from the
@@ -170,6 +181,6 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 12 within ['Quot.sound', 'propext']`; every report `no axioms`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 24 within ['Quot.sound', 'propext']`; every report `no axioms`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 23 tests`, `OK` (the clean rebuild included) |
 | `cd research/natural_sections && python -m mypy` | 0 | strict, 3 source files |
