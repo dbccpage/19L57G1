@@ -147,6 +147,16 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.obstruction_survives_repres",
     "NaturalSections.square_obstruction_survives",
     "NaturalSections.chain_section_survives",
+    # The cut theorem and the blindness of counts (NaturalSections/CutAndCounts.lean).
+    "NaturalSections.cut_no_hop_flips",
+    "NaturalSections.cut_removes_exactly_the_flips",
+    "NaturalSections.cut_natural_section",
+    "NaturalSections.cut_theorem",
+    "NaturalSections.cover_natural_section",
+    "NaturalSections.unWalk_reWalk",
+    "NaturalSections.reWalk_unWalk",
+    "NaturalSections.reWalk_length",
+    "NaturalSections.dynamics_blind_to_class",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

@@ -5,6 +5,7 @@ import NaturalSections.HopFixture4
 import NaturalSections.HopFixturePhase
 import NaturalSections.WeightedLayer
 import NaturalSections.Represent
+import NaturalSections.CutAndCounts
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -97,3 +98,12 @@ import NaturalSections.Represent
 #print axioms NaturalSections.obstruction_survives_repres
 #print axioms NaturalSections.square_obstruction_survives
 #print axioms NaturalSections.chain_section_survives
+#print axioms NaturalSections.cut_no_hop_flips
+#print axioms NaturalSections.cut_removes_exactly_the_flips
+#print axioms NaturalSections.cut_natural_section
+#print axioms NaturalSections.cut_theorem
+#print axioms NaturalSections.cover_natural_section
+#print axioms NaturalSections.unWalk_reWalk
+#print axioms NaturalSections.reWalk_unWalk
+#print axioms NaturalSections.reWalk_length
+#print axioms NaturalSections.dynamics_blind_to_class

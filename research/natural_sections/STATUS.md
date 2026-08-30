@@ -706,6 +706,72 @@ What neither rule reaches within a declared budget of deletions and
 additions is the residual, and the residual is not a third rule: it is
 the class, which T1 shows cannot be described away.
 
+## The cut theorem, and whether the dynamics generates the class -- predictions, written before the computation ran
+
+Two questions, both declared before running:
+
+1. **The cut theorem.**  NS-44 computed that deleting the square's two
+   flipping hops trivialises its class.  Predicted Lean: the family with
+   those two hops removed (`cutFamily`, arrows exactly the non-flipping
+   hops, the same transport rule) carries the constant orientation as a
+   natural section; `cut_removes_exactly_the_flips` states that the
+   deleted arrows are exactly the flipping ones; `cut_theorem` packages
+   the cut's section with the square's obstruction.  Minimality of the
+   cut stays finite computation (NS-44); the Lean half is the positive
+   direction only.
+2. **Counts are class-blind.**  The only thing a declared family
+   generates by itself is its walks, and the only weight the tower
+   produces is a count (B1).  Predicted: the square and its cover (the
+   same objects and arrows with every transport the identity) have
+   definitionally the same walks -- a length-preserving bijection in
+   Lean (`reWalk`, `unWalk`, round trips, `reWalk_length`) -- hence the
+   same closed-walk count at every length, while the cover has a natural
+   section and the square has none (`dynamics_blind_to_class`).
+   Computed: identical count sequences by length up to `6` at the base,
+   and different convention-read counts (`twisted`, B1): `147 = 147`
+   per length in total, `95` versus `147` at the pair.  So the dynamics
+   generates counts, raw counts cannot carry the class, and the class
+   enters only when counts are read in a convention -- which is what an
+   adapter would have to do.
+
+Reading, agreed in advance.  If the cut family fails to carry the
+constant section, the transport rule is flipping a hop the cut kept.  If
+any closed-walk count differs between square and cover, the bijection
+claim is false and the families do not share their arrows after all.
+
+### Results, written after the run (`dynamics_counts.py`, receipt
+`receipts/dynamics_counts.json`; Lean `lean/NaturalSections/CutAndCounts.lean`)
+
+Both predictions held.
+
+1. **The cut theorem is carried** (`cut_theorem`, no axioms): `cutFamily`
+   -- the square's objects and exactly its non-flipping hops, transport
+   rule unchanged -- carries the constant orientation
+   (`cut_natural_section`, decided hop by hop through `cut_no_hop_flips`),
+   `cut_removes_exactly_the_flips` states the deleted arrows are exactly
+   the flipping ones, and the square itself stays obstructed.  Minimality
+   of the two-hop cut remains finite computation (NS-44).
+2. **Counts are blind to the class** (`dynamics_blind_to_class`, no
+   axioms): `reWalk` and `unWalk` translate the square's walks to the
+   cover's and back, inverse and length-preserving, so every closed-walk
+   count agrees; the cover carries the constant section
+   (`cover_natural_section`) and the square carries none.  Computed:
+   counts by length `0..6` at the base are `[1, 0, 2, 0, 16, 0, 128]`
+   for BOTH; the convention-read counts (walks whose holonomy fixes the
+   pair, B1) are `[1, 0, 2, 0, 12, 0, 80]` on the square and equal to
+   the totals on the cover.  On the chain, totals and convention-read
+   counts agree, as a section requires.
+
+What this answers.  The only thing a declared family generates by
+itself is its walks, and so the only weight it generates is a count of
+them.  Those counts cannot carry the class: two families with the same
+objects, the same arrows and the same counts differ in it.  The class
+lives in the transports, and a count sees it only when read in a
+convention.  So an adapter that brings only "how many" brings nothing
+the class can bite on; the reading -- which walks count as returning to
+themselves -- is where the class enters, and that reading is exactly
+what a natural section makes globally consistent.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -758,12 +824,12 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 91 within ['Quot.sound', 'propext']`; 58 `no axioms` (the seven re-presentation theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 100 within ['Quot.sound', 'propext']`; 67 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 86 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 18 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 91 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 21 source files |
