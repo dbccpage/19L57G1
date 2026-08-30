@@ -1,4 +1,5 @@
 import NaturalSections
+import NaturalSections.HopFixture
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -24,3 +25,11 @@ import NaturalSections
 #print axioms NaturalSections.walk_maps_of_closed_fixed
 #print axioms NaturalSections.natural_section_iff_holonomy
 #print axioms NaturalSections.one_object_recovered
+#print axioms NaturalSections.Hop.chain_no_hop_flips
+#print axioms NaturalSections.Hop.chain_natural_section
+#print axioms NaturalSections.Hop.chain_has_natural_section
+#print axioms NaturalSections.Hop.sqWalk_transport
+#print axioms NaturalSections.Hop.square_no_natural_section
+#print axioms NaturalSections.Hop.stWalk_transport
+#print axioms NaturalSections.Hop.star_no_natural_section
+#print axioms NaturalSections.Hop.chain_square_star_separation

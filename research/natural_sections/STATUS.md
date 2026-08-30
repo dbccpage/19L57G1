@@ -121,13 +121,111 @@ these theorems as far as `HFamily` reaches, and `HFamily` already
 allows carriers and residual types to vary with the object.  The
 sealed module is not amended; it is imported.
 
-Still open.  No fixture exercises the holonomy form on a family with a
-genuinely nontrivial closed walk of length above one, and no finite
-computation of holonomy classes exists yet; the parity case
-(admissible pairs `{(a, b), (b, a)}`, every transport identity or
-swap) is where the first such fixture belongs.  A general embedding of
-the flat `Family` into `HFamily` is untouched and remains the sealed
-module's OPEN item.
+Still open.  A general embedding of the flat `Family` into `HFamily` is
+untouched and remains the sealed module's OPEN item.  The hop fixture
+below supplies the closed walks of length above one and the finite
+holonomy computation that an earlier version of this paragraph listed
+as missing.
+
+## Hop fixture: predictions, written before the computation ran
+
+The first fixture with closed walks of length above one.  Two hard-core
+particles on a finite site graph.  Declared before running:
+
+* Object: an unordered pair of distinct occupied sites, written sorted
+  `{x < y}`.  Objects are UNLABELLED on purpose: with labelled particles
+  and identity-on-labels hops, every closed walk is the identity on
+  both graphs and the family is the cover, on which a section exists by
+  construction.  That would test nothing.
+* Carrier at every object: `Bool`, index `false` the smaller site,
+  `true` the larger; observer `boolEqObs`; admissible pairs
+  `(false, true)` and `(true, false)`, the two orientations.
+* Arrow: a hop -- one particle moves to an adjacent site not occupied
+  by the other.  Its transport is the identity when the mover stays on
+  its side of the stayer and the swap `negIso` when it ends on the far
+  side.  That flip bit is the whole modeling input; it is computed from
+  the sorted positions, never tabulated by hand.
+* Forest: breadth-first from the base object `{0, 1}` in the sorted
+  order of objects; the criterion is `natural_section_iff_generators`
+  (Lean) and, in Python, the same generator check: parity potential
+  along the tree, every non-tree hop's generator must have even flip
+  parity.
+
+Predictions:
+
+| site graph | prediction | why |
+|---|---|---|
+| open chain `P_n` | section exists | the particles cannot pass, so no hop flips and every closed walk is the identity |
+| `2 x 2` square, `2 x 3` ladder | no section | the particles can trade places around the cycle, so some closed walk is the swap, which fixes no admissible pair |
+| star `K_{1,3}` (a tree) | no section | the particles can trade places through the hub, so the swap appears without any cycle in the site graph |
+
+Reading of the outcomes, agreed in advance.  If both the chain and the
+square come out as predicted, the criterion reproduces
+one-dimensional-versus-not from the hop graph alone -- and the star says
+what "not" means: exchangeability, not dimension.  If the chain comes
+out obstructed, the arrow set carries an identity the model should not
+have (a flip where nothing passed).  If the square comes out clean, it
+is missing one it should have (a pass counted as no flip).  If the star
+comes out clean while the square is obstructed, the flip rule is wrong
+in the branching case, not the graph.  Nothing in these fixtures names
+a physical system; they are hop graphs and a parity, and stay that way.
+
+### Results, written after the run (`holonomy_fixture.py`, receipt
+`receipts/holonomy_fixture.json`; Lean `lean/NaturalSections/HopFixture.lean`)
+
+Every prediction held.  Finite computation, then the Lean half:
+
+| fixture | objects | hops | odd generators | verdict | as predicted |
+|---|---|---|---|---|---|
+| chain `P2` .. `P6` | 1, 3, 6, 10, 15 | 0, 4, 12, 24, 40 | 0 | section exists | yes |
+| square `2 x 2` | 6 | 16 | 4 | no section; witness `{0,1} → {0,3} → {0,2} → {1,2} → {0,1}`, one flip | yes |
+| ladder `2 x 3` | 15 | 56 | 8 | no section | yes |
+| star `K_{1,3}` | 6 | 12 | 2 | no section; witness of six hops through the hub, three flips | yes |
+| triangle `C_3` | 3 | 6 | 2 | no section | (not predicted; consistent) |
+
+Lean carries three of them on the same six objects `Pair4`, differing
+only in the adjacency function, with the transport rule `flipB` computed
+from sorted positions and never tabulated (8 reports, no axioms):
+`chain_has_natural_section` (the constant orientation is natural because
+`chain_no_hop_flips`, decided over all 36 object pairs),
+`square_no_natural_section` and `star_no_natural_section` (the Python's
+witness walks, `sqWalk_transport` and `stWalk_transport` showing each
+closed walk is the swap, then the sealed `negIso_fixed_point_free`
+through `Walk.transport_of_natural`), and
+`chain_square_star_separation` stating all three together.  These are the
+first uses of the walk machinery on closed walks of length four and six
+with nontrivial transport; NS-12 is closed by them.
+
+Two negative controls in `test_holonomy_fixture.py`, each the failure
+mode named above exhibited on purpose: with the flip bit forced to
+`false` on every hop (the cover), the square comes out with a section;
+with a spurious flip on ONE hop lying on a cycle of the configuration
+graph (`{0,2} <-> {0,3}` on the chain `0-1-2-3`, whose objects
+`{0,2}, {0,3}, {1,3}, {1,2}` form a 4-cycle), the chain comes out
+obstructed.  So the flip bit is what carries the obstruction, in both
+directions.
+
+A finding from a failed first version of the second control, recorded
+rather than hidden: flipping EVERY hop leaves every chain clean, and
+the square too once its real flips are discarded.  A hop changes
+`x + y` by one, so the configuration graph is bipartite, every closed
+walk has even length, and a uniform flip contributes even parity to
+every cycle -- a uniform relabelling of the fibre is a gauge, absorbed
+by a section.  Only a flip that changes the parity of some cycle
+obstructs, and the position-computed flip does exactly that on the
+square and the star and never on a chain
+(`test_a_uniform_spurious_flip_is_a_gauge_not_an_obstruction`).  "A
+flip where nothing passed" therefore obstructs only when it is
+non-uniform; the prediction table's reading of a chain failure stands,
+with that qualification.
+
+What this does and does not show.  It shows that the criterion, with
+the declared hop rule, separates the open chain from every graph on
+which two hard-core particles can trade places -- and the star shows
+that "can trade places" is the invariant, not the presence of a cycle
+in the site graph.  It shows nothing about weights, phases, or any
+cancellation; the fibre is two-element and the holonomy is a parity.
+That was the boundary stated before the run and it is unchanged by it.
 
 ## Boundary and write root
 
@@ -181,6 +279,7 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 24 within ['Quot.sound', 'propext']`; every report `no axioms`; `write root respected` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 23 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 3 source files |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 32 within ['Quot.sound', 'propext']`; every report `no axioms`; `write root respected` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 35 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 6 source files |

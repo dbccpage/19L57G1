@@ -74,6 +74,15 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.walk_maps_of_closed_fixed",
     "NaturalSections.natural_section_iff_holonomy",
     "NaturalSections.one_object_recovered",
+    # Hop fixture (NaturalSections/HopFixture.lean): chain, square, star.
+    "NaturalSections.Hop.chain_no_hop_flips",
+    "NaturalSections.Hop.chain_natural_section",
+    "NaturalSections.Hop.chain_has_natural_section",
+    "NaturalSections.Hop.sqWalk_transport",
+    "NaturalSections.Hop.square_no_natural_section",
+    "NaturalSections.Hop.stWalk_transport",
+    "NaturalSections.Hop.star_no_natural_section",
+    "NaturalSections.Hop.chain_square_star_separation",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

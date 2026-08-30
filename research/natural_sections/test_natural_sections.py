@@ -145,14 +145,21 @@ class LeanAuditTests(unittest.TestCase):
         self.assertEqual(
             verify_lean.declared_report_inventory(source), verify_lean.AXIOM_REPORT_DECLARATIONS
         )
-        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 24)
+        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 32)
 
     def test_every_listed_theorem_is_declared_in_the_source(self) -> None:
-        source = (verify_lean.LEAN_ROOT / "NaturalSections.lean").read_text(encoding="utf-8")
+        source = "\n".join(
+            path.read_text(encoding="utf-8") for path in verify_lean.research_lean_sources()
+        )
         for name in verify_lean.AXIOM_REPORT_DECLARATIONS:
             self.assertTrue(name.startswith("NaturalSections."), name)
             local = name[len("NaturalSections."):]
-            self.assertIn(f"theorem {local} ", source, name)
+            candidates = [local]
+            if local.startswith("Hop."):
+                candidates.append(local[len("Hop."):])
+            self.assertTrue(
+                any(f"theorem {c} " in source for c in candidates), name
+            )
 
     def test_disallowed_axiom_fails_even_when_the_name_is_listed(self) -> None:
         output = "'A.b' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
@@ -177,7 +184,7 @@ class LeanAuditTests(unittest.TestCase):
         sources = verify_lean.research_lean_sources()
         self.assertEqual(
             sorted(path.name for path in sources),
-            ["AxiomReport.lean", "NaturalSections.lean", "lakefile.lean"],
+            ["AxiomReport.lean", "HopFixture.lean", "NaturalSections.lean", "lakefile.lean"],
         )
         self.assertEqual(verify_lean.scan_forbidden_tokens(sources), [])
 
@@ -246,7 +253,7 @@ class WriteRootBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("write root respected", result.stdout)
-        self.assertIn("declarations: 24 within", result.stdout)
+        self.assertIn("declarations: 32 within", result.stdout)
         self.assertEqual(
             verify_lean.writes_outside_root(before, verify_lean.repository_records()), []
         )
