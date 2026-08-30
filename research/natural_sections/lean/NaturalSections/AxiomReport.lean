@@ -2,6 +2,7 @@ import NaturalSections
 import NaturalSections.HopFixture
 import NaturalSections.HopFixture3
 import NaturalSections.HopFixture4
+import NaturalSections.HopFixturePhase
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -58,3 +59,20 @@ import NaturalSections.HopFixture4
 #print axioms NaturalSections.Hop4.constant23_natural
 #print axioms NaturalSections.Hop4.section_exists
 #print axioms NaturalSections.Hop4.nontrivial_holonomy_with_natural_section
+#print axioms NaturalSections.HopPhase.AbGroup.neg_zero
+#print axioms NaturalSections.HopPhase.AbGroup.neg_neg
+#print axioms NaturalSections.HopPhase.AbGroup.cancel
+#print axioms NaturalSections.HopPhase.tag_antisymm
+#print axioms NaturalSections.HopPhase.stag_antisymm
+#print axioms NaturalSections.HopPhase.interp_flip
+#print axioms NaturalSections.HopPhase.tr_inv
+#print axioms NaturalSections.HopPhase.walk_transport_val
+#print axioms NaturalSections.HopPhase.comp_label0
+#print axioms NaturalSections.HopPhase.comp_label1
+#print axioms NaturalSections.HopPhase.two_labels
+#print axioms NaturalSections.HopPhase.flux_zero_of_fixed
+#print axioms NaturalSections.HopPhase.no_natural_section_of_flux
+#print axioms NaturalSections.HopPhase.interp_zero_flux
+#print axioms NaturalSections.HopPhase.constant_natural_of_zero_flux
+#print axioms NaturalSections.HopPhase.section_iff_flux_zero
+#print axioms NaturalSections.HopPhase.section_iff_flux_zero_fin4

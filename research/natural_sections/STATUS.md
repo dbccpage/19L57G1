@@ -424,6 +424,134 @@ the closure is decided in Python only).  `test_frozen_edge_particles_never_move_
 checks the modeling assumption the Lean family encodes: in the
 two-on-the-square component all sixteen hops fix indices `2` and `3`.
 
+## Phase fibre: what is admitted, what is refused, and the predictions, written before the computation ran
+
+Refused by name: a continuous phase.  It is neither finite nor
+decidable, and every claim in this tree is decided by `decide` over
+finite types.  `holonomy_phase.refuse_continuous_phase` raises when
+asked for it.  Admitted instead: phases in `Z_N` with `N` declared
+(`N = 4` primary; periodicity in `N` checked at `N = 2, 3, 6`).  That
+is the whole of what a finite, decidable phase can be here, and the
+results below are results about `Z_N`, never about the circle.
+
+The extension is a change of carrier, not of theorem.  Carrier at every
+object: `label x Fin N`, a phase register per particle.  Observer: the
+kernel of the label projection, so two points are zero-related when
+they carry the same label -- phases are INVISIBLE to distinctness and
+the admissible pairs are, as before, the ordered pairs of distinct
+labels, now each carrying a phase.  Arrow: a hop; its transport is
+`(l, phi) -> (sigma l, phi + theta_l)`, a finite bijection: the mover's
+register gains the declared edge phase `A(u, v)` of its hop, every
+other register is unchanged, `A(v, u) = -A(u, v)`.  The holonomy of a
+closed walk is a pair (permutation, phase-shift vector) in the wreath
+product of `Z_N` by the symmetric group.  `natural_section_iff_generators`
+and `natural_section_iff_holonomy` apply verbatim; the invariant reads:
+two labels fixed by every holonomy's permutation with zero phase shift
+on both.
+
+A limit stated in advance: with one particle there is no admissible
+pair, so a single-particle flux is invisible to this fibre.  A phase can
+obstruct only relative to a second label.  The fixture with one mobile
+particle and one frozen reference is the test of whether that limit is
+the right one.
+
+Connections declared: the square carries flux `Phi` placed on the edge
+`0-1` (`A(0,1) = Phi`, every other edge `0`); the chain and the star
+carry `A(i, j) = j` on their edges (nonzero, and pure gauge on a tree);
+the disjoint edge `4-5` carries `0`.  A gauge transformation
+`A'(u, v) = A(u, v) + g(v) - g(u)` conjugates every holonomy by a
+natural automorphism, so every verdict and every group order must be
+unchanged by it; that is checked, not assumed.
+
+Predictions (`k` particles, `N = 4`):
+
+| fixture | prediction |
+|---|---|
+| chain `P4`, `k = 2`, nonzero edge phases | section exists; holonomy trivial (every particle's site path in a closed configuration walk is a closed walk on a tree, so its net phase is `0`) |
+| star, `k = 3`, nonzero edge phases | section exists; trivial, for the same reason |
+| square, `k = 2`, any `Phi` | no section for every `Phi`: the exchange (permutation part the swap) obstructs before any phase can; its square is the pure phase `(Phi, Phi)` on both registers |
+| **square + edge, `k = 2`, one particle on each (8 objects), `Phi = 0`** | **section exists; holonomy trivial** |
+| **square + edge, `k = 2`, one on each, `Phi = 1, 2, 3`** | **no section, with the permutation part TRIVIAL: the square particle circulating gains `Phi` on its register while the edge particle gains `0`, so no pair is fixed -- the pure-phase obstruction, relative to the frozen reference** |
+| square + edge, `k = 2`, `Phi = N` | section exists: `Z_N` periodicity |
+| square + edge, `k = 4`, two on the square and two on the edge, any `Phi` | section exists for every `Phi`: the frozen pair `(2, 3)` has zero shift always; flux on labels that carry no fixed pair changes nothing |
+| every fixture under a gauge transformation | identical verdict and identical group order |
+
+Reading, agreed in advance.  If the one-on-each fixture separates
+`Phi = 0` from `Phi != 0` with trivial permutation part, the fibre sees
+a pure phase obstruction and sees it only relative to a reference label,
+as stated.  If `Phi != 0` comes out with a section there, the transport
+is dropping the phase; if `Phi = 0` comes out obstructed, the phase
+rule is not antisymmetric.  If a gauge transformation changes a verdict,
+the family is not what it claims to be.  The Lean half carries the
+one-on-each fixture: `Phi = 0` has a natural section, `Phi != 0` has
+none, for every `Phi : Fin 4`, decided.
+
+### Results, written after the run (`holonomy_phase.py`, receipt
+`receipts/holonomy_phase.json`; Lean `lean/NaturalSections/HopFixturePhase.lean`)
+
+A slip, recorded first.  The square-plus-edge graph at `k = 2` has
+THREE configuration components -- both particles on the square (the
+two-label exchange, obstructed for every flux), one on each (the
+question), both on the edge (frozen) -- and the fixture-level verdict
+is the conjunction over all three, so it is "no section" for every
+flux.  The first version of the periodicity check read that
+fixture-level verdict and printed all-false.  The prediction table
+above names the one-on-each COMPONENT, and that is where the question
+lives; the checks now read that component (`holonomy_phase.one_on_each`),
+and `test_fixture_level_verdict_is_the_conjunction_over_components`
+keeps the distinction visible.  No prediction was wrong; a check was
+pointed at the wrong object.
+
+At the component level every prediction held (`N = 4`):
+
+| fixture / component | group order | permutation part | phase part | fixed pair | section |
+|---|---|---|---|---|---|
+| chain `P4`, `k = 2`, tree phases | 1 | trivial | trivial | yes | exists |
+| star, `k = 3`, tree phases | 1 | trivial | trivial | yes | exists |
+| square, `k = 2`, flux `0, 1, 2, 3` | 2, 8, 4, 8 | the swap | trivial only at `0` | no | NO, every flux |
+| **one on each, flux `0`** | 1 | trivial | trivial | yes | **exists** |
+| **one on each, flux `1, 2, 3`** | 4, 2, 4 | **trivial** | nontrivial | **no** | **NO: the pure phase obstruction** |
+| one on each, flux `4` | 1 | trivial | trivial | yes | exists (`Z_4` periodicity) |
+| square + edge, `k = 4`, two on the square, flux `0..3` | 2, 8, 4, 8 | the swap on `0, 1` | -- | yes: `(2, 3)` with zero shift | exists, every flux |
+| gauge transformation, every fixture | unchanged | unchanged | -- | unchanged | unchanged |
+
+Periodicity holds at `N = 2, 3, 4, 6`, and the verdict is compatible with
+refinement of the modulus: for `N | M` and every `phi` in `Z_N`, the
+one-on-each verdict at `(phi, N)` equals the verdict at `((M / N) phi, M)`,
+checked for `2 | 4`, `2 | 6`, `3 | 6`, `4 | 8`, `4 | 12`
+(`refinement_compatibility`).  The verdict is therefore an invariant of
+the directed system of moduli under divisibility -- the finite shape of
+"the same in the limit".  That check is a bonus, not the argument; the
+argument is the next paragraph.
+
+**The phase group does not need to be finite.**  `HopFixturePhase.lean`
+is parametrized over an arbitrary `AbGroup G` -- a type with an
+addition, a zero and a negation obeying the group laws, with NO
+decidable equality and NO finiteness assumed -- and proves
+`section_iff_flux_zero`: over the one-on-each family with flux
+`Phi : G`, a natural section exists iff `Phi = 0`.  The forward
+direction is group cancellation (`AbGroup.cancel`) applied to the
+square particle's register, which the walk `0 -> 1 -> 3 -> 2 -> 0`
+returns shifted by exactly `Phi` (`comp_label0`) while the edge
+particle's is unchanged (`comp_label1`); the backward direction is the
+constant section, natural because every edge phase is `0` or `-0`
+(`constant_natural_of_zero_flux`).  Decidability is used only on sites
+and labels (`tag_antisymm`, `stag_antisymm`, `two_labels`).  The
+`Z_4` instance `fin4Phase` recovers the computed fixture
+(`section_iff_flux_zero_fin4`).  Any abelian group the metatheory
+supplies -- the integers, the circle -- is an instance; this tree
+constructs none of them and needs none.  17 reports, 72 in the tree.
+
+What the phase fibre does and does not see, settled.  It sees a pure
+phase obstruction (permutation part trivial) exactly when the flux is
+nonzero, and only RELATIVE to a second label: the reference particle's
+register is what the square particle's is compared against.  With one
+particle there is no admissible pair and nothing to compare, so a
+single-particle flux is invisible, as stated before the run.  Flux on
+labels that already carry a fixed pair changes nothing (`k = 4`, the
+frozen pair).  What the fibre does not see: amplitudes, weights, or any
+cancellation -- a holonomy is a group element, never a sum.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -476,9 +604,10 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 55 within ['Quot.sound', 'propext']`; 7 in `Hop3` and 6 in `Hop4` on `['propext']` (the `if`-decided maps), the other 42 `no axioms`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 72 within ['Quot.sound', 'propext']`; 7 in `Hop3`, 6 in `Hop4` and 12 in `HopPhase` on `['propext']` (the `if`-decided maps and what is built on them), the other 47 `no axioms`; `write root respected` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 57 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 9 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 69 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 12 source files |

@@ -108,6 +108,24 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Hop4.constant23_natural",
     "NaturalSections.Hop4.section_exists",
     "NaturalSections.Hop4.nontrivial_holonomy_with_natural_section",
+    # Phase fibre over an arbitrary abelian group (NaturalSections/HopFixturePhase.lean).
+    "NaturalSections.HopPhase.AbGroup.neg_zero",
+    "NaturalSections.HopPhase.AbGroup.neg_neg",
+    "NaturalSections.HopPhase.AbGroup.cancel",
+    "NaturalSections.HopPhase.tag_antisymm",
+    "NaturalSections.HopPhase.stag_antisymm",
+    "NaturalSections.HopPhase.interp_flip",
+    "NaturalSections.HopPhase.tr_inv",
+    "NaturalSections.HopPhase.walk_transport_val",
+    "NaturalSections.HopPhase.comp_label0",
+    "NaturalSections.HopPhase.comp_label1",
+    "NaturalSections.HopPhase.two_labels",
+    "NaturalSections.HopPhase.flux_zero_of_fixed",
+    "NaturalSections.HopPhase.no_natural_section_of_flux",
+    "NaturalSections.HopPhase.interp_zero_flux",
+    "NaturalSections.HopPhase.constant_natural_of_zero_flux",
+    "NaturalSections.HopPhase.section_iff_flux_zero",
+    "NaturalSections.HopPhase.section_iff_flux_zero_fin4",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

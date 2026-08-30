@@ -145,7 +145,7 @@ class LeanAuditTests(unittest.TestCase):
         self.assertEqual(
             verify_lean.declared_report_inventory(source), verify_lean.AXIOM_REPORT_DECLARATIONS
         )
-        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 55)
+        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 72)
 
     def test_every_listed_theorem_is_declared_in_the_source(self) -> None:
         source = "\n".join(
@@ -154,10 +154,10 @@ class LeanAuditTests(unittest.TestCase):
         for name in verify_lean.AXIOM_REPORT_DECLARATIONS:
             self.assertTrue(name.startswith("NaturalSections."), name)
             local = name[len("NaturalSections."):]
-            candidates = [local]
-            for prefix in ("Hop.", "Hop3.", "Hop4."):
-                if local.startswith(prefix):
-                    candidates.append(local[len(prefix):])
+            # A theorem `theorem X.y` inside `namespace A.B` reports as `A.B.X.y`;
+            # every dotted suffix is a candidate spelling in the source.
+            parts = local.split(".")
+            candidates = [".".join(parts[i:]) for i in range(len(parts))]
             self.assertTrue(
                 any(f"theorem {c} " in source for c in candidates), name
             )
@@ -190,6 +190,7 @@ class LeanAuditTests(unittest.TestCase):
                 "HopFixture.lean",
                 "HopFixture3.lean",
                 "HopFixture4.lean",
+                "HopFixturePhase.lean",
                 "NaturalSections.lean",
                 "lakefile.lean",
             ],
@@ -261,7 +262,7 @@ class WriteRootBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("write root respected", result.stdout)
-        self.assertIn("declarations: 55 within", result.stdout)
+        self.assertIn("declarations: 72 within", result.stdout)
         self.assertEqual(
             verify_lean.writes_outside_root(before, verify_lean.repository_records()), []
         )
