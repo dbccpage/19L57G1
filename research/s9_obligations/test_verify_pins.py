@@ -1,75 +1,156 @@
 """Tests for verify_pins and the shared scaffolding in common.
 
-The pins must resolve and match at HEAD; every refusal is exercised by
-tampering with the loaded pins in-process (the JSON is never written), and
-the sealed-prefix refusal is exercised on a synthetic porcelain line so no
-sealed path is ever touched (PROMPT.md step 35).
+The manifest must resolve and match at the snapshot and at HEAD; every
+refusal is exercised by tampering with the loaded manifest in-process (the
+JSON is never written), and the sealed-prefix refusal is exercised on a
+synthetic porcelain line so no sealed path is ever touched (PROMPT.md
+step 35).  Two refusals a reviewer found missing are here by name: a
+well-formed snapshot id that resolves to nothing, and a bytecode file
+written under the seal.
 """
 
 from __future__ import annotations
 
 import copy
+import os
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from typing import Any
+from unittest import mock
 
 import common
 import verify_lean
 import verify_pins
 
 
+def tampered() -> dict[str, Any]:
+    return copy.deepcopy(verify_pins.read_manifest())
+
+
 class VerifyPinsTests(unittest.TestCase):
-    def test_pins_resolve_and_match_at_head(self) -> None:
+    def test_manifest_resolves_and_matches_at_snapshot_and_head(self) -> None:
         lines = verify_pins.verify()
         self.assertTrue(lines[0].startswith("verification commit: "))
-        pins = verify_pins.read_pins()
+        manifest = verify_pins.read_manifest()
         pin_lines = [line for line in lines if line.startswith("pin: ")]
-        self.assertEqual(len(pin_lines), len(pins["sealed_inputs"]))
+        self.assertEqual(len(pin_lines), len(manifest["sources"]))
         self.assertEqual(len(pin_lines), 5)
+        for line in pin_lines:
+            self.assertTrue(line.endswith("(at snapshot and HEAD)"), line)
         self.assertIn(
-            f"prompt: {common.PROMPT_PATH} {common.PROMPT_BLOB_ID}", lines
+            f"prompt: {common.PROMPT_PATH} {common.PROMPT_BLOB_ID} (at snapshot and HEAD)",
+            lines,
         )
-        self.assertEqual(pins["snapshot_commit"], common.SNAPSHOT_COMMIT)
-        self.assertEqual(pins["prompt"]["blob"], common.PROMPT_BLOB_ID)
+        snapshot = manifest["source_snapshot"]
+        self.assertEqual(snapshot["commit"], common.SNAPSHOT_COMMIT)
+        self.assertTrue(
+            lines[1].startswith(
+                f"snapshot commit: {snapshot['commit']} tree {snapshot['tree']} ("
+            )
+        )
+        self.assertEqual(manifest["prompt"]["blob"], common.PROMPT_BLOB_ID)
+        self.assertIn("sealed prefixes unchanged between snapshot and HEAD", lines)
         self.assertEqual(
             lines[-1],
             "sealed prefixes clean: prompt paper code lean4/Derivation artifacts",
         )
 
+    def test_manifest_follows_the_established_shape(self) -> None:
+        manifest = verify_pins.read_manifest()
+        self.assertEqual(manifest["schema"], verify_pins.SCHEMA)
+        self.assertEqual(set(manifest["source_snapshot"]), {"commit", "tree"})
+        self.assertIn("hash_basis", manifest)
+        for item in manifest["sources"]:
+            self.assertEqual(set(item), {"path", "sha256", "role"})
+        self.assertEqual(verify_pins.MANIFEST_PATH.name, "SOURCE_MANIFEST.json")
+
     def test_tampered_hash_is_refused(self) -> None:
-        pins = copy.deepcopy(verify_pins.read_pins())
-        pins["sealed_inputs"][0]["sha256"] = "0" * 64
+        manifest = tampered()
+        manifest["sources"][0]["sha256"] = "0" * 64
         with self.assertRaisesRegex(
-            ValueError, r"hash mismatch for lean4/Derivation/PrimDiff\.lean"
+            ValueError, r"hash mismatch for lean4/Derivation/PrimDiff\.lean at snapshot"
         ):
-            verify_pins.verify(pins)
+            verify_pins.verify(manifest)
+
+    def test_blob_that_moved_since_the_snapshot_is_refused(self) -> None:
+        """A pin must hold at HEAD, not only at the snapshot it was taken at."""
+        manifest = verify_pins.read_manifest()
+        snapshot = manifest["source_snapshot"]["commit"]
+        real = verify_pins._sha256_git_blob
+
+        def moved_at_head(revision: str, relative: Any) -> str:
+            if revision == snapshot:
+                return real(revision, relative)
+            return "0" * 64
+
+        with mock.patch.object(verify_pins, "_sha256_git_blob", moved_at_head):
+            with self.assertRaisesRegex(
+                ValueError, r"hash mismatch for lean4/Derivation/PrimDiff\.lean at HEAD"
+            ):
+                verify_pins.verify(manifest)
 
     def test_head_snapshot_is_refused(self) -> None:
-        pins = copy.deepcopy(verify_pins.read_pins())
-        pins["snapshot_commit"] = "HEAD"
+        manifest = tampered()
+        manifest["source_snapshot"]["commit"] = "HEAD"
         with self.assertRaisesRegex(
             ValueError, "snapshot commit must be an exact 40-digit lowercase hex id"
         ):
-            verify_pins.verify(pins)
+            verify_pins.verify(manifest)
+
+    def test_well_formed_but_nonexistent_snapshot_is_refused(self) -> None:
+        """The reviewer's injection: forty zeroes passed the spelling check."""
+        manifest = tampered()
+        manifest["source_snapshot"]["commit"] = "0" * 40
+        with self.assertRaisesRegex(
+            ValueError, "snapshot commit 0{40} does not resolve to a commit object"
+        ):
+            verify_pins.verify(manifest)
+
+    def test_snapshot_that_is_not_an_ancestor_is_refused(self) -> None:
+        manifest = verify_pins.read_manifest()
+        with mock.patch.object(verify_pins, "_is_ancestor", return_value=False):
+            with self.assertRaisesRegex(ValueError, "is not an ancestor of HEAD"):
+                verify_pins.verify(manifest)
+
+    def test_snapshot_tree_mismatch_is_refused(self) -> None:
+        manifest = tampered()
+        manifest["source_snapshot"]["tree"] = "0" * 40
+        with self.assertRaisesRegex(ValueError, "snapshot tree mismatch"):
+            verify_pins.verify(manifest)
+
+    def test_sealed_path_moved_since_the_snapshot_is_refused(self) -> None:
+        manifest = verify_pins.read_manifest()
+        with mock.patch.object(
+            verify_pins, "_sealed_diff", return_value=["paper/primitive_difference.md"]
+        ):
+            with self.assertRaisesRegex(
+                ValueError, "tracked sealed paths differ between the snapshot and HEAD"
+            ):
+                verify_pins.verify(manifest)
 
     def test_prompt_blob_drift_is_refused(self) -> None:
-        pins = copy.deepcopy(verify_pins.read_pins())
-        pins["prompt"]["blob"] = "0" * 40
-        with self.assertRaisesRegex(ValueError, "prompt drift: research/s9_obligations/PROMPT.md"):
-            verify_pins.verify(pins)
+        manifest = tampered()
+        manifest["prompt"]["blob"] = "0" * 40
+        with self.assertRaisesRegex(
+            ValueError, "prompt drift: research/s9_obligations/PROMPT.md"
+        ):
+            verify_pins.verify(manifest)
 
     def test_unsafe_pin_paths_are_refused(self) -> None:
         for raw in ("../paper/x.md", "/paper/x.md", "C:/paper/x.md", "paper\\x.md"):
-            pins = copy.deepcopy(verify_pins.read_pins())
-            pins["sealed_inputs"][0]["path"] = raw
+            manifest = tampered()
+            manifest["sources"][0]["path"] = raw
             with self.assertRaisesRegex(ValueError, "unsafe path"):
-                verify_pins.verify(pins)
+                verify_pins.verify(manifest)
 
     def test_unsealed_pin_path_is_refused(self) -> None:
-        pins = copy.deepcopy(verify_pins.read_pins())
-        pins["sealed_inputs"][0]["path"] = "research/s9_obligations/PROMPT.md"
+        manifest = tampered()
+        manifest["sources"][0]["path"] = "research/s9_obligations/PROMPT.md"
         with self.assertRaisesRegex(ValueError, "not under a sealed prefix"):
-            verify_pins.verify(pins)
+            verify_pins.verify(manifest)
 
     def test_sealed_prefix_check_refuses_synthetic_paper_line(self) -> None:
         """Step 35's negative test: a porcelain line naming paper/x.md."""
@@ -91,11 +172,30 @@ class VerifyPinsTests(unittest.TestCase):
             ['?? "artifacts/with space.json"'],
         )
 
+    def test_sealed_prefix_check_refuses_ignored_bytecode_under_the_seal(self) -> None:
+        """The reviewer's write: a gitignored .pyc inside code/derivation/."""
+        record = "!! code/derivation/__pycache__/primdiff.cpython-314.pyc"
+        self.assertEqual(verify_pins.sealed_prefix_violations(record + "\n"), [record])
+
+    def test_live_porcelain_asks_git_for_ignored_files(self) -> None:
+        calls: list[tuple[str, ...]] = []
+
+        def record(*args: str) -> bytes:
+            calls.append(args)
+            return b""
+
+        with mock.patch.object(verify_pins, "_git_bytes", record):
+            verify_pins._live_porcelain()
+        self.assertEqual(len(calls), 1)
+        self.assertIn("--ignored=matching", calls[0])
+        self.assertIn("--untracked-files=all", calls[0])
+
     def test_sealed_prefix_check_passes_unsealed_and_empty_lines(self) -> None:
         self.assertEqual(verify_pins.sealed_prefix_violations(""), [])
         self.assertEqual(
             verify_pins.sealed_prefix_violations(
-                "?? research/s9_obligations/foo.py\n?? lean4/ParkedAudit.lean\n\n"
+                "?? research/s9_obligations/foo.py\n?? lean4/ParkedAudit.lean\n"
+                "!! research/s9_obligations/__pycache__/common.cpython-314.pyc\n\n"
             ),
             [],
         )
@@ -103,6 +203,38 @@ class VerifyPinsTests(unittest.TestCase):
     def test_sealed_prefix_check_refuses_malformed_record(self) -> None:
         with self.assertRaisesRegex(ValueError, "malformed git status record"):
             verify_pins.sealed_prefix_violations("paper/x.md\n")
+
+
+class BytecodeBoundaryTests(unittest.TestCase):
+    """Importing common must stop the interpreter writing bytecode anywhere."""
+
+    def test_common_sets_dont_write_bytecode_in_this_process(self) -> None:
+        self.assertTrue(sys.dont_write_bytecode)
+
+    def test_importing_common_first_leaves_no_pycache_behind(self) -> None:
+        env = dict(os.environ)
+        env.pop("PYTHONDONTWRITEBYTECODE", None)
+        with tempfile.TemporaryDirectory() as scratch:
+            probe = Path(scratch) / "zzz_probe_module.py"
+            probe.write_text("VALUE = 1\n", encoding="utf-8")
+            code = (
+                "import sys\n"
+                f"sys.path.insert(0, {scratch!r})\n"
+                "import common\n"
+                "import zzz_probe_module\n"
+                "print(sys.dont_write_bytecode, zzz_probe_module.VALUE)\n"
+            )
+            result = subprocess.run(
+                [sys.executable, "-c", code],
+                cwd=common.TREE,
+                env=env,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(result.stdout.strip(), "True 1")
+            self.assertFalse((Path(scratch) / "__pycache__").exists())
 
 
 class CommonHelperTests(unittest.TestCase):
@@ -141,12 +273,14 @@ class CommonHelperTests(unittest.TestCase):
         inside = common.assert_inside_tree(common.TREE / "receipts" / "p1.json")
         self.assertTrue(inside.is_relative_to(common.TREE))
 
-    def test_receipt_header_matches_the_pins(self) -> None:
-        pins = verify_pins.read_pins()
+    def test_receipt_header_matches_the_manifest(self) -> None:
+        manifest = verify_pins.read_manifest()
         header = common.receipt_header()
-        self.assertEqual(header["prompt_blob_id"], pins["prompt"]["blob"])
-        self.assertEqual(header["prompt_path"], pins["prompt"]["path"])
-        self.assertEqual(header["snapshot_commit"], pins["snapshot_commit"])
+        self.assertEqual(header["prompt_blob_id"], manifest["prompt"]["blob"])
+        self.assertEqual(header["prompt_path"], manifest["prompt"]["path"])
+        self.assertEqual(
+            header["snapshot_commit"], manifest["source_snapshot"]["commit"]
+        )
 
     def test_render_relation_is_sorted_without_duplicates(self) -> None:
         self.assertEqual(

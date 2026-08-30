@@ -7,6 +7,17 @@ Nothing here computes a result or decides a claim.  AuthorityEffect: None.
 
 from __future__ import annotations
 
+import sys
+
+# The write boundary (PROMPT.md steps 2 and 35) covers bytecode: importing
+# ``code/derivation/primdiff.py`` would otherwise create
+# ``code/derivation/__pycache__`` inside the seal, gitignored and so
+# invisible to a porcelain check that skips ignored files -- a reviewer
+# reproduced exactly that.  Every module of this tree imports ``common``
+# before any sealed module, so this line runs first; ``verify_pins.py``
+# additionally refuses ignored-but-present files under a sealed prefix.
+sys.dont_write_bytecode = True
+
 import json
 from pathlib import Path
 from typing import Iterable

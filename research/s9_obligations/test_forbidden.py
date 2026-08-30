@@ -1163,8 +1163,8 @@ class StatusTests(unittest.TestCase):
         text = read_text(STATUS)
         self.assertIn(common.PROMPT_BLOB_ID, text)
         self.assertIn(common.SNAPSHOT_COMMIT, text)
-        pins = verify_pins.read_pins()
-        self.assertEqual(pins["prompt"]["blob"], common.PROMPT_BLOB_ID)
+        manifest = verify_pins.read_manifest()
+        self.assertEqual(manifest["prompt"]["blob"], common.PROMPT_BLOB_ID)
 
     def test_lean_root_imports_every_report_module_and_the_scan_sees_them(self) -> None:
         root = read_text(TREE / "lean" / "S9Obligations.lean")

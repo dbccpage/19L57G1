@@ -77,13 +77,19 @@ this run does not claim it closed, narrowed, or priced.
 
 ## Step 3. Pins
 
-`SOURCE_PINS.json` (schema `s9_obligations_source_pins/v1`) pins:
+`SOURCE_MANIFEST.json` (schema `s9_obligations_source_manifest/v1`), in
+the shape of `research/primitive_difference_tower/SOURCE_MANIFEST.json`
+-- a `source_snapshot` `{commit, tree}`, a `hash_basis`, a
+`source_policy`, and one `{path, sha256, role}` entry per source --
+pins:
 
-* the snapshot commit, as the exact 40-digit id above, never `HEAD`;
+* the source snapshot: the exact 40-digit commit id above, never `HEAD`,
+  together with the tree that commit carries
+  (`d27086ab329014392e60bf51f08fe00e7ab53d2d`);
 * the prompt, under the key `prompt`, by its Git blob id;
-* under `sealed_inputs`, every sealed file this run reads, by the
-  uppercase SHA-256 of `git show HEAD:<path>` -- the blob bytes, so the
-  pin is independent of checkout line endings (this checkout has
+* under `sources`, every sealed file this run reads, by the uppercase
+  SHA-256 of `git show <rev>:<path>` -- the blob bytes, so the pin is
+  independent of checkout line endings (this checkout has
   `core.autocrlf=true` and shows CRLF in files whose blobs are LF):
 
   | path | sha256 of the blob |
@@ -94,29 +100,46 @@ this run does not claim it closed, narrowed, or priced.
   | `artifacts/primdiff.json` | `D6991342399160B9B6AD7F3D3E1460E4D2472A03EC975BD097581614549B860C` |
   | `paper/primitive_difference.md` | `F69DA9978691945D588C8F7A9283AC50C2FA3F53ADFD1A2CABA90F912ECC0BEC` |
 
-The shape follows `research/blind_restart/SOURCE_PINS.json` (schema,
-note, snapshot commit, a list of `{path, sha256}` entries).  The one
-declared difference: the list key is `sealed_inputs` rather than
-`artifacts`, because the paper and the Lean module are not artifacts,
-and the `prompt` entry is separate because it is pinned by blob id, not
-by SHA-256.  The prompt asks for `SOURCE_MANIFEST.json`; the sibling
-shape it also asks this tree to follow is named `SOURCE_PINS.json`, and
-the brief for this run named the file that way.  The name follows the
-shape; the content is the manifest the prompt describes.
+An earlier version of this section named the file `SOURCE_PINS.json`
+with a schema of its own, following `research/blind_restart/`; the
+reviewer of pull request 96 pointed out that step 3 names
+`SOURCE_MANIFEST.json` and forbids inventing a shape, so the file was
+renamed and reshaped to the established manifest/snapshot structure.
+That is a review repair recorded in `STATUS.md`, not a preflight
+declaration; no pinned value changed.
 
-`verify_pins.py` re-checks, against HEAD: every sealed hash; the prompt
-blob id; that the snapshot commit is 40 lowercase hex digits (so `HEAD`
-is refused); that every pinned path is relative, has no `..`, no
+`verify_pins.py` re-checks: that the snapshot commit is 40 lowercase
+hex digits (so `HEAD` is refused), RESOLVES to a commit object, is an
+ancestor of HEAD or HEAD itself, and carries the recorded tree -- an
+earlier version checked the spelling only, and the same reviewer showed
+that forty zeroes passed it; every sealed hash and the prompt blob id at
+the snapshot AND at HEAD; that no tracked sealed path differs between
+the two commits; that every pinned path is relative, has no `..`, no
 backslash, no drive letter, and lies under a sealed prefix; and that the
-sealed prefixes carry no worktree change.  It exits non-zero on the first
-failure.  `--repin` rewrites the hashes from HEAD and verifies nothing.
+sealed prefixes carry nothing modified, untracked, or
+ignored-but-present.  The last clause is the reviewer's second finding:
+importing `code/derivation/primdiff.py` wrote
+`code/derivation/__pycache__` inside the seal, gitignored and so
+invisible to a porcelain check that skipped ignored files.  Now
+`common.py` sets `sys.dont_write_bytecode` before any sealed module is
+imported (every module of this tree imports `common` first, and
+`test_importing_common_first_leaves_no_pycache_behind` proves in a
+subprocess that no `__pycache__` appears), the documented commands set
+`PYTHONDONTWRITEBYTECODE=1`, and the verifier fails by name on any `!!`
+record under a sealed prefix -- including one left by the root test
+suite, which is removed with `git clean -fdX code`.  It exits non-zero
+on the first failure.  `--repin` rewrites the hashes from HEAD and
+verifies nothing.
 
 What it does not check: that the pinned set is the right set (a pin on
 the wrong file is still a pin), the interpreter, Git, or itself.
 `test_verify_pins.py` exercises every refusal in-process on a tampered
-copy of the loaded pins (the JSON is never written), and the sealed-prefix
-refusal on a synthetic porcelain line `?? paper/x.md`, so no sealed path
-is touched to prove the check bites.
+copy of the loaded manifest (the JSON is never written) -- including a
+well-formed snapshot id that resolves to nothing, a snapshot that is not
+an ancestor, a blob that moved between the snapshot and HEAD -- and the
+sealed-prefix refusal on synthetic porcelain lines `?? paper/x.md` and
+`!! code/derivation/__pycache__/primdiff.cpython-314.pyc`, so no sealed
+path is touched to prove the check bites.
 
 ## Step 4. Declared resource bounds
 

@@ -19,6 +19,7 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+import common  # first: disables bytecode writing before a sealed module loads
 from derivation.primdiff import (
     D2,
     D2_REV,
@@ -30,7 +31,6 @@ from derivation.primdiff import (
     preserves_rel,
 )
 
-import common
 import morphism_classes as mc
 import run_morphism_classes as runner
 

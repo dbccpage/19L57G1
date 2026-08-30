@@ -6,7 +6,7 @@ AuthorityEffect: None.  This run proposes; it amends nothing sealed.
 |---|---|
 | governing prompt, `research/s9_obligations/PROMPT.md` | Git blob `1642e3f6ac746002678e4997f738e0fabd1248c9` |
 | snapshot commit | `db1d2b225b577d5212780ff02700efd693c8e446` |
-| verification commit at synthesis | the same: `verify_pins.py` re-checked the prompt blob, the five sealed pins, and the sealed prefixes at HEAD |
+| verification commit at synthesis | the same: `verify_pins.py` re-checked the prompt blob, the five sealed pins, and the sealed prefixes at HEAD; since the review repairs below it also resolves the snapshot, requires it to be an ancestor of HEAD with the recorded tree, and re-checks every pin at the snapshot |
 
 S9.1, S9.2, S9.3 are the first three bullets of section S9 of
 `paper/primitive_difference.md`, numbered by the prompt; the paper's S9 is
@@ -174,7 +174,7 @@ against the file line by line):
 ```diff
 --- a/.github/workflows/verify.yml
 +++ b/.github/workflows/verify.yml
-@@ -285,5 +285,23 @@
+@@ -285,5 +285,24 @@
        - name: Partial Decide strict typing
          working-directory: research/partial_decide
          run: python -m mypy
@@ -193,6 +193,7 @@ against the file line by line):
 +        env:
 +          PYTHONPATH: ${{ github.workspace }}/code
 +          PYTHONUTF8: "1"
++          PYTHONDONTWRITEBYTECODE: "1"
 +      - name: S9 obligations strict typing
 +        working-directory: research/s9_obligations
 +        run: python -m mypy
@@ -206,8 +207,15 @@ diff, and a reviewer said so.  Registering also means adding the two
 commands to the gate-11 block of `CLAUDE.md` and expecting the job to go
 red on the census pin that repair round 3 repaired, had it been
 registered before that round.
-`verify_pins.py` needs no `fetch-depth: 0` and no `PYTHONPATH`: it reads
-blobs at HEAD only and imports nothing from `code/`.
+`verify_pins.py` needs no `PYTHONPATH` (it imports nothing from `code/`)
+but it DOES need the job's `fetch-depth: 0`, which the research job
+already sets: since the review repairs it resolves the snapshot commit,
+checks ancestry, and hashes blobs at the snapshot, none of which a shallow
+checkout can answer.  An earlier version of this sentence said it needed
+no `fetch-depth: 0`; that was true of the verifier it described and is
+WITHDRAWN for this one.  `PYTHONDONTWRITEBYTECODE=1` on the test step is
+belt and braces: `common.py` already disables bytecode writing, and the
+verifier fails on a `.pyc` under the seal either way.
 
 ## Replay (step 33)
 
@@ -256,12 +264,10 @@ is open ("What stayed open" above).
 
 ## Records of the synthesis pass
 
-* Naming divergence (from PREFLIGHT): PROMPT.md step 3 names
-  `SOURCE_MANIFEST.json`; this tree's pin file is `SOURCE_PINS.json`, the
-  name of the sibling shape the prompt asks it to follow
-  (`research/blind_restart/SOURCE_PINS.json`) and the name the brief gave.
-  The content is the manifest the prompt describes: the exact snapshot
-  commit, the prompt's blob id, and the SHA-256 of every sealed blob read.
+* Naming divergence (from PREFLIGHT), CLOSED by the review repairs
+  below: PROMPT.md step 3 names `SOURCE_MANIFEST.json`; this tree's pin
+  file was `SOURCE_PINS.json` in a shape of its own, and is now
+  `SOURCE_MANIFEST.json` in the established manifest/snapshot shape.
 * Consistency edits to `P1_FINDINGS.md`, `P2_FINDINGS.md`,
   `P3_FINDINGS.md`: none in the synthesis pass; three in repair round 1,
   each listed under "Repair round 1" below (the T2 name in P1's section
@@ -393,7 +399,7 @@ Re-run after repair round 3; the numbers are that run's.
 | `cd research/s9_obligations && python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 191 tests`, `OK` (189 with one failure after repair round 2; the census pin repaired and two tests added in repair round 3) |
 | `cd research/s9_obligations && python -m unittest test_forbidden` | 0 | `Ran 38 tests`, `OK` |
 | `cd research/s9_obligations && python -m mypy` | 0 | `Success: no issues found in 14 source files` |
-| `python research/s9_obligations/verify_pins.py` | 0 | `sealed prefixes clean: prompt paper code lean4/Derivation artifacts`; the exit status read directly, not through a pipe |
+| `python research/s9_obligations/verify_pins.py` | 0 | `sealed prefixes clean: prompt paper code lean4/Derivation artifacts`; the exit status read directly, not through a pipe; re-run after the review repairs: `snapshot commit: db1d2b22... tree d27086ab... (an ancestor of HEAD)`, five `pin: ... (at snapshot and HEAD)` lines, `sealed prefixes unchanged between snapshot and HEAD` |
 | `python research/s9_obligations/verify_lean.py` | 0 | `Lean #print axioms declarations: 83 within ['Quot.sound', 'propext']`; `Lean sources scanned for forbidden tokens: 6`; `lake build (exit 0)`; the log written inside the tree and deleted |
 | replay of the three runners twice each (table above) | 0 | byte-identical both ways for all three receipts; temporary directories deleted |
 | `git status --porcelain -- prompt paper code lean4/Derivation artifacts` | 0 | empty |
@@ -504,3 +510,27 @@ right checks.  The per-class test evaluates the right-hand sides as this
 round transcribed them from the Lean statements; that the transcription
 is faithful is read by a person against `MorphismClasses.lean`, not by
 a gate.
+
+## Review repairs (pull request 96)
+
+The reviewer of pull request 96 replayed the P1/P2/P3 computations and
+found no algorithmic defect; the three findings were provenance and
+write-boundary defects, each repaired here with a negative test that
+fails on the exact defect.  No receipt, Lean source, or result changed.
+
+| finding | defect, as demonstrated | repair | negative test |
+|---|---|---|---|
+| 1. the claimed snapshot was never verified | `verify_pins.py` checked that `snapshot_commit` was 40 hex digits and then verified every input against HEAD; forty zeroes passed | the verifier now resolves `<snapshot>^{commit}`, requires it to be HEAD or an ancestor of HEAD (`git merge-base --is-ancestor`), requires it to carry the recorded tree, hashes every pinned blob and the prompt blob at the snapshot AND at HEAD, and fails if any tracked sealed path differs between the two | `test_well_formed_but_nonexistent_snapshot_is_refused` (forty zeroes: `does not resolve to a commit object`), `test_snapshot_that_is_not_an_ancestor_is_refused`, `test_snapshot_tree_mismatch_is_refused`, `test_blob_that_moved_since_the_snapshot_is_refused`, `test_sealed_path_moved_since_the_snapshot_is_refused` |
+| 2. a clean run wrote inside a sealed path without detection | importing `code/derivation/primdiff.py` created `code/derivation/__pycache__/*.pyc`; the root `.gitignore` ignores `__pycache__` and the porcelain scan excluded ignored files | `common.py` sets `sys.dont_write_bytecode = True` before any sealed module is imported, and every module of this tree imports `common` first (`morphism_classes.py` and `test_morphism_classes.py` were reordered); the porcelain scan now passes `--ignored=matching` and treats a `!!` record under a sealed prefix as a violation, naming the file and the cleanup (`git clean -fdX code`); the registration diff sets `PYTHONDONTWRITEBYTECODE=1` on the test step | `test_importing_common_first_leaves_no_pycache_behind` (a subprocess without `PYTHONDONTWRITEBYTECODE` imports `common` then a scratch module and no `__pycache__` appears), `test_sealed_prefix_check_refuses_ignored_bytecode_under_the_seal`, `test_live_porcelain_asks_git_for_ignored_files` |
+| 3. the run invented the pin format step 3 forbids inventing | the file was `SOURCE_PINS.json` with schema `s9_obligations_source_pins/v1` and a list key of its own | renamed to `SOURCE_MANIFEST.json`, schema `s9_obligations_source_manifest/v1`, in the shape of `research/primitive_difference_tower/SOURCE_MANIFEST.json`: `source_snapshot` `{commit, tree}`, `hash_basis`, `source_policy`, and `sources` entries `{path, sha256, role}`; the pinned values are unchanged | `test_manifest_follows_the_established_shape` |
+
+A consequence for local use: the root test suite writes
+`code/__pycache__` and `code/derivation/__pycache__`, so
+`verify_pins.py` run after it fails by name until `git clean -fdX code`
+removes them.  That is the check working -- a bytecode file under the
+seal is a bytecode file under the seal whoever wrote it -- and the
+failure message says what to run.
+
+The reviewer also noted that the GitHub `verify` run was red with zero
+steps and no allocated runner, so CI had not executed the code; that is
+a runner-allocation state outside this tree and is not repaired here.

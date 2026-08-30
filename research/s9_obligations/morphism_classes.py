@@ -91,6 +91,7 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from typing import Iterable, Iterator, Sequence
 
+import common  # first: disables bytecode writing before a sealed module loads
 from derivation.primdiff import (
     D2,
     D2_REV,
@@ -102,8 +103,6 @@ from derivation.primdiff import (
     pointed_isomorphic,
     preserves_rel,
 )
-
-import common
 
 # ---------------------------------------------------------------------------
 # The menu and the classes

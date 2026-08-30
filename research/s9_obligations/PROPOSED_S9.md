@@ -2,7 +2,7 @@
 
 This is a proposal.  The author applies it or does not; the sealed paper is
 not edited by this run, and `paper/primitive_difference.md` is byte-identical
-to the pinned blob (`verify_pins.py`, `SOURCE_PINS.json`).
+to the pinned blob (`verify_pins.py`, `SOURCE_MANIFEST.json`).
 AuthorityEffect: None.
 
 Governing prompt blob `1642e3f6ac746002678e4997f738e0fabd1248c9`, snapshot
