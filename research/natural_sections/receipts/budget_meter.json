@@ -1,0 +1,528 @@
+{
+  "budget": "steps <= 60 * (V + E), declared before the run",
+  "decider": [
+    {
+      "V_plus_E": 1,
+      "budget": 60,
+      "name": "chain_P2_r0",
+      "section_exists": true,
+      "steps": 3,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 1,
+      "budget": 60,
+      "name": "chain_P2_r0_repres",
+      "section_exists": true,
+      "steps": 3,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 1,
+      "budget": 60,
+      "name": "chain_P2_r1",
+      "section_exists": true,
+      "steps": 3,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 1,
+      "budget": 60,
+      "name": "chain_P2_r1_repres",
+      "section_exists": true,
+      "steps": 3,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 1,
+      "budget": 60,
+      "name": "chain_P2_r2",
+      "section_exists": true,
+      "steps": 3,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 1,
+      "budget": 60,
+      "name": "chain_P2_r2_repres",
+      "section_exists": true,
+      "steps": 3,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 5,
+      "budget": 300,
+      "name": "chain_P3_r0",
+      "section_exists": true,
+      "steps": 19,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 5,
+      "budget": 300,
+      "name": "chain_P3_r0_repres",
+      "section_exists": true,
+      "steps": 19,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 9,
+      "budget": 540,
+      "name": "chain_P3_r1",
+      "section_exists": true,
+      "steps": 35,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 9,
+      "budget": 540,
+      "name": "chain_P3_r1_repres",
+      "section_exists": true,
+      "steps": 35,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 17,
+      "budget": 1020,
+      "name": "chain_P3_r2",
+      "section_exists": true,
+      "steps": 67,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 17,
+      "budget": 1020,
+      "name": "chain_P3_r2_repres",
+      "section_exists": true,
+      "steps": 67,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 12,
+      "budget": 720,
+      "name": "chain_P4_r0",
+      "section_exists": true,
+      "steps": 48,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 12,
+      "budget": 720,
+      "name": "chain_P4_r0_repres",
+      "section_exists": true,
+      "steps": 48,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 24,
+      "budget": 1440,
+      "name": "chain_P4_r1",
+      "section_exists": true,
+      "steps": 96,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 24,
+      "budget": 1440,
+      "name": "chain_P4_r1_repres",
+      "section_exists": true,
+      "steps": 96,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 48,
+      "budget": 2880,
+      "name": "chain_P4_r2",
+      "section_exists": true,
+      "steps": 192,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 48,
+      "budget": 2880,
+      "name": "chain_P4_r2_repres",
+      "section_exists": true,
+      "steps": 192,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 22,
+      "budget": 1320,
+      "name": "chain_P5_r0",
+      "section_exists": true,
+      "steps": 90,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 22,
+      "budget": 1320,
+      "name": "chain_P5_r0_repres",
+      "section_exists": true,
+      "steps": 90,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 46,
+      "budget": 2760,
+      "name": "chain_P5_r1",
+      "section_exists": true,
+      "steps": 186,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 46,
+      "budget": 2760,
+      "name": "chain_P5_r1_repres",
+      "section_exists": true,
+      "steps": 186,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 94,
+      "budget": 5640,
+      "name": "chain_P5_r2",
+      "section_exists": true,
+      "steps": 378,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 94,
+      "budget": 5640,
+      "name": "chain_P5_r2_repres",
+      "section_exists": true,
+      "steps": 378,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 35,
+      "budget": 2100,
+      "name": "chain_P6_r0",
+      "section_exists": true,
+      "steps": 145,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 35,
+      "budget": 2100,
+      "name": "chain_P6_r0_repres",
+      "section_exists": true,
+      "steps": 145,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 75,
+      "budget": 4500,
+      "name": "chain_P6_r1",
+      "section_exists": true,
+      "steps": 305,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 75,
+      "budget": 4500,
+      "name": "chain_P6_r1_repres",
+      "section_exists": true,
+      "steps": 305,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 155,
+      "budget": 9300,
+      "name": "chain_P6_r2",
+      "section_exists": true,
+      "steps": 625,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 155,
+      "budget": 9300,
+      "name": "chain_P6_r2_repres",
+      "section_exists": true,
+      "steps": 625,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 14,
+      "budget": 840,
+      "name": "square_2x2_r0",
+      "section_exists": false,
+      "steps": 58,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 14,
+      "budget": 840,
+      "name": "square_2x2_r0_repres",
+      "section_exists": false,
+      "steps": 58,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 30,
+      "budget": 1800,
+      "name": "square_2x2_r1",
+      "section_exists": false,
+      "steps": 122,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 30,
+      "budget": 1800,
+      "name": "square_2x2_r1_repres",
+      "section_exists": false,
+      "steps": 122,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 62,
+      "budget": 3720,
+      "name": "square_2x2_r2",
+      "section_exists": false,
+      "steps": 250,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 62,
+      "budget": 3720,
+      "name": "square_2x2_r2_repres",
+      "section_exists": false,
+      "steps": 250,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 43,
+      "budget": 2580,
+      "name": "ladder_2x3_r0",
+      "section_exists": false,
+      "steps": 185,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 43,
+      "budget": 2580,
+      "name": "ladder_2x3_r0_repres",
+      "section_exists": false,
+      "steps": 185,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 99,
+      "budget": 5940,
+      "name": "ladder_2x3_r1",
+      "section_exists": false,
+      "steps": 409,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 99,
+      "budget": 5940,
+      "name": "ladder_2x3_r1_repres",
+      "section_exists": false,
+      "steps": 409,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 211,
+      "budget": 12660,
+      "name": "ladder_2x3_r2",
+      "section_exists": false,
+      "steps": 857,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 211,
+      "budget": 12660,
+      "name": "ladder_2x3_r2_repres",
+      "section_exists": false,
+      "steps": 857,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 12,
+      "budget": 720,
+      "name": "star_K13_r0",
+      "section_exists": false,
+      "steps": 48,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 12,
+      "budget": 720,
+      "name": "star_K13_r0_repres",
+      "section_exists": false,
+      "steps": 48,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 24,
+      "budget": 1440,
+      "name": "star_K13_r1",
+      "section_exists": false,
+      "steps": 96,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 24,
+      "budget": 1440,
+      "name": "star_K13_r1_repres",
+      "section_exists": false,
+      "steps": 96,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 48,
+      "budget": 2880,
+      "name": "star_K13_r2",
+      "section_exists": false,
+      "steps": 192,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 48,
+      "budget": 2880,
+      "name": "star_K13_r2_repres",
+      "section_exists": false,
+      "steps": 192,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 6,
+      "budget": 360,
+      "name": "triangle_C3_r0",
+      "section_exists": false,
+      "steps": 24,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 6,
+      "budget": 360,
+      "name": "triangle_C3_r0_repres",
+      "section_exists": false,
+      "steps": 24,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 12,
+      "budget": 720,
+      "name": "triangle_C3_r1",
+      "section_exists": false,
+      "steps": 48,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 12,
+      "budget": 720,
+      "name": "triangle_C3_r1_repres",
+      "section_exists": false,
+      "steps": 48,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 24,
+      "budget": 1440,
+      "name": "triangle_C3_r2",
+      "section_exists": false,
+      "steps": 96,
+      "verdict_matches": true,
+      "within_budget": true
+    },
+    {
+      "V_plus_E": 24,
+      "budget": 1440,
+      "name": "triangle_C3_r2_repres",
+      "section_exists": false,
+      "steps": 96,
+      "verdict_matches": true,
+      "within_budget": true
+    }
+  ],
+  "decider_all_verdicts_match": true,
+  "decider_all_within_budget": true,
+  "sum_meter_growth_factors": [
+    8.27,
+    8.03,
+    8.0
+  ],
+  "sum_meter_square": [
+    {
+      "closed_walks": 3,
+      "linear_budget": 840,
+      "max_len": 2,
+      "steps": 11,
+      "within_budget": true
+    },
+    {
+      "closed_walks": 19,
+      "linear_budget": 840,
+      "max_len": 4,
+      "steps": 91,
+      "within_budget": true
+    },
+    {
+      "closed_walks": 147,
+      "linear_budget": 840,
+      "max_len": 6,
+      "steps": 731,
+      "within_budget": true
+    },
+    {
+      "closed_walks": 1171,
+      "linear_budget": 840,
+      "max_len": 8,
+      "steps": 5851,
+      "within_budget": false
+    }
+  ]
+}

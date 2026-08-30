@@ -7,6 +7,7 @@ import NaturalSections.WeightedLayer
 import NaturalSections.Represent
 import NaturalSections.CutAndCounts
 import NaturalSections.Refinement
+import NaturalSections.Budgets
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -130,3 +131,22 @@ import NaturalSections.Refinement
 #print axioms NaturalSections.replE_square_inhabited
 #print axioms NaturalSections.replE_chain_inhabited
 #print axioms NaturalSections.replE_square_flip_inhabited
+#print axioms NaturalSections.Budgets.linear_polyBounded
+#print axioms NaturalSections.Budgets.polyBounded_mul
+#print axioms NaturalSections.Budgets.polyBounded_comp
+#print axioms NaturalSections.Budgets.gen_linear_polyBounded
+#print axioms NaturalSections.Budgets.gen_congr
+#print axioms NaturalSections.Budgets.pow_in_gen_linear
+#print axioms NaturalSections.Budgets.sq_le_two_pow
+#print axioms NaturalSections.Budgets.self_lt_two_pow
+#print axioms NaturalSections.Budgets.two_pow_escapes
+#print axioms NaturalSections.Budgets.two_pow_not_polyBounded
+#print axioms NaturalSections.Budgets.generators_decide_the_class
+#print axioms NaturalSections.Budgets.dominated_polyBounded
+#print axioms NaturalSections.Budgets.polyBounded_dominated
+#print axioms NaturalSections.Budgets.polyBounded_iff_dominated
+#print axioms NaturalSections.Budgets.linear_mono
+#print axioms NaturalSections.Budgets.gen_linear_mono
+#print axioms NaturalSections.Budgets.parity_polyBounded
+#print axioms NaturalSections.Budgets.parity_not_gen_linear
+#print axioms NaturalSections.Budgets.polyBounded_without_gen_linear
