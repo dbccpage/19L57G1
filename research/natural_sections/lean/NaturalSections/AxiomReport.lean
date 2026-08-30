@@ -1,5 +1,6 @@
 import NaturalSections
 import NaturalSections.HopFixture
+import NaturalSections.HopFixture3
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -33,3 +34,19 @@ import NaturalSections.HopFixture
 #print axioms NaturalSections.Hop.stWalk_transport
 #print axioms NaturalSections.Hop.star_no_natural_section
 #print axioms NaturalSections.Hop.chain_square_star_separation
+#print axioms NaturalSections.Hop3.raw_lt
+#print axioms NaturalSections.Hop3.hop_inv
+#print axioms NaturalSections.Hop3.pair_ext
+#print axioms NaturalSections.Hop3.c3_no_fixed
+#print axioms NaturalSections.Hop3.c3_is_even
+#print axioms NaturalSections.Hop3.c3_order_three
+#print axioms NaturalSections.Hop3.sq3_comp
+#print axioms NaturalSections.Hop3.sq3_transport_val
+#print axioms NaturalSections.Hop3.sq3_no_fixed_pair
+#print axioms NaturalSections.Hop3.square3_no_natural_section
+#print axioms NaturalSections.Hop3.parity_and_fixed_pair_come_apart
+#print axioms NaturalSections.Hop3.star3_generators
+#print axioms NaturalSections.Hop3.star3_has_natural_section
+#print axioms NaturalSections.Hop3.chain3_natural_section
+#print axioms NaturalSections.Hop3.chain3_has_natural_section
+#print axioms NaturalSections.Hop3.chain3_star3_square3_separation

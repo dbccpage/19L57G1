@@ -83,6 +83,23 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Hop.stWalk_transport",
     "NaturalSections.Hop.star_no_natural_section",
     "NaturalSections.Hop.chain_square_star_separation",
+    # Three-label fixture (NaturalSections/HopFixture3.lean).
+    "NaturalSections.Hop3.raw_lt",
+    "NaturalSections.Hop3.hop_inv",
+    "NaturalSections.Hop3.pair_ext",
+    "NaturalSections.Hop3.c3_no_fixed",
+    "NaturalSections.Hop3.c3_is_even",
+    "NaturalSections.Hop3.c3_order_three",
+    "NaturalSections.Hop3.sq3_comp",
+    "NaturalSections.Hop3.sq3_transport_val",
+    "NaturalSections.Hop3.sq3_no_fixed_pair",
+    "NaturalSections.Hop3.square3_no_natural_section",
+    "NaturalSections.Hop3.parity_and_fixed_pair_come_apart",
+    "NaturalSections.Hop3.star3_generators",
+    "NaturalSections.Hop3.star3_has_natural_section",
+    "NaturalSections.Hop3.chain3_natural_section",
+    "NaturalSections.Hop3.chain3_has_natural_section",
+    "NaturalSections.Hop3.chain3_star3_square3_separation",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

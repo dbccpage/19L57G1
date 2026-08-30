@@ -145,7 +145,7 @@ class LeanAuditTests(unittest.TestCase):
         self.assertEqual(
             verify_lean.declared_report_inventory(source), verify_lean.AXIOM_REPORT_DECLARATIONS
         )
-        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 32)
+        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 48)
 
     def test_every_listed_theorem_is_declared_in_the_source(self) -> None:
         source = "\n".join(
@@ -155,8 +155,9 @@ class LeanAuditTests(unittest.TestCase):
             self.assertTrue(name.startswith("NaturalSections."), name)
             local = name[len("NaturalSections."):]
             candidates = [local]
-            if local.startswith("Hop."):
-                candidates.append(local[len("Hop."):])
+            for prefix in ("Hop.", "Hop3."):
+                if local.startswith(prefix):
+                    candidates.append(local[len(prefix):])
             self.assertTrue(
                 any(f"theorem {c} " in source for c in candidates), name
             )
@@ -184,7 +185,13 @@ class LeanAuditTests(unittest.TestCase):
         sources = verify_lean.research_lean_sources()
         self.assertEqual(
             sorted(path.name for path in sources),
-            ["AxiomReport.lean", "HopFixture.lean", "NaturalSections.lean", "lakefile.lean"],
+            [
+                "AxiomReport.lean",
+                "HopFixture.lean",
+                "HopFixture3.lean",
+                "NaturalSections.lean",
+                "lakefile.lean",
+            ],
         )
         self.assertEqual(verify_lean.scan_forbidden_tokens(sources), [])
 
@@ -253,7 +260,7 @@ class WriteRootBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("write root respected", result.stdout)
-        self.assertIn("declarations: 32 within", result.stdout)
+        self.assertIn("declarations: 48 within", result.stdout)
         self.assertEqual(
             verify_lean.writes_outside_root(before, verify_lean.repository_records()), []
         )

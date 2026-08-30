@@ -25,7 +25,9 @@ question open.  Two questions:
    anywhere in the repository?
 
 ## Results (Lean, `lean/NaturalSections.lean`; 24 reports, every one
-"does not depend on any axioms")
+"does not depend on any axioms" -- the tree's 48 reports in all are
+within `{propext, Quot.sound}`, 41 with no axioms and 7 in `Hop3` on
+`propext`, as the fixture sections say)
 
 * **`natural_section_iff_fixed_pair`** -- over `autoFamily O F`, a natural
   section exists **iff** `F` fixes an admissible pair:
@@ -227,6 +229,124 @@ in the site graph.  It shows nothing about weights, phases, or any
 cancellation; the fibre is two-element and the holonomy is a parity.
 That was the boundary stated before the run and it is unchanged by it.
 
+## Three-label fixture: the generality check and the predictions, written before the computation ran
+
+Generality check, done before anything was changed.  Sections 4-5 of
+`NaturalSections.lean` mention no `Bool`, no `negIso`, no `boolEqObs`:
+`Step`, `Walk`, `transport`, `Forest`, `natural_section_iff_generators`
+and `natural_section_iff_holonomy` quantify over an `HFamily` whose
+carriers are arbitrary types and whose arrows are arbitrary `PresIso`
+bijections.  The invariant they prove is "some admissible pair is
+carried by every generator" / "fixed by every closed walk", and
+`fixed_pair_iff_two_fixed_points` unfolds it to "two distinct carrier
+points, distinguished by the observer, fixed by the holonomy".  The
+two-element case lives entirely in the fixture layer (`Hop.family`,
+`car _ := Bool`, the sealed `negIso_fixed_point_free`).  The theorems
+are not changed.
+
+What the fibre is.  With `n` labels the carrier has `n` points and the
+admissible pairs are the `n (n - 1)` ordered pairs of distinct labels.
+The symmetric group is what ACTS; the fibre is the pair set.  The
+theorem's invariant is therefore: the holonomy group has at least two
+common fixed points.  At `n = 3` a non-identity permutation fixes at
+most one point, so "no common fixed pair" and "holonomy nontrivial"
+coincide, and parity is the invariant that can disagree -- a 3-cycle is
+even and fixes nothing.  At `n = 4` "nontrivial" and "no fixed pair"
+come apart too (a lone transposition fixes the other two labels); that
+is the next test, not this one.
+
+The model, `k` particles on a site graph: object = sorted `k`-subset of
+occupied sites; carrier `Fin k`, index `i` the `i`-th smallest occupied
+site; observer the kernel of the identity, so the admissible pairs are
+the ordered pairs of distinct indices; arrow = one particle hops to an
+adjacent empty site; transport = the induced permutation of sorted
+indices, computed from positions.  At `k = 2` this is the flip bit of
+the previous fixture, and the general code is checked against that
+receipt on all nine graphs before anything at `k = 3` is believed.
+Holonomy group at a base = closure of the forest generators; reported
+per fixture: its order, whether every element is even, its common fixed
+points, whether a fixed pair exists (the theorem's criterion), and
+whether the group is trivial.
+
+Predictions at `k = 3`:
+
+| site graph | prediction | why |
+|---|---|---|
+| chain `P2` | vacuous: no object | three particles do not fit on two sites |
+| chain `P3`, triangle `C3` | section exists, frozen | one object, no hop |
+| chain `P4`, `P5`, `P6` | section exists, group trivial | order is preserved; every transport is the identity |
+| square `2 x 2` | **no section, group of order 3, every element even** | one hole circulating the 4-cycle cyclically shifts the three particles: a 3-cycle, even, fixing no label -- parity says clean, the fixed-pair criterion says obstructed; this is the separating case |
+| ladder `2 x 3` | no section, group the full symmetric group | with three holes both transpositions and 3-cycles arise; parity fails too, so not separating |
+| star `K_{1,3}` | **section exists, group trivial** | one hole on a tree cannot circulate; the reverse of the `k = 2` verdict, because exchange needs room, not because of the fibre |
+
+Reading, agreed in advance.  If the square comes out with an
+even-only nontrivial group and no section, the invariant the theorem
+proves is the fixed pair and not parity, and the `k = 2` agreement of
+the two was a coincidence of the fibre size.  If the square comes out
+with a section, the transport rule is wrong.  If the star comes out
+obstructed at `k = 3`, the hop rule is admitting a move through an
+occupied site.
+
+### Results at `k = 3`, written after the run (`holonomy_group.py`,
+receipt `receipts/holonomy_group.json`; Lean `lean/NaturalSections/HopFixture3.lean`)
+
+The general code at `k = 2` agrees with the flip-bit receipt on all
+nine graphs (`k2_agrees_with_flip_bit_receipt`), and at `k = 2` parity
+and the fixed pair never come apart (`test_at_k2_parity_and_fixed_pair_never_come_apart`).
+At `k = 3` every prediction held:
+
+| fixture | objects | holonomy group | every element even | common fixed points | section (theorem) | parity says |
+|---|---|---|---|---|---|---|
+| chain `P2` | 0 | -- | -- | -- | exists (vacuous) | clean |
+| chain `P3`, triangle `C3` | 1 | trivial | yes | all three | exists | clean |
+| chain `P4`, `P5`, `P6` | 4, 10, 20 | trivial | yes | all three | exists | clean |
+| **square `2 x 2`** | 4 | **order 3** | **yes** | **none** | **NO** | **clean** |
+| ladder `2 x 3` | 20 | order 6 | no | none | NO | obstructed |
+| star `K_{1,3}` | 4 | trivial | yes | all three | exists | clean |
+
+The square is the separating case.  Its holonomy group is generated by
+the 3-cycle `(1, 2, 0)` -- the hole circulating `{0,1,2} → {0,2,3} →
+{1,2,3} → {0,1,3} → {0,1,2}` shifts the three particles cyclically --
+which is EVEN and fixes no label.  Parity would call the square clean;
+the criterion of `natural_section_iff_holonomy` calls it obstructed,
+because no admissible pair is fixed.  **The invariant the theorems
+prove is the fixed pair, not parity, and their agreement at `k = 2` was
+a coincidence of the fibre size** (at two labels every non-identity
+permutation is odd).
+
+Lean carries it (`HopFixture3.lean`, 16 reports, 48 in the tree; nine
+of the sixteen with no axioms, seven -- the ones decided through
+`if`-defined maps and hop-by-hop case splits: `c3_is_even`,
+`star3_generators`, `chain3_natural_section` and what is built from
+them -- on `propext` alone, within the whitelist; the audit line
+names each).
+`hopPerm` computes each hop's permutation of sorted indices from the
+hole positions by the formula `rank h' (if s = h'.site then h.site else s)`
+with `s = occ h i`, for every pair of hole positions (`raw_lt`, `hop_inv`
+decided over all of them); the same formula serves the square, the
+star and the chain, which differ only in adjacency.
+`parity_and_fixed_pair_come_apart` states, in one theorem: the
+holonomy of the square's closed walk is `c3 = swap01 ∘ swap12` (a
+composite of two transpositions, so even; `c3_is_even`), it fixes no
+admissible pair (`sq3_no_fixed_pair`, from `c3_no_fixed`), and the
+square has no natural section (`square3_no_natural_section`, through
+the sealed-free `Walk.transport_of_natural`).  `star3_has_natural_section`
+is the spread of the base pair along the forest with base the hole at
+the hub, by `natural_section_iff_generators` with every generator
+decided (`star3_generators`); `chain3_has_natural_section` is the
+constant orientation.  `chain3_star3_square3_separation` states all
+three.
+
+Two things the run settled that the predictions did not state.  The
+star's verdict REVERSES between `k = 2` (obstructed) and `k = 3`
+(clean): with one hole on a tree the hole cannot circulate, so exchange
+needs room, not a cycle -- density enters through the arrow set, not
+the fibre.  And at `k = 3` "no common fixed pair" coincides with
+"holonomy nontrivial", so this run cannot tell those two apart; the
+`k = 4` case (a lone transposition fixes the other two labels and the
+theorem then predicts a section despite nontrivial holonomy) is the
+test that would, and it is the next one.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -279,7 +399,8 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 32 within ['Quot.sound', 'propext']`; every report `no axioms`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 48 within ['Quot.sound', 'propext']`; 41 reports `no axioms`, 7 (all in `Hop3`) `['propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 35 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 6 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 52 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 9 source files |
