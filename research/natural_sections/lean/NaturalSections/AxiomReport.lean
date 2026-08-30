@@ -6,6 +6,7 @@ import NaturalSections.HopFixturePhase
 import NaturalSections.WeightedLayer
 import NaturalSections.Represent
 import NaturalSections.CutAndCounts
+import NaturalSections.Refinement
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -107,3 +108,9 @@ import NaturalSections.CutAndCounts
 #print axioms NaturalSections.reWalk_unWalk
 #print axioms NaturalSections.reWalk_length
 #print axioms NaturalSections.dynamics_blind_to_class
+#print axioms NaturalSections.Subdiv.push_natural
+#print axioms NaturalSections.Subdiv.pull_natural
+#print axioms NaturalSections.natural_section_iff_subdiv
+#print axioms NaturalSections.class_refinement_invariant
+#print axioms NaturalSections.square_subdiv_obstructed
+#print axioms NaturalSections.chain_subdiv_section

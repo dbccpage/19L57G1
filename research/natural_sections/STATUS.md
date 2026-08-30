@@ -776,6 +776,53 @@ the class can bite on; the reading -- which walks count as returning to
 themselves -- is where the class enters, and that reading is exactly
 what a natural section makes globally consistent.
 
+## Refinement: the class is a mesh invariant -- predictions, written before the computation ran
+
+The question: what survives refining a family?  A SUBDIVISION of a
+declared arrow `h0 : a0 -> b0` is: a fresh midpoint object with a
+declared presentation, a declared factorization `F` of `h0`'s transport
+(first half `F`, second half `F.symm ; iso h0`), and the two half-arrows
+added.  The original arrow is RETAINED: its naturality equation is
+implied by the two halves' (the halves compose to it), so retention and
+deletion agree on sections while retention needs no arrow-removal
+machinery; that equivalence is stated in prose, not proved.
+
+Predictions:
+
+| claim | prediction |
+|---|---|
+| **R1** (single-step invariance, Lean, general) | PROVED for every `HFamily`, every arrow, every declared midpoint and factorization: a natural section exists iff one exists for the subdivided family (`natural_section_iff_subdiv`).  Forward: the midpoint's value is FORCED -- `F.mapPair (s a0)` -- so refining adds no freedom; backward: restrict to the old objects.  Finite chains of subdivisions compose by transitivity of the iff. |
+| **R2** (the fixtures' verdicts never move) | Every one-step subdivision of the two-label square is obstructed and every one of the chain keeps its section (`square_subdiv_obstructed`, `chain_subdiv_section`, quantified over ALL declared subdivisions at once).  Computed: subdividing every hop of the square, chain and star once and twice (each hop replaced by two, the flip bit carried by the first half) leaves every verdict identical while objects and hops roughly double and closed-walk counts grow. |
+| **R3** (what refinement means here) | Per-step quantities (walk counts, hop counts) are NOT refinement invariants; the class, and parity per cycle, are.  "Has meaning in the limit" = "is a refinement invariant" becomes a checkable definition, and nothing in it orders the refinement sequence: the verdicts cannot tell which refinement came first. |
+
+Reading, agreed in advance.  If some subdivision of the square comes
+out clean, the factorization is leaking freedom into the midpoint (the
+forced-value lemma is wrong); if the chain loses its section, the
+half-arrows fail to compose to the original transport.
+
+### Results, written after the run (`refinement.py`, receipt
+`receipts/refinement.json`; Lean `lean/NaturalSections/Refinement.lean`)
+
+All three predictions held.
+
+* **R1 PROVED** (`natural_section_iff_subdiv`, no axioms; 6 reports):
+  for every family, arrow, midpoint presentation and factorization, a
+  natural section exists iff one exists after the subdivision.  The
+  midpoint's value is forced (`Subdiv.push`), the backward direction is
+  restriction (`Subdiv.pull`); the only sealed facts used are
+  `mapPair_trans` and `mapPair_symm_left`.  `class_refinement_invariant`
+  is the contrapositive.
+* **R2 held**: `square_subdiv_obstructed` and `chain_subdiv_section`
+  quantify over EVERY declared one-step subdivision at once.  Computed
+  over two rounds of subdividing every hop: square `6/8 -> 14/16 ->
+  30/32` objects/hops with odd generators `2, 2, 2` and no section at
+  every round; chain `6/6 -> 12/12 -> 24/24`, section at every round;
+  star odd generators `1, 1, 1`, no section at every round.
+* **R3**: per-step quantities grew, the class and the per-cycle parity
+  count did not.  "Has meaning under refinement" = "is a refinement
+  invariant" is now a checkable definition, and nothing in the verdicts
+  orders the rounds.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -835,5 +882,6 @@ is the same shape as the sibling steps; it is not applied here.
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 91 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 21 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 97 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 24 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |

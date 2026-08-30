@@ -157,6 +157,13 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.reWalk_unWalk",
     "NaturalSections.reWalk_length",
     "NaturalSections.dynamics_blind_to_class",
+    # Refinement (NaturalSections/Refinement.lean).
+    "NaturalSections.Subdiv.push_natural",
+    "NaturalSections.Subdiv.pull_natural",
+    "NaturalSections.natural_section_iff_subdiv",
+    "NaturalSections.class_refinement_invariant",
+    "NaturalSections.square_subdiv_obstructed",
+    "NaturalSections.chain_subdiv_section",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
