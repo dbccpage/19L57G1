@@ -4,6 +4,7 @@ import NaturalSections.HopFixture3
 import NaturalSections.HopFixture4
 import NaturalSections.HopFixturePhase
 import NaturalSections.WeightedLayer
+import NaturalSections.Represent
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -89,3 +90,10 @@ import NaturalSections.WeightedLayer
 #print axioms NaturalSections.Sq.every_value_square
 #print axioms NaturalSections.Ch.every_value_chain
 #print axioms NaturalSections.value_silent_about_class
+#print axioms NaturalSections.Repres.iso_mapPair
+#print axioms NaturalSections.Repres.push_natural
+#print axioms NaturalSections.Repres.pull_natural
+#print axioms NaturalSections.natural_section_iff_repres
+#print axioms NaturalSections.obstruction_survives_repres
+#print axioms NaturalSections.square_obstruction_survives
+#print axioms NaturalSections.chain_section_survives

@@ -652,6 +652,60 @@ convention-dependent sum `twisted` is the convention-free sum `total`
 every walk (B3), which the value shows only when the weights cannot
 cancel (B1 versus A3, B2).
 
+## Re-presentation: what removes an obstruction and what cannot -- predictions, written before the computation ran
+
+The question: over a declared class of re-presentations of a family,
+does some member carry a natural section?  Two kinds of change are
+declared and kept apart:
+
+* A **pointwise re-presentation**: the same objects and the same arrows,
+  each object presented through a presentation isomorphism
+  `g a : PresIso (D.obs a) (O' a)` of its own, every arrow's transport
+  conjugated accordingly: `iso' h = (g a).symm ; D.iso h ; g b`.  This is
+  "the same family, described differently at every object" -- a change
+  of convention at each object, carried consistently along the arrows.
+* A **change of family**: different arrows (deleting hops), different
+  objects (the labelled cover), or a different fibre (the symmetrised
+  pair).  These are the three moves already on record: remove an arrow,
+  build a cover, take a quotient.
+
+Predictions:
+
+| claim | prediction |
+|---|---|
+| **T1** (pointwise re-presentation never changes the class) | PROVED, for every `HFamily` and every pointwise `g`: a natural section of `D` exists iff one exists for the re-presented family.  A section `s` goes to `a ↦ (g a).mapPair (s a)` and back through `(g a).symm`; naturality is carried by the sealed `mapPair_trans` and `mapPair_symm_left`.  No obstruction is a presentation artifact. |
+| **T1 on the fixtures** | The square at two labels has no natural section under any of its `2^6 = 64` pointwise re-presentations (each object's `Bool` carrier presented by the identity or the swap); the chain has one under all `64`.  Computed exhaustively and, in Lean, stated for every `g` as an instance of T1. |
+| **T2** (what removes it: deleting arrows) | On the square's two-label configuration graph (six objects, eight undirected hops, two of them flipping), the class becomes trivial exactly for those hop subsets in which every remaining cycle has even flip parity.  Predicted: no single deletion suffices; the minimum cut has size `2`; the cuts are enumerated, all `2^8 = 256` subsets, per component.  Removing an arrow is the first of the two rules, and this is what it costs. |
+| **T3** (what removes it: building structure) | The labelled cover of the same graph (the two-label family with the flip bit dropped, which is the family of labelled configurations read through unlabelled ones) has a section -- the negative control already on record -- and the frozen reference of the four-label fixture supplies a fixed pair without touching the mobile pair's obstruction.  Building structure is the second rule; it does not remove the obstruction of the pair that carries it, it adds a pair that does not. |
+| **the residual** | What survives both rules within a declared budget of deletions and additions is the class itself: T1 says it cannot be described away, T2 says what it costs to cut, T3 says what it costs to cover.  That residual is named in the reading below and is not a rule. |
+
+Reading, agreed in advance.  If any pointwise re-presentation of the
+square comes out clean, T1's proof is wrong or the enumeration is not
+conjugating the transports.  If a single deletion trivialises the
+square's class, the cut prediction is wrong and the number is recorded
+as computed.
+
+### Results, written after the run (`representation.py`, receipt
+`receipts/representation.json`; Lean `lean/NaturalSections/Represent.lean`)
+
+| claim | outcome |
+|---|---|
+| T1 | PROVED for every `HFamily` and every pointwise re-presentation `P : Repres D`: `natural_section_iff_repres`.  The section is pushed by `a ↦ (P.g a).mapPair (s a)` (`Repres.push_natural`) and pulled back through `(P.g a).symm` (`Repres.pull_natural`); the only sealed facts used are `mapPair_trans` and `mapPair_symm_left`.  `obstruction_survives_repres` is the contrapositive; `square_obstruction_survives` and `chain_section_survives` instantiate it for EVERY re-presentation of those two families, in any carriers and observers. |
+| T1 on the fixtures | square: `64` re-presentations, `0` with a section; chain: `64`, `64`; star: `64`, `0`.  The class was invariant in every case, as the theorem says it must be. |
+| T2 | square: `256` hop subsets, `207` with a section, minimum deletion `2`, no single deletion suffices, eight minimal cuts (the two flipping hops together are one of them; the others isolate a flipping hop so that every remaining cycle crosses both or neither).  Chain: all `64` subsets keep the section.  Star: minimum deletion `1` -- not predicted, recorded as computed: its configuration graph carries a single odd cycle. |
+| T3 | The cover (flip bit dropped) has a section on every graph.  The frozen reference is the `k = 4` result already on record. |
+
+What this settles, in the tree's own words.  Two rules were guessed:
+remove an obstruction, or build structure.  The theorems now say what
+each one is and what it costs.  Removing is deleting arrows; T2 prices
+it, and T1 says that no re-description at the objects -- however clever,
+in whatever carriers -- counts as removing, because the class does not
+move under any of them.  Building is adding a cover or a reference; T3
+says it works and does not touch the pair that carries the obstruction.
+What neither rule reaches within a declared budget of deletions and
+additions is the residual, and the residual is not a third rule: it is
+the class, which T1 shows cannot be described away.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -704,11 +758,12 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 84 within ['Quot.sound', 'propext']`; 51 `no axioms`; 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 91 within ['Quot.sound', 'propext']`; 58 `no axioms` (the seven re-presentation theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 78 tests`, `OK` (the clean rebuild included) |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 15 source files |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 86 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 18 source files |

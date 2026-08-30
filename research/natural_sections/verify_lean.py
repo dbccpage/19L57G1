@@ -139,6 +139,14 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Sq.every_value_square",
     "NaturalSections.Ch.every_value_chain",
     "NaturalSections.value_silent_about_class",
+    # Pointwise re-presentation (NaturalSections/Represent.lean).
+    "NaturalSections.Repres.iso_mapPair",
+    "NaturalSections.Repres.push_natural",
+    "NaturalSections.Repres.pull_natural",
+    "NaturalSections.natural_section_iff_repres",
+    "NaturalSections.obstruction_survives_repres",
+    "NaturalSections.square_obstruction_survives",
+    "NaturalSections.chain_section_survives",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
