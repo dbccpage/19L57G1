@@ -40,10 +40,34 @@ def subdivide(
     return new_objs, new_hops
 
 
+def closed_walk_count(
+    objs: Sequence[Node], hops: Sequence[HopEdge], base: Node, max_len: int
+) -> int:
+    """Closed walks at ``base`` of length at most ``max_len``, each undirected
+    hop traversable in both directions -- the convention of the weighted
+    layer's walk enumeration."""
+
+    nbrs: dict[Node, list[Node]] = {o: [] for o in objs}
+    for (a, b), _ in hops:
+        nbrs[a].append(b)
+        nbrs[b].append(a)
+    for lst in nbrs.values():
+        lst.sort(key=repr)
+
+    def go(at: Node, remaining: int) -> int:
+        total = 1 if at == base else 0
+        if remaining == 0:
+            return total
+        return total + sum(go(nxt, remaining - 1) for nxt in nbrs[at])
+
+    return go(base, max_len)
+
+
 def rounds(
     sites: int, edges: Sequence[tuple[int, int]], depth: int
 ) -> list[dict[str, object]]:
     objs: list[Node] = list(two.configurations(sites))
+    base: Node = objs[0]
     hops: list[HopEdge] = [((a, b), flip) for (a, b), flip in rp.undirected_hops(sites, edges)]
     out: list[dict[str, object]] = []
     for level in range(depth + 1):
@@ -56,6 +80,7 @@ def rounds(
                 "components": comps,
                 "odd_generators": odd,
                 "section_exists": even,
+                "closed_walks_len6": closed_walk_count(objs, hops, base, 6),
             }
         )
         objs, hops = subdivide(objs, hops)

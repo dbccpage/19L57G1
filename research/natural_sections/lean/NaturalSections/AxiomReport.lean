@@ -114,3 +114,9 @@ import NaturalSections.Refinement
 #print axioms NaturalSections.class_refinement_invariant
 #print axioms NaturalSections.square_subdiv_obstructed
 #print axioms NaturalSections.chain_subdiv_section
+#print axioms NaturalSections.Repl.push_natural
+#print axioms NaturalSections.Repl.h0_equation
+#print axioms NaturalSections.Repl.pull_natural
+#print axioms NaturalSections.natural_section_iff_repl
+#print axioms NaturalSections.square_repl_obstructed
+#print axioms NaturalSections.chain_repl_section

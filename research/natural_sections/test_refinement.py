@@ -31,10 +31,28 @@ class PredictionTests(unittest.TestCase):
                 self.assertEqual(row["section_exists"], expected, (name, row["round"]))
 
     def test_growth_and_odd_generators(self) -> None:
+        """Objects follow V' = V + E, hops E' = 2E -- a reviewer corrected an
+        earlier ledger row that said both double."""
         rows = rf.rounds(4, two.grid(2, 2), 2)
         self.assertEqual([r["objects"] for r in rows], [6, 14, 30])
         self.assertEqual([r["hops"] for r in rows], [8, 16, 32])
         self.assertEqual([r["odd_generators"] for r in rows], [2, 2, 2])
+        for before, after in zip(rows, rows[1:]):
+            self.assertEqual(after["objects"], before["objects"] + before["hops"])  # type: ignore[operator]
+            self.assertEqual(after["hops"], 2 * before["hops"])  # type: ignore[operator]
+
+    def test_fixed_budget_walk_counts_decrease(self) -> None:
+        """Under the fixed length-6 budget, closed-walk counts DECREASE across
+        rounds (each old hop is now two steps): the pre-registered phrase
+        'counts grow' was wrong as stated and a reviewer caught it; what is
+        true is that the counts CHANGE while the verdicts do not."""
+        for name, sites, edges, expected in (
+            ("square", 4, two.grid(2, 2), [147, 33, 29]),
+            ("chain", 4, two.chain(4), [18, 10, 9]),
+            ("star", 4, two.star(3), [31, 29, 29]),
+        ):
+            rows = rf.rounds(sites, edges, 2)
+            self.assertEqual([r["closed_walks_len6"] for r in rows], expected, name)
 
     def test_subdivide_preserves_cycle_parity_by_construction(self) -> None:
         objs: list[object] = [0, 1, 2]

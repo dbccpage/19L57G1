@@ -818,10 +818,39 @@ All three predictions held.
   30/32` objects/hops with odd generators `2, 2, 2` and no section at
   every round; chain `6/6 -> 12/12 -> 24/24`, section at every round;
   star odd generators `1, 1, 1`, no section at every round.
-* **R3**: per-step quantities grew, the class and the per-cycle parity
-  count did not.  "Has meaning under refinement" = "is a refinement
-  invariant" is now a checkable definition, and nothing in the verdicts
-  orders the rounds.
+* **R3**: per-step quantities changed, the class and the per-cycle
+  parity count did not.  "Has meaning under refinement" = "is a
+  refinement invariant" is now a checkable definition, and nothing in
+  the verdicts orders the rounds.
+
+### Review repairs (pull request 98)
+
+A reviewer found four defects; each is repaired here, with the record.
+
+1. **The Lean theorem covered retention, the fixtures replacement.**
+   `Subdiv.family` keeps the original arrow; `refinement.py` removes it.
+   The prose note that the two agree was not a proof.  Now proved:
+   `Repl` is the REPLACEMENT operation -- the arrow removed from the
+   family, the two decidabilities that let the instruction point at it
+   (`decObj`, `dec0`) declared as data -- and
+   `natural_section_iff_repl` carries the iff with the removed arrow's
+   equation DERIVED from the two halves (`Repl.h0_equation`).
+   `square_repl_obstructed` and `chain_repl_section` quantify over every
+   one-step replacement.  The retained version stands as the weaker
+   sibling it always was.
+2. **The commands table (the single source of totals) was stale again**;
+   it is refreshed below and remains the only place totals live.
+3. **NS-51 said objects and hops double.**  Objects follow
+   `V' = V + E`, only hops double (`E' = 2E`): square `6 -> 14 -> 30`
+   objects against `8 -> 16 -> 32` hops.  The ledger row is corrected
+   and the recurrence is now asserted by a test.
+4. **"Closed-walk counts grow" was asserted, not computed, and is false
+   under the fixed length-6 budget**: they DECREASE -- square
+   `147 -> 33 -> 29`, chain `18 -> 10 -> 9`, star `31 -> 29 -> 29` --
+   because each old hop becomes two steps.  The counts are now in the
+   receipt (`closed_walks_len6`) and pinned by a test; the correct
+   statement, which is all R3 needs, is that the counts CHANGE while
+   the verdicts do not.
 
 ## Boundary and write root
 
@@ -875,13 +904,13 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 100 within ['Quot.sound', 'propext']`; 67 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 112 within ['Quot.sound', 'propext']`; 79 `no axioms` (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 97 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 98 tests`, `OK` (the clean rebuild included) |
 | `cd research/natural_sections && python -m mypy` | 0 | strict, 24 source files |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |

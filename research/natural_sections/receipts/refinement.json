@@ -3,6 +3,7 @@
   "rounds": {
     "chain_P4": [
       {
+        "closed_walks_len6": 18,
         "components": 1,
         "hops": 6,
         "objects": 6,
@@ -11,6 +12,7 @@
         "section_exists": true
       },
       {
+        "closed_walks_len6": 10,
         "components": 1,
         "hops": 12,
         "objects": 12,
@@ -19,6 +21,7 @@
         "section_exists": true
       },
       {
+        "closed_walks_len6": 9,
         "components": 1,
         "hops": 24,
         "objects": 24,
@@ -29,6 +32,7 @@
     ],
     "square_2x2": [
       {
+        "closed_walks_len6": 147,
         "components": 1,
         "hops": 8,
         "objects": 6,
@@ -37,6 +41,7 @@
         "section_exists": false
       },
       {
+        "closed_walks_len6": 33,
         "components": 1,
         "hops": 16,
         "objects": 14,
@@ -45,6 +50,7 @@
         "section_exists": false
       },
       {
+        "closed_walks_len6": 29,
         "components": 1,
         "hops": 32,
         "objects": 30,
@@ -55,6 +61,7 @@
     ],
     "star_K13": [
       {
+        "closed_walks_len6": 31,
         "components": 1,
         "hops": 6,
         "objects": 6,
@@ -63,6 +70,7 @@
         "section_exists": false
       },
       {
+        "closed_walks_len6": 29,
         "components": 1,
         "hops": 12,
         "objects": 12,
@@ -71,6 +79,7 @@
         "section_exists": false
       },
       {
+        "closed_walks_len6": 29,
         "components": 1,
         "hops": 24,
         "objects": 24,

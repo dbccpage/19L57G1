@@ -164,6 +164,12 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.class_refinement_invariant",
     "NaturalSections.square_subdiv_obstructed",
     "NaturalSections.chain_subdiv_section",
+    "NaturalSections.Repl.push_natural",
+    "NaturalSections.Repl.h0_equation",
+    "NaturalSections.Repl.pull_natural",
+    "NaturalSections.natural_section_iff_repl",
+    "NaturalSections.square_repl_obstructed",
+    "NaturalSections.chain_repl_section",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
