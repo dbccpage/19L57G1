@@ -1,0 +1,14 @@
+import NaturalSections
+
+#print axioms NaturalSections.natural_section_of_fixed_pair
+#print axioms NaturalSections.natural_section_iff_fixed_pair
+#print axioms NaturalSections.hnatural_section_iff_fixed_pair
+#print axioms NaturalSections.fixed_pair_iff_two_fixed_points
+#print axioms NaturalSections.cyc_cycInv
+#print axioms NaturalSections.cycInv_cyc
+#print axioms NaturalSections.cyc_fixes_e1
+#print axioms NaturalSections.cyc_fixes_only_e1
+#print axioms NaturalSections.cycIso_fixed_pair_free
+#print axioms NaturalSections.fixed_point_without_natural_section
+#print axioms NaturalSections.blindObs_no_admissible_pair
+#print axioms NaturalSections.identity_fixes_everything_no_section
