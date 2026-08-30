@@ -129,3 +129,4 @@ import NaturalSections.Refinement
 #print axioms NaturalSections.chain_replE_section
 #print axioms NaturalSections.replE_square_inhabited
 #print axioms NaturalSections.replE_chain_inhabited
+#print axioms NaturalSections.replE_square_flip_inhabited

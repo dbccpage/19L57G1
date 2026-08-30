@@ -179,6 +179,7 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.chain_replE_section",
     "NaturalSections.replE_square_inhabited",
     "NaturalSections.replE_chain_inhabited",
+    "NaturalSections.replE_square_flip_inhabited",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

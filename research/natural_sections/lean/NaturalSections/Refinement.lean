@@ -451,4 +451,28 @@ def chReplE : ReplE Hop.chainFamily where
 
 theorem replE_chain_inhabited : Nonempty (ReplE Hop.chainFamily) := ⟨chReplE⟩
 
+/-- A concrete edge replacement of a FLIPPING square edge
+(`{0,1} -- {1,2}`, whose two oriented transports are the swap): the
+`rev_inverts` obligation is discharged nontrivially, by the swap being
+an involution. -/
+def sqReplEFlip : ReplE Hop.squareFamily where
+  a0 := .c01
+  b0 := .c12
+  h0 := ⟨by decide⟩
+  Mid := Bool
+  MidR := Bool
+  midObs := boolEqObs
+  F := PresIso.refl boolEqObs
+  h0r := ⟨by decide⟩
+  ne0 := fun e => Hop.Pair4.noConfusion e
+  decObj := inferInstanceAs (DecidableEq Hop.Pair4)
+  dec0 := fun f => .isTrue (by cases f; rfl)
+  dec0r := fun f => .isTrue (by cases f; rfl)
+  rev_inverts := fun p => by
+    apply Subtype.ext
+    obtain ⟨⟨x, y⟩, _⟩ := p
+    cases x <;> cases y <;> rfl
+
+theorem replE_square_flip_inhabited : Nonempty (ReplE Hop.squareFamily) := ⟨sqReplEFlip⟩
+
 end NaturalSections
