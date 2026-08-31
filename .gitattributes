@@ -5,3 +5,4 @@ requirements.txt -text
 research/partial_decide/partial_decide_c3.json -text
 research/natural_sections/receipts/** -text
 research/family_embedding/receipts/** -text
+research/observer_visibility/receipts/** -text

@@ -1,0 +1,387 @@
+{
+  "loop_unwatched": {
+    "mass": 0,
+    "support": 0,
+    "verdict": "SOUND",
+    "witness": null
+  },
+  "patch3_box_min": {
+    "mass": 2,
+    "support": 1,
+    "verdict": "UNSOUND",
+    "witness": {
+      "0": [
+        0,
+        -1
+      ],
+      "1": [
+        0,
+        0
+      ],
+      "2": [
+        0,
+        0
+      ],
+      "3": [
+        0,
+        0
+      ],
+      "4": [
+        0,
+        0
+      ],
+      "5": [
+        0,
+        0
+      ]
+    }
+  },
+  "patch3_decision": {
+    "mass": 2,
+    "support": 1,
+    "verdict": "UNSOUND",
+    "witness": {
+      "0": [
+        0,
+        0
+      ],
+      "1": [
+        0,
+        0
+      ],
+      "2": [
+        0,
+        0
+      ],
+      "3": [
+        0,
+        0
+      ],
+      "4": [
+        0,
+        0
+      ],
+      "5": [
+        0,
+        1
+      ]
+    }
+  },
+  "patch3_generator_matches_box_min": true,
+  "patch3_lean_section_mass": 6,
+  "schema": "observer_visibility_decide/v1",
+  "seed": 20260830,
+  "seeded": [
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 0
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 1
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 2
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 3
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 4
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 5
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 6
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 7
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 8
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 9
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 10
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 11
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 12
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 13
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 14
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 15
+    },
+    {
+      "agree": true,
+      "both": true,
+      "brute": "SOUND",
+      "decide": "SOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 16
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 17
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ]
+      ],
+      "i": 18
+    },
+    {
+      "agree": true,
+      "both": false,
+      "brute": "UNSOUND",
+      "decide": "UNSOUND",
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "i": 19
+    }
+  ],
+  "seeded_agree": true,
+  "trivial_kernels": {
+    "mass": 0,
+    "support": 0,
+    "verdict": "SOUND",
+    "witness": null
+  }
+}

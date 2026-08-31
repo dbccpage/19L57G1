@@ -1,0 +1,35 @@
+import ObserverVisibility
+
+#print axioms ObserverVisibility.AbGroup.add_zero
+#print axioms ObserverVisibility.AbGroup.neg_add
+#print axioms ObserverVisibility.passivity_term
+#print axioms ObserverVisibility.sumNu_nonneg
+#print axioms ObserverVisibility.j_le_i
+#print axioms ObserverVisibility.i_zero_forces_j_zero
+#print axioms ObserverVisibility.j_le_i_unwatched
+#print axioms ObserverVisibility.jobs_zero_of_i_zero
+#print axioms ObserverVisibility.i_zero_forces_every_j_zero
+#print axioms ObserverVisibility.allGreen_of_in_joint_ker
+#print axioms ObserverVisibility.in_joint_ker_of_allGreen
+#print axioms ObserverVisibility.allGreen_iff_in_joint_ker
+#print axioms ObserverVisibility.patch3_mass
+#print axioms ObserverVisibility.patch3_allGreen
+#print axioms ObserverVisibility.patch3_full_coverage
+#print axioms ObserverVisibility.no_recovery_modulus
+#print axioms ObserverVisibility.Iof_zero_iff
+#print axioms ObserverVisibility.allGreenS_iff_inK
+#print axioms ObserverVisibility.sound_iff_imD_cap_K
+#print axioms ObserverVisibility.trivial_kers_imply_sound
+#print axioms ObserverVisibility.idCon_ker_trivial
+#print axioms ObserverVisibility.trivial_ker_allGreen_implies_sound
+#print axioms ObserverVisibility.id_allGreen_implies_I_zero
+#print axioms ObserverVisibility.cob_self_loop
+#print axioms ObserverVisibility.loop_sound
+#print axioms ObserverVisibility.coord_ker_nontrivial
+#print axioms ObserverVisibility.cob_along_path
+#print axioms ObserverVisibility.phi_zero_of_zero_coboundary
+#print axioms ObserverVisibility.nat_gap
+#print axioms ObserverVisibility.gap_splits
+#print axioms ObserverVisibility.disjoint_fragment
+#print axioms ObserverVisibility.obs_le_mass
+#print axioms ObserverVisibility.dual_pair_le_mass
