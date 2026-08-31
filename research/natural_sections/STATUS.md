@@ -1153,7 +1153,11 @@ What AG1-AG4 would say together: the PRICING SHAPE is not another
 free declaration stacked on the gauge -- once the per-edge gauges are
 declared and the observer is additive and calibrated, the edge sum is
 forced, and the only remaining freedom is the per-edge gauge itself
-(and, without calibration, one weight per edge).  The declarations
+(and, replacing calibration with magnitude-sufficiency and
+homogeneity, one weight per edge -- an earlier parenthetical said
+"without calibration" alone, which additivity does not deliver:
+singleton values may depend nonlinearly on the gauge; a reviewer
+corrected it).  The declarations
 thin as the tower climbs: fibre, then faces, then gauges -- the
 aggregator is not among them.
 
@@ -1184,10 +1188,16 @@ What the rung answers, internally.  The support mass was introduced on
 the pricing rung as a declaration.  This rung narrows what was
 actually declared: the per-edge gauges.  Once those are fixed, an
 additive calibrated observer has NO remaining freedom -- the edge sum
-is forced -- and dropping calibration leaves exactly one weight per
-edge.  The declarations thin as the tower climbs, and which axiom
-carries which freedom is now itself proved: additivity kills the
-aggregator's shape, calibration kills the weights.
+is forced -- and replacing calibration with magnitude-sufficiency and
+homogeneity leaves exactly one weight per edge (an earlier sentence
+said "dropping calibration" alone did this; additivity by itself does
+not -- singleton values may depend nonlinearly on the gauge, or on the
+whole assignment -- and `forced_weighted_sum` obtains weights only
+from the two added axioms; a reviewer corrected it).  The declarations
+thin as the tower climbs, and which axiom carries which freedom is now
+itself proved: additivity kills the aggregator's shape; within
+magnitude-sufficient homogeneous observers, calibration kills the
+weights.
 
 ## Boundary and write root
 
