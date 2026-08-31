@@ -1273,8 +1273,11 @@ One proof-level note, no prediction touched: the instance equalities of
 `Subtype.ext rfl` rather than `decide`, because `Decidable` instance
 synthesis does not reduce `F.obs .c01` to `boolEqObs` inside the goal;
 the kernel's definitional reduction does.  The 12 new `#print axioms`
-reports (222 total now) split 6 / 3 / 3 across no axioms / `['propext']`
-/ `['Quot.sound', 'propext']`, all within the whitelist.
+reports (222 total now) split 7 / 3 / 2 across no axioms / `['propext']`
+/ `['Quot.sound', 'propext']`, all within the whitelist.  (An earlier
+sentence said 6 / 3 / 3 -- inconsistent with the 122 no-axioms total
+this file records two lines of the commands table away; a verifier
+recomputed the split from a fresh build and corrected it.)
 
 ## Boundary and write root
 
@@ -1328,7 +1331,7 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 222 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, and the 12 A2-repair conjugation-orbit theorems included); 122 `no axioms`; the weighted layer's reports now include the orbit rung's 6 / 3 / 3 split (no axioms / `['propext']` / `['Quot.sound', 'propext']`); `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 222 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, and the 12 A2-repair conjugation-orbit theorems included); 122 `no axioms`; the weighted layer's reports now include the orbit rung's 7 / 3 / 2 split (no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own 122 total; a verifier recomputed the split from a fresh build and corrected it); `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
