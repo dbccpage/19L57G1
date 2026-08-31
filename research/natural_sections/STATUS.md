@@ -1199,6 +1199,115 @@ itself proved: additivity kills the aggregator's shape; within
 magnitude-sufficient homogeneous observers, calibration kills the
 weights.
 
+## Equivariant bridge to the sealed selector theorem -- predictions, written before the computation ran
+
+The sealed `ContactKernel.no_equivariant_pair_valued_map` rules out a
+total map `sel : DiffObs Bool Bool → Bool × Bool` commuting with the
+negation relabelling `swapObs`.  The sealed
+`PresentationNaturality` module states in two places (its section 10
+and its section 14 non-claims) that deriving that theorem from the
+general obstruction `no_natural_section_of_fixed_point_free` is OPEN:
+the two quantify over different objects -- raw-pair-valued maps out of
+the observer type, versus sections of the admissible-pair bundle.  This
+rung builds the bridge, in `lean/NaturalSections/EquivariantBridge.lean`.
+The seal is not amended: the sealed OPEN record stays where it is; what
+is added is a research derivation alongside it.
+
+The gap, stated exactly.  A section assigns an ADMISSIBLE pair
+(`NonZeroPair boolEqObs`); the sealed selector assigns a RAW pair,
+which may be diagonal, and no observer admits a diagonal pair
+(`zero_refl` is a field).  So the bridge needs a map from raw pairs to
+admissible pairs that commutes with the negation action -- possible
+precisely because the negation action on raw pairs is free, so each of
+its two orbits `{(F,F),(T,T)}` and `{(F,T),(T,F)}` can be mapped
+orbitwise onto the admissible orbit.  Declared construction:
+`pairRetract` sends `(F,F) ↦ (F,T)`, `(T,T) ↦ (T,F)`, and is the
+identity on the two admissible pairs.
+
+Declared derivation route, written before the file: from an equivariant
+`sel`, the section `fun _ => pairRetract (sel boolEqObs)` over
+`autoFamily boolEqObs negIso` is natural -- using ONLY the equivariance
+law at `boolEqObs`, the sealed fixed-point equation `swapObs_boolEqObs`,
+and the equivariance of `pairRetract`; never the fact that negation
+fixes no Boolean.  The contradiction is then produced by the sealed
+`no_natural_section_of_fixed_point_free` applied with the sealed
+`negIso_fixed_point_free`.  What the bridge does NOT claim: independence
+from `negIso_fixed_point_free` -- that sealed input is the Bool-instance
+fixed-point-freeness the general theorem consumes, and it is cited, not
+re-proved.  The claim is about the ROUTE: the sealed selector statement
+becomes an instance of the section obstruction, which is exactly the
+derivation the sealed module records as missing.
+
+Predictions:
+
+| item | prediction |
+|---|---|
+| **EB1** (the retraction) | PROVED: `pairRetract` lands in `NonZeroPair boolEqObs`, is the identity on admissible pairs (`pairRetract_fixes_admissible`), commutes with the negation action (`pairRetract_equivariant`, for every raw pair), and its four values are as declared above (`pairRetract_table`, by `decide` -- the finite instance check of this rung; no Python is needed because there is no computational claim beyond these four values). |
+| **EB2** (the bridge) | PROVED: `sectionOf_natural` -- an equivariant `sel` yields a natural section of `autoFamily boolEqObs negIso` -- and `no_equivariant_pair_valued_map_via_sections`: no equivariant `sel` exists, with the `False` produced by the sealed `no_natural_section_of_fixed_point_free` + `negIso_fixed_point_free`, not by a direct fixed-point argument. |
+| **EB3** (the translation is the identity) | The research notion `Equivariant sel` is DEFINITIONALLY the sealed equivariance law (`equivariant_iff_sealed_shape` by `Iff.rfl`), and the derived proposition IS the sealed proposition: `bridge_statement_is_the_sealed_statement`, an equality of the two proofs whose elaboration forces the two STATEMENTS to be definitionally equal, closed by `rfl` (definitional proof irrelevance).  If this `rfl` fails to elaborate, the fallback declared now is: state the translation as a definition and prove the transported statement, recording the mismatch -- the OPEN discipline. |
+| **EB4** (inventory and axioms) | 8 new reports (the seven named above plus `sealed_selector_content_along_bridge`), tree total `218`; all within `{propext, Quot.sound}`.  Sharper, and recorded so a miss is visible: `pairRetract_table`, `pairRetract_fixes_admissible`, `pairRetract_equivariant`, `equivariant_iff_sealed_shape`, `bridge_statement_is_the_sealed_statement` with NO axioms; `sectionOf_natural`, `no_equivariant_pair_valued_map_via_sections`, `sealed_selector_content_along_bridge` on `['Quot.sound']` exactly (the sealed `swapObs_boolEqObs` realizes `funext` through `Quot.sound`; nothing here should need `propext`). |
+
+Reading, agreed in advance.  If `sectionOf_natural` cannot be proved
+without invoking "negation fixes no Boolean", the bridge is circular
+and the rung is recorded OPEN with that blocker.  If the `rfl` of EB3
+fails, the types do not align and the transported-statement fallback is
+used, recorded as a miss against EB3.  If any report needs `propext`,
+EB4's sharper half missed and the computed set is recorded next to it.
+
+### Results, written after the run (Lean
+`lean/NaturalSections/EquivariantBridge.lean`)
+
+The module elaborated clean on the first pass; every mathematical
+prediction held, and EB4's sharper half missed on one report.
+
+* **EB1 PROVED**: `pairRetract` is total into `NonZeroPair boolEqObs`
+  (admissibility by the sealed `boolEqObs_nonzero_ft` / `_tf`, cited
+  not re-proved), `pairRetract_fixes_admissible` (the diagonal cases
+  refuted by the pairs' own admissibility, the off-diagonal by
+  `Subtype.ext rfl`), `pairRetract_equivariant` (four cases, each
+  `Subtype.ext rfl`; the no-fixed-Boolean fact nowhere used), and
+  `pairRetract_table` by `decide` -- the rung's finite instance check.
+  No Python, as declared: there is no computational claim beyond the
+  four table values.
+* **EB2 PROVED**: `sectionOf_natural` consumes exactly the three
+  declared inputs -- the equivariance law at `boolEqObs`, the sealed
+  `swapObs_boolEqObs`, and `pairRetract_equivariant`; the equivariance
+  equation at the fixed point is only ever REWRITTEN with, never
+  refuted.  `no_equivariant_pair_valued_map_via_sections` then gets its
+  `False` from the sealed `no_natural_section_of_fixed_point_free`
+  applied with the sealed `negIso_fixed_point_free`.  The circularity
+  the reading clause feared did not arise.
+* **EB3 held, no fallback needed**: `equivariant_iff_sealed_shape` is
+  `Iff.rfl`, and `bridge_statement_is_the_sealed_statement` -- the
+  equation between `sealed_selector_content_along_bridge` and the
+  sealed `ContactKernel.no_equivariant_pair_valued_map` -- elaborates
+  and closes by `rfl`.  The types align exactly; the translation is
+  the identity and no translation definition was needed.
+* **EB4: count held, axiom split missed by one.**  8 new reports, tree
+  total `218`, all within the whitelist.  The split came out 4 + 4,
+  not the predicted 5 + 3: `bridge_statement_is_the_sealed_statement`
+  reports `['Quot.sound']`, not "no axioms" -- its statement NAMES the
+  two proof constants, so their dependencies (through the sealed
+  `swapObs_boolEqObs`'s `funext`) are in its report even though its own
+  proof is `rfl`.  The miss is recorded here next to the prediction,
+  which stands unedited above.  The other seven came out exactly as
+  predicted: `pairRetract_table`, `pairRetract_fixes_admissible`,
+  `pairRetract_equivariant`, `equivariant_iff_sealed_shape` with no
+  axioms; `sectionOf_natural`,
+  `no_equivariant_pair_valued_map_via_sections`,
+  `sealed_selector_content_along_bridge` on `['Quot.sound']`; nothing
+  needed `propext`.
+
+What the rung answers, internally.  The sealed module kept its selector
+theorem and its section obstruction side by side and recorded the
+derivation of one from the other as OPEN, because they quantify over
+different objects.  The missing object was one equivariant map: a
+retraction from raw pairs to admissible pairs commuting with the
+action, which exists because the action on raw pairs is free.  With it,
+every equivariant selector is a natural section in disguise, and the
+selector theorem is an instance of the section obstruction -- statement
+identity machine-checked, seal untouched.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1240,8 +1349,15 @@ is the same shape as the sibling steps; it is not applied here.
 * A `Forest` is any assignment of bases and walks; nothing here proves
   that a spanning forest exists for a given family, and the theorems do
   not need one to.
-* Nothing here derives `ContactKernel.no_equivariant_pair_valued_map`
-  or touches the OPEN items the sealed module records.
+* An earlier version of this bullet read: "Nothing here derives
+  `ContactKernel.no_equivariant_pair_valued_map` or touches the OPEN
+  items the sealed module records."  NARROWED as of the
+  equivariant-bridge rung: `EquivariantBridge.lean` derives that sealed
+  statement's content from the sealed section obstruction (NS-82).  The
+  sealed module's own OPEN record is untouched -- the seal is not
+  amended, and this tree claims no authority over it -- and the other
+  sealed OPEN item, the general embedding of the flat `Family` into
+  `HFamily`, remains open here too.
 * The countermodels separate the fixed-point reading from the
   fixed-pair reading; they say nothing about which automorphisms arise
   from any presentation theory.
@@ -1251,7 +1367,7 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 210 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, and the 10 aggregation theorems included); 115 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 218 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, and the 8 equivariant-bridge theorems included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`); 115 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
