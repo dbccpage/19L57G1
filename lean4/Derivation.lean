@@ -13,6 +13,7 @@ import Derivation.Progress
 import Derivation.Erasure
 import Derivation.Ext
 import Derivation.PrimDiff
+import Derivation.ObserverInventory
 import Derivation.Bridge
 import Derivation.Refusal
 import Derivation.RefusalFrontier
@@ -163,6 +164,13 @@ open Derivation
 #print axioms PrimDiff.swap_is_S2_automorphism
 #print axioms PrimDiff.oriented_rigid
 #print axioms PrimDiff.oriented_classifier_exists
+#print axioms PrimDiff.swap_carries_D2_to_D2rev
+#print axioms PrimDiff.swap_twice_restores_D2
+#print axioms PrimDiff.swap_twice_restores_D2rev
+#print axioms PrimDiff.sym_D2_eq_S2
+#print axioms PrimDiff.sym_D2rev_eq_S2
+#print axioms PrimDiff.swap_auto_of_S2_not_of_D2
+#print axioms PrimDiff.bool_irrefl_nonempty_classification
 #print axioms PrimDiff.single_oriented_witness_consistent
 #print axioms PrimDiff.multiplicity_invisible_to_presence
 #print axioms PrimDiff.repetition_no_new_content
@@ -173,6 +181,24 @@ open Derivation
 #print axioms PrimDiff.irred_empty_iff_ne
 #print axioms PrimDiff.irred_antitone
 #print axioms PrimDiff.merger_erases
+
+-- Nine-slot inventory of existing primitive-difference objects
+#print axioms ObserverInventory.slot_count
+#print axioms ObserverInventory.slots_nodup
+#print axioms ObserverInventory.empty_irrefl
+#print axioms ObserverInventory.empty_ne_D2
+#print axioms ObserverInventory.bool_irrefl_full_classification
+#print axioms ObserverInventory.witnesses_are_data
+#print axioms ObserverInventory.collision_is_not_obstruction
+#print axioms ObserverInventory.transpose_involutive
+#print axioms ObserverInventory.transpose_D2_eq_D2rev
+#print axioms ObserverInventory.transpose_D2rev_eq_D2
+#print axioms ObserverInventory.pushNot_D2_eq_D2rev
+#print axioms ObserverInventory.transpose_eq_pushNot_on_D2
+#print axioms ObserverInventory.transpose_ne_pushNot
+#print axioms ObserverInventory.d1_empty_family_is_identity
+#print axioms ObserverInventory.residuals_not_unique
+#print axioms ObserverInventory.d0_not_auto_of_D2
 
 -- The bridge: provenance of the primitive-difference ingredients
 #print axioms Bridge.stepT_preserves_atMostTok

@@ -3668,6 +3668,90 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   each actual chain pair to the engine, followed by a replayable finite run.
   Until then the chain claim is OPEN; Challenge-3 minima authorize no adapter.
 
+### CL-PD-SHEETS
+- **Statement**: on the two-element carrier, the unique non-identity
+  permutation (`Bool.not` / the swap of the two points) carries `D2`
+  onto `D2rev` and `D2rev` onto `D2`, and two applications restore
+  either orientation; both orientations have the same symmetrization
+  `S2`; that permutation is an automorphism of `S2` and of neither
+  orientation; unpointed, every inhabited irreflexive relation equals
+  `D2` or `D2rev` or `S2`.  The pointed census
+  `bool_irrefl_witness_classification` remains, and excludes `D2rev`
+  by fixing the designated pair.  Collision already identified the
+  two orientations; this names the transposition that identification
+  forgets.
+- **Class**: theorem.
+- **Deps**: none. **Assumptions**: the one-relation signature of
+  `paper/primitive_difference.md` S1.
+- **Python**: `primdiff.json:transposition`;
+  `test_carrier_swap_carries_each_orientation_onto_the_other`,
+  `test_carrier_swap_twice_is_identity_and_restores_both`,
+  `test_both_orientations_have_the_same_symmetrization`,
+  `test_carrier_swap_is_auto_of_S2_not_of_either_orientation`,
+  `test_unpointed_irrefl_nonempty_census_on_two`,
+  `test_transposition_report_agrees_with_the_live_maps`.
+- **Lean**: `PrimDiff.swap_carries_D2_to_D2rev`,
+  `PrimDiff.swap_twice_restores_D2`,
+  `PrimDiff.swap_twice_restores_D2rev`, `PrimDiff.sym_D2_eq_S2`,
+  `PrimDiff.sym_D2rev_eq_S2`, `PrimDiff.swap_auto_of_S2_not_of_D2`,
+  `PrimDiff.bool_irrefl_nonempty_classification`.
+- **Axioms**: within `{propext, Quot.sound}`.
+- **Falsifier / boundary**: a non-identity permutation of the
+  two-element carrier that preserves `D2`, or an inhabited
+  irreflexive relation on that carrier outside `{D2, D2rev, S2}`.
+  Carrier 3 is outside this census.
+
+### CL-PD-INVENTORY
+- **Statement**: the nine slots `(K, F, R, delta, d0, d1, J, M, tau)`
+  are a declared classification of existing objects on the
+  two-element carrier.  Every irreflexive relation equals empty or
+  `D2` or `D2rev` or `S2`.  Witness assignments are present as data:
+  the zero assignment and the one-oriented assignment both exist, the
+  latter has presence `D2`, and neither is derived as the unique
+  inhabitant.  Collision of a collapse map is not obstruction
+  relative to `Irrefl`.  Relation `Transpose` is an involution, carries
+  `D2` onto `D2rev`, and agrees with pushforward along `Bool.not` on
+  `D2` while remaining a different operation.  `edgeCount` and
+  `isSymBit` are distinct residuals.  Empty and `D2` are both legal
+  local states, so no unique next state is a function of `(K, F)`.
+- **Class**: theorem.
+- **Deps**: `CL-PD-SHEETS`. **Assumptions**: the one-relation
+  signature of `paper/primitive_difference.md` S1; slot names are a
+  declared classification, not a derived carving.
+- **Python**: `observer_inventory.json`;
+  `test_nine_slots_and_no_duplicates`,
+  `test_irrefl_census_is_exactly_the_four`,
+  `test_witnesses_are_data_not_a_unique_inhabitant`,
+  `test_d0_transpose_and_swap_agree_on_D2_and_differ`,
+  `test_delta_collision_is_not_source_irreflexivity`,
+  `test_residuals_are_not_unique`,
+  `test_inventory_report_flags`,
+  `test_runner_byte_stable`.
+- **Lean**: `ObserverInventory.slot_count`,
+  `ObserverInventory.slots_nodup`,
+  `ObserverInventory.empty_irrefl`,
+  `ObserverInventory.empty_ne_D2`,
+  `ObserverInventory.bool_irrefl_full_classification`,
+  `ObserverInventory.witnesses_are_data`,
+  `ObserverInventory.collision_is_not_obstruction`,
+  `ObserverInventory.transpose_involutive`,
+  `ObserverInventory.transpose_D2_eq_D2rev`,
+  `ObserverInventory.transpose_D2rev_eq_D2`,
+  `ObserverInventory.pushNot_D2_eq_D2rev`,
+  `ObserverInventory.transpose_eq_pushNot_on_D2`,
+  `ObserverInventory.transpose_ne_pushNot`,
+  `ObserverInventory.d1_empty_family_is_identity`,
+  `ObserverInventory.residuals_not_unique`,
+  `ObserverInventory.d0_not_auto_of_D2`.
+- **Axioms**: within `{propext, Quot.sound}`.
+- **Falsifier / boundary**: a fifth irreflexive relation on `Bool`;
+  equality of `zeroW` and `oneW`; `Transpose D2 ≠ D2rev`;
+  extensional equality of `Transpose` and `pushNot`; a unique
+  residual that is both `edgeCount` and `isSymBit`; a function of
+  irreflexive `F` that selects a unique next state.  Carrier 3 is
+  outside this census.  History-bearing fillings of `tau` are named
+  citations, not theorems of this claim.
+
 ### CL-G1-TERMINAL-20260826
 
 - **Statement**: the current terminals are
