@@ -1114,6 +1114,6 @@ is the same shape as the sibling steps; it is not applied here.
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 111 tests`, `OK` (the clean rebuild included) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 27 source files |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 30 source files (an earlier row said 27 after the faces modules had raised it; a reviewer corrected the stale receipt) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
