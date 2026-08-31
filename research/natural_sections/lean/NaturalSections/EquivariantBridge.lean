@@ -147,8 +147,7 @@ theorem no_equivariant_pair_valued_map_via_sections :
 
 /-- The research notion is the sealed law, definitionally: the
 translation between the two statements is the identity. -/
-theorem equivariant_iff_sealed_shape
-    (sel : DiffObs Bool Bool → Bool × Bool) :
+theorem equivariant_iff_sealed_shape (sel : DiffObs Bool Bool → Bool × Bool) :
     Equivariant sel ↔
       ∀ O : DiffObs Bool Bool,
         sel (swapObs O) = (!((sel O).1), !((sel O).2)) :=
