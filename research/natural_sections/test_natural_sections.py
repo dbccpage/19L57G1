@@ -11,6 +11,7 @@ build.  No test here proves a theorem: the Lean statements are checked by
 from __future__ import annotations
 
 import copy
+import re
 import hashlib
 import os
 import shutil
@@ -282,3 +283,58 @@ class WriteRootBoundaryTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ClaimLedgerTests(unittest.TestCase):
+    """The ledger's own ids, which nothing checked until an id shipped twice.
+
+    ``ci/check_ledger_evidence.py`` verifies that evidence tokens RESOLVE, and
+    it parses ``### CL-`` entries -- a different ledger in a different format.
+    Nothing read the ``| NS-nn |`` table in this tree's ``CLAIM_LEDGER.md``, so
+    when the phase-receiver rung took ``NS-80`` -- an id already in use, and
+    inside the ``NS-80..NS-89`` range the equivariant-bridge row documents as
+    reserved -- every gate stayed green.
+
+    A reservation recorded in prose and read by no test is a comment.
+    """
+
+    LEDGER = TREE / "CLAIM_LEDGER.md"
+    ROW = re.compile(r"^\| (NS-\d+) \|", re.MULTILINE)
+
+    def _ids(self) -> list[str]:
+        return self.ROW.findall(self.LEDGER.read_text(encoding="utf-8"))
+
+    def test_the_ledger_has_rows_to_check(self) -> None:
+        """Negative control: the checks below are vacuous over an empty parse."""
+        self.assertGreater(len(self._ids()), 50)
+
+    def test_every_claim_id_is_unique(self) -> None:
+        """Mutation: reuse any NS id and this names it.
+
+        The duplicate that motivated this test was ``NS-80``, carrying two
+        unrelated claims -- the phase receiver's counts and the equivariant
+        retraction -- so a citation of ``NS-80`` resolved to whichever the
+        reader found first.
+        """
+        ids = self._ids()
+        duplicates = sorted({i for i in ids if ids.count(i) > 1})
+        self.assertEqual(duplicates, [], f"claim ids used more than once: {duplicates}")
+
+    def test_the_reserved_range_holds_only_its_reservation(self) -> None:
+        """NS-80..NS-89 is reserved in the ledger's own prose for one branch.
+
+        The reservation names ``equivariant-bridge``; this asserts that every
+        id in the range belongs to a row citing that branch's namespace, so a
+        parallel rung cannot quietly borrow from it again.
+        """
+        text = self.LEDGER.read_text(encoding="utf-8")
+        self.assertIn("reserved for the `equivariant-bridge` branch", text)
+        for line in text.splitlines():
+            match = re.match(r"^\| (NS-8\d) \|", line)
+            if match:
+                self.assertIn(
+                    "EqBridge",
+                    line,
+                    f"{match.group(1)} is inside the range reserved for "
+                    "equivariant-bridge but does not cite it",
+                )
