@@ -74,23 +74,35 @@ and are withdrawn.  The statements below are the replacements.
 * **OV3.**  Lean section mass 6, All-Green, six edges.
   `no_recovery_modulus`: every `f` with `f 0 = 0` fails `I ≤ f 0`.
 * **OV4.**  `trivial_kers_imply_sound`: a zero coboundary has mass 0.
-* **OV5.**  `sound_iff_imD_cap_K`: `soundS` (All-Green implies `I = 0`
-  for every section) iff `imDCapK0` (a coboundary in the joint kernel
-  is the group zero).  Linear decision is the Q-nullspace of `W ∘ D`,
-  independent of brute force.  On the OV3 family: UNSOUND, witness
-  mass 2, support 1 (smaller than the Lean exhibit, as allowed).
-  Both-coordinate watch: SOUND.  Seed `20260830`, twenty two-object
-  diagrams, decide vs brute agree.
+* **OV5.**  Instance: integer plane, identity restrictions,
+  first-coordinate watcher.  `allGreenS_iff_inK` is `Iff.rfl`, so
+  `sound_iff_imD_cap_K` is `Iof_zero_iff` (faithful `nu`).  Self-loop
+  `(0,0)`: `loop_sound` and `coord_ker_nontrivial` — the family is
+  sound while the first-coordinate kernel is not `{0}`.  Linear
+  decision is the Q-nullspace of `W ∘ D`, independent of brute force.
+  Unsound witness is min over RREF generators, not over the integer
+  kernel; on the OV3 box `[-1,1]^12` a separate scan certifies that
+  this generator is globally minimal (support 1, mass 2).
+  Both-coordinate watch: SOUND.  Unwatched self-loop: SOUND.
+  Seed `20260830`, twenty two-object diagrams, decide vs brute agree.
 * **OV6.**  `cob_along_path`.  Full `C^1 = Z_N^5` tables for
   `N in {2,3,4}`: `Phi = 0` iff both face fluxes vanish.  Real-valued
-  infimum remains OPEN.
-* **OV7.**  `nat_gap` / `gap_splits`.  OV3 section at `max J = 0`:
-  gap 6 = edge_loss 6 + fragment 0.
+  infimum remains OPEN.  This independently reconfirms the same
+  vanishing-on-zero-fluxes fact on a chord square whose labels and
+  snapshot predate the later pricing tree on `main`.
+* **OV7.**  `nat_gap` / `gap_splits` / `disjoint_fragment`.  OV3
+  section at `max J = 0`: gap 6 = edge_loss 6 + fragment 0.  Split
+  observers on two first-coordinate edges: gap 1 = edge_loss 0 +
+  fragment 1, with `max J` taken over that observer family.
 * **OV8.**  `dual_pair_le_mass`: `|y| ≤ 1` implies
   `|sum y_e d_e.2| ≤ I`.  Dual `y_e = -1` pairs to 6 on the Lean
   section.
 
-Twenty-six `#print axioms` reports, all within `{propext, Quot.sound}`.
+Thirty `#print axioms` reports, all within `{propext, Quot.sound}`.
+
+The OV3 scaling corollary `I(s_λ) = 6λ` on the All-Green fibre was
+not taken: `no_recovery_modulus` is the `f 0 = 0` failure at the
+fixed section.
 
 ## Manual receipt
 
@@ -109,7 +121,8 @@ repository-wide git status before and after the build.
 
 * No categorical structure is claimed for the diagram or the coboundary.
 * Joint-kernel triviality on `im(D)` is not the same as `K_e = {0}` for
-  every edge.
+  every edge.  The self-loop fixture is the exhibit: sound, with
+  first-coordinate kernel containing `(0, 1)`.
 * The integer-valued gauge is not the general real-valued gauge (OPEN,
   blocker: no real field in this Lean core package).
 * No external names or citations.

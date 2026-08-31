@@ -65,6 +65,29 @@ class Patch3Tests(unittest.TestCase):
         d = decide.decide_trivial_kernels(6, dg.PATCH3_EDGES, bound=1)
         self.assertEqual(d["verdict"], "SOUND")
 
+    def test_self_loop_is_sound_with_nontrivial_kernel(self) -> None:
+        edges: tuple[dg.Edge, ...] = ((0, 0),)
+        unwatched: decide.Watch = {(0, 0): (False, False)}
+        d = decide.decide(1, edges, unwatched, bound=1)
+        self.assertEqual(d["verdict"], "SOUND")
+        self.assertEqual(dg.cob({0: (3, 4)}, (0, 0)), (0, 0))
+        self.assertTrue(dg.kills((0, 1), True, False))
+        self.assertNotEqual((0, 1), (0, 0))
+
+    def test_patch3_generator_matches_box_minimum(self) -> None:
+        watch = decide.patch3_watch()
+        gen = decide.decide(6, dg.PATCH3_EDGES, watch, bound=1)
+        box = decide.min_unsound_on_box(6, dg.PATCH3_EDGES, watch, bound=1)
+        self.assertEqual(gen["verdict"], "UNSOUND")
+        self.assertEqual(box["verdict"], "UNSOUND")
+        self.assertEqual(gen["support"], box["support"])
+        self.assertEqual(gen["mass"], box["mass"])
+        self.assertEqual(gen["support"], 1)
+        self.assertEqual(gen["mass"], 2)
+        src = inspect.getsource(decide.decide)
+        self.assertNotIn("min_unsound_on_box", src)
+        self.assertNotIn("product(", src)
+
 
 class DecisionIndependenceTests(unittest.TestCase):
     def test_decide_is_not_brute(self) -> None:
@@ -137,6 +160,21 @@ class PricingGapDualTests(unittest.TestCase):
         self.assertGreaterEqual(g["edge_loss"], 0)
         self.assertGreaterEqual(g["fragment"], 0)
         self.assertEqual(g["I"], 6)
+        self.assertEqual(g["edge_loss"], 6)
+        self.assertEqual(g["fragment"], 0)
+
+    def test_split_observers_make_fragment_the_whole_gap(self) -> None:
+        section: dg.Section = {0: (0, 0), 1: (1, 0), 2: (1, 0)}
+        edges: tuple[dg.Edge, ...] = ((0, 1), (0, 2))
+        observers = ((True, False), (False, True))
+        g = gap.gap_from_observers(section, edges, observers)
+        self.assertEqual(g["I"], 2)
+        self.assertEqual(g["maxJ"], 1)
+        self.assertEqual(g["edge_loss"], 0)
+        self.assertEqual(g["fragment"], 1)
+        self.assertEqual(g["sum"], g["I"] - g["maxJ"])
+        self.assertEqual(gap.observer_j(section, edges, observers[0]), 1)
+        self.assertEqual(gap.observer_j(section, edges, observers[1]), 1)
 
     def test_dual_certifies_patch3_section(self) -> None:
         s = dg.patch3_section()

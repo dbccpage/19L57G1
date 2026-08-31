@@ -1,4 +1,41 @@
 {
+  "loop_unwatched": {
+    "mass": 0,
+    "support": 0,
+    "verdict": "SOUND",
+    "witness": null
+  },
+  "patch3_box_min": {
+    "mass": 2,
+    "support": 1,
+    "verdict": "UNSOUND",
+    "witness": {
+      "0": [
+        0,
+        -1
+      ],
+      "1": [
+        0,
+        0
+      ],
+      "2": [
+        0,
+        0
+      ],
+      "3": [
+        0,
+        0
+      ],
+      "4": [
+        0,
+        0
+      ],
+      "5": [
+        0,
+        0
+      ]
+    }
+  },
   "patch3_decision": {
     "mass": 2,
     "support": 1,
@@ -30,6 +67,7 @@
       ]
     }
   },
+  "patch3_generator_matches_box_min": true,
   "patch3_lean_section_mass": 6,
   "schema": "observer_visibility_decide/v1",
   "seed": 20260830,

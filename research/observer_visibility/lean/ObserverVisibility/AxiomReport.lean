@@ -20,9 +20,13 @@ import ObserverVisibility
 #print axioms ObserverVisibility.allGreenS_iff_inK
 #print axioms ObserverVisibility.sound_iff_imD_cap_K
 #print axioms ObserverVisibility.trivial_kers_imply_sound
+#print axioms ObserverVisibility.cob_self_loop
+#print axioms ObserverVisibility.loop_sound
+#print axioms ObserverVisibility.coord_ker_nontrivial
 #print axioms ObserverVisibility.cob_along_path
 #print axioms ObserverVisibility.phi_zero_of_zero_coboundary
 #print axioms ObserverVisibility.nat_gap
 #print axioms ObserverVisibility.gap_splits
+#print axioms ObserverVisibility.disjoint_fragment
 #print axioms ObserverVisibility.obs_le_mass
 #print axioms ObserverVisibility.dual_pair_le_mass

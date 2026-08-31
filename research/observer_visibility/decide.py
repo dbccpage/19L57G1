@@ -165,10 +165,12 @@ def decide(
 ) -> dict[str, object]:
     """SOUND iff the Q-nullspace of W ∘ D is contained in ker D.
 
-    An unsound witness is a cleared-denominator kernel generator of
-    least support, then least mass, then lexicographic flatten.  ``bound``
-    is accepted for the same calling convention as brute force and is
-    unused: the linear certificate is unbounded.
+    An unsound witness is chosen among the RREF nullspace generators
+    only (cleared denominators), by least support, then least mass, then
+    lexicographic flatten.  That is min-over-generators, not min over
+    the integer kernel: a combination of generators may have smaller
+    support.  ``bound`` is accepted for the same calling convention as
+    brute force and is unused: the linear certificate is unbounded.
     """
 
     del bound
@@ -185,6 +187,44 @@ def decide(
         ints = scale_to_int(vector)
         section = unflatten(ints, n_obj)
         key = (support(section), dg.mass(section, edges), flatten(section, n_obj))
+        if best is None or key < best:
+            best = key
+            best_s = section
+    if best_s is None:
+        return {"verdict": "SOUND", "witness": None, "mass": 0, "support": 0}
+    assert best is not None
+    return {
+        "verdict": "UNSOUND",
+        "witness": {str(i): best_s[i] for i in range(n_obj)},
+        "mass": best[1],
+        "support": best[0],
+    }
+
+
+def min_unsound_on_box(
+    n_obj: int,
+    edges: Sequence[Edge],
+    watch: Watch,
+    bound: int,
+) -> dict[str, object]:
+    """Box scan: min support then mass among All-Green positive-mass sections.
+
+    Independent of the Q-nullspace generators.  Certifies global
+    minimality of a generator witness on a declared finite box.
+    """
+
+    flags = [watch.get(edge, (True, False)) for edge in edges]
+    rng = range(-bound, bound + 1)
+    best: tuple[int, int, tuple[int, ...]] | None = None
+    best_s: Section | None = None
+    for coords in product(rng, repeat=2 * n_obj):
+        section = unflatten(coords, n_obj)
+        if not dg.all_green(section, edges, flags):
+            continue
+        mass = dg.mass(section, edges)
+        if mass == 0:
+            continue
+        key = (support(section), mass, flatten(section, n_obj))
         if best is None or key < best:
             best = key
             best_s = section

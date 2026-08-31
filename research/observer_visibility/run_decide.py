@@ -52,15 +52,27 @@ def random_diagrams(n: int) -> list[dict[str, object]]:
 
 def report() -> dict[str, object]:
     s = patch3_section()
-    p3 = decide.decide(6, PATCH3_EDGES, decide.patch3_watch(), bound=1)
+    watch = decide.patch3_watch()
+    p3 = decide.decide(6, PATCH3_EDGES, watch, bound=1)
+    box = decide.min_unsound_on_box(6, PATCH3_EDGES, watch, bound=1)
     killed = decide.decide_trivial_kernels(6, PATCH3_EDGES, bound=1)
+    loop_edges = ((0, 0),)
+    loop_watch: decide.Watch = {(0, 0): (False, False)}
+    loop = decide.decide(1, loop_edges, loop_watch, bound=1)
     seeded = random_diagrams(20)
     return {
         "schema": "observer_visibility_decide/v1",
         "seed": SEED,
         "patch3_lean_section_mass": mass(s, PATCH3_EDGES),
         "patch3_decision": p3,
+        "patch3_box_min": box,
+        "patch3_generator_matches_box_min": (
+            p3["verdict"] == box["verdict"]
+            and p3["mass"] == box["mass"]
+            and p3["support"] == box["support"]
+        ),
         "trivial_kernels": killed,
+        "loop_unwatched": loop,
         "seeded": seeded,
         "seeded_agree": all(bool(row["agree"]) for row in seeded),
     }
@@ -88,6 +100,8 @@ def main(argv: list[str] | None = None) -> int:
     killed = r["trivial_kernels"]
     assert isinstance(killed, dict)
     print("trivial", killed["verdict"])
+    print("loop", r["loop_unwatched"])
+    print("generator_matches_box", r["patch3_generator_matches_box_min"])
     print("seeded_agree", r["seeded_agree"])
     return 0
 

@@ -364,11 +364,11 @@ theorem Iof_zero_iff (s : Nat → V) :
       rw [hz, Nat.zero_add]
       exact htail
 
-/-- OV5: the family is sound iff the coboundary image meets the joint
-kernel only at zero.  The two sides are independent: `soundS` is mass
-vanishing under All-Green; `imDCapK0` is vanishing of coboundary values
-in the kernel.  The bridge is `nu`-faithfulness plus the coordinate
-watcher. -/
+/-- OV5 on this instance: integer plane, identity restrictions, first-
+coordinate watcher on every listed edge.  `allGreenS_iff_inK` is
+`Iff.rfl`, so the two sides of the iff differ only by `nu`-faithfulness
+(`Iof_zero_iff`).  The general `LinCon` observer of OV1/OV2 is not used
+here. -/
 theorem sound_iff_imD_cap_K (edges : List (Nat × Nat)) :
     soundS edges ↔ imDCapK0 edges := by
   constructor
@@ -386,6 +386,26 @@ theorem sound_iff_imD_cap_K (edges : List (Nat × Nat)) :
 theorem trivial_kers_imply_sound (s : Nat → V) (edges : List (Nat × Nat))
     (h : cobZero s edges) : Iof s edges = 0 :=
   (Iof_zero_iff s edges).mpr h
+
+/-- A self-loop coboundary is identically zero. -/
+theorem cob_self_loop (s : Nat → V) (a : Nat) : cob s (a, a) = vzero :=
+  vGrp.add_neg (s a)
+
+/-- Self-loop family: sound, because every coboundary vanishes. -/
+theorem loop_sound : soundS [(0, 0)] := by
+  intro s _hag
+  have hz : cob s (0, 0) = vzero := cob_self_loop s 0
+  have hunfold : Iof s [(0, 0)] = vGauge.nu (cob s (0, 0)) := by
+    simp [Iof, sumNu]
+  rw [hunfold, hz]
+  exact vGauge.nu_zero
+
+/-- First-coordinate kernel is not `{0}`: `(0, 1)` is killed and nonzero.
+Together with `loop_sound`, soundness does not require `K_e = {0}`
+edgewise. -/
+theorem coord_ker_nontrivial :
+    ∃ k : V, k.1 = (0 : Int) ∧ k ≠ vzero :=
+  ⟨(0, 1), rfl, by decide⟩
 
 /-! ## OV6: coboundary along a path; zero coboundary has mass zero -/
 
@@ -436,6 +456,20 @@ theorem gap_splits (xs : List V) (maxJ : Nat)
     sumNu vGauge xs - maxJ =
       (sumNu vGauge xs - obsList xs) + (obsList xs - maxJ) :=
   nat_gap (sumNu vGauge xs) (obsList xs) maxJ (obs_le_mass xs) hMax
+
+/-- Split observers with disjoint watched mass: observed is the sum,
+`max J` is the larger, fragment is the smaller. -/
+theorem disjoint_fragment (j1 j2 : Nat) :
+    j1 + j2 - j1.max j2 = j1.min j2 := by
+  cases Nat.le_total j1 j2 with
+  | inl h =>
+    have hmax : j1.max j2 = j2 := Nat.max_eq_right h
+    have hmin : j1.min j2 = j1 := Nat.min_eq_left h
+    rw [hmax, hmin, Nat.add_sub_cancel]
+  | inr h =>
+    have hmax : j1.max j2 = j1 := Nat.max_eq_left h
+    have hmin : j1.min j2 = j2 := Nat.min_eq_right h
+    rw [hmax, hmin, Nat.add_comm j1 j2, Nat.add_sub_cancel]
 
 /-! ## OV8: dual coefficients of absolute value at most 1 bound mass -/
 
