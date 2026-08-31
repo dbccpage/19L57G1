@@ -103,10 +103,68 @@ and are withdrawn.  The statements below are the replacements.
   section.
 
 Thirty-three `#print axioms` reports, all within `{propext, Quot.sound}`.
+Update 2026-08-31 (branch `ov3-scaling`): thirty-six reports after the
+OV3 scaling family below, still all within `{propext, Quot.sound}`.
 
 The OV3 scaling corollary `I(s_λ) = 6λ` on the All-Green fibre was
 not taken: `no_recovery_modulus` is the `f 0 = 0` failure at the
-fixed section.
+fixed section.  Correction (2026-08-31): now taken, on branch
+`ov3-scaling`.  `patch3_s_scale` puts `(0, λ)` on the overlaps;
+`patch3_scale_mass` proves `I(s_λ) = 6 * λ.natAbs` for every integer
+`λ` (so `6|λ|`, not the literal `6λ` of the sentence above, which is
+its restriction to `λ ≥ 0`); `patch3_scale_allGreen` keeps the
+coordinate watcher at zero on every edge for every `λ`; and
+`no_recovery_modulus_unbounded` yields, for every bound `B`, a `λ`
+whose section is All-Green with mass exceeding `B`.  The original
+sentence is kept as written above.
+
+## OV3 scaling -- predictions, written before the computation ran
+
+Branch `ov3-scaling`, 2026-08-31.  These lines were written before the
+scaling family was added to the Lean file and before any receipt was
+regenerated.
+
+`patch3_s_scale lam` mirrors `patch3_s`: overlaps (objects 3, 4, 5) get
+`(0, lam)`, patches (objects 0, 1, 2) get `vzero`.
+
+| lam | predicted I(s_lam) | predicted All-Green | predicted J_coord |
+|---|---|---|---|
+| 1 | 6 | yes | 0 |
+| 2 | 12 | yes | 0 |
+| 3 | 18 | yes | 0 |
+| 4 | 24 | yes | 0 |
+| 5 | 30 | yes | 0 |
+
+* Receipt key `patch3_scale_masses` in `receipts/decide.json` will read
+  `[6, 12, 18, 24, 30]`, and `patch3_scale_all_green` will read `true`.
+* Lean: `patch3_scale_mass` gives `I(s_lam) = 6 * lam.natAbs` for every
+  integer `lam`; `patch3_scale_allGreen` keeps the coordinate watcher at
+  zero on every edge for every `lam`; `no_recovery_modulus_unbounded`
+  gives, for every bound `B`, a `lam` whose section is All-Green with
+  mass exceeding `B` -- so no `f : Nat -> Nat` satisfies
+  `I <= f (max J)` on this family, since `max J = 0` there and `B` can
+  be taken as `f 0`.
+* Axiom reports go 33 -> 36, all within `{propext, Quot.sound}`.
+* `patch3_s_scale 1` agrees with `patch3_s` on every object, so the
+  fixed OV3 section is the `lam = 1` member of the family.
+
+## OV3 scaling -- results, written after the run
+
+Every prediction in the table above was hit; no misses to record.
+
+* Lean: `patch3_s_scale`, helper lemmas `patch3_scale_cob` and
+  `vGauge_nu_scale`, then `patch3_scale_mass`
+  (`I(s_lam) = 6 * lam.natAbs`), `patch3_scale_allGreen`, and
+  `no_recovery_modulus_unbounded` (witness `lam = Int.ofNat (B + 1)`).
+  The file elaborated clean on the first run.  Axiom reports went
+  33 -> 36 as predicted, all within `{propext, Quot.sound}`.
+* Receipt: `patch3_scale_masses` reads `[6, 12, 18, 24, 30]` and
+  `patch3_scale_all_green` reads `true` in `receipts/decide.json`,
+  as predicted.  `J_coord = 0` at every `lam` in 1..5 and
+  `patch3_scale_section(1) == patch3_section()` are asserted by
+  `test_scaled_sections_match_preregistered_masses`.
+* The helper lemmas are not in the axiom-report inventory, matching
+  the tree's precedent for inner steps.
 
 ## Manual receipt
 

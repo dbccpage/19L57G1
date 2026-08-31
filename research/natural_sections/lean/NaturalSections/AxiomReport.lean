@@ -11,6 +11,7 @@ import NaturalSections.Budgets
 import NaturalSections.TwoComplex
 import NaturalSections.QuotientMass
 import NaturalSections.Aggregation
+import NaturalSections.EquivariantBridge
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -234,3 +235,11 @@ import NaturalSections.Aggregation
 #print axioms NaturalSections.Aggregate.scaled_not_calibrated
 #print axioms NaturalSections.Aggregate.suppMass_is_edge_sum
 #print axioms NaturalSections.Aggregate.aggregation_determines_suppMass
+#print axioms NaturalSections.EqBridge.pairRetract_table
+#print axioms NaturalSections.EqBridge.pairRetract_fixes_admissible
+#print axioms NaturalSections.EqBridge.pairRetract_equivariant
+#print axioms NaturalSections.EqBridge.sectionOf_natural
+#print axioms NaturalSections.EqBridge.no_equivariant_pair_valued_map_via_sections
+#print axioms NaturalSections.EqBridge.equivariant_iff_sealed_shape
+#print axioms NaturalSections.EqBridge.sealed_selector_content_along_bridge
+#print axioms NaturalSections.EqBridge.bridge_statement_is_the_sealed_statement

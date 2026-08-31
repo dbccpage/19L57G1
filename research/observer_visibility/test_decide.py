@@ -54,6 +54,17 @@ class Patch3Tests(unittest.TestCase):
         self.assertTrue(dg.all_green(s, dg.PATCH3_EDGES))
         self.assertEqual(len(dg.PATCH3_EDGES), 6)
 
+    def test_scaled_sections_match_preregistered_masses(self) -> None:
+        masses = [dg.mass(dg.patch3_scale_section(k), dg.PATCH3_EDGES) for k in range(1, 6)]
+        self.assertEqual(masses, [6, 12, 18, 24, 30])
+        for k in range(1, 6):
+            self.assertTrue(dg.all_green(dg.patch3_scale_section(k), dg.PATCH3_EDGES))
+            self.assertEqual(dg.j_coord(dg.patch3_scale_section(k), dg.PATCH3_EDGES), 0)
+        self.assertEqual(dg.patch3_scale_section(1), dg.patch3_section())
+        r = run_decide.report()
+        self.assertEqual(r["patch3_scale_masses"], [6, 12, 18, 24, 30])
+        self.assertTrue(r["patch3_scale_all_green"])
+
     def test_decision_returns_unsound_not_larger_than_lean_section(self) -> None:
         d = decide.decide(6, dg.PATCH3_EDGES, decide.patch3_watch(), bound=1)
         self.assertEqual(d["verdict"], "UNSOUND")

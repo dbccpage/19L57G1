@@ -285,6 +285,16 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Aggregate.scaled_not_calibrated",
     "NaturalSections.Aggregate.suppMass_is_edge_sum",
     "NaturalSections.Aggregate.aggregation_determines_suppMass",
+    # The equivariant bridge to the sealed selector theorem
+    # (NaturalSections/EquivariantBridge.lean).
+    "NaturalSections.EqBridge.pairRetract_table",
+    "NaturalSections.EqBridge.pairRetract_fixes_admissible",
+    "NaturalSections.EqBridge.pairRetract_equivariant",
+    "NaturalSections.EqBridge.sectionOf_natural",
+    "NaturalSections.EqBridge.no_equivariant_pair_valued_map_via_sections",
+    "NaturalSections.EqBridge.equivariant_iff_sealed_shape",
+    "NaturalSections.EqBridge.sealed_selector_content_along_bridge",
+    "NaturalSections.EqBridge.bridge_statement_is_the_sealed_statement",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

@@ -295,6 +295,73 @@ theorem no_recovery_modulus :
   rw [patch3_mass, hf] at hle
   exact Nat.not_succ_le_zero 5 hle
 
+/-! ### OV3 scaling: the All-Green fibre carries unbounded mass -/
+
+/-- Scale the OV3 section: overlaps get `(0, lam)`, patches `vzero`.
+`patch3_s_scale 1` is `patch3_s` up to the value of the second
+coordinate on overlaps, which is `(0, 1)` in both. -/
+def patch3_s_scale (lam : Int) : Nat → V
+  | 0 | 1 | 2 => vzero
+  | _ => (0, lam)
+
+/-- Every covering edge carries the same scaled coboundary. -/
+theorem patch3_scale_cob (lam : Int) :
+    patch3_edges.map (cob (patch3_s_scale lam)) =
+      [(0 + -0, 0 + -lam), (0 + -0, 0 + -lam), (0 + -0, 0 + -lam),
+       (0 + -0, 0 + -lam), (0 + -0, 0 + -lam), (0 + -0, 0 + -lam)] := rfl
+
+theorem vGauge_nu_scale (lam : Int) :
+    vGauge.nu (0 + -0, 0 + -lam) = lam.natAbs := by
+  show ((0 : Int) + -0).natAbs + ((0 : Int) + -lam).natAbs = lam.natAbs
+  rw [Int.zero_add, Int.zero_add, Int.natAbs_neg, Int.natAbs_neg]
+  show (0 : Nat) + lam.natAbs = lam.natAbs
+  exact Nat.zero_add lam.natAbs
+
+/-- (a) Mass of the scaled section: `6 * |lam|`. -/
+theorem patch3_scale_mass (lam : Int) :
+    sumNu vGauge (patch3_edges.map (cob (patch3_s_scale lam))) =
+      6 * lam.natAbs := by
+  rw [patch3_scale_cob]
+  simp only [sumNu]
+  rw [vGauge_nu_scale]
+  omega
+
+/-- (b) All-Green at every `lam`: the coordinate watcher reads zero on
+every covering edge of every scaled section. -/
+theorem patch3_scale_allGreen (lam : Int) :
+    ∀ e ∈ patch3_edges, coord.toFun (cob (patch3_s_scale lam) e) = (0 : Int) := by
+  intro e he
+  cases he with
+  | head => rfl
+  | tail _ h1 => cases h1 with
+    | head => rfl
+    | tail _ h2 => cases h2 with
+      | head => rfl
+      | tail _ h3 => cases h3 with
+        | head => rfl
+        | tail _ h4 => cases h4 with
+          | head => rfl
+          | tail _ h5 => cases h5 with
+            | head => rfl
+            | tail _ h6 => cases h6
+
+/-- (c) Unbounded gap on the All-Green fibre: for every bound `B` some
+scaled section keeps every coordinate-watcher reading at zero while its
+mass exceeds `B`.  Hence no `f : Nat → Nat` satisfies `I ≤ f (max J)`
+on this family: `max J = 0` there, and taking `B = f 0` defeats `f`.
+This strengthens `no_recovery_modulus`, which fixed the section and
+needed `f 0 = 0`. -/
+theorem no_recovery_modulus_unbounded (B : Nat) :
+    ∃ lam : Int,
+      (∀ e ∈ patch3_edges,
+        coord.toFun (cob (patch3_s_scale lam) e) = (0 : Int)) ∧
+      B < sumNu vGauge (patch3_edges.map (cob (patch3_s_scale lam))) := by
+  refine ⟨Int.ofNat (B + 1), patch3_scale_allGreen (Int.ofNat (B + 1)), ?_⟩
+  rw [patch3_scale_mass]
+  have h : (Int.ofNat (B + 1)).natAbs = B + 1 := rfl
+  rw [h]
+  omega
+
 /-! ## OV4, OV5: coboundary image meeting the joint kernel -/
 
 /-- List mass of the coboundary of `s` on `edges`. -/
