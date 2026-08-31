@@ -1199,6 +1199,83 @@ itself proved: additivity kills the aggregator's shape; within
 magnitude-sufficient homogeneous observers, calibration kills the
 weights.
 
+## Twisted sums on holonomy orbits: the repaired A2 -- predictions, written before the computation ran
+
+NS-38 recorded that A2 ("the twisted sum is constant on holonomy
+orbits") is false as stated, exhibited the counterexample, and stated
+the repaired hypothesis -- `ws` closed under weight-preserving
+conjugation -- without proving anything.  This rung proves the repaired
+positive form and instantiates it.
+
+Conjugation is declared in the walk vocabulary: for `g : Walk D a b`
+and a closed walk `w : Walk D b b`, the conjugate
+`Walk.conj g w := (g.append w).append g.reverse : Walk D a a`.  A
+weighting is CONJUGATION-CLOSED (`ConjClosed W`) when
+`(Walk.conj g w).weight W = w.weight W` for every connecting walk `g`
+and closed walk `w` -- the weight of a walk is invariant under
+conjugating it by any walk between base points.  Note the conjugate is
+syntactically LONGER than `w` (its length is `len w + 2 len g`), so no
+finite list of walks is closed under conjugation as syntax, and a
+length-sensitive weighting is conjugation-closed only if it is blind to
+the conjugating detour; the unit weighting is the canonical
+conjugation-closed instance, and the existing `signW` is predicted NOT
+to be one.  Because syntactic closure is impossible, the list-closure
+hypothesis must be a witness map `σ` on walks that permutes `ws` and
+matches each walk's `u`-conjugate in transport at the pair and in
+weight.
+
+Predictions:
+
+| claim | prediction |
+|---|---|
+| **C1** (equivariance) | PROVED, every `R` with `Mul`, `One`, `Add`, `Zero`, no ring law: for `W` conjugation-closed and any closed `u` at `r`, `twisted (ws.map (Walk.conj u)) p = twisted ws (u.transport p)` -- conjugating the list realises the orbit step exactly. |
+| **C2** (the repaired A2, `twisted_const_of_conj_closed`) | PROVED, with commutativity and associativity of `+` supplied as EXPLICIT hypotheses -- predicted to be the first theorems of the layer that consume any algebraic law (`sumList` over a permuted list needs both) -- plus the closure witness: `σ : Walk D r r -> Walk D r r` with `(ws.map σ).Perm ws`, and for every `w` in `ws`, `(σ w).transport p = (Walk.conj u w).transport p` and `(σ w).weight W = w.weight W`.  Conclusion: `twisted ws (u.transport p) = twisted ws p`, same list, both orbit ends. |
+| **C3** (a concrete instance where it bites) | PROVED on the two-label square: the unit weighting is conjugation-closed (`unit_conj_closed`, every weight is `1`); with `ws2 = [nil, sqWalk]`, `u = sqWalk`, `σ = id` the hypotheses hold (`nil` and `sqWalk` each match their own conjugate's transport at `boolEqPair`), and the twisted sum is `1` at `boolEqPair` AND at its orbit image `(true, false)` while `total = 2`: constant on the orbit, strictly below `total`, on a family with NO natural section -- A1 does not subsume it. |
+| **C4** (the weighting hypothesis is not vacuous) | PROVED countermodel: `signW` is NOT conjugation-closed -- conjugating `nil` at `{1,2}` by the single hop `{0,1} -> {1,2}` gives weight `-1 * (1 * 1) = -1` against `nil`'s weight `1`. |
+| **C5** (the list hypothesis cannot be dropped) | Already computed, cited not recomputed: the receipts' `orbit_counterexample` uses the UNIT weighting -- conjugation-closed -- on the ladder at `k = 4` with a single generator walk, and two pairs of one orbit get twisted sums `1` and `0`.  So `ConjClosed W` alone does not give orbit constancy; the `σ` witness carries the rest.  NS-38's countermodel stands and is not deleted. |
+| **P1** (the Python survey, square at `k = 2`) | The holonomy set of the `147` closed walks up to length `6` closes to a group of order `2` (identity and the swap); the ordered pairs form ONE orbit `{(0, 1), (1, 0)}`; the unit-weighted twisted sums agree on the whole orbit at `95` (the existing receipt's value at each pair, now read as an orbit constancy); the mini list mirroring C3 (the empty walk and the exchange walk) has twisted `1` at both orbit members with total `2`; and the unit weighting's conjugation closure survives an exhaustive check over all `19 * 19 = 361` conjugation pairs from the `19` closed walks up to length `4`, with `0` violations. |
+
+Reading, agreed in advance.  If C2 needs more than the two additive
+laws plus the stated witness, the extra law is recorded and the finding
+about the layer's types is amended.  If the Python orbit sums disagree
+anywhere on the square, C3 is refuted at the fixture and the theorem's
+hypotheses are unsatisfiable there -- record which hypothesis fails.
+If the closure check finds a violation for the unit weighting, the
+`ConjClosed` definition does not say what this section claims it says.
+If any pinned count misses, the miss is recorded next to the value.
+
+### Results, written after the run (`conj_orbit.py`, receipt
+`receipts/conj_orbit.json`; Lean appended to
+`lean/NaturalSections/WeightedLayer.lean`)
+
+Every prediction held; no misses this rung.
+
+| claim | outcome | evidence |
+|---|---|---|
+| C1 | PROVED: `twisted_conj_equivariant`, on `['propext']`, no ring law -- conjugating the list realises the orbit step for any conjugation-closed weighting. | `twisted_conj_equivariant`, `Walk.conj_fixes_iff`, `Walk.conj_transport`, `ite_congr_pair` |
+| C2 | PROVED: `twisted_const_of_conj_closed`, on `['Quot.sound', 'propext']`, with the hypotheses exactly as pre-registered -- commutativity and associativity of `+` explicit, `ConjClosed W`, and the witness `σ` with `(ws.map σ).Perm ws` and per-walk matching of the `u`-conjugate in transport at `p` and in weight.  `sumList_perm` (sums over permuted lists) is where the two additive laws are consumed, by induction over `List.Perm`. | `twisted_const_of_conj_closed`, `sumList_perm` |
+| C3 | PROVED: `unit_conj_closed` (no axioms); on the square, `Sq.twisted_const_on_square_orbit` with `u = sqWalk`, `σ = id`; the values pin the bite -- twisted `1` at `boolEqPair` and at its orbit image `(true, false)` (`Sq.sqWalk_moves_boolEqPair`), `total = 2`. | `Sq.twisted_const_on_square_orbit`, `Sq.square_orbit_values`, `Sq.ws2_closure_witness`, `Sq.sqWalk_moves_boolEqPair` |
+| C4 | PROVED: `Sq.signW_not_conj_closed` -- the conjugate of `nil` by the single flipping hop has weight `-1` against `1`. | `Sq.signW_not_conj_closed` |
+| C5 | CITED, not recomputed: the receipts' `orbit_counterexample` stands untouched -- the unit weighting is conjugation-closed and still breaks orbit constancy on the ladder with a single generator walk, so the `σ` hypothesis cannot be dropped.  NS-38 is unchanged. | receipt `receipts/weighted_sum.json` key `orbit_counterexample` |
+| P1 | CONFIRMED, every count as pre-registered: `147` closed walks, holonomy group order `2` (identity and the swap), ONE orbit `[[0, 1], [1, 0]]` with twisted sums `[95, 95]` (agree), mini list twisted `1` at both members with total `2`, and the unit closure check exhaustive over `19` walks, `361` pairs, `0` violations. | `receipts/conj_orbit.json`, `test_conj_orbit.py` |
+
+The pre-registered amendment to the layer's type finding is now in
+force: the weighted layer's earlier finding ("no theorem of the layer
+uses any ring law") acquires its exact boundary.  Products still
+consume no law anywhere; sums consume commutativity and associativity
+of `+` in exactly one place -- the orbit-constancy theorem, through
+`sumList_perm` -- and both enter as explicit hypotheses, so the
+signature records the price.  Equivariance (C1) sits below that
+boundary and is law-free.
+
+One proof-level note, no prediction touched: the instance equalities of
+`Sq.sqWalk_moves_boolEqPair` and `Sq.ws2_closure_witness` are proved by
+`Subtype.ext rfl` rather than `decide`, because `Decidable` instance
+synthesis does not reduce `F.obs .c01` to `boolEqObs` inside the goal;
+the kernel's definitional reduction does.  The 12 new `#print axioms`
+reports (222 total now) split 6 / 3 / 3 across no axioms / `['propext']`
+/ `['Quot.sound', 'propext']`, all within the whitelist.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1251,17 +1328,18 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 210 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, and the 10 aggregation theorems included); 115 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 222 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, and the 12 A2-repair conjugation-orbit theorems included); 122 `no axioms`; the weighted layer's reports now include the orbit rung's 6 / 3 / 3 split (no axioms / `['propext']` / `['Quot.sound', 'propext']`); `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 123 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 133 tests`, `OK` (the clean rebuild included) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 36 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, and the aggregation modules raise it to 36) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 39 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, and the conjugation-orbit modules to 39) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |

@@ -277,4 +277,199 @@ theorem value_silent_about_class (v : Int) :
   ⟨(Sq.every_value_square v).elim fun W h => ⟨W, h.1⟩,
    (Ch.every_value_chain v).elim fun W h => ⟨W, h.1⟩⟩
 
+/-! ## A2 repaired: conjugation-closed weightings and holonomy orbits
+
+The receipts' `orbit_counterexample` (NS-38) leaves A2 false as stated:
+the twisted sum is NOT constant on holonomy orbits for a general list
+-- the unit weighting on the ladder at four labels breaks it with a
+single generator walk.  The repaired positive form needs two closure
+hypotheses, both declared here in the walk vocabulary.
+
+The conjugate of a closed walk `w` at `b` by a connecting walk
+`g : Walk D a b` is `(g.append w).append g.reverse`, a closed walk at
+`a`.  A weighting is CONJUGATION-CLOSED when conjugation never changes
+the weight.  The list-closure hypothesis is a witness `σ` permuting the
+declared list and matching each walk's `u`-conjugate in transport at
+the pair and in weight; syntactic closure is impossible, because a
+conjugate is strictly longer than its walk whenever `g` is not `nil`.
+
+These are the first results of the layer that consume any algebraic
+law: commutativity and associativity of `+` enter as explicit
+hypotheses, exactly where a sum over a permuted list appears. -/
+
+/-- The conjugate of the closed walk `w` by the connecting walk `g`:
+out along `g`, around `w`, back along `g.reverse`. -/
+def Walk.conj {a b : D.Obj} (g : Walk D a b) (w : Walk D b b) : Walk D a a :=
+  (g.append w).append g.reverse
+
+theorem Walk.conj_transport {a b : D.Obj} (g : Walk D a b) (w : Walk D b b)
+    (p : NonZeroPair (D.obs a)) :
+    (Walk.conj g w).transport p =
+      g.reverse.transport (w.transport (g.transport p)) := by
+  show ((g.append w).append g.reverse).transport p = _
+  rw [Walk.transport_append, Walk.transport_append]
+
+/-- The conjugate fixes `p` exactly when the walk fixes the transported
+pair: conjugation realises the orbit step. -/
+theorem Walk.conj_fixes_iff {a b : D.Obj} (g : Walk D a b) (w : Walk D b b)
+    (p : NonZeroPair (D.obs a)) :
+    (Walk.conj g w).transport p = p ↔
+      w.transport (g.transport p) = g.transport p := by
+  rw [Walk.conj_transport]
+  constructor
+  · intro h
+    have h2 := congrArg (Walk.transport g) h
+    rw [Walk.transport_reverse_transport] at h2
+    exact h2
+  · intro h
+    rw [h]
+    exact Walk.reverse_transport_transport g p
+
+/-- A weighting is conjugation-closed when the weight of every closed
+walk is invariant under conjugation by any walk between base points. -/
+def ConjClosed [Mul R] [One R] (W : Weighting D R) : Prop :=
+  ∀ {a b : D.Obj} (g : Walk D a b) (w : Walk D b b),
+    (Walk.conj g w).weight W = w.weight W
+
+/-- The unit weighting is conjugation-closed: every weight is `1`. -/
+theorem unit_conj_closed : ConjClosed (unit D) := by
+  intro a b g w
+  rw [unit_weight, unit_weight]
+
+/-- Congruence for `ite` across an equivalence of conditions, with the
+decidability instances explicit -- the shape `twisted`'s terms carry. -/
+theorem ite_congr_pair {P Q : Prop} (dp : Decidable P) (dq : Decidable Q)
+    (h : P ↔ Q) {x y z : R} (hxy : x = y) :
+    @ite R P dp x z = @ite R Q dq y z := by
+  cases dp with
+  | isTrue hp => rw [if_pos hp, if_pos (h.mp hp), hxy]
+  | isFalse hp => rw [if_neg hp, if_neg (fun hq => hp (h.mpr hq))]
+
+/-- **C1, equivariance.**  For a conjugation-closed weighting,
+conjugating the list realises the orbit step: the twisted sum of the
+`u`-conjugated list at `p` is the twisted sum of the list at
+`u.transport p`.  No ring law is used. -/
+theorem twisted_conj_equivariant [Mul R] [One R] [Add R] [Zero R]
+    (W : Weighting D R) {r : D.Obj} (dec : DecidableEq (NonZeroPair (D.obs r)))
+    (hW : ConjClosed W) (u : Walk D r r) (ws : List (Walk D r r))
+    (p : NonZeroPair (D.obs r)) :
+    twisted W dec (ws.map (Walk.conj u)) p = twisted W dec ws (u.transport p) := by
+  unfold twisted
+  rw [List.map_map]
+  apply sumList_map_congr
+  intro w _
+  exact ite_congr_pair (dec _ _) (dec _ _) (Walk.conj_fixes_iff u w p) (hW u w)
+
+/-- Sums over permuted lists agree, given commutativity and
+associativity of `+` -- supplied as hypotheses, not instances, because
+the layer assumes no algebraic law globally. -/
+theorem sumList_perm [Add R] [Zero R]
+    (hcomm : ∀ a b : R, a + b = b + a)
+    (hassoc : ∀ a b c : R, a + b + c = a + (b + c))
+    {l l' : List R} (h : l.Perm l') : sumList l = sumList l' := by
+  induction h with
+  | nil => rfl
+  | cons x _ ih =>
+    show x + _ = x + _
+    rw [ih]
+  | swap x y l =>
+    show y + (x + sumList l) = x + (y + sumList l)
+    rw [← hassoc, hcomm y x, hassoc]
+  | trans _ _ ih1 ih2 => exact ih1.trans ih2
+
+/-- **C2, the repaired A2 (`twisted_const_of_conj_closed`).**  When the
+weighting is conjugation-closed and the declared list is closed under
+`u`-conjugation -- witnessed by a map `σ` that permutes the list and
+matches each walk's conjugate in transport at `p` and in weight -- the
+twisted sum is constant along the orbit step `p ↦ u.transport p`, with
+the SAME list on both sides.  Necessity of both halves: the receipts'
+`orbit_counterexample` (NS-38, kept) breaks the conclusion for the
+conjugation-closed unit weighting when the `σ` hypothesis is dropped,
+and `Sq.signW_not_conj_closed` below shows the weighting hypothesis is
+not vacuous. -/
+theorem twisted_const_of_conj_closed [Mul R] [One R] [Add R] [Zero R]
+    (hcomm : ∀ a b : R, a + b = b + a)
+    (hassoc : ∀ a b c : R, a + b + c = a + (b + c))
+    (W : Weighting D R) {r : D.Obj} (dec : DecidableEq (NonZeroPair (D.obs r)))
+    (hW : ConjClosed W) (u : Walk D r r) (ws : List (Walk D r r))
+    (p : NonZeroPair (D.obs r)) (σ : Walk D r r → Walk D r r)
+    (hperm : (ws.map σ).Perm ws)
+    (hσ : ∀ w, w ∈ ws → (σ w).transport p = (Walk.conj u w).transport p ∧
+      (σ w).weight W = w.weight W) :
+    twisted W dec ws (u.transport p) = twisted W dec ws p := by
+  have h1 : twisted W dec (ws.map (Walk.conj u)) p = twisted W dec (ws.map σ) p := by
+    unfold twisted
+    rw [List.map_map, List.map_map]
+    apply sumList_map_congr
+    intro w hw
+    exact ite_congr_pair (dec _ _) (dec _ _)
+      (by rw [(hσ w hw).1]) ((hW u w).trans (hσ w hw).2.symm)
+  have h2 : twisted W dec (ws.map σ) p = twisted W dec ws p := by
+    unfold twisted
+    exact sumList_perm hcomm hassoc (hperm.map _)
+  rw [← twisted_conj_equivariant W dec hW u ws p, h1, h2]
+
+/-! ## C3 and C4 on the square: the instance, and the necessity -/
+
+namespace Sq
+
+open Hop
+
+/-- `sqWalk` carries `boolEqPair` to the other admissible pair: the
+holonomy orbit of `boolEqPair` is both orientations. -/
+theorem sqWalk_moves_boolEqPair :
+    sqWalk.transport boolEqPair = ⟨(true, false), boolEqObs_nonzero_tf⟩ := by
+  apply Subtype.ext
+  rfl
+
+/-- The two-walk list of the instance: the empty walk and the exchange. -/
+def ws2 : List (Walk F .c01 .c01) := [.nil, sqWalk]
+
+/-- The closure witness for `u = sqWalk`, `σ = id`: each walk of `ws2`
+matches its own `sqWalk`-conjugate in transport at `boolEqPair` (the
+conjugate is a longer walk with the same holonomy) and, under unit
+weights, in weight. -/
+theorem ws2_closure_witness :
+    ∀ w, w ∈ ws2 →
+      w.transport boolEqPair = (Walk.conj sqWalk w).transport boolEqPair ∧
+        w.weight (unit F) = w.weight (unit F) := by
+  intro w hw
+  rcases List.mem_cons.mp hw with rfl | hw'
+  · exact ⟨Subtype.ext rfl, rfl⟩
+  · rcases List.mem_cons.mp hw' with rfl | hw''
+    · exact ⟨Subtype.ext rfl, rfl⟩
+    · nomatch hw''
+
+/-- **C3.**  On the square -- no natural section -- the unit-weighted
+twisted sum over `ws2` is constant on the holonomy orbit of
+`boolEqPair`: the repaired theorem applies with `u = sqWalk`,
+`σ = id`. -/
+theorem twisted_const_on_square_orbit :
+    twisted (unit F) dec ws2 (sqWalk.transport boolEqPair) =
+      twisted (unit F) dec ws2 boolEqPair :=
+  twisted_const_of_conj_closed Nat.add_comm Nat.add_assoc (unit F) dec
+    unit_conj_closed sqWalk ws2 boolEqPair id
+    (by rw [List.map_id]) ws2_closure_witness
+
+/-- **C3, the values.**  It bites: the twisted sum is `1` at both orbit
+members while `total = 2` -- constant on the orbit, strictly below the
+total, on an obstructed family, so A1 does not subsume the statement. -/
+theorem square_orbit_values :
+    twisted (unit F) dec ws2 boolEqPair = 1 ∧
+      twisted (unit F) dec ws2 ⟨(true, false), boolEqObs_nonzero_tf⟩ = 1 ∧
+        total (unit F) ws2 = 2 := by
+  refine ⟨?_, ?_, ?_⟩ <;> decide
+
+/-- **C4.**  The sign weighting is NOT conjugation-closed: conjugating
+the empty walk at `{1,2}` by the single hop `{0,1} → {1,2}` gives
+weight `-1` against `1`.  The weighting hypothesis of the repaired
+theorem is not vacuous. -/
+theorem signW_not_conj_closed : ¬ ConjClosed signW := by
+  intro h
+  have h2 := h (.cons (.fwd h0112) .nil) .nil
+  revert h2
+  decide
+
+end Sq
+
 end NaturalSections
