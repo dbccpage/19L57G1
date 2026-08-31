@@ -95,9 +95,43 @@ def discard_countermodel() -> dict[str, object]:
     }
 
 
+def decomposition_survey(bound: int) -> dict[str, object]:
+    """Exhaustive survey on the carrier ``{0, 1, 2, 3}`` with the
+    involution exchanging ``0`` and ``1`` and fixing ``2`` and ``3``:
+    weights odd on the moved pair, free on the fixed points.  In every
+    family the moved pair cancels exactly, so the total equals the
+    complement total; the count of negative totals prices the SX5
+    residual hypothesis."""
+
+    families = 0
+    moved_pair_nonzero = 0
+    total_mismatch = 0
+    negative_totals = 0
+    for w0 in range(-bound, bound + 1):
+        w1 = -w0
+        for w2 in range(-bound, bound + 1):
+            for w3 in range(-bound, bound + 1):
+                families += 1
+                if w0 + w1 != 0:
+                    moved_pair_nonzero += 1
+                total = w0 + w1 + w2 + w3
+                if total != w2 + w3:
+                    total_mismatch += 1
+                if total < 0:
+                    negative_totals += 1
+    return {
+        "bound": bound,
+        "families": families,
+        "moved_pair_nonzero": moved_pair_nonzero,
+        "total_mismatch": total_mismatch,
+        "negative_totals": negative_totals,
+    }
+
+
 def report() -> dict[str, object]:
     return {
         "characters": character_counts(8),
         "odd_families": odd_family_checks(3),
         "discard": discard_countermodel(),
+        "decomposition": decomposition_survey(2),
     }

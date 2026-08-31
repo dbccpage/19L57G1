@@ -49,6 +49,14 @@ def main(argv: list[str] | None = None) -> int:
         f"discard countermodel: full {disc['full_total']},"
         f" discarded {disc['discarded_total']}, conflatable {disc['conflatable']}"
     )
+    dec = report["decomposition"]
+    assert isinstance(dec, dict)
+    print(
+        f"decomposition survey bound {dec['bound']}: {dec['families']} families,"
+        f" moved-pair nonzero {dec['moved_pair_nonzero']},"
+        f" total mismatches {dec['total_mismatch']},"
+        f" negative totals {dec['negative_totals']}"
+    )
     return 0
 
 

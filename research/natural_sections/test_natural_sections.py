@@ -145,7 +145,7 @@ class LeanAuditTests(unittest.TestCase):
         self.assertEqual(
             verify_lean.declared_report_inventory(source), verify_lean.AXIOM_REPORT_DECLARATIONS
         )
-        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 254)
+        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 256)
 
     def test_every_listed_theorem_is_declared_in_the_source(self) -> None:
         source = "\n".join(
@@ -272,7 +272,7 @@ class WriteRootBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("write root respected", result.stdout)
-        self.assertIn("declarations: 254 within", result.stdout)
+        self.assertIn("declarations: 256 within", result.stdout)
         self.assertEqual(
             verify_lean.writes_outside_root(before, verify_lean.repository_records()), []
         )

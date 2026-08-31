@@ -31,6 +31,13 @@
       2
     ]
   },
+  "decomposition": {
+    "bound": 2,
+    "families": 125,
+    "moved_pair_nonzero": 0,
+    "negative_totals": 50,
+    "total_mismatch": 0
+  },
   "discard": {
     "conflatable": false,
     "discarded_list": [

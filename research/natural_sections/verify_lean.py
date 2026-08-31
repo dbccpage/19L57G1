@@ -319,6 +319,8 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.SlotEx.sum_pairs_residual",
     "NaturalSections.SlotEx.sum_pairs_residual_nonneg",
     "NaturalSections.SlotEx.discard_is_not_cancel",
+    "NaturalSections.SlotEx.flip_fixed_zero",
+    "NaturalSections.SlotEx.mixed_residual_negative",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})

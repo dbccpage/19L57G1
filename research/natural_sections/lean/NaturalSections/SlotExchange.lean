@@ -224,5 +224,20 @@ theorem discard_is_not_cancel :
       ∧ sumList ([3, 1] : List Int) = 4 := by
   exact ⟨rfl, rfl⟩
 
+/-- SX7: a weight-reversing involution fixes only zero-weight points --
+the no-fixed-points hypothesis is free, not expensive.  Adopted from an
+independent review of this rung; the price sits in SX8 instead. -/
+theorem flip_fixed_zero {γ : Type} (σ : γ → γ) (W : γ → Int)
+    (hodd : ∀ c, W (σ c) = - W c) (c : γ) (h : σ c = c) : W c = 0 := by
+  have hc := hodd c
+  rw [h] at hc
+  omega
+
+/-- SX8: the residual hypothesis of SX5 is necessary -- a mixed-sign
+complement makes the total negative, so single-signedness of the
+leftover is the load-bearing premise of the whole route. -/
+theorem mixed_residual_negative :
+    sumList ([1, -2] : List Int) = -1 := rfl
+
 end SlotEx
 end NaturalSections

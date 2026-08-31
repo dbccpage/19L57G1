@@ -53,6 +53,18 @@ class DiscardCountermodelTests(unittest.TestCase):
         self.assertFalse(disc["conflatable"])
 
 
+class DecompositionSurveyTests(unittest.TestCase):
+    def test_moved_pair_always_cancels_and_totals_match_complement(self) -> None:
+        dec = slot_exchange.decomposition_survey(2)
+        self.assertEqual(dec["families"], 125)
+        self.assertEqual(dec["moved_pair_nonzero"], 0)
+        self.assertEqual(dec["total_mismatch"], 0)
+
+    def test_fifty_negative_totals_price_the_residual_hypothesis(self) -> None:
+        dec = slot_exchange.decomposition_survey(2)
+        self.assertEqual(dec["negative_totals"], 50)
+
+
 class ReceiptReplayTests(unittest.TestCase):
     def test_receipt_replays_byte_identical(self) -> None:
         committed = (HERE / "receipts" / "slot_exchange.json").read_bytes()

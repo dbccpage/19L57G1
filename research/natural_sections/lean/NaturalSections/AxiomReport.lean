@@ -268,3 +268,5 @@ import NaturalSections.SlotExchange
 #print axioms NaturalSections.SlotEx.sum_pairs_residual
 #print axioms NaturalSections.SlotEx.sum_pairs_residual_nonneg
 #print axioms NaturalSections.SlotEx.discard_is_not_cancel
+#print axioms NaturalSections.SlotEx.flip_fixed_zero
+#print axioms NaturalSections.SlotEx.mixed_residual_negative

@@ -1480,6 +1480,62 @@ smoothed: the module filename was first inserted next to
 sorted; the scan test failed once, the entry moved to its sorted
 position, and the suite then passed (`141` tests).
 
+### Amendment: where the price actually sits -- predictions, written before the computation ran
+
+A reviewer of this rung (working independently, with its own
+deterministic receipts) corrected the pricing narrative, and the
+correction is adopted before the rung merges rather than after.  The
+first framing put weight on the involution having no fixed points.
+That hypothesis is FREE: a weight-reversing involution cannot fix a
+point of nonzero weight, because `W c = - W c` forces `W c = 0` over
+the integers.  What is NOT free is the shape of the leftover: the
+total over everything equals the total over the complement of the
+flipped sector, and the SX5 non-negativity conclusion needs that
+complement to be single-signed.  A mixed-sign complement can make the
+total negative, so SX5's residual hypothesis is necessary, and the
+price of the whole route sits exactly there.
+
+Two clarifications adopted with it.  First, the rotation-character
+count of SX1 concerns the `k`-slot action's own grading; it is not a
+claim about collections of identical items, whose exchange is governed
+by the full permutation action at every `k` -- the swap constraint --
+which is exactly why the two counts diverge and never reconcile.
+Second, whether the sealed module's collapse-collision apparatus plus
+orientation DERIVES the two-character dichotomy (constructing the
+characters from collapse data) or only MIRRORS its counts is OPEN;
+this rung claims the mirror only, and says so.
+
+The sharpened open question this leaves at the top of the rung:
+
+> For which weight families does the transpose-induced decomposition
+> have a single-signed complement?  Declared families realise it by
+> construction; whether any family with cross-terms between the
+> flipped and unflipped sectors realises it is OPEN here.
+
+New claims (Lean, written before compiling): SX7 -- a weight-reversing
+involution fixes only zero-weight points; SX8 -- the residual
+hypothesis of SX5 is necessary: `sumList [1, -2] = -1`.
+
+Pinned predictions (Python, written before the run), over the survey
+carrier `{0, 1, 2, 3}` with the involution exchanging `0` and `1`,
+fixing `2` and `3`, weights odd on the moved pair and free on the
+fixed points, all entries bounded by `2`:
+
+| id | prediction |
+|---|---|
+| F1 | exactly `125` families; in every one the moved pair sums to `0` and the total equals the complement total |
+| F2 | exactly `50` of the `125` have negative total -- the residual hypothesis is load-bearing, not decorative |
+
+If any pinned value misses, the miss is recorded next to the value.
+
+#### Amendment results, written after the run
+
+Both predictions held; no misses.  F1: `125` families, moved-pair
+nonzero `0`, total mismatches `0`.  F2: negative totals `50`.  SX7 and
+SX8 compiled with the rest of the module; the two new reports bring the
+inventory to `256`, still within the whitelist, and the suite to `143`
+tests.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1539,16 +1595,16 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 254 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, and the 24 slot-exchange theorems (3 / 13 / 8 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 129 `no axioms` (126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 256 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, and the 26 slot-exchange theorems (4 / 13 / 9 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 129 `no axioms` (126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_slot_exchange.py --out receipts` | 0 | `rotation counts k=1..8: [1, 2, 3, 4, 5, 6, 7, 8]`; `swap counts k=1..8: [1, 2, 1, 2, 1, 2, 1, 2]`; `odd families bound 3: 7, all totals zero True, pairing misses 0`; `discard countermodel: full 0, discarded 4, conflatable False` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_slot_exchange.py --out receipts` | 0 | `rotation counts k=1..8: [1, 2, 3, 4, 5, 6, 7, 8]`; `swap counts k=1..8: [1, 2, 1, 2, 1, 2, 1, 2]`; `odd families bound 3: 7, all totals zero True, pairing misses 0`; `discard countermodel: full 0, discarded 4, conflatable False`; `decomposition survey bound 2: 125 families, moved-pair nonzero 0, total mismatches 0, negative totals 50` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 141 tests`, `OK` (the clean rebuild included; 133 before the slot-exchange rung) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 143 tests`, `OK` (the clean rebuild included; 133 before the slot-exchange rung) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
