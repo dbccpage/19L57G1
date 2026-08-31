@@ -1536,6 +1536,76 @@ SX8 compiled with the rest of the module; the two new reports bring the
 inventory to `256`, still within the whitelist, and the suite to `143`
 tests.
 
+## The phase receiver -- predictions, written before the construction compiled
+
+The slot-exchange rung proved that the oriented `k`-slot action grades
+its families by `Fin k`, for every `k`, and that the counts diverge
+from the swap-constrained ones.  The question that rung begs: is there
+ONE value group that receives every rotation grading compatibly, so
+that no declared bound on `k` is ever needed -- and if so, is it built
+from the layers themselves rather than declared around them?
+
+This rung constructs the candidate from the inside.  `QOne` is the
+quotient of indexed pairs `(k, c)` with `c : Fin (k+1)` -- read as the
+`c`-th part of `k+1` -- under cross-multiplication equivalence, with
+addition by cross-multiplication.  It is a group built by `Quot` from
+the tower's own layers: no completion, no order, no declared ambient
+object.  The layers embed by `layer k c`, the embeddings are additive
+and mutually compatible (each layer factors through every multiple),
+and every element of `QOne` comes from some layer -- the receiver is
+the union of the insides and nothing more.
+
+What is deliberately NOT claimed: no universal property (initiality
+among receivers is OPEN); no completion (any passage from `QOne` to a
+connected or complete carrier is a separate rung with a priced
+declaration -- it is named here so it cannot later be smuggled); and
+no interpretation of the layers beyond what the slot-exchange rung
+proved about them.
+
+### Claims (Lean), written before the module was compiled
+
+| claim | statement |
+|---|---|
+| RC1 | `QOne` is a commutative group: `add_comm`, `add_assoc`, `add_zero`, `add_neg` all hold on the quotient |
+| RC2 | `layer k` is additive -- `layer k (c + d) = layer k c + layer k d` for the `Fin (k+1)` addition -- and layer-compatible: `layer k c` equals the corresponding element of every multiple layer |
+| RC3 | every element of `QOne` is `layer k c` for some `k, c` -- the receiver is exactly the union of the layers |
+| RC4 | the two-part layer recovers the sign story: `layer 1 1 + layer 1 1 = 0` and `layer 1 1 ≠ 0` -- the swap character's value group sits inside `QOne` as the two-element subgroup |
+
+### Pinned predictions (Python, written before the run)
+
+Exact integer arithmetic on indexed pairs, no floating point.
+
+| id | prediction |
+|---|---|
+| Q1 | group-law spot checks pass exhaustively over all pairs with index at most `6`: `0` associativity misses, `0` commutativity misses, `0` inverse misses |
+| Q2 | layer compatibility: for all `k, m` at most `6` and all `c`, the layer-`k` element equals its image in layer `k*m`; `0` misses |
+| Q3 | the order of `layer k 1` in `QOne` is exactly `k+1`, for `k` up to `7` |
+| Q4 | reduction: every pair with index at most `7` is equivalent to exactly one reduced pair (part and index-plus-one sharing no common factor greater than one); counting reduced pairs with index-plus-one at most `8` gives `1, 1, 2, 2, 4, 2, 6, 4` new elements at denominators `1..8` (the totient counts, computed from scratch by brute force) |
+| Q5 | the joint layer of a declared finite element list is the least common multiple of its denominators -- checked on `5` pinned lists, `0` misses |
+
+If any pinned value misses, the miss is recorded next to the value.
+
+### Results, written after the run (`q_one.py`, receipt
+`receipts/q_one.json`; Lean in `lean/NaturalSections/PhaseReceiver.lean`)
+
+Every prediction held; no misses this rung.
+
+| claim | outcome | evidence |
+|---|---|---|
+| RC1 | PROVED: `QOne` is a commutative group; commutativity, associativity and the zero law are raw pair identities; the inverse is the no-remainder complement `(n * k, k)`, so no division enters the group laws at all. | `add_comm`, `add_assoc`, `add_zero`, `add_neg` |
+| RC2 | PROVED: `layer_add` by the wraps-at-most-once case split (witness `0` or `-1`); `layer_mul_compat` with cross difference literally zero. | as named |
+| RC3 | PROVED: `receiver_is_union` -- the receiver is exactly the union of the layers. | as named |
+| RC4 | PROVED: `half_add_half` (half is its own raw inverse) and `half_ne_zero` via `Quotient.exact` -- the sign layer sits inside. | as named |
+| Q1-Q5 | CONFIRMED, every count as pre-registered: `28` pairs `0/0/0` law misses; `196` compatibility checks `0` misses; orders `[1..8]`; reduced counts `[1, 1, 2, 2, 4, 2, 6, 4]`; joint layers `[6, 12, 2, 1, 6]`. | `test_q_one.py`, receipt |
+
+The 18 new `#print axioms` reports (274 total) split 0 / 1 / 17 across
+no axioms / `['propext']` / `['Quot.sound', 'propext']` -- measured,
+not assumed -- all within the whitelist.  The suite is `149` tests;
+mypy covers `45` files.  Assembly note, recorded: the first draft of
+the inverse used a remainder computation and stalled; the shipped
+inverse is the no-remainder complement, and the stall left no trace in
+any receipt because nothing had been registered yet.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1595,19 +1665,20 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 256 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, and the 26 slot-exchange theorems (4 / 13 / 9 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 129 `no axioms` (126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 274 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 129 `no axioms` (126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_slot_exchange.py --out receipts` | 0 | `rotation counts k=1..8: [1, 2, 3, 4, 5, 6, 7, 8]`; `swap counts k=1..8: [1, 2, 1, 2, 1, 2, 1, 2]`; `odd families bound 3: 7, all totals zero True, pairing misses 0`; `discard countermodel: full 0, discarded 4, conflatable False`; `decomposition survey bound 2: 125 families, moved-pair nonzero 0, total mismatches 0, negative totals 50` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_q_one.py --out receipts` | 0 | `group laws to index 6: 28 pairs, assoc misses 0, comm misses 0, inverse misses 0`; `layer compatibility: 196 checks, 0 misses`; `orders of layer-one elements k=0..7: [1, 2, 3, 4, 5, 6, 7, 8]`; `reduced counts at part counts 1..8: [1, 1, 2, 2, 4, 2, 6, 4]`; `joint layers of the pinned lists: [6, 12, 2, 1, 6]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 143 tests`, `OK` (the clean rebuild included; 133 before the slot-exchange rung) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 149 tests`, `OK` (the clean rebuild included; 143 before the phase-receiver rung) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 42 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, and the slot-exchange modules to 42) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 45 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, the slot-exchange modules to 42, and the phase-receiver modules to 45) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
