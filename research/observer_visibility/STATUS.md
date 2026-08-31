@@ -108,6 +108,41 @@ The OV3 scaling corollary `I(s_λ) = 6λ` on the All-Green fibre was
 not taken: `no_recovery_modulus` is the `f 0 = 0` failure at the
 fixed section.
 
+## OV3 scaling -- predictions, written before the computation ran
+
+Branch `ov3-scaling`, 2026-08-31.  These lines were written before the
+scaling family was added to the Lean file and before any receipt was
+regenerated.
+
+`patch3_s_scale lam` mirrors `patch3_s`: overlaps (objects 3, 4, 5) get
+`(0, lam)`, patches (objects 0, 1, 2) get `vzero`.
+
+| lam | predicted I(s_lam) | predicted All-Green | predicted J_coord |
+|---|---|---|---|
+| 1 | 6 | yes | 0 |
+| 2 | 12 | yes | 0 |
+| 3 | 18 | yes | 0 |
+| 4 | 24 | yes | 0 |
+| 5 | 30 | yes | 0 |
+
+* Receipt key `patch3_scale_masses` in `receipts/decide.json` will read
+  `[6, 12, 18, 24, 30]`, and `patch3_scale_all_green` will read `true`.
+* Lean: `patch3_scale_mass` gives `I(s_lam) = 6 * lam.natAbs` for every
+  integer `lam`; `patch3_scale_allGreen` keeps the coordinate watcher at
+  zero on every edge for every `lam`; `no_recovery_modulus_unbounded`
+  gives, for every bound `B`, a `lam` whose section is All-Green with
+  mass exceeding `B` -- so no `f : Nat -> Nat` satisfies
+  `I <= f (max J)` on this family, since `max J = 0` there and `B` can
+  be taken as `f 0`.
+* Axiom reports go 33 -> 36, all within `{propext, Quot.sound}`.
+* `patch3_s_scale 1` agrees with `patch3_s` on every object, so the
+  fixed OV3 section is the `lam = 1` member of the family.
+
+## OV3 scaling -- results, written after the run
+
+(To be filled in after the run; left explicitly incomplete at
+pre-registration time.)
+
 ## Manual receipt
 
 This tree's axiom reports are a manual receipt.  No CI gate reads them.
