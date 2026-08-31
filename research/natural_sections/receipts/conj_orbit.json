@@ -1,0 +1,105 @@
+{
+  "cited_counterexample": "receipts/weighted_sum.json key orbit_counterexample: the unit weighting is conjugation-closed, yet on the ladder at k = 4 a single generator walk has twisted sums 1 and 0 on one orbit -- the list-closure hypothesis cannot be dropped (NS-38, kept)",
+  "layer": {
+    "conjugate": "u ++ w ++ reverse(u), closed walks at the base",
+    "conjugation_closed": "weight(conjugate(u, w)) = weight(w) for all u, w",
+    "orbit": "the ordered index pairs under the composition closure of the walk holonomies"
+  },
+  "mini_list": {
+    "total_unit": 2,
+    "twisted_unit": {
+      "0,1": 1,
+      "1,0": 1
+    },
+    "walks": [
+      [],
+      [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ]
+    ]
+  },
+  "square_k2": {
+    "all_orbits_agree": true,
+    "base": [
+      0,
+      1
+    ],
+    "closed_walks": 147,
+    "group_order": 2,
+    "holonomy_group": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "max_len": 6,
+    "orbits": [
+      {
+        "agree": true,
+        "orbit": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "twisted_unit": [
+          95,
+          95
+        ]
+      }
+    ]
+  },
+  "unit_conjugation_closure": {
+    "max_len": 4,
+    "pairs": 361,
+    "violations": 0,
+    "walks": 19
+  }
+}
