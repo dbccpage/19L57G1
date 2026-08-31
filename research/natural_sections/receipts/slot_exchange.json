@@ -1,0 +1,71 @@
+{
+  "characters": {
+    "ks": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "rotation_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "swap_counts": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      2,
+      1,
+      2
+    ]
+  },
+  "decomposition": {
+    "bound": 2,
+    "families": 125,
+    "moved_pair_nonzero": 0,
+    "negative_totals": 50,
+    "total_mismatch": 0
+  },
+  "discard": {
+    "conflatable": false,
+    "discarded_list": [
+      3,
+      1
+    ],
+    "discarded_total": 4,
+    "full_list": [
+      3,
+      -3,
+      1,
+      -1
+    ],
+    "full_total": 0
+  },
+  "odd_families": {
+    "all_totals_zero": true,
+    "bound": 3,
+    "count": 7,
+    "pairing_misses": 0,
+    "totals": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

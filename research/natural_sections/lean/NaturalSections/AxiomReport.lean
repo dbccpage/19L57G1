@@ -12,6 +12,7 @@ import NaturalSections.TwoComplex
 import NaturalSections.QuotientMass
 import NaturalSections.Aggregation
 import NaturalSections.EquivariantBridge
+import NaturalSections.SlotExchange
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -243,3 +244,29 @@ import NaturalSections.EquivariantBridge
 #print axioms NaturalSections.EqBridge.equivariant_iff_sealed_shape
 #print axioms NaturalSections.EqBridge.sealed_selector_content_along_bridge
 #print axioms NaturalSections.EqBridge.bridge_statement_is_the_sealed_statement
+#print axioms NaturalSections.SlotEx.mod_idem
+#print axioms NaturalSections.SlotEx.repAdd_val
+#print axioms NaturalSections.SlotEx.repAdd_rot_zero
+#print axioms NaturalSections.SlotEx.swap_count_one
+#print axioms NaturalSections.SlotEx.swap_count_two
+#print axioms NaturalSections.SlotEx.swap_count_three
+#print axioms NaturalSections.SlotEx.swap_count_four
+#print axioms NaturalSections.SlotEx.swap_count_five
+#print axioms NaturalSections.SlotEx.swap_count_six
+#print axioms NaturalSections.SlotEx.swap_count_seven
+#print axioms NaturalSections.SlotEx.swap_count_eight
+#print axioms NaturalSections.SlotEx.transposeW_transposeW
+#print axioms NaturalSections.SlotEx.oddW_diag_zero
+#print axioms NaturalSections.SlotEx.odd_total_zero
+#print axioms NaturalSections.SlotEx.sym_odd_zero
+#print axioms NaturalSections.SlotEx.irrefl_support_diag_zero
+#print axioms NaturalSections.SlotEx.d2Fam_odd
+#print axioms NaturalSections.SlotEx.d2Fam_supported
+#print axioms NaturalSections.SlotEx.d2Fam_total_zero
+#print axioms NaturalSections.SlotEx.sumList_pair_cancel
+#print axioms NaturalSections.SlotEx.sumList_nonneg
+#print axioms NaturalSections.SlotEx.sum_pairs_residual
+#print axioms NaturalSections.SlotEx.sum_pairs_residual_nonneg
+#print axioms NaturalSections.SlotEx.discard_is_not_cancel
+#print axioms NaturalSections.SlotEx.flip_fixed_zero
+#print axioms NaturalSections.SlotEx.mixed_residual_negative
