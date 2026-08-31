@@ -65,6 +65,16 @@ class Patch3Tests(unittest.TestCase):
         d = decide.decide_trivial_kernels(6, dg.PATCH3_EDGES, bound=1)
         self.assertEqual(d["verdict"], "SOUND")
 
+    def test_identity_watch_all_green_forces_mass_zero(self) -> None:
+        constant: dg.Section = {0: (1, 1), 1: (1, 1)}
+        edges: tuple[dg.Edge, ...] = ((0, 1),)
+        self.assertTrue(all(dg.cob(constant, e) == (0, 0) for e in edges))
+        self.assertEqual(dg.mass(constant, edges), 0)
+        self.assertTrue(dg.all_green(constant, edges, ((True, True),)))
+        shifted: dg.Section = {0: (0, 0), 1: (0, 1)}
+        self.assertFalse(dg.all_green(shifted, edges, ((True, True),)))
+        self.assertGreater(dg.mass(shifted, edges), 0)
+
     def test_self_loop_is_sound_with_nontrivial_kernel(self) -> None:
         edges: tuple[dg.Edge, ...] = ((0, 0),)
         unwatched: decide.Watch = {(0, 0): (False, False)}
@@ -187,6 +197,10 @@ class PricingGapDualTests(unittest.TestCase):
             a = Path(scratch) / "a"
             self.assertEqual(run_pricing.main(["--out", str(a)]), 0)
             self.assertEqual((a / "pricing.json").read_bytes(), run_pricing.render())
+            self.assertEqual(
+                (a / "pricing.json").read_bytes(),
+                (TREE / "receipts" / "pricing.json").read_bytes(),
+            )
 
 
 if __name__ == "__main__":

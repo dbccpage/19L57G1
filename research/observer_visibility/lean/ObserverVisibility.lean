@@ -381,11 +381,39 @@ theorem sound_iff_imD_cap_K (edges : List (Nat × Nat)) :
     have hz : cobZero s edges := him s hk
     exact (Iof_zero_iff s edges).mpr hz
 
-/-- OV4: if every kernel is `{0}`, All-Green is `cob = 0`, which forces
-`I = 0`. -/
+/-- Zero coboundary has zero mass.  The OV4 bridge below supplies the
+All-Green and trivial-kernel hypotheses that produce `cobZero`. -/
 theorem trivial_kers_imply_sound (s : Nat → V) (edges : List (Nat × Nat))
     (h : cobZero s edges) : Iof s edges = 0 :=
   (Iof_zero_iff s edges).mpr h
+
+/-- Identity watcher: kernel is `{0}`. -/
+def idCon : LinCon V V vGauge vGauge where
+  toFun := fun p => p
+  map_add := by intro x y; rfl
+  map_zero := rfl
+  contract := by
+    intro p
+    exact Nat.le_refl (vnu p)
+
+theorem idCon_ker_trivial (x : V) (h : idCon.toFun x = vzero) : x = vzero :=
+  h
+
+/-- OV4: a watcher with trivial kernel, All-Green for that watcher,
+implies coboundary mass zero. -/
+theorem trivial_ker_allGreen_implies_sound {H : Type}
+    (NH : Gauge H) (f : LinCon V H vGauge NH)
+    (ker : ∀ x : V, f.toFun x = NH.grp.zero → x = vzero)
+    (s : Nat → V) (edges : List (Nat × Nat))
+    (green : ∀ e ∈ edges, f.toFun (cob s e) = NH.grp.zero) :
+    Iof s edges = 0 :=
+  (Iof_zero_iff s edges).mpr fun e he => ker (cob s e) (green e he)
+
+theorem id_allGreen_implies_I_zero (s : Nat → V)
+    (edges : List (Nat × Nat))
+    (green : ∀ e ∈ edges, idCon.toFun (cob s e) = vzero) :
+    Iof s edges = 0 :=
+  trivial_ker_allGreen_implies_sound vGauge idCon idCon_ker_trivial s edges green
 
 /-- A self-loop coboundary is identically zero. -/
 theorem cob_self_loop (s : Nat → V) (a : Nat) : cob s (a, a) = vzero :=

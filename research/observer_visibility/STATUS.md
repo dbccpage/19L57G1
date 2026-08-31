@@ -73,7 +73,11 @@ and are withdrawn.  The statements below are the replacements.
 * **OV2.**  `allGreen_iff_in_joint_ker`.
 * **OV3.**  Lean section mass 6, All-Green, six edges.
   `no_recovery_modulus`: every `f` with `f 0 = 0` fails `I ≤ f 0`.
-* **OV4.**  `trivial_kers_imply_sound`: a zero coboundary has mass 0.
+* **OV4.**  `trivial_ker_allGreen_implies_sound`: a watcher with
+  trivial kernel, plus All-Green for that watcher, implies `I = 0`.
+  Instantiated as `id_allGreen_implies_I_zero`.  The coboundary-mass
+  lemma `trivial_kers_imply_sound` is the inner step, not the OV4
+  statement.
 * **OV5.**  Instance: integer plane, identity restrictions,
   first-coordinate watcher.  `allGreenS_iff_inK` is `Iff.rfl`, so
   `sound_iff_imD_cap_K` is `Iof_zero_iff` (faithful `nu`).  Self-loop
@@ -98,7 +102,7 @@ and are withdrawn.  The statements below are the replacements.
   `|sum y_e d_e.2| ≤ I`.  Dual `y_e = -1` pairs to 6 on the Lean
   section.
 
-Thirty `#print axioms` reports, all within `{propext, Quot.sound}`.
+Thirty-three `#print axioms` reports, all within `{propext, Quot.sound}`.
 
 The OV3 scaling corollary `I(s_λ) = 6λ` on the All-Green fibre was
 not taken: `no_recovery_modulus` is the `f 0 = 0` failure at the

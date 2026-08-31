@@ -20,6 +20,9 @@ import ObserverVisibility
 #print axioms ObserverVisibility.allGreenS_iff_inK
 #print axioms ObserverVisibility.sound_iff_imD_cap_K
 #print axioms ObserverVisibility.trivial_kers_imply_sound
+#print axioms ObserverVisibility.idCon_ker_trivial
+#print axioms ObserverVisibility.trivial_ker_allGreen_implies_sound
+#print axioms ObserverVisibility.id_allGreen_implies_I_zero
 #print axioms ObserverVisibility.cob_self_loop
 #print axioms ObserverVisibility.loop_sound
 #print axioms ObserverVisibility.coord_ker_nontrivial

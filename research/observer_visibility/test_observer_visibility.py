@@ -145,7 +145,7 @@ class LeanAuditTests(unittest.TestCase):
         self.assertEqual(
             verify_lean.declared_report_inventory(source), verify_lean.AXIOM_REPORT_DECLARATIONS
         )
-        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 30)
+        self.assertEqual(len(verify_lean.AXIOM_REPORT_DECLARATIONS), 33)
         self.assertIn(
             "ObserverVisibility.sound_iff_imD_cap_K", verify_lean.AXIOM_REPORT_DECLARATIONS
         )
@@ -203,6 +203,8 @@ class LeanAuditTests(unittest.TestCase):
         self.assertIn("def patch3_edges", source)
         self.assertIn("theorem patch3_mass", source)
         self.assertIn("theorem sound_iff_imD_cap_K", source)
+        self.assertIn("theorem trivial_ker_allGreen_implies_sound", source)
+        self.assertIn("theorem id_allGreen_implies_I_zero", source)
         self.assertIn("theorem loop_sound", source)
         self.assertIn("theorem coord_ker_nontrivial", source)
         self.assertIn("theorem disjoint_fragment", source)
@@ -293,7 +295,7 @@ class WriteRootBoundaryTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("write root respected", result.stdout)
-        self.assertIn("declarations: 30 within", result.stdout)
+        self.assertIn("declarations: 33 within", result.stdout)
         self.assertEqual(
             verify_lean.writes_outside_root(before, verify_lean.repository_records()), []
         )
