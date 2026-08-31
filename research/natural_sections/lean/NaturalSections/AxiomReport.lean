@@ -9,6 +9,7 @@ import NaturalSections.CutAndCounts
 import NaturalSections.Refinement
 import NaturalSections.Budgets
 import NaturalSections.TwoComplex
+import NaturalSections.QuotientMass
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -175,3 +176,38 @@ import NaturalSections.TwoComplex
 #print axioms NaturalSections.TwoCell.ctr_fluxOuter
 #print axioms NaturalSections.TwoCell.outer_zero_but_obstructed
 #print axioms NaturalSections.TwoCell.section_iff_faces_zero_fin4
+#print axioms NaturalSections.QMass.neg_of_add_eq_zero
+#print axioms NaturalSections.QMass.neg_add_rev
+#print axioms NaturalSections.QMass.fluxT1_d0
+#print axioms NaturalSections.QMass.fluxT2_d0
+#print axioms NaturalSections.QMass.exact_of_fluxes_zero
+#print axioms NaturalSections.QMass.ind_eq_zero_iff
+#print axioms NaturalSections.QMass.ind_le_one
+#print axioms NaturalSections.QMass.ind_eq_one_of_ne
+#print axioms NaturalSections.QMass.zero_mass_iff
+#print axioms NaturalSections.QMass.suppMass_congr
+#print axioms NaturalSections.QMass.repair_mass_zero_iff_faces_zero
+#print axioms NaturalSections.QMass.repair_mass_zero_iff_section
+#print axioms NaturalSections.QMass.add_add_add
+#print axioms NaturalSections.QMass.neg_add'
+#print axioms NaturalSections.QMass.fluxT1_add
+#print axioms NaturalSections.QMass.fluxT2_add
+#print axioms NaturalSections.QMass.fluxT1_neg
+#print axioms NaturalSections.QMass.fluxT2_neg
+#print axioms NaturalSections.QMass.residual_flux1
+#print axioms NaturalSections.QMass.residual_flux2
+#print axioms NaturalSections.QMass.reaches_of_sameClass
+#print axioms NaturalSections.QMass.single_mass_le_one
+#print axioms NaturalSections.QMass.single_e01_flux1
+#print axioms NaturalSections.QMass.single_e01_flux2
+#print axioms NaturalSections.QMass.single_e32_flux1
+#print axioms NaturalSections.QMass.single_e32_flux2
+#print axioms NaturalSections.QMass.single_e03_flux1
+#print axioms NaturalSections.QMass.single_e03_flux2
+#print axioms NaturalSections.QMass.mass_le_one_axes
+#print axioms NaturalSections.QMass.repair_mass_le_one_iff
+#print axioms NaturalSections.QMass.pairRep_flux1
+#print axioms NaturalSections.QMass.pairRep_flux2
+#print axioms NaturalSections.QMass.pairRep_mass_le_two
+#print axioms NaturalSections.QMass.repair_mass_le_two
+#print axioms NaturalSections.QMass.repair_mass_zero_iff_section_fin4

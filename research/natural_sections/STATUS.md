@@ -1053,6 +1053,80 @@ remain blind exactly as on the one-dimensional rungs: the outer-zero
 class splits `N^3` sectioned against `N^4 - N^3` obstructed with the
 same outer flux.
 
+## Repair mass: pricing the chord-square obstruction -- predictions, written before the computation ran
+
+The faces rung decided EXISTENCE: a natural section exists iff both
+face fluxes vanish.  This rung prices NON-existence.  Declare the
+gauge coboundary `d0 theta` on the chord square (per oriented edge,
+the potential difference), the residual `w - d0 theta`, and a mass on
+edge assignments: the SUPPORT mass counts the edges carrying a nonzero
+phase (`DecidableEq` on the fibre is declared for the mass; nothing
+else changes).  The repair mass of `w` is the least mass over all
+gauge repairs -- the least number of edges any gauge-equivalent
+assignment must still carry.
+
+A declared import, stated in advance: the existence layer used only
+the five group laws; the PRICING layer additionally declares
+commutativity (flux additivity under pointwise sums needs it).
+Existence is commutativity-free; pricing buys commutativity.  That
+asymmetry is recorded as a finding, not hidden.
+
+| claim | prediction |
+|---|---|
+| **QM1** (zero repair mass = existence) | PROVED in Lean, commutativity-free: some gauge repair has mass zero iff both face fluxes vanish iff a natural section exists (composing with the faces rung).  The quantitative reading of "repair iff the obstruction class is zero". |
+| **QM2** (the quotient is the flux pair) | PROVED in Lean, with declared commutativity: `w'` is gauge-equivalent to `w` iff the two face fluxes agree -- the gauge classes are exactly the pairs `(fluxT1, fluxT2)`, so the quotient of assignments by repairs is the group of flux pairs. |
+| **QM3** (exact price, support mass) | PROVED in Lean, any commutative fibre: the least repair mass is `0` iff `(f1, f2) = (0, 0)`; it is `<= 1` iff `f1 = 0` or `f2 = 0` or `f2 = -f1` (the chord is the ONLY single edge lying in both faces, and it prices exactly the anti-diagonal); it is always `<= 2`.  So the price is 0 at the origin, 1 on the three axes away from the origin, and 2 elsewhere; the chord's anti-diagonal is a third axis the outer boundary cannot see.  (An earlier sentence here said "2 minus the number of declared axes the class lies on" -- false at the origin, where all three axis conditions hold and the formula gives -1 while QM1 proves 0; a reviewer corrected it.) |
+| **QM4** (the finite surveys) | Computed over `Z_N`, `N in {2, 3, 4}`, for the support mass AND a second declared circular gauge `cd(k) = min(k, N-k)`: every gauge class has exactly `N^3` members; the support-mass trichotomy matches QM3 on all `N^2` classes, with class counts at price `0 / 1 / 2` equal to `1 / 3(N-1) / (N-1)(N-2)` (N=2: 1,3,0; N=3: 1,6,2; N=4: 1,9,6); circular-gauge price is `0` iff `(0,0)`, satisfies `phi_circ <= cd(f1) + cd(f2)`, and on the anti-diagonal `(f, -f)` equals `cd(f)` exactly (the chord alone carries it). |
+
+Reading, agreed in advance.  If QM2 fails, the flux pair is not a
+complete gauge invariant and the faces rung's quotient reading is
+wrong -- record it.  If the QM4 counts miss, the pre-registration was
+wrong and the miss is recorded next to the computed value.  What
+QM1-QM3 would say together: the obstruction class does not merely
+exist or not -- it has a PRICE in edges, the price is decided by which
+of three declared axes the class lies on, and one of those axes exists
+only because of the chord.  Admitting a face changed what is
+repairable; the mass says by how much.
+
+### Results, written after the run (`quotient_mass.py`, receipt
+`receipts/quotient_mass.json`; Lean `lean/NaturalSections/QuotientMass.lean`)
+
+* **QM1 PROVED, commutativity-free**:
+  `repair_mass_zero_iff_faces_zero` and `repair_mass_zero_iff_section`
+  -- some gauge repair has support mass zero iff both face fluxes
+  vanish iff a natural section exists.  The exactness half is the
+  explicit potential (`exact_of_fluxes_zero`); the coboundary
+  telescopes (`fluxT1_d0`, `fluxT2_d0`) close the other half.
+* **QM2 PROVED, with the declared commutativity**: `residual_flux1/2`
+  (every repair preserves the flux pair) and `reaches_of_sameClass`
+  (everything with the same flux pair is reached), so the gauge
+  classes are EXACTLY the flux pairs.  As predicted, this layer is
+  where commutativity enters -- flux additivity under pointwise sums
+  -- and nowhere earlier.
+* **QM3 PROVED**: `repair_mass_le_one_iff` -- price at most one iff
+  `f1 = 0` or `f2 = 0` or `f2 = -f1`, the chord's anti-diagonal, an
+  axis only because the chord lies in both faces --
+  and `repair_mass_le_two` -- price at most two, always.  With QM1's
+  zero case the least repair mass is decided for every class.
+* **QM4 CONFIRMED, every count as pre-registered**: `N^2` classes of
+  exactly `N^3` members with `im(d0)` the zero class; support-mass
+  trichotomy matching QM3 on every class, counts `1 / 3(N-1) /
+  (N-1)(N-2)` at price `0 / 1 / 2` (N=2: 1,3,0; N=3: 1,6,2; N=4:
+  1,9,6); circular price zero only at the origin, bounded by
+  `cd(f1) + cd(f2)`, exactly `cd(f)` on the anti-diagonal.  No misses
+  this rung.
+
+What the rung answers, internally.  The obstruction class is not a
+yes/no: it has a price, counted in edges no repair can empty, and the
+price is decided by which of three axes the class lies on.  Two of
+those axes are the faces themselves; the third exists only because
+the chord lies in both faces at once -- the interior edge is the only
+single place a mixed obstruction can live.  And the layering is now a
+theorem about the theory itself: deciding whether a section exists
+needed five group laws; pricing the failure needed one more
+declaration (commutativity).  Existence is cheaper than pricing, and
+the tree now says so with receipts.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1105,15 +1179,16 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 165 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems and the 24 faces theorems included); 95 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 200 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, and the 35 repair-mass theorems included); 111 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 111 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 117 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 30 source files (an earlier row said 27 after the faces modules had raised it; a reviewer corrected the stale receipt) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 33 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
