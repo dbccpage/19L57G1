@@ -1390,6 +1390,96 @@ sentence said 6 / 3 / 3 -- inconsistent with the 122 no-axioms total
 this file records two lines of the commands table away; a verifier
 recomputed the split from a fresh build and corrected it.)
 
+## Slot exchange and odd-pairing cancellation -- predictions, written before the computation ran
+
+The sealed module `Derivation.PrimDiff` (inside this package's pinned
+closure) carries an oriented two-slot primitive `D2`, its transpose
+`D2rev`, the symmetrisation `S2 = Sym D2`, and irreflexivity for both.
+This rung asks two questions about that structure and answers them with
+theorems and one exhaustive computation, all in this tree's own
+vocabulary.
+
+**Question 1 (the slot actions and their characters).**  A `k`-slot
+primitive admits two natural slot actions: the cyclic rotation and the
+full slot-permutation action.  Value assignments to a generator, taken
+in the cyclic value group `Fin k` under addition, behave differently
+under the two actions: every `c : Fin k` is admissible for the rotation
+generator (because `k` iterated additions of any element return to
+zero), while the swap generator of the permutation action constrains
+`c + c = 0`.  The count of admissible swap values therefore DEPENDS ON
+THE VALUE GROUP: in `Fin k` it is `2` for even `k` and `1` for odd `k`,
+while in the two-element value group it is always `2`.  Recording the
+target-dependence is the point: the familiar "exactly two" is a fact
+about two-torsion in the chosen value group, not about the slot count.
+
+**Question 2 (odd families cancel exactly).**  A pair-indexed integer
+weight family `W` is ODD when `W b a = - W a b` (the weight-level mirror
+of `Transpose`) and SYMMETRIC when `W b a = W a b` (the mirror of
+`Sym`).  Predictions, to be proved rather than sampled: an odd family
+vanishes on the diagonal; an odd family on the two-point carrier has
+total exactly zero; a family both symmetric and odd is identically
+zero; a family supported on an irreflexive relation vanishes on the
+diagonal (the support form of the same refusal); and a declared
+pairing-plus-residual list sums to its residual, so a non-negative
+residual gives a non-negative total -- cancellation carried out in
+algebra, before any summation policy is chosen.  The converse
+discipline: DISCARDING partners is not cancelling them; a concrete
+four-element list has full total `0` and discarded-partner total `4`,
+and the two must never be conflated.
+
+### Claims (Lean), written before the module was compiled
+
+| claim | statement |
+|---|---|
+| SX1 | rotation admissibility: for every `k` and every `c : Fin (k+1)`, `k+1` iterated additions of `c` equal `0` |
+| SX2 | swap counts over `Fin k`, `k = 1..8`, by `decide`: `[1, 2, 1, 2, 1, 2, 1, 2]` |
+| SX3 | odd families: diagonal zero; two-point total zero; symmetric-and-odd is zero; irreflexive support forces diagonal zero |
+| SX4 | the canonical odd family built on the sealed `D2`/`D2rev` support is odd and so cancels |
+| SX5 | pairing-plus-residual: `sumList (pairs.flatMap (fun x => [x, -x]) ++ res) = sumList res`, and non-negative `res` gives non-negative total |
+| SX6 | discard countermodel: `sumList [3, -3, 1, -1] = 0` while `sumList [3, 1] = 4` |
+
+### Pinned predictions (Python, written before the run)
+
+| id | prediction |
+|---|---|
+| P1 | swap-admissible counts over `Fin k`, `k = 1..8`, by brute force: `[1, 2, 1, 2, 1, 2, 1, 2]` |
+| P2 | rotation-admissible counts over `Fin k`, `k = 1..8`: `[1, 2, 3, 4, 5, 6, 7, 8]` (every value admissible) |
+| P3 | odd families on the two-point carrier with entries bounded by `3`: exactly `7`, and every one has total `0` |
+| P4 | exhaustive pairing check over those `7` families: pairing each off-diagonal entry with its transpose partner cancels exactly; `0` misses |
+| P5 | the discard countermodel: full total `0`, discarded-partner total `4` |
+
+If any pinned value misses, the miss is recorded next to the value.
+
+What this rung does NOT claim: nothing here evaluates any externally
+supplied model; no claim is made that restricting a summation domain
+approximates anything (SX6 is the refusal of exactly that move); and
+the character counts are claims about the two slot actions and the
+declared value groups only.
+
+### Results, written after the run (`slot_exchange.py`, receipt
+`receipts/slot_exchange.json`; Lean in
+`lean/NaturalSections/SlotExchange.lean`)
+
+Every prediction held; no misses this rung.
+
+| claim | outcome | evidence |
+|---|---|---|
+| SX1 | PROVED for all `k`: `repAdd_rot_zero`, via the value formula `repAdd_val` and the self-contained `mod_idem`. | `repAdd_rot_zero` |
+| SX2 | PROVED by `decide`, `k = 1..8`: swap counts `[1, 2, 1, 2, 1, 2, 1, 2]`. | `swap_count_one` .. `swap_count_eight` |
+| SX3 | PROVED: diagonal zero (`oddW_diag_zero`), two-point total zero (`odd_total_zero`), symmetric-and-odd is zero (`sym_odd_zero`), irreflexive support forces diagonal zero (`irrefl_support_diag_zero`, consuming the sealed `PrimDiff.Irrefl`). | as named |
+| SX4 | PROVED: `d2Fam_odd`, `d2Fam_supported` (support stated on the sealed `D2`/`D2rev`), `d2Fam_total_zero`; involutivity mirror `transposeW_transposeW` is `rfl`. | as named |
+| SX5 | PROVED: `sum_pairs_residual` (by induction, one `sumList_pair_cancel` per pair), `sum_pairs_residual_nonneg` via `sumList_nonneg`. | as named |
+| SX6 | PROVED by `rfl` twice: full `0`, discarded `4`. | `discard_is_not_cancel` |
+| P1-P5 | CONFIRMED, every count as pre-registered: rotation `[1..8]`, swap `[1, 2, 1, 2, 1, 2, 1, 2]`, `7` odd families all totalling `0` with `0` pairing misses, discard countermodel `0` against `4`. | `test_slot_exchange.py`, receipt |
+
+The 24 new `#print axioms` reports (254 total) split 3 / 13 / 8 across
+no axioms / `['propext']` / `['Quot.sound', 'propext']`, all within the
+whitelist.  One registration miss during assembly, recorded rather than
+smoothed: the module filename was first inserted next to
+`EquivariantBridge.lean` in the test's expected listing, which is
+sorted; the scan test failed once, the entry moved to its sorted
+position, and the suite then passed (`141` tests).
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1449,18 +1539,19 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 230 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, and the 12 A2-repair conjugation-orbit theorems included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 126 `no axioms` (the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 254 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, and the 24 slot-exchange theorems (3 / 13 / 8 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 129 `no axioms` (126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_slot_exchange.py --out receipts` | 0 | `rotation counts k=1..8: [1, 2, 3, 4, 5, 6, 7, 8]`; `swap counts k=1..8: [1, 2, 1, 2, 1, 2, 1, 2]`; `odd families bound 3: 7, all totals zero True, pairing misses 0`; `discard countermodel: full 0, discarded 4, conflatable False` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 133 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 141 tests`, `OK` (the clean rebuild included; 133 before the slot-exchange rung) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 39 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, and the conjugation-orbit modules to 39) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 42 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, and the slot-exchange modules to 42) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
