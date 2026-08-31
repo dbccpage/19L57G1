@@ -8,6 +8,7 @@ import NaturalSections.Represent
 import NaturalSections.CutAndCounts
 import NaturalSections.Refinement
 import NaturalSections.Budgets
+import NaturalSections.TwoComplex
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -150,3 +151,27 @@ import NaturalSections.Budgets
 #print axioms NaturalSections.Budgets.parity_polyBounded
 #print axioms NaturalSections.Budgets.parity_not_gen_linear
 #print axioms NaturalSections.Budgets.polyBounded_without_gen_linear
+#print axioms NaturalSections.TwoCell.tag_antisymm
+#print axioms NaturalSections.TwoCell.stag_antisymm
+#print axioms NaturalSections.TwoCell.interp_flip
+#print axioms NaturalSections.TwoCell.tr_inv
+#print axioms NaturalSections.TwoCell.outer_flux_eq_add
+#print axioms NaturalSections.TwoCell.wT1_transport_val
+#print axioms NaturalSections.TwoCell.wT2_transport_val
+#print axioms NaturalSections.TwoCell.compT1_label0
+#print axioms NaturalSections.TwoCell.compT1_label1
+#print axioms NaturalSections.TwoCell.compT2_label0
+#print axioms NaturalSections.TwoCell.fluxT1_zero_of_fixed
+#print axioms NaturalSections.TwoCell.fluxT2_zero_of_fixed
+#print axioms NaturalSections.TwoCell.section_fluxes_zero
+#print axioms NaturalSections.TwoCell.eq_of_add_neg_eq_zero
+#print axioms NaturalSections.TwoCell.eq_neg_of_add_eq_zero
+#print axioms NaturalSections.TwoCell.add_neg_cancel_right
+#print axioms NaturalSections.TwoCell.pair_step
+#print axioms NaturalSections.TwoCell.potential_natural
+#print axioms NaturalSections.TwoCell.section_iff_faces_zero
+#print axioms NaturalSections.TwoCell.fill_transfers
+#print axioms NaturalSections.TwoCell.ctr_fluxT1
+#print axioms NaturalSections.TwoCell.ctr_fluxOuter
+#print axioms NaturalSections.TwoCell.outer_zero_but_obstructed
+#print axioms NaturalSections.TwoCell.section_iff_faces_zero_fin4

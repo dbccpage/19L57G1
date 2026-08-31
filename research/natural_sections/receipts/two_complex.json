@@ -1,0 +1,38 @@
+{
+  "fixture": "chord square: square 0-1,1-3,3-2,2-0 plus chord 0-3; faces T1=0-1-3, T2=0-3-2",
+  "surveys": [
+    {
+      "boundary_identity_everywhere": true,
+      "modulus": 2,
+      "outer_zero": 16,
+      "outer_zero_obstructed": 8,
+      "potential_matches_flux_criterion": true,
+      "sections": 8,
+      "t1_filled": 16,
+      "t1_filled_with_section": 8,
+      "total": 32
+    },
+    {
+      "boundary_identity_everywhere": true,
+      "modulus": 3,
+      "outer_zero": 81,
+      "outer_zero_obstructed": 54,
+      "potential_matches_flux_criterion": true,
+      "sections": 27,
+      "t1_filled": 81,
+      "t1_filled_with_section": 27,
+      "total": 243
+    },
+    {
+      "boundary_identity_everywhere": true,
+      "modulus": 4,
+      "outer_zero": 256,
+      "outer_zero_obstructed": 192,
+      "potential_matches_flux_criterion": true,
+      "sections": 64,
+      "t1_filled": 256,
+      "t1_filled_with_section": 64,
+      "total": 1024
+    }
+  ]
+}
