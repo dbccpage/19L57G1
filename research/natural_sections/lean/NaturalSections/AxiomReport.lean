@@ -10,6 +10,7 @@ import NaturalSections.Refinement
 import NaturalSections.Budgets
 import NaturalSections.TwoComplex
 import NaturalSections.QuotientMass
+import NaturalSections.Aggregation
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -211,3 +212,13 @@ import NaturalSections.QuotientMass
 #print axioms NaturalSections.QMass.pairRep_mass_le_two
 #print axioms NaturalSections.QMass.repair_mass_le_two
 #print axioms NaturalSections.QMass.repair_mass_zero_iff_section_fin4
+#print axioms NaturalSections.Aggregate.nil_zero
+#print axioms NaturalSections.Aggregate.forced_sum
+#print axioms NaturalSections.Aggregate.forced_weighted_sum
+#print axioms NaturalSections.Aggregate.max_calibrated
+#print axioms NaturalSections.Aggregate.max_not_additive
+#print axioms NaturalSections.Aggregate.max_disagrees_with_sum
+#print axioms NaturalSections.Aggregate.scaled_additive
+#print axioms NaturalSections.Aggregate.scaled_not_calibrated
+#print axioms NaturalSections.Aggregate.suppMass_is_edge_sum
+#print axioms NaturalSections.Aggregate.aggregation_determines_suppMass

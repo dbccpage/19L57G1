@@ -1,0 +1,35 @@
+{
+  "fixture": "chord square over Z_3, indicator gauge; edge sum vs max vs doubled",
+  "survey": {
+    "additivity_violations": {
+      "doubled": 0,
+      "edge_sum": 0,
+      "max_agg": 28560
+    },
+    "assignments": 243,
+    "calibration_failures": {
+      "doubled": 810,
+      "edge_sum": 0,
+      "max_agg": 0
+    },
+    "disjoint_subset_pairs": 243,
+    "first_max_violation_witness": {
+      "subsets": [
+        [
+          3
+        ],
+        [
+          4
+        ]
+      ],
+      "w": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "modulus": 3
+  }
+}

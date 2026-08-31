@@ -1127,6 +1127,78 @@ needed five group laws; pricing the failure needed one more
 declaration (commutativity).  Existence is cheaper than pricing, and
 the tree now says so with receipts.
 
+## Aggregation: which mass functions are forced -- predictions, written before the computation ran
+
+The repair-mass rung DECLARED the support mass and priced with it.
+This rung asks what forces that shape.  Declare, per edge, a local
+gauge (a value in `Nat` computed from the edge's phase); a DIAGNOSTIC
+takes a finite list of edges and an assignment and returns one `Nat`.
+Two axioms are on the table: ADDITIVITY -- the diagnostic of a
+concatenation of edge lists is the sum of their diagnostics -- and SINGLETON
+CALIBRATION -- on a one-edge list the diagnostic IS the declared local
+gauge.  Predictions:
+
+| claim | prediction |
+|---|---|
+| **AG1** (the unweighted selection) | PROVED in Lean, any edge index, any dependent carriers: additivity plus singleton calibration force the diagnostic to be the edge sum of the declared gauges, by finite list induction; the empty list is forced to zero by additivity alone. |
+| **AG2** (the weighted selection) | PROVED in Lean: additivity plus magnitude-sufficiency (the singleton value is a function of the declared gauge alone) plus homogeneity of that function force the weighted sum with weights the singleton values at gauge `1`. |
+| **AG3** (both axioms are load-bearing) | PROVED by countermodel, concrete two-edge fixture: the MAX aggregator satisfies calibration and violates additivity (`max 1 1 = 1` against `1 + 1 = 2`); the DOUBLED sum satisfies additivity and violates calibration (`2` against `1`); each disagrees with the edge sum on a named instance. |
+| **AG4** (the tie-in, and the finite survey) | PROVED in Lean: the chord square's support mass is exactly the edge sum of the per-edge indicator gauge over the five-edge list, so ANY additive calibrated diagnostic on those gauges equals it.  Computed over `Z_3`, all `243` assignments and all disjoint subset pairs: the edge sum has `0` additivity violations and `0` calibration failures; the max aggregator's additivity violations are positive, with a named witness; the doubled sum fails calibration on exactly `810` singleton instances (five edges times the `162` assignments with a nonzero gauge at that edge). |
+
+Reading, agreed in advance.  If AG1 fails, the support mass was a
+choice among many shapes even after the two axioms, and the pricing
+rung's mass needs a third declared axiom -- record which.  If the
+`810` misses, the pre-registration was wrong and the miss is recorded.
+What AG1-AG4 would say together: the PRICING SHAPE is not another
+free declaration stacked on the gauge -- once the per-edge gauges are
+declared and the observer is additive and calibrated, the edge sum is
+forced, and the only remaining freedom is the per-edge gauge itself
+(and, replacing calibration with magnitude-sufficiency and
+homogeneity, one weight per edge -- an earlier parenthetical said
+"without calibration" alone, which additivity does not deliver:
+singleton values may depend nonlinearly on the gauge; a reviewer
+corrected it).  The declarations
+thin as the tower climbs: fibre, then faces, then gauges -- the
+aggregator is not among them.
+
+### Results, written after the run (`aggregation.py`, receipt
+`receipts/aggregation.json`; Lean `lean/NaturalSections/Aggregation.lean`)
+
+* **AG1 PROVED**: `forced_sum` -- additivity over concatenation plus
+  singleton calibration force the edge sum, over any edge index and
+  dependent carriers, by list induction; `nil_zero` -- the empty list
+  is forced to zero by additivity alone (concatenate the empty list
+  with itself; no edge inhabitant is needed, and the axiom was stated
+  in concatenation form for exactly that reason).
+* **AG2 PROVED**: `forced_weighted_sum` -- additivity plus
+  magnitude-sufficiency plus homogeneity force the weighted sum with
+  weights the singleton values at gauge `1`.
+* **AG3 PROVED**: `max_calibrated` + `max_not_additive` (and the
+  disagreement with the sum), `scaled_additive` +
+  `scaled_not_calibrated` -- each axiom fails alone on the two-edge
+  unit-gauge fixture, so neither is redundant.
+* **AG4 PROVED AND CONFIRMED, every count as pre-registered**:
+  `suppMass_is_edge_sum` and `aggregation_determines_suppMass` in
+  Lean; over `Z_3`, `243` assignments x `243` disjoint subset pairs:
+  edge sum `0` violations and `0` calibration failures; max aggregator
+  `28560` additivity violations with the witness recorded; doubled sum
+  exactly `810` calibration failures.  No misses this rung.
+
+What the rung answers, internally.  The support mass was introduced on
+the pricing rung as a declaration.  This rung narrows what was
+actually declared: the per-edge gauges.  Once those are fixed, an
+additive calibrated observer has NO remaining freedom -- the edge sum
+is forced -- and replacing calibration with magnitude-sufficiency and
+homogeneity leaves exactly one weight per edge (an earlier sentence
+said "dropping calibration" alone did this; additivity by itself does
+not -- singleton values may depend nonlinearly on the gauge, or on the
+whole assignment -- and `forced_weighted_sum` obtains weights only
+from the two added axioms; a reviewer corrected it).  The declarations
+thin as the tower climbs, and which axiom carries which freedom is now
+itself proved: additivity kills the aggregator's shape; within
+magnitude-sufficient homogeneous observers, calibration kills the
+weights.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1179,16 +1251,17 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 200 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, and the 35 repair-mass theorems included); 111 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 210 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, and the 10 aggregation theorems included); 115 `no axioms` (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the weighted layer on `['propext']`, and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 117 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 123 tests`, `OK` (the clean rebuild included) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 33 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 36 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, and the aggregation modules raise it to 36) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |

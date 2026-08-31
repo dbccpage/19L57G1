@@ -261,6 +261,17 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.QMass.pairRep_mass_le_two",
     "NaturalSections.QMass.repair_mass_le_two",
     "NaturalSections.QMass.repair_mass_zero_iff_section_fin4",
+    # Aggregation (NaturalSections/Aggregation.lean).
+    "NaturalSections.Aggregate.nil_zero",
+    "NaturalSections.Aggregate.forced_sum",
+    "NaturalSections.Aggregate.forced_weighted_sum",
+    "NaturalSections.Aggregate.max_calibrated",
+    "NaturalSections.Aggregate.max_not_additive",
+    "NaturalSections.Aggregate.max_disagrees_with_sum",
+    "NaturalSections.Aggregate.scaled_additive",
+    "NaturalSections.Aggregate.scaled_not_calibrated",
+    "NaturalSections.Aggregate.suppMass_is_edge_sum",
+    "NaturalSections.Aggregate.aggregation_determines_suppMass",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
