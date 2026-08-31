@@ -16,6 +16,9 @@ import ObserverVisibility
 #print axioms ObserverVisibility.patch3_allGreen
 #print axioms ObserverVisibility.patch3_full_coverage
 #print axioms ObserverVisibility.no_recovery_modulus
+#print axioms ObserverVisibility.patch3_scale_mass
+#print axioms ObserverVisibility.patch3_scale_allGreen
+#print axioms ObserverVisibility.no_recovery_modulus_unbounded
 #print axioms ObserverVisibility.Iof_zero_iff
 #print axioms ObserverVisibility.allGreenS_iff_inK
 #print axioms ObserverVisibility.sound_iff_imD_cap_K

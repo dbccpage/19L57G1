@@ -67,6 +67,15 @@ def patch3_section() -> Section:
     return s
 
 
+def patch3_scale_section(lam: int) -> Section:
+    """OV3 scaling family: overlaps get (0, lam), patches (0, 0)."""
+
+    s: Section = {i: (0, 0) for i in range(6)}
+    for i in (3, 4, 5):
+        s[i] = (0, lam)
+    return s
+
+
 def j_coord(s: Section, edges: Sequence[Edge]) -> int:
     return sum(abs(coord(cob(s, e))) for e in edges)
 

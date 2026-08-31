@@ -12,7 +12,7 @@ import random
 from pathlib import Path
 
 import decide
-from diagram import PATCH3_EDGES, mass, patch3_section
+from diagram import PATCH3_EDGES, all_green, mass, patch3_scale_section, patch3_section
 
 HERE = Path(__file__).resolve().parent
 SEED = 20260830
@@ -64,6 +64,12 @@ def report() -> dict[str, object]:
         "schema": "observer_visibility_decide/v1",
         "seed": SEED,
         "patch3_lean_section_mass": mass(s, PATCH3_EDGES),
+        "patch3_scale_masses": [
+            mass(patch3_scale_section(k), PATCH3_EDGES) for k in range(1, 6)
+        ],
+        "patch3_scale_all_green": all(
+            all_green(patch3_scale_section(k), PATCH3_EDGES) for k in range(1, 6)
+        ),
         "patch3_decision": p3,
         "patch3_box_min": box,
         "patch3_generator_matches_box_min": (
@@ -102,6 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     print("trivial", killed["verdict"])
     print("loop", r["loop_unwatched"])
     print("generator_matches_box", r["patch3_generator_matches_box_min"])
+    print("scale_masses", r["patch3_scale_masses"])
     print("seeded_agree", r["seeded_agree"])
     return 0
 

@@ -103,10 +103,20 @@ and are withdrawn.  The statements below are the replacements.
   section.
 
 Thirty-three `#print axioms` reports, all within `{propext, Quot.sound}`.
+Update 2026-08-31 (branch `ov3-scaling`): thirty-six reports after the
+OV3 scaling family below, still all within `{propext, Quot.sound}`.
 
 The OV3 scaling corollary `I(s_λ) = 6λ` on the All-Green fibre was
 not taken: `no_recovery_modulus` is the `f 0 = 0` failure at the
-fixed section.
+fixed section.  Correction (2026-08-31): now taken, on branch
+`ov3-scaling`.  `patch3_s_scale` puts `(0, λ)` on the overlaps;
+`patch3_scale_mass` proves `I(s_λ) = 6 * λ.natAbs` for every integer
+`λ` (so `6|λ|`, not the literal `6λ` of the sentence above, which is
+its restriction to `λ ≥ 0`); `patch3_scale_allGreen` keeps the
+coordinate watcher at zero on every edge for every `λ`; and
+`no_recovery_modulus_unbounded` yields, for every bound `B`, a `λ`
+whose section is All-Green with mass exceeding `B`.  The original
+sentence is kept as written above.
 
 ## OV3 scaling -- predictions, written before the computation ran
 
@@ -140,8 +150,21 @@ regenerated.
 
 ## OV3 scaling -- results, written after the run
 
-(To be filled in after the run; left explicitly incomplete at
-pre-registration time.)
+Every prediction in the table above was hit; no misses to record.
+
+* Lean: `patch3_s_scale`, helper lemmas `patch3_scale_cob` and
+  `vGauge_nu_scale`, then `patch3_scale_mass`
+  (`I(s_lam) = 6 * lam.natAbs`), `patch3_scale_allGreen`, and
+  `no_recovery_modulus_unbounded` (witness `lam = Int.ofNat (B + 1)`).
+  The file elaborated clean on the first run.  Axiom reports went
+  33 -> 36 as predicted, all within `{propext, Quot.sound}`.
+* Receipt: `patch3_scale_masses` reads `[6, 12, 18, 24, 30]` and
+  `patch3_scale_all_green` reads `true` in `receipts/decide.json`,
+  as predicted.  `J_coord = 0` at every `lam` in 1..5 and
+  `patch3_scale_section(1) == patch3_section()` are asserted by
+  `test_scaled_sections_match_preregistered_masses`.
+* The helper lemmas are not in the axiom-report inventory, matching
+  the tree's precedent for inner steps.
 
 ## Manual receipt
 
