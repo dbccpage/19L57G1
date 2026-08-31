@@ -15,10 +15,9 @@ import quotient_mass
 HERE = Path(__file__).resolve().parent
 
 
-def render() -> bytes:
+def render(report: dict[str, object]) -> bytes:
     return (
-        json.dumps(quotient_mass.report(), indent=2, sort_keys=True, ensure_ascii=True)
-        + "\n"
+        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=True) + "\n"
     ).encode("ascii")
 
 
@@ -31,8 +30,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"refusing to write outside research/natural_sections/: {out}", file=sys.stderr)
         return 1
     out.mkdir(parents=True, exist_ok=True)
-    (out / "quotient_mass.json").write_bytes(render())
-    surveys = quotient_mass.report()["surveys"]
+    report = quotient_mass.report()
+    (out / "quotient_mass.json").write_bytes(render(report))
+    surveys = report["surveys"]
     assert isinstance(surveys, list)
     for row in surveys:
         print(

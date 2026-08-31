@@ -15,9 +15,9 @@ import aggregation
 HERE = Path(__file__).resolve().parent
 
 
-def render() -> bytes:
+def render(report: dict[str, object]) -> bytes:
     return (
-        json.dumps(aggregation.report(), indent=2, sort_keys=True, ensure_ascii=True) + "\n"
+        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=True) + "\n"
     ).encode("ascii")
 
 
@@ -30,8 +30,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"refusing to write outside research/natural_sections/: {out}", file=sys.stderr)
         return 1
     out.mkdir(parents=True, exist_ok=True)
-    (out / "aggregation.json").write_bytes(render())
-    row = aggregation.report()["survey"]
+    report = aggregation.report()
+    (out / "aggregation.json").write_bytes(render(report))
+    row = report["survey"]
     assert isinstance(row, dict)
     print(
         f"pairs {row['disjoint_subset_pairs']},"

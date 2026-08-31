@@ -15,9 +15,9 @@ import budget_meter
 HERE = Path(__file__).resolve().parent
 
 
-def render() -> bytes:
+def render(report: dict[str, object]) -> bytes:
     return (
-        json.dumps(budget_meter.report(), indent=2, sort_keys=True, ensure_ascii=True) + "\n"
+        json.dumps(report, indent=2, sort_keys=True, ensure_ascii=True) + "\n"
     ).encode("ascii")
 
 
@@ -30,8 +30,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"refusing to write outside research/natural_sections/: {out}", file=sys.stderr)
         return 1
     out.mkdir(parents=True, exist_ok=True)
-    (out / "budget_meter.json").write_bytes(render())
     r = budget_meter.report()
+    (out / "budget_meter.json").write_bytes(render(r))
     print("decider all within budget:", r["decider_all_within_budget"])
     print("decider all verdicts match:", r["decider_all_verdicts_match"])
     meter_rows = r["sum_meter_square"]
