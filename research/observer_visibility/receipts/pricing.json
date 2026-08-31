@@ -1,0 +1,6525 @@
+{
+  "Z2": {
+    "flux_zero_count": 8,
+    "n": 2,
+    "n_cochains": 32,
+    "phi_zero_iff_fluxes_zero": true,
+    "rows": [
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 1
+      }
+    ],
+    "zero_count": 8
+  },
+  "Z3": {
+    "flux_zero_count": 27,
+    "n": 3,
+    "n_cochains": 243,
+    "phi_zero_iff_fluxes_zero": true,
+    "rows": [
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 1
+      }
+    ],
+    "zero_count": 27
+  },
+  "Z4": {
+    "flux_zero_count": 64,
+    "n": 4,
+    "n_cochains": 1024,
+    "phi_zero_iff_fluxes_zero": true,
+    "rows": [
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 1,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 0,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 3,
+        "flux2": 3,
+        "phi": 2
+      },
+      {
+        "flux1": 2,
+        "flux2": 1,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 0,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 3,
+        "flux2": 0,
+        "phi": 1
+      },
+      {
+        "flux1": 2,
+        "flux2": 2,
+        "phi": 2
+      },
+      {
+        "flux1": 1,
+        "flux2": 3,
+        "phi": 1
+      },
+      {
+        "flux1": 0,
+        "flux2": 0,
+        "phi": 0
+      },
+      {
+        "flux1": 3,
+        "flux2": 1,
+        "phi": 1
+      }
+    ],
+    "zero_count": 64
+  },
+  "schema": "observer_visibility_pricing/v1"
+}
