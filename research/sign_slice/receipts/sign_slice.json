@@ -1,0 +1,508 @@
+{
+  "adversarial": {
+    "A1": "REFUTED: the census bound is declared; the complete set is REFUSED (FW-SET)",
+    "A10": "NEGATIVE TEST: test_forbidden fails the run if a protected open is claimed closed",
+    "A2": "COUNTERMODEL: PB5 -- twisted equals total on a declared signed list at an obstructed member",
+    "A3": "REFUTED: the pointwise class fixes one map per object across every slot; the slot class does not (FW-T1)",
+    "A4": "COUNTERMODEL: PB3 -- every pointwise sample of the obstructed square stays obstructed",
+    "A5": "CITED: the packet proves repair-mass zero equivalent to the section criterion on its chord-square family; no fork here",
+    "A6": "CITED COUNTERMODEL: discarding partners is not cancelling them (packet theorem); no discard is performed here",
+    "A7": "DECIDED: the sign pair agrees on ConeSection (identical transports) and is separated by the declared mixing read-out; both facts recorded",
+    "A8": "REFUTED: the two-response menu fires at an active obstruction only; the census is built by declaration, not by any genesis rule",
+    "A9": "HELD OPEN: grammar classes outside the declared list stay OPEN (CANDIDATE_SPACE_OPEN)"
+  },
+  "phase_1_grammar": {
+    "G0": {
+      "admitted": true,
+      "sectioned_trivially": true,
+      "why": "ADMITTED"
+    },
+    "G1": {
+      "admitted": false,
+      "why": "REFUSED: weighting absent; the weighting is a priced ingredient"
+    },
+    "G2": {
+      "admitted": true,
+      "mu_g": [
+        2,
+        2,
+        1
+      ],
+      "why": "ADMITTED"
+    },
+    "G3": {
+      "admitted": true,
+      "mu_g": [
+        6,
+        16,
+        2
+      ],
+      "why": "ADMITTED"
+    },
+    "G4": {
+      "admitted": true,
+      "why": "reconstructed mover families inhabit the grammar"
+    },
+    "G5": {
+      "admitted": true,
+      "mixing_cross": 0,
+      "mixing_self": 64,
+      "mixing_separates": true,
+      "squares_agree": true
+    },
+    "measure": "muG = (object count, arrow count, distinct amp values), lexicographic",
+    "refused_by_bound": [
+      [
+        "ladder_2x3_occ2",
+        "REFUSED: 15 objects exceeds the declared bound of 6"
+      ]
+    ]
+  },
+  "phase_2_predicate": {
+    "PB1_chain_sectioned": true,
+    "PB2_square_star_triangle_obstructed": true,
+    "PB3_pointwise_invariance_samples": true,
+    "PB4_twisted_equals_total_at_section_pair": true,
+    "PB5_sum_blindness_reconstructed": {
+      "equal": true,
+      "member_obstructed": true,
+      "total": 0,
+      "twisted": 0
+    }
+  },
+  "phase_3_census": {
+    "bound": {
+      "objects": 6,
+      "site_hops": 8
+    },
+    "count": 12,
+    "obstructed": [
+      "square_2x2_occ2",
+      "star_K13_occ2",
+      "triangle_C3_occ2",
+      "square_plus_edge_occ2",
+      "pan_C3_tail_occ2",
+      "square_2x2_occ3",
+      "square_plus_edge_occ3",
+      "signed_square_pos",
+      "signed_square_neg"
+    ],
+    "refused_by_bound": [
+      [
+        "ladder_2x3_occ2",
+        "REFUSED: 15 objects exceeds the declared bound of 6"
+      ]
+    ],
+    "rows": [
+      {
+        "arrows": 12,
+        "fibre": 2,
+        "iso_key_sha8": "71084482",
+        "mu_g": [
+          6,
+          12,
+          1
+        ],
+        "name": "chain_P4_occ2",
+        "objects": 6,
+        "sectioned": true
+      },
+      {
+        "arrows": 16,
+        "fibre": 2,
+        "iso_key_sha8": "9fd733eb",
+        "mu_g": [
+          6,
+          16,
+          1
+        ],
+        "name": "square_2x2_occ2",
+        "objects": 6,
+        "sectioned": false
+      },
+      {
+        "arrows": 12,
+        "fibre": 2,
+        "iso_key_sha8": "d5de9789",
+        "mu_g": [
+          6,
+          12,
+          1
+        ],
+        "name": "star_K13_occ2",
+        "objects": 6,
+        "sectioned": false
+      },
+      {
+        "arrows": 6,
+        "fibre": 2,
+        "iso_key_sha8": "f737e4cf",
+        "mu_g": [
+          3,
+          6,
+          1
+        ],
+        "name": "triangle_C3_occ2",
+        "objects": 3,
+        "sectioned": false
+      },
+      {
+        "arrows": 20,
+        "fibre": 2,
+        "iso_key_sha8": "375098ab",
+        "mu_g": [
+          6,
+          20,
+          1
+        ],
+        "name": "square_plus_edge_occ2",
+        "objects": 6,
+        "sectioned": false
+      },
+      {
+        "arrows": 16,
+        "fibre": 2,
+        "iso_key_sha8": "56e973d7",
+        "mu_g": [
+          6,
+          16,
+          1
+        ],
+        "name": "pan_C3_tail_occ2",
+        "objects": 6,
+        "sectioned": false
+      },
+      {
+        "arrows": 6,
+        "fibre": 6,
+        "iso_key_sha8": "46afc360",
+        "mu_g": [
+          4,
+          6,
+          1
+        ],
+        "name": "chain_P4_occ3",
+        "objects": 4,
+        "sectioned": true
+      },
+      {
+        "arrows": 8,
+        "fibre": 6,
+        "iso_key_sha8": "9747ad59",
+        "mu_g": [
+          4,
+          8,
+          1
+        ],
+        "name": "square_2x2_occ3",
+        "objects": 4,
+        "sectioned": false
+      },
+      {
+        "arrows": 6,
+        "fibre": 6,
+        "iso_key_sha8": "21edb621",
+        "mu_g": [
+          4,
+          6,
+          1
+        ],
+        "name": "star_K13_occ3",
+        "objects": 4,
+        "sectioned": true
+      },
+      {
+        "arrows": 10,
+        "fibre": 6,
+        "iso_key_sha8": "7fbcc122",
+        "mu_g": [
+          4,
+          10,
+          1
+        ],
+        "name": "square_plus_edge_occ3",
+        "objects": 4,
+        "sectioned": false
+      },
+      {
+        "arrows": 16,
+        "fibre": 2,
+        "iso_key_sha8": "88ef421f",
+        "mu_g": [
+          6,
+          16,
+          2
+        ],
+        "name": "signed_square_pos",
+        "objects": 6,
+        "sectioned": false
+      },
+      {
+        "arrows": 16,
+        "fibre": 2,
+        "iso_key_sha8": "8e820f2d",
+        "mu_g": [
+          6,
+          16,
+          2
+        ],
+        "name": "signed_square_neg",
+        "objects": 6,
+        "sectioned": false
+      }
+    ],
+    "sectioned": [
+      "chain_P4_occ2",
+      "chain_P4_occ3",
+      "star_K13_occ3"
+    ]
+  },
+  "phase_4_occ_relabel": {
+    "bound": "each slot map is the identity or the two-label exchange",
+    "exhaustion": {
+      "assignments": 65536,
+      "base_sectioned": false,
+      "cheapest_flip": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "flip_count": 8192,
+      "pointwise_assignments": 64,
+      "pointwise_moves": 0,
+      "price_min_slots_from_pointwise": 2,
+      "slots": 16
+    },
+    "member": "square_2x2_occ2",
+    "terminal": "OCCRELABEL_MOVES_CLASS"
+  },
+  "phase_5_register": [
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "one occurrence-slot convention change (priced by the exhaustion)",
+      "mover_count_unit_weights": 3136,
+      "name": "square_2x2_occ2",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "MOVES within the bound; price 2",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 8457,
+      "twisted_at_named_pair": 5321,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 128,
+      "name": "star_K13_occ2",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 1513,
+      "twisted_at_named_pair": 1385,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 336,
+      "name": "triangle_C3_occ2",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 1849,
+      "twisted_at_named_pair": 1513,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 5584,
+      "name": "square_plus_edge_occ2",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 17245,
+      "twisted_at_named_pair": 11661,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 656,
+      "name": "pan_C3_tail_occ2",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 3737,
+      "twisted_at_named_pair": 3081,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 800,
+      "name": "square_2x2_occ3",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 2185,
+      "twisted_at_named_pair": 1385,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          4,
+          2,
+          5,
+          0,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 2624,
+      "name": "square_plus_edge_occ3",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 7133,
+      "twisted_at_named_pair": 4509,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          5,
+          3,
+          4,
+          1,
+          2,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 3136,
+      "name": "signed_square_pos",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 2185,
+      "twisted_at_named_pair": 5321,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "holonomy_fixed_labels": [],
+      "leftover": "an occurrence-slot relabel exhaustion, or an arrow deletion (the packet's cut rule, cited, not executed) -- both priced bill lines, neither admitted here",
+      "mover_count_unit_weights": 3136,
+      "name": "signed_square_neg",
+      "named_pair": [
+        0,
+        1
+      ],
+      "occ_relabel_outcome": "SPACE_OPEN: not priced this run",
+      "repair_mass": "NOT_APPLICABLE: the faces/pricing layer is proved on the packet's chord-square family; no census member is that family",
+      "total": 2185,
+      "twisted_at_named_pair": 5321,
+      "witness_walk": {
+        "found": true,
+        "transport": [
+          1,
+          0
+        ]
+      }
+    }
+  ],
+  "predictions_sha256": "768b36ab7c586691e996629bfac288a43384b8e8fac691ee1d88a643d8604846",
+  "prompt_native_sha256": "ad499c48ebdda0ce64050c6743409d242c7aeec1c54b7b854beabac4da6d9266",
+  "terminals": [
+    "GENPRES_GRAMMAR_DECLARED",
+    "CONESECTION_DECIDES",
+    "SLICESET_CENSUSED",
+    "OCCRELABEL_MOVES_CLASS",
+    "REGISTER_WRITTEN",
+    "TIES_RETAINED",
+    "PREDICTIONS_HASHED",
+    "MANUAL_RECEIPT_DECLARED",
+    "OB1_UNCHANGED",
+    "S66_UNCHANGED",
+    "S9_LAST_UNCHANGED",
+    "CANDIDATE_SPACE_OPEN",
+    "FW_SET_HELD"
+  ]
+}
