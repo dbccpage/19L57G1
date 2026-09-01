@@ -14,6 +14,7 @@ import NaturalSections.Aggregation
 import NaturalSections.EquivariantBridge
 import NaturalSections.SlotExchange
 import NaturalSections.PhaseReceiver
+import NaturalSections.LayerBalance
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -289,3 +290,23 @@ import NaturalSections.PhaseReceiver
 #print axioms NaturalSections.Receiver.receiver_is_union
 #print axioms NaturalSections.Receiver.half_add_half
 #print axioms NaturalSections.Receiver.half_ne_zero
+#print axioms NaturalSections.Balance.natCast_dvd_down
+#print axioms NaturalSections.Balance.lt_of_mul_left
+#print axioms NaturalSections.Balance.layer_inj
+#print axioms NaturalSections.Balance.fresh_not_below
+#print axioms NaturalSections.Balance.reduce_below
+#print axioms NaturalSections.Balance.fresh_descend
+#print axioms NaturalSections.Balance.fresh_rep_exists
+#print axioms NaturalSections.Balance.fresh_rep_unique
+#print axioms NaturalSections.Balance.mem_divisorsBelow
+#print axioms NaturalSections.Balance.map_congr_mem
+#print axioms NaturalSections.Balance.balanceFuel_stable
+#print axioms NaturalSections.Balance.balance_eq_fuel
+#print axioms NaturalSections.Balance.balance_one
+#print axioms NaturalSections.Balance.sumI_append_single
+#print axioms NaturalSections.Balance.balance_divisor_sum
+#print axioms NaturalSections.Balance.balance_values
+#print axioms NaturalSections.Balance.freshCount_values
+#print axioms NaturalSections.Balance.partition_instances
+#print axioms NaturalSections.Balance.inversion_instances
+#print axioms NaturalSections.Balance.runningBalance_checkpoints

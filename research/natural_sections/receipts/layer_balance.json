@@ -1,0 +1,50 @@
+{
+  "agreement_misses": 0,
+  "balance_1_12": [
+    1,
+    -1,
+    -1,
+    0,
+    -1,
+    1,
+    -1,
+    0,
+    0,
+    1,
+    -1,
+    0
+  ],
+  "bound": 1000000,
+  "fresh_counts_1_12": [
+    1,
+    1,
+    2,
+    2,
+    4,
+    2,
+    6,
+    4,
+    6,
+    4,
+    10,
+    4
+  ],
+  "growth": {
+    "at_part_count": 5,
+    "max_squared_ratio_den": 5,
+    "max_squared_ratio_num": 4,
+    "stays_below_the_square_root": true
+  },
+  "inversion_misses": [],
+  "partition_misses": [],
+  "running_balance_checkpoints": {
+    "10": -1,
+    "100": 1,
+    "1000": 2,
+    "10000": -23,
+    "100000": -48,
+    "1000000": 212,
+    "30": -3
+  },
+  "small_bound": 2000
+}
