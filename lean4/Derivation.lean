@@ -1482,7 +1482,7 @@ open Derivation
 #print axioms QuotientRetention.symmetry_failure_retains_multiplicity
 #print axioms QuotientRetention.collapseMap_compose
 
--- Fidelity-generated coherence paths, holonomy, and label descent
+-- Fidelity-generated coherence paths, loop transport, and label descent
 #print axioms FidelityClosure.fidelity_refl
 #print axioms FidelityClosure.fidelity_symm
 #print axioms FidelityClosure.fidelity_trans

@@ -1,9 +1,9 @@
 import Derivation.Completion
 
 /-!
-# Ultra closure, Phase V–VI: event production and the constitution
+# Ultra closure, Stage V–VI: event production and the constitution
 
-Phase V internalizes the event source.  The sealed kernel consumes
+Stage V internalizes the event source.  The sealed kernel consumes
 explicit events; here the world carries a first-order *policy* (data),
 a fixed interpreter maps represented state to the complete family of
 next event blocks, and a driver iterates it.  The headline theorem:
@@ -16,7 +16,7 @@ canonical numeral of the current carrier length — a priced import of
 arithmetic and ordering, recorded), explicit budget and license
 (emitted as represented events), explicit stop (the empty family).
 
-Phase V also represents the kernel constitution as data: a finite
+Stage V also represents the kernel constitution as data: a finite
 description family with a fixed family interpreter, and the verified
 self-description theorem `interp_describe` — the kernel's own
 description executes to exactly the sealed step.  The distinctions
@@ -27,7 +27,7 @@ the interpreter is a function over all of them and is not a member.
 That stratification boundary is the run's named irreducible
 obligation, stated, not hidden.
 
-Phase VI separates autonomy from arbitrary iterability with a
+Stage VI separates autonomy from arbitrary iterability with a
 nine-level ladder, proved for the tower driver.
 -/
 
@@ -230,7 +230,7 @@ theorem gen_three_quiescent : quiescentB (genWorld 3).w = true := by
   rw [h]
   exact worldAt_three_quiescent
 
-/-! ## Phase VI — autonomy separated from iterability
+/-! ## Stage VI — autonomy separated from iterability
 
 The nine-level ladder for the tower generation.  Levels: (1) a step
 exists at every stage; (2) the trace is prefix-compatible; (3) the

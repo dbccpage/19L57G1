@@ -107,7 +107,7 @@ For every theorem the change relies on:
   Re-instantiating a local lemma while claiming to transport a sealed
   one is a finding.
 - Read in this order: statement, then docstring, then pull request
-  body. The prose primes you if you read it first.
+  body. The prose biases you if you read it first.
 
 ---
 

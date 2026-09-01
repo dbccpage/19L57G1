@@ -1,4 +1,4 @@
-"""Produce the primitive-difference candidate-lattice artifacts
+"""Produce the primitive-difference candidate-space artifacts
 deterministically.
 
 Usage: python code/run_primitive_core.py [--artifacts DIR]

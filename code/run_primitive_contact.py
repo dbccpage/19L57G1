@@ -481,13 +481,13 @@ def contact_report(repo_root: Path) -> dict[str, Json]:
             "package_path": "contact/omega_primdiff/",
             "read_order": [
                 "lean4/ only after the native characterization "
-                "commit (Phase II)",
+                "commit (Stage II)",
                 "prose/ only after the Lean-only comparison commit "
-                "(Phase III)",
+                "(Stage III)",
             ],
             "manifest_required": "contact/omega_primdiff/"
                                  "CONTACT_MANIFEST.json",
-            "absence_rule": "complete the native phases and terminate "
+            "absence_rule": "complete the native stages and terminate "
                             "with CONTACT_INPUT_ABSENT; do not invent "
                             "contents",
         },

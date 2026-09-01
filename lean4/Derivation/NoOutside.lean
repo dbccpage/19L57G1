@@ -1,7 +1,7 @@
 import Derivation.Represented
 
 /-!
-# Ultra closure, Phase IV: the strongest form of Rule 2
+# Ultra closure, Stage IV: the strongest form of Rule 2
 
 "No observer from nowhere", settled for the fixed kernel constitution:
 

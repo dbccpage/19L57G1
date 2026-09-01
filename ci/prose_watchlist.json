@@ -10,72 +10,8 @@
     ".claude/skills/pin/SKILL.md": {
       "dccc5d01dabcd1c0b9fa89c91e7f4bde603121ee0172b4ff394e6bb30d295e41": 1
     },
-    "artifacts/primitive_completion_receipt.json": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 3
-    },
-    "artifacts/primitive_contact.json": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 3
-    },
-    "code/derivation/completion.py": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
-      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
-    },
-    "code/derivation/interpreter_boundary.py": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "code/derivation/primitive_core.py": {
-      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
-    },
-    "code/run_primitive_contact.py": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 3
-    },
-    "code/run_primitive_core.py": {
-      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
-    },
-    "code/run_primitive_receipt.py": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 3
-    },
     "contact/omega_primdiff/CONTACT_MANIFEST.json": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation.lean": {
-      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
-    },
-    "lean4/Derivation/Completion.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4
-    },
-    "lean4/Derivation/Constitution.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 5
-    },
-    "lean4/Derivation/ControllerCategory.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation/FidelityClosure.lean": {
-      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
-    },
-    "lean4/Derivation/HigherStructure.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation/Horizon.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation/Initiality.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation/InterpreterBoundary.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
-    },
-    "lean4/Derivation/NoOutside.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation/PrimitiveContact.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 3
-    },
-    "lean4/Derivation/PrimitivePassage.lean": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "lean4/Derivation/WeightProfile.lean": {
-      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1
     },
     "paper/native_derivation_completion.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 7,
@@ -88,16 +24,10 @@
     },
     "paper/paper_claim_ledger.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
-      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
-      "812592913d114ecbc7072950c712575b2e859a7d1e8cc775226e2cd1de12e274": 2,
-      "8fb7cf7a46995c95da6ad4cca750efb66946b771aca070d5948ea80ca33237b4": 1,
       "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
     },
     "paper/pr11_correction_ledger.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
-    },
-    "paper/pr_review_template.md": {
-      "dccc5d01dabcd1c0b9fa89c91e7f4bde603121ee0172b4ff394e6bb30d295e41": 1
     },
     "paper/primitive_controller_universality.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
@@ -109,9 +39,7 @@
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4
     },
     "paper/primitive_difference_map.md": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4,
-      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 3,
-      "c23c23a7c71feb7e0bd8f3b0d1eb5603df23a831bb6a4ec36a407f571e02df43": 2
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4
     },
     "paper/primitive_difference_passage.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
@@ -126,10 +54,7 @@
       "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
     },
     "paper/weight_profile_contact.md": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
-      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
-      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 1,
-      "812592913d114ecbc7072950c712575b2e859a7d1e8cc775226e2cd1de12e274": 3
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1
     },
     "research/convention_price/CLAIM_LEDGER.md": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
@@ -575,9 +500,6 @@
       "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 2
     },
     "research/thinghood/thing.py": {
-      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
-    },
-    "tests/test_interpreter_boundary.py": {
       "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
     },
     "tests/test_primitive_core.py": {

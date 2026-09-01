@@ -5,7 +5,7 @@ import Derivation.ContactBridge
 /-!
 # Primitive contact: the collision protocol and its input status
 
-Phases III–V of the contact-and-passage run.
+Stages III–V of the contact-and-passage run.
 
 The run protocol declares a contact package
 
@@ -23,7 +23,7 @@ following sentences as a description of the current repository; the
 package arrived at `e4aed9e` and the collision was executed.**  "The
 package is absent from the repository: no `contact/` directory exists
 at the pre-contact commit (`blind-native-base`) or at completion.  Per
-the protocol, the native phases complete and the contact phases
+the protocol, the native stages complete and the contact stages
 terminate with `CONTACT_INPUT_ABSENT`; no contents are invented, no
 comparison is fabricated, and no agreement pressure exists."
 

@@ -1,4 +1,4 @@
-"""Ultra closure run, Phase I: theorem inventory and dependency graph.
+"""Ultra closure run, Stage I: theorem inventory and dependency graph.
 
 Classification: metatheory apparatus for
 ``paper/native_derivation_completion.md`` and
@@ -793,7 +793,7 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
     "QuotientRetention.symmetry_failure_retains_multiplicity":
         ("generic", "classification"),
     "QuotientRetention.collapseMap_compose": ("generic", "preservation"),
-    # fidelity closure, holonomy, and presentation-relative labels
+    # fidelity closure, loop transport, and presentation-relative labels
     "FidelityClosure.fidelity_refl": ("generic", "preservation"),
     "FidelityClosure.fidelity_symm": ("generic", "preservation"),
     "FidelityClosure.fidelity_trans": ("generic", "preservation"),
@@ -1180,7 +1180,7 @@ def dependency_graph() -> dict[str, object]:
 
 
 # --------------------------------------------------------------------------
-# Phase V mirror: represented scheduler, driver, constitution family
+# Stage V mirror: represented scheduler, driver, constitution family
 # --------------------------------------------------------------------------
 
 from dataclasses import replace as _replace  # noqa: E402

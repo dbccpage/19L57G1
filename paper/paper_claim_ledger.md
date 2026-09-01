@@ -2189,12 +2189,12 @@ CL-PD2-LADDER)
 ### CL-PD2-WEIGHT-PROFILE (corrected contact ceiling)
 
 - **Statement**: this is finite natural/integer weight-profile algebra, not a
-  Hilbert lift. Carrier-facing lists are duplicate-free; raw list totals count
+  lift to an inner-product space. Carrier-facing lists are duplicate-free; raw list totals count
   repetitions with multiplicity. On the positive-total domain `SameProfile`
   is an equivalence, positive natural scaling preserves that domain, and
   profile equality is exactly common positive cross-multiplication. Zero
   scaling satisfies the raw equation but exits the domain. Support and order
-  are preserved and total mass is forgotten.
+  are preserved and the total weight is forgotten.
 - **Presentation result**: a valid duplicate-free decorated presentation
   reproduces the declared weight profile. Unsigned square presentations of the
   same weights are carrierwise equal. Separately, two valid integer-square
@@ -3164,7 +3164,7 @@ CL-PD2-LADDER)
   - No claim that selection is impossible in any sense, and no choice
     principle is claimed, used, or refuted — every theorem in the
     module except the co-statement is axiom-free.
-  - No quotient, homology, probability, Hilbert space, or quantum
+  - No quotient, homology, probability, inner-product-space, or non-commutative-observable
     conclusion is claimed or licensed.
   - `bool_obstruction_and_sealed_selector` is a CO-STATEMENT, not a
     derivation: it asserts this module's obstruction and the sealed

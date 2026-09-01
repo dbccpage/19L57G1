@@ -54,7 +54,7 @@
   },
   {
    "attack": "probe-compliance uniqueness sold as initiality",
-   "disposition": "SETTLED AGAINST INITIALITY: Phase VII refutation in a genuine category; live census 128"
+   "disposition": "SETTLED AGAINST INITIALITY: Stage VII refutation in a genuine category; live census 128"
   },
   {
    "attack": "one split retract sold as a universal property",
@@ -329,7 +329,7 @@
   "COLLISION OPEN CELL (kernel, read-back grade; ContactKernel.open_kernel_grade): without pointwise decidability of the asserted relation the kernel read back from a candidate-A setting carries the double negation of that relation - PRICE: double-negation elimination (ContactBridge.stability_schema_iff_dne); exact under the explicit Decidable hypothesis (ofSetting_exact); no internal countermodel can exist",
   "COLLISION OPEN CELL (kernel, locatedness; ContactKernel.open_kernel_bl): underivability of Located from the kernel fields alone is METATHEORETIC - no internal countermodel exists, since every kernel with a pointwise-decidable zero predicate has a located apartness (kernel_located_of_decidable); Located remains separate declared data",
   "cut census formula 2^(n-2): computed to carrier 5, conjectured generally",
-  "absolute self-interpretation: the outermost interpretation relation remains metatheoretic (inherited OPEN bridge); a DECLARED model of the boundary satisfies candidates A and F (Phase VIII), and the stronger identification is a frontier conjecture, not a result",
+  "absolute self-interpretation: the outermost interpretation relation remains metatheoretic (inherited OPEN bridge); a DECLARED model of the boundary satisfies candidates A and F (Stage VIII), and the stronger identification is a frontier conjecture, not a result",
   "absolute no-outside: not formulable in this calculus; not claimed (inherited scope)"
  ],
  "prompt_sha256_canonical": {
@@ -370,7 +370,7 @@
     "PrimitiveContact.contactStatus (sealed)",
     "PrimitiveContact.contactStatusHistory"
    ],
-   "scope": "SEALED HISTORY: the pre-contact terminal of the blind-native phase (ccd3a53), preserved as history[0]; superseded by CONTACT_PROCESSED_LEAN_ONLY at base a5caee2"
+   "scope": "SEALED HISTORY: the pre-contact terminal of the blind-native stage (ccd3a53), preserved as history[0]; superseded by CONTACT_PROCESSED_LEAN_ONLY at base a5caee2"
   },
   {
    "code": "CONTACT_INCOMPARABLE_WITH_COUNTERMODELS",

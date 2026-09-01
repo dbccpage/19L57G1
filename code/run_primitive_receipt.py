@@ -170,7 +170,7 @@ def receipt() -> dict[str, Json]:
                           "retained"]},
             {"code": "CONTACT_INPUT_ABSENT",
              "scope": "SEALED HISTORY: the pre-contact terminal of "
-                      "the blind-native phase (ccd3a53), preserved as "
+                      "the blind-native stage (ccd3a53), preserved as "
                       "history[0]; superseded by "
                       "CONTACT_PROCESSED_LEAN_ONLY at base a5caee2",
              "evidence": ["primitive_contact.json (history)",
@@ -324,7 +324,7 @@ def receipt() -> dict[str, Json]:
             "absolute self-interpretation: the outermost "
             "interpretation relation remains metatheoretic "
             "(inherited OPEN bridge); a DECLARED model of the "
-            "boundary satisfies candidates A and F (Phase VIII), "
+            "boundary satisfies candidates A and F (Stage VIII), "
             "and the stronger identification is a frontier "
             "conjecture, not a result",
             "absolute no-outside: not formulable in this calculus; "
@@ -783,7 +783,7 @@ def receipt() -> dict[str, Json]:
                             "(nextFamilyP_complete_*)"},
             {"attack": "probe-compliance uniqueness sold as "
                        "initiality",
-             "disposition": "SETTLED AGAINST INITIALITY: Phase VII "
+             "disposition": "SETTLED AGAINST INITIALITY: Stage VII "
                             "refutation in a genuine category; live "
                             "census 128"},
             {"attack": "one split retract sold as a universal "
