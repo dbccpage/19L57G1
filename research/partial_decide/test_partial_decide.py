@@ -61,8 +61,8 @@ from verify_pins import (
     verify,
 )
 
-SNAPSHOT_COMMIT = "24d1bc64bace9721472430347ca9d3af303e1347"
-SNAPSHOT_TREE = "2e80261ef11b9bcd2fc3a87597892aafec83dbf6"
+SNAPSHOT_COMMIT = "042b7041927261c87c0e846b628ed76c750243c9"
+SNAPSHOT_TREE = "3995f1294d323385ba843c6fcd41b83ef4d7807c"
 PINNED_MODULE_PATHS = {
     "derivation": PurePosixPath("code/derivation/__init__.py"),
     "derivation.model": PurePosixPath("code/derivation/model.py"),
