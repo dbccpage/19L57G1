@@ -1,8 +1,8 @@
 {
   "schema": "primitive_difference_tower_source_manifest/v4",
   "source_snapshot": {
-    "commit": "042b7041927261c87c0e846b628ed76c750243c9",
-    "tree": "3995f1294d323385ba843c6fcd41b83ef4d7807c"
+    "commit": "0e48a487c4252a5e9f39923b919bb97295f8f577",
+    "tree": "13d972ad4de2d20f7130913fb1b6e862814bb263"
   },
   "hash_basis": "SHA-256 of canonical Git blobs at the verification HEAD; independent of checkout line endings",
   "lean_source": {
