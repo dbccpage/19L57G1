@@ -31,7 +31,6 @@ from derivation.primdiff import (
     min_carrier_for_k,
     collision_profile,
     pointed_isomorphic,
-    push_rel,
     pushforward,
     symmetrize,
     transposition_report,
@@ -109,15 +108,15 @@ def test_two_element_report() -> None:
 
 def test_carrier_swap_carries_each_orientation_onto_the_other() -> None:
     """Mutation: swap the orientations in the image and this fails."""
-    assert push_rel(D2.rel, CARRIER_SWAP) == D2_REV.rel
-    assert push_rel(D2_REV.rel, CARRIER_SWAP) == D2.rel
+    assert pushforward(D2.rel, CARRIER_SWAP) == D2_REV.rel
+    assert pushforward(D2_REV.rel, CARRIER_SWAP) == D2.rel
 
 
 def test_carrier_swap_twice_is_identity_and_restores_both() -> None:
     twice = compose(CARRIER_SWAP, CARRIER_SWAP)
     assert twice == CARRIER_ID
-    assert push_rel(D2.rel, twice) == D2.rel
-    assert push_rel(D2_REV.rel, twice) == D2_REV.rel
+    assert pushforward(D2.rel, twice) == D2.rel
+    assert pushforward(D2_REV.rel, twice) == D2_REV.rel
 
 
 def test_both_orientations_have_the_same_symmetrization() -> None:
@@ -127,9 +126,9 @@ def test_both_orientations_have_the_same_symmetrization() -> None:
 
 
 def test_carrier_swap_is_auto_of_S2_not_of_either_orientation() -> None:
-    assert push_rel(S2.rel, CARRIER_SWAP) == S2.rel
-    assert push_rel(D2.rel, CARRIER_SWAP) != D2.rel
-    assert push_rel(D2_REV.rel, CARRIER_SWAP) != D2_REV.rel
+    assert pushforward(S2.rel, CARRIER_SWAP) == S2.rel
+    assert pushforward(D2.rel, CARRIER_SWAP) != D2.rel
+    assert pushforward(D2_REV.rel, CARRIER_SWAP) != D2_REV.rel
 
 
 def test_unpointed_irrefl_nonempty_census_on_two() -> None:
@@ -148,15 +147,15 @@ def test_transposition_report_agrees_with_the_live_maps() -> None:
     twice = compose(CARRIER_SWAP, CARRIER_SWAP)
     nonempty = [rel for rel in irreflexive_relations_on(2) if rel]
     assert rep["swap_pushes_D2_to_D2rev"] is (
-        push_rel(D2.rel, CARRIER_SWAP) == D2_REV.rel
+        pushforward(D2.rel, CARRIER_SWAP) == D2_REV.rel
     )
     assert rep["swap_twice_is_identity"] is (twice == CARRIER_ID)
     assert rep["sym_D2rev_is_S2"] is (symmetrize(D2_REV.rel) == S2.rel)
     assert rep["swap_is_auto_of_S2"] is (
-        push_rel(S2.rel, CARRIER_SWAP) == S2.rel
+        pushforward(S2.rel, CARRIER_SWAP) == S2.rel
     )
     assert rep["swap_is_not_auto_of_D2"] is (
-        push_rel(D2.rel, CARRIER_SWAP) != D2.rel
+        pushforward(D2.rel, CARRIER_SWAP) != D2.rel
     )
     assert rep["unpointed_irrefl_nonempty_count"] == len(nonempty)
     assert rep["unpointed_irrefl_nonempty_are_exactly_the_three"] is (

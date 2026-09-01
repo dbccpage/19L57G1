@@ -185,8 +185,9 @@ have the same symmetrization `S2`.  **[theorem]**
 exactly the transposition that swaps the two orientations.
 
 **[theorem]** (`bool_irrefl_nonempty_classification`) Unpointed, every
-inhabited irreflexive relation on the two-element carrier equals `D2`
-or `D2rev` or `S2`.  The pointed census
+inhabited decidable irreflexive relation on the two-element carrier
+equals `D2` or `D2rev` or `S2` — the same pointwise-decidability
+hypothesis the pointed census carries.  The pointed census
 `bool_irrefl_witness_classification` excludes `D2rev` by fixing the
 designated pair.
 

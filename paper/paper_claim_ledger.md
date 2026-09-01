@@ -3668,21 +3668,22 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   each actual chain pair to the engine, followed by a replayable finite run.
   Until then the chain claim is OPEN; Challenge-3 minima authorize no adapter.
 
-### CL-PD-SHEETS
+### CL-PD-TRANSPOSE
 - **Statement**: on the two-element carrier, the unique non-identity
   permutation (`Bool.not` / the swap of the two points) carries `D2`
   onto `D2rev` and `D2rev` onto `D2`, and two applications restore
   either orientation; both orientations have the same symmetrization
   `S2`; that permutation is an automorphism of `S2` and of neither
-  orientation; unpointed, every inhabited irreflexive relation equals
-  `D2` or `D2rev` or `S2`.  The pointed census
+  orientation; unpointed, every inhabited decidable irreflexive
+  relation equals `D2` or `D2rev` or `S2`.  The pointed census
   `bool_irrefl_witness_classification` remains, and excludes `D2rev`
   by fixing the designated pair.  Collision already identified the
   two orientations; this names the transposition that identification
   forgets.
 - **Class**: theorem.
 - **Deps**: none. **Assumptions**: the one-relation signature of
-  `paper/primitive_difference.md` S1.
+  `paper/primitive_difference.md` S1; the census quantifies over
+  pointwise-decidable relations (`[∀ x y, Decidable (r x y)]`).
 - **Python**: `primdiff.json:transposition`;
   `test_carrier_swap_carries_each_orientation_onto_the_other`,
   `test_carrier_swap_twice_is_identity_and_restores_both`,
@@ -3694,39 +3695,53 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   `PrimDiff.swap_twice_restores_D2`,
   `PrimDiff.swap_twice_restores_D2rev`, `PrimDiff.sym_D2_eq_S2`,
   `PrimDiff.sym_D2rev_eq_S2`, `PrimDiff.swap_auto_of_S2_not_of_D2`,
+  `ObserverInventory.swap_not_auto_of_D2rev`,
   `PrimDiff.bool_irrefl_nonempty_classification`.
 - **Axioms**: within `{propext, Quot.sound}`.
 - **Falsifier / boundary**: a non-identity permutation of the
-  two-element carrier that preserves `D2`, or an inhabited
-  irreflexive relation on that carrier outside `{D2, D2rev, S2}`.
-  Carrier 3 is outside this census.
+  two-element carrier that preserves `D2` or preserves `D2rev`, or an
+  inhabited decidable irreflexive relation on that carrier outside
+  `{D2, D2rev, S2}`.  Carrier 3 is outside this census.
 
 ### CL-PD-INVENTORY
-- **Statement**: the nine slots `(K, F, R, delta, d0, d1, J, M, tau)`
+- **Statement**: the nine slots (`carrier`, `local_state`, `support`,
+  `defect`, `reversal`, `closure`, `residual`, `maps`, `terminal`)
   are a declared classification of existing objects on the
-  two-element carrier.  Every irreflexive relation equals empty or
-  `D2` or `D2rev` or `S2`.  Witness assignments are present as data:
-  the zero assignment and the one-oriented assignment both exist, the
-  latter has presence `D2`, and neither is derived as the unique
-  inhabitant.  Collision of a collapse map is not obstruction
-  relative to `Irrefl`.  Relation `Transpose` is an involution, carries
+  two-element carrier.  Every decidable irreflexive relation equals
+  empty or `D2` or `D2rev` or `S2`.  Witness assignments are present
+  as data: the zero assignment and the one-oriented assignment both
+  exist, the latter has presence `D2`, and neither is derived as the
+  unique inhabitant.  A structure can assert its pair while failing
+  irreflexivity (the one-point self-difference), and on the sealed
+  side a collision exists without any protected law and rises to
+  obstruction only relative to `Irrefl` — the two defect readings
+  stay distinct.  Relation `Transpose` is an involution, carries
   `D2` onto `D2rev`, and agrees with pushforward along `Bool.not` on
   `D2` while remaining a different operation.  `edgeCount` and
   `isSymBit` are distinct residuals.  Empty and `D2` are both legal
-  local states, so no unique next state is a function of `(K, F)`.
-- **Class**: theorem.
-- **Deps**: `CL-PD-SHEETS`. **Assumptions**: the one-relation
-  signature of `paper/primitive_difference.md` S1; slot names are a
-  declared classification, not a derived carving.
+  irreflexive local states, so irreflexivity does not determine the
+  local state; no next state is singled out by the `Irrefl` law
+  alone.  (An earlier draft said no next state is "a function of"
+  the carrier and local state — a non-sequitur, since the identity
+  is such a function; narrowed to the underdetermination statement,
+  which is what the cited theorems prove.)
+- **Class**: theorem (census and residuals) + declared metatheory
+  (slot classification).
+- **Deps**: `CL-PD-TRANSPOSE`. **Assumptions**: the one-relation
+  signature of `paper/primitive_difference.md` S1; the census
+  quantifies over pointwise-decidable relations
+  (`[∀ x y, Decidable (r x y)]`); slot names are a declared
+  classification, not a derived carving.
 - **Python**: `observer_inventory.json`;
   `test_nine_slots_and_no_duplicates`,
   `test_irrefl_census_is_exactly_the_four`,
   `test_witnesses_are_data_not_a_unique_inhabitant`,
-  `test_d0_transpose_and_swap_agree_on_D2_and_differ`,
-  `test_delta_collision_is_not_source_irreflexivity`,
+  `test_reversal_transpose_and_swap_agree_on_D2_and_differ`,
+  `test_defect_collision_is_not_source_irreflexivity`,
   `test_residuals_are_not_unique`,
   `test_inventory_report_flags`,
-  `test_runner_byte_stable`.
+  `test_runner_byte_stable`,
+  `test_every_named_elsewhere_citation_is_declared_in_the_source`.
 - **Lean**: `ObserverInventory.slot_count`,
   `ObserverInventory.slots_nodup`,
   `ObserverInventory.empty_irrefl`,
@@ -3734,23 +3749,26 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   `ObserverInventory.bool_irrefl_full_classification`,
   `ObserverInventory.witnesses_are_data`,
   `ObserverInventory.collision_is_not_obstruction`,
+  `PrimDiff.collapse_unobstructed_without_fidelity`,
+  `PrimDiff.obstruction_under_irrefl`,
   `ObserverInventory.transpose_involutive`,
   `ObserverInventory.transpose_D2_eq_D2rev`,
   `ObserverInventory.transpose_D2rev_eq_D2`,
   `ObserverInventory.pushNot_D2_eq_D2rev`,
   `ObserverInventory.transpose_eq_pushNot_on_D2`,
   `ObserverInventory.transpose_ne_pushNot`,
-  `ObserverInventory.d1_empty_family_is_identity`,
+  `ObserverInventory.closure_empty_family_is_identity`,
   `ObserverInventory.residuals_not_unique`,
-  `ObserverInventory.d0_not_auto_of_D2`.
+  `ObserverInventory.swap_not_auto_of_D2`.
 - **Axioms**: within `{propext, Quot.sound}`.
-- **Falsifier / boundary**: a fifth irreflexive relation on `Bool`;
-  equality of `zeroW` and `oneW`; `Transpose D2 ≠ D2rev`;
+- **Falsifier / boundary**: a fifth decidable irreflexive relation on
+  `Bool`; equality of `zeroW` and `oneW`; `Transpose D2 ≠ D2rev`;
   extensional equality of `Transpose` and `pushNot`; a unique
-  residual that is both `edgeCount` and `isSymBit`; a function of
-  irreflexive `F` that selects a unique next state.  Carrier 3 is
-  outside this census.  History-bearing fillings of `tau` are named
-  citations, not theorems of this claim.
+  residual that is both `edgeCount` and `isSymBit`; a proof that
+  `Irrefl` determines the local state on `Bool` (any two irreflexive
+  local states equal).  Carrier 3 is outside this census.
+  History-bearing fillings of the terminal slot are named citations,
+  not theorems of this claim.
 
 ### CL-G1-TERMINAL-20260826
 

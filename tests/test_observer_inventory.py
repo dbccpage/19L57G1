@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 from pathlib import Path
 
 import run_observer_inventory
@@ -10,14 +12,14 @@ from derivation.observer_inventory import (
     NAMED_ELSEWHERE,
     SLOTS,
     as_json,
-    d0_report,
-    delta_report,
+    defect_report,
     edge_count,
     inventory_report,
     irrefl_census_on_two,
     is_sym_bit,
     local_states,
     residuals_report,
+    reversal_report,
     witnesses_report,
 )
 from derivation.primdiff import D2, D2_REV, S2
@@ -27,7 +29,15 @@ def test_nine_slots_and_no_duplicates() -> None:
     assert len(SLOTS) == 9
     assert len(set(SLOTS)) == 9
     assert SLOTS == (
-        "K", "F", "R", "delta", "d0", "d1", "J", "M", "tau"
+        "carrier",
+        "local_state",
+        "support",
+        "defect",
+        "reversal",
+        "closure",
+        "residual",
+        "maps",
+        "terminal",
     )
 
 
@@ -52,13 +62,13 @@ def test_witnesses_are_data_not_a_unique_inhabitant() -> None:
     assert rep["one_presence_is_D2"] is True
 
 
-def test_d0_transpose_and_swap_agree_on_D2_and_differ() -> None:
-    rep = d0_report()
+def test_reversal_transpose_and_swap_agree_on_D2_and_differ() -> None:
+    rep = reversal_report()
     assert all(rep[k] is True for k in rep)
 
 
-def test_delta_collision_is_not_source_irreflexivity() -> None:
-    rep = delta_report()
+def test_defect_collision_is_not_source_irreflexivity() -> None:
+    rep = defect_report()
     assert rep["D2_collides_under_merge"] is True
     assert rep["S2_collides_under_merge"] is True
     assert rep["empty_does_not_collide_under_merge"] is True
@@ -82,11 +92,81 @@ def test_residuals_are_not_unique() -> None:
 
 
 def test_named_elsewhere_is_a_string_table() -> None:
-    assert "K" in NAMED_ELSEWHERE
-    assert "W" in NAMED_ELSEWHERE
+    assert "carrier" in NAMED_ELSEWHERE
+    assert "witness" in NAMED_ELSEWHERE
     for vals in NAMED_ELSEWHERE.values():
         assert vals
         assert all(isinstance(v, str) and v for v in vals)
+
+
+def _derivation_lean_source() -> str:
+    root = Path(__file__).resolve().parents[1] / "lean4" / "Derivation"
+    return "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in sorted(root.rglob("*.lean"))
+    )
+
+
+def _declared_in_source(source: str, name: str) -> bool:
+    """A citation `A.B.x` declared inside `namespace A.B` appears in the
+    source under some dotted suffix, so every suffix is a candidate
+    spelling (the trick used by the natural-sections resolution test).
+    Declarations are `theorem`/`def`/`inductive`/`structure`/`abbrev`
+    followed by the name and a space; a structure field appears as an
+    indented `name :` line."""
+    parts = name.split(".")
+    candidates = [".".join(parts[i:]) for i in range(len(parts))]
+    for candidate in candidates:
+        for keyword in ("theorem", "def", "inductive", "structure", "abbrev"):
+            if f"{keyword} {candidate} " in source:
+                return True
+        if re.search(rf"(?m)^\s+{re.escape(candidate)} :", source):
+            return True
+    return False
+
+
+def test_every_named_elsewhere_citation_is_declared_in_the_source() -> None:
+    """Mutation: rename or fabricate any NAMED_ELSEWHERE string and this
+    fails naming the string."""
+    source = _derivation_lean_source()
+    for vals in NAMED_ELSEWHERE.values():
+        for name in vals:
+            assert _declared_in_source(source, name), name
+
+
+def test_fabricated_named_elsewhere_string_does_not_resolve() -> None:
+    source = _derivation_lean_source()
+    assert not _declared_in_source(source, "PrimDiff.zzz_probe_missing")
+
+
+# Digest of the vocabulary-refusal record in
+# paper/observer_inventory.md §1.  The refusal is an author ruling;
+# rewording or removing it must be a deliberate act that updates this
+# pin, mirroring the ledger body pin.
+REFUSAL_MARKER = "**[declared metatheory] — provenance and refusal.**"
+REFUSAL_PIN = (
+    "9075ade86f7220b49d691ef0b729b224bae7a0e85adb9a53e3c28085d03aa2b1"
+)
+
+
+def test_vocabulary_refusal_record_is_present_and_pinned() -> None:
+    paper = Path(__file__).resolve().parents[1] / "paper"
+    lines = (paper / "observer_inventory.md").read_text(
+        encoding="utf-8"
+    ).splitlines()
+    starts = [
+        i for i, line in enumerate(lines) if line.startswith(REFUSAL_MARKER)
+    ]
+    assert len(starts) == 1, "exactly one refusal record expected"
+    end = starts[0]
+    while end < len(lines) and lines[end].strip():
+        end += 1
+    para = "\n".join(lines[starts[0]:end])
+    digest = hashlib.sha256(para.encode("utf-8")).hexdigest()
+    assert digest == REFUSAL_PIN, (
+        "the vocabulary-refusal record drifted; if the change is a "
+        "deliberate author act, update REFUSAL_PIN"
+    )
 
 
 def test_inventory_report_flags() -> None:
@@ -111,5 +191,5 @@ def test_runner_byte_stable(tmp_path: Path) -> None:
     assert p1.read_bytes() == p2.read_bytes()
     payload = json.loads(p1.read_text(encoding="utf-8"))
     assert payload["irrefl_census"]["are_exactly_the_four"] is True
-    assert payload["d0"]["operations_differ_on_self_loop"] is True
+    assert payload["reversal"]["operations_differ_on_self_loop"] is True
     assert payload["witnesses"]["one_presence_is_D2"] is True
