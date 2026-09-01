@@ -55,6 +55,7 @@ NAMESPACE_FILES: dict[str, list[str]] = {
     # ns `Derivation` and looks for `theorem Iso.foo`, which no file spells.
     "Derivation.Iso": ["IsoBridge.lean", "IsoCanon.lean", "IsoCollapse.lean"],
     "PrimDiff": ["PrimDiff.lean"],
+    "ObserverInventory": ["ObserverInventory.lean"],
     "Bridge": ["Bridge.lean"],
     "Refusal": ["Refusal.lean"],
     "RefusalFrontier": ["RefusalFrontier.lean"],
@@ -431,6 +432,7 @@ def citing_claims(qualified: str) -> list[str]:
 NAMESPACE_DEFAULTS: dict[str, tuple[str, str]] = {
     "Derivation": ("generic", "preservation"),
     "PrimDiff": ("generic", "classification"),
+    "ObserverInventory": ("generic", "classification"),
     "Bridge": ("generic", "classification"),
     "Refusal": ("concrete", "equivalence"),
     "RefusalFrontier": ("generic", "classification"),
@@ -500,6 +502,28 @@ KIND_ROLE_OVERRIDES: dict[str, tuple[str, str]] = {
     "PrimDiff.D2_not_pointed_iso_S2": ("concrete", "uniqueness"),
     "PrimDiff.bool_irrefl_witness_classification":
         ("concrete", "classification"),
+    "PrimDiff.swap_carries_D2_to_D2rev": ("concrete", "classification"),
+    "PrimDiff.swap_twice_restores_D2": ("concrete", "classification"),
+    "PrimDiff.swap_twice_restores_D2rev": ("concrete", "classification"),
+    "PrimDiff.sym_D2_eq_S2": ("concrete", "classification"),
+    "PrimDiff.sym_D2rev_eq_S2": ("concrete", "classification"),
+    "PrimDiff.swap_auto_of_S2_not_of_D2": ("concrete", "classification"),
+    "PrimDiff.bool_irrefl_nonempty_classification":
+        ("concrete", "classification"),
+    "ObserverInventory.bool_irrefl_full_classification":
+        ("concrete", "classification"),
+    "ObserverInventory.witnesses_are_data":
+        ("concrete", "existence"),
+    "ObserverInventory.transpose_D2_eq_D2rev":
+        ("concrete", "classification"),
+    "ObserverInventory.transpose_ne_pushNot":
+        ("concrete", "countermodel"),
+    "ObserverInventory.collision_is_not_obstruction":
+        ("generic", "countermodel"),
+    "ObserverInventory.residuals_not_unique":
+        ("concrete", "uniqueness"),
+    "ObserverInventory.empty_ne_D2":
+        ("concrete", "uniqueness"),
     "PrimDiff.symmetric_no_equivariant_classifier":
         ("concrete", "countermodel"),
     "PrimDiff.collapse_unobstructed_without_fidelity":

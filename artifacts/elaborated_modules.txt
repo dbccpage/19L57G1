@@ -47,6 +47,7 @@ Derivation.MinimalityF
 Derivation.NoOutside
 Derivation.NoOutsideFidelity
 Derivation.ObsDescent
+Derivation.ObserverInventory
 Derivation.Pigeonhole
 Derivation.PresentationDescent
 Derivation.PresentationNaturality

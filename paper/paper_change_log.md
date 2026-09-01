@@ -2381,3 +2381,27 @@ OB3_END_ONLY_PLACEMENT_DEFECTS=2
 OB3_COMPARISON_POLICY_STILL_OPEN
 AuthorityEffect: None
 ```
+
+## Two-element transposition (2026-08-31)
+
+`PrimDiff` now proves the map that collision already forgot.  The unique
+non-identity permutation of the two-element carrier carries `D2` onto
+`D2rev` and squares to the identity; both orientations share
+symmetrization `S2`; that permutation is an automorphism of `S2` and not
+of `D2`.  Unpointed, the inhabited irreflexive relations on that carrier
+are exactly those three.  Python enumerates the same facts into
+`primdiff.json:transposition`.  Claim `CL-PD-SHEETS`.  No imported
+names; the F1 tower remains a conjecture above this rung.
+
+## Nine-slot inventory (2026-08-31)
+
+A declared classification of existing objects, instantiated on the
+two-element fragment: slots `(K, F, R, delta, d0, d1, J, M, tau)` in
+`lean4/Derivation/ObserverInventory.lean`,
+`code/derivation/observer_inventory.py`, and
+`paper/observer_inventory.md`.  Witness assignments are present as
+data and are not derived as a unique inhabitant.  Relation
+`Transpose` is an involution that carries `D2` onto `D2rev` and
+agrees with carrier-swap pushforward on `D2` while remaining a
+different operation.  Claim `CL-PD-INVENTORY`.  No imported names.
+The slot names are supplied, not derived.

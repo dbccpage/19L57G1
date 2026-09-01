@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 
 from derivation.primdiff import (
+    CARRIER_ID,
+    CARRIER_SWAP,
     D2,
     D2_REV,
     S2,
@@ -19,15 +21,20 @@ from derivation.primdiff import (
     collision,
     closure,
     collapse_report,
+    compose,
     enumerate_pointed,
     frontier_profile_countermodel,
     implication_matrix,
     invariant_separating_classifiers,
+    irreflexive_relations_on,
     merge_map,
     min_carrier_for_k,
     collision_profile,
     pointed_isomorphic,
+    push_rel,
     pushforward,
+    symmetrize,
+    transposition_report,
     transpose,
     two_element_report,
 )
@@ -100,6 +107,79 @@ def test_two_element_report() -> None:
     assert rep["larger_witnessed_irreflexive_models_exist"] is True
 
 
+def test_carrier_swap_carries_each_orientation_onto_the_other() -> None:
+    """Mutation: swap the orientations in the image and this fails."""
+    assert push_rel(D2.rel, CARRIER_SWAP) == D2_REV.rel
+    assert push_rel(D2_REV.rel, CARRIER_SWAP) == D2.rel
+
+
+def test_carrier_swap_twice_is_identity_and_restores_both() -> None:
+    twice = compose(CARRIER_SWAP, CARRIER_SWAP)
+    assert twice == CARRIER_ID
+    assert push_rel(D2.rel, twice) == D2.rel
+    assert push_rel(D2_REV.rel, twice) == D2_REV.rel
+
+
+def test_both_orientations_have_the_same_symmetrization() -> None:
+    assert symmetrize(D2.rel) == S2.rel
+    assert symmetrize(D2_REV.rel) == S2.rel
+    assert symmetrize(D2.rel) == symmetrize(D2_REV.rel)
+
+
+def test_carrier_swap_is_auto_of_S2_not_of_either_orientation() -> None:
+    assert push_rel(S2.rel, CARRIER_SWAP) == S2.rel
+    assert push_rel(D2.rel, CARRIER_SWAP) != D2.rel
+    assert push_rel(D2_REV.rel, CARRIER_SWAP) != D2_REV.rel
+
+
+def test_unpointed_irrefl_nonempty_census_on_two() -> None:
+    """Every inhabited irreflexive relation on carrier 2 is one of the three.
+
+    Mutation: drop D2_REV from the right-hand set and the census is a lie
+    about the unpointed signature (the pointed census already excludes it
+    by fixing the designated pair).
+    """
+    nonempty = [rel for rel in irreflexive_relations_on(2) if rel]
+    assert set(nonempty) == {D2.rel, D2_REV.rel, S2.rel}
+
+
+def test_transposition_report_agrees_with_the_live_maps() -> None:
+    rep = transposition_report()
+    twice = compose(CARRIER_SWAP, CARRIER_SWAP)
+    nonempty = [rel for rel in irreflexive_relations_on(2) if rel]
+    assert rep["swap_pushes_D2_to_D2rev"] is (
+        push_rel(D2.rel, CARRIER_SWAP) == D2_REV.rel
+    )
+    assert rep["swap_twice_is_identity"] is (twice == CARRIER_ID)
+    assert rep["sym_D2rev_is_S2"] is (symmetrize(D2_REV.rel) == S2.rel)
+    assert rep["swap_is_auto_of_S2"] is (
+        push_rel(S2.rel, CARRIER_SWAP) == S2.rel
+    )
+    assert rep["swap_is_not_auto_of_D2"] is (
+        push_rel(D2.rel, CARRIER_SWAP) != D2.rel
+    )
+    assert rep["unpointed_irrefl_nonempty_count"] == len(nonempty)
+    assert rep["unpointed_irrefl_nonempty_are_exactly_the_three"] is (
+        set(nonempty) == {D2.rel, D2_REV.rel, S2.rel}
+    )
+    assert all(
+        rep[key] is True
+        for key in (
+            "swap_pushes_D2_to_D2rev",
+            "swap_pushes_D2rev_to_D2",
+            "swap_twice_is_identity",
+            "swap_twice_restores_D2",
+            "swap_twice_restores_D2rev",
+            "sym_D2_is_S2",
+            "sym_D2rev_is_S2",
+            "swap_is_auto_of_S2",
+            "swap_is_not_auto_of_D2",
+            "swap_is_not_auto_of_D2rev",
+            "unpointed_irrefl_nonempty_are_exactly_the_three",
+        )
+    )
+
+
 def test_observer_orientation_gap() -> None:
     assert len(automorphisms(S2, pointed=False)) == 2
     assert len(automorphisms(D2, pointed=False)) == 1
@@ -163,6 +243,9 @@ def test_run_primdiff_main(tmp_path: Path) -> None:
     assert run_primdiff.main(["--artifacts", str(out), "--max-n", "2"]) == 0
     payload = json.loads((out / "primdiff.json").read_text(encoding="utf-8"))
     assert payload["observer"]["orientation_gap"] is True
+    assert payload["transposition"][
+        "unpointed_irrefl_nonempty_are_exactly_the_three"
+    ]
     assert payload["collapse"]["identifying_witnessed_pair_always_collides"]
     # Determinism.
     out2 = tmp_path / "artifacts2"

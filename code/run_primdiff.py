@@ -5,9 +5,10 @@ Usage: python code/run_primdiff.py [--artifacts DIR] [--max-n N]
 
 Writes ``primdiff.json``: the candidate implication matrix with
 countermodels, the two-element analysis, the observer/orientation report,
-the collapse/obstruction verification, minimal-carrier tables, and the
-obstruction-profile frontier countermodel.  All exhaustive over declared
-finite scopes; deterministic byte-for-byte.
+the two-element transposition report, the collapse/obstruction
+verification, minimal-carrier tables, and the obstruction-profile
+frontier countermodel.  All exhaustive over declared finite scopes;
+deterministic byte-for-byte.
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ from derivation.primdiff import (
     frontier_profile_countermodel,
     implication_matrix,
     observer_report,
+    transposition_report,
     two_element_report,
 )
 
@@ -39,6 +41,7 @@ def main(argv: Optional[list[str]] = None) -> int:
         "implication_matrix": implication_matrix(args.max_n),
         "two_element": two_element_report(args.max_n),
         "observer": observer_report(),
+        "transposition": transposition_report(),
         "collapse": collapse_report(args.max_n),
         "carrier_table": carrier_table(args.max_k),
         "frontier_profile_countermodel": frontier_profile_countermodel(),

@@ -1207,6 +1207,7 @@
    "consumers": [
     "ContactBridge.lean",
     "ContactKernel.lean",
+    "ObserverInventory.lean",
     "PrimitiveCats.lean",
     "PrimitiveContact.lean",
     "PrimitiveCore.lean"
@@ -1337,7 +1338,9 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
    "consumers": [
     "PrimitiveCore.lean"
    ],
@@ -1415,6 +1418,102 @@
   },
   {
    "axioms": [],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.swap_carries_D2_to_D2rev",
+   "role": "classification",
+   "statement": ": \u2200 x y, D2 x y \u2194 D2rev (Bool.not x) (Bool.not y)"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.swap_twice_restores_D2",
+   "role": "classification",
+   "statement": ": \u2200 x y, D2 (Bool.not (Bool.not x)) (Bool.not (Bool.not y)) \u2194 D2 x y"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.swap_twice_restores_D2rev",
+   "role": "classification",
+   "statement": ": \u2200 x y, D2rev (Bool.not (Bool.not x)) (Bool.not (Bool.not y)) \u2194 D2rev x y"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.sym_D2_eq_S2",
+   "role": "classification",
+   "statement": ": S2 = Sym D2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.sym_D2rev_eq_S2",
+   "role": "classification",
+   "statement": ": Sym D2rev = S2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [
+    "ObserverInventory.lean"
+   ],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.swap_auto_of_S2_not_of_D2",
+   "role": "classification",
+   "statement": ": (\u2200 x y, S2 x y \u2194 S2 (Bool.not x) (Bool.not y)) \u2227 \u00ac (\u2200 x y, D2 x y \u2194 D2 (Bool.not x) (Bool.not y))"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-SHEETS"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "PrimDiff.lean",
+   "name": "PrimDiff.bool_irrefl_nonempty_classification",
+   "role": "classification",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) [inst : \u2200 x y, Decidable (r x y)] (hi : Irrefl r) (hne : \u2203 x y, r x y) : r = D2 \u2228 r = D2rev \u2228 r = S2"
+  },
+  {
+   "axioms": [],
    "citing_claims": [],
    "consumers": [],
    "kind": "generic",
@@ -1483,7 +1582,9 @@
   {
    "axioms": [],
    "citing_claims": [],
-   "consumers": [],
+   "consumers": [
+    "ObserverInventory.lean"
+   ],
    "kind": "generic",
    "module": "PrimDiff.lean",
    "name": "PrimDiff.clos_empty_id",
@@ -1526,6 +1627,215 @@
    "name": "PrimDiff.merger_erases",
    "role": "classification",
    "statement": "{\u03b1 : Type} {F : (\u03b1 \u2192 \u03b1) \u2192 Prop} {v : \u03b1} (hF : F (fun _ => v)) (a b : \u03b1) : \u00ac Irred F a b"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.slot_count",
+   "role": "classification",
+   "statement": ": slotList.length = 9"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.slots_nodup",
+   "role": "classification",
+   "statement": ": slotList.Nodup"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.empty_irrefl",
+   "role": "classification",
+   "statement": ": Irrefl EmptyRel"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.empty_ne_D2",
+   "role": "uniqueness",
+   "statement": ": EmptyRel \u2260 D2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.bool_irrefl_full_classification",
+   "role": "classification",
+   "statement": "(r : Bool \u2192 Bool \u2192 Prop) [inst : \u2200 x y, Decidable (r x y)] (hi : Irrefl r) : r = EmptyRel \u2228 r = D2 \u2228 r = D2rev \u2228 r = S2"
+  },
+  {
+   "axioms": [
+    "propext"
+   ],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.witnesses_are_data",
+   "role": "existence",
+   "statement": ": zeroW \u2260 oneW \u2227 oneW false true = 1 \u2227 oneW true false = 0 \u2227 (\u2200 x y, \u00ac (0 < zeroW x y)) \u2227 (\u2200 x y, (0 < oneW x y) \u2194 D2 x y)"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.collision_is_not_obstruction",
+   "role": "countermodel",
+   "statement": ": \u2203 r : Unit \u2192 Unit \u2192 Prop, r () () \u2227 \u00ac Irrefl r"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.transpose_involutive",
+   "role": "classification",
+   "statement": "{\u03b1 : Type} (r : \u03b1 \u2192 \u03b1 \u2192 Prop) : Transpose (Transpose r) = r"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.transpose_D2_eq_D2rev",
+   "role": "classification",
+   "statement": ": Transpose D2 = D2rev"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.transpose_D2rev_eq_D2",
+   "role": "classification",
+   "statement": ": Transpose D2rev = D2"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.pushNot_D2_eq_D2rev",
+   "role": "classification",
+   "statement": ": pushNot D2 = D2rev"
+  },
+  {
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.transpose_eq_pushNot_on_D2",
+   "role": "classification",
+   "statement": ": Transpose D2 = pushNot D2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.transpose_ne_pushNot",
+   "role": "countermodel",
+   "statement": ": \u2203 r : Bool \u2192 Bool \u2192 Prop, Transpose r \u2260 pushNot r"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.d1_empty_family_is_identity",
+   "role": "classification",
+   "statement": ": \u2200 f : Bool \u2192 Bool, Clos (fun _ => False) f \u2192 \u2200 x, f x = x"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "concrete",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.residuals_not_unique",
+   "role": "uniqueness",
+   "statement": ": edgeCount D2 = 1 \u2227 edgeCount S2 = 2 \u2227 isSymBit D2 = 0 \u2227 isSymBit S2 = 1 \u2227 edgeCount D2 \u2260 isSymBit D2"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.d0_not_auto_of_D2",
+   "role": "classification",
+   "statement": ": \u00ac (\u2200 x y, D2 x y \u2194 D2 (Bool.not x) (Bool.not y))"
   },
   {
    "axioms": [

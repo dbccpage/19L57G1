@@ -1,0 +1,102 @@
+{
+ "bindings": {
+  "F": [
+   "D2",
+   "D2rev",
+   "S2",
+   "empty"
+  ],
+  "J": "edgeCount and isSymBit; neither unique",
+  "K": "Bool",
+  "M": "carrier swap is auto of S2 and not of D2",
+  "R": "support of F",
+  "d0": "Transpose, and pushforward along the carrier swap",
+  "d1": "Clos; empty family is identity",
+  "delta": "collision of a map, versus obstruction relative to Irrefl",
+  "tau": "not a function of F; empty and D2 are both irreflexive"
+ },
+ "d0": {
+  "agree_on_D2": true,
+  "operations_differ_on_self_loop": true,
+  "push_swap_D2_is_D2rev": true,
+  "transpose_D2_is_D2rev": true,
+  "transpose_D2rev_is_D2": true,
+  "transpose_twice_D2": true
+ },
+ "delta": {
+  "D2_collides_under_merge": true,
+  "S2_collides_under_merge": true,
+  "empty_does_not_collide_under_merge": true,
+  "source_D2_still_irreflexive": true,
+  "unit_self_loop_not_irreflexive": true
+ },
+ "empty_ne_D2": true,
+ "irrefl_census": {
+  "are_exactly_the_four": true,
+  "count": 4,
+  "names": [
+   "D2",
+   "D2rev",
+   "S2",
+   "empty"
+  ]
+ },
+ "named_elsewhere": {
+  "J": [
+   "PrimitivePassage.PState.budget"
+  ],
+  "K": [
+   "PrimitivePassage.PState.occ"
+  ],
+  "M": [
+   "PrimDiff.swap_auto_of_S2_not_of_D2"
+  ],
+  "W": [
+   "PrimitivePassage.PState.wit"
+  ],
+  "d0_not_supply": [
+   "Attachment.up_iff_legal"
+  ],
+  "d1": [
+   "PrimDiff.Clos"
+  ],
+  "delta": [
+   "PrimDiff.CollapseCollision",
+   "PrimDiff.FidelityObstruction",
+   "PrimitivePassage.obstP"
+  ],
+  "tau": [
+   "Attachment.AttachOutcome",
+   "PrimitivePassage.PState.licensed",
+   "PrimitivePassage.PState.halted",
+   "Horizon.worldAt_quiescent"
+  ]
+ },
+ "residuals": {
+  "edge_count_D2": 1,
+  "edge_count_S2": 2,
+  "is_sym_bit_D2": 0,
+  "is_sym_bit_S2": 1,
+  "residuals_disagree_on_D2": true
+ },
+ "slot_count": 9,
+ "slots": [
+  "K",
+  "F",
+  "R",
+  "delta",
+  "d0",
+  "d1",
+  "J",
+  "M",
+  "tau"
+ ],
+ "witnesses": {
+  "one_forward": true,
+  "one_presence_is_D2": true,
+  "one_reverse": true,
+  "zero_ne_one": true,
+  "zero_presence_empty": true
+ },
+ "witnesses_not_derived_as_necessary": true
+}

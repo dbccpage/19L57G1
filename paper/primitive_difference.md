@@ -173,9 +173,29 @@ carrying a nontrivial action are not excluded and were not studied.)
 orientation cuts the automorphism group to the identity, and an
 invariant separating Boolean classifier exists.
 
+**[theorem]** (`swap_carries_D2_to_D2rev`, `swap_twice_restores_D2`,
+`swap_twice_restores_D2rev`) The unique non-identity permutation of
+the two-element carrier (`Bool.not`) carries each orientation onto
+the other; two applications restore either orientation.
+
+**[theorem]** (`sym_D2_eq_S2`, `sym_D2rev_eq_S2`) Both orientations
+have the same symmetrization `S2`.  **[theorem]**
+(`swap_auto_of_S2_not_of_D2`) that permutation is an automorphism of
+`S2` and not of `D2`.  Collision and symmetrization therefore forget
+exactly the transposition that swaps the two orientations.
+
+**[theorem]** (`bool_irrefl_nonempty_classification`) Unpointed, every
+inhabited irreflexive relation on the two-element carrier equals `D2`
+or `D2rev` or `S2`.  The pointed census
+`bool_irrefl_witness_classification` excludes `D2rev` by fixing the
+designated pair.
+
 **[finite computation]** (`observer` in the artifact) `D2`: 1 unpointed
 automorphism, 2 invariant separating Boolean classifiers.  `S2`: 2
-automorphisms, 0 such classifiers.
+automorphisms, 0 such classifiers.  **[finite computation]**
+(`transposition` in the artifact) the same permutation facts, and the
+unpointed inhabited irreflexive relations on carrier 2 are exactly
+those three.
 
 **Answer to the posed question, scoped:** orientation is **the minimum
 symmetry-breaking data needed for the specific invariant Boolean
@@ -295,7 +315,19 @@ irreflexivity} — the wider axiom lattice is an open obligation, S9):
 > The branch between `D2` and `S2` is retained: orientation is the
 > minimum symmetry-breaking data for the invariant Boolean classifier
 > studied here, and nothing at this layer selects between carrying it
-> primitively (`D2`) or adding it later (`S2` + choice).
+> primitively (`D2`) or adding it later (`S2` + choice).  Unpointed,
+> the third object is the reverse orientation `D2rev`
+> (**[theorem]** `bool_irrefl_nonempty_classification`); the unique
+> non-identity carrier permutation carries `D2` onto `D2rev` and
+> squares to the identity (**[theorem]** `swap_carries_D2_to_D2rev`,
+> `swap_twice_restores_D2`), while remaining an automorphism of `S2`
+> (**[theorem]** `swap_auto_of_S2_not_of_D2`).  Relation `Transpose`
+> carries `D2` onto `D2rev` by flipping the pair rather than the
+> labels (**[theorem]** `ObserverInventory.transpose_D2_eq_D2rev`);
+> the two maps agree on `D2` and are not the same operation
+> (**[theorem]** `ObserverInventory.transpose_ne_pushNot`).  The
+> nine-slot classification of these objects is
+> `paper/observer_inventory.md`.
 
 ## S8. Countermodel index
 
@@ -351,12 +383,18 @@ investigation exhibited two forgetful steps that each lose exactly one
 kind of data: multiplicity → presence (`multiplicity_invisible_to_
 presence`) and orientation → collision
 (`collision_transpose_invariant`, `D2_S2_collapse_equiv`).
+The orientation step is now the transposition itself: `Bool.not`
+carries `D2` onto `D2rev` and is invisible to `S2`
+(`swap_carries_D2_to_D2rev`, `swap_auto_of_S2_not_of_D2`,
+`sym_D2rev_eq_S2`); two applications restore either orientation
+(`swap_twice_restores_D2`).
 *Conjecture:* these are the first rungs of a tower of "difference
 shadows" — witness structures over pairs of witness structures
 (differences *between* differences) whose forgetful maps lose
 multiplicity, then orientation, then adjacency of higher cells.  The
 two-element analysis suggests each rung has its own initial object and
-its own orientation gap.  Evidence: the two proved rungs; nothing above
+its own orientation gap.  Evidence: the two proved rungs, including
+the transposition that the orientation rung forgets; nothing above
 them yet.
 
 **F2. Occurrence bookkeeping as proto-quantity.**  Repetition creates

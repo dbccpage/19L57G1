@@ -340,6 +340,92 @@ theorem oriented_classifier_exists :
       (∀ x y, D2 x y ↔ D2 (f x) (f y)) ∧ f false ≠ f true :=
   ⟨id, fun _ _ => Iff.rfl, by decide⟩
 
+/-! ## The two-element transposition
+
+The unique non-identity permutation of the two-element carrier is
+`Bool.not`.  It is an automorphism of the symmetric object, carries
+each orientation onto the other, and is the identity after two
+applications.  Collision and symmetrization identify the two
+orientations; the transposition is what they forget. -/
+
+/-- One application of `Bool.not` carries the oriented edge onto its
+reverse. -/
+theorem swap_carries_D2_to_D2rev :
+    ∀ x y, D2 x y ↔ D2rev (Bool.not x) (Bool.not y) := by decide
+
+/-- Two applications restore the original oriented edge. -/
+theorem swap_twice_restores_D2 :
+    ∀ x y, D2 (Bool.not (Bool.not x)) (Bool.not (Bool.not y)) ↔ D2 x y := by
+  intro x y
+  simp [Bool.not_not]
+
+/-- Two applications restore the reverse orientation as well. -/
+theorem swap_twice_restores_D2rev :
+    ∀ x y,
+      D2rev (Bool.not (Bool.not x)) (Bool.not (Bool.not y)) ↔ D2rev x y := by
+  intro x y
+  simp [Bool.not_not]
+
+/-- `S2` is definitionally the symmetrization of `D2`. -/
+theorem sym_D2_eq_S2 : S2 = Sym D2 := rfl
+
+/-- The reverse orientation has the same symmetrization. -/
+theorem sym_D2rev_eq_S2 : Sym D2rev = S2 := by
+  funext x y
+  apply propext
+  cases x <;> cases y <;> simp [Sym, D2rev, S2, D2]
+
+/-- The same involution is an automorphism of `S2` and not of `D2`. -/
+theorem swap_auto_of_S2_not_of_D2 :
+    (∀ x y, S2 x y ↔ S2 (Bool.not x) (Bool.not y)) ∧
+      ¬ (∀ x y, D2 x y ↔ D2 (Bool.not x) (Bool.not y)) := by
+  constructor
+  · exact swap_is_S2_automorphism
+  · intro h
+    have hx := (h false true).mp (by decide)
+    exact absurd hx (by decide)
+
+/-- Unpointed census: every inhabited irreflexive relation on the
+two-element carrier is `D2`, `D2rev`, or `S2`.  The pointed census
+`bool_irrefl_witness_classification` excludes `D2rev` by fixing the
+designated pair. -/
+theorem bool_irrefl_nonempty_classification (r : Bool → Bool → Prop)
+    [inst : ∀ x y, Decidable (r x y)] (hi : Irrefl r)
+    (hne : ∃ x y, r x y) : r = D2 ∨ r = D2rev ∨ r = S2 := by
+  by_cases hft : r false true
+  · by_cases htf : r true false
+    · right; right
+      funext x y
+      apply propext
+      cases x <;> cases y
+      · exact ⟨fun h => absurd h (hi false), fun h => absurd h (by decide)⟩
+      · exact ⟨fun _ => Or.inl (by decide), fun _ => hft⟩
+      · exact ⟨fun _ => Or.inr (by decide), fun _ => htf⟩
+      · exact ⟨fun h => absurd h (hi true), fun h => absurd h (by decide)⟩
+    · left
+      funext x y
+      apply propext
+      cases x <;> cases y
+      · exact ⟨fun h => absurd h (hi false), fun h => absurd h (by decide)⟩
+      · exact ⟨fun _ => by decide, fun _ => hft⟩
+      · exact ⟨fun h => absurd h htf, fun h => absurd h (by decide)⟩
+      · exact ⟨fun h => absurd h (hi true), fun h => absurd h (by decide)⟩
+  · have htf : r true false := by
+      obtain ⟨x, y, hr⟩ := hne
+      cases x <;> cases y
+      · exact absurd hr (hi false)
+      · exact absurd hr hft
+      · exact hr
+      · exact absurd hr (hi true)
+    right; left
+    funext x y
+    apply propext
+    cases x <;> cases y
+    · exact ⟨fun h => absurd h (hi false), fun h => absurd h (by decide)⟩
+    · exact ⟨fun h => absurd h hft, fun h => absurd h (by decide)⟩
+    · exact ⟨fun _ => by decide, fun _ => htf⟩
+    · exact ⟨fun h => absurd h (hi true), fun h => absurd h (by decide)⟩
+
 /-! ## A2: witnessed non-identification and multiplicity -/
 
 /-- A single witness for a single orientation is consistent: neither a

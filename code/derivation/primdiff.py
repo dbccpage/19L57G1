@@ -204,6 +204,11 @@ D2 = Pointed(2, frozenset({(0, 1)}), 0, 1)
 S2 = Pointed(2, frozenset({(0, 1), (1, 0)}), 0, 1)
 D2_REV = Pointed(2, frozenset({(1, 0)}), 0, 1)
 
+# The unique non-identity permutation of the two-element carrier.
+# Corresponds to ``Bool.not`` on ``{false, true}`` with ``false=0``.
+CARRIER_SWAP: Func = (1, 0)
+CARRIER_ID: Func = (0, 1)
+
 
 def two_element_report(max_n: int) -> dict[str, object]:
     """Initiality of the oriented two-element structure among pointed
@@ -321,6 +326,52 @@ def collision(rel: Rel, f: Func) -> bool:
 
 def transpose(rel: Rel) -> Rel:
     return frozenset((y, x) for (x, y) in rel)
+
+
+def symmetrize(rel: Rel) -> Rel:
+    return rel | transpose(rel)
+
+
+def push_rel(rel: Rel, f: Func) -> Rel:
+    """Image of a relation under an endomap of its carrier."""
+    return frozenset((f[x], f[y]) for (x, y) in rel)
+
+
+def irreflexive_relations_on(n: int) -> list[Rel]:
+    """Every irreflexive relation on ``range(n)``, deterministic order."""
+    off = [(x, y) for x in range(n) for y in range(n) if x != y]
+    return [
+        frozenset(p for k, p in enumerate(off) if mask >> k & 1)
+        for mask in range(1 << len(off))
+    ]
+
+
+def transposition_report() -> dict[str, object]:
+    """Carrier-2 facts about ``CARRIER_SWAP``: it carries each orientation
+    onto the other, squares to the identity, is an automorphism of the
+    symmetrization and not of either orientation, and the unpointed
+    inhabited irreflexive relations are exactly those three."""
+    twice = compose(CARRIER_SWAP, CARRIER_SWAP)
+    nonempty = [rel for rel in irreflexive_relations_on(2) if rel]
+    three = frozenset({D2.rel, D2_REV.rel, S2.rel})
+    return {
+        "swap_pushes_D2_to_D2rev": push_rel(D2.rel, CARRIER_SWAP) == D2_REV.rel,
+        "swap_pushes_D2rev_to_D2": push_rel(D2_REV.rel, CARRIER_SWAP) == D2.rel,
+        "swap_twice_is_identity": twice == CARRIER_ID,
+        "swap_twice_restores_D2": push_rel(D2.rel, twice) == D2.rel,
+        "swap_twice_restores_D2rev": push_rel(D2_REV.rel, twice) == D2_REV.rel,
+        "sym_D2_is_S2": symmetrize(D2.rel) == S2.rel,
+        "sym_D2rev_is_S2": symmetrize(D2_REV.rel) == S2.rel,
+        "swap_is_auto_of_S2": push_rel(S2.rel, CARRIER_SWAP) == S2.rel,
+        "swap_is_not_auto_of_D2": push_rel(D2.rel, CARRIER_SWAP) != D2.rel,
+        "swap_is_not_auto_of_D2rev": (
+            push_rel(D2_REV.rel, CARRIER_SWAP) != D2_REV.rel
+        ),
+        "unpointed_irrefl_nonempty_count": len(nonempty),
+        "unpointed_irrefl_nonempty_are_exactly_the_three": (
+            frozenset(nonempty) == three
+        ),
+    }
 
 
 def collapse_report(max_n: int) -> dict[str, object]:
