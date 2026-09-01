@@ -4,7 +4,7 @@ import Derivation.PrimitiveCore
 /-!
 # The passage through Primitive Difference
 
-Phase VI of the contact-and-passage run.  A minimal, self-contained
+Stage VI of the contact-and-passage run.  A minimal, self-contained
 dynamics carrying exactly the passage chain, written here in the names
 of the objects this development actually constructs:
 

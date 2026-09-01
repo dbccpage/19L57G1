@@ -204,8 +204,8 @@ central structural discovery, named below.
   show convention freedom (`boundary_not_forced`), so the realization
   carries declared content; no vanishing statement exists without a
   coefficient/sign declaration.
-- Metric/amplitude realizations: **unsupported** — nothing in the
-  run supplies inner products, amplitudes, or state spaces; no such
+- Metric or signed-weight realizations: **unsupported** — nothing in the
+  run supplies inner products, signed scaled weights, or state spaces; no such
   realization is claimed.
 
 Terminal for this phase: **HIGHER_STRUCTURE_OPTIONAL_NOT_FORCED**.
@@ -228,9 +228,9 @@ the laws actually proved, not to resemblance.
 | the located axis (`Located`, OPEN cells) | decidability of the apartness; its independence mirrors the constructive/classical divide |
 | ZeroRel = agreement on all declared columns, an equivalence | the kernel of an observation map; observational/bisimulation equivalence |
 | observer cut, `no_terminal_pres`, cut census 2^(n−2) | bipartitions separating two marked points; failure of a terminal object in the poset of faithful quotients above three points |
-| the growth's path graph, connectivity residue 1 | the path graph Pₙ; \|V\| − \|E\| = 1 characterizing trees (Euler formula, tree case) |
+| the growth's path graph, connectivity residue 1 | the path graph Pₙ; \|V\| − \|E\| = 1 characterizing trees (the vertex-minus-edge count of a tree) |
 | cell calculus with shell guards; ladder recurrence (dims 2–3) | simplicial complexes built by cell attachment; boundary filling (complete boundaries, deliberately NOT simplicial horns, which omit a face) |
-| `altNum` values 4, −2, 2, 1; shell value 2; solid value 1 | Euler characteristic; χ(∂Δ³) = χ(S²) = 2; χ(Δ³) = 1 |
+| `altNum` values 4, −2, 2, 1; shell value 2; solid value 1 | the alternating face count χ; χ(∂Δ³) = χ(S²) = 2; χ(Δ³) = 1 |
 | `bd1/bd2/bd3` with `d²=0`; `boundary_not_forced` | the simplicial boundary operator over ℤ; orientation-convention freedom |
 | two-rule at an obstruction | completion/attachment step: resolve within the presentation or attach a cell |
 | interpreter diagonal (Phase VIII paper) | finite diagonal argument for extensional incompleteness of a finite code family |
@@ -241,7 +241,7 @@ is *not* a homotopical obstruction class (no coefficient system is
 derived, only declared); the controller category's simulations are
 transition-system simulations, and no claim links them to any
 enriched or higher-categorical structure; nothing here derives a
-metric, measure, or amplitude.
+metric, measure, or signed scaled weight.
 
 ## 8. Attachment and the general ladder (next-goals pass)
 

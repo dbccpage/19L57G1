@@ -1,7 +1,7 @@
 # Finite weight profiles and the contact ceiling
 
 **Corrected contact response.** The native result in this repository is a
-finite `Nat`/`Int` weight-profile calculation. It is not a Hilbert lift and it
+finite `Nat`/`Int` weight-profile calculation. It is not a lift to an inner-product space and it
 does not price a path to one. The supplied `qm_020` package is mentioned only
 in Section 6 as a scope comparison; it supplies no premise or evidence here.
 
@@ -111,7 +111,7 @@ NO_REPRESENTATION_CLIMB_DERIVED
 
 ## 6. Comparison ceiling for `qm_020`
 
-The supplied package discusses Born normalization and a conditional Hilbert
+The supplied package discusses a probability normalization rule and a conditional inner-product-space
 lift. The native contact reaches only the following lower-level analogies:
 
 | Package-facing phrase | Native result | Ceiling |
@@ -119,12 +119,12 @@ lift. The native contact reaches only the following lower-level analogies:
 | normalization | `SameProfile` and `profile_iff_ray` | finite natural weights, cross-multiplication, positive totals |
 | scale invariance | `profile_scale_positive` | positive natural scales only; zero scale explicitly exits the domain |
 | redundant re-encoding | `presentation_profile_redundant` | declared finite factorization identity only |
-| phase or sign sensitivity | `signed_square_presentations_split` | one two-coordinate integer-square/mixing fixture |
+| sign or circle-group sensitivity | `signed_square_presentations_split` | one two-coordinate integer-square/mixing fixture |
 | sparse descent | `descent_iff_subsingleton_support` | one two-coordinate linear read-out followed by squaring |
 
-No native theorem supplies complex scalars, a Hilbert space, an inner product,
-unit vectors, amplitudes, phases as a group action, tensor products, operators,
-dynamics, the Born rule, continuity, limits, or a uniqueness characterization.
+No native theorem supplies complex scalars, an inner-product space, an inner product,
+unit vectors, signed scaled weights, a circle-group action, tensor products, operators,
+dynamics, a squared-weight probability rule, continuity, limits, or a uniqueness characterization.
 The finite result may be a useful prerequisite or counterexample generator for
 a later contact, but it is not that contact's representation lift.
 

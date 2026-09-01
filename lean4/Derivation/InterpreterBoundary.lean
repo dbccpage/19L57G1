@@ -2,7 +2,7 @@ import Derivation.Constitution
 import Derivation.PrimitiveCore
 
 /-!
-# Phase VIII — the interpreter boundary (I0–I5)
+# Stage VIII — the interpreter boundary (I0–I5)
 
 The constitution module (`Derivation.Constitution`) seals a 64-member
 description family (`ConstitutionDesc`, `allDescs`,
@@ -381,7 +381,7 @@ def conclusionTags : List String :=
   ["FINITE_CODE_FAMILY_NOT_EXTENSIONALLY_COMPLETE",
    "DECLARED_BOUNDARY_MODEL_SATISFIES_A_AND_F"]
 
-/-- The frontier conjecture retained from this phase, with its exact
+/-- The frontier conjecture retained from this stage, with its exact
 missing theorem: a denotational bridge from (code, interpretation,
 lawful interpreter behavior, uncoded evaluator role) to an
 operationally effective non-identification.  Until that bridge is a

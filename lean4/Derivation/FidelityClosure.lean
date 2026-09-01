@@ -19,7 +19,7 @@ distinct, because another coherent path may connect them.  Index retention
 requires the stronger statement that no coherent path exists.
 
 Path reachability alone is not a global carrier descent.  Parallel paths may
-act differently, and an admitted loop may have nontrivial holonomy.  A
+act differently, and an admitted loop may act nontrivially on the carrier.  A
 separate faithful-network-descent structure below requires every path action
 to agree after embedding.  A loop that moves one carrier element refutes such
 a descent.
@@ -137,7 +137,7 @@ theorem failed_endomorphism_does_not_refute_self_fidelity
     FidelityRel N i i :=
   fidelity_refl N i
 
-/-! ## 3. Holonomy is the residual to global carrier descent -/
+/-! ## 3. Loop action is the residual to global carrier descent -/
 
 /-- A loop is trivial when its composed carrier bijection fixes every point. -/
 def LoopTrivial {N : TranslationNetwork} {i : N.Index}

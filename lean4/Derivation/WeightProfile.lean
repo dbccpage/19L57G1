@@ -19,7 +19,7 @@ multiplicity, but such a list is not called a carrier here.
    the profile and the positive domain (`profile_scale_positive`).
    Zero scaling satisfies the raw equations but leaves that domain.
 2. **What the profile preserves:** support (`profile_support`) and
-   order (`profile_order`).  What it forgets: total mass
+   order (`profile_order`).  What it forgets: the total weight
    (`profile_forgets_total`).  Its positive-domain classes are exactly
    common positive cross-multiples (`profile_iff_ray`).
 3. **A presentation adds nothing to the profile.**  Call any

@@ -3,7 +3,7 @@ import Derivation.Initiality
 /-!
 # Horizon: every-stage lawfulness and the budget saturation pin
 
-PR #12 Phase I correction module.  Two audit findings are settled
+PR #12 Stage I correction module.  Two audit findings are settled
 here, without rewriting the sealed PR #11 modules:
 
 **C6 (horizon lawfulness).**  PR #11 proved quiescence of the

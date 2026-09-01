@@ -66,6 +66,19 @@ jobs:
       # unaudited. This closes that gap by enumerating from the source tree.
       - name: Parked modules are all named for audit
         run: python ci/check_parked_audit.py
+      # Prose-level watchlist census. The identifier firewall in
+      # tests/test_primitive_contact.py bars identifiers; it cannot see a
+      # docstring, a STATUS page, or a Lean comment carrying an outside noun
+      # as if it were a house word. This reads tracked prose against a
+      # digest-stored term list and pins every whole-word hit per file,
+      # failing in BOTH directions: a hit above its pin names file, line,
+      # and token; a hit below it names the stale pin. The terms are digests
+      # because CLAUDE.md's refused-grid clause forbids recording outside
+      # names by naming them; `--probe WORD` answers whether a word is on
+      # the list. It reads prose only: identifiers containing `_` or digits
+      # are never split, so they remain the firewall's business.
+      - name: Prose watchlist census matches its pin
+        run: python ci/check_prose_watchlist.py
       - name: Tests under coverage
         run: |
           coverage run -m pytest -q

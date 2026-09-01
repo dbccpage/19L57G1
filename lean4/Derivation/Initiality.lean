@@ -2,7 +2,7 @@ import Derivation.Constitution
 import Derivation.NoOutside
 
 /-!
-# Ultra closure, Phase VII: minimality in a declared comparison class
+# Ultra closure, Stage VII: minimality in a declared comparison class
 
 The comparison class is exact and finite: the 64-member constitution
 family of `Constitution.ConstitutionDesc`, each member executed by the

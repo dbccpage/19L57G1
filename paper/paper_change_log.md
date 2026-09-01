@@ -2440,3 +2440,61 @@ transposition-and-inventory change:
   pre-existing one; the residual readers document their off-diagonal
   domain; named-elsewhere citations are now resolved against the
   Lean sources by test.
+
+## Vocabulary purge, step 1: sealed comments, artifact strings, and outside names in live paper documents
+
+Author direction (2026-09-01): purge the repository of outside vocabulary,
+sealed portion first, the rest in steps so nothing breaks.  This entry
+records step 1.  The instrument is the prose watchlist census (gate 12,
+`ci/check_prose_watchlist.py`): every removal below surfaced as a stale
+pin before the pin was regenerated, and no replacement word is itself
+watched.  51 line edits across 24 source files; two committed artifacts
+regenerated.
+
+* Stage-sense wording.  The run stages of PR #12 had borrowed a word that
+  also names an outside physical quantity.  It is replaced by "stage" in
+  19 Lean doc-comment lines under `lean4/Derivation/`, 9 Python docstring
+  and string-literal lines under `code/`, and one test docstring.
+  `artifacts/primitive_contact.json` and
+  `artifacts/primitive_completion_receipt.json` are regenerated from the
+  changed literals: three string values each, no key changes.  No
+  backticked ledger citation carried the word, so no evidence resolution
+  moved (checked before editing).
+* Loop transport.  Four comments (two in `FidelityClosure.lean`, one in
+  the root inventory `lean4/Derivation.lean`, one in `completion.py`)
+  named the closed-walk carrier action by an outside geometric word; they
+  now say loop transport or loop action.  No theorem name changes.
+* Candidate space.  Two docstrings (`primitive_core.py`,
+  `run_primitive_core.py`) called the enumerated candidate universe by an
+  outside order-theoretic word; they now say candidate space.
+* Total weight.  `WeightProfile.lean` and `CL-PD2-WEIGHT-PROFILE` named
+  the forgotten total by an outside word for it; they now say total
+  weight, which is what `profile_forgets_total` states.
+* Outside names in live paper documents, replaced by descriptions per the
+  refused-grid clause of `CLAUDE.md`: in `weight_profile_contact.md` and
+  `CL-PD2-WEIGHT-PROFILE`, a lift to an inner-product space and a
+  squared-weight probability rule, signed scaled weights, and a
+  circle-group action; in the fenced comparison table of
+  `primitive_difference_map.md`, the vertex-minus-edge count of a tree
+  and the alternating face count; in the `PrimitiveContact` refusal list
+  of this ledger, a non-commutative-observable conclusion; and one
+  English verb in `pr_review_template.md` that collided with a watched
+  word.
+* NOT changed in this step, recorded so it is not mistaken for oversight:
+  this log's own historical entries, two of which carry an outside proper
+  name in a 2026-08 entry title and body; stage-sense wording in the
+  paper documents (about thirty lines across nine files, including this
+  ledger); and the house words for closed-walk transport, the axiom
+  order, and total weight in `paper/primitive_difference.md`,
+  `paper/refusal_as_difference.md`, `paper/refusal_difference.md`,
+  `paper/native_derivation_completion.md`, and this ledger.  Those are
+  step 2, to be done together with the research trees that share the
+  same words, so that a rename lands everywhere at once and the pins
+  between trees are repinned once.
+
+No theorem, computation, artifact key, claim ID, or claim status changed.
+The seal is not amended: every edit is to a comment, a docstring, a
+string value, or paper prose, and the derivation's recorded results are
+untouched.  Verification: the affected tests, strict typing, the ledger
+evidence gate, and the paper citation gate were run after the edits; the
+Lean edits are doc comments only and the package was rebuilt.

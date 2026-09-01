@@ -1,4 +1,4 @@
-"""Phase VIII mirror: the interpreter boundary (I0-I5).
+"""Stage VIII mirror: the interpreter boundary (I0-I5).
 
 Classification: metatheory apparatus; the theorem package lives in
 ``lean4/Derivation/InterpreterBoundary.lean``.  The sealed constitution

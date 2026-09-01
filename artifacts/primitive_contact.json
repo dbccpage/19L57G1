@@ -282,12 +282,12 @@
  "package_present": true,
  "prose_status": "PROSE_INPUT_ABSENT",
  "protocol": {
-  "absence_rule": "complete the native phases and terminate with CONTACT_INPUT_ABSENT; do not invent contents",
+  "absence_rule": "complete the native stages and terminate with CONTACT_INPUT_ABSENT; do not invent contents",
   "manifest_required": "contact/omega_primdiff/CONTACT_MANIFEST.json",
   "package_path": "contact/omega_primdiff/",
   "read_order": [
-   "lean4/ only after the native characterization commit (Phase II)",
-   "prose/ only after the Lean-only comparison commit (Phase III)"
+   "lean4/ only after the native characterization commit (Stage II)",
+   "prose/ only after the Lean-only comparison commit (Stage III)"
   ]
  },
  "status": "CONTACT_PROCESSED_LEAN_ONLY",

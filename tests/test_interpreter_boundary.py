@@ -1,4 +1,4 @@
-"""Tests for the interpreter-boundary mirror (Phase VIII, I0-I5)."""
+"""Tests for the interpreter-boundary mirror (Stage VIII, I0-I5)."""
 
 from __future__ import annotations
 

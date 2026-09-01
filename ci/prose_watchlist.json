@@ -1,0 +1,560 @@
+{
+  "about": [
+    "Prose-level watchlist for physics-shaped and outside-target vocabulary. Terms are stored as SHA-256 digests of their normalized form (NFKD, combining marks dropped, lowercase) so that this repository never carries the words themselves as prose. CLAUDE.md records a refused outside grid on exactly that ground: describe, do not name.",
+    "This is a CENSUS, not a denylist. Every whole-word hit in tracked prose is pinned per file under 'baseline'. A hit above its pinned count fails by file, line, and surface token; a hit below it fails as a stale pin; '--regen' rewrites the pin deliberately. The pin puts the tree's physics-shaped vocabulary in one inspectable place instead of leaving it native-looking in many.",
+    "Digests are not secrets: 'python ci/check_prose_watchlist.py --probe WORD' says whether a word is watched. A token matches if it, or it minus a trailing s or es, digests to a watched term; two-word terms match adjacent tokens on one line. Identifiers with underscores or digits are never split, so this gate reads prose and the identifier firewall keeps identifiers.",
+    "Out of scope: prompt/prompt.md and prompt/seed_prompt.md (the read-only seed inputs, the one place outside terms are permitted), the contact/analysis/ quarantine (the identifier firewall excludes it for the same reason), this file, and any file containing a NUL byte.",
+    "Class tags: 'physics-shaped common noun' (counted, never refused; several are house words in research/), 'outside proper name', and 'outside program phrase (two words)'."
+  ],
+  "baseline": {
+    ".claude/skills/pin/SKILL.md": {
+      "dccc5d01dabcd1c0b9fa89c91e7f4bde603121ee0172b4ff394e6bb30d295e41": 1
+    },
+    "contact/omega_primdiff/CONTACT_MANIFEST.json": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "paper/native_derivation_completion.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 7,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "paper/paper_change_log.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 9,
+      "812592913d114ecbc7072950c712575b2e859a7d1e8cc775226e2cd1de12e274": 2,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "paper/paper_claim_ledger.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "paper/pr11_correction_ledger.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
+    },
+    "paper/primitive_controller_universality.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
+    },
+    "paper/primitive_difference.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 4
+    },
+    "paper/primitive_difference_contact.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4
+    },
+    "paper/primitive_difference_map.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4
+    },
+    "paper/primitive_difference_passage.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "paper/primitive_interpreter_boundary.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
+    },
+    "paper/refusal_as_difference.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    },
+    "paper/refusal_difference.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    },
+    "paper/weight_profile_contact.md": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1
+    },
+    "research/convention_price/CLAIM_LEDGER.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 4,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 3
+    },
+    "research/convention_price/PREDICTIONS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 9,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 5,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/convention_price/PROMPT.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 9,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 2,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/convention_price/STATUS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 7,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 5,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/convention_price/channels.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
+    },
+    "research/convention_price/lean/ConventionPrice/ParityLaws.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 5,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 5
+    },
+    "research/convention_price/lean/ConventionPrice/Promotion.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 18,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/convention_price/parity.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 2
+    },
+    "research/convention_price/promotion.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 31
+    },
+    "research/convention_price/receipts/convention_price.json": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 7,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 14
+    },
+    "research/convention_price/register.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
+    },
+    "research/convention_price/run_convention_price.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 12
+    },
+    "research/convention_price/sixlabel.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 12
+    },
+    "research/convention_price/test_convention_price.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 11
+    },
+    "research/convention_price/test_forbidden.py": {
+      "1124524a9be2dc24e6756eb4d7ad60802ab0687b50d9e74b13eac0de598a8bbb": 2
+    },
+    "research/g1_local_class/STATUS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
+    },
+    "research/natural_sections/CLAIM_LEDGER.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 11,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 6,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 10,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 26,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 17,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 12,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 12
+    },
+    "research/natural_sections/STATUS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 38,
+      "0b7fbb12d943d9fa121622ab26d309d379c7c424946570f4015034a31e4a8ea2": 1,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 36,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 26,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 9,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 61,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 44,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 38,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 46
+    },
+    "research/natural_sections/aggregation.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 7
+    },
+    "research/natural_sections/budget_meter.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 17
+    },
+    "research/natural_sections/conj_orbit.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 6,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 4
+    },
+    "research/natural_sections/dynamics_counts.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/natural_sections/holonomy_fixture.py": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 4,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 10
+    },
+    "research/natural_sections/holonomy_group.py": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 3,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 3,
+      "91d5c8f2fcbb1ec2ff50f751b6f7f1af90ff964d078ee22f36b91790db0687fe": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 3
+    },
+    "research/natural_sections/holonomy_phase.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 19,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 4,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 4,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 8,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 3,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 5
+    },
+    "research/natural_sections/lean/NaturalSections.lean": {
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/natural_sections/lean/NaturalSections/Aggregation.lean": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 7,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 7
+    },
+    "research/natural_sections/lean/NaturalSections/AxiomReport.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 8
+    },
+    "research/natural_sections/lean/NaturalSections/CutAndCounts.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 59
+    },
+    "research/natural_sections/lean/NaturalSections/HopFixture.lean": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 4,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 12
+    },
+    "research/natural_sections/lean/NaturalSections/HopFixture3.lean": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 5,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 16,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/natural_sections/lean/NaturalSections/HopFixture4.lean": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 5,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 19,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 6
+    },
+    "research/natural_sections/lean/NaturalSections/HopFixturePhase.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 9,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 18,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 11,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 6,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "research/natural_sections/lean/NaturalSections/QuotientMass.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 13,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 9,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 9
+    },
+    "research/natural_sections/lean/NaturalSections/Refinement.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 28
+    },
+    "research/natural_sections/lean/NaturalSections/Represent.lean": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 4
+    },
+    "research/natural_sections/lean/NaturalSections/TwoComplex.lean": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 8,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 4,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 16,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 15
+    },
+    "research/natural_sections/lean/NaturalSections/WeightedLayer.lean": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 1,
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 11,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 9,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 9
+    },
+    "research/natural_sections/q_one.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "research/natural_sections/quotient_mass.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 5,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 4
+    },
+    "research/natural_sections/receipts/aggregation.json": {
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 1
+    },
+    "research/natural_sections/receipts/holonomy_fixture.json": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
+    },
+    "research/natural_sections/receipts/holonomy_group.json": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/natural_sections/receipts/holonomy_phase.json": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/natural_sections/receipts/quotient_mass.json": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 1
+    },
+    "research/natural_sections/receipts/refinement.json": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 10
+    },
+    "research/natural_sections/receipts/representation.json": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 3
+    },
+    "research/natural_sections/receipts/weighted_sum.json": {
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/natural_sections/refinement.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 18
+    },
+    "research/natural_sections/representation.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 28
+    },
+    "research/natural_sections/run_conj_orbit.py": {
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/natural_sections/run_holonomy_phase.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 1,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 1
+    },
+    "research/natural_sections/run_refinement.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 2
+    },
+    "research/natural_sections/run_representation.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
+    },
+    "research/natural_sections/run_two_complex.py": {
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 1
+    },
+    "research/natural_sections/test_aggregation.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "research/natural_sections/test_conj_orbit.py": {
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 2
+    },
+    "research/natural_sections/test_holonomy_fixture.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 25,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 1
+    },
+    "research/natural_sections/test_holonomy_group.py": {
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 3,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 6,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/natural_sections/test_holonomy_phase.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 7,
+      "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": 2,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 4,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 5,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 1
+    },
+    "research/natural_sections/test_natural_sections.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2
+    },
+    "research/natural_sections/test_q_one.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "research/natural_sections/test_quotient_mass.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1
+    },
+    "research/natural_sections/test_refinement.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 9
+    },
+    "research/natural_sections/test_representation.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 10
+    },
+    "research/natural_sections/test_two_complex.py": {
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 1
+    },
+    "research/natural_sections/two_complex.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 4
+    },
+    "research/natural_sections/verify_lean.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 9,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/natural_sections/weighted_sum.py": {
+      "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": 10,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 6,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 7
+    },
+    "research/notes/peirce_semiotics_note.md": {
+      "d4e3fc7b0477747da28f05c27af9f1ab8e70cd60f729a2813f410fd39eb466ac": 1
+    },
+    "research/observer_visibility/CLAIM_LEDGER.md": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 9,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 1
+    },
+    "research/observer_visibility/STATUS.md": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 8,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 4,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 6
+    },
+    "research/observer_visibility/decide.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 15
+    },
+    "research/observer_visibility/diagram.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 3
+    },
+    "research/observer_visibility/dual.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 3
+    },
+    "research/observer_visibility/gap.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 4
+    },
+    "research/observer_visibility/lean/ObserverVisibility.lean": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 12,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 2,
+      "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": 38
+    },
+    "research/observer_visibility/pricing.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 5,
+      "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": 4
+    },
+    "research/observer_visibility/receipts/decide.json": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 4
+    },
+    "research/observer_visibility/run_decide.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 5
+    },
+    "research/observer_visibility/test_decide.py": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 16
+    },
+    "research/s9_obligations/CLAIM_LEDGER.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 20
+    },
+    "research/s9_obligations/P1_FINDINGS.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 49
+    },
+    "research/s9_obligations/P2_FINDINGS.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1,
+      "f2b3cbe41413047352141e5b863d87e696ec4f52b503040dba3a5700acd529a0": 2
+    },
+    "research/s9_obligations/PREFLIGHT.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 4
+    },
+    "research/s9_obligations/PROMPT.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 7
+    },
+    "research/s9_obligations/PROPOSED_S9.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 13
+    },
+    "research/s9_obligations/STATUS.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 11
+    },
+    "research/s9_obligations/axiom_lattice.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 82
+    },
+    "research/s9_obligations/lean/S9Obligations/AxiomLattice.lean": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 2
+    },
+    "research/s9_obligations/lean/S9Obligations/AxiomReport.lean": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    },
+    "research/s9_obligations/receipts/axiom_lattice.json": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 82
+    },
+    "research/s9_obligations/run_axiom_lattice.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 7
+    },
+    "research/s9_obligations/test_axiom_lattice.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 37
+    },
+    "research/s9_obligations/test_forbidden.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 3
+    },
+    "research/s9_obligations/test_morphism_classes.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1,
+      "f2b3cbe41413047352141e5b863d87e696ec4f52b503040dba3a5700acd529a0": 1
+    },
+    "research/s9_obligations/test_witness_types.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 2
+    },
+    "research/s9_obligations/verify_lean.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    },
+    "research/sign_slice/CLAIM_LEDGER.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/sign_slice/PREDICTIONS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 6
+    },
+    "research/sign_slice/PROMPT.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/sign_slice/STATUS.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 4,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 1
+    },
+    "research/sign_slice/cone_section.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 2,
+      "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": 3
+    },
+    "research/sign_slice/occ_relabel.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 15
+    },
+    "research/sign_slice/receipts/sign_slice.json": {
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1
+    },
+    "research/sign_slice/run_sign_slice.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 3,
+      "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": 1,
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 3
+    },
+    "research/sign_slice/slice_set.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 1
+    },
+    "research/sign_slice/test_forbidden.py": {
+      "1124524a9be2dc24e6756eb4d7ad60802ab0687b50d9e74b13eac0de598a8bbb": 2
+    },
+    "research/sign_slice/test_sign_slice.py": {
+      "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": 5
+    },
+    "research/thinghood/CLAIM_LEDGER.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    },
+    "research/thinghood/PROMPT.md": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 12,
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 4
+    },
+    "research/thinghood/STATUS.md": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 2
+    },
+    "research/thinghood/thing.py": {
+      "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": 1
+    },
+    "tests/test_primitive_core.py": {
+      "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": 1
+    }
+  },
+  "watched": {
+    "02195b8e989603e4dfb45352b902e8dc34bff40bb228f3c26e56a6ddebdb85ad": "physics-shaped common noun",
+    "04464674e585250293545a271a81dad158baf7737224a1737c1f3039278ec518": "outside proper name",
+    "0b7fbb12d943d9fa121622ab26d309d379c7c424946570f4015034a31e4a8ea2": "outside proper name",
+    "1124524a9be2dc24e6756eb4d7ad60802ab0687b50d9e74b13eac0de598a8bbb": "outside program phrase (two words)",
+    "1672f20ba78dcf3950ecb06cb3c7f27c4033d86e72a77620e58568d5c8c93c68": "physics-shaped common noun",
+    "1d1d155e75844591220d5531a5590a387a99b16852b4407d020f775252c510ae": "physics-shaped common noun",
+    "1e7f15804cee4581142fd68e95f7b1fe6cc3253d3dd6b8c9f360f851eb047c23": "outside program phrase (two words)",
+    "2215b340483e38ab9df1dd9cb21a801abc08aa83571250ef4e26c9de73138008": "outside proper name",
+    "309d10386e65f08157282bcf3af6b46e628f2e699311b76473aebc056ea06cb9": "physics-shaped common noun",
+    "326020dd50dd0cf805c87b26692d2ca8e5143c3fe0c68c96fdd346d74afae926": "physics-shaped common noun",
+    "381cfb6e1e428419d5d6b5d113be06a9023d6407ebe388791ec3d59100d87ec5": "physics-shaped common noun",
+    "4084a32b9bba4b4a03d06f24edf285c34ebf98ee44d6772c05bda9560a7bc3b2": "physics-shaped common noun",
+    "446be308664e1964b816217ba48334a777837850765f863efbba3c6608da6b90": "physics-shaped common noun",
+    "4cbe09597b76794b5f6b854c1c1c035ede6d241f250f223b61987dce9d2d7a4b": "physics-shaped common noun",
+    "4fea05be302d325b69a315f0a78f0c40420b48b10b56f08920b77191b94c0d7e": "physics-shaped common noun",
+    "519a5595d315eff75f5a2b26c8093549313d4fb91fdb61e20753677166113897": "physics-shaped common noun",
+    "5cc10d9143b2cff082cf5fb373073b13d02d12c9a4d24a97d822d701404fb421": "outside proper name",
+    "657fdc2b228b14a6aba717e5083daf48204274ab62d73ec8968bcd0c7568b157": "physics-shaped common noun",
+    "67671a2f53dd910a8b35840edb6a0a1e751ae5532178ca7f025b823eee317992": "physics-shaped common noun",
+    "69bf3575281a970f46e37ecd28b79cfbee6a46e55c10dc91dd36a43410387ab8": "physics-shaped common noun",
+    "6e0f5e50cfafafa57ad2d2d8f49d8e01917c62b0f6bd5332a3cf13afaeeebf4c": "physics-shaped common noun",
+    "746d337f51b7942ee86fe1ba0ffcf468b0b866bc1846db795355e6ea28d65251": "outside proper name",
+    "79ea9358181884637163fbd61c06b22150f429636bdded87bdc70067db2396a4": "outside proper name",
+    "804009875b8f147428508e89ac1fbcda6d9be01b56a5818e31b288b77706e61a": "outside proper name",
+    "80a3144bcb70abe2d92c482b924d873b96d42b280f1f0a525c27b6ff29707651": "outside proper name",
+    "812592913d114ecbc7072950c712575b2e859a7d1e8cc775226e2cd1de12e274": "outside proper name",
+    "87a0acaec00fa34a3166f0b62b7352868c16752bf796a6af3baf0362c62361ed": "physics-shaped common noun",
+    "88b1deea6a18cfd0d1df1f0048d0946332fe61d1adc2bacb25e5f6a774b56cc5": "physics-shaped common noun",
+    "8d3ec6761ca60af3587bbb088fb8440ea8fa89eb061830be0f119cee9337e4c3": "physics-shaped common noun",
+    "8fb7cf7a46995c95da6ad4cca750efb66946b771aca070d5948ea80ca33237b4": "physics-shaped common noun",
+    "91d5c8f2fcbb1ec2ff50f751b6f7f1af90ff964d078ee22f36b91790db0687fe": "physics-shaped common noun",
+    "961b164f23eb33f8fda12c95e8bd93f632a08a8b8a0a18b3dde1cfe8926875ff": "physics-shaped common noun",
+    "a2e10207c7be30e1d07b0b7e353ecc1a1364f39057e1acedd3f76c5d2ceed180": "physics-shaped common noun",
+    "a5a2729ffa0eeacc15323a9168807c72d18d1cb375dbde899c44d6803dad2b19": "physics-shaped common noun",
+    "a82d9086889a25f8eee60f04a6a2c7f6b045b2a4063a9d5fe3f2336bc16ac7b7": "outside program phrase (two words)",
+    "a90fd9a9a1e66597ae124f542f73ac08d3112e7d6f5e1781163be07ccae5be0d": "physics-shaped common noun",
+    "a93f7a91f88ee389a5147b54b22968c2521a59e41b1bf98ff0d22d7b5a704a42": "outside proper name",
+    "ab9baff86c4d6725566ddd8f856928f0fbd0fb2fcc5d9f5ecece1bbd04ea9648": "physics-shaped common noun",
+    "ace4ee822bf736d68dcefa162511f5910e407e833b077cf404273fae61b3d1e8": "physics-shaped common noun",
+    "c23c23a7c71feb7e0bd8f3b0d1eb5603df23a831bb6a4ec36a407f571e02df43": "outside proper name",
+    "ce97e449f49f6dfbe3f9acdb172fac5489099bf62b908d501cb466f359d91508": "physics-shaped common noun",
+    "d4e3fc7b0477747da28f05c27af9f1ab8e70cd60f729a2813f410fd39eb466ac": "physics-shaped common noun",
+    "d88803c788756e2476897637753f847b0b34a1e55cab40ad572e588aa8a9b216": "physics-shaped common noun",
+    "db44daf2e965f230f9693880ee41395b74b3761914509d494aca20e78e9bce3b": "physics-shaped common noun",
+    "dccc5d01dabcd1c0b9fa89c91e7f4bde603121ee0172b4ff394e6bb30d295e41": "physics-shaped common noun",
+    "deaaa1c0cc6aae5d759da8a84d56fed01d7c802c99af7445a904a1bdb94762fc": "outside proper name",
+    "e3b1f58e9bd1e8b95067072e7b4f9590ef9d8265489e775c73b7f8d5102b79ad": "physics-shaped common noun",
+    "f2b3cbe41413047352141e5b863d87e696ec4f52b503040dba3a5700acd529a0": "physics-shaped common noun",
+    "f7d0155b0c0fe9a7d2d9fb30d57b2a7eda30d4610be7c4d321203562dcc62efe": "physics-shaped common noun"
+  }
+}

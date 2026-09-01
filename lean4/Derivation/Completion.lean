@@ -2,9 +2,9 @@ import Derivation.Represented
 import Derivation.RefusalFrontier
 
 /-!
-# Ultra closure, Phase II–III: the common native state and Rule 1
+# Ultra closure, Stage II–III: the common native state and Rule 1
 
-Phase II builds one common native state (`CommonState`) into which the
+Stage II builds one common native state (`CommonState`) into which the
 substantive content of the prior modules transports, keeping the
 do-not-erase distinctions as *separate fields*:
 
@@ -25,7 +25,7 @@ the *failures* of transport are first-class: a positive witness is not
 observer separation, and observer separation is not a positive
 witness.
 
-Phase III settles Rule 1 ("resolve the obstruction or create
+Stage III settles Rule 1 ("resolve the obstruction or create
 structure") for the fixed kernel: an exhaustive trichotomy with an
 augmentation *family* that retains both orientations, the
 classification of refusal as a record outside the action algebra, and
@@ -244,7 +244,7 @@ theorem early_collapse_transports :
             budget := 0, licensed := true, refusals := [] } 0 1
       = true := by decide
 
-/-! ## Phase III — Rule 1, settled for the fixed kernel
+/-! ## Stage III — Rule 1, settled for the fixed kernel
 
 ### R1-A: the operational dichotomy, with refusal parallel
 

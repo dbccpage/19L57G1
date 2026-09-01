@@ -1,4 +1,4 @@
-"""Primitive-difference candidate lattice: exhaustive finite enumeration.
+"""Primitive-difference candidate space: exhaustive finite enumeration.
 
 Classification: metatheory apparatus.  Everything here is deterministic
 enumeration over a declared finite universe of *settings*; nothing

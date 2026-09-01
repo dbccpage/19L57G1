@@ -1,6 +1,6 @@
 ---
 name: gates
-description: Run the eleven CI gate families locally with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
+description: Run the twelve CI gate families locally with freshness enforcement so a stale input cannot produce a false pass. Use before pushing, before claiming a gate result, or when asked whether the repository is green.
 ---
 
 # Run the verification contract
@@ -72,6 +72,27 @@ Use `python -m coverage`, not `coverage` — the bare name is not always on
 PATH, and that failure is silent in the way described above. Confirm
 `coverage.json` did not exist before the generate step and does after.
 Both line and branch must reach 95% independently.
+
+For an operator machine with at least eight logical CPUs, the same full-suite
+coverage can be accelerated without changing the hash-bound Python lock. Use
+ephemeral, versioned plugins and a fixed worker count; `pytest-cov` combines
+the eight workers into the one JSON consumed by the independent gate:
+
+```powershell
+$parallelUvCache = Join-Path $env:TEMP "19L57G1-parallel-pytest"
+$env:UV_CACHE_DIR = $parallelUvCache
+uv run --isolated --with-requirements requirements.txt `
+  --with pytest-xdist==3.8.0 --with pytest-cov==7.1.0 `
+  python -m pytest -n 8 --dist load --cov=code --cov-branch `
+  --cov-report=json:coverage.json --cov-report=term
+if ($LASTEXITCODE -ne 0) { throw "parallel coverage test run failed" }
+python ci/check_coverage.py
+if ($LASTEXITCODE -ne 0) { throw "coverage threshold/freshness check failed" }
+```
+
+Do not substitute `-n auto`: it can oversubscribe smaller machines. Adding
+these plugins to `requirements.txt` is not a convenience edit; that file is
+bound by the G1 receipt and requires a deliberate receipt repin.
 
 ### 4. Strict typing
 
@@ -320,6 +341,23 @@ is the signal for an explicit provenance decision, not permission to run
 remains a separate manual Lean/axiom receipt and is not part of CI.
 The partial-Decide verifier has no automatic repin: its sealed source snapshot
 and import authority list move only by an inspected provenance edit.
+
+### 12. Prose watchlist census
+
+```powershell
+python ci/check_prose_watchlist.py
+```
+
+Runs in the `python` job, before the tests. Every whole-word hit of a
+digest-stored term list in tracked prose is pinned per file in
+`ci/prose_watchlist.json`; a hit above its pin fails naming file, line, and
+token, and a hit below it fails as a stale pin. `--report` lists every hit,
+`--probe WORD` says whether a word is watched, `--add TERM --tag TEXT`
+watches one more term by digest, and `--regen` rewrites the pin. Never
+regenerate under a live injection: that adopts the defect as the baseline.
+This gate reads prose only; identifiers stay with the firewall in
+`tests/test_primitive_contact.py`. Expect `prose watchlist clean: N watched
+terms, M files with pinned hits, K hits, census matches its pin`.
 
 ## This file can drift, and nothing checks it
 

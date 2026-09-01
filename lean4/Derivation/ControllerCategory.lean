@@ -3,7 +3,7 @@ import Derivation.PrimitivePassage
 /-!
 # The controller category and the initiality test
 
-Phase VII of the contact-and-passage run.  The sealed six-toggle
+Stage VII of the contact-and-passage run.  The sealed six-toggle
 constitution family answered minimality *inside a declared 64-member
 class of guard toggles* (`Initiality.unique_compliant`, whose own
 scope note restricts the claim to that class and probe battery).

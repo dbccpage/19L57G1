@@ -3,7 +3,7 @@ import Derivation.PrimitivePassage
 /-!
 # Earliest higher structure: the first graph and the first simplices
 
-Phase IX of the contact-and-passage run.  Everything here is built
+Stage IX of the contact-and-passage run.  Everything here is built
 *after* the passage is complete, from the passage state alone plus
 separately declared additions — and every declaration is named as
 one.
