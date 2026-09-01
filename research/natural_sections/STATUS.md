@@ -1606,6 +1606,65 @@ the inverse used a remainder computation and stalled; the shipped
 inverse is the no-remainder complement, and the stall left no trace in
 any receipt because nothing had been registered yet.
 
+## Layer balance: fresh representatives and the signed inversion -- predictions, written before the computation ran
+
+The receiver rung proved that every element of `QOne` comes from some
+layer (`receiver_is_union`) and counted, by brute force, how many NEW
+elements each part count contributes: `[1, 1, 2, 2, 4, 2, 6, 4]` at
+part counts `1..8` (Q4).  This rung turns "new at this layer" into a
+definition and a theorem.  An element `c` of layer `k` is **fresh**
+when its part shares no common factor greater than one with its part
+count `k + 1`.  The claims: fresh elements of a layer belong to no
+smaller layer, non-fresh elements always drop to one, and every
+element of the receiver has EXACTLY ONE fresh representation -- the
+receiver partitions into its layers' genuinely new elements.
+
+On the counting side, the rung defines the **balance**: the unique
+signed correction determined by the divisor recursion `balance 1 = 1`
+and, for `n >= 2`, "the divisor sum of the balance is zero".  The
+balance is what inverts cumulative layer counting into fresh counting.
+Its running sum over part counts `1..n` is the rung's registered
+unknown: how fast the running balance grows is OPEN here -- this rung
+computes and records it under declared bounds, claims no growth bound,
+and refutes none.  A spectral carrier for the balance (an internal
+observer whose holonomy grades the layers, in the sense the twisted-sum
+rungs made precise) is named as the natural NEXT question so it cannot
+later be smuggled in as if it had been derived; nothing about it is
+claimed.
+
+Vocabulary note, recorded at registration: the definitions of this
+rung are stated entirely in this tree's own words -- part count,
+fresh, balance, running balance.  No outside name for any of these
+counting functions appears in this repository, and the refusal
+discipline of `CLAUDE.md` applies to this rung as to every other.
+
+### Claims (Lean), written before the module was compiled
+
+| claim | statement |
+|---|---|
+| LB1 | each layer embedding is injective: `layer k c = layer k c'` forces `c = c'` |
+| LB2 | fresh minimality: a fresh element of layer `k` equals no element of any layer with a smaller part count |
+| LB3 | reduction: a non-fresh element of layer `k >= 1` equals an element of some properly smaller layer, by the explicit common-factor quotient, with cross difference literally zero |
+| LB4 | unique fresh representation: every element of `QOne` is `layer k c` with `c` fresh for exactly one pair `(k, c)` -- existence by descent on the part count, uniqueness from LB1 and LB2 |
+| LB5 | the balance is well defined by the divisor recursion (the fueled computation is stable once the fuel reaches the argument), `balance 1 = 1`, and for every `n >= 2` the divisor sum of the balance vanishes |
+| LB6 | kernel-decided values: balance at `1..12` is `[1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0]`; fresh counts at `1..12` are `[1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4]`; the partition instances (divisor sum of fresh counts equals `n`) and the inversion instances (fresh count as the balance-weighted divisor sum) hold for `n <= 24`; running balance at `10, 30, 100` is `-1, -3, 1` |
+
+### Pinned predictions (Python, written before the run)
+
+Exact integer and exact rational arithmetic throughout; no floating
+point anywhere in the computation or the receipt.
+
+| id | prediction |
+|---|---|
+| B1 | fresh counts at part counts `1..8` are `[1, 1, 2, 2, 4, 2, 6, 4]`, equal to the receiver rung's independently computed reduced counts (Q4); `0` misses |
+| B2 | two independent balance computations -- the divisor recursion, faithful to the definition, and a smallest-factor sieve that never performs a divisor sum -- agree at every `n <= 10^6`; `0` misses |
+| B3 | partition: the divisor sum of fresh counts equals `n` for every `n <= 2000`; `0` misses |
+| B4 | inversion: the fresh count at `n` equals the sum over divisors `d` of `n` of `balance(d) * (n / d)`, for every `n <= 2000`; `0` misses |
+| B5 | running balance at checkpoints `10, 30, 100, 1000, 10^4, 10^5, 10^6` is `-1, -3, 1, 2, -23, -48, 212` -- the last four pinned from memory before any computation; a miss is recorded as a miss |
+| B6 | the exact squared growth ratio (running balance squared, over `n`) attains its maximum over `2 <= n <= 10^6` at `n = 5` with value `4/5`, and never reaches `1` in that range -- so the running balance stays strictly below the square root throughout the computed window.  This is a statement about the window, not a bound: the growth question stays OPEN |
+
+If any pinned value misses, the miss is recorded next to the value.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
