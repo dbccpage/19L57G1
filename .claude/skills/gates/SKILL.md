@@ -73,6 +73,27 @@ PATH, and that failure is silent in the way described above. Confirm
 `coverage.json` did not exist before the generate step and does after.
 Both line and branch must reach 95% independently.
 
+For an operator machine with at least eight logical CPUs, the same full-suite
+coverage can be accelerated without changing the hash-bound Python lock. Use
+ephemeral, versioned plugins and a fixed worker count; `pytest-cov` combines
+the eight workers into the one JSON consumed by the independent gate:
+
+```powershell
+$parallelUvCache = Join-Path $env:TEMP "19L57G1-parallel-pytest"
+$env:UV_CACHE_DIR = $parallelUvCache
+uv run --isolated --with-requirements requirements.txt `
+  --with pytest-xdist==3.8.0 --with pytest-cov==7.1.0 `
+  python -m pytest -n 8 --dist load --cov=code --cov-branch `
+  --cov-report=json:coverage.json --cov-report=term
+if ($LASTEXITCODE -ne 0) { throw "parallel coverage test run failed" }
+python ci/check_coverage.py
+if ($LASTEXITCODE -ne 0) { throw "coverage threshold/freshness check failed" }
+```
+
+Do not substitute `-n auto`: it can oversubscribe smaller machines. Adding
+these plugins to `requirements.txt` is not a convenience edit; that file is
+bound by the G1 receipt and requires a deliberate receipt repin.
+
 ### 4. Strict typing
 
 ```powershell

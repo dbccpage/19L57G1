@@ -217,7 +217,7 @@ platform is Windows).
 ### Tests
 
 ```powershell
-python -m pytest                      # whole suite (pyproject sets testpaths=tests, pythonpath=code)
+python -m pytest                      # pinned-lock suite, matching CI
 python -m pytest tests/test_iso.py    # one file
 python -m pytest tests/test_iso.py::test_tokens_are_forgotten   # one test
 python -m pytest -k equivariance      # by keyword
@@ -225,6 +225,24 @@ python -m pytest -k equivariance      # by keyword
 
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
+
+On a machine with at least eight logical CPUs, use eight fixed pytest workers
+for the exhaustive local suite instead of the single-worker command. The two
+parallel test plugins stay ephemeral because `requirements.txt` is hash-bound
+by the G1 receipt; adding them to that file is a separate receipt-repin act.
+`pytest-cov` combines all eight workers into the one fresh report consumed by
+the independent coverage gate. Keep the fixed bound rather than `-n auto`,
+which can oversubscribe smaller machines:
+
+```powershell
+$parallelUvCache = Join-Path $env:TEMP "19L57G1-parallel-pytest"
+$env:UV_CACHE_DIR = $parallelUvCache
+uv run --isolated --with-requirements requirements.txt `
+  --with pytest-xdist==3.8.0 --with pytest-cov==7.1.0 `
+  python -m pytest -n 8 --dist load --cov=code --cov-branch `
+  --cov-report=json:coverage.json --cov-report=term
+python ci/check_coverage.py
+```
 
 ### The twelve gate families CI enforces
 
@@ -746,6 +764,7 @@ What has actually been injected, and what failed:
 | Prose watchlist, new hit | appended one line carrying a watched noun to `research/notes/README.md` | `FAIL: NEW HIT: research/notes/README.md: watched term 1d1d155e7584 appears 1 times, pinned 0 -- line 15 '…'`, exit 1; `prose watchlist clean: 49 watched terms, 153 files with pinned hits, 1886 hits` and exit 0 after `git checkout` of the file |
 | Prose watchlist, stale pin | deleted the one line of `research/notes/peirce_semiotics_note.md` carrying a pinned noun | `FAIL: STALE PIN: research/notes/peirce_semiotics_note.md: watched term d4e3fc7b0477 appears 0 times, pinned 1; if the removal is intended, regenerate with --regen`, exit 1; exit 0 after reversal |
 | Prose watchlist, real case | (found live, not injected) the gate's own test file used an outside proper name as a tokenization sample | `FAIL: NEW HIT: tests/test_prose_watchlist.py: watched term 5cc10d9143b2 appears 2 times, pinned 0 -- line 48 '…'; line 49 '…'` on the first run over the staged tree; the sample was reworded, the pin was NOT regenerated |
+| Prose watchlist, stemmer over-reach | (found live, not injected) the phrase "prose hopes" in `research/convention_price/PROMPT.md` was pinned as a hit on a watched three-letter noun: the `es` strip reached it through a vowel | the strip was narrowed to the English rule (after s, x, z, ch, sh), `test_es_strip_does_not_reach_a_three_letter_stem_through_a_vowel` fixes it, the gate then reported `STALE PIN: research/convention_price/PROMPT.md: … appears 2 times, pinned 3`, and the pin dropped by exactly that one hit on the next deliberate `--regen` |
 
 The Partial-Decide injection commit IDs above are local throwaway objects with
 no branch or tag reachability; they may be pruned and are locators rather than

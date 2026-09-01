@@ -50,12 +50,26 @@ def test_tokens_skip_identifiers_and_split_on_hyphen() -> None:
 
 
 def test_stems_offer_singular_forms() -> None:
-    # both de-pluralizations are offered; over-generation is harmless
-    # because a form only counts when its digest is watched
+    # the es-strip applies only after s, x, z, ch, sh; the s-strip always.
+    # Over-generation is harmless because a form only counts when its
+    # digest is watched -- but UNDER-stripping a real plural or
+    # OVER-stripping a word like "hopes" both matter.
     assert cpw.stems("boxes") == ["boxes", "box", "boxe"]
-    assert cpw.stems("zzprobes") == ["zzprobes", "zzprob", "zzprobe"]
+    assert cpw.stems("zzprobes") == ["zzprobes", "zzprobe"]
     assert cpw.stems("zzprobe") == ["zzprobe"]
     assert cpw.stems("abs") == ["abs"]
+
+
+def test_es_strip_does_not_reach_a_three_letter_stem_through_a_vowel() -> None:
+    # found live: "hopes" was es-stripped to a watched three-letter noun.
+    # Such a noun must not be reached from an unrelated "-es" word.
+    watched = _watched("zop")
+    assert cpw.scan_text("zopes zope", watched) == []
+    assert len(cpw.scan_text("zops zop", watched)) == 2
+    # real -es plurals still reach their singular
+    watched2 = _watched("zzclass", "zzbox", "zzbuzz", "zzmatch", "zzwish")
+    text = "zzclasses zzboxes zzbuzzes zzmatches zzwishes"
+    assert len(cpw.scan_text(text, watched2)) == 5
 
 
 # -- matching -------------------------------------------------------------

@@ -86,10 +86,21 @@ def tokens(text: str) -> list[str]:
     return TOKEN.findall(normalize(text))
 
 
+ES_PLURAL_STEMS: tuple[str, ...] = ("ses", "xes", "zes", "ches", "shes")
+
+
 def stems(token: str) -> list[str]:
-    """The token and its de-pluralized forms, most specific first."""
+    """The token and its de-pluralized forms, most specific first.
+
+    The ``es`` strip applies only after s, x, z, ch, sh -- the English
+    plural rule.  Found live: ``hopes`` stripped to a watched three-letter
+    noun and pinned as a hit; the narrowed rule leaves ``hopes`` as
+    ``hope`` only, while ``boxes``, ``classes``, ``wishes`` still reach
+    their singulars, and ``-e`` singulars are reached by the plain ``s``
+    strip.
+    """
     forms = [token]
-    if token.endswith("es") and len(token) > 4:
+    if token.endswith(ES_PLURAL_STEMS) and len(token) > 4:
         forms.append(token[:-2])
     if token.endswith("s") and len(token) > 3:
         forms.append(token[:-1])
