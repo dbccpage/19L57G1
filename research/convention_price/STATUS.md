@@ -16,7 +16,7 @@ predictions frozen at
 `8c6691c8973ea643b51a87120d38c944b72f6ef1b562f9808576886e6268fbed`
 (phases 3-5, also before any phase computation ran).  Sources read are
 pinned in `SOURCE_MANIFEST.json` at snapshot
-`b57fb08ca900cba6169d55631723f5bd91bd7f4d`; `verify_pins.py` checks
+`d54118ca6d8768e6f1ef31cc8e72192f7880f8be`; `verify_pins.py` checks
 them at the snapshot and at HEAD.  Every prediction was disposed
 CONFIRMED or held; no prediction missed this run (the dispositions are
 in the receipt next to their values).
@@ -43,17 +43,15 @@ a declared reading here rather than a question:
    says three and prices the space as `4^8`.  Reading: the three
    exchanges of the rank set, each acting on labels by the pinned
    transport construction; the space is `4^8 = 65536` as priced.
-4. **One snapshot for two branches.**  The two consumed trees lived on
-   sibling branches; a single 40-digit snapshot requires one history.
-   Reading: this branch starts at the sign_slice tip with the two
-   sign-repair commits cherry-picked on top; the snapshot is that
-   combined tip.  Consequence, recorded rather than repaired: the
-   sign_slice tree's own `SOURCE_MANIFEST.json` pins
-   `research/natural_sections/STATUS.md` at HEAD, and on THIS branch
-   that file moved (the sign-repair rung amended it after sign_slice
-   froze), so `research/sign_slice/verify_pins.py` fails at HEAD here
-   by design of its own gate.  Repinning it is that tree's act, not
-   this one's; the drift is visible, which is what pins are for.
+4. **One snapshot for two predecessor trees.**  The frozen charter
+   records the original construction reading in which the two consumed
+   trees were combined on this branch.  That history is now superseded:
+   the repaired sign-repair and repinned sign-slice trees were merged
+   first, this tree was rebased onto their shared `main` descendant, and
+   the snapshot above pins that exact merge result.  The nested
+   sign-slice pin verifier is therefore clean at HEAD; no predecessor
+   drift is accepted or hidden.  The frozen `PROMPT.md` and
+   `PREDICTIONS.md` remain byte-identical historical inputs.
 5. **Eleven evidence classes.**  The charter's admissible vocabulary
    names "the eleven evidence classes" without listing them.  Reading:
    the eleven listed in `PROMPT.md`, which extend sign_slice's seven
@@ -119,16 +117,19 @@ a declared reading here rather than a question:
   (FW-LEAD was held -- the outcome was stated nowhere before the
   exhaustion ran, and both terminals were frozen in `PREDICTIONS.md`
   first).
-- CHANNELS_AGREE_ON_CENSUS + TABLE_WRITTEN (FINITE_COMPUTATION): 11
+- CHANNELS_AGREE_ON_DECIDED_ROWS + TABLE_WRITTEN
+  (FINITE_COMPUTATION): 11
   rows -- the two signed census members plus the nine obstructed
   members' declared signed variants (amp -1 on parity-odd hops;
   `signed_square_pos` IS the square's variant, checked, both rows
   kept, FW-TIES).  Channel (a) reads transports only and is decided
   within the phase-2/3 bounds; channel (b) reads amps only and is the
   sign-repair rung's certificate criterion (per-magnitude domination,
-  SR1/SR2 cited as CONDITIONAL_THEOREM, reconstructed as computation)
-  on the FULL closed-walk weight list at bound 6 -- no walk discarded,
-  the pinned discard countermodel binds.  Result: 10 decided rows are
+  repaired exact iff `certificate_iff_dominated` and its two
+  constructive converses cited as CONDITIONAL_THEOREM, reconstructed
+  as computation) on the FULL closed-walk weight list from the declared
+  least base object at bound 6 -- no enumerated walk discarded, the
+  pinned discard countermodel binds.  Result: 10 decided rows are
   all cell `both`; 1 row (`square_plus_edge_occ3`'s variant) is
   NOT_COVERED_BY_BOUND on (a), which is not a "no".  No decided row
   separates the channels, so the separation is REFUSED with the table
@@ -167,8 +168,9 @@ plus their bookkeeping lemmas, 18 reports, whitelist
 `{propext, Quot.sound}`.  Every theorem is TWO-LABEL (FW-SCOPE); the
 six-label result is FINITE_COMPUTATION at its declared bound and is
 not a theorem here; the price closed form is CONJECTURE; citations
-into the pinned trees (the section criterion, SR1/SR2, the discard
-countermodel) remain CONDITIONAL_THEOREM and were not re-proved,
+into the pinned trees (the section criterion, the repaired exact
+pairing iff and both constructive converses, the discard countermodel)
+remain CONDITIONAL_THEOREM and were not re-proved,
 except where re-proving abstractly was the point (FW-T1 and
 `pointwise_parity_blind`).
 
@@ -180,7 +182,7 @@ regenerated while an injection was live.
 
 | Gate | Injection | Observed failure |
 |---|---|---|
-| Pin integrity | first digit of the `genpres.py` pin flipped | `FAIL: research/sign_slice/genpres.py blob at b57fb08... is a69a2a4c..., pinned 069a2a4c...` at snapshot AND at HEAD; exit 1, then 0 after reversal |
+| Pin integrity (original pre-rebase injection) | first digit of the `genpres.py` pin flipped | `FAIL: research/sign_slice/genpres.py blob at b57fb08... is a69a2a4c..., pinned 069a2a4c...` at snapshot AND at HEAD; exit 1, then 0 after reversal |
 | Predictions freeze | one probe line appended to `PREDICTIONS.md` | `FAIL: PREDICTIONS.md hash f5cd1f46... differs from the last recorded freeze 8c6691c8...`; exit 1, then 0 after reversal |
 | Lean forbidden tokens | a comment carrying the first forbidden token appended to `Promotion.lean` | `FAIL: Promotion.lean contains forbidden token` naming it; exit 1, then 0 after reversal |
 | Receipt replay | `flip_count` 10965 changed to 10964 in the committed receipt | `test_sixlabel_exhaustion_replays_the_receipt`: `10965 != 10964 : flip_count`; exit 1, then 0 after reversal |
@@ -229,6 +231,6 @@ Adding this tree to the research job would be the following step in
 |---|---|---|
 | `python verify_pins.py` | 0 | `pins clean: 23 sources at snapshot and HEAD; native PROMPT.md frozen; 2 predictions freeze(s) recorded` |
 | `python verify_lean.py` | 0 | `lean audit clean: 5 sources, 18 axiom reports, axioms within ['Quot.sound', 'propext']` |
-| `PYTHONDONTWRITEBYTECODE=1 python run_convention_price.py --out receipts` | 0 | `sixlabel: SIXLABEL_MOVES, flips 10965, price 1`; `channels: CHANNELS_AGREE_ON_CENSUS`; `register rows: 9` |
+| `PYTHONDONTWRITEBYTECODE=1 python run_convention_price.py --out receipts` | 0 | `sixlabel: SIXLABEL_MOVES, flips 10965, price 1`; `channels: CHANNELS_AGREE_ON_DECIDED_ROWS`; `register rows: 9` |
 | `PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | all tests pass, refusal scans included |
 | `python -m mypy` | 0 | strict, all source files |

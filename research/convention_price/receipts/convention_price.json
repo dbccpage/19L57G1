@@ -5,7 +5,7 @@
     "A2": "refuted by FW-SCOPE and FW-SET: two labels, declared bounds, a slice -- the supplied challenge is not answered",
     "A3": "refuted: one member, one bound, computed; no analogy",
     "A4": "decided per member; the price map is in phase 2; no extrapolation",
-    "A5": "decided by the table: CHANNELS_AGREE_ON_CENSUS; the magnitude degeneracy is named next to it",
+    "A5": "decided by the table: CHANNELS_AGREE_ON_DECIDED_ROWS; the magnitude degeneracy is named next to it",
     "A6": "refuted: unit-weight members' walk lists are single-signed; recorded per member in phase 4",
     "A7": "refuted: phase 3 is computation; its leftover stays OPEN where the terminal leaves one",
     "A8": "refuted by FW-SET: the census is a declared slice",
@@ -532,7 +532,7 @@
       "PT1": "CONFIRMED: 11 rows, none discarded",
       "PT2": "held: NOT_COVERED_BY_BOUND recorded, distinct from a no",
       "PT3": "held: counting characterization reconstructed; sides per row",
-      "PT4": "decided by the table alone: CHANNELS_AGREE_ON_CENSUS; magnitude degeneracy True",
+      "PT4": "decided by the table alone: CHANNELS_AGREE_ON_DECIDED_ROWS; magnitude degeneracy True",
       "PT5": "CONFIRMED: signed_square_pos is the square's variant"
     },
     "rows": [
@@ -791,7 +791,7 @@
       "magnitude_degeneracy": true,
       "rows": 11,
       "separated": false,
-      "terminal": "CHANNELS_AGREE_ON_CENSUS"
+      "terminal": "CHANNELS_AGREE_ON_DECIDED_ROWS"
     },
     "unit_weight_lists_single_signed": {
       "pan_C3_tail_occ2": true,
@@ -971,7 +971,7 @@
       "scope": "four maps per slot (identity and the three rank exchanges), eight slots, 4^8 exhausted"
     },
     {
-      "code": "CHANNELS_AGREE_ON_CENSUS",
+      "code": "CHANNELS_AGREE_ON_DECIDED_ROWS",
       "scope": "the declared 11-row signed census at walk bound 6; decided rows only; the magnitude degeneracy is recorded next to it"
     },
     {

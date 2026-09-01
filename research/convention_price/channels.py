@@ -10,10 +10,11 @@ Two repair channels on a shared signed census:
   weight list at the declared length bound admits a decomposition into
   exact-opposite pairs plus a single-signed residual, decided by
   per-magnitude domination -- the sign-repair rung's proved exact
-  characterization (SR1/SR2), cited as CONDITIONAL_THEOREM and
-  reconstructed here as computation.  No walk is discarded: the pinned
-  discard countermodel binds, so the list is the FULL enumeration,
-  trivial walk included.
+  characterization `certificate_iff_dominated` and its two constructive
+  converses, cited as CONDITIONAL_THEOREM and reconstructed here as
+  computation.  No walk is discarded: the pinned discard countermodel
+  binds, so the list is the FULL enumeration from the declared least
+  base object, trivial walk included.
 
 The two channels are never treated as one repair: (a) reads
 transports only, (b) reads amps only; the table records both and the
@@ -132,7 +133,11 @@ def separation_verdict(rows: list[dict[str, object]]) -> dict[str, object]:
         "decided_rows": len(decided),
         "cells": {c: cells.count(c) for c in sorted(set(cells))},
         "separated": separated,
-        "terminal": "CHANNELS_SEPARATED" if separated else "CHANNELS_AGREE_ON_CENSUS",
+        "terminal": (
+            "CHANNELS_SEPARATED"
+            if separated
+            else "CHANNELS_AGREE_ON_DECIDED_ROWS"
+        ),
         "magnitude_degeneracy": all_magnitudes == [1],
         "all_walk_magnitudes": all_magnitudes,
     }

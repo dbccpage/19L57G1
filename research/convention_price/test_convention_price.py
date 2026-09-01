@@ -275,6 +275,14 @@ class Phase4Channels(unittest.TestCase):
                 want = "b_only" if b_yes else "neither"
             self.assertEqual(r["cell"], want, str(r["name"]))
 
+    def test_nonseparation_terminal_is_scoped_to_decided_rows(self) -> None:
+        separation = RECEIPT["phase_4_channels"]["separation"]
+        self.assertEqual(separation["rows"], 11)
+        self.assertEqual(separation["decided_rows"], 10)
+        self.assertEqual(
+            separation["terminal"], "CHANNELS_AGREE_ON_DECIDED_ROWS"
+        )
+
 
 class Phase5Register(unittest.TestCase):
     def test_one_row_per_obstructed_member_and_none_sectioned(self) -> None:
