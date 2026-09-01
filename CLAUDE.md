@@ -142,6 +142,22 @@ files."*
   working-denylist identifiers remain barred outside
   `contact/analysis/`.
 
+- **Refused grid, recorded (author, 2026-08-31).** An outside
+  classification grid — nine single-letter slot names and an
+  accompanying phrase — was offered through the operator channel for the
+  primitive-difference inventory and refused as vocabulary by the
+  author: every letter individually is generic mathematics, so no
+  denylist fired, but the pattern of names was an outside architecture's
+  grid, and structural smuggling is still smuggling.  The inventory's
+  names are repo-native; the offered names are reproduced nowhere in
+  this repository, this clause included, because describing without
+  naming is the only way to record a refusal without committing the
+  smuggle it refuses.  Any future claim of independent convergence
+  between this repository's inventory and any external architecture's
+  slot grid is false by construction and must cite this clause.  The
+  paper's own refusal note is pinned by a digest test so it cannot
+  drift out.
+
 ## Proof gates
 
 - Every theorem-level claim used by the paper has a Lean 4 proof, or is
