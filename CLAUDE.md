@@ -209,6 +209,15 @@ Everything below is metatheoretic apparatus (how to drive the toolchain and
 where things live), not object-language input. It records the verification
 contract already enforced by `.github/workflows/verify.yml` and `ci/`.
 
+## Pull-request topology
+
+Every pull request must target `main` directly. Stacked pull requests are
+prohibited: do not open a pull request whose base is another unmerged topic
+branch. If work depends on an open pull request, merge that dependency first,
+then rebase from the new `main`, or combine the work into one pull request.
+This keeps review, CI, provenance pins, and merge authority bound to one head
+and one base at a time.
+
 ## Commands
 
 Run from the repository root. Shell examples are PowerShell (the primary
