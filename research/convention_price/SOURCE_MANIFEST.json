@@ -1,0 +1,34 @@
+{
+  "pins": {
+    "CLAUDE.md": "c29f14d62bf413452bd7096fc194e340f741424d",
+    "research/natural_sections/CLAIM_LEDGER.md": "885db1947b8315605a62c9a8e15636d2fdf7a0f4",
+    "research/natural_sections/STATUS.md": "3d3a629efbaf94f0b318e93d719098b2afef7bb9",
+    "research/natural_sections/lean/NaturalSections/SignRepair.lean": "a21cb5cc02d9fc17437c26b6d93a3804ccf5af89",
+    "research/natural_sections/receipts/sign_repair.json": "c369f77ccf1070e1e9ba9e70e3e821afd98ca76a",
+    "research/natural_sections/run_sign_repair.py": "a81864f2745b796b02a711b519214edf127912c4",
+    "research/natural_sections/sign_repair.py": "e30fb4548df464c6b29d9818fddcf00d089dcb6f",
+    "research/natural_sections/test_sign_repair.py": "b317a90b92b0ccb60cc8a6dc43a4fc53f4a52733",
+    "research/sign_slice/CLAIM_LEDGER.md": "0b48486cb0ce82356624ae7e0a88c817bbedfad4",
+    "research/sign_slice/PREDICTIONS.md": "4e12709c98b2dc64bcd88effb6f09482dee80a69",
+    "research/sign_slice/PROMPT.md": "d6a26695bb7972fa0161a140c3e2cd62d7b57f33",
+    "research/sign_slice/SOURCE_MANIFEST.json": "dd92da0169968e8616770b615ed95483090d68f5",
+    "research/sign_slice/STATUS.md": "1dc4cf85f701189f02ff6b0ed9edeb8c06b6ba9e",
+    "research/sign_slice/cone_section.py": "6b49ca3ea658ec706ae04264adc3c7210df643c3",
+    "research/sign_slice/genpres.py": "a69a2a4c00d5189c2b4a5911bc3c408c336e12c1",
+    "research/sign_slice/occ_relabel.py": "3990e59e3fb21b1be7e1f412a66d91e98d2eb5ca",
+    "research/sign_slice/receipts/sign_slice.json": "a42e132ebf7872efce3d9b9a3af44db4194f1d6c",
+    "research/sign_slice/register.py": "f76787f1101797b35fbfeba47cae76e5ec8512a7",
+    "research/sign_slice/run_sign_slice.py": "7123323239ef5c07c69c61f613a7bcfed1942b33",
+    "research/sign_slice/slice_set.py": "7f48ac9d05530a29b7450e1d820fa12ee646f62d",
+    "research/sign_slice/test_forbidden.py": "093cb35c0c2201562790c5ab9a1845afe1fe51a0",
+    "research/sign_slice/test_sign_slice.py": "b28d446717fa267d11f035dc60263454ca03b182",
+    "research/sign_slice/verify_pins.py": "6fcc9a21f74e51121a4cdcd8c5f90ea124134b94"
+  },
+  "predictions_freezes": [
+    "150044ee5a657a12c98516b761784433f56e25a71fc5c380d499e0b585b0ac3a",
+    "8c6691c8973ea643b51a87120d38c944b72f6ef1b562f9808576886e6268fbed"
+  ],
+  "prompt_native_sha256": "6ed89e9be7434fc3d78f03a608c9acf5625670938c749390191efc718f934e6c",
+  "purpose": "read-only sources consumed by the convention_price run; this tree writes none of them",
+  "snapshot_commit": "d54118ca6d8768e6f1ef31cc8e72192f7880f8be"
+}
