@@ -1705,6 +1705,74 @@ over any function with value `1` at part count `1` and vanishing
 divisor sums and shows agreement at every positive part count.  The
 word "unique" is now a theorem.
 
+## Sign repair: cancellation certificates, and the answer to the slot-exchange question -- predictions, written before the computation ran
+
+The slot-exchange amendment left one sharpened OPEN question at the
+top of its rung: *for which weight families does the transpose-induced
+decomposition have a single-signed complement?  Declared families
+realise it by construction; whether any family with cross-terms
+between the flipped and unflipped sectors realises it is OPEN here.*
+This rung answers that question at a declared bound, and proves the
+general shape of the answer.
+
+A **cancellation certificate** for an integer weight family is exactly
+what SX5 consumes: a decomposition of the family's weights into
+exact-opposite pairs plus a single-signed residual (the complement).
+The rung's central claim, to be proved rather than sampled: a
+certificate exists **iff the weights are dominated magnitude by
+magnitude on one side** -- for every magnitude `v`, the count of `-v`
+weights is at most the count of `+v` weights (residual non-negative),
+or the same with the signs exchanged (residual non-positive).  Two
+consequences are registered with it.  First, a POSITIVE TOTAL does not
+buy a certificate: a family can sum positive while some magnitude has
+excess negatives and another excess positives, and then no pairing
+with single-signed complement exists at all.  The aggregate is blind
+to the per-magnitude structure -- the same lesson as SX6, one level
+up.  Second, the OPEN question's answer at the bound is YES: an
+interacting family -- one that does NOT factor across the moved and
+fixed sectors -- can carry a certificate, and a witness is exhibited
+and machine-checked.
+
+Declared bound.  Configurations form the product carrier
+`M x F` with `M = {0, 1, 2}` (the declared involution exchanges `0`
+and `1` and fixes `2`) and `F = {0, 1}`; weights are integer-valued
+with every entry bounded by `2` in magnitude (`5^6 = 15625` families).
+A family is **separable** when it factors as `W (m, f) = A m * B f`
+with integer factors bounded by `2` in magnitude; **interacting**
+otherwise.  The certificate decision, the separability decision, and
+every count below are made only by the implemented algorithms.
+
+### Claims (Lean), written before the module was compiled
+
+| claim | statement |
+|---|---|
+| SR1 | certificate soundness, inherited: a pairs-plus-residual list sums to its residual (SX5, consumed not reproved); and the counting characterization, forward: a certificate forces per-magnitude domination on the residual's side |
+| SR2 | the counting characterization, backward (the constructive half, ATTEMPTED -- if the permutation bookkeeping resists core Lean it is downgraded to decided instances and the downgrade recorded): per-magnitude domination yields an explicit certificate |
+| SR3 | the wedge countermodel, decided: a pinned family with positive total and NO certificate -- positive total is not certifiability |
+| SR4 | the interacting witness, decided: a pinned family on `M x F` that is not separable (checked against every bounded factor pair), carries a certificate, and realises a single-signed complement -- the slot-exchange OPEN question answered YES at the bound |
+| SR5 | fibrewise oddness cancels: a family odd in the moved coordinate at every fixed coordinate has moved-sector total zero (SX3's `odd_total_zero`, applied fibre by fibre) |
+
+### Pinned predictions (Python, written before the run)
+
+| id | prediction |
+|---|---|
+| S1 | exactly `15625` families at the bound; the fibrewise-odd subclass has exactly `625` members and every one has moved-sector total `0`, `0` misses |
+| S2 | the certificate decision by per-magnitude counting agrees with a direct bounded search for a pairing on every family, `0` misses |
+| S3 | at least one family has positive total and no certificate, and the minimal such family in the declared lexicographic order is recorded (its weight multiset is predicted to be of the shape two-of-one-magnitude against one-of-another, like `{2, 2, -1}` padded with zeros) |
+| S4 | at least one interacting family carries a certificate; the minimal one is recorded; the specific witness `W(0,*) = (1, 2)`, `W(1,*) = (-1, -2)`, `W(2,*) = (1, 1)` is verified as interacting-with-certificate |
+| S5 | counts of certified / uncertified / separable / interacting-certified families are recorded (recorded, not predicted -- no value is pinned) |
+
+If any pinned value misses, the miss is recorded next to the value.
+
+What this rung does NOT claim: no external model is evaluated; the
+certificate notion is list-level pairing exactly as SX5 declared it,
+and no claim is made that certificates exhaust the ways a mixed-sign
+family's total can be controlled (re-signing along declared structure,
+as in the repair-mass rungs, is a DIFFERENT route and is not compared
+here -- comparing the two routes is named as a future rung so it
+cannot later be smuggled in as if done); and the separability bound on
+factors is part of the declaration, not a theorem.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
