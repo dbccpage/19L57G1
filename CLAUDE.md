@@ -226,14 +226,17 @@ python -m pytest -k equivariance      # by keyword
 `pyproject.toml` puts `code/` on `pythonpath` for pytest only. Anything run
 outside pytest (the `run_*.py` entry points) needs `$env:PYTHONPATH = "code"`.
 
-### The eleven gate families CI enforces
+### The twelve gate families CI enforces
 
 `.github/workflows/verify.yml` runs three jobs, `python`, `lean`, and
-`research`. Between them they are eleven gate families. Earlier versions of
-this line said two jobs and nine, then three jobs and ten; both are
-WITHDRAWN. The eleventh arrived with the parked-module axiom census and is
-numbered 10 below, next to the census pin it completes; the research job
-stays last because it is unlike the others. The local equivalents:
+`research`. Between them they are twelve gate families. Earlier versions of
+this line said two jobs and nine, then three jobs and ten, then three jobs
+and eleven; all three are WITHDRAWN. The eleventh arrived with the
+parked-module axiom census and is numbered 10 below, next to the census pin
+it completes; the research job is 11 because it is unlike the others. The
+twelfth, the prose watchlist census, runs in the `python` job and is
+numbered 12 below: the numbering is a stable reporting census, and the
+workflow's step order is what CI actually runs. The local equivalents:
 
 ```powershell
 # 1. prompt byte-identity (read-only inputs)
@@ -309,6 +312,21 @@ cd research/partial_decide
 python -m unittest discover -s . -p "test_*.py"
 python -m mypy
 cd ../..
+```
+
+```powershell
+# 12. the prose watchlist census matches its pin. Physics-shaped and
+#     outside-target words, stored as DIGESTS in `ci/prose_watchlist.json`
+#     so the list is not itself the smuggle it watches for; every whole-word
+#     hit in tracked prose is pinned per file, and the gate fails in both
+#     directions -- a hit above its pin names the file, line, and token, a
+#     hit below it names the stale pin. `--probe WORD` says whether a word
+#     is watched, `--report` lists every hit, `--add TERM --tag TEXT` watches
+#     one more term by digest, `--regen` rewrites the pin deliberately and
+#     never under a live injection. It reads PROSE: identifiers with `_` or
+#     digits are never split, so those stay with the firewall in
+#     `tests/test_primitive_contact.py`. This reads what that cannot.
+python ci/check_prose_watchlist.py
 ```
 
 The partial-Decide computation enumerates candidates and replays each
@@ -644,6 +662,22 @@ order for `lean4/`, whose contact and passage modules are entered through
 - **Line endings are pinned.** `.gitattributes` marks `prompt/**` and
   `artifacts/**` as `-text`. Never let an editor or a CRLF conversion rewrite
   those files — it breaks both the prompt hash gate and byte comparison.
+- **The prose watchlist is a census of digests, not a list of words.**
+  `ci/prose_watchlist.json` stores SHA-256 digests of the watched terms,
+  because the refused-grid clause above records outside names by describing
+  and never by naming, and a plaintext list would be the smuggle it watches
+  for. `ci/check_prose_watchlist.py` pins every whole-word hit per tracked
+  file and fails in both directions. Regenerating the pin is a deliberate
+  act; doing it under a live injection adopts the defect as the baseline,
+  exactly as with `elaborated_modules.txt`. Its reach is PROSE: identifiers
+  containing `_` or digits are never split, so an outside word inside a
+  `snake_case` name is the identifier firewall's business. What it cannot
+  see: an outside SHAPE carried by native words — a fixture that is an
+  outside model in everything but name passes it, and only a reader catches
+  that. The term list is the author's to extend or prune; `--probe` answers
+  whether a word is on it, and the two read-only seed inputs, the
+  `contact/analysis/` quarantine, and the list file itself are out of scope
+  by declaration.
 
 ### Proving a gate: the injection record
 
@@ -709,6 +743,9 @@ What has actually been injected, and what failed:
 | Ledger conformance, rewritten body | CL-0-INERTIA statement replaced with a lie that keeps every key | `test_injection_rewritten_inertia_body_breaks_the_pin`: body pin digest moves; ID ratchets would have stayed green |
 | Ledger conformance, match-arm index | synthetic `| exact =>` / comment words `that worth of carrying` | `test_match_arm_and_comment_words_are_not_declarations`: those strings are absent from the declaration index; constructors `| name (` still index |
 | Ledger conformance, root wildcard | token `Derivation.*` | `test_root_namespace_wildcard_does_not_resolve`: returns false. `PresentationRelativity.*` still resolves |
+| Prose watchlist, new hit | appended one line carrying a watched noun to `research/notes/README.md` | `FAIL: NEW HIT: research/notes/README.md: watched term 1d1d155e7584 appears 1 times, pinned 0 -- line 15 '…'`, exit 1; `prose watchlist clean: 49 watched terms, 153 files with pinned hits, 1886 hits` and exit 0 after `git checkout` of the file |
+| Prose watchlist, stale pin | deleted the one line of `research/notes/peirce_semiotics_note.md` carrying a pinned noun | `FAIL: STALE PIN: research/notes/peirce_semiotics_note.md: watched term d4e3fc7b0477 appears 0 times, pinned 1; if the removal is intended, regenerate with --regen`, exit 1; exit 0 after reversal |
+| Prose watchlist, real case | (found live, not injected) the gate's own test file used an outside proper name as a tokenization sample | `FAIL: NEW HIT: tests/test_prose_watchlist.py: watched term 5cc10d9143b2 appears 2 times, pinned 0 -- line 48 '…'; line 49 '…'` on the first run over the staged tree; the sample was reworded, the pin was NOT regenerated |
 
 The Partial-Decide injection commit IDs above are local throwaway objects with
 no branch or tag reachability; they may be pruned and are locators rather than
