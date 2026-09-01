@@ -354,6 +354,7 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Balance.balance_one",
     "NaturalSections.Balance.sumI_append_single",
     "NaturalSections.Balance.balance_divisor_sum",
+    "NaturalSections.Balance.balance_unique",
     "NaturalSections.Balance.balance_values",
     "NaturalSections.Balance.freshCount_values",
     "NaturalSections.Balance.partition_instances",

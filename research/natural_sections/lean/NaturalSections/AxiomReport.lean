@@ -305,6 +305,7 @@ import NaturalSections.LayerBalance
 #print axioms NaturalSections.Balance.balance_one
 #print axioms NaturalSections.Balance.sumI_append_single
 #print axioms NaturalSections.Balance.balance_divisor_sum
+#print axioms NaturalSections.Balance.balance_unique
 #print axioms NaturalSections.Balance.balance_values
 #print axioms NaturalSections.Balance.freshCount_values
 #print axioms NaturalSections.Balance.partition_instances

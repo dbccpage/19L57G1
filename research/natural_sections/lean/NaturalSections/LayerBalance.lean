@@ -359,6 +359,48 @@ theorem balance_divisor_sum (n0 : Nat) :
   rw [hsplit, hval]
   omega
 
+/-- LB5, uniqueness (added on review: "unique" had been asserted in
+prose but proved nowhere): ANY function with value `1` at part count
+`1` and vanishing divisor sums agrees with the balance at every
+positive part count.  "The unique signed correction" is a theorem,
+not a description. -/
+theorem balance_unique (g : Nat → Int) (h1 : g 1 = 1)
+    (hrec : ∀ n0 : Nat, sumI ((divisors (n0 + 2)).map g) = 0) :
+    ∀ n : Nat, 1 ≤ n → g n = balance n := by
+  have aux : ∀ (bound n : Nat), n ≤ bound → 1 ≤ n → g n = balance n := by
+    intro bound
+    induction bound with
+    | zero =>
+      intro n hn h1n
+      exact absurd h1n (by omega)
+    | succ b ih =>
+      intro n hn h1n
+      by_cases hone : n = 1
+      · subst hone
+        rw [h1, balance_one]
+      · obtain ⟨n0, rfl⟩ : ∃ n0, n = n0 + 2 := ⟨n - 2, by omega⟩
+        have hg : sumI ((divisorsBelow (n0 + 2)).map g) + g (n0 + 2) = 0 := by
+          have h := hrec n0
+          rw [divisors, List.map_append] at h
+          rw [← sumI_append_single]
+          exact h
+        have hb : sumI ((divisorsBelow (n0 + 2)).map balance)
+            + balance (n0 + 2) = 0 := by
+          have h := balance_divisor_sum n0
+          rw [divisors, List.map_append] at h
+          rw [← sumI_append_single]
+          exact h
+        have hmap : (divisorsBelow (n0 + 2)).map g
+            = (divisorsBelow (n0 + 2)).map balance := by
+          apply map_congr_mem
+          intro d hd
+          have hmem := mem_divisorsBelow hd
+          exact ih d (by omega) (by omega)
+        rw [hmap] at hg
+        omega
+  intro n hn
+  exact aux n n (Nat.le_refl n) hn
+
 /-! ## 3. The fresh count, and the kernel-decided instances -/
 
 /-- The number of fresh parts at part count `n`. -/
