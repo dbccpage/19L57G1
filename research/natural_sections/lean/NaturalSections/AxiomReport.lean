@@ -13,6 +13,7 @@ import NaturalSections.QuotientMass
 import NaturalSections.Aggregation
 import NaturalSections.EquivariantBridge
 import NaturalSections.SlotExchange
+import NaturalSections.PhaseReceiver
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -270,3 +271,21 @@ import NaturalSections.SlotExchange
 #print axioms NaturalSections.SlotEx.discard_is_not_cancel
 #print axioms NaturalSections.SlotEx.flip_fixed_zero
 #print axioms NaturalSections.SlotEx.mixed_residual_negative
+#print axioms NaturalSections.Receiver.R_refl
+#print axioms NaturalSections.Receiver.R_symm
+#print axioms NaturalSections.Receiver.int_left_cancel
+#print axioms NaturalSections.Receiver.den_int_ne_zero
+#print axioms NaturalSections.Receiver.R_trans
+#print axioms NaturalSections.Receiver.den_rawAdd
+#print axioms NaturalSections.Receiver.rawAdd_left_congr
+#print axioms NaturalSections.Receiver.rawAdd_right_congr
+#print axioms NaturalSections.Receiver.rawNeg_congr
+#print axioms NaturalSections.Receiver.add_comm
+#print axioms NaturalSections.Receiver.add_assoc
+#print axioms NaturalSections.Receiver.add_zero
+#print axioms NaturalSections.Receiver.add_neg
+#print axioms NaturalSections.Receiver.layer_mul_compat
+#print axioms NaturalSections.Receiver.layer_add
+#print axioms NaturalSections.Receiver.receiver_is_union
+#print axioms NaturalSections.Receiver.half_add_half
+#print axioms NaturalSections.Receiver.half_ne_zero
