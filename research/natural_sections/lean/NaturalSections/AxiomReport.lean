@@ -15,6 +15,7 @@ import NaturalSections.EquivariantBridge
 import NaturalSections.SlotExchange
 import NaturalSections.PhaseReceiver
 import NaturalSections.LayerBalance
+import NaturalSections.SignRepair
 
 #print axioms NaturalSections.natural_section_of_fixed_pair
 #print axioms NaturalSections.natural_section_iff_fixed_pair
@@ -311,3 +312,20 @@ import NaturalSections.LayerBalance
 #print axioms NaturalSections.Balance.partition_instances
 #print axioms NaturalSections.Balance.inversion_instances
 #print axioms NaturalSections.Balance.runningBalance_checkpoints
+#print axioms NaturalSections.SignRepair.count_pair
+#print axioms NaturalSections.SignRepair.count_pairs_balanced
+#print axioms NaturalSections.SignRepair.cert_dominates
+#print axioms NaturalSections.SignRepair.cert_dominates_nonpos
+#print axioms NaturalSections.SignRepair.count_erase_ne
+#print axioms NaturalSections.SignRepair.count_erase_self_mem
+#print axioms NaturalSections.SignRepair.perm_cons_erase_int
+#print axioms NaturalSections.SignRepair.mem_erase_of_ne_int
+#print axioms NaturalSections.SignRepair.length_erase_of_mem_int
+#print axioms NaturalSections.SignRepair.dominated_certificate
+#print axioms NaturalSections.SignRepair.dominated_certificate_nonpos
+#print axioms NaturalSections.SignRepair.certificate_iff_dominated
+#print axioms NaturalSections.SignRepair.wedge_total_positive
+#print axioms NaturalSections.SignRepair.wedge_no_certificate
+#print axioms NaturalSections.SignRepair.witness_certificate
+#print axioms NaturalSections.SignRepair.witness_not_separable
+#print axioms NaturalSections.SignRepair.fibrewise_odd_cancels

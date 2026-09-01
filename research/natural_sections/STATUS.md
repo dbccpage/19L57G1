@@ -1705,6 +1705,112 @@ over any function with value `1` at part count `1` and vanishing
 divisor sums and shows agreement at every positive part count.  The
 word "unique" is now a theorem.
 
+## Sign repair: cancellation certificates, and the answer to the slot-exchange question -- predictions, written before the computation ran
+
+The slot-exchange amendment left one sharpened OPEN question at the
+top of its rung: *for which weight families does the transpose-induced
+decomposition have a single-signed complement?  Declared families
+realise it by construction; whether any family with cross-terms
+between the flipped and unflipped sectors realises it is OPEN here.*
+This rung answers that question at a declared bound, and proves the
+general shape of the answer.
+
+A **cancellation certificate** for an integer weight family is exactly
+what SX5 consumes: a decomposition of the family's weights into
+exact-opposite pairs plus a single-signed residual (the complement).
+The rung's central claim, to be proved rather than sampled: a
+certificate exists **iff the weights are dominated magnitude by
+magnitude on one side** -- for every magnitude `v`, the count of `-v`
+weights is at most the count of `+v` weights (residual non-negative),
+or the same with the signs exchanged (residual non-positive).  Two
+consequences are registered with it.  First, a POSITIVE TOTAL does not
+buy a certificate: a family can sum positive while some magnitude has
+excess negatives and another excess positives, and then no pairing
+with single-signed complement exists at all.  The aggregate is blind
+to the per-magnitude structure -- the same lesson as SX6, one level
+up.  Second, the OPEN question's answer at the bound is YES: an
+interacting family -- one that does NOT factor across the moved and
+fixed sectors -- can carry a certificate, and a witness is exhibited
+and machine-checked.
+
+Declared bound.  Configurations form the product carrier
+`M x F` with `M = {0, 1, 2}` (the declared involution exchanges `0`
+and `1` and fixes `2`) and `F = {0, 1}`; weights are integer-valued
+with every entry bounded by `2` in magnitude (`5^6 = 15625` families).
+A family is **separable** when it factors as `W (m, f) = A m * B f`
+with integer factors bounded by `2` in magnitude; **interacting**
+otherwise.  The certificate decision, the separability decision, and
+every count below are made only by the implemented algorithms.
+
+### Claims (Lean), written before the module was compiled
+
+| claim | statement |
+|---|---|
+| SR1 | certificate soundness, inherited: a pairs-plus-residual list sums to its residual (SX5, consumed not reproved); and the counting characterization, forward: a certificate forces per-magnitude domination on the residual's side |
+| SR2 | the counting characterization, backward (the constructive half, ATTEMPTED -- if the permutation bookkeeping resists core Lean it is downgraded to decided instances and the downgrade recorded): per-magnitude domination yields an explicit certificate |
+| SR3 | the wedge countermodel, decided: a pinned family with positive total and NO certificate -- positive total is not certifiability |
+| SR4 | the interacting witness, decided: a pinned family on `M x F` that is not separable (checked against every bounded factor pair), carries a certificate, and realises a single-signed complement -- the slot-exchange OPEN question answered YES at the bound |
+| SR5 | fibrewise oddness cancels: a family odd in the moved coordinate at every fixed coordinate has moved-sector total zero (SX3's `odd_total_zero`, applied fibre by fibre) |
+
+### Pinned predictions (Python, written before the run)
+
+| id | prediction |
+|---|---|
+| S1 | exactly `15625` families at the bound; the fibrewise-odd subclass has exactly `625` members and every one has moved-sector total `0`, `0` misses |
+| S2 | the certificate decision by per-magnitude counting agrees with a direct bounded search for a pairing on every family, `0` misses |
+| S3 | at least one family has positive total and no certificate, and the minimal such family in the declared lexicographic order is recorded (its weight multiset is predicted to be of the shape two-of-one-magnitude against one-of-another, like `{2, 2, -1}` padded with zeros) |
+| S4 | at least one interacting family carries a certificate; the minimal one is recorded; the specific witness `W(0,*) = (1, 2)`, `W(1,*) = (-1, -2)`, `W(2,*) = (1, 1)` is verified as interacting-with-certificate |
+| S5 | counts of certified / uncertified / separable / interacting-certified families are recorded (recorded, not predicted -- no value is pinned) |
+
+If any pinned value misses, the miss is recorded next to the value.
+
+### Results, written after the run (`sign_repair.py`, receipt
+`receipts/sign_repair.json`; Lean in `lean/NaturalSections/SignRepair.lean`)
+
+One partial miss, recorded rather than smoothed.  S3 predicted the
+minimal positive-total uncertified family would be the zero-padded
+`{2, 2, -1}`; the PHENOMENON is exactly as registered (excess
+positives at one magnitude, an unmatched negative at another) but the
+lex-minimal witness is `[-2, -2, -1, 2, 2, 2]`, not the zero-padded
+form.  Every other prediction held.
+
+| claim | outcome | evidence |
+|---|---|---|
+| SR1 | PROVED, both residual signs: a certificate forces per-magnitude domination on its residual's side, through count balance of the paired block and permutation-invariance of counts. | `cert_dominates`, `cert_dominates_nonpos`, `count_pair`, `count_pairs_balanced` |
+| SR2 | PROVED IN FULL -- no downgrade needed: domination in either orientation assembles an explicit certificate by fueled descent, pairing opposite weights of each magnitude.  `certificate_iff_dominated` combines both constructive converses with SR1 into the exact characterization. | `dominated_certificate`, `dominated_certificate_nonpos`, `certificate_iff_dominated`, `count_erase_ne`, `count_erase_self_mem`, `perm_cons_erase_int`, `mem_erase_of_ne_int`, `length_erase_of_mem_int` |
+| SR3 | PROVED: the survey's minimal witness `[-2, -2, -1, 2, 2, 2]` totals `+1` yet is refused on both sides -- SR1 at magnitude `1` kills the non-negative residual, at magnitude `2` the non-positive one.  A positive total does not buy a certificate. | `wedge_total_positive`, `wedge_no_certificate` |
+| SR4 | PROVED: the pinned witness `[1, 2, -1, -2, 1, 1]` carries the explicit certificate (pairs `[1, 2]`, single-signed complement `[1, 1]`) and NO bounded factor pair reproduces it, checked against all `5^5` -- the registered OPEN question is answered YES at the bound. | `witness_certificate`, `witness_not_separable` |
+| SR5 | PROVED: fibrewise oddness cancels the moved sector exactly. | `fibrewise_odd_cancels` |
+| S1-S5 | CONFIRMED except the S3 shape clause above: `15625` families, `625` fibrewise-odd with `0` moved-total misses; counting and full pairing search agree on all `15625` with `0` disagreements; certified `11301`, uncertified `4324`; separable `601`, interacting certified `10812`; positive-total uncertified `1787`; minimal interacting certified `[-2, -2, -2, -2, -2, -1]`; pinned witness verified interacting-with-certificate. | `test_sign_repair.py`, receipt |
+
+The 17 new `#print axioms` reports (312 total) split 2 / 0 / 15 across
+no axioms / `['propext']` / `['Quot.sound', 'propext']` -- measured --
+all within the whitelist.  The suite grows by six tests; mypy covers
+51 files.
+
+Assembly notes, recorded: the axiom audit fired TWICE during this
+rung's build, each time naming the reliance before any receipt was
+regenerated.  First, three core list lemmas this module reached for
+(`List.perm_cons_erase`, `List.mem_erase_of_ne`,
+`List.length_erase_of_mem`) carry `Classical.choice` in this
+toolchain; all three were reproved constructively
+(`perm_cons_erase_int`, `mem_erase_of_ne_int`,
+`length_erase_of_mem_int`).  Second, `decide` on a concrete
+permutation goal routes through a decidability instance that also
+carries the choice principle; the permutation is now an explicit
+two-step construction, and that report is axiom-free.  A bare `simp`
+that imported the same reliance became a named rewrite.  The refusal
+discipline held all three times.
+
+What this rung does NOT claim: no external model is evaluated; the
+certificate notion is list-level pairing exactly as SX5 declared it,
+and no claim is made that certificates exhaust the ways a mixed-sign
+family's total can be controlled (re-signing along declared structure,
+as in the repair-mass rungs, is a DIFFERENT route and is not compared
+here -- comparing the two routes is named as a future rung so it
+cannot later be smuggled in as if done); and the separability bound on
+factors is part of the declaration, not a theorem.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1764,21 +1870,22 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 295 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) and the 21 layer-balance theorems (7 / 0 / 14, the same three bins; the uniqueness theorem was added on review) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 136 `no axioms` (129 before the layer-balance rung, which adds seven -- an earlier revision of this row kept 129 while reporting the seven, and a reviewer caught the sum; 126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 312 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) and the 21 layer-balance theorems (7 / 0 / 14, the same three bins; the uniqueness theorem was added on review) and the 17 sign-repair theorems (2 / 0 / 15) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 138 `no axioms` (129 before the layer-balance rung, which adds seven, plus the sign-repair rung's two -- an earlier revision of this row kept 129 while reporting the seven, and a reviewer caught the sum; 126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_slot_exchange.py --out receipts` | 0 | `rotation counts k=1..8: [1, 2, 3, 4, 5, 6, 7, 8]`; `swap counts k=1..8: [1, 2, 1, 2, 1, 2, 1, 2]`; `odd families bound 3: 7, all totals zero True, pairing misses 0`; `discard countermodel: full 0, discarded 4, conflatable False`; `decomposition survey bound 2: 125 families, moved-pair nonzero 0, total mismatches 0, negative totals 50` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_sign_repair.py --out receipts` | 0 | `families: 15625, fibrewise-odd 625 with 0 moved-total misses`; `certificate decisions: 0 disagreements between counting and search; certified 11301, uncertified 4324`; `separable 601; interacting certified 10812; positive-total uncertified 1787`; `pinned witness [1, 2, -1, -2, 1, 1]: interacting True, certificate True; open question answered at bound: True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_layer_balance.py --out receipts` | 0 | `balance at part counts 1..12: [1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0]`; `agreement of the two computations to 1000000: 0 misses`; `running balance checkpoints: {'10': -1, '30': -3, '100': 1, '1000': 2, '10000': -23, '100000': -48, '1000000': 212}`; `growth: max squared ratio 4/5 at part count 5, stays below the square root: True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_q_one.py --out receipts` | 0 | `group laws to index 6: 28 pairs, assoc misses 0, comm misses 0, inverse misses 0`; `layer compatibility: 196 checks, 0 misses`; `orders of layer-one elements k=0..7: [1, 2, 3, 4, 5, 6, 7, 8]`; `reduced counts at part counts 1..8: [1, 1, 2, 2, 4, 2, 6, 4]`; `joint layers of the pinned lists: [6, 12, 2, 1, 6]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 159 tests`, `OK` (the clean rebuild included; 152 before the layer-balance rung, which adds seven -- an earlier revision of this row said 149, and a reviewer counted) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 165 tests`, `OK` (the clean rebuild included; 159 before the sign-repair rung, which adds six) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 48 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, the slot-exchange modules to 42, the phase-receiver modules to 45, and the layer-balance modules to 48) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 51 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, the slot-exchange modules to 42, the phase-receiver modules to 45, the layer-balance modules to 48, and the sign-repair modules to 51) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
