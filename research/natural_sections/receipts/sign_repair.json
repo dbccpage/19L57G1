@@ -1,0 +1,65 @@
+{
+  "bound": 2,
+  "certificate_agreement_misses": 0,
+  "certified_count": 11301,
+  "family_count": 15625,
+  "fibrewise_odd_count": 625,
+  "fibrewise_odd_moved_total_misses": 0,
+  "interacting_certified_count": 10812,
+  "minimal_interacting_certified": [
+    -2,
+    -2,
+    -2,
+    -2,
+    -2,
+    -1
+  ],
+  "minimal_positive_total_uncertified": [
+    -2,
+    -2,
+    -1,
+    2,
+    2,
+    2
+  ],
+  "open_question_answer_at_bound": true,
+  "pinned_witness": [
+    1,
+    2,
+    -1,
+    -2,
+    1,
+    1
+  ],
+  "pinned_witness_has_certificate": true,
+  "pinned_witness_is_interacting": true,
+  "points": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ]
+  ],
+  "positive_total_uncertified_count": 1787,
+  "separable_count": 601,
+  "uncertified_count": 4324
+}

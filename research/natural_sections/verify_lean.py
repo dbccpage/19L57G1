@@ -360,6 +360,21 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.Balance.partition_instances",
     "NaturalSections.Balance.inversion_instances",
     "NaturalSections.Balance.runningBalance_checkpoints",
+    "NaturalSections.SignRepair.count_pair",
+    "NaturalSections.SignRepair.count_pairs_balanced",
+    "NaturalSections.SignRepair.cert_dominates",
+    "NaturalSections.SignRepair.cert_dominates_nonpos",
+    "NaturalSections.SignRepair.count_erase_ne",
+    "NaturalSections.SignRepair.count_erase_self_mem",
+    "NaturalSections.SignRepair.perm_cons_erase_int",
+    "NaturalSections.SignRepair.mem_erase_of_ne_int",
+    "NaturalSections.SignRepair.length_erase_of_mem_int",
+    "NaturalSections.SignRepair.dominated_certificate",
+    "NaturalSections.SignRepair.wedge_total_positive",
+    "NaturalSections.SignRepair.wedge_no_certificate",
+    "NaturalSections.SignRepair.witness_certificate",
+    "NaturalSections.SignRepair.witness_not_separable",
+    "NaturalSections.SignRepair.fibrewise_odd_cancels",
 )
 
 ALLOWED_AXIOMS = frozenset({"propext", "Quot.sound"})
