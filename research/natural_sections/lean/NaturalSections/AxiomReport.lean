@@ -322,6 +322,8 @@ import NaturalSections.SignRepair
 #print axioms NaturalSections.SignRepair.mem_erase_of_ne_int
 #print axioms NaturalSections.SignRepair.length_erase_of_mem_int
 #print axioms NaturalSections.SignRepair.dominated_certificate
+#print axioms NaturalSections.SignRepair.dominated_certificate_nonpos
+#print axioms NaturalSections.SignRepair.certificate_iff_dominated
 #print axioms NaturalSections.SignRepair.wedge_total_positive
 #print axioms NaturalSections.SignRepair.wedge_no_certificate
 #print axioms NaturalSections.SignRepair.witness_certificate

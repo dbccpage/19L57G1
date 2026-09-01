@@ -1450,44 +1450,6 @@ and the two must never be conflated.
 
 If any pinned value misses, the miss is recorded next to the value.
 
-### Results, written after the run (`sign_repair.py`, receipt
-`receipts/sign_repair.json`; Lean in `lean/NaturalSections/SignRepair.lean`)
-
-One partial miss, recorded rather than smoothed.  S3 predicted the
-minimal positive-total uncertified family would be the zero-padded
-`{2, 2, -1}`; the PHENOMENON is exactly as registered (excess
-positives at one magnitude, an unmatched negative at another) but the
-lex-minimal witness is `[-2, -2, -1, 2, 2, 2]`, not the zero-padded
-form.  Every other prediction held.
-
-| claim | outcome | evidence |
-|---|---|---|
-| SR1 | PROVED, both residual signs: a certificate forces per-magnitude domination on its residual's side, through count balance of the paired block and permutation-invariance of counts. | `cert_dominates`, `cert_dominates_nonpos`, `count_pair`, `count_pairs_balanced` |
-| SR2 | PROVED IN FULL -- no downgrade needed: per-magnitude domination assembles an explicit certificate by fueled descent, one negative paired against one positive of its magnitude per step.  With SR1 this is an exact characterization. | `dominated_certificate`, `count_erase_ne`, `count_erase_self_mem`, `perm_cons_erase_int`, `mem_erase_of_ne_int`, `length_erase_of_mem_int` |
-| SR3 | PROVED: the survey's minimal witness `[-2, -2, -1, 2, 2, 2]` totals `+1` yet is refused on both sides -- SR1 at magnitude `1` kills the non-negative residual, at magnitude `2` the non-positive one.  A positive total does not buy a certificate. | `wedge_total_positive`, `wedge_no_certificate` |
-| SR4 | PROVED: the pinned witness `[1, 2, -1, -2, 1, 1]` carries the explicit certificate (pairs `[1, 2]`, single-signed complement `[1, 1]`) and NO bounded factor pair reproduces it, checked against all `5^5` -- the registered OPEN question is answered YES at the bound. | `witness_certificate`, `witness_not_separable` |
-| SR5 | PROVED: fibrewise oddness cancels the moved sector exactly. | `fibrewise_odd_cancels` |
-| S1-S5 | CONFIRMED except the S3 shape clause above: `15625` families, `625` fibrewise-odd with `0` moved-total misses; counting and full pairing search agree on all `15625` with `0` disagreements; certified `11301`, uncertified `4324`; separable `601`, interacting certified `10812`; positive-total uncertified `1787`; minimal interacting certified `[-2, -2, -2, -2, -2, -1]`; pinned witness verified interacting-with-certificate. | `test_sign_repair.py`, receipt |
-
-The 15 new `#print axioms` reports (310 total) split 2 / 0 / 13 across
-no axioms / `['propext']` / `['Quot.sound', 'propext']` -- measured --
-all within the whitelist.  The suite grows by six tests; mypy covers
-51 files.
-
-Assembly notes, recorded: the axiom audit fired TWICE during this
-rung's build, each time naming the reliance before any receipt was
-regenerated.  First, three core list lemmas this module reached for
-(`List.perm_cons_erase`, `List.mem_erase_of_ne`,
-`List.length_erase_of_mem`) carry `Classical.choice` in this
-toolchain; all three were reproved constructively
-(`perm_cons_erase_int`, `mem_erase_of_ne_int`,
-`length_erase_of_mem_int`).  Second, `decide` on a concrete
-permutation goal routes through a decidability instance that also
-carries the choice principle; the permutation is now an explicit
-two-step construction, and that report is axiom-free.  A bare `simp`
-that imported the same reliance became a named rewrite.  The refusal
-discipline held all three times.
-
 What this rung does NOT claim: nothing here evaluates any externally
 supplied model; no claim is made that restricting a summation domain
 approximates anything (SX6 is the refusal of exactly that move); and
@@ -1815,13 +1777,13 @@ form.  Every other prediction held.
 | claim | outcome | evidence |
 |---|---|---|
 | SR1 | PROVED, both residual signs: a certificate forces per-magnitude domination on its residual's side, through count balance of the paired block and permutation-invariance of counts. | `cert_dominates`, `cert_dominates_nonpos`, `count_pair`, `count_pairs_balanced` |
-| SR2 | PROVED IN FULL -- no downgrade needed: per-magnitude domination assembles an explicit certificate by fueled descent, one negative paired against one positive of its magnitude per step.  With SR1 this is an exact characterization. | `dominated_certificate`, `count_erase_ne`, `count_erase_self_mem`, `perm_cons_erase_int`, `mem_erase_of_ne_int`, `length_erase_of_mem_int` |
+| SR2 | PROVED IN FULL -- no downgrade needed: domination in either orientation assembles an explicit certificate by fueled descent, pairing opposite weights of each magnitude.  `certificate_iff_dominated` combines both constructive converses with SR1 into the exact characterization. | `dominated_certificate`, `dominated_certificate_nonpos`, `certificate_iff_dominated`, `count_erase_ne`, `count_erase_self_mem`, `perm_cons_erase_int`, `mem_erase_of_ne_int`, `length_erase_of_mem_int` |
 | SR3 | PROVED: the survey's minimal witness `[-2, -2, -1, 2, 2, 2]` totals `+1` yet is refused on both sides -- SR1 at magnitude `1` kills the non-negative residual, at magnitude `2` the non-positive one.  A positive total does not buy a certificate. | `wedge_total_positive`, `wedge_no_certificate` |
 | SR4 | PROVED: the pinned witness `[1, 2, -1, -2, 1, 1]` carries the explicit certificate (pairs `[1, 2]`, single-signed complement `[1, 1]`) and NO bounded factor pair reproduces it, checked against all `5^5` -- the registered OPEN question is answered YES at the bound. | `witness_certificate`, `witness_not_separable` |
 | SR5 | PROVED: fibrewise oddness cancels the moved sector exactly. | `fibrewise_odd_cancels` |
 | S1-S5 | CONFIRMED except the S3 shape clause above: `15625` families, `625` fibrewise-odd with `0` moved-total misses; counting and full pairing search agree on all `15625` with `0` disagreements; certified `11301`, uncertified `4324`; separable `601`, interacting certified `10812`; positive-total uncertified `1787`; minimal interacting certified `[-2, -2, -2, -2, -2, -1]`; pinned witness verified interacting-with-certificate. | `test_sign_repair.py`, receipt |
 
-The 15 new `#print axioms` reports (310 total) split 2 / 0 / 13 across
+The 17 new `#print axioms` reports (312 total) split 2 / 0 / 15 across
 no axioms / `['propext']` / `['Quot.sound', 'propext']` -- measured --
 all within the whitelist.  The suite grows by six tests; mypy covers
 51 files.
@@ -1908,7 +1870,7 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 310 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) and the 21 layer-balance theorems (7 / 0 / 14, the same three bins; the uniqueness theorem was added on review) and the 15 sign-repair theorems (2 / 0 / 13) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 138 `no axioms` (129 before the layer-balance rung, which adds seven, plus the sign-repair rung's two -- an earlier revision of this row kept 129 while reporting the seven, and a reviewer caught the sum; 126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 312 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) and the 21 layer-balance theorems (7 / 0 / 14, the same three bins; the uniqueness theorem was added on review) and the 17 sign-repair theorems (2 / 0 / 15) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 138 `no axioms` (129 before the layer-balance rung, which adds seven, plus the sign-repair rung's two -- an earlier revision of this row kept 129 while reporting the seven, and a reviewer caught the sum; 126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |

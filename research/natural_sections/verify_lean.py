@@ -370,6 +370,8 @@ AXIOM_REPORT_DECLARATIONS: tuple[str, ...] = (
     "NaturalSections.SignRepair.mem_erase_of_ne_int",
     "NaturalSections.SignRepair.length_erase_of_mem_int",
     "NaturalSections.SignRepair.dominated_certificate",
+    "NaturalSections.SignRepair.dominated_certificate_nonpos",
+    "NaturalSections.SignRepair.certificate_iff_dominated",
     "NaturalSections.SignRepair.wedge_total_positive",
     "NaturalSections.SignRepair.wedge_no_certificate",
     "NaturalSections.SignRepair.witness_certificate",

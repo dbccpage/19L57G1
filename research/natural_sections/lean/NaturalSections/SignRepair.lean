@@ -13,10 +13,10 @@ in `STATUS.md`:
   certificate (a permutation of the weights into exact-opposite pairs
   plus a single-signed residual, the shape SX5 sums) forces
   per-magnitude domination on the residual's side.
-* SR2 -- `dominated_certificate`: the converse, constructively -- from
-  per-magnitude domination an explicit certificate is assembled by
-  fueled descent on the list, pairing one negative against one positive
-  of the same magnitude at each step.
+* SR2 -- `dominated_certificate` / `dominated_certificate_nonpos` /
+  `certificate_iff_dominated`: both converses, constructively, and the
+  resulting exact characterization.  From domination on either side an
+  explicit certificate is assembled by fueled descent on the list.
 * SR3 -- `wedge_total_positive` / `wedge_no_certificate`: a POSITIVE
   TOTAL does not buy a certificate; the survey's minimal witness is
   refused on both sides by SR1.
@@ -253,6 +253,114 @@ theorem dominated_certificate :
         rw [List.append_assoc]
         exact List.Perm.cons v (List.Perm.cons (-v) hperm)
       exact (chain.trans swap).trans target
+
+/-- SR2, the other side: reverse per-magnitude domination yields an
+explicit certificate with non-positive residual.  This is a separate
+constructive descent, pairing each positive entry against a negative
+entry of the same magnitude. -/
+theorem dominated_certificate_nonpos :
+    ∀ (fuel : Nat) (l : List Int), l.length ≤ fuel →
+      (∀ v : Int, 0 < v → l.count v ≤ l.count (-v)) →
+      ∃ pairs res : List Int,
+        l.Perm ((pairs.flatMap fun x => [x, -x]) ++ res)
+          ∧ ∀ x ∈ res, x ≤ 0 := by
+  intro fuel
+  induction fuel with
+  | zero =>
+    intro l hlen _
+    have : l = [] := List.eq_nil_of_length_eq_zero (by omega)
+    subst this
+    exact ⟨[], [], List.Perm.refl _, by intro x hx; cases hx⟩
+  | succ f ih =>
+    intro l hlen hdom
+    cases hfind : l.find? (fun x => decide (0 < x)) with
+    | none =>
+      refine ⟨[], l, List.Perm.refl _, ?_⟩
+      intro x hx
+      have := List.find?_eq_none.mp hfind x hx
+      simp at this
+      omega
+    | some x =>
+      have hxmem : x ∈ l := List.mem_of_find?_eq_some hfind
+      have hxpos : 0 < x := by
+        have := List.find?_some hfind
+        simpa using this
+      have hnegcount : 1 ≤ l.count (-x) := by
+        have hd := hdom x hxpos
+        have hxcount : 1 ≤ l.count x := List.count_pos_iff.mpr hxmem
+        omega
+      have hnegmem : -x ∈ l := List.count_pos_iff.mp (by omega)
+      have hnegx : -x ≠ x := by omega
+      have hnegmem' : -x ∈ l.erase x :=
+        mem_erase_of_ne_int hnegx hnegmem
+      have hlen' : ((l.erase x).erase (-x)).length ≤ f := by
+        have h1 := length_erase_of_mem_int hxmem
+        have h2 := length_erase_of_mem_int hnegmem'
+        have h3 : 1 ≤ l.length := List.length_pos_of_mem hxmem
+        omega
+      have hdom' : ∀ u : Int, 0 < u →
+          ((l.erase x).erase (-x)).count u
+            ≤ ((l.erase x).erase (-x)).count (-u) := by
+        intro u hu
+        by_cases hux : u = x
+        · subst u
+          have e1 : ((l.erase x).erase (-x)).count x =
+              (l.erase x).count x := count_erase_ne _ (by omega)
+          have e2 : (l.erase x).count x + 1 = l.count x :=
+            count_erase_self_mem _ hxmem
+          have e3 : ((l.erase x).erase (-x)).count (-x) + 1 =
+              (l.erase x).count (-x) :=
+            count_erase_self_mem _ hnegmem'
+          have e4 : (l.erase x).count (-x) = l.count (-x) :=
+            count_erase_ne _ (by omega)
+          have := hdom x hxpos
+          omega
+        · have e1 : ((l.erase x).erase (-x)).count u =
+              (l.erase x).count u := count_erase_ne _ (by omega)
+          have e2 : (l.erase x).count u = l.count u :=
+            count_erase_ne _ hux
+          have e3 : ((l.erase x).erase (-x)).count (-u) =
+              (l.erase x).count (-u) := count_erase_ne _ (by omega)
+          have e4 : (l.erase x).count (-u) = l.count (-u) :=
+            count_erase_ne _ (by omega)
+          have := hdom u hu
+          omega
+      obtain ⟨pairs, res, hperm, hres⟩ :=
+        ih ((l.erase x).erase (-x)) hlen' hdom'
+      refine ⟨x :: pairs, res, ?_, hres⟩
+      have step1 : l.Perm (x :: l.erase x) := perm_cons_erase_int hxmem
+      have step2 : (l.erase x).Perm (-x :: (l.erase x).erase (-x)) :=
+        perm_cons_erase_int hnegmem'
+      have chain : l.Perm (x :: -x :: (l.erase x).erase (-x)) :=
+        step1.trans (List.Perm.cons x step2)
+      have target : (x :: -x :: (l.erase x).erase (-x)).Perm
+          (((x :: pairs).flatMap fun y => [y, -y]) ++ res) := by
+        show (x :: -x :: (l.erase x).erase (-x)).Perm
+            (([x, -x] ++ pairs.flatMap fun y => [y, -y]) ++ res)
+        rw [List.append_assoc]
+        exact List.Perm.cons x (List.Perm.cons (-x) hperm)
+      exact chain.trans target
+
+/-- SR2, exact characterization: a cancellation certificate with a
+single-signed residual exists exactly when the weights are dominated
+magnitude by magnitude on at least one side. -/
+theorem certificate_iff_dominated (l : List Int) :
+    (∃ pairs res : List Int,
+      l.Perm ((pairs.flatMap fun x => [x, -x]) ++ res) ∧
+        ((∀ x ∈ res, 0 ≤ x) ∨ (∀ x ∈ res, x ≤ 0))) ↔
+    ((∀ v : Int, 0 < v → l.count (-v) ≤ l.count v) ∨
+      (∀ v : Int, 0 < v → l.count v ≤ l.count (-v))) := by
+  constructor
+  · rintro ⟨pairs, res, hperm, hres | hres⟩
+    · exact Or.inl (fun _ hv => cert_dominates hperm hres hv)
+    · exact Or.inr (fun _ hv => cert_dominates_nonpos hperm hres hv)
+  · rintro (hdom | hdom)
+    · obtain ⟨pairs, res, hperm, hres⟩ :=
+        dominated_certificate l.length l (by omega) hdom
+      exact ⟨pairs, res, hperm, Or.inl hres⟩
+    · obtain ⟨pairs, res, hperm, hres⟩ :=
+        dominated_certificate_nonpos l.length l (by omega) hdom
+      exact ⟨pairs, res, hperm, Or.inr hres⟩
 
 /-! ## 3. SR3: a positive total does not buy a certificate -/
 
