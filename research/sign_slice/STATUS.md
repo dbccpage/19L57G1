@@ -15,7 +15,7 @@ predictions frozen at
 `768b36ab7c586691e996629bfac288a43384b8e8fac691ee1d88a643d8604846`
 (phases 3-5, before the census, the exhaustion, and the register ran).
 Sources read are pinned in `SOURCE_MANIFEST.json` at snapshot
-`60d2d8205e798289af945a245028b6e9d51ab94e`; `verify_pins.py` checks
+`3bfc9422580a381b53ec635fb8d051c74b0e76fe`; `verify_pins.py` checks
 them at the snapshot and at HEAD.
 
 ## Terminals, each with its scope
