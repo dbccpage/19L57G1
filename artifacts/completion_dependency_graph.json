@@ -1293,7 +1293,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
    "consumers": [
     "InterpreterBoundary.lean"
    ],
@@ -1305,7 +1307,9 @@
   },
   {
    "axioms": [],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-PD-INVENTORY"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "PrimDiff.lean",
@@ -1339,7 +1343,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [
     "PrimitiveCore.lean"
@@ -1419,7 +1423,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -1433,7 +1437,7 @@
     "propext"
    ],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -1447,7 +1451,7 @@
     "propext"
    ],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -1459,7 +1463,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -1474,7 +1478,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -1486,7 +1490,7 @@
   {
    "axioms": [],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [
     "ObserverInventory.lean"
@@ -1503,7 +1507,7 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-PD-SHEETS"
+    "CL-PD-TRANSPOSE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -1809,7 +1813,7 @@
    "consumers": [],
    "kind": "generic",
    "module": "ObserverInventory.lean",
-   "name": "ObserverInventory.d1_empty_family_is_identity",
+   "name": "ObserverInventory.closure_empty_family_is_identity",
    "role": "classification",
    "statement": ": \u2200 f : Bool \u2192 Bool, Clos (fun _ => False) f \u2192 \u2200 x, f x = x"
   },
@@ -1833,9 +1837,21 @@
    "consumers": [],
    "kind": "generic",
    "module": "ObserverInventory.lean",
-   "name": "ObserverInventory.d0_not_auto_of_D2",
+   "name": "ObserverInventory.swap_not_auto_of_D2",
    "role": "classification",
    "statement": ": \u00ac (\u2200 x y, D2 x y \u2194 D2 (Bool.not x) (Bool.not y))"
+  },
+  {
+   "axioms": [],
+   "citing_claims": [
+    "CL-PD-TRANSPOSE"
+   ],
+   "consumers": [],
+   "kind": "generic",
+   "module": "ObserverInventory.lean",
+   "name": "ObserverInventory.swap_not_auto_of_D2rev",
+   "role": "classification",
+   "statement": ": \u00ac (\u2200 x y, D2rev x y \u2194 D2rev (Bool.not x) (Bool.not y))"
   },
   {
    "axioms": [

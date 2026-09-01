@@ -4,7 +4,7 @@ Usage: python code/run_observer_inventory.py [--artifacts DIR]
 
 Writes ``observer_inventory.json``: slot bindings on the two-element
 fragment, the irreflexive census, witness-as-data checks, the two
-sheet maps, the two defect readings, and the two residuals.
+reversal maps, the two defect readings, and the two residuals.
 """
 
 from __future__ import annotations

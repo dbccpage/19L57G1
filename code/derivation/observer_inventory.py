@@ -27,37 +27,37 @@ from derivation.primdiff import (
     irreflexive,
     irreflexive_relations_on,
     merge_map,
-    push_rel,
+    pushforward,
     transpose,
 )
 
 SLOTS: tuple[str, ...] = (
-    "K",
-    "F",
-    "R",
-    "delta",
-    "d0",
-    "d1",
-    "J",
-    "M",
-    "tau",
+    "carrier",
+    "local_state",
+    "support",
+    "defect",
+    "reversal",
+    "closure",
+    "residual",
+    "maps",
+    "terminal",
 )
 
 # Named citations of objects that live outside the two-element
 # fragment.  Recorded as strings; not executed.
 NAMED_ELSEWHERE: dict[str, list[str]] = {
-    "K": ["PrimitivePassage.PState.occ"],
-    "W": ["PrimitivePassage.PState.wit"],
-    "delta": [
+    "carrier": ["PrimitivePassage.PState.occ"],
+    "witness": ["PrimitivePassage.PState.wit"],
+    "defect": [
         "PrimDiff.CollapseCollision",
         "PrimDiff.FidelityObstruction",
         "PrimitivePassage.obstP",
     ],
-    "d0_not_supply": ["Attachment.up_iff_legal"],
-    "d1": ["PrimDiff.Clos"],
-    "J": ["PrimitivePassage.PState.budget"],
-    "M": ["PrimDiff.swap_auto_of_S2_not_of_D2"],
-    "tau": [
+    "supply_not_reversal": ["Attachment.up_iff_legal"],
+    "closure": ["PrimDiff.Clos"],
+    "residual": ["PrimitivePassage.PState.budget"],
+    "maps": ["PrimDiff.swap_auto_of_S2_not_of_D2"],
+    "terminal": [
         "Attachment.AttachOutcome",
         "PrimitivePassage.PState.licensed",
         "PrimitivePassage.PState.halted",
@@ -98,9 +98,9 @@ def witnesses_report() -> dict[str, Json]:
     }
 
 
-def d0_report() -> dict[str, Json]:
+def reversal_report() -> dict[str, Json]:
     self_loop: Rel = frozenset({(0, 0)})
-    pushed = push_rel(D2.rel, CARRIER_SWAP)
+    pushed = pushforward(D2.rel, CARRIER_SWAP)
     return {
         "transpose_D2_is_D2rev": transpose(D2.rel) == D2_REV.rel,
         "transpose_D2rev_is_D2": transpose(D2_REV.rel) == D2.rel,
@@ -108,12 +108,12 @@ def d0_report() -> dict[str, Json]:
         "push_swap_D2_is_D2rev": pushed == D2_REV.rel,
         "agree_on_D2": transpose(D2.rel) == pushed,
         "operations_differ_on_self_loop": (
-            transpose(self_loop) != push_rel(self_loop, CARRIER_SWAP)
+            transpose(self_loop) != pushforward(self_loop, CARRIER_SWAP)
         ),
     }
 
 
-def delta_report() -> dict[str, Json]:
+def defect_report() -> dict[str, Json]:
     merge = merge_map(2, 0, 1)
     unit_rel: Rel = frozenset({(0, 0)})
     return {
@@ -128,10 +128,19 @@ def delta_report() -> dict[str, Json]:
 
 
 def edge_count(rel: Rel) -> int:
-    return len(rel)
+    """Off-diagonal occupancy: how many off-diagonal pairs are present.
+
+    Matches the Lean ``edgeCount``, which reads only the two
+    off-diagonal slots of the two-element carrier; diagonal (self-loop)
+    pairs are never counted, so the value agrees with ``len(rel)``
+    exactly on irreflexive relations."""
+    return sum(1 for (x, y) in rel if x != y)
 
 
 def is_sym_bit(rel: Rel) -> int:
+    """Both-orientations bit on the two-element carrier's off-diagonal
+    slots.  Matches the Lean ``isSymBit``; diagonal pairs are never
+    read."""
     return 1 if (0, 1) in rel and (1, 0) in rel else 0
 
 
@@ -150,15 +159,18 @@ def residuals_report() -> dict[str, Json]:
 def inventory_report() -> dict[str, Json]:
     states = local_states()
     bindings: dict[str, Json] = {
-        "K": "Bool",
-        "F": sorted(states),
-        "R": "support of F",
-        "delta": "collision of a map, versus obstruction relative to Irrefl",
-        "d0": "Transpose, and pushforward along the carrier swap",
-        "d1": "Clos; empty family is identity",
-        "J": "edgeCount and isSymBit; neither unique",
-        "M": "carrier swap is auto of S2 and not of D2",
-        "tau": "not a function of F; empty and D2 are both irreflexive",
+        "carrier": "Bool",
+        "local_state": sorted(states),
+        "support": "the local state, read as support",
+        "defect": "collision of a map, versus obstruction relative to Irrefl",
+        "reversal": "Transpose, and pushforward along the carrier swap",
+        "closure": "Clos; empty family is identity",
+        "residual": "edgeCount and isSymBit; neither unique",
+        "maps": "carrier swap is auto of S2 and not of D2",
+        "terminal": (
+            "Irrefl does not determine the local state; "
+            "empty and D2 are both irreflexive"
+        ),
     }
     named: dict[str, Json] = {
         key: list(vals) for key, vals in NAMED_ELSEWHERE.items()
@@ -171,8 +183,8 @@ def inventory_report() -> dict[str, Json]:
         "named_elsewhere": named,
         "irrefl_census": census,
         "witnesses": witnesses_report(),
-        "d0": d0_report(),
-        "delta": delta_report(),
+        "reversal": reversal_report(),
+        "defect": defect_report(),
         "residuals": residuals_report(),
         "empty_ne_D2": states["empty"] != states["D2"],
         "witnesses_not_derived_as_necessary": True,

@@ -1,8 +1,8 @@
 {
   "schema": "primitive_difference_tower_source_manifest/v4",
   "source_snapshot": {
-    "commit": "8805163fa3bdd0fc09a1318687114ba58d00cb25",
-    "tree": "2921995ee3bbf220d29828d1ffb4221e76dadb97"
+    "commit": "042b7041927261c87c0e846b628ed76c750243c9",
+    "tree": "3995f1294d323385ba843c6fcd41b83ef4d7807c"
   },
   "hash_basis": "SHA-256 of canonical Git blobs at the verification HEAD; independent of checkout line endings",
   "lean_source": {
@@ -100,7 +100,7 @@
     {
       "module": "Derivation.PrimDiff",
       "path": "lean4/Derivation/PrimDiff.lean",
-      "sha256": "69AC9CA08179680D28D74ECE54BC90F94854DB98F3D113DF17D0ABBCA86E23B6",
+      "sha256": "F46C3BC439B7361BF19586E322BF95452B7E316844AE05815F27FCF42552DBEA",
       "role": "transitive compilation input"
     },
     {

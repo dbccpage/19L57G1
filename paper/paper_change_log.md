@@ -2390,18 +2390,53 @@ non-identity permutation of the two-element carrier carries `D2` onto
 symmetrization `S2`; that permutation is an automorphism of `S2` and not
 of `D2`.  Unpointed, the inhabited irreflexive relations on that carrier
 are exactly those three.  Python enumerates the same facts into
-`primdiff.json:transposition`.  Claim `CL-PD-SHEETS`.  No imported
+`primdiff.json:transposition`.  Claim `CL-PD-TRANSPOSE`.  No imported
 names; the F1 tower remains a conjecture above this rung.
 
 ## Nine-slot inventory (2026-08-31)
 
 A declared classification of existing objects, instantiated on the
-two-element fragment: slots `(K, F, R, delta, d0, d1, J, M, tau)` in
-`lean4/Derivation/ObserverInventory.lean`,
+two-element fragment: nine slots, each named for what it hosts
+(carrier, local state, support, defect, reversal, closure, residual,
+maps, terminal) in `lean4/Derivation/ObserverInventory.lean`,
 `code/derivation/observer_inventory.py`, and
 `paper/observer_inventory.md`.  Witness assignments are present as
 data and are not derived as a unique inhabitant.  Relation
 `Transpose` is an involution that carries `D2` onto `D2rev` and
 agrees with carrier-swap pushforward on `D2` while remaining a
-different operation.  Claim `CL-PD-INVENTORY`.  No imported names.
-The slot names are supplied, not derived.
+different operation.  Claim `CL-PD-INVENTORY`.  The slot names are
+this repository's own; the classification itself is supplied, not
+derived.
+
+## Inventory review repairs and vocabulary refusal (2026-08-31)
+
+Same-branch repairs before merge, from the completed review of the
+transposition-and-inventory change:
+
+* A single-letter slot grid and an outside phrase for the pair of
+  maps in the reversal slot had been offered through the operator
+  channel and briefly adopted; by author ruling they are refused as
+  vocabulary.  The slots are renamed to this repository's own words
+  (carrier, local state, support, defect, reversal, closure,
+  residual, maps, terminal), the claim formerly named after the
+  offered phrase is now `CL-PD-TRANSPOSE`, and the refusal is
+  recorded in `paper/observer_inventory.md` §1 without reproducing
+  the offered names.
+* The terminal-slot sentence "no next state is a function of the
+  carrier and local state" was a non-sequitur (the identity is such
+  a function) and is narrowed to what the theorems prove:
+  irreflexivity does not determine the local state.  Recorded in
+  place in the paper and `CL-PD-INVENTORY`.
+* Both censuses now state their decidability scope ("every decidable
+  irreflexive relation"), matching the pointed census's precedent
+  wording.
+* The defect-slot ledger sentence is weakened to what
+  `collision_is_not_obstruction` states, and the sealed
+  `PrimDiff.collapse_unobstructed_without_fidelity` and
+  `PrimDiff.obstruction_under_irrefl` now carry the collapse-map
+  separation in the citation list.
+* `swap_not_auto_of_D2rev` closes the "neither orientation" receipt
+  gap; a duplicated pushforward helper is deleted in favour of the
+  pre-existing one; the residual readers document their off-diagonal
+  domain; named-elsewhere citations are now resolved against the
+  Lean sources by test.

@@ -196,9 +196,10 @@ open Derivation
 #print axioms ObserverInventory.pushNot_D2_eq_D2rev
 #print axioms ObserverInventory.transpose_eq_pushNot_on_D2
 #print axioms ObserverInventory.transpose_ne_pushNot
-#print axioms ObserverInventory.d1_empty_family_is_identity
+#print axioms ObserverInventory.closure_empty_family_is_identity
 #print axioms ObserverInventory.residuals_not_unique
-#print axioms ObserverInventory.d0_not_auto_of_D2
+#print axioms ObserverInventory.swap_not_auto_of_D2
+#print axioms ObserverInventory.swap_not_auto_of_D2rev
 
 -- The bridge: provenance of the primitive-difference ingredients
 #print axioms Bridge.stepT_preserves_atMostTok

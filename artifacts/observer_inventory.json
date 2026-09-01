@@ -1,29 +1,21 @@
 {
  "bindings": {
-  "F": [
+  "carrier": "Bool",
+  "closure": "Clos; empty family is identity",
+  "defect": "collision of a map, versus obstruction relative to Irrefl",
+  "local_state": [
    "D2",
    "D2rev",
    "S2",
    "empty"
   ],
-  "J": "edgeCount and isSymBit; neither unique",
-  "K": "Bool",
-  "M": "carrier swap is auto of S2 and not of D2",
-  "R": "support of F",
-  "d0": "Transpose, and pushforward along the carrier swap",
-  "d1": "Clos; empty family is identity",
-  "delta": "collision of a map, versus obstruction relative to Irrefl",
-  "tau": "not a function of F; empty and D2 are both irreflexive"
+  "maps": "carrier swap is auto of S2 and not of D2",
+  "residual": "edgeCount and isSymBit; neither unique",
+  "reversal": "Transpose, and pushforward along the carrier swap",
+  "support": "the local state, read as support",
+  "terminal": "Irrefl does not determine the local state; empty and D2 are both irreflexive"
  },
- "d0": {
-  "agree_on_D2": true,
-  "operations_differ_on_self_loop": true,
-  "push_swap_D2_is_D2rev": true,
-  "transpose_D2_is_D2rev": true,
-  "transpose_D2rev_is_D2": true,
-  "transpose_twice_D2": true
- },
- "delta": {
+ "defect": {
   "D2_collides_under_merge": true,
   "S2_collides_under_merge": true,
   "empty_does_not_collide_under_merge": true,
@@ -42,34 +34,34 @@
   ]
  },
  "named_elsewhere": {
-  "J": [
-   "PrimitivePassage.PState.budget"
-  ],
-  "K": [
+  "carrier": [
    "PrimitivePassage.PState.occ"
   ],
-  "M": [
-   "PrimDiff.swap_auto_of_S2_not_of_D2"
-  ],
-  "W": [
-   "PrimitivePassage.PState.wit"
-  ],
-  "d0_not_supply": [
-   "Attachment.up_iff_legal"
-  ],
-  "d1": [
+  "closure": [
    "PrimDiff.Clos"
   ],
-  "delta": [
+  "defect": [
    "PrimDiff.CollapseCollision",
    "PrimDiff.FidelityObstruction",
    "PrimitivePassage.obstP"
   ],
-  "tau": [
+  "maps": [
+   "PrimDiff.swap_auto_of_S2_not_of_D2"
+  ],
+  "residual": [
+   "PrimitivePassage.PState.budget"
+  ],
+  "supply_not_reversal": [
+   "Attachment.up_iff_legal"
+  ],
+  "terminal": [
    "Attachment.AttachOutcome",
    "PrimitivePassage.PState.licensed",
    "PrimitivePassage.PState.halted",
    "Horizon.worldAt_quiescent"
+  ],
+  "witness": [
+   "PrimitivePassage.PState.wit"
   ]
  },
  "residuals": {
@@ -79,17 +71,25 @@
   "is_sym_bit_S2": 1,
   "residuals_disagree_on_D2": true
  },
+ "reversal": {
+  "agree_on_D2": true,
+  "operations_differ_on_self_loop": true,
+  "push_swap_D2_is_D2rev": true,
+  "transpose_D2_is_D2rev": true,
+  "transpose_D2rev_is_D2": true,
+  "transpose_twice_D2": true
+ },
  "slot_count": 9,
  "slots": [
-  "K",
-  "F",
-  "R",
-  "delta",
-  "d0",
-  "d1",
-  "J",
-  "M",
-  "tau"
+  "carrier",
+  "local_state",
+  "support",
+  "defect",
+  "reversal",
+  "closure",
+  "residual",
+  "maps",
+  "terminal"
  ],
  "witnesses": {
   "one_forward": true,

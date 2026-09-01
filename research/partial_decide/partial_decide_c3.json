@@ -947,8 +947,8 @@
   ],
   "schema": "partial_decide_c3_receipt/v1",
   "source_snapshot": {
-    "commit": "24d1bc64bace9721472430347ca9d3af303e1347",
-    "tree": "2e80261ef11b9bcd2fc3a87597892aafec83dbf6"
+    "commit": "042b7041927261c87c0e846b628ed76c750243c9",
+    "tree": "3995f1294d323385ba843c6fcd41b83ef4d7807c"
   },
   "terminals": [
     "C3_UNIQUE_DELTA_EMPTY",

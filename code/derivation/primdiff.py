@@ -332,11 +332,6 @@ def symmetrize(rel: Rel) -> Rel:
     return rel | transpose(rel)
 
 
-def push_rel(rel: Rel, f: Func) -> Rel:
-    """Image of a relation under an endomap of its carrier."""
-    return frozenset((f[x], f[y]) for (x, y) in rel)
-
-
 def irreflexive_relations_on(n: int) -> list[Rel]:
     """Every irreflexive relation on ``range(n)``, deterministic order."""
     off = [(x, y) for x in range(n) for y in range(n) if x != y]
@@ -355,17 +350,21 @@ def transposition_report() -> dict[str, object]:
     nonempty = [rel for rel in irreflexive_relations_on(2) if rel]
     three = frozenset({D2.rel, D2_REV.rel, S2.rel})
     return {
-        "swap_pushes_D2_to_D2rev": push_rel(D2.rel, CARRIER_SWAP) == D2_REV.rel,
-        "swap_pushes_D2rev_to_D2": push_rel(D2_REV.rel, CARRIER_SWAP) == D2.rel,
+        "swap_pushes_D2_to_D2rev": (
+            pushforward(D2.rel, CARRIER_SWAP) == D2_REV.rel
+        ),
+        "swap_pushes_D2rev_to_D2": (
+            pushforward(D2_REV.rel, CARRIER_SWAP) == D2.rel
+        ),
         "swap_twice_is_identity": twice == CARRIER_ID,
-        "swap_twice_restores_D2": push_rel(D2.rel, twice) == D2.rel,
-        "swap_twice_restores_D2rev": push_rel(D2_REV.rel, twice) == D2_REV.rel,
+        "swap_twice_restores_D2": pushforward(D2.rel, twice) == D2.rel,
+        "swap_twice_restores_D2rev": pushforward(D2_REV.rel, twice) == D2_REV.rel,
         "sym_D2_is_S2": symmetrize(D2.rel) == S2.rel,
         "sym_D2rev_is_S2": symmetrize(D2_REV.rel) == S2.rel,
-        "swap_is_auto_of_S2": push_rel(S2.rel, CARRIER_SWAP) == S2.rel,
-        "swap_is_not_auto_of_D2": push_rel(D2.rel, CARRIER_SWAP) != D2.rel,
+        "swap_is_auto_of_S2": pushforward(S2.rel, CARRIER_SWAP) == S2.rel,
+        "swap_is_not_auto_of_D2": pushforward(D2.rel, CARRIER_SWAP) != D2.rel,
         "swap_is_not_auto_of_D2rev": (
-            push_rel(D2_REV.rel, CARRIER_SWAP) != D2_REV.rel
+            pushforward(D2_REV.rel, CARRIER_SWAP) != D2_REV.rel
         ),
         "unpointed_irrefl_nonempty_count": len(nonempty),
         "unpointed_irrefl_nonempty_are_exactly_the_three": (

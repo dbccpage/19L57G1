@@ -7,24 +7,25 @@ A declared classification of objects this development already has.
 It is not a dynamics, not a next challenge, and not a necessity
 claim about any slot.
 
-Nine slots, written `(K, F, R, delta, d0, d1, J, M, tau)`.  On the
-two-element fragment they bind as follows:
+Nine slots, each named for what it hosts.  On the two-element
+fragment they bind as follows:
 
-* `K` — the carrier `Bool`
-* `F` — a local pair-state: empty, `D2`, `D2rev`, or `S2`
-* `R` — that same relation, read as support
-* `delta` — two defect readings, kept distinct: collision of a
+* `carrier` — the carrier `Bool`
+* `localState` — a local pair-state: empty, `D2`, `D2rev`, or `S2`
+* `support` — that same relation, read as support
+* `defect` — two defect readings, kept distinct: collision of a
   collapse map, versus obstruction relative to `Irrefl`
-* `d0` — two sheet maps that agree on `D2` and are not the same
-  operation: relation `Transpose`, and pushforward along `Bool.not`
-* `d1` — optional operation-family closure (`Clos`); the empty
+* `reversal` — two reversal maps that agree on `D2` and are not the
+  same operation: relation `Transpose`, and pushforward along
+  `Bool.not`
+* `closure` — optional operation-family closure (`Clos`); the empty
   family is the identity
-* `J` — more than one residual on `F` (edge count versus the
-  both-orientations bit)
-* `M` — maps; the transposition is an automorphism of `S2` and not
-  of `D2`
-* `tau` — not a function of `(K, F)`: empty and `D2` are both
-  irreflexive local states
+* `residual` — more than one residual on the local state (edge
+  count versus the both-orientations bit)
+* `maps` — maps; the transposition is an automorphism of `S2` and
+  not of `D2`
+* `terminal` — irreflexivity does not determine the local state:
+  empty and `D2` are both irreflexive local states
 
 Witness assignments occupy extra data on pairs.  They are present
 when supplied.  They are not derived as the unique inhabitant:
@@ -40,17 +41,19 @@ open PrimDiff
 /-! ## Slot names -/
 
 inductive Slot where
-  | K | F | R | delta | d0 | d1 | J | M | tau
+  | carrier | localState | support | defect | reversal
+  | closure | residual | maps | terminal
 deriving DecidableEq, Repr
 
 def slotList : List Slot :=
-  [.K, .F, .R, .delta, .d0, .d1, .J, .M, .tau]
+  [.carrier, .localState, .support, .defect, .reversal,
+   .closure, .residual, .maps, .terminal]
 
 theorem slot_count : slotList.length = 9 := rfl
 
 theorem slots_nodup : slotList.Nodup := by decide
 
-/-! ## K, F, R on the two-element carrier -/
+/-! ## Carrier, local state, and support on the two-element carrier -/
 
 def EmptyRel : Bool → Bool → Prop := fun _ _ => False
 
@@ -134,7 +137,7 @@ theorem witnesses_are_data :
   · intro x y
     cases x <;> cases y <;> simp [oneW, D2]
 
-/-! ## delta: two defect readings, not fused -/
+/-! ## Defect: two readings, not fused -/
 
 /-- Collision of a collapse exists on the one-point self-difference,
 which is not irreflexive.  Collision of a map is therefore not the
@@ -143,7 +146,7 @@ theorem collision_is_not_obstruction :
     ∃ r : Unit → Unit → Prop, r () () ∧ ¬ Irrefl r :=
   ⟨fun _ _ => True, trivial, fun hi => hi () trivial⟩
 
-/-! ## d0: relation transpose and carrier swap -/
+/-! ## Reversal: relation transpose and carrier swap -/
 
 def pushNot (r : Bool → Bool → Prop) : Bool → Bool → Prop :=
   fun x y => r (Bool.not x) (Bool.not y)
@@ -190,13 +193,13 @@ theorem transpose_ne_pushNot :
   have hp : pushNot r false false := eqp ▸ ht
   exact Bool.noConfusion hp.1
 
-/-! ## d1: optional closure -/
+/-! ## Closure: optional operation-family closure -/
 
-theorem d1_empty_family_is_identity :
+theorem closure_empty_family_is_identity :
     ∀ f : Bool → Bool, Clos (fun _ => False) f → ∀ x, f x = x :=
   clos_empty_id
 
-/-! ## J: more than one residual -/
+/-! ## Residuals: more than one -/
 
 def edgeCount (r : Bool → Bool → Prop)
     [∀ x y, Decidable (r x y)] : Nat :=
@@ -212,10 +215,17 @@ theorem residuals_not_unique :
       edgeCount D2 ≠ isSymBit D2 := by
   decide
 
-/-! ## M, tau: maps and the absence of a unique next state -/
+/-! ## Maps and terminal: automorphisms, and no state determined -/
 
-theorem d0_not_auto_of_D2 :
+theorem swap_not_auto_of_D2 :
     ¬ (∀ x y, D2 x y ↔ D2 (Bool.not x) (Bool.not y)) :=
   (swap_auto_of_S2_not_of_D2).2
+
+/-- The carrier swap is not an automorphism of the reverse
+orientation either: it carries `D2rev` back to `D2`.  Companion to
+the negative half of `swap_auto_of_S2_not_of_D2`. -/
+theorem swap_not_auto_of_D2rev :
+    ¬ (∀ x y, D2rev x y ↔ D2rev (Bool.not x) (Bool.not y)) := by
+  decide
 
 end ObserverInventory

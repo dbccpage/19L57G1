@@ -1,8 +1,8 @@
 {
   "schema": "s9_obligations_source_manifest/v1",
   "source_snapshot": {
-    "commit": "db1d2b225b577d5212780ff02700efd693c8e446",
-    "tree": "d27086ab329014392e60bf51f08fe00e7ab53d2d"
+    "commit": "042b7041927261c87c0e846b628ed76c750243c9",
+    "tree": "3995f1294d323385ba843c6fcd41b83ef4d7807c"
   },
   "hash_basis": "SHA-256 of canonical Git blobs, checked at the source snapshot AND at the verification HEAD; independent of checkout line endings",
   "source_policy": "read-only sealed inputs; every sealed file this run reads is listed here; the snapshot commit must resolve, must be an ancestor of HEAD, and must carry the recorded tree; nothing under a sealed prefix may differ between the snapshot and HEAD, be modified, be untracked, or be ignored-but-present in the worktree",
@@ -13,27 +13,27 @@
   "sources": [
     {
       "path": "lean4/Derivation/PrimDiff.lean",
-      "sha256": "69AC9CA08179680D28D74ECE54BC90F94854DB98F3D113DF17D0ABBCA86E23B6",
+      "sha256": "F46C3BC439B7361BF19586E322BF95452B7E316844AE05815F27FCF42552DBEA",
       "role": "sealed input"
     },
     {
       "path": "code/derivation/primdiff.py",
-      "sha256": "A7FE540B4C0D766C9701631449A6AC3D1661C850B9F694B1B01E9D47E83E2ADA",
+      "sha256": "10C2EEDD0DE9E3D5C1901591B474EE3CB56ED8D3912B951E2A6ACE1B05F1B663",
       "role": "sealed input"
     },
     {
       "path": "code/run_primdiff.py",
-      "sha256": "4369DA516F4096882E25F435B5C65A786E9FBA034848838DFBE50ED74C8F1E4C",
+      "sha256": "67F04AA9CEDC76652A78FE4DE410B40D8FDD3DFA89128B75C6378FC4BECEBD66",
       "role": "sealed input"
     },
     {
       "path": "artifacts/primdiff.json",
-      "sha256": "D6991342399160B9B6AD7F3D3E1460E4D2472A03EC975BD097581614549B860C",
+      "sha256": "B50DD7BC2826500DB1DB66E07D698576D51710F754A01C22478F19E1CE38471B",
       "role": "sealed input"
     },
     {
       "path": "paper/primitive_difference.md",
-      "sha256": "F69DA9978691945D588C8F7A9283AC50C2FA3F53ADFD1A2CABA90F912ECC0BEC",
+      "sha256": "69573CFC4CCA76D0AF5A2E69C491E3416260D3EA35333B12323B108852A20261",
       "role": "sealed input"
     }
   ]

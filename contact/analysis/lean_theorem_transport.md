@@ -415,7 +415,7 @@ and `PrimitiveCore.ret_not_from_witness` (`:809`).
 
 **Scope of the E row, stated exactly.** `obsSetting_e` claims E only at the
 empty operation family. With one admitted merger E dies; the sealed
-`PrimDiff.merger_erases` (`PrimDiff.lean:455`) is the mechanism, and the kernel
+`PrimDiff.merger_erases` (`PrimDiff.lean:541`) is the mechanism, and the kernel
 stratum instantiates it as `ContactKernel.kernel_not_e_merged` (`ContactKernel.lean:661`)
 with carrier 2. Nothing here claims E beyond the
 empty-store translation.
