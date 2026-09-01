@@ -1606,6 +1606,105 @@ the inverse used a remainder computation and stalled; the shipped
 inverse is the no-remainder complement, and the stall left no trace in
 any receipt because nothing had been registered yet.
 
+## Layer balance: fresh representatives and the signed inversion -- predictions, written before the computation ran
+
+The receiver rung proved that every element of `QOne` comes from some
+layer (`receiver_is_union`) and counted, by brute force, how many NEW
+elements each part count contributes: `[1, 1, 2, 2, 4, 2, 6, 4]` at
+part counts `1..8` (Q4).  This rung turns "new at this layer" into a
+definition and a theorem.  An element `c` of layer `k` is **fresh**
+when its part shares no common factor greater than one with its part
+count `k + 1`.  The claims: fresh elements of a layer belong to no
+smaller layer, non-fresh elements always drop to one, and every
+element of the receiver has EXACTLY ONE fresh representation -- the
+receiver partitions into its layers' genuinely new elements.
+
+On the counting side, the rung defines the **balance**: the unique
+signed correction determined by the divisor recursion `balance 1 = 1`
+and, for `n >= 2`, "the divisor sum of the balance is zero".  The
+balance is what inverts cumulative layer counting into fresh counting.
+Its running sum over part counts `1..n` is the rung's registered
+unknown: how fast the running balance grows is OPEN here -- this rung
+computes and records it under declared bounds, claims no growth bound,
+and refutes none.  A spectral carrier for the balance (an internal
+observer whose holonomy grades the layers, in the sense the twisted-sum
+rungs made precise) is named as the natural NEXT question so it cannot
+later be smuggled in as if it had been derived; nothing about it is
+claimed.
+
+Vocabulary note, recorded at registration: the definitions of this
+rung are stated entirely in this tree's own words -- part count,
+fresh, balance, running balance.  No outside name for any of these
+counting functions appears in this repository, and the refusal
+discipline of `CLAUDE.md` applies to this rung as to every other.
+
+### Claims (Lean), written before the module was compiled
+
+| claim | statement |
+|---|---|
+| LB1 | each layer embedding is injective: `layer k c = layer k c'` forces `c = c'` |
+| LB2 | fresh minimality: a fresh element of layer `k` equals no element of any layer with a smaller part count |
+| LB3 | reduction: a non-fresh element of layer `k >= 1` equals an element of some properly smaller layer, by the explicit common-factor quotient, with cross difference literally zero |
+| LB4 | unique fresh representation: every element of `QOne` is `layer k c` with `c` fresh for exactly one pair `(k, c)` -- existence by descent on the part count, uniqueness from LB1 and LB2 |
+| LB5 | the balance is well defined by the divisor recursion (the fueled computation is stable once the fuel reaches the argument), `balance 1 = 1`, and for every `n >= 2` the divisor sum of the balance vanishes |
+| LB6 | kernel-decided values: balance at `1..12` is `[1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0]`; fresh counts at `1..12` are `[1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4]`; the partition instances (divisor sum of fresh counts equals `n`) and the inversion instances (fresh count as the balance-weighted divisor sum) hold for `n <= 24`; running balance at `10, 30, 100` is `-1, -3, 1` |
+
+### Pinned predictions (Python, written before the run)
+
+Exact integer and exact rational arithmetic throughout; no floating
+point anywhere in the computation or the receipt.
+
+| id | prediction |
+|---|---|
+| B1 | fresh counts at part counts `1..8` are `[1, 1, 2, 2, 4, 2, 6, 4]`, equal to the receiver rung's independently computed reduced counts (Q4); `0` misses |
+| B2 | two independent balance computations -- the divisor recursion, faithful to the definition, and a smallest-factor sieve that never performs a divisor sum -- agree at every `n <= 10^6`; `0` misses |
+| B3 | partition: the divisor sum of fresh counts equals `n` for every `n <= 2000`; `0` misses |
+| B4 | inversion: the fresh count at `n` equals the sum over divisors `d` of `n` of `balance(d) * (n / d)`, for every `n <= 2000`; `0` misses |
+| B5 | running balance at checkpoints `10, 30, 100, 1000, 10^4, 10^5, 10^6` is `-1, -3, 1, 2, -23, -48, 212` -- the last four pinned from memory before any computation; a miss is recorded as a miss |
+| B6 | the exact squared growth ratio (running balance squared, over `n`) attains its maximum over `2 <= n <= 10^6` at `n = 5` with value `4/5`, and never reaches `1` in that range -- so the running balance stays strictly below the square root throughout the computed window.  This is a statement about the window, not a bound: the growth question stays OPEN |
+
+If any pinned value misses, the miss is recorded next to the value.
+
+### Results, written after the run (`layer_balance.py`, receipt
+`receipts/layer_balance.json`; Lean in `lean/NaturalSections/LayerBalance.lean`)
+
+Every prediction held; no misses this rung -- including the four
+checkpoints pinned from memory before any computation ran
+(`2, -23, -48, 212`) and the growth maximum (`4/5` at part count `5`).
+
+| claim | outcome | evidence |
+|---|---|---|
+| LB1 | PROVED: each layer embedding is injective, by cancelling the part count and descending the divisibility to the parts. | `layer_inj` |
+| LB2 | PROVED: fresh minimality -- the part count divides the common measure, which freshness collapses below it. | `fresh_not_below` |
+| LB3 | PROVED: the common-factor quotient lands in a properly smaller layer with cross difference literally zero. | `reduce_below` |
+| LB4 | PROVED: unique fresh representation -- existence by fueled descent, uniqueness by trichotomy on the part counts.  The receiver partitions into its layers' genuinely new elements. | `fresh_descend`, `fresh_rep_exists`, `fresh_rep_unique` |
+| LB5 | PROVED: the fueled recursion is stable and the divisor sum of the balance vanishes at every part count `n + 2`. | `balanceFuel_stable`, `balance_eq_fuel`, `balance_one`, `balance_divisor_sum` |
+| LB6 | DECIDED by the kernel: every registered value exactly as pinned. | `balance_values`, `freshCount_values`, `partition_instances`, `inversion_instances`, `runningBalance_checkpoints` |
+| B1-B6 | CONFIRMED, every count as pre-registered: fresh counts `[1, 1, 2, 2, 4, 2, 6, 4]` equal to Q4's reduced counts; two independent balance computations agree at every `n <= 10^6` with `0` misses; partition and inversion identities clean to `2000`; checkpoints `-1, -3, 1, 2, -23, -48, 212`; growth maximum exactly `4/5` at part count `5`, strictly below the square root throughout the window. | `test_layer_balance.py`, receipt |
+
+The 21 new `#print axioms` reports (295 total) split 7 / 0 / 14 across
+no axioms / `['propext']` / `['Quot.sound', 'propext']` -- measured,
+not assumed -- all within the whitelist.  The suite is `159` tests;
+mypy covers `48` files.
+
+Assembly notes, recorded rather than smoothed: (1) the first build
+failed the axiom audit -- two core lemmas this module reached for
+(`Int.natCast_dvd_natCast`, `Nat.lt_of_mul_lt_mul_left`) carry
+`Classical.choice` in this toolchain, and the audit named the reliance
+before any receipt was regenerated.  Both were replaced by
+hand-proved constructive lemmas (`natCast_dvd_down`, `lt_of_mul_left`),
+now reported alongside the rest.  (2) Two rewrites failed with
+non-type-correct motives because they abstracted the part count under
+a `Fin`-typed term; both became calc chains that never touch the
+dependent position.  No registered value moved in either repair.
+(3) On review: the registration called the balance "the unique signed
+correction" but the module proved only that THIS balance satisfies the
+recursion, never that an arbitrary candidate must agree with it.
+Repaired by proving rather than weakening: `balance_unique` quantifies
+over any function with value `1` at part count `1` and vanishing
+divisor sums and shows agreement at every positive part count.  The
+word "unique" is now a theorem.
+
 ## Boundary and write root
 
 Write root: `research/natural_sections/`.  The Lean package declares
@@ -1665,20 +1764,21 @@ is the same shape as the sibling steps; it is not applied here.
 | command | exit | key line |
 |---|---|---|
 | `python research/natural_sections/verify_pins.py` | 0 | `import closure of ['Derivation.PresentationNaturality']: 12 module(s), all pinned`; `sealed prefixes clean` |
-| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 274 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 129 `no axioms` (126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
+| `python research/natural_sections/verify_lean.py` | 0 | `Lean #print axioms declarations: 295 within ['Quot.sound', 'propext']` (the eight PR #99 repair theorems, the 24 faces theorems, the 35 repair-mass theorems, the 10 aggregation theorems, the 8 equivariant-bridge theorems, the 12 A2-repair conjugation-orbit theorems, the 26 slot-exchange theorems (4 / 13 / 9), and the 18 phase-receiver theorems (0 / 1 / 17 across no axioms / `['propext']` / `['Quot.sound', 'propext']`) and the 21 layer-balance theorems (7 / 0 / 14, the same three bins; the uniqueness theorem was added on review) included; of the bridge's 8, four report `no axioms` and four `['Quot.sound']`; the orbit rung's 12 split 7 / 3 / 2 across no axioms / `['propext']` / `['Quot.sound', 'propext']` -- an earlier row said 6 / 3 / 3, inconsistent with its own no-axioms total, and a verifier recomputed the split from a fresh build); 136 `no axioms` (129 before the layer-balance rung, which adds seven -- an earlier revision of this row kept 129 while reporting the seven, and a reviewer caught the sum; 126 at the two-branch merge -- the two parent branches of this merge each carried a reviewer-corrected count, 119 with the bridge and 122 with the orbit rung, both over the shared base's 115; 126 = 115 + 4 + 7, confirmed by a fresh run at the merge) (the budget theorems use `omega` and `funext`, so they carry the whitelist pair) (the re-presentation, cut and counts theorems among them); 7 in `Hop3`, 6 in `Hop4`, 12 in `HopPhase` and 5 in the pre-orbit weighted layer on `['propext']` (the orbit rung adds 3 more there), and the three counting theorems (`omega`) on `['Quot.sound', 'propext']`; `write root respected` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_representation.py --out receipts` | 0 | `square re-presentation: {... 're_presentations': 64, 'with_section': 0 ...}`; `square deletion: {... 'minimum_deletion': 2 ... 'single_deletion_suffices': False}`; `chain re-presentation: {... 64, 'with_section': 64 ...}`; `star deletion: {'minimum_deletion': 1 ...}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_weighted_sum.py --out receipts` | 0 | `square_2x2_k2: 147 closed walks up to length 6; total_unit 147, total_sign 43`, `pair (0, 1): twisted_unit 95 ... movers 52`; `orbit counterexample: ... 'twisted_at_fixed': 1, 'twisted_at_moved': 0`; `every value: {'square_2x2': [-3, -1, 0, 2, 7], 'chain_P4': [-3, -1, 0, 2, 7]}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_conj_orbit.py --out receipts` | 0 | `square k=2: 147 closed walks up to length 6; holonomy group order 2`; `orbit [[0, 1], [1, 0]]: twisted_unit [95, 95], agree True`; `all orbits agree: True`; `mini list: twisted_unit {'0,1': 1, '1,0': 1}, total_unit 2`; `unit conjugation closure to length 4: 19 walks, 361 pairs, 0 violations` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_slot_exchange.py --out receipts` | 0 | `rotation counts k=1..8: [1, 2, 3, 4, 5, 6, 7, 8]`; `swap counts k=1..8: [1, 2, 1, 2, 1, 2, 1, 2]`; `odd families bound 3: 7, all totals zero True, pairing misses 0`; `discard countermodel: full 0, discarded 4, conflatable False`; `decomposition survey bound 2: 125 families, moved-pair nonzero 0, total mismatches 0, negative totals 50` |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_layer_balance.py --out receipts` | 0 | `balance at part counts 1..12: [1, -1, -1, 0, -1, 1, -1, 0, 0, 1, -1, 0]`; `agreement of the two computations to 1000000: 0 misses`; `running balance checkpoints: {'10': -1, '30': -3, '100': 1, '1000': 2, '10000': -23, '100000': -48, '1000000': 212}`; `growth: max squared ratio 4/5 at part count 5, stays below the square root: True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_q_one.py --out receipts` | 0 | `group laws to index 6: 28 pairs, assoc misses 0, comm misses 0, inverse misses 0`; `layer compatibility: 196 checks, 0 misses`; `orders of layer-one elements k=0..7: [1, 2, 3, 4, 5, 6, 7, 8]`; `reduced counts at part counts 1..8: [1, 1, 2, 2, 4, 2, 6, 4]`; `joint layers of the pinned lists: [6, 12, 2, 1, 6]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_phase.py --out receipts` | 0 | `one on each, flux 1: order 4, permutation part trivial, fixed pair False`; `gauge invariance: True`; `periodicity: {... True}`; `refinement compatibility: {... True}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_fixture.py --out receipts` | 0 | five chains `section exists`; square, ladder, star, triangle `NO natural section` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` | 0 | `k=3 square_2x2: NO natural section; parity says clean; ... group order(s) 3`; `k=3 star_K13: section exists` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_holonomy_group.py --out receipts` (k = 4) | 0 | `runs.k4` in the receipt: `square_plus_edge` components of orders 1, 3, 2 with common fixed points all, `[3]`, `[2, 3]` |
-| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 149 tests`, `OK` (the clean rebuild included; 143 before the phase-receiver rung) |
+| `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | `Ran 159 tests`, `OK` (the clean rebuild included; 152 before the layer-balance rung, which adds seven -- an earlier revision of this row said 149, and a reviewer counted) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_aggregation.py --out receipts` | 0 | `pairs 243, additivity violations {'edge_sum': 0, 'max_agg': 28560, 'doubled': 0}, calibration failures {'edge_sum': 0, 'max_agg': 0, 'doubled': 810}` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_quotient_mass.py --out receipts` | 0 | `N=3: classes 9, orbits N^3 True, supp price matches QM3 True, counts {0: 1, 1: 6, 2: 2}, circ antidiagonal exact True` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_two_complex.py --out receipts` | 0 | `N=3: total 243, sections 27, outer-zero 81, outer-zero-obstructed 54, boundary identity True, potential==flux True` |
-| `cd research/natural_sections && python -m mypy` | 0 | strict, 45 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, the slot-exchange modules to 42, and the phase-receiver modules to 45) |
+| `cd research/natural_sections && python -m mypy` | 0 | strict, 48 source files (an earlier row said 27 after the faces and repair-mass modules had raised it to 30 and then 33; a reviewer corrected the stale receipt, the aggregation modules raise it to 36, the conjugation-orbit modules to 39, the slot-exchange modules to 42, the phase-receiver modules to 45, and the layer-balance modules to 48) |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_budget_meter.py --out receipts` | 0 | `decider all within budget: True`; `decider all verdicts match: True`; `sum meter len 8: 1171 walks, 5851 steps, within linear budget: False`; `growth factors: [8.27, 8.03, 8.0]` |
 | `cd research/natural_sections && PYTHONDONTWRITEBYTECODE=1 python run_refinement.py --out receipts` | 0 | square rounds `6/8 -> 14/16 -> 30/32` objects/hops, odd `2, 2, 2`, `section False` throughout; chain `section True` throughout; `verdicts invariant: {... True}` |
