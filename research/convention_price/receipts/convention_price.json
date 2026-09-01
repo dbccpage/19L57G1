@@ -1,0 +1,1018 @@
+{
+  "adversarial": {
+    "A1": "refuted: different groups -- pointwise_parity_blind IS the invariance at parity level; slot_group_sections quantifies over the strictly larger per-slot group",
+    "A10": "refuted: Lean proves; receipts record runs; neither is the other",
+    "A2": "refuted by FW-SCOPE and FW-SET: two labels, declared bounds, a slice -- the supplied challenge is not answered",
+    "A3": "refuted: one member, one bound, computed; no analogy",
+    "A4": "decided per member; the price map is in phase 2; no extrapolation",
+    "A5": "decided by the table: CHANNELS_AGREE_ON_CENSUS; the magnitude degeneracy is named next to it",
+    "A6": "refuted: unit-weight members' walk lists are single-signed; recorded per member in phase 4",
+    "A7": "refuted: phase 3 is computation; its leftover stays OPEN where the terminal leaves one",
+    "A8": "refuted by FW-SET: the census is a declared slice",
+    "A9": "partial only: the two-label half of SS-09 closes with slot_group_sections; the larger-fibre half stays OPEN"
+  },
+  "authority_effect": "None",
+  "census_reproduced": true,
+  "phase_2_promotion": {
+    "consumed_class_route": {
+      "pan_C3_tail_occ2": {
+        "classes": 256,
+        "flip_count_from_classes": 8192,
+        "flipping_classes": 32,
+        "hops": 8,
+        "parity_law_instances_checked": 32,
+        "price_from_classes": 1
+      },
+      "signed_square_neg": {
+        "classes": 256,
+        "flip_count_from_classes": 8192,
+        "flipping_classes": 32,
+        "hops": 8,
+        "parity_law_instances_checked": 32,
+        "price_from_classes": 2
+      },
+      "signed_square_pos": {
+        "classes": 256,
+        "flip_count_from_classes": 8192,
+        "flipping_classes": 32,
+        "hops": 8,
+        "parity_law_instances_checked": 32,
+        "price_from_classes": 2
+      },
+      "square_2x2_occ2": {
+        "classes": 256,
+        "flip_count_from_classes": 8192,
+        "flipping_classes": 32,
+        "hops": 8,
+        "parity_law_instances_checked": 32,
+        "price_from_classes": 2
+      },
+      "square_plus_edge_occ2": {
+        "classes": 1024,
+        "flip_count_from_classes": 32768,
+        "flipping_classes": 32,
+        "hops": 10,
+        "parity_law_instances_checked": 40,
+        "price_from_classes": 2
+      },
+      "star_K13_occ2": {
+        "classes": 64,
+        "flip_count_from_classes": 2048,
+        "flipping_classes": 32,
+        "hops": 6,
+        "parity_law_instances_checked": 24,
+        "price_from_classes": 1
+      },
+      "triangle_C3_occ2": {
+        "classes": 8,
+        "flip_count_from_classes": 32,
+        "flipping_classes": 4,
+        "hops": 3,
+        "parity_law_instances_checked": 12,
+        "price_from_classes": 1
+      }
+    },
+    "cure_witnesses": {
+      "pan_C3_tail_occ2": {
+        "assignment": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "signed_square_neg": {
+        "assignment": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "signed_square_pos": {
+        "assignment": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "square_2x2_occ2": {
+        "assignment": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "square_plus_edge_occ2": {
+        "assignment": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      "star_K13_occ2": {
+        "assignment": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          1,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      "triangle_C3_occ2": {
+        "assignment": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cured_sectioned": true,
+        "hop_parities": [
+          1,
+          0,
+          0
+        ]
+      }
+    },
+    "exhaustions": {
+      "pan_C3_tail_occ2": {
+        "assignments": 65536,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "flip_count": 8192,
+        "pointwise_assignments": 64,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 1,
+        "price_tie_count": 192,
+        "slots": 16
+      },
+      "signed_square_neg": {
+        "assignments": 65536,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "flip_count": 8192,
+        "pointwise_assignments": 64,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 2,
+        "price_tie_count": 1024,
+        "slots": 16
+      },
+      "signed_square_pos": {
+        "assignments": 65536,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "flip_count": 8192,
+        "pointwise_assignments": 64,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 2,
+        "price_tie_count": 1024,
+        "slots": 16
+      },
+      "square_2x2_occ2": {
+        "assignments": 65536,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "flip_count": 8192,
+        "pointwise_assignments": 64,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 2,
+        "price_tie_count": 1024,
+        "slots": 16
+      },
+      "square_plus_edge_occ2": {
+        "assignments": 1048576,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "flip_count": 32768,
+        "pointwise_assignments": 64,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 2,
+        "price_tie_count": 448,
+        "slots": 20
+      },
+      "star_K13_occ2": {
+        "assignments": 4096,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "flip_count": 2048,
+        "pointwise_assignments": 64,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 1,
+        "price_tie_count": 384,
+        "slots": 12
+      },
+      "triangle_C3_occ2": {
+        "assignments": 64,
+        "base_sectioned": false,
+        "first_cheapest_flip": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "flip_count": 32,
+        "pointwise_assignments": 8,
+        "pointwise_moves": 0,
+        "price_min_slots_from_pointwise": 1,
+        "price_tie_count": 24,
+        "slots": 6
+      }
+    },
+    "predictions": {
+      "PM1": "CONFIRMED: every concretized cure witness sections",
+      "PM2": "CONFIRMED: all seven members within the slot bound",
+      "PM3": "CONFIRMED: {'flip_count': 8192, 'price': 2}",
+      "PM4": "recorded, not predicted: {\"pan_C3_tail_occ2\": 1, \"signed_square_neg\": 2, \"signed_square_pos\": 2, \"square_2x2_occ2\": 2, \"square_plus_edge_occ2\": 2, \"star_K13_occ2\": 1, \"triangle_C3_occ2\": 1}",
+      "PM5": "held: the closed form stays CONJECTURE; support is the two-route agreement map",
+      "PM6": "CONFIRMED: signed pair agrees with the square"
+    },
+    "route_agreement": {
+      "pan_C3_tail_occ2": true,
+      "signed_square_neg": true,
+      "signed_square_pos": true,
+      "square_2x2_occ2": true,
+      "square_plus_edge_occ2": true,
+      "star_K13_occ2": true,
+      "triangle_C3_occ2": true
+    },
+    "two_label_members": [
+      "square_2x2_occ2",
+      "star_K13_occ2",
+      "triangle_C3_occ2",
+      "square_plus_edge_occ2",
+      "pan_C3_tail_occ2",
+      "signed_square_pos",
+      "signed_square_neg"
+    ]
+  },
+  "phase_3_sixlabel": {
+    "binary_crosscheck": {
+      "checked": 768,
+      "misses": 0
+    },
+    "exhaustion": {
+      "assignments": 65536,
+      "base_sectioned": false,
+      "bound": "four maps per slot (identity and the three rank exchanges), eight slots, 4^8 exhausted",
+      "first_witness": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3
+      ],
+      "flip_count": 10965,
+      "maps_per_slot": 4,
+      "member": "square_2x2_occ3",
+      "pointwise_moves": 0,
+      "pointwise_shaped_assignments": 256,
+      "price_min_slots_from_pointwise": 1,
+      "price_tie_count": 768,
+      "slots": 8,
+      "terminal": "SIXLABEL_MOVES"
+    },
+    "predictions": {
+      "PS1": "CONFIRMED: 65536",
+      "PS2": "decided by the exhaustion alone: SIXLABEL_MOVES",
+      "PS3": "CONFIRMED: {'checked': 768, 'misses': 0}",
+      "PS4": "CONFIRMED: base obstructed; census reproduced"
+    }
+  },
+  "phase_4_channels": {
+    "predictions": {
+      "PT1": "CONFIRMED: 11 rows, none discarded",
+      "PT2": "held: NOT_COVERED_BY_BOUND recorded, distinct from a no",
+      "PT3": "held: counting characterization reconstructed; sides per row",
+      "PT4": "decided by the table alone: CHANNELS_AGREE_ON_CENSUS; magnitude degeneracy True",
+      "PT5": "CONFIRMED: signed_square_pos is the square's variant"
+    },
+    "rows": [
+      {
+        "arrow_amps_negative": 4,
+        "arrow_amps_positive": 12,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_square_pos",
+        "walk_bound": 6,
+        "walk_count": 8457,
+        "walk_negative": 3136,
+        "walk_positive": 5321
+      },
+      {
+        "arrow_amps_negative": 12,
+        "arrow_amps_positive": 4,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_square_neg",
+        "walk_bound": 6,
+        "walk_count": 8457,
+        "walk_negative": 3136,
+        "walk_positive": 5321
+      },
+      {
+        "arrow_amps_negative": 4,
+        "arrow_amps_positive": 12,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_square_2x2_occ2",
+        "walk_bound": 6,
+        "walk_count": 8457,
+        "walk_negative": 3136,
+        "walk_positive": 5321
+      },
+      {
+        "arrow_amps_negative": 6,
+        "arrow_amps_positive": 6,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_star_K13_occ2",
+        "walk_bound": 6,
+        "walk_count": 1513,
+        "walk_negative": 128,
+        "walk_positive": 1385
+      },
+      {
+        "arrow_amps_negative": 2,
+        "arrow_amps_positive": 4,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_triangle_C3_occ2",
+        "walk_bound": 6,
+        "walk_count": 1849,
+        "walk_negative": 336,
+        "walk_positive": 1513
+      },
+      {
+        "arrow_amps_negative": 8,
+        "arrow_amps_positive": 12,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_square_plus_edge_occ2",
+        "walk_bound": 6,
+        "walk_count": 17245,
+        "walk_negative": 5584,
+        "walk_positive": 11661
+      },
+      {
+        "arrow_amps_negative": 2,
+        "arrow_amps_positive": 14,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_pan_C3_tail_occ2",
+        "walk_bound": 6,
+        "walk_count": 3737,
+        "walk_negative": 656,
+        "walk_positive": 3081
+      },
+      {
+        "arrow_amps_negative": 4,
+        "arrow_amps_positive": 4,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_3",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_square_2x2_occ3",
+        "walk_bound": 6,
+        "walk_count": 2185,
+        "walk_negative": 0,
+        "walk_positive": 2185
+      },
+      {
+        "arrow_amps_negative": 4,
+        "arrow_amps_positive": 6,
+        "cell": "b_decided_a_not_covered",
+        "channel_a": {
+          "source": "none",
+          "verdict": "NOT_COVERED_BY_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_square_plus_edge_occ3",
+        "walk_bound": 6,
+        "walk_count": 7133,
+        "walk_negative": 1056,
+        "walk_positive": 6077
+      },
+      {
+        "arrow_amps_negative": 4,
+        "arrow_amps_positive": 12,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_signed_square_pos",
+        "walk_bound": 6,
+        "walk_count": 8457,
+        "walk_negative": 3136,
+        "walk_positive": 5321
+      },
+      {
+        "arrow_amps_negative": 4,
+        "arrow_amps_positive": 12,
+        "cell": "both",
+        "channel_a": {
+          "source": "phase_2",
+          "verdict": "CURABLE_WITHIN_BOUND"
+        },
+        "channel_b": {
+          "certificate": true,
+          "magnitudes": [
+            1
+          ],
+          "neg_dominated": true,
+          "pos_dominated": false
+        },
+        "name": "signed_variant_of_signed_square_neg",
+        "walk_bound": 6,
+        "walk_count": 8457,
+        "walk_negative": 3136,
+        "walk_positive": 5321
+      }
+    ],
+    "separation": {
+      "all_walk_magnitudes": [
+        1
+      ],
+      "cells": {
+        "b_decided_a_not_covered": 1,
+        "both": 10
+      },
+      "decided_rows": 10,
+      "magnitude_degeneracy": true,
+      "rows": 11,
+      "separated": false,
+      "terminal": "CHANNELS_AGREE_ON_CENSUS"
+    },
+    "unit_weight_lists_single_signed": {
+      "pan_C3_tail_occ2": true,
+      "signed_square_neg": false,
+      "signed_square_pos": false,
+      "square_2x2_occ2": true,
+      "square_2x2_occ3": true,
+      "square_plus_edge_occ2": true,
+      "square_plus_edge_occ3": true,
+      "star_K13_occ2": true,
+      "triangle_C3_occ2": true
+    }
+  },
+  "phase_5_register": {
+    "predictions": {
+      "PR1": "CONFIRMED: 9",
+      "PR2": "CONFIRMED: every row",
+      "PR3": "held: see terminals and STATUS.md",
+      "PR4": "held: price tie counts recorded in phase 2 and phase 3"
+    },
+    "rows": [
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 8192,
+          "price_min_slots_from_pointwise": 2,
+          "price_tie_count": 1024,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "square_2x2_occ2"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 2048,
+          "price_min_slots_from_pointwise": 1,
+          "price_tie_count": 384,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "star_K13_occ2"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 32,
+          "price_min_slots_from_pointwise": 1,
+          "price_tie_count": 24,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "triangle_C3_occ2"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 32768,
+          "price_min_slots_from_pointwise": 2,
+          "price_tie_count": 448,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "square_plus_edge_occ2"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 8192,
+          "price_min_slots_from_pointwise": 1,
+          "price_tie_count": 192,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "pan_C3_tail_occ2"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "source": "phase_3_exhaustion",
+          "terminal": "SIXLABEL_MOVES",
+          "within_bound": true
+        },
+        "fibre": 6,
+        "leftovers": [
+          "LP3 larger-fibre promotion: SS-09's second half stays OPEN -- no theorem here covers fibres above two; admitting it costs a fibre-general cure theorem over a declared slot-map group, in Lean.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "square_2x2_occ3"
+      },
+      {
+        "channel_cell": "b_decided_a_not_covered",
+        "cure": {
+          "refused": "REFUSED: outside the phase-2 slot bound and the phase-3 member bound, by name",
+          "source": "none",
+          "within_bound": null
+        },
+        "fibre": 6,
+        "leftovers": [
+          "LP3 larger-fibre promotion: SS-09's second half stays OPEN -- no theorem here covers fibres above two; admitting it costs a fibre-general cure theorem over a declared slot-map group, in Lean.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "square_plus_edge_occ3"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 8192,
+          "price_min_slots_from_pointwise": 2,
+          "price_tie_count": 1024,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "signed_square_pos"
+      },
+      {
+        "channel_cell": "both",
+        "cure": {
+          "flip_count": 8192,
+          "price_min_slots_from_pointwise": 2,
+          "price_tie_count": 1024,
+          "source": "phase_2_exhaustion",
+          "within_bound": true
+        },
+        "fibre": 2,
+        "leftovers": [
+          "LP1 price form: the conjectured closed form -- the price equals the least per-hop disagreement between a flipping consumed class and a pointwise consumed class -- is CONJECTURE, supported by two-route agreement at every exhausted member and proved nowhere; admitting it costs a Lean development of cycle-space bookkeeping this run does not carry.",
+          "LP4 magnitude diversity: every walk magnitude on this census is 1, so channel (b) cannot refuse and the channels cannot separate here; admitting a separating census costs new members with amp magnitudes above 1 under declared bounds."
+        ],
+        "name": "signed_square_neg"
+      }
+    ]
+  },
+  "predictions_sha256": "8c6691c8973ea643b51a87120d38c944b72f6ef1b562f9808576886e6268fbed",
+  "prompt_native_sha256": "6ed89e9be7434fc3d78f03a608c9acf5625670938c749390191efc718f934e6c",
+  "terminals": [
+    {
+      "code": "PARITY_LAWS_PROVED",
+      "scope": "the abstract two-label parity model; three targets plus the cycle-invariance corollary; axiom reports within the whitelist"
+    },
+    {
+      "code": "PROMOTION_PROVED",
+      "scope": "two-label only: the Lean cure theorem, plus price floors decided by exhaustion at all seven obstructed two-label members under the declared slot bound"
+    },
+    {
+      "code": "SIXLABEL_MOVES",
+      "scope": "four maps per slot (identity and the three rank exchanges), eight slots, 4^8 exhausted"
+    },
+    {
+      "code": "CHANNELS_AGREE_ON_CENSUS",
+      "scope": "the declared 11-row signed census at walk bound 6; decided rows only; the magnitude degeneracy is recorded next to it"
+    },
+    {
+      "code": "TABLE_WRITTEN",
+      "scope": "11 rows, cells computed"
+    },
+    {
+      "code": "REGISTER_WRITTEN",
+      "scope": "9 rows"
+    },
+    {
+      "code": "TIES_RETAINED",
+      "scope": "price ties recorded as counts"
+    },
+    {
+      "code": "PREDICTIONS_HASHED",
+      "scope": "two freezes, hashes in SOURCE_MANIFEST.json"
+    },
+    {
+      "code": "MANUAL_RECEIPT_DECLARED",
+      "scope": "no CI gate reads this tree's receipts, scans, or Lean audit"
+    },
+    {
+      "code": "SS09_PARTIALLY_CLOSED",
+      "scope": "the two-label half closes with slot_group_sections; the larger-fibre half stays OPEN"
+    },
+    {
+      "code": "OB1_UNCHANGED",
+      "scope": "untouched"
+    },
+    {
+      "code": "S66_UNCHANGED",
+      "scope": "untouched"
+    },
+    {
+      "code": "S9_LAST_UNCHANGED",
+      "scope": "untouched"
+    },
+    {
+      "code": "FW_SET_HELD",
+      "scope": "no completed-classification sentence anywhere in this tree"
+    }
+  ]
+}
