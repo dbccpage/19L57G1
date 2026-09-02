@@ -1,0 +1,15 @@
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = [
+  "model.py",
+  "source_manifest.py",
+  "run_connector.py",
+  "verify_lean.py",
+  "build_receipt.py",
+  "test_connector.py",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]

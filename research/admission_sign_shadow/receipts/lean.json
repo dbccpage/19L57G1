@@ -1,0 +1,143 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "authority_effect": null,
+  "axiom_inventory": {
+    "AdmissionSignShadow.Polarity.toInt_mul": [],
+    "AdmissionSignShadow.act_composition": [],
+    "AdmissionSignShadow.act_identity": [],
+    "AdmissionSignShadow.calibrated_occurrence_weight": [
+      "propext"
+    ],
+    "AdmissionSignShadow.canonical_data_does_not_determine_count": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.canonical_forget_same_count_differs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.character_classification": [
+      "propext"
+    ],
+    "AdmissionSignShadow.character_laws_do_not_force_nontrivial": [
+      "propext"
+    ],
+    "AdmissionSignShadow.collapsed_pair_rejected": [
+      "propext"
+    ],
+    "AdmissionSignShadow.conditional_mixing_separation": [
+      "propext"
+    ],
+    "AdmissionSignShadow.coordinate_data_does_not_force_mixing": [],
+    "AdmissionSignShadow.countToken_append": [
+      "propext"
+    ],
+    "AdmissionSignShadow.countToken_nil": [],
+    "AdmissionSignShadow.countToken_perm": [
+      "propext"
+    ],
+    "AdmissionSignShadow.count_calibration_unique": [
+      "propext"
+    ],
+    "AdmissionSignShadow.count_equivalent_but_ordered_forget_differs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.empty_report_has_no_section": [],
+    "AdmissionSignShadow.exchange_has_no_fixed_point": [],
+    "AdmissionSignShadow.exchange_involutive": [],
+    "AdmissionSignShadow.flip_family_has_no_adapter_kernel": [
+      "propext"
+    ],
+    "AdmissionSignShadow.flip_family_has_no_natural_choice": [
+      "propext"
+    ],
+    "AdmissionSignShadow.global_neg_preserves_relative": [
+      "propext"
+    ],
+    "AdmissionSignShadow.histories_distinct": [],
+    "AdmissionSignShadow.induced_coordinate_squares_equal": [
+      "propext"
+    ],
+    "AdmissionSignShadow.natural_choice_does_not_determine_report_section": [],
+    "AdmissionSignShadow.no_free_three_involution": [
+      "propext"
+    ],
+    "AdmissionSignShadow.nodup_append_of_disjoint": [
+      "propext"
+    ],
+    "AdmissionSignShadow.nontrivial_character_unique": [
+      "propext"
+    ],
+    "AdmissionSignShadow.nontrivial_exchange_is_negative": [],
+    "AdmissionSignShadow.nontrivial_exchange_toInt": [],
+    "AdmissionSignShadow.occurrenceWeight_append": [
+      "propext"
+    ],
+    "AdmissionSignShadow.occurrenceWeight_zero": [],
+    "AdmissionSignShadow.occurrence_equivalent_refl": [],
+    "AdmissionSignShadow.occurrence_equivalent_symm": [],
+    "AdmissionSignShadow.occurrence_equivalent_trans": [],
+    "AdmissionSignShadow.occurrence_valid_append": [
+      "propext"
+    ],
+    "AdmissionSignShadow.once_valid": [
+      "propext"
+    ],
+    "AdmissionSignShadow.operational_nontrivial_iff_labels_separate": [
+      "propext"
+    ],
+    "AdmissionSignShadow.perm_occurrence_equivalent": [
+      "propext"
+    ],
+    "AdmissionSignShadow.relative_label_classification": [],
+    "AdmissionSignShadow.relative_label_unique_after_basepoint": [],
+    "AdmissionSignShadow.report_section_does_not_determine_natural_choice": [
+      "propext"
+    ],
+    "AdmissionSignShadow.same_erased_endpoint": [],
+    "AdmissionSignShadow.separating_weight_does_not_factor": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.sign_exchange_relative": [],
+    "AdmissionSignShadow.sign_global_basepoint_flip": [],
+    "AdmissionSignShadow.square_mixing_contact": [
+      "propext"
+    ],
+    "AdmissionSignShadow.square_mixing_separates": [],
+    "AdmissionSignShadow.three_cycle_is_not_involution": [],
+    "AdmissionSignShadow.three_involution_has_fixed_point": [
+      "propext"
+    ],
+    "AdmissionSignShadow.trivial_and_sign_are_characters": [],
+    "AdmissionSignShadow.trivial_character_no_pair_change": [
+      "propext"
+    ],
+    "AdmissionSignShadow.trivial_character_rejected": [
+      "propext"
+    ],
+    "AdmissionSignShadow.twice_valid": [
+      "propext"
+    ],
+    "AdmissionSignShadow.two_coordinates_do_not_determine_third": [],
+    "AdmissionSignShadow.unequal_endpoints_rejected": [],
+    "AdmissionSignShadow.unique_transporter": [
+      "propext"
+    ],
+    "AdmissionSignShadow.zero_weight_factors_through_forget": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "source_hashes": {
+    "AdmissionSignShadow.lean": "e8759ce358f89840c8364d8b105365f2a3b5009170dcf67879a6af348c4b8996",
+    "AdmissionSignShadow/AxiomReport.lean": "ded32aacd6e63b4d89a85dd6240eb292cd298d054a6fce305b81998557f531d0",
+    "AdmissionSignShadow/Core.lean": "bc293a6808ab689a53297a36e1746435fdbc3bb8ba5584a04afaaf63b6144e93",
+    "lakefile.lean": "f58d9af1b6e46ca7cea796e97ab14cd0757445024ccf46bbf7aac5e3b75f3ba7"
+  },
+  "terminal": "CONDITIONAL_CONNECTOR_PROVED"
+}

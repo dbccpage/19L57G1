@@ -1,0 +1,171 @@
+{
+  "authority_effect": null,
+  "axiom_inventory": {
+    "AdmissionSignShadow.Polarity.toInt_mul": [],
+    "AdmissionSignShadow.act_composition": [],
+    "AdmissionSignShadow.act_identity": [],
+    "AdmissionSignShadow.calibrated_occurrence_weight": [
+      "propext"
+    ],
+    "AdmissionSignShadow.canonical_data_does_not_determine_count": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.canonical_forget_same_count_differs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.character_classification": [
+      "propext"
+    ],
+    "AdmissionSignShadow.character_laws_do_not_force_nontrivial": [
+      "propext"
+    ],
+    "AdmissionSignShadow.collapsed_pair_rejected": [
+      "propext"
+    ],
+    "AdmissionSignShadow.conditional_mixing_separation": [
+      "propext"
+    ],
+    "AdmissionSignShadow.coordinate_data_does_not_force_mixing": [],
+    "AdmissionSignShadow.countToken_append": [
+      "propext"
+    ],
+    "AdmissionSignShadow.countToken_nil": [],
+    "AdmissionSignShadow.countToken_perm": [
+      "propext"
+    ],
+    "AdmissionSignShadow.count_calibration_unique": [
+      "propext"
+    ],
+    "AdmissionSignShadow.count_equivalent_but_ordered_forget_differs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.empty_report_has_no_section": [],
+    "AdmissionSignShadow.exchange_has_no_fixed_point": [],
+    "AdmissionSignShadow.exchange_involutive": [],
+    "AdmissionSignShadow.flip_family_has_no_adapter_kernel": [
+      "propext"
+    ],
+    "AdmissionSignShadow.flip_family_has_no_natural_choice": [
+      "propext"
+    ],
+    "AdmissionSignShadow.global_neg_preserves_relative": [
+      "propext"
+    ],
+    "AdmissionSignShadow.histories_distinct": [],
+    "AdmissionSignShadow.induced_coordinate_squares_equal": [
+      "propext"
+    ],
+    "AdmissionSignShadow.natural_choice_does_not_determine_report_section": [],
+    "AdmissionSignShadow.no_free_three_involution": [
+      "propext"
+    ],
+    "AdmissionSignShadow.nodup_append_of_disjoint": [
+      "propext"
+    ],
+    "AdmissionSignShadow.nontrivial_character_unique": [
+      "propext"
+    ],
+    "AdmissionSignShadow.nontrivial_exchange_is_negative": [],
+    "AdmissionSignShadow.nontrivial_exchange_toInt": [],
+    "AdmissionSignShadow.occurrenceWeight_append": [
+      "propext"
+    ],
+    "AdmissionSignShadow.occurrenceWeight_zero": [],
+    "AdmissionSignShadow.occurrence_equivalent_refl": [],
+    "AdmissionSignShadow.occurrence_equivalent_symm": [],
+    "AdmissionSignShadow.occurrence_equivalent_trans": [],
+    "AdmissionSignShadow.occurrence_valid_append": [
+      "propext"
+    ],
+    "AdmissionSignShadow.once_valid": [
+      "propext"
+    ],
+    "AdmissionSignShadow.operational_nontrivial_iff_labels_separate": [
+      "propext"
+    ],
+    "AdmissionSignShadow.perm_occurrence_equivalent": [
+      "propext"
+    ],
+    "AdmissionSignShadow.relative_label_classification": [],
+    "AdmissionSignShadow.relative_label_unique_after_basepoint": [],
+    "AdmissionSignShadow.report_section_does_not_determine_natural_choice": [
+      "propext"
+    ],
+    "AdmissionSignShadow.same_erased_endpoint": [],
+    "AdmissionSignShadow.separating_weight_does_not_factor": [
+      "Quot.sound",
+      "propext"
+    ],
+    "AdmissionSignShadow.sign_exchange_relative": [],
+    "AdmissionSignShadow.sign_global_basepoint_flip": [],
+    "AdmissionSignShadow.square_mixing_contact": [
+      "propext"
+    ],
+    "AdmissionSignShadow.square_mixing_separates": [],
+    "AdmissionSignShadow.three_cycle_is_not_involution": [],
+    "AdmissionSignShadow.three_involution_has_fixed_point": [
+      "propext"
+    ],
+    "AdmissionSignShadow.trivial_and_sign_are_characters": [],
+    "AdmissionSignShadow.trivial_character_no_pair_change": [
+      "propext"
+    ],
+    "AdmissionSignShadow.trivial_character_rejected": [
+      "propext"
+    ],
+    "AdmissionSignShadow.twice_valid": [
+      "propext"
+    ],
+    "AdmissionSignShadow.two_coordinates_do_not_determine_third": [],
+    "AdmissionSignShadow.unequal_endpoints_rejected": [],
+    "AdmissionSignShadow.unique_transporter": [
+      "propext"
+    ],
+    "AdmissionSignShadow.zero_weight_factors_through_forget": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "commands": [
+    {
+      "command": "python source_manifest.py --check",
+      "exit_code": 0,
+      "last_line": "source pins clean: base=be7476868e496e06d5dec6599fa4346394c512bd frozen=3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a sources=9"
+    },
+    {
+      "command": "python -m unittest discover -s . -p test_*.py",
+      "exit_code": 0,
+      "last_line": "OK"
+    },
+    {
+      "command": "python run_connector.py --check",
+      "exit_code": 0,
+      "last_line": "connector receipt replay clean: IMPORT_ISOLATED_BUT_NOT_REMOVED"
+    },
+    {
+      "command": "python verify_lean.py --check",
+      "exit_code": 0,
+      "last_line": "Lean receipt replay clean: 58 theorem reports"
+    },
+    {
+      "command": "python -m mypy --config-file pyproject.toml",
+      "exit_code": 0,
+      "last_line": "Success: no issues found in 6 source files"
+    }
+  ],
+  "input_hashes": {
+    "SOURCE_MANIFEST.json": "41577c3588325537c639a4cd03e3c2299ed03b910e9eb2522db74c96deddab3b",
+    "connector.json": "03bb4a176f64cf99ee3ae673c0487b2c66cac708f6594789cbf54ac4a9787b18",
+    "lean.json": "6e567111161b6e322924e3f6645c3016d692c21ccbd44a96e176d4949bd6e09b"
+  },
+  "terminal": "IMPORT_ISOLATED_BUT_NOT_REMOVED",
+  "tool_versions": {
+    "lake": "Lake version 5.0.0-src+819816b (Lean version 4.33.1)",
+    "lean": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "mypy": "mypy 1.19.1 (compiled: yes)",
+    "python": "3.12.13"
+  }
+}

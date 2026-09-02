@@ -1,0 +1,5 @@
+SOURCE_MANIFEST.json -text
+receipts/** -text
+*.py text eol=lf
+*.md text eol=lf
+lean/** text eol=lf
