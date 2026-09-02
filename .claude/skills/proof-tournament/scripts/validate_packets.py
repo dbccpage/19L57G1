@@ -92,12 +92,23 @@ def validate_packet(packet: dict[str, Any]) -> None:
     proof = evidence(packet_id, packet)
     sparse_cost = packet.get("l1")
     expected_cost = sum(len(lists[field]) for field in ("imports", "new_primitives", "obligations"))
+    if (
+        not isinstance(sparse_cost, int)
+        or isinstance(sparse_cost, bool)
+        or sparse_cost < 0
+    ):
+        raise PacketError(f"{packet_id}: l1 must be a nonnegative integer")
     if sparse_cost != expected_cost:
         raise PacketError(
             f"{packet_id}: l1 is {sparse_cost!r}, expected {expected_cost}"
         )
-    if status == "proved" and (lists["imports"] or not proof["lean"]):
-        raise PacketError(f"{packet_id}: proved requires Lean evidence and no imports")
+    if status == "proved" and (
+        lists["imports"] or lists["obligations"] or not proof["lean"]
+    ):
+        raise PacketError(
+            f"{packet_id}: proved requires Lean evidence, no imports, "
+            "and no obligations"
+        )
     if status == "computed" and (not proof["python"] or not proof["receipts"]):
         raise PacketError(f"{packet_id}: computed requires Python evidence and a receipt")
     if status == "conditional" and (not lists["imports"] or not proof["lean"]):
@@ -136,6 +147,10 @@ def validate_graph(packets: list[dict[str, Any]]) -> None:
             raise PacketError(f"duplicate packet id: {packet_id}")
         by_id[packet_id] = packet
     for packet in packets:
+        if packet["level"] > 0 and not packet["parents"]:
+            raise PacketError(
+                f"{packet['id']}: every non-root packet must have a parent"
+            )
         for parent_id in packet["parents"]:
             parent = by_id.get(parent_id)
             if parent is None:
@@ -149,6 +164,23 @@ def validate_graph(packets: list[dict[str, Any]]) -> None:
         raise PacketError(
             "packet stream must have one parentless level-zero hypothesis manifest"
         )
+    for packet in packets:
+        if packet["kind"] != "terminal" or packet["status"] != "proved":
+            continue
+        pending = list(packet["parents"])
+        visited: set[str] = set()
+        while pending:
+            ancestor_id = pending.pop()
+            if ancestor_id in visited:
+                continue
+            visited.add(ancestor_id)
+            ancestor = by_id[ancestor_id]
+            if ancestor["imports"]:
+                raise PacketError(
+                    f"{packet['id']}: proved terminal has imported ancestor "
+                    f"{ancestor_id}"
+                )
+            pending.extend(ancestor["parents"])
 
 
 def main() -> int:

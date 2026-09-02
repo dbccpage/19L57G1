@@ -74,6 +74,16 @@ class PacketValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(subject.PacketError, "expected 1"):
             subject.validate_packet(value)
 
+    def test_sparse_cost_rejects_bool(self) -> None:
+        value = packet(l1=False)
+        with self.assertRaisesRegex(subject.PacketError, "nonnegative integer"):
+            subject.validate_packet(value)
+
+    def test_proved_packet_cannot_retain_an_obligation(self) -> None:
+        value = packet(obligations=["O0"], l1=1)
+        with self.assertRaisesRegex(subject.PacketError, "no obligations"):
+            subject.validate_packet(value)
+
     def test_graph_rejects_missing_or_same_level_parent(self) -> None:
         root = packet(kind="hypothesis", status="survives")
         missing = packet(id="P1", level=1, parents=["absent"])
@@ -82,6 +92,31 @@ class PacketValidationTests(unittest.TestCase):
         same = packet(id="P1", level=0, parents=["P0"])
         with self.assertRaisesRegex(subject.PacketError, "not at a lower level"):
             subject.validate_graph([root, same])
+
+    def test_graph_rejects_disconnected_non_root_packet(self) -> None:
+        root = packet(kind="hypothesis", status="survives")
+        orphan = packet(id="P1", level=1, parents=[])
+        with self.assertRaisesRegex(subject.PacketError, "must have a parent"):
+            subject.validate_graph([root, orphan])
+
+    def test_proved_terminal_rejects_imported_ancestor(self) -> None:
+        root = packet(kind="hypothesis", status="survives")
+        conditional = packet(
+            id="P1",
+            level=1,
+            parents=["P0"],
+            status="conditional",
+            imports=["I0"],
+            l1=1,
+        )
+        terminal = packet(
+            id="P2",
+            level=2,
+            parents=["P1"],
+            kind="terminal",
+        )
+        with self.assertRaisesRegex(subject.PacketError, "imported ancestor P1"):
+            subject.validate_graph([root, conditional, terminal])
 
 
 if __name__ == "__main__":
