@@ -133,7 +133,7 @@
     {
       "command": "python source_manifest.py --check",
       "exit_code": 0,
-      "last_line": "source pins clean: base=be7476868e496e06d5dec6599fa4346394c512bd frozen=3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a sources=9"
+      "last_line": "source pins clean: base=be7476868e496e06d5dec6599fa4346394c512bd publication_base=470eec30505ede6ed4b1ec16c689e00d91cc735d frozen=3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a sources=9"
     },
     {
       "command": "python -m unittest discover -s . -p test_*.py",
@@ -168,9 +168,9 @@
   ],
   "input_hashes": {
     "CLAIM_LEDGER.md": "d8710a79b8e681a217717402e4366154688e27a96972607618520a5051edb62b",
-    "README.md": "476fa0a22c7dd7fce626ca719013267da3f40a7eafb2eda6ffe99e27c702fc2e",
-    "SOURCE_MANIFEST.json": "41577c3588325537c639a4cd03e3c2299ed03b910e9eb2522db74c96deddab3b",
-    "STATUS.md": "7ea5a8f88ee295bea9aafda37b867eb9c843018b24a6d303b8c61e645b3cf98b",
+    "README.md": "881ed3853e4e725e2781555a31201449a609ab185e3675f422c48e24f17d36ea",
+    "SOURCE_MANIFEST.json": "bff1da0d95755fd18228d684437fa511d6b629d8fe83d4febc7d2e967cc7852b",
+    "STATUS.md": "b6e60db6c8474f8531ba0bc6999e2fc3e8509ccc11436a0d6438578e4149b865",
     "build_receipt.py": "05dbc492cf172bdfe3af730937af90c7bdfda3474b24cff45ff84a5ea10ed23d",
     "connector.json": "03bb4a176f64cf99ee3ae673c0487b2c66cac708f6594789cbf54ac4a9787b18",
     "frozen_compatibility.json": "23e87dde7591307c9639cee249844548dbcfa63ebca3b0f2f47594c74bf30e69",

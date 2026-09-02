@@ -10,6 +10,8 @@ import subprocess
 
 BASE_COMMIT = "be7476868e496e06d5dec6599fa4346394c512bd"
 BASE_TREE = "0821fc9bc55fa551e0dd4752542221e109d3e36c"
+PUBLICATION_BASE_COMMIT = "470eec30505ede6ed4b1ec16c689e00d91cc735d"
+PUBLICATION_BASE_TREE = "34d77a4c9be4f7670fe03484f61de3bfb5c76da0"
 FROZEN_TAG = "sealed-derivation-v1"
 FROZEN_TAG_OBJECT = "e147f01cfed1d17410c55a1e78367fdadc63a5ae"
 FROZEN_COMMIT = "3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a"
@@ -69,6 +71,8 @@ def build_manifest(repo: Path) -> dict[str, object]:
     exact_values = (
         BASE_COMMIT,
         BASE_TREE,
+        PUBLICATION_BASE_COMMIT,
+        PUBLICATION_BASE_TREE,
         FROZEN_TAG_OBJECT,
         FROZEN_COMMIT,
         FROZEN_TREE,
@@ -78,6 +82,10 @@ def build_manifest(repo: Path) -> dict[str, object]:
     observed = {
         "base_commit": git_text(repo, "rev-parse", BASE_COMMIT),
         "base_tree": git_text(repo, "rev-parse", f"{BASE_COMMIT}^{{tree}}"),
+        "publication_base_commit": git_text(repo, "rev-parse", PUBLICATION_BASE_COMMIT),
+        "publication_base_tree": git_text(
+            repo, "rev-parse", f"{PUBLICATION_BASE_COMMIT}^{{tree}}"
+        ),
         "frozen_tag_object": git_text(repo, "rev-parse", FROZEN_TAG),
         "frozen_commit": git_text(repo, "rev-parse", f"{FROZEN_TAG}^{{}}"),
         "frozen_tree": git_text(repo, "rev-parse", f"{FROZEN_TAG}^{{tree}}"),
@@ -85,6 +93,8 @@ def build_manifest(repo: Path) -> dict[str, object]:
     expected = {
         "base_commit": BASE_COMMIT,
         "base_tree": BASE_TREE,
+        "publication_base_commit": PUBLICATION_BASE_COMMIT,
+        "publication_base_tree": PUBLICATION_BASE_TREE,
         "frozen_tag_object": FROZEN_TAG_OBJECT,
         "frozen_commit": FROZEN_COMMIT,
         "frozen_tree": FROZEN_TREE,
@@ -116,7 +126,9 @@ def build_manifest(repo: Path) -> dict[str, object]:
 def changed_paths(repo: Path) -> tuple[str, ...]:
     changed = set(
         line
-        for line in git_text(repo, "diff", "--name-only", BASE_COMMIT, "--").splitlines()
+        for line in git_text(
+            repo, "diff", "--name-only", PUBLICATION_BASE_COMMIT, "--"
+        ).splitlines()
         if line
     )
     status = subprocess.run(
@@ -144,10 +156,14 @@ def render_manifest(repo: Path) -> bytes:
 
 def verify(repo: Path) -> None:
     head = git_text(repo, "rev-parse", "HEAD")
-    if subprocess.run(
-        ["git", "merge-base", "--is-ancestor", BASE_COMMIT, head], cwd=repo
-    ).returncode != 0:
-        raise ValueError("base is not an ancestor of HEAD")
+    for label, revision_id in (
+        ("source base", BASE_COMMIT),
+        ("publication base", PUBLICATION_BASE_COMMIT),
+    ):
+        if subprocess.run(
+            ["git", "merge-base", "--is-ancestor", revision_id, head], cwd=repo
+        ).returncode != 0:
+            raise ValueError(f"{label} is not an ancestor of HEAD")
     invalid = [path for path in changed_paths(repo) if not path.startswith(WRITE_ROOT)]
     if invalid:
         raise ValueError(f"paths outside write root changed: {invalid}")
@@ -162,7 +178,8 @@ def verify(repo: Path) -> None:
     if not manifest_path.exists() or manifest_path.read_bytes() != expected:
         raise ValueError("SOURCE_MANIFEST.json differs from exact source objects")
     print(
-        f"source pins clean: base={BASE_COMMIT} frozen={FROZEN_COMMIT} "
+        f"source pins clean: base={BASE_COMMIT} "
+        f"publication_base={PUBLICATION_BASE_COMMIT} frozen={FROZEN_COMMIT} "
         f"sources={len(SOURCES)}"
     )
 

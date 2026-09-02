@@ -15,8 +15,10 @@ calibration, adapter fields, and retained-trace integration are not derived.
 
 ## Exact custody
 
-- Base commit: `be7476868e496e06d5dec6599fa4346394c512bd`
-- Base tree: `0821fc9bc55fa551e0dd4752542221e109d3e36c`
+- Post-seal source base commit: `be7476868e496e06d5dec6599fa4346394c512bd`
+- Post-seal source base tree: `0821fc9bc55fa551e0dd4752542221e109d3e36c`
+- Publication base commit: `470eec30505ede6ed4b1ec16c689e00d91cc735d`
+- Publication base tree: `34d77a4c9be4f7670fe03484f61de3bfb5c76da0`
 - Frozen annotated tag object: `e147f01cfed1d17410c55a1e78367fdadc63a5ae`
 - Frozen peeled commit: `3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a`
 - Frozen tree: `d015d9085217267f5cf895935aad13236f1bb6b5`

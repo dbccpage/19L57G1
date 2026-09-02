@@ -6,9 +6,9 @@ This is post-seal research. It does not amend, rebuild, or renew the sealed
 derivation, and it places no frozen source in the tracked research package.
 Compatibility builds materialize the exact frozen tree only in a temporary
 directory that is removed on exit. The only write surface is
-`research/admission_sign_shadow/`. `SOURCE_MANIFEST.json` pins the exact base,
-frozen object, source blobs, trees, and toolchain declaration used for this
-audit.
+`research/admission_sign_shadow/`. `SOURCE_MANIFEST.json` separately pins the
+exact post-seal source base, current publication base, frozen object, source
+blobs, trees, and toolchain declaration used for this audit.
 
 ## Claim ceiling
 

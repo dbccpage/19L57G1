@@ -3,3 +3,5 @@ receipts/** -text
 *.py text eol=lf
 *.md text eol=lf
 lean/** text eol=lf
+tournament/**/*.json text eol=lf
+tournament/**/*.jsonl text eol=lf
