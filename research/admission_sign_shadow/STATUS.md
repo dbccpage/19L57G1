@@ -4,13 +4,14 @@
 
 ## Terminal verdict
 
-`IMPORT ISOLATED BUT NOT REMOVED`
+`BRIDGE_PRODUCERS_PROVED_END_TO_END_OPEN`
 
-The local exchange character, occurrence no-determination result, calibrated
-count algebra, conditional integer contact, falsifiers, and type mismatch are
-machine checked. No existing Genesis premise was shown to derive the frozen
-pair correspondence, operational nontriviality, occurrence history, unit
-count calibration, or a commuting section adapter.
+All three bridge lanes now compile against the exact frozen interfaces in an
+ephemeral build. Exact frozen facts, a chosen two-point equivalence,
+retained-trace occurrence projection, actual adapter signature, and the
+negative results below are machine checked. The end-to-end connector remains
+open because source authorization, operational nontriviality, integer unit
+calibration, adapter fields, and retained-trace integration are not derived.
 
 ## Exact custody
 
@@ -35,20 +36,38 @@ custody result, not a semantic correspondence theorem.
 - collapse, endpoint, trivial-character, flat-mixer, and larger-carrier
   falsifiers;
 - two-way non-determination between the local section types.
+- exact frozen history and endpoint distinction with exact erased-endpoint
+  equality;
+- a chosen post-seal equivalence between the exact frozen pair and local
+  `HistoryClass`, explicitly without source authorization or uniqueness;
+- deterministic occurrence history, count, validity, and ID-renaming laws
+  from a retained exact `List Derivation.TEvent`;
+- impossibility of recovering occurrence history or count from the
+  deduplicated endpoint;
+- impossibility of selecting an integer unit from zero and additivity alone;
+- an adapter kernel stated against the exact `Family`, `Sec`, `IsNatural`,
+  and `PresIso.mapPair` types, plus an exact fixed-point-free no-kernel case.
 
 ## What remains imported, declared, or open
 
-- `FROZEN_PAIR_CORRESPONDENCE = IMPORTED`
-- `OPERATIONAL_NONTRIVIALITY = IMPORTED`
-- `OCCURRENCE_HISTORY = DECLARED_MODEL`
-- `COUNT_UNIT_CALIBRATION = IMPORTED`
+- `FROZEN_PAIR_OBSERVED_FACTS = PROVED`
+- `CHOSEN_PAIR_EQUIVALENCE = PROVED_POST_SEAL_CHOICE`
+- `FROZEN_EXCHANGE_AUTHORIZATION = OPEN`
+- `OPERATIONAL_NONTRIVIALITY = REFUTED_AS_FORCED_AND_IMPORTED_FOR_SIGN`
+- `OCCURRENCE_HISTORY_FROM_RETAINED_TRACE = PROVED`
+- `OCCURRENCE_HISTORY_FROM_ENDPOINT = REFUTED`
+- `RETAINED_TRACE_CONNECTOR_INTEGRATION = OPEN`
+- `COUNT_UNIT_CALIBRATION = REFUTED_AS_FORCED_AND_IMPORTED_FOR_INTEGER_OUTPUT`
 - `POLARITY_INTEGER_CALIBRATION = DECLARED_INPUT`
 - `MIXING_MAP = DECLARED_INPUT`
-- `ACTUAL_SECTION_ADAPTER = OPEN`
+- `ACTUAL_SECTION_ADAPTER_TYPE = PROVED_CONDITIONAL`
+- `ACTUAL_SECTION_ADAPTER_FIELDS = OPEN`
 - `END_TO_END_CONNECTOR = OPEN`
 
-No premise ceased to be imported. The work prices the imports and proves that
-weaker data do not determine them.
+The declared occurrence model now has an exact producer from a retained frozen
+event trace. That removes a separate occurrence-history input only after the
+downstream connector accepts that trace. The other forcing claims are either
+refuted or remain explicit inputs.
 
 ## Verification record
 
@@ -56,3 +75,9 @@ The deterministic records under `receipts/` bind the source manifest,
 connector payload, Lean source hashes, promoted-theorem axiom reports, command
 exit codes, and tool versions. The final machine receipt is authoritative for
 which commands ran successfully in the same replay.
+
+`receipts/frozen_compatibility.json` additionally binds every selected local
+bridge source, the complete expected declaration census, the exact frozen
+commit/tree and pinned blobs, and the absence of persistent exact frozen
+source copies. Identical `lean-toolchain` text is listed separately as
+metatheoretic apparatus.

@@ -39,14 +39,19 @@ The classes used here are `PROVED`, `CONDITIONAL`, `IMPORTED`, `REFUTED`, and
 - Python: `CharacterTests.test_global_basepoint_flip_is_relative`.
 - Imported premise: operational nontriviality.
 
-## ASS-04 — frozen correspondence
+## ASS-04 — exact frozen facts and chosen correspondence
 
-- Class: `IMPORTED`
-- Claim: the exact frozen same-erasure/different-order fixture corresponds to
-  the local `HistoryClass` pair.
-- Evidence: exact frozen objects and relevant sources are pinned in
-  `SOURCE_MANIFEST.json`; no theorem compiles this correspondence.
-- Status: not derived.
+- Class: `PROVED` for the observed facts and chosen equivalence; `OPEN` for
+  source authorization.
+- Claim: the exact frozen histories and token-aware replay endpoints differ,
+  while their erased replay endpoints agree. A post-seal chosen bijection to
+  local `HistoryClass` commutes with the exchange transported through that
+  bijection.
+- Lean: `frozen_pair_observed_facts`, `chosen_pair_equivalence`,
+  `erased_readout_cannot_separate`.
+- Scope: `encode` and `sourceExchange` are metatheoretic definitions. The
+  opposite orientation also works. No frozen theorem supplies or authorizes
+  an exchange operation, and no unique correspondence is claimed.
 
 ## ASS-05 — canonical count no-determination
 
@@ -74,6 +79,23 @@ The classes used here are `PROVED`, `CONDITIONAL`, `IMPORTED`, `REFUTED`, and
 - Python: all `OccurrenceTests` reordering, validity, and equivalence cases.
 - Scope: the occurrence presentation is declared; Genesis does not supply it.
 
+## ASS-06A — exact retained-trace occurrence projection
+
+- Class: `PROVED`, with a conditional integration boundary.
+- Claim: a retained exact `List Derivation.TEvent` deterministically projects
+  to occurrence records with consecutive IDs; count and canonical forgetting
+  commute with that trace analysis. Injective ID renaming preserves validity,
+  count, and forgetting.
+- Lean: `occurrenceReplay_valid`, `occurrenceReplay_count`,
+  `forget_occurrenceReplay_commutes`, `occurrenceValid_renameIds`,
+  `duplicate_admission_endpoint_collision`.
+- Python: all `ReplayOccurrenceTests`.
+- Refuted stronger claim: `endpoint_does_not_determine_occurrence_count` and
+  `endpoint_does_not_determine_occurrence_history` prove that the deduplicated
+  endpoint cannot recover the trace projection.
+- Integration boundary: the current connector does not yet consume the exact
+  retained trace, so repository-wide import removal remains conditional.
+
 ## ASS-07 — count calibration
 
 - Class: `CONDITIONAL`
@@ -84,6 +106,9 @@ The classes used here are `PROVED`, `CONDITIONAL`, `IMPORTED`, `REFUTED`, and
   `occurrenceWeight_zero`, `occurrenceWeight_append`.
 - Python: `OccurrenceTests.test_integer_map_is_an_explicit_argument`.
 - Imported premise: the unit calibration laws.
+- Negative closure: `additive_laws_do_not_select_integer_unit` exhibits the
+  family of additive integer scales; `unit_calibration_is_conditional` proves
+  uniqueness only after `encode 1 = 1` is supplied.
 
 ## ASS-08 — conditional finite contact
 
@@ -124,11 +149,29 @@ The classes used here are `PROVED`, `CONDITIONAL`, `IMPORTED`, `REFUTED`, and
   `natural_choice_does_not_determine_report_section`.
 - Python: `ConditionalContactTests.test_type_firewall_countermodel`.
 
+## ASS-10A — exact actual-section adapter boundary
+
+- Class: `CONDITIONAL` for adapter construction and `REFUTED` for derivation
+  from a bare report section.
+- Claim: `ActualSectionAdapter.Kernel` states the minimal `query`, report-fibre
+  `pairOf`, and exact `PresIso.mapPair` commutation needed to produce the
+  frozen `PresentationNaturality.Sec` and `IsNatural` types.
+- Lean: `Kernel.toSec_isNatural`, `no_kernel_of_no_actual_section`,
+  `report_section_does_not_determine_actual_section`,
+  `fixed_point_free_family_has_no_kernel`.
+- Open inputs: no existing source constructs `query`, `pairOf`, or
+  `commutes`.
+
 ## ASS-11 — end-to-end connector
 
 - Class: `OPEN`
-- Required missing theorem: a frozen-history-to-local-pair correspondence,
-  derivation of operational nontriviality, derivation of an occurrence
-  presentation and its unit calibration, and a commuting adapter between the
-  actual section domains.
-- Terminal: `IMPORT_ISOLATED_BUT_NOT_REMOVED`.
+- Produced: exact frozen observed facts, a chosen pair equivalence, an exact
+  retained-trace occurrence projection, and the exact conditional adapter
+  signature.
+- Refuted as forced: operational nontriviality, endpoint recovery of
+  occurrences, additive selection of the integer unit, and bare report-section
+  production of an actual natural section.
+- Required remaining composition: a source-authorized exchange/nontrivial
+  sign, retained-trace connector input, supplied integer unit if integer
+  output is required, and actual adapter fields.
+- Terminal: `BRIDGE_PRODUCERS_PROVED_END_TO_END_OPEN`.

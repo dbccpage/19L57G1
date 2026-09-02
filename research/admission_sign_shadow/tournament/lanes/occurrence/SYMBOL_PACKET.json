@@ -1,0 +1,137 @@
+{
+  "authority_effect": null,
+  "declared_event_surface": [
+    "Supply",
+    "AdmitDatum",
+    "AdmitForm",
+    "AdmitInst",
+    "AdmitRuleAll",
+    "Impose"
+  ],
+  "lean_imports": [
+    "Derivation.Erasure",
+    "AdmissionSignShadow.Core",
+    "Std (transitive)"
+  ],
+  "symbols": [
+    {
+      "evidence": [
+        "Derivation.TEvent",
+        "Derivation.replayT",
+        "replayT_tokens",
+        "occurrenceReplay_valid",
+        "occurrenceReplay_count"
+      ],
+      "obligation": "Scoped to the retained exact TEvent trace, not its endpoint.",
+      "status": "PROVED",
+      "symbol": "REPLAY_DERIVED_OCCURRENCE_PROJECTION"
+    },
+    {
+      "evidence": [
+        "forget_occurrenceReplay_commutes"
+      ],
+      "obligation": "Canonical replay is the ordered deduplicating datum projection.",
+      "status": "PROVED",
+      "symbol": "FORGET_REPLAY_COMMUTES"
+    },
+    {
+      "evidence": [
+        "ids_withIdsFrom",
+        "occurrenceReplay_count"
+      ],
+      "obligation": "IDs count datum-admission events and skip non-datum events.",
+      "status": "PROVED",
+      "symbol": "DETERMINISTIC_IDS_AND_COUNT"
+    },
+    {
+      "evidence": [
+        "duplicate_admission_endpoint_collision"
+      ],
+      "obligation": "The endpoint deduplicates while the event-derived count remains 1 versus 2.",
+      "status": "PROVED",
+      "symbol": "DUPLICATE_ADMISSION_ENDPOINT_COLLISION"
+    },
+    {
+      "evidence": [
+        "countToken_renameIds",
+        "forgetOccurrences_renameIds",
+        "occurrenceValid_renameIds"
+      ],
+      "obligation": "Validity preservation requires an injective renaming.",
+      "status": "PROVED",
+      "symbol": "ID_RENAMING_INVARIANCE"
+    },
+    {
+      "evidence": [
+        "endpoint_does_not_determine_occurrence_history"
+      ],
+      "obligation": "No recovery function from canonical datum endpoints works for all histories.",
+      "status": "REFUTED",
+      "symbol": "ENDPOINT_DETERMINES_OCCURRENCE_HISTORY"
+    },
+    {
+      "evidence": [
+        "endpoint_does_not_determine_occurrence_count"
+      ],
+      "obligation": "No recovery function from canonical datum endpoints returns the token-7 count.",
+      "status": "REFUTED",
+      "symbol": "ENDPOINT_DETERMINES_OCCURRENCE_COUNT"
+    },
+    {
+      "evidence": [
+        "additive_laws_do_not_select_integer_unit"
+      ],
+      "obligation": "Every integer unit gives an additive scaled encoding.",
+      "status": "REFUTED",
+      "symbol": "ADDITIVE_LAWS_SELECT_INTEGER_UNIT"
+    },
+    {
+      "evidence": [
+        "unit_calibration_is_conditional"
+      ],
+      "obligation": "Requires the additional premise encode(1) = 1.",
+      "status": "CONDITIONAL",
+      "symbol": "UNIT_CALIBRATED_ENCODING_UNIQUE"
+    },
+    {
+      "evidence": [
+        "Derivation.TEvent",
+        "Derivation.stepT",
+        "Derivation.replayT",
+        "replayT_tokens",
+        "forget_occurrenceReplay_commutes"
+      ],
+      "obligation": "The ephemeral verifier pins and imports the frozen Erasure.lean blob directly.",
+      "status": "PROVED",
+      "symbol": "EXACT_FROZEN_TEVENT_REPLAY_USE"
+    },
+    {
+      "evidence": [],
+      "obligation": "No recovery of a retained event trace from a deduplicated replay endpoint is supplied.",
+      "status": "OPEN",
+      "symbol": "ENDPOINT_DETERMINES_RETAINED_TEVENT_TRACE"
+    },
+    {
+      "evidence": [
+        "occurrenceReplay",
+        "forget_occurrenceReplay_commutes"
+      ],
+      "obligation": "The projection is proved, but the current connector does not consume the retained exact TEvent trace.",
+      "status": "OPEN",
+      "symbol": "OCCURRENCE_TRACE_CONNECTOR_INTEGRATION"
+    }
+  ],
+  "terminal": "TRACE_PROJECTION_PROVED_CONNECTOR_INTEGRATION_OPEN",
+  "witness": {
+    "different_occurrence_history": true,
+    "duplicate_count": 2,
+    "duplicate_endpoint": [
+      7
+    ],
+    "once_count": 1,
+    "once_endpoint": [
+      7
+    ],
+    "same_endpoint": true
+  }
+}

@@ -6,8 +6,13 @@ files = [
   "source_manifest.py",
   "run_connector.py",
   "verify_lean.py",
+  "verify_frozen_compatibility.py",
   "build_receipt.py",
   "test_connector.py",
+  "test_frozen_compatibility.py",
+  "tournament/lanes/occurrence/occurrence_lane.py",
+  "tournament/lanes/occurrence/run_occurrence_lane.py",
+  "tournament/lanes/occurrence/test_occurrence_lane.py",
 ]
 
 [tool.pytest.ini_options]

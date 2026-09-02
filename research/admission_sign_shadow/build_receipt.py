@@ -13,8 +13,18 @@ import sys
 COMMANDS: tuple[tuple[str, ...], ...] = (
     ("source_manifest.py", "--check"),
     ("-m", "unittest", "discover", "-s", ".", "-p", "test_*.py"),
+    (
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tournament/lanes/occurrence",
+        "-p",
+        "test_*.py",
+    ),
     ("run_connector.py", "--check"),
     ("verify_lean.py", "--check"),
+    ("verify_frozen_compatibility.py", "--check"),
     ("-m", "mypy", "--config-file", "pyproject.toml"),
 )
 
@@ -54,10 +64,10 @@ def run_python(args: tuple[str, ...]) -> dict[str, object]:
     }
 
 
-def tool_output(*command: str) -> str:
+def tool_output(command: tuple[str, ...], cwd: Path) -> str:
     completed = subprocess.run(
         list(command),
-        cwd=tree_root(),
+        cwd=cwd,
         env=environment(),
         check=True,
         capture_output=True,
@@ -82,12 +92,26 @@ def render() -> bytes:
             "SOURCE_MANIFEST.json": file_hash(root / "SOURCE_MANIFEST.json"),
             "connector.json": file_hash(root / "receipts" / "connector.json"),
             "lean.json": file_hash(root / "receipts" / "lean.json"),
+            "frozen_compatibility.json": file_hash(
+                root / "receipts" / "frozen_compatibility.json"
+            ),
+            "packets.jsonl": file_hash(root / "tournament" / "packets.jsonl"),
+            "occurrence_symbol_packet.json": file_hash(
+                root / "tournament" / "lanes" / "occurrence" / "SYMBOL_PACKET.json"
+            ),
+            "README.md": file_hash(root / "README.md"),
+            "STATUS.md": file_hash(root / "STATUS.md"),
+            "CLAIM_LEDGER.md": file_hash(root / "CLAIM_LEDGER.md"),
+            "tournament_RUN.md": file_hash(root / "tournament" / "RUN.md"),
+            "build_receipt.py": file_hash(root / "build_receipt.py"),
         },
-        "terminal": "IMPORT_ISOLATED_BUT_NOT_REMOVED",
+        "terminal": "BRIDGE_PRODUCERS_PROVED_END_TO_END_OPEN",
         "tool_versions": {
-            "lake": tool_output("lake", "--version"),
-            "lean": tool_output("lean", "--version"),
-            "mypy": tool_output(sys.executable, "-m", "mypy", "--version"),
+            "lake": tool_output(("lake", "--version"), root / "lean"),
+            "lean": tool_output(("lean", "--version"), root / "lean"),
+            "mypy": tool_output(
+                (sys.executable, "-m", "mypy", "--version"), root
+            ),
             "python": platform.python_version(),
         },
     }
@@ -106,7 +130,7 @@ def main() -> None:
         path.write_bytes(rendered)
     if not path.exists() or path.read_bytes() != rendered:
         raise ValueError("machine receipt differs from complete local replay")
-    print("machine receipt replay clean: IMPORT_ISOLATED_BUT_NOT_REMOVED")
+    print("machine receipt replay clean: BRIDGE_PRODUCERS_PROVED_END_TO_END_OPEN")
 
 
 if __name__ == "__main__":

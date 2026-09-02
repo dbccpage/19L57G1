@@ -1,0 +1,258 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "compiled_modules": [
+    {
+      "axiom_audit_ok": true,
+      "axiom_reports": [
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.FrozenPairBridge.frozen_pair_observed_facts"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.FrozenPairBridge.chosen_pair_equivalence"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.FrozenPairBridge.erased_readout_cannot_separate"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.FrozenPairBridge.frozen_pair_supports_both_character_extensions"
+        }
+      ],
+      "diagnostics": "",
+      "expected_declarations": [
+        "AdmissionSignShadow.FrozenPairBridge.chosen_pair_equivalence",
+        "AdmissionSignShadow.FrozenPairBridge.erased_readout_cannot_separate",
+        "AdmissionSignShadow.FrozenPairBridge.frozen_pair_observed_facts",
+        "AdmissionSignShadow.FrozenPairBridge.frozen_pair_supports_both_character_extensions"
+      ],
+      "module": "AdmissionSignShadow/FrozenPairBridge.lean",
+      "report_population_exact": true,
+      "returncode": 0,
+      "sha256": "121cd1c4b70d4af78949e55a3c928f44c1dd9d423aaa5398841677cd519af18d"
+    },
+    {
+      "axiom_audit_ok": true,
+      "axiom_reports": [
+        {
+          "allowed": true,
+          "axioms": [
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.occurrenceReplay_valid"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.occurrenceReplay_count"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.forget_occurrenceReplay_commutes"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.occurrenceValid_renameIds"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.duplicate_admission_endpoint_collision"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.endpoint_does_not_determine_occurrence_count"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "Quot.sound",
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.endpoint_does_not_determine_occurrence_history"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.additive_laws_do_not_select_integer_unit"
+        },
+        {
+          "allowed": true,
+          "axioms": [
+            "propext"
+          ],
+          "declaration": "AdmissionSignShadow.ReplayOccurrence.unit_calibration_is_conditional"
+        }
+      ],
+      "diagnostics": "",
+      "expected_declarations": [
+        "AdmissionSignShadow.ReplayOccurrence.additive_laws_do_not_select_integer_unit",
+        "AdmissionSignShadow.ReplayOccurrence.duplicate_admission_endpoint_collision",
+        "AdmissionSignShadow.ReplayOccurrence.endpoint_does_not_determine_occurrence_count",
+        "AdmissionSignShadow.ReplayOccurrence.endpoint_does_not_determine_occurrence_history",
+        "AdmissionSignShadow.ReplayOccurrence.forget_occurrenceReplay_commutes",
+        "AdmissionSignShadow.ReplayOccurrence.occurrenceReplay_count",
+        "AdmissionSignShadow.ReplayOccurrence.occurrenceReplay_valid",
+        "AdmissionSignShadow.ReplayOccurrence.occurrenceValid_renameIds",
+        "AdmissionSignShadow.ReplayOccurrence.unit_calibration_is_conditional"
+      ],
+      "module": "AdmissionSignShadow/ReplayOccurrence.lean",
+      "report_population_exact": true,
+      "returncode": 0,
+      "sha256": "83a0408c39313436099b6d2a6056c4cdb0c6ff5b9c7917e88b69f7e869bfa92f"
+    },
+    {
+      "axiom_audit_ok": true,
+      "axiom_reports": [
+        {
+          "allowed": true,
+          "axioms": [],
+          "declaration": "AdmissionSignShadow.ActualSectionAdapter.Kernel.toSec_isNatural"
+        },
+        {
+          "allowed": true,
+          "axioms": [],
+          "declaration": "AdmissionSignShadow.ActualSectionAdapter.no_kernel_of_no_actual_section"
+        },
+        {
+          "allowed": true,
+          "axioms": [],
+          "declaration": "AdmissionSignShadow.ActualSectionAdapter.report_section_does_not_determine_actual_section"
+        },
+        {
+          "allowed": true,
+          "axioms": [],
+          "declaration": "AdmissionSignShadow.ActualSectionAdapter.fixed_point_free_family_has_no_kernel"
+        }
+      ],
+      "diagnostics": "",
+      "expected_declarations": [
+        "AdmissionSignShadow.ActualSectionAdapter.Kernel.toSec_isNatural",
+        "AdmissionSignShadow.ActualSectionAdapter.fixed_point_free_family_has_no_kernel",
+        "AdmissionSignShadow.ActualSectionAdapter.no_kernel_of_no_actual_section",
+        "AdmissionSignShadow.ActualSectionAdapter.report_section_does_not_determine_actual_section"
+      ],
+      "module": "AdmissionSignShadow/ActualSectionAdapter.lean",
+      "report_population_exact": true,
+      "returncode": 0,
+      "sha256": "81d10377a74e55d2dcd9d34a6126868005a22f0ef429be794ae8c4d2649bab51"
+    }
+  ],
+  "frozen_commit": "3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a",
+  "frozen_input": {
+    "commit": "3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a",
+    "scope": "entire exact frozen lean4 tree",
+    "tree": "d015d9085217267f5cf895935aad13236f1bb6b5"
+  },
+  "local_source_hashes": {
+    "lean/AdmissionSignShadow/ActualSectionAdapter.lean": "81d10377a74e55d2dcd9d34a6126868005a22f0ef429be794ae8c4d2649bab51",
+    "lean/AdmissionSignShadow/Core.lean": "bc293a6808ab689a53297a36e1746435fdbc3bb8ba5584a04afaaf63b6144e93",
+    "lean/AdmissionSignShadow/FrozenPairBridge.lean": "121cd1c4b70d4af78949e55a3c928f44c1dd9d423aaa5398841677cd519af18d",
+    "lean/AdmissionSignShadow/ReplayOccurrence.lean": "83a0408c39313436099b6d2a6056c4cdb0c6ff5b9c7917e88b69f7e869bfa92f",
+    "verify_frozen_compatibility.py": "d6f86ef4c70b7df19eb9c31d00ba667afb20188542dae28b66075f86fdcebebb"
+  },
+  "materialization": "ephemeral_git_archive_removed_on_exit",
+  "missing_modules": [],
+  "persistent_exact_matches": {
+    "frozen_source_matches": [],
+    "permitted_toolchain_text": [
+      "research/admission_sign_shadow/lean/lean-toolchain"
+    ]
+  },
+  "requested_modules": [
+    "FrozenPairBridge.lean",
+    "ReplayOccurrence.lean",
+    "ActualSectionAdapter.lean"
+  ],
+  "schema": "frozen-compatibility-receipt-v1",
+  "source_blob_checks": [
+    {
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "ok": true,
+      "path": "code/derivation/model.py",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "git_blob": "610d8fc982853807eb892eaaf683fc4eb2959cc1",
+      "ok": true,
+      "path": "lean4/Derivation/Basic.lean",
+      "sha256": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed"
+    },
+    {
+      "git_blob": "221f33ccb3e9050f49442e87dc6cd410d43b2cf0",
+      "ok": true,
+      "path": "lean4/Derivation/Bridge.lean",
+      "sha256": "5dc42aed7ee99c2a2c66219bc875a1db109fbca8ca58d8dd552e72519ddcc3ce"
+    },
+    {
+      "git_blob": "b855d58a7196c13591b6d43c3dac68adb58f146c",
+      "ok": true,
+      "path": "lean4/Derivation/Erasure.lean",
+      "sha256": "a52cdd98aed2dfafbc4ed8eba2a904f813b582071f0c233098fdeb1fea516d30"
+    },
+    {
+      "git_blob": "ef4d76c7a07d38966150923691d1a0bba65bde68",
+      "ok": true,
+      "path": "lean4/Derivation/PresentationNaturality.lean",
+      "sha256": "9ceaf49adcd21ca01fbf52c06b39e9816f00a505dc4ac63277bc9cded6d28ca7"
+    },
+    {
+      "git_blob": "eda012a2aaa131304712ec83e490b4af40016fe1",
+      "ok": true,
+      "path": "lean4/Derivation/PrimDiff.lean",
+      "sha256": "69ac9ca08179680d28d74ece54bc90f94854db98f3d113df17d0abbca86e23b6"
+    },
+    {
+      "git_blob": "745510b8cb3957d564da0d0547845099023567f2",
+      "ok": true,
+      "path": "lean4/Derivation/WeightProfile.lean",
+      "sha256": "62e76fde036973ff9510f2790dfa1ae14219b6a9d649e818d355a3940cc4c058"
+    },
+    {
+      "git_blob": "025e59548e48cf71f2744154e2890beefe30a258",
+      "ok": true,
+      "path": "lean4/lean-toolchain",
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    }
+  ],
+  "success": true
+}

@@ -135,8 +135,11 @@
   },
   "source_hashes": {
     "AdmissionSignShadow.lean": "e8759ce358f89840c8364d8b105365f2a3b5009170dcf67879a6af348c4b8996",
+    "AdmissionSignShadow/ActualSectionAdapter.lean": "81d10377a74e55d2dcd9d34a6126868005a22f0ef429be794ae8c4d2649bab51",
     "AdmissionSignShadow/AxiomReport.lean": "ded32aacd6e63b4d89a85dd6240eb292cd298d054a6fce305b81998557f531d0",
     "AdmissionSignShadow/Core.lean": "bc293a6808ab689a53297a36e1746435fdbc3bb8ba5584a04afaaf63b6144e93",
+    "AdmissionSignShadow/FrozenPairBridge.lean": "121cd1c4b70d4af78949e55a3c928f44c1dd9d423aaa5398841677cd519af18d",
+    "AdmissionSignShadow/ReplayOccurrence.lean": "83a0408c39313436099b6d2a6056c4cdb0c6ff5b9c7917e88b69f7e869bfa92f",
     "lakefile.lean": "f58d9af1b6e46ca7cea796e97ab14cd0757445024ccf46bbf7aac5e3b75f3ba7"
   },
   "terminal": "CONDITIONAL_CONNECTOR_PROVED"

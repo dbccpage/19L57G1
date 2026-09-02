@@ -141,6 +141,11 @@
       "last_line": "OK"
     },
     {
+      "command": "python -m unittest discover -s tournament/lanes/occurrence -p test_*.py",
+      "exit_code": 0,
+      "last_line": "OK"
+    },
+    {
       "command": "python run_connector.py --check",
       "exit_code": 0,
       "last_line": "connector receipt replay clean: IMPORT_ISOLATED_BUT_NOT_REMOVED"
@@ -151,20 +156,33 @@
       "last_line": "Lean receipt replay clean: 58 theorem reports"
     },
     {
+      "command": "python verify_frozen_compatibility.py --check",
+      "exit_code": 0,
+      "last_line": "frozen compatibility receipt clean: 3 modules"
+    },
+    {
       "command": "python -m mypy --config-file pyproject.toml",
       "exit_code": 0,
-      "last_line": "Success: no issues found in 6 source files"
+      "last_line": "Success: no issues found in 11 source files"
     }
   ],
   "input_hashes": {
+    "CLAIM_LEDGER.md": "d8710a79b8e681a217717402e4366154688e27a96972607618520a5051edb62b",
+    "README.md": "476fa0a22c7dd7fce626ca719013267da3f40a7eafb2eda6ffe99e27c702fc2e",
     "SOURCE_MANIFEST.json": "41577c3588325537c639a4cd03e3c2299ed03b910e9eb2522db74c96deddab3b",
+    "STATUS.md": "7ea5a8f88ee295bea9aafda37b867eb9c843018b24a6d303b8c61e645b3cf98b",
+    "build_receipt.py": "05dbc492cf172bdfe3af730937af90c7bdfda3474b24cff45ff84a5ea10ed23d",
     "connector.json": "03bb4a176f64cf99ee3ae673c0487b2c66cac708f6594789cbf54ac4a9787b18",
-    "lean.json": "6e567111161b6e322924e3f6645c3016d692c21ccbd44a96e176d4949bd6e09b"
+    "frozen_compatibility.json": "23e87dde7591307c9639cee249844548dbcfa63ebca3b0f2f47594c74bf30e69",
+    "lean.json": "416b7471274b2c638aa0c4625d62c6c62bf73cded4d7257d23bbc640b26fb06a",
+    "occurrence_symbol_packet.json": "87cf066fad7f4e44ff92e5d7c7e66ee08e6baadd90ec5987f6825ca13b77d14b",
+    "packets.jsonl": "e6eaadf54f9530e6212f440de171673bfea17672da98cfc989c6303ad4eae72f",
+    "tournament_RUN.md": "767c0f33e971dfd232fd0279538b4e70ad4d47f04f1a1ea9dc2519192785f0a1"
   },
-  "terminal": "IMPORT_ISOLATED_BUT_NOT_REMOVED",
+  "terminal": "BRIDGE_PRODUCERS_PROVED_END_TO_END_OPEN",
   "tool_versions": {
-    "lake": "Lake version 5.0.0-src+819816b (Lean version 4.33.1)",
-    "lean": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "lake": "Lake version 5.0.0-src+d8b1897 (Lean version 4.33.0)",
+    "lean": "Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
     "mypy": "mypy 1.19.1 (compiled: yes)",
     "python": "3.12.13"
   }
