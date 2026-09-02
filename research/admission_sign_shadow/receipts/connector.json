@@ -1,0 +1,73 @@
+{
+  "authority_effect": null,
+  "characters": {
+    "global_basepoint_flip": true,
+    "laws_hold": [
+      true,
+      true
+    ],
+    "legal_values": [
+      "positive",
+      "negative"
+    ],
+    "nontrivial_value": "negative",
+    "operational_nontriviality": "IMPORTED_PREMISE"
+  },
+  "conditional_contact": {
+    "coordinate_squares_equal": true,
+    "mixed_readouts": [
+      4,
+      0
+    ],
+    "separates_with_supplied_map": true
+  },
+  "imports": {
+    "character_to_integer_calibration": "DECLARED_INPUT",
+    "frozen_pair_correspondence": "IMPORTED_PREMISE",
+    "mixing_map": "DECLARED_INPUT",
+    "occurrence_to_integer_map": "DECLARED_INPUT",
+    "occurrence_unit_calibration": "IMPORTED_PREMISE",
+    "operational_nontriviality": "IMPORTED_PREMISE",
+    "section_adapter": "OPEN"
+  },
+  "mutations": {
+    "collapsed_histories_rejected": true,
+    "equal_parity_rejected": true,
+    "three_cycle_not_involution": true,
+    "three_elements_have_no_free_involution": true,
+    "trivial_character_no_pair_change": true,
+    "unequal_endpoints_rejected": true,
+    "without_mixing_only_squares": true
+  },
+  "occurrences": {
+    "append_additive": true,
+    "counts": [
+      1,
+      2
+    ],
+    "fresh_append_valid": true,
+    "integer_map": "DECLARED_INPUT",
+    "once_valid": true,
+    "ordered_forget_not_equivalence_quotient": true,
+    "reorder_invariant": true,
+    "reorder_preserves_validity": true,
+    "same_canonical": true,
+    "twice_valid": true,
+    "unit_calibration": "IMPORTED_PREMISE",
+    "unit_calibration_laws_through_6": true,
+    "zero": 0
+  },
+  "terminal": "IMPORT_ISOLATED_BUT_NOT_REMOVED",
+  "two_history": {
+    "distinct": true,
+    "exchange_involutive": true,
+    "same_erased_endpoint": true
+  },
+  "type_firewall": {
+    "adapter": "OPEN",
+    "empty_report_right_inverse_exists": false,
+    "flip_natural_choice_exists": false,
+    "report_right_inverse_exists": true,
+    "unit_natural_choice_exists": true
+  }
+}

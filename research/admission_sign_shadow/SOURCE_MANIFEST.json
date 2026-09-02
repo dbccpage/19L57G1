@@ -1,0 +1,70 @@
+{
+  "authority_effect": null,
+  "base_commit": "be7476868e496e06d5dec6599fa4346394c512bd",
+  "base_tree": "0821fc9bc55fa551e0dd4752542221e109d3e36c",
+  "frozen_commit": "3100c4ed5ce70d2b6cff6d2ccd3b0251cf918d0a",
+  "frozen_tag_object": "e147f01cfed1d17410c55a1e78367fdadc63a5ae",
+  "frozen_tree": "d015d9085217267f5cf895935aad13236f1bb6b5",
+  "publication_base_commit": "470eec30505ede6ed4b1ec16c689e00d91cc735d",
+  "publication_base_tree": "34d77a4c9be4f7670fe03484f61de3bfb5c76da0",
+  "sources": [
+    {
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "path": "code/derivation/model.py",
+      "revision": "frozen",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "git_blob": "610d8fc982853807eb892eaaf683fc4eb2959cc1",
+      "path": "lean4/Derivation/Basic.lean",
+      "revision": "frozen",
+      "sha256": "1520b392f4061af568e00ca4fd235feb03facf6d3612c030c1d60018539e3eed"
+    },
+    {
+      "git_blob": "221f33ccb3e9050f49442e87dc6cd410d43b2cf0",
+      "path": "lean4/Derivation/Bridge.lean",
+      "revision": "frozen",
+      "sha256": "5dc42aed7ee99c2a2c66219bc875a1db109fbca8ca58d8dd552e72519ddcc3ce"
+    },
+    {
+      "git_blob": "b855d58a7196c13591b6d43c3dac68adb58f146c",
+      "path": "lean4/Derivation/Erasure.lean",
+      "revision": "frozen",
+      "sha256": "a52cdd98aed2dfafbc4ed8eba2a904f813b582071f0c233098fdeb1fea516d30"
+    },
+    {
+      "git_blob": "ef4d76c7a07d38966150923691d1a0bba65bde68",
+      "path": "lean4/Derivation/PresentationNaturality.lean",
+      "revision": "frozen",
+      "sha256": "9ceaf49adcd21ca01fbf52c06b39e9816f00a505dc4ac63277bc9cded6d28ca7"
+    },
+    {
+      "git_blob": "eda012a2aaa131304712ec83e490b4af40016fe1",
+      "path": "lean4/Derivation/PrimDiff.lean",
+      "revision": "frozen",
+      "sha256": "69ac9ca08179680d28d74ece54bc90f94854db98f3d113df17d0abbca86e23b6"
+    },
+    {
+      "git_blob": "745510b8cb3957d564da0d0547845099023567f2",
+      "path": "lean4/Derivation/WeightProfile.lean",
+      "revision": "frozen",
+      "sha256": "62e76fde036973ff9510f2790dfa1ae14219b6a9d649e818d355a3940cc4c058"
+    },
+    {
+      "git_blob": "025e59548e48cf71f2744154e2890beefe30a258",
+      "path": "lean4/lean-toolchain",
+      "revision": "frozen",
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    },
+    {
+      "git_blob": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+      "path": "CLAUDE.md",
+      "revision": "base",
+      "sha256": "37fc6aaa054fd7a330270fdac88a04986d6e9fc604ab841d8cba74c371913c21"
+    }
+  ],
+  "toolchains": {
+    "lean4/lean-toolchain": "leanprover/lean4:v4.33.0"
+  },
+  "write_root": "research/admission_sign_shadow/"
+}
