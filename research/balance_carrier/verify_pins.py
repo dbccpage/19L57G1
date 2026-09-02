@@ -1,26 +1,27 @@
 """Verify SOURCE_MANIFEST.json: every pinned read-only source is
 byte-identical at the snapshot and at HEAD; every pinned span (a line
 range of a pinned file, hashed as its LF-joined lines with trailing LF)
-matches at the snapshot and at HEAD; the snapshot is an exact 40-digit id
-and an ancestor of HEAD; no tracked path under a sealed prefix differs
-between the snapshot and HEAD; the worktree carries nothing modified or
-untracked outside the write root; the frozen native PROMPT.md still
-matches its recorded hash; and PREDICTIONS.md matches the last recorded
-freeze.  Exit 0 on success, 1 with a named failure otherwise.  A manual
-receipt: no CI gate runs this file.  AuthorityEffect: None.
+matches at the snapshot and at HEAD; each copied Lean projection is an
+exact declared slice of its pinned source after only the namespace rename;
+the snapshot is an exact 40-digit id and an ancestor of HEAD; no tracked
+path under a sealed prefix differs between the snapshot and HEAD; the
+worktree carries nothing modified or untracked outside the write root; the
+frozen native PROMPT.md still matches its recorded hash; and both recorded
+PREDICTIONS.md content states reconstruct from the final append-only file.
+Exit 0 on success, 1 with a named failure otherwise.  A manual receipt: no
+CI gate runs this file.  AuthorityEffect: None.
 """
 
 from __future__ import annotations
 
 import sys
-
-sys.dont_write_bytecode = True
-
 import hashlib
 import json
 import re
 import subprocess
 from pathlib import Path
+
+sys.dont_write_bytecode = True
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -59,6 +60,49 @@ def outside_write_root(porcelain: str) -> list[str]:
         if any(not p.replace("\\", "/").startswith(WRITE_ROOT) for p in paths):
             out.append(line)
     return out
+
+
+def selected_lines(blob: bytes, ranges: list[list[int]]) -> list[bytes]:
+    """Select inclusive, one-based line ranges from a pinned blob."""
+
+    lines = blob.split(b"\n")
+    selected: list[bytes] = []
+    for item in ranges:
+        if len(item) != 2:
+            raise RuntimeError(f"source range must have two endpoints: {item}")
+        first, last = item
+        if first < 1 or last < first or last > len(lines):
+            raise RuntimeError(f"source range {first}-{last} outside the blob's {len(lines)} lines")
+        selected.extend(lines[first - 1 : last])
+    return selected
+
+
+def reconstructed_lines(blob: bytes, spec: dict[str, object]) -> list[bytes]:
+    """The exact pinned source projection after the declared namespace rename."""
+
+    raw_ranges = spec["source_ranges"]
+    if not isinstance(raw_ranges, list) or not all(isinstance(item, list) for item in raw_ranges):
+        raise RuntimeError("source_ranges must be a list of line-range lists")
+    ranges = [[int(endpoint) for endpoint in item] for item in raw_ranges]
+    old = str(spec["namespace_from"]).encode("ascii")
+    new = str(spec["namespace_to"]).encode("ascii")
+    expected: list[bytes] = []
+    for line in selected_lines(blob, ranges):
+        if line == b"namespace " + old:
+            line = b"namespace " + new
+        elif line == b"end " + old:
+            line = b"end " + new
+        expected.append(line)
+    return expected
+
+
+def prediction_freeze_hashes(predictions: bytes, boundary: bytes) -> list[str]:
+    """Reconstruct the stage-1/2 prefix freeze and the final whole-file freeze."""
+
+    prefix, separator, _ = predictions.partition(boundary)
+    if not separator:
+        raise RuntimeError(f"prediction freeze boundary not found: {boundary!r}")
+    return [hashlib.sha256(prefix).hexdigest(), hashlib.sha256(predictions).hexdigest()]
 
 
 def main() -> int:
@@ -103,6 +147,44 @@ def main() -> int:
                     f" hashes {got}, pinned {span['sha256']}"
                 )
                 failures += 1
+    reconstructions = manifest.get("reconstructions", [])
+    if not isinstance(reconstructions, list) or not reconstructions:
+        print("FAIL: no source reconstruction bindings recorded")
+        failures += 1
+        reconstructions = []
+    for spec in reconstructions:
+        if not isinstance(spec, dict):
+            print(f"FAIL: malformed reconstruction record: {spec!r}")
+            failures += 1
+            continue
+        source_path = str(spec["source_path"])
+        local_path = str(spec["local_path"])
+        if source_path not in manifest["pins"]:
+            print(f"FAIL: reconstruction source {source_path} is not itself pinned")
+            failures += 1
+            continue
+        try:
+            source_blob = git("show", f"{snap}:{source_path}")
+            expected = reconstructed_lines(source_blob, spec)
+            local_blob = (REPO / local_path).read_bytes()
+            local_lines = local_blob.split(b"\n")
+            first = int(spec["local_first_line"])
+            last = int(spec["local_last_line"])
+            if first < 1 or last < first or last > len(local_lines):
+                raise RuntimeError(
+                    f"local range {first}-{last} outside the file's {len(local_lines)} lines"
+                )
+            actual = local_lines[first - 1 : last]
+        except (OSError, RuntimeError, ValueError) as exc:
+            print(f"FAIL: reconstruction {source_path} -> {local_path}: {exc}")
+            failures += 1
+            continue
+        if actual != expected:
+            print(
+                f"FAIL: {local_path}:{first}-{last} is not the declared exact projection"
+                f" of pinned {source_path}"
+            )
+            failures += 1
     moved = [
         p
         for p in git("diff", "--name-only", "-z", snap, "HEAD", "--", *SEALED_PATHSPECS)
@@ -126,23 +208,32 @@ def main() -> int:
         )
         failures += 1
     freezes = manifest["predictions_freezes"]
-    if not freezes:
-        print("FAIL: no predictions freeze recorded")
+    if not isinstance(freezes, list) or len(freezes) != 2:
+        print("FAIL: exactly two predictions freezes must be recorded")
         failures += 1
     else:
-        pred_hash = hashlib.sha256((HERE / "PREDICTIONS.md").read_bytes()).hexdigest()
-        if pred_hash != freezes[-1]:
-            print(
-                f"FAIL: PREDICTIONS.md hash {pred_hash} differs from the last"
-                f" recorded freeze {freezes[-1]}"
-            )
+        predictions = (HERE / "PREDICTIONS.md").read_bytes()
+        boundary = str(manifest["predictions_first_freeze_boundary"]).encode("ascii")
+        try:
+            got_freezes = prediction_freeze_hashes(predictions, boundary)
+        except RuntimeError as exc:
+            print(f"FAIL: {exc}")
             failures += 1
+        else:
+            for index, (got, want) in enumerate(zip(got_freezes, freezes, strict=True), start=1):
+                if got != want:
+                    print(
+                        f"FAIL: reconstructed predictions freeze {index} hashes {got},"
+                        f" recorded {want}"
+                    )
+                    failures += 1
     if failures:
         return 1
     print(
         f"pins clean: {len(manifest['pins'])} sources and {len(manifest['spans'])} spans"
         f" at snapshot and HEAD; sealed prefixes unchanged; nothing outside the write"
-        f" root; native PROMPT.md frozen; {len(freezes)} predictions freeze(s) recorded"
+        f" root; {len(reconstructions)} source projections exact; native PROMPT.md frozen;"
+        f" {len(freezes)} predictions freezes reconstructed"
     )
     return 0
 

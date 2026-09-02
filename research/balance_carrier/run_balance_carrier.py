@@ -8,6 +8,8 @@ which is the receipt for the Lean package.  AuthorityEffect: None.
 
 from __future__ import annotations
 
+# ruff: noqa: E402 -- bytecode suppression must precede tree-local imports
+
 import sys
 
 sys.dont_write_bytecode = True

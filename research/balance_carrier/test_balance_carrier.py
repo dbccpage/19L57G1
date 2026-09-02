@@ -7,6 +7,8 @@ AuthorityEffect: None.
 
 from __future__ import annotations
 
+# ruff: noqa: E402 -- bytecode suppression must precede tree-local imports
+
 import json
 import sys
 import unittest
@@ -24,6 +26,7 @@ import register
 import run_balance_carrier
 import signed_table
 import walk_carrier as wc
+import verify_pins
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -234,6 +237,32 @@ class GrowthCheckpointTests(unittest.TestCase):
 
 
 class ReceiptTests(unittest.TestCase):
+    def test_source_projections_and_both_prediction_freezes_are_bound(self) -> None:
+        manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text("ascii"))
+        for spec in manifest["reconstructions"]:
+            source = verify_pins.git("show", f"{manifest['snapshot_commit']}:{spec['source_path']}")
+            expected = verify_pins.reconstructed_lines(source, spec)
+            local = (REPO / spec["local_path"]).read_bytes().split(b"\n")
+            first = spec["local_first_line"]
+            last = spec["local_last_line"]
+            actual = local[first - 1 : last]
+            self.assertEqual(actual, expected, spec["local_path"])
+            mutated = actual.copy()
+            mutated[0] += b" "
+            self.assertNotEqual(mutated, expected, spec["local_path"])
+        predictions = (HERE / "PREDICTIONS.md").read_bytes()
+        boundary = manifest["predictions_first_freeze_boundary"].encode("ascii")
+        hashes = verify_pins.prediction_freeze_hashes(predictions, boundary)
+        self.assertEqual(hashes, manifest["predictions_freezes"])
+        prefix_mutation = bytes([predictions[0] ^ 1]) + predictions[1:]
+        self.assertNotEqual(
+            verify_pins.prediction_freeze_hashes(prefix_mutation, boundary), hashes
+        )
+        final_mutation = predictions[:-1] + bytes([predictions[-1] ^ 1])
+        final_hashes = verify_pins.prediction_freeze_hashes(final_mutation, boundary)
+        self.assertEqual(final_hashes[0], hashes[0])
+        self.assertNotEqual(final_hashes[1], hashes[1])
+
     def test_committed_receipts_replay_byte_for_byte(self) -> None:
         report = run_balance_carrier.build_report(wc.CHECKPOINTS[-1])
         self.assertEqual(

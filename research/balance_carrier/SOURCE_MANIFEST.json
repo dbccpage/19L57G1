@@ -14,8 +14,29 @@
     "83e7ab7cfd3c929613b580c230c39a199383d77050a478dfdd91deace37b3828",
     "626936375324eead6d3444959d442e32eca2f86d27e6742de57db4926f0d5f6e"
   ],
+  "predictions_first_freeze_boundary": "\n## Stages 3-5",
   "prompt_native_sha256": "ef50dbe708942458876d21a3219b1afa740da6de68edff9cc77021b81f1813fb",
   "purpose": "read-only sources consumed by the balance_carrier run; this tree writes none of them; spans are the consumed leftovers quoted by pin",
+  "reconstructions": [
+    {
+      "local_first_line": 18,
+      "local_last_line": 135,
+      "local_path": "research/balance_carrier/lean/BalanceCarrier/Receiver.lean",
+      "namespace_from": "NaturalSections",
+      "namespace_to": "BalanceCarrier",
+      "source_path": "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean",
+      "source_ranges": [[34, 108], [244, 257], [288, 314], [335, 336]]
+    },
+    {
+      "local_first_line": 21,
+      "local_last_line": 436,
+      "local_path": "research/balance_carrier/lean/BalanceCarrier/Balance.lean",
+      "namespace_from": "NaturalSections",
+      "namespace_to": "BalanceCarrier",
+      "source_path": "research/natural_sections/lean/NaturalSections/LayerBalance.lean",
+      "source_ranges": [[32, 447]]
+    }
+  ],
   "snapshot_commit": "be7476868e496e06d5dec6599fa4346394c512bd",
   "spans": [
     {

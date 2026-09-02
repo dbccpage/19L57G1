@@ -25,6 +25,9 @@ predictions frozen at
 and
 `626936375324eead6d3444959d442e32eca2f86d27e6742de57db4926f0d5f6e`
 (stages 3-5, after stage 2 closed and before any stage-3 computation).
+`verify_pins.py` reconstructs and hashes both content states from the final
+append-only file.  It does not provide an external timestamp, so the stated
+before/after chronology remains an operator report rather than a receipt.
 Sources are pinned in `SOURCE_MANIFEST.json` at snapshot
 `be7476868e496e06d5dec6599fa4346394c512bd` of `main`; `verify_pins.py`
 checks the eight blobs and the two spans at the snapshot and at HEAD.
@@ -200,8 +203,12 @@ to its value and was not edited.
   leftovers named and priced, executed nowhere.
 - TIES_RETAINED: three carriers met stage 2 at the same bound and all
   three are carried through stages 3-5; none is called "the" carrier.
-- PREDICTIONS_HASHED: the two freeze hashes above, recorded in
-  `SOURCE_MANIFEST.json` and checked by `verify_pins.py`.
+- PREDICTIONS_HASHED: the two content-state hashes above, recorded in
+  `SOURCE_MANIFEST.json` and reconstructed by `verify_pins.py`; their
+  reported chronology is not promoted to a machine-verified claim.
+- RECONSTRUCTIONS_BOUND: the selected `Receiver.lean` and `Balance.lean`
+  declaration ranges are checked byte-for-byte against their pinned source
+  blobs after only the declared outer-namespace rename.
 - MANUAL_RECEIPT_DECLARED: no CI gate reads this tree's receipts, scans,
   or Lean audit.  `verify_lean.py` is a manual receipt in the same sense
   as the other research trees'.
@@ -281,7 +288,8 @@ regenerated while an injection was live.
 |---|---|---|
 | Pin integrity | first digit of the `LayerBalance.lean` pin flipped in `SOURCE_MANIFEST.json` | `FAIL: research/natural_sections/lean/NaturalSections/LayerBalance.lean blob at be74768... is 493bdc27..., pinned 093bdc27...`; exit 1, then 0 after reversal |
 | Span pin | leftover 1's line range moved to `1626-1633` | `FAIL: span research/natural_sections/STATUS.md:1626-1633 at be74768... hashes 883703bf..., pinned 6fb56d34...`; exit 1, then 0 after reversal |
-| Predictions freeze | one probe line appended to `PREDICTIONS.md` | `FAIL: PREDICTIONS.md hash e3b38f85... differs from the last recorded freeze 62693637...`; exit 1, then 0 after reversal |
+| Predictions freezes | a probe byte changed in each reconstructed content state | the regression check changes the corresponding SHA-256 and the verifier rejects the recorded hash; both states match after reversal |
+| Source reconstruction | a probe byte changed in an in-memory copy of each selected local projection | exact comparison differs from the pinned source projection; both committed projections match after reversal |
 | Lean forbidden tokens | a comment carrying the first forbidden token appended to `WalkCarrier.lean` | `FAIL: WalkCarrier.lean contains forbidden token` naming it; exit 1, then 0 after reversal |
 | Receipt replay | the checkpoint value `212` at a million changed to `213` in the committed receipt | `test_committed_receipts_replay_byte_for_byte` fails; exit 1, then 0 after reversal |
 | Census scan (FW-PIN, FW-NAME) | a scratch file carrying a watched noun placed in the write root | `test_no_watched_prose_word_in_the_write_root` fails naming the file, line and token; exit 1, then 0 after deletion |
@@ -365,7 +373,7 @@ parallel tracks):
 
 | command | exit | key line |
 |---|---|---|
-| `python verify_pins.py` | 0 | `pins clean: 8 sources and 2 spans at snapshot and HEAD; sealed prefixes unchanged; nothing outside the write root; native PROMPT.md frozen; 2 predictions freeze(s) recorded` |
+| `python verify_pins.py` | 0 | `pins clean: 8 sources and 2 spans at snapshot and HEAD; sealed prefixes unchanged; nothing outside the write root; 2 source projections exact; native PROMPT.md frozen; 2 predictions freezes reconstructed` |
 | `python verify_lean.py` | 0 | `lean audit clean: 7 sources, 58 axiom reports (11 axiom-free), axioms within ['Quot.sound', 'propext']` |
 | `PYTHONDONTWRITEBYTECODE=1 python run_balance_carrier.py --out receipts` | 0 | `stage 2: menu 90, hits ['S1b(W2)', 'S2(W1,1,C1)', 'S2(W3,1,Cbal)']`; `stage 3: DEGENERACY_PERSISTS`; `stage 4: GROWTH_OPEN_UNCHANGED, checkpoint misses []` |
 | `PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s . -p "test_*.py"` | 0 | all tests pass, refusal scans included |

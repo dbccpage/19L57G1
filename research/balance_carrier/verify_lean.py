@@ -9,12 +9,11 @@ AuthorityEffect: None.
 from __future__ import annotations
 
 import sys
-
-sys.dont_write_bytecode = True
-
 import re
 import subprocess
 from pathlib import Path
+
+sys.dont_write_bytecode = True
 
 HERE = Path(__file__).resolve().parent
 LEAN = HERE / "lean"
