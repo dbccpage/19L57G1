@@ -1,0 +1,2745 @@
+{
+  "adversarial": {
+    "A1": "an identity for the running balance re-expresses the same signed sum; growth stays OPEN (FW-GROWTH)",
+    "A10": "the menu is declared and finite (90 candidates); it is not a classification of carriers and none is claimed (FW-SET)",
+    "A2": "the class and the count are declared and the identity is stated in those terms; no outside name is used (FW-NAME)",
+    "A3": "agreement at the pinned checkpoints is FINITE_COMPUTATION within bound, not a theorem",
+    "A4": "the Lean identity for S1b at every N does not close the growth OPEN; the protected open is unchanged",
+    "A5": "every family here has magnitude 1 throughout, so the certificate criterion refuses nothing: LP4 persists and the diverse-magnitude census is priced again",
+    "A6": "layer_observer_grades is proved in the declared form (a fresh part carried along a divisor arrow reads its source part count); walks are not graded by any theorem here",
+    "A7": "Lean proves; this receipt records",
+    "A8": "the run saw only the commitment hash; FW-LEAD is honored by construction and both stage-2 terminals were pre-agreed",
+    "A9": "disjoint write roots, frozen shared files, a pin to main at one snapshot; nothing outside research/balance_carrier/ was written"
+  },
+  "authority_effect": "None",
+  "stage_1_layer_observer": {
+    "bound": 40,
+    "divides_misses": [],
+    "fresh_values_per_layer_1_12": {
+      "1": [
+        1
+      ],
+      "10": [
+        10
+      ],
+      "11": [
+        11
+      ],
+      "12": [
+        12
+      ],
+      "2": [
+        2
+      ],
+      "3": [
+        3
+      ],
+      "4": [
+        4
+      ],
+      "5": [
+        5
+      ],
+      "6": [
+        6
+      ],
+      "7": [
+        7
+      ],
+      "8": [
+        8
+      ],
+      "9": [
+        9
+      ]
+    },
+    "grade_misses": [],
+    "grade_quotient_bound": 6,
+    "observer_misses": [],
+    "observer_misses_wrapped": [],
+    "wrap_bound": 24
+  },
+  "stage_2_walk_carrier": {
+    "extension_bound": 1000000,
+    "extensions": {
+      "S1b(W2)": {
+        "chain_enumeration_vs_recursion_bound": 200,
+        "chain_enumeration_vs_recursion_misses": [],
+        "checkpoints": {
+          "10": -1,
+          "100": 1,
+          "1000": 2,
+          "10000": -23,
+          "100000": -48,
+          "1000000": 212,
+          "30": -3
+        },
+        "recursion_vs_running_balance_misses": [],
+        "recursion_vs_running_balance_misses_to": 1000000
+      },
+      "S2(W1,1,C1)": {
+        "column_route_checkpoint_misses": [],
+        "column_route_checkpoints": {
+          "10": -1,
+          "100": 1,
+          "1000": 2,
+          "10000": -23,
+          "100000": -48,
+          "1000000": 212,
+          "2000": 5,
+          "30": -3,
+          "3000": -6,
+          "4000": -9,
+          "5000": 2,
+          "6000": 0,
+          "7000": -25,
+          "8000": -1,
+          "9000": 1
+        },
+        "column_vs_running_balance_every_N_to": 1000,
+        "column_vs_running_balance_misses": [],
+        "elimination_vs_column_bound": 60,
+        "elimination_vs_column_misses": [],
+        "supported_vs_elimination_bound": 60,
+        "supported_vs_elimination_misses": [],
+        "unpruned_vs_supported_bound": 8,
+        "unpruned_vs_supported_misses": []
+      },
+      "S2(W3,1,Cbal)": {
+        "column_route_checkpoint_misses": [],
+        "column_route_checkpoints": {
+          "10": -1,
+          "100": 1,
+          "1000": 2,
+          "10000": -23,
+          "100000": -48,
+          "1000000": 212,
+          "2000": 5,
+          "30": -3,
+          "3000": -6,
+          "4000": -9,
+          "5000": 2,
+          "6000": 0,
+          "7000": -25,
+          "8000": -1,
+          "9000": 1
+        },
+        "column_vs_running_balance_every_N_to": 1000,
+        "column_vs_running_balance_misses": [],
+        "elimination_vs_column_bound": 60,
+        "elimination_vs_column_misses": [],
+        "supported_vs_elimination_bound": 60,
+        "supported_vs_elimination_misses": [],
+        "unpruned_vs_supported_bound": 8,
+        "unpruned_vs_supported_misses": []
+      }
+    },
+    "pinned_checkpoints_direct": {
+      "10": -1,
+      "100": 1,
+      "1000": 2,
+      "10000": -23,
+      "100000": -48,
+      "1000000": 212,
+      "30": -3
+    },
+    "search": {
+      "bound": 12,
+      "candidates": [
+        {
+          "agreeing_N": [
+            1,
+            2
+          ],
+          "kind": "S1",
+          "meets_stage_2": false,
+          "menu": "S1(W0)",
+          "values_1_12": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S1",
+          "meets_stage_2": false,
+          "menu": "S1(W1)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            3,
+            1,
+            4,
+            2,
+            3,
+            1,
+            8
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            3
+          ],
+          "kind": "S1",
+          "meets_stage_2": false,
+          "menu": "S1(W2)",
+          "values_1_12": [
+            1,
+            -1,
+            -1,
+            0,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            3
+          ],
+          "kind": "S1",
+          "meets_stage_2": false,
+          "menu": "S1(W3)",
+          "values_1_12": [
+            1,
+            -1,
+            -1,
+            1,
+            -1,
+            3,
+            -1,
+            -1,
+            1,
+            3,
+            -1,
+            -5
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S1",
+          "meets_stage_2": false,
+          "menu": "S1(W4)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S1b",
+          "meets_stage_2": false,
+          "menu": "S1b(W0)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S1b",
+          "meets_stage_2": false,
+          "menu": "S1b(W1)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            9,
+            10,
+            14,
+            16,
+            19,
+            20,
+            28
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "kind": "S1b",
+          "meets_stage_2": true,
+          "menu": "S1b(W2)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -1,
+            -2,
+            -1,
+            -2,
+            -2,
+            -2,
+            -1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            12
+          ],
+          "kind": "S1b",
+          "meets_stage_2": false,
+          "menu": "S1b(W3)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            2,
+            1,
+            0,
+            1,
+            4,
+            3,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S1b",
+          "meets_stage_2": false,
+          "menu": "S1b(W4)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,0,C0)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,0,C1)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,0,C-1)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,0,Cbal)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,0,C-bal)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,1,C0)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,1,C1)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,1,C-1)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,1,Cbal)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,1,C-bal)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,-1,C0)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,-1,C1)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,-1,C-1)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,-1,Cbal)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W0,-1,C-bal)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,0,C0)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,0,C1)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,0,C-1)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,0,Cbal)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,0,C-bal)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,1,C0)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "kind": "S2",
+          "meets_stage_2": true,
+          "menu": "S2(W1,1,C1)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -1,
+            -2,
+            -1,
+            -2,
+            -2,
+            -2,
+            -1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,1,C-1)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            3,
+            4,
+            3,
+            4,
+            4,
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,1,Cbal)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            3,
+            4,
+            5,
+            6,
+            6,
+            6,
+            7,
+            8,
+            8
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,1,C-bal)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -1,
+            -2,
+            -3,
+            -4,
+            -4,
+            -4,
+            -5,
+            -6,
+            -6
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,-1,C0)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,-1,C1)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -3,
+            4,
+            -7,
+            8,
+            -12,
+            14,
+            -17,
+            18,
+            -26
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,-1,C-1)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            5,
+            -6,
+            9,
+            -10,
+            14,
+            -16,
+            19,
+            -20,
+            28
+          ]
+        },
+        {
+          "agreeing_N": [
+            7,
+            9,
+            10
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,-1,Cbal)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            3,
+            -4,
+            1,
+            -2,
+            2,
+            -2,
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            2,
+            4,
+            11
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W1,-1,C-bal)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -1,
+            2,
+            1,
+            0,
+            0,
+            0,
+            3,
+            -2,
+            2
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,0,C0)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,0,C1)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,0,C-1)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,0,Cbal)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,0,C-bal)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,1,C0)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,1,C1)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            9,
+            10,
+            14,
+            16,
+            19,
+            20,
+            28
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,1,C-1)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -3,
+            -4,
+            -7,
+            -8,
+            -12,
+            -14,
+            -17,
+            -18,
+            -26
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,1,Cbal)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -1,
+            -2,
+            1,
+            0,
+            0,
+            0,
+            3,
+            2,
+            2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            10
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,1,C-bal)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            3,
+            4,
+            1,
+            2,
+            2,
+            2,
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,-1,C0)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,-1,C1)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            3,
+            -4,
+            3,
+            -4,
+            4,
+            -4,
+            3,
+            -4,
+            4
+          ]
+        },
+        {
+          "agreeing_N": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,-1,C-1)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -1,
+            2,
+            -1,
+            2,
+            -2,
+            2,
+            -1,
+            2,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            2,
+            4
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,-1,Cbal)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -1,
+            2,
+            -3,
+            4,
+            -4,
+            4,
+            -5,
+            6,
+            -6
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W2,-1,C-bal)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            3,
+            -4,
+            5,
+            -6,
+            6,
+            -6,
+            7,
+            -8,
+            8
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,0,C0)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,0,C1)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,0,C-1)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,0,Cbal)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,0,C-bal)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,1,C0)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,1,C1)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,1,C-1)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -2,
+            -3,
+            -4,
+            -5,
+            -6,
+            -7,
+            -8,
+            -9,
+            -10
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "kind": "S2",
+          "meets_stage_2": true,
+          "menu": "S2(W3,1,Cbal)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -1,
+            -2,
+            -1,
+            -2,
+            -2,
+            -2,
+            -1,
+            -2,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,1,C-bal)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            3,
+            4,
+            3,
+            4,
+            4,
+            4,
+            3,
+            4,
+            4
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,-1,C0)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,-1,C1)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            2,
+            -3,
+            0,
+            -1,
+            2,
+            -1,
+            -2,
+            1,
+            4
+          ]
+        },
+        {
+          "agreeing_N": [
+            2,
+            12
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,-1,C-1)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            0,
+            1,
+            2,
+            -1,
+            0,
+            -1,
+            4,
+            -3,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            2,
+            4
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,-1,Cbal)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -1,
+            2,
+            -5,
+            6,
+            -6,
+            6,
+            -9,
+            10,
+            -10
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W3,-1,C-bal)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            3,
+            -4,
+            7,
+            -8,
+            8,
+            -8,
+            11,
+            -12,
+            12
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,0,C0)",
+          "values_1_12": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,0,C1)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,0,C-1)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,0,Cbal)",
+          "values_1_12": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,0,C-bal)",
+          "values_1_12": [
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,1,C0)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            12
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,1,C1)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            2,
+            1,
+            0,
+            1,
+            4,
+            3,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,1,C-1)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            2,
+            3,
+            0,
+            1,
+            2,
+            1,
+            -2,
+            -1,
+            4
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,1,Cbal)",
+          "values_1_12": [
+            1,
+            2,
+            3,
+            3,
+            4,
+            7,
+            8,
+            8,
+            8,
+            11,
+            12,
+            12
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,1,C-bal)",
+          "values_1_12": [
+            1,
+            0,
+            -1,
+            -1,
+            -2,
+            -5,
+            -6,
+            -6,
+            -6,
+            -9,
+            -10,
+            -10
+          ]
+        },
+        {
+          "agreeing_N": [
+            3
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,-1,C0)",
+          "values_1_12": [
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1
+          ]
+        },
+        {
+          "agreeing_N": [
+            2
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,-1,C1)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -2,
+            3,
+            -4,
+            5,
+            -6,
+            7,
+            -8,
+            9,
+            -10
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,-1,C-1)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            4,
+            -5,
+            6,
+            -7,
+            8,
+            -9,
+            10,
+            -11,
+            12
+          ]
+        },
+        {
+          "agreeing_N": [],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,-1,Cbal)",
+          "values_1_12": [
+            -1,
+            2,
+            -3,
+            3,
+            -4,
+            3,
+            -4,
+            4,
+            -4,
+            3,
+            -4,
+            4
+          ]
+        },
+        {
+          "agreeing_N": [
+            2,
+            4,
+            6,
+            8,
+            10,
+            12
+          ],
+          "kind": "S2",
+          "meets_stage_2": false,
+          "menu": "S2(W4,-1,C-bal)",
+          "values_1_12": [
+            -1,
+            0,
+            1,
+            -1,
+            2,
+            -1,
+            2,
+            -2,
+            2,
+            -1,
+            2,
+            -2
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            2
+          ],
+          "kind": "S3",
+          "meets_stage_2": false,
+          "menu": "S3(W0)",
+          "values_1_12": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S3",
+          "meets_stage_2": false,
+          "menu": "S3(W1)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            2,
+            2,
+            6,
+            6,
+            18,
+            36,
+            108,
+            108,
+            540
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S3",
+          "meets_stage_2": false,
+          "menu": "S3(W2)",
+          "values_1_12": [
+            1,
+            -1,
+            1,
+            -2,
+            2,
+            -6,
+            6,
+            -18,
+            36,
+            -108,
+            108,
+            -540
+          ]
+        },
+        {
+          "agreeing_N": [
+            1,
+            4,
+            6,
+            10
+          ],
+          "kind": "S3",
+          "meets_stage_2": false,
+          "menu": "S3(W3)",
+          "values_1_12": [
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1,
+            1,
+            -1
+          ]
+        },
+        {
+          "agreeing_N": [
+            1
+          ],
+          "kind": "S3",
+          "meets_stage_2": false,
+          "menu": "S3(W4)",
+          "values_1_12": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "hits": [
+        "S1b(W2)",
+        "S2(W1,1,C1)",
+        "S2(W3,1,Cbal)"
+      ],
+      "menu_size": 90,
+      "target_running_balance_1_12": [
+        1,
+        0,
+        -1,
+        -1,
+        -2,
+        -1,
+        -2,
+        -2,
+        -2,
+        -1,
+        -2,
+        -2
+      ]
+    }
+  },
+  "stage_3_signed_family_table": {
+    "every_family_degenerate": true,
+    "family_sizes": [
+      6,
+      7,
+      12
+    ],
+    "lean_instance_bound": 7,
+    "pinned_fixtures": {
+      "wedge": {
+        "certificate_exists": false,
+        "dominated_side_nonneg_residual": false,
+        "dominated_side_nonpos_residual": false
+      },
+      "witness": {
+        "certificate_exists": true,
+        "dominated_side_nonneg_residual": true,
+        "dominated_side_nonpos_residual": false
+      }
+    },
+    "rows": [
+      {
+        "N": 6,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            9
+          ]
+        ],
+        "menu": "S1b(W2)",
+        "negative_count": 5,
+        "positive_count": 4,
+        "term_count": 9,
+        "total": -1,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 7,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            10
+          ]
+        ],
+        "menu": "S1b(W2)",
+        "negative_count": 6,
+        "positive_count": 4,
+        "term_count": 10,
+        "total": -2,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 12,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            28
+          ]
+        ],
+        "menu": "S1b(W2)",
+        "negative_count": 15,
+        "positive_count": 13,
+        "term_count": 28,
+        "total": -2,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 6,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            9
+          ]
+        ],
+        "menu": "S2(W1,1,C1)",
+        "negative_count": 5,
+        "positive_count": 4,
+        "term_count": 9,
+        "total": -1,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 7,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            10
+          ]
+        ],
+        "menu": "S2(W1,1,C1)",
+        "negative_count": 6,
+        "positive_count": 4,
+        "term_count": 10,
+        "total": -2,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 12,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            28
+          ]
+        ],
+        "menu": "S2(W1,1,C1)",
+        "negative_count": 15,
+        "positive_count": 13,
+        "term_count": 28,
+        "total": -2,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 6,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            7
+          ]
+        ],
+        "menu": "S2(W3,1,Cbal)",
+        "negative_count": 4,
+        "positive_count": 3,
+        "term_count": 7,
+        "total": -1,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 7,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            8
+          ]
+        ],
+        "menu": "S2(W3,1,Cbal)",
+        "negative_count": 5,
+        "positive_count": 3,
+        "term_count": 8,
+        "total": -2,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      },
+      {
+        "N": 12,
+        "certificate": {
+          "certificate_exists": true,
+          "dominated_side_nonneg_residual": false,
+          "dominated_side_nonpos_residual": true
+        },
+        "every_magnitude_is_one": true,
+        "magnitude_multiset": [
+          [
+            1,
+            12
+          ]
+        ],
+        "menu": "S2(W3,1,Cbal)",
+        "negative_count": 7,
+        "positive_count": 5,
+        "term_count": 12,
+        "total": -2,
+        "total_equals_running_balance": true,
+        "zero_terms_excluded": 0
+      }
+    ],
+    "terminal": "DEGENERACY_PERSISTS"
+  },
+  "stage_4_growth_checkpoints": {
+    "checkpoint_misses": [],
+    "checkpoints": [
+      {
+        "N": 10,
+        "agree": true,
+        "direct": -1,
+        "ratio_decimal": "0.316227",
+        "squared_ratio": [
+          1,
+          10
+        ],
+        "through_S1b_W2": -1,
+        "through_S2_unit_table": -1
+      },
+      {
+        "N": 30,
+        "agree": true,
+        "direct": -3,
+        "ratio_decimal": "0.547722",
+        "squared_ratio": [
+          3,
+          10
+        ],
+        "through_S1b_W2": -3,
+        "through_S2_unit_table": -3
+      },
+      {
+        "N": 100,
+        "agree": true,
+        "direct": 1,
+        "ratio_decimal": "0.100000",
+        "squared_ratio": [
+          1,
+          100
+        ],
+        "through_S1b_W2": 1,
+        "through_S2_unit_table": 1
+      },
+      {
+        "N": 1000,
+        "agree": true,
+        "direct": 2,
+        "ratio_decimal": "0.063245",
+        "squared_ratio": [
+          1,
+          250
+        ],
+        "through_S1b_W2": 2,
+        "through_S2_unit_table": 2
+      },
+      {
+        "N": 10000,
+        "agree": true,
+        "direct": -23,
+        "ratio_decimal": "0.230000",
+        "squared_ratio": [
+          529,
+          10000
+        ],
+        "through_S1b_W2": -23,
+        "through_S2_unit_table": -23
+      },
+      {
+        "N": 100000,
+        "agree": true,
+        "direct": -48,
+        "ratio_decimal": "0.151789",
+        "squared_ratio": [
+          72,
+          3125
+        ],
+        "through_S1b_W2": -48,
+        "through_S2_unit_table": -48
+      },
+      {
+        "N": 1000000,
+        "agree": true,
+        "direct": 212,
+        "ratio_decimal": "0.212000",
+        "squared_ratio": [
+          2809,
+          62500
+        ],
+        "through_S1b_W2": 212,
+        "through_S2_unit_table": 212
+      }
+    ],
+    "running_maximum": {
+      "at_part_count": 5,
+      "max_squared_ratio": [
+        4,
+        5
+      ],
+      "ratio_decimal_at_max": "0.894427",
+      "square_stays_below_n_in_window": true,
+      "window": 1000000
+    },
+    "terminal": "GROWTH_OPEN_UNCHANGED"
+  },
+  "stage_5_register": {
+    "leftovers": [
+      {
+        "class": "CONJECTURE",
+        "evidence": "exhaustive to N <= 12, kernel-decided to N <= 7, column route at every N <= 1000 and at the pinned checkpoints to 1000000; proved nowhere",
+        "name": "general table identity",
+        "price": "a Lean development of the alternating sum over arrangements (sign under composition, the cycle decomposition of a supported arrangement) that this tree does not carry",
+        "statement": "for every N the alternating sum of the unit table with unit first column, and of the balance-weighted table with balance first column, equals the running balance"
+      },
+      {
+        "class": "OPEN",
+        "evidence": "the menu is declared and finite (FW-SET); absence of a search is not absence of a carrier",
+        "name": "enlarged menu",
+        "price": "a second frozen menu and a second exhaustive search",
+        "statement": "whether any weight reading an endpoint's balance, or any count beyond the four declared, meets stage 2 is unsearched"
+      },
+      {
+        "class": "OPEN",
+        "evidence": "the stage-3 table",
+        "name": "LP4, magnitude diversity",
+        "price": "a carrier whose signed family carries at least two magnitudes; the enlarged-menu weights are the first place to look, and nothing about them is claimed",
+        "statement": "every family produced by the three carriers at N in {6, 7, 12} has every magnitude equal to 1, so the certificate criterion cannot refuse anything here; LP4 persists on these families"
+      },
+      {
+        "class": "OPEN",
+        "evidence": "none; named here so it cannot later be smuggled in as derived",
+        "name": "fresh character totals (the next rung, named, not started)",
+        "price": "a definition of the layer's characters in the receiver's own terms, a Lean statement of the total, and a frozen prediction before any value is computed",
+        "statement": "the signed total, over the fresh members of a layer, of one of that layer's characters -- a signed count indexed by a part count and a step -- and its relation to the balance and the divisor relation"
+      }
+    ],
+    "not_meeting_by_kind": {
+      "S1": {
+        "best_agreement": 2,
+        "best_menu": [
+          "S1(W0)",
+          "S1(W2)",
+          "S1(W3)"
+        ],
+        "not_meeting": 5
+      },
+      "S1b": {
+        "best_agreement": 4,
+        "best_menu": [
+          "S1b(W3)"
+        ],
+        "not_meeting": 4
+      },
+      "S2": {
+        "best_agreement": 6,
+        "best_menu": [
+          "S2(W2,-1,C-1)",
+          "S2(W4,-1,C-bal)"
+        ],
+        "not_meeting": 73
+      },
+      "S3": {
+        "best_agreement": 4,
+        "best_menu": [
+          "S3(W3)"
+        ],
+        "not_meeting": 5
+      }
+    },
+    "protected_opens_unchanged": [
+      "OB1_UNCHANGED",
+      "S66_UNCHANGED",
+      "S9_LAST_UNCHANGED",
+      "NS95_GROWTH_UNCHANGED"
+    ],
+    "rows": [
+      {
+        "bound_python": 12,
+        "certificate_cells": [
+          {
+            "N": 6,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          },
+          {
+            "N": 7,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          },
+          {
+            "N": 12,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          }
+        ],
+        "count": "S1b",
+        "lean": {
+          "scope": "every N (Lean), from walkSum_neg_one_eq_balance and the pinned balance_unique",
+          "status": "CARRIER_IDENTITY_PROVED",
+          "theorem": "BalanceCarrier.Walk.totalWalkSum_neg_one_eq_runningBalance"
+        },
+        "menu": "S1b(W2)",
+        "values_1_12": [
+          1,
+          0,
+          -1,
+          -1,
+          -2,
+          -1,
+          -2,
+          -2,
+          -2,
+          -1,
+          -2,
+          -2
+        ]
+      },
+      {
+        "bound_python": 12,
+        "certificate_cells": [
+          {
+            "N": 6,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          },
+          {
+            "N": 7,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          },
+          {
+            "N": 12,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          }
+        ],
+        "count": "S2",
+        "lean": {
+          "scope": "N <= 12 exhaustive (Python); N <= 7 kernel-decided (Lean); N <= 1000 at every N and at the pinned checkpoints to 1000000 by the column route (Python); the general identity is CONJECTURE",
+          "status": "CARRIER_IDENTITY_BOUNDED",
+          "theorem": "BalanceCarrier.Walk.unit_table_matches_to_7"
+        },
+        "menu": "S2(W1,1,C1)",
+        "values_1_12": [
+          1,
+          0,
+          -1,
+          -1,
+          -2,
+          -1,
+          -2,
+          -2,
+          -2,
+          -1,
+          -2,
+          -2
+        ]
+      },
+      {
+        "bound_python": 12,
+        "certificate_cells": [
+          {
+            "N": 6,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          },
+          {
+            "N": 7,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          },
+          {
+            "N": 12,
+            "certificate_exists": true,
+            "every_magnitude_is_one": true
+          }
+        ],
+        "count": "S2",
+        "lean": {
+          "scope": "N <= 12 exhaustive (Python); N <= 7 kernel-decided (Lean); N <= 1000 at every N and at the pinned checkpoints to 1000000 by the column route (Python); the general identity is CONJECTURE",
+          "status": "CARRIER_IDENTITY_BOUNDED",
+          "theorem": "BalanceCarrier.Walk.balance_table_matches_to_7"
+        },
+        "menu": "S2(W3,1,Cbal)",
+        "values_1_12": [
+          1,
+          0,
+          -1,
+          -1,
+          -2,
+          -1,
+          -2,
+          -2,
+          -2,
+          -1,
+          -2,
+          -2
+        ]
+      }
+    ],
+    "terminal": "REGISTER_WRITTEN"
+  },
+  "terminals": [
+    {
+      "scope": "layer_observer_wf, layer_observer_constant, layer_observer_separates, layer_observer_grades in core Lean; verify_lean.py is the receipt",
+      "stage": 1,
+      "terminal": "LAYER_OBSERVER_PROVED"
+    },
+    {
+      "menu": "S1b(W2)",
+      "scope": "every N (Lean), from walkSum_neg_one_eq_balance and the pinned balance_unique",
+      "stage": 2,
+      "terminal": "CARRIER_IDENTITY_PROVED"
+    },
+    {
+      "menu": "S2(W1,1,C1)",
+      "scope": "N <= 12 exhaustive (Python); N <= 7 kernel-decided (Lean); N <= 1000 at every N and at the pinned checkpoints to 1000000 by the column route (Python); the general identity is CONJECTURE",
+      "stage": 2,
+      "terminal": "CARRIER_IDENTITY_BOUNDED"
+    },
+    {
+      "menu": "S2(W3,1,Cbal)",
+      "scope": "N <= 12 exhaustive (Python); N <= 7 kernel-decided (Lean); N <= 1000 at every N and at the pinned checkpoints to 1000000 by the column route (Python); the general identity is CONJECTURE",
+      "stage": 2,
+      "terminal": "CARRIER_IDENTITY_BOUNDED"
+    },
+    {
+      "scope": "N in [6, 7, 12] for every stage-2 hit",
+      "stage": 3,
+      "terminal": "DEGENERACY_PERSISTS"
+    },
+    {
+      "scope": "checkpoint values only; no growth bound in either direction",
+      "stage": 4,
+      "terminal": "GROWTH_OPEN_UNCHANGED"
+    },
+    {
+      "scope": "three rows, four leftovers",
+      "stage": 5,
+      "terminal": "REGISTER_WRITTEN"
+    }
+  ]
+}

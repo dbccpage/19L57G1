@@ -1,0 +1,50 @@
+yaml_export:
+  steps_completed: [LayerObserver, WalkCarrier, SignedFamilyTable, GrowthCheckpoints, Register]
+  write_root: research/balance_carrier/
+  sealed_paths_touched: []
+  shared_files_touched: []
+  census_pin_regenerated: false
+  prompt_hash_native: ef50dbe708942458876d21a3219b1afa740da6de68edff9cc77021b81f1813fb
+  predictions_hashes:
+    - 83e7ab7cfd3c929613b580c230c39a199383d77050a478dfdd91deace37b3828
+    - 626936375324eead6d3444959d442e32eca2f86d27e6742de57db4926f0d5f6e
+  terminals:
+    - {stage: 1, code: LAYER_OBSERVER_PROVED}
+    - {stage: 2, code: CARRIER_IDENTITY_PROVED}
+    - {stage: 2, code: CARRIER_IDENTITY_BOUNDED}
+    - {stage: 2, code: CARRIER_IDENTITY_BOUNDED}
+    - {stage: 3, code: DEGENERACY_PERSISTS}
+    - {stage: 4, code: GROWTH_OPEN_UNCHANGED}
+    - {stage: 5, code: REGISTER_WRITTEN}
+  layer_observer:
+    proved: [layer_observer_wf, layer_observer_constant, layer_observer_separates, layer_observer_grades]
+    open: []
+  walk_carrier:
+    menu_size: 90
+    bound_python: 12
+    bound_lean: 7
+    identities:
+    - {menu: S1b(W2), terminal: CARRIER_IDENTITY_PROVED}
+    - {menu: S2(W1,1,C1), terminal: CARRIER_IDENTITY_BOUNDED}
+    - {menu: S2(W3,1,Cbal), terminal: CARRIER_IDENTITY_BOUNDED}
+  signed_family_table:
+    terminal: DEGENERACY_PERSISTS
+    magnitudes_at_12: [1]
+  growth:
+    terminal: GROWTH_OPEN_UNCHANGED
+    checkpoints_agree: true
+    ratios:
+      10: 0.316227
+      30: 0.547722
+      100: 0.100000
+      1000: 0.063245
+      10000: 0.230000
+      100000: 0.151789
+      1000000: 0.212000
+  lp4_disposition: persists on every family produced here; the diverse-magnitude census is priced again
+  leftover: the general table identity (CONJECTURE), the enlarged menu, LP4, and the next rung (fresh character totals), named and priced, executed nowhere
+  opens_unchanged: [OB1_UNCHANGED, S66_UNCHANGED, S9_LAST_UNCHANGED, NS95_GROWTH_UNCHANGED]
+  outside_bet_hash: 6b0219f1c397abf357e9aea36307cc5855b52f882699b83294a105c86da2ecbe
+  authority_effect: None
+final_state: T
+op QED

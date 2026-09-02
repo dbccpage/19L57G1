@@ -1,0 +1,36 @@
+{
+  "outside_bet_sha256": "6b0219f1c397abf357e9aea36307cc5855b52f882699b83294a105c86da2ecbe",
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "research/convention_price/STATUS.md": "017cba4541be53713fc3f0d5e3fae8bdec210c37",
+    "research/natural_sections/STATUS.md": "3d3a629efbaf94f0b318e93d719098b2afef7bb9",
+    "research/natural_sections/lean/NaturalSections/LayerBalance.lean": "493bdc275a5d064e51a1bca336a5a1f70ad9adca",
+    "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean": "ba88fa7cfba02a49d7d582f8a48aee56322e53c2",
+    "research/natural_sections/lean/NaturalSections/SignRepair.lean": "a21cb5cc02d9fc17437c26b6d93a3804ccf5af89",
+    "research/natural_sections/receipts/layer_balance.json": "854c8bab400a1c24574fc1f6a57f9ce9da9cdeb3",
+    "research/natural_sections/receipts/sign_repair.json": "c369f77ccf1070e1e9ba9e70e3e821afd98ca76a"
+  },
+  "predictions_freezes": [
+    "83e7ab7cfd3c929613b580c230c39a199383d77050a478dfdd91deace37b3828",
+    "626936375324eead6d3444959d442e32eca2f86d27e6742de57db4926f0d5f6e"
+  ],
+  "prompt_native_sha256": "ef50dbe708942458876d21a3219b1afa740da6de68edff9cc77021b81f1813fb",
+  "purpose": "read-only sources consumed by the balance_carrier run; this tree writes none of them; spans are the consumed leftovers quoted by pin",
+  "snapshot_commit": "be7476868e496e06d5dec6599fa4346394c512bd",
+  "spans": [
+    {
+      "first_line": 1627,
+      "last_line": 1633,
+      "path": "research/natural_sections/STATUS.md",
+      "role": "leftover 1: the growth OPEN and the named NEXT question, layer-balance registration",
+      "sha256": "6fb56d34d13ef2f3307d07cdb1283b477b00a05ca58fb3ca0197c8ff3e5a7869"
+    },
+    {
+      "first_line": 138,
+      "last_line": 141,
+      "path": "research/convention_price/STATUS.md",
+      "role": "leftover 2: the CHANNELS terminal and LP4",
+      "sha256": "65ec33079d4a8372306d36d7861d76c5ef2aa9cbcab5c0165b190a402e600a6b"
+    }
+  ]
+}
