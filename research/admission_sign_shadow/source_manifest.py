@@ -154,7 +154,7 @@ def render_manifest(repo: Path) -> bytes:
     ).encode("utf-8")
 
 
-def verify(repo: Path) -> None:
+def verify(repo: Path, *, enforce_scope: bool) -> None:
     head = git_text(repo, "rev-parse", "HEAD")
     for label, revision_id in (
         ("source base", BASE_COMMIT),
@@ -164,9 +164,12 @@ def verify(repo: Path) -> None:
             ["git", "merge-base", "--is-ancestor", revision_id, head], cwd=repo
         ).returncode != 0:
             raise ValueError(f"{label} is not an ancestor of HEAD")
-    invalid = [path for path in changed_paths(repo) if not path.startswith(WRITE_ROOT)]
-    if invalid:
-        raise ValueError(f"paths outside write root changed: {invalid}")
+    if enforce_scope:
+        invalid = [
+            path for path in changed_paths(repo) if not path.startswith(WRITE_ROOT)
+        ]
+        if invalid:
+            raise ValueError(f"paths outside write root changed: {invalid}")
     for revision_name, path in SOURCES:
         if revision_name == "base":
             base_blob = git_text(repo, "rev-parse", f"{BASE_COMMIT}:{path}")
@@ -189,11 +192,12 @@ def main() -> None:
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--write", action="store_true")
     mode.add_argument("--check", action="store_true")
+    mode.add_argument("--check-scope", action="store_true")
     args = parser.parse_args()
     repo = repo_root()
     if args.write:
         (repo / MANIFEST).write_bytes(render_manifest(repo))
-    verify(repo)
+    verify(repo, enforce_scope=args.write or args.check_scope)
 
 
 if __name__ == "__main__":

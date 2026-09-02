@@ -1,7 +1,7 @@
 # Final-boss decision
 
 > Historical intake verdict at commit `a08959ff989b00e4427d0f539a7ab542682aef34`.
-> The bridge tournament under `tournament/` supersedes this phase-one status;
+> The bridge tournament under `tournament/` supersedes this stage-one status;
 > its current terminal is `BRIDGE_PRODUCERS_PROVED_END_TO_END_OPEN`. The
 > original review is retained below as the problem statement it generated.
 

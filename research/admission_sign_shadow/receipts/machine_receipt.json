@@ -168,10 +168,10 @@
   ],
   "input_hashes": {
     "CLAIM_LEDGER.md": "d8710a79b8e681a217717402e4366154688e27a96972607618520a5051edb62b",
-    "README.md": "881ed3853e4e725e2781555a31201449a609ab185e3675f422c48e24f17d36ea",
+    "README.md": "7207f6c7d5fb7a2eb7cc5b135bc41c9cc1813e1b6758e4f8830202bc18ae686f",
     "SOURCE_MANIFEST.json": "bff1da0d95755fd18228d684437fa511d6b629d8fe83d4febc7d2e967cc7852b",
     "STATUS.md": "b6e60db6c8474f8531ba0bc6999e2fc3e8509ccc11436a0d6438578e4149b865",
-    "build_receipt.py": "05dbc492cf172bdfe3af730937af90c7bdfda3474b24cff45ff84a5ea10ed23d",
+    "build_receipt.py": "bdab6fae978e3311fa0214be565bab4cc5588811fee298c8a99137df91b4aad0",
     "connector.json": "03bb4a176f64cf99ee3ae673c0487b2c66cac708f6594789cbf54ac4a9787b18",
     "frozen_compatibility.json": "23e87dde7591307c9639cee249844548dbcfa63ebca3b0f2f47594c74bf30e69",
     "lean.json": "416b7471274b2c638aa0c4625d62c6c62bf73cded4d7257d23bbc640b26fb06a",
@@ -184,6 +184,6 @@
     "lake": "Lake version 5.0.0-src+d8b1897 (Lean version 4.33.0)",
     "lean": "Lean (version 4.33.0, x86_64-w64-windows-gnu, commit d8b18978322de05a8f3dba51ef03cf5461676c17, Release)",
     "mypy": "mypy 1.19.1 (compiled: yes)",
-    "python": "3.12.13"
+    "python": "3.12"
   }
 }

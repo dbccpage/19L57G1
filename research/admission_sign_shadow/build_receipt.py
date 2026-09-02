@@ -80,6 +80,11 @@ def file_hash(path: Path) -> str:
     return sha256(path.read_bytes()).hexdigest()
 
 
+def python_series() -> str:
+    major, minor, _patch = platform.python_version_tuple()
+    return f"{major}.{minor}"
+
+
 def render() -> bytes:
     root = tree_root()
     command_results = [run_python(args) for args in COMMANDS]
@@ -112,7 +117,7 @@ def render() -> bytes:
             "mypy": tool_output(
                 (sys.executable, "-m", "mypy", "--version"), root
             ),
-            "python": platform.python_version(),
+            "python": python_series(),
         },
     }
     return (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")

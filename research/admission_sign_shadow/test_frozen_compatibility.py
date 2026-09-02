@@ -2,10 +2,21 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import cast
+from typing import Any, cast
 import unittest
+from unittest.mock import patch
 
+import build_receipt
 import verify_frozen_compatibility as subject
+
+
+def strict_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
 
 
 class FrozenCompatibilityAuditTests(unittest.TestCase):
@@ -49,7 +60,7 @@ class FrozenCompatibilityAuditTests(unittest.TestCase):
     def test_tournament_packet_graph_and_sparse_cost_replay(self) -> None:
         path = Path(__file__).with_name("tournament") / "packets.jsonl"
         packets = [
-            cast(dict[str, object], json.loads(line))
+            cast(dict[str, object], json.loads(line, object_pairs_hook=strict_object))
             for line in path.read_text(encoding="utf-8").splitlines()
             if line
         ]
@@ -63,15 +74,31 @@ class FrozenCompatibilityAuditTests(unittest.TestCase):
             obligations = cast(list[str], packet["obligations"])
             self.assertEqual(packet["l1"], len(imports) + len(primitives) + len(obligations))
             level = cast(int, packet["level"])
-            for parent_id in cast(list[str], packet["parents"]):
+            parents = cast(list[str], packet["parents"])
+            if level > 0:
+                self.assertTrue(parents)
+            for parent_id in parents:
                 self.assertIn(parent_id, by_id)
                 self.assertLess(cast(int, by_id[parent_id]["level"]), level)
+                self.assertIn(
+                    packet["id"], cast(list[str], by_id[parent_id]["consumers"])
+                )
         terminal = by_id["T0"]
         self.assertEqual(terminal["status"], "open")
         self.assertEqual(
             terminal["residual"],
             "Exchange authorization, nontriviality, unit calibration, actual adapter fields, and retained-trace integration remain unresolved or refuted as forced.",
         )
+
+    def test_packet_parser_rejects_duplicate_json_keys(self) -> None:
+        with self.assertRaisesRegex(ValueError, "duplicate JSON key: id"):
+            json.loads('{"id":"P0","id":"P1"}', object_pairs_hook=strict_object)
+
+    def test_python_receipt_uses_declared_minor_series(self) -> None:
+        with patch(
+            "platform.python_version_tuple", return_value=("3", "12", "99")
+        ):
+            self.assertEqual(build_receipt.python_series(), "3.12")
 
 
 if __name__ == "__main__":

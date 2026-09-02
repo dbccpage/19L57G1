@@ -12,7 +12,7 @@ blobs, trees, and toolchain declaration used for this audit.
 
 ## Claim ceiling
 
-The first phase proved three local results.
+The initial stage proved three local results.
 
 1. A reconstructed two-history exchange is a free two-point action. Its
    characters are exactly the trivial character and the sign character. The
@@ -107,12 +107,18 @@ python -m mypy --config-file pyproject.toml
 python build_receipt.py --check
 ```
 
+`source_manifest.py --check` is the permanent source-identity replay. During
+branch review, run `source_manifest.py --check-scope` as the separate
+publication-base path-confinement audit. Keeping that audit explicit prevents
+later unrelated commits on `main` from invalidating this package's source
+receipt.
+
 The deterministic outputs live in `receipts/`. The proof-tournament signature
 lock and sparse packet ledger live in `tournament/`. The exact results and
 remaining imports are enumerated in `CLAIM_LEDGER.md`; `STATUS.md` records the
 terminal verdict.
 
-`receipts/connector.json` is the byte-stable phase-one local-connector
+`receipts/connector.json` is the byte-stable stage-one local-connector
 subreceipt and therefore retains its original
 `IMPORT_ISOLATED_BUT_NOT_REMOVED` terminal. The current package terminal is
 the one in `receipts/machine_receipt.json`.
