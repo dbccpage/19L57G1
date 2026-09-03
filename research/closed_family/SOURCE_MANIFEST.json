@@ -1,0 +1,142 @@
+{
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "lean4/Derivation/ContactKernel.lean": "04c923534f67c99889677186d42a9657d051e096",
+    "lean4/Derivation/DiffInterface.lean": "450b434f09d922fe117e3bbf72fa454d6b3dbeda",
+    "lean4/Derivation/PresentationNaturality.lean": "ef4d76c7a07d38966150923691d1a0bba65bde68"
+  },
+  "prompt_native_sha256": "1f57b81d2f56cd340ed2e0d116bf994420f3a40f3e7db5f3a290587f550df0f4",
+  "purpose": "read-only sources consumed by the closed_family run; this tree writes none of them; the reconstruction records bind every line of Base.lean to an exact slice of a pinned source",
+  "reconstructions": [
+    {
+      "local_first_line": 26,
+      "local_last_line": 41,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "DiffInterface",
+      "namespace_to": "ClosedFamily",
+      "note": "the typed difference operation, its zero relation, and the equivalence",
+      "source_path": "lean4/Derivation/DiffInterface.lean",
+      "source_ranges": [
+        [
+          33,
+          48
+        ]
+      ]
+    },
+    {
+      "local_first_line": 45,
+      "local_last_line": 48,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "ContactKernel",
+      "namespace_to": "ClosedFamily",
+      "note": "the admissible pairs of an observer",
+      "source_path": "lean4/Derivation/ContactKernel.lean",
+      "source_ranges": [
+        [
+          303,
+          306
+        ]
+      ]
+    },
+    {
+      "local_first_line": 52,
+      "local_last_line": 81,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "PresentationNaturality",
+      "namespace_to": "ClosedFamily",
+      "note": "explicit bijections",
+      "source_path": "lean4/Derivation/PresentationNaturality.lean",
+      "source_ranges": [
+        [
+          82,
+          111
+        ]
+      ]
+    },
+    {
+      "local_first_line": 85,
+      "local_last_line": 104,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "PresentationNaturality",
+      "namespace_to": "ClosedFamily",
+      "note": "presentation isomorphisms, and the transport of the zero relation",
+      "source_path": "lean4/Derivation/PresentationNaturality.lean",
+      "source_ranges": [
+        [
+          115,
+          134
+        ]
+      ]
+    },
+    {
+      "local_first_line": 108,
+      "local_last_line": 158,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "PresentationNaturality",
+      "namespace_to": "ClosedFamily",
+      "note": "identity, inverse, composition, and their component laws",
+      "source_path": "lean4/Derivation/PresentationNaturality.lean",
+      "source_ranges": [
+        [
+          140,
+          190
+        ]
+      ]
+    },
+    {
+      "local_first_line": 162,
+      "local_last_line": 169,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "PresentationNaturality",
+      "namespace_to": "ClosedFamily",
+      "note": "the transported pair bundle",
+      "source_path": "lean4/Derivation/PresentationNaturality.lean",
+      "source_ranges": [
+        [
+          200,
+          207
+        ]
+      ]
+    },
+    {
+      "local_first_line": 173,
+      "local_last_line": 192,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "PresentationNaturality",
+      "namespace_to": "ClosedFamily",
+      "note": "declared families, sections, naturality",
+      "source_path": "lean4/Derivation/PresentationNaturality.lean",
+      "source_ranges": [
+        [
+          218,
+          237
+        ]
+      ]
+    },
+    {
+      "local_first_line": 196,
+      "local_last_line": 220,
+      "local_path": "research/closed_family/lean/ClosedFamily/Base.lean",
+      "namespace_from": "PresentationNaturality",
+      "namespace_to": "ClosedFamily",
+      "note": "coherence of the transported bundle",
+      "source_path": "lean4/Derivation/PresentationNaturality.lean",
+      "source_ranges": [
+        [
+          462,
+          486
+        ]
+      ]
+    }
+  ],
+  "snapshot_commit": "f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+  "spans": [
+    {
+      "first_line": 218,
+      "last_line": 221,
+      "path": "lean4/Derivation/PresentationNaturality.lean",
+      "role": "the declared-family docstring this rung answers: nothing is assumed about closure under composition or inverses",
+      "sha256": "4b39a974d83f38ebfb9a3d192c099c27400c17d0d4557300226bfdbdc5a8b358"
+    }
+  ]
+}
