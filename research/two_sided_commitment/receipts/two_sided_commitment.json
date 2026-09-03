@@ -1,0 +1,4584 @@
+{
+ "authority_effect": "None",
+ "bounds": {
+  "max_arity": 2,
+  "max_data": 5,
+  "max_items": 2,
+  "max_rounds": 15,
+  "pre_expansion_node_guard": 250
+ },
+ "commitments": [
+  "total_apart",
+  "total_same",
+  "parity",
+  "residue_three",
+  "chain"
+ ],
+ "full_export": {
+  "contents": [
+   "trees[].nodes",
+   "trees[].edges"
+  ],
+  "path": "receipts/full/two_sided_commitment_full.json.gz",
+  "sha256_uncompressed": "1c3d4eac68b4fbd2979634f31040b0fb70502613dee409cc43b4fc2d08eb53c8"
+ },
+ "prediction_detail": {
+  "Q1_runs_with_both_kinds": {
+   "parity": [
+    "L/parity/mu1",
+    "L/parity/mu2",
+    "F/parity/mu1",
+    "F/parity/mu2"
+   ],
+   "residue_three": [
+    "L/residue_three/mu1",
+    "L/residue_three/mu2",
+    "F/residue_three/mu1",
+    "F/residue_three/mu2"
+   ]
+  },
+  "Q2_edges_honouring_several": 94,
+  "Q3_growth_always_generates": {
+   "parity": false,
+   "residue_three": false,
+   "total_apart": false
+  },
+  "Q3_total_same_silent_chain": true,
+  "Q4_edges_with_fresh_datum": 0,
+  "Q5_refusals_at_four_or_more_data": [
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     1,
+     3
+    ],
+    "tree": "F/parity/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "L/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     0,
+     3
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   },
+   {
+    "data": 5,
+    "kind": "same",
+    "target": [
+     1,
+     4
+    ],
+    "tree": "F/residue_three/mu1"
+   }
+  ],
+  "Q6_rows": [
+   {
+    "match": true,
+    "pre_growth_demand_free": 3,
+    "pre_growth_nodes": 4,
+    "sealed_nodes": 4,
+    "sealed_terminal": 3,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "match": true,
+    "pre_growth_demand_free": 1,
+    "pre_growth_nodes": 2,
+    "sealed_nodes": 2,
+    "sealed_terminal": 1,
+    "tree": "L/total_apart/mu2"
+   },
+   {
+    "match": false,
+    "pre_growth_demand_free": 10,
+    "pre_growth_nodes": 13,
+    "sealed_nodes": 20,
+    "sealed_terminal": 16,
+    "tree": "F/total_apart/mu1"
+   },
+   {
+    "match": false,
+    "pre_growth_demand_free": 1,
+    "pre_growth_nodes": 3,
+    "sealed_nodes": 4,
+    "sealed_terminal": 1,
+    "tree": "F/total_apart/mu2"
+   }
+  ],
+  "Q7_counterexamples": [
+   {
+    "closed": true,
+    "data_before": 2,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "closed": true,
+    "data_before": 3,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "closed": true,
+    "data_before": 4,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "closed": true,
+    "data_before": 2,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "closed": true,
+    "data_before": 3,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "closed": true,
+    "data_before": 4,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   }
+  ],
+  "Q8_node_counts": {
+   "total_apart/F": [
+    227,
+    7
+   ],
+   "total_apart/L": [
+    230,
+    8
+   ],
+   "total_same/F": [
+    3,
+    3
+   ],
+   "total_same/L": [
+    4,
+    4
+   ]
+  }
+ },
+ "predictions_scored": {
+  "Q1": {
+   "hit": true,
+   "verdict": "HIT"
+  },
+  "Q2": {
+   "hit": true,
+   "verdict": "HIT"
+  },
+  "Q3": {
+   "hit": false,
+   "verdict": "MISS"
+  },
+  "Q4": {
+   "hit": true,
+   "verdict": "HIT"
+  },
+  "Q5": {
+   "hit": true,
+   "verdict": "HIT"
+  },
+  "Q6": {
+   "hit": false,
+   "verdict": "MISS"
+  },
+  "Q7": {
+   "hit": false,
+   "verdict": "MISS"
+  },
+  "Q8": {
+   "hit": true,
+   "verdict": "HIT"
+  }
+ },
+ "predictions_sha256": "b9dea8cea62749321422da6b1ba01f76dc1af16624d9e8d5ea44e6338f46e333",
+ "prompt_sha256": "d96cab6efc4c89ee99dda4e7f911325e5e14b4b554444943834e0e1e914a028d",
+ "sealed_closed_baselines": {
+  "F/mu1": {
+   "nodes": 20,
+   "terminal": 16
+  },
+  "F/mu2": {
+   "nodes": 4,
+   "terminal": 1
+  },
+  "L/mu1": {
+   "nodes": 4,
+   "terminal": 3
+  },
+  "L/mu2": {
+   "nodes": 2,
+   "terminal": 1
+  }
+ },
+ "summary": {
+  "all_certified": true,
+  "by_commitment": {
+   "chain": {
+    "edges_honouring_several": 6,
+    "edges_with_fresh_datum": 0,
+    "edges_with_third_party_change": 261,
+    "growth_edges": 134,
+    "kinds_answered": [
+     "apart"
+    ],
+    "max_data_reached": 5,
+    "nodes": 524,
+    "refusal_data_counts": [],
+    "refusals": 0,
+    "responses": 393,
+    "trees": 4
+   },
+   "parity": {
+    "edges_honouring_several": 16,
+    "edges_with_fresh_datum": 0,
+    "edges_with_third_party_change": 3,
+    "growth_edges": 15,
+    "kinds_answered": [
+     "apart",
+     "same"
+    ],
+    "max_data_reached": 5,
+    "nodes": 35,
+    "refusal_data_counts": [
+     3,
+     4
+    ],
+    "refusals": 2,
+    "responses": 22,
+    "trees": 4
+   },
+   "residue_three": {
+    "edges_honouring_several": 68,
+    "edges_with_fresh_datum": 0,
+    "edges_with_third_party_change": 226,
+    "growth_edges": 102,
+    "kinds_answered": [
+     "apart",
+     "same"
+    ],
+    "max_data_reached": 5,
+    "nodes": 414,
+    "refusal_data_counts": [
+     4,
+     5
+    ],
+    "refusals": 152,
+    "responses": 386,
+    "trees": 4
+   },
+   "total_apart": {
+    "edges_honouring_several": 4,
+    "edges_with_fresh_datum": 0,
+    "edges_with_third_party_change": 302,
+    "growth_edges": 100,
+    "kinds_answered": [
+     "apart"
+    ],
+    "max_data_reached": 5,
+    "nodes": 472,
+    "refusal_data_counts": [],
+    "refusals": 0,
+    "responses": 496,
+    "trees": 4
+   },
+   "total_same": {
+    "edges_honouring_several": 0,
+    "edges_with_fresh_datum": 0,
+    "edges_with_third_party_change": 0,
+    "growth_edges": 10,
+    "kinds_answered": [],
+    "max_data_reached": 5,
+    "nodes": 14,
+    "refusal_data_counts": [],
+    "refusals": 0,
+    "responses": 0,
+    "trees": 4
+   }
+  },
+  "flip_events_in_grammar": 0,
+  "trees_built": 20
+ },
+ "trees": [
+  {
+   "commitment": "total_apart",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 150,
+   "growth": {
+    "2": {
+     "epochs": 247,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 247,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 247,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "L/total_apart/mu1",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 25,
+     "inst": 217,
+     "inst+inst": 2
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 3,
+   "pre_growth_nodes": 4,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 88,
+     "terminal_data_bound": 142
+    },
+    "edges": 293,
+    "expansions_with_ties": 39,
+    "growth_edges": 49,
+    "max_data": 5,
+    "max_depth": 7,
+    "max_forms": 4,
+    "nodes": 230,
+    "roles": {
+     "apart:form+inst": 25,
+     "apart:inst": 217,
+     "apart:inst+inst": 2,
+     "grow": 49
+    }
+   }
+  },
+  {
+   "commitment": "total_apart",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 1,
+   "growth": {
+    "2": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    }
+   },
+   "id": "L/total_apart/mu2",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 3,
+     "inst+inst": 1
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 2,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 7,
+     "terminal_data_bound": 1
+    },
+    "edges": 7,
+    "expansions_with_ties": 0,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 7,
+    "max_forms": 3,
+    "nodes": 8,
+    "roles": {
+     "apart:form+inst": 3,
+     "apart:inst+inst": 1,
+     "grow": 3
+    }
+   }
+  },
+  {
+   "commitment": "total_same",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "2": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "L/total_same/mu1",
+   "kinds_answered": [],
+   "kinds_by_demand": {},
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 1,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 3,
+     "terminal_data_bound": 1
+    },
+    "edges": 3,
+    "expansions_with_ties": 0,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 3,
+    "max_forms": 0,
+    "nodes": 4,
+    "roles": {
+     "grow": 3
+    }
+   }
+  },
+  {
+   "commitment": "total_same",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "2": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "L/total_same/mu2",
+   "kinds_answered": [],
+   "kinds_by_demand": {},
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 1,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 3,
+     "terminal_data_bound": 1
+    },
+    "edges": 3,
+    "expansions_with_ties": 0,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 3,
+    "max_forms": 0,
+    "nodes": 4,
+    "roles": {
+     "grow": 3
+    }
+   }
+  },
+  {
+   "commitment": "parity",
+   "edges_honouring_several": 5,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 3,
+   "growth": {
+    "2": {
+     "epochs": 6,
+     "max_demands": 2,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 1
+    },
+    "3": {
+     "epochs": 5,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 5,
+     "max_demands": 4,
+     "max_rounds": 1,
+     "min_demands": 2,
+     "unclosed": 0
+    }
+   },
+   "id": "L/parity/mu1",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 3,
+     "inst": 2
+    },
+    "same": {
+     "inst": 3,
+     "inst+inst": 2
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 3,
+   "pre_growth_nodes": 4,
+   "reading": "L",
+   "refusals": [
+    {
+     "data": 3,
+     "kind": "same",
+     "node": 5,
+     "open_demands": 2,
+     "single_item_candidates": 13,
+     "target": [
+      0,
+      2
+     ]
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 13,
+     "terminal_data_bound": 2,
+     "terminal_no_response": 1
+    },
+    "edges": 17,
+    "expansions_with_ties": 1,
+    "growth_edges": 7,
+    "max_data": 5,
+    "max_depth": 7,
+    "max_forms": 1,
+    "nodes": 16,
+    "roles": {
+     "apart:form+inst": 3,
+     "apart:inst": 2,
+     "grow": 7,
+     "same:inst": 3,
+     "same:inst+inst": 2
+    }
+   }
+  },
+  {
+   "commitment": "parity",
+   "edges_honouring_several": 4,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "2": {
+     "epochs": 4,
+     "max_demands": 2,
+     "max_rounds": 1,
+     "min_demands": 2,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 4,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 4,
+     "max_demands": 4,
+     "max_rounds": 1,
+     "min_demands": 4,
+     "unclosed": 0
+    }
+   },
+   "id": "L/parity/mu2",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 1,
+     "inst": 2
+    },
+    "same": {
+     "inst": 2
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 2,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 6,
+     "terminal_data_bound": 1
+    },
+    "edges": 8,
+    "expansions_with_ties": 0,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 6,
+    "max_forms": 1,
+    "nodes": 7,
+    "roles": {
+     "apart:form+inst": 1,
+     "apart:inst": 2,
+     "grow": 3,
+     "same:inst": 2
+    }
+   }
+  },
+  {
+   "commitment": "residue_three",
+   "edges_honouring_several": 28,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 113,
+   "growth": {
+    "2": {
+     "epochs": 195,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 195,
+     "max_demands": 2,
+     "max_rounds": 2,
+     "min_demands": 1,
+     "unclosed": 22
+    },
+    "4": {
+     "epochs": 173,
+     "max_demands": 3,
+     "max_rounds": 2,
+     "min_demands": 1,
+     "unclosed": 112
+    }
+   },
+   "id": "L/residue_three/mu1",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 8,
+     "inst": 110
+    },
+    "same": {
+     "inst": 16,
+     "inst+inst": 35,
+     "inst+rule": 12,
+     "rule": 6
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 3,
+   "pre_growth_nodes": 4,
+   "reading": "L",
+   "refusals": [
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 22,
+     "open_demands": 2,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 23,
+     "open_demands": 2,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 24,
+     "open_demands": 2,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 25,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 28,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 32,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 34,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 41,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 42,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 43,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 47,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 48,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 49,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 54,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 58,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 60,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 61,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 62,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 64,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 65,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 71,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 100,
+     "open_demands": 2,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 115,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 116,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 117,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 118,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 119,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 121,
+     "open_demands": 2,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 125,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 126,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 127,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 128,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 129,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 131,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 132,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 133,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 135,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 136,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 138,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 139,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 140,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 144,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 145,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 146,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 147,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 148,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 150,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 151,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 152,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 154,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 155,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 157,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 158,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 159,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 161,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 162,
+     "open_demands": 3,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 163,
+     "open_demands": 2,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 164,
+     "open_demands": 2,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 165,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 166,
+     "open_demands": 3,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 167,
+     "open_demands": 2,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 168,
+     "open_demands": 2,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 169,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 170,
+     "open_demands": 3,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 172,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 174,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 183,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 184,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 185,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 186,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 187,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 193,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 194,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 195,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 196,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 197,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 104,
+     "terminal_data_bound": 21,
+     "terminal_no_response": 76
+    },
+    "edges": 237,
+    "expansions_with_ties": 34,
+    "growth_edges": 50,
+    "max_data": 5,
+    "max_depth": 9,
+    "max_forms": 2,
+    "nodes": 201,
+    "roles": {
+     "apart:form+inst": 8,
+     "apart:inst": 110,
+     "grow": 50,
+     "same:inst": 16,
+     "same:inst+inst": 35,
+     "same:inst+rule": 12,
+     "same:rule": 6
+    }
+   }
+  },
+  {
+   "commitment": "residue_three",
+   "edges_honouring_several": 4,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "2": {
+     "epochs": 4,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 4,
+     "max_demands": 2,
+     "max_rounds": 1,
+     "min_demands": 2,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 4,
+     "max_demands": 2,
+     "max_rounds": 1,
+     "min_demands": 2,
+     "unclosed": 0
+    }
+   },
+   "id": "L/residue_three/mu2",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 2,
+     "inst": 2
+    },
+    "same": {
+     "inst": 2
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 2,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 7,
+     "terminal_data_bound": 1
+    },
+    "edges": 9,
+    "expansions_with_ties": 0,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 7,
+    "max_forms": 2,
+    "nodes": 8,
+    "roles": {
+     "apart:form+inst": 2,
+     "apart:inst": 2,
+     "grow": 3,
+     "same:inst": 2
+    }
+   }
+  },
+  {
+   "commitment": "chain",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 134,
+   "growth": {
+    "2": {
+     "epochs": 179,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 179,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 179,
+     "max_demands": 1,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 175
+    }
+   },
+   "id": "L/chain/mu1",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 3,
+     "inst": 192
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 3,
+   "pre_growth_nodes": 4,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 81,
+     "frontier_guard": 174,
+     "terminal_data_bound": 4
+    },
+    "edges": 259,
+    "expansions_with_ties": 15,
+    "growth_edges": 64,
+    "max_data": 5,
+    "max_depth": 6,
+    "max_forms": 1,
+    "nodes": 259,
+    "roles": {
+     "apart:form+inst": 3,
+     "apart:inst": 192,
+     "grow": 64
+    }
+   }
+  },
+  {
+   "commitment": "chain",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "2": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    },
+    "3": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    }
+   },
+   "id": "L/chain/mu2",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 1,
+     "inst": 2
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 2,
+   "reading": "L",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 6,
+     "terminal_data_bound": 1
+    },
+    "edges": 6,
+    "expansions_with_ties": 0,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 6,
+    "max_forms": 1,
+    "nodes": 7,
+    "roles": {
+     "apart:form+inst": 1,
+     "apart:inst": 2,
+     "grow": 3
+    }
+   }
+  },
+  {
+   "commitment": "total_apart",
+   "edges_honouring_several": 3,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 150,
+   "growth": {
+    "3": {
+     "epochs": 247,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 247,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "F/total_apart/mu1",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 25,
+     "inst": 217,
+     "inst+inst": 2
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 10,
+   "pre_growth_nodes": 13,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 85,
+     "terminal_data_bound": 142
+    },
+    "edges": 290,
+    "expansions_with_ties": 39,
+    "growth_edges": 46,
+    "max_data": 5,
+    "max_depth": 6,
+    "max_forms": 4,
+    "nodes": 227,
+    "roles": {
+     "apart:form+inst": 25,
+     "apart:inst": 217,
+     "apart:inst+inst": 2,
+     "grow": 46
+    }
+   }
+  },
+  {
+   "commitment": "total_apart",
+   "edges_honouring_several": 1,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 1,
+   "growth": {
+    "3": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 1,
+     "unclosed": 0
+    }
+   },
+   "id": "F/total_apart/mu2",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 3,
+     "inst+inst": 1
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 3,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 6,
+     "terminal_data_bound": 1
+    },
+    "edges": 6,
+    "expansions_with_ties": 0,
+    "growth_edges": 2,
+    "max_data": 5,
+    "max_depth": 6,
+    "max_forms": 3,
+    "nodes": 7,
+    "roles": {
+     "apart:form+inst": 3,
+     "apart:inst+inst": 1,
+     "grow": 2
+    }
+   }
+  },
+  {
+   "commitment": "total_same",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "3": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "F/total_same/mu1",
+   "kinds_answered": [],
+   "kinds_by_demand": {},
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 1,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 2,
+     "terminal_data_bound": 1
+    },
+    "edges": 2,
+    "expansions_with_ties": 0,
+    "growth_edges": 2,
+    "max_data": 5,
+    "max_depth": 2,
+    "max_forms": 0,
+    "nodes": 3,
+    "roles": {
+     "grow": 2
+    }
+   }
+  },
+  {
+   "commitment": "total_same",
+   "edges_honouring_several": 0,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "3": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 1,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "F/total_same/mu2",
+   "kinds_answered": [],
+   "kinds_by_demand": {},
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 1,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 2,
+     "terminal_data_bound": 1
+    },
+    "edges": 2,
+    "expansions_with_ties": 0,
+    "growth_edges": 2,
+    "max_data": 5,
+    "max_depth": 2,
+    "max_forms": 0,
+    "nodes": 3,
+    "roles": {
+     "grow": 2
+    }
+   }
+  },
+  {
+   "commitment": "parity",
+   "edges_honouring_several": 4,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "3": {
+     "epochs": 3,
+     "max_demands": 3,
+     "max_rounds": 1,
+     "min_demands": 3,
+     "unclosed": 1
+    },
+    "4": {
+     "epochs": 2,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "F/parity/mu1",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 2,
+     "inst": 1
+    },
+    "same": {
+     "inst": 1
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 2,
+   "pre_growth_nodes": 3,
+   "reading": "F",
+   "refusals": [
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 4,
+     "open_demands": 3,
+     "single_item_candidates": 20,
+     "target": [
+      1,
+      3
+     ]
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 5,
+     "terminal_data_bound": 1,
+     "terminal_no_response": 1
+    },
+    "edges": 7,
+    "expansions_with_ties": 1,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 4,
+    "max_forms": 1,
+    "nodes": 7,
+    "roles": {
+     "apart:form+inst": 2,
+     "apart:inst": 1,
+     "grow": 3,
+     "same:inst": 1
+    }
+   }
+  },
+  {
+   "commitment": "parity",
+   "edges_honouring_several": 3,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "3": {
+     "epochs": 2,
+     "max_demands": 3,
+     "max_rounds": 1,
+     "min_demands": 3,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 2,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "F/parity/mu2",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 1,
+     "inst": 1
+    },
+    "same": {
+     "inst": 1
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 2,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 4,
+     "terminal_data_bound": 1
+    },
+    "edges": 5,
+    "expansions_with_ties": 0,
+    "growth_edges": 2,
+    "max_data": 5,
+    "max_depth": 4,
+    "max_forms": 1,
+    "nodes": 5,
+    "roles": {
+     "apart:form+inst": 1,
+     "apart:inst": 1,
+     "grow": 2,
+     "same:inst": 1
+    }
+   }
+  },
+  {
+   "commitment": "residue_three",
+   "edges_honouring_several": 31,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 113,
+   "growth": {
+    "3": {
+     "epochs": 195,
+     "max_demands": 2,
+     "max_rounds": 2,
+     "min_demands": 1,
+     "unclosed": 22
+    },
+    "4": {
+     "epochs": 173,
+     "max_demands": 3,
+     "max_rounds": 2,
+     "min_demands": 1,
+     "unclosed": 112
+    }
+   },
+   "id": "F/residue_three/mu1",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 8,
+     "inst": 110
+    },
+    "same": {
+     "inst": 16,
+     "inst+inst": 35,
+     "inst+rule": 12,
+     "rule": 6
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 10,
+   "pre_growth_nodes": 13,
+   "reading": "F",
+   "refusals": [
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 19,
+     "open_demands": 2,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 20,
+     "open_demands": 2,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 21,
+     "open_demands": 2,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 22,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 25,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 29,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 31,
+     "open_demands": 1,
+     "single_item_candidates": 20,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 38,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 39,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 40,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 44,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 45,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 46,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 51,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 55,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 57,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 58,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 59,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 61,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 62,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 68,
+     "open_demands": 1,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 97,
+     "open_demands": 2,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 112,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 113,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 114,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 115,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 116,
+     "open_demands": 1,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 118,
+     "open_demands": 2,
+     "single_item_candidates": 29,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 122,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 123,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 124,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 125,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 126,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 128,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 129,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 130,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 132,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 133,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 135,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 136,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 137,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 141,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 142,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 143,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 144,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 145,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 147,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 148,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 149,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 151,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 152,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 154,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 155,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 156,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 158,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 159,
+     "open_demands": 3,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 160,
+     "open_demands": 2,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 161,
+     "open_demands": 2,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 162,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 163,
+     "open_demands": 3,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 164,
+     "open_demands": 2,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 165,
+     "open_demands": 2,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 166,
+     "open_demands": 1,
+     "single_item_candidates": 35,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 167,
+     "open_demands": 3,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 169,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 171,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 180,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 181,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 182,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 183,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 184,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 190,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 191,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 192,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 193,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    },
+    {
+     "data": 5,
+     "kind": "same",
+     "node": 194,
+     "open_demands": 1,
+     "single_item_candidates": 34,
+     "target": [
+      1,
+      4
+     ]
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 101,
+     "terminal_data_bound": 21,
+     "terminal_no_response": 76
+    },
+    "edges": 234,
+    "expansions_with_ties": 34,
+    "growth_edges": 47,
+    "max_data": 5,
+    "max_depth": 8,
+    "max_forms": 2,
+    "nodes": 198,
+    "roles": {
+     "apart:form+inst": 8,
+     "apart:inst": 110,
+     "grow": 47,
+     "same:inst": 16,
+     "same:inst+inst": 35,
+     "same:inst+rule": 12,
+     "same:rule": 6
+    }
+   }
+  },
+  {
+   "commitment": "residue_three",
+   "edges_honouring_several": 5,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "3": {
+     "epochs": 4,
+     "max_demands": 2,
+     "max_rounds": 1,
+     "min_demands": 2,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 4,
+     "max_demands": 2,
+     "max_rounds": 1,
+     "min_demands": 2,
+     "unclosed": 0
+    }
+   },
+   "id": "F/residue_three/mu2",
+   "kinds_answered": [
+    "apart",
+    "same"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 2,
+     "inst": 2
+    },
+    "same": {
+     "inst": 2
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 1,
+   "pre_growth_nodes": 3,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 6,
+     "terminal_data_bound": 1
+    },
+    "edges": 8,
+    "expansions_with_ties": 0,
+    "growth_edges": 2,
+    "max_data": 5,
+    "max_depth": 6,
+    "max_forms": 2,
+    "nodes": 7,
+    "roles": {
+     "apart:form+inst": 2,
+     "apart:inst": 2,
+     "grow": 2,
+     "same:inst": 2
+    }
+   }
+  },
+  {
+   "commitment": "chain",
+   "edges_honouring_several": 5,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 127,
+   "growth": {
+    "3": {
+     "epochs": 175,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 21
+    },
+    "4": {
+     "epochs": 154,
+     "max_demands": 1,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 142
+    }
+   },
+   "id": "F/chain/mu1",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 7,
+     "inst": 184
+    }
+   },
+   "measure": "mu1",
+   "pre_growth_demand_free_nodes": 14,
+   "pre_growth_nodes": 17,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 81,
+     "frontier_guard": 162,
+     "terminal_data_bound": 8
+    },
+    "edges": 255,
+    "expansions_with_ties": 15,
+    "growth_edges": 64,
+    "max_data": 5,
+    "max_depth": 5,
+    "max_forms": 1,
+    "nodes": 251,
+    "roles": {
+     "apart:form+inst": 7,
+     "apart:inst": 184,
+     "grow": 64
+    }
+   }
+  },
+  {
+   "commitment": "chain",
+   "edges_honouring_several": 1,
+   "edges_with_fresh_datum": 0,
+   "edges_with_third_party_change": 0,
+   "growth": {
+    "3": {
+     "epochs": 2,
+     "max_demands": 1,
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 0
+    },
+    "4": {
+     "epochs": 2,
+     "max_demands": 0,
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 0
+    }
+   },
+   "id": "F/chain/mu2",
+   "kinds_answered": [
+    "apart"
+   ],
+   "kinds_by_demand": {
+    "apart": {
+     "form+inst": 2,
+     "inst": 2
+    }
+   },
+   "measure": "mu2",
+   "pre_growth_demand_free_nodes": 2,
+   "pre_growth_nodes": 4,
+   "reading": "F",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 6,
+     "terminal_data_bound": 1
+    },
+    "edges": 7,
+    "expansions_with_ties": 1,
+    "growth_edges": 3,
+    "max_data": 5,
+    "max_depth": 4,
+    "max_forms": 1,
+    "nodes": 7,
+    "roles": {
+     "apart:form+inst": 2,
+     "apart:inst": 2,
+     "grow": 3
+    }
+   }
+  }
+ ]
+}
