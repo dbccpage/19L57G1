@@ -1,0 +1,330 @@
+{
+  "authority_effect": null,
+  "injection_count": 29,
+  "rows": [
+    {
+      "expected_failures": [
+        "source path census differs"
+      ],
+      "id": "source_census",
+      "observed_failures": [
+        "source path census differs"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "CLAUDE.md bytes differ at f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+        "CLAUDE.md bytes differ at HEAD"
+      ],
+      "id": "source_digest",
+      "observed_failures": [
+        "CLAUDE.md bytes differ at f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+        "CLAUDE.md bytes differ at HEAD"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "CLAUDE.md blob differs at HEAD"
+      ],
+      "id": "source_head_blob",
+      "observed_failures": [
+        "CLAUDE.md blob differs at HEAD"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "CLAUDE.md bytes differ at HEAD"
+      ],
+      "id": "source_head_bytes",
+      "observed_failures": [
+        "CLAUDE.md bytes differ at HEAD"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "source object absent at HEAD:CLAUDE.md"
+      ],
+      "id": "source_head_absent",
+      "observed_failures": [
+        "source object absent at HEAD:CLAUDE.md"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "resolved snapshot tree differs"
+      ],
+      "id": "resolved_snapshot_tree",
+      "observed_failures": [
+        "resolved snapshot tree differs"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "snapshot is not an ancestor of HEAD"
+      ],
+      "id": "snapshot_ancestry",
+      "observed_failures": [
+        "snapshot is not an ancestor of HEAD"
+      ],
+      "population": "source_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "span declarations differ"
+      ],
+      "id": "span_declaration",
+      "observed_failures": [
+        "span declarations differ"
+      ],
+      "population": "span_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "prompt/seed_prompt.md:96-96 span differs at HEAD"
+      ],
+      "id": "span_head_bytes",
+      "observed_failures": [
+        "prompt/seed_prompt.md:96-96 span differs at HEAD"
+      ],
+      "population": "span_objects",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "freeze commit differs"
+      ],
+      "id": "freeze_commit",
+      "observed_failures": [
+        "freeze commit differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "native prompt hash differs"
+      ],
+      "id": "native_prompt_hash",
+      "observed_failures": [
+        "native prompt hash differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "predictions freeze differs"
+      ],
+      "id": "predictions_hash",
+      "observed_failures": [
+        "predictions freeze differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "snapshot commit differs"
+      ],
+      "id": "snapshot_commit",
+      "observed_failures": [
+        "snapshot commit differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "snapshot tree differs"
+      ],
+      "id": "snapshot_tree",
+      "observed_failures": [
+        "snapshot tree differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "toolchain declaration differs"
+      ],
+      "id": "toolchains",
+      "observed_failures": [
+        "toolchain declaration differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "outside bet commitment differs"
+      ],
+      "id": "outside_bet_commitment",
+      "observed_failures": [
+        "outside bet commitment differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "write root differs"
+      ],
+      "id": "write_root",
+      "observed_failures": [
+        "write root differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "authority effect differs"
+      ],
+      "id": "authority_effect",
+      "observed_failures": [
+        "authority effect differs"
+      ],
+      "population": "manifest_declarations",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "freeze commit parent differs from source snapshot"
+      ],
+      "id": "freeze_parent",
+      "observed_failures": [
+        "freeze commit parent differs from source snapshot"
+      ],
+      "population": "native_freezes",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "PREDICTIONS.md differs from freeze commit at HEAD"
+      ],
+      "id": "freeze_head_bytes",
+      "observed_failures": [
+        "PREDICTIONS.md differs from freeze commit at HEAD"
+      ],
+      "population": "native_freezes",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "PREDICTIONS.md differs from freeze commit in worktree"
+      ],
+      "id": "freeze_worktree_bytes",
+      "observed_failures": [
+        "PREDICTIONS.md differs from freeze commit in worktree"
+      ],
+      "population": "native_freezes",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "manifest bytes differ from deterministic renderer"
+      ],
+      "id": "manifest_bytes",
+      "observed_failures": [
+        "manifest bytes differ from deterministic renderer"
+      ],
+      "population": "manifest_bytes",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "duplicate JSON name: authority_effect"
+      ],
+      "id": "duplicate_manifest_name",
+      "observed_failures": [
+        "duplicate JSON name: authority_effect"
+      ],
+      "population": "manifest_decoder",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "pin receipt census differs: got=[] wanted=['injections.json']"
+      ],
+      "id": "pin_receipt_missing",
+      "observed_failures": [
+        "pin receipt census differs: got=[] wanted=['injections.json']"
+      ],
+      "population": "pin_receipts",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "pin receipt census differs: got=['extra.json', 'injections.json'] wanted=['injections.json']"
+      ],
+      "id": "pin_receipt_extra_file",
+      "observed_failures": [
+        "pin receipt census differs: got=['extra.json', 'injections.json'] wanted=['injections.json']"
+      ],
+      "population": "pin_receipts",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "pin receipt census differs: got=['extra', 'injections.json'] wanted=['injections.json']",
+        "pin receipt entry is not a plain regular file: extra (directory)"
+      ],
+      "id": "pin_receipt_nonplain",
+      "observed_failures": [
+        "pin receipt census differs: got=['extra', 'injections.json'] wanted=['injections.json']",
+        "pin receipt entry is not a plain regular file: extra (directory)"
+      ],
+      "population": "pin_receipts",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "pin receipt entry is not a plain regular file: injections.json (reparse)"
+      ],
+      "id": "pin_receipt_reparse",
+      "observed_failures": [
+        "pin receipt entry is not a plain regular file: injections.json (reparse)"
+      ],
+      "population": "pin_receipts",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "pin injection receipt differs"
+      ],
+      "id": "pin_receipt_bytes",
+      "observed_failures": [
+        "pin injection receipt differs"
+      ],
+      "population": "pin_receipts",
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "paths outside write root changed: ['research/described_replay_escape/.cache/outside.probe']"
+      ],
+      "id": "ignored_untracked_scope",
+      "observed_failures": [
+        "paths outside write root changed: ['research/described_replay_escape/.cache/outside.probe']"
+      ],
+      "population": "git_ignored_untracked",
+      "recovered": true
+    }
+  ],
+  "terminal": "PIN_VERIFIER_INJECTIONS_REPLAYED"
+}

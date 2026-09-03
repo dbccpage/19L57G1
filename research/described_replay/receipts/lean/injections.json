@@ -1,0 +1,147 @@
+{
+  "authority_effect": null,
+  "injections": [
+    {
+      "expected_failure": "theorem census differs",
+      "id": "lean-extra-theorem",
+      "observed_failure": "theorem census differs in lean/DescribedReplay/Description.lean: got=['events_encodeTokensFrom', 'rawHistory_encode', 'decode_encode_id', 'encode_injective', 'encode_admission_only', 'decoder_domain_iff', 'endpoint_insufficient', 'empty_self_description_witness', 'nonempty_description_outside_class', 'verifierProbe'] wanted=['events_encodeTokensFrom', 'rawHistory_encode', 'decode_encode_id', 'encode_injective', 'encode_admission_only', 'decoder_domain_iff', 'endpoint_insufficient', 'empty_self_description_witness', 'nonempty_description_outside_class']",
+      "recovered": true
+    },
+    {
+      "expected_failure": "#print axioms census differs",
+      "id": "lean-duplicate-print",
+      "observed_failure": "#print axioms census differs: got=['DescribedReplay.supply_inertia', 'DescribedReplay.replayFrom_eq_replayTotalFrom', 'DescribedReplay.replay_eq_replayTotal_of_member', 'DescribedReplay.reconstruction_notes_cover_kernel_definitions', 'DescribedReplay.reconstruction_notes_cover_local_definitions', 'DescribedReplay.events_encodeTokensFrom', 'DescribedReplay.rawHistory_encode', 'DescribedReplay.decode_encode_id', 'DescribedReplay.encode_injective', 'DescribedReplay.encode_admission_only', 'DescribedReplay.decoder_domain_iff', 'DescribedReplay.endpoint_insufficient', 'DescribedReplay.empty_self_description_witness', 'DescribedReplay.nonempty_description_outside_class', 'DescribedReplay.prepare_encode_exists', 'DescribedReplay.stateTraceFrom_length', 'DescribedReplay.stateTrace_length', 'DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom', 'DescribedReplay.eventAt_stateTrace_eq_prefixState', 'DescribedReplay.stepper_one', 'DescribedReplay.stepper_current_mismatch', 'DescribedReplay.decode_failure_prepares_none', 'DescribedReplay.preparation_dispatch_decode_failure', 'DescribedReplay.preparation_dispatch_total', 'DescribedReplay.stepper_transition_semantics', 'DescribedReplay.eventAt_exists_of_lt', 'DescribedReplay.eventAt_length', 'DescribedReplay.prefixFoldFrom_eq_replayFrom_take', 'DescribedReplay.prefixState_eq_replay_take', 'DescribedReplay.prefixFoldFrom_next', 'DescribedReplay.prefixState_next', 'DescribedReplay.wellFormed_transition_at', 'DescribedReplay.runSteps_from_prefix', 'DescribedReplay.stepper_full_iteration', 'DescribedReplay.encoded_member_full_iteration', 'DescribedReplay.stepped_state_shape', 'DescribedReplay.stepped_state_prefix', 'DescribedReplay.stepper_iterate', 'DescribedReplay.stepper_total', 'DescribedReplay.empty_self_replay_witness', 'DescribedReplay.fixed_candidate_no_class_replay', 'DescribedReplay.candidate_report_uses_described_replay', 'DescribedReplay.bounded_reporter_diagonal_member', 'DescribedReplay.diagonal_disagrees', 'DescribedReplay.no_fixed_candidate_reporter', 'DescribedReplay.outside_reporter_correct', 'DescribedReplay.events_encodeTokensFrom'] wanted=['DescribedReplay.supply_inertia', 'DescribedReplay.replayFrom_eq_replayTotalFrom', 'DescribedReplay.replay_eq_replayTotal_of_member', 'DescribedReplay.reconstruction_notes_cover_kernel_definitions', 'DescribedReplay.reconstruction_notes_cover_local_definitions', 'DescribedReplay.events_encodeTokensFrom', 'DescribedReplay.rawHistory_encode', 'DescribedReplay.decode_encode_id', 'DescribedReplay.encode_injective', 'DescribedReplay.encode_admission_only', 'DescribedReplay.decoder_domain_iff', 'DescribedReplay.endpoint_insufficient', 'DescribedReplay.empty_self_description_witness', 'DescribedReplay.nonempty_description_outside_class', 'DescribedReplay.prepare_encode_exists', 'DescribedReplay.stateTraceFrom_length', 'DescribedReplay.stateTrace_length', 'DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom', 'DescribedReplay.eventAt_stateTrace_eq_prefixState', 'DescribedReplay.stepper_one', 'DescribedReplay.stepper_current_mismatch', 'DescribedReplay.decode_failure_prepares_none', 'DescribedReplay.preparation_dispatch_decode_failure', 'DescribedReplay.preparation_dispatch_total', 'DescribedReplay.stepper_transition_semantics', 'DescribedReplay.eventAt_exists_of_lt', 'DescribedReplay.eventAt_length', 'DescribedReplay.prefixFoldFrom_eq_replayFrom_take', 'DescribedReplay.prefixState_eq_replay_take', 'DescribedReplay.prefixFoldFrom_next', 'DescribedReplay.prefixState_next', 'DescribedReplay.wellFormed_transition_at', 'DescribedReplay.runSteps_from_prefix', 'DescribedReplay.stepper_full_iteration', 'DescribedReplay.encoded_member_full_iteration', 'DescribedReplay.stepped_state_shape', 'DescribedReplay.stepped_state_prefix', 'DescribedReplay.stepper_iterate', 'DescribedReplay.stepper_total', 'DescribedReplay.empty_self_replay_witness', 'DescribedReplay.fixed_candidate_no_class_replay', 'DescribedReplay.candidate_report_uses_described_replay', 'DescribedReplay.bounded_reporter_diagonal_member', 'DescribedReplay.diagonal_disagrees', 'DescribedReplay.no_fixed_candidate_reporter', 'DescribedReplay.outside_reporter_correct']",
+      "recovered": true
+    },
+    {
+      "expected_failure": "forbidden Lean token",
+      "id": "lean-forbidden-token",
+      "observed_failure": "forbidden Lean token in lean/DescribedReplay/Core.lean: axiom",
+      "recovered": true
+    },
+    {
+      "expected_failure": "import census differs",
+      "id": "lean-forbidden-import",
+      "observed_failure": "import census differs in lean/DescribedReplay/Core.lean: got=['UnlistedModule'] wanted=['Std']",
+      "recovered": true
+    },
+    {
+      "expected_failure": "stepper body invokes forbidden history dependency: replayTotal",
+      "id": "lean-stepper-direct-replay",
+      "observed_failure": "stepper body invokes forbidden history dependency: replayTotal",
+      "recovered": true
+    },
+    {
+      "expected_failure": "stepper body invokes forbidden history dependency: prepare",
+      "id": "lean-stepper-direct-preparation",
+      "observed_failure": "stepper body invokes forbidden history dependency: prepare",
+      "recovered": true
+    },
+    {
+      "expected_failure": "stepper body event-lookup count differs: 1",
+      "id": "lean-stepper-event-lookup-count",
+      "observed_failure": "stepper body event-lookup count differs: 1",
+      "recovered": true
+    },
+    {
+      "expected_failure": "eventAt helper invokes forbidden history dependency: replayTotal",
+      "id": "lean-eventAt-transitive-replay",
+      "observed_failure": "eventAt helper invokes forbidden history dependency: replayTotal",
+      "recovered": true
+    },
+    {
+      "expected_failure": "transition applyEvent-call count differs: 2",
+      "id": "lean-transition-double-apply",
+      "observed_failure": "transition applyEvent-call count differs: 2",
+      "recovered": true
+    },
+    {
+      "expected_failure": "transition invokes forbidden history dependency: replayTotal",
+      "id": "lean-transition-history-dependency",
+      "observed_failure": "transition invokes forbidden history dependency: replayTotal",
+      "recovered": true
+    },
+    {
+      "expected_failure": "preparation invokes costed or replay dependency: transition",
+      "id": "lean-preparation-costed-transition",
+      "observed_failure": "preparation invokes costed or replay dependency: transition",
+      "recovered": true
+    },
+    {
+      "expected_failure": "preparation decode-call count differs: 0",
+      "id": "lean-preparation-missing-decode",
+      "observed_failure": "preparation decode-call count differs: 0",
+      "recovered": true
+    },
+    {
+      "expected_failure": "preparation trace invokes forbidden dependency: transition",
+      "id": "lean-preparation-trace-transition",
+      "observed_failure": "preparation trace invokes forbidden dependency: transition",
+      "recovered": true
+    },
+    {
+      "expected_failure": "preparation trace applyEvent-call count differs: 2",
+      "id": "lean-preparation-trace-double-apply",
+      "observed_failure": "preparation trace applyEvent-call count differs: 2",
+      "recovered": true
+    },
+    {
+      "expected_failure": "preparation dispatcher repeats work: prepare",
+      "id": "lean-dispatcher-revalidation",
+      "observed_failure": "preparation dispatcher repeats work: prepare",
+      "recovered": true
+    },
+    {
+      "expected_failure": "preparation dispatcher stepper-call count differs: 0",
+      "id": "lean-dispatcher-missing-step",
+      "observed_failure": "preparation dispatcher stepper-call count differs: 0",
+      "recovered": true
+    },
+    {
+      "expected_failure": "runSteps repeats preparation or transition work: prepare",
+      "id": "lean-iteration-revalidation",
+      "observed_failure": "runSteps repeats preparation or transition work: prepare",
+      "recovered": true
+    },
+    {
+      "expected_failure": "runSteps stepper-call count differs: 0",
+      "id": "lean-iteration-missing-step",
+      "observed_failure": "runSteps stepper-call count differs: 0",
+      "recovered": true
+    },
+    {
+      "expected_failure": "forbidden axiom dependencies",
+      "id": "lean-forbidden-axiom-dependency",
+      "observed_failure": "forbidden axiom dependencies for DescribedReplay.supply_inertia: ['unlisted.dependency']",
+      "recovered": true
+    },
+    {
+      "expected_failure": "build axiom-report census differs",
+      "id": "lean-missing-axiom-report",
+      "observed_failure": "build axiom-report census differs: got=['DescribedReplay.supply_inertia', 'DescribedReplay.replayFrom_eq_replayTotalFrom', 'DescribedReplay.replay_eq_replayTotal_of_member', 'DescribedReplay.reconstruction_notes_cover_kernel_definitions', 'DescribedReplay.reconstruction_notes_cover_local_definitions', 'DescribedReplay.rawHistory_encode', 'DescribedReplay.decode_encode_id', 'DescribedReplay.encode_injective', 'DescribedReplay.encode_admission_only', 'DescribedReplay.decoder_domain_iff', 'DescribedReplay.endpoint_insufficient', 'DescribedReplay.empty_self_description_witness', 'DescribedReplay.nonempty_description_outside_class', 'DescribedReplay.prepare_encode_exists', 'DescribedReplay.stateTraceFrom_length', 'DescribedReplay.stateTrace_length', 'DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom', 'DescribedReplay.eventAt_stateTrace_eq_prefixState', 'DescribedReplay.stepper_one', 'DescribedReplay.stepper_current_mismatch', 'DescribedReplay.decode_failure_prepares_none', 'DescribedReplay.preparation_dispatch_decode_failure', 'DescribedReplay.preparation_dispatch_total', 'DescribedReplay.stepper_transition_semantics', 'DescribedReplay.eventAt_exists_of_lt', 'DescribedReplay.eventAt_length', 'DescribedReplay.prefixFoldFrom_eq_replayFrom_take', 'DescribedReplay.prefixState_eq_replay_take', 'DescribedReplay.prefixFoldFrom_next', 'DescribedReplay.prefixState_next', 'DescribedReplay.wellFormed_transition_at', 'DescribedReplay.runSteps_from_prefix', 'DescribedReplay.stepper_full_iteration', 'DescribedReplay.encoded_member_full_iteration', 'DescribedReplay.stepped_state_shape', 'DescribedReplay.stepped_state_prefix', 'DescribedReplay.stepper_iterate', 'DescribedReplay.stepper_total', 'DescribedReplay.empty_self_replay_witness', 'DescribedReplay.fixed_candidate_no_class_replay', 'DescribedReplay.candidate_report_uses_described_replay', 'DescribedReplay.bounded_reporter_diagonal_member', 'DescribedReplay.diagonal_disagrees', 'DescribedReplay.no_fixed_candidate_reporter', 'DescribedReplay.outside_reporter_correct'] wanted=['DescribedReplay.supply_inertia', 'DescribedReplay.replayFrom_eq_replayTotalFrom', 'DescribedReplay.replay_eq_replayTotal_of_member', 'DescribedReplay.reconstruction_notes_cover_kernel_definitions', 'DescribedReplay.reconstruction_notes_cover_local_definitions', 'DescribedReplay.events_encodeTokensFrom', 'DescribedReplay.rawHistory_encode', 'DescribedReplay.decode_encode_id', 'DescribedReplay.encode_injective', 'DescribedReplay.encode_admission_only', 'DescribedReplay.decoder_domain_iff', 'DescribedReplay.endpoint_insufficient', 'DescribedReplay.empty_self_description_witness', 'DescribedReplay.nonempty_description_outside_class', 'DescribedReplay.prepare_encode_exists', 'DescribedReplay.stateTraceFrom_length', 'DescribedReplay.stateTrace_length', 'DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom', 'DescribedReplay.eventAt_stateTrace_eq_prefixState', 'DescribedReplay.stepper_one', 'DescribedReplay.stepper_current_mismatch', 'DescribedReplay.decode_failure_prepares_none', 'DescribedReplay.preparation_dispatch_decode_failure', 'DescribedReplay.preparation_dispatch_total', 'DescribedReplay.stepper_transition_semantics', 'DescribedReplay.eventAt_exists_of_lt', 'DescribedReplay.eventAt_length', 'DescribedReplay.prefixFoldFrom_eq_replayFrom_take', 'DescribedReplay.prefixState_eq_replay_take', 'DescribedReplay.prefixFoldFrom_next', 'DescribedReplay.prefixState_next', 'DescribedReplay.wellFormed_transition_at', 'DescribedReplay.runSteps_from_prefix', 'DescribedReplay.stepper_full_iteration', 'DescribedReplay.encoded_member_full_iteration', 'DescribedReplay.stepped_state_shape', 'DescribedReplay.stepped_state_prefix', 'DescribedReplay.stepper_iterate', 'DescribedReplay.stepper_total', 'DescribedReplay.empty_self_replay_witness', 'DescribedReplay.fixed_candidate_no_class_replay', 'DescribedReplay.candidate_report_uses_described_replay', 'DescribedReplay.bounded_reporter_diagonal_member', 'DescribedReplay.diagonal_disagrees', 'DescribedReplay.no_fixed_candidate_reporter', 'DescribedReplay.outside_reporter_correct']",
+      "recovered": true
+    },
+    {
+      "expected_failure": "Lean receipt census differs",
+      "id": "lean-receipt-census",
+      "observed_failure": "Lean receipt census differs: got=['axioms.json'] wanted=['axioms.json', 'injections.json', 'machine_receipt.json']",
+      "recovered": true
+    },
+    {
+      "expected_failure": "duplicate JSON object name",
+      "id": "lean-receipt-duplicate-json-name",
+      "observed_failure": "invalid in-memory Lean receipt injection: duplicate JSON object name: 'status'",
+      "recovered": true
+    },
+    {
+      "expected_failure": "Lean receipt differs",
+      "id": "lean-receipt-bytes",
+      "observed_failure": "Lean receipt differs: axioms.json",
+      "recovered": true
+    }
+  ],
+  "mutation_scope": "in_memory_only",
+  "result": "PASS",
+  "schema": "described-replay-lean-injections-v1",
+  "sealed_paths_touched": false
+}

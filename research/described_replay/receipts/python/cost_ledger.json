@@ -1,0 +1,254 @@
+{
+  "authority_effect": null,
+  "base": {
+    "data": [
+      "a",
+      "b"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [
+      [
+        0,
+        1
+      ]
+    ],
+    "rules": []
+  },
+  "bounds": {
+    "max_arity": 1,
+    "max_items": 2,
+    "max_new_data": 1,
+    "max_new_forms": 1
+  },
+  "cost_excludes": [
+    "canonical_key_construction",
+    "predicate_evaluation",
+    "state_hashing"
+  ],
+  "cost_rule": "stepper_applications_plus_description_admission_events",
+  "execution_surface": "response_event_stepper_not_dr_decoder",
+  "full_two_item_valid": [
+    [
+      {
+        "arity": 1,
+        "kind": "new_form"
+      },
+      {
+        "args": [
+          0
+        ],
+        "form": 0,
+        "kind": "new_inst"
+      }
+    ],
+    [
+      {
+        "arity": 1,
+        "kind": "new_form"
+      },
+      {
+        "args": [
+          1
+        ],
+        "form": 0,
+        "kind": "new_inst"
+      }
+    ]
+  ],
+  "largest_completed_row": 2,
+  "pruned_full_valid_agree": true,
+  "pruned_two_item_valid": [
+    [
+      {
+        "arity": 1,
+        "kind": "new_form"
+      },
+      {
+        "args": [
+          0
+        ],
+        "form": 0,
+        "kind": "new_inst"
+      }
+    ],
+    [
+      {
+        "arity": 1,
+        "kind": "new_form"
+      },
+      {
+        "args": [
+          1
+        ],
+        "form": 0,
+        "kind": "new_inst"
+      }
+    ]
+  ],
+  "rows": [
+    {
+      "checked_candidate_count": 5,
+      "finding_cost": 12,
+      "measure": "mu1",
+      "measure_value": 2,
+      "ratio": {
+        "denominator": 4,
+        "numerator": 12
+      },
+      "retained_isomorphism_classes": [
+        [
+          [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                0
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ],
+          [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                1
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ]
+        ]
+      ],
+      "supplied_responses": [
+        {
+          "check_cost": 4,
+          "description_admission_count": 2,
+          "response": [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                0
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ],
+          "stepper_application_count": 2
+        },
+        {
+          "check_cost": 4,
+          "description_admission_count": 2,
+          "response": [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                1
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ],
+          "stepper_application_count": 2
+        }
+      ],
+      "tied_response_count": 2
+    },
+    {
+      "checked_candidate_count": 5,
+      "finding_cost": 12,
+      "measure": "mu2",
+      "measure_value": [
+        2,
+        1
+      ],
+      "ratio": {
+        "denominator": 4,
+        "numerator": 12
+      },
+      "retained_isomorphism_classes": [
+        [
+          [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                0
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ],
+          [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                1
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ]
+        ]
+      ],
+      "supplied_responses": [
+        {
+          "check_cost": 4,
+          "description_admission_count": 2,
+          "response": [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                0
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ],
+          "stepper_application_count": 2
+        },
+        {
+          "check_cost": 4,
+          "description_admission_count": 2,
+          "response": [
+            {
+              "arity": 1,
+              "kind": "new_form"
+            },
+            {
+              "args": [
+                1
+              ],
+              "form": 0,
+              "kind": "new_inst"
+            }
+          ],
+          "stepper_application_count": 2
+        }
+      ],
+      "tied_response_count": 2
+    }
+  ],
+  "terminal": "COST_TABLE_WRITTEN",
+  "unbounded": "OPEN_UNBOUNDED"
+}

@@ -1,5 +1,7 @@
 {
   "authority_effect": null,
+  "freeze_commit": "950b0a75982c8a0c80c33a74d98f9d2a7eba1457",
+  "outside_bet_commitment_sha256": "5534f09d5cfcbb20b45fdc1ee42c615d4af224c5ced973dda5b74d522bb1cfd6",
   "predictions_freezes": [
     "3c78da7af6d25296d34020eb5e6579070ad4e8dc529ef415b375a19f6bd1f204"
   ],

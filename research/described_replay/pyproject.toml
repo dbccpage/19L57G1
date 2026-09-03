@@ -1,0 +1,17 @@
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["."]
+cache_dir = ".mypy_cache"
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
+cache_dir = ".pytest_cache"
+addopts = "--basetemp=.pytest_tmp"
+
+[tool.coverage.run]
+data_file = ".coverage"
+
+[tool.coverage.json]
+output = "coverage.json"

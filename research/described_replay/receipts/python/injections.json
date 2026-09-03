@@ -1,0 +1,141 @@
+{
+  "authority_effect": null,
+  "injection_count": 12,
+  "rows": [
+    {
+      "expected_failures": [
+        "Python receipt differs: probe.json",
+        "machine receipt output hash map differs"
+      ],
+      "id": "payload_bytes",
+      "observed_failures": [
+        "Python receipt differs: probe.json",
+        "machine receipt output hash map differs"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt census differs: got=['extra.json', 'machine_receipt.json', 'probe.json'] wanted=['machine_receipt.json', 'probe.json']"
+      ],
+      "id": "extra_file",
+      "observed_failures": [
+        "Python receipt census differs: got=['extra.json', 'machine_receipt.json', 'probe.json'] wanted=['machine_receipt.json', 'probe.json']"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt census differs: got=['extra', 'machine_receipt.json', 'probe.json'] wanted=['machine_receipt.json', 'probe.json']",
+        "Python receipt entry is not a plain regular file: extra (directory)"
+      ],
+      "id": "extra_directory",
+      "observed_failures": [
+        "Python receipt census differs: got=['extra', 'machine_receipt.json', 'probe.json'] wanted=['machine_receipt.json', 'probe.json']",
+        "Python receipt entry is not a plain regular file: extra (directory)"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt entry is not a plain regular file: probe.json (reparse)"
+      ],
+      "id": "reparse_entry",
+      "observed_failures": [
+        "Python receipt entry is not a plain regular file: probe.json (reparse)"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt entry is not a plain regular file: probe.json (other)"
+      ],
+      "id": "other_entry",
+      "observed_failures": [
+        "Python receipt entry is not a plain regular file: probe.json (other)"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt census differs: got=['machine_receipt.json'] wanted=['machine_receipt.json', 'probe.json']"
+      ],
+      "id": "missing_file",
+      "observed_failures": [
+        "Python receipt census differs: got=['machine_receipt.json'] wanted=['machine_receipt.json', 'probe.json']"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "invalid probe.json: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)",
+        "machine receipt output hash map differs"
+      ],
+      "id": "invalid_json",
+      "observed_failures": [
+        "invalid probe.json: Expecting property name enclosed in double quotes: line 2 column 1 (char 2)",
+        "machine receipt output hash map differs"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "invalid probe.json: duplicate JSON object name: 'same'",
+        "machine receipt output hash map differs"
+      ],
+      "id": "duplicate_json_name",
+      "observed_failures": [
+        "invalid probe.json: duplicate JSON object name: 'same'",
+        "machine receipt output hash map differs"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "invalid probe.json: JSON root must be an object",
+        "machine receipt output hash map differs"
+      ],
+      "id": "non_object_json",
+      "observed_failures": [
+        "invalid probe.json: JSON root must be an object",
+        "machine receipt output hash map differs"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt differs: machine_receipt.json",
+        "machine receipt output hash map is absent"
+      ],
+      "id": "hash_map_absent",
+      "observed_failures": [
+        "Python receipt differs: machine_receipt.json",
+        "machine receipt output hash map is absent"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt differs: machine_receipt.json",
+        "machine receipt output hash map differs"
+      ],
+      "id": "hash_map_value",
+      "observed_failures": [
+        "Python receipt differs: machine_receipt.json",
+        "machine receipt output hash map differs"
+      ],
+      "recovered": true
+    },
+    {
+      "expected_failures": [
+        "Python receipt root is not a plain directory (reparse)"
+      ],
+      "id": "receipt_root_reparse",
+      "observed_failures": [
+        "Python receipt root is not a plain directory (reparse)"
+      ],
+      "recovered": true
+    }
+  ],
+  "terminal": "PYTHON_RECEIPT_INJECTIONS_REPLAYED"
+}
