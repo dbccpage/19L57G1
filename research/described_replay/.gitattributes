@@ -1,0 +1,6 @@
+receipts/** -text
+SOURCE_MANIFEST.json -text
+PREDICTIONS.md text eol=lf
+PROMPT.md text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
