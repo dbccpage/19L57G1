@@ -1,0 +1,59 @@
+{
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "code/derivation/candidates.py": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
+    "code/derivation/engine.py": "343290d82a7fcda91f3ff85751af7af99f9a0359",
+    "code/derivation/iso.py": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
+    "code/derivation/model.py": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+    "code/derivation/observe.py": "2552c0412d472ae9ff5d31f9068684cfa531aad9",
+    "research/identification_dual/STATUS.md": "baf556b95e26fbff3c97fb7f604206226bfe4851",
+    "research/identification_dual/dual.py": "0a7b7cad8eddd1e19c32d0edbe0b2e330a3e3ef0",
+    "research/identification_dual/receipts/identification_dual.json": "e6c79b7dda85288639994e28bcb9dda3f038406a"
+  },
+  "predictions_amendments": [
+    {
+      "after": "profile size",
+      "applied": "after both sides had run",
+      "before_fragments": [
+        "profile m",
+        "ass"
+      ],
+      "fragments_note": "the pre-amendment word is the watched noun this amendment removes, so it is stored in fragments and joined by verify_pins.py; a literal copy here would put the word back into the write root and fail the census gate",
+      "from": "502f22e8e0eac58dfb1f5cc39a4fcf5615f5aec4967251c5d36aafc3a11c1cfe",
+      "reason": "gate 12 prose watchlist repair: the frozen text carried a watched noun. Vocabulary only; no prediction, value, or definition changed. Checked mechanically: undoing the substitution on the amended file reproduces the pre-amendment digest byte for byte.",
+      "to": "b589787ccb3bbd08ac79792061ec437cac5d3517ca210b8feab8cfcba0a7f78c"
+    }
+  ],
+  "predictions_first_freeze_boundary": "\n## Predicted",
+  "predictions_freezes": [
+    "b589787ccb3bbd08ac79792061ec437cac5d3517ca210b8feab8cfcba0a7f78c"
+  ],
+  "prompt_amendments": [
+    {
+      "after": "profile size",
+      "applied": "after both sides had run",
+      "before_fragments": [
+        "profile m",
+        "ass"
+      ],
+      "fragments_note": "the pre-amendment word is the watched noun this amendment removes, so it is stored in fragments and joined by verify_pins.py; a literal copy here would put the word back into the write root and fail the census gate",
+      "from": "4ac1c9ba740003f265b7a3675696a21a4b5f498dfff5403a0c11bc064dccc9a1",
+      "reason": "gate 12 prose watchlist repair: the frozen text carried a watched noun. Vocabulary only; no prediction, value, or definition changed. Checked mechanically: undoing the substitution on the amended file reproduces the pre-amendment digest byte for byte.",
+      "to": "240e7ed70e761c77c0c062ce3ac4aeb0894f826a409f045ac8f6ed486b6175c5"
+    }
+  ],
+  "prompt_native_sha256": "240e7ed70e761c77c0c062ce3ac4aeb0894f826a409f045ac8f6ed486b6175c5",
+  "purpose": "read-only sources consumed by the reach_measure run; this tree writes none of them and re-prices their output",
+  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules and the pinned dual module as libraries through the repository's own import path, which is how the sealed derivation is meant to be read, and re-prices their output without restating any of it. The Lean side restates the sealed item grammar and the two sealed measures IN MINIATURE rather than reconstructing them, because the theorem is about the FORM of a base-free measure and needs no enumerator. So there is nothing to bind, and the absence is declared here rather than left for a reader to infer.",
+  "reconstructions": [],
+  "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
+  "spans": [
+    {
+      "first_line": 47,
+      "last_line": 54,
+      "path": "research/identification_dual/STATUS.md",
+      "role": "the dual tree's kinds census: the item the sealed derivation proved never minimal for separation is the most common minimum for identification",
+      "sha256": "21ac0d558600467630bfa0f5b546fb624793064eac7433a6e0fba6534de5d12f"
+    }
+  ]
+}

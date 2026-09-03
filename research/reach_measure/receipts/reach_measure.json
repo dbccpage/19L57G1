@@ -1,0 +1,1690 @@
+{
+  "adversarial": {
+    "A1": "reach is not a better measure; it is a different one, and the sealed measures keep their meaning",
+    "A2": "reach never widens the valid set; the sealed and dual enumerators remain the authority on validity",
+    "A3": "the sealed side shows no local-versus-global choice because a rule item is not even well formed at the sealed Challenge-3 base, which has no forms",
+    "A4": "a rule is not global by syntax; a rule whose form has one plugging left has reach one, and reach says so",
+    "A5": "the partition of demands into locally repairable and not is a property of the pinned rectangle, not of all demands",
+    "A6": "the blindness theorem is about the FORM of a base-free measure, not about mu1 and mu2 in particular",
+    "A7": "Lean proves the blindness; the receipt records the computation"
+  },
+  "authority_effect": "None",
+  "dual_side": {
+    "answered": 51,
+    "demands": 51,
+    "demands_where_both_kinds_are_valid": 16,
+    "demands_where_only_instances_are_valid": 0,
+    "demands_where_only_rules_are_valid": 27,
+    "demands_where_reach_narrows_the_tie": 18,
+    "demands_where_reach_picks_the_instance_over_the_rule": 13,
+    "mu1_ties_spanning_two_item_kinds": 24,
+    "mu3_ties_spanning_two_item_kinds": 11,
+    "no_response": 0,
+    "rows": [
+      {
+        "genesis": "g00",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          1,
+          2
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g00",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 4,
+        "mu2_minima": 4,
+        "mu3_kinds": [
+          "inst+inst",
+          "inst+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          2,
+          3
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 4
+      },
+      {
+        "genesis": "g00",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          1
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g01",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          18
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g01",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          19
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g01",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          1
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g02",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g02",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 4,
+        "mu2_minima": 4,
+        "mu3_kinds": [
+          "inst+inst",
+          "inst+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          3,
+          20
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 4
+      },
+      {
+        "genesis": "g02",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 4,
+        "mu2_minima": 4,
+        "mu3_kinds": [
+          "inst+inst",
+          "inst+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          3,
+          20
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 4
+      },
+      {
+        "genesis": "g03",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g03",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          20
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g03",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 4,
+        "mu2_minima": 4,
+        "mu3_kinds": [
+          "inst+inst",
+          "inst+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          3,
+          20
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 4
+      },
+      {
+        "genesis": "g04",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g04",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          20
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g04",
+        "inst_available": false,
+        "kinds_available": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_kinds": [
+          "inst+inst",
+          "inst+rule",
+          "rule+rule"
+        ],
+        "mu1_minima": 4,
+        "mu2_minima": 4,
+        "mu3_kinds": [
+          "inst+inst",
+          "inst+rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          3,
+          20
+        ],
+        "reading": "F",
+        "rule_available": false,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 4
+      },
+      {
+        "genesis": "g05",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g05",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g05",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g06",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g06",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g06",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g07",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g07",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g07",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g08",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g08",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g08",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g09",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          15
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g09",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          15
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g09",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          15
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g10",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          15
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g10",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          15
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g10",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          15
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g11",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g11",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g11",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g12",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g12",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g12",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          16
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g13",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g13",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g13",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g14",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g14",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g14",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g15",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g15",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          0,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g15",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": true,
+        "mu3_selected_inst_over_rule": true,
+        "no_response": false,
+        "reach_values": [
+          2,
+          19
+        ],
+        "reading": "F",
+        "rule_available": true,
+        "target": [
+          1,
+          2
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g16",
+        "inst_available": true,
+        "kinds_available": [
+          "inst",
+          "rule"
+        ],
+        "mu1_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu1_minima": 2,
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "inst",
+          "rule"
+        ],
+        "mu3_minima": 2,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          1
+        ],
+        "reading": "L",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 2
+      },
+      {
+        "genesis": "g17",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          7
+        ],
+        "reading": "L",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      },
+      {
+        "genesis": "g18",
+        "inst_available": false,
+        "kinds_available": [
+          "rule"
+        ],
+        "mu1_kinds": [
+          "rule"
+        ],
+        "mu1_minima": 1,
+        "mu2_minima": 1,
+        "mu3_kinds": [
+          "rule"
+        ],
+        "mu3_minima": 1,
+        "mu3_narrows": false,
+        "mu3_selected_inst_over_rule": false,
+        "no_response": false,
+        "reach_values": [
+          8
+        ],
+        "reading": "L",
+        "rule_available": true,
+        "target": [
+          0,
+          1
+        ],
+        "valid_at_min_items": 1
+      }
+    ]
+  },
+  "measure": {
+    "base_relative": true,
+    "definition": "the number of pluggings that become derivable: the growth in total profile size",
+    "mu3": "(reach, item count), lexicographic, reach leading",
+    "name": "reach",
+    "refines_mu1": false
+  },
+  "sealed_side": {
+    "base_relative": {
+      "bases_searched": 19,
+      "high_base": "g13",
+      "high_reach": 19,
+      "low_base": "g00",
+      "low_reach": 1,
+      "mu1_on_both": 1,
+      "mu2_on_both": [
+        1,
+        0
+      ],
+      "probe": "rule(form 0)",
+      "reach_differs_across_bases": true
+    },
+    "order_inversion": {
+      "A_reach_is_positive": true,
+      "A_two_instances": {
+        "kind": "inst+inst",
+        "mu1": 2,
+        "mu2": [
+          2,
+          0
+        ],
+        "reach": 1
+      },
+      "B_one_rule": {
+        "kind": "rule",
+        "mu1": 1,
+        "mu2": [
+          1,
+          0
+        ],
+        "reach": 2
+      },
+      "base": "g00",
+      "mu1_prefers_B": true,
+      "orders_inverted": true,
+      "reach_prefers_A": true
+    },
+    "readings": [
+      {
+        "any_rule_item": false,
+        "kinds": [
+          "form+inst"
+        ],
+        "mu1_minima": 6,
+        "mu2_and_mu3_agree": true,
+        "mu2_kinds": [
+          "form+inst"
+        ],
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "form+inst"
+        ],
+        "mu3_minima": 2,
+        "reach_values": [
+          1,
+          2,
+          3
+        ],
+        "reading": "L",
+        "valid_at_minimum": 6
+      },
+      {
+        "any_rule_item": false,
+        "kinds": [
+          "form+inst"
+        ],
+        "mu1_minima": 10,
+        "mu2_and_mu3_agree": true,
+        "mu2_kinds": [
+          "form+inst"
+        ],
+        "mu2_minima": 2,
+        "mu3_kinds": [
+          "form+inst"
+        ],
+        "mu3_minima": 2,
+        "reach_values": [
+          1,
+          2,
+          3
+        ],
+        "reading": "F",
+        "valid_at_minimum": 10
+      }
+    ]
+  },
+  "snapshot": "7fcd72f6",
+  "write_root": "research/reach_measure/"
+}
