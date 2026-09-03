@@ -18,10 +18,11 @@ are exactly the words.
 
 Two things are proved, and they pull in opposite directions:
 
-* the closure is a genuine enlargement -- `closure_contains_inverse` and
-  `closure_contains_composite` exhibit arrows in it that the declared
-  family need not list; and
-* **the enlargement costs a section nothing**.
+* the closure explicitly supplies formal inverses and composites --
+  `closure_contains_inverse` and `closure_contains_composite` exhibit arrows
+  the declared family need not list (without claiming strict growth for every
+  family); and
+* **those added formal operations cost a section nothing**.
   `natural_iff_natural_closure`: a section is natural for the closure
   exactly when it is natural for the declared family.  The obligations a
   section carries are unchanged by closing.
@@ -106,14 +107,13 @@ theorem sec_closure_eq (D : Family X R) : Sec (closure D) = Sec D := rfl
 def declared (f : D.Arr) : (closure D).Arr :=
   ⟨D.src f, D.tgt f, Path.one f⟩
 
-/-- The closure is a genuine enlargement, first witness: the formal
-inverse of every declared arrow is an arrow of the closure, running the
-other way. -/
+/-- The formal inverse of every declared arrow is represented by an arrow of
+the closure, running the other way. -/
 def closure_contains_inverse (f : D.Arr) : (closure D).Arr :=
   ⟨D.tgt f, D.src f, Path.oneInv f⟩
 
-/-- The closure is a genuine enlargement, second witness: any two
-composable words compose. -/
+/-- Any two composable words are represented by their composite in the
+closure. -/
 def closure_contains_composite {a b c : D.Obj}
     (p : Path D a b) (q : Path D b c) : (closure D).Arr :=
   ⟨a, c, p.comp q⟩

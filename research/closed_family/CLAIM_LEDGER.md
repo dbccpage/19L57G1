@@ -11,7 +11,7 @@ reconstruction bindings are in `SOURCE_MANIFEST.json` and are checked by
 | CF-3 | DEFINITION | A word is interpreted by the pinned `refl`, `symm`, and `trans`, and by nothing else. | `Closure.pathIso` |
 | CF-4 | DEFINITION | The closure of a declared family: the same objects and observers, every word an arrow. | `Closure.closure` |
 | CF-5 | PROVED_THEOREM | Sections of the closure are sections of the family — the same type, by `rfl`. | `Closure.sec_closure_eq` |
-| CF-6 | PROVED_THEOREM | The closure is a genuine enlargement: the formal inverse of a declared arrow, and any composite of composable words, are arrows of it. | `Closure.closure_contains_inverse`, `Closure.closure_contains_composite` |
+| CF-6 | DERIVED_DEFINITION | The closure explicitly represents the formal inverse of every declared arrow and the composite of any composable words. This supplies operations the declared family need not list; it does not assert strict growth for every family. | `Closure.closure_contains_inverse`, `Closure.closure_contains_composite` |
 | CF-7 | PROVED_THEOREM | Identity law on the transported bundle. | `Closure.mapPair_nil` |
 | CF-8 | PROVED_THEOREM | Composition law on the transported bundle: interpreting a concatenation is interpreting the parts in order. | `Closure.mapPair_comp` |
 | CF-9 | PROVED_THEOREM | Both inverse laws on the transported bundle: a word followed by its reversal returns the pair unchanged. | `Closure.mapPair_inv` |

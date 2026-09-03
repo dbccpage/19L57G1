@@ -48,8 +48,9 @@ of a pinned sealed source, checked at the snapshot and at `HEAD`.
   pinned sense, with the same objects and observers and with every word as
   an arrow. `sec_closure_eq : Sec (closure D) = Sec D` holds by `rfl` —
   closing changes the arrows and not the objects, so the two families have
-  literally the same sections. The enlargement is exhibited:
-  `closure_contains_inverse` and `closure_contains_composite`.
+  literally the same sections. The added formal operations are exhibited by
+  `closure_contains_inverse` and `closure_contains_composite`; this does not
+  claim the arrow type grows strictly for every declared family.
 - **The operation laws hold on the bundle** (PROVED_THEOREM):
   `mapPair_nil` (identity), `mapPair_comp` (composition), `mapPair_inv`
   (both inverse laws), `comp_assoc` (associativity of concatenation, on the
