@@ -1,0 +1,183 @@
+{
+  "authority_effect": null,
+  "class_id": "DR-C-2-1-3",
+  "frontier_started": false,
+  "leftovers": [
+    {
+      "code": "CROSS_LANGUAGE_EQUIVALENCE",
+      "evidence_class": "OPEN",
+      "price": "define a typed correspondence between the Python and Lean reconstructions and prove every constructor, decoder, step, and terminal commutes; no such bridge is declared here"
+    },
+    {
+      "code": "ENLARGED_CLASS",
+      "evidence_class": "OPEN",
+      "price": "declare new finite alphabets and bounds, add an input-reading event or prove its absence, then rebuild the complete candidate-target matrix"
+    },
+    {
+      "code": "UNBOUNDED_REPORTING",
+      "evidence_class": "OPEN",
+      "price": "quantify over every admitted finite description length and construct a reporting member or a closure-preserving disagreement member"
+    },
+    {
+      "code": "UNBOUNDED_COST_LEDGER",
+      "evidence_class": "OPEN",
+      "price": "define one cost-indexed family for every response bound and prove a statement uniform in that bound"
+    },
+    {
+      "code": "ALL_POLICY_QUOTIENT_FRONTIER",
+      "evidence_class": "OPEN",
+      "price": "declare the finite generator family and resource bounds, construct its quotient tree, and construct each single-policy embedding"
+    },
+    {
+      "code": "OB1_UNCHANGED",
+      "evidence_class": "OPEN",
+      "price": "construct an object-language challenge source or prove a result for a wider declared class; neither act occurs here"
+    }
+  ],
+  "local_opens": [
+    "CROSS_LANGUAGE_EQUIVALENCE"
+  ],
+  "opens_unchanged": [
+    "OB1_UNCHANGED",
+    "S66_UNCHANGED",
+    "S9_LAST_UNCHANGED"
+  ],
+  "stages": [
+    {
+      "python_observation": {
+        "evidence_class": "FINITE_COMPUTATION",
+        "receipt": "receipts/python/description.json"
+      },
+      "scope": "DR-C-2-1-3 with datum alphabet 2, event alphabet 9, arity at most 1, history length at most 3",
+      "stage": "Description",
+      "terminal": "DESCRIPTION_PROVED",
+      "terminal_claims": [
+        {
+          "code": "DESCRIPTION_PROVED",
+          "evidence_class": "PROVED_THEOREM",
+          "lean_evidence": [
+            "decode_encode_id",
+            "encode_injective",
+            "encode_admission_only",
+            "supply_inertia"
+          ],
+          "scope": "DR-C-2-1-3 with datum alphabet 2, event alphabet 9, arity at most 1, history length at most 3"
+        }
+      ]
+    },
+    {
+      "python_observation": {
+        "evidence_class": "FINITE_COMPUTATION",
+        "receipt": "receipts/python/stepper.json"
+      },
+      "scope": "decoded DR-C-2-1-3 descriptions, one event per successful step",
+      "stage": "Stepper",
+      "terminal": "STEPPER_PROVED",
+      "terminal_claims": [
+        {
+          "code": "STEPPER_PROVED",
+          "evidence_class": "PROVED_THEOREM",
+          "lean_evidence": [
+            "stepper_one",
+            "stepper_current_mismatch",
+            "preparation_dispatch_decode_failure",
+            "preparation_dispatch_total",
+            "stepper_full_iteration",
+            "stepper_iterate",
+            "stepper_total"
+          ],
+          "scope": "decoded DR-C-2-1-3 descriptions with datum alphabet 2, event alphabet 9, arity at most 1, history length at most 3; one event per successful step"
+        }
+      ]
+    },
+    {
+      "python_observation": {
+        "evidence_class": "FINITE_COMPUTATION",
+        "receipt": "receipts/python/class_replay.json"
+      },
+      "scope": "DR-C-2-1-3: two datum symbols, nine event symbols, arity at most 1, history length at most 3; every fixed-history candidate and every described target",
+      "stage": "ClassReplay",
+      "terminal": "NO_SUCH_MEMBER_IN_CLASS",
+      "terminal_claims": [
+        {
+          "code": "NO_SUCH_MEMBER_IN_CLASS",
+          "evidence_class": "PROVED_THEOREM",
+          "lean_evidence": [
+            "fixed_candidate_no_class_replay"
+          ],
+          "scope": "DR-C-2-1-3 with two datum symbols, nine event symbols, arity at most 1, and history length at most 3; every fixed-history candidate and every described target"
+        }
+      ]
+    },
+    {
+      "python_observation": {
+        "evidence_class": "FINITE_COMPUTATION",
+        "receipt": "receipts/python/diagonal.json"
+      },
+      "scope": "DR-C-2-1-3: two datum symbols, nine event symbols, arity at most 1, history length at most 3; self-description and fixed terminal reports at described-run cost at most 6",
+      "stage": "Diagonal",
+      "terminal": [
+        "SELF_DESCRIBING_EXHIBITED",
+        "DECIDER_REFUSED_WITHIN_COST",
+        "OPEN_UNBOUNDED"
+      ],
+      "terminal_claims": [
+        {
+          "code": "SELF_DESCRIBING_EXHIBITED",
+          "evidence_class": "PROVED_THEOREM",
+          "lean_evidence": [
+            "empty_self_description_witness",
+            "nonempty_description_outside_class",
+            "empty_self_replay_witness"
+          ],
+          "scope": "DR-C-2-1-3 with two datum symbols, nine event symbols, arity at most 1, and history length at most 3"
+        },
+        {
+          "code": "DECIDER_REFUSED_WITHIN_COST",
+          "evidence_class": "PROVED_THEOREM",
+          "lean_evidence": [
+            "candidate_report_uses_described_replay",
+            "bounded_reporter_diagonal_member",
+            "diagonal_disagrees",
+            "no_fixed_candidate_reporter"
+          ],
+          "scope": "DR-C-2-1-3 with two datum symbols, nine event symbols, arity at most 1, history length at most 3, and candidate-step plus target-description cost at most 6"
+        },
+        {
+          "code": "OPEN_UNBOUNDED",
+          "evidence_class": "OPEN",
+          "lean_evidence": [],
+          "scope": "reporting outside DR-C-2-1-3 or beyond candidate-step plus target-description cost 6"
+        }
+      ]
+    },
+    {
+      "python_observation": {
+        "evidence_class": "FINITE_COMPUTATION",
+        "receipt": "receipts/python/cost_ledger.json"
+      },
+      "scope": "one imposed pair, arity at most 1, at most one fresh datum, one fresh form, and two response items",
+      "stage": "CostLedger",
+      "terminal": [
+        "COST_TABLE_WRITTEN",
+        "OPEN_UNBOUNDED"
+      ],
+      "terminal_claims": [
+        {
+          "code": "COST_TABLE_WRITTEN",
+          "evidence_class": "FINITE_COMPUTATION",
+          "lean_evidence": [],
+          "scope": "one imposed pair, arity at most 1, at most one fresh datum, at most one fresh form, and at most two response items"
+        },
+        {
+          "code": "OPEN_UNBOUNDED",
+          "evidence_class": "OPEN",
+          "lean_evidence": [],
+          "scope": "response families beyond the declared one-pair, arity-1, one-fresh-datum, one-fresh-form, two-item bounds"
+        }
+      ]
+    }
+  ],
+  "terminal": "REGISTER_WRITTEN",
+  "unbounded": "OPEN_UNBOUNDED"
+}

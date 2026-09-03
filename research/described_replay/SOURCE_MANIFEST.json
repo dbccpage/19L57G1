@@ -1,0 +1,115 @@
+{
+  "authority_effect": null,
+  "freeze_commit": "950b0a75982c8a0c80c33a74d98f9d2a7eba1457",
+  "outside_bet_commitment_sha256": "5534f09d5cfcbb20b45fdc1ee42c615d4af224c5ced973dda5b74d522bb1cfd6",
+  "predictions_freezes": [
+    "3c78da7af6d25296d34020eb5e6579070ad4e8dc529ef415b375a19f6bd1f204"
+  ],
+  "prompt_native_sha256": "26181bc26863a085f423606020e8a4576ee32b06b1ea14a3c93f5afe0df16eb7",
+  "snapshot_commit": "f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+  "snapshot_tree": "c992aa1f6270399439f02319e436d2d789776f92",
+  "sources": [
+    {
+      "git_blob": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+      "path": "CLAUDE.md",
+      "sha256": "37fc6aaa054fd7a330270fdac88a04986d6e9fc604ab841d8cba74c371913c21"
+    },
+    {
+      "git_blob": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+      "path": "code/derivation/model.py",
+      "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"
+    },
+    {
+      "git_blob": "2552c0412d472ae9ff5d31f9068684cfa531aad9",
+      "path": "code/derivation/observe.py",
+      "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"
+    },
+    {
+      "git_blob": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
+      "path": "code/derivation/candidates.py",
+      "sha256": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb"
+    },
+    {
+      "git_blob": "f05399fe6bdfbd2311bf34fa6fe927af194f586f",
+      "path": "code/derivation/iso.py",
+      "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"
+    },
+    {
+      "git_blob": "343290d82a7fcda91f3ff85751af7af99f9a0359",
+      "path": "code/derivation/engine.py",
+      "sha256": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e"
+    },
+    {
+      "git_blob": "d923c3aa1f5468a101ede2d0c30c66680d1ba6cd",
+      "path": "code/derivation/export.py",
+      "sha256": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd"
+    },
+    {
+      "git_blob": "c6118294a5dbf439d3b151bf5b83636da32a6bc1",
+      "path": "prompt/seed_prompt.md",
+      "sha256": "4ea4682e1da25363f9c7c1e9234b4b248f980097ae92d6f7dc1e8e8dd9bd4388"
+    },
+    {
+      "git_blob": "57539cec41ecd81fa4ceaddb65f756c24b3bf053",
+      "path": "paper/paper_claim_ledger.md",
+      "sha256": "8b5333eac09fbed82b713b35ffbca159d6b9841407b3fe6b2ff73e29cf47b02a"
+    },
+    {
+      "git_blob": "5f3bbad1ec549514c833f5a9271c34df827c9177",
+      "path": "research/genesis_continuation/continuation_plan.md",
+      "sha256": "7ea546d7f94289b7cc512b7556448938f6820225a2ec7193afff615ee97ce4d2"
+    },
+    {
+      "git_blob": "a737b8fb461af2135a079e99fa1a6a3f3b90ab10",
+      "path": "research/admission_sign_shadow/STATUS.md",
+      "sha256": "b6e60db6c8474f8531ba0bc6999e2fc3e8509ccc11436a0d6438578e4149b865"
+    },
+    {
+      "git_blob": "025e59548e48cf71f2744154e2890beefe30a258",
+      "path": "lean4/lean-toolchain",
+      "sha256": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    }
+  ],
+  "spans": [
+    {
+      "end_line": 96,
+      "path": "prompt/seed_prompt.md",
+      "sha256_lf_with_final_lf": "702107c247a7fdd83ac648a357eea5bbe60679344e08785b04dba95db881f32e",
+      "start_line": 96
+    },
+    {
+      "end_line": 110,
+      "path": "prompt/seed_prompt.md",
+      "sha256_lf_with_final_lf": "52a7e78214a86cab4790a78a6406200fcf79fd6421641b171033ae31b457a8e1",
+      "start_line": 110
+    },
+    {
+      "end_line": 188,
+      "path": "prompt/seed_prompt.md",
+      "sha256_lf_with_final_lf": "3d5b9cfb399cadc8a0a390ede7299f629ea26cea1b4119625ddf4fa9948feea2",
+      "start_line": 188
+    },
+    {
+      "end_line": 695,
+      "path": "paper/paper_claim_ledger.md",
+      "sha256_lf_with_final_lf": "8a185b3c88e8f41b31646da6d40a055470627c4709c860dd1d495a8c5cbb9cc9",
+      "start_line": 689
+    },
+    {
+      "end_line": 93,
+      "path": "research/genesis_continuation/continuation_plan.md",
+      "sha256_lf_with_final_lf": "96af59792dc84692b3590a4bd6e0cf02b11dd87566b46d7cbb65656cbd2e72ea",
+      "start_line": 86
+    },
+    {
+      "end_line": 60,
+      "path": "research/admission_sign_shadow/STATUS.md",
+      "sha256_lf_with_final_lf": "610a8679e3f79ceba1fb00ea5b228c6019d44c292c1df1289a96453a8db151a6",
+      "start_line": 59
+    }
+  ],
+  "toolchains": {
+    "lean4/lean-toolchain": "leanprover/lean4:v4.33.0"
+  },
+  "write_root": "research/described_replay/"
+}

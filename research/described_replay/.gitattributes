@@ -1,0 +1,13 @@
+/.gitattributes text eol=lf
+/.gitignore text eol=lf
+*.lean text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.toml text eol=lf
+lean/lean-toolchain text eol=lf
+PREDICTIONS.md text eol=lf
+PROMPT.md text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+receipts/** -text
+SOURCE_MANIFEST.json -text

@@ -1,0 +1,266 @@
+{
+  "allowed_axioms": [
+    "Quot.sound",
+    "propext"
+  ],
+  "authority_effect": null,
+  "build_targets": [
+    "DescribedReplay",
+    "DescribedReplay.AxiomReport"
+  ],
+  "dependencies": {
+    "DescribedReplay.bounded_reporter_diagonal_member": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.candidate_report_uses_described_replay": [
+      "propext"
+    ],
+    "DescribedReplay.decode_encode_id": [
+      "propext"
+    ],
+    "DescribedReplay.decode_failure_prepares_none": [
+      "propext"
+    ],
+    "DescribedReplay.decoder_domain_iff": [
+      "propext"
+    ],
+    "DescribedReplay.diagonal_disagrees": [
+      "propext"
+    ],
+    "DescribedReplay.empty_self_description_witness": [
+      "propext"
+    ],
+    "DescribedReplay.empty_self_replay_witness": [
+      "propext"
+    ],
+    "DescribedReplay.encode_admission_only": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.encode_injective": [
+      "propext"
+    ],
+    "DescribedReplay.encoded_member_full_iteration": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.endpoint_insufficient": [
+      "propext"
+    ],
+    "DescribedReplay.eventAt_exists_of_lt": [
+      "propext"
+    ],
+    "DescribedReplay.eventAt_length": [],
+    "DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom": [
+      "propext"
+    ],
+    "DescribedReplay.eventAt_stateTrace_eq_prefixState": [
+      "propext"
+    ],
+    "DescribedReplay.events_encodeTokensFrom": [
+      "propext"
+    ],
+    "DescribedReplay.fixed_candidate_no_class_replay": [
+      "propext"
+    ],
+    "DescribedReplay.no_fixed_candidate_reporter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.nonempty_description_outside_class": [
+      "propext"
+    ],
+    "DescribedReplay.outside_reporter_correct": [
+      "propext"
+    ],
+    "DescribedReplay.prefixFoldFrom_eq_replayFrom_take": [
+      "propext"
+    ],
+    "DescribedReplay.prefixFoldFrom_next": [
+      "propext"
+    ],
+    "DescribedReplay.prefixState_eq_replay_take": [
+      "propext"
+    ],
+    "DescribedReplay.prefixState_next": [
+      "propext"
+    ],
+    "DescribedReplay.preparation_dispatch_decode_failure": [
+      "propext"
+    ],
+    "DescribedReplay.preparation_dispatch_total": [
+      "propext"
+    ],
+    "DescribedReplay.prepare_encode_exists": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.rawHistory_encode": [
+      "propext"
+    ],
+    "DescribedReplay.reconstruction_notes_cover_kernel_definitions": [],
+    "DescribedReplay.reconstruction_notes_cover_local_definitions": [],
+    "DescribedReplay.replayFrom_eq_replayTotalFrom": [
+      "propext"
+    ],
+    "DescribedReplay.replay_eq_replayTotal_of_member": [
+      "propext"
+    ],
+    "DescribedReplay.runSteps_from_prefix": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.stateTraceFrom_length": [
+      "propext"
+    ],
+    "DescribedReplay.stateTrace_length": [
+      "propext"
+    ],
+    "DescribedReplay.stepped_state_prefix": [
+      "propext"
+    ],
+    "DescribedReplay.stepped_state_shape": [
+      "propext"
+    ],
+    "DescribedReplay.stepper_current_mismatch": [
+      "propext"
+    ],
+    "DescribedReplay.stepper_full_iteration": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.stepper_iterate": [
+      "Quot.sound",
+      "propext"
+    ],
+    "DescribedReplay.stepper_one": [
+      "propext"
+    ],
+    "DescribedReplay.stepper_total": [
+      "propext"
+    ],
+    "DescribedReplay.stepper_transition_semantics": [
+      "propext"
+    ],
+    "DescribedReplay.supply_inertia": [
+      "propext"
+    ],
+    "DescribedReplay.wellFormed_transition_at": [
+      "propext"
+    ]
+  },
+  "package": "described_replay",
+  "print_census": [
+    "DescribedReplay.supply_inertia",
+    "DescribedReplay.replayFrom_eq_replayTotalFrom",
+    "DescribedReplay.replay_eq_replayTotal_of_member",
+    "DescribedReplay.reconstruction_notes_cover_kernel_definitions",
+    "DescribedReplay.reconstruction_notes_cover_local_definitions",
+    "DescribedReplay.events_encodeTokensFrom",
+    "DescribedReplay.rawHistory_encode",
+    "DescribedReplay.decode_encode_id",
+    "DescribedReplay.encode_injective",
+    "DescribedReplay.encode_admission_only",
+    "DescribedReplay.decoder_domain_iff",
+    "DescribedReplay.endpoint_insufficient",
+    "DescribedReplay.empty_self_description_witness",
+    "DescribedReplay.nonempty_description_outside_class",
+    "DescribedReplay.prepare_encode_exists",
+    "DescribedReplay.stateTraceFrom_length",
+    "DescribedReplay.stateTrace_length",
+    "DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom",
+    "DescribedReplay.eventAt_stateTrace_eq_prefixState",
+    "DescribedReplay.stepper_one",
+    "DescribedReplay.stepper_current_mismatch",
+    "DescribedReplay.decode_failure_prepares_none",
+    "DescribedReplay.preparation_dispatch_decode_failure",
+    "DescribedReplay.preparation_dispatch_total",
+    "DescribedReplay.stepper_transition_semantics",
+    "DescribedReplay.eventAt_exists_of_lt",
+    "DescribedReplay.eventAt_length",
+    "DescribedReplay.prefixFoldFrom_eq_replayFrom_take",
+    "DescribedReplay.prefixState_eq_replay_take",
+    "DescribedReplay.prefixFoldFrom_next",
+    "DescribedReplay.prefixState_next",
+    "DescribedReplay.wellFormed_transition_at",
+    "DescribedReplay.runSteps_from_prefix",
+    "DescribedReplay.stepper_full_iteration",
+    "DescribedReplay.encoded_member_full_iteration",
+    "DescribedReplay.stepped_state_shape",
+    "DescribedReplay.stepped_state_prefix",
+    "DescribedReplay.stepper_iterate",
+    "DescribedReplay.stepper_total",
+    "DescribedReplay.empty_self_replay_witness",
+    "DescribedReplay.fixed_candidate_no_class_replay",
+    "DescribedReplay.candidate_report_uses_described_replay",
+    "DescribedReplay.bounded_reporter_diagonal_member",
+    "DescribedReplay.diagonal_disagrees",
+    "DescribedReplay.no_fixed_candidate_reporter",
+    "DescribedReplay.outside_reporter_correct"
+  ],
+  "schema": "described-replay-lean-axioms-v1",
+  "source_sha256": {
+    "lean/DescribedReplay.lean": "7b7e3e7f758bacef1ee32ac74292f28eaee71f5195e40dd5674eec44e5fab63d",
+    "lean/DescribedReplay/AxiomReport.lean": "f49d73ba252f0b56bafee01028de12917dd43bb65634d4d84c2184766fcf9372",
+    "lean/DescribedReplay/Core.lean": "a604bf1b73314c167c0acac985d2a9db4f35a1e6cb406e0761805da8f5cd4241",
+    "lean/DescribedReplay/Description.lean": "cac1b0f4f4a48bb3ec2a7b835d389041acf874f498464cb1604d5462361e1e8a",
+    "lean/DescribedReplay/Provenance.lean": "ae4f1db314ef25b66fea2d18ff3d3c1e082c0ad5fb10368f4ada53dd874938b8",
+    "lean/DescribedReplay/Reporting.lean": "c3dae83cf3dbcc1c20d8056024c6602389ec8c2e036a3f14f282e61b335af9f5",
+    "lean/DescribedReplay/Reproduction.lean": "78f71363a88a27ed877f23fdb5452fa3a4a9e282392884087c5bbdba3f8aa11d",
+    "lean/DescribedReplay/Stepper.lean": "1310a941073a924947940fd6ca51586e14cb60bb37652cef10c5875a7997c4da",
+    "lean/lake-manifest.json": "8aafd841874fef474943e1cd8fa4a6acea837bd5e3d715a8bfda41b3d5b2611e",
+    "lean/lakefile.lean": "856536472b67251ee41ec9dbbcd61f55c75e1d30dd2093b560008913059e0f66",
+    "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "theorem_census": [
+    "DescribedReplay.supply_inertia",
+    "DescribedReplay.replayFrom_eq_replayTotalFrom",
+    "DescribedReplay.replay_eq_replayTotal_of_member",
+    "DescribedReplay.reconstruction_notes_cover_kernel_definitions",
+    "DescribedReplay.reconstruction_notes_cover_local_definitions",
+    "DescribedReplay.events_encodeTokensFrom",
+    "DescribedReplay.rawHistory_encode",
+    "DescribedReplay.decode_encode_id",
+    "DescribedReplay.encode_injective",
+    "DescribedReplay.encode_admission_only",
+    "DescribedReplay.decoder_domain_iff",
+    "DescribedReplay.endpoint_insufficient",
+    "DescribedReplay.empty_self_description_witness",
+    "DescribedReplay.nonempty_description_outside_class",
+    "DescribedReplay.prepare_encode_exists",
+    "DescribedReplay.stateTraceFrom_length",
+    "DescribedReplay.stateTrace_length",
+    "DescribedReplay.eventAt_stateTraceFrom_eq_prefixFoldFrom",
+    "DescribedReplay.eventAt_stateTrace_eq_prefixState",
+    "DescribedReplay.stepper_one",
+    "DescribedReplay.stepper_current_mismatch",
+    "DescribedReplay.decode_failure_prepares_none",
+    "DescribedReplay.preparation_dispatch_decode_failure",
+    "DescribedReplay.preparation_dispatch_total",
+    "DescribedReplay.stepper_transition_semantics",
+    "DescribedReplay.eventAt_exists_of_lt",
+    "DescribedReplay.eventAt_length",
+    "DescribedReplay.prefixFoldFrom_eq_replayFrom_take",
+    "DescribedReplay.prefixState_eq_replay_take",
+    "DescribedReplay.prefixFoldFrom_next",
+    "DescribedReplay.prefixState_next",
+    "DescribedReplay.wellFormed_transition_at",
+    "DescribedReplay.runSteps_from_prefix",
+    "DescribedReplay.stepper_full_iteration",
+    "DescribedReplay.encoded_member_full_iteration",
+    "DescribedReplay.stepped_state_shape",
+    "DescribedReplay.stepped_state_prefix",
+    "DescribedReplay.stepper_iterate",
+    "DescribedReplay.stepper_total",
+    "DescribedReplay.empty_self_replay_witness",
+    "DescribedReplay.fixed_candidate_no_class_replay",
+    "DescribedReplay.candidate_report_uses_described_replay",
+    "DescribedReplay.bounded_reporter_diagonal_member",
+    "DescribedReplay.diagonal_disagrees",
+    "DescribedReplay.no_fixed_candidate_reporter",
+    "DescribedReplay.outside_reporter_correct"
+  ],
+  "theorem_count": 46,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

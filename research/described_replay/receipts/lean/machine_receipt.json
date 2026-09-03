@@ -1,0 +1,15 @@
+{
+  "authority_effect": null,
+  "output_sha256": {
+    "axioms.json": "cefd90c1963e5c7a467a2071d0e9eb22b58d301731190a1bbd01192cd0b618cc",
+    "injections.json": "78d333624891125575bba29507b23fba4214f4b4aa0f3118c8e2477bb6fd7de8"
+  },
+  "receipt_census": [
+    "axioms.json",
+    "injections.json",
+    "machine_receipt.json"
+  ],
+  "result": "PASS",
+  "schema": "described-replay-lean-machine-v1",
+  "theorem_count": 46
+}
