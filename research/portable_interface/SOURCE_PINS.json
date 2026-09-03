@@ -1,6 +1,6 @@
 {
   "schema": "portable_interface_source_pins/v1",
-  "snapshot_commit": "77327ed3f9d580c87f21f4908a3b8ce2dac290c1",
+  "snapshot_commit": "f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
   "policy": "Export surface. Only declarations this repository constructs are named. Nothing external is named here, in either direction.",
   "modules": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "path": "lean4/Derivation/PrimitivePassage.lean",
-      "sha256": "EC48FE566F97FE5593DB6997BF0F036DAA82F04DB817DF48B2CFB99B0F275E03",
+      "sha256": "E14CA1A035E90E2D28CCE2ACA46F92425BF6E9304C8D274FBD2A21ADD09BD8A8",
       "role": "gate factorization, response rule, replay"
     },
     {
