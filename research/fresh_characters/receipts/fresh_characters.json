@@ -1,0 +1,1557 @@
+{
+  "adversarial": {
+    "A1": "an identity for the balance says nothing about its growth; FW-GROWTH holds and the growth question is untouched",
+    "A10": "disjoint write roots, frozen shared files, one pinned snapshot; nothing outside research/fresh_characters/ was written",
+    "A11": "ties are retained: two pairs met stage 2 and both are carried through every later stage; neither is called the carrier",
+    "A12": "no menu member was dropped; every obstruction is recorded next to its member",
+    "A2": "the characters, the carriers, and the totals are declared here and named by their descriptions; no outside name appears",
+    "A3": "the menu is declared and finite; it is not a classification of value carriers and none is claimed",
+    "A4": "agreement to a bound is FINITE_COMPUTATION within that bound; every sentence carries it",
+    "A5": "a refusal is a decision of the criterion on one named family and says nothing about a family outside the rectangle",
+    "A6": "no diversity at the term level in this rectangle is not absence of diversity; the rectangle is in the sentence",
+    "A7": "the criterion is CONDITIONAL_THEOREM, cited by pin, reconstructed as computation, and cross-checked against a brute-force search",
+    "A8": "Lean proves; this receipt records",
+    "A9": "the sealed bet's plaintext was authored by this session, so FW-LEAD is BREACHED for this run and recorded as such in STATUS.md"
+  },
+  "authority_effect": "None",
+  "bound": 60,
+  "snapshot": "f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+  "stage_1_layer_characters": {
+    "balance_head": [
+      1,
+      -1,
+      -1,
+      0,
+      -1,
+      1,
+      -1,
+      0,
+      0,
+      1,
+      -1,
+      0
+    ],
+    "character_restricts_misses": [],
+    "character_trivial_total_misses": [],
+    "characters_are_steps_misses": [],
+    "limit": 60,
+    "menu": [
+      "V1",
+      "V2",
+      "V3",
+      "V4",
+      "V5",
+      "V6"
+    ],
+    "rows": [
+      {
+        "carrier": "V1",
+        "defined_at": 60,
+        "obstruction": "the step-zero total is not the fresh count at the part counts listed",
+        "trivial_total_is_fresh_count": false,
+        "trivial_total_misses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "carrier": "V2",
+        "defined_at": 60,
+        "obstruction": "",
+        "trivial_total_is_fresh_count": true,
+        "trivial_total_misses": []
+      },
+      {
+        "carrier": "V3",
+        "defined_at": 60,
+        "obstruction": "",
+        "trivial_total_is_fresh_count": true,
+        "trivial_total_misses": []
+      },
+      {
+        "carrier": "V4",
+        "defined_at": 60,
+        "obstruction": "the step-zero total is not the fresh count at the part counts listed",
+        "trivial_total_is_fresh_count": false,
+        "trivial_total_misses": [
+          1
+        ]
+      },
+      {
+        "carrier": "V5",
+        "defined_at": 30,
+        "obstruction": "",
+        "trivial_total_is_fresh_count": true,
+        "trivial_total_misses": []
+      },
+      {
+        "carrier": "V6",
+        "defined_at": 60,
+        "obstruction": "",
+        "trivial_total_is_fresh_count": true,
+        "trivial_total_misses": []
+      }
+    ]
+  },
+  "stage_2_total_identity": {
+    "cross_check": {
+      "checkpoint_misses": [],
+      "checkpoints": [
+        {
+          "N": 10,
+          "agrees": true,
+          "pinned": -1,
+          "running_balance": -1
+        },
+        {
+          "N": 30,
+          "agrees": true,
+          "pinned": -3,
+          "running_balance": -3
+        },
+        {
+          "N": 100,
+          "agrees": true,
+          "pinned": 1,
+          "running_balance": 1
+        },
+        {
+          "N": 1000,
+          "agrees": true,
+          "pinned": 2,
+          "running_balance": 2
+        },
+        {
+          "N": 10000,
+          "agrees": true,
+          "pinned": -23,
+          "running_balance": -23
+        },
+        {
+          "N": 100000,
+          "agrees": true,
+          "pinned": -48,
+          "running_balance": -48
+        },
+        {
+          "N": 1000000,
+          "agrees": true,
+          "pinned": 212,
+          "running_balance": 212
+        }
+      ],
+      "direct_bound": 600,
+      "note": "the checkpoints recompute the pinned running balance from the balance recursion; the totals themselves are recomputed only to the direct bound",
+      "totals_vs_balance": [
+        {
+          "bound": 600,
+          "miss_count": 0,
+          "misses": [],
+          "pair": "V6/R1"
+        },
+        {
+          "bound": 600,
+          "miss_count": 0,
+          "misses": [],
+          "pair": "V6/Rlast"
+        }
+      ]
+    },
+    "search": {
+      "bound": 60,
+      "candidates": [
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V1",
+          "first_mismatch_at": null,
+          "first_non_integer_at": 1,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V1/R0",
+          "rule": "R0",
+          "values_head": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V1",
+          "first_mismatch_at": null,
+          "first_non_integer_at": 1,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V1/R1",
+          "rule": "R1",
+          "values_head": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V1",
+          "first_mismatch_at": null,
+          "first_non_integer_at": 1,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V1/Rlast",
+          "rule": "Rlast",
+          "values_head": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V1",
+          "first_mismatch_at": null,
+          "first_non_integer_at": 1,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V1/Rself",
+          "rule": "Rself",
+          "values_head": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V2",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V2/R0",
+          "rule": "R0",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V2",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V2/R1",
+          "rule": "R1",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V2",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V2/Rlast",
+          "rule": "Rlast",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V2",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V2/Rself",
+          "rule": "Rself",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V3",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V3/R0",
+          "rule": "R0",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V3",
+          "first_mismatch_at": null,
+          "first_non_integer_at": 2,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V3/R1",
+          "rule": "R1",
+          "values_head": [
+            1,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V3",
+          "first_mismatch_at": null,
+          "first_non_integer_at": 2,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V3/Rlast",
+          "rule": "Rlast",
+          "values_head": [
+            1,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V3",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V3/Rself",
+          "rule": "Rself",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V4",
+          "first_mismatch_at": 1,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V4/R0",
+          "rule": "R0",
+          "values_head": [
+            0,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 17,
+          "bound": 60,
+          "carrier": "V4",
+          "first_mismatch_at": 1,
+          "first_non_integer_at": 4,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V4/R1",
+          "rule": "R1",
+          "values_head": [
+            0,
+            -1,
+            -1,
+            null,
+            -1,
+            null,
+            -1,
+            null,
+            null,
+            null,
+            -1,
+            null
+          ]
+        },
+        {
+          "agreements": 17,
+          "bound": 60,
+          "carrier": "V4",
+          "first_mismatch_at": 1,
+          "first_non_integer_at": 4,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V4/Rlast",
+          "rule": "Rlast",
+          "values_head": [
+            0,
+            -1,
+            -1,
+            null,
+            -1,
+            null,
+            -1,
+            null,
+            null,
+            null,
+            -1,
+            null
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V4",
+          "first_mismatch_at": 1,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V4/Rself",
+          "rule": "Rself",
+          "values_head": [
+            0,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V5",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": 1,
+          "meets_stage_2": false,
+          "pair": "V5/R0",
+          "rule": "R0",
+          "values_head": [
+            null,
+            1,
+            null,
+            2,
+            null,
+            2,
+            null,
+            4,
+            null,
+            4,
+            null,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V5",
+          "first_mismatch_at": 4,
+          "first_non_integer_at": null,
+          "first_undefined_at": 1,
+          "meets_stage_2": false,
+          "pair": "V5/R1",
+          "rule": "R1",
+          "values_head": [
+            null,
+            -1,
+            null,
+            -2,
+            null,
+            -2,
+            null,
+            -4,
+            null,
+            -4,
+            null,
+            -4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V5",
+          "first_mismatch_at": 4,
+          "first_non_integer_at": null,
+          "first_undefined_at": 1,
+          "meets_stage_2": false,
+          "pair": "V5/Rlast",
+          "rule": "Rlast",
+          "values_head": [
+            null,
+            -1,
+            null,
+            -2,
+            null,
+            -2,
+            null,
+            -4,
+            null,
+            -4,
+            null,
+            -4
+          ]
+        },
+        {
+          "agreements": 0,
+          "bound": 60,
+          "carrier": "V5",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": 1,
+          "meets_stage_2": false,
+          "pair": "V5/Rself",
+          "rule": "Rself",
+          "values_head": [
+            null,
+            1,
+            null,
+            2,
+            null,
+            2,
+            null,
+            4,
+            null,
+            4,
+            null,
+            4
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V6",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V6/R0",
+          "rule": "R0",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        },
+        {
+          "agreements": 60,
+          "bound": 60,
+          "carrier": "V6",
+          "first_mismatch_at": null,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": true,
+          "pair": "V6/R1",
+          "rule": "R1",
+          "values_head": [
+            1,
+            -1,
+            -1,
+            0,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ]
+        },
+        {
+          "agreements": 60,
+          "bound": 60,
+          "carrier": "V6",
+          "first_mismatch_at": null,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": true,
+          "pair": "V6/Rlast",
+          "rule": "Rlast",
+          "values_head": [
+            1,
+            -1,
+            -1,
+            0,
+            -1,
+            1,
+            -1,
+            0,
+            0,
+            1,
+            -1,
+            0
+          ]
+        },
+        {
+          "agreements": 1,
+          "bound": 60,
+          "carrier": "V6",
+          "first_mismatch_at": 2,
+          "first_non_integer_at": null,
+          "first_undefined_at": null,
+          "meets_stage_2": false,
+          "pair": "V6/Rself",
+          "rule": "Rself",
+          "values_head": [
+            1,
+            1,
+            2,
+            2,
+            4,
+            2,
+            6,
+            4,
+            6,
+            4,
+            10,
+            4
+          ]
+        }
+      ],
+      "hits": [
+        "V6/R1",
+        "V6/Rlast"
+      ],
+      "menu_size": 24,
+      "terminal": "TOTAL_IDENTITY_BOUNDED"
+    }
+  },
+  "stage_3_divisor_recursion": {
+    "bound": 60,
+    "carriers": [
+      "V2",
+      "V5",
+      "V6"
+    ],
+    "carriers_meeting_the_recursion": [
+      "V6"
+    ],
+    "note": "the divisor sum is the part count at the zero step and vanishes at every other step, within the bound in this record and nowhere beyond it",
+    "pinned_balance_divisor_sum_misses": [],
+    "rows": [
+      {
+        "balance_recursion_misses": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "bound": 60,
+        "carrier": "V2",
+        "determination_miss_count": 0,
+        "determination_misses": [],
+        "divisor_sum_miss_count": 1770,
+        "divisor_sum_misses": [
+          [
+            2,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            1,
+            3,
+            0
+          ],
+          [
+            3,
+            2,
+            3,
+            0
+          ],
+          [
+            4,
+            1,
+            4,
+            0
+          ],
+          [
+            4,
+            2,
+            4,
+            0
+          ],
+          [
+            4,
+            3,
+            4,
+            0
+          ],
+          [
+            5,
+            1,
+            5,
+            0
+          ],
+          [
+            5,
+            2,
+            5,
+            0
+          ]
+        ],
+        "undefined_cells": [],
+        "undefined_count": 0
+      },
+      {
+        "balance_recursion_misses": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "bound": 60,
+        "carrier": "V5",
+        "determination_miss_count": 0,
+        "determination_misses": [],
+        "divisor_sum_miss_count": 0,
+        "divisor_sum_misses": [],
+        "undefined_cells": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "undefined_count": 1830
+      },
+      {
+        "balance_recursion_misses": [],
+        "bound": 60,
+        "carrier": "V6",
+        "determination_miss_count": 0,
+        "determination_misses": [],
+        "divisor_sum_miss_count": 0,
+        "divisor_sum_misses": [],
+        "undefined_cells": [],
+        "undefined_count": 0
+      }
+    ],
+    "terminal": "RECURSION_BOUNDED"
+  },
+  "stage_4_magnitude_census": {
+    "bound": 60,
+    "criterion_miss_count": 0,
+    "criterion_vs_brute_force_misses": [],
+    "refusal_part_counts": [
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      55,
+      57,
+      59
+    ],
+    "row_family_kind": {
+      "certificate_refusals": 29,
+      "distinct_magnitudes_seen": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        16,
+        18,
+        20,
+        22,
+        24,
+        28,
+        30,
+        32,
+        36,
+        40,
+        42,
+        46,
+        52,
+        58
+      ],
+      "diverse_families": 54,
+      "families": 150,
+      "smallest_diverse_witness": {
+        "a": null,
+        "carrier": "V6",
+        "magnitude_multiset": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "n": 3
+      },
+      "smallest_refusal_witness": {
+        "a": null,
+        "carrier": "V6",
+        "magnitude_multiset": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "n": 3,
+        "terms": [
+          2,
+          -1,
+          -1
+        ],
+        "total": 0
+      }
+    },
+    "row_total_miss_count": 59,
+    "row_total_misses": [
+      {
+        "carrier": "V2",
+        "n": 2,
+        "total": 2
+      },
+      {
+        "carrier": "V2",
+        "n": 3,
+        "total": 6
+      },
+      {
+        "carrier": "V2",
+        "n": 4,
+        "total": 8
+      },
+      {
+        "carrier": "V2",
+        "n": 5,
+        "total": 20
+      },
+      {
+        "carrier": "V2",
+        "n": 6,
+        "total": 12
+      },
+      {
+        "carrier": "V2",
+        "n": 7,
+        "total": 42
+      },
+      {
+        "carrier": "V2",
+        "n": 8,
+        "total": 32
+      },
+      {
+        "carrier": "V2",
+        "n": 9,
+        "total": 54
+      }
+    ],
+    "row_total_misses_by_carrier": {
+      "V2": 59,
+      "V5": 0,
+      "V6": 0
+    },
+    "rows_head": [
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 1,
+        "dominated_nonneg": true,
+        "dominated_nonpos": false,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            1
+          ]
+        ],
+        "n": 1,
+        "term_count": 1,
+        "terms": [
+          1
+        ],
+        "total": 1
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 1,
+        "dominated_nonneg": true,
+        "dominated_nonpos": true,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            2
+          ]
+        ],
+        "n": 2,
+        "term_count": 2,
+        "terms": [
+          1,
+          -1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": false,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": false,
+        "dominated_nonpos": false,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "n": 3,
+        "term_count": 3,
+        "terms": [
+          2,
+          -1,
+          -1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 1,
+        "dominated_nonneg": true,
+        "dominated_nonpos": true,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            2,
+            2
+          ]
+        ],
+        "n": 4,
+        "term_count": 4,
+        "terms": [
+          2,
+          0,
+          -2,
+          0
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": false,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": false,
+        "dominated_nonpos": false,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "n": 5,
+        "term_count": 5,
+        "terms": [
+          4,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": true,
+        "dominated_nonpos": true,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "n": 6,
+        "term_count": 6,
+        "terms": [
+          2,
+          1,
+          -1,
+          -2,
+          -1,
+          1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": false,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": false,
+        "dominated_nonpos": false,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            6
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "n": 7,
+        "term_count": 7,
+        "terms": [
+          6,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 1,
+        "dominated_nonneg": true,
+        "dominated_nonpos": true,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            4,
+            2
+          ]
+        ],
+        "n": 8,
+        "term_count": 8,
+        "terms": [
+          4,
+          0,
+          0,
+          0,
+          -4,
+          0,
+          0,
+          0
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": false,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": false,
+        "dominated_nonpos": false,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            3,
+            2
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "n": 9,
+        "term_count": 9,
+        "terms": [
+          6,
+          0,
+          0,
+          -3,
+          0,
+          0,
+          -3,
+          0,
+          0
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": true,
+        "dominated_nonpos": true,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            8
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "n": 10,
+        "term_count": 10,
+        "terms": [
+          4,
+          1,
+          -1,
+          1,
+          -1,
+          -4,
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": false,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": false,
+        "dominated_nonpos": false,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            1,
+            10
+          ],
+          [
+            10,
+            1
+          ]
+        ],
+        "n": 11,
+        "term_count": 11,
+        "terms": [
+          10,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          -1
+        ],
+        "total": 0
+      },
+      {
+        "a": null,
+        "carrier": "V6",
+        "certificate_exists": true,
+        "distinct_magnitudes": 2,
+        "dominated_nonneg": true,
+        "dominated_nonpos": true,
+        "kind": "row",
+        "magnitude_multiset": [
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "n": 12,
+        "term_count": 12,
+        "terms": [
+          4,
+          0,
+          2,
+          0,
+          -2,
+          0,
+          -4,
+          0,
+          -2,
+          0,
+          2,
+          0
+        ],
+        "total": 0
+      }
+    ],
+    "term_family_kind": {
+      "certificate_refusals": 0,
+      "distinct_magnitudes_seen": [
+        1
+      ],
+      "diverse_families": 0,
+      "families": 2760,
+      "smallest_diverse_witness": null,
+      "smallest_refusal_witness": null
+    },
+    "terminals": [
+      "DIVERSITY_EXHIBITED",
+      "CERTIFICATE_REFUSED"
+    ]
+  },
+  "stage_5_register": {
+    "growth_note": "the running balance was recomputed at every pinned checkpoint and agreed; no sentence in this tree says anything about its behaviour past the last computed checkpoint, in either direction",
+    "hits": [
+      "V6/R1",
+      "V6/Rlast"
+    ],
+    "leftovers": [
+      {
+        "class": "CONJECTURE",
+        "name": "the general total identity",
+        "price": "a Lean theorem quantified over the part count.  It needs the divisor recursion of the fresh parts proved rather than decided, and then the pinned uniqueness of the balance applied to the totals; this tree carries the recursion as decided instances only",
+        "statement": "that the fresh total under the fresh-part carrier equals the balance at EVERY part count, and at the two step rules that met the stage, not only within the bounds this tree reached"
+      },
+      {
+        "class": "OPEN",
+        "name": "the enlarged menu",
+        "price": "one more freeze and one more exhaustive pass",
+        "statement": "value carriers beyond the six declared, and step rules beyond the four declared, are unsearched; absence of a search is not absence of a total"
+      },
+      {
+        "class": "OPEN",
+        "name": "LP4 on the term families",
+        "price": "a carrier whose character values are integers of more than one magnitude",
+        "statement": "at the level of the terms of a single total, every family in the rectangle still carries one magnitude; the diversity this run found is at the level of the rows, and nothing here moves the term-level question"
+      },
+      {
+        "class": "OPEN",
+        "name": "the certificate channel on the refusing rows",
+        "price": "a declared repair channel and a per-row comparison against this census",
+        "statement": "the refusals this run exhibits are decisions of the pinned criterion on named families; what an alternative repair channel would do with them, and whether a refusing row admits a repair of another declared kind, is not asked here.  This is the leftover the channel comparison priced, now with material to pay it"
+      },
+      {
+        "class": "OPEN",
+        "name": "the next rung: combining two characters of one layer",
+        "price": "a declared product on the value carrier, a Lean statement of the combined total, and a frozen prediction before any value is computed",
+        "statement": "how the totals of two characters of the same layer combine against each other, and whether a function on a layer is recovered from the totals of all its steps.  Named, not started"
+      }
+    ],
+    "protected_opens_unchanged": [
+      "OB1_UNCHANGED",
+      "S66_UNCHANGED",
+      "S9_LAST_UNCHANGED",
+      "NS95_GROWTH_UNCHANGED"
+    ],
+    "rows": [
+      {
+        "carrier": "V1",
+        "stage_2_best_agreement": 0,
+        "stage_2_met": [],
+        "stage_2_pairs": 4,
+        "stage_3_meets_recursion": false,
+        "stage_4_family_kinds": []
+      },
+      {
+        "carrier": "V2",
+        "stage_2_best_agreement": 1,
+        "stage_2_met": [],
+        "stage_2_pairs": 4,
+        "stage_3_meets_recursion": false,
+        "stage_4_family_kinds": [
+          "term",
+          "row"
+        ]
+      },
+      {
+        "carrier": "V3",
+        "stage_2_best_agreement": 1,
+        "stage_2_met": [],
+        "stage_2_pairs": 4,
+        "stage_3_meets_recursion": false,
+        "stage_4_family_kinds": []
+      },
+      {
+        "carrier": "V4",
+        "stage_2_best_agreement": 17,
+        "stage_2_met": [],
+        "stage_2_pairs": 4,
+        "stage_3_meets_recursion": false,
+        "stage_4_family_kinds": []
+      },
+      {
+        "carrier": "V5",
+        "stage_2_best_agreement": 1,
+        "stage_2_met": [],
+        "stage_2_pairs": 4,
+        "stage_3_meets_recursion": false,
+        "stage_4_family_kinds": [
+          "term",
+          "row"
+        ]
+      },
+      {
+        "carrier": "V6",
+        "stage_2_best_agreement": 60,
+        "stage_2_met": [
+          "V6/R1",
+          "V6/Rlast"
+        ],
+        "stage_2_pairs": 4,
+        "stage_3_meets_recursion": true,
+        "stage_4_family_kinds": [
+          "row"
+        ]
+      }
+    ],
+    "terminals": [
+      "REGISTER_WRITTEN",
+      "GROWTH_OPEN_UNCHANGED"
+    ],
+    "ties_retained": true
+  },
+  "write_root": "research/fresh_characters/"
+}
