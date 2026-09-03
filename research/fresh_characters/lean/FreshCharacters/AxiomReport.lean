@@ -8,6 +8,7 @@ import FreshCharacters
 
 #print axioms FreshCharacters.Char.freshMembers_length
 #print axioms FreshCharacters.Char.exponent_eq_repAdd
+#print axioms FreshCharacters.Char.exponent_is_character
 #print axioms FreshCharacters.Char.exponent_step_injective
 #print axioms FreshCharacters.Char.character_determined_by_unit
 #print axioms FreshCharacters.Char.characters_are_steps

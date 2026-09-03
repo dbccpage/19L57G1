@@ -69,6 +69,20 @@ structure is respected. -/
 def IsCharacter (n : Nat) (f : Nat → Nat) : Prop :=
   (∀ c, f c < n) ∧ f 0 = 0 ∧ ∀ c d, f ((c + d) % n) = (f c + f d) % n
 
+/-- Every step below a positive part count supplies a character.  This is
+the construction half needed before injectivity and exhaustion can justify
+the exact count. -/
+theorem exponent_is_character {n a : Nat} (hn : 0 < n) :
+    IsCharacter n (exponent n a) := by
+  constructor
+  · intro c
+    exact Nat.mod_lt _ hn
+  constructor
+  · simp [exponent]
+  · intro c d
+    simp only [exponent]
+    rw [Nat.mul_mod_mod, Nat.mul_add, Nat.add_mod]
+
 /-- Every character is the exponent word of exactly one step: the value at
 the unit member. -/
 theorem character_determined_by_unit {n : Nat} {f : Nat → Nat}
@@ -98,9 +112,11 @@ are `0..n-1`, they are pairwise distinct as characters, and every character
 is one of them. -/
 theorem characters_are_steps (n : Nat) :
     (List.range n).length = n
+      ∧ (∀ a, a < n → IsCharacter n (exponent n a))
       ∧ (∀ a b, a < n → b < n → (∀ c, exponent n a c = exponent n b c) → a = b)
       ∧ (∀ f, IsCharacter n f → ∀ c, c < n → f c = exponent n (f 1) c) :=
   ⟨List.length_range,
+   fun _ ha => exponent_is_character (Nat.zero_lt_of_lt ha),
    fun _ _ ha hb h => exponent_step_injective ha hb h,
    fun _ hf => character_determined_by_unit hf⟩
 

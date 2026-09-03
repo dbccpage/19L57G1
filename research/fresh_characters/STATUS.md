@@ -86,14 +86,15 @@ projections at the snapshot and at `HEAD`.
 
 - **CHARACTERS_DEFINED** (PROVED_THEOREM): all four stage-1 targets proved in
   core Lean, for EVERY part count, carrier-free on the exponent word —
-  `characters_are_steps` (distinct steps give distinct characters, every
-  character is one step's word, the count is the part count),
+  `characters_are_steps` (every step below a positive part count supplies a
+  character, distinct steps give distinct words, every character agrees on
+  the layer members with one step's word, and the count is the part count),
   `freshExp_wf` (the total is a function of the receiver element, resting on
   the pinned `fresh_rep_unique`), `freshExp_zero` (the step-zero total is the
   fresh count many copies of the carrier's unit), and `exponent_embed` (the
   restriction along a divisor arrow). The counting law `freshExp_length` is
   proved too, and so is the V1 obstruction:
-  `additive_trivial_total_ne_freshCount`. 18 axiom reports in the package,
+  `additive_trivial_total_ne_freshCount`. 19 axiom reports in the package,
   all within `{propext, Quot.sound}`, 2 axiom-free. Python recomputation of
   the carrier-free targets: `0` misses at every part count to `60`.
 - **TOTAL_IDENTITY_BOUNDED** (FINITE_COMPUTATION), with **TIES_RETAINED**:
@@ -297,7 +298,7 @@ directly, as `CLAUDE.md` requires.
 | command | exit | key line |
 |---|---|---|
 | `python verify_pins.py` | 0 | `pins clean: 11 sources and 3 spans at snapshot and HEAD; sealed prefixes unchanged; nothing outside the write root; 3 source projections exact; native PROMPT.md frozen; 2 predictions freezes reconstructed` |
-| `python verify_lean.py` | 0 | `lean audit clean: 8 sources, 18 axiom reports (2 axiom-free), axioms within ['Quot.sound', 'propext']` |
+| `python verify_lean.py` | 0 | `lean audit clean: 8 sources, 19 axiom reports (2 axiom-free), axioms within ['Quot.sound', 'propext']` |
 | `python run_fresh_characters.py --out receipts` | 0 | `stage 2: TOTAL_IDENTITY_BOUNDED, hits ['V6/R1', 'V6/Rlast']`; `stage 4: ['DIVERSITY_EXHIBITED', 'CERTIFICATE_REFUSED']` |
 | `python -m unittest discover -s . -p "test_*.py"` | 0 | all tests pass, refusal scans included |
 | `python -m mypy` | 0 | strict, all source files |
