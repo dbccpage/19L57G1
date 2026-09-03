@@ -1,0 +1,106 @@
+{
+  "outside_bet_sha256": "6b7fb10447284d2229b71b14ec18eade4620a8dab2697d4cdf9e7635d22b482c",
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "research/balance_carrier/STATUS.md": "2fe6365b5f1ad2a2a9fd21a710ea16dcbdaff1bb",
+    "research/balance_carrier/lean/BalanceCarrier/LayerObserver.lean": "ddd238d5897e66d5a4886825da762322f354b067",
+    "research/balance_carrier/lean/BalanceCarrier/WalkCarrier.lean": "e6a3e54ffa753ab6ab61e00cac1abca754961e8a",
+    "research/balance_carrier/receipts/balance_carrier.json": "d3fa3b017663171c81425cdfafba2cc09be0511d",
+    "research/convention_price/STATUS.md": "017cba4541be53713fc3f0d5e3fae8bdec210c37",
+    "research/natural_sections/lean/NaturalSections/LayerBalance.lean": "493bdc275a5d064e51a1bca336a5a1f70ad9adca",
+    "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean": "ba88fa7cfba02a49d7d582f8a48aee56322e53c2",
+    "research/natural_sections/lean/NaturalSections/SignRepair.lean": "a21cb5cc02d9fc17437c26b6d93a3804ccf5af89",
+    "research/natural_sections/lean/NaturalSections/SlotExchange.lean": "f4f71ddd7197c2e40cf83e0347a76fa22abbaea0",
+    "research/natural_sections/receipts/layer_balance.json": "854c8bab400a1c24574fc1f6a57f9ce9da9cdeb3"
+  },
+  "predictions_first_freeze_boundary": "\n## Freeze 2",
+  "predictions_freezes": [
+    "aeb3d7728e98c98e1d2a00cd22145d5f198d8af9b0df28b63b301bb03534699f",
+    "aa37d38170d20a3978331bab7e297a199c1e9c1c1d648ff2ef4c4a61d83a2abe"
+  ],
+  "prompt_native_sha256": "d45ba3e4827806458f19d3ec7d7ce8b4b474aab51a1a11d50d5a8b8b03d78348",
+  "purpose": "read-only sources consumed by the fresh_characters run; this tree writes none of them; spans are the consumed leftovers quoted by pin",
+  "reconstructions": [
+    {
+      "local_first_line": 18,
+      "local_last_line": 135,
+      "local_path": "research/fresh_characters/lean/FreshCharacters/Receiver.lean",
+      "namespace_from": "NaturalSections",
+      "namespace_to": "FreshCharacters",
+      "note": "byte-identical to research/balance_carrier/lean/BalanceCarrier/Receiver.lean apart from the outer namespace, the snapshot id in the pin note, and this tree's name; both are verbatim from the same pinned blob",
+      "source_path": "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean",
+      "source_ranges": [
+        [
+          34,
+          108
+        ],
+        [
+          244,
+          257
+        ],
+        [
+          288,
+          314
+        ],
+        [
+          335,
+          336
+        ]
+      ]
+    },
+    {
+      "local_first_line": 21,
+      "local_last_line": 436,
+      "local_path": "research/fresh_characters/lean/FreshCharacters/Balance.lean",
+      "namespace_from": "NaturalSections",
+      "namespace_to": "FreshCharacters",
+      "note": "byte-identical to research/balance_carrier/lean/BalanceCarrier/Balance.lean apart from the outer namespace, the snapshot id in the pin note, and this tree's name; both are verbatim from the same pinned blob",
+      "source_path": "research/natural_sections/lean/NaturalSections/LayerBalance.lean",
+      "source_ranges": [
+        [
+          32,
+          447
+        ]
+      ]
+    },
+    {
+      "local_first_line": 25,
+      "local_last_line": 49,
+      "local_path": "research/fresh_characters/lean/FreshCharacters/Steps.lean",
+      "namespace_from": "NaturalSections",
+      "namespace_to": "FreshCharacters",
+      "note": "the step action and its value law; new to this tree, not reconstructed by any sibling",
+      "source_path": "research/natural_sections/lean/NaturalSections/SlotExchange.lean",
+      "source_ranges": [
+        [
+          41,
+          65
+        ]
+      ]
+    }
+  ],
+  "snapshot_commit": "f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+  "spans": [
+    {
+      "first_line": 352,
+      "last_line": 358,
+      "path": "research/balance_carrier/STATUS.md",
+      "role": "leftover 1: the next rung, named there and executed here",
+      "sha256": "d3d8d6ff61fcc2c022851e4f6eccefca30cf6f48a0dea2d9561d41ba62715bcc"
+    },
+    {
+      "first_line": 349,
+      "last_line": 351,
+      "path": "research/balance_carrier/STATUS.md",
+      "role": "leftover 2: LP4, magnitude diversity, OPEN",
+      "sha256": "42b2010fc09d52ed589deabcd93801b608cd4e17978d079f566dfcd36471d52e"
+    },
+    {
+      "first_line": 139,
+      "last_line": 141,
+      "path": "research/convention_price/STATUS.md",
+      "role": "leftover 3: the CHANNELS terminal, which prices a diverse-magnitude census",
+      "sha256": "3d1f91d4276037dd7e9404116379dce68a9950b73bcae6b7c29042b85dd55c7d"
+    }
+  ]
+}

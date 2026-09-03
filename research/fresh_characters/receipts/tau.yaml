@@ -1,0 +1,32 @@
+yaml_export:
+  steps_completed: [LayerCharacters, TotalIdentity, DivisorRecursion, MagnitudeCensus, Register]
+  write_root: research/fresh_characters/
+  snapshot: f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be
+  sealed_paths_touched: []
+  shared_files_touched: []
+  census_pin_regenerated: false
+  prompt_hash_native: d45ba3e4827806458f19d3ec7d7ce8b4b474aab51a1a11d50d5a8b8b03d78348
+  predictions_hashes:
+    - aeb3d7728e98c98e1d2a00cd22145d5f198d8af9b0df28b63b301bb03534699f
+    - aa37d38170d20a3978331bab7e297a199c1e9c1c1d648ff2ef4c4a61d83a2abe
+  terminals:
+    - {code: CHARACTERS_DEFINED, scope: four targets proved in core Lean for every part count, carrier-free on the exponent word}
+    - {code: TOTAL_IDENTITY_BOUNDED, scope: exhaustive over 24 declared pairs at part counts 1..60; kernel-decided in Lean to 20}
+    - {code: RECURSION_BOUNDED, scope: the declared rectangle to 60; kernel-decided in Lean to 16}
+    - {code: DIVERSITY_EXHIBITED, scope: the declared rectangle to 60, both family kinds}
+    - {code: CERTIFICATE_REFUSED, scope: the declared rectangle to 60, both family kinds}
+    - {code: REGISTER_WRITTEN, scope: six menu members, five leftovers}
+    - {code: GROWTH_OPEN_UNCHANGED, scope: mandatory; no growth sentence in the tree}
+  layer_characters: {menu: [V1, V2, V3, V4, V5, V6], lean_targets_proved: 4, python_exponent_word_misses: 0}
+  total_identity: {terminal: TOTAL_IDENTITY_BOUNDED, pairs: ['V6/R1', 'V6/Rlast'], menu_size: 24, bound_python: 60, bound_lean: 20, direct_cross_check: 600, checkpoint_misses: []}
+  divisor_recursion: {terminal: RECURSION_BOUNDED, carriers_meeting: ['V6'], bound: 60}
+  magnitude_census: {terminals: ['DIVERSITY_EXHIBITED', 'CERTIFICATE_REFUSED'], rectangle: 60, term_families: 2760, term_diverse: 0, row_families: 150, row_diverse: 54, certificate_refusals: 29, criterion_vs_brute_force_misses: 0}
+  lp4_disposition: moved at the row level, witness part count 3; carried forward unchanged at the term level
+  growth: {terminal: GROWTH_OPEN_UNCHANGED}
+  leftover: five, named and priced, executed nowhere
+  opens_unchanged: [OB1_UNCHANGED, S66_UNCHANGED, S9_LAST_UNCHANGED, NS95_GROWTH_UNCHANGED]
+  outside_bet_hash: 6b7fb10447284d2229b71b14ec18eade4620a8dab2697d4cdf9e7635d22b482c
+  outside_bet_blind: false
+  authority_effect: None
+final_state: true
+op QED
