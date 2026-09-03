@@ -34,23 +34,25 @@ content regenerates identically and whose sha256 the summary records.
 
 ## Terminals, each with its scope
 
-- IDENTIFICATION_COSTS_ONE (FINITE_COMPUTATION, both readings of the
-  sealed genesis, reading R).  The minimum identification response over
-  every genesis state and every separated pair is one item: a single
-  instance that fills the one context the other datum lacks, or a single
-  uniform rule that makes the form distinguish nobody.  The sealed cost
-  floor of two for the first separation does not dualise.  Across the
-  19 genesis states the accepted minima number 290 edges; 222 of them
-  cost one item and 68 cost two.
-- RULE_ITEMS_DOMINATE (FINITE_COMPUTATION).  Of the 290 accepted minima,
-  220 contain a uniform rule (164 rule alone, 34 rule with an instance,
+- IDENTIFICATION_COSTS_ONE (FINITE_COMPUTATION, both sealed measures,
+  reading R).  At each genesis state the least cost among all of its
+  separated-pair probes is one item: a single instance that fills the one
+  context the other datum lacks, or a single uniform rule that makes the
+  form distinguish nobody.  This is a per-genesis floor, not a claim that
+  every pair costs one: under each measure 43 probes cost one and 8 cost
+  two.  The sealed cost floor of two for the first separation does not
+  dualise.  Across the
+  19 genesis states the accepted minima number 288 edges; 222 of them
+  cost one item and 66 cost two.
+- RULE_ITEMS_DOMINATE (FINITE_COMPUTATION).  Of the 288 accepted minima,
+  218 contain a uniform rule (164 rule alone, 32 rule with an instance,
   22 two rules); 58 are a single instance and 12 are two instances.  The
   item the sealed derivation proved never minimal for separation is the
   most common minimum for identification.  Under both sealed measures
   the trees are identical at every genesis state: no accepted minimum
   admits a form, so the arity term of mu2 never decides.
 - THIRD_PARTY_EFFECT (FINITE_COMPUTATION, countermodel to locality).
-  208 of the 290 accepted minima change the profile of a datum outside
+  208 of the 288 accepted minima change the profile of a datum outside
   the target pair.  With a binary form, filling in an instance on one
   datum gives the datum it is related to a new context; with a rule, every
   datum gains every context of that form.  Identification is not local.
@@ -58,14 +60,15 @@ content regenerates identically and whose sha256 the summary records.
   no node of any tree ends without a response, no tree is cut by the
   round bound or the node guard, and every maximal branch reaches the
   all-collapsed fixpoint in at most n minus one identification rounds
-  (one round at two data, at most two rounds at three data).  Collapse is
-  an equivalence, so the class count falls by at least one per accepted
-  round; the general bound is stated in `CLAIM_LEDGER.md` as a
-  conjecture with that argument and no Lean.
+  (one round at two data, at most two rounds at three data).  The class
+  count falls on every accepted edge in this finite run, but persistence is
+  stored pairwise and the tree does not prove that invariant generally.
+  The general bound is therefore stated in `CLAIM_LEDGER.md` as a
+  conjecture with finite support and no Lean.
 - REVERSAL_COSTS_TWO (FINITE_COMPUTATION).  At every reading-R fixpoint,
   re-separating any collapsed-pair orbit costs exactly two items, every
   minimum admits a fresh form, and no minimum instantiates a form that
-  carries a uniform rule.  548 orbits priced.  A flooded form is dead for
+  carries a uniform rule.  544 orbits priced.  A flooded form is dead for
   separation, as the sealed `separable_of_subrules` says; the dual shows
   the same for a saturated one.
 - PERSISTENCE_BLOCKS (FINITE_COMPUTATION, reading P).  With the sealed
@@ -90,7 +93,7 @@ content regenerates identically and whose sha256 the summary records.
   all six reading-L runs).  See P8 below.  All 38 alternating trees are
   cut by the node guard or the round bound; nothing is claimed past the
   cut.
-- NO_UNIQUENESS (FINITE_COMPUTATION).  184 of the 290 accepted edges sit
+- NO_UNIQUENESS (FINITE_COMPUTATION).  182 of the 288 accepted edges sit
   in a tie of at least two non-isomorphic minimum classes, and ties
   between a single instance and a single rule occur.  Under the plain
   count, "adjust the two" and "abolish the distinction for everyone"
@@ -100,15 +103,15 @@ content regenerates identically and whose sha256 the summary records.
 
 | id | prediction | verdict | what the receipt shows |
 |---|---|---|---|
-| P1 | cost floor one | HIT | minimum one item at every genesis in reading R |
+| P1 | cost floor one | HIT | per-genesis minimum one in reading R; 8 pair probes per measure still cost two |
 | P2 | cost-one minima are inst or rule; rule-alone exists | HIT | 164 rule-alone, 58 inst-alone under mu1 |
 | P3 | third-party change at a three-datum genesis | HIT | 208 edges with a non-target profile change |
 | P4 | progress in reading R | HIT | no terminal_no_response node |
 | P5 | fixpoint within n minus one rounds | HIT | max two rounds at three data; no cut branch |
 | P6 | persistence conflict, three clauses | MISS | clauses one and two hold; clause three fails: the never-required pair at seven binary-form fixpoints (g05, g07, g09, g11, g12, g14, g15) refuses within two items under both measures |
-| P7 | reversal costs two with a fresh form | HIT | 548 orbits, all cost two, all fresh form, none on a ruled form |
+| P7 | reversal costs two with a fresh form | HIT | 544 orbits, all cost two, all fresh form, none on a ruled form |
 | P8 | ruled forms rise every cycle; no fresh datum | MISS | monotone and datum-free everywhere; the rise fails where a form is saturated rather than flooded |
-| P9 | ties, including inst versus rule | HIT | 184 tied edges; inst/rule ties present |
+| P9 | ties, including inst versus rule | HIT | 182 tied edges; inst/rule ties present |
 | P10 | mu1 and mu2 trees identical; no fresh form in a minimum | HIT | equal counts at all 19 genesis states |
 
 The two misses are the substantive findings of the run, and they are

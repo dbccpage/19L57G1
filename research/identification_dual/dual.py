@@ -269,25 +269,17 @@ def _map_pairs(pairs: frozenset[Pair], pi: tuple[int, ...]) -> tuple[Pair, ...]:
 
 
 def _form_perms(r: Regime) -> list[tuple[int, ...]]:
-    """Every form bijection that preserves arity and rule membership.
+    """Every form-label bijection.
 
-    Any isomorphism preserves both (the sealed serialization compares the
-    arity table and the rule set), so restricting to these bijections loses
-    no isomorphism; within a class the search is still exhaustive."""
-    classes: dict[tuple[int, bool], list[int]] = {}
-    for f, arity in enumerate(r.forms):
-        classes.setdefault((arity, f in r.rules), []).append(f)
-    keys = sorted(classes)
-    out: list[tuple[int, ...]] = []
-    from itertools import product
-
-    for images in product(*(permutations(classes[c]) for c in keys)):
-        phi = [0] * len(r.forms)
-        for c, image in zip(keys, images):
-            for member, target in zip(classes[c], image):
-                phi[member] = target
-        out.append(tuple(phi))
-    return out
+    The serialized arity table and rule set decide whether a bijection
+    preserves those structures when two keys are compared.  Restricting a
+    permutation to the positions that already have the same arity and rule
+    status would only enumerate automorphisms of this particular labeling;
+    it would miss an isomorphism that relabels two differently coloured
+    forms.  The declared states are small enough for the exact factorial
+    search, guarded by ``PERM_BUDGET`` below.
+    """
+    return list(permutations(range(len(r.forms))))
 
 
 def _budget(n: int, form_perms: int) -> None:
@@ -301,11 +293,10 @@ def _budget(n: int, form_perms: int) -> None:
 
 
 def state_key(s: State) -> StateKey:
-    """Canonical key: the minimum over every datum bijection and every
-    arity-and-rule-preserving form bijection of the sealed serialization
-    (which carries the separation store) paired with the mapped
-    identification store, tagged with the mode.  Equal keys hold exactly
-    for isomorphic states."""
+    """Canonical key: the minimum over every datum and form bijection of
+    the sealed serialization (which carries arities, the rule set, and the
+    separation store), paired with the mapped identification store and
+    tagged with the mode.  Equal keys hold exactly for isomorphic states."""
     r = s.regime
     n = r.n_data()
     phis = _form_perms(r)

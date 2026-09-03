@@ -14,7 +14,7 @@
    "probes"
   ],
   "path": "receipts/full/identification_dual_full.json.gz",
-  "sha256_uncompressed": "d0a027ef2180d9b521a3292adea4957ee43ad1b0b7ab35629a031e3bfaab75f2"
+  "sha256_uncompressed": "ce6254c38fd5bf7613ed21d9b876fef17e57f433ff1aba53e499dc3d71090f4b"
  },
  "genesis": [
   {
@@ -2285,27 +2285,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 90,
-      "frontier_guard": 167
+      "expanded": 94,
+      "frontier_guard": 157
      },
-     "edges": 302,
-     "expansions_with_ties": 36,
+     "edges": 298,
+     "expansions_with_ties": 35,
      "max_data": 3,
      "max_depth": 5,
      "max_forms": 3,
      "max_ruled_forms": 2,
-     "nodes": 257,
+     "nodes": 251,
      "roles": {
-      "form+inst": 110,
-      "inst": 124,
+      "form+inst": 95,
+      "inst": 133,
       "inst+inst": 2,
-      "inst+rule": 4,
+      "inst+rule": 3,
       "rule": 10,
       "rule+rule": 2,
-      "switch": 50
+      "switch": 53
      }
     },
-    "switches": 50
+    "switches": 53
    },
    {
     "fresh_data_admitted": 0,
@@ -2316,27 +2316,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 110,
-      "frontier_guard": 143
+      "expanded": 146,
+      "frontier_guard": 106
      },
-     "edges": 293,
-     "expansions_with_ties": 88,
+     "edges": 389,
+     "expansions_with_ties": 121,
      "max_data": 3,
      "max_depth": 8,
      "max_forms": 4,
      "max_ruled_forms": 4,
-     "nodes": 253,
+     "nodes": 252,
      "roles": {
-      "form+inst": 44,
-      "inst": 73,
-      "inst+inst": 21,
-      "inst+rule": 42,
-      "rule": 54,
-      "rule+rule": 21,
-      "switch": 38
+      "form+inst": 38,
+      "inst": 98,
+      "inst+inst": 28,
+      "inst+rule": 46,
+      "rule": 104,
+      "rule+rule": 28,
+      "switch": 47
      }
     },
-    "switches": 38
+    "switches": 47
    },
    {
     "fresh_data_admitted": 0,
@@ -2377,27 +2377,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 148,
-      "frontier_guard": 105
+      "expanded": 173,
+      "frontier_guard": 78
      },
-     "edges": 367,
-     "expansions_with_ties": 109,
+     "edges": 400,
+     "expansions_with_ties": 120,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 5,
      "max_ruled_forms": 4,
-     "nodes": 253,
+     "nodes": 251,
      "roles": {
-      "form+inst": 54,
-      "inst": 74,
+      "form+inst": 84,
+      "inst": 70,
       "inst+inst": 18,
-      "inst+rule": 37,
-      "rule": 95,
+      "inst+rule": 28,
+      "rule": 87,
       "rule+rule": 19,
-      "switch": 70
+      "switch": 94
      }
     },
-    "switches": 70
+    "switches": 94
    },
    {
     "fresh_data_admitted": 0,
@@ -2439,23 +2439,23 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 133,
-      "frontier_guard": 119
+      "expanded": 137,
+      "frontier_guard": 114
      },
-     "edges": 301,
-     "expansions_with_ties": 84,
+     "edges": 313,
+     "expansions_with_ties": 88,
      "max_data": 3,
      "max_depth": 8,
      "max_forms": 4,
      "max_ruled_forms": 4,
-     "nodes": 252,
+     "nodes": 251,
      "roles": {
       "form+inst": 60,
-      "inst": 70,
-      "inst+inst": 16,
+      "inst": 72,
+      "inst+inst": 18,
       "inst+rule": 32,
-      "rule": 57,
-      "rule+rule": 16,
+      "rule": 63,
+      "rule+rule": 18,
       "switch": 50
      }
     },
@@ -2501,23 +2501,23 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 116,
-      "frontier_guard": 138
+      "expanded": 119,
+      "frontier_guard": 132
      },
-     "edges": 296,
-     "expansions_with_ties": 90,
+     "edges": 306,
+     "expansions_with_ties": 92,
      "max_data": 3,
      "max_depth": 8,
      "max_forms": 4,
      "max_ruled_forms": 4,
-     "nodes": 254,
+     "nodes": 251,
      "roles": {
       "form+inst": 54,
       "inst": 72,
-      "inst+inst": 19,
-      "inst+rule": 40,
-      "rule": 48,
-      "rule+rule": 21,
+      "inst+inst": 21,
+      "inst+rule": 42,
+      "rule": 52,
+      "rule+rule": 23,
       "switch": 42
      }
     },
@@ -2563,27 +2563,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 115,
-      "frontier_guard": 139
+      "expanded": 119,
+      "frontier_guard": 132
      },
-     "edges": 298,
-     "expansions_with_ties": 88,
+     "edges": 306,
+     "expansions_with_ties": 92,
      "max_data": 3,
      "max_depth": 8,
      "max_forms": 4,
      "max_ruled_forms": 4,
-     "nodes": 254,
+     "nodes": 251,
      "roles": {
       "form+inst": 54,
-      "inst": 68,
+      "inst": 72,
       "inst+inst": 21,
-      "inst+rule": 44,
-      "rule": 48,
+      "inst+rule": 42,
+      "rule": 52,
       "rule+rule": 23,
-      "switch": 40
+      "switch": 42
      }
     },
-    "switches": 40
+    "switches": 42
    },
    {
     "fresh_data_admitted": 0,
@@ -2625,8 +2625,8 @@
       "expanded": 155,
       "frontier_guard": 96
      },
-     "edges": 362,
-     "expansions_with_ties": 105,
+     "edges": 367,
+     "expansions_with_ties": 110,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 4,
@@ -2634,15 +2634,15 @@
      "nodes": 251,
      "roles": {
       "form+inst": 72,
-      "inst": 64,
-      "inst+inst": 15,
-      "inst+rule": 30,
-      "rule": 79,
-      "rule+rule": 15,
-      "switch": 87
+      "inst": 67,
+      "inst+inst": 17,
+      "inst+rule": 26,
+      "rule": 86,
+      "rule+rule": 17,
+      "switch": 82
      }
     },
-    "switches": 87
+    "switches": 82
    },
    {
     "fresh_data_admitted": 0,
@@ -2684,8 +2684,8 @@
       "expanded": 155,
       "frontier_guard": 96
      },
-     "edges": 362,
-     "expansions_with_ties": 105,
+     "edges": 367,
+     "expansions_with_ties": 110,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 4,
@@ -2693,15 +2693,15 @@
      "nodes": 251,
      "roles": {
       "form+inst": 72,
-      "inst": 64,
-      "inst+inst": 15,
-      "inst+rule": 30,
-      "rule": 79,
-      "rule+rule": 15,
-      "switch": 87
+      "inst": 67,
+      "inst+inst": 17,
+      "inst+rule": 26,
+      "rule": 86,
+      "rule+rule": 17,
+      "switch": 82
      }
     },
-    "switches": 87
+    "switches": 82
    },
    {
     "fresh_data_admitted": 0,
@@ -2743,8 +2743,8 @@
       "expanded": 155,
       "frontier_guard": 96
      },
-     "edges": 362,
-     "expansions_with_ties": 105,
+     "edges": 367,
+     "expansions_with_ties": 110,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 4,
@@ -2752,15 +2752,15 @@
      "nodes": 251,
      "roles": {
       "form+inst": 72,
-      "inst": 64,
-      "inst+inst": 15,
-      "inst+rule": 30,
-      "rule": 79,
-      "rule+rule": 15,
-      "switch": 87
+      "inst": 67,
+      "inst+inst": 17,
+      "inst+rule": 26,
+      "rule": 86,
+      "rule+rule": 17,
+      "switch": 82
      }
     },
-    "switches": 87
+    "switches": 82
    },
    {
     "fresh_data_admitted": 0,
@@ -2802,8 +2802,8 @@
       "expanded": 155,
       "frontier_guard": 96
      },
-     "edges": 362,
-     "expansions_with_ties": 105,
+     "edges": 367,
+     "expansions_with_ties": 110,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 4,
@@ -2811,15 +2811,15 @@
      "nodes": 251,
      "roles": {
       "form+inst": 72,
-      "inst": 64,
-      "inst+inst": 15,
-      "inst+rule": 30,
-      "rule": 79,
-      "rule+rule": 15,
-      "switch": 87
+      "inst": 67,
+      "inst+inst": 17,
+      "inst+rule": 26,
+      "rule": 86,
+      "rule+rule": 17,
+      "switch": 82
      }
     },
-    "switches": 87
+    "switches": 82
    },
    {
     "fresh_data_admitted": 0,
@@ -2861,27 +2861,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 190,
-      "frontier_guard": 61
+      "expanded": 194,
+      "frontier_guard": 57
      },
-     "edges": 328,
-     "expansions_with_ties": 84,
+     "edges": 323,
+     "expansions_with_ties": 81,
      "max_data": 3,
-     "max_depth": 12,
+     "max_depth": 13,
      "max_forms": 5,
      "max_ruled_forms": 3,
      "nodes": 251,
      "roles": {
-      "form+inst": 127,
-      "inst": 90,
+      "form+inst": 120,
+      "inst": 81,
       "inst+inst": 6,
-      "inst+rule": 12,
+      "inst+rule": 9,
       "rule": 32,
       "rule+rule": 6,
-      "switch": 55
+      "switch": 69
      }
     },
-    "switches": 55
+    "switches": 69
    },
    {
     "fresh_data_admitted": 0,
@@ -2923,200 +2923,23 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 189,
-      "frontier_guard": 62
+      "expanded": 194,
+      "frontier_guard": 57
      },
-     "edges": 328,
-     "expansions_with_ties": 85,
+     "edges": 323,
+     "expansions_with_ties": 81,
      "max_data": 3,
-     "max_depth": 12,
+     "max_depth": 13,
      "max_forms": 5,
      "max_ruled_forms": 3,
      "nodes": 251,
      "roles": {
-      "form+inst": 127,
-      "inst": 90,
+      "form+inst": 120,
+      "inst": 81,
       "inst+inst": 6,
-      "inst+rule": 12,
+      "inst+rule": 9,
       "rule": 32,
       "rule+rule": 6,
-      "switch": 55
-     }
-    },
-    "switches": 55
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g11",
-    "identify_fixpoints_rise": true,
-    "measure": "mu1",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 150,
-      "frontier_guard": 101
-     },
-     "edges": 318,
-     "expansions_with_ties": 32,
-     "max_data": 3,
-     "max_depth": 6,
-     "max_forms": 3,
-     "max_ruled_forms": 2,
-     "nodes": 251,
-     "roles": {
-      "form+inst": 60,
-      "inst": 74,
-      "rule": 78,
-      "switch": 106
-     }
-    },
-    "switches": 106
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g11",
-    "identify_fixpoints_rise": false,
-    "measure": "mu2",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 159,
-      "frontier_guard": 93
-     },
-     "edges": 366,
-     "expansions_with_ties": 108,
-     "max_data": 3,
-     "max_depth": 10,
-     "max_forms": 4,
-     "max_ruled_forms": 3,
-     "nodes": 252,
-     "roles": {
-      "form+inst": 108,
-      "inst": 66,
-      "inst+inst": 12,
-      "inst+rule": 24,
-      "rule": 63,
-      "rule+rule": 12,
-      "switch": 81
-     }
-    },
-    "switches": 81
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g12",
-    "identify_fixpoints_rise": true,
-    "measure": "mu1",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 150,
-      "frontier_guard": 101
-     },
-     "edges": 318,
-     "expansions_with_ties": 32,
-     "max_data": 3,
-     "max_depth": 6,
-     "max_forms": 3,
-     "max_ruled_forms": 2,
-     "nodes": 251,
-     "roles": {
-      "form+inst": 60,
-      "inst": 74,
-      "rule": 78,
-      "switch": 106
-     }
-    },
-    "switches": 106
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g12",
-    "identify_fixpoints_rise": false,
-    "measure": "mu2",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 155,
-      "frontier_guard": 96
-     },
-     "edges": 362,
-     "expansions_with_ties": 108,
-     "max_data": 3,
-     "max_depth": 10,
-     "max_forms": 4,
-     "max_ruled_forms": 3,
-     "nodes": 251,
-     "roles": {
-      "form+inst": 108,
-      "inst": 62,
-      "inst+inst": 12,
-      "inst+rule": 24,
-      "rule": 63,
-      "rule+rule": 12,
-      "switch": 81
-     }
-    },
-    "switches": 81
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g13",
-    "identify_fixpoints_rise": true,
-    "measure": "mu1",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 126,
-      "frontier_guard": 125
-     },
-     "edges": 322,
-     "expansions_with_ties": 36,
-     "max_data": 3,
-     "max_depth": 6,
-     "max_forms": 3,
-     "max_ruled_forms": 2,
-     "nodes": 251,
-     "roles": {
-      "form+inst": 90,
-      "inst": 122,
-      "rule": 23,
-      "switch": 87
-     }
-    },
-    "switches": 87
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g13",
-    "identify_fixpoints_rise": false,
-    "measure": "mu2",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 139,
-      "frontier_guard": 112
-     },
-     "edges": 346,
-     "expansions_with_ties": 102,
-     "max_data": 3,
-     "max_depth": 9,
-     "max_forms": 4,
-     "max_ruled_forms": 3,
-     "nodes": 251,
-     "roles": {
-      "form+inst": 60,
-      "inst": 68,
-      "inst+inst": 18,
-      "inst+rule": 36,
-      "rule": 77,
-      "rule+rule": 18,
       "switch": 69
      }
     },
@@ -3124,6 +2947,183 @@
    },
    {
     "fresh_data_admitted": 0,
+    "genesis": "g11",
+    "identify_fixpoints_rise": true,
+    "measure": "mu1",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 150,
+      "frontier_guard": 101
+     },
+     "edges": 318,
+     "expansions_with_ties": 32,
+     "max_data": 3,
+     "max_depth": 6,
+     "max_forms": 3,
+     "max_ruled_forms": 2,
+     "nodes": 251,
+     "roles": {
+      "form+inst": 60,
+      "inst": 74,
+      "rule": 78,
+      "switch": 106
+     }
+    },
+    "switches": 106
+   },
+   {
+    "fresh_data_admitted": 0,
+    "genesis": "g11",
+    "identify_fixpoints_rise": false,
+    "measure": "mu2",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 160,
+      "frontier_guard": 92
+     },
+     "edges": 366,
+     "expansions_with_ties": 111,
+     "max_data": 3,
+     "max_depth": 10,
+     "max_forms": 4,
+     "max_ruled_forms": 3,
+     "nodes": 252,
+     "roles": {
+      "form+inst": 114,
+      "inst": 72,
+      "inst+inst": 12,
+      "inst+rule": 18,
+      "rule": 63,
+      "rule+rule": 12,
+      "switch": 75
+     }
+    },
+    "switches": 75
+   },
+   {
+    "fresh_data_admitted": 0,
+    "genesis": "g12",
+    "identify_fixpoints_rise": true,
+    "measure": "mu1",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 150,
+      "frontier_guard": 101
+     },
+     "edges": 318,
+     "expansions_with_ties": 32,
+     "max_data": 3,
+     "max_depth": 6,
+     "max_forms": 3,
+     "max_ruled_forms": 2,
+     "nodes": 251,
+     "roles": {
+      "form+inst": 60,
+      "inst": 74,
+      "rule": 78,
+      "switch": 106
+     }
+    },
+    "switches": 106
+   },
+   {
+    "fresh_data_admitted": 0,
+    "genesis": "g12",
+    "identify_fixpoints_rise": false,
+    "measure": "mu2",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 166,
+      "frontier_guard": 89
+     },
+     "edges": 372,
+     "expansions_with_ties": 111,
+     "max_data": 3,
+     "max_depth": 10,
+     "max_forms": 4,
+     "max_ruled_forms": 3,
+     "nodes": 255,
+     "roles": {
+      "form+inst": 114,
+      "inst": 78,
+      "inst+inst": 12,
+      "inst+rule": 18,
+      "rule": 63,
+      "rule+rule": 12,
+      "switch": 75
+     }
+    },
+    "switches": 75
+   },
+   {
+    "fresh_data_admitted": 0,
+    "genesis": "g13",
+    "identify_fixpoints_rise": true,
+    "measure": "mu1",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 126,
+      "frontier_guard": 125
+     },
+     "edges": 322,
+     "expansions_with_ties": 36,
+     "max_data": 3,
+     "max_depth": 6,
+     "max_forms": 3,
+     "max_ruled_forms": 2,
+     "nodes": 251,
+     "roles": {
+      "form+inst": 90,
+      "inst": 122,
+      "rule": 23,
+      "switch": 87
+     }
+    },
+    "switches": 87
+   },
+   {
+    "fresh_data_admitted": 0,
+    "genesis": "g13",
+    "identify_fixpoints_rise": false,
+    "measure": "mu2",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 151,
+      "frontier_guard": 105
+     },
+     "edges": 362,
+     "expansions_with_ties": 108,
+     "max_data": 3,
+     "max_depth": 9,
+     "max_forms": 4,
+     "max_ruled_forms": 3,
+     "nodes": 256,
+     "roles": {
+      "form+inst": 72,
+      "inst": 68,
+      "inst+inst": 18,
+      "inst+rule": 30,
+      "rule": 77,
+      "rule+rule": 18,
+      "switch": 79
+     }
+    },
+    "switches": 79
+   },
+   {
+    "fresh_data_admitted": 0,
     "genesis": "g14",
     "identify_fixpoints_rise": true,
     "measure": "mu1",
@@ -3159,27 +3159,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 138,
-      "frontier_guard": 113
+      "expanded": 151,
+      "frontier_guard": 105
      },
-     "edges": 345,
-     "expansions_with_ties": 102,
+     "edges": 362,
+     "expansions_with_ties": 108,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 4,
      "max_ruled_forms": 3,
-     "nodes": 251,
+     "nodes": 256,
      "roles": {
-      "form+inst": 60,
+      "form+inst": 72,
       "inst": 68,
       "inst+inst": 18,
-      "inst+rule": 36,
+      "inst+rule": 30,
       "rule": 77,
       "rule+rule": 18,
-      "switch": 68
+      "switch": 79
      }
     },
-    "switches": 68
+    "switches": 79
    },
    {
     "fresh_data_admitted": 0,
@@ -3218,27 +3218,27 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 140,
-      "frontier_guard": 111
+      "expanded": 150,
+      "frontier_guard": 106
      },
-     "edges": 347,
-     "expansions_with_ties": 102,
+     "edges": 361,
+     "expansions_with_ties": 108,
      "max_data": 3,
      "max_depth": 9,
      "max_forms": 4,
      "max_ruled_forms": 3,
-     "nodes": 251,
+     "nodes": 256,
      "roles": {
-      "form+inst": 60,
+      "form+inst": 72,
       "inst": 68,
       "inst+inst": 18,
-      "inst+rule": 36,
+      "inst+rule": 30,
       "rule": 77,
       "rule+rule": 18,
-      "switch": 70
+      "switch": 78
      }
     },
-    "switches": 70
+    "switches": 78
    },
    {
     "fresh_data_admitted": 0,
@@ -3250,23 +3250,23 @@
      "all_certified": true,
      "by_status": {
       "expanded": 191,
-      "frontier_guard": 60
+      "frontier_guard": 61
      },
-     "edges": 271,
-     "expansions_with_ties": 37,
+     "edges": 291,
+     "expansions_with_ties": 40,
      "max_data": 2,
-     "max_depth": 10,
-     "max_forms": 3,
+     "max_depth": 11,
+     "max_forms": 4,
      "max_ruled_forms": 3,
-     "nodes": 251,
+     "nodes": 252,
      "roles": {
-      "form+inst": 69,
-      "inst": 24,
-      "rule": 70,
-      "switch": 108
+      "form+inst": 96,
+      "inst": 22,
+      "rule": 64,
+      "switch": 109
      }
     },
-    "switches": 108
+    "switches": 109
    },
    {
     "fresh_data_admitted": 0,
@@ -3277,20 +3277,48 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "completed": 48,
-      "expanded": 157
+      "completed": 15,
+      "expanded": 81
      },
-     "edges": 221,
-     "expansions_with_ties": 64,
+     "edges": 114,
+     "expansions_with_ties": 33,
      "max_data": 2,
      "max_depth": 15,
      "max_forms": 5,
      "max_ruled_forms": 4,
-     "nodes": 205,
+     "nodes": 96,
      "roles": {
-      "form+inst": 79,
-      "inst": 32,
-      "rule": 32,
+      "form+inst": 34,
+      "inst": 20,
+      "rule": 20,
+      "switch": 40
+     }
+    },
+    "switches": 40
+   },
+   {
+    "fresh_data_admitted": 0,
+    "genesis": "g17",
+    "identify_fixpoints_rise": false,
+    "measure": "mu1",
+    "ruled_forms_monotone": true,
+    "stats": {
+     "all_certified": true,
+     "by_status": {
+      "expanded": 149,
+      "frontier_guard": 107
+     },
+     "edges": 283,
+     "expansions_with_ties": 40,
+     "max_data": 2,
+     "max_depth": 11,
+     "max_forms": 4,
+     "max_ruled_forms": 3,
+     "nodes": 256,
+     "roles": {
+      "form+inst": 144,
+      "inst": 15,
+      "rule": 46,
       "switch": 78
      }
     },
@@ -3300,57 +3328,29 @@
     "fresh_data_admitted": 0,
     "genesis": "g17",
     "identify_fixpoints_rise": false,
-    "measure": "mu1",
-    "ruled_forms_monotone": true,
-    "stats": {
-     "all_certified": true,
-     "by_status": {
-      "expanded": 157,
-      "frontier_guard": 98
-     },
-     "edges": 269,
-     "expansions_with_ties": 35,
-     "max_data": 2,
-     "max_depth": 11,
-     "max_forms": 4,
-     "max_ruled_forms": 3,
-     "nodes": 255,
-     "roles": {
-      "form+inst": 117,
-      "inst": 15,
-      "rule": 46,
-      "switch": 91
-     }
-    },
-    "switches": 91
-   },
-   {
-    "fresh_data_admitted": 0,
-    "genesis": "g17",
-    "identify_fixpoints_rise": false,
     "measure": "mu2",
     "ruled_forms_monotone": true,
     "stats": {
      "all_certified": true,
      "by_status": {
-      "completed": 40,
-      "expanded": 113
+      "completed": 20,
+      "expanded": 81
      },
-     "edges": 169,
-     "expansions_with_ties": 56,
+     "edges": 121,
+     "expansions_with_ties": 40,
      "max_data": 2,
      "max_depth": 15,
      "max_forms": 5,
      "max_ruled_forms": 4,
-     "nodes": 153,
+     "nodes": 101,
      "roles": {
-      "form+inst": 64,
-      "inst": 24,
-      "rule": 25,
-      "switch": 56
+      "form+inst": 40,
+      "inst": 20,
+      "rule": 21,
+      "switch": 40
      }
     },
-    "switches": 56
+    "switches": 40
    },
    {
     "fresh_data_admitted": 0,
@@ -3361,24 +3361,24 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "expanded": 157,
-      "frontier_guard": 98
+      "expanded": 149,
+      "frontier_guard": 107
      },
-     "edges": 269,
-     "expansions_with_ties": 35,
+     "edges": 283,
+     "expansions_with_ties": 40,
      "max_data": 2,
      "max_depth": 11,
      "max_forms": 4,
      "max_ruled_forms": 3,
-     "nodes": 255,
+     "nodes": 256,
      "roles": {
-      "form+inst": 117,
+      "form+inst": 144,
       "inst": 15,
       "rule": 46,
-      "switch": 91
+      "switch": 78
      }
     },
-    "switches": 91
+    "switches": 78
    },
    {
     "fresh_data_admitted": 0,
@@ -3389,24 +3389,24 @@
     "stats": {
      "all_certified": true,
      "by_status": {
-      "completed": 40,
-      "expanded": 113
+      "completed": 20,
+      "expanded": 81
      },
-     "edges": 169,
-     "expansions_with_ties": 56,
+     "edges": 121,
+     "expansions_with_ties": 40,
      "max_data": 2,
      "max_depth": 15,
      "max_forms": 5,
      "max_ruled_forms": 4,
-     "nodes": 153,
+     "nodes": 101,
      "roles": {
-      "form+inst": 64,
-      "inst": 24,
-      "rule": 25,
-      "switch": 56
+      "form+inst": 40,
+      "inst": 20,
+      "rule": 21,
+      "switch": 40
      }
     },
-    "switches": 56
+    "switches": 40
    }
   ],
   "genesis_count": 19,
@@ -3529,7 +3529,7 @@
    }
   },
   "reading_R": {
-   "accepted_identification_edges": 290,
+   "accepted_identification_edges": 288,
    "branches": [
     {
      "genesis": "g00",
@@ -3582,13 +3582,6 @@
     },
     {
      "genesis": "g00",
-     "identify_rounds": 2,
-     "leaf_status": "terminal_all_collapsed",
-     "measure": "mu1",
-     "n_data": 3
-    },
-    {
-     "genesis": "g00",
      "identify_rounds": 1,
      "leaf_status": "terminal_all_collapsed",
      "measure": "mu1",
@@ -3662,13 +3655,6 @@
      "identify_rounds": 2,
      "leaf_status": "terminal_all_collapsed",
      "measure": "mu1",
-     "n_data": 3
-    },
-    {
-     "genesis": "g00",
-     "identify_rounds": 2,
-     "leaf_status": "terminal_all_collapsed",
-     "measure": "mu2",
      "n_data": 3
     },
     {
@@ -5118,12 +5104,12 @@
     1,
     2
    ],
-   "edges_in_ties": 184,
+   "edges_in_ties": 182,
    "edges_with_third_party_change": 208,
    "kinds_census": {
     "inst": 58,
     "inst+inst": 12,
-    "inst+rule": 34,
+    "inst+rule": 32,
     "rule": 164,
     "rule+rule": 22
    },
@@ -5136,12 +5122,12 @@
      "equal_counts": true,
      "genesis": "g00",
      "mu1": [
-      21,
-      25
+      20,
+      24
      ],
      "mu2": [
-      21,
-      25
+      20,
+      24
      ]
     },
     {
@@ -5370,7 +5356,7 @@
    "costs": [
     2
    ],
-   "orbits_priced": 548
+   "orbits_priced": 544
   }
  },
  "trees": [
@@ -5474,11 +5460,11 @@
      2
     ],
     "leaf_statuses": {
-     "terminal_all_collapsed": 19
+     "terminal_all_collapsed": 18
     },
     "max_forms_at_leaf": 2,
     "max_ruled_forms_at_leaf": 2,
-    "paths": 19
+    "paths": 18
    },
    "fresh_data_admitted": 0,
    "genesis": "g00",
@@ -5489,19 +5475,19 @@
     "all_certified": true,
     "by_status": {
      "expanded": 7,
-     "terminal_all_collapsed": 14
+     "terminal_all_collapsed": 13
     },
-    "edges": 25,
+    "edges": 24,
     "expansions_with_ties": 9,
     "max_data": 3,
     "max_depth": 2,
     "max_forms": 2,
     "max_ruled_forms": 2,
-    "nodes": 21,
+    "nodes": 20,
     "roles": {
      "inst": 7,
      "inst+inst": 2,
-     "inst+rule": 4,
+     "inst+rule": 3,
      "rule": 10,
      "rule+rule": 2
     }
@@ -5517,11 +5503,11 @@
      2
     ],
     "leaf_statuses": {
-     "terminal_all_collapsed": 19
+     "terminal_all_collapsed": 18
     },
     "max_forms_at_leaf": 2,
     "max_ruled_forms_at_leaf": 2,
-    "paths": 19
+    "paths": 18
    },
    "fresh_data_admitted": 0,
    "genesis": "g00",
@@ -5532,19 +5518,19 @@
     "all_certified": true,
     "by_status": {
      "expanded": 7,
-     "terminal_all_collapsed": 14
+     "terminal_all_collapsed": 13
     },
-    "edges": 25,
+    "edges": 24,
     "expansions_with_ties": 9,
     "max_data": 3,
     "max_depth": 2,
     "max_forms": 2,
     "max_ruled_forms": 2,
-    "nodes": 21,
+    "nodes": 20,
     "roles": {
      "inst": 7,
      "inst+inst": 2,
-     "inst+rule": 4,
+     "inst+rule": 3,
      "rule": 10,
      "rule+rule": 2
     }
@@ -5559,11 +5545,11 @@
      0
     ],
     "leaf_statuses": {
-     "frontier_guard": 690
+     "frontier_guard": 724
     },
     "max_forms_at_leaf": 3,
     "max_ruled_forms_at_leaf": 2,
-    "paths": 690
+    "paths": 724
    },
    "fresh_data_admitted": 0,
    "genesis": "g00",
@@ -5573,31 +5559,31 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 90,
-     "frontier_guard": 167
+     "expanded": 94,
+     "frontier_guard": 157
     },
-    "edges": 302,
-    "expansions_with_ties": 36,
+    "edges": 298,
+    "expansions_with_ties": 35,
     "max_data": 3,
     "max_depth": 5,
     "max_forms": 3,
     "max_ruled_forms": 2,
-    "nodes": 257,
+    "nodes": 251,
     "roles": {
-     "form+inst": 110,
-     "inst": 124,
+     "form+inst": 95,
+     "inst": 133,
      "inst+inst": 2,
-     "inst+rule": 4,
+     "inst+rule": 3,
      "rule": 10,
      "rule+rule": 2,
-     "switch": 50
+     "switch": 53
     }
    }
   },
   {
    "alternate": true,
    "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 5,
+    "distinct_identify_fixpoint_ruled_sequences": 7,
     "every_sequence_rises": true,
     "identify_rounds_in_final_segment": [
      0,
@@ -5605,11 +5591,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 990
+     "frontier_guard": 2156
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 4,
-    "paths": 990
+    "paths": 2156
    },
    "fresh_data_admitted": 0,
    "genesis": "g00",
@@ -5619,24 +5605,24 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 110,
-     "frontier_guard": 143
+     "expanded": 146,
+     "frontier_guard": 106
     },
-    "edges": 293,
-    "expansions_with_ties": 88,
+    "edges": 389,
+    "expansions_with_ties": 121,
     "max_data": 3,
     "max_depth": 8,
     "max_forms": 4,
     "max_ruled_forms": 4,
-    "nodes": 253,
+    "nodes": 252,
     "roles": {
-     "form+inst": 44,
-     "inst": 73,
-     "inst+inst": 21,
-     "inst+rule": 42,
-     "rule": 54,
-     "rule+rule": 21,
-     "switch": 38
+     "form+inst": 38,
+     "inst": 98,
+     "inst+inst": 28,
+     "inst+rule": 46,
+     "rule": 104,
+     "rule+rule": 28,
+     "switch": 47
     }
    }
   },
@@ -5861,18 +5847,17 @@
   {
    "alternate": true,
    "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 7,
+    "distinct_identify_fixpoint_ruled_sequences": 6,
     "every_sequence_rises": false,
     "identify_rounds_in_final_segment": [
-     0,
-     2
+     0
     ],
     "leaf_statuses": {
-     "frontier_guard": 2994
+     "frontier_guard": 5548
     },
     "max_forms_at_leaf": 5,
     "max_ruled_forms_at_leaf": 4,
-    "paths": 2994
+    "paths": 5548
    },
    "fresh_data_admitted": 0,
    "genesis": "g01",
@@ -5882,24 +5867,24 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 148,
-     "frontier_guard": 105
+     "expanded": 173,
+     "frontier_guard": 78
     },
-    "edges": 367,
-    "expansions_with_ties": 109,
+    "edges": 400,
+    "expansions_with_ties": 120,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 5,
     "max_ruled_forms": 4,
-    "nodes": 253,
+    "nodes": 251,
     "roles": {
-     "form+inst": 54,
-     "inst": 74,
+     "form+inst": 84,
+     "inst": 70,
      "inst+inst": 18,
-     "inst+rule": 37,
-     "rule": 95,
+     "inst+rule": 28,
+     "rule": 87,
      "rule+rule": 19,
-     "switch": 70
+     "switch": 94
     }
    }
   },
@@ -6134,11 +6119,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 1218
+     "frontier_guard": 1306
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 4,
-    "paths": 1218
+    "paths": 1306
    },
    "fresh_data_admitted": 0,
    "genesis": "g02",
@@ -6148,23 +6133,23 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 133,
-     "frontier_guard": 119
+     "expanded": 137,
+     "frontier_guard": 114
     },
-    "edges": 301,
-    "expansions_with_ties": 84,
+    "edges": 313,
+    "expansions_with_ties": 88,
     "max_data": 3,
     "max_depth": 8,
     "max_forms": 4,
     "max_ruled_forms": 4,
-    "nodes": 252,
+    "nodes": 251,
     "roles": {
      "form+inst": 60,
-     "inst": 70,
-     "inst+inst": 16,
+     "inst": 72,
+     "inst+inst": 18,
      "inst+rule": 32,
-     "rule": 57,
-     "rule+rule": 16,
+     "rule": 63,
+     "rule+rule": 18,
      "switch": 50
     }
    }
@@ -6400,11 +6385,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 973
+     "frontier_guard": 1077
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 4,
-    "paths": 973
+    "paths": 1077
    },
    "fresh_data_admitted": 0,
    "genesis": "g03",
@@ -6414,23 +6399,23 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 116,
-     "frontier_guard": 138
+     "expanded": 119,
+     "frontier_guard": 132
     },
-    "edges": 296,
-    "expansions_with_ties": 90,
+    "edges": 306,
+    "expansions_with_ties": 92,
     "max_data": 3,
     "max_depth": 8,
     "max_forms": 4,
     "max_ruled_forms": 4,
-    "nodes": 254,
+    "nodes": 251,
     "roles": {
      "form+inst": 54,
      "inst": 72,
-     "inst+inst": 19,
-     "inst+rule": 40,
-     "rule": 48,
-     "rule+rule": 21,
+     "inst+inst": 21,
+     "inst+rule": 42,
+     "rule": 52,
+     "rule+rule": 23,
      "switch": 42
     }
    }
@@ -6658,7 +6643,7 @@
   {
    "alternate": true,
    "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 2,
+    "distinct_identify_fixpoint_ruled_sequences": 4,
     "every_sequence_rises": true,
     "identify_rounds_in_final_segment": [
      0,
@@ -6666,11 +6651,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 1037
+     "frontier_guard": 1077
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 4,
-    "paths": 1037
+    "paths": 1077
    },
    "fresh_data_admitted": 0,
    "genesis": "g04",
@@ -6680,24 +6665,24 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 115,
-     "frontier_guard": 139
+     "expanded": 119,
+     "frontier_guard": 132
     },
-    "edges": 298,
-    "expansions_with_ties": 88,
+    "edges": 306,
+    "expansions_with_ties": 92,
     "max_data": 3,
     "max_depth": 8,
     "max_forms": 4,
     "max_ruled_forms": 4,
-    "nodes": 254,
+    "nodes": 251,
     "roles": {
      "form+inst": 54,
-     "inst": 68,
+     "inst": 72,
      "inst+inst": 21,
-     "inst+rule": 44,
-     "rule": 48,
+     "inst+rule": 42,
+     "rule": 52,
      "rule+rule": 23,
-     "switch": 40
+     "switch": 42
     }
    }
   },
@@ -6924,11 +6909,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 2799
+     "frontier_guard": 2760
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2799
+    "paths": 2760
    },
    "fresh_data_admitted": 0,
    "genesis": "g05",
@@ -6941,8 +6926,8 @@
      "expanded": 155,
      "frontier_guard": 96
     },
-    "edges": 362,
-    "expansions_with_ties": 105,
+    "edges": 367,
+    "expansions_with_ties": 110,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 4,
@@ -6950,12 +6935,12 @@
     "nodes": 251,
     "roles": {
      "form+inst": 72,
-     "inst": 64,
-     "inst+inst": 15,
-     "inst+rule": 30,
-     "rule": 79,
-     "rule+rule": 15,
-     "switch": 87
+     "inst": 67,
+     "inst+inst": 17,
+     "inst+rule": 26,
+     "rule": 86,
+     "rule+rule": 17,
+     "switch": 82
     }
    }
   },
@@ -7182,11 +7167,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 2799
+     "frontier_guard": 2760
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2799
+    "paths": 2760
    },
    "fresh_data_admitted": 0,
    "genesis": "g06",
@@ -7199,8 +7184,8 @@
      "expanded": 155,
      "frontier_guard": 96
     },
-    "edges": 362,
-    "expansions_with_ties": 105,
+    "edges": 367,
+    "expansions_with_ties": 110,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 4,
@@ -7208,12 +7193,12 @@
     "nodes": 251,
     "roles": {
      "form+inst": 72,
-     "inst": 64,
-     "inst+inst": 15,
-     "inst+rule": 30,
-     "rule": 79,
-     "rule+rule": 15,
-     "switch": 87
+     "inst": 67,
+     "inst+inst": 17,
+     "inst+rule": 26,
+     "rule": 86,
+     "rule+rule": 17,
+     "switch": 82
     }
    }
   },
@@ -7440,11 +7425,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 2799
+     "frontier_guard": 2760
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2799
+    "paths": 2760
    },
    "fresh_data_admitted": 0,
    "genesis": "g07",
@@ -7457,8 +7442,8 @@
      "expanded": 155,
      "frontier_guard": 96
     },
-    "edges": 362,
-    "expansions_with_ties": 105,
+    "edges": 367,
+    "expansions_with_ties": 110,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 4,
@@ -7466,12 +7451,12 @@
     "nodes": 251,
     "roles": {
      "form+inst": 72,
-     "inst": 64,
-     "inst+inst": 15,
-     "inst+rule": 30,
-     "rule": 79,
-     "rule+rule": 15,
-     "switch": 87
+     "inst": 67,
+     "inst+inst": 17,
+     "inst+rule": 26,
+     "rule": 86,
+     "rule+rule": 17,
+     "switch": 82
     }
    }
   },
@@ -7698,11 +7683,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 2799
+     "frontier_guard": 2760
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2799
+    "paths": 2760
    },
    "fresh_data_admitted": 0,
    "genesis": "g08",
@@ -7715,8 +7700,8 @@
      "expanded": 155,
      "frontier_guard": 96
     },
-    "edges": 362,
-    "expansions_with_ties": 105,
+    "edges": 367,
+    "expansions_with_ties": 110,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 4,
@@ -7724,12 +7709,12 @@
     "nodes": 251,
     "roles": {
      "form+inst": 72,
-     "inst": 64,
-     "inst+inst": 15,
-     "inst+rule": 30,
-     "rule": 79,
-     "rule+rule": 15,
-     "switch": 87
+     "inst": 67,
+     "inst+inst": 17,
+     "inst+rule": 26,
+     "rule": 86,
+     "rule+rule": 17,
+     "switch": 82
     }
    }
   },
@@ -7954,11 +7939,11 @@
      0
     ],
     "leaf_statuses": {
-     "frontier_guard": 2200
+     "frontier_guard": 2174
     },
     "max_forms_at_leaf": 5,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2200
+    "paths": 2174
    },
    "fresh_data_admitted": 0,
    "genesis": "g09",
@@ -7968,24 +7953,24 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 190,
-     "frontier_guard": 61
+     "expanded": 194,
+     "frontier_guard": 57
     },
-    "edges": 328,
-    "expansions_with_ties": 84,
+    "edges": 323,
+    "expansions_with_ties": 81,
     "max_data": 3,
-    "max_depth": 12,
+    "max_depth": 13,
     "max_forms": 5,
     "max_ruled_forms": 3,
     "nodes": 251,
     "roles": {
-     "form+inst": 127,
-     "inst": 90,
+     "form+inst": 120,
+     "inst": 81,
      "inst+inst": 6,
-     "inst+rule": 12,
+     "inst+rule": 9,
      "rule": 32,
      "rule+rule": 6,
-     "switch": 55
+     "switch": 69
     }
    }
   },
@@ -8210,11 +8195,11 @@
      0
     ],
     "leaf_statuses": {
-     "frontier_guard": 2312
+     "frontier_guard": 2174
     },
     "max_forms_at_leaf": 5,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2312
+    "paths": 2174
    },
    "fresh_data_admitted": 0,
    "genesis": "g10",
@@ -8224,787 +8209,23 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 189,
-     "frontier_guard": 62
+     "expanded": 194,
+     "frontier_guard": 57
     },
-    "edges": 328,
-    "expansions_with_ties": 85,
+    "edges": 323,
+    "expansions_with_ties": 81,
     "max_data": 3,
-    "max_depth": 12,
+    "max_depth": 13,
     "max_forms": 5,
     "max_ruled_forms": 3,
     "nodes": 251,
     "roles": {
-     "form+inst": 127,
-     "inst": 90,
+     "form+inst": 120,
+     "inst": 81,
      "inst+inst": 6,
-     "inst+rule": 12,
+     "inst+rule": 9,
      "rule": 32,
      "rule+rule": 6,
-     "switch": 55
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g11",
-   "measure": "mu1",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      0,
-      1
-     ],
-     "target_is_required_separation": false
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g11",
-   "measure": "mu2",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      0,
-      1
-     ],
-     "target_is_required_separation": false
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 3
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 3
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g11",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 1,
-     "terminal_all_collapsed": 3
-    },
-    "edges": 3,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 1,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 4,
-    "roles": {
-     "rule": 3
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 3
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 3
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g11",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 1,
-     "terminal_all_collapsed": 3
-    },
-    "edges": 3,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 1,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 4,
-    "roles": {
-     "rule": 3
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 2,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0,
-     1,
-     2
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 966
-    },
-    "max_forms_at_leaf": 3,
-    "max_ruled_forms_at_leaf": 2,
-    "paths": 966
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g11",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 150,
-     "frontier_guard": 101
-    },
-    "edges": 318,
-    "expansions_with_ties": 32,
-    "max_data": 3,
-    "max_depth": 6,
-    "max_forms": 3,
-    "max_ruled_forms": 2,
-    "nodes": 251,
-    "roles": {
-     "form+inst": 60,
-     "inst": 74,
-     "rule": 78,
-     "switch": 106
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 3,
-    "every_sequence_rises": false,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 4656
-    },
-    "max_forms_at_leaf": 4,
-    "max_ruled_forms_at_leaf": 3,
-    "paths": 4656
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g11",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 159,
-     "frontier_guard": 93
-    },
-    "edges": 366,
-    "expansions_with_ties": 108,
-    "max_data": 3,
-    "max_depth": 10,
-    "max_forms": 4,
-    "max_ruled_forms": 3,
-    "nodes": 252,
-    "roles": {
-     "form+inst": 108,
-     "inst": 66,
-     "inst+inst": 12,
-     "inst+rule": 24,
-     "rule": 63,
-     "rule+rule": 12,
-     "switch": 81
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g12",
-   "measure": "mu1",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      0,
-      1
-     ],
-     "target_is_required_separation": false
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g12",
-   "measure": "mu2",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      0,
-      1
-     ],
-     "target_is_required_separation": false
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 3
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 3
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g12",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 1,
-     "terminal_all_collapsed": 3
-    },
-    "edges": 3,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 1,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 4,
-    "roles": {
-     "rule": 3
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 3
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 3
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g12",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 1,
-     "terminal_all_collapsed": 3
-    },
-    "edges": 3,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 1,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 4,
-    "roles": {
-     "rule": 3
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 2,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0,
-     1,
-     2
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 966
-    },
-    "max_forms_at_leaf": 3,
-    "max_ruled_forms_at_leaf": 2,
-    "paths": 966
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g12",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 150,
-     "frontier_guard": 101
-    },
-    "edges": 318,
-    "expansions_with_ties": 32,
-    "max_data": 3,
-    "max_depth": 6,
-    "max_forms": 3,
-    "max_ruled_forms": 2,
-    "nodes": 251,
-    "roles": {
-     "form+inst": 60,
-     "inst": 74,
-     "rule": 78,
-     "switch": 106
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 3,
-    "every_sequence_rises": false,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 4656
-    },
-    "max_forms_at_leaf": 4,
-    "max_ruled_forms_at_leaf": 3,
-    "paths": 4656
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g12",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 155,
-     "frontier_guard": 96
-    },
-    "edges": 362,
-    "expansions_with_ties": 108,
-    "max_data": 3,
-    "max_depth": 10,
-    "max_forms": 4,
-    "max_ruled_forms": 3,
-    "nodes": 251,
-    "roles": {
-     "form+inst": 108,
-     "inst": 62,
-     "inst+inst": 12,
-     "inst+rule": 24,
-     "rule": 63,
-     "rule+rule": 12,
-     "switch": 81
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g13",
-   "measure": "mu1",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      1,
-      2
-     ],
-     "target_is_required_separation": true
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g13",
-   "measure": "mu2",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      1,
-      2
-     ],
-     "target_is_required_separation": true
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 3,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1,
-     2
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 5
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 5
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g13",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 3,
-     "terminal_all_collapsed": 5
-    },
-    "edges": 7,
-    "expansions_with_ties": 2,
-    "max_data": 3,
-    "max_depth": 2,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 8,
-    "roles": {
-     "inst": 2,
-     "rule": 5
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1,
-     2
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 5
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 5
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g13",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 3,
-     "terminal_all_collapsed": 5
-    },
-    "edges": 7,
-    "expansions_with_ties": 2,
-    "max_data": 3,
-    "max_depth": 2,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 8,
-    "roles": {
-     "inst": 2,
-     "rule": 5
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0,
-     1
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 666
-    },
-    "max_forms_at_leaf": 3,
-    "max_ruled_forms_at_leaf": 2,
-    "paths": 666
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g13",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 126,
-     "frontier_guard": 125
-    },
-    "edges": 322,
-    "expansions_with_ties": 36,
-    "max_data": 3,
-    "max_depth": 6,
-    "max_forms": 3,
-    "max_ruled_forms": 2,
-    "nodes": 251,
-    "roles": {
-     "form+inst": 90,
-     "inst": 122,
-     "rule": 23,
-     "switch": 87
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 4,
-    "every_sequence_rises": false,
-    "identify_rounds_in_final_segment": [
-     0,
-     1,
-     2
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 2126
-    },
-    "max_forms_at_leaf": 4,
-    "max_ruled_forms_at_leaf": 3,
-    "paths": 2126
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g13",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 139,
-     "frontier_guard": 112
-    },
-    "edges": 346,
-    "expansions_with_ties": 102,
-    "max_data": 3,
-    "max_depth": 9,
-    "max_forms": 4,
-    "max_ruled_forms": 3,
-    "nodes": 251,
-    "roles": {
-     "form+inst": 60,
-     "inst": 68,
-     "inst+inst": 18,
-     "inst+rule": 36,
-     "rule": 77,
-     "rule+rule": 18,
      "switch": 69
     }
    }
@@ -9025,6 +8246,770 @@
     "paths": 1
    },
    "fresh_data_admitted": 0,
+   "genesis": "g11",
+   "measure": "mu1",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      0,
+      1
+     ],
+     "target_is_required_separation": false
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g11",
+   "measure": "mu2",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      0,
+      1
+     ],
+     "target_is_required_separation": false
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 3
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 3
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g11",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_collapsed": 3
+    },
+    "edges": 3,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 1,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 4,
+    "roles": {
+     "rule": 3
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 3
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 3
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g11",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_collapsed": 3
+    },
+    "edges": 3,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 1,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 4,
+    "roles": {
+     "rule": 3
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 2,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0,
+     1,
+     2
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 966
+    },
+    "max_forms_at_leaf": 3,
+    "max_ruled_forms_at_leaf": 2,
+    "paths": 966
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g11",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 150,
+     "frontier_guard": 101
+    },
+    "edges": 318,
+    "expansions_with_ties": 32,
+    "max_data": 3,
+    "max_depth": 6,
+    "max_forms": 3,
+    "max_ruled_forms": 2,
+    "nodes": 251,
+    "roles": {
+     "form+inst": 60,
+     "inst": 74,
+     "rule": 78,
+     "switch": 106
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 3,
+    "every_sequence_rises": false,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 4944
+    },
+    "max_forms_at_leaf": 4,
+    "max_ruled_forms_at_leaf": 3,
+    "paths": 4944
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g11",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 160,
+     "frontier_guard": 92
+    },
+    "edges": 366,
+    "expansions_with_ties": 111,
+    "max_data": 3,
+    "max_depth": 10,
+    "max_forms": 4,
+    "max_ruled_forms": 3,
+    "nodes": 252,
+    "roles": {
+     "form+inst": 114,
+     "inst": 72,
+     "inst+inst": 12,
+     "inst+rule": 18,
+     "rule": 63,
+     "rule+rule": 12,
+     "switch": 75
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g12",
+   "measure": "mu1",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      0,
+      1
+     ],
+     "target_is_required_separation": false
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g12",
+   "measure": "mu2",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      0,
+      1
+     ],
+     "target_is_required_separation": false
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 3
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 3
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g12",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_collapsed": 3
+    },
+    "edges": 3,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 1,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 4,
+    "roles": {
+     "rule": 3
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 3
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 3
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g12",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_collapsed": 3
+    },
+    "edges": 3,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 1,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 4,
+    "roles": {
+     "rule": 3
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 2,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0,
+     1,
+     2
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 966
+    },
+    "max_forms_at_leaf": 3,
+    "max_ruled_forms_at_leaf": 2,
+    "paths": 966
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g12",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 150,
+     "frontier_guard": 101
+    },
+    "edges": 318,
+    "expansions_with_ties": 32,
+    "max_data": 3,
+    "max_depth": 6,
+    "max_forms": 3,
+    "max_ruled_forms": 2,
+    "nodes": 251,
+    "roles": {
+     "form+inst": 60,
+     "inst": 74,
+     "rule": 78,
+     "switch": 106
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 3,
+    "every_sequence_rises": false,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 4944
+    },
+    "max_forms_at_leaf": 4,
+    "max_ruled_forms_at_leaf": 3,
+    "paths": 4944
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g12",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 166,
+     "frontier_guard": 89
+    },
+    "edges": 372,
+    "expansions_with_ties": 111,
+    "max_data": 3,
+    "max_depth": 10,
+    "max_forms": 4,
+    "max_ruled_forms": 3,
+    "nodes": 255,
+    "roles": {
+     "form+inst": 114,
+     "inst": 78,
+     "inst+inst": 12,
+     "inst+rule": 18,
+     "rule": 63,
+     "rule+rule": 12,
+     "switch": 75
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g13",
+   "measure": "mu1",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      1,
+      2
+     ],
+     "target_is_required_separation": true
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g13",
+   "measure": "mu2",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      1,
+      2
+     ],
+     "target_is_required_separation": true
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 3,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1,
+     2
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 5
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 5
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g13",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 3,
+     "terminal_all_collapsed": 5
+    },
+    "edges": 7,
+    "expansions_with_ties": 2,
+    "max_data": 3,
+    "max_depth": 2,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 8,
+    "roles": {
+     "inst": 2,
+     "rule": 5
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1,
+     2
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 5
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 5
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g13",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 3,
+     "terminal_all_collapsed": 5
+    },
+    "edges": 7,
+    "expansions_with_ties": 2,
+    "max_data": 3,
+    "max_depth": 2,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 8,
+    "roles": {
+     "inst": 2,
+     "rule": 5
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0,
+     1
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 666
+    },
+    "max_forms_at_leaf": 3,
+    "max_ruled_forms_at_leaf": 2,
+    "paths": 666
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g13",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 126,
+     "frontier_guard": 125
+    },
+    "edges": 322,
+    "expansions_with_ties": 36,
+    "max_data": 3,
+    "max_depth": 6,
+    "max_forms": 3,
+    "max_ruled_forms": 2,
+    "nodes": 251,
+    "roles": {
+     "form+inst": 90,
+     "inst": 122,
+     "rule": 23,
+     "switch": 87
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 4,
+    "every_sequence_rises": false,
+    "identify_rounds_in_final_segment": [
+     0,
+     1,
+     2
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 2594
+    },
+    "max_forms_at_leaf": 4,
+    "max_ruled_forms_at_leaf": 3,
+    "paths": 2594
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g13",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 151,
+     "frontier_guard": 105
+    },
+    "edges": 362,
+    "expansions_with_ties": 108,
+    "max_data": 3,
+    "max_depth": 9,
+    "max_forms": 4,
+    "max_ruled_forms": 3,
+    "nodes": 256,
+    "roles": {
+     "form+inst": 72,
+     "inst": 68,
+     "inst+inst": 18,
+     "inst+rule": 30,
+     "rule": 77,
+     "rule+rule": 18,
+     "switch": 79
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
    "genesis": "g14",
    "measure": "mu1",
    "reading": "P",
@@ -9232,11 +9217,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 2246
+     "frontier_guard": 2594
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2246
+    "paths": 2594
    },
    "fresh_data_admitted": 0,
    "genesis": "g14",
@@ -9246,24 +9231,24 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 138,
-     "frontier_guard": 113
+     "expanded": 151,
+     "frontier_guard": 105
     },
-    "edges": 345,
-    "expansions_with_ties": 102,
+    "edges": 362,
+    "expansions_with_ties": 108,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 4,
     "max_ruled_forms": 3,
-    "nodes": 251,
+    "nodes": 256,
     "roles": {
-     "form+inst": 60,
+     "form+inst": 72,
      "inst": 68,
      "inst+inst": 18,
-     "inst+rule": 36,
+     "inst+rule": 30,
      "rule": 77,
      "rule+rule": 18,
-     "switch": 68
+     "switch": 79
     }
    }
   },
@@ -9490,11 +9475,11 @@
      2
     ],
     "leaf_statuses": {
-     "frontier_guard": 2366
+     "frontier_guard": 2564
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 2366
+    "paths": 2564
    },
    "fresh_data_admitted": 0,
    "genesis": "g15",
@@ -9504,24 +9489,24 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 140,
-     "frontier_guard": 111
+     "expanded": 150,
+     "frontier_guard": 106
     },
-    "edges": 347,
-    "expansions_with_ties": 102,
+    "edges": 361,
+    "expansions_with_ties": 108,
     "max_data": 3,
     "max_depth": 9,
     "max_forms": 4,
     "max_ruled_forms": 3,
-    "nodes": 251,
+    "nodes": 256,
     "roles": {
-     "form+inst": 60,
+     "form+inst": 72,
      "inst": 68,
      "inst+inst": 18,
-     "inst+rule": 36,
+     "inst+rule": 30,
      "rule": 77,
      "rule+rule": 18,
-     "switch": 70
+     "switch": 78
     }
    }
   },
@@ -9696,18 +9681,17 @@
   {
    "alternate": true,
    "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 7,
+    "distinct_identify_fixpoint_ruled_sequences": 8,
     "every_sequence_rises": false,
     "identify_rounds_in_final_segment": [
-     0,
-     1
+     0
     ],
     "leaf_statuses": {
-     "frontier_guard": 88
+     "frontier_guard": 246
     },
-    "max_forms_at_leaf": 3,
+    "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 88
+    "paths": 246
    },
    "fresh_data_admitted": 0,
    "genesis": "g16",
@@ -9718,20 +9702,20 @@
     "all_certified": true,
     "by_status": {
      "expanded": 191,
-     "frontier_guard": 60
+     "frontier_guard": 61
     },
-    "edges": 271,
-    "expansions_with_ties": 37,
+    "edges": 291,
+    "expansions_with_ties": 40,
     "max_data": 2,
-    "max_depth": 10,
-    "max_forms": 3,
+    "max_depth": 11,
+    "max_forms": 4,
     "max_ruled_forms": 3,
-    "nodes": 251,
+    "nodes": 252,
     "roles": {
-     "form+inst": 69,
-     "inst": 24,
-     "rule": 70,
-     "switch": 108
+     "form+inst": 96,
+     "inst": 22,
+     "rule": 64,
+     "switch": 109
     }
    }
   },
@@ -9758,232 +9742,232 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "completed": 48,
-     "expanded": 157
+     "completed": 15,
+     "expanded": 81
     },
-    "edges": 221,
-    "expansions_with_ties": 64,
+    "edges": 114,
+    "expansions_with_ties": 33,
     "max_data": 2,
     "max_depth": 15,
     "max_forms": 5,
     "max_ruled_forms": 4,
-    "nodes": 205,
+    "nodes": 96,
     "roles": {
-     "form+inst": 79,
-     "inst": 32,
-     "rule": 32,
+     "form+inst": 34,
+     "inst": 20,
+     "rule": 20,
+     "switch": 40
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g17",
+   "measure": "mu1",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      0,
+      1
+     ],
+     "target_is_required_separation": true
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 2,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "terminal_no_response": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 0,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g17",
+   "measure": "mu2",
+   "reading": "P",
+   "refusals": [
+    {
+     "mode": "identify",
+     "node": 0,
+     "target": [
+      0,
+      1
+     ],
+     "target_is_required_separation": true
+    }
+   ],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "terminal_no_response": 1
+    },
+    "edges": 0,
+    "expansions_with_ties": 0,
+    "max_data": 2,
+    "max_depth": 0,
+    "max_forms": 1,
+    "max_ruled_forms": 0,
+    "nodes": 1,
+    "roles": {}
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g17",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_collapsed": 1
+    },
+    "edges": 1,
+    "expansions_with_ties": 0,
+    "max_data": 2,
+    "max_depth": 1,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 2,
+    "roles": {
+     "rule": 1
+    }
+   }
+  },
+  {
+   "alternate": false,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 1,
+    "every_sequence_rises": true,
+    "identify_rounds_in_final_segment": [
+     1
+    ],
+    "leaf_statuses": {
+     "terminal_all_collapsed": 1
+    },
+    "max_forms_at_leaf": 1,
+    "max_ruled_forms_at_leaf": 1,
+    "paths": 1
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g17",
+   "measure": "mu2",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 1,
+     "terminal_all_collapsed": 1
+    },
+    "edges": 1,
+    "expansions_with_ties": 0,
+    "max_data": 2,
+    "max_depth": 1,
+    "max_forms": 1,
+    "max_ruled_forms": 1,
+    "nodes": 2,
+    "roles": {
+     "rule": 1
+    }
+   }
+  },
+  {
+   "alternate": true,
+   "branch_summary": {
+    "distinct_identify_fixpoint_ruled_sequences": 4,
+    "every_sequence_rises": false,
+    "identify_rounds_in_final_segment": [
+     0
+    ],
+    "leaf_statuses": {
+     "frontier_guard": 281
+    },
+    "max_forms_at_leaf": 4,
+    "max_ruled_forms_at_leaf": 3,
+    "paths": 281
+   },
+   "fresh_data_admitted": 0,
+   "genesis": "g17",
+   "measure": "mu1",
+   "reading": "R",
+   "refusals": [],
+   "stats": {
+    "all_certified": true,
+    "by_status": {
+     "expanded": 149,
+     "frontier_guard": 107
+    },
+    "edges": 283,
+    "expansions_with_ties": 40,
+    "max_data": 2,
+    "max_depth": 11,
+    "max_forms": 4,
+    "max_ruled_forms": 3,
+    "nodes": 256,
+    "roles": {
+     "form+inst": 144,
+     "inst": 15,
+     "rule": 46,
      "switch": 78
     }
    }
   },
   {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g17",
-   "measure": "mu1",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      0,
-      1
-     ],
-     "target_is_required_separation": true
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 2,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "terminal_no_response": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 0,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g17",
-   "measure": "mu2",
-   "reading": "P",
-   "refusals": [
-    {
-     "mode": "identify",
-     "node": 0,
-     "target": [
-      0,
-      1
-     ],
-     "target_is_required_separation": true
-    }
-   ],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "terminal_no_response": 1
-    },
-    "edges": 0,
-    "expansions_with_ties": 0,
-    "max_data": 2,
-    "max_depth": 0,
-    "max_forms": 1,
-    "max_ruled_forms": 0,
-    "nodes": 1,
-    "roles": {}
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g17",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 1,
-     "terminal_all_collapsed": 1
-    },
-    "edges": 1,
-    "expansions_with_ties": 0,
-    "max_data": 2,
-    "max_depth": 1,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 2,
-    "roles": {
-     "rule": 1
-    }
-   }
-  },
-  {
-   "alternate": false,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 1,
-    "every_sequence_rises": true,
-    "identify_rounds_in_final_segment": [
-     1
-    ],
-    "leaf_statuses": {
-     "terminal_all_collapsed": 1
-    },
-    "max_forms_at_leaf": 1,
-    "max_ruled_forms_at_leaf": 1,
-    "paths": 1
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g17",
-   "measure": "mu2",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 1,
-     "terminal_all_collapsed": 1
-    },
-    "edges": 1,
-    "expansions_with_ties": 0,
-    "max_data": 2,
-    "max_depth": 1,
-    "max_forms": 1,
-    "max_ruled_forms": 1,
-    "nodes": 2,
-    "roles": {
-     "rule": 1
-    }
-   }
-  },
-  {
-   "alternate": true,
-   "branch_summary": {
-    "distinct_identify_fixpoint_ruled_sequences": 4,
-    "every_sequence_rises": false,
-    "identify_rounds_in_final_segment": [
-     0
-    ],
-    "leaf_statuses": {
-     "frontier_guard": 170
-    },
-    "max_forms_at_leaf": 4,
-    "max_ruled_forms_at_leaf": 3,
-    "paths": 170
-   },
-   "fresh_data_admitted": 0,
-   "genesis": "g17",
-   "measure": "mu1",
-   "reading": "R",
-   "refusals": [],
-   "stats": {
-    "all_certified": true,
-    "by_status": {
-     "expanded": 157,
-     "frontier_guard": 98
-    },
-    "edges": 269,
-    "expansions_with_ties": 35,
-    "max_data": 2,
-    "max_depth": 11,
-    "max_forms": 4,
-    "max_ruled_forms": 3,
-    "nodes": 255,
-    "roles": {
-     "form+inst": 117,
-     "inst": 15,
-     "rule": 46,
-     "switch": 91
-    }
-   }
-  },
-  {
    "alternate": true,
    "branch_summary": {
     "distinct_identify_fixpoint_ruled_sequences": 8,
@@ -10006,21 +9990,21 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "completed": 40,
-     "expanded": 113
+     "completed": 20,
+     "expanded": 81
     },
-    "edges": 169,
-    "expansions_with_ties": 56,
+    "edges": 121,
+    "expansions_with_ties": 40,
     "max_data": 2,
     "max_depth": 15,
     "max_forms": 5,
     "max_ruled_forms": 4,
-    "nodes": 153,
+    "nodes": 101,
     "roles": {
-     "form+inst": 64,
-     "inst": 24,
-     "rule": 25,
-     "switch": 56
+     "form+inst": 40,
+     "inst": 20,
+     "rule": 21,
+     "switch": 40
     }
    }
   },
@@ -10199,11 +10183,11 @@
      0
     ],
     "leaf_statuses": {
-     "frontier_guard": 170
+     "frontier_guard": 281
     },
     "max_forms_at_leaf": 4,
     "max_ruled_forms_at_leaf": 3,
-    "paths": 170
+    "paths": 281
    },
    "fresh_data_admitted": 0,
    "genesis": "g18",
@@ -10213,21 +10197,21 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 157,
-     "frontier_guard": 98
+     "expanded": 149,
+     "frontier_guard": 107
     },
-    "edges": 269,
-    "expansions_with_ties": 35,
+    "edges": 283,
+    "expansions_with_ties": 40,
     "max_data": 2,
     "max_depth": 11,
     "max_forms": 4,
     "max_ruled_forms": 3,
-    "nodes": 255,
+    "nodes": 256,
     "roles": {
-     "form+inst": 117,
+     "form+inst": 144,
      "inst": 15,
      "rule": 46,
-     "switch": 91
+     "switch": 78
     }
    }
   },
@@ -10254,21 +10238,21 @@
    "stats": {
     "all_certified": true,
     "by_status": {
-     "completed": 40,
-     "expanded": 113
+     "completed": 20,
+     "expanded": 81
     },
-    "edges": 169,
-    "expansions_with_ties": 56,
+    "edges": 121,
+    "expansions_with_ties": 40,
     "max_data": 2,
     "max_depth": 15,
     "max_forms": 5,
     "max_ruled_forms": 4,
-    "nodes": 153,
+    "nodes": 101,
     "roles": {
-     "form+inst": 64,
-     "inst": 24,
-     "rule": 25,
-     "switch": 56
+     "form+inst": 40,
+     "inst": 20,
+     "rule": 21,
+     "switch": 40
     }
    }
   }

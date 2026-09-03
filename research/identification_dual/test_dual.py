@@ -138,6 +138,22 @@ class ValidityTests(unittest.TestCase):
         for delta in mr.deltas:
             self.assertEqual(len(delta), 1)
 
+    def test_each_genesis_has_floor_one_but_some_pairs_cost_two(self) -> None:
+        saw_cost_two = False
+        for g in sealed_fixpoints(BOUNDS):
+            state = dual_replay(genesis_history(g, "R"))
+            for measure in ("mu1", "mu2"):
+                costs: list[int] = []
+                for pair in separated_pairs(state.regime):
+                    mr = min_responses(state, pair, measure, BOUNDS)
+                    self.assertIsNotNone(mr, (g.genesis_id, measure, pair))
+                    assert mr is not None
+                    costs.append(mr.cost[0])
+                self.assertTrue(costs, (g.genesis_id, measure))
+                self.assertEqual(min(costs), 1, (g.genesis_id, measure, costs))
+                saw_cost_two = saw_cost_two or 2 in costs
+        self.assertTrue(saw_cost_two)
+
     def test_unpruned_enumeration_offers_rule_items(self) -> None:
         items = [d for d in iter_full_deltas(self.r_state.regime, 1, BOUNDS)]
         self.assertIn((NewRuleAll(0),), items)
@@ -166,6 +182,24 @@ class IsomorphismTests(unittest.TestCase):
             (min(pi[i], pi[j]), max(pi[i], pi[j])) for (i, j) in s.same
         )
         t = State(renamed, same, s.mode)
+        self.assertEqual(state_key(s), state_key(t))
+
+    def test_key_is_invariant_when_different_form_classes_are_relabelled(self) -> None:
+        """A form relabeling may move an arity to a different index.
+
+        Searching only permutations within the original arity/rule classes
+        incorrectly treated those indices as fixed colours and gave two
+        isomorphic states different keys.
+        """
+        r = Regime(
+            ("x", "y"),
+            (1, 2),
+            frozenset({(0, (0,)), (1, (0, 1))}),
+            frozenset(),
+            frozenset(),
+        )
+        s = State(r, frozenset(), IDENTIFY)
+        t = State(rename(r, (1, 0), (1, 0)), frozenset(), IDENTIFY)
         self.assertEqual(state_key(s), state_key(t))
 
     def test_key_separates_different_stores(self) -> None:

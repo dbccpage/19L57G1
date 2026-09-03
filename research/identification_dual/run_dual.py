@@ -330,8 +330,14 @@ def build_all() -> dict[str, Json]:
     }
 
     # Mechanical scoring of the frozen predictions.
-    r_costs = [p.cost for p in probes if p.reading == "R" and p.answerable and p.cost is not None]
-    p1 = bool(r_costs) and min(r_costs) == 1
+    r_costs_by_genesis: dict[tuple[str, str], list[int]] = {}
+    for p in probes:
+        if p.reading == "R" and p.answerable and p.cost is not None:
+            r_costs_by_genesis.setdefault((p.genesis, p.measure), []).append(p.cost)
+    p1 = (
+        len(r_costs_by_genesis) == len(genesis) * len(MEASURES)
+        and all(costs and min(costs) == 1 for costs in r_costs_by_genesis.values())
+    )
     mu1_cost1 = [e for t in r_plain if t.measure == "mu1" for e in _identify_edges(t) if e.cost[0] == 1]
     p2 = bool(mu1_cost1) and all(_kinds(e) in (["inst"], ["rule"]) for e in mu1_cost1) and any(
         _kinds(e) == ["rule"] for e in mu1_cost1
