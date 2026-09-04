@@ -1,0 +1,260 @@
+"""The estate's move graph, and its cycle structure.
+
+A node is a reachable state.  An edge is a state together with one item the
+sealed one-item enumerator offers there, running to the state that item
+produces.  Nothing here invents a move: the edge set is exactly what
+`iter_cost1_items` yields, so the graph is the estate's own and not a model
+of it.
+
+Two kinds of cycle can occur, and they are kept apart throughout because
+they mean different things:
+
+* a **self-loop** -- an item that leaves the state unchanged.  A cost that
+  is nonzero here charges for waste;
+* a **commuting square** or any longer undirected cycle -- two different
+  routes reaching the same state.  A cost that is nonzero here charges for
+  order.
+
+AuthorityEffect: None.
+"""
+
+from __future__ import annotations
+
+import pathlib
+import sys
+from dataclasses import dataclass
+
+HERE = pathlib.Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+_CODE = str(REPO / "code")
+if _CODE not in sys.path:
+    sys.path.insert(0, _CODE)
+
+from derivation.candidates import (  # noqa: E402
+    Bounds,
+    Item,
+    NewDatum,
+    NewForm,
+    NewInst,
+    NewRuleAll,
+    apply_delta,
+    iter_cost1_items,
+)
+from derivation.engine import READINGS  # noqa: E402
+from derivation.model import AdmissionError, Regime, replay  # noqa: E402
+
+BOUNDS = Bounds(max_items=2, max_arity=2)
+DEPTH = 3
+
+__all__ = [
+    "BOUNDS",
+    "DEPTH",
+    "Cycle",
+    "Edge",
+    "MoveGraph",
+    "build",
+    "item_kind",
+]
+
+
+def item_kind(it: Item) -> str:
+    if isinstance(it, NewDatum):
+        return "datum"
+    if isinstance(it, NewForm):
+        return "form"
+    if isinstance(it, NewInst):
+        return "inst"
+    if isinstance(it, NewRuleAll):
+        return "rule"
+    raise TypeError(type(it))
+
+
+@dataclass(frozen=True)
+class Edge:
+    """One move: a state, one item, the state it produces."""
+
+    index: int
+    source: int
+    target: int
+    item: Item
+
+    @property
+    def is_self_loop(self) -> bool:
+        return self.source == self.target
+
+
+@dataclass(frozen=True)
+class Cycle:
+    """A fundamental cycle: the non-tree edge that closes it, and the
+    signed edge indices of the closed walk.
+
+    `+1` means the edge is traversed forwards, `-1` backwards.  A cost's
+    circulation around the cycle is the signed sum of its edge weights."""
+
+    closing_edge: int
+    signed: tuple[tuple[int, int], ...]
+
+    @property
+    def is_self_loop(self) -> bool:
+        return len(self.signed) == 1
+
+
+@dataclass(frozen=True)
+class MoveGraph:
+    states: tuple[Regime, ...]
+    names: tuple[str, ...]
+    edges: tuple[Edge, ...]
+    components: int
+    cycles: tuple[Cycle, ...]
+
+    @property
+    def rank(self) -> int:
+        """The cycle rank of the underlying undirected multigraph."""
+
+        return len(self.edges) - len(self.states) + self.components
+
+    @property
+    def self_loop_edges(self) -> tuple[Edge, ...]:
+        return tuple(e for e in self.edges if e.is_self_loop)
+
+    @property
+    def order_cycles(self) -> tuple[Cycle, ...]:
+        """The cycles that are not self-loops: two routes to one state."""
+
+        return tuple(c for c in self.cycles if not c.is_self_loop)
+
+
+def _act(base: Regime, it: Item) -> Regime | None:
+    try:
+        return apply_delta(base, (it,))
+    except AdmissionError:
+        return None
+
+
+def build(depth: int = DEPTH) -> MoveGraph:
+    """Every state reachable by up to `depth` one-item moves from the
+    sealed readings' genesis states, with every move between them.
+
+    Edges are collected from EVERY discovered state, including the last
+    layer, so a move whose target is already known is recorded even when it
+    would not extend the frontier.  Recording only frontier-extending moves
+    would build a spanning tree and hide exactly the structure this tree is
+    looking for -- that is the whole reason the edge collection is a
+    separate pass."""
+
+    index_of: dict[Regime, int] = {}
+    states: list[Regime] = []
+    names: list[str] = []
+
+    def add(state: Regime, name: str) -> int:
+        got = index_of.get(state)
+        if got is not None:
+            return got
+        index_of[state] = len(states)
+        states.append(state)
+        names.append(name)
+        return len(states) - 1
+
+    frontier: list[int] = []
+    for reading in READINGS:
+        frontier.append(add(replay(reading.genesis), f"{reading.name}0"))
+    for level in range(depth):
+        nxt: list[int] = []
+        for node in frontier:
+            base = states[node]
+            for count, it in enumerate(iter_cost1_items(base, BOUNDS)):
+                after = _act(base, it)
+                if after is None or after in index_of:
+                    continue
+                nxt.append(add(after, f"{names[node]}.{level}{count}"))
+        frontier = nxt
+
+    # Second pass: every move between discovered states, in a deterministic
+    # order.  A move whose target is outside the discovered set is dropped,
+    # and the count of those is reported so the boundary is visible.
+    edges: list[Edge] = []
+    dropped = 0
+    for node, base in enumerate(states):
+        for it in iter_cost1_items(base, BOUNDS):
+            after = _act(base, it)
+            if after is None:
+                continue
+            target = index_of.get(after)
+            if target is None:
+                dropped += 1
+                continue
+            edges.append(Edge(len(edges), node, target, it))
+
+    parent: list[int] = list(range(len(states)))
+
+    def find(x: int) -> int:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    tree: list[Edge] = []
+    extra: list[Edge] = []
+    for edge in edges:
+        a, b = find(edge.source), find(edge.target)
+        if a == b:
+            extra.append(edge)
+            continue
+        parent[a] = b
+        tree.append(edge)
+    components = len({find(i) for i in range(len(states))})
+
+    adjacency: dict[int, list[tuple[int, int, int]]] = {i: [] for i in range(len(states))}
+    for edge in tree:
+        adjacency[edge.source].append((edge.target, edge.index, 1))
+        adjacency[edge.target].append((edge.source, edge.index, -1))
+
+    def tree_path(start: int, goal: int) -> list[tuple[int, int]]:
+        """Signed edges of the unique forest path, or an empty list when
+        start is goal."""
+
+        if start == goal:
+            return []
+        seen = {start}
+        stack: list[tuple[int, list[tuple[int, int]]]] = [(start, [])]
+        while stack:
+            here, sofar = stack.pop()
+            for nxt_node, edge_index, sign in adjacency[here]:
+                if nxt_node in seen:
+                    continue
+                step = sofar + [(edge_index, sign)]
+                if nxt_node == goal:
+                    return step
+                seen.add(nxt_node)
+                stack.append((nxt_node, step))
+        raise AssertionError("no forest path between nodes of one component")
+
+    cycles: list[Cycle] = []
+    for edge in extra:
+        back = tree_path(edge.target, edge.source)
+        cycles.append(Cycle(edge.index, tuple([(edge.index, 1)] + back)))
+
+    graph = MoveGraph(
+        states=tuple(states),
+        names=tuple(names),
+        edges=tuple(edges),
+        components=components,
+        cycles=tuple(cycles),
+    )
+    assert len(cycles) == graph.rank, (len(cycles), graph.rank, dropped)
+    return graph
+
+
+def boundary_moves(depth: int = DEPTH) -> int:
+    """How many moves leave the discovered set.  Reported so that the
+    rectangle's edge is visible rather than silent."""
+
+    graph = build(depth)
+    known = set(graph.states)
+    dropped = 0
+    for base in graph.states:
+        for it in iter_cost1_items(base, BOUNDS):
+            after = _act(base, it)
+            if after is not None and after not in known:
+                dropped += 1
+    return dropped

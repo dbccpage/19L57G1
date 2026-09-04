@@ -1,0 +1,281 @@
+{
+  "assumptions": {
+    "A1": "the rectangle is reachability-bounded at the declared depth; every count is a count over it, and the number of moves leaving it is reported at each depth rather than hidden",
+    "A2": "the cycle rank is the rank of this finite graph and of nothing larger; FW-CLASS forbids reading it as the rank of the estate",
+    "A3": "every candidate was declared with its reading before its circulation was computed, and the ones that turned out exact are reported as exact rather than dropped",
+    "A4": "exactness is decided twice, by potentials and by circulations, and the two must agree on every candidate; agreement is recorded per candidate rather than assumed",
+    "A5": "a cost that is nonzero only on moves that change nothing is reported as pricing waste, not as pricing order"
+  },
+  "authority_effect": "None",
+  "candidates": [
+    {
+      "exact": true,
+      "first_inconsistent_move": null,
+      "methods_agree": true,
+      "name": "arity_debt",
+      "nonzero_on_order_cycles": 0,
+      "nonzero_on_waste_cycles": 0,
+      "reading": "a form costs its arity; base-free, listed to separate base-freeness from exactness",
+      "reads_the_base": false,
+      "square_witness": null
+    },
+    {
+      "exact": true,
+      "first_inconsistent_move": null,
+      "methods_agree": true,
+      "name": "context_opening",
+      "nonzero_on_order_cycles": 0,
+      "nonzero_on_waste_cycles": 0,
+      "reading": "contexts newly opened, derivable or not",
+      "reads_the_base": true,
+      "square_witness": null
+    },
+    {
+      "exact": false,
+      "first_inconsistent_move": "L0.02.13 --inst--> L0.02.13.26 wants 0, already 1",
+      "methods_agree": true,
+      "name": "empty_admission",
+      "nonzero_on_order_cycles": 22,
+      "nonzero_on_waste_cycles": 0,
+      "reading": "one when the record grows and the observable content does not",
+      "reads_the_base": true,
+      "square_witness": {
+        "end": "L0.00.11.23",
+        "route_one": [
+          [
+            "datum",
+            1
+          ],
+          [
+            "rule",
+            0
+          ]
+        ],
+        "route_one_total": 1,
+        "route_two": [
+          [
+            "rule",
+            0
+          ],
+          [
+            "datum",
+            0
+          ]
+        ],
+        "route_two_total": 0,
+        "start": "L0.01"
+      }
+    },
+    {
+      "exact": false,
+      "first_inconsistent_move": "L0.02.17 --inst--> L0.02.17 wants 3, already 2",
+      "methods_agree": true,
+      "name": "item_count",
+      "nonzero_on_order_cycles": 0,
+      "nonzero_on_waste_cycles": 232,
+      "reading": "the sealed count, one per item",
+      "reads_the_base": false,
+      "square_witness": null
+    },
+    {
+      "exact": false,
+      "first_inconsistent_move": "L0.02.17 --inst--> L0.02.17 wants 2, already 1",
+      "methods_agree": true,
+      "name": "mention_deficit",
+      "nonzero_on_order_cycles": 18,
+      "nonzero_on_waste_cycles": 214,
+      "reading": "an instance costs the standing data it does not mention",
+      "reads_the_base": true,
+      "square_witness": {
+        "end": "L0.00.11.24",
+        "route_one": [
+          [
+            "datum",
+            0
+          ],
+          [
+            "inst",
+            2
+          ]
+        ],
+        "route_one_total": 2,
+        "route_two": [
+          [
+            "inst",
+            1
+          ],
+          [
+            "datum",
+            0
+          ]
+        ],
+        "route_two_total": 1,
+        "start": "L0.01"
+      }
+    },
+    {
+      "exact": true,
+      "first_inconsistent_move": null,
+      "methods_agree": true,
+      "name": "reach",
+      "nonzero_on_order_cycles": 0,
+      "nonzero_on_waste_cycles": 0,
+      "reading": "pluggings newly made derivable",
+      "reads_the_base": true,
+      "square_witness": null
+    },
+    {
+      "exact": false,
+      "first_inconsistent_move": "L0.02.17 --inst--> L0.02.17 wants 1, already 0",
+      "methods_agree": true,
+      "name": "redundancy",
+      "nonzero_on_order_cycles": 0,
+      "nonzero_on_waste_cycles": 232,
+      "reading": "one when the move leaves the state as it found it",
+      "reads_the_base": true,
+      "square_witness": null
+    },
+    {
+      "exact": false,
+      "first_inconsistent_move": "L0.00.12 --rule--> L0.00.12.23 wants -5, already 0",
+      "methods_agree": true,
+      "name": "rule_span",
+      "nonzero_on_order_cycles": 4,
+      "nonzero_on_waste_cycles": 0,
+      "reading": "a commitment costs what it ranges over at the moment it is made",
+      "reads_the_base": true,
+      "square_witness": {
+        "end": "L0.00.11.23",
+        "route_one": [
+          [
+            "datum",
+            0
+          ],
+          [
+            "rule",
+            3
+          ]
+        ],
+        "route_one_total": 3,
+        "route_two": [
+          [
+            "rule",
+            2
+          ],
+          [
+            "datum",
+            0
+          ]
+        ],
+        "route_two_total": 2,
+        "start": "L0.01"
+      }
+    },
+    {
+      "exact": false,
+      "first_inconsistent_move": "L0.00.12 --form--> L0.00.12.22 wants 1, already 2",
+      "methods_agree": true,
+      "name": "width_at_admission",
+      "nonzero_on_order_cycles": 38,
+      "nonzero_on_waste_cycles": 0,
+      "reading": "a form costs the state it must range over; a datum is not an obligation",
+      "reads_the_base": true,
+      "square_witness": {
+        "end": "L0.00.11",
+        "route_one": [
+          [
+            "datum",
+            0
+          ],
+          [
+            "form",
+            3
+          ]
+        ],
+        "route_one_total": 3,
+        "route_two": [
+          [
+            "form",
+            2
+          ],
+          [
+            "datum",
+            0
+          ]
+        ],
+        "route_two_total": 2,
+        "start": "L0"
+      }
+    }
+  ],
+  "commuting_squares": 770,
+  "declared": {
+    "cost": "a weighting of single moves, extended by summation -- which is every additive cost, by the characterisation in lean/PathDependentCost/Cochain.lean",
+    "depth": 3,
+    "edge": "exactly what iter_cost1_items offers at that state; no move is invented",
+    "exact": "some state functional P has the cost as its difference",
+    "node": "a state reachable from a sealed reading's genesis by one-item moves"
+  },
+  "graph_by_depth": [
+    {
+      "components": 2,
+      "cycle_rank": 0,
+      "depth": 1,
+      "moves": 6,
+      "moves_leaving_the_rectangle": 40,
+      "order_cycles": 0,
+      "self_loop_cycles": 0,
+      "states": 8
+    },
+    {
+      "components": 2,
+      "cycle_rank": 22,
+      "depth": 2,
+      "moves": 64,
+      "moves_leaving_the_rectangle": 360,
+      "order_cycles": 4,
+      "self_loop_cycles": 18,
+      "states": 44
+    },
+    {
+      "components": 2,
+      "cycle_rank": 378,
+      "depth": 3,
+      "moves": 638,
+      "moves_leaving_the_rectangle": 2947,
+      "order_cycles": 146,
+      "self_loop_cycles": 232,
+      "states": 262
+    }
+  ],
+  "path_dependent_through_order_only": [
+    "empty_admission",
+    "rule_span",
+    "width_at_admission"
+  ],
+  "path_dependent_through_waste_only": [
+    "item_count",
+    "redundancy"
+  ],
+  "quadrants": {
+    "base_free_and_exact": [
+      "arity_debt"
+    ],
+    "base_free_and_not_exact": [
+      "item_count"
+    ],
+    "base_relative_and_exact": [
+      "context_opening",
+      "reach"
+    ],
+    "base_relative_and_not_exact": [
+      "empty_admission",
+      "mention_deficit",
+      "redundancy",
+      "rule_span",
+      "width_at_admission"
+    ]
+  },
+  "snapshot": "7fcd72f6",
+  "write_root": "research/path_dependent_cost/"
+}
