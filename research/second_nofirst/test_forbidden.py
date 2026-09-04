@@ -665,7 +665,10 @@ def workflow_steps(workflow: str, job_name: str) -> list[dict[str, str]]:
     jobs_headers = [index for index, line in enumerate(lines) if line == "jobs:"]
     if len(jobs_headers) != 1:
         raise ValueError("workflow must contain exactly one top-level jobs mapping")
-    if any(line == "defaults:" for line in lines):
+    if any(
+        re.fullmatch(r'''(?:defaults|["']defaults["'])\s*:.*''', line)
+        for line in lines
+    ):
         raise ValueError("workflow-level run defaults are unsupported")
     jobs_start = jobs_headers[0] + 1
     jobs_end = len(lines)
@@ -688,12 +691,18 @@ def workflow_steps(workflow: str, job_name: str) -> list[dict[str, str]]:
             end = index
             break
     block = lines[start + 1 : end]
-    for line in block:
-        if line.startswith(("    if:", "    continue-on-error:", "    defaults:")):
-            raise ValueError(f"jobs.{job_name} carries execution-changing defaults")
     step_header = [index for index, line in enumerate(block) if line == "    steps:"]
     if len(step_header) != 1:
         raise ValueError(f"jobs.{job_name} must contain exactly one steps list")
+    metadata = [
+        line
+        for line in block[: step_header[0]]
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    if metadata != ["    runs-on: ubuntu-latest"]:
+        raise ValueError(
+            f"jobs.{job_name} metadata must be the exact unconditional runner"
+        )
     body = block[step_header[0] + 1 :]
     starts = [index for index, line in enumerate(body) if line.startswith("      - ")]
     if not starts:
@@ -725,7 +734,9 @@ def workflow_steps(workflow: str, job_name: str) -> list[dict[str, str]]:
             if ":" not in field:
                 raise ValueError(f"unsupported step field {field!r}")
             key, value = (part.strip() for part in field.split(":", 1))
-            if key == "run" and value in {"|", "|-", ">", ">-"}:
+            if key == "run" and value in {">", ">-"}:
+                raise ValueError("folded run scalars are unsupported")
+            if key == "run" and value in {"|", "|-"}:
                 script: list[str] = []
                 index += 1
                 while index < len(chunk):
@@ -769,11 +780,11 @@ class WorkflowRegistrationTests(unittest.TestCase):
     LEAN_STEP = "Second derivation, rung 2 track 1, fresh Lean and axiom audit"
     PIN_COMMAND = "python research/second_nofirst/verify_pins.py"
     REPLAY_LINES = (
-        "set -o pipefail",
+        "set -euo pipefail",
         'log="$RUNNER_TEMP/second-nofirst-tests.log"',
         "python -m coverage erase",
         "python -m coverage run -m unittest discover -s . -p \"test_*.py\" 2>&1 | tee \"$log\"",
-        "grep -Eq '^Ran 141 tests in ' \"$log\"",
+        "grep -Eq '^Ran 180 tests in ' \"$log\"",
         "python -m coverage json -q",
         "python check_coverage.py",
         "git diff --exit-code -- receipts",
@@ -989,6 +1000,39 @@ class WorkflowRegistrationTests(unittest.TestCase):
                     self.missing(injected)[: len(self.REPLAY_LINES)],
                     list(self.REPLAY_LINES),
                 )
+
+    def test_audited_jobs_must_remain_exact_and_unconditional(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        for field in (
+            "    if : false\n",
+            "    'needs' : skipped_probe\n",
+            "    strategy:\n      matrix: []\n",
+        ):
+            with self.subTest(field=field.strip()):
+                injected = workflow.replace("  research:\n", "  research:\n" + field, 1)
+                self.assertEqual(self.missing(injected), list(self.REQUIRED))
+
+        injected = workflow.replace(
+            "jobs:\n",
+            "'defaults' :\n  run:\n    shell: bash {0}\njobs:\n",
+            1,
+        )
+        self.assertEqual(self.missing(injected), list(self.REQUIRED))
+
+    def test_folded_replay_scalar_fails_registration(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        needle = (
+            f"      - name: {self.REPLAY_STEP}\n"
+            f"        working-directory: {self.WRITE_CWD}\n"
+            "        run: |\n"
+        )
+        self.assertIn(needle, workflow)
+        injected = workflow.replace(needle, needle.replace("run: |", "run: >"), 1)
+        self.assertEqual(self.missing(injected), list(self.REQUIRED))
 
     def test_exit_before_exact_lines_fails_registration(self) -> None:
         workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(

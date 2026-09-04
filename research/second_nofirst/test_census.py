@@ -392,6 +392,36 @@ class LeanVerifierTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "duplicate module basename"):
                     lean_audit.module_names()
 
+    def test_compiler_leaf_collision_fails_fwdef_mapping(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fwdef = pathlib.Path(tmp) / "FWDEF_CENSUS.json"
+            fwdef.write_text(
+                json.dumps({"classes": {"same": {"module": "A.lean"}}}),
+                encoding="utf-8",
+            )
+            records = {
+                "SecondNoFirst.A.same": ("same", "SecondNoFirst.A", ()),
+                "SecondNoFirst.B.same": ("same", "SecondNoFirst.B", ()),
+            }
+            with (
+                mock.patch.object(lean_audit, "FWDEF", fwdef),
+                mock.patch.object(
+                    lean_audit,
+                    "module_names",
+                    return_value=["SecondNoFirst.A", "SecondNoFirst.B"],
+                ),
+                mock.patch.object(
+                    lean_audit,
+                    "modules",
+                    return_value=[pathlib.Path("A.lean"), pathlib.Path("B.lean")],
+                ),
+            ):
+                failures = lean_audit.fwdef_failures(records)
+        self.assertTrue(
+            any("share FW-DEF leaf key 'same'" in failure for failure in failures),
+            failures,
+        )
+
     def test_root_and_report_modules_cannot_escape_population(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             lean = pathlib.Path(tmp)

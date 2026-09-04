@@ -16,7 +16,7 @@ class CoverageGateTests(unittest.TestCase):
     def fixture(self) -> tuple[tempfile.TemporaryDirectory[str], pathlib.Path]:
         temp = tempfile.TemporaryDirectory()
         root = pathlib.Path(temp.name)
-        for name in set(gate.MEASURED) | set(gate.EXCLUDED):
+        for name in set(gate.MEASURED) | set(gate.EXCLUDED) | set(gate.TEST_MODULES):
             (root / name).write_text("pass\n", encoding="utf-8")
         (root / "pyproject.toml").write_text(
             "[tool.coverage.run]\n"
@@ -32,6 +32,7 @@ class CoverageGateTests(unittest.TestCase):
             "covered_lines": 100,
             "num_statements": 100,
             "missing_lines": 0,
+            "excluded_lines": 0,
             "num_branches": 100,
             "num_partial_branches": 0,
             "covered_branches": 100,
@@ -40,15 +41,24 @@ class CoverageGateTests(unittest.TestCase):
         return {
             "meta": {
                 "branch_coverage": True,
-                "timestamp": (
-                    dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=1)
-                ).isoformat()
+                "timestamp": dt.datetime.now(dt.timezone.utc).isoformat()
             },
-            "files": {name: {"summary": dict(summary)} for name in gate.MEASURED},
+            "files": {
+                name: {
+                    "executed_lines": list(range(1, 101)),
+                    "missing_lines": [],
+                    "excluded_lines": [],
+                    "executed_branches": [[line, line + 1] for line in range(1, 101)],
+                    "missing_branches": [],
+                    "summary": dict(summary),
+                }
+                for name in gate.MEASURED
+            },
             "totals": {
                 "num_statements": 300,
                 "missing_lines": 0,
                 "covered_lines": 300,
+                "excluded_lines": 0,
                 "num_branches": 300,
                 "num_partial_branches": 0,
                 "missing_branches": 0,
@@ -73,6 +83,25 @@ class CoverageGateTests(unittest.TestCase):
             (root / "unlisted.py").write_text("pass\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "production module census"):
                 self.check(root, self.report())
+
+    def test_unknown_test_prefixed_module_fails_closed(self) -> None:
+        temp, root = self.fixture()
+        with temp:
+            (root / "test_hidden_production.py").write_text("pass\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "test module census differs"):
+                self.check(root, self.report())
+
+    def test_implausibly_future_timestamp_is_rejected(self) -> None:
+        temp, root = self.fixture()
+        with temp:
+            payload = self.report()
+            meta = payload["meta"]
+            assert isinstance(meta, dict)
+            meta["timestamp"] = (
+                dt.datetime.now(dt.timezone.utc) + dt.timedelta(minutes=1)
+            ).isoformat()
+            with self.assertRaisesRegex(ValueError, "implausibly in the future"):
+                self.check(root, payload)
 
     def test_nested_path_cannot_hide_behind_a_known_basename(self) -> None:
         temp, root = self.fixture()
@@ -164,6 +193,8 @@ class CoverageGateTests(unittest.TestCase):
                 summary["num_partial_branches"] = 0
                 summary["covered_branches"] = 0
                 summary["missing_branches"] = 0
+                item["executed_branches"] = []
+                item["missing_branches"] = []
             with self.assertRaisesRegex(ValueError, "zero branch population"):
                 self.check(root, payload)
 
@@ -195,6 +226,8 @@ class CoverageGateTests(unittest.TestCase):
                 summary["num_statements"] = 0
                 summary["covered_lines"] = 0
                 summary["missing_lines"] = 0
+                item["executed_lines"] = []
+                item["missing_lines"] = []
             with self.assertRaisesRegex(ValueError, "zero statement population"):
                 self.check(root, payload)
 
@@ -227,6 +260,54 @@ class CoverageGateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "totals disagree for covered_lines"):
                 self.check(root, payload)
 
+    def test_line_detail_arrays_are_reconciled_with_summary(self) -> None:
+        temp, root = self.fixture()
+        with temp:
+            payload = self.report()
+            files = payload["files"]
+            assert isinstance(files, dict)
+            item = files["nofirst.py"]
+            assert isinstance(item, dict)
+            item["executed_lines"] = []
+            item["missing_lines"] = list(range(1, 101))
+            with self.assertRaisesRegex(ValueError, "executed_lines count disagrees"):
+                self.check(root, payload)
+
+    def test_branch_detail_arrays_are_reconciled_with_summary(self) -> None:
+        temp, root = self.fixture()
+        with temp:
+            payload = self.report()
+            files = payload["files"]
+            assert isinstance(files, dict)
+            item = files["nofirst.py"]
+            assert isinstance(item, dict)
+            item["executed_branches"] = []
+            item["missing_branches"] = [[line, line + 1] for line in range(1, 101)]
+            with self.assertRaisesRegex(ValueError, "executed_branches count disagrees"):
+                self.check(root, payload)
+
+    def test_detail_arrays_reject_wrong_types_duplicates_and_overlap(self) -> None:
+        temp, root = self.fixture()
+        with temp:
+            probes = (
+                ("executed_lines", [True], "positive integers"),
+                ("executed_lines", [1, 1], "duplicates"),
+                ("missing_lines", [1], "overlap"),
+                ("executed_branches", [[1, True]], "two-integer"),
+                ("executed_branches", [[1, 2], [1, 2]], "duplicates"),
+                ("missing_branches", [[1, 2]], "overlap"),
+            )
+            for key, value, message in probes:
+                with self.subTest(key=key, message=message):
+                    payload = self.report()
+                    files = payload["files"]
+                    assert isinstance(files, dict)
+                    item = files["nofirst.py"]
+                    assert isinstance(item, dict)
+                    item[key] = value
+                    with self.assertRaisesRegex(ValueError, message):
+                        self.check(root, payload)
+
     def test_top_level_totals_are_required(self) -> None:
         temp, root = self.fixture()
         with temp:
@@ -248,6 +329,8 @@ class CoverageGateTests(unittest.TestCase):
                 summary["missing_lines"] = 6
                 summary["covered_lines"] = 94
                 summary["percent_covered"] = 99.0
+                item["executed_lines"] = list(range(1, 95))
+                item["missing_lines"] = list(range(95, 101))
             totals = payload["totals"]
             assert isinstance(totals, dict)
             totals["missing_lines"] = 18

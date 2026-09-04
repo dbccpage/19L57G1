@@ -239,8 +239,13 @@ theorem collapsed_trans (r : Regime) (a b c : Nat)
 
 /-- **apart_at_most_one_new_demand.**  In the sealed grammar reconstructed
 here, extended by the declared two-sided stake that labels every distinct
-pair apart: from a well-formed regime carrying no demand, one growth step
-generates at most one demand.  Two held data both collapsed with the fresh
+pair apart: from a regime carrying no demand, one growth step generates at
+most one demand.  NO well-formedness is required and none is taken: the
+argument runs through collapse transitivity and the restriction from the
+grown regime, not through `fresh_profile`, which is the one theorem here
+that does need it.  An earlier version of this comment said "from a
+well-formed regime"; the statement is stronger than that, and the wording
+is WITHDRAWN.  Two held data both collapsed with the fresh
 datum would be collapsed with each other in the grown regime, hence in the
 base regime, hence a demand of the base regime -- which carries none. -/
 theorem apart_at_most_one_new_demand (r : Regime)
@@ -281,8 +286,9 @@ theorem apart_no_old_demand (r : Regime)
 
 /-- **apart_at_most_one_demand_after_growth.**  The TOTAL bound, in the
 sealed grammar reconstructed here extended by the stake labelling every
-distinct pair apart: from a well-formed regime carrying no demand, the
-regime reached by one growth step carries at most one demand ALTOGETHER --
+distinct pair apart: from a regime carrying no demand -- well-formed or
+not, since no well-formedness is taken -- the regime reached by one growth
+step carries at most one demand ALTOGETHER --
 any two of its demands are the same pair.  An old pair cannot be one, by
 `apart_no_old_demand`; two distinct new pairs cannot both be, by
 `apart_at_most_one_new_demand`.

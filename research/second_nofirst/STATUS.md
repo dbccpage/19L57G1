@@ -101,8 +101,10 @@ proofs are in `lean/`, with the axiom log committed at
   than theorems, so the count of SPAN-PINNED THEOREMS is four, not six.  An
   earlier draft said "six of them", taking "seventeen theorems" as the
   antecedent; that was wrong and is WITHDRAWN.
-  Scope: the reconstruction is faithful only as far as a reader checks; the
-  pins prove that the sources did not move and nothing more.
+  Scope: the pins prove that the sources did not move.
+  `test_reconstruction.py` mechanically compares 49 normalized declarations
+  shared with those sources.  Safety of the exact pinned omitted population
+  remains reader-checked.
 - **LABEL_SOURCE_ASSEMBLY_PROVED** (PROVED_THEOREM, as an assembly, under
   the frozen target name `no_first_demand`).  In the
   sealed grammar reconstructed here, extended by a declared two-sided
@@ -121,9 +123,13 @@ proofs are in `lean/`, with the axiom log committed at
   apart form is also proved with its collapse hypothesis discharged rather
   than assumed.  Scope: one growth step, this grammar, these definitions.
 - **AT_MOST_ONE_PROVED** (PROVED_THEOREM).  Under the stake labelling every
-  distinct pair apart, from a well-formed regime carrying no demand, at
-  most one held datum has the empty profile, and one growth step leaves the
-  grown regime carrying at most one demand ALTOGETHER.  Scope: the sealed
+  distinct pair apart, from a regime carrying no demand, at most one held
+  datum has the empty profile, and one growth step leaves the grown regime
+  carrying at most one demand ALTOGETHER.  NO well-formedness is required
+  and none is taken; an earlier version of this terminal said "well-formed
+  regime", naming a hypothesis none of the four at-most-one theorems
+  carries, and that wording is WITHDRAWN.  The route that avoids the
+  sibling's false lemma also avoids needing well-formedness.  Scope: the sealed
   regime.  The sibling two-sided tree records the corresponding statement
   over ITS OWN carrier as a conjecture with no Lean; this is not a proof of
   that row, and that row stands as the sibling wrote it.
@@ -208,7 +214,7 @@ ones.
 | N-9 | HIT | `growth_generates_apart_of_no_insts` discharges the hypothesis |
 | N-10 | HIT | `fresh_profile` proved; the reviewer's counterexample confirms `r.wf` is needed |
 | N-11 | HIT | `apart_at_most_one` proved over the sealed regime |
-| N-12 | HIT | `apart_at_most_one_new_demand` proved, and strengthened to a total bound |
+| N-12 | HIT | `apart_at_most_one_new_demand` proves the fresh-datum-pair bound; the separate NF-32e theorem proves the total bound |
 | N-13 | HIT | 0 free-stake demands anywhere in the rectangle |
 | N-14 | HIT | 0 demands at a free pair; 0 totality mismatches |
 | N-15 | HIT | first demand and first dishonoured labelled pair coincide, all seven stakes, both readings |
@@ -257,9 +263,11 @@ that IS evidence is listed here, and each item is in the committed tree.
 4. **`grammar_carries_no_stake` was named wider than it was stated.**  The
    doc comment was narrowed to say exactly what is proved and what is a
    signature fact; see declared reading six.
-5. **The axiom census was hand-maintained.**  `verify_lean.py` now derives
-   the module list from the filesystem and each module's namespace from its
-   own `namespace` lines, so a new module cannot be forgotten.
+5. **The axiom census was hand-maintained.**  `verify_lean.py` now derives a
+   recursive module-path population and asks the Lean compiler for declaration
+   names, module origins, source ranges, and axiom sets.  It requires exact
+   equality among that environment census, fresh reports, the FW-DEF census,
+   and the committed receipt.
 6. **The reconstructions are now checked, not only pinned.**  The reading
    observed that the pins prove only that the sources did not move.
    `test_reconstruction.py` closes the shared-declaration half: 49
@@ -300,11 +308,11 @@ table of `research/second/MANUAL.md`.
 | reconstruction faithfulness, hypothesis | `collapsed_of_no_insts`'s hypothesis weakened from `r.insts = []` to `r.insts = r.insts` | `AssertionError: Lists differ: ['lean4/Derivation/Inertia.lean -> Kernel.lean: collapsed_of_no_insts'] != []`; exit 1, then 0 |
 | FW-OB1 exemption pin | the exempted line reworded | `test_an_exempted_line_loses_its_exemption_when_reworded`: the appended-to line's digest is not in the pinned list, so the exemption lapses |
 | first-demand claim scope | two datum admissions from the empty history under the all-apart stake | `test_two_datum_admissions_witness_a_later_first_demand` records `index = 2` and `kind = AdmitDatum`.  The declaration supplies the label; the second admission triggers its first demand.  This is a counterexample to the withdrawn causal-source sentence, not a new general theorem |
-| reconstruction declaration population | found live: the former parser split at an attributed declaration but then rejected its header, and ignored anonymous instances | `test_attributed_and_anonymous_declarations_are_in_the_population` sees both shapes; the exact shared count is 49, and the omission test now pins the exact absent population including `insertNew_nil` |
-| coverage source, path, counter, and line arithmetic | synthetic unlisted module; nested known basename; impossible missing count; report claiming 99 percent while every measured file has six missing lines of one hundred | the four tests in `test_coverage_gate.py` each raise by the injected defect; the last raises `line coverage 94.00% is below 95%` from statement counts rather than trusting a supplied percentage |
+| reconstruction declaration population | found live: the former parser split at an attributed declaration but then rejected its header, and ignored anonymous instances | the parser regression sees both syntactic shapes; the 49 shared declarations include three anonymous instances, while the attributed `insertNew_nil` declaration belongs to the exact pinned omitted population |
+| coverage source, schema, arithmetic, and freshness | synthetic unlisted and nested modules; an unknown `test_`-prefixed module; impossible counters; absent branch metadata; zero populations; detailed line/branch arrays inconsistent with summaries; inconsistent totals; a future timestamp; and a supplied 99 percent beside true 94 percent line coverage | `test_coverage_gate.py` raises by each injected defect; the gate pins the test-file population, reconciles detailed arrays and aggregate counters, rejects future-dated evidence, and computes line and branch ratios rather than trusting supplied percentages |
 | fail-closed file and scope scans | unreadable, non-UTF-8, NUL, non-UTF-8 path, failed `git ls-files`, failed `git diff`, missing base, plus an untracked worktree path | `ScannerFailureTests` names every unavailable input and verifies the census reads index plus untracked files while the scope diff compares the base to the current worktree |
-| Lean fresh-build and declaration census | private and attributed user axiom shapes, an attributed theorem, a nested module, a doc-comment line beginning with the declaration keyword, and `lake clean` returning 7 | `LeanVerifierTests` catches both hidden declaration shapes, includes the theorem and nested module, excludes the prose line through a nested-comment-aware scanner, and records stage `clean` without attempting `lake build` |
-| workflow registration | each required rung-two command removed from an in-memory copy, one at a time | `test_ci_registration_gate_names_each_removed_command` returns the exact missing command for pins, the 139-test coverage run, coverage check, receipt diff, strict typing, and the clean Lean verifier |
+| Lean fresh-build and declaration census | private and attributed forbidden-declaration source shapes; quoted and Unicode theorem names; nested, root, and report modules; duplicate module basenames and declaration leaf keys; a disallowed compiler-reported axiom; and `lake clean` returning 7 | `LeanVerifierTests` exercises each fail-closed parser or compiler-census path, compares module origins and reports, applies the whitelist before regeneration, and records stage `clean` without attempting `lake build` |
+| workflow registration | each required rung-two command, ordering constraint, scalar style, working directory, or unconditional-job condition changed in an in-memory copy | `WorkflowRegistrationTests` requires the exact grouped execution: pins, strict replay and discovered-test census, coverage check, receipt diff, strict typing, and the clean Lean verifier |
 
 **One injection changed the tree rather than only proving a gate.**  The
 census classification probe was run BEFORE the census exception list
@@ -347,16 +355,11 @@ both above the floor of 95%.
 `check_coverage.py` excludes itself and `verify_lean.py`, each with its
 reason recorded in that file.
 
-Current CI test census: **139 tests**.  The fresh coverage run on 2026-09-04
-completed those 139 tests in 476.151 seconds; the enclosing process measured
-476.733 seconds.  The separate clean Lean build and audit completed in
-13.843 seconds, strict typing in 1.308 seconds, and the pin verifier in 3.931
-seconds.  Each is inside the fifteen-minute per-gate ceiling.
-
-The pre-repair paragraph recorded a historical 491-second combined run but
-also called the same suite both 109 tests and 115 tests.  Those two census
-claims contradicted each other and are WITHDRAWN; the historical timing is
-not reused as the timing of the repaired 139-test suite.
+The pre-repair record called the same suite both 109 tests and 115 tests.
+Those two census claims contradicted each other and are WITHDRAWN; none of
+their historical timings is reused as evidence for the repaired suite.  A
+fresh post-merge census and gate timing will replace this sentence before
+publication.
 
 ## Leftovers, named and priced, executed nowhere
 
@@ -392,8 +395,10 @@ not reused as the timing of the repaired 139-test suite.
   `test_reconstruction.py` compares every declaration the reconstruction
   shares with its source, read by git blob AT THE SNAPSHOT, with comments
   and namespace lines stripped and whitespace normalized: 49 shared
-  declarations across four sources, all identical, including attributed
-  declarations and anonymous instances, and two injections show
+  declarations across four sources, all identical, including three anonymous
+  instances.  The parser has an adversarial attributed-syntax regression, but
+  the attributed `insertNew_nil` declaration is in the exact omitted
+  population.  Two injections show
   the comparison catches a renamed binder and a weakened hypothesis.
   What remains open is narrower and stays named: whether the declarations
   the reconstruction OMITS are safe to omit.  The gate pins the exact omitted

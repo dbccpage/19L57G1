@@ -352,11 +352,11 @@ jobs:
       - name: Second derivation, rung 2 track 1, replay, tests, and coverage
         working-directory: research/second_nofirst
         run: |
-          set -o pipefail
+          set -euo pipefail
           log="$RUNNER_TEMP/second-nofirst-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 141 tests in ' "$log"
+          grep -Eq '^Ran 180 tests in ' "$log"
           python -m coverage json -q
           python check_coverage.py
           git diff --exit-code -- receipts
