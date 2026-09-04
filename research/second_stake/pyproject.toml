@@ -1,0 +1,22 @@
+# Tree-local apparatus.  The repository root configuration does not measure
+# or type-check this research tree.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "../../code:../identification_dual:../two_sided_commitment"
+files = [
+  "observables.py",
+  "rules.py",
+  "generation.py",
+  "run_stake.py",
+  "verify_pins.py",
+  "check_coverage.py",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["observables", "rules", "generation", "run_stake", "verify_pins"]
+data_file = ".coverage"
+
+[tool.coverage.json]
+output = "coverage.json"

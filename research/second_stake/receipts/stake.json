@@ -1,0 +1,1012 @@
+{
+ "authority_effect": "None",
+ "both_kind_members": [],
+ "bounds": {
+  "max_arity": 2,
+  "max_data": 4,
+  "max_items": 2,
+  "max_response_rounds": 15,
+  "measures": [
+   "mu1",
+   "mu2"
+  ],
+  "permutation_budget": 100000,
+  "pre_expansion_node_guard": 250,
+  "readings": [
+   "L",
+   "F"
+  ]
+ },
+ "canonical_crosscheck": {
+  "permutation_budget": 100000,
+  "regimes_above_permutation_budget": 3,
+  "regimes_checked": 842,
+  "relation_agrees": true
+ },
+ "controls": [
+  {
+   "index_reading": false,
+   "name": "total_apart"
+  },
+  {
+   "index_reading": false,
+   "name": "total_same"
+  },
+  {
+   "index_reading": true,
+   "name": "parity"
+  },
+  {
+   "index_reading": true,
+   "name": "residue_three"
+  },
+  {
+   "index_reading": true,
+   "name": "chain"
+  }
+ ],
+ "extrapolation_X": {
+  "forced": false,
+  "scoring_rung": "challenge_three",
+  "statement": "four-data survivors persist at data bound five with other bounds fixed",
+  "status": "PENDING"
+ },
+ "full_export": {
+  "path": "receipts/full/stake_full.json.gz",
+  "uncompressed_bytes": 4975544,
+  "uncompressed_sha256": "cfad422469360d6d653cac32cdfc1f205a49ad8e6c539970ebb61e60aed34165"
+ },
+ "generation": [
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O1"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E1",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O2"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E2",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O4"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E3",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 123,
+   "guard_nodes": 89,
+   "kinds": [
+    "apart",
+    "same"
+   ],
+   "nodes": 505,
+   "observables": [
+    "O4"
+   ],
+   "refusals": 105,
+   "relabellings": 537,
+   "rule": "E4",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "8565d82403a428a5d78f58a3b79bbdde13b070637161ef1857f6cd28ecac674b",
+    "F/mu2": "c4e4535c0f7d531e9aecf0fef5ae4a04aad3c40d285a4cb9bf45f070c1dc11fe",
+    "L/mu1": "7e09184e89c8fc5397906e70e459a800ab836222ecc5966bbcaed8b7fe4630b1",
+    "L/mu2": "f5758053cd49029bb5174ed074377dbd5261e7e20824a9e265a80aeb3445c9b5"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O3"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E5",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 2,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O3",
+    "O4"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E6",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O2"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E7",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O6"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E8",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 1,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [
+    "O5"
+   ],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "E9",
+   "source": "menu",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 0,
+   "fixpoints": 471,
+   "guard_nodes": 363,
+   "kinds": [
+    "apart"
+   ],
+   "nodes": 574,
+   "observables": [],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "total_apart",
+   "source": "control",
+   "tree_signatures": {
+    "F/mu1": "02c9e141cfe40979c810dcf92ee81cde045b241d38de8378a4c869f0bee9bb2e",
+    "F/mu2": "af70693181224a054b4c36ee34a36b35bb33cba96dcb274aa7074ed5d04c76ec",
+    "L/mu1": "8ef13b297ff3488e5cf31db129afba6e39b2fb7d02daa71487de40487d7fd4b7",
+    "L/mu2": "237182f2be59eb703d7b5701417129ccac1d0641c73e889f883d54c72682b529"
+   }
+  },
+  {
+   "capability_count": 0,
+   "fixpoints": 10,
+   "guard_nodes": 0,
+   "kinds": [],
+   "nodes": 10,
+   "observables": [],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "total_same",
+   "source": "control",
+   "tree_signatures": {
+    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
+    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
+    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
+    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+   }
+  },
+  {
+   "capability_count": 0,
+   "fixpoints": 26,
+   "guard_nodes": 0,
+   "kinds": [
+    "apart",
+    "same"
+   ],
+   "nodes": 43,
+   "observables": [],
+   "refusals": 3,
+   "relabellings": 0,
+   "rule": "parity",
+   "source": "control",
+   "tree_signatures": {
+    "F/mu1": "4cb823602511347488a6cb0c909993aa6086f0cff66b98e2a5b3ff0d4566fef8",
+    "F/mu2": "e8a28c0df717cd3869e2a0b0200d2cba65f48a08db3f477f479f402c9eb8cca1",
+    "L/mu1": "9ee6b4724ca652c3b656c744e87ddddec2274b4c7577fa581898be7da1ac887e",
+    "L/mu2": "7e65533f98db637bf435b38462199b9719c491285ce3d40f84d6374d43c6c408"
+   }
+  },
+  {
+   "capability_count": 0,
+   "fixpoints": 207,
+   "guard_nodes": 310,
+   "kinds": [
+    "apart",
+    "same"
+   ],
+   "nodes": 545,
+   "observables": [],
+   "refusals": 18,
+   "relabellings": 0,
+   "rule": "residue_three",
+   "source": "control",
+   "tree_signatures": {
+    "F/mu1": "964fb05abcc0a6163a22ee5109a136d982c3c95e67ab2fa52e79bbd783fd16c5",
+    "F/mu2": "2db20c01824fb77c0b2a1c4e0723ed7d4292d7bea7a4a1894564ca19d493256e",
+    "L/mu1": "86bc257865450efb0a48e980df5bb7c4eb1f735ce0820e6d438fea1e3089dd97",
+    "L/mu2": "29616b8084b6417c2b7ca9aec1f4ad9139b30cb8a9bf707b79d919584959f6a0"
+   }
+  },
+  {
+   "capability_count": 0,
+   "fixpoints": 211,
+   "guard_nodes": 0,
+   "kinds": [
+    "apart"
+   ],
+   "nodes": 240,
+   "observables": [],
+   "refusals": 0,
+   "relabellings": 0,
+   "rule": "chain",
+   "source": "control",
+   "tree_signatures": {
+    "F/mu1": "919f4181a894d0c24439486f35c0db9d4126d52ce81efdea519e5abdf56adaa5",
+    "F/mu2": "8e2969b2f233ae09197cb486a089cfbba12ca7f8ac3f544d75e6006453a09d99",
+    "L/mu1": "31b4f07765162bbeba57fedcfc992c7a178056e5c97c88b8e3090abc692bb878",
+    "L/mu2": "49b96579ed2d2308252f3ff9b25e8ceee81eab840257d29b29da280c1562cfa5"
+   }
+  }
+ ],
+ "input_count": {
+  "proof": null,
+  "sentence": "A rule class is a declaration; no menu member is forced and no unique survivor is proved.",
+  "value": 2
+ },
+ "invariance": [
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "E1",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "E2",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "disposition": "OPEN_AT_OBSERVABLE_GUARD",
+   "obstruction": "241920 bijection pairs exceed the declared budget 100000",
+   "pairs_checked_before_guard": 347,
+   "regime_index": 153,
+   "rule": "E3"
+  },
+  {
+   "disposition": "OPEN_AT_OBSERVABLE_GUARD",
+   "obstruction": "241920 bijection pairs exceed the declared budget 100000",
+   "pairs_checked_before_guard": 347,
+   "regime_index": 153,
+   "rule": "E4"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "E5",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "disposition": "OPEN_AT_OBSERVABLE_GUARD",
+   "obstruction": "241920 bijection pairs exceed the declared budget 100000",
+   "pairs_checked_before_guard": 347,
+   "regime_index": 153,
+   "rule": "E6"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "E7",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "E8",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "E9",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "total_apart",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "checks": 4606028,
+   "disposition": "CHECKED",
+   "orbit_transport": null,
+   "regimes": 845,
+   "rule": "total_same",
+   "scope": "every renaming of every reached regime within the rectangle"
+  },
+  {
+   "checks_before_refutation": 324714,
+   "datum_renaming": [
+    0,
+    2,
+    1
+   ],
+   "disposition": "REFUTED",
+   "form_renaming": [],
+   "label_after": "same",
+   "label_before": "apart",
+   "pair": [
+    0,
+    1
+   ],
+   "regime_index": 56,
+   "rule": "parity",
+   "source_regime": {
+    "data": [
+     "<a>",
+     "<ab>",
+     "stake_g2"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   }
+  },
+  {
+   "checks_before_refutation": 3599908,
+   "datum_renaming": [
+    0,
+    1,
+    3,
+    2
+   ],
+   "disposition": "REFUTED",
+   "form_renaming": [],
+   "label_after": "same",
+   "label_before": "apart",
+   "pair": [
+    0,
+    2
+   ],
+   "regime_index": 410,
+   "rule": "residue_three",
+   "source_regime": {
+    "data": [
+     "<a>",
+     "<ab>",
+     "stake_g2",
+     "stake_g3"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   }
+  },
+  {
+   "checks_before_refutation": 324714,
+   "datum_renaming": [
+    0,
+    2,
+    1
+   ],
+   "disposition": "REFUTED",
+   "form_renaming": [],
+   "label_after": "free",
+   "label_before": "apart",
+   "pair": [
+    0,
+    1
+   ],
+   "regime_index": 56,
+   "rule": "chain",
+   "source_regime": {
+    "data": [
+     "<a>",
+     "<ab>",
+     "stake_g2"
+    ],
+    "forms": [],
+    "insts": [],
+    "reqs": [],
+    "rules": []
+   }
+  }
+ ],
+ "label_equivalence": {
+  "E1": [],
+  "E2": [],
+  "E3": [],
+  "E4": [],
+  "E5": [],
+  "E6": [],
+  "E7": [],
+  "E8": [],
+  "E9": []
+ },
+ "menu": [
+  {
+   "capability_count": 1,
+   "member": "E1",
+   "observables": [
+    "O1"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E2",
+   "observables": [
+    "O2"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E3",
+   "observables": [
+    "O4"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E4",
+   "observables": [
+    "O4"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E5",
+   "observables": [
+    "O3"
+   ]
+  },
+  {
+   "capability_count": 2,
+   "member": "E6",
+   "observables": [
+    "O3",
+    "O4"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E7",
+   "observables": [
+    "O2"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E8",
+   "observables": [
+    "O6"
+   ]
+  },
+  {
+   "capability_count": 1,
+   "member": "E9",
+   "observables": [
+    "O5"
+   ]
+  }
+ ],
+ "nearest_controls": {
+  "E1": [
+   "total_same"
+  ],
+  "E2": [
+   "total_same"
+  ],
+  "E3": [
+   "total_same"
+  ],
+  "E4": [
+   "residue_three"
+  ],
+  "E5": [
+   "total_same"
+  ],
+  "E6": [
+   "total_same"
+  ],
+  "E7": [
+   "total_same"
+  ],
+  "E8": [
+   "total_same"
+  ],
+  "E9": [
+   "total_same"
+  ]
+ },
+ "prediction_detail": [
+  {
+   "id": "P-I1",
+   "observed": {
+    "E1": "CHECKED",
+    "E2": "CHECKED",
+    "E3": "OPEN_AT_OBSERVABLE_GUARD",
+    "E4": "OPEN_AT_OBSERVABLE_GUARD",
+    "E5": "CHECKED",
+    "E6": "OPEN_AT_OBSERVABLE_GUARD",
+    "E7": "CHECKED",
+    "E8": "CHECKED",
+    "E9": "CHECKED"
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-I2",
+   "observed": {
+    "total_apart": "CHECKED",
+    "total_same": "CHECKED"
+   },
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-I3",
+   "observed": {
+    "chain": "REFUTED",
+    "parity": "REFUTED",
+    "residue_three": "REFUTED"
+   },
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-I4",
+   "observed": "OPEN: constant controls have no refuting renaming",
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-G1",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-G2",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G3",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G4",
+   "observed": {
+    "kinds": [
+     "apart",
+     "same"
+    ],
+    "relabelled": true
+   },
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-G5",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G6",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G7",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G8",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-G9",
+   "observed": {
+    "kinds": [],
+    "relabelled": false
+   },
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G10",
+   "observed": [],
+   "verdict": "MISS"
+  },
+  {
+   "id": "P-G11",
+   "observed": {
+    "E1": [
+     "E2",
+     "E3",
+     "E5",
+     "E6",
+     "E7",
+     "E8",
+     "E9"
+    ],
+    "E2": [
+     "E1",
+     "E3",
+     "E5",
+     "E6",
+     "E7",
+     "E8",
+     "E9"
+    ],
+    "E3": [
+     "E1",
+     "E2",
+     "E5",
+     "E6",
+     "E7",
+     "E8",
+     "E9"
+    ],
+    "E5": [
+     "E1",
+     "E2",
+     "E3",
+     "E6",
+     "E7",
+     "E8",
+     "E9"
+    ],
+    "E6": [
+     "E1",
+     "E2",
+     "E3",
+     "E5",
+     "E7",
+     "E8",
+     "E9"
+    ],
+    "E7": [
+     "E1",
+     "E2",
+     "E3",
+     "E5",
+     "E6",
+     "E8",
+     "E9"
+    ],
+    "E8": [
+     "E1",
+     "E2",
+     "E3",
+     "E5",
+     "E6",
+     "E7",
+     "E9"
+    ],
+    "E9": [
+     "E1",
+     "E2",
+     "E3",
+     "E5",
+     "E6",
+     "E7",
+     "E8"
+    ]
+   },
+   "verdict": "HIT"
+  },
+  {
+   "id": "P-C1",
+   "observed": 2,
+   "verdict": "HIT"
+  },
+  {
+   "id": "X",
+   "observed": "five-data rectangle not computed",
+   "verdict": "PENDING"
+  }
+ ],
+ "predictions_scored": {
+  "hit": 8,
+  "missed": 8,
+  "pending": 1,
+  "vacuous": 0
+ },
+ "predictions_sha256": "efd3893006b4b59e80a10a4a1b067afe0453101987ca51cf6ae54a3cc9b6c07f",
+ "prompt_sha256": "4bd0b507f322c95219bf684a24653696cc976521a5e478e730e5397e4992b12c",
+ "reached_regimes": 845,
+ "retained_menu": [
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6",
+  "E7",
+  "E8",
+  "E9"
+ ],
+ "schema": "second_stake/v1",
+ "sibling_control_baseline": {
+  "bounds": {
+   "max_arity": 2,
+   "max_data": 5,
+   "max_items": 2,
+   "max_rounds": 15,
+   "pre_expansion_node_guard": 250
+  },
+  "by_control": {
+   "chain": {
+    "kinds_answered": [
+     "apart"
+    ],
+    "nodes": 538,
+    "refusals": 0,
+    "trees": 4
+   },
+   "parity": {
+    "kinds_answered": [
+     "apart",
+     "same"
+    ],
+    "nodes": 55,
+    "refusals": 3,
+    "trees": 4
+   },
+   "residue_three": {
+    "kinds_answered": [
+     "apart",
+     "same"
+    ],
+    "nodes": 567,
+    "refusals": 12,
+    "trees": 4
+   },
+   "total_apart": {
+    "kinds_answered": [
+     "apart"
+    ],
+    "nodes": 702,
+    "refusals": 0,
+    "trees": 4
+   },
+   "total_same": {
+    "kinds_answered": [],
+    "nodes": 14,
+    "refusals": 0,
+    "trees": 4
+   }
+  },
+  "comparison": "context only: sibling data bound five; this rung reruns every control at data bound four",
+  "receipt_sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3"
+ },
+ "snapshot_commit": "3f44571240a0830a2fa8de639281670f4e50a511",
+ "survivors_for_challenge_three": [
+  "E1",
+  "E2",
+  "E3",
+  "E4",
+  "E5",
+  "E6",
+  "E7",
+  "E8",
+  "E9"
+ ],
+ "terminals": [
+  "RULE_CLASS_DECLARED",
+  "INVARIANCE_DECIDED",
+  "OPEN_AT_NAMED_TARGET",
+  "OPEN_AT_CONTROLS_REFUTED",
+  "GENERATION_CENSUSED",
+  "NO_ENDOGENOUS_STAKE_IN_MENU",
+  "INPUT_COUNT_STATED",
+  "REGISTER_WRITTEN",
+  "OB1_UNCHANGED"
+ ],
+ "tie_record": "rule tie between Challenge 2 and no-first-demand; both run in parallel; this is track 2",
+ "tree_ties": {
+  "E1": [
+   "E2",
+   "E3",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9"
+  ],
+  "E2": [
+   "E1",
+   "E3",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9"
+  ],
+  "E3": [
+   "E1",
+   "E2",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9"
+  ],
+  "E4": [],
+  "E5": [
+   "E1",
+   "E2",
+   "E3",
+   "E6",
+   "E7",
+   "E8",
+   "E9"
+  ],
+  "E6": [
+   "E1",
+   "E2",
+   "E3",
+   "E5",
+   "E7",
+   "E8",
+   "E9"
+  ],
+  "E7": [
+   "E1",
+   "E2",
+   "E3",
+   "E5",
+   "E6",
+   "E8",
+   "E9"
+  ],
+  "E8": [
+   "E1",
+   "E2",
+   "E3",
+   "E5",
+   "E6",
+   "E7",
+   "E9"
+  ],
+  "E9": [
+   "E1",
+   "E2",
+   "E3",
+   "E5",
+   "E6",
+   "E7",
+   "E8"
+  ]
+ }
+}
