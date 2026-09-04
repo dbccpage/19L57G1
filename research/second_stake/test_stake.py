@@ -786,7 +786,7 @@ class GenerationUnitTests(unittest.TestCase):
         self.assertEqual(orbit[0]["disposition"], "OPEN_AT_TRANSPORT_REPLAY")
         self.assertIn("not exhaustively replayed", cast(str, orbit[0]["obstruction"]))
 
-    def test_growth_kind_scoring_does_not_substitute_response_targets(self) -> None:
+    def test_frozen_response_scoring_and_growth_metric_do_not_substitute(self) -> None:
         data = summary()
         generation_rows = json.loads(json.dumps(data["generation"]))
         invariance_rows = cast(list[dict[str, Json]], data["invariance"])
@@ -796,19 +796,51 @@ class GenerationUnitTests(unittest.TestCase):
 
         e1["growth_kinds"] = ["apart"]
         e1["response_target_kinds"] = []
-        _, detail = run_stake.score_predictions(
-            generation_rows, invariance_rows, ties, control_target
+        self.assertEqual(
+            run_stake.checked_both_kind_members(
+                generation_rows, invariance_rows, "growth_kinds"
+            ),
+            [],
         )
-        p_g1 = next(row for row in detail if row["id"] == "P-G1")
-        self.assertEqual(p_g1["verdict"], "MISS")
-
-        e1["growth_kinds"] = []
-        e1["response_target_kinds"] = ["apart"]
         _, detail = run_stake.score_predictions(
             generation_rows, invariance_rows, ties, control_target
         )
         p_g1 = next(row for row in detail if row["id"] == "P-G1")
         self.assertEqual(p_g1["verdict"], "HIT")
+        self.assertEqual(
+            cast(dict[str, object], p_g1["observed"])["response_target_kinds"],
+            [],
+        )
+
+        e1["growth_kinds"] = ["apart", "same"]
+        e1["response_target_kinds"] = []
+        self.assertEqual(
+            run_stake.checked_both_kind_members(
+                generation_rows, invariance_rows, "growth_kinds"
+            ),
+            ["E1"],
+        )
+        _, detail = run_stake.score_predictions(
+            generation_rows, invariance_rows, ties, control_target
+        )
+        p_g10 = next(row for row in detail if row["id"] == "P-G10")
+        self.assertEqual(p_g10["verdict"], "MISS")
+
+        e1["growth_kinds"] = []
+        e1["response_target_kinds"] = ["apart", "same"]
+        self.assertEqual(
+            run_stake.checked_both_kind_members(
+                generation_rows, invariance_rows, "growth_kinds"
+            ),
+            [],
+        )
+        _, detail = run_stake.score_predictions(
+            generation_rows, invariance_rows, ties, control_target
+        )
+        p_g1 = next(row for row in detail if row["id"] == "P-G1")
+        self.assertEqual(p_g1["verdict"], "MISS")
+        p_g10 = next(row for row in detail if row["id"] == "P-G10")
+        self.assertEqual(p_g10["verdict"], "HIT")
 
     def test_control_target_and_p_i4_require_both_constants_unrefuted(self) -> None:
         rows = json.loads(json.dumps(summary()["invariance"]))

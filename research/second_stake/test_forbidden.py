@@ -43,6 +43,7 @@ OUTSIDE_NAME_DIGESTS = frozenset(
     }
 )
 GENERATED_DIRS = frozenset({"__pycache__", ".mypy_cache", ".venv"})
+VOLATILE_COVERAGE_FILES = frozenset({".coverage", "coverage.json"})
 TEXT_SUFFIXES = frozenset({".json", ".md", ".py", ".toml"})
 TEXT_NAMES = frozenset({".gitattributes", ".gitignore"})
 FULL_RECEIPT = (HERE / "receipts" / "full" / "stake_full.json.gz").resolve()
@@ -53,7 +54,7 @@ def tree_files() -> list[pathlib.Path]:
         path
         for path in HERE.rglob("*")
         if path.is_file()
-        and path.name not in {".coverage", "coverage.json"}
+        and path.name not in VOLATILE_COVERAGE_FILES
         and not any(part in GENERATED_DIRS for part in path.parts)
     }
     tracked = tracked_tree_files()
@@ -61,8 +62,9 @@ def tree_files() -> list[pathlib.Path]:
         relative = path.relative_to(HERE)
         if any(part in GENERATED_DIRS for part in relative.parts):
             raise ValueError(f"tracked file in excluded generated directory: {relative}")
-        if path.name not in {".coverage", "coverage.json"}:
-            discovered.add(path)
+        if path.name in VOLATILE_COVERAGE_FILES:
+            raise ValueError(f"tracked volatile coverage artifact: {relative}")
+        discovered.add(path)
     return sorted(discovered)
 
 
@@ -243,6 +245,16 @@ class VocabularyTests(unittest.TestCase):
             ):
                 with self.assertRaisesRegex(ValueError, "tracked file in excluded"):
                     tree_files()
+        for name in sorted(VOLATILE_COVERAGE_FILES):
+            with self.subTest(force_tracked_coverage_artifact=name):
+                tracked_probe = HERE / name
+                with mock.patch(
+                    f"{__name__}.tracked_tree_files", return_value=[tracked_probe]
+                ):
+                    with self.assertRaisesRegex(
+                        ValueError, "tracked volatile coverage artifact"
+                    ):
+                        tree_files()
 
     def test_outside_names_for_orbit_readers_are_absent_by_digest(self) -> None:
         for path in tree_files():

@@ -302,22 +302,18 @@ def score_predictions(
     for number, rule in enumerate(MENU, start=1):
         record = by_generation[rule.name]
         expected_kinds, expected_relabelling = EXPECTED[rule.name]
-        observed_kinds = frozenset(_as_str_list(record["growth_kinds"]))
+        observed_kinds = frozenset(_as_str_list(record["response_target_kinds"]))
         observed_relabelling = _as_int(record["relabellings"]) > 0
         add(
             f"P-G{number}",
             observed_kinds == expected_kinds and observed_relabelling == expected_relabelling,
             {
-                "growth_kinds": sorted(observed_kinds),
+                "response_target_kinds": sorted(observed_kinds),
                 "relabelled": observed_relabelling,
             },
         )
-    both = sorted(
-        rule.name
-        for rule in MENU
-        if frozenset(_as_str_list(by_generation[rule.name]["growth_kinds"]))
-        == {"apart", "same"}
-        and by_invariance[rule.name]["disposition"] == "CHECKED"
+    both = checked_both_kind_members(
+        generation, invariance, "response_target_kinds"
     )
     add("P-G10", bool(both), both)
     tied = {name: peers for name, peers in ties.items() if peers}
@@ -349,6 +345,24 @@ def score_predictions(
             "unscored_declared_policy": unscored,
         },
         detail,
+    )
+
+
+def checked_both_kind_members(
+    generation: Sequence[dict[str, Json]],
+    invariance: Sequence[dict[str, Json]],
+    kind_field: str,
+) -> list[str]:
+    """Return CHECKED menu rows carrying both kinds under one named metric."""
+
+    by_generation = _generation_by_name(generation)
+    by_invariance = _invariance_by_name(invariance)
+    return sorted(
+        rule.name
+        for rule in MENU
+        if frozenset(_as_str_list(by_generation[rule.name][kind_field]))
+        == {"apart", "same"}
+        and by_invariance[rule.name]["disposition"] == "CHECKED"
     )
 
 
@@ -406,13 +420,7 @@ def build_receipt() -> tuple[dict[str, Json], dict[str, Json]]:
     label_peers = label_equivalence(regimes, MENU)
     by_generation = _generation_by_name(generation)
     by_invariance = _invariance_by_name(invariance)
-    both_kind = sorted(
-        rule.name
-        for rule in MENU
-        if frozenset(_as_str_list(by_generation[rule.name]["growth_kinds"]))
-        == {"apart", "same"}
-        and by_invariance[rule.name]["disposition"] == "CHECKED"
-    )
+    both_kind = checked_both_kind_members(generation, invariance, "growth_kinds")
     retained = sorted(
         rule.name
         for rule in MENU

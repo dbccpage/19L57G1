@@ -126,9 +126,11 @@ All counts in the next register are dated 2026-09-04 and are sums over the
 four trees per row inside the frozen rectangle.  The `growth kinds` column is
 the Challenge 2 population: new demands created by growth edges.  Accepted
 response-target kinds are exported separately and happen to have the same
-union in all fourteen rows; a regression proves the scorer reads the growth
-population, so that equality is not assumed.  A tie lists an identical
-four-tree signature; it is not label equivalence.
+union in all fourteen rows.  The frozen P-G definition scores accepted-response
+target kinds, while the Challenge 2 terminal reads growth-origin kinds; a
+divergence regression exercises both directions, so their equality here is not
+assumed.  A tie lists an identical four-tree signature; it is not label
+equivalence.
 
 | member | observables / cost | invariance | growth kinds | re-labels | refusals | fixpoints | guard nodes | nodes | tree tie | disposition |
 |---|---|---|---|---:|---:|---:|---:|---:|---|---|
@@ -182,13 +184,13 @@ the runner implements no vacuity classifier.
 | P-G1 | HIT | E1 none, zero re-labels |
 | P-G2 | MISS | E2 none, zero re-labels |
 | P-G3 | MISS | E3 none, zero re-labels |
-| P-G4 | HIT | E4 growth creates apart and same, with 683 re-labels |
+| P-G4 | HIT | E4 accepted responses answer apart and same, with 683 re-labels |
 | P-G5 | MISS | E5 none, zero re-labels |
 | P-G6 | MISS | E6 none, zero re-labels |
 | P-G7 | MISS | E7 none but zero re-labels |
 | P-G8 | HIT | E8 none, zero re-labels |
 | P-G9 | MISS | E9 none, zero re-labels |
-| P-G10 | MISS | no CHECKED member generates both growth-demand kinds |
+| P-G10 | MISS | no CHECKED member has accepted response targets of both kinds |
 | P-G11 | HIT | eight members share one four-tree signature; E4 is separate |
 | P-C1 | UNSCORED_DECLARED_POLICY | input count two is declared by the runner; neither frozen falsifier has an implemented check |
 | X | PENDING | the five-data rectangle is not computed by this rung |
@@ -214,13 +216,19 @@ this receipt and is assigned to challenge three.
 freeze, source and runtime-origin census, node and edge replay, separate growth
 and response-kind populations, strict text/binary decoding, the declared
 temporal/environment metadata-key spellings and aliases in both receipts, and
-targeted ledger structured references/headline values.  The pre-integration
+targeted ledger structured references/headline values.  The tree census also
+rejects force-tracked volatile coverage artifacts instead of silently treating
+their committed bytes as disposable output.  The pre-integration
 serial battery on 2026-09-04 passed 50/50 tests, regenerated both receipts
 byte-identically, measured 97.20% line coverage and 95.27% branch coverage,
 and completed in 293.351 seconds.  Strict mypy, pins, and the clean production
 runtime-origin census passed separately.  These are pre-integration receipts,
 not merge-result evidence, and no mechanical gate implies authority or a
 theorem.
+
+The later frozen-metric correction changes prediction-detail receipt bytes and
+is deliberately not hand-applied to either receipt.  This worktree therefore
+requires one clean regeneration and full gate replay after ordered integration.
 
 ## Terminal scope
 
