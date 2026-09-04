@@ -1,0 +1,41 @@
+{
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "code/derivation/candidates.py": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
+    "code/derivation/engine.py": "343290d82a7fcda91f3ff85751af7af99f9a0359",
+    "code/derivation/model.py": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+    "code/derivation/observe.py": "2552c0412d472ae9ff5d31f9068684cfa531aad9"
+  },
+  "predictions_first_freeze_boundary": "\n## Predicted",
+  "predictions_freezes": [
+    "3a6ef227a4f00566c5b0ed7d7f351339f5c65459529aec781af2f91b2477c018"
+  ],
+  "prompt_native_sha256": "ed3058124605431c7e133d9ab4b66192c0b1e6799182f08f510542f9b4090bb5",
+  "purpose": "read-only sources consumed by the path_dependent_cost run; this tree writes none of them",
+  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules as libraries through the repository's own import path. At snapshot 7fcd72f6, the two sibling trees were unmerged and stacking was prohibited, so the shared two-line state functional was restated rather than imported. The Lean side states everything over an abstract state, one-item action and functional; the append law was re-proved rather than cited across the then-open branch. This is a historical source boundary, not a claim about later integration state.",
+  "reconstructions": [],
+  "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
+  "spans": [
+    {
+      "first_line": 111,
+      "last_line": 118,
+      "path": "code/derivation/model.py",
+      "role": "datum admission absorbs a repeat; form admission appends unconditionally -- the two clauses the monotonicity and the self-loop classification rest on",
+      "sha256": "59fc17deeb9199aa9d3f753e47ecf5ad4737b8555ce48d53d0efad1519404d11"
+    },
+    {
+      "first_line": 119,
+      "last_line": 135,
+      "path": "code/derivation/model.py",
+      "role": "instance and rule admission: set union, so a repeat changes nothing",
+      "sha256": "5b7f5a8467ca5259a4c6052a582a71ad9b619d414b901951007b5d3f82fbebdb"
+    },
+    {
+      "first_line": 260,
+      "last_line": 269,
+      "path": "code/derivation/candidates.py",
+      "role": "iter_cost1_items: the estate's own one-item move set, which is the edge set of the move graph",
+      "sha256": "a8f60fe3fc6b21e8c84309420fa76e41d2ac775600d693cb8ec77a1fd18dd807"
+    }
+  ]
+}
