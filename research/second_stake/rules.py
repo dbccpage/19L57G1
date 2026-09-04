@@ -20,9 +20,9 @@ for _path in (
 
 from derivation.model import Pair, Regime  # noqa: E402
 from two_sided import (  # noqa: E402
-    APART,
-    FREE,
-    SAME,
+    APART as _APART,
+    FREE as _FREE,
+    SAME as _SAME,
     commitment_named,
     honoured,
 )
@@ -40,6 +40,9 @@ from observables import (  # noqa: E402
 
 Label = Literal["apart", "same", "free"]
 Labeler = Callable[[Regime, int, int], Label]
+APART = _APART
+SAME = _SAME
+FREE = _FREE
 
 
 @dataclass(frozen=True)

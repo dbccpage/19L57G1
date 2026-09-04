@@ -17,6 +17,7 @@ files = [
 branch = true
 source = ["observables", "rules", "generation", "run_stake", "verify_pins"]
 data_file = ".coverage"
+disable_warnings = ["module-not-imported"]
 
 [tool.coverage.json]
 output = "coverage.json"

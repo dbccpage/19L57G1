@@ -10,6 +10,12 @@ its bounded replay; it does not certify a rule as uniquely authorized.
   `research/second_stream/` was absent there.  Every consumed blob and quoted
   span is fixed in `SOURCE_MANIFEST.json` and checked both at that snapshot and
   at `HEAD`.
+- **METATHEORY.** After launch, `origin/main` moved to
+  `9b9bea87f0ed3b3bd5be8145b837f91cbaeb3d4d` through pull request #133.  Its
+  path delta is the parallel `research/second_stream/` tree plus the same two
+  append-only shared surfaces; none of this rung's pinned source blobs moved.
+  This branch is not rebased: the author must retain both appends when resolving
+  the intentionally exposed integration conflict.
 - **DECLARED_POLICY.** The seed's next-rung rule tied challenge two with the
   no-first-demand question.  The author resolved the tie by running both in
   parallel; this is track two and owns only the stake question.  The other
@@ -98,7 +104,7 @@ of fourteen rules, two readings, and two measures.  Every stored node replays
 from its stored history.  The full receipt contains 4,975,544 uncompressed
 bytes with sha256
 `cfad422469360d6d653cac32cdfc1f205a49ad8e6c539970ebb61e60aed34165`;
-the deterministic compressed file is 82,593 bytes.  The canonical regime key
+the deterministic stored-block gzip file is 4,975,942 bytes.  The canonical regime key
 and its brute-force reference induce the same partition on 842 reached regimes;
 three further regimes exceed the 100,000 permutation guard and stay guarded.
 
@@ -185,9 +191,12 @@ this receipt and is assigned to challenge three.
 ## Gates and timing
 
 **METATHEORY.** Injection failures and recoveries are appended to
-`research/second/MANUAL.md`.  The final local wall time is recorded after the
-last clean battery as `GATE_TIME_PENDING`; the required ceiling is nine
-hundred seconds.
+`research/second/MANUAL.md`.  The clean local battery took 510.659 seconds,
+below the required nine-hundred-second ceiling.  It ran 38 tests, regenerated
+both receipts byte-identically, measured 99.14% line and 97.56% branch
+coverage, passed strict mypy over all six rung source files, verified every
+source/span/frozen-text pin, matched the repository prose census, and passed
+the sealed-tree identifier firewall.
 
 ## Terminal scope
 
@@ -218,8 +227,8 @@ predictions_scored: {hit: 8, missed: 8, vacuous: 0, pending: 1}
 extrapolation_X: {statement: "four-data survivors persist at five data", forced: false, scoring_rung: challenge_three}
 ob1: OB1_UNCHANGED
 tie_record: "rule tie between Challenge 2 and no-first-demand; both run in parallel; this is track 2"
-gate_time_seconds: pending
+gate_time_seconds: 510.659
 outside_bet_hash: none
 authority_effect: None
-final_state: false
+final_state: true
 ```

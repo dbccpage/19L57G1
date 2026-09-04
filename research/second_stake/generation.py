@@ -514,6 +514,11 @@ def tree_stats(tree: Tree) -> dict[str, Json]:
                 fixpoints.append(node)
         except ObservableGuardError:
             pass
+    relabellings = 0
+    for edge in tree.edges:
+        value = edge.info.get("relabelled_pairs")
+        if isinstance(value, list):
+            relabellings += len(value)
     return {
         "nodes": len(tree.nodes),
         "edges": len(tree.edges),
@@ -521,11 +526,7 @@ def tree_stats(tree: Tree) -> dict[str, Json]:
         "response_edges": len(response_edges),
         "growth_edges": sum(edge.target_pair is None for edge in tree.edges),
         "kinds_answered": sorted({edge.target_kind for edge in response_edges}),
-        "relabellings": sum(
-            len(edge.info.get("relabelled_pairs", []))
-            for edge in tree.edges
-            if isinstance(edge.info.get("relabelled_pairs"), list)
-        ),
+        "relabellings": relabellings,
         "refusals": len(tree.refusals),
         "fixpoints": len(fixpoints),
         "guard_nodes": statuses.get("frontier_guard", 0)
@@ -734,14 +735,13 @@ def build_all(rules: Sequence[StakeRule]) -> list[Tree]:
 def rule_generation_record(rule: StakeRule, trees: Sequence[Tree]) -> dict[str, Json]:
     own = [tree for tree in trees if tree.rule == rule.name]
     stats = [tree_stats(tree) for tree in own]
-    kinds = sorted(
-        {
-            str(kind)
-            for stat in stats
-            for kind in stat["kinds_answered"]
-            if isinstance(kind, str)
-        }
-    )
+    kind_values: set[str] = set()
+    for stat in stats:
+        raw_kinds = stat["kinds_answered"]
+        if not isinstance(raw_kinds, list):
+            raise TypeError("tree kinds must be a list")
+        kind_values.update(kind for kind in raw_kinds if isinstance(kind, str))
+    kinds = sorted(kind_values)
     signatures = {
         f"{tree.reading}/{tree.measure}": tree_signature(tree) for tree in own
     }
@@ -751,10 +751,16 @@ def rule_generation_record(rule: StakeRule, trees: Sequence[Tree]) -> dict[str, 
         "observables": list(rule.observables),
         "capability_count": rule.capability_count,
         "kinds": kinds,
-        "relabellings": sum(int(stat["relabellings"]) for stat in stats),
-        "refusals": sum(int(stat["refusals"]) for stat in stats),
-        "fixpoints": sum(int(stat["fixpoints"]) for stat in stats),
-        "guard_nodes": sum(int(stat["guard_nodes"]) for stat in stats),
-        "nodes": sum(int(stat["nodes"]) for stat in stats),
+        "relabellings": sum(_json_int(stat["relabellings"]) for stat in stats),
+        "refusals": sum(_json_int(stat["refusals"]) for stat in stats),
+        "fixpoints": sum(_json_int(stat["fixpoints"]) for stat in stats),
+        "guard_nodes": sum(_json_int(stat["guard_nodes"]) for stat in stats),
+        "nodes": sum(_json_int(stat["nodes"]) for stat in stats),
         "tree_signatures": signatures,
     }
+
+
+def _json_int(value: Json) -> int:
+    if not isinstance(value, int):
+        raise TypeError("tree statistic must be an integer")
+    return value

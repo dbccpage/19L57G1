@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
+import contextlib
 import gzip
 import hashlib
-import importlib.util
+import io
 import json
 import pathlib
 import sys
+import tempfile
 import unittest
 from typing import Mapping, cast
+from unittest import mock
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -25,6 +28,7 @@ from derivation.engine import READINGS  # noqa: E402
 from derivation.export import Json, event_from_json, regime_json  # noqa: E402
 from derivation.model import Regime, replay  # noqa: E402
 
+import verify_pins  # noqa: E402
 import generation  # noqa: E402
 import observables  # noqa: E402
 import run_stake  # noqa: E402
@@ -34,17 +38,11 @@ from rules import (  # noqa: E402
     SAME,
     CONTROLS,
     MENU,
+    StakeRule,
     label_map,
     label_of,
     rule_named,
 )
-
-_VERIFY_SPEC = importlib.util.spec_from_file_location(
-    "second_stake_verify_pins", HERE / "verify_pins.py"
-)
-assert _VERIFY_SPEC is not None and _VERIFY_SPEC.loader is not None
-verify_pins = importlib.util.module_from_spec(_VERIFY_SPEC)
-_VERIFY_SPEC.loader.exec_module(verify_pins)
 
 PROMPT_SHA = "4bd0b507f322c95219bf684a24653696cc976521a5e478e730e5397e4992b12c"
 PREDICTIONS_SHA = "efd3893006b4b59e80a10a4a1b067afe0453101987ca51cf6ae54a3cc9b6c07f"
@@ -87,6 +85,18 @@ def regime_from_json(value: object) -> Regime:
 
 
 class FreezeAndPinTests(unittest.TestCase):
+    @staticmethod
+    def bare_manifest(**updates: object) -> dict[str, object]:
+        value: dict[str, object] = {
+            "snapshot_commit": "a" * 40,
+            "sources": [],
+            "spans": [],
+            "frozen_texts": [],
+            "absent_at_snapshot": [],
+        }
+        value.update(updates)
+        return value
+
     def test_frozen_hashes_and_prompt_digit_gate(self) -> None:
         self.assertEqual(sha(HERE / "PROMPT.md"), PROMPT_SHA)
         self.assertEqual(sha(HERE / "PREDICTIONS.md"), PREDICTIONS_SHA)
@@ -99,13 +109,180 @@ class FreezeAndPinTests(unittest.TestCase):
 
     def test_pin_parser_rejects_unsafe_and_malformed_values(self) -> None:
         with self.assertRaises(ValueError):
+            verify_pins.safe_path(None)
+        with self.assertRaises(ValueError):
             verify_pins.safe_path("../escape")
         with self.assertRaises(ValueError):
             verify_pins.entries({}, "x")
         with self.assertRaises(ValueError):
+            verify_pins.entries([{}, "not-an-object"], "x")
+        with self.assertRaises(ValueError):
             verify_pins.expected_sha({"sha256": "short"})
         with self.assertRaises(ValueError):
             verify_pins.span_bytes(b"one\n", 2, 2)
+
+    def test_pin_io_and_manifest_fail_closed(self) -> None:
+        failed = mock.Mock(returncode=1, stderr=b"named git failure", stdout=b"")
+        with mock.patch.object(verify_pins.subprocess, "run", return_value=failed):
+            with self.assertRaisesRegex(ValueError, "named git failure"):
+                verify_pins.git_bytes("show", "missing:path")
+
+        with tempfile.TemporaryDirectory() as raw_directory:
+            path = pathlib.Path(raw_directory) / "manifest.json"
+            path.write_text("[]", encoding="utf-8")
+            with mock.patch.object(verify_pins, "MANIFEST", path):
+                with self.assertRaisesRegex(ValueError, "must be an object"):
+                    verify_pins.manifest()
+
+    def test_snapshot_relation_and_source_blob_failures_are_named(self) -> None:
+        success = mock.Mock(returncode=0, stderr=b"", stdout=b"")
+        failure = mock.Mock(returncode=7, stderr=b"", stdout=b"")
+        with mock.patch.object(
+            verify_pins, "manifest", return_value=self.bare_manifest(snapshot_commit="short")
+        ):
+            with self.assertRaisesRegex(ValueError, "full commit id"):
+                verify_pins.verify()
+        with (
+            mock.patch.object(verify_pins, "manifest", return_value=self.bare_manifest()),
+            mock.patch.object(verify_pins.subprocess, "run", return_value=failure),
+        ):
+            with self.assertRaisesRegex(ValueError, "git exit 7"):
+                verify_pins.verify()
+
+        good = b"pinned source\n"
+        entry = {"path": "source.txt", "sha256": verify_pins.digest(good)}
+        manifest = self.bare_manifest(sources=[entry])
+        common = (
+            mock.patch.object(verify_pins, "manifest", return_value=manifest),
+            mock.patch.object(verify_pins.subprocess, "run", return_value=success),
+            mock.patch.object(verify_pins, "git_text", return_value="head"),
+        )
+        with common[0], common[1], common[2], mock.patch.object(
+            verify_pins, "blob", return_value=b"moved"
+        ):
+            with self.assertRaisesRegex(ValueError, "snapshot blob moved"):
+                verify_pins.verify()
+        with (
+            mock.patch.object(verify_pins, "manifest", return_value=manifest),
+            mock.patch.object(verify_pins.subprocess, "run", return_value=success),
+            mock.patch.object(verify_pins, "git_text", return_value="head"),
+            mock.patch.object(verify_pins, "blob", side_effect=(good, b"moved")),
+        ):
+            with self.assertRaisesRegex(ValueError, "HEAD blob moved"):
+                verify_pins.verify()
+
+    def test_span_failures_are_named(self) -> None:
+        success = mock.Mock(returncode=0, stderr=b"", stdout=b"")
+        base_patches = (
+            mock.patch.object(verify_pins.subprocess, "run", return_value=success),
+            mock.patch.object(verify_pins, "git_text", return_value="head"),
+        )
+        cases = (
+            ({"name": None, "path": "s", "start": 1, "end": 1, "sha256": "0" * 64}, "name must be text"),
+            ({"name": "span", "path": "s", "start": "1", "end": 1, "sha256": "0" * 64}, "bounds must be integers"),
+        )
+        for entry, message in cases:
+            with self.subTest(message=message):
+                with (
+                    mock.patch.object(
+                        verify_pins,
+                        "manifest",
+                        return_value=self.bare_manifest(spans=[entry]),
+                    ),
+                    mock.patch.object(verify_pins.subprocess, "run", return_value=success),
+                    mock.patch.object(verify_pins, "git_text", return_value="head"),
+                ):
+                    with self.assertRaisesRegex(ValueError, message):
+                        verify_pins.verify()
+
+        moved = {
+            "name": "span",
+            "path": "s",
+            "start": 1,
+            "end": 1,
+            "sha256": verify_pins.digest(b"expected\n"),
+        }
+        with (
+            mock.patch.object(
+                verify_pins, "manifest", return_value=self.bare_manifest(spans=[moved])
+            ),
+            base_patches[0],
+            base_patches[1],
+            mock.patch.object(verify_pins, "blob", return_value=b"moved\n"),
+        ):
+            with self.assertRaisesRegex(ValueError, "span moved"):
+                verify_pins.verify()
+
+    def test_frozen_text_and_presence_failures_are_named(self) -> None:
+        success = mock.Mock(returncode=0, stderr=b"", stdout=b"")
+        with tempfile.TemporaryDirectory() as raw_directory:
+            root = pathlib.Path(raw_directory)
+            frozen = root / "frozen.txt"
+
+            def run_frozen(raw: bytes | None, wanted: bytes, head: bytes, no_digits: bool = False) -> None:
+                if raw is None:
+                    frozen.unlink(missing_ok=True)
+                else:
+                    frozen.write_bytes(raw)
+                entry = {
+                    "path": "frozen.txt",
+                    "sha256": verify_pins.digest(wanted),
+                    "no_digits": no_digits,
+                }
+                with (
+                    mock.patch.object(
+                        verify_pins,
+                        "manifest",
+                        return_value=self.bare_manifest(frozen_texts=[entry]),
+                    ),
+                    mock.patch.object(verify_pins, "REPO", root),
+                    mock.patch.object(verify_pins.subprocess, "run", return_value=success),
+                    mock.patch.object(verify_pins, "git_text", return_value="head"),
+                    mock.patch.object(verify_pins, "blob", return_value=head),
+                ):
+                    verify_pins.verify()
+
+            with self.assertRaisesRegex(ValueError, "missing from disk"):
+                run_frozen(None, b"good", b"good")
+            with self.assertRaisesRegex(ValueError, "moved on disk"):
+                run_frozen(b"bad", b"good", b"good")
+            with self.assertRaisesRegex(ValueError, "moved in HEAD"):
+                run_frozen(b"good", b"good", b"bad")
+            with self.assertRaisesRegex(ValueError, "contains a digit"):
+                run_frozen(b"digit 1", b"digit 1", b"digit 1", True)
+
+        presence = {"path": "parallel", "present": False}
+
+        def fake_git_text(*arguments: str) -> str:
+            return "head" if arguments[0] == "rev-parse" else "parallel"
+
+        with (
+            mock.patch.object(
+                verify_pins,
+                "manifest",
+                return_value=self.bare_manifest(absent_at_snapshot=[presence]),
+            ),
+            mock.patch.object(verify_pins.subprocess, "run", return_value=success),
+            mock.patch.object(verify_pins, "git_text", side_effect=fake_git_text),
+        ):
+            with self.assertRaisesRegex(ValueError, "presence record differs"):
+                verify_pins.verify()
+
+    def test_pin_main_reports_success_and_failure(self) -> None:
+        output = io.StringIO()
+        with (
+            mock.patch.object(verify_pins, "verify", side_effect=ValueError("probe")),
+            contextlib.redirect_stdout(output),
+        ):
+            self.assertEqual(verify_pins.main(), 1)
+        self.assertIn("FAIL: probe", output.getvalue())
+        output = io.StringIO()
+        with (
+            mock.patch.object(verify_pins, "verify", return_value=["verified"]),
+            contextlib.redirect_stdout(output),
+        ):
+            self.assertEqual(verify_pins.main(), 0)
+        self.assertEqual(output.getvalue().strip(), "verified")
 
 
 class ObservableAndRuleTests(unittest.TestCase):
@@ -135,6 +312,8 @@ class ObservableAndRuleTests(unittest.TestCase):
             observables.checked_pair(self.collapsed, 0, 0)
         with self.assertRaises(ValueError):
             observables.profile_empty(self.collapsed, 2)
+        with self.assertRaises(ValueError):
+            observables.profile_size(self.collapsed, 2)
         guarded = Regime(tuple("abcd"), (1,) * 8, frozenset(), frozenset(), frozenset())
         with self.assertRaises(observables.ObservableGuardError):
             observables.one_orbit(guarded, 0, 1)
@@ -152,6 +331,9 @@ class ObservableAndRuleTests(unittest.TestCase):
         )
         with self.assertRaises(KeyError):
             rule_named("absent")
+        invalid = StakeRule("bad", (), lambda regime, i, j: "bad", "control")
+        with self.assertRaisesRegex(ValueError, "rule bad returned"):
+            invalid.label(self.collapsed, 0, 1)
 
     def test_requirement_reader_and_controls(self) -> None:
         required = Regime(("a", "b"), (), frozenset(), frozenset(), frozenset({(0, 1)}))
@@ -195,11 +377,47 @@ class GenerationUnitTests(unittest.TestCase):
         self.assertEqual(generation.indexed_key(regime)[0], regime.n_data())
 
     def test_json_adapter_and_rule_registry_fail_by_name(self) -> None:
+        self.assertEqual(generation._json({2, 1}), [1, 2])
         with self.assertRaises(TypeError):
             generation._json(object())
         missing = generation.Tree("L", "absent", "mu1")
         with self.assertRaises(ValueError):
-            generation.tree_stats(missing)
+            generation._tree_rule(missing)
+
+    def test_defensive_helpers_and_guard_quotient(self) -> None:
+        collision = Regime(
+            ("stake_g2", "stake_g2_1"), (), frozenset(), frozenset(), frozenset()
+        )
+        self.assertEqual(generation._fresh_token(collision), "stake_g2_2")
+        with self.assertRaises(TypeError):
+            generation._json_int("not-an-integer")
+        with mock.patch.object(generation, "tree_stats", return_value={"kinds_answered": "bad"}):
+            with self.assertRaisesRegex(TypeError, "tree kinds"):
+                generation.rule_generation_record(
+                    rule_named("E1"), [generation.Tree("L", "E1", "mu1")]
+                )
+        regime = replay(READINGS[0].genesis)
+        with mock.patch.object(
+            generation, "quotient_key", side_effect=generation.IsoBudgetError("guard")
+        ):
+            self.assertEqual(
+                generation._quotient_deltas(regime, rule_named("E1"), ((),)),
+                [((), 1)],
+            )
+
+    def test_small_invariance_paths_cover_refutation_and_orbit_transport(self) -> None:
+        data = summary()
+        rows = cast(list[dict[str, object]], data["invariance"])
+        parity_row = next(row for row in rows if row["rule"] == "parity")
+        witness = regime_from_json(parity_row["source_regime"])
+        refuted = generation.invariance_records((rule_named("parity"),), (witness,))
+        self.assertEqual(refuted[0]["disposition"], "REFUTED")
+
+        collapsed = Regime(("a", "b"), (), frozenset(), frozenset(), frozenset())
+        direct = generation.invariance_record(rule_named("E1"), (collapsed,))
+        self.assertEqual(direct["disposition"], "CHECKED")
+        orbit = generation.invariance_records((rule_named("E3"),), (collapsed,))
+        self.assertEqual(orbit[0]["disposition"], "CHECKED")
 
 
 class ReceiptTests(unittest.TestCase):
@@ -207,7 +425,7 @@ class ReceiptTests(unittest.TestCase):
         small = summary()
         full_path = HERE / "receipts" / "full" / "stake_full.json.gz"
         compressed = full_path.read_bytes()
-        self.assertEqual(compressed[:10], b"\x1f\x8b\x08\x00\x00\x00\x00\x00\x02\xff")
+        self.assertEqual(compressed[:10], b"\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff")
         raw = gzip.decompress(compressed)
         export = cast(dict[str, object], small["full_export"])
         self.assertEqual(hashlib.sha256(raw).hexdigest(), export["uncompressed_sha256"])
@@ -293,10 +511,89 @@ class ReceiptTests(unittest.TestCase):
         first = run_stake.deterministic_gzip(raw)
         self.assertEqual(first, run_stake.deterministic_gzip(raw))
         self.assertEqual(gzip.decompress(first), raw)
+        self.assertEqual(gzip.decompress(run_stake.deterministic_gzip(b"")), b"")
         with self.assertRaises(TypeError):
             run_stake._as_str_list("not a list")
         with self.assertRaises(TypeError):
             run_stake._as_int("not an integer")
+
+    def test_sibling_baseline_rejects_malformed_receipts(self) -> None:
+        malformed = (
+            ([], "must be an object"),
+            ({}, "lacks bounds or summary"),
+            ({"bounds": {}, "summary": {}}, "lacks its control summary"),
+            ({"bounds": {}, "summary": {"by_commitment": {}}}, "lacks control"),
+        )
+        with tempfile.TemporaryDirectory() as raw_directory:
+            path = pathlib.Path(raw_directory) / "sibling.json"
+            with mock.patch.object(run_stake, "SIBLING_RECEIPT", path):
+                for value, message in malformed:
+                    with self.subTest(message=message):
+                        path.write_text(json.dumps(value), encoding="utf-8")
+                        with self.assertRaisesRegex(ValueError, message):
+                            run_stake.sibling_baseline()
+
+    def test_tie_and_label_equivalence_edge_paths(self) -> None:
+        with self.assertRaisesRegex(TypeError, "tree_signatures"):
+            run_stake._signature_tuple({"tree_signatures": []})
+        self.assertEqual(
+            run_stake.tie_map(
+                [{"rule": "outside", "tree_signatures": {}}], MENU[:1]
+            ),
+            {"E1": []},
+        )
+        collapsed = Regime(("a", "b"), (), frozenset(), frozenset(), frozenset())
+        with mock.patch.object(run_stake, "label_map", return_value=()):
+            equal = run_stake.label_equivalence((collapsed,), MENU[:2])
+        self.assertEqual(equal, {"E1": ["E2"], "E2": ["E1"]})
+        with mock.patch.object(
+            run_stake,
+            "label_map",
+            side_effect=observables.ObservableGuardError("guard"),
+        ):
+            guarded = run_stake.label_equivalence((collapsed,), MENU[:2])
+        self.assertEqual(guarded, {"E1": [], "E2": []})
+
+    def test_receipt_io_and_cli_failure_paths(self) -> None:
+        with tempfile.TemporaryDirectory(dir=HERE) as raw_directory:
+            root = pathlib.Path(raw_directory)
+            summary_path = root / "nested" / "summary.json"
+            full_path = root / "full" / "full.json.gz"
+            with mock.patch.object(run_stake, "render_receipts", return_value=(b"summary", b"full")):
+                run_stake.write_receipts(summary_path, full_path)
+                self.assertEqual(summary_path.read_bytes(), b"summary")
+                self.assertEqual(full_path.read_bytes(), b"full")
+                summary_path.unlink()
+                full_path.unlink()
+                self.assertEqual(
+                    run_stake.check_receipts(summary_path, full_path),
+                    [
+                        "receipt differs: " + str(summary_path.relative_to(HERE)),
+                        "receipt differs: " + str(full_path.relative_to(HERE)),
+                    ],
+                )
+
+            output = io.StringIO()
+            with (
+                mock.patch.object(run_stake, "check_receipts", return_value=["one", "two"]),
+                contextlib.redirect_stdout(output),
+            ):
+                self.assertEqual(run_stake.main(["--check"]), 1)
+            self.assertEqual(output.getvalue().splitlines(), ["FAIL: one", "FAIL: two"])
+
+            output = io.StringIO()
+            with (
+                mock.patch.object(run_stake, "write_receipts") as writer,
+                contextlib.redirect_stdout(output),
+            ):
+                self.assertEqual(
+                    run_stake.main(
+                        ["--out", str(summary_path), "--full", str(full_path)]
+                    ),
+                    0,
+                )
+            writer.assert_called_once_with(summary_path, full_path)
+            self.assertIn(f"wrote {summary_path}", output.getvalue())
 
 
 if __name__ == "__main__":

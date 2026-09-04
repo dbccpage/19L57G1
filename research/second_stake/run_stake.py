@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import binascii
 import hashlib
 import json
 import pathlib
 import struct
 import sys
-import zlib
 from typing import Sequence, cast
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -60,12 +60,29 @@ def sha256(path: pathlib.Path) -> str:
 
 
 def deterministic_gzip(raw: bytes) -> bytes:
-    """Gzip with a fixed header, raw deflate stream, and fixed trailer."""
+    """Gzip made from explicit stored DEFLATE blocks.
 
-    compressor = zlib.compressobj(9, zlib.DEFLATED, -zlib.MAX_WBITS)
-    body = compressor.compress(raw) + compressor.flush()
-    header = b"\x1f\x8b\x08\x00\x00\x00\x00\x00\x02\xff"
-    trailer = struct.pack("<II", zlib.crc32(raw) & 0xFFFFFFFF, len(raw) & 0xFFFFFFFF)
+    Library compression can choose different streams across zlib versions.
+    Stored blocks cost space but make every byte a function of ``raw`` alone.
+    """
+
+    chunks = [raw[index : index + 65_535] for index in range(0, len(raw), 65_535)]
+    if not chunks:
+        chunks = [b""]
+    blocks: list[bytes] = []
+    for index, chunk in enumerate(chunks):
+        final = index == len(chunks) - 1
+        length = len(chunk)
+        blocks.append(
+            bytes((1 if final else 0,))
+            + struct.pack("<HH", length, 0xFFFF ^ length)
+            + chunk
+        )
+    body = b"".join(blocks)
+    header = b"\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff"
+    trailer = struct.pack(
+        "<II", binascii.crc32(raw) & 0xFFFFFFFF, len(raw) & 0xFFFFFFFF
+    )
     return header + body + trailer
 
 
@@ -135,7 +152,7 @@ def tie_map(records: Sequence[dict[str, Json]], rules: Sequence[StakeRule]) -> d
         name = cast(str, record["rule"])
         if name in wanted:
             groups.setdefault(_signature_tuple(record), []).append(name)
-    result = {name: [] for name in wanted}
+    result: dict[str, list[str]] = {name: [] for name in wanted}
     for names in groups.values():
         if len(names) > 1:
             for name in names:
