@@ -14,8 +14,9 @@ This tree declares a third measure that does read the state.
 Nothing is weighted by hand.  A plugging is the estate's own unit of
 observable content -- a context filled by a datum, derivable or not -- and
 a datum's profile is exactly the set of contexts derivable for it.  The
-reach of a response is the growth of the total profile size.  So a single
-instance has reach one, and a uniform rule has the reach of every plugging
+reach of a response is the growth of the total profile size.  A single
+instance therefore has reach at most one (and has reach zero when its
+plugging was already derivable), while a uniform rule reaches every plugging
 of its form that was not already derivable.
 
 Two consequences, both recorded rather than assumed:

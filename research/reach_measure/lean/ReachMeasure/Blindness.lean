@@ -15,12 +15,16 @@ choice of one.
 
 The companion statement is the useful direction: a measure that does
 separate them provably does not factor through the sealed pair, so it must
-read something else.  Reach reads the base, and `sealed_side.py` exhibits
-the same uniform rule with reach `1` on one pinned base and `19` on another
-while `mu1 = 1` and `mu2 = (1, 0)` on both.
+read something else.  It need not read the base: inspecting the response
+constructor would also escape that factorisation.  Reach deliberately reads
+the base, and `sealed_side.py` exhibits the same uniform rule with reach `1`
+on one pinned base and `19` on another while `mu1 = 1` and
+`mu2 = (1, 0)` on both.
 
-The last section shows that no constant bounds the gap, so the blindness
-is not something a constant re-weighting could repair.
+The last section is an abstract fresh-plugging model.  It shows that its
+rule-versus-instance gap has no constant bound.  It does not establish a
+correspondence with the Python `reach` function, which subtracts pluggings
+already derivable at the base.
 
 Core Lean only: no `Mathlib`, no choice principle, and no proof left
 incomplete.  `AuthorityEffect: None.`
@@ -90,20 +94,19 @@ theorem of_mu2_is_blind {β : Type} (F : Nat × Nat → β) :
 
 /-- **The useful direction.**  A measure that separates the local response
 from the global one does not factor through the sealed pair: it must read
-something the sealed measures do not.  This is why the reach measure takes
-the base as an argument, and it is the whole justification for a
-base-relative measure. -/
+something the sealed measures do not.  Reading the base is one such choice;
+this result does not say it is the only one. -/
 theorem separating_is_not_base_free {β : Type} (G : List Item → β)
     (hsep : G localResponse ≠ G globalResponse) :
     ¬ (∀ d e : List Item, mu2 d = mu2 e → G d = G e) :=
   fun hfactors => hsep (base_free_is_blind G hfactors)
 
-/-! ## 4. No constant bounds the gap
+/-! ## 4. An abstract fresh-plugging model
 
-A uniform rule over an `a`-ary form on a state of `n` data makes `n ^ a`
-pluggings derivable; an instance makes one.  So the two responses differ by
-an amount the state itself sets, and no constant re-weighting of a
-base-free measure could stand in for reading the base. -/
+The functions below model a base with no previously derivable plugging of
+the selected form: a uniform rule reaches `n ^ a` fresh pluggings and an
+instance reaches one.  They are not connected here to the reconstructed
+Python state or its subtraction of already derivable pluggings. -/
 
 /-- The pluggings a uniform rule over an `a`-ary form reaches, on `n`
 data. -/
@@ -119,19 +122,17 @@ theorem ruleReach_arity_one (n : Nat) : ruleReach n 1 = n := by
   show n ^ 1 = n
   simp
 
-/-- **No constant separates them.**  For every bound `k` there is a state
-on which a single uniform rule out-reaches a single instance by more than
-`k`.  So the difference the sealed measures cannot see exceeds every
-constant, and cannot be absorbed into a fixed weight. -/
+/-- In the abstract fresh-plugging model, for every bound `k` there is a
+size at which the uniform-rule value exceeds the instance value by more
+than `k`. -/
 theorem gap_unbounded (k : Nat) :
-    ∃ n : Nat, ruleReach n 1 ≥ instReach + k := by
-  refine ⟨1 + k, ?_⟩
+    ∃ n : Nat, ruleReach n 1 > instReach + k := by
+  refine ⟨2 + k, ?_⟩
   rw [ruleReach_arity_one]
-  show 1 + k ≥ 1 + k
-  exact Nat.le_refl _
+  change 1 + k < 2 + k
+  exact Nat.add_lt_add_right (by decide) k
 
-/-- And the gap is monotone in the state: a larger state makes the same
-rule reach further, while the instance is unmoved. -/
+/-- The abstract rule value is monotone in its size parameter. -/
 theorem ruleReach_monotone {m n : Nat} (h : m ≤ n) :
     ruleReach m 1 ≤ ruleReach n 1 := by
   rw [ruleReach_arity_one, ruleReach_arity_one]

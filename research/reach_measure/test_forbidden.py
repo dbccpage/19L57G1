@@ -248,5 +248,20 @@ class TotalitySentenceScan(unittest.TestCase):
                 self.assertNotIn(bad, text, f"{f.name} claims totality")
 
 
+class ReachScopeScan(unittest.TestCase):
+    def test_abstract_model_is_not_promoted_to_python_reach(self) -> None:
+        """The abstract Lean count cannot be restated as a general law of
+        the implemented new-plugging measure."""
+
+        for f in claim_files():
+            text = f.read_text("utf-8", errors="replace").lower()
+            for bad in (
+                "single instance has reach one",
+                "monotonicity of the rule's reach in the state size",
+                "base-relative step is forced",
+            ):
+                self.assertNotIn(bad, text, f"{f.name} promotes a scoped result: {bad!r}")
+
+
 if __name__ == "__main__":
     unittest.main()

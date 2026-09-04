@@ -16,6 +16,7 @@ import reach as rch  # noqa: E402
 import run_reach  # noqa: E402
 import sealed_side  # noqa: E402
 from derivation.candidates import NewInst, NewRuleAll  # noqa: E402
+from derivation.model import Regime  # noqa: E402
 
 
 class MeasureLaws(unittest.TestCase):
@@ -45,6 +46,26 @@ class MeasureLaws(unittest.TestCase):
                         continue
                     delta = (NewInst(f, (d,)),)
                     self.assertLessEqual(rch.reach(base, delta), 1, (f, d))
+
+    def test_single_instance_reach_can_be_zero(self) -> None:
+        base = Regime(
+            data=("a",), forms=(1,), insts=frozenset(),
+            rules=frozenset({0}), reqs=frozenset(),
+        )
+        self.assertEqual(rch.reach(base, (NewInst(0, (0,)),)), 0)
+
+    def test_actual_rule_reach_need_not_be_monotone_in_data_count(self) -> None:
+        small = Regime(
+            data=("a",), forms=(1,), insts=frozenset(),
+            rules=frozenset(), reqs=frozenset(),
+        )
+        large = Regime(
+            data=("a", "b"), forms=(1,),
+            insts=frozenset({(0, (0,)), (0, (1,))}),
+            rules=frozenset(), reqs=frozenset(),
+        )
+        delta = (NewRuleAll(0),)
+        self.assertGreater(rch.reach(small, delta), rch.reach(large, delta))
 
 
 class SealedSide(unittest.TestCase):

@@ -83,12 +83,14 @@ than leaving a reader to infer it.
   re-weighting, no tie-break, no lexicographic extension escapes it.
   `separating_is_not_base_free` is the useful direction — a measure that
   does separate them provably does not factor through the sealed pair, so
-  it must read something else. That is the whole justification for taking
-  the base as an argument, and it is a theorem rather than a preference.
-  `gap_unbounded` adds that no constant repairs it: for every `k` there is
-  a state on which one uniform rule out-reaches one instance by more than
-  `k`. 10 `#print axioms` reports, 3 axiom-free, the rest within
-  `{propext}`; nothing near `Quot.sound` is used.
+  it must read something else. Reading the base is one choice, but a
+  base-free syntax-sensitive measure is another; the theorem does not force
+  base dependence. `gap_unbounded` concerns a separately declared abstract
+  fresh-plugging model: for every `k` its rule value exceeds its instance
+  value by more than `k` at some size. It is not a correspondence theorem
+  for Python `reach`, which counts only newly derivable pluggings. 10
+  `#print axioms` reports, 3 axiom-free, the rest within `{propext}`;
+  nothing near `Quot.sound` is used.
 - **MEASURE_SEPARATES** (COMPUTATION, scope: the pinned rectangle). On the
   dual side, 51 demands, all answered. `mu1` leaves 24 of them tied across
   two item kinds — a tie in which the measure cannot say whether the cheapest
@@ -171,21 +173,23 @@ these three demands the proxy and the thing come apart.
 
 ## What this rung settles, and what it does not
 
-It settles that the base-relative step is **forced, not stylistic**: no
-function of the sealed pair can distinguish the two responses, whatever
-function you pick, and no constant re-weighting closes the gap. It settles
-that a measure reading the base does distinguish them, on pinned data, and
-that the two orders are not nested — reach can prefer strictly more items.
-It settles the partition of the rectangle's demands into those where the
-choice arises and those where it cannot.
+It settles that no function of the sealed pair can distinguish the two
+responses, whatever function you pick. It does not force base dependence:
+a measure could instead inspect response syntax. The declared refusal of
+syntax-as-locality is metatheoretic, not a consequence of the theorem. On
+the pinned data, the chosen base-relative measure does distinguish the two,
+and the two orders are not nested — reach can prefer strictly more items.
+The run also settles the partition of the rectangle's demands into those
+where the choice arises and those where it cannot.
 
 It does **not** claim reach is the right measure, or better than the sealed
 ones; `FW-BETTER` forbids that and nothing here says it. It does not claim
-reach is the only base-relative measure, or canonical among them. It proves
-no property of reach beyond its dependence on the base, non-refinement,
-and the monotonicity of the rule's reach in the state size. Above all it does not
-close the question of what an optimizer should minimize: it shows the
-sealed measures cannot express the question.
+reach is the only base-relative measure, or canonical among them. The
+monotonicity and fixed-instance theorems belong only to the abstract model;
+actual Python reach can fall as data count rises and a single instance can
+have reach zero. Above all this does not close the question of what an
+optimizer should minimize: it shows the sealed measures cannot express the
+question.
 
 ## A defect carried in, and repaired
 
