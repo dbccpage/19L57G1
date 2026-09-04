@@ -24,7 +24,7 @@ SNAPSHOT = "3f44571240a0830a2fa8de639281670f4e50a511"
 # This is rebound to the exact inherited base during ordered integration.  It
 # is deliberately separate from SNAPSHOT, which remains the immutable source
 # pin even after the scope comparison base advances.
-SCOPE_BASE = SNAPSHOT
+SCOPE_BASE = "8dea98da841a862697a51d861a81f29ddc971f4e"
 WRITE_ROOT = "research/second_stake/"
 SHARED = (".github/workflows/verify.yml", "research/second/MANUAL.md")
 ALLOWED = (WRITE_ROOT, *SHARED)

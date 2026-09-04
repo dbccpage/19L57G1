@@ -21,6 +21,10 @@ its bounded replay; it does not certify a rule as uniquely authorized.
   append-only shared surfaces; none of this rung's pinned source blobs moved.
   This branch is not rebased: the author must retain both appends when resolving
   the intentionally exposed integration conflict.
+- **METATHEORY.** Ordered integration retained those appends and advanced only
+  the write-scope comparison base to
+  `8dea98da841a862697a51d861a81f29ddc971f4e`, after pull requests #136 and #134
+  landed.  The immutable source snapshot above remains unchanged.
 - **DECLARED_POLICY.** The seed's next-rung rule tied challenge two with the
   no-first-demand question.  The author resolved the tie by running both in
   parallel; this is track two and owns only the stake question.  The other

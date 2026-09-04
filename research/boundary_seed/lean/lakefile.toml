@@ -1,0 +1,6 @@
+name = "boundaryseed"
+version = "0.1.0"
+defaultTargets = ["BoundarySeed"]
+
+[[lean_lib]]
+name = "BoundarySeed"
