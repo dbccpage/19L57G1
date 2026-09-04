@@ -1,20 +1,49 @@
 'BoundarySeed.O_name_judgment_at_genesis' depends on axioms: [propext]
 'BoundarySeed.U_no_name_judgment_at_genesis' depends on axioms: [propext]
+'BoundarySeed.admitted_O_sideNamed' depends on axioms: [propext]
+'BoundarySeed.admitted_U_no_sideNamed' depends on axioms: [propext]
+'BoundarySeed.admitted_candidates_unequal' depends on axioms: [propext]
+'BoundarySeed.admitted_contents_other' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.admitted_contents_placed' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.admitted_eq' does not depend on any axioms
+'BoundarySeed.admitted_onSide_true_iff' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.admitted_sides_differ' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.candidates_not_related_O' depends on axioms: [propext]
+'BoundarySeed.candidates_related_U' depends on axioms: [propext]
 'BoundarySeed.contents_genesis' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.genesis_initial_datum' does not depend on any axioms
 'BoundarySeed.genesis_placement_nil' does not depend on any axioms
+'BoundarySeed.getD_append_left' depends on axioms: [propext]
+'BoundarySeed.getD_append_singleton' depends on axioms: [propext]
+'BoundarySeed.invariant_judgment_does_not_separate' depends on axioms: [propext]
 'BoundarySeed.map_not_not' depends on axioms: [propext]
 'BoundarySeed.no_event_follows' depends on axioms: [propext]
+'BoundarySeed.no_event_follows_admitted' depends on axioms: [propext]
 'BoundarySeed.no_observation_at_genesis' depends on axioms: [propext]
+'BoundarySeed.onSide_separates_candidates' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.place_new_judgment' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.place_other_side_false' depends on axioms: [propext]
+'BoundarySeed.reflect_admitted' depends on axioms: [propext]
 'BoundarySeed.reflect_genesis' does not depend on any axioms
 'BoundarySeed.reflect_moves_a_mark' depends on axioms: [propext]
 'BoundarySeed.reflect_reflect' depends on axioms: [propext]
+'BoundarySeed.reflect_step_place' depends on axioms: [propext]
+'BoundarySeed.reflect_step_supply' does not depend on any axioms
 'BoundarySeed.reflection_not_permitted_O' depends on axioms: [propext]
 'BoundarySeed.reflection_permitted_U' does not depend on any axioms
 'BoundarySeed.replay_deterministic' does not depend on any axioms
+'BoundarySeed.replay_initialDatum' does not depend on any axioms
+'BoundarySeed.replay_preserves_onSide' depends on axioms: [propext]
+'BoundarySeed.replay_preserves_sideNamed' depends on axioms: [propext]
+'BoundarySeed.replay_reading' does not depend on any axioms
 'BoundarySeed.replay_supply_inert' does not depend on any axioms
 'BoundarySeed.side_names_distinct' does not depend on any axioms
 'BoundarySeed.sides_collapsed_at_genesis_U' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.sides_distinct_at_genesis_O' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.step_changes_only_by_place' does not depend on any axioms
+'BoundarySeed.step_initialDatum' does not depend on any axioms
+'BoundarySeed.step_preserves_onSide' depends on axioms: [propext]
+'BoundarySeed.step_preserves_sideNamed' depends on axioms: [propext]
+'BoundarySeed.step_reading' does not depend on any axioms
 'BoundarySeed.supply_no_op' does not depend on any axioms
+'BoundarySeed.supply_preserves_holds' depends on axioms: [propext]

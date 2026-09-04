@@ -33,11 +33,12 @@ python ci/check_prose_watchlist.py
 python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 ```
 
-`verify_lean.py` first requires a successful clean, builds the tree's Lean
-package, scans every
-`.lean` file for the forbidden tokens as text, requires every axiom
-report to lie within `{propext, Quot.sound}`, and compares the reports
-with `lean/axioms.txt`; `--regen` rewrites that log deliberately and
+`verify_lean.py` scans every `.lean` file for the forbidden tokens as
+text, requires every module under `lean/BoundarySeed/` to lie in the
+root's transitive import closure (an unreached module is never
+elaborated), then requires a successful clean, builds the tree's Lean
+package, requires every axiom report to lie within `{propext,
+Quot.sound}`, and compares the reports with `lean/axioms.txt`; `--regen` rewrites that log deliberately and
 never under a live injection.  The research job runs the pins, the tests
 under coverage with the receipt regeneration and the blindness scan, and
 strict typing; the Lean package is a manual receipt.
@@ -75,7 +76,16 @@ injection is live.
 | 0 review repair | frozen-file portability (found live) | clean Windows checkout converted the un-attributed prediction blob to CRLF | working sha256 `02f6ea78…` differed from pinned `a03ee812…`; `-text` attributes restore byte identity |
 | 0 review repair | independent coverage arithmetic | synthetic totals report 94/100 lines and 100/100 branches while `percent_covered` says 97 | `test_combined_percent_cannot_rescue_low_line_coverage` returns line 94.00%, branch 100.00%; the repaired full suite is 53 passed at line 100.00%, branch 100.00% |
 | 0 review repair | source-isolation parser probes | nested and Windows paths, lowercase Lean names, nested seed, non-UTF-8 bytes, and staged/history populations | 14 focused source-isolation/coverage-gate probes pass; malformed bytes and protected references fail closed by name |
+| 1 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge1/PREDICTIONS.md` | `FAIL: working copy of challenge1/PREDICTIONS.md: 22b94644… wanted 7cf17e56…`, exit 1; `pins ok: seed ba30bcd600d8 and 2 frozen prediction file(s)` after restore |
+| 1 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge1.json` | the test failed showing the differing bytes, exit 1; OK after the original bytes were restored |
+| 1 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 53 tests in ` | exit 1; `^Ran 97 tests in ` exit 0 on the same log |
+| 1 | axiom log (`verify_lean.py`) | the `replay_preserves_onSide` report dropped from `lean/axioms.txt` (48 lines) | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; `lean ok: 49 axiom reports` after restore |
+| 1 | Lean import-closure census (`verify_lean.py`) | `lean/BoundarySeed/ZzzProbe.lean` added, imported by nothing | `FAIL: BoundarySeed.ZzzProbe is outside the root's import closure and is never elaborated`, exit 1; `lean ok: 49 axiom reports` after deletion; `test_planted_unreached_module_is_named` fixes the negative direction |
+| 1 | Lean import-closure hole (found live, not injected) | `Challenge1.lean` written but not imported by the root | `lake build` reported `Build completed successfully` with the 20 Challenge 0 reports and never elaborated the new file; the root import and the census above close it |
+| 1 | generator census (found live, not injected) | the candidate enumerator written into `model.py` with return type `list[AdmitMark]` | `test_no_state_event_generator_in_the_kernel`: `['one_step_admissions'] != []`, and the Challenge 0 receipt's byte identity failed with it; the enumerator moved to `challenge1.py`, the Challenge 0 receipt is unchanged |
+| 1 | no-timestamp scan (found live, not injected) | the receipt key `candidates` | `AssertionError: 'date' unexpectedly found` from a substring match; the scan now matches whole words and asserts the key is present |
 
 The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
-adversaries; current whole-tree counts are reported in `challenge0/STATUS.md`.
+adversaries.  The Challenge 1 rows record that rung; current whole-tree
+counts are reported in the latest `challenge<k>/STATUS.md`.

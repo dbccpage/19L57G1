@@ -1,5 +1,5 @@
 """Admitted regimes, events, replay, observation, and renaming for the
-boundary world, as far as Challenge 0 requires.
+boundary world, as far as Challenges 0 and 1 require.
 
 Classification (assumption discipline):
 
@@ -22,6 +22,25 @@ Classification (assumption discipline):
   object-language data.  There is no ``Empty`` or counting judgment.
 * ``replay`` rebuilds a regime from an event list; every certified regime
   must equal the replay of its history.
+
+Challenge 1 additions, each a DERIVED DEFINITION over the above unless
+marked otherwise:
+
+* ``mentioned`` and ``supplied`` are metatheoretic readings of a history:
+  the tokens any event names, and the tokens a ``Supply`` presents.  A
+  mention is not an event; it is the metatheory naming a token.
+* ``mark_profile`` is the metatheoretic extension of the holding judgments
+  that name one admitted mark; ``new_observations`` is the set difference
+  of two extensions.
+* The declared finite candidate space of admissions after a history lives
+  in ``challenge1.py``, not here: the kernel carries no public function
+  whose return annotation contains an event type, and the Challenge 0
+  generator census keeps it that way.
+* ``permitted_images`` lists the regimes a permitted renaming reaches
+  (mark permutations under both readings, the reflection under ``U``);
+  ``isomorphism_witness`` searches it without pruning, and
+  ``is_isomorphic`` is its truth value.  Equality of regimes is
+  structural; isomorphism is this relation; the two are never conflated.
 """
 
 from __future__ import annotations
@@ -151,6 +170,16 @@ def event_follows(_r: Regime, _e: Event) -> bool:
     return False
 
 
+def mentioned(history: Sequence[Event]) -> frozenset[str]:
+    """Tokens named by any event of a history.  A mention is not an event."""
+    return frozenset(e.token for e in history)
+
+
+def supplied(history: Sequence[Event]) -> frozenset[str]:
+    """Tokens presented by a ``Supply`` event of a history."""
+    return frozenset(e.token for e in history if isinstance(e, Supply))
+
+
 # ---------------------------------------------------------------------------
 # Observation judgments and metatheoretic profiles
 # ---------------------------------------------------------------------------
@@ -238,6 +267,22 @@ def observations(r: Regime) -> frozenset[Observation]:
     return frozenset((*mark_observations(r), *name_observations(r)))
 
 
+def mark_profile(r: Regime, mark: int) -> frozenset[Observation]:
+    """Metatheoretic extension of the holding judgments naming one mark.
+
+    At Challenge 1 this is the mark's side and nothing else; the collection
+    is not an object-language value.
+    """
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+    return frozenset(j for j in observations(r) if isinstance(j, OnSide) and j.mark == mark)
+
+
+def new_observations(before: Regime, after: Regime) -> frozenset[Observation]:
+    """Judgments holding in ``after`` that did not hold in ``before``."""
+    return observations(after) - observations(before)
+
+
 # ---------------------------------------------------------------------------
 # Renaming and the reflection
 # ---------------------------------------------------------------------------
@@ -296,6 +341,41 @@ def canonical(r: Regime) -> tuple[object, ...]:
                 best = key
     assert best is not None
     return best
+
+
+def permitted_images(r: Regime) -> list[tuple[bool, tuple[int, ...], Regime]]:
+    """Every regime a permitted renaming reaches from ``r``, with the renaming.
+
+    Each entry is ``(reflected, permutation, image)``.  Mark permutations are
+    permitted under both readings; the side exchange only under ``U``.  This
+    is the unpruned enumeration that ``canonical`` minimizes over.
+    """
+    bases = [(False, r)] + ([(True, reflect(r))] if r.reading == READING_U else [])
+    return [
+        (reflected, tuple(pi), rename_marks(base, pi))
+        for reflected, base in bases
+        for pi in permutations(range(r.n_marks()))
+    ]
+
+
+def isomorphism_witness(
+    a: Regime, b: Regime
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted renaming carrying ``a`` onto ``b`` with tokens forgotten,
+    found by unpruned search, or ``None``.  Regimes of different readings are
+    never isomorphic."""
+    if a.reading != b.reading:
+        return None
+    target = serialize(b)
+    for reflected, pi, image in permitted_images(a):
+        if serialize(image) == target:
+            return (reflected, pi)
+    return None
+
+
+def is_isomorphic(a: Regime, b: Regime) -> bool:
+    """The implemented isomorphism relation: a permitted renaming exists."""
+    return isomorphism_witness(a, b) is not None
 
 
 def fixed_up_to_mark_renaming(r: Regime) -> bool:

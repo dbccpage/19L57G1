@@ -1,9 +1,10 @@
 import BoundarySeed.Basic
+import BoundarySeed.Challenge1
 
 /-!
 # The boundary derivation: root
 
-Challenge 0 only.  Every theorem below has a `#print axioms` line, and
+Challenges 0 and 1.  Every theorem below has a `#print axioms` line, and
 `verify_lean.py` compares the build log with the committed axiom log.
 -/
 
@@ -27,3 +28,32 @@ Challenge 0 only.  Every theorem below has a `#print axioms` line, and
 #print axioms BoundarySeed.replay_deterministic
 #print axioms BoundarySeed.replay_supply_inert
 #print axioms BoundarySeed.no_event_follows
+#print axioms BoundarySeed.admitted_eq
+#print axioms BoundarySeed.supply_preserves_holds
+#print axioms BoundarySeed.step_reading
+#print axioms BoundarySeed.step_initialDatum
+#print axioms BoundarySeed.replay_reading
+#print axioms BoundarySeed.replay_initialDatum
+#print axioms BoundarySeed.step_preserves_sideNamed
+#print axioms BoundarySeed.replay_preserves_sideNamed
+#print axioms BoundarySeed.getD_append_left
+#print axioms BoundarySeed.step_preserves_onSide
+#print axioms BoundarySeed.replay_preserves_onSide
+#print axioms BoundarySeed.getD_append_singleton
+#print axioms BoundarySeed.place_new_judgment
+#print axioms BoundarySeed.place_other_side_false
+#print axioms BoundarySeed.admitted_onSide_true_iff
+#print axioms BoundarySeed.admitted_U_no_sideNamed
+#print axioms BoundarySeed.admitted_O_sideNamed
+#print axioms BoundarySeed.admitted_contents_placed
+#print axioms BoundarySeed.admitted_contents_other
+#print axioms BoundarySeed.admitted_sides_differ
+#print axioms BoundarySeed.reflect_step_supply
+#print axioms BoundarySeed.reflect_step_place
+#print axioms BoundarySeed.reflect_admitted
+#print axioms BoundarySeed.admitted_candidates_unequal
+#print axioms BoundarySeed.candidates_related_U
+#print axioms BoundarySeed.candidates_not_related_O
+#print axioms BoundarySeed.invariant_judgment_does_not_separate
+#print axioms BoundarySeed.onSide_separates_candidates
+#print axioms BoundarySeed.no_event_follows_admitted

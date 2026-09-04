@@ -1,6 +1,9 @@
 """Build the tree's Lean package from clean, scan every .lean file for the
-forbidden tokens as text, require every axiom report to lie within
-{propext, Quot.sound}, and compare the reports with the committed
+forbidden tokens as text, require every module under lean/BoundarySeed/ to
+lie in the root's transitive import closure (a module the root does not
+reach is text-scanned but never elaborated, so a type error or a
+disallowed axiom in it would go unseen), require every axiom report to lie
+within {propext, Quot.sound}, and compare the reports with the committed
 lean/axioms.txt.  ``--regen`` rewrites that log deliberately.  Manual
 receipt: the research job does not build Lean."""
 
@@ -27,6 +30,8 @@ FORBIDDEN = [
         "axiom",
     ),
 ]
+IMPORT = re.compile(r"^import\s+(BoundarySeed(?:\.\w+)*)\s*$", re.M)
+ROOT_MODULE = LEAN / "BoundarySeed.lean"
 REPORT = re.compile(
     r"'(?P<name>[^']+)' "
     r"(?:depends on axioms: \[(?P<axioms>[^\]]*)\]|does not depend on any axioms)$"
@@ -43,6 +48,34 @@ def scan_sources() -> list[str]:
                 if pat.search(line):
                     problems.append(f"{path.relative_to(HERE)}:{lineno}: forbidden token {word}")
     return problems
+
+
+def module_census() -> list[str]:
+    """Every module under lean/BoundarySeed/, by dotted name."""
+    base = LEAN / "BoundarySeed"
+    return sorted(
+        ".".join(("BoundarySeed", *path.relative_to(base).with_suffix("").parts))
+        for path in base.rglob("*.lean")
+    )
+
+
+def import_closure() -> set[str]:
+    """The root's transitive imports, read from the source text."""
+    seen: set[str] = set()
+    todo = [ROOT_MODULE]
+    while todo:
+        path = todo.pop()
+        for name in IMPORT.findall(path.read_text(encoding="utf-8")):
+            if name not in seen:
+                seen.add(name)
+                todo.append(LEAN / (name.replace(".", "/") + ".lean"))
+    return seen
+
+
+def unreached_modules() -> list[str]:
+    """Modules the root never elaborates; each is a hole in the audit."""
+    reached = import_closure()
+    return [name for name in module_census() if name not in reached]
 
 
 def build() -> str:
@@ -78,6 +111,10 @@ def reports(log: str) -> list[str]:
 
 def main(argv: list[str]) -> int:
     problems = scan_sources()
+    problems.extend(
+        f"{name} is outside the root's import closure and is never elaborated"
+        for name in unreached_modules()
+    )
     for p in problems:
         print(f"FAIL: {p}")
     if problems:

@@ -102,3 +102,54 @@ the earlier entry:
   committed marker does, but does not validate the seed's self-referential
   “hash every file” instruction; a verified parent-tree or explicit-exclusion
   protocol remains OPEN.
+
+## 2026-09-04, Challenge 1 predictions frozen
+
+`challenge1/PREDICTIONS.md` committed at `152ed096` before any Challenge 1
+code or proof existed in the working tree, sha256
+`7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7`.
+The existing `challenge*/PREDICTIONS.md -text` attribute covers it.
+
+## 2026-09-04, Challenge 1
+
+Presentation layer (`code/boundary/presentation.py`: a reader bounded to
+one bar and one mark, and the two presentation-to-side conventions),
+kernel extensions (mention and supplied readings of a history, the mark
+profile, new observations, permitted images, the isomorphism witness and
+relation), `code/boundary/challenge1.py` with the bounded candidate
+enumerator and the mechanical scorer of C1-1 to C1-7 and of C0-X,
+`lean/BoundarySeed/Challenge1.lean` (29 theorems; the axiom log
+regenerated once, 20 to 49 reports), the receipt, 44 new tests, the
+registration, the paper, the ledger, and this entry.  C0-X scored HIT in
+both halves; C1-1 to C1-7 HIT; C1-X pending.  Things repaired during the
+challenge, recorded rather than hidden:
+
+- The Challenge 0 generator census fired on the new candidate enumerator
+  while it lived in the kernel, which failed the Challenge 0 kernel test
+  and the Challenge 0 receipt's byte identity.  A live failure of the gate,
+  not an injection.  The enumerator moved to the metatheory module, the
+  Challenge 0 receipt is byte-unchanged, and the census is now reported per
+  module so that the metatheory's event constructors are named rather than
+  hidden.
+- The no-timestamp scan of the new receipt matched the substring `date`
+  inside `candidates`; it now matches whole words, and asserts that the
+  word `candidates` is present so the repair cannot silently widen.
+- The first `lake build` did not elaborate `Challenge1.lean` because the
+  root did not import it: the tree's verifier text-scanned the file and
+  reported a successful build with 20 reports.  The root now imports it,
+  and `verify_lean.py` fails by name on any module under
+  `lean/BoundarySeed/` outside the root's transitive import closure; proved
+  by injection and by a committed negative test.
+- Five Lean induction steps first failed because `simp only [replay,
+  List.foldl]` unfolded past the induction hypothesis; they now step by a
+  definitional `show`.  A drafting placeholder theorem was removed before
+  the first build.
+- Two names imported into the challenge module from the presentation
+  module appear in that module's census row because the census reads
+  module members as they are; the expectation says so rather than
+  filtering them out.
+
+WITHDRAWN from nothing: no earlier claim was narrowed by this rung.  The
+Challenge 0 statement “a later challenge that adds an event kind re-runs
+the census” is kept and annotated: Challenge 1 added no event kind, and the
+census fired anyway on a metatheoretic enumerator.

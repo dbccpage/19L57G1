@@ -1,4 +1,4 @@
-"""Tests of the boundary kernel, Challenge 0 scope."""
+"""Tests of the boundary kernel, Challenges 0 and 1."""
 
 from __future__ import annotations
 
@@ -30,10 +30,16 @@ from boundary.model import (  # noqa: E402
     event_follows,
     genesis,
     is_automorphism_reflection,
+    is_isomorphic,
+    isomorphism_witness,
     mark_observations,
+    mark_profile,
+    mentioned,
     name_observations,
+    new_observations,
     observation_holds,
     observations,
+    permitted_images,
     reflect,
     rename_marks,
     replay,
@@ -41,7 +47,9 @@ from boundary.model import (  # noqa: E402
     side_profile,
     sides_collapsed,
     step,
+    supplied,
 )
+from itertools import product  # noqa: E402
 
 
 class GenesisTests(unittest.TestCase):
@@ -204,6 +212,76 @@ class RenamingTests(unittest.TestCase):
             is_automorphism_reflection(Regime(READING_U, ("a", "b"), (0, 1)))
         )
         self.assertFalse(is_automorphism_reflection(Regime(READING_O, ("a",), (0,))))
+
+class Challenge1KernelTests(unittest.TestCase):
+    def test_mention_is_not_supply_and_not_admission(self) -> None:
+        history: list[Event] = [Supply("a"), AdmitMark("a", 0), AdmitMark("c", 1)]
+        self.assertEqual(mentioned(history), frozenset({"a", "c"}))
+        self.assertEqual(supplied(history), frozenset({"a"}))
+        self.assertEqual(mentioned([]), frozenset())
+        with self.assertRaises(AdmissionError):
+            replay(history, genesis(READING_U))
+
+    def test_mark_profile_is_the_side_and_nothing_else(self) -> None:
+        for rd in READINGS:
+            r = Regime(rd, ("a", "b"), (0, 1))
+            self.assertEqual(mark_profile(r, 0), frozenset({OnSide(0, 0)}))
+            self.assertEqual(mark_profile(r, 1), frozenset({OnSide(1, 1)}))
+            with self.assertRaises(ValueError):
+                mark_profile(r, 2)
+            with self.assertRaises(ValueError):
+                mark_profile(r, -1)
+
+    def test_new_observations_is_the_extension_difference(self) -> None:
+        for rd in READINGS:
+            g = genesis(rd)
+            self.assertEqual(new_observations(g, step(g, Supply("a"))), frozenset())
+            admitted = step(g, AdmitMark("a", 1))
+            self.assertEqual(new_observations(g, admitted), frozenset({OnSide(0, 1)}))
+            self.assertEqual(new_observations(admitted, g), frozenset())
+
+    def test_permitted_images_count_the_permitted_renamings(self) -> None:
+        for n in range(4):
+            marks = tuple(f"m{i}" for i in range(n))
+            placement = tuple(i % 2 for i in range(n))
+            fact = 1
+            for k in range(2, n + 1):
+                fact *= k
+            self.assertEqual(len(permitted_images(Regime(READING_U, marks, placement))), 2 * fact)
+            self.assertEqual(len(permitted_images(Regime(READING_O, marks, placement))), fact)
+        images = permitted_images(Regime(READING_U, ("a",), (0,)))
+        self.assertIn((True, (0,), Regime(READING_U, ("a",), (1,))), images)
+
+    def test_isomorphism_witness_and_relation(self) -> None:
+        left_u = Regime(READING_U, ("a",), (0,))
+        right_u = Regime(READING_U, ("z",), (1,))
+        self.assertEqual(isomorphism_witness(left_u, right_u), (True, (0,)))
+        self.assertTrue(is_isomorphic(left_u, right_u))
+        self.assertNotEqual(left_u, right_u)
+        left_o = Regime(READING_O, ("a",), (0,))
+        right_o = Regime(READING_O, ("a",), (1,))
+        self.assertIsNone(isomorphism_witness(left_o, right_o))
+        self.assertFalse(is_isomorphic(left_o, right_o))
+        self.assertFalse(is_isomorphic(left_u, left_o))
+        self.assertEqual(
+            isomorphism_witness(
+                Regime(READING_O, ("a", "b"), (0, 1)), Regime(READING_O, ("a", "b"), (1, 0))
+            ),
+            (False, (1, 0)),
+        )
+
+    def test_isomorphism_agrees_with_canonical_keys_to_three_marks(self) -> None:
+        for rd in READINGS:
+            regimes: list[Regime] = []
+            for n in range(4):
+                marks = tuple(f"m{i}" for i in range(n))
+                regimes.extend(Regime(rd, marks, p) for p in product((0, 1), repeat=n))
+            for a in regimes:
+                for b in regimes:
+                    self.assertEqual(
+                        is_isomorphic(a, b), canonical(a) == canonical(b), (a, b)
+                    )
+
 
 
 if __name__ == "__main__":

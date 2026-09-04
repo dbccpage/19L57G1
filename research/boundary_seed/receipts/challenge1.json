@@ -1,0 +1,780 @@
+{
+  "authority_effect": "None",
+  "boundary_dependence": {
+    "admission is a separate event; the mark is retained": "does not depend on the admitted boundary for the event discipline; the side the mark is retained on requires it",
+    "one new judgment, the mark's side; profiles; candidates; convention; classes": "require the admitted boundary and are not formulated after removing it",
+    "supply is presentation only": "does not depend on the admitted boundary",
+    "the event-follows relation stays empty": "does not depend on the admitted boundary",
+    "the initial datum and reading are unchanged by every event": "does not depend on the admitted boundary"
+  },
+  "challenge": 1,
+  "challenge0_predictions_sha256": "a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395",
+  "event_kinds": [
+    "Supply",
+    "AdmitMark"
+  ],
+  "event_returning_functions_by_module": {
+    "challenge1": [
+      "admission_event",
+      "one_step_admissions",
+      "probes",
+      "supply_event"
+    ],
+    "model": [],
+    "presentation": [
+      "admission_event",
+      "supply_event"
+    ]
+  },
+  "inscription": "<a|>",
+  "observation_vocabulary": [
+    "OnSide",
+    "SideNamed"
+  ],
+  "predictions_sha256": "7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7",
+  "readings": {
+    "O": {
+      "candidate_space": {
+        "classes_under_isomorphism": 2,
+        "count": 2,
+        "declared": "each supplied, not yet admitted token on each side"
+      },
+      "candidates": [
+        {
+          "admitted": [
+            "a"
+          ],
+          "canonical_key": [
+            "O",
+            [
+              0
+            ]
+          ],
+          "certified": true,
+          "event": {
+            "kind": "AdmitMark",
+            "side": 0,
+            "token": "a"
+          },
+          "event_follows_relation_empty": true,
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "kind": "AdmitMark",
+              "side": 0,
+              "token": "a"
+            }
+          ],
+          "holding_judgments": 3,
+          "initial_datum_unchanged": true,
+          "mark_profile": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 0
+            }
+          ],
+          "marks": 1,
+          "mentioned": [
+            "a"
+          ],
+          "name_observations_unchanged": true,
+          "new_observations": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 0
+            }
+          ],
+          "other_side_judgment_holds": false,
+          "placement": [
+            0
+          ],
+          "reading_unchanged": true,
+          "retention": {
+            "growth_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "b"
+              }
+            ],
+            "growth_regime_has_two_marks": true,
+            "mark_judgment_retained_after_growth": true,
+            "mark_judgment_retained_after_same_token_probe": true,
+            "regime_unchanged_by_supply_and_redesignation": true,
+            "same_token_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              }
+            ]
+          },
+          "side_profiles": [
+            [
+              "near",
+              [
+                0
+              ]
+            ],
+            [
+              "far",
+              []
+            ]
+          ],
+          "sides_collapsed": false,
+          "supplied": [
+            "a"
+          ],
+          "unsupplied_admission_refused": true
+        },
+        {
+          "admitted": [
+            "a"
+          ],
+          "canonical_key": [
+            "O",
+            [
+              1
+            ]
+          ],
+          "certified": true,
+          "event": {
+            "kind": "AdmitMark",
+            "side": 1,
+            "token": "a"
+          },
+          "event_follows_relation_empty": true,
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "kind": "AdmitMark",
+              "side": 1,
+              "token": "a"
+            }
+          ],
+          "holding_judgments": 3,
+          "initial_datum_unchanged": true,
+          "mark_profile": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 1
+            }
+          ],
+          "marks": 1,
+          "mentioned": [
+            "a"
+          ],
+          "name_observations_unchanged": true,
+          "new_observations": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 1
+            }
+          ],
+          "other_side_judgment_holds": false,
+          "placement": [
+            1
+          ],
+          "reading_unchanged": true,
+          "retention": {
+            "growth_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "b"
+              }
+            ],
+            "growth_regime_has_two_marks": true,
+            "mark_judgment_retained_after_growth": true,
+            "mark_judgment_retained_after_same_token_probe": true,
+            "regime_unchanged_by_supply_and_redesignation": true,
+            "same_token_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              }
+            ]
+          },
+          "side_profiles": [
+            [
+              "near",
+              []
+            ],
+            [
+              "far",
+              [
+                0
+              ]
+            ]
+          ],
+          "sides_collapsed": false,
+          "supplied": [
+            "a"
+          ],
+          "unsupplied_admission_refused": true
+        }
+      ],
+      "convention": {
+        "candidates_equal": false,
+        "conventions": {
+          "left is side 0": {
+            "left": 0,
+            "right": 1
+          },
+          "left is side 1": {
+            "left": 1,
+            "right": 0
+          }
+        },
+        "declared": "left is side 0",
+        "designated_event": {
+          "kind": "AdmitMark",
+          "side": 0,
+          "token": "a"
+        },
+        "designated_placement": [
+          0
+        ],
+        "designation_is_by": "declared convention, not proof",
+        "isomorphic_under_reading": false,
+        "isomorphism_witness": null,
+        "judgment_domain_max_marks": 2,
+        "other_event": {
+          "kind": "AdmitMark",
+          "side": 1,
+          "token": "a"
+        },
+        "other_is_reflection_of_designated": true,
+        "other_placement": [
+          1
+        ],
+        "permitted_renaming_invariant_separating_judgments": [
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 0
+          },
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 1
+          }
+        ],
+        "presented_side": "left",
+        "regime_domain_max_marks": 1,
+        "separating_judgments": [
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 0
+          },
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 1
+          }
+        ]
+      },
+      "designated_current": {
+        "canonical_key": [
+          "O",
+          [
+            0
+          ]
+        ],
+        "certified": true,
+        "convention": "left is side 0",
+        "history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitMark",
+            "side": 0,
+            "token": "a"
+          }
+        ],
+        "placement": [
+          0
+        ]
+      },
+      "genesis_holding_judgments": 2,
+      "genesis_sides_collapsed": false,
+      "reading": "O",
+      "retained_non_isomorphic_candidates": [
+        {
+          "kind": "AdmitMark",
+          "side": 1,
+          "token": "a"
+        }
+      ],
+      "supply": {
+        "admitted": [],
+        "certifies_genesis": true,
+        "history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          }
+        ],
+        "holding_judgments_after": 2,
+        "holding_judgments_before": 2,
+        "mentioned": [
+          "a"
+        ],
+        "observations_unchanged": true,
+        "regime_equals_genesis": true,
+        "sides_collapsed": false,
+        "supplied": [
+          "a"
+        ]
+      },
+      "whole": {
+        "presented_side": "left",
+        "token": "a"
+      }
+    },
+    "U": {
+      "candidate_space": {
+        "classes_under_isomorphism": 1,
+        "count": 2,
+        "declared": "each supplied, not yet admitted token on each side"
+      },
+      "candidates": [
+        {
+          "admitted": [
+            "a"
+          ],
+          "canonical_key": [
+            "U",
+            [
+              0
+            ]
+          ],
+          "certified": true,
+          "event": {
+            "kind": "AdmitMark",
+            "side": 0,
+            "token": "a"
+          },
+          "event_follows_relation_empty": true,
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "kind": "AdmitMark",
+              "side": 0,
+              "token": "a"
+            }
+          ],
+          "holding_judgments": 1,
+          "initial_datum_unchanged": true,
+          "mark_profile": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 0
+            }
+          ],
+          "marks": 1,
+          "mentioned": [
+            "a"
+          ],
+          "name_observations_unchanged": true,
+          "new_observations": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 0
+            }
+          ],
+          "other_side_judgment_holds": false,
+          "placement": [
+            0
+          ],
+          "reading_unchanged": true,
+          "retention": {
+            "growth_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "b"
+              }
+            ],
+            "growth_regime_has_two_marks": true,
+            "mark_judgment_retained_after_growth": true,
+            "mark_judgment_retained_after_same_token_probe": true,
+            "regime_unchanged_by_supply_and_redesignation": true,
+            "same_token_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              }
+            ]
+          },
+          "side_profiles": [
+            [
+              [
+                0
+              ]
+            ],
+            [
+              []
+            ]
+          ],
+          "sides_collapsed": false,
+          "supplied": [
+            "a"
+          ],
+          "unsupplied_admission_refused": true
+        },
+        {
+          "admitted": [
+            "a"
+          ],
+          "canonical_key": [
+            "U",
+            [
+              0
+            ]
+          ],
+          "certified": true,
+          "event": {
+            "kind": "AdmitMark",
+            "side": 1,
+            "token": "a"
+          },
+          "event_follows_relation_empty": true,
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "kind": "AdmitMark",
+              "side": 1,
+              "token": "a"
+            }
+          ],
+          "holding_judgments": 1,
+          "initial_datum_unchanged": true,
+          "mark_profile": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 1
+            }
+          ],
+          "marks": 1,
+          "mentioned": [
+            "a"
+          ],
+          "name_observations_unchanged": true,
+          "new_observations": [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 1
+            }
+          ],
+          "other_side_judgment_holds": false,
+          "placement": [
+            1
+          ],
+          "reading_unchanged": true,
+          "retention": {
+            "growth_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "b"
+              }
+            ],
+            "growth_regime_has_two_marks": true,
+            "mark_judgment_retained_after_growth": true,
+            "mark_judgment_retained_after_same_token_probe": true,
+            "regime_unchanged_by_supply_and_redesignation": true,
+            "same_token_probe": [
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              }
+            ]
+          },
+          "side_profiles": [
+            [
+              []
+            ],
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "sides_collapsed": false,
+          "supplied": [
+            "a"
+          ],
+          "unsupplied_admission_refused": true
+        }
+      ],
+      "convention": {
+        "candidates_equal": false,
+        "conventions": {
+          "left is side 0": {
+            "left": 0,
+            "right": 1
+          },
+          "left is side 1": {
+            "left": 1,
+            "right": 0
+          }
+        },
+        "declared": "left is side 0",
+        "designated_event": {
+          "kind": "AdmitMark",
+          "side": 0,
+          "token": "a"
+        },
+        "designated_placement": [
+          0
+        ],
+        "designation_is_by": "declared convention, not proof",
+        "isomorphic_under_reading": true,
+        "isomorphism_witness": {
+          "permutation": [
+            0
+          ],
+          "reflected": true
+        },
+        "judgment_domain_max_marks": 2,
+        "other_event": {
+          "kind": "AdmitMark",
+          "side": 1,
+          "token": "a"
+        },
+        "other_is_reflection_of_designated": true,
+        "other_placement": [
+          1
+        ],
+        "permitted_renaming_invariant_separating_judgments": [],
+        "presented_side": "left",
+        "regime_domain_max_marks": 1,
+        "separating_judgments": [
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 0
+          },
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 1
+          }
+        ]
+      },
+      "designated_current": {
+        "canonical_key": [
+          "U",
+          [
+            0
+          ]
+        ],
+        "certified": true,
+        "convention": "left is side 0",
+        "history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitMark",
+            "side": 0,
+            "token": "a"
+          }
+        ],
+        "placement": [
+          0
+        ]
+      },
+      "genesis_holding_judgments": 0,
+      "genesis_sides_collapsed": true,
+      "reading": "U",
+      "retained_non_isomorphic_candidates": [],
+      "supply": {
+        "admitted": [],
+        "certifies_genesis": true,
+        "history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          }
+        ],
+        "holding_judgments_after": 0,
+        "holding_judgments_before": 0,
+        "mentioned": [
+          "a"
+        ],
+        "observations_unchanged": true,
+        "regime_equals_genesis": true,
+        "sides_collapsed": true,
+        "supplied": [
+          "a"
+        ]
+      },
+      "whole": {
+        "presented_side": "left",
+        "token": "a"
+      }
+    }
+  },
+  "scores": {
+    "C0-X": {
+      "O_half_status": "HIT",
+      "U_half_status": "HIT",
+      "evidence": "U: genesis collapsed, the designated one-mark regime not, with a history of one supply and one admission and no new event kind or judgment form; O: the sides were distinct and remain so, and the only new holding judgment is the mark's own side",
+      "label": "NOT FORCED",
+      "status": "HIT"
+    },
+    "C1-1": {
+      "evidence": "supply.regime_equals_genesis, certifies_genesis, observations_unchanged",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C1-2": {
+      "evidence": "no mark after supply alone; every candidate certified only with the prior supply; retention probes leave the mark's judgment holding",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C1-3": {
+      "evidence": "supply adds no holding judgment; each candidate adds exactly its OnSide judgment, the other side's does not hold, names unchanged",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C1-4": {
+      "evidence": "U profiles differ after one admission; the candidates are unequal, each the other's reflection, one isomorphism class, and no permitted-renaming-invariant judgment of the bounded domain separates them",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C1-5": {
+      "evidence": "a declared convention; two certified O candidates in two classes, not isomorphic, the other the reflection of the designated; one retained non-isomorphic branch",
+      "label": "NOT FORCED",
+      "status": "HIT"
+    },
+    "C1-6": {
+      "evidence": "the event-follows relation is empty on every candidate; the initial datum and reading are unchanged; no new event kind or judgment form",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C1-7": {
+      "evidence": "every certified regime keeps the one initial datum and places one mark; no second datum or boundary appears in any regime; the whole-as-datum question is left OPEN for Challenge 5",
+      "label": "NOT FORCED",
+      "result_basis": "modelling decision; scored on its mechanical part",
+      "status": "HIT"
+    },
+    "C1-X": {
+      "evidence": "scored by Challenge 2",
+      "label": "NOT FORCED",
+      "status": "PENDING"
+    }
+  },
+  "seed_sha256": "ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be",
+  "state_changing_event_kinds": [
+    "AdmitMark"
+  ],
+  "state_event_generators": [],
+  "what_the_challenge_exercises": {
+    "admission": "examined: applied only in the certified candidate histories, never by the supply",
+    "current-state designation": "yes: the admitted regime under the declared convention is designated current",
+    "equality": "yes: structural regime equality, distinct from the isomorphism relation",
+    "mention": "yes: the token is named by the supply and by every candidate admission",
+    "observation": "yes: one new OnSide judgment holds after admission",
+    "retention": "probed: the admitted mark's judgment survives every later grammar event",
+    "side": "yes: the presented side, mapped to an admitted side by convention",
+    "supply": "yes: the Supply event of the read whole's mark"
+  }
+}
