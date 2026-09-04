@@ -173,8 +173,8 @@ result of it.
 
 ## Library axiom reliance
 
-Every one of the seventy-five theorems of this rung's package reports
-axioms within `{propext, Quot.sound}`; eight report no axiom at all.  An
+Every one of the 75 theorems of this rung's package reports
+axioms within `{propext, Quot.sound}`; 8 report no axiom at all.  An
 earlier draft of this sentence said "sixty-four", a count from before the
 inertia and run modules were added; it is WITHDRAWN and quoted here rather
 than deleted.  Seventy-five is the number in `receipts/lean_axioms.txt`, in

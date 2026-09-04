@@ -61,7 +61,7 @@ DECL_PREFIX = (
 DECL_START = rf"(?m)^(?=[ \t]*{DECL_PREFIX}(?:{DECL_KINDS})\b)"
 DECL_HEADER = re.compile(
     rf"[ \t]*{DECL_PREFIX}(?P<kind>{DECL_KINDS})"
-    r"(?:\s+(?P<name>[A-Za-z_][\w'.]*))?\b"
+    rf"(?:\s+(?P<name>{lean_audit.IDENTIFIER}))?"
 )
 EXPECTED_OMISSIONS = {
     "lean4/Derivation/Basic.lean": [
@@ -110,6 +110,8 @@ def normalize(text: str) -> dict[str, str]:
                 raise ValueError(f"could not read the name of a {kind} declaration")
             anonymous_instances += 1
             name = f"<anonymous instance {anonymous_instances}>"
+        else:
+            name = lean_audit.canonical_identifier(name)
         body = re.sub(r"(?m)^end [\w.]+\s*$", "", part)
         body = re.sub(r"(?m)^namespace [\w.]+\s*$", "", body)
         if name in out:
@@ -203,10 +205,14 @@ class ReconstructionTests(unittest.TestCase):
         must enter either the shared or omitted population."""
         sample = (
             "@[simp] theorem marked (n : Nat) : n = n := rfl\n"
+            "theorem «quoted name» : True := by trivial\n"
+            "lemma δemand₁ : True := by trivial\n"
             "instance (n : Nat) : Decidable (n = n) := inferInstance\n"
         )
         found = normalize(sample)
         self.assertIn("marked", found)
+        self.assertIn("quoted name", found)
+        self.assertIn("δemand₁", found)
         self.assertIn("<anonymous instance 1>", found)
 
     def test_the_omitted_declarations_are_recorded_not_judged(self) -> None:

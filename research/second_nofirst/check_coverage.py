@@ -95,11 +95,9 @@ def _configured_measured() -> set[str]:
     return {_rel(item) for item in raw}
 
 
-def _counter(summary: dict[str, Any], key: str, default: int | None = None) -> int:
+def _counter(summary: dict[str, Any], key: str) -> int:
     if key not in summary:
-        if default is None:
-            raise ValueError(f"coverage summary is missing {key}")
-        return default
+        raise ValueError(f"coverage summary is missing {key}")
     value = summary[key]
     if isinstance(value, bool) or not isinstance(value, int) or value < 0:
         raise ValueError(f"coverage summary {key} must be a non-negative integer")
@@ -149,6 +147,8 @@ def check() -> list[str]:
     meta = payload.get("meta")
     if not isinstance(meta, dict):
         raise ValueError("coverage.json carries no meta block")
+    if meta.get("branch_coverage") is not True:
+        raise ValueError("coverage.json was not measured with branch coverage enabled")
     stamp = meta.get("timestamp")
     if not isinstance(stamp, str):
         raise ValueError("coverage.json carries no meta.timestamp")
@@ -169,6 +169,7 @@ def check() -> list[str]:
     total_lines = 0
     covered_branches = 0
     total_branches = 0
+    total_partial_branches = 0
     for name in MEASURED:
         report = reported[name]
         if not isinstance(report, dict):
@@ -178,33 +179,57 @@ def check() -> list[str]:
             raise ValueError(f"{name} has no summary in the report")
         stmts = _counter(summary, "num_statements")
         missing = _counter(summary, "missing_lines")
-        branches = _counter(summary, "num_branches", 0)
-        partial = _counter(summary, "num_partial_branches", 0)
-        missing_branches = _counter(summary, "missing_branches", 0)
+        reported_covered_lines = _counter(summary, "covered_lines")
+        branches = _counter(summary, "num_branches")
+        partial = _counter(summary, "num_partial_branches")
+        missing_branches = _counter(summary, "missing_branches")
+        reported_covered_branches = _counter(summary, "covered_branches")
         if missing > stmts:
             raise ValueError(f"{name} has more missing lines than statements")
-        if missing_branches > branches or partial > branches:
+        if (
+            missing_branches > branches
+            or partial > branches
+            or partial > missing_branches
+        ):
             raise ValueError(f"{name} has impossible branch counters")
+        if reported_covered_lines != stmts - missing:
+            raise ValueError(f"{name} has inconsistent covered-line counters")
+        if reported_covered_branches != branches - missing_branches:
+            raise ValueError(f"{name} has inconsistent covered-branch counters")
         covered_lines += stmts - missing
         total_lines += stmts
         covered_branches += branches - missing_branches
         total_branches += branches
+        total_partial_branches += partial
         line_pct = 100.0 if not stmts else 100.0 * (stmts - missing) / stmts
-        branch_pct = (
-            100.0
-            if not branches
-            else 100.0 * (branches - missing_branches) / branches
-        )
+        branch_pct = 100.0 * (branches - missing_branches) / branches if branches else 0.0
         lines.append(
             f"{name}: line {line_pct:.2f}% ({stmts - missing}/{stmts}),"
             f" branch {branch_pct:.2f}% ({branches - missing_branches}/{branches}),"
             f" partial {partial}"
         )
 
-    line_total = 100.0 if not total_lines else 100.0 * covered_lines / total_lines
-    branch_total = (
-        100.0 if not total_branches else 100.0 * covered_branches / total_branches
-    )
+    if not total_lines:
+        raise ValueError("coverage report has a zero statement population")
+    line_total = 100.0 * covered_lines / total_lines
+    if not total_branches:
+        raise ValueError("coverage report has a zero branch population")
+    branch_total = 100.0 * covered_branches / total_branches
+    totals = payload.get("totals")
+    if not isinstance(totals, dict):
+        raise ValueError("coverage.json carries no totals object")
+    expected_totals = {
+        "num_statements": total_lines,
+        "missing_lines": total_lines - covered_lines,
+        "covered_lines": covered_lines,
+        "num_branches": total_branches,
+        "num_partial_branches": total_partial_branches,
+        "missing_branches": total_branches - covered_branches,
+        "covered_branches": covered_branches,
+    }
+    for key, expected_value in expected_totals.items():
+        if _counter(totals, key) != expected_value:
+            raise ValueError(f"coverage totals disagree for {key}")
     lines.append(
         f"measured set: line {line_total:.2f}%"
         f" ({covered_lines}/{total_lines}),"

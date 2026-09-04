@@ -29,6 +29,7 @@ AuthorityEffect: None.
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import pathlib
 import re
@@ -41,10 +42,13 @@ from unittest import mock
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 WRITE_ROOT = "research/second_nofirst"
-if str(REPO / "ci") not in sys.path:
-    sys.path.insert(0, str(REPO / "ci"))
-
-import check_prose_watchlist as census  # noqa: E402
+_CENSUS_SPEC = importlib.util.spec_from_file_location(
+    "second_nofirst_prose_watchlist", REPO / "ci" / "check_prose_watchlist.py"
+)
+if _CENSUS_SPEC is None or _CENSUS_SPEC.loader is None:
+    raise RuntimeError("cannot load the repository prose-watchlist gate")
+census = importlib.util.module_from_spec(_CENSUS_SPEC)
+_CENSUS_SPEC.loader.exec_module(census)
 
 # The two files outside the write root that the charter permits this rung
 # to append to, and nothing else.
@@ -110,16 +114,7 @@ def tracked_write_root_files() -> list[pathlib.Path]:
     )
     if proc.returncode != 0:  # pragma: no cover - git is present in CI
         raise RuntimeError("git ls-files failed; the write-root scan is unavailable")
-    out: list[pathlib.Path] = []
-    for raw in proc.stdout.split(b"\0"):
-        if not raw:
-            continue
-        try:
-            relative = raw.decode("utf-8")
-        except UnicodeDecodeError as exc:
-            raise ValueError("a tracked path is not UTF-8") from exc
-        out.append(REPO / relative)
-    return out
+    return [REPO / relative for relative in nul_paths(proc.stdout, population="tracked")]
 
 
 def readable(paths: list[pathlib.Path]) -> list[tuple[str, str]]:
@@ -181,14 +176,79 @@ def comparison_base() -> str | None:
     return None
 
 
+def nul_paths(raw: bytes, *, population: str) -> list[str]:
+    """Decode a NUL-delimited Git path population, failing closed."""
+    if not raw:
+        return []
+    if not raw.endswith(b"\0"):
+        raise ValueError(f"{population} path population lacks trailing NUL")
+    items = raw[:-1].split(b"\0")
+    if any(not item for item in items):
+        raise ValueError(f"{population} path population contains an empty item")
+    out: list[str] = []
+    for item in items:
+        try:
+            out.append(item.decode("utf-8"))
+        except UnicodeDecodeError as exc:
+            raise ValueError(f"a {population} path is not UTF-8") from exc
+    return out
+
+
 def changed_paths(base: str) -> list[str]:
+    """Every tracked or untracked path in the current worktree scope.
+
+    Rename detection is disabled deliberately.  Otherwise Git may present a
+    move out of a sealed tree only under its allowed destination and conceal
+    the removed source.  Untracked paths are enumerated repository-wide: an
+    outside-root write is still outside scope before it is added to Git.
+    """
+    diff = subprocess.run(
+        ["git", "diff", "--no-renames", "--name-only", "-z", base, "--"],
+        capture_output=True, cwd=REPO, check=False,
+    )
+    if diff.returncode != 0:  # pragma: no cover - git is present in CI
+        raise RuntimeError("git diff failed; the committed-scope scan is unavailable")
+    untracked = subprocess.run(
+        ["git", "ls-files", "-z", "--others", "--exclude-standard", "--"],
+        capture_output=True, cwd=REPO, check=False,
+    )
+    if untracked.returncode != 0:  # pragma: no cover - git is present in CI
+        raise RuntimeError(
+            "git ls-files failed; the untracked-scope scan is unavailable"
+        )
+    paths = nul_paths(diff.stdout, population="changed")
+    paths.extend(nul_paths(untracked.stdout, population="untracked"))
+    return sorted(set(paths))
+
+
+def census_pin_status() -> str:
     proc = subprocess.run(
-        ["git", "diff", "--name-only", base],
-        capture_output=True, text=True, cwd=REPO, check=False,
+        ["git", "status", "--porcelain", "--", census.WATCHLIST_REL],
+        capture_output=True,
+        text=True,
+        cwd=REPO,
+        check=False,
     )
     if proc.returncode != 0:  # pragma: no cover - git is present in CI
-        raise RuntimeError("git diff failed; the committed-scope scan is unavailable")
-    return [line.strip() for line in proc.stdout.splitlines() if line.strip()]
+        raise RuntimeError("git status failed; the census-pin check is unavailable")
+    return proc.stdout.strip()
+
+
+def removed_append_lines(base: str, path: str) -> list[str]:
+    proc = subprocess.run(
+        ["git", "diff", "--no-renames", "-U0", base, "--", path],
+        capture_output=True,
+        text=True,
+        cwd=REPO,
+        check=False,
+    )
+    if proc.returncode != 0:  # pragma: no cover - git is present in CI
+        raise RuntimeError(f"git diff failed; append-only check unavailable for {path}")
+    return [
+        line
+        for line in proc.stdout.splitlines()
+        if line.startswith("-") and not line.startswith("---")
+    ]
 
 
 class CensusScan(unittest.TestCase):
@@ -225,14 +285,7 @@ class CensusScan(unittest.TestCase):
         self.assertEqual([h.surface for h in hits], [probe])
 
     def test_the_census_pin_is_not_touched_by_this_rung(self) -> None:
-        proc = subprocess.run(
-            ["git", "status", "--porcelain", "--", census.WATCHLIST_REL],
-            capture_output=True,
-            text=True,
-            cwd=REPO,
-            check=False,
-        )
-        self.assertEqual(proc.stdout.strip(), "")
+        self.assertEqual(census_pin_status(), "")
 
 
 class IdentifierFirewall(unittest.TestCase):
@@ -339,16 +392,9 @@ class WriteRootScan(unittest.TestCase):
         base = comparison_base()
         assert base is not None
         for path in APPEND_ONLY:
-            proc = subprocess.run(
-                ["git", "diff", "-U0", base, "--", path],
-                capture_output=True, text=True, cwd=REPO, check=False,
+            self.assertEqual(
+                removed_append_lines(base, path), [], f"{path} is not append-only"
             )
-            removed = [
-                line
-                for line in proc.stdout.splitlines()
-                if line.startswith("-") and not line.startswith("---")
-            ]
-            self.assertEqual(removed, [], f"{path} is not append-only")
 
 
 class SealedObstruction(unittest.TestCase):
@@ -461,10 +507,21 @@ class ScannerFailureTests(unittest.TestCase):
 
     def test_git_diff_failure_is_not_an_empty_change_set(self) -> None:
         failed = subprocess.CompletedProcess(
-            args=["git", "diff"], returncode=2, stdout="", stderr="probe failure"
+            args=["git", "diff"], returncode=2, stdout=b"", stderr=b"probe failure"
         )
         with mock.patch.object(subprocess, "run", return_value=failed):
             with self.assertRaisesRegex(RuntimeError, "git diff failed"):
+                changed_paths("probe")
+
+    def test_untracked_census_failure_is_not_an_empty_change_set(self) -> None:
+        diff = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=0, stdout=b"probe.py\0", stderr=b""
+        )
+        failed = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=2, stdout=b"", stderr=b"probe"
+        )
+        with mock.patch.object(subprocess, "run", side_effect=[diff, failed]):
+            with self.assertRaisesRegex(RuntimeError, "untracked-scope scan"):
                 changed_paths("probe")
 
     def test_git_file_census_failure_is_not_an_empty_population(self) -> None:
@@ -483,21 +540,101 @@ class ScannerFailureTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "tracked path is not UTF-8"):
                 tracked_write_root_files()
 
+    def test_truncated_tracked_path_population_fails_closed(self) -> None:
+        bad = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=0, stdout=b"probe.md", stderr=b""
+        )
+        with mock.patch.object(subprocess, "run", return_value=bad):
+            with self.assertRaisesRegex(ValueError, "lacks trailing NUL"):
+                tracked_write_root_files()
+
     def test_missing_comparison_base_fails_the_scope_scan(self) -> None:
         case = WriteRootScan("test_this_branch_touches_nothing_outside_the_write_root")
         with mock.patch(f"{__name__}.comparison_base", return_value=None):
             with self.assertRaisesRegex(AssertionError, "no comparison base"):
                 case.setUp()
 
-    def test_scope_diff_compares_base_to_the_current_worktree(self) -> None:
-        success = subprocess.CompletedProcess(
-            args=["git", "diff"], returncode=0, stdout="probe.py\n", stderr=""
+    def test_scope_census_exposes_renames_and_repo_wide_untracked_paths(self) -> None:
+        tracked = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=0,
+            stdout=b"paper/sealed.md\0research/second_nofirst/moved.md\0", stderr=b"",
         )
-        with mock.patch.object(subprocess, "run", return_value=success) as run:
-            self.assertEqual(changed_paths("base-sha"), ["probe.py"])
+        untracked = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=0,
+            stdout=b"outside-root-probe.md\0", stderr=b"",
+        )
+        with mock.patch.object(
+            subprocess, "run", side_effect=[tracked, untracked]
+        ) as run:
+            self.assertEqual(
+                changed_paths("base-sha"),
+                [
+                    "outside-root-probe.md",
+                    "paper/sealed.md",
+                    "research/second_nofirst/moved.md",
+                ],
+            )
         self.assertEqual(
-            run.call_args.args[0], ["git", "diff", "--name-only", "base-sha"]
+            run.call_args_list[0].args[0],
+            [
+                "git", "diff", "--no-renames", "--name-only", "-z",
+                "base-sha", "--",
+            ],
         )
+        self.assertEqual(
+            run.call_args_list[1].args[0],
+            ["git", "ls-files", "-z", "--others", "--exclude-standard", "--"],
+        )
+
+    def test_non_utf8_scope_path_fails_closed(self) -> None:
+        bad = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=0, stdout=b"\xff\0", stderr=b""
+        )
+        with mock.patch.object(subprocess, "run", return_value=bad):
+            with self.assertRaisesRegex(ValueError, "changed path is not UTF-8"):
+                changed_paths("probe")
+
+    def test_truncated_changed_path_population_fails_closed(self) -> None:
+        tracked = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=0, stdout=b"probe.md", stderr=b""
+        )
+        untracked = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=0, stdout=b"", stderr=b""
+        )
+        with mock.patch.object(subprocess, "run", side_effect=[tracked, untracked]):
+            with self.assertRaisesRegex(ValueError, "changed.*trailing NUL"):
+                changed_paths("probe")
+
+    def test_truncated_untracked_path_population_fails_closed(self) -> None:
+        tracked = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=0, stdout=b"", stderr=b""
+        )
+        untracked = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=0, stdout=b"probe.md", stderr=b""
+        )
+        with mock.patch.object(subprocess, "run", side_effect=[tracked, untracked]):
+            with self.assertRaisesRegex(ValueError, "untracked.*trailing NUL"):
+                changed_paths("probe")
+
+    def test_empty_interior_path_item_fails_closed(self) -> None:
+        with self.assertRaisesRegex(ValueError, "empty item"):
+            nul_paths(b"one\0\0", population="probe")
+
+    def test_append_only_diff_failure_fails_closed(self) -> None:
+        failed = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=2, stdout="", stderr="probe"
+        )
+        with mock.patch.object(subprocess, "run", return_value=failed):
+            with self.assertRaisesRegex(RuntimeError, "append-only check unavailable"):
+                removed_append_lines("base", APPEND_ONLY[0])
+
+    def test_census_pin_status_failure_fails_closed(self) -> None:
+        failed = subprocess.CompletedProcess(
+            args=["git", "status"], returncode=2, stdout="", stderr="probe"
+        )
+        with mock.patch.object(subprocess, "run", return_value=failed):
+            with self.assertRaisesRegex(RuntimeError, "census-pin check"):
+                census_pin_status()
 
     def test_file_census_includes_index_and_untracked_worktree_files(self) -> None:
         success = subprocess.CompletedProcess(
@@ -516,32 +653,204 @@ class ScannerFailureTests(unittest.TestCase):
         )
 
 
+def workflow_steps(workflow: str, job_name: str) -> list[dict[str, str]]:
+    """Extract actual step mappings from one top-level workflow job.
+
+    This parser intentionally supports the small YAML shape used here:
+    job keys at two spaces, ``steps`` at four, step mappings at six/eight,
+    and literal run bodies below them.  Strings in comments or another job
+    never enter the returned run bodies.  Unsupported shapes fail closed.
+    """
+    lines = workflow.splitlines()
+    jobs_headers = [index for index, line in enumerate(lines) if line == "jobs:"]
+    if len(jobs_headers) != 1:
+        raise ValueError("workflow must contain exactly one top-level jobs mapping")
+    if any(line == "defaults:" for line in lines):
+        raise ValueError("workflow-level run defaults are unsupported")
+    jobs_start = jobs_headers[0] + 1
+    jobs_end = len(lines)
+    for index in range(jobs_start, len(lines)):
+        if re.fullmatch(r"[A-Za-z0-9_-]+:", lines[index]):
+            jobs_end = index
+            break
+    header = f"  {job_name}:"
+    matches = [
+        index
+        for index in range(jobs_start, jobs_end)
+        if lines[index] == header
+    ]
+    if len(matches) != 1:
+        raise ValueError(f"workflow must contain exactly one jobs.{job_name}")
+    start = matches[0]
+    end = jobs_end
+    for index in range(start + 1, jobs_end):
+        if re.fullmatch(r"  [A-Za-z0-9_-]+:", lines[index]):
+            end = index
+            break
+    block = lines[start + 1 : end]
+    for line in block:
+        if line.startswith(("    if:", "    continue-on-error:", "    defaults:")):
+            raise ValueError(f"jobs.{job_name} carries execution-changing defaults")
+    step_header = [index for index, line in enumerate(block) if line == "    steps:"]
+    if len(step_header) != 1:
+        raise ValueError(f"jobs.{job_name} must contain exactly one steps list")
+    body = block[step_header[0] + 1 :]
+    starts = [index for index, line in enumerate(body) if line.startswith("      - ")]
+    if not starts:
+        raise ValueError(f"jobs.{job_name}.steps is empty")
+    starts.append(len(body))
+    parsed: list[dict[str, str]] = []
+    for offset in range(len(starts) - 1):
+        chunk = body[starts[offset] : starts[offset + 1]]
+        step: dict[str, str] = {}
+        first = chunk[0][8:]
+        if ":" not in first:
+            raise ValueError(f"unsupported step entry {first!r}")
+        key, value = (part.strip() for part in first.split(":", 1))
+        step[key] = value
+        index = 1
+        while index < len(chunk):
+            line = chunk[index]
+            if not line.strip() or line.lstrip().startswith("#"):
+                index += 1
+                continue
+            if line.startswith("          "):
+                # Nested values of unrelated step fields (for example
+                # ``with:``) are not run bodies and cannot register a gate.
+                index += 1
+                continue
+            if not line.startswith("        "):
+                raise ValueError(f"unsupported jobs.{job_name} step indentation")
+            field = line[8:]
+            if ":" not in field:
+                raise ValueError(f"unsupported step field {field!r}")
+            key, value = (part.strip() for part in field.split(":", 1))
+            if key == "run" and value in {"|", "|-", ">", ">-"}:
+                script: list[str] = []
+                index += 1
+                while index < len(chunk):
+                    script_line = chunk[index]
+                    if script_line.strip() and not script_line.startswith("          "):
+                        break
+                    content = script_line[10:] if len(script_line) >= 10 else ""
+                    if not content.lstrip().startswith("#"):
+                        script.append(content)
+                    index += 1
+                step["run"] = "\n".join(script)
+                continue
+            step[key] = value
+            index += 1
+        parsed.append(step)
+    return parsed
+
+
+def step_runs_command(step: dict[str, str], command: str) -> bool:
+    """Whether an executable line is exactly the required command.
+
+    Registration is about execution, not byte presence.  Exact trimmed
+    lines reject strings passed to ``echo``, commands placed after a failing
+    prefix, lookalike suffixes, and mode-changing arguments such as
+    ``--help`` or ``--repin``.  Required lines below include every deliberate
+    redirection and pipe used by the real workflow.
+    """
+    for raw_line in step.get("run", "").splitlines():
+        line = raw_line.strip()
+        if line == command:
+            return True
+    return False
+
+
 class WorkflowRegistrationTests(unittest.TestCase):
-    PYTHON_MARKER = "# Rung two, track one: no first demand."
-    PYTHON_REQUIRED = (
-        "python research/second_nofirst/verify_pins.py",
-        "python -m coverage run -m unittest discover -s . -p \"test_*.py\"",
-        "grep -Eq '^Ran 139 tests in '",
+    RUNG_MARKER = "# Rung two, track one: no first demand."
+    WRITE_CWD = "research/second_nofirst"
+    PIN_STEP = "Second derivation, rung 2 track 1, pins, spans, and frozen texts"
+    REPLAY_STEP = "Second derivation, rung 2 track 1, replay, tests, and coverage"
+    MYPY_STEP = "Second derivation, rung 2 track 1, strict typing"
+    LEAN_STEP = "Second derivation, rung 2 track 1, fresh Lean and axiom audit"
+    PIN_COMMAND = "python research/second_nofirst/verify_pins.py"
+    REPLAY_LINES = (
+        "set -o pipefail",
+        'log="$RUNNER_TEMP/second-nofirst-tests.log"',
+        "python -m coverage erase",
+        "python -m coverage run -m unittest discover -s . -p \"test_*.py\" 2>&1 | tee \"$log\"",
+        "grep -Eq '^Ran 141 tests in ' \"$log\"",
+        "python -m coverage json -q",
         "python check_coverage.py",
         "git diff --exit-code -- receipts",
-        "python -m mypy",
     )
-    LEAN_REQUIRED = (
-        "python3 research/second_nofirst/verify_lean.py",
-    )
+    MYPY_COMMAND = "python -m mypy"
+    LEAN_COMMAND = "python3 research/second_nofirst/verify_lean.py"
+    PYTHON_REQUIRED = (PIN_COMMAND, *REPLAY_LINES, MYPY_COMMAND)
+    LEAN_REQUIRED = (LEAN_COMMAND,)
     REQUIRED = PYTHON_REQUIRED + LEAN_REQUIRED
 
     @classmethod
+    def replace_rung_command(
+        cls, workflow: str, command: str, replacement: str
+    ) -> str:
+        """Replace one command only after this rung's unique marker."""
+        prefix, marker, suffix = workflow.partition(cls.RUNG_MARKER)
+        if not marker or command not in suffix:
+            raise ValueError(f"rung command not found: {command}")
+        return prefix + marker + suffix.replace(command, replacement, 1)
+
+    @classmethod
     def missing(cls, workflow: str) -> list[str]:
-        if cls.PYTHON_MARKER not in workflow:
-            return [cls.PYTHON_MARKER, *cls.REQUIRED]
-        rung_block = workflow.split(cls.PYTHON_MARKER, 1)[1]
-        missing = [
-            command for command in cls.PYTHON_REQUIRED if command not in rung_block
+        try:
+            research_steps = workflow_steps(workflow, "research")
+            lean_steps = workflow_steps(workflow, "lean")
+        except ValueError:
+            return list(cls.REQUIRED)
+        missing: list[str] = []
+        pin_steps = [step for step in research_steps if step.get("name") == cls.PIN_STEP]
+        if (
+            len(pin_steps) != 1
+            or set(pin_steps[0]) != {"name", "run"}
+            or pin_steps[0].get("working-directory") is not None
+            or pin_steps[0].get("run", "").strip() != cls.PIN_COMMAND
+        ):
+            missing.append(cls.PIN_COMMAND)
+
+        replay_steps = [
+            step for step in research_steps if step.get("name") == cls.REPLAY_STEP
         ]
-        missing.extend(
-            command for command in cls.LEAN_REQUIRED if command not in workflow
-        )
+        if len(replay_steps) != 1 or replay_steps[0].get(
+            "working-directory"
+        ) != cls.WRITE_CWD or set(replay_steps[0]) != {
+            "name", "working-directory", "run"
+        }:
+            missing.extend(cls.REPLAY_LINES)
+        else:
+            actual = [
+                line.strip()
+                for line in replay_steps[0].get("run", "").splitlines()
+                if line.strip()
+            ]
+            for index, command in enumerate(cls.REPLAY_LINES):
+                if index >= len(actual) or actual[index] != command:
+                    missing.append(command)
+
+        mypy_steps = [
+            step for step in research_steps if step.get("name") == cls.MYPY_STEP
+        ]
+        if (
+            len(mypy_steps) != 1
+            or set(mypy_steps[0]) != {"name", "working-directory", "run"}
+            or mypy_steps[0].get("working-directory") != cls.WRITE_CWD
+            or mypy_steps[0].get("run", "").strip() != cls.MYPY_COMMAND
+        ):
+            missing.append(cls.MYPY_COMMAND)
+
+        lean_audit_steps = [
+            step for step in lean_steps if step.get("name") == cls.LEAN_STEP
+        ]
+        if (
+            len(lean_audit_steps) != 1
+            or set(lean_audit_steps[0]) != {"name", "run"}
+            or lean_audit_steps[0].get("working-directory") is not None
+            or lean_audit_steps[0].get("run", "").strip() != cls.LEAN_COMMAND
+        ):
+            missing.append(cls.LEAN_COMMAND)
         return missing
 
     def test_ci_registers_every_machine_gate_of_this_rung(self) -> None:
@@ -549,10 +858,19 @@ class WorkflowRegistrationTests(unittest.TestCase):
             encoding="utf-8"
         )
         self.assertEqual(self.missing(workflow), [])
-        self.assertLess(
-            workflow.index("python3 research/second_nofirst/verify_lean.py"),
-            workflow.index("- name: Every Lean module elaborates"),
+        lean_steps = workflow_steps(workflow, "lean")
+        verifier = next(
+            index
+            for index, step in enumerate(lean_steps)
+            if step_runs_command(step, self.LEAN_REQUIRED[0])
         )
+        final = next(
+            index
+            for index, step in enumerate(lean_steps)
+            if step.get("name") == "Every Lean module elaborates"
+        )
+        self.assertLess(verifier, final)
+        self.assertEqual(final, len(lean_steps) - 1)
 
     def test_ci_registration_gate_names_each_removed_command(self) -> None:
         workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
@@ -560,13 +878,125 @@ class WorkflowRegistrationTests(unittest.TestCase):
         )
         for command in self.REQUIRED:
             if command in self.PYTHON_REQUIRED:
-                prefix, block = workflow.split(self.PYTHON_MARKER, 1)
-                injected = prefix + self.PYTHON_MARKER + block.replace(
-                    command, "probe-command-removed", 1
+                injected = self.replace_rung_command(
+                    workflow, command, "probe-command-removed"
                 )
             else:
                 injected = workflow.replace(command, "probe-command-removed", 1)
             self.assertEqual(self.missing(injected), [command])
+
+    def test_comment_only_commands_do_not_register(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        command = self.REPLAY_LINES[3]
+        injected = self.replace_rung_command(
+            workflow, command, "probe-command-removed"
+        )
+        injected += f"\n# {command}\n"
+        self.assertIn(command, self.missing(injected))
+
+    def test_nonexecuting_and_lookalike_lines_do_not_register(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        command = self.MYPY_COMMAND
+        for replacement in (
+            f"echo {command}",
+            f"false && {command}",
+            f"{command}-not",
+            f"{command} --help",
+        ):
+            with self.subTest(replacement=replacement):
+                injected = self.replace_rung_command(
+                    workflow, command, replacement
+                )
+                self.assertIn(command, self.missing(injected))
+
+        pin = self.PIN_COMMAND
+        injected = self.replace_rung_command(workflow, pin, f"{pin} --repin")
+        self.assertIn(pin, self.missing(injected))
+
+    def test_job_keys_outside_top_level_jobs_do_not_register(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        injected = workflow.replace("jobs:\n", "not_jobs:\n", 1)
+        self.assertEqual(self.missing(injected), list(self.REQUIRED))
+
+    def test_command_in_the_wrong_job_does_not_register(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        command = self.REPLAY_LINES[3]
+        injected = self.replace_rung_command(
+            workflow, command, "probe-command-removed"
+        )
+        injected += (
+            "\n  probe-job:\n"
+            "    steps:\n"
+            f"      - run: {command}\n"
+        )
+        self.assertIn(command, self.missing(injected))
+
+    def test_wrong_working_directory_does_not_register(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        injected = workflow.replace(
+            f"working-directory: {self.WRITE_CWD}",
+            "working-directory: research/wrong-probe",
+        )
+        for command in (*self.REPLAY_LINES, self.MYPY_COMMAND):
+            self.assertIn(command, self.missing(injected))
+
+    def test_replay_lines_cannot_be_split_across_steps(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        command = self.REPLAY_LINES[0]
+        injected = self.replace_rung_command(workflow, command, "true")
+        injected += (
+            "\n      - name: misplaced pipefail probe\n"
+            f"        working-directory: {self.WRITE_CWD}\n"
+            f"        run: {command}\n"
+        )
+        self.assertIn(command, self.missing(injected))
+
+    def test_pipefail_must_precede_the_piped_test_command(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        pipefail = self.REPLAY_LINES[0]
+        coverage_run = self.REPLAY_LINES[3]
+        original = f"{pipefail}\n          {self.REPLAY_LINES[1]}"
+        moved = f"true\n          {self.REPLAY_LINES[1]}"
+        injected = self.replace_rung_command(workflow, original, moved)
+        injected = self.replace_rung_command(
+            injected, coverage_run, f"{coverage_run}\n          {pipefail}"
+        )
+        self.assertIn(pipefail, self.missing(injected))
+
+    def test_execution_changing_step_fields_fail_registration(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        needle = f"      - name: {self.REPLAY_STEP}\n"
+        for field in ("        if: false\n", "        continue-on-error: true\n"):
+            with self.subTest(field=field.strip()):
+                injected = workflow.replace(needle, needle + field, 1)
+                self.assertEqual(
+                    self.missing(injected)[: len(self.REPLAY_LINES)],
+                    list(self.REPLAY_LINES),
+                )
+
+    def test_exit_before_exact_lines_fails_registration(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        first = self.REPLAY_LINES[0]
+        injected = self.replace_rung_command(workflow, first, f"exit 0\n          {first}")
+        self.assertIn(first, self.missing(injected))
 
 
 if __name__ == "__main__":
