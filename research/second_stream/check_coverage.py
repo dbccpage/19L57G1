@@ -51,11 +51,38 @@ REPORT = HERE / "coverage.json"
 
 LINE_FLOOR = 95.0
 BRANCH_FLOOR = 95.0
+SKIP_PARTS = frozenset(
+    {
+        ".git",
+        ".mypy_cache",
+        ".pytest_cache",
+        ".ruff_cache",
+        ".venv",
+        "__pycache__",
+        "tests",
+    }
+)
 
-# The tree's own non-test modules: what ``[tool.coverage.run] source`` names,
-# and what the report must therefore contain, neither more nor less.  This
-# gate is absent from the list because it does not measure itself.
-MEASURED = ("run_stream.py", "stream.py", "verify_pins.py")
+
+def _production_modules(here: pathlib.Path) -> tuple[str, ...]:
+    """Recursively census production modules independently of coverage config."""
+
+    modules: list[str] = []
+    for path in here.rglob("*.py"):
+        relative = path.relative_to(here)
+        name = relative.as_posix()
+        if name == "check_coverage.py" or path.name.startswith("test_"):
+            continue
+        if any(part in SKIP_PARTS for part in relative.parts[:-1]):
+            continue
+        modules.append(name)
+    return tuple(sorted(modules))
+
+
+# The report must contain every production module found above, neither more
+# nor less.  A new unimported module omitted from pyproject's source list is
+# therefore a missing report row rather than a smaller, greener denominator.
+MEASURED = _production_modules(HERE)
 
 
 def _read(path: pathlib.Path) -> dict[str, Any]:
@@ -87,7 +114,19 @@ def check() -> list[str]:
     files = report.get("files")
     if not isinstance(files, dict):
         raise ValueError("coverage.json must carry a files object")
-    measured = sorted(pathlib.PurePath(name).name for name in files)
+    measured = sorted(
+        pathlib.PurePosixPath(name.replace("\\", "/")).as_posix() for name in files
+    )
+    if any(
+        pathlib.PurePosixPath(name).is_absolute()
+        or ".." in pathlib.PurePosixPath(name).parts
+        for name in measured
+    ):
+        raise ValueError(f"coverage.json carries an unsafe measured path: {measured}")
+    if len(measured) != len(set(measured)):
+        raise ValueError(
+            f"coverage.json carries duplicate normalized paths: {measured}"
+        )
     if measured != sorted(MEASURED):
         raise ValueError(
             "measured file set differs from the tree's own modules: "

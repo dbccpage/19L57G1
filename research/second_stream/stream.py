@@ -803,17 +803,17 @@ def min_responses_three(
             cnt.deltas_examined += 1
             if judge.accepts(delta, after):
                 valid.append(delta)
+                if len(valid) > MAX_VALID_PER_TARGET:
+                    raise BudgetExceeded(
+                        TERMINAL_RESPONSE_BUDGET,
+                        {
+                            "valid_gathered": len(valid),
+                            "bound": MAX_VALID_PER_TARGET,
+                            "item_count": cost,
+                        },
+                    )
         if not valid:
             continue
-        if len(valid) > MAX_VALID_PER_TARGET:
-            raise BudgetExceeded(
-                TERMINAL_RESPONSE_BUDGET,
-                {
-                    "valid_gathered": len(valid),
-                    "bound": MAX_VALID_PER_TARGET,
-                    "item_count": cost,
-                },
-            )
         if measure == "mu1":
             result = Minima3(
                 "mu1",
@@ -969,8 +969,8 @@ def fresh_datum_availability(
     for cost in range(1, item_bound + 1):
         made, space = fresh_datum_space(s.regime, cost, bounds)
         generated += made
+        offered += len(space)
         for delta, after in space:
-            offered += 1
             examined += 1
             if has_noop_item(s.regime, delta):
                 continue
@@ -1190,34 +1190,57 @@ def build_stream_tree(
         if refused:
             node.status = "terminal_no_response"
             continue
-        try:
-            per_target = [
-                (target, mr, _quotient(node.state, mr)) for target, mr in gathered
-            ]
-        except RuntimeError as exc:
-            out.truncations.append(
-                _truncation(out, nid, None, TERMINAL_ISO_BUDGET,
-                            {"where": "quotient", "detail": str(exc)})
-            )
-            node.status = TERMINAL_ISO_BUDGET
-            continue
-        total_classes = sum(len(classes) for _t, _m, classes in per_target)
-        if total_classes > MAX_CLASSES_PER_NODE:
-            out.truncations.append(
-                _truncation(
-                    out, nid, per_target[0][0], TERMINAL_CLASS_BUDGET,
-                    {
-                        "classes": total_classes,
-                        "bound": MAX_CLASSES_PER_NODE,
-                        "targets_gathered": len(gathered),
-                        "targets_not_reached": 0,
-                        "attached": 0,
-                    },
+        per_target: list[
+            tuple[tuple[str, Pair], Minima3, list[tuple[Delta, int]]]
+        ] = []
+        total_classes = 0
+        quotient_truncated = False
+        for target_index, (target, mr) in enumerate(gathered):
+            try:
+                classes = _quotient(node.state, mr)
+            except RuntimeError as exc:
+                out.truncations.append(
+                    _truncation(
+                        out,
+                        nid,
+                        target,
+                        TERMINAL_ISO_BUDGET,
+                        {"where": "quotient", "detail": str(exc), "attached": 0},
+                    )
                 )
-            )
-            node.status = TERMINAL_CLASS_BUDGET
+                node.status = TERMINAL_ISO_BUDGET
+                quotient_truncated = True
+                break
+            total_classes += len(classes)
+            if total_classes > MAX_CLASSES_PER_NODE:
+                out.truncations.append(
+                    _truncation(
+                        out,
+                        nid,
+                        target,
+                        TERMINAL_CLASS_BUDGET,
+                        {
+                            "classes": total_classes,
+                            "bound": MAX_CLASSES_PER_NODE,
+                            "targets_gathered": target_index + 1,
+                            "targets_not_reached": len(gathered) - target_index - 1,
+                            "attached": 0,
+                        },
+                    )
+                )
+                node.status = TERMINAL_CLASS_BUDGET
+                quotient_truncated = True
+                break
+            per_target.append((target, mr, classes))
+        if quotient_truncated:
             continue
-        aborted = False
+        prepared: list[
+            tuple[
+                tuple[str, Pair], Minima3, Delta, int, int, tuple[TSEvent, ...],
+                tuple[int, int], dict[str, object], tuple[TState, TStateKey],
+            ]
+        ] = []
+        attachment_failed = False
         for target, mr, classes in per_target:
             for rep, size in classes:
                 history2 = (
@@ -1230,17 +1253,67 @@ def build_stream_tree(
                 info["valid_at_cost"] = mr.valid_at_cost
                 info["validity_rule"] = mr.rule
                 info["item_count"] = mr.item_count
-                if not _attach(
-                    out, key_map, queue, node, history2,
-                    f"{target[0]}{target[1]}", delta_label(node.state.regime, rep),
-                    rep, len(classes), size, cost, len(targets), info,
-                ):
-                    aborted = True
+                try:
+                    state_and_key = _prepare_attachment(history2)
+                except RuntimeError as exc:
+                    out.truncations.append(
+                        _truncation(
+                            out,
+                            nid,
+                            target,
+                            TERMINAL_ISO_BUDGET,
+                            {"where": "attach", "detail": str(exc), "attached": 0},
+                        )
+                    )
+                    node.status = TERMINAL_ISO_BUDGET
+                    attachment_failed = True
                     break
-            if aborted:
+                prepared.append(
+                    (
+                        target,
+                        mr,
+                        rep,
+                        size,
+                        len(classes),
+                        history2,
+                        cost,
+                        info,
+                        state_and_key,
+                    )
+                )
+            if attachment_failed:
                 break
-        if aborted:
+        if attachment_failed:
             continue
+        for (
+            target,
+            mr,
+            rep,
+            size,
+            tie_classes,
+            history2,
+            cost,
+            info,
+            state_and_key,
+        ) in prepared:
+            attached = _attach(
+                out,
+                key_map,
+                queue,
+                node,
+                history2,
+                f"{target[0]}{target[1]}",
+                delta_label(node.state.regime, rep),
+                rep,
+                tie_classes,
+                size,
+                cost,
+                len(targets),
+                info,
+                prepared=state_and_key,
+            )
+            if not attached:  # pragma: no cover - a prepared key cannot fail
+                raise AssertionError("a prepared attachment unexpectedly failed")
         node.status = "expanded"
     return out
 
@@ -1283,6 +1356,13 @@ def _quotient(s: TState, mr: Minima3) -> list[tuple[Delta, int]]:
     return [(members[0], len(members)) for _key, members in sorted(grouped.items())]
 
 
+def _prepare_attachment(history: tuple[TSEvent, ...]) -> tuple[TState, TStateKey]:
+    """Replay and key one prospective child without mutating the tree."""
+
+    state = ts_replay(history)
+    return state, key_of(state)
+
+
 def _attach(
     out: STree,
     key_map: dict[TStateKey, int],
@@ -1297,21 +1377,24 @@ def _attach(
     cost: tuple[int, int],
     target_count: int,
     info: dict[str, object],
+    prepared: Optional[tuple[TState, TStateKey]] = None,
 ) -> bool:
     """Attach one child.  Returns False when the bijection budget fired, in
     which case nothing is attached and the parent carries the terminal."""
 
     tree = out.tree
-    state = ts_replay(history)
-    try:
-        key = key_of(state)
-    except RuntimeError as exc:
-        out.truncations.append(
-            _truncation(out, parent.node_id, None, TERMINAL_ISO_BUDGET,
-                        {"where": "attach", "detail": str(exc)})
-        )
-        parent.status = TERMINAL_ISO_BUDGET
-        return False
+    if prepared is None:
+        try:
+            state, key = _prepare_attachment(history)
+        except RuntimeError as exc:
+            out.truncations.append(
+                _truncation(out, parent.node_id, None, TERMINAL_ISO_BUDGET,
+                            {"where": "attach", "detail": str(exc)})
+            )
+            parent.status = TERMINAL_ISO_BUDGET
+            return False
+    else:
+        state, key = prepared
     if key in key_map:
         child_id = key_map[key]
         kind = "merge"

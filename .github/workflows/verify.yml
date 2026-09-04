@@ -318,11 +318,22 @@ jobs:
       # local battery.
       - name: Second derivation, rung 1, pins and frozen texts
         run: python research/second_stream/verify_pins.py
-      - name: Second derivation, rung 1, run
-        run: python research/second_stream/run_stream.py
-      - name: Second derivation, rung 1, tests
+      # The tests replay both committed receipts into temporary paths.  The
+      # former standalone runner wrote directly over the tracked receipts
+      # before that comparison, which let drift bless itself.  Coverage must
+      # be generated in this same fresh test process and checked immediately;
+      # a committed coverage.json is not evidence of the current checkout.
+      - name: Second derivation, rung 1, replay, tests, and coverage
         working-directory: research/second_stream
-        run: python -m unittest discover -s . -p "test_*.py"
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/second-stream-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran 145 tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          git diff --exit-code -- receipts
       - name: Second derivation, rung 1, strict typing
         working-directory: research/second_stream
         run: python -m mypy

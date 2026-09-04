@@ -2,9 +2,10 @@
 
 Usage: python research/second_stream/run_stream.py [--out PATH] [--full PATH]
 
-No timestamp and no environment value reaches the receipt.  The frozen
-texts are hashed at run time, so an edit after the freeze shows in the
-receipt.  Every prediction of ``PREDICTIONS.md`` is scored by
+No timestamp and no environment value reaches the receipt. The frozen texts
+are checked against their frozen digests before computation, their captured
+digests are carried into the receipt, and they are checked again before
+either output write. Every prediction of ``PREDICTIONS.md`` is scored by
 ``score_predictions``, which is a function of the receipt's own body and
 reads nothing else; the verdicts are receipt values rather than prose.
 
@@ -20,7 +21,7 @@ receipt and the scoring.
 Four declarations this file owns, stated so they are not inferred.
 
 * THE CROSS-CHECK FAMILY IS DECLARED HERE.  ``PREDICTIONS.md`` R1-1 speaks
-  of "the declared cross-check family"; the family is the seven bases of
+  of "the declared cross-check family"; the family is the eight bases of
   ``cross_check_family`` below, each built by applying sealed deltas to the
   sealed empty regime.  Two of them carry a uniform rule, which is what
   makes R1-1's third clause live rather than empty.  The family is small on
@@ -111,6 +112,22 @@ SIBLING_RECEIPT = (
 )
 SEED = REPO / "research" / "second" / "SEED.md"
 
+# These are independent runtime anchors, not values read from the manifest or
+# the receipt being written.  The check runs before the expensive build and
+# before either output path is touched, so an unstaged edit cannot be adopted
+# into a freshly generated receipt.
+FROZEN_DISK_SHA256: tuple[tuple[pathlib.Path, str], ...] = (
+    (SEED, "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"),
+    (
+        HERE / "PROMPT.md",
+        "efca5d969189bc2d887bd031f406cbdd9ffc3a2499491e754c1251683fb039a5",
+    ),
+    (
+        HERE / "PREDICTIONS.md",
+        "b688840362287aa3101c640bfc063655501e19534a6b84a58b88a5808b663842",
+    ),
+)
+
 # R1-3 names its own population.  It is measured and checked, not assumed.
 NAMED_RUNS_WITH_A_REFUSAL = ("F/parity/mu1", "L/parity/mu1", "L/residue_three/mu1")
 
@@ -136,6 +153,26 @@ DECLARED = f"by_{ST.RULE_STRICT_NO_REGRESS}"
 
 def _sha(path: pathlib.Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def verify_frozen_disk() -> dict[pathlib.Path, str]:
+    """Refuse a missing or moved frozen input before any receipt is written."""
+
+    checked: dict[pathlib.Path, str] = {}
+    for path, wanted in FROZEN_DISK_SHA256:
+        try:
+            relative = path.relative_to(REPO).as_posix()
+        except ValueError:
+            relative = path.as_posix()
+        if not path.is_file():
+            raise ValueError(f"frozen text is missing on disk: {relative}")
+        actual = _sha(path)
+        if actual != wanted:
+            raise ValueError(
+                f"frozen text moved on disk: {relative}: expected {wanted}, got {actual}"
+            )
+        checked[path] = actual
+    return checked
 
 
 def _j(value: object) -> Json:
@@ -807,24 +844,29 @@ class Gatherer:
                 continue
             if judge.accepts(delta, after):
                 valid.append(delta)
+                if len(valid) > ST.MAX_VALID_PER_TARGET:
+                    self.enumerations += 1
+                    self.deltas_offered += offered
+                    self.max_valid_at_one_pair = max(
+                        self.max_valid_at_one_pair, len(valid)
+                    )
+                    self.budget_terminals.append(
+                        {
+                            "terminal": ST.TERMINAL_RESPONSE_BUDGET,
+                            "where": "situation gatherer",
+                            "kind": target[0],
+                            "target": list(target[1]),
+                            "commitment": s.commitment,
+                            "validity_rule": rule,
+                            "valid_gathered": len(valid),
+                            "bound": ST.MAX_VALID_PER_TARGET,
+                        }
+                    )
+                    self._store[key] = (offered, [])
+                    return offered, []
         self.enumerations += 1
         self.deltas_offered += offered
         self.max_valid_at_one_pair = max(self.max_valid_at_one_pair, len(valid))
-        if len(valid) > ST.MAX_VALID_PER_TARGET:
-            self.budget_terminals.append(
-                {
-                    "terminal": ST.TERMINAL_RESPONSE_BUDGET,
-                    "where": "situation gatherer",
-                    "kind": target[0],
-                    "target": list(target[1]),
-                    "commitment": s.commitment,
-                    "validity_rule": rule,
-                    "valid_gathered": len(valid),
-                    "bound": ST.MAX_VALID_PER_TARGET,
-                }
-            )
-            self._store[key] = (offered, [])
-            return offered, []
         valid.sort(key=ST.delta_order_key)
         self._store[key] = (offered, valid)
         return offered, valid
@@ -1804,7 +1846,9 @@ def _written_hash_agrees(recorded: str, written: str) -> bool:
     return recorded == written
 
 
-def build_all(deadline: Deadline) -> dict[str, Json]:
+def build_all(
+    deadline: Deadline, frozen_sha256: Mapping[pathlib.Path, str]
+) -> dict[str, Json]:
     cross = cross_check_table()
     recon = two_item_reconstruction(deadline)
     trees, rows = three_item_runs(deadline)
@@ -1845,9 +1889,9 @@ def build_all(deadline: Deadline) -> dict[str, Json]:
         "authority_effect": "None",
         "rung": RUNG,
         "rung_name": RUNG_NAME,
-        "seed_sha256": _sha(SEED),
-        "prompt_sha256": _sha(HERE / "PROMPT.md"),
-        "predictions_sha256": _sha(HERE / "PREDICTIONS.md"),
+        "seed_sha256": frozen_sha256[SEED],
+        "prompt_sha256": frozen_sha256[HERE / "PROMPT.md"],
+        "predictions_sha256": frozen_sha256[HERE / "PREDICTIONS.md"],
         "declared_bounds": {
             "max_items": ST.BOUNDS_THREE.max_items,
             "max_arity": ST.BOUNDS_THREE.max_arity,
@@ -2010,8 +2054,19 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help="the declared wall bound in seconds; passing it records a truncation",
     )
     args = parser.parse_args(argv)
+    try:
+        frozen_sha256 = verify_frozen_disk()
+    except ValueError as exc:
+        print(f"FAIL: {exc}")
+        return 1
     deadline = Deadline(float(args.wall_bound))
-    summary, full = split(build_all(deadline))
+    body = build_all(deadline, frozen_sha256)
+    try:
+        verify_frozen_disk()
+    except ValueError as exc:
+        print(f"FAIL: {exc}")
+        return 1
+    summary, full = split(body)
     out = pathlib.Path(str(args.out))
     full_path = pathlib.Path(str(args.full))
     write_json(out, summary)

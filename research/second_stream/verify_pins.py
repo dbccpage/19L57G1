@@ -7,10 +7,10 @@ Checks, none implying the others:
 * the recorded snapshot commit is forty hexadecimal digits and is an
   ancestor of HEAD, with ``git merge-base`` exit codes other than zero or
   one reported as undecided rather than as "not an ancestor";
-* every source in ``SOURCE_MANIFEST.json`` still hashes, as a Git blob, to
-  its recorded sha256 **at the snapshot and again at HEAD**, so a source
-  that moved after the snapshot fails even though the snapshot copy is
-  intact;  the pinned set includes the two TABLES the rung's refusal scans
+* every source in ``SOURCE_MANIFEST.json`` hashes, as a Git blob, to its
+  recorded sha256 **at the snapshot and again at HEAD**; this is endpoint
+  equality and makes no claim about intermediate commits; the pinned set
+  includes the two TABLES the rung's refusal scans
   read, ``ci/prose_watchlist.json`` and
   ``contact/analysis/contact_countermodels.json``, so a committed prune of
   either fails here rather than silently narrowing a scan;
@@ -18,8 +18,11 @@ Checks, none implying the others:
   snapshot correctly, and is permitted to be empty;
 * the frozen seed, question, and prediction texts still hash, as blobs at
   HEAD, to the values recorded when they were frozen;
-* the working tree carries no change outside this rung's write root beyond
-  the declared exceptions, and no change at all under a sealed prefix.
+* every commit after the exact required snapshot that changes this rung's
+  write root is audited NUL-safely across all of that commit's paths; an
+  unrelated future commit is not attributed to this rung; and
+* the NUL-safe status population carries no unignored worktree/index change
+  outside that same scope.
 
 Three differences from rung zero's verifier, each deliberate and each a
 repair rather than a convention:
@@ -45,10 +48,11 @@ The frozen texts are hashed at HEAD only.  Two of the three were created by
 the freeze commit and therefore do not exist at the snapshot; hashing them
 there would fail for a reason that has nothing to do with the freeze.  This
 verifier reads Git blobs, so an edit to a frozen text that is never staged
-is invisible to it; the runner hashes the same three files FROM DISK at run
-time, and the receipt is where that edit would show.
+is invisible to it; the runner hashes the same three files FROM DISK before
+the build and again before output.
 
-A pass says the inputs did not move.  It says nothing about the mathematics.
+A pass says the bytes match at the snapshot and HEAD endpoints. It does not
+establish uninterrupted history and says nothing about the mathematics.
 ``--repin`` rewrites the source hashes from HEAD and verifies nothing.  It
 never touches ``frozen_texts``, and -- unlike rung zero's ``repin()``, which
 sets ``snapshot_commit`` to HEAD -- it refuses to move ``snapshot_commit``,
@@ -73,6 +77,7 @@ MANIFEST = HERE / "SOURCE_MANIFEST.json"
 
 # This rung's write root.  Everything the rung produces lives under it.
 WRITE_ROOT = "research/second_stream/"
+REQUIRED_SNAPSHOT_COMMIT = "3f44571240a0830a2fa8de639281670f4e50a511"
 
 # Declared exceptions to the write root, each one a file the rung's own plan
 # names and no other tree owns: the session handoff and the injection record
@@ -94,6 +99,42 @@ SEALED_PREFIXES = (
     "prompt/",
 )
 
+# Exact manifest populations.  These are deliberately independent of the
+# JSON they audit: deleting a consumed source or one frozen input must not
+# turn the verifier green by shrinking its own census.
+REQUIRED_SOURCE_PATHS = frozenset(
+    {
+        "ci/check_prose_watchlist.py",
+        "ci/prose_watchlist.json",
+        "code/derivation/__init__.py",
+        "code/derivation/candidates.py",
+        "code/derivation/" + "eng" + "ine.py",
+        "code/derivation/export.py",
+        "code/derivation/iso.py",
+        "code/derivation/model.py",
+        "code/derivation/observe.py",
+        "contact/analysis/contact_countermodels.json",
+        "lean4/Derivation/Ext.lean",
+        "lean4/Derivation/Progress.lean",
+        "research/identification_dual/dual.py",
+        "research/second_inheritance/STATUS.md",
+        "research/two_sided_commitment/CLAIM_LEDGER.md",
+        "research/two_sided_commitment/PROMPT.md",
+        "research/two_sided_commitment/STATUS.md",
+        "research/two_sided_commitment/receipts/two_sided_commitment.json",
+        "research/two_sided_commitment/run_two_sided.py",
+        "research/two_sided_commitment/two_sided.py",
+        "tests/test_candidates.py",
+    }
+)
+REQUIRED_FROZEN_PATHS = frozenset(
+    {
+        "research/second/SEED.md",
+        "research/second_stream/PREDICTIONS.md",
+        "research/second_stream/PROMPT.md",
+    }
+)
+
 
 def _git_bytes(*args: str) -> bytes:
     result = subprocess.run(["git", *args], cwd=REPO, capture_output=True, check=False)
@@ -113,8 +154,19 @@ def _blob_sha256(revision: str, relative: PurePosixPath) -> str:
     return hashlib.sha256(_git_bytes("show", f"{revision}:{relative.as_posix()}")).hexdigest()
 
 
+def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key in SOURCE_MANIFEST.json: {key}")
+        result[key] = value
+    return result
+
+
 def _read_manifest() -> dict[str, Any]:
-    payload: object = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    payload: object = json.loads(
+        MANIFEST.read_text(encoding="utf-8"), object_pairs_hook=_unique_object
+    )
     if not isinstance(payload, dict):
         raise ValueError("SOURCE_MANIFEST.json must be an object")
     return payload
@@ -149,27 +201,83 @@ def _ancestor(snapshot: str) -> str:
     return f"undecided (git exit {result.returncode})"
 
 
+def _decode_path(raw: bytes) -> str:
+    # With ``-z`` Git emits literal tree bytes. Repository separators are
+    # already ``/`` on every host; a backslash can be part of a filename and
+    # must not be normalized into an authorized directory prefix.
+    return raw.decode("utf-8", errors="surrogateescape")
+
+
 def _worktree_paths() -> list[str]:
-    """Every path git reports as changed, staged, or untracked, renames split."""
-    raw = _git_bytes("status", "--porcelain", "--untracked-files=all").decode("utf-8")
+    """Every unignored worktree/index path, parsed from NUL-safe porcelain."""
+
+    fields = _git_bytes(
+        "status", "--porcelain=v1", "-z", "--untracked-files=all"
+    ).split(b"\0")
     paths: list[str] = []
-    for line in raw.splitlines():
-        if len(line) < 4:
+    index = 0
+    while index < len(fields):
+        field = fields[index]
+        index += 1
+        if not field:
             continue
-        body = line[3:]
-        for half in body.split(" -> "):
-            half = half.strip()
-            if half.startswith('"') and half.endswith('"'):
-                half = half[1:-1]
-            if half:
-                paths.append(half)
+        if len(field) < 4:
+            raise ValueError("malformed NUL-safe git status record")
+        status = field[:2]
+        paths.append(_decode_path(field[3:]))
+        if b"R" in status or b"C" in status:
+            if index >= len(fields) or not fields[index]:
+                raise ValueError("rename/copy status record is missing its source path")
+            paths.append(_decode_path(fields[index]))
+            index += 1
     return paths
 
 
-def _check_write_scope() -> list[str]:
+def _scope_commits(snapshot: str) -> list[str]:
+    """Commits after the snapshot, in deterministic dependency order."""
+
+    raw = _git("rev-list", "--reverse", "--topo-order", f"{snapshot}..HEAD")
+    return [line for line in raw.splitlines() if line]
+
+
+def _commit_paths(commit: str) -> list[str]:
+    """Paths changed by one commit against its first parent, NUL-safe."""
+
+    row = _git("rev-list", "--parents", "-n", "1", commit).split()
+    if not row or row[0] != commit:
+        raise ValueError(f"git did not resolve commit for scope audit: {commit}")
+    if len(row) == 1:
+        raw = _git_bytes("ls-tree", "-r", "--name-only", "-z", commit)
+    else:
+        raw = _git_bytes(
+            "diff", "--name-only", "-z", "--no-renames", row[1], commit
+        )
+    return [_decode_path(field) for field in raw.split(b"\0") if field]
+
+
+def _committed_scope(snapshot: str) -> tuple[list[str], list[str]]:
+    """Commits attributable to this rung and every path each one changed.
+
+    Unrelated future commits are deliberately ignored. A commit becomes
+    attributable when it changes the rung's write root; every path in that
+    same commit is then audited, including declared exceptions and breaches.
+    """
+
+    commits: list[str] = []
+    paths: list[str] = []
+    for commit in _scope_commits(snapshot):
+        changed = _commit_paths(commit)
+        if not any(path.startswith(WRITE_ROOT) for path in changed):
+            continue
+        commits.append(commit)
+        paths.extend(changed)
+    return commits, paths
+
+
+def _check_paths(paths: list[str], population: str) -> None:
     outside: list[str] = []
     sealed: list[str] = []
-    for path in sorted(set(_worktree_paths())):
+    for path in sorted(set(paths)):
         if any(path.startswith(prefix) for prefix in SEALED_PREFIXES):
             sealed.append(path)
         if path.startswith(WRITE_ROOT) or path in DECLARED_WRITE_PATHS:
@@ -177,15 +285,24 @@ def _check_write_scope() -> list[str]:
         outside.append(path)
     if sealed:
         raise ValueError(
-            "sealed path changed in the working tree: " + ", ".join(sealed)
+            f"sealed path changed in {population}: " + ", ".join(sealed)
         )
     if outside:
         raise ValueError(
-            "working tree changed outside the write root "
+            f"{population} changed outside the write root "
             f"{WRITE_ROOT} and the declared exceptions: " + ", ".join(outside)
         )
+
+
+def _check_write_scope(snapshot: str) -> list[str]:
+    commits, committed = _committed_scope(snapshot)
+    worktree = _worktree_paths()
+    _check_paths(committed, "rung-attributable committed diff")
+    _check_paths(worktree, "working tree/index")
     return [
-        f"write scope: clean outside {WRITE_ROOT} "
+        f"committed scope: {len(commits)} rung-attributable commits, "
+        f"{len(set(committed))} allowed paths",
+        f"working-tree scope: clean outside {WRITE_ROOT} "
         f"({len(DECLARED_WRITE_PATHS)} declared exceptions, {len(SEALED_PREFIXES)} sealed prefixes)"
     ]
 
@@ -202,6 +319,11 @@ def verify() -> list[str]:
     if not _is_hex40(snapshot):
         raise ValueError("snapshot_commit must be an exact 40-digit lowercase hex commit id")
     assert isinstance(snapshot, str)
+    if snapshot != REQUIRED_SNAPSHOT_COMMIT:
+        raise ValueError(
+            "snapshot_commit differs from the independent required snapshot: "
+            f"expected {REQUIRED_SNAPSHOT_COMMIT}, got {snapshot}"
+        )
     relation = _ancestor(snapshot)
     if relation != "ancestor":
         raise ValueError(f"snapshot {snapshot} is {relation} of HEAD")
@@ -233,6 +355,12 @@ def verify() -> list[str]:
                 f"source moved at HEAD for {relative}: expected {wanted}, got {at_head}"
             )
         lines.append(f"source: {relative} {at_head}")
+    if seen != REQUIRED_SOURCE_PATHS:
+        missing = sorted(REQUIRED_SOURCE_PATHS - seen)
+        extra = sorted(seen - REQUIRED_SOURCE_PATHS)
+        raise ValueError(
+            f"source population differs: missing {missing}, extra {extra}"
+        )
 
     absent = manifest.get("absent_at_snapshot")
     if not isinstance(absent, list):
@@ -264,10 +392,15 @@ def verify() -> list[str]:
     frozen = manifest.get("frozen_texts")
     if not isinstance(frozen, list) or not frozen:
         raise ValueError("manifest must list the frozen texts")
+    frozen_seen: set[str] = set()
     for item in frozen:
         if not isinstance(item, dict):
             raise ValueError("each frozen text entry must be an object")
         relative = _safe(item.get("path"))
+        key = relative.as_posix()
+        if key in frozen_seen:
+            raise ValueError(f"duplicate frozen text entry: {key}")
+        frozen_seen.add(key)
         wanted = item.get("sha256")
         if not isinstance(wanted, str):
             raise ValueError(f"missing sha256 for {relative}")
@@ -278,7 +411,14 @@ def verify() -> list[str]:
             )
         lines.append(f"frozen: {relative} {actual}")
 
-    lines.extend(_check_write_scope())
+    if frozen_seen != REQUIRED_FROZEN_PATHS:
+        missing = sorted(REQUIRED_FROZEN_PATHS - frozen_seen)
+        extra = sorted(frozen_seen - REQUIRED_FROZEN_PATHS)
+        raise ValueError(
+            f"frozen text population differs: missing {missing}, extra {extra}"
+        )
+
+    lines.extend(_check_write_scope(snapshot))
     lines.append(
         f"second_stream pins verified: {len(sources)} sources at snapshot and HEAD, "
         f"{len(frozen)} frozen texts at HEAD, {len(absent)} absent-at-snapshot records"

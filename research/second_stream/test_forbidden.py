@@ -49,12 +49,14 @@ such an identifier is seen by nothing here.  That is the repository-level
 residual CLAUDE.md records, restated rather than glossed: the identifier
 firewall is not open-ended coverage.
 
-``SealedAndSharedPathScan``.  ``git status --porcelain`` reports nothing
-under a sealed prefix and nothing outside this rung's declared write set.
-BOTH sides of a rename or copy entry are checked: keeping only the
-destination let a sealed file be MOVED into the write root and reported
-clean by both halves, which a reviewer demonstrated on a real
-``git mv`` record.
+``SealedAndSharedPathScan``.  ``git status --porcelain`` reports no
+unignored working-tree or index change under a sealed prefix and none
+outside this rung's declared write set.  BOTH sides of a rename or copy
+entry are checked: keeping only the destination let a sealed file be MOVED
+into the write root and reported clean by both halves, which a reviewer
+demonstrated on a real ``git mv`` record.  The committed snapshot-to-HEAD
+population attributable to this rung is a separate NUL-safe check in
+``verify_pins.py``.
 
 ``GuardedWordScan``.  The SEVEN words CLAUDE.md's assumption discipline
 guards, plus ``engine`` from this rung's own operator brief -- eight in all
@@ -99,7 +101,6 @@ import importlib.util
 import io
 import json
 import re
-import subprocess
 import sys
 import tokenize
 import unittest
@@ -113,6 +114,10 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 WRITE_ROOT = "research/second_stream/"
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+
+import verify_pins as VP  # noqa: E402
 
 SEALED_PREFIXES = ("prompt/", "paper/", "code/", "lean4/Derivation/", "artifacts/")
 
@@ -133,8 +138,9 @@ SKIP_DIRS = frozenset(
 # A coverage run drops an SQLite database beside the modules it records.
 # It is gitignored at the repository root, carries no prose, and is not a
 # file of the rung; running coverage must not change what the scans below
-# see.  Named by prefix, so nothing else is dropped.
-SKIP_FILE_PREFIXES = (".coverage",)
+# see. Parallel coverage mode is not configured, so the one exact database
+# name is excluded and a similarly prefixed payload remains in the census.
+SKIP_FILES = frozenset({".coverage"})
 
 # Hashed before this file existed, and never edited to satisfy it.  The
 # sentence-level scan below skips them; the vocabulary, census and denylist
@@ -308,7 +314,7 @@ def tree_files() -> list[Path]:
         for f in HERE.rglob("*")
         if f.is_file()
         and not (set(f.parts) & SKIP_DIRS)
-        and not f.name.startswith(SKIP_FILE_PREFIXES)
+        and f.name not in SKIP_FILES
     )
 
 
@@ -670,6 +676,8 @@ class RefusedVocabularyScan(unittest.TestCase):
 
         paths = tree_files()
         names = {f.name for f in paths}
+        self.assertIn(".coverage", SKIP_FILES)
+        self.assertNotIn(".coverage_payload.md", SKIP_FILES)
         self.assertGreaterEqual(len(names), 4)
         for frozen in FROZEN_INPUTS:
             self.assertIn(frozen, names, f"{frozen} is not in the scanned population")
@@ -793,17 +801,11 @@ class SealedAndSharedPathScan(unittest.TestCase):
         """No modified or untracked path under a sealed prefix, and none
         outside the rung's declared write set."""
 
-        record = subprocess.run(
-            ["git", "status", "--porcelain", "--untracked-files=all"],
-            capture_output=True,
-            text=True,
-            cwd=REPO,
-            check=True,
-        ).stdout
-        self.assertEqual(sealed_paths_touched(record), [], "a sealed path is touched")
-        self.assertEqual(
-            outside_write_set(record), [], "a path outside the write set is touched"
-        )
+        paths = VP._worktree_paths()
+        try:
+            VP._check_paths(paths, "working tree/index")
+        except ValueError as exc:
+            self.fail(str(exc))
 
 
 class GuardedWordScan(unittest.TestCase):

@@ -61,6 +61,7 @@ import os
 import pathlib
 import sys
 import tempfile
+import tomllib
 import unittest
 from itertools import combinations_with_replacement
 from typing import Mapping, Optional, Sequence, cast
@@ -103,6 +104,8 @@ from two_sided import (  # noqa: E402
     COMMITMENTS,
     SAME,
     TState,
+    TStateKey,
+    TSEvent,
     closure_targets,
     commitment_named,
     genesis_history,
@@ -666,6 +669,61 @@ class ReceiptReplayTests(unittest.TestCase):
         self.assertEqual(_txt(recorded["sha256_uncompressed"]), digest)
         self.assertEqual(_txt(recorded["path"]), RS.FULL_PATH)
 
+    def test_both_receipts_carry_no_authority(self) -> None:
+        self.assertEqual(_txt(load_receipt()["authority_effect"]), "None")
+        self.assertEqual(_txt(_obj(read_json_gz(FULL))["authority_effect"]), "None")
+
+    def test_frozen_disk_drift_refuses_before_touching_outputs(self) -> None:
+        self.assertEqual(
+            RS.verify_frozen_disk(),
+            {path: digest for path, digest in RS.FROZEN_DISK_SHA256},
+        )
+        with tempfile.TemporaryDirectory() as raw:
+            root = pathlib.Path(raw)
+            frozen = root / "PROMPT.md"
+            frozen.write_text("changed after freeze", encoding="utf-8")
+            out = root / "stream.json"
+            full = root / "full.json.gz"
+            out.write_bytes(b"summary sentinel")
+            full.write_bytes(b"full sentinel")
+            stdout = io.StringIO()
+            with (
+                mock.patch.object(RS, "FROZEN_DISK_SHA256", ((frozen, "0" * 64),)),
+                contextlib.redirect_stdout(stdout),
+            ):
+                code = RS.main(["--out", str(out), "--full", str(full)])
+            self.assertEqual(code, 1)
+            self.assertIn("frozen text moved on disk", stdout.getvalue())
+            self.assertEqual(out.read_bytes(), b"summary sentinel")
+            self.assertEqual(full.read_bytes(), b"full sentinel")
+
+    def test_frozen_drift_during_build_refuses_before_touching_outputs(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = pathlib.Path(raw)
+            frozen = root / "PROMPT.md"
+            frozen.write_text("frozen", encoding="utf-8")
+            digest = hashlib.sha256(frozen.read_bytes()).hexdigest()
+            out = root / "stream.json"
+            full = root / "full.json.gz"
+            out.write_bytes(b"summary sentinel")
+            full.write_bytes(b"full sentinel")
+
+            def mutate_during_build(*_args: object) -> dict[str, Json]:
+                frozen.write_text("moved during build", encoding="utf-8")
+                return {}
+
+            stdout = io.StringIO()
+            with (
+                mock.patch.object(RS, "FROZEN_DISK_SHA256", ((frozen, digest),)),
+                mock.patch.object(RS, "build_all", side_effect=mutate_during_build),
+                contextlib.redirect_stdout(stdout),
+            ):
+                code = RS.main(["--out", str(out), "--full", str(full)])
+            self.assertEqual(code, 1)
+            self.assertIn("frozen text moved on disk", stdout.getvalue())
+            self.assertEqual(out.read_bytes(), b"summary sentinel")
+            self.assertEqual(full.read_bytes(), b"full sentinel")
+
     def test_the_frozen_texts_hash_to_what_the_receipt_records(self) -> None:
         """Pins: 'the frozen question and the frozen predictions were hashed
         before the first run and have not been edited since; the receipt
@@ -1127,7 +1185,11 @@ class BudgetTests(unittest.TestCase):
                 ST.RULE_NO_REGRESS,
                 census=False,
             )
-        rows = [r for r in tree.truncations if _txt(r["terminal"]) == ST.TERMINAL_CLASS_BUDGET]
+        rows = [
+            r
+            for r in tree.truncations
+            if _txt(r["terminal"]) == ST.TERMINAL_CLASS_BUDGET
+        ]
         self.assertTrue(rows, "the retained-class budget did not fire")
         row = dict(rows[0])
         self.assert_row_names_tree_node_and_pair(
@@ -1135,10 +1197,44 @@ class BudgetTests(unittest.TestCase):
         )
         self.assertEqual(_num(row["bound"]), 1)
         self.assertGreater(_num(row["classes"]), 1)
-        self.assertEqual(tree.tree.nodes[_num(row["node"])].status, ST.TERMINAL_CLASS_BUDGET)
+        self.assertEqual(
+            tree.tree.nodes[_num(row["node"])].status, ST.TERMINAL_CLASS_BUDGET
+        )
         self.assertEqual(
             [e for e in tree.tree.edges if e.parent == _num(row["node"])], []
         )
+
+        targets = ((ST.SAME, (0, 1)), (ST.APART, (0, 1)), (ST.SAME, (1, 2)))
+        minima = ST.Minima3("mu1", (1, -1), ((),), 1, ST.RULE_NO_REGRESS, 1)
+        quotient = mock.Mock(
+            side_effect=(
+                [((), 1)],
+                [((), 1), ((), 1)],
+                AssertionError("third target was quotiented"),
+            )
+        )
+        with (
+            mock.patch.object(ST, "closure_targets", return_value=targets),
+            mock.patch.object(ST, "min_responses_three", return_value=minima),
+            mock.patch.object(ST, "_quotient", quotient),
+            mock.patch.object(ST, "MAX_CLASSES_PER_NODE", 2),
+        ):
+            crossed = ST.build_stream_tree(
+                reading,
+                commitment_named("total_apart"),
+                "mu1",
+                ST.BOUNDS_TWO,
+                ST.RULE_NO_REGRESS,
+                census=False,
+            )
+        self.assertEqual(quotient.call_count, 2)
+        crossed_row = dict(crossed.truncations[0])
+        self.assertEqual(_txt(crossed_row["kind"]), ST.APART)
+        self.assertEqual(_arr(crossed_row["target"]), [0, 1])
+        self.assertEqual(_num(crossed_row["classes"]), 3)
+        self.assertEqual(_num(crossed_row["targets_gathered"]), 2)
+        self.assertEqual(_num(crossed_row["targets_not_reached"]), 1)
+        self.assertEqual(crossed.tree.edges, [])
 
     def test_the_response_budget_fires_and_no_partial_gathering_is_kept(self) -> None:
         """Pins: 'the gathered-response budget fires at the demanded pair
@@ -1166,6 +1262,35 @@ class BudgetTests(unittest.TestCase):
         self.assertEqual(_num(row["bound"]), 1)
         self.assertGreater(_num(row["valid_gathered"]), 1)
         self.assertEqual(_num(row["targets_gathered"]), 0)
+
+    def test_the_response_budget_stops_consuming_at_bound_plus_one(self) -> None:
+        """The response cap bounds the walk, not only the retained list."""
+
+        state, target, _delta = FreshWithFreshTests().state_and_delta()
+        consumed = 0
+
+        def offered(*_args: object):  # type: ignore[no-untyped-def]
+            nonlocal consumed
+            for _ in range(20):
+                consumed += 1
+                yield (), state.regime
+
+        judge = mock.Mock()
+        judge.accepts.return_value = True
+        counters = ST.Counters()
+        with (
+            mock.patch.object(ST, "iter_k_item_deltas_applied", offered),
+            mock.patch.object(ST, "has_noop_item", return_value=False),
+            mock.patch.object(ST, "Judge", return_value=judge),
+            mock.patch.object(ST, "MAX_VALID_PER_TARGET", 2),
+        ):
+            with self.assertRaises(ST.BudgetExceeded) as caught:
+                ST.min_responses_three(
+                    state, target, "mu1", ST.BOUNDS_TWO, counters=counters
+                )
+        self.assertEqual(caught.exception.terminal, ST.TERMINAL_RESPONSE_BUDGET)
+        self.assertEqual(consumed, 3)
+        self.assertEqual(counters.deltas_offered, 3)
 
     def test_the_enumeration_budget_fires_at_the_first_three_item_reach(self) -> None:
         """Pins: 'the per-run enumeration budget is counted at the item count
@@ -1410,6 +1535,33 @@ class GathererBudgetTests(unittest.TestCase):
         self.assertEqual(row["terminal"], ST.TERMINAL_RESPONSE_BUDGET)
         self.assertEqual(row["bound"], 0)
         self.assertGreater(_num(row["valid_gathered"]), 0)
+
+    def test_the_gatherer_response_budget_stops_at_bound_plus_one(self) -> None:
+        sit, gatherer = self.situation()
+        consumed = 0
+
+        def offered(*_args: object):  # type: ignore[no-untyped-def]
+            nonlocal consumed
+            for _ in range(20):
+                consumed += 1
+                yield (), sit.state.regime
+
+        judge = mock.Mock()
+        judge.accepts.return_value = True
+        with (
+            mock.patch.object(ST, "candidate_count", return_value=20),
+            mock.patch.object(ST, "iter_k_item_deltas_applied", offered),
+            mock.patch.object(ST, "has_noop_item", return_value=False),
+            mock.patch.object(ST, "Judge", return_value=judge),
+            mock.patch.object(ST, "MAX_VALID_PER_TARGET", 2),
+        ):
+            offered_count, valid = gatherer.gather(
+                sit.state, (sit.kind, sit.pair), ST.RULE_NO_REGRESS
+            )
+        self.assertEqual(consumed, 3)
+        self.assertEqual(offered_count, 3)
+        self.assertEqual(valid, [])
+        self.assertEqual(gatherer.budget_terminals[0]["valid_gathered"], 3)
 
     def test_a_repeat_is_answered_from_the_record_and_is_counted(self) -> None:
         sit, gatherer = self.situation()
@@ -2023,25 +2175,56 @@ class TreeLoopFailurePathTests(unittest.TestCase):
             _txt(dict(tree.truncations[0])["terminal"]), ST.TERMINAL_ISO_BUDGET
         )
 
-    def test_a_key_raising_later_is_recorded_on_the_node_that_raised_it(self) -> None:
-        """Every later call site is swept by moving the failure point, and
-        each recorded truncation names where in the loop it fired."""
-
-        seen: set[str] = set()
-        for calls in range(1, 12):
-            with self.key_raises_after(calls):
-                tree = self.build()
-            for row in tree.truncations:
-                entry = dict(row)
-                self.assertEqual(_txt(entry["terminal"]), ST.TERMINAL_ISO_BUDGET)
-                seen.add(_txt(entry["where"]))
-            for node in tree.tree.nodes:
-                if node.status == ST.TERMINAL_ISO_BUDGET:
-                    break
-        self.assertTrue(
-            seen - {"root"},
-            f"no call site beyond the root was reached; saw {sorted(seen)}",
+    def assert_injected_terminal(
+        self, where: str, patcher: contextlib.AbstractContextManager[object]
+    ) -> ST.STree:
+        with patcher:
+            tree = self.build()
+        rows = [dict(row) for row in tree.truncations]
+        self.assertEqual([_txt(row["where"]) for row in rows], [where])
+        self.assertEqual(_txt(rows[0]["terminal"]), ST.TERMINAL_ISO_BUDGET)
+        terminal = tree.tree.nodes[_num(rows[0]["node"])]
+        self.assertEqual(terminal.status, ST.TERMINAL_ISO_BUDGET)
+        self.assertFalse(
+            [edge for edge in tree.tree.edges if edge.parent == terminal.node_id]
         )
+        return tree
+
+    def test_each_pre_attachment_key_site_refuses_by_its_exact_name(self) -> None:
+        """Targets, selection and quotient are independent refusal sites."""
+
+        error = RuntimeError("permutation budget exhausted")
+        cases = (
+            ("targets", mock.patch.object(ST, "closure_targets", side_effect=error)),
+            (
+                "selection",
+                mock.patch.object(ST, "min_responses_three", side_effect=error),
+            ),
+            ("quotient", mock.patch.object(ST, "_quotient", side_effect=error)),
+        )
+        for where, patcher in cases:
+            with self.subTest(where=where):
+                self.assert_injected_terminal(where, patcher)
+
+    def test_attachment_preflight_is_atomic_when_a_later_key_fails(self) -> None:
+        """A later attachment-key failure cannot leave earlier sibling edges."""
+
+        real = ST._prepare_attachment
+        calls = 0
+
+        def fail_second(history: tuple[TSEvent, ...]) -> tuple[TState, TStateKey]:
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise RuntimeError("permutation budget exhausted")
+            return real(history)
+
+        tree = self.assert_injected_terminal(
+            "attach", mock.patch.object(ST, "_prepare_attachment", fail_second)
+        )
+        self.assertEqual(calls, 2)
+        row = dict(tree.truncations[0])
+        self.assertEqual(_num(row["attached"]), 0)
 
     def test_the_round_bound_completes_a_node_rather_than_expanding_it(self) -> None:
         tree = self.build(max_rounds=0)
@@ -2070,6 +2253,28 @@ class TreeLoopFailurePathTests(unittest.TestCase):
 # ---------------------------------------------------------------------------
 # The pin verifier
 # ---------------------------------------------------------------------------
+
+
+class ClaimLedgerClassTests(unittest.TestCase):
+    """The ledger uses exactly one canonical class in the seed's declared scope."""
+
+    def test_all_twenty_seven_rows_have_one_canonical_class(self) -> None:
+        canonical = {
+            "SUPPLIED DATUM",
+            "DERIVED DEFINITION",
+            "DETERMINISTIC COMPUTATION",
+            "REFUTED CLAIM",
+            "OPEN OBSTRUCTION",
+            "METATHEORY APPARATUS",
+        }
+        rows = [
+            [cell.strip() for cell in line.strip().strip("|").split("|")]
+            for line in (HERE / "CLAIM_LEDGER.md").read_text(encoding="utf-8").splitlines()
+            if line.startswith("| ST-")
+        ]
+        self.assertEqual([row[0] for row in rows], [f"ST-{n:02d}" for n in range(1, 28)])
+        self.assertTrue(all(len(row) == 5 for row in rows))
+        self.assertTrue(all(row[1] in canonical for row in rows))
 
 
 class PinVerifierTests(unittest.TestCase):
@@ -2108,7 +2313,8 @@ class PinVerifierTests(unittest.TestCase):
         self.assertIn("verification commit:", joined)
         self.assertIn("snapshot commit:", joined)
         self.assertIn("(ancestor of HEAD)", joined)
-        self.assertIn("write scope: clean outside research/second_stream/", joined)
+        self.assertIn("committed scope:", joined)
+        self.assertIn("working-tree scope: clean outside research/second_stream/", joined)
         self.assertIn("second_stream pins verified:", joined)
         sources = _arr(self.manifest()["sources"])
         self.assertEqual(sum(1 for line in lines if line.startswith("source: ")), len(sources))
@@ -2123,6 +2329,30 @@ class PinVerifierTests(unittest.TestCase):
         paths = {_txt(_obj(row)["path"]) for row in _arr(self.manifest()["sources"])}
         self.assertIn("ci/prose_watchlist.json", paths)
         self.assertIn("contact/analysis/contact_countermodels.json", paths)
+
+    def test_source_and_frozen_populations_cannot_shrink(self) -> None:
+        payload = self.manifest()
+        source_rows = _arr(payload["sources"])
+        source_paths = {_txt(_obj(row)["path"]) for row in source_rows}
+        self.assertEqual(source_paths, VP.REQUIRED_SOURCE_PATHS)
+        payload["sources"] = source_rows[:-1]
+        self.assertIn("source population differs", self.refusal(payload))
+
+        payload = self.manifest()
+        frozen_rows = _arr(payload["frozen_texts"])
+        frozen_paths = {_txt(_obj(row)["path"]) for row in frozen_rows}
+        self.assertEqual(frozen_paths, VP.REQUIRED_FROZEN_PATHS)
+        payload["frozen_texts"] = frozen_rows[:-1]
+        self.assertIn("frozen text population differs", self.refusal(payload))
+
+    def test_duplicate_json_names_are_refused_before_verification(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            path = pathlib.Path(raw) / "SOURCE_MANIFEST.json"
+            path.write_text('{"schema": "one", "schema": "two"}', encoding="utf-8")
+            with mock.patch.object(VP, "MANIFEST", path):
+                with self.assertRaises(ValueError) as caught:
+                    VP._read_manifest()
+        self.assertIn("duplicate JSON key", str(caught.exception))
 
     def test_a_moved_source_fails_at_the_snapshot_and_at_head(self) -> None:
         payload = self.manifest()
@@ -2219,8 +2449,15 @@ class PinVerifierTests(unittest.TestCase):
 
     def test_a_snapshot_that_is_not_an_ancestor_is_refused(self) -> None:
         payload = self.manifest()
+        with mock.patch.object(VP, "_ancestor", return_value="not an ancestor"):
+            self.assertIn("of HEAD", self.refusal(payload))
+
+    def test_the_snapshot_cannot_move_to_shrink_the_audited_history(self) -> None:
+        payload = self.manifest()
         payload["snapshot_commit"] = "0" * 40
-        self.assertIn("of HEAD", self.refusal(payload))
+        message = self.refusal(payload)
+        self.assertIn("independent required snapshot", message)
+        self.assertIn(VP.REQUIRED_SNAPSHOT_COMMIT, message)
 
     def test_the_ancestor_relation_reports_an_undecided_git(self) -> None:
         """A git exit other than zero or one is reported as undecided rather
@@ -2243,26 +2480,64 @@ class PinVerifierTests(unittest.TestCase):
         self.assertFalse(VP._is_hex40("a" * 39))
         self.assertFalse(VP._is_hex40(40))
 
-    def test_the_porcelain_reader_splits_a_rename_and_unquotes_a_path(self) -> None:
-        record = (
-            "R  a/old.py -> a/new.py\n"
-            ' M "a/quoted path.py"\n'
-            "?\n"
-        )
-        with mock.patch.object(VP, "_git_bytes", return_value=record.encode("utf-8")):
+    def test_the_porcelain_reader_splits_nul_safe_rename_records(self) -> None:
+        record = b"R  a/new.py\0a/old.py\0 M a/space name.py\0"
+        with mock.patch.object(VP, "_git_bytes", return_value=record):
             paths = VP._worktree_paths()
-        self.assertEqual(paths, ["a/old.py", "a/new.py", "a/quoted path.py"])
+        self.assertEqual(paths, ["a/new.py", "a/old.py", "a/space name.py"])
+
+    def test_the_commit_path_reader_is_nul_safe_and_disables_renames(self) -> None:
+        record = b"paper/old.md\0research/second_stream/new.md\0"
+        with (
+            mock.patch.object(
+                VP, "_git", return_value="a" * 40 + " " + "b" * 40
+            ),
+            mock.patch.object(VP, "_git_bytes", return_value=record) as called,
+        ):
+            self.assertEqual(
+                VP._commit_paths("a" * 40),
+                ["paper/old.md", "research/second_stream/new.md"],
+            )
+        self.assertIn("--no-renames", called.call_args.args)
+
+    def test_only_commits_that_touch_the_rung_are_scope_attributable(self) -> None:
+        commits = ["a" * 40, "b" * 40]
+        changed = [
+            ["unrelated/future.md"],
+            ["research/second_stream/stream.py", ".github/workflows/verify.yml"],
+        ]
+        with (
+            mock.patch.object(VP, "_scope_commits", return_value=commits),
+            mock.patch.object(VP, "_commit_paths", side_effect=changed),
+        ):
+            attributable, paths = VP._committed_scope(VP.REQUIRED_SNAPSHOT_COMMIT)
+        self.assertEqual(attributable, ["b" * 40])
+        self.assertEqual(paths, changed[1])
+
+    def test_literal_backslashes_never_become_authorized_separators(self) -> None:
+        raw = b"research\\second_stream\\smuggle.py"
+        path = VP._decode_path(raw)
+        self.assertEqual(path, raw.decode("utf-8"))
+        with self.assertRaises(ValueError) as caught:
+            VP._check_paths([path], "committed diff")
+        self.assertIn("outside the write root", str(caught.exception))
 
     def test_the_write_scope_names_a_sealed_path_and_an_outside_path(self) -> None:
-        with mock.patch.object(VP, "_worktree_paths", return_value=["paper/paper.md"]):
+        with (
+            mock.patch.object(VP, "_committed_scope", return_value=([], [])),
+            mock.patch.object(VP, "_worktree_paths", return_value=["paper/paper.md"]),
+        ):
             with self.assertRaises(ValueError) as sealed:
-                VP._check_write_scope()
+                VP._check_write_scope("a" * 40)
         self.assertIn("sealed path changed", str(sealed.exception))
         self.assertIn("paper/paper.md", str(sealed.exception))
 
-        with mock.patch.object(VP, "_worktree_paths", return_value=["research/zz.md"]):
+        with (
+            mock.patch.object(VP, "_committed_scope", return_value=([], [])),
+            mock.patch.object(VP, "_worktree_paths", return_value=["research/zz.md"]),
+        ):
             with self.assertRaises(ValueError) as outside:
-                VP._check_write_scope()
+                VP._check_write_scope("a" * 40)
         self.assertIn("outside the write root", str(outside.exception))
 
         allowed = [
@@ -2270,8 +2545,15 @@ class PinVerifierTests(unittest.TestCase):
             ".github/workflows/verify.yml",
             "research/second/HANDOFF.md",
         ]
-        with mock.patch.object(VP, "_worktree_paths", return_value=allowed):
-            self.assertEqual(len(VP._check_write_scope()), 1)
+        with (
+            mock.patch.object(VP, "_committed_scope", return_value=(["a" * 40], allowed)),
+            mock.patch.object(VP, "_worktree_paths", return_value=allowed),
+        ):
+            self.assertEqual(len(VP._check_write_scope("a" * 40)), 2)
+
+        with self.assertRaises(ValueError) as committed:
+            VP._check_paths(["artifacts/claims.json"], "committed diff")
+        self.assertIn("committed diff", str(committed.exception))
 
     def test_repin_rewrites_source_hashes_and_moves_nothing_else(self) -> None:
         payload = self.manifest()
@@ -2380,10 +2662,37 @@ class CoverageGateTests(unittest.TestCase):
     def test_the_committed_thresholds_are_the_seed_s(self) -> None:
         self.assertEqual(CC.LINE_FLOOR, 95.0)
         self.assertEqual(CC.BRANCH_FLOOR, 95.0)
-        self.assertEqual(sorted(CC.MEASURED), sorted(CC.MEASURED))
+        self.assertEqual(
+            CC.MEASURED, ("run_stream.py", "stream.py", "verify_pins.py")
+        )
+        self.assertEqual(CC._production_modules(HERE), CC.MEASURED)
+        config = tomllib.loads((HERE / "pyproject.toml").read_text(encoding="utf-8"))
+        configured = tuple(sorted(config["tool"]["coverage"]["run"]["source"]))
+        self.assertEqual(configured, tuple(sorted(pathlib.Path(n).stem for n in CC.MEASURED)))
         self.assertNotIn("check_coverage.py", CC.MEASURED)
         for name in CC.MEASURED:
             self.assertTrue((HERE / name).exists(), f"{name} is not a file of the tree")
+
+    def test_the_production_census_recurses_without_collapsing_basenames(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = pathlib.Path(raw)
+            (root / "top.py").write_text("", encoding="utf-8")
+            (root / "pkg").mkdir()
+            (root / "pkg" / "top.py").write_text("", encoding="utf-8")
+            (root / "pkg" / "worker.py").write_text("", encoding="utf-8")
+            (root / "pkg" / "check_coverage.py").write_text("", encoding="utf-8")
+            (root / "pkg" / "test_skip.py").write_text("", encoding="utf-8")
+            (root / "tests").mkdir()
+            (root / "tests" / "helper.py").write_text("", encoding="utf-8")
+            self.assertEqual(
+                CC._production_modules(root),
+                (
+                    "pkg/check_coverage.py",
+                    "pkg/top.py",
+                    "pkg/worker.py",
+                    "top.py",
+                ),
+            )
 
     def test_a_well_formed_report_passes_and_names_what_it_measured(self) -> None:
         with self.written(self.report()):
