@@ -341,14 +341,16 @@ both above the floor of 95%.
 `check_coverage.py` excludes itself and `verify_lean.py`, each with its
 reason recorded in that file.
 
-Gate time on 2026-09-04: 491 seconds of wall time when the suite stood at
-109 tests, measured end to end,
+Gate time on 2026-09-04: 399 seconds of wall time at the final state, and
+491 seconds at an earlier one when the suite stood at 109 tests; measured
+end to end
 for the pin verifier, the run, the Lean build and audit, the 115 tests,
 strict typing, the coverage measurement and its gate, the repository's
 prose census and the identifier firewall together -- inside the fifteen
 minutes the seed allows.  The tests are the bulk of it, at about 150
-seconds; the Lean build is about 30.  The four reconstruction tests added
-afterwards cost about one second, so the figure stands.
+seconds; the Lean build is about 30.  Both figures are inside the bound
+and both are recorded, because a single number would hide that the suite
+grew from 109 tests to 115 while the time fell.
 
 ## Leftovers, named and priced, executed nowhere
 
