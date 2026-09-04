@@ -105,7 +105,7 @@ proofs are in `lean/`, with the axiom log committed at
   `test_reconstruction.py` mechanically compares 49 normalized declarations
   shared with those sources.  Safety of the exact pinned omitted population
   remains reader-checked.
-- **LABEL_SOURCE_ASSEMBLY_PROVED** (PROVED_THEOREM, as an assembly, under
+- **LABEL_SOURCE_ASSEMBLY_PROVED** (DEFINITION assembly, under
   the frozen target name `no_first_demand`).  In the
   sealed grammar reconstructed here, extended by a declared two-sided
   stake, and in no other grammar: a demand is at a pair the stake labels;
@@ -133,15 +133,17 @@ proofs are in `lean/`, with the axiom log committed at
   regime.  The sibling two-sided tree records the corresponding statement
   over ITS OWN carrier as a conjecture with no Lean; this is not a proof of
   that row, and that row stands as the sibling wrote it.
-- **THREE_KINDS_DEMAND_INERT** (PROVED_THEOREM, unpredicted).  Three of the
+- **THREE_KINDS_DEMAND_INERT** (DEFINITION assembly, unpredicted).  Three of the
   six sealed event kinds leave every demand of every stake unchanged: the
   supply, the imposition, and the admission of a judgment form, the last at
   a well-formed regime.  Scope: this grammar.  The other three kinds are
-  not claimed inert.
-- **INERT_RUN_CARRIES_NO_FIRST_DEMAND** (PROVED_THEOREM, unpredicted).
+  not claimed inert.  The unpredicted content is NF-22, classed THIN; this
+  three-kind assembly adds nothing beyond its inputs.
+- **INERT_RUN_CARRIES_NO_FIRST_DEMAND** (THIN direct corollary, unpredicted).
   From a well-formed base carrying no demand, no regime reached by a RUN of
-  inert events carries one.  Scope: runs whose every event is inert.  A
-  general first-demand index over arbitrary runs is leftover L-2.
+  inert events carries one.  The PROVED_THEOREM carrying the content is
+  `demands_replay_inert` (NF-32a).  Scope: runs whose every event is inert.
+  A general first-demand index over arbitrary runs is leftover L-2.
 - **CROSSCHECK_WRITTEN** (FINITE_COMPUTATION).  The declared rectangle,
   unpruned, from both sealed genesis readings.  Reading L: 3928 sequences
   reaching 523 distinct regimes, 1540 of them demand-free under the
@@ -326,8 +328,10 @@ raise the bound, which would have excused everything silently.  Recorded
 here because the probe found a real defect in the gate as first written,
 and a reader comparing revisions would otherwise see only the exception.
 
-The exact commands, outputs and recoveries are in the run log of this
-rung's session; each was observed before this tree was committed.
+The original fifteen injections have exact commands, outputs, and recoveries
+in the rung's session log.  The repair defects are covered by the named
+executable adversarial tests above; this table does not claim a separate
+manual mutation session for each of them.
 
 ## Commands and gate time
 
@@ -350,16 +354,20 @@ python check_coverage.py
 ```
 
 Coverage on 2026-09-04, measured from inside the rung over the declared
-measured set: line 98.67% (519 of 526) and branch 95.79% (205 of 214),
+measured set: line 98.67% (519 of 526) and branch 95.33% (204 of 214),
 both above the floor of 95%.
 `check_coverage.py` excludes itself and `verify_lean.py`, each with its
 reason recorded in that file.
 
 The pre-repair record called the same suite both 109 tests and 115 tests.
 Those two census claims contradicted each other and are WITHDRAWN; none of
-their historical timings is reused as evidence for the repaired suite.  A
-fresh post-merge census and gate timing will replace this sentence before
-publication.
+their historical timings is reused as evidence for the repaired suite.  The
+fresh repaired census is **180 tests**: the coverage replay completed them in
+664.712 seconds and the replay, coverage gate, and receipt comparison together
+took 675.120 seconds.  The separate pin verifier took 3.320 seconds, strict
+typing 1.977 seconds, and the clean Lean/compiler/axiom audit 48.558 seconds.
+Their grouped measured time was 728.975 seconds, inside the fifteen-minute
+per-rung ceiling.
 
 ## Leftovers, named and priced, executed nowhere
 

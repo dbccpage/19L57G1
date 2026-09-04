@@ -268,8 +268,14 @@ class FirstDemandTests(unittest.TestCase):
 
     def test_ledger_does_not_turn_label_source_into_event_source(self) -> None:
         ledger = (HERE / "CLAIM_LEDGER.md").read_text(encoding="utf-8")
-        self.assertIn("demand's first occurrence", ledger)
-        self.assertIn("that index remains OPEN", ledger)
+        self.assertIn(
+            "sentence concluding that the first\ndemand of any run has one source",
+            ledger,
+        )
+        self.assertIn(
+            "A general first-demand index over an arbitrary run is NOT proved",
+            ledger,
+        )
 
 
 class InertiaTests(unittest.TestCase):

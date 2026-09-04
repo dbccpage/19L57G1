@@ -399,7 +399,7 @@ class LeanVerifierTests(unittest.TestCase):
                 json.dumps({"classes": {"same": {"module": "A.lean"}}}),
                 encoding="utf-8",
             )
-            records = {
+            records: dict[str, tuple[str, str, tuple[str, ...]]] = {
                 "SecondNoFirst.A.same": ("same", "SecondNoFirst.A", ()),
                 "SecondNoFirst.B.same": ("same", "SecondNoFirst.B", ()),
             }
