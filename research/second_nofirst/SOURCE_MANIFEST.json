@@ -5,49 +5,9 @@
   "snapshot_note": "main at launch.  Pull request 133 had NOT merged at this snapshot, so research/second_stream is recorded absent; see STATUS.md.",
   "sources": [
     {
-      "path": "research/second/SEED.md",
-      "sha256": "52439E5F75D1C599CE52DC716BEB88F1DD7BFC83856EE73CE85F3A7EEEC5E70E",
-      "note": "the seed of the second derivation"
-    },
-    {
-      "path": "research/second/PLAN.md",
-      "sha256": "36B66D7E819B7BC03FE51E2932A102E6E685F4589C68B99773D8C502BAC8D96D",
-      "note": "the plan whose execution list is pinned as a span"
-    },
-    {
-      "path": "lean4/Derivation/Basic.lean",
-      "sha256": "1520B392F4061AF568E00CA4FD235FEB03FACF6D3612C030C1D60018539E3EED",
-      "note": "sealed kernel: reconstructed verbatim in lean/SecondNoFirst/Kernel.lean"
-    },
-    {
-      "path": "lean4/Derivation/Inertia.lean",
-      "sha256": "C62615CB3757474D20348F6507B8DEA4E2DE3E3A02268909194A2D0736BBE5CE",
-      "note": "sealed inertia: reconstructed verbatim in lean/SecondNoFirst/Kernel.lean"
-    },
-    {
-      "path": "research/standing_commitment/lean/StandingCommitment/Base.lean",
-      "sha256": "F81183139A9572AF6F101323C1F088CF3E0C1104378C386135E267AA8B1B6916",
-      "note": "one-sided represented state: reconstructed verbatim in lean/SecondNoFirst/Inherited.lean"
-    },
-    {
-      "path": "research/standing_commitment/lean/StandingCommitment/Commitment.lean",
-      "sha256": "C1FCFD810FD69589BBCF07878118EF54BD8B9F8193C94ED075140EE1E781FAFF",
-      "note": "one-sided stake and growth theorems: reconstructed verbatim in lean/SecondNoFirst/Inherited.lean"
-    },
-    {
-      "path": "research/two_sided_commitment/two_sided.py",
-      "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB",
-      "note": "the five declared stakes, consumed through COMMITMENTS and commitment_named"
-    },
-    {
-      "path": "research/two_sided_commitment/receipts/two_sided_commitment.json",
-      "sha256": "863D3503425647FB2BBAAFA8583736E6284D3FDDA0A512C9ED039EDEDF0AE4D3",
-      "note": "the sibling receipt whose at-most-one row this rung reads"
-    },
-    {
-      "path": "research/second_inheritance/receipts/inheritance.json",
-      "sha256": "9667B91AEEC9999501EA79F78189F4C6922FB1E817CBAD183F0E1646D9F0FECB",
-      "note": "the rung-zero census of six event kinds"
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E",
+      "note": "sealed genesis readings, consumed read-only by nofirst.py"
     },
     {
       "path": "code/derivation/model.py",
@@ -60,14 +20,59 @@
       "note": "sealed profiles, consumed read-only by nofirst.py"
     },
     {
-      "path": "code/derivation/engine.py",
-      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E",
-      "note": "sealed genesis readings, consumed read-only by nofirst.py"
+      "path": "lean4/Derivation/Basic.lean",
+      "sha256": "1520B392F4061AF568E00CA4FD235FEB03FACF6D3612C030C1D60018539E3EED",
+      "note": "sealed kernel: reconstructed verbatim in lean/SecondNoFirst/Kernel.lean"
+    },
+    {
+      "path": "lean4/Derivation/Inertia.lean",
+      "sha256": "C62615CB3757474D20348F6507B8DEA4E2DE3E3A02268909194A2D0736BBE5CE",
+      "note": "sealed inertia: reconstructed verbatim in lean/SecondNoFirst/Kernel.lean"
     },
     {
       "path": "paper/paper.md",
       "sha256": "5DCA1E8E5D53562E90896FBD762AB347849C02451A81E274B90FE5DB30C04DE3",
       "note": "the sealed paper carrying the obstruction span"
+    },
+    {
+      "path": "research/second/PLAN.md",
+      "sha256": "36B66D7E819B7BC03FE51E2932A102E6E685F4589C68B99773D8C502BAC8D96D",
+      "note": "the plan whose execution list is pinned as a span"
+    },
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439E5F75D1C599CE52DC716BEB88F1DD7BFC83856EE73CE85F3A7EEEC5E70E",
+      "note": "the seed of the second derivation"
+    },
+    {
+      "path": "research/second_inheritance/receipts/inheritance.json",
+      "sha256": "9667B91AEEC9999501EA79F78189F4C6922FB1E817CBAD183F0E1646D9F0FECB",
+      "note": "the rung-zero census of six event kinds"
+    },
+    {
+      "path": "research/standing_commitment/lean/StandingCommitment/Base.lean",
+      "sha256": "F81183139A9572AF6F101323C1F088CF3E0C1104378C386135E267AA8B1B6916",
+      "note": "one-sided represented state: reconstructed verbatim in lean/SecondNoFirst/Inherited.lean"
+    },
+    {
+      "path": "research/standing_commitment/lean/StandingCommitment/Commitment.lean",
+      "sha256": "C1FCFD810FD69589BBCF07878118EF54BD8B9F8193C94ED075140EE1E781FAFF",
+      "note": "one-sided stake and growth theorems: reconstructed verbatim in lean/SecondNoFirst/Inherited.lean"
+    },
+    {
+      "path": "research/two_sided_commitment/CLAIM_LEDGER.md",
+      "sha256": "13543354AB8C33360842B86E7C746666C71C28E4B665555B16F695D154105C37",
+      "note": "the sibling's rows TS-09 and TS-14, which this rung cites and does not edit"
+    },
+    {
+      "path": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+      "sha256": "863D3503425647FB2BBAAFA8583736E6284D3FDDA0A512C9ED039EDEDF0AE4D3",
+      "note": "the sibling receipt whose at-most-one row this rung reads"
+    },
+    {
+      "path": "research/two_sided_commitment/two_sided.py",
+      "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB",
+      "note": "the five declared stakes, consumed through COMMITMENTS and commitment_named"
     }
   ],
   "spans": [

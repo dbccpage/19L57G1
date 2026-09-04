@@ -8,13 +8,25 @@ theorem, reconstructed unchanged in `Inherited.lean` and re-exported here
 under its own name so the register can cite it; the two-sided forms over
 the sealed regime are proved here, in both label directions.
 
-The last two theorems of this file are the ones the sibling two-sided tree
-records as a CONJECTURE with no Lean.  They are proved here over the
-sealed regime, under hypotheses stated in full: the stake that labels
-every distinct pair apart, and a well-formed regime that carries no
-demand.  A proof over the sealed regime is not a proof of the sibling's
-statement over its own carrier; the sibling's row stands as the sibling
-wrote it, and this rung's row says which carrier it is about.
+Two theorems of this file, `apart_at_most_one` and
+`apart_at_most_one_new_demand`, are the ones the sibling two-sided tree
+records as a CONJECTURE with no Lean, in its row TS-14.  They are proved
+here over the SEALED REGIME, under hypotheses stated in full: the stake
+that labels every distinct pair apart, and a regime that carries no
+demand -- and, for the second of the two, nothing further, since its
+argument needs no well-formedness.  A proof over the sealed regime is not
+a proof of the sibling's statement over its own carrier; the sibling's row
+stands as the sibling wrote it, and this rung's row says which carrier it
+is about.
+
+The two theorems that follow them, `apart_no_old_demand` and
+`apart_at_most_one_demand_after_growth`, are this rung's own and answer to
+no sibling row: the second is a strictly stronger TOTAL bound, added after
+an adversarial reading found that the earlier statement bounded only the
+demands naming the fresh datum while its doc comment claimed the whole.
+An earlier version of this paragraph began "The last two theorems of this
+file are the ones the sibling ... records as a CONJECTURE"; that ceased to
+be true when those two were added, and it is WITHDRAWN.
 
 AuthorityEffect: None.
 -/
@@ -176,9 +188,17 @@ edited, and this rung's row says which carrier its proof is about. -/
 
 /-- **apart_at_most_one.**  In the sealed grammar reconstructed here,
 extended by the declared two-sided stake that labels every distinct pair
-apart: a regime carrying no demand separates every pair of held data, so
+apart: a regime carrying no demand has NO COLLAPSED pair of held data, so
 at most one held datum has the empty profile -- two would be collapsed,
-and a collapsed pair under this stake is a demand. -/
+and a collapsed pair under this stake is a demand.
+
+The wording is exact and the exactness is the point.  "Carries no demand"
+gives `not (not separable)` for each held pair, which this package turns
+into "not collapsed" and no further: the step from "not collapsed" to
+"separable" would need a witness chosen over the context type, which is
+infinite, and is not available constructively.  An earlier version of this
+comment said such a regime "separates every pair of held data"; that is
+stronger than anything the package proves, and it is WITHDRAWN. -/
 theorem apart_at_most_one (r : Regime)
     (hq : ∀ i j, i < j → j < r.data → ¬ Demand allApart r i j)
     (i j : Nat) (hij : i < j) (hj : j < r.data)

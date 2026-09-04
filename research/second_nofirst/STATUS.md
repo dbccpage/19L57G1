@@ -94,8 +94,13 @@ proofs are in `lean/`, with the axiom log committed at
 ## Terminals, each with its scope
 
 - **INHERITANCE_RECONSTRUCTED** (RECONSTRUCTION).  Seventeen theorems are
-  reproduced verbatim under a blob pin, six of them additionally under span
-  pins: seven from the sealed kernel, ten from the pinned one-sided stake.
+  reproduced verbatim under a blob pin -- seven from the sealed kernel, ten
+  from the pinned one-sided stake -- and FOUR of those seventeen carry a
+  span pin as well.  Six spans are recorded on the sibling's
+  `Commitment.lean`, but two of them pin a `structure` and a `def` rather
+  than theorems, so the count of SPAN-PINNED THEOREMS is four, not six.  An
+  earlier draft said "six of them", taking "seventeen theorems" as the
+  antecedent; that was wrong and is WITHDRAWN.
   Scope: the reconstruction is faithful only as far as a reader checks; the
   pins prove that the sources did not move and nothing more.
 - **NO_FIRST_DEMAND_PROVED** (PROVED_THEOREM, as an assembly).  In the
@@ -210,8 +215,14 @@ ones.
 | N-19 | HIT | receipt byte-identical; both enumerators reach the same 118 and 276 regimes |
 | N-X | PENDING | scored by the operator packet's rung four, the removal grammar |
 
-Nineteen scored: seventeen HIT, one MISSED, one PENDING; plus four census
-misses recorded above against the FW-DEF half of N-3, N-5 and N-6.
+Nineteen predictions scored: eighteen HIT, one MISSED.  N-X is not among
+them: it is PENDING by construction, scored by the operator packet's rung
+four and by no earlier one.  Twenty rows, therefore, and nineteen scored.
+Plus four census misses recorded above against the FW-DEF half of N-3,
+N-5 and N-6.  An earlier draft of this paragraph read *"Nineteen scored:
+seventeen HIT, one MISSED, one PENDING"*; it undercounted the hits by one
+and counted a prediction this rung does not score.  WITHDRAWN, and quoted
+here rather than deleted.
 
 **What the miss produced.**  N-16 said two kinds are demand-inert; the
 rectangle found three.  The third is the admission of a judgment form,
@@ -328,7 +339,7 @@ reason recorded in that file.
 
 Gate time on 2026-09-04: 491 seconds of wall time when the suite stood at
 109 tests, measured end to end,
-for the pin verifier, the run, the Lean build and audit, the 113 tests,
+for the pin verifier, the run, the Lean build and audit, the 115 tests,
 strict typing, the coverage measurement and its gate, the repository's
 prose census and the identifier firewall together -- inside the fifteen
 minutes the seed allows.  The tests are the bulk of it, at about 150
