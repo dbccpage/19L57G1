@@ -312,3 +312,17 @@ jobs:
       - name: Second derivation, rung 0, strict typing
         working-directory: research/second_inheritance
         run: python -m mypy
+      # Rung two, track one: no first demand.  The seed requires every rung
+      # to register its pin verifier, tests, and strict typing here, so that
+      # no rung is a manual receipt (research/second/SEED.md, section 10).
+      # The Lean audit is NOT registered: it needs elan, which this job
+      # deliberately does not install, and the rung commits its axiom log so
+      # the result is reviewable without a build.
+      - name: Second derivation, rung 2 track 1, pins, spans, and frozen texts
+        run: python research/second_nofirst/verify_pins.py
+      - name: Second derivation, rung 2 track 1, tests
+        working-directory: research/second_nofirst
+        run: python -m unittest discover -s . -p "test_*.py"
+      - name: Second derivation, rung 2 track 1, strict typing
+        working-directory: research/second_nofirst
+        run: python -m mypy

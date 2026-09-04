@@ -1,0 +1,75 @@
+SecondNoFirst.Inert.admitForm_preserves_demands :: Quot.sound propext
+SecondNoFirst.Inert.collapsed_addForm :: Quot.sound propext
+SecondNoFirst.Inert.demand_congr :: propext
+SecondNoFirst.Inert.getD_append_left :: propext
+SecondNoFirst.Inert.impose_preserves_demands :: propext
+SecondNoFirst.Inert.new_form_derives_nothing :: propext
+SecondNoFirst.Inert.separable_addForm :: Quot.sound propext
+SecondNoFirst.Inert.stepE_admitForm :: propext
+SecondNoFirst.Inert.stepE_impose :: propext
+SecondNoFirst.Inert.three_kinds_are_demand_inert :: Quot.sound propext
+SecondNoFirst.Inert.wfCtx_addForm_left :: Quot.sound propext
+SecondNoFirst.Inherited.demands_congr :: Quot.sound propext
+SecondNoFirst.Inherited.demands_grow :: Quot.sound propext
+SecondNoFirst.Inherited.empty_commitment_generates_nothing :: Quot.sound propext
+SecondNoFirst.Inherited.empty_commitment_has_no_demand :: Quot.sound propext
+SecondNoFirst.Inherited.filter_of_false :: propext
+SecondNoFirst.Inherited.fixpoint_reopens :: Quot.sound propext
+SecondNoFirst.Inherited.growth_generates :: Quot.sound propext
+SecondNoFirst.Inherited.pairsOf_cons :: none
+SecondNoFirst.Inherited.pairsOf_mem :: Quot.sound propext
+SecondNoFirst.Inherited.satB_grow :: Quot.sound propext
+SecondNoFirst.NoFirst.apart_demand_of_no_forms :: propext
+SecondNoFirst.NoFirst.collapsed_not_separable :: propext
+SecondNoFirst.NoFirst.collapsed_of_not_separable :: Quot.sound propext
+SecondNoFirst.NoFirst.demand_depends_only_on_the_label :: propext
+SecondNoFirst.NoFirst.demand_iff_apart_of_no_insts :: propext
+SecondNoFirst.NoFirst.demand_needs_label :: propext
+SecondNoFirst.NoFirst.grammar_carries_no_stake :: propext
+SecondNoFirst.NoFirst.no_first_demand :: propext
+SecondNoFirst.NoFirst.supplies_preserve_demands :: propext
+SecondNoFirst.NoFirst.supplies_preserve_regime :: propext
+SecondNoFirst.NoFirst.supply_preserves_demands :: propext
+SecondNoFirst.Propagate.allApart_demand_iff :: Quot.sound propext
+SecondNoFirst.Propagate.allApart_label :: propext
+SecondNoFirst.Propagate.apart_at_most_one :: propext
+SecondNoFirst.Propagate.apart_at_most_one_demand_after_growth :: Quot.sound propext
+SecondNoFirst.Propagate.apart_at_most_one_new_demand :: Quot.sound propext
+SecondNoFirst.Propagate.apart_no_old_demand :: Quot.sound propext
+SecondNoFirst.Propagate.collapsed_of_both_empty :: propext
+SecondNoFirst.Propagate.collapsed_of_growR :: propext
+SecondNoFirst.Propagate.collapsed_trans :: propext
+SecondNoFirst.Propagate.derivable_growR :: none
+SecondNoFirst.Propagate.fresh_profile :: Quot.sound propext
+SecondNoFirst.Propagate.growR_data :: none
+SecondNoFirst.Propagate.growR_forms :: none
+SecondNoFirst.Propagate.growR_insts :: none
+SecondNoFirst.Propagate.growR_rules :: none
+SecondNoFirst.Propagate.growth_generates_apart :: propext
+SecondNoFirst.Propagate.growth_generates_apart_of_no_insts :: propext
+SecondNoFirst.Propagate.growth_generates_pinned :: Quot.sound propext
+SecondNoFirst.Propagate.growth_generates_same :: propext
+SecondNoFirst.Propagate.mem_plug_of_hole :: Quot.sound propext
+SecondNoFirst.Propagate.stepE_admitDatum :: propext
+SecondNoFirst.Propagate.wfCtx_growR :: propext
+SecondNoFirst.Run.demands_replay_inert :: Quot.sound propext
+SecondNoFirst.Run.demands_step_inert :: Quot.sound propext
+SecondNoFirst.Run.free_stake_no_demand_along_any_run :: propext
+SecondNoFirst.Run.no_demand_is_first_under_an_inert_run :: Quot.sound propext
+SecondNoFirst.Run.replayE_cons :: propext
+SecondNoFirst.Run.replayE_nil :: propext
+SecondNoFirst.Run.wf_addForm :: Quot.sound propext
+SecondNoFirst.Run.wf_addReq :: Quot.sound propext
+SecondNoFirst.Run.wf_step_inert :: Quot.sound propext
+SecondNoFirst.Sealed.collapsed_of_no_insts :: propext
+SecondNoFirst.Sealed.genesis_underivable :: none
+SecondNoFirst.Sealed.insertNew_of_mem :: propext
+SecondNoFirst.Sealed.insertNew_of_not_mem :: propext
+SecondNoFirst.Sealed.separable_not_collapsed :: propext
+SecondNoFirst.Sealed.supply_no_op :: propext
+SecondNoFirst.Sealed.underivable_of_empty :: none
+SecondNoFirst.Stake.demands_subset_labelled :: propext
+SecondNoFirst.Stake.free_stake_no_demand :: propext
+SecondNoFirst.Stake.labelled_cases :: propext
+SecondNoFirst.Stake.reconstruction_matches :: Quot.sound propext
+SecondNoFirst.Stake.stake_irrefl :: propext
