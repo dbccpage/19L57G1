@@ -160,6 +160,11 @@ jobs:
           python3 ci/regen_axiom_artifact.py lake_build.log
           diff /tmp/lean_axioms.committed artifacts/lean_axioms.txt
           git diff --check -- artifacts/lean_axioms.txt
+      # This package has its own Lake project and axiom inventory.  Run its
+      # clean build here, where elan is installed, rather than treating the
+      # committed log as evidence of a build that CI never performed.
+      - name: Second derivation, rung 2 track 1, fresh Lean and axiom audit
+        run: python3 research/second_nofirst/verify_lean.py
       # Must stay LAST in this job and must not write to lake_build.log: the
       # three steps above compare that log against artifacts/lean_axioms.txt.
       # `lake build` only builds defaultTargets, so a module the root does not
@@ -340,8 +345,9 @@ jobs:
       # The boundary derivation (research/boundary_seed) is source-isolated
       # under declared prior exposure, with its own kernel and Lean package.
       # Its scan bans citations into sealed paths until a committed FREEZE.md
-      # marker. Registered append-only, as the seed requires. The
-      # Lean package stays a manual receipt (verify_lean.py), like the others.
+      # marker. Registered append-only, as the seed requires. Its Lean package
+      # remains a manual receipt (`verify_lean.py`); rung two track one below
+      # registers its separate Lean package in the lean job.
       - name: Boundary derivation, seed and frozen-prediction pins
         run: python research/boundary_seed/verify_pins.py
       - name: Boundary derivation, tests, receipts, source isolation
@@ -358,4 +364,25 @@ jobs:
           git diff --exit-code -- receipts
       - name: Boundary derivation, strict typing
         working-directory: research/boundary_seed
+        run: python -m mypy
+      # Rung two, track one: no first demand.  The seed requires every rung
+      # to register its pin verifier, replay, tests, coverage, receipt
+      # comparison, and strict typing here, so that no rung is a manual
+      # receipt (research/second/SEED.md, section 10).  Its clean Lean audit
+      # is registered separately in the lean job, where elan is installed.
+      - name: Second derivation, rung 2 track 1, pins, spans, and frozen texts
+        run: python research/second_nofirst/verify_pins.py
+      - name: Second derivation, rung 2 track 1, replay, tests, and coverage
+        working-directory: research/second_nofirst
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/second-nofirst-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s . -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran 180 tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          git diff --exit-code -- receipts
+      - name: Second derivation, rung 2 track 1, strict typing
+        working-directory: research/second_nofirst
         run: python -m mypy
