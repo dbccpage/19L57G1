@@ -19,8 +19,8 @@
  },
  "canonical_crosscheck": {
   "permutation_budget": 100000,
-  "regimes_above_permutation_budget": 3,
-  "regimes_checked": 842,
+  "regimes_above_permutation_budget": 0,
+  "regimes_checked": 847,
   "relation_agrees": true
  },
  "controls": [
@@ -45,6 +45,25 @@
    "name": "chain"
   }
  ],
+ "controls_refuted": {
+  "both_constant_controls_unrefuted": true,
+  "control_dispositions": {
+   "chain": "REFUTED",
+   "parity": "REFUTED",
+   "residue_three": "REFUTED",
+   "total_apart": "CHECKED",
+   "total_same": "CHECKED"
+  },
+  "disposition": "REFUTED",
+  "invariant_counterexamples": [
+   "total_apart",
+   "total_same"
+  ],
+  "p_i4_falsifier_found": false,
+  "proposition": "every supplied control is refuted by a renaming",
+  "workflow_label": "OPEN_AT_CONTROLS_REFUTED",
+  "workflow_label_meaning": "the requested target was not met; this is not an OPEN truth status"
+ },
  "extrapolation_X": {
   "forced": false,
   "scoring_rung": "challenge_three",
@@ -53,118 +72,132 @@
  },
  "full_export": {
   "path": "receipts/full/stake_full.json.gz",
-  "uncompressed_bytes": 4975544,
-  "uncompressed_sha256": "cfad422469360d6d653cac32cdfc1f205a49ad8e6c539970ebb61e60aed34165"
+  "uncompressed_bytes": 6425469,
+  "uncompressed_sha256": "ce4b524ac4dbf3f4bf5b205bde45f0f8d19ad9906594652adf70e61e1e8120bc"
  },
  "generation": [
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O1"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E1",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O2"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E2",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O4"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E3",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 1,
-   "fixpoints": 123,
-   "guard_nodes": 89,
-   "kinds": [
+   "fixpoints": 152,
+   "growth_kinds": [
     "apart",
     "same"
    ],
-   "nodes": 505,
+   "guard_nodes": 151,
+   "kind_populations_agree": true,
+   "nodes": 654,
    "observables": [
     "O4"
    ],
-   "refusals": 105,
-   "relabellings": 537,
+   "refusals": 204,
+   "relabellings": 683,
+   "response_target_kinds": [
+    "apart",
+    "same"
+   ],
    "rule": "E4",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "8565d82403a428a5d78f58a3b79bbdde13b070637161ef1857f6cd28ecac674b",
-    "F/mu2": "c4e4535c0f7d531e9aecf0fef5ae4a04aad3c40d285a4cb9bf45f070c1dc11fe",
-    "L/mu1": "7e09184e89c8fc5397906e70e459a800ab836222ecc5966bbcaed8b7fe4630b1",
-    "L/mu2": "f5758053cd49029bb5174ed074377dbd5261e7e20824a9e265a80aeb3445c9b5"
+    "F/mu1": "fbd546b4a0fbb75318453ee5dcdc71abdeb845afbe018dff878717cc424d99d2",
+    "F/mu2": "1a76298d9d76bc6b967a6b12a5902ca329ab5739c7037e741200bb5b0592c9dc",
+    "L/mu1": "fc6562deb002ca558873596078ed62dedcee71f93414b18fdc9de4b3391ab932",
+    "L/mu2": "aa648c26eceb975f8dc983dc77edb245562d5b3789119d7ed08dd5f6ef1f8d88"
    }
   },
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O3"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E5",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 2,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O3",
@@ -172,173 +205,200 @@
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E6",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O2"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E7",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O6"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E8",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 1,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [
     "O5"
    ],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "E9",
    "source": "menu",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 0,
    "fixpoints": 471,
-   "guard_nodes": 363,
-   "kinds": [
+   "growth_kinds": [
     "apart"
    ],
+   "guard_nodes": 363,
+   "kind_populations_agree": true,
    "nodes": 574,
    "observables": [],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [
+    "apart"
+   ],
    "rule": "total_apart",
    "source": "control",
    "tree_signatures": {
-    "F/mu1": "02c9e141cfe40979c810dcf92ee81cde045b241d38de8378a4c869f0bee9bb2e",
-    "F/mu2": "af70693181224a054b4c36ee34a36b35bb33cba96dcb274aa7074ed5d04c76ec",
-    "L/mu1": "8ef13b297ff3488e5cf31db129afba6e39b2fb7d02daa71487de40487d7fd4b7",
-    "L/mu2": "237182f2be59eb703d7b5701417129ccac1d0641c73e889f883d54c72682b529"
+    "F/mu1": "050565bd401b28e2d208b3a5a9c30a36179e2037f3207172b84cccba424f6c87",
+    "F/mu2": "4316c9d593c95e56d741226aba14bf96cb01e6c4660ea7f6d445d234e4f6ab19",
+    "L/mu1": "bbcbe482250bf095120e5b8b05f2393634d0c2cb83ff49310ce4e2c33a47f63d",
+    "L/mu2": "665f3ad1b279c890194eadce69c2b48e215639a34357e367e50c5f2b6233dda7"
    }
   },
   {
    "capability_count": 0,
    "fixpoints": 10,
+   "growth_kinds": [],
    "guard_nodes": 0,
-   "kinds": [],
+   "kind_populations_agree": true,
    "nodes": 10,
    "observables": [],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [],
    "rule": "total_same",
    "source": "control",
    "tree_signatures": {
-    "F/mu1": "7c27bee01479b98c45959c9debf1d11710dc365d631df74765577b760519e33f",
-    "F/mu2": "2be5a28067457bafccb90526ff3fb58f059944b4ccda11ff5d0fec69469733e2",
-    "L/mu1": "f5dbe88ee7dc2b051f0e9568f746cbc49fe67b9f006e0f05301cda3a3e25d996",
-    "L/mu2": "8dd3537f36f73bedaeb6dceab1a0f86689ff61e73a1756850d473ad5db0ce241"
+    "F/mu1": "dec671d4398893669c182ad63ae5e218880f727bb5cdd8f19f1657b3dbd88c06",
+    "F/mu2": "77009e27cd2c863f62122016b4a5a792f088237ae963502c0bc4f1807d3a7a30",
+    "L/mu1": "0bfd79b629c11498647a94f7bf447212e6d8c3f06fc945a30e86c67ce6420619",
+    "L/mu2": "756685c2b72bbc0cd00e783f46b456827db725f2b7870bd0ca44b436b9620d48"
    }
   },
   {
    "capability_count": 0,
-   "fixpoints": 26,
-   "guard_nodes": 0,
-   "kinds": [
+   "fixpoints": 30,
+   "growth_kinds": [
     "apart",
     "same"
    ],
-   "nodes": 43,
+   "guard_nodes": 0,
+   "kind_populations_agree": true,
+   "nodes": 61,
    "observables": [],
-   "refusals": 3,
+   "refusals": 8,
    "relabellings": 0,
+   "response_target_kinds": [
+    "apart",
+    "same"
+   ],
    "rule": "parity",
    "source": "control",
    "tree_signatures": {
-    "F/mu1": "4cb823602511347488a6cb0c909993aa6086f0cff66b98e2a5b3ff0d4566fef8",
-    "F/mu2": "e8a28c0df717cd3869e2a0b0200d2cba65f48a08db3f477f479f402c9eb8cca1",
-    "L/mu1": "9ee6b4724ca652c3b656c744e87ddddec2274b4c7577fa581898be7da1ac887e",
-    "L/mu2": "7e65533f98db637bf435b38462199b9719c491285ce3d40f84d6374d43c6c408"
+    "F/mu1": "00580200f4fed4e61158ef117f261f68f09c79726d87589be7f6424cdc1a1b5d",
+    "F/mu2": "5784e610e30fbfabb6585826a34cb68e9c29b8f5e7a1b7f12dfebfe7b1a6a859",
+    "L/mu1": "c56ee60f3ae27ba3aca44f7004964268a46889ac0469f5dbb3fd432cd1bf678d",
+    "L/mu2": "4970c7580c52488d84797a58ed1bdd50de1c3460fb447ac15d1181edc8d468b0"
    }
   },
   {
    "capability_count": 0,
-   "fixpoints": 207,
-   "guard_nodes": 310,
-   "kinds": [
+   "fixpoints": 190,
+   "growth_kinds": [
     "apart",
     "same"
    ],
-   "nodes": 545,
+   "guard_nodes": 355,
+   "kind_populations_agree": true,
+   "nodes": 549,
    "observables": [],
-   "refusals": 18,
+   "refusals": 4,
    "relabellings": 0,
+   "response_target_kinds": [
+    "apart",
+    "same"
+   ],
    "rule": "residue_three",
    "source": "control",
    "tree_signatures": {
-    "F/mu1": "964fb05abcc0a6163a22ee5109a136d982c3c95e67ab2fa52e79bbd783fd16c5",
-    "F/mu2": "2db20c01824fb77c0b2a1c4e0723ed7d4292d7bea7a4a1894564ca19d493256e",
-    "L/mu1": "86bc257865450efb0a48e980df5bb7c4eb1f735ce0820e6d438fea1e3089dd97",
-    "L/mu2": "29616b8084b6417c2b7ca9aec1f4ad9139b30cb8a9bf707b79d919584959f6a0"
+    "F/mu1": "3ca8ba0c3f77f17d72f27a06ad82fc37609834b856a6cafdf024834e582e68c2",
+    "F/mu2": "210ec278ce088fa45e659e6c4459886bcb8c5434a6d9b50cd28f106e1dfa887b",
+    "L/mu1": "c65851fa312d13867f803783af9705fe5085a7a81f8fa6024a9f7e2774129952",
+    "L/mu2": "68e361189048bb0173d6892e503c721e0bb92a2c27f89d1db3a5e140112fb90d"
    }
   },
   {
    "capability_count": 0,
    "fixpoints": 211,
-   "guard_nodes": 0,
-   "kinds": [
+   "growth_kinds": [
     "apart"
    ],
+   "guard_nodes": 0,
+   "kind_populations_agree": true,
    "nodes": 240,
    "observables": [],
    "refusals": 0,
    "relabellings": 0,
+   "response_target_kinds": [
+    "apart"
+   ],
    "rule": "chain",
    "source": "control",
    "tree_signatures": {
-    "F/mu1": "919f4181a894d0c24439486f35c0db9d4126d52ce81efdea519e5abdf56adaa5",
-    "F/mu2": "8e2969b2f233ae09197cb486a089cfbba12ca7f8ac3f544d75e6006453a09d99",
-    "L/mu1": "31b4f07765162bbeba57fedcfc992c7a178056e5c97c88b8e3090abc692bb878",
-    "L/mu2": "49b96579ed2d2308252f3ff9b25e8ceee81eab840257d29b29da280c1562cfa5"
+    "F/mu1": "4019d645a6d38b37620dc77f5e1a835803763e0877177dd4a59410dc4fa3acb2",
+    "F/mu2": "c568f80ee7912dba4aeb92b9f6deb92ca05edeff010e26bc4f0a64de9a09b342",
+    "L/mu1": "c5a805c9b631971e930872158eb50bcf73fcb4182189718c229b12fbbe4a9c00",
+    "L/mu2": "bcf796e21929cc69edb1e70158e4cef290d8abad7d257c6c20906e242b0baa7c"
    }
   }
  ],
@@ -349,87 +409,90 @@
  },
  "invariance": [
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "E1",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "E2",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "disposition": "OPEN_AT_OBSERVABLE_GUARD",
-   "obstruction": "241920 bijection pairs exceed the declared budget 100000",
-   "pairs_checked_before_guard": 347,
-   "regime_index": 153,
-   "rule": "E3"
+   "disposition": "OPEN_AT_TRANSPORT_REPLAY",
+   "obstruction": "O4 source values were computed, but target-regime labels were not exhaustively replayed",
+   "regimes": 847,
+   "renaming_cases_priced": 1345706,
+   "rule": "E3",
+   "source_pairs_checked": 3695
   },
   {
-   "disposition": "OPEN_AT_OBSERVABLE_GUARD",
-   "obstruction": "241920 bijection pairs exceed the declared budget 100000",
-   "pairs_checked_before_guard": 347,
-   "regime_index": 153,
-   "rule": "E4"
+   "disposition": "OPEN_AT_TRANSPORT_REPLAY",
+   "obstruction": "O4 source values were computed, but target-regime labels were not exhaustively replayed",
+   "regimes": 847,
+   "renaming_cases_priced": 1345706,
+   "rule": "E4",
+   "source_pairs_checked": 3695
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "E5",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "disposition": "OPEN_AT_OBSERVABLE_GUARD",
-   "obstruction": "241920 bijection pairs exceed the declared budget 100000",
-   "pairs_checked_before_guard": 347,
-   "regime_index": 153,
-   "rule": "E6"
+   "disposition": "OPEN_AT_TRANSPORT_REPLAY",
+   "obstruction": "O4 source values were computed, but target-regime labels were not exhaustively replayed",
+   "regimes": 847,
+   "renaming_cases_priced": 1345706,
+   "rule": "E6",
+   "source_pairs_checked": 3695
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "E7",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "E8",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "E9",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "total_apart",
    "scope": "every renaming of every reached regime within the rectangle"
   },
   {
-   "checks": 4606028,
+   "checks": 1345706,
    "disposition": "CHECKED",
    "orbit_transport": null,
-   "regimes": 845,
+   "regimes": 847,
    "rule": "total_same",
    "scope": "every renaming of every reached regime within the rectangle"
   },
@@ -463,7 +526,7 @@
    }
   },
   {
-   "checks_before_refutation": 3599908,
+   "checks_before_refutation": 1117330,
    "datum_renaming": [
     0,
     1,
@@ -478,7 +541,7 @@
     0,
     2
    ],
-   "regime_index": 410,
+   "regime_index": 425,
    "rule": "residue_three",
    "source_regime": {
     "data": [
@@ -635,10 +698,10 @@
    "observed": {
     "E1": "CHECKED",
     "E2": "CHECKED",
-    "E3": "OPEN_AT_OBSERVABLE_GUARD",
-    "E4": "OPEN_AT_OBSERVABLE_GUARD",
+    "E3": "OPEN_AT_TRANSPORT_REPLAY",
+    "E4": "OPEN_AT_TRANSPORT_REPLAY",
     "E5": "CHECKED",
-    "E6": "OPEN_AT_OBSERVABLE_GUARD",
+    "E6": "OPEN_AT_TRANSPORT_REPLAY",
     "E7": "CHECKED",
     "E8": "CHECKED",
     "E9": "CHECKED"
@@ -664,13 +727,31 @@
   },
   {
    "id": "P-I4",
-   "observed": "OPEN: constant controls have no refuting renaming",
-   "verdict": "HIT"
+   "observed": {
+    "both_constant_controls_unrefuted": true,
+    "control_dispositions": {
+     "chain": "REFUTED",
+     "parity": "REFUTED",
+     "residue_three": "REFUTED",
+     "total_apart": "CHECKED",
+     "total_same": "CHECKED"
+    },
+    "disposition": "REFUTED",
+    "invariant_counterexamples": [
+     "total_apart",
+     "total_same"
+    ],
+    "p_i4_falsifier_found": false,
+    "proposition": "every supplied control is refuted by a renaming",
+    "workflow_label": "OPEN_AT_CONTROLS_REFUTED",
+    "workflow_label_meaning": "the requested target was not met; this is not an OPEN truth status"
+   },
+   "verdict": "MISS"
   },
   {
    "id": "P-G1",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "HIT"
@@ -678,7 +759,7 @@
   {
    "id": "P-G2",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "MISS"
@@ -686,7 +767,7 @@
   {
    "id": "P-G3",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "MISS"
@@ -694,7 +775,7 @@
   {
    "id": "P-G4",
    "observed": {
-    "kinds": [
+    "growth_kinds": [
      "apart",
      "same"
     ],
@@ -705,7 +786,7 @@
   {
    "id": "P-G5",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "MISS"
@@ -713,7 +794,7 @@
   {
    "id": "P-G6",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "MISS"
@@ -721,7 +802,7 @@
   {
    "id": "P-G7",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "MISS"
@@ -729,7 +810,7 @@
   {
    "id": "P-G8",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "HIT"
@@ -737,7 +818,7 @@
   {
    "id": "P-G9",
    "observed": {
-    "kinds": [],
+    "growth_kinds": [],
     "relabelled": false
    },
    "verdict": "MISS"
@@ -827,8 +908,12 @@
   },
   {
    "id": "P-C1",
-   "observed": 2,
-   "verdict": "HIT"
+   "observed": {
+    "declared_input_count": 2,
+    "falsifier_check": null,
+    "reason": "the runner declares the value and implements no forcing-theorem or unique-survivor check"
+   },
+   "verdict": "UNSCORED_DECLARED_POLICY"
   },
   {
    "id": "X",
@@ -837,14 +922,14 @@
   }
  ],
  "predictions_scored": {
-  "hit": 8,
-  "missed": 8,
+  "hit": 6,
+  "missed": 9,
   "pending": 1,
-  "vacuous": 0
+  "unscored_declared_policy": 1
  },
  "predictions_sha256": "efd3893006b4b59e80a10a4a1b067afe0453101987ca51cf6ae54a3cc9b6c07f",
  "prompt_sha256": "4bd0b507f322c95219bf684a24653696cc976521a5e478e730e5397e4992b12c",
- "reached_regimes": 845,
+ "reached_regimes": 847,
  "retained_menu": [
   "E1",
   "E2",
@@ -856,7 +941,7 @@
   "E8",
   "E9"
  ],
- "schema": "second_stake/v1",
+ "schema": "second_stake/v2",
  "sibling_control_baseline": {
   "bounds": {
    "max_arity": 2,
@@ -911,6 +996,11 @@
   "receipt_sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3"
  },
  "snapshot_commit": "3f44571240a0830a2fa8de639281670f4e50a511",
+ "source_verification": {
+  "checks": 40,
+  "freeze_commit": "d4d5830e53d33e98404cb502ac2e694a871cb091",
+  "runtime_module_count": 14
+ },
  "survivors_for_challenge_three": [
   "E1",
   "E2",

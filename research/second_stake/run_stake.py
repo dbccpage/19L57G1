@@ -9,22 +9,26 @@ import json
 import pathlib
 import struct
 import sys
+from types import ModuleType
 from typing import Sequence, cast
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
-for _path in (
+_IMPORT_ROOTS = (
     HERE,
-    REPO / "code",
-    REPO / "research" / "identification_dual",
     REPO / "research" / "two_sided_commitment",
-):
-    if str(_path) not in sys.path:
-        sys.path.insert(0, str(_path))
+    REPO / "research" / "identification_dual",
+    REPO / "code",
+)
+for _path in reversed(_IMPORT_ROOTS):
+    while str(_path) in sys.path:
+        sys.path.remove(str(_path))
+    sys.path.insert(0, str(_path))
 
 from derivation.export import Json, dumps_deterministic  # noqa: E402
 from derivation.model import Regime  # noqa: E402
 
+import verify_pins  # noqa: E402
 from generation import (  # noqa: E402
     BOUNDS,
     MAX_DATA,
@@ -187,7 +191,7 @@ def nearest_controls(
 ) -> dict[str, list[str]]:
     def vector(record: dict[str, Json]) -> tuple[frozenset[str], bool, bool, bool]:
         return (
-            frozenset(_as_str_list(record["kinds"])),
+            frozenset(_as_str_list(record["growth_kinds"])),
             _as_int(record["relabellings"]) > 0,
             _as_int(record["refusals"]) > 0,
             _as_int(record["guard_nodes"]) > 0,
@@ -223,11 +227,50 @@ EXPECTED: dict[str, tuple[frozenset[str], bool]] = {
 }
 
 
+def control_target_record(
+    invariance: Sequence[dict[str, Json]],
+) -> dict[str, Json]:
+    """Classify the blanket proposition that every supplied control is refuted."""
+
+    by_invariance = _invariance_by_name(invariance)
+    names = tuple(rule.name for rule in CONTROLS)
+    constants = ("total_apart", "total_same")
+    dispositions = {
+        name: cast(str, by_invariance[name]["disposition"]) for name in names
+    }
+    invariant_counterexamples = sorted(
+        name for name, disposition in dispositions.items() if disposition == "CHECKED"
+    )
+    all_refuted = all(disposition == "REFUTED" for disposition in dispositions.values())
+    if invariant_counterexamples:
+        proposition_disposition = "REFUTED"
+    elif all_refuted:
+        proposition_disposition = "CHECKED"
+    else:
+        proposition_disposition = "OPEN"
+    return {
+        "proposition": "every supplied control is refuted by a renaming",
+        "disposition": proposition_disposition,
+        "control_dispositions": dispositions,
+        "invariant_counterexamples": invariant_counterexamples,
+        "p_i4_falsifier_found": any(
+            dispositions[name] == "REFUTED" for name in constants
+        ),
+        "both_constant_controls_unrefuted": all(
+            dispositions[name] != "REFUTED" for name in constants
+        ),
+        "workflow_label": "OPEN_AT_CONTROLS_REFUTED",
+        "workflow_label_meaning": (
+            "the requested target was not met; this is not an OPEN truth status"
+        ),
+    }
+
+
 def score_predictions(
     generation: Sequence[dict[str, Json]],
     invariance: Sequence[dict[str, Json]],
     ties: dict[str, list[str]],
-    input_count: int,
+    control_target: dict[str, Json],
 ) -> tuple[dict[str, Json], list[dict[str, Json]]]:
     by_generation = _generation_by_name(generation)
     by_invariance = _invariance_by_name(invariance)
@@ -253,37 +296,106 @@ def score_predictions(
     )
     add(
         "P-I4",
-        any(by_invariance[name]["disposition"] != "REFUTED" for name in ("total_apart", "total_same")),
-        "OPEN: constant controls have no refuting renaming",
+        control_target["disposition"] == "OPEN",
+        control_target,
     )
     for number, rule in enumerate(MENU, start=1):
         record = by_generation[rule.name]
         expected_kinds, expected_relabelling = EXPECTED[rule.name]
-        observed_kinds = frozenset(_as_str_list(record["kinds"]))
+        observed_kinds = frozenset(_as_str_list(record["growth_kinds"]))
         observed_relabelling = _as_int(record["relabellings"]) > 0
         add(
             f"P-G{number}",
             observed_kinds == expected_kinds and observed_relabelling == expected_relabelling,
-            {"kinds": sorted(observed_kinds), "relabelled": observed_relabelling},
+            {
+                "growth_kinds": sorted(observed_kinds),
+                "relabelled": observed_relabelling,
+            },
         )
     both = sorted(
         rule.name
         for rule in MENU
-        if frozenset(_as_str_list(by_generation[rule.name]["kinds"])) == {"apart", "same"}
+        if frozenset(_as_str_list(by_generation[rule.name]["growth_kinds"]))
+        == {"apart", "same"}
         and by_invariance[rule.name]["disposition"] == "CHECKED"
     )
     add("P-G10", bool(both), both)
     tied = {name: peers for name, peers in ties.items() if peers}
     add("P-G11", bool(tied), tied)
-    add("P-C1", input_count == 2, input_count)
+    detail.append(
+        {
+            "id": "P-C1",
+            "verdict": "UNSCORED_DECLARED_POLICY",
+            "observed": {
+                "declared_input_count": 2,
+                "falsifier_check": None,
+                "reason": (
+                    "the runner declares the value and implements no forcing-theorem "
+                    "or unique-survivor check"
+                ),
+            },
+        }
+    )
     detail.append({"id": "X", "verdict": "PENDING", "observed": "five-data rectangle not computed"})
     hits = sum(item["verdict"] == "HIT" for item in detail)
     misses = sum(item["verdict"] == "MISS" for item in detail)
     pending = sum(item["verdict"] == "PENDING" for item in detail)
-    return ({"hit": hits, "missed": misses, "vacuous": 0, "pending": pending}, detail)
+    unscored = sum(item["verdict"] == "UNSCORED_DECLARED_POLICY" for item in detail)
+    return (
+        {
+            "hit": hits,
+            "missed": misses,
+            "pending": pending,
+            "unscored_declared_policy": unscored,
+        },
+        detail,
+    )
+
+
+def runtime_modules(
+    *, excluded_module_names: frozenset[str] = frozenset()
+) -> dict[str, ModuleType]:
+    """Census every loaded repository module used by receipt production.
+
+    Every loaded module whose file lies inside the repository is returned, so
+    an undeclared extra import cannot disappear merely because it was omitted
+    from ``RUNTIME_MODULE_PATHS``.  The default has no naming-based exceptions.
+    Unit tests may explicitly name their own already-loaded caller modules via
+    ``excluded_module_names``; receipt production never supplies exclusions.
+    """
+
+    result: dict[str, ModuleType] = {}
+    repository = REPO.resolve()
+    run_path = pathlib.Path(__file__).resolve()
+    for loaded_name, module in tuple(sys.modules.items()):
+        if loaded_name in excluded_module_names:
+            continue
+        if not isinstance(module, ModuleType):
+            continue
+        module_file = getattr(module, "__file__", None)
+        if not isinstance(module_file, str):
+            continue
+        origin = pathlib.Path(module_file).resolve()
+        try:
+            origin.relative_to(repository)
+        except ValueError:
+            continue
+        logical_name = "run_stake" if origin == run_path else loaded_name
+        previous = result.get(logical_name)
+        if previous is not None and previous is not module:
+            raise ValueError(f"duplicate runtime module name: {logical_name}")
+        result[logical_name] = module
+    return result
+
+
+def verify_execution_sources() -> list[str]:
+    """Verify immutable source pins and the actual origins imported at runtime."""
+
+    return [*verify_pins.verify(), *verify_pins.verify_runtime_origins(runtime_modules())]
 
 
 def build_receipt() -> tuple[dict[str, Json], dict[str, Json]]:
+    source_verification = verify_execution_sources()
     trees = build_all(ALL_RULES)
     regimes = reached_regimes(trees)
     invariance = invariance_records(ALL_RULES, regimes)
@@ -297,7 +409,8 @@ def build_receipt() -> tuple[dict[str, Json], dict[str, Json]]:
     both_kind = sorted(
         rule.name
         for rule in MENU
-        if frozenset(_as_str_list(by_generation[rule.name]["kinds"])) == {"apart", "same"}
+        if frozenset(_as_str_list(by_generation[rule.name]["growth_kinds"]))
+        == {"apart", "same"}
         and by_invariance[rule.name]["disposition"] == "CHECKED"
     )
     retained = sorted(
@@ -306,21 +419,27 @@ def build_receipt() -> tuple[dict[str, Json], dict[str, Json]]:
         if by_invariance[rule.name]["disposition"] != "REFUTED"
     )
     input_count = 2
-    score, detail = score_predictions(generation, invariance, ties, input_count)
+    control_target = control_target_record(invariance)
+    score, detail = score_predictions(generation, invariance, ties, control_target)
     crosscheck = canonical_crosscheck(regimes)
     full: dict[str, Json] = {
-        "schema": "second_stake_full/v1",
+        "schema": "second_stake_full/v2",
         "authority_effect": "None",
         "trees": [tree_payload(tree) for tree in trees],
     }
     full_raw = dumps_deterministic(full)
     full_sha = hashlib.sha256(full_raw).hexdigest()
     summary: dict[str, Json] = {
-        "schema": "second_stake/v1",
+        "schema": "second_stake/v2",
         "authority_effect": "None",
         "snapshot_commit": SNAPSHOT,
         "prompt_sha256": sha256(HERE / "PROMPT.md"),
         "predictions_sha256": sha256(HERE / "PREDICTIONS.md"),
+        "source_verification": {
+            "freeze_commit": verify_pins.FREEZE_COMMIT,
+            "runtime_module_count": len(verify_pins.RUNTIME_MODULE_PATHS),
+            "checks": len(source_verification),
+        },
         "bounds": {
             "readings": ["L", "F"],
             "measures": list(MEASURES),
@@ -354,6 +473,7 @@ def build_receipt() -> tuple[dict[str, Json], dict[str, Json]]:
         "tree_ties": ties,
         "label_equivalence": label_peers,
         "nearest_controls": nearest_controls(menu_generation, control_generation),
+        "controls_refuted": control_target,
         "retained_menu": retained,
         "both_kind_members": both_kind,
         "survivors_for_challenge_three": retained,

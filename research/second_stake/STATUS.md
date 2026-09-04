@@ -9,7 +9,12 @@ its bounded replay; it does not certify a rule as uniquely authorized.
   `3f44571240a0830a2fa8de639281670f4e50a511`, which was `main` at launch.
   `research/second_stream/` was absent there.  Every consumed blob and quoted
   span is fixed in `SOURCE_MANIFEST.json` and checked both at that snapshot and
-  at `HEAD`.
+  at `HEAD`.  The executed package initializer is included in that source
+  census.  Receipt production also derives the loaded repository-module
+  population and binds all fourteen members to declared origins; production
+  has no filename-based census exception.  An extra loaded project module,
+  including one whose filename begins `test_`, or a same-named module from
+  another research tree is a failure.
 - **METATHEORY.** After launch, `origin/main` moved to
   `9b9bea87f0ed3b3bd5be8145b837f91cbaeb3d4d` through pull request #133.  Its
   path delta is the parallel `research/second_stream/` tree plus the same two
@@ -39,6 +44,9 @@ its bounded replay; it does not certify a rule as uniquely authorized.
 
 The native question and first predictions were frozen before computation:
 
+- **METATHEORY.** The immutable freeze is commit
+  `d4d5830e53d33e98404cb502ac2e694a871cb091`.  The verifier derives the two
+  expected blobs from that commit rather than trusting mutable manifest hashes.
 - **METATHEORY.** `PROMPT.md` sha256 is
   `4bd0b507f322c95219bf684a24653696cc976521a5e478e730e5397e4992b12c`;
   its file bytes contain no digit.
@@ -58,69 +66,78 @@ budget of one hundred thousand.
 
 ## Stage two — INVARIANCE_DECIDED
 
-**FINITE_COMPUTATION.** On 2026-09-04 the generation trees supplied 845
-distinct structural regimes.  One shared exhaustive traversal checked
-4,606,028 pair-renaming cases for each non-orbit rule.  The target-regime
-construction is performed once per renaming and all rules are evaluated on it;
-this is the same finite population as separate per-rule traversals.
+**FINITE_COMPUTATION.** On 2026-09-04 the generation trees supplied 847
+distinct structural regimes.  One shared exhaustive traversal established
+that each non-orbit menu rule and each constant control passed 1,345,706 pair-renaming cases.
+The target-regime construction is performed once per renaming and these rules
+are evaluated on it.  Refuted index-reading controls stop at their first
+witness and therefore have separate, smaller check counts.
 
 | member | disposition on 2026-09-04 | exact scope or obstruction |
 |---|---|---|
-| E1 | CHECKED | all 4,606,028 cases |
-| E2 | CHECKED | all 4,606,028 cases |
-| E3 | OPEN | source regime 153; 347 source pairs checked; 241,920 bijection pairs exceed the 100,000 guard |
-| E4 | OPEN | source regime 153; 347 source pairs checked; 241,920 bijection pairs exceed the 100,000 guard |
-| E5 | CHECKED | all 4,606,028 cases |
-| E6 | OPEN | source regime 153; 347 source pairs checked; 241,920 bijection pairs exceed the 100,000 guard |
-| E7 | CHECKED | all 4,606,028 cases |
-| E8 | CHECKED | all 4,606,028 cases |
-| E9 | CHECKED | all 4,606,028 cases |
+| E1 | CHECKED | all 1,345,706 target-replayed cases |
+| E2 | CHECKED | all 1,345,706 target-replayed cases |
+| E3 | OPEN | 3,695 source pairs computed; 1,345,706 transport cases priced; target labels not exhaustively replayed |
+| E4 | OPEN | 3,695 source pairs computed; 1,345,706 transport cases priced; target labels not exhaustively replayed |
+| E5 | CHECKED | all 1,345,706 target-replayed cases |
+| E6 | OPEN | 3,695 source pairs computed; 1,345,706 transport cases priced; target labels not exhaustively replayed |
+| E7 | CHECKED | all 1,345,706 target-replayed cases |
+| E8 | CHECKED | all 1,345,706 target-replayed cases |
+| E9 | CHECKED | all 1,345,706 target-replayed cases |
 
 **OPEN.** No Lean package exists in this rung.  The CHECKED rows are finite
 computations over the stated rectangle, not proved theorems.  The O4 readers
-E3, E4, and E6 are retained because the exact pinned automorphism computation
-hit its guard rather than finding a counterexample.  Their Lean invariance is
-a priced leftover.
+E3, E4, and E6 are retained because the implementation computed source O4
+values but did not exhaustively replay labels on renamed target regimes.  A
+prose conjugation argument is not accepted as a finite receipt.  Executable
+transport replay or Lean invariance is a priced leftover.
 
 **FINITE_COMPUTATION.** On 2026-09-04 the two constant controls each passed
-4,606,028 cases.  The three actual index readers have replayable refutations:
+1,345,706 cases.  The three actual index readers have replayable refutations:
 
 | control | disposition | named datum/form renaming and label change |
 |---|---|---|
 | `total_apart` | CHECKED | constant; no refuting renaming exists by its definition |
 | `total_same` | CHECKED | constant; no refuting renaming exists by its definition |
 | `parity` | REFUTED | regime 56, pair `(0,1)`, datum map `(0,2,1)`, empty form map: apart to same |
-| `residue_three` | REFUTED | regime 410, pair `(0,2)`, datum map `(0,1,3,2)`, empty form map: apart to same |
+| `residue_three` | REFUTED | regime 425, pair `(0,2)`, datum map `(0,1,3,2)`, empty form map: apart to same |
 | `chain` | REFUTED | regime 56, pair `(0,1)`, datum map `(0,2,1)`, empty form map: apart to free |
 
-**OPEN.** The blanket target `controls_refuted` is false for the two constant
-functions and therefore remains `OPEN_AT_CONTROLS_REFUTED` rather than being
+**REFUTED_CLAIM.** The blanket proposition `controls_refuted` is false because
+the two constant functions are invariant counterexamples.  The exact terminal
+label `OPEN_AT_CONTROLS_REFUTED` is retained only as the protocol's legacy name
+for an unmet requested target; it is not an OPEN truth status and is not
 silently narrowed to the three index readers.
 
 ## Stage three — GENERATION_CENSUSED and register
 
 **FINITE_COMPUTATION.** On 2026-09-04 the runner built 56 trees, one for each
 of fourteen rules, two readings, and two measures.  Every stored node replays
-from its stored history.  The full receipt contains 4,975,544 uncompressed
-bytes with sha256
-`cfad422469360d6d653cac32cdfc1f205a49ad8e6c539970ebb61e60aed34165`;
-the deterministic stored-block gzip file is 4,975,942 bytes.  The canonical regime key
-and its brute-force reference induce the same partition on 842 reached regimes;
-three further regimes exceed the 100,000 permutation guard and stay guarded.
+from its stored history.  Every edge separately carries an event suffix, exact
+response-round transition, and datum/form transport to its quotient child; all
+edge certificates replay.  The full receipt contains 6,425,469 uncompressed bytes
+with sha256
+`ce4b524ac4dbf3f4bf5b205bde45f0f8d19ad9906594652adf70e61e1e8120bc`;
+the deterministic stored-block gzip file is 6,425,982 bytes.  The canonical
+regime key and its brute-force reference induce the same partition for 847
+reached regimes; 0 regimes are above the guard.
 
 All counts in the next register are dated 2026-09-04 and are sums over the
-four trees per row inside the frozen rectangle.  A kind is a kind of demand
-answered by an accepted response edge.  A tie lists an identical four-tree
-signature; it is not label equivalence.
+four trees per row inside the frozen rectangle.  The `growth kinds` column is
+the Challenge 2 population: new demands created by growth edges.  Accepted
+response-target kinds are exported separately and happen to have the same
+union in all fourteen rows; a regression proves the scorer reads the growth
+population, so that equality is not assumed.  A tie lists an identical
+four-tree signature; it is not label equivalence.
 
-| member | observables / cost | invariance | kinds | re-labels | refusals | fixpoints | guard nodes | nodes | tree tie | disposition |
+| member | observables / cost | invariance | growth kinds | re-labels | refusals | fixpoints | guard nodes | nodes | tree tie | disposition |
 |---|---|---|---|---:|---:|---:|---:|---:|---|---|
 | E1 | O1 / 1 | CHECKED | none | 0 | 0 | 10 | 0 | 10 | E2,E3,E5,E6,E7,E8,E9 | retained; self-honouring by definition |
 | E2 | O2 / 1 | CHECKED | none | 0 | 0 | 10 | 0 | 10 | E1,E3,E5,E6,E7,E8,E9 | retained |
-| E3 | O4 / 1 | OPEN at observable guard | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E5,E6,E7,E8,E9 | retained, not called invariant |
-| E4 | O4 / 1 | OPEN at observable guard | apart,same | 537 | 105 | 123 | 89 | 505 | none | retained, not called invariant |
+| E3 | O4 / 1 | OPEN at transport replay | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E5,E6,E7,E8,E9 | retained, not called invariant |
+| E4 | O4 / 1 | OPEN at transport replay | apart,same | 683 | 204 | 152 | 151 | 654 | none | retained, not called invariant |
 | E5 | O3 / 1 | CHECKED | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E6,E7,E8,E9 | retained |
-| E6 | O3,O4 / 2 | OPEN at observable guard | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E5,E7,E8,E9 | retained, not called invariant |
+| E6 | O3,O4 / 2 | OPEN at transport replay | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E5,E7,E8,E9 | retained, not called invariant |
 | E7 | O2 / 1 | CHECKED | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E5,E6,E8,E9 | retained |
 | E8 | O6 / 1 | CHECKED | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E5,E6,E7,E9 | retained |
 | E9 | O5 / 1 | CHECKED | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E5,E6,E7,E8 | retained |
@@ -131,14 +148,15 @@ signature; it is not label equivalence.
 |---|---|---:|---:|---:|---:|---:|---|
 | `total_apart` | apart | 0 | 0 | 471 | 363 | 574 | none |
 | `total_same` | none | 0 | 0 | 10 | 0 | 10 | E1,E2,E3,E5,E6,E7,E8,E9 |
-| `parity` | apart,same | 0 | 3 | 26 | 0 | 43 | none |
-| `residue_three` | apart,same | 0 | 18 | 207 | 310 | 545 | E4 |
+| `parity` | apart,same | 0 | 8 | 30 | 0 | 61 | none |
+| `residue_three` | apart,same | 0 | 4 | 190 | 355 | 549 | E4 |
 | `chain` | apart | 0 | 0 | 211 | 0 | 240 | none |
 
-**FINITE_COMPUTATION.** E4 is the only menu member that answers both kinds
-inside the rectangle, and it re-labels 537 old pairs there.  Because its
-invariance check is OPEN, no CHECKED member satisfies both stage-four filters.
-All E1–E9 remain survivors for challenge three because none was refuted.
+**FINITE_COMPUTATION.** E4 generates apart and same under growth, re-labels 683 old pairs, records 204 refusals, 152 fixpoints, and 151 guarded nodes
+inside the rectangle.  It is the only menu member generating both growth
+kinds.  Because its invariance check is OPEN, no CHECKED member satisfies both
+stage-four filters.  All E1–E9 remain survivors for challenge three because
+none was refuted.
 
 ## Stage four — INPUT_COUNT_STATED
 
@@ -146,32 +164,33 @@ All E1–E9 remain survivors for challenge three because none was refuted.
 is a declaration; no menu member is forced by a grammar theorem and no unique
 survivor is proved.  The receipt therefore records no proof name.  Within the
 nine-member menu and four-data rectangle, no member is both CHECKED invariant
-and observed to answer both demand kinds, so the branch terminal is
+and observed to generate both demand kinds under growth, so the branch terminal is
 `NO_ENDOGENOUS_STAKE_IN_MENU`, beside `INPUT_COUNT_STATED`.
 
 ## Stage five — predictions, X, and leftovers
 
-**PREDICTION.** On 2026-09-04 the mechanical score is eight HIT, eight MISS,
-zero VACUOUS, and one PENDING.
+**PREDICTION.** On 2026-09-04 the mechanical score is 6 HIT, 9 MISS, 1
+UNSCORED_DECLARED_POLICY, and 1 PENDING.  No vacuity total is emitted because
+the runner implements no vacuity classifier.
 
 | id | verdict | computed value on 2026-09-04 when numeric |
 |---|---|---|
-| P-I1 | MISS | E3, E4, E6 OPEN at the observable guard; the other six menu members CHECKED |
+| P-I1 | MISS | E3, E4, E6 OPEN at transport replay; the other six menu members CHECKED |
 | P-I2 | HIT | both constant controls CHECKED |
 | P-I3 | HIT | all three actual index readers REFUTED |
-| P-I4 | HIT | `controls_refuted` remains OPEN on the constants |
+| P-I4 | MISS | the frozen prediction says OPEN; the proposition is REFUTED by the invariant constants, while the legacy workflow label only records an unmet target |
 | P-G1 | HIT | E1 none, zero re-labels |
 | P-G2 | MISS | E2 none, zero re-labels |
 | P-G3 | MISS | E3 none, zero re-labels |
-| P-G4 | HIT | E4 apart and same, 537 re-labels |
+| P-G4 | HIT | E4 growth creates apart and same, with 683 re-labels |
 | P-G5 | MISS | E5 none, zero re-labels |
 | P-G6 | MISS | E6 none, zero re-labels |
 | P-G7 | MISS | E7 none but zero re-labels |
 | P-G8 | HIT | E8 none, zero re-labels |
 | P-G9 | MISS | E9 none, zero re-labels |
-| P-G10 | MISS | no CHECKED member answers both kinds |
+| P-G10 | MISS | no CHECKED member generates both growth-demand kinds |
 | P-G11 | HIT | eight members share one four-tree signature; E4 is separate |
-| P-C1 | HIT | input count two, no proof of a decrease |
+| P-C1 | UNSCORED_DECLARED_POLICY | input count two is declared by the runner; neither frozen falsifier has an implemented check |
 | X | PENDING | the five-data rectangle is not computed by this rung |
 
 **PREDICTION.** X asks whether all nine four-data survivors retain their
@@ -182,8 +201,8 @@ this receipt and is assigned to challenge three.
 
 1. Challenge three consumes E1–E9 as tied-or-otherwise-unrefuted inputs: one
    new declared continuation/validity class plus its finite replay.
-2. E3, E4, and E6 need a Lean invariance statement or a separately declared
-   larger exact automorphism budget; either is one new proof or one new bound.
+2. E3, E4, and E6 need executable target-regime transport replay or a Lean
+   invariance statement; a source-only calculation does not discharge them.
 3. X needs the five-data rectangle, priced as one separately frozen run.
 4. The relation to the parallel no-first-demand track costs one post-merge
    comparison; its statements remain that track's and are not imported here.
@@ -191,19 +210,24 @@ this receipt and is assigned to challenge three.
 ## Gates and timing
 
 **METATHEORY.** Injection failures and recoveries are appended to
-`research/second/MANUAL.md`.  The clean local battery took 510.659 seconds,
-below the required nine-hundred-second ceiling.  It ran 38 tests, regenerated
-both receipts byte-identically, measured 99.14% line and 97.56% branch
-coverage, passed strict mypy over all six rung source files, verified every
-source/span/frozen-text pin, matched the repository prose census, and passed
-the sealed-tree identifier firewall.
+`research/second/MANUAL.md`.  The post-repair battery verifies the immutable
+freeze, source and runtime-origin census, node and edge replay, separate growth
+and response-kind populations, strict text/binary decoding, the declared
+temporal/environment metadata-key spellings and aliases in both receipts, and
+targeted ledger structured references/headline values.  The pre-integration
+serial battery on 2026-09-04 passed 50/50 tests, regenerated both receipts
+byte-identically, measured 97.20% line coverage and 95.27% branch coverage,
+and completed in 293.351 seconds.  Strict mypy, pins, and the clean production
+runtime-origin census passed separately.  These are pre-integration receipts,
+not merge-result evidence, and no mechanical gate implies authority or a
+theorem.
 
 ## Terminal scope
 
 - `RULE_CLASS_DECLARED` — DECLARED_POLICY, exactly E1–E9 and O1–O6.
 - `INVARIANCE_DECIDED` — FINITE_COMPUTATION, six menu CHECKED, three menu OPEN.
-- `OPEN_AT_NAMED_TARGET` — OPEN, O4 computation guard for E3, E4, E6.
-- `OPEN_AT_CONTROLS_REFUTED` — OPEN, constants cannot be refuted by renaming.
+- `OPEN_AT_NAMED_TARGET` — OPEN, target-regime O4 transport replay for E3, E4, E6.
+- `OPEN_AT_CONTROLS_REFUTED` — legacy unmet-target label; the blanket proposition itself is REFUTED by the invariant constants.
 - `GENERATION_CENSUSED` — FINITE_COMPUTATION, the frozen rectangle only.
 - `NO_ENDOGENOUS_STAKE_IN_MENU` — FINITE_COMPUTATION, checked members of this menu and rectangle only.
 - `INPUT_COUNT_STATED` — DECLARED_POLICY, value two with no reduction proof.
@@ -223,11 +247,11 @@ menu: [E1, E2, E3, E4, E5, E6, E7, E8, E9]
 controls: [total_apart, total_same, parity, residue_three, chain]
 survivors: [E1, E2, E3, E4, E5, E6, E7, E8, E9]
 input_count: {value: 2, proof: none, sentence: "A rule class is a declaration; no menu member is forced and no unique survivor is proved."}
-predictions_scored: {hit: 8, missed: 8, vacuous: 0, pending: 1}
+predictions_scored: {hit: 6, missed: 9, unscored_declared_policy: 1, pending: 1}
 extrapolation_X: {statement: "four-data survivors persist at five data", forced: false, scoring_rung: challenge_three}
 ob1: OB1_UNCHANGED
 tie_record: "rule tie between Challenge 2 and no-first-demand; both run in parallel; this is track 2"
-gate_time_seconds: 510.659
+gate_time_seconds: 293.351
 outside_bet_hash: none
 authority_effect: None
 final_state: true

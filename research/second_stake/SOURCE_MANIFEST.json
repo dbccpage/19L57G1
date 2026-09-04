@@ -1,9 +1,11 @@
 {
-  "schema": "second_stake_source_manifest/v1",
+  "schema": "second_stake_source_manifest/v2",
   "snapshot_commit": "3f44571240a0830a2fa8de639281670f4e50a511",
+  "freeze_commit": "d4d5830e53d33e98404cb502ac2e694a871cb091",
   "sources": [
     {"path": "research/second/SEED.md", "sha256": "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"},
     {"path": "research/second/PLAN.md", "sha256": "36b66d7e819b7bc03fe51e2932a102e6e685f4589c68b99773d8c502bac8d96d"},
+    {"path": "code/derivation/__init__.py", "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"},
     {"path": "code/derivation/model.py", "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"},
     {"path": "code/derivation/observe.py", "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"},
     {"path": "code/derivation/candidates.py", "sha256": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb"},
@@ -27,6 +29,22 @@
   "frozen_texts": [
     {"path": "research/second_stake/PROMPT.md", "sha256": "4bd0b507f322c95219bf684a24653696cc976521a5e478e730e5397e4992b12c", "no_digits": true},
     {"path": "research/second_stake/PREDICTIONS.md", "sha256": "efd3893006b4b59e80a10a4a1b067afe0453101987ca51cf6ae54a3cc9b6c07f", "no_digits": false}
+  ],
+  "runtime_modules": [
+    {"name": "derivation", "path": "code/derivation/__init__.py", "pinned_source": true},
+    {"name": "derivation.candidates", "path": "code/derivation/candidates.py", "pinned_source": true},
+    {"name": "derivation.engine", "path": "code/derivation/engine.py", "pinned_source": true},
+    {"name": "derivation.export", "path": "code/derivation/export.py", "pinned_source": true},
+    {"name": "derivation.iso", "path": "code/derivation/iso.py", "pinned_source": true},
+    {"name": "derivation.model", "path": "code/derivation/model.py", "pinned_source": true},
+    {"name": "derivation.observe", "path": "code/derivation/observe.py", "pinned_source": true},
+    {"name": "dual", "path": "research/identification_dual/dual.py", "pinned_source": true},
+    {"name": "two_sided", "path": "research/two_sided_commitment/two_sided.py", "pinned_source": true},
+    {"name": "generation", "path": "research/second_stake/generation.py", "pinned_source": false},
+    {"name": "observables", "path": "research/second_stake/observables.py", "pinned_source": false},
+    {"name": "rules", "path": "research/second_stake/rules.py", "pinned_source": false},
+    {"name": "run_stake", "path": "research/second_stake/run_stake.py", "pinned_source": false},
+    {"name": "verify_pins", "path": "research/second_stake/verify_pins.py", "pinned_source": false}
   ],
   "absent_at_snapshot": [
     {"path": "research/second_stream", "present": false}

@@ -42,6 +42,8 @@ from derivation.iso import (  # noqa: E402
     IsoBudgetError,
     canonical,
     canonical_bruteforce,
+    find_iso,
+    serialize,
 )
 from derivation.model import (  # noqa: E402
     AdmissionError,
@@ -206,6 +208,20 @@ def quotient_key(regime: Regime, rule: StakeRule) -> Hashable:
     return (base, indexed_key(regime))
 
 
+SearchKey = tuple[Hashable, int]
+
+
+def search_key(regime: Regime, rule: StakeRule, response_rounds: int) -> SearchKey:
+    """Quotient key for the bounded search state.
+
+    The remaining response budget affects future expansion, so two isomorphic
+    regimes reached after different numbers of responses are not the same
+    bounded-search node.
+    """
+
+    return (quotient_key(regime, rule), response_rounds)
+
+
 @dataclass
 class Node:
     node_id: int
@@ -230,6 +246,9 @@ class Edge:
     cost: tuple[int, int]
     tie_classes: int
     class_size: int
+    events: tuple[Event, ...]
+    datum_transport: tuple[int, ...]
+    form_transport: tuple[int, ...]
     info: dict[str, object] = field(default_factory=dict)
 
 
@@ -241,6 +260,43 @@ class Tree:
     nodes: list[Node] = field(default_factory=list)
     edges: list[Edge] = field(default_factory=list)
     refusals: list[dict[str, object]] = field(default_factory=list)
+
+
+def edge_replay_failure(tree: Tree, edge: Edge) -> Optional[str]:
+    """Return a diagnostic unless an edge replays to its quotient child.
+
+    The event suffix is replayed from the stored parent.  The resulting regime
+    must transport to the stored child representative through the exported
+    datum/form bijections, and the response-round counter must agree exactly.
+    """
+
+    if not 0 <= edge.parent < len(tree.nodes):
+        return "edge parent is outside the node table"
+    if not 0 <= edge.child < len(tree.nodes):
+        return "edge child is outside the node table"
+    parent = tree.nodes[edge.parent]
+    child = tree.nodes[edge.child]
+    try:
+        after = replay(edge.events, parent.regime)
+    except AdmissionError as exc:
+        return f"edge event replay failed: {exc}"
+    expected_rounds = parent.response_rounds + int(edge.target_pair is not None)
+    if child.response_rounds != expected_rounds:
+        return (
+            "edge response-round mismatch: "
+            f"expected {expected_rounds}, got {child.response_rounds}"
+        )
+    if tuple(sorted(edge.datum_transport)) != tuple(range(after.n_data())):
+        return "edge datum transport is not a bijection"
+    if tuple(sorted(edge.form_transport)) != tuple(range(len(after.forms))):
+        return "edge form transport is not a bijection"
+    target_datum_identity = tuple(range(child.regime.n_data()))
+    target_form_identity = tuple(range(len(child.regime.forms)))
+    if serialize(after, edge.datum_transport, edge.form_transport) != serialize(
+        child.regime, target_datum_identity, target_form_identity
+    ):
+        return "edge transport does not reach the stored child structure"
+    return None
 
 
 def _fresh_token(regime: Regime) -> str:
@@ -303,7 +359,7 @@ def _edge_info(
 def _attach(
     tree: Tree,
     rule: StakeRule,
-    key_map: dict[Hashable, int],
+    key_map: dict[SearchKey, int],
     queue: deque[int],
     parent: Node,
     history: tuple[Event, ...],
@@ -316,15 +372,24 @@ def _attach(
     class_size: int,
 ) -> None:
     after = replay(history)
+    if history[: len(parent.history)] != parent.history:
+        raise AssertionError("edge history does not extend its parent history")
+    events = history[len(parent.history) :]
+    if replay(events, parent.regime) != after:
+        raise AssertionError("edge event suffix does not replay from its parent")
     try:
-        key = quotient_key(after, rule)
+        key = search_key(after, rule, response_rounds)
         iso_guard = False
     except IsoBudgetError:
-        key = ("iso_guard", indexed_key(after), len(tree.nodes))
+        key = (("iso_guard", indexed_key(after), len(tree.nodes)), response_rounds)
         iso_guard = True
     if key in key_map:
         child_id = key_map[key]
         tree.nodes[child_id].merged_count += 1
+        witness = find_iso(after, tree.nodes[child_id].regime, PERMUTATION_BUDGET)
+        if witness is None:
+            raise AssertionError("quotient collision has no isomorphism witness")
+        datum_transport, form_transport = witness
     else:
         child_id = len(tree.nodes)
         child = Node(
@@ -339,23 +404,30 @@ def _attach(
         )
         tree.nodes.append(child)
         key_map[key] = child_id
+        datum_transport = tuple(range(after.n_data()))
+        form_transport = tuple(range(len(after.forms)))
         if not iso_guard:
             queue.append(child_id)
     info = _edge_info(parent.regime, after, rule, target)
-    tree.edges.append(
-        Edge(
-            parent.node_id,
-            child_id,
-            challenge,
-            target[0] if target is not None else "grow",
-            target[1] if target is not None else None,
-            response,
-            cost,
-            tie_classes,
-            class_size,
-            info,
-        )
+    edge = Edge(
+        parent.node_id,
+        child_id,
+        challenge,
+        target[0] if target is not None else "grow",
+        target[1] if target is not None else None,
+        response,
+        cost,
+        tie_classes,
+        class_size,
+        events,
+        datum_transport,
+        form_transport,
+        info,
     )
+    failure = edge_replay_failure(tree, edge)
+    if failure is not None:
+        raise AssertionError(failure)
+    tree.edges.append(edge)
 
 
 def _quotient_deltas(
@@ -390,10 +462,11 @@ def build_tree(
     register_rules((rule,))
     history = tuple(reading.genesis)
     regime = replay(history)
-    root = Node(0, history, regime, 0, 0, quotient_key(regime, rule))
+    root_key = search_key(regime, rule, 0)
+    root = Node(0, history, regime, 0, 0, root_key)
     root.certified = replay(root.history) == root.regime
     tree = Tree(reading.name, rule.name, measure, [root])
-    key_map: dict[Hashable, int] = {root.key: 0}
+    key_map: dict[SearchKey, int] = {root_key: 0}
     queue: deque[int] = deque([0])
     while queue:
         node = tree.nodes[queue.popleft()]
@@ -432,22 +505,27 @@ def build_tree(
             node.status = "terminal_round_bound"
             continue
         gathered: list[tuple[tuple[Label, Pair], Minima]] = []
+        refused_targets: list[tuple[Label, Pair]] = []
         for target in open_demands:
             result = minimum_responses(node.regime, rule, target, measure, bounds)
             if result is None:
-                tree.refusals.append(
-                    {
-                        "node": node.node_id,
-                        "kind": target[0],
-                        "pair": list(target[1]),
-                        "data": node.regime.n_data(),
-                        "open_demands": len(open_demands),
-                    }
-                )
-                node.status = "terminal_no_response"
-                break
+                refused_targets.append(target)
+                continue
             gathered.append((target, result))
-        if node.status == "terminal_no_response":
+        for target in refused_targets:
+            tree.refusals.append(
+                {
+                    "node": node.node_id,
+                    "kind": target[0],
+                    "pair": list(target[1]),
+                    "data": node.regime.n_data(),
+                    "open_demands": len(open_demands),
+                    "answerable_demands": len(gathered),
+                    "terminal": not gathered,
+                }
+            )
+        if not gathered:
+            node.status = "terminal_no_response"
             continue
         for target, result in gathered:
             classes = _quotient_deltas(node.regime, rule, result.deltas)
@@ -470,7 +548,7 @@ def build_tree(
                     len(classes),
                     class_size,
                 )
-        node.status = "expanded"
+        node.status = "expanded_with_refusals" if refused_targets else "expanded"
     return tree
 
 
@@ -487,7 +565,7 @@ def node_payload(node: Node) -> dict[str, Json]:
     }
 
 
-def edge_payload(edge: Edge) -> dict[str, Json]:
+def edge_payload(tree: Tree, edge: Edge) -> dict[str, Json]:
     return {
         "parent": edge.parent,
         "child": edge.child,
@@ -498,6 +576,10 @@ def edge_payload(edge: Edge) -> dict[str, Json]:
         "cost": list(edge.cost),
         "tie_classes": edge.tie_classes,
         "class_size": edge.class_size,
+        "events": [event_json(event) for event in edge.events],
+        "datum_transport": list(edge.datum_transport),
+        "form_transport": list(edge.form_transport),
+        "certified": edge_replay_failure(tree, edge) is None,
         "info": _json(edge.info),
     }
 
@@ -507,6 +589,21 @@ def tree_stats(tree: Tree) -> dict[str, Json]:
     for node in tree.nodes:
         statuses[node.status] = statuses.get(node.status, 0) + 1
     response_edges = [edge for edge in tree.edges if edge.target_pair is not None]
+    growth_demand_kinds: set[str] = set()
+    for edge in tree.edges:
+        if edge.target_pair is not None:
+            continue
+        new_demands = edge.info.get("new_demands")
+        if not isinstance(new_demands, list):
+            raise TypeError("growth edge new_demands must be a list")
+        for demand in new_demands:
+            if (
+                not isinstance(demand, list)
+                or len(demand) != 3
+                or not isinstance(demand[0], str)
+            ):
+                raise TypeError("growth edge demand must be [kind, left, right]")
+            growth_demand_kinds.add(demand[0])
     fixpoints: list[Node] = []
     for node in tree.nodes:
         try:
@@ -525,7 +622,10 @@ def tree_stats(tree: Tree) -> dict[str, Json]:
         "statuses": statuses,
         "response_edges": len(response_edges),
         "growth_edges": sum(edge.target_pair is None for edge in tree.edges),
-        "kinds_answered": sorted({edge.target_kind for edge in response_edges}),
+        "growth_demand_kinds": sorted(growth_demand_kinds),
+        "response_target_kinds": sorted(
+            {edge.target_kind for edge in response_edges}
+        ),
         "relabellings": relabellings,
         "refusals": len(tree.refusals),
         "fixpoints": len(fixpoints),
@@ -533,6 +633,9 @@ def tree_stats(tree: Tree) -> dict[str, Json]:
         + statuses.get("frontier_iso_guard", 0)
         + statuses.get("frontier_observable_guard", 0),
         "all_certified": all(node.certified for node in tree.nodes),
+        "all_edges_certified": all(
+            edge_replay_failure(tree, edge) is None for edge in tree.edges
+        ),
         "max_data": max(node.regime.n_data() for node in tree.nodes),
         "max_response_rounds": max(node.response_rounds for node in tree.nodes),
     }
@@ -560,7 +663,7 @@ def tree_payload(tree: Tree) -> dict[str, Json]:
         "stats": tree_stats(tree),
         "refusals": _json(tree.refusals),
         "nodes": [node_payload(node) for node in tree.nodes],
-        "edges": [edge_payload(edge) for edge in tree.edges],
+        "edges": [edge_payload(tree, edge) for edge in tree.edges],
     }
 
 
@@ -591,10 +694,11 @@ def invariance_records(
     routine preserves the exact population and evaluates every non-orbit rule
     against each reconstructed regime before advancing to the next renaming.
 
-    O4 is handled by the exact finite conjugation certificate: a bijection
-    carries every source automorphism to a target automorphism and back.  The
-    source automorphism relation is still computed by the pinned implementation;
-    if its frozen guard fires, every rule reading O4 remains OPEN there.
+    Rules reading O4 are evaluated on every source pair, but are not upgraded
+    to CHECKED by a prose conjugation argument.  A CHECKED finite transport
+    claim requires executable target-regime replay.  Until that replay exists,
+    those rules remain OPEN even when the source automorphism guard does not
+    fire.
     """
 
     orbit_rules = tuple(rule for rule in rules if "O4" in rule.observables)
@@ -676,12 +780,14 @@ def invariance_records(
                 }
             else:
                 results[rule.name] = {
-                    "disposition": "CHECKED",
-                    "checks": covered,
+                    "disposition": "OPEN_AT_TRANSPORT_REPLAY",
                     "regimes": len(regimes),
-                    "scope": "every renaming of every reached regime within the rectangle",
-                    "orbit_transport": "bijection conjugation certificate over the pinned source automorphisms",
+                    "renaming_cases_priced": covered,
                     "source_pairs_checked": source_pairs,
+                    "obstruction": (
+                        "O4 source values were computed, but target-regime labels "
+                        "were not exhaustively replayed"
+                    ),
                 }
 
     return [{"rule": rule.name, **results[rule.name]} for rule in rules]
@@ -735,13 +841,23 @@ def build_all(rules: Sequence[StakeRule]) -> list[Tree]:
 def rule_generation_record(rule: StakeRule, trees: Sequence[Tree]) -> dict[str, Json]:
     own = [tree for tree in trees if tree.rule == rule.name]
     stats = [tree_stats(tree) for tree in own]
-    kind_values: set[str] = set()
+    growth_kind_values: set[str] = set()
+    response_kind_values: set[str] = set()
     for stat in stats:
-        raw_kinds = stat["kinds_answered"]
-        if not isinstance(raw_kinds, list):
-            raise TypeError("tree kinds must be a list")
-        kind_values.update(kind for kind in raw_kinds if isinstance(kind, str))
-    kinds = sorted(kind_values)
+        raw_growth_kinds = stat["growth_demand_kinds"]
+        raw_response_kinds = stat["response_target_kinds"]
+        if not isinstance(raw_growth_kinds, list):
+            raise TypeError("tree growth kinds must be a list")
+        if not isinstance(raw_response_kinds, list):
+            raise TypeError("tree response kinds must be a list")
+        growth_kind_values.update(
+            kind for kind in raw_growth_kinds if isinstance(kind, str)
+        )
+        response_kind_values.update(
+            kind for kind in raw_response_kinds if isinstance(kind, str)
+        )
+    growth_kinds = sorted(growth_kind_values)
+    response_kinds = sorted(response_kind_values)
     signatures = {
         f"{tree.reading}/{tree.measure}": tree_signature(tree) for tree in own
     }
@@ -750,7 +866,9 @@ def rule_generation_record(rule: StakeRule, trees: Sequence[Tree]) -> dict[str, 
         "source": rule.source,
         "observables": list(rule.observables),
         "capability_count": rule.capability_count,
-        "kinds": kinds,
+        "growth_kinds": growth_kinds,
+        "response_target_kinds": response_kinds,
+        "kind_populations_agree": growth_kinds == response_kinds,
         "relabellings": sum(_json_int(stat["relabellings"]) for stat in stats),
         "refusals": sum(_json_int(stat["refusals"]) for stat in stats),
         "fixpoints": sum(_json_int(stat["fixpoints"]) for stat in stats),

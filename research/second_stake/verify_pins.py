@@ -8,11 +8,46 @@ import pathlib
 import subprocess
 import sys
 from pathlib import PurePosixPath
-from typing import cast
+from types import ModuleType
+from typing import Mapping, cast
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 MANIFEST = HERE / "SOURCE_MANIFEST.json"
+FREEZE_COMMIT = "d4d5830e53d33e98404cb502ac2e694a871cb091"
+FROZEN_POLICY: dict[PurePosixPath, bool] = {
+    PurePosixPath("research/second_stake/PROMPT.md"): True,
+    PurePosixPath("research/second_stake/PREDICTIONS.md"): False,
+}
+RUNTIME_MODULE_PATHS: dict[str, PurePosixPath] = {
+    "derivation": PurePosixPath("code/derivation/__init__.py"),
+    "derivation.candidates": PurePosixPath("code/derivation/candidates.py"),
+    "derivation.engine": PurePosixPath("code/derivation/engine.py"),
+    "derivation.export": PurePosixPath("code/derivation/export.py"),
+    "derivation.iso": PurePosixPath("code/derivation/iso.py"),
+    "derivation.model": PurePosixPath("code/derivation/model.py"),
+    "derivation.observe": PurePosixPath("code/derivation/observe.py"),
+    "dual": PurePosixPath("research/identification_dual/dual.py"),
+    "two_sided": PurePosixPath("research/two_sided_commitment/two_sided.py"),
+    "generation": PurePosixPath("research/second_stake/generation.py"),
+    "observables": PurePosixPath("research/second_stake/observables.py"),
+    "rules": PurePosixPath("research/second_stake/rules.py"),
+    "run_stake": PurePosixPath("research/second_stake/run_stake.py"),
+    "verify_pins": PurePosixPath("research/second_stake/verify_pins.py"),
+}
+PINNED_RUNTIME_MODULES = frozenset(
+    {
+        "derivation",
+        "derivation.candidates",
+        "derivation.engine",
+        "derivation.export",
+        "derivation.iso",
+        "derivation.model",
+        "derivation.observe",
+        "dual",
+        "two_sided",
+    }
+)
 
 JsonObject = dict[str, object]
 
@@ -77,8 +112,74 @@ def span_bytes(source: bytes, start: int, end: int) -> bytes:
     return b"".join(lines[start - 1 : end])
 
 
+def runtime_manifest(data: JsonObject) -> dict[str, tuple[PurePosixPath, bool]]:
+    """Parse the closed runtime-module census from the provenance manifest."""
+
+    result: dict[str, tuple[PurePosixPath, bool]] = {}
+    for entry in entries(data.get("runtime_modules"), "runtime_modules"):
+        name = entry.get("name")
+        if not isinstance(name, str) or not name:
+            raise ValueError("runtime module name must be non-empty text")
+        if name in result:
+            raise ValueError(f"duplicate runtime module: {name}")
+        pinned = entry.get("pinned_source")
+        if not isinstance(pinned, bool):
+            raise ValueError(f"runtime module pinned_source must be boolean: {name}")
+        result[name] = (safe_path(entry.get("path")), pinned)
+    expected = {
+        name: (path, name in PINNED_RUNTIME_MODULES)
+        for name, path in RUNTIME_MODULE_PATHS.items()
+    }
+    if result != expected:
+        raise ValueError("runtime module manifest differs from the closed census")
+    return result
+
+
+def normalized_source(value: bytes) -> bytes:
+    """Normalize checkout line endings to the LF bytes stored in Git blobs."""
+
+    return value.replace(b"\r\n", b"\n")
+
+
+def verify_runtime_origins(modules: Mapping[str, ModuleType]) -> list[str]:
+    """Bind every executed project module to its declared repository source."""
+
+    data = manifest()
+    declared = runtime_manifest(data)
+    if set(modules) != set(declared):
+        raise ValueError("runtime module population differs from the closed census")
+    source_hashes = {
+        safe_path(entry.get("path")): expected_sha(entry)
+        for entry in entries(data.get("sources"), "sources")
+    }
+    lines: list[str] = []
+    for name, (path, pinned) in declared.items():
+        module_file = getattr(modules[name], "__file__", None)
+        if not isinstance(module_file, str):
+            raise ValueError(f"runtime module has no file origin: {name}")
+        actual = pathlib.Path(module_file).resolve()
+        expected = (REPO / pathlib.Path(*path.parts)).resolve()
+        if str(actual).casefold() != str(expected).casefold():
+            raise ValueError(
+                f"runtime module origin differs: {name}: expected {path}, got {actual}"
+            )
+        if pinned:
+            wanted = source_hashes.get(path)
+            if wanted is None:
+                raise ValueError(f"pinned runtime module lacks a source pin: {name}")
+            if digest(normalized_source(actual.read_bytes())) != wanted:
+                raise ValueError(f"runtime source bytes differ from the pin: {name}")
+        lines.append(f"runtime: {name} {path}")
+    return lines
+
+
 def verify() -> list[str]:
     data = manifest()
+    if data.get("schema") != "second_stake_source_manifest/v2":
+        raise ValueError("source manifest schema must be second_stake_source_manifest/v2")
+    freeze = data.get("freeze_commit")
+    if freeze != FREEZE_COMMIT:
+        raise ValueError(f"freeze_commit must be the original freeze {FREEZE_COMMIT}")
     snapshot = data.get("snapshot_commit")
     if not isinstance(snapshot, str) or len(snapshot) != 40:
         raise ValueError("snapshot_commit must be a full commit id")
@@ -93,6 +194,17 @@ def verify() -> list[str]:
             f"snapshot is not a verified ancestor of HEAD: git exit {relation.returncode}"
         )
     lines = [f"snapshot: {snapshot} (ancestor of {git_text('rev-parse', 'HEAD')})"]
+    freeze_relation = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", freeze, "HEAD"],
+        cwd=REPO,
+        capture_output=True,
+        check=False,
+    )
+    if freeze_relation.returncode != 0:
+        raise ValueError(
+            f"freeze is not a verified ancestor of HEAD: git exit {freeze_relation.returncode}"
+        )
+    lines.append(f"freeze: {freeze} (ancestor of HEAD)")
     source_entries = entries(data.get("sources"), "sources")
     cached: dict[PurePosixPath, bytes] = {}
     for entry in source_entries:
@@ -120,9 +232,22 @@ def verify() -> list[str]:
             if actual != wanted:
                 raise ValueError(f"span moved at {revision}: {name}")
         lines.append(f"span: {name} {path}:{start}-{end} {wanted}")
+    frozen_entries: dict[PurePosixPath, JsonObject] = {}
     for entry in entries(data.get("frozen_texts"), "frozen_texts"):
         path = safe_path(entry.get("path"))
+        if path in frozen_entries:
+            raise ValueError(f"duplicate frozen text: {path}")
+        frozen_entries[path] = entry
+    if set(frozen_entries) != set(FROZEN_POLICY):
+        raise ValueError("frozen text manifest differs from the closed freeze population")
+    for path, no_digits in FROZEN_POLICY.items():
+        entry = frozen_entries[path]
         wanted = expected_sha(entry)
+        at_freeze = blob(FREEZE_COMMIT, path)
+        if digest(at_freeze) != wanted:
+            raise ValueError(f"frozen manifest hash differs from freeze commit: {path}")
+        if entry.get("no_digits") is not no_digits:
+            raise ValueError(f"frozen no_digits policy differs: {path}")
         disk = REPO / pathlib.Path(*path.parts)
         if not disk.is_file():
             raise ValueError(f"frozen text missing from disk: {path}")
@@ -130,7 +255,7 @@ def verify() -> list[str]:
             raise ValueError(f"frozen text moved on disk: {path}")
         if digest(blob("HEAD", path)) != wanted:
             raise ValueError(f"frozen text moved in HEAD: {path}")
-        if entry.get("no_digits") is True and any(
+        if no_digits and any(
             byte in b"0123456789" for byte in disk.read_bytes()
         ):
             raise ValueError(f"frozen text contains a digit: {path}")
@@ -142,6 +267,12 @@ def verify() -> list[str]:
         if present != bool(entry.get("present")):
             raise ValueError(f"snapshot presence record differs: {path}")
         lines.append(f"absent at snapshot: {path}")
+    declared_runtime = runtime_manifest(data)
+    source_paths = {safe_path(entry.get("path")) for entry in source_entries}
+    for name, (path, pinned) in declared_runtime.items():
+        if pinned and path not in source_paths:
+            raise ValueError(f"pinned runtime module lacks a source pin: {name}")
+    lines.append(f"runtime module census: {len(declared_runtime)}")
     return lines
 
 

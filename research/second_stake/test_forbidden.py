@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import datetime as dt
+import gzip
 import importlib.util
 import hashlib
 import json
@@ -9,14 +11,20 @@ import pathlib
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from types import ModuleType
 from typing import Any, cast
+from unittest import mock
 
 sys.dont_write_bytecode = True
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 SNAPSHOT = "3f44571240a0830a2fa8de639281670f4e50a511"
+# This is rebound to the exact inherited base during ordered integration.  It
+# is deliberately separate from SNAPSHOT, which remains the immutable source
+# pin even after the scope comparison base advances.
+SCOPE_BASE = SNAPSHOT
 WRITE_ROOT = "research/second_stake/"
 SHARED = (".github/workflows/verify.yml", "research/second/MANUAL.md")
 ALLOWED = (WRITE_ROOT, *SHARED)
@@ -34,17 +42,28 @@ OUTSIDE_NAME_DIGESTS = frozenset(
         "630471bc17c69d0bb5c0b2a31b8faf762b907eb27fba3204a0f15695d8f804b4",
     }
 )
+GENERATED_DIRS = frozenset({"__pycache__", ".mypy_cache", ".venv"})
+TEXT_SUFFIXES = frozenset({".json", ".md", ".py", ".toml"})
+TEXT_NAMES = frozenset({".gitattributes", ".gitignore"})
+FULL_RECEIPT = (HERE / "receipts" / "full" / "stake_full.json.gz").resolve()
 
 
 def tree_files() -> list[pathlib.Path]:
-    ignored = {"__pycache__", ".mypy_cache"}
-    return sorted(
+    discovered = {
         path
         for path in HERE.rglob("*")
         if path.is_file()
         and path.name not in {".coverage", "coverage.json"}
-        and not any(part in ignored for part in path.parts)
-    )
+        and not any(part in GENERATED_DIRS for part in path.parts)
+    }
+    tracked = tracked_tree_files()
+    for path in tracked:
+        relative = path.relative_to(HERE)
+        if any(part in GENERATED_DIRS for part in relative.parts):
+            raise ValueError(f"tracked file in excluded generated directory: {relative}")
+        if path.name not in {".coverage", "coverage.json"}:
+            discovered.add(path)
+    return sorted(discovered)
 
 
 def claim_files() -> list[pathlib.Path]:
@@ -61,22 +80,76 @@ def scanner_module() -> ModuleType:
     return module
 
 
+def coverage_module() -> ModuleType:
+    spec = importlib.util.spec_from_file_location(
+        "stake_coverage_gate", HERE / "check_coverage.py"
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def strict_scan_text(path: pathlib.Path) -> str:
+    """Read the declared text population and the one declared binary receipt."""
+
+    resolved = path.resolve()
+    raw = path.read_bytes()
+    if resolved == FULL_RECEIPT:
+        try:
+            raw = gzip.decompress(raw)
+        except (gzip.BadGzipFile, EOFError, OSError) as exc:
+            raise ValueError(f"compressed receipt cannot be decoded: {path}") from exc
+    elif path.suffix not in TEXT_SUFFIXES and path.name not in TEXT_NAMES:
+        raise ValueError(f"undeclared binary path in scan population: {path}")
+    if b"\0" in raw:
+        raise ValueError(f"NUL byte in scanned text: {path}")
+    try:
+        return raw.decode("utf-8", errors="strict")
+    except UnicodeDecodeError as exc:
+        raise ValueError(f"invalid UTF-8 in scanned text: {path}") from exc
+
+
+def nul_paths(raw: bytes) -> list[str]:
+    """Decode fail-closed NUL-terminated path output from Git."""
+
+    if not raw:
+        return []
+    if not raw.endswith(b"\0"):
+        raise ValueError("Git path census is not NUL terminated")
+    chunks = raw[:-1].split(b"\0")
+    if any(not chunk for chunk in chunks):
+        raise ValueError("Git path census contains an empty path")
+    try:
+        return [chunk.decode("utf-8", errors="strict").replace("\\", "/") for chunk in chunks]
+    except UnicodeDecodeError as exc:
+        raise ValueError("Git path census is not valid UTF-8") from exc
+
+
+def tracked_tree_files() -> list[pathlib.Path]:
+    raw = subprocess.run(
+        ["git", "ls-files", "-z", "--", WRITE_ROOT],
+        cwd=REPO,
+        capture_output=True,
+        check=True,
+    ).stdout
+    return [REPO / pathlib.PurePosixPath(name) for name in nul_paths(raw)]
+
+
 def changed_paths() -> set[str]:
-    diff = subprocess.run(
-        ["git", "diff", "--name-only", SNAPSHOT],
+    diff_raw = subprocess.run(
+        ["git", "diff", "--no-renames", "--name-only", "-z", SCOPE_BASE],
         cwd=REPO,
         capture_output=True,
-        text=True,
         check=True,
-    ).stdout.splitlines()
-    untracked = subprocess.run(
-        ["git", "ls-files", "--others", "--exclude-standard"],
+    ).stdout
+    untracked_raw = subprocess.run(
+        ["git", "ls-files", "--others", "--exclude-standard", "-z"],
         cwd=REPO,
         capture_output=True,
-        text=True,
         check=True,
-    ).stdout.splitlines()
-    return {path.replace("\\", "/") for path in diff + untracked}
+    ).stdout
+    return set(nul_paths(diff_raw) + nul_paths(untracked_raw))
 
 
 def append_only(base: bytes, current: bytes) -> bool:
@@ -91,24 +164,91 @@ def outside_declared(paths: set[str]) -> set[str]:
     }
 
 
+def temporal_or_environment_keys(value: object) -> list[str]:
+    """Return keys matching the declared metadata spellings and aliases."""
+
+    failures: list[str] = []
+
+    def walk(item: object, location: str) -> None:
+        if isinstance(item, dict):
+            for key, child in item.items():
+                surface = str(key).replace("-", "_")
+                lowered = re.sub(r"(?<!^)(?=[A-Z])", "_", surface).lower()
+                child_location = f"{location}.{key}" if location else str(key)
+                exact = {
+                    "timestamp",
+                    "time",
+                    "date",
+                    "datetime",
+                    "environment",
+                    "env",
+                    "host",
+                    "host_name",
+                    "hostname",
+                    "platform",
+                    "cwd",
+                    "working_directory",
+                }
+                temporal_suffixes = (
+                    "_at",
+                    "_date",
+                    "_datetime",
+                    "_time",
+                    "_timestamp",
+                )
+                if lowered in exact or lowered.endswith(temporal_suffixes):
+                    failures.append(child_location)
+                walk(child, child_location)
+        elif isinstance(item, list):
+            for index, child in enumerate(item):
+                walk(child, f"{location}[{index}]")
+
+    walk(value, "")
+    return failures
+
+
 class VocabularyTests(unittest.TestCase):
     def test_repository_census_scanner_over_direct_write_root(self) -> None:
         scanner = scanner_module()
         data = cast(Any, scanner).load(REPO / cast(Any, scanner).WATCHLIST_REL)
         hits: list[str] = []
         for path in tree_files():
-            text = cast(Any, scanner).read_text(path)
-            if text is None:
-                continue
+            text = strict_scan_text(path)
             for hit in cast(Any, scanner).scan_text(text, data["watched"]):
                 hits.append(f"{path.relative_to(HERE)}:{hit.line}: {hit.surface}")
         self.assertEqual(hits, [])
+
+    def test_scan_population_fails_closed_on_binary_and_decode_defects(self) -> None:
+        self.assertTrue(strict_scan_text(FULL_RECEIPT).startswith("{"))
+        with self.subTest("NUL"):
+            with mock.patch.object(pathlib.Path, "read_bytes", return_value=b"ok\0bad"):
+                with self.assertRaisesRegex(ValueError, "NUL byte"):
+                    strict_scan_text(HERE / "probe.md")
+        with self.subTest("invalid UTF-8"):
+            with mock.patch.object(pathlib.Path, "read_bytes", return_value=b"\xff"):
+                with self.assertRaisesRegex(ValueError, "invalid UTF-8"):
+                    strict_scan_text(HERE / "probe.md")
+        with self.subTest("undeclared binary"):
+            with mock.patch.object(pathlib.Path, "read_bytes", return_value=b"ascii"):
+                with self.assertRaisesRegex(ValueError, "undeclared binary"):
+                    strict_scan_text(HERE / "probe.bin")
+        with self.subTest("read failure"):
+            with mock.patch.object(pathlib.Path, "read_bytes", side_effect=OSError("probe")):
+                with self.assertRaises(OSError):
+                    strict_scan_text(HERE / "probe.md")
+        with self.subTest("force-tracked generated-directory member"):
+            tracked_probe = HERE / ".venv" / "test_evil.py"
+            with mock.patch(
+                f"{__name__}.tracked_tree_files", return_value=[tracked_probe]
+            ):
+                with self.assertRaisesRegex(ValueError, "tracked file in excluded"):
+                    tree_files()
 
     def test_outside_names_for_orbit_readers_are_absent_by_digest(self) -> None:
         for path in tree_files():
             if path.name == "test_forbidden.py":
                 continue
-            text = path.read_text("utf-8", errors="replace")
+            text = strict_scan_text(path)
             for word in re.findall(r"[A-Za-z]+", text):
                 digest = hashlib.sha256(word.lower().encode("ascii")).hexdigest()
                 self.assertNotIn(digest, OUTSIDE_NAME_DIGESTS, f"outside name in {path.name}")
@@ -123,7 +263,7 @@ class VocabularyTests(unittest.TestCase):
         )
         self.assertEqual(len(working), 102)
         for path in tree_files():
-            text = path.read_text("utf-8", errors="replace")
+            text = strict_scan_text(path)
             for token in working:
                 hit = re.search(
                     r"(?<![A-Za-z0-9_])" + re.escape(token) + r"(?![A-Za-z0-9_])",
@@ -133,6 +273,25 @@ class VocabularyTests(unittest.TestCase):
 
 
 class BoundaryTests(unittest.TestCase):
+    def test_changed_path_census_disables_renames_and_parses_nul(self) -> None:
+        completed = (
+            subprocess.CompletedProcess([], 0, b"old.txt\0new.txt\0", b""),
+            subprocess.CompletedProcess([], 0, b"untracked.txt\0", b""),
+        )
+        with mock.patch.object(subprocess, "run", side_effect=completed) as run:
+            self.assertEqual(changed_paths(), {"old.txt", "new.txt", "untracked.txt"})
+        self.assertEqual(
+            run.call_args_list[0].args[0],
+            ["git", "diff", "--no-renames", "--name-only", "-z", SCOPE_BASE],
+        )
+        self.assertEqual(
+            run.call_args_list[1].args[0],
+            ["git", "ls-files", "--others", "--exclude-standard", "-z"],
+        )
+        with self.assertRaisesRegex(ValueError, "NUL terminated"):
+            nul_paths(b"unterminated")
+        with self.assertRaisesRegex(ValueError, "valid UTF-8"):
+            nul_paths(b"\xff\0")
     def test_only_write_root_and_two_shared_appends_are_changed(self) -> None:
         paths = changed_paths()
         self.assertEqual(outside_declared(paths), set())
@@ -161,6 +320,119 @@ class BoundaryTests(unittest.TestCase):
             self.assertTrue(append_only(base, disk), f"shared file is not append-only: {name}")
 
 
+class CoverageGateTests(unittest.TestCase):
+    @staticmethod
+    def report() -> dict[str, object]:
+        summary = {
+            "covered_lines": 1,
+            "missing_lines": 0,
+            "num_statements": 1,
+            "covered_branches": 1,
+            "missing_branches": 0,
+            "num_branches": 1,
+            "num_partial_branches": 0,
+        }
+        files = {
+            name: {"summary": dict(summary)}
+            for name in (
+                "generation.py",
+                "observables.py",
+                "rules.py",
+                "run_stake.py",
+                "verify_pins.py",
+            )
+        }
+        totals = {name: value * len(files) for name, value in summary.items()}
+        return {
+            "meta": {
+                "timestamp": (dt.datetime.now().astimezone() + dt.timedelta(days=1)).isoformat(),
+                "branch_coverage": True,
+            },
+            "files": files,
+            "totals": totals,
+        }
+
+    def check(self, report: dict[str, object]) -> list[str]:
+        gate = cast(Any, coverage_module())
+        with tempfile.TemporaryDirectory() as directory:
+            path = pathlib.Path(directory) / "coverage.json"
+            path.write_text(json.dumps(report), encoding="utf-8")
+            return cast(list[str], gate.check(path))
+
+    def test_valid_report_and_live_full_report_pass(self) -> None:
+        self.assertEqual(self.check(self.report()), [])
+        gate = cast(Any, coverage_module())
+        self.assertEqual(gate.check(HERE / "coverage.json"), [])
+
+    def test_new_production_source_enters_the_independent_census(self) -> None:
+        gate = cast(Any, coverage_module())
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            for name in ("generation.py", "helper.py", "test_helper.py", "check_coverage.py"):
+                (root / name).write_text("pass\n", encoding="utf-8")
+            with mock.patch.object(gate, "HERE", root):
+                self.assertEqual(
+                    gate.production_sources(), frozenset({"generation.py", "helper.py"})
+                )
+                report = self.report()
+                report_path = root / "coverage.json"
+                report_path.write_text(json.dumps(report), encoding="utf-8")
+                failures = cast(list[str], gate.check(report_path))
+        self.assertTrue(any("helper.py" in failure for failure in failures))
+
+    def test_branch_metadata_and_freshness_fail_closed(self) -> None:
+        for value in (False, None):
+            report = self.report()
+            meta = cast(dict[str, object], report["meta"])
+            if value is None:
+                del meta["branch_coverage"]
+            else:
+                meta["branch_coverage"] = value
+            self.assertIn("branch_coverage must be true", self.check(report)[0])
+        stale = self.report()
+        cast(dict[str, object], stale["meta"])["timestamp"] = "2000-01-01T00:00:00"
+        self.assertTrue(
+            any("coverage report is stale for" in failure for failure in self.check(stale))
+        )
+
+    def test_zero_population_wrong_path_and_counter_injections_fail(self) -> None:
+        zero = self.report()
+        for record in cast(dict[str, dict[str, object]], zero["files"]).values():
+            summary = cast(dict[str, int], record["summary"])
+            summary["covered_branches"] = 0
+            summary["num_branches"] = 0
+        totals = cast(dict[str, int], zero["totals"])
+        totals["covered_branches"] = 0
+        totals["num_branches"] = 0
+        self.assertIn("branch population is empty", self.check(zero)[0])
+
+        duplicate = self.report()
+        files = cast(dict[str, object], duplicate["files"])
+        files["wrong/generation.py"] = files["generation.py"]
+        self.assertIn("basename collision", self.check(duplicate)[0])
+
+        traversal = self.report()
+        traversal_files = cast(dict[str, object], traversal["files"])
+        traversal_files["../generation.py"] = traversal_files.pop("generation.py")
+        self.assertIn("not normalized relative", self.check(traversal)[0])
+
+        arithmetic = self.report()
+        arithmetic_files = cast(dict[str, dict[str, object]], arithmetic["files"])
+        cast(dict[str, int], arithmetic_files["generation.py"]["summary"])[
+            "missing_lines"
+        ] = 1
+        self.assertIn("line counters do not add up", self.check(arithmetic)[0])
+
+        negative = self.report()
+        cast(dict[str, int], negative["totals"])["missing_branches"] = -1
+        self.assertIn("nonnegative integer", self.check(negative)[0])
+
+        mismatch = self.report()
+        cast(dict[str, int], mismatch["totals"])["covered_lines"] -= 1
+        cast(dict[str, int], mismatch["totals"])["missing_lines"] += 1
+        self.assertIn("totals do not equal file counters", self.check(mismatch)[0])
+
+
 class ClaimBoundaryTests(unittest.TestCase):
     def test_protected_open_stays_open(self) -> None:
         status = (HERE / "STATUS.md").read_text("utf-8")
@@ -173,7 +445,7 @@ class ClaimBoundaryTests(unittest.TestCase):
             "answers OB-1",
         )
         for path in claim_files():
-            text = path.read_text("utf-8", errors="replace")
+            text = strict_scan_text(path)
             for phrase in barred:
                 self.assertNotIn(phrase, text, f"{path.name} changes the protected open")
 
@@ -186,23 +458,55 @@ class ClaimBoundaryTests(unittest.TestCase):
             "ALL_SOLUTIONS_FOUND",
         )
         for path in claim_files():
-            text = path.read_text("utf-8", errors="replace")
+            text = strict_scan_text(path)
             for phrase in barred:
                 self.assertNotIn(phrase, text, f"{path.name} carries an unlicensed sentence")
 
-    def test_receipts_have_no_temporal_or_environment_fields(self) -> None:
-        def walk(value: object) -> None:
-            if isinstance(value, dict):
-                for key, child in value.items():
-                    lowered = str(key).lower()
-                    self.assertNotIn(lowered, {"timestamp", "time", "date", "environment", "host"})
-                    walk(child)
-            elif isinstance(value, list):
-                for child in value:
-                    walk(child)
-
+    def test_receipts_have_no_declared_temporal_or_environment_metadata_keys(self) -> None:
         for path in (HERE / "receipts").rglob("*.json"):
-            walk(json.loads(path.read_text("utf-8")))
+            self.assertEqual(
+                temporal_or_environment_keys(json.loads(path.read_text("utf-8"))),
+                [],
+                str(path),
+            )
+        for path in (HERE / "receipts").rglob("*.json.gz"):
+            self.assertEqual(
+                temporal_or_environment_keys(json.loads(gzip.decompress(path.read_bytes()))),
+                [],
+                str(path),
+            )
+
+    def test_compressed_receipt_semantic_probe_is_named(self) -> None:
+        raw = gzip.compress(
+            json.dumps(
+                {
+                    "nodes": [
+                        {
+                            "environment": "probe",
+                            "created_at": "probe",
+                            "datetime": "probe",
+                            "hostName": "probe",
+                            "platform": "probe",
+                            "cwd": "probe",
+                            "env": "probe",
+                        }
+                    ]
+                }
+            ).encode()
+        )
+        loaded: object = json.loads(gzip.decompress(raw))
+        self.assertEqual(
+            temporal_or_environment_keys(loaded),
+            [
+                "nodes[0].environment",
+                "nodes[0].created_at",
+                "nodes[0].datetime",
+                "nodes[0].hostName",
+                "nodes[0].platform",
+                "nodes[0].cwd",
+                "nodes[0].env",
+            ],
+        )
 
 
 if __name__ == "__main__":
