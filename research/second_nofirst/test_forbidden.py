@@ -34,7 +34,9 @@ import pathlib
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
+from unittest import mock
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -98,30 +100,43 @@ OBSTRUCTION_PATTERNS = (
 
 def tracked_write_root_files() -> list[pathlib.Path]:
     proc = subprocess.run(
-        ["git", "ls-files", "-z", "--", WRITE_ROOT],
+        [
+            "git", "ls-files", "-z", "--cached", "--others",
+            "--exclude-standard", "--", WRITE_ROOT,
+        ],
         capture_output=True,
         cwd=REPO,
         check=False,
     )
     if proc.returncode != 0:  # pragma: no cover - git is present in CI
-        return []
+        raise RuntimeError("git ls-files failed; the write-root scan is unavailable")
     out: list[pathlib.Path] = []
     for raw in proc.stdout.split(b"\0"):
         if not raw:
             continue
-        out.append(REPO / raw.decode("utf-8", errors="replace"))
+        try:
+            relative = raw.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise ValueError("a tracked path is not UTF-8") from exc
+        out.append(REPO / relative)
     return out
 
 
 def readable(paths: list[pathlib.Path]) -> list[tuple[str, str]]:
     files: list[tuple[str, str]] = []
     for path in paths:
+        if path.is_symlink():
+            raise ValueError(f"refusing to scan through symlink {path}")
         try:
-            text = path.read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            continue
-        if "\0" in text:
-            continue
+            raw = path.read_bytes()
+        except OSError as exc:
+            raise ValueError(f"cannot read tracked file {path}") from exc
+        if b"\0" in raw:
+            raise ValueError(f"tracked file contains NUL bytes and cannot be scanned: {path}")
+        try:
+            text = raw.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise ValueError(f"tracked file is not UTF-8 and cannot be scanned: {path}") from exc
         rel = path.relative_to(REPO).as_posix()
         files.append((rel, text))
     return files
@@ -153,10 +168,8 @@ def comparison_base() -> str | None:
     `main` that this branch has merged, which is what `git merge-base`
     returns once the merge is in.
 
-    Returns None when no base can be resolved, and the caller SKIPS rather
-    than passes.  A skipped scan is not a clean scan; the local battery is
-    the verifier of record for this refusal, and the run that produced this
-    tree checked it against the real base.
+    Returns None when no base can be resolved, and the caller FAILS rather
+    than passes.  An unavailable scan is not a clean scan.
     """
     for ref in ("origin/main", "main"):
         proc = subprocess.run(
@@ -170,11 +183,11 @@ def comparison_base() -> str | None:
 
 def changed_paths(base: str) -> list[str]:
     proc = subprocess.run(
-        ["git", "diff", "--name-only", f"{base}..HEAD"],
+        ["git", "diff", "--name-only", base],
         capture_output=True, text=True, cwd=REPO, check=False,
     )
     if proc.returncode != 0:  # pragma: no cover - git is present in CI
-        return []
+        raise RuntimeError("git diff failed; the committed-scope scan is unavailable")
     return [line.strip() for line in proc.stdout.splitlines() if line.strip()]
 
 
@@ -282,7 +295,7 @@ class WriteRootScan(unittest.TestCase):
     def setUp(self) -> None:
         base = comparison_base()
         if base is None:  # pragma: no cover - a resolvable base exists here
-            self.skipTest("no comparison base; a skip is not a clean scan")
+            self.fail("no comparison base; the committed-scope scan cannot run")
         self.changed = changed_paths(base)
 
     def test_this_branch_touches_nothing_outside_the_write_root(self) -> None:
@@ -327,7 +340,7 @@ class WriteRootScan(unittest.TestCase):
         assert base is not None
         for path in APPEND_ONLY:
             proc = subprocess.run(
-                ["git", "diff", "-U0", f"{base}..HEAD", "--", path],
+                ["git", "diff", "-U0", base, "--", path],
                 capture_output=True, text=True, cwd=REPO, check=False,
             )
             removed = [
@@ -423,6 +436,137 @@ class SealedObstruction(unittest.TestCase):
         ledger = (HERE / "CLAIM_LEDGER.md").read_text(encoding="utf-8")
         for line in quoted.strip().split("\n"):
             self.assertIn(line.strip(), ledger)
+
+
+class ScannerFailureTests(unittest.TestCase):
+    def test_unreadable_file_fails_closed(self) -> None:
+        path = pathlib.Path("probe.md")
+        with mock.patch.object(pathlib.Path, "read_bytes", side_effect=OSError("probe")):
+            with self.assertRaisesRegex(ValueError, "cannot read tracked file"):
+                readable([path])
+
+    def test_non_utf8_file_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = pathlib.Path(tmp) / "probe.md"
+            path.write_bytes(b"plain prefix\xff")
+            with self.assertRaisesRegex(ValueError, "not UTF-8"):
+                readable([path])
+
+    def test_nul_file_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = pathlib.Path(tmp) / "probe.md"
+            path.write_bytes(b"plain\x00text")
+            with self.assertRaisesRegex(ValueError, "contains NUL"):
+                readable([path])
+
+    def test_git_diff_failure_is_not_an_empty_change_set(self) -> None:
+        failed = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=2, stdout="", stderr="probe failure"
+        )
+        with mock.patch.object(subprocess, "run", return_value=failed):
+            with self.assertRaisesRegex(RuntimeError, "git diff failed"):
+                changed_paths("probe")
+
+    def test_git_file_census_failure_is_not_an_empty_population(self) -> None:
+        failed = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=2, stdout=b"", stderr=b"probe"
+        )
+        with mock.patch.object(subprocess, "run", return_value=failed):
+            with self.assertRaisesRegex(RuntimeError, "git ls-files failed"):
+                tracked_write_root_files()
+
+    def test_non_utf8_tracked_path_fails_closed(self) -> None:
+        bad = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=0, stdout=b"\xff\0", stderr=b""
+        )
+        with mock.patch.object(subprocess, "run", return_value=bad):
+            with self.assertRaisesRegex(ValueError, "tracked path is not UTF-8"):
+                tracked_write_root_files()
+
+    def test_missing_comparison_base_fails_the_scope_scan(self) -> None:
+        case = WriteRootScan("test_this_branch_touches_nothing_outside_the_write_root")
+        with mock.patch(f"{__name__}.comparison_base", return_value=None):
+            with self.assertRaisesRegex(AssertionError, "no comparison base"):
+                case.setUp()
+
+    def test_scope_diff_compares_base_to_the_current_worktree(self) -> None:
+        success = subprocess.CompletedProcess(
+            args=["git", "diff"], returncode=0, stdout="probe.py\n", stderr=""
+        )
+        with mock.patch.object(subprocess, "run", return_value=success) as run:
+            self.assertEqual(changed_paths("base-sha"), ["probe.py"])
+        self.assertEqual(
+            run.call_args.args[0], ["git", "diff", "--name-only", "base-sha"]
+        )
+
+    def test_file_census_includes_index_and_untracked_worktree_files(self) -> None:
+        success = subprocess.CompletedProcess(
+            args=["git", "ls-files"], returncode=0,
+            stdout=b"research/second_nofirst/probe.py\0", stderr=b"",
+        )
+        with mock.patch.object(subprocess, "run", return_value=success) as run:
+            paths = tracked_write_root_files()
+        self.assertEqual(paths, [REPO / "research/second_nofirst/probe.py"])
+        self.assertEqual(
+            run.call_args.args[0],
+            [
+                "git", "ls-files", "-z", "--cached", "--others",
+                "--exclude-standard", "--", WRITE_ROOT,
+            ],
+        )
+
+
+class WorkflowRegistrationTests(unittest.TestCase):
+    PYTHON_MARKER = "# Rung two, track one: no first demand."
+    PYTHON_REQUIRED = (
+        "python research/second_nofirst/verify_pins.py",
+        "python -m coverage run -m unittest discover -s . -p \"test_*.py\"",
+        "grep -Eq '^Ran 139 tests in '",
+        "python check_coverage.py",
+        "git diff --exit-code -- receipts",
+        "python -m mypy",
+    )
+    LEAN_REQUIRED = (
+        "python3 research/second_nofirst/verify_lean.py",
+    )
+    REQUIRED = PYTHON_REQUIRED + LEAN_REQUIRED
+
+    @classmethod
+    def missing(cls, workflow: str) -> list[str]:
+        if cls.PYTHON_MARKER not in workflow:
+            return [cls.PYTHON_MARKER, *cls.REQUIRED]
+        rung_block = workflow.split(cls.PYTHON_MARKER, 1)[1]
+        missing = [
+            command for command in cls.PYTHON_REQUIRED if command not in rung_block
+        ]
+        missing.extend(
+            command for command in cls.LEAN_REQUIRED if command not in workflow
+        )
+        return missing
+
+    def test_ci_registers_every_machine_gate_of_this_rung(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertEqual(self.missing(workflow), [])
+        self.assertLess(
+            workflow.index("python3 research/second_nofirst/verify_lean.py"),
+            workflow.index("- name: Every Lean module elaborates"),
+        )
+
+    def test_ci_registration_gate_names_each_removed_command(self) -> None:
+        workflow = (REPO / ".github" / "workflows" / "verify.yml").read_text(
+            encoding="utf-8"
+        )
+        for command in self.REQUIRED:
+            if command in self.PYTHON_REQUIRED:
+                prefix, block = workflow.split(self.PYTHON_MARKER, 1)
+                injected = prefix + self.PYTHON_MARKER + block.replace(
+                    command, "probe-command-removed", 1
+                )
+            else:
+                injected = workflow.replace(command, "probe-command-removed", 1)
+            self.assertEqual(self.missing(injected), [command])
 
 
 if __name__ == "__main__":

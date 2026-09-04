@@ -33,6 +33,8 @@ import re
 import subprocess
 import unittest
 
+import verify_lean as lean_audit
+
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 LEAN = HERE / "lean" / "SecondNoFirst"
@@ -51,24 +53,68 @@ PAIRS = (
     ),
 )
 
-DECL_START = (
-    r"(?m)^(?=theorem |def |abbrev |structure |inductive |instance |@\[simp\])"
+DECL_KINDS = "theorem|lemma|def|abbrev|opaque|structure|class|inductive|instance"
+DECL_PREFIX = (
+    r"(?:@\[[^\]\r\n]*\]\s*)*"
+    r"(?:(?:private|protected|noncomputable)\s+)*"
 )
-DECL_NAME = r"(?:theorem|def|abbrev|structure|inductive) ([A-Za-z_][\w'.]*)"
+DECL_START = rf"(?m)^(?=[ \t]*{DECL_PREFIX}(?:{DECL_KINDS})\b)"
+DECL_HEADER = re.compile(
+    rf"[ \t]*{DECL_PREFIX}(?P<kind>{DECL_KINDS})"
+    r"(?:\s+(?P<name>[A-Za-z_][\w'.]*))?\b"
+)
+EXPECTED_OMISSIONS = {
+    "lean4/Derivation/Basic.lean": [
+        "Item",
+        "R2F",
+        "R2F_wf",
+        "R2L",
+        "R2L_wf",
+        "applyDelta",
+        "applyItem",
+        "insertNew_nil",
+        "mem_insertNew",
+        "validResponse",
+    ],
+    "lean4/Derivation/Inertia.lean": [
+        "R2F_collapsed",
+        "R2L_collapsed",
+        "admission_without_expressive_increase",
+        "historyF_replays",
+        "historyL_replays",
+        "replayE_append",
+    ],
+    "research/standing_commitment/lean/StandingCommitment/Commitment.lean": [
+        "accounting_instance",
+        "demand_count_grows",
+        "demands_persist_under_growth",
+        "pairsOf_length_cons",
+    ],
+}
 
 
 def normalize(text: str) -> dict[str, str]:
     """Declaration name -> normalized body: comments gone, namespace and
     `end` lines gone, whitespace collapsed."""
-    text = re.sub(r"/-[!-]?.*?-/", "", text, flags=re.S)
+    text = lean_audit.declaration_text(text)
     out: dict[str, str] = {}
+    anonymous_instances = 0
     for part in re.split(DECL_START, text):
-        match = re.match(DECL_NAME, part.strip())
+        match = DECL_HEADER.match(part.strip())
         if match is None:
             continue
+        kind = match.group("kind")
+        name = match.group("name")
+        if name is None:
+            if kind != "instance":
+                raise ValueError(f"could not read the name of a {kind} declaration")
+            anonymous_instances += 1
+            name = f"<anonymous instance {anonymous_instances}>"
         body = re.sub(r"(?m)^end [\w.]+\s*$", "", part)
         body = re.sub(r"(?m)^namespace [\w.]+\s*$", "", body)
-        out[match.group(1)] = re.sub(r"\s+", " ", body).strip()
+        if name in out:
+            raise ValueError(f"duplicate declaration key {name}")
+        out[name] = re.sub(r"\s+", " ", body).strip()
     return out
 
 
@@ -106,7 +152,25 @@ class ReconstructionTests(unittest.TestCase):
         self.assertEqual(differing, [])
         # Not a vacuous pass: the comparison must actually have compared
         # something, and a slice this small would be suspicious.
-        self.assertGreaterEqual(shared_total, 40)
+        self.assertEqual(shared_total, 49)
+
+    def test_reconstruction_modules_add_no_unattributed_declaration(self) -> None:
+        """A reconstruction module may omit a recorded slice, but it may
+        not add a declaration absent from every source assigned to it."""
+        commit = snapshot()
+        for module in sorted({module for _, module in PAIRS}):
+            source_names: set[str] = set()
+            for source, assigned in PAIRS:
+                if assigned == module:
+                    source_names.update(normalize(blob(commit, source)))
+            reconstructed = set(
+                normalize((LEAN / module).read_text(encoding="utf-8"))
+            )
+            self.assertEqual(
+                sorted(reconstructed - source_names),
+                [],
+                f"{module} adds a declaration absent from its pinned sources",
+            )
 
     def test_a_changed_binder_would_be_caught(self) -> None:
         """NEGATIVE: the comparison bites.  Renaming one binder in a
@@ -130,6 +194,20 @@ class ReconstructionTests(unittest.TestCase):
         )
         original = "def f (n : Nat) : Nat := n + 1\n"
         self.assertEqual(normalize(sample)["f"], normalize(original)["f"])
+        nested = "/- outer /- theorem fake : False := by trivial -/ end -/\n"
+        self.assertEqual(normalize(nested), {})
+
+    def test_attributed_and_anonymous_declarations_are_in_the_population(self) -> None:
+        """NEGATIVE: the old splitter silently discarded an attributed
+        theorem and every anonymous instance.  Both are declarations and
+        must enter either the shared or omitted population."""
+        sample = (
+            "@[simp] theorem marked (n : Nat) : n = n := rfl\n"
+            "instance (n : Nat) : Decidable (n = n) := inferInstance\n"
+        )
+        found = normalize(sample)
+        self.assertIn("marked", found)
+        self.assertIn("<anonymous instance 1>", found)
 
     def test_the_omitted_declarations_are_recorded_not_judged(self) -> None:
         """The reconstruction carries the slice the theorems need.  This
@@ -150,11 +228,12 @@ class ReconstructionTests(unittest.TestCase):
             for name in names:
                 for module in {m for s, m in PAIRS if s == source}:
                     body = (LEAN / module).read_text(encoding="utf-8")
-                    body = re.sub(r"/-[!-]?.*?-/", "", body, flags=re.S)
+                    body = lean_audit.declaration_text(body)
                     self.assertNotRegex(
                         body, r"(?<![\w'.])" + re.escape(name) + r"(?![\w'])",
                         f"{name} is omitted from {module} but named in it",
                     )
+        self.assertEqual(omitted, EXPECTED_OMISSIONS)
 
 
 if __name__ == "__main__":

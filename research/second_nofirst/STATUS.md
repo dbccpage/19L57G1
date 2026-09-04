@@ -103,7 +103,8 @@ proofs are in `lean/`, with the axiom log committed at
   antecedent; that was wrong and is WITHDRAWN.
   Scope: the reconstruction is faithful only as far as a reader checks; the
   pins prove that the sources did not move and nothing more.
-- **NO_FIRST_DEMAND_PROVED** (PROVED_THEOREM, as an assembly).  In the
+- **LABEL_SOURCE_ASSEMBLY_PROVED** (PROVED_THEOREM, as an assembly, under
+  the frozen target name `no_first_demand`).  In the
   sealed grammar reconstructed here, extended by a declared two-sided
   stake, and in no other grammar: a demand is at a pair the stake labels;
   it depends on the stake only through that pair's label; every event is
@@ -112,7 +113,9 @@ proofs are in `lean/`, with the axiom log committed at
   are at the level of a definition.**  See the FW-DEF census below.  The
   theorem is true and its scope discipline is clean, and what it shows is
   that the definitions were chosen well -- which is a design claim, not a
-  mathematical result.
+  mathematical result.  It proves no statement about a first occurrence in
+  an arbitrary run: non-inert events can make a demand appear, and that
+  index remains leftover L-2.
 - **DEMANDS_PROPAGATE_PROVED** (PROVED_THEOREM).  With a stake declared,
   growth generates, in both label directions, over the sealed regime; the
   apart form is also proved with its collapse hypothesis discharged rather
@@ -259,7 +262,7 @@ that IS evidence is listed here, and each item is in the committed tree.
    own `namespace` lines, so a new module cannot be forgotten.
 6. **The reconstructions are now checked, not only pinned.**  The reading
    observed that the pins prove only that the sources did not move.
-   `test_reconstruction.py` closes the shared-declaration half: 46
+   `test_reconstruction.py` closes the shared-declaration half: 49
    declarations across four sources, all identical at the snapshot.
 7. **A finding worth recording on its own.**  The sibling two-sided tree's
    conjecture sketch routes through "a fresh datum has the empty profile".
@@ -269,13 +272,14 @@ that IS evidence is listed here, and each item is in the committed tree.
    not use that route; it goes through collapse transitivity and the
    restriction from the grown regime.  The sibling's row is not edited.
 
-## Injections: every gate this rung adds, proved by failing
+## Gate injections and exact-head repair probes
 
 A gate is proved by failing on the exact defect it exists to catch, with
 the failure naming the injected object, and by recovering when the
-injection is reversed.  Fifteen were run against this rung's own gates and
-each is recorded below; the rows are appended to the injection table of
-`research/second/MANUAL.md`.
+injection is reversed.  Fifteen were run against the original rung's gates.
+The exact-head repair adds executable adversarial probes for the defects
+found in review; both sets are recorded below and appended to the injection
+table of `research/second/MANUAL.md`.
 
 | gate | injection | observed failure, verbatim |
 |---|---|---|
@@ -295,6 +299,12 @@ each is recorded below; the rows are appended to the injection table of
 | reconstruction faithfulness, binder | `collapsed`'s second binder renamed from `d'` to `dd` in `Kernel.lean` | `AssertionError: "def collapsed (r : Regime) (d d' : Nat) ..." != 'def collapsed (r : Regime) (d dd : Nat) ...'`; exit 1, then 0 after reversal |
 | reconstruction faithfulness, hypothesis | `collapsed_of_no_insts`'s hypothesis weakened from `r.insts = []` to `r.insts = r.insts` | `AssertionError: Lists differ: ['lean4/Derivation/Inertia.lean -> Kernel.lean: collapsed_of_no_insts'] != []`; exit 1, then 0 |
 | FW-OB1 exemption pin | the exempted line reworded | `test_an_exempted_line_loses_its_exemption_when_reworded`: the appended-to line's digest is not in the pinned list, so the exemption lapses |
+| first-demand claim scope | two datum admissions from the empty history under the all-apart stake | `test_two_datum_admissions_witness_a_later_first_demand` records `index = 2` and `kind = AdmitDatum`.  The declaration supplies the label; the second admission triggers its first demand.  This is a counterexample to the withdrawn causal-source sentence, not a new general theorem |
+| reconstruction declaration population | found live: the former parser split at an attributed declaration but then rejected its header, and ignored anonymous instances | `test_attributed_and_anonymous_declarations_are_in_the_population` sees both shapes; the exact shared count is 49, and the omission test now pins the exact absent population including `insertNew_nil` |
+| coverage source, path, counter, and line arithmetic | synthetic unlisted module; nested known basename; impossible missing count; report claiming 99 percent while every measured file has six missing lines of one hundred | the four tests in `test_coverage_gate.py` each raise by the injected defect; the last raises `line coverage 94.00% is below 95%` from statement counts rather than trusting a supplied percentage |
+| fail-closed file and scope scans | unreadable, non-UTF-8, NUL, non-UTF-8 path, failed `git ls-files`, failed `git diff`, missing base, plus an untracked worktree path | `ScannerFailureTests` names every unavailable input and verifies the census reads index plus untracked files while the scope diff compares the base to the current worktree |
+| Lean fresh-build and declaration census | private and attributed user axiom shapes, an attributed theorem, a nested module, a doc-comment line beginning with the declaration keyword, and `lake clean` returning 7 | `LeanVerifierTests` catches both hidden declaration shapes, includes the theorem and nested module, excludes the prose line through a nested-comment-aware scanner, and records stage `clean` without attempting `lake build` |
+| workflow registration | each required rung-two command removed from an in-memory copy, one at a time | `test_ci_registration_gate_names_each_removed_command` returns the exact missing command for pins, the 139-test coverage run, coverage check, receipt diff, strict typing, and the clean Lean verifier |
 
 **One injection changed the tree rather than only proving a gate.**  The
 census classification probe was run BEFORE the census exception list
@@ -379,11 +389,12 @@ afterwards cost about one second, so the figure stands.
   is WITHDRAWN and quoted here rather than deleted.
   `test_reconstruction.py` compares every declaration the reconstruction
   shares with its source, read by git blob AT THE SNAPSHOT, with comments
-  and namespace lines stripped and whitespace normalized: 46 shared
-  declarations across four sources, all identical, and two injections show
+  and namespace lines stripped and whitespace normalized: 49 shared
+  declarations across four sources, all identical, including attributed
+  declarations and anonymous instances, and two injections show
   the comparison catches a renamed binder and a weakened hypothesis.
   What remains open is narrower and stays named: whether the declarations
-  the reconstruction OMITS are safe to omit.  The gate records the omitted
+  the reconstruction OMITS are safe to omit.  The gate pins the exact omitted
   names and checks that none of them is mentioned by the reconstruction;
   that they are not NEEDED is still read by hand.  Price: small.
 

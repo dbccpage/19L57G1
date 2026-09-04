@@ -26,7 +26,12 @@ from __future__ import annotations
 import json
 import pathlib
 import re
+import subprocess
+import tempfile
 import unittest
+from unittest import mock
+
+import verify_lean as lean_audit
 
 HERE = pathlib.Path(__file__).resolve().parent
 LEAN = HERE / "lean" / "SecondNoFirst"
@@ -41,15 +46,14 @@ DEFINITION_LINE_BOUND = 12
 
 
 def modules() -> list[pathlib.Path]:
-    return [m for m in sorted(LEAN.glob("*.lean")) if m.name != REPORT_MODULE]
+    return [m for m in sorted(LEAN.rglob("*.lean")) if m.name != REPORT_MODULE]
 
 
 def declared() -> dict[str, str]:
     out: dict[str, str] = {}
     for path in modules():
-        for name in re.findall(
-            r"^theorem ([A-Za-z_][\w'.]*)", path.read_text("utf-8"), re.M
-        ):
+        text = lean_audit.declaration_text(path.read_text("utf-8"))
+        for name in lean_audit.THEOREM_DECL.findall(text):
             out[name] = path.name
     return out
 
@@ -173,6 +177,48 @@ class CensusTests(unittest.TestCase):
         cannot quietly be relabelled: the headline conjunction is an
         assembly of definitional facts and is classed as one."""
         self.assertEqual(self.rows["no_first_demand"]["class"], "DEFINITION")
+
+
+class LeanVerifierTests(unittest.TestCase):
+    def test_private_and_attributed_axioms_are_forbidden(self) -> None:
+        """NEGATIVE: declaration modifiers may not hide a user axiom."""
+        for text in (
+            "private ax" + "iom hidden : False\n",
+            "@[irreducible] protected ax" + "iom hidden : False\n",
+        ):
+            self.assertIsNotNone(lean_audit.LEADING_AXIOM.search(text))
+
+    def test_attributed_theorem_is_in_the_axiom_population(self) -> None:
+        text = "@[simp] theorem marked (n : Nat) : n = n := rfl\n"
+        self.assertEqual(lean_audit.THEOREM_DECL.findall(text), ["marked"])
+
+    def test_comment_line_that_begins_with_theorem_is_not_a_declaration(self) -> None:
+        text = "/-- prose\ntheorem in this sentence is not Lean code -/\n"
+        visible = lean_audit.declaration_text(text)
+        self.assertEqual(lean_audit.THEOREM_DECL.findall(visible), [])
+
+    def test_module_census_is_recursive(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            lean = pathlib.Path(tmp)
+            nested = lean / "SecondNoFirst" / "Nested"
+            nested.mkdir(parents=True)
+            (nested / "Probe.lean").write_text("theorem probe : True := by trivial\n")
+            report = lean / "SecondNoFirst" / "AxiomReport.lean"
+            report.write_text("\n")
+            with mock.patch.object(lean_audit, "LEAN", lean):
+                self.assertEqual(
+                    [path.name for path in lean_audit.modules()], ["Probe.lean"]
+                )
+
+    def test_failed_lake_clean_stops_before_build(self) -> None:
+        failed = subprocess.CompletedProcess(
+            args=["lake", "clean"], returncode=7, stdout="", stderr="probe failure"
+        )
+        with mock.patch.object(subprocess, "run", return_value=failed) as run:
+            stage, code, log = lean_audit.build()
+        self.assertEqual((stage, code), ("clean", 7))
+        self.assertIn("probe failure", log)
+        run.assert_called_once()
 
 
 if __name__ == "__main__":

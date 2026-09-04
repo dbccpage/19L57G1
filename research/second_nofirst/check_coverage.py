@@ -11,9 +11,9 @@ exclusions are declared with their reasons:
   measure itself; the root repository keeps ``ci/check_coverage.py``
   outside ``code/`` for the same reason;
 * ``verify_lean.py`` is excluded because exercising it requires elan and a
-  Lake build, which the research job deliberately does not install; it is
-  a manual receipt and says so, and counting it would let an unexercised
-  file be excused by a threshold rather than named.
+  Lake build; it runs in the separate Lean job, and counting it in the
+  Python job would let an unexercised file be excused by a threshold rather
+  than named.
 
 Everything else in this rung is measured: the computation, the runner, and
 the pin verifier.  A file appearing in the report that is not in the
@@ -32,17 +32,19 @@ from __future__ import annotations
 import json
 import pathlib
 import sys
+import tomllib
 from typing import Any
 
 sys.dont_write_bytecode = True
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPORT = HERE / "coverage.json"
+CONFIG = HERE / "pyproject.toml"
 
 MEASURED = ("nofirst.py", "run_nofirst.py", "verify_pins.py")
 EXCLUDED = {
     "check_coverage.py": "the meter must not measure itself",
-    "verify_lean.py": "needs elan and a Lake build; a manual receipt by design",
+    "verify_lean.py": "needs elan and a Lake build; run in the separate Lean job",
 }
 FLOOR = 95.0
 
@@ -61,16 +63,77 @@ def _load() -> dict[str, Any]:
 
 
 def _rel(raw: str) -> str:
-    return pathlib.PurePath(raw.replace("\\", "/")).name
+    path = pathlib.Path(raw)
+    if path.is_absolute():
+        try:
+            return path.resolve().relative_to(HERE.resolve()).as_posix()
+        except ValueError as exc:
+            raise ValueError(f"coverage report path is outside the rung: {raw}") from exc
+    return pathlib.PurePosixPath(raw.replace("\\", "/")).as_posix()
+
+
+def _production_sources() -> set[str]:
+    found: set[str] = set()
+    for path in HERE.rglob("*.py"):
+        relative = path.relative_to(HERE)
+        if path.name.startswith("test_"):
+            continue
+        if any(part in {".git", ".lake", "__pycache__"} for part in relative.parts):
+            continue
+        found.add(relative.as_posix())
+    return found
+
+
+def _configured_measured() -> set[str]:
+    payload = tomllib.loads(CONFIG.read_text(encoding="utf-8"))
+    try:
+        raw = payload["tool"]["coverage"]["run"]["include"]
+    except (KeyError, TypeError) as exc:
+        raise ValueError("pyproject.toml has no coverage include list") from exc
+    if not isinstance(raw, list) or not all(isinstance(item, str) for item in raw):
+        raise ValueError("pyproject.toml coverage include must be a list of paths")
+    return {_rel(item) for item in raw}
+
+
+def _counter(summary: dict[str, Any], key: str, default: int | None = None) -> int:
+    if key not in summary:
+        if default is None:
+            raise ValueError(f"coverage summary is missing {key}")
+        return default
+    value = summary[key]
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise ValueError(f"coverage summary {key} must be a non-negative integer")
+    return int(value)
 
 
 def check() -> list[str]:
     payload = _load()
+    expected = set(MEASURED) | set(EXCLUDED)
+    discovered = _production_sources()
+    if discovered != expected:
+        raise ValueError(
+            "production module census differs:"
+            f" missing from declarations={sorted(discovered - expected)},"
+            f" declared but absent={sorted(expected - discovered)}"
+        )
+    configured = _configured_measured()
+    if configured != set(MEASURED):
+        raise ValueError(
+            "pyproject coverage include differs from MEASURED:"
+            f" configured={sorted(configured)}, expected={sorted(MEASURED)}"
+        )
     files = payload.get("files")
     if not isinstance(files, dict) or not files:
         raise ValueError("coverage.json lists no measured file")
 
-    reported = {_rel(k): v for k, v in files.items()}
+    reported: dict[str, Any] = {}
+    for raw, value in files.items():
+        if not isinstance(raw, str):
+            raise ValueError("coverage report file names must be strings")
+        relative = _rel(raw)
+        if relative in reported:
+            raise ValueError(f"coverage report repeats normalized path {relative}")
+        reported[relative] = value
     for name in MEASURED:
         if name not in reported:
             raise ValueError(
@@ -107,14 +170,21 @@ def check() -> list[str]:
     covered_branches = 0
     total_branches = 0
     for name in MEASURED:
-        summary = reported[name].get("summary")
+        report = reported[name]
+        if not isinstance(report, dict):
+            raise ValueError(f"{name} has no file object in the report")
+        summary = report.get("summary")
         if not isinstance(summary, dict):
             raise ValueError(f"{name} has no summary in the report")
-        stmts = int(summary["num_statements"])
-        missing = int(summary["missing_lines"])
-        branches = int(summary.get("num_branches", 0))
-        partial = int(summary.get("num_partial_branches", 0))
-        missing_branches = int(summary.get("missing_branches", 0))
+        stmts = _counter(summary, "num_statements")
+        missing = _counter(summary, "missing_lines")
+        branches = _counter(summary, "num_branches", 0)
+        partial = _counter(summary, "num_partial_branches", 0)
+        missing_branches = _counter(summary, "missing_branches", 0)
+        if missing > stmts:
+            raise ValueError(f"{name} has more missing lines than statements")
+        if missing_branches > branches or partial > branches:
+            raise ValueError(f"{name} has impossible branch counters")
         covered_lines += stmts - missing
         total_lines += stmts
         covered_branches += branches - missing_branches
@@ -158,7 +228,7 @@ def main() -> int:
     except ValueError as exc:
         print(f"FAIL: {exc}")
         return 1
-    except (KeyError, TypeError, ValueError) as exc:  # pragma: no cover
+    except (KeyError, TypeError, OverflowError) as exc:  # pragma: no cover
         print(f"FAIL: malformed coverage report: {exc}")
         return 1
     for line in lines:

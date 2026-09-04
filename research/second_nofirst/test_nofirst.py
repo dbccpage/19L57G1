@@ -245,16 +245,31 @@ class FirstDemandTests(unittest.TestCase):
             fd = nf.first_demand(F.genesis, chain, stake)
             self.assertEqual(fd.index, fd.dishonoured_index)
 
-    def test_a_stake_acquiring_a_demand_later_records_the_event(self) -> None:
-        """Under the all-same stake the formless genesis honours every
-        pair; admitting a form, an instance and a rule can separate a pair
-        and so raise a demand, and the recorded kind is the event that did
-        it."""
+    def test_non_inert_admission_can_trigger_the_first_demand(self) -> None:
+        """A declaration supplies the label, not the first-occurrence
+        event.  This witness is why the general temporal claim stays OPEN:
+        an instance admission is recorded as the first-demand trigger."""
         s = nf.stake_of_commitment(nf.commitment_named("total_same"))
         history = (AdmitForm(1), AdmitInst(0, (0,)))
         fd = nf.first_demand(F.genesis, history, s)
         self.assertEqual(fd.index, 2)
         self.assertEqual(fd.kind, "AdmitInst")
+
+    def test_two_datum_admissions_witness_a_later_first_demand(self) -> None:
+        """A second independent witness uses a different non-inert kind.
+
+        The all-apart declaration is present before the run, but its first
+        demand appears only when the second datum is admitted.
+        """
+        history = (AdmitDatum("<a>"), AdmitDatum("<b>"))
+        fd = nf.first_demand((), history, nf.all_apart_stake())
+        self.assertEqual(fd.index, 2)
+        self.assertEqual(fd.kind, "AdmitDatum")
+
+    def test_ledger_does_not_turn_label_source_into_event_source(self) -> None:
+        ledger = (HERE / "CLAIM_LEDGER.md").read_text(encoding="utf-8")
+        self.assertIn("demand's first occurrence", ledger)
+        self.assertIn("that index remains OPEN", ledger)
 
 
 class InertiaTests(unittest.TestCase):

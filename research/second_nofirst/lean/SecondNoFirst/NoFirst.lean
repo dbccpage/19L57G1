@@ -142,7 +142,7 @@ theorem grammar_carries_no_stake :
 
 /-! ## 4. The conjunction -/
 
-/-- **NO FIRST DEMAND.**  In the sealed grammar reconstructed in
+/-- **`no_first_demand` (the frozen target name).**  In the sealed grammar reconstructed in
 `Kernel.lean`, extended by a declared two-sided stake as defined in
 `Stake.lean`, and in no other grammar:
 
@@ -150,17 +150,18 @@ theorem grammar_carries_no_stake :
    labels same;
 2. whether a pair is a demand depends on the stake only through the label
    the declaration gives that pair;
-3. every event of the grammar is one of the six recorded kinds, each
-   carrying natural-number fields only, so no event introduces a stake;
+3. every event of the grammar is one of the six recorded kinds;
 4. a supply changes no regime, hence no demand;
 5. under the stake that labels every pair free there is no demand at any
    regime whatever, reachable or not.
 
-Hence, in this grammar, the first demand of any run has one source: the
-declaration, which is not an event of the grammar.  The scope excludes any
-grammar that is not this one; in particular a grammar carrying an event
-with a field of stake type is not covered, and naming such a grammar is a
-leftover of this rung and not a result of it. -/
+SCOPE OF THE STATEMENT.  These clauses say that the constraint LABEL has
+one source, the stake declaration.  They do not say when the `Demand`
+predicate first becomes true and they do not prove that the declaration is
+the only trigger of a demand's first occurrence.  Datum, instance, and
+uniform-rule admissions can change demand sets.  The arbitrary-run index is
+therefore OPEN, as the ledger records; only inert runs receive a temporal
+theorem in `Run.lean`.  The scope excludes every other grammar. -/
 theorem no_first_demand :
     (∀ (S : Stake) (r : Regime) (i j : Nat), Demand S r i j →
         S.label i j = Label.apart ∨ S.label i j = Label.same)

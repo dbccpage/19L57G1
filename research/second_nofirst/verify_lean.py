@@ -16,10 +16,9 @@ Five checks, none implying the others:
   exactly, line for line.
 
 The seed requires each rung's axiom log to be committed and checked
-against a fresh build rather than left as a manual receipt.  No CI gate
-runs this file: it needs elan, which the research job deliberately does
-not install, so this remains a manual receipt for the BUILD while the
-committed log makes the RESULT reviewable without one.
+against a fresh build rather than left as a manual receipt.  CI runs this
+file in the Lean job, where elan is installed; the Python research job does
+not need to install a second toolchain.
 
 ``--regen`` rewrites the committed log from a fresh build and verifies
 nothing.  It is a deliberate act and must never be run while an injection
@@ -54,7 +53,17 @@ FORBIDDEN = (
     r"\bpar" + r"tial\b",
     r"\bnative_" + r"decide\b",
 )
-LEADING_AXIOM = re.compile(r"^\s*ax" + r"iom\s", re.MULTILINE)
+DECL_PREFIX = (
+    r"(?:@\[[^\]\r\n]*\]\s*)*"
+    r"(?:(?:private|protected)\s+)*"
+)
+LEADING_AXIOM = re.compile(
+    rf"^[ \t]*{DECL_PREFIX}ax" + r"iom\s", re.MULTILINE
+)
+THEOREM_DECL = re.compile(
+    rf"^[ \t]*{DECL_PREFIX}(?:theorem|lemma)\s+([A-Za-z_][\w'.]*)",
+    re.MULTILINE,
+)
 WHITELIST = {"propext", "Quot.sound"}
 
 # The module census is DERIVED, not hand-maintained: every `.lean` file of
@@ -63,6 +72,64 @@ WHITELIST = {"propext", "Quot.sound"}
 # forget a module, and the root repository records exactly that defect for
 # its own parked-module census.
 REPORT_MODULE = "AxiomReport.lean"
+
+
+def declaration_text(text: str) -> str:
+    """Replace Lean comments with spaces while preserving line structure.
+
+    Lean block comments nest.  A regex deletion can expose comment text or
+    terminate at the wrong delimiter, so the declaration census uses this
+    small scanner.  String literals are copied through so comment markers
+    inside a string do not change scanner state.
+    """
+    out: list[str] = []
+    index = 0
+    depth = 0
+    in_string = False
+    while index < len(text):
+        pair = text[index : index + 2]
+        char = text[index]
+        if depth:
+            if pair == "/-":
+                depth += 1
+                out.extend("  ")
+                index += 2
+            elif pair == "-/":
+                depth -= 1
+                out.extend("  ")
+                index += 2
+            else:
+                out.append("\n" if char == "\n" else " ")
+                index += 1
+            continue
+        if in_string:
+            out.append(char)
+            if char == "\\" and index + 1 < len(text):
+                out.append(text[index + 1])
+                index += 2
+            else:
+                if char == '"':
+                    in_string = False
+                index += 1
+            continue
+        if pair == "/-":
+            depth = 1
+            out.extend("  ")
+            index += 2
+        elif pair == "--":
+            out.extend("  ")
+            index += 2
+            while index < len(text) and text[index] != "\n":
+                out.append(" ")
+                index += 1
+        else:
+            out.append(char)
+            if char == '"':
+                in_string = True
+            index += 1
+    if depth:
+        raise ValueError("unterminated Lean block comment")
+    return "".join(out)
 
 
 def sources() -> list[Path]:
@@ -87,14 +154,21 @@ def token_scan() -> list[str]:
     return failures
 
 
-def build() -> tuple[int, str]:
-    # Force re-elaboration of the report module: a cached build emits no
-    # reports, and an audit of an empty log proves nothing.
+def build() -> tuple[str, int, str]:
+    """Clean, then build, naming which stage returned the status."""
+    clean = subprocess.run(
+        ["lake", "clean"], capture_output=True, text=True, cwd=LEAN, check=False
+    )
+    clean_log = clean.stdout + clean.stderr
+    if clean.returncode != 0:
+        return "clean", clean.returncode, clean_log
+    # Force re-elaboration of the report module after the clean.  This also
+    # makes the intent explicit if Lake's clean implementation ever changes.
     REPORT.touch()
     proc = subprocess.run(
         ["lake", "build"], capture_output=True, text=True, cwd=LEAN, check=False
     )
-    return proc.returncode, proc.stdout + proc.stderr
+    return "build", proc.returncode, proc.stdout + proc.stderr
 
 
 def parse(log: str) -> tuple[dict[str, tuple[str, ...]], int]:
@@ -123,19 +197,21 @@ def render(reports: dict[str, tuple[str, ...]]) -> str:
 
 
 def listed() -> set[str]:
-    return set(re.findall(r"#print axioms ([\w'.]+)", REPORT.read_text("utf-8")))
+    text = declaration_text(REPORT.read_text("utf-8"))
+    return set(re.findall(r"#print axioms ([\w'.]+)", text))
 
 
 def modules() -> list[Path]:
     """Every source module of the library, the report module excluded."""
-    found = sorted((LEAN / "SecondNoFirst").glob("*.lean"))
+    found = sorted((LEAN / "SecondNoFirst").rglob("*.lean"))
     return [m for m in found if m.name != REPORT_MODULE]
 
 
 def namespace_of(path: Path) -> str:
     """The qualified namespace a module's declarations land in, parsed from
     the module's own `namespace` lines rather than from a table."""
-    parts = re.findall(r"^namespace\s+([\w'.]+)", path.read_text("utf-8"), re.M)
+    text = declaration_text(path.read_text("utf-8"))
+    parts = re.findall(r"^namespace\s+([\w'.]+)", text, re.M)
     if not parts:
         raise ValueError(f"{path.name} declares no namespace")
     return ".".join(parts) + "."
@@ -146,8 +222,8 @@ def declared() -> dict[str, str]:
     out: dict[str, str] = {}
     for path in modules():
         prefix = namespace_of(path)
-        text = path.read_text("utf-8")
-        for name in re.findall(r"^theorem ([A-Za-z_][\w'.]*)", text, re.M):
+        text = declaration_text(path.read_text("utf-8"))
+        for name in THEOREM_DECL.findall(text):
             out[prefix + name] = path.name
     return out
 
@@ -156,9 +232,9 @@ def audit(regen: bool) -> int:
     failures = token_scan()
     for line in failures:
         print(line)
-    code, log = build()
+    stage, code, log = build()
     if code != 0:
-        print("FAIL: lake build exited nonzero")
+        print(f"FAIL: lake {stage} exited nonzero")
         print(log[-2000:])
         return 1
     reports, free = parse(log)
