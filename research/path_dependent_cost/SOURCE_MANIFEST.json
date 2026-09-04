@@ -12,7 +12,7 @@
   ],
   "prompt_native_sha256": "ed3058124605431c7e133d9ab4b66192c0b1e6799182f08f510542f9b4090bb5",
   "purpose": "read-only sources consumed by the path_dependent_cost run; this tree writes none of them",
-  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules as libraries through the repository's own import path. The one two-line state functional it shares with two unmerged sibling trees is restated rather than imported, because an open pull request is not an ancestor of HEAD and stacking is prohibited; the restatement is declared here rather than left for a reader to find. The Lean side states everything over an abstract state, an abstract one-item action and an abstract functional, so it reconstructs nothing at all -- including the one result it borrows from an unmerged sibling, which is re-proved here rather than cited across an open branch.",
+  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules as libraries through the repository's own import path. At snapshot 7fcd72f6, the two sibling trees were unmerged and stacking was prohibited, so the shared two-line state functional was restated rather than imported. The Lean side states everything over an abstract state, one-item action and functional; the append law was re-proved rather than cited across the then-open branch. This is a historical source boundary, not a claim about later integration state.",
   "reconstructions": [],
   "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
   "spans": [

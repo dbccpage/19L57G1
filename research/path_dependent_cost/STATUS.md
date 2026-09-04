@@ -3,10 +3,11 @@
 `AuthorityEffect: None.`
 
 The preceding rung proved that a cost of the form `P(apply s d) − P s`
-telescopes: fixed by the endpoints, blind to the route, zero around every
-closed walk, and therefore incapable of carrying an obstruction. It named
-what was missing — a cost that is additive along composition, reads the
-state, and is **not** of that form — and did not have one.
+telescopes: fixed by the endpoints, blind to the route, and zero around every
+closed walk. It therefore cannot witness a nonzero route discrepancy or
+circulation. This is not a classification of every obstruction. The rung
+named what was missing — a cost that is additive along composition, reads
+the state, and is **not** of that form — and did not have one.
 
 Here is one, and it has a reading rather than a construction:
 
@@ -48,12 +49,12 @@ structural results rest on — datum absorption, unconditional form
 appending, set-union instance and rule admission, and the sealed one-item
 enumerator that **is** the edge set of the move graph.
 
-**Neither preceding rung is pinned.** `research/reach_measure` and
-`research/reach_additivity` are both open pull requests, so neither is on
-`main` and neither is pinnable; stacking is prohibited. `actList` and its
-append law are **re-proved here** rather than cited across an open branch,
-and the one shared two-line functional is restated and declared in
-`SOURCE_MANIFEST.json`.
+**Neither preceding rung was pinned at this run's snapshot.** At
+`7fcd72f6`, `research/reach_measure` and `research/reach_additivity` were
+both open pull requests and stacking was prohibited. `actList` and its
+append law were therefore **re-proved here**, and the shared two-line
+functional was restated as declared in `SOURCE_MANIFEST.json`. Later
+integration does not retroactively change that source boundary.
 
 ## Declared readings
 
@@ -75,10 +76,11 @@ and the one shared two-line functional is restated and declared in
    refuses that as a finding. Depth two gives rank 22; depth three, 378.
    The number of moves leaving the rectangle is reported at each depth
    rather than hidden.
-5. **Waste and order are kept apart everywhere.** A cost nonzero on a move
-   that changes nothing prices waste; a cost nonzero on two routes to one
-   state prices order. `FW-DEGENERATE` requires the first to be reported as
-   what it is, and the tables below never merge the two columns.
+5. **Self-loops and non-self cycle constraints are kept apart everywhere.**
+   A cost nonzero on a move that changes nothing prices waste. A cost that
+   gives two directed routes with common endpoints different totals prices
+   order. `FW-DEGENERATE` requires the first to be reported as what it is;
+   explicit commuting squares provide the evidence for the second.
 
 ## Terminals, each with its scope
 
@@ -86,10 +88,9 @@ and the one shared two-line functional is restated and declared in
   additivity forces the empty response to cost nothing — not a convention,
   a consequence, got by applying the law to the empty response twice.
   `additive_eq_sumEdges`: **every additive cost is the summation of its own
-  restriction to single moves.** So the space of additive costs *is* the
-  space of weightings, the nine candidates below range over that space
-  rather than over what occurred to the author, and no cost anyone could
-  have proposed is outside it.
+  restriction to single moves.** Thus unrestricted single-move weightings
+  represent the whole additive class. The nine declared candidates below
+  are examples within that class; they do not exhaust all weightings.
 - **DIRECTED_CLOSED_WALKS_ARE_STATIONARY** (PROVED_THEOREM).
   `closed_directed_walk_is_stationary`: if a move never decreases the state
   and the order is antisymmetric, a sequence of moves returning to its own
@@ -98,34 +99,36 @@ and the one shared two-line functional is restated and declared in
   needs no order library and makes no claim about this estate that the
   estate does not satisfy.
 
-  **The consequence is the structural point of the rung.** Where admission
-  only adds, path-dependence cannot come from going around a directed
-  cycle, because there are none that move. It has exactly two sources: a
-  move that changes nothing, and two different routes to one state. The
-  first is waste. The second is order.
+  **The consequence is narrower.** Where admission only adds under the
+  stated order hypotheses, path-dependence cannot come from a directed
+  closed walk that changes state. The theorem does not identify every
+  non-self cycle in an underlying undirected graph with two directed routes.
 - **TWO_ROUTES_EXIST** (COMPUTATION, scope: the rectangle). **770 commuting
   squares** — pairs of two-move routes leaving one state and landing on
   one state. The smallest is a form and a datum at the root, exactly as
   predicted.
 - **RANK_COMPUTED** (COMPUTATION, scope: the rectangle). 262 states, 638
-  moves, 2 components, cycle rank **378 = 232 waste + 146 order**. The rank
-  strictly exceeds the self-loop count, so order cycles contribute
-  independently and the path-dependence found here is not an artefact of
-  redundancy. `FW-CLASS`: this is the rank of this finite graph and of
-  nothing larger.
+  moves, 2 components, cycle rank **378 = 232 self-loops + 146 non-self
+  fundamental cycles**. The rank strictly exceeds the self-loop count.
+  Separately, 770 explicit commuting squares show that two-route structure
+  occurs. `FW-CLASS`: this is the rank of this finite underlying multigraph
+  and of nothing larger.
 - **PATH_DEPENDENT_COST_EXHIBITED** (PROVED_THEOREM and COMPUTATION).
   `rule_span`: additive by construction, reads the base (decided from
   evidence, not asserted), not exact by both decision methods, **zero on
-  every one of the 232 waste cycles** and nonzero on 4 order cycles. In
-  Lean, `Commit.span_is_additive` and `Commit.span_is_not_exact` prove the
+  every one of the 232 self-loops** and nonzero on 4 non-self basis cycles.
+  A separately enumerated square witnesses two directed routes with unequal
+  totals. In Lean, `Commit.span_is_additive` and `Commit.span_is_not_exact` prove the
   pair on an abstract two-item model, with `commit_early` and `commit_late`
   giving the totals `n` and `n + 1` for every `n`.
 - **`ONLY_DEGENERATE_PATH_DEPENDENCE` does not fire** — and it is worth
   saying which candidates would have made it fire. `item_count` and
-  `redundancy` are not exact, and their circulation is **zero on every
-  order cycle**: they price waste and nothing else. `rule_span`,
-  `width_at_admission` and `empty_admission` are the reverse — **zero on
-  every waste cycle**, nonzero on order. `mention_deficit` does both.
+  `redundancy` are not exact, but their circulation is zero on every
+  non-self basis cycle and neither has a differing square witness: their
+  failure of exactness is confined to self-loops in this graph. `rule_span`,
+  `width_at_admission` and `empty_admission` are the reverse — zero on every
+  self-loop, nonzero on non-self basis cycles, and each has a differing
+  square. `mention_deficit` does both.
 - **The two properties are independent axes, and all four cells are
   occupied** (COMPUTATION). This is the trap the question contained, and it
   is worth naming: *reading the base is not what makes a cost
@@ -149,10 +152,11 @@ and the one shared two-line functional is restated and declared in
 ## The full candidate table
 
 Every candidate, with the reading it was declared under, priced over the
-rectangle. `waste` and `order` are the counts of fundamental cycles of each
-kind on which the circulation is nonzero.
+rectangle. `self-loop` and `non-self` are counts of fundamental cycles on
+which the circulation is nonzero. Order claims additionally require a
+directed square witness.
 
-| candidate | reading | base-relative | exact | waste | order |
+| candidate | reading | base-relative | exact | self-loop | non-self |
 |---|---|---|---|---|---|
 | `arity_debt` | a form costs its arity | no | **yes** | 0 | 0 |
 | `context_opening` | contexts newly opened, derivable or not | yes | **yes** | 0 | 0 |
@@ -172,19 +176,19 @@ base and telescope anyway.
 | # | prediction | disposition |
 |---|---|---|
 | P1 | additive costs are exactly weightings of single moves | **CONFIRMED** — `additive_empty_zero`, `additive_eq_sumEdges` |
-| P2 | directed closed walks are stationary, so path-dependence has two sources | **CONFIRMED** — `closed_directed_walk_is_stationary` |
+| P2 | directed closed walks are stationary, so path-dependence has two sources | **PARTLY CONFIRMED, SCOPE NARROWED** — `closed_directed_walk_is_stationary` proves stationary directed closed walks; it does not classify every non-self graph cycle |
 | P3 | two routes exist; the smallest is a form and a datum | **CONFIRMED** — 770 commuting squares; the smallest witness is a form/datum pair at the root |
 | P4 | a path-dependent cost must therefore exist, and existence is not the finding | **CONFIRMED and honoured** — nine candidates declared before pricing |
-| P5 | the item count is path-dependent only through waste | **CONFIRMED** — 232 waste cycles, **0** order cycles, and no square witness at all |
+| P5 | the item count is path-dependent only through waste | **CONFIRMED on the finite graph** — 232 nonzero self-loops, 0 nonzero non-self basis cycles, and no differing square witness |
 | P6 | pricing a form by what it ranges over gives nonzero circulation on the form/datum square | **CONFIRMED** — `width_at_admission`, 38 order cycles, witness at the root |
 | P7 | candidates built as a difference of a count of the state will be exact even when they read the base | **CONFIRMED** — `reach` and `context_opening` both read the base and both telescope |
 | P8 | the rank exceeds the self-loop count | **CONFIRMED** — 378 against 232 |
 
-Eight predictions, eight confirmed. That is a worse sign than it looks and
-is recorded as such: the chronology admits the sealed implementation was
-read before the predictions were written, and P1, P2 and P3 were reasoned
-from it. The unforced ones are P5 and P7, which are about the *costs* and
-not about the grammar, and those are the two the reader should weigh.
+Seven predictions were confirmed; P2 was only partly confirmed and its
+exhaustive two-source clause was narrowed. The chronology still weakens the
+record: the sealed implementation was read before the predictions were
+written, and P1, P2 and P3 were reasoned from it. The unforced ones are P5
+and P7, which are about the *costs* and not about the grammar.
 
 The prediction that was **not** made, and should have been: nothing
 predicted that `rule_span` would be nonzero on so few order cycles — 4 of
@@ -194,10 +198,11 @@ recorded rather than smoothed.
 
 ## What this rung settles, and what it does not
 
-It settles the shape of the search: additivity pins the space of costs to
-weightings of single moves, so the hunt was over a described set. It settles
-where path-dependence can come from in an estate where admission only adds,
-and that both sources actually occur here. It settles that base-relative and
+It settles the representation shape: every additive cost is an unrestricted
+weighting of single moves, while the nine declared candidates are only a
+finite sample of that space. It proves stationary directed closed walks
+under stated order hypotheses and separately exhibits both self-loops and
+two-route discrepancies in the finite graph. It settles that base-relative and
 path-dependent are independent — the question that prompted the rung
 implicitly joined them, and all four cells are occupied. And it exhibits a
 cost that is additive, reads the state, prices no waste at all, and is
@@ -210,7 +215,8 @@ qualitative behaviour. It does not compute the group of costs modulo exact
 ones, only the rank of the cycle space that would bound it. It proves
 nothing about a rectangle deeper than three. And it does **not** show that
 any of these costs detects an obstruction the estate cares about — only
-that, unlike every cost the estate had, they are the shape that could.
+that some declared candidates can witness route discrepancies that the
+compared exact costs cannot.
 
 ## The injection record
 
@@ -254,8 +260,8 @@ that, unlike every cost the estate had, they are the shape that could.
    actually offer** — OPEN in one respect: additivity here is by
    construction over single moves, and the sealed grammar's two-item deltas
    were not separately re-priced in this tree. The preceding rung checked
-   that composition acts sequentially, but it is unmerged, so this tree
-   does not lean on it.
+   that composition acts sequentially, but it was unmerged at the pinned
+   snapshot, so this run did not rely on it.
 
 ## The registration diff this tree does NOT apply
 
@@ -271,7 +277,7 @@ that, unlike every cost the estate had, they are the shape that could.
 |---|---|---|
 | `python verify_pins.py` | 0 | `pins clean: 5 sources and 3 spans at snapshot and HEAD; ... native PROMPT.md frozen; 1 predictions freezes reconstructed` |
 | `python verify_lean.py` | 0 | `lean audit clean: 4 sources, 17 axiom reports (9 axiom-free), axioms within ['Quot.sound', 'propext'], 17 originating theorems all listed` |
-| `python run_path_dependent.py` | 0 | `graph at depth 3: 262 states, 638 moves, rank 378 = 232 waste + 146 order` |
+| `python run_path_dependent.py` | 0 | `graph at depth 3: 262 states, 638 moves, rank 378 = 232 self-loop + 146 non-self` |
 | `python -m unittest discover -s . -p "test_*.py"` | 0 | 27 tests, refusal scans and unit tests pass |
 | `python -m mypy` | 0 | strict, no issues in 8 source files |
 | `python ci/check_prose_watchlist.py` (repository root) | 0 | clean without a repin |

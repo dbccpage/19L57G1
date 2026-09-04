@@ -3,14 +3,14 @@
 `FW-TUNED` binds this file: every candidate below is written down with its
 native reading **before** its circulation is computed, and one that turns
 out to be exact is reported as exact rather than quietly dropped.  Three of
-the eight are here precisely because they are expected to telescope; a
+the nine are here precisely because they are expected to telescope; a
 search that only lists the answers is not a search.
 
 Every candidate is a weighting of single-item moves.  By the
-characterisation proved in `lean/PathDependentCost/Cochain.lean` that is not
-a restriction: an additive cost IS such a weighting, extended by summation,
-so this file ranges over the whole space of additive costs that anyone
-could have proposed.
+characterisation proved in `lean/PathDependentCost/Cochain.lean`, unrestricted
+weightings represent the whole class of additive costs.  The nine functions
+below are declared examples in that class; they do not exhaust all possible
+weightings.
 
 AuthorityEffect: None.
 """
@@ -50,9 +50,9 @@ def _after(base: Regime, it: Item) -> Regime:
 def profile_size(r: Regime) -> int:
     """Total observable content: derivable pluggings, summed over the data.
 
-    Restated from the sealed `profiles`, not imported from a sibling: the
-    two trees that declared it are unmerged.  `SOURCE_MANIFEST.json` says
-    so."""
+    Restated from the sealed `profiles`, not imported from a sibling: at the
+    pinned snapshot, the two trees that declared it were unmerged.
+    `SOURCE_MANIFEST.json` says so."""
 
     return sum(len(p) for p in profiles(r))
 

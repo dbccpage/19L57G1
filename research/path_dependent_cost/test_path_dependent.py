@@ -61,11 +61,10 @@ class GraphShape(unittest.TestCase):
         self.assertEqual(shallow.rank, 0)
         self.assertEqual(len(shallow.cycles), 0)
 
-    def test_order_cycles_are_not_all_the_rank(self) -> None:
-        """The two sources of path-dependence both occur, and neither
-        accounts for the other."""
+    def test_nonself_cycles_and_self_loops_both_contribute_to_rank(self) -> None:
+        """Both operational cycle classes occur in the finite graph."""
 
-        self.assertGreater(len(GRAPH.order_cycles), 0)
+        self.assertGreater(len(GRAPH.nonself_cycles), 0)
         self.assertGreater(len(GRAPH.self_loop_edges), 0)
         self.assertGreater(GRAPH.rank, len(GRAPH.self_loop_edges))
 
@@ -103,6 +102,18 @@ class Declaration(unittest.TestCase):
                     self.assertEqual(seen[key], value, f"{name} {key}")
                 seen[key] = value
             self.assertGreater(len(seen), 0, name)
+
+    def test_nine_candidates_do_not_exhaust_single_move_weightings(self) -> None:
+        """The Lean theorem characterises the representation, not this
+        finite candidate list. A constant-two weighting is an immediate
+        additive example outside the nine declared vectors on this graph."""
+
+        constant_two = tuple(2 for _ in GRAPH.edges)
+        declared = {
+            tuple(weight(GRAPH.states[e.source], e.item) for e in GRAPH.edges)
+            for weight in ct.CANDIDATES.values()
+        }
+        self.assertNotIn(constant_two, declared)
 
     def test_a_two_move_route_costs_the_sum_of_its_moves(self) -> None:
         """Summation, checked on real routes: the implementation prices a
@@ -155,7 +166,7 @@ class Exactness(unittest.TestCase):
 
         verdict = ex.decide(GRAPH, "item_count")
         self.assertFalse(verdict.exact_by_potentials)
-        self.assertEqual(verdict.nonzero_order_cycles, 0)
+        self.assertEqual(verdict.nonzero_nonself_cycles, 0)
         self.assertIsNone(ex.square_witness(GRAPH, "item_count"))
 
     def test_rule_span_is_the_object_the_preceding_rung_named(self) -> None:
@@ -166,7 +177,7 @@ class Exactness(unittest.TestCase):
         self.assertTrue(verdict.reads_the_base)
         self.assertFalse(verdict.exact_by_potentials)
         self.assertEqual(verdict.nonzero_self_loop_cycles, 0)
-        self.assertGreater(verdict.nonzero_order_cycles, 0)
+        self.assertGreater(verdict.nonzero_nonself_cycles, 0)
 
     def test_rule_span_charges_nothing_for_a_wasted_move(self) -> None:
         """The separation that makes it non-degenerate: every self-loop in

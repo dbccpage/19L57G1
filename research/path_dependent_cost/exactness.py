@@ -41,7 +41,7 @@ class Verdict:
     exact_by_circulations: bool
     methods_agree: bool
     nonzero_self_loop_cycles: int
-    nonzero_order_cycles: int
+    nonzero_nonself_cycles: int
     reads_the_base: bool
     witness: str | None
 
@@ -102,7 +102,7 @@ def decide(graph: mg.MoveGraph, name: str) -> Verdict:
         1 for cycle, c in zip(graph.cycles, circ, strict=True)
         if c != 0 and cycle.is_self_loop
     )
-    order_hits = sum(
+    nonself_hits = sum(
         1 for cycle, c in zip(graph.cycles, circ, strict=True)
         if c != 0 and not cycle.is_self_loop
     )
@@ -113,18 +113,18 @@ def decide(graph: mg.MoveGraph, name: str) -> Verdict:
         exact_by_circulations=by_circulation,
         methods_agree=by_potential == by_circulation,
         nonzero_self_loop_cycles=self_loop_hits,
-        nonzero_order_cycles=order_hits,
+        nonzero_nonself_cycles=nonself_hits,
         reads_the_base=ct.reads_the_base(name, samples),
         witness=witness,
     )
 
 
-def order_witness(graph: mg.MoveGraph, name: str) -> dict[str, object] | None:
-    """The smallest two-route pair on which the candidate disagrees with
-    itself, written out move by move.
+def nonself_cycle_witness(graph: mg.MoveGraph, name: str) -> dict[str, object] | None:
+    """The shortest non-self fundamental cycle with nonzero circulation.
 
-    Reported rather than merely counted, because a claim that order is
-    priced should be readable as two routes and two totals."""
+    Its signed walk may traverse tree edges backwards.  Use `square_witness`
+    when a claim requires two actual directed routes with common endpoints.
+    """
 
     weights = edge_weights(graph, name)
     best: dict[str, object] | None = None

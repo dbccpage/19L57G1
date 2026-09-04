@@ -256,5 +256,17 @@ class TotalitySentenceScan(unittest.TestCase):
                 self.assertNotIn(bad, text, f"{f.name} claims totality")
 
 
+class CostScopeScan(unittest.TestCase):
+    def test_representation_and_cycle_results_are_not_promoted(self) -> None:
+        for f in claim_files():
+            text = f.read_text("utf-8", errors="replace").lower()
+            for bad in (
+                "ranges over the whole space of additive costs",
+                "path-dependence has exactly two sources",
+                "carries no obstruction",
+            ):
+                self.assertNotIn(bad, text, f"{f.name} overstates the proved scope: {bad!r}")
+
+
 if __name__ == "__main__":
     unittest.main()

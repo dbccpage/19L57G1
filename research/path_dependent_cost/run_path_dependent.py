@@ -37,7 +37,7 @@ def depth_table() -> list[dict[str, object]]:
             "components": graph.components,
             "cycle_rank": graph.rank,
             "self_loop_cycles": sum(1 for c in graph.cycles if c.is_self_loop),
-            "order_cycles": len(graph.order_cycles),
+            "nonself_cycles": len(graph.nonself_cycles),
             "moves_leaving_the_rectangle": mg.boundary_moves(depth),
         })
     return rows
@@ -53,8 +53,8 @@ def candidate_table(graph: mg.MoveGraph) -> list[dict[str, object]]:
             "reads_the_base": verdict.reads_the_base,
             "exact": verdict.exact_by_potentials,
             "methods_agree": verdict.methods_agree,
-            "nonzero_on_waste_cycles": verdict.nonzero_self_loop_cycles,
-            "nonzero_on_order_cycles": verdict.nonzero_order_cycles,
+            "nonzero_on_self_loops": verdict.nonzero_self_loop_cycles,
+            "nonzero_on_nonself_cycles": verdict.nonzero_nonself_cycles,
             "first_inconsistent_move": verdict.witness,
             "square_witness": ex.square_witness(graph, name),
         })
@@ -81,13 +81,13 @@ def quadrants(rows: list[dict[str, object]]) -> dict[str, list[str]]:
 def build() -> dict[str, object]:
     graph = mg.build()
     rows = candidate_table(graph)
-    order_only = [
+    nonself_only = [
         r["name"] for r in rows
-        if not r["exact"] and r["nonzero_on_waste_cycles"] == 0
+        if not r["exact"] and r["nonzero_on_self_loops"] == 0
     ]
-    waste_only = [
+    self_loop_only = [
         r["name"] for r in rows
-        if not r["exact"] and r["nonzero_on_order_cycles"] == 0
+        if not r["exact"] and r["nonzero_on_nonself_cycles"] == 0
     ]
     return {
         "authority_effect": "None",
@@ -104,8 +104,8 @@ def build() -> dict[str, object]:
         "commuting_squares": len(ex.commuting_squares(graph)),
         "candidates": rows,
         "quadrants": quadrants(rows),
-        "path_dependent_through_order_only": sorted(str(n) for n in order_only),
-        "path_dependent_through_waste_only": sorted(str(n) for n in waste_only),
+        "nonexact_through_nonself_cycles_only": sorted(str(n) for n in nonself_only),
+        "nonexact_through_self_loops_only": sorted(str(n) for n in self_loop_only),
         "assumptions": {
             "A1": (
                 "the rectangle is reachability-bounded at the declared depth; every"
@@ -148,10 +148,10 @@ def main() -> int:
     print(
         f"graph at depth {last['depth']}: {last['states']} states,"
         f" {last['moves']} moves, rank {last['cycle_rank']}"
-        f" = {last['self_loop_cycles']} waste + {last['order_cycles']} order"
+        f" = {last['self_loop_cycles']} self-loop + {last['nonself_cycles']} non-self"
     )
-    print(f"path-dependent through order only: {data['path_dependent_through_order_only']}")
-    print(f"path-dependent through waste only: {data['path_dependent_through_waste_only']}")
+    print(f"nonexact through non-self cycles only: {data['nonexact_through_nonself_cycles_only']}")
+    print(f"nonexact through self-loops only: {data['nonexact_through_self_loops_only']}")
     return 0
 
 

@@ -2,8 +2,8 @@
 # The space of additive costs, where path-dependence can live, and one that lives there
 
 The preceding rung showed that a cost of the form `P(apply s d) - P s`
-telescopes, so it cannot tell one route from another and carries no
-obstruction.  It named the target that remained: a cost that is additive
+telescopes, so it cannot tell one route from another or witness nonzero
+circulation.  It named the target that remained: a cost that is additive
 along composition, reads the state, and is **not** of that form.
 
 This file does three things.
@@ -11,15 +11,16 @@ This file does three things.
 **It describes the search space.**  Additivity is a constraint, not a wish.
 It forces the empty response to cost nothing, and then forces every response
 to cost the sum of its items, each priced at the state it meets.  So an
-additive cost *is* a weighting of single moves, and the hunt is over that
-set and nothing wider.  A candidate list is therefore a list of weightings,
-not a list of lucky guesses.
+additive cost *is* represented by a weighting of single moves.  The finite
+candidate list studied computationally contains examples of such weightings;
+it is not an enumeration of all of them.
 
-**It says where path-dependence can come from.**  Admission only adds, so
-the states carry an order no move decreases.  A directed walk that returns
-to its start therefore never moved at all.  That leaves exactly two sources:
-a move that changes nothing, which prices waste, and two *different* routes
-reaching the same state, which prices order.
+**It rules out one source of path-dependence.**  Admission only adds, so the
+states carry an order no move decreases.  A directed walk that returns to its
+start therefore never moved at all.  The finite computation separately
+reports self-loops, non-self fundamental cycles, and explicit pairs of
+directed routes with common endpoints; the theorem does not identify every
+non-self cycle with such a pair.
 
 **It exhibits one of the second kind.**  A commitment over everything
 present costs what it ranges over at the moment it is made.  Make it before
@@ -28,9 +29,9 @@ ranges further.  The two routes end in the same state and cost differently,
 so no state functional has this cost as its difference.  The sealed item
 count, on the same square, cannot tell the routes apart.
 
-Nothing here is cited from the two unmerged sibling trees.  `actList` and
-its append law are re-proved rather than imported, because a result inside
-an open pull request is not a result on `main`.
+At the pinned snapshot nothing here was cited from the two then-unmerged
+sibling trees.  `actList` and its append law were re-proved rather than
+imported across open pull requests.
 
 Core Lean only: no `Mathlib`, no choice principle, no proof left incomplete.
 `AuthorityEffect: None.`
@@ -96,8 +97,9 @@ theorem additive_empty_zero (step : S → I → S) (c : S → List I → Int)
   omega
 
 /-- **The characterisation.**  Every additive cost is the summation of its
-own restriction to single moves.  So the space of additive costs is exactly
-the space of weightings, and a search over weightings misses nothing. -/
+own restriction to single moves.  Thus unrestricted weightings represent the
+whole additive class; this says nothing about whether a finite candidate list
+exhausts those weightings. -/
 theorem additive_eq_sumEdges (step : S → I → S) (c : S → List I → Int)
     (h : Additive step c) :
     ∀ (d : List I) (s : S), c s d = sumEdges (fun s i => c s [i]) step s d := by
@@ -154,9 +156,9 @@ theorem le_actList (step : S → I → S) (le : S → S → Prop)
 the order is antisymmetric, a sequence of moves returning to its own start
 never left it: every prefix is already the start.
 
-So in an estate of this shape, path-dependence cannot come from going around
-a directed cycle.  It has exactly two sources -- a move that changes nothing,
-and two different routes to one state. -/
+So in an estate of this shape, path-dependence cannot come from a directed
+closed walk that changes state.  This theorem does not classify every
+non-self cycle of an underlying undirected graph. -/
 theorem closed_directed_walk_is_stationary (step : S → I → S) (le : S → S → Prop)
     (refl : ∀ s, le s s) (trans : ∀ a b c, le a b → le b c → le a c)
     (anti : ∀ a b, le a b → le b a → a = b)
