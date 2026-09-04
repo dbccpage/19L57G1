@@ -342,6 +342,29 @@ jobs:
       - name: Second derivation, rung 1, strict typing
         working-directory: research/second_stream
         run: python -m mypy
+      # The boundary derivation (research/boundary_seed) is source-isolated
+      # under declared prior exposure, with its own kernel and Lean package.
+      # Its scan bans citations into sealed paths until a committed FREEZE.md
+      # marker. Registered append-only, as the seed requires. Its Lean package
+      # remains a manual receipt (`verify_lean.py`); rung two track one below
+      # registers its separate Lean package in the lean job.
+      - name: Boundary derivation, seed and frozen-prediction pins
+        run: python research/boundary_seed/verify_pins.py
+      - name: Boundary derivation, tests, receipts, source isolation
+        working-directory: research/boundary_seed
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/boundary-seed-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran 53 tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          python run_challenge0.py
+          git diff --exit-code -- receipts
+      - name: Boundary derivation, strict typing
+        working-directory: research/boundary_seed
+        run: python -m mypy
       # Rung two, track one: no first demand.  The seed requires every rung
       # to register its pin verifier, replay, tests, coverage, receipt
       # comparison, and strict typing here, so that no rung is a manual
