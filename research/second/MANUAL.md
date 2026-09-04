@@ -111,6 +111,13 @@ is live.
 | 2 (track 1 repair) | file and scope scanners fail closed | unreadable, non-UTF-8, NUL, non-UTF-8 path, failed git commands, missing comparison base, and an untracked working file | `ScannerFailureTests` names each unavailable input and verifies the census covers index plus untracked files and the scope diff includes the current worktree |
 | 2 (track 1 repair) | Lean clean build and compiler census | root, report, nested, quoted, Unicode, private, attributed, and colliding declaration shapes plus failed `lake clean` | `LeanVerifierTests` compares the compiler's environment census with fresh reports and the receipt, includes nested modules, applies the whitelist before regeneration, and stops before build on a failed clean |
 | 2 (track 1 repair) | CI registration | each required rung command or execution condition removed or changed in an in-memory workflow copy | the negative tests require one ordered replay step with the exact discovered-test count, coverage check, receipt comparison, strict typing, pins, and Lean verifier; the real workflow keeps the repository's per-module elaboration step last |
+
+<!-- markdownlint-enable MD013 -->
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
 | 2-stake | source-span pin (`second_stake/verify_pins.py`) | changed the first hexadecimal character of the frozen `challenge_two` span digest, 2026-09-04 | `FAIL: span moved at 3f44571240a0830a2fa8de639281670f4e50a511: challenge_two`, exit 1; restoring the manifest made the verifier exit 0 |
 | 2-stake | frozen-text disk pin (`second_stake/verify_pins.py`) | appended `pin-probe` to the frozen prompt without committing it, 2026-09-04 | `FAIL: frozen text moved on disk: research/second_stake/PROMPT.md`, exit 1; removing the probe restored the pinned sha256 and exit 0 |
 | 2-stake | deterministic receipt (`second_stake/run_stake.py --check`) | changed `authority_effect` in the summary receipt without regenerating, 2026-09-04 | `FAIL: receipt differs: receipts\stake.json`, exit 1; restoring the byte gave `second-stake receipts regenerate byte-identically`, exit 0 |

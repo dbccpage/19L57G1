@@ -178,7 +178,7 @@ def verify() -> list[str]:
     if data.get("schema") != "second_stake_source_manifest/v2":
         raise ValueError("source manifest schema must be second_stake_source_manifest/v2")
     freeze = data.get("freeze_commit")
-    if freeze != FREEZE_COMMIT:
+    if not isinstance(freeze, str) or freeze != FREEZE_COMMIT:
         raise ValueError(f"freeze_commit must be the original freeze {FREEZE_COMMIT}")
     snapshot = data.get("snapshot_commit")
     if not isinstance(snapshot, str) or len(snapshot) != 40:

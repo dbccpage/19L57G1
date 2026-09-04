@@ -751,75 +751,75 @@
   {
    "id": "P-G1",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "HIT"
   },
   {
    "id": "P-G2",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "MISS"
   },
   {
    "id": "P-G3",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "MISS"
   },
   {
    "id": "P-G4",
    "observed": {
-    "growth_kinds": [
+    "relabelled": true,
+    "response_target_kinds": [
      "apart",
      "same"
-    ],
-    "relabelled": true
+    ]
    },
    "verdict": "HIT"
   },
   {
    "id": "P-G5",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "MISS"
   },
   {
    "id": "P-G6",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "MISS"
   },
   {
    "id": "P-G7",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "MISS"
   },
   {
    "id": "P-G8",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "HIT"
   },
   {
    "id": "P-G9",
    "observed": {
-    "growth_kinds": [],
-    "relabelled": false
+    "relabelled": false,
+    "response_target_kinds": []
    },
    "verdict": "MISS"
   },

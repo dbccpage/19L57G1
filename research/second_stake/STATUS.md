@@ -230,9 +230,12 @@ runtime-origin census passed separately.  These are pre-integration receipts,
 not merge-result evidence, and no mechanical gate implies authority or a
 theorem.
 
-The later frozen-metric correction changes prediction-detail receipt bytes and
-is deliberately not hand-applied to either receipt.  This worktree therefore
-requires one clean regeneration and full gate replay after ordered integration.
+The later frozen-metric correction was regenerated after ordered integration.
+The integrated exact-tree battery passed 54/54 tests, regenerated both receipts
+byte-identically, measured 97.21% line coverage and 95.27% branch coverage,
+passed strict mypy over six source files and every source/freeze/runtime pin,
+and completed in 345.578 seconds.  These checks are mechanical evidence only;
+they do not imply authority or a theorem.
 
 ## Terminal scope
 
@@ -263,7 +266,7 @@ predictions_scored: {hit: 6, missed: 9, unscored_declared_policy: 1, pending: 1}
 extrapolation_X: {statement: "four-data survivors persist at five data", forced: false, scoring_rung: challenge_three}
 ob1: OB1_UNCHANGED
 tie_record: "rule tie between Challenge 2 and no-first-demand; both run in parallel; this is track 2"
-gate_time_seconds: 293.351
+gate_time_seconds: 345.578
 outside_bet_hash: none
 authority_effect: None
 final_state: true

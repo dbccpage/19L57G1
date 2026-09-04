@@ -320,10 +320,10 @@ class BoundaryTests(unittest.TestCase):
         self.assertFalse(append_only(b"base\n", b"changed\nbase\n"))
         self.assertTrue(append_only(b"base\n", b"base\nappend\n"))
 
-    def test_shared_files_preserve_snapshot_as_exact_prefix(self) -> None:
+    def test_shared_files_preserve_scope_base_as_exact_prefix(self) -> None:
         for name in SHARED:
             base = subprocess.run(
-                ["git", "show", f"{SNAPSHOT}:{name}"],
+                ["git", "show", f"{SCOPE_BASE}:{name}"],
                 cwd=REPO,
                 capture_output=True,
                 check=True,
@@ -371,10 +371,8 @@ class CoverageGateTests(unittest.TestCase):
             path.write_text(json.dumps(report), encoding="utf-8")
             return cast(list[str], gate.check(path))
 
-    def test_valid_report_and_live_full_report_pass(self) -> None:
+    def test_valid_synthetic_report_passes(self) -> None:
         self.assertEqual(self.check(self.report()), [])
-        gate = cast(Any, coverage_module())
-        self.assertEqual(gate.check(HERE / "coverage.json"), [])
 
     def test_new_production_source_enters_the_independent_census(self) -> None:
         gate = cast(Any, coverage_module())
