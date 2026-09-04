@@ -1,0 +1,4 @@
+PROMPT.md -text
+PREDICTIONS.md -text
+SOURCE_MANIFEST.json -text
+receipts/** -text

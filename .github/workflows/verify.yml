@@ -386,3 +386,17 @@ jobs:
       - name: Second derivation, rung 2 track 1, strict typing
         working-directory: research/second_nofirst
         run: python -m mypy
+      # Second derivation, rung 2 track 2, stake read from state.
+      - name: Second derivation, stake rung, pins and frozen texts
+        run: python research/second_stake/verify_pins.py
+      - name: Second derivation, stake rung, tests, receipt, and coverage
+        working-directory: research/second_stake
+        run: |
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s . -p "test_*.py"
+          python -m coverage run --append run_stake.py --check
+          python -m coverage json -q
+          python check_coverage.py
+      - name: Second derivation, stake rung, strict typing
+        working-directory: research/second_stake
+        run: python -m mypy

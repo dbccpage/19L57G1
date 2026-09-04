@@ -1,0 +1,52 @@
+{
+  "schema": "second_stake_source_manifest/v2",
+  "snapshot_commit": "3f44571240a0830a2fa8de639281670f4e50a511",
+  "freeze_commit": "d4d5830e53d33e98404cb502ac2e694a871cb091",
+  "sources": [
+    {"path": "research/second/SEED.md", "sha256": "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"},
+    {"path": "research/second/PLAN.md", "sha256": "36b66d7e819b7bc03fe51e2932a102e6e685f4589c68b99773d8c502bac8d96d"},
+    {"path": "code/derivation/__init__.py", "sha256": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af"},
+    {"path": "code/derivation/model.py", "sha256": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2"},
+    {"path": "code/derivation/observe.py", "sha256": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba"},
+    {"path": "code/derivation/candidates.py", "sha256": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb"},
+    {"path": "code/derivation/iso.py", "sha256": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e"},
+    {"path": "code/derivation/engine.py", "sha256": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e"},
+    {"path": "code/derivation/export.py", "sha256": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd"},
+    {"path": "research/identification_dual/dual.py", "sha256": "17c6d723fa32212530d59a209b66e6fa9c82761c74a2e5b7ed5eb8f30ebad95b"},
+    {"path": "research/identification_dual/receipts/identification_dual.json", "sha256": "57c1e0a9ba21caac4f6775ea0bf22b2a5ae311707ccf34477a4b42270ddc65eb"},
+    {"path": "research/two_sided_commitment/two_sided.py", "sha256": "5ac587c2fdcb8057ec333a7fef880b8e7c3ee6603432ebcd00947a158186c1cb"},
+    {"path": "research/two_sided_commitment/receipts/two_sided_commitment.json", "sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3"},
+    {"path": "research/two_sided_commitment/STATUS.md", "sha256": "888e08a483db90f10e5103dfd42c24cfbb5bad70e27efa36b2a2da0ac9071f60"},
+    {"path": "research/second_inheritance/receipts/inheritance.json", "sha256": "9667b91aeec9999501ea79f78189f4c6922fb1e817cbad183f0e1646d9f0fecb"}
+  ],
+  "spans": [
+    {"name": "challenge_two", "path": "research/second/SEED.md", "start": 93, "end": 101, "sha256": "7b0943efee2e7f5c80e2c0f0cf9aa9020827b00ff801879093bb4bafdf76d8f9"},
+    {"name": "challenge_three", "path": "research/second/SEED.md", "start": 103, "end": 112, "sha256": "2f0762f0f0df8da01081596682ee70b892017561972e469fd8fcd8e5272a597b"},
+    {"name": "rung_order", "path": "research/second/PLAN.md", "start": 26, "end": 32, "sha256": "fcb11a68c5a283d0a4c59110e270d60e97166baef8769b6778a2a8626b82196a"},
+    {"name": "two_sided_demands", "path": "research/two_sided_commitment/two_sided.py", "start": 229, "end": 246, "sha256": "355b7e204b9925fedb1bbe3184ef88a1b5a41569021542a6fc073728f89a8c5f"},
+    {"name": "two_sided_status", "path": "research/two_sided_commitment/STATUS.md", "start": 54, "end": 107, "sha256": "c8655be2e0711876b8d1a95240aeb81106206b128798dd6e8a7661d79a6997a2"}
+  ],
+  "frozen_texts": [
+    {"path": "research/second_stake/PROMPT.md", "sha256": "4bd0b507f322c95219bf684a24653696cc976521a5e478e730e5397e4992b12c", "no_digits": true},
+    {"path": "research/second_stake/PREDICTIONS.md", "sha256": "efd3893006b4b59e80a10a4a1b067afe0453101987ca51cf6ae54a3cc9b6c07f", "no_digits": false}
+  ],
+  "runtime_modules": [
+    {"name": "derivation", "path": "code/derivation/__init__.py", "pinned_source": true},
+    {"name": "derivation.candidates", "path": "code/derivation/candidates.py", "pinned_source": true},
+    {"name": "derivation.engine", "path": "code/derivation/engine.py", "pinned_source": true},
+    {"name": "derivation.export", "path": "code/derivation/export.py", "pinned_source": true},
+    {"name": "derivation.iso", "path": "code/derivation/iso.py", "pinned_source": true},
+    {"name": "derivation.model", "path": "code/derivation/model.py", "pinned_source": true},
+    {"name": "derivation.observe", "path": "code/derivation/observe.py", "pinned_source": true},
+    {"name": "dual", "path": "research/identification_dual/dual.py", "pinned_source": true},
+    {"name": "two_sided", "path": "research/two_sided_commitment/two_sided.py", "pinned_source": true},
+    {"name": "generation", "path": "research/second_stake/generation.py", "pinned_source": false},
+    {"name": "observables", "path": "research/second_stake/observables.py", "pinned_source": false},
+    {"name": "rules", "path": "research/second_stake/rules.py", "pinned_source": false},
+    {"name": "run_stake", "path": "research/second_stake/run_stake.py", "pinned_source": false},
+    {"name": "verify_pins", "path": "research/second_stake/verify_pins.py", "pinned_source": false}
+  ],
+  "absent_at_snapshot": [
+    {"path": "research/second_stream", "present": false}
+  ]
+}
