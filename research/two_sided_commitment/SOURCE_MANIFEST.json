@@ -1,0 +1,45 @@
+{
+  "schema": "two_sided_commitment_source_manifest/v1",
+  "note": "Sealed kernel modules and sibling dual apparatus imported at the snapshot commit. The sibling canonical key is retained as a diagnostic component, while operational merging also preserves semantic indices because the commitment is defined on them. A pin proves the sources did not move; it proves nothing about the mathematics.",
+  "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA"
+    },
+    {
+      "path": "code/derivation/candidates.py",
+      "sha256": "856CE42FABA2DC2AE1217207ECC8AF893EAC29B50AE8A374DC06D2BA22C957BB"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E"
+    },
+    {
+      "path": "code/derivation/export.py",
+      "sha256": "202B2FBA9CB99864BAE52D2463864C67064BB0F85E27B78C3371D930B5BF7BDD"
+    },
+    {
+      "path": "research/identification_dual/dual.py",
+      "sha256": "17C6D723FA32212530D59A209B66E6FA9C82761C74A2E5B7ED5EB8F30EBAD95B"
+    }
+  ],
+  "frozen_texts": [
+    {
+      "path": "research/two_sided_commitment/PROMPT.md",
+      "sha256": "d96cab6efc4c89ee99dda4e7f911325e5e14b4b554444943834e0e1e914a028d"
+    },
+    {
+      "path": "research/two_sided_commitment/PREDICTIONS.md",
+      "sha256": "b9dea8cea62749321422da6b1ba01f76dc1af16624d9e8d5ea44e6338f46e333"
+    }
+  ]
+}
