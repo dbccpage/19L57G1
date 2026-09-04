@@ -1,0 +1,85 @@
+{
+  "schema": "second_inheritance_source_manifest/v1",
+  "note": "Sealed kernel, sibling dual apparatus, and committed receipts this rung replays, hashed as canonical Git blobs at the snapshot commit. A pin proves the sources did not move; it proves nothing about the mathematics. Trees the seed names that are absent from main at the snapshot are listed with their pull requests and left OPEN.",
+  "snapshot_commit": "7dabce4e8f8b22c3841511b1414d879dff3d7a65",
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA"
+    },
+    {
+      "path": "code/derivation/candidates.py",
+      "sha256": "856CE42FABA2DC2AE1217207ECC8AF893EAC29B50AE8A374DC06D2BA22C957BB"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E"
+    },
+    {
+      "path": "code/derivation/export.py",
+      "sha256": "202B2FBA9CB99864BAE52D2463864C67064BB0F85E27B78C3371D930B5BF7BDD"
+    },
+    {
+      "path": "code/run_derivation.py",
+      "sha256": "75BAF0937D0892BAA50C811A0A2ADB6CC0A3CCAB9E0B5028A8D725AE678231A8"
+    },
+    {
+      "path": "research/identification_dual/dual.py",
+      "sha256": "17C6D723FA32212530D59A209B66E6FA9C82761C74A2E5B7ED5EB8F30EBAD95B"
+    },
+    {
+      "path": "research/identification_dual/run_dual.py",
+      "sha256": "2D8E2E46A7E24815E7802F63861570AC7A07123A5127F0B15B9BF14BDC887116"
+    },
+    {
+      "path": "artifacts/challenges.json",
+      "sha256": "D5DDC3F84F6A4B463E27EE2F3DE3AB98F82D3DD663AFE1CE8CB2854296A1AB46"
+    },
+    {
+      "path": "artifacts/closed_L_summary.json",
+      "sha256": "7EC3E88B7C359EF48B4060EED669133BA6123C0FCF4041210CD69CDF3AAF4DE1"
+    },
+    {
+      "path": "artifacts/closed_F_summary.json",
+      "sha256": "2D4C35C080FFFFCADCD2079D22C6C7139459880EC508871157B0133453EA67A2"
+    },
+    {
+      "path": "research/identification_dual/receipts/identification_dual.json",
+      "sha256": "57C1E0A9BA21CAAC4F6775EA0BF22B2A5AE311707CCF34477A4B42270DDC65EB"
+    }
+  ],
+  "absent_at_snapshot": [
+    {
+      "path": "research/standing_commitment",
+      "pull_request": 127,
+      "present_at_snapshot": false
+    },
+    {
+      "path": "research/two_sided_commitment",
+      "pull_request": 128,
+      "present_at_snapshot": false
+    }
+  ],
+  "frozen_texts": [
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"
+    },
+    {
+      "path": "research/second_inheritance/PROMPT.md",
+      "sha256": "aa804ee3eaab8b358ff347036fce8810f41f431fd68390c18d709775fd5a1447"
+    },
+    {
+      "path": "research/second_inheritance/PREDICTIONS.md",
+      "sha256": "86767fe4d8b2ed73ec516855d6d78d3310c22ca6815c835ea4b46060c026ab3a"
+    }
+  ]
+}

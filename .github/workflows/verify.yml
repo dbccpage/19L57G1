@@ -300,3 +300,15 @@ jobs:
         run: python -m mypy
         env:
           PYTHONPATH: ${{ github.workspace }}/code
+      # The second derivation registers every rung here, so that no rung
+      # is a manual receipt (research/second/SEED.md, section 10).  Rung
+      # zero replays the inheritance; its verifier also checks that the
+      # seed and the rung's frozen texts have not moved.
+      - name: Second derivation, rung 0, pins and frozen texts
+        run: python research/second_inheritance/verify_pins.py
+      - name: Second derivation, rung 0, tests
+        working-directory: research/second_inheritance
+        run: python -m unittest discover -s . -p "test_*.py"
+      - name: Second derivation, rung 0, strict typing
+        working-directory: research/second_inheritance
+        run: python -m mypy
