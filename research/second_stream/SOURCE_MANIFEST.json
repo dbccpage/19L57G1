@@ -1,0 +1,106 @@
+{
+  "schema": "second_stream_source_manifest/v1",
+  "note": "Rung one of the second derivation. The snapshot commit is the merge base of research/second-stream with origin/main; every source is pinned as a canonical Git blob and checked at BOTH that snapshot and HEAD, so a source that moved after the snapshot fails even where the snapshot copy is intact. The sources fall into four classes. Sealed kernel, consumed read-only through its public functions and never copied: model.py (Regime, the event types, step, replay, AdmissionError), observe.py (contexts, profiles, separable -- the observational semantics the validity rules read), candidates.py (Item, Delta, item_key, mu1, mu2, delta_events, apply_delta, iter_full_deltas at costs zero to two, and the cost-three refusal this rung's declared space replaces), iso.py (canonical, canonical_bruteforce, rename, automorphisms), engine.py (the two sealed genesis readings), export.py (dumps_deterministic and write_json, and therefore the receipt's bytes), and the package's own __init__.py, which is executed whenever any of them is imported. The sealed and sibling half of this list was not chosen by reading import statements: stream.py was imported in a child interpreter and every module resolving inside this repository was read off sys.modules, giving __init__.py, candidates.py, engine.py, iso.py, model.py, observe.py, dual.py and two_sided.py; export.py is added because run_stream.py writes the receipt through it, and check_prose_watchlist.py because the rung's vocabulary gate loads it by path. Nothing in that measured closure is unpinned. Sibling trees, consumed read-only by import through sys.path: two_sided_commitment/two_sided.py (the inherited validity, stakes, quotient and target policy), its runner run_two_sided.py (the secondary bounds this rung holds fixed), its committed summary receipt (a supplied datum, replayed before use and never cited as authority), and identification_dual/dual.py (reached transitively through two_sided.key_of; the raise site of the bijection budget this rung declares a terminal for). Quoted prose, pinned so a quotation is checkable against a blob rather than a memory: two_sided_commitment/PROMPT.md (section 4's orbit rule, which the shipped closure_targets departs from), two_sided_commitment/CLAIM_LEDGER.md (TS-15's conjecture scope), two_sided_commitment/STATUS.md (the named leftover), second_inheritance/STATUS.md (rung zero's leftover, the seed's next-rung rule), and tests/test_candidates.py (two scope facts about the sealed cost-two completeness certificate). Apparatus and absence: ci/check_prose_watchlist.py, whose load/digest/stems/scan_text this rung's operator-vocabulary gate imports, together with the two TABLES those scans read -- ci/prose_watchlist.json and contact/analysis/contact_countermodels.json. An earlier version of this note pinned the scripts alone and said in so many words that the gate's reach was pinned with the gate. That was FALSE and is WITHDRAWN: a reviewer pruned one watched digest, committed it, and verify_pins.py stayed green while the rung's census scan silently stopped watching that word. The tables are now pinned, so a committed change to either fails this verifier and is a deliberate repin rather than a silent narrowing; the count assertions inside the gate remain vacuity guards and are not content pins; and Progress.lean and Ext.lean, cited by the claim ledger for an ABSENCE, since none of them states that profiles grow under delta application. Deliberately not pinned, each for a stated reason: two_sided_commitment/receipts/full/two_sided_commitment_full.json.gz, because only the summary receipt is consumed and pinning a compressed blob invites the local zlib byte hazard for no gain; second_inheritance/receipts/inheritance.json, because rung one does not consume rung zero's receipt as authority; research/standing_commitment/*, not consumed and absent from this tree's mypy_path; artifacts/lean_axioms.txt, because this rung ships no Lean and cites no axiom report as evidence. absent_at_snapshot is empty: rung zero's two absences were the two commitment trees, both of which landed before this snapshot, so no check was dropped in emptying it and there is no landed_replay block to compensate for one. The frozen texts are checked at HEAD only, because two of the three were created by the freeze commit and so do not exist at the snapshot; SEED.md carries the same digest rung zero pinned. A pin proves the inputs did not move. It proves nothing about the mathematics.",
+  "snapshot_commit": "3f44571240a0830a2fa8de639281670f4e50a511",
+  "sources": [
+    {
+      "path": "ci/check_prose_watchlist.py",
+      "sha256": "888718F22A11AB664C6A43A94C5CC612AA21154CA46616E4B43940EB11FA2F57"
+    },
+    {
+      "path": "ci/prose_watchlist.json",
+      "sha256": "28B75CCFAEDE4291496696C14BD0CE8FCC55BF3BABC3CAAC623F4D424C4C9327"
+    },
+    {
+      "path": "code/derivation/__init__.py",
+      "sha256": "0FABCB53DC46712447A727F6CEB661E5AAB3267A3E8B50BDEA11044B64F853AF"
+    },
+    {
+      "path": "code/derivation/candidates.py",
+      "sha256": "856CE42FABA2DC2AE1217207ECC8AF893EAC29B50AE8A374DC06D2BA22C957BB"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E"
+    },
+    {
+      "path": "code/derivation/export.py",
+      "sha256": "202B2FBA9CB99864BAE52D2463864C67064BB0F85E27B78C3371D930B5BF7BDD"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA"
+    },
+    {
+      "path": "contact/analysis/contact_countermodels.json",
+      "sha256": "741F10740F72B52A5723C9CCEEEC47C4D0914908692C355268546060B7C43511"
+    },
+    {
+      "path": "lean4/Derivation/Ext.lean",
+      "sha256": "6C597B6410A07EC153C6192AE2269BC604FD8B6E97941108AF1D27B4A8E83D0E"
+    },
+    {
+      "path": "lean4/Derivation/Progress.lean",
+      "sha256": "9F49CA4646B68A93C966B324402D33A033FEDB143DC7EEA98EC8C8C4C455E3F5"
+    },
+    {
+      "path": "research/identification_dual/dual.py",
+      "sha256": "17C6D723FA32212530D59A209B66E6FA9C82761C74A2E5B7ED5EB8F30EBAD95B"
+    },
+    {
+      "path": "research/second_inheritance/STATUS.md",
+      "sha256": "E6A012D83573454A1D7188E9F2C7851B49BC002D35267F5633B9DB4B79B58B62"
+    },
+    {
+      "path": "research/two_sided_commitment/CLAIM_LEDGER.md",
+      "sha256": "13543354AB8C33360842B86E7C746666C71C28E4B665555B16F695D154105C37"
+    },
+    {
+      "path": "research/two_sided_commitment/PROMPT.md",
+      "sha256": "D96CAB6EFC4C89EE99DDA4E7F911325E5E14B4B554444943834E0E1E914A028D"
+    },
+    {
+      "path": "research/two_sided_commitment/STATUS.md",
+      "sha256": "888E08A483DB90F10E5103DFD42C24CFBB5BAD70E27EFA36B2A2DA0AC9071F60"
+    },
+    {
+      "path": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+      "sha256": "863D3503425647FB2BBAAFA8583736E6284D3FDDA0A512C9ED039EDEDF0AE4D3"
+    },
+    {
+      "path": "research/two_sided_commitment/run_two_sided.py",
+      "sha256": "673BC50DC469FE730674FC56437F31908CC66B2379F8E6D2DF0A29EED67B1297"
+    },
+    {
+      "path": "research/two_sided_commitment/two_sided.py",
+      "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB"
+    },
+    {
+      "path": "tests/test_candidates.py",
+      "sha256": "593CDD0A7B008C11BF68A84702334D02ACA398C4D99191C0F148EA4571922D26"
+    }
+  ],
+  "absent_at_snapshot": [],
+  "frozen_texts": [
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"
+    },
+    {
+      "path": "research/second_stream/PREDICTIONS.md",
+      "sha256": "b688840362287aa3101c640bfc063655501e19534a6b84a58b88a5808b663842"
+    },
+    {
+      "path": "research/second_stream/PROMPT.md",
+      "sha256": "efca5d969189bc2d887bd031f406cbdd9ffc3a2499491e754c1251683fb039a5"
+    }
+  ]
+}

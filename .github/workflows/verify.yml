@@ -312,3 +312,17 @@ jobs:
       - name: Second derivation, rung 0, strict typing
         working-directory: research/second_inheritance
         run: python -m mypy
+      # Rung one answers Challenge one: the stream as a response at a
+      # three-item bound.  Its verifier also checks the frozen question and
+      # predictions by sha256, so a post-freeze edit fails CI, not just the
+      # local battery.
+      - name: Second derivation, rung 1, pins and frozen texts
+        run: python research/second_stream/verify_pins.py
+      - name: Second derivation, rung 1, run
+        run: python research/second_stream/run_stream.py
+      - name: Second derivation, rung 1, tests
+        working-directory: research/second_stream
+        run: python -m unittest discover -s . -p "test_*.py"
+      - name: Second derivation, rung 1, strict typing
+        working-directory: research/second_stream
+        run: python -m mypy
