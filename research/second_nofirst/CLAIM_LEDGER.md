@@ -55,9 +55,13 @@ things.  Both stand.  Neither is evidence for or against the other, and
 this rung reports no change of any kind to the sealed sentence's standing.
 
 **Classes.**  The sealed sentence: the sealed estate's own record, quoted,
-not reclassified here.  The theorem: `no_first_demand`, PROVED_THEOREM as
-an assembly -- see the honesty note under it in the register below, which
-records that three of its five conjuncts are at the level of a definition.
+not reclassified here.  The theorem: `no_first_demand`, classed DEFINITION
+in `FWDEF_CENSUS.json` -- it is an assembly whose five conjuncts are ALL at
+the level of a definition, so it is never counted as content.  An earlier
+draft of this paragraph said "three of its five conjuncts"; that was wrong
+and is WITHDRAWN.  The theorem is true, its scope discipline is clean, and
+what it shows is that the definitions were chosen well, which is a design
+claim rather than a mathematical result.
 
 **Scope excluded.**  Any grammar that is not this one.  In particular a
 grammar carrying an event with a field of stake type is outside every
@@ -87,8 +91,9 @@ result of it.
 | NF-10 | For every stake, the demands after a supply are the demands before it (`supply_preserves_demands`). | DEFINITION given the reconstructed sealed theorem -- two rewrites, the content carried by `supply_no_op`. **Predicted NOT definitional; recorded as definitional. Census miss, see `STATUS.md`.** | `lean_axioms.txt`; sealed `Sealed.supply_no_op` |
 | NF-11 | A pair in the demands is a pair the stake labels apart or labels same (`demand_needs_label`). | DEFINITION -- a projection and a three-way case split | `lean_axioms.txt` |
 | NF-12 | Whether a pair is a demand depends on the stake only through the label the declaration gives that pair (`demand_depends_only_on_the_label`). | DEFINITION -- `unfold` then one rewrite. **Predicted NOT definitional; recorded as definitional. Census miss.** The STATEMENT is load-bearing and the PROOF is an unfolding; both are recorded. | `lean_axioms.txt` |
-| NF-13 | Every event of the reconstructed grammar is one of exactly six kinds, each carrying natural-number fields only; the kind code is total, bounded by six, and injective (`grammar_carries_no_stake`). | PROVED_THEOREM, and an ENUMERATION rather than a mathematical result: its value is that the compiler checks the case list instead of a reader checking it by eye. A fact about the RECONSTRUCTED type and about nothing else. | `lean_axioms.txt`; the six kinds match `research/second_inheritance/receipts/inheritance.json` `census.sealed_event_count` |
-| NF-14 | The conjunction NO FIRST DEMAND, stated once with its scope in the same sentence (`no_first_demand`). | PROVED_THEOREM as an assembly; three of its five conjuncts are at the level of a definition and the assembly adds nothing beyond them | `lean_axioms.txt` |
+| NF-13 | Every event of the reconstructed grammar is one of exactly six kinds; the kind code is total, bounded by six, and injective (`grammar_carries_no_stake`). | DEFINITION -- pure case exhaustion over six constructors plus a decidable injectivity check, with no mathematical step; classed so in `FWDEF_CENSUS.json` and excepted BY NAME from that file's proof-length bound, because its twenty-two lines count constructors rather than work. Its value is that the compiler checks the case list instead of a reader checking it by eye. A fact about the RECONSTRUCTED type and about nothing else. | `lean_axioms.txt`; the six kinds match `research/second_inheritance/receipts/inheritance.json` `census.sealed_event_count` |
+| NF-14 | The conjunction NO FIRST DEMAND, stated once with its scope in the same sentence (`no_first_demand`). | DEFINITION -- an assembly whose five conjuncts are ALL at the level of a definition, adding nothing beyond them. Never counted as content in any headline of this rung | `lean_axioms.txt` |
+| NF-13b | That no constructor of the reconstructed event type carries a field of stake type, and that `stepE` reads `Regime -> Event -> Option Regime` and mentions no stake. | METATHEORY, read off the type SIGNATURE and checked by the compiler accepting the declaration; NOT a proposition and NOT proved by `grammar_carries_no_stake`, whose name is wider than its statement | the declarations themselves; the narrowing note in `lean/SecondNoFirst/NoFirst.lean` |
 | NF-15 | At a regime with no admitted instance, a held pair is a demand exactly when the stake labels it apart (`demand_iff_apart_of_no_insts`), both directions. | PROVED_THEOREM | `lean_axioms.txt`; cites reconstructed `collapsed_of_no_insts` |
 | NF-16 | At a regime with no admitted form, every held pair the stake labels apart is a demand (`apart_demand_of_no_forms`). | PROVED_THEOREM | `lean_axioms.txt` |
 | NF-17 | Failing to separate is being collapsed (`collapsed_of_not_separable`), constructively, because derivability is decidable at each context. | PROVED_THEOREM | `lean_axioms.txt` |
@@ -142,7 +147,7 @@ result of it.
 |---|---|---|
 | NF-41 | Nothing about the count of declared inputs, in either direction. That is the parallel track's question. | REFUSED (FW-COUNT); `nofirst.json` `input_count_claim` is `none` |
 | NF-42 | Nothing about rung one's pending extrapolation on the four-item bound; four items are not computed here. | REFUSED |
-| NF-43 | No claim that the reconstructions are faithful to the sources they pin. A pin proves that a source did not move; faithfulness is read by hand. | OPEN, recorded |
+| NF-43 | Every declaration the reconstruction SHARES with its pinned source is identical to it at the snapshot: 46 across four sources, comments and namespace aside. Whether the declarations it OMITS are safe to omit is still read by hand. | FINITE_COMPUTATION for the shared half, `test_reconstruction.py`; OPEN for the omitted half. Narrows an earlier row that recorded the whole question as OPEN |
 | NF-44 | No claim about any grammar that is not the one reconstructed here. | REFUSED (FW-SET) |
 
 ## Library axiom reliance

@@ -228,7 +228,11 @@ that IS evidence is listed here, and each item is in the committed tree.
 5. **The axiom census was hand-maintained.**  `verify_lean.py` now derives
    the module list from the filesystem and each module's namespace from its
    own `namespace` lines, so a new module cannot be forgotten.
-6. **A finding worth recording on its own.**  The sibling two-sided tree's
+6. **The reconstructions are now checked, not only pinned.**  The reading
+   observed that the pins prove only that the sources did not move.
+   `test_reconstruction.py` closes the shared-declaration half: 46
+   declarations across four sources, all identical at the snapshot.
+7. **A finding worth recording on its own.**  The sibling two-sided tree's
    conjecture sketch routes through "a fresh datum has the empty profile".
    Over the SEALED carrier that is false whenever the rule set is
    non-empty: `fresh_profile` shows the fresh datum is derivable in exactly
@@ -240,7 +244,8 @@ that IS evidence is listed here, and each item is in the committed tree.
 
 A gate is proved by failing on the exact defect it exists to catch, with
 the failure naming the injected object, and by recovering when the
-injection is reversed.  These rows are appended to the injection table of
+injection is reversed.  Fifteen were run against this rung's own gates and
+each is recorded below; the rows are appended to the injection table of
 `research/second/MANUAL.md`.
 
 | gate | injection | observed failure, verbatim |
@@ -258,6 +263,8 @@ injection is reversed.  These rows are appended to the injection table of
 | census classification | `wf_step_inert` refiled from CONTENT to DEFINITION | `AssertionError: Lists differ: ['grammar_carries_no_stake (22 lines)', 'wf_step_inert (27 lines)'] != []`; exit 1, then 0 |
 | prose census over the write root | one line carrying a watched noun appended to `STATUS.md` | `AssertionError: Lists differ: ['research/second_nofirst/STATUS.md:333: <term>'] != []`, where `<term>` was the watched noun itself; exit 1, then 0.  The noun is REDACTED here: writing the failure text verbatim would put the watched term into this tree and fail the same gate, which is the defect the root repository records against its own gate's test file |
 | FW-OB1 scan | a sentence appended to `STATUS.md` asserting that this rung had discharged the sealed obstruction, worded so as to match the first barred shape.  The sentence is REDACTED here for the same reason as the watched noun above | the scan named `research/second_nofirst/STATUS.md:333` and the pattern `(?:clos\|answer\|supersed\|narrow)...obstruction`; exit 1, then 0 |
+| reconstruction faithfulness, binder | `collapsed`'s second binder renamed from `d'` to `dd` in `Kernel.lean` | `AssertionError: "def collapsed (r : Regime) (d d' : Nat) ..." != 'def collapsed (r : Regime) (d dd : Nat) ...'`; exit 1, then 0 after reversal |
+| reconstruction faithfulness, hypothesis | `collapsed_of_no_insts`'s hypothesis weakened from `r.insts = []` to `r.insts = r.insts` | `AssertionError: Lists differ: ['lean4/Derivation/Inertia.lean -> Kernel.lean: collapsed_of_no_insts'] != []`; exit 1, then 0 |
 | FW-OB1 exemption pin | the exempted line reworded | `test_an_exempted_line_loses_its_exemption_when_reworded`: the appended-to line's digest is not in the pinned list, so the exemption lapses |
 
 **One injection changed the tree rather than only proving a gate.**  The
@@ -301,12 +308,14 @@ both above the floor of 95%.
 `check_coverage.py` excludes itself and `verify_lean.py`, each with its
 reason recorded in that file.
 
-Gate time on 2026-09-04: 491 seconds of wall time, measured end to end,
-for the pin verifier, the run, the Lean build and audit, the 109 tests,
+Gate time on 2026-09-04: 491 seconds of wall time when the suite stood at
+109 tests, measured end to end,
+for the pin verifier, the run, the Lean build and audit, the 113 tests,
 strict typing, the coverage measurement and its gate, the repository's
 prose census and the identifier firewall together -- inside the fifteen
 minutes the seed allows.  The tests are the bulk of it, at about 150
-seconds; the Lean build is about 30.
+seconds; the Lean build is about 30.  The four reconstruction tests added
+afterwards cost about one second, so the figure stands.
 
 ## Leftovers, named and priced, executed nowhere
 
@@ -333,10 +342,21 @@ seconds; the Lean build is about 30.
 - **L-5, Challenge 2, the stake read off the state.**  The parallel track's
   question, named here so it cannot be smuggled in later.  Not answered
   here in any direction.
-- **L-6, the faithfulness of the reconstructions.**  The pins prove the
-  sources did not move.  Whether the reconstruction says the same thing is
-  read by hand.  Price: a mechanical declaration-by-declaration differ,
-  which would be a gate rather than a rung.
+- **L-6, the faithfulness of the reconstructions.  NARROWED, not open.**
+  An earlier draft of this list read: *"The pins prove the sources did not
+  move.  Whether the reconstruction says the same thing is read by hand.
+  Price: a mechanical declaration-by-declaration differ, which would be a
+  gate rather than a rung."*  That gate was then written, so the sentence
+  is WITHDRAWN and quoted here rather than deleted.
+  `test_reconstruction.py` compares every declaration the reconstruction
+  shares with its source, read by git blob AT THE SNAPSHOT, with comments
+  and namespace lines stripped and whitespace normalized: 46 shared
+  declarations across four sources, all identical, and two injections show
+  the comparison catches a renamed binder and a weakened hypothesis.
+  What remains open is narrower and stays named: whether the declarations
+  the reconstruction OMITS are safe to omit.  The gate records the omitted
+  names and checks that none of them is mentioned by the reconstruction;
+  that they are not NEEDED is still read by hand.  Price: small.
 
 ## The next rung, named so it cannot be smuggled in later
 
