@@ -17,7 +17,25 @@ proofs are in `lean/`, with the axiom log committed at
 - Pinned at `3f44571240a0830a2fa8de639281670f4e50a511`, which was `main` at
   launch.  Pull request 133 had NOT merged, so `research/second_stream/` is
   recorded ABSENT at this snapshot in `SOURCE_MANIFEST.json` and its
-  `STATUS.md` was not read.  Only one commit is therefore in play, not two.
+  `STATUS.md` was not read.  Only one commit was therefore in play at
+  launch, not two.
+- **Pull request 133 merged while this rung was being built**, at
+  `9b9bea87f0ed3b3bd5be8145b837f91cbaeb3d4d`.  No pinned source moved: it added
+  `research/second_stream/` and appended to the two shared files, and every
+  blob and span this rung pins still hashes to its recorded value at the
+  snapshot AND at HEAD.  So there is no repin, and the snapshot stays where
+  it was; a repin is a logged act and there was nothing to repin.  What it
+  did produce is the trivial conflict the packet anticipated on the two
+  append-only files, resolved by KEEPING BOTH, rung one's block first
+  because it landed first.  `main` was merged into this branch to resolve
+  it; this branch was NOT rebased onto anything, and its base is `main`.
+- One consequence is recorded because it changed a gate.  The write-root
+  scan originally measured this branch against the PIN SNAPSHOT, which was
+  correct until `main` moved: from the snapshot, rung one's whole tree now
+  reads as though this branch had written it.  The scan now measures
+  against the tip of `main` this branch has merged.  The snapshot remains
+  the base for the PINS, where it belongs; it was never the right base for
+  "what did this branch write".
 - The seed's next-rung rule had a tie between this rung and Challenge 2 of
   the seed.  The author resolved the tie by running both in parallel.  This
   track is the one named in its own prompt: no first demand.  **The

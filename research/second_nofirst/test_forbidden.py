@@ -142,6 +142,42 @@ def identifier_token(name: str) -> re.Pattern[str]:
     return re.compile(r"(?<![\w])" + re.escape(name) + r"(?![\w])")
 
 
+def comparison_base() -> str | None:
+    """The commit this branch's own changes are measured against.
+
+    NOT the manifest snapshot.  The snapshot is where the pins are taken,
+    and it is the right base for a pin.  It is the WRONG base for "what did
+    this branch write", because `main` moves: rung one landed after this
+    rung launched, so a diff from the snapshot now shows rung one's whole
+    tree as though this branch had written it.  The right base is the tip of
+    `main` that this branch has merged, which is what `git merge-base`
+    returns once the merge is in.
+
+    Returns None when no base can be resolved, and the caller SKIPS rather
+    than passes.  A skipped scan is not a clean scan; the local battery is
+    the verifier of record for this refusal, and the run that produced this
+    tree checked it against the real base.
+    """
+    for ref in ("origin/main", "main"):
+        proc = subprocess.run(
+            ["git", "merge-base", ref, "HEAD"],
+            capture_output=True, text=True, cwd=REPO, check=False,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            return proc.stdout.strip()
+    return None
+
+
+def changed_paths(base: str) -> list[str]:
+    proc = subprocess.run(
+        ["git", "diff", "--name-only", f"{base}..HEAD"],
+        capture_output=True, text=True, cwd=REPO, check=False,
+    )
+    if proc.returncode != 0:  # pragma: no cover - git is present in CI
+        return []
+    return [line.strip() for line in proc.stdout.splitlines() if line.strip()]
+
+
 class CensusScan(unittest.TestCase):
     def test_the_write_root_carries_no_watched_term(self) -> None:
         """The repository's own prose census, over this tree only.  A hit
@@ -240,30 +276,30 @@ class OutsideGlossary(unittest.TestCase):
 
 
 class WriteRootScan(unittest.TestCase):
+    """FW-SEAL, FW-SHARE: what this branch wrote, measured against the tip
+    of `main` it has merged rather than against the pin snapshot."""
+
+    def setUp(self) -> None:
+        base = comparison_base()
+        if base is None:  # pragma: no cover - a resolvable base exists here
+            self.skipTest("no comparison base; a skip is not a clean scan")
+        self.changed = changed_paths(base)
+
     def test_this_branch_touches_nothing_outside_the_write_root(self) -> None:
-        """FW-SEAL and FW-SHARE: the only paths this branch may change are
-        the write root and the two append-only registrations."""
-        manifest = json.loads(
-            (HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
-        )
-        snapshot = manifest["snapshot_commit"]
-        proc = subprocess.run(
-            ["git", "diff", "--name-only", f"{snapshot}...HEAD"],
-            capture_output=True,
-            text=True,
-            cwd=REPO,
-            check=False,
-        )
-        if proc.returncode != 0:  # pragma: no cover - git is present in CI
-            self.skipTest("git diff unavailable")
         stray = [
-            line.strip()
-            for line in proc.stdout.splitlines()
-            if line.strip()
-            and not line.strip().startswith(WRITE_ROOT + "/")
-            and line.strip() not in APPEND_ONLY
+            path
+            for path in self.changed
+            if not path.startswith(WRITE_ROOT + "/") and path not in APPEND_ONLY
         ]
         self.assertEqual(stray, [])
+
+    def test_the_scan_sees_this_branch_at_all(self) -> None:
+        """NEGATIVE: an empty change set would make the scan above vacuous.
+        This branch must be seen to have written its own tree."""
+        self.assertTrue(
+            any(p.startswith(WRITE_ROOT + "/") for p in self.changed),
+            f"the comparison base sees no change in {WRITE_ROOT}",
+        )
 
     def test_no_sealed_path_is_touched(self) -> None:
         sealed = (
@@ -271,46 +307,35 @@ class WriteRootScan(unittest.TestCase):
             "tests/", "CLAUDE.md", "pyproject.toml", "requirements.txt",
             "research/second/SEED.md", "research/second/PLAN.md",
         )
-        manifest = json.loads(
-            (HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
-        )
-        proc = subprocess.run(
-            ["git", "diff", "--name-only", f"{manifest['snapshot_commit']}...HEAD"],
-            capture_output=True,
-            text=True,
-            cwd=REPO,
-            check=False,
-        )
-        if proc.returncode != 0:  # pragma: no cover - git is present in CI
-            self.skipTest("git diff unavailable")
-        touched = [
-            line.strip()
-            for line in proc.stdout.splitlines()
-            if line.strip().startswith(sealed)
-        ]
-        self.assertEqual(touched, [])
+        self.assertEqual([p for p in self.changed if p.startswith(sealed)], [])
 
     def test_no_sibling_research_tree_is_written(self) -> None:
-        manifest = json.loads(
-            (HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
-        )
-        proc = subprocess.run(
-            ["git", "diff", "--name-only", f"{manifest['snapshot_commit']}...HEAD"],
-            capture_output=True,
-            text=True,
-            cwd=REPO,
-            check=False,
-        )
-        if proc.returncode != 0:  # pragma: no cover - git is present in CI
-            self.skipTest("git diff unavailable")
         siblings = [
-            line.strip()
-            for line in proc.stdout.splitlines()
-            if line.strip().startswith("research/")
-            and not line.strip().startswith(WRITE_ROOT + "/")
-            and line.strip() != "research/second/MANUAL.md"
+            path
+            for path in self.changed
+            if path.startswith("research/")
+            and not path.startswith(WRITE_ROOT + "/")
+            and path != "research/second/MANUAL.md"
         ]
         self.assertEqual(siblings, [])
+
+    def test_the_two_shared_edits_are_append_only(self) -> None:
+        """The charter permits two edits outside the write root and permits
+        them ONLY as appends.  A removed line in either is a violation, and
+        this counts them."""
+        base = comparison_base()
+        assert base is not None
+        for path in APPEND_ONLY:
+            proc = subprocess.run(
+                ["git", "diff", "-U0", f"{base}..HEAD", "--", path],
+                capture_output=True, text=True, cwd=REPO, check=False,
+            )
+            removed = [
+                line
+                for line in proc.stdout.splitlines()
+                if line.startswith("-") and not line.startswith("---")
+            ]
+            self.assertEqual(removed, [], f"{path} is not append-only")
 
 
 class SealedObstruction(unittest.TestCase):
