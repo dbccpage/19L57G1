@@ -12,7 +12,7 @@
   ],
   "prompt_native_sha256": "49b428e993546dbf4923dfc8ece0a72f8d22870f22635b985e0cfc654ab4710f",
   "purpose": "read-only sources consumed by the reach_additivity run; this tree writes none of them and restates none of them beyond the two-line state functional declared below",
-  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules as libraries through the repository's own import path. The state functional it studies -- total profile size -- is two lines over the pinned `profiles` and is restated rather than imported, because the sibling tree that first declared it (research/reach_measure) is UNMERGED and therefore not pinnable at any ancestor of HEAD. That restatement is declared here rather than left for a reader to find, and pinning it once the sibling lands is named as a follow-up in STATUS.md. The Lean side states the general theorem over an abstract state functional and an abstract action, so it reconstructs nothing at all.",
+  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules as libraries through the repository's own import path. The state functional it studies -- total profile size -- is two lines over the pinned `profiles` and is restated rather than imported because, at snapshot 7fcd72f6, the sibling tree that first declared it (research/reach_measure) was UNMERGED and therefore not pinnable at any ancestor of the branch's original HEAD. That historical source boundary is declared here rather than left for a reader to infer. The Lean side states the general theorem over an abstract state functional and an abstract action, so it reconstructs nothing at all.",
   "reconstructions": [],
   "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
   "spans": [

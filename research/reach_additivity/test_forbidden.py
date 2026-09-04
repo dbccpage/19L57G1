@@ -256,5 +256,17 @@ class TotalitySentenceScan(unittest.TestCase):
                 self.assertNotIn(bad, text, f"{f.name} claims totality")
 
 
+class ObstructionScopeScan(unittest.TestCase):
+    def test_zero_circulation_is_not_promoted_to_a_total_classification(self) -> None:
+        for f in claim_files():
+            text = f.read_text("utf-8", errors="replace").lower()
+            for bad in (
+                "carries no obstruction",
+                "obstruction is exactly the part",
+                "path-independence forbids obstruction",
+            ):
+                self.assertNotIn(bad, text, f"{f.name} overstates the proved scope: {bad!r}")
+
+
 if __name__ == "__main__":
     unittest.main()

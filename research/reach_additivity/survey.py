@@ -138,7 +138,9 @@ def additivity_survey() -> dict[str, object]:
         for name in add.FUNCTIONALS
     }
     count_rows = {"checked": 0, "additive": 0, "not_additive": 0}
-    min_step_cost: dict[str, int] = {name: 0 for name in add.FUNCTIONALS}
+    min_step_cost: dict[str, int | None] = {
+        name: None for name in add.FUNCTIONALS
+    }
     for _, base in rectangle():
         for cost in (1, 2):
             for d in iter_full_deltas(base, cost, BOUNDS):
@@ -153,7 +155,8 @@ def additivity_survey() -> dict[str, object]:
                         rows[name]["checked"] += 1
                         rows[name]["additive" if verdict else "not_additive"] += 1
                         step = add.diff_cost(functional, base, d)
-                        if step is not None and step < min_step_cost[name]:
+                        current = min_step_cost[name]
+                        if step is not None and (current is None or step < current):
                             min_step_cost[name] = step
                     whole = add.mu1(add.compose(d, e))
                     count_rows["checked"] += 1
@@ -161,10 +164,14 @@ def additivity_survey() -> dict[str, object]:
                         count_rows["additive"] += 1
                     else:
                         count_rows["not_additive"] += 1
+    assert all(value is not None for value in min_step_cost.values())
+    observed_minima = {
+        name: value for name, value in min_step_cost.items() if value is not None
+    }
     return {
         "by_functional": rows,
         "item_count": count_rows,
-        "least_step_cost_seen": min_step_cost,
+        "least_step_cost_seen": observed_minima,
     }
 
 

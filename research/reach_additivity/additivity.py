@@ -11,8 +11,8 @@ of the form
     diff_P(base, delta) = P(apply(base, delta)) - P(base)
 
 for a state functional `P`.  The preceding rung's cost is the instance at
-`P = total profile size`; that instance is restated here in two lines
-rather than imported, because that rung is unmerged and so not pinnable.
+`P = total profile size`; that instance was restated here in two lines
+rather than imported, because that rung was unmerged at the pinned snapshot.
 Nothing below is special to it.
 
 Two things this module is careful about, both of which turned out to
@@ -90,8 +90,8 @@ def profile_size(r: Regime) -> int:
     """Total observable content: how many context-and-datum pluggings are
     derivable, summed over the data.  The estate's own `profiles`, counted.
 
-    Restated, not imported: the sibling tree that first declared it is
-    unmerged.  `SOURCE_MANIFEST.json` says so."""
+    Restated, not imported: the sibling tree that first declared it was
+    unmerged at this run's snapshot.  `SOURCE_MANIFEST.json` says so."""
 
     return sum(len(p) for p in profiles(r))
 

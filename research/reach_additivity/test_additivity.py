@@ -117,7 +117,21 @@ class Additivity(unittest.TestCase):
         report = survey.additivity_survey()
         least = report["least_step_cost_seen"]
         assert isinstance(least, dict)
-        for name, value in least.items():
+        independently_observed: dict[str, list[int]] = {
+            name: [] for name in add.FUNCTIONALS
+        }
+        for _, base in survey.rectangle():
+            for size in (1, 2):
+                for delta in iter_full_deltas(base, size, survey.BOUNDS):
+                    for name, functional in add.FUNCTIONALS.items():
+                        value = add.diff_cost(functional, base, delta)
+                        if value is not None:
+                            independently_observed[name].append(value)
+        expected = {
+            name: min(values) for name, values in independently_observed.items()
+        }
+        self.assertEqual(least, expected)
+        for name, value in expected.items():
             self.assertGreaterEqual(value, 0, name)
 
 

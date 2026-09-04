@@ -13,10 +13,9 @@ useless for the thing the question was reaching toward.
 > A cost of the form `P(apply(base, delta)) − P(base)` **telescopes**. Its
 > total along a sequence of moves is the functional's value at the end minus
 > its value at the start, so it cannot tell one route from another, and its
-> total around any closed walk is **zero**. A cost with zero circulation on
-> every closed walk carries no obstruction — obstruction is exactly the part
-> of a cost that is not a difference of a state functional, and a difference
-> cost has no such part by construction.
+> total around any closed walk is **zero**. It therefore cannot witness a
+> nonzero route discrepancy or circulation. This rung does not define or
+> classify every possible obstruction.
 
 And the counterweight, which is what actually settles the question: **the
 sealed item count is additive along composition too.** So additivity does
@@ -39,12 +38,13 @@ admission appends unconditionally, and the item-to-event translation. The
 self-loop classification below turns entirely on those three, so they are
 pinned rather than paraphrased.
 
-**No reconstructions, and the preceding rung is not pinned.**
-`research/reach_measure` sits in an open pull request, so it is not on `main`
-and not pinnable at any ancestor of `HEAD`; stacking on it is prohibited.
-This tree consumes no file of it and restates the one two-line functional it
-shares, declaring the restatement in `SOURCE_MANIFEST.json`. Pinning it once
-that rung lands is named as a follow-up and is not claimed here.
+**No reconstructions, and the preceding rung was not pinned at this run's
+snapshot.** At `7fcd72f6`, `research/reach_measure` sat in an open pull
+request, so it was not pinnable at any ancestor of this branch's original
+head; stacking on it was prohibited. This tree consumed no file of it and
+restated the shared two-line functional, as declared in
+`SOURCE_MANIFEST.json`. Later integration does not retroactively change
+that source boundary.
 
 ## Declared readings
 
@@ -135,7 +135,7 @@ that rung lands is named as a follow-up and is not claimed here.
 | A4 | the item count is additive too, so additivity does not separate the costs; **the preceding rung's summary of this open is wrong** | **CONFIRMED, and the contradiction lands** — see below |
 | A5 | four item kinds can self-loop: instance, rule, datum, requirement; form never | **PARTLY MISSED** — see below |
 | A6 | the item count is not a difference cost | **CONFIRMED, and proved rather than exhibited** |
-| A7 | a difference cost has zero circulation on every closed walk, so it cannot carry an obstruction | **CONFIRMED** — `circulation_zero` |
+| A7 | a difference cost has zero circulation on every closed walk, so it cannot carry an obstruction | **PARTLY CONFIRMED, SCOPE NARROWED** — `circulation_zero` proves zero circulation; the broad obstruction classification was not defined or proved |
 | A8 | no negative step cost over the rectangle | **CONFIRMED** — least step cost 0 for all three functionals |
 
 ### A4, and the correction it forces, by name
@@ -197,9 +197,10 @@ as the parts in order, including on failure, and every difference cost is
 additive along it. It settles that additivity is the wrong question —
 necessary for a price along a path, satisfied by both costs on the table,
 and therefore not evidence for either. It settles that the difference form
-is a strong constraint with a cost: it forces path-independence, and
-path-independence forbids obstruction. And it settles, as a theorem, that
-the sealed item count is not of that form.
+is a strong constraint with a cost: it forces path-independence and therefore
+cannot witness a nonzero route discrepancy. It does not classify all
+obstructions. And it settles, as a theorem, that the sealed item count is
+not of that form.
 
 It does **not** produce a cost that can carry an obstruction; it says what
 such a cost cannot look like. It does not claim the declared composition is
@@ -250,13 +251,12 @@ adaptation is recorded with what it would have forced:
 
 ## Leftovers, named and priced, executed nowhere
 
-1. **A cost that can carry an obstruction** — OPEN, and the rung this one
-   points at. It must be additive along composition and **not** a difference
-   of a state functional, since the two together force zero circulation. The
-   item count is the first example of a non-difference cost in this estate,
-   and it is base-free, so it is the wrong one. Price: a base-relative,
-   path-dependent price, which means a cost that reads the move *and* the
-   state and does not factor through either endpoint.
+1. **A cost that can carry a nonzero route discrepancy** — OPEN, and the rung
+   this one points at. It must be additive along composition and **not** a
+   difference of a state functional. The item count is the first example of
+   a non-difference cost in this estate, and it is base-free, so it does not
+   answer the declared target. Price: a base-relative, path-dependent price
+   whose path total is not determined solely by its endpoints.
 2. **The renumbering composition** — OPEN. Concatenation reads the second
    response's indices as written. A composition that renumbered them against
    the intermediate state is a different operation, and whether sequential

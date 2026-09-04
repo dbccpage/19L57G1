@@ -12,10 +12,9 @@ consequence is not the one the question expected.  A cost of the form
 
 is additive along composition, and its total along a sequence of moves
 **telescopes to the endpoints**.  So it is path-independent, and its total
-around any closed walk is zero.  A cost with zero circulation on every
-closed walk carries no obstruction: obstruction is precisely the part of a
-cost that is not a difference of a state functional, and a difference cost
-has no such part by construction.
+around any closed walk is zero.  It therefore cannot witness a nonzero route
+discrepancy or circulation.  No broader obstruction classification is
+defined or proved here.
 
 The counterweight is in the same file.  The sealed item count is additive
 along composition too -- the length of a concatenation is the sum of the
@@ -125,7 +124,7 @@ theorem path_independent (P : S → Int) (step : S → I → S) (s : S)
 returning to its own start -- the total of a difference cost is zero.
 
 This is the rung's headline, and it is a limitation rather than a virtue: a
-cost with zero circulation on every closed walk carries no obstruction. -/
+difference cost cannot witness a nonzero circulation. -/
 theorem circulation_zero (P : S → Int) (step : S → I → S) (s : S)
     (ms : List (List I)) (h : pathEnd step s ms = s) :
     pathTotal P step s ms = 0 := by
