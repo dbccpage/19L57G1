@@ -1,0 +1,23 @@
+# Tree-local config. The root pyproject scopes mypy and coverage to
+# code/, so this tree is outside both unless run from here.
+#
+# mypy_path reaches the sealed kernel and the two sibling trees this rung
+# consumes read-only: two_sided_commitment for the inherited no-regress rule
+# and the five named commitments, and identification_dual because
+# two_sided.py imports dual at module scope. standing_commitment is not
+# consumed by this rung and is not listed.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "../../code:../identification_dual:../two_sided_commitment"
+files = ["."]
+
+# Coverage is measured from inside the tree, over the tree's own non-test
+# modules. check_coverage.py is deliberately absent from this list: the gate
+# does not measure itself.
+[tool.coverage.run]
+branch = true
+source = ["stream", "run_stream", "verify_pins"]
+
+[tool.coverage.json]
+output = "coverage.json"
