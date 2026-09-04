@@ -1,0 +1,333 @@
+{
+ "authority_effect": "None",
+ "bounds": {
+  "max_arity": 2,
+  "max_data": 5,
+  "max_items": 2,
+  "max_supplies": 8,
+  "sealed_closed_guard": 1200,
+  "sealed_closed_max_rounds": 15
+ },
+ "census": {
+  "dual_declared_count": 3,
+  "dual_declared_events": [
+   {
+    "event": "RequireSame",
+    "role": "declared"
+   },
+   {
+    "event": "Retract",
+    "role": "declared"
+   },
+   {
+    "event": "Switch",
+    "role": "declared"
+   }
+  ],
+  "model_module": "derivation.model",
+  "sealed_event_count": 6,
+  "sealed_event_kinds": [
+   {
+    "changes_state": false,
+    "event": "Supply",
+    "role": "presentation"
+   },
+   {
+    "changes_state": true,
+    "event": "AdmitDatum",
+    "role": "admission"
+   },
+   {
+    "changes_state": true,
+    "event": "AdmitForm",
+    "role": "admission"
+   },
+   {
+    "changes_state": true,
+    "event": "AdmitInst",
+    "role": "admission"
+   },
+   {
+    "changes_state": true,
+    "event": "AdmitRuleAll",
+    "role": "admission"
+   },
+   {
+    "changes_state": true,
+    "event": "Impose",
+    "role": "external requirement"
+   }
+  ],
+  "sealed_policies": [
+   {
+    "introduced_by": "engine.closure_challenge_orbits",
+    "policy": "pair-separation closure",
+    "present": true
+   },
+   {
+    "introduced_by": "engine.build_tree(supply=...)",
+    "policy": "external continuation (supply)",
+    "present": true
+   }
+  ],
+  "sealed_policy_count": 2,
+  "sealed_state_preserving_count": 1
+ },
+ "inertia": {
+  "all_free_growth": [
+   {
+    "all_pair_labels_evaluated": true,
+    "chain": [
+     {
+      "all_pairs": 1,
+      "collapsed_pairs": 1,
+      "data": 2,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 1,
+      "insts": 0,
+      "labels_checked": 1,
+      "rules": 0,
+      "totally_collapsed": true
+     },
+     {
+      "all_pairs": 3,
+      "collapsed_pairs": 3,
+      "data": 3,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 3,
+      "insts": 0,
+      "labels_checked": 3,
+      "rules": 0,
+      "totally_collapsed": true
+     },
+     {
+      "all_pairs": 6,
+      "collapsed_pairs": 6,
+      "data": 4,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 6,
+      "insts": 0,
+      "labels_checked": 6,
+      "rules": 0,
+      "totally_collapsed": true
+     },
+     {
+      "all_pairs": 10,
+      "collapsed_pairs": 10,
+      "data": 5,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 10,
+      "insts": 0,
+      "labels_checked": 10,
+      "rules": 0,
+      "totally_collapsed": true
+     }
+    ],
+    "commitment": "all_free",
+    "commitment_type": "Commitment",
+    "every_state_totally_collapsed": true,
+    "forms_ever_admitted": 0,
+    "growth_edges": 3,
+    "nodes": 4,
+    "reading": "L",
+    "responses": 0,
+    "single_chain": true
+   },
+   {
+    "all_pair_labels_evaluated": true,
+    "chain": [
+     {
+      "all_pairs": 3,
+      "collapsed_pairs": 3,
+      "data": 3,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 3,
+      "insts": 0,
+      "labels_checked": 3,
+      "rules": 0,
+      "totally_collapsed": true
+     },
+     {
+      "all_pairs": 6,
+      "collapsed_pairs": 6,
+      "data": 4,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 6,
+      "insts": 0,
+      "labels_checked": 6,
+      "rules": 0,
+      "totally_collapsed": true
+     },
+     {
+      "all_pairs": 10,
+      "collapsed_pairs": 10,
+      "data": 5,
+      "demands_all_free": 0,
+      "demands_undeclared": 0,
+      "forms": 0,
+      "honours_checked": 10,
+      "insts": 0,
+      "labels_checked": 10,
+      "rules": 0,
+      "totally_collapsed": true
+     }
+    ],
+    "commitment": "all_free",
+    "commitment_type": "Commitment",
+    "every_state_totally_collapsed": true,
+    "forms_ever_admitted": 0,
+    "growth_edges": 2,
+    "nodes": 3,
+    "reading": "F",
+    "responses": 0,
+    "single_chain": true
+   }
+  ],
+  "supplies": [
+   {
+    "data": 2,
+    "forms": 0,
+    "reading": "L",
+    "regime_unchanged": true,
+    "supplies_up_to": 8
+   },
+   {
+    "data": 3,
+    "forms": 0,
+    "reading": "F",
+    "regime_unchanged": true,
+    "supplies_up_to": 8
+   }
+  ]
+ },
+ "predictions_scored": {
+  "R0-1": {
+   "hit": true,
+   "verdict": "HIT"
+  },
+  "R0-2": {
+   "hit": true,
+   "verdict": "HIT"
+  },
+  "R0-3": {
+   "hit": true,
+   "verdict": "HIT"
+  }
+ },
+ "predictions_sha256": "86767fe4d8b2ed73ec516855d6d78d3310c22ca6815c835ea4b46060c026ab3a",
+ "prompt_sha256": "aa804ee3eaab8b358ff347036fce8810f41f431fd68390c18d709775fd5a1447",
+ "remaining_declared_inputs": [
+  {
+   "custody": "OPEN: absent at snapshot",
+   "input": "stake",
+   "introduced_by": "Declare (two_sided_commitment)",
+   "kind": "two-sided standing commitment"
+  },
+  {
+   "custody": "sealed events pinned; growth policy OPEN: absent at snapshot",
+   "input": "stream",
+   "introduced_by": "Supply + AdmitDatum (sealed grammar); growth edge (two_sided_commitment)",
+   "kind": "supply and admission of one fresh datum at a demand-free state"
+  }
+ ],
+ "replay": {
+  "absent_at_snapshot": [
+   {
+    "path": "research/standing_commitment",
+    "present_at_snapshot": false,
+    "pull_request": 127,
+    "replay": "OPEN: absent at snapshot"
+   },
+   {
+    "path": "research/two_sided_commitment",
+    "present_at_snapshot": false,
+    "pull_request": 128,
+    "replay": "OPEN: absent at snapshot"
+   }
+  ],
+  "challenges": {
+   "artifact": "artifacts/challenges.json",
+   "byte_identical": true,
+   "committed_sha256": "d5ddc3f84f6a4b463e27ee2f3de3ab98f82d3dd663afe1ce8cb2854296a1ab46",
+   "fresh_sha256": "d5ddc3f84f6a4b463e27ee2f3de3ab98f82d3dd663afe1ce8cb2854296a1ab46"
+  },
+  "closed_baselines": [
+   {
+    "artifact": "artifacts/closed_L_summary.json",
+    "differing_fields": [],
+    "fields_compared": [
+     "bounds",
+     "full_export_sha256",
+     "max_rounds",
+     "measure",
+     "pre_expansion_node_guard",
+     "reading",
+     "stats",
+     "supply_enabled"
+    ],
+    "match": true,
+    "nodes": 4,
+    "terminal_all_separated": 3
+   },
+   {
+    "artifact": "artifacts/closed_F_summary.json",
+    "differing_fields": [],
+    "fields_compared": [
+     "bounds",
+     "full_export_sha256",
+     "max_rounds",
+     "measure",
+     "pre_expansion_node_guard",
+     "reading",
+     "stats",
+     "supply_enabled"
+    ],
+    "match": true,
+    "nodes": 20,
+    "terminal_all_separated": 16
+   }
+  ],
+  "dual_summary": {
+   "artifact": "research/identification_dual/receipts/identification_dual.json",
+   "byte_identical": true,
+   "committed_sha256": "57c1e0a9ba21caac4f6775ea0bf22b2a5ae311707ccf34477a4b42270ddc65eb",
+   "fresh_sha256": "57c1e0a9ba21caac4f6775ea0bf22b2a5ae311707ccf34477a4b42270ddc65eb"
+  },
+  "landed_commitments": {
+   "base_commit": "dd2aba24aca2bcfba065a8af1ff4a928b24a7907",
+   "custody_closed": true,
+   "standing_summary": {
+    "artifact": "research/standing_commitment/receipts/standing_commitment.json",
+    "byte_identical": true,
+    "committed_sha256": "9f7c93aeb5ee44c94e57de17426e12ff14fdc7e427bb291898b0b641fd78592f",
+    "fresh_sha256": "9f7c93aeb5ee44c94e57de17426e12ff14fdc7e427bb291898b0b641fd78592f"
+   },
+   "two_sided_receipts": {
+    "full_artifact": "research/two_sided_commitment/receipts/full/two_sided_commitment_full.json.gz",
+    "full_committed_uncompressed_sha256": "e49bbedb3f1d4f0b474c5c11da8129f63d5ecaa227fa23e69c6fd14e420538e1",
+    "full_compressed_sha256": "3570f3b028f01edc4a77bfb9fa4234357753de8eea4128993a30a71655e66205",
+    "full_content_identical": true,
+    "full_fresh_sha256": "e49bbedb3f1d4f0b474c5c11da8129f63d5ecaa227fa23e69c6fd14e420538e1",
+    "summary_artifact": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+    "summary_byte_identical": true,
+    "summary_committed_sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3",
+    "summary_fresh_sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3"
+   }
+  }
+ },
+ "rung": 0,
+ "seed_sha256": "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e",
+ "snapshot_commit": "7dabce4e8f8b22c3841511b1414d879dff3d7a65"
+}

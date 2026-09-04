@@ -1,0 +1,118 @@
+{
+  "schema": "second_inheritance_source_manifest/v1",
+  "note": "The original rung-zero snapshot is preserved: the two commitment trees were absent there. After their ordered merge, landed_replay separately pins the exact base commit, both engines and runners, and all three commitment receipts used by the repair. A pin proves sources did not move; replay proves reproduced bytes, not the mathematics.",
+  "snapshot_commit": "7dabce4e8f8b22c3841511b1414d879dff3d7a65",
+  "sources": [
+    {
+      "path": "code/derivation/model.py",
+      "sha256": "6A7FD2BA9688D47E9291514C623A811CDE3C6B9E8FDA1D12A608DC9BB0B1F3C2"
+    },
+    {
+      "path": "code/derivation/observe.py",
+      "sha256": "78443D67E613D9CC9924538FE2E0A5ACAF81F4654440BFE8586E16652F0317BA"
+    },
+    {
+      "path": "code/derivation/candidates.py",
+      "sha256": "856CE42FABA2DC2AE1217207ECC8AF893EAC29B50AE8A374DC06D2BA22C957BB"
+    },
+    {
+      "path": "code/derivation/iso.py",
+      "sha256": "B0F1F3BCF05126111A07706F4388A9FFF5E30455D4B8F127966CF99AB0D0886E"
+    },
+    {
+      "path": "code/derivation/engine.py",
+      "sha256": "23803A3DCCE2ADF0DEE623CABA33791D41A25D2DA3FDFD226DA3CAD2EE140B5E"
+    },
+    {
+      "path": "code/derivation/export.py",
+      "sha256": "202B2FBA9CB99864BAE52D2463864C67064BB0F85E27B78C3371D930B5BF7BDD"
+    },
+    {
+      "path": "code/run_derivation.py",
+      "sha256": "75BAF0937D0892BAA50C811A0A2ADB6CC0A3CCAB9E0B5028A8D725AE678231A8"
+    },
+    {
+      "path": "research/identification_dual/dual.py",
+      "sha256": "17C6D723FA32212530D59A209B66E6FA9C82761C74A2E5B7ED5EB8F30EBAD95B"
+    },
+    {
+      "path": "research/identification_dual/run_dual.py",
+      "sha256": "2D8E2E46A7E24815E7802F63861570AC7A07123A5127F0B15B9BF14BDC887116"
+    },
+    {
+      "path": "artifacts/challenges.json",
+      "sha256": "D5DDC3F84F6A4B463E27EE2F3DE3AB98F82D3DD663AFE1CE8CB2854296A1AB46"
+    },
+    {
+      "path": "artifacts/closed_L_summary.json",
+      "sha256": "7EC3E88B7C359EF48B4060EED669133BA6123C0FCF4041210CD69CDF3AAF4DE1"
+    },
+    {
+      "path": "artifacts/closed_F_summary.json",
+      "sha256": "2D4C35C080FFFFCADCD2079D22C6C7139459880EC508871157B0133453EA67A2"
+    },
+    {
+      "path": "research/identification_dual/receipts/identification_dual.json",
+      "sha256": "57C1E0A9BA21CAAC4F6775EA0BF22B2A5AE311707CCF34477A4B42270DDC65EB"
+    }
+  ],
+  "absent_at_snapshot": [
+    {
+      "path": "research/standing_commitment",
+      "pull_request": 127,
+      "present_at_snapshot": false
+    },
+    {
+      "path": "research/two_sided_commitment",
+      "pull_request": 128,
+      "present_at_snapshot": false
+    }
+  ],
+  "landed_replay": {
+    "base_commit": "dd2aba24aca2bcfba065a8af1ff4a928b24a7907",
+    "sources": [
+      {
+        "path": "research/standing_commitment/standing.py",
+        "sha256": "6E8DB75AF4EBEC1E8B81AE76D7EBF07439C22FC0A247AD40E93BEB1C9B4BA367"
+      },
+      {
+        "path": "research/standing_commitment/run_standing.py",
+        "sha256": "DA17EFC84B43D06DD04BA59775C889124954304C37249396650D79E337EA1F33"
+      },
+      {
+        "path": "research/standing_commitment/receipts/standing_commitment.json",
+        "sha256": "9F7C93AEB5EE44C94E57DE17426E12FF14FDC7E427BB291898B0B641FD78592F"
+      },
+      {
+        "path": "research/two_sided_commitment/two_sided.py",
+        "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB"
+      },
+      {
+        "path": "research/two_sided_commitment/run_two_sided.py",
+        "sha256": "673BC50DC469FE730674FC56437F31908CC66B2379F8E6D2DF0A29EED67B1297"
+      },
+      {
+        "path": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+        "sha256": "863D3503425647FB2BBAAFA8583736E6284D3FDDA0A512C9ED039EDEDF0AE4D3"
+      },
+      {
+        "path": "research/two_sided_commitment/receipts/full/two_sided_commitment_full.json.gz",
+        "sha256": "3570F3B028F01EDC4A77BFB9FA4234357753DE8EEA4128993A30A71655E66205"
+      }
+    ]
+  },
+  "frozen_texts": [
+    {
+      "path": "research/second/SEED.md",
+      "sha256": "52439e5f75d1c599ce52dc716beb88f1dd7bfc83856ee73ce85f3a7eeec5e70e"
+    },
+    {
+      "path": "research/second_inheritance/PROMPT.md",
+      "sha256": "aa804ee3eaab8b358ff347036fce8810f41f431fd68390c18d709775fd5a1447"
+    },
+    {
+      "path": "research/second_inheritance/PREDICTIONS.md",
+      "sha256": "86767fe4d8b2ed73ec516855d6d78d3310c22ca6815c835ea4b46060c026ab3a"
+    }
+  ]
+}
