@@ -342,19 +342,21 @@ python check_coverage.py
 ```
 
 Coverage on 2026-09-04, measured from inside the rung over the declared
-measured set: line 98.67% (519 of 526) and branch 95.33% (204 of 214),
+measured set: line 98.67% (519 of 526) and branch 95.79% (205 of 214),
 both above the floor of 95%.
 `check_coverage.py` excludes itself and `verify_lean.py`, each with its
 reason recorded in that file.
 
-Gate time on 2026-09-04: 491 seconds of wall time when the suite stood at
-109 tests, measured end to end,
-for the pin verifier, the run, the Lean build and audit, the 115 tests,
-strict typing, the coverage measurement and its gate, the repository's
-prose census and the identifier firewall together -- inside the fifteen
-minutes the seed allows.  The tests are the bulk of it, at about 150
-seconds; the Lean build is about 30.  The four reconstruction tests added
-afterwards cost about one second, so the figure stands.
+Current CI test census: **139 tests**.  The fresh coverage run on 2026-09-04
+completed those 139 tests in 476.151 seconds; the enclosing process measured
+476.733 seconds.  The separate clean Lean build and audit completed in
+13.843 seconds, strict typing in 1.308 seconds, and the pin verifier in 3.931
+seconds.  Each is inside the fifteen-minute per-gate ceiling.
+
+The pre-repair paragraph recorded a historical 491-second combined run but
+also called the same suite both 109 tests and 115 tests.  Those two census
+claims contradicted each other and are WITHDRAWN; the historical timing is
+not reused as the timing of the repaired 139-test suite.
 
 ## Leftovers, named and priced, executed nowhere
 
