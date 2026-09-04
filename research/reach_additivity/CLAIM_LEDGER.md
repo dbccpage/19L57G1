@@ -1,0 +1,33 @@
+# Claim ledger — reach_additivity
+
+One evidence class per row. Lean names live in `lean/ReachAdditivity/`; the
+pins are in `SOURCE_MANIFEST.json` and are checked by `verify_pins.py`;
+every count is checked by `run_additivity.py` into
+`receipts/reach_additivity.json`. `AuthorityEffect: None.`
+
+| ID | class | statement | evidence |
+|---|---|---|---|
+| RA-1 | DECLARED_OPERATION | Composition of responses is concatenation of item sequences. Declared, not discovered; a renumbering composition is a different operation and is not run. | `additivity.compose`, `PROMPT.md` FW-DECLARE |
+| RA-2 | DEFINITION | A difference cost is `P(apply(base, delta)) − P(base)` for a state functional `P`. Signed. The preceding rung's cost is the instance at total profile size. | `additivity.diff_cost`, `ReachAdditivity.diff` |
+| RA-3 | PROVED_THEOREM | **The action is sequential**: applying a composite equals applying the parts in order, for an arbitrary state, item type and one-item action. | `ReachAdditivity.actList_append` |
+| RA-4 | FINITE_COMPUTATION | Over the rectangle, 66376 triples: the composite and the stepwise application agree in all of them, and the **event tuples are literally identical** in all of them. So the two sides agree on ill-formedness, not merely on results. | `survey.sequential_survey`, receipt `sequential` |
+| RA-5 | FINITE_COMPUTATION | In 16514 of those 66376 the second response is ill-formed at the original base. Composition is not total, and the agreement is therefore not a statement about independent responses. | receipt `sequential`, `test_composition_is_not_total` |
+| RA-6 | PROVED_THEOREM | **Every difference cost is additive along composition**, for an arbitrary functional, using no property of it. | `ReachAdditivity.diff_additive` |
+| RA-7 | FINITE_COMPUTATION | Additivity checked over the rectangle for three functionals — total profile size, form count, datum count — 66376 each, 0 non-additive. Three so that no finding is an accident of one. | receipt `additivity.by_functional` |
+| RA-8 | PROVED_THEOREM, PRIOR_CORRECTED | **The sealed item count is additive too.** So additivity does not distinguish a base-relative cost from a base-free one. The preceding rung's summary — that additivity would make the cost an action along a path — does not follow, and is contradicted by name in `STATUS.md`. | `ReachAdditivity.count_additive`, receipt `additivity.item_count` |
+| RA-9 | PROVED_THEOREM | **Telescoping**: the step-by-step total of a difference cost along a sequence of moves equals the functional's value at the end minus its value at the start. | `ReachAdditivity.pathTotal_eq` |
+| RA-10 | PROVED_THEOREM | **Path independence**: two sequences of moves with the same endpoints carry the same total. A difference cost cannot tell one route from another. | `ReachAdditivity.path_independent` |
+| RA-11 | PROVED_THEOREM | **Zero circulation**: around any closed walk the total of a difference cost is zero. Recorded as a limitation, not a virtue — a cost with zero circulation everywhere carries no obstruction. | `ReachAdditivity.circulation_zero` |
+| RA-12 | FINITE_COMPUTATION | The closed walk is not hypothetical: 18 of 44 bases carry an enumerated self-loop, all instance repeats; constructed probes find rule repeats at 4 bases. `FW-VACUOUS` does not fire. | `survey.self_loop_survey`, receipt `self_loops` |
+| RA-13 | FINITE_COMPUTATION | The declared rectangle depth is 2 because at depth 1 no base carries a standing instance or rule, so the closed-walk question would be answered vacuously. | `test_depth_one_answers_the_question_vacuously` |
+| RA-14 | PROVED_THEOREM | **The item count is not a difference cost**: no state functional has it as its difference, because it is nonzero around a closed walk where every difference is zero. A refutation, not a failure to find. | `ReachAdditivity.Loop.count_is_not_a_difference` |
+| RA-15 | FINITE_COMPUTATION | The computed witness: at base `L0.1.3` the paths `[datum]` and `[inst repeat, datum]` share endpoints; all three difference costs agree, the item count is 1 against 2. | receipt `circulation` |
+| RA-16 | COUNTERMODEL | With truncated subtraction the cost is **not** additive: a rise then a fall totals one step by step and zero as a composite. The sign is load-bearing. | `ReachAdditivity.Unsigned.natDiff_not_additive` |
+| RA-17 | CONDITIONAL_THEOREM | Additivity survives truncation under an explicit monotonicity hypothesis, which has to be supplied rather than assumed. | `ReachAdditivity.Unsigned.natDiff_additive_of_monotone` |
+| RA-18 | FINITE_COMPUTATION | No step cost of any of the three functionals is negative over the rectangle, so the signed and unsigned forms agree there. Recorded; not a reason to drop the sign. | receipt `additivity.least_step_cost_seen` |
+| RA-19 | FINITE_COMPUTATION, PREDICTION_MISSED | A5 predicted four self-looping item kinds. Datum items **never** self-loop — admission absorbs a repeat at the event level, but the item-to-event translation numbers a fresh datum from the base's datum count, so the token is new every time. A requirement is **not an item at all**. | `test_a_datum_item_is_never_a_self_loop`, receipt `self_loops` |
+| RA-20 | FINITE_COMPUTATION | A rule repeat is a self-loop that the sealed enumerator never offers, because it subtracts standing rules. Absorbing and offered are different questions, and the receipt reports the two counts separately. | `test_a_rule_repeat_is_a_self_loop_but_is_never_enumerated` |
+| RA-21 | METATHEORY | Four inherited gate checks were adapted: substring token matching to word boundaries, a source census added, a reconstruction requirement gated on a declared policy, and a two-freeze requirement relaxed to one or more. Each is recorded in `STATUS.md` with what it would otherwise have forced. | `STATUS.md`, `verify_lean.py`, `verify_pins.py` |
+| RA-22 | METATHEORY | The preceding rung is unmerged and therefore unpinnable; stacking is prohibited. This tree restates the one shared two-line functional and declares the restatement rather than importing across an open branch. | `SOURCE_MANIFEST.json` `reconstruction_policy` |
+| RA-23 | OPEN | A cost that can carry an obstruction — additive along composition and not a difference of a state functional; the renumbering composition; relations among composites; whether any offered closed walk is longer than one move; depth beyond two. | `STATUS.md` leftovers |
+| RA-24 | REFUSED | That the declared composition is canonical or forced, or that additivity makes a cost good. It is a declaration and a shape, and neither is a virtue. | FW-DECLARE, FW-BUYS |

@@ -1,0 +1,106 @@
+{
+  "additivity": {
+    "by_functional": {
+      "datum_count": {
+        "additive": 66376,
+        "checked": 66376,
+        "not_additive": 0
+      },
+      "form_count": {
+        "additive": 66376,
+        "checked": 66376,
+        "not_additive": 0
+      },
+      "profile_size": {
+        "additive": 66376,
+        "checked": 66376,
+        "not_additive": 0
+      }
+    },
+    "item_count": {
+      "additive": 66376,
+      "checked": 66376,
+      "not_additive": 0
+    },
+    "least_step_cost_seen": {
+      "datum_count": 0,
+      "form_count": 0,
+      "profile_size": 0
+    }
+  },
+  "assumptions": {
+    "A1": "composition is declared as concatenation; a declaration that renumbered the second response against the intermediate state is a different operation and is not run here",
+    "A2": "the rectangle is reachability-bounded at depth two; a count here is a count over that rectangle and not over the states",
+    "A3": "the sealed enumerator remains the authority on which responses exist; the constructed self-loop probes ask the absorption question directly and are labelled as constructed, not enumerated",
+    "A4": "additivity is a property of every difference cost, so observing it for one functional is evidence about the shape of the cost and not about the choice of functional",
+    "A5": "zero circulation is a limitation, not a virtue; nothing here says a difference cost is a good cost"
+  },
+  "authority_effect": "None",
+  "circulation": {
+    "base": "L0.1.3",
+    "difference_cost_totals": {
+      "datum_count": [
+        1,
+        1
+      ],
+      "form_count": [
+        0,
+        0
+      ],
+      "profile_size": [
+        0,
+        0
+      ]
+    },
+    "endpoints_equal": true,
+    "every_difference_cost_agrees": true,
+    "item_count_differs": true,
+    "item_count_totals": [
+      1,
+      2
+    ],
+    "long_path": [
+      "(NewInst(form=0, args=(0,)),)",
+      "(NewDatum(),)"
+    ],
+    "short_path": [
+      "(NewDatum(),)"
+    ]
+  },
+  "declared": {
+    "composition": "concatenation of item sequences; declared, not discovered",
+    "depth": 2,
+    "difference_cost": "diff_P(base, delta) = P(apply(base, delta)) - P(base)",
+    "functionals": [
+      "datum_count",
+      "form_count",
+      "profile_size"
+    ],
+    "rectangle": "the sealed readings' genesis states plus every state reachable by up to two valid one-item responses, deduplicated by regime equality"
+  },
+  "rectangle_size": 44,
+  "self_loops": {
+    "bases": 44,
+    "bases_carrying_a_self_loop": 18,
+    "constructed_self_loops_by_kind": {
+      "inst": 18,
+      "rule": 4
+    },
+    "enumerated_self_loops_by_kind": {
+      "inst": 18
+    },
+    "example": "L0.1.3: (NewInst(form=0, args=(0,)),)"
+  },
+  "sequential": {
+    "both_sides_defined": 66376,
+    "composite_defined_but_not_stepwise": 0,
+    "disagreements": [],
+    "event_tuples_agree": 66376,
+    "second_response_ill_formed_at_the_original_base": 16514,
+    "states_agree": 66376,
+    "stepwise_defined_but_not_composite": 0,
+    "triples": 66376
+  },
+  "snapshot": "7fcd72f6",
+  "write_root": "research/reach_additivity/"
+}
