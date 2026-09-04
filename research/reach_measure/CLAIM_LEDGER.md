@@ -1,0 +1,33 @@
+# Claim ledger — reach_measure
+
+One evidence class per row. Lean names live in `lean/ReachMeasure/`; the
+pins are in `SOURCE_MANIFEST.json` and are checked by `verify_pins.py`;
+every count is checked by `run_reach.py` into
+`receipts/reach_measure.json`. `AuthorityEffect: None.`
+
+| ID | class | statement | evidence |
+|---|---|---|---|
+| RM-1 | DEFINITION | Total profile size of a state: how many context-and-datum pluggings are derivable, summed over the data. The estate's own `profiles`, counted; nothing weighted. | `reach.profile_size` |
+| RM-2 | DEFINITION | REACH of a response on a base: the growth in total profile size when the response is applied. Base-relative by construction. | `reach.reach` |
+| RM-3 | DEFINITION | `mu3(base, delta) = (reach, item count)`, lexicographic, reach leading; total on any candidate list. | `reach.mu3` |
+| RM-4 | PROVED_THEOREM | A single instance and a single uniform rule have identical sealed costs: `mu1` equal and `mu2` equal, while being different responses. | `ReachMeasure.mu1_agree`, `mu2_agree`, `responses_differ` |
+| RM-5 | PROVED_THEOREM | **Any measure that factors through the sealed pair gives the local and the global response the same cost** — for an arbitrary target type, so no re-weighting, tie-break or lexicographic extension escapes it. | `ReachMeasure.base_free_is_blind` |
+| RM-6 | PROVED_THEOREM | The same for a measure presented as a function of the sealed pair, which is the shape `mu1` and `mu2` have. | `ReachMeasure.of_mu2_is_blind` |
+| RM-7 | PROVED_THEOREM | **A measure that separates the two provably does not factor through the sealed pair**: it must read something the sealed measures do not. Reading the base is one choice; the theorem does not exclude a base-free measure that inspects response syntax. | `ReachMeasure.separating_is_not_base_free` |
+| RM-8 | PROVED_THEOREM | In the declared abstract fresh-plugging model, for every bound `k` there is a size where the uniform-rule value exceeds the instance value by more than `k`. This is not a correspondence theorem for Python `reach`. | `ReachMeasure.gap_unbounded` |
+| RM-9 | PROVED_THEOREM | In that abstract model, the rule value is monotone in the size parameter and the instance value is defined as one. Actual Python reach counts only newly derivable pluggings and has neither property in general. | `ReachMeasure.ruleReach_monotone`, `instReach_eq_one`, `ruleReach_arity_one`; `test_single_instance_reach_can_be_zero`, `test_actual_rule_reach_need_not_be_monotone_in_data_count` |
+| RM-10 | FINITE_COMPUTATION | 10 axiom reports, 3 axiom-free, the rest within `{propext}`; every theorem declared in `Blindness.lean` is listed in the report module. | `verify_lean.py` |
+| RM-11 | FINITE_COMPUTATION | Sealed Challenge-3, both readings: every valid minimum response is `form+inst` and **no response contains a rule item**. `mu1` minima 6 (L) and 10 (F); `mu2` minima 2; `mu3` minima 2; `mu2` and `mu3` agree. | `sealed_side.py`, receipt `sealed_side` |
+| RM-12 | FINITE_COMPUTATION | The sealed Challenge-3 base declares no forms, so a uniform-rule item is not merely non-minimal there: it is not well-formed. R1 holds for a stronger reason than it was predicted for. | `sealed_side.py`, receipt `sealed_side.readings` |
+| RM-13 | FINITE_COMPUTATION | **Base-dependence, searched not hand-picked**: the response `rule(form 0)` has reach 1 on pinned base `g00` and 19 on pinned base `g13`, while `mu1 = 1` and `mu2 = (1, 0)` on both. Search over 19 pinned bases, requiring positive reach on the low side. | receipt `witnesses.base_relative` |
+| RM-14 | FINITE_COMPUTATION | **The two orders are not nested**: on `g00`, two instances have reach 1 and one rule has reach 2. `mu1` prefers the rule; `mu3` prefers the strictly larger response. Both sides carry positive reach, so the inversion is not a no-op artefact. | receipt `witnesses.order_inversion` |
+| RM-15 | FINITE_COMPUTATION | Dual side under reading R, 19 pinned genesis states: 51 demands, all answered. **27 admit only rule responses, 16 admit both kinds, 0 admit only instances.** | `dual_side.py`, receipt `dual_side` |
+| RM-16 | FINITE_COMPUTATION | `mu1` leaves 24 demands tied across two item kinds; `mu3` leaves 11. `mu3` narrows the tie at 18 demands and selects the instance over the rule at 13. Reach values run 1..20. | receipt `dual_side` |
+| RM-17 | FINITE_COMPUTATION, PREDICTION_MISSED | At 3 of the 16 mixed demands — `g00 [1,2]`, `g01 [1,2]`, `g16 [0,1]` — `mu3` does **not** prefer the instance, because the rule's reach is also 1: its form has one plugging left, so applying it to everything and to the one thing are the same act. R4's universal clause fails; its majority clause holds. | receipt `dual_side.rows`, `STATUS.md` |
+| RM-18 | METATHEORY | **A uniform rule is not global by construction.** It is global exactly when the base leaves it room to be. R4 asserted a locality fact from an item kind, which `PROMPT.md` had already refused under `FW-SYNTAX` before the run; the run enforced the refusal. | `STATUS.md`, `PROMPT.md` FW-SYNTAX |
+| RM-19 | METATHEORY | Reading P — the sealed separations left standing at genesis — yields no response at any root, reproducing the dual tree's P6 from a second code path. Reading R is declared and priced; P is recorded. | `dual_side.py` declared reading 1 |
+| RM-20 | METATHEORY | `mu3` never widens the valid set. `minima_under` takes the enumerator's candidate list and has no enumerator of its own, so `FW-VALID` holds by construction and has no failing code path to inject against. | `reach.minima_under` |
+| RM-21 | FINITE_COMPUTATION | Both frozen files were amended after the run for one watched noun, and the amendment is machine-checked to be exactly that substitution: undoing it on the amended bytes reproduces the pre-amendment digest. Tampering with a prediction and re-recording every digest still fails the check. | `verify_pins.check_amendments`, injection record |
+| RM-22 | OPEN | Reach on a sealed-side base that carries a form; additivity of reach along composition; the order type of `mu3`; invariance of reach under the pinned renaming; and whether any base-relative measure other than reach separates. | `STATUS.md` leftovers |
+| RM-23 | REFUSED | That reach is better than the sealed measures, canonical among base-relative measures, or the thing an optimizer should minimize. It is a different order that reads the base, and that is all this tree claims. | FW-BETTER |
+| RM-24 | REFUSED | That an item kind is a locality claim. `FW-SYNTAX`, written before the run and vindicated by RM-17. | FW-SYNTAX |

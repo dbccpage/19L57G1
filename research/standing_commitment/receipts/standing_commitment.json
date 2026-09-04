@@ -1,0 +1,1271 @@
+{
+  "authority_effect": "None",
+  "declared_family_frozen": [
+    "total",
+    "adjacent",
+    "shared_parity",
+    "empty"
+  ],
+  "families": [
+    {
+      "commitment": "total",
+      "frozen_before_the_run": true,
+      "generation_non_decreasing": true,
+      "rows": [
+        {
+          "final_backlog_at_rate_1": 21,
+          "generated": 28,
+          "least_clearing_rate": 7,
+          "peak_equals_threshold": true,
+          "peak_per_round": 7,
+          "rounds": 8
+        },
+        {
+          "final_backlog_at_rate_1": 55,
+          "generated": 66,
+          "least_clearing_rate": 11,
+          "peak_equals_threshold": true,
+          "peak_per_round": 11,
+          "rounds": 12
+        },
+        {
+          "final_backlog_at_rate_1": 105,
+          "generated": 120,
+          "least_clearing_rate": 15,
+          "peak_equals_threshold": true,
+          "peak_per_round": 15,
+          "rounds": 16
+        },
+        {
+          "final_backlog_at_rate_1": 253,
+          "generated": 276,
+          "least_clearing_rate": 23,
+          "peak_equals_threshold": true,
+          "peak_per_round": 23,
+          "rounds": 24
+        },
+        {
+          "final_backlog_at_rate_1": 465,
+          "generated": 496,
+          "least_clearing_rate": 31,
+          "peak_equals_threshold": true,
+          "peak_per_round": 31,
+          "rounds": 32
+        },
+        {
+          "final_backlog_at_rate_1": 741,
+          "generated": 780,
+          "least_clearing_rate": 39,
+          "peak_equals_threshold": true,
+          "peak_per_round": 39,
+          "rounds": 40
+        },
+        {
+          "final_backlog_at_rate_1": 1081,
+          "generated": 1128,
+          "least_clearing_rate": 47,
+          "peak_equals_threshold": true,
+          "peak_per_round": 47,
+          "rounds": 48
+        }
+      ]
+    },
+    {
+      "commitment": "adjacent",
+      "frozen_before_the_run": true,
+      "generation_non_decreasing": true,
+      "rows": [
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 7,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 8
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 11,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 12
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 15,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 16
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 23,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 24
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 31,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 32
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 39,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 40
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 47,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": true,
+          "peak_per_round": 1,
+          "rounds": 48
+        }
+      ]
+    },
+    {
+      "commitment": "shared_parity",
+      "frozen_before_the_run": true,
+      "generation_non_decreasing": true,
+      "rows": [
+        {
+          "final_backlog_at_rate_1": 6,
+          "generated": 12,
+          "least_clearing_rate": 3,
+          "peak_equals_threshold": true,
+          "peak_per_round": 3,
+          "rounds": 8
+        },
+        {
+          "final_backlog_at_rate_1": 20,
+          "generated": 30,
+          "least_clearing_rate": 5,
+          "peak_equals_threshold": true,
+          "peak_per_round": 5,
+          "rounds": 12
+        },
+        {
+          "final_backlog_at_rate_1": 42,
+          "generated": 56,
+          "least_clearing_rate": 7,
+          "peak_equals_threshold": true,
+          "peak_per_round": 7,
+          "rounds": 16
+        },
+        {
+          "final_backlog_at_rate_1": 110,
+          "generated": 132,
+          "least_clearing_rate": 11,
+          "peak_equals_threshold": true,
+          "peak_per_round": 11,
+          "rounds": 24
+        },
+        {
+          "final_backlog_at_rate_1": 210,
+          "generated": 240,
+          "least_clearing_rate": 15,
+          "peak_equals_threshold": true,
+          "peak_per_round": 15,
+          "rounds": 32
+        },
+        {
+          "final_backlog_at_rate_1": 342,
+          "generated": 380,
+          "least_clearing_rate": 19,
+          "peak_equals_threshold": true,
+          "peak_per_round": 19,
+          "rounds": 40
+        },
+        {
+          "final_backlog_at_rate_1": 506,
+          "generated": 552,
+          "least_clearing_rate": 23,
+          "peak_equals_threshold": true,
+          "peak_per_round": 23,
+          "rounds": 48
+        }
+      ]
+    },
+    {
+      "commitment": "empty",
+      "frozen_before_the_run": true,
+      "generation_non_decreasing": true,
+      "rows": [
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 8
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 12
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 16
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 24
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 32
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 40
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 0,
+          "least_clearing_rate": 0,
+          "peak_equals_threshold": true,
+          "peak_per_round": 0,
+          "rounds": 48
+        }
+      ]
+    },
+    {
+      "commitment": "bounded",
+      "frozen_before_the_run": false,
+      "generation_non_decreasing": false,
+      "rows": [
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 8
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 12
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 16
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 24
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 32
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 40
+        },
+        {
+          "final_backlog_at_rate_1": 0,
+          "generated": 6,
+          "least_clearing_rate": 1,
+          "peak_equals_threshold": false,
+          "peak_per_round": 3,
+          "rounds": 48
+        }
+      ]
+    }
+  ],
+  "main_run": {
+    "adjacent": {
+      "commitment": "adjacent",
+      "discharge_rate": 1,
+      "discharged": 23,
+      "ever_cleared_after_first": true,
+      "final_backlog": 0,
+      "generated": 23,
+      "log": [
+        {
+          "admitted": 0,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 0
+        },
+        {
+          "admitted": 1,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 1
+        },
+        {
+          "admitted": 2,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 2
+        },
+        {
+          "admitted": 3,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 3
+        },
+        {
+          "admitted": 4,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 4
+        },
+        {
+          "admitted": 5,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 5
+        },
+        {
+          "admitted": 6,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 6
+        },
+        {
+          "admitted": 7,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 7
+        },
+        {
+          "admitted": 8,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 8
+        },
+        {
+          "admitted": 9,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 9
+        },
+        {
+          "admitted": 10,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 10
+        },
+        {
+          "admitted": 11,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 11
+        },
+        {
+          "admitted": 12,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 12
+        },
+        {
+          "admitted": 13,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 13
+        },
+        {
+          "admitted": 14,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 14
+        },
+        {
+          "admitted": 15,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 15
+        },
+        {
+          "admitted": 16,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 16
+        },
+        {
+          "admitted": 17,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 17
+        },
+        {
+          "admitted": 18,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 18
+        },
+        {
+          "admitted": 19,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 19
+        },
+        {
+          "admitted": 20,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 20
+        },
+        {
+          "admitted": 21,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 21
+        },
+        {
+          "admitted": 22,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 22
+        },
+        {
+          "admitted": 23,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 23
+        }
+      ],
+      "max_backlog": 0,
+      "rounds": 24
+    },
+    "bounded": {
+      "commitment": "bounded",
+      "discharge_rate": 1,
+      "discharged": 6,
+      "ever_cleared_after_first": true,
+      "final_backlog": 0,
+      "generated": 6,
+      "log": [
+        {
+          "admitted": 0,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 0
+        },
+        {
+          "admitted": 1,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 1
+        },
+        {
+          "admitted": 2,
+          "backlog": 1,
+          "discharged": 1,
+          "generated": 2,
+          "round": 2
+        },
+        {
+          "admitted": 3,
+          "backlog": 3,
+          "discharged": 1,
+          "generated": 3,
+          "round": 3
+        },
+        {
+          "admitted": 4,
+          "backlog": 2,
+          "discharged": 1,
+          "generated": 0,
+          "round": 4
+        },
+        {
+          "admitted": 5,
+          "backlog": 1,
+          "discharged": 1,
+          "generated": 0,
+          "round": 5
+        },
+        {
+          "admitted": 6,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 0,
+          "round": 6
+        },
+        {
+          "admitted": 7,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 7
+        },
+        {
+          "admitted": 8,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 8
+        },
+        {
+          "admitted": 9,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 9
+        },
+        {
+          "admitted": 10,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 10
+        },
+        {
+          "admitted": 11,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 11
+        },
+        {
+          "admitted": 12,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 12
+        },
+        {
+          "admitted": 13,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 13
+        },
+        {
+          "admitted": 14,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 14
+        },
+        {
+          "admitted": 15,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 15
+        },
+        {
+          "admitted": 16,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 16
+        },
+        {
+          "admitted": 17,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 17
+        },
+        {
+          "admitted": 18,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 18
+        },
+        {
+          "admitted": 19,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 19
+        },
+        {
+          "admitted": 20,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 20
+        },
+        {
+          "admitted": 21,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 21
+        },
+        {
+          "admitted": 22,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 22
+        },
+        {
+          "admitted": 23,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 23
+        }
+      ],
+      "max_backlog": 3,
+      "rounds": 24
+    },
+    "empty": {
+      "commitment": "empty",
+      "discharge_rate": 1,
+      "discharged": 0,
+      "ever_cleared_after_first": false,
+      "final_backlog": 0,
+      "generated": 0,
+      "log": [
+        {
+          "admitted": 0,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 0
+        },
+        {
+          "admitted": 1,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 1
+        },
+        {
+          "admitted": 2,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 2
+        },
+        {
+          "admitted": 3,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 3
+        },
+        {
+          "admitted": 4,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 4
+        },
+        {
+          "admitted": 5,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 5
+        },
+        {
+          "admitted": 6,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 6
+        },
+        {
+          "admitted": 7,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 7
+        },
+        {
+          "admitted": 8,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 8
+        },
+        {
+          "admitted": 9,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 9
+        },
+        {
+          "admitted": 10,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 10
+        },
+        {
+          "admitted": 11,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 11
+        },
+        {
+          "admitted": 12,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 12
+        },
+        {
+          "admitted": 13,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 13
+        },
+        {
+          "admitted": 14,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 14
+        },
+        {
+          "admitted": 15,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 15
+        },
+        {
+          "admitted": 16,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 16
+        },
+        {
+          "admitted": 17,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 17
+        },
+        {
+          "admitted": 18,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 18
+        },
+        {
+          "admitted": 19,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 19
+        },
+        {
+          "admitted": 20,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 20
+        },
+        {
+          "admitted": 21,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 21
+        },
+        {
+          "admitted": 22,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 22
+        },
+        {
+          "admitted": 23,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 23
+        }
+      ],
+      "max_backlog": 0,
+      "rounds": 24
+    },
+    "shared_parity": {
+      "commitment": "shared_parity",
+      "discharge_rate": 1,
+      "discharged": 22,
+      "ever_cleared_after_first": true,
+      "final_backlog": 110,
+      "generated": 132,
+      "log": [
+        {
+          "admitted": 0,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 0
+        },
+        {
+          "admitted": 1,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 1
+        },
+        {
+          "admitted": 2,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 2
+        },
+        {
+          "admitted": 3,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 3
+        },
+        {
+          "admitted": 4,
+          "backlog": 1,
+          "discharged": 1,
+          "generated": 2,
+          "round": 4
+        },
+        {
+          "admitted": 5,
+          "backlog": 2,
+          "discharged": 1,
+          "generated": 2,
+          "round": 5
+        },
+        {
+          "admitted": 6,
+          "backlog": 4,
+          "discharged": 1,
+          "generated": 3,
+          "round": 6
+        },
+        {
+          "admitted": 7,
+          "backlog": 6,
+          "discharged": 1,
+          "generated": 3,
+          "round": 7
+        },
+        {
+          "admitted": 8,
+          "backlog": 9,
+          "discharged": 1,
+          "generated": 4,
+          "round": 8
+        },
+        {
+          "admitted": 9,
+          "backlog": 12,
+          "discharged": 1,
+          "generated": 4,
+          "round": 9
+        },
+        {
+          "admitted": 10,
+          "backlog": 16,
+          "discharged": 1,
+          "generated": 5,
+          "round": 10
+        },
+        {
+          "admitted": 11,
+          "backlog": 20,
+          "discharged": 1,
+          "generated": 5,
+          "round": 11
+        },
+        {
+          "admitted": 12,
+          "backlog": 25,
+          "discharged": 1,
+          "generated": 6,
+          "round": 12
+        },
+        {
+          "admitted": 13,
+          "backlog": 30,
+          "discharged": 1,
+          "generated": 6,
+          "round": 13
+        },
+        {
+          "admitted": 14,
+          "backlog": 36,
+          "discharged": 1,
+          "generated": 7,
+          "round": 14
+        },
+        {
+          "admitted": 15,
+          "backlog": 42,
+          "discharged": 1,
+          "generated": 7,
+          "round": 15
+        },
+        {
+          "admitted": 16,
+          "backlog": 49,
+          "discharged": 1,
+          "generated": 8,
+          "round": 16
+        },
+        {
+          "admitted": 17,
+          "backlog": 56,
+          "discharged": 1,
+          "generated": 8,
+          "round": 17
+        },
+        {
+          "admitted": 18,
+          "backlog": 64,
+          "discharged": 1,
+          "generated": 9,
+          "round": 18
+        },
+        {
+          "admitted": 19,
+          "backlog": 72,
+          "discharged": 1,
+          "generated": 9,
+          "round": 19
+        },
+        {
+          "admitted": 20,
+          "backlog": 81,
+          "discharged": 1,
+          "generated": 10,
+          "round": 20
+        },
+        {
+          "admitted": 21,
+          "backlog": 90,
+          "discharged": 1,
+          "generated": 10,
+          "round": 21
+        },
+        {
+          "admitted": 22,
+          "backlog": 100,
+          "discharged": 1,
+          "generated": 11,
+          "round": 22
+        },
+        {
+          "admitted": 23,
+          "backlog": 110,
+          "discharged": 1,
+          "generated": 11,
+          "round": 23
+        }
+      ],
+      "max_backlog": 110,
+      "rounds": 24
+    },
+    "total": {
+      "commitment": "total",
+      "discharge_rate": 1,
+      "discharged": 23,
+      "ever_cleared_after_first": true,
+      "final_backlog": 253,
+      "generated": 276,
+      "log": [
+        {
+          "admitted": 0,
+          "backlog": 0,
+          "discharged": 0,
+          "generated": 0,
+          "round": 0
+        },
+        {
+          "admitted": 1,
+          "backlog": 0,
+          "discharged": 1,
+          "generated": 1,
+          "round": 1
+        },
+        {
+          "admitted": 2,
+          "backlog": 1,
+          "discharged": 1,
+          "generated": 2,
+          "round": 2
+        },
+        {
+          "admitted": 3,
+          "backlog": 3,
+          "discharged": 1,
+          "generated": 3,
+          "round": 3
+        },
+        {
+          "admitted": 4,
+          "backlog": 6,
+          "discharged": 1,
+          "generated": 4,
+          "round": 4
+        },
+        {
+          "admitted": 5,
+          "backlog": 10,
+          "discharged": 1,
+          "generated": 5,
+          "round": 5
+        },
+        {
+          "admitted": 6,
+          "backlog": 15,
+          "discharged": 1,
+          "generated": 6,
+          "round": 6
+        },
+        {
+          "admitted": 7,
+          "backlog": 21,
+          "discharged": 1,
+          "generated": 7,
+          "round": 7
+        },
+        {
+          "admitted": 8,
+          "backlog": 28,
+          "discharged": 1,
+          "generated": 8,
+          "round": 8
+        },
+        {
+          "admitted": 9,
+          "backlog": 36,
+          "discharged": 1,
+          "generated": 9,
+          "round": 9
+        },
+        {
+          "admitted": 10,
+          "backlog": 45,
+          "discharged": 1,
+          "generated": 10,
+          "round": 10
+        },
+        {
+          "admitted": 11,
+          "backlog": 55,
+          "discharged": 1,
+          "generated": 11,
+          "round": 11
+        },
+        {
+          "admitted": 12,
+          "backlog": 66,
+          "discharged": 1,
+          "generated": 12,
+          "round": 12
+        },
+        {
+          "admitted": 13,
+          "backlog": 78,
+          "discharged": 1,
+          "generated": 13,
+          "round": 13
+        },
+        {
+          "admitted": 14,
+          "backlog": 91,
+          "discharged": 1,
+          "generated": 14,
+          "round": 14
+        },
+        {
+          "admitted": 15,
+          "backlog": 105,
+          "discharged": 1,
+          "generated": 15,
+          "round": 15
+        },
+        {
+          "admitted": 16,
+          "backlog": 120,
+          "discharged": 1,
+          "generated": 16,
+          "round": 16
+        },
+        {
+          "admitted": 17,
+          "backlog": 136,
+          "discharged": 1,
+          "generated": 17,
+          "round": 17
+        },
+        {
+          "admitted": 18,
+          "backlog": 153,
+          "discharged": 1,
+          "generated": 18,
+          "round": 18
+        },
+        {
+          "admitted": 19,
+          "backlog": 171,
+          "discharged": 1,
+          "generated": 19,
+          "round": 19
+        },
+        {
+          "admitted": 20,
+          "backlog": 190,
+          "discharged": 1,
+          "generated": 20,
+          "round": 20
+        },
+        {
+          "admitted": 21,
+          "backlog": 210,
+          "discharged": 1,
+          "generated": 21,
+          "round": 21
+        },
+        {
+          "admitted": 22,
+          "backlog": 231,
+          "discharged": 1,
+          "generated": 22,
+          "round": 22
+        },
+        {
+          "admitted": 23,
+          "backlog": 253,
+          "discharged": 1,
+          "generated": 23,
+          "round": 23
+        }
+      ],
+      "max_backlog": 253,
+      "rounds": 24
+    }
+  },
+  "peak_equals_threshold_counterexamples": [
+    {
+      "commitment": "bounded",
+      "rounds": 8
+    },
+    {
+      "commitment": "bounded",
+      "rounds": 12
+    },
+    {
+      "commitment": "bounded",
+      "rounds": 16
+    },
+    {
+      "commitment": "bounded",
+      "rounds": 24
+    },
+    {
+      "commitment": "bounded",
+      "rounds": 32
+    },
+    {
+      "commitment": "bounded",
+      "rounds": 40
+    },
+    {
+      "commitment": "bounded",
+      "rounds": 48
+    }
+  ],
+  "post_freeze_additions": [
+    "bounded"
+  ],
+  "rounds_tested": [
+    8,
+    12,
+    16,
+    24,
+    32,
+    40,
+    48
+  ],
+  "write_root": "research/standing_commitment/"
+}

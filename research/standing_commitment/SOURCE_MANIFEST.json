@@ -1,0 +1,41 @@
+{
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "lean4/Derivation/DiffInterface.lean": "450b434f09d922fe117e3bbf72fa454d6b3dbeda",
+    "lean4/Derivation/Represented.lean": "4c395d6d4d6ceac5f5b75ecd79ec12bc936e87de",
+    "research/genesis_continuation/continuation_plan.md": "5f3bbad1ec549514c833f5a9271c34df827c9177"
+  },
+  "predictions_first_freeze_boundary": "\n## 3. Predicted",
+  "predictions_freezes": [
+    "8b52dcd9a8f041c41668ef051c9618a7ceb83854157ea62c1e1164665c43c48b"
+  ],
+  "prompt_native_sha256": "f5bd6aaba310a3cb100b049098c4bc89fbfde75f484a8b889eba000aefaa8dbd",
+  "purpose": "read-only sources consumed by the standing_commitment run; this tree writes none of them",
+  "reconstructions": [
+    {
+      "local_first_line": 28,
+      "local_last_line": 57,
+      "local_path": "research/standing_commitment/lean/StandingCommitment/Base.lean",
+      "namespace_from": "Represented",
+      "namespace_to": "StandingCommitment",
+      "note": "the represented state and its observation semantics",
+      "source_path": "lean4/Derivation/Represented.lean",
+      "source_ranges": [
+        [
+          75,
+          104
+        ]
+      ]
+    }
+  ],
+  "snapshot_commit": "f4b1dcd3d3edc9e4d1557ad71ab8bf199cf762be",
+  "spans": [
+    {
+      "first_line": 86,
+      "last_line": 93,
+      "path": "research/genesis_continuation/continuation_plan.md",
+      "role": "OB-1: the standing obstruction this rung reports against and does not close",
+      "sha256": "96af59792dc84692b3590a4bd6e0cf02b11dd87566b46d7cbb65656cbd2e72ea"
+    }
+  ]
+}
