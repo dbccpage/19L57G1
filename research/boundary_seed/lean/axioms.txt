@@ -1,0 +1,13 @@
+'BoundarySeed.contents_genesis' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.genesis_placement_nil' does not depend on any axioms
+'BoundarySeed.map_not_not' depends on axioms: [propext]
+'BoundarySeed.no_observation_at_genesis' depends on axioms: [propext]
+'BoundarySeed.reflect_genesis' does not depend on any axioms
+'BoundarySeed.reflect_moves_a_mark' depends on axioms: [propext]
+'BoundarySeed.reflect_reflect' depends on axioms: [propext]
+'BoundarySeed.replay_deterministic' does not depend on any axioms
+'BoundarySeed.replay_supply_inert' does not depend on any axioms
+'BoundarySeed.side_names_distinct' does not depend on any axioms
+'BoundarySeed.sides_collapsed_at_genesis_U' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.step_changes_only_by_place' does not depend on any axioms
+'BoundarySeed.supply_no_op' does not depend on any axioms

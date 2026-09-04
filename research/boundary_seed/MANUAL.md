@@ -29,10 +29,20 @@ From the repository root, for a challenge `<k>`:
 ```text
 python research/boundary_seed/verify_pins.py
 python research/boundary_seed/run_challenge<k>.py
-cd research/boundary_seed && python -m unittest discover -s tests -p "test_*.py" && python -m mypy && python check_coverage.py && cd ../..
+cd research/boundary_seed && python -m unittest discover -s tests -p "test_*.py" && python -m mypy && cd ../..
+cd research/boundary_seed && python -m coverage erase && python -m coverage run -m unittest discover -s tests -p "test_*.py" && python -m coverage json -q && python check_coverage.py && cd ../..
+python research/boundary_seed/verify_lean.py
 python ci/check_prose_watchlist.py
-python -m pytest tests/test_primitive_contact.py -q -k firewall -p no:cacheprovider
+python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 ```
+
+`verify_lean.py` builds the tree's Lean package from clean, scans every
+`.lean` file for the forbidden tokens as text, requires every axiom
+report to lie within `{propext, Quot.sound}`, and compares the reports
+with `lean/axioms.txt`; `--regen` rewrites that log deliberately and
+never under a live injection.  The research job runs the pins, the tests
+under coverage with the receipt regeneration and the blindness scan, and
+strict typing; the Lean package is a manual receipt.
 
 ## Session protocol
 
@@ -42,5 +52,17 @@ stage; write the handoff; never merge.
 
 ## Injection record
 
+A gate is proved by failing on the exact defect it exists to catch, with
+the failure naming the injected object, and by recovering when the
+injection is reversed.  Receipts are never regenerated while an
+injection is live.
+
 | challenge | gate | injection | observed failure |
 |---|---|---|---|
+| 0 | blindness scan (`tests/test_blind.py`) | stray `zzz_probe.md` in the write root carrying an assembled citation into the sealed paper | `FAIL: test_write_root_is_blind_before_the_freeze` naming `research\boundary_seed\zzz_probe.md:1: citation into the sealed paper`, exit 1; 10 tests OK after deletion |
+| 0 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`) | `authority_effect` changed from `None` to `Some` in the committed receipt | the test failed showing the differing bytes, exit 1; OK after the original bytes were restored |
+| 0 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge0/PREDICTIONS.md` | `FAIL: working copy of challenge0/PREDICTIONS.md: 1e15d854… wanted a03ee812…`, exit 1; `pins ok` after restore |
+| 0 | axiom log (`verify_lean.py`) | the `supply_no_op` report dropped from `lean/axioms.txt` | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; `lean ok: 13 axiom reports` after restore |
+| 0 | coverage gate (`check_coverage.py`) | `coverage.json` removed | `FAIL: coverage.json missing; run coverage from inside the tree first`, exit 1; `line 98.09% branch 95.83%` after restore |
+| 0 | forbidden-token scan (found live, not injected) | the Lean event constructor was first named with the forbidden admission word | `FAIL: lean\BoundarySeed\Basic.lean:34: forbidden token …` on four lines, exit 1; the constructor became `place` and the scan passed |
+| 0 | census test (found live, not injected) | the reflection census compared regimes with their tokens | `test_census_rows`: `False is not true` on `fixed_iff_equal_counts`; the comparison now forgets tokens and the law holds to four marks |

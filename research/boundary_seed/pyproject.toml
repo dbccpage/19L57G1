@@ -1,0 +1,20 @@
+# Tree-local config for the boundary derivation.  The root pyproject scopes
+# mypy and coverage to code/, so this tree is outside both unless run from
+# here.  This tree imports nothing from code/derivation.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "code"
+explicit_package_bases = true
+files = [
+  "code/boundary",
+  "tests",
+  "run_challenge0.py",
+  "check_coverage.py",
+  "verify_pins.py",
+  "verify_lean.py",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["code/boundary"]

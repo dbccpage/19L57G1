@@ -1,0 +1,150 @@
+{
+  "authority_effect": "None",
+  "challenge": 0,
+  "event_kinds": [
+    "Supply",
+    "AdmitMark"
+  ],
+  "inscription": "<|>",
+  "observation_vocabulary": [
+    "contents -> frozenset[int]",
+    "side_profile -> tuple[object, ...]",
+    "observations -> frozenset[tuple[int, int]]",
+    "sides_collapsed -> bool"
+  ],
+  "predictions_sha256": "a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395",
+  "readings": {
+    "O": {
+      "canonical_key": [
+        "O",
+        []
+      ],
+      "marks": 0,
+      "observations": [],
+      "reading": "O",
+      "reflect_genesis_equals_genesis": true,
+      "reflection_automorphism_by_key": true,
+      "reflection_is_permitted_renaming": false,
+      "side_profiles": [
+        [
+          "near",
+          []
+        ],
+        [
+          "far",
+          []
+        ]
+      ],
+      "sides_collapsed": false,
+      "supply_history_certifies_genesis": true,
+      "supply_leaves_state_unchanged": true
+    },
+    "U": {
+      "canonical_key": [
+        "U",
+        []
+      ],
+      "marks": 0,
+      "observations": [],
+      "reading": "U",
+      "reflect_genesis_equals_genesis": true,
+      "reflection_automorphism_by_key": true,
+      "reflection_is_permitted_renaming": true,
+      "side_profiles": [
+        [
+          []
+        ],
+        [
+          []
+        ]
+      ],
+      "sides_collapsed": true,
+      "supply_history_certifies_genesis": true,
+      "supply_leaves_state_unchanged": true
+    }
+  },
+  "reflection_census": {
+    "fixed_iff_equal_counts": true,
+    "max_marks": 4,
+    "note": "hypothetical placements; nothing here is admitted. Mark renaming is permitted under both readings; the side exchange is a permitted renaming under U only, which is what separates the class counts.",
+    "rows": [
+      {
+        "classes_under_O": 1,
+        "classes_under_U": 1,
+        "fixed_by_reflection_up_to_mark_renaming": 1,
+        "marks": 0,
+        "placements": 1
+      },
+      {
+        "classes_under_O": 2,
+        "classes_under_U": 1,
+        "fixed_by_reflection_up_to_mark_renaming": 0,
+        "marks": 1,
+        "placements": 2
+      },
+      {
+        "classes_under_O": 3,
+        "classes_under_U": 2,
+        "fixed_by_reflection_up_to_mark_renaming": 2,
+        "marks": 2,
+        "placements": 4
+      },
+      {
+        "classes_under_O": 4,
+        "classes_under_U": 2,
+        "fixed_by_reflection_up_to_mark_renaming": 0,
+        "marks": 3,
+        "placements": 8
+      },
+      {
+        "classes_under_O": 5,
+        "classes_under_U": 3,
+        "fixed_by_reflection_up_to_mark_renaming": 6,
+        "marks": 4,
+        "placements": 16
+      }
+    ]
+  },
+  "scores": {
+    "C0-1": {
+      "evidence": "U.sides_collapsed",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C0-2": {
+      "evidence": "O.side_profiles differ in the name component only",
+      "label": "FORCED, DEFINITION-level",
+      "status": "HIT"
+    },
+    "C0-3": {
+      "evidence": "supply_leaves_state_unchanged under both readings; state_event_generators is empty",
+      "label": "FORCED",
+      "status": "HIT"
+    },
+    "C0-4": {
+      "evidence": "observations empty under both readings; the observation vocabulary has no negative or counting form",
+      "label": "NOT FORCED, DEFINITION-level",
+      "status": "HIT"
+    },
+    "C0-5": {
+      "evidence": "U: reflect(genesis) == genesis and the exchange is a permitted renaming; O: the exchange is not a permitted renaming",
+      "general_clause": {
+        "census_fixed_iff_equal_counts": true,
+        "fact": "the reflection fixes a placement up to mark renaming exactly when the two sides carry equally many marks, under both readings; the prediction's 'same contents' names only the empty case of that",
+        "status": "SHARPENED"
+      },
+      "label": "FORCED for genesis",
+      "status": "HIT"
+    },
+    "C0-X": {
+      "evidence": "scored by Challenge 1",
+      "label": "NOT FORCED",
+      "status": "PENDING"
+    }
+  },
+  "seed_sha256": "ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be",
+  "state_changing_event_kinds": [
+    "AdmitMark"
+  ],
+  "state_event_generators": []
+}

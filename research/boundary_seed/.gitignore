@@ -1,0 +1,5 @@
+lean/.lake/
+coverage.json
+.coverage
+__pycache__/
+.mypy_cache/
