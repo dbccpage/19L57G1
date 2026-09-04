@@ -118,9 +118,13 @@ proofs are in `lean/`, with the axiom log committed at
   apart form is also proved with its collapse hypothesis discharged rather
   than assumed.  Scope: one growth step, this grammar, these definitions.
 - **AT_MOST_ONE_PROVED** (PROVED_THEOREM).  Under the stake labelling every
-  distinct pair apart, from a well-formed regime carrying no demand, at
-  most one held datum has the empty profile, and one growth step leaves the
-  grown regime carrying at most one demand ALTOGETHER.  Scope: the sealed
+  distinct pair apart, from a regime carrying no demand, at most one held
+  datum has the empty profile, and one growth step leaves the grown regime
+  carrying at most one demand ALTOGETHER.  NO well-formedness is required
+  and none is taken; an earlier version of this terminal said "well-formed
+  regime", naming a hypothesis none of the four at-most-one theorems
+  carries, and that wording is WITHDRAWN.  The route that avoids the
+  sibling's false lemma also avoids needing well-formedness.  Scope: the sealed
   regime.  The sibling two-sided tree records the corresponding statement
   over ITS OWN carrier as a conjecture with no Lean; this is not a proof of
   that row, and that row stands as the sibling wrote it.

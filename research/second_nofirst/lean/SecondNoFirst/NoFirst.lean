@@ -150,17 +150,23 @@ theorem grammar_carries_no_stake :
    labels same;
 2. whether a pair is a demand depends on the stake only through the label
    the declaration gives that pair;
-3. every event of the grammar is one of the six recorded kinds, each
-   carrying natural-number fields only, so no event introduces a stake;
+3. every event of the grammar is one of exactly six kinds;
 4. a supply changes no regime, hence no demand;
 5. under the stake that labels every pair free there is no demand at any
    regime whatever, reachable or not.
 
-Hence, in this grammar, the first demand of any run has one source: the
-declaration, which is not an event of the grammar.  The scope excludes any
-grammar that is not this one; in particular a grammar carrying an event
-with a field of stake type is not covered, and naming such a grammar is a
-leftover of this rung and not a result of it. -/
+WHAT THIS CONJUNCTION DOES NOT SAY, recorded because two earlier versions
+of this comment said it.  It does NOT say "so no event introduces a
+stake": that no constructor carries a field of stake type is a fact about
+the SIGNATURE, disclaimed at `grammar_carries_no_stake` above and recorded
+as metatheory in the ledger, and conjunct three is the case list alone.
+It does NOT say that the first demand of any run has one source: no
+conjunct here mentions a history, an ordering, or an occurrence, and the
+run-quantified statement is `Run.demands_replay_inert`, which covers runs
+of inert events only.  Both sentences stood here and are WITHDRAWN; what
+this is, is a conjunction of five facts about single regimes.
+
+The scope excludes any grammar that is not this one. -/
 theorem no_first_demand :
     (∀ (S : Stake) (r : Regime) (i j : Nat), Demand S r i j →
         S.label i j = Label.apart ∨ S.label i j = Label.same)

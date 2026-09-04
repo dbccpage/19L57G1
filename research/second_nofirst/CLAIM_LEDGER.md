@@ -47,12 +47,19 @@ not edited, not narrowed, and not restated in weaker words.
 > grammar: a demand at a regime is at a pair the declared stake labels;
 > whether a pair is a demand depends on the stake only through the label
 > the declaration gives that pair; every event of the grammar is one of
-> the six kinds the rung-zero census recorded, each carrying
-> natural-number fields only; a supply changes no regime and so no
-> demand; and under the stake that labels every pair free there is no
-> demand at any regime whatever.  Hence in this grammar the first demand
-> of any run has one source: the declaration, which is not an event of
-> the grammar.
+> exactly the six kinds the rung-zero census recorded; a supply changes no
+> regime and so no demand; and under the stake that labels every pair free
+> there is no demand at any regime whatever.
+
+Two clauses that stood in this paragraph are WITHDRAWN, because no
+conjunct of `no_first_demand` carries them: *"each carrying
+natural-number fields only"*, and the sentence concluding that the first
+demand of any run has one source.  The first is the SIGNATURE fact of row
+NF-13b rather than a proposition this theorem proves; the second
+quantifies over runs, which this theorem does not -- the run-level
+statements are NF-32a and NF-32b, and they cover runs of inert events
+only.  Keeping either would have put this paragraph in contradiction with
+two rows of its own file.
 
 **Which is about what.**  The sealed sentence is about DERIVATION: it
 records what the first derivation did and did not derive, and it stands
@@ -114,21 +121,21 @@ result of it.
 | NF-19 | An imposition changes no demand of any stake (`impose_preserves_demands`). | DEFINITION -- `Iff.rfl`; the requirement field enters neither derivability nor context well-formedness | `lean_axioms.txt` |
 | NF-20 | A context of a newly admitted form derives nothing for any datum, at a well-formed regime (`new_form_derives_nothing`). | PROVED_THEOREM | `lean_axioms.txt` |
 | NF-21 | Admitting a judgment form to a well-formed regime changes no pair's collapse and no pair's separability (`collapsed_addForm`, `separable_addForm`). | PROVED_THEOREM | `lean_axioms.txt` |
-| NF-22 | Admitting a judgment form to a well-formed regime changes no demand of any stake: a form is demand-inert until an instance or a uniform rule reaches it (`admitForm_preserves_demands`). | PROVED_THEOREM. **NOT PREDICTED**: written after prediction N-16 missed. | `lean_axioms.txt`; `nofirst.json` `readings[].inert_event_kinds`; `test_admitting_a_form_is_inert` |
-| NF-23 | Three of the six sealed event kinds leave every demand of every stake unchanged (`three_kinds_are_demand_inert`); the other three are NOT claimed inert. | PROVED_THEOREM as an assembly | `lean_axioms.txt` |
+| NF-22 | Admitting a judgment form to a well-formed regime changes no demand of any stake: a form is demand-inert until an instance or a uniform rule reaches it (`admitForm_preserves_demands`). | THIN as a proof -- a one-line composition of NF-20 and NF-21 through `demand_congr` -- and classed THIN in `FWDEF_CENSUS.json`; the content is in the two theorems it composes. **NOT PREDICTED**: written after prediction N-16 missed. | `lean_axioms.txt`; `nofirst.json` `readings[].inert_event_kinds`; `test_admitting_a_form_is_inert` |
+| NF-23 | Three of the six sealed event kinds leave every demand of every stake unchanged (`three_kinds_are_demand_inert`); the other three are NOT claimed inert. | DEFINITION -- an assembly of NF-10, NF-19 and NF-22 that adds nothing beyond them; classed so in `FWDEF_CENSUS.json` | `lean_axioms.txt` |
 | NF-24 | The admission of a datum, of an instance, and of a uniform rule each change some demand set. | FINITE_COMPUTATION, not a theorem | `nofirst.json` `readings[].inert_event_kinds` excludes them; `test_admitting_an_instance_is_not_inert` |
 
 ## Stage three: demands propagate
 
 | id | claim | class | evidence |
 |---|---|---|---|
-| NF-25 | The pinned one-sided generation theorem, re-exported with its hypotheses unchanged (`growth_generates_pinned`). | RECONSTRUCTION -- the sibling's statement and the sibling's proof; no credit claimed | `lean_axioms.txt`; span pin on `Commitment.lean` lines 142-150 |
+| NF-25 | The pinned one-sided generation theorem, re-exported with its hypotheses unchanged (`growth_generates_pinned`). | DEFINITION as a proof -- a direct application, classed so in `FWDEF_CENSUS.json` -- of a theorem that is itself a RECONSTRUCTION. The statement and the proof are the sibling's; no credit is claimed for either, and the re-export adds nothing | `lean_axioms.txt`; span pin on `Commitment.lean` lines 142-150 |
 | NF-26 | A fresh datum labelled apart from a held datum with which the grown regime collapses it is a demand of the grown regime and was not a demand before (`growth_generates_apart`). | PROVED_THEOREM for the positive half given the collapse hypothesis; the negative half is DEFINITION -- the fresh index is not a held index before the growth | `lean_axioms.txt` |
 | NF-27 | The same with the collapse hypothesis DISCHARGED from "no admitted instance" rather than assumed (`growth_generates_apart_of_no_insts`). | PROVED_THEOREM; this is where the content of NF-26 sits | `lean_axioms.txt` |
 | NF-28 | A fresh datum labelled same as a held datum from which the grown regime separates it is a demand of the grown regime and was not a demand before (`growth_generates_same`). | PROVED_THEOREM for the positive half; negative half DEFINITION | `lean_axioms.txt` |
 | NF-29 | At a well-formed regime, a well-formed context derives the datum admitted by one growth step exactly when the context's form carries a uniform rule (`fresh_profile`). | PROVED_THEOREM | `lean_axioms.txt` |
 | NF-30 | Under the stake labelling every distinct pair apart, a regime carrying no demand has at most one held datum of empty profile (`apart_at_most_one`). | PROVED_THEOREM, over the SEALED REGIME | `lean_axioms.txt`; `nofirst.json` `all_apart.max_empty_profiles_at_a_demand_free_node` |
-| NF-31 | Under that stake, from a well-formed regime carrying no demand, one growth step generates at most one demand (`apart_at_most_one_new_demand`). | PROVED_THEOREM, over the SEALED REGIME | `lean_axioms.txt`; `nofirst.json` `all_apart.max_new_demands_per_growth_step` |
+| NF-31 | Under that stake, from a regime carrying no demand, one growth step generates at most one demand NAMING THE FRESH DATUM (`apart_at_most_one_new_demand`); the TOTAL bound over all pairs is NF-32e. No well-formedness is required or taken. | PROVED_THEOREM, over the SEALED REGIME. An earlier row said "well-formed" and claimed the total bound; the statement is stronger in the first respect and weaker in the second, and both are corrected | `lean_axioms.txt`; `nofirst.json` `all_apart.max_new_demands_per_growth_step` |
 | NF-32 | The sibling two-sided tree records the corresponding statement over ITS OWN carrier as a CONJECTURE with no Lean, and as a FINITE_COMPUTATION for the bounded count. NF-30 and NF-31 are proofs over the sealed regime and are NOT proofs of the sibling's row; the sibling's row stands as the sibling wrote it. | RECORDED, with the carrier named | `research/two_sided_commitment/CLAIM_LEDGER.md` rows TS-09 and TS-14, pinned by blob; note at section five of `lean/SecondNoFirst/Propagate.lean` |
 
 ## Stage three, unpredicted: the run-level statements
@@ -139,7 +146,7 @@ result of it.
 | NF-32b | From a well-formed base carrying no demand, no regime reached by such a run carries one: under an inert run there is no first demand (`no_demand_is_first_under_an_inert_run`). | THIN -- a direct corollary of NF-32a; classed so in `FWDEF_CENSUS.json` | `lean_axioms.txt` |
 | NF-32c | Well-formedness survives an inert step, so the run-level statement's hypothesis is carried rather than reasserted at each step (`wf_addForm`, `wf_addReq`, `wf_step_inert`). | PROVED_THEOREM | `lean_axioms.txt` |
 | NF-32d | A general first-demand index over an arbitrary run is NOT proved. The other three event kinds do change demand sets, and locating the first demand of a run containing them needs an index over histories. | OPEN, named and priced | leftover L-2 in `STATUS.md` |
-| NF-32e | The total bound: from a well-formed regime carrying no demand under the all-apart stake, the grown regime carries at most one demand ALTOGETHER, old pairs included (`apart_at_most_one_demand_after_growth`, via `apart_no_old_demand`). | PROVED_THEOREM. Strengthens NF-31, whose statement bounded only the demands naming the fresh datum while its doc claimed the total bound | `lean_axioms.txt` |
+| NF-32e | The total bound: from a regime carrying no demand under the all-apart stake, well-formed or not, the grown regime carries at most one demand ALTOGETHER, old pairs included (`apart_at_most_one_demand_after_growth`, via `apart_no_old_demand`). | PROVED_THEOREM. Strengthens NF-31, whose statement bounded only the demands naming the fresh datum while its doc claimed the total bound | `lean_axioms.txt` |
 
 ## Stage four: the finite cross-check
 
