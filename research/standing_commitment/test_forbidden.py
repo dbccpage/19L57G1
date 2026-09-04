@@ -209,6 +209,23 @@ class ProtectedOpensScan(unittest.TestCase):
                 self.assertNotIn(bad, text, f"{f.name} claims a protected open closed")
 
 
+class ClaimScopeScan(unittest.TestCase):
+    def test_repaired_scope_overclaims_do_not_return(self) -> None:
+        """The run does not derive its commitment, remove external growth,
+        or classify arbitrary commitments from the finite race."""
+
+        barred = (
+            "parameter of every theorem",
+            "one external act in total",
+            "demand set has no finite bound outruns any fixed budget",
+            "budget must be sized to the peak generation rate",
+        )
+        for f in claim_files():
+            text = f.read_text("utf-8", errors="replace").lower()
+            for phrase in barred:
+                self.assertNotIn(phrase, text, f"{f.name} restores overclaim: {phrase!r}")
+
+
 class GrowthSentenceScan(unittest.TestCase):
     def test_no_growth_sentence(self) -> None:
         """FW-GROWTH: no sentence about how the running balance or its

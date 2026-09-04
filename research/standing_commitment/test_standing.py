@@ -100,12 +100,12 @@ class RaceTests(unittest.TestCase):
             monotone = all(a <= b for a, b in zip(gens, gens[1:]))
             self.assertEqual(monotone, name in run.FROZEN, name)
 
-    def test_an_unbounded_commitment_outruns_a_fixed_budget(self) -> None:
+    def test_total_fixed_budget_backlog_grows_at_declared_checkpoints(self) -> None:
         short = st.race("total", 24, 1)["final_backlog"]
         long = st.race("total", 48, 1)["final_backlog"]
         self.assertGreater(int(str(long)), 2 * int(str(short)))
 
-    def test_a_bounded_commitment_does_not(self) -> None:
+    def test_bounded_clears_at_declared_checkpoints(self) -> None:
         for rounds in (24, 48, 96):
             self.assertEqual(st.race("bounded", rounds, 1)["final_backlog"], 0, rounds)
 

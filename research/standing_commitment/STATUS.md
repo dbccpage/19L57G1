@@ -17,13 +17,14 @@ demand.
 
 **It does, and the amount is exact.** Under the commitment that keeps every
 distinct pair apart, one growth step on a state of `n` data adds exactly `n`
-demands. One declaration at genesis, unboundedly many demands, and no
-external act at any step after the first.
+demands. One declaration covers this stated family of growth steps. The
+growth events themselves remain externally supplied.
 
 **This does not close the obstruction, and no sentence here says it does.**
-The commitment is a parameter of every theorem below; nothing here produces
-one. What changes is the accounting: from one external act per demand to one
-external act in total.
+Positive generation results either take a commitment as an input or use the
+explicitly declared `total`; nothing here produces a commitment. What changes
+is the requirement accounting: separately imposed requirements are replaced
+by one standing declaration. The growth events remain external.
 
 ## Frozen inputs
 
@@ -101,14 +102,13 @@ one exact source projection.
   least clearing budget `1`, at every run length tested.
   **REGULARITY_REFUTED**, with the countermodel constructed here rather than
   cited.
-- **The dichotomy this leaves** (CONJECTURE, finite support, no Lean): a
-  commitment whose demand set has no finite bound outruns any
-  fixed budget — under `total` at budget 1, the final backlog goes from 253
-  at 24 rounds to 1081 at 48. A commitment whose demand set is finite is
-  cleared by any positive budget at every run length. The engineering
-  reading, stated as a reading and not a theorem: **a budget must be sized
-  to the peak generation rate, and the peak is set by the commitment's
-  density against the state's size.**
+- **The finite contrast left by the run** (FINITE_COMPUTATION, no Lean):
+  under `total` at budget 1, the final backlog is 253 at 24 rounds and 1081
+  at 48. Under the post-freeze `bounded` commitment it is 0 at 24, 48, and
+  96 rounds. This does not classify arbitrary commitments or later
+  horizons. In particular, the bounded countermodel shows that peak
+  generation is not a general formula for the least end-of-run clearing
+  budget.
 - **OB1_UNCHANGED, S66_UNCHANGED, S9_LAST_UNCHANGED, NS95_GROWTH_UNCHANGED**:
   the protected opens are untouched. In particular this rung does not narrow
   OB-1; it reports against it, and `test_forbidden.py` fails the run on a
@@ -176,20 +176,21 @@ estate's own rule: a gate is not proved by being green.
 
 ## What this rung does not claim
 
-No endogenous generator. The commitment is a parameter of every theorem and
-no theorem has it in its conclusion. OB-1 is untouched. No repair exists
-here: discharge is a declared budget, and a discharged demand is recorded as
-discharged, not repaired. The regularity of the frozen family is refuted in
-general and is not stated without its family. The dichotomy is a conjecture
-with finite support and no Lean. Every computed number carries its run
-length.
+No endogenous generator. Positive generation results either take a
+commitment as an input or use the explicitly declared `total`; nothing here
+produces a commitment. OB-1 is untouched. No repair exists here: discharge
+is a declared budget, and a discharged demand is recorded as discharged,
+not repaired. The regularity of the frozen family is refuted in general and
+is not stated without its family. The finite comparison does not classify
+arbitrary commitments or later horizons. Every computed number carries its
+run length.
 
 ## Leftovers, named and priced, executed nowhere
 
-1. **The dichotomy in Lean** — that a commitment with no finite
-   bound on its demand set outruns any fixed budget, and a finite one does not. Price: a general statement about
-   commitments indexed by state size, which needs a notion this tree does
-   not define.
+1. **A correctly quantified backlog theorem.** State sufficient hypotheses
+   on an arrival sequence for a fixed budget to accumulate backlog or to
+   clear it, rather than classifying commitments from finite examples.
+   Price: a general arrival model and hypotheses this tree does not define.
 2. **Discharge as repair.** Replace the declared budget with the
    reconstructed repair machinery of the sealed module and ask the same
    question. Price: reconstructing the guards and the gates, which this rung

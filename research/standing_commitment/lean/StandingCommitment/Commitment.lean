@@ -19,19 +19,21 @@ that were not there before, with no act between the growth and the demand.
 
 The answer here is yes, and it is quantitative: with the commitment that
 keeps every distinct pair apart, ONE growth step on a state of `n` data
-adds exactly `n` demands (`demand_count_grows`).  One declaration at
-genesis, unboundedly many demands, and no external act at any step after
-the first.
+adds exactly `n` demands (`demand_count_grows`).  One declaration suffices
+for this whole stated family of growth steps; the growth events themselves
+remain externally supplied.
 
 What this does NOT do, stated here so it cannot be mistaken later: the
-commitment is a PARAMETER of every theorem below.  Nothing here produces
-one.  The estate's standing obstruction concerns where the first
-requirement comes from and is untouched; what changes is the accounting,
-from one external act per demand to one external act in total.  And the
-matching negative is proved: under the empty commitment, growth generates
-nothing (`empty_commitment_generates_nothing`), so generation is a
-property of the declaration and not of growth.  That is the same shape as
-the sealed `no_guard_no_obstruction`: no stake, no obstruction.
+positive generation results either take a commitment as a parameter or use
+the explicitly declared `total` commitment.  Nothing here produces a
+commitment.  The estate's standing obstruction concerns where the first
+requirement comes from and is untouched; what changes is the requirement
+accounting, from a separately imposed requirement per demand to one standing
+declaration.  The growth events are still external.  And the matching
+negative is proved: under the empty commitment, growth generates nothing
+(`empty_commitment_generates_nothing`), so generation is a property of the
+declaration and not of growth.  That is the same shape as the sealed
+`no_guard_no_obstruction`: no stake, no obstruction.
 
 AuthorityEffect: None.
 -/
@@ -214,13 +216,13 @@ theorem empty_commitment_generates_nothing (w : World) (ds : List Nat) :
 
 /-! ## 8. What is still declared
 
-Every theorem above takes the commitment as a parameter.  Nothing here
-constructs one, and the two exhibited commitments are written down by hand
-in section 2.  The standing obstruction of the sealed estate concerns the
+Nothing here constructs a commitment, and the two exhibited commitments are
+written down by hand in section 2.  The positive generation results either
+take a commitment as an input or use the explicitly declared `total`
+commitment.  The standing obstruction of the sealed estate concerns the
 first requirement and is untouched; what this rung changes is the
-accounting.  Recorded as a proposition about the statements themselves,
-not as a theorem: the type of every result above mentions `Commitment` in
-its hypotheses, and no result has `Commitment` in its conclusion. -/
+requirement accounting.  This is a statement about the declarations in this
+file, not an object-language theorem. -/
 
 /-- A concrete instance of the accounting claim, decided: from three
 admitted data and no views, two growth steps under the total commitment
