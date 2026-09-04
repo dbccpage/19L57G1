@@ -1,8 +1,16 @@
 # CLAIM LEDGER: rung two, track one -- no first demand
 
-`AuthorityEffect: None`.  Every row carries exactly one evidence class.
-A row at the level of a definition is marked so and is never counted as
-content.  Counts in this file are dated 2026-09-04.
+`AuthorityEffect: None`.  Every row carries an evidence class, and a row
+that splits a claim into halves carries one class PER HALF -- three do:
+NF-26, NF-28 and NF-43, each of which has a proved half and a definitional
+or open half.  No row is left unclassified.  An earlier draft of this
+sentence read *"Every row carries exactly one evidence class"*, which
+those three rows falsify; it is WITHDRAWN and quoted here.  A row at the
+level of a definition is marked so and is never counted as content.
+Per-theorem classification is NOT this file's job and is not attempted
+here: it is `FWDEF_CENSUS.json`'s, which is total over all seventy-five
+theorems and is checked by `test_census.py`.  Counts in this file are
+dated 2026-09-04.
 
 Classes used: DEFINITION (true by unfolding, by `rfl`, by a projection,
 or by one rewrite), PROVED_THEOREM, RECONSTRUCTION (a sibling's or the
@@ -123,6 +131,16 @@ result of it.
 | NF-31 | Under that stake, from a well-formed regime carrying no demand, one growth step generates at most one demand (`apart_at_most_one_new_demand`). | PROVED_THEOREM, over the SEALED REGIME | `lean_axioms.txt`; `nofirst.json` `all_apart.max_new_demands_per_growth_step` |
 | NF-32 | The sibling two-sided tree records the corresponding statement over ITS OWN carrier as a CONJECTURE with no Lean, and as a FINITE_COMPUTATION for the bounded count. NF-30 and NF-31 are proofs over the sealed regime and are NOT proofs of the sibling's row; the sibling's row stands as the sibling wrote it. | RECORDED, with the carrier named | `research/two_sided_commitment/CLAIM_LEDGER.md` rows TS-09 and TS-14, pinned by blob; note at section five of `lean/SecondNoFirst/Propagate.lean` |
 
+## Stage three, unpredicted: the run-level statements
+
+| id | claim | class | evidence |
+|---|---|---|---|
+| NF-32a | The three demand-inert kinds compose along a HISTORY: a run whose every event is a supply, an imposition or a form admission reaches, from a well-formed base, only regimes carrying exactly the base's demands, for every stake (`demands_replay_inert`). | PROVED_THEOREM. **NOT PREDICTED**: written after an adversarial reading found that no statement in the package mentioned a run at all | `lean_axioms.txt`; `lean/SecondNoFirst/Run.lean` |
+| NF-32b | From a well-formed base carrying no demand, no regime reached by such a run carries one: under an inert run there is no first demand (`no_demand_is_first_under_an_inert_run`). | THIN -- a direct corollary of NF-32a; classed so in `FWDEF_CENSUS.json` | `lean_axioms.txt` |
+| NF-32c | Well-formedness survives an inert step, so the run-level statement's hypothesis is carried rather than reasserted at each step (`wf_addForm`, `wf_addReq`, `wf_step_inert`). | PROVED_THEOREM | `lean_axioms.txt` |
+| NF-32d | A general first-demand index over an arbitrary run is NOT proved. The other three event kinds do change demand sets, and locating the first demand of a run containing them needs an index over histories. | OPEN, named and priced | leftover L-2 in `STATUS.md` |
+| NF-32e | The total bound: from a well-formed regime carrying no demand under the all-apart stake, the grown regime carries at most one demand ALTOGETHER, old pairs included (`apart_at_most_one_demand_after_growth`, via `apart_no_old_demand`). | PROVED_THEOREM. Strengthens NF-31, whose statement bounded only the demands naming the fresh datum while its doc claimed the total bound | `lean_axioms.txt` |
+
 ## Stage four: the finite cross-check
 
 | id | claim | class | evidence |
@@ -152,8 +170,12 @@ result of it.
 
 ## Library axiom reliance
 
-Every one of the sixty-four theorems of this rung's package reports axioms
-within `{propext, Quot.sound}`; eight report no axiom at all.  The full
+Every one of the seventy-five theorems of this rung's package reports
+axioms within `{propext, Quot.sound}`; eight report no axiom at all.  An
+earlier draft of this sentence said "sixty-four", a count from before the
+inertia and run modules were added; it is WITHDRAWN and quoted here rather
+than deleted.  Seventy-five is the number in `receipts/lean_axioms.txt`, in
+`FWDEF_CENSUS.json`, and in the audit line `verify_lean.py` prints.  The full
 report is `receipts/lean_axioms.txt`, checked against a fresh build by
 `verify_lean.py`.  No user-declared axiom, no `sorry`, no `admit`, no
 `unsafe`, no `partial`, in code or in comments.
