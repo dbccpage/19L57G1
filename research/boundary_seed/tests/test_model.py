@@ -10,6 +10,8 @@ TREE = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TREE / "code"))
 
 from boundary.model import (  # noqa: E402
+    INITIAL_DATUM,
+    OBSERVATION_TYPES,
     READING_O,
     READING_U,
     READINGS,
@@ -17,13 +19,20 @@ from boundary.model import (  # noqa: E402
     AdmissionError,
     AdmitMark,
     Event,
+    OnSide,
+    OpaqueDatum,
     Regime,
+    SideNamed,
     Supply,
     canonical,
     certify,
     contents,
+    event_follows,
     genesis,
     is_automorphism_reflection,
+    mark_observations,
+    name_observations,
+    observation_holds,
     observations,
     reflect,
     rename_marks,
@@ -42,10 +51,23 @@ class GenesisTests(unittest.TestCase):
             g = genesis(rd)
             self.assertEqual(g.n_marks(), 0)
             self.assertEqual(g.placement, ())
+            self.assertEqual(g.initial_datum, INITIAL_DATUM)
 
     def test_unknown_reading_refused(self) -> None:
         with self.assertRaises(AdmissionError):
             genesis("V")
+
+    def test_invalid_regimes_are_refused(self) -> None:
+        bad = (
+            ("V", (), (), INITIAL_DATUM),
+            (READING_U, ("a",), (), INITIAL_DATUM),
+            (READING_U, ("a", "a"), (0, 1), INITIAL_DATUM),
+            (READING_U, ("a",), (2,), INITIAL_DATUM),
+            (READING_U, (), (), OpaqueDatum(1)),
+        )
+        for args in bad:
+            with self.subTest(args=args), self.assertRaises(AdmissionError):
+                Regime(*args)
 
 
 class EventTests(unittest.TestCase):
@@ -55,7 +77,7 @@ class EventTests(unittest.TestCase):
             self.assertEqual(step(g, Supply("a")), g)
             self.assertEqual(replay([Supply("a"), Supply("b"), Supply("a")], g), g)
 
-    def test_admission_places_one_mark(self) -> None:
+    def test_low_level_step_places_one_mark(self) -> None:
         r = step(genesis(READING_U), AdmitMark("a", 0))
         self.assertEqual(r.marks, ("a",))
         self.assertEqual(r.placement, (0,))
@@ -78,6 +100,19 @@ class EventTests(unittest.TestCase):
         self.assertFalse(certify(history, g, Regime(READING_U, ("a",), (1,))))
         self.assertFalse(certify(history[:1], g, claimed))
 
+    def test_certifying_replay_refuses_unsupplied_admission(self) -> None:
+        g = genesis(READING_U)
+        event = AdmitMark("never-supplied", 0)
+        with self.assertRaises(AdmissionError):
+            replay([event], g)
+        self.assertFalse(certify([event], g, Regime(READING_U, ("never-supplied",), (0,))))
+
+    def test_no_event_follows_from_challenge0_state(self) -> None:
+        for rd in READINGS:
+            g = genesis(rd)
+            self.assertFalse(event_follows(g, Supply("a")))
+            self.assertFalse(event_follows(g, AdmitMark("a", 0)))
+
 
 class ObservationTests(unittest.TestCase):
     def test_genesis_contents_empty_on_both_sides(self) -> None:
@@ -85,11 +120,36 @@ class ObservationTests(unittest.TestCase):
             g = genesis(rd)
             self.assertEqual(contents(g, 0), frozenset())
             self.assertEqual(contents(g, 1), frozenset())
-            self.assertEqual(observations(g), frozenset())
+            self.assertEqual(mark_observations(g), frozenset())
+        self.assertEqual(observations(genesis(READING_U)), frozenset())
+        self.assertEqual(
+            observations(genesis(READING_O)),
+            frozenset((SideNamed(0, "near"), SideNamed(1, "far"))),
+        )
+
+    def test_closed_observation_grammar_and_holds(self) -> None:
+        self.assertEqual(OBSERVATION_TYPES, (OnSide, SideNamed))
+        u = Regime(READING_U, ("a",), (0,))
+        o = Regime(READING_O, ("a",), (0,))
+        self.assertTrue(observation_holds(u, OnSide(0, 0)))
+        self.assertFalse(observation_holds(u, OnSide(0, 1)))
+        self.assertFalse(observation_holds(u, OnSide(1, 0)))
+        self.assertFalse(observation_holds(u, SideNamed(0, "near")))
+        self.assertTrue(observation_holds(o, SideNamed(0, "near")))
+        self.assertFalse(observation_holds(o, SideNamed(0, "far")))
+        self.assertEqual(name_observations(u), frozenset())
+        with self.assertRaises(ValueError):
+            OnSide(-1, 0)
+        with self.assertRaises(ValueError):
+            OnSide(0, 2)
+        with self.assertRaises(ValueError):
+            SideNamed(2, "elsewhere")
 
     def test_contents_refuses_a_third_side(self) -> None:
         with self.assertRaises(ValueError):
             contents(genesis(READING_U), 2)
+        with self.assertRaises(ValueError):
+            side_profile(genesis(READING_U), 2)
 
     def test_sides_collapsed_under_U_and_named_under_O(self) -> None:
         self.assertTrue(sides_collapsed(genesis(READING_U)))
@@ -104,7 +164,7 @@ class ObservationTests(unittest.TestCase):
             r = step(genesis(rd), AdmitMark("a", 0))
             self.assertFalse(sides_collapsed(r))
             self.assertEqual(contents(r, 0), frozenset({0}))
-            self.assertEqual(observations(r), frozenset({(0, 0)}))
+            self.assertEqual(mark_observations(r), frozenset({OnSide(0, 0)}))
 
 
 class RenamingTests(unittest.TestCase):
@@ -138,8 +198,11 @@ class RenamingTests(unittest.TestCase):
 
     def test_reflection_automorphism_at_genesis(self) -> None:
         self.assertTrue(is_automorphism_reflection(genesis(READING_U)))
-        self.assertTrue(is_automorphism_reflection(genesis(READING_O)))
-        self.assertTrue(is_automorphism_reflection(Regime(READING_U, ("a",), (0,))))
+        self.assertFalse(is_automorphism_reflection(genesis(READING_O)))
+        self.assertFalse(is_automorphism_reflection(Regime(READING_U, ("a",), (0,))))
+        self.assertTrue(
+            is_automorphism_reflection(Regime(READING_U, ("a", "b"), (0, 1)))
+        )
         self.assertFalse(is_automorphism_reflection(Regime(READING_O, ("a",), (0,))))
 
 

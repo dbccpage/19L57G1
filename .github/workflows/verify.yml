@@ -337,21 +337,21 @@ jobs:
       - name: Second derivation, rung 1, strict typing
         working-directory: research/second_stream
         run: python -m mypy
-      # The boundary derivation (research/boundary_seed) is a second blind
-      # derivation from `<|>` with its own kernel, its own Lean package, and
-      # a blindness scan that bans citations into the sealed paths until its
-      # FREEZE.md exists. Registered append-only, as the seed requires. The
+      # The boundary derivation (research/boundary_seed) is source-isolated
+      # under declared prior exposure, with its own kernel and Lean package.
+      # Its scan bans citations into sealed paths until a committed FREEZE.md
+      # marker. Registered append-only, as the seed requires. The
       # Lean package stays a manual receipt (verify_lean.py), like the others.
       - name: Boundary derivation, seed and frozen-prediction pins
         run: python research/boundary_seed/verify_pins.py
-      - name: Boundary derivation, tests under coverage, receipts, blindness
+      - name: Boundary derivation, tests, receipts, source isolation
         working-directory: research/boundary_seed
         run: |
           set -o pipefail
           log="$RUNNER_TEMP/boundary-seed-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 37 tests in ' "$log"
+          grep -Eq '^Ran 53 tests in ' "$log"
           python -m coverage json -q
           python check_coverage.py
           python run_challenge0.py

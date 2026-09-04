@@ -14,7 +14,7 @@ append-only registration of its checks in the research job of the
 workflow.  Until `FREEZE.md` exists, this run reads nothing of the
 repository beyond the seed, the five named sections of `CLAUDE.md`, and
 its own tree; it imports nothing from `code/derivation`; and
-`test_blind.py` fails any commit whose write root cites a sealed path, a
+`test_blind.py` fails any checked write-root version that cites a sealed path, a
 claim identifier, a sealed Lean name, or another research tree.
 
 ## Execution plan
@@ -56,8 +56,9 @@ DEFINITION-level and never counted as content.
 The tree's own tests pass under strict typing with line and branch
 coverage each at 95%, measured from inside the tree by
 `check_coverage.py`; every receipt regenerates identically; every
-certified state replays from genesis; the blindness scan passes at every
-commit before the freeze; the repository's identifier firewall and prose
+certified state replays from genesis; the source-isolation scan passes on
+every distinct committed write-root version before the freeze; the
+repository's identifier firewall and prose
 watchlist stay clean with no pin regenerated; every gate the tree adds is
 proved by injection.
 

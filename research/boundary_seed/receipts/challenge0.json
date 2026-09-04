@@ -1,5 +1,11 @@
 {
   "authority_effect": "None",
+  "boundary_dependence": {
+    "empty event-follows relation": "does not depend on the admitted boundary",
+    "initial opaque datum": "does not depend on the admitted boundary",
+    "side profiles, collapse, names, reflection, and class counts": "require the admitted boundary and are not formulated after removing it",
+    "supply inertia": "does not depend on the admitted boundary"
+  },
   "challenge": 0,
   "event_kinds": [
     "Supply",
@@ -7,23 +13,50 @@
   ],
   "inscription": "<|>",
   "observation_vocabulary": [
-    "contents -> frozenset[int]",
-    "side_profile -> tuple[object, ...]",
-    "observations -> frozenset[tuple[int, int]]",
-    "sides_collapsed -> bool"
+    "OnSide",
+    "SideNamed"
   ],
   "predictions_sha256": "a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395",
   "readings": {
     "O": {
+      "all_observations": [
+        {
+          "kind": "SideNamed",
+          "name": "near",
+          "side": 0
+        },
+        {
+          "kind": "SideNamed",
+          "name": "far",
+          "side": 1
+        }
+      ],
       "canonical_key": [
         "O",
         []
       ],
+      "event_follows_relation_empty": true,
+      "initial_datum": {
+        "internal_id": 0,
+        "present": true
+      },
+      "mark_observations": [],
       "marks": 0,
-      "observations": [],
+      "name_observations": [
+        {
+          "kind": "SideNamed",
+          "name": "near",
+          "side": 0
+        },
+        {
+          "kind": "SideNamed",
+          "name": "far",
+          "side": 1
+        }
+      ],
       "reading": "O",
       "reflect_genesis_equals_genesis": true,
-      "reflection_automorphism_by_key": true,
+      "reflection_is_permitted_automorphism": false,
       "reflection_is_permitted_renaming": false,
       "side_profiles": [
         [
@@ -40,15 +73,22 @@
       "supply_leaves_state_unchanged": true
     },
     "U": {
+      "all_observations": [],
       "canonical_key": [
         "U",
         []
       ],
+      "event_follows_relation_empty": true,
+      "initial_datum": {
+        "internal_id": 0,
+        "present": true
+      },
+      "mark_observations": [],
       "marks": 0,
-      "observations": [],
+      "name_observations": [],
       "reading": "U",
       "reflect_genesis_equals_genesis": true,
-      "reflection_automorphism_by_key": true,
+      "reflection_is_permitted_automorphism": true,
       "reflection_is_permitted_renaming": true,
       "side_profiles": [
         [
@@ -117,20 +157,24 @@
       "status": "HIT"
     },
     "C0-3": {
-      "evidence": "supply_leaves_state_unchanged under both readings; state_event_generators is empty",
+      "evidence": "supply is inert and the declared event-follows relation is empty; the state_event_generators census is supplementary and is reported but not scored",
       "label": "FORCED",
       "status": "HIT"
     },
     "C0-4": {
-      "evidence": "observations empty under both readings; the observation vocabulary has no negative or counting form",
-      "label": "NOT FORCED, DEFINITION-level",
-      "status": "HIT"
+      "evidence": "the emptiness target holds because no OnSide judgment fires and the closed grammar has no empty or counting form; the frozen rationale 'no observation fires' is false under O because its two SideNamed judgments hold",
+      "label": "NOT FORCED",
+      "no_observation_fires_status": "MISSED",
+      "result_basis": "DEFINITION-level closed judgment grammar",
+      "status": "PARTIAL",
+      "target_status": "HIT"
     },
     "C0-5": {
       "evidence": "U: reflect(genesis) == genesis and the exchange is a permitted renaming; O: the exchange is not a permitted renaming",
       "general_clause": {
         "census_fixed_iff_equal_counts": true,
-        "fact": "the reflection fixes a placement up to mark renaming exactly when the two sides carry equally many marks, under both readings; the prediction's 'same contents' names only the empty case of that",
+        "fact": "within the enumerated bound 0 through 4 marks, reflection followed by mark renaming fixes exactly the equal-count placements; this is a permitted automorphism only under U",
+        "max_marks": 4,
         "status": "SHARPENED"
       },
       "label": "FORCED for genesis",

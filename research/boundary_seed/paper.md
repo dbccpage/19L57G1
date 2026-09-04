@@ -1,58 +1,63 @@
-# The boundary derivation
+# The boundary derivation: Challenge 0 under declared prior exposure
 
-`AuthorityEffect: None`.  A blind derivation from the inscription `<|>`,
-carried out inside this repository under the seed
-`research/boundary_seed/SEED.md`.  This paper grows one challenge per
-session; sections the run has not reached say so.
+`AuthorityEffect: None`.  A source-isolated derivation from the inscription
+`<|>`, carried out inside this repository under the read-only seed
+`research/boundary_seed/SEED.md`.  The instrument had already reviewed the
+sealed derivation and declared that remembered structure influenced this
+run.  It is therefore **not evidence of blind or independent discovery**.
+This paper grows one challenge per session; sections not reached say so.
 
-## 0. The experimental boundary
+## 0. Experimental and provenance boundary
 
 The seed is read-only, sha256
 `ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be`.
 The run writes only `research/boundary_seed/` and the append-only
-registration of its checks in the research job of the workflow.  Until
-`FREEZE.md` exists the run reads nothing of the repository beyond the
-seed, the five named sections of the repository contract, and its own
-tree; it imports nothing from the sealed kernel and builds its own; and
-the scan in `tests/test_blind.py` fails any committed or staged file of
-the write root that cites a sealed path, a sealed claim identifier, a
-sealed Lean name, the sealed kernel as an import, or another research
-tree.
+registration of its checks in the research job of the workflow.  Until a
+committed `FREEZE.md` marker exists, the declared procedure reads nothing of the repository
+beyond the seed, five named contract sections, and its own tree; it imports
+nothing from the sealed kernel and builds its own.  The source-isolation
+scan checks working, index, and committed-history bytes for citations into
+the named sealed paths, sealed claim and Lean identifiers, sealed-kernel
+imports, and identifiable other research-tree names.  This mechanical
+scan cannot establish what the instrument remembered or read elsewhere.
 
-The blindness is by rule and not by ignorance.  The instrument that
-opened this run drafted the seed in the same session after reviewing the
-sealed derivation and its research trees, and remembers their
-vocabulary.  That is declared reading zero of `MANUAL.md`.  Every result
-below is derived from the seed and the tree's own code and proofs, and
-every place the run noticed itself reaching for a remembered result is
-recorded in the challenge's `STATUS.md` next to the result.
+The instrument drafted the seed in the same session after reviewing the
+sealed derivation and research trees.  `MANUAL.md` and the Challenge 0
+status record its use of remembered kernel shape, a designation convention,
+and the expected observation choice.  Commit history proves only that the
+seed, plan/manual, and predictions were committed in that order before the
+branch committed code or proofs; it cannot prove when untracked or off-tree
+work was written.  The surviving provenance claim is therefore
+`SOURCE_ISOLATED_WITH_DECLARED_PRIOR_EXPOSURE`, not “blind derivation.”
 
 ## 1. Metatheory and object language
 
 Metatheory is everything used to carry out and check the derivation:
-Python, Lean, the tests, the receipts, the readings, presentation
-tokens, and this prose.  The object language is what the admitted state
-can observe of itself: the contents of a side, and under one reading the
-name of a side.  Presentation identity (which token was supplied),
-internal identity (which admitted mark, by index), observational
-equivalence (equal side profiles), behavioural separation (not yet
-declared; Challenge 3), and semantic interpretation (never) are kept
-distinct throughout.
+Python, Lean, tests, receipts, readings, presentation tokens, extensional
+profiles, and this prose.  The object language has one supplied opaque
+datum and a closed positive judgment grammar: `OnSide(mark, side)` and,
+under O, `SideNamed(side, name)`.  Python `contents` and `side_profile`
+enumerate those judgments externally for comparison; their collection
+values are not object-language data.  Presentation identity, internal
+identity, observational equivalence, behavioural separation (not yet
+declared), and semantic interpretation are kept distinct.
 
 Supply, mention, admission, current-state designation, retention,
 observation, and equality are distinct events or relations in the
-kernel: a `Supply` presents and changes nothing; an `AdmitMark` admits a
-presented token on a side; re-admission of an admitted token is a
-designation and not a duplication (declared convention); retention is
-the placement tuple; observation is the `contents` and `side_profile`
-functions; equality of regimes is structural, and equality up to a
-permitted renaming is the canonical key.
+kernel: a `Supply` presents and changes no admitted state; certifying
+`replay` refuses a new `AdmitMark` without a prior `Supply`; re-admission
+of an existing token is designation rather than duplication (declared
+convention); retention is the placement tuple; observation is the closed
+judgment grammar above; regime equality is structural.  The canonical key
+is a bounded-computation tool for quotienting in the reported census, not
+an unbounded completeness theorem.
 
 ## 2. The admitted boundary: one declaration, two readings
 
-The one admitted primitive is the boundary with its two sides.  It is
-not a datum; it is the frame every datum is placed against.  It is
-listed first in every ledger of this tree and is never called free.
+The inscription `<|>` is the one supplied opaque datum at genesis.  The
+one admitted primitive exception is its boundary with two sides.  The
+boundary is not a second datum; it is the frame against which later marks
+may be placed.  It is listed first in the ledger and is never called free.
 
 Reading U leaves the two sides unnamed.  The exchange of the sides is
 then a renaming the object language cannot see, and the isomorphism
@@ -65,84 +70,99 @@ beyond the declaration itself (declared reading 2 of `MANUAL.md`).
 
 ## 3. Definitions, in dependency order
 
-All in `code/boundary/model.py` and `lean/BoundarySeed/Basic.lean`.
+All are implemented in `code/boundary/model.py`.  The theorem-bearing subset
+listed in section 7 is mirrored or abstracted in `lean/BoundarySeed/Basic.lean`;
+presentation tokens, token uniqueness, certifying supply-before-placement
+replay, and the canonical key are Python-only at Challenge 0.
 
-1. **Reading.**  `U` or `O`.  Metatheory.
-2. **Regime.**  A reading, the admitted marks in admission order
-   (tokens, metatheoretic), and for each mark the side it lies on, `0`
-   or `1`.  The boundary is implicit and unique.
-3. **Genesis.**  The regime with no marks, one per reading.
-4. **Events.**  `Supply(token)`, external presentation; `AdmitMark(token,
-   side)`, admission of a presented token on a side.  No other event
-   kind exists at Challenge 0.
-5. **Step.**  `Supply` returns the regime unchanged.  `AdmitMark` appends
-   the mark and its side, unless the token is already admitted, in which
-   case it returns the regime unchanged.  A side other than `0` or `1`
-   is refused.
-6. **Replay and certification.**  A history replays from a base by
-   folding `step`; a claimed regime is certified when it equals the
-   replay of its history.
-7. **Contents.**  The set of internal identities of the marks on a side.
-8. **Side profile.**  Under U, the contents; under O, the name and the
-   contents.  This is everything the object language can observe of a
-   side.
-9. **Collapsed sides.**  Equal side profiles.
-10. **Observation relation.**  The set of pairs (mark, side).  It is
-    positive: it lists what is placed and has no negative or counting
-    form.
-11. **Reflection.**  The exchange of the two sides.
-12. **Mark renaming.**  A permutation of internal identities; tokens
-    travel with their marks.
-13. **Serialization.**  The reading and the placement, tokens forgotten.
-14. **Canonical key.**  The minimum serialization over every mark
-    renaming and, under U only, the reflection.  Two regimes have equal
-    keys exactly when they differ by a renaming their reading permits.
-    "Canonical" here means this implemented minimum and nothing more.
-15. **Permitted renaming.**  Under U, mark renamings and the reflection;
-    under O, mark renamings only.  Definition, not theorem.
+1. **Initial datum.**  One opaque supplied whole with internal identity
+   zero.  Its presentation spelling is not stored.
+2. **Boundary and reading.**  The admitted boundary has two sides.  U
+   leaves them unnamed; O admits the names `near` and `far`.
+3. **Regime.**  The fixed initial datum, a reading, unique admitted mark
+   tokens, and one valid side for each mark.  Construction rejects unknown
+   readings, duplicate tokens, invalid sides, and length mismatch.
+4. **Genesis.**  The initial datum is present and no later mark is admitted.
+5. **Events.**  `Supply(token)` is external presentation;
+   `AdmitMark(token, side)` is a requested admission.
+6. **Step, replay, certification.**  Low-level `step` applies an already
+   validated event.  Certifying `replay` tracks presentations and refuses
+   a new mark without an earlier supply; `certify` rejects such a history.
+7. **Event-follows relation.**  The Challenge 0 object-language relation
+   from a regime to an event is the empty relation.  External events remain
+   possible inputs to replay.
+8. **Judgment grammar.**  The closed sum `OnSide | SideNamed`; it contains
+   no empty-side or counting constructor.
+9. **Judgment holding.**  `OnSide(i,s)` holds exactly for a placed mark.
+   `SideNamed(s,n)` holds exactly under O for the admitted name of `s`.
+10. **Contents and side profile.**  Metatheoretic extensional enumerations
+    of the positive judgments.  Under U a profile contains marks only;
+    under O it also contains the name.
+11. **Collapsed sides.**  Equal extensional side profiles.
+12. **Reflection.**  The exchange of the two sides.
+13. **Mark renaming.**  A permutation of internal identities; tokens travel
+    with their marks.
+14. **Serialization.**  Reading and placement, tokens forgotten; the fixed
+    initial datum is omitted because every valid Challenge 0 regime has it.
+15. **Canonical key.**  The minimum serialization over every mark renaming
+    and, under U only, reflection.  Invariance and class separation are
+    claimed only for the finite census through four marks.
+16. **Permitted reflection.**  Permitted under U and not under O, including
+    at the raw fixed point of O genesis.  The state-level automorphism
+    predicate additionally requires stabilization up to mark renaming;
+    canonical orbit equality alone is insufficient.  Permission is a
+    definition, not discovered content.
 
 ## 4. Challenge 0: the initial state `<|>`
 
 Receipt: `receipts/challenge0.json`.  Predictions frozen at sha256
 `a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395`
-before any code or proof was written.
+in a commit preceding the branch's first code-or-proof commit.  This does not
+establish when off-tree or untracked work was written.
 
 ### 4.1 Results under each reading
 
 | result | reading U | reading O | evidence |
 |---|---|---|---|
+| initial opaque datum | present | present | receipt `readings.*.initial_datum`; Lean `genesis_initial_datum` |
 | side profiles at genesis | `[[]]`, `[[]]` | `["near", []]`, `["far", []]` | receipt `readings.*.side_profiles` |
-| the two sides collapsed | yes | no, and the difference is the name component only | `sides_collapsed`; Lean `sides_collapsed_at_genesis_U`, `side_names_distinct` |
-| observation relation at genesis | empty | empty | `observations`; Lean `no_observation_at_genesis`, `contents_genesis` |
+| the two sides collapsed | yes | no, and the difference is the name component only | `sides_collapsed`; Lean `sides_collapsed_at_genesis_U`, `sides_distinct_at_genesis_O` |
+| mark-on-side judgments at genesis | none | none | `mark_observations`; Lean `no_observation_at_genesis` |
+| side-name judgments at genesis | none | `near` and `far` | `name_observations`; Lean `O_name_judgment_at_genesis`, `U_no_name_judgment_at_genesis` |
 | a supply changes the state | never | never | `supply_leaves_state_unchanged`; Lean `supply_no_op`, `replay_supply_inert` |
-| an event follows from the state | no function of the kernel returns an event | same | `state_event_generators = []`; Lean `step_changes_only_by_place` |
-| the reflection is a permitted renaming | yes | no | definition 15 |
-| the reflection fixes genesis | yes, as a regime and as a renaming | yes as a regime, but it is not a renaming the reading permits | Lean `reflect_genesis`; receipt |
+| an event follows from the state | none in the declared relation | same | `event_follows_relation_empty`; Lean `no_event_follows` |
+| public module function has an event-containing resolved return annotation | none in the census | same | supplementary `state_event_generators = []`, not the semantic proof; event constructors are outside this population |
+| the reflection is a permitted renaming | yes | no | definition 16 |
+| the reflection fixes genesis as raw data | yes | yes | Lean `reflect_genesis`; receipt |
+| the reflection is a permitted automorphism of genesis | yes | no, even at the raw fixed point | receipt; Lean `reflection_permitted_U`, `reflection_not_permitted_O`; bounded non-genesis stabilizers are in 4.3 |
 | the reflection is an involution | yes | yes | Lean `reflect_reflect` |
 | the reflection moves any placed mark | yes | yes | Lean `reflect_moves_a_mark` |
 
-Under O, that the sides differ at genesis is DEFINITION-level: it is
-the two admitted names and nothing else, and the Lean statement is the
-inequality of two constructors, closed by `decide`.  Nothing at
-Challenge 0 gives the O-distinction content beyond the declaration.
+Under O, the profile difference is DEFINITION-level: it is the two admitted
+names and nothing else.  `contents_genesis = []` is a metatheoretic theorem
+about the extension of positive judgments; it does not expose an empty-list
+datum inside the object language.  Nothing at Challenge 0 gives the
+O-distinction content beyond the declaration.
 
 ### 4.2 The predictions, scored
 
 | id | label | status | note |
 |---|---|---|---|
-| C0-1 collapse under U | FORCED | HIT | by definition 8 and 9 once side observation is contents |
+| C0-1 collapse under U | FORCED | HIT | by the declared extensional profile |
 | C0-2 distinction under O is bought | FORCED, DEFINITION-level | HIT | the profiles differ in the name component only |
-| C0-3 inertia | FORCED | HIT | supply inert under both readings; no state-to-event function in the kernel |
-| C0-4 emptiness is not a fact | NOT FORCED, DEFINITION-level | HIT | no observation fires; the observation relation has no negative form; the run admitted no negative observation, which is the choice the prediction hung on |
+| C0-3 inertia | FORCED | HIT | supply inert; the declared event-follows relation is empty under both readings |
+| C0-4 emptiness is not a primitive judgment | NOT FORCED | PARTIAL, target basis DEFINITION-level | no `OnSide` judgment holds and the grammar has no empty/count form, but the frozen “no observation fires” rationale is false because O name judgments do hold |
 | C0-5 the reflection | FORCED for genesis | HIT, general clause SHARPENED | see 4.3 |
 | C0-X extrapolation | NOT FORCED | PENDING | scored by Challenge 1 |
 
-Five FORCED or DEFINITION-level hits are evidence of the order of the
-work, not of insight: the predictions were written before the
-definitions, and the definitions were written to the seed, not to the
-predictions.  The one prediction that could have gone otherwise is C0-4,
-which depended on whether the run would admit a negative observation.
-It did not, because the seed admits none.
+Four of five scored predictions hit.  The four HIT clauses were labelled
+FORCED in the frozen file.  C0-4 was explicitly `NOT FORCED` and is PARTIAL:
+its emptiness target is definition-level under the chosen closed positive
+judgment grammar, while its stated “no observation fires” rationale is false
+under O.  Git history establishes that the prediction file was committed
+before code and proofs on this branch.  It does not establish when any
+untracked or off-tree work was written, and it is not evidence of insight or
+independent discovery.
 
 ### 4.3 The reflection census (computation)
 
@@ -157,30 +177,43 @@ admitted:
 | 3 | 8 | 0 | 2 | 4 |
 | 4 | 16 | 6 | 3 | 5 |
 
-The reflection fixes a placement up to mark renaming exactly when the two
-sides carry equally many marks, under both readings, for every placement
-of up to four marks (`fixed_iff_equal_counts = true`).  Prediction C0-5's
-general clause named "every state whose sides carry the same contents";
-with contents as sets of internal identities that is only the empty
-placement, so the prediction was true and too narrow.  The sharper fact
-is recorded as a computation to four marks and is not claimed beyond
-that bound.  The class counts show what the readings differ by: under O
-the key sees `n + 1` classes for `n` marks (how many lie on `near`);
-under U it sees `floor(n/2) + 1` (the unordered split).  Computation to
-four marks; the closed forms are a description of the table, not a
-theorem.
+Within the explicit zero-through-four-mark bound, applying reflection and
+then allowing a mark renaming returns a placement exactly when the two
+sides carry equally many marks (`fixed_iff_equal_counts = true`).  This
+combinatorial comparison can be made under either reading, but reflection
+is a *permitted automorphism* only under U.  Prediction C0-5's general U
+clause named “every state whose sides carry the same contents”; with
+contents as sets of internal identities that is only the empty placement,
+so the bounded computation sharpens it.  No unbounded theorem is claimed.
+Within the same table, O has `n + 1` observed classes and U has
+`floor(n/2) + 1`; these closed forms describe five rows, not all `n`.
 
 ### 4.4 What Challenge 0 does not establish
 
 - Nothing about a mark's own profile.  Marks have no observable of their
   own at Challenge 0 beyond the side they lie on.
-- Nothing about separability of the sides after admission; that is
-  C0-X, scored by Challenge 1.
+- The model test conditionally shows that one admitted mark yields unequal
+  side profiles under both readings.  Challenge 0 does not settle whether
+  Challenge 1's supplied whole is admitted under its still-undeclared
+  admission grammar; that is the unresolved content of C0-X.
 - Nothing about a whole within a side, the outside of the outermost
   boundary, depth, or the boundary's cost.  Those are Challenge 5 and
   the required questions of the seed, not reached.
 - The O-distinction is bought.  Whether anything later makes it earn its
   keep is open.
+
+### 4.5 Dependence on the admitted boundary
+
+The seed requires this classification at every stage.  Removing the
+boundary is a counterfactual dependency classification here, not a third
+reading silently added to the model.
+
+| result | dependence |
+|---|---|
+| the opaque initial datum exists | independent of the boundary; the whole was supplied first |
+| supply leaves admitted state unchanged | independent of the boundary under the declared event semantics |
+| the Challenge 0 event-follows relation is empty | independent of the boundary |
+| sides, side names/profiles, placements, reflection, collapse, and class counts | require the admitted boundary and are not formulable after removing it |
 
 ## 5. Challenges 1 to 5
 
@@ -194,25 +227,33 @@ Not yet declared; it is declared after Challenge 3 by the seed's order.
 ## 7. Proofs and countermodels
 
 Lean package `lean/`, core Lean only, no dependency on any other package
-in this repository.  Thirteen theorems, every one with a `#print axioms`
-report in `lean/axioms.txt`, checked against a fresh build by
-`verify_lean.py`; every report lies within `{propext, Quot.sound}`.
+in this repository.  Twenty theorems, every one with a `#print axioms`
+report in `lean/axioms.txt`, checked against a successful clean and fresh
+build by `verify_lean.py`; every report lies within
+`{propext, Quot.sound}`.
 
 | theorem | statement | axioms |
 |---|---|---|
 | `supply_no_op` | a supply is a no-op | none |
 | `step_changes_only_by_place` | a step that changes the state is a placement | none |
+| `genesis_initial_datum` | genesis contains the supplied opaque datum | none |
 | `genesis_placement_nil` | genesis has no placement | none |
-| `no_observation_at_genesis` | no (mark, side) observation fires at genesis | propext |
-| `contents_genesis` | both sides have empty contents at genesis | propext, Quot.sound |
-| `sides_collapsed_at_genesis_U` | under U the two sides' contents agree at genesis | propext, Quot.sound |
-| `side_names_distinct` | under O the two names differ (DEFINITION-level) | none |
+| `no_observation_at_genesis` | no positive mark-on-side judgment holds at genesis | propext |
+| `O_name_judgment_at_genesis` | each admitted O side-name judgment holds | propext |
+| `U_no_name_judgment_at_genesis` | no side-name judgment holds under U | propext |
+| `contents_genesis` | metatheoretic positive extensions are empty | propext, Quot.sound |
+| `sides_collapsed_at_genesis_U` | U extensional side profiles agree at genesis | propext, Quot.sound |
+| `sides_distinct_at_genesis_O` | O extensional side profiles differ at genesis | propext, Quot.sound |
+| `side_names_distinct` | the two name constructors differ | none |
 | `map_not_not` | double negation of a Boolean list is the identity | propext |
 | `reflect_reflect` | the reflection is an involution | propext |
 | `reflect_genesis` | the reflection fixes genesis | none |
+| `reflection_permitted_U` | reflection is permitted under U | none |
+| `reflection_not_permitted_O` | reflection is not permitted under O | propext |
 | `reflect_moves_a_mark` | the reflection moves any placed mark | propext |
 | `replay_deterministic` | equal histories replay equally | none |
 | `replay_supply_inert` | a history of supplies replays to its base | none |
+| `no_event_follows` | the declared Challenge 0 event relation is empty | propext |
 
 No countermodel is needed at Challenge 0: no target failed.
 
@@ -221,34 +262,47 @@ No countermodel is needed at Challenge 0: no target failed.
 - `receipts/challenge0.json`: deterministic (sorted keys, LF, no
   timestamp, no environment value); regenerated byte-identically by
   `run_challenge0.py` and checked by the tests and by the research job.
-- Tests: 37, under strict typing; line 98.09%, branch 95.83% over the
-  tree's code by `check_coverage.py`.
-- `lean/axioms.txt`: 13 reports.
+- The repaired suite passes 53 tests.  Fresh coverage over the three declared
+  code files is 100.00% line and 100.00% branch; `check_coverage.py` computes
+  line coverage as covered lines divided by statements rather than
+  Coverage.py's combined line-plus-branch percentage.
+- `lean/axioms.txt`: 20 reports.
 - Injection record: `MANUAL.md`.
 
 ## 9. The strongest defensible statement so far
 
-At genesis, under reading U, the two sides of the admitted boundary are
-observationally collapsed, the state is inert under supply, no event is
-produced by the state, no observation fires, and the exchange of sides is
-a renaming the object language cannot see.  Under reading O the same
-holds except that the two sides are distinguished, and that distinction
-is the two admitted names and nothing else.  Every clause is a Lean
-theorem or a definition labelled as such; none is content beyond the
-declaration.
+At genesis the supplied opaque datum is present.  Under U, the two sides of
+its admitted boundary have equal extensional profiles; supply is inert; no
+event follows in the declared Challenge 0 relation; no positive mark-on-side
+judgment holds; and reflection is permitted.  Under O, no mark-on-side
+judgment holds but the two admitted name judgments do, so the profiles
+differ only by that declaration and reflection is not permitted even though
+it fixes the empty placement as raw data.  These are scoped Lean theorems or
+labelled definitions.  Because the instrument declared prior exposure, they
+carry no blind-independence or independent-discovery conclusion.
 
 ## 10. Limitations and open obstructions
 
 - The class-count closed forms and the equal-count law are computations
   to four marks, not theorems.
+- No unbounded completeness or injectivity theorem is claimed for
+  `canonical`; its Challenge 0 evidence is the finite census and focused
+  invariance tests.
 - The reflection census enumerates hypothetical placements that no
   history admits; it is metatheory about the kernel, and it admits
   nothing.
 - The Lean package is a manual receipt: the research job runs the
-  Python gates and the blindness scan but does not build Lean.
-- Blindness is by rule.  The declared-reading-zero record is a
-  discipline, and the scan enforces only the part of it a scan can see.
+  Python gates and source-isolation scan but does not build Lean.
+- Prior exposure is disclosed and material: the run is source-isolated, not
+  blind.  The scan proves only the byte populations and patterns it checks.
+- The seed's future freeze instruction asks a file to hash every file in its
+  own write root, which is self-referential if it includes itself.  Until a
+  parent-tree or explicit-exclusion protocol is defined and verified, a
+  committed marker can retire the mechanical source scan but cannot establish
+  a valid freeze manifest; comparison remains OPEN.
 
 ## 11. Comparison
 
-Withheld until `FREEZE.md` exists, as the seed's section 10 requires.
+Withheld.  A working or staged `FREEZE.md` does not retire the isolation gate.
+A committed marker does retire that mechanical scan, but does not by itself
+close or verify the unresolved manifest protocol above.

@@ -20,7 +20,12 @@ FORBIDDEN = [
     (re.compile(r"\badmit\b"), "admit"),
     (re.compile(r"\bunsafe\b"), "unsafe"),
     (re.compile(r"\bpartial\b"), "partial"),
-    (re.compile(r"^\s*axiom\s"), "axiom"),
+    (
+        re.compile(
+            r"^\s*(?:@\[[^\]]*\]\s*)*(?:(?:private|protected)\s+)?axiom\s"
+        ),
+        "axiom",
+    ),
 ]
 REPORT = re.compile(
     r"'(?P<name>[^']+)' "
@@ -41,7 +46,17 @@ def scan_sources() -> list[str]:
 
 
 def build() -> str:
-    subprocess.run(["lake", "clean"], cwd=LEAN, capture_output=True)
+    clean = subprocess.run(
+        ["lake", "clean"],
+        cwd=LEAN,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    if clean.returncode != 0:
+        print(clean.stdout)
+        print(clean.stderr)
+        raise SystemExit("FAIL: lake clean failed; refusing a non-clean verification")
     proc = subprocess.run(
         ["lake", "build"], cwd=LEAN, capture_output=True, text=True, encoding="utf-8"
     )

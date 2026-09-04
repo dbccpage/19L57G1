@@ -3,9 +3,10 @@ boundary world, as far as Challenge 0 requires.
 
 Classification (assumption discipline):
 
-* The BOUNDARY and its two SIDES are the one admitted primitive.  A regime
-  records, for each admitted mark, the side it lies on.  The boundary is
-  not a datum: it is the frame every datum is placed against.
+* The initial inscription is one supplied opaque datum.  The BOUNDARY and
+  its two SIDES are the one admitted primitive exception carried by that
+  datum.  A regime records, for each later admitted mark, the side it lies
+  on.  The boundary is not a second datum.
 * A READING is metatheory: ``U`` leaves the two sides unnamed, so the
   exchange of sides is a renaming the object language cannot see; ``O``
   names them ``near`` and ``far``, so the exchange is not a renaming.
@@ -14,11 +15,11 @@ Classification (assumption discipline):
   mark on a side.  Re-admission of an admitted mark is a designation, not
   a duplication (declared convention, as presentation identity is
   metatheoretic).
-* Observation of a side is its CONTENTS: the internal identities (indices)
-  of the marks on it.  Under ``O`` a side's name is also observable.
-  Nothing else about a side is observable; in particular there is no
-  admitted judgment that a side is empty.  The absence of an observation
-  is never converted into a judgment.
+* The closed observation grammar has two positive judgment forms:
+  ``OnSide`` and, under ``O``, ``SideNamed``.  ``contents`` and
+  ``side_profile`` are metatheoretic extensions of those judgments used to
+  compare observable behaviour; the returned Python collections are not
+  object-language data.  There is no ``Empty`` or counting judgment.
 * ``replay`` rebuilds a regime from an event list; every certified regime
   must equal the replay of its history.
 """
@@ -40,27 +41,50 @@ class AdmissionError(ValueError):
 
 
 @dataclass(frozen=True)
+class OpaqueDatum:
+    """Internal identity of the supplied whole; its presentation is opaque."""
+
+    internal_id: int
+
+
+INITIAL_DATUM = OpaqueDatum(0)
+
+
+@dataclass(frozen=True)
 class Regime:
     """Admitted state.
 
-    ``reading``:   the declared reading of the boundary, ``U`` or ``O``.
-    ``marks``:     admitted marks in admission order (presentation tokens;
-                   internal identity is the index).
-    ``placement``: for each admitted mark, the side it lies on, ``0`` or
-                   ``1``.  The boundary is implicit and unique.
+    ``reading``:       the declared reading of the boundary, ``U`` or ``O``.
+    ``marks``:         admitted marks in admission order (presentation tokens;
+                       internal identity is the index).
+    ``placement``:     for each admitted mark, the side it lies on, ``0`` or
+                       ``1``.
+    ``initial_datum``: the one opaque supplied whole.  It and its boundary
+                       frame are implicit and unique in every valid regime.
     """
 
     reading: str
     marks: tuple[str, ...]
     placement: tuple[int, ...]
+    initial_datum: OpaqueDatum = INITIAL_DATUM
+
+    def __post_init__(self) -> None:
+        if self.reading not in READINGS:
+            raise AdmissionError(f"unknown reading: {self.reading!r}")
+        if self.initial_datum != INITIAL_DATUM:
+            raise AdmissionError("the Challenge 0 initial datum is fixed")
+        if len(self.marks) != len(self.placement):
+            raise AdmissionError("marks and placement must have equal length")
+        if len(set(self.marks)) != len(self.marks):
+            raise AdmissionError("admitted mark tokens must be unique")
+        if any(side not in (0, 1) for side in self.placement):
+            raise AdmissionError("every admitted mark must lie on side 0 or 1")
 
     def n_marks(self) -> int:
         return len(self.marks)
 
 
 def genesis(reading: str) -> Regime:
-    if reading not in READINGS:
-        raise AdmissionError(f"unknown reading: {reading!r}")
     return Regime(reading, (), ())
 
 
@@ -73,7 +97,11 @@ class Supply:
 
 @dataclass(frozen=True)
 class AdmitMark:
-    """Admission of a presented token as a mark on a side."""
+    """Admission of a previously presented token as a mark on a side.
+
+    ``step`` is the low-level state action.  ``replay`` is the certifying
+    interface and enforces the prior-presentation precondition.
+    """
 
     token: str
     side: int
@@ -83,7 +111,7 @@ Event = Union[Supply, AdmitMark]
 
 
 def step(r: Regime, e: Event) -> Regime:
-    """Apply one event.  Deterministic; raises on ill-formed admissions."""
+    """Apply one event to admitted state, assuming a well-formed history."""
     if isinstance(e, Supply):
         return r
     if e.side not in (0, 1):
@@ -94,45 +122,120 @@ def step(r: Regime, e: Event) -> Regime:
 
 
 def replay(history: Sequence[Event], base: Regime) -> Regime:
+    """Replay a well-formed history, refusing a new mark not supplied first."""
     r = base
+    supplied: set[str] = set()
     for e in history:
+        if isinstance(e, Supply):
+            supplied.add(e.token)
+        elif e.token not in supplied and e.token not in r.marks:
+            raise AdmissionError(f"mark {e.token!r} was not supplied before admission")
         r = step(r, e)
     return r
 
 
 def certify(history: Sequence[Event], base: Regime, claimed: Regime) -> bool:
-    return replay(history, base) == claimed
+    try:
+        return replay(history, base) == claimed
+    except AdmissionError:
+        return False
+
+
+def event_follows(_r: Regime, _e: Event) -> bool:
+    """The Challenge 0 object-language transition relation is empty.
+
+    Events may be supplied externally to ``replay``; no event is entailed by
+    admitted state.  This is the declared Challenge 0 grammar, not a discovery
+    made by inspecting Python callables.
+    """
+    return False
 
 
 # ---------------------------------------------------------------------------
-# Observation
+# Observation judgments and metatheoretic profiles
 # ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class OnSide:
+    """Positive judgment that an admitted mark lies on a side."""
+
+    mark: int
+    side: int
+
+    def __post_init__(self) -> None:
+        if self.mark < 0:
+            raise ValueError("mark identity must be nonnegative")
+        if self.side not in (0, 1):
+            raise ValueError("side must be 0 or 1")
+
+
+@dataclass(frozen=True)
+class SideNamed:
+    """Positive judgment that an O-reading side carries its admitted name."""
+
+    side: int
+    name: str
+
+    def __post_init__(self) -> None:
+        if self.side not in (0, 1):
+            raise ValueError("side must be 0 or 1")
+
+
+Observation = Union[OnSide, SideNamed]
+OBSERVATION_TYPES: tuple[type, ...] = (OnSide, SideNamed)
+
+
+def observation_holds(r: Regime, judgment: Observation) -> bool:
+    """Whether one judgment in the closed Challenge 0 grammar holds."""
+    if isinstance(judgment, OnSide):
+        return (
+            judgment.mark < r.n_marks()
+            and r.placement[judgment.mark] == judgment.side
+        )
+    return r.reading == READING_O and SIDE_NAMES[judgment.side] == judgment.name
 
 
 def contents(r: Regime, side: int) -> frozenset[int]:
-    """The marks on a side, by internal identity."""
+    """Metatheoretic extension of all positive ``OnSide`` judgments."""
     if side not in (0, 1):
         raise ValueError(f"side must be 0 or 1, got {side}")
     return frozenset(i for i, s in enumerate(r.placement) if s == side)
 
 
 def side_profile(r: Regime, side: int) -> tuple[object, ...]:
-    """Everything the object language can observe of a side: its contents,
-    and under reading ``O`` its admitted name."""
+    """Metatheoretic extensional profile used for behavioural comparison.
+
+    The collection is not itself an object-language value.  Its entries are
+    exactly the positive judgments available for this side.
+    """
+    if side not in (0, 1):
+        raise ValueError(f"side must be 0 or 1, got {side}")
     if r.reading == READING_O:
         return (SIDE_NAMES[side], contents(r, side))
     return (contents(r, side),)
 
 
 def sides_collapsed(r: Regime) -> bool:
-    """The two sides are observationally indistinguishable."""
+    """Whether the two sides have equal metatheoretic profiles."""
     return side_profile(r, 0) == side_profile(r, 1)
 
 
-def observations(r: Regime) -> frozenset[tuple[int, int]]:
-    """The admitted observation relation: (mark, side) for every admitted
-    mark.  At genesis it is empty; nothing else about a side is observable."""
-    return frozenset((i, s) for i, s in enumerate(r.placement))
+def mark_observations(r: Regime) -> frozenset[OnSide]:
+    """All positive mark-on-side judgments, enumerated metatheoretically."""
+    return frozenset(OnSide(i, s) for i, s in enumerate(r.placement))
+
+
+def name_observations(r: Regime) -> frozenset[SideNamed]:
+    """The two admitted name judgments under O, and none under U."""
+    if r.reading == READING_U:
+        return frozenset()
+    return frozenset(SideNamed(side, name) for side, name in enumerate(SIDE_NAMES))
+
+
+def observations(r: Regime) -> frozenset[Observation]:
+    """All judgments in the closed Challenge 0 observation grammar that hold."""
+    return frozenset((*mark_observations(r), *name_observations(r)))
 
 
 # ---------------------------------------------------------------------------
@@ -145,7 +248,12 @@ def reflect(r: Regime) -> Regime:
     language cannot see; under ``O`` it is not a renaming, because the
     names are admitted, and the result is a different regime whenever any
     mark is placed."""
-    return Regime(r.reading, r.marks, tuple(1 - s for s in r.placement))
+    return Regime(
+        r.reading,
+        r.marks,
+        tuple(1 - s for s in r.placement),
+        r.initial_datum,
+    )
 
 
 def rename_marks(r: Regime, pi: Sequence[int]) -> Regime:
@@ -159,18 +267,26 @@ def rename_marks(r: Regime, pi: Sequence[int]) -> Regime:
     for i in range(n):
         marks[pi[i]] = r.marks[i]
         placement[pi[i]] = r.placement[i]
-    return Regime(r.reading, tuple(marks), tuple(placement))
+    return Regime(r.reading, tuple(marks), tuple(placement), r.initial_datum)
 
 
 def serialize(r: Regime) -> tuple[object, ...]:
-    """Tokens forgotten; the reading kept; the placement kept."""
+    """Tokens forgotten; reading and placement kept.
+
+    The one initial datum is omitted because validation fixes it identically
+    in every Challenge 0 regime.
+    """
     return (r.reading, r.placement)
 
 
 def canonical(r: Regime) -> tuple[object, ...]:
     """The minimum serialization over every mark permutation, and under
-    ``U`` also over the side exchange.  Two regimes have equal keys exactly
-    when they differ by a renaming the object language cannot see."""
+    ``U`` also over the side exchange.
+
+    Invariance and class separation are checked only at the finite census
+    bounds reported by Challenge 0; no unbounded completeness theorem for
+    this key is claimed.
+    """
     candidates = [r] + ([reflect(r)] if r.reading == READING_U else [])
     best: tuple[object, ...] | None = None
     for base in candidates:
@@ -182,12 +298,31 @@ def canonical(r: Regime) -> tuple[object, ...]:
     return best
 
 
+def fixed_up_to_mark_renaming(r: Regime) -> bool:
+    """Whether reflection stabilizes this placement after a mark renaming.
+
+    This is stricter than asking whether ``r`` and ``reflect(r)`` have the
+    same canonical orbit key: under U the canonical quotient identifies every
+    reflected pair, including one-mark placements that reflection does not
+    stabilize.
+    """
+
+    target = serialize(r)
+    reflected = reflect(r)
+    return any(
+        serialize(rename_marks(reflected, pi)) == target
+        for pi in permutations(range(r.n_marks()))
+    )
+
+
 def is_automorphism_reflection(r: Regime) -> bool:
-    """Whether the side exchange fixes the regime up to a renaming the
-    reading permits.  Under ``O`` the exchange is not a permitted renaming,
-    so this is ``False`` by definition whenever it would move a mark, and
-    ``True`` only in the degenerate case of no marks, where it moves
-    nothing; the receipt reports both facts separately."""
+    """Whether reflection is permitted and stabilizes this regime.
+
+    Under ``O`` reflection is not permitted, even at the raw fixed point of
+    genesis.  Under U, orbit equivalence alone is insufficient: reflection
+    must fix the placement up to a mark renaming.  ``reflect(r) == r`` and
+    canonical orbit equivalence are reported separately.
+    """
     if r.reading == READING_O:
-        return reflect(r) == r
-    return canonical(reflect(r)) == canonical(r)
+        return False
+    return fixed_up_to_mark_renaming(r)
