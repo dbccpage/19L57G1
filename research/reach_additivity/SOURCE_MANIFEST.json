@@ -1,0 +1,41 @@
+{
+  "pins": {
+    "CLAUDE.md": "69ba29f02e66f7d3aa5ef00205906946dd91c8ed",
+    "code/derivation/candidates.py": "9fa609d8a797f74f1620ce39e377c7dc54ee53b7",
+    "code/derivation/engine.py": "343290d82a7fcda91f3ff85751af7af99f9a0359",
+    "code/derivation/model.py": "b6f95a673853d423a0d73b4faa95b2cd22f306a3",
+    "code/derivation/observe.py": "2552c0412d472ae9ff5d31f9068684cfa531aad9"
+  },
+  "predictions_first_freeze_boundary": "\n## Predicted",
+  "predictions_freezes": [
+    "c8d0d05297e5c88992058a8d6b1fffa327dfc8d4f2dd53044547a6a9f0370dfb"
+  ],
+  "prompt_native_sha256": "49b428e993546dbf4923dfc8ece0a72f8d22870f22635b985e0cfc654ab4710f",
+  "purpose": "read-only sources consumed by the reach_additivity run; this tree writes none of them and restates none of them beyond the two-line state functional declared below",
+  "reconstruction_policy": "none. The Python side CONSUMES the pinned sealed modules as libraries through the repository's own import path. The state functional it studies -- total profile size -- is two lines over the pinned `profiles` and is restated rather than imported because, at snapshot 7fcd72f6, the sibling tree that first declared it (research/reach_measure) was UNMERGED and therefore not pinnable at any ancestor of the branch's original HEAD. That historical source boundary is declared here rather than left for a reader to infer. The Lean side states the general theorem over an abstract state functional and an abstract action, so it reconstructs nothing at all.",
+  "reconstructions": [],
+  "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
+  "spans": [
+    {
+      "first_line": 111,
+      "last_line": 114,
+      "path": "code/derivation/model.py",
+      "role": "datum admission absorbs a repeat: an already-standing token returns the same regime",
+      "sha256": "e01802fdca486e5d4ea2aa1066c3d84a6e3043113833b6b7d6dd74662e433363"
+    },
+    {
+      "first_line": 115,
+      "last_line": 118,
+      "path": "code/derivation/model.py",
+      "role": "form admission appends unconditionally: two forms of equal arity are two forms",
+      "sha256": "a7c0f13f05bc3c0a4a67f9cc18c8e98031dd2c5adb91d108f79647a41b3ce9a8"
+    },
+    {
+      "first_line": 114,
+      "last_line": 132,
+      "path": "code/derivation/candidates.py",
+      "role": "delta_events: fresh data numbered from the base datum count, every other item carrying an explicit index",
+      "sha256": "369f763130d750a90b00c23dbc851700e5ad746122737cb25520724272b74f0d"
+    }
+  ]
+}
