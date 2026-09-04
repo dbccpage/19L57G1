@@ -1,0 +1,315 @@
+{
+  "authority_effect": "None",
+  "classes": {
+    "admitForm_preserves_demands": {
+      "class": "THIN",
+      "module": "Inert.lean"
+    },
+    "allApart_demand_iff": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "allApart_label": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "apart_at_most_one": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "apart_at_most_one_demand_after_growth": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "apart_at_most_one_new_demand": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "apart_demand_of_no_forms": {
+      "class": "CONTENT",
+      "module": "NoFirst.lean"
+    },
+    "apart_no_old_demand": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "collapsed_addForm": {
+      "class": "CONTENT",
+      "module": "Inert.lean"
+    },
+    "collapsed_not_separable": {
+      "class": "THIN",
+      "module": "NoFirst.lean"
+    },
+    "collapsed_of_both_empty": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "collapsed_of_growR": {
+      "class": "THIN",
+      "module": "Propagate.lean"
+    },
+    "collapsed_of_no_insts": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "collapsed_of_not_separable": {
+      "class": "CONTENT",
+      "module": "NoFirst.lean"
+    },
+    "collapsed_trans": {
+      "class": "THIN",
+      "module": "Propagate.lean"
+    },
+    "demand_congr": {
+      "class": "CONTENT",
+      "module": "Inert.lean"
+    },
+    "demand_depends_only_on_the_label": {
+      "class": "DEFINITION",
+      "module": "NoFirst.lean"
+    },
+    "demand_iff_apart_of_no_insts": {
+      "class": "CONTENT",
+      "module": "NoFirst.lean"
+    },
+    "demand_needs_label": {
+      "class": "DEFINITION",
+      "module": "NoFirst.lean"
+    },
+    "demands_congr": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demands_grow": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "demands_replay_inert": {
+      "class": "CONTENT",
+      "module": "Run.lean"
+    },
+    "demands_step_inert": {
+      "class": "CONTENT",
+      "module": "Run.lean"
+    },
+    "demands_subset_labelled": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "derivable_growR": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "empty_commitment_generates_nothing": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "empty_commitment_has_no_demand": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "filter_of_false": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "fixpoint_reopens": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "free_stake_no_demand": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "free_stake_no_demand_along_any_run": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "fresh_profile": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "genesis_underivable": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "getD_append_left": {
+      "class": "THIN",
+      "module": "Inert.lean"
+    },
+    "grammar_carries_no_stake": {
+      "class": "DEFINITION",
+      "module": "NoFirst.lean"
+    },
+    "growR_data": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "growR_forms": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "growR_insts": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "growR_rules": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "growth_generates": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "growth_generates_apart": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "growth_generates_apart_of_no_insts": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "growth_generates_pinned": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "growth_generates_same": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "impose_preserves_demands": {
+      "class": "DEFINITION",
+      "module": "Inert.lean"
+    },
+    "insertNew_of_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "insertNew_of_not_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "labelled_cases": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "mem_plug_of_hole": {
+      "class": "THIN",
+      "module": "Propagate.lean"
+    },
+    "new_form_derives_nothing": {
+      "class": "CONTENT",
+      "module": "Inert.lean"
+    },
+    "no_demand_is_first_under_an_inert_run": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "no_first_demand": {
+      "class": "DEFINITION",
+      "module": "NoFirst.lean"
+    },
+    "pairsOf_cons": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "pairsOf_mem": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "reconstruction_matches": {
+      "class": "CONTENT",
+      "module": "Stake.lean"
+    },
+    "replayE_cons": {
+      "class": "THIN",
+      "module": "Run.lean"
+    },
+    "replayE_nil": {
+      "class": "DEFINITION",
+      "module": "Run.lean"
+    },
+    "satB_grow": {
+      "class": "RECONSTRUCTION",
+      "module": "Inherited.lean"
+    },
+    "separable_addForm": {
+      "class": "CONTENT",
+      "module": "Inert.lean"
+    },
+    "separable_not_collapsed": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "stake_irrefl": {
+      "class": "DEFINITION",
+      "module": "Stake.lean"
+    },
+    "stepE_admitDatum": {
+      "class": "DEFINITION",
+      "module": "Propagate.lean"
+    },
+    "stepE_admitForm": {
+      "class": "DEFINITION",
+      "module": "Inert.lean"
+    },
+    "stepE_impose": {
+      "class": "DEFINITION",
+      "module": "Inert.lean"
+    },
+    "supplies_preserve_demands": {
+      "class": "DEFINITION",
+      "module": "NoFirst.lean"
+    },
+    "supplies_preserve_regime": {
+      "class": "CONTENT",
+      "module": "NoFirst.lean"
+    },
+    "supply_no_op": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "supply_preserves_demands": {
+      "class": "DEFINITION",
+      "module": "NoFirst.lean"
+    },
+    "three_kinds_are_demand_inert": {
+      "class": "DEFINITION",
+      "module": "Inert.lean"
+    },
+    "underivable_of_empty": {
+      "class": "RECONSTRUCTION",
+      "module": "Kernel.lean"
+    },
+    "wfCtx_addForm_left": {
+      "class": "CONTENT",
+      "module": "Inert.lean"
+    },
+    "wfCtx_growR": {
+      "class": "CONTENT",
+      "module": "Propagate.lean"
+    },
+    "wf_addForm": {
+      "class": "CONTENT",
+      "module": "Run.lean"
+    },
+    "wf_addReq": {
+      "class": "CONTENT",
+      "module": "Run.lean"
+    },
+    "wf_step_inert": {
+      "class": "CONTENT",
+      "module": "Run.lean"
+    }
+  },
+  "counts": {
+    "CONTENT": 26,
+    "DEFINITION": 24,
+    "RECONSTRUCTION": 17,
+    "THIN": 8
+  },
+  "long_but_definitional": {
+    "grammar_carries_no_stake": "Twenty-two lines of PURE CASE EXHAUSTION: six constructor cases for the kind list, six for the bound, and a decidable injectivity check over the thirty-six ordered pairs.  Its length measures the number of constructors, not the amount of work, so the line bound is the wrong instrument here.  The exception is listed rather than the bound raised, so that it is visible and countable; test_census.py requires this list to stay at or below two entries."
+  },
+  "note": "The FW-DEF census of this rung, TOTAL over every theorem of the package.  RECONSTRUCTION: not this rung's work, reproduced verbatim under a pin.  DEFINITION: true by unfolding, by rfl, by a projection, by one rewrite, or by pure case exhaustion; never counted as content.  THIN: one genuine step, or a direct corollary of a neighbouring theorem; counted apart from CONTENT so the headline is not inflated by one-liners.  CONTENT: everything else.  test_census.py checks this file is total over the package and that nothing classed DEFINITION has a long proof."
+}
