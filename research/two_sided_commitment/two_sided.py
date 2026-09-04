@@ -23,10 +23,10 @@ Classification (assumption discipline):
   without the sealed pruning lemmas.  A response is valid when the
   augmented state honours the answered pair and regresses no committed
   pair among the previously held data that the base state honoured.
-* The isomorphism is the sibling's: the sealed serialization minimised
-  over every datum and form bijection, with the apart labels carried in
-  the separation store and the same labels in the identification store,
-  so automorphisms preserve the commitment's labels on the held data.
+* The sibling's canonical key is retained as a diagnostic component, but
+  the operational key also preserves datum and form indices.  The stake is
+  defined on those indices and is not equivariant under every current-state
+  automorphism; quotienting by current labels alone is unsound under growth.
 """
 
 from __future__ import annotations
@@ -72,7 +72,6 @@ from dual import (  # noqa: E402
     _has_noop_item,
     delta_json,
     item_kinds,
-    pair_orbits,
     regime_json,
     state_key,
 )
@@ -167,8 +166,9 @@ TSEvent = Union[Event, Declare, Answer]
 @dataclass(frozen=True)
 class TState:
     """The sealed regime, the declared commitment's name, and the labels it
-    induces on the held data, materialised into the sibling's ``State`` so
-    the sibling's isomorphism and orbits apply unchanged."""
+    induces on the held data, materialised into the sibling's ``State`` for
+    its canonical diagnostic component.  Operational merging additionally
+    preserves indices because future commitment labels depend on them."""
 
     regime: Regime
     commitment: str
@@ -312,24 +312,49 @@ def min_responses(
 
 
 # ---------------------------------------------------------------------------
-# Policy: one representative per orbit of the demanded pairs
+# Policy: every demanded pair
 # ---------------------------------------------------------------------------
 
 
 def closure_targets(s: TState) -> tuple[tuple[str, Pair], ...]:
-    """One demand per automorphism orbit of the demanded pairs, the
-    automorphisms being those of the labelled state (regime plus the
-    commitment's labels on held data)."""
-    ds = demands(s)
-    if not ds:
-        return ()
-    by_pair = {pair: label for (label, pair) in ds}
-    orbits = pair_orbits(s.labelled(), tuple(sorted(by_pair)))
-    return tuple((by_pair[orbit[0]], orbit[0]) for orbit in orbits)
+    """Every demanded pair, without a current-state orbit quotient.
+
+    An index-defined commitment need not extend a current automorphism when
+    a fresh index arrives.  Dropping orbit-related targets would therefore
+    discard future-distinct branches.
+    """
+
+    return demands(s)
 
 
-def key_of(s: TState) -> StateKey:
-    return state_key(s.labelled())
+IndexedRegimeKey = tuple[
+    int,
+    tuple[int, ...],
+    tuple[tuple[int, tuple[int, ...]], ...],
+    tuple[int, ...],
+    tuple[Pair, ...],
+]
+TStateKey = tuple[StateKey, str, IndexedRegimeKey]
+
+
+def key_of(s: TState) -> TStateKey:
+    """A quotient key sound for an index-defined standing commitment.
+
+    The canonical labelled-state key is preserved for comparison with the
+    sibling, while the second component prevents a permutation of semantic
+    datum or form indices from merging future-incompatible states.
+    Presentation tokens remain forgotten; only the datum count is retained.
+    """
+
+    r = s.regime
+    indexed: IndexedRegimeKey = (
+        r.n_data(),
+        tuple(r.forms),
+        tuple(sorted(r.insts)),
+        tuple(sorted(r.rules)),
+        tuple(sorted(r.reqs)),
+    )
+    return (state_key(s.labelled()), s.commitment, indexed)
 
 
 # ---------------------------------------------------------------------------
@@ -378,7 +403,7 @@ class TNode:
     history: tuple[TSEvent, ...]
     state: TState
     depth: int
-    key: StateKey
+    key: TStateKey
     status: str = "open"
     merged_count: int = 1
     certified: bool = False
@@ -396,7 +421,7 @@ class TEdge:
     tie_classes: int
     class_size: int
     cost: tuple[int, int]
-    orbits: int
+    target_count: int
     kind: str
     info: dict[str, object] = field(default_factory=dict)
 
@@ -463,7 +488,7 @@ def build_ts_tree(
     root = TNode(0, history, root_state, 0, key_of(root_state))
     root.certified = certify(root.history, root.state)
     tree.nodes.append(root)
-    key_map: dict[StateKey, int] = {root.key: 0}
+    key_map: dict[TStateKey, int] = {root.key: 0}
     queue: deque[int] = deque([0])
     while queue:
         nid = queue.popleft()
@@ -539,7 +564,7 @@ def build_ts_tree(
 
 
 def _quotient(s: TState, target: tuple[str, Pair], mr: Minima) -> list[tuple[Delta, int]]:
-    grouped: dict[StateKey, list[Delta]] = {}
+    grouped: dict[TStateKey, list[Delta]] = {}
     for delta in mr.deltas:
         child = TState(apply_delta(s.regime, delta), s.commitment)
         grouped.setdefault(key_of(child), []).append(delta)
@@ -548,7 +573,7 @@ def _quotient(s: TState, target: tuple[str, Pair], mr: Minima) -> list[tuple[Del
 
 def _attach(
     tree: TTree,
-    key_map: dict[StateKey, int],
+    key_map: dict[TStateKey, int],
     queue: "deque[int]",
     parent: TNode,
     history: tuple[TSEvent, ...],
@@ -558,7 +583,7 @@ def _attach(
     tie_classes: int,
     class_size: int,
     cost: tuple[int, int],
-    orbits: int,
+    target_count: int,
     info: dict[str, object],
 ) -> None:
     state = ts_replay(history)
@@ -579,7 +604,7 @@ def _attach(
     tree.edges.append(
         TEdge(
             parent.node_id, child_id, parent.depth + 1, challenge, label, response,
-            tie_classes, class_size, cost, orbits, kind, info,
+            tie_classes, class_size, cost, target_count, kind, info,
         )
     )
 
@@ -706,7 +731,7 @@ def edge_json(e: TEdge) -> dict[str, object]:
         "tie_classes": e.tie_classes,
         "class_size": e.class_size,
         "cost": list(e.cost),
-        "orbits": e.orbits,
+        "target_count": e.target_count,
         "kind": e.kind,
         "info": dict(e.info),
     }

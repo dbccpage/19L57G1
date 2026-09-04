@@ -5,9 +5,10 @@
 The sealed derivation takes one demand kind from outside, one demand per
 round.  The sibling `identification_dual` showed the machine can regenerate
 its own work by flipping the demand kind at a fixpoint, under a declared
-switch.  The open pull request `standing_commitment` proves that one
-standing declaration makes growth generate separation demands with no act
-in between.  This rung joins the two: a **two-sided standing commitment**,
+switch.  The sibling `standing_commitment` worktree, open when this rung's
+inputs were frozen, showed by finite computation that one standing
+declaration makes growth generate separation demands with no act in
+between.  This rung joins the two: a **two-sided standing commitment**,
 declared once over every pair of datum indices present or future (apart,
 same, or free), and **growth** as the only external event after the
 declaration.  Both demand kinds are read off the state; no event flips a
@@ -36,6 +37,18 @@ content regenerates identically and whose sha256 the summary records.
   guard of two hundred and fifty; at most five admitted data.  Five
   commitments, declared in `PROMPT.md` by rule on indices.
 
+## Quotient repair
+
+The first receipt used the sibling's current labelled-state canonical key
+as the operational key and selected one demanded pair per current
+automorphism orbit.  That quotient was unsound for these index-defined
+commitments.  A chain reversal has the same current canonical key, but after
+both states receive the same fresh-datum event their canonical keys differ:
+the commitment attaches the new index to different old indices.  The
+operational key now retains the exact indexed regime alongside the canonical
+diagnostic component, and every indexed demand is retained.  The earlier
+counts are withdrawn; all counts below are from the repaired replay.
+
 ## Terminals, each with its scope
 
 - BOTH_KINDS_FROM_ONE_STAKE (FINITE_COMPUTATION).  Under parity and under
@@ -44,23 +57,23 @@ content regenerates identically and whose sha256 the summary records.
   The grammar carries no flip event, and the receipt records that as a
   count of zero.  The sibling's declared switch is not needed once the
   stake is two-sided.
-- ONE_RESPONSE_SEVERAL_DEMANDS (FINITE_COMPUTATION).  94 accepted
-  responses honour two or more open demands at once (16 under parity, 68
-  under residue_three, 6 under chain, 4 under total_apart): a mark that
+- ONE_RESPONSE_SEVERAL_DEMANDS (FINITE_COMPUTATION).  215 accepted
+  responses honour two or more open demands at once (34 under parity, 127
+  under residue_three, 18 under chain, 36 under total_apart): a mark that
   separates a datum from its two neighbours, or a fill that identifies a
   datum with its class and separates it from the others in one item.
 - SUPPLY_IS_NOT_A_RESPONSE (FINITE_COMPUTATION, within bounds).  No
   accepted minimum in any of the 20 trees admits a fresh datum, although
-  the enumeration is unpruned and offers one at every state.  Under a
-  no-regress validity a fresh datum never helps: a held pair is honoured
-  or regressed by instances on held data, and a fresh datum only adds
-  demands of its own.  Supply stays a stream.
+  the enumeration is unpruned and offers one at every state.  The proposed
+  general no-regress explanation remains a conjecture (TS-15); this run
+  establishes only the bounded absence.  Supply stays a stream within the
+  declared candidate space.
 - GROWTH_GENERATES_AT_MOST_ONE (FINITE_COMPUTATION, countermodel to the
   per-growth count).  Under total_apart, growth from a demand-free state
-  produces at most one demand and sometimes none, never n.  The reason is
-  exact: a demand-free state under total_apart separates every held pair,
-  so at most one held datum has the empty profile, and the fresh datum,
-  which has the empty profile, collapses with that datum alone.  The
+  produces at most one demand and sometimes none, never n.  The proposed
+  general explanation -- that a demand-free total-apart state has at most
+  one empty profile for the fresh datum to match -- remains conjectural
+  (TS-14); the receipt establishes the bounded count.  The
   sibling's count of n demands per growth step is a theorem about the
   viewless state and does not carry to a state that has already answered.
   See Q3 and Q7 below.
@@ -68,32 +81,29 @@ content regenerates identically and whose sha256 the summary records.
   ever carries a demand and every tree is a single chain of growth steps
   to the data bound: a stake with nothing to keep apart generates
   nothing, however much the state grows.
-- THE_SEALED_BASELINE_IS_ASYMMETRIC (FINITE_COMPUTATION, countermodel to
-  the expectation that total_apart reproduces the seal).  Before the first
-  growth step, the reading-L trees under total_apart are the sealed closed
-  baselines node for node (4 nodes with 3 demand-free under mu1, 2 with 1
-  under mu2).  The reading-F trees are not: 13 nodes with 10 demand-free
-  under mu1 against the seal's 20 with 16, and 3 with 1 against 4 with 1
-  under mu2.  The seal's store records which pair was demanded first, so a
-  link to the never-demanded datum is a class of its own there; under a
-  stake that names every pair apart the three data are symmetric and those
-  classes merge.  The seal's 16 terminals for reading F are in part a
-  consequence of the order in which demands arrived.  See Q6 below.
-- REFUSALS_AT_FOUR_DATA (FINITE_COMPUTATION).  Under residue_three, 152
-  demands have no valid response within two items, all at four or five
-  data, and under parity two do, at three and four data.  Every refusal is
+- THE_SEALED_BASELINE_IS_NOT_REPRODUCED (FINITE_COMPUTATION, countermodel
+  to the expectation that total_apart reproduces the seal).  Before the
+  first growth step none of the total-apart trees matches the sealed closed
+  baseline.  Reading L has 7 against 4 nodes under mu1 and 3 against 2 under
+  mu2; reading F has 64 against 20 and 10 against 4.  The two constructions
+  impose different demand and quotient policies, so the discrepancy is not
+  evidence that either receipt is wrong.  See Q6 below.
+- REFUSALS_AT_FOUR_DATA (FINITE_COMPUTATION).  Fifteen demanded targets
+  have no valid response within two items: twelve under residue_three at
+  four data, and three under parity at three or four data.  Fourteen are at
+  four data.  Every refusal is
   a same demand: identifying two data of one residue class regresses an
   apart pair they share a form with, and no two-item response avoids it.
   This is the sibling's P6 finding, now arising from a single stake rather
   than from a retained separation store.
 - MEASURE_SENSITIVITY (FINITE_COMPUTATION).  Under total_apart the mu1
-  and mu2 trees differ at both readings (230 against 8 nodes from reading
-  L, 227 against 7 from reading F): separation minima admit forms, the
+  and mu2 trees differ at both readings (254 against 85 nodes from reading
+  L, 251 against 112 from reading F): separation minima admit forms, the
   arity term decides, and mu1 retains every tied arity.  Under total_same
-  they are identical (4 and 4; 3 and 3).  The chain runs under mu1 hit the
-  node guard; under mu2 they are seven nodes.
-- THIRD_PARTY_EFFECT (FINITE_COMPUTATION).  302 accepted responses under
-  total_apart, 261 under chain, 226 under residue_three, and 3 under parity
+  they are identical (4 and 4; 3 and 3).  Six mu1 trees hit the node guard:
+  both readings for total_apart, residue_three, and chain.
+- THIRD_PARTY_EFFECT (FINITE_COMPUTATION).  274 accepted responses under
+  total_apart, 230 under chain, 246 under residue_three, and 8 under parity
   change the profile of a datum outside the answered pair.
 
 ## Predictions scored (mechanically, in the receipt)
@@ -101,20 +111,20 @@ content regenerates identically and whose sha256 the summary records.
 | id | prediction | verdict | what the receipt shows |
 |---|---|---|---|
 | Q1 | both kinds, no flip | HIT | all eight parity and residue_three runs answer both kinds; zero flip events |
-| Q2 | one response, several demands | HIT | 94 such responses |
+| Q2 | one response, several demands | HIT | 215 such responses |
 | Q3 | growth generates under total_apart, parity, residue_three; total_same silent | MISS | total_same silent and chain-shaped as predicted; but under all three generating stakes some growth step produces no demand |
 | Q4 | supply is not a response | HIT | zero accepted minima with a fresh datum |
-| Q5 | refusals at four or more data | HIT | 153 refusals at four or five data under parity and residue_three |
-| Q6 | total_apart reproduces the seal before growth | MISS | reading L matches node for node; reading F quotients 20 to 13 and 4 to 3 |
+| Q5 | refusals at four or more data | HIT | 14 refusals at four data under parity and residue_three; one additional parity refusal occurs at three data |
+| Q6 | total_apart reproduces the seal before growth | MISS | none match: L is 7 against 4 and 3 against 2; F is 64 against 20 and 10 against 4 |
 | Q7 | growth on n data yields n demands, honoured within n rounds | MISS | at most one demand per growth step; the rounds clause holds trivially |
-| Q8 | mu1 and mu2 differ under total_apart, agree under total_same | HIT | 230 against 8, 227 against 7; 4 and 4, 3 and 3 |
+| Q8 | mu1 and mu2 differ under total_apart, agree under total_same | HIT | 254 against 85, 251 against 112; 4 and 4, 3 and 3 |
 
 The three misses are the findings of the run.  Q3 and Q7 fall together:
 a state that has already answered its demands keeps at most one viewless
 datum, so the sibling's growth count is a statement about genesis and not
-about the process in flight.  Q6 says the sealed reading-F baseline owes
-part of its branching to the order of arrival of its demands, which a
-standing stake does not have.
+about the process in flight.  Q6 says only that the standing-stake and
+sealed constructions, with their different demand and quotient policies,
+do not have the same bounded pre-growth tree.
 
 ## What this tree does not claim
 
@@ -127,7 +137,8 @@ standing stake does not have.
 - No endogenous generator.  The stake is declared and growth is supplied.
   What the run shows is that with those two inputs no third is needed for
   either demand kind; it does not make either of the two derived.
-- Nothing past the node guard, which the chain runs under mu1 reach.
+- Nothing past the node guard.  Both readings of total_apart,
+  residue_three, and chain reach it under mu1.
 
 ## Commands
 

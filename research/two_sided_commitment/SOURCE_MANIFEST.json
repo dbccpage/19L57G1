@@ -1,6 +1,6 @@
 {
   "schema": "two_sided_commitment_source_manifest/v1",
-  "note": "Sealed kernel modules and the sibling dual apparatus this tree imports, hashed as canonical Git blobs at the snapshot commit. A pin proves the sources did not move; it proves nothing about the mathematics.",
+  "note": "Sealed kernel modules and sibling dual apparatus imported at the snapshot commit. The sibling canonical key is retained as a diagnostic component, while operational merging also preserves semantic indices because the commitment is defined on them. A pin proves the sources did not move; it proves nothing about the mathematics.",
   "snapshot_commit": "7fcd72f618e676a88df65efed4926ac3c11eacbe",
   "sources": [
     {

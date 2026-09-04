@@ -38,6 +38,7 @@ from two_sided import (  # noqa: E402
 from derivation.candidates import Bounds, NewForm, NewInst, NewRuleAll, iter_full_deltas  # noqa: E402
 from derivation.iso import rename  # noqa: E402
 from derivation.model import AdmissionError, AdmitDatum, Regime, Supply  # noqa: E402
+from dual import state_key  # noqa: E402
 
 FROZEN_PROMPT = "d96cab6efc4c89ee99dda4e7f911325e5e14b4b554444943834e0e1e914a028d"
 FROZEN_PREDICTIONS = "b9dea8cea62749321422da6b1ba01f76dc1af16624d9e8d5ea44e6338f46e333"
@@ -143,9 +144,15 @@ class DemandTests(unittest.TestCase):
         ds = demands(_genesis("F", "parity"))
         self.assertEqual(ds, ((APART, (0, 1)), (APART, (1, 2))))
 
-    def test_closure_targets_are_one_per_orbit(self) -> None:
-        self.assertEqual(closure_targets(_genesis("F", "total_apart")), ((APART, (0, 1)),))
-        self.assertEqual(closure_targets(_genesis("F", "parity")), ((APART, (0, 1)),))
+    def test_closure_targets_retain_every_indexed_demand(self) -> None:
+        self.assertEqual(
+            closure_targets(_genesis("F", "total_apart")),
+            ((APART, (0, 1)), (APART, (0, 2)), (APART, (1, 2))),
+        )
+        self.assertEqual(
+            closure_targets(_genesis("F", "parity")),
+            ((APART, (0, 1)), (APART, (1, 2))),
+        )
 
 
 class ValidityTests(unittest.TestCase):
@@ -184,18 +191,25 @@ class ValidityTests(unittest.TestCase):
 
 
 class IsomorphismTests(unittest.TestCase):
-    def test_key_respects_the_commitment_labels(self) -> None:
-        """Swapping data 0 and 2 preserves parity labels; swapping 0 and 1
-        does not, so the first renaming keeps the key and the second may not."""
-        base = _genesis("F", "parity")
-        marked = TState(
-            Regime(base.regime.data, (1,), frozenset({(0, (0,))}), frozenset(), frozenset()),
-            "parity",
+    def test_current_isomorphism_does_not_merge_future_incompatible_states(self) -> None:
+        """A chain reversal preserves the current labelled state but not
+        its extension when the fresh index attaches to the last datum."""
+
+        regime = Regime(
+            ("a", "b", "c"),
+            (1,),
+            frozenset({(0, (0,))}),
+            frozenset(),
+            frozenset(),
         )
-        swapped02 = TState(rename(marked.regime, (2, 1, 0), (0,)), "parity")
-        self.assertEqual(key_of(marked), key_of(swapped02))
-        swapped01 = TState(rename(marked.regime, (1, 0, 2), (0,)), "parity")
-        self.assertNotEqual(key_of(marked), key_of(swapped01))
+        left = TState(regime, "chain")
+        right = TState(rename(regime, (2, 1, 0), (0,)), "chain")
+        self.assertEqual(state_key(left.labelled()), state_key(right.labelled()))
+        self.assertNotEqual(key_of(left), key_of(right))
+
+        left_grown = ts_replay((Supply("d"), AdmitDatum("d")), left)
+        right_grown = ts_replay((Supply("d"), AdmitDatum("d")), right)
+        self.assertNotEqual(state_key(left_grown.labelled()), state_key(right_grown.labelled()))
 
 
 class ReceiptTests(unittest.TestCase):

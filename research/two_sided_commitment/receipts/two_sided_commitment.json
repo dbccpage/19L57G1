@@ -20,7 +20,7 @@
    "trees[].edges"
   ],
   "path": "receipts/full/two_sided_commitment_full.json.gz",
-  "sha256_uncompressed": "1c3d4eac68b4fbd2979634f31040b0fb70502613dee409cc43b4fc2d08eb53c8"
+  "sha256_uncompressed": "e49bbedb3f1d4f0b474c5c11da8129f63d5ecaa227fa23e69c6fd14e420538e1"
  },
  "prediction_detail": {
   "Q1_runs_with_both_kinds": {
@@ -37,7 +37,7 @@
     "F/residue_three/mu2"
    ]
   },
-  "Q2_edges_honouring_several": 94,
+  "Q2_edges_honouring_several": 215,
   "Q3_growth_always_generates": {
    "parity": false,
    "residue_three": false,
@@ -46,6 +46,15 @@
   "Q3_total_same_silent_chain": true,
   "Q4_edges_with_fresh_datum": 0,
   "Q5_refusals_at_four_or_more_data": [
+   {
+    "data": 4,
+    "kind": "same",
+    "target": [
+     1,
+     3
+    ],
+    "tree": "L/parity/mu1"
+   },
    {
     "data": 4,
     "kind": "same",
@@ -162,1297 +171,37 @@
      3
     ],
     "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "L/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 4,
-    "kind": "same",
-    "target": [
-     0,
-     3
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
-   },
-   {
-    "data": 5,
-    "kind": "same",
-    "target": [
-     1,
-     4
-    ],
-    "tree": "F/residue_three/mu1"
    }
   ],
   "Q6_rows": [
    {
-    "match": true,
-    "pre_growth_demand_free": 3,
-    "pre_growth_nodes": 4,
+    "match": false,
+    "pre_growth_demand_free": 6,
+    "pre_growth_nodes": 7,
     "sealed_nodes": 4,
     "sealed_terminal": 3,
     "tree": "L/total_apart/mu1"
    },
    {
-    "match": true,
-    "pre_growth_demand_free": 1,
-    "pre_growth_nodes": 2,
+    "match": false,
+    "pre_growth_demand_free": 2,
+    "pre_growth_nodes": 3,
     "sealed_nodes": 2,
     "sealed_terminal": 1,
     "tree": "L/total_apart/mu2"
    },
    {
     "match": false,
-    "pre_growth_demand_free": 10,
-    "pre_growth_nodes": 13,
+    "pre_growth_demand_free": 57,
+    "pre_growth_nodes": 64,
     "sealed_nodes": 20,
     "sealed_terminal": 16,
     "tree": "F/total_apart/mu1"
    },
    {
     "match": false,
-    "pre_growth_demand_free": 1,
-    "pre_growth_nodes": 3,
+    "pre_growth_demand_free": 6,
+    "pre_growth_nodes": 10,
     "sealed_nodes": 4,
     "sealed_terminal": 1,
     "tree": "F/total_apart/mu2"
@@ -1467,15 +216,8 @@
     "tree": "L/total_apart/mu1"
    },
    {
-    "closed": true,
+    "closed": false,
     "data_before": 3,
-    "demands": 1,
-    "rounds": 1,
-    "tree": "L/total_apart/mu1"
-   },
-   {
-    "closed": true,
-    "data_before": 4,
     "demands": 1,
     "rounds": 1,
     "tree": "L/total_apart/mu1"
@@ -1488,7 +230,7 @@
     "tree": "L/total_apart/mu1"
    },
    {
-    "closed": true,
+    "closed": false,
     "data_before": 3,
     "demands": 1,
     "rounds": 1,
@@ -1496,7 +238,14 @@
    },
    {
     "closed": true,
-    "data_before": 4,
+    "data_before": 2,
+    "demands": 1,
+    "rounds": 1,
+    "tree": "L/total_apart/mu1"
+   },
+   {
+    "closed": false,
+    "data_before": 3,
     "demands": 1,
     "rounds": 1,
     "tree": "L/total_apart/mu1"
@@ -1504,12 +253,12 @@
   ],
   "Q8_node_counts": {
    "total_apart/F": [
-    227,
-    7
+    251,
+    112
    ],
    "total_apart/L": [
-    230,
-    8
+    254,
+    85
    ],
    "total_same/F": [
     3,
@@ -1579,71 +328,70 @@
   "all_certified": true,
   "by_commitment": {
    "chain": {
-    "edges_honouring_several": 6,
+    "edges_honouring_several": 18,
     "edges_with_fresh_datum": 0,
-    "edges_with_third_party_change": 261,
-    "growth_edges": 134,
+    "edges_with_third_party_change": 230,
+    "growth_edges": 177,
     "kinds_answered": [
      "apart"
     ],
     "max_data_reached": 5,
-    "nodes": 524,
+    "nodes": 538,
     "refusal_data_counts": [],
     "refusals": 0,
-    "responses": 393,
+    "responses": 372,
     "trees": 4
    },
    "parity": {
-    "edges_honouring_several": 16,
+    "edges_honouring_several": 34,
     "edges_with_fresh_datum": 0,
-    "edges_with_third_party_change": 3,
-    "growth_edges": 15,
+    "edges_with_third_party_change": 8,
+    "growth_edges": 26,
     "kinds_answered": [
      "apart",
      "same"
     ],
     "max_data_reached": 5,
-    "nodes": 35,
+    "nodes": 55,
     "refusal_data_counts": [
      3,
      4
     ],
-    "refusals": 2,
-    "responses": 22,
+    "refusals": 3,
+    "responses": 46,
     "trees": 4
    },
    "residue_three": {
-    "edges_honouring_several": 68,
+    "edges_honouring_several": 127,
     "edges_with_fresh_datum": 0,
-    "edges_with_third_party_change": 226,
-    "growth_edges": 102,
+    "edges_with_third_party_change": 246,
+    "growth_edges": 135,
     "kinds_answered": [
      "apart",
      "same"
     ],
     "max_data_reached": 5,
-    "nodes": 414,
+    "nodes": 567,
     "refusal_data_counts": [
-     4,
-     5
+     4
     ],
-    "refusals": 152,
-    "responses": 386,
+    "refusals": 12,
+    "responses": 513,
     "trees": 4
    },
    "total_apart": {
-    "edges_honouring_several": 4,
+    "edges_honouring_several": 36,
     "edges_with_fresh_datum": 0,
-    "edges_with_third_party_change": 302,
-    "growth_edges": 100,
+    "edges_with_third_party_change": 274,
+    "growth_edges": 156,
     "kinds_answered": [
      "apart"
     ],
     "max_data_reached": 5,
-    "nodes": 472,
+    "nodes": 702,
     "refusal_data_counts": [],
     "refusals": 0,
-    "responses": 496,
+    "responses": 616,
     "trees": 4
    },
    "total_same": {
@@ -1668,28 +416,28 @@
    "commitment": "total_apart",
    "edges_honouring_several": 0,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 150,
+   "edges_with_third_party_change": 118,
    "growth": {
     "2": {
-     "epochs": 247,
+     "epochs": 205,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "3": {
-     "epochs": 247,
+     "epochs": 205,
      "max_demands": 1,
-     "max_rounds": 1,
+     "max_rounds": 0,
      "min_demands": 0,
-     "unclosed": 0
+     "unclosed": 203
     },
     "4": {
-     "epochs": 247,
+     "epochs": 2,
      "max_demands": 1,
-     "max_rounds": 1,
-     "min_demands": 0,
-     "unclosed": 0
+     "max_rounds": 0,
+     "min_demands": 1,
+     "unclosed": 2
     }
    },
    "id": "L/total_apart/mu1",
@@ -1698,34 +446,34 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 25,
-     "inst": 217,
-     "inst+inst": 2
+     "form+inst": 82,
+     "inst": 116,
+     "inst+inst": 24
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 3,
-   "pre_growth_nodes": 4,
+   "pre_growth_demand_free_nodes": 6,
+   "pre_growth_nodes": 7,
    "reading": "L",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 88,
-     "terminal_data_bound": 142
+     "expanded": 63,
+     "frontier_guard": 191
     },
-    "edges": 293,
-    "expansions_with_ties": 39,
-    "growth_edges": 49,
+    "edges": 267,
+    "expansions_with_ties": 18,
+    "growth_edges": 45,
     "max_data": 5,
-    "max_depth": 7,
-    "max_forms": 4,
-    "nodes": 230,
+    "max_depth": 5,
+    "max_forms": 3,
+    "nodes": 254,
     "roles": {
-     "apart:form+inst": 25,
-     "apart:inst": 217,
-     "apart:inst+inst": 2,
-     "grow": 49
+     "apart:form+inst": 82,
+     "apart:inst": 116,
+     "apart:inst+inst": 24,
+     "grow": 45
     }
    }
   },
@@ -1733,24 +481,24 @@
    "commitment": "total_apart",
    "edges_honouring_several": 0,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 1,
+   "edges_with_third_party_change": 16,
    "growth": {
     "2": {
-     "epochs": 1,
+     "epochs": 48,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 1,
      "unclosed": 0
     },
     "3": {
-     "epochs": 1,
+     "epochs": 48,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 1,
      "unclosed": 0
     },
     "4": {
-     "epochs": 1,
+     "epochs": 48,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 1,
@@ -1763,32 +511,32 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 3,
-     "inst+inst": 1
+     "form+inst": 42,
+     "inst+inst": 24
     }
    },
    "measure": "mu2",
-   "pre_growth_demand_free_nodes": 1,
-   "pre_growth_nodes": 2,
+   "pre_growth_demand_free_nodes": 2,
+   "pre_growth_nodes": 3,
    "reading": "L",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 7,
-     "terminal_data_bound": 1
+     "expanded": 49,
+     "terminal_data_bound": 36
     },
-    "edges": 7,
-    "expansions_with_ties": 0,
-    "growth_edges": 3,
+    "edges": 90,
+    "expansions_with_ties": 25,
+    "growth_edges": 24,
     "max_data": 5,
     "max_depth": 7,
     "max_forms": 3,
-    "nodes": 8,
+    "nodes": 85,
     "roles": {
-     "apart:form+inst": 3,
-     "apart:inst+inst": 1,
-     "grow": 3
+     "apart:form+inst": 42,
+     "apart:inst+inst": 24,
+     "grow": 24
     }
    }
   },
@@ -1902,29 +650,29 @@
   },
   {
    "commitment": "parity",
-   "edges_honouring_several": 5,
+   "edges_honouring_several": 13,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 3,
+   "edges_with_third_party_change": 8,
    "growth": {
     "2": {
-     "epochs": 6,
+     "epochs": 17,
      "max_demands": 2,
      "max_rounds": 1,
-     "min_demands": 1,
+     "min_demands": 0,
      "unclosed": 1
     },
     "3": {
-     "epochs": 5,
-     "max_demands": 1,
+     "epochs": 16,
+     "max_demands": 3,
      "max_rounds": 1,
      "min_demands": 0,
-     "unclosed": 0
+     "unclosed": 1
     },
     "4": {
-     "epochs": 5,
+     "epochs": 15,
      "max_demands": 4,
      "max_rounds": 1,
-     "min_demands": 2,
+     "min_demands": 0,
      "unclosed": 0
     }
    },
@@ -1935,79 +683,90 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 3,
-     "inst": 2
+     "form+inst": 6,
+     "inst": 5
     },
     "same": {
-     "inst": 3,
-     "inst+inst": 2
+     "inst": 6,
+     "inst+inst": 6
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 3,
-   "pre_growth_nodes": 4,
+   "pre_growth_demand_free_nodes": 6,
+   "pre_growth_nodes": 7,
    "reading": "L",
    "refusals": [
     {
      "data": 3,
      "kind": "same",
-     "node": 5,
+     "node": 9,
      "open_demands": 2,
      "single_item_candidates": 13,
      "target": [
       0,
       2
      ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 15,
+     "open_demands": 3,
+     "single_item_candidates": 20,
+     "target": [
+      1,
+      3
+     ]
     }
    ],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 13,
-     "terminal_data_bound": 2,
-     "terminal_no_response": 1
+     "expanded": 25,
+     "terminal_data_bound": 4,
+     "terminal_no_response": 2
     },
-    "edges": 17,
+    "edges": 38,
     "expansions_with_ties": 1,
-    "growth_edges": 7,
+    "growth_edges": 15,
     "max_data": 5,
     "max_depth": 7,
     "max_forms": 1,
-    "nodes": 16,
+    "nodes": 31,
     "roles": {
-     "apart:form+inst": 3,
-     "apart:inst": 2,
-     "grow": 7,
-     "same:inst": 3,
-     "same:inst+inst": 2
+     "apart:form+inst": 6,
+     "apart:inst": 5,
+     "grow": 15,
+     "same:inst": 6,
+     "same:inst+inst": 6
     }
    }
   },
   {
    "commitment": "parity",
-   "edges_honouring_several": 4,
+   "edges_honouring_several": 9,
    "edges_with_fresh_datum": 0,
    "edges_with_third_party_change": 0,
    "growth": {
     "2": {
-     "epochs": 4,
+     "epochs": 11,
      "max_demands": 2,
      "max_rounds": 1,
-     "min_demands": 2,
+     "min_demands": 0,
      "unclosed": 0
     },
     "3": {
-     "epochs": 4,
-     "max_demands": 0,
-     "max_rounds": 0,
+     "epochs": 11,
+     "max_demands": 3,
+     "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "4": {
-     "epochs": 4,
+     "epochs": 11,
      "max_demands": 4,
      "max_rounds": 1,
-     "min_demands": 4,
+     "min_demands": 0,
      "unclosed": 0
     }
    },
@@ -2018,65 +777,65 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 1,
-     "inst": 2
+     "form+inst": 2,
+     "inst": 5
     },
     "same": {
-     "inst": 2
+     "inst": 4
     }
    },
    "measure": "mu2",
-   "pre_growth_demand_free_nodes": 1,
-   "pre_growth_nodes": 2,
+   "pre_growth_demand_free_nodes": 2,
+   "pre_growth_nodes": 3,
    "reading": "L",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 6,
-     "terminal_data_bound": 1
+     "expanded": 10,
+     "terminal_data_bound": 2
     },
-    "edges": 8,
-    "expansions_with_ties": 0,
-    "growth_edges": 3,
+    "edges": 17,
+    "expansions_with_ties": 1,
+    "growth_edges": 6,
     "max_data": 5,
     "max_depth": 6,
     "max_forms": 1,
-    "nodes": 7,
+    "nodes": 12,
     "roles": {
-     "apart:form+inst": 1,
-     "apart:inst": 2,
-     "grow": 3,
-     "same:inst": 2
+     "apart:form+inst": 2,
+     "apart:inst": 5,
+     "grow": 6,
+     "same:inst": 4
     }
    }
   },
   {
    "commitment": "residue_three",
-   "edges_honouring_several": 28,
+   "edges_honouring_several": 30,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 113,
+   "edges_with_third_party_change": 120,
    "growth": {
     "2": {
-     "epochs": 195,
+     "epochs": 187,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "3": {
-     "epochs": 195,
+     "epochs": 187,
      "max_demands": 2,
-     "max_rounds": 2,
-     "min_demands": 1,
-     "unclosed": 22
+     "max_rounds": 1,
+     "min_demands": 0,
+     "unclosed": 176
     },
     "4": {
-     "epochs": 173,
+     "epochs": 11,
      "max_demands": 3,
-     "max_rounds": 2,
-     "min_demands": 1,
-     "unclosed": 112
+     "max_rounds": 0,
+     "min_demands": 2,
+     "unclosed": 11
     }
    },
    "id": "L/residue_three/mu1",
@@ -2086,236 +845,38 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 8,
-     "inst": 110
+     "form+inst": 26,
+     "inst": 159
     },
     "same": {
-     "inst": 16,
-     "inst+inst": 35,
-     "inst+rule": 12,
-     "rule": 6
+     "inst": 20,
+     "inst+inst": 7,
+     "inst+rule": 4,
+     "rule": 2
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 3,
-   "pre_growth_nodes": 4,
+   "pre_growth_demand_free_nodes": 6,
+   "pre_growth_nodes": 7,
    "reading": "L",
    "refusals": [
     {
      "data": 4,
      "kind": "same",
-     "node": 22,
+     "node": 66,
+     "open_demands": 2,
+     "single_item_candidates": 25,
+     "target": [
+      0,
+      3
+     ]
+    },
+    {
+     "data": 4,
+     "kind": "same",
+     "node": 70,
      "open_demands": 2,
      "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 23,
-     "open_demands": 2,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 24,
-     "open_demands": 2,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 25,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 28,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 32,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 34,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 41,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 42,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 43,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 47,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 48,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 49,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 54,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 58,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 60,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 61,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 62,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 64,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 65,
-     "open_demands": 1,
-     "single_item_candidates": 25,
      "target": [
       0,
       3
@@ -2325,669 +886,163 @@
      "data": 4,
      "kind": "same",
      "node": 71,
-     "open_demands": 1,
-     "single_item_candidates": 25,
+     "open_demands": 2,
+     "single_item_candidates": 20,
      "target": [
       0,
       3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 100,
+     "node": 72,
      "open_demands": 2,
-     "single_item_candidates": 35,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 115,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 116,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 117,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 118,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 119,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 121,
+     "node": 73,
      "open_demands": 2,
-     "single_item_candidates": 29,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 125,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 126,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 127,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 128,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 129,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 131,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 132,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 133,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 135,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 136,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 138,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 139,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 140,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 144,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 145,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 146,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 147,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 148,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 150,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 151,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 152,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 154,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 155,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 157,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 158,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 159,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 161,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 162,
-     "open_demands": 3,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 163,
+     "node": 74,
      "open_demands": 2,
-     "single_item_candidates": 35,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 164,
+     "node": 75,
      "open_demands": 2,
-     "single_item_candidates": 34,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 165,
+     "node": 76,
      "open_demands": 1,
-     "single_item_candidates": 35,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 166,
-     "open_demands": 3,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 167,
-     "open_demands": 2,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 168,
-     "open_demands": 2,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 169,
+     "node": 77,
      "open_demands": 1,
-     "single_item_candidates": 35,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 170,
-     "open_demands": 3,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 172,
+     "node": 87,
      "open_demands": 1,
-     "single_item_candidates": 34,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 174,
+     "node": 91,
      "open_demands": 1,
-     "single_item_candidates": 34,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
+      0,
+      3
      ]
     },
     {
-     "data": 5,
+     "data": 4,
      "kind": "same",
-     "node": 183,
+     "node": 93,
      "open_demands": 1,
-     "single_item_candidates": 34,
+     "single_item_candidates": 20,
      "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 184,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 185,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 186,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 187,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 193,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 194,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 195,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 196,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 197,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
+      0,
+      3
      ]
     }
    ],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 104,
-     "terminal_data_bound": 21,
-     "terminal_no_response": 76
+     "expanded": 84,
+     "frontier_guard": 155,
+     "terminal_no_response": 12
     },
-    "edges": 237,
-    "expansions_with_ties": 34,
-    "growth_edges": 50,
+    "edges": 270,
+    "expansions_with_ties": 23,
+    "growth_edges": 52,
     "max_data": 5,
-    "max_depth": 9,
+    "max_depth": 5,
     "max_forms": 2,
-    "nodes": 201,
+    "nodes": 251,
     "roles": {
-     "apart:form+inst": 8,
-     "apart:inst": 110,
-     "grow": 50,
-     "same:inst": 16,
-     "same:inst+inst": 35,
-     "same:inst+rule": 12,
-     "same:rule": 6
+     "apart:form+inst": 26,
+     "apart:inst": 159,
+     "grow": 52,
+     "same:inst": 20,
+     "same:inst+inst": 7,
+     "same:inst+rule": 4,
+     "same:rule": 2
     }
    }
   },
   {
    "commitment": "residue_three",
-   "edges_honouring_several": 4,
+   "edges_honouring_several": 13,
    "edges_with_fresh_datum": 0,
    "edges_with_third_party_change": 0,
    "growth": {
     "2": {
-     "epochs": 4,
+     "epochs": 13,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 1,
      "unclosed": 0
     },
     "3": {
-     "epochs": 4,
+     "epochs": 13,
      "max_demands": 2,
      "max_rounds": 1,
-     "min_demands": 2,
+     "min_demands": 0,
      "unclosed": 0
     },
     "4": {
-     "epochs": 4,
-     "max_demands": 2,
+     "epochs": 13,
+     "max_demands": 3,
      "max_rounds": 1,
-     "min_demands": 2,
+     "min_demands": 0,
      "unclosed": 0
     }
    },
@@ -2998,36 +1053,36 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 2,
-     "inst": 2
+     "form+inst": 6,
+     "inst": 7
     },
     "same": {
-     "inst": 2
+     "inst": 6
     }
    },
    "measure": "mu2",
-   "pre_growth_demand_free_nodes": 1,
-   "pre_growth_nodes": 2,
+   "pre_growth_demand_free_nodes": 2,
+   "pre_growth_nodes": 3,
    "reading": "L",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 7,
-     "terminal_data_bound": 1
+     "expanded": 19,
+     "terminal_data_bound": 4
     },
-    "edges": 9,
-    "expansions_with_ties": 0,
-    "growth_edges": 3,
+    "edges": 29,
+    "expansions_with_ties": 3,
+    "growth_edges": 10,
     "max_data": 5,
     "max_depth": 7,
     "max_forms": 2,
-    "nodes": 8,
+    "nodes": 23,
     "roles": {
-     "apart:form+inst": 2,
-     "apart:inst": 2,
-     "grow": 3,
-     "same:inst": 2
+     "apart:form+inst": 6,
+     "apart:inst": 7,
+     "grow": 10,
+     "same:inst": 6
     }
    }
   },
@@ -3035,28 +1090,28 @@
    "commitment": "chain",
    "edges_honouring_several": 0,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 134,
+   "edges_with_third_party_change": 104,
    "growth": {
     "2": {
-     "epochs": 179,
+     "epochs": 146,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "3": {
-     "epochs": 179,
+     "epochs": 146,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "4": {
-     "epochs": 179,
+     "epochs": 146,
      "max_demands": 1,
      "max_rounds": 0,
      "min_demands": 0,
-     "unclosed": 175
+     "unclosed": 145
     }
    },
    "id": "L/chain/mu1",
@@ -3065,33 +1120,33 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 3,
-     "inst": 192
+     "form+inst": 6,
+     "inst": 155
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 3,
-   "pre_growth_nodes": 4,
+   "pre_growth_demand_free_nodes": 6,
+   "pre_growth_nodes": 7,
    "reading": "L",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 81,
-     "frontier_guard": 174,
-     "terminal_data_bound": 4
+     "expanded": 110,
+     "frontier_guard": 145,
+     "terminal_data_bound": 1
     },
-    "edges": 259,
-    "expansions_with_ties": 15,
-    "growth_edges": 64,
+    "edges": 255,
+    "expansions_with_ties": 13,
+    "growth_edges": 94,
     "max_data": 5,
     "max_depth": 6,
     "max_forms": 1,
-    "nodes": 259,
+    "nodes": 256,
     "roles": {
-     "apart:form+inst": 3,
-     "apart:inst": 192,
-     "grow": 64
+     "apart:form+inst": 6,
+     "apart:inst": 155,
+     "grow": 94
     }
    }
   },
@@ -3102,24 +1157,24 @@
    "edges_with_third_party_change": 0,
    "growth": {
     "2": {
-     "epochs": 1,
+     "epochs": 2,
      "max_demands": 1,
      "max_rounds": 1,
-     "min_demands": 1,
+     "min_demands": 0,
      "unclosed": 0
     },
     "3": {
-     "epochs": 1,
-     "max_demands": 0,
-     "max_rounds": 0,
+     "epochs": 2,
+     "max_demands": 1,
+     "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "4": {
-     "epochs": 1,
+     "epochs": 2,
      "max_demands": 1,
      "max_rounds": 1,
-     "min_demands": 1,
+     "min_demands": 0,
      "unclosed": 0
     }
    },
@@ -3129,54 +1184,47 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 1,
-     "inst": 2
+     "form+inst": 2,
+     "inst": 3
     }
    },
    "measure": "mu2",
-   "pre_growth_demand_free_nodes": 1,
-   "pre_growth_nodes": 2,
+   "pre_growth_demand_free_nodes": 2,
+   "pre_growth_nodes": 3,
    "reading": "L",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 6,
-     "terminal_data_bound": 1
+     "expanded": 10,
+     "terminal_data_bound": 2
     },
-    "edges": 6,
-    "expansions_with_ties": 0,
-    "growth_edges": 3,
+    "edges": 11,
+    "expansions_with_ties": 1,
+    "growth_edges": 6,
     "max_data": 5,
     "max_depth": 6,
     "max_forms": 1,
-    "nodes": 7,
+    "nodes": 12,
     "roles": {
-     "apart:form+inst": 1,
-     "apart:inst": 2,
-     "grow": 3
+     "apart:form+inst": 2,
+     "apart:inst": 3,
+     "grow": 6
     }
    }
   },
   {
    "commitment": "total_apart",
-   "edges_honouring_several": 3,
+   "edges_honouring_several": 30,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 150,
+   "edges_with_third_party_change": 116,
    "growth": {
     "3": {
-     "epochs": 247,
+     "epochs": 438,
      "max_demands": 1,
-     "max_rounds": 1,
+     "max_rounds": 0,
      "min_demands": 0,
-     "unclosed": 0
-    },
-    "4": {
-     "epochs": 247,
-     "max_demands": 1,
-     "max_rounds": 1,
-     "min_demands": 0,
-     "unclosed": 0
+     "unclosed": 438
     }
    },
    "id": "F/total_apart/mu1",
@@ -3185,52 +1233,52 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 25,
-     "inst": 217,
-     "inst+inst": 2
+     "form+inst": 88,
+     "inst": 132,
+     "inst+inst": 12
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 10,
-   "pre_growth_nodes": 13,
+   "pre_growth_demand_free_nodes": 57,
+   "pre_growth_nodes": 64,
    "reading": "F",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 85,
-     "terminal_data_bound": 142
+     "expanded": 77,
+     "frontier_guard": 174
     },
-    "edges": 290,
-    "expansions_with_ties": 39,
-    "growth_edges": 46,
-    "max_data": 5,
-    "max_depth": 6,
-    "max_forms": 4,
-    "nodes": 227,
+    "edges": 289,
+    "expansions_with_ties": 22,
+    "growth_edges": 57,
+    "max_data": 4,
+    "max_depth": 4,
+    "max_forms": 3,
+    "nodes": 251,
     "roles": {
-     "apart:form+inst": 25,
-     "apart:inst": 217,
-     "apart:inst+inst": 2,
-     "grow": 46
+     "apart:form+inst": 88,
+     "apart:inst": 132,
+     "apart:inst+inst": 12,
+     "grow": 57
     }
    }
   },
   {
    "commitment": "total_apart",
-   "edges_honouring_several": 1,
+   "edges_honouring_several": 6,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 1,
+   "edges_with_third_party_change": 24,
    "growth": {
     "3": {
-     "epochs": 1,
+     "epochs": 144,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 1,
      "unclosed": 0
     },
     "4": {
-     "epochs": 1,
+     "epochs": 144,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 1,
@@ -3243,32 +1291,32 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 3,
-     "inst+inst": 1
+     "form+inst": 60,
+     "inst+inst": 36
     }
    },
    "measure": "mu2",
-   "pre_growth_demand_free_nodes": 1,
-   "pre_growth_nodes": 3,
+   "pre_growth_demand_free_nodes": 6,
+   "pre_growth_nodes": 10,
    "reading": "F",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 6,
-     "terminal_data_bound": 1
+     "expanded": 64,
+     "terminal_data_bound": 48
     },
-    "edges": 6,
-    "expansions_with_ties": 0,
-    "growth_edges": 2,
+    "edges": 126,
+    "expansions_with_ties": 36,
+    "growth_edges": 30,
     "max_data": 5,
     "max_depth": 6,
     "max_forms": 3,
-    "nodes": 7,
+    "nodes": 112,
     "roles": {
-     "apart:form+inst": 3,
-     "apart:inst+inst": 1,
-     "grow": 2
+     "apart:form+inst": 60,
+     "apart:inst+inst": 36,
+     "grow": 30
     }
    }
   },
@@ -3368,19 +1416,19 @@
   },
   {
    "commitment": "parity",
-   "edges_honouring_several": 4,
+   "edges_honouring_several": 7,
    "edges_with_fresh_datum": 0,
    "edges_with_third_party_change": 0,
    "growth": {
     "3": {
-     "epochs": 3,
+     "epochs": 8,
      "max_demands": 3,
      "max_rounds": 1,
      "min_demands": 3,
-     "unclosed": 1
+     "unclosed": 2
     },
     "4": {
-     "epochs": 2,
+     "epochs": 6,
      "max_demands": 0,
      "max_rounds": 0,
      "min_demands": 0,
@@ -3394,8 +1442,8 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 2,
-     "inst": 1
+     "form+inst": 4,
+     "inst": 2
     },
     "same": {
      "inst": 1
@@ -3425,16 +1473,16 @@
      "terminal_data_bound": 1,
      "terminal_no_response": 1
     },
-    "edges": 7,
-    "expansions_with_ties": 1,
+    "edges": 10,
+    "expansions_with_ties": 2,
     "growth_edges": 3,
     "max_data": 5,
     "max_depth": 4,
     "max_forms": 1,
     "nodes": 7,
     "roles": {
-     "apart:form+inst": 2,
-     "apart:inst": 1,
+     "apart:form+inst": 4,
+     "apart:inst": 2,
      "grow": 3,
      "same:inst": 1
     }
@@ -3442,19 +1490,19 @@
   },
   {
    "commitment": "parity",
-   "edges_honouring_several": 3,
+   "edges_honouring_several": 5,
    "edges_with_fresh_datum": 0,
    "edges_with_third_party_change": 0,
    "growth": {
     "3": {
-     "epochs": 2,
+     "epochs": 6,
      "max_demands": 3,
      "max_rounds": 1,
      "min_demands": 3,
      "unclosed": 0
     },
     "4": {
-     "epochs": 2,
+     "epochs": 6,
      "max_demands": 0,
      "max_rounds": 0,
      "min_demands": 0,
@@ -3468,8 +1516,8 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 1,
-     "inst": 1
+     "form+inst": 2,
+     "inst": 2
     },
     "same": {
      "inst": 1
@@ -3486,7 +1534,7 @@
      "expanded": 4,
      "terminal_data_bound": 1
     },
-    "edges": 5,
+    "edges": 7,
     "expansions_with_ties": 0,
     "growth_edges": 2,
     "max_data": 5,
@@ -3494,8 +1542,8 @@
     "max_forms": 1,
     "nodes": 5,
     "roles": {
-     "apart:form+inst": 1,
-     "apart:inst": 1,
+     "apart:form+inst": 2,
+     "apart:inst": 2,
      "grow": 2,
      "same:inst": 1
     }
@@ -3503,23 +1551,23 @@
   },
   {
    "commitment": "residue_three",
-   "edges_honouring_several": 31,
+   "edges_honouring_several": 60,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 113,
+   "edges_with_third_party_change": 126,
    "growth": {
     "3": {
-     "epochs": 195,
+     "epochs": 452,
      "max_demands": 2,
-     "max_rounds": 2,
-     "min_demands": 1,
-     "unclosed": 22
+     "max_rounds": 0,
+     "min_demands": 0,
+     "unclosed": 442
     },
     "4": {
-     "epochs": 173,
+     "epochs": 10,
      "max_demands": 3,
-     "max_rounds": 2,
-     "min_demands": 1,
-     "unclosed": 112
+     "max_rounds": 0,
+     "min_demands": 3,
+     "unclosed": 10
     }
    },
    "id": "F/residue_three/mu1",
@@ -3529,901 +1577,63 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 8,
-     "inst": 110
+     "form+inst": 60,
+     "inst": 163
     },
     "same": {
-     "inst": 16,
-     "inst+inst": 35,
-     "inst+rule": 12,
-     "rule": 6
+     "inst": 13,
+     "inst+inst": 4,
+     "inst+rule": 4,
+     "rule": 2
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 10,
-   "pre_growth_nodes": 13,
+   "pre_growth_demand_free_nodes": 57,
+   "pre_growth_nodes": 64,
    "reading": "F",
-   "refusals": [
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 19,
-     "open_demands": 2,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 20,
-     "open_demands": 2,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 21,
-     "open_demands": 2,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 22,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 25,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 29,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 31,
-     "open_demands": 1,
-     "single_item_candidates": 20,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 38,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 39,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 40,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 44,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 45,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 46,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 51,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 55,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 57,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 58,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 59,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 61,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 62,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 4,
-     "kind": "same",
-     "node": 68,
-     "open_demands": 1,
-     "single_item_candidates": 25,
-     "target": [
-      0,
-      3
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 97,
-     "open_demands": 2,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 112,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 113,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 114,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 115,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 116,
-     "open_demands": 1,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 118,
-     "open_demands": 2,
-     "single_item_candidates": 29,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 122,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 123,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 124,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 125,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 126,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 128,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 129,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 130,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 132,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 133,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 135,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 136,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 137,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 141,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 142,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 143,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 144,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 145,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 147,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 148,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 149,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 151,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 152,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 154,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 155,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 156,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 158,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 159,
-     "open_demands": 3,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 160,
-     "open_demands": 2,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 161,
-     "open_demands": 2,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 162,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 163,
-     "open_demands": 3,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 164,
-     "open_demands": 2,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 165,
-     "open_demands": 2,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 166,
-     "open_demands": 1,
-     "single_item_candidates": 35,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 167,
-     "open_demands": 3,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 169,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 171,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 180,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 181,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 182,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 183,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 184,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 190,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 191,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 192,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 193,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    },
-    {
-     "data": 5,
-     "kind": "same",
-     "node": 194,
-     "open_demands": 1,
-     "single_item_candidates": 34,
-     "target": [
-      1,
-      4
-     ]
-    }
-   ],
+   "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 101,
-     "terminal_data_bound": 21,
-     "terminal_no_response": 76
+     "expanded": 85,
+     "frontier_guard": 178
     },
-    "edges": 234,
-    "expansions_with_ties": 34,
-    "growth_edges": 47,
+    "edges": 307,
+    "expansions_with_ties": 27,
+    "growth_edges": 61,
     "max_data": 5,
-    "max_depth": 8,
+    "max_depth": 4,
     "max_forms": 2,
-    "nodes": 198,
+    "nodes": 263,
     "roles": {
-     "apart:form+inst": 8,
-     "apart:inst": 110,
-     "grow": 47,
-     "same:inst": 16,
-     "same:inst+inst": 35,
-     "same:inst+rule": 12,
-     "same:rule": 6
+     "apart:form+inst": 60,
+     "apart:inst": 163,
+     "grow": 61,
+     "same:inst": 13,
+     "same:inst+inst": 4,
+     "same:inst+rule": 4,
+     "same:rule": 2
     }
    }
   },
   {
    "commitment": "residue_three",
-   "edges_honouring_several": 5,
+   "edges_honouring_several": 24,
    "edges_with_fresh_datum": 0,
    "edges_with_third_party_change": 0,
    "growth": {
     "3": {
-     "epochs": 4,
+     "epochs": 36,
      "max_demands": 2,
      "max_rounds": 1,
-     "min_demands": 2,
+     "min_demands": 0,
      "unclosed": 0
     },
     "4": {
-     "epochs": 4,
-     "max_demands": 2,
+     "epochs": 36,
+     "max_demands": 3,
      "max_rounds": 1,
-     "min_demands": 2,
+     "min_demands": 0,
      "unclosed": 0
     }
    },
@@ -4434,58 +1644,58 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 2,
-     "inst": 2
+     "form+inst": 12,
+     "inst": 10
     },
     "same": {
-     "inst": 2
+     "inst": 8
     }
    },
    "measure": "mu2",
-   "pre_growth_demand_free_nodes": 1,
-   "pre_growth_nodes": 3,
+   "pre_growth_demand_free_nodes": 6,
+   "pre_growth_nodes": 10,
    "reading": "F",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 6,
-     "terminal_data_bound": 1
+     "expanded": 24,
+     "terminal_data_bound": 6
     },
-    "edges": 8,
-    "expansions_with_ties": 0,
-    "growth_edges": 2,
+    "edges": 42,
+    "expansions_with_ties": 6,
+    "growth_edges": 12,
     "max_data": 5,
     "max_depth": 6,
     "max_forms": 2,
-    "nodes": 7,
+    "nodes": 30,
     "roles": {
-     "apart:form+inst": 2,
-     "apart:inst": 2,
-     "grow": 2,
-     "same:inst": 2
+     "apart:form+inst": 12,
+     "apart:inst": 10,
+     "grow": 12,
+     "same:inst": 8
     }
    }
   },
   {
    "commitment": "chain",
-   "edges_honouring_several": 5,
+   "edges_honouring_several": 16,
    "edges_with_fresh_datum": 0,
-   "edges_with_third_party_change": 127,
+   "edges_with_third_party_change": 126,
    "growth": {
     "3": {
-     "epochs": 175,
+     "epochs": 295,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 0,
-     "unclosed": 21
+     "unclosed": 34
     },
     "4": {
-     "epochs": 154,
+     "epochs": 261,
      "max_demands": 1,
      "max_rounds": 0,
      "min_demands": 0,
-     "unclosed": 142
+     "unclosed": 257
     }
    },
    "id": "F/chain/mu1",
@@ -4494,53 +1704,53 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 7,
-     "inst": 184
+     "form+inst": 20,
+     "inst": 178
     }
    },
    "measure": "mu1",
-   "pre_growth_demand_free_nodes": 14,
-   "pre_growth_nodes": 17,
+   "pre_growth_demand_free_nodes": 24,
+   "pre_growth_nodes": 29,
    "reading": "F",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 81,
-     "frontier_guard": 162,
-     "terminal_data_bound": 8
+     "expanded": 92,
+     "frontier_guard": 165,
+     "terminal_data_bound": 2
     },
-    "edges": 255,
-    "expansions_with_ties": 15,
-    "growth_edges": 64,
+    "edges": 271,
+    "expansions_with_ties": 16,
+    "growth_edges": 73,
     "max_data": 5,
     "max_depth": 5,
     "max_forms": 1,
-    "nodes": 251,
+    "nodes": 259,
     "roles": {
-     "apart:form+inst": 7,
-     "apart:inst": 184,
-     "grow": 64
+     "apart:form+inst": 20,
+     "apart:inst": 178,
+     "grow": 73
     }
    }
   },
   {
    "commitment": "chain",
-   "edges_honouring_several": 1,
+   "edges_honouring_several": 2,
    "edges_with_fresh_datum": 0,
    "edges_with_third_party_change": 0,
    "growth": {
     "3": {
-     "epochs": 2,
+     "epochs": 4,
      "max_demands": 1,
      "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     },
     "4": {
-     "epochs": 2,
-     "max_demands": 0,
-     "max_rounds": 0,
+     "epochs": 4,
+     "max_demands": 1,
+     "max_rounds": 1,
      "min_demands": 0,
      "unclosed": 0
     }
@@ -4551,32 +1761,32 @@
    ],
    "kinds_by_demand": {
     "apart": {
-     "form+inst": 2,
-     "inst": 2
+     "form+inst": 4,
+     "inst": 4
     }
    },
    "measure": "mu2",
    "pre_growth_demand_free_nodes": 2,
-   "pre_growth_nodes": 4,
+   "pre_growth_nodes": 5,
    "reading": "F",
    "refusals": [],
    "stats": {
     "all_certified": true,
     "by_status": {
-     "expanded": 6,
-     "terminal_data_bound": 1
+     "expanded": 9,
+     "terminal_data_bound": 2
     },
-    "edges": 7,
-    "expansions_with_ties": 1,
-    "growth_edges": 3,
+    "edges": 12,
+    "expansions_with_ties": 2,
+    "growth_edges": 4,
     "max_data": 5,
-    "max_depth": 4,
+    "max_depth": 5,
     "max_forms": 1,
-    "nodes": 7,
+    "nodes": 11,
     "roles": {
-     "apart:form+inst": 2,
-     "apart:inst": 2,
-     "grow": 3
+     "apart:form+inst": 4,
+     "apart:inst": 4,
+     "grow": 4
     }
    }
   }
