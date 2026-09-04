@@ -20,6 +20,13 @@ here is object-language content.
    the first rung whose snapshot contains them.  Nothing is pinned from a
    commit that is not an ancestor of HEAD.
 
+   After pull requests 127 and 128 merged in the declared order, rung 0 was
+   repaired on exact base `dd2aba24`.  The absence claim above remains true
+   of its original snapshot.  A separate manifest section now pins both
+   landed engines, runners, and receipts at the later base, and the repaired
+   receipt replays them.  This closes present custody without revising a
+   frozen prediction or granting authority to either receipt.
+
 ## Commands
 
 From the repository root, for a rung `<r>`:

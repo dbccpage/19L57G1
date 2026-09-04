@@ -7,7 +7,9 @@ derivation asks anything, it replays what it inherits, censuses the
 declared inputs it starts from, and shows that the inheritance alone
 does nothing.  The question is `PROMPT.md`; the predictions were frozen
 before the first run in `PREDICTIONS.md`; every result is in
-`receipts/inheritance.json`, which regenerates byte-identically.
+`receipts/inheritance.json`, which regenerates byte-identically.  After
+the ordered merge of the two commitment trees, this rung was repaired to
+replay them without rewriting its historical snapshot or frozen predictions.
 
 ## Frozen inputs
 
@@ -25,6 +27,10 @@ before the first run in `PREDICTIONS.md`; every result is in
   three committed artifacts replayed here, and the sibling's committed
   summary.  `verify_pins.py` checks them at HEAD, checks the frozen texts,
   and checks the absent-at-snapshot record at the snapshot, not at HEAD.
+- The later commitment replay is separately pinned at exact merged base
+  `dd2aba24aca2bcfba065a8af1ff4a928b24a7907`: both commitment engines and
+  runners, the standing summary, and the two-sided summary and full export.
+  `verify_pins.py` checks each blob both at that base and at HEAD.
 - Declared bounds: the sealed grammar (two items, arity two); at most
   five admitted data and at most eight supplies for the inertia
   computation; the sealed closed baselines rebuilt under their own
@@ -39,9 +45,13 @@ before the first run in `PREDICTIONS.md`; every result is in
    source.
 2. Two trees the seed names, `standing_commitment` (pull request 127)
    and `two_sided_commitment` (pull request 128), are absent from `main`
-   at the snapshot.  Their replay is OPEN, and the stake and the growth
-   policy they introduce carry OPEN custody here.  Nothing was pinned
+   at the snapshot.  Their replay was OPEN, and the stake and the growth
+   policy they introduce carried OPEN custody in that snapshot record.
+   Nothing was pinned
    from a commit that is not an ancestor of HEAD.
+3. That is a historical statement about the frozen snapshot, not a present
+   custody claim.  After both pull requests merged, their exact landed
+   sources were pinned at `dd2aba24`; both receipts are now replayed below.
 
 ## Terminals, each with its scope
 
@@ -54,27 +64,36 @@ before the first run in `PREDICTIONS.md`; every result is in
   dual's summary receipt regenerates byte for byte from the sibling's
   own runner.
 - INHERITANCE_PARTLY_ABSENT (OPEN).  The two named trees above are not
-  at the snapshot; the rung that first has them on `main` replays them.
+  at the original snapshot.  This historical OPEN is preserved rather than
+  rewritten; the later replay closes current custody in the next item.
+- LANDED_COMMITMENTS_REPLAY (FINITE_COMPUTATION).  At exact merged base
+  `dd2aba24`, the standing-commitment summary regenerates byte for byte.
+  The repaired two-sided summary also regenerates byte for byte, and its
+  full export regenerates content-identically after deterministic gzip
+  decompression.  The receipt records `custody_closed: true`.  This closes
+  current import/replay custody only; it proves neither tree's mathematics.
 - DECLARED_INPUTS_CENSUSED (FINITE_COMPUTATION, by introspection).  The
   sealed event grammar has six kinds; exactly one, supply, never changes
   state; the other five are admissions or the external requirement.  The
   sealed engine declares two policies: pair-separation closure and the
   external continuation.  The sibling dual declares three events:
   RequireSame, Retract, Switch.  The seed names two remaining inputs, the
-  stake and the stream; the stream's events are sealed and pinned, its
-  growth policy and the stake's declaring event are OPEN custody until
-  their trees are on `main`.
+  stake and the stream.  Their custody was OPEN at the original snapshot;
+  the landed replay above now pins and reproduces the introducing trees.
 - INERTIA_AT_THE_SECOND_LEVEL (FINITE_COMPUTATION).  From both sealed
   genesis readings, up to eight supplies leave the regime unchanged.
   Under no declaration and under the all-free stake the demand set is
   empty by definition.  Growing to five data under the all-free stake
   admits no form, answers nothing, and leaves every state totally
   collapsed: reading L, 4 states and 3 growth edges; reading F, 3 states
-  and 2 growth edges; a single chain each.  A stream without a stake is
-  inert.  The sealed theorems `supply_no_op` and `genesis_underivable`
-  are the Lean behind the supply half; the stake half cites the absent
-  sibling's `empty_commitment_generates_nothing` as OPEN custody and is
-  otherwise a finite computation here.
+  and 2 growth edges; a single chain each.  The repaired computation uses
+  the landed two-sided `Commitment`, `FREE`, and `honoured` operations and
+  evaluates every held pair (1, 3, 6, 10 for reading L; 3, 6, 10 for F)
+  before each growth step.  Demand counts, response count, and chain shape
+  are derived from that replay rather than inserted constants.  A stream
+  without a stake is inert.  The sealed theorems `supply_no_op` and
+  `genesis_underivable` remain the Lean evidence for the supply half; this
+  rung proves no new theorem.
 
 ## Predictions scored (mechanically, in the receipt)
 
@@ -88,14 +107,18 @@ Three of three.  Recorded honestly: these were arithmetically forced
 once the definitions were fixed, as the sibling `standing_commitment`
 says of its own; they evidence the ordering of the work, not insight.
 The one thing this rung establishes that was not certain in advance is
-that the inheritance replays exactly at this snapshot.
+that the original inheritance replays exactly at its snapshot.  The later
+commitment replay is a repair result and is not retroactively scored as a
+fourth frozen prediction.
 
 ## What this rung does not claim
 
-- Nothing about the stake or the stream beyond their custody status.
+- No semantic approval follows from current custody: byte replay establishes
+  reproducibility of the landed commitment receipts, not their mathematics.
 - No theorem of its own: the inertia results are finite computations
   citing sealed Lean for the supply half.
-- Nothing about the two absent trees.
+- Nothing turns the two trees into members of the historical snapshot; their
+  absence there remains recorded even though they are now on `main`.
 
 ## Commands and gate time
 
@@ -117,8 +140,6 @@ Gate time for this rung on 2026-09-03: under four minutes of wall time
 for the run, the tests, typing, the pin verifier, the identifier
 firewall, and the prose watchlist together.
 
-## Leftovers, named and executed nowhere
+## Leftover, named and executed nowhere
 
-- Replay `standing_commitment` and `two_sided_commitment` at the first
-  snapshot that contains them, and close their custody.
 - Challenge one: the stream as a response at a three-item bound.

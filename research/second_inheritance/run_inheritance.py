@@ -25,10 +25,13 @@ from inheritance import (  # noqa: E402
     absent_trees,
     all_free_growth,
     grammar_census,
+    landed_replay_commit,
     remaining_inputs,
     replay_challenges,
     replay_closed,
     replay_dual_summary,
+    replay_standing_summary,
+    replay_two_sided_receipts,
     snapshot_commit,
     supplies_are_inert,
 )
@@ -59,6 +62,8 @@ def build_all() -> dict[str, Json]:
     challenges = replay_challenges()
     closed = [replay_closed(rd) for rd in READINGS]
     dual_summary = replay_dual_summary()
+    standing_summary = replay_standing_summary()
+    two_sided_receipts = replay_two_sided_receipts()
     census = grammar_census()
     remaining = remaining_inputs(absent)
     supplies = [supplies_are_inert(rd) for rd in READINGS]
@@ -75,6 +80,13 @@ def build_all() -> dict[str, Json]:
     r3 = all(bool(s["regime_unchanged"]) for s in supplies) and all(
         bool(g["every_state_totally_collapsed"]) and int(str(g["forms_ever_admitted"])) == 0
         and int(str(g["responses"])) == 0 and bool(g["single_chain"])
+        and bool(g["all_pair_labels_evaluated"])
+        and all(
+            int(str(row["demands_all_free"])) == 0
+            and int(str(row["demands_undeclared"])) == 0
+            for row in (g["chain"] if isinstance(g["chain"], list) else [])
+            if isinstance(row, dict)
+        )
         for g in growth
     )
     verdicts = {"R0-1": r1, "R0-2": r2, "R0-3": r3}
@@ -88,7 +100,15 @@ def build_all() -> dict[str, Json]:
         "prompt_sha256": _sha(HERE / "PROMPT.md"),
         "predictions_sha256": _sha(HERE / "PREDICTIONS.md"),
         "replay": {"challenges": _j(challenges), "closed_baselines": _j(closed), "dual_summary": _j(dual_summary),
-                   "absent_at_snapshot": _j(absent)},
+                   "absent_at_snapshot": _j(absent),
+                   "landed_commitments": {
+                       "base_commit": landed_replay_commit(),
+                       "standing_summary": _j(standing_summary),
+                       "two_sided_receipts": _j(two_sided_receipts),
+                       "custody_closed": bool(standing_summary["byte_identical"])
+                       and bool(two_sided_receipts["summary_byte_identical"])
+                       and bool(two_sided_receipts["full_content_identical"]),
+                   }},
         "census": _j(census),
         "remaining_declared_inputs": _j(remaining),
         "inertia": {"supplies": _j(supplies), "all_free_growth": _j(growth)},

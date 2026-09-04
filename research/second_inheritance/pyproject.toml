@@ -3,5 +3,5 @@
 [tool.mypy]
 python_version = "3.14"
 strict = true
-mypy_path = "../../code:../identification_dual"
+mypy_path = "../../code:../identification_dual:../standing_commitment:../two_sided_commitment"
 files = ["."]

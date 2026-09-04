@@ -9,6 +9,8 @@ Checks, none implying the others:
 * the recorded snapshot commit exists and is an ancestor of HEAD, with
   ``git merge-base`` exit codes other than one reported as undecided
   rather than as "not an ancestor";
+* the later commitment-replay base is an ancestor of HEAD, and every
+  commitment engine, runner, and receipt hashes both at that base and HEAD;
 * the frozen challenge and prediction texts still hash, as blobs at HEAD,
   to the values recorded when they were frozen.
 
@@ -124,6 +126,37 @@ def verify() -> list[str]:
                 f"absent-at-snapshot record wrong for {relative}: present={present}"
             )
         lines.append(f"absent at snapshot: {relative} (pull request {item.get('pull_request')})")
+    landed = manifest.get("landed_replay")
+    if not isinstance(landed, dict):
+        raise ValueError("manifest must declare landed_replay")
+    base = landed.get("base_commit")
+    if not isinstance(base, str) or len(base) != 40:
+        raise ValueError("landed_replay.base_commit must be a 40-digit commit id")
+    base_relation = _ancestor(base)
+    if base_relation != "ancestor":
+        raise ValueError(f"landed replay base {base} is {base_relation} of HEAD")
+    lines.append(f"landed replay base: {base} (ancestor of HEAD)")
+    landed_sources = landed.get("sources")
+    if not isinstance(landed_sources, list) or not landed_sources:
+        raise ValueError("landed_replay must list sources")
+    for item in landed_sources:
+        if not isinstance(item, dict):
+            raise ValueError("each landed source entry must be an object")
+        relative = _safe(item.get("path"))
+        wanted = item.get("sha256")
+        if not isinstance(wanted, str):
+            raise ValueError(f"missing landed sha256 for {relative}")
+        at_base = _blob_sha256(base, relative).upper()
+        at_head = _blob_sha256("HEAD", relative).upper()
+        if at_base != wanted.upper():
+            raise ValueError(
+                f"landed base hash mismatch for {relative}: expected {wanted}, got {at_base}"
+            )
+        if at_head != wanted.upper():
+            raise ValueError(
+                f"landed source moved at HEAD for {relative}: expected {wanted}, got {at_head}"
+            )
+        lines.append(f"landed source: {relative} {at_head}")
     frozen = manifest.get("frozen_texts")
     if not isinstance(frozen, list) or not frozen:
         raise ValueError("manifest must list the frozen texts")
@@ -159,6 +192,22 @@ def repin() -> list[str]:
             lines.append(f"rehashed: {relative} {old} -> {new}")
         item["sha256"] = new
     manifest["snapshot_commit"] = _git("rev-parse", "HEAD")
+    landed = manifest.get("landed_replay")
+    if not isinstance(landed, dict):
+        raise ValueError("manifest must declare landed_replay")
+    landed_sources = landed.get("sources")
+    if not isinstance(landed_sources, list):
+        raise ValueError("landed_replay must list sources")
+    for item in landed_sources:
+        if not isinstance(item, dict):
+            raise ValueError("each landed source entry must be an object")
+        relative = _safe(item.get("path"))
+        old = item.get("sha256")
+        new = _blob_sha256("HEAD", relative).upper()
+        if old != new:
+            lines.append(f"rehashed landed: {relative} {old} -> {new}")
+        item["sha256"] = new
+    landed["base_commit"] = _git("rev-parse", "HEAD")
     MANIFEST.write_text(
         json.dumps(manifest, indent=2, ensure_ascii=True) + "\n",
         encoding="utf-8", newline="\n",

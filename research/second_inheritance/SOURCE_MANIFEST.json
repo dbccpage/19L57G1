@@ -1,6 +1,6 @@
 {
   "schema": "second_inheritance_source_manifest/v1",
-  "note": "Sealed kernel, sibling dual apparatus, and committed receipts this rung replays, hashed as canonical Git blobs at the snapshot commit. A pin proves the sources did not move; it proves nothing about the mathematics. Trees the seed names that are absent from main at the snapshot are listed with their pull requests and left OPEN.",
+  "note": "The original rung-zero snapshot is preserved: the two commitment trees were absent there. After their ordered merge, landed_replay separately pins the exact base commit, both engines and runners, and all three commitment receipts used by the repair. A pin proves sources did not move; replay proves reproduced bytes, not the mathematics.",
   "snapshot_commit": "7dabce4e8f8b22c3841511b1414d879dff3d7a65",
   "sources": [
     {
@@ -68,6 +68,39 @@
       "present_at_snapshot": false
     }
   ],
+  "landed_replay": {
+    "base_commit": "dd2aba24aca2bcfba065a8af1ff4a928b24a7907",
+    "sources": [
+      {
+        "path": "research/standing_commitment/standing.py",
+        "sha256": "6E8DB75AF4EBEC1E8B81AE76D7EBF07439C22FC0A247AD40E93BEB1C9B4BA367"
+      },
+      {
+        "path": "research/standing_commitment/run_standing.py",
+        "sha256": "DA17EFC84B43D06DD04BA59775C889124954304C37249396650D79E337EA1F33"
+      },
+      {
+        "path": "research/standing_commitment/receipts/standing_commitment.json",
+        "sha256": "9F7C93AEB5EE44C94E57DE17426E12FF14FDC7E427BB291898B0B641FD78592F"
+      },
+      {
+        "path": "research/two_sided_commitment/two_sided.py",
+        "sha256": "5AC587C2FDCB8057EC333A7FEF880B8E7C3EE6603432EBCD00947A158186C1CB"
+      },
+      {
+        "path": "research/two_sided_commitment/run_two_sided.py",
+        "sha256": "673BC50DC469FE730674FC56437F31908CC66B2379F8E6D2DF0A29EED67B1297"
+      },
+      {
+        "path": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+        "sha256": "863D3503425647FB2BBAAFA8583736E6284D3FDDA0A512C9ED039EDEDF0AE4D3"
+      },
+      {
+        "path": "research/two_sided_commitment/receipts/full/two_sided_commitment_full.json.gz",
+        "sha256": "3570F3B028F01EDC4A77BFB9FA4234357753DE8EEA4128993A30A71655E66205"
+      }
+    ]
+  },
   "frozen_texts": [
     {
       "path": "research/second/SEED.md",

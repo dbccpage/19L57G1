@@ -10,15 +10,17 @@ Classification (assumption discipline):
   snapshot is OPEN, not trusted and not refused.
 * The all-free stake is DECLARED here for the inertia computation only: a
   commitment that labels every pair free, so that growth under it has
-  nothing to keep apart or together.  It is the two-sided analogue of the
-  sibling standing commitment's empty commitment, reconstructed over the
-  sealed kernel because the sibling tree is absent at this snapshot.
+  nothing to keep apart or together.  Its labels and honour checks use the
+  landed two-sided apparatus; its growth uses the sealed replay.  The
+  historical snapshot remains unchanged and records that apparatus absent.
 """
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import inspect
+import json
 import pathlib
 import subprocess
 import sys
@@ -26,7 +28,12 @@ import typing
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
-for _p in (str(REPO / "code"), str(REPO / "research" / "identification_dual")):
+for _p in (
+    str(REPO / "code"),
+    str(REPO / "research" / "identification_dual"),
+    str(REPO / "research" / "standing_commitment"),
+    str(REPO / "research" / "two_sided_commitment"),
+):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
@@ -57,6 +64,9 @@ from derivation.model import (  # noqa: E402
 )
 from derivation.observe import collapsed_pairs, profiles  # noqa: E402
 import dual  # noqa: E402
+import run_standing  # noqa: E402
+import run_two_sided  # noqa: E402
+import two_sided  # noqa: E402
 
 BOUNDS = Bounds(max_items=2, max_arity=2)
 SEALED_MAX_ROUNDS = 15
@@ -65,6 +75,11 @@ MAX_DATA = 5
 MAX_SUPPLIES = 8
 ARTIFACTS = REPO / "artifacts"
 DUAL_RECEIPT = REPO / "research" / "identification_dual" / "receipts" / "identification_dual.json"
+STANDING_RECEIPT = REPO / "research" / "standing_commitment" / "receipts" / "standing_commitment.json"
+TWO_SIDED_RECEIPT = REPO / "research" / "two_sided_commitment" / "receipts" / "two_sided_commitment.json"
+TWO_SIDED_FULL_RECEIPT = (
+    REPO / "research" / "two_sided_commitment" / "receipts" / "full" / "two_sided_commitment_full.json.gz"
+)
 
 
 # ---------------------------------------------------------------------------
@@ -137,6 +152,45 @@ def replay_dual_summary() -> dict[str, object]:
         "byte_identical": fresh == committed,
         "committed_sha256": hashlib.sha256(committed).hexdigest(),
         "fresh_sha256": hashlib.sha256(fresh).hexdigest(),
+    }
+
+
+def replay_standing_summary() -> dict[str, object]:
+    """Regenerate the landed standing-commitment receipt with its runner."""
+
+    fresh = (json.dumps(run_standing.build(), indent=2, sort_keys=True) + "\n").encode("utf-8")
+    committed = STANDING_RECEIPT.read_bytes()
+    return {
+        "artifact": "research/standing_commitment/receipts/standing_commitment.json",
+        "byte_identical": fresh == committed,
+        "committed_sha256": hashlib.sha256(committed).hexdigest(),
+        "fresh_sha256": hashlib.sha256(fresh).hexdigest(),
+    }
+
+
+def replay_two_sided_receipts() -> dict[str, object]:
+    """Regenerate both landed two-sided receipts with the landed runner.
+
+    The full receipt is compared after deterministic gzip decompression; its
+    compressed blob is separately pinned by ``SOURCE_MANIFEST.json``.
+    """
+
+    summary, full = run_two_sided.split(run_two_sided.build_all())
+    fresh_summary = dumps_deterministic(summary)
+    fresh_full = dumps_deterministic(full)
+    committed_summary = TWO_SIDED_RECEIPT.read_bytes()
+    committed_full_gz = TWO_SIDED_FULL_RECEIPT.read_bytes()
+    committed_full = gzip.decompress(committed_full_gz)
+    return {
+        "summary_artifact": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+        "summary_byte_identical": fresh_summary == committed_summary,
+        "summary_committed_sha256": hashlib.sha256(committed_summary).hexdigest(),
+        "summary_fresh_sha256": hashlib.sha256(fresh_summary).hexdigest(),
+        "full_artifact": "research/two_sided_commitment/receipts/full/two_sided_commitment_full.json.gz",
+        "full_content_identical": fresh_full == committed_full,
+        "full_compressed_sha256": hashlib.sha256(committed_full_gz).hexdigest(),
+        "full_committed_uncompressed_sha256": hashlib.sha256(committed_full).hexdigest(),
+        "full_fresh_sha256": hashlib.sha256(fresh_full).hexdigest(),
     }
 
 
@@ -232,39 +286,80 @@ def supplies_are_inert(reading: Reading) -> dict[str, object]:
 
 
 def all_free_growth(reading: Reading) -> dict[str, object]:
-    """Grow from the sealed genesis to the data bound under the all-free
-    stake: every pair is free, so the demand set is empty by definition and
-    no response is ever enumerated.  Record what the states look like."""
+    """Replay bounded growth through the landed two-sided commitment API.
+
+    The landed registry has no named all-free member, so this rung declares
+    one with the landed ``Commitment`` type and evaluates every held pair
+    through its ``label`` and ``honoured`` operations.  Growth itself remains
+    the sealed supply-and-admission replay.
+    """
+
+    stake = two_sided.Commitment("all_free", lambda _i, _j: two_sided.FREE)
     r = replay(reading.genesis)
     chain: list[dict[str, object]] = []
+    transition_kinds: list[str] = []
     while True:
         n = r.n_data()
         profs = profiles(r)
+        labels_checked = 0
+        honours_checked = 0
+        open_demands = 0
+        for i in range(n):
+            for j in range(i + 1, n):
+                label = stake.label(i, j)
+                labels_checked += 1
+                is_honoured = two_sided.honoured(r, label, (i, j))
+                honours_checked += 1
+                if label != two_sided.FREE and not is_honoured:
+                    open_demands += 1
         chain.append({
             "data": n, "forms": len(r.forms), "insts": len(r.insts), "rules": len(r.rules),
-            "demands_all_free": 0, "demands_undeclared": 0,
+            "labels_checked": labels_checked,
+            "honours_checked": honours_checked,
+            "demands_all_free": open_demands,
+            "demands_undeclared": len(r.reqs),
             "collapsed_pairs": len(collapsed_pairs(r)), "all_pairs": n * (n - 1) // 2,
             "totally_collapsed": len(set(profs)) <= 1,
         })
+        if open_demands:
+            transition_kinds.append("blocked_demand")
+            break
         if n >= MAX_DATA:
             break
         r = replay((Supply(f"g{n}"), AdmitDatum(f"g{n}")), r)
+        transition_kinds.append("grow")
     return {
         "reading": reading.name,
+        "commitment_type": type(stake).__name__,
+        "commitment": stake.name,
         "chain": chain,
         "nodes": len(chain),
-        "growth_edges": len(chain) - 1,
-        "responses": 0,
+        "growth_edges": sum(kind == "grow" for kind in transition_kinds),
+        "responses": sum(kind == "response" for kind in transition_kinds),
         "forms_ever_admitted": max(int(str(c["forms"])) for c in chain),
         "every_state_totally_collapsed": all(bool(c["totally_collapsed"]) for c in chain),
-        "single_chain": True,
+        "all_pair_labels_evaluated": all(
+            int(str(c["labels_checked"])) == int(str(c["all_pairs"]))
+            and int(str(c["honours_checked"])) == int(str(c["all_pairs"]))
+            for c in chain
+        ),
+        "single_chain": int(str(chain[-1]["data"])) == MAX_DATA
+        and len(transition_kinds) == len(chain) - 1
+        and all(kind == "grow" for kind in transition_kinds),
     }
 
 
 def snapshot_commit() -> str:
-    import json
-
     manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
     value = manifest.get("snapshot_commit")
+    assert isinstance(value, str) and len(value) == 40
+    return value
+
+
+def landed_replay_commit() -> str:
+    manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+    landed = manifest.get("landed_replay")
+    assert isinstance(landed, dict)
+    value = landed.get("base_commit")
     assert isinstance(value, str) and len(value) == 40
     return value

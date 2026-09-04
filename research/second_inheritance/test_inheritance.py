@@ -22,6 +22,8 @@ from inheritance import (  # noqa: E402
     grammar_census,
     replay_challenges,
     replay_closed,
+    replay_standing_summary,
+    replay_two_sided_receipts,
     snapshot_commit,
     supplies_are_inert,
 )
@@ -72,6 +74,13 @@ class ReplayTests(unittest.TestCase):
             self.assertIn("present_at_snapshot", a)
             self.assertIn(a["pull_request"], (127, 128))
 
+    def test_landed_commitment_receipts_regenerate(self) -> None:
+        standing = replay_standing_summary()
+        two_sided = replay_two_sided_receipts()
+        self.assertTrue(standing["byte_identical"])
+        self.assertTrue(two_sided["summary_byte_identical"])
+        self.assertTrue(two_sided["full_content_identical"])
+
 
 class CensusTests(unittest.TestCase):
     def test_sealed_grammar_has_six_kinds_one_state_preserving(self) -> None:
@@ -106,8 +115,13 @@ class InertiaTests(unittest.TestCase):
             self.assertTrue(g["every_state_totally_collapsed"], rd.name)
             self.assertEqual(g["forms_ever_admitted"], 0)
             self.assertEqual(g["responses"], 0)
+            self.assertTrue(g["all_pair_labels_evaluated"])
             chain = g["chain"]
             assert isinstance(chain, list)
+            self.assertTrue(all(row["demands_all_free"] == 0 for row in chain))
+            self.assertTrue(all(row["demands_undeclared"] == 0 for row in chain))
+            self.assertTrue(all(row["labels_checked"] == row["all_pairs"] for row in chain))
+            self.assertTrue(all(row["honours_checked"] == row["all_pairs"] for row in chain))
             self.assertEqual(chain[-1]["data"], MAX_DATA)
             self.assertEqual(g["growth_edges"], len(chain) - 1)
 

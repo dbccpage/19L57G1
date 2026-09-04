@@ -76,6 +76,7 @@
  "inertia": {
   "all_free_growth": [
    {
+    "all_pair_labels_evaluated": true,
     "chain": [
      {
       "all_pairs": 1,
@@ -84,7 +85,9 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 1,
       "insts": 0,
+      "labels_checked": 1,
       "rules": 0,
       "totally_collapsed": true
      },
@@ -95,7 +98,9 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 3,
       "insts": 0,
+      "labels_checked": 3,
       "rules": 0,
       "totally_collapsed": true
      },
@@ -106,7 +111,9 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 6,
       "insts": 0,
+      "labels_checked": 6,
       "rules": 0,
       "totally_collapsed": true
      },
@@ -117,11 +124,15 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 10,
       "insts": 0,
+      "labels_checked": 10,
       "rules": 0,
       "totally_collapsed": true
      }
     ],
+    "commitment": "all_free",
+    "commitment_type": "Commitment",
     "every_state_totally_collapsed": true,
     "forms_ever_admitted": 0,
     "growth_edges": 3,
@@ -131,6 +142,7 @@
     "single_chain": true
    },
    {
+    "all_pair_labels_evaluated": true,
     "chain": [
      {
       "all_pairs": 3,
@@ -139,7 +151,9 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 3,
       "insts": 0,
+      "labels_checked": 3,
       "rules": 0,
       "totally_collapsed": true
      },
@@ -150,7 +164,9 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 6,
       "insts": 0,
+      "labels_checked": 6,
       "rules": 0,
       "totally_collapsed": true
      },
@@ -161,11 +177,15 @@
       "demands_all_free": 0,
       "demands_undeclared": 0,
       "forms": 0,
+      "honours_checked": 10,
       "insts": 0,
+      "labels_checked": 10,
       "rules": 0,
       "totally_collapsed": true
      }
     ],
+    "commitment": "all_free",
+    "commitment_type": "Commitment",
     "every_state_totally_collapsed": true,
     "forms_ever_admitted": 0,
     "growth_edges": 2,
@@ -284,6 +304,27 @@
    "byte_identical": true,
    "committed_sha256": "57c1e0a9ba21caac4f6775ea0bf22b2a5ae311707ccf34477a4b42270ddc65eb",
    "fresh_sha256": "57c1e0a9ba21caac4f6775ea0bf22b2a5ae311707ccf34477a4b42270ddc65eb"
+  },
+  "landed_commitments": {
+   "base_commit": "dd2aba24aca2bcfba065a8af1ff4a928b24a7907",
+   "custody_closed": true,
+   "standing_summary": {
+    "artifact": "research/standing_commitment/receipts/standing_commitment.json",
+    "byte_identical": true,
+    "committed_sha256": "9f7c93aeb5ee44c94e57de17426e12ff14fdc7e427bb291898b0b641fd78592f",
+    "fresh_sha256": "9f7c93aeb5ee44c94e57de17426e12ff14fdc7e427bb291898b0b641fd78592f"
+   },
+   "two_sided_receipts": {
+    "full_artifact": "research/two_sided_commitment/receipts/full/two_sided_commitment_full.json.gz",
+    "full_committed_uncompressed_sha256": "e49bbedb3f1d4f0b474c5c11da8129f63d5ecaa227fa23e69c6fd14e420538e1",
+    "full_compressed_sha256": "3570f3b028f01edc4a77bfb9fa4234357753de8eea4128993a30a71655e66205",
+    "full_content_identical": true,
+    "full_fresh_sha256": "e49bbedb3f1d4f0b474c5c11da8129f63d5ecaa227fa23e69c6fd14e420538e1",
+    "summary_artifact": "research/two_sided_commitment/receipts/two_sided_commitment.json",
+    "summary_byte_identical": true,
+    "summary_committed_sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3",
+    "summary_fresh_sha256": "863d3503425647fb2bbaafa8583736e6284d3fdda0a512c9ed039ededf0ae4d3"
+   }
   }
  },
  "rung": 0,
