@@ -18,9 +18,12 @@ Checks, none implying the others:
   snapshot correctly, and is permitted to be empty;
 * the frozen seed, question, and prediction texts still hash, as blobs at
   HEAD, to the values recorded when they were frozen;
-* every commit after the exact required snapshot that changes this rung's
-  write root is audited NUL-safely across all of that commit's paths; an
-  unrelated future commit is not attributed to this rung; and
+* every commit after the exact required snapshot that CONTRIBUTES a change
+  under this rung's write root is audited NUL-safely across all of the paths
+  that same commit contributed; a merge contributes its combined diff and not
+  the history it inherits, so an unrelated future commit -- including a merge
+  that merely carries this rung's tree along -- is not attributed to this
+  rung; and
 * the NUL-safe status population carries no unignored worktree/index change
   outside that same scope.
 
@@ -241,26 +244,63 @@ def _scope_commits(snapshot: str) -> list[str]:
 
 
 def _commit_paths(commit: str) -> list[str]:
-    """Paths changed by one commit against its first parent, NUL-safe."""
+    """Paths one commit CONTRIBUTED, NUL-safe.
+
+    Three cases, and the third is the repair:
+
+    * a root commit contributes its whole tree;
+    * an ordinary commit contributes its first-parent diff;
+    * a MERGE contributes its COMBINED diff -- the paths differing from every
+      parent, which is what the merger wrote, and not what the merge
+      inherited from another line of history.
+
+    An earlier version read every commit against its first parent alone. For
+    a merge that is wrong in both directions at once: it credits this rung
+    with the whole of the other branch, and it credits any later merge with
+    this rung's whole tree. That is observed, not hypothetical. On `main` at
+    `7d2e6e86` three merges were attributed here -- two integration merges
+    from pull request 136 and one from the batch after 136 and 134 -- and the
+    gate failed naming `research/boundary_seed/`, `research/second_nofirst/`
+    and `research/second_stake/` files this rung never touched.
+
+    The combined diff keeps the gate's teeth rather than blunting them. A
+    merge that WRITES outside the write root still reports those paths: the
+    bundled-edit merge `42f6c8cf2` contributes exactly four paths under this
+    rule -- its two conflict resolutions and the two files its author edited
+    inside the merge -- while contributing none of the tree it inherited.
+    """
 
     row = _git("rev-list", "--parents", "-n", "1", commit).split()
     if not row or row[0] != commit:
         raise ValueError(f"git did not resolve commit for scope audit: {commit}")
-    if len(row) == 1:
+    parents = row[1:]
+    if not parents:
         raw = _git_bytes("ls-tree", "-r", "--name-only", "-z", commit)
+    elif len(parents) == 1:
+        raw = _git_bytes(
+            "diff", "--name-only", "-z", "--no-renames", parents[0], commit
+        )
     else:
         raw = _git_bytes(
-            "diff", "--name-only", "-z", "--no-renames", row[1], commit
+            "diff-tree", "-r", "--cc", "--no-commit-id", "--name-only", "-z",
+            "--no-renames", commit,
         )
     return [_decode_path(field) for field in raw.split(b"\0") if field]
 
 
 def _committed_scope(snapshot: str) -> tuple[list[str], list[str]]:
-    """Commits attributable to this rung and every path each one changed.
+    """Commits attributable to this rung and every path each one contributed.
 
     Unrelated future commits are deliberately ignored. A commit becomes
-    attributable when it changes the rung's write root; every path in that
-    same commit is then audited, including declared exceptions and breaches.
+    attributable when it CONTRIBUTES a change under the rung's write root --
+    see `_commit_paths`, where a merge contributes only its combined diff --
+    and every path that same commit contributed is then audited, including
+    declared exceptions and breaches.
+
+    An earlier version of this docstring read "A commit becomes attributable
+    when it changes the rung's write root" and meant the first-parent diff,
+    which made a merge that merely carried this rung along attributable to
+    it. WITHDRAWN: inheriting a tree is not changing it.
     """
 
     commits: list[str] = []
