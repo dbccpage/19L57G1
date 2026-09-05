@@ -149,3 +149,14 @@ is live.
 | 2-stake repair | tracked coverage-artifact refusal (`test_scan_population_fails_closed_on_binary_and_decode_defects`) | supplied synthetic force-tracked `.coverage` and `coverage.json` members, 2026-09-04 | each member failed by name as a `tracked volatile coverage artifact`; ordinary ignored runtime reports remain outside the committed-source census |
 
 <!-- markdownlint-enable MD013 -->
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
+| 2-stake (scope repair) | boundary scan, this rung writing outside its root | one commit adding `research/second_stake/zz_in.md` and `research/zz_stake_outside.md`, 2026-09-04 | `AssertionError: Items in the first set but not the second:` naming the outside path, exit 1; exit 0 after `git reset --hard` to the recorded base |
+| 2-stake (scope repair) | shared-file append claim | one commit of this rung PREPENDING a line to `research/second/MANUAL.md` | `AssertionError: False is not true : shared file is not append-only: research/second/MANUAL.md`, exit 1, then 0.  Measured against the comparison base now, so the claim is the one this rung can own -- this branch only appended -- rather than a rule about every future rung's edits to a shared file |
+| 2-stake (scope repair) | sealed-path claim, deliberately NOT scoped | one commit touching `paper/paper.md` on a branch that otherwise touches only another rung's tree | `AssertionError: Lists differ: ['paper/paper.md'] != []`, exit 1, then 0.  This half stays repository-wide: no rung may write a sealed path, so it is checked on whatever branch is under test rather than skipped when the branch belongs to someone else |
+| 2-stake (scope repair) | REAL CASE (found live, not injected) | none -- the branch of pull request 138, which touches only `research/second_nofirst/` | `FAIL: test_only_write_root_and_two_shared_appends_are_changed`, exit 1: the scan diffed the working tree against the FIXED `8dea98da`, so it read every rung merged since as this rung writing outside its root.  It passed on `main` only because this rung merged last, and the next rung to touch anything else broke it.  The repaired scan SKIPS that shape, named; that half is proved hermetically in `BoundaryScopeSituationTests` rather than replayed, because reproducing it for real needs the repair itself on `main` first -- copying the repaired file into a foreign checkout puts a path under this write root into the diff and makes the branch look like this rung's own.  Recorded as the residual it is |
+
+<!-- markdownlint-enable MD013 -->
