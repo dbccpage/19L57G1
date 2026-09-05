@@ -130,6 +130,8 @@ injection is live.
 | 3 review repair | probe-set check (`test_the_probe_set_offers_every_event_kind`) — the row the rung did not have | the two occurrence admissions deleted from `probes` | `AssertionError: Items in the second set but not the first: 'AdmitOccurrence'`, exit 1; OK after reversal; `test_the_probe_set_check_sees_a_dropped_event_kind` fixes the negative direction |
 | 3 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | the second measure's declared text corrected and the computed key `sides_fact_agrees_with_the_requirement_at_every_point` added, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 55); `run_challenge3.py` regenerated the receipt deliberately with no injection live (219403 to 219789 bytes), the Challenge 0 to 2 receipts reported unchanged, and the suite passed 227 |
 | 3 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 222 tests in ` | exit 1; `^Ran 227 tests in ` exit 0 on the same log |
+| 3 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | the second reading's declared text narrowed and the key `fields_declared_not_computed` added to the price, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 56); `run_challenge3.py` regenerated the receipt deliberately with no injection live (219789 to 220518 bytes), the Challenge 0 to 2 receipts reported unchanged, and the suite passed 228 |
+| 3 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 227 tests in ` | exit 1; `^Ran 228 tests in ` exit 0 on the same log |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -146,5 +148,6 @@ The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
 adversaries.  The Challenge 1 rows record that rung and its five review
 repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
-it, and the Challenge 3 review-repair rows the session after that; current
-whole-tree counts are reported in the latest `challenge<k>/STATUS.md`.
+it, the Challenge 3 review-repair rows the session after that, and the second
+review-repair rows the session after that again; current whole-tree counts are
+reported in the latest `challenge<k>/STATUS.md`.

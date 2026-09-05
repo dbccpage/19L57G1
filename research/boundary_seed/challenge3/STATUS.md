@@ -36,13 +36,14 @@ is this rung's, and it is prose, checked by nothing.
 
 ## Results
 
-Receipt `receipts/challenge3.json` (219789 bytes after the review repair,
-219403 as the rung closed); full tables in `paper.md` sections 5.9 to 5.12.
+Receipt `receipts/challenge3.json` (220518 bytes after the second review
+repair, 219789 after the first, 219403 as the rung closed); full tables in
+`paper.md` sections 5.9 to 5.12.
 
 | | reading U | reading O |
 |---|---|---|
 | the current regime meets the declared requirement | **no**: the composite of the side exchange with the mark exchange is a permitted automorphism carrying mark 0 to mark 1 (COMPUTED; PROVED that the composite fixes the regime and carries 0 to 1) | **yes**: the only permitted automorphism is the identity (COMPUTED) |
-| the declared sense against its second reading | agree at all 48 points (DEFINITION, by unfolding; COMPUTED that the agreement holds at each) | same |
+| the declared sense against its second reading | agree at all 48 points, the second reading taken at its declared orbit witness and not at the existential over every invariant property (DEFINITION, by unfolding; COMPUTED that the agreement holds at each) | same |
 | the declared sense against Challenge 2's notion | the same at the current regime (COMPUTED) | same |
 | what meets the requirement under O | not applicable | the withdrawal of the side exchange, carried by the O reading and paid at genesis; the two names are **not** used (COMPUTED on the exchange coordinate; DEFINITION on the names coordinate, definition 16) |
 | the four-cell counterfactual | met exactly where the side exchange is not permitted, whatever the names | identical |
@@ -147,7 +148,10 @@ Actioned:
    `nothing_new_paid_at_challenge_3` is the minimum being zero and
    `new_at_challenge_3` is the capability list of the retained minima — with
    `test_the_price_is_read_off_the_enumeration` fixing both directions.  The
-   Challenge 2 field is carried.
+   Challenge 2 field is carried.  Narrowed at the second review repair, which
+   found the repair half made: four of the eight price fields move with the
+   run and the other four are declarations no run can move, and the receipt
+   now names those four under `price.fields_declared_not_computed`.
 3. `claim_ledger.md:980`, B2-TWO-JUDGMENTS's uncovered clause.  The status
    line and the evidence fields now cover “no initial datum and no reading”,
    naming `step_reading`, `step_initialDatum`, `retained_reading`,
@@ -248,6 +252,12 @@ A dedicated repair session for Challenges 1 and 2 would clear items 13 to
   `retained_counts_equal` is in the file.
 - The **design of the placement check and of the disclosure in section 0**
   came from the review channel, not from the run; both are recorded above.
+- **The closure premise is remembered mathematics, and it is named rather
+  than leaned on.**  That membership in an orbit is invariant under a set of
+  maps exactly because that set is closed under composition and inverse is
+  standard and known to this instrument; it is not derived here.  The second
+  review repair states it as the premise definition 39's "by construction"
+  rests on and records that no gate in this tree checks it.
 
 ## Leftovers, for Challenge 4 and later
 
@@ -334,6 +344,22 @@ reports, the watchlist at 1826 hits with no pin regenerated, the firewall,
 and the paper cross-references are unchanged.  Four rows were added to the
 injection record: the placement check, the probe-set check, that receipt
 regeneration, and the test-count grep.
+
+A second exact-head review repair, a session later on the same branch, moved
+three more: `Ran 228 tests`, OK, with the workflow grep moved from 227 to
+228, and `unchanged: receipts\challenge3.json (220518 bytes)` after one
+deliberate regeneration with no injection live.  Strict typing at 24 source
+files, coverage at line 100.00% and branch 100.00% over 7 files, the pins,
+the Lean audit at 105 reports, the watchlist at 1826 hits with no pin
+regenerated, the firewall, and the paper cross-references are unchanged.
+Two rows were added to the injection record: that receipt regeneration and
+the test-count grep.  It addressed six findings — two stale numbers in
+section 8, an overstated countermodel, the second reading's missing
+token-forgetting clause, what the agreement key actually computes, the
+premise under definition 39's "by construction", and four price fields a
+docstring called computed — and declined none.  No prediction's status
+moved and `challenge3/PREDICTIONS.md` was not edited; `change_log.md`
+carries each repair with its reason.
 
 ## Next session
 

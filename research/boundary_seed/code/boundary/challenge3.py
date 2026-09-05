@@ -117,17 +117,22 @@ REQUIREMENT = (
     "other"
 )
 REQUIREMENT_SECOND_READING = (
-    "some property of a mark that is invariant under every permitted renaming "
-    "of the reading holds of one retained mark and not of the other"
+    "some property of a mark that forgets whatever the candidate's declared "
+    "serialization forgets, and that is invariant under every permitted "
+    "renaming of the reading, holds of one retained mark and not of the other"
 )
 REQUIREMENT_READINGS_AGREE_BECAUSE = (
     "membership in a mark's orbit under the permitted renamings is a property "
     "of a (regime, mark) pair invariant under those renamings by "
-    "construction, and it separates the two marks exactly when no permitted "
-    "automorphism carries one to the other; the agreement is therefore by "
-    "unfolding, which is what makes the second reading a restatement of the "
-    "first and not a further fact.  The receipt computes it at every point "
-    "rather than asserting it"
+    "construction, which rests on a premise stated here and checked by "
+    "nothing, that a candidate's permitted renamings are closed under "
+    "composition and inverse; it separates the two marks exactly when no "
+    "permitted automorphism carries one to the other, so that half of the "
+    "agreement is by unfolding and not a further fact.  What is "
+    "computed at every point is the first reading against this declared "
+    "witness, and not against the existential over every such property; the "
+    "direction back from an arbitrary such property is the justifying "
+    "sentence of the Challenge 2 separability definition, which is prose"
 )
 
 # The five declared coordinates of the candidate space, in the order the
@@ -838,16 +843,36 @@ def counterfactual_square(reading: str, wholes: list[Whole]) -> list[Json]:
     ]
 
 
+# The four price fields this function writes as declarations of the run.  No
+# run can move them, and the receipt names them under
+# `fields_declared_not_computed` so that a reader does not take a declaration
+# for a measurement; the rest of the price is read off the enumeration.
+PRICE_FIELDS_DECLARED: tuple[str, ...] = (
+    "capabilities_the_satisfaction_uses",
+    "capabilities_not_used",
+    "declared_at",
+    "paid_by",
+)
+
+
 def price_facts(reading: str, base_met: bool, by_mu1: Json, rows: list[Json]) -> Json:
     """What the requirement costs under this reading, and who pays it.
 
-    Every field below is read off the enumeration.  Review found at the
-    previous rung that the corresponding Challenge 2 field was a literal the
-    receipt builder wrote, so that no run could move it; here
-    ``nothing_new_paid_at_challenge_3`` is the minimum being zero and
-    ``new_at_challenge_3`` is the capability list of the retained minima, both
-    computed, and ``test_the_price_is_read_off_the_enumeration`` fixes the
-    direction.
+    Four of the eight fields move with the run: ``minimum_capability_count``,
+    ``nothing_new_paid_at_challenge_3`` (that minimum being zero), and
+    ``new_at_challenge_3`` (the capability list of the retained minima) are
+    read off the enumeration, and ``requirement_met_without_augmentation`` is
+    the base value the caller computed.
+    ``test_the_price_is_read_off_the_enumeration`` fixes the direction of the
+    first three.  The other four are declarations this function writes and no
+    run can move; they are named in the receipt under
+    ``fields_declared_not_computed`` so that a reader is not invited to take a
+    declaration for a measurement, and
+    ``test_the_declared_price_fields_do_not_move_with_the_enumeration`` fixes
+    that direction.  An earlier version of this docstring said every field was
+    read off the enumeration, which was false of those four; review found it,
+    as it found the same defect one rung earlier in the corresponding
+    Challenge 2 field.
     """
     minimum = int(by_mu1["minimum"])
     paid = sorted(
@@ -876,6 +901,7 @@ def price_facts(reading: str, base_met: bool, by_mu1: Json, rows: list[Json]) ->
             "new_at_challenge_3": paid,
             "nothing_new_paid_at_challenge_3": minimum == 0,
             "minimum_capability_count": minimum,
+            "fields_declared_not_computed": list(PRICE_FIELDS_DECLARED),
         }
     return {
         "requirement_met_without_augmentation": False,
@@ -886,6 +912,7 @@ def price_facts(reading: str, base_met: bool, by_mu1: Json, rows: list[Json]) ->
         "new_at_challenge_3": paid,
         "nothing_new_paid_at_challenge_3": minimum == 0,
         "minimum_capability_count": minimum,
+        "fields_declared_not_computed": list(PRICE_FIELDS_DECLARED),
     }
 
 

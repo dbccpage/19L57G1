@@ -1243,16 +1243,25 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Statement**: The Challenge 3 requirement, in the sense the run declares:
   the two retained marks meet it under a reading exactly when no permitted
   automorphism of the regime carries one to the other.  A second reading is
-  declared beside it — some property of a mark, invariant under every
-  permitted renaming, holds of one and not of the other — and the two agree,
-  by unfolding, at all 48 points of the declared space under each reading.
-  The witness for the second reading is membership in the first mark's
-  orbit, a property invariant by construction.
-- **Status**: DEFINITION (the sense, definition 38, and the agreement of its
-  two readings, definition 39, which is by unfolding); COMPUTED (that the
-  agreement holds at every enumerated point, and that the sense agrees with
-  the Challenge 2 notion at the current regime).  Not counted as content:
-  score C3-1 is HIT by construction.
+  declared beside it — some property of a mark that forgets whatever the
+  candidate's declared serialization forgets, and that is invariant under
+  every permitted renaming, holds of one and not of the other.  The witness
+  declared for it is membership in the first mark's orbit, invariant by
+  construction, and what the receipt computes at all 48 points of the
+  declared space under each reading is the first reading against that
+  witness — not against the existential over every such property.
+- **Status**: DEFINITION (the sense, definition 38, and the half of the
+  agreement definition 39 gives, which is by unfolding); COMPUTED (that the
+  first reading and the declared witness agree at every enumerated point, and
+  that the sense agrees with the Challenge 2 notion at the current regime).
+  Not counted as content: score C3-1 is HIT by construction.  Two things are
+  neither computed nor proved here and are narrowed into the statement above:
+  the direction back from an arbitrary property of the second reading's kind
+  to the first reading, which is definition 33's justifying sentence and is
+  prose; and the premise definition 39's "by construction" rests on, that a
+  candidate's permitted renamings are closed under composition and inverse.
+  An earlier version of this entry said the two readings agree at all 48
+  points; that is WITHDRAWN in favour of what the key computes.
 - **Dependencies**: definitions 23, 29, 32, 33, 37, 38, 39.
 - **Assumptions**: the caller's demand is read as a demand about the two
   retained marks and not about the two supplied wholes as presentations; a
@@ -1266,8 +1275,8 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Lean theorem**: none; the sense quantifies over the implemented renaming
   relation, which is Python.
 - **Axiom report**: not applicable.
-- **Falsifier**: a point of the declared space at which the two readings of
-  the requirement disagree; or the declared sense disagreeing with the
+- **Falsifier**: a point of the declared space at which the first reading and
+  the declared witness disagree; or the declared sense disagreeing with the
   Challenge 2 notion at the current regime.
 - **Surviving boundary**: Challenge 3 onward; the sense itself does not
   require the admitted boundary.
@@ -1289,14 +1298,19 @@ Python receipt, bounded), LIMITATION, OPEN.
   attained); DEFINITION on the names coordinate (definition 16 makes
   permission a declaration and not a consequence of the judgment grammar, so
   the names cannot enter the computation, and the square exhibits that
-  rather than discovering it).  Counted as content: score C3-2.
+  rather than discovering it).  Counted as content: score C3-2.  The
+  attribution of the satisfaction to those three capabilities, and of the two
+  names to the idle list, is a declaration this run writes and no run moves;
+  the receipt names it as one under `price.fields_declared_not_computed`, and
+  what carries the claim that the names are idle is the square.
 - **Dependencies**: definitions 2, 16, 23, 32, 37, 38, 46; B2-MARKS-O.
 - **Assumptions**: reading O; the retained regime of Challenge 2.
 - **Python evidence**: receipt `readings.*.counterfactual_square`,
   `readings.O.price`, `readings.O.minima_by_mu1`;
   `test_the_counterfactual_square_turns_on_the_exchange_alone`,
   `test_the_minimum_under_O_is_the_null_augmentation_alone`,
-  `test_c3_2_misses_when_a_cell_of_the_square_turns`.
+  `test_c3_2_misses_when_a_cell_of_the_square_turns`,
+  `test_the_declared_price_fields_do_not_move_with_the_enumeration`.
 - **Lean theorem**: none; the Lean model carries no candidate renaming set.
 - **Axiom report**: not applicable.
 - **Falsifier**: the O regime failing the requirement; the U regime meeting

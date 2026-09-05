@@ -34,6 +34,7 @@ from boundary.challenge3 import (  # noqa: E402
     EXTRA_MARK_VALUES,
     NULL_AUGMENTATION,
     PREDICTIONS_SHA256,
+    PRICE_FIELDS_DECLARED,
     PROPERTY_DOMAIN_MAX_MARKS,
     READING_O_BUNDLE,
     SCORED_PREDICTIONS,
@@ -534,6 +535,28 @@ class FactTests(unittest.TestCase):
         )
         self.assertTrue(free["nothing_new_paid_at_challenge_3"])
         self.assertEqual(free["new_at_challenge_3"], [])
+
+    def test_the_declared_price_fields_do_not_move_with_the_enumeration(self) -> None:
+        # The other four price fields are declarations this module writes, and
+        # the receipt names them as such.  A different enumeration moves all
+        # three computed fields and leaves those four exactly where they were,
+        # which is what "declaration, not measurement" means here.
+        declared = self.o["price"]["fields_declared_not_computed"]
+        self.assertEqual(list(PRICE_FIELDS_DECLARED), declared)
+        other = price_facts(
+            READING_O,
+            True,
+            {"minimum": 1, "classes": [{"class_key": [], "members": ["p"]}]},
+            [{"name": "p", "capability_coordinates": ["withdraw_reflection"]}],
+        )
+        for field in declared:
+            self.assertEqual(other[str(field)], self.o["price"][str(field)], field)
+        for field in (
+            "new_at_challenge_3",
+            "nothing_new_paid_at_challenge_3",
+            "minimum_capability_count",
+        ):
+            self.assertNotEqual(other[field], self.o["price"][field], field)
 
     def test_the_process_admission_facts(self) -> None:
         proc = self.u["process_admission"]

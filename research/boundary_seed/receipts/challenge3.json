@@ -3740,6 +3740,12 @@
           "occurrence identity"
         ],
         "declared_at": "genesis, as the O reading of the one admitted primitive; the occurrence identity at Challenge 2",
+        "fields_declared_not_computed": [
+          "capabilities_the_satisfaction_uses",
+          "capabilities_not_used",
+          "declared_at",
+          "paid_by"
+        ],
         "minimum_capability_count": 0,
         "new_at_challenge_3": [],
         "nothing_new_paid_at_challenge_3": true,
@@ -7505,6 +7511,12 @@
         "capabilities_not_used": [],
         "capabilities_the_satisfaction_uses": [],
         "declared_at": "Challenge 3, by whichever retained minimum is taken",
+        "fields_declared_not_computed": [
+          "capabilities_the_satisfaction_uses",
+          "capabilities_not_used",
+          "declared_at",
+          "paid_by"
+        ],
         "minimum_capability_count": 1,
         "new_at_challenge_3": [
           "extra_mark",
@@ -7608,12 +7620,12 @@
   },
   "requirement": {
     "declared": "the two retained marks are internally separable under a reading exactly when no permitted automorphism of the regime carries one of them to the other",
-    "readings_agree_because": "membership in a mark's orbit under the permitted renamings is a property of a (regime, mark) pair invariant under those renamings by construction, and it separates the two marks exactly when no permitted automorphism carries one to the other; the agreement is therefore by unfolding, which is what makes the second reading a restatement of the first and not a further fact.  The receipt computes it at every point rather than asserting it",
+    "readings_agree_because": "membership in a mark's orbit under the permitted renamings is a property of a (regime, mark) pair invariant under those renamings by construction, which rests on a premise stated here and checked by nothing, that a candidate's permitted renamings are closed under composition and inverse; it separates the two marks exactly when no permitted automorphism carries one to the other, so that half of the agreement is by unfolding and not a further fact.  What is computed at every point is the first reading against this declared witness, and not against the existential over every such property; the direction back from an arbitrary such property is the justifying sentence of the Challenge 2 separability definition, which is prose",
     "retained_marks": [
       0,
       1
     ],
-    "second_reading": "some property of a mark that is invariant under every permitted renaming of the reading holds of one retained mark and not of the other"
+    "second_reading": "some property of a mark that forgets whatever the candidate's declared serialization forgets, and that is invariant under every permitted renaming of the reading, holds of one retained mark and not of the other"
   },
   "scores": {
     "C2-X": {

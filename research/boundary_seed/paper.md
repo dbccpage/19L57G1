@@ -389,12 +389,23 @@ whole Challenge 3 candidate space are Python-only.
     under a reading when no permitted automorphism of the regime carries one
     to the other — definition 33's sense, at the augmentation's renamings
     rather than the reading's.  A second reading is declared beside it: some
-    property of a mark, invariant under every permitted renaming, holds of
-    one and not of the other.  The two agree by unfolding, by definition 39,
-    and the receipt computes the agreement at all 48 points under each
-    reading rather than asserting it.  The caller's demand is an externally
-    imposed challenge; the sense is a derived definition of the run, and a
-    different sense was available.
+    property of a mark that forgets whatever the candidate's declared
+    serialization forgets — definition 33's clause, which at the base is
+    definition 14's token forgetting and at the label-keeping coordinate is
+    nothing — and that is invariant under every permitted renaming, holds of
+    one and not of the other.  The clause is part of the reading and not a
+    gloss on it: without it a property that reads a label separates marks a
+    permitted automorphism exchanges, which is the defect definition 33 was
+    repaired to exclude, and `carries_label_a`, which reads a token, is
+    reported invariant at the base and at every one-step point under both
+    readings, where the property census is reported.  What the receipt
+    computes at all 48 points under each reading is the first reading against
+    the declared orbit witness of definition 39, not against the existential
+    over every such property; the direction back from an arbitrary such
+    property to the first reading is definition 33's justifying sentence,
+    which is prose.
+    The caller's demand is an externally imposed challenge; the sense is a
+    derived definition of the run, and a different sense was available.
 39. **The orbit of a mark, and the orbit witness (Challenge 3).**  The
     *orbit* of a `(regime, mark)` pair is the set of pairs a permitted
     renaming carries it to, each recorded as the image's key with the index
@@ -402,8 +413,14 @@ whole Challenge 3 candidate space are Python-only.
     a pair that is invariant under those renamings **by construction**, and
     it holds of the second retained mark exactly when a permitted
     automorphism carries the first to the second.  So it witnesses the second
-    reading of definition 38 whenever the first holds, and the agreement of
-    the two readings is by unfolding rather than by search.
+    reading of definition 38 whenever the first holds, and that half of the
+    agreement is by unfolding rather than by search.  The invariance rests on
+    a premise stated here and checked by nothing: that a candidate's
+    permitted renamings are closed under composition and inverse.  The
+    declared enumerations of definition 37 are — each offers the identity,
+    the side exchange where its flag permits it, the mark permutations where
+    its flag permits them, and their composites — but that closure is neither
+    computed nor proved in this run.
 40. **Declared augmentation, and the candidate space (Challenge 3).**  An
     *augmentation* is a value for each of five declared coordinates:
     withdraw the side exchange from the permitted renamings; withdraw the
@@ -947,9 +964,10 @@ not the *names* it also carries.  That sharpens Challenge 2, whose price
 listed the names among the capabilities the O separation uses; the
 capabilities it uses are the admitted boundary, the withdrawal, and the
 Challenge 2 occurrence identity, and the receipt now records the names under
-`capabilities_not_used`.  Nothing is paid at this rung under O: the minimum
-capability count is zero, attained by the null augmentation alone, and that
-minimum is unique.
+`capabilities_not_used`, a field it marks as a declaration of the run and
+not as a measurement; what shows the names to be idle is the square.
+Nothing is paid at this rung under O: the minimum capability count is zero,
+attained by the null augmentation alone, and that minimum is unique.
 
 That the names *cannot* enter the square is definition 16 and not a
 discovery: permission is declared and is not derived from the judgment
@@ -965,9 +983,9 @@ open.
 | result | reading U | reading O | evidence |
 |---|---|---|---|
 | the current regime meets the requirement | **no**: the composite of the side exchange with the exchange of the two marks is a permitted automorphism carrying mark 0 to mark 1 | **yes**: the only permitted automorphism is the identity | `readings.*.base.satisfies`; Lean `retained_U_requirement_fails` (a pairing of the Challenge 0 permission with the Challenge 2 `rfl`) |
-| the declared sense and its second reading | agree at all 48 points | agree at all 48 points | `requirement_readings_agree_at_every_point`; by unfolding, definition 39 |
+| the declared sense and its second reading | agree at all 48 points, the second reading taken at its declared witness | same | `requirement_readings_agree_at_every_point`; by unfolding, definition 39 |
 | the declared sense against Challenge 2's notion | the same at the current regime | same | `requirement_matches_the_challenge_2_notion` |
-| what satisfies it under O | not applicable | the withdrawal of the side exchange, paid at genesis by the declared reading; the names are not used | `counterfactual_square`, `price.capabilities_not_used` |
+| what satisfies it under O | not applicable | the withdrawal of the side exchange, paid at genesis by the declared reading; the names are not used | `counterfactual_square` |
 | adding judgment forms, whatever the forms | cannot satisfy it while the composite is permitted | not applicable, the composite not being permitted | Lean `no_invariant_mark_property_separates_retained`, quantified over an arbitrary property; the concrete `admit_names` point fails, and `points_satisfying_with_grammar_change_only` is empty |
 | the two mark forms under the composite | neither is invariant, which is why both separate the marks as raw data and neither does so internally | not applicable | Lean `mark_form_is_not_invariant_under_the_composite`; `base.invariant_mark_properties` |
 | the declared candidate space | 48 points; one step exactly when the capability count is one | same | `candidate_space.size`, `one_step_iff_capability_count_one` |
@@ -1424,7 +1442,7 @@ the labels has no Lean counterpart at all.
   `run_challenge2.py`, and `run_challenge3.py` and checked by the tests and
   by the research job.
 - The Challenge 2 receipt is 35499 bytes and the Challenge 3 receipt is
-  219403 bytes, both inside the megabyte at which the run would owe a
+  220518 bytes, both inside the megabyte at which the run would owe a
   summary and a gzip with a content hash, so both are committed whole; a
   test holds the Challenge 3 receipt to that bound.  The Challenge 3 receipt
   is large because the enumeration IS the evidence: 48 points under each
@@ -1442,7 +1460,7 @@ the labels has no Lean counterpart at all.
   convention pinned, and once more at the fifth, when C1-7's evidence was
   rescoped to the candidate regimes, C1-5's basis relabelled, and the two
   designation clause facts reworded, with no injection live any time.
-- The suite passes 222 tests.  Fresh coverage over the seven declared code
+- The suite passes 228 tests.  Fresh coverage over the seven declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
@@ -1533,10 +1551,11 @@ count under O is zero, attained by the null augmentation alone, and nothing
 is paid at this rung.  Under U the requirement fails, and no addition of
 judgment forms can meet it while the composite of the side exchange with the
 mark exchange remains a permitted renaming — proved in Lean for an arbitrary
-property of a mark, with a countermodel showing that the hypothesis excludes
-exactly the two mark forms.  Over the declared space of 48 points, the
-minimum capability count under U is one, four one-step points attain it, and
-they fall into **three** non-isomorphic classes, all retained: withdraw the
+property of a mark, with a countermodel putting both mark forms outside the
+hypothesis, so that the hypothesis is a real restriction and not a vacuous
+one.  Over the declared space of 48 points, the minimum capability count
+under U is one, four one-step points attain it, and they fall into **three**
+non-isomorphic classes, all retained: withdraw the
 side exchange; withdraw the mark permutations; or admit one further mark on
 either side.  **The minimum is therefore not unique**, and the candidate
 that adopts reading O under U costs two capabilities and is refused as a

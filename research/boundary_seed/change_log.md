@@ -1027,3 +1027,85 @@ receipts are unchanged.
   having been added; the move was proved by injection.
 
 Declined: nothing.
+
+## 2026-09-05, Challenge 3 second exact-head review repair
+
+`SEED.md` and the four `challenge*/PREDICTIONS.md` remain byte-identical;
+`challenge3/PREDICTIONS.md` was not edited and no prediction's status moved.
+Review of `e2cc3f94` returned six findings that survived refutation — two of
+them blocking and naming the same two stale numbers — and every one is
+addressed; none is declined.  No theorem was added or removed and the axiom
+log was not regenerated.  The Challenge 3 receipt WAS regenerated,
+deliberately and with no injection live, 219789 to 220518 bytes; the
+Challenge 0, 1, and 2 receipts are unchanged.
+
+- **Corrected, blocking.**  Section 8 gave the Challenge 3 receipt as 219403
+  bytes and the suite as 222 tests.  Both were pre-repair values: the
+  committed receipt was 219789 bytes and the suite 227 when the review ran,
+  and `challenge3/STATUS.md`, this log, and the research job's grep all
+  carried the moved numbers while the paper alone did not.  Section 8 now
+  reads 220518 bytes and 228 tests, this session's values, and the rest of
+  section 8 was checked against the same battery in the same pass — the
+  Challenge 2 receipt at 35499 bytes, the coverage at 100.00% line and
+  branch over seven files, and the axiom log at 105 reports all hold.
+  Reason: no gate reads the paper's numbers, so nothing caught either; the
+  receipt size is stated once in the paper, with the history kept in
+  `challenge3/STATUS.md`.
+- **Narrowed.**  Section 9 said the Lean countermodel shows that the
+  hypothesis of `no_invariant_mark_property_separates_retained` "excludes
+  exactly the two mark forms".  The theorem shows only that it excludes
+  them: for each side it puts that one mark form outside the hypothesis and
+  says nothing about what else lies outside.  The sentence now says that the
+  countermodel puts both mark forms outside the hypothesis, so the
+  hypothesis is a real restriction and not a vacuous one, which is what
+  section 7.4 and B3-NO-JUDGMENT-ADDITION already said.
+- **Narrowed.**  Definition 38's second reading was an existential over mark
+  properties invariant under every permitted renaming, with no clause about
+  the presentation tokens, although definition 33 was repaired at the
+  previous rung to carry exactly such a clause.  Without it a property that
+  reads a label separates marks a permitted automorphism exchanges:
+  `carries_label_a` reads a token and is reported invariant at the base and
+  at every one-step point under both readings, and it fails to bite only
+  because every enumerated regime carries the same label at every mark.  The
+  second reading now requires a property to forget whatever the candidate's
+  declared serialization forgets, which at the base is definition 14's token
+  forgetting and at the label-keeping coordinate is nothing.  The declared
+  text in the receipt (`requirement.second_reading`) says the same.
+- **Narrowed.**  Definition 38 said "the receipt computes the agreement at
+  all 48 points ... rather than asserting it".  The computed key compares the
+  first reading with the DECLARED orbit witness, not with the existential:
+  one direction of the agreement — that a property of the second reading's
+  kind separating the two marks implies no permitted automorphism carries one
+  to the other — is definition 33's justifying sentence, which is prose and
+  is computed at no point.  Definitions 38 and 39, the receipt's
+  `requirement.readings_agree_because`, the section 5.9 row, the
+  `challenge3/STATUS.md` row, and B3-REQUIREMENT all now say which direction
+  is computed and against what.  The score of C3-1 is unmoved: it was already
+  DEFINITION-level and is not counted as content.
+- **Recorded, a premise.**  Definition 39's "invariant by construction" rests
+  on a candidate's permitted renamings being closed under composition and
+  inverse.  The declared enumerations of definition 37 are — each offers the
+  identity, the side exchange where its flag permits it, the mark
+  permutations where its flag permits them, and their composites — but the
+  closure is neither computed nor proved in this run, and definition 39, the
+  receipt text, and B3-REQUIREMENT now say so rather than leaving the reader
+  to supply it.
+- **Corrected.**  `price_facts` said "Every field below is read off the
+  enumeration".  Four of its eight are not: the capability list the
+  satisfaction uses, the idle list, where the capability was declared, and
+  who paid it are literals this module writes, and no run can move them.  The
+  docstring now names the four fields that move and the four declared, the
+  receipt names the four under `price.fields_declared_not_computed`, and
+  `test_the_declared_price_fields_do_not_move_with_the_enumeration` fixes the
+  direction by moving the enumeration and finding the four unmoved and the
+  three moved.  Section 5.9's evidence for "what satisfies it under O" now
+  cites `counterfactual_square` alone, the square being what shows the two
+  names idle, and B3-O-ALREADY-MET records the attribution as a declaration.
+  Reason: the C3-2 scorer compares that literal with an identical literal, so
+  a citation of it as evidence would let a declaration read as a measurement.
+  The previous rung actioned the same advisory for two of the fields and left
+  the docstring claiming it of all of them; this finishes it for the rest.
+- The research job's test-count grep moved from 227 to 228, one test having
+  been added; the move was proved by injection.
+
+Declined: nothing.
