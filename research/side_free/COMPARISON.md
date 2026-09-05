@@ -104,6 +104,7 @@ A row is in BOUGHT_NOTHING exactly when the control reaches the same value at th
 * **R36.** The map joins by NAME in both reading columns, but its one-class justification is a fact of the unnamed reading only: there the two pinned further-mark points carry one class key, while under the named reading they carry two different class keys and are two classes.  So the named column shows five names where that reading has six points, and the decision this table reports is taken against the unnamed reading.
 * **R38.** As R36: the map joins by name in both columns, its one-class justification holds under the unnamed reading only, and the named column therefore shows five names where that reading has six satisfying points.
 * **R39.** The two lists are not the same length, so the second measure counted over them is NOT comparable across the worlds and is never differenced.  The restricted measure below is.
+* **R40.** The ONLY row whose two boundary cells are not read from a pinned path.  No pinned receipt carries a minimum of the restricted measure, so both are minima computed on THIS TREE'S OWN mirror carrier and read out of this tree's record.  The totality gate over the declared pinned values therefore does not reach them, and never counted them: what holds them instead is the weaker per-point data join, `second_measures.data_join_against_the_pin`, which joins 48 rows per reading against the pin and reports its mismatches.
 
 ### the prices each world states
 
@@ -194,7 +195,9 @@ By name: a pinned coordinate transfers exactly when its pinned capability senten
 
 By behaviour: a candidate READS the placement when its separation verdict is not constant across the placements of one label configuration in its own route-census domain, and does not read it when the verdict is constant in every such group.
 
-| world | reading | minimum | names a side | reads the placement |
+The first column says whose minimum a row is and NOT where its verdicts were taken.  The pinned rows' point names and capability sentences are read from the pinned receipts, so the by-name verdict is computed over pinned text.  The by-behaviour verdict is computed for every row on a carrier of THIS TREE -- the mirror for the pinned rows, the control for its own -- over that carrier's own route-census domain.  No pinned path carries a placement verdict and the pinned world's kernel is not run here, so no cell of the last column is a reading off the pinned world.
+
+| whose minimum | reading | minimum | names a side, over pinned text | reads the placement, computed on a carrier of this tree |
 |---|---|---|---|---|
 | the pinned world | U | `extra_mark_0` | false | true |
 | the pinned world | U | `extra_mark_1` | false | true |

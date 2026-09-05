@@ -164,6 +164,25 @@ never counted as content.
 * **Lean.**  The two `free_separation_implies_sided_separation` theorems.
 * **Falsifier.**  A negative `delta_vs_unnamed`.
 * **Surviving boundary.**  None within the declared space.
+* **Correction, recorded not edited away.**  The other guard against an unfair
+  comparison — the endowment ledger, which `DESIGN.md` §12 names against the
+  hazard of a control crippled by starting with less — was reported as
+  computed throughout, and two of its cells are not.  The whole
+  `declarations_at_genesis` row is three prose lists, one per column, and the
+  CONTROL cell of `coordinates the genesis declaration fixes` is a typed zero;
+  nothing in either carrier enumerates its own genesis declaration, and this
+  control has no reading level to declare at.  Every row now carries a
+  `declared_columns` field naming which of its columns are declarations, the
+  two rows with one are listed under `rows_with_a_declared_column`, and each
+  carries its reason — the instrument `comparison.py` uses to keep `Declared`
+  apart from `Computed`, applied here for the same reason.  Those cells are
+  DEFINITION-level and are not counted as content.  `DESIGN.md` §1 classifies
+  every endowment row as deterministic computation and §8 says every row is
+  computed by the same code in each column; both are frozen, so the correction
+  lives here and in `STATUS.md`.  The ledger's own summary said mismatching
+  rows are "NAMED and priced": one of the six carries a price, so the record
+  now reports the priced and the unpriced rows as two lists whose union is the
+  six, and the summary says only what those lists bear.
 
 ### SF-CAPABILITY-TEXTS
 

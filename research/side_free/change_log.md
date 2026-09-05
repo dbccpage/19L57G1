@@ -65,6 +65,15 @@ and in the ledger beside its value instead.
   reading has six points — now carry a note saying so.  No decided value moves:
   the decision is taken against the unnamed reading.  Reason: a sentence a
   reader can check against the pin must not be contradicted by it.
+  *Recorded later, in the pattern the other frozen-file corrections here
+  already follow:* the sentence originates in the frozen `DESIGN.md` §7, whose
+  paragraph on the one value-set change of the whole deletion says the receipt
+  shows the two pinned further-mark points "carrying the same class key and
+  standing as the two members of one retained class" with no reading named.
+  That entry repaired the three editable copies and did not say where the
+  unscoped copy came from, which is the half the other four corrections record.
+  The frozen file is not edited; the scope lives in the three places this entry
+  repaired, and in the R36 and R38 notes it added.
 
 * **The Lean theorem cited for "replay is deterministic" stated a tautology.**
   `SideFree.replay_deterministic` was `replay base h = replay base h`, which
@@ -270,3 +279,81 @@ and in the ledger beside its value instead.
   `receipts/comparison.json` and `COMPARISON.md` are re-rendered and come back
   unchanged, since no value they carry moved.  The battery transcript in
   `STATUS.md` is re-pasted from a fresh run at this commit.
+
+## 2026-09-05 — fourth repair pass: five carried findings
+
+* **The endowment ledger was reported as computed and is not, at two cells.**
+  `DESIGN.md` §1 files every endowment row under deterministic computation and
+  §8 says every row is computed by the same code in each column; the record's
+  own summary called the block a computed report.  In fact the whole
+  `declarations_at_genesis` row is three prose lists, one per column, and the
+  CONTROL cell of `coordinates the genesis declaration fixes` is a typed zero
+  beside two computed reading cells.  This is the guard `DESIGN.md` §12 names
+  against the hazard of a control crippled by starting with less, so a
+  declaration inside it reading as a measurement is the worst place for one.
+  Every row now carries a `declared_columns` field, total over the ledger, the
+  two rows with a declared column are listed under `rows_with_a_declared_column`
+  and each carries its reason, and the summary sentence says which cells the
+  same code computed — the instrument `comparison.py` already uses to keep a
+  `Declared` cell apart from a `Computed` one.  The frozen file is not edited:
+  the correction is a sixth scoring note in `STATUS.md`, beside P22, whose one
+  declared cell of twelve is no longer counted as content, and beside
+  SF-FAIRNESS-SIGN in the ledger.  Reason: a fairness report whose declarations
+  are indistinguishable from its measurements cannot do the job it is named for.
+
+* **`STATUS.md` said the ledger names AND prices every mismatching row.**  Six
+  rows mismatch, one carries `price_if_bought`, and the prose explains two.  The
+  claim originates in the frozen `DESIGN.md` §8 — "named and priced, not
+  smoothed" — and had been copied forward into a live document, which is the
+  defect the entry of 2026-09-05 above records for P4.  Rather than soften the
+  sentence alone, the record is made to bear it: the priced and the unpriced
+  mismatching rows are reported as two computed lists whose union is the six and
+  whose intersection is empty, so a reader can check the claim instead of taking
+  it.  The `STATUS.md` sentence and the ledger's own summary now say only that.
+  Reason: a claim copied from a frozen file is still this tree's claim once a
+  live document repeats it.
+
+* **R40's two boundary cells are computed here and were presented as pinned.**
+  Every other row's boundary cell resolves through the pin and is held by gate
+  C1's totality count; R40's two are minima of the restricted second measure,
+  which no pinned path carries, so they are computed on this tree's own mirror
+  and read out of this tree's record.  `STATUS.md` and the ledger's SF-NO-HAND-TYPED-BOUNDARY-NUMBER both disclose
+  this and the rendered price list disclosed it nowhere, while R40 is counted
+  among the items where the control reaches the unnamed reading's value at its
+  price.  The row now carries a note saying the cells are
+  mirror minima, that the totality gate does not reach them and never counted
+  them, and that what holds them instead is the per-point data join
+  `second_measures.data_join_against_the_pin`.  No value moves and no count
+  moves.  Reason: a value produced locally and shown as if it came from the
+  authoritative source is the failure this whole tree is built to avoid.
+
+* **The same defect in the table of which minima read a side.**  Its first
+  column was headed `world` and read "the pinned world" for the pinned rows,
+  while the behavioural verdict beside it is computed on this tree's mirror over
+  that mirror's route-census domain — the pinned world's kernel is not run here
+  and no pinned path carries a placement verdict.  The header is now `whose
+  minimum`, which is what the column actually says; the two criterion columns
+  are headed with where each is evaluated; and the record carries a
+  `where_each_criterion_is_evaluated` sentence that the document renders above
+  the table.  Reason: as R40, and it is the same failure one table lower.
+
+* **A frozen-file correction was recorded in three places and not in the
+  fourth.**  The entry above on the collapse map's one-class justification
+  repaired R47, the record's copy and the `Collapsed` resolver, and did not say
+  where the unscoped sentence came from.  It comes from the frozen `DESIGN.md`
+  §7.  That half is what the tree's other four frozen-file corrections record,
+  and the entry now records it too.  Reason: the corrections are only a series
+  if each one names the frozen text it corrects.
+
+* **Receipts recomputed, never patched.**  `receipts/side_free.json` moves from
+  542418 to 543976 bytes: the per-row `declared_columns` fields, the two price
+  lists, the declared-cell census and its reasons, and the narrowed summary
+  sentence.  `receipts/comparison.json` moves from 130322 to 131468 bytes and
+  `COMPARISON.md` from 28385 to 29546, carrying R40's note and the
+  minima-table disclosure.  Both come back byte-identical on a second
+  regeneration.  No decided value, no count and no verdict moves.  The suite
+  stays at 325 tests: the registered CI step pins that number and this pass may
+  not touch the workflow, so the new assertions were added to the endowment
+  test already present rather than as a test of their own, and the reason is
+  written in its docstring.  The battery transcript in `STATUS.md` is re-pasted
+  from a fresh run at this commit.

@@ -1884,6 +1884,16 @@
       "renamings_at_the_retained_regime",
       "invariant_and_separating_mark_properties_at_base"
     ],
+    "mismatching_rows_with_a_stated_price": [
+      "coordinates_the_genesis_declaration_fixes"
+    ],
+    "mismatching_rows_with_no_stated_price": [
+      "declarations_at_genesis",
+      "judgment_forms",
+      "judgments_holding_at_genesis",
+      "renamings_at_the_retained_regime",
+      "invariant_and_separating_mark_properties_at_base"
+    ],
     "named_mismatches": [
       "the control has one renaming generator fewer than the unnamed reading: the side exchange has no side-free statement",
       "the named reading holds two judgments at genesis that the control cannot hold, and that mismatch is UNMATCHABLE: a container exists before its contents, an order does not"
@@ -1891,6 +1901,11 @@
     "rows": [
       {
         "control": [],
+        "declared_columns": [
+          "control",
+          "unnamed",
+          "named"
+        ],
         "named": [
           "one whole with two sides",
           "the two sides carry admitted names"
@@ -1902,6 +1917,9 @@
       },
       {
         "control": 0,
+        "declared_columns": [
+          "control"
+        ],
         "named": 2,
         "price_if_bought": 2,
         "row": "coordinates_the_genesis_declaration_fixes",
@@ -1911,6 +1929,7 @@
         "control": [
           "Admitted"
         ],
+        "declared_columns": [],
         "named": [
           "OnSide",
           "SideNamed"
@@ -1922,6 +1941,7 @@
       },
       {
         "control": 0,
+        "declared_columns": [],
         "named": 2,
         "row": "judgments_holding_at_genesis",
         "unnamed": 0
@@ -1931,6 +1951,7 @@
           "automorphism_order": 2,
           "generators": 1
         },
+        "declared_columns": [],
         "named": {
           "automorphism_order": 1,
           "generators": 1
@@ -1943,6 +1964,7 @@
       },
       {
         "control": [],
+        "declared_columns": [],
         "named": [
           "on_side_0",
           "on_side_1"
@@ -1955,6 +1977,7 @@
           "label_internally_available": false,
           "order_internally_available": false
         },
+        "declared_columns": [],
         "named": {
           "label_internally_available": false,
           "order_internally_available": false
@@ -1966,7 +1989,15 @@
         }
       }
     ],
-    "status": "a computed report, not a fairness proof.  Mismatching rows are NAMED and priced, never smoothed"
+    "rows_with_a_declared_column": [
+      "declarations_at_genesis",
+      "coordinates_the_genesis_declaration_fixes"
+    ],
+    "status": "a report, not a fairness proof, computed by the same code in each column at every cell no row flags as declared.  Mismatching rows are NAMED and never smoothed; a price is stated for the rows this tree computes one for and for no others, and both lists are here",
+    "why_the_declared_cells_are_declared": {
+      "coordinates_the_genesis_declaration_fixes": "the two reading columns are computed against the carrier's inherited defaults; this control has no reading level to declare at, so its zero is the statement that there is nothing here to compute and is not the outcome of a comparison",
+      "declarations_at_genesis": "what a carrier declares at genesis is prose in all three columns: nothing in either carrier enumerates its own genesis declaration, so the three cells are statements ABOUT the carriers and not readings taken off them"
+    }
   },
   "gates": {
     "G1": {

@@ -103,14 +103,14 @@ content either.
 | P19 | NOT FORCED | the residue judgment separates nothing | HIT |
 | P20 | NOT FORCED | G4 agrees on all fourteen rows | HIT |
 | P21 | NOT FORCED | the mirror reproduces the pinned vector | HIT |
-| P22 | NOT FORCED | the four numeric endowment rows | HIT |
+| P22 | NOT FORCED | the four numeric endowment rows | HIT; one of its twelve cells is a declaration of this tree and not a measurement, see the note below |
 | P23 | NOT FORCED | the shared policy retains one mark; the subject is refused | HIT |
 | P24 | NOT FORCED in the frozen file; FORCED in fact, see the note | key-choice invariance at all eight points | HIT, and not counted as content |
 | P25 | NOT FORCED | the secondary flips to NO_SATISFYING_CANDIDATE | HIT |
 | P26 | NOT FORCED | the decided value is NOTHING_IN_COST | HIT |
 | P27 | FORCED | the terminal sentence keeps its scope clause | HIT |
 
-**Five notes on the scoring, recorded because a clean sweep invites suspicion.**
+**Six notes on the scoring, recorded because a clean sweep invites suspicion.**
 
 * P17 and P18 depend on the declared census domain and its declared iteration
   order, both fixed in `DESIGN.md` §11 before any code existed.  They are hits
@@ -179,6 +179,27 @@ content either.
   remains a HIT.  `DESIGN.md` §11 declares the check under the same mislabel
   and is frozen, so the correction is recorded here and beside
   SF-FORGETFUL-LEMMA in the ledger, as P24's and P27's are.
+* **Two cells of the endowment ledger are DECLARED by this tree and not
+  computed, and P22 scores one of them.**  `DESIGN.md` §1 files every
+  endowment row under deterministic computation, and §8 says every row is
+  computed by the same code in each column.  That is true of five of the seven
+  rows and of nine of P22's twelve cells, and false of two cells.  The whole
+  `declarations_at_genesis` row is three prose lists — nothing in either
+  carrier enumerates its own genesis declaration, so those three cells are
+  statements ABOUT the carriers and not readings taken off them — and the
+  CONTROL cell of `coordinates the genesis declaration fixes` is a typed zero,
+  because this control has no reading level to declare at and so has nothing
+  to compare against its inherited defaults, while the two reading cells
+  beside it really are computed.  Both are now flagged in the record itself:
+  every ledger row carries a `declared_columns` field, the two rows with a
+  declared column are listed under `rows_with_a_declared_column`, and each
+  says why — the instrument `comparison.py` already uses to keep a `Declared`
+  cell apart from a `Computed` one, so that a typed-in value is not read as a
+  measurement.  One of P22's twelve cells, the control zero in its first row,
+  is therefore an agreement true by unfolding a declaration; the other eleven
+  are computed, and the hit stands on them.  The frozen file is not edited and
+  the correction lives here and beside SF-FAIRNESS-SIGN in the ledger, as
+  P17's and P24's do.
 
 ## The price list
 
@@ -297,14 +318,16 @@ Two findings the price list adds that the control alone did not carry.
 
 The receipt carries, and the tests hold, all of the following: the full route
 table with its one disagreement; the two unmatched pinned routes with their
-removal arguments; the endowment ledger with every mismatching row named and
-priced, including the two that are UNMATCHABLE; both censuses; the deletion
-register with its 69 deleted and 36 narrowed names; the two identity policies
-replayed, with the shared one reported as a REFUSAL OF THE SUBJECT and never
-as a false; the removed refusal and its computed consequence; `mu2` per carrier
-with its non-comparability declared in the same object as the numbers, and no
-cross-world `mu2` difference field anywhere; `mu2_restricted` on both sides,
-the pinned side by data join from the receipt; the key-choice invariance table;
+removal arguments; the endowment ledger with every mismatching row named, the
+one row this tree computes a price for carrying that price and the other five
+listed by name as carrying none, and the mismatch the ledger calls UNMATCHABLE
+named as such; both censuses; the deletion register with its 69 deleted and 36
+narrowed names; the two identity policies replayed, with the shared one
+reported as a REFUSAL OF THE SUBJECT and never as a false; the removed refusal
+and its computed consequence; `mu2` per carrier with its non-comparability
+declared in the same object as the numbers, and no cross-world `mu2`
+difference field anywhere; `mu2_restricted` on both sides, the pinned side by
+data join from the receipt; the key-choice invariance table;
 and the declared secondary computation, which flips the answer to
 `NO_SATISFYING_CANDIDATE` and never decides.
 
@@ -319,8 +342,8 @@ re-run rather than to re-type.
 325 tests, OK
 line 100.00% branch 100.00% over 9 files
 mypy: Success: no issues found in 24 source files
-receipt ok: 542418 bytes, byte-identical
-comparison ok: 130322 receipt bytes and 28385 document bytes, byte-identical
+receipt ok: 543976 bytes, byte-identical
+comparison ok: 131468 receipt bytes and 29546 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
 pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
          4 vendored receipt(s), 91 declared value(s), 2 receipt(s)

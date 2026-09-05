@@ -849,11 +849,37 @@ UNMATCHED_PINNED_ROUTES: tuple[Json, ...] = (
 
 
 # ---------------------------------------------------------------------------
-# The endowment ledger: a computed report, not a fairness proof
+# The endowment ledger: a report, not a fairness proof, and computed except
+# at the cells each row flags as declared
 # ---------------------------------------------------------------------------
 
 CONTROL_GENERATOR_KEYS: tuple[str, ...] = ("mark_permutations",)
 MIRROR_GENERATOR_KEYS: tuple[str, ...] = ("side_exchange", "mark_permutations")
+
+# The endowment cells this module DECLARES rather than computes, kept apart
+# from the computed ones exactly as ``comparison.py`` keeps ``Declared`` apart
+# from ``Computed``: a typed-in value must not be read as a measurement.  The
+# map is total over the ledger -- a row absent from it has no declared column
+# -- and every row carries the answer in its own ``declared_columns`` field.
+DECLARED_ENDOWMENT_CELLS: dict[str, tuple[str, ...]] = {
+    "declarations_at_genesis": ("control", "unnamed", "named"),
+    "coordinates_the_genesis_declaration_fixes": ("control",),
+}
+
+WHY_ENDOWMENT_CELLS_ARE_DECLARED: dict[str, str] = {
+    "declarations_at_genesis": (
+        "what a carrier declares at genesis is prose in all three columns: "
+        "nothing in either carrier enumerates its own genesis declaration, so "
+        "the three cells are statements ABOUT the carriers and not readings "
+        "taken off them"
+    ),
+    "coordinates_the_genesis_declaration_fixes": (
+        "the two reading columns are computed against the carrier's inherited "
+        "defaults; this control has no reading level to declare at, so its "
+        "zero is the statement that there is nothing here to compute and is "
+        "not the outcome of a comparison"
+    ),
+}
 
 
 def generators(base_row: Json, keys: Sequence[str]) -> int:
@@ -1003,14 +1029,33 @@ def endowment_ledger(rows: Sequence[Json], mrows: dict[str, list[Json]]) -> Json
             "named": facts_at_base(o_base),
         },
     ]
+    for entry in ledger:
+        entry["declared_columns"] = list(
+            DECLARED_ENDOWMENT_CELLS.get(str(entry["row"]), ())
+        )
     mismatching = [
         str(entry["row"])
         for entry in ledger
         if not (entry["control"] == entry["unnamed"] == entry["named"])
     ]
+    priced = [
+        str(entry["row"])
+        for entry in ledger
+        if str(entry["row"]) in mismatching and "price_if_bought" in entry
+    ]
     return {
         "rows": ledger,
         "mismatching_rows": mismatching,
+        "mismatching_rows_with_a_stated_price": priced,
+        "mismatching_rows_with_no_stated_price": [
+            row for row in mismatching if row not in priced
+        ],
+        "rows_with_a_declared_column": [
+            str(entry["row"]) for entry in ledger if entry["declared_columns"]
+        ],
+        "why_the_declared_cells_are_declared": dict(
+            WHY_ENDOWMENT_CELLS_ARE_DECLARED
+        ),
         "named_mismatches": [
             "the control has one renaming generator fewer than the unnamed "
             "reading: the side exchange has no side-free statement",
@@ -1019,8 +1064,10 @@ def endowment_ledger(rows: Sequence[Json], mrows: dict[str, list[Json]]) -> Json
             "before its contents, an order does not",
         ],
         "status": (
-            "a computed report, not a fairness proof.  Mismatching rows are "
-            "NAMED and priced, never smoothed"
+            "a report, not a fairness proof, computed by the same code in each "
+            "column at every cell no row flags as declared.  Mismatching rows "
+            "are NAMED and never smoothed; a price is stated for the rows this "
+            "tree computes one for and for no others, and both lists are here"
         ),
     }
 

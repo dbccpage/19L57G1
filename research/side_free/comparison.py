@@ -625,6 +625,17 @@ def minima_reading_a_side(pinned: Mapping[int, Json], record: Json) -> Json:
             "route-census domain, and does not read it when the verdict is "
             "constant in every such group"
         ),
+        "where_each_criterion_is_evaluated": (
+            "the first column says whose minimum a row is and NOT where its "
+            "verdicts were taken.  The pinned rows' point names and capability "
+            "sentences are read from the pinned receipts, so the by-name "
+            "verdict is computed over pinned text.  The by-behaviour verdict "
+            "is computed for every row on a carrier of THIS TREE -- the mirror "
+            "for the pinned rows, the control for its own -- over that "
+            "carrier's own route-census domain.  No pinned path carries a "
+            "placement verdict and the pinned world's kernel is not run here, "
+            "so no cell of the last column is a reading off the pinned world"
+        ),
         "rows": rows,
         "the_two_criteria_disagree_on": sorted(
             {
@@ -1235,6 +1246,17 @@ def specs() -> list[Spec]:
             Receipt("second_measures.mirror_minima_by_mu2_restricted.U.minimum"),
             Receipt("second_measures.mirror_minima_by_mu2_restricted.O.minimum"),
             Receipt("second_measures.control_minima_by_mu2_restricted.minimum"),
+            note=(
+                "the ONLY row whose two boundary cells are not read from a "
+                "pinned path.  No pinned receipt carries a minimum of the "
+                "restricted measure, so both are minima computed on THIS "
+                "TREE'S OWN mirror carrier and read out of this tree's record.  "
+                "The totality gate over the declared pinned values therefore "
+                "does not reach them, and never counted them: what holds them "
+                "instead is the weaker per-point data join, "
+                "`second_measures.data_join_against_the_pin`, which joins 48 "
+                "rows per reading against the pin and reports its mismatches"
+            ),
         ),
         Spec(
             "R41",
@@ -2284,7 +2306,12 @@ def document(record: Json) -> bytes:
     add("")
     add(f"By behaviour: {minima['criterion_by_behaviour']}.")
     add("")
-    add("| world | reading | minimum | names a side | reads the placement |")
+    add(sentence(minima["where_each_criterion_is_evaluated"]) + ".")
+    add("")
+    add(
+        "| whose minimum | reading | minimum | names a side, over pinned text | "
+        "reads the placement, computed on a carrier of this tree |"
+    )
     add("|---|---|---|---|---|")
     for entry in as_list(minima["rows"]):
         row = as_dict(entry)

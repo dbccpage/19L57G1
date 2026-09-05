@@ -205,10 +205,43 @@ class DecidedObject(unittest.TestCase):
 
 class EndowmentAndCensus(unittest.TestCase):
     def test_the_ledger_names_its_mismatching_rows(self) -> None:
+        """Named, split into priced and unpriced, and flagged where declared.
+
+        The three belong in one test because the suite's size is pinned by the
+        registered CI step and moving it is a separate, deliberate act; the
+        assertions are what the ledger's own summary sentence now claims.
+        """
         ledger = RECORD["endowment_ledger"]
         self.assertIn("declarations_at_genesis", ledger["mismatching_rows"])
         self.assertIn("judgments_holding_at_genesis", ledger["mismatching_rows"])
         self.assertEqual(len(ledger["named_mismatches"]), 2)
+        flagged = {
+            str(row["row"]): list(row["declared_columns"])
+            for row in ledger["rows"]
+            if row["declared_columns"]
+        }
+        self.assertEqual(
+            flagged,
+            {
+                "declarations_at_genesis": ["control", "unnamed", "named"],
+                "coordinates_the_genesis_declaration_fixes": ["control"],
+            },
+        )
+        self.assertEqual(sorted(flagged), sorted(ledger["rows_with_a_declared_column"]))
+        self.assertEqual(
+            sorted(flagged), sorted(ledger["why_the_declared_cells_are_declared"])
+        )
+        priced = ledger["mismatching_rows_with_a_stated_price"]
+        unpriced = ledger["mismatching_rows_with_no_stated_price"]
+        self.assertEqual(priced, ["coordinates_the_genesis_declaration_fixes"])
+        self.assertEqual(sorted(priced + unpriced), sorted(ledger["mismatching_rows"]))
+        self.assertEqual(set(priced) & set(unpriced), set())
+        for row in ledger["rows"]:
+            has_price = "price_if_bought" in row
+            named = str(row["row"]) in priced
+            self.assertEqual(
+                named, has_price and str(row["row"]) in ledger["mismatching_rows"]
+            )
 
     def test_the_numeric_rows(self) -> None:
         by_row = RECORD["endowment_ledger"]["by_row"]
