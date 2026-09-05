@@ -51,9 +51,17 @@ from sidefree.requirement import separates
 # The two declared key choices.  ``arity`` keeps the number of admitted marks;
 # ``empty`` keeps nothing at all.  ``arity`` is declared because the pinned key
 # keeps a tuple whose length is the arity, so both worlds get the arity free.
-# That choice errs AGAINST this control -- the poorer key would give it fewer
-# distinctions -- and the receipt recomputes every verdict under both to show
-# the choice is not load-bearing.
+# Of these TWO, ``arity`` is the richer and ``empty`` the poorer, and a poorer
+# key gives fewer distinctions and so more automorphisms: within this pair the
+# declared choice is the more generous to this control, not the less.  What
+# errs against the control is the scope the frozen design states -- the arity
+# alone is the poorest DEFENSIBLE key, against richer keys that are outside
+# this pair and are not declared here.  Neither declared choice is
+# load-bearing, and that is DEFINITION-level rather than a computed finding:
+# ``rename_marks`` permutes indices and never changes ``n_marks``, so
+# ``serialize`` is constant across the images under either choice and both
+# admit the same automorphisms.  The receipt still recomputes every verdict
+# under both and reports the table.
 KEY_CHOICES: tuple[str, str] = ("arity", "empty")
 DECLARED_KEY_CHOICE = "arity"
 

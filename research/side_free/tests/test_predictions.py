@@ -231,14 +231,50 @@ class PinVerifier(unittest.TestCase):
         self.assertTrue(any("PASS" in n or "SKIPPED" in n for n in notes))
 
     def test_the_verifier_runs_clean_from_the_repository_root(self) -> None:
-        proc = subprocess.run(
-            [sys.executable, str(TREE / "verify_pins.py")],
-            cwd=TREE.parent.parent,
-            capture_output=True,
-            text=True,
+        """The branch this clone is actually in, never the one this machine is in.
+
+        The pinned commit sits on an unmerged branch, so a checkout that
+        fetches only remote refs cannot reach it.  The verifier already
+        reports that split -- hard by default, a reported SKIP under the flag
+        -- and an earlier version of this test asserted exit 0 in default mode
+        unconditionally, which fails in exactly that clone.  What is asserted
+        now is the reported split itself, as ``comparison.load_pinned``
+        already does for the vendored receipts.
+        """
+        root = TREE.parent.parent
+        manifest = json.loads(
+            (TREE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
-        self.assertIn("pins ok", proc.stdout)
+        commit = str(manifest["pinned_commit"])
+        reachable = (
+            subprocess.run(
+                ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+                cwd=root,
+                capture_output=True,
+            ).returncode
+            == 0
+        )
+
+        def run(*argv: str) -> "subprocess.CompletedProcess[str]":
+            return subprocess.run(
+                [sys.executable, str(TREE / "verify_pins.py"), *argv],
+                cwd=root,
+                capture_output=True,
+                text=True,
+            )
+
+        proc = run()
+        if reachable:
+            self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+            self.assertIn("pins ok", proc.stdout)
+            return
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn(f"the pinned commit {commit} is unreachable", proc.stdout)
+        downgraded = run("--allow-unreachable-pin")
+        self.assertEqual(
+            downgraded.returncode, 0, downgraded.stdout + downgraded.stderr
+        )
+        self.assertIn("pins ok", downgraded.stdout)
 
 
 if __name__ == "__main__":

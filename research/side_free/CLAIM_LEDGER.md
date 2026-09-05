@@ -60,6 +60,18 @@ never counted as content.
 * **Axiom report.**  All five: no axioms.
 * **Falsifier.**  A row whose regime is not its history's replay.
 * **Surviving boundary.**  None.
+* **Correction, recorded.**  `SideFree.replay_deterministic` previously stated
+  `replay base h = replay base h`.  That is reflexivity of an arbitrary
+  expression: it would elaborate against any definition whatever, so the
+  PROVED THEOREM status it was cited for was carried by its doc line and not
+  by its statement.  It is **restated** as the claim that has content — replay
+  is a function of the base and the ADMISSION subsequence alone, so deleting
+  every presentation event from a history leaves the replay unchanged, and two
+  histories with the same admissions in the same order reach the same regime.
+  Its name, its axiom report and the report count are unchanged.  The other
+  four theorems cited above always carried content; `DESIGN.md` §1's "that
+  replay is deterministic" is true of the restated theorem and was not true of
+  the old one.
 
 ### SF-REQUIREMENT-INHERITED
 
@@ -448,12 +460,23 @@ never counted as content.
 ### SF-DEPENDENCE-READ
 
 * **Statement.**  The pinned world's own dependence dictionary — 20 entries
-  across its four rungs, hand written in its runner modules and filed by its
-  own ledger as computed by nothing and read by no test — is READ here,
+  across its four rungs, hand written in its four challenge modules and filed
+  by its own ledger as computed by nothing, its bytes held by a test against
+  its own module constant and adjudicated by nothing — is READ here,
   classified mechanically by its sentences' own opening words with no entry
   left unclassified, and the one entry whose subject claims *every* separation
   result of its rung requires the admitted primitive is CONTRADICTED within
   the declared scope.
+* **Correction, recorded.**  An earlier version of this statement said the
+  dictionary was "hand written in its runner modules" and "read by no test".
+  Both halves are **WITHDRAWN**.  The constant is defined in the four challenge
+  modules, which the runners import; and a test of that tree asserts the
+  receipt's copy equals that module constant, so its bytes are pinned.  What
+  is exactly true is what the corrected wording now says: nothing COMPUTES the
+  dictionary — its own ledger files it as a classification reported and not
+  computed — and nothing ADJUDICATES it.  `DESIGN.md` is frozen and carries
+  the looser wording, so this correction is recorded here and in `STATUS.md`
+  rather than by editing it, as that file's own arithmetic error already is.
 * **Status.**  DETERMINISTIC COMPUTATION with a DECLARED selector.
 * **Depends on.**  SF-REFUTED-DEPENDENCE, SF-PRICE-LIST.
 * **Assumes.**  That the selector — DEPENDENT entries whose subject carries the
@@ -518,19 +541,34 @@ anything, and records this question as OPEN.  This control inherits it.
 
 ### SF-OPEN-E — the sibling record is not the same file in every clone
 
-**Opened by the price-list work, and not repaired.**
+**Opened by the price-list work.  The record still carries the environment
+value; what is repaired is the CI step that could not survive it.**
 `receipts/side_free.json` carries the pinned commit's reachability inside its
 own bytes at `gates.G1.commit_check`.  Observed rather than argued: with the
-commit made unreachable in process, a fresh computation returns 541041 bytes
-against the committed 541009, differing in exactly two lines — `status` PASS
-becomes SKIPPED and the reason line changes.  The pinned branch is carried by
-no remote, so a checkout that fetches only remote refs is exactly that clone,
-and the CI step that regenerates that record and then requires no diff would
-fail there.
+commit replaced in a temporary manifest by an unreachable one, a fresh
+computation differs from the committed record in exactly two lines — `status`
+PASS becomes SKIPPED, and the reason line changes — so it is not byte-identical
+to the committed 541191.  No byte count is quoted for that fresh record: its
+length depends on the substituted id and on git's own message, and the earlier
+figures 541041 against 541009 are superseded by this repair and by that
+dependence.  The pinned branch is carried by no remote, so a checkout that
+fetches only remote refs is exactly that clone.
 
-It is **not repaired** because `DESIGN.md` §11 declares that conditional check
-to be part of that record, and the frozen files are not edited to fit a later
-finding.  It is logged rather than smoothed, which is what this tree does with
-a defect it finds in itself.  `receipts/comparison.json` is built the other
-way and is covered by SF-COMPARISON-RECORD-IS-CLONE-INDEPENDENT.
+The record is **not repaired**, because `DESIGN.md` §11 declares that
+conditional check to be part of that record, and the frozen files are not
+edited to fit a later finding.  It is logged rather than smoothed, which is
+what this tree does with a defect it finds in itself.
+
+**The CI consequence IS repaired.**  An earlier version of this entry ended
+"and the CI step that regenerates that record and then requires no diff would
+fail there", and that step was registered in exactly that form — recording the
+defect did not stop the job going red on it.  The step now takes the same
+reachability split the pin verifier takes: the byte comparison is hard where
+the pinned commit is reachable, and where it is not the diff is PRINTED under
+a named SKIP.  **Residual, recorded and not closed:** in that clone drift in
+this record is visible in the log and is not gated by anything.  Make the
+comparison hard again when that branch merges.
+
+`receipts/comparison.json` is built the other way and is covered by
+SF-COMPARISON-RECORD-IS-CLONE-INDEPENDENT.
 **OPEN OBSTRUCTION.**

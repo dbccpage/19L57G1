@@ -423,6 +423,20 @@ jobs:
       # generated in this same fresh process and checked immediately, and the
       # test count is asserted so an enumeration that finds NOTHING cannot
       # pass as a green suite.
+      #
+      # The final byte comparison is CONDITIONAL, for the same reason the flag
+      # above is: receipts/side_free.json carries the pinned commit's
+      # reachability inside its own bytes, at gates.G1.commit_check, because
+      # the frozen design declares that conditional check to be part of that
+      # record.  Where the commit is unreachable -- which is exactly this
+      # checkout, until that branch merges -- a fresh run cannot reproduce the
+      # committed bytes, and requiring no diff would redden the job on a
+      # defect that is not in the code.  So the hard comparison runs where the
+      # commit is reachable, and where it is not the diff is PRINTED under a
+      # named SKIP rather than passed over silently.  Residual, recorded and
+      # not closed as SF-OPEN-E: in that clone drift in this record is visible
+      # in the log and is not gated.  Make it hard again when that branch
+      # merges.
       - name: Side-free control, tests, coverage, receipt, isolation
         working-directory: research/side_free
         run: |
@@ -434,7 +448,13 @@ jobs:
           python -m coverage json -q
           python check_coverage.py
           python run_side_free.py
-          git diff --exit-code -- receipts
+          commit="$(python -c "import json,pathlib;print(json.loads(pathlib.Path('SOURCE_MANIFEST.json').read_text(encoding='utf-8'))['pinned_commit'])")"
+          if git cat-file -e "$commit^{commit}" 2>/dev/null; then
+            git diff --exit-code -- receipts
+          else
+            echo "SKIPPED: the pinned commit $commit is unreachable in this clone, so gates.G1.commit_check reads SKIPPED and a fresh record cannot equal the committed one.  The diff follows and is NOT gated here -- residual SF-OPEN-E."
+            git --no-pager diff -- receipts
+          fi
       - name: Side-free control, strict typing
         working-directory: research/side_free
         run: python -m mypy

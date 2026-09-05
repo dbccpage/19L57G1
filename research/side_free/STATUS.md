@@ -70,7 +70,10 @@ is a further question this control does not answer.
 ## The frozen predictions, scored
 
 All 27 HIT; 0 MISS.  Four are labelled FORCED — fixed by a declaration of this
-tree and true by unfolding it — and their hits are not counted as content.
+tree and true by unfolding it — and their hits are not counted as content.  A
+fifth, P24, carries the label `NOT FORCED` in the frozen file and is FORCED in
+fact; the mislabel is recorded in the notes below and its hit is not counted as
+content either.
 
 | id | label | what it said | status |
 |---|---|---|---|
@@ -97,12 +100,12 @@ tree and true by unfolding it — and their hits are not counted as content.
 | P21 | NOT FORCED | the mirror reproduces the pinned vector | HIT |
 | P22 | NOT FORCED | the four numeric endowment rows | HIT |
 | P23 | NOT FORCED | the shared policy retains one mark; the subject is refused | HIT |
-| P24 | NOT FORCED | key-choice invariance at all eight points | HIT |
+| P24 | NOT FORCED in the frozen file; FORCED in fact, see the note | key-choice invariance at all eight points | HIT, and not counted as content |
 | P25 | NOT FORCED | the secondary flips to NO_SATISFYING_CANDIDATE | HIT |
 | P26 | NOT FORCED | the decided value is NOTHING_IN_COST | HIT |
 | P27 | FORCED | the terminal sentence keeps its scope clause | HIT |
 
-**Two notes on the scoring, recorded because a clean sweep invites suspicion.**
+**Three notes on the scoring, recorded because a clean sweep invites suspicion.**
 
 * P17 and P18 depend on the declared census domain and its declared iteration
   order, both fixed in `DESIGN.md` §11 before any code existed.  They are hits
@@ -118,6 +121,25 @@ tree and true by unfolding it — and their hits are not counted as content.
   `terminal.sentence` carries the scope clause and does not carry the
   forbidden phrase.  The weaker check is recorded here rather than passed off
   as the frozen one.
+* P24 is labelled `NOT FORCED` in the frozen file, and the label is **wrong**:
+  it is true by unfolding the declarations, so its hit is not content.  The
+  renaming function permutes indices and never changes the mark count, and the
+  two declared key choices return the mark count or the empty tuple; so at
+  every regime both choices are constant across the permuted images and admit
+  exactly the same automorphisms, and at the four points that keep the labels
+  the choice is not consulted at all.  The invariance table therefore cannot
+  disagree with itself, and a check that cannot fail is not backing.
+  `DESIGN.md` §12 cites it as backing for the guard against "order or index
+  quietly made free content"; what carries that guard is the rest of that
+  row — the admission index costs one capability here exactly as it does in
+  the pinned world, and both worlds get the arity free — and not this test.
+  The frozen file is not edited and the machine still reports the label the
+  frozen file gives, so the correction lives here, as P27's weaker check does.
+  The carrier module's comment on the same choice said it "errs AGAINST this
+  control"; within the only pair the module declares, the arity key is the
+  richer and so the more generous of the two, and that comment is reconciled
+  with the frozen design's own scope, which compares the arity key with richer
+  keys that this pair does not contain.
 
 ## The price list
 
@@ -160,6 +182,16 @@ Two findings the price list adds that the control alone did not carry.
   worlds, and it satisfies in both.  The selector is declared; the evidence
   under it is computed; the contradiction is of that one universal clause and
   of nothing else in the dictionary.
+* **Where that dictionary lives, corrected.**  This tree described it as "hand
+  written in its runner modules" and "read by no test", and both halves were
+  wrong.  The constant is defined in the pinned tree's four challenge modules,
+  which its runners import; and a test there asserts that the receipt's copy
+  equals the module constant, so its bytes are pinned.  What is exactly true —
+  and what this tree now says, in the record, in the rendered document and in
+  the ledger — is that nothing COMPUTES the dictionary, its own ledger filing
+  it as a classification reported and not computed, and that nothing
+  ADJUDICATES it.  `DESIGN.md` is frozen and carries the looser wording, so
+  the correction is recorded rather than edited into it.
 
 ## Residuals, open and not closed
 
@@ -190,20 +222,27 @@ Two findings the price list adds that the control alone did not carry.
   rungs 0 to 2, but the requirement and its price are still priced at one rung
   only, and the verdict says so.
 * **(e) `receipts/side_free.json` is not the same file in every clone.**
-  OPENED by the price-list work and **not repaired**.  That record carries the
-  pinned commit's reachability inside its own bytes, at
-  `gates.G1.commit_check`.  Observed rather than argued: with the commit made
-  unreachable in process, a fresh computation returns 541041 bytes against the
-  committed 541009, differing in exactly two lines — `status` PASS becomes
-  SKIPPED and the reason line changes.  The pinned branch is carried by no
-  remote, so a checkout that fetches only remote refs is exactly that clone,
-  and the CI step that regenerates the record and then requires no diff would
-  fail there.  It is not repaired because `DESIGN.md` §11 declares that
-  conditional check to be part of that record, and the frozen files are not
-  edited to fit a later finding.  `receipts/comparison.json` is built the
-  other way — its rows are held by sha256 alone and the reachability report is
-  printed by the runner — and a test proves it comes back byte for byte with
-  every `git show` made to fail.
+  OPENED by the price-list work.  The record still carries the pinned commit's
+  reachability inside its own bytes, at `gates.G1.commit_check`.  Observed
+  rather than argued: with the commit replaced in a temporary manifest by an
+  unreachable one, a fresh computation differs from the committed record in
+  exactly two lines — `status` PASS becomes SKIPPED, and the reason line
+  changes — so it is not byte-identical to the committed 541191.  No byte
+  count is quoted for that fresh record: its length depends on the substituted
+  id and on git's own message.  The pinned branch is carried by no remote, so
+  a checkout that fetches only remote refs is exactly that clone.  The record
+  is **not repaired**, because `DESIGN.md` §11 declares that conditional check
+  to be part of that record, and the frozen files are not edited to fit a
+  later finding.  What IS repaired is the CI step: it required no diff after a
+  fresh run, which is a red job in that clone on a defect that is not in the
+  code, and recording the defect had not stopped it being registered in that
+  form.  The comparison is now hard where the pinned commit is reachable and,
+  where it is not, the diff is printed under a named SKIP — so in that clone
+  drift in this record is visible and is not gated, which is the residual that
+  stays open.  `receipts/comparison.json` is built the other way — its rows are
+  held by sha256 alone and the reachability report is printed by the runner —
+  and a test proves it comes back byte for byte with every `git show` made to
+  fail.
 * **The dependence adjudication is one clause wide.**  The selector that picks
   the universal claim is DECLARED; only the evidence under it is computed.
   The other 19 entries of the pinned dictionary are reproduced and classified,
@@ -226,13 +265,18 @@ and the declared secondary computation, which flips the answer to
 
 ## Local battery, all green
 
+Re-pasted from a fresh run of the battery at this commit.  An earlier version
+of this block quoted comparison byte counts no committed file had and a pins
+line with one field missing; both were stale on arrival, and the fix is to
+re-run rather than to re-type.
+
 ```
 321 tests, OK
 line 100.00% branch 100.00% over 9 files
 mypy: Success: no issues found in 23 source files
-receipt ok: 541009 bytes, byte-identical
-comparison ok: 119420 receipt bytes and 25776 document bytes, byte-identical
-lean ok: 35 axiom reports within ['Quot.sound', 'propext']
+receipt ok: 541191 bytes, byte-identical
+comparison ok: 121113 receipt bytes and 26855 document bytes, byte-identical
+lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
 pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
-         4 vendored receipt(s), 91 declared value(s)
+         4 vendored receipt(s), 91 declared value(s), 2 receipt(s)
 ```

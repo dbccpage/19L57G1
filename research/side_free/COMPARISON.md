@@ -101,6 +101,8 @@ A row is in BOUGHT_NOTHING exactly when the control reaches the same value at th
 
 * **R32.** Plurality is its own column and is NEVER summed with price: two worlds can pay the same and reach a different number of routes.
 * **R34.** The unnamed column is the pinned point list with the declared collapse map applied, so one control point stands against one pinned class and the join is like for like.
+* **R36.** The map joins by NAME in both reading columns, but its one-class justification is a fact of the unnamed reading only: there the two pinned further-mark points carry one class key, while under the named reading they carry two different class keys and are two classes.  So the named column shows five names where that reading has six points, and the decision this table reports is taken against the unnamed reading.
+* **R38.** As R36: the map joins by name in both columns, its one-class justification holds under the unnamed reading only, and the named column therefore shows five names where that reading has six satisfying points.
 * **R39.** The two lists are not the same length, so the second measure counted over them is NOT comparable across the worlds and is never differenced.  The restricted measure below is.
 
 ### the prices each world states
@@ -118,7 +120,7 @@ A row is in BOUGHT_NOTHING exactly when the control reaches the same value at th
 * **R44.** The pinned world flags this field as declared and not computed, in its own receipt; the control column is the computed member list of its minimum, and the two are not the same kind of thing.
 * **R45.** Declared and not computed on the pinned side, by its own flag.
 * **R46.** The control's three are the pinned five minus the two whose pinned capability sentence names a side; the three that transfer carry their pinned sentences byte for byte.
-* **R47.** The single value-set change of the whole deletion, read from the pin: the two pinned further-mark points carry one class key and stand as the two members of one retained class.
+* **R47.** The single value-set change of the whole deletion, read from the pin.  Under the UNNAMED reading the two pinned further-mark points carry one class key and stand as the two members of one retained class; under the NAMED reading they carry two different class keys and are two classes, so the one-class sentence is scoped to the unnamed reading and is not a fact of both.
 
 ## What the admitted boundary bought, what it cost, what depends on it
 
@@ -201,7 +203,7 @@ The two criteria disagree on: `["base", "extra_mark_0", "extra_mark_1"]`.
 
 ## The pinned world's own dependence claims, read
 
-The pinned world's own claims about which of its results need the admitted primitive, hand written in its runner modules and filed by its own ledger as computed by nothing and read by no test.
+The pinned world's own claims about which of its results need the admitted primitive, hand written in its four challenge modules and filed by its own ledger as computed by nothing.  A test there pins each dictionary against its own module constant, so its bytes are held while nothing adjudicates its claims.
 
 Entries: 20.  By class: `{"DEPENDENT": 5, "INDEPENDENT": 14, "MIXED": 1, "UNCLASSIFIED": 0}`.
 

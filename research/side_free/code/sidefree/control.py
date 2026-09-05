@@ -1684,9 +1684,30 @@ PREDICTIONS: tuple[Prediction, ...] = (
         "P14",
         False,
         "is `false` at every one of the eight points",
+        # Both facts at ALL EIGHT points, because that is the population
+        # the frozen sentence quantifies over.  Four sampled clauses stood
+        # here and would have scored HIT with a violation at any of the
+        # twelve unchecked places; P9 pins the point count at eight, so
+        # these sixteen are total over it.
         (
             Clause(
-                "control.summary.base.collateral_facts.order_internally_available",
+                "control.summary.base.collateral_facts."
+                "order_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.extra_mark.collateral_facts."
+                "order_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.keep_labels.collateral_facts."
+                "order_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.keep_labels+extra_mark.collateral_facts."
+                "order_internally_available",
                 False,
             ),
             Clause(
@@ -1695,13 +1716,59 @@ PREDICTIONS: tuple[Prediction, ...] = (
                 False,
             ),
             Clause(
+                "control.summary.withdraw_mark_permutations+extra_mark.collateral_facts."
+                "order_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.withdraw_mark_permutations+keep_labels.collateral_facts."
+                "order_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.withdraw_mark_permutations+keep_labels+extra_mark.collateral_facts."
+                "order_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.base.collateral_facts."
+                "label_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.extra_mark.collateral_facts."
+                "label_internally_available",
+                False,
+            ),
+            Clause(
                 "control.summary.keep_labels.collateral_facts."
                 "label_internally_available",
                 True,
             ),
             Clause(
-                "control.summary.base.collateral_facts.label_internally_available",
+                "control.summary.keep_labels+extra_mark.collateral_facts."
+                "label_internally_available",
+                True,
+            ),
+            Clause(
+                "control.summary.withdraw_mark_permutations.collateral_facts."
+                "label_internally_available",
                 False,
+            ),
+            Clause(
+                "control.summary.withdraw_mark_permutations+extra_mark.collateral_facts."
+                "label_internally_available",
+                False,
+            ),
+            Clause(
+                "control.summary.withdraw_mark_permutations+keep_labels.collateral_facts."
+                "label_internally_available",
+                True,
+            ),
+            Clause(
+                "control.summary.withdraw_mark_permutations+keep_labels+extra_mark.collateral_facts."
+                "label_internally_available",
+                True,
             ),
         ),
     ),
@@ -2112,9 +2179,12 @@ def decide() -> Json:
                 "note": (
                     "the SINGLE value-set change of the whole deletion, "
                     "flagged because it is the one place a second deletion "
-                    "could hide.  Read from the pin, not asserted: the two "
-                    "pinned further-mark points carry one class key and stand "
-                    "as the two members of one retained class"
+                    "could hide.  Read from the pin, not asserted, and SCOPED "
+                    "to the unnamed reading: there the two pinned further-mark "
+                    "points carry one class key and stand as the two members "
+                    "of one retained class.  Under the named reading they "
+                    "carry two different class keys and are two classes, so "
+                    "the one-class sentence is not a fact of both readings"
                 ),
             },
             "deletion_criterion": ctl.DELETION_CRITERION,

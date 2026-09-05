@@ -2,6 +2,8 @@
 
 Everything here is metatheoretic apparatus — how to drive this tree and what
 each of its gates is worth.  Nothing here is an object-language input.
+Material changes, each with its reason, are recorded newest-last in
+`change_log.md`; the two frozen files are never among them.
 
 ## Commands, from the repository root
 
@@ -123,7 +125,13 @@ FAILS if the guard is removed.
   reason and the residual named.  **Residual, recorded and not closed:** in
   CI the link from the vendored bytes to that commit is not checked at all,
   and only the three digests — which need no git — hold.  Re-take the pin when
-  that branch merges.
+  that branch merges.  The suite asserts the SPLIT and not this machine's side
+  of it: where the commit is reachable the verifier must exit 0 with no flag,
+  and where it is not it must exit 1 naming the commit and then exit 0 under
+  the flag.  An earlier version of that test asserted exit 0 with no flag
+  unconditionally, which is a red job in exactly the clone the flag exists
+  for; it was undisclosed by any document here, which is why it is written
+  down now.
 * **The Lean package is a manual receipt.**  No CI job builds it, so its axiom
   report is unchecked by any gate.  Recorded as a live residual, not closed.
 * **Coverage is measured from inside the tree** and its report is untracked;
@@ -141,6 +149,15 @@ FAILS if the guard is removed.
   `receipts/side_free.json` is built the other way and does NOT have this
   property; that is recorded as an open item and is not repaired here, because
   the frozen design declares the conditional check to be part of that record.
+* **That sibling record's CI step takes the same split.**  It regenerates the
+  record and then compares bytes — hard where the pinned commit is reachable,
+  and where it is not the regenerated diff is PRINTED under a named SKIP.  It
+  previously required no diff unconditionally, which the record itself cannot
+  satisfy in a clone that cannot reach that commit, and the step was registered
+  in that form anyway.  **Residual, recorded and not closed (SF-OPEN-E):** in
+  that clone drift in this one record is visible in the job log and is gated by
+  nothing.  Make the comparison hard again when that branch merges — the same
+  act that drops `--allow-unreachable-pin` above.
 
 ## What injection does NOT prove
 

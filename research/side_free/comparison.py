@@ -7,8 +7,12 @@ number is typed into this file.
 
 What this module is for.  The pinned derivation's own claims about which of
 its results need the admitted primitive live in a hand-written dictionary in
-its runner modules, which its own ledger files as a limitation computed by
-nothing and read by no test.  This module reads that dictionary, and it
+its four challenge modules, which its own ledger files as a limitation that
+nothing computes.  A test there pins each dictionary against its own module
+constant, so its BYTES are held while nothing adjudicates its claims.  An
+earlier version of this sentence said the dictionary lived in the runner
+modules and was read by no test; both halves were wrong and are withdrawn.
+This module reads that dictionary, and it
 prices, row by row, what the two worlds can say at each of the pinned rungs
 and what each says it costs.
 
@@ -259,10 +263,15 @@ class Count:
 class Collapsed:
     """A pinned list of point names under the declared collapse map.
 
-    The two pinned further-mark points carry one class key and stand as the
-    two members of one retained class, so the map takes both to the one
-    control point and the cross-world join is like for like.  The map is
-    declared in ``pinned/BOUNDARY_PIN.json`` and applied here, never by eye.
+    The map takes both pinned further-mark point NAMES to the one control
+    point, so the cross-world join is by equality of names.  Its one-class
+    justification is a fact of the UNNAMED reading alone: there the two
+    points carry one class key and stand as the two members of one retained
+    class.  Under the NAMED reading they carry two different class keys and
+    are two classes, so a named column resolved under this map shows one name
+    fewer than that reading has points, and the rows that use it say so.  The
+    map is declared in ``pinned/BOUNDARY_PIN.json`` and applied here, never
+    by eye.
     """
 
     inner: Pin
@@ -609,7 +618,8 @@ def dependence_block(pinned: Mapping[int, Json], record: Json) -> Json:
     """Enumerate the pinned dependence claims and classify them mechanically.
 
     The pinned tree's own ledger files this dictionary as a limitation
-    computed by nothing and read by no test.  It is read here.  What is
+    computed by nothing; a test there holds its bytes against its own module
+    constant, and nothing adjudicates it.  It is read here.  What is
     adjudicated is not each sentence -- these are prose -- but the one entry
     the mechanical selector below picks out, against computed evidence.
     """
@@ -646,8 +656,10 @@ def dependence_block(pinned: Mapping[int, Json], record: Json) -> Json:
     return {
         "what_it_is": (
             "the pinned world's own claims about which of its results need the "
-            "admitted primitive, hand written in its runner modules and filed by "
-            "its own ledger as computed by nothing and read by no test"
+            "admitted primitive, hand written in its four challenge modules and "
+            "filed by its own ledger as computed by nothing.  A test there pins "
+            "each dictionary against its own module constant, so its bytes are "
+            "held while nothing adjudicates its claims"
         ),
         "entries": entries,
         "entry_count": len(entries),
@@ -1133,6 +1145,16 @@ def specs() -> list[Spec]:
             Collapsed(Pin(3, "readings.U.one_step_points")),
             Collapsed(Pin(3, "readings.O.one_step_points")),
             Computed("control_one_step_points"),
+            note=(
+                "the map joins by NAME in both reading columns, but its "
+                "one-class justification is a fact of the unnamed reading "
+                "only: there the two pinned further-mark points carry one "
+                "class key, while under the named reading they carry two "
+                "different class keys and are two classes.  So the named "
+                "column shows five names where that reading has six points, "
+                "and the decision this table reports is taken against the "
+                "unnamed reading"
+            ),
         ),
         Spec(
             "R37",
@@ -1149,6 +1171,12 @@ def specs() -> list[Spec]:
             Collapsed(Pin(3, "readings.U.satisfying_one_step_points")),
             Collapsed(Pin(3, "readings.O.satisfying_one_step_points")),
             Computed("control_satisfying_one_step_points"),
+            note=(
+                "as R36: the map joins by name in both columns, its one-class "
+                "justification holds under the unnamed reading only, and the "
+                "named column therefore shows five names where that reading "
+                "has six satisfying points"
+            ),
         ),
         Spec(
             "R39",
@@ -1239,8 +1267,11 @@ def specs() -> list[Spec]:
             Receipt("candidate_space.extra_mark_values"),
             note=(
                 "the single value-set change of the whole deletion, read from the "
-                "pin: the two pinned further-mark points carry one class key and "
-                "stand as the two members of one retained class"
+                "pin.  Under the UNNAMED reading the two pinned further-mark "
+                "points carry one class key and stand as the two members of one "
+                "retained class; under the NAMED reading they carry two different "
+                "class keys and are two classes, so the one-class sentence is "
+                "scoped to the unnamed reading and is not a fact of both"
             ),
         ),
     ]

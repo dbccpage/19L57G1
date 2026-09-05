@@ -69,7 +69,7 @@
     "space_size": 8,
     "value_set_change": {
       "coordinate": "extra_mark",
-      "note": "the SINGLE value-set change of the whole deletion, flagged because it is the one place a second deletion could hide.  Read from the pin, not asserted: the two pinned further-mark points carry one class key and stand as the two members of one retained class"
+      "note": "the SINGLE value-set change of the whole deletion, flagged because it is the one place a second deletion could hide.  Read from the pin, not asserted, and SCOPED to the unnamed reading: there the two pinned further-mark points carry one class key and stand as the two members of one retained class.  Under the named reading they carry two different class keys and are two classes, so the one-class sentence is not a fact of both readings"
     }
   },
   "censuses": {
@@ -17838,7 +17838,7 @@
         "status": "HIT"
       },
       {
-        "clauses": 4,
+        "clauses": 16,
         "failures": [],
         "forced": false,
         "id": "P14",

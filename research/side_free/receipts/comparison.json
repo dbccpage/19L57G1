@@ -1587,7 +1587,7 @@
         "subject_claims_every_result_of_its_rung": true
       }
     ],
-    "what_it_is": "the pinned world's own claims about which of its results need the admitted primitive, hand written in its runner modules and filed by its own ledger as computed by nothing and read by no test"
+    "what_it_is": "the pinned world's own claims about which of its results need the admitted primitive, hand written in its four challenge modules and filed by its own ledger as computed by nothing.  A test there pins each dictionary against its own module constant, so its bytes are held while nothing adjudicates its claims"
   },
   "provenance": {
     "control_record": "receipts/side_free.json",
@@ -3129,6 +3129,7 @@
         "withdraw_mark_permutations",
         "withdraw_reflection"
       ],
+      "note": "the map joins by NAME in both reading columns, but its one-class justification is a fact of the unnamed reading only: there the two pinned further-mark points carry one class key, while under the named reading they carry two different class keys and are two classes.  So the named column shows five names where that reading has six points, and the decision this table reports is taken against the unnamed reading",
       "price": {
         "control": null,
         "control_equals_named": true,
@@ -3229,6 +3230,7 @@
         "withdraw_mark_permutations",
         "withdraw_reflection"
       ],
+      "note": "as R36: the map joins by name in both columns, its one-class justification holds under the unnamed reading only, and the named column therefore shows five names where that reading has six satisfying points",
       "price": {
         "control": null,
         "control_equals_named": true,
@@ -3674,7 +3676,7 @@
         "0",
         "1"
       ],
-      "note": "the single value-set change of the whole deletion, read from the pin: the two pinned further-mark points carry one class key and stand as the two members of one retained class",
+      "note": "the single value-set change of the whole deletion, read from the pin.  Under the UNNAMED reading the two pinned further-mark points carry one class key and stand as the two members of one retained class; under the NAMED reading they carry two different class keys and are two classes, so the one-class sentence is scoped to the unnamed reading and is not a fact of both",
       "price": {
         "control": null,
         "control_equals_named": true,

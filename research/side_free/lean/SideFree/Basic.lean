@@ -110,9 +110,24 @@ theorem admitMark_no_op (r : Regime) (t : String) (h : r.marks.contains t = true
 
 /-! ## Replay -/
 
-/-- Replay is deterministic: it is a function of the history and the base. -/
+/-- Replay is deterministic in the sense that has content: it is a function of
+the base and the ADMISSION subsequence alone.  Deleting every presentation
+event from a history leaves the replay unchanged, so two histories that carry
+the same admissions in the same order and differ only in how presentations are
+interleaved reach the same regime. -/
 theorem replay_deterministic (base : Regime) (h : List Event) :
-    replay base h = replay base h := rfl
+    replay base (h.filter Event.isAdmission) = replay base h := by
+  induction h generalizing base with
+  | nil => rfl
+  | cons e rest ih =>
+    cases e with
+    | supply t => simpa [List.filter, Event.isAdmission, replay, step] using ih base
+    | admitMark t =>
+        simpa [List.filter, Event.isAdmission, replay] using
+          ih (step base (.admitMark t))
+    | admitOccurrence t =>
+        simpa [List.filter, Event.isAdmission, replay] using
+          ih (step base (.admitOccurrence t))
 
 /-- Replay of a longer history is replay of the prefix, continued. -/
 theorem replay_append (base : Regime) (xs ys : List Event) :
