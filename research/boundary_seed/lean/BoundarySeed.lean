@@ -1,12 +1,14 @@
 import BoundarySeed.Basic
 import BoundarySeed.Challenge1
 import BoundarySeed.Challenge2
+import BoundarySeed.Challenge3
 
 /-!
 # The boundary derivation: root
 
-Challenges 0 and 1.  Every theorem below has a `#print axioms` line, and
-`verify_lean.py` compares the build log with the committed axiom log.
+Challenges 0 to 3.  Every theorem declared under `lean/BoundarySeed/` has a
+`#print axioms` line here, which `verify_lean.py` requires by name, and it
+compares the build log with the committed axiom log.
 -/
 
 #print axioms BoundarySeed.supply_no_op
@@ -93,3 +95,24 @@ Challenges 0 and 1.  Every theorem below has a `#print axioms` line, and
 #print axioms BoundarySeed.retained_reading
 #print axioms BoundarySeed.retained_initialDatum
 #print axioms BoundarySeed.no_event_follows_retained
+#print axioms BoundarySeed.composite_retained
+#print axioms BoundarySeed.exchangeFirstTwo_zero
+#print axioms BoundarySeed.exchangeFirstTwo_one
+#print axioms BoundarySeed.retained_U_requirement_fails
+#print axioms BoundarySeed.no_invariant_mark_property_separates_retained
+#print axioms BoundarySeed.mark_form_is_not_invariant_under_the_composite
+#print axioms BoundarySeed.countOn_nil
+#print axioms BoundarySeed.countOn_cons
+#print axioms BoundarySeed.countOn_map_not
+#print axioms BoundarySeed.countOn_perm
+#print axioms BoundarySeed.reflect_not_undone_by_renaming
+#print axioms BoundarySeed.retainedPlus_eq
+#print axioms BoundarySeed.retainedPlus_reading
+#print axioms BoundarySeed.retainedPlus_initialDatum
+#print axioms BoundarySeed.retainedPlus_placement
+#print axioms BoundarySeed.retained_placement
+#print axioms BoundarySeed.retainedPlus_counts_differ
+#print axioms BoundarySeed.retainedPlus_reflection_is_not_an_automorphism
+#print axioms BoundarySeed.retained_counts_equal
+#print axioms BoundarySeed.retainedPlus_judgments_survive
+#print axioms BoundarySeed.no_event_follows_retainedPlus

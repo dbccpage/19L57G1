@@ -905,8 +905,10 @@ Python receipt, bounded), LIMITATION, OPEN.
 ### B2-SHARED-MARK-REFUSED
 
 - **Statement**: With the Challenge 1 token-keyed admission event, the
-  caller's Challenge 2 history is refused by certifying replay, under both
-  readings and under both conventions, by the moving-admission refusal
+  caller's Challenge 2 history is refused under both readings and under both
+  conventions by the moving-admission refusal — raised by low-level `step`
+  and surfaced by certifying `replay`, which calls it, as section 1 of the
+  paper says and as this entry did not when it was written
   naming the side the mark is admitted on: that event keys the admitted
   mark by its presentation token, so the second whole names the first mark
   and asks for it on the other side.
@@ -999,9 +1001,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.retained_onSide_zero`, `BoundarySeed.retained_onSide_one`,
   `BoundarySeed.retained_onSide_beyond`,
   `BoundarySeed.retained_judgments_survive`,
-  `BoundarySeed.retained_sideNamed`.
+  `BoundarySeed.retained_sideNamed`, `BoundarySeed.retained_reading`,
+  `BoundarySeed.retained_initialDatum`.
 - **Axiom report**: propext, Quot.sound; propext; propext; propext;
-  propext; propext.
+  propext; propext; none; none.
 - **Falsifier**: a third new holding judgment, a changed name judgment, a
   changed datum or reading, or a Challenge 2 fact needing a new judgment
   form.
@@ -1105,9 +1108,20 @@ Python receipt, bounded), LIMITATION, OPEN.
   every hypothetical placement of at most three marks and every permitted
   image of each — 177 images — and it holds of the retained regime.  So it
   is an internal fact under both readings, and it is what the admitted
-  boundary alone buys about the two retained wholes; under U it buys
-  nothing further about them, and under O it buys, in addition, which of
-  them lies on which named side.
+  boundary alone buys about the two retained wholes; under O it buys, in
+  addition, which of them lies on which named side.  An earlier version
+  added “under U it buys nothing further about them”.  That is a totality
+  this rung does not compute — only one census property and the two declared
+  mark forms are checked, and the frozen falsifier scopes the clause to
+  facts that separate the two wholes — so it is **narrowed** to what is
+  computed: no declared mark form invariant under the permitted renamings of
+  U separates the two retained wholes, and no invariant fact separating them
+  was found.  Challenge 3 goes further in one direction only, and it is
+  recorded there rather than here: over its declared space of 48 points, no
+  candidate that changes the judgment grammar alone separates them, and no
+  property invariant under the composite can (Lean
+  `no_invariant_mark_property_separates_retained`).  That is still not a
+  totality over everything the boundary might buy.
 - **Status**: COMPUTED, bound three marks; PROVED for the concrete retained
   regime (`retained_marks_differ_in_side`).  Counted as content: score
   C2-7.  No unbounded theorem is claimed.
@@ -1222,4 +1236,390 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Lean theorem**: none yet.
 - **Axiom report**: not applicable.
 - **Falsifier**: as written in `challenge2/PREDICTIONS.md`.
+- **Surviving boundary**: not yet.
+
+### B3-REQUIREMENT
+
+- **Statement**: The Challenge 3 requirement, in the sense the run declares:
+  the two retained marks meet it under a reading exactly when no permitted
+  automorphism of the regime carries one to the other.  A second reading is
+  declared beside it — some property of a mark, invariant under every
+  permitted renaming, holds of one and not of the other — and the two agree,
+  by unfolding, at all 48 points of the declared space under each reading.
+  The witness for the second reading is membership in the first mark's
+  orbit, a property invariant by construction.
+- **Status**: DEFINITION (the sense, definition 38, and the agreement of its
+  two readings, definition 39, which is by unfolding); COMPUTED (that the
+  agreement holds at every enumerated point, and that the sense agrees with
+  the Challenge 2 notion at the current regime).  Not counted as content:
+  score C3-1 is HIT by construction.
+- **Dependencies**: definitions 23, 29, 32, 33, 37, 38, 39.
+- **Assumptions**: the caller's demand is read as a demand about the two
+  retained marks and not about the two supplied wholes as presentations; a
+  different sense was available and is not explored.
+- **Python evidence**: receipt `requirement`,
+  `readings.*.requirement_readings_agree_at_every_point`,
+  `readings.*.requirement_matches_the_challenge_2_notion`;
+  `test_the_orbit_witness_agrees_with_the_requirement_at_every_point`,
+  `test_the_orbit_is_the_separation_test`,
+  `test_c3_1_misses_when_the_two_readings_part`.
+- **Lean theorem**: none; the sense quantifies over the implemented renaming
+  relation, which is Python.
+- **Axiom report**: not applicable.
+- **Falsifier**: a point of the declared space at which the two readings of
+  the requirement disagree; or the declared sense disagreeing with the
+  Challenge 2 notion at the current regime.
+- **Surviving boundary**: Challenge 3 onward; the sense itself does not
+  require the admitted boundary.
+
+### B3-O-ALREADY-MET
+
+- **Statement**: Under O the current regime already meets the requirement,
+  and what meets it is the withdrawal of the side exchange from the
+  permitted renamings, which the O reading of the one admitted primitive
+  carries.  The two admitted names are **not** used: over the four-cell
+  counterfactual (names admitted or not) by (side exchange permitted or
+  not), the requirement is met in exactly the two cells where the exchange
+  is not permitted, under both readings.  The satisfaction uses the admitted
+  boundary, that withdrawal, and the Challenge 2 occurrence identity, and
+  nothing is paid at this rung: the minimum capability count under O is
+  zero, attained by the null augmentation alone.
+- **Status**: COMPUTED on the side-exchange coordinate (each cell is an
+  automorphism search over the unpruned enumeration, and both values are
+  attained); DEFINITION on the names coordinate (definition 16 makes
+  permission a declaration and not a consequence of the judgment grammar, so
+  the names cannot enter the computation, and the square exhibits that
+  rather than discovering it).  Counted as content: score C3-2.
+- **Dependencies**: definitions 2, 16, 23, 32, 37, 38, 46; B2-MARKS-O.
+- **Assumptions**: reading O; the retained regime of Challenge 2.
+- **Python evidence**: receipt `readings.*.counterfactual_square`,
+  `readings.O.price`, `readings.O.minima_by_mu1`;
+  `test_the_counterfactual_square_turns_on_the_exchange_alone`,
+  `test_the_minimum_under_O_is_the_null_augmentation_alone`,
+  `test_c3_2_misses_when_a_cell_of_the_square_turns`.
+- **Lean theorem**: none; the Lean model carries no candidate renaming set.
+- **Axiom report**: not applicable.
+- **Falsifier**: the O regime failing the requirement; the U regime meeting
+  it; any cell of the square coming out the other way; or a minimum
+  capability count under O other than zero.
+- **Surviving boundary**: the retained two-mark regime under O.  It narrows
+  B2-MARKS-O, which listed the side names among the capabilities the O
+  separation uses; the names are now recorded as not used.
+
+### B3-NO-JUDGMENT-ADDITION
+
+- **Statement**: Under U, while the composite of the side exchange with the
+  exchange of the two marks remains a permitted renaming, no addition of
+  judgment forms meets the requirement, whatever the forms: every property
+  of a mark that the composite leaves alone takes the same value at the two
+  retained marks.  Neither of the two mark forms is such a property, which
+  is why both separate the two marks as raw data and neither separates them
+  internally.
+- **Status**: PROVED, and quantified over an ARBITRARY property of a
+  `(Regime, Nat)` pair, so it is not a census over the declared space:
+  `no_invariant_mark_property_separates_retained`.  The countermodel that
+  keeps its hypothesis from being vacuous is
+  `mark_form_is_not_invariant_under_the_composite`.  COMPUTED beside them:
+  the concrete `admit_names` candidate fails, and no point of the declared
+  space that changes only the judgment grammar meets the requirement.
+  Counted as content: score C3-3.  This closes the Challenge 2 leftover that
+  recorded the statement as an argument and not a theorem.
+- **Dependencies**: definitions 8, 16, 29, 32, 33, 36, 38; B2-MARKS-U.
+- **Assumptions**: reading U at the retained regime; the composite is the
+  Challenge 2 one.
+- **Python evidence**: receipt
+  `readings.U.points_satisfying_with_grammar_change_only`,
+  `readings.U.one_step_detail`, `readings.U.base.invariant_mark_properties`;
+  `test_the_two_failing_one_step_candidates`,
+  `test_c3_3_misses_when_a_grammar_change_alone_would_satisfy`.
+- **Lean theorem**: `BoundarySeed.no_invariant_mark_property_separates_retained`,
+  `BoundarySeed.mark_form_is_not_invariant_under_the_composite`,
+  `BoundarySeed.composite_retained`,
+  `BoundarySeed.retained_U_requirement_fails`.
+- **Axiom report**: propext; propext, Quot.sound; propext; propext.
+- **Falsifier**: an addition of judgment forms that meets the requirement
+  with the composite still permitted; either mark form turning out invariant
+  under the composite; or a point of the declared space that meets it by a
+  grammar change alone.
+- **Surviving boundary**: every regime the composite carries onto itself,
+  which at this rung is the retained two-mark U regime.  The Lean statement
+  is about that regime; nothing is claimed for regimes the composite moves.
+
+### B3-CANDIDATE-SPACE
+
+- **Statement**: The declared candidate space has five coordinates —
+  withdraw the side exchange; withdraw the mark permutations; admit the two
+  side names; keep the presentation labels in the serialization; admit one
+  further mark, on side 0 or on side 1 — and 48 points under each reading.
+  A candidate is one step exactly when it moves one coordinate, which is
+  exactly when the number of undeclared capabilities it uses is one; a
+  candidate of count two or more bundles capabilities and is refused as a
+  one-step augmentation.  Forty-one of the 48 points are so refused, the
+  candidate that adopts reading O under U among them, at count two.
+- **Status**: DEFINITION (the coordinates, their values, the capability
+  named for each, and therefore the point count and the identity of one-step
+  with count one).  Not counted as content: score C3-4 is HIT by
+  construction.  The exhaustiveness is **over those five coordinates and
+  nothing wider**: an augmentation that changed the event grammar again,
+  that admitted more than one further mark in one step, that supplied a
+  datum the caller never presented, or that derived the permitted renamings
+  from the judgment grammar is outside the space, and every minimality
+  statement of this rung is scoped accordingly.
+- **Dependencies**: definitions 5, 8, 13, 14, 16, 37, 40, 41.
+- **Assumptions**: that one moved coordinate is one step is the run's
+  declaration and not a discovered notion.
+- **Python evidence**: receipt `candidate_space`,
+  `readings.*.one_step_iff_capability_count_one`,
+  `readings.*.bundles_refused_count`, `readings.*.reading_O_bundle`;
+  `test_the_space_is_the_product_of_its_declared_coordinates`,
+  `test_one_step_is_exactly_capability_count_one`,
+  `test_the_reading_O_bundle_is_refused_as_two_capabilities`,
+  `test_side_zero_is_a_moved_coordinate`,
+  `test_the_bundles_are_refused_and_counted`,
+  `test_c3_4_misses_on_a_different_space_or_a_free_bundle`.
+- **Lean theorem**: none; the candidate space is Python-only.
+- **Axiom report**: not applicable.
+- **Falsifier**: a point count other than 48; a one-step candidate whose
+  capability count is not one; the reading-O candidate costing other than
+  two; or a point the count and the one-step test classify differently.
+- **Surviving boundary**: Challenge 3 only.  A later rung that wants a wider
+  space must declare it and re-run the enumeration.
+
+### B3-THREE-MINIMA
+
+- **Statement**: Under U exactly four one-step points of the declared space
+  meet the requirement — withdraw the side exchange, withdraw the mark
+  permutations, and admit one further mark on either side — and under the
+  implemented class key they fall into exactly **three** classes, the two
+  further-mark points being one class because the side exchange still
+  carries one of their regimes to the other.  The minimum capability count
+  is one, all three classes attain it, all three are retained, and
+  uniqueness is refuted.  Under O the minimum is zero and the null
+  augmentation is the only class attaining it.
+- **Status**: COMPUTED, by exhaustive enumeration over the declared finite
+  candidate space: which points meet the requirement is a witness search at
+  each candidate's own renamings, and the class count is the implemented
+  quotient of definition 42.  Counted as content: score C3-5.  **The
+  non-uniqueness is scoped to the declared space** (B3-CANDIDATE-SPACE); it
+  is a refutation of uniqueness there and not a claim about every possible
+  augmentation.
+- **Dependencies**: definitions 15, 23, 32, 37, 38, 40, 41, 42.
+- **Assumptions**: reading U for the three; the class key is the effective
+  structure with the canonical key of the regime under that structure's own
+  renamings.
+- **Python evidence**: receipt `readings.U.satisfying_one_step_points`,
+  `readings.U.minima_by_mu1`, `readings.O.minima_by_mu1`;
+  `test_the_minima_under_U_are_three_tied_classes`,
+  `test_the_minimum_under_O_is_the_null_augmentation_alone`,
+  `test_the_class_key_is_the_structure_with_the_canonical_regime`,
+  `test_c3_5_misses_when_a_minimum_is_lost_or_uniqueness_appears`.
+- **Lean theorem**: none for the enumeration.  The third minimum's mechanism
+  is PROVED unboundedly as B3-COUNT-ARGUMENT.
+- **Axiom report**: not applicable.
+- **Falsifier**: a different set of satisfying one-step points; a different
+  class count; a proof that the minimum is unique inside the declared space;
+  or a minimum capability count other than one under U or zero under O.
+- **Surviving boundary**: the declared space at the retained two-mark
+  regime, under each reading separately.
+
+### B3-THREE-MECHANISMS
+
+- **Statement**: The three retained minima separate the two marks in three
+  different ways.  Withdrawing the side exchange makes both side properties
+  invariant and separating and leaves the two index properties
+  non-invariant; withdrawing the mark permutations does the reverse; and
+  admitting one further mark leaves none of the five declared mark
+  properties both invariant and separating, its witness being the orbit
+  property alone.  The property that reads the supplied label is invariant
+  under every candidate's renamings and separates nothing, both retained
+  marks carrying the same label.  **The second of the three meets the
+  requirement by unfolding**: with the mark permutations withdrawn no
+  permitted renaming moves an index at all.
+- **Status**: COMPUTED on the first and third mechanisms (the invariance of
+  each property is a census over the declared bounded domain at the
+  candidate's renamings, and the third minimum's empty row is what makes the
+  orbit witness necessary); **DEFINITION-level on the second**, which the
+  receipt reports separately as `no_permitted_renaming_moves_an_index`.
+  Counted as content: score C3-7, on the first and third rows.
+- **Dependencies**: definitions 34, 37, 39, 43; B3-THREE-MINIMA.
+- **Assumptions**: the five declared mark properties and the bounded domain
+  of at most three marks over two labels; a property outside that list could
+  behave differently and none is offered.
+- **Python evidence**: receipt `readings.U.one_step_detail`,
+  `mark_properties`, `property_domain_max_marks`;
+  `test_the_three_mechanisms`,
+  `test_property_invariance_is_a_census_and_reports_a_false`,
+  `test_property_separation_reads_the_two_retained_marks`,
+  `test_c3_7_misses_when_a_mechanism_row_moves`.
+- **Lean theorem**: `BoundarySeed.mark_form_is_not_invariant_under_the_composite`
+  for why neither side property is invariant at the base.
+- **Axiom report**: propext, Quot.sound.
+- **Falsifier**: any of the three mechanism rows differing; a declared
+  property turning out invariant and separating where the receipt says it is
+  not; or the second minimum's satisfaction resting on a computation rather
+  than on unfolding.
+- **Surviving boundary**: the declared property list and the declared bounded
+  domain.
+
+### B3-COUNT-ARGUMENT
+
+- **Statement**: A renaming of the marks preserves how many marks lie on
+  each side, and the side exchange exchanges those two counts; so at a
+  placement whose two sides carry different numbers of marks, no renaming of
+  the marks returns the reflected placement to the original.  After one
+  further mark the retained placement is such a placement.  At the retained
+  regime itself the two counts are equal, so the argument says nothing
+  there.
+- **Status**: PROVED, and unbounded in the renaming: the statement
+  quantifies over every permutation of the placement rather than over a
+  bounded enumeration.  It closes, in one direction and for this shape of
+  placement, half of the equal-count law the Challenge 0 census recorded as
+  a computation; the converse direction is not proved.
+- **Dependencies**: definitions 12, 13, 37; B3-THREE-MINIMA.
+- **Assumptions**: a renaming of the marks acts on the placement as a
+  permutation of that list.  That identification is the correspondence
+  between the Lean model and the Python `rename_marks`, and it is prose, not
+  a theorem: no Lean statement says that the Python relation and this one
+  agree.
+- **Python evidence**: receipt `readings.U.one_step_detail` rows
+  `extra_mark_0` and `extra_mark_1`;
+  `test_withdrawing_a_generator_shrinks_the_enumeration`.
+- **Lean theorem**: `BoundarySeed.countOn_map_not`,
+  `BoundarySeed.countOn_perm`, `BoundarySeed.reflect_not_undone_by_renaming`,
+  `BoundarySeed.retainedPlus_counts_differ`,
+  `BoundarySeed.retainedPlus_reflection_is_not_an_automorphism`,
+  `BoundarySeed.retained_counts_equal`.
+- **Axiom report**: none; none; none; none; none; none.
+- **Falsifier**: a permutation of a placement that changes a count; a
+  placement with unequal counts whose reflection some permutation returns;
+  or the retained placement having unequal counts.
+- **Surviving boundary**: every placement, for the general lemmas; the
+  three-mark placement `[false, true, s]` for the instance.
+
+### B3-TWO-MEASURES
+
+- **Statement**: The second declared cost measure, the collateral count, is
+  the number of five declared facts about the retained configuration that a
+  candidate makes internally available and the same reading's base did not,
+  the required separation itself excluded.  It is one at each of the three
+  U minima, so both declared measures select the same three classes at a
+  minimum of one; and the two measures differ in value at points of the
+  space, so neither is the other.
+- **Status**: COMPUTED (each collateral fact is an automorphism or
+  isomorphism-witness search at the candidate's own renamings, and the
+  difference of the two measures is a census over the 48 points).  Counted
+  as content: score C3-6.  **The measure is over five declared facts**, not
+  over everything a candidate makes available.
+- **Dependencies**: definitions 37, 40, 41, 44; B3-THREE-MINIMA.
+- **Assumptions**: the five declared facts; a sixth could break the tie and
+  none is offered.
+- **Python evidence**: receipt `measures`, `collateral_facts`,
+  `readings.*.minima_by_mu2`, `readings.*.measures_agree_on_minima`,
+  `readings.*.measures_differ_somewhere`;
+  `test_the_collateral_measure_counts_only_what_the_base_lacked`,
+  `test_the_two_measures_are_not_the_same_measure`,
+  `test_c3_6_misses_when_the_measures_part_or_coincide`.
+- **Lean theorem**: none; the measures are Python-only.
+- **Axiom report**: not applicable.
+- **Falsifier**: a minimum whose collateral count is not one; the two
+  measures selecting different minimum sets; or the two agreeing at every
+  point of the space.
+- **Surviving boundary**: the declared fact list and the declared space.
+
+### B3-PROCESS-ADMISSION
+
+- **Statement**: The further-mark candidate needs no supply of its own: the
+  token it admits is the one the caller already presented, and certifying
+  replay accepts the extended history, while a token the caller never
+  presented is refused by name.  Its one capability is therefore that the
+  process, and not only the caller, issues an event — which definition 25
+  does not license, the current state being the replay of the caller's
+  history.  No such event is in any history the receipt reports as current.
+- **Status**: COMPUTED (the acceptance and the refusal are runs of
+  certifying replay); DEFINITION (that the issuing of the event is the
+  capability, and that it costs one).
+- **Dependencies**: definitions 5, 6, 20, 25, 40, 45.
+- **Assumptions**: that a further mark carrying a token the caller never
+  presented would cost two capabilities rather than one is stated and not
+  enumerated: no such point is in the declared space.
+- **Python evidence**: receipt `readings.*.process_admission`;
+  `test_the_process_admission_needs_no_new_supply`,
+  `test_the_process_admission_facts`.
+- **Lean theorem**: none; the Lean model carries no token and no issuer, so
+  `retainedPlus` records only what follows once the mark is placed.
+- **Axiom report**: not applicable.
+- **Falsifier**: the extended history being refused; a token the caller
+  never presented being accepted; or a receipt history that contains a
+  process-issued event and is reported as current.
+- **Surviving boundary**: the further-mark coordinate; every later rung that
+  would let the process issue an event inherits this price.
+
+### B3-PLACEMENT-CHECK
+
+- **Statement**: Every candidate regime's placement equals the placement the
+  declared convention and the candidate's own side predict, computed from
+  the presented sides and the convention alone.  This is the one statement
+  about a candidate regime in the receipt that is not a comparison of a
+  replay with itself.
+- **Status**: COMPUTED.  It exists because review found that the receipt
+  keys `certified` and `replays_from_genesis`, cited at the previous rung as
+  evidence for the certified-and-replayed claim, are tautologies of their
+  own construction and cannot be false.  Those keys are kept, because a
+  reader wants to see them, and this key is added beside them; the other
+  non-tautological check is the test, which rebuilds the events from the
+  rendered receipt and replays them.
+- **Dependencies**: definitions 18, 19, 25, 40, 45.
+- **Assumptions**: the reader and the convention are the declared ones.
+- **Python evidence**: receipt
+  `readings.*.base.placement_matches_the_declared_convention` and the same
+  key on every one-step row;
+  `test_the_placement_is_checked_against_the_declared_convention`,
+  `test_every_candidate_history_replays_from_genesis`.
+- **Lean theorem**: none; the convention is Python-only.
+- **Axiom report**: not applicable.
+- **Falsifier**: a candidate regime whose placement differs from the one the
+  convention predicts.
+- **Surviving boundary**: the candidate regimes of this rung.
+
+### B3-BOUNDARY-DEPENDENCE
+
+- **Statement**: At Challenge 3 the declared sense and its second reading,
+  the identity of the candidate space, the capability counts, the one-step
+  rule, the refusal of bundles, the two index mark properties, and the
+  withdrawal of the mark permutations do not require the admitted boundary.
+  The side exchange, its withdrawal, the two side mark properties, the
+  counterfactual square, the further-mark minimum, and every separation
+  result of the rung require it and are not formulated after removing it.
+- **Status**: LIMITATION, a dependency classification of the run.  It is
+  reported in the receipt and is not computed by anything.
+- **Dependencies**: the seed's requirement to classify at every stage.
+- **Assumptions**: removing the boundary is a counterfactual classification
+  and not a third reading added to the model.
+- **Python evidence**: receipt `boundary_dependence`; `test_receipt_shape`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: as B0-BOUNDARY-DEPENDENCE.
+- **Surviving boundary**: Challenge 3 dependency classification.
+
+### B3-X
+
+- **Statement**: At Challenge 4 the declared reader bound of at most one
+  mark per whole will have to be widened to one mark on each side of the
+  bar, and that widening will be a new declaration priced like this rung's,
+  paid by the run.  The two wholes will become four admitted marks with
+  placement `(0, 1, 0, 1)` under the declared convention, so the two sides
+  will carry equally many marks and the composite of the side exchange with
+  a mark renaming will again be a permitted automorphism under U; the
+  requirement will fail again under U, with the same minimum count of one,
+  and hold again under O with no new declaration.  What the boundary
+  contributes will be the side each mark lies on, and what it cannot
+  contribute is the matching of a visible mark across the boundary.
+- **Status**: OPEN; the extrapolation of Challenge 3, scored by Challenge 4.
+- **Dependencies**: Challenge 4's reader bound, retained placement, and
+  declared space.
+- **Assumptions**: none yet.
+- **Python evidence**: none yet.
+- **Lean theorem**: none yet.
+- **Axiom report**: not applicable.
+- **Falsifier**: as written in `challenge3/PREDICTIONS.md`.
 - **Surviving boundary**: not yet.

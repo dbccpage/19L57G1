@@ -357,12 +357,13 @@ jobs:
           log="$RUNNER_TEMP/boundary-seed-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 165 tests in ' "$log"
+          grep -Eq '^Ran 222 tests in ' "$log"
           python -m coverage json -q
           python check_coverage.py
           python run_challenge0.py
           python run_challenge1.py
           python run_challenge2.py
+          python run_challenge3.py
           git diff --exit-code -- receipts
       - name: Boundary derivation, strict typing
         working-directory: research/boundary_seed

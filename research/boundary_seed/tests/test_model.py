@@ -11,6 +11,15 @@ sys.path.insert(0, str(TREE / "code"))
 
 from boundary.model import (  # noqa: E402
     INITIAL_DATUM,
+    automorphisms_under,
+    canonical_under,
+    is_isomorphic_under,
+    mark_automorphism_to_under,
+    mark_orbit_under,
+    marks_separable_under,
+    permitted_images_under,
+    serialize_keeping_labels,
+    side_exchanging_automorphism_under,
     OBSERVATION_TYPES,
     READING_O,
     READING_U,
@@ -468,6 +477,110 @@ class Challenge2KernelTests(unittest.TestCase):
         # 177 images: for each of the 2^n placements, 2*n! under U and n!
         # under O, summed over n = 0 to 3.
         self.assertEqual(checked, 177)
+
+
+class Challenge3KernelTests(unittest.TestCase):
+    """The flagged enumerations, and that each reduces to the Challenge 2
+    function at the flags the reading declares."""
+
+    def test_flagged_images_reduce_to_the_readings_own_enumeration(self) -> None:
+        # The instance claim: at the flags definitions 13 and 16 declare, the
+        # flagged enumeration IS the one Challenges 0 to 2 used.  Checked over
+        # every regime of at most three marks under both readings.
+        checked = 0
+        for rd in READINGS:
+            reflection = rd == READING_U
+            for n in range(4):
+                marks = tuple(f"m{i}" for i in range(n))
+                for placement in product((0, 1), repeat=n):
+                    r = Regime(rd, marks, placement)
+                    self.assertEqual(
+                        permitted_images_under(r, reflection, True), permitted_images(r), r
+                    )
+                    self.assertEqual(
+                        automorphisms_under(r, reflection, True, False), automorphisms(r), r
+                    )
+                    self.assertEqual(
+                        canonical_under(r, reflection, True, False), canonical(r), r
+                    )
+                    checked += 1
+        self.assertEqual(checked, 30)
+
+    def test_flagged_separation_reduces_to_the_challenge_2_notion(self) -> None:
+        for rd in READINGS:
+            reflection = rd == READING_U
+            for placement in ((0, 1), (1, 0), (0, 0), (1, 1)):
+                r = Regime(rd, ("a", "a"), placement)
+                self.assertEqual(
+                    marks_separable_under(r, 0, 1, reflection, True, False),
+                    marks_internally_separable(r, 0, 1),
+                    r,
+                )
+                self.assertEqual(
+                    mark_automorphism_to_under(r, 0, 1, reflection, True, False),
+                    mark_automorphism_to(r, 0, 1),
+                    r,
+                )
+                self.assertEqual(
+                    side_exchanging_automorphism_under(r, reflection, True, False),
+                    side_exchanging_automorphism(r),
+                    r,
+                )
+                self.assertEqual(
+                    is_isomorphic_under(r, reflect(r), reflection, True, False),
+                    is_isomorphic(r, reflect(r)),
+                    r,
+                )
+
+    def test_withdrawing_a_generator_shrinks_the_enumeration(self) -> None:
+        r = Regime(READING_U, ("a", "a"), (0, 1))
+        self.assertEqual(len(permitted_images_under(r, True, True)), 4)
+        self.assertEqual(len(permitted_images_under(r, False, True)), 2)
+        self.assertEqual(len(permitted_images_under(r, True, False)), 2)
+        self.assertEqual(len(permitted_images_under(r, False, False)), 1)
+        # withdrawing either generator separates the two marks; withdrawing
+        # neither does not
+        self.assertFalse(marks_separable_under(r, 0, 1, True, True, False))
+        self.assertTrue(marks_separable_under(r, 0, 1, False, True, False))
+        self.assertTrue(marks_separable_under(r, 0, 1, True, False, False))
+
+    def test_keeping_the_labels_does_not_separate_a_repeated_label(self) -> None:
+        # The negative direction of the label coordinate: with the tokens
+        # kept, two marks carrying the SAME label are still exchanged, so
+        # withdrawing the forgetting of definition 14 separates nothing here.
+        same = Regime(READING_U, ("a", "a"), (0, 1))
+        self.assertFalse(marks_separable_under(same, 0, 1, True, True, True))
+        # with different labels it does separate, which is what makes the
+        # coordinate a real one rather than a dead flag
+        differing = Regime(READING_U, ("a", "b"), (0, 1))
+        self.assertTrue(marks_separable_under(differing, 0, 1, True, True, True))
+        self.assertFalse(marks_separable_under(differing, 0, 1, True, True, False))
+
+    def test_serialize_keeping_labels_keeps_them(self) -> None:
+        r = Regime(READING_U, ("a", "b"), (0, 1))
+        self.assertEqual(serialize(r), (READING_U, (0, 1)))
+        self.assertEqual(serialize_keeping_labels(r), (READING_U, ("a", "b"), (0, 1)))
+        self.assertEqual(
+            canonical_under(r, False, False, True), (READING_U, ("a", "b"), (0, 1))
+        )
+
+    def test_isomorphic_under_refuses_across_readings(self) -> None:
+        u = Regime(READING_U, ("a",), (0,))
+        o = Regime(READING_O, ("a",), (0,))
+        self.assertFalse(is_isomorphic_under(u, o, True, True, False))
+
+    def test_the_orbit_is_the_separation_test(self) -> None:
+        # The second reading of the Challenge 3 requirement: the pair of the
+        # second mark lies outside the first mark's orbit exactly when no
+        # permitted automorphism carries one to the other.
+        for flags in ((True, True), (False, True), (True, False), (False, False)):
+            for placement in ((0, 1), (0, 0)):
+                r = Regime(READING_U, ("a", "a"), placement)
+                orbit = mark_orbit_under(r, 0, *flags, False)
+                outside = (serialize(r), 1) not in orbit
+                self.assertEqual(outside, marks_separable_under(r, 0, 1, *flags, False), r)
+        with self.assertRaisesRegex(ValueError, "mark 2 is not admitted"):
+            mark_orbit_under(Regime(READING_U, ("a", "a"), (0, 1)), 2, True, True, False)
 
 
 if __name__ == "__main__":

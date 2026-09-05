@@ -18,7 +18,12 @@ sys.path.insert(0, str(TREE))
 import verify_lean  # noqa: E402
 
 
-MODULES = ["BoundarySeed.Basic", "BoundarySeed.Challenge1", "BoundarySeed.Challenge2"]
+MODULES = [
+    "BoundarySeed.Basic",
+    "BoundarySeed.Challenge1",
+    "BoundarySeed.Challenge2",
+    "BoundarySeed.Challenge3",
+]
 
 
 class ImportClosureTests(unittest.TestCase):
@@ -56,6 +61,9 @@ class AuditTotalityTests(unittest.TestCase):
         self.assertEqual(verify_lean.unaudited_theorems(), [])
         self.assertEqual(declared, audited)
         self.assertIn("BoundarySeed.retained_onSide_true_iff", declared)
+        self.assertIn(
+            "BoundarySeed.no_invariant_mark_property_separates_retained", declared
+        )
 
     def test_comments_are_stripped_before_the_population_is_read(self) -> None:
         # A doc comment whose line begins with the declaration word, and a

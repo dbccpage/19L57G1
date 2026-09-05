@@ -84,6 +84,22 @@ Challenge 2 additions:
   the property that no two admitted marks share a side.  Both are
   metatheoretic readings of the placement tuple, not object-language
   values.
+
+Challenge 3 additions.  Challenges 0 to 2 fixed the permitted renamings by
+the reading: mark permutations always, the reflection under ``U``.  Challenge
+3 must ask what a declared augmentation that WITHDRAWS one of those would
+do, so the same enumeration is offered coordinate by coordinate:
+
+* ``serialize_keeping_labels`` is ``serialize`` without the token
+  forgetting, used only where a declared augmentation withdraws it.
+* ``permitted_images_under`` enumerates the images the two renaming flags
+  permit; ``permitted_images`` is its instance at the flags the reading
+  declares.  ``automorphisms_under``, ``mark_automorphism_to_under``,
+  ``marks_separable_under``, ``side_exchanging_automorphism_under``,
+  ``is_isomorphic_under``, and ``canonical_under`` are the corresponding
+  instances of the Challenge 2 functions.  All are unpruned; each takes the
+  serializer as a flag rather than choosing one by judgment.  A flag is a
+  declaration of the augmentation being examined and never a discovery.
 """
 
 from __future__ import annotations
@@ -563,3 +579,144 @@ def mark_side(r: Regime, mark: int) -> int:
 def marks_on_different_sides(r: Regime) -> bool:
     """Whether no two admitted marks lie on the same side."""
     return len(set(r.placement)) == r.n_marks()
+
+
+# ---------------------------------------------------------------------------
+# Challenge 3: the renaming set, taken coordinate by coordinate
+# ---------------------------------------------------------------------------
+
+
+def serialize_keeping_labels(r: Regime) -> tuple[object, ...]:
+    """Reading, presentation labels, and placement.
+
+    ``serialize`` forgets the labels (definition 14).  A declared Challenge 3
+    augmentation may withdraw that forgetting; this is what it would leave.
+    """
+    return (r.reading, r.marks, r.placement)
+
+
+def _key(r: Regime, keep_labels: bool) -> tuple[object, ...]:
+    return serialize_keeping_labels(r) if keep_labels else serialize(r)
+
+
+def permitted_images_under(
+    r: Regime, reflection: bool, mark_permutations: bool
+) -> list[tuple[bool, tuple[int, ...], Regime]]:
+    """Every regime reached by the renamings the two flags permit.
+
+    Unpruned.  The identity permutation is always offered; the other mark
+    permutations only when ``mark_permutations`` is set, and the side
+    exchange only when ``reflection`` is.  ``permitted_images`` is the
+    instance at the flags the reading declares.
+    """
+    n = r.n_marks()
+    perms = (
+        list(permutations(range(n))) if mark_permutations else [tuple(range(n))]
+    )
+    bases = [(False, r)] + ([(True, reflect(r))] if reflection else [])
+    return [
+        (reflected, tuple(pi), rename_marks(base, pi))
+        for reflected, base in bases
+        for pi in perms
+    ]
+
+
+def automorphisms_under(
+    r: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> list[tuple[bool, tuple[int, ...]]]:
+    """Every renaming the flags permit that carries ``r`` onto itself."""
+    target = _key(r, keep_labels)
+    return [
+        (reflected, pi)
+        for reflected, pi, image in permitted_images_under(r, reflection, mark_permutations)
+        if _key(image, keep_labels) == target
+    ]
+
+
+def mark_automorphism_to_under(
+    r: Regime,
+    i: int,
+    j: int,
+    reflection: bool,
+    mark_permutations: bool,
+    keep_labels: bool,
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism carrying mark ``i`` to mark ``j``, or ``None``."""
+    _check_mark(r, i)
+    _check_mark(r, j)
+    for reflected, pi in automorphisms_under(r, reflection, mark_permutations, keep_labels):
+        if pi[i] == j:
+            return (reflected, pi)
+    return None
+
+
+def marks_separable_under(
+    r: Regime,
+    i: int,
+    j: int,
+    reflection: bool,
+    mark_permutations: bool,
+    keep_labels: bool,
+) -> bool:
+    """Whether no permitted automorphism carries mark ``i`` to mark ``j``."""
+    return mark_automorphism_to_under(r, i, j, reflection, mark_permutations, keep_labels) is None
+
+
+def side_exchanging_automorphism_under(
+    r: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism that includes the side exchange, or ``None``."""
+    for reflected, pi in automorphisms_under(r, reflection, mark_permutations, keep_labels):
+        if reflected:
+            return (reflected, pi)
+    return None
+
+
+def is_isomorphic_under(
+    a: Regime, b: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> bool:
+    """Whether a renaming the flags permit carries ``a`` onto ``b``."""
+    if a.reading != b.reading:
+        return False
+    target = _key(b, keep_labels)
+    return any(
+        _key(image, keep_labels) == target
+        for _reflected, _pi, image in permitted_images_under(a, reflection, mark_permutations)
+    )
+
+
+def canonical_under(
+    r: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> tuple[object, ...]:
+    """The minimum key over every image the flags permit.
+
+    Bounded, like ``canonical``: no unbounded completeness is claimed.
+    """
+    best: tuple[object, ...] | None = None
+    for _reflected, _pi, image in permitted_images_under(r, reflection, mark_permutations):
+        key = _key(image, keep_labels)
+        if best is None or key < best:
+            best = key
+    assert best is not None
+    return best
+
+
+def mark_orbit_under(
+    r: Regime,
+    mark: int,
+    reflection: bool,
+    mark_permutations: bool,
+    keep_labels: bool,
+) -> frozenset[tuple[tuple[object, ...], int]]:
+    """The images of one mark under every renaming the flags permit.
+
+    Each element pairs the key of an image regime with the index the mark is
+    carried to.  Membership in this set is a property of a ``(regime, mark)``
+    pair that is invariant under those renamings by construction, so it is the
+    witness the second reading of the Challenge 3 requirement asks for.
+    """
+    _check_mark(r, mark)
+    return frozenset(
+        (_key(image, keep_labels), pi[mark])
+        for _reflected, pi, image in permitted_images_under(r, reflection, mark_permutations)
+    )

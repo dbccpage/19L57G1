@@ -29,8 +29,21 @@ seed, plan/manual, and predictions were committed in that order before the
 branch committed code or proofs; it cannot prove when untracked or off-tree
 work was written.  The surviving provenance claim is therefore
 `SOURCE_ISOLATED_WITH_DECLARED_PRIOR_EXPOSURE`, not “blind derivation.”
-Challenges 1 and 2 were each closed in a fresh session under the same
+Challenges 1 to 3 were each closed in a fresh session under the same
 ceiling; each status records where a remembered shape was used.
+
+One further channel is material and is disclosed here rather than only in
+the statuses.  Each rung is read by an adversarial review outside the run,
+whose findings arrive as advisories at the start of the next session; every
+advisory is actioned or carried with its reason in that challenge's
+`STATUS.md`.  Through Challenge 3 that channel has supplied more than twenty
+actioned repairs and the design of two gates — the Lean audit-totality check
+at Challenge 2 and the independent placement check at Challenge 3 — so a
+reader should not treat the apparatus as the run's unaided work.  It does
+not supply object-language content: no advisory has proposed a definition, a
+candidate, or a result, and the run's results are its own.  That distinction
+is the run's own account of the channel and is not itself checked by
+anything.
 
 ## 1. Metatheory and object language
 
@@ -126,14 +139,18 @@ beyond the declaration itself (declared reading 2 of `MANUAL.md`).
 
 Definitions 1 to 16 are implemented in `code/boundary/model.py`; 17 to 19
 in `code/boundary/presentation.py`; 20 to 26 in `model.py` and
-`code/boundary/challenge1.py` as marked; 27 and 28 are Lean-only, as their
-headings say; 29 to 36 are Challenge 2's, in `model.py` and
-`code/boundary/challenge2.py` as marked.  An earlier version of this
-sentence placed 20 to 27 in the Python modules while 27 and 28 were marked
-Lean; corrected.  The theorem-bearing subset listed in section 7 is
-mirrored or abstracted in `lean/BoundarySeed/`; presentation tokens,
-certifying supply-before-admission replay, the canonical key, the reader,
-the convention, and the identity policies are Python-only.
+`code/boundary/challenge1.py` as marked; 29 to 35 are Challenge 2's, in
+`model.py` and `code/boundary/challenge2.py` as marked; 37 to 46 are
+Challenge 3's, in `model.py` and `code/boundary/challenge3.py` as marked.
+Definitions 27, 28, and 36 are **Lean-only** and have no Python counterpart,
+as their headings say.  Two earlier versions of this sentence were wrong:
+the first placed 20 to 27 in the Python modules while 27 and 28 were marked
+Lean, and the second placed 29 to 36 in the Python modules although 36 is
+Lean-only as well; both are corrected here.  The theorem-bearing subset
+listed in section 7 is mirrored or abstracted in `lean/BoundarySeed/`;
+presentation tokens, certifying supply-before-admission replay, the
+canonical key, the reader, the convention, the identity policies, and the
+whole Challenge 3 candidate space are Python-only.
 
 1. **Initial datum.**  One opaque supplied whole.  Its presentation
    spelling is not stored.  Its `internal_id` is `0`, a name in the
@@ -277,7 +294,16 @@ the convention, and the identity policies are Python-only.
     it, is an *internal fact of the reading* when it is invariant under
     every permitted renaming of that reading (definition 23).  Anything
     not so invariant is a fact of the presentation or of the metatheoretic
-    naming, not of the state.  Challenge 1's table used this notion under
+    naming, not of the state.  **The invariance is over the token-forgetting
+    quotient of definition 14**: a permitted renaming carries the
+    presentation labels along with their marks, and the serialization the
+    comparison uses forgets them, so a property that reads a label is not an
+    internal fact by this definition.  That clause is what stops presentation
+    identity being readmitted as an internal fact by the definition written
+    to exclude it, and it is the test the label row of 5.5 actually applies.
+    It also fixes the scope of definition 33's justifying sentence below.
+    Challenge 3's third coordinate withdraws exactly this clause and prices
+    the withdrawal (definition 40).  Challenge 1's table used this notion under
     the name “internal fact” with no numbered definition, which made the U
     answer follow at once from the candidates being related by a permitted
     renaming; that implication is exactly what the notion says, and what
@@ -311,11 +337,21 @@ the convention, and the identity policies are Python-only.
     equality.
 33. **Internal separability of two marks (Challenge 2).**  Two admitted
     marks are *internally separable under a reading* when no permitted
-    automorphism of the regime carries one to the other.  If one does,
-    every mark property invariant under permitted renamings takes the same
-    value at both, so by definition 29 nothing internal tells them apart.
-    The corresponding notion for the two sides is that no permitted
-    automorphism includes the reflection.
+    automorphism of the regime carries one to the other.  If one does, every
+    mark property **that forgets the presentation tokens** and is invariant
+    under permitted renamings takes the same value at both, so by definition
+    29 nothing internal tells them apart.  The token-forgetting clause is
+    needed and was missing from an earlier version of this sentence: a
+    permitted automorphism is a renaming of the regime with tokens forgotten
+    (definition 32), so it can exchange two marks whose labels differ, and a
+    property that reads a label would then separate marks the automorphism
+    exchanges.  At the Challenge 2 retained regime the point does not bite —
+    both labels are `a`, so the image is equal and not merely equal after
+    forgetting — but the sentence was false as a general claim, and
+    Challenge 3's third coordinate is exactly the augmentation that withdraws
+    the forgetting and is then computed to separate nothing here, both
+    retained marks carrying the same label.  The corresponding notion for the
+    two sides is that no permitted automorphism includes the reflection.
 34. **Mark form, and its invariance (Challenge 2).**  The two *mark
     forms* are the mark properties “this mark lies on side 0” and “this
     mark lies on side 1”.  A form is *permitted-renaming-invariant on a
@@ -332,6 +368,113 @@ the convention, and the identity policies are Python-only.
     the first two internal identities and fixes every later one;
     `swapFirstTwo` and `exchangeMarks` are its actions on a placement list
     and on a regime.  Both are involutions.
+37. **Renamings taken coordinate by coordinate (Challenge 3).**  Definitions
+    13 and 16 fix the permitted renamings by the reading: the mark
+    permutations always, the side exchange under U.  Challenge 3 must ask
+    what a declared augmentation that WITHDRAWS one of those would do, so the
+    kernel offers the same unpruned enumeration with each generator as a
+    flag: `permitted_images_under`, and with it `automorphisms_under`,
+    `mark_automorphism_to_under`, `marks_separable_under`,
+    `side_exchanging_automorphism_under`, `is_isomorphic_under`, and
+    `canonical_under`.  A third flag chooses the serialization:
+    `serialize_keeping_labels` is definition 14 without the token forgetting.
+    At the flags the reading declares, each is the Challenge 2 function it
+    generalizes, which is checked over every regime of at most three marks
+    under both readings.  A flag is a declaration of the augmentation being
+    examined and is never a discovery.
+38. **The required separation (Challenge 3).**  The requirement the caller
+    imposes, in the sense the run declares: the two retained marks meet it
+    under a reading when no permitted automorphism of the regime carries one
+    to the other — definition 33's sense, at the augmentation's renamings
+    rather than the reading's.  A second reading is declared beside it: some
+    property of a mark, invariant under every permitted renaming, holds of
+    one and not of the other.  The two agree by unfolding, by definition 39,
+    and the receipt computes the agreement at all 48 points under each
+    reading rather than asserting it.  The caller's demand is an externally
+    imposed challenge; the sense is a derived definition of the run, and a
+    different sense was available.
+39. **The orbit of a mark, and the orbit witness (Challenge 3).**  The
+    *orbit* of a `(regime, mark)` pair is the set of pairs a permitted
+    renaming carries it to, each recorded as the image's key with the index
+    the mark is carried to.  Membership in one mark's orbit is a property of
+    a pair that is invariant under those renamings **by construction**, and
+    it holds of the second retained mark exactly when a permitted
+    automorphism carries the first to the second.  So it witnesses the second
+    reading of definition 38 whenever the first holds, and the agreement of
+    the two readings is by unfolding rather than by search.
+40. **Declared augmentation, and the candidate space (Challenge 3).**  An
+    *augmentation* is a value for each of five declared coordinates:
+    withdraw the side exchange from the permitted renamings; withdraw the
+    mark permutations; admit the two side names into the judgment grammar of
+    the reading; keep the presentation labels in the serialization, that is
+    withdraw definition 14's token forgetting; and admit one further mark, on
+    side 0 or on side 1.  The last takes three values and the others two, so
+    the space has 48 points under each reading.  Each coordinate names one
+    capability, listed in the receipt's `candidate_space.capability_of`.
+    The space is exhaustive over those five coordinates and over nothing
+    wider: it does not enumerate an augmentation that changes the event
+    grammar again, that admits more than one further mark in one step, that
+    supplies a datum the caller never presented, or that derives the
+    permitted renamings from the judgment grammar instead of declaring them.
+    Every minimality statement of this rung is scoped to it.
+41. **The capability count, and the one-step rule (Challenge 3).**  The first
+    declared cost measure, `mu1`, is the number of undeclared capabilities a
+    candidate uses, one for each coordinate it moves off its inherited value.
+    A candidate is *one step* exactly when it moves one coordinate, which is
+    exactly when its count is one; a candidate of count two or more **bundles
+    capabilities and is refused as a one-step augmentation**, as the seed
+    requires.  Adopting reading O under U — the names together with the
+    withdrawal — is such a bundle.
+42. **Effective structure, and the quotient of candidates (Challenge 3).**
+    The *effective structure* of a candidate under a reading is what it
+    actually declares once the reading is applied: whether the side exchange
+    is permitted, whether the mark permutations are, whether the names are
+    admitted, and whether the labels are kept.  Two points with the same
+    effective structure and isomorphic regimes are the same candidate; under
+    O, withdrawing an already absent side exchange and admitting already
+    admitted names change nothing and collapse into the null point.  The
+    implemented class key is the effective structure together with
+    `canonical_under` at that structure's own renamings, and it is the only
+    sanctioned quotient of candidates.
+43. **Mark property, and its bounded invariance (Challenge 3).**  A *mark
+    property* is a property of a `(regime, mark)` pair; definition 34's two
+    mark forms are two of them.  Five are declared: lies on side 0, lies on
+    side 1, has index 0, has index 1, and carries the label the caller
+    supplied.  A property is *invariant on the bounded domain* when, at every
+    regime of the domain, every image permitted by the candidate, and every
+    mark, it holds of a mark exactly when it holds of that mark's image.  The
+    declared domain is every regime of at most three marks over the two
+    declared labels, 85 per reading — wider than definition 34's, because a
+    candidate regime may carry three marks and because a label-reading
+    property needs two labels to be tested at all.
+44. **The collateral facts, and the second measure (Challenge 3).**  Five
+    facts about the retained configuration are declared: the two sides are
+    internally separable; the retention order of the two wholes is internally
+    available; the shared presentation label is; the presentation convention
+    is; and a side-name judgment holds.  Each is computed at the candidate's
+    own renamings and serialization by the same witness searches Challenge 2
+    used.  The second declared cost measure, `mu2`, is the number of them a
+    candidate makes available **that the same reading's base did not** — the
+    required separation itself excluded, so that the measure reads what a
+    candidate costs beside what it was asked for.
+45. **The process's own admission (Challenge 3).**  The further-mark
+    coordinate extends the caller's history by one `AdmitOccurrence` of the
+    token the caller already supplied.  It needs no supply of its own, which
+    the receipt computes, and a token the caller never presented is refused
+    by name, which it also computes.  The one capability it uses is therefore
+    not a supply but the issuing of an event by the process rather than by
+    the caller: definition 25 makes the current state the replay of the
+    *caller's* history, and this coordinate is the first thing in the run
+    that would step outside it.  No such event is in any history the receipt
+    reports as current; every candidate is a candidate.
+46. **The counterfactual square (Challenge 3).**  The requirement at the
+    retained regime over the two coordinates (the names admitted or not) by
+    (the side exchange permitted or not), four cells under each reading, with
+    the cell that is the reading's real one marked.  It isolates which half
+    of the O declaration does the work.  That the names cannot enter the
+    computation is definition 16 — permission is declared, not derived from
+    the judgment grammar — so the square exhibits that declaration's
+    consequence and does not discover it.
 
 ## 4. Challenge 0: the initial state `<|>`
 
@@ -722,6 +865,24 @@ rung's extrapolation, written before this rung existed, and it is
 PARTIAL: one of its two O clauses is a recorded miss, and its own
 falsifier named the miss.
 
+Two of those scores carry a reading that was not recorded when they were
+made, and Challenge 3's review of them records it here.  C2-5's frozen
+clause “its permitted automorphism group has exactly two elements” is read
+as the *set* of permitted automorphisms and is scored by the size of that
+set, with the set's entries reported beside the count
+(`automorphisms.entries`); no structure beyond the set is read into the
+word, and none is computed.  C2-8's four conjuncts are not all searches: the
+U side-exchanging witness, the order isomorphism, and the label isomorphism
+are searches over the unpruned enumeration, and both values of each are
+attainable, but the absence of a side-exchanging automorphism under O
+follows at once from the declaration that the reflection is not a permitted
+renaming there, so that conjunct is DEFINITION-level.  C2-8 keeps its
+content hit on the U clauses; no status and no tally moves.  The
+corresponding wording inside `receipts/challenge2.json` still says that none
+of its evidence is fixed by a declaration; that repair would regenerate a
+closed rung's receipt and is carried, with its reason, in
+`challenge3/STATUS.md`.
+
 #### 5.7 What Challenge 2 does not establish
 
 - Nothing about two marks on the *same* side, or about more than two
@@ -750,7 +911,191 @@ falsifier named the miss.
 | the initial datum and reading unchanged; the empty event-follows relation | independent of the boundary |
 | the two new judgments, the sides the marks are retained on, the automorphisms, the separation, the different-sides fact | require the admitted boundary and are not formulated after removing it |
 
-### 5.9 Challenges 3 to 5
+### 5.9 Challenge 3: the required separation of `<a|>` and `<|a>`
+
+Receipt: `receipts/challenge3.json`.  Predictions frozen at sha256
+`27057895c47e5bd718b0ea8e51689f3325cef78102c912c6feea8e913a7e7755` in
+commit `a4f2a688`, before the branch's first Challenge 3 code-or-proof
+commit.  Git establishes that committed order only; it does not establish
+when off-tree or untracked work was written.
+
+The caller requires the two retained wholes to be internally separable in a
+precisely declared sense.  The rung declares the sense (definitions 38 and
+39), answers the requirement under each reading, and — where it fails —
+enumerates the declared candidate space of 48 points, prices each candidate
+under two declared measures, refuses the bundles, and retains every tied
+minimum.
+
+**Under O the requirement is already met, and the names are not what meets
+it.**  The four-cell counterfactual square (definition 46) is the same under
+both readings and turns on one coordinate only: the requirement holds in the
+two cells where the side exchange is not a permitted renaming and fails in
+the two where it is, whether or not the two names are admitted.  So what
+satisfies the requirement under O is the *withdrawal* the O reading carries,
+not the *names* it also carries.  That sharpens Challenge 2, whose price
+listed the names among the capabilities the O separation uses; the
+capabilities it uses are the admitted boundary, the withdrawal, and the
+Challenge 2 occurrence identity, and the receipt now records the names under
+`capabilities_not_used`.  Nothing is paid at this rung under O: the minimum
+capability count is zero, attained by the null augmentation alone, and that
+minimum is unique.
+
+That the names *cannot* enter the square is definition 16 and not a
+discovery: permission is declared and is not derived from the judgment
+grammar.  Under a model in which permission were derived — the permitted
+renamings being exactly the maps that preserve every declared judgment —
+admitting the names would withdraw the exchange, the two coordinates would
+not be independent, and the enumeration below would be a different one.
+That model is outside the declared space and is recorded in section 10 as
+open.
+
+**Under U the requirement fails, and three non-isomorphic minima meet it.**
+
+| result | reading U | reading O | evidence |
+|---|---|---|---|
+| the current regime meets the requirement | **no**: the composite of the side exchange with the exchange of the two marks is a permitted automorphism carrying mark 0 to mark 1 | **yes**: the only permitted automorphism is the identity | `readings.*.base.satisfies`; Lean `retained_U_requirement_fails` (a pairing of the Challenge 0 permission with the Challenge 2 `rfl`) |
+| the declared sense and its second reading | agree at all 48 points | agree at all 48 points | `requirement_readings_agree_at_every_point`; by unfolding, definition 39 |
+| the declared sense against Challenge 2's notion | the same at the current regime | same | `requirement_matches_the_challenge_2_notion` |
+| what satisfies it under O | not applicable | the withdrawal of the side exchange, paid at genesis by the declared reading; the names are not used | `counterfactual_square`, `price.capabilities_not_used` |
+| adding judgment forms, whatever the forms | cannot satisfy it while the composite is permitted | not applicable, the composite not being permitted | Lean `no_invariant_mark_property_separates_retained`, quantified over an arbitrary property; the concrete `admit_names` point fails, and `points_satisfying_with_grammar_change_only` is empty |
+| the two mark forms under the composite | neither is invariant, which is why both separate the marks as raw data and neither does so internally | not applicable | Lean `mark_form_is_not_invariant_under_the_composite`; `base.invariant_mark_properties` |
+| the declared candidate space | 48 points; one step exactly when the capability count is one | same | `candidate_space.size`, `one_step_iff_capability_count_one` |
+| one-step points | six: withdraw the side exchange, withdraw the mark permutations, admit the names, keep the labels, admit a further mark on either side | same | `one_step_points` |
+| one-step points that satisfy it | four, in **three** classes | not applicable: the null point already satisfies at count zero | `satisfying_one_step_points`, `minima_by_mu1.classes` |
+| the minimum capability count | **1** | **0** | `minima_by_mu1.minimum` |
+| the minimum is unique | **no**, refuted by three retained classes | yes, the null augmentation alone | `minima_by_mu1.unique`, `class_count` |
+| the second measure, the collateral count | 1 at each of the three minima; the same three classes are selected | 0 at the null point | `minima_by_mu2`, `measures_agree_on_minima` |
+| the two measures are the same function | no: they differ at points of the space | same | `measures_differ_somewhere` |
+| bundles refused | 41 of the 48 points | same | `bundles_refused_count` |
+| adopting reading O under U | count 2: refused as bundling, although it satisfies | not applicable | `reading_O_bundle` |
+| the further mark needs a new supply | no: the caller already supplied the token; a token never presented is refused by name | same | `process_admission` |
+| the retained marks after the further mark | both judgments survive | same | Lean `retainedPlus_judgments_survive` |
+| the initial datum, the reading, the event-follows relation | unchanged, and empty on all five event kinds | same | `initial_datum_unchanged`, `reading_unchanged`, `event_follows_relation_empty`; Lean `no_event_follows_retainedPlus` |
+| new event kind or judgment form | none added by the rung itself | none | `new_event_kinds_at_challenge_3`, `observation_vocabulary` |
+
+**The three retained minima, and how each separates.**
+
+| minimum | what it declares | how it separates | basis |
+|---|---|---|---|
+| withdraw the side exchange | the two sides are distinguishable, which is the part of the O reading that U does not carry | both side properties become invariant and both separate the two marks | COMPUTED: the mark exchange alone does not fix the placement, and the invariance is a census over the bounded domain |
+| withdraw the mark permutations | a mark's admission index is an internal designation and not a metatheoretic name | both index properties become invariant and both separate them; the two side properties stay non-invariant | **DEFINITION-level**: with the mark permutations withdrawn no permitted renaming moves an index at all, so the requirement is met by unfolding.  Reported as such and not counted as content |
+| admit one further mark, on either side | the process, and not only the caller, issues an admission | none of the five declared mark properties is both invariant and separating; the witness is the orbit property alone.  The two sides then carry different numbers of marks, so no renaming undoes the side exchange | COMPUTED, and PROVED in the unbounded direction: Lean `retainedPlus_counts_differ` with `countOn_perm` and `reflect_not_undone_by_renaming` |
+
+Four things in that table are worth stating in prose.
+
+**The declared sense admits a cheap answer, and the run reports it rather
+than excluding it.**  The second minimum meets the requirement by unfolding:
+withdraw the renamings that move indices and the two marks are separated
+because nothing is left that could confuse them.  It buys the separation by
+declaring the admission index — a metatheoretic name, by definition 3 — to
+be an internal designation, and it makes the admitted boundary do no work at
+all.  It is not excluded, because the requirement as declared does not
+oblige the boundary to do the work and no declaration of this run rules the
+candidate out.  It is labelled DEFINITION-level in the receipt, and it is
+the rung's clearest evidence that a precisely declared requirement can be
+met in a way that misses what the requirement was for.
+
+**The minimum is strictly cheaper than adopting the other reading.**  The
+candidate that adopts reading O under U costs two capabilities and is
+refused as a bundle; its withdrawal half alone costs one and is a retained
+minimum, and its name half alone satisfies nothing.  So under U the
+separation does not cost what reading O paid at genesis: it costs less, and
+the difference is exactly the two names, which the counterfactual square
+shows to be idle here.
+
+**The third minimum separates by a count, not by a property of either
+mark.**  Once a third mark is placed, the two sides carry two marks and one,
+and the side exchange exchanges those counts, so no renaming of the marks
+returns the reflected placement to the original.  That is proved in Lean
+over every permutation rather than computed over a bounded enumeration, and
+it is half of the equal-count law the Challenge 0 census observed and left
+as a computation.  The converse half is recorded too: at the retained regime
+itself the two counts are equal (`retained_counts_equal`), so the argument
+says nothing there and the requirement genuinely fails rather than failing
+for want of a proof.
+
+**The shared visible mark is still idle.**  The property "carries the label
+the caller supplied" is invariant under every candidate's renamings and
+separates nothing, both retained marks carrying the same label; and the
+candidate that keeps the labels in the serialization — the one that makes
+presentation identity internal — satisfies nothing for the same reason.
+That is Challenge 2's result restated where it now costs something to try.
+
+**What the boundary is charged, and what it buys.**  Under both readings the
+boundary buys that a mark lies on a side at all, without which three of the
+five declared mark properties, four of the five collateral facts, and two of
+the three minima are not formulable.  It does not buy the separation under
+U: two of the three minima there make it internal, and the third — the index
+withdrawal — bypasses it entirely.  Under O it buys the separation outright,
+through the half of its own declaration that withdraws the side exchange.
+
+#### 5.10 The predictions, scored
+
+| id | label | status | note |
+|---|---|---|---|
+| C2-X (from Challenge 2) | NOT FORCED | **PARTIAL** | four clauses hit: the declared sense is the Challenge 2 notion; under O the requirement holds with no augmentation; under U it fails; and no candidate that only changes the judgment grammar satisfies it, which this rung PROVED for an arbitrary property rather than argued.  The tied-minima clause hits, with three rather than the two it named.  The clause “every minimum one-step augmentation will either name a side, paying under U what reading O paid at genesis, or admit a further datum that the automorphism cannot carry” is **MISSED**, recorded next to its value: two retained minima pay neither, the withdrawal of the side exchange admitting no name and the withdrawal of the mark permutations being neither, and the clause's own falsifier — “a minimum that pays neither a side name nor a further datum” — fired.  A weaker reading that counts the withdrawal as paying what reading O paid still misses, on the second of those two (`scores.C2-X`) |
+| C3-1 the declared sense, and a second reading of it | NOT FORCED | HIT, DEFINITION-level | the sense is the run's declaration and the agreement of its two readings is by unfolding, the orbit witness being invariant by construction; not counted as content |
+| C3-2 the current regime, and what does the work under O | FORCED | HIT | counted as content on the side-exchange coordinate, whose cells are automorphism searches with both values attained; DEFINITION-level on the names coordinate, where definition 16 keeps the names out of the computation |
+| C3-3 no addition of judgment forms can satisfy it under U | FORCED | HIT | counted as content: the Lean statement quantifies over an arbitrary property, and the countermodel shows the hypothesis is a real restriction |
+| C3-4 the declared candidate space, and the refusal of bundles | NOT FORCED | HIT, DEFINITION-level | the coordinates, their values, and the capability named for each are declarations of this rung, so the point count and the identity of one-step with count one are by construction; not counted as content |
+| C3-5 the minimum under U is one, and it is not unique | FORCED | HIT | counted as content: which one-step points satisfy is a search at each candidate's own renamings, and the class count is the implemented quotient |
+| C3-6 the two measures agree on the minimum and are not the same measure | FORCED | HIT | counted as content: each collateral fact is a witness search, and the difference of the two measures is a census over the 48 points |
+| C3-7 three mechanisms, one of them by unfolding | FORCED | HIT | counted as content on the first and third mechanisms; the second is DEFINITION-level and the receipt says so separately |
+| C3-8 what the reading changes, and what the boundary is charged | NOT FORCED | HIT | counted as content on the two minimum counts and the two class counts; the boundary-dependence map beside them is the run's classification and is not computed |
+| C3-X extrapolation | NOT FORCED | PENDING | scored by Challenge 4 |
+
+Eight of eight scored predictions hit; six as content (C3-2, C3-3, C3-5 to
+C3-8) and two by construction, DEFINITION-level and not counted (C3-1,
+C3-4), by the criterion Challenge 1 declared and this rung reuses unchanged
+(`tally.criterion`).  The counts are the receipt's `tally`, computed from
+the statuses and a declared list.  Five of the eight were labelled FORCED,
+and all five are among the content hits.
+
+**A second clean sweep is weaker evidence than the first, not stronger.**
+The predictions were written by an instrument that had read the whole tree
+and had reasoned the rung through before writing them; the commit order
+shows only that they were frozen before the code, and two of the eight were
+scored only after the scorer itself was corrected to read their frozen words
+(see the repairs in `challenge3/STATUS.md`).  The informative number is the
+previous rung's extrapolation, written before this rung existed: it is
+PARTIAL, and its own falsifier named the miss.
+
+#### 5.11 What Challenge 3 does not establish
+
+- **The minimality is scoped to the declared space** (definition 40).  A
+  candidate outside those five coordinates — one that changed the event
+  grammar again, that admitted two further marks in one step, or that
+  derived the permitted renamings from the judgment grammar — is not
+  enumerated, and no claim is made about it.
+- Nor is “one step” a discovered notion: it is the run's declaration that
+  one moved coordinate is one step, and the identity of that with a
+  capability count of one is by construction.
+- The three minima are tied under both declared measures.  A third measure
+  could separate them, and none is offered; the tie is a fact about these
+  two measures and this space.
+- Nothing about whether the requirement, as declared, is the right
+  requirement.  The second minimum meets it in a way that makes the admitted
+  boundary idle, which the rung reports rather than repairs.
+- Lean does not close the automorphism counts, the class count, or the
+  enumeration.  It closes the judgment-form family, the countermodel that
+  makes that family's hypothesis a real restriction, and the unbounded
+  half of the further-mark mechanism.
+- Nothing about two marks in one whole, a whole within a side, depth, or the
+  outside of the boundary.  Challenges 4 and 5 are not reached.
+- The collateral facts are five declared ones, not a survey of everything a
+  candidate makes available.
+
+#### 5.12 Dependence on the admitted boundary
+
+| result | dependence |
+|---|---|
+| the declared sense, its second reading, and their agreement | independent of the boundary; they are about renamings and orbits |
+| the identity of the candidate space, the capability counts, the one-step rule, and the refusal of bundles | independent of the boundary |
+| the two index mark properties and the withdrawal of the mark permutations | independent of the boundary: the admission index is carried by the placement tuple's length and not by the sides |
+| the side exchange, its withdrawal, the two side mark properties, the counterfactual square, and every separation result of the rung | require the admitted boundary and are not formulated after removing it |
+| the further-mark minimum | requires the admitted boundary: the further mark is admitted ON a side, and what separates the two retained marks there is that the two sides then carry different numbers of marks |
+
+### 5.13 Challenges 4 and 5
 
 Not yet reached.  Each opens in a fresh session with its own frozen
 `PREDICTIONS.md`.
@@ -762,7 +1107,8 @@ Not yet declared; it is declared after Challenge 3 by the seed's order.
 ## 7. Proofs and countermodels
 
 Lean package `lean/`, core Lean only, no dependency on any other package
-in this repository.  Eighty-four theorems, every one with a `#print axioms`
+in this repository.  One hundred and five theorems, every one with a
+`#print axioms`
 report in `lean/axioms.txt`, checked against a successful clean and fresh
 build by `verify_lean.py`; every report lies within
 `{propext, Quot.sound}`.  `verify_lean.py` also requires every module under
@@ -783,7 +1129,7 @@ the same injected theorem left the build reporting `lean ok: 84 axiom
 reports … matching lean/axioms.txt`.  What the check does not do is read the
 compiled environment, so a theorem the source-text scan cannot see would
 escape it; the scan's population and the root's citation list currently
-agree exactly, 84 and 84, in both directions.
+agree exactly, 105 and 105, in both directions.
 
 ### 7.1 Challenge 0 (`Basic.lean`)
 
@@ -983,19 +1329,101 @@ search; the Lean file exhibits the composite and shows that neither half
 fixes the regime alone, which is weaker.  Nor does Lean carry the identity
 policies, the labels, or the conventions, all of which are Python-only.
 
+### 7.4 Challenge 3 (`Challenge3.lean`)
+
+Two families the Python enumeration cannot close on its own.  The first is
+every candidate that only adds judgment forms:
+`no_invariant_mark_property_separates_retained` quantifies over an ARBITRARY
+property of a `(Regime, Nat)` pair, so it covers every form the closed
+grammar might gain and not only the one the declared space enumerates.  Its
+hypothesis is a real restriction and not a vacuous one, which
+`mark_form_is_not_invariant_under_the_composite` exhibits.  The second is the
+further-mark candidate: a renaming of the marks is a permutation of the
+placement, a permutation preserves how many marks lie on each side, and the
+side exchange exchanges those counts, so at a placement whose sides carry
+different numbers no renaming undoes the exchange — for every permutation,
+not for the ones a bounded search enumerates.  `retained_counts_equal`
+records the converse at the retained regime itself.
+
+Every theorem is stated for both readings; which is meaningful under which
+is prose, because whether the side exchange is permitted is a fact about the
+reading and not about the placement.  `retained_U_requirement_fails` is the
+one exception and is stated at `.U`, pairing the Challenge 0 permission with
+the Challenge 2 composite.
+
+| theorem | statement | axioms |
+|---|---|---|
+| `composite_retained` | the side exchange followed by the mark exchange carries the retained regime onto itself | propext |
+| `exchangeFirstTwo_zero` | that exchange sends the first internal identity to the second | none |
+| `exchangeFirstTwo_one` | and the second to the first | none |
+| `retained_U_requirement_fails` | under U the composite is permitted, fixes the retained regime, and carries mark 0 to mark 1 | propext |
+| `no_invariant_mark_property_separates_retained` | every property of a mark that the composite leaves alone takes the same value at the two retained marks | propext |
+| `mark_form_is_not_invariant_under_the_composite` | neither mark form is such a property: a countermodel at the retained regime | propext, Quot.sound |
+| `countOn_nil` | the empty placement puts no mark on a side | none |
+| `countOn_cons` | the count of a placement is its head's contribution plus the count of its tail | none |
+| `countOn_map_not` | the side exchange exchanges the two counts | none |
+| `countOn_perm` | a permutation of the placement preserves each count | none |
+| `reflect_not_undone_by_renaming` | at a placement whose two sides carry different numbers of marks, no permutation of the reflected placement is the original | none |
+| `retainedPlus_eq` | the further mark appends its side to the retained placement | none |
+| `retainedPlus_reading` | the further mark keeps the reading | none |
+| `retainedPlus_initialDatum` | it keeps the initial datum | none |
+| `retainedPlus_placement` | its placement, with the reading projected away | none |
+| `retained_placement` | the retained placement, likewise | none |
+| `retainedPlus_counts_differ` | after the further mark the two sides carry different numbers of marks | none |
+| `retainedPlus_reflection_is_not_an_automorphism` | so no permutation of the reflected placement returns it | none |
+| `retained_counts_equal` | at the retained regime itself the two counts are equal, so the counting argument says nothing there | none |
+| `retainedPlus_judgments_survive` | both retained marks keep their judgments after the further mark | propext |
+| `no_event_follows_retainedPlus` | no event follows from the further-mark regime | propext |
+
+No countermodel target failed at Challenge 3, and one countermodel was
+sought and found on purpose: `mark_form_is_not_invariant_under_the_composite`
+exists to show that the theorem above it is not vacuous.
+DEFINITION-level, true by unfolding or by instantiating an earlier theorem,
+and not counted as content: `composite_retained` (the Challenge 2 `rfl`
+under a new name), `exchangeFirstTwo_zero`, `exchangeFirstTwo_one`,
+`retained_U_requirement_fails` (a pairing of two earlier results),
+`countOn_nil`, `countOn_cons`, `retainedPlus_eq`, `retainedPlus_reading`,
+`retainedPlus_initialDatum`, `retainedPlus_placement`, `retained_placement`,
+`retainedPlus_judgments_survive`, and `no_event_follows_retainedPlus` (the
+last two instantiations of Challenge 1 and Challenge 0 theorems).  The
+content is `no_invariant_mark_property_separates_retained`, its countermodel
+`mark_form_is_not_invariant_under_the_composite`, the induction lemmas
+`countOn_map_not` and `countOn_perm`, and the three theorems that use them:
+`reflect_not_undone_by_renaming`, `retainedPlus_counts_differ`, and
+`retainedPlus_reflection_is_not_an_automorphism`, with `retained_counts_equal`
+recording where the argument stops.
+
+Two of the placement lemmas exist for a mechanical reason and the paper says
+so: a decision procedure was offered a goal carrying the reading as a free
+variable and refused it, so the placement is projected out first.  That is
+apparatus, not mathematics.
+
+What Lean does **not** close at Challenge 3: the enumeration of the declared
+candidate space, the capability counts, the class count, the collateral
+facts, and the two measures.  All of those are the Python computation.  Nor
+does the Lean model carry a presentation label, so the coordinate that keeps
+the labels has no Lean counterpart at all.
+
 ## 8. Receipts
 
-- `receipts/challenge0.json`, `receipts/challenge1.json`, and
-  `receipts/challenge2.json`: deterministic (sorted keys, LF, no timestamp,
-  no environment value); regenerated byte-identically by
-  `run_challenge0.py`, `run_challenge1.py`, and `run_challenge2.py` and
-  checked by the tests and by the research job.
-- The Challenge 2 receipt is 35499 bytes, well inside the summary-and-gzip
-  threshold, so it is committed whole.  The Challenge 0 and Challenge 1
-  receipts were byte-unchanged across this rung, which is the check that
-  the kernel additions did not disturb the earlier rungs: the withdrawn
-  repeated-label rule and the new admission event change no value either
-  earlier receipt reports.
+- `receipts/challenge0.json`, `receipts/challenge1.json`,
+  `receipts/challenge2.json`, and `receipts/challenge3.json`: deterministic
+  (sorted keys, LF, no timestamp, no environment value); regenerated
+  byte-identically by `run_challenge0.py`, `run_challenge1.py`,
+  `run_challenge2.py`, and `run_challenge3.py` and checked by the tests and
+  by the research job.
+- The Challenge 2 receipt is 35499 bytes and the Challenge 3 receipt is
+  219403 bytes, both inside the megabyte at which the run would owe a
+  summary and a gzip with a content hash, so both are committed whole; a
+  test holds the Challenge 3 receipt to that bound.  The Challenge 3 receipt
+  is large because the enumeration IS the evidence: 48 points under each
+  reading, each with its coordinates, its cost under both measures, its five
+  collateral facts, and its class key.
+- The Challenge 0, Challenge 1, and Challenge 2 receipts were byte-unchanged
+  across Challenge 3, which is the check that the kernel additions did not
+  disturb the earlier rungs: the flagged renaming enumerations are new
+  functions and change no value any earlier receipt reports.  The same held
+  at Challenge 2 for the two receipts before it.
 - The Challenge 1 receipt was regenerated deliberately once more at the
   third review repair, when the DEFINITION-level bases of C1-1, C1-3, and
   C1-6 and the prediction tally became receipt keys, and once more at the
@@ -1003,15 +1431,15 @@ policies, the labels, or the conventions, all of which are Python-only.
   convention pinned, and once more at the fifth, when C1-7's evidence was
   rescoped to the candidate regimes, C1-5's basis relabelled, and the two
   designation clause facts reworded, with no injection live any time.
-- The suite passes 165 tests.  Fresh coverage over the six declared code
+- The suite passes 222 tests.  Fresh coverage over the seven declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
-- `lean/axioms.txt`: 84 reports.  It was regenerated once at Challenge 1
+- `lean/axioms.txt`: 105 reports.  It was regenerated once at Challenge 1
   when the theorem set was final, three more times during that rung's
-  review repairs, and once at Challenge 2 when its twenty-eight theorems
-  were final, 56 to 84 reports; no regeneration was under a live
-  injection.
+  review repairs, once at Challenge 2 when its twenty-eight theorems were
+  final, 56 to 84 reports, and once at Challenge 3 when its twenty-one were
+  final, 84 to 105; no regeneration was under a live injection.
 - Injection record: `MANUAL.md`.
 
 ## 9. The strongest defensible statement so far
@@ -1080,10 +1508,40 @@ over placements of at most three marks; the admission order of the two
 wholes, the shared visible mark, and the presentation convention are all
 carried away by a permitted renaming and are not internal facts.  So the
 admitted boundary alone distinguishes the two wholes under O and not under
-U, and what it buys under U is that they are not on the same side.  These
-are scoped Lean theorems, bounded computations, or labelled definitions and
-conventions.  Because the instrument declared prior exposure, they carry no
-blind-independence or independent-discovery conclusion.
+U, and what it buys under U is that they are not on the same side.
+
+At Challenge 3 the caller requires those two wholes to be internally
+separable, and the run declares the requirement to be the sense Challenge 2
+computed, with a second reading — some mark property invariant under every
+permitted renaming holds of one and not the other — that agrees with it by
+unfolding, the witness being membership in the first mark's orbit.  Under O
+the requirement is already met, and the four-cell counterfactual shows that
+what meets it is the half of the O declaration that withdraws the side
+exchange and not the half that admits the names: the minimum capability
+count under O is zero, attained by the null augmentation alone, and nothing
+is paid at this rung.  Under U the requirement fails, and no addition of
+judgment forms can meet it while the composite of the side exchange with the
+mark exchange remains a permitted renaming — proved in Lean for an arbitrary
+property of a mark, with a countermodel showing that the hypothesis excludes
+exactly the two mark forms.  Over the declared space of 48 points, the
+minimum capability count under U is one, four one-step points attain it, and
+they fall into **three** non-isomorphic classes, all retained: withdraw the
+side exchange; withdraw the mark permutations; or admit one further mark on
+either side.  **The minimum is therefore not unique**, and the candidate
+that adopts reading O under U costs two capabilities and is refused as a
+bundle, its withdrawal half alone being one of the three minima.  The second
+of the three meets the requirement by unfolding, by declaring the
+metatheoretic admission index to be an internal designation, and so meets it
+while leaving the admitted boundary idle; the third meets it because the two
+sides then carry different numbers of marks, which no renaming of the marks
+can repair — proved in Lean over every permutation.  Under both readings the
+second declared measure, the collateral count, selects the same minima, and
+the two measures are not the same function on the space.
+
+These are scoped Lean theorems, bounded computations, or labelled
+definitions and conventions.  Because the instrument declared prior
+exposure, they carry no blind-independence or independent-discovery
+conclusion.
 
 ## 10. Limitations and open obstructions
 
@@ -1130,8 +1588,34 @@ blind-independence or independent-discovery conclusion.
   the composite that fixes the retained regime and shows that neither half
   fixes it alone, which is weaker than the count.
 - Definition 33's sense of internal separability is this rung's, declared
-  to answer this rung's question.  Challenge 3 declares the sense it will
-  be held to, and may declare a different one.
+  to answer this rung's question.  Challenge 3 declared the same sense
+  (definition 38) and added a second reading of it that agrees by
+  unfolding; a different sense was available and is not explored.
+- **The Challenge 3 minimality is scoped to the declared space** of five
+  coordinates (definition 40) and to the run's declaration that one moved
+  coordinate is one step.  Nothing is claimed about an augmentation the
+  space cannot express.
+- **The permitted renamings are declared and not derived.**  Definition 16
+  makes permission a declaration, which is why admitting the side names
+  under U changes no automorphism and why the counterfactual square turns on
+  one coordinate only.  A model in which the permitted renamings were
+  exactly the maps preserving every declared judgment is a different
+  candidate space: there, admitting the names would withdraw the side
+  exchange in one move, and the enumeration would have to be redone.  That
+  model is OPEN and is not enumerated.
+- The three Challenge 3 minima are tied under both declared measures.  A
+  third measure could separate them; none is offered.
+- One of the three meets the requirement by unfolding, by making the
+  metatheoretic admission index an internal designation, and so meets the
+  requirement as declared while leaving the admitted boundary idle.  The run
+  reports that rather than excluding it: no declaration of the run rules the
+  candidate out, and the requirement as declared does not oblige the
+  boundary to do the work.  Whether the requirement should have been
+  declared so as to exclude it is OPEN.
+- The further-mark minimum uses the token the caller supplied, so it needs
+  no supply of its own; what it needs is that the process, and not only the
+  caller, issues an event, which definition 25 does not license.  The
+  candidate is enumerated and priced; nothing is admitted by it.
 - The audit-totality check reads the Lean source text, not the compiled
   environment.  A theorem it cannot see in the text would escape it, and
   the two populations agree today by count and by name in both directions.
