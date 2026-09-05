@@ -1850,8 +1850,13 @@ Python receipt, bounded), LIMITATION, OPEN.
   no addition of judgment forms meets the requirement, whatever the forms:
   every property of a regime and an ordered pair of internal identities that
   the exchange leaves alone takes the same value at the two retained wholes,
-  and the same holds for a property of a single mark at the two marks that
-  share a side.  The hypothesis is a real restriction: the property that reads
+  and the same holds for a property of a single mark at **marks 0 and 2**,
+  which is what `no_invariant_mark_property_separates_the_paired_marks` states.
+  An earlier version of this entry said "the two marks that share a side", a
+  description that does not uniquely denote — marks 1 and 3 share a side too —
+  and that wider reading is WITHDRAWN: the mark-level theorem covers the one
+  named pair, and the same-side judgment equalities of B4-FAILS-UNDER-BOTH
+  cover both pairs.  The hypothesis is a real restriction: the property that reads
   whether the first mark of a pair is the first admitted mark separates the two
   wholes and is therefore not invariant under the exchange.
 - **Status**: PROVED, for an arbitrary property, with a countermodel.  Counted
@@ -2038,7 +2043,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   separable — implies the declared whole sense at every point of the declared
   space under both readings, and the converse fails inside it: at 18 points
   under U and 16 under O the two wholes are separable while some pair of marks
-  is not, the grouping-with-names point among them.  At the Challenge 3
+  is not.  The grouping-with-names point is among them **under U only**: under
+  O that point satisfies the pointwise sense as well and is therefore not one
+  of the 16.  An earlier version of this entry named it under both readings,
+  which is WITHDRAWN.  At the Challenge 3
   configuration, where each whole is one mark, the two senses agree.
 - **Status**: COMPUTED, a census over the 192 points under each reading.
   Counted as content: score C4-8, on the census and the parting points.  The
@@ -2215,4 +2223,442 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Lean theorem**: none yet.
 - **Axiom report**: not applicable.
 - **Falsifier**: as written in `challenge4/PREDICTIONS.md`.
+- **Surviving boundary**: not yet.
+
+### B5-READER
+
+- **Statement**: Both readers the run has refuse `<<a|>|>` by name — the
+  Challenge 1 reader, whose declared bound is at most one mark in a whole, and
+  the Challenge 4 reader, whose bound is at most one mark on each side of the
+  bar — because neither reads an item on a side that is itself a whole.  The
+  run declares a third reader in which an item is nothing, one mark, or one
+  whole, to a declared depth of two, refusing a deeper item by name; both
+  narrower readers are left refusing.  Reading a nested item is not admitting
+  one.
+- **Status**: DEFINITION for the two refusals, which are earlier rungs' bounds
+  replayed on the caller's text, and for the new bound, which is this rung's
+  declaration.  Not counted as content: score C5-1.
+- **Dependencies**: definitions 17, 47, 59, 60.
+- **Assumptions**: the depth bound is a declaration, not a limit; the same
+  reader at a wider bound reads deeper wholes.
+- **Python evidence**: receipt `reader`; `test_both_inherited_readers_refuse_the_inscription`,
+  `test_the_widened_reader_reads_a_whole_within_a_side`,
+  `test_the_widened_reader_refuses_what_is_beyond_its_bound`,
+  `test_a_deeper_bound_reads_what_the_declared_one_refuses`,
+  `test_the_reader_reads_every_member_of_the_declared_domain`.
+- **Lean theorem**: none; the Lean model has no reader.
+- **Axiom report**: not applicable.
+- **Falsifier**: either inherited reader accepting the inscription; the new
+  reader accepting an item deeper than its declared bound; or the widening not
+  being priced as a declaration of the run.
+- **Surviving boundary**: Challenge 5 onward, as the run's reader.
+
+### B5-POLICY-SPACE
+
+- **Statement**: What an admission does with an item that is itself a whole is
+  not decided by the admitted boundary.  The run declares four policies —
+  refuse it; admit it as one opaque mark on the outer side, its interior
+  discarded; discard the inner boundary and admit its items on the outer side;
+  record the crossing, admitting its items each carrying the sides crossed —
+  over three declared capabilities, at counts `0`, `1`, `1`, `2`.  With the
+  naming coordinate of B5-NAMING the space has eight points.  A candidate is
+  one step exactly when its capability count is one, and a candidate of two or
+  more bundles capabilities and is refused as one step.
+- **Status**: DEFINITION.  The policies, the capabilities, the counts, and the
+  one-step rule are declarations of this rung; a hit on them is by construction
+  and is not counted as content: score C5-2.
+- **Dependencies**: definitions 61, 62; B5-READER.
+- **Assumptions**: the four exhaust the run's own reading of what an admission
+  can do with such an item — nothing, the whole without its interior, the
+  interior without the boundary, the interior with it — and that reading is
+  itself a declaration, stated in the receipt.
+- **Python evidence**: receipt `policy_space`, `readings.*.policies`;
+  `test_the_declared_policy_counts`,
+  `test_the_space_is_the_product_of_its_declared_coordinates`,
+  `test_the_naming_coordinate_is_a_capability_of_its_own`.
+- **Lean theorem**: none; the Lean model carries no policy.
+- **Axiom report**: not applicable.
+- **Falsifier**: a policy count other than `0, 1, 1, 2`; one step not
+  coinciding with capability count one; or the recording policy having
+  capability count one.
+- **Surviving boundary**: Challenge 5's enumeration, and nothing wider.
+
+### B5-ONE-STEP-PARTS
+
+- **Statement**: At Challenge 5 the capability count and the number of
+  coordinates a candidate moves are **different numbers**: the recording policy
+  moves one coordinate and uses two capabilities.  The run keeps the capability
+  reading, because the seed requires a candidate called one step not to bundle.
+  Challenge 4's statement that a candidate is one step "exactly when it moves
+  one coordinate, which is exactly when the count of undeclared capabilities it
+  uses is one" is therefore a fact about that rung's space and not a general
+  one, and is narrowed accordingly.
+- **Status**: COMPUTED, over the eight points of the declared space, with both
+  readings of "one step" reported at each.  Counted as content: it is part of
+  score C5-2's basis and is the reason the space's own key
+  `one_step_iff_one_coordinate_moved` is false.
+- **Dependencies**: definition 62; B5-POLICY-SPACE; definition 56 as narrowed.
+- **Assumptions**: none beyond the declared counts.
+- **Python evidence**: receipt `readings.*.one_step_iff_capability_count_one`
+  (true) and `one_step_iff_one_coordinate_moved` (false);
+  `test_one_step_is_capability_count_one_and_not_coordinate_count`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: the two counts agreeing at every point of this rung's space.
+- **Surviving boundary**: the Challenge 5 space; the narrowing of Challenge 4's
+  sentence stands for the whole run.
+
+### B5-RETENTION
+
+- **Statement**: Under each admitting policy the caller's history for `<<a|>|>`
+  is one supply and one admission, and the state it retains under each reading
+  is the replay of that history: one mark, at address `(0,)` under the two
+  one-step policies and `(0, 0)` under the recording one.  Every retained state
+  is certified and replays from genesis; the refusing policy retains nothing
+  and its refusal is recorded by name.
+- **Status**: COMPUTED (the replay and certification at every point), with the
+  histories themselves DEFINITION-level, following from the declared reader,
+  convention, order, and policy.
+- **Dependencies**: definitions 30, 59, 61, 63, 64; B5-READER, B5-POLICY-SPACE.
+- **Assumptions**: the caller's "retains" is read as at Challenge 2, as the
+  admission of what is supplied; the within-whole order is extended to every
+  level, which is a declaration.
+- **Python evidence**: receipt `readings.*.point_detail.*.history`, `retained`,
+  `certified`, `replays_from_genesis`;
+  `test_every_retained_state_replays_from_genesis`,
+  `test_the_four_policies_on_the_caller_inscription`,
+  `test_the_supplies_precede_every_admission`.
+- **Lean theorem**: `BoundarySeed.nestedRetained_eq`,
+  `BoundarySeed.flatRetained_eq`, `BoundarySeed.nestedRetained_addresses`.
+- **Axiom report**: none for any of the three.
+- **Falsifier**: a retained state that does not replay from genesis; a history
+  that is not one supply and one admission; or an address other than the one
+  the declared convention gives.
+- **Surviving boundary**: Challenge 5's candidates; none is current.
+
+### B5-NESTING-INVISIBLE
+
+- **Statement**: Under both readings and at each of the two one-step policies,
+  what `<<a|>|>` retains is one mark whose address has length one, and it is
+  isomorphic to what the Challenge 1 inscription `<a|>` retains under the same
+  reading — under the discarding policy, equal to it.  **So the object language
+  cannot see a boundary within a side at any policy of capability count one.**
+  More generally, a state recording one side per mark is blind to every
+  exchange below the outermost boundary, at every state and every such level,
+  and no property whatever of the flattened state separates the caller's nested
+  whole from the flat one.
+- **Status**: COMPUTED (the isomorphism searches at each candidate's own
+  renamings, and the equality); PROVED (that the two flatten alike; that
+  flattening is blind to every inner exchange, for an arbitrary state and
+  level; and that no property of the flattened state separates them, for an
+  arbitrary property).  Counted as content: score C5-3.
+- **Dependencies**: definitions 65, 67; B5-RETENTION.
+- **Assumptions**: the isomorphism relation is the candidate's own declared
+  renamings; the flat inscription is read under the same policy.
+- **Python evidence**: receipt
+  `readings.*.point_detail.{opaque,discard}.flat_inscription_isomorphic`,
+  `flat_inscription_equal`, `inherited_grammar.flat_inscription_regime_isomorphic`,
+  and `collateral_facts.nesting_internally_visible` false;
+  `test_the_nesting_is_invisible_at_every_one_step_policy`,
+  `test_the_discarding_policy_retains_the_flat_regime_exactly`,
+  `test_the_recording_policy_tells_the_two_inscriptions_apart`.
+- **Lean theorem**: `BoundarySeed.flatten_nested_eq_flat`,
+  `BoundarySeed.flatten_nested_eq_admitted`,
+  `BoundarySeed.flattenDeep_exchangeLevel_succ`,
+  `BoundarySeed.no_flattened_property_separates_the_nesting`.
+- **Axiom report**: `[propext]` for all four.
+- **Falsifier**: a one-step policy retaining a state with a mark count other
+  than one, or one not isomorphic to what `<a|>` retains under either reading.
+- **Surviving boundary**: every policy of capability count one in the declared
+  space, under both readings.
+
+### B5-TWO-TIED-MINIMA
+
+- **Statement**: The two one-step policies are not the same policy: over the
+  declared 144-member domain they retain non-isomorphic states at 95
+  inscriptions, and at none of those is it the caller's own.  So among the
+  points that admit the caller's inscription the minimum capability count is
+  one, exactly two non-isomorphic classes attain it, both are retained, and
+  **uniqueness is refuted under both readings** — where at Challenge 4 it was
+  not refuted under U.
+- **Status**: COMPUTED, a census over the declared domain with the parting
+  inscriptions named, and the implemented quotient of definition 69.  Counted
+  as content: score C5-4.
+- **Dependencies**: definitions 62, 69; B5-POLICY-SPACE, B5-NESTING-INVISIBLE.
+- **Assumptions**: two policies are the same policy exactly when they retain
+  isomorphic states at every member of the declared domain; a wider domain
+  might separate policies this one identifies.
+- **Python evidence**: receipt `readings.*.policy_separation`,
+  `minima_by_mu1`; `test_the_two_one_step_policies_are_two`,
+  `test_the_minima_are_two_tied_classes_under_both_readings`,
+  `test_differing_inscriptions_is_bounded_and_ordered`.
+- **Lean theorem**: none; Lean closes no census.
+- **Axiom report**: not applicable.
+- **Falsifier**: the two policies agreeing up to isomorphism at every member of
+  the declared domain; a class count other than two at the minimum; a minimum
+  count other than one; or the two parting at the caller's own inscription.
+- **Surviving boundary**: the declared policy space and the declared domain.
+
+### B5-CLASS-KEY
+
+- **Statement**: The implemented class key of a candidate is its declared
+  structure together with a digest of its canonical key at every member of the
+  declared domain — read over the domain and **not** at the caller's one
+  inscription.  A key read at that inscription alone reports ONE class where
+  the enumeration finds two, because the two one-step policies retain
+  isomorphic states there, and so understates a tie the seed requires to be
+  retained.  The digest is a naming device and never evidence: every
+  inscription at which two candidates part is enumerated and the first of them
+  are named.
+- **Status**: COMPUTED, with the defect the domain-wide key exists to catch
+  demonstrated in both directions.  It is the first quotient the run takes over
+  a FUNCTION rather than over a state.
+- **Dependencies**: definition 69; B5-TWO-TIED-MINIMA.
+- **Assumptions**: the domain is a declaration; the digest is deterministic and
+  is compared, never inverted.
+- **Python evidence**: receipt `readings.*.points.*.class_key`;
+  `test_the_class_key_read_at_one_inscription_understates_the_tie`,
+  `test_the_digest_moves_with_the_behaviour`; injection row in `MANUAL.md`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: a key read over the domain that identifies the two one-step
+  policies, or one read at the caller's inscription that separates them.
+- **Surviving boundary**: the Challenge 5 quotient.
+
+### B5-INNER-WHOLE
+
+- **Statement**: Under no declared policy is the inner whole a second initial
+  datum — the state carries exactly one and no admission event of any kind
+  makes another — and under no policy is it a side, sides coming with a
+  boundary and never being admitted.  It is a MARK under the opaque policy,
+  NOTHING AT ALL under the discarding policy, which admits only its items, and
+  a second BOUNDARY under the recording policy, which is a new definition.
+  Treating the inner whole as the outer whole was treated means that its own
+  two sides are places at which a further mark may be admitted, and that holds
+  under the recording policy alone, which is not one step.
+- **Status**: COMPUTED (the datum reading at every point, and the
+  event-acceptance probe with both values attained); PROVED (that no deep
+  history moves the initial datum).  The classification of what the inner whole
+  IS under each policy is a declaration of the run and is labelled as such.
+  Counted as content: score C5-5.
+- **Dependencies**: definitions 61, 63, 64; B5-POLICY-SPACE.
+- **Assumptions**: the mechanical reading of "treated as the outer whole was
+  treated" is the admissibility of a further mark inside it; a different
+  reading is available.
+- **Python evidence**: receipt `what_the_inner_whole_is`,
+  `readings.*.point_detail.*.further_mark_within_the_inner_whole`,
+  `initial_datum_unchanged`; `test_no_policy_makes_a_second_initial_datum`,
+  `test_a_further_mark_within_the_inner_whole_needs_the_recording_policy`,
+  `test_what_the_inner_whole_is_under_each_policy`.
+- **Lean theorem**: `BoundarySeed.deepReplay_initialDatum`.
+- **Axiom report**: none.
+- **Falsifier**: a retained state carrying a second initial datum; a policy
+  admitting the inner whole as a side; or a further mark admissible inside it
+  under a policy of capability count one.
+- **Surviving boundary**: the declared policy space.
+
+### B5-DEPTH-TWO-SENSES
+
+- **Statement**: Under every one-step policy every retained mark of the
+  declared domain is one boundary in, so depth separates nothing there.  Under
+  the recording policy the depth of a mark is invariant under every permitted
+  renaming and is determined by the key, so it is internally available in the
+  sense Challenge 3 declared and Challenge 4 generalized.  It is nevertheless
+  **not expressible**: no form of the closed observation grammar reads it, the
+  grammar having no counting form, and this rung adds none.  The two senses are
+  kept apart and neither is unconditional.
+- **Status**: COMPUTED (the key-determination census over the declared domain,
+  and the depths a policy can hold); PROVED (that no level exchange moves any
+  mark's depth).  The grammar clause is DEFINITION-level, the grammar being the
+  declared sum of two forms, and is reported apart.  Counted as content: score
+  C5-6, on the census.
+- **Dependencies**: definitions 65, 66, 67, 70; B5-POLICY-SPACE.
+- **Assumptions**: "internally available" is the run's declared sense —
+  invariant under the permitted renamings and determined by the key — and
+  "expressible" is membership in the closed grammar; the two are different
+  questions and are answered separately.
+- **Python evidence**: receipt `readings.*.point_detail.*.depths_over_the_domain`,
+  `collateral_facts.depth_determined_by_the_key`,
+  `depth_expressible_in_the_closed_grammar` false everywhere, and
+  `closed_grammar_forms_reading_depth` empty;
+  `test_depth_is_one_at_every_one_step_policy`,
+  `test_depth_is_determined_by_the_key_where_a_state_is_retained`,
+  `test_the_key_determination_check_reads_both_ways`,
+  `test_no_form_of_the_closed_grammar_reads_depth`,
+  `test_no_permitted_renaming_moves_a_mark_depth`.
+- **Lean theorem**: `BoundarySeed.exchangeAt_length`,
+  `BoundarySeed.depth_invariant_under_exchange`,
+  `BoundarySeed.depth_is_invariant_where_the_inner_side_is_not`,
+  `BoundarySeed.nested_depth_survives_every_continuation`.
+- **Axiom report**: `[propext]` for all four.
+- **Falsifier**: a permitted renaming that changes a mark's depth; two members
+  of the declared domain with equal keys and different depth signatures; a form
+  of the closed grammar whose value depends on depth; or a mark of depth other
+  than one under a one-step policy.
+- **Surviving boundary**: the declared domain and the declared grammar.
+
+### B5-NAMING
+
+- **Statement**: Whether the reading's naming of the two sides reaches the
+  inner boundary is a further declaration the seed's one admitted exception
+  does not make, and the run carries it as a coordinate.  **Under U it
+  collapses at every policy**: U names nothing at any level, so both its values
+  declare the same permitted renamings and the same key.  **Under O it
+  collapses at three policies of four**, and not at the recording one: with the
+  naming reaching inward no side exchange is permitted at either level and the
+  retained mark's address orbit has one member; without it, the exchange of the
+  inner boundary's two sides is a renaming the object language cannot see, the
+  orbit has two members, and **which side of the inner boundary the mark lies
+  on is not internally available under O either**.  Under U the orbit has four
+  members and neither boundary's side is available.
+- **Status**: COMPUTED (the collapses, by the implemented quotient over the
+  whole domain, and the three orbit sizes, over the unpruned enumeration);
+  PROVED (that nothing invariant under the inner exchange separates the two
+  inner sides, for an arbitrary property, with a countermodel).  Counted as
+  content: score C5-7.
+- **Dependencies**: definitions 66, 67, 68, 69; B5-POLICY-SPACE.
+- **Assumptions**: a level whose sides carry no admitted name has an exchange
+  the object language cannot see, and the exchanges of different levels are
+  independent declarations; both are declarations of definition 67.
+- **Python evidence**: receipt `readings.*.naming_coordinate_collapses_at`,
+  `naming_coordinate_collapses_everywhere`,
+  `point_detail.*.mark_address_orbit_size`,
+  `collateral_facts.inner_side_internally_available`;
+  `test_the_naming_coordinate_collapses_under_U_and_not_under_O`,
+  `test_the_address_orbit_sizes_under_each_declaration`,
+  `test_the_inner_side_is_unavailable_under_O_without_the_declaration`,
+  `test_under_U_neither_side_of_either_boundary_is_available`.
+- **Lean theorem**: `BoundarySeed.exchangeLevel_one_nestedRetained`,
+  `BoundarySeed.no_invariant_property_separates_the_inner_sides`,
+  `BoundarySeed.innerSideIsZero_separates`,
+  `BoundarySeed.innerSideIsZero_is_not_invariant_under_the_inner_exchange`.
+- **Axiom report**: `[propext]` for the first and the third, none for the
+  second, `[propext, Quot.sound]` for the fourth.
+- **Falsifier**: the coordinate not collapsing under U; the inner side being
+  internally available under O without the further declaration; or an address
+  orbit size other than four, one, and two respectively.
+- **Surviving boundary**: two boundary levels; what happens at three is not
+  computed.
+
+### B5-MEASURES-PART
+
+- **Statement**: The two declared cost measures select **different** minima at
+  this rung, for the first time in the run: the capability count ties the two
+  one-step policies at one, and the collateral count picks the discarding
+  policy alone under both readings.  The eight declared collateral facts are
+  facts and not independent facts, and the receipt names the pairs that take
+  the same value at every point of the space rather than re-weighting the
+  measure.
+- **Status**: COMPUTED, over the declared space under each reading.
+- **Dependencies**: definitions 62, 70; B5-TWO-TIED-MINIMA.
+- **Assumptions**: a fact about a retained configuration is FALSE where nothing
+  is retained; absence of a test is not turned into the fact holding.
+- **Python evidence**: receipt `readings.*.measures_agree_on_minima` false,
+  `minima_by_mu2`, `collateral_facts_agreeing_everywhere`;
+  `test_the_two_measures_select_different_minima`,
+  `test_the_facts_that_agree_everywhere_are_named`,
+  `test_the_agreement_check_reads_both_ways`,
+  `test_a_fact_is_false_where_nothing_is_retained`,
+  `test_the_collateral_measure_counts_only_what_the_base_lacked`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: the two measures selecting the same minima under either
+  reading; or a pair of facts reported as agreeing everywhere that differs at
+  some point.
+- **Surviving boundary**: the declared space at the caller's inscription.
+
+### B5-INERTIA
+
+- **Statement**: Nothing at Challenge 5 changes the initial datum, the reading,
+  or the event-follows relation, which stays empty on every probe of both event
+  grammars at every point; every admitting point's history is certified and
+  replays from genesis and every refusing point retains nothing; no rule of an
+  earlier rung is withdrawn; and one event kind, `AdmitAt`, is added, available
+  only under the recording policy.  A mark's depth survives every continuation,
+  however many further marks are admitted at whatever depth.
+- **Status**: COMPUTED (the certification, the replay, and the probes at every
+  point, with both values of the admission predicate attained); PROVED (that
+  any deep history keeps the reading and the datum, that the deep event-follows
+  relation is empty, and that an admitted address is read the same after any
+  later history).  The empty relation is DEFINITION-level and is reported
+  apart.  Counted as content: score C5-8.
+- **Dependencies**: definitions 9, 63, 64; B5-RETENTION.
+- **Assumptions**: the probe set offers every event kind of the deep grammar.
+- **Python evidence**: receipt `readings.*.point_detail.*.event_follows_relation_empty`,
+  `inherited_event_follows_relation_empty`, `initial_datum_unchanged`,
+  `reading_unchanged`, `new_event_kinds_at_challenge_5`,
+  `withdrawn_rules_at_challenge_5`;
+  `test_the_probe_set_offers_every_event_kind_of_the_deep_grammar`,
+  `test_an_admission_of_a_token_never_supplied_is_refused`,
+  `test_deep_certify_reads_false_on_a_refused_history`.
+- **Lean theorem**: `BoundarySeed.deep_no_event_follows`,
+  `BoundarySeed.deepReplay_reading`,
+  `BoundarySeed.deepReplay_preserves_address`,
+  `BoundarySeed.no_event_follows_nestedRetained`.
+- **Axiom report**: `[propext]` for the first, third and fourth; none for the
+  second.
+- **Falsifier**: a non-empty event-follows relation at any point; a retained
+  state that does not replay from genesis; or an earlier event kind withdrawn.
+- **Surviving boundary**: Challenge 5 and every later stage that adds no rule.
+
+### B5-OUTSIDE
+
+- **Statement**: The run formulates no address value denoting the outside of
+  the outermost boundary.  An address is a sequence of sides crossed inward and
+  the declared alphabet has two values, both of them sides of a boundary
+  already crossed; so the outside is not formulable in the declared alphabet.
+- **Status**: OPEN.  The question is named and not answered, and the run
+  declines to declare a value for it, because a declaration made to answer the
+  question would be fitting the model to the answer.
+- **Dependencies**: definition 63; the seed's required question 11.
+- **Assumptions**: none; the statement is about the declared alphabet only and
+  makes no claim about what a different alphabet could formulate.
+- **Python evidence**: receipt `outside_of_the_outermost_boundary`;
+  `test_receipt_shape`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: an address value in the declared alphabet denoting the
+  outside.
+- **Surviving boundary**: the declared address alphabet.
+
+### B5-BOUNDARY-DEPENDENCE
+
+- **Statement**: At Challenge 5 the identity of the policy space, the
+  capability counts, the one-step rule, the refusal of bundles, and the two
+  senses of an available depth do not require the admitted boundary.  The
+  notion of depth, the address, the crossing, every level exchange, the
+  invisibility of the nesting at every one-step policy, and the reader's own
+  bound require it and are not formulated after removing it.  The outside of
+  the outermost boundary requires it to be formulated at all, and is not
+  formulated.
+- **Status**: LIMITATION, a dependency classification of the run.  It is
+  reported in the receipt and is not computed by anything.
+- **Dependencies**: the seed's requirement to classify at every stage.
+- **Assumptions**: removing the boundary is a counterfactual classification and
+  not a third reading added to the model.
+- **Python evidence**: receipt `boundary_dependence`; `test_receipt_shape`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: as B0-BOUNDARY-DEPENDENCE.
+- **Surviving boundary**: Challenge 5 dependency classification.
+
+### B5-X
+
+- **Statement**: At the autonomous continuation the first challenge the
+  generator justifies from a surviving Challenge 5 branch will be a further
+  MARK and not a deeper nesting — a further mark costing one capability at
+  every rung that has priced it and deeper nesting costing two here, with the
+  generator required to be the weakest justified.  The stage will not reach
+  fifteen accepted augmentation rounds on any branch in one session; it will
+  declare a smaller resource bound, export the exact frontier, and state what
+  is complete within that bound and nothing wider.
+- **Status**: OPEN; the extrapolation of Challenge 5, scored by the autonomous
+  continuation.  Nothing of it is computed here.
+- **Dependencies**: the continuation's declared generator, its resource bound,
+  and its frontier export.
+- **Assumptions**: none yet.
+- **Python evidence**: none yet.
+- **Lean theorem**: none yet.
+- **Axiom report**: not applicable.
+- **Falsifier**: as written in `challenge5/PREDICTIONS.md`.
 - **Surviving boundary**: not yet.

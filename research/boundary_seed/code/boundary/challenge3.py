@@ -921,10 +921,19 @@ def price_facts(reading: str, base_met: bool, by_mu1: Json, rows: list[Json]) ->
 # ---------------------------------------------------------------------------
 
 
-def minima(rows: list[Json], measure: str) -> Json:
+def minima(rows: list[Json], measure: str, predicate: str = "satisfies") -> Json:
     """The satisfying candidates of least cost under one measure, quotiented by
-    the implemented class key, with every tied class retained."""
-    satisfying = [row for row in rows if row["satisfies"]]
+    the implemented class key, with every tied class retained.
+
+    ``predicate`` names the row key that says whether a candidate answers the
+    rung's demand.  It defaults to ``satisfies``, which is what Challenges 3
+    and 4 mean and is the only value either of them passes; Challenge 5's
+    demand is the caller's retention and not a separability requirement, so
+    that rung passes its own key rather than reusing this word for a second
+    predicate.  Adding the parameter moves no computed value of any earlier
+    rung, and their receipts regenerate byte-identically.
+    """
+    satisfying = [row for row in rows if row[predicate]]
     if not satisfying:
         return {
             "measure": measure,
@@ -954,7 +963,9 @@ def minima(rows: list[Json], measure: str) -> Json:
     }
 
 
-def one_step_minima(rows: list[Json], measure: str) -> Json:
+def one_step_minima(
+    rows: list[Json], measure: str, predicate: str = "satisfies"
+) -> Json:
     """The same, over the one-step candidates AND the null point.  A bundle is
     refused as a one-step augmentation, so it is not eligible to be a minimum
     of the enumeration the seed asks for; the null point is not a one-step
@@ -963,7 +974,9 @@ def one_step_minima(rows: list[Json], measure: str) -> Json:
     minimum of zero reports.  An earlier version of this docstring said
     one-step candidates only, which the filter beside it contradicts; review
     found that, and the correction changes no computed value."""
-    return minima([row for row in rows if row["one_step"] or row["mu1"] == 0], measure)
+    return minima(
+        [row for row in rows if row["one_step"] or row["mu1"] == 0], measure, predicate
+    )
 
 
 def reading_facts(reading: str) -> Json:

@@ -945,3 +945,286 @@ def whole_orbit(
         (configuration_key(image, rn), frozenset(pi[i] for i in have))
         for _reflected, pi, _sigma, image in permitted_configuration_images(c, rn)
     )
+
+
+# ---------------------------------------------------------------------------
+# Challenge 5: addresses, the deep regime, and the level exchanges
+# ---------------------------------------------------------------------------
+
+
+Address = tuple[int, ...]
+
+
+@dataclass(frozen=True)
+class DeepRegime:
+    """Admitted state under a policy that records the crossing.
+
+    ``addresses``: for each admitted mark, in admission order, the finite
+    sequence of sides crossed to reach it, OUTERMOST FIRST.  A ``Regime``
+    records one side per mark; this records a sequence, and the length of
+    that sequence is the mark's DEPTH.  The two state types are kept apart
+    deliberately: ``flatten_deep`` is the only map between them and it is not
+    injective, which is the point of the rung.
+
+    The one opaque supplied whole is fixed, exactly as in ``Regime``: no
+    admission event of any kind creates a second, so an inner whole is never
+    a second initial datum.
+    """
+
+    reading: str
+    marks: tuple[str, ...]
+    addresses: tuple[Address, ...]
+    initial_datum: OpaqueDatum = INITIAL_DATUM
+
+    def __post_init__(self) -> None:
+        if self.reading not in READINGS:
+            raise AdmissionError(f"unknown reading: {self.reading!r}")
+        if self.initial_datum != INITIAL_DATUM:
+            raise AdmissionError("the Challenge 0 initial datum is fixed")
+        if len(self.marks) != len(self.addresses):
+            raise AdmissionError("marks and addresses must have equal length")
+        for address in self.addresses:
+            if not address:
+                raise AdmissionError("an address crosses at least one boundary")
+            if any(side not in (0, 1) for side in address):
+                raise AdmissionError("every crossing names side 0 or side 1")
+
+    def n_marks(self) -> int:
+        return len(self.marks)
+
+
+def deep_genesis(reading: str) -> DeepRegime:
+    return DeepRegime(reading, (), ())
+
+
+@dataclass(frozen=True)
+class AdmitAt:
+    """The Challenge 5 admission event: one presented occurrence as a fresh
+    mark at an address.
+
+    It is ``AdmitOccurrence`` with a sequence of crossings in place of one
+    side, and it is available only under a policy that declares the crossing
+    to be recorded; ``challenge5.py`` decides which policies do.
+    """
+
+    token: str
+    address: Address
+
+
+DeepEvent = Union[Supply, AdmitAt]
+
+
+def deep_step(r: DeepRegime, e: DeepEvent) -> DeepRegime:
+    """Apply one event to deep admitted state, assuming a well-formed history."""
+    if isinstance(e, Supply):
+        return r
+    if not e.address:
+        raise AdmissionError("an address crosses at least one boundary")
+    if any(side not in (0, 1) for side in e.address):
+        raise AdmissionError(f"every crossing names side 0 or 1, got {e.address}")
+    return DeepRegime(
+        r.reading, r.marks + (e.token,), r.addresses + (e.address,), r.initial_datum
+    )
+
+
+def deep_replay(history: Sequence[DeepEvent], base: DeepRegime) -> DeepRegime:
+    """Replay a well-formed deep history, refusing an unsupplied admission."""
+    r = base
+    presented: set[str] = set()
+    for e in history:
+        if isinstance(e, Supply):
+            presented.add(e.token)
+        elif e.token not in presented:
+            raise AdmissionError(
+                f"occurrence {e.token!r} was not supplied before admission"
+            )
+        r = deep_step(r, e)
+    return r
+
+
+def deep_certify(
+    history: Sequence[DeepEvent], base: DeepRegime, claimed: DeepRegime
+) -> bool:
+    try:
+        return deep_replay(history, base) == claimed
+    except AdmissionError:
+        return False
+
+
+def deep_event_follows(_r: DeepRegime, _e: DeepEvent) -> bool:
+    """The object-language transition relation on deep regimes is empty too."""
+    return False
+
+
+def depth_of(r: DeepRegime, mark: int) -> int:
+    """The number of boundaries crossed to reach one admitted mark.
+
+    A metatheoretic reading of the address tuple, exactly as ``mark_side`` is
+    a metatheoretic reading of the placement tuple.  Whether it is internally
+    available is a separate question, decided by the renamings and the key.
+    """
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+    return len(r.addresses[mark])
+
+
+def flatten_deep(r: DeepRegime) -> Regime:
+    """Discard every crossing but the outermost: the regime a policy that does
+    not record the crossing would hold.
+
+    Not injective: two marks reached by different inner crossings of the same
+    outer side have the same image.  That is what makes the nesting invisible
+    to a policy that does not record it.
+    """
+    return Regime(
+        r.reading, r.marks, tuple(address[0] for address in r.addresses), r.initial_datum
+    )
+
+
+def exchange_level(r: DeepRegime, level: int) -> DeepRegime:
+    """Exchange the two sides of one boundary level.
+
+    An address shorter than ``level + 1`` never crossed that boundary and is
+    unchanged.  ``reflect`` is this at level ``0`` on a ``Regime``.
+    """
+    if level < 0:
+        raise ValueError(f"a boundary level is nonnegative, got {level}")
+    return DeepRegime(
+        r.reading,
+        r.marks,
+        tuple(
+            tuple(1 - side if i == level else side for i, side in enumerate(address))
+            for address in r.addresses
+        ),
+        r.initial_datum,
+    )
+
+
+def deep_rename_marks(r: DeepRegime, pi: Sequence[int]) -> DeepRegime:
+    """Apply a permutation of internal identities to a deep regime."""
+    n = r.n_marks()
+    if sorted(pi) != list(range(n)):
+        raise ValueError("not a permutation of the admitted marks")
+    marks: list[str] = [""] * n
+    addresses: list[Address] = [()] * n
+    for i in range(n):
+        marks[pi[i]] = r.marks[i]
+        addresses[pi[i]] = r.addresses[i]
+    return DeepRegime(r.reading, tuple(marks), tuple(addresses), r.initial_datum)
+
+
+def deep_serialize(r: DeepRegime, keep_labels: bool = False) -> tuple[object, ...]:
+    """Tokens forgotten unless a policy keeps them; reading and addresses kept."""
+    if keep_labels:
+        return (r.reading, r.marks, r.addresses)
+    return (r.reading, r.addresses)
+
+
+def level_flip_sets(unnamed_levels: Sequence[int]) -> list[tuple[int, ...]]:
+    """Every subset of the unnamed levels, as a sorted tuple, deterministically.
+
+    A level whose two sides carry no admitted name has an exchange the object
+    language cannot see, and the exchanges of different levels are independent
+    declarations, so the permitted set is the whole power set.  Which levels
+    are unnamed is a declaration of the candidate, never a discovery.
+    """
+    levels = sorted(set(unnamed_levels))
+    out: list[tuple[int, ...]] = [()]
+    for level in levels:
+        out = out + [(*chosen, level) for chosen in out]
+    return sorted(out)
+
+
+DeepImage = tuple[tuple[int, ...], tuple[int, ...], DeepRegime]
+
+
+def deep_permitted_images(
+    r: DeepRegime, unnamed_levels: Sequence[int], mark_permutations: bool = True
+) -> list[DeepImage]:
+    """Every deep regime a permitted renaming reaches, with the renaming.
+
+    Each entry is ``(exchanged levels, permutation, image)``.  Unpruned: the
+    whole product of level-exchange subsets and permitted mark permutations
+    is offered.
+    """
+    n = r.n_marks()
+    perms = list(permutations(range(n))) if mark_permutations else [tuple(range(n))]
+    out: list[DeepImage] = []
+    for flips in level_flip_sets(unnamed_levels):
+        base = r
+        for level in flips:
+            base = exchange_level(base, level)
+        for pi in perms:
+            out.append((flips, tuple(pi), deep_rename_marks(base, pi)))
+    return out
+
+
+def deep_automorphisms(
+    r: DeepRegime,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+    keep_labels: bool = False,
+) -> list[tuple[tuple[int, ...], tuple[int, ...]]]:
+    """Every permitted renaming carrying a deep regime onto itself."""
+    target = deep_serialize(r, keep_labels)
+    return [
+        (flips, pi)
+        for flips, pi, image in deep_permitted_images(r, unnamed_levels, mark_permutations)
+        if deep_serialize(image, keep_labels) == target
+    ]
+
+
+def deep_is_isomorphic(
+    a: DeepRegime,
+    b: DeepRegime,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+    keep_labels: bool = False,
+) -> bool:
+    """Whether a permitted renaming carries one deep regime onto another."""
+    if a.reading != b.reading:
+        return False
+    target = deep_serialize(b, keep_labels)
+    return any(
+        deep_serialize(image, keep_labels) == target
+        for _flips, _pi, image in deep_permitted_images(a, unnamed_levels, mark_permutations)
+    )
+
+
+def deep_canonical(
+    r: DeepRegime,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+    keep_labels: bool = False,
+) -> tuple[object, ...]:
+    """The minimum serialization over every image the declaration permits.
+
+    Bounded, like ``canonical``: no unbounded completeness is claimed.
+    """
+    best: tuple[object, ...] | None = None
+    for _flips, _pi, image in deep_permitted_images(r, unnamed_levels, mark_permutations):
+        key = deep_serialize(image, keep_labels)
+        if best is None or key < best:
+            best = key
+    assert best is not None
+    return best
+
+
+def deep_mark_orbit(
+    r: DeepRegime,
+    mark: int,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+) -> frozenset[Address]:
+    """The addresses one admitted mark is carried to by permitted renamings.
+
+    A fact about the mark's address is internally available exactly when it
+    takes one value over this set: if two images disagree about it, no
+    property invariant under the permitted renamings can report it.
+    """
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+    return frozenset(
+        image.addresses[pi[mark]]
+        for _flips, pi, image in deep_permitted_images(r, unnamed_levels, mark_permutations)
+    )

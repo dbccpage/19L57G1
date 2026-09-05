@@ -30,12 +30,23 @@ rung's ledger and paid by the run; the narrower reader is left as it was,
 so the refusal that forced the widening stays visible.  In which order the
 two marks of one whole are admitted is a second declaration of the same
 kind as the convention, and both orders are reported.
+
+Challenge 5 addition.  The caller supplies a whole within a side, which both
+earlier readers refuse by name: neither reads an ITEM that is itself a whole.
+``read_nested_whole`` is the third and last widening of this run's reader: an
+item on a side is a mark or a whole, down to a declared finite depth beyond
+which the reader refuses by name.  The two narrower readers are left refusing,
+so what forced each widening stays visible, and the widening is a declaration
+of the run priced in the rung's ledger.  Reading a nested item is not
+admitting one: what an admission does with an item that is a whole is the
+declared policy space of ``challenge5.py`` and is decided there, not here.
 """
 
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from typing import Union
 
 from boundary.model import AdmitMark, Supply
 
@@ -179,3 +190,135 @@ def pair_marks(whole: PairWhole, convention: str, order: str) -> list[tuple[str,
         if token is not None:
             out.append((token, admitted_side(presented, convention)))
     return out
+
+
+# ---------------------------------------------------------------------------
+# Challenge 5: the nested reader bound
+# ---------------------------------------------------------------------------
+
+NESTING_BOUND = 2
+"""The declared finite depth the Challenge 5 reader accepts.
+
+The caller's inscription has depth two — one boundary within one side of
+another — and the reader refuses depth three by name rather than reading
+arbitrarily deep, so that every enumeration below stays finite by
+declaration.  The bound is a declaration of the run, not a fact about the
+inscription.
+"""
+
+
+@dataclass(frozen=True)
+class NestedWhole:
+    """A whole read under the Challenge 5 bound: at most one ITEM on each side
+    of the bar, where an item is a mark or a whole.
+
+    ``read_whole`` and ``read_pair_whole`` keep their own narrower bounds and
+    still refuse a nested whole by name; this type and its reader are the
+    third declared widening of the metatheory, paid by the run.  The spelling
+    of the whole is not stored: ``render`` rebuilds a spelling from the read
+    structure and is used to name a domain member, never as a token.
+    """
+
+    left: Item | None
+    right: Item | None
+
+
+Item = Union[str, NestedWhole]
+
+_MARK = re.compile(r"^[a-z]$")
+
+
+def whole_depth(whole: NestedWhole) -> int:
+    """The number of boundaries crossed to reach the deepest mark, at least one.
+
+    A whole with no item has depth one: its own boundary is the one crossed.
+    """
+    inner = [
+        whole_depth(item)
+        for item in (whole.left, whole.right)
+        if isinstance(item, NestedWhole)
+    ]
+    return 1 + max(inner, default=0)
+
+
+def render_item(item: Item | None) -> str:
+    """The spelling of a read item; ``""`` for an empty side."""
+    if item is None:
+        return ""
+    if isinstance(item, NestedWhole):
+        return render_whole(item)
+    return item
+
+
+def render_whole(whole: NestedWhole) -> str:
+    """A spelling rebuilt from the read structure, for naming a domain member."""
+    return f"<{render_item(whole.left)}|{render_item(whole.right)}>"
+
+
+def _split_sides(text: str) -> tuple[str, str]:
+    """Split a whole's body at ITS bar: the one at nesting level zero.
+
+    A body may itself contain bars, so the split cannot be a regular
+    expression over the whole text; the level is counted here.
+    """
+    if len(text) < 2 or text[0] != "<" or text[-1] != ">":
+        raise PresentationError(f"not a whole delimited by one pair of marks: {text!r}")
+    body = text[1:-1]
+    level = 0
+    bar: int | None = None
+    for index, char in enumerate(body):
+        if char == "<":
+            level += 1
+        elif char == ">":
+            level -= 1
+            if level < 0:
+                raise PresentationError(f"a whole closes before it opens: {text!r}")
+        elif char == "|" and level == 0:
+            if bar is not None:
+                raise PresentationError(f"more than one bar at this level: {text!r}")
+            bar = index
+    if level != 0:
+        raise PresentationError(f"a whole opens and does not close: {text!r}")
+    if bar is None:
+        raise PresentationError(f"no bar at this level: {text!r}")
+    return body[:bar], body[bar + 1 :]
+
+
+def _read_item(text: str, depth_left: int) -> Item | None:
+    """Read one side's item: nothing, a mark, or a whole within the bound."""
+    if text == "":
+        return None
+    if _MARK.match(text):
+        return text
+    if not text.startswith("<"):
+        raise PresentationError(
+            f"an item on a side is one mark or one whole, not {text!r}"
+        )
+    if depth_left <= 0:
+        raise PresentationError(
+            f"an item lying deeper than the declared bound of {NESTING_BOUND} "
+            f"is refused: {text!r}"
+        )
+    return _read_nested(text, depth_left - 1)
+
+
+def _read_nested(text: str, depth_left: int) -> NestedWhole:
+    left_text, right_text = _split_sides(text)
+    return NestedWhole(
+        _read_item(left_text, depth_left),
+        _read_item(right_text, depth_left),
+    )
+
+
+def read_nested_whole(text: str, bound: int = NESTING_BOUND) -> NestedWhole:
+    """Read one whole in which an item on a side may itself be a whole.
+
+    Declared bound: one bar per whole, at most one item on each side, and
+    depth at most ``bound``.  Anything else is refused by name so that no
+    structure beyond the admitted exception and this rung's declared widening
+    is read silently.  Reading is not admitting: what an admission does with
+    an item that is a whole is the policy space of ``challenge5.py``.
+    """
+    if bound < 1:
+        raise PresentationError(f"the declared depth bound must be at least one: {bound}")
+    return _read_nested(text, bound - 1)

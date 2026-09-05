@@ -1,4 +1,4 @@
-# The boundary derivation: Challenges 0 to 4 under declared prior exposure
+# The boundary derivation: Challenges 0 to 5 under declared prior exposure
 
 `AuthorityEffect: None`.  A source-isolated derivation from the inscription
 `<|>`, carried out inside this repository under the read-only seed
@@ -29,14 +29,14 @@ seed, plan/manual, and predictions were committed in that order before the
 branch committed code or proofs; it cannot prove when untracked or off-tree
 work was written.  The surviving provenance claim is therefore
 `SOURCE_ISOLATED_WITH_DECLARED_PRIOR_EXPOSURE`, not “blind derivation.”
-Challenges 1 to 4 were each closed in a fresh session under the same
+Challenges 1 to 5 were each closed in a fresh session under the same
 ceiling; each status records where a remembered shape was used.
 
 One further channel is material and is disclosed here rather than only in
 the statuses.  Each rung is read by an adversarial review outside the run,
 whose findings arrive as advisories at the start of the next session; every
 advisory is actioned or carried with its reason in that challenge's
-`STATUS.md`.  Through Challenge 4 that channel has supplied more than thirty
+`STATUS.md`.  Through Challenge 5 that channel has supplied more than forty
 actioned repairs and the design of two gates — the Lean audit-totality check
 at Challenge 2 and the independent placement check at Challenge 3 — so a
 reader should not treat the apparatus as the run's unaided work.  It does
@@ -143,7 +143,8 @@ in `code/boundary/presentation.py`; 20 to 26 in `model.py` and
 `model.py` and `code/boundary/challenge2.py` as marked; 37 to 46 are
 Challenge 3's, in `model.py` and `code/boundary/challenge3.py` as marked;
 47 to 58 are Challenge 4's, in `presentation.py`, `model.py`, and
-`code/boundary/challenge4.py` as marked.
+`code/boundary/challenge4.py` as marked; 59 to 70 are Challenge 5's, in
+`presentation.py`, `model.py`, and `code/boundary/challenge5.py` as marked.
 Definitions 27, 28, and 36 are **Lean-only** and have no Python counterpart,
 as their headings say.  Two earlier versions of this sentence were wrong:
 the first placed 20 to 27 in the Python modules while 27 and 28 were marked
@@ -659,6 +660,114 @@ whole Challenge 3 candidate space are Python-only.
     the requirement; here the two facts nearest the requirement — the first
     and the second of the eight — are each computed against it at every point
     of the space, and neither agrees with it everywhere.
+
+59. **The nested reader bound (Challenge 5).**  The third and last widening of
+    this run's reader, in `presentation.py`: a whole is `<` item `|` item `>`,
+    an *item* on a side is nothing, one mark, or one whole, and the reader
+    accepts to a declared finite depth of two and refuses a deeper item by
+    name.  The bar of a whole is the one at its own nesting level, which a
+    regular expression over the text cannot find, so the split counts levels.
+    The two narrower readers keep their own bounds and both refuse `<<a|>|>` by
+    name.  The widening is a declaration of the run, priced in the ledger and
+    paid by the run; the bound is a declaration too and not a limit, and the
+    same reader at a wider bound reads deeper wholes.
+60. **Reading is not admitting (Challenge 5).**  What the reader returns is a
+    presentation, exactly as at Challenges 1 and 4.  What an admission event
+    does with an item that is itself a whole is decided by definition 61 and by
+    nothing in the reader.
+61. **The declared policy space (Challenge 5).**  An admission meeting an item
+    that is a whole either does not act on it (*refuse*), acts on the whole
+    without its interior (*opaque*: it is admitted as one mark on the outer
+    side, its interior discarded), acts on the interior without the boundary
+    between (*discard*: the inner boundary is dropped and the inner whole's own
+    items are admitted on the outer side), or acts on the interior keeping that
+    boundary (*record*: each admitted mark carries the sides crossed to reach
+    it).  Those four are the declared space.  It does not enumerate a policy
+    that admits the inner whole AND its items as separate marks, one that
+    admits the inner boundary as a datum of its own, one that reads a different
+    convention at each level, or one that groups marks by anything but the
+    crossing.  Every minimality statement of this rung is scoped to the four.
+62. **The Challenge 5 capabilities, the counts, and the one-step rule.**  Three
+    capabilities are declared for policies — admitting a whole as a mark;
+    reaching inside a nested whole; recording the crossing — and a fourth for
+    the coordinate of definition 68.  The policies use `0`, `1`, `1`, and `2`
+    of them in the order above.  A candidate is *one step* exactly when the
+    number of undeclared capabilities it uses is one, and a candidate of two or
+    more **bundles capabilities and is refused as a one-step augmentation**.
+    **At Challenge 4 that number was also the number of coordinates moved;
+    here it is not.**  The policy coordinate has a value that uses two
+    capabilities, so the two counts part, and the run keeps the capability
+    reading because the seed requires a one-step candidate not to bundle.
+    Challenge 4's identity of the two counts is narrowed to that rung's space.
+63. **The address, and the deep regime (Challenge 5).**  An *address* is a
+    finite non-empty sequence of sides, outermost first: the sides crossed to
+    reach a mark.  A *deep regime* is the fixed initial datum, a reading, one
+    presentation label per admitted mark, and one address per admitted mark.
+    It is the second state type this run declares, and it is available only
+    under the recording policy.  The one opaque supplied whole is fixed in it
+    exactly as in definition 3, so no admission event of any kind makes a
+    second: an inner whole is never a second initial datum.
+64. **`AdmitAt`, and deep replay (Challenge 5).**  `AdmitAt` is definition 30's
+    occurrence admission with an address in place of a side: it admits one
+    presented occurrence as a fresh mark at an address.  It is available only
+    under the recording policy.  Deep replay refuses an admission whose token
+    was not presented first, as certifying replay does, and deep certification
+    is equality with the replay of the history.  The deep event-follows
+    relation is empty, like definition 9's.
+65. **Depth, and flattening (Challenge 5).**  The *depth* of a mark is the
+    length of its address: a metatheoretic reading of the address tuple,
+    exactly as definition 35's `mark_side` is a metatheoretic reading of the
+    placement tuple.  *Flattening* maps a deep regime to a regime by keeping
+    each address's outermost crossing and discarding the rest.  It is **not
+    injective**, and that is the rung's central fact: two marks reached by
+    different inner crossings of the same outer side have the same image.
+66. **The level exchange (Challenge 5).**  For each boundary level, the
+    exchange of that level's two sides, acting on every address long enough to
+    have crossed it and fixing every shorter one.  Definition 12's reflection
+    is this at level zero on a regime.  A level exchange keeps every address's
+    length, so it moves no mark's depth.
+67. **The permitted renamings at depth (Challenge 5).**  A level whose two
+    sides carry no admitted name has an exchange the object language cannot
+    see, and the exchanges of different levels are independent declarations, so
+    the permitted set is the whole power set of the unnamed levels, taken with
+    the mark permutations of definition 13.  The enumeration is unpruned and
+    the isomorphism relation, the automorphisms, the canonical key, and a
+    mark's *address orbit* are its filters, exactly as at Challenges 2 and 3.
+68. **The naming coordinate (Challenge 5).**  Whether the reading's naming of
+    the two sides reaches the inner boundaries is a further declaration that
+    the seed's one admitted exception does not make, and the run carries it as
+    a coordinate.  Under U it names nothing at any level, so both its values
+    declare the same renamings and the same key; under O it decides whether the
+    inner sides carry names.  A coordinate that changes nothing still costs one
+    capability and still collapses under the quotient, as definition 56's
+    name-wholes coordinate did.
+69. **The declared domain, and the sameness of two policies (Challenge 5).**
+    The *domain* is every whole the reader accepts at the declared bound over
+    the declared two-letter alphabet: 144 inscriptions.  **Two policies are the
+    same policy exactly when they retain isomorphic states at every member of
+    it**, and the implemented class key of a candidate is its declared
+    structure together with a digest of its canonical key at every member.  The
+    key is read over the domain and not at the caller's one inscription,
+    because the two one-step policies retain isomorphic states there: a key
+    read at that inscription alone reports one class where the enumeration
+    finds two, and understates a tie the seed requires to be retained.  The
+    digest is a naming device and never evidence; every inscription at which
+    two policies part is enumerated and the first of them are named.  This is
+    the first quotient the run takes over a FUNCTION rather than over a state.
+70. **The Challenge 5 collateral facts and the second measure.**  Eight facts
+    are declared: the nesting is internally visible; depth is determined by the
+    key; depth takes more than one value over the domain; which side of the
+    inner boundary the mark lies on is internally available; which side of the
+    outer boundary is; depth is expressible in the closed observation grammar;
+    the inner whole's own presentation is admitted; and a side-name judgment
+    holds.  Four are about the caller's retained whole and are reported FALSE
+    where nothing is retained, absence of a test not being turned into the fact
+    holding; two are about the policy's behaviour over the domain; one is about
+    the closed grammar; one about the reading.  The second measure is the
+    number of them a candidate makes available **that the same reading's base
+    did not**.  They are facts and not independent facts: the receipt computes
+    which pairs take the same value at every point of the space and names them,
+    so that a reader knows where the measure counts one thing twice.
 
 ## 4. Challenge 0: the initial state `<|>`
 
@@ -1340,7 +1449,7 @@ which reading O does not already meet it.
 | permitted automorphisms of the retained configuration | **eight**, over 48 permitted images | **four**, over 24 | `base.automorphism_count`, `permitted_renamings.images`; COMPUTED over the unpruned enumeration |
 | the two retained wholes meet the requirement | **no** | **no** | `base.satisfies`; Lean `exchangeWholesRegime_crossRetained` for the map that carries the regime onto itself |
 | what carries one whole onto the other | the exchange of the two wholes, permutation `[2, 3, 0, 1]`, **with no side exchange** | the same map, and it is the only kind there is | `base.whole_exchange_witness`; Lean `exchangeWholes_carries_the_first_whole`, `exchangeWholesRegime_crossRetained` |
-| the side exchange | is a permitted automorphism of the configuration | is not | `base.side_exchange_witness`; Lean `reflect_crossRetained_ne` shows the side exchange alone does not fix it |
+| a side-exchanging automorphism | exists: the side exchange composed with the mark permutation `[1, 0, 3, 2]`, not the side exchange itself | none exists | `base.side_exchange_witness`; Lean `reflect_crossRetained_ne`, which shows the side exchange ALONE does not fix the configuration and so agrees with the composite the receipt reports |
 | pairs of distinct marks that are separable | **none of the six** | **four of the six**: exactly the pairs on different sides | `base.separable_mark_pairs`; Lean `crossRetained_marks_share_a_side` and `crossRetained_other_marks_share_a_side`, one per pair, for the two that are not |
 | the two sides carry | two marks each | same | `base.marks_on_each_side`; Lean `crossRetained_counts_equal` |
 | adding judgment forms, whatever the forms | cannot meet the requirement while the whole exchange is a permitted renaming | same | Lean `no_invariant_pair_property_separates_the_wholes`, quantified over an arbitrary property of a pair of marks; `no_invariant_mark_property_separates_the_paired_marks` for a single mark |
@@ -1389,7 +1498,7 @@ matching of a visible mark across the boundary: the configuration in which the
 second whole's copy of `a` is a token the caller never presented is reached by
 a permitted renaming under both readings.
 
-**Under O a label with a side is a complete invariant, and under U it is not.**
+**Under O a label together with a side separates the four marks, and under U it does not.**
 Keeping the presentation labels meets the requirement under O and fails under
 U.  The reason is the shape of the challenge: the two wholes are each other's
 reflection, so under U, where the side exchange is a renaming the object
@@ -1427,7 +1536,7 @@ continuation and not only for one further mark.
 
 | capability | what it buys at Challenge 4 |
 |---|---|
-| the admitted boundary | that a mark lies on a side at all: three of the five declared whole properties — every one but the index one and the tag one — six of the eight collateral facts, and the further-mark coordinate are not formulable without it.  It does **not** buy the requirement under either reading |
+| the admitted boundary | that a mark lies on a side at all: three of the five declared whole properties — every one but the index one and the tag one — and the further-mark coordinate are not formulable without it.  An earlier version of this cell also counted six of the eight collateral facts; no receipt key, ledger entry, or test carries that number, so it is WITHDRAWN rather than left as a count with nothing behind it.  It does **not** buy the requirement under either reading |
 | the O reading's side names | nothing the requirement uses directly |
 | the O reading's withdrawal of the side exchange | not the requirement, which the whole exchange defeats without the side exchange; it buys that a property reading a label and a side is invariant, which is what the label-keeping minimum uses under O |
 | the Challenge 2 occurrence identity | that the four presented marks are four admitted marks at all |
@@ -1524,20 +1633,191 @@ corrected with them, in the review repair recorded in `change_log.md`; the
 Challenge 3 receipt's field is carried, with its reason, in
 `challenge4/STATUS.md`.
 
-### 5.17 Challenge 5
+### 5.17 Challenge 5: the caller retains `<<a|>|>`, a whole within a side
 
-Not yet reached.  It opens in a fresh session with its own frozen
-`PREDICTIONS.md`.  This rung's reader refuses `<<a|>|>` by name, which the
-receipt records and does not act on.
+Receipt: `receipts/challenge5.json`.  Predictions frozen at sha256
+`b3aab18d8e5a0700e563862ef7a884248badefbc7c653df0e00097044e3d99de` in commit
+`67d3e320`, before the branch's first Challenge 5 code-or-proof commit.  Git
+establishes that committed order only; it does not establish when off-tree or
+untracked work was written.
+
+The caller supplies and retains one whole lying inside one side of another,
+and asks five things: whether the object language can see a boundary within a
+side; whether a whole on a side is a datum, a side, or something needing a new
+definition; what "within" means at depth two under each reading; whether depth
+is an internally available count; and what admission, if any, is needed to
+treat the inner whole as the outer whole was treated.  Nesting is assumed
+neither admissible nor inadmissible.
+
+**The reader bound had to be widened a third time** (definition 59).  Both
+readers the run has refuse `<<a|>|>` by name — the Challenge 1 reader, whose
+bound is at most one mark in a whole, and the Challenge 4 reader, whose bound
+is at most one mark on each side of the bar.  Neither reads an ITEM that is
+itself a whole.  The run declares the nested reader, leaves both narrower ones
+refusing, and **pays the widening itself**.  The depth bound of two is a
+declaration and not a limit: the same reader at a wider bound reads deeper
+wholes, which a test shows.
+
+**Reading is not admitting** (definition 60).  What an admission does with an
+item that is a whole is a separate question, and the boundary does not decide
+it, so the run declares a finite space of four policies and prices each
+(definitions 61 and 62).
+
+| policy | what the inner whole IS under it | capabilities | count | one step |
+|---|---|---|---|---|
+| refuse | not admissible: no admission names it | none | 0 | no |
+| opaque | a MARK, admitted on the outer side, its interior discarded | admit a whole as a mark | 1 | **yes** |
+| discard | NOTHING: it is not admitted at all, and only its items are | reach inside a nested whole | 1 | **yes** |
+| record | a second BOUNDARY, a new definition, whose two sides are places | reach inside; record the crossing | 2 | no |
+
+**One step and the coordinate count part at this rung.**  The recording policy
+moves one coordinate and uses two capabilities.  Challenge 4 could report the
+two numbers as the same because each of its coordinates named one capability;
+here they differ, and the run keeps the capability reading because the seed
+requires a candidate called one step not to bundle.  Challenge 4's identity of
+the two is narrowed to that rung's space, and the receipt reports both
+readings of "one step" at every point.
+
+**The results.**  All values are the receipt's; U and O agree except where
+the table says otherwise.
+
+| result | reading U | reading O | evidence |
+|---|---|---|---|
+| the two inherited readers on `<<a|>|>` | refused by name, both | same | `reader.inherited_readers`; DEFINITION-level, each rung's bound replayed |
+| what the widened reader reads | a whole whose left item is a whole and whose right side is empty, at depth two | same | `reader.read` |
+| an item deeper than the declared bound | refused by name | same | `reader.beyond_the_bound_refusal` |
+| policies that admit the caller's inscription | three of four | same | `readings.*.policies` |
+| what the two one-step policies retain | one mark at address `(0,)` | same | `point_detail.opaque`, `point_detail.discard`; certified and replayed from genesis |
+| that state against what `<a|>` retains | **isomorphic**; under the discarding policy **equal** | same | `flat_inscription_isomorphic`, `flat_inscription_equal`, and `inherited_grammar.flat_inscription_regime_isomorphic` at the inherited relation; Lean `flatten_nested_eq_flat`, `flatten_nested_eq_admitted` |
+| **so a boundary within a side is internally invisible at every one-step policy** | **yes** | **yes** | `collateral_facts.nesting_internally_visible` false at both; Lean `no_flattened_property_separates_the_nesting`, quantified over an arbitrary property of a regime |
+| flattening and the inner exchange | flattening is blind to every exchange below the outermost boundary, at every state and every level | same | Lean `flattenDeep_exchangeLevel_succ` |
+| the two one-step policies are the same policy | **no**: they part at 95 of the 144 declared inscriptions | same | `policy_separation`; the first parting members are named |
+| do they part at the caller's own inscription | **no** | same | `policy_separation.part_at_the_caller_inscription` |
+| the minimum capability count among admitting points | **1** | **1** | `minima_by_mu1.minimum` |
+| the minimum is unique | **no**: two tied classes, both retained | **no**: two tied classes, both retained | `minima_by_mu1.class_count`, `unique` |
+| the second measure at the minima | 0 at the discarding policy, 1 at the opaque one | 1 and 2 | `points.*.mu2` |
+| **the two measures select the same minima** | **no** | **no** | `measures_agree_on_minima`; the second picks the discarding policy alone |
+| bundles refused | 4 of the 8 points | same | `bundles_refused` |
+| what the caller's own demand costs | **2**, and it is refused as a bundle | same | `price.what_the_caller_asked_for_costs` |
+| a second initial datum under any policy | **none** | same | `point_detail.*.initial_datum_unchanged`; Lean `deepReplay_initialDatum` |
+| a further mark admitted inside the inner whole | under the recording policy alone | same | `further_mark_within_the_inner_whole`, an event-acceptance probe |
+| depth at every one-step policy | every retained mark one boundary in | same | `depths_over_the_domain` |
+| depth under the recording policy, in the key | invariant under every permitted renaming and determined by the key | same | `collateral_facts.depth_determined_by_the_key`; Lean `depth_invariant_under_exchange` |
+| depth in the closed grammar | **not expressible** at any point; no form reads it and none is added | same | `closed_grammar_forms_reading_depth` empty; DEFINITION-level, the grammar being a declared sum of two forms |
+| the naming coordinate | collapses at **every** policy | collapses at **three of four**, and not at the recording one | `naming_coordinate_collapses_at` |
+| the retained mark's address orbit | **4** | **2** without the naming reaching inward, **1** with it | `mark_address_orbit_size` |
+| which side of the OUTER boundary the mark lies on | not internally available | internally available | `collateral_facts.outer_side_internally_available` |
+| which side of the INNER boundary | not internally available | **not internally available either**, without the further declaration | `collateral_facts.inner_side_internally_available`; Lean `no_invariant_property_separates_the_inner_sides` with the countermodel `innerSideIsZero_is_not_invariant_under_the_inner_exchange` |
+| the within-whole order at every level | moves the state at 116 of 144 inscriptions | same | `order.domain_inscriptions_where_the_states_differ` |
+| the same order, up to renaming | moves no state's class | same | `order.domain_inscriptions_where_the_orders_part_up_to_renaming`; DEFINITION-level, the mark permutations being permitted at every point |
+| a mark's depth after any continuation | unchanged, however many further marks are admitted | same | Lean `nested_depth_survives_every_continuation` |
+| initial datum, reading, event-follows relation | unchanged, empty on every probe of both grammars | same | `point_detail.*`; Lean `deepReplay_reading`, `deep_no_event_follows` |
+| new event kind | `AdmitAt`, only under the recording policy | same | `new_event_kinds_at_challenge_5`; none withdrawn |
+| the outside of the outermost boundary | not formulable; **OPEN** | same | `outside_of_the_outermost_boundary` |
+
+**The rung's sharpest single fact is the one the readings do not share.**  At
+depth one, reading U leaves the sides unnamed and reading O names them, and
+that difference has driven every earlier rung.  At depth two the same question
+reappears one level down and is *not settled by either reading*: reading O
+names the outer sides, and whether that naming reaches the inner boundary is a
+further declaration the seed's one admitted exception does not make.  Without
+it, the exchange of the inner boundary's two sides is a renaming the object
+language cannot see **under O as well as under U**, and which side of the inner
+boundary the mark lies on is internally available under neither.  Under U the
+coordinate collapses, because U names nothing at any level and propagating
+nothing gives nothing.  So the U-versus-O split is not inherited downward: it
+has to be paid for again at each level, and the price is one capability per
+level.
+
+**What the caller asked for is not a minimum.**  Treating the inner whole as
+the outer whole was treated means, mechanically, that its two sides are places
+at which a further mark may be admitted; the probe computes that this holds
+under the recording policy and under no other.  That policy costs two
+capabilities, so it is refused as a one-step augmentation, exactly as the
+grouping-with-names was at Challenge 4.  The two cheap policies each make the
+nesting invisible.  **The rung's terminal is therefore a price and not a
+capability**: at capability count one the caller's inscription and the flat
+inscription of Challenge 1 are internally the same thing.
+
+#### 5.18 The predictions, scored
+
+Frozen file `challenge5/PREDICTIONS.md`; the receipt's `scores` and `tally`
+are computed from the enumeration and a declared list, and the negative
+direction of every clause is tested.
+
+| id | label | status | basis |
+|---|---|---|---|
+| C4-X | NOT FORCED | **PARTIAL** | five clauses hit; the "exactly one member letting the caller retain the inscription" clause MISSED, three policies admitting it.  Recorded next to its value in `challenge4/PREDICTIONS.md`'s successor status and never edited in the frozen file |
+| C5-1 | FORCED | HIT | DEFINITION-level, not counted as content |
+| C5-2 | NOT FORCED | HIT | DEFINITION-level, not counted as content |
+| C5-3 | FORCED | HIT | content: an isomorphism-witness search at each candidate's own renamings |
+| C5-4 | FORCED | HIT | content: a 144-member domain census and the implemented quotient |
+| C5-5 | NOT FORCED | HIT | content: a replay at every point and an event-acceptance probe; the classification itself is declared |
+| C5-6 | FORCED | HIT | content: the key-determination census; the grammar clause is DEFINITION-level and reported apart |
+| C5-7 | FORCED | HIT | content: the quotient over the whole domain and three orbit sizes |
+| C5-8 | FORCED | HIT | content: certification and replay with both values of the admission predicate attained |
+| C5-X | NOT FORCED | PENDING | scored by the autonomous continuation |
+
+Eight of eight hit, six as content.  **A clean sweep is the weakest evidence
+this run produces.**  The predictions were written by an instrument that had
+reasoned the rung through, so the hits show the order of the work.  Two
+results were not predicted anywhere and are reported as results and not as
+hits: that the two cost measures select different minima, for the first time
+in the run, and that one step and the coordinate count part.
+
+#### 5.19 What Challenge 5 does not establish
+
+- **The minimality is scoped to the declared policy space** (definition 61).
+  A policy that admitted the inner whole and its items as separate marks, that
+  admitted the inner boundary as a datum of its own, that read a different
+  convention at each level, or that grouped marks by anything but the crossing,
+  is not enumerated and no claim is made about it.
+- **The sameness of two policies is scoped to the declared domain**
+  (definition 69).  A wider alphabet or a deeper bound might separate policies
+  this domain identifies, and the class key would move with it.  What is shown
+  is that the two one-step policies are not the same on THIS domain, with the
+  parting inscriptions named.
+- The depth bound of two is the reader's declaration.  What happens at depth
+  three — in particular whether the naming coordinate becomes one coordinate
+  per level, so that the space grows with the depth — is not computed.
+- The eight collateral facts are not eight independent facts.  The receipt
+  reports which pairs take the same value at every point rather than
+  re-weighting the measure, and whether the measure should count classes of
+  facts is OPEN.
+- Lean does not close the policy space, the capability counts, the class
+  counts, the two measures, or the domain census.  It closes the invisibility
+  of the nesting, the blindness of flattening to every inner exchange, the
+  invariance of depth, the inner-side family with its countermodel, and the
+  continuation theorems.
+- The Lean model carries no token and no policy, so the opaque policy's
+  declared whole token and the whole policy space have no Lean counterpart;
+  what Lean states is stated about the deep state alone.
+- **No policy is taken.**  The current configuration under each reading is
+  still the replay of the Challenge 4 caller history; every minimum of
+  Challenges 3, 4 and 5 is a retained candidate and none is applied.
+- The outside of the outermost boundary is named and left OPEN.
+
+#### 5.20 Dependence on the admitted boundary
+
+| result | dependence |
+|---|---|
+| the identity of the policy space, the capability counts, the one-step rule, and the refusal of bundles | independent of the boundary |
+| the two senses of an available depth and their parting | independent of the boundary: one is about renamings and a key, the other about the forms of the closed grammar, and both would be stated the same way for any state carrying a sequence |
+| the notion of depth, the address, the crossing, and every level exchange | require the admitted boundary: a crossing is a crossing OF a boundary and an address is a sequence of its sides |
+| the invisibility of the nesting at every one-step policy | requires the admitted boundary, being a statement about which side a mark lies on after the inner boundary is discarded or absorbed |
+| the reader's depth bound and the domain of inscriptions | require the admitted boundary in the weak sense that a whole is delimited by one bar with a side on each hand; how deep the reader goes is a declaration the boundary does not decide |
+| the outside of the outermost boundary | requires the admitted boundary to be formulated at all, and the run formulates no address value for it; OPEN |
 
 ## 6. The autonomous branch procedure
 
-Not yet declared; it is declared after Challenge 3 by the seed's order.
+Not yet declared.  The mandatory challenge sequence is finished at
+Challenge 5, so this section is the next stage's, and it opens in a fresh
+session with its own frozen `PREDICTIONS.md`.
 
 ## 7. Proofs and countermodels
 
 Lean package `lean/`, core Lean only, no dependency on any other package
-in this repository.  One hundred and thirty-nine theorems, every one with a
+in this repository.  One hundred and seventy-seven theorems, every one with a
 `#print axioms`
 report in `lean/axioms.txt`, checked against a successful clean and fresh
 build by `verify_lean.py`; every report lies within
@@ -1559,7 +1839,7 @@ the same injected theorem left the build reporting `lean ok: 84 axiom
 reports … matching lean/axioms.txt`.  What the check does not do is read the
 compiled environment, so a theorem the source-text scan cannot see would
 escape it; the scan's population and the root's citation list currently
-agree exactly, 139 and 139, in both directions.
+agree exactly, 177 and 177, in both directions.
 
 ### 7.1 Challenge 0 (`Basic.lean`)
 
@@ -1910,10 +2190,7 @@ one.  DEFINITION-level, true by unfolding or by instantiating an earlier
 theorem, and not counted as content: `crossRetained_eq`,
 `crossRetained_placement`, `crossRetained_placement_length`,
 `exchangeWholes_involutive`, `exchangeWholes_zero`, `exchangeWholes_one`,
-`exchangeWholes_carries_the_first_whole`, `exchangeWholesRegime_crossRetained`
-(`rfl` on the four-entry placement), `crossRetained_marks_share_a_side` and
-`crossRetained_other_marks_share_a_side` (the two evaluations of each pair
-rewritten together), `crossRetained_sideNamed`,
+`exchangeWholes_carries_the_first_whole`, `crossRetained_sideNamed`,
 `crossRetained_judgments_survive`, `crossRetained_reading`,
 `crossRetained_initialDatum`, and `no_event_follows_crossRetained` (the last
 four instantiations of Challenge 0 and Challenge 1 theorems).  The content is
@@ -1922,15 +2199,27 @@ the evaluations at the retained regime (`crossRetained_onSide_zero` to
 non-fixing theorems `reflect_crossRetained_ne` and
 `exchangeMarks_crossRetained_ne`, the involution lemmas `swapWholes_involutive`
 and `exchangeWholesRegime_involutive`, the two general theorems with their
-countermodel, `crossRetained_counts_equal`, and the induction
+countermodel, `crossRetained_counts_equal`, the obstruction
+`exchangeWholesRegime_crossRetained` with the two same-side theorems
+`crossRetained_marks_share_a_side` and
+`crossRetained_other_marks_share_a_side`, and the induction
 `replay_placement_append` with `exchangeWholesRegime_of_prefix` and the two
 continuation theorems that use them.
 
+Those last three were listed as DEFINITION-level in an earlier version of
+this section while the ledger gave them PROVED and counted them as content,
+which breaks the run's rule of one theorem and one label.  The paper's list
+was the error: the structurally identical Challenge 2 theorem
+`retained_marks_differ_in_side` is listed as content in section 7.3, and a
+proof that is `rfl` or a pair of rewrites is not thereby a proof of a
+declaration.  The three are moved here and the ledger is unchanged.
+
 That `exchangeWholesRegime_crossRetained` is `rfl` is worth saying plainly: the
-obstruction of this rung is true by unfolding the placement, and it is not
-therefore a small fact.  What is DEFINITION-level is that this particular map
-fixes this particular regime; what is not is that no property of the declared
-kind can separate what it exchanges, and that no continuation removes it.
+obstruction of this rung is true by unfolding the placement.  That does not
+make it a declaration, and the paragraph above says why it is counted as
+content; what it does mean is that the WORK of the rung is elsewhere — in the
+fact that no property of the declared kind separates what the map exchanges,
+and that no continuation removes it.
 
 What Lean does **not** close at Challenge 4: the enumeration of the declared
 space, the capability counts, the class counts, the collateral facts, the two
@@ -1939,12 +2228,90 @@ census turns on.  All of those are the Python computation.  Nor does the Lean
 model carry a presentation label or a grouping, so three of the seven
 coordinates have no Lean counterpart at all.
 
+### 7.6 Challenge 5 (`Challenge5.lean`)
+
+Thirty-eight theorems.  The file declares the second state type of the run —
+a deep regime, one address per admitted mark — its events, its replay, its
+flattening onto a regime, and the exchange of one boundary level's two sides.
+The Lean events carry no token and no policy, so what is stated here is about
+the deep state alone; which policy produces which history is a question about
+the Python kernel, decided there and priced there.
+
+| theorem | statement | axioms |
+|---|---|---|
+| `nestedRetained_eq` | the caller's history retains one mark at address `[false, false]` | none |
+| `flatRetained_eq` | the flat inscription's retains one mark at `[false]` | none |
+| `nestedRetained_addresses` | its address list, with the reading projected away | none |
+| `nestedRetained_depth`, `flatRetained_depth` | depth two and depth one | none |
+| `nestedRetained_ne_flatRetained` | so the two retained deep states differ, and the depth is what tells them apart | propext |
+| `deep_supply_no_op` | a supply changes no deep state | none |
+| `deepStep_changes_only_by_placeAt` | any deep event that changes state is a placement | none |
+| `deep_no_event_follows` | the deep event-follows relation is empty | propext |
+| `exchangeAt_length` | a level exchange keeps an address's length | propext |
+| `depth_invariant_under_exchange` | **so no level exchange moves any mark's depth** | propext |
+| `exchangeAt_involutive`, `exchangeLevel_involutive` | each level exchange is its own inverse | propext |
+| `flattenAddress_exchangeAt_succ` | flattening reads the outermost crossing only | none |
+| `flattenDeep_exchangeLevel_succ` | **a state recording one side per mark is blind to every exchange below the outermost boundary**, for an arbitrary state and level | propext |
+| `flatten_nested_eq_flat` | the caller's nested whole and the flat whole of Challenge 1 have the same flattened state | propext |
+| `flatten_nested_eq_admitted` | and that state is exactly what the Challenge 1 inscription retains | propext |
+| `no_flattened_property_separates_the_nesting` | **so no property of the flattened state separates the two**, for an arbitrary property | propext |
+| `innerReflected_eq` | the caller's whole with the mark on the other inner side | none |
+| `exchangeLevel_one_nestedRetained` | the inner exchange moves the retained state | propext |
+| `exchangeLevel_zero_nestedRetained` | so does the outer one, and to a third state | propext |
+| `no_invariant_property_separates_the_inner_sides` | **nothing invariant under the inner exchange separates the two inner sides**, for an arbitrary property of a state and a mark | none |
+| `innerSideIsZero_nestedRetained`, `innerSideIsZero_innerReflected` | the countermodel's two values, each with the reading projected away | propext |
+| `innerSideIsZero_separates` | it separates them | propext |
+| `innerSideIsZero_is_not_invariant_under_the_inner_exchange` | so the hypothesis above is a real restriction | propext, Quot.sound |
+| `depth_is_invariant_where_the_inner_side_is_not` | depth is invariant exactly where the inner side is not, which is why the run keeps the two facts apart | propext |
+| `deepStep_reading`, `deepStep_initialDatum` | one deep event keeps the reading and the datum | none |
+| `deepReplay_reading` | any deep history keeps the reading | none |
+| `deepReplay_initialDatum` | **any deep history keeps the one initial datum**, so an inner whole is never a second one | none |
+| `deepReplay_addresses_append` | replaying appends to the address list | propext |
+| `getD_append_left_address` | the Challenge 1 list lemma at the address type | propext |
+| `deepReplay_preserves_address` | an admitted address is read the same after any later history | propext |
+| `nested_depth_survives_every_continuation` | **a mark's depth survives every continuation**, however many further marks are admitted at whatever depth | propext |
+| `nestedRetained_reading`, `nestedRetained_initialDatum` | the retained state keeps both | none |
+| `no_event_follows_nestedRetained` | no event follows from it | propext |
+
+One countermodel was sought and found on purpose:
+`innerSideIsZero_is_not_invariant_under_the_inner_exchange` exists to show that
+the hypothesis of `no_invariant_property_separates_the_inner_sides` is a real
+restriction and not a vacuous one, and the property it exhibits is exactly the
+one the naming coordinate of definition 68 makes available.  DEFINITION-level,
+true by unfolding or by instantiating an earlier theorem, and not counted as
+content: `nestedRetained_eq`, `flatRetained_eq`, `nestedRetained_addresses`,
+`nestedRetained_depth`, `flatRetained_depth`, `deep_supply_no_op`,
+`innerReflected_eq`, `innerSideIsZero_nestedRetained`,
+`innerSideIsZero_innerReflected`, `deepStep_reading`, `deepStep_initialDatum`,
+`nestedRetained_reading`, `nestedRetained_initialDatum`, and
+`no_event_follows_nestedRetained`.  The content is the two blindness theorems
+with their arbitrary property, the inner-side family with its countermodel, the
+depth invariance, the two involutions, and the continuation induction with the
+theorem that uses it.
+
+That `flatten_nested_eq_flat` is `rfl` is worth saying plainly, as
+`exchangeWholesRegime_crossRetained` was at Challenge 4: the invisibility of
+the nesting at this one pair of inscriptions is true by unfolding the
+flattening, and that is not a reason to call it small.  What is DEFINITION-level
+is that these two states flatten alike; what is not is
+`flattenDeep_exchangeLevel_succ`, which says the same of every state and every
+inner level, and `no_flattened_property_separates_the_nesting`, which says that
+no property whatever recovers the difference.
+
+What Lean does **not** close at Challenge 5: the four-member policy space, the
+capability counts, the 144-member domain census, the sameness relation on
+policies, the class counts, the two measures, and the collateral facts.  All of
+those are the Python computation.  The correspondence between the Lean
+`exchangeLevel` and the Python `exchange_level` is prose, as `List.Perm`
+against `rename_marks` was at Challenge 3 and `exchangeWholes` against the
+configuration renaming at Challenge 4.
+
 ## 8. Receipts
 
-- `receipts/challenge0.json` through `receipts/challenge4.json`:
+- `receipts/challenge0.json` through `receipts/challenge5.json`:
   deterministic (sorted keys, LF, no timestamp, no environment value);
   regenerated byte-identically by `run_challenge0.py` through
-  `run_challenge4.py` and checked by the tests and by the research job.
+  `run_challenge5.py` and checked by the tests and by the research job.
 - The Challenge 2 receipt is 35499 bytes, the Challenge 3 receipt 220518,
   and the Challenge 4 receipt 795960, all inside the megabyte at which the
   run would owe a summary and a gzip with a content hash, so all are
@@ -1956,6 +2323,19 @@ coordinates have no Lean counterpart at all.
   full map is on the nine rows the rung reports in full; that is what keeps
   it inside the bound, and it is recorded because a later rung adding keys
   to a point row has less room than the number alone suggests.
+- The Challenge 5 receipt is 123522 bytes, far inside the megabyte at which
+  the run would owe a summary and a gzip: its space is eight points, so every
+  point is carried in full, and the 144-member domain census is reported as a
+  digest per point with the parting inscriptions named rather than as 144 keys
+  per point.  The digest is a naming device for the class key and never
+  evidence.
+- The Challenge 0 to Challenge 4 receipts were byte-unchanged across
+  Challenge 5, which is the check that the deep state type and its
+  enumerations did not disturb the earlier rungs: the deep functions are new
+  and change no value any earlier receipt reports, and the one Challenge 3
+  edit this rung made — a defaulted parameter naming the row key the minima
+  are taken over — moves no computed value, which the byte comparison
+  confirms.
 - The Challenge 0 to Challenge 3 receipts were byte-unchanged across
   Challenge 4, which is the check that the kernel additions did not disturb
   the earlier rungs: the configuration enumerations are new functions and
@@ -1970,17 +2350,18 @@ coordinates have no Lean counterpart at all.
   convention pinned, and once more at the fifth, when C1-7's evidence was
   rescoped to the candidate regimes, C1-5's basis relabelled, and the two
   designation clause facts reworded, with no injection live any time.
-- The suite passes 303 tests.  Fresh coverage over the eight declared code
+- The suite passes 400 tests.  Fresh coverage over the nine declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
-- `lean/axioms.txt`: 139 reports.  It was regenerated once at Challenge 1
+- `lean/axioms.txt`: 177 reports.  It was regenerated once at Challenge 1
   when the theorem set was final, three more times during that rung's
   review repairs, once at Challenge 2 when its twenty-eight theorems were
   final, 56 to 84 reports, once at Challenge 3 when its twenty-one were
   final, 84 to 105, and once at Challenge 4 when its thirty-three were
   final, 105 to 138, and once at this rung's review repair when the
   companion theorem for the other pair sharing a side was added, 138 to 139;
+  and once at Challenge 5 when its thirty-eight were final, 139 to 177;
   no regeneration was under a live injection.
 - Injection record: `MANUAL.md`.
 
@@ -2109,8 +2490,9 @@ as is the stronger fact that **no continuation whatever removes the
 obstruction**, however many further marks are placed.  What the boundary
 contributes is the side each mark lies on, and each side now carries one mark
 of each whole: under O it still separates the four pairs of marks that lie on
-different sides and neither of the two that share one, which is proved, and so
-it separates no whole from the other.  What it cannot contribute is which mark
+different sides and neither of the two that share one — the whole split is
+COMPUTED in `base.separable_mark_pairs`, and the two exclusions are proved
+besides, one theorem per pair — and so it separates no whole from the other.  What it cannot contribute is which mark
 within a side is which, the grouping into wholes, and the matching of a visible
 mark across the boundary — the configuration in which the second whole's copy
 of `a` is a token the caller never presented is reached by a permitted renaming
@@ -2131,6 +2513,61 @@ The Challenge 3 sense taken pointwise implies the declared sense at every point
 of the space and the converse fails inside it, so the two are not the same
 requirement; at the Challenge 3 configuration, where each whole is one mark,
 they agree.
+
+At Challenge 5 the caller supplies and retains `<<a|>|>`, a whole within a
+side.  Both readers the run has refuse it by name — neither reads an item on a
+side that is itself a whole — so the run declares a third reader, an item being
+a mark or a whole down to a declared depth of two, leaves both narrower readers
+refusing, and pays the widening itself.  **Reading a nested item is not
+admitting one.**  What an admission does with an item that is a whole is
+undecided by the admitted boundary, so the run declares four policies and
+prices them: refuse it, at no capability; admit it as one opaque mark on the
+outer side, at one; discard the inner boundary and admit its items on the outer
+side, at one; or record the crossing, admitting its items each carrying the
+sequence of sides crossed, at two.  A candidate is one step exactly when its
+capability count is one — **and at this rung that is no longer the number of
+coordinates it moves**, the recording policy moving one and using two, so
+Challenge 4's identity of the two counts is narrowed to that rung's space.
+Under both readings the two one-step policies retain, from the caller's nested
+inscription, one mark on one side, isomorphic to what the Challenge 1
+inscription `<a|>` retains and under the discarding policy equal to it: **the
+object language cannot see a boundary within a side at any policy of capability
+count one.**  That is proved in Lean at the level of the state, and proved more
+generally, for an arbitrary state and an arbitrary inner level, that a state
+recording one side per mark is blind to every exchange below the outermost
+boundary, and for an arbitrary property that no property of the flattened state
+recovers the difference.  The two cheap policies are nevertheless two: they
+part at 95 of the 144 declared inscriptions and at none of them is it the
+caller's own, so the minimum capability count is one, two tied classes attain
+it, both are retained, and **uniqueness is refuted under both readings** —
+which is why the class key is read over the whole declared domain and not at
+the caller's one inscription, where a key would report a single class.  What
+the caller's demand actually names — treating the inner whole as the outer was
+treated, so that its two sides are places at which a further mark may be
+admitted, which a probe computes — is the recording policy alone, at a
+capability count of two, and it is **refused as a bundle**, exactly as the
+grouping with the names was at Challenge 4.  Under no policy is the inner whole
+a second initial datum, which is proved for every deep history, and under no
+policy is it a side; it is a mark, or nothing, or a second boundary, according
+to the policy.  Depth splits into two senses the run keeps apart: under the
+recording policy a mark's depth is invariant under every permitted renaming,
+which is proved, and determined by the key, which is computed, so it is
+internally available in the sense Challenge 3 declared; and at no point of the
+space is it expressible, no form of the closed observation grammar reading it
+and none being added.  Finally, **the U-versus-O question reappears one level
+down and neither reading settles it**: whether the reading's naming of the two
+sides reaches the inner boundary is a further declaration the seed's one
+admitted exception does not make, it collapses under U, which names nothing at
+any level, and without it the exchange of the inner boundary's two sides is a
+renaming the object language cannot see under O as well — so which side of the
+inner boundary the mark lies on is internally available under neither reading
+until that declaration is paid for.  The retained mark's address orbit has four
+members under U, two under O without the declaration, and one with it.  The
+outside of the outermost boundary is not formulable in the declared alphabet,
+an address being a sequence of sides crossed inward, and the run names that and
+leaves it OPEN.  For the first time in the run the two cost measures select
+different minima, the second picking the discarding policy alone under both
+readings.
 
 These are scoped Lean theorems, bounded computations, or labelled
 definitions and conventions.  Because the instrument declared prior
@@ -2164,7 +2601,10 @@ conclusion.
 - The re-admission no-op and the moving-admission refusal are Python-only
   declarations; the Lean events carry no token, so the Lean retention
   theorems cover supplies and new placements only.
-- Whether a whole on a side is itself a datum is OPEN for Challenge 5; the
+- Whether a whole on a side is itself a datum was OPEN at Challenge 1 and is
+  answered at Challenge 5: it is a datum under no declared policy, the regime
+  carrying exactly one and no admission event making a second.  What it IS
+  instead depends on the policy taken, and no policy is taken.  The
   one-boundary modelling at Challenge 1 is a decision.
 - `Supply` carries the token only.  Challenge 2 said, loudly, what the two
   wholes with the same visible mark are: the token-keyed admission refuses
@@ -2244,9 +2684,48 @@ conclusion.
   Challenge 4 coordinates have no Lean counterpart, and a whole is named there
   by an index map whose correspondence with the Python renaming of a
   configuration is prose.
-- Whether a whole within a side is admissible is still OPEN.  This rung's
-  widened reader refuses `<<a|>|>` by name, which the receipt records; what the
-  inner whole is belongs to Challenge 5.
+- Whether a whole within a side is admissible was OPEN at Challenge 4 and is
+  answered at Challenge 5: it is admissible under three of the four declared
+  policies, at a capability count of one or two, and the run takes none of
+  them.  What is not answered is whether the declared four exhaust the
+  alternatives outside the run's own reading of "acts on the whole, on its
+  interior, or on neither"; that reading is stated in the receipt and is a
+  declaration.
+
+Challenge 5 adds these:
+
+- **The policy space is four members and the domain 144 inscriptions**, and
+  both are declarations.  A policy outside the four, a wider alphabet, or a
+  deeper reader bound could each move the class key, the tie, and the minimum.
+  The sameness of two policies is sameness on THIS domain.
+- **The eight collateral facts are not eight independent facts**, and the
+  receipt names the pairs that take the same value at every point rather than
+  re-weighting the measure.  Whether the second measure should count classes of
+  facts is OPEN, and this is the general form of a Challenge 4 finding rather
+  than a repair of it: the Challenge 4 receipt is not regenerated.
+- **The depth bound of two is a declaration.**  What happens at depth three —
+  in particular whether the naming coordinate becomes one coordinate per level,
+  so that the declared space grows with the depth and the U-versus-O price is
+  paid once per level — is not computed, and the two-level result does not
+  settle it.
+- **Depth is available in one sense and not in another**, and the run states
+  both rather than choosing: invariant under every permitted renaming and
+  determined by the key under the recording policy; expressible by no form of
+  the closed observation grammar at any point.  Adding a form that read it
+  would be the run's first counting judgment and is not made.
+- **The outside of the outermost boundary is OPEN**, named and not answered.
+  An address is a sequence of sides crossed inward, and the declared alphabet
+  has no value for a place beyond the outermost boundary; the run declines to
+  declare one, because a declaration made to answer the question would be
+  fitting the model to the answer.
+- **No policy is taken**, so what the caller's "retains" amounts to at this
+  rung is reported per policy and not settled — which is a weaker answer than
+  Challenge 2 gave to the same word, and is weaker on purpose: there the space
+  had one member the caller's word could mean, and here three of four admit the
+  inscription and two of them are tied minima.
+- The Lean model carries no token and no policy, so the whole policy space and
+  the opaque policy's declared whole token have no Lean counterpart, and the
+  correspondence between the Lean level exchange and the Python one is prose.
 
 - The audit-totality check reads the Lean source text, not the compiled
   environment.  A theorem it cannot see in the text would escape it, and

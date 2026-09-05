@@ -3,11 +3,12 @@ import BoundarySeed.Challenge1
 import BoundarySeed.Challenge2
 import BoundarySeed.Challenge3
 import BoundarySeed.Challenge4
+import BoundarySeed.Challenge5
 
 /-!
 # The boundary derivation: root
 
-Challenges 0 to 4.  Every theorem declared under `lean/BoundarySeed/` has a
+Challenges 0 to 5.  Every theorem declared under `lean/BoundarySeed/` has a
 `#print axioms` line here, which `verify_lean.py` requires by name, and it
 compares the build log with the committed axiom log.
 -/
@@ -151,3 +152,41 @@ compares the build log with the committed axiom log.
 #print axioms BoundarySeed.crossRetained_reading
 #print axioms BoundarySeed.crossRetained_initialDatum
 #print axioms BoundarySeed.no_event_follows_crossRetained
+#print axioms BoundarySeed.nestedRetained_eq
+#print axioms BoundarySeed.flatRetained_eq
+#print axioms BoundarySeed.nestedRetained_addresses
+#print axioms BoundarySeed.deep_supply_no_op
+#print axioms BoundarySeed.deepStep_changes_only_by_placeAt
+#print axioms BoundarySeed.deep_no_event_follows
+#print axioms BoundarySeed.nestedRetained_depth
+#print axioms BoundarySeed.flatRetained_depth
+#print axioms BoundarySeed.nestedRetained_ne_flatRetained
+#print axioms BoundarySeed.exchangeAt_length
+#print axioms BoundarySeed.depth_invariant_under_exchange
+#print axioms BoundarySeed.exchangeAt_involutive
+#print axioms BoundarySeed.exchangeLevel_involutive
+#print axioms BoundarySeed.flattenAddress_exchangeAt_succ
+#print axioms BoundarySeed.flattenDeep_exchangeLevel_succ
+#print axioms BoundarySeed.flatten_nested_eq_flat
+#print axioms BoundarySeed.flatten_nested_eq_admitted
+#print axioms BoundarySeed.no_flattened_property_separates_the_nesting
+#print axioms BoundarySeed.innerReflected_eq
+#print axioms BoundarySeed.exchangeLevel_one_nestedRetained
+#print axioms BoundarySeed.exchangeLevel_zero_nestedRetained
+#print axioms BoundarySeed.no_invariant_property_separates_the_inner_sides
+#print axioms BoundarySeed.innerSideIsZero_nestedRetained
+#print axioms BoundarySeed.innerSideIsZero_innerReflected
+#print axioms BoundarySeed.innerSideIsZero_separates
+#print axioms BoundarySeed.innerSideIsZero_is_not_invariant_under_the_inner_exchange
+#print axioms BoundarySeed.depth_is_invariant_where_the_inner_side_is_not
+#print axioms BoundarySeed.deepStep_reading
+#print axioms BoundarySeed.deepStep_initialDatum
+#print axioms BoundarySeed.deepReplay_reading
+#print axioms BoundarySeed.deepReplay_initialDatum
+#print axioms BoundarySeed.deepReplay_addresses_append
+#print axioms BoundarySeed.getD_append_left_address
+#print axioms BoundarySeed.deepReplay_preserves_address
+#print axioms BoundarySeed.nested_depth_survives_every_continuation
+#print axioms BoundarySeed.nestedRetained_reading
+#print axioms BoundarySeed.nestedRetained_initialDatum
+#print axioms BoundarySeed.no_event_follows_nestedRetained

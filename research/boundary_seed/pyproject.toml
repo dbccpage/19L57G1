@@ -14,6 +14,7 @@ files = [
   "run_challenge2.py",
   "run_challenge3.py",
   "run_challenge4.py",
+  "run_challenge5.py",
   "check_coverage.py",
   "verify_pins.py",
   "verify_lean.py",

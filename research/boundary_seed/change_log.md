@@ -1327,3 +1327,125 @@ designation", alongside that rung's already-carried items, for the same reason
 — repairing it regenerates a closed rung's receipt.
 
 Declined: nothing.
+
+## Challenge 5, the caller retains `<<a|>|>`
+
+Session of 2026-09-05, opened at `75b7ed1a`.  The frozen
+`challenge5/PREDICTIONS.md` was committed alone at `67d3e320` before any
+Challenge 5 code or proof, and is never edited.
+
+**Added, with reasons.**
+
+- **A third reader bound** (definition 59).  Both readers the run had refuse
+  the caller's inscription by name, neither reading an item on a side that is
+  itself a whole.  The new reader takes an item to be nothing, one mark, or one
+  whole, to a declared depth of two, and refuses a deeper item by name; the two
+  narrower readers are left refusing so that what forced each widening stays
+  visible.  The split of a whole's body at its own bar counts nesting levels,
+  because a body may itself contain bars and a regular expression over the text
+  cannot find the right one.
+- **A declared four-member policy space** (definitions 61 and 62), because
+  what an admission does with an item that is a whole is not decided by the
+  admitted boundary and the run must not decide it silently.  Three
+  capabilities for policies and a fourth for the naming coordinate; counts
+  `0, 1, 1, 2`.
+- **The one-step rule is stated in capabilities and not in coordinates**
+  (definition 62), and Challenge 4's identity of the two counts is **narrowed**
+  to that rung's space.  The recording policy moves one coordinate and uses
+  two capabilities, so the two numbers part for the first time; the seed
+  requires a candidate called one step not to bundle, so the capability reading
+  is the one kept.  The receipt reports both readings at every point, and the
+  key `one_step_iff_one_coordinate_moved` is false by design rather than by
+  accident.
+- **A second state type** (definitions 63 to 67): the deep regime, one address
+  per admitted mark, with its admission event `AdmitAt`, its replay, its
+  flattening onto a regime, the level exchanges, and the permitted renamings at
+  depth.  It is available only under the recording policy.  Flattening is not
+  injective, which is the rung's central fact.
+- **The naming coordinate** (definition 68), because reading O names the
+  outermost sides and says nothing about the inner ones, and the run must not
+  read a decision into the seed's one exception that the exception does not
+  make.
+- **A declared 144-member domain of inscriptions, and a sameness relation on
+  policies over it** (definition 69).  This is the first quotient the run takes
+  over a function rather than over a state, and it was forced: the two one-step
+  policies retain isomorphic states at the caller's own inscription, so a class
+  key read there alone reports one class where the enumeration finds two and
+  understates a tie the seed requires to be retained.  The defect is
+  demonstrated by injection and by a test in both directions.
+- **Eight collateral facts and a second measure** (definition 70), with the
+  facts that take the same value at every point of the space **named in the
+  receipt**.  The measure counts facts and not independent facts, and rather
+  than re-weight it the run reports where it counts one thing twice.  That is
+  the general form of a Challenge 4 review finding, made into a receipt key
+  instead of a repair of a closed rung.
+- **Thirty-eight Lean theorems** (`Challenge5.lean`), with the axiom log
+  regenerated deliberately from 139 to 177 reports, no injection live.
+- `research/boundary_seed/challenge5/PREDICTIONS.md` and `STATUS.md`,
+  `code/boundary/challenge5.py`, `run_challenge5.py`, `tests/test_challenge5.py`,
+  `receipts/challenge5.json`, the pin in `verify_pins.py`, the module in
+  `tests/test_lean_gate.py`, the mypy entry in `pyproject.toml`, and the
+  registration of the runner and the test count in the research job.
+
+**Changed, with reasons.**
+
+- `code/boundary/challenge3.py`: `minima` and `one_step_minima` take a
+  defaulted `predicate` naming the row key that says whether a candidate
+  answers the rung's demand.  Challenge 5's demand is the caller's retention
+  and not a separability requirement, and reusing the word `satisfies` for a
+  second predicate would conflate two things the run keeps apart.  The
+  parameter is defaulted, no earlier rung passes it, and the Challenge 0 to
+  Challenge 4 receipts regenerate byte-identically, which is checked.
+
+**Repaired, from the review of Challenge 4.**
+
+- The 5.13 results row for the side exchange said it "is a permitted
+  automorphism of the configuration", which is false as written and is
+  contradicted by the Lean theorem cited in the same row.  The row now says
+  what the receipt computes: a side-exchanging automorphism exists and is the
+  side exchange composed with the mark permutation `[1, 0, 3, 2]`, and
+  `reflect_crossRetained_ne` supports it rather than contradicting it.
+- Section 9's bare "which is proved" was attached to a conjunction whose first
+  half is COMPUTED only.  It now says which half the receipt computes and which
+  Lean proves.
+- B4-NO-JUDGMENT-ADDITION said "the two marks that share a side", a definite
+  description that does not uniquely denote — there are two such pairs — while
+  the mark-level theorem covers marks 0 and 2.  The entry now names those marks
+  and says where the other pair is covered.
+- "A complete invariant" was used as an undefined technical term in the paper's
+  5.13 prose.  It now reads "separates the four marks", with the scope stated.
+- The boundary's price table counted six of the eight collateral facts as
+  needing the boundary.  No receipt key, ledger entry, or test carries that
+  number, so the count is WITHDRAWN from the row rather than left standing.
+- B4-TWO-SENSES said the grouping-with-names point is among the parting points
+  under both readings.  Under O it is not, satisfying the pointwise sense as
+  well, so the clause is scoped to U.
+- Three Lean theorems were listed as DEFINITION-level in the paper's section
+  7.5 while the ledger gave them PROVED and counted them as content, which
+  breaks the run's rule of one theorem and one label.  The paper's list was the
+  error — the structurally identical Challenge 2 theorem is listed as content —
+  so `exchangeWholesRegime_crossRetained`, `crossRetained_marks_share_a_side`
+  and `crossRetained_other_marks_share_a_side` move to the content sentence and
+  the ledger is unchanged.
+- `MANUAL.md`'s Challenge 0 coverage-gate row recorded a failure whose recovery
+  line had been withdrawn without replacement, so the row recorded no recovery.
+  It now names the row that carries the recovery.
+- Six advisories in `code/boundary/challenge4.py` and five in
+  `challenge4/STATUS.md` are **carried** with their reasons in
+  `challenge5/STATUS.md`: repairing them regenerates a closed rung's receipt or
+  edits a frozen status.  Three of the five are answered by this rung's own
+  results rather than by an edit, and the sixth code advisory — two clause
+  statuses equal by construction — is answered by this rung's
+  `collateral_facts_agreeing_everywhere` key.
+
+**Live failures and repairs during the rung**, recorded rather than smoothed:
+the reader's depth allowance was off by one on its first run and refused the
+caller's own inscription; the declared domain was nine members instead of 144;
+the receipt byte-identity test fired when the order census was restructured; a
+`git checkout` of the root Lean module during an injection reversal dropped the
+whole rung's audit lines for the second rung running, and the audit-totality
+check named all thirty-eight theorems; and a decision procedure was offered a
+goal carrying the reading as a free variable for the third rung running.  Each
+is in `challenge5/STATUS.md`, and the gate events are rows in `MANUAL.md`.
+
+Declined: nothing.
