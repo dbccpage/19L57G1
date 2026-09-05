@@ -1109,3 +1109,143 @@ Challenge 0, 1, and 2 receipts are unchanged.
   been added; the move was proved by injection.
 
 Declined: nothing.
+
+## 2026-09-05, Challenge 4 predictions frozen
+
+`challenge4/PREDICTIONS.md` committed alone, before the branch's first
+Challenge 4 code-or-proof commit, sha256
+`42371f458e23ce89885a76c542863c112482c0ca6b4f1d9ff6a058b3c21f2041`, in commit
+`f07a20c4`.  The existing `challenge*/PREDICTIONS.md -text` attribute already
+covered it, so no attributes change was needed.
+
+## 2026-09-05, Challenge 4
+
+The caller supplies and retains `<a|b>` and `<b|a>` and requires their internal
+separability.  Kernel, Lean, receipt, tests, prose, registration, and the
+injections in `MANUAL.md`.  Seven of eight scored predictions hit, one is
+PARTIAL, and the previous rung's extrapolation is PARTIAL with its own
+falsifier naming the miss.
+
+- **Two declarations were paid, and both are the run's.**  The Challenge 1
+  reader refuses both of the caller's inscriptions by name, so the bound was
+  widened to at most one mark on each side of the bar; and in which order the
+  two marks of one whole are admitted is a second declaration of the same kind
+  as the convention.  The narrower reader is left refusing so that what forced
+  the widening stays visible.
+- **The requirement fails under BOTH readings**, the first rung at which
+  reading O does not already meet it.  The obstruction is the exchange of the
+  two wholes, which carries the retained regime onto itself using no side
+  exchange, so the withdrawal the O reading carries does not touch it.  That is
+  the clause the Challenge 3 extrapolation got wrong, and its own falsifier —
+  "the O requirement needing a new declaration" — fired.
+- **A whole is a set of marks, and the regime carries no grouping.**  The
+  requirement and its declared witness are therefore statements about the
+  automorphisms of the state together with a grouping read off the caller's
+  history, at every candidate that does not admit that grouping.  Recorded as a
+  narrowing (B4-GROUPING-IS-METATHEORY) rather than repaired, and priced: the
+  repair is the grouping coordinate, and with the naming it costs two.
+- **The augmentation the caller's demand names is a bundle.**  The grouping
+  alone leaves the tag exchange a renaming the object language cannot see; the
+  names alone name tags no mark carries and collapse into the null point; the
+  two together meet the requirement under both readings at a capability count
+  of two and are refused as one step.  Neither half is a minimum.
+- **Under U the minimum is unique inside the declared space**, and it is the
+  candidate that meets the requirement by unfolding and leaves the boundary
+  idle.  This is the run's first uniqueness statement, and it is uniqueness
+  inside seven declared coordinates and nothing wider.  Under O there are two
+  tied minima; keeping the presentation labels meets the requirement under O
+  and fails under U, because the two wholes are each other's reflection.
+- **Repaired during the rung, and live before review saw it.**  The
+  whole-property census first carried invariance alone, and reported the
+  property that reads the group tag as a witness at the very base where the
+  requirement fails.  The repair is definition 55's second conjunct —
+  determination by the candidate's key, which is definition 29's
+  token-forgetting clause generalized — together with a domain that varies the
+  grouping and a census over every two-element mark-set.  Injected and
+  recorded; two tests fail by name without it.  The Challenge 3 census, which
+  carried the first conjunct only, is left as it stands, with the difference
+  named in section 10: no result of that rung moves, its one anomalous property
+  having been reported there as invariant and separating nothing.
+- **Repaired during the rung.**  The C4-3 and C3-X side-property clauses were
+  first scored against "no declared whole property separates the two wholes",
+  and both reported MISSED on clauses the frozen files do not make; both are
+  now scored on the two side-reading properties the frozen texts name.  The
+  same defect appeared twice at Challenge 3 and is recorded again.
+- **Restructured for size and cost.**  The first build was 936733 bytes, a 6%
+  margin under the megabyte at which the run owes a summary and a gzip, and
+  took 9.9 seconds.  Every candidate's facts now come from one enumeration of
+  its images rather than fifteen, and the point rows carry the collateral facts
+  that HOLD rather than eight booleans: 795554 bytes and 2.9 seconds, with the
+  full map on the nine rows reported in full.  A cross-check holds the derived
+  values to the kernel's declared functions at every one-step point and at a
+  sample of bundles, and it is proved by injection.
+- The research job's test-count grep moved from 228 to 303, and
+  `run_challenge4.py` was added after the earlier runners; the move was proved
+  by injection.  The axiom log was regenerated once, 105 to 138 reports, with
+  no injection live.
+
+Advisories from the review of Challenge 3, actioned in this rung's living
+documents.  The rule is the one Challenge 2 declared and Challenge 3 reused: an
+advisory is actioned when the repair lies in a living document or in apparatus;
+one that would regenerate a closed rung's receipt, or edit a previous rung's
+`STATUS.md`, is carried with its reason.
+
+- **Corrected.**  The paper's title said "Challenges 0 to 3"; it now says 0 to
+  4, and section 0's counts move with it.
+- **Corrected.**  Section 5.10's C2-X row counted four hitting clauses where
+  the status and the receipt count five; it now counts five and says which.
+- **Narrowed.**  Section 5.9 called `retained_counts_equal` "the converse half"
+  of the equal-count law.  It is not: the converse — that at equal counts some
+  renaming undoes the side exchange — is not proved, and what the theorem
+  records is that the counting argument says nothing at the retained regime.
+- **Corrected.**  Section 7.4 said the countermodel shows "the theorem above it
+  is not vacuous"; what it shows is that the theorem's HYPOTHESIS is a real
+  restriction, which is the statement the same section makes correctly four
+  lines earlier.
+- **Corrected.**  The 7.4 row for `retained_U_requirement_fails` said the
+  composite is permitted; the theorem says the SIDE EXCHANGE is permitted and
+  the composite fixes the regime.
+- **Disclosed.**  Definition 41 now carries the note that `mu1` and `mu2` are
+  the sealed derivation's own names for the same role, inherited vocabulary and
+  not this run's, which lived only in the Challenge 3 status and this log.
+- **Reworded.**  "Internal designation" was a second sense of a word section 1
+  reserves for current-state designation, and the rung's central mechanism
+  sentence used it; every use in the run's own prose now reads "internally
+  available", including the one in definition 3.
+- **Scoped.**  "The candidate that keeps the labels satisfies nothing" was
+  written without a reading and is false under O, where the base already
+  satisfies; the sentence is now scoped to U and says what happens under O.
+- **Narrowed.**  The row citing `points_satisfying_with_grammar_change_only`
+  now says that the key is empty under U by its own definition's reading
+  clause, and that it admits the label-keeping coordinate, which definition 40
+  keeps distinct from the judgment grammar.  The key itself is carried.
+- **Corrected.**  Section 5.12's row read "every separation result of the
+  rung" while the row above it classifies the index withdrawal as independent
+  of the boundary; the exception is now named, with the receipt field carried.
+- **Narrowed in place.**  B2-MARKS-O listed the side names among the
+  capabilities the O separation uses, and its own falsifier — "a separation
+  that survives removing the names" — fired at Challenge 3.  The narrowing is
+  now written into that entry and noted at the paper's C2-6 row, and
+  B3-O-ALREADY-MET's attribution sentence now names the Challenge 2 receipt's
+  price field rather than the ledger entry.
+- **Corrected.**  B3-THREE-MINIMA attributed the merge of the two further-mark
+  points to the side exchange alone, which does not carry one regime to the
+  other; it is the class key, the side exchange composed with a mark renaming.
+- **Corrected.**  Section 9's restatement of the Challenge 3 second reading
+  dropped the token-forgetting clause and asserted unrestricted agreement; it
+  now names the clause and says which direction is by unfolding and which is
+  prose.
+- **Corrected, a docstring.**  `one_step_minima` said it works over the
+  one-step candidates only while its filter also admits the null point; the
+  docstring now says both and why.  No receipt carries a docstring, and all
+  five regenerate byte-identically.
+
+Carried, with reasons: the Challenge 3 receipt's `boundary_dependence` text,
+its `points_satisfying_with_grammar_change_only` key, the C3-3 scorer's
+judgment-vocabulary conjunct and its weaker Python proxy, and the Challenge 3
+`STATUS.md` row that says "same" for the label-keeping candidate under O.  All
+lie in `code/boundary/challenge3.py` or in a frozen `STATUS.md`, and repairing
+them would regenerate a closed rung's receipt or edit a closed rung's status.
+The paper carries the correction for each.
+
+Declined: nothing.

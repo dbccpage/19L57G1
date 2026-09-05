@@ -21,6 +21,15 @@ Classification (assumption discipline):
 * ``supply_event`` turns a read whole into the external presentation
   event; ``admission_event`` turns it, under a convention, into the
   admission event.  Neither applies anything to a regime.
+
+Challenge 4 addition.  The caller supplies wholes with a mark on each side
+of the bar, which ``read_whole`` refuses by name.  ``read_pair_whole`` is
+the WIDENED reader: at most one mark on each side, and nothing further.
+The widening is a declared augmentation of the metatheory, priced in the
+rung's ledger and paid by the run; the narrower reader is left as it was,
+so the refusal that forced the widening stays visible.  In which order the
+two marks of one whole are admitted is a second declaration of the same
+kind as the convention, and both orders are reported.
 """
 
 from __future__ import annotations
@@ -104,3 +113,69 @@ def admission_event(whole: Whole, convention: str) -> AdmitMark:
     if whole.token is None or whole.presented_side is None:
         raise PresentationError("the initial whole carries no mark to admit")
     return AdmitMark(whole.token, admitted_side(whole.presented_side, convention))
+
+
+# ---------------------------------------------------------------------------
+# Challenge 4: the widened reader bound, and the within-whole order
+# ---------------------------------------------------------------------------
+
+WITHIN_WHOLE_ORDERS: dict[str, tuple[str, str]] = {
+    "left first": ("left", "right"),
+    "right first": ("right", "left"),
+}
+DECLARED_WITHIN_WHOLE_ORDER = "left first"
+OTHER_WITHIN_WHOLE_ORDER = "right first"
+
+
+@dataclass(frozen=True)
+class PairWhole:
+    """A whole read under the WIDENED Challenge 4 bound: at most one mark on
+    each side of the bar.
+
+    ``read_whole`` keeps the narrower Challenge 1 bound and still refuses
+    ``<a|b>`` by name; this type and its reader are a declared widening of the
+    metatheory, priced in the rung's ledger and paid by the run.  The spelling
+    of the whole is not stored, and nothing beyond a mark per side is read.
+    """
+
+    left: str | None
+    right: str | None
+
+
+def read_pair_whole(text: str) -> PairWhole:
+    """Read one whole of the form ``<|>``, ``<x|>``, ``<|y>``, or ``<x|y>``.
+
+    Declared bound: one bar, at most one mark on each side.  Two marks on one
+    side, and a nested whole, are refused by name, so that no structure beyond
+    the admitted exception and this rung's declared widening is read silently.
+    """
+    m = _WHOLE.match(text)
+    if m is None:
+        raise PresentationError(
+            f"not a whole with one bar and at most one mark on each side: {text!r}"
+        )
+    left, right = m.group(1), m.group(2)
+    if len(left) > 1 or len(right) > 1:
+        raise PresentationError(
+            f"more than one mark on a side is beyond the Challenge 4 bound: {text!r}"
+        )
+    return PairWhole(left or None, right or None)
+
+
+def pair_marks(whole: PairWhole, convention: str, order: str) -> list[tuple[str, int]]:
+    """The ``(token, admitted side)`` pairs of a read whole, in the declared
+    within-whole admission order.
+
+    The presented side of each mark is a fact of the presentation; the
+    admitted side it maps to is the declared convention (definition 18).  In
+    which order the marks of one whole are admitted is a second declaration of
+    the same kind, and the other order is reported beside it.
+    """
+    if order not in WITHIN_WHOLE_ORDERS:
+        raise PresentationError(f"unknown within-whole order: {order!r}")
+    out: list[tuple[str, int]] = []
+    for presented in WITHIN_WHOLE_ORDERS[order]:
+        token = whole.left if presented == "left" else whole.right
+        if token is not None:
+            out.append((token, admitted_side(presented, convention)))
+    return out

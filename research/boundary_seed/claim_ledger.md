@@ -1072,7 +1072,17 @@ Python receipt, bounded), LIMITATION, OPEN.
   hold as at genesis.  So the two wholes are internally separable under O in
   the sense of definition 33.  The separation uses the admitted boundary,
   the O reading of that declaration, and the Challenge 2 occurrence
-  identity, and nothing else; the presentation convention fixes which
+  identity, and nothing else.  **Narrowed at Challenge 3, in place**: what
+  the O reading contributes is the WITHDRAWAL of the side exchange and not
+  the two names.  The counterfactual square computes that the separation
+  holds in exactly the cells where the side exchange is not permitted,
+  whether or not the names are admitted, so this entry's frozen falsifier
+  "a separation that survives removing the names" FIRED at Challenge 3 and
+  the reading of the middle capability is corrected accordingly.  Nothing
+  computed here moves: the automorphism counts, the invariance census, and
+  the convention comparison stand as this rung measured them, and the
+  attribution is what is narrowed.  The paper's C2-6 row carries the same
+  note; the presentation convention fixes which
   presented whole is which mark and not that they are separated, the other
   convention's regime lying in the same isomorphism class under both
   readings.
@@ -1317,8 +1327,13 @@ Python receipt, bounded), LIMITATION, OPEN.
   it; any cell of the square coming out the other way; or a minimum
   capability count under O other than zero.
 - **Surviving boundary**: the retained two-mark regime under O.  It narrows
-  B2-MARKS-O, which listed the side names among the capabilities the O
-  separation uses; the names are now recorded as not used.
+  B2-MARKS-O, whose statement listed the side names among the capabilities
+  the O separation uses and whose falsifier named exactly the fact that
+  fired; the narrowing is now written into that entry, and what the
+  Challenge 2 receipt's price field records is the pre-narrowing
+  attribution, carried because repairing it would regenerate a closed
+  rung's receipt.  An earlier version of this line attributed the price to
+  the ledger entry rather than to that receipt field.
 
 ### B3-NO-JUDGMENT-ADDITION
 
@@ -1405,8 +1420,13 @@ Python receipt, bounded), LIMITATION, OPEN.
   meet the requirement — withdraw the side exchange, withdraw the mark
   permutations, and admit one further mark on either side — and under the
   implemented class key they fall into exactly **three** classes, the two
-  further-mark points being one class because the side exchange still
-  carries one of their regimes to the other.  The minimum capability count
+  further-mark points being one class because their canonical keys under
+  their own permitted renamings agree — the side exchange composed with a
+  renaming of the marks carries one regime to the other, and the side
+  exchange alone does not.  An earlier version of this sentence attributed
+  the merge to the side exchange alone, which does not carry one regime to
+  the other; the class key is what decides it, and the correction changes
+  no count.  The minimum capability count
   is one, all three classes attain it, all three are retained, and
   uniqueness is refuted.  Under O the minimum is zero and the null
   augmentation is the only class attaining it.
@@ -1657,4 +1677,529 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Lean theorem**: none yet.
 - **Axiom report**: not applicable.
 - **Falsifier**: as written in `challenge3/PREDICTIONS.md`.
+- **Surviving boundary**: not yet.
+
+### B4-READER-WIDENING
+
+- **Statement**: The Challenge 1 reader admits at most one mark in a whole and
+  refuses **both** Challenge 4 inscriptions by name, so the caller's challenge
+  cannot be read under it.  The run declares the widened reader — at most one
+  mark on each side of the bar, and nothing further — and a within-whole
+  admission order beside it; both are declarations of the metatheory, paid by
+  the run at this rung, and the narrower reader is left refusing.  The widened
+  reader refuses a nested whole by name.
+- **Status**: DEFINITION (the widened bound and the order are declarations);
+  COMPUTED (that the Challenge 1 reader refuses both inscriptions, and that the
+  widened one refuses the nested whole).  Counted as content: no.  Score C4-1
+  is HIT by construction.
+- **Dependencies**: definitions 17, 18, 47, 48.
+- **Assumptions**: that the caller's inscriptions are to be read at all; the
+  run could instead have refused the challenge and recorded it OPEN, as it
+  could have at Challenge 2.
+- **Python evidence**: receipt `reader`; `test_the_challenge_1_reader_refuses_both_inscriptions`,
+  `test_the_widened_reader_reads_a_mark_on_each_side`,
+  `test_the_widened_reader_refuses_what_is_beyond_its_bound`,
+  `test_the_within_whole_order_is_a_declaration_with_another_value`,
+  `test_c4_1_misses_when_the_reader_or_the_retention_moves`.
+- **Lean theorem**: none; the reader is Python-only, the Lean events carrying
+  no token.
+- **Axiom report**: not applicable.
+- **Falsifier**: the Challenge 1 reader accepting either inscription; the
+  widened reader accepting two marks on one side or a nested whole.
+- **Surviving boundary**: Challenge 4 onward.  The widening is about how many
+  marks a whole may carry and does not require the admitted boundary, though
+  what it reads is a presented side.
+
+### B4-RETENTION
+
+- **Statement**: Under definition 30's reading of "retains" and the Challenge 2
+  occurrence identity, the caller's Challenge 4 history is a `Supply` for each
+  mark of each whole in presented order and an `AdmitOccurrence` for each in
+  the declared within-whole order — eight events — and the current state under
+  each reading is its replay: four admitted marks, placement `(0, 1, 0, 1)`,
+  labels `("a", "b", "b", "a")`, certified and replayed from genesis, with the
+  placement equal to the one the convention and the order predict.  The other
+  within-whole order gives an isomorphic configuration under both readings, so
+  that order is not internally available.
+- **Status**: DEFINITION (the history follows from the declared reader,
+  convention, order, and policy); COMPUTED (the replay, the placement check
+  against the declarations, and the isomorphism of the other order).  Counted
+  as content: no; score C4-1 is HIT by construction, and its one non-declared
+  clause is reported separately.
+- **Dependencies**: definitions 5, 6, 25, 30, 31, 47, 48, 49.
+- **Assumptions**: the caller's "retains" is read as at Challenge 2; a whole is
+  presented once and presents both its marks.
+- **Python evidence**: receipt `readings.*.base`;
+  `test_the_retention_history_and_its_grouping`,
+  `test_every_candidate_history_replays_from_genesis`,
+  `test_the_placement_is_checked_against_the_declarations`,
+  `test_the_placement_key_reads_false_when_the_prediction_parts`.
+- **Lean theorem**: `BoundarySeed.crossRetained_eq`,
+  `BoundarySeed.crossRetained_placement_length`,
+  `BoundarySeed.crossRetained_reading`,
+  `BoundarySeed.crossRetained_initialDatum`.
+- **Axiom report**: none for any of the four.
+- **Falsifier**: a retained placement other than `(0, 1, 0, 1)`; a history that
+  is not one supply and one admission per mark; a candidate regime whose
+  placement differs from the one the declarations predict.
+- **Surviving boundary**: the Challenge 4 retained configuration under each
+  reading.
+
+### B4-GROUPING-IS-METATHEORY
+
+- **Statement**: A whole is a set of marks, and the regime carries no component
+  that groups marks into wholes: the grouping is read off the caller's history.
+  The Challenge 4 requirement and its declared witness are therefore statements
+  about the automorphisms of the state together with a metatheoretic grouping,
+  at every candidate that does not admit that grouping.
+- **Status**: LIMITATION, and a narrowing of what internal separability can
+  mean for a whole.  It is not computed; it is a fact about the declared
+  `Regime` type, made visible by the `Configuration` type that keeps the two
+  apart, and it is the reason the grouping is one of the declared coordinates.
+- **Dependencies**: definitions 3, 50, 51, 52.
+- **Assumptions**: none.
+- **Python evidence**: `Configuration` in `code/boundary/model.py`; receipt
+  `requirement.grouping_is_metatheory`;
+  `test_a_configuration_needs_one_tag_per_mark`.
+- **Lean theorem**: none; the Lean regime carries no grouping either, which is
+  why a whole is named there by an index map.
+- **Falsifier**: a component of the regime that carries the grouping without a
+  declared augmentation.
+- **Surviving boundary**: every Challenge 4 result stated in the whole sense.
+
+### B4-REQUIREMENT
+
+- **Statement**: The Challenge 4 requirement, in the sense the run declares:
+  the two retained wholes meet it under a reading exactly when no permitted
+  automorphism of the configuration carries the mark-set of one onto the
+  mark-set of the other.  A second reading is declared beside it — some
+  property of a mark-set that forgets whatever the candidate's key forgets and
+  is invariant under every permitted renaming holds of one whole's mark-set and
+  not of the other's — and its declared witness is membership in the first
+  whole's orbit.  The sense reduces to definition 38's at the Challenge 3
+  configuration, where each whole is one mark, which the receipt computes under
+  both readings.
+- **Status**: DEFINITION (the sense, and the half of the agreement the orbit
+  witness gives by unfolding); COMPUTED (that the first reading and the
+  declared witness agree at all 192 points under each reading, and the
+  reduction).  Two things are neither computed nor proved and are narrowed into
+  the statement: the direction back from an arbitrary property of the second
+  reading's kind to the first, which is definition 33's justifying sentence and
+  is prose; and the premise definition 54's "by construction" rests on, that a
+  candidate's permitted renamings are closed under composition and inverse.
+- **Dependencies**: definitions 23, 29, 33, 38, 50, 51, 52, 53, 54.
+- **Assumptions**: the caller's demand is read as a demand about the two
+  retained wholes and not about the four marks pairwise; the pointwise sense is
+  declared beside it and computed, and it is a different requirement.
+- **Python evidence**: receipt `requirement`,
+  `readings.*.requirement_readings_agree_at_every_point`,
+  `readings.*.reduction_to_challenge_3`;
+  `test_the_orbit_witness_agrees_with_the_requirement_at_every_point`,
+  `test_the_reduction_at_the_challenge_3_configuration`,
+  `test_the_whole_orbit_carries_the_key_and_the_mark_set`.
+- **Lean theorem**: none; the sense quantifies over the implemented renaming
+  relation, which is Python.
+- **Axiom report**: not applicable.
+- **Falsifier**: a point at which the first reading and the declared witness
+  disagree; or the two senses disagreeing at the Challenge 3 configuration.
+- **Surviving boundary**: Challenge 4 onward; the sense itself does not require
+  the admitted boundary.
+
+### B4-FAILS-UNDER-BOTH
+
+- **Statement**: The retained configuration fails the requirement under **both**
+  readings — the first rung at which reading O does not already meet it.  The
+  obstruction is the exchange of the two wholes, the permutation carrying mark
+  0 to mark 2 and mark 1 to mark 3, which carries the configuration onto itself
+  **with no side exchange**, so the withdrawal that the O reading carries does
+  not touch it.  Of the six pairs of distinct marks, under O exactly the four
+  lying on different sides are separable and the two sharing a side are not;
+  under U none is.  Under U there are eight permitted automorphisms and under O
+  four.
+- **Status**: COMPUTED (the automorphism counts, the whole-carrying witness,
+  and the pair census, all over the unpruned enumeration); PROVED (that the
+  exchange carries the retained regime onto itself, and that the two marks
+  sharing a side satisfy the same mark-on-side judgments).  Counted as content:
+  score C4-2.
+- **Dependencies**: definitions 16, 51, 52; B4-RETENTION.
+- **Assumptions**: the declared sense, and the reading's own renamings.
+- **Python evidence**: receipt `readings.*.base.satisfies`,
+  `whole_exchange_witness`, `separable_mark_pairs`, `automorphism_count`;
+  `test_the_requirement_fails_under_both_readings`,
+  `test_the_pairs_of_marks_the_boundary_separates`,
+  `test_c4_2_misses_when_a_reading_meets_the_requirement`.
+- **Lean theorem**: `BoundarySeed.exchangeWholesRegime_crossRetained`,
+  `BoundarySeed.exchangeWholes_carries_the_first_whole`,
+  `BoundarySeed.crossRetained_marks_share_a_side`,
+  `BoundarySeed.reflect_crossRetained_ne`,
+  `BoundarySeed.exchangeMarks_crossRetained_ne`.
+- **Axiom report**: propext; none; propext; propext; propext.
+- **Falsifier**: the O regime meeting the requirement; a whole-carrying
+  automorphism that uses the side exchange under O; a pair census other than
+  four-and-two under O or empty under U.
+- **Surviving boundary**: the Challenge 4 retained configuration under each
+  reading.
+
+### B4-NO-JUDGMENT-ADDITION
+
+- **Statement**: While the exchange of the two wholes is a permitted renaming,
+  no addition of judgment forms meets the requirement, whatever the forms:
+  every property of a regime and an ordered pair of internal identities that
+  the exchange leaves alone takes the same value at the two retained wholes,
+  and the same holds for a property of a single mark at the two marks that
+  share a side.  The hypothesis is a real restriction: the property that reads
+  whether the first mark of a pair is the first admitted mark separates the two
+  wholes and is therefore not invariant under the exchange.
+- **Status**: PROVED, for an arbitrary property, with a countermodel.  Counted
+  as content: it is the Lean half of scores C4-2 and C4-5.  The countermodel
+  shows only that the hypothesis excludes that one property; it says nothing
+  about what else lies outside it.
+- **Dependencies**: definitions 8, 52; B4-FAILS-UNDER-BOTH.
+- **Assumptions**: the property is a Boolean of a regime and one or two
+  internal identities; the correspondence between `exchangeWholes` and the
+  Python renaming of a configuration is prose.
+- **Python evidence**: receipt `readings.*.base.witness_whole_properties`,
+  which is empty under both readings; the concrete `admit_names` point does not
+  meet the requirement.
+- **Lean theorem**: `BoundarySeed.no_invariant_pair_property_separates_the_wholes`,
+  `BoundarySeed.no_invariant_mark_property_separates_the_paired_marks`,
+  `BoundarySeed.firstIsMarkZero_separates_the_wholes`,
+  `BoundarySeed.firstIsMarkZero_is_not_invariant_under_the_whole_exchange`.
+- **Axiom report**: propext for all four.
+- **Falsifier**: an addition of judgment forms that meets the requirement with
+  the whole exchange still permitted; the Lean statement not covering an
+  arbitrary property; or the countermodel property turning out invariant.
+- **Surviving boundary**: the Challenge 4 retained configuration, under both
+  readings.
+
+### B4-CONTINUATION
+
+- **Statement**: No continuation removes the obstruction.  After every later
+  history of the Lean grammar — any number of further supplies and placements —
+  the exchange of the two wholes still carries the regime onto itself.  In
+  particular one further mark on either side, which was one of the three minima
+  at Challenge 3, does not meet the requirement here.  The Challenge 3 counting
+  argument does not apply: the two sides of the retained placement carry equally
+  many marks.
+- **Status**: PROVED, over every history rather than over a bounded
+  enumeration, through the induction that replaying a history appends to the
+  placement.  Counted as content.  It is strictly stronger than the enumeration,
+  which reaches one further mark.
+- **Dependencies**: definitions 5, 6, 51, 52; B4-FAILS-UNDER-BOTH.
+- **Assumptions**: the Lean grammar's events, which carry no token; a Python
+  history that refuses an unsupplied admission is a subset of what this covers.
+- **Python evidence**: receipt `readings.*.one_step_detail` rows
+  `extra_mark_0` and `extra_mark_1`, neither of which meets the requirement;
+  `test_the_coordinates_that_were_minima_at_the_previous_rung_are_not`.
+- **Lean theorem**: `BoundarySeed.replay_placement_append`,
+  `BoundarySeed.exchangeWholesRegime_of_prefix`,
+  `BoundarySeed.whole_exchange_survives_every_continuation`,
+  `BoundarySeed.whole_exchange_survives_a_further_mark`,
+  `BoundarySeed.crossRetained_counts_equal`.
+- **Axiom report**: propext; propext; propext; propext; none.
+- **Falsifier**: a continuation after which the exchange does not carry the
+  regime onto itself.
+- **Surviving boundary**: every regime whose placement begins with the retained
+  one, under both readings.
+
+### B4-CANDIDATE-SPACE
+
+- **Statement**: The declared Challenge 4 candidate space has seven
+  coordinates — the five of definition 40 together with admitting the whole
+  grouping and naming the two wholes — and 192 points under each reading.  A
+  candidate is one step exactly when its capability count is one; every
+  candidate of count two or more is refused as bundling, 183 of the 192; and
+  naming the wholes without admitting the grouping changes nothing and
+  collapses into the null point under the implemented quotient.
+- **Status**: DEFINITION.  The coordinates, their values, the capability named
+  for each, and therefore the point count and the identity of one step with
+  count one are declarations of this rung.  Counted as content: no; score C4-4
+  is HIT by construction.  **Every minimality statement of this rung is scoped
+  to this space**, including the uniqueness of the U minimum.
+- **Dependencies**: definitions 40, 41, 51, 56, 57.
+- **Assumptions**: that the grouping and its naming are two coordinates and not
+  one.  A run that declared them one would report a second minimum under both
+  readings; they are two here because naming tags is the U-versus-O distinction
+  one level up, and that is a declaration.
+- **Python evidence**: receipt `candidate_space`, `readings.*.bundles_refused_count`,
+  `one_step_iff_capability_count_one`, `name_wholes_collapses_into_the_base`;
+  `test_the_space_is_the_product_of_its_declared_coordinates`,
+  `test_one_step_is_exactly_capability_count_one`,
+  `test_the_effective_structure_collapses_the_no_ops`,
+  `test_c4_4_misses_on_a_different_space_or_a_live_no_op`.
+- **Lean theorem**: none; the space is Python-only.
+- **Axiom report**: not applicable.
+- **Falsifier**: a point count other than 192; a one-step candidate whose
+  capability count is not one; the name-wholes point not collapsing.
+- **Surviving boundary**: Challenge 4's minimality statements and nothing
+  wider.
+
+### B4-MINIMUM-U
+
+- **Statement**: Under U exactly one one-step point of the declared space meets
+  the requirement — withdrawing the mark permutations — at a minimum capability
+  count of one and in one class, so **uniqueness is not refuted inside the
+  declared space**.  That minimum meets the requirement by unfolding: with the
+  mark permutations withdrawn no permitted renaming moves an index at all, so
+  it leaves the admitted boundary idle entirely.  The withdrawal of the side
+  exchange, a minimum at Challenge 3, does not meet the requirement here, and
+  neither does a further mark on either side.
+- **Status**: COMPUTED, by exhaustive enumeration over the declared finite
+  space: which points meet the requirement is a witness search at each
+  candidate's own renamings, and the class count is the implemented quotient.
+  Counted as content: score C4-5.  That the one minimum meets the requirement
+  by unfolding is DEFINITION-level and the receipt reports it separately.  **The
+  uniqueness is uniqueness inside the declared space** (B4-CANDIDATE-SPACE) and
+  is the run's first uniqueness statement; it is not a claim about every
+  augmentation.
+- **Dependencies**: definitions 51, 52, 56, 57; B4-CANDIDATE-SPACE.
+- **Assumptions**: reading U.
+- **Python evidence**: receipt `readings.U.satisfying_one_step_points`,
+  `readings.U.minima_by_mu1`, `readings.U.one_step_detail`;
+  `test_the_minimum_under_U_is_one_class_and_uniqueness_is_not_refuted`,
+  `test_the_coordinates_that_were_minima_at_the_previous_rung_are_not`,
+  `test_c4_5_misses_when_a_second_minimum_appears_under_U`.
+- **Lean theorem**: none for the enumeration; B4-CONTINUATION closes the
+  further-mark coordinate unboundedly.
+- **Axiom report**: not applicable.
+- **Falsifier**: a second satisfying one-step point under U; a class count
+  other than one; a minimum capability count other than one.
+- **Surviving boundary**: the declared space at the retained configuration
+  under U.
+
+### B4-MINIMA-O
+
+- **Statement**: Under O exactly two one-step points meet the requirement —
+  withdrawing the mark permutations, and keeping the presentation labels — in
+  two classes tied at capability count one, both retained, so uniqueness is
+  refuted under O.  Keeping the labels meets the requirement under O and fails
+  under U, because the two retained wholes are each other's reflection and
+  under U the side exchange is a renaming the object language cannot see; under
+  O the pair of a label with a side is what the witness property reads.
+- **Status**: COMPUTED, by the same enumeration and quotient.  Counted as
+  content: score C4-6.
+- **Dependencies**: definitions 51, 52, 55, 56, 57; B4-CANDIDATE-SPACE.
+- **Assumptions**: reading O for the two minima; the label-keeping witness is
+  one of the five declared whole properties and the list is declared, not a
+  survey.
+- **Python evidence**: receipt `readings.O.satisfying_one_step_points`,
+  `readings.O.minima_by_mu1`, `readings.*.one_step_detail`;
+  `test_the_minima_under_O_are_two_tied_classes`,
+  `test_the_witness_of_each_satisfying_one_step_point`,
+  `test_c4_6_misses_when_the_O_minima_move`.
+- **Lean theorem**: none; the Lean model carries no presentation label.
+- **Axiom report**: not applicable.
+- **Falsifier**: a different set of satisfying one-step points under O; a
+  different class count; the label-keeping candidate meeting the requirement
+  under U or failing under O.
+- **Surviving boundary**: the declared space at the retained configuration
+  under O.
+
+### B4-GROUPING-BUNDLE
+
+- **Statement**: The augmentation that gives the caller internal wholes is a
+  bundle and is refused as one step.  Admitting the whole grouping alone does
+  not meet the requirement: with the two tags admitted and unnamed, their
+  exchange is a renaming the object language cannot see, and composed with the
+  permutation that exchanges the two wholes it carries the configuration onto
+  itself.  Naming the two wholes without admitting the grouping names tags no
+  mark carries and collapses into the null point.  The two together meet the
+  requirement under both readings, at a capability count of two, so neither
+  half is a minimum.  The four-cell grouping square is met in one cell under
+  each reading.
+- **Status**: COMPUTED (each cell is an automorphism search with both values
+  attained, and the collapse is the implemented quotient); DEFINITION on the
+  capability count, which is the declared measure.  Counted as content: score
+  C4-7.
+- **Dependencies**: definitions 50, 51, 52, 56, 57; B4-CANDIDATE-SPACE.
+- **Assumptions**: that the tag exchange is a permitted renaming exactly when
+  the grouping is admitted and the wholes are unnamed, which is this rung's
+  declaration and the tag-level counterpart of the side exchange under U.
+- **Python evidence**: receipt `readings.*.grouping_square`, `grouping_bundle`,
+  `name_wholes_collapses_into_the_base`;
+  `test_the_grouping_square_turns_on_both_coordinates`,
+  `test_the_grouping_bundle_costs_two_and_neither_half_is_one`,
+  `test_c4_7_misses_when_a_half_of_the_bundle_would_do`.
+- **Lean theorem**: none; the Lean regime carries no grouping.
+- **Axiom report**: not applicable.
+- **Falsifier**: the grouping alone meeting the requirement; the pair costing
+  other than two; the pair failing to meet it under either reading; the
+  name-wholes point not collapsing.
+- **Surviving boundary**: the declared space at the retained configuration
+  under each reading.
+
+### B4-TWO-SENSES
+
+- **Statement**: The pointwise sense — every pair of distinct admitted marks
+  separable — implies the declared whole sense at every point of the declared
+  space under both readings, and the converse fails inside it: at 18 points
+  under U and 16 under O the two wholes are separable while some pair of marks
+  is not, the grouping-with-names point among them.  At the Challenge 3
+  configuration, where each whole is one mark, the two senses agree.
+- **Status**: COMPUTED, a census over the 192 points under each reading, with
+  the reduction computed rather than asserted.  Counted as content: score C4-8.
+  The implication is computed over the space and is not proved in general.
+- **Dependencies**: definitions 33, 52, 53.
+- **Assumptions**: the two wholes are disjoint and non-empty, which the kernel
+  enforces by refusing a whole that groups no mark.
+- **Python evidence**: receipt `readings.*.pointwise_implies_whole_at_every_point`,
+  `points_where_the_two_senses_part`,
+  `at_every_parting_point_the_wholes_separate_and_the_marks_do_not`,
+  `reduction_to_challenge_3`; `test_the_two_senses_of_separability_part`,
+  `test_c4_8_misses_when_the_two_senses_coincide_or_invert`.
+- **Lean theorem**: none; both senses quantify over the implemented renaming
+  relation.
+- **Axiom report**: not applicable.
+- **Falsifier**: a point at which the pointwise sense holds and the whole sense
+  fails; the two senses agreeing at every point; or disagreeing at the
+  Challenge 3 configuration.
+- **Surviving boundary**: the declared space at the retained configuration.
+
+### B4-WITNESS-CLAUSE
+
+- **Statement**: A declared whole property witnesses the separation only if it
+  is BOTH invariant under the candidate's permitted renamings on the declared
+  domain AND determined by the candidate's key.  The second conjunct is
+  definition 29's token-forgetting clause generalized, and it is load-bearing:
+  the property that reads the group tag is invariant under every permitted
+  renaming at the base and separates the two wholes there, so a census of
+  invariance alone reports a witness at the very point where the requirement
+  fails.  With both conjuncts the witness list is empty at every point that
+  fails the requirement and names exactly one property at each satisfying
+  one-step point: the index property under both readings, and the
+  label-and-side property under O.
+- **Status**: COMPUTED, two censuses over the declared domain of 768
+  configurations per reading.  Counted as content: it carries score C4-3's
+  content and the mechanism halves of C4-5 and C4-6.  **The defect was live**:
+  the rung's first census carried the invariance conjunct only and reported the
+  tag property as a witness at the base.  It is recorded in `MANUAL.md` with
+  the injection that reproduces it.
+- **Dependencies**: definitions 29, 43, 51, 55.
+- **Assumptions**: the five declared properties are a declared list and not a
+  survey; the domain carries three groupings because a property that reads the
+  tag must be tested against configurations whose grouping differs while their
+  key does not.
+- **Python evidence**: receipt `readings.*.base.invariant_whole_properties`,
+  `key_determined_whole_properties`, `witness_whole_properties`,
+  `whole_properties`; `test_the_tag_property_is_invariant_and_not_determined_by_the_key`,
+  `test_the_key_determination_census_reads_both_ways`,
+  `test_property_invariance_is_a_census_and_reports_both_values`,
+  `test_the_witness_of_each_satisfying_one_step_point`.
+- **Lean theorem**: none; the Lean model carries no key.
+- **Axiom report**: not applicable.
+- **Falsifier**: a property reported as a witness at a point that fails the
+  requirement; or a satisfying one-step point with no witness where one of the
+  five is both invariant, key-determined, and separating.
+- **Surviving boundary**: the Challenge 4 census.  It does not repair the
+  Challenge 3 census, which carried the first conjunct only and whose one
+  anomalous property was reported there as invariant and separating nothing.
+
+### B4-BOUNDARY-CONTRIBUTION
+
+- **Statement**: At Challenge 4 the admitted boundary contributes what it
+  contributed at Challenge 3 — the side each mark lies on, each mark's profile
+  being its side and nothing else — and that now sorts four marks into two
+  classes of two and no finer.  Neither side-reading whole property separates
+  the two wholes under either reading.  What it cannot contribute is which mark
+  within a side is which, the grouping of marks into wholes, and the matching
+  of a visible mark across the boundary: the configuration in which the second
+  whole's copy of the first token is a token the caller never presented is
+  reached by a permitted renaming under both readings.
+- **Status**: COMPUTED (the property census, the mark profiles, and the
+  matching comparison); PROVED (that the two marks sharing a side satisfy the
+  same mark-on-side judgments).  Counted as content: score C4-3, which is
+  **PARTIAL**: its clause that both side-reading properties are invariant under
+  both readings is false under U, where the side exchange moves a mark's side,
+  and the miss is recorded next to its value.
+- **Dependencies**: definitions 22, 34, 55, 58; B4-FAILS-UNDER-BOTH.
+- **Assumptions**: the classification of a contribution is the run's.
+- **Python evidence**: receipt `readings.*.base.separating_whole_properties`,
+  `mark_profiles`, `collateral_facts.cross_boundary_matching_internally_available`,
+  `scores.C4-3`; `test_the_recorded_miss_of_this_rung`,
+  `test_the_matching_variant_replaces_one_token_and_refuses_none`,
+  `test_c4_3_moves_between_partial_and_hit_on_its_own_clauses`.
+- **Lean theorem**: `BoundarySeed.crossRetained_marks_share_a_side`.
+- **Axiom report**: propext.
+- **Falsifier**: a side-reading whole property that separates the two wholes;
+  the cross-boundary matching being internally available at the retained
+  configuration under either reading.
+- **Surviving boundary**: the Challenge 4 retained configuration.
+
+### B4-TWO-MEASURES
+
+- **Statement**: The second declared measure at Challenge 4 counts how many of
+  eight declared collateral facts a candidate makes available that the same
+  reading's base did not.  Neither of the two facts nearest the requirement —
+  the same separation said of the two sides, and the Challenge 3 separation
+  said pointwise of the four marks — takes the requirement's value at every
+  point, so the measure does not re-count the requirement as Challenge 3's did.
+  The two measures are not the same function on the space, and under both
+  readings they select the same minima.
+- **Status**: COMPUTED.  Counted as content: the collateral facts are witness
+  searches and the two agreement keys are censuses over the 192 points.  The
+  declared list of eight is a declaration, not a survey, and it was declared
+  before the enumeration ran.
+- **Dependencies**: definitions 44, 51, 58; B4-CANDIDATE-SPACE.
+- **Assumptions**: the eight facts are the declared ones; a different list
+  would give a different measure.
+- **Python evidence**: receipt `readings.*.sides_fact_agrees_with_the_requirement_at_every_point`,
+  `pairwise_fact_agrees_with_the_requirement_at_every_point`,
+  `measures_differ_somewhere`, `measures_agree_on_minima`, `minima_by_mu2`;
+  `test_neither_near_fact_re_counts_the_requirement`,
+  `test_the_fact_agreement_check_reads_both_ways`,
+  `test_the_collateral_measure_counts_only_what_the_base_lacked`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: either near fact agreeing with the requirement at every point;
+  the two measures agreeing at every point of the space; or the two measures
+  selecting different minimum sets.
+- **Surviving boundary**: the declared space at the retained configuration.
+
+### B4-BOUNDARY-DEPENDENCE
+
+- **Statement**: At Challenge 4 the declared sense, its second reading, the
+  pointwise sense, the identity of the candidate space, the capability counts,
+  the one-step rule, the refusal of bundles, the whole grouping with its two
+  coordinates, the tag and index properties, and the withdrawal of the mark
+  permutations do not require the admitted boundary.  The side exchange, its
+  withdrawal, the two side-reading whole properties, the label-and-side
+  property, the grouping square's cells, the further-mark coordinate, and every
+  separation result of the rung except the index withdrawal require it and are
+  not formulated after removing it.
+- **Status**: LIMITATION, a dependency classification of the run.  It is
+  reported in the receipt and is not computed by anything.
+- **Dependencies**: the seed's requirement to classify at every stage.
+- **Assumptions**: removing the boundary is a counterfactual classification and
+  not a third reading added to the model.
+- **Python evidence**: receipt `boundary_dependence`; `test_receipt_shape`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: as B0-BOUNDARY-DEPENDENCE.
+- **Surviving boundary**: Challenge 4 dependency classification.
+
+### B4-X
+
+- **Statement**: At Challenge 5 the widened reader of Challenge 4 will refuse
+  `<<a|>|>` by name as well, its declared bound reading marks and not wholes,
+  so the bound will have to be widened a second time and priced a second time,
+  paid by the run.  Depth will not be an internally available count at the
+  retained configuration under either reading, the regime recording one side
+  per admitted mark and no depth, and the boundary within a side will not be
+  visible without a new declaration.  The rung will have to decide what the
+  inner whole is — a datum, a side, or something needing a new definition — and
+  that decision will take the shape Challenge 2's did: a declared finite space
+  of policies with exactly one member letting the caller retain the
+  inscription, priced and paid by the run.
+- **Status**: OPEN; the extrapolation of Challenge 4, scored by Challenge 5.
+  Its first clause is already half computed here — this rung's reader does
+  refuse the nested whole by name, and the receipt records it — so that clause
+  is weak evidence and is marked as such.
+- **Dependencies**: Challenge 5's reader bound, its policy space, and its
+  declared depth.
+- **Assumptions**: none yet.
+- **Python evidence**: receipt `reader.nested_whole_refused` for the first
+  clause only; nothing else yet.
+- **Lean theorem**: none yet.
+- **Axiom report**: not applicable.
+- **Falsifier**: as written in `challenge4/PREDICTIONS.md`.
 - **Surviving boundary**: not yet.

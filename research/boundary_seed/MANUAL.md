@@ -33,6 +33,9 @@ python ci/check_prose_watchlist.py
 python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 ```
 
+Definitions 47 to 58 and the Challenge 4 kernel additions are recorded in
+`paper.md`; the run's reading of what this file governs is unchanged.
+
 `verify_lean.py` scans every `.lean` file for the forbidden tokens as
 text, requires every module under `lean/BoundarySeed/` to lie in the
 root's transitive import closure (an unreached module is never
@@ -132,6 +135,16 @@ injection is live.
 | 3 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 222 tests in ` | exit 1; `^Ran 227 tests in ` exit 0 on the same log |
 | 3 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | the second reading's declared text narrowed and the key `fields_declared_not_computed` added to the price, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 56); `run_challenge3.py` regenerated the receipt deliberately with no injection live (219789 to 220518 bytes), the Challenge 0 to 2 receipts reported unchanged, and the suite passed 228 |
 | 3 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 227 tests in ` | exit 1; `^Ran 228 tests in ` exit 0 on the same log |
+| 4 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge4/PREDICTIONS.md` | `FAIL: working copy of challenge4/PREDICTIONS.md: 75c1997c36a9... wanted 42371f458e23...`, exit 1; `pins ok: seed ba30bcd600d8 and 5 frozen prediction file(s)` and exit 0 after restore |
+| 4 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 4) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge4.json` | the test reported FAILED showing the differing bytes; OK after `run_challenge4.py` rewrote the original bytes.  The FAILED line was read directly and not through a pipeline's exit status |
+| 4 | witness key-determination clause, new at this rung | the second conjunct dropped from `whole_property_facts`, leaving invariance alone | the base of BOTH readings, where the requirement FAILS, reported `witness_whole_properties: ['set_is_the_first_whole']` — and under O `set_carries_label_a_on_side_0` beside it — so a property that reads a group tag the key does not carry was reported as a witness for a separation that does not hold.  Two tests failed by name, `test_the_tag_property_is_invariant_and_not_determined_by_the_key` and `test_the_witness_of_each_satisfying_one_step_point`; 23 tests OK after reversal.  **This is the defect the clause exists to catch, and it was live in the rung's first census before review**: the fix is definition 55's second conjunct together with the three-grouping domain and the two-element-set family, and `test_the_key_determination_census_reads_both_ways` fixes both directions |
+| 4 | analysis-against-kernel cross-check, new at this rung | `analyse` made to compute `satisfies` from the pointwise sense instead of the whole sense | `test_the_analysis_agrees_with_the_kernel_functions`: `AssertionError: False != True` naming the point, the grouping-with-names augmentation under U where the two senses genuinely part; 15 tests OK after reversal.  The receipt derives every fact of a candidate from ONE enumeration of its images, so this check is what holds that derivation to the kernel's declared functions |
+| 4 | placement check (`test_the_placement_is_checked_against_the_declarations`) | the process's further mark admitted on `1 - extra_mark` | `AssertionError: False is not true : extra_mark_0`, exit 1; OK after reversal.  `test_the_placement_key_reads_false_when_the_prediction_parts` fixes the same direction by patching the predicted placement |
+| 4 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Challenge4` removed from the root module | `FAIL: BoundarySeed.Challenge4 is outside the root's import closure and is never elaborated`, exit 1; `lean ok: 138 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore.  The exit status was read directly and not through a pipeline |
+| 4 | Lean audit totality (`verify_lean.py`) (found live, not injected) | reverting the root module with `git checkout` while restoring the injection above, which dropped the rung's import line AND all 33 of its `#print axioms` lines | the census named the module and then named every one of the 33 theorems: `FAIL: BoundarySeed.crossRetained_eq is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, and so on, exit 1; exit 0 at 138 reports after the lines were rewritten.  Recorded because it was an accident and not a plan, and because a whole rung's worth of unaudited theorems is exactly what the check was added at Challenge 2 to catch |
+| 4 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 228 tests in ` | exit 1; `^Ran 303 tests in ` exit 0 on the same log |
+| 4 | prediction scorer, literal clauses (found live, not injected) | C4-3 and C3-X scored against "no declared whole property separates the two wholes" | both reported MISSED on the real receipt, three of the five declared properties separating the two wholes at the base.  The frozen C4-3 clause names "both declared side-reading whole properties" and the frozen C3-X clause names "the side each mark lies on", so both are scored on the two side-reading properties, with the index, label, and tag properties reported separately.  Recorded because the first scoring would have reported misses on clauses the frozen files do not make, which is the same defect the Challenge 3 scorer had twice |
+| 4 | receipt size (found live, not injected) | the first build, with eight collateral booleans and the effective structure on every one of the 192 point rows twice over | 936733 bytes against the megabyte at which the run owes a summary and a gzip, a 6% margin, and 9.9 seconds to build.  The point rows now carry the facts that HOLD and the full map is on the nine rows reported in full, and every candidate's facts come from one enumeration of its images rather than fifteen: 795554 bytes and 2.9 seconds.  Recorded because a later rung adding keys to a point row has less room than the number alone suggests |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -148,6 +161,7 @@ The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
 adversaries.  The Challenge 1 rows record that rung and its five review
 repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
-it, the Challenge 3 review-repair rows the session after that, and the second
-review-repair rows the session after that again; current whole-tree counts are
-reported in the latest `challenge<k>/STATUS.md`.
+it, the Challenge 3 review-repair rows the session after that, the second
+review-repair rows the session after that again, and the Challenge 4 rows the
+session after that; current whole-tree counts are reported in the latest
+`challenge<k>/STATUS.md`.

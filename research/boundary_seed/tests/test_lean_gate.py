@@ -23,6 +23,7 @@ MODULES = [
     "BoundarySeed.Challenge1",
     "BoundarySeed.Challenge2",
     "BoundarySeed.Challenge3",
+    "BoundarySeed.Challenge4",
 ]
 
 
@@ -63,6 +64,9 @@ class AuditTotalityTests(unittest.TestCase):
         self.assertIn("BoundarySeed.retained_onSide_true_iff", declared)
         self.assertIn(
             "BoundarySeed.no_invariant_mark_property_separates_retained", declared
+        )
+        self.assertIn(
+            "BoundarySeed.no_invariant_pair_property_separates_the_wholes", declared
         )
 
     def test_comments_are_stripped_before_the_population_is_read(self) -> None:

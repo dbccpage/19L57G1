@@ -100,6 +100,25 @@ do, so the same enumeration is offered coordinate by coordinate:
   instances of the Challenge 2 functions.  All are unpruned; each takes the
   serializer as a flag rather than choosing one by judgment.  A flag is a
   declaration of the augmentation being examined and never a discovery.
+
+Challenge 4 additions.  The caller now retains two wholes carrying two marks
+each, so the question is about a GROUPING of marks and not about two marks:
+
+* ``Configuration`` is a regime together with a grouping, one tag per
+  admitted mark.  The regime carries no grouping component; the grouping is
+  metatheory read off the caller's history, and it enters the state only
+  under a declared augmentation whose key keeps it.  Keeping the two apart is
+  the point of the type.
+* ``Renamings`` collects the five flags a declared augmentation sets.
+  ``tag_maps`` declares that the exchange of the two caller tags is a
+  renaming exactly when the grouping is admitted and the two wholes are not
+  named — the tag-level counterpart of the side exchange under reading U.
+* ``permitted_configuration_images`` is the unpruned enumeration;
+  ``configuration_automorphisms``, ``group_carrying_automorphism``,
+  ``wholes_separable_in``, ``mark_carrying_automorphism``,
+  ``marks_separable_in``, ``configurations_isomorphic``, and ``whole_orbit``
+  filter or search it.  At ``keep_groups`` false and trivial tag maps they
+  are the Challenge 3 functions with the grouping ignored, which is checked.
 """
 
 from __future__ import annotations
@@ -719,4 +738,210 @@ def mark_orbit_under(
     return frozenset(
         (_key(image, keep_labels), pi[mark])
         for _reflected, pi, image in permitted_images_under(r, reflection, mark_permutations)
+    )
+
+
+# ---------------------------------------------------------------------------
+# Challenge 4: the whole grouping, configurations, and whole separability
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class Renamings:
+    """What a declared augmentation permits, and what its key keeps.
+
+    Five flags, each a DECLARATION of the augmentation being examined and
+    never a discovery: whether the side exchange is a permitted renaming;
+    whether the mark permutations are; whether the exchange of the two
+    caller group tags is; whether the key keeps the presentation labels;
+    and whether it keeps the group tags.  At the flags a reading declares
+    with no augmentation the first two are the reading's own and the last
+    three are false, which is Challenges 0 to 3 unchanged.
+    """
+
+    reflection: bool
+    mark_permutations: bool
+    group_permutations: bool
+    keep_labels: bool
+    keep_groups: bool
+
+
+@dataclass(frozen=True)
+class Configuration:
+    """A regime together with a grouping of its admitted marks.
+
+    The grouping gives, for each admitted mark, the tag of the presented
+    whole whose admission introduced it.  **The regime carries no such
+    component**: the grouping is metatheory read off the caller's history,
+    and it becomes part of the state only under a declared augmentation
+    that keeps it in the key.  Keeping the two distinct is the point of
+    this dataclass.
+    """
+
+    regime: Regime
+    groups: tuple[int, ...]
+
+    def __post_init__(self) -> None:
+        if len(self.groups) != self.regime.n_marks():
+            raise AdmissionError("one group tag per admitted mark")
+        if any(tag < 0 for tag in self.groups):
+            raise AdmissionError("a group tag is a nonnegative index")
+
+    def members(self, tag: int) -> frozenset[int]:
+        """The internal identities the given tag groups."""
+        return frozenset(i for i, g in enumerate(self.groups) if g == tag)
+
+
+CALLER_TAGS: tuple[int, int] = (0, 1)
+
+
+def tag_maps(group_permutations: bool) -> list[tuple[int, ...]]:
+    """The permitted maps on group tags.
+
+    Declared: when the grouping is admitted and the two caller tags are not
+    named, their exchange is a renaming the object language cannot see, which
+    is the tag-level counterpart of the side exchange under reading U.  Any
+    further tag the process introduces is its own and is fixed.  Otherwise the
+    identity is the only tag map.  This is a declaration, not a discovery.
+    """
+    return [(0, 1), (1, 0)] if group_permutations else [(0, 1)]
+
+
+def relabel_groups(groups: Sequence[int], sigma: Sequence[int]) -> tuple[int, ...]:
+    """Apply a map on the group tags; a tag outside the map is fixed."""
+    return tuple(sigma[g] if g < len(sigma) else g for g in groups)
+
+
+def rename_groups(groups: Sequence[int], pi: Sequence[int]) -> tuple[int, ...]:
+    """Carry a group tuple along a permutation of internal identities."""
+    n = len(groups)
+    if sorted(pi) != list(range(n)):
+        raise ValueError("not a permutation of the admitted marks")
+    out = [0] * n
+    for i in range(n):
+        out[pi[i]] = groups[i]
+    return tuple(out)
+
+
+def configuration_key(c: Configuration, rn: Renamings) -> tuple[object, ...]:
+    """The key the augmentation declares: the serialization, and the group
+    tuple when and only when the grouping is admitted."""
+    return _key(c.regime, rn.keep_labels) + ((c.groups,) if rn.keep_groups else ())
+
+
+ConfigurationImage = tuple[bool, tuple[int, ...], tuple[int, ...], Configuration]
+
+
+def permitted_configuration_images(c: Configuration, rn: Renamings) -> list[ConfigurationImage]:
+    """Every configuration a permitted renaming reaches, with the renaming.
+
+    Each entry is ``(reflected, permutation, tag map, image)``.  Unpruned: the
+    mark permutations come from ``permitted_images_under`` and the tag maps
+    from ``tag_maps``, and every pair is offered.  With the tag maps trivial
+    the entries are in the order of ``permitted_images_under``.
+    """
+    out: list[ConfigurationImage] = []
+    for reflected, pi, image in permitted_images_under(
+        c.regime, rn.reflection, rn.mark_permutations
+    ):
+        for sigma in tag_maps(rn.group_permutations):
+            out.append(
+                (
+                    reflected,
+                    pi,
+                    sigma,
+                    Configuration(image, rename_groups(relabel_groups(c.groups, sigma), pi)),
+                )
+            )
+    return out
+
+
+Witness = tuple[bool, tuple[int, ...], tuple[int, ...]]
+
+
+def configuration_automorphisms(c: Configuration, rn: Renamings) -> list[Witness]:
+    """Every permitted renaming carrying a configuration onto itself in the
+    declared key.  Unpruned: it filters the full enumeration."""
+    target = configuration_key(c, rn)
+    return [
+        (reflected, pi, sigma)
+        for reflected, pi, sigma, image in permitted_configuration_images(c, rn)
+        if configuration_key(image, rn) == target
+    ]
+
+
+def group_carrying_automorphism(
+    c: Configuration, source: int, target: int, rn: Renamings
+) -> Witness | None:
+    """A permitted automorphism carrying the mark-set of one whole onto the
+    mark-set of another, or ``None``.
+
+    The test reads the grouping, which is metatheory unless the augmentation
+    admits it; that is recorded rather than hidden.  An empty source set is
+    refused, because the empty set is carried onto every empty set and the
+    question would answer itself.
+    """
+    have = c.members(source)
+    want = c.members(target)
+    if not have or not want:
+        raise ValueError(f"whole {source} or {target} groups no admitted mark")
+    for reflected, pi, sigma in configuration_automorphisms(c, rn):
+        if frozenset(pi[i] for i in have) == want:
+            return (reflected, pi, sigma)
+    return None
+
+
+def wholes_separable_in(c: Configuration, a: int, b: int, rn: Renamings) -> bool:
+    """Whether no permitted automorphism carries one whole's marks onto the
+    other's.  The declared Challenge 4 requirement."""
+    return group_carrying_automorphism(c, a, b, rn) is None
+
+
+def mark_carrying_automorphism(
+    c: Configuration, i: int, j: int, rn: Renamings
+) -> Witness | None:
+    """A permitted automorphism of a configuration carrying mark ``i`` to
+    mark ``j``, or ``None``."""
+    _check_mark(c.regime, i)
+    _check_mark(c.regime, j)
+    for reflected, pi, sigma in configuration_automorphisms(c, rn):
+        if pi[i] == j:
+            return (reflected, pi, sigma)
+    return None
+
+
+def marks_separable_in(c: Configuration, i: int, j: int, rn: Renamings) -> bool:
+    """The Challenge 3 sense of mark separability, at a configuration."""
+    return mark_carrying_automorphism(c, i, j, rn) is None
+
+
+def configurations_isomorphic(c: Configuration, d: Configuration, rn: Renamings) -> bool:
+    """Whether a permitted renaming carries one configuration onto another in
+    the declared key.  Configurations of different readings are never
+    isomorphic."""
+    if c.regime.reading != d.regime.reading:
+        return False
+    target = configuration_key(d, rn)
+    return any(
+        configuration_key(image, rn) == target
+        for _reflected, _pi, _sigma, image in permitted_configuration_images(c, rn)
+    )
+
+
+def whole_orbit(
+    c: Configuration, tag: int, rn: Renamings
+) -> frozenset[tuple[tuple[object, ...], frozenset[int]]]:
+    """The images of one whole's mark-set under every permitted renaming.
+
+    Each element pairs the key of an image configuration with the mark-set the
+    whole is carried to.  Membership in this set is a property of a
+    ``(configuration, mark-set)`` pair invariant under those renamings by
+    construction — resting on the premise, stated and checked by nothing, that
+    the renamings are closed under composition and inverse — so it is the
+    witness the second reading of the Challenge 4 requirement asks for.
+    """
+    have = c.members(tag)
+    return frozenset(
+        (configuration_key(image, rn), frozenset(pi[i] for i in have))
+        for _reflected, pi, _sigma, image in permitted_configuration_images(c, rn)
     )

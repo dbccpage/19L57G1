@@ -955,9 +955,14 @@ def minima(rows: list[Json], measure: str) -> Json:
 
 
 def one_step_minima(rows: list[Json], measure: str) -> Json:
-    """The same, over the one-step candidates only.  A bundle is refused as a
-    one-step augmentation, so it is not eligible to be a minimum of the
-    enumeration the seed asks for."""
+    """The same, over the one-step candidates AND the null point.  A bundle is
+    refused as a one-step augmentation, so it is not eligible to be a minimum
+    of the enumeration the seed asks for; the null point is not a one-step
+    augmentation either, and it is admitted because a reading whose base
+    already meets the requirement pays nothing, which is what the reading-O
+    minimum of zero reports.  An earlier version of this docstring said
+    one-step candidates only, which the filter beside it contradicts; review
+    found that, and the correction changes no computed value."""
     return minima([row for row in rows if row["one_step"] or row["mu1"] == 0], measure)
 
 

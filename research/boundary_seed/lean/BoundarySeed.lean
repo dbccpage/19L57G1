@@ -2,11 +2,12 @@ import BoundarySeed.Basic
 import BoundarySeed.Challenge1
 import BoundarySeed.Challenge2
 import BoundarySeed.Challenge3
+import BoundarySeed.Challenge4
 
 /-!
 # The boundary derivation: root
 
-Challenges 0 to 3.  Every theorem declared under `lean/BoundarySeed/` has a
+Challenges 0 to 4.  Every theorem declared under `lean/BoundarySeed/` has a
 `#print axioms` line here, which `verify_lean.py` requires by name, and it
 compares the build log with the committed axiom log.
 -/
@@ -116,3 +117,36 @@ compares the build log with the committed axiom log.
 #print axioms BoundarySeed.retained_counts_equal
 #print axioms BoundarySeed.retainedPlus_judgments_survive
 #print axioms BoundarySeed.no_event_follows_retainedPlus
+#print axioms BoundarySeed.crossRetained_eq
+#print axioms BoundarySeed.crossRetained_placement
+#print axioms BoundarySeed.crossRetained_placement_length
+#print axioms BoundarySeed.crossRetained_onSide_zero
+#print axioms BoundarySeed.crossRetained_onSide_one
+#print axioms BoundarySeed.crossRetained_onSide_two
+#print axioms BoundarySeed.crossRetained_onSide_three
+#print axioms BoundarySeed.crossRetained_onSide_beyond
+#print axioms BoundarySeed.crossRetained_onSide_true_iff
+#print axioms BoundarySeed.crossRetained_marks_share_a_side
+#print axioms BoundarySeed.crossRetained_sideNamed
+#print axioms BoundarySeed.exchangeWholes_involutive
+#print axioms BoundarySeed.exchangeWholes_zero
+#print axioms BoundarySeed.exchangeWholes_one
+#print axioms BoundarySeed.exchangeWholes_carries_the_first_whole
+#print axioms BoundarySeed.swapWholes_involutive
+#print axioms BoundarySeed.exchangeWholesRegime_involutive
+#print axioms BoundarySeed.exchangeWholesRegime_crossRetained
+#print axioms BoundarySeed.reflect_crossRetained_ne
+#print axioms BoundarySeed.exchangeMarks_crossRetained_ne
+#print axioms BoundarySeed.no_invariant_pair_property_separates_the_wholes
+#print axioms BoundarySeed.no_invariant_mark_property_separates_the_paired_marks
+#print axioms BoundarySeed.firstIsMarkZero_separates_the_wholes
+#print axioms BoundarySeed.firstIsMarkZero_is_not_invariant_under_the_whole_exchange
+#print axioms BoundarySeed.crossRetained_counts_equal
+#print axioms BoundarySeed.replay_placement_append
+#print axioms BoundarySeed.exchangeWholesRegime_of_prefix
+#print axioms BoundarySeed.whole_exchange_survives_every_continuation
+#print axioms BoundarySeed.whole_exchange_survives_a_further_mark
+#print axioms BoundarySeed.crossRetained_judgments_survive
+#print axioms BoundarySeed.crossRetained_reading
+#print axioms BoundarySeed.crossRetained_initialDatum
+#print axioms BoundarySeed.no_event_follows_crossRetained
