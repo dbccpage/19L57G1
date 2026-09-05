@@ -403,3 +403,110 @@ entries above:
 
 WITHDRAWN from the entry above: the count “Three hit as content (C1-1,
 C1-3, C1-6)”.  Declined: nothing.
+
+## 2026-09-04, Challenge 1 fourth exact-head review repair
+
+`SEED.md`, `challenge0/PREDICTIONS.md`, and `challenge1/PREDICTIONS.md`
+remain byte-identical.  Review of `44d2f1b7` found one blocking and six
+should-fix defects that survived refutation; every finding is addressed,
+none declined.  No theorem was added or removed and the axiom log was not
+regenerated.  One prediction's status changed, C1-5, PARTIAL to HIT, for
+the reason given first.  Recorded rather than folded into the entries
+above:
+
+- Re-scored: C1-5 from PARTIAL to HIT.  Its clause “the designation is by
+  convention and not by proof” had been scored, since the first review
+  repair, as current-state designation of the convention's admitted
+  candidate and reported MISSED, while the paper said all three PARTIALs
+  came from scoring the frozen text literally.  The frozen text does not
+  contain the words “current-state designation”: it says the convention
+  designates a candidate (“the designated one”, whose reflection is the
+  regime under the other convention) and that the designation is by
+  convention and not by proof.  The run does exactly that:
+  `selection_is_by` reads “declared convention, not proof”, the candidate
+  event is the convention's image of the presented side, and
+  `other_is_reflection_of_candidate` is true.  So the clause hits on its
+  own words, and the earlier MISSED was scored on a reading the frozen
+  text does not contain, which the literal rule forbids in this direction
+  as in the other; WITHDRAWN.  The withdrawal of the current-state
+  designation itself (definition 25) stands: it is a fact about the run,
+  not a clause of the prediction, and `admitted_candidate_is_current`
+  stays a plain fact of the current state, read by no clause.  The scorer
+  now reports `designation_clause_status` and `convention_clause_status`
+  beside `facts_status`, and the tally follows mechanically from the
+  statuses: two of seven hit as content (C1-3, C1-5), three by
+  construction, two PARTIAL.  Reason: the rule of this tree is to score
+  the frozen words and never a reading the text does not contain, in
+  either direction, and the headline tally depended on the breach.
+- The frozen convention pinned literally: “left is side 0, which O names
+  `near`”.  The pre-repair scorer checked only that the declared
+  convention was one of the two, so declaring the other convention with
+  its swapped candidate event scored `facts_status: HIT` on the same
+  facts, observed live before the repair.  The scorer now requires
+  `declared == "left is side 0"`, that convention's left side `0`, the
+  candidate event's side `0`, and the O name of side 0, carried into the
+  receipt as `side_0_name_under_O`; a negative test declares the other
+  convention by patching the declaration, recomputes the O facts, and
+  expects `convention_clause_status: MISSED` with the facts and the
+  designation clause still hitting, PARTIAL, and each pinned piece
+  missing on its own.  The receipt regenerated deliberately, 26687 to
+  27943 bytes, with no injection live.  Reason: a prediction that names
+  its convention must be falsifiable by the other one.
+- C1-3's content basis corrected: it had attributed the frozen per-event
+  name clause (“hold after every event exactly as before”) to the
+  history-level induction `replay_preserves_sideNamed` and said “none of
+  them by unfolding”, while the paper's 7.2 lists the per-event lemma
+  `step_preserves_sideNamed` as DEFINITION-level and C1-6's parallel
+  clause was scored on exactly that per-event reading.  The basis, in the
+  scorer, the receipt, the paper, the status, and B1-ONE-JUDGMENT, now
+  rests C1-3's content on `admitted_onSide_true_iff`,
+  `place_new_judgment`, and `place_other_side_false`, and says the name
+  clause read per event is `step_preserves_sideNamed`, DEFINITION-level,
+  as C1-6's was scored.  No status or tally change.  Reason: one clause
+  shape, one label, across predictions.
+- `reflect_step` removed from the paper's 7.2 DEFINITION-level list: its
+  place branch is `reflect_step_place`, a Challenge 1 lemma proved by
+  `simp` with the map of a placement over an append and carrying
+  `propext`, not a case split onto `rfl`.  `reflect_step_place`,
+  `exchangeSide_exchangeSide`, and `map_exchangeSide_map_exchangeSide`,
+  cited in B1-REFLECT-COMMUTES with no label, are labelled PROVED there.
+  No result changed.  Reason: a theorem in the DEFINITION-level list that
+  carries `propext` through a proved branch is mislabelled.
+- B1-SIDES-U's clause “‘the mark lies on exactly one side’ is a U fact”
+  carried no status, evidence, or Lean theorem, and the closed grammar has
+  no judgment expressing “exactly one side”.  It is now labelled PROVED as
+  a metatheoretic statement, in each candidate exactly one `OnSide`
+  judgment holds, mark 0 on the placed side (`admitted_onSide_true_iff`),
+  where none held at genesis (`no_observation_at_genesis`), at both
+  candidates, and stated not to be an internal judgment of the closed
+  grammar; both theorems and their reports added to the entry.  Reason:
+  every clause of a ledger statement carries a status.
+- WITHDRAWN: “supply” in a second, undeclared sense.  Definition 25, the
+  paper's 5.1, and B1-CURRENT-STATE's statement and falsifier used
+  “nothing the caller did not supply” and “does not supply at this
+  challenge” for the caller providing any event, an admission included,
+  which is not the `Supply` presentation event of definition 5.  Reworded
+  to “the replay of the caller's history and of no event the caller's
+  history does not contain” and “no admission event is in the caller's
+  history at this challenge”; the module docstring of `challenge1.py`
+  carried the same phrase and is reworded too.  “Supply” and “supplies”
+  now name the event and the seed's quoted words only.  Reason: the seed
+  lists supply among the notions never conflated, and one word in two
+  undeclared senses is a conflation.
+- Narrowed: the Challenge 1 status said nothing in the isomorphism
+  witness was remembered, but the Challenge 0 status had already declared
+  the brute force over renamings with tokens forgotten as written from
+  memory, and the witness search is that enumeration.  The sentence now
+  covers the separating-judgment computation and the
+  reflection-commutation theorems only, and says the witness search
+  reuses the remembered shape, with only its use as a witness or relation
+  and the canonical-key agreement test new to this rung.  Reason: a
+  provenance claim that contradicts the prior rung's declaration
+  overstates.
+- The workflow's test-count grep updated from 111 to 112 after observing
+  the stale count fail on the fresh log.
+
+WITHDRAWN from the entry above: “One of seven hits as content (C1-3)”,
+“three are PARTIAL”, and, from the paper and status it describes, “no
+prediction's HIT, PARTIAL, or MISSED status changed” as a description of
+every re-count.  Declined: nothing.

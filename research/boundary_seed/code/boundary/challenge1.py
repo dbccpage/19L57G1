@@ -6,8 +6,8 @@ and does not retain, so under each reading the receipt carries the
 supplied-only history, whose replay is the current state and equals
 genesis, and every one-step admission candidate as a separately certified
 candidate history.  No candidate is designated current: the current state
-is the replay of the caller's history and nothing the caller did not
-supply.  The declared convention selects which candidate admission the
+is the replay of the caller's history and of no event that history does
+not contain.  The declared convention selects which candidate admission the
 presented side licenses, if admission is later called for; it admits
 nothing.  Under U the two candidates are one isomorphism class; under O
 they are two, both kept as certified branches, the second the reflection
@@ -353,6 +353,10 @@ def convention_facts(reading: str, g: Regime, whole: Whole, supplied_history: li
         "declared": DECLARED_CONVENTION,
         "conventions": {name: dict(sides) for name, sides in CONVENTIONS.items()},
         "presented_side": whole.presented_side,
+        # the frozen C1-5 text names the convention "left is side 0, which O
+        # names `near`"; the O name of side 0 is carried so that the scorer
+        # can pin that clause literally
+        "side_0_name_under_O": SIDE_NAMES[0],
         "candidate_event": event_json(candidate_event),
         "other_event": event_json(other_event),
         "candidate_placement": list(candidate.placement),
@@ -547,12 +551,31 @@ def score(
         and len(o["candidate_classes"]) == 2
         and oc["candidate_event"] in [c["event"] for c in o["candidates"]]
     )
+    # The frozen text names the convention: "left is side 0, which O names
+    # `near`".  It is pinned literally, piece by piece: the declared
+    # convention, its left side, the candidate event's side, and the O name
+    # of side 0.  Declaring the other convention scores this clause MISSED;
+    # an earlier scorer accepted either convention.
+    c1_5_convention = (
+        oc["declared"] == "left is side 0"
+        and oc["conventions"][oc["declared"]]["left"] == 0
+        and oc["candidate_event"]["side"] == 0
+        and oc["side_0_name_under_O"] == "near"
+    )
     # The frozen clause "the designation is by convention and not by proof"
-    # was first scored as current-state designation of the convention's
-    # admitted candidate.  The caller supplied and did not retain, so no
-    # admitted candidate is current; that reading is scored here as it was
-    # read, and fails.  The convention's selection of a candidate survives.
-    c1_5_designated_current = bool(o["current_state"]["admitted_candidate_is_current"])
+    # is scored on its own words: the convention designates, that is selects,
+    # a candidate; the selected candidate is the convention's image of the
+    # presented side; and "the regime under the other convention is exactly
+    # the reflection of the designated one".  An earlier version scored the
+    # clause as current-state designation of an admitted candidate, words the
+    # frozen text does not contain, and reported it MISSED; that scoring is
+    # WITHDRAWN.  admitted_candidate_is_current stays a plain fact of the
+    # current state, read by no clause.
+    c1_5_designation = (
+        oc["selection_is_by"].startswith("declared convention, not proof")
+        and oc["candidate_event"]["side"] == oc["conventions"][oc["declared"]][oc["presented_side"]]
+        and oc["other_is_reflection_of_candidate"]
+    )
     c1_6 = (
         all(
             c["event_follows_relation_empty"] and c["initial_datum_unchanged"] and c["reading_unchanged"]
@@ -615,9 +638,13 @@ def score(
             "result_basis": (
                 "content: the one new judgment and its evaluation at the candidates "
                 "rest on admitted_onSide_true_iff, place_new_judgment, and "
-                "place_other_side_false, and the unchanged name judgments on the "
-                "induction replay_preserves_sideNamed, none of them by unfolding; "
-                "the supply clause alone is DEFINITION-level (supply_preserves_holds)"
+                "place_other_side_false, none of them by unfolding; the name "
+                "clause, read per event as the frozen text has it ('hold after "
+                "every event exactly as before'), is step_preserves_sideNamed, "
+                "DEFINITION-level by unfolding step, exactly as C1-6's parallel "
+                "clause was scored, the induction replay_preserves_sideNamed being "
+                "the rung's addition and not the prediction's; the supply clause "
+                "alone is DEFINITION-level (supply_preserves_holds)"
             ),
             "evidence": (
                 "supply adds no holding judgment; each candidate adds exactly its "
@@ -652,20 +679,39 @@ def score(
                 "MISSED"
                 if not c1_5_facts
                 else "HIT"
-                if c1_5_designated_current
+                if c1_5_convention and c1_5_designation
                 else "PARTIAL"
             ),
             "label": "NOT FORCED",
             "facts_status": verdict(c1_5_facts),
-            "current_state_designation_status": verdict(c1_5_designated_current),
+            "convention_clause_status": verdict(c1_5_convention),
+            "designation_clause_status": verdict(c1_5_designation),
+            "designation_clause_fact": (
+                "the frozen clause 'the designation is by convention and not by "
+                "proof' is scored on its own words: the convention designates, that "
+                "is selects, a candidate, the selected candidate is the convention's "
+                "image of the presented side, and the regime under the other "
+                "convention is the reflection of the designated one; an earlier "
+                "version scored the clause as current-state designation of an "
+                "admitted candidate, words the frozen text does not contain, and "
+                "reported it MISSED; that scoring is WITHDRAWN, while the current "
+                "state stays the replay of the caller's history and no candidate is "
+                "current (admitted_candidate_is_current, a fact no clause reads)"
+            ),
+            "result_basis": (
+                "content: the two O classes and the absence of a permitted renaming "
+                "are computed over the unpruned search (isomorphism_witness null), "
+                "and the candidates unequal and the other the reflection of the "
+                "convention's rest on admitted_candidates_unequal and "
+                "reflect_admitted, none by unfolding; the convention itself is a "
+                "declaration, pinned literally to the frozen text"
+            ),
             "evidence": (
-                "a declared convention; two certified O candidates in two classes, "
-                "not isomorphic, the other the reflection of the convention's "
-                "candidate; both classes kept; the convention selects a candidate "
-                "admission; the clause 'the designation is by convention' was first "
-                "scored as current-state designation of the admitted candidate, which "
-                "conflated supply with admission and is withdrawn: the caller "
-                "supplied and did not retain, so no admitted candidate is current"
+                "the declared convention is the frozen one, left is side 0, which O "
+                "names near; two certified O candidates in two classes, not "
+                "isomorphic, the other the reflection of the convention's candidate; "
+                "both classes kept; the convention selects a candidate admission by "
+                "declaration and not by proof, and admits nothing"
             ),
         },
         "C1-6": {

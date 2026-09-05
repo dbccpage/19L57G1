@@ -18,7 +18,7 @@ TREE = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TREE / "code"))
 sys.path.insert(0, str(TREE))
 
-from boundary import challenge0, model  # noqa: E402
+from boundary import challenge0, challenge1, model  # noqa: E402
 from boundary.challenge1 import (  # noqa: E402
     BOUNDARY_DEPENDENCE,
     C0_PREDICTIONS_SHA256,
@@ -170,7 +170,7 @@ class FactTests(unittest.TestCase):
 
     def test_scores(self) -> None:
         scores = self.receipt["scores"]
-        for cid in ("C1-1", "C1-3", "C1-6", "C1-7"):
+        for cid in ("C1-1", "C1-3", "C1-5", "C1-6", "C1-7"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
         self.assertEqual(scores["C1-2"]["status"], "PARTIAL")
         self.assertEqual(scores["C1-2"]["facts_status"], "HIT")
@@ -180,9 +180,10 @@ class FactTests(unittest.TestCase):
         self.assertEqual(scores["C1-4"]["facts_status"], "HIT")
         self.assertEqual(scores["C1-4"]["only_event_clause_status"], "MISSED")
         self.assertEqual(scores["C1-4"]["only_state_changing_event_status"], "HIT")
-        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
         self.assertEqual(scores["C1-5"]["facts_status"], "HIT")
-        self.assertEqual(scores["C1-5"]["current_state_designation_status"], "MISSED")
+        self.assertEqual(scores["C1-5"]["convention_clause_status"], "HIT")
+        self.assertEqual(scores["C1-5"]["designation_clause_status"], "HIT")
+        self.assertNotIn("current_state_designation_status", scores["C1-5"])
         self.assertTrue(scores["C1-7"]["result_basis"].startswith("DEFINITION-level"))
         self.assertIn("proxy", scores["C1-7"]["mechanical_part"])
         # The DEFINITION-level bases are receipt facts, one per listed
@@ -192,7 +193,9 @@ class FactTests(unittest.TestCase):
             self.assertIn("not counted as content", scores[cid]["result_basis"], cid)
         self.assertTrue(scores["C1-3"]["result_basis"].startswith("content"))
         self.assertIn("none of them by unfolding", scores["C1-3"]["result_basis"])
-        for cid in ("C1-2", "C1-4", "C1-5"):
+        self.assertIn("step_preserves_sideNamed, DEFINITION-level", scores["C1-3"]["result_basis"])
+        self.assertTrue(scores["C1-5"]["result_basis"].startswith("content"))
+        for cid in ("C1-2", "C1-4"):
             self.assertNotIn("result_basis", scores[cid], cid)
         for cid in ("C1-1", "C1-2", "C1-3", "C1-4", "C1-6"):
             self.assertEqual(scores[cid]["label"], "FORCED", cid)
@@ -305,6 +308,7 @@ class FactTests(unittest.TestCase):
             conv = rd["convention"]
             self.assertEqual(conv["declared"], "left is side 0")
             self.assertEqual(conv["presented_side"], "left")
+            self.assertEqual(conv["side_0_name_under_O"], "near")
             self.assertEqual(conv["candidate_event"], {"kind": "AdmitMark", "token": "a", "side": 0})
             self.assertEqual(conv["other_event"], {"kind": "AdmitMark", "token": "a", "side": 1})
             self.assertEqual(conv["candidate_placement"], [0])
@@ -490,9 +494,9 @@ class ScorerNegativeDirection(unittest.TestCase):
 
     def test_baseline(self) -> None:
         scores = self.run_score()
-        for cid in ("C1-1", "C1-3", "C1-6", "C1-7", "C0-X"):
+        for cid in ("C1-1", "C1-3", "C1-5", "C1-6", "C1-7", "C0-X"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
-        for cid in ("C1-2", "C1-4", "C1-5"):
+        for cid in ("C1-2", "C1-4"):
             self.assertEqual(scores[cid]["status"], "PARTIAL", cid)
             self.assertEqual(scores[cid]["facts_status"], "HIT", cid)
 
@@ -617,14 +621,68 @@ class ScorerNegativeDirection(unittest.TestCase):
         )
         self.assertEqual(self.run_score(o=o5)["C1-5"]["status"], "MISSED")
 
-    def test_c1_5_designation_clause_hits_only_if_an_admitted_candidate_were_current(self) -> None:
+    def test_c1_5_designation_clause_is_scored_on_the_frozen_words(self) -> None:
+        # "the designation is by convention and not by proof": the convention
+        # designates, that is selects, a candidate; the selected candidate is
+        # the convention's image of the presented side; and the other
+        # convention's regime is the reflection of the designated one.  The
+        # current state's admitted_candidate_is_current is a plain fact that
+        # no clause reads: the frozen text does not contain the words
+        # "current-state designation", on which an earlier scorer missed it.
         scores = self.run_score()
-        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
-        self.assertEqual(scores["C1-5"]["current_state_designation_status"], "MISSED")
-        o = self.mutated(self.o, ["current_state", "admitted_candidate_is_current"], True)
-        scores = self.run_score(o=o)
         self.assertEqual(scores["C1-5"]["status"], "HIT")
-        self.assertEqual(scores["C1-5"]["current_state_designation_status"], "HIT")
+        self.assertEqual(scores["C1-5"]["designation_clause_status"], "HIT")
+        self.assertNotIn("current_state_designation_status", scores["C1-5"])
+        o = self.mutated(self.o, ["current_state", "admitted_candidate_is_current"], True)
+        self.assertEqual(self.run_score(o=o)["C1-5"], scores["C1-5"])
+        o = self.mutated(self.o, ["convention", "selection_is_by"], "proof")
+        scores = self.run_score(o=o)
+        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-5"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-5"]["designation_clause_status"], "MISSED")
+        # a candidate that is not the convention's image of the presented side
+        # is not the one the convention designates
+        o = self.mutated(self.o, ["convention", "presented_side"], "right")
+        scores = self.run_score(o=o)
+        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-5"]["designation_clause_status"], "MISSED")
+        self.assertEqual(scores["C1-5"]["convention_clause_status"], "HIT")
+
+    def test_c1_5_convention_clause_misses_under_the_other_convention(self) -> None:
+        # The frozen text names the convention: "left is side 0, which O
+        # names `near`".  Declaring the other convention, with its swapped
+        # candidate event, is a real run of the O facts under a patched
+        # declaration: the facts still hit, the designation is still by
+        # convention, and the convention clause is a literal miss.  The
+        # pre-repair scorer reported facts HIT and nothing else on these
+        # same facts.
+        with patch.object(challenge1, "DECLARED_CONVENTION", "left is side 1"), patch.object(
+            challenge1, "OTHER_CONVENTION", "left is side 0"
+        ):
+            other = reading_facts("O")
+        self.assertEqual(other["convention"]["declared"], "left is side 1")
+        self.assertEqual(
+            other["convention"]["candidate_event"], {"kind": "AdmitMark", "token": "a", "side": 1}
+        )
+        self.assertEqual(
+            other["convention"]["other_event"], {"kind": "AdmitMark", "token": "a", "side": 0}
+        )
+        self.assertTrue(other["convention"]["other_is_reflection_of_candidate"])
+        scores = self.run_score(o=other)
+        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-5"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-5"]["convention_clause_status"], "MISSED")
+        self.assertEqual(scores["C1-5"]["designation_clause_status"], "HIT")
+        # each pinned piece of the frozen convention misses on its own
+        for path, value in (
+            (["convention", "declared"], "left is side 1"),
+            (["convention", "conventions", "left is side 0", "left"], 1),
+            (["convention", "candidate_event", "side"], 1),
+            (["convention", "side_0_name_under_O"], "far"),
+        ):
+            scores = self.run_score(o=self.mutated(self.o, path, value))
+            self.assertEqual(scores["C1-5"]["convention_clause_status"], "MISSED", path)
+            self.assertNotEqual(scores["C1-5"]["status"], "HIT", path)
 
     def test_c1_6_misses_on_a_following_event_or_a_new_form(self) -> None:
         u = self.mutated(self.u, ["candidates", 0, "event_follows_relation_empty"], False)
@@ -642,16 +700,16 @@ class ScorerNegativeDirection(unittest.TestCase):
 
     def test_tally_counts_definition_level_hits_apart_from_content(self) -> None:
         # The tally the paper reports is computed from the statuses and the
-        # declared DEFINITION-level list: C1-3 is the one content hit, C1-1,
-        # C1-6, and C1-7 hit by construction, and the three PARTIALs are
+        # declared DEFINITION-level list: C1-3 and C1-5 are the content hits,
+        # C1-1, C1-6, and C1-7 hit by construction, and the two PARTIALs are
         # neither.  The list is declared, not inferred from the receipt.
         counted = tally(self.run_score())
         self.assertEqual(counted["scored"], list(SCORED_PREDICTIONS))
         self.assertEqual(counted["definition_level_declared"], ["C1-1", "C1-6", "C1-7"])
         self.assertEqual(counted["criterion"], TALLY_CRITERION)
-        self.assertEqual(counted["hit_as_content"], ["C1-3"])
+        self.assertEqual(counted["hit_as_content"], ["C1-3", "C1-5"])
         self.assertEqual(counted["hit_definition_level"], ["C1-1", "C1-6", "C1-7"])
-        self.assertEqual(counted["partial"], ["C1-2", "C1-4", "C1-5"])
+        self.assertEqual(counted["partial"], ["C1-2", "C1-4"])
         self.assertEqual(counted["missed"], [])
         self.assertEqual(
             sorted(counted["hit_as_content"] + counted["hit_definition_level"]
@@ -673,15 +731,15 @@ class ScorerNegativeDirection(unittest.TestCase):
         counted = tally(missed_definition)
         self.assertEqual(counted["hit_definition_level"], ["C1-6", "C1-7"])
         self.assertEqual(counted["missed"], ["C1-1"])
-        self.assertEqual(counted["hit_as_content"], ["C1-3"])
+        self.assertEqual(counted["hit_as_content"], ["C1-3", "C1-5"])
         missed_content = self.mutated(scores, ["C1-3", "status"], "MISSED")
         counted = tally(missed_content)
-        self.assertEqual(counted["hit_as_content"], [])
+        self.assertEqual(counted["hit_as_content"], ["C1-5"])
         self.assertEqual(counted["missed"], ["C1-3"])
         self.assertEqual(counted["hit_definition_level"], ["C1-1", "C1-6", "C1-7"])
         partial_definition = self.mutated(scores, ["C1-6", "status"], "PARTIAL")
         counted = tally(partial_definition)
-        self.assertEqual(counted["partial"], ["C1-2", "C1-4", "C1-5", "C1-6"])
+        self.assertEqual(counted["partial"], ["C1-2", "C1-4", "C1-6"])
         self.assertEqual(counted["hit_definition_level"], ["C1-1", "C1-7"])
         with self.assertRaisesRegex(ValueError, "unexpected status 'PENDING' for C1-2"):
             tally(self.mutated(scores, ["C1-2", "status"], "PENDING"))

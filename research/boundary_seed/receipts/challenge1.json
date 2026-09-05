@@ -361,7 +361,8 @@
             "mark": 0,
             "side": 1
           }
-        ]
+        ],
+        "side_0_name_under_O": "near"
       },
       "current_state": {
         "admitted_candidate_is_current": false,
@@ -713,7 +714,8 @@
             "mark": 0,
             "side": 1
           }
-        ]
+        ],
+        "side_0_name_under_O": "near"
       },
       "current_state": {
         "admitted_candidate_is_current": false,
@@ -784,7 +786,7 @@
     "C1-3": {
       "evidence": "supply adds no holding judgment; each candidate adds exactly its OnSide judgment, the other side's does not hold, names unchanged",
       "label": "FORCED",
-      "result_basis": "content: the one new judgment and its evaluation at the candidates rest on admitted_onSide_true_iff, place_new_judgment, and place_other_side_false, and the unchanged name judgments on the induction replay_preserves_sideNamed, none of them by unfolding; the supply clause alone is DEFINITION-level (supply_preserves_holds)",
+      "result_basis": "content: the one new judgment and its evaluation at the candidates rest on admitted_onSide_true_iff, place_new_judgment, and place_other_side_false, none of them by unfolding; the name clause, read per event as the frozen text has it ('hold after every event exactly as before'), is step_preserves_sideNamed, DEFINITION-level by unfolding step, exactly as C1-6's parallel clause was scored, the induction replay_preserves_sideNamed being the rung's addition and not the prediction's; the supply clause alone is DEFINITION-level (supply_preserves_holds)",
       "status": "HIT"
     },
     "C1-4": {
@@ -796,11 +798,14 @@
       "status": "PARTIAL"
     },
     "C1-5": {
-      "current_state_designation_status": "MISSED",
-      "evidence": "a declared convention; two certified O candidates in two classes, not isomorphic, the other the reflection of the convention's candidate; both classes kept; the convention selects a candidate admission; the clause 'the designation is by convention' was first scored as current-state designation of the admitted candidate, which conflated supply with admission and is withdrawn: the caller supplied and did not retain, so no admitted candidate is current",
+      "convention_clause_status": "HIT",
+      "designation_clause_fact": "the frozen clause 'the designation is by convention and not by proof' is scored on its own words: the convention designates, that is selects, a candidate, the selected candidate is the convention's image of the presented side, and the regime under the other convention is the reflection of the designated one; an earlier version scored the clause as current-state designation of an admitted candidate, words the frozen text does not contain, and reported it MISSED; that scoring is WITHDRAWN, while the current state stays the replay of the caller's history and no candidate is current (admitted_candidate_is_current, a fact no clause reads)",
+      "designation_clause_status": "HIT",
+      "evidence": "the declared convention is the frozen one, left is side 0, which O names near; two certified O candidates in two classes, not isomorphic, the other the reflection of the convention's candidate; both classes kept; the convention selects a candidate admission by declaration and not by proof, and admits nothing",
       "facts_status": "HIT",
       "label": "NOT FORCED",
-      "status": "PARTIAL"
+      "result_basis": "content: the two O classes and the absence of a permitted renaming are computed over the unpruned search (isomorphism_witness null), and the candidates unequal and the other the reflection of the convention's rest on admitted_candidates_unequal and reflect_admitted, none by unfolding; the convention itself is a declaration, pinned literally to the frozen text",
+      "status": "HIT"
     },
     "C1-6": {
       "evidence": "the event-follows relation is empty on every candidate; the initial datum and reading are unchanged; no new event kind or judgment form",
@@ -834,7 +839,8 @@
       "C1-7"
     ],
     "hit_as_content": [
-      "C1-3"
+      "C1-3",
+      "C1-5"
     ],
     "hit_definition_level": [
       "C1-1",
@@ -844,8 +850,7 @@
     "missed": [],
     "partial": [
       "C1-2",
-      "C1-4",
-      "C1-5"
+      "C1-4"
     ],
     "scored": [
       "C1-1",

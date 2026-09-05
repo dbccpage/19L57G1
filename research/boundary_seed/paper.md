@@ -173,10 +173,11 @@ replay, the canonical key, the reader, and the convention are Python-only.
     `[Supply(a), AdmitMark(a, s)]`.  In Lean, `admitted rd s` is the replay
     of the latter from genesis.
 25. **Current-state designation.**  The current state after a challenge is
-    the replay of the caller's history and nothing the caller did not
-    supply.  At Challenge 1 the caller supplies and does not retain, so
-    that history is `[Supply(a)]` and the current regime under each
-    reading is genesis.  That `a` is supplied is a fact of the history
+    the replay of the caller's history and of no event the caller's
+    history does not contain.  At Challenge 1 the caller supplies and does
+    not retain, so that history is `[Supply(a)]`, no admission event is in
+    the caller's history at this challenge, and the current regime under
+    each reading is genesis.  That `a` is supplied is a fact of the history
     (definition 20), not of the state: a regime has no supplied component,
     and the supply changes none it has.  No admission candidate is
     current.  The declared convention selects which candidate admission
@@ -190,7 +191,9 @@ replay, the canonical key, the reader, and the convention are Python-only.
     the current state as “genesis with `a` presented”; that read the
     supply into a regime that carries no such component, the conflation
     of supply with state that the rest of the rung avoids, and is
-    WITHDRAWN too.
+    WITHDRAWN too.  A third version wrote the rule as “nothing the caller
+    did not supply”, a second sense of supply that is not the `Supply`
+    event of definition 5; reworded.
 26. **Judgment and regime domains.**  Bounded metatheoretic domains for
     the separating-judgment computation: every judgment naming a mark
     below two, and every hypothetical placement of at most one mark.  A
@@ -332,9 +335,9 @@ distinction, or some combination requiring explicit definitions.  The
 answer is the combination, with the definitions of section 3: it is a new
 external presentation by the `Supply` event and nothing else; it would
 become a new admitted state only through the separately declared admission
-event, which the supply does not entail and which the caller, who supplies
-and does not retain, does not supply at this challenge; and it would
-become a new internally observable distinction only after such an
+event, which the supply does not entail and which is in no history of the
+caller's at this challenge, the caller supplying and not retaining; and it
+would become a new internally observable distinction only after such an
 admission, by exactly one new holding judgment.  So after Challenge 1 the
 current regime under each reading is genesis, the caller's history being
 `[Supply(a)]`, in which `a` is supplied and nothing is admitted; and the
@@ -395,9 +398,9 @@ as to whether a whole on a side is a datum, which Challenge 5 asks.
 | C0-X (from Challenge 0) | NOT FORCED | HIT | U: genesis collapsed, every certified candidate not, by one supply and one admission with no new form; O: the sides distinct before and after, the only new holding judgment the mark's own side; scored against the candidates, on which it is conditional |
 | C1-1 supply is presentation only | FORCED | HIT, DEFINITION-level | every clause is true by unfolding `step`: `supply_no_op` and `supply_preserves_holds` are `rfl`, and the supply-only history replays to genesis as the n = 1 instance of `replay_supply_inert`, which is `rfl` (B1-SUPPLY-PRESENTATION); HIT by construction and not counted as content, by the rule applied to C1-7; an earlier version counted it (`scores.C1-1.result_basis`) |
 | C1-2 admission is separate; the mark is retained | FORCED | PARTIAL | the facts hit: no mark after the supply alone, every candidate certified only with the prior supply, the mark's judgment retained after a supply, a same-side re-admission, and the growth probe, and no accepted event moves or duplicates it (`facts_status`); the frozen parenthetical “a re-admission of the same token on either side, which is designation and not duplication” predicts an accepted other-side re-admission, which the repaired kernel refuses by name, so that clause is false as written and MISSED (`either_side_readmission_clause_status`, from the clause's own fact `moving_admission_accepted_and_inert`); an earlier version labelled it SHARPENED from the overall score with no clause fact, WITHDRAWN; the word designation is reserved for current-state designation |
-| C1-3 exactly one new judgment | FORCED | HIT | counted as content: the one new judgment and its evaluation at the candidates rest on `admitted_onSide_true_iff`, `place_new_judgment`, `place_other_side_false`, and the induction `replay_preserves_sideNamed`, none by unfolding (B1-ONE-JUDGMENT); its supply clause alone is DEFINITION-level (`scores.C1-3.result_basis`) |
+| C1-3 exactly one new judgment | FORCED | HIT | counted as content: the one new judgment and its evaluation at the candidates rest on `admitted_onSide_true_iff`, `place_new_judgment`, and `place_other_side_false`, none by unfolding (B1-ONE-JUDGMENT); its name clause, read per event as the frozen text has it (“hold after every event exactly as before”), is `step_preserves_sideNamed`, DEFINITION-level, exactly as C1-6's parallel clause was scored, the induction `replay_preserves_sideNamed` being the rung's addition and not the prediction's; its supply clause alone is DEFINITION-level (`scores.C1-3.result_basis`).  An earlier version attributed the name clause to the induction; corrected, no status changing |
 | C1-4 the two sides under U | FORCED | PARTIAL | the clause “the admission is the only event in the history” is false as written: each candidate history is one supply and one admission, and a supply is an event by definition 5; the first scoring silently read it as “the only state-changing event”, on which reading it holds; every other clause hits; scored PARTIAL as C0-4 was, the receipt carrying both readings |
-| C1-5 the two sides under O, and the convention | NOT FORCED | PARTIAL | the convention was declared, the candidates are unequal in two classes, the other candidate is the reflection of the convention's candidate, and both are carried: HIT; the clause “the designation is by convention and not by proof” was first scored as the current-state designation of the convention's admitted candidate, which conflated supply with admission and is withdrawn; the repaired run designates no admitted candidate current, so that clause as first read is MISSED, and only the convention's selection of a candidate survives |
+| C1-5 the two sides under O, and the convention | NOT FORCED | HIT | the declared convention is the frozen one, left is side 0, which O names `near`, pinned piece by piece (`convention_clause_status`); the candidates are unequal in two classes, the other candidate is the reflection of the convention's candidate, and both are carried (`facts_status`); and the designation is by convention and not by proof, scored on the frozen words: the convention designates, that is selects, a candidate, the selected candidate is the convention's image of the presented side, and the regime under the other convention is the reflection of the designated one (`designation_clause_status`, from `selection_is_by` and `other_is_reflection_of_candidate`); counted as content, the two classes and the absent permitted renaming being COMPUTED over the unpruned search and the inequality and reflection PROVED (`scores.C1-5.result_basis`).  Earlier versions scored a clause “current-state designation of the admitted candidate” MISSED and reported PARTIAL; the frozen text does not contain those words, so that scoring is WITHDRAWN, while the withdrawal of the current-state designation itself stands (definition 25) |
 | C1-6 no transition follows | FORCED | HIT, DEFINITION-level | the relation is empty by unfolding `EventFollows := False` (`no_event_follows_admitted` is a bare instantiation); one event keeps the reading and the initial datum by unfolding `step` (`step_reading`, `step_initialDatum`), which is the clause as written, the history-level inductions being the rung's addition and not the prediction's; and the unchanged grammars are a census of the run's own declarations, a modelling decision of the same kind as C1-7's (B1-INERTIA); HIT by construction and not counted as content; an earlier version counted it (`scores.C1-6.result_basis`) |
 | C1-7 one boundary, no second datum | NOT FORCED | HIT by construction, DEFINITION-level | the regime type represents neither a second datum nor a second boundary, so the mechanical part cannot be reported false, and `marks == 1` is a proxy reading “the mark placed on a side” as exactly one placed mark, which the frozen text does not name; not counted as content; the modelling clause can only be falsified by a later challenge |
 | C1-X extrapolation | NOT FORCED | PENDING | scored by Challenge 2 |
@@ -411,27 +414,33 @@ declaration, or reports a modelling decision of the run, is HIT by
 construction and not counted, which is the rule of `PLAN.md`.  The list
 of such predictions is declared in the scorer and reported as the
 receipt's `tally.definition_level_declared`, and the counts that follow
-are the receipt's `tally`, computed from the statuses.  One of seven hits
-as content (C1-3); three hit by construction and are DEFINITION-level,
-not counted as content (C1-1, C1-6, C1-7); three are PARTIAL (C1-2, C1-4,
-C1-5); and C0-X hit in both halves, as content, its profile clauses being
-PROVED (B0-X).  An earlier version of this section scored seven of seven;
-a later one five of seven, with C1-2's parenthetical labelled SHARPENED
-and C1-7 counted as a hit; and a third three of seven as content, with
-C1-1 and C1-6 counted while C1-7 was excluded on the same rule.  All
-three are WITHDRAWN: C1-1's facts are exactly the ones
-B1-SUPPLY-PRESENTATION labels DEFINITION, and C1-6's clauses are the
-empty relation by declaration, the step lemmas by unfolding, and a census
-of the run's own grammars.  No HIT, PARTIAL, or MISSED status changed in
-that re-count.  The three PARTIAL scores come from scoring the frozen
-text literally rather than on a silently weakened reading: each PARTIAL
+are the receipt's `tally`, computed from the statuses.  Two of seven hit
+as content (C1-3, C1-5); three hit by construction and are
+DEFINITION-level, not counted as content (C1-1, C1-6, C1-7); two are
+PARTIAL (C1-2, C1-4); and C0-X hit in both halves, as content, its profile
+clauses being PROVED (B0-X).  An earlier version of this section scored
+seven of seven; a later one five of seven, with C1-2's parenthetical
+labelled SHARPENED and C1-7 counted as a hit; a third three of seven as
+content, with C1-1 and C1-6 counted while C1-7 was excluded on the same
+rule; and a fourth one of seven as content, with C1-5 PARTIAL on a clause
+scored as “current-state designation”, words the frozen text does not
+contain.  All four are WITHDRAWN: C1-1's facts are exactly the ones
+B1-SUPPLY-PRESENTATION labels DEFINITION, C1-6's clauses are the empty
+relation by declaration, the step lemmas by unfolding, and a census of
+the run's own grammars, and C1-5's designation clause, scored on its own
+words, hits.  That last is the one status change across the re-counts,
+PARTIAL to HIT, recorded next to its value in the receipt, the status,
+and the ledger.  The two PARTIAL scores come from scoring the frozen text
+literally rather than on a silently weakened reading: each PARTIAL
 prediction's facts hit and one of its clauses is false as written, scored
-by its own receipt fact.  Five of the seven were labelled FORCED; where
-they hit, they follow from Challenge 0's definitions plus the admission
-event Challenge 0 declared, and the two FORCED PARTIALs (C1-2, C1-4) each
+by its own receipt fact; the same literal rule re-scored C1-5, in the
+other direction.  Five of the seven were labelled FORCED; where they hit,
+they follow from Challenge 0's definitions plus the admission event
+Challenge 0 declared, and the two FORCED PARTIALs (C1-2, C1-4) each
 overstated an event-level clause.  The NOT FORCED C1-5 concerned a
-decision the run made and then withdrew.  The hit rate is evidence of the
-order of the work, not of insight.
+decision the run made, the declared convention, whose identity is now
+pinned literally so that the other convention would miss it.  The hit
+rate is evidence of the order of the work, not of insight.
 
 #### 5.3 What Challenge 1 does not establish
 
@@ -568,18 +577,23 @@ No countermodel is needed at Challenges 0 or 1: no target failed.
 DEFINITION-level, true by unfolding or by instantiating a Challenge 0
 theorem, and not counted as content: `admitted_eq`,
 `supply_preserves_holds`, `step_reading`, `step_initialDatum`,
-`step_preserves_sideNamed`, `reflect_step_supply`, `reflect_step` (a case
-split onto `reflect_step_place` and `rfl`), the permission halves of
-`candidates_related_U` and `candidates_not_related_O`, and
+`step_preserves_sideNamed`, `reflect_step_supply`, the permission halves
+of `candidates_related_U` and `candidates_not_related_O`, and
 `no_event_follows_admitted`.  An earlier version of this sentence listed
 five of these and counted `step_preserves_sideNamed` and
 `no_event_follows_admitted` as content, although the first has the same
 by-unfolding shape as the listed step lemmas and the second is a bare
-instantiation; that inconsistency is repaired here.  The content the
-ledger relies on is the induction lemmas (`replay_reading`,
-`replay_initialDatum`, `replay_preserves_sideNamed`,
-`replay_preserves_onSide`, `reflect_replay`, `replay_supply_inert`) and
-the evaluations at the candidates.
+instantiation; that inconsistency is repaired here.  A later version
+listed `reflect_step` as a case split onto `rfl`; its place branch is
+`reflect_step_place`, a Challenge 1 lemma proved by `simp` with the map of
+a placement over an append and carrying `propext`, so `reflect_step` is
+PROVED through it and is removed from this list, and `reflect_step_place`,
+`exchangeSide_exchangeSide`, and `map_exchangeSide_map_exchangeSide` are
+labelled PROVED in B1-REFLECT-COMMUTES.  The content the ledger relies on
+is the induction lemmas (`replay_reading`, `replay_initialDatum`,
+`replay_preserves_sideNamed`, `replay_preserves_onSide`, `reflect_replay`,
+`replay_supply_inert`), the step lemma `reflect_step_place` with the two
+involution lemmas, and the evaluations at the candidates.
 
 ## 8. Receipts
 
@@ -589,9 +603,10 @@ the evaluations at the candidates.
   checked by the tests and by the research job.
 - The Challenge 1 receipt was regenerated deliberately once more at the
   third review repair, when the DEFINITION-level bases of C1-1, C1-3, and
-  C1-6 and the prediction tally became receipt keys, with no injection
-  live.
-- The suite passes 111 tests.  Fresh coverage over the five declared code
+  C1-6 and the prediction tally became receipt keys, and once more at the
+  fourth, when C1-5's clauses were scored on the frozen words and the
+  convention pinned, with no injection live either time.
+- The suite passes 112 tests.  Fresh coverage over the five declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.

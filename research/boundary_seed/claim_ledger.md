@@ -353,11 +353,12 @@ Python receipt, bounded), LIMITATION, OPEN.
 ### B1-CURRENT-STATE
 
 - **Statement**: The current state after a challenge is the replay of the
-  caller's history and nothing the caller did not supply.  At Challenge 1
-  the caller supplies and does not retain, so under each reading the
-  current state is the replay of `[Supply(a)]`, which certifies and equals
-  genesis; that `a` is supplied is a fact of that history, and a regime
-  carries no supplied component.  No admission event is the caller's; the
+  caller's history and of no event the caller's history does not contain.
+  At Challenge 1 the caller supplies and does not retain, so under each
+  reading the current state is the replay of `[Supply(a)]`, which
+  certifies and equals genesis; that `a` is supplied is a fact of that
+  history, and a regime carries no supplied component.  No admission
+  event is in the caller's history at this challenge; the
   two one-step admission candidates are certified candidate histories,
   every isomorphism class of them is kept as a certified branch (one under
   U, two under O), keeping admits nothing, and none is current.  The
@@ -378,7 +379,11 @@ Python receipt, bounded), LIMITATION, OPEN.
   retained; the first read the supply into a regime that carries no such
   component, the second used retained in a sense other than the placement
   tuple of B1-ADMISSION-RETENTION, and both are WITHDRAWN (paper section 1
-  and definition 25).
+  and definition 25).  A third version wrote the rule and its falsifier
+  with “supply” in a second, undeclared sense, the caller providing any
+  event including an admission, which is not the `Supply` event of
+  definition 5; reworded, the word now naming that event and the seed's
+  quoted “supplies” only.
 - **Dependencies**: definitions 5, 6, 18, 21, 24, 25.
 - **Assumptions**: “supplies” at Challenge 1 licenses no admission; what
   “retains” licenses at Challenge 2, and who pays, is Challenge 2's first
@@ -395,8 +400,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   declaration.
 - **Axiom report**: none.
 - **Falsifier**: a current state after Challenge 1 whose history contains
-  an event the caller did not supply, or a candidate class dropped without
-  a proof eliminating it.
+  an event the caller's history does not contain — an admission event in
+  particular, none being in the caller's history at this challenge — or a
+  candidate class dropped without a proof eliminating it.
 - **Surviving boundary**: every challenge; independent of the admitted
   boundary.
 
@@ -477,9 +483,15 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Python evidence**: receipt `candidates[*].new_observations`,
   `mark_profile`, `other_side_judgment_holds`,
   `name_observations_unchanged`, `holding_judgments`; score C1-3 (HIT,
-  counted as content: its judgment clauses rest on the PROVED theorems
-  above and its supply clause alone is DEFINITION-level,
-  `scores.C1-3.result_basis`, `tally.hit_as_content`);
+  counted as content: its one-judgment clauses rest on
+  `admitted_onSide_true_iff`, `place_new_judgment`, and
+  `place_other_side_false`; its name clause, read per event as the frozen
+  text has it, is `step_preserves_sideNamed`, DEFINITION-level, exactly as
+  C1-6's parallel clause was scored, the induction
+  `replay_preserves_sideNamed` being this rung's addition; its supply
+  clause alone is DEFINITION-level; `scores.C1-3.result_basis`,
+  `tally.hit_as_content`; an earlier basis attributed the name clause to
+  the induction and is corrected, no status changing);
   `test_c1_3_misses_on_a_second_judgment_or_a_changed_name`;
   `test_mark_profile_is_the_side_and_nothing_else`,
   `test_new_observations_is_the_extension_difference`.
@@ -505,9 +517,18 @@ Python receipt, bounded), LIMITATION, OPEN.
   are unequal, each the other's reflection, and related by the permitted
   reflection, so they lie in one isomorphism class; no judgment of the
   bounded domain that is invariant under permitted renamings separates
-  them.  “The mark lies on exactly one side” is a U fact; “which side”
-  is not.
-- **Status**: PROVED (profiles differ; candidates unequal and reflected; a
+  them.  “The mark lies on exactly one side” is a metatheoretic statement
+  about the closed grammar, PROVED: in each candidate exactly one `OnSide`
+  judgment holds, mark 0 on the placed side (`admitted_onSide_true_iff`),
+  where none held at genesis (`no_observation_at_genesis`), and it holds
+  at both candidates, so the reflection does not disturb it; the closed
+  grammar has no judgment expressing “exactly one side”, so it is a U fact
+  of the metatheory and not an internal judgment.  “Which side” is not a
+  U fact.
+- **Status**: PROVED (profiles differ; candidates unequal and reflected;
+  the exactly-one-side clause as a metatheoretic statement,
+  `admitted_onSide_true_iff` with `no_observation_at_genesis`, which an
+  earlier version carried with no status, evidence, or theorem; a
   judgment invariant under the reflection at every regime of the reading
   with at most one mark holds equally at the two candidates,
   `bounded_invariant_judgment_does_not_separate`, whose hypothesis is
@@ -541,9 +562,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.admitted_candidates_unequal`,
   `BoundarySeed.reflect_admitted`, `BoundarySeed.candidates_related_U`,
   `BoundarySeed.invariant_judgment_does_not_separate`,
-  `BoundarySeed.bounded_invariant_judgment_does_not_separate`.
+  `BoundarySeed.bounded_invariant_judgment_does_not_separate`,
+  `BoundarySeed.admitted_onSide_true_iff`,
+  `BoundarySeed.no_observation_at_genesis`.
 - **Axiom report**: propext, Quot.sound; propext, Quot.sound; propext,
-  Quot.sound; propext; propext; propext; propext; propext.
+  Quot.sound; propext; propext; propext; propext; propext; propext,
+  Quot.sound; propext.
 - **Falsifier**: equal U profiles after one admitted mark, different U
   keys for the two candidates, or a permitted-renaming-invariant judgment
   holding for one candidate and not the other.
@@ -584,10 +608,19 @@ Python receipt, bounded), LIMITATION, OPEN.
   `test_candidate_space_and_classes`,
   `test_conventions_are_the_two_bijections`,
   `test_permitted_images_count_the_permitted_renamings`,
-  `test_isomorphism_witness_and_relation`; score C1-5 (PARTIAL, see
-  B1-CURRENT-STATE and `challenge1/STATUS.md`);
+  `test_isomorphism_witness_and_relation`; score C1-5 (HIT, counted as
+  content: `facts_status`; `convention_clause_status`, which pins the
+  frozen convention literally — `declared`, its left side, the candidate
+  event's side, and `side_0_name_under_O` — so that the other convention
+  scores it MISSED; and `designation_clause_status`, scored on the frozen
+  words from `selection_is_by` and `other_is_reflection_of_candidate`;
+  `scores.C1-5.result_basis`, `tally.hit_as_content`; an earlier version
+  scored a clause “current-state designation of the admitted candidate”
+  MISSED and reported PARTIAL, words the frozen text does not contain,
+  WITHDRAWN, see `challenge1/STATUS.md`);
   `test_c1_5_misses_when_o_collapses_or_loses_the_branch`,
-  `test_c1_5_designation_clause_hits_only_if_an_admitted_candidate_were_current`.
+  `test_c1_5_designation_clause_is_scored_on_the_frozen_words`,
+  `test_c1_5_convention_clause_misses_under_the_other_convention`.
 - **Lean theorem**: `BoundarySeed.candidates_not_related_O`,
   `BoundarySeed.onSide_separates_candidates`,
   `BoundarySeed.admitted_candidates_unequal`,
@@ -610,12 +643,18 @@ Python receipt, bounded), LIMITATION, OPEN.
   continuation of the first, and that class is carried without a second
   tower.
 - **Status**: PROVED (`reflect_replay`, by induction, and its corollaries
-  `continuation_reflects` and `other_continuation_is_a_reflection`);
-  DEFINITION (the step lemma `reflect_step_supply`, `rfl`, and
-  `reflect_step`, a case split).  An earlier version was PROVED on the
-  two step lemmas alone, with the history-level “hence” a prose step and a
-  Python test that checked only an involution; the replay-level theorem
-  and a replay-commutation test now carry it.
+  `continuation_reflects` and `other_continuation_is_a_reflection`;
+  `reflect_step_place`, by `simp` with the map of a placement over an
+  append, carrying `propext`; `reflect_step`, a case split whose place
+  branch is `reflect_step_place`; `exchangeSide_exchangeSide` and
+  `map_exchangeSide_map_exchangeSide`, the involution lemmas);
+  DEFINITION (the step lemma `reflect_step_supply`, `rfl`).  An earlier
+  version was PROVED on the two step lemmas alone, with the history-level
+  “hence” a prose step and a Python test that checked only an involution;
+  the replay-level theorem and a replay-commutation test now carry it.  A
+  later version listed `reflect_step` as DEFINITION and left
+  `reflect_step_place` and the two involution lemmas with no label;
+  corrected, no result changing.
 - **Dependencies**: definitions 5, 6, 12, 24, 28.
 - **Assumptions**: none.
 - **Python evidence**: receipt `convention.other_is_reflection_of_candidate`;

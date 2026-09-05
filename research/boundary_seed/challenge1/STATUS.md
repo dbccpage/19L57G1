@@ -3,7 +3,7 @@
 `AuthorityEffect: None`.  Session of 2026-09-04, branch
 `research/boundary-run`, opened from main at `7d2e6e86` with Challenge 0
 in its repaired state (53 tests, line and branch 100%, 20 Lean reports);
-then three exact-head review repairs in further sessions on the same
+then four exact-head review repairs in further sessions on the same
 branch.
 
 ## Order of the work, as committed
@@ -23,11 +23,16 @@ branch.
 4. `00acb2f7`: the second review repair, the re-score of C1-2, the bounded
    separation theorem, the membership-based designation fact, and the
    label corrections listed under “Repairs” below.
-5. The third review repair commit, which adds this version of the file:
-   the split of B0-X's status, the prediction tally as a receipt fact with
-   C1-1 and C1-6 reported DEFINITION-level, the current regime stated as
-   genesis with the supply a fact of the history, and the separation of
-   retained from kept, listed under “Repairs” below.
+5. `44d2f1b7`: the third review repair: the split of B0-X's status, the
+   prediction tally as a receipt fact with C1-1 and C1-6 reported
+   DEFINITION-level, the current regime stated as genesis with the supply
+   a fact of the history, and the separation of retained from kept, listed
+   under “Repairs” below.
+6. The fourth review repair commit, which adds this version of the file:
+   C1-5 re-scored on the frozen words with the convention pinned, C1-3's
+   content basis corrected, `reflect_step` relabelled, the exactly-one-side
+   clause given its status, the second sense of supply removed, and the
+   witness-search provenance narrowed, listed under “Repairs” below.
 
 This history proves “committed before” only.  It cannot prove when any
 untracked or off-tree code or proof was written.
@@ -94,16 +99,16 @@ caller.  WITHDRAWN.
 | C0-X | NOT FORCED | HIT | U half: genesis collapsed, every certified candidate not, with one supply and one admission and no new form; O half: sides distinct before and after, the only new holding judgment the mark's own side; scored against the candidates, on which the prediction is conditional |
 | C1-1 | FORCED | HIT, DEFINITION-level | supply leaves the regime and every judgment unchanged; every clause is true by unfolding `step` (`supply_no_op`, `supply_preserves_holds`, and the n = 1 instance of `replay_supply_inert` are `rfl`), so the hit is by construction and is not counted as content, by the rule applied to C1-7; an earlier version counted it (`scores.C1-1.result_basis`, `tally`) |
 | C1-2 | FORCED | PARTIAL | unsupplied admission refused; the admitted mark's judgment survives supplies, a same-side re-admission, and the hypothetical growth probe, and no accepted event moves or duplicates the mark: HIT (`facts_status`).  The frozen parenthetical “a re-admission of the same token on either side, which is designation and not duplication” predicts an accepted other-side re-admission, which the repaired kernel refuses by name; there is no after-state for the clause to hold in, so it is false as written and MISSED (`either_side_readmission_clause_status`, from the clause's own receipt fact `moving_admission_accepted_and_inert`).  The first review repair labelled it SHARPENED from the overall score; that label meant true-and-too-narrow at C0-5 and did not apply, and is WITHDRAWN.  PARTIAL, as C1-4 |
-| C1-3 | FORCED | HIT | exactly one new judgment; other side false; names unchanged; supply adds none; counted as content, the judgment clauses resting on `admitted_onSide_true_iff`, `place_new_judgment`, `place_other_side_false`, and the induction `replay_preserves_sideNamed`, none by unfolding (`scores.C1-3.result_basis`) |
+| C1-3 | FORCED | HIT | exactly one new judgment; other side false; names unchanged; supply adds none; counted as content, the one-judgment clauses resting on `admitted_onSide_true_iff`, `place_new_judgment`, and `place_other_side_false`, none by unfolding; the name clause, read per event as the frozen text has it, is `step_preserves_sideNamed`, DEFINITION-level, exactly as C1-6's parallel clause was scored, the induction `replay_preserves_sideNamed` being the rung's addition (`scores.C1-3.result_basis`); an earlier basis attributed the name clause to the induction, corrected, no status changing |
 | C1-4 | FORCED | PARTIAL | U profiles differ; one class; no permitted-renaming-invariant judgment separates the candidates: HIT.  The clause “the admission is the only event in the history” is false as written: each candidate history is one supply and one admission, and a supply is an event by definition 5.  It was first scored HIT on the silently weakened reading “the only state-changing event”, which is now scored separately in the receipt (`only_state_changing_event_status: HIT`, `only_event_clause_status: MISSED`).  PARTIAL, as C0-4 was |
-| C1-5 | NOT FORCED | PARTIAL | a convention was declared; two O classes; the other candidate is the reflection of the convention's candidate; both kept: HIT.  The clause “the designation is by convention and not by proof” was first scored HIT as the current-state designation of the convention's admitted candidate; that conflated supply with admission and is withdrawn.  The repaired run designates no admitted candidate current, which is the alternative the frozen text said it was betting against, so that clause as first read is MISSED (`current_state_designation_status: MISSED`); the convention's selection of a candidate survives |
+| C1-5 | NOT FORCED | HIT | the declared convention is the frozen one, left is side 0, which O names `near`, pinned piece by piece (`convention_clause_status: HIT`; declaring the other convention scores it MISSED, `test_c1_5_convention_clause_misses_under_the_other_convention`); two O classes; the other candidate is the reflection of the convention's candidate; both kept (`facts_status: HIT`); the clause “the designation is by convention and not by proof” is scored on the frozen words — the convention designates, that is selects, a candidate, and the regime under the other convention is the reflection of the designated one — from `selection_is_by` and `other_is_reflection_of_candidate` (`designation_clause_status: HIT`); counted as content, the two classes being COMPUTED over the unpruned search and the inequality and reflection PROVED (`scores.C1-5.result_basis`).  The first three repairs scored that clause MISSED as “current-state designation of the convention's admitted candidate” and reported PARTIAL; the frozen text contains no such words, and the run's withdrawal of that designation (definition 25) is a fact about the run, not a clause of the prediction; the earlier scoring is WITHDRAWN, recorded here next to its value, and the status moves PARTIAL to HIT |
 | C1-6 | FORCED | HIT, DEFINITION-level | empty event-follows relation; datum and reading unchanged; no new form; the relation is empty by unfolding `EventFollows := False`, “unchanged by every event” is the step lemmas by unfolding (the history-level inductions are the rung's addition, not the prediction's), and the unchanged grammars are a census of the run's own declarations, a modelling decision as C1-7's, so the hit is by construction and is not counted as content; an earlier version counted it (`scores.C1-6.result_basis`, `tally`) |
 | C1-7 | NOT FORCED | HIT by construction, DEFINITION-level | the regime type represents neither a second datum nor a second boundary, so `initial_datum_unchanged` cannot be reported false, and `marks == 1` is a proxy reading “the mark placed on a side” as exactly one placed mark, which the frozen text does not name; not counted as content; the modelling clause can only be falsified by a later challenge; whole-as-datum is OPEN for Challenge 5 |
 | C1-X | NOT FORCED | PENDING | scored by Challenge 2 |
 
-One of seven scored predictions hits as content (C1-3); three hit by
+Two of seven scored predictions hit as content (C1-3, C1-5); three hit by
 construction and are DEFINITION-level, not counted as content (C1-1,
-C1-6, C1-7); three are PARTIAL (C1-2, C1-4, C1-5); and C0-X hit in both
+C1-6, C1-7); two are PARTIAL (C1-2, C1-4); and C0-X hit in both
 halves, as content, its profile clauses being PROVED (B0-X).  The
 criterion, stated in the paper's 5.2 and in the receipt's
 `tally.criterion`: a prediction counts as content only if at least one of
@@ -112,17 +117,21 @@ DEFINITION-level lists of the paper's section 7 or on a computation not
 fixed by a declaration alone; the DEFINITION-level list is declared in the
 scorer and the counts are the receipt's `tally`.  An earlier version of
 this table scored seven of seven; the first review repair five of seven,
-with C1-2's parenthetical SHARPENED and C1-7 counted as a hit; and the
-second three of seven as content, counting C1-1 and C1-6 while excluding
-C1-7 on the rule that also excludes them.  All three are WITHDRAWN, and no
-HIT, PARTIAL, or MISSED status changed in the re-count.  Each PARTIAL
-row's facts hit and one of its clauses is false as written, scored by its
-own receipt fact.  The frozen
+with C1-2's parenthetical SHARPENED and C1-7 counted as a hit; the second
+three of seven as content, counting C1-1 and C1-6 while excluding C1-7 on
+the rule that also excludes them; and the third one of seven as content,
+with C1-5 PARTIAL on a clause scored as “current-state designation”, words
+the frozen text does not contain.  All four are WITHDRAWN.  The fourth
+repair's re-score of C1-5 on its own words is the one status change across
+the re-counts, PARTIAL to HIT, recorded next to its value above.  Each
+PARTIAL row's facts hit and one of its clauses is false as written, scored
+by its own receipt fact.  The frozen
 file is untouched.  Five of the seven were labelled FORCED in the frozen
 file; every FORCED hit follows from Challenge 0's definitions plus the
 admission event that Challenge 0 already declared, and the two FORCED
 PARTIALs each overstated an event-level clause.  The NOT FORCED C1-5 was
-about a decision the run made and then withdrew.  Git history establishes
+about a decision the run made, the declared convention, whose identity is
+now pinned literally.  Git history establishes
 that the prediction file was committed before this rung's code and
 proofs; it establishes nothing about off-tree work and is not evidence of
 insight.
@@ -148,10 +157,15 @@ insight.
 - The retention probes and the per-module generator census were written
   from the discipline the repository contract states, not from a
   remembered result.
-- Nothing in the separating-judgment computation, the isomorphism
-  witness, or the reflection-commutation theorems was remembered; the
-  replay-level commutation theorem was written for the repair from the
-  reviewers' falsifier.
+- Nothing in the separating-judgment computation or the
+  reflection-commutation theorems was remembered; the replay-level
+  commutation theorem was written for the repair from the reviewers'
+  falsifier.  The isomorphism witness search reuses the shape the
+  Challenge 0 status already declared remembered, the brute force over
+  renamings with tokens forgotten, and is not claimed unremembered; new
+  to this rung are only its use as a witness or relation and the
+  canonical-key agreement test.  An earlier version of this bullet said
+  the witness was not remembered; narrowed.
 - The SHARPENED label on C1-2's parenthetical at the first review repair
   was carried over from the shape of C0-5's general clause, where it named
   a clause that was true and too narrow; here the clause was contradicted,
@@ -310,20 +324,52 @@ The third exact-head review repair, in a further session:
   and a Lean docstring reworded; no theorem or axiom report changed.
 - The workflow's test-count grep updated, 109 to 111.
 
+The fourth exact-head review repair, in a further session:
+
+- C1-5 re-scored HIT: its designation clause is scored on the frozen
+  words (the convention designates, that is selects, a candidate; the
+  other convention's regime is the reflection of the designated one), from
+  `selection_is_by` and `other_is_reflection_of_candidate`; the earlier
+  MISSED clause, “current-state designation of the admitted candidate”,
+  was scored on words the frozen text does not contain and is withdrawn;
+  `admitted_candidate_is_current` stays a plain fact read by no clause.
+  The tally follows mechanically: two content hits, two PARTIAL.
+- The frozen convention pinned literally in the scorer (`declared`, its
+  left side, the candidate event's side, and `side_0_name_under_O`, a new
+  receipt fact), with a negative test that declares the other convention
+  with its swapped candidate event and expects the clause MISSED; the
+  pre-repair scorer reported facts HIT on the same facts.  The receipt
+  regenerated deliberately, 26687 to 27943 bytes, with no injection live.
+- C1-3's content basis corrected: the name clause, read per event as the
+  frozen text has it, is `step_preserves_sideNamed`, DEFINITION-level, as
+  C1-6's parallel clause was scored; the content rests on the three
+  judgment theorems.  No status changed.
+- `reflect_step` removed from the paper's DEFINITION-level list, its place
+  branch being the PROVED `reflect_step_place`; that lemma and the two
+  involution lemmas labelled PROVED in B1-REFLECT-COMMUTES.
+- B1-SIDES-U's “exactly one side” clause given its status: PROVED as a
+  metatheoretic statement (`admitted_onSide_true_iff` with
+  `no_observation_at_genesis`), not an internal judgment of the closed
+  grammar.
+- The second, undeclared sense of “supply” (the caller providing any
+  event) removed from the current-state rule and its falsifier.
+- The provenance note on the isomorphism witness narrowed, above.
+- The workflow's test-count grep updated, 111 to 112.
+
 ## Gates run in the latest repair session
 
 | gate | result |
 |---|---|
 | `verify_pins.py` | `pins ok: seed ba30bcd600d8 and 2 frozen prediction file(s)` |
-| `unittest discover -s tests` | `Ran 111 tests`, OK |
+| `unittest discover -s tests` | `Ran 112 tests`, OK |
 | `mypy` (strict, tree pyproject) | `Success: no issues found in 17 source files` |
 | `coverage` + `check_coverage.py` | `line 100.00% branch 100.00% over 5 files` |
-| `run_challenge0.py`, `run_challenge1.py` | Challenge 0 receipt byte-unchanged (5553 bytes); Challenge 1 receipt regenerated deliberately (26687 bytes), then byte-identical on rerun; `git diff --exit-code -- receipts` clean after commit |
+| `run_challenge0.py`, `run_challenge1.py` | Challenge 0 receipt byte-unchanged (5553 bytes); Challenge 1 receipt regenerated deliberately (27943 bytes), then byte-identical on rerun; `git diff --exit-code -- receipts` clean after commit |
 | `verify_lean.py` | `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no theorem added or removed, the log not regenerated |
-| `ci/check_prose_watchlist.py` | clean, census matches its pin; no regeneration |
+| `ci/check_prose_watchlist.py` | `prose watchlist clean: 49 watched terms, … census matches its pin`; no regeneration |
 | `tests/test_primitive_contact.py` | firewall passes |
 | `ci/check_paper_citations.py` | cross-references resolve |
-| injections | the stale-receipt failure observed before the deliberate regeneration and the stale test-count grep observed failing on the fresh log, both in `MANUAL.md`; the earlier rows stand |
+| injections | the pre-repair scorer's facts HIT under the other convention, the stale-receipt failure observed before the deliberate regeneration, and the stale test-count grep observed failing on the fresh log, all in `MANUAL.md`; the earlier rows stand |
 
 ## Next session
 
