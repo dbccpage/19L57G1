@@ -947,3 +947,83 @@ Carried, with reasons, to a dedicated Challenge 1 or Challenge 2 repair
 session: everything whose repair lies inside `code/boundary/challenge1.py`
 or `code/boundary/challenge2.py` and would regenerate a closed rung's
 receipt.  They are listed in `challenge3/STATUS.md`.
+
+## 2026-09-05, Challenge 3 exact-head review repair
+
+`SEED.md` and the four `challenge*/PREDICTIONS.md` remain byte-identical;
+`challenge3/PREDICTIONS.md` was not edited and no prediction's status moved.
+Review of `7bc2e57e` found eight defects that survived refutation — two
+blocking, both the same sentence — and every one is addressed; none is
+declined.  No theorem was added or removed and the axiom log was not
+regenerated.  The Challenge 3 receipt WAS regenerated, deliberately and with
+no injection live, 219403 to 219789 bytes; the Challenge 0, 1, and 2
+receipts are unchanged.
+
+- **Narrowed, blocking.**  Section 9 said that "under both readings the
+  second declared measure, the collateral count, selects the same minima".
+  The receipt says otherwise under O: `readings.O.measures_agree_on_minima`
+  is false, the collateral count's minimum of zero being attained by five
+  points in three classes while the capability count's is the null
+  augmentation alone.  The sentence is now scoped to U with O's behaviour
+  stated beside it; the table row in section 5.9 says the same and cites
+  `readings.U.measures_agree_on_minima` rather than the wildcard; and
+  B3-TWO-MEASURES's statement, evidence, and falsifier are scoped the same
+  way.  Reason: the run's own scorer reads the U value only, and the paper
+  claimed of both readings what the receipt computes of one.
+  `test_the_measures_select_the_same_minima_under_U_and_not_under_O` now
+  pins both values.
+- **Corrected.**  Definition 44 said the second measure excludes the
+  required separation "so that the measure reads what a candidate costs
+  beside what it was asked for".  It does not: the first of the five
+  declared facts is the required separation said of the two SIDES, and the
+  enumeration computes that it takes the requirement's value at every one of
+  the 48 points under each reading, so the "one" at each of the three U
+  minima is that fact alone.  The definition now says what is true, the new
+  receipt key `sides_fact_agrees_with_the_requirement_at_every_point`
+  computes it per reading rather than leaving it to prose, and the `mu2`
+  description in the receipt is corrected to match.  The declared fact list
+  is NOT changed: revising it after the enumeration would fit the
+  declaration to the answer, which is the same reason the rung gave for
+  reporting the index-withdrawal minimum rather than excluding it.  The
+  score of C3-6 is unmoved — its clauses are computed and hold — and
+  B3-TWO-MEASURES now records the coincidence.
+- **Narrowed.**  Definition 37 said the flagged enumerations are checked
+  against their Challenge 2 counterparts "over every regime of at most three
+  marks under both readings".  The tests check the image, automorphism, and
+  canonical-key functions over every placement of at most three marks with
+  fixed distinct labels, and the four separation and isomorphism functions
+  at the two-mark placements only; the sentence now says that.  Reason: the
+  85-regime population of definition 43 is a different and wider one, and
+  the prose borrowed its size.
+- **Corrected.**  The section 5.9 row and the `challenge3/STATUS.md` row
+  saying the event-follows relation is "empty on all five event kinds" now
+  say "empty on every event of all three declared kinds, five probes in
+  all", which is what `probes` offers and what `event_kinds` records.
+- **Repaired, a gate.**  `challenge3/STATUS.md` claimed that every gate the
+  rung added or touched has an injection row.  Two did not: the placement
+  check and the probe-set check, both added at that rung, had no row and no
+  negative-direction test, so each could only ever read true.  Both are now
+  injected, recorded, and reversed — the further mark's admission moved to
+  the other side named `extra_mark_0`; the occurrence admissions dropped
+  from `probes` named `AdmitOccurrence` — and
+  `test_the_placement_key_reads_false_when_the_prediction_parts` and
+  `test_the_probe_set_check_sees_a_dropped_event_kind` fix the negative
+  direction of each.  The false sentence is corrected in place rather than
+  deleted.
+- **Recorded, provenance.**  `mu1` and `mu2` are the sealed derivation's own
+  names for its two declared cost measures over a candidate space of
+  one-step augmentations, and the contract file the harness loads says so;
+  this rung introduced the same two identifiers for the same role without
+  noticing.  A bullet in the rung's remembered-result section records it, so
+  that no later comparison reads the coincidence of names as convergence.
+  The same paragraph's provenance sentence is corrected: the harness loads
+  the contract file whole, operating manual included, which is wider than
+  the five sections the seed's isolation clause names.
+- **Corrected.**  The paper's title said "Challenges 0 to 2" after the rung
+  added the Challenge 3 sections; it now says "Challenges 0 to 3", which is
+  the correction the rung already made to the root Lean module's doc
+  comment and missed here.
+- The research job's test-count grep moved from 222 to 227, five tests
+  having been added; the move was proved by injection.
+
+Declined: nothing.

@@ -231,7 +231,11 @@ MU1 = "capability count: the number of undeclared capabilities the candidate use
 MU2 = (
     "collateral count: how many of the five declared facts about the retained "
     "configuration the candidate makes internally available that the same "
-    "reading's base did not, the required separation itself excluded"
+    "reading's base did not.  The required separation is not one of the five, "
+    "but the first of them, that the two sides are internally separable, is "
+    "computed to take the requirement's value at every point of the declared "
+    "space, so where the base fails the requirement a satisfying candidate's "
+    "count includes that one"
 )
 
 SCORED_PREDICTIONS: tuple[str, ...] = (
@@ -643,6 +647,25 @@ def mu2(facts: dict[str, bool], base_facts: dict[str, bool]) -> int:
     return sum(1 for name in COLLATERAL_FACTS if facts[name] and not base_facts[name])
 
 
+def sides_fact_agrees_with_the_requirement(rows: list[Json]) -> bool:
+    """Whether the first declared collateral fact takes the requirement's value
+    at every enumerated point.
+
+    The second measure was declared to read what a candidate costs BESIDE what
+    it was asked for.  Review found that it does not, and this computes the
+    reason: ``sides_internally_separable`` is the requirement said of the two
+    SIDES, and over this space it agrees with the requirement said of the two
+    MARKS at every point, so a satisfying candidate whose base fails always
+    carries that one fact in its count.  Reported, not repaired: changing the
+    declared fact list after the enumeration would fit the declaration to the
+    answer.
+    """
+    return all(
+        row["collateral_facts"]["sides_internally_separable"] == row["satisfies"]
+        for row in rows
+    )
+
+
 # ---------------------------------------------------------------------------
 # Rows of the enumeration
 # ---------------------------------------------------------------------------
@@ -956,6 +979,9 @@ def reading_facts(reading: str) -> Json:
         "minima_by_mu2": by_mu2,
         "measures_agree_on_minima": by_mu1["points"] == by_mu2["points"],
         "measures_differ_somewhere": any(row["mu1"] != row["mu2"] for row in rows),
+        "sides_fact_agrees_with_the_requirement_at_every_point": (
+            sides_fact_agrees_with_the_requirement(rows)
+        ),
         "one_step_iff_capability_count_one": all(
             row["one_step"] == (row["mu1"] == 1) for row in rows
         ),

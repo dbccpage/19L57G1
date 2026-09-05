@@ -1,4 +1,4 @@
-# The boundary derivation: Challenges 0 to 2 under declared prior exposure
+# The boundary derivation: Challenges 0 to 3 under declared prior exposure
 
 `AuthorityEffect: None`.  A source-isolated derivation from the inscription
 `<|>`, carried out inside this repository under the read-only seed
@@ -379,9 +379,11 @@ whole Challenge 3 candidate space are Python-only.
     `canonical_under`.  A third flag chooses the serialization:
     `serialize_keeping_labels` is definition 14 without the token forgetting.
     At the flags the reading declares, each is the Challenge 2 function it
-    generalizes, which is checked over every regime of at most three marks
-    under both readings.  A flag is a declaration of the augmentation being
-    examined and is never a discovery.
+    generalizes, which is checked for the image, automorphism, and
+    canonical-key functions over every placement of at most three marks under
+    both readings, and for the four separation and isomorphism functions at
+    the two-mark placements.  A flag is a declaration of the augmentation
+    being examined and is never a discovery.
 38. **The required separation (Challenge 3).**  The requirement the caller
     imposes, in the sense the run declares: the two retained marks meet it
     under a reading when no permitted automorphism of the regime carries one
@@ -454,9 +456,18 @@ whole Challenge 3 candidate space are Python-only.
     is; and a side-name judgment holds.  Each is computed at the candidate's
     own renamings and serialization by the same witness searches Challenge 2
     used.  The second declared cost measure, `mu2`, is the number of them a
-    candidate makes available **that the same reading's base did not** — the
-    required separation itself excluded, so that the measure reads what a
-    candidate costs beside what it was asked for.
+    candidate makes available **that the same reading's base did not**.  It
+    was declared so as to read what a candidate costs beside what it was
+    asked for, and it does not do that: the required separation is not one of
+    the five, but the first of them is that separation said of the two SIDES,
+    and the enumeration computes that it takes the requirement's value at
+    every one of the 48 points under each reading
+    (`sides_fact_agrees_with_the_requirement_at_every_point`).  So where the
+    base fails the requirement — under U — a satisfying candidate's count
+    always includes that one fact, and to that extent the measure re-counts
+    the requirement rather than excluding it.  The declared list is reported
+    as it stands and not repaired: changing it after the enumeration would be
+    fitting the declaration to the answer.
 45. **The process's own admission (Challenge 3).**  The further-mark
     coordinate extends the caller's history by one `AdmitOccurrence` of the
     token the caller already supplied.  It needs no supply of its own, which
@@ -964,13 +975,13 @@ open.
 | one-step points that satisfy it | four, in **three** classes | not applicable: the null point already satisfies at count zero | `satisfying_one_step_points`, `minima_by_mu1.classes` |
 | the minimum capability count | **1** | **0** | `minima_by_mu1.minimum` |
 | the minimum is unique | **no**, refuted by three retained classes | yes, the null augmentation alone | `minima_by_mu1.unique`, `class_count` |
-| the second measure, the collateral count | 1 at each of the three minima; the same three classes are selected | 0 at the null point | `minima_by_mu2`, `measures_agree_on_minima` |
+| the second measure, the collateral count | 1 at each of the three minima; the same three classes are selected | 0 at the null point, and its minimum of zero is attained by five points in three classes, so the two measures do **not** select the same minima here | `minima_by_mu2`; `readings.U.measures_agree_on_minima`, which is false under O |
 | the two measures are the same function | no: they differ at points of the space | same | `measures_differ_somewhere` |
 | bundles refused | 41 of the 48 points | same | `bundles_refused_count` |
 | adopting reading O under U | count 2: refused as bundling, although it satisfies | not applicable | `reading_O_bundle` |
 | the further mark needs a new supply | no: the caller already supplied the token; a token never presented is refused by name | same | `process_admission` |
 | the retained marks after the further mark | both judgments survive | same | Lean `retainedPlus_judgments_survive` |
-| the initial datum, the reading, the event-follows relation | unchanged, and empty on all five event kinds | same | `initial_datum_unchanged`, `reading_unchanged`, `event_follows_relation_empty`; Lean `no_event_follows_retainedPlus` |
+| the initial datum, the reading, the event-follows relation | unchanged, and empty on every event of all three declared kinds, five probes in all | same | `initial_datum_unchanged`, `reading_unchanged`, `event_follows_relation_empty`, `event_kinds`; Lean `no_event_follows_retainedPlus` |
 | new event kind or judgment form | none added by the rung itself | none | `new_event_kinds_at_challenge_3`, `observation_vocabulary` |
 
 **The three retained minima, and how each separates.**
@@ -1534,9 +1545,11 @@ of the three meets the requirement by unfolding, by declaring the
 metatheoretic admission index to be an internal designation, and so meets it
 while leaving the admitted boundary idle; the third meets it because the two
 sides then carry different numbers of marks, which no renaming of the marks
-can repair — proved in Lean over every permutation.  Under both readings the
-second declared measure, the collateral count, selects the same minima, and
-the two measures are not the same function on the space.
+can repair — proved in Lean over every permutation.  Under U the second
+declared measure, the collateral count, selects the same three minima; under
+O it does not — its minimum of zero is attained by five points in three
+classes, while the capability count's minimum is the null augmentation alone.
+Under both readings the two measures are not the same function on the space.
 
 These are scoped Lean theorems, bounded computations, or labelled
 definitions and conventions.  Because the instrument declared prior

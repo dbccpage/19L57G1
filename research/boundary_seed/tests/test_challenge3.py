@@ -16,6 +16,7 @@ import sys
 import unittest
 from itertools import permutations, product
 from typing import Any
+from unittest.mock import patch
 
 TREE = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TREE / "code"))
@@ -57,6 +58,7 @@ from boundary.challenge3 import (  # noqa: E402
     mu1,
     mu2,
     on_side_0,
+    one_step_detail,
     orbit_property_separates,
     point_name,
     price_facts,
@@ -68,6 +70,7 @@ from boundary.challenge3 import (  # noqa: E402
     reading_facts,
     requirement_met,
     score,
+    sides_fact_agrees_with_the_requirement,
     tally,
 )
 from boundary.model import (  # noqa: E402
@@ -397,9 +400,57 @@ class FactTests(unittest.TestCase):
 
     def test_the_two_measures_are_not_the_same_measure(self) -> None:
         self.assertTrue(self.u["measures_differ_somewhere"])
+        self.assertTrue(self.o["measures_differ_somewhere"])
         differing = [row["name"] for row in self.u["points"] if row["mu1"] != row["mu2"]]
         self.assertGreater(len(differing), 0)
         self.assertIn("withdraw_reflection+extra_mark_0", differing)
+
+    def test_the_measures_select_the_same_minima_under_U_and_not_under_O(self) -> None:
+        # Review found the paper claiming the agreement under BOTH readings.
+        # It holds under U alone: under O the capability count's minimum is
+        # the null augmentation and nothing else, while the collateral count's
+        # minimum of zero is attained by five points in three classes.
+        self.assertTrue(self.u["measures_agree_on_minima"])
+        self.assertFalse(self.o["measures_agree_on_minima"])
+        self.assertEqual(self.o["minima_by_mu1"]["points"], ["base"])
+        self.assertEqual(self.o["minima_by_mu1"]["class_count"], 1)
+        self.assertTrue(self.o["minima_by_mu1"]["unique"])
+        self.assertEqual(len(self.o["minima_by_mu2"]["points"]), 5)
+        self.assertEqual(self.o["minima_by_mu2"]["class_count"], 3)
+        self.assertFalse(self.o["minima_by_mu2"]["unique"])
+
+    def test_the_sides_fact_agrees_with_the_requirement_at_every_point(self) -> None:
+        # The second measure was declared to read what a candidate costs
+        # BESIDE what it was asked for.  Review found that it does not: the
+        # first declared fact is the requirement said of the two SIDES, and it
+        # takes the requirement's value at all 48 points under each reading,
+        # so where the base fails the requirement a satisfying candidate
+        # carries that one fact in its count.
+        for rd in (self.u, self.o):
+            self.assertTrue(rd["sides_fact_agrees_with_the_requirement_at_every_point"])
+            for row in rd["points"]:
+                self.assertEqual(
+                    row["collateral_facts"]["sides_internally_separable"],
+                    row["satisfies"],
+                    row["name"],
+                )
+        for name in ("withdraw_reflection", "withdraw_mark_permutations", "extra_mark_0"):
+            row = next(r for r in self.u["points"] if r["name"] == name)
+            self.assertEqual(row["mu2"], 1, name)
+            self.assertEqual(
+                sorted(k for k, v in row["collateral_facts"].items() if v),
+                ["sides_internally_separable"],
+                name,
+            )
+
+    def test_the_sides_fact_agreement_reads_false_when_one_point_parts(self) -> None:
+        # The negative direction, so the key above is not a tautology of its
+        # own construction: one row whose fact and requirement part.
+        parted = copy.deepcopy(self.u["points"])
+        row = parted[0]
+        row["collateral_facts"]["sides_internally_separable"] = not row["satisfies"]
+        self.assertFalse(sides_fact_agrees_with_the_requirement(parted))
+        self.assertTrue(sides_fact_agrees_with_the_requirement(self.u["points"]))
 
     def test_the_bundles_are_refused_and_counted(self) -> None:
         # 48 points: the base at count zero, six one-step points, and the
@@ -422,8 +473,21 @@ class FactTests(unittest.TestCase):
         self.assertEqual(kinds, {"Supply", "AdmitMark", "AdmitOccurrence"})
         self.assertIn(AdmitOccurrence("a", 1), probes("a"))
         self.assertIn(AdmitMark("a", 0), probes("a"))
+        self.assertEqual(sorted(kinds), sorted(self.receipt["event_kinds"]))
+        # three kinds, five probes: the relation is offered every event of
+        # every declared kind, not one probe per kind
+        self.assertEqual(len(probes("a")), 5)
         for row in self.u["one_step_detail"]:
             self.assertTrue(row["event_follows_relation_empty"], row["name"])
+
+    def test_the_probe_set_check_sees_a_dropped_event_kind(self) -> None:
+        # The negative direction of the check above.  The Challenge 1 shape it
+        # replaced offered no occurrence admission at all, and that is exactly
+        # what a totality over the declared kinds must reject.
+        kinds = set(self.receipt["event_kinds"])
+        dropped = [e for e in probes("a") if not isinstance(e, AdmitOccurrence)]
+        self.assertEqual({type(e).__name__ for e in dropped}, {"Supply", "AdmitMark"})
+        self.assertNotEqual({type(e).__name__ for e in dropped}, kinds)
 
     def test_the_placement_is_checked_against_the_declared_convention(self) -> None:
         # The one statement about a candidate regime that is not a comparison
@@ -434,6 +498,22 @@ class FactTests(unittest.TestCase):
         for rd in (self.u, self.o):
             for row in [rd["base"], *rd["one_step_detail"]]:
                 self.assertTrue(row["placement_matches_the_declared_convention"], row["name"])
+
+    def test_the_placement_key_reads_false_when_the_prediction_parts(self) -> None:
+        # The negative direction: every committed row reads True, so the key
+        # is worth nothing until it is shown able to read False.  With the
+        # predicted placement moved off the convention's, the same row does,
+        # and the row's own placement is unmoved.
+        wholes = [read_whole(text) for text in ("<a|>", "<|a>")]
+        domain = property_domain(READING_U, PROPERTY_DOMAIN_MAX_MARKS)
+        cache = {(True, True): domain_images(domain, True, True)}
+        base = collateral_facts(READING_U, NULL_AUGMENTATION, wholes)
+        row = one_step_detail(READING_U, NULL_AUGMENTATION, wholes, cache, base)
+        self.assertTrue(row["placement_matches_the_declared_convention"])
+        with patch("boundary.challenge3.expected_placement", return_value=[1, 0]):
+            moved = one_step_detail(READING_U, NULL_AUGMENTATION, wholes, cache, base)
+        self.assertFalse(moved["placement_matches_the_declared_convention"])
+        self.assertEqual(moved["placement"], [0, 1])
 
     def test_the_price_is_read_off_the_enumeration(self) -> None:
         # The Challenge 2 field of this shape was a literal that no run could

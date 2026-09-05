@@ -24,17 +24,20 @@ insight.
 ## Provenance ceiling
 
 Inherited unchanged: `SOURCE_ISOLATED_WITH_DECLARED_PRIOR_EXPOSURE`.  This
-session read nothing outside the write root, the seed, and the contract
-sections the harness loads, but it is an instrument of the same kind as the
-one that declared prior exposure.  The paper's section 0 now also discloses
+session read nothing outside the write root and the seed, but the harness
+loads the repository contract file **whole**, operating manual included, and
+that is wider than the five sections the seed's isolation clause names; an
+earlier wording of this paragraph said "the contract sections the harness
+loads" and is withdrawn as understating it.  The session is in any case an
+instrument of the same kind as the one that declared prior exposure.  The paper's section 0 now also discloses
 the per-rung adversarial review channel, which supplied the design of two
 gates and more than twenty actioned repairs across the run; that disclosure
 is this rung's, and it is prose, checked by nothing.
 
 ## Results
 
-Receipt `receipts/challenge3.json` (219403 bytes); full tables in `paper.md`
-sections 5.9 to 5.12.
+Receipt `receipts/challenge3.json` (219789 bytes after the review repair,
+219403 as the rung closed); full tables in `paper.md` sections 5.9 to 5.12.
 
 | | reading U | reading O |
 |---|---|---|
@@ -60,7 +63,7 @@ sections 5.9 to 5.12.
 | the shared label | invariant under every candidate's renamings and separating nothing; the candidate that keeps the labels meets nothing (COMPUTED) | same |
 | the further mark needs a new supply | no: the caller already supplied the token; a token never presented is refused by name (COMPUTED) | same |
 | the two retained marks after the further mark | both judgments survive (DEFINITION, an instantiation of the Challenge 1 induction) | same |
-| initial datum, reading, event-follows relation | unchanged, and empty on all five event kinds (DEFINITION for one event; PROVED for histories, by instantiation) | same |
+| initial datum, reading, event-follows relation | unchanged, and empty on every event of all three declared kinds, five probes in all (DEFINITION for one event; PROVED for histories, by instantiation) | same |
 | new event kind or judgment form | none added by the rung | none |
 
 Boundary dependence: the declared sense and its second reading, the identity
@@ -212,6 +215,16 @@ A dedicated repair session for Challenges 1 and 2 would clear items 13 to
   withdrawing a generator of a renaming set separates what the generator
   identified are standard mathematics this instrument knows.  They are not
   derived here; they are declared as definitions 32, 33, 37, and 39 and used.
+- **The two measure identifiers are remembered, not derived.**  `mu1` and
+  `mu2` are the names the sealed derivation gives its own two declared cost
+  measures over a candidate space of one-step augmentations — the same two
+  names for the same role — and the repository contract file, which the
+  harness loads whole, says so.  This rung introduced them without noticing
+  that.  What the two measures ARE here is this rung's: the capability count
+  and the collateral count, declared at definitions 41 and 44 and computed.
+  The names are inheritance, and are recorded as such so that a later
+  comparison cannot read the coincidence as convergence.  Found by review,
+  not by the run.
 - **What was derived, and in this order.**  That the counterfactual square
   turns on one coordinate only, so the O names are idle; that withdrawing the
   mark permutations meets the requirement by unfolding and leaves the boundary
@@ -287,6 +300,13 @@ A dedicated repair session for Challenges 1 and 2 would clear items 13 to
   the reading away first.
 - Every gate this rung added or touched has an injection row in `MANUAL.md`,
   and no receipt, log, or pin was regenerated while any injection was live.
+  That sentence was **false when the rung closed** and review found it: two
+  checks the rung added, the placement check and the probe-set check, had no
+  row and no negative-direction test, so each could only ever have read true.
+  Both were injected in the repair session — the further mark's admission
+  moved to the other side, and the occurrence admission dropped from the
+  probe set — each named its object, each recovered, and each now has a row
+  in `MANUAL.md` and a test of its negative direction.
 
 ## Gates run in this session
 
@@ -303,6 +323,17 @@ A dedicated repair session for Challenges 1 and 2 would clear items 13 to
 | `tests/test_primitive_contact.py` | firewall passes |
 | `ci/check_paper_citations.py` | `paper cross-references resolve: 62 citation(s) across 29 document(s)` |
 | injections | nine rows in `MANUAL.md`, six injected and three found live |
+
+The exact-head review repair re-ran the same battery on the same branch and
+moved four of those readings: `Ran 227 tests`, OK, with the workflow grep
+moved from 222 to 227; `Success: no issues found in 24 source files`;
+`line 100.00% branch 100.00% over 7 files`; and
+`unchanged: receipts\challenge3.json (219789 bytes)` after one deliberate
+regeneration with no injection live.  The pins, the Lean audit at 105
+reports, the watchlist at 1826 hits with no pin regenerated, the firewall,
+and the paper cross-references are unchanged.  Four rows were added to the
+injection record: the placement check, the probe-set check, that receipt
+regeneration, and the test-count grep.
 
 ## Next session
 

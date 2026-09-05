@@ -105,7 +105,7 @@
   ],
   "measures": {
     "mu1": "capability count: the number of undeclared capabilities the candidate uses",
-    "mu2": "collateral count: how many of the five declared facts about the retained configuration the candidate makes internally available that the same reading's base did not, the required separation itself excluded"
+    "mu2": "collateral count: how many of the five declared facts about the retained configuration the candidate makes internally available that the same reading's base did not.  The required separation is not one of the five, but the first of them, that the two sides are internally separable, is computed to take the requirement's value at every point of the declared space, so where the base fails the requirement a satisfying candidate's count includes that one"
   },
   "new_event_kinds_at_challenge_3": [],
   "observation_vocabulary": [
@@ -3839,6 +3839,7 @@
         "withdraw_reflection+withdraw_mark_permutations+admit_names+keep_labels+extra_mark_0",
         "withdraw_reflection+withdraw_mark_permutations+admit_names+keep_labels+extra_mark_1"
       ],
+      "sides_fact_agrees_with_the_requirement_at_every_point": true,
       "space_size": 48
     },
     "U": {
@@ -7601,6 +7602,7 @@
         "withdraw_reflection+withdraw_mark_permutations+admit_names+keep_labels+extra_mark_0",
         "withdraw_reflection+withdraw_mark_permutations+admit_names+keep_labels+extra_mark_1"
       ],
+      "sides_fact_agrees_with_the_requirement_at_every_point": true,
       "space_size": 48
     }
   },

@@ -126,6 +126,10 @@ injection is live.
 | 3 | coordinate census (found live, not injected) | `extra_mark = 0` tested against a shared falsehood | the point `extra_mark_0` vanished from the 48 and the scorer raised `StopIteration` looking for its row; each coordinate is now tested against its own inherited value and `test_side_zero_is_a_moved_coordinate` fixes both directions |
 | 3 | prediction scorer, literal clauses (found live, not injected) | C3-3 scored against “no declared mark property is invariant at the U base”, and C3-5 against an ordered list | both reported MISSED on the real receipt; the frozen C3-3 clause names the two mark forms of Challenge 2, so it is scored on those two with the label property reported separately, and the frozen C3-5 clause names four points and no order, so the comparison is by set.  Recorded because the first scoring would have reported a miss on clauses the frozen file does not make |
 | 3 | Lean decision procedure (found live, not injected) | `decide` offered a goal carrying the reading as a free variable | `error: Expected type must not contain free variables`, three times; two placement lemmas project the reading away first and the build then succeeded.  The same defect appeared at Challenge 2 |
+| 3 review repair | placement check (`test_the_placement_is_checked_against_the_declared_convention`) — the row the rung did not have | the further mark's admission moved to the other side, `process_admission` returning side `1 - extra_mark` | `AssertionError: False is not true : extra_mark_0`, exit 1; OK after reversal.  The rung added this check to replace two tautologies and then gave it neither a row nor a negative-direction test, so it could only ever read true; `test_the_placement_key_reads_false_when_the_prediction_parts` now fixes that direction, and the rung's own totality sentence is corrected in `challenge3/STATUS.md` |
+| 3 review repair | probe-set check (`test_the_probe_set_offers_every_event_kind`) — the row the rung did not have | the two occurrence admissions deleted from `probes` | `AssertionError: Items in the second set but not the first: 'AdmitOccurrence'`, exit 1; OK after reversal; `test_the_probe_set_check_sees_a_dropped_event_kind` fixes the negative direction |
+| 3 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | the second measure's declared text corrected and the computed key `sides_fact_agrees_with_the_requirement_at_every_point` added, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 55); `run_challenge3.py` regenerated the receipt deliberately with no injection live (219403 to 219789 bytes), the Challenge 0 to 2 receipts reported unchanged, and the suite passed 227 |
+| 3 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 222 tests in ` | exit 1; `^Ran 227 tests in ` exit 0 on the same log |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -141,6 +145,6 @@ which is where two retired names were hiding.
 The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
 adversaries.  The Challenge 1 rows record that rung and its five review
-repairs, the Challenge 2 rows that rung, and the Challenge 3 rows the rung
-after it; current whole-tree counts are reported in the latest
-`challenge<k>/STATUS.md`.
+repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
+it, and the Challenge 3 review-repair rows the session after that; current
+whole-tree counts are reported in the latest `challenge<k>/STATUS.md`.

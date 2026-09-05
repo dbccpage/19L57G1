@@ -1500,30 +1500,48 @@ Python receipt, bounded), LIMITATION, OPEN.
 
 - **Statement**: The second declared cost measure, the collateral count, is
   the number of five declared facts about the retained configuration that a
-  candidate makes internally available and the same reading's base did not,
-  the required separation itself excluded.  It is one at each of the three
-  U minima, so both declared measures select the same three classes at a
-  minimum of one; and the two measures differ in value at points of the
-  space, so neither is the other.
+  candidate makes internally available and the same reading's base did not.
+  It is one at each of the three U minima, so under U both declared measures
+  select the same three classes at a minimum of one; **under O they do not**,
+  the collateral count's minimum of zero being attained by five points in
+  three classes while the capability count's is the null augmentation alone.
+  Under both readings the two measures differ in value at points of the
+  space, so neither is the other.  The required separation is not one of the
+  five facts, but the first of them is that separation said of the two SIDES
+  rather than of the two MARKS, and the enumeration computes that it takes
+  the requirement's value at every point of the declared space under each
+  reading; so the "one" at each of the three U minima is that fact and
+  nothing else, and to that extent the measure re-counts the requirement
+  rather than excluding it.
 - **Status**: COMPUTED (each collateral fact is an automorphism or
   isomorphism-witness search at the candidate's own renamings, and the
-  difference of the two measures is a census over the 48 points).  Counted
-  as content: score C3-6.  **The measure is over five declared facts**, not
-  over everything a candidate makes available.
+  difference of the two measures, the agreement of the minima, and the
+  side-fact coincidence are censuses over the 48 points).  Counted as
+  content: score C3-6, whose clauses are read under U alone.  **The measure
+  is over five declared facts**, not over everything a candidate makes
+  available, and one of the five is the requirement under another
+  description.
 - **Dependencies**: definitions 37, 40, 41, 44; B3-THREE-MINIMA.
 - **Assumptions**: the five declared facts; a sixth could break the tie and
-  none is offered.
+  none is offered.  The declared list is left as it stands: revising it after
+  the enumeration would fit the declaration to the answer.
 - **Python evidence**: receipt `measures`, `collateral_facts`,
-  `readings.*.minima_by_mu2`, `readings.*.measures_agree_on_minima`,
-  `readings.*.measures_differ_somewhere`;
+  `readings.*.minima_by_mu2`, `readings.U.measures_agree_on_minima` (true)
+  and `readings.O.measures_agree_on_minima` (false),
+  `readings.*.measures_differ_somewhere`,
+  `readings.*.sides_fact_agrees_with_the_requirement_at_every_point`;
   `test_the_collateral_measure_counts_only_what_the_base_lacked`,
   `test_the_two_measures_are_not_the_same_measure`,
+  `test_the_measures_select_the_same_minima_under_U_and_not_under_O`,
+  `test_the_sides_fact_agrees_with_the_requirement_at_every_point`,
+  `test_the_sides_fact_agreement_reads_false_when_one_point_parts`,
   `test_c3_6_misses_when_the_measures_part_or_coincide`.
 - **Lean theorem**: none; the measures are Python-only.
 - **Axiom report**: not applicable.
-- **Falsifier**: a minimum whose collateral count is not one; the two
-  measures selecting different minimum sets; or the two agreeing at every
-  point of the space.
+- **Falsifier**: a U minimum whose collateral count is not one; the two
+  measures selecting different minimum sets under U; the two agreeing at
+  every point of the space; or a point at which the side-separability fact
+  and the required separation part.
 - **Surviving boundary**: the declared fact list and the declared space.
 
 ### B3-PROCESS-ADMISSION
@@ -1574,7 +1592,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   `readings.*.base.placement_matches_the_declared_convention` and the same
   key on every one-step row;
   `test_the_placement_is_checked_against_the_declared_convention`,
-  `test_every_candidate_history_replays_from_genesis`.
+  `test_the_placement_key_reads_false_when_the_prediction_parts` for the
+  negative direction, and `test_every_candidate_history_replays_from_genesis`.
+  The key is proved by injection in `MANUAL.md`: with the further mark's
+  admission moved to the other side, the check named `extra_mark_0`.
 - **Lean theorem**: none; the convention is Python-only.
 - **Axiom report**: not applicable.
 - **Falsifier**: a candidate regime whose placement differs from the one the
