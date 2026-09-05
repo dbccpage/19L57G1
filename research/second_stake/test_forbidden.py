@@ -382,6 +382,12 @@ class BoundaryTests(unittest.TestCase):
                 f"HEAD is the comparison base ({self.base[:12]}); no branch of "
                 "this rung is under test"
             )
+        if not self.changed:
+            self.fail(
+                f"HEAD {self.head[:12]} is ahead of comparison base "
+                f"{self.base[:12]}, but the change census is empty; the scope "
+                "claim cannot pass vacuously"
+            )
         mine = {p for p in self.changed if p.startswith(WRITE_ROOT)}
         if self.changed and not mine:
             self.skipTest(
@@ -552,7 +558,7 @@ class CoverageGateTests(unittest.TestCase):
 
 
 class BoundaryScopeSituationTests(unittest.TestCase):
-    """The four situations the boundary scan can meet, injected as state.
+    """The five situations the boundary scan can meet, injected as state.
 
     They cannot all be staged as real commits from one checkout: once a
     repaired file of this tree is committed, every situation with HEAD ahead
@@ -580,6 +586,15 @@ class BoundaryScopeSituationTests(unittest.TestCase):
         with self.assertRaises(unittest.SkipTest) as caught:
             case.test_only_write_root_and_two_shared_appends_are_changed()
         self.assertIn("HEAD is the comparison base", str(caught.exception))
+
+    def test_an_ahead_head_with_an_empty_census_fails_closed(self) -> None:
+        case = self._case(
+            "a" * 40, "b" * 40, set(),
+            "test_only_write_root_and_two_shared_appends_are_changed",
+        )
+        with self.assertRaises(AssertionError) as caught:
+            case.test_only_write_root_and_two_shared_appends_are_changed()
+        self.assertIn("change census is empty", str(caught.exception))
 
     def test_this_rungs_own_branch_is_still_checked(self) -> None:
         case = self._case(
