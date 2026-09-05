@@ -576,3 +576,175 @@ entries above:
   the stale count fail on the fresh log.
 
 Declined: nothing.
+
+## 2026-09-05, Challenge 2 predictions frozen
+
+`challenge2/PREDICTIONS.md` committed at `22d9ea4b`, sha256
+`95f9371b030b8df64b4842a5df7be695d9e7f1b2311a300e78d915a701c16474`,
+before this rung's first code-or-proof commit.  Eight numbered predictions
+with falsifiers and FORCED / NOT FORCED labels, and one extrapolation C2-X
+about Challenge 3.  The existing `challenge*/PREDICTIONS.md -text`
+attribute already covered the file (`git check-attr` reports `text:
+unset`), so no attributes change was needed.  The commit order is what git
+establishes; it establishes nothing about off-tree work.
+
+## 2026-09-05, Challenge 2
+
+The caller supplies and retains `<a|>` and `<|a>`.
+
+- **Decided: what the caller's “retains” licenses.**  The admission of
+  both wholes (paper definition 30, ledger B2-RETENTION), so this is the
+  first rung whose caller history contains an admission and whose current
+  state holds marks.  Reason: the seed's word, read against definition 25;
+  the alternative, refusing the challenge and recording it OPEN, is stated
+  in the paper and not taken.
+- **Found live, then decided: the shared visible mark refuses the
+  Challenge 1 admission.**  Formed with `AdmitMark`, the caller's history
+  is refused by name under both readings and both conventions, by the
+  moving-admission refusal, because that event keys the admitted mark by
+  its presentation token.  A declared space of exactly two identity
+  policies was enumerated, exactly one of which retains both wholes, and
+  the run declared that one: a new admission event `AdmitOccurrence`, and
+  the withdrawal of definition 3's rule that admitted labels be distinct.
+  Reason: Challenge 1's own leftover required this decision to be made
+  loudly and priced; the price is one declaration, paid by the run, equal
+  under both readings (B2-SHARED-MARK-REFUSED, B2-IDENTITY-POLICY).
+- **Withdrawn: the rule that admitted presentation tokens be unique.**  It
+  identified presentation identity with internal identity, which the seed
+  lists among the distinctions never to be conflated, and Challenge 2's two
+  wholes carry the same visible mark.  A regime may now carry one label
+  twice; the mark's internal identity is its admission index, which
+  definition 3 now states.  The Challenge 1 negative test that asserted the
+  old rule was rewritten as a positive test of the new one, recorded as a
+  live failure in `MANUAL.md`.  Reason: the identification was a modelling
+  decision that this challenge falsified.
+- **Added: the token-keyed admission refuses a repeated label by name.**  On
+  a regime carrying its label twice, `AdmitMark` cannot say which mark it
+  names, so it refuses rather than taking the earliest.  Reason: a silent
+  choice there would reinstate the conflation the rung withdrew.
+- **Results.**  Two new holding judgments and nothing else; both survive
+  every later history of the Lean grammar.  Under U the retained regime has
+  exactly two permitted automorphisms, and the non-identity one exchanges
+  the two marks and the two sides at once, so neither pair is internally
+  separable and neither mark form is invariant; the Challenge 0 profile
+  comparison is false there and is not the internal fact.  Under O the only
+  automorphism is the identity, both mark forms are invariant and both
+  separate the marks, one on `near` and one on `far`.  Under both readings
+  the two marks do not share a side, and that property survives all 177
+  permitted images of a census to three marks.  The admission order, the
+  shared visible mark, and the presentation convention are all carried away
+  by a permitted renaming.  Reason: these are the seed's Challenge 2
+  questions, answered under each reading (B2-TWO-JUDGMENTS, B2-MARKS-U,
+  B2-MARKS-O, B2-DIFFERENT-SIDES, B2-ORDER-AND-LABEL).
+- **Added: definition 29, internal fact.**  Invariance under every
+  permitted renaming of the reading, numbered so that the Challenge 1 table
+  no longer identifies it with “permitted-renaming-invariant separating
+  judgment” only through an evidence column, and so that the U “no” is seen
+  for what it is: an immediate consequence of the definition once the
+  antecedent is computed.  Reason: a review finding of the previous rung.
+- **Scored: C1-X, PARTIAL.**  The U half hits.  The O half's names clause
+  hits and its price clause — “nothing new is paid at Challenge 2” — is
+  false as written, its own falsifier “under O a price beyond the names”
+  having fired: the occurrence identity is a new declaration paid at this
+  rung under both readings.  Recorded next to its value in
+  `challenge2/STATUS.md`, the receipt, and B1-X; the frozen file is
+  untouched.
+- **Scored: C2-1 to C2-8, all HIT**, five as content and three by
+  construction under the criterion Challenge 1 declared.  The paper says
+  plainly that a clean sweep of a rung's own predictions is weak evidence,
+  the predictions having been written by an instrument that had read the
+  whole tree; the informative number is the previous rung's extrapolation,
+  which is PARTIAL.
+- **Added: the Lean audit-totality check.**  `verify_lean.py` now requires
+  every theorem declared under `lean/BoundarySeed/` to carry a `#print
+  axioms` line in the root, reading the source text with comments stripped
+  first.  Proved by injection, with the counterfactual observed on the same
+  tree: with the check removed the same injected theorem left the build
+  reporting `lean ok: 84 axiom reports … matching`.  Reason: the paper's
+  “every one with a `#print axioms` report” was a totality claim with no
+  check behind it, a review finding of the previous rung
+  (B2-AUDIT-TOTALITY).
+- **Repaired, found live: `verify_lean.py` crashed instead of reporting a
+  failing build.**  Its failure printer wrote Lake's non-ASCII progress
+  marks straight to a console that could not encode them, so a real build
+  failure surfaced as a `UnicodeEncodeError` traceback.  The printer now
+  forces the output printable.  Reason: a diagnostic that cannot print is
+  not a diagnostic.
+- **Widened: the cited-test-name population.**  It read only backtick spans
+  that are exactly a name, so a name quoted inside a longer span — a quoted
+  failure line — was invisible, which is where two retired names were
+  hiding.  It now reads every `test_*` token anywhere inside a span, and
+  skips a token followed by `.py`, which is a file name and not a runnable
+  test.  On the first run it named three: one retired scan test in
+  `MANUAL.md` row 69 and two quoted names in row 107.  All three rows now
+  give those names in plain text, as the tree's declared convention
+  requires, and tests fix both directions.  Reason: a review finding of the
+  previous rung, adapted because the suggested widening would also have
+  fired on file-name citations in files this rung must not edit.
+- **Repaired: the definitions locator sentence.**  It placed definitions 20
+  to 27 in the Python modules while 27 and 28 were marked Lean; it now
+  names the Lean-only pair and the Challenge 2 additions.  Reason: a review
+  finding.
+- **Repaired: definition 3 now states the identity rule.**  A mark's
+  internal identity is its position in the admission order; the datum's own
+  identity number lives in a different identity space and shares a numeral
+  with mark 0 and nothing else; order is not thereby observable, because
+  the mark permutations are permitted under both readings, and Challenge 2
+  computes that the retention order is carried away.  Reason: a review
+  finding that the model identified identity with order while the plan
+  declared them kept distinct.
+- **Repaired: the moving-admission refusal is attributed to `step`.**
+  Section 1 said certifying `replay` refuses it, while the code and
+  definition 6 place it in low-level `step`, which `replay` calls and whose
+  refusal it surfaces.  Reason: a review finding.  The Challenge 1
+  receipt's clause fact keeps the older phrase and was NOT regenerated; see
+  the carried list in `challenge2/STATUS.md`.
+- **Repaired: the two structural equalities are declared.**  Python
+  `Regime` equality compares the presentation labels and the Lean `Regime`
+  has none to compare; the Lean regime is the Python regime with tokens
+  forgotten, which `serialize` computes.  The difference is live at this
+  rung and the receipt reports it.  Reason: a review finding that
+  Challenge 2's shared-mark question would make the difference live.
+- **Repaired: what the second O class carries.**  The Challenge 1 table now
+  says that the transported facts are the side-exchanged facts of the first
+  class, because under O the reflection moves placements and not names.
+  Reason: a review finding.
+- **Repaired: B0-NAMES-O's status split** into PROVED for the two holding
+  theorems and DEFINITION for the constructor distinctness, and
+  **B1-ONE-JUDGMENT's supply clause given a status and a theorem**
+  (`supply_preserves_holds`, DEFINITION-level).  No result changed.  Reason:
+  two review findings, one clause one label.
+- **Stated: where the DEFINITION-level line runs.**  `side_names_distinct`
+  and `admitted_candidates_unequal` are both constructor distinctness after
+  unfolding; the run's line is the shape of the obligation, a closed
+  statement closed by `decide` against a parametrised one needing a rewrite
+  and a case split.  That is a labelling convention, not a difference in
+  depth, and the paper now says so and records that the stricter reading
+  would move `admitted_candidates_unequal` without moving C1-5.  Reason: a
+  review finding that the paper drew the line without saying where it ran.
+- **Reworded: the continuation-reflection sentence of section 9** is now
+  scoped to the Lean grammar, with the Python kernel's bound stated beside
+  it.  Reason: a review finding.
+- **Reworded: two Lean docstrings.**  `challenge1History` and `admitted`
+  now say plainly that they are the candidate history and the candidate
+  regime and that Challenge 1 admits nothing, and `oneMarkRelated` no longer
+  asserts its adequacy for one-mark regimes flatly.  The names themselves
+  are unchanged and carried as a leftover, with the reason in
+  `challenge2/STATUS.md`.  Reason: two review findings.
+- **Renamed: the Challenge 1 candidate-space cross-check.**  Its old name
+  claimed an unpruned enumeration while it re-derived the same token
+  population under a different filter; it now says so.  Reason: a review
+  finding.  No minimality claim rested on it.
+- **Registered** the rung in the research job: the test-count grep and
+  `python run_challenge2.py`, with nothing else in that file changed.
+
+## 2026-09-05, Challenge 2 apparatus and pins
+
+- `challenge2/PREDICTIONS.md` added to the frozen table of
+  `verify_pins.py`; the pin was proved by injection.
+- `run_challenge2.py` added to the tree's mypy file list.
+- The Challenge 0 and Challenge 1 receipts were confirmed byte-unchanged
+  across the rung, which is the check that the kernel additions disturbed
+  neither earlier rung.
+- The axiom log was regenerated deliberately once, 56 to 84 reports, with
+  no injection live.

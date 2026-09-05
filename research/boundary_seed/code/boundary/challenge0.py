@@ -65,14 +65,24 @@ def profile_json(profile: tuple[object, ...]) -> list[object]:
     return out
 
 
-def annotation_contains_event(annotation: object) -> bool:
-    """Whether a resolved return annotation contains a direct event type."""
-    if annotation in EVENT_TYPES:
+def annotation_contains_event(
+    annotation: object, event_types: tuple[type, ...] = EVENT_TYPES
+) -> bool:
+    """Whether a resolved return annotation contains a direct event type.
+
+    ``event_types`` defaults to the Challenge 0 event grammar, which is what
+    the Challenge 0 and Challenge 1 receipts report.  A later challenge that
+    declares a further event kind passes its own enlarged tuple, so that the
+    census sees the grammar of the challenge running it.
+    """
+    if annotation in event_types:
         return True
-    return any(annotation_contains_event(part) for part in get_args(annotation))
+    return any(annotation_contains_event(part, event_types) for part in get_args(annotation))
 
 
-def state_event_generators(module: object = model) -> list[str]:
+def state_event_generators(
+    module: object = model, event_types: tuple[type, ...] = EVENT_TYPES
+) -> list[str]:
     """Public module functions whose resolved annotation contains an event.
 
     This is a supplementary Python API census.  The semantic statement that
@@ -87,7 +97,7 @@ def state_event_generators(module: object = model) -> list[str]:
             ret = get_type_hints(obj).get("return", inspect.Signature.empty)
         except (NameError, TypeError):
             ret = inspect.signature(obj).return_annotation
-        if annotation_contains_event(ret):
+        if annotation_contains_event(ret, event_types):
             found.append(name)
     return sorted(found)
 

@@ -78,7 +78,14 @@ Python receipt, bounded), LIMITATION, OPEN.
 
 - **Statement**: Under O at genesis, both side-name judgments hold and the
   two extensional profiles differ in the name component only.
-- **Status**: DEFINITION.
+- **Status**: PROVED (both name judgments hold and the two O profiles differ
+  at genesis: `O_name_judgment_at_genesis`, `sides_distinct_at_genesis_O`,
+  neither by unfolding); DEFINITION (that the difference is the two admitted
+  names and nothing else: `side_names_distinct`, closed by `decide` on two
+  constructors).  An earlier version carried one unsplit DEFINITION over all
+  three theorems, two of which this run's own labelling rule places in the
+  content group and which two sibling entries label PROVED; split here, one
+  clause one label, with no result changing.
 - **Dependencies**: definitions 2, 4, and 8 to 10.
 - **Assumptions**: the names `near` and `far` are admitted by the
   reading.
@@ -476,8 +483,13 @@ Python receipt, bounded), LIMITATION, OPEN.
   `admitted_O_sideNamed`; every history keeps every side-name judgment:
   `replay_preserves_sideNamed`); DEFINITION (one event keeps a side-name
   judgment, `step_preserves_sideNamed`, by unfolding; the mark-profile
-  clause).  An earlier version counted `step_preserves_sideNamed` as
-  content; corrected.
+  clause; **a supply adds no holding judgment**, `supply_preserves_holds`,
+  which is `rfl`, so the clause is true by unfolding `step` and is not
+  counted as content).  An earlier version counted `step_preserves_sideNamed`
+  as content; corrected.  An earlier version also left the supply clause of
+  the statement with no status in this field and no theorem in the Lean list,
+  against the rule that every clause of a ledger statement carries a status;
+  added here, with no result changing.
 - **Dependencies**: definitions 8, 9, 22, 24.
 - **Assumptions**: the closed judgment grammar, unchanged.
 - **Python evidence**: receipt `candidates[*].new_observations`,
@@ -502,9 +514,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.replay_preserves_sideNamed`,
   `BoundarySeed.admitted_U_no_sideNamed`,
   `BoundarySeed.admitted_O_sideNamed`,
-  `BoundarySeed.getD_append_singleton`.
+  `BoundarySeed.getD_append_singleton`,
+  `BoundarySeed.supply_preserves_holds` (the supply clause, DEFINITION-level).
 - **Axiom report**: propext, Quot.sound; propext, Quot.sound; propext;
-  propext; propext; propext; propext; propext.
+  propext; propext; propext; propext; propext; propext.
 - **Falsifier**: a second new holding judgment, a changed name judgment,
   or a holding judgment added by supply alone.
 - **Surviving boundary**: the closed grammar; the judgment itself requires
@@ -823,13 +836,390 @@ Python receipt, bounded), LIMITATION, OPEN.
   permitted automorphism, and no permitted-renaming-invariant judgment of
   the closed grammar separates them; under O the side names separate them
   at the price of the O declaration already paid, with nothing new paid.
-- **Status**: OPEN; the extrapolation of Challenge 1, scored by
-  Challenge 2.
-- **Dependencies**: Challenge 2's treatment of the shared glyph and of
-  `Supply`, which carries the token only.
+- **Status**: SCORED at Challenge 2: PARTIAL.  U half HIT, and PROVED or
+  COMPUTED clause by clause: the retained regime is fixed by the reflection
+  up to mark renaming (COMPUTED, `fixed_by_reflection_up_to_mark_renaming`),
+  a permitted automorphism exchanges the two marks (COMPUTED over the
+  unpruned search; the composite itself is `exchangeMarks_reflect_retained`,
+  DEFINITION-level, and what it carries is `retained_exchange_transports`,
+  PROVED), and no permitted-renaming-invariant mark form separates them
+  (COMPUTED over the bounded domain).  O half PARTIAL: the names clause HIT
+  (COMPUTED that the only O automorphism is the identity, with the raw
+  separation PROVED by `retained_marks_separated_by_a_side`); the clause
+  “the price is the O declaration paid at genesis, and nothing new is paid
+  at Challenge 2” MISSED, and its own falsifier, “under O a price beyond the
+  names”, fired: the occurrence identity of B2-IDENTITY-POLICY is a new
+  declaration paid at this rung, under both readings.  The frozen condition,
+  that Challenge 2 admits two internal identities for the two wholes despite
+  the shared visible mark, was met.  Recorded next to its value here and in
+  `challenge2/STATUS.md`; the frozen file is untouched.
+- **Dependencies**: Challenge 2's treatment of the shared visible mark
+  (B2-IDENTITY-POLICY) and of `Supply`, which carries the token only.
+- **Assumptions**: the clauses are scored on the frozen words; the price
+  clause is scored against the receipt's `price.nothing_new_paid_at_challenge_2`.
+- **Python evidence**: receipt `receipts/challenge2.json` `scores.C1-X`;
+  `test_scores`, `test_c1_x_halves_and_clauses_score_independently`.
+- **Lean theorem**: `BoundarySeed.retained_exchange_transports`,
+  `BoundarySeed.retained_marks_separated_by_a_side`,
+  `BoundarySeed.exchangeMarks_reflect_retained` (DEFINITION-level); none for
+  the automorphism counts or the price, which are computations and
+  declarations.
+- **Axiom report**: propext; propext; propext.
+- **Falsifier**: as written in `challenge1/PREDICTIONS.md`; the O price
+  falsifier fired.
+- **Surviving boundary**: the Challenge 2 retained regime.
+
+### B2-RETENTION
+
+- **Statement**: The caller's “retains” at Challenge 2 is read as the
+  admission of both wholes: the caller's history contains, for each whole,
+  a `Supply` and an admission, and the current state under each reading is
+  the replay of that history, a regime with two marks on opposite sides
+  under the declared convention.  The two supplies are the same event value
+  twice, separated only by their position, and change nothing.  This is the
+  first rung at which the caller's history contains an admission.
+- **Status**: DEFINITION (the reading of the word, definition 30, and the
+  placement that follows from the declared convention and the declared
+  identity policy); COMPUTED (the certified history and its replay from
+  genesis).  Not counted as content: score C2-1 is HIT by construction
+  (`scores.C2-1.result_basis`, `tally.hit_definition_level`).
+- **Dependencies**: definitions 5, 6, 18, 19, 25, 30, 31.
+- **Assumptions**: the run could instead have refused the challenge and
+  recorded it OPEN; that alternative is stated in the paper's 5.5 and is
+  not taken.
+- **Python evidence**: receipt `readings.*.retained`;
+  `test_the_retained_state`,
+  `test_every_certified_history_replays_from_genesis`;
+  `test_c2_1_misses_on_a_state_with_fewer_marks_or_a_shared_side`.
+- **Lean theorem**: `BoundarySeed.retained_eq`,
+  `BoundarySeed.retained_placement_length`,
+  `BoundarySeed.retained_without_supplies` (all DEFINITION-level, `rfl`).
+- **Axiom report**: none; none; none.
+- **Falsifier**: a current state after Challenge 2 with fewer than two
+  admitted marks, a state change with no admission event in the caller's
+  history, or two marks on the same side under the declared convention.
+- **Surviving boundary**: Challenge 2 onward; the side each mark is
+  retained on requires the admitted boundary, the reading of the word does
+  not.
+
+### B2-SHARED-MARK-REFUSED
+
+- **Statement**: With the Challenge 1 token-keyed admission event, the
+  caller's Challenge 2 history is refused by certifying replay, under both
+  readings and under both conventions, by the moving-admission refusal
+  naming the side the mark is admitted on: that event keys the admitted
+  mark by its presentation token, so the second whole names the first mark
+  and asks for it on the other side.
+- **Status**: DEFINITION (the Challenge 1 declaration replayed on a
+  declared history; four histories, all refused); not counted as content,
+  score C2-2 being HIT by construction, although the declaration was made
+  at Challenge 1 and before this question arose.
+- **Dependencies**: definitions 3, 6, 18, 30, 31; B1-ADMISSION-RETENTION.
+- **Assumptions**: the caller's history is formed by the declared reader
+  and one of the two declared conventions.
+- **Python evidence**: receipt `readings.*.identity_policies.rows`;
+  `test_the_declared_policy_is_the_only_one_that_retains_both`,
+  `test_the_two_identity_policies_disagree_on_the_callers_history`,
+  `test_c2_2_misses_when_the_shared_policy_is_accepted_or_refused_otherwise`.
+- **Lean theorem**: none; the Lean events carry no token, so this refusal
+  is not formulable there.
+- **Axiom report**: not applicable.
+- **Falsifier**: that history certifying a two-mark regime; a refusal for
+  some other reason; or the refusal depending on the reading or the
+  convention.
+- **Surviving boundary**: the token-keyed admission event, wherever it is
+  offered a history that names an admitted token on the other side.
+
+### B2-IDENTITY-POLICY
+
+- **Statement**: The declared space of identity policies has exactly two
+  members — the second admission names the mark already admitted, or it
+  admits a fresh one — and it is exhaustive over the caller's two wholes
+  because the second admission's target either is or is not already
+  admitted.  Exactly one member lets the caller retain both wholes.  The
+  run declares that one, the occurrence identity, at the price of one new
+  admission event, `AdmitOccurrence`, and the withdrawal of definition 3's
+  repeated-label rule, and with it the withdrawal of the identification of
+  presentation identity with internal identity.  The price is paid by the
+  run, not by the boundary and not by the caller, and is the same under
+  both readings.  It buys that the caller's two wholes are two marks at
+  all.
+- **Status**: DEFINITION (the space, its exhaustiveness over that question,
+  the declared policy, and the price); COMPUTED (that exactly one member
+  admits both wholes, over the four policy-and-convention histories).  Not
+  counted as content, score C2-3 being HIT by construction.  The
+  uniqueness is **scoped to the declared space** and is not a claim that no
+  other treatment of the shared visible mark exists; a policy that changed
+  the event grammar further is outside it.
+- **Dependencies**: definitions 3, 5, 6, 31; B2-SHARED-MARK-REFUSED.
+- **Assumptions**: a policy decides only what the second admission admits.
+- **Python evidence**: receipt `readings.*.identity_policies`,
+  `readings.*.price`;
+  `test_the_declared_policy_is_the_only_one_that_retains_both`,
+  `test_the_price_is_one_new_declaration_paid_by_the_run`,
+  `test_policy_event_and_caller_history`,
+  `test_c2_3_misses_on_a_third_policy_or_a_free_retention`;
+  kernel: `test_occurrence_admission_admits_a_fresh_mark_whatever_the_label`,
+  `test_a_repeated_label_is_a_valid_regime_from_challenge_2`,
+  `test_token_keyed_admission_refuses_a_repeated_label_by_name`,
+  `test_occurrence_admission_refuses_an_unsupplied_token_by_name`.
+- **Lean theorem**: none; the Lean `place` was already occurrence-keyed,
+  because its events carry no token, so the policy question does not arise
+  there and no Lean theorem is evidence for it.
+- **Axiom report**: not applicable.
+- **Falsifier**: a third policy inside the declared space; the caller's
+  retention expressible with no new declaration; a price differing between
+  the readings; or the boundary rather than the run paying it.
+- **Surviving boundary**: Challenge 2 onward; every later rung inherits the
+  occurrence identity and the withdrawn repeated-label rule.
+
+### B2-TWO-JUDGMENTS
+
+- **Statement**: The two admissions add exactly two holding judgments,
+  `OnSide(0, s)` and `OnSide(1, s')` with `s` and `s'` the two sides, and
+  change no name judgment, no initial datum, and no reading; the count of
+  holding judgments goes 0 to 2 under U and 2 to 4 under O; each mark's
+  profile is its own side and nothing else; no new judgment form is needed;
+  and each retained mark's judgment survives every later event and history
+  of the Lean grammar.
+- **Status**: PROVED (which judgments hold: `retained_onSide_true_iff` with
+  `retained_onSide_zero`, `retained_onSide_one`, `retained_onSide_beyond`);
+  DEFINITION (retention: `retained_judgments_survive`, an instantiation of
+  the Challenge 1 induction, which is itself PROVED as B1-ADMISSION-RETENTION
+  records; the names as at genesis: `retained_sideNamed`, likewise an
+  instantiation); COMPUTED (the counts, the profiles, and the growth probe).
+  Counted as content: score C2-4.
+- **Dependencies**: definitions 8, 9, 22, 30, 31.
+- **Assumptions**: the closed judgment grammar, unchanged at this rung.
+- **Python evidence**: receipt `readings.*.retained.new_observations`,
+  `holding_judgments_*`, `later_events`,
+  `readings.*.separation.mark_profiles`; `test_the_retained_state`,
+  `test_c2_4_misses_on_a_third_judgment_or_a_changed_name`.
+- **Lean theorem**: `BoundarySeed.retained_onSide_true_iff`,
+  `BoundarySeed.retained_onSide_zero`, `BoundarySeed.retained_onSide_one`,
+  `BoundarySeed.retained_onSide_beyond`,
+  `BoundarySeed.retained_judgments_survive`,
+  `BoundarySeed.retained_sideNamed`.
+- **Axiom report**: propext, Quot.sound; propext; propext; propext;
+  propext; propext.
+- **Falsifier**: a third new holding judgment, a changed name judgment, a
+  changed datum or reading, or a Challenge 2 fact needing a new judgment
+  form.
+- **Surviving boundary**: the retained two-mark regime; the judgments
+  themselves require the admitted boundary.
+
+### B2-MARKS-U
+
+- **Statement**: Under U the retained regime has exactly two permitted
+  automorphisms, the identity and the reflection followed by the exchange
+  of the two marks; that non-identity one carries mark 0 to mark 1, and it
+  is the same renaming that exchanges the two sides.  Neither mark form is
+  invariant under the permitted renamings of U on the bounded domain, so no
+  invariant mark form separates the two retained wholes, and by definition
+  33 they are not internally separable under U.  The Challenge 0 profile
+  comparison `sides_collapsed` is false at that regime and is not the
+  internal fact, because it reads internal identities that a permitted
+  renaming permutes; the two sides, unequal after Challenge 1's one mark,
+  are exchanged by a permitted automorphism once both wholes are retained.
+- **Status**: COMPUTED (the automorphism count, the exchanging witness, the
+  side-exchanging witness, and the invariance census over the bounded
+  domain, all over the unpruned `permitted_images` enumeration); PROVED
+  (what the composite carries: `retained_exchange_transports`; that neither
+  half fixes the regime alone: `reflect_retained_ne`,
+  `exchangeMarks_retained_ne`); DEFINITION (that the composite fixes the
+  regime: `exchangeMarks_reflect_retained`, which is `rfl`; and its
+  permission under U: `retained_composite_permitted_U`).  Counted as
+  content: scores C2-5 and C2-8.  **Lean does not close the automorphism
+  count**; it exhibits the composite and the two non-fixings, which is
+  weaker.
+- **Dependencies**: definitions 12, 13, 16, 23, 29, 32, 33, 34, 36.
+- **Assumptions**: reading U; the regime domain has at most two marks.
+- **Python evidence**: receipt `readings.U.automorphisms`,
+  `readings.U.separation`, `readings.U.retained.sides_collapsed`;
+  `test_automorphisms_and_separation_under_each_reading`,
+  `test_the_one_non_identity_U_automorphism_does_both_exchanges`,
+  `test_automorphisms_match_an_unpruned_filter_of_the_images`,
+  `test_mark_form_invariance_is_a_census_over_the_declared_domain`,
+  `test_marks_are_separable_under_O_and_exchanged_under_U`,
+  `test_side_exchanging_automorphism_only_under_U`,
+  `test_c2_5_misses_when_U_separates_or_the_counts_move`,
+  `test_c2_8_misses_when_the_sides_separate_or_the_order_shows`.
+- **Lean theorem**: `BoundarySeed.exchangeMarks_reflect_retained`,
+  `BoundarySeed.retained_composite_permitted_U`,
+  `BoundarySeed.retained_exchange_transports`,
+  `BoundarySeed.reflect_retained_ne`,
+  `BoundarySeed.exchangeMarks_retained_ne`,
+  `BoundarySeed.exchangeFirstTwo_involutive`,
+  `BoundarySeed.exchangeMarks_involutive`.
+- **Axiom report**: propext; propext; propext; propext; propext; none;
+  propext.
+- **Falsifier**: a different automorphism count under U; no automorphism
+  exchanging the marks; a permitted-renaming-invariant mark form holding of
+  one U mark and not the other; or `sides_collapsed` true at the retained
+  regime.
+- **Surviving boundary**: the retained two-mark U regime and the declared
+  bounded domains; requires the admitted boundary.
+
+### B2-MARKS-O
+
+- **Statement**: Under O the only permitted automorphism of the retained
+  regime is the identity; both mark forms are invariant under the permitted
+  renamings of O on the bounded domain and both separate the two retained
+  marks, one lying on `near` and the other on `far`; the two name judgments
+  hold as at genesis.  So the two wholes are internally separable under O in
+  the sense of definition 33.  The separation uses the admitted boundary,
+  the O reading of that declaration, and the Challenge 2 occurrence
+  identity, and nothing else; the presentation convention fixes which
+  presented whole is which mark and not that they are separated, the other
+  convention's regime lying in the same isomorphism class under both
+  readings.
+- **Status**: COMPUTED (the single automorphism, the absence of an
+  exchanging one, the invariance census, and the one-class convention
+  comparison, all over the unpruned search); PROVED (the raw separation:
+  `retained_marks_separated_by_a_side`); DEFINITION (the names as at
+  genesis, `retained_sideNamed`, an instantiation; the capability list,
+  which is a classification; and the convention itself).  Counted as
+  content: score C2-6.
+- **Dependencies**: definitions 2, 10, 16, 18, 23, 29, 32, 33, 34.
+- **Assumptions**: reading O.
+- **Python evidence**: receipt `readings.O.automorphisms`,
+  `readings.O.separation`, `readings.*.convention`, `readings.O.price`;
+  `test_automorphisms_and_separation_under_each_reading`,
+  `test_order_label_and_convention_are_not_internally_available`,
+  `test_the_price_is_one_new_declaration_paid_by_the_run`,
+  `test_c2_6_misses_when_O_collapses_or_the_convention_splits`.
+- **Lean theorem**: `BoundarySeed.retained_marks_separated_by_a_side`,
+  `BoundarySeed.retained_sideNamed`, `BoundarySeed.retained_sides_differ`.
+- **Axiom report**: propext; propext; propext, Quot.sound.
+- **Falsifier**: a permitted automorphism of the O regime exchanging the
+  marks; equal mark side-profiles under O; a separation that survives
+  removing the names; or the other convention's regime lying in a different
+  class.
+- **Surviving boundary**: the retained two-mark O regime; requires the
+  admitted boundary and the O reading of it.
+
+### B2-DIFFERENT-SIDES
+
+- **Statement**: The property that no two admitted marks lie on the same
+  side is invariant under every permitted renaming of both readings, over
+  every hypothetical placement of at most three marks and every permitted
+  image of each — 177 images — and it holds of the retained regime.  So it
+  is an internal fact under both readings, and it is what the admitted
+  boundary alone buys about the two retained wholes; under U it buys
+  nothing further about them, and under O it buys, in addition, which of
+  them lies on which named side.
+- **Status**: COMPUTED, bound three marks; PROVED for the concrete retained
+  regime (`retained_marks_differ_in_side`).  Counted as content: score
+  C2-7.  No unbounded theorem is claimed.
+- **Dependencies**: definitions 23, 29, 35.
+- **Assumptions**: the census enumerates hypothetical placements; nothing
+  in it is admitted.
+- **Python evidence**: receipt `different_sides_census`,
+  `readings.*.retained.marks_on_different_sides`;
+  `test_the_different_sides_census`,
+  `test_different_sides_is_invariant_under_every_permitted_renaming`,
+  `test_the_census_reports_a_property_that_is_not_invariant`,
+  `test_mark_side_and_different_sides`,
+  `test_c2_7_misses_when_the_census_fails_or_U_gains_an_invariant`.
+- **Lean theorem**: `BoundarySeed.retained_marks_differ_in_side`.
+- **Axiom report**: propext.
+- **Falsifier**: a permitted renaming after which two marks share a side;
+  the property failing at the retained regime; or a further invariant U
+  fact separating the two wholes.
+- **Surviving boundary**: placements of at most three marks; requires the
+  admitted boundary.
+
+### B2-ORDER-AND-LABEL
+
+- **Statement**: Neither the order in which the caller retained the two
+  wholes nor the visible mark they share is an internal fact under either
+  reading.  Retaining them in the other order gives a regime that is
+  unequal as raw data and isomorphic under both readings, by the mark
+  exchange; a regime with the same placement and a different label is
+  likewise unequal and isomorphic.  Python `Regime` equality compares the
+  labels and the Lean `Regime` has none to compare, and this is the rung at
+  which those two equalities part.
+- **Status**: COMPUTED (both isomorphism witnesses, over the unpruned
+  search, with the canonical keys agreeing); PROVED (the two orders give
+  different raw regimes: `retainedOtherOrder_ne_retained`); DEFINITION (the
+  other order is the mark exchange of the first:
+  `retainedOtherOrder_is_exchange`, `rfl`).  Counted as content: score
+  C2-8.
+- **Dependencies**: definitions 3, 13, 14, 15, 23, 29, 36.
+- **Assumptions**: the isomorphism relation of definition 23 is the
+  quotient the run sanctions; the label is presentation.
+- **Python evidence**: receipt `readings.*.order`, `readings.*.label`;
+  `test_order_label_and_convention_are_not_internally_available`,
+  `test_c2_8_misses_when_the_sides_separate_or_the_order_shows`.
+- **Lean theorem**: `BoundarySeed.retainedOtherOrder_eq`,
+  `BoundarySeed.retainedOtherOrder_is_exchange`,
+  `BoundarySeed.retainedOtherOrder_ne_retained`.
+- **Axiom report**: none; propext; propext.
+- **Falsifier**: an order or a label that a permitted renaming cannot carry
+  away, or a canonical key that separates the two orders.
+- **Surviving boundary**: the retained two-mark regimes; the order clause
+  restates that definition 3's index is a metatheoretic name.
+
+### B2-AUDIT-TOTALITY
+
+- **Statement**: Every theorem declared under `lean/BoundarySeed/` carries
+  a `#print axioms` line in the root module.  `verify_lean.py` enumerates
+  the declared theorems from the source text, with block and line comments
+  stripped first, and fails by name on any that carries no line.  The two
+  populations agree in both directions, 84 and 84.
+- **Status**: COMPUTED (the two populations and their comparison), proved
+  by injection with its counterfactual observed on the same tree.
+  LIMITATION: the check reads source text, not the compiled environment, so
+  a theorem the text scan cannot see would escape it.
+- **Dependencies**: the paper's section 7 totality sentence, which was
+  pinned by nothing before this rung.
+- **Assumptions**: theorem declarations begin a line, possibly indented and
+  possibly preceded by a visibility modifier; namespaces open and close on
+  their own lines.
+- **Python evidence**: `test_every_declared_theorem_carries_a_report_line`,
+  `test_comments_are_stripped_before_the_population_is_read`;
+  `MANUAL.md` injection rows.
+- **Lean theorem**: none; the check is apparatus.
+- **Axiom report**: not applicable.
+- **Falsifier**: a declared theorem with no report line that the check does
+  not name, or a name it reports that no module declares.
+- **Surviving boundary**: the tree's own Lean package.
+
+### B2-BOUNDARY-DEPENDENCE
+
+- **Statement**: The identity policy space, the refusal of the shared
+  policy, the price, supply inertia, the rule that the current state is the
+  replay of the caller's history, the invariance of the initial datum and
+  reading, and the empty event-follows relation do not require the admitted
+  boundary.  The two new judgments, the sides the marks are retained on,
+  the automorphisms, the separation, and the different-sides fact require
+  it and are not formulated after removing it.
+- **Status**: DEFINITION-level dependency classification.
+- **Dependencies**: the seed's per-stage boundary-cost requirement.
+- **Assumptions**: as B0-BOUNDARY-DEPENDENCE.
+- **Python evidence**: receipt `boundary_dependence`; `test_receipt_shape`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: as B0-BOUNDARY-DEPENDENCE.
+- **Surviving boundary**: Challenge 2 dependency classification.
+
+### B2-X
+
+- **Statement**: Challenge 3 will declare its sense of internal
+  separability to be definition 33's — no permitted automorphism carries
+  one mark to the other — and will find the requirement already met under O
+  by the declaration of the reading, with no augmentation, and unmet under
+  U; under U no augmentation that only adds a judgment to the closed
+  grammar can meet it, so every minimum one-step augmentation will either
+  name a side or admit a further datum, and at least two tied
+  non-isomorphic minima will survive, so uniqueness will not be provable.
+- **Status**: OPEN; the extrapolation of Challenge 2, scored by
+  Challenge 3.
+- **Dependencies**: Challenge 3's declared sense, candidate space, and cost
+  measures.
 - **Assumptions**: none yet.
 - **Python evidence**: none yet.
 - **Lean theorem**: none yet.
 - **Axiom report**: not applicable.
-- **Falsifier**: as written in `challenge1/PREDICTIONS.md`.
+- **Falsifier**: as written in `challenge2/PREDICTIONS.md`.
 - **Surviving boundary**: not yet.

@@ -50,6 +50,7 @@ from boundary.challenge1 import (  # noqa: E402
 )
 from boundary.model import (  # noqa: E402
     AdmitMark,
+    AdmitOccurrence,
     Event,
     OnSide,
     Regime,
@@ -384,6 +385,14 @@ class FactTests(unittest.TestCase):
             [{"kind": "Supply", "token": "a"}, {"kind": "AdmitMark", "token": "a", "side": 1}],
         )
 
+    def test_a_later_challenges_event_kind_is_refused_by_name(self) -> None:
+        # Challenge 2 adds an admission event to the grammar.  This renderer
+        # belongs to Challenge 1 and refuses it rather than labelling it with a
+        # Challenge 1 kind, which would report an occurrence admission as a
+        # token-keyed one.
+        with self.assertRaisesRegex(TypeError, "not a Challenge 1 event"):
+            event_json(AdmitOccurrence("a", 0))
+
     def test_refusal_names_the_refused_history_and_is_silent_otherwise(self) -> None:
         g = genesis("U")
         self.assertIsNone(refusal([Supply("a"), AdmitMark("a", 0)], g))
@@ -412,7 +421,11 @@ class EnumerationCrossChecks(unittest.TestCase):
             ["b", "b", "z", "z"],
         )
 
-    def test_declared_candidate_space_matches_an_unpruned_enumeration(self) -> None:
+    def test_declared_candidate_space_matches_a_rederived_enumeration(self) -> None:
+        # The cross-check re-derives the declared space from the same token
+        # population under a separately written filter.  It is NOT an
+        # unpruned enumeration over a wider space, and its old name said it
+        # was; no minimality claim rests on it at this rung.
         for rd in ("U", "O"):
             g = genesis(rd)
             history: list[Event] = [Supply("a")]

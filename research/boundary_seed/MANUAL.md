@@ -36,12 +36,15 @@ python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 `verify_lean.py` scans every `.lean` file for the forbidden tokens as
 text, requires every module under `lean/BoundarySeed/` to lie in the
 root's transitive import closure (an unreached module is never
-elaborated), then requires a successful clean, builds the tree's Lean
+elaborated), requires every theorem those modules declare to carry a
+`#print axioms` line in the root module (the source text is read with
+block and line comments stripped first, so doc prose cannot enter or leave
+the population), then requires a successful clean, builds the tree's Lean
 package, requires every axiom report to lie within `{propext,
 Quot.sound}`, and compares the reports with `lean/axioms.txt`; `--regen` rewrites that log deliberately and
 never under a live injection.  The research job runs the pins, the tests
-under coverage with the receipt regeneration and the blindness scan, and
-strict typing; the Lean package is a manual receipt.
+under coverage with the receipt regeneration and the source-isolation
+scan, and strict typing; the Lean package is a manual receipt.
 
 `verify_pins.py` compares working, index, HEAD, and committed-history bytes
 for the seed and frozen predictions.  The source-isolation test likewise
@@ -66,7 +69,7 @@ injection is live.
 
 | challenge | gate | injection | observed failure |
 |---|---|---|---|
-| 0 | blindness scan (`tests/test_blind.py`) | stray `zzz_probe.md` in the write root carrying an assembled citation into the sealed paper | `FAIL: test_write_root_is_blind_before_the_freeze` naming `research\boundary_seed\zzz_probe.md:1: citation into the sealed paper`, exit 1; 10 tests OK after deletion |
+| 0 | source-isolation scan (`tests/test_blind.py`) | stray `zzz_probe.md` in the write root carrying an assembled citation into the sealed paper | the scan failed on the write-root probe file at line 1 for a citation into the sealed paper, exit 1; 10 tests OK after deletion.  The failing test was then named test_write_root_is_blind_before_the_freeze, in plain text here because that name was retired when the scan was renamed; its successor is `test_write_root_is_source_isolated_before_the_freeze` |
 | 0 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`) | `authority_effect` changed from `None` to `Some` in the committed receipt | the test failed showing the differing bytes, exit 1; OK after the original bytes were restored |
 | 0 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge0/PREDICTIONS.md` | `FAIL: working copy of challenge0/PREDICTIONS.md: 1e15d854… wanted a03ee812…`, exit 1; `pins ok` after restore |
 | 0 | axiom log (`verify_lean.py`) | the `supply_no_op` report dropped from `lean/axioms.txt` | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; `lean ok: 13 axiom reports` after restore |
@@ -104,17 +107,30 @@ injection is live.
 | 1 fifth review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the C1-7 evidence rescoped to the candidate regimes, the C1-5 basis relabelled, and the two designation clause facts reworded, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 114); `run_challenge1.py` regenerated the receipt deliberately with no injection live (27943 to 28363 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 114 |
 | 1 fifth review repair | axiom log (`verify_lean.py`), deliberate regeneration | `reflect_admitted` reproved by `rfl`, no theorem added or removed | `wrote lean\axioms.txt: 56 reports` under `--regen`, two reports moving from `[propext]` to none (`reflect_admitted`, `candidates_related_U`), then `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
 | 1 fifth review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 112 tests in ` | exit 1; `^Ran 114 tests in ` exit 0 on the same log |
-| 1 fifth review repair | cited-test-name totality (`tests/test_prose_citations.py`) (found live by review, then re-injected) | the two rows above, which named negative tests renamed at `00acb2f7` and `78c4a96c` | on its first run the new check reported `MANUAL.md:88: test_c1_2_misses_when_a_moving_admission_is_accepted matches no test defined in tests/` and the same for `MANUAL.md:89`, exit 1; both rows now name the current tests and the check passes.  Re-injected afterwards by citing test_zzz_probe_absent, backticked, in `change_log.md`: `change_log.md:514: test_zzz_probe_absent matches no test defined in tests/`, exit 1, then exit 0 after reversal; `test_planted_unresolvable_citation_is_named` fixes the same direction in a temporary tree |
+| 1 fifth review repair | cited-test-name totality (`tests/test_prose_citations.py`) (found live by review, then re-injected) | the two rows above, which named negative tests renamed at `00acb2f7` and `78c4a96c` | on its first run the new check reported, for MANUAL.md line 88, that test_c1_2_misses_when_a_moving_admission_is_accepted (plain text here, retired) matched no test defined in tests/, and the same for line 89, exit 1; both rows now name the current tests and the check passes.  Re-injected afterwards by citing test_zzz_probe_absent, backticked, in the change log: the check named that file, line 514, and that name, exit 1, then exit 0 after reversal; `test_planted_unresolvable_citation_is_named` fixes the same direction in a temporary tree |
+| 2 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge2/PREDICTIONS.md` | `FAIL: working copy of challenge2/PREDICTIONS.md: d46a59cabe0e… wanted 95f9371b030b…`, exit 1; `pins ok: seed ba30bcd600d8 and 3 frozen prediction file(s)` and exit 0 after restore |
+| 2 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 2) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge2.json` | the test failed showing the differing bytes; OK after the original bytes were restored |
+| 2 | Lean audit totality (`verify_lean.py`), new at this rung | a theorem `zzz_probe_unaudited` added to `Challenge2.lean` with no `#print axioms` line in the root | `FAIL: BoundarySeed.zzz_probe_unaudited is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, exit 1; and the counterfactual on the same tree — with the new check removed, the identical injection reported `lean ok: 84 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0, which is the residual observed rather than argued.  Exit 0 after deleting the probe and restoring the check; the axiom log was NOT regenerated at any point while the probe was live |
+| 2 | withdrawn repeated-label rule (found live, not injected) | the Challenge 1 negative test asserting that a regime with a repeated admitted label is refused, run against the Challenge 2 kernel | `test_invalid_regimes_are_refused`: `AdmissionError not raised` on the `('a', 'a')` case, 1 failure in 114.  The rule was withdrawn deliberately at this rung, so the case moved to `test_a_repeated_label_is_a_valid_regime_from_challenge_2` and the token-keyed refusal of a repeated label got its own negative test |
+| 2 | `verify_lean.py` failure printer (found live, not injected) | a real `lake build` failure, while `Challenge2.lean` did not yet compile | the printer raised `UnicodeEncodeError` on Lake's non-ASCII progress marks instead of showing the build errors; the printer now forces printable output, and the same failure then named four Lean errors with their lines |
+| 2 | cited-test-name totality, widened population | the widened population run over the tree as it stood | three unresolved names, exit 1: one retired source-isolation test cited in this file's row for Challenge 0, and two names quoted inside the fifth-repair row's diagnostics.  All three rows now give those names in plain text, as the convention below requires, and the check passes; `test_a_name_quoted_inside_a_longer_span_is_found` and `test_a_test_file_name_is_not_a_test_name` fix both directions, with `test_the_planted_file_name_does_not_fire` in a temporary tree |
+| 2 | prediction tally (Challenge 1) — the row the third repair did not have | `C1-7` removed from `DEFINITION_LEVEL_PREDICTIONS` in `challenge1.py` | three failures named: `test_tally_counts_definition_level_hits_apart_from_content`, `test_tally_moves_a_miss_out_of_every_hit_list_and_refuses_an_unknown_status` (`['C1-6'] != ['C1-6', 'C1-7']`), and `test_committed_receipt_matches_the_renderer`; 42 tests OK after reversal.  The third repair recorded only the receipt regeneration and the test-count grep, so the tally gate had negative tests and no injection row; this is that row |
+| 2 | different-sides census, negative direction | the census run over a property that reads one side rather than the difference of the two | `invariant_under_every_permitted_renaming` false with the same 177 images checked; `test_the_census_reports_a_property_that_is_not_invariant` fixes it, and the real property reports true |
+| 2 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 114 tests in ` | exit 1; `^Ran 165 tests in ` exit 0 on the same log |
 
 A test name presented as code in this file or any other tree document must
-resolve to a test the suite defines; the check above reads exactly the
-backticked `test_*` tokens of the tree's Markdown, `SEED.md` excepted.  A
-name that is deliberately not runnable is therefore written in plain text:
-a retired name beside the test that replaced it, as rows 88 and 89 do, and
-an injected probe name in the row that records it.
+resolve to a test the suite defines; the check above reads every `test_*`
+token appearing anywhere inside a backtick span of the tree's Markdown,
+`SEED.md` excepted, and skips a token followed by `.py`, which is a file
+name and not a runnable test.  A name that is deliberately not runnable is
+therefore written in plain text: a retired name beside the test that
+replaced it, and an injected probe name in the row that records it.  The
+population was widened at Challenge 2, after review found that a name
+quoted inside a longer span — a quoted failure line — was invisible to it,
+which is where two retired names were hiding.
 
 The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
 adversaries.  The Challenge 1 rows record that rung and its five review
-repairs; current whole-tree counts are reported in the latest
-`challenge<k>/STATUS.md`.
+repairs, and the Challenge 2 rows that rung; current whole-tree counts are
+reported in the latest `challenge<k>/STATUS.md`.

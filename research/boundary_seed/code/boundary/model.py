@@ -1,5 +1,5 @@
 """Admitted regimes, events, replay, observation, and renaming for the
-boundary world, as far as Challenges 0 and 1 require.
+boundary world, as far as Challenges 0 to 2 require.
 
 Classification (assumption discipline):
 
@@ -51,6 +51,39 @@ marked otherwise:
   ``isomorphism_witness`` searches it without pruning, and
   ``is_isomorphic`` is its truth value.  Equality of regimes is
   structural; isomorphism is this relation; the two are never conflated.
+
+Challenge 2 additions:
+
+* **Internal identity is the admission index.**  A mark's internal
+  identity is its position in ``placement``, which is the order in which
+  it was admitted; the entry of ``marks`` beside it is the presentation
+  token that was named when it was admitted, and is a LABEL.  Challenges
+  0 and 1 required the labels to be distinct, which identified
+  presentation identity with internal identity.  Challenge 2 supplies two
+  wholes carrying the same visible mark, so that requirement is
+  WITHDRAWN: a valid regime may carry one label twice.  The datum's own
+  ``internal_id`` numbers the supplied whole and lives in a different
+  identity space from a mark's index; they share a numeral and nothing
+  else.
+* ``AdmitOccurrence`` is the Challenge 2 admission event: it admits one
+  presented occurrence as a FRESH mark on a side, whatever labels are
+  already present.  ``AdmitMark`` keeps its Challenge 1 meaning exactly
+  — it is keyed by the label — and now refuses by name to act on a
+  regime that carries its label more than once, because a label-keyed
+  admission cannot say which mark it names there.  The two events are the
+  two identity policies of ``challenge2.py`` made executable, and neither
+  is applied to state except by ``replay`` of an explicit history.
+* ``automorphisms`` lists the permitted renamings that carry a regime
+  onto itself with tokens forgotten; ``mark_automorphism_to`` searches
+  them for one carrying one mark to another, and
+  ``marks_internally_separable`` is the negation of its existence.
+  ``side_exchanging_automorphism`` searches them for one that includes
+  the reflection.  All three enumerate ``permitted_images`` without
+  pruning.
+* ``mark_side`` reads one mark's side; ``marks_on_different_sides`` is
+  the property that no two admitted marks share a side.  Both are
+  metatheoretic readings of the placement tuple, not object-language
+  values.
 """
 
 from __future__ import annotations
@@ -84,12 +117,19 @@ class Regime:
     """Admitted state.
 
     ``reading``:       the declared reading of the boundary, ``U`` or ``O``.
-    ``marks``:         admitted marks in admission order (presentation tokens;
-                       internal identity is the index).
+    ``marks``:         for each admitted mark, in admission order, the
+                       presentation token named when it was admitted.  This
+                       is a LABEL and need not be unique; the mark's
+                       internal identity is its index.
     ``placement``:     for each admitted mark, the side it lies on, ``0`` or
                        ``1``.
     ``initial_datum``: the one opaque supplied whole.  It and its boundary
                        frame are implicit and unique in every valid regime.
+                       Its ``internal_id`` is not a mark index.
+
+    Challenges 0 and 1 additionally required the labels to be distinct.
+    Challenge 2 withdrew that requirement, because the caller supplies two
+    wholes carrying the same visible mark; see the module docstring.
     """
 
     reading: str
@@ -104,8 +144,6 @@ class Regime:
             raise AdmissionError("the Challenge 0 initial datum is fixed")
         if len(self.marks) != len(self.placement):
             raise AdmissionError("marks and placement must have equal length")
-        if len(set(self.marks)) != len(self.marks):
-            raise AdmissionError("admitted mark tokens must be unique")
         if any(side not in (0, 1) for side in self.placement):
             raise AdmissionError("every admitted mark must lie on side 0 or 1")
 
@@ -126,17 +164,32 @@ class Supply:
 
 @dataclass(frozen=True)
 class AdmitMark:
-    """Admission of a previously presented token as a mark on a side.
+    """Challenge 1 admission of a previously presented token as a mark on a
+    side, keyed by the token.
 
-    ``step`` is the low-level state action.  ``replay`` is the certifying
-    interface and enforces the prior-presentation precondition.
+    ``step`` is the low-level state action, and raises both refusals below.
+    ``replay`` is the certifying interface, enforces the prior-presentation
+    precondition, and surfaces what ``step`` raises.
     """
 
     token: str
     side: int
 
 
-Event = Union[Supply, AdmitMark]
+@dataclass(frozen=True)
+class AdmitOccurrence:
+    """Challenge 2 admission of one presented occurrence as a fresh mark.
+
+    The token is carried as the new mark's label and is not consulted for
+    identity: the mark's internal identity is its admission index.  The
+    prior-presentation precondition is enforced by certifying ``replay``.
+    """
+
+    token: str
+    side: int
+
+
+Event = Union[Supply, AdmitMark, AdmitOccurrence]
 
 
 def step(r: Regime, e: Event) -> Regime:
@@ -145,6 +198,13 @@ def step(r: Regime, e: Event) -> Regime:
         return r
     if e.side not in (0, 1):
         raise AdmissionError(f"side must be 0 or 1, got {e.side}")
+    if isinstance(e, AdmitOccurrence):
+        return Regime(r.reading, r.marks + (e.token,), r.placement + (e.side,))
+    if r.marks.count(e.token) > 1:
+        raise AdmissionError(
+            f"label {e.token!r} names more than one admitted mark; the "
+            f"token-keyed admission cannot say which and is refused"
+        )
     if e.token in r.marks:
         held = r.placement[r.marks.index(e.token)]
         if held != e.side:
@@ -157,12 +217,17 @@ def step(r: Regime, e: Event) -> Regime:
 
 
 def replay(history: Sequence[Event], base: Regime) -> Regime:
-    """Replay a well-formed history, refusing a new mark not supplied first."""
+    """Replay a well-formed history, refusing an admission not supplied first."""
     r = base
     supplied: set[str] = set()
     for e in history:
         if isinstance(e, Supply):
             supplied.add(e.token)
+        elif isinstance(e, AdmitOccurrence):
+            if e.token not in supplied:
+                raise AdmissionError(
+                    f"occurrence {e.token!r} was not supplied before admission"
+                )
         elif e.token not in supplied and e.token not in r.marks:
             raise AdmissionError(f"mark {e.token!r} was not supplied before admission")
         r = step(r, e)
@@ -422,3 +487,79 @@ def is_automorphism_reflection(r: Regime) -> bool:
     if r.reading == READING_O:
         return False
     return fixed_up_to_mark_renaming(r)
+
+
+# ---------------------------------------------------------------------------
+# Challenge 2: automorphisms, mark separation, and sides
+# ---------------------------------------------------------------------------
+
+
+def automorphisms(r: Regime) -> list[tuple[bool, tuple[int, ...]]]:
+    """Every permitted renaming carrying ``r`` onto itself, tokens forgotten.
+
+    Unpruned: it filters the full ``permitted_images`` enumeration.  Each
+    entry is ``(reflected, permutation)``, and the permutation sends the mark
+    at index ``i`` to index ``permutation[i]``.
+    """
+    target = serialize(r)
+    return [
+        (reflected, pi)
+        for reflected, pi, image in permitted_images(r)
+        if serialize(image) == target
+    ]
+
+
+def _check_mark(r: Regime, mark: int) -> None:
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+
+
+def mark_automorphism_to(
+    r: Regime, i: int, j: int
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism of ``r`` carrying mark ``i`` to mark ``j``.
+
+    ``None`` when none exists.  The identity is such an automorphism when
+    ``i == j``, so the search answers the separation question only for
+    distinct marks.
+    """
+    _check_mark(r, i)
+    _check_mark(r, j)
+    for reflected, pi in automorphisms(r):
+        if pi[i] == j:
+            return (reflected, pi)
+    return None
+
+
+def marks_internally_separable(r: Regime, i: int, j: int) -> bool:
+    """Whether no permitted automorphism of ``r`` carries mark ``i`` to ``j``.
+
+    This is the declared sense in which two admitted marks are separated by
+    the resources the reading permits: if such an automorphism exists, every
+    mark property invariant under permitted renamings takes the same value at
+    the two marks, so nothing invariant tells them apart.
+    """
+    return mark_automorphism_to(r, i, j) is None
+
+
+def side_exchanging_automorphism(r: Regime) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism of ``r`` that includes the side exchange.
+
+    ``None`` when none exists.  Under ``O`` the reflection is not a permitted
+    renaming, so this is always ``None`` there.
+    """
+    for reflected, pi in automorphisms(r):
+        if reflected:
+            return (reflected, pi)
+    return None
+
+
+def mark_side(r: Regime, mark: int) -> int:
+    """The side an admitted mark lies on.  Metatheoretic reading."""
+    _check_mark(r, mark)
+    return r.placement[mark]
+
+
+def marks_on_different_sides(r: Regime) -> bool:
+    """Whether no two admitted marks lie on the same side."""
+    return len(set(r.placement)) == r.n_marks()

@@ -13,6 +13,10 @@
 'BoundarySeed.candidates_related_U' does not depend on any axioms
 'BoundarySeed.contents_genesis' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.continuation_reflects' depends on axioms: [propext]
+'BoundarySeed.exchangeFirstTwo_involutive' does not depend on any axioms
+'BoundarySeed.exchangeMarks_involutive' depends on axioms: [propext]
+'BoundarySeed.exchangeMarks_reflect_retained' depends on axioms: [propext]
+'BoundarySeed.exchangeMarks_retained_ne' depends on axioms: [propext]
 'BoundarySeed.exchangeSide_exchangeSide' depends on axioms: [propext]
 'BoundarySeed.genesis_initial_datum' does not depend on any axioms
 'BoundarySeed.genesis_placement_nil' does not depend on any axioms
@@ -23,6 +27,7 @@
 'BoundarySeed.map_not_not' depends on axioms: [propext]
 'BoundarySeed.no_event_follows' depends on axioms: [propext]
 'BoundarySeed.no_event_follows_admitted' depends on axioms: [propext]
+'BoundarySeed.no_event_follows_retained' depends on axioms: [propext]
 'BoundarySeed.no_observation_at_genesis' depends on axioms: [propext]
 'BoundarySeed.onSide_separates_candidates' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.other_continuation_is_a_reflection' depends on axioms: [propext]
@@ -33,6 +38,7 @@
 'BoundarySeed.reflect_moves_a_mark' depends on axioms: [propext]
 'BoundarySeed.reflect_reflect' depends on axioms: [propext]
 'BoundarySeed.reflect_replay' depends on axioms: [propext]
+'BoundarySeed.reflect_retained_ne' depends on axioms: [propext]
 'BoundarySeed.reflect_step' depends on axioms: [propext]
 'BoundarySeed.reflect_step_place' depends on axioms: [propext]
 'BoundarySeed.reflect_step_supply' does not depend on any axioms
@@ -44,6 +50,27 @@
 'BoundarySeed.replay_preserves_sideNamed' depends on axioms: [propext]
 'BoundarySeed.replay_reading' does not depend on any axioms
 'BoundarySeed.replay_supply_inert' does not depend on any axioms
+'BoundarySeed.retainedOtherOrder_eq' does not depend on any axioms
+'BoundarySeed.retainedOtherOrder_is_exchange' depends on axioms: [propext]
+'BoundarySeed.retainedOtherOrder_ne_retained' depends on axioms: [propext]
+'BoundarySeed.retained_composite_permitted_U' depends on axioms: [propext]
+'BoundarySeed.retained_contents_false' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.retained_contents_true' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.retained_eq' does not depend on any axioms
+'BoundarySeed.retained_exchange_transports' depends on axioms: [propext]
+'BoundarySeed.retained_initialDatum' does not depend on any axioms
+'BoundarySeed.retained_judgments_survive' depends on axioms: [propext]
+'BoundarySeed.retained_marks_differ_in_side' depends on axioms: [propext]
+'BoundarySeed.retained_marks_separated_by_a_side' depends on axioms: [propext]
+'BoundarySeed.retained_onSide_beyond' depends on axioms: [propext]
+'BoundarySeed.retained_onSide_one' depends on axioms: [propext]
+'BoundarySeed.retained_onSide_true_iff' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.retained_onSide_zero' depends on axioms: [propext]
+'BoundarySeed.retained_placement_length' does not depend on any axioms
+'BoundarySeed.retained_reading' does not depend on any axioms
+'BoundarySeed.retained_sideNamed' depends on axioms: [propext]
+'BoundarySeed.retained_sides_differ' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.retained_without_supplies' does not depend on any axioms
 'BoundarySeed.side_names_distinct' does not depend on any axioms
 'BoundarySeed.sides_collapsed_at_genesis_U' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.sides_distinct_at_genesis_O' depends on axioms: [propext, Quot.sound]
@@ -54,3 +81,4 @@
 'BoundarySeed.step_reading' does not depend on any axioms
 'BoundarySeed.supply_no_op' does not depend on any axioms
 'BoundarySeed.supply_preserves_holds' depends on axioms: [propext]
+'BoundarySeed.swapFirstTwo_involutive' depends on axioms: [propext]

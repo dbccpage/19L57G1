@@ -128,9 +128,13 @@ Json = dict[str, Any]
 
 
 def event_json(e: Event) -> dict[str, object]:
+    """Render a Challenge 1 event.  A later challenge's event kind is refused
+    by name rather than rendered under a Challenge 1 label."""
     if isinstance(e, Supply):
         return {"kind": "Supply", "token": e.token}
-    return {"kind": "AdmitMark", "token": e.token, "side": e.side}
+    if isinstance(e, AdmitMark):
+        return {"kind": "AdmitMark", "token": e.token, "side": e.side}
+    raise TypeError(f"not a Challenge 1 event: {e!r}")
 
 
 def history_json(history: list[Event]) -> list[dict[str, object]]:

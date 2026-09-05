@@ -1,5 +1,6 @@
 import BoundarySeed.Basic
 import BoundarySeed.Challenge1
+import BoundarySeed.Challenge2
 
 /-!
 # The boundary derivation: root
@@ -64,3 +65,31 @@ Challenges 0 and 1.  Every theorem below has a `#print axioms` line, and
 #print axioms BoundarySeed.bounded_invariant_judgment_does_not_separate
 #print axioms BoundarySeed.onSide_separates_candidates
 #print axioms BoundarySeed.no_event_follows_admitted
+#print axioms BoundarySeed.retained_eq
+#print axioms BoundarySeed.retained_placement_length
+#print axioms BoundarySeed.retained_without_supplies
+#print axioms BoundarySeed.retainedOtherOrder_eq
+#print axioms BoundarySeed.retained_onSide_zero
+#print axioms BoundarySeed.retained_onSide_one
+#print axioms BoundarySeed.retained_onSide_beyond
+#print axioms BoundarySeed.retained_onSide_true_iff
+#print axioms BoundarySeed.retained_marks_differ_in_side
+#print axioms BoundarySeed.retained_sideNamed
+#print axioms BoundarySeed.retained_contents_false
+#print axioms BoundarySeed.retained_contents_true
+#print axioms BoundarySeed.retained_sides_differ
+#print axioms BoundarySeed.exchangeFirstTwo_involutive
+#print axioms BoundarySeed.swapFirstTwo_involutive
+#print axioms BoundarySeed.exchangeMarks_involutive
+#print axioms BoundarySeed.exchangeMarks_reflect_retained
+#print axioms BoundarySeed.reflect_retained_ne
+#print axioms BoundarySeed.exchangeMarks_retained_ne
+#print axioms BoundarySeed.retainedOtherOrder_is_exchange
+#print axioms BoundarySeed.retainedOtherOrder_ne_retained
+#print axioms BoundarySeed.retained_composite_permitted_U
+#print axioms BoundarySeed.retained_exchange_transports
+#print axioms BoundarySeed.retained_marks_separated_by_a_side
+#print axioms BoundarySeed.retained_judgments_survive
+#print axioms BoundarySeed.retained_reading
+#print axioms BoundarySeed.retained_initialDatum
+#print axioms BoundarySeed.no_event_follows_retained

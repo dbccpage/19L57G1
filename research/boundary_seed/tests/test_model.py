@@ -18,12 +18,14 @@ from boundary.model import (  # noqa: E402
     SIDE_NAMES,
     AdmissionError,
     AdmitMark,
+    AdmitOccurrence,
     Event,
     OnSide,
     OpaqueDatum,
     Regime,
     SideNamed,
     Supply,
+    automorphisms,
     canonical,
     certify,
     contents,
@@ -32,8 +34,12 @@ from boundary.model import (  # noqa: E402
     is_automorphism_reflection,
     is_isomorphic,
     isomorphism_witness,
+    mark_automorphism_to,
     mark_observations,
     mark_profile,
+    mark_side,
+    marks_internally_separable,
+    marks_on_different_sides,
     mentioned,
     name_observations,
     new_observations,
@@ -44,6 +50,7 @@ from boundary.model import (  # noqa: E402
     rename_marks,
     replay,
     serialize,
+    side_exchanging_automorphism,
     side_profile,
     sides_collapsed,
     step,
@@ -69,13 +76,24 @@ class GenesisTests(unittest.TestCase):
         bad = (
             ("V", (), (), INITIAL_DATUM),
             (READING_U, ("a",), (), INITIAL_DATUM),
-            (READING_U, ("a", "a"), (0, 1), INITIAL_DATUM),
             (READING_U, ("a",), (2,), INITIAL_DATUM),
             (READING_U, (), (), OpaqueDatum(1)),
         )
         for args in bad:
             with self.subTest(args=args), self.assertRaises(AdmissionError):
                 Regime(*args)
+
+    def test_a_repeated_label_is_a_valid_regime_from_challenge_2(self) -> None:
+        # Challenges 0 and 1 refused this construction, which identified the
+        # presentation token with the internal identity.  Challenge 2 supplies
+        # two wholes carrying the same visible mark, so the requirement is
+        # withdrawn: the label repeats and the two internal identities, the
+        # admission indices, do not.
+        r = Regime(READING_U, ("a", "a"), (0, 1))
+        self.assertEqual(r.n_marks(), 2)
+        self.assertEqual(mark_side(r, 0), 0)
+        self.assertEqual(mark_side(r, 1), 1)
+        self.assertNotEqual(mark_profile(r, 0), mark_profile(r, 1))
 
 
 class EventTests(unittest.TestCase):
@@ -323,6 +341,133 @@ class Challenge1KernelTests(unittest.TestCase):
                         is_isomorphic(a, b), canonical(a) == canonical(b), (a, b)
                     )
 
+
+class Challenge2KernelTests(unittest.TestCase):
+    def test_occurrence_admission_admits_a_fresh_mark_whatever_the_label(self) -> None:
+        for rd in READINGS:
+            g = genesis(rd)
+            history: list[Event] = [
+                Supply("a"),
+                AdmitOccurrence("a", 0),
+                Supply("a"),
+                AdmitOccurrence("a", 1),
+            ]
+            r = replay(history, g)
+            self.assertEqual(r.marks, ("a", "a"))
+            self.assertEqual(r.placement, (0, 1))
+            self.assertTrue(certify(history, g, r))
+
+    def test_occurrence_admission_refuses_an_unsupplied_token_by_name(self) -> None:
+        g = genesis(READING_U)
+        with self.assertRaisesRegex(AdmissionError, "was not supplied before admission"):
+            replay([AdmitOccurrence("a", 0)], g)
+        self.assertFalse(certify([AdmitOccurrence("a", 0)], g, Regime(READING_U, ("a",), (0,))))
+
+    def test_occurrence_admission_refuses_a_bad_side(self) -> None:
+        with self.assertRaisesRegex(AdmissionError, "side must be 0 or 1"):
+            step(genesis(READING_U), AdmitOccurrence("a", 2))
+
+    def test_token_keyed_admission_refuses_a_repeated_label_by_name(self) -> None:
+        # The Challenge 1 event is keyed by the label; on a regime that carries
+        # the label twice it cannot say which mark it names, and refuses rather
+        # than taking the earliest.
+        r = Regime(READING_O, ("a", "a"), (0, 1))
+        with self.assertRaisesRegex(AdmissionError, "names more than one admitted mark"):
+            step(r, AdmitMark("a", 0))
+        self.assertEqual(step(r, AdmitMark("b", 0)).marks, ("a", "a", "b"))
+
+    def test_the_two_identity_policies_disagree_on_the_callers_history(self) -> None:
+        # The same caller history under the two admission events: the
+        # token-keyed one is refused because the second whole names the first
+        # mark; the occurrence-keyed one admits two marks.
+        for rd in READINGS:
+            g = genesis(rd)
+            shared: list[Event] = [
+                Supply("a"), AdmitMark("a", 0), Supply("a"), AdmitMark("a", 1)
+            ]
+            with self.assertRaisesRegex(AdmissionError, "would move it and is refused"):
+                replay(shared, g)
+            distinct: list[Event] = [
+                Supply("a"), AdmitOccurrence("a", 0), Supply("a"), AdmitOccurrence("a", 1)
+            ]
+            self.assertEqual(replay(distinct, g).n_marks(), 2)
+
+    def test_automorphisms_are_the_self_carrying_permitted_renamings(self) -> None:
+        u = Regime(READING_U, ("a", "a"), (0, 1))
+        o = Regime(READING_O, ("a", "a"), (0, 1))
+        self.assertEqual(sorted(automorphisms(u)), [(False, (0, 1)), (True, (1, 0))])
+        self.assertEqual(automorphisms(o), [(False, (0, 1))])
+        # every automorphism is a permitted renaming that serializes back
+        for r in (u, o):
+            for reflected, pi in automorphisms(r):
+                self.assertIn(
+                    (reflected, pi),
+                    [(refl, perm) for refl, perm, _img in permitted_images(r)],
+                )
+        self.assertEqual(automorphisms(genesis(READING_U)), [(False, ()), (True, ())])
+        self.assertEqual(automorphisms(genesis(READING_O)), [(False, ())])
+
+    def test_marks_are_separable_under_O_and_exchanged_under_U(self) -> None:
+        u = Regime(READING_U, ("a", "a"), (0, 1))
+        o = Regime(READING_O, ("a", "a"), (0, 1))
+        self.assertEqual(mark_automorphism_to(u, 0, 1), (True, (1, 0)))
+        self.assertFalse(marks_internally_separable(u, 0, 1))
+        self.assertIsNone(mark_automorphism_to(o, 0, 1))
+        self.assertTrue(marks_internally_separable(o, 0, 1))
+        # the identity carries every mark to itself under both readings
+        for r in (u, o):
+            self.assertEqual(mark_automorphism_to(r, 0, 0), (False, (0, 1)))
+            self.assertFalse(marks_internally_separable(r, 0, 0))
+        # two marks on the SAME side are exchanged under both readings
+        same = Regime(READING_O, ("a", "a"), (1, 1))
+        self.assertEqual(mark_automorphism_to(same, 0, 1), (False, (1, 0)))
+        self.assertFalse(marks_internally_separable(same, 0, 1))
+        for bad in (-1, 2):
+            with self.assertRaises(ValueError):
+                mark_automorphism_to(u, bad, 0)
+            with self.assertRaises(ValueError):
+                mark_automorphism_to(u, 0, bad)
+
+    def test_side_exchanging_automorphism_only_under_U(self) -> None:
+        u = Regime(READING_U, ("a", "a"), (0, 1))
+        o = Regime(READING_O, ("a", "a"), (0, 1))
+        self.assertEqual(side_exchanging_automorphism(u), (True, (1, 0)))
+        self.assertIsNone(side_exchanging_automorphism(o))
+        # one mark: the reflection moves it, so no automorphism exchanges sides
+        self.assertIsNone(side_exchanging_automorphism(Regime(READING_U, ("a",), (0,))))
+        self.assertEqual(side_exchanging_automorphism(genesis(READING_U)), (True, ()))
+        self.assertIsNone(side_exchanging_automorphism(genesis(READING_O)))
+
+    def test_mark_side_and_different_sides(self) -> None:
+        r = Regime(READING_U, ("a", "a"), (0, 1))
+        self.assertEqual((mark_side(r, 0), mark_side(r, 1)), (0, 1))
+        with self.assertRaises(ValueError):
+            mark_side(r, 2)
+        self.assertTrue(marks_on_different_sides(r))
+        self.assertTrue(marks_on_different_sides(genesis(READING_U)))
+        self.assertTrue(marks_on_different_sides(Regime(READING_O, ("a",), (0,))))
+        self.assertFalse(marks_on_different_sides(Regime(READING_O, ("a", "b"), (1, 1))))
+        self.assertFalse(
+            marks_on_different_sides(Regime(READING_O, ("a", "b", "c"), (0, 1, 0)))
+        )
+
+    def test_different_sides_is_invariant_under_every_permitted_renaming(self) -> None:
+        # The falsifier of C2-7: a permitted renaming after which two marks
+        # share a side.  Checked over every regime of at most three marks
+        # under both readings, and over every permitted image of each.
+        checked = 0
+        for rd in READINGS:
+            for n in range(4):
+                marks = tuple(f"m{i}" for i in range(n))
+                for placement in product((0, 1), repeat=n):
+                    r = Regime(rd, marks, placement)
+                    want = marks_on_different_sides(r)
+                    for _reflected, _pi, image in permitted_images(r):
+                        self.assertEqual(marks_on_different_sides(image), want, r)
+                        checked += 1
+        # 177 images: for each of the 2^n placements, 2*n! under U and n!
+        # under O, summed over n = 0 to 3.
+        self.assertEqual(checked, 177)
 
 
 if __name__ == "__main__":

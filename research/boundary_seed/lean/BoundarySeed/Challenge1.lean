@@ -14,10 +14,16 @@ covered.
 
 namespace BoundarySeed
 
-/-- The Challenge 1 history: a supply, then a placement on side `s`. -/
+/-- The Challenge 1 CANDIDATE history: a supply, then a placement on side
+`s`.  It is not the caller's history at Challenge 1, which is the supply
+alone: the caller supplies and does not retain, and nothing is admitted at
+that rung.  The name is kept as it was first written, because a frozen
+receipt, a claim ledger, and an axiom log cite the theorems built on it. -/
 def challenge1History (s : Bool) : List Event := [.supply, .place s]
 
-/-- The admitted one-mark regime under reading `rd` with the mark on `s`. -/
+/-- The one-mark CANDIDATE regime under reading `rd` with the mark on `s`:
+the replay of the candidate history above.  It is a certified candidate and
+not a current state, and the name is kept for the same reason. -/
 def admitted (rd : Reading) (s : Bool) : Regime :=
   replay (challenge1History s) (genesis rd)
 
@@ -245,10 +251,13 @@ theorem admitted_candidates_unequal (rd : Reading) (s : Bool) :
   intro h
   cases s <;> simp at h
 
-/-- The Challenge 1 isomorphism relation, sufficient for regimes with at most
-one mark: equality, or the reflection when the reading permits it.  Mark
-permutations are the identity at one mark; the Python relation covers them
-in general. -/
+/-- A relation intended for regimes with at most one mark: equality, or the
+reflection when the reading permits it.  Its adequacy there — that at one
+mark every mark permutation is the identity, so this is the isomorphism
+relation restricted to such regimes — is PROSE and not a theorem of this
+file; the implemented relation, mark permutations included, is the Python
+one, and a Lean statement about this relation is a statement about it
+alone. -/
 def oneMarkRelated (rd : Reading) (a b : Regime) : Prop :=
   a = b ∨ (reflectionPermitted rd ∧ b = reflect a)
 
