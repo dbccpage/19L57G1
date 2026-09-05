@@ -1249,3 +1249,81 @@ them would regenerate a closed rung's receipt or edit a closed rung's status.
 The paper carries the correction for each.
 
 Declined: nothing.
+
+## 2026-09-05, Challenge 4 exact-head review repair
+
+Nine surviving findings from the review of `ea3da12c`, all `should_fix`, two of
+them one defect seen from two sides.  The frozen `challenge4/PREDICTIONS.md` was
+not touched, no prediction changed status, and no computed result of the rung
+moved.  What moved is what the prose and the receipt claimed about those
+results.
+
+- **Proved, not narrowed.**  Three prose sites, the rung's status row, and two
+  ledger entries said the boundary separates neither of the two pairs of marks
+  that share a side and cited `crossRetained_marks_share_a_side`, which states
+  it of marks 0 and 2 only.  The other such pair is marks 1 and 3.  The
+  companion `crossRetained_other_marks_share_a_side` now states it of that
+  pair, one line, immediate from the two evaluations already in the file, so
+  the sentence is proved as written rather than weakened to fit.  The axiom log
+  was regenerated deliberately, 138 to 139 reports, with no injection live.
+- **Withdrawn.**  "Which is proved rather than computed", in the same sentence:
+  the receipt's `base.separable_mark_pairs` computes both exclusions, so the
+  contrast was false in the direction that flatters the proof.  The sentence
+  now says the receipt computes it and Lean proves it.
+- **Corrected.**  The boundary's price table said two of the five declared
+  whole properties are not formulable without the boundary; the receipt's own
+  capability text says every one but the index and the tag properties, which is
+  three, and the paper's own section 5.16 row and the ledger say three.  The
+  third is the label-and-side property, whose body reads the placement.  The
+  table now says three and names which.
+- **Scoped.**  B4-WITNESS-CLAUSE claimed the witness list is empty "at every
+  point that fails the requirement".  The census is computed only at the base
+  and the eight one-step points — nine rows per reading — and the 192 point rows
+  carry no witness column at all; under U 42 points fail the requirement and
+  eight of them carry a census.  The entry now says what is computed.
+- **Corrected, in this rung's own receipt.**  The Challenge 4
+  `boundary_dependence` field repeated verbatim the defect the rung recorded
+  itself as correcting: its fifth key read "every separation result of the
+  rung" with no exception, contradicting the key immediately above it, which
+  classifies the withdrawal of the mark permutations — a separation result of
+  this rung, and the unique satisfying one-step point under U — as independent
+  of the boundary.  It also omitted the grouping square's cells, which the
+  paper's row and the status include.  The key now carries both, and
+  `receipts/challenge4.json` was regenerated deliberately, 795554 to 795960
+  bytes, with no injection live.  The field is this rung's own, so regenerating
+  it closes no other rung's receipt; that is why this one is corrected where
+  the Challenge 3 field is carried.
+- **Corrected.**  B4-GROUPING-IS-METATHEORY was the only one of the ledger's
+  entries with no **Axiom report** field, which the ledger's header and the
+  seed's section 9 require of every entry; it now reads "not applicable", as
+  the other Lean-less entries do.
+- **Reworded, and the earlier claim narrowed.**  "Internal designation", a
+  second sense of a word section 1 reserves for current-state designation, was
+  reintroduced by this rung in `challenge4.py`'s capability text for the
+  withdrawal of the mark permutations and in the `Challenge4.lean` doc comment,
+  and reached the receipt three times — while the rung recorded that every use
+  in the run's own prose had been reworded.  Both now read "internally
+  available", the receipt carries the phrase nowhere, and the sweep claim in
+  `challenge4/STATUS.md` is narrowed to the documents it actually covered.
+  `challenge3.py` keeps the phrase and is carried with that rung's other items,
+  its repair regenerating a closed rung's receipt.
+- **Relabelled DEFINITION-level.**  The reduction of the whole sense to the
+  Challenge 3 sense was presented as computed and counted among C4-8's content.
+  At the Challenge 3 configuration each whole is a single mark, and
+  `group_carrying_automorphism`'s set test is then
+  `mark_carrying_automorphism`'s mark test over the same list of automorphisms:
+  the agreement is true by unfolding, and the frozen falsifier "the two senses
+  disagreeing at the Challenge 3 configuration" cannot fire.  Definition 52,
+  the C4-8 basis in the paper and in the receipt, and B4-REQUIREMENT and
+  B4-TWO-SENSES now say so, and C4-8's content is the 192-point census and the
+  parting points.  C4-8 remains HIT; what changes is what it is a hit on.
+- The paper's Lean counts move from 138 to 139 with the companion theorem, and
+  the Challenge 4 receipt's recorded size from 795554 to 795960 bytes.  Both
+  regenerations are recorded as rows in `MANUAL.md`, and the stale-receipt
+  failure was observed before the regeneration rather than assumed.
+
+Carried, with reasons: `challenge3.py`'s capability text carrying "internal
+designation", alongside that rung's already-carried items, for the same reason
+— repairing it regenerates a closed rung's receipt.
+
+Declined: nothing.

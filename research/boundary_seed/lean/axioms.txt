@@ -29,6 +29,7 @@
 'BoundarySeed.crossRetained_onSide_true_iff' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.crossRetained_onSide_two' depends on axioms: [propext]
 'BoundarySeed.crossRetained_onSide_zero' depends on axioms: [propext]
+'BoundarySeed.crossRetained_other_marks_share_a_side' depends on axioms: [propext]
 'BoundarySeed.crossRetained_placement' does not depend on any axioms
 'BoundarySeed.crossRetained_placement_length' does not depend on any axioms
 'BoundarySeed.crossRetained_reading' does not depend on any axioms

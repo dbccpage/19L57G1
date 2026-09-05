@@ -1763,6 +1763,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   `test_a_configuration_needs_one_tag_per_mark`.
 - **Lean theorem**: none; the Lean regime carries no grouping either, which is
   why a whole is named there by an index map.
+- **Axiom report**: not applicable.
 - **Falsifier**: a component of the regime that carries the grouping without a
   declared augmentation.
 - **Surviving boundary**: every Challenge 4 result stated in the whole sense.
@@ -1779,10 +1780,11 @@ Python receipt, bounded), LIMITATION, OPEN.
   whole's orbit.  The sense reduces to definition 38's at the Challenge 3
   configuration, where each whole is one mark, which the receipt computes under
   both readings.
-- **Status**: DEFINITION (the sense, and the half of the agreement the orbit
-  witness gives by unfolding); COMPUTED (that the first reading and the
-  declared witness agree at all 192 points under each reading, and the
-  reduction).  Two things are neither computed nor proved and are narrowed into
+- **Status**: DEFINITION (the sense; the half of the agreement the orbit
+  witness gives by unfolding; and the reduction, which the receipt computes but
+  which holds by unfolding where each whole is a single mark); COMPUTED (that
+  the first reading and the declared witness agree at all 192 points under each
+  reading).  Two things are neither computed nor proved and are narrowed into
   the statement: the direction back from an arbitrary property of the second
   reading's kind to the first, which is definition 33's justifying sentence and
   is prose; and the premise definition 54's "by construction" rests on, that a
@@ -1801,7 +1803,8 @@ Python receipt, bounded), LIMITATION, OPEN.
   relation, which is Python.
 - **Axiom report**: not applicable.
 - **Falsifier**: a point at which the first reading and the declared witness
-  disagree; or the two senses disagreeing at the Challenge 3 configuration.
+  disagree.  The frozen falsifier naming a disagreement of the two senses at
+  the Challenge 3 configuration cannot fire, the reduction being by unfolding.
 - **Surviving boundary**: Challenge 4 onward; the sense itself does not require
   the admitted boundary.
 
@@ -1818,9 +1821,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   four.
 - **Status**: COMPUTED (the automorphism counts, the whole-carrying witness,
   and the pair census, all over the unpruned enumeration); PROVED (that the
-  exchange carries the retained regime onto itself, and that the two marks
-  sharing a side satisfy the same mark-on-side judgments).  Counted as content:
-  score C4-2.
+  exchange carries the retained regime onto itself, and that each of the two
+  pairs of marks that share a side satisfies the same mark-on-side judgments,
+  one theorem per pair).  Counted as content: score C4-2.
 - **Dependencies**: definitions 16, 51, 52; B4-RETENTION.
 - **Assumptions**: the declared sense, and the reading's own renamings.
 - **Python evidence**: receipt `readings.*.base.satisfies`,
@@ -1831,9 +1834,10 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Lean theorem**: `BoundarySeed.exchangeWholesRegime_crossRetained`,
   `BoundarySeed.exchangeWholes_carries_the_first_whole`,
   `BoundarySeed.crossRetained_marks_share_a_side`,
+  `BoundarySeed.crossRetained_other_marks_share_a_side`,
   `BoundarySeed.reflect_crossRetained_ne`,
   `BoundarySeed.exchangeMarks_crossRetained_ne`.
-- **Axiom report**: propext; none; propext; propext; propext.
+- **Axiom report**: propext; none; propext; propext; propext; propext.
 - **Falsifier**: the O regime meeting the requirement; a whole-carrying
   automorphism that uses the side exchange under O; a pair census other than
   four-and-two under O or empty under U.
@@ -2036,8 +2040,13 @@ Python receipt, bounded), LIMITATION, OPEN.
   under U and 16 under O the two wholes are separable while some pair of marks
   is not, the grouping-with-names point among them.  At the Challenge 3
   configuration, where each whole is one mark, the two senses agree.
-- **Status**: COMPUTED, a census over the 192 points under each reading, with
-  the reduction computed rather than asserted.  Counted as content: score C4-8.
+- **Status**: COMPUTED, a census over the 192 points under each reading.
+  Counted as content: score C4-8, on the census and the parting points.  The
+  reduction at the Challenge 3 configuration is computed rather than asserted
+  but is **DEFINITION-level** and is no part of that content: with each whole a
+  single mark the whole sense's set test unfolds to the pointwise sense's mark
+  test over the same list of automorphisms, so the two senses cannot disagree
+  there and the falsifier below that names that disagreement cannot fire.
   The implication is computed over the space and is not proved in general.
 - **Dependencies**: definitions 33, 52, 53.
 - **Assumptions**: the two wholes are disjoint and non-empty, which the kernel
@@ -2051,8 +2060,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   relation.
 - **Axiom report**: not applicable.
 - **Falsifier**: a point at which the pointwise sense holds and the whole sense
-  fails; the two senses agreeing at every point; or disagreeing at the
-  Challenge 3 configuration.
+  fails; or the two senses agreeing at every point.  The frozen third
+  falsifier, the two senses disagreeing at the Challenge 3 configuration,
+  cannot fire, for the reason given under Status.
 - **Surviving boundary**: the declared space at the retained configuration.
 
 ### B4-WITNESS-CLAUSE
@@ -2064,10 +2074,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   the property that reads the group tag is invariant under every permitted
   renaming at the base and separates the two wholes there, so a census of
   invariance alone reports a witness at the very point where the requirement
-  fails.  With both conjuncts the witness list is empty at every point that
-  fails the requirement and names exactly one property at each satisfying
-  one-step point: the index property under both readings, and the
-  label-and-side property under O.
+  fails.  With both conjuncts the witness list is empty at the base and at
+  every one-step point that fails the requirement, and names exactly one
+  property at each satisfying one-step point: the index property under both
+  readings, and the label-and-side property under O.  Those nine rows per
+  reading are the whole population the census is run over: the 192 point rows
+  carry no witness column, so nothing is claimed about the bundled points.
 - **Status**: COMPUTED, two censuses over the declared domain of 768
   configurations per reading.  Counted as content: it carries score C4-3's
   content and the mechanism halves of C4-5 and C4-6.  **The defect was live**:
@@ -2106,11 +2118,11 @@ Python receipt, bounded), LIMITATION, OPEN.
   whole's copy of the first token is a token the caller never presented is
   reached by a permitted renaming under both readings.
 - **Status**: COMPUTED (the property census, the mark profiles, and the
-  matching comparison); PROVED (that the two marks sharing a side satisfy the
-  same mark-on-side judgments).  Counted as content: score C4-3, which is
-  **PARTIAL**: its clause that both side-reading properties are invariant under
-  both readings is false under U, where the side exchange moves a mark's side,
-  and the miss is recorded next to its value.
+  matching comparison); PROVED (that each of the two pairs of marks that share
+  a side satisfies the same mark-on-side judgments).  Counted as content: score
+  C4-3, which is **PARTIAL**: its clause that both side-reading properties are
+  invariant under both readings is false under U, where the side exchange moves
+  a mark's side, and the miss is recorded next to its value.
 - **Dependencies**: definitions 22, 34, 55, 58; B4-FAILS-UNDER-BOTH.
 - **Assumptions**: the classification of a contribution is the run's.
 - **Python evidence**: receipt `readings.*.base.separating_whole_properties`,
@@ -2118,8 +2130,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   `scores.C4-3`; `test_the_recorded_miss_of_this_rung`,
   `test_the_matching_variant_replaces_one_token_and_refuses_none`,
   `test_c4_3_moves_between_partial_and_hit_on_its_own_clauses`.
-- **Lean theorem**: `BoundarySeed.crossRetained_marks_share_a_side`.
-- **Axiom report**: propext.
+- **Lean theorem**: `BoundarySeed.crossRetained_marks_share_a_side`,
+  `BoundarySeed.crossRetained_other_marks_share_a_side`.
+- **Axiom report**: propext; propext.
 - **Falsifier**: a side-reading whole property that separates the two wholes;
   the cross-boundary matching being internally available at the retained
   configuration under either reading.

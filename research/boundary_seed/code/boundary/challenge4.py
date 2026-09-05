@@ -193,7 +193,7 @@ CAPABILITY_OF: dict[str, str] = {
     ),
     "withdraw_mark_permutations": (
         "a mark's admission index is internally available: the metatheoretic "
-        "name definition 3 assigns is declared to be an internal designation"
+        "name definition 3 assigns is declared to be internally available"
     ),
     "admit_names": (
         "the two sides carry admitted names, so the judgment grammar of the "
@@ -406,8 +406,8 @@ BOUNDARY_DEPENDENCE: dict[str, str] = {
         "the caller's history, not by the sides"
     ),
     "the side exchange, its withdrawal, the two side-reading whole "
-    "properties, the label-and-side property, and every separation result of "
-    "the rung": (
+    "properties, the label-and-side property, the grouping square's cells, "
+    "and every separation result of the rung except the index withdrawal": (
         "require the admitted boundary and are not formulated after removing it"
     ),
     "the further-mark coordinate": (
@@ -1322,7 +1322,10 @@ def reduction_to_challenge_3(reading: str) -> Json:
 
     The Challenge 2 retention replayed with one tag per whole: two marks,
     placement `(0, 1)`, labels `("a", "a")`.  The comparison is computed and
-    not asserted.
+    not asserted, but the agreement is DEFINITION-level: with each whole a
+    single mark, ``group_carrying_automorphism``'s set test is
+    ``mark_carrying_automorphism``'s mark test over the same list of
+    automorphisms, so the two senses cannot disagree here.
     """
     g = genesis(reading)
     history: list[Event] = [
@@ -1838,8 +1841,14 @@ def score(u: Json, o: Json, reader: Json, observation_kinds: list[str]) -> Json:
             "result_basis": (
                 "content: the pointwise sense is a search per pair, the whole "
                 "sense a search per whole, and their comparison a census over "
-                "the 192 points; the reduction is computed at the Challenge 3 "
-                "configuration and not asserted"
+                "the 192 points, with the parting points named.  The reduction "
+                "at the Challenge 3 configuration is DEFINITION-level: with "
+                "each whole a single mark the whole sense's set test unfolds "
+                "to the pointwise sense's mark test over the same list of "
+                "automorphisms, so the two cannot disagree there and the "
+                "frozen falsifier that names that disagreement cannot fire.  "
+                "The receipt computes it rather than asserting it, and it is "
+                "reported separately and not counted"
             ),
             "evidence": (
                 "the pointwise sense implies the whole sense at every point of "

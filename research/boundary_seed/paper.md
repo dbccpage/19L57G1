@@ -568,9 +568,14 @@ whole Challenge 3 candidate space are Python-only.
     configuration carries the mark-set of one onto the mark-set of the other.
     It reduces to definition 38's sense at the Challenge 3 configuration,
     where each whole is a single mark, which the receipt computes under both
-    readings rather than asserting.  The caller's demand is an externally
-    imposed challenge; the sense is a derived definition of the run, and a
-    different sense was available.
+    readings rather than asserting — but the agreement there is
+    **DEFINITION-level**, not a result: with each whole a single mark the
+    set test of the whole sense unfolds to the mark test of the pointwise
+    sense over the same list of automorphisms, so the two cannot disagree at
+    that configuration and the frozen falsifier naming that disagreement
+    cannot fire.  The caller's demand is an externally imposed challenge; the
+    sense is a derived definition of the run, and a different sense was
+    available.
 53. **The pointwise sense (Challenge 4).**  Definition 33 taken over every
     pair: every pair of distinct admitted marks is separable.  It is declared
     beside the requirement and computed beside it; the receipt computes that
@@ -1336,7 +1341,7 @@ which reading O does not already meet it.
 | the two retained wholes meet the requirement | **no** | **no** | `base.satisfies`; Lean `exchangeWholesRegime_crossRetained` for the map that carries the regime onto itself |
 | what carries one whole onto the other | the exchange of the two wholes, permutation `[2, 3, 0, 1]`, **with no side exchange** | the same map, and it is the only kind there is | `base.whole_exchange_witness`; Lean `exchangeWholes_carries_the_first_whole`, `exchangeWholesRegime_crossRetained` |
 | the side exchange | is a permitted automorphism of the configuration | is not | `base.side_exchange_witness`; Lean `reflect_crossRetained_ne` shows the side exchange alone does not fix it |
-| pairs of distinct marks that are separable | **none of the six** | **four of the six**: exactly the pairs on different sides | `base.separable_mark_pairs`; Lean `crossRetained_marks_share_a_side` for the two that are not |
+| pairs of distinct marks that are separable | **none of the six** | **four of the six**: exactly the pairs on different sides | `base.separable_mark_pairs`; Lean `crossRetained_marks_share_a_side` and `crossRetained_other_marks_share_a_side`, one per pair, for the two that are not |
 | the two sides carry | two marks each | same | `base.marks_on_each_side`; Lean `crossRetained_counts_equal` |
 | adding judgment forms, whatever the forms | cannot meet the requirement while the whole exchange is a permitted renaming | same | Lean `no_invariant_pair_property_separates_the_wholes`, quantified over an arbitrary property of a pair of marks; `no_invariant_mark_property_separates_the_paired_marks` for a single mark |
 | any continuation whatever | never removes the obstruction: the whole exchange still carries the regime onto itself after every later history | same | Lean `whole_exchange_survives_every_continuation`, and `whole_exchange_survives_a_further_mark` for the Challenge 3 third minimum |
@@ -1375,8 +1380,9 @@ what it contributed at Challenge 3 — the side each mark lies on, and each
 mark's profile is its side and nothing else — but that now sorts four marks
 into two classes of two and no finer.  Under O it still separates marks that
 lie on different sides, four of the six pairs; it separates neither of the two
-pairs that share a side, which is proved rather than computed
-(`crossRetained_marks_share_a_side`), and each whole has one mark in each
+pairs that share a side, which the receipt computes and Lean proves for both
+pairs, one theorem each (`crossRetained_marks_share_a_side`,
+`crossRetained_other_marks_share_a_side`), and each whole has one mark in each
 class, so it separates no whole from the other.  What it cannot contribute is
 which mark within a side is which, the grouping of marks into wholes, and the
 matching of a visible mark across the boundary: the configuration in which the
@@ -1421,7 +1427,7 @@ continuation and not only for one further mark.
 
 | capability | what it buys at Challenge 4 |
 |---|---|
-| the admitted boundary | that a mark lies on a side at all: two of the five declared whole properties, six of the eight collateral facts, and the further-mark coordinate are not formulable without it.  It does **not** buy the requirement under either reading |
+| the admitted boundary | that a mark lies on a side at all: three of the five declared whole properties — every one but the index one and the tag one — six of the eight collateral facts, and the further-mark coordinate are not formulable without it.  It does **not** buy the requirement under either reading |
 | the O reading's side names | nothing the requirement uses directly |
 | the O reading's withdrawal of the side exchange | not the requirement, which the whole exchange defeats without the side exchange; it buys that a property reading a label and a side is invariant, which is what the label-keeping minimum uses under O |
 | the Challenge 2 occurrence identity | that the four presented marks are four admitted marks at all |
@@ -1440,7 +1446,7 @@ continuation and not only for one further mark.
 | C4-5 the minimum under U, and its uniqueness | FORCED | HIT | counted as content: which one-step points meet the requirement is a search at each candidate's own renamings, and the class count is the implemented quotient.  That the one minimum meets it by unfolding is DEFINITION-level and the receipt says so separately |
 | C4-6 the minima under O | FORCED | HIT | counted as content: the same search and the same quotient under the other reading |
 | C4-7 the grouping is a bundle | FORCED | HIT | counted as content: each cell of the grouping square is an automorphism search with both values attained, and the collapse of the name-wholes point is the implemented quotient |
-| C4-8 the two senses part | FORCED | HIT | counted as content: the pointwise sense is a search per pair, the whole sense a search per whole, their comparison a census over the 192 points, and the reduction is computed at the Challenge 3 configuration |
+| C4-8 the two senses part | FORCED | HIT | counted as content: the pointwise sense is a search per pair, the whole sense a search per whole, and their comparison a census over the 192 points with the parting points named.  The reduction at the Challenge 3 configuration is **DEFINITION-level**, true by unfolding where each whole is one mark, so it is computed and reported separately and is no part of the content |
 | C4-X extrapolation | NOT FORCED | PENDING | scored by Challenge 5 |
 
 Seven of eight scored predictions hit and one is PARTIAL; five hit as content
@@ -1513,7 +1519,9 @@ The one exception in the fifth row is stated because Challenge 3's
 corresponding row said "every separation result of the rung" without one, and
 the withdrawal of the mark permutations is a separation result that the row
 above it classifies as independent of the boundary.  Both rows are corrected
-here; the Challenge 3 receipt's own field is carried, with its reason, in
+here.  The Challenge 4 receipt's own field repeated the same defect and was
+corrected with them, in the review repair recorded in `change_log.md`; the
+Challenge 3 receipt's field is carried, with its reason, in
 `challenge4/STATUS.md`.
 
 ### 5.17 Challenge 5
@@ -1529,7 +1537,7 @@ Not yet declared; it is declared after Challenge 3 by the seed's order.
 ## 7. Proofs and countermodels
 
 Lean package `lean/`, core Lean only, no dependency on any other package
-in this repository.  One hundred and thirty-eight theorems, every one with a
+in this repository.  One hundred and thirty-nine theorems, every one with a
 `#print axioms`
 report in `lean/axioms.txt`, checked against a successful clean and fresh
 build by `verify_lean.py`; every report lies within
@@ -1551,7 +1559,7 @@ the same injected theorem left the build reporting `lean ok: 84 axiom
 reports … matching lean/axioms.txt`.  What the check does not do is read the
 compiled environment, so a theorem the source-text scan cannot see would
 escape it; the scan's population and the root's citation list currently
-agree exactly, 138 and 138, in both directions.
+agree exactly, 139 and 139, in both directions.
 
 ### 7.1 Challenge 0 (`Basic.lean`)
 
@@ -1870,6 +1878,7 @@ obstruction is permitted under both.
 | `crossRetained_onSide_beyond` | no judgment naming a fifth mark holds | propext |
 | `crossRetained_onSide_true_iff` | exactly four mark-on-side judgments hold, one per mark | propext, Quot.sound |
 | `crossRetained_marks_share_a_side` | **the boundary does not separate two marks that share a side**: the first and third marks satisfy the same mark-on-side judgments | propext |
+| `crossRetained_other_marks_share_a_side` | the same of the other such pair, the second and fourth marks, so that both pairs are proved and not one | propext |
 | `crossRetained_sideNamed` | every side-name judgment holds as at genesis | propext |
 | `exchangeWholes_involutive` | the exchange of the two wholes is an involution on internal identities | none |
 | `exchangeWholes_zero` | it sends the first identity to the third | none |
@@ -1902,8 +1911,9 @@ theorem, and not counted as content: `crossRetained_eq`,
 `crossRetained_placement`, `crossRetained_placement_length`,
 `exchangeWholes_involutive`, `exchangeWholes_zero`, `exchangeWholes_one`,
 `exchangeWholes_carries_the_first_whole`, `exchangeWholesRegime_crossRetained`
-(`rfl` on the four-entry placement), `crossRetained_marks_share_a_side` (the
-two evaluations rewritten together), `crossRetained_sideNamed`,
+(`rfl` on the four-entry placement), `crossRetained_marks_share_a_side` and
+`crossRetained_other_marks_share_a_side` (the two evaluations of each pair
+rewritten together), `crossRetained_sideNamed`,
 `crossRetained_judgments_survive`, `crossRetained_reading`,
 `crossRetained_initialDatum`, and `no_event_follows_crossRetained` (the last
 four instantiations of Challenge 0 and Challenge 1 theorems).  The content is
@@ -1936,7 +1946,7 @@ coordinates have no Lean counterpart at all.
   regenerated byte-identically by `run_challenge0.py` through
   `run_challenge4.py` and checked by the tests and by the research job.
 - The Challenge 2 receipt is 35499 bytes, the Challenge 3 receipt 220518,
-  and the Challenge 4 receipt 795554, all inside the megabyte at which the
+  and the Challenge 4 receipt 795960, all inside the megabyte at which the
   run would owe a summary and a gzip with a content hash, so all are
   committed whole; a test holds each of the last two to that bound.  The
   Challenge 4 receipt is large because the enumeration IS the evidence: 192
@@ -1964,12 +1974,14 @@ coordinates have no Lean counterpart at all.
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
-- `lean/axioms.txt`: 138 reports.  It was regenerated once at Challenge 1
+- `lean/axioms.txt`: 139 reports.  It was regenerated once at Challenge 1
   when the theorem set was final, three more times during that rung's
   review repairs, once at Challenge 2 when its twenty-eight theorems were
   final, 56 to 84 reports, once at Challenge 3 when its twenty-one were
   final, 84 to 105, and once at Challenge 4 when its thirty-three were
-  final, 105 to 138; no regeneration was under a live injection.
+  final, 105 to 138, and once at this rung's review repair when the
+  companion theorem for the other pair sharing a side was added, 138 to 139;
+  no regeneration was under a live injection.
 - Injection record: `MANUAL.md`.
 
 ## 9. The strongest defensible statement so far

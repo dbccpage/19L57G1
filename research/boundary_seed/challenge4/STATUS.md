@@ -34,8 +34,9 @@ no definition, candidate, or result.
 
 ## Results
 
-Receipt `receipts/challenge4.json` (795554 bytes); full tables in `paper.md`
-sections 5.13 to 5.16.
+Receipt `receipts/challenge4.json` (795960 bytes, after the review repair
+below regenerated it from 795554); full tables in `paper.md` sections 5.13 to
+5.16.
 
 | | reading U | reading O |
 |---|---|---|
@@ -150,8 +151,13 @@ Actioned:
    remembered-vocabulary note.  Definition 41 now carries the disclosure that
    both identifiers are the sealed derivation's own names for the same role.
 7. `paper.md:1020`, "internal designation" as a second sense of a reserved
-   word.  Every use in the run's own prose now reads "internally available",
-   definition 3's included.
+   word.  Every use in the paper's prose now reads "internally available",
+   definition 3's included.  The sweep did NOT reach code or Lean comments: it
+   left the phrase in this rung's own `challenge4.py` capability text, in the
+   `Challenge4.lean` doc comment, and in `challenge3.py`.  The first two are
+   repaired in the review repair below; the third is carried, its repair
+   regenerating a closed rung's receipt.  The narrowed claim is that the
+   sweep covered the documents named here and not the whole tree.
 8. `paper.md:1049` (carried `should_fix`), the label-keeping candidate written
    without a reading.  Section 5.9 now scopes it to U and says what happens
    under O.  The `challenge3/STATUS.md` half is carried.
@@ -228,7 +234,8 @@ one deliberate regeneration.  That is not this rung's work.
   was worked out wrong.
 - **Nothing in the numbers was remembered.**  192, 183, 8 and 4 automorphisms,
   four separable pairs of six, 18 and 16 parting points, 768 domain
-  configurations, 138 axiom reports: all the code's.
+  configurations, 138 axiom reports (139 after the review repair below): all
+  the code's.
 - **The tag-level U/O echo is the run's own observation**, made while writing
   the grouping coordinates: that naming the two whole tags stands to the
   grouping as reading O stands to the boundary.  It is used to justify two
@@ -296,6 +303,64 @@ one deliberate regeneration.  That is not this rung's work.
 - Every gate this rung added or touched has an injection row in `MANUAL.md`,
   and no receipt, log, or pin was regenerated while any injection was live.
 
+## Review repair of this rung
+
+The review of Challenge 4 returned nine surviving findings, all `should_fix`
+and two of them the same defect seen from two sides.  The frozen
+`challenge4/PREDICTIONS.md` was not touched, no prediction changed status, and
+no result of the rung moved.  Each repair is a line in `change_log.md` with its
+reason.  Declined: nothing.
+
+Actioned:
+
+1. The paper said the boundary's failure to separate either same-side pair was
+   proved, and cited one theorem, which covers marks 0 and 2 only.  The
+   companion `crossRetained_other_marks_share_a_side` now proves it of marks 1
+   and 3, so both pairs are proved and not one; the three prose sites and the
+   two ledger entries cite both, and the axiom log was regenerated deliberately
+   from 138 to 139 reports with no injection live.
+2. "Which is proved rather than computed" is withdrawn from the same sentence:
+   the receipt's `base.separable_mark_pairs` computes both exclusions, and the
+   sentence now says the receipt computes it and Lean proves it.
+3. The boundary's price table counted two of the five declared whole properties
+   as needing the boundary where the receipt's own capability text and section
+   5.16 count three; the third is the label-and-side property, whose body reads
+   the placement.  The table now says three, naming which.
+4. B4-WITNESS-CLAUSE stated an emptiness result "at every point that fails the
+   requirement" while the census is computed only at the base and the eight
+   one-step points; the entry is scoped to those nine rows per reading and says
+   the 192 point rows carry no witness column.
+5. This rung's own receipt repeated the boundary-dependence defect the rung
+   said it corrected: its fifth key read "every separation result of the rung"
+   with no exception, contradicting the key above it, which classifies the
+   index withdrawal as independent of the boundary, and it omitted the grouping
+   square's cells.  The key in `challenge4.py` now carries both, and
+   `receipts/challenge4.json` was regenerated deliberately, 795554 to 795960
+   bytes, with no injection live.  With that the ledger's B4-BOUNDARY-DEPENDENCE
+   and the paper's section 5.16 row are what the receipt says.
+6. B4-GROUPING-IS-METATHEORY was the only ledger entry with no **Axiom
+   report** field, one of the nine the ledger's own header requires of every
+   entry; it now reads "not applicable", as the other Lean-less entries do.
+7. "Internal designation", a second sense of a word the run reserves for
+   current-state designation, was reintroduced by this rung in
+   `challenge4.py`'s capability text and in the `Challenge4.lean` doc comment,
+   and reached the receipt three times.  Both now read "internally available"
+   and the receipt carries the phrase nowhere.  The claim that every use in the
+   run's own prose had been swept is narrowed above to the documents the sweep
+   actually covered; `challenge3.py` keeps the phrase and is carried, its
+   repair regenerating a closed rung's receipt.
+8. The reduction of the whole sense to the Challenge 3 sense was presented as
+   computed content and counted in C4-8's basis, but at singleton wholes the
+   set test unfolds to the mark test over the same automorphism list, so the
+   two senses cannot disagree there and the frozen falsifier naming that
+   disagreement cannot fire.  Definition 52, the C4-8 basis in the paper and in
+   the receipt, and the two ledger entries now label it DEFINITION-level and
+   say that C4-8's content rests on the 192-point census and the parting
+   points.  C4-8 remains HIT: the census and the parting points are unchanged.
+
+Carried: `challenge3.py`'s capability text, alongside items 15 to 17 above,
+for the same reason those are carried.
+
 ## Gates run in this session
 
 | gate | result |
@@ -304,13 +369,13 @@ one deliberate regeneration.  That is not this rung's work.
 | `unittest discover -s tests` | `Ran 303 tests`, OK |
 | `mypy` (strict, tree pyproject) | `Success: no issues found in 27 source files` |
 | `coverage` + `check_coverage.py` | `line 100.00% branch 100.00% over 8 files` |
-| `run_challenge0.py` … `run_challenge4.py` | `unchanged` for all five receipts: 5553, 28363, 35499, 220518, 795554 bytes |
+| `run_challenge0.py` … `run_challenge4.py` | `unchanged` for all five receipts: 5553, 28363, 35499, 220518, 795960 bytes |
 | `git diff --exit-code -- receipts` | clean |
-| `verify_lean.py` | `lean ok: 138 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; the log was regenerated deliberately once, 105 to 138, with no injection live |
+| `verify_lean.py` | `lean ok: 139 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; the log was regenerated deliberately twice, 105 to 138 in the rung and 138 to 139 in the review repair, with no injection live either time |
 | `ci/check_prose_watchlist.py` | `prose watchlist clean: 49 watched terms, 130 files with pinned hits, 1826 hits, census matches its pin`; no pin regenerated |
 | `tests/test_primitive_contact.py` | firewall passes |
 | `ci/check_paper_citations.py` | paper cross-references resolve |
-| injections | ten rows in `MANUAL.md`, six injected and four found live |
+| injections | twelve rows in `MANUAL.md` for this rung: six injected, four found live, and two from the review repair — the stale-receipt failure and the deliberate axiom-log regeneration |
 
 ## Next session
 

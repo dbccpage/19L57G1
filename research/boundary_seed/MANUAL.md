@@ -145,6 +145,8 @@ injection is live.
 | 4 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 228 tests in ` | exit 1; `^Ran 303 tests in ` exit 0 on the same log |
 | 4 | prediction scorer, literal clauses (found live, not injected) | C4-3 and C3-X scored against "no declared whole property separates the two wholes" | both reported MISSED on the real receipt, three of the five declared properties separating the two wholes at the base.  The frozen C4-3 clause names "both declared side-reading whole properties" and the frozen C3-X clause names "the side each mark lies on", so both are scored on the two side-reading properties, with the index, label, and tag properties reported separately.  Recorded because the first scoring would have reported misses on clauses the frozen files do not make, which is the same defect the Challenge 3 scorer had twice |
 | 4 | receipt size (found live, not injected) | the first build, with eight collateral booleans and the effective structure on every one of the 192 point rows twice over | 936733 bytes against the megabyte at which the run owes a summary and a gzip, a 6% margin, and 9.9 seconds to build.  The point rows now carry the facts that HOLD and the full map is on the nine rows reported in full, and every candidate's facts come from one enumeration of its images rather than fifteen: 795554 bytes and 2.9 seconds.  Recorded because a later rung adding keys to a point row has less room than the number alone suggests |
+| 4 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 4) | the boundary-dependence key given its exception and the grouping square's cells, the withdraw-mark-permutations capability text reworded off the reserved word, and the C4-8 basis relabelled, with the committed receipt left stale | the test reported FAILED showing the differing bytes (1 failure in 75); `run_challenge4.py` regenerated the receipt deliberately with no injection live (795554 to 795960 bytes), the Challenge 0 to 3 receipts reported unchanged, and the suite passed |
+| 4 review repair | axiom log (`verify_lean.py`), deliberate regeneration | the companion theorem `crossRetained_other_marks_share_a_side` added for the other pair of marks that share a side, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; then `wrote lean\axioms.txt: 139 reports` under `--regen` and `lean ok: 139 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -162,6 +164,7 @@ their then-current counts.  The review-repair rows record the later
 adversaries.  The Challenge 1 rows record that rung and its five review
 repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
 it, the Challenge 3 review-repair rows the session after that, the second
-review-repair rows the session after that again, and the Challenge 4 rows the
-session after that; current whole-tree counts are reported in the latest
+review-repair rows the session after that again, the Challenge 4 rows the
+session after that, and the Challenge 4 review-repair rows the session after
+that; current whole-tree counts are reported in the latest
 `challenge<k>/STATUS.md`.

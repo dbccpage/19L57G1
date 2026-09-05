@@ -105,6 +105,14 @@ theorem crossRetained_marks_share_a_side (rd : Reading) (s : Bool) :
     holds (crossRetained rd) (.onSide 0 s) = holds (crossRetained rd) (.onSide 2 s) := by
   rw [crossRetained_onSide_zero, crossRetained_onSide_two]
 
+/-- The same of the OTHER pair that shares a side: the second and fourth
+retained marks satisfy exactly the same mark-on-side judgments, and again one
+is the caller's first whole's mark and the other the second's.  Both pairs are
+stated, because the sentence the paper draws from them is about both. -/
+theorem crossRetained_other_marks_share_a_side (rd : Reading) (s : Bool) :
+    holds (crossRetained rd) (.onSide 1 s) = holds (crossRetained rd) (.onSide 3 s) := by
+  rw [crossRetained_onSide_one, crossRetained_onSide_three]
+
 /-- A side-name judgment holds after the four placements exactly as at genesis:
 none under `U`, both under `O`. -/
 theorem crossRetained_sideNamed (rd : Reading) (s : Bool) (n : Name) :
@@ -230,7 +238,7 @@ theorem firstIsMarkZero_separates_the_wholes (r : Regime) :
 /-- So the hypothesis above is a real restriction and not a vacuous one: this
 property lies outside it.  It is exactly the property the Python enumeration's
 one minimum under reading U makes available, by declaring the admission index
-to be an internal designation. -/
+to be internally available. -/
 theorem firstIsMarkZero_is_not_invariant_under_the_whole_exchange :
     ¬ (∀ (r : Regime) (i j : Nat),
         firstIsMarkZero (exchangeWholesRegime r) (exchangeWholes i) (exchangeWholes j)

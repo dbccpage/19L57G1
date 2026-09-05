@@ -127,6 +127,7 @@ compares the build log with the committed axiom log.
 #print axioms BoundarySeed.crossRetained_onSide_beyond
 #print axioms BoundarySeed.crossRetained_onSide_true_iff
 #print axioms BoundarySeed.crossRetained_marks_share_a_side
+#print axioms BoundarySeed.crossRetained_other_marks_share_a_side
 #print axioms BoundarySeed.crossRetained_sideNamed
 #print axioms BoundarySeed.exchangeWholes_involutive
 #print axioms BoundarySeed.exchangeWholes_zero
