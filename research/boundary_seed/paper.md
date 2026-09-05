@@ -661,11 +661,12 @@ whole Challenge 3 candidate space are Python-only.
     and the second of the eight — are each computed against it at every point
     of the space, and neither agrees with it everywhere.
 
-59. **The nested reader bound (Challenge 5).**  The third and last widening of
-    this run's reader, in `presentation.py`: a whole is `<` item `|` item `>`,
-    an *item* on a side is nothing, one mark, or one whole, and the reader
-    accepts to a declared finite depth of two and refuses a deeper item by
-    name.  The bar of a whole is the one at its own nesting level, which a
+59. **The nested reader bound (Challenge 5).**  The third reader bound of this
+    run, and the second widening of its reader — the Challenge 1 bound was
+    declared and not widened — in `presentation.py`: a whole is `<` item `|`
+    item `>`, an *item* on a side is nothing, one mark, or one whole, and the
+    reader accepts to a declared finite depth of two and refuses a deeper item
+    by name.  The bar of a whole is the one at its own nesting level, which a
     regular expression over the text cannot find, so the split counts levels.
     The two narrower readers keep their own bounds and both refuse `<<a|>|>` by
     name.  The widening is a declaration of the run, priced in the ledger and
@@ -753,8 +754,11 @@ whole Challenge 3 candidate space are Python-only.
     read at that inscription alone reports one class where the enumeration
     finds two, and understates a tie the seed requires to be retained.  The
     digest is a naming device and never evidence; every inscription at which
-    two policies part is enumerated and the first of them are named.  This is
-    the first quotient the run takes over a FUNCTION rather than over a state.
+    two policies part is enumerated and the first of them are named.  That this
+    is the first quotient the run takes over a FUNCTION rather than over a
+    state is a reading of the earlier rungs' own class keys, each of which
+    pairs a declared structure with the canonical key of ONE retained state;
+    nothing in this rung computes it.
 70. **The Challenge 5 collateral facts and the second measure.**  Eight facts
     are declared: the nesting is internally visible; depth is determined by the
     key; depth takes more than one value over the domain; which side of the
@@ -1718,7 +1722,7 @@ the table says otherwise.
 | a second initial datum under any policy | **none** | same | `point_detail.*.initial_datum_unchanged`; Lean `deepReplay_initialDatum` |
 | a further mark admitted inside the inner whole | under the recording policy alone | same | `further_mark_within_the_inner_whole`, a probe deciding on `deepest_place_the_policy_names` — the longest address the policy's own admissions produce over the declared domain — and not on the policy's name |
 | depth at every one-step policy | every retained mark one boundary in | same | `depths_over_the_domain` |
-| depth under the recording policy, in the key | invariant under every permitted renaming and determined by the key | same | `collateral_facts.depth_determined_by_the_key`; the level-exchange half is Lean `depth_invariant_under_exchange`, the mark-permutation half is `test_no_permitted_renaming_moves_a_mark_depth` and is computed at one two-mark state |
+| depth in the key, at every point | determined by the key at **every** point of the space, the refusing base included; and invariant under every permitted renaming | same | `collateral_facts.depth_determined_by_the_key`, DEFINITION-level: the declared serialization carries every address and every permitted renaming keeps its length, so equal keys force equal depths.  The level-exchange half of the invariance is Lean `depth_invariant_under_exchange`, the mark-permutation half is `test_no_permitted_renaming_moves_a_mark_depth` and is computed at one two-mark state |
 | depth in the closed grammar | **not expressible** at any point; no form reads it and none is added | same | `closed_grammar_forms_reading_depth` empty; DEFINITION-level, the grammar being a declared sum of two forms |
 | the naming coordinate | collapses at **every** policy | collapses at **three of four**, and not at the recording one | `naming_coordinate_collapses_at` |
 | the retained mark's address orbit, under the recording policy | **4** | **2** without the naming reaching inward, **1** with it | `mark_address_orbit_size` at the two recording points; at the two one-step policies the same key reads **2** under U and **1** under O |
@@ -1765,13 +1769,13 @@ direction of every clause is tested.
 
 | id | label | status | basis |
 |---|---|---|---|
-| C4-X | NOT FORCED | **PARTIAL** | six clauses hit, the ordinal among them; the "exactly one member letting the caller retain the inscription" clause MISSED, three policies admitting it.  Recorded next to its value in `challenge4/PREDICTIONS.md`'s successor status and never edited in the frozen file |
+| C4-X | NOT FORCED | **PARTIAL** | seven clauses hit, the ordinal and the invisibility of the boundary within a side among them; the "exactly one member letting the caller retain the inscription" clause MISSED, three policies admitting it.  Recorded next to its value in `challenge4/PREDICTIONS.md`'s successor status and never edited in the frozen file |
 | C5-1 | FORCED | **PARTIAL** | DEFINITION-level, not counted as content.  The readers clause HIT; the ordinal clause MISSED — the frozen text calls this widening the third, and the reader census gives three bounds and two widenings, which is the ordinal the frozen C4-X gives the same event.  Recorded next to its value and never edited in the frozen file |
 | C5-2 | NOT FORCED | HIT | DEFINITION-level, not counted as content |
 | C5-3 | FORCED | HIT | content: an isomorphism-witness search at each candidate's own renamings |
 | C5-4 | FORCED | HIT | content: a 144-member domain census and the implemented quotient |
 | C5-5 | NOT FORCED | HIT | content: a replay at every point and a probe deciding on a census of the depths each policy's own admissions reach; the classification itself is declared |
-| C5-6 | FORCED | HIT | content: the key-determination census; the grammar clause is DEFINITION-level and reported apart |
+| C5-6 | FORCED | HIT | content: the depths census, `[1]` at every one-step policy against `[1, 2]` at the recording one; the key-determination and grammar clauses are DEFINITION-level and reported apart |
 | C5-7 | FORCED | HIT | content: the quotient over the whole domain and three orbit sizes |
 | C5-8 | FORCED | HIT | content: certification and replay with both values of the admission predicate attained |
 | C5-X | NOT FORCED | PENDING | scored by the autonomous continuation |
@@ -2310,6 +2314,7 @@ one the naming coordinate of definition 68 makes available.  DEFINITION-level,
 true by unfolding or by instantiating an earlier theorem, and not counted as
 content: `nestedRetained_eq`, `flatRetained_eq`, `nestedRetained_addresses`,
 `nestedRetained_depth`, `flatRetained_depth`, `deep_supply_no_op`,
+`flatten_nested_eq_flat`, `flatten_nested_eq_admitted`,
 `innerReflected_eq`, `innerSideIsZero_nestedRetained`,
 `innerSideIsZero_innerReflected`, `deepStep_reading`, `deepStep_initialDatum`,
 `nestedRetained_reading`, `nestedRetained_initialDatum`, and
@@ -2352,7 +2357,7 @@ configuration renaming at Challenge 4.
   full map is on the nine rows the rung reports in full; that is what keeps
   it inside the bound, and it is recorded because a later rung adding keys
   to a point row has less room than the number alone suggests.
-- The Challenge 5 receipt is 127455 bytes, far inside the megabyte at which
+- The Challenge 5 receipt is 128086 bytes, far inside the megabyte at which
   the run would owe a summary and a gzip: its space is eight points, so every
   point is carried in full, and the 144-member domain census is reported as a
   digest per point with the parting inscriptions named rather than as 144 keys
@@ -2379,7 +2384,7 @@ configuration renaming at Challenge 4.
   convention pinned, and once more at the fifth, when C1-7's evidence was
   rescoped to the candidate regimes, C1-5's basis relabelled, and the two
   designation clause facts reworded, with no injection live any time.
-- The suite passes 405 tests.  Fresh coverage over the nine declared code
+- The suite passes 406 tests.  Fresh coverage over the nine declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
@@ -2581,10 +2586,11 @@ policy is it a side; it is a mark, or nothing, or a second boundary, according
 to the policy.  Depth splits into two senses the run keeps apart: under the
 recording policy a mark's depth is invariant under every permitted renaming —
 that no LEVEL EXCHANGE moves it is proved, and that no MARK PERMUTATION does
-either is computed, at one two-mark state — and determined by the key, which is
-computed, so it is internally available in the sense Challenge 3 declared; and
-at no point of the space is it expressible, no form of the closed observation
-grammar reading it and none being added.  Finally, **the U-versus-O question reappears one level
+either is computed, at one two-mark state — and it is determined by the key at
+every point of the space, which is DEFINITION-level under the declared
+serialization, so depth is internally available in the sense Challenge 3
+declared; and at no point of the space is it expressible, no form of the closed
+observation grammar reading it and none being added.  Finally, **the U-versus-O question reappears one level
 down and neither reading settles it**: whether the reading's naming of the two
 sides reaches the inner boundary is a further declaration the seed's one
 admitted exception does not make, it collapses under U, which names nothing at

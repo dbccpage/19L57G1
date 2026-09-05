@@ -1548,3 +1548,101 @@ Carried: nothing new.  The Challenge 1 to Challenge 4 items already carried in
 `challenge5/STATUS.md` are unchanged.
 
 Declined: nothing.
+
+## 2026-09-05, Challenge 5 second exact-head review repair
+
+Eight surviving findings, one `blocking` and seven `should_fix`.  The frozen
+`challenge5/PREDICTIONS.md` was not touched.  **No prediction changed status**
+and no computed result of the rung moved: one clause of the frozen C4-X that
+was computed and reported without a verdict is now scored, and it HITS.  No
+Lean theorem was added, removed, or reproved, so `lean/axioms.txt` was not
+regenerated.
+
+**Repaired, from the second review of Challenge 5.**
+
+- **Corrected, and it was the `blocking` finding.**  Definition 59 still opened
+  "The third and last widening of this run's reader", the one site the previous
+  repair's own account claimed to have corrected.  The receipt's census says
+  three reader bounds and two widenings, section 5.17's own bolded lead,
+  B5-READER and `challenge5/STATUS.md` all say "the second widening", and
+  `scores.C5-1`
+  scores the frozen "a third" MISSED on exactly that wording.  The definition
+  now reads "The third reader bound of this run, and the second widening of its
+  reader — the Challenge 1 bound was declared and not widened".  **"and last"
+  is dropped as well**: nothing in the rung establishes that no later widening
+  occurs, and the same definition says in its next sentence that the bound "is
+  a declaration too and not a limit".
+- **Corrected, second surviving site of the same ordinal.**  The `NestedWhole`
+  docstring in `presentation.py` called the nested reader "the third declared
+  widening of the metatheory", five lines below a module docstring that already
+  said "the second widening".  It now says "the run's third declared reader
+  bound and its second widening of the reader", and "and last" is dropped from
+  the module docstring for the reason above.  Neither edit touches a receipt
+  value.
+- **Narrowed.**  B5-CLASS-KEY gave status COMPUTED to a conjunct that is a
+  superlative about the run's own history — "the first quotient the run takes
+  over a FUNCTION rather than over a state" — with no receipt key, census, or
+  test behind it, which is the shape of the ordinal defect above.  Nothing in
+  this rung reads an earlier one.  The sentence is now recorded as a **reading**
+  of the earlier rungs' own class keys, each of which pairs a declared structure
+  with the canonical key of ONE retained state, and is kept out of the COMPUTED
+  status; definition 69 and `challenge5/STATUS.md` say the same.
+- **Scored, the clause that was computed and left without a verdict.**  The
+  frozen C4-X carries eight clauses and `scores.C4-X` gave seven of them a
+  status: "and the boundary within a side will not be visible without a new
+  declaration" was reported only as the bare fact
+  `points_where_the_nesting_is_internally_visible`, consulted by no verdict, so
+  the tally of "six clauses HIT" scored seven of eight clauses.  The scorer now
+  computes `nesting_not_visible_without_a_declaration_clause_status` from the
+  same census — the nesting is internally visible at no point of capability
+  count one, under either reading — folds it into the verdict, and the count is
+  **seven** in B4-X, the paper's 5.18 and this rung's status.  The clause HITS,
+  so no miss was hidden; the scoring was simply not total.  Its negative
+  direction is `test_c4x_misses_when_a_one_step_policy_sees_the_boundary_within_a_side`,
+  and C4-X's own status is unchanged at PARTIAL.
+- **Corrected.**  B5-INERTIA gave PROVED to "any deep history keeps the reading
+  and the datum" while its Lean theorem field named four theorems and not
+  `BoundarySeed.deepReplay_initialDatum`, the only one covering the datum half,
+  and its axiom-report field enumerated exactly those four.  The theorem is
+  added to the entry and the axiom report extended to cover it, so every
+  conjunct of the entry's PROVED status names its theorem in the entry.  The
+  theorem itself is unchanged and was already audited.
+- **Relabelled DEFINITION-level.**  `depth_determined_by_the_key` was labelled
+  COMPUTED and counted as C5-6's content, with a falsifier that cannot fire.
+  It is true by unfolding: the declared serialization carries every address,
+  every permitted renaming keeps each address its length, so equal keys force
+  equal depth signatures — and the receipt bears it out, the fact holding at
+  all eight points of each reading, the refusing base included, so it never
+  separates one candidate from another and never enters the second measure.
+  The clause is now DEFINITION-level and reported apart, exactly as the grammar
+  clause of the same prediction already was, and C5-6's content is its
+  contingent half: the depths a policy can hold, `[1]` at every one-step policy
+  against `[1, 2]` at the recording one.  The falsifier that cannot fire is
+  dropped from the ledger with its reason recorded, and the paper's 5.17 row
+  stops attributing the key to the recording policy, the key being true at
+  every point.
+- **Corrected, one theorem and one label.**  `flatten_nested_eq_flat` and
+  `flatten_nested_eq_admitted` were called DEFINITION-level in one paragraph of
+  the paper's section 7.6, omitted from that section's DEFINITION-level list,
+  and given PROVED in B5-NESTING-INVISIBLE.  Both are `rfl`.  They now appear
+  in the list, and "that the two flatten alike" moves out of the ledger entry's
+  PROVED clause into a DEFINITION-level one, leaving
+  `flattenDeep_exchangeLevel_succ` and
+  `no_flattened_property_separates_the_nesting` as its PROVED content.  This is
+  the defect the Challenge 4 review repaired under the same rule.
+- **Scoped.**  The receipt's own C5-7 evidence string still gave the
+  address-orbit numbers 4 / 1 / 2 with no policy scope — the recording policy's
+  numbers — which is the defect the previous repair scoped out of the paper's
+  row, section 9, this rung's status and B5-NAMING, and the receipt is the site
+  it missed.  The string now names the recording policy and reports what the
+  same key reads at the two one-step policies beside it.  No value moves.
+- One test was added, the negative direction of the newly scored clause, taking
+  the suite from 405 to 406 and `receipts/challenge5.json` from 127455 to
+  128086 bytes.  The stale-receipt failure was observed before the regeneration
+  rather than assumed, and both it and the test-count grep are rows in
+  `MANUAL.md`.
+
+Carried: nothing new.  The Challenge 1 to Challenge 4 items already carried in
+`challenge5/STATUS.md` are unchanged.
+
+Declined: nothing.

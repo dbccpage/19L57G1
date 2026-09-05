@@ -938,6 +938,9 @@ class ScoreTests(unittest.TestCase):
         self.assertEqual(
             scores["depth_not_available_without_a_declaration_clause_status"], "HIT"
         )
+        self.assertEqual(
+            scores["nesting_not_visible_without_a_declaration_clause_status"], "HIT"
+        )
         self.assertEqual(scores["inner_whole_not_a_datum_clause_status"], "HIT")
         self.assertEqual(scores["declared_finite_policy_space_clause_status"], "HIT")
         self.assertEqual(scores["exactly_one_member_retains_clause_status"], "MISSED")
@@ -1103,6 +1106,32 @@ class ScorerNegativeTests(unittest.TestCase):
             scored["depth_not_available_without_a_declaration_clause_status"], "MISSED"
         )
         self.assertEqual(scored["status"], "MISSED")
+
+    def test_c4x_misses_when_a_one_step_policy_sees_the_boundary_within_a_side(
+        self,
+    ) -> None:
+        # The direction the real receipt cannot show: the frozen clause "the
+        # boundary within a side will not be visible without a new declaration"
+        # would MISS if the nesting were visible at a policy of capability
+        # count one.  It reads HIT on the real receipt, where the nesting is
+        # visible only at the recording policy, which costs two.
+        u = copy.deepcopy(self.u)
+        named(u["points"], "discard")["collateral_facts_holding"].append(
+            "nesting_internally_visible"
+        )
+        scored = self.scored(u, self.o, self.reader)["C4-X"]
+        self.assertEqual(
+            scored["nesting_not_visible_without_a_declaration_clause_status"], "MISSED"
+        )
+        self.assertEqual(scored["status"], "MISSED")
+        o = copy.deepcopy(self.o)
+        named(o["points"], "opaque")["collateral_facts_holding"].append(
+            "nesting_internally_visible"
+        )
+        scored = self.scored(self.u, o, self.reader)["C4-X"]
+        self.assertEqual(
+            scored["nesting_not_visible_without_a_declaration_clause_status"], "MISSED"
+        )
 
 
 class ShapeTests(unittest.TestCase):

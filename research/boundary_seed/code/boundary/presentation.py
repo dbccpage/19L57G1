@@ -33,7 +33,7 @@ kind as the convention, and both orders are reported.
 
 Challenge 5 addition.  The caller supplies a whole within a side, which both
 earlier readers refuse by name: neither reads an ITEM that is itself a whole.
-``read_nested_whole`` is this run's third and last reader bound, and the second
+``read_nested_whole`` is this run's third reader bound, and the second
 widening of the reader — the Challenge 1 bound was declared and not widened: an
 item on a side is a mark or a whole, down to a declared finite depth beyond
 which the reader refuses by name.  The two narrower readers are left refusing,
@@ -214,10 +214,11 @@ class NestedWhole:
     of the bar, where an item is a mark or a whole.
 
     ``read_whole`` and ``read_pair_whole`` keep their own narrower bounds and
-    still refuse a nested whole by name; this type and its reader are the
-    third declared widening of the metatheory, paid by the run.  The spelling
-    of the whole is not stored: ``render`` rebuilds a spelling from the read
-    structure and is used to name a domain member, never as a token.
+    still refuse a nested whole by name; this type and its reader are the run's
+    third declared reader bound and its second widening of the reader, paid by
+    the run.  The spelling of the whole is not stored: ``render`` rebuilds a
+    spelling from the read structure and is used to name a domain member, never
+    as a token.
     """
 
     left: Item | None

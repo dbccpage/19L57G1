@@ -160,6 +160,8 @@ injection is live.
 | 5 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 303 tests in ` | exit 1; `^Ran 400 tests in ` exit 0 on the same log |
 | 5 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the second measure's declared text corrected to definition 70's partition, the further-mark probe made to decide on a census rather than on the policy's own name, the reader-bound census added, and C5-1 and C4-X given their ordinal clauses, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 405; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 123522 to 127455 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 405 |
 | 5 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 400 tests in ` | exit 1; `^Ran 405 tests in ` exit 0 on the same log |
+| 5 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the C4-X visibility clause folded into the scorer, the C5-6 result basis relabelled DEFINITION-level, and the C5-7 evidence scoped to the recording policy, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 406; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 127455 to 128086 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 406 |
+| 5 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 405 tests in ` | exit 1; `^Ran 406 tests in ` exit 0 on the same log |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -179,6 +181,7 @@ repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
 it, the Challenge 3 review-repair rows the session after that, the second
 review-repair rows the session after that again, the Challenge 4 rows the
 session after that, the Challenge 4 review-repair rows the session after that,
-the Challenge 5 rows the session after that again, and the Challenge 5
+the Challenge 5 rows the session after that again, the Challenge 5
+review-repair rows the session after that, and the Challenge 5 second
 review-repair rows the session after that; current whole-tree
 counts are reported in the latest `challenge<k>/STATUS.md`.

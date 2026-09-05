@@ -1468,6 +1468,20 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
         for rd in (u, o)
     )
     space_clause = all(len(rd["policies"]) == len(POLICY_SPACE) for rd in (u, o))
+    # "and the boundary within a side will not be visible without a new
+    # declaration": the nesting is internally visible at no point of capability
+    # count one, under either reading, so seeing it takes the recording policy,
+    # which costs two.  The clause was computed and reported as the bare fact
+    # beside this key and given no verdict, which left the scoring of the
+    # frozen text short of total; it is scored here on the same census.
+    visibility_clause = all(
+        not any(
+            "nesting_internally_visible" in row["collateral_facts_holding"]
+            for row in rd["points"]
+            if row["one_step"]
+        )
+        for rd in (u, o)
+    )
     # "the bound will have to be widened a second time": the run has three
     # reader bounds and has widened twice, the first bound having been declared
     # and not widened.  The frozen ordinal is read against the reader census
@@ -1486,7 +1500,13 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
         if "nesting_internally_visible" in row["collateral_facts_holding"]
     ]
     exactly_one_clause = len(admitting) == 1
-    core = named_reader_clause and depth_clause and datum_clause and space_clause
+    core = (
+        named_reader_clause
+        and depth_clause
+        and datum_clause
+        and space_clause
+        and visibility_clause
+    )
     status = (
         "HIT"
         if (core and exactly_one_clause and reader_clause and ordinal_clause)
@@ -1503,6 +1523,9 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
         "reader_bounds_declared": reader["reader_bounds_declared"],
         "widenings_of_the_reader_bound": reader["widenings_of_the_reader_bound"],
         "depth_not_available_without_a_declaration_clause_status": verdict(depth_clause),
+        "nesting_not_visible_without_a_declaration_clause_status": verdict(
+            visibility_clause
+        ),
         "inner_whole_not_a_datum_clause_status": verdict(datum_clause),
         "declared_finite_policy_space_clause_status": verdict(space_clause),
         "exactly_one_member_retains_clause_status": verdict(exactly_one_clause),
@@ -1523,7 +1546,9 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
             "widening, which is the ordinal this clause asserts — is paid by "
             "the run; the decision takes the form of a declared finite policy "
             "space of four members; depth is available at no policy of "
-            "capability count one; and the inner whole is a second initial "
+            "capability count one and the nesting is internally visible at "
+            "none either, so the boundary within a side is not visible without "
+            "a new declaration; and the inner whole is a second initial "
             "datum under no policy"
         ),
     }
@@ -1761,17 +1786,22 @@ def score(u: Json, o: Json, reader: Json) -> Json:
             "status": verdict(c5_6),
             "label": "FORCED",
             "result_basis": (
-                "content: the key-determination of depth is a census over the "
-                "declared domain, and the depths a policy can hold are read off "
-                "the same census.  That no form of the closed grammar reads "
-                "depth is DEFINITION-level, the grammar being the declared sum "
-                "of two forms, and it is reported separately"
+                "content: the depths a policy can hold, a census over the "
+                "declared domain — [1] at every one-step policy against [1, 2] "
+                "at the recording one.  TWO clauses are DEFINITION-level and "
+                "are reported separately: that the key determines depth, which "
+                "unfolds the declared serialization, every permitted renaming "
+                "keeping each address its length, so it holds at every point of "
+                "the space including the refusing base and never separates one "
+                "candidate from another; and that no form of the closed grammar "
+                "reads depth, the grammar being the declared sum of two forms"
             ),
             "evidence": (
                 "under every one-step policy every retained mark has depth one, "
-                "so depth separates nothing; under the recording policy the "
-                "domain holds depths one and two and equal keys give equal "
-                "depths; and no form of the closed observation grammar reads "
+                "so depth separates nothing, and under the recording policy the "
+                "domain holds depths one and two; equal keys give equal depths "
+                "at EVERY point of the space, the refusing base included; and "
+                "no form of the closed observation grammar reads "
                 "depth at any point"
             ),
         },
@@ -1785,9 +1815,11 @@ def score(u: Json, o: Json, reader: Json) -> Json:
             ),
             "evidence": (
                 "the naming coordinate collapses at every policy under U and at "
-                "three of four under O; the retained mark's address orbit has "
-                "four members under U, one under O with the naming reaching "
-                "inward, and two under O without it, so which side of the inner "
+                "three of four under O; under the RECORDING policy the retained "
+                "mark's address orbit has four members under U, one under O "
+                "with the naming reaching inward, and two under O without it, "
+                "while at the two one-step policies the same key reads two "
+                "under U and one under O; so which side of the inner "
                 "boundary the mark lies on is not internally available under O "
                 "either without that further declaration"
             ),

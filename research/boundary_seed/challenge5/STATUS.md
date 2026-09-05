@@ -33,8 +33,8 @@ policy, or result.
 
 ## Results
 
-Receipt `receipts/challenge5.json` (127455 bytes after the review repair); full tables in `paper.md`
-sections 5.17 to 5.20.
+Receipt `receipts/challenge5.json` (128086 bytes after the second review
+repair); full tables in `paper.md` sections 5.17 to 5.20.
 
 | | reading U | reading O |
 |---|---|---|
@@ -57,7 +57,7 @@ sections 5.17 to 5.20.
 | what the inner whole IS | a MARK under the opaque policy; NOTHING under the discarding one; a second BOUNDARY under the recording one (declared classification; the receipt computes what each retains) | same |
 | a further mark may be admitted inside the inner whole | under the recording policy alone (COMPUTED: the deciding fact is the deepest place the policy's own admissions name over the declared domain, one at each one-step policy and two at the recording one, and not the policy's name; the deep grammar is policy-agnostic and records the requested address at every admitting point, which the receipt reports beside it) | same |
 | depth at every one-step policy | every retained mark is one boundary in; depth separates nothing (COMPUTED over the declared domain) | same |
-| **depth as an internally available count**, sense one | under the recording policy: invariant under every permitted renaming and determined by the key (COMPUTED census; PROVED that no LEVEL EXCHANGE moves a mark's depth, COMPUTED at one two-mark state that no MARK PERMUTATION does either) | same |
+| **depth as an internally available count**, sense one | under the recording policy: invariant under every permitted renaming, and determined by the key at every point of the space (PROVED that no LEVEL EXCHANGE moves a mark's depth, COMPUTED at one two-mark state that no MARK PERMUTATION does either; the key-determination is DEFINITION-level under the declared serialization) | same |
 | **depth as an internally available count**, sense two | **not expressible**: no form of the closed observation grammar reads it, and this rung adds none (COMPUTED census over the declared vocabulary; DEFINITION-level, the grammar being a declared sum of two forms) | same |
 | the naming coordinate — whether the reading's naming reaches the inner boundary | **collapses at every policy**: U names nothing at any level, so both values declare the same renamings and the same key (COMPUTED quotient) | **collapses at three of four**, and not at the recording policy (COMPUTED quotient) |
 | the retained mark's address orbit, under the recording policy | **4** (COMPUTED); at the two one-step policies the same key reads **2** | **2** without the naming reaching inward, **1** with it (COMPUTED); at the two one-step policies it reads **1** |
@@ -107,13 +107,13 @@ the probe computes, and no cheaper policy offers that.
 
 | id | label | status | note |
 |---|---|---|---|
-| C4-X | NOT FORCED | **PARTIAL** | six clauses hit: this rung's reader refuses the nested whole by name and the widening is priced and paid by the run; its ordinal, “a second” widening, holds — the run has three reader bounds and two widenings; depth is available at no policy of capability count one; the inner whole is a second initial datum under no policy; and the decision takes the form of a declared finite policy space.  **MISSED**, recorded next to its value: “a declared finite space of policies with exactly one member letting the caller retain the inscription”.  **Three** of the four declared policies admit the caller's inscription; exactly one retains it so that the retained state tells it from the flat inscription.  The clause is scored on the first count, which is what its own words say, and the second is reported beside it.  The frozen file is untouched |
+| C4-X | NOT FORCED | **PARTIAL** | seven clauses hit: this rung's reader refuses the nested whole by name and the widening is priced and paid by the run; its ordinal, “a second” widening, holds — the run has three reader bounds and two widenings; depth is available at no policy of capability count one and the boundary within a side is visible at none either, so it is not visible without a new declaration; the inner whole is a second initial datum under no policy; and the decision takes the form of a declared finite policy space.  **MISSED**, recorded next to its value: “a declared finite space of policies with exactly one member letting the caller retain the inscription”.  **Three** of the four declared policies admit the caller's inscription; exactly one retains it so that the retained state tells it from the flat inscription.  The clause is scored on the first count, which is what its own words say, and the second is reported beside it.  The frozen file is untouched |
 | C5-1 the readers, and the widening (the frozen file titles it “the third widening”) | FORCED | **PARTIAL**, DEFINITION-level | both refusals are earlier rungs' declared bounds replayed, and the new bound is this rung's declaration; not counted as content.  **MISSED**, recorded next to its value: the ordinal.  The frozen clause says the bound “must be widened a third”, and the census of the run's own readers gives **three bounds and two widenings** — the Challenge 1 bound was declared and not widened.  That is the ordinal the frozen C4-X gives the same event, and it is scored HIT there; scoring one and not the other would leave the run counting one event two ways.  The frozen file is untouched |
 | C5-2 the declared policy space and its prices | NOT FORCED | HIT, DEFINITION-level | the four policies, the three capabilities, and the counts are declarations; not counted as content |
 | C5-3 the nesting is invisible at every one-step policy | FORCED | HIT | content: an isomorphism-witness search at each candidate's own renamings, with both values attained in the space |
 | C5-4 the two one-step policies are two, and both retained | FORCED | HIT | content: a census over 144 declared inscriptions with the parting members named, and the implemented quotient |
 | C5-5 what the inner whole is, under each policy | NOT FORCED | HIT | content: the datum clause is a replay at every point and the inner-place clause a probe whose deciding fact is the deepest place each policy's own admissions name over the declared domain, with both values attained; the classification itself is declared and reported as such |
-| C5-6 depth, in two senses kept apart | FORCED | HIT | content: the key-determination census; that no form of the closed grammar reads depth is DEFINITION-level and reported separately |
+| C5-6 depth, in two senses kept apart | FORCED | HIT | content: the depths census, `[1]` at every one-step policy against `[1, 2]` at the recording one; that the key determines depth and that no form of the closed grammar reads it are both DEFINITION-level and reported separately |
 | C5-7 each reading splits at depth two, and only U's split collapses | FORCED | HIT | content: the implemented quotient over the whole domain, and the three orbit sizes read off the unpruned enumeration |
 | C5-8 inertia, and the outside | FORCED | HIT | content: certification and replay at every point with both values of the admission predicate attained; the empty event-follows relation is DEFINITION-level |
 | C5-X | NOT FORCED | PENDING | scored by the autonomous continuation |
@@ -252,7 +252,7 @@ one deliberate regeneration.  That is not this rung's work.
   frozen and then confirmed by the code, which is why the sweep is weak
   evidence.
 - **Nothing in the numbers was remembered.**  144, 95, 116, orbit sizes 4, 2
-  and 1, four bundles of eight, 405 tests, 177 axiom reports: all the code's.
+  and 1, four bundles of eight, 406 tests, 177 axiom reports: all the code's.
   The two findings the predictions do not contain — the measures parting, and
   one step parting from the coordinate count — are the code's as well.
 
@@ -396,8 +396,85 @@ Actioned:
    why C5-1 is PARTIAL.
 10. B4-X was still carried OPEN with "none yet" evidence after this rung scored
     it PARTIAL with a clause MISSED.  It now reads SCORED at Challenge 5, names
-    the six clauses that hit and the one that missed with its value, and cites
-    `scores.C4-X` and the tests, in the shape B1-X uses.
+    the clauses that hit — six at this repair, seven after the second repair
+    below scored the visibility clause — and the one that missed with its
+    value, and cites `scores.C4-X` and the tests, in the shape B1-X uses.
+
+Carried: the Challenge 1 to Challenge 4 items already carried above are
+unchanged; nothing new is carried.
+
+## Second review repair of this rung
+
+The second review of Challenge 5 returned eight surviving findings, one
+`blocking` and seven `should_fix`.  The frozen `challenge5/PREDICTIONS.md` was
+not touched.  **No prediction changed status** and no computed result of the
+rung moved: one clause of the frozen C4-X that was computed and reported
+without a verdict is now scored, and it HITS, so the C4-X count rises from six
+clauses to seven while C4-X stays PARTIAL.  Each repair is a line in
+`change_log.md` with its reason.  Nothing here was reached for from memory:
+every corrected label is read off this tree's own receipt, code, or Lean log,
+and the one comparison with earlier rungs is now recorded as a reading of their
+code rather than as a computed fact.  Declined: nothing.
+
+Actioned:
+
+1. **The `blocking` one.**  Definition 59 still opened "The third and last
+   widening of this run's reader" — the single site the previous repair's own
+   account said it had corrected, while the receipt census, section 5.17's own
+   bolded lead, B5-READER and this status all say three bounds and two
+   widenings, and
+   `scores.C5-1` scores the frozen "a third" MISSED on that wording.  The
+   definition now names the third reader bound and the second widening.  **"and
+   last" is dropped too**: no result of the rung says a later widening cannot
+   happen, and the same definition calls the bound "a declaration too and not a
+   limit".
+2. The `NestedWhole` docstring in `presentation.py` was the second surviving
+   site of the same ordinal, five lines below a module docstring that already
+   read "the second widening".  It now names the run's third declared reader
+   bound and its second widening, and "and last" is dropped from the module
+   docstring for the reason above.
+3. B5-CLASS-KEY folded a superlative about the run's own history — "the first
+   quotient the run takes over a FUNCTION rather than over a state" — into a
+   COMPUTED status with no receipt key, census, or test behind it.  It is now
+   recorded as a reading of the earlier rungs' own class keys, each pairing a
+   declared structure with the canonical key of ONE retained state, and kept
+   out of the COMPUTED status; definition 69 and the inheritance paragraph
+   below say the same.
+4. The frozen C4-X carries eight clauses and only seven were given a status:
+   "and the boundary within a side will not be visible without a new
+   declaration" was reported as a bare fact that no verdict consulted.  It is
+   now `nesting_not_visible_without_a_declaration_clause_status`, computed from
+   the same census — the nesting is internally visible at no point of
+   capability count one, under either reading — and folded into the verdict.
+   The clause HITS, so no miss was hidden and no status moved; the scoring was
+   simply not total.
+5. B5-INERTIA gave PROVED to "any deep history keeps the reading and the datum"
+   while naming four theorems, none of them the one covering the datum half.
+   `BoundarySeed.deepReplay_initialDatum` is added to the entry with its axiom
+   report, so every conjunct of the PROVED status names its theorem there.
+6. `depth_determined_by_the_key` was COMPUTED and counted as C5-6's content
+   with a falsifier that cannot fire.  It is true by unfolding the declared
+   serialization — every permitted renaming keeps each address its length, so
+   equal keys force equal depth signatures — and the receipt bears it out at
+   all eight points of each reading, the refusing base included, so it never
+   enters the second measure.  It is now DEFINITION-level and reported apart,
+   as the grammar clause of the same prediction already was; C5-6's content is
+   the depths a policy can hold, `[1]` at every one-step policy against
+   `[1, 2]` at the recording one.  The un-fireable falsifier is dropped with
+   its reason, and the paper's 5.17 row stops attributing the key to the
+   recording policy.
+7. `flatten_nested_eq_flat` and `flatten_nested_eq_admitted` carried three
+   labels between them: DEFINITION-level in one paragraph of the paper's
+   section 7.6, absent from that section's DEFINITION-level list, and PROVED in
+   B5-NESTING-INVISIBLE.  Both are `rfl`.  They are now in the list and the
+   ledger clause moves to DEFINITION-level, leaving the two blindness theorems
+   as the entry's PROVED content.  One theorem, one label, in both places.
+8. The receipt's own C5-7 evidence string still gave the address orbit as 4 / 1
+   / 2 with no policy scope — the recording policy's numbers — which is the
+   defect the previous repair scoped out of every prose site and missed in the
+   one document the paper calls the authority.  The string now names the
+   recording policy and reports what the same key reads at the two one-step
+   policies beside it.  No value moves.
 
 Carried: the Challenge 1 to Challenge 4 items already carried above are
 unchanged; nothing new is carried.
@@ -407,16 +484,16 @@ unchanged; nothing new is carried.
 | gate | result |
 |---|---|
 | `verify_pins.py` | `pins ok: seed ba30bcd600d8 and 6 frozen prediction file(s)` |
-| `unittest discover -s tests` | `Ran 400 tests`, OK in the rung; `Ran 405 tests`, OK after the review repair |
+| `unittest discover -s tests` | `Ran 400 tests`, OK in the rung; `Ran 405 tests`, OK after the review repair; `Ran 406 tests`, OK after the second review repair |
 | `mypy` (strict, tree pyproject) | `Success: no issues found in 30 source files` |
 | `coverage` + `check_coverage.py` | `line 100.00% branch 100.00% over 9 files` |
-| `run_challenge0.py` … `run_challenge5.py` | `unchanged` for the first five receipts: 5553, 28363, 35499, 220518, 795960 bytes; `receipts/challenge5.json` was regenerated deliberately in the review repair, 123522 to 127455 bytes, with no injection live |
+| `run_challenge0.py` … `run_challenge5.py` | `unchanged` for the first five receipts: 5553, 28363, 35499, 220518, 795960 bytes; `receipts/challenge5.json` was regenerated deliberately in the review repair, 123522 to 127455 bytes, and again in the second review repair, 127455 to 128086 bytes, with no injection live either time |
 | `git diff --exit-code -- receipts` | clean |
 | `verify_lean.py` | `lean ok: 177 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; the log was regenerated deliberately once, 139 to 177, with no injection live, and not at all in the review repair — no theorem was added, removed, or reproved |
 | `ci/check_prose_watchlist.py` | `prose watchlist clean: 49 watched terms, 130 files with pinned hits, 1826 hits, census matches its pin`; no pin regenerated |
 | `tests/test_primitive_contact.py` | firewall passes |
 | `ci/check_paper_citations.py` | `paper cross-references resolve: 62 citation(s) across 29 document(s)` |
-| injections | eleven rows in `MANUAL.md` for this rung: **six injected and three found live** in the rung itself, and two from the review repair — the stale-receipt failure and the test-count grep.  One of the three found live, the audit-line loss during an injection reversal, also happened while an injection was live; it is counted once, under found-live, because no one planned it, and the overlap is named here rather than counted twice |
+| injections | thirteen rows in `MANUAL.md` for this rung: **six injected and three found live** in the rung itself, two from the review repair and two from the second review repair — each of those four being a stale-receipt failure and a test-count grep.  One of the three found live, the audit-line loss during an injection reversal, also happened while an injection was live; it is counted once, under found-live, because no one planned it, and the overlap is named here rather than counted twice |
 
 ## Next session
 
@@ -444,8 +521,9 @@ level exchanges and its flattening, which is the first state type this run has
 declared beside the regime; the one-step rule stated in capabilities rather
 than coordinates, with Challenge 4's identity of the two counts narrowed to
 that rung's space; the declared 144-member domain of inscriptions and the
-policy-sameness relation over it, which is the first quotient this run takes
-over a FUNCTION rather than over a state; and the Lean flattening and
+policy-sameness relation over it, a quotient over a FUNCTION rather than over a
+state — that it is the run's first such is a reading of the earlier rungs' own
+class keys and is computed by nothing here; and the Lean flattening and
 continuation theorems.
 
 For the continuation the seed asks, for each surviving branch under each

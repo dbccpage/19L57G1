@@ -2211,15 +2211,20 @@ Python receipt, bounded), LIMITATION, OPEN.
   that decision will take the shape Challenge 2's did: a declared finite space
   of policies with exactly one member letting the caller retain the
   inscription, priced and paid by the run.
-- **Status**: SCORED at Challenge 5: PARTIAL.  Six clauses HIT: the Challenge 4
-  reader refuses the nested whole by name (`reader.inherited_readers`); the new
-  bound is priced and paid by the run (`reader.paid_by`); the ordinal — "a
+- **Status**: SCORED at Challenge 5: PARTIAL.  Seven clauses HIT: the Challenge
+  4 reader refuses the nested whole by name (`reader.inherited_readers`); the
+  new bound is priced and paid by the run (`reader.paid_by`); the ordinal — "a
   second" widening — holds, the run having three reader bounds and two
   widenings (`reader.widenings_of_the_reader_bound`); depth is available at no
-  policy of capability count one; the inner whole is a second initial datum
-  under no policy; and the decision takes the form of a declared finite policy
-  space.  **MISSED**, recorded next to its value: "a declared finite space of
-  policies with exactly one member letting the caller retain the inscription".
+  policy of capability count one; the boundary within a side is visible at no
+  such policy either, so it is not visible without a new declaration
+  (`scores.C4-X.nesting_not_visible_without_a_declaration_clause_status`, read
+  off the same census as
+  `scores.C4-X.points_where_the_nesting_is_internally_visible`); the inner
+  whole is a second initial datum under no policy; and the decision takes the
+  form of a declared finite policy space.  **MISSED**, recorded next to its
+  value: "a declared finite space of policies with exactly one member letting
+  the caller retain the inscription".
   **Three** of the four declared policies admit the caller's inscription
   (`scores.C4-X.policies_admitting_the_inscription`); exactly one retains it so
   that the retained state tells it from the flat inscription, and that count is
@@ -2237,6 +2242,7 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Python evidence**: receipt `receipts/challenge5.json` `scores.C4-X`;
   `test_the_previous_extrapolation_is_scored_clause_by_clause`,
   `test_c4x_hits_only_if_one_policy_admits_the_inscription`,
+  `test_c4x_misses_when_a_one_step_policy_sees_the_boundary_within_a_side`,
   `test_the_one_widening_is_given_two_ordinals_and_both_are_scored`.
 - **Lean theorem**: none; every clause is a computation or a declaration.
 - **Axiom report**: not applicable.
@@ -2386,10 +2392,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   and no property whatever of the flattened state separates the caller's nested
   whole from the flat one.
 - **Status**: COMPUTED (the isomorphism searches at each candidate's own
-  renamings, and the equality); PROVED (that the two flatten alike; that
-  flattening is blind to every inner exchange, for an arbitrary state and
-  level; and that no property of the flattened state separates them, for an
-  arbitrary property).  Counted as content: score C5-3.
+  renamings, and the equality); PROVED (that flattening is blind to every inner
+  exchange, for an arbitrary state and level; and that no property of the
+  flattened state separates them, for an arbitrary property).  That the two
+  flatten alike, and that their common flattening is exactly what `<a|>`
+  retains, are DEFINITION-level — both are `rfl` — and are reported apart, as
+  the paper's section 7.6 list has them.  Counted as content: score C5-3.
 - **Dependencies**: definitions 65, 67; B5-RETENTION.
 - **Assumptions**: the isomorphism relation is the candidate's own declared
   renamings; the flat inscription is read under the same policy.
@@ -2449,11 +2457,16 @@ Python receipt, bounded), LIMITATION, OPEN.
   inscription at which two candidates part is enumerated and the first of them
   are named.
 - **Status**: COMPUTED, with the defect the domain-wide key exists to catch
-  demonstrated in both directions.  It is the first quotient the run takes over
-  a FUNCTION rather than over a state.
+  demonstrated in both directions.  That this is the first quotient the run
+  takes over a FUNCTION rather than over a state is **not computed here**: no
+  receipt key, census, or test of this rung reads an earlier one.  It is a
+  reading of the earlier rungs' own `class_key`, which pairs the declared
+  structure with the canonical key of ONE retained state, and it is recorded as
+  a reading and not folded into the COMPUTED status.
 - **Dependencies**: definition 69; B5-TWO-TIED-MINIMA.
 - **Assumptions**: the domain is a declaration; the digest is deterministic and
-  is compared, never inverted.
+  is compared, never inverted.  The comparison with the earlier rungs'
+  quotients is a reading of their code, not a computation of this rung.
 - **Python evidence**: receipt `readings.*.points.*.class_key`;
   `test_the_class_key_read_at_one_inscription_understates_the_tie`,
   `test_the_digest_moves_with_the_behaviour`; injection row in `MANUAL.md`.
@@ -2515,11 +2528,17 @@ Python receipt, bounded), LIMITATION, OPEN.
   **not expressible**: no form of the closed observation grammar reads it, the
   grammar having no counting form, and this rung adds none.  The two senses are
   kept apart and neither is unconditional.
-- **Status**: COMPUTED (the key-determination census over the declared domain,
-  and the depths a policy can hold); PROVED (that no level exchange moves any
-  mark's depth).  The grammar clause is DEFINITION-level, the grammar being the
-  declared sum of two forms, and is reported apart.  Counted as content: score
-  C5-6, on the census.
+- **Status**: COMPUTED (the depths a policy can hold over the declared domain:
+  `[1]` at every one-step policy against `[1, 2]` at the recording one); PROVED
+  (that no level exchange moves any mark's depth).  **Two clauses are
+  DEFINITION-level and are reported apart.**  That the key determines depth is
+  true by unfolding the declared serialization — it carries every address, and
+  every permitted renaming keeps each address its length, so equal keys force
+  equal depth signatures — and it accordingly holds at every one of the eight
+  points of each reading, the refusing base included, and separates no candidate
+  from another.  That no form of the closed grammar reads depth is
+  DEFINITION-level too, the grammar being the declared sum of two forms.
+  Counted as content: score C5-6, on the depths.
 - **Dependencies**: definitions 65, 66, 67, 70; B5-POLICY-SPACE.
 - **Assumptions**: "internally available" is the run's declared sense —
   invariant under the permitted renamings and determined by the key — and
@@ -2539,10 +2558,14 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.depth_is_invariant_where_the_inner_side_is_not`,
   `BoundarySeed.nested_depth_survives_every_continuation`.
 - **Axiom report**: `[propext]` for all four.
-- **Falsifier**: a permitted renaming that changes a mark's depth; two members
-  of the declared domain with equal keys and different depth signatures; a form
+- **Falsifier**: a permitted renaming that changes a mark's depth; a form
   of the closed grammar whose value depends on depth; or a mark of depth other
-  than one under a one-step policy.
+  than one under a one-step policy.  The frozen file's second falsifier — two
+  members of the declared domain with equal keys and different depth signatures
+  — **cannot fire** under the declared serialization, for the reason given in
+  the status, and is dropped here rather than kept as a falsifier that reads
+  one way only.  A different serialization could fire it, and that would be a
+  change of declaration and not a falsification.
 - **Surviving boundary**: the declared domain and the declared grammar.
 
 ### B5-NAMING
@@ -2658,10 +2681,11 @@ Python receipt, bounded), LIMITATION, OPEN.
   `test_deep_certify_reads_false_on_a_refused_history`.
 - **Lean theorem**: `BoundarySeed.deep_no_event_follows`,
   `BoundarySeed.deepReplay_reading`,
+  `BoundarySeed.deepReplay_initialDatum`,
   `BoundarySeed.deepReplay_preserves_address`,
   `BoundarySeed.no_event_follows_nestedRetained`.
-- **Axiom report**: `[propext]` for the first, third and fourth; none for the
-  second.
+- **Axiom report**: `[propext]` for the first, fourth and fifth; none for the
+  second and third.
 - **Falsifier**: a non-empty event-follows relation at any point; a retained
   state that does not replay from genesis; or an earlier event kind withdrawn.
 - **Surviving boundary**: Challenge 5 and every later stage that adds no rule.
