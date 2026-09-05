@@ -24,6 +24,12 @@ SNAPSHOT = "3f44571240a0830a2fa8de639281670f4e50a511"
 # This is rebound to the exact inherited base during ordered integration.  It
 # is deliberately separate from SNAPSHOT, which remains the immutable source
 # pin even after the scope comparison base advances.
+#: The commit this rung's branch was cut from.  Kept because the frozen
+#: source and receipt pins are taken there and that is the right base for a
+#: pin.  It is the WRONG base for "what did this branch write": `main` moves,
+#: and diffing the working tree against a commit that recedes into history
+#: makes every LATER rung's merged work look like this rung's uncommitted
+#: change.  See `comparison_base`.
 SCOPE_BASE = "8dea98da841a862697a51d861a81f29ddc971f4e"
 WRITE_ROOT = "research/second_stake/"
 SHARED = (".github/workflows/verify.yml", "research/second/MANUAL.md")
@@ -138,9 +144,48 @@ def tracked_tree_files() -> list[pathlib.Path]:
     return [REPO / pathlib.PurePosixPath(name) for name in nul_paths(raw)]
 
 
-def changed_paths() -> set[str]:
+def comparison_base() -> str | None:
+    """The commit this branch's own changes are measured against.
+
+    NOT `SCOPE_BASE`.  That is where the pins are taken and it never moves,
+    which is exactly why it cannot answer "what did THIS branch write": every
+    rung merged after it shows up in the diff as though this rung had written
+    it.  The right base is the tip of `main` this branch has merged.
+
+    Returns None when no base resolves, and the caller FAILS rather than
+    passes.  An unavailable scan is not a clean scan.
+    """
+    for ref in ("origin/main", "main"):
+        proc = subprocess.run(
+            ["git", "merge-base", ref, "HEAD"],
+            cwd=REPO,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            return proc.stdout.strip()
+    return None
+
+
+def head_commit() -> str:
+    """The commit under test, so a caller can tell "no branch" from "no
+    diff".  Failing closed: an unreadable HEAD is not an excuse to skip."""
+    proc = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=REPO,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0 or not proc.stdout.strip():
+        raise ValueError("git rev-parse HEAD failed; the boundary scan cannot run")
+    return proc.stdout.strip()
+
+
+def changed_paths(base: str = SCOPE_BASE) -> set[str]:
     diff_raw = subprocess.run(
-        ["git", "diff", "--no-renames", "--name-only", "-z", SCOPE_BASE],
+        ["git", "diff", "--no-renames", "--name-only", "-z", base],
         cwd=REPO,
         capture_output=True,
         check=True,
@@ -304,11 +349,69 @@ class BoundaryTests(unittest.TestCase):
             nul_paths(b"unterminated")
         with self.assertRaisesRegex(ValueError, "valid UTF-8"):
             nul_paths(b"\xff\0")
+    def setUp(self) -> None:
+        base = comparison_base()
+        if base is None:  # pragma: no cover - a resolvable base exists here
+            self.fail("no comparison base; the boundary scan cannot run")
+        self.base = base
+        self.head = head_commit()
+        self.changed = changed_paths(base)
+
+    def _require_this_rungs_branch(self) -> None:
+        """Skip, named, when there is no branch of THIS rung under test.
+
+        Two situations, and neither is a defect:
+
+        * HEAD is the comparison base -- on `main` after this rung merged
+          there is no branch at all;
+        * the branch changed things, none of them under this write root --
+          it is another rung's branch, and this rung's boundary is not what
+          it is testing.
+
+        An earlier version asserted through both, against a diff from the
+        fixed `SCOPE_BASE`. That made every rung merged after this one look
+        like this rung writing outside its root, so the claim these tests
+        make -- "this rung wrote only its own tree and appended to two shared
+        files" -- was silently re-read as "nothing in the repository has
+        changed since `8dea98da` except this tree". It passed only because
+        this rung merged last. WITHDRAWN: the repository's future is not this
+        rung's write scope.
+        """
+        if self.base == self.head:
+            self.skipTest(
+                f"HEAD is the comparison base ({self.base[:12]}); no branch of "
+                "this rung is under test"
+            )
+        if not self.changed:
+            self.fail(
+                f"HEAD {self.head[:12]} is ahead of comparison base "
+                f"{self.base[:12]}, but the change census is empty; the scope "
+                "claim cannot pass vacuously"
+            )
+        mine = {p for p in self.changed if p.startswith(WRITE_ROOT)}
+        if self.changed and not mine:
+            self.skipTest(
+                f"this branch changed {len(self.changed)} path(s), none under "
+                f"{WRITE_ROOT}; it is not this rung's branch"
+            )
+
+    def test_no_branch_writes_a_sealed_path(self) -> None:
+        """Repository-wide, and therefore NOT scoped to this rung's branch.
+
+        No rung may write a sealed path, so this one claim is checked on
+        whatever branch is under test rather than skipped when the branch
+        belongs to someone else. It is the half of the old combined test that
+        was never this rung's alone.
+        """
+        sealed = sorted(
+            p for p in self.changed
+            if any(p.startswith(prefix) for prefix in SEALED)
+        )
+        self.assertEqual(sealed, [])
+
     def test_only_write_root_and_two_shared_appends_are_changed(self) -> None:
-        paths = changed_paths()
-        self.assertEqual(outside_declared(paths), set())
-        for path in paths:
-            self.assertFalse(any(path.startswith(prefix) for prefix in SEALED), path)
+        self._require_this_rungs_branch()
+        self.assertEqual(outside_declared(self.changed), set())
 
     def test_boundary_predicate_refuses_a_synthetic_outside_path(self) -> None:
         self.assertEqual(
@@ -321,9 +424,20 @@ class BoundaryTests(unittest.TestCase):
         self.assertTrue(append_only(b"base\n", b"base\nappend\n"))
 
     def test_shared_files_preserve_scope_base_as_exact_prefix(self) -> None:
+        """This rung appends to the shared files; it never rewrites them.
+
+        Measured against the COMPARISON BASE, not `SCOPE_BASE`. Against the
+        fixed commit the claim was that no rung may ever modify a line of
+        `.github/workflows/verify.yml` again -- not even to move its own
+        registered test count, which registering a new test requires. That is
+        a rule about everyone's future, and it is not this rung's to make.
+        Against the comparison base the claim is the one this rung can own:
+        whatever else has landed, THIS branch only appended.
+        """
+        self._require_this_rungs_branch()
         for name in SHARED:
             base = subprocess.run(
-                ["git", "show", f"{SCOPE_BASE}:{name}"],
+                ["git", "show", f"{self.base}:{name}"],
                 cwd=REPO,
                 capture_output=True,
                 check=True,
@@ -441,6 +555,110 @@ class CoverageGateTests(unittest.TestCase):
         cast(dict[str, int], mismatch["totals"])["covered_lines"] -= 1
         cast(dict[str, int], mismatch["totals"])["missing_lines"] += 1
         self.assertIn("totals do not equal file counters", self.check(mismatch)[0])
+
+
+class BoundaryScopeSituationTests(unittest.TestCase):
+    """The five situations the boundary scan can meet, injected as state.
+
+    They cannot all be staged as real commits from one checkout: once a
+    repaired file of this tree is committed, every situation with HEAD ahead
+    of the base necessarily carries a change under this write root, so the
+    two requiring otherwise are unreachable from here. The scan reads three
+    attributes and nothing else, so setting them is exact.
+
+    The situation that CAN be staged for real is the one that mattered -- a
+    branch of another rung -- and it is recorded in STATUS.md.
+    """
+
+    @staticmethod
+    def _case(base: str, head: str, changed: set[str], name: str):
+        case = BoundaryTests(name)
+        case.base = base
+        case.head = head
+        case.changed = changed
+        return case
+
+    def test_at_the_base_the_write_scope_claim_skips(self) -> None:
+        case = self._case(
+            "a" * 40, "a" * 40, set(),
+            "test_only_write_root_and_two_shared_appends_are_changed",
+        )
+        with self.assertRaises(unittest.SkipTest) as caught:
+            case.test_only_write_root_and_two_shared_appends_are_changed()
+        self.assertIn("HEAD is the comparison base", str(caught.exception))
+
+    def test_an_ahead_head_with_an_empty_census_fails_closed(self) -> None:
+        case = self._case(
+            "a" * 40, "b" * 40, set(),
+            "test_only_write_root_and_two_shared_appends_are_changed",
+        )
+        with self.assertRaises(AssertionError) as caught:
+            case.test_only_write_root_and_two_shared_appends_are_changed()
+        self.assertIn("change census is empty", str(caught.exception))
+
+    def test_this_rungs_own_branch_is_still_checked(self) -> None:
+        case = self._case(
+            "a" * 40, "b" * 40, {WRITE_ROOT + "generation.py"},
+            "test_only_write_root_and_two_shared_appends_are_changed",
+        )
+        case.test_only_write_root_and_two_shared_appends_are_changed()
+        breach = self._case(
+            "a" * 40, "b" * 40,
+            {WRITE_ROOT + "generation.py", "research/outside_probe"},
+            "test_only_write_root_and_two_shared_appends_are_changed",
+        )
+        with self.assertRaises(AssertionError):
+            breach.test_only_write_root_and_two_shared_appends_are_changed()
+
+    def test_another_rungs_branch_skips_rather_than_failing(self) -> None:
+        """The observed failure. A branch doing `second_stream` work owes this
+        rung nothing; demanding otherwise made every later rung's work fail
+        here, and would have failed every future rung's."""
+        case = self._case(
+            "a" * 40, "b" * 40, {"research/second_stream/verify_pins.py"},
+            "test_only_write_root_and_two_shared_appends_are_changed",
+        )
+        with self.assertRaises(unittest.SkipTest) as caught:
+            case.test_only_write_root_and_two_shared_appends_are_changed()
+        self.assertIn("not this rung's branch", str(caught.exception))
+
+    def test_a_sealed_path_fails_on_any_branch_including_a_foreign_one(
+        self,
+    ) -> None:
+        """The half that is NOT scoped. No rung may write a sealed path, so
+        this claim is checked on whatever branch is under test -- including
+        one that touches nothing of this rung and skips everything else."""
+        case = self._case(
+            "a" * 40, "b" * 40,
+            {"research/second_stream/x.py", "paper/paper.md"},
+            "test_no_branch_writes_a_sealed_path",
+        )
+        with self.assertRaises(AssertionError) as caught:
+            case.test_no_branch_writes_a_sealed_path()
+        self.assertIn("paper/paper.md", str(caught.exception))
+        clean = self._case(
+            "a" * 40, "b" * 40, {"research/second_stream/x.py"},
+            "test_no_branch_writes_a_sealed_path",
+        )
+        clean.test_no_branch_writes_a_sealed_path()
+
+    def test_the_append_claim_is_scoped_the_same_way(self) -> None:
+        case = self._case(
+            "a" * 40, "b" * 40, {"research/second_stream/x.py"},
+            "test_shared_files_preserve_scope_base_as_exact_prefix",
+        )
+        with self.assertRaises(unittest.SkipTest):
+            case.test_shared_files_preserve_scope_base_as_exact_prefix()
+
+    def test_the_base_helpers_fail_closed(self) -> None:
+        self.assertEqual(len(head_commit()), 40)
+        with mock.patch.object(
+            subprocess, "run",
+            return_value=subprocess.CompletedProcess([], 1, "", "boom"),
+        ):
+            with self.assertRaises(ValueError):
+                head_commit()
+            self.assertIsNone(comparison_base())
 
 
 class ClaimBoundaryTests(unittest.TestCase):
