@@ -37,10 +37,56 @@
       "path": "research/boundary_seed/receipts/challenge3.json",
       "role": "the vendored pin itself, copied to pinned/boundary_challenge3.json",
       "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge0.json",
+      "role": "the pinned rung-zero receipt, read by the comparison for what is observable at genesis",
+      "sha256": "7441796b52658c72698774565cbef69aa4b17740d90ba5bb2c27e23c7aafb7c9"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge1.json",
+      "role": "the pinned rung-one receipt, read by the comparison for what is observable after one admitted mark",
+      "sha256": "de48399f3fe54792edf8294b72fe92768f3d25b7144589f65d3d7ec45a0eb1b6"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge2.json",
+      "role": "the pinned rung-two receipt, read by the comparison for what is observable with two retained marks",
+      "sha256": "ca6a9f935951b7d813baf9ddbea881c32325f2e6b5309780a333477f13f4b12b"
     }
   ],
   "vendored_blob": {
     "local_path": "pinned/boundary_challenge3.json",
     "source_path": "research/boundary_seed/receipts/challenge3.json"
-  }
+  },
+  "vendored_receipts": [
+    {
+      "byte_count": 5553,
+      "challenge": 0,
+      "local_path": "pinned/boundary_challenge0.json",
+      "sha256": "7441796b52658c72698774565cbef69aa4b17740d90ba5bb2c27e23c7aafb7c9",
+      "source_path": "research/boundary_seed/receipts/challenge0.json"
+    },
+    {
+      "byte_count": 28363,
+      "challenge": 1,
+      "local_path": "pinned/boundary_challenge1.json",
+      "sha256": "de48399f3fe54792edf8294b72fe92768f3d25b7144589f65d3d7ec45a0eb1b6",
+      "source_path": "research/boundary_seed/receipts/challenge1.json"
+    },
+    {
+      "byte_count": 35499,
+      "challenge": 2,
+      "local_path": "pinned/boundary_challenge2.json",
+      "sha256": "ca6a9f935951b7d813baf9ddbea881c32325f2e6b5309780a333477f13f4b12b",
+      "source_path": "research/boundary_seed/receipts/challenge2.json"
+    },
+    {
+      "byte_count": 220518,
+      "challenge": 3,
+      "local_path": "pinned/boundary_challenge3.json",
+      "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab",
+      "source_path": "research/boundary_seed/receipts/challenge3.json"
+    }
+  ],
+  "vendored_receipts_note": "The four pinned receipts the comparison reads. Each is held to one sha256 that is recomputable from the bytes with no git at all; comparison.py prefers the blob at the pinned commit and falls back to the vendored copy, and the two are the same bytes or the run is VOID."
 }

@@ -18,6 +18,20 @@ from typing import Any
 HERE = pathlib.Path(__file__).resolve().parent
 BAR = 95.0
 
+# The measured set is the carrier package plus the declared top-level modules
+# that carry computation.  Runners and verifiers are deliberately outside it,
+# as they are outside the sibling gates elsewhere in this repository.  The set
+# is checked for EXACT equality, so it fails in both directions.
+MEASURED_ROOT_MODULES: tuple[str, ...] = ("comparison.py",)
+
+
+def measured_files() -> list[str]:
+    package = [
+        str(path.relative_to(HERE)).replace("\\", "/")
+        for path in (HERE / "code" / "sidefree").rglob("*.py")
+    ]
+    return sorted(package + list(MEASURED_ROOT_MODULES))
+
 
 def _count(row: dict[str, Any], key: str) -> int:
     value = row.get(key)
@@ -65,10 +79,7 @@ def main() -> int:
     if not isinstance(files, dict):
         print("FAIL: coverage.json must carry a files object")
         return 1
-    expected = sorted(
-        str(p.relative_to(HERE)).replace("\\", "/")
-        for p in (HERE / "code" / "sidefree").rglob("*.py")
-    )
+    expected = measured_files()
     measured = sorted(str(k).replace("\\", "/") for k in files)
     if measured != expected:
         print(f"FAIL: measured files {measured} differ from tree code {expected}")
@@ -85,9 +96,9 @@ def main() -> int:
         print(f"FAIL: coverage.json carries an invalid timestamp: {exc}")
         return 1
     newer = [
-        path
-        for path in sorted((HERE / "code" / "sidefree").rglob("*.py"))
-        if datetime.datetime.fromtimestamp(path.stat().st_mtime) > written
+        HERE / name
+        for name in expected
+        if datetime.datetime.fromtimestamp((HERE / name).stat().st_mtime) > written
     ]
     if newer:
         print(

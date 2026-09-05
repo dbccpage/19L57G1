@@ -156,6 +156,18 @@ def check_vendored_pin() -> list[str]:
     return problems
 
 
+def walk_path(root: object, spec: str) -> object:
+    cur = root
+    for part in spec.split("."):
+        if isinstance(cur, list):
+            cur = cur[int(part)]
+        elif isinstance(cur, dict):
+            cur = cur[part]
+        else:
+            raise KeyError(part)
+    return cur
+
+
 def check_extracted_values() -> list[str]:
     """Every extracted number must still be what the receipt says at its path."""
     problems: list[str] = []
@@ -164,21 +176,84 @@ def check_extracted_values() -> list[str]:
     for spec, want in meta["extracted"].items():
         if spec.endswith(".classes.members"):
             continue
-        cur: object = receipt
         try:
-            for part in spec.split("."):
-                if isinstance(cur, list):
-                    cur = cur[int(part)]
-                elif isinstance(cur, dict):
-                    cur = cur[part]
-                else:
-                    raise KeyError(part)
+            cur = walk_path(receipt, spec)
         except (KeyError, IndexError, ValueError):
             problems.append(f"BOUNDARY_PIN.json cites {spec}, which the receipt has not")
             continue
         if cur != want:
             problems.append(
                 f"BOUNDARY_PIN.json {spec} is {want!r}, the receipt says {cur!r}"
+            )
+    return problems
+
+
+def vendored_receipts() -> list[dict[str, object]]:
+    manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+    rows = manifest["vendored_receipts"]
+    return sorted(rows, key=lambda row: int(str(row["challenge"])))
+
+
+def check_vendored_receipts() -> list[str]:
+    """The four pinned receipts the comparison reads, by bytes alone."""
+    problems: list[str] = []
+    for row in vendored_receipts():
+        rel = str(row["local_path"])
+        path = HERE / rel
+        if not path.is_file():
+            problems.append(f"the vendored receipt {rel} is missing")
+            continue
+        raw = path.read_bytes()
+        if sha(raw) != row["sha256"]:
+            problems.append(f"{rel}: sha256 {sha(raw)} wanted {row['sha256']}")
+        if len(raw) != row["byte_count"]:
+            problems.append(
+                f"{rel}: byte count {len(raw)} wanted {row['byte_count']}"
+            )
+        if b"\r" in raw:
+            problems.append(f"{rel} contains CR bytes")
+        problems.extend(attribute_problems(rel, "byte-stable"))
+    return problems
+
+
+def check_declared_values() -> list[str]:
+    """Every value the comparison declares must be what the pinned bytes say.
+
+    The declaration is keyed CHALLENGE:JSON-PATH.  A hand edit of either side
+    fails here by name, which is what makes the comparison's own gate real.
+    """
+    meta = json.loads((HERE / "pinned" / "BOUNDARY_PIN.json").read_text(encoding="utf-8"))
+    declared = meta.get("declared_values")
+    if not isinstance(declared, dict):
+        return ["BOUNDARY_PIN.json carries no declared_values block"]
+    receipts: dict[int, object] = {}
+    for row in vendored_receipts():
+        path = HERE / str(row["local_path"])
+        if path.is_file():
+            receipts[int(str(row["challenge"]))] = json.loads(
+                path.read_text(encoding="utf-8")
+            )
+    problems: list[str] = []
+    for key, want in sorted(declared.items()):
+        head, _, spec = str(key).partition(":")
+        try:
+            challenge = int(head)
+        except ValueError:
+            problems.append(f"declared value {key} has no challenge index")
+            continue
+        if challenge not in receipts:
+            problems.append(f"declared value {key} names no vendored receipt")
+            continue
+        try:
+            cur = walk_path(receipts[challenge], spec)
+        except (KeyError, IndexError, ValueError):
+            problems.append(
+                f"declared value {key} names a path the pinned receipt has not"
+            )
+            continue
+        if cur != want:
+            problems.append(
+                f"declared value {key} is {want!r}, the pinned receipt says {cur!r}"
             )
     return problems
 
@@ -235,7 +310,9 @@ def main(argv: list[str]) -> int:
     for rel, want in FROZEN.items():
         problems.extend(check_frozen(rel, want))
     problems.extend(check_vendored_pin())
+    problems.extend(check_vendored_receipts())
     problems.extend(check_extracted_values())
+    problems.extend(check_declared_values())
     commit_problems, commit_notes = check_pinned_commit(allow_unreachable)
     problems.extend(commit_problems)
     notes.extend(commit_notes)
@@ -244,7 +321,12 @@ def main(argv: list[str]) -> int:
     receipts = sorted((HERE / "receipts").glob("*.json"))
     if not receipts:
         problems.append("no receipt is present; run run_side_free.py")
-    for receipt in receipts:
+    # The rendered document is byte-compared beside the receipts, so it is
+    # held to the same CR refusal and the same -text attribute.
+    for receipt in [*receipts, HERE / "COMPARISON.md"]:
+        if not receipt.is_file():
+            problems.append(f"{receipt.name} is missing; run run_comparison.py")
+            continue
         if b"\r" in receipt.read_bytes():
             problems.append(f"{receipt.name} contains CR bytes")
         problems.extend(
@@ -256,9 +338,13 @@ def main(argv: list[str]) -> int:
         print(f"FAIL: {problem}")
     if problems:
         return 1
+    meta = json.loads((HERE / "pinned" / "BOUNDARY_PIN.json").read_text(encoding="utf-8"))
+    declared = meta.get("declared_values") or {}
     print(
         f"pins ok: {len(FROZEN)} frozen file(s), the vendored pin "
-        f"{PIN_SHA256[:12]} at {PIN_BYTES} bytes, {len(receipts)} receipt(s)"
+        f"{PIN_SHA256[:12]} at {PIN_BYTES} bytes, "
+        f"{len(vendored_receipts())} vendored receipt(s), "
+        f"{len(declared)} declared value(s), {len(receipts)} receipt(s)"
     )
     return 0
 

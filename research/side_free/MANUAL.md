@@ -15,10 +15,21 @@ python -m coverage run -m unittest discover -s tests -p "test_*.py"
 python -m coverage json -q
 python check_coverage.py
 python run_side_free.py
+python run_comparison.py
 cd ../..
-git diff --exit-code -- research/side_free/receipts
+git diff --exit-code -- research/side_free/receipts research/side_free/COMPARISON.md
 python ci/check_prose_watchlist.py
 ```
+
+`run_comparison.py` writes both `receipts/comparison.json` and `COMPARISON.md`;
+the document is RENDERED from the receipt, so it cannot carry a number the
+receipt does not, and a test asserts the committed file is a fresh rendering.
+`--check` compares both without writing.
+
+`run_comparison.py --declare` re-snapshots the pinned values into
+`pinned/BOUNDARY_PIN.json`.  It is a **deliberate** act, exactly as a pin
+regeneration is elsewhere in this repository: running it while an injection is
+live adopts the injected value as the baseline and destroys gate C1.
 
 The Lean package is separate and is a **manual receipt**:
 
@@ -44,8 +55,13 @@ it.  See "What the gates are worth" below for why.
 | G6 | the mirror against the pinned vector on all 48 rows per reading, plus the minima and their classes | `control.gate_mirror_matches_the_pin` |
 | deletion totality | no deleted name survives in the side-free modules; no narrowed name is absent; no identifier carries a deleted stem outside a declared allowlist | `tests/test_deletion.py` |
 | source isolation | no citation into a sealed path, no sealed identifier, no other research tree name — with exactly one declared carve | `tests/test_isolation.py` |
-| coverage | line AND branch, each at or above 95%, measured from inside the tree, with a stale-report refusal | `check_coverage.py` |
+| coverage | line AND branch, each at or above 95%, measured from inside the tree, with a stale-report refusal.  The measured set is `code/sidefree/**` plus the declared top-level modules, held to EXACT equality so it fails in both directions | `check_coverage.py` |
 | Lean | build from clean, forbidden tokens as text, import closure, audit totality, the axiom whitelist, and the committed log | `verify_lean.py` |
+| C0 | the four vendored pinned receipts by declared sha256, byte count and CR refusal; the blob at the pinned commit when it is reachable; and that each file is the receipt of the challenge it is filed under | `comparison.gate_bytes` |
+| C1 | **the comparison's own gate.**  Every pinned value a row reads is declared in `pinned/BOUNDARY_PIN.json` at its `CHALLENGE:JSON-PATH`, agrees with the pinned bytes, and the declaration is TOTAL in both directions | `comparison.gate_declared_values` |
+| C2 | the control's own headline numbers are the ones the rows carry, the two deltas recomputed from the two minima, and the base row is where the row that reads it by index says it is | `comparison.gate_receipt_agrees` |
+| C3 | the two worlds' minima joined through the declared collapse map, and the routes only the pinned world reaches recomputed from the pin | `comparison.gate_minimum_join` |
+| C4 | the row ids are distinct and the declared item taxonomy is total in both directions | `comparison.gate_taxonomy` |
 
 ## Proving a gate: the injection record
 
@@ -74,6 +90,9 @@ which compares and never writes.
 | I12 | a Lean theorem added with no `#print axioms` line | `python verify_lean.py` | `FAIL: SideFree.zzz_probe_unaudited is declared under lean/SideFree/ but has no #print axioms line in SideFree.lean` | 1 | reverted; exit 0, 35 reports |
 | I13 | a frozen expectation edited in code to fit a different answer | `python -m unittest discover -s tests -p "test_*.py"` | `test_all_predictions_hit` … `{'id': 'P1', 'status': 'MISS', 'failures': [{'path': 'decided.side_free_minimum', 'expected': 2, 'computed': 1}]}` | 1 | reverted; exit 0 |
 | I14 | the pinned commit replaced by an unreachable one in a temporary manifest | `test_an_unreachable_pinned_commit_is_reported_as_skipped` | the conditional check returns `SKIPPED` with the reason and the residual, never a silent pass | — | permanent test |
+| I15 | one boundary value changed in the pinned manifest: `declared_values["3:readings.U.minima_by_mu1.minimum"]` from `1` to `0` | `python run_comparison.py --check` | `FAIL: the comparison is VOID and NO difference is reported` then `FAIL: C1: declared value 3:readings.U.minima_by_mu1.minimum is 0, the pinned bytes say 1` | 1 | value restored; exit 0, both files byte-identical |
+| I16 | the same one boundary value, against the pin verifier | `python research/side_free/verify_pins.py` | `FAIL: declared value 3:readings.U.minima_by_mu1.minimum is 0, the pinned receipt says 1` | 1 | value restored; exit 0 |
+| I17 | one value of the vendored `pinned/boundary_challenge2.json` bytes altered | `python run_comparison.py --check`, then `python research/side_free/verify_pins.py` | `FAIL: C0: challenge 2: pinned/boundary_challenge2.json has sha256 b5f90e4b5295… , the manifest declares ca6a9f935951…`, and the verifier's own `FAIL: pinned/boundary_challenge2.json: sha256 … wanted …` | 1 and 1 | restored from the pinned commit; both exit 0 |
 
 Several further probes live as permanent tests rather than as one-off
 injections, because they mutate a temporary copy and can therefore run every
@@ -109,6 +128,19 @@ FAILS if the guard is removed.
   report is unchecked by any gate.  Recorded as a live residual, not closed.
 * **Coverage is measured from inside the tree** and its report is untracked;
   the gate refuses a report older than any measured source.
+* **C1 is the comparison's load-bearing gate**, and it is worth exactly its
+  totality.  It does not check that the comparison compares the RIGHT items:
+  a perfect pin of the wrong row set is still the wrong row set.  What it
+  checks is that no boundary number in this tree was typed by hand and that
+  none has drifted from the pinned bytes.
+* **The comparison record carries no environment value.**  Whether the pinned
+  commit is reachable is printed by `run_comparison.py` and never written into
+  `receipts/comparison.json`, so the record is the same file in a clone that
+  cannot reach that commit.  A test proves it by making every `git show` fail
+  and requiring the rendering back byte for byte.  The sibling record
+  `receipts/side_free.json` is built the other way and does NOT have this
+  property; that is recorded as an open item and is not repaired here, because
+  the frozen design declares the conditional check to be part of that record.
 
 ## What injection does NOT prove
 

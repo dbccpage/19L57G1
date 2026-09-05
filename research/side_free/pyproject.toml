@@ -9,12 +9,19 @@ explicit_package_bases = true
 files = [
   "code/sidefree",
   "tests",
+  "comparison.py",
+  "run_comparison.py",
   "run_side_free.py",
   "check_coverage.py",
   "verify_pins.py",
   "verify_lean.py",
 ]
 
+# ``comparison.py`` is a top-level module rather than a package member, so it
+# is named in source_pkgs; a path in ``source`` is silently not measured, which
+# is the failure this split avoids.  ``check_coverage.py`` holds the measured
+# file set to exactly these two roots and fails in both directions.
 [tool.coverage.run]
 branch = true
 source = ["code/sidefree"]
+source_pkgs = ["comparison"]

@@ -1,0 +1,3728 @@
+{
+  "artifact": "comparison",
+  "authority_effect": "None",
+  "bought_table": {
+    "absent": [
+      {
+        "item": "the two sides are collapsed at genesis",
+        "reason": "the notion names a side, and a world with no sides cannot state it",
+        "row": "R05"
+      },
+      {
+        "item": "an admission that would move an admitted mark is refused",
+        "reason": "the refusal is REMOVED, not absorbed: with no sides there is nowhere to move a mark to, so the refusal has no side-free statement at all",
+        "row": "R14"
+      }
+    ],
+    "bought_nothing": [
+      "R01",
+      "R03",
+      "R06",
+      "R07",
+      "R09",
+      "R10",
+      "R11",
+      "R13",
+      "R15",
+      "R16",
+      "R17",
+      "R18",
+      "R19",
+      "R20",
+      "R21",
+      "R22",
+      "R23",
+      "R26",
+      "R27",
+      "R28",
+      "R30",
+      "R31",
+      "R40",
+      "R41",
+      "R42",
+      "R45"
+    ],
+    "bought_something": [
+      "R02",
+      "R04",
+      "R08",
+      "R12",
+      "R24",
+      "R25",
+      "R29",
+      "R32",
+      "R33",
+      "R34",
+      "R35",
+      "R36",
+      "R37",
+      "R38",
+      "R39",
+      "R43",
+      "R44",
+      "R46",
+      "R47"
+    ],
+    "by_kind": {
+      "declared structure": {
+        "ABSENT": [
+          "R05"
+        ],
+        "BOUGHT_NOTHING": [
+          "R09",
+          "R18",
+          "R26",
+          "R27",
+          "R28"
+        ],
+        "BOUGHT_SOMETHING": [
+          "R02",
+          "R04",
+          "R08",
+          "R12",
+          "R24",
+          "R25",
+          "R35",
+          "R36",
+          "R37",
+          "R39",
+          "R47"
+        ]
+      },
+      "event discipline": {
+        "ABSENT": [
+          "R14"
+        ],
+        "BOUGHT_NOTHING": [
+          "R06",
+          "R07",
+          "R13"
+        ],
+        "BOUGHT_SOMETHING": [
+          "R29"
+        ]
+      },
+      "price": {
+        "ABSENT": [],
+        "BOUGHT_NOTHING": [
+          "R31",
+          "R40",
+          "R41",
+          "R42",
+          "R45"
+        ],
+        "BOUGHT_SOMETHING": [
+          "R43",
+          "R44",
+          "R46"
+        ]
+      },
+      "verdict": {
+        "ABSENT": [],
+        "BOUGHT_NOTHING": [
+          "R19",
+          "R20",
+          "R21",
+          "R30"
+        ],
+        "BOUGHT_SOMETHING": [
+          "R32",
+          "R33",
+          "R34",
+          "R38"
+        ]
+      },
+      "what holds": {
+        "ABSENT": [],
+        "BOUGHT_NOTHING": [
+          "R01",
+          "R03",
+          "R10",
+          "R11",
+          "R15",
+          "R16",
+          "R17",
+          "R22",
+          "R23"
+        ],
+        "BOUGHT_SOMETHING": []
+      }
+    },
+    "columns": [
+      "what the admitted boundary bought",
+      "what it cost",
+      "which results depend on its presence"
+    ],
+    "decided_against": "the unnamed reading",
+    "entries": [
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [
+              "Admitted"
+            ],
+            "only_in_the_pinned_world": [
+              "OnSide",
+              "SideNamed"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "Admitted"
+          ],
+          "in_the_unnamed_reading": [
+            "OnSide",
+            "SideNamed"
+          ],
+          "item": "the declared observation vocabulary",
+          "kind": "declared structure",
+          "row": "R02"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R04"
+          ],
+          "stage": "genesis",
+          "this_row": "R02"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [
+              0
+            ],
+            "only_in_the_pinned_world": [
+              "U",
+              []
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            0
+          ],
+          "in_the_unnamed_reading": [
+            "U",
+            []
+          ],
+          "item": "the serialization key at genesis",
+          "kind": "declared structure",
+          "row": "R04"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R02"
+          ],
+          "stage": "genesis",
+          "this_row": "R04"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "control_minus_boundary": -1,
+            "kind": "count",
+            "same": false
+          },
+          "in_the_control": 1,
+          "in_the_unnamed_reading": 2,
+          "item": "admissions available from the one supplied token",
+          "kind": "declared structure",
+          "row": "R08"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R12"
+          ],
+          "stage": "one admitted mark",
+          "this_row": "R08"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [
+              1
+            ],
+            "only_in_the_pinned_world": [
+              "U",
+              [
+                0
+              ]
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            1
+          ],
+          "in_the_unnamed_reading": [
+            "U",
+            [
+              0
+            ]
+          ],
+          "item": "the serialization key after one admission",
+          "kind": "declared structure",
+          "row": "R12"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R08"
+          ],
+          "stage": "one admitted mark",
+          "this_row": "R12"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [
+              2
+            ],
+            "only_in_the_pinned_world": [
+              "U",
+              [
+                0,
+                1
+              ]
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            2
+          ],
+          "in_the_unnamed_reading": [
+            "U",
+            [
+              0,
+              1
+            ]
+          ],
+          "item": "the serialization key at the retained regime",
+          "kind": "declared structure",
+          "row": "R24"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R25",
+            "R29"
+          ],
+          "stage": "two retained marks",
+          "this_row": "R24"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "bool",
+            "same": false
+          },
+          "in_the_control": true,
+          "in_the_unnamed_reading": false,
+          "item": "the caller's two orders give equal regimes",
+          "kind": "declared structure",
+          "row": "R25"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R24",
+            "R29"
+          ],
+          "stage": "two retained marks",
+          "this_row": "R25"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "control_minus_boundary": 1,
+            "kind": "count",
+            "same": false
+          },
+          "in_the_control": 1,
+          "in_the_unnamed_reading": 0,
+          "item": "marks the shared identity policy retains",
+          "kind": "event discipline",
+          "row": "R29"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R24",
+            "R25"
+          ],
+          "stage": "two retained marks",
+          "this_row": "R29"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "control_minus_boundary": -2,
+            "kind": "count",
+            "same": false
+          },
+          "in_the_control": 1,
+          "in_the_unnamed_reading": 3,
+          "item": "tied non-isomorphic minima",
+          "kind": "verdict",
+          "row": "R32"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R33",
+            "R34",
+            "R35",
+            "R36",
+            "R37",
+            "R38",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R32"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "bool",
+            "same": false
+          },
+          "in_the_control": true,
+          "in_the_unnamed_reading": false,
+          "item": "the minimum is unique",
+          "kind": "verdict",
+          "row": "R33"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R34",
+            "R35",
+            "R36",
+            "R37",
+            "R38",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R33"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [],
+            "only_in_the_pinned_world": [
+              "extra_mark",
+              "withdraw_reflection"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "withdraw_mark_permutations"
+          ],
+          "in_the_unnamed_reading": [
+            "extra_mark",
+            "withdraw_mark_permutations",
+            "withdraw_reflection"
+          ],
+          "item": "the members attaining the minimum, under the declared collapse map",
+          "kind": "verdict",
+          "row": "R34"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R33",
+            "R35",
+            "R36",
+            "R37",
+            "R38",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R34"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "control_minus_boundary": -40,
+            "kind": "count",
+            "same": false
+          },
+          "in_the_control": 8,
+          "in_the_unnamed_reading": 48,
+          "item": "the declared candidate space",
+          "kind": "declared structure",
+          "row": "R35"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R33",
+            "R34",
+            "R36",
+            "R37",
+            "R38",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R35"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [],
+            "only_in_the_pinned_world": [
+              "admit_names",
+              "withdraw_reflection"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "extra_mark",
+            "keep_labels",
+            "withdraw_mark_permutations"
+          ],
+          "in_the_unnamed_reading": [
+            "admit_names",
+            "extra_mark",
+            "keep_labels",
+            "withdraw_mark_permutations",
+            "withdraw_reflection"
+          ],
+          "item": "one-step points in that space, under the declared collapse map",
+          "kind": "declared structure",
+          "row": "R36"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R33",
+            "R34",
+            "R35",
+            "R37",
+            "R38",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R36"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "control_minus_boundary": -37,
+            "kind": "count",
+            "same": false
+          },
+          "in_the_control": 4,
+          "in_the_unnamed_reading": 41,
+          "item": "bundles refused at two capabilities or more",
+          "kind": "declared structure",
+          "row": "R37"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R33",
+            "R34",
+            "R35",
+            "R36",
+            "R38",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R37"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [],
+            "only_in_the_pinned_world": [
+              "extra_mark",
+              "withdraw_reflection"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "withdraw_mark_permutations"
+          ],
+          "in_the_unnamed_reading": [
+            "extra_mark",
+            "withdraw_mark_permutations",
+            "withdraw_reflection"
+          ],
+          "item": "one-step points that satisfy, under the declared collapse map",
+          "kind": "verdict",
+          "row": "R38"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R33",
+            "R34",
+            "R35",
+            "R36",
+            "R37",
+            "R39"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R38"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [],
+            "only_in_the_pinned_world": [
+              "sides_internally_separable",
+              "convention_internally_available",
+              "side_names_hold"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "order_internally_available",
+            "label_internally_available"
+          ],
+          "in_the_unnamed_reading": [
+            "sides_internally_separable",
+            "order_internally_available",
+            "label_internally_available",
+            "convention_internally_available",
+            "side_names_hold"
+          ],
+          "item": "collateral facts the world declares",
+          "kind": "declared structure",
+          "row": "R39"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R32",
+            "R33",
+            "R34",
+            "R35",
+            "R36",
+            "R37",
+            "R38"
+          ],
+          "stage": "the imposed requirement",
+          "this_row": "R39"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "the item IS a price statement; what each world states is the row's own three columns"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [],
+            "only_in_the_pinned_world": [
+              "extra_mark",
+              "withdraw_reflection"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "withdraw_mark_permutations"
+          ],
+          "in_the_unnamed_reading": [
+            "extra_mark",
+            "withdraw_mark_permutations",
+            "withdraw_reflection"
+          ],
+          "item": "capabilities newly paid for at this rung",
+          "kind": "price",
+          "row": "R43"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R44",
+            "R46",
+            "R47"
+          ],
+          "stage": "the prices each world states",
+          "this_row": "R43"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "the item IS a price statement; what each world states is the row's own three columns"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [
+              "withdraw_mark_permutations"
+            ],
+            "only_in_the_pinned_world": [],
+            "same": false
+          },
+          "in_the_control": [
+            "withdraw_mark_permutations"
+          ],
+          "in_the_unnamed_reading": [],
+          "item": "capabilities the satisfaction uses",
+          "kind": "price",
+          "row": "R44"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R43",
+            "R46",
+            "R47"
+          ],
+          "stage": "the prices each world states",
+          "this_row": "R44"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "the item IS a price statement; what each world states is the row's own three columns"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [],
+            "only_in_the_pinned_world": [
+              "withdraw_reflection",
+              "admit_names"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "withdraw_mark_permutations",
+            "keep_labels",
+            "extra_mark"
+          ],
+          "in_the_unnamed_reading": [
+            "withdraw_reflection",
+            "withdraw_mark_permutations",
+            "admit_names",
+            "keep_labels",
+            "extra_mark"
+          ],
+          "item": "coordinates the world prices at this rung",
+          "kind": "price",
+          "row": "R46"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R43",
+            "R44",
+            "R47"
+          ],
+          "stage": "the prices each world states",
+          "this_row": "R46"
+        }
+      },
+      {
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        },
+        "what_the_admitted_boundary_bought": {
+          "difference": {
+            "kind": "set",
+            "only_in_the_control": [
+              "False",
+              "True"
+            ],
+            "only_in_the_pinned_world": [
+              "None",
+              "0",
+              "1"
+            ],
+            "same": false
+          },
+          "in_the_control": [
+            "False",
+            "True"
+          ],
+          "in_the_unnamed_reading": [
+            "None",
+            "0",
+            "1"
+          ],
+          "item": "declared values of the further-mark coordinate",
+          "kind": "declared structure",
+          "row": "R47"
+        },
+        "which_results_depend_on_its_presence": {
+          "other_rows_at_this_stage_that_also_move": [
+            "R43",
+            "R44",
+            "R46"
+          ],
+          "stage": "the prices each world states",
+          "this_row": "R47"
+        }
+      }
+    ],
+    "entries_the_naming_alone_bought": [
+      {
+        "difference": {
+          "control_minus_boundary": -2,
+          "kind": "count",
+          "same": false
+        },
+        "in_the_control": 0,
+        "in_the_named_reading": 2,
+        "item": "judgments holding at genesis",
+        "row": "R03",
+        "what_it_cost": {
+          "control": 0,
+          "control_equals_named": false,
+          "control_equals_unnamed": true,
+          "control_source": "receipts/side_free.json: endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes.control",
+          "named": 2,
+          "named_source": "receipts/side_free.json: endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes.named",
+          "stated": true,
+          "unnamed": 0,
+          "unnamed_source": "receipts/side_free.json: endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes.unnamed"
+        }
+      },
+      {
+        "difference": {
+          "control_minus_boundary": -1,
+          "kind": "count",
+          "same": false
+        },
+        "in_the_control": 1,
+        "in_the_named_reading": 2,
+        "item": "isomorphism classes of those admissions",
+        "row": "R09",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "control_minus_boundary": -2,
+          "kind": "count",
+          "same": false
+        },
+        "in_the_control": 1,
+        "in_the_named_reading": 3,
+        "item": "judgments holding after one admission",
+        "row": "R11",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "control_minus_boundary": -2,
+          "kind": "count",
+          "same": false
+        },
+        "in_the_control": 2,
+        "in_the_named_reading": 4,
+        "item": "judgments holding at the retained regime",
+        "row": "R16",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "control_minus_boundary": 1,
+          "kind": "count",
+          "same": false
+        },
+        "in_the_control": 2,
+        "in_the_named_reading": 1,
+        "item": "automorphisms of the retained regime",
+        "row": "R19",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "kind": "bool",
+          "same": false
+        },
+        "in_the_control": false,
+        "in_the_named_reading": true,
+        "item": "the two retained marks are internally separable at base",
+        "row": "R20",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "kind": "set",
+          "only_in_the_control": [],
+          "only_in_the_pinned_world": [
+            "on_side_0",
+            "on_side_1"
+          ],
+          "same": false
+        },
+        "in_the_control": [],
+        "in_the_named_reading": [
+          "on_side_0",
+          "on_side_1"
+        ],
+        "item": "invariant separating mark properties at base",
+        "row": "R21",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "kind": "bool",
+          "same": false
+        },
+        "in_the_control": false,
+        "in_the_named_reading": true,
+        "item": "the requirement holds at base",
+        "row": "R30",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "neither world states a price for this item"
+        }
+      },
+      {
+        "difference": {
+          "control_minus_boundary": 1,
+          "kind": "count",
+          "same": false
+        },
+        "in_the_control": 1,
+        "in_the_named_reading": 0,
+        "item": "the minimum cost to meet the requirement, under mu1",
+        "row": "R31",
+        "what_it_cost": {
+          "control": 1,
+          "control_equals_named": false,
+          "control_equals_unnamed": true,
+          "control_source": "receipts/side_free.json: decided.side_free_minimum",
+          "named": 0,
+          "named_source": "pinned challenge 3: readings.O.price.minimum_capability_count",
+          "stated": true,
+          "unnamed": 1,
+          "unnamed_source": "pinned challenge 3: readings.U.price.minimum_capability_count"
+        }
+      },
+      {
+        "difference": {
+          "kind": "bool",
+          "same": false
+        },
+        "in_the_control": false,
+        "in_the_named_reading": true,
+        "item": "the requirement is met with no augmentation",
+        "row": "R41",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "the item IS a price statement; what each world states is the row's own three columns"
+        }
+      },
+      {
+        "difference": {
+          "kind": "bool",
+          "same": false
+        },
+        "in_the_control": false,
+        "in_the_named_reading": true,
+        "item": "nothing new is paid at this rung",
+        "row": "R42",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "the item IS a price statement; what each world states is the row's own three columns"
+        }
+      },
+      {
+        "difference": {
+          "kind": "value",
+          "same": false
+        },
+        "in_the_control": "the run",
+        "in_the_named_reading": "the declared reading, and the run at Challenge 2",
+        "item": "who pays for the satisfaction",
+        "row": "R45",
+        "what_it_cost": {
+          "control": null,
+          "control_equals_named": true,
+          "control_equals_unnamed": true,
+          "named": null,
+          "stated": false,
+          "unnamed": null,
+          "why": "the item IS a price statement; what each world states is the row's own three columns"
+        }
+      }
+    ],
+    "membership_rule": "a row is in BOUGHT_NOTHING exactly when the control reaches the same value at the same stated price; in BOUGHT_SOMETHING when either differs; and in ABSENT when the notion has no statement in one world, which is evidence for neither bucket",
+    "rows_whose_pinned_field_the_pinned_world_calls_declared_not_computed": [
+      "R44",
+      "R45"
+    ],
+    "why_the_kinds_are_reported": "a difference in a world's own bookkeeping -- the size of its declared space, the tag its serialization key carries -- is not a capability the primitive bought, and the kinds keep the two apart without curating which rows are in which bucket"
+  },
+  "gates": {
+    "C0": {
+      "gate": "C0",
+      "name": "pinned_bytes_ok",
+      "passed": true,
+      "problems": [],
+      "receipts": [
+        {
+          "byte_count": 5553,
+          "challenge": 0,
+          "sha256": "7441796b52658c72698774565cbef69aa4b17740d90ba5bb2c27e23c7aafb7c9"
+        },
+        {
+          "byte_count": 28363,
+          "challenge": 1,
+          "sha256": "de48399f3fe54792edf8294b72fe92768f3d25b7144589f65d3d7ec45a0eb1b6"
+        },
+        {
+          "byte_count": 35499,
+          "challenge": 2,
+          "sha256": "ca6a9f935951b7d813baf9ddbea881c32325f2e6b5309780a333477f13f4b12b"
+        },
+        {
+          "byte_count": 220518,
+          "challenge": 3,
+          "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab"
+        }
+      ],
+      "what_it_checks": "the declared sha256, the byte count and the CR refusal of every vendored copy, that the blob at the pinned commit has the same sha256 when that commit is reachable, and that each file is the receipt of the challenge it is filed under"
+    },
+    "C1": {
+      "checked": 91,
+      "declared": 91,
+      "gate": "C1",
+      "name": "declared_values_agree",
+      "passed": true,
+      "problems": [],
+      "used_by_rows": 91
+    },
+    "C2": {
+      "gate": "C2",
+      "name": "receipt_agrees",
+      "passed": true,
+      "problems": [],
+      "recomputed_deltas": {
+        "delta_vs_named": 1,
+        "delta_vs_unnamed": 0
+      }
+    },
+    "C3": {
+      "collapsed": [
+        "extra_mark",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ],
+      "control_members": [
+        "withdraw_mark_permutations"
+      ],
+      "gate": "C3",
+      "name": "minimum_join",
+      "passed": true,
+      "pinned_points": [
+        "extra_mark_0",
+        "extra_mark_1",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ],
+      "problems": [],
+      "routes_only_the_pinned_world_reaches": [
+        "extra_mark",
+        "withdraw_reflection"
+      ]
+    },
+    "C4": {
+      "gate": "C4",
+      "kinds": [
+        "what holds",
+        "declared structure",
+        "event discipline",
+        "verdict",
+        "price"
+      ],
+      "name": "taxonomy_total",
+      "passed": true,
+      "problems": [],
+      "rows": 47,
+      "stage_order": [
+        "genesis",
+        "one admitted mark",
+        "two retained marks",
+        "the imposed requirement",
+        "the prices each world states"
+      ]
+    },
+    "all_passed": true
+  },
+  "minima_and_the_sides": {
+    "criterion_by_behaviour": "a candidate READS the placement when its separation verdict is not constant across the placements of one label configuration in its own route-census domain, and does not read it when the verdict is constant in every such group",
+    "criterion_by_name": "a pinned coordinate transfers exactly when its pinned capability sentence contains no whole word 'side' or 'sides'",
+    "rows": [
+      {
+        "coordinates_moved": [
+          "extra_mark"
+        ],
+        "names_a_side_in_its_capability_sentence": false,
+        "placement": {
+          "cells": 16,
+          "groups_whose_verdict_moves_with_the_placement": 4,
+          "label_groups": 4,
+          "reads_the_placement": true
+        },
+        "point": "extra_mark_0",
+        "reading": "U",
+        "world": "the pinned world"
+      },
+      {
+        "coordinates_moved": [
+          "extra_mark"
+        ],
+        "names_a_side_in_its_capability_sentence": false,
+        "placement": {
+          "cells": 16,
+          "groups_whose_verdict_moves_with_the_placement": 4,
+          "label_groups": 4,
+          "reads_the_placement": true
+        },
+        "point": "extra_mark_1",
+        "reading": "U",
+        "world": "the pinned world"
+      },
+      {
+        "coordinates_moved": [
+          "withdraw_mark_permutations"
+        ],
+        "names_a_side_in_its_capability_sentence": false,
+        "placement": {
+          "cells": 16,
+          "groups_whose_verdict_moves_with_the_placement": 0,
+          "label_groups": 4,
+          "reads_the_placement": false
+        },
+        "point": "withdraw_mark_permutations",
+        "reading": "U",
+        "world": "the pinned world"
+      },
+      {
+        "coordinates_moved": [
+          "withdraw_reflection"
+        ],
+        "names_a_side_in_its_capability_sentence": true,
+        "placement": {
+          "cells": 16,
+          "groups_whose_verdict_moves_with_the_placement": 4,
+          "label_groups": 4,
+          "reads_the_placement": true
+        },
+        "point": "withdraw_reflection",
+        "reading": "U",
+        "world": "the pinned world"
+      },
+      {
+        "coordinates_moved": [],
+        "names_a_side_in_its_capability_sentence": false,
+        "placement": {
+          "cells": 16,
+          "groups_whose_verdict_moves_with_the_placement": 4,
+          "label_groups": 4,
+          "reads_the_placement": true
+        },
+        "point": "base",
+        "reading": "O",
+        "world": "the pinned world"
+      },
+      {
+        "coordinates_moved": [
+          "withdraw_mark_permutations"
+        ],
+        "names_a_side_in_its_capability_sentence": false,
+        "placement": {
+          "cells": 4,
+          "groups_whose_verdict_moves_with_the_placement": 0,
+          "label_groups": 4,
+          "reads_the_placement": false,
+          "why": "there is no placement here, so no group can vary with one"
+        },
+        "point": "withdraw_mark_permutations",
+        "reading": null,
+        "world": "the control"
+      }
+    ],
+    "the_two_criteria_disagree_on": [
+      "base",
+      "extra_mark_0",
+      "extra_mark_1"
+    ]
+  },
+  "open": [
+    {
+      "id": "SF-OPEN-A",
+      "inherited": true,
+      "statement": "Whether the admission order is itself a container.  What pays for separation in a world with no container is that order; this comparison prices the route and does not decide what kind of thing an order is."
+    },
+    {
+      "id": "SF-OPEN-B",
+      "inherited": true,
+      "statement": "The price of re-purchasing a per-mark two-valued datum.  It lies outside the pinned candidate space and is therefore priced in neither world."
+    },
+    {
+      "id": "SF-OPEN-C",
+      "inherited": true,
+      "statement": "The pinned premise that a candidate's permitted renamings are closed under composition and inverse is inherited, stated, and checked by nothing."
+    },
+    {
+      "id": "SF-OPEN-D",
+      "inherited": true,
+      "statement": "Whether the requirement should have been declared so as to exclude a route that satisfies it by unfolding."
+    },
+    {
+      "id": "SF-OPEN-E",
+      "inherited": false,
+      "statement": "OPENED BY THIS COMPARISON, and not repaired here.  The sibling record receipts/side_free.json carries the pinned commit's reachability inside its own bytes, so it is not the same file in a clone that cannot reach that commit.  Observed, not argued: with the commit made unreachable in process, a fresh computation returns 541041 bytes against the committed 541009, differing in exactly the two lines of gates.G1.commit_check -- status PASS becomes SKIPPED and the reason line changes.  The pinned branch is carried by no remote, so a checkout that fetches only remote refs is exactly that clone, and the step that regenerates the record and then requires no diff would fail there.  It is not repaired because the frozen design declares that conditional check to be part of that record, and the frozen files are not edited to fit a later finding.  THIS record is built the other way: its rows are held by sha256 alone and the reachability report is printed by the runner, so it is the same file in both clones."
+    }
+  ],
+  "pinned_commit": "5c43c5ee",
+  "pinned_dependence_claims": {
+    "adjudication": {
+      "evidence": {
+        "capability_sentence_is_byte_identical": true,
+        "control_cost": 1,
+        "control_satisfies": true,
+        "coordinate": "withdraw_mark_permutations",
+        "it_is_one_of_the_pinned_minima": true,
+        "pinned_cost": 1,
+        "pinned_satisfies": true,
+        "same_cost": true
+      },
+      "selected": [
+        "the side exchange, its withdrawal, the two side mark properties, the counterfactual square, and every separation result of the rung"
+      ],
+      "verdict": "CONTRADICTED within the declared scope",
+      "what_is_declared_and_what_is_computed": "the selector is declared; the evidence under it is computed, and the contradiction is of one universal clause at one rung and of nothing else in the dictionary"
+    },
+    "classification_is_mechanical": "by the sentence's own opening words: 'does not depend' is INDEPENDENT, or MIXED when the same sentence also says something requires the primitive; 'require' is DEPENDENT",
+    "classification_is_total": true,
+    "counts_by_class": {
+      "DEPENDENT": 5,
+      "INDEPENDENT": 14,
+      "MIXED": 1,
+      "UNCLASSIFIED": 0
+    },
+    "entries": [
+      {
+        "challenge": 0,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "empty event-follows relation",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 0,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "initial opaque datum",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 0,
+        "claim": "require the admitted boundary and are not formulated after removing it",
+        "class": "DEPENDENT",
+        "subject": "side profiles, collapse, names, reflection, and class counts",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 0,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "supply inertia",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 1,
+        "claim": "does not depend on the admitted boundary for the event discipline; the side the mark is retained on requires it",
+        "class": "MIXED",
+        "subject": "admission is a separate event; the mark is retained",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 1,
+        "claim": "require the admitted boundary and are not formulated after removing it",
+        "class": "DEPENDENT",
+        "subject": "one new judgment, the mark's side; profiles; candidates; convention; classes",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 1,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "supply is presentation only",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 1,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "the current state is the replay of the caller's history",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 1,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "the event-follows relation stays empty",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 1,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "the initial datum and reading are unchanged by every event",
+        "subject_claims_every_result_of_its_rung": true
+      },
+      {
+        "challenge": 2,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "supply is presentation only, and the current state is the replay of the caller's history",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 2,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "the event-follows relation stays empty",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 2,
+        "claim": "does not depend on the admitted boundary; it is about presentation tokens and internal identity",
+        "class": "INDEPENDENT",
+        "subject": "the identity policy space and the refusal of the shared policy",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 2,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "the initial datum and reading are unchanged by every event",
+        "subject_claims_every_result_of_its_rung": true
+      },
+      {
+        "challenge": 2,
+        "claim": "require the admitted boundary and are not formulated after removing it",
+        "class": "DEPENDENT",
+        "subject": "the two new judgments, the sides the marks are retained on, the automorphisms, the separation, and the different-sides fact",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 3,
+        "claim": "does not depend on the admitted boundary; it is about renamings and orbits, and it would be stated the same way for any renaming set",
+        "class": "INDEPENDENT",
+        "subject": "the declared sense of the requirement and the agreement of its two readings",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 3,
+        "claim": "requires the admitted boundary: the further mark is admitted ON a side, and what separates the two retained marks there is that the two sides then carry different numbers of marks",
+        "class": "DEPENDENT",
+        "subject": "the further-mark candidate",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 3,
+        "claim": "does not depend on the admitted boundary",
+        "class": "INDEPENDENT",
+        "subject": "the identity of the candidate space, the capability counts, and the refusal of bundles",
+        "subject_claims_every_result_of_its_rung": false
+      },
+      {
+        "challenge": 3,
+        "claim": "require the admitted boundary and are not formulated after removing it",
+        "class": "DEPENDENT",
+        "subject": "the side exchange, its withdrawal, the two side mark properties, the counterfactual square, and every separation result of the rung",
+        "subject_claims_every_result_of_its_rung": true
+      },
+      {
+        "challenge": 3,
+        "claim": "does not depend on the admitted boundary; the admission index is carried by the placement tuple's length and not by the sides",
+        "class": "INDEPENDENT",
+        "subject": "the two index mark properties and the withdrawal of the mark permutations",
+        "subject_claims_every_result_of_its_rung": false
+      }
+    ],
+    "entry_count": 20,
+    "selector": "the entries that are DEPENDENT and whose subject carries the whole word 'every', so the claim is universal over its rung",
+    "universal_entries": [
+      {
+        "challenge": 3,
+        "claim": "require the admitted boundary and are not formulated after removing it",
+        "class": "DEPENDENT",
+        "subject": "the side exchange, its withdrawal, the two side mark properties, the counterfactual square, and every separation result of the rung",
+        "subject_claims_every_result_of_its_rung": true
+      }
+    ],
+    "what_it_is": "the pinned world's own claims about which of its results need the admitted primitive, hand written in its runner modules and filed by its own ledger as computed by nothing and read by no test"
+  },
+  "provenance": {
+    "control_record": "receipts/side_free.json",
+    "how_the_bytes_are_read": "the blob at the pinned commit when that commit is reachable, and the vendored copy otherwise; both are held to the one declared sha256, so the rows are the same either way",
+    "receipts": [
+      {
+        "byte_count": 5553,
+        "challenge": 0,
+        "local_path": "pinned/boundary_challenge0.json",
+        "sha256": "7441796b52658c72698774565cbef69aa4b17740d90ba5bb2c27e23c7aafb7c9"
+      },
+      {
+        "byte_count": 28363,
+        "challenge": 1,
+        "local_path": "pinned/boundary_challenge1.json",
+        "sha256": "de48399f3fe54792edf8294b72fe92768f3d25b7144589f65d3d7ec45a0eb1b6"
+      },
+      {
+        "byte_count": 35499,
+        "challenge": 2,
+        "local_path": "pinned/boundary_challenge2.json",
+        "sha256": "ca6a9f935951b7d813baf9ddbea881c32325f2e6b5309780a333477f13f4b12b"
+      },
+      {
+        "byte_count": 220518,
+        "challenge": 3,
+        "local_path": "pinned/boundary_challenge3.json",
+        "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab"
+      }
+    ],
+    "where_the_pinned_source_paths_are_declared": "SOURCE_MANIFEST.json, which is one of the three files this tree's source-isolation scan carves for naming the pinned tree. This record cites the local vendored copies instead, so the carve stays exactly three files wide",
+    "why_the_reachability_is_not_in_this_record": "a record that carried it would not be the same file in a clone that cannot reach the pinned commit.  run_comparison.py prints the reachability report instead, so it is never silent"
+  },
+  "row_count": 47,
+  "rows": [
+    {
+      "absent_reason": null,
+      "control": 0,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R01",
+      "item": "marks admitted at genesis",
+      "kind": "what holds",
+      "named_reading": 0,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: genesis_marks",
+        "named": "pinned challenge 0: readings.O.marks",
+        "unnamed": "pinned challenge 0: readings.U.marks"
+      },
+      "stage": "genesis",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 0
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "Admitted"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "Admitted"
+        ],
+        "only_in_the_pinned_world": [
+          "OnSide",
+          "SideNamed"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "Admitted"
+        ],
+        "only_in_the_pinned_world": [
+          "OnSide",
+          "SideNamed"
+        ],
+        "same": false
+      },
+      "id": "R02",
+      "item": "the declared observation vocabulary",
+      "kind": "declared structure",
+      "named_reading": [
+        "OnSide",
+        "SideNamed"
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: declared_judgment_forms",
+        "named": "pinned challenge 0: observation_vocabulary",
+        "unnamed": "pinned challenge 0: observation_vocabulary"
+      },
+      "stage": "genesis",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "OnSide",
+        "SideNamed"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": 0,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -2,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R03",
+      "item": "judgments holding at genesis",
+      "kind": "what holds",
+      "named_reading": 2,
+      "note": "the named reading's two judgments hold before any mark is admitted, and the control cannot hold them at any price: a container exists before its contents, an admission order does not",
+      "price": {
+        "control": 0,
+        "control_equals_named": false,
+        "control_equals_unnamed": true,
+        "control_source": "receipts/side_free.json: endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes.control",
+        "named": 2,
+        "named_source": "receipts/side_free.json: endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes.named",
+        "stated": true,
+        "unnamed": 0,
+        "unnamed_source": "receipts/side_free.json: endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes.unnamed"
+      },
+      "sources": {
+        "control": "computed here: genesis_judgments",
+        "named": "pinned challenge 1: readings.O.genesis_holding_judgments",
+        "unnamed": "pinned challenge 1: readings.U.genesis_holding_judgments"
+      },
+      "stage": "genesis",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 0
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        0
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          0
+        ],
+        "only_in_the_pinned_world": [
+          "O",
+          []
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          0
+        ],
+        "only_in_the_pinned_world": [
+          "U",
+          []
+        ],
+        "same": false
+      },
+      "id": "R04",
+      "item": "the serialization key at genesis",
+      "kind": "declared structure",
+      "named_reading": [
+        "O",
+        []
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: genesis_key",
+        "named": "pinned challenge 0: readings.O.canonical_key",
+        "unnamed": "pinned challenge 0: readings.U.canonical_key"
+      },
+      "stage": "genesis",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "U",
+        []
+      ]
+    },
+    {
+      "absent_reason": "the notion names a side, and a world with no sides cannot state it",
+      "control": null,
+      "control_is_absent": true,
+      "difference_against_the_named_reading": {
+        "absent_in": "the control",
+        "kind": "absent",
+        "reason": "the notion names a side, and a world with no sides cannot state it",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "absent_in": "the control",
+        "kind": "absent",
+        "reason": "the notion names a side, and a world with no sides cannot state it",
+        "same": false
+      },
+      "id": "R05",
+      "item": "the two sides are collapsed at genesis",
+      "kind": "declared structure",
+      "named_reading": false,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "no statement in this world",
+        "named": "pinned challenge 0: readings.O.sides_collapsed",
+        "unnamed": "pinned challenge 0: readings.U.sides_collapsed"
+      },
+      "stage": "genesis",
+      "status": "ABSENT",
+      "status_against_the_named_reading": "ABSENT",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": true
+    },
+    {
+      "absent_reason": null,
+      "control": true,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R06",
+      "item": "an external presentation leaves admitted state unchanged",
+      "kind": "event discipline",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: genesis_supply_is_inert",
+        "named": "pinned challenge 0: readings.O.supply_leaves_state_unchanged",
+        "unnamed": "pinned challenge 0: readings.U.supply_leaves_state_unchanged"
+      },
+      "stage": "genesis",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": true
+    },
+    {
+      "absent_reason": null,
+      "control": true,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R07",
+      "item": "no event is entailed by admitted state",
+      "kind": "event discipline",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: event_follows_relation_empty",
+        "named": "pinned challenge 0: readings.O.event_follows_relation_empty",
+        "unnamed": "pinned challenge 0: readings.U.event_follows_relation_empty"
+      },
+      "stage": "genesis",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": true
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -1,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": -1,
+        "kind": "count",
+        "same": false
+      },
+      "id": "R08",
+      "item": "admissions available from the one supplied token",
+      "kind": "declared structure",
+      "named_reading": 2,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: one_mark_admissions_available",
+        "named": "pinned challenge 1: readings.O.candidate_space.count",
+        "unnamed": "pinned challenge 1: readings.U.candidate_space.count"
+      },
+      "stage": "one admitted mark",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 2
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -1,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R09",
+      "item": "isomorphism classes of those admissions",
+      "kind": "declared structure",
+      "named_reading": 2,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: one_mark_admission_classes",
+        "named": "pinned challenge 1: readings.O.candidate_space.classes_under_isomorphism",
+        "unnamed": "pinned challenge 1: readings.U.candidate_space.classes_under_isomorphism"
+      },
+      "stage": "one admitted mark",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 1
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R10",
+      "item": "marks after one admission",
+      "kind": "what holds",
+      "named_reading": 1,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: one_mark_marks",
+        "named": "pinned challenge 1: readings.O.candidates.0.marks",
+        "unnamed": "pinned challenge 1: readings.U.candidates.0.marks"
+      },
+      "stage": "one admitted mark",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 1
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -2,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R11",
+      "item": "judgments holding after one admission",
+      "kind": "what holds",
+      "named_reading": 3,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: one_mark_judgments",
+        "named": "pinned challenge 1: readings.O.candidates.0.holding_judgments",
+        "unnamed": "pinned challenge 1: readings.U.candidates.0.holding_judgments"
+      },
+      "stage": "one admitted mark",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 1
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        1
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          1
+        ],
+        "only_in_the_pinned_world": [
+          "O",
+          [
+            0
+          ]
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          1
+        ],
+        "only_in_the_pinned_world": [
+          "U",
+          [
+            0
+          ]
+        ],
+        "same": false
+      },
+      "id": "R12",
+      "item": "the serialization key after one admission",
+      "kind": "declared structure",
+      "named_reading": [
+        "O",
+        [
+          0
+        ]
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: one_mark_key",
+        "named": "pinned challenge 1: readings.O.candidates.0.canonical_key",
+        "unnamed": "pinned challenge 1: readings.U.candidates.0.canonical_key"
+      },
+      "stage": "one admitted mark",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "U",
+        [
+          0
+        ]
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": true,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R13",
+      "item": "the state after the supply alone equals genesis",
+      "kind": "event discipline",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: supply_alone_equals_genesis",
+        "named": "pinned challenge 1: readings.O.current_state.regime_equals_genesis",
+        "unnamed": "pinned challenge 1: readings.U.current_state.regime_equals_genesis"
+      },
+      "stage": "one admitted mark",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": true
+    },
+    {
+      "absent_reason": "the refusal is REMOVED, not absorbed: with no sides there is nowhere to move a mark to, so the refusal has no side-free statement at all",
+      "control": null,
+      "control_is_absent": true,
+      "difference_against_the_named_reading": {
+        "absent_in": "the control",
+        "kind": "absent",
+        "reason": "the refusal is REMOVED, not absorbed: with no sides there is nowhere to move a mark to, so the refusal has no side-free statement at all",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "absent_in": "the control",
+        "kind": "absent",
+        "reason": "the refusal is REMOVED, not absorbed: with no sides there is nowhere to move a mark to, so the refusal has no side-free statement at all",
+        "same": false
+      },
+      "id": "R14",
+      "item": "an admission that would move an admitted mark is refused",
+      "kind": "event discipline",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "no statement in this world",
+        "named": "pinned challenge 1: readings.O.candidates.0.retention.moving_admission_refused",
+        "unnamed": "pinned challenge 1: readings.U.candidates.0.retention.moving_admission_refused"
+      },
+      "stage": "one admitted mark",
+      "status": "ABSENT",
+      "status_against_the_named_reading": "ABSENT",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": true
+    },
+    {
+      "absent_reason": null,
+      "control": 2,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R15",
+      "item": "marks retained",
+      "kind": "what holds",
+      "named_reading": 2,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: two_marks_marks",
+        "named": "pinned challenge 2: readings.O.retained.marks",
+        "unnamed": "pinned challenge 2: readings.U.retained.marks"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 2
+    },
+    {
+      "absent_reason": null,
+      "control": 2,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -2,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R16",
+      "item": "judgments holding at the retained regime",
+      "kind": "what holds",
+      "named_reading": 4,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: two_marks_judgments",
+        "named": "pinned challenge 2: readings.O.retained.holding_judgments_after",
+        "unnamed": "pinned challenge 2: readings.U.retained.holding_judgments_after"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 2
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "a",
+        "a"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [],
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [],
+        "same": true
+      },
+      "id": "R17",
+      "item": "presentation labels at the retained regime",
+      "kind": "what holds",
+      "named_reading": [
+        "a",
+        "a"
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: two_marks_labels",
+        "named": "pinned challenge 2: readings.O.retained.labels",
+        "unnamed": "pinned challenge 2: readings.U.retained.labels"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "a",
+        "a"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "AdmitMark",
+        "AdmitOccurrence"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [],
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [],
+        "same": true
+      },
+      "id": "R18",
+      "item": "state-changing event kinds",
+      "kind": "declared structure",
+      "named_reading": [
+        "AdmitMark",
+        "AdmitOccurrence"
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: state_changing_event_kinds",
+        "named": "pinned challenge 2: state_changing_event_kinds",
+        "unnamed": "pinned challenge 2: state_changing_event_kinds"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "AdmitMark",
+        "AdmitOccurrence"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": 2,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 1,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R19",
+      "item": "automorphisms of the retained regime",
+      "kind": "verdict",
+      "named_reading": 1,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.summary.base.automorphism_count",
+        "named": "pinned challenge 2: readings.O.automorphisms.count",
+        "unnamed": "pinned challenge 2: readings.U.automorphisms.count"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 2
+    },
+    {
+      "absent_reason": null,
+      "control": false,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R20",
+      "item": "the two retained marks are internally separable at base",
+      "kind": "verdict",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.summary.base.satisfies",
+        "named": "pinned challenge 2: readings.O.automorphisms.marks_internally_separable",
+        "unnamed": "pinned challenge 2: readings.U.automorphisms.marks_internally_separable"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": [],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "on_side_0",
+          "on_side_1"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [],
+        "same": true
+      },
+      "id": "R21",
+      "item": "invariant separating mark properties at base",
+      "kind": "verdict",
+      "named_reading": [
+        "on_side_0",
+        "on_side_1"
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.rows.0.invariant_separating_mark_properties",
+        "named": "pinned challenge 3: readings.O.base.invariant_separating_mark_properties",
+        "unnamed": "pinned challenge 3: readings.U.base.invariant_separating_mark_properties"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": []
+    },
+    {
+      "absent_reason": null,
+      "control": false,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R22",
+      "item": "the admission order is internally available",
+      "kind": "what holds",
+      "named_reading": false,
+      "note": "false everywhere, and for the same reason in each world: the two supplies carry one token, so reversing them is not a change to notice.  The order still EXISTS side-free -- it is the mark's internal identity, and it is what the result turns on",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.summary.base.collateral_facts.order_internally_available",
+        "named": "pinned challenge 2: readings.O.order.order_internally_available",
+        "unnamed": "pinned challenge 2: readings.U.order.order_internally_available"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": false,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R23",
+      "item": "the presentation label is internally available",
+      "kind": "what holds",
+      "named_reading": false,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.summary.base.collateral_facts.label_internally_available",
+        "named": "pinned challenge 2: readings.O.label.label_internally_available",
+        "unnamed": "pinned challenge 2: readings.U.label.label_internally_available"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        2
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          2
+        ],
+        "only_in_the_pinned_world": [
+          "O",
+          [
+            0,
+            1
+          ]
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          2
+        ],
+        "only_in_the_pinned_world": [
+          "U",
+          [
+            0,
+            1
+          ]
+        ],
+        "same": false
+      },
+      "id": "R24",
+      "item": "the serialization key at the retained regime",
+      "kind": "declared structure",
+      "named_reading": [
+        "O",
+        [
+          0,
+          1
+        ]
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: two_marks_key",
+        "named": "pinned challenge 2: readings.O.retained.canonical_key",
+        "unnamed": "pinned challenge 2: readings.U.retained.canonical_key"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "U",
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": true,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "id": "R25",
+      "item": "the caller's two orders give equal regimes",
+      "kind": "declared structure",
+      "named_reading": false,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: the_two_caller_orders_give_equal_regimes",
+        "named": "pinned challenge 2: readings.O.convention.regimes_equal",
+        "unnamed": "pinned challenge 2: readings.U.convention.regimes_equal"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": true,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R26",
+      "item": "the caller's two orders are isomorphic",
+      "kind": "declared structure",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: the_two_caller_orders_are_isomorphic",
+        "named": "pinned challenge 2: readings.O.convention.isomorphic_under_reading",
+        "unnamed": "pinned challenge 2: readings.U.convention.isomorphic_under_reading"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": true
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R27",
+      "item": "isomorphism classes of the caller's two orders",
+      "kind": "declared structure",
+      "named_reading": 1,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: caller_order_classes",
+        "named": "pinned challenge 2: readings.O.convention.classes_under_isomorphism",
+        "unnamed": "pinned challenge 2: readings.U.convention.classes_under_isomorphism"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 1
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R28",
+      "item": "identity policies that admit both retained wholes",
+      "kind": "declared structure",
+      "named_reading": 1,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: policies_admitting_both_wholes",
+        "named": "pinned challenge 2: readings.O.identity_policies.policies_admitting_both_wholes (length)",
+        "unnamed": "pinned challenge 2: readings.U.identity_policies.policies_admitting_both_wholes (length)"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 1
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 1,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 1,
+        "kind": "count",
+        "same": false
+      },
+      "id": "R29",
+      "item": "marks the shared identity policy retains",
+      "kind": "event discipline",
+      "named_reading": 0,
+      "note": "the pinned world REFUSES the second admission and retains none; the control accepts it as a no-op and retains ONE, so the requirement has no subject and the retained-mark check raises by name.  Neither is a false, and neither is a satisfied requirement",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: identity_policies.shared_policy.marks",
+        "named": "pinned challenge 2: readings.O.identity_policies.rows.0.marks",
+        "unnamed": "pinned challenge 2: readings.U.identity_policies.rows.0.marks"
+      },
+      "stage": "two retained marks",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 0
+    },
+    {
+      "absent_reason": null,
+      "control": false,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R30",
+      "item": "the requirement holds at base",
+      "kind": "verdict",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.summary.base.satisfies",
+        "named": "pinned challenge 3: readings.O.base.satisfies",
+        "unnamed": "pinned challenge 3: readings.U.base.satisfies"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 1,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R31",
+      "item": "the minimum cost to meet the requirement, under mu1",
+      "kind": "price",
+      "named_reading": 0,
+      "price": {
+        "control": 1,
+        "control_equals_named": false,
+        "control_equals_unnamed": true,
+        "control_source": "receipts/side_free.json: decided.side_free_minimum",
+        "named": 0,
+        "named_source": "pinned challenge 3: readings.O.price.minimum_capability_count",
+        "stated": true,
+        "unnamed": 1,
+        "unnamed_source": "pinned challenge 3: readings.U.price.minimum_capability_count"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: decided.side_free_minimum",
+        "named": "pinned challenge 3: readings.O.minima_by_mu1.minimum",
+        "unnamed": "pinned challenge 3: readings.U.minima_by_mu1.minimum"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 1
+    },
+    {
+      "absent_reason": null,
+      "control": 1,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": -2,
+        "kind": "count",
+        "same": false
+      },
+      "id": "R32",
+      "item": "tied non-isomorphic minima",
+      "kind": "verdict",
+      "named_reading": 1,
+      "note": "plurality is its own column and is NEVER summed with price: two worlds can pay the same and reach a different number of routes",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: decided.side_free_classes",
+        "named": "pinned challenge 3: readings.O.minima_by_mu1.class_count",
+        "unnamed": "pinned challenge 3: readings.U.minima_by_mu1.class_count"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 3
+    },
+    {
+      "absent_reason": null,
+      "control": true,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "id": "R33",
+      "item": "the minimum is unique",
+      "kind": "verdict",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: decided.side_free_unique",
+        "named": "pinned challenge 3: readings.O.minima_by_mu1.unique",
+        "unnamed": "pinned challenge 3: readings.U.minima_by_mu1.unique"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "withdraw_mark_permutations"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "withdraw_mark_permutations"
+        ],
+        "only_in_the_pinned_world": [
+          "base"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "extra_mark",
+          "withdraw_reflection"
+        ],
+        "same": false
+      },
+      "id": "R34",
+      "item": "the members attaining the minimum, under the declared collapse map",
+      "kind": "verdict",
+      "named_reading": [
+        "base"
+      ],
+      "note": "the unnamed column is the pinned point list with the declared collapse map applied, so one control point stands against one pinned class and the join is like for like",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: decided.side_free_minimum_members",
+        "named": "pinned challenge 3: readings.O.minima_by_mu1.points (under the declared collapse map)",
+        "unnamed": "pinned challenge 3: readings.U.minima_by_mu1.points (under the declared collapse map)"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "extra_mark",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": 8,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -40,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": -40,
+        "kind": "count",
+        "same": false
+      },
+      "id": "R35",
+      "item": "the declared candidate space",
+      "kind": "declared structure",
+      "named_reading": 48,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: candidate_space.space_size",
+        "named": "pinned challenge 3: readings.O.space_size",
+        "unnamed": "pinned challenge 3: readings.U.space_size"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 48
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "extra_mark",
+        "keep_labels",
+        "withdraw_mark_permutations"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "admit_names",
+          "withdraw_reflection"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "admit_names",
+          "withdraw_reflection"
+        ],
+        "same": false
+      },
+      "id": "R36",
+      "item": "one-step points in that space, under the declared collapse map",
+      "kind": "declared structure",
+      "named_reading": [
+        "admit_names",
+        "extra_mark",
+        "keep_labels",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: control_one_step_points",
+        "named": "pinned challenge 3: readings.O.one_step_points (under the declared collapse map)",
+        "unnamed": "pinned challenge 3: readings.U.one_step_points (under the declared collapse map)"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "admit_names",
+        "extra_mark",
+        "keep_labels",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": 4,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": -37,
+        "kind": "count",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": -37,
+        "kind": "count",
+        "same": false
+      },
+      "id": "R37",
+      "item": "bundles refused at two capabilities or more",
+      "kind": "declared structure",
+      "named_reading": 41,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: candidate_space.bundles_refused_count",
+        "named": "pinned challenge 3: readings.O.bundles_refused_count",
+        "unnamed": "pinned challenge 3: readings.U.bundles_refused_count"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 41
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "withdraw_mark_permutations"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "admit_names",
+          "extra_mark",
+          "keep_labels",
+          "withdraw_reflection"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "extra_mark",
+          "withdraw_reflection"
+        ],
+        "same": false
+      },
+      "id": "R38",
+      "item": "one-step points that satisfy, under the declared collapse map",
+      "kind": "verdict",
+      "named_reading": [
+        "admit_names",
+        "extra_mark",
+        "keep_labels",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "computed here: control_satisfying_one_step_points",
+        "named": "pinned challenge 3: readings.O.satisfying_one_step_points (under the declared collapse map)",
+        "unnamed": "pinned challenge 3: readings.U.satisfying_one_step_points (under the declared collapse map)"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "extra_mark",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "order_internally_available",
+        "label_internally_available"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "sides_internally_separable",
+          "convention_internally_available",
+          "side_names_hold"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "sides_internally_separable",
+          "convention_internally_available",
+          "side_names_hold"
+        ],
+        "same": false
+      },
+      "id": "R39",
+      "item": "collateral facts the world declares",
+      "kind": "declared structure",
+      "named_reading": [
+        "sides_internally_separable",
+        "order_internally_available",
+        "label_internally_available",
+        "convention_internally_available",
+        "side_names_hold"
+      ],
+      "note": "the two lists are not the same length, so the second measure counted over them is NOT comparable across the worlds and is never differenced.  The restricted measure below is",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: second_measures.control_fact_list",
+        "named": "pinned challenge 3: collateral_facts",
+        "unnamed": "pinned challenge 3: collateral_facts"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "sides_internally_separable",
+        "order_internally_available",
+        "label_internally_available",
+        "convention_internally_available",
+        "side_names_hold"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": 0,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "difference_against_the_unnamed_reading": {
+        "control_minus_boundary": 0,
+        "kind": "count",
+        "same": true
+      },
+      "id": "R40",
+      "item": "the minimum of the restricted second measure",
+      "kind": "price",
+      "named_reading": 0,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: second_measures.control_minima_by_mu2_restricted.minimum",
+        "named": "receipts/side_free.json: second_measures.mirror_minima_by_mu2_restricted.O.minimum",
+        "unnamed": "receipts/side_free.json: second_measures.mirror_minima_by_mu2_restricted.U.minimum"
+      },
+      "stage": "the imposed requirement",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": 0
+    },
+    {
+      "absent_reason": null,
+      "control": false,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R41",
+      "item": "the requirement is met with no augmentation",
+      "kind": "price",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: control.summary.base.satisfies",
+        "named": "pinned challenge 3: readings.O.price.requirement_met_without_augmentation",
+        "unnamed": "pinned challenge 3: readings.U.price.requirement_met_without_augmentation"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": false,
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "bool",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "bool",
+        "same": true
+      },
+      "id": "R42",
+      "item": "nothing new is paid at this rung",
+      "kind": "price",
+      "named_reading": true,
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "computed here: control_nothing_new_paid",
+        "named": "pinned challenge 3: readings.O.price.nothing_new_paid_at_challenge_3",
+        "unnamed": "pinned challenge 3: readings.U.price.nothing_new_paid_at_challenge_3"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": false
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "withdraw_mark_permutations"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "withdraw_mark_permutations"
+        ],
+        "only_in_the_pinned_world": [],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "extra_mark",
+          "withdraw_reflection"
+        ],
+        "same": false
+      },
+      "id": "R43",
+      "item": "capabilities newly paid for at this rung",
+      "kind": "price",
+      "named_reading": [],
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "computed here: control_satisfying_one_step_points",
+        "named": "pinned challenge 3: readings.O.price.new_at_challenge_3 (under the declared collapse map)",
+        "unnamed": "pinned challenge 3: readings.U.price.new_at_challenge_3 (under the declared collapse map)"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "extra_mark",
+        "withdraw_mark_permutations",
+        "withdraw_reflection"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "withdraw_mark_permutations"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "withdraw_mark_permutations"
+        ],
+        "only_in_the_pinned_world": [
+          "admitted boundary",
+          "the side exchange is not a permitted renaming",
+          "occurrence identity"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "withdraw_mark_permutations"
+        ],
+        "only_in_the_pinned_world": [],
+        "same": false
+      },
+      "id": "R44",
+      "item": "capabilities the satisfaction uses",
+      "kind": "price",
+      "named_reading": [
+        "admitted boundary",
+        "the side exchange is not a permitted renaming",
+        "occurrence identity"
+      ],
+      "note": "the pinned world flags this field as declared and not computed, in its own receipt; the control column is the computed member list of its minimum, and the two are not the same kind of thing",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: decided.side_free_minimum_members",
+        "named": "pinned challenge 3: readings.O.price.capabilities_the_satisfaction_uses",
+        "unnamed": "pinned challenge 3: readings.U.price.capabilities_the_satisfaction_uses"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": true,
+      "unnamed_reading": []
+    },
+    {
+      "absent_reason": null,
+      "control": "the run",
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "value",
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "value",
+        "same": true
+      },
+      "id": "R45",
+      "item": "who pays for the satisfaction",
+      "kind": "price",
+      "named_reading": "the declared reading, and the run at Challenge 2",
+      "note": "declared and not computed on the pinned side, by its own flag",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "computed here: control_paid_by",
+        "named": "pinned challenge 3: readings.O.price.paid_by",
+        "unnamed": "pinned challenge 3: readings.U.price.paid_by"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_NOTHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": true,
+      "unnamed_reading": "the run"
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "withdraw_mark_permutations",
+        "keep_labels",
+        "extra_mark"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "withdraw_reflection",
+          "admit_names"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [],
+        "only_in_the_pinned_world": [
+          "withdraw_reflection",
+          "admit_names"
+        ],
+        "same": false
+      },
+      "id": "R46",
+      "item": "coordinates the world prices at this rung",
+      "kind": "price",
+      "named_reading": [
+        "withdraw_reflection",
+        "withdraw_mark_permutations",
+        "admit_names",
+        "keep_labels",
+        "extra_mark"
+      ],
+      "note": "the control's three are the pinned five minus the two whose pinned capability sentence names a side; the three that transfer carry their pinned sentences byte for byte",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "the item IS a price statement; what each world states is the row's own three columns"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: candidate_space.coordinates",
+        "named": "pinned challenge 3: candidate_space.coordinates",
+        "unnamed": "pinned challenge 3: candidate_space.coordinates"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "withdraw_reflection",
+        "withdraw_mark_permutations",
+        "admit_names",
+        "keep_labels",
+        "extra_mark"
+      ]
+    },
+    {
+      "absent_reason": null,
+      "control": [
+        "False",
+        "True"
+      ],
+      "control_is_absent": false,
+      "difference_against_the_named_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "False",
+          "True"
+        ],
+        "only_in_the_pinned_world": [
+          "None",
+          "0",
+          "1"
+        ],
+        "same": false
+      },
+      "difference_against_the_unnamed_reading": {
+        "kind": "set",
+        "only_in_the_control": [
+          "False",
+          "True"
+        ],
+        "only_in_the_pinned_world": [
+          "None",
+          "0",
+          "1"
+        ],
+        "same": false
+      },
+      "id": "R47",
+      "item": "declared values of the further-mark coordinate",
+      "kind": "declared structure",
+      "named_reading": [
+        "None",
+        "0",
+        "1"
+      ],
+      "note": "the single value-set change of the whole deletion, read from the pin: the two pinned further-mark points carry one class key and stand as the two members of one retained class",
+      "price": {
+        "control": null,
+        "control_equals_named": true,
+        "control_equals_unnamed": true,
+        "named": null,
+        "stated": false,
+        "unnamed": null,
+        "why": "neither world states a price for this item"
+      },
+      "sources": {
+        "control": "receipts/side_free.json: candidate_space.extra_mark_values",
+        "named": "pinned challenge 3: candidate_space.extra_mark_values",
+        "unnamed": "pinned challenge 3: candidate_space.extra_mark_values"
+      },
+      "stage": "the prices each world states",
+      "status": "BOUGHT_SOMETHING",
+      "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_pinned_field_is_declared_not_computed": false,
+      "unnamed_reading": [
+        "None",
+        "0",
+        "1"
+      ]
+    }
+  ],
+  "stages": [
+    "genesis",
+    "one admitted mark",
+    "two retained marks",
+    "the imposed requirement",
+    "the prices each world states"
+  ],
+  "tree": "side_free",
+  "verdict": {
+    "counts": {
+      "absent": 2,
+      "bought_nothing": 26,
+      "bought_something": 19,
+      "rows": 47,
+      "verdict_or_price_bought_nothing": 9,
+      "verdict_or_price_bought_something": 7
+    },
+    "decided_value": "NOTHING_IN_COST",
+    "does_not_speak_for": "the rungs not yet run in the pinned world, nor for whether the requirement was the right one to impose, nor for what the admitted primitive would buy at a rung this comparison does not price",
+    "scope": "Challenges 0 to 3 of the pinned world at 5c43c5ee, and their analogues in this carrier: the three declared coordinates, the pinned requirement and prices, the retained two-mark configuration, and the measure mu1.  Nothing wider.",
+    "statement": "Over 47 compared items at the pinned rungs, the control reaches the unnamed reading's value at the unnamed reading's price in 26 of them and differs in 19, with 2 items that have no statement in one world and are therefore evidence for neither. Restricted to the items that are verdicts or prices, it reaches the same value at the same price in 9 and differs in 7. At the imposed requirement the minimum cost differs by 0 from the unnamed reading and by 1 from the named reading, and what the admitted primitive bought under the unnamed reading is 2 additional routes at the same price.",
+    "what_it_may_not_be_read_as": "the sentence that the admitted primitive bought nothing.  What pays for separation in a world with no container is the ADMISSION ORDER, and whether an order is itself a container is not answered here"
+  },
+  "void": false,
+  "what_this_is": "the price list: what each world can say at the pinned rungs, what each says it costs, and what the admitted primitive bought.  Every row is computed from a pinned receipt or from a carrier; no boundary number is typed in"
+}

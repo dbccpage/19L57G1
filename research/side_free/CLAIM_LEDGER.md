@@ -386,6 +386,106 @@ never counted as content.
   nothing" — being written anywhere as this tree's result.
 * **Surviving boundary.**  SF-OPEN-A: whether an order is itself a container.
 
+### SF-PRICE-LIST
+
+* **Statement.**  Over 47 compared items at the pinned rungs 0 to 3, the
+  control reaches the unnamed reading's value at the unnamed reading's stated
+  price in 26, differs in 19, and has no statement in one world in 2.
+  Restricted to the items that are verdicts or prices, it reaches the same
+  value at the same price in 9 and differs in 7.
+* **Status.**  DETERMINISTIC COMPUTATION.
+* **Depends on.**  SF-PIN, SF-DIFFERENCE, SF-MINIMUM.
+* **Assumes.**  The declared item taxonomy, which says what KIND of thing each
+  item is and is checked total in both directions by gate C4.  It does not
+  decide any row's bucket: the bucket is the computation's, by the rule that
+  an item is in BOUGHT_NOTHING exactly when the control reaches the same value
+  at the same stated price.
+* **Python evidence.**  `receipts/comparison.json`, `rows` and `bought_table`;
+  `tests/test_comparison.py`; gates C0 to C4; injections I15, I16, I17.
+* **Lean.**  None; the price list is a computation over two receipt sets.
+* **Falsifier.**  Any row whose difference is not what the two sources say, or
+  a bucket membership that does not follow the stated rule.
+* **Surviving boundary.**  Absence is in neither bucket.  Two items — the
+  collapse of the two sides at genesis, and the refusal of an admission that
+  would move a mark — have no side-free statement, and are evidence neither
+  that the primitive bought something nor that it bought nothing.
+
+### SF-NO-HAND-TYPED-BOUNDARY-NUMBER
+
+* **Statement.**  Every boundary value the comparison uses is read from a
+  pinned receipt at a declared JSON path, is declared a second time in
+  `pinned/BOUNDARY_PIN.json`, and the declaration is total in both directions:
+  91 declared, 91 read, 91 checked.
+* **Status.**  DETERMINISTIC COMPUTATION.
+* **Depends on.**  SF-PIN.
+* **Assumes.**  Nothing beyond the four pinned receipts' bytes.
+* **Python evidence.**  Gate C1; `verify_pins.check_declared_values`;
+  injections I15 and I16, each failing by name and recovering.
+* **Falsifier.**  A boundary number in a source file of this tree; an
+  undeclared value a row reads; a declared value no row reads.
+* **Surviving boundary.**  Totality is not correctness.  A perfect pin of the
+  wrong row set is still the wrong row set, and C1 cannot see that.
+
+### SF-READS-A-SIDE
+
+* **Statement.**  Two criteria decide which minima read a side, both computed.
+  By NAME: the pinned capability sentence carries a whole word *side* or
+  *sides*.  By BEHAVIOUR: the separation verdict is not constant across the
+  placements of one label configuration in the candidate's own route-census
+  domain.  They agree that `withdraw_mark_permutations` reads nothing and that
+  `withdraw_reflection` reads a side, and disagree on `extra_mark_0`,
+  `extra_mark_1` and the named reading's `base` — none of which names a side,
+  and all three of which read the placement.
+* **Status.**  DETERMINISTIC COMPUTATION.
+* **Depends on.**  SF-MIRROR, SF-CAPABILITY-TEXTS.
+* **Assumes.**  The route-census domain declared in `DESIGN.md` §9.
+* **Python evidence.**  `minima_and_the_sides` and its
+  `the_two_criteria_disagree_on` field; `tests/test_comparison.py`.
+* **Falsifier.**  Either criterion returning a different partition.
+* **Surviving boundary.**  The behaviour criterion is over the declared census
+  domain, not over every conceivable configuration.
+
+### SF-DEPENDENCE-READ
+
+* **Statement.**  The pinned world's own dependence dictionary — 20 entries
+  across its four rungs, hand written in its runner modules and filed by its
+  own ledger as computed by nothing and read by no test — is READ here,
+  classified mechanically by its sentences' own opening words with no entry
+  left unclassified, and the one entry whose subject claims *every* separation
+  result of its rung requires the admitted primitive is CONTRADICTED within
+  the declared scope.
+* **Status.**  DETERMINISTIC COMPUTATION with a DECLARED selector.
+* **Depends on.**  SF-REFUTED-DEPENDENCE, SF-PRICE-LIST.
+* **Assumes.**  That the selector — DEPENDENT entries whose subject carries the
+  whole word *every* — picks the claim worth adjudicating.  That is a
+  declaration about words; the evidence under it is computed, and the record
+  says which is which in the same object.
+* **Python evidence.**  `pinned_dependence_claims`, its
+  `classification_is_total` field, and its `adjudication` block with the
+  computed evidence; `tests/test_comparison.py`, including the negative that
+  turns the verdict to NOT CONTRADICTED when the evidence is removed.
+* **Falsifier.**  An unclassified entry; a second universal entry the record
+  does not name; the evidence failing.
+* **Surviving boundary.**  The other 19 entries are reproduced and classified,
+  **not adjudicated**.  They are prose, and no computation here decides them.
+
+### SF-COMPARISON-RECORD-IS-CLONE-INDEPENDENT
+
+* **Statement.**  `receipts/comparison.json` is the same file in a clone that
+  cannot reach the pinned commit: its rows are held by the declared sha256
+  alone, and the reachability report is printed by the runner rather than
+  written into the record.
+* **Status.**  DETERMINISTIC COMPUTATION.
+* **Depends on.**  SF-PIN.
+* **Assumes.**  Nothing.
+* **Python evidence.**
+  `tests/test_comparison.py::TheRecord::test_the_record_is_the_same_file_in_a_clone_that_cannot_reach_the_pin`,
+  which makes every `git show` fail and requires the rendering back byte for
+  byte.
+* **Falsifier.**  Any environment value reaching the record.
+* **Surviving boundary.**  **The sibling record does NOT have this property**
+  — see SF-OPEN-E.
+
 ---
 
 ## Open obstructions
@@ -414,4 +514,23 @@ not treated as discharged by the renaming set having shrunk.
 
 The pinned tree retains a route that satisfies its requirement without reading
 anything, and records this question as OPEN.  This control inherits it.
+**OPEN OBSTRUCTION.**
+
+### SF-OPEN-E — the sibling record is not the same file in every clone
+
+**Opened by the price-list work, and not repaired.**
+`receipts/side_free.json` carries the pinned commit's reachability inside its
+own bytes at `gates.G1.commit_check`.  Observed rather than argued: with the
+commit made unreachable in process, a fresh computation returns 541041 bytes
+against the committed 541009, differing in exactly two lines — `status` PASS
+becomes SKIPPED and the reason line changes.  The pinned branch is carried by
+no remote, so a checkout that fetches only remote refs is exactly that clone,
+and the CI step that regenerates that record and then requires no diff would
+fail there.
+
+It is **not repaired** because `DESIGN.md` §11 declares that conditional check
+to be part of that record, and the frozen files are not edited to fit a later
+finding.  It is logged rather than smoothed, which is what this tree does with
+a defect it finds in itself.  `receipts/comparison.json` is built the other
+way and is covered by SF-COMPARISON-RECORD-IS-CLONE-INDEPENDENT.
 **OPEN OBSTRUCTION.**

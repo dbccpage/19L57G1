@@ -119,6 +119,48 @@ tree and true by unfolding it — and their hits are not counted as content.
   forbidden phrase.  The weaker check is recorded here rather than passed off
   as the frozen one.
 
+## The price list
+
+`receipts/comparison.json` and the document it renders, `COMPARISON.md`, put
+the two worlds side by side item by item.  Every boundary number is READ from
+one of the four pinned receipts at `5c43c5ee`, every control number is read
+from this tree's own record or computed from its carrier by replay from
+genesis, and no boundary number is typed into any source file of this tree.
+
+| what the comparison found | value |
+|---|---|
+| items compared | **47**, across genesis, one admitted mark, two retained marks, the requirement, and the prices |
+| the control reaches the unnamed reading's value at its price | **26** items |
+| the control differs | **19** items |
+| no statement in one world, so evidence for neither | **2** items: the collapse of the two sides at genesis, and the refusal of an admission that would move a mark |
+| restricted to items that are verdicts or prices | same in **9**, differs in **7** |
+| the pinned world's own dependence claims, now read | **20** entries: 5 dependent, 14 independent, 1 mixed, 0 unclassified |
+| universal dependence claims selected mechanically | **1**, and it is **CONTRADICTED** within the declared scope |
+
+Two findings the price list adds that the control alone did not carry.
+
+* **The two criteria for "reads a side" disagree, and the record says where.**
+  By NAME, a minimum reads a side when its pinned capability sentence carries
+  the whole word *side* or *sides* — the deletion criterion run backwards.  By
+  BEHAVIOUR, a minimum reads the placement when its separation verdict is not
+  constant across the placements of one label configuration in its own
+  route-census domain.  The two agree that `withdraw_mark_permutations` reads
+  nothing and that `withdraw_reflection` reads a side.  They disagree on
+  `extra_mark_0`, `extra_mark_1` and on the named reading's `base`: none of
+  those names a side, and all three READ the placement.  The further mark
+  separates because the two sides then carry different numbers of marks, and
+  the named reading's zero-cost minimum reads the placement while naming no
+  coordinate at all.
+* **The pinned dependence dictionary is read for the first time.**  Its 20
+  entries are classified by their own opening words, the classification is
+  total, and the one entry whose subject claims *every* separation result of
+  its rung requires the admitted primitive is contradicted by the computed
+  evidence: `withdraw_mark_permutations` is one of that rung's own retained
+  minima, its capability sentence is byte-identical here, it costs 1 in both
+  worlds, and it satisfies in both.  The selector is declared; the evidence
+  under it is computed; the contradiction is of that one universal clause and
+  of nothing else in the dictionary.
+
 ## Residuals, open and not closed
 
 * **(a) Whether the admission order is itself a container.**  What pays for
@@ -144,7 +186,28 @@ tree and true by unfolding it — and their hits are not counted as content.
   points per reading.
 * **The control is one rung wide.**  It says nothing about what the admitted
   primitive bought at earlier rungs, nor about whether the requirement was the
-  right one to impose.
+  right one to impose.  The price list widens the COMPARISON to the pinned
+  rungs 0 to 2, but the requirement and its price are still priced at one rung
+  only, and the verdict says so.
+* **(e) `receipts/side_free.json` is not the same file in every clone.**
+  OPENED by the price-list work and **not repaired**.  That record carries the
+  pinned commit's reachability inside its own bytes, at
+  `gates.G1.commit_check`.  Observed rather than argued: with the commit made
+  unreachable in process, a fresh computation returns 541041 bytes against the
+  committed 541009, differing in exactly two lines — `status` PASS becomes
+  SKIPPED and the reason line changes.  The pinned branch is carried by no
+  remote, so a checkout that fetches only remote refs is exactly that clone,
+  and the CI step that regenerates the record and then requires no diff would
+  fail there.  It is not repaired because `DESIGN.md` §11 declares that
+  conditional check to be part of that record, and the frozen files are not
+  edited to fit a later finding.  `receipts/comparison.json` is built the
+  other way — its rows are held by sha256 alone and the reachability report is
+  printed by the runner — and a test proves it comes back byte for byte with
+  every `git show` made to fail.
+* **The dependence adjudication is one clause wide.**  The selector that picks
+  the universal claim is DECLARED; only the evidence under it is computed.
+  The other 19 entries of the pinned dictionary are reproduced and classified,
+  not adjudicated: they are prose, and no computation here decides them.
 
 ## What the machine reports beside the answer
 
@@ -164,10 +227,12 @@ and the declared secondary computation, which flips the answer to
 ## Local battery, all green
 
 ```
-234 tests, OK
-line 100.00% branch 100.00% over 8 files
-mypy: Success: no issues found in 20 source files
+321 tests, OK
+line 100.00% branch 100.00% over 9 files
+mypy: Success: no issues found in 23 source files
 receipt ok: 541009 bytes, byte-identical
+comparison ok: 119420 receipt bytes and 25776 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext']
-pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes
+pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
+         4 vendored receipt(s), 91 declared value(s)
 ```
