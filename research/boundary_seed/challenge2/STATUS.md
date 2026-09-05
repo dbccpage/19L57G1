@@ -303,6 +303,22 @@ Carried, with reasons:
 - Every gate this rung added or touched has an injection row in `MANUAL.md`,
   and no receipt or log was regenerated while any injection was live.
 
+The exact-head review repair, in a further session, both findings in
+`paper.md` and both recorded in `change_log.md`:
+
+- Section 7.3's “every theorem is stated for both readings” narrowed: it
+  now scopes the claim to the theorems about the retained regime, names
+  `retained_composite_permitted_U` as the one exception — it takes no
+  `(rd : Reading)` and is stated at `.U` — and says that the three
+  involution lemmas are about an arbitrary argument and name no reading.
+- Section 5.6's count of FORCED predictions among the content hits
+  corrected, three to four.  The receipt labels FORCED exactly C2-2, C2-4,
+  C2-5, C2-6, and C2-7, and `tally.hit_as_content` is C2-4 to C2-8, so the
+  intersection is four; the fifth, C2-2, is DEFINITION-level.  No
+  prediction was re-scored, no receipt regenerated, and the tally is
+  unchanged: the wrong number was prose read off the receipt, and no gate
+  computes that intersection.
+
 ## Gates run in this session
 
 | gate | result |

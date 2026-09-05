@@ -712,14 +712,15 @@ Eight of eight scored predictions hit; five as content (C2-4 to C2-8) and
 three by construction, DEFINITION-level and not counted (C2-1 to C2-3),
 by the criterion Challenge 1 declared and this rung reuses unchanged
 (`tally.criterion`).  The counts are the receipt's `tally`, computed from
-the statuses and a declared list.  Three of the five FORCED predictions
-are among the content hits.  **A clean sweep of a rung's own predictions
-is weak evidence**: they were written by an instrument that had read the
-whole tree and reasoned the rung through before writing them, and the
-commit order shows only that they were frozen before the code.  The
-informative number is the previous rung's extrapolation, written before
-this rung existed, and it is PARTIAL: one of its two O clauses is a
-recorded miss, and its own falsifier named the miss.
+the statuses and a declared list.  Four of the five FORCED predictions
+are among the content hits; the fifth, C2-2, is DEFINITION-level.  **A
+clean sweep of a rung's own predictions is weak evidence**: they were
+written by an instrument that had read the whole tree and reasoned the
+rung through before writing them, and the commit order shows only that
+they were frozen before the code.  The informative number is the previous
+rung's extrapolation, written before this rung existed, and it is
+PARTIAL: one of its two O clauses is a recorded miss, and its own
+falsifier named the miss.
 
 #### 5.7 What Challenge 2 does not establish
 
@@ -915,10 +916,14 @@ this file: `place` always adds a fresh entry to the placement list, and a
 mark's internal identity is its position there.  The identity question the
 shared mark raises is therefore a question about the Python kernel's
 label-keyed admission, decided there, and the theorems below record what
-follows once two marks lie on opposite sides.  Every theorem is stated for
-both readings; which of them is *meaningful* under which reading is prose,
-because whether the reflection is permitted is a fact about the reading and
-not about the placement.
+follows once two marks lie on opposite sides.  Every theorem about the
+retained regime is stated for every reading, with one exception:
+`retained_composite_permitted_U`, which pairs the Challenge 0 permission
+with the composite and is therefore stated at `.U`.  The three involution
+lemmas are about an arbitrary argument and name no reading.  Which theorem
+is *meaningful* under which reading is prose, because whether the
+reflection is permitted is a fact about the reading and not about the
+placement.
 
 | theorem | statement | axioms |
 |---|---|---|

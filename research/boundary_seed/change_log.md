@@ -748,3 +748,34 @@ The caller supplies and retains `<a|>` and `<|a>`.
   neither earlier rung.
 - The axiom log was regenerated deliberately once, 56 to 84 reports, with
   no injection live.
+
+## 2026-09-05, Challenge 2 exact-head review repair
+
+`SEED.md`, `challenge0/PREDICTIONS.md`, `challenge1/PREDICTIONS.md`, and
+`challenge2/PREDICTIONS.md` remain byte-identical.  Review of `befdcb05`
+found two should-fix defects that survived refutation, both in `paper.md`
+and both narrowings of a sentence that claimed more than the object it
+described.  Every finding is addressed, none declined.  No theorem was
+added or removed, no prediction's status changed, no receipt regenerated,
+and the tally is unchanged.
+
+- Narrowed: section 7.3's “every theorem is stated for both readings”.
+  `retained_composite_permitted_U` takes no `(rd : Reading)`; it pairs the
+  Challenge 0 permission with the composite and is stated at `.U`, which
+  the table row beside it already said.  The sentence now scopes the claim
+  to the theorems about the retained regime, names that one exception, and
+  says that the three involution lemmas are about an arbitrary argument
+  and name no reading.  Reason: a totality sentence about a table that the
+  same table contradicts is an overclaim, and the paper's own row was the
+  counterexample.
+- Corrected: section 5.6's count of FORCED predictions among the content
+  hits, three to four.  The receipt labels FORCED exactly C2-2, C2-4,
+  C2-5, C2-6, C2-7, and `tally.hit_as_content` is C2-4 to C2-8, so the
+  intersection is four; the fifth FORCED prediction, C2-2, is
+  DEFINITION-level and not counted as content, and the sentence now says
+  so.  No status and no tally moved: the wrong number was prose read off
+  the receipt, and it is prose still — no gate computes this intersection,
+  so it is corrected and named rather than pinned.  Reason: a number the
+  paper attributes to the receipt must be the receipt's number.
+
+Declined: nothing.
