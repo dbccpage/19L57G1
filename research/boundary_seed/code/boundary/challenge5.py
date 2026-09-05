@@ -9,12 +9,14 @@ state is the replay of an explicit history.
 
 The rung has five parts, in this order:
 
-1. **The reader bound, a third time.**  Both readers the run has refuse the
-   inscription by name: neither reads an ITEM on a side that is itself a
-   whole.  The bound is widened to a reader in which an item is a mark or a
-   whole, down to a declared finite depth, and both narrower readers are left
-   refusing so that what forced each widening stays visible.  Reading a nested
-   item is not admitting one.
+1. **A third reader bound, the second widening of the run's reader.**  Both
+   readers the run has refuse the inscription by name: neither reads an ITEM
+   on a side that is itself a whole.  The bound is widened to a reader in
+   which an item is a mark or a whole, down to a declared finite depth, and
+   both narrower readers are left refusing so that what forced each widening
+   stays visible.  The run has three reader bounds and has widened twice: the
+   Challenge 1 bound was declared and not widened.  Reading a nested item is
+   not admitting one.
 2. **The declared policy space.**  What an admission does with an item that is
    a whole is not decided by the admitted boundary, so four policies are
    declared and priced: refuse it; admit the inner whole as one opaque mark on
@@ -122,13 +124,19 @@ FLAT_INSCRIPTION = "<a|>"
 DEEPER_INSCRIPTION = "<<<a|>|>|>"
 CALLER_TOKEN = "a"
 WHOLE_TOKEN = "w"
-"""The declared presentation token of a whole admitted as a mark.
+"""The declared presentation token of a whole admitted as a mark (definition 71).
 
 A whole admitted opaquely presents no visible mark of its own, so the run
 declares ONE token for every such presentation.  That conflates all inner
 wholes at the presentation level, which is what admitting one opaquely means,
 and it changes no key: definition 14 forgets the labels.  It is a declaration
 of this rung and is recorded rather than assumed.
+
+It carries weight beyond the presentation: the collateral fact
+``inner_whole_presentation_admitted`` is this token's membership in the
+retained state's labels, and the enumeration reports it as the ONE declared
+fact separating the opaque policy from the discarding one, so the second
+measure's choice between the two tied minima rests on this declaration.
 """
 
 LEVELS: tuple[int, ...] = tuple(range(NESTING_BOUND))
@@ -232,15 +240,17 @@ COORDINATES: tuple[str, str] = ("nesting_policy", "naming_reaches_inward")
 
 MU1 = "capability count: the number of undeclared capabilities the candidate uses"
 MU2 = (
-    "collateral count: how many of the eight declared facts about the caller's "
-    "retained whole the candidate makes internally available that the same "
-    "reading's base did not.  The base is the refusing policy, which retains "
-    "nothing, and a fact about a retained configuration is reported FALSE "
-    "where there is no retained configuration rather than vacuously true.  The "
-    "eight are facts and not independent facts: the receipt computes which "
-    "pairs of them take the same value at every point of this rung's space and "
-    "names them, so that a reader knows where this measure counts one thing "
-    "twice"
+    "collateral count: how many of the eight declared facts the candidate makes "
+    "internally available that the same reading's base did not.  They are not "
+    "eight facts about one retained configuration: FOUR are about the caller's "
+    "retained whole and are reported FALSE where there is no retained "
+    "configuration rather than vacuously true, the base being the refusing "
+    "policy, which retains nothing; TWO are censuses of the policy's behaviour "
+    "over the declared domain; ONE is about the closed observation grammar; and "
+    "ONE is about the reading.  The eight are facts and not independent facts: "
+    "the receipt computes which pairs of them take the same value at every "
+    "point of this rung's space and names them, so that a reader knows where "
+    "this measure counts one thing twice"
 )
 
 ONE_STEP_RULE = (
@@ -252,9 +262,12 @@ ONE_STEP_RULE = (
     "bundle capabilities"
 )
 
-# The declared facts about the caller's retained whole.  The second measure
-# counts how many of them a candidate makes available that its reading's base
-# did not.
+# The eight declared collateral facts, in the declared order of definition 70:
+# four about the caller's retained whole (the first, the fourth, the fifth, and
+# the seventh), two censuses of the policy's behaviour over the declared domain
+# (the second and the third), one about the closed observation grammar (the
+# sixth), and one about the reading (the eighth).  The second measure counts
+# how many of them a candidate makes available that its reading's base did not.
 COLLATERAL_FACTS: tuple[str, ...] = (
     "nesting_internally_visible",
     "depth_determined_by_the_key",
@@ -894,6 +907,33 @@ def facts_agreeing_everywhere(rows: list[Json]) -> list[list[str]]:
 # ---------------------------------------------------------------------------
 
 
+def deepest_place_a_policy_names(reading: str, point: Point) -> int:
+    """The deepest place the policy's own admissions name over the domain.
+
+    A census and not a declaration: every member of the declared domain is
+    replayed under the policy and the longest address its admissions produce is
+    read off.  It is one at the refusing policy, which admits every member
+    carrying no nested item, and zero only where the policy admits no member at
+    all.  The probe below reads this number rather than the policy's name, so
+    that what refuses a deeper admission is what the policy's own admissions
+    do.
+    """
+    depths = depths_over_the_domain(reading, point)
+    return max(depths) if depths else 0
+
+
+def a_place_of_that_depth_is_nameable(requested: int, deepest_named: int) -> bool:
+    """Whether a policy naming places to ``deepest_named`` names one at
+    ``requested``.
+
+    Separated from its caller so that both directions are exercised by a test:
+    over the real policies the deepest place a one-step policy names is one, so
+    a comparison written inline could only ever read one way at those points.
+    A request at depth zero is no request and reads FALSE.
+    """
+    return 1 <= requested <= deepest_named
+
+
 def further_mark_within_the_inner_whole(
     reading: str, point: Point, retention: Retention
 ) -> Json:
@@ -903,17 +943,29 @@ def further_mark_within_the_inner_whole(
     whole was treated": the outer whole's two sides are places at which a mark
     may be admitted, and this asks whether the inner whole's are.  The probe
     extends the caller's own history with one admission at the inner boundary's
-    other side and reports whether the state records it there.  It is a probe
-    and is admitted by no history the receipt reports as current.
+    other side and reads two things: that the replay records the mark at the
+    requested address, which holds at every admitting point and is reported so
+    that it can be read, and that the address is no deeper than the deepest
+    place this policy's OWN admissions name over the declared domain.  The
+    second is what decides it, and it is a census — the deep grammar is
+    policy-agnostic and accepts the event under every policy, so the address it
+    records is not by itself evidence that the policy could have produced it.
+    It is a probe and is admitted by no history the receipt reports as current.
     """
     if retention.history is None or retention.deep is None:
         return {
             "possible": False,
-            "because": "the policy admits nothing, so there is no inner whole to enter",
+            "because": (
+                "the policy refuses the caller's inscription and retains "
+                "nothing, so there is no inner whole to enter"
+            ),
             "probe": None,
             "address": None,
+            "recorded_at_the_requested_place": False,
+            "deepest_place_the_policy_names": deepest_place_a_policy_names(reading, point),
         }
-    probe: list[DeepEvent] = [*retention.history, Supply("b"), AdmitAt("b", (0, 1))]
+    requested: Address = (0, 1)
+    probe: list[DeepEvent] = [*retention.history, Supply("b"), AdmitAt("b", requested)]
     try:
         after = deep_replay(probe, deep_genesis(reading))
     except AdmissionError as exc:  # pragma: no cover - the grammar accepts it
@@ -922,20 +974,30 @@ def further_mark_within_the_inner_whole(
             "because": str(exc),
             "probe": deep_history_json(probe),
             "address": None,
+            "recorded_at_the_requested_place": False,
+            "deepest_place_the_policy_names": deepest_place_a_policy_names(reading, point),
         }
     recorded = after.addresses[-1]
+    kept = tuple(recorded) == requested
+    deepest = deepest_place_a_policy_names(reading, point)
+    nameable = a_place_of_that_depth_is_nameable(len(requested), deepest)
     return {
-        "possible": len(recorded) > 1 and point.policy == POLICY_ADDRESS,
+        "possible": kept and nameable,
         "because": (
-            "the state records the crossing, so the admission names a place "
-            "inside the inner whole and the state keeps it there"
-            if point.policy == POLICY_ADDRESS
-            else "the state records one side per mark, so a place inside the "
-            "inner whole is not nameable: the policy's own admissions carry an "
-            "address of length one and the inner boundary is not in the state"
+            f"the policy's own admissions name places to depth {deepest} over "
+            "the declared domain, so the admission names a place inside the "
+            "inner whole and the replay keeps the mark there"
+            if nameable
+            else "the policy's own admissions name no place deeper than "
+            f"{deepest} over the declared domain, so the length-{len(requested)} "
+            "address the policy-agnostic deep grammar records here is not one "
+            "this policy produces: a place inside the inner whole is not "
+            "nameable under it"
         ),
         "probe": deep_history_json(probe),
         "address": list(recorded),
+        "recorded_at_the_requested_place": kept,
+        "deepest_place_the_policy_names": deepest,
     }
 
 
@@ -1137,6 +1199,13 @@ def reader_facts() -> Json:
     return {
         "inherited_readers": refusals,
         "inherited_readers_refuse_both": all(bool(row["refused"]) for row in refusals),
+        # The census of the run's reader bounds, read off the inherited list
+        # plus this rung's own.  The first bound was DECLARED and not widened,
+        # so the number of widenings is one fewer than the number of bounds.
+        # DEFINITION-level; it is here because two frozen prediction files
+        # assert an ordinal for the same event and the scorer reads this.
+        "reader_bounds_declared": len(refusals) + 1,
+        "widenings_of_the_reader_bound": len(refusals),
         "widened_bound": READER_WIDENING,
         "declared_depth_bound": NESTING_BOUND,
         "read": {
@@ -1219,6 +1288,12 @@ PRICE_FIELDS_DECLARED: tuple[str, ...] = (
     "capabilities_not_used",
     "declared_at",
     "paid_by",
+    # Both are read off the DECLARED capability count of the recording policy
+    # and move with no enumeration.  WHICH policy the caller's demand names is
+    # computed, by the probe of `further_mark_within_the_inner_whole`; what
+    # that policy costs is a declaration of definition 62.
+    "what_the_caller_asked_for_costs",
+    "what_the_caller_asked_for_is_one_step",
 )
 
 
@@ -1393,6 +1468,12 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
         for rd in (u, o)
     )
     space_clause = all(len(rd["policies"]) == len(POLICY_SPACE) for rd in (u, o))
+    # "the bound will have to be widened a second time": the run has three
+    # reader bounds and has widened twice, the first bound having been declared
+    # and not widened.  The frozen ordinal is read against the reader census
+    # rather than left unscored, because the same event is given a different
+    # ordinal by the frozen C5-1.
+    ordinal_clause = reader["widenings_of_the_reader_bound"] == 2
     # "exactly one member letting the caller retain the inscription": three of
     # the four policies admit it, and exactly one retains it so that the state
     # tells it from the flat inscription.  Both counts are reported.
@@ -1406,12 +1487,21 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
     ]
     exactly_one_clause = len(admitting) == 1
     core = named_reader_clause and depth_clause and datum_clause and space_clause
-    status = "HIT" if (core and exactly_one_clause and reader_clause) else "PARTIAL" if core else "MISSED"
+    status = (
+        "HIT"
+        if (core and exactly_one_clause and reader_clause and ordinal_clause)
+        else "PARTIAL"
+        if core
+        else "MISSED"
+    )
     return {
         "status": status,
         "label": "NOT FORCED",
         "reader_refuses_clause_status": verdict(named_reader_clause),
         "widening_priced_clause_status": verdict(reader_clause),
+        "widening_ordinal_clause_status": verdict(ordinal_clause),
+        "reader_bounds_declared": reader["reader_bounds_declared"],
+        "widenings_of_the_reader_bound": reader["widenings_of_the_reader_bound"],
         "depth_not_available_without_a_declaration_clause_status": verdict(depth_clause),
         "inner_whole_not_a_datum_clause_status": verdict(datum_clause),
         "declared_finite_policy_space_clause_status": verdict(space_clause),
@@ -1429,10 +1519,12 @@ def score_c4x(u: Json, o: Json, reader: Json) -> Json:
         ),
         "evidence": (
             "both inherited readers refuse the caller's inscription by name and "
-            "the third widening is paid by the run; the decision takes the form "
-            "of a declared finite policy space of four members; depth is "
-            "available at no policy of capability count one; and the inner "
-            "whole is a second initial datum under no policy"
+            "the new bound — the run's THIRD reader bound and its SECOND "
+            "widening, which is the ordinal this clause asserts — is paid by "
+            "the run; the decision takes the form of a declared finite policy "
+            "space of four members; depth is available at no policy of "
+            "capability count one; and the inner whole is a second initial "
+            "datum under no policy"
         ),
     }
 
@@ -1453,6 +1545,12 @@ def score(u: Json, o: Json, reader: Json) -> Json:
         and bool(reader["read"]["right_is_empty"])
         and reader["read"]["depth"] == 2
     )
+    # The frozen C5-1 also says "the bound must be widened a third time", and
+    # the frozen C4-X says "a second time" of the same event.  Both are scored
+    # against the one reader census rather than one of them being left unread:
+    # the run has three reader bounds and has widened twice, so C4-X's ordinal
+    # holds and C5-1's does not.
+    c5_1_ordinal = reader["widenings_of_the_reader_bound"] == 3
     c5_2 = (
         all(
             [row["capability_count"] for row in rd["policies"]] == [0, 1, 1, 2]
@@ -1556,19 +1654,36 @@ def score(u: Json, o: Json, reader: Json) -> Json:
     return {
         "C4-X": score_c4x(u, o, reader),
         "C5-1": {
-            "status": verdict(c5_1),
+            "status": "HIT" if (c5_1 and c5_1_ordinal) else "PARTIAL" if c5_1 else "MISSED",
             "label": "FORCED",
+            "readers_clause_status": verdict(c5_1),
+            "widening_ordinal_clause_status": verdict(c5_1_ordinal),
+            "reader_bounds_declared": reader["reader_bounds_declared"],
+            "widenings_of_the_reader_bound": reader["widenings_of_the_reader_bound"],
+            "widening_ordinal_clause_fact": (
+                "the frozen clause gives this widening the ordinal THIRD; the "
+                "frozen C4-X gives the same event the ordinal SECOND.  Both are "
+                "scored against the one census beside this key — the reader "
+                "bounds the run has declared, and the widenings, which are one "
+                "fewer because the Challenge 1 bound was declared and not "
+                "widened.  Each clause is scored on the ordinal its own words "
+                "carry, and the frozen files are untouched"
+            ),
             "result_basis": (
                 "DEFINITION-level: the two refusals are the Challenge 1 and "
-                "Challenge 4 bounds replayed on the caller's text, and the "
-                "widened reader's own bound is this rung's declaration; a hit "
-                "is by construction and is not counted as content"
+                "Challenge 4 bounds replayed on the caller's text, the widened "
+                "reader's own bound is this rung's declaration, and the ordinal "
+                "is a census of the run's own reader bounds; a hit is by "
+                "construction and is not counted as content"
             ),
             "evidence": (
                 "both inherited readers refuse the caller's inscription by "
                 "name; the widened reader reads it as a whole whose left item "
                 "is a whole and whose right side is empty, at depth two; and it "
-                "refuses a whole deeper than its declared bound by name"
+                "refuses a whole deeper than its declared bound by name.  The "
+                f"ordinal clause {verdict(c5_1_ordinal)}: the run has "
+                f"{reader['reader_bounds_declared']} reader bounds and "
+                f"{reader['widenings_of_the_reader_bound']} widenings"
             ),
         },
         "C5-2": {
@@ -1627,7 +1742,9 @@ def score(u: Json, o: Json, reader: Json) -> Json:
                 "content: that no policy makes a second initial datum is a "
                 "replay of every point's history with the datum read off, and "
                 "that a further mark may be admitted within the inner whole is "
-                "an event-acceptance probe with both values attained.  The "
+                "a probe whose deciding fact is a census — the deepest place "
+                "each policy's own admissions name over the declared domain — "
+                "with both values attained.  The "
                 "classification of what the inner whole IS under each policy is "
                 "the run's and is declared, not computed"
             ),

@@ -61,6 +61,7 @@ from boundary.challenge5 import (  # noqa: E402
     WHOLE_TOKEN,
     Point,
     PolicyRefusal,
+    a_place_of_that_depth_is_nameable,
     behaviour_digest,
     build,
     capabilities,
@@ -68,6 +69,7 @@ from boundary.challenge5 import (  # noqa: E402
     class_key,
     closed_grammar_forms_reading_depth,
     collateral_facts,
+    deepest_place_a_policy_names,
     depth_determined_by_the_key,
     depth_signatures,
     depths_over_the_domain,
@@ -659,6 +661,41 @@ class InnerWholeTests(unittest.TestCase):
                 facts = further_mark_within_the_inner_whole(reading, point, held)
                 self.assertEqual(facts["possible"], policy == POLICY_ADDRESS)
 
+    def test_the_deepest_place_a_policy_names_is_read_off_the_domain(self) -> None:
+        # What refuses the probe at a one-step policy is this census and not
+        # the policy's name: the deep grammar is policy-agnostic and records
+        # the requested address under every admitting policy.
+        for reading in (READING_U, READING_O):
+            # The refusing policy admits every member of the domain that
+            # carries no nested item, so its own admissions reach depth one.
+            self.assertEqual(deepest_place_a_policy_names(reading, Point(POLICY_REFUSE)), 1)
+            self.assertEqual(deepest_place_a_policy_names(reading, Point(POLICY_OPAQUE)), 1)
+            self.assertEqual(deepest_place_a_policy_names(reading, Point(POLICY_FLATTEN)), 1)
+            self.assertEqual(deepest_place_a_policy_names(reading, Point(POLICY_ADDRESS)), 2)
+
+    def test_the_probe_reports_the_address_the_replay_kept_at_every_point(self) -> None:
+        # The refusal must not deny what the same object reports: at the two
+        # one-step policies the replay does record a length-two address, and
+        # the reason given is that no admission of that policy produces one.
+        for reading in (READING_U, READING_O):
+            for policy in (POLICY_OPAQUE, POLICY_FLATTEN, POLICY_ADDRESS):
+                held = retain(reading, read_nested_whole(INSCRIPTION), policy, INSCRIPTION)
+                facts = further_mark_within_the_inner_whole(reading, Point(policy), held)
+                self.assertEqual(facts["address"], [0, 1])
+                self.assertTrue(facts["recorded_at_the_requested_place"])
+                self.assertEqual(
+                    facts["deepest_place_the_policy_names"],
+                    deepest_place_a_policy_names(reading, Point(policy)),
+                )
+                self.assertIn(str(facts["deepest_place_the_policy_names"]), facts["because"])
+
+    def test_a_place_is_nameable_exactly_when_the_policy_names_one_that_deep(self) -> None:
+        self.assertTrue(a_place_of_that_depth_is_nameable(2, 2))
+        self.assertTrue(a_place_of_that_depth_is_nameable(1, 2))
+        self.assertFalse(a_place_of_that_depth_is_nameable(2, 1))
+        self.assertFalse(a_place_of_that_depth_is_nameable(1, 0))
+        self.assertFalse(a_place_of_that_depth_is_nameable(0, 2))
+
     def test_what_the_inner_whole_is_under_each_policy(self) -> None:
         self.assertEqual(sorted(WHAT_THE_INNER_WHOLE_IS), sorted(POLICY_SPACE))
         self.assertIn("MARK", WHAT_THE_INNER_WHOLE_IS[POLICY_OPAQUE])
@@ -678,7 +715,8 @@ class MeasureTests(unittest.TestCase):
             self.assertFalse(by_mu1["unique"])
 
     def test_the_two_measures_select_different_minima(self) -> None:
-        # The first rung at which they do; at Challenges 3 and 4 they agreed.
+        # The first rung at which they part under BOTH readings: at Challenge 3
+        # they parted under O alone, and at Challenge 4 they agreed under both.
         for reading in (READING_U, READING_O):
             facts = reading_facts(reading)
             self.assertFalse(facts["measures_agree_on_minima"])
@@ -867,15 +905,36 @@ class ScoreTests(unittest.TestCase):
     def test_scores(self) -> None:
         receipt = build()
         scores = receipt["scores"]
-        for cid in SCORED_PREDICTIONS:
+        for cid in ("C5-2", "C5-3", "C5-4", "C5-5", "C5-6", "C5-7", "C5-8"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
+        # C5-1's readers clause hits and its ordinal clause misses, so the
+        # prediction is PARTIAL and the miss is recorded next to its value.
+        self.assertEqual(scores["C5-1"]["status"], "PARTIAL")
         self.assertEqual(scores["C5-X"]["status"], "PENDING")
         self.assertEqual(scores["C4-X"]["status"], "PARTIAL")
+
+    def test_the_one_widening_is_given_two_ordinals_and_both_are_scored(self) -> None:
+        # The frozen C4-X says the bound is widened "a second time" and the
+        # frozen C5-1 says "a third time" of the same event.  One census of the
+        # run's reader bounds settles both: three bounds, two widenings.
+        receipt = build()
+        reader = receipt["reader"]
+        self.assertEqual(reader["reader_bounds_declared"], 3)
+        self.assertEqual(reader["widenings_of_the_reader_bound"], 2)
+        self.assertEqual(len(reader["inherited_readers"]), 2)
+        self.assertEqual(
+            receipt["scores"]["C4-X"]["widening_ordinal_clause_status"], "HIT"
+        )
+        self.assertEqual(
+            receipt["scores"]["C5-1"]["widening_ordinal_clause_status"], "MISSED"
+        )
+        self.assertEqual(receipt["scores"]["C5-1"]["readers_clause_status"], "HIT")
 
     def test_the_previous_extrapolation_is_scored_clause_by_clause(self) -> None:
         scores = build()["scores"]["C4-X"]
         self.assertEqual(scores["reader_refuses_clause_status"], "HIT")
         self.assertEqual(scores["widening_priced_clause_status"], "HIT")
+        self.assertEqual(scores["widening_ordinal_clause_status"], "HIT")
         self.assertEqual(
             scores["depth_not_available_without_a_declaration_clause_status"], "HIT"
         )
@@ -895,11 +954,11 @@ class ScoreTests(unittest.TestCase):
         self.assertEqual(
             list(counts["definition_level_declared"]), list(DEFINITION_LEVEL_PREDICTIONS)
         )
-        self.assertEqual(counts["hit_definition_level"], ["C5-1", "C5-2"])
+        self.assertEqual(counts["hit_definition_level"], ["C5-2"])
         self.assertEqual(
             counts["hit_as_content"], ["C5-3", "C5-4", "C5-5", "C5-6", "C5-7", "C5-8"]
         )
-        self.assertEqual(counts["partial"], [])
+        self.assertEqual(counts["partial"], ["C5-1"])
         self.assertEqual(counts["missed"], [])
 
     def test_tally_refuses_an_unknown_status(self) -> None:
@@ -937,6 +996,19 @@ class ScorerNegativeTests(unittest.TestCase):
         reader = copy.deepcopy(self.reader)
         reader["beyond_the_bound_refused"] = False
         self.assertEqual(self.scored(self.u, self.o, reader)["C5-1"]["status"], "MISSED")
+
+    def test_c5_1_hits_only_where_the_run_has_widened_three_times(self) -> None:
+        # The direction the real receipt cannot show: with a third widening in
+        # the census the frozen ordinal would hold and C5-1 would be a HIT,
+        # while C4-X's "a second time" would then miss.
+        reader = copy.deepcopy(self.reader)
+        reader["reader_bounds_declared"] = 4
+        reader["widenings_of_the_reader_bound"] = 3
+        scored = self.scored(self.u, self.o, reader)
+        self.assertEqual(scored["C5-1"]["widening_ordinal_clause_status"], "HIT")
+        self.assertEqual(scored["C5-1"]["status"], "HIT")
+        self.assertEqual(scored["C4-X"]["widening_ordinal_clause_status"], "MISSED")
+        self.assertEqual(scored["C4-X"]["status"], "PARTIAL")
 
     def test_c5_2_misses_when_a_policy_price_moves(self) -> None:
         u = copy.deepcopy(self.u)

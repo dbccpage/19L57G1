@@ -143,7 +143,7 @@ in `code/boundary/presentation.py`; 20 to 26 in `model.py` and
 `model.py` and `code/boundary/challenge2.py` as marked; 37 to 46 are
 Challenge 3's, in `model.py` and `code/boundary/challenge3.py` as marked;
 47 to 58 are Challenge 4's, in `presentation.py`, `model.py`, and
-`code/boundary/challenge4.py` as marked; 59 to 70 are Challenge 5's, in
+`code/boundary/challenge4.py` as marked; 59 to 71 are Challenge 5's, in
 `presentation.py`, `model.py`, and `code/boundary/challenge5.py` as marked.
 Definitions 27, 28, and 36 are **Lean-only** and have no Python counterpart,
 as their headings say.  Two earlier versions of this sentence were wrong:
@@ -678,8 +678,9 @@ whole Challenge 3 candidate space are Python-only.
 61. **The declared policy space (Challenge 5).**  An admission meeting an item
     that is a whole either does not act on it (*refuse*), acts on the whole
     without its interior (*opaque*: it is admitted as one mark on the outer
-    side, its interior discarded), acts on the interior without the boundary
-    between (*discard*: the inner boundary is dropped and the inner whole's own
+    side under the declared token of definition 71, its interior discarded),
+    acts on the interior without the boundary between (*discard*: the inner
+    boundary is dropped and the inner whole's own
     items are admitted on the outer side), or acts on the interior keeping that
     boundary (*record*: each admitted mark carries the sides crossed to reach
     it).  Those four are the declared space.  It does not enumerate a policy
@@ -768,6 +769,18 @@ whole Challenge 3 candidate space are Python-only.
     did not**.  They are facts and not independent facts: the receipt computes
     which pairs take the same value at every point of the space and names them,
     so that a reader knows where the measure counts one thing twice.
+71. **The whole token (Challenge 5).**  A whole admitted opaquely presents no
+    visible mark of its own, so the run declares ONE presentation token for
+    every such presentation.  It conflates all inner wholes at the presentation
+    level, which is what admitting one opaquely means, and it changes no key,
+    definition 14 forgetting the labels.  It is a declaration of this rung,
+    listed in the receipt's `reader.declared_at_challenge_5` beside the reader
+    bound and the order, and it is load-bearing: the seventh collateral fact of
+    definition 70 is this token's presence among the retained labels, and it is
+    the one declared fact separating the opaque policy from the discarding one,
+    so it is what parts the two measures.  It is stated after definition 70
+    because definitions 61 and 70 both use it, as definition 62 forward-refers
+    to definition 68.
 
 ## 4. Challenge 0: the initial state `<|>`
 
@@ -1649,13 +1662,16 @@ is an internally available count; and what admission, if any, is needed to
 treat the inner whole as the outer whole was treated.  Nesting is assumed
 neither admissible nor inadmissible.
 
-**The reader bound had to be widened a third time** (definition 59).  Both
-readers the run has refuse `<<a|>|>` by name — the Challenge 1 reader, whose
-bound is at most one mark in a whole, and the Challenge 4 reader, whose bound
-is at most one mark on each side of the bar.  Neither reads an ITEM that is
-itself a whole.  The run declares the nested reader, leaves both narrower ones
-refusing, and **pays the widening itself**.  The depth bound of two is a
-declaration and not a limit: the same reader at a wider bound reads deeper
+**A third reader bound, the second widening of the run's reader** (definition
+59).  Both readers the run has refuse `<<a|>|>` by name — the Challenge 1
+reader, whose bound is at most one mark in a whole, and the Challenge 4 reader,
+whose bound is at most one mark on each side of the bar.  Neither reads an ITEM
+that is itself a whole.  The run declares the nested reader, leaves both
+narrower ones refusing, and **pays the widening itself**.  The count is the
+receipt's `reader.reader_bounds_declared` and
+`reader.widenings_of_the_reader_bound`: three bounds and two widenings, the
+Challenge 1 bound having been declared and not widened.  The depth bound of two
+is a declaration and not a limit: the same reader at a wider bound reads deeper
 wholes, which a test shows.
 
 **Reading is not admitting** (definition 60).  What an admission does with an
@@ -1698,14 +1714,14 @@ the table says otherwise.
 | the second measure at the minima | 0 at the discarding policy, 1 at the opaque one | 1 and 2 | `points.*.mu2` |
 | **the two measures select the same minima** | **no** | **no** | `measures_agree_on_minima`; the second picks the discarding policy alone |
 | bundles refused | 4 of the 8 points | same | `bundles_refused` |
-| what the caller's own demand costs | **2**, and it is refused as a bundle | same | `price.what_the_caller_asked_for_costs` |
+| what the caller's own demand costs | **2**, and it is refused as a bundle | same | `price.what_the_caller_asked_for_costs`, a declared count listed in `price.fields_declared_not_computed`; WHICH policy the demand names is the probe two rows below |
 | a second initial datum under any policy | **none** | same | `point_detail.*.initial_datum_unchanged`; Lean `deepReplay_initialDatum` |
-| a further mark admitted inside the inner whole | under the recording policy alone | same | `further_mark_within_the_inner_whole`, an event-acceptance probe |
+| a further mark admitted inside the inner whole | under the recording policy alone | same | `further_mark_within_the_inner_whole`, a probe deciding on `deepest_place_the_policy_names` — the longest address the policy's own admissions produce over the declared domain — and not on the policy's name |
 | depth at every one-step policy | every retained mark one boundary in | same | `depths_over_the_domain` |
-| depth under the recording policy, in the key | invariant under every permitted renaming and determined by the key | same | `collateral_facts.depth_determined_by_the_key`; Lean `depth_invariant_under_exchange` |
+| depth under the recording policy, in the key | invariant under every permitted renaming and determined by the key | same | `collateral_facts.depth_determined_by_the_key`; the level-exchange half is Lean `depth_invariant_under_exchange`, the mark-permutation half is `test_no_permitted_renaming_moves_a_mark_depth` and is computed at one two-mark state |
 | depth in the closed grammar | **not expressible** at any point; no form reads it and none is added | same | `closed_grammar_forms_reading_depth` empty; DEFINITION-level, the grammar being a declared sum of two forms |
 | the naming coordinate | collapses at **every** policy | collapses at **three of four**, and not at the recording one | `naming_coordinate_collapses_at` |
-| the retained mark's address orbit | **4** | **2** without the naming reaching inward, **1** with it | `mark_address_orbit_size` |
+| the retained mark's address orbit, under the recording policy | **4** | **2** without the naming reaching inward, **1** with it | `mark_address_orbit_size` at the two recording points; at the two one-step policies the same key reads **2** under U and **1** under O |
 | which side of the OUTER boundary the mark lies on | not internally available | internally available | `collateral_facts.outer_side_internally_available` |
 | which side of the INNER boundary | not internally available | **not internally available either**, without the further declaration | `collateral_facts.inner_side_internally_available`; Lean `no_invariant_property_separates_the_inner_sides` with the countermodel `innerSideIsZero_is_not_invariant_under_the_inner_exchange` |
 | the within-whole order at every level | moves the state at 116 of 144 inscriptions | same | `order.domain_inscriptions_where_the_states_differ` |
@@ -1726,8 +1742,10 @@ language cannot see **under O as well as under U**, and which side of the inner
 boundary the mark lies on is internally available under neither.  Under U the
 coordinate collapses, because U names nothing at any level and propagating
 nothing gives nothing.  So the U-versus-O split is not inherited downward: it
-has to be paid for again at each level, and the price is one capability per
-level.
+has to be paid for again below the outermost boundary, and at the two declared
+levels the price is one capability for the second.  Whether it becomes one
+capability per level at a deeper bound is not computed, and section 5.19 says
+so.
 
 **What the caller asked for is not a minimum.**  Treating the inner whole as
 the outer whole was treated means, mechanically, that its two sides are places
@@ -1747,23 +1765,34 @@ direction of every clause is tested.
 
 | id | label | status | basis |
 |---|---|---|---|
-| C4-X | NOT FORCED | **PARTIAL** | five clauses hit; the "exactly one member letting the caller retain the inscription" clause MISSED, three policies admitting it.  Recorded next to its value in `challenge4/PREDICTIONS.md`'s successor status and never edited in the frozen file |
-| C5-1 | FORCED | HIT | DEFINITION-level, not counted as content |
+| C4-X | NOT FORCED | **PARTIAL** | six clauses hit, the ordinal among them; the "exactly one member letting the caller retain the inscription" clause MISSED, three policies admitting it.  Recorded next to its value in `challenge4/PREDICTIONS.md`'s successor status and never edited in the frozen file |
+| C5-1 | FORCED | **PARTIAL** | DEFINITION-level, not counted as content.  The readers clause HIT; the ordinal clause MISSED — the frozen text calls this widening the third, and the reader census gives three bounds and two widenings, which is the ordinal the frozen C4-X gives the same event.  Recorded next to its value and never edited in the frozen file |
 | C5-2 | NOT FORCED | HIT | DEFINITION-level, not counted as content |
 | C5-3 | FORCED | HIT | content: an isomorphism-witness search at each candidate's own renamings |
 | C5-4 | FORCED | HIT | content: a 144-member domain census and the implemented quotient |
-| C5-5 | NOT FORCED | HIT | content: a replay at every point and an event-acceptance probe; the classification itself is declared |
+| C5-5 | NOT FORCED | HIT | content: a replay at every point and a probe deciding on a census of the depths each policy's own admissions reach; the classification itself is declared |
 | C5-6 | FORCED | HIT | content: the key-determination census; the grammar clause is DEFINITION-level and reported apart |
 | C5-7 | FORCED | HIT | content: the quotient over the whole domain and three orbit sizes |
 | C5-8 | FORCED | HIT | content: certification and replay with both values of the admission predicate attained |
 | C5-X | NOT FORCED | PENDING | scored by the autonomous continuation |
 
-Eight of eight hit, six as content.  **A clean sweep is the weakest evidence
-this run produces.**  The predictions were written by an instrument that had
-reasoned the rung through, so the hits show the order of the work.  Two
-results were not predicted anywhere and are reported as results and not as
-hits: that the two cost measures select different minima, for the first time
-in the run, and that one step and the coordinate count part.
+Seven of eight scored predictions hit and one is PARTIAL; six hit as content
+(C5-3 to C5-8) and one by construction, DEFINITION-level and not counted
+(C5-2), by the criterion Challenge 1 declared and this rung reuses unchanged
+(`tally.criterion`).  The counts are the receipt's `tally`, computed from the
+statuses and a declared list.  The PARTIAL, C5-1, is DEFINITION-level as well:
+its readers clause holds and its ordinal does not.
+
+**A near sweep is the weakest evidence this run produces.**  The predictions
+were written by an instrument that had reasoned the rung through, so the hits
+show the order of the work.  Two results were not predicted anywhere and are
+reported as results and not as hits: that the two cost measures select
+different minima under **both** readings, the first rung at which they do — at
+Challenge 3 they parted under O alone and at Challenge 4 they agreed under
+both — and that one step and the coordinate count part.  The single miss is an
+ordinal the rung wrote into its own frozen file and did not read until review;
+no computed result moved with it, and it is recorded next to its value rather
+than reworded.
 
 #### 5.19 What Challenge 5 does not establish
 
@@ -2242,7 +2271,7 @@ the Python kernel, decided there and priced there.
 | `nestedRetained_eq` | the caller's history retains one mark at address `[false, false]` | none |
 | `flatRetained_eq` | the flat inscription's retains one mark at `[false]` | none |
 | `nestedRetained_addresses` | its address list, with the reading projected away | none |
-| `nestedRetained_depth`, `flatRetained_depth` | depth two and depth one | none |
+| `nestedRetained_depth`, `flatRetained_depth` | depth two and depth one | propext |
 | `nestedRetained_ne_flatRetained` | so the two retained deep states differ, and the depth is what tells them apart | propext |
 | `deep_supply_no_op` | a supply changes no deep state | none |
 | `deepStep_changes_only_by_placeAt` | any deep event that changes state is a placement | none |
@@ -2250,7 +2279,7 @@ the Python kernel, decided there and priced there.
 | `exchangeAt_length` | a level exchange keeps an address's length | propext |
 | `depth_invariant_under_exchange` | **so no level exchange moves any mark's depth** | propext |
 | `exchangeAt_involutive`, `exchangeLevel_involutive` | each level exchange is its own inverse | propext |
-| `flattenAddress_exchangeAt_succ` | flattening reads the outermost crossing only | none |
+| `flattenAddress_exchangeAt_succ` | flattening reads the outermost crossing only | propext |
 | `flattenDeep_exchangeLevel_succ` | **a state recording one side per mark is blind to every exchange below the outermost boundary**, for an arbitrary state and level | propext |
 | `flatten_nested_eq_flat` | the caller's nested whole and the flat whole of Challenge 1 have the same flattened state | propext |
 | `flatten_nested_eq_admitted` | and that state is exactly what the Challenge 1 inscription retains | propext |
@@ -2323,7 +2352,7 @@ configuration renaming at Challenge 4.
   full map is on the nine rows the rung reports in full; that is what keeps
   it inside the bound, and it is recorded because a later rung adding keys
   to a point row has less room than the number alone suggests.
-- The Challenge 5 receipt is 123522 bytes, far inside the megabyte at which
+- The Challenge 5 receipt is 127455 bytes, far inside the megabyte at which
   the run would owe a summary and a gzip: its space is eight points, so every
   point is carried in full, and the 144-member domain census is reported as a
   digest per point with the parting inscriptions named rather than as 144 keys
@@ -2350,7 +2379,7 @@ configuration renaming at Challenge 4.
   convention pinned, and once more at the fifth, when C1-7's evidence was
   rescoped to the candidate regimes, C1-5's basis relabelled, and the two
   designation clause facts reworded, with no injection live any time.
-- The suite passes 400 tests.  Fresh coverage over the nine declared code
+- The suite passes 405 tests.  Fresh coverage over the nine declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
@@ -2550,24 +2579,28 @@ grouping with the names was at Challenge 4.  Under no policy is the inner whole
 a second initial datum, which is proved for every deep history, and under no
 policy is it a side; it is a mark, or nothing, or a second boundary, according
 to the policy.  Depth splits into two senses the run keeps apart: under the
-recording policy a mark's depth is invariant under every permitted renaming,
-which is proved, and determined by the key, which is computed, so it is
-internally available in the sense Challenge 3 declared; and at no point of the
-space is it expressible, no form of the closed observation grammar reading it
-and none being added.  Finally, **the U-versus-O question reappears one level
+recording policy a mark's depth is invariant under every permitted renaming —
+that no LEVEL EXCHANGE moves it is proved, and that no MARK PERMUTATION does
+either is computed, at one two-mark state — and determined by the key, which is
+computed, so it is internally available in the sense Challenge 3 declared; and
+at no point of the space is it expressible, no form of the closed observation
+grammar reading it and none being added.  Finally, **the U-versus-O question reappears one level
 down and neither reading settles it**: whether the reading's naming of the two
 sides reaches the inner boundary is a further declaration the seed's one
 admitted exception does not make, it collapses under U, which names nothing at
 any level, and without it the exchange of the inner boundary's two sides is a
 renaming the object language cannot see under O as well — so which side of the
 inner boundary the mark lies on is internally available under neither reading
-until that declaration is paid for.  The retained mark's address orbit has four
-members under U, two under O without the declaration, and one with it.  The
-outside of the outermost boundary is not formulable in the declared alphabet,
-an address being a sequence of sides crossed inward, and the run names that and
-leaves it OPEN.  For the first time in the run the two cost measures select
-different minima, the second picking the discarding policy alone under both
-readings.
+until that declaration is paid for.  Under the recording policy the retained
+mark's address orbit has four members under U, two under O without the
+declaration, and one with it; at the two one-step policies it has two members
+under U and one under O.  The outside of the outermost boundary is not
+formulable in the declared alphabet, an address being a sequence of sides
+crossed inward, and the run names that and leaves it OPEN.  This is the first
+rung at which the two cost measures select different minima under **both**
+readings — at Challenge 3 they parted under O alone, and at Challenge 4 they
+agreed under both — and here the second picks the discarding policy alone under
+each.
 
 These are scoped Lean theorems, bounded computations, or labelled
 definitions and conventions.  Because the instrument declared prior

@@ -105,7 +105,7 @@
   "inscription": "<<a|>|>",
   "measures": {
     "mu1": "capability count: the number of undeclared capabilities the candidate uses",
-    "mu2": "collateral count: how many of the eight declared facts about the caller's retained whole the candidate makes internally available that the same reading's base did not.  The base is the refusing policy, which retains nothing, and a fact about a retained configuration is reported FALSE where there is no retained configuration rather than vacuously true.  The eight are facts and not independent facts: the receipt computes which pairs of them take the same value at every point of this rung's space and names them, so that a reader knows where this measure counts one thing twice"
+    "mu2": "collateral count: how many of the eight declared facts the candidate makes internally available that the same reading's base did not.  They are not eight facts about one retained configuration: FOUR are about the caller's retained whole and are reported FALSE where there is no retained configuration rather than vacuously true, the base being the refusing policy, which retains nothing; TWO are censuses of the policy's behaviour over the declared domain; ONE is about the closed observation grammar; and ONE is about the reading.  The eight are facts and not independent facts: the receipt computes which pairs of them take the same value at every point of this rung's space and names them, so that a reader knows where this measure counts one thing twice"
   },
   "new_event_kinds_at_challenge_5": [
     "AdmitAt"
@@ -196,8 +196,10 @@
       "right_is_empty": true,
       "spelling_rebuilt": "<<a|>|>"
     },
+    "reader_bounds_declared": 3,
     "whole_token": "w",
-    "widened_bound": "an item on a side is a mark OR a whole, down to a declared depth bound of two, where the Challenge 4 reader admitted at most one MARK on each side and read no item that is itself a whole"
+    "widened_bound": "an item on a side is a mark OR a whole, down to a declared depth bound of two, where the Challenge 4 reader admitted at most one MARK on each side and read no item that is itself a whole",
+    "widenings_of_the_reader_bound": 2
   },
   "readings": {
     "O": {
@@ -391,9 +393,11 @@
           },
           "further_mark_within_the_inner_whole": {
             "address": null,
-            "because": "the policy admits nothing, so there is no inner whole to enter",
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
-            "probe": null
+            "probe": null,
+            "recorded_at_the_requested_place": false
           },
           "history": [],
           "inherited_event_follows_relation_empty": true,
@@ -490,9 +494,11 @@
           },
           "further_mark_within_the_inner_whole": {
             "address": null,
-            "because": "the policy admits nothing, so there is no inner whole to enter",
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
-            "probe": null
+            "probe": null,
+            "recorded_at_the_requested_place": false
           },
           "history": [],
           "inherited_event_follows_relation_empty": true,
@@ -593,7 +599,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -619,7 +626,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -779,7 +787,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -805,7 +814,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -961,7 +971,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -987,7 +998,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -1146,7 +1158,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -1172,7 +1185,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -1334,7 +1348,8 @@
               0,
               1
             ],
-            "because": "the state records the crossing, so the admission names a place inside the inner whole and the state keeps it there",
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
             "possible": true,
             "probe": [
               {
@@ -1361,7 +1376,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -1514,7 +1530,8 @@
               0,
               1
             ],
-            "because": "the state records the crossing, so the admission names a place inside the inner whole and the state keeps it there",
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
             "possible": true,
             "probe": [
               {
@@ -1541,7 +1558,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -1957,7 +1975,9 @@
           "capabilities_the_retention_would_use",
           "capabilities_not_used",
           "declared_at",
-          "paid_by"
+          "paid_by",
+          "what_the_caller_asked_for_costs",
+          "what_the_caller_asked_for_is_one_step"
         ],
         "minimum_capability_count": 1,
         "new_at_challenge_5": [
@@ -2186,9 +2206,11 @@
           },
           "further_mark_within_the_inner_whole": {
             "address": null,
-            "because": "the policy admits nothing, so there is no inner whole to enter",
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
-            "probe": null
+            "probe": null,
+            "recorded_at_the_requested_place": false
           },
           "history": [],
           "inherited_event_follows_relation_empty": true,
@@ -2283,9 +2305,11 @@
           },
           "further_mark_within_the_inner_whole": {
             "address": null,
-            "because": "the policy admits nothing, so there is no inner whole to enter",
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
-            "probe": null
+            "probe": null,
+            "recorded_at_the_requested_place": false
           },
           "history": [],
           "inherited_event_follows_relation_empty": true,
@@ -2386,7 +2410,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -2412,7 +2437,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -2574,7 +2600,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -2600,7 +2627,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -2759,7 +2787,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -2785,7 +2814,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -2946,7 +2976,8 @@
               0,
               1
             ],
-            "because": "the state records one side per mark, so a place inside the inner whole is not nameable: the policy's own admissions carry an address of length one and the inner boundary is not in the state",
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
             "possible": false,
             "probe": [
               {
@@ -2972,7 +3003,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -3136,7 +3168,8 @@
               0,
               1
             ],
-            "because": "the state records the crossing, so the admission names a place inside the inner whole and the state keeps it there",
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
             "possible": true,
             "probe": [
               {
@@ -3163,7 +3196,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -3323,7 +3357,8 @@
               0,
               1
             ],
-            "because": "the state records the crossing, so the admission names a place inside the inner whole and the state keeps it there",
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
             "possible": true,
             "probe": [
               {
@@ -3350,7 +3385,8 @@
                 "kind": "AdmitAt",
                 "token": "b"
               }
-            ]
+            ],
+            "recorded_at_the_requested_place": true
           },
           "history": [
             {
@@ -3773,7 +3809,9 @@
           "capabilities_the_retention_would_use",
           "capabilities_not_used",
           "declared_at",
-          "paid_by"
+          "paid_by",
+          "what_the_caller_asked_for_costs",
+          "what_the_caller_asked_for_is_one_step"
         ],
         "minimum_capability_count": 1,
         "new_at_challenge_5": [
@@ -3794,7 +3832,7 @@
     "C4-X": {
       "declared_finite_policy_space_clause_status": "HIT",
       "depth_not_available_without_a_declaration_clause_status": "HIT",
-      "evidence": "both inherited readers refuse the caller's inscription by name and the third widening is paid by the run; the decision takes the form of a declared finite policy space of four members; depth is available at no policy of capability count one; and the inner whole is a second initial datum under no policy",
+      "evidence": "both inherited readers refuse the caller's inscription by name and the new bound \u2014 the run's THIRD reader bound and its SECOND widening, which is the ordinal this clause asserts \u2014 is paid by the run; the decision takes the form of a declared finite policy space of four members; depth is available at no policy of capability count one; and the inner whole is a second initial datum under no policy",
       "exactly_one_clause_fact": "the frozen clause reads 'a declared finite space of policies with exactly one member letting the caller retain the inscription'.  THREE of the four declared policies admit the caller's inscription; exactly one retains it so that the retained state tells it from the flat inscription.  The clause is scored on the first count, which is what 'letting the caller retain the inscription' says, and the second is reported beside it",
       "exactly_one_member_retains_clause_status": "MISSED",
       "inner_whole_not_a_datum_clause_status": "HIT",
@@ -3808,15 +3846,23 @@
         "discard",
         "record"
       ],
+      "reader_bounds_declared": 3,
       "reader_refuses_clause_status": "HIT",
       "status": "PARTIAL",
-      "widening_priced_clause_status": "HIT"
+      "widening_ordinal_clause_status": "HIT",
+      "widening_priced_clause_status": "HIT",
+      "widenings_of_the_reader_bound": 2
     },
     "C5-1": {
-      "evidence": "both inherited readers refuse the caller's inscription by name; the widened reader reads it as a whole whose left item is a whole and whose right side is empty, at depth two; and it refuses a whole deeper than its declared bound by name",
+      "evidence": "both inherited readers refuse the caller's inscription by name; the widened reader reads it as a whole whose left item is a whole and whose right side is empty, at depth two; and it refuses a whole deeper than its declared bound by name.  The ordinal clause MISSED: the run has 3 reader bounds and 2 widenings",
       "label": "FORCED",
-      "result_basis": "DEFINITION-level: the two refusals are the Challenge 1 and Challenge 4 bounds replayed on the caller's text, and the widened reader's own bound is this rung's declaration; a hit is by construction and is not counted as content",
-      "status": "HIT"
+      "reader_bounds_declared": 3,
+      "readers_clause_status": "HIT",
+      "result_basis": "DEFINITION-level: the two refusals are the Challenge 1 and Challenge 4 bounds replayed on the caller's text, the widened reader's own bound is this rung's declaration, and the ordinal is a census of the run's own reader bounds; a hit is by construction and is not counted as content",
+      "status": "PARTIAL",
+      "widening_ordinal_clause_fact": "the frozen clause gives this widening the ordinal THIRD; the frozen C4-X gives the same event the ordinal SECOND.  Both are scored against the one census beside this key \u2014 the reader bounds the run has declared, and the widenings, which are one fewer because the Challenge 1 bound was declared and not widened.  Each clause is scored on the ordinal its own words carry, and the frozen files are untouched",
+      "widening_ordinal_clause_status": "MISSED",
+      "widenings_of_the_reader_bound": 2
     },
     "C5-2": {
       "evidence": "four declared policies at capability counts 0, 1, 1, and 2 over three declared capabilities; a policy is one step exactly when its capability count is one; and the recording policy, which is what the caller's demand needs, is refused as a bundle",
@@ -3839,7 +3885,7 @@
     "C5-5": {
       "evidence": "no retained state under any policy carries a second initial datum; the inner whole is a mark under the opaque policy, nothing under the discarding policy, and a second boundary under the recording policy; and a further mark may be admitted inside it under the recording policy alone, which is not one step",
       "label": "NOT FORCED",
-      "result_basis": "content: that no policy makes a second initial datum is a replay of every point's history with the datum read off, and that a further mark may be admitted within the inner whole is an event-acceptance probe with both values attained.  The classification of what the inner whole IS under each policy is the run's and is declared, not computed",
+      "result_basis": "content: that no policy makes a second initial datum is a replay of every point's history with the datum read off, and that a further mark may be admitted within the inner whole is a probe whose deciding fact is a census \u2014 the deepest place each policy's own admissions name over the declared domain \u2014 with both values attained.  The classification of what the inner whole IS under each policy is the run's and is declared, not computed",
       "status": "HIT"
     },
     "C5-6": {
@@ -3883,11 +3929,12 @@
       "C5-8"
     ],
     "hit_definition_level": [
-      "C5-1",
       "C5-2"
     ],
     "missed": [],
-    "partial": [],
+    "partial": [
+      "C5-1"
+    ],
     "scored": [
       "C5-1",
       "C5-2",

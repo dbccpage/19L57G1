@@ -33,7 +33,8 @@ kind as the convention, and both orders are reported.
 
 Challenge 5 addition.  The caller supplies a whole within a side, which both
 earlier readers refuse by name: neither reads an ITEM that is itself a whole.
-``read_nested_whole`` is the third and last widening of this run's reader: an
+``read_nested_whole`` is this run's third and last reader bound, and the second
+widening of the reader — the Challenge 1 bound was declared and not widened: an
 item on a side is a mark or a whole, down to a declared finite depth beyond
 which the reader refuses by name.  The two narrower readers are left refusing,
 so what forced each widening stays visible, and the widening is a declaration

@@ -1449,3 +1449,102 @@ goal carrying the reading as a free variable for the third rung running.  Each
 is in `challenge5/STATUS.md`, and the gate events are rows in `MANUAL.md`.
 
 Declined: nothing.
+
+## 2026-09-05, Challenge 5 exact-head review repair
+
+Eleven surviving findings, one `blocking` and ten `should_fix`, two of the ten
+being the same defect from two sides.  The frozen `challenge5/PREDICTIONS.md`
+was not touched.  One prediction changed status — C5-1, HIT to PARTIAL, on an
+ordinal the frozen file gets wrong — and no computed result of the rung moved.
+No Lean theorem was added, removed, or reproved, so `lean/axioms.txt` was not
+regenerated.
+
+**Repaired, from the review of Challenge 5.**
+
+- **WITHDRAWN, and it was the `blocking` finding.**  "The two cost measures
+  select different minima **for the first time in the run**" is false.
+  `receipts/challenge3.json` records `readings.O.measures_agree_on_minima`
+  false, B3-TWO-MEASURES says "under O they do not" in words, and the paper's
+  own section 9 says so four paragraphs above the claim; Challenge 4 agreed
+  under both.  What the three receipts support is that this is the first rung
+  at which the measures part under **both** readings, and that is what the
+  paper's 5.18 and section 9, B5-MEASURES-PART, `challenge5/STATUS.md` and the
+  test comment now say.  The narrower claim is not a receipt leaned on: the
+  comparison is read off the earlier receipts' own key.
+- **Corrected.**  Three rows of the paper's section 7.6 reported "none" for
+  theorems `lean/axioms.txt` reports as `[propext]`: `nestedRetained_depth`,
+  `flatRetained_depth`, and `flattenAddress_exchangeAt_succ`.  The build log is
+  the authority and the cells now match it.  The remaining thirty-five rows of
+  that table were checked against the log mechanically, not by eye, and agree.
+- **Narrowed.**  Section 9 and the 5.17 evidence cell said a mark's depth is
+  invariant under **every** permitted renaming "which is proved", while
+  `depth_invariant_under_exchange` covers level exchanges only and the
+  mark-permutation half is `test_no_permitted_renaming_moves_a_mark_depth`, a
+  bounded computation at one two-mark state.  Both now split the halves, in the
+  words B5-DEPTH-TWO-SENSES already used, and the evidence cell cites the test.
+  The prose is weakened rather than the proof stretched.
+- **Scoped.**  The address-orbit row gave 4 / 2 / 1 with no scope; those are the
+  recording policy's numbers, and at the two one-step policies the same key
+  reads 2 under U and 1 under O.  The paper's 5.17 row, section 9's sentence,
+  `challenge5/STATUS.md`, and B5-NAMING now name the policy.  The computation
+  was already scoped; the prose was not.
+- **Scoped.**  Section 5.17 said the U-versus-O price "is one capability per
+  level", which sections 5.19 and 10 record as not computed and not settled by
+  the two-level result.  It now says what holds at the two declared levels and
+  points at the open item.
+- **Repaired, and now computed.**  The further-mark probe decided its answer
+  with the conjunct `point.policy == POLICY_ADDRESS` — the policy's own name —
+  and its `because` text denied a length-two address the same object reported.
+  It now decides on `deepest_place_the_policy_names`, the longest address a
+  policy's own admissions produce over the declared 144-member domain: one at
+  each one-step policy, two at the recording one.  The recorded address is
+  reported beside it as `recorded_at_the_requested_place`, and the text no
+  longer contradicts it.  The answer is unchanged; what changed is that it is
+  read off a census.  With it, `what_the_caller_asked_for_costs` and
+  `what_the_caller_asked_for_is_one_step` join
+  `price.fields_declared_not_computed`, because which policy the demand names
+  is computed and what it costs is definition 62's declared count.
+- **Corrected.**  The receipt's declared text for the second measure described
+  all eight collateral facts as facts about the caller's retained whole, which
+  definition 70 contradicts: four are, two are censuses over the declared
+  domain, one is about the closed grammar, one about the reading.  The constant
+  and its comment now say what definition 70 says.  No measure value moves.
+- **Added, because it was load-bearing and unnumbered.**  The declared
+  presentation token of an opaquely admitted whole is one of the rung's three
+  recorded declarations and is the ONE collateral fact separating the two tied
+  minima, so the rung's unpredicted result rests on it; it had no numbered
+  definition and no ledger entry.  It is now **definition 71**, cited from
+  definition 61, an assumption of B5-POLICY-SPACE, and named in
+  B5-MEASURES-PART as the fact that parts the measures.  It is numbered after
+  definition 70 rather than beside 61 because renumbering would move every
+  citation of definitions 62 to 70; definition 62 already forward-refers to
+  definition 68, so a forward reference is the established shape here.
+- **Corrected, and both frozen ordinals scored.**  The paper, this rung's
+  status, `challenge5.py` and `presentation.py` called the new reader bound the
+  third *widening*.  The run has three reader bounds and two widenings: the
+  Challenge 1 bound was declared and not widened.  `challenge4/STATUS.md`, the
+  frozen C4-X, B5-READER and this log already said "second"; the four wrong
+  sites are corrected.  The receipt now carries the census —
+  `reader.reader_bounds_declared` and `reader.widenings_of_the_reader_bound` —
+  and **both** frozen files are scored against it rather than one being left
+  unread: C4-X's "a second" HITS, and C5-1's "a third" MISSES, which makes C5-1
+  PARTIAL.  Scoring only C4-X would have reproduced the defect one file over.
+  The frozen files are untouched and the miss is recorded next to its value in
+  the receipt, in `challenge5/STATUS.md`, in the paper's 5.18, and in
+  B5-READER.
+- **Corrected.**  B4-X was carried OPEN with "none yet" evidence after this rung
+  scored it PARTIAL with a clause MISSED, against the run's own convention in
+  B0-X and B1-X.  It now reads SCORED at Challenge 5: PARTIAL, names the six
+  clauses that hit and the "exactly one member" clause that missed with its
+  value, and cites `scores.C4-X` and the tests.
+- Five tests were added — the depth census, the nameability predicate in both
+  directions, the probe's reported address, the one-widening census with both
+  ordinals, and the direction in which C5-1's ordinal would hold — taking the
+  suite from 400 to 405, and `receipts/challenge5.json` from 123522 to 127455
+  bytes.  The stale-receipt failure was observed before the regeneration rather
+  than assumed, and both are rows in `MANUAL.md`.
+
+Carried: nothing new.  The Challenge 1 to Challenge 4 items already carried in
+`challenge5/STATUS.md` are unchanged.
+
+Declined: nothing.

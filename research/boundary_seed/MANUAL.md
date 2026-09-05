@@ -33,7 +33,7 @@ python ci/check_prose_watchlist.py
 python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 ```
 
-Definitions 47 to 70 and the Challenge 4 and Challenge 5 kernel additions are
+Definitions 47 to 71 and the Challenge 4 and Challenge 5 kernel additions are
 recorded in `paper.md`; the run's reading of what this file governs is
 unchanged.  For a challenge `<k>` the runner is `run_challenge<k>.py`, and the
 research job runs every one of them.
@@ -158,6 +158,8 @@ injection is live.
 | 5 | receipt byte-identity (found live, not injected) | the order census restructured to report the structural difference between the two within-whole orders beside the class-level one, with the committed receipt left stale | the test failed showing the differing bytes, 1 failure in 97; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 122088 to 123522 bytes, and the suite passed 97 |
 | 5 | Lean decision procedure (found live, not injected) | `decide` offered a goal carrying the reading as a free variable | `error: Expected type must not contain free variables`; two projection lemmas, `innerSideIsZero_nestedRetained` and `innerSideIsZero_innerReflected`, project the reading away first and the build then succeeded.  The same defect appeared at Challenges 2, 3 and 4, which makes this the fourth rung running |
 | 5 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 303 tests in ` | exit 1; `^Ran 400 tests in ` exit 0 on the same log |
+| 5 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the second measure's declared text corrected to definition 70's partition, the further-mark probe made to decide on a census rather than on the policy's own name, the reader-bound census added, and C5-1 and C4-X given their ordinal clauses, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 405; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 123522 to 127455 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 405 |
+| 5 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 400 tests in ` | exit 1; `^Ran 405 tests in ` exit 0 on the same log |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -177,5 +179,6 @@ repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
 it, the Challenge 3 review-repair rows the session after that, the second
 review-repair rows the session after that again, the Challenge 4 rows the
 session after that, the Challenge 4 review-repair rows the session after that,
-and the Challenge 5 rows the session after that again; current whole-tree
+the Challenge 5 rows the session after that again, and the Challenge 5
+review-repair rows the session after that; current whole-tree
 counts are reported in the latest `challenge<k>/STATUS.md`.

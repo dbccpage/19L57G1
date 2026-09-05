@@ -2211,19 +2211,38 @@ Python receipt, bounded), LIMITATION, OPEN.
   that decision will take the shape Challenge 2's did: a declared finite space
   of policies with exactly one member letting the caller retain the
   inscription, priced and paid by the run.
-- **Status**: OPEN; the extrapolation of Challenge 4, scored by Challenge 5.
-  Its first clause is already half computed here — this rung's reader does
-  refuse the nested whole by name, and the receipt records it — so that clause
-  is weak evidence and is marked as such.
+- **Status**: SCORED at Challenge 5: PARTIAL.  Six clauses HIT: the Challenge 4
+  reader refuses the nested whole by name (`reader.inherited_readers`); the new
+  bound is priced and paid by the run (`reader.paid_by`); the ordinal — "a
+  second" widening — holds, the run having three reader bounds and two
+  widenings (`reader.widenings_of_the_reader_bound`); depth is available at no
+  policy of capability count one; the inner whole is a second initial datum
+  under no policy; and the decision takes the form of a declared finite policy
+  space.  **MISSED**, recorded next to its value: "a declared finite space of
+  policies with exactly one member letting the caller retain the inscription".
+  **Three** of the four declared policies admit the caller's inscription
+  (`scores.C4-X.policies_admitting_the_inscription`); exactly one retains it so
+  that the retained state tells it from the flat inscription, and that count is
+  reported beside the clause rather than substituted for it.  The clause is
+  scored on the first count, which is what its own words say.  The frozen file
+  is untouched, and the same miss is recorded in `challenge5/STATUS.md`.  The
+  first clause was already half computed when this entry was written, so that
+  clause is weak evidence and is marked as such.
 - **Dependencies**: Challenge 5's reader bound, its policy space, and its
   declared depth.
-- **Assumptions**: none yet.
-- **Python evidence**: receipt `reader.nested_whole_refused` for the first
-  clause only; nothing else yet.
-- **Lean theorem**: none yet.
+- **Assumptions**: the clauses are scored on the frozen words; "letting the
+  caller retain the inscription" is read as admitting it, and the narrower
+  count — retaining it so that the state tells it from the flat inscription —
+  is reported beside the clause and does not rescue it.
+- **Python evidence**: receipt `receipts/challenge5.json` `scores.C4-X`;
+  `test_the_previous_extrapolation_is_scored_clause_by_clause`,
+  `test_c4x_hits_only_if_one_policy_admits_the_inscription`,
+  `test_the_one_widening_is_given_two_ordinals_and_both_are_scored`.
+- **Lean theorem**: none; every clause is a computation or a declaration.
 - **Axiom report**: not applicable.
-- **Falsifier**: as written in `challenge4/PREDICTIONS.md`.
-- **Surviving boundary**: not yet.
+- **Falsifier**: as written in `challenge4/PREDICTIONS.md`; the
+  "exactly one member" falsifier fired.
+- **Surviving boundary**: the Challenge 5 policy space and reader bound.
 
 ### B5-READER
 
@@ -2233,24 +2252,39 @@ Python receipt, bounded), LIMITATION, OPEN.
   bar — because neither reads an item on a side that is itself a whole.  The
   run declares a third reader in which an item is nothing, one mark, or one
   whole, to a declared depth of two, refusing a deeper item by name; both
-  narrower readers are left refusing.  Reading a nested item is not admitting
-  one.
+  narrower readers are left refusing.  This is the run's **third reader bound
+  and its second widening**: the Challenge 1 bound was declared and not
+  widened.  Reading a nested item is not admitting one.
 - **Status**: DEFINITION for the two refusals, which are earlier rungs' bounds
-  replayed on the caller's text, and for the new bound, which is this rung's
-  declaration.  Not counted as content: score C5-1.
+  replayed on the caller's text, for the new bound, which is this rung's
+  declaration, and for the count of bounds and widenings, which is a census of
+  the run's own readers.  Not counted as content: score C5-1, **PARTIAL**.  Its
+  readers clause HITS; its ordinal clause, "the bound must be widened a third",
+  **MISSES** — the census gives three bounds and two widenings, which is the
+  ordinal the frozen C4-X gives the same event and which is scored HIT there.
+  Recorded next to its value here and in `challenge5/STATUS.md`; the frozen
+  file is untouched.
 - **Dependencies**: definitions 17, 47, 59, 60.
 - **Assumptions**: the depth bound is a declaration, not a limit; the same
-  reader at a wider bound reads deeper wholes.
-- **Python evidence**: receipt `reader`; `test_both_inherited_readers_refuse_the_inscription`,
+  reader at a wider bound reads deeper wholes.  The ordinal is scored on the
+  frozen words and on one census read by both scored files, so that the same
+  event is not given two ordinals with neither read.
+- **Python evidence**: receipt `reader`, `reader.reader_bounds_declared` (3)
+  and `reader.widenings_of_the_reader_bound` (2);
+  `test_both_inherited_readers_refuse_the_inscription`,
   `test_the_widened_reader_reads_a_whole_within_a_side`,
   `test_the_widened_reader_refuses_what_is_beyond_its_bound`,
   `test_a_deeper_bound_reads_what_the_declared_one_refuses`,
-  `test_the_reader_reads_every_member_of_the_declared_domain`.
+  `test_the_reader_reads_every_member_of_the_declared_domain`,
+  `test_the_one_widening_is_given_two_ordinals_and_both_are_scored`,
+  `test_c5_1_hits_only_where_the_run_has_widened_three_times`.
 - **Lean theorem**: none; the Lean model has no reader.
 - **Axiom report**: not applicable.
 - **Falsifier**: either inherited reader accepting the inscription; the new
   reader accepting an item deeper than its declared bound; or the widening not
-  being priced as a declaration of the run.
+  being priced as a declaration of the run.  The frozen falsifier list does not
+  cover the ordinal, so none of the three fired; the ordinal is read against the
+  census instead, which names two widenings and not three.
 - **Surviving boundary**: Challenge 5 onward, as the run's reader.
 
 ### B5-POLICY-SPACE
@@ -2267,11 +2301,15 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Status**: DEFINITION.  The policies, the capabilities, the counts, and the
   one-step rule are declarations of this rung; a hit on them is by construction
   and is not counted as content: score C5-2.
-- **Dependencies**: definitions 61, 62; B5-READER.
+- **Dependencies**: definitions 61, 62, 71; B5-READER.
 - **Assumptions**: the four exhaust the run's own reading of what an admission
   can do with such an item — nothing, the whole without its interior, the
   interior without the boundary, the interior with it — and that reading is
-  itself a declaration, stated in the receipt.
+  itself a declaration, stated in the receipt.  The opaque policy carries a
+  second declaration with it, definition 71: one presentation token for every
+  whole admitted as a mark.  It is listed in
+  `reader.declared_at_challenge_5` and reported at `reader.whole_token`, and
+  what rests on it is recorded in B5-MEASURES-PART.
 - **Python evidence**: receipt `policy_space`, `readings.*.policies`;
   `test_the_declared_policy_counts`,
   `test_the_space_is_the_product_of_its_declared_coordinates`,
@@ -2436,19 +2474,29 @@ Python receipt, bounded), LIMITATION, OPEN.
   Treating the inner whole as the outer whole was treated means that its own
   two sides are places at which a further mark may be admitted, and that holds
   under the recording policy alone, which is not one step.
-- **Status**: COMPUTED (the datum reading at every point, and the
-  event-acceptance probe with both values attained); PROVED (that no deep
+- **Status**: COMPUTED (the datum reading at every point, and the probe with
+  both values attained); PROVED (that no deep
   history moves the initial datum).  The classification of what the inner whole
   IS under each policy is a declaration of the run and is labelled as such.
   Counted as content: score C5-5.
-- **Dependencies**: definitions 61, 63, 64; B5-POLICY-SPACE.
+- **Dependencies**: definitions 61, 63, 64, 69; B5-POLICY-SPACE.
 - **Assumptions**: the mechanical reading of "treated as the outer whole was
   treated" is the admissibility of a further mark inside it; a different
-  reading is available.
+  reading is available.  What the probe reads is a **census and not the
+  policy's name**: the deep grammar is policy-agnostic and records the
+  requested length-two address under every admitting policy, which the receipt
+  reports at `address`, so the deciding fact is
+  `deepest_place_the_policy_names` — the longest address the policy's own
+  admissions produce over the declared 144-member domain, one at the two
+  one-step policies and two at the recording one.  The census is scoped to that
+  domain, as every other census of this rung is.
 - **Python evidence**: receipt `what_the_inner_whole_is`,
   `readings.*.point_detail.*.further_mark_within_the_inner_whole`,
   `initial_datum_unchanged`; `test_no_policy_makes_a_second_initial_datum`,
   `test_a_further_mark_within_the_inner_whole_needs_the_recording_policy`,
+  `test_the_deepest_place_a_policy_names_is_read_off_the_domain`,
+  `test_a_place_is_nameable_exactly_when_the_policy_names_one_that_deep`,
+  `test_the_probe_reports_the_address_the_replay_kept_at_every_point`,
   `test_what_the_inner_whole_is_under_each_policy`.
 - **Lean theorem**: `BoundarySeed.deepReplay_initialDatum`.
 - **Axiom report**: none.
@@ -2509,8 +2557,11 @@ Python receipt, bounded), LIMITATION, OPEN.
   retained mark's address orbit has one member; without it, the exchange of the
   inner boundary's two sides is a renaming the object language cannot see, the
   orbit has two members, and **which side of the inner boundary the mark lies
-  on is not internally available under O either**.  Under U the orbit has four
-  members and neither boundary's side is available.
+  on is not internally available under O either**.  Under U, at the same
+  recording policy, the orbit has four members and neither boundary's side is
+  available.  All three counts are read at the recording policy; at the two
+  one-step policies the same key reads two under U and one under O, no address
+  there being longer than one.
 - **Status**: COMPUTED (the collapses, by the implemented quotient over the
   whole domain, and the three orbit sizes, over the unpruned enumeration);
   PROVED (that nothing invariant under the inner exchange separates the two
@@ -2543,16 +2594,30 @@ Python receipt, bounded), LIMITATION, OPEN.
 ### B5-MEASURES-PART
 
 - **Statement**: The two declared cost measures select **different** minima at
-  this rung, for the first time in the run: the capability count ties the two
-  one-step policies at one, and the collateral count picks the discarding
-  policy alone under both readings.  The eight declared collateral facts are
+  this rung: the capability count ties the two one-step policies at one, and
+  the collateral count picks the discarding policy alone under both readings.
+  This is the first rung at which they part under **both** readings; at
+  Challenge 3 they parted under O alone (B3-TWO-MEASURES: "under O they do
+  not") and at Challenge 4 they agreed under both (B4-TWO-MEASURES).  The one
+  declared fact that parts them is the seventh,
+  `inner_whole_presentation_admitted`, which is the presence of definition 71's
+  whole token among the retained labels: it holds at the opaque policy and at
+  no other minimum, so the choice between the two tied minima rests on that
+  declaration.  The eight declared collateral facts are
   facts and not independent facts, and the receipt names the pairs that take
   the same value at every point of the space rather than re-weighting the
   measure.
-- **Status**: COMPUTED, over the declared space under each reading.
-- **Dependencies**: definitions 62, 70; B5-TWO-TIED-MINIMA.
+- **Status**: COMPUTED, over the declared space under each reading.  That this
+  is the first rung at which they part under both readings is read off the
+  Challenge 3 and Challenge 4 receipts' own
+  `readings.*.measures_agree_on_minima`, not asserted.
+- **Dependencies**: definitions 62, 70, 71; B5-TWO-TIED-MINIMA; B3-TWO-MEASURES
+  and B4-TWO-MEASURES for the comparison.
 - **Assumptions**: a fact about a retained configuration is FALSE where nothing
-  is retained; absence of a test is not turned into the fact holding.
+  is retained; absence of a test is not turned into the fact holding.  The
+  parting turns on definition 71, a declaration of this rung: a different token
+  policy for an opaquely admitted whole would move the seventh fact and could
+  remove the parting.
 - **Python evidence**: receipt `readings.*.measures_agree_on_minima` false,
   `minima_by_mu2`, `collateral_facts_agreeing_everywhere`;
   `test_the_two_measures_select_different_minima`,
