@@ -154,6 +154,17 @@ is live.
 
 | rung | gate | injection | observed failure |
 |---|---|---|---|
+| 1 (attribution repair) | rung-attributable scope, ordinary commit (`second_stream/verify_pins.py`) | one commit writing `research/second_stream/zz_probe_inside.md` and `research/zz_probe_outside.md` together, 2026-09-04 | `FAIL: rung-attributable committed diff changed outside the write root research/second_stream/ and the declared exceptions: research/zz_probe_outside.md`, exit 1; exit 0 after `git reset --hard` to the recorded base |
+| 1 (attribution repair) | the same scope, MERGE commit | a merge whose author wrote `research/second_stream/zz_merge_inside.md` and `research/zz_merge_outside.md` inside the merge itself, over a side branch that had added a third file | the merge contributed exactly the two files its author wrote and NOT the inherited side-branch file, and `FAIL: ... research/zz_merge_outside.md`, exit 1; exit 0 after reversal. This is the probe the repair had to keep passing: narrowing a merge to its combined diff must not stop the gate seeing what a merger writes |
+| 1 (attribution repair) | the same scope, unrelated tree | one commit writing only `research/boundary_seed/zz_probe_unrelated.md` | exit 0, and the committed-scope line unchanged at four attributable commits: an unrelated tree's commit is not this rung's. The counterfactual matters as much as the failure -- a scope check that fails on everything is not a scope check |
+| 1 (attribution repair) | the same scope, REAL CASE (found live, not injected) | none -- `main` at `7d2e6e86` | `FAIL: ... and the declared exceptions:` naming sixty-five files across `research/boundary_seed/`, `research/second_nofirst/` and `research/second_stake/`, none of which this rung has ever touched. Three integration merges were attributed to rung one because the rule diffed every commit against its FIRST PARENT, and the first-parent diff of a merge is everything the other branch brought with it. Reading a commit's own contribution instead -- the combined diff for a merge -- returns exit 0 with three attributable commits, which are the rung's own three. A red `main` that no rung had caused |
+
+<!-- markdownlint-enable MD013 -->
+
+<!-- markdownlint-disable MD013 -->
+
+| rung | gate | injection | observed failure |
+|---|---|---|---|
 | 2-stake (scope repair) | boundary scan, this rung writing outside its root | one commit adding `research/second_stake/zz_in.md` and `research/zz_stake_outside.md`, 2026-09-04 | `AssertionError: Items in the first set but not the second:` naming the outside path, exit 1; exit 0 after `git reset --hard` to the recorded base |
 | 2-stake (scope repair) | shared-file append claim | one commit of this rung PREPENDING a line to `research/second/MANUAL.md` | `AssertionError: False is not true : shared file is not append-only: research/second/MANUAL.md`, exit 1, then 0.  Measured against the comparison base now, so the claim is the one this rung can own -- this branch only appended -- rather than a rule about every future rung's edits to a shared file |
 | 2-stake (scope repair) | sealed-path claim, deliberately NOT scoped | one commit touching `paper/paper.md` on a branch that otherwise touches only another rung's tree | `AssertionError: Lists differ: ['paper/paper.md'] != []`, exit 1, then 0.  This half stays repository-wide: no rung may write a sealed path, so it is checked on whatever branch is under test rather than skipped when the branch belongs to someone else |

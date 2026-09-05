@@ -2514,6 +2514,112 @@ class PinVerifierTests(unittest.TestCase):
         self.assertEqual(attributable, ["b" * 40])
         self.assertEqual(paths, changed[1])
 
+    def test_a_merge_contributes_only_its_combined_diff(self) -> None:
+        """A merge is read with --cc, so it reports what its author wrote.
+
+        The first-parent diff of a merge is everything the other branch
+        brought with it. Reading that as the merge's own change is what made
+        unrelated integration merges attributable to this rung.
+        """
+        record = b"research/second/MANUAL.md\0"
+        with (
+            mock.patch.object(
+                VP, "_git", return_value=" ".join(["m" * 40, "p" * 40, "q" * 40])
+            ),
+            mock.patch.object(VP, "_git_bytes", return_value=record) as called,
+        ):
+            self.assertEqual(
+                VP._commit_paths("m" * 40), ["research/second/MANUAL.md"]
+            )
+        self.assertIn("--cc", called.call_args.args)
+        self.assertIn("diff-tree", called.call_args.args)
+        self.assertIn("--no-renames", called.call_args.args)
+
+    def test_an_ordinary_commit_is_still_read_against_its_first_parent(self) -> None:
+        """The repair changes merges only; a single-parent commit is
+        unaffected, and a root commit still reports its whole tree."""
+        record = b"research/second_stream/stream.py\0"
+        with (
+            mock.patch.object(
+                VP, "_git", return_value=" ".join(["c" * 40, "p" * 40])
+            ),
+            mock.patch.object(VP, "_git_bytes", return_value=record) as called,
+        ):
+            VP._commit_paths("c" * 40)
+        self.assertIn("diff", called.call_args.args)
+        self.assertNotIn("--cc", called.call_args.args)
+        with (
+            mock.patch.object(VP, "_git", return_value="d" * 40),
+            mock.patch.object(VP, "_git_bytes", return_value=record) as called,
+        ):
+            VP._commit_paths("d" * 40)
+        self.assertIn("ls-tree", called.call_args.args)
+
+    def test_a_merge_that_only_carries_this_rung_along_is_not_attributed(
+        self,
+    ) -> None:
+        """The observed failure, as a unit.
+
+        On `main` at `7d2e6e86` three integration merges were attributed to
+        this rung because their first-parent diff contained its whole tree,
+        and the gate named boundary_seed, second_nofirst and second_stake
+        files it had never touched. A merge that contributes nothing under
+        the write root is not this rung's commit.
+        """
+        commits = ["a" * 40, "b" * 40]
+        contributed = [
+            [],
+            ["research/boundary_seed/paper.md", "research/second_nofirst/STATUS.md"],
+        ]
+        with (
+            mock.patch.object(VP, "_scope_commits", return_value=commits),
+            mock.patch.object(VP, "_commit_paths", side_effect=contributed),
+        ):
+            attributable, paths = VP._committed_scope(VP.REQUIRED_SNAPSHOT_COMMIT)
+        self.assertEqual(attributable, [])
+        self.assertEqual(paths, [])
+
+    def test_a_merge_that_writes_inside_and_outside_the_root_is_still_caught(
+        self,
+    ) -> None:
+        """The narrowing must not blunt the gate.
+
+        A merge whose author edited this rung's tree AND something outside it
+        contributes both paths to its combined diff, so it is attributed and
+        the outside path is refused by name. This is the shape the historical
+        bundled-edit merge had, and it is the one case the repair must keep.
+        """
+        contributed = [["research/second_stream/stream.py", "research/other/x.md"]]
+        with (
+            mock.patch.object(VP, "_scope_commits", return_value=["m" * 40]),
+            mock.patch.object(VP, "_commit_paths", side_effect=contributed),
+        ):
+            attributable, paths = VP._committed_scope(VP.REQUIRED_SNAPSHOT_COMMIT)
+        self.assertEqual(attributable, ["m" * 40])
+        with self.assertRaises(ValueError) as caught:
+            VP._check_paths(paths, "rung-attributable committed diff")
+        self.assertIn("research/other/x.md", str(caught.exception))
+
+    def test_the_observed_integration_merge_contributes_nothing_here(self) -> None:
+        """The real commit that turned `main` red, read from history.
+
+        `45c8b994` merged the batch after pull requests 136 and 134. Under
+        the first-parent rule it contributed this rung's whole tree; under
+        the combined diff it contributes only what its author resolved, none
+        of which is under this write root. Skipped rather than failed where
+        the commit is absent, so the test cannot pass by not looking.
+        """
+        commit = "45c8b994503bc5602cf42ff048f322d6a20e1f52"
+        try:
+            kind = VP._git("cat-file", "-t", commit).strip()
+        except ValueError:
+            self.skipTest(f"{commit} is not in this clone")
+        self.assertEqual(kind, "commit")
+        contributed = VP._commit_paths(commit)
+        self.assertTrue(contributed, "the merge resolved something")
+        under_root = [p for p in contributed if p.startswith(VP.WRITE_ROOT)]
+        self.assertEqual(under_root, [])
+
     def test_literal_backslashes_never_become_authorized_separators(self) -> None:
         raw = b"research\\second_stream\\smuggle.py"
         path = VP._decode_path(raw)
