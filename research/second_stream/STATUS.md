@@ -60,9 +60,25 @@ The manifest populations are fixed independently of the manifest, so
 deleting a source or frozen row is a refusal rather than a smaller green
 census. Rung-attributable committed changes and the unignored working-tree
 and index population are checked separately with NUL-safe Git output.
-Specifically, every post-snapshot commit that touches this rung is audited
-across all paths in that commit, while unrelated future commits are ignored;
-literal backslashes are not rewritten as separators. In addition,
+Specifically, every post-snapshot commit that CONTRIBUTES a change under this
+rung's write root is audited across all paths that same commit contributed,
+while unrelated future commits are ignored; literal backslashes are not
+rewritten as separators.  A merge contributes its combined diff -- what its
+author resolved or wrote -- and not the history it inherits.
+
+That last clause is a repair, recorded rather than folded in.  An earlier
+version of this paragraph read *"every post-snapshot commit that touches this
+rung is audited across all paths in that commit"*, and the verifier read every
+commit against its first parent.  For a merge those are different things: the
+first-parent diff of a merge is everything the other branch brought with it, so
+a merge that merely carried this rung's tree along was attributed to this rung,
+and every path it inherited was then audited as though this rung had written
+it.  On `main` at `7d2e6e86` that made the gate fail naming
+`research/boundary_seed/`, `research/second_nofirst/` and
+`research/second_stake/` files this rung has never touched -- three integration
+merges misread, and a red `main` that no rung had caused.  The sentence is
+WITHDRAWN and quoted here; the intent it stated was always right, and the
+implementation is what moved. In addition,
 `run_stream.py` checks independent on-disk anchors for all three frozen files
 before computation, carries those captured digests into the receipt, and
 checks again immediately before output. It leaves both output paths untouched
