@@ -1,0 +1,47 @@
+{
+ "pin_convention": "sha256 of the canonical Git blob, i.e. `git show <commit>:<path> | sha256sum`. NOT the worktree file's sha256: the two differ for every file under code/ and lean4/ in a CRLF checkout and agree only for artifacts/**, which .gitattributes marks -text. The convention is declared once, here, and verify_pins.py recomputes it the same way on every platform.",
+ "snapshot": "ef26fc9eb3676e8edd3f4319bfd698c8951e0aad",
+ "snapshot_note": "the freeze commit of this tree, an ancestor of HEAD. Pins are checked at this snapshot AND at HEAD; a difference is reported rather than tolerated.",
+ "frozen": {
+  "research/limit_and_observer/PREDICTIONS.md": "841f7da0ae7b49e9abeac2a8b8646693ce7e578e6ed1ab7424198169de3eac34",
+  "research/limit_and_observer/REQUIREMENTS.md": "2cd8f6b46a408351ce88f60746a7f38fdda78aa65f803770d18a027e21ed75e6"
+ },
+ "pins": {
+  "artifacts/bounds.json": "200d95be1cf99e60d1faabdc8ca1c9ba23882a151c099441fcacf227b006fe13",
+  "artifacts/challenges.json": "d5ddc3f84f6a4b463e27ee2f3de3ab98f82d3dd663afe1ce8cb2854296a1ab46",
+  "artifacts/lean_axioms.txt": "fa84e4068260c38a69f5a4f832712afe8ceb1dcbd00227bfc683dc81a1db6acb",
+  "code/derivation/candidates.py": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb",
+  "code/derivation/engine.py": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e",
+  "code/derivation/iso.py": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e",
+  "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
+  "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba",
+  "lean4/Derivation/CapacityBound.lean": "77c09cd79990c67a6eb279a315d0270cb7af16b31d01279a8f77c59c905cbb71",
+  "lean4/Derivation/Compression.lean": "61dae37d53399ef40159648dd65d644ecfc666b6c324e72e7386a71377859e95",
+  "lean4/Derivation/ContactKernel.lean": "ccd296f84f091ef7f9ba6a4de589a04feaf8e13db583f262ee1112a2c13ee2d7",
+  "lean4/Derivation/DiffInterface.lean": "1548ab6eaf991e4df5f2e6fd8bb8abc9a6c17c249b18ba73522bce59d6240469",
+  "lean4/Derivation/Minimality.lean": "647e56fee0f00f27e60fbe70bc8296083f075c48b40009979064c443744bc778",
+  "lean4/Derivation/NoOutside.lean": "8da63ea963fcabe5a2fcbc9ec950d937621f1a2bef6468b1c0a63253b151e630",
+  "lean4/Derivation/Represented.lean": "7c331eaa25a877024ef79c22f7f4a5cb7b3e13d740f35acab70cc5dff50caaf6"
+ },
+ "what_each_pin_is_for": {
+  "artifacts/bounds.json": "the sealed declared bounds, whose shape this tree's own bounds block imitates",
+  "artifacts/challenges.json": "the sealed Challenge-3 answer, transcribed into code/calibration.py and asserted field by field. The external anchor CI already gates and this tree cannot tune",
+  "artifacts/lean_axioms.txt": "the gated axiom inventory. Every sealed theorem this tree cites as CHECKED is confirmed present there",
+  "code/derivation/candidates.py": "the four sealed item kinds, the canonical item order, mu1 and mu2, and the sealed Bounds. Re-implemented in code/items.py and code/enumerate_space.py",
+  "code/derivation/engine.py": "the two sealed genesis histories and their targets, and the sealed _quotient's grouping on the child after Impose. Re-implemented in code/regime.py and code/price.py",
+  "code/derivation/iso.py": "the sealed isomorphism relation and the equivariant pair-orbit policy. Re-implemented in code/quotient.py as the brute-force minimum, with equality asserted against the sealed refined key",
+  "code/derivation/model.py": "the Regime, the six sealed events, step and replay. Re-implemented in code/regime.py",
+  "code/derivation/observe.py": "the observation relation. Line 56 is the fact this tree turns on: derivability is an or of a coverage bit and an admission bit. Re-implemented in code/grammar.py",
+  "lean4/Derivation/CapacityBound.lean": "CITED as the estate's prior shape for a bounded observer failing on a growing carrier; this tree derives its own threshold natively and inherits nothing",
+  "lean4/Derivation/Compression.lean": "CITED for chain_bounded and strict_steps_lt. The transport is NOT inherited: this tree proves its own chain bound over its own reader partitions",
+  "lean4/Derivation/ContactKernel.lean": "CITED for obs_eq_of_fields, which fixes the disagreement space of two observers",
+  "lean4/Derivation/DiffInterface.lean": "CITED for DiffObs carrying its equivalence laws as fields, which is why lawfulness here is a decided precondition on admission rather than an assumption",
+  "lean4/Derivation/Minimality.lean": "CITED for cost1_insufficient_general, the shape of a complete-within-the-bound impossibility this tree imitates",
+  "lean4/Derivation/NoOutside.lean": "CITED for admitEvaluator_base_inert and stepC_conservative, the precedent that admitting observation apparatus does not touch kernel state",
+  "lean4/Derivation/Represented.lean": "CITED for wit_all_lengths and wit_no_infinite, the estate's statement that witnesses at every length assemble into nothing"
+ },
+ "evidence_labels": {
+  "CHECKED": "confirmed present in the gated artifacts/lean_axioms.txt",
+  "CITED": "read directly from a pinned source; for a research tree, a manual receipt read by no gate. No research tree's verify_lean.py is run by anything, this tree's included."
+ }
+}
