@@ -856,6 +856,94 @@ class GenerationUnitTests(unittest.TestCase):
         self.assertIs(injected["p_i4_falsifier_found"], True)
 
 
+class ControlDispositionTests(unittest.TestCase):
+    """The three outcomes `control_target_record` can reach.
+
+    Only one was exercised. The proposition it classifies is "every supplied
+    control is refuted by a renaming", and on the real run some control is
+    CHECKED, so the run only ever took the REFUTED arm. The other two arms --
+    the one that certifies the proposition and the one that leaves it OPEN --
+    were untested code deciding a recorded disposition.
+    """
+
+    @staticmethod
+    def _rows() -> list[dict[str, object]]:
+        return json.loads(json.dumps(summary()["invariance"]))
+
+    def _with(self, dispositions: dict[str, str]) -> dict[str, object]:
+        rows = self._rows()
+        for row in rows:
+            name = row["rule"]
+            if name in dispositions:
+                row["disposition"] = dispositions[name]
+        return run_stake.control_target_record(rows)
+
+    def test_a_checked_control_refutes_the_proposition(self) -> None:
+        """The arm the real run takes: a control that survives renaming is a
+        counterexample to "every control is refuted"."""
+        record = self._with({})
+        self.assertEqual(record["disposition"], "REFUTED")
+        self.assertTrue(record["invariant_counterexamples"])
+
+    def test_every_control_refuted_certifies_the_proposition(self) -> None:
+        names = [rule.name for rule in CONTROLS]
+        record = self._with({name: "REFUTED" for name in names})
+        self.assertEqual(record["disposition"], "CHECKED")
+        self.assertEqual(record["invariant_counterexamples"], [])
+
+    def test_a_control_neither_checked_nor_refuted_leaves_it_open(self) -> None:
+        """OPEN is not a synonym for REFUTED. A control whose disposition is
+        neither settles nothing, and the record has to say so rather than
+        rounding to the nearest verdict."""
+        names = [rule.name for rule in CONTROLS]
+        dispositions = {name: "REFUTED" for name in names}
+        dispositions[names[0]] = "OPEN"
+        record = self._with(dispositions)
+        self.assertEqual(record["disposition"], "OPEN")
+        self.assertEqual(record["invariant_counterexamples"], [])
+
+
+class RuntimeModuleCensusTests(unittest.TestCase):
+    """Two guards in `runtime_modules`, neither previously exercised.
+
+    The census is what binds the receipt to the code that produced it, so its
+    refusals are load-bearing: one wrong entry in `sys.modules` and the
+    receipt would name a provenance nobody ran.
+    """
+
+    def test_a_non_module_in_sys_modules_is_skipped(self) -> None:
+        """`sys.modules` may hold a non-module -- a lazy-import shim, or a
+        stub left by a tool. The census steps over it rather than reading
+        `__file__` off whatever it happens to be."""
+        with mock.patch.dict(
+            sys.modules, {"zz_probe_not_a_module": cast(object, object())}
+        ):
+            modules = run_stake.runtime_modules()
+        self.assertNotIn("zz_probe_not_a_module", modules)
+
+    def test_two_entries_resolving_to_one_logical_name_are_refused(self) -> None:
+        """An alias of a repository module under a second `sys.modules` name
+        resolves to the same logical name, and two different objects cannot
+        both be the provenance of one name."""
+        alias = types.ModuleType("zz_probe_run_stake_alias")
+        alias.__file__ = str(pathlib.Path(run_stake.__file__).resolve())
+        with mock.patch.dict(sys.modules, {"zz_probe_run_stake_alias": alias}):
+            with self.assertRaises(ValueError) as caught:
+                run_stake.runtime_modules()
+        self.assertIn("duplicate runtime module name", str(caught.exception))
+
+    def test_the_alias_is_accepted_once_its_name_is_excluded(self) -> None:
+        """The refusal is about a collision, not about the alias existing:
+        excluding the name removes the collision and the census succeeds."""
+        alias = types.ModuleType("zz_probe_run_stake_alias")
+        alias.__file__ = str(pathlib.Path(run_stake.__file__).resolve())
+        with mock.patch.dict(sys.modules, {"zz_probe_run_stake_alias": alias}):
+            modules = run_stake.runtime_modules(
+                excluded_module_names=frozenset({"zz_probe_run_stake_alias"})
+            )
+        self.assertIn("run_stake", modules)
+
+
 class ReceiptTests(unittest.TestCase):
     def test_full_receipt_hash_and_replay_certificates(self) -> None:
         small = summary()
