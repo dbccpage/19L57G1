@@ -218,9 +218,17 @@ def supply_facts(reading: str, g: Regime, history: list[Event]) -> Json:
     }
 
 
-def current_state_facts(g: Regime, history: list[Event]) -> Json:
+def current_state_facts(g: Regime, history: list[Event], candidate_regimes: list[Regime]) -> Json:
     """The current state after the challenge: the replay of the caller's
-    history, which is the supply alone.  No candidate is designated."""
+    history, which is the supply alone.  No candidate is designated.
+
+    ``admitted_candidate_is_current`` is membership: whether the current
+    regime equals one of the candidate regimes, each the replay of the
+    supplied-only history extended by one candidate admission.  An earlier
+    version computed it as "the current regime has at least one mark",
+    which a caller history admitting any other token would have made true
+    with no Challenge 1 candidate current; that proxy is WITHDRAWN.
+    """
     current = replay(history, g)
     return {
         "rule": "the replay of the caller's history, which supplied and did not retain",
@@ -229,7 +237,7 @@ def current_state_facts(g: Regime, history: list[Event]) -> Json:
         "marks": current.n_marks(),
         "regime_equals_genesis": current == g,
         "certified": certify(history, g, current),
-        "admitted_candidate_is_current": current.n_marks() > 0,
+        "admitted_candidate_is_current": current in candidate_regimes,
     }
 
 
@@ -241,6 +249,13 @@ def retention_facts(g: Regime, history: list[Event], r: Regime, ev: AdmitMark) -
     certifying replay rather than absorbed; a hypothetical second admission
     of a never-supplied-by-the-caller token leaves the first mark's judgment
     holding.
+
+    ``moving_admission_accepted_and_inert`` is the fact the frozen C1-2
+    parenthetical needs for its other-side half: the re-admission naming
+    the other side is accepted by certifying replay and leaves the regime
+    unchanged.  It is false whenever the admission is refused, because a
+    refused event has no after-state; the two facts are reported separately
+    so that the scorer can read the clause literally.
     """
     readmission: list[Event] = [
         Supply(HYPOTHETICAL_TOKEN),
@@ -253,6 +268,7 @@ def retention_facts(g: Regime, history: list[Event], r: Regime, ev: AdmitMark) -
     after_growth = replay(history + growth, g)
     judgment = OnSide(0, ev.side)
     moving_refusal = refusal(history + moving, g)
+    moving_inert = moving_refusal is None and replay(history + moving, g) == r
     return {
         "readmission_probe": history_json(readmission),
         "regime_unchanged_by_supply_and_readmission": after_readmission == r,
@@ -260,6 +276,7 @@ def retention_facts(g: Regime, history: list[Event], r: Regime, ev: AdmitMark) -
         "moving_admission_probe": history_json(moving),
         "moving_admission_refused": moving_refusal is not None,
         "moving_admission_refusal": moving_refusal,
+        "moving_admission_accepted_and_inert": moving_inert,
         "growth_probe": history_json(growth),
         "mark_judgment_retained_after_growth": observation_holds(after_growth, judgment),
         "growth_regime_has_two_marks": after_growth.n_marks() == 2,
@@ -351,6 +368,7 @@ def reading_facts(reading: str) -> Json:
     supplied_history: list[Event] = [supply_event(whole)]
     candidates = one_step_admissions(replay(supplied_history, g), supplied(supplied_history))
     candidate_rows = [candidate_facts(reading, g, supplied_history, ev) for ev in candidates]
+    candidate_regimes = [replay(supplied_history + [ev], g) for ev in candidates]
     classes = candidate_classes(g, supplied_history, candidates)
     return {
         "reading": reading,
@@ -358,7 +376,7 @@ def reading_facts(reading: str) -> Json:
         "genesis_sides_collapsed": sides_collapsed(g),
         "genesis_holding_judgments": len(observations(g)),
         "supply": supply_facts(reading, g, supplied_history),
-        "current_state": current_state_facts(g, supplied_history),
+        "current_state": current_state_facts(g, supplied_history, candidate_regimes),
         "candidate_space": {
             "declared": "each supplied, not yet admitted token on each side",
             "count": len(candidates),
@@ -432,13 +450,36 @@ def score(
         and rd["supply"]["observations_unchanged"]
         for rd in both
     )
-    c1_2 = all(rd["supply"]["admitted"] == [] for rd in both) and all(
+    # C1-2's facts: the mark enters the admitted state only through the
+    # admission event, refused without the prior supply; and no ACCEPTED
+    # later event of the grammar removes or moves the mark.  The moving
+    # admission satisfies that either by being refused (no after-state) or
+    # by being accepted and leaving the regime unchanged; accepted and not
+    # inert is the falsifier "an event that moves the admitted mark".
+    c1_2_facts = all(rd["supply"]["admitted"] == [] for rd in both) and all(
         c["certified"]
         and c["unsupplied_admission_refused"]
         and c["retention"]["regime_unchanged_by_supply_and_readmission"]
         and c["retention"]["mark_judgment_retained_after_readmission"]
-        and c["retention"]["moving_admission_refused"]
+        and (
+            c["retention"]["moving_admission_refused"]
+            or c["retention"]["moving_admission_accepted_and_inert"]
+        )
         and c["retention"]["mark_judgment_retained_after_growth"]
+        for c in cands
+    )
+    # The frozen parenthetical reads "a re-admission of the same token on
+    # either side, which is designation and not duplication": an accepted
+    # later event on either side that leaves the mark's judgment unchanged.
+    # Its same-side half is the no-op above; its other-side half is scored
+    # literally and hits only if the moving admission is accepted and
+    # inert.  The kernel refuses it, so the clause is a literal miss with
+    # the facts hitting: PARTIAL, by the rule that scored C1-4.  An earlier
+    # version labelled the clause SHARPENED from the overall boolean with no
+    # clause fact; that label is WITHDRAWN.
+    c1_2_either_side = all(
+        c["retention"]["regime_unchanged_by_supply_and_readmission"]
+        and c["retention"]["moving_admission_accepted_and_inert"]
         for c in cands
     )
     c1_3 = all(
@@ -511,21 +552,32 @@ def score(
             "evidence": "supply.regime_equals_genesis, certifies_genesis, observations_unchanged",
         },
         "C1-2": {
-            "status": verdict(c1_2),
+            "status": (
+                "MISSED"
+                if not c1_2_facts
+                else "HIT"
+                if c1_2_either_side
+                else "PARTIAL"
+            ),
             "label": "FORCED",
-            "readmission_clause_status": "SHARPENED" if c1_2 else "MISSED",
-            "readmission_clause_fact": (
-                "the frozen parenthetical called a re-admission on either side a "
-                "designation; a re-admission on the mark's own side is a no-op and "
-                "one naming the other side is refused by certifying replay, so no "
-                "accepted event moves or duplicates the mark; the word designation "
-                "is reserved for current-state designation"
+            "facts_status": verdict(c1_2_facts),
+            "either_side_readmission_clause_status": verdict(c1_2_either_side),
+            "either_side_readmission_clause_fact": (
+                "the frozen parenthetical reads a re-admission of the same token on "
+                "either side as an accepted later event that leaves the mark's "
+                "judgment unchanged; a re-admission on the mark's own side is such "
+                "an event, and one naming the other side is refused by certifying "
+                "replay, so the clause is false as written and is scored as "
+                "written; the word designation is reserved for current-state "
+                "designation"
             ),
             "evidence": (
                 "no mark after supply alone; every candidate certified only with the "
                 "prior supply; a supply and a same-side re-admission leave the regime "
-                "unchanged; a moving admission is refused; the hypothetical growth "
-                "probe leaves the mark's judgment holding"
+                "unchanged; no accepted event moves or duplicates the mark, the "
+                "moving admission being refused; the hypothetical growth probe "
+                "leaves the mark's judgment holding; the other-side half of the "
+                "parenthetical is a literal miss"
             ),
         },
         "C1-3": {
@@ -591,11 +643,23 @@ def score(
         "C1-7": {
             "status": verdict(c1_7),
             "label": "NOT FORCED",
-            "result_basis": "modelling decision; scored on its mechanical part",
+            "result_basis": (
+                "DEFINITION-level: the regime type represents neither a second "
+                "datum nor a second boundary, so the mechanical part holds by "
+                "construction and is not counted as content; the modelling clause "
+                "is a decision only a later challenge can falsify"
+            ),
+            "mechanical_part": (
+                "initial_datum_unchanged, which the regime type fixes and which no "
+                "receipt can report false; and marks == 1, a proxy reading 'the mark "
+                "placed on a side' as exactly one placed mark, which the frozen text "
+                "does not name"
+            ),
             "evidence": (
                 "every certified regime keeps the one initial datum and places one "
-                "mark; no second datum or boundary appears in any regime; the "
-                "whole-as-datum question is left OPEN for Challenge 5"
+                "mark; no second datum or boundary appears in any regime because "
+                "none is representable; the whole-as-datum question is left OPEN "
+                "for Challenge 5"
             ),
         },
         "C1-X": {

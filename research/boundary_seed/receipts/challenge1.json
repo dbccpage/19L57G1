@@ -142,6 +142,7 @@
             "growth_regime_has_two_marks": true,
             "mark_judgment_retained_after_growth": true,
             "mark_judgment_retained_after_readmission": true,
+            "moving_admission_accepted_and_inert": false,
             "moving_admission_probe": [
               {
                 "kind": "AdmitMark",
@@ -255,6 +256,7 @@
             "growth_regime_has_two_marks": true,
             "mark_judgment_retained_after_growth": true,
             "mark_judgment_retained_after_readmission": true,
+            "moving_admission_accepted_and_inert": false,
             "moving_admission_probe": [
               {
                 "kind": "AdmitMark",
@@ -502,6 +504,7 @@
             "growth_regime_has_two_marks": true,
             "mark_judgment_retained_after_growth": true,
             "mark_judgment_retained_after_readmission": true,
+            "moving_admission_accepted_and_inert": false,
             "moving_admission_probe": [
               {
                 "kind": "AdmitMark",
@@ -613,6 +616,7 @@
             "growth_regime_has_two_marks": true,
             "mark_judgment_retained_after_growth": true,
             "mark_judgment_retained_after_readmission": true,
+            "moving_admission_accepted_and_inert": false,
             "moving_admission_probe": [
               {
                 "kind": "AdmitMark",
@@ -769,11 +773,12 @@
       "status": "HIT"
     },
     "C1-2": {
-      "evidence": "no mark after supply alone; every candidate certified only with the prior supply; a supply and a same-side re-admission leave the regime unchanged; a moving admission is refused; the hypothetical growth probe leaves the mark's judgment holding",
+      "either_side_readmission_clause_fact": "the frozen parenthetical reads a re-admission of the same token on either side as an accepted later event that leaves the mark's judgment unchanged; a re-admission on the mark's own side is such an event, and one naming the other side is refused by certifying replay, so the clause is false as written and is scored as written; the word designation is reserved for current-state designation",
+      "either_side_readmission_clause_status": "MISSED",
+      "evidence": "no mark after supply alone; every candidate certified only with the prior supply; a supply and a same-side re-admission leave the regime unchanged; no accepted event moves or duplicates the mark, the moving admission being refused; the hypothetical growth probe leaves the mark's judgment holding; the other-side half of the parenthetical is a literal miss",
+      "facts_status": "HIT",
       "label": "FORCED",
-      "readmission_clause_fact": "the frozen parenthetical called a re-admission on either side a designation; a re-admission on the mark's own side is a no-op and one naming the other side is refused by certifying replay, so no accepted event moves or duplicates the mark; the word designation is reserved for current-state designation",
-      "readmission_clause_status": "SHARPENED",
-      "status": "HIT"
+      "status": "PARTIAL"
     },
     "C1-3": {
       "evidence": "supply adds no holding judgment; each candidate adds exactly its OnSide judgment, the other side's does not hold, names unchanged",
@@ -801,9 +806,10 @@
       "status": "HIT"
     },
     "C1-7": {
-      "evidence": "every certified regime keeps the one initial datum and places one mark; no second datum or boundary appears in any regime; the whole-as-datum question is left OPEN for Challenge 5",
+      "evidence": "every certified regime keeps the one initial datum and places one mark; no second datum or boundary appears in any regime because none is representable; the whole-as-datum question is left OPEN for Challenge 5",
       "label": "NOT FORCED",
-      "result_basis": "modelling decision; scored on its mechanical part",
+      "mechanical_part": "initial_datum_unchanged, which the regime type fixes and which no receipt can report false; and marks == 1, a proxy reading 'the mark placed on a side' as exactly one placed mark, which the frozen text does not name",
+      "result_basis": "DEFINITION-level: the regime type represents neither a second datum nor a second boundary, so the mechanical part holds by construction and is not counted as content; the modelling clause is a decision only a later challenge can falsify",
       "status": "HIT"
     },
     "C1-X": {

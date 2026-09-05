@@ -12,12 +12,13 @@ import re
 import sys
 import unittest
 from typing import Any
+from unittest.mock import patch
 
 TREE = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(TREE / "code"))
 sys.path.insert(0, str(TREE))
 
-from boundary import challenge0  # noqa: E402
+from boundary import challenge0, model  # noqa: E402
 from boundary.challenge1 import (  # noqa: E402
     BOUNDARY_DEPENDENCE,
     C0_PREDICTIONS_SHA256,
@@ -29,6 +30,7 @@ from boundary.challenge1 import (  # noqa: E402
     STATE_CHANGING_EVENT_KINDS,
     build,
     candidate_classes,
+    current_state_facts,
     event_json,
     event_returning_functions_by_module,
     history_json,
@@ -38,6 +40,7 @@ from boundary.challenge1 import (  # noqa: E402
     reading_facts,
     refusal,
     regime_domain,
+    retention_facts,
     score,
     separating_judgments,
 )
@@ -162,8 +165,12 @@ class FactTests(unittest.TestCase):
 
     def test_scores(self) -> None:
         scores = self.receipt["scores"]
-        for cid in ("C1-1", "C1-2", "C1-3", "C1-6", "C1-7"):
+        for cid in ("C1-1", "C1-3", "C1-6", "C1-7"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
+        self.assertEqual(scores["C1-2"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-2"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-2"]["either_side_readmission_clause_status"], "MISSED")
+        self.assertNotIn("readmission_clause_status", scores["C1-2"])
         self.assertEqual(scores["C1-4"]["status"], "PARTIAL")
         self.assertEqual(scores["C1-4"]["facts_status"], "HIT")
         self.assertEqual(scores["C1-4"]["only_event_clause_status"], "MISSED")
@@ -171,7 +178,8 @@ class FactTests(unittest.TestCase):
         self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
         self.assertEqual(scores["C1-5"]["facts_status"], "HIT")
         self.assertEqual(scores["C1-5"]["current_state_designation_status"], "MISSED")
-        self.assertEqual(scores["C1-2"]["readmission_clause_status"], "SHARPENED")
+        self.assertTrue(scores["C1-7"]["result_basis"].startswith("DEFINITION-level"))
+        self.assertIn("proxy", scores["C1-7"]["mechanical_part"])
         for cid in ("C1-1", "C1-2", "C1-3", "C1-4", "C1-6"):
             self.assertEqual(scores[cid]["label"], "FORCED", cid)
         for cid in ("C1-5", "C1-7", "C1-X", "C0-X"):
@@ -204,6 +212,50 @@ class FactTests(unittest.TestCase):
             self.assertTrue(cur["certified"])
             self.assertFalse(cur["admitted_candidate_is_current"])
             self.assertIn("did not retain", cur["rule"])
+
+    def test_current_state_designation_is_candidate_membership(self) -> None:
+        # The fact is membership in the candidate regimes, not "has a mark":
+        # a caller history admitting another token has a mark and no
+        # Challenge 1 candidate current.  The withdrawn proxy read True there.
+        g = genesis("O")
+        supplied_only: list[Event] = [Supply("a")]
+        candidates = [replay(supplied_only + [AdmitMark("a", s)], g) for s in (0, 1)]
+        facts = current_state_facts(g, supplied_only, candidates)
+        self.assertFalse(facts["admitted_candidate_is_current"])
+        self.assertEqual(facts["marks"], 0)
+        retained: list[Event] = [Supply("a"), AdmitMark("a", 1)]
+        facts = current_state_facts(g, retained, candidates)
+        self.assertTrue(facts["admitted_candidate_is_current"])
+        self.assertEqual(facts["marks"], 1)
+        other: list[Event] = [Supply("z"), AdmitMark("z", 0)]
+        facts = current_state_facts(g, other, candidates)
+        self.assertFalse(facts["admitted_candidate_is_current"])
+        self.assertEqual(facts["marks"], 1)
+        self.assertFalse(current_state_facts(g, retained, [])["admitted_candidate_is_current"])
+
+    def test_moving_admission_fact_reads_accepted_and_inert_only_when_the_kernel_absorbs(self) -> None:
+        # The other-side half of the frozen C1-2 parenthetical is a fact
+        # about the kernel: the repaired kernel refuses the moving admission
+        # and the fact is false; a kernel that absorbs it as the pre-repair
+        # one did makes the fact true and the refusal false.
+        g = genesis("U")
+        history: list[Event] = [Supply("a"), AdmitMark("a", 0)]
+        r = replay(history, g)
+        facts = retention_facts(g, history, r, AdmitMark("a", 0))
+        self.assertTrue(facts["moving_admission_refused"])
+        self.assertFalse(facts["moving_admission_accepted_and_inert"])
+        real_step = model.step
+
+        def absorbing_step(regime: Regime, e: Event) -> Regime:
+            if isinstance(e, AdmitMark) and e.token in regime.marks:
+                return regime
+            return real_step(regime, e)
+
+        with patch.object(model, "step", absorbing_step):
+            absorbed = retention_facts(g, history, r, AdmitMark("a", 0))
+        self.assertFalse(absorbed["moving_admission_refused"])
+        self.assertIsNone(absorbed["moving_admission_refusal"])
+        self.assertTrue(absorbed["moving_admission_accepted_and_inert"])
 
     def test_candidate_space_and_classes(self) -> None:
         self.assertEqual(self.u["candidate_space"]["count"], 2)
@@ -285,6 +337,7 @@ class FactTests(unittest.TestCase):
                 self.assertTrue(ret["regime_unchanged_by_supply_and_readmission"])
                 self.assertTrue(ret["mark_judgment_retained_after_readmission"])
                 self.assertTrue(ret["moving_admission_refused"])
+                self.assertFalse(ret["moving_admission_accepted_and_inert"])
                 self.assertEqual(
                     ret["moving_admission_refusal"],
                     f"mark 'a' is admitted on side {side}; an admission naming side "
@@ -418,10 +471,11 @@ class ScorerNegativeDirection(unittest.TestCase):
 
     def test_baseline(self) -> None:
         scores = self.run_score()
-        for cid in ("C1-1", "C1-2", "C1-3", "C1-6", "C1-7", "C0-X"):
+        for cid in ("C1-1", "C1-3", "C1-6", "C1-7", "C0-X"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
-        self.assertEqual(scores["C1-4"]["status"], "PARTIAL")
-        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
+        for cid in ("C1-2", "C1-4", "C1-5"):
+            self.assertEqual(scores[cid]["status"], "PARTIAL", cid)
+            self.assertEqual(scores[cid]["facts_status"], "HIT", cid)
 
     def test_c1_1_misses_when_supply_changes_state(self) -> None:
         u = self.mutated(self.u, ["supply", "regime_equals_genesis"], False)
@@ -439,15 +493,46 @@ class ScorerNegativeDirection(unittest.TestCase):
         u2 = self.mutated(self.u, ["supply", "admitted"], ["a"])
         self.assertEqual(self.run_score(u=u2)["C1-2"]["status"], "MISSED")
 
-    def test_c1_2_misses_when_a_moving_admission_is_accepted(self) -> None:
+    def test_c1_2_misses_when_a_moving_admission_is_accepted_and_moves_the_mark(self) -> None:
+        # Accepted, not refused, and not inert: the falsifier "an event that
+        # moves the admitted mark" fires, so the facts miss.
         o = self.mutated(self.o, ["candidates", 0, "retention", "moving_admission_refused"], False)
         scores = self.run_score(o=o)
         self.assertEqual(scores["C1-2"]["status"], "MISSED")
-        self.assertEqual(scores["C1-2"]["readmission_clause_status"], "MISSED")
+        self.assertEqual(scores["C1-2"]["facts_status"], "MISSED")
+        self.assertEqual(scores["C1-2"]["either_side_readmission_clause_status"], "MISSED")
         u = self.mutated(
             self.u, ["candidates", 1, "retention", "regime_unchanged_by_supply_and_readmission"], False
         )
         self.assertEqual(self.run_score(u=u)["C1-2"]["status"], "MISSED")
+
+    def test_c1_2_either_side_clause_hits_only_when_every_moving_admission_is_accepted_and_inert(
+        self,
+    ) -> None:
+        # The frozen parenthetical, read literally, hits only under a kernel
+        # that accepts the other-side re-admission and leaves the regime
+        # unchanged, on every candidate.  The real receipt refuses it:
+        # facts HIT, clause MISSED, PARTIAL.
+        scores = self.run_score()
+        self.assertEqual(scores["C1-2"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-2"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-2"]["either_side_readmission_clause_status"], "MISSED")
+        o = self.mutated(self.o, ["candidates", 0, "retention", "moving_admission_refused"], False)
+        o = self.mutated(o, ["candidates", 0, "retention", "moving_admission_accepted_and_inert"], True)
+        scores = self.run_score(o=o)
+        self.assertEqual(scores["C1-2"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-2"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-2"]["either_side_readmission_clause_status"], "MISSED")
+        u = self.u
+        for i in (0, 1):
+            u = self.mutated(u, ["candidates", i, "retention", "moving_admission_refused"], False)
+            u = self.mutated(u, ["candidates", i, "retention", "moving_admission_accepted_and_inert"], True)
+            o = self.mutated(o, ["candidates", i, "retention", "moving_admission_refused"], False)
+            o = self.mutated(o, ["candidates", i, "retention", "moving_admission_accepted_and_inert"], True)
+        scores = self.run_score(u=u, o=o)
+        self.assertEqual(scores["C1-2"]["status"], "HIT")
+        self.assertEqual(scores["C1-2"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-2"]["either_side_readmission_clause_status"], "HIT")
 
     def test_c1_3_misses_on_a_second_judgment_or_a_changed_name(self) -> None:
         extra = [

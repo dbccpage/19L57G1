@@ -8,6 +8,7 @@
 'BoundarySeed.admitted_eq' does not depend on any axioms
 'BoundarySeed.admitted_onSide_true_iff' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.admitted_sides_differ' depends on axioms: [propext, Quot.sound]
+'BoundarySeed.bounded_invariant_judgment_does_not_separate' depends on axioms: [propext]
 'BoundarySeed.candidates_not_related_O' depends on axioms: [propext]
 'BoundarySeed.candidates_related_U' depends on axioms: [propext]
 'BoundarySeed.contents_genesis' depends on axioms: [propext, Quot.sound]

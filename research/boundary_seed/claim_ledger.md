@@ -25,7 +25,10 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Statement**: The initial inscription is one supplied opaque datum at
   genesis, before any later mark is placed.  The boundary is not a second
   datum.
-- **Status**: DEFINITION; PROVED for presence in the Lean regime.
+- **Status**: DEFINITION.  The Lean presence theorems `genesis_initial_datum`
+  and `genesis_placement_nil` are `rfl` and DEFINITION-level; an earlier
+  version called them PROVED, which the rule adopted at the Challenge 1
+  review repair, one theorem one label, contradicts; corrected.
 - **Dependencies**: the seed, section 1.
 - **Assumptions**: the supplied whole is atomic except for the admitted
   boundary exception.
@@ -97,8 +100,16 @@ Python receipt, bounded), LIMITATION, OPEN.
   event-follows relation is empty.  Certifying replay refuses a new mark
   without a prior supply.  A resolved-annotation census separately finds no
   public Python function whose return annotation contains an event type.
-- **Status**: PROVED (Lean state/event clauses); DEFINITION and COMPUTED
-  (Python replay precondition and supplementary API census).
+- **Status**: DEFINITION (one supply changes no state, `supply_no_op`, `rfl`;
+  a state-changing event is a placement, `step_changes_only_by_place`, a
+  case split onto `rfl`; equal histories replay equally,
+  `replay_deterministic`, by substitution; the declared relation is empty,
+  `no_event_follows`, by unfolding `EventFollows := False`; the Python
+  replay precondition); PROVED (a history of supplies replays to its base,
+  `replay_supply_inert`, by induction); COMPUTED (the supplementary API
+  census).  An earlier version labelled the four unfolding theorems PROVED
+  while B1-INERTIA labelled the same relation-empty clause DEFINITION; one
+  theorem carries one label, so corrected here.
 - **Dependencies**: definitions 4 to 7.
 - **Assumptions**: the event grammar of Challenge 0.
 - **Python evidence**: receipt `readings.*.supply_leaves_state_unchanged`,
@@ -153,7 +164,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   renaming, an involution, and a permitted automorphism at genesis.  A
   reflected pair can share a canonical orbit key without reflection
   stabilizing either member.
-- **Status**: PROVED (involution, fixes genesis); DEFINITION (permitted).
+- **Status**: PROVED (involution, `reflect_reflect` through the induction
+  `map_not_not`); DEFINITION (permitted, `reflection_permitted_U`, by
+  unfolding; fixes genesis, `reflect_genesis`, `rfl`).  An earlier version
+  labelled `reflect_genesis` PROVED; corrected.
 - **Dependencies**: definitions 2, 4, 12, 15, and 16.
 - **Assumptions**: reading U.
 - **Python evidence**: receipt `readings.U.reflect_genesis_equals_genesis`,
@@ -176,7 +190,10 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Statement**: Under reading O the exchange of sides is not a permitted
   renaming or automorphism; it nevertheless fixes genesis as raw regime
   data and moves any placed mark.
-- **Status**: DEFINITION (not permitted); PROVED (moves any placed mark).
+- **Status**: DEFINITION (not permitted, `reflection_not_permitted_O`, by
+  unfolding; fixes genesis as raw data, `reflect_genesis`, `rfl`); PROVED
+  (moves any placed mark, `reflect_moves_a_mark`).  An earlier version left
+  `reflect_genesis` under PROVED by omission; corrected.
 - **Dependencies**: definitions 2, 4, 12, and 16.
 - **Assumptions**: reading O.
 - **Python evidence**: receipt `readings.O.reflection_is_permitted_renaming`,
@@ -327,8 +344,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   declared convention selects which candidate the presented side licenses
   if admission is later called for, and admits nothing.
 - **Status**: DEFINITION (the designation rule and the convention's
-  selection); PROVED (the supply-only history replays to genesis:
-  `replay_supply_inert`); COMPUTED (the certified histories and classes).
+  selection; the supply-only history `[Supply(a)]` replays to genesis by
+  unfolding `step`, the n = 1 instance of `replay_supply_inert`, which is
+  `rfl`); COMPUTED (the certified histories and classes).  An earlier
+  version labelled that one-supply instance PROVED while
+  B1-SUPPLY-PRESENTATION labelled the same fact DEFINITION; corrected,
+  PROVED being reserved for the history-of-supplies theorem.
   An earlier version designated the convention's admitted candidate as
   current with no admission event from the caller; that conflated supply
   with admission, turned a model proposal into an admitted state change,
@@ -344,8 +365,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   `test_convention_selects_a_candidate_and_admits_nothing`,
   `test_candidate_space_and_classes`,
   `test_candidate_classes_group_by_canonical_key`.
-- **Lean theorem**: `BoundarySeed.replay_supply_inert` (the state clause);
-  none for the designation rule, which is a declaration.
+- **Lean theorem**: `BoundarySeed.replay_supply_inert` at n = 1 (the state
+  clause, DEFINITION-level); none for the designation rule, which is a
+  declaration.
 - **Axiom report**: none.
 - **Falsifier**: a current state after Challenge 1 whose history contains
   an event the caller did not supply, or a candidate class dropped without
@@ -372,7 +394,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   absorbed a re-admission naming the other side as a no-op with its side
   discarded, so that the falsifier “an event that moves the admitted mark”
   could not fire by construction, and cited the Lean retention theorems
-  for that Python-only behaviour; all three are WITHDRAWN.
+  for that Python-only behaviour; all three are WITHDRAWN.  The frozen
+  C1-2 parenthetical predicted that absorption; under the repaired kernel
+  it is false as written, and a later version labelled it SHARPENED from
+  the overall score with no clause fact, which is WITHDRAWN too: the
+  clause is a literal miss, recorded next to its value, and C1-2 is
+  PARTIAL by the rule that scored C1-4.
 - **Dependencies**: definitions 5, 6, 9, 21, 24.
 - **Assumptions**: the Challenge 1 event grammar; the second admission of
   the retention probe is hypothetical and its token was never supplied by
@@ -380,13 +407,19 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Python evidence**: receipt `readings.*.candidates[*].certified`,
   `unsupplied_admission_refused`, `retention.*` (in particular
   `moving_admission_refused`, `moving_admission_refusal`,
+  `moving_admission_accepted_and_inert`,
   `regime_unchanged_by_supply_and_readmission`);
   `test_each_candidate_adds_exactly_its_own_judgment`,
   `test_readmission_on_its_side_is_a_no_op`,
   `test_moving_admission_is_refused_by_name`,
-  `test_refusal_names_the_refused_history_and_is_silent_otherwise`; score
-  C1-2; `test_c1_2_misses_on_unsupplied_admission_or_lost_retention`,
-  `test_c1_2_misses_when_a_moving_admission_is_accepted`.
+  `test_refusal_names_the_refused_history_and_is_silent_otherwise`,
+  `test_moving_admission_fact_reads_accepted_and_inert_only_when_the_kernel_absorbs`;
+  score C1-2 (PARTIAL: `facts_status: HIT`,
+  `either_side_readmission_clause_status: MISSED`; see
+  `challenge1/STATUS.md`);
+  `test_c1_2_misses_on_unsupplied_admission_or_lost_retention`,
+  `test_c1_2_misses_when_a_moving_admission_is_accepted_and_moves_the_mark`,
+  `test_c1_2_either_side_clause_hits_only_when_every_moving_admission_is_accepted_and_inert`.
 - **Lean theorem**: `BoundarySeed.replay_preserves_onSide`,
   `BoundarySeed.step_preserves_onSide`, `BoundarySeed.getD_append_left`
   (supplies and new placements only).
@@ -446,11 +479,23 @@ Python receipt, bounded), LIMITATION, OPEN.
   bounded domain that is invariant under permitted renamings separates
   them.  “The mark lies on exactly one side” is a U fact; “which side”
   is not.
-- **Status**: PROVED (profiles differ; candidates unequal and reflected;
-  invariant judgments do not separate); DEFINITION (the permission half
-  of `candidates_related_U`, `reflectionPermitted .U := True`; its content
-  is `reflect_admitted`); COMPUTED (one class and the empty
-  invariant-separating list, on the declared bounded domains).
+- **Status**: PROVED (profiles differ; candidates unequal and reflected; a
+  judgment invariant under the reflection at every regime of the reading
+  with at most one mark holds equally at the two candidates,
+  `bounded_invariant_judgment_does_not_separate`, whose hypothesis is
+  definition 26's bounded invariance under U because at one mark the
+  permitted renamings are the identity and the reflection — that
+  identification is by inspection of `permitted_images`, not a Lean
+  theorem; the global-hypothesis `invariant_judgment_does_not_separate` is
+  kept and closes less); DEFINITION (the permission half of
+  `candidates_related_U`, `reflectionPermitted .U := True`; its content is
+  `reflect_admitted`); COMPUTED (one class and the empty
+  invariant-separating list over the eight-judgment domain).  An earlier
+  version rested the bounded-domain clause on the global-hypothesis
+  theorem alone: a judgment such as `OnSide(1, s)` is invariant on the
+  one-mark domain without being invariant everywhere, so that theorem said
+  nothing about it and only the computation did; corrected by the bounded
+  theorem.
 - **Dependencies**: definitions 10 to 12, 16, 23, 24, 26, 27.
 - **Assumptions**: reading U; the judgment domain names marks below two
   and the regime domain has at most one mark.
@@ -467,9 +512,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.admitted_contents_other`,
   `BoundarySeed.admitted_candidates_unequal`,
   `BoundarySeed.reflect_admitted`, `BoundarySeed.candidates_related_U`,
-  `BoundarySeed.invariant_judgment_does_not_separate`.
+  `BoundarySeed.invariant_judgment_does_not_separate`,
+  `BoundarySeed.bounded_invariant_judgment_does_not_separate`.
 - **Axiom report**: propext, Quot.sound; propext, Quot.sound; propext,
-  Quot.sound; propext; propext; propext; propext.
+  Quot.sound; propext; propext; propext; propext; propext.
 - **Falsifier**: equal U profiles after one admitted mark, different U
   keys for the two candidates, or a permitted-renaming-invariant judgment
   holding for one candidate and not the other.
@@ -599,13 +645,20 @@ Python receipt, bounded), LIMITATION, OPEN.
   one initial datum and places one mark; no result required admitting the
   whole `<a|>` as a second datum or a second boundary.
 - **Status**: DEFINITION-level modelling decision, scored on its
-  mechanical part; OPEN as to whether a whole on a side is a datum, which
-  Challenge 5 asks.
+  mechanical part, which holds by construction: the `Regime` type
+  represents neither a second datum nor a second boundary, so
+  `initial_datum_unchanged` cannot be reported false, and `marks == 1` is a
+  proxy reading “the mark placed on a side” as exactly one placed mark,
+  which the frozen text does not name.  C1-7 is therefore HIT by
+  construction and not counted as content in the tally; an earlier version
+  counted it among the hits.  OPEN as to whether a whole on a side is a
+  datum, which Challenge 5 asks.
 - **Dependencies**: definitions 1 to 3, 17, 24.
 - **Assumptions**: the seed's phrase “the admitted boundary” names the one
   boundary of the initial datum.
-- **Python evidence**: receipt `candidates[*].initial_datum_unchanged`,
-  `marks`; score C1-7; `test_c1_7_misses_on_a_second_datum_or_mark`.
+- **Python evidence**: receipt `candidates[*].initial_datum_unchanged`
+  (fixed by the type), `marks` (the proxy); score C1-7 (`result_basis`,
+  `mechanical_part`); `test_c1_7_misses_on_a_second_datum_or_mark`.
 - **Lean theorem**: `BoundarySeed.replay_initialDatum` (the datum is kept);
   none for the modelling clause.
 - **Axiom report**: none.

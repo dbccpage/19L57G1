@@ -61,5 +61,6 @@ Challenges 0 and 1.  Every theorem below has a `#print axioms` line, and
 #print axioms BoundarySeed.candidates_related_U
 #print axioms BoundarySeed.candidates_not_related_O
 #print axioms BoundarySeed.invariant_judgment_does_not_separate
+#print axioms BoundarySeed.bounded_invariant_judgment_does_not_separate
 #print axioms BoundarySeed.onSide_separates_candidates
 #print axioms BoundarySeed.no_event_follows_admitted

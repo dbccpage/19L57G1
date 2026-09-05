@@ -248,3 +248,83 @@ labels, and the freeze wording are narrowed here).  The Challenge 0
 status's note that the re-admission convention was remembered as a
 “designation” is left as the historical record it is; the notion it
 names is now called a same-side no-op.
+
+## 2026-09-04, Challenge 1 second exact-head review repair
+
+`SEED.md`, `challenge0/PREDICTIONS.md`, and `challenge1/PREDICTIONS.md`
+remain byte-identical.  Review of `9a26a250` found one blocking defect,
+reported three times, and five should-fix defects; every finding is
+addressed, none declined.  Recorded rather than folded into the entries
+above:
+
+- Re-scored: C1-2 from HIT to PARTIAL.  Its frozen parenthetical, “a
+  re-admission of the same token on either side, which is designation and
+  not duplication”, predicts that a re-admission naming the other side is
+  an accepted later event that leaves the mark's judgment unchanged, which
+  is what the pre-repair kernel did.  The repaired kernel refuses that
+  event by name, so the clause is false as written.  The first review
+  repair labelled it SHARPENED from the overall boolean with no clause
+  fact; SHARPENED at C0-5 named a clause that was true and too narrow, and
+  this clause is contradicted, not narrowed.  WITHDRAWN.  The receipt now
+  carries the clause's own fact, `moving_admission_accepted_and_inert`
+  (false: a refused event has no after-state), reports
+  `facts_status: HIT` and `either_side_readmission_clause_status: MISSED`,
+  and scores PARTIAL by the rule that scored C1-4.  The facts accept a
+  moving admission that is refused or accepted and inert, and miss on one
+  accepted and moving the mark, which is the frozen falsifier.  Tests: the
+  clause hits only when every moving admission is accepted and inert, and
+  a kernel-level probe shows the fact true only under an absorbing step.
+  The receipt regenerated deliberately with no injection live.
+- Re-counted: “Five of seven hit, two PARTIAL” is WITHDRAWN.  Three hit as
+  content (C1-1, C1-3, C1-6); C1-7 hits by construction and is
+  DEFINITION-level, not counted as content; three are PARTIAL (C1-2, C1-4,
+  C1-5).
+- C1-7's mechanical part is true by construction: the regime type
+  represents neither a second datum nor a second boundary, so
+  `initial_datum_unchanged` cannot be reported false, and `marks == 1` is a
+  proxy the frozen text does not name.  The receipt's `result_basis` and
+  `mechanical_part` say so, and so does B1-ONE-BOUNDARY.  An earlier
+  version counted it among the hits; `PLAN.md` says a target true by
+  unfolding a definition is never counted as content.
+- Narrowed, then proved: B1-SIDES-U's “no permitted-renaming-invariant
+  judgment of the bounded domain separates the candidates” had been PROVED
+  on `invariant_judgment_does_not_separate`, whose hypothesis is
+  reflection-invariance at every regime, stronger than the Python bounded
+  notion, so the theorem closed less than the clause: `OnSide(1, s)` is
+  invariant on the one-mark domain and not everywhere.  Added
+  `bounded_invariant_judgment_does_not_separate`, whose hypothesis is
+  invariance under the reflection at every regime of the reading with at
+  most one mark, which is the Python notion under U by inspection of
+  `permitted_images` at one mark; the clause now rests on it, PROVED, with
+  the enumeration COMPUTED.  The global theorem is kept and labelled as
+  closing less.  The axiom log regenerated once, deliberately, 55 to 56,
+  with no injection live.
+- Relabelled DEFINITION: B1-CURRENT-STATE's state clause, “the supply-only
+  history replays to genesis”, is the n = 1 instance of
+  `replay_supply_inert`, which is `rfl`, and had been PROVED beside two
+  entries labelling the same one-supply fact DEFINITION.
+- Relabelled DEFINITION, one theorem one label: the first review repair
+  called `supply_no_op` DEFINITION-level in B1-SUPPLY-PRESENTATION and
+  left it PROVED in B0-INERTIA, the Challenge 0 status table, and the
+  paper's 4.1 and 7.1, with `genesis_initial_datum`,
+  `genesis_placement_nil`, `reflect_genesis`, `replay_deterministic`,
+  `step_changes_only_by_place`, `reflection_permitted_U`,
+  `reflection_not_permitted_O`, `side_names_distinct`, and
+  `no_event_follows` of the same `rfl`, unfolding, substitution, or
+  case-split shape.  All are DEFINITION-level now in B-DATUM, B0-INERTIA,
+  B0-REFLECTION-U, B0-REFLECTION-O, the Challenge 0 status table, and the
+  paper's 4.1 and a new 7.1 sentence parallel to 7.2's.  The Challenge 0
+  status table is a prior rung's file; its labels are corrected in place
+  with a note, because a known-wrong label left in a handoff propagates.
+- `admitted_candidate_is_current`, the sole input of C1-5's designation
+  clause, was computed as “the current regime has at least one mark”; a
+  caller history admitting any other token would have made it true with
+  no Challenge 1 candidate current.  It is now membership of the current
+  regime in the candidate regimes, and a test with such a history shows
+  the two readings differ.  The receipt value is unchanged, false.
+- The workflow's test-count grep updated from 106 to 109 after observing
+  the stale count fail on the fresh log.
+
+WITHDRAWN from the entry above: “C1-2's parenthetical annotated SHARPENED,
+its retention clause still HIT” and, from the paper and status it
+describes, “Five of seven hit, two are PARTIAL”.  Declined: nothing.

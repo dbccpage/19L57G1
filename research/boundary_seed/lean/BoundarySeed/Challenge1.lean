@@ -272,6 +272,23 @@ theorem invariant_judgment_does_not_separate (rd : Reading) (s : Bool) (j : Judg
   rw [← reflect_admitted]
   exact (hinv _).symm
 
+/-- The bounded form of the statement above.  Its hypothesis is the notion the
+Python computation checks under `U`: invariance under the reflection at every
+regime of the reading with at most one mark.  At one mark the permitted
+renamings are the identity and, under `U`, the reflection, so under `U` this
+hypothesis is the bounded invariance of the paper's definition 26; under `O`
+the reflection is not a permitted renaming and no such correspondence is
+claimed.  The global-hypothesis form above closes less than the bounded
+clause, because a judgment can be invariant on the one-mark regimes without
+being invariant everywhere. -/
+theorem bounded_invariant_judgment_does_not_separate (rd : Reading) (s : Bool)
+    (j : Judgment)
+    (hinv : ∀ r : Regime, r.reading = rd → r.placement.length ≤ 1 →
+      holds (reflect r) j = holds r j) :
+    holds (admitted rd s) j = holds (admitted rd (!s)) j := by
+  rw [← reflect_admitted]
+  exact (hinv (admitted rd s) rfl (by rw [admitted_eq]; exact Nat.le_refl 1)).symm
+
 /-- The placed mark's own judgment does separate the two candidates as raw
 data; under `O` it is invariant under every permitted renaming, there being
 none but the identity at one mark. -/
