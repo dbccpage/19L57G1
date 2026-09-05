@@ -144,7 +144,21 @@ class TheRecord(unittest.TestCase):
     def test_the_open_list_carries_the_item_this_comparison_opened(self) -> None:
         opened = [item for item in RECORD["open"] if not item["inherited"]]
         self.assertEqual([item["id"] for item in opened], ["SF-OPEN-E"])
-        self.assertIn("541041", str(opened[0]["statement"]))
+        statement = str(opened[0]["statement"])
+        self.assertIn("gates.G1.commit_check", statement)
+        self.assertIn("exactly two lines", statement)
+
+    def test_the_opened_item_quotes_no_byte_count(self) -> None:
+        """Negative: a byte pair here would name a length nothing committed has.
+
+        The fresh record's length depends on the substituted commit id and on
+        git's own message, so the item states the two differing lines instead.
+        """
+        opened = [item for item in RECORD["open"] if not item["inherited"]]
+        statement = str(opened[0]["statement"])
+        self.assertNotRegex(statement, r"\d{4,} bytes")
+        self.assertNotIn("541041", statement)
+        self.assertNotIn("541009", statement)
 
     def test_the_committed_receipt_matches_the_one_this_run_computed(self) -> None:
         self.assertEqual(RECEIPT["row_count"], RECORD["row_count"])

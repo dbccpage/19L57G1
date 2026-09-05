@@ -154,6 +154,9 @@
       "which results depend on its presence"
     ],
     "decided_against": "the unnamed reading",
+    "definition_level_rows": [
+      "R45"
+    ],
     "entries": [
       {
         "what_it_cost": {
@@ -1178,10 +1181,14 @@
       }
     ],
     "membership_rule": "a row is in BOUGHT_NOTHING exactly when the control reaches the same value at the same stated price; in BOUGHT_SOMETHING when either differs; and in ABSENT when the notion has no statement in one world, which is evidence for neither bucket",
+    "rows_whose_control_field_is_declared_not_computed": [
+      "R45"
+    ],
     "rows_whose_pinned_field_the_pinned_world_calls_declared_not_computed": [
       "R44",
       "R45"
     ],
+    "why_the_definition_level_rows_are_named": "a row whose pinned column and control column are BOTH declared and not computed agrees by unfolding two declarations.  That is DEFINITION-level and is not content, so it is named here and the verdict reports its tallies with the declared-field rows and without them",
     "why_the_kinds_are_reported": "a difference in a world's own bookkeeping -- the size of its declared space, the tag its serialization key carries -- is not a capability the primitive bought, and the kinds keep the two apart without curating which rows are in which bucket"
   },
   "gates": {
@@ -1404,7 +1411,7 @@
     {
       "id": "SF-OPEN-E",
       "inherited": false,
-      "statement": "OPENED BY THIS COMPARISON, and not repaired here.  The sibling record receipts/side_free.json carries the pinned commit's reachability inside its own bytes, so it is not the same file in a clone that cannot reach that commit.  Observed, not argued: with the commit made unreachable in process, a fresh computation returns 541041 bytes against the committed 541009, differing in exactly the two lines of gates.G1.commit_check -- status PASS becomes SKIPPED and the reason line changes.  The pinned branch is carried by no remote, so a checkout that fetches only remote refs is exactly that clone, and the step that regenerates the record and then requires no diff would fail there.  It is not repaired because the frozen design declares that conditional check to be part of that record, and the frozen files are not edited to fit a later finding.  THIS record is built the other way: its rows are held by sha256 alone and the reachability report is printed by the runner, so it is the same file in both clones."
+      "statement": "OPENED BY THIS COMPARISON.  The record itself is not repaired; the CI step that could not survive it is.  The sibling record receipts/side_free.json carries the pinned commit's reachability inside its own bytes, at gates.G1.commit_check, so it is not the same file in a clone that cannot reach that commit.  Observed, not argued: with the commit replaced in a temporary manifest by an unreachable one, a fresh computation differs from the committed record in exactly two lines -- status PASS becomes SKIPPED, and the reason line changes.  No byte count is quoted for that fresh record, because its length depends on the substituted id and on git's own message.  The pinned branch is carried by no remote, so a checkout that fetches only remote refs is exactly that clone.  The record is NOT repaired, because the frozen design declares that conditional check to be part of it, and the frozen files are not edited to fit a later finding.  The CI step IS repaired: it required no diff after a fresh run, which reddens that clone on a defect that is not in the code, and it now takes the same reachability split the pin verifier takes -- the byte comparison is hard where the pinned commit is reachable, and where it is not the diff is PRINTED under a named SKIP.  Residual, recorded and not closed: in that clone drift in that record is visible in the log and is gated by nothing.  THIS record is built the other way: its rows are held by sha256 alone and the reachability report is printed by the runner, so it is the same file in both clones."
     }
   ],
   "pinned_commit": "5c43c5ee",
@@ -1638,6 +1645,7 @@
         "same": true
       },
       "id": "R01",
+      "is_definition_level": false,
       "item": "marks admitted at genesis",
       "kind": "what holds",
       "named_reading": 0,
@@ -1658,8 +1666,10 @@
       "stage": "genesis",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 0
+      "unnamed_reading": 0,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1690,6 +1700,7 @@
         "same": false
       },
       "id": "R02",
+      "is_definition_level": false,
       "item": "the declared observation vocabulary",
       "kind": "declared structure",
       "named_reading": [
@@ -1713,11 +1724,13 @@
       "stage": "genesis",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "OnSide",
         "SideNamed"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1734,6 +1747,7 @@
         "same": true
       },
       "id": "R03",
+      "is_definition_level": false,
       "item": "judgments holding at genesis",
       "kind": "what holds",
       "named_reading": 2,
@@ -1757,8 +1771,10 @@
       "stage": "genesis",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 0
+      "unnamed_reading": 0,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1789,6 +1805,7 @@
         "same": false
       },
       "id": "R04",
+      "is_definition_level": false,
       "item": "the serialization key at genesis",
       "kind": "declared structure",
       "named_reading": [
@@ -1812,11 +1829,13 @@
       "stage": "genesis",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "U",
         []
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": "the notion names a side, and a world with no sides cannot state it",
@@ -1835,6 +1854,7 @@
         "same": false
       },
       "id": "R05",
+      "is_definition_level": false,
       "item": "the two sides are collapsed at genesis",
       "kind": "declared structure",
       "named_reading": false,
@@ -1855,8 +1875,10 @@
       "stage": "genesis",
       "status": "ABSENT",
       "status_against_the_named_reading": "ABSENT",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": true
+      "unnamed_reading": true,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1871,6 +1893,7 @@
         "same": true
       },
       "id": "R06",
+      "is_definition_level": false,
       "item": "an external presentation leaves admitted state unchanged",
       "kind": "event discipline",
       "named_reading": true,
@@ -1891,8 +1914,10 @@
       "stage": "genesis",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": true
+      "unnamed_reading": true,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1907,6 +1932,7 @@
         "same": true
       },
       "id": "R07",
+      "is_definition_level": false,
       "item": "no event is entailed by admitted state",
       "kind": "event discipline",
       "named_reading": true,
@@ -1927,8 +1953,10 @@
       "stage": "genesis",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": true
+      "unnamed_reading": true,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1945,6 +1973,7 @@
         "same": false
       },
       "id": "R08",
+      "is_definition_level": false,
       "item": "admissions available from the one supplied token",
       "kind": "declared structure",
       "named_reading": 2,
@@ -1965,8 +1994,10 @@
       "stage": "one admitted mark",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 2
+      "unnamed_reading": 2,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -1983,6 +2014,7 @@
         "same": true
       },
       "id": "R09",
+      "is_definition_level": false,
       "item": "isomorphism classes of those admissions",
       "kind": "declared structure",
       "named_reading": 2,
@@ -2003,8 +2035,10 @@
       "stage": "one admitted mark",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 1
+      "unnamed_reading": 1,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2021,6 +2055,7 @@
         "same": true
       },
       "id": "R10",
+      "is_definition_level": false,
       "item": "marks after one admission",
       "kind": "what holds",
       "named_reading": 1,
@@ -2041,8 +2076,10 @@
       "stage": "one admitted mark",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 1
+      "unnamed_reading": 1,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2059,6 +2096,7 @@
         "same": true
       },
       "id": "R11",
+      "is_definition_level": false,
       "item": "judgments holding after one admission",
       "kind": "what holds",
       "named_reading": 3,
@@ -2079,8 +2117,10 @@
       "stage": "one admitted mark",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 1
+      "unnamed_reading": 1,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2115,6 +2155,7 @@
         "same": false
       },
       "id": "R12",
+      "is_definition_level": false,
       "item": "the serialization key after one admission",
       "kind": "declared structure",
       "named_reading": [
@@ -2140,13 +2181,15 @@
       "stage": "one admitted mark",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "U",
         [
           0
         ]
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2161,6 +2204,7 @@
         "same": true
       },
       "id": "R13",
+      "is_definition_level": false,
       "item": "the state after the supply alone equals genesis",
       "kind": "event discipline",
       "named_reading": true,
@@ -2181,8 +2225,10 @@
       "stage": "one admitted mark",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": true
+      "unnamed_reading": true,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": "the refusal is REMOVED, not absorbed: with no sides there is nowhere to move a mark to, so the refusal has no side-free statement at all",
@@ -2201,6 +2247,7 @@
         "same": false
       },
       "id": "R14",
+      "is_definition_level": false,
       "item": "an admission that would move an admitted mark is refused",
       "kind": "event discipline",
       "named_reading": true,
@@ -2221,8 +2268,10 @@
       "stage": "one admitted mark",
       "status": "ABSENT",
       "status_against_the_named_reading": "ABSENT",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": true
+      "unnamed_reading": true,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2239,6 +2288,7 @@
         "same": true
       },
       "id": "R15",
+      "is_definition_level": false,
       "item": "marks retained",
       "kind": "what holds",
       "named_reading": 2,
@@ -2259,8 +2309,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 2
+      "unnamed_reading": 2,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2277,6 +2329,7 @@
         "same": true
       },
       "id": "R16",
+      "is_definition_level": false,
       "item": "judgments holding at the retained regime",
       "kind": "what holds",
       "named_reading": 4,
@@ -2297,8 +2350,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 2
+      "unnamed_reading": 2,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2320,6 +2375,7 @@
         "same": true
       },
       "id": "R17",
+      "is_definition_level": false,
       "item": "presentation labels at the retained regime",
       "kind": "what holds",
       "named_reading": [
@@ -2343,11 +2399,13 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "a",
         "a"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2369,6 +2427,7 @@
         "same": true
       },
       "id": "R18",
+      "is_definition_level": false,
       "item": "state-changing event kinds",
       "kind": "declared structure",
       "named_reading": [
@@ -2392,11 +2451,13 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "AdmitMark",
         "AdmitOccurrence"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2413,6 +2474,7 @@
         "same": true
       },
       "id": "R19",
+      "is_definition_level": false,
       "item": "automorphisms of the retained regime",
       "kind": "verdict",
       "named_reading": 1,
@@ -2433,8 +2495,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 2
+      "unnamed_reading": 2,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2449,6 +2513,7 @@
         "same": true
       },
       "id": "R20",
+      "is_definition_level": false,
       "item": "the two retained marks are internally separable at base",
       "kind": "verdict",
       "named_reading": true,
@@ -2469,8 +2534,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2492,6 +2559,7 @@
         "same": true
       },
       "id": "R21",
+      "is_definition_level": false,
       "item": "invariant separating mark properties at base",
       "kind": "verdict",
       "named_reading": [
@@ -2515,8 +2583,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": []
+      "unnamed_reading": [],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2531,6 +2601,7 @@
         "same": true
       },
       "id": "R22",
+      "is_definition_level": false,
       "item": "the admission order is internally available",
       "kind": "what holds",
       "named_reading": false,
@@ -2552,8 +2623,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2568,6 +2641,7 @@
         "same": true
       },
       "id": "R23",
+      "is_definition_level": false,
       "item": "the presentation label is internally available",
       "kind": "what holds",
       "named_reading": false,
@@ -2588,8 +2662,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2626,6 +2702,7 @@
         "same": false
       },
       "id": "R24",
+      "is_definition_level": false,
       "item": "the serialization key at the retained regime",
       "kind": "declared structure",
       "named_reading": [
@@ -2652,6 +2729,7 @@
       "stage": "two retained marks",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "U",
@@ -2659,7 +2737,8 @@
           0,
           1
         ]
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2674,6 +2753,7 @@
         "same": false
       },
       "id": "R25",
+      "is_definition_level": false,
       "item": "the caller's two orders give equal regimes",
       "kind": "declared structure",
       "named_reading": false,
@@ -2694,8 +2774,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2710,6 +2792,7 @@
         "same": true
       },
       "id": "R26",
+      "is_definition_level": false,
       "item": "the caller's two orders are isomorphic",
       "kind": "declared structure",
       "named_reading": true,
@@ -2730,8 +2813,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": true
+      "unnamed_reading": true,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2748,6 +2833,7 @@
         "same": true
       },
       "id": "R27",
+      "is_definition_level": false,
       "item": "isomorphism classes of the caller's two orders",
       "kind": "declared structure",
       "named_reading": 1,
@@ -2768,8 +2854,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 1
+      "unnamed_reading": 1,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2786,6 +2874,7 @@
         "same": true
       },
       "id": "R28",
+      "is_definition_level": false,
       "item": "identity policies that admit both retained wholes",
       "kind": "declared structure",
       "named_reading": 1,
@@ -2806,8 +2895,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 1
+      "unnamed_reading": 1,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2824,6 +2915,7 @@
         "same": false
       },
       "id": "R29",
+      "is_definition_level": false,
       "item": "marks the shared identity policy retains",
       "kind": "event discipline",
       "named_reading": 0,
@@ -2845,8 +2937,10 @@
       "stage": "two retained marks",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 0
+      "unnamed_reading": 0,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2861,6 +2955,7 @@
         "same": true
       },
       "id": "R30",
+      "is_definition_level": false,
       "item": "the requirement holds at base",
       "kind": "verdict",
       "named_reading": true,
@@ -2881,8 +2976,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2899,6 +2996,7 @@
         "same": true
       },
       "id": "R31",
+      "is_definition_level": false,
       "item": "the minimum cost to meet the requirement, under mu1",
       "kind": "price",
       "named_reading": 0,
@@ -2921,8 +3019,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 1
+      "unnamed_reading": 1,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2939,6 +3039,7 @@
         "same": false
       },
       "id": "R32",
+      "is_definition_level": false,
       "item": "tied non-isomorphic minima",
       "kind": "verdict",
       "named_reading": 1,
@@ -2960,8 +3061,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 3
+      "unnamed_reading": 3,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -2976,6 +3079,7 @@
         "same": false
       },
       "id": "R33",
+      "is_definition_level": false,
       "item": "the minimum is unique",
       "kind": "verdict",
       "named_reading": true,
@@ -2996,8 +3100,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3025,6 +3131,7 @@
         "same": false
       },
       "id": "R34",
+      "is_definition_level": false,
       "item": "the members attaining the minimum, under the declared collapse map",
       "kind": "verdict",
       "named_reading": [
@@ -3048,12 +3155,14 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "extra_mark",
         "withdraw_mark_permutations",
         "withdraw_reflection"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3070,6 +3179,7 @@
         "same": false
       },
       "id": "R35",
+      "is_definition_level": false,
       "item": "the declared candidate space",
       "kind": "declared structure",
       "named_reading": 48,
@@ -3090,8 +3200,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 48
+      "unnamed_reading": 48,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3120,6 +3232,7 @@
         "same": false
       },
       "id": "R36",
+      "is_definition_level": false,
       "item": "one-step points in that space, under the declared collapse map",
       "kind": "declared structure",
       "named_reading": [
@@ -3147,6 +3260,7 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "admit_names",
@@ -3154,7 +3268,8 @@
         "keep_labels",
         "withdraw_mark_permutations",
         "withdraw_reflection"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3171,6 +3286,7 @@
         "same": false
       },
       "id": "R37",
+      "is_definition_level": false,
       "item": "bundles refused at two capabilities or more",
       "kind": "declared structure",
       "named_reading": 41,
@@ -3191,8 +3307,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 41
+      "unnamed_reading": 41,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3221,6 +3339,7 @@
         "same": false
       },
       "id": "R38",
+      "is_definition_level": false,
       "item": "one-step points that satisfy, under the declared collapse map",
       "kind": "verdict",
       "named_reading": [
@@ -3248,12 +3367,14 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "extra_mark",
         "withdraw_mark_permutations",
         "withdraw_reflection"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3283,6 +3404,7 @@
         "same": false
       },
       "id": "R39",
+      "is_definition_level": false,
       "item": "collateral facts the world declares",
       "kind": "declared structure",
       "named_reading": [
@@ -3310,6 +3432,7 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "sides_internally_separable",
@@ -3317,7 +3440,8 @@
         "label_internally_available",
         "convention_internally_available",
         "side_names_hold"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3334,6 +3458,7 @@
         "same": true
       },
       "id": "R40",
+      "is_definition_level": false,
       "item": "the minimum of the restricted second measure",
       "kind": "price",
       "named_reading": 0,
@@ -3354,8 +3479,10 @@
       "stage": "the imposed requirement",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_NOTHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": 0
+      "unnamed_reading": 0,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3370,6 +3497,7 @@
         "same": true
       },
       "id": "R41",
+      "is_definition_level": false,
       "item": "the requirement is met with no augmentation",
       "kind": "price",
       "named_reading": true,
@@ -3390,8 +3518,10 @@
       "stage": "the prices each world states",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3406,6 +3536,7 @@
         "same": true
       },
       "id": "R42",
+      "is_definition_level": false,
       "item": "nothing new is paid at this rung",
       "kind": "price",
       "named_reading": true,
@@ -3426,8 +3557,10 @@
       "stage": "the prices each world states",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
-      "unnamed_reading": false
+      "unnamed_reading": false,
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3453,6 +3586,7 @@
         "same": false
       },
       "id": "R43",
+      "is_definition_level": false,
       "item": "capabilities newly paid for at this rung",
       "kind": "price",
       "named_reading": [],
@@ -3473,12 +3607,14 @@
       "stage": "the prices each world states",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "extra_mark",
         "withdraw_mark_permutations",
         "withdraw_reflection"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3507,6 +3643,7 @@
         "same": false
       },
       "id": "R44",
+      "is_definition_level": false,
       "item": "capabilities the satisfaction uses",
       "kind": "price",
       "named_reading": [
@@ -3532,8 +3669,10 @@
       "stage": "the prices each world states",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": true,
-      "unnamed_reading": []
+      "unnamed_reading": [],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3548,10 +3687,11 @@
         "same": true
       },
       "id": "R45",
+      "is_definition_level": true,
       "item": "who pays for the satisfaction",
       "kind": "price",
       "named_reading": "the declared reading, and the run at Challenge 2",
-      "note": "declared and not computed on the pinned side, by its own flag",
+      "note": "declared and not computed on the pinned side, by its own flag, and declared and not computed on the control side too: nothing in this carrier computes a payer.  Both columns are declarations, so the agreement is true by unfolding them and is DEFINITION-level, not a measurement",
       "price": {
         "control": null,
         "control_equals_named": true,
@@ -3562,15 +3702,17 @@
         "why": "the item IS a price statement; what each world states is the row's own three columns"
       },
       "sources": {
-        "control": "computed here: control_paid_by",
+        "control": "declared here, not computed: control_paid_by",
         "named": "pinned challenge 3: readings.O.price.paid_by",
         "unnamed": "pinned challenge 3: readings.U.price.paid_by"
       },
       "stage": "the prices each world states",
       "status": "BOUGHT_NOTHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": true,
       "the_pinned_field_is_declared_not_computed": true,
-      "unnamed_reading": "the run"
+      "unnamed_reading": "the run",
+      "why_the_control_field_is_declared": "there is no genesis declaration of a payer in this carrier and the enumeration produces none, so the payer is stated here rather than measured; the pinned world flags its own side of this field as declared and not computed too"
     },
     {
       "absent_reason": null,
@@ -3599,6 +3741,7 @@
         "same": false
       },
       "id": "R46",
+      "is_definition_level": false,
       "item": "coordinates the world prices at this rung",
       "kind": "price",
       "named_reading": [
@@ -3626,6 +3769,7 @@
       "stage": "the prices each world states",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "withdraw_reflection",
@@ -3633,7 +3777,8 @@
         "admit_names",
         "keep_labels",
         "extra_mark"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     },
     {
       "absent_reason": null,
@@ -3669,6 +3814,7 @@
         "same": false
       },
       "id": "R47",
+      "is_definition_level": false,
       "item": "declared values of the further-mark coordinate",
       "kind": "declared structure",
       "named_reading": [
@@ -3694,12 +3840,14 @@
       "stage": "the prices each world states",
       "status": "BOUGHT_SOMETHING",
       "status_against_the_named_reading": "BOUGHT_SOMETHING",
+      "the_control_field_is_declared_not_computed": false,
       "the_pinned_field_is_declared_not_computed": false,
       "unnamed_reading": [
         "None",
         "0",
         "1"
-      ]
+      ],
+      "why_the_control_field_is_declared": null
     }
   ],
   "stages": [
@@ -3719,10 +3867,25 @@
       "verdict_or_price_bought_nothing": 9,
       "verdict_or_price_bought_something": 7
     },
+    "counts_without_the_declared_field_rows": {
+      "bought_nothing": 25,
+      "bought_something": 18,
+      "definition_level": [
+        "R45"
+      ],
+      "rows": 45,
+      "set_aside": [
+        "R44",
+        "R45"
+      ],
+      "verdict_or_price_bought_nothing": 8,
+      "verdict_or_price_bought_something": 6,
+      "why": "a row that reads a declared field on one side compares a declaration with a measurement, and a row declared on BOTH sides agrees by unfolding.  Neither is curated out of the headline: the tallies are reported both ways so the reader may take either, and the row-level flags say which is which"
+    },
     "decided_value": "NOTHING_IN_COST",
     "does_not_speak_for": "the rungs not yet run in the pinned world, nor for whether the requirement was the right one to impose, nor for what the admitted primitive would buy at a rung this comparison does not price",
     "scope": "Challenges 0 to 3 of the pinned world at 5c43c5ee, and their analogues in this carrier: the three declared coordinates, the pinned requirement and prices, the retained two-mark configuration, and the measure mu1.  Nothing wider.",
-    "statement": "Over 47 compared items at the pinned rungs, the control reaches the unnamed reading's value at the unnamed reading's price in 26 of them and differs in 19, with 2 items that have no statement in one world and are therefore evidence for neither. Restricted to the items that are verdicts or prices, it reaches the same value at the same price in 9 and differs in 7. At the imposed requirement the minimum cost differs by 0 from the unnamed reading and by 1 from the named reading, and what the admitted primitive bought under the unnamed reading is 2 additional routes at the same price.",
+    "statement": "Over 47 compared items at the pinned rungs, the control reaches the unnamed reading's value at the unnamed reading's price in 26 of them and differs in 19, with 2 items that have no statement in one world and are therefore evidence for neither. Restricted to the items that are verdicts or prices, it reaches the same value at the same price in 9 and differs in 7. Of the 47 items, 2 read a field one world or the other DECLARES rather than computes -- R44, R45 -- and the subset declared on BOTH sides, which agrees by unfolding and is DEFINITION-level rather than content, is R45. Setting all 2 aside, the control reaches the same value at the same price in 25 items and differs in 18, and restricted to verdicts and prices in 8 and 6. At the imposed requirement the minimum cost differs by 0 from the unnamed reading and by 1 from the named reading, and what the admitted primitive bought under the unnamed reading is 2 additional routes at the same price.",
     "what_it_may_not_be_read_as": "the sentence that the admitted primitive bought nothing.  What pays for separation in a world with no container is the ADMISSION ORDER, and whether an order is itself a container is not answered here"
   },
   "void": false,

@@ -1334,8 +1334,12 @@ def decided_object(
             int(str(control_min["class_count"])) - int(str(unnamed_min["class_count"]))
         ),
         "plurality_is_not_price": (
-            "routes and price are separate columns and are NEVER summed; a "
-            "test asserts that no field of this receipt combines them"
+            "routes and price are separate columns and are NEVER summed.  A "
+            "test walks THIS receipt and requires that the only fields whose "
+            "names carry both words are the two copies of this declaration "
+            "itself, in the primary block and in the secondary one; a second "
+            "test walks the price list's record and requires no such field "
+            "there at all"
         ),
         "routes_the_admitted_primitive_bought": bought,
         "routes_bought_count": len(bought),
@@ -1419,9 +1423,19 @@ def key_choice_block(rows: Sequence[Json]) -> Json:
         "declared": DECLARED_KEY_CHOICE,
         "why_the_arity_is_declared": (
             "the pinned key keeps a tuple whose length is the arity, so both "
-            "worlds get the arity free.  The choice errs AGAINST this control "
-            "-- the poorer key would give it fewer distinctions -- and it is "
-            "recorded as doing so rather than defended"
+            "worlds get the arity free.  Of the TWO choices declared here, "
+            "arity is the richer and empty the poorer, and a poorer key gives "
+            "fewer distinctions and so more automorphisms: within this pair "
+            "the declared choice is the more generous to this control, not "
+            "the less.  What errs against the control is the scope the frozen "
+            "design states -- the arity alone is the poorest DEFENSIBLE key, "
+            "against richer keys that lie outside this pair and are not "
+            "declared here.  Neither declared choice is load-bearing, and "
+            "that is DEFINITION-level rather than a computed finding: a "
+            "permitted renaming permutes indices and never changes the mark "
+            "count, so the key is constant across the images under either "
+            "choice and both admit the same automorphisms.  The rows below "
+            "recompute every verdict under both"
         ),
         "rows": per_row,
         "agree_everywhere": not problems,

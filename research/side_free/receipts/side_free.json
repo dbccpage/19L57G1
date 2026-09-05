@@ -1219,7 +1219,7 @@
     "excluded": [],
     "named_classes": 1,
     "named_minimum": 0,
-    "plurality_is_not_price": "routes and price are separate columns and are NEVER summed; a test asserts that no field of this receipt combines them",
+    "plurality_is_not_price": "routes and price are separate columns and are NEVER summed.  A test walks THIS receipt and requires that the only fields whose names carry both words are the two copies of this declaration itself, in the primary block and in the secondary one; a second test walks the price list's record and requires no such field there at all",
     "plurality_vs_unnamed": -2,
     "routes_bought_are_side_mediated": "both of them: the withdrawal of the side exchange names the sides, and the further mark separates the two retained marks there because the two sides then carry different numbers of marks",
     "routes_bought_count": 2,
@@ -2270,7 +2270,7 @@
         }
       }
     ],
-    "why_the_arity_is_declared": "the pinned key keeps a tuple whose length is the arity, so both worlds get the arity free.  The choice errs AGAINST this control -- the poorer key would give it fewer distinctions -- and it is recorded as doing so rather than defended"
+    "why_the_arity_is_declared": "the pinned key keeps a tuple whose length is the arity, so both worlds get the arity free.  Of the TWO choices declared here, arity is the richer and empty the poorer, and a poorer key gives fewer distinctions and so more automorphisms: within this pair the declared choice is the more generous to this control, not the less.  What errs against the control is the scope the frozen design states -- the arity alone is the poorest DEFENSIBLE key, against richer keys that lie outside this pair and are not declared here.  Neither declared choice is load-bearing, and that is DEFINITION-level rather than a computed finding: a permitted renaming permutes indices and never changes the mark count, so the key is constant across the images under either choice and both admit the same automorphisms.  The rows below recompute every verdict under both"
   },
   "mirror": {
     "O": {
@@ -18448,7 +18448,7 @@
       ],
       "named_classes": 1,
       "named_minimum": 0,
-      "plurality_is_not_price": "routes and price are separate columns and are NEVER summed; a test asserts that no field of this receipt combines them",
+      "plurality_is_not_price": "routes and price are separate columns and are NEVER summed.  A test walks THIS receipt and requires that the only fields whose names carry both words are the two copies of this declaration itself, in the primary block and in the secondary one; a second test walks the price list's record and requires no such field there at all",
       "plurality_vs_unnamed": -2,
       "routes_bought_are_side_mediated": "both of them: the withdrawal of the side exchange names the sides, and the further mark separates the two retained marks there because the two sides then carry different numbers of marks",
       "routes_bought_count": 2,

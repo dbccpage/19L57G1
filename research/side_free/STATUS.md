@@ -136,18 +136,25 @@ content either.
   The frozen file is not edited and the machine still reports the label the
   frozen file gives, so the correction lives here, as P27's weaker check does.
   The carrier module's comment on the same choice said it "errs AGAINST this
-  control"; within the only pair the module declares, the arity key is the
-  richer and so the more generous of the two, and that comment is reconciled
-  with the frozen design's own scope, which compares the arity key with richer
-  keys that this pair does not contain.
+  control", and so did the sentence the RECORD carries at
+  `key_choice_invariance.why_the_arity_is_declared`; within the only pair
+  either of them declares, the arity key is the richer and so the more generous
+  of the two.  Both now say so, and both attribute the "errs against" scope to
+  the frozen design, which compares the arity key with richer keys that this
+  pair does not contain.  The first repair reached the comment alone and left
+  the record — the copy a reader cites — carrying the reversed sign for one
+  commit; that is recorded here rather than smoothed.
 
 ## The price list
 
 `receipts/comparison.json` and the document it renders, `COMPARISON.md`, put
 the two worlds side by side item by item.  Every boundary number is READ from
-one of the four pinned receipts at `5c43c5ee`, every control number is read
-from this tree's own record or computed from its carrier by replay from
-genesis, and no boundary number is typed into any source file of this tree.
+one of the four pinned receipts at `5c43c5ee` — with one exception, R40's two
+minima of the restricted second measure, which no pinned path carries and
+which are computed on this tree's own mirror and held by the per-point data
+join against the pin instead.  Every control number is read from this tree's
+own record or computed from its carrier by replay from genesis, and no
+boundary number is typed into any source file of this tree.
 
 | what the comparison found | value |
 |---|---|
@@ -156,6 +163,7 @@ genesis, and no boundary number is typed into any source file of this tree.
 | the control differs | **19** items |
 | no statement in one world, so evidence for neither | **2** items: the collapse of the two sides at genesis, and the refusal of an admission that would move a mark |
 | restricted to items that are verdicts or prices | same in **9**, differs in **7** |
+| setting aside the two rows that read a field one world DECLARES rather than computes — R44, and R45, which is declared on BOTH sides and so DEFINITION-level | same in **25**, differs in **18**; restricted to verdicts and prices, same in **8**, differs in **6** |
 | the pinned world's own dependence claims, now read | **20** entries: 5 dependent, 14 independent, 1 mixed, 0 unclassified |
 | universal dependence claims selected mechanically | **1**, and it is **CONTRADICTED** within the declared scope |
 
@@ -227,9 +235,11 @@ Two findings the price list adds that the control alone did not carry.
   rather than argued: with the commit replaced in a temporary manifest by an
   unreachable one, a fresh computation differs from the committed record in
   exactly two lines — `status` PASS becomes SKIPPED, and the reason line
-  changes — so it is not byte-identical to the committed 541191.  No byte
-  count is quoted for that fresh record: its length depends on the substituted
-  id and on git's own message.  The pinned branch is carried by no remote, so
+  changes — so it is not byte-identical to the committed record.  No byte
+  count is quoted on either side: the fresh record's length depends on the
+  substituted id and on git's own message, and the committed record's moves
+  with every recomputation.  The committed count lives in the re-pasted
+  battery transcript below.  The pinned branch is carried by no remote, so
   a checkout that fetches only remote refs is exactly that clone.  The record
   is **not repaired**, because `DESIGN.md` §11 declares that conditional check
   to be part of that record, and the frozen files are not edited to fit a
@@ -271,11 +281,11 @@ line with one field missing; both were stale on arrival, and the fix is to
 re-run rather than to re-type.
 
 ```
-321 tests, OK
+323 tests, OK
 line 100.00% branch 100.00% over 9 files
 mypy: Success: no issues found in 23 source files
-receipt ok: 541191 bytes, byte-identical
-comparison ok: 121113 receipt bytes and 26855 document bytes, byte-identical
+receipt ok: 542219 bytes, byte-identical
+comparison ok: 130322 receipt bytes and 28385 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
 pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
          4 vendored receipt(s), 91 declared value(s), 2 receipt(s)

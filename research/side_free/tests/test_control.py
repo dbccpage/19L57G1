@@ -145,6 +145,41 @@ class DecidedObject(unittest.TestCase):
             ["extra_mark", "withdraw_reflection"],
         )
 
+    def test_only_the_declaration_itself_names_routes_and_price_together(self) -> None:
+        """The guard ``decided.plurality_is_not_price`` names, over THIS record.
+
+        The sibling walk in ``tests/test_comparison.py`` runs over the price
+        list's record and cannot see this one, so the receipt's own sentence
+        is asserted here rather than on a record it does not cover.  The
+        found set is pinned rather than required empty: the declaration that
+        the two are never combined is itself a field whose name carries both
+        words, in the primary block and in the secondary one, and an
+        exclusion for it would be curated where an exact set is not.
+        """
+        found: list[str] = []
+
+        def walk(node: object, path: str) -> None:
+            if isinstance(node, dict):
+                for key, value in node.items():
+                    lowered = str(key).lower()
+                    if ("route" in lowered or "plurality" in lowered) and (
+                        "price" in lowered or "cost" in lowered
+                    ):
+                        found.append(f"{path}.{key}")
+                    walk(value, f"{path}.{key}")
+            elif isinstance(node, list):
+                for index, value in enumerate(node):
+                    walk(value, f"{path}[{index}]")
+
+        walk(RECORD, "")
+        self.assertEqual(
+            sorted(found),
+            [
+                ".decided.plurality_is_not_price",
+                ".secondary.decided.plurality_is_not_price",
+            ],
+        )
+
     def test_the_route_table_disagrees_at_exactly_one_cell(self) -> None:
         self.assertEqual(RECORD["route_disagreements"], ["extra_mark"])
         for row in RECORD["route_table"]:

@@ -103,6 +103,16 @@ malformed pin against every reader, a disagreeing key choice, an empty
 satisfying set, and a scorer forced to report a MISS.  Each is written so it
 FAILS if the guard is removed.
 
+The remaining three published comparison gates are proved the same way, and
+are named here because a census of what has been proved must reach every gate
+the table above publishes.  **C2**: a record stating a delta it does not have
+fails naming `delta_vs_unnamed`; a row disagreeing with the record fails
+naming `R31`; a first control row that is not the base row fails on `not the
+base row`.  **C3**: a record stating the wrong collapse fails on `the collapse
+of the pinned minima`, and one stating the wrong route set fails on `routes
+the pinned world reaches`.  **C4**: a duplicate row id fails on `duplicate row
+ids`.  Each runs over a deep copy, so none of them writes anything.
+
 ## What the gates are worth, stated exactly
 
 * **G4 is the load-bearing tie** between this tree and the pinned world.  It

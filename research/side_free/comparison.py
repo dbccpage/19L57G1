@@ -253,6 +253,36 @@ class Computed:
 
 
 @dataclass(frozen=True)
+class Declared:
+    """A control value this module DECLARES, because nothing computes it.
+
+    Kept apart from ``Computed`` so that a typed-in string cannot be read as
+    a measurement.  A row with a declared column on both sides is true by
+    unfolding two declarations, is flagged DEFINITION-level, and the verdict
+    reports its tallies with and without such rows.
+    """
+
+    key: str
+
+
+# The declared control values, and why each is declared rather than computed.
+# ``paid_by`` has no genesis declaration in this carrier and is not a value the
+# enumeration produces: what pays here is the run, and saying so is a statement
+# about this tree's own procedure rather than a reading off a carrier.  The
+# pinned world flags its own side of the same field as declared and not
+# computed, so the row compares two declarations and is content in neither.
+DECLARED_CONTROL_VALUES: dict[str, object] = {"control_paid_by": "the run"}
+WHY_DECLARED: dict[str, str] = {
+    "control_paid_by": (
+        "there is no genesis declaration of a payer in this carrier and the "
+        "enumeration produces none, so the payer is stated here rather than "
+        "measured; the pinned world flags its own side of this field as "
+        "declared and not computed too"
+    )
+}
+
+
+@dataclass(frozen=True)
 class Count:
     """The length of a pinned list, so a list and a count are never compared."""
 
@@ -284,7 +314,7 @@ class NoStatement:
     reason: str
 
 
-Source = Union[Pin, Receipt, Computed, Count, Collapsed, NoStatement]
+Source = Union[Pin, Receipt, Computed, Declared, Count, Collapsed, NoStatement]
 
 
 @dataclass(frozen=True)
@@ -323,6 +353,13 @@ class Resolver:
             return Cell(
                 self.computed[source.key],
                 f"computed here: {source.key}",
+                False,
+                None,
+            )
+        if isinstance(source, Declared):
+            return Cell(
+                DECLARED_CONTROL_VALUES[source.key],
+                f"declared here, not computed: {source.key}",
                 False,
                 None,
             )
@@ -1242,8 +1279,14 @@ def specs() -> list[Spec]:
             "who pays for the satisfaction",
             Pin(3, "readings.U.price.paid_by"),
             Pin(3, "readings.O.price.paid_by"),
-            Computed("control_paid_by"),
-            note="declared and not computed on the pinned side, by its own flag",
+            Declared("control_paid_by"),
+            note=(
+                "declared and not computed on the pinned side, by its own flag, "
+                "and declared and not computed on the control side too: nothing "
+                "in this carrier computes a payer.  Both columns are "
+                "declarations, so the agreement is true by unfolding them and "
+                "is DEFINITION-level, not a measurement"
+            ),
         ),
         Spec(
             "R46",
@@ -1292,7 +1335,6 @@ def extra_computed(record: Json) -> Json:
         "control_one_step_points": one_step,
         "control_satisfying_one_step_points": satisfying,
         "control_nothing_new_paid": bool(dig(record, "control.summary.base.satisfies")),
-        "control_paid_by": "the run",
     }
 
 
@@ -1369,6 +1411,10 @@ def build_row(resolver: Resolver, spec: Spec) -> Json:
     declared_only = pinned_field_is_declared_not_computed(
         resolver, spec.unnamed
     ) or pinned_field_is_declared_not_computed(resolver, spec.named)
+    control_declared = isinstance(spec.control, Declared)
+    why_declared = (
+        WHY_DECLARED[spec.control.key] if isinstance(spec.control, Declared) else None
+    )
     price = price_cells(resolver, spec.price, kind)
     against_unnamed = difference(unnamed, control)
     against_named = difference(named, control)
@@ -1385,6 +1431,9 @@ def build_row(resolver: Resolver, spec: Spec) -> Json:
         "difference_against_the_unnamed_reading": against_unnamed,
         "difference_against_the_named_reading": against_named,
         "the_pinned_field_is_declared_not_computed": declared_only,
+        "the_control_field_is_declared_not_computed": control_declared,
+        "why_the_control_field_is_declared": why_declared,
+        "is_definition_level": declared_only and control_declared,
         "price": price,
         "status": status_of(against_unnamed, price, "control_equals_unnamed"),
         "status_against_the_named_reading": status_of(
@@ -1482,6 +1531,21 @@ def bought_table(rows: Sequence[Json]) -> Json:
             for row in rows
             if bool(row["the_pinned_field_is_declared_not_computed"])
         ],
+        "rows_whose_control_field_is_declared_not_computed": [
+            row["id"]
+            for row in rows
+            if bool(row["the_control_field_is_declared_not_computed"])
+        ],
+        "definition_level_rows": [
+            row["id"] for row in rows if bool(row["is_definition_level"])
+        ],
+        "why_the_definition_level_rows_are_named": (
+            "a row whose pinned column and control column are BOTH declared and "
+            "not computed agrees by unfolding two declarations.  That is "
+            "DEFINITION-level and is not content, so it is named here and the "
+            "verdict reports its tallies with the declared-field rows and "
+            "without them"
+        ),
         "why_the_kinds_are_reported": (
             "a difference in a world's own bookkeeping -- the size of its "
             "declared space, the tag its serialization key carries -- is not a "
@@ -1728,6 +1792,31 @@ def verdict_block(record: Json, rows: Sequence[Json], table: Json, commit: str) 
     delta_unnamed = dig(record, "decided.delta_vs_unnamed")
     delta_named = dig(record, "decided.delta_vs_named")
     routes = dig(record, "decided.routes_bought_count")
+    declared_ids = [
+        str(row["id"])
+        for row in rows
+        if bool(row["the_pinned_field_is_declared_not_computed"])
+        or bool(row["the_control_field_is_declared_not_computed"])
+    ]
+    definition_ids = [str(row["id"]) for row in rows if bool(row["is_definition_level"])]
+    kept = [row for row in rows if str(row["id"]) not in set(declared_ids)]
+    kept_nothing = len([r for r in kept if str(r["status"]) == BOUGHT_NOTHING])
+    kept_something = len([r for r in kept if str(r["status"]) == BOUGHT_SOMETHING])
+    kept_priced_same = len(
+        [
+            r
+            for r in kept
+            if str(r["status"]) == BOUGHT_NOTHING and str(r["kind"]) in (VERDICT, PRICE)
+        ]
+    )
+    kept_priced_differ = len(
+        [
+            r
+            for r in kept
+            if str(r["status"]) == BOUGHT_SOMETHING
+            and str(r["kind"]) in (VERDICT, PRICE)
+        ]
+    )
     return {
         "statement": (
             f"Over {len(rows)} compared items at the pinned rungs, the control "
@@ -1736,7 +1825,16 @@ def verdict_block(record: Json, rows: Sequence[Json], table: Json, commit: str) 
             f"that have no statement in one world and are therefore evidence for "
             f"neither. Restricted to the items that are verdicts or prices, it "
             f"reaches the same value at the same price in {priced_same} and "
-            f"differs in {priced_differ}. At the imposed requirement the minimum "
+            f"differs in {priced_differ}. Of the {len(rows)} items, "
+            f"{len(declared_ids)} read a field one world or the other DECLARES "
+            f"rather than computes -- {', '.join(declared_ids)} -- and the subset "
+            f"declared on BOTH sides, which agrees by unfolding and is "
+            f"DEFINITION-level rather than content, is {', '.join(definition_ids)}. "
+            f"Setting all {len(declared_ids)} aside, the control reaches the same "
+            f"value at the same price in {kept_nothing} items and differs in "
+            f"{kept_something}, and restricted to verdicts and prices in "
+            f"{kept_priced_same} and {kept_priced_differ}. "
+            f"At the imposed requirement the minimum "
             f"cost differs by {delta_unnamed} from the unnamed reading and by "
             f"{delta_named} from the named reading, and what the admitted "
             f"primitive bought under the unnamed reading is {routes} additional "
@@ -1749,6 +1847,22 @@ def verdict_block(record: Json, rows: Sequence[Json], table: Json, commit: str) 
             "absent": absent,
             "verdict_or_price_bought_nothing": priced_same,
             "verdict_or_price_bought_something": priced_differ,
+        },
+        "counts_without_the_declared_field_rows": {
+            "set_aside": declared_ids,
+            "definition_level": definition_ids,
+            "why": (
+                "a row that reads a declared field on one side compares a "
+                "declaration with a measurement, and a row declared on BOTH sides "
+                "agrees by unfolding.  Neither is curated out of the headline: "
+                "the tallies are reported both ways so the reader may take "
+                "either, and the row-level flags say which is which"
+            ),
+            "rows": len(kept),
+            "bought_nothing": kept_nothing,
+            "bought_something": kept_something,
+            "verdict_or_price_bought_nothing": kept_priced_same,
+            "verdict_or_price_bought_something": kept_priced_differ,
         },
         "decided_value": dig(record, "decided.what_the_admitted_primitive_bought"),
         "scope": (
@@ -1811,21 +1925,30 @@ OPEN_ITEMS: tuple[Json, ...] = (
         "id": "SF-OPEN-E",
         "inherited": False,
         "statement": (
-            "OPENED BY THIS COMPARISON, and not repaired here.  The sibling "
-            "record receipts/side_free.json carries the pinned commit's "
-            "reachability inside its own bytes, so it is not the same file in a "
-            "clone that cannot reach that commit.  Observed, not argued: with the "
-            "commit made unreachable in process, a fresh computation returns 541041 "
-            "bytes against the committed 541009, differing in exactly the two "
-            "lines of gates.G1.commit_check -- status PASS becomes SKIPPED and the "
-            "reason line changes.  The pinned branch is carried by no remote, so a "
-            "checkout that fetches only remote refs is exactly that clone, and the "
-            "step that regenerates the record and then requires no diff would fail "
-            "there.  It is not repaired because the frozen design declares that "
-            "conditional check to be part of that record, and the frozen files are "
-            "not edited to fit a later finding.  THIS record is built the other "
-            "way: its rows are held by sha256 alone and the reachability report is "
-            "printed by the runner, so it is the same file in both clones."
+            "OPENED BY THIS COMPARISON.  The record itself is not repaired; the "
+            "CI step that could not survive it is.  The sibling record "
+            "receipts/side_free.json carries the pinned commit's reachability "
+            "inside its own bytes, at gates.G1.commit_check, so it is not the "
+            "same file in a clone that cannot reach that commit.  Observed, not "
+            "argued: with the commit replaced in a temporary manifest by an "
+            "unreachable one, a fresh computation differs from the committed "
+            "record in exactly two lines -- status PASS becomes SKIPPED, and the "
+            "reason line changes.  No byte count is quoted for that fresh record, "
+            "because its length depends on the substituted id and on git's own "
+            "message.  The pinned branch is carried by no remote, so a checkout "
+            "that fetches only remote refs is exactly that clone.  The record is "
+            "NOT repaired, because the frozen design declares that conditional "
+            "check to be part of it, and the frozen files are not edited to fit a "
+            "later finding.  The CI step IS repaired: it required no diff after a "
+            "fresh run, which reddens that clone on a defect that is not in the "
+            "code, and it now takes the same reachability split the pin verifier "
+            "takes -- the byte comparison is hard where the pinned commit is "
+            "reachable, and where it is not the diff is PRINTED under a named "
+            "SKIP.  Residual, recorded and not closed: in that clone drift in that "
+            "record is visible in the log and is gated by nothing.  THIS record is "
+            "built the other way: its rows are held by sha256 alone and the "
+            "reachability report is printed by the runner, so it is the same file "
+            "in both clones."
         ),
     },
 )
@@ -2119,6 +2242,16 @@ def document(record: Json) -> bytes:
         )
         + "."
     )
+    add("")
+    add(
+        "Rows whose control field this module declares rather than computes: "
+        + show(table["rows_whose_control_field_is_declared_not_computed"])
+        + ".  DEFINITION-level, being declared on both sides: "
+        + show(table["definition_level_rows"])
+        + "."
+    )
+    add("")
+    add(sentence(table["why_the_definition_level_rows_are_named"]) + ".")
     add("")
     add("| kind | bought nothing | bought something | absent |")
     add("|---|---|---|---|")

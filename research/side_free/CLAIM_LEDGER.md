@@ -248,7 +248,13 @@ never counted as content.
   `decided.routes_bought_count`.
 * **Falsifier.**  Any other member set.
 * **Surviving boundary.**  Routes and price are separate columns and are never
-  summed; a test asserts no receipt field combines them.
+  summed.  Two tests hold that, one per record: over `receipts/side_free.json`
+  the only fields whose names carry both words are the two copies of the
+  declaration that says so, and the set is pinned exactly rather than excluded
+  by hand; over `receipts/comparison.json` there is no such field at all.  An
+  earlier version of this line said a test asserted that no field of the
+  side-free receipt combined them — the walk existed only over the comparison
+  record, and the sentence is narrowed to what each test covers.
 
 ### SF-REFUTED-DEPENDENCE
 
@@ -404,7 +410,12 @@ never counted as content.
   control reaches the unnamed reading's value at the unnamed reading's stated
   price in 26, differs in 19, and has no statement in one world in 2.
   Restricted to the items that are verdicts or prices, it reaches the same
-  value at the same price in 9 and differs in 7.
+  value at the same price in 9 and differs in 7.  Two of the 47 — R44 and R45 —
+  read a field one world or the other DECLARES rather than computes, and R45 is
+  declared on both sides, so its agreement is true by unfolding and is
+  DEFINITION-level.  Setting both aside: same in 25, differs in 18, and
+  restricted to verdicts and prices same in 8 and differs in 6.  Both tallies
+  are computed and reported; neither is the curated one.
 * **Status.**  DETERMINISTIC COMPUTATION.
 * **Depends on.**  SF-PIN, SF-DIFFERENCE, SF-MINIMUM.
 * **Assumes.**  The declared item taxonomy, which says what KIND of thing each
@@ -413,6 +424,7 @@ never counted as content.
   an item is in BOUGHT_NOTHING exactly when the control reaches the same value
   at the same stated price.
 * **Python evidence.**  `receipts/comparison.json`, `rows` and `bought_table`;
+  `verdict.counts` and `verdict.counts_without_the_declared_field_rows`;
   `tests/test_comparison.py`; gates C0 to C4; injections I15, I16, I17.
 * **Lean.**  None; the price list is a computation over two receipt sets.
 * **Falsifier.**  Any row whose difference is not what the two sources say, or
@@ -420,14 +432,23 @@ never counted as content.
 * **Surviving boundary.**  Absence is in neither bucket.  Two items — the
   collapse of the two sides at genesis, and the refusal of an admission that
   would move a mark — have no side-free statement, and are evidence neither
-  that the primitive bought something nor that it bought nothing.
+  that the primitive bought something nor that it bought nothing.  And a row
+  reading a declared field measures nothing: R44 compares a pinned declaration
+  with a computed control list, and R45 compares two declarations.  An earlier
+  version of this entry carried R45 in the headline as a computed sameness, its
+  control cell being a typed-in string resolved as computed.
 
 ### SF-NO-HAND-TYPED-BOUNDARY-NUMBER
 
 * **Statement.**  Every boundary value the comparison uses is read from a
   pinned receipt at a declared JSON path, is declared a second time in
   `pinned/BOUNDARY_PIN.json`, and the declaration is total in both directions:
-  91 declared, 91 read, 91 checked.
+  91 declared, 91 read, 91 checked — with **one stated exception**.  R40's two
+  boundary columns are the minima of the restricted second measure, which the
+  pinned receipts do not carry at any JSON path; they are computed on this
+  tree's own mirror and are held instead by the per-point data join against the
+  pin.  An earlier version of this line said *every* boundary value without
+  that exception, and gate C1 never saw those two cells at all.
 * **Status.**  DETERMINISTIC COMPUTATION.
 * **Depends on.**  SF-PIN.
 * **Assumes.**  Nothing beyond the four pinned receipts' bytes.
@@ -436,7 +457,13 @@ never counted as content.
 * **Falsifier.**  A boundary number in a source file of this tree; an
   undeclared value a row reads; a declared value no row reads.
 * **Surviving boundary.**  Totality is not correctness.  A perfect pin of the
-  wrong row set is still the wrong row set, and C1 cannot see that.
+  wrong row set is still the wrong row set, and C1 cannot see that.  And the
+  totality is over the values C1 can see: the resolver records a use only for a
+  value read at a pinned path, so R40's two mirror-computed boundary cells are
+  outside both directions of the count.  What holds them is a different and
+  weaker guarantee — `second_measures.data_join_against_the_pin`, which joins
+  48 rows per reading against the pin and reports the mismatches — and it is
+  named here rather than folded into the 91.
 
 ### SF-READS-A-SIDE
 
@@ -548,10 +575,13 @@ own bytes at `gates.G1.commit_check`.  Observed rather than argued: with the
 commit replaced in a temporary manifest by an unreachable one, a fresh
 computation differs from the committed record in exactly two lines — `status`
 PASS becomes SKIPPED, and the reason line changes — so it is not byte-identical
-to the committed 541191.  No byte count is quoted for that fresh record: its
-length depends on the substituted id and on git's own message, and the earlier
-figures 541041 against 541009 are superseded by this repair and by that
-dependence.  The pinned branch is carried by no remote, so a checkout that
+to the committed record.  No byte count is quoted on either side: the fresh
+record's length depends on the substituted id and on git's own message, and the
+committed record's moves with every recomputation, so a figure written here is
+stale at the next one.  The earlier figures 541041 against 541009 are
+superseded by that dependence, and the count of the committed bytes belongs in
+the re-pasted battery transcript in `STATUS.md`, which is re-run rather than
+re-typed.  The pinned branch is carried by no remote, so a checkout that
 fetches only remote refs is exactly that clone.
 
 The record is **not repaired**, because `DESIGN.md` §11 declares that
