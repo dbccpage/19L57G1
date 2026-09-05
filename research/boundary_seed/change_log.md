@@ -105,10 +105,13 @@ the earlier entry:
 
 ## 2026-09-04, Challenge 1 predictions frozen
 
-`challenge1/PREDICTIONS.md` committed at `152ed096` before any Challenge 1
-code or proof existed in the working tree, sha256
+`challenge1/PREDICTIONS.md` committed at `152ed096` before the branch's
+first Challenge 1 code-or-proof commit, sha256
 `7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7`.
-The existing `challenge*/PREDICTIONS.md -text` attribute covers it.
+The existing `challenge*/PREDICTIONS.md -text` attribute covers it.  (This
+entry first read “before any Challenge 1 code or proof existed in the
+working tree”; corrected in place by the review repair below, because git
+establishes committed order only.)
 
 ## 2026-09-04, Challenge 1
 
@@ -153,3 +156,95 @@ WITHDRAWN from nothing: no earlier claim was narrowed by this rung.  The
 Challenge 0 statement “a later challenge that adds an event kind re-runs
 the census” is kept and annotated: Challenge 1 added no event kind, and the
 census fired anyway on a metatheoretic enumerator.
+
+## 2026-09-04, Challenge 1 exact-head review repair
+
+`SEED.md`, `challenge0/PREDICTIONS.md`, and `challenge1/PREDICTIONS.md`
+remain byte-identical.  Review of `8a8ed61e` found one blocking and ten
+should-fix defects; every finding is addressed, none declined.  Recorded
+rather than folded into the entry above:
+
+- WITHDRAWN: the designation of the convention's admitted candidate as the
+  current state.  The caller supplied and did not retain; the run's own
+  results say the supply entails no admission; no admission event was the
+  caller's; the only declared convention maps a presented side and
+  licenses no admission.  Designating the admitted candidate current
+  turned a candidate from the run's own enumerator into admitted state
+  without an admission event, conflating supply with admission.  The
+  current state after Challenge 1 is now the replay of the caller's
+  history, the supply alone, and equals genesis; the two candidates are
+  certified and retained in their isomorphism classes, none current; the
+  convention selects a candidate admission and admits nothing (paper
+  definition 25, ledger B1-CURRENT-STATE, receipt `current_state`,
+  `candidate_classes`, `convention.candidate_event`, `selection_is_by`;
+  `designated_current` and `retained_non_isomorphic_candidates` removed).
+  Admission is deferred to Challenge 2's “retains”, whose price is that
+  rung's first decision.
+- Re-scored: C1-5 from HIT to PARTIAL.  Its clause “the designation is by
+  convention and not by proof” was first scored as the current-state
+  designation just withdrawn; the repaired run takes the alternative the
+  frozen text said it was betting against, so the clause as first read is
+  MISSED and the facts remain HIT.  Recorded next to its value in the
+  receipt, the status, and the paper; the frozen file untouched.
+- Re-scored: C1-4 from HIT to PARTIAL.  Its clause “the admission is the
+  only event in the history” is false as written (each candidate history
+  is one supply and one admission; a supply is an event by definition 5)
+  and had been scored on the silently weakened reading “the only
+  state-changing event”.  The scorer now scores both readings and reports
+  them, following the C0-4 precedent.
+- The kernel refuses an admission naming an already admitted token on the
+  other side, by name, instead of absorbing it with the requested side
+  discarded: the C1-2 falsifier “an event that moves the admitted mark”
+  could not fire by construction before.  A same-side re-admission stays a
+  no-op and is no longer called a designation; that word is reserved for
+  current-state designation.  Both rules are Python-only DEFINITION (the
+  Lean events carry no token), and the ledger's retention entry now
+  separates the Lean-proved part (supplies and new placements) from them.
+  Negative tests in both directions; C1-2's parenthetical annotated
+  SHARPENED, its retention clause still HIT.
+- Added in Lean: `exchangeSide`, `exchangeSide_exchangeSide`,
+  `map_exchangeSide_map_exchangeSide`, `reflect_step`, `reflect_replay`
+  (by induction on histories), `continuation_reflects`,
+  `other_continuation_is_a_reflection`.  B1-REFLECT-COMMUTES had been
+  PROVED on two single-step lemmas with its history-level “hence” clause a
+  prose step and a cited Python test that checked only an involution; it
+  now rests on the replay-level theorem and on
+  `test_reflect_commutes_with_replay`, which matches the falsifier over
+  86 accepted histories.  The axiom log was regenerated once, deliberately,
+  49 to 55 reports, with no injection live.
+- Narrowed: B1-CONVENTION-O's “related by no permitted renaming” from
+  PROVED to PROVED for the Lean one-mark relation (which under O is raw
+  inequality by unfolding `reflectionPermitted`) and COMPUTED for the
+  general relation with mark permutations, over the unpruned search.  The
+  one-mark relation's adequacy is prose, not a theorem; a Lean statement
+  of it is recorded as a leftover, not attempted.
+- Relabelled DEFINITION, in the ledger, the paper's 7.2, and the status
+  table: B1-SUPPLY-PRESENTATION's state and judgment clauses (`rfl`), the
+  step lemmas `step_reading`, `step_initialDatum`,
+  `step_preserves_sideNamed` (by unfolding; their `replay_` inductions
+  carry the content), `no_event_follows_admitted` (a bare instantiation
+  of `no_event_follows`), and the permission halves of
+  `candidates_related_U` and `candidates_not_related_O`.  The paper's
+  DEFINITION-level sentence had listed five theorems and counted two of
+  the same shape as content; it now lists all of them and says why.
+- Narrowed the freeze-order sentence in the paper, the status, and the
+  entry above to “before the branch's first Challenge 1 code-or-proof
+  commit”, the Challenge 0 repair's wording; the working-tree claim is
+  not something git can establish, and the sentence that followed it
+  already retracted it.
+- The no-timestamp scan matched whole words with `\b`, which treats `_`
+  as a word character and so could not see `build_date`, `run_timestamp`,
+  or `python_version` — the form every key in the receipt takes.  It now
+  requires the watched word not to be glued to letters, is shared with
+  the Challenge 0 receipt test so the two receipts are held to one
+  standard, and is proved by a planted-key test and a `MANUAL.md` row
+  recording the old scan's silence on the same plant.
+- The workflow's test-count grep updated from 97 to 106 after observing
+  the stale count fail on the fresh log.
+
+WITHDRAWN from the Challenge 1 entry above: “C1-1 to C1-7 HIT” (two are
+PARTIAL) and “WITHDRAWN from nothing” (the designation, the PROVED
+labels, and the freeze wording are narrowed here).  The Challenge 0
+status's note that the re-admission convention was remembered as a
+“designation” is left as the historical record it is; the notion it
+names is now called a same-side no-op.

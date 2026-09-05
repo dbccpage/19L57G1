@@ -92,9 +92,21 @@ class EventTests(unittest.TestCase):
         r2 = step(r, AdmitMark("b", 1))
         self.assertEqual(r2.placement, (0, 1))
 
-    def test_readmission_is_designation(self) -> None:
+    def test_readmission_on_its_side_is_a_no_op(self) -> None:
         r = step(genesis(READING_O), AdmitMark("a", 1))
-        self.assertEqual(step(r, AdmitMark("a", 0)), r)
+        self.assertEqual(step(r, AdmitMark("a", 1)), r)
+        self.assertEqual(replay([Supply("a"), AdmitMark("a", 1), AdmitMark("a", 1)], genesis(READING_O)), r)
+
+    def test_moving_admission_is_refused_by_name(self) -> None:
+        for rd in READINGS:
+            r = step(genesis(rd), AdmitMark("a", 0))
+            with self.assertRaisesRegex(AdmissionError, "admitted on side 0.*side 1 would move it"):
+                step(r, AdmitMark("a", 1))
+            history: list[Event] = [Supply("a"), AdmitMark("a", 0), AdmitMark("a", 1)]
+            with self.assertRaisesRegex(AdmissionError, "would move it and is refused"):
+                replay(history, genesis(rd))
+            self.assertFalse(certify(history, genesis(rd), r))
+            self.assertFalse(certify(history, genesis(rd), Regime(rd, ("a",), (1,))))
 
     def test_bad_side_refused(self) -> None:
         with self.assertRaises(AdmissionError):
@@ -180,6 +192,35 @@ class RenamingTests(unittest.TestCase):
         r = Regime(READING_U, ("a", "b", "c"), (0, 1, 1))
         self.assertEqual(reflect(r).placement, (1, 0, 0))
         self.assertEqual(reflect(reflect(r)), r)
+
+    def test_reflect_commutes_with_replay(self) -> None:
+        # The falsifier of the commutation claim: a history whose reflected
+        # replay is not the replay of the side-exchanged history.  Every
+        # history of up to three events over two tokens is tried from genesis
+        # under both readings; a refused history must be refused exchanged.
+        def exchange(e: Event) -> Event:
+            return e if isinstance(e, Supply) else AdmitMark(e.token, 1 - e.side)
+
+        alphabet: list[Event] = [
+            Supply("a"), Supply("b"),
+            AdmitMark("a", 0), AdmitMark("a", 1), AdmitMark("b", 0), AdmitMark("b", 1),
+        ]
+        checked = 0
+        for rd in READINGS:
+            g = genesis(rd)
+            for n in range(4):
+                for history in product(alphabet, repeat=n):
+                    exchanged = [exchange(e) for e in history]
+                    try:
+                        after = replay(list(history), g)
+                    except AdmissionError:
+                        with self.assertRaises(AdmissionError):
+                            replay(exchanged, g)
+                        continue
+                    self.assertEqual(reflect(after), replay(exchanged, reflect(g)), history)
+                    checked += 1
+        # 43 accepted histories per reading: 1 + 2 + 8 + 32 by length.
+        self.assertEqual(checked, 86)
 
     def test_rename_marks_permutes_and_refuses(self) -> None:
         r = Regime(READING_O, ("a", "b"), (0, 1))

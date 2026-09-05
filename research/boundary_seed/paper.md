@@ -49,13 +49,17 @@ Supply, mention, admission, current-state designation, retention,
 observation, and equality are distinct events or relations in the
 kernel: a `Supply` presents and changes no admitted state; a mention is
 the metatheory naming a token in an event and is not itself an event;
-certifying `replay` refuses a new `AdmitMark` without a prior `Supply`;
-re-admission of an existing token is designation rather than duplication
-(declared convention); retention is the placement tuple, and at Challenge
-1 it is proved that every later event preserves an admitted mark's
-judgment; observation is the closed judgment grammar above; regime
-equality is structural and is never conflated with the isomorphism
-relation.  The canonical key is a bounded-computation tool for quotienting
+certifying `replay` refuses a new `AdmitMark` without a prior `Supply`,
+treats a re-admission of an admitted token on its own side as a no-op, and
+refuses one naming the other side because it would move the mark (all
+three Python-only declarations; the Lean events carry no token); the word
+designation is reserved for current-state designation, the current state
+being the replay of the caller's history, and an earlier use of it for the
+re-admission no-op is WITHDRAWN; retention is the placement tuple, and at
+Challenge 1 it is proved that every later event of the Lean grammar
+preserves an admitted mark's judgment; observation is the closed judgment
+grammar above; regime equality is structural and is never conflated with
+the isomorphism relation.  The canonical key is a bounded-computation tool for quotienting
 in the reported census, not an unbounded completeness theorem.
 
 ## 2. The admitted boundary: one declaration, two readings
@@ -94,8 +98,12 @@ replay, the canonical key, the reader, and the convention are Python-only.
 5. **Events.**  `Supply(token)` is external presentation;
    `AdmitMark(token, side)` is a requested admission.
 6. **Step, replay, certification.**  Low-level `step` applies an already
-   validated event.  Certifying `replay` tracks presentations and refuses
-   a new mark without an earlier supply; `certify` rejects such a history.
+   validated event: a supply changes nothing; an admission of a new token
+   places it; one naming an admitted token on its own side is a no-op; one
+   naming the other side would move the mark and is refused by name.
+   Certifying `replay` tracks presentations and refuses a new mark without
+   an earlier supply; `certify` rejects a refused history.  The no-op and
+   both refusals are Python-only: the Lean `place` carries no token.
 7. **Event-follows relation.**  The declared object-language relation
    from a regime to an event is the empty relation.  External events remain
    possible inputs to replay.
@@ -150,22 +158,38 @@ replay, the canonical key, the reader, and the convention are Python-only.
     search over them, and `is_isomorphic` is its truth value.  Agreement
     with canonical-key equality is checked over every pair of regimes with
     at most three marks.
-24. **Challenge 1 histories and the admitted regime.**  The supplied-only
+24. **Challenge 1 histories and the candidate regimes.**  The supplied-only
     history `[Supply(a)]`, and for each side `s` the candidate history
     `[Supply(a), AdmitMark(a, s)]`.  In Lean, `admitted rd s` is the replay
     of the latter from genesis.
-25. **Current-state designation.**  The admitted regime under the declared
-    convention is designated current, by convention and not by proof; a
-    candidate in another isomorphism class is retained as a branch.
+25. **Current-state designation.**  The current state after a challenge is
+    the replay of the caller's history and nothing the caller did not
+    supply.  At Challenge 1 the caller supplies and does not retain, so
+    that history is the supply alone and the current state is genesis with
+    `a` presented.  No admission candidate is current.  The declared
+    convention selects which candidate admission the presented side
+    licenses, if admission is later called for; it admits nothing.  Every
+    isomorphism class of candidates is retained: one class under U, two
+    under O.  An earlier version of this definition designated the
+    convention's admitted candidate as current; that turned a candidate
+    from the run's own enumerator into admitted state with no admission
+    event from the caller, conflated supply with admission, and is
+    WITHDRAWN.
 26. **Judgment and regime domains.**  Bounded metatheoretic domains for
     the separating-judgment computation: every judgment naming a mark
     below two, and every hypothetical placement of at most one mark.  A
     judgment is permitted-renaming-invariant on the domain when it holds
     equally at every regime and at every permitted image of it.
 27. **One-mark relatedness (Lean).**  Equality, or the reflection when the
-    reading permits it.  Sufficient for regimes with at most one mark,
-    where every mark permutation is the identity; the general relation is
-    definition 23.
+    reading permits it.  Intended for regimes with at most one mark, where
+    every mark permutation is the identity; but that adequacy is prose,
+    not a Lean theorem, so a Lean statement about this relation is a
+    statement about it alone and the general relation is definition 23,
+    computed.  Under O the relation reduces to equality by unfolding
+    `reflectionPermitted`.
+28. **Side exchange of a history (Lean).**  `exchangeSide` sends a supply
+    to itself and a placement to the other side; it is an involution on
+    events and, mapped, on histories.
 
 ## 4. Challenge 0: the initial state `<|>`
 
@@ -276,75 +300,94 @@ reading silently added to the model.
 
 Receipt: `receipts/challenge1.json`.  Predictions frozen at sha256
 `7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7` in
-commit `152ed096`, before any Challenge 1 code or proof existed in the
-working tree.  This does not establish when off-tree or untracked work was
-written.
+commit `152ed096`, before the branch's first Challenge 1 code-or-proof
+commit.  Git establishes that committed order only; it does not establish
+when off-tree or untracked work was written.  An earlier version of this
+sentence claimed the stronger working-tree fact and is withdrawn.
 
 The seed asks whether the supply of `<a|>` is a new external
 presentation, a new admitted state, a new internally observable
 distinction, or some combination requiring explicit definitions.  The
 answer is the combination, with the definitions of section 3: it is a new
-external presentation by the `Supply` event and nothing else; it becomes a
-new admitted state only through the separately declared admission event,
-which the supply does not entail; and it becomes a new internally
-observable distinction only after that admission, by exactly one new
-holding judgment.  Under U that one judgment is what takes the two sides
-from collapsed to distinct; under O the sides were already distinct by
-name and the judgment adds the mark's side to the difference.
+external presentation by the `Supply` event and nothing else; it would
+become a new admitted state only through the separately declared admission
+event, which the supply does not entail and which the caller, who supplies
+and does not retain, does not supply at this challenge; and it would
+become a new internally observable distinction only after such an
+admission, by exactly one new holding judgment.  So after Challenge 1 the
+current state under each reading is genesis with `a` presented, and the
+two admission candidates are certified histories that show what an
+admission on either side would do, retained and not current.  Under U the
+one candidate judgment is what would take the two sides from collapsed to
+distinct; under O the sides were already distinct by name and the judgment
+would add the mark's side to the difference.
 
 | result | reading U | reading O | evidence |
 |---|---|---|---|
-| the supply alone | regime equals genesis; every judgment holds after exactly as before | same | receipt `readings.*.supply`; Lean `supply_preserves_holds`, `supply_no_op` |
-| admission needs the prior supply | the candidate history certifies; the admission alone is refused | same | `candidates[*].certified`, `unsupplied_admission_refused` (Python-only precondition) |
-| the admitted mark is retained | its judgment holds after every later event of the grammar; probed by a supply, a re-designation on either side, and a hypothetical second admission | same | `retention.*`; Lean `step_preserves_onSide`, `replay_preserves_onSide` |
-| new holding judgments after admission | exactly `OnSide(0, s)`; `OnSide(0, s')` does not hold; no name judgment | exactly `OnSide(0, s)`; both name judgments hold as at genesis | `new_observations`, `other_side_judgment_holds`, `name_observations_unchanged`; Lean `admitted_onSide_true_iff`, `place_new_judgment`, `place_other_side_false`, `admitted_U_no_sideNamed`, `admitted_O_sideNamed`, `step_preserves_sideNamed`, `replay_preserves_sideNamed` |
-| holding judgments before / after supply / after admission | 0 / 0 / 1 | 2 / 2 / 3 | `holding_judgments_*` |
+| the supply alone | regime equals genesis; every judgment holds after exactly as before | same | receipt `readings.*.supply`; Lean `supply_no_op`, `supply_preserves_holds` (both DEFINITION-level, by unfolding `step`) and `replay_supply_inert` (a history of supplies, by induction) |
+| the current state after the challenge | genesis with `a` presented: the replay of the caller's history, which is the supply alone; no admission candidate is current | same | `current_state`; Lean `replay_supply_inert`; definition 25 |
+| admission needs the prior supply | each candidate history certifies; the admission alone is refused | same | `candidates[*].certified`, `unsupplied_admission_refused` (Python-only precondition) |
+| a candidate's admitted mark is retained | its judgment holds after every later event of the Lean grammar (a supply or a new placement), PROVED; a re-admission on its own side is a no-op and one naming the other side is refused by certifying replay, both Python-only DEFINITION; probed by a supply, a same-side re-admission, a moving admission, and a hypothetical second admission | same | `retention.*`; Lean `replay_preserves_onSide` (its step `step_preserves_onSide`) |
+| new holding judgments after a candidate admission | exactly `OnSide(0, s)`; `OnSide(0, s')` does not hold; no name judgment | exactly `OnSide(0, s)`; both name judgments hold as at genesis | `new_observations`, `other_side_judgment_holds`, `name_observations_unchanged`; Lean `admitted_onSide_true_iff`, `place_new_judgment`, `place_other_side_false`, `admitted_U_no_sideNamed`, `admitted_O_sideNamed`, `replay_preserves_sideNamed` (its step `step_preserves_sideNamed` is by unfolding) |
+| holding judgments before / after supply / after a candidate admission | 0 / 0 / 1 | 2 / 2 / 3 | `holding_judgments_*` |
 | the mark's profile | its side, nothing else | same | `mark_profile`; definition 22 |
 | the two side profiles after one mark | differ | differ | `sides_collapsed = false`; Lean `admitted_sides_differ`, `admitted_contents_placed`, `admitted_contents_other` |
-| the two candidate regimes | unequal; each the other's reflection | same | `convention.candidates_equal`, `other_is_reflection_of_designated`; Lean `admitted_candidates_unequal`, `reflect_admitted`, `reflect_step_place`, `reflect_step_supply` |
-| related by a permitted renaming | yes, the reflection: one class | no: two classes | `candidate_space.classes_under_isomorphism`, `isomorphism_witness`; Lean `candidates_related_U`, `candidates_not_related_O` |
+| the two candidate regimes | unequal; each the other's reflection | same | `convention.candidates_equal`, `other_is_reflection_of_candidate`; Lean `admitted_candidates_unequal`, `reflect_admitted` |
+| related by a permitted renaming | yes, the reflection: one class (Lean `candidates_related_U`, whose permission half is by unfolding; the content is `reflect_admitted`) | no: two classes, COMPUTED over the unpruned search of every mark permutation; the Lean `candidates_not_related_O` closes only the one-mark relation, which under O is raw inequality | `candidate_space.classes_under_isomorphism`, `candidate_classes`, `isomorphism_witness`; Lean as stated |
 | a permitted-renaming-invariant judgment separating them | none on the bounded domain | `OnSide(0, 0)` and `OnSide(0, 1)`; every renaming is the identity at one mark | `permitted_renaming_invariant_separating_judgments`; Lean `invariant_judgment_does_not_separate`, `onSide_separates_candidates` |
 | “which side” as an internal fact | no | yes | the two rows above |
-| the presentation convention | invisible up to the permitted reflection | visible; the other convention's regime is the reflection of the designated one | definition 18; `convention.*` |
-| designated current state | `a` on side 0, by convention | `a` on side 0, by convention; the side-1 candidate retained as a branch | `designated_current`, `retained_non_isomorphic_candidates` |
-| an event follows from the admitted state | none | none | `event_follows_relation_empty`; Lean `no_event_follows_admitted` |
-| initial datum and reading | unchanged by every event | same | `initial_datum_unchanged`, `reading_unchanged`; Lean `step_reading`, `step_initialDatum`, `replay_reading`, `replay_initialDatum` |
+| the presentation convention | invisible up to the permitted reflection | visible; the other convention's candidate is the reflection of the convention's candidate | definition 18; `convention.*` |
+| the convention's candidate | `a` on side 0, selected by convention, not admitted | same; the side-1 candidate is a second class, retained | `convention.candidate_event`, `selection_is_by`, `candidate_classes` |
+| every continuation of one candidate reflects to one of the other | yes | yes; this carries the second O class without a second tower | Lean `reflect_step`, `reflect_replay`, `continuation_reflects`, `other_continuation_is_a_reflection`; `test_reflect_commutes_with_replay` |
+| an event follows from a candidate regime | none | none | `event_follows_relation_empty`; Lean `no_event_follows_admitted` (an instantiation of `no_event_follows`; the relation is empty by definition) |
+| initial datum and reading | unchanged by every event and history | same | `initial_datum_unchanged`, `reading_unchanged`; Lean `replay_reading`, `replay_initialDatum` (their steps `step_reading`, `step_initialDatum` are by unfolding) |
 | new event kind or judgment form needed | none | none | `event_kinds`, `observation_vocabulary` |
 | event-returning functions, by module | kernel: none; presentation: the two constructors; challenge module: the enumerator, the probes, and the two imported constructors | same | `event_returning_functions_by_module`; supplementary census, not the semantic proof |
 
 Three things in this table are decisions and are labelled as such.  The
 convention is metatheory: the inscription `<a|>` does not say which
 admitted name the left of the bar carries, and under O the two
-conventions yield two non-isomorphic regimes.  The run declares one,
-designates its regime current, and retains the other as a branch; the
-branch is carried without a second tower because every continuation of it
-is the reflection of a continuation of the designated one (Lean
-`reflect_step_place`, `reflect_step_supply`).  The one-boundary modelling
-(the mark is placed on a side of the one admitted boundary; the whole is
-not admitted as a second datum) follows the seed's phrase “the admitted
-boundary” and is OPEN as to whether a whole on a side is a datum, which
-Challenge 5 asks.  The designation of the admitted regime as current is by
-convention, not proof, and is said so in the receipt.
+conventions yield two non-isomorphic candidates.  The run declares one
+convention, which selects a candidate and admits nothing; both candidate
+classes are retained, and the second O class is carried without a second
+tower because every continuation of it is the reflection of a
+continuation of the first (Lean `reflect_replay`, `continuation_reflects`,
+`other_continuation_is_a_reflection`; the step lemmas
+`reflect_step_place`, `reflect_step_supply` alone did not cover histories,
+and an earlier version cited only them).  The current state after the
+challenge is the replay of the caller's history, the supply alone: the
+caller supplied and did not retain, so no admission event is the caller's
+and no candidate is current.  An earlier version designated the
+convention's admitted candidate as the current state; that turned a
+candidate from the run's own enumerator into admitted state without an
+admission event from the caller, conflating supply with admission, and is
+WITHDRAWN (definition 25).  The one-boundary modelling (the mark is placed
+on a side of the one admitted boundary; the whole is not admitted as a
+second datum) follows the seed's phrase “the admitted boundary” and is OPEN
+as to whether a whole on a side is a datum, which Challenge 5 asks.
 
 #### 5.2 The predictions, scored
 
 | id | label | status | note |
 |---|---|---|---|
-| C0-X (from Challenge 0) | NOT FORCED | HIT | U: genesis collapsed, the admitted regime not, by one supply and one admission with no new form; O: the sides distinct before and after, the only new holding judgment the mark's own side |
+| C0-X (from Challenge 0) | NOT FORCED | HIT | U: genesis collapsed, every certified candidate not, by one supply and one admission with no new form; O: the sides distinct before and after, the only new holding judgment the mark's own side; scored against the candidates, on which it is conditional |
 | C1-1 supply is presentation only | FORCED | HIT | |
-| C1-2 admission is separate; the mark is retained | FORCED | HIT | |
+| C1-2 admission is separate; the mark is retained | FORCED | HIT, parenthetical SHARPENED | the frozen parenthetical called a re-admission on either side a designation; the repaired kernel treats a re-admission on the mark's own side as a no-op and refuses one naming the other side by name, so no accepted event moves or duplicates the mark and the retention clause holds; the word designation is reserved for current-state designation |
 | C1-3 exactly one new judgment | FORCED | HIT | |
-| C1-4 the two sides under U | FORCED | HIT | |
-| C1-5 the two sides under O, and the convention | NOT FORCED | HIT | the run declared a convention and retained the other candidate, as predicted |
+| C1-4 the two sides under U | FORCED | PARTIAL | the clause “the admission is the only event in the history” is false as written: each candidate history is one supply and one admission, and a supply is an event by definition 5; the first scoring silently read it as “the only state-changing event”, on which reading it holds; every other clause hits; scored PARTIAL as C0-4 was, the receipt carrying both readings |
+| C1-5 the two sides under O, and the convention | NOT FORCED | PARTIAL | the convention was declared, the candidates are unequal in two classes, the other candidate is the reflection of the convention's candidate, and both are carried: HIT; the clause “the designation is by convention and not by proof” was first scored as the current-state designation of the convention's admitted candidate, which conflated supply with admission and is withdrawn; the repaired run designates no admitted candidate current, so that clause as first read is MISSED, and only the convention's selection of a candidate survives |
 | C1-6 no transition follows | FORCED | HIT | |
 | C1-7 one boundary, no second datum | NOT FORCED | HIT on its mechanical part | the falsifier is a modelling claim only a later challenge can trigger |
 | C1-X extrapolation | NOT FORCED | PENDING | scored by Challenge 2 |
 
-Seven of seven hit, and C0-X hit in both halves.  Five of the seven were
-labelled FORCED and follow from Challenge 0's definitions plus the
-admission event Challenge 0 declared; the two NOT FORCED hits concern
-decisions the run made, not facts it found.  The hit rate is evidence of
-the order of the work, not of insight.
+Five of seven hit, two are PARTIAL, and C0-X hit in both halves.  An
+earlier version of this section scored seven of seven; the two PARTIAL
+scores come from the review repair, which scored the frozen text
+literally rather than on a silently weakened reading.  Five of the seven
+were labelled FORCED and, where they hit, follow from Challenge 0's
+definitions plus the admission event Challenge 0 declared; the NOT FORCED
+C1-5 concerned a decision the run made and then withdrew.  The hit rate
+is evidence of the order of the work, not of insight.
 
 #### 5.3 What Challenge 1 does not establish
 
@@ -353,11 +396,17 @@ the order of the work, not of insight.
 - Whether `<a|>` re-supplied at Challenge 2 is the same presentation as
   this one, or whether `<|a>` with the same glyph is a second mark: the
   kernel's `Supply` carries the token only, and the Challenge 0
-  token-uniqueness rule would silently turn a second whole with the same
-  token into a designation of the first mark.  Challenge 2 must decide
-  this loudly.
+  token-uniqueness rule would turn a second whole with the same token
+  into a same-side no-op or a refused moving admission of the first mark.
+  Challenge 2 must decide this loudly.
 - No unbounded theorem for the isomorphism relation; its agreement with
-  the canonical key is checked to three marks.
+  the canonical key is checked to three marks.  Under O, “related by no
+  permitted renaming” is a computation over the unpruned search, not a
+  Lean theorem: the Lean one-mark relation reduces to raw inequality
+  there, and its adequacy for one mark is prose.
+- Nothing about what Challenge 2's “retains” admits, or who pays for it.
+  Challenge 1 admits nothing; the candidates show what an admission would
+  do.
 - Nothing about depth, nesting, or the outside of the boundary.
 
 #### 5.4 Dependence on the admitted boundary
@@ -365,6 +414,7 @@ the order of the work, not of insight.
 | result | dependence |
 |---|---|
 | supply is presentation only | independent of the boundary |
+| the current state is the replay of the caller's history | independent of the boundary |
 | admission is a separate event; certifying replay's precondition | independent of the boundary for the event discipline; the side the mark is retained on requires it |
 | the initial datum and reading are unchanged by every event | independent of the boundary |
 | the event-follows relation stays empty | independent of the boundary |
@@ -382,7 +432,7 @@ Not yet declared; it is declared after Challenge 3 by the seed's order.
 ## 7. Proofs and countermodels
 
 Lean package `lean/`, core Lean only, no dependency on any other package
-in this repository.  Forty-nine theorems, every one with a `#print axioms`
+in this repository.  Fifty-five theorems, every one with a `#print axioms`
 report in `lean/axioms.txt`, checked against a successful clean and fresh
 build by `verify_lean.py`; every report lies within
 `{propext, Quot.sound}`.  `verify_lean.py` also requires every module under
@@ -434,7 +484,7 @@ injection.
 | `getD_append_singleton` | lookup at the old length reads the appended element | propext |
 | `place_new_judgment` | after a placement the placed mark's judgment holds | propext, Quot.sound |
 | `place_other_side_false` | after a placement the other side's judgment for it does not hold | propext |
-| `admitted_onSide_true_iff` | exactly one mark-on-side judgment holds in the admitted regime | propext, Quot.sound |
+| `admitted_onSide_true_iff` | exactly one mark-on-side judgment holds in the candidate regime `admitted rd s` | propext, Quot.sound |
 | `admitted_U_no_sideNamed` | under U no side-name judgment holds after admission | propext |
 | `admitted_O_sideNamed` | under O the name judgments hold as at genesis | propext |
 | `admitted_contents_placed` | the placed side's extension is the one mark | propext, Quot.sound |
@@ -442,18 +492,36 @@ injection.
 | `admitted_sides_differ` | the two profiles differ after one mark, either reading | propext, Quot.sound |
 | `reflect_step_supply` | the reflection commutes with a supply | none |
 | `reflect_step_place` | the reflection carries a placement to the other side | propext |
+| `exchangeSide_exchangeSide` | the side exchange of an event is an involution | propext |
+| `map_exchangeSide_map_exchangeSide` | the side exchange of a history is an involution | propext |
+| `reflect_step` | one step commutes with the reflection up to the side exchange of the event | propext |
+| `reflect_replay` | replay commutes with the reflection: the reflection of a replayed history is the replay of the side-exchanged history from the reflected base | propext |
 | `reflect_admitted` | the two candidates are each other's reflection | propext |
+| `continuation_reflects` | the reflection of a continuation of one candidate is the side-exchanged continuation of the other | propext |
+| `other_continuation_is_a_reflection` | every continuation of the other candidate is the reflection of a continuation of the first | propext |
 | `admitted_candidates_unequal` | the two candidates are unequal as raw data | propext |
-| `candidates_related_U` | under U the candidates are related by a permitted renaming | propext |
-| `candidates_not_related_O` | under O they are related by no permitted renaming | propext |
+| `candidates_related_U` | under U the candidates are related by the one-mark relation; its permission half is by unfolding, its content is `reflect_admitted` | propext |
+| `candidates_not_related_O` | under O the one-mark relation does not relate them; under O that relation is raw inequality by unfolding, so this restates `admitted_candidates_unequal` | propext |
 | `invariant_judgment_does_not_separate` | a reflection-invariant judgment holds equally at both candidates | propext |
 | `onSide_separates_candidates` | the placed mark's own judgment separates them as raw data | propext, Quot.sound |
-| `no_event_follows_admitted` | no event follows from the admitted regime | propext |
+| `no_event_follows_admitted` | no event follows from a candidate regime; an instantiation of `no_event_follows` | propext |
 
 No countermodel is needed at Challenges 0 or 1: no target failed.
-`admitted_eq`, `step_reading`, `step_initialDatum`, `reflect_step_supply`,
-and `supply_preserves_holds` are DEFINITION-level (true by unfolding) and
-are not counted as content.
+DEFINITION-level, true by unfolding or by instantiating a Challenge 0
+theorem, and not counted as content: `admitted_eq`,
+`supply_preserves_holds`, `step_reading`, `step_initialDatum`,
+`step_preserves_sideNamed`, `reflect_step_supply`, `reflect_step` (a case
+split onto `reflect_step_place` and `rfl`), the permission halves of
+`candidates_related_U` and `candidates_not_related_O`, and
+`no_event_follows_admitted`.  An earlier version of this sentence listed
+five of these and counted `step_preserves_sideNamed` and
+`no_event_follows_admitted` as content, although the first has the same
+by-unfolding shape as the listed step lemmas and the second is a bare
+instantiation; that inconsistency is repaired here.  The content the
+ledger relies on is the induction lemmas (`replay_reading`,
+`replay_initialDatum`, `replay_preserves_sideNamed`,
+`replay_preserves_onSide`, `reflect_replay`, `replay_supply_inert`) and
+the evaluations at the candidates.
 
 ## 8. Receipts
 
@@ -461,12 +529,14 @@ are not counted as content.
   (sorted keys, LF, no timestamp, no environment value); regenerated
   byte-identically by `run_challenge0.py` and `run_challenge1.py` and
   checked by the tests and by the research job.
-- The suite passes 97 tests.  Fresh coverage over the five declared code
+- The suite passes 106 tests.  Fresh coverage over the five declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
-- `lean/axioms.txt`: 49 reports, regenerated once at Challenge 1 when the
-  theorem set was final.
+- `lean/axioms.txt`: 55 reports, regenerated once at Challenge 1 when the
+  theorem set was final and once more at the Challenge 1 review repair,
+  when six theorems were added; neither regeneration was under a live
+  injection.
 - Injection record: `MANUAL.md`.
 
 ## 9. The strongest defensible statement so far
@@ -480,23 +550,34 @@ differ only by that declaration and reflection is not permitted even though
 it fixes the empty placement as raw data.
 
 After the supply of `<a|>`, under both readings, the regime is genesis and
-every judgment holds as before: the supply is presentation only.  The mark
-enters the admitted state only through the separate admission event, and
-once admitted its judgment survives every later event of the grammar.
-That admission adds exactly one holding judgment, the mark's side, and
-changes no name judgment, the initial datum, or the reading.  Under U it
-takes the two sides from collapsed to distinct, the two candidate one-mark
-regimes are each other's reflection and related by the permitted
-reflection, so no permitted-renaming-invariant judgment of the bounded
-domain says which side the mark is on.  Under O the sides were already
-distinct by name; the two candidates are unequal and related by no
-permitted renaming, and the mark's own judgment separates them, so which
-named side it lies on is internal — at the price of the O declaration and
-of a metatheoretic presentation convention the inscription does not fix.
-No event follows from any of these states.  These are scoped Lean
-theorems, bounded computations, or labelled definitions and conventions.
-Because the instrument declared prior exposure, they carry no
-blind-independence or independent-discovery conclusion.
+every judgment holds as before: the supply is presentation only, and the
+current state after the challenge is genesis with `a` presented, because
+the caller supplied and did not retain and the current state is the replay
+of the caller's history.  The mark would enter the admitted state only
+through the separate admission event, which no history of the caller's
+contains at this challenge; the two candidate admissions are certified
+and retained, none current.  In a candidate, once admitted the mark's
+judgment survives every later event of the Lean grammar, and the Python
+kernel additionally treats a re-admission on the mark's own side as a
+no-op and refuses one that would move it.  A candidate admission adds
+exactly one holding judgment, the mark's side, and changes no name
+judgment, the initial datum, or the reading.  Under U it would take the
+two sides from collapsed to distinct; the two candidate one-mark regimes
+are each other's reflection and related by the permitted reflection, so
+no permitted-renaming-invariant judgment of the bounded domain says which
+side the mark is on.  Under O the sides were already distinct by name; the
+two candidates are unequal, related by no permitted renaming (a
+computation over the unpruned search; the Lean one-mark relation, which
+is raw inequality under O, does not relate them), and the mark's own
+judgment separates them, so which named side it lies on would be internal
+— at the price of the O declaration and of a metatheoretic presentation
+convention the inscription does not fix, and only once an admission is
+called for.  Every continuation of either candidate is the reflection of
+a continuation of the other, by a replay-level theorem.  No event follows
+from any of these states.  These are scoped Lean theorems, bounded
+computations, or labelled definitions and conventions.  Because the
+instrument declared prior exposure, they carry no blind-independence or
+independent-discovery conclusion.
 
 ## 10. Limitations and open obstructions
 
@@ -505,19 +586,28 @@ blind-independence or independent-discovery conclusion.
 - No unbounded completeness or injectivity theorem is claimed for
   `canonical`; its evidence is the finite census, focused invariance
   tests, and agreement with the witness search to three marks.
-- The Lean one-mark relatedness is sufficient at one mark only; the
-  general isomorphism relation is Python.
+- The Lean one-mark relatedness is intended for one mark only, and that
+  adequacy is prose; under O it reduces to raw inequality.  The general
+  isomorphism relation, mark permutations included, is Python, so “related
+  by no permitted renaming” under O is COMPUTED and not PROVED.
 - The reflection census and the retention probes enumerate hypothetical
   placements and events that no history admits; they are metatheory about
   the kernel, and they admit nothing.
-- The presentation convention is metatheory.  Under O the run's designated
-  current state depends on it; the other convention's tower is carried as
-  the reflection of this one, by a theorem, not by a second tower.
+- The presentation convention is metatheory.  Under O the candidate it
+  selects depends on it; the other convention's candidate is carried as
+  the reflection of it, by the replay-level theorem `reflect_replay`, not
+  by a second tower.  The convention admits nothing, and nothing at
+  Challenge 1 is admitted: what Challenge 2's “retains” admits, and who
+  pays, is Challenge 2's first decision.
+- The re-admission no-op and the moving-admission refusal are Python-only
+  declarations; the Lean events carry no token, so the Lean retention
+  theorems cover supplies and new placements only.
 - Whether a whole on a side is itself a datum is OPEN for Challenge 5; the
   one-boundary modelling at Challenge 1 is a decision.
 - `Supply` carries the token only.  Challenge 2 must say whether the two
   wholes with the same glyph are one presentation or two, and must not let
-  token uniqueness turn the second into a designation silently.
+  token uniqueness turn the second into a same-side no-op or a refused
+  moving admission silently.
 - The Lean package is a manual receipt: the research job runs the
   Python gates and source-isolation scan but does not build Lean.
 - Prior exposure is disclosed and material: the run is source-isolated, not

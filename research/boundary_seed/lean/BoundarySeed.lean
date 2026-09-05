@@ -50,7 +50,13 @@ Challenges 0 and 1.  Every theorem below has a `#print axioms` line, and
 #print axioms BoundarySeed.admitted_sides_differ
 #print axioms BoundarySeed.reflect_step_supply
 #print axioms BoundarySeed.reflect_step_place
+#print axioms BoundarySeed.exchangeSide_exchangeSide
+#print axioms BoundarySeed.map_exchangeSide_map_exchangeSide
+#print axioms BoundarySeed.reflect_step
+#print axioms BoundarySeed.reflect_replay
 #print axioms BoundarySeed.reflect_admitted
+#print axioms BoundarySeed.continuation_reflects
+#print axioms BoundarySeed.other_continuation_is_a_reflection
 #print axioms BoundarySeed.admitted_candidates_unequal
 #print axioms BoundarySeed.candidates_related_U
 #print axioms BoundarySeed.candidates_not_related_O

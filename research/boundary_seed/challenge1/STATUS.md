@@ -1,20 +1,24 @@
-# Challenge 1 — status
+# Challenge 1 — repaired status
 
 `AuthorityEffect: None`.  Session of 2026-09-04, branch
 `research/boundary-run`, opened from main at `7d2e6e86` with Challenge 0
-in its repaired state (53 tests, line and branch 100%, 20 Lean reports).
+in its repaired state (53 tests, line and branch 100%, 20 Lean reports);
+then an exact-head review repair in a further session on the same branch.
 
 ## Order of the work, as committed
 
 1. `152ed096` `challenge1/PREDICTIONS.md` frozen, sha256
    `7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7`,
-   before any Challenge 1 code or proof existed in the working tree.  The
+   before the branch's first Challenge 1 code-or-proof commit.  The
    existing `challenge*/PREDICTIONS.md -text` attribute already covered it
    (`git check-attr` reports `text: unset`), so no attributes change was
-   needed.
-2. This rung's commit: presentation layer, kernel extensions, Lean,
-   receipt, tests, prose, registration, and injections.  Its id is in the
-   session's final report; it is the commit that adds this file.
+   needed.  An earlier version of this line said “before any Challenge 1
+   code or proof existed in the working tree”; git cannot establish that,
+   and the sentence is withdrawn in favour of the committed order.
+2. `8a8ed61e`: presentation layer, kernel extensions, Lean, receipt, tests,
+   prose, registration, and injections.
+3. The review repair commit, which adds this version of the file: the
+   corrections listed under “Repairs” below.
 
 This history proves “committed before” only.  It cannot prove when any
 untracked or off-tree code or proof was written.
@@ -22,10 +26,10 @@ untracked or off-tree code or proof was written.
 ## Provenance ceiling
 
 Inherited unchanged: `SOURCE_ISOLATED_WITH_DECLARED_PRIOR_EXPOSURE`.  The
-session that closed this rung read nothing outside the write root, the
-seed, and the contract sections the harness loads, but it is an instrument
-of the same kind as the one that declared prior exposure, and the notes
-below record where a remembered shape was used.
+sessions that closed and repaired this rung read nothing outside the write
+root, the seed, and the contract sections the harness loads, but they are
+instruments of the same kind as the one that declared prior exposure, and
+the notes below record where a remembered shape was used.
 
 ## Results
 
@@ -34,20 +38,23 @@ Inscription `<a|>`, supplied after the close of Challenge 0.  Receipt
 
 | | reading U | reading O |
 |---|---|---|
-| the supply of `<a|>` | presentation only: regime equals genesis, no judgment changes (PROVED) | same (PROVED) |
-| a new admitted state | only through the separate admission event, refused without the prior supply (DEFINITION); the admitted mark's judgment survives every later event of the grammar (PROVED) | same |
-| new holding judgments after admission | exactly one, `OnSide(0, s)`; the other side's does not hold; no name judgment (PROVED) | exactly one, `OnSide(0, s)`; the two name judgments hold as at genesis (PROVED) |
+| the supply of `<a|>` | presentation only: regime equals genesis, no judgment changes (DEFINITION for one supply, by unfolding `step`; PROVED for a history of supplies, `replay_supply_inert`; COMPUTED for the certified history) | same |
+| the current state after the challenge | genesis with `a` presented: the replay of the caller's history, which is the supply alone; the caller supplied and did not retain, so no admission event is the caller's and no candidate is current (DEFINITION rule; PROVED state; COMPUTED history) | same |
+| a new admitted state | none is current; two certified admission candidates show what an admission on either side would do, refused without the prior supply (DEFINITION); in a candidate the admitted mark's judgment survives every later event of the Lean grammar (PROVED), a same-side re-admission is a no-op and a moving admission is refused (Python-only DEFINITION) | same |
+| new holding judgments after a candidate admission | exactly one, `OnSide(0, s)`; the other side's does not hold; no name judgment (PROVED) | exactly one, `OnSide(0, s)`; the two name judgments hold as at genesis (PROVED for every history; the one-event step is DEFINITION) |
 | the mark's profile | its side, nothing else (DEFINITION) | same |
-| the two sides after one mark | profiles differ (PROVED); the sides went from collapsed to distinct by the admission alone | profiles differ (PROVED); the sides were already distinct by name |
-| the two candidate regimes (`a` on side 0, on side 1) | unequal, each the other's reflection, related by the permitted reflection: one class (PROVED, COMPUTED) | unequal, each the other's reflection, related by no permitted renaming: two classes (PROVED, COMPUTED) |
-| “which side” as an internal fact | not one: no permitted-renaming-invariant judgment of the bounded domain separates the candidates (PROVED, COMPUTED) | one: `OnSide(0, s)` separates them and every renaming is the identity at one mark (PROVED, COMPUTED) |
-| the presentation convention (left is side 0) | invisible up to the permitted reflection | visible; the other convention's regime is the reflection of the designated one (PROVED) and is retained as a branch |
-| designated current state | `a` on side 0, by the declared convention, not by proof | same, with the side-1 candidate retained |
-| an event follows from the state | none (PROVED) | none (PROVED) |
-| initial datum and reading | unchanged by every event (PROVED) | same |
+| the two sides after one candidate admission | profiles differ (PROVED); the admission would take the sides from collapsed to distinct | profiles differ (PROVED); the sides were already distinct by name |
+| the two candidate regimes (`a` on side 0, on side 1) | unequal, each the other's reflection (PROVED); related by the permitted reflection: one class (PROVED for the one-mark relation, whose permission half is DEFINITION; COMPUTED for the general relation) | unequal, each the other's reflection (PROVED); related by no permitted renaming: two classes (COMPUTED over the unpruned search with mark permutations; the Lean one-mark relation, raw inequality under O, does not relate them, PROVED) |
+| “which side” as an internal fact | not one: no permitted-renaming-invariant judgment of the bounded domain separates the candidates (PROVED, COMPUTED) | one, once admitted: `OnSide(0, s)` separates them and every renaming is the identity at one mark (PROVED, COMPUTED) |
+| the presentation convention (left is side 0) | invisible up to the permitted reflection | visible; the other convention's candidate is the reflection of the convention's candidate (PROVED) and is a second class, retained |
+| the convention's candidate | `a` on side 0, selected by convention and admitted by nothing | same; the side-1 candidate retained |
+| every continuation of one candidate reflects to one of the other | yes (PROVED, `reflect_replay`) | yes; this carries the second class without a second tower (PROVED) |
+| an event follows from a candidate regime | none (DEFINITION: the relation is empty by declaration) | same |
+| initial datum and reading | unchanged by every history (PROVED); by one event (DEFINITION) | same |
 | new event kind or judgment form needed | none | none |
 
 Boundary dependence: the supply's inertia, the admission discipline, the
+rule that the current state is the replay of the caller's history, the
 invariance of the initial datum and reading, and the empty event-follows
 relation do not require the admitted boundary.  The one new judgment, the
 profiles, the two candidates, the convention, and the class counts require
@@ -57,34 +64,44 @@ What the challenge exercises, by the seed's list: supply (yes, the
 `Supply` event of the read whole's mark); mention (yes, the token is named
 by the supply and by every candidate admission, and a mention is not an
 event); admission (examined: applied only inside certified candidate
-histories, never by the supply); current-state designation (yes, by the
-declared convention); retention (probed by hypothetical later events, none
-admitted); observation (yes, one new `OnSide` judgment); side (yes, the
-presented side mapped by convention); equality (yes, structural, and
-distinct from the isomorphism relation).
+histories, never by the supply, and never by the caller at this
+challenge); current-state designation (yes: the current state is the
+replay of the caller's history, the supply alone, and equals genesis; no
+candidate is current); retention (probed by hypothetical later events on
+the candidates, none admitted); observation (yes, one new `OnSide`
+judgment in each candidate); side (yes, the presented side mapped by
+convention); equality (yes, structural, and distinct from the isomorphism
+relation).  An earlier version of this paragraph said “current-state
+designation (yes, by the declared convention)” and designated the
+convention's admitted candidate current.  That could not stand beside
+“admission … never by the supply”: it turned a candidate from the run's
+own enumerator into admitted state with no admission event from the
+caller.  WITHDRAWN.
 
 ## Predictions scored
 
 | id | label | status | note |
 |---|---|---|---|
-| C0-X | NOT FORCED | HIT | U half: genesis collapsed, the admitted regime not, with one supply and one admission and no new form; O half: sides distinct before and after, the only new holding judgment is the mark's own side |
+| C0-X | NOT FORCED | HIT | U half: genesis collapsed, every certified candidate not, with one supply and one admission and no new form; O half: sides distinct before and after, the only new holding judgment the mark's own side; scored against the candidates, on which the prediction is conditional |
 | C1-1 | FORCED | HIT | supply leaves the regime and every judgment unchanged |
-| C1-2 | FORCED | HIT | unsupplied admission refused; the admitted mark's judgment survives supplies, re-designation, and a hypothetical second admission |
+| C1-2 | FORCED | HIT, parenthetical SHARPENED | unsupplied admission refused; the admitted mark's judgment survives supplies, a same-side re-admission, and the hypothetical growth probe; the frozen parenthetical called a re-admission on either side a designation, and the repaired kernel instead refuses a re-admission naming the other side by name, so no accepted event moves or duplicates the mark; the word designation is reserved for current-state designation |
 | C1-3 | FORCED | HIT | exactly one new judgment; other side false; names unchanged; supply adds none |
-| C1-4 | FORCED | HIT | U profiles differ; one class; no permitted-renaming-invariant judgment separates the candidates |
-| C1-5 | NOT FORCED | HIT | a convention was declared; two O classes; the other candidate is the reflection and is retained |
+| C1-4 | FORCED | PARTIAL | U profiles differ; one class; no permitted-renaming-invariant judgment separates the candidates: HIT.  The clause “the admission is the only event in the history” is false as written: each candidate history is one supply and one admission, and a supply is an event by definition 5.  It was first scored HIT on the silently weakened reading “the only state-changing event”, which is now scored separately in the receipt (`only_state_changing_event_status: HIT`, `only_event_clause_status: MISSED`).  PARTIAL, as C0-4 was |
+| C1-5 | NOT FORCED | PARTIAL | a convention was declared; two O classes; the other candidate is the reflection of the convention's candidate; both retained: HIT.  The clause “the designation is by convention and not by proof” was first scored HIT as the current-state designation of the convention's admitted candidate; that conflated supply with admission and is withdrawn.  The repaired run designates no admitted candidate current, which is the alternative the frozen text said it was betting against, so that clause as first read is MISSED (`current_state_designation_status: MISSED`); the convention's selection of a candidate survives |
 | C1-6 | FORCED | HIT | empty event-follows relation; datum and reading unchanged; no new form |
-| C1-7 | NOT FORCED | HIT on its mechanical part | one initial datum and one mark in every certified regime; the modelling clause can only be falsified by a later challenge; whole-as-datum is OPEN for Challenge 5 |
+| C1-7 | NOT FORCED | HIT on its mechanical part | one initial datum and one mark in every certified candidate; the modelling clause can only be falsified by a later challenge; whole-as-datum is OPEN for Challenge 5 |
 | C1-X | NOT FORCED | PENDING | scored by Challenge 2 |
 
-Seven of seven scored predictions hit, and C0-X hit in both halves.  Five
-of the seven were labelled FORCED in the frozen file, and every FORCED
-hit follows from Challenge 0's definitions plus the admission event that
-Challenge 0 already declared.  The two NOT FORCED hits are about
-decisions the run made (declare a convention; one boundary), not about
-facts the run discovered.  Git history establishes that the prediction
-file was committed before this rung's code and proofs; it establishes
-nothing about off-tree work and is not evidence of insight.
+Five of seven scored predictions hit, two are PARTIAL, and C0-X hit in
+both halves.  An earlier version of this table scored seven of seven; the
+review repair scored the frozen text literally, and the two PARTIAL rows
+are the result.  The frozen file is untouched.  Five of the seven were
+labelled FORCED in the frozen file, and every FORCED hit follows from
+Challenge 0's definitions plus the admission event that Challenge 0
+already declared.  The NOT FORCED C1-5 was about a decision the run made
+and then withdrew.  Git history establishes that the prediction file was
+committed before this rung's code and proofs; it establishes nothing about
+off-tree work and is not evidence of insight.
 
 ## Where the run reached for a remembered result (declared reading 0)
 
@@ -97,32 +114,51 @@ nothing about off-tree work and is not evidence of insight.
 - The presentation reader and the “left is side 0” convention were
   written from the instrument's habit of separating presentation from
   admission.  The convention's O-visibility and U-invisibility, and that
-  the other convention's tower is the reflection of this one, were derived
-  here first and were not remembered.
+  the other convention's candidate is the reflection of this one, were
+  derived here first and were not remembered.
+- The first session's designation of the convention's admitted candidate
+  as the current state was the instrument's habit, not a derivation; the
+  review found it conflated supply with admission and the repair withdrew
+  it.  Recorded here because it is exactly the kind of remembered move
+  reading 0 warns about.
 - The retention probes and the per-module generator census were written
   from the discipline the repository contract states, not from a
   remembered result.
 - Nothing in the separating-judgment computation, the isomorphism
-  witness, or the reflection-commutation theorems was remembered.
+  witness, or the reflection-commutation theorems was remembered; the
+  replay-level commutation theorem was written for the repair from the
+  reviewers' falsifier.
 
 ## Leftovers, for Challenge 2 and later
 
 - Score C1-X: whether Challenge 2 admits two internal identities for the
   two wholes despite the shared glyph, and what the boundary alone
   distinguishes under each reading.
+- Nothing is admitted at Challenge 1.  Challenge 2 “supplies and retains”:
+  its first decision is what “retains” licenses — whether the caller's
+  retention is the admission event, under which convention, and who pays
+  — and it must not let the Challenge 1 candidates become current by
+  inheritance.
 - `Supply` carries the token only; the presented side is metatheoretic and
-  is consumed by the convention at admission.  Challenge 2 must say
-  whether `<a|>` and `<|a>` are two presentations or one presented twice,
-  and must not let the Challenge 0 token-uniqueness rule turn the second
-  whole into a designation of the first mark silently.
+  is consumed by the convention only when an admission is formed.
+  Challenge 2 must say whether `<a|>` and `<|a>` are two presentations or
+  one presented twice, and must not let the Challenge 0 token-uniqueness
+  rule turn the second whole into a same-side no-op or a refused moving
+  admission silently: the kernel now refuses an admission that would move
+  an admitted token, so a second whole with the same glyph on the other
+  side is refused unless Challenge 2 gives it a distinct internal
+  identity, loudly.
 - The reader is bounded to one mark and one bar by declaration; Challenge
   2 extends the bound deliberately, and Challenge 5 must revisit nesting.
 - Whether a whole on a side is a datum (C1-7's modelling clause) is OPEN
   until Challenge 5 asks it.
-- The Lean isomorphism relation `oneMarkRelated` is sufficient at one
-  mark only; the general relation with mark permutations is Python, cross-
-  checked against the canonical key to three marks, with no unbounded
-  theorem.
+- The Lean isomorphism relation `oneMarkRelated` is intended for one mark
+  only and that adequacy is prose; under O it is raw inequality.  The
+  general relation with mark permutations is Python, cross-checked against
+  the canonical key to three marks, with no unbounded theorem.  A Lean
+  statement that the permitted renamings of a one-placement regime are
+  exactly the identity and, under U, the reflection is a candidate target,
+  not attempted.
 - Challenge 0's leftovers survive: no Lean statement of the equal-count
   law or the class-count closed forms; no unbounded canonical-key theorem;
   the O names have now been proved never to change but nothing yet makes
@@ -131,14 +167,15 @@ nothing about off-tree work and is not evidence of insight.
 
 ## Repairs and live failures during the challenge
 
-Recorded in `change_log.md` and as rows in `MANUAL.md`:
+Recorded in `change_log.md` and as rows in `MANUAL.md`.  During the rung:
 
 - The Challenge 0 generator census fired on the new candidate enumerator
   while it lived in the kernel.  The enumerator moved to the metatheory
   module and the census is now reported per module; the kernel reports
   none.
 - The no-timestamp scan matched the substring `date` inside `candidates`;
-  it now matches whole words.
+  it was narrowed to whole words, which the review then found blind to
+  snake_case keys (below).
 - The first `lake build` did not elaborate `Challenge1.lean` because
   nothing imported it; the root now imports it, and `verify_lean.py` fails
   on any module under `lean/BoundarySeed/` outside the root's import
@@ -147,28 +184,61 @@ Recorded in `change_log.md` and as rows in `MANUAL.md`:
   unfolded past the induction hypothesis; they now step by a definitional
   `show`.  A drafting placeholder theorem was removed before the build.
 
-## Gates run in this session
+The exact-head review repair, in a further session:
+
+- Current-state designation withdrawn from the admitted candidate: the
+  current state is the replay of the caller's supplied-only history and
+  equals genesis; the candidates are retained as certified candidates,
+  none current; the convention selects and admits nothing (paper
+  definition 25, ledger B1-CURRENT-STATE, receipt `current_state`,
+  `candidate_classes`, `convention.candidate_event`).
+- C1-4 and C1-5 re-scored PARTIAL as above, mechanically, with both
+  readings of each disputed clause in the receipt; C1-2's parenthetical
+  annotated SHARPENED.
+- The kernel refuses an admission that would move an admitted mark, by
+  name, instead of absorbing it with the requested side discarded; a
+  same-side re-admission is a no-op and is no longer called a designation;
+  negative tests in both directions.
+- `reflect_replay` and its corollaries added in Lean, with a Python
+  replay-commutation test over 86 accepted histories; the ledger's
+  history-level clause now rests on them rather than on the step lemmas.
+- DEFINITION-level relabelling: the `rfl` and case-split lemmas, the
+  permission halves of the two relatedness theorems, and the instantiation
+  `no_event_follows_admitted` are DEFINITION in the ledger, the paper's
+  section 7.2, and this file's Results table; “related by no permitted
+  renaming” under O is COMPUTED, the Lean one-mark relation being raw
+  inequality there.
+- The freeze-order wording narrowed to what git establishes.
+- The no-timestamp scan now splits snake_case keys, is shared with the
+  Challenge 0 receipt test, and is proved by a planted `build_date` key.
+- The axiom log regenerated deliberately, 49 to 55 reports; the workflow's
+  test-count grep updated, 97 to 106.
+
+## Gates run in the repair session
 
 | gate | result |
 |---|---|
 | `verify_pins.py` | `pins ok: seed ba30bcd600d8 and 2 frozen prediction file(s)` |
-| `unittest discover -s tests` | `Ran 97 tests`, OK |
+| `unittest discover -s tests` | `Ran 106 tests`, OK |
 | `mypy` (strict, tree pyproject) | `Success: no issues found in 17 source files` |
 | `coverage` + `check_coverage.py` | `line 100.00% branch 100.00% over 5 files` |
-| `run_challenge0.py`, `run_challenge1.py` | both receipts byte-identical on rerun; `git diff --exit-code -- receipts` clean |
-| `verify_lean.py` | `lean ok: 49 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` |
-| `ci/check_prose_watchlist.py` | `prose watchlist clean: 49 watched terms, 130 files with pinned hits, 1826 hits, census matches its pin`; no regeneration |
-| `tests/test_primitive_contact.py` | `............s...  [100%]`: 15 passed, 1 skipped |
-| `ci/check_paper_citations.py` | `paper cross-references resolve: 62 citation(s) across 29 document(s)` |
-| injections | five gates proved, three live failures recorded (`MANUAL.md`) |
+| `run_challenge0.py`, `run_challenge1.py` | Challenge 0 receipt byte-unchanged; Challenge 1 receipt regenerated deliberately, then byte-identical on rerun; `git diff --exit-code -- receipts` clean after commit |
+| `verify_lean.py` | `lean ok: 55 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` |
+| `ci/check_prose_watchlist.py` | clean, census matches its pin; no regeneration |
+| `tests/test_primitive_contact.py` | firewall passes |
+| `ci/check_paper_citations.py` | cross-references resolve |
+| injections | three found-live-by-review defects observed failing then passing, and the deliberate regenerations, all in `MANUAL.md` |
 
 ## Next session
 
 Open Challenge 2 fresh: read the handoff, the seed, `PLAN.md`,
 `MANUAL.md`, and this file; write and commit
 `challenge2/PREDICTIONS.md` with its own extrapolation before any code;
-extend the reader's bound to two wholes deliberately; decide how the
-shared glyph relates to internal identity and say who pays; score C1-X.
-The designated current state under each reading is `a` on side 0 by the
-declared convention, with the side-1 candidate retained under O as the
-reflection of it.
+extend the reader's bound to two wholes deliberately; decide what
+“supplies and retains” admits and who pays; decide how the shared glyph
+relates to internal identity; score C1-X.  The current state under each
+reading after Challenge 1 is genesis with `a` presented: nothing is
+admitted.  The two admission candidates (`a` on side 0, on side 1) are
+certified and retained — one class under U, two under O — and the
+declared convention selects the side-0 candidate as the admission the
+inscription's presented side would license, without admitting it.

@@ -12,9 +12,15 @@ Classification (assumption discipline):
   names them ``near`` and ``far``, so the exchange is not a renaming.
 * ``Supply`` is an external presentation event and changes no state.
   ``AdmitMark`` is the only event that changes state: it admits a supplied
-  mark on a side.  Re-admission of an admitted mark is a designation, not
-  a duplication (declared convention, as presentation identity is
-  metatheoretic).
+  mark on a side.  An admission naming a token already admitted on that
+  side is a no-op: the token is already admitted and nothing is
+  duplicated.  An admission naming the other side would move the mark and
+  is refused by name.  Both are Python-only declarations, because the Lean
+  model carries no tokens.  The word "designation" is reserved for
+  current-state designation (the current state is the replay of the
+  caller's history) and is not used for this no-op; an earlier version
+  called the no-op a designation and absorbed the moving admission
+  silently, which is WITHDRAWN.
 * The closed observation grammar has two positive judgment forms:
   ``OnSide`` and, under ``O``, ``SideNamed``.  ``contents`` and
   ``side_profile`` are metatheoretic extensions of those judgments used to
@@ -136,6 +142,12 @@ def step(r: Regime, e: Event) -> Regime:
     if e.side not in (0, 1):
         raise AdmissionError(f"side must be 0 or 1, got {e.side}")
     if e.token in r.marks:
+        held = r.placement[r.marks.index(e.token)]
+        if held != e.side:
+            raise AdmissionError(
+                f"mark {e.token!r} is admitted on side {held}; an admission "
+                f"naming side {e.side} would move it and is refused"
+            )
         return r
     return Regime(r.reading, r.marks + (e.token,), r.placement + (e.side,))
 

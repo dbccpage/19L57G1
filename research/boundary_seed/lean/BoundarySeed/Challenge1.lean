@@ -182,10 +182,59 @@ theorem reflect_step_place (r : Regime) (s : Bool) :
     reflect (step r (.place s)) = step (reflect r) (.place (!s)) := by
   simp [reflect, step]
 
+/-- The side exchange of one event: a supply is unchanged, a placement goes
+to the other side. -/
+def exchangeSide : Event → Event
+  | .supply => .supply
+  | .place s => .place (!s)
+
+theorem exchangeSide_exchangeSide (e : Event) : exchangeSide (exchangeSide e) = e := by
+  cases e with
+  | supply => rfl
+  | place s => simp [exchangeSide]
+
+theorem map_exchangeSide_map_exchangeSide (h : List Event) :
+    (h.map exchangeSide).map exchangeSide = h := by
+  induction h with
+  | nil => rfl
+  | cons e t ih => simp [exchangeSide_exchangeSide, ih]
+
+/-- One step commutes with the reflection up to the side exchange of the event. -/
+theorem reflect_step (r : Regime) (e : Event) :
+    reflect (step r e) = step (reflect r) (exchangeSide e) := by
+  cases e with
+  | supply => rfl
+  | place s => exact reflect_step_place r s
+
+/-- Replay commutes with the reflection: the reflection of a replayed history
+is the replay of the side-exchanged history from the reflected base. -/
+theorem reflect_replay (h : List Event) (r : Regime) :
+    reflect (replay h r) = replay (h.map exchangeSide) (reflect r) := by
+  induction h generalizing r with
+  | nil => rfl
+  | cons e t ih =>
+    show reflect (replay t (step r e)) =
+      replay (t.map exchangeSide) (step (reflect r) (exchangeSide e))
+    rw [ih (step r e), reflect_step]
+
 /-- The two Challenge 1 candidates are each other's reflection. -/
 theorem reflect_admitted (rd : Reading) (s : Bool) :
     reflect (admitted rd s) = admitted rd (!s) := by
   rw [admitted_eq, admitted_eq]; simp [reflect]
+
+/-- Every continuation of one candidate reflects to a continuation of the
+other: the reflection of a history replayed from the candidate on `s` is the
+side-exchanged history replayed from the candidate on `!s`. -/
+theorem continuation_reflects (rd : Reading) (s : Bool) (h : List Event) :
+    reflect (replay h (admitted rd s)) = replay (h.map exchangeSide) (admitted rd (!s)) := by
+  rw [reflect_replay, reflect_admitted]
+
+/-- Every continuation of the candidate on `!s` is the reflection of a
+continuation of the candidate on `s`; under `O` this is what carries the
+retained branch without a second tower. -/
+theorem other_continuation_is_a_reflection (rd : Reading) (s : Bool) (h : List Event) :
+    replay h (admitted rd (!s)) = reflect (replay (h.map exchangeSide) (admitted rd s)) := by
+  rw [continuation_reflects, map_exchangeSide_map_exchangeSide]
 
 /-- The two candidates are unequal as raw data, under either reading. -/
 theorem admitted_candidates_unequal (rd : Reading) (s : Bool) :

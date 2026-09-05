@@ -26,7 +26,9 @@ from boundary.challenge1 import (  # noqa: E402
     PREDICTIONS_SHA256,
     REGIME_DOMAIN_MAX_MARKS,
     SEED_SHA256,
+    STATE_CHANGING_EVENT_KINDS,
     build,
+    candidate_classes,
     event_json,
     event_returning_functions_by_module,
     history_json,
@@ -34,12 +36,14 @@ from boundary.challenge1 import (  # noqa: E402
     judgment_domain,
     one_step_admissions,
     reading_facts,
+    refusal,
     regime_domain,
     score,
     separating_judgments,
 )
 from boundary.model import (  # noqa: E402
     AdmitMark,
+    Event,
     OnSide,
     Regime,
     SideNamed,
@@ -53,9 +57,18 @@ from run_challenge1 import render  # noqa: E402
 
 Json = dict[str, Any]
 
+# A watched word is a hit when it is not glued to letters on either side,
+# so ``build_date`` and ``run_timestamp`` are caught while ``candidates``
+# is not.  ``\b`` would treat ``_`` as a word character and miss both.
+ENVIRONMENT_SCAN = re.compile(r"(?<![a-z])(timestamp|time|date|python|platform|user)(?![a-z])")
+
 
 def sha(path: pathlib.Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def environment_hits(payload: object) -> list[str]:
+    return ENVIRONMENT_SCAN.findall(json.dumps(payload, sort_keys=True).lower())
 
 
 class PinTests(unittest.TestCase):
@@ -82,10 +95,18 @@ class ReceiptTests(unittest.TestCase):
         self.assertNotIn(b"\r", path.read_bytes())
 
     def test_receipt_carries_no_timestamp_or_environment(self) -> None:
-        text = json.dumps(build(), sort_keys=True).lower()
-        hit = re.search(r"\b(timestamp|time|date|python|platform|user)\b", text)
-        self.assertIsNone(hit, hit.group(0) if hit else None)
-        self.assertIn("candidates", text)
+        receipt = build()
+        self.assertEqual(environment_hits(receipt), [])
+        self.assertIn("candidates", json.dumps(receipt, sort_keys=True).lower())
+
+    def test_environment_scan_catches_planted_snake_case_keys(self) -> None:
+        planted = dict(build())
+        planted["build_date"] = "probe"
+        planted["run_timestamp"] = "probe"
+        planted["python_version"] = "probe"
+        self.assertEqual(environment_hits(planted), ["date", "python", "timestamp"])
+        self.assertIsNone(re.search(r"\b(timestamp|date|python)\b", "build_date run_timestamp python_version"))
+        self.assertEqual(environment_hits({"candidates": [], "updated_marks": 0}), [])
 
     def test_receipt_shape(self) -> None:
         receipt = build()
@@ -93,6 +114,7 @@ class ReceiptTests(unittest.TestCase):
         self.assertEqual(receipt["inscription"], INSCRIPTION)
         self.assertEqual(receipt["authority_effect"], "None")
         self.assertEqual(receipt["event_kinds"], ["Supply", "AdmitMark"])
+        self.assertEqual(receipt["state_changing_event_kinds"], ["AdmitMark"])
         self.assertEqual(receipt["observation_vocabulary"], ["OnSide", "SideNamed"])
         self.assertEqual(receipt["state_event_generators"], [])
         self.assertEqual(
@@ -140,8 +162,16 @@ class FactTests(unittest.TestCase):
 
     def test_scores(self) -> None:
         scores = self.receipt["scores"]
-        for cid in ("C1-1", "C1-2", "C1-3", "C1-4", "C1-5", "C1-6", "C1-7"):
+        for cid in ("C1-1", "C1-2", "C1-3", "C1-6", "C1-7"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
+        self.assertEqual(scores["C1-4"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-4"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-4"]["only_event_clause_status"], "MISSED")
+        self.assertEqual(scores["C1-4"]["only_state_changing_event_status"], "HIT")
+        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-5"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-5"]["current_state_designation_status"], "MISSED")
+        self.assertEqual(scores["C1-2"]["readmission_clause_status"], "SHARPENED")
         for cid in ("C1-1", "C1-2", "C1-3", "C1-4", "C1-6"):
             self.assertEqual(scores[cid]["label"], "FORCED", cid)
         for cid in ("C1-5", "C1-7", "C1-X", "C0-X"):
@@ -164,31 +194,54 @@ class FactTests(unittest.TestCase):
         self.assertEqual(self.u["supply"]["holding_judgments_after"], 0)
         self.assertEqual(self.o["supply"]["holding_judgments_after"], 2)
 
+    def test_current_state_is_the_replay_of_the_supplied_only_history(self) -> None:
+        for rd in (self.u, self.o):
+            cur = rd["current_state"]
+            self.assertEqual(cur["history"], [{"kind": "Supply", "token": "a"}])
+            self.assertEqual(cur["placement"], [])
+            self.assertEqual(cur["marks"], 0)
+            self.assertTrue(cur["regime_equals_genesis"])
+            self.assertTrue(cur["certified"])
+            self.assertFalse(cur["admitted_candidate_is_current"])
+            self.assertIn("did not retain", cur["rule"])
+
     def test_candidate_space_and_classes(self) -> None:
         self.assertEqual(self.u["candidate_space"]["count"], 2)
         self.assertEqual(self.o["candidate_space"]["count"], 2)
         self.assertEqual(self.u["candidate_space"]["classes_under_isomorphism"], 1)
         self.assertEqual(self.o["candidate_space"]["classes_under_isomorphism"], 2)
-        self.assertEqual(self.u["retained_non_isomorphic_candidates"], [])
+        side0 = {"kind": "AdmitMark", "token": "a", "side": 0}
+        side1 = {"kind": "AdmitMark", "token": "a", "side": 1}
         self.assertEqual(
-            self.o["retained_non_isomorphic_candidates"],
-            [{"kind": "AdmitMark", "token": "a", "side": 1}],
+            self.u["candidate_classes"],
+            [{"canonical_key": ["U", [0]], "members": [side0, side1]}],
         )
-
-    def test_designated_current_is_by_the_declared_convention(self) -> None:
+        self.assertEqual(
+            self.o["candidate_classes"],
+            [
+                {"canonical_key": ["O", [0]], "members": [side0]},
+                {"canonical_key": ["O", [1]], "members": [side1]},
+            ],
+        )
         for rd in (self.u, self.o):
-            des = rd["designated_current"]
-            self.assertEqual(des["convention"], "left is side 0")
-            self.assertEqual(des["placement"], [0])
-            self.assertTrue(des["certified"])
             self.assertEqual(
-                [e["kind"] for e in des["history"]], ["Supply", "AdmitMark"]
+                sorted(m["side"] for cls in rd["candidate_classes"] for m in cls["members"]),
+                [0, 1],
             )
+
+    def test_convention_selects_a_candidate_and_admits_nothing(self) -> None:
+        for rd in (self.u, self.o):
             conv = rd["convention"]
+            self.assertEqual(conv["declared"], "left is side 0")
             self.assertEqual(conv["presented_side"], "left")
+            self.assertEqual(conv["candidate_event"], {"kind": "AdmitMark", "token": "a", "side": 0})
+            self.assertEqual(conv["other_event"], {"kind": "AdmitMark", "token": "a", "side": 1})
+            self.assertEqual(conv["candidate_placement"], [0])
+            self.assertEqual(conv["other_placement"], [1])
             self.assertFalse(conv["candidates_equal"])
-            self.assertTrue(conv["other_is_reflection_of_designated"])
-            self.assertEqual(conv["designation_is_by"], "declared convention, not proof")
+            self.assertTrue(conv["other_is_reflection_of_candidate"])
+            self.assertIn("admits nothing", conv["selection_is_by"])
+            self.assertIn(conv["candidate_event"], [c["event"] for c in rd["candidates"]])
         self.assertTrue(self.u["convention"]["isomorphic_under_reading"])
         self.assertEqual(
             self.u["convention"]["isomorphism_witness"],
@@ -227,9 +280,22 @@ class FactTests(unittest.TestCase):
                 self.assertTrue(cand["reading_unchanged"])
                 self.assertTrue(cand["event_follows_relation_empty"])
                 self.assertEqual(cand["marks"], 1)
+                self.assertEqual([e["kind"] for e in cand["history"]], ["Supply", "AdmitMark"])
                 ret = cand["retention"]
-                self.assertTrue(ret["regime_unchanged_by_supply_and_redesignation"])
-                self.assertTrue(ret["mark_judgment_retained_after_same_token_probe"])
+                self.assertTrue(ret["regime_unchanged_by_supply_and_readmission"])
+                self.assertTrue(ret["mark_judgment_retained_after_readmission"])
+                self.assertTrue(ret["moving_admission_refused"])
+                self.assertEqual(
+                    ret["moving_admission_refusal"],
+                    f"mark 'a' is admitted on side {side}; an admission naming side "
+                    f"{1 - side} would move it and is refused",
+                )
+                self.assertEqual(
+                    ret["moving_admission_probe"],
+                    [{"kind": "AdmitMark", "token": "a", "side": 1 - side}],
+                )
+                self.assertEqual([e["kind"] for e in ret["readmission_probe"]], ["Supply", "Supply", "AdmitMark"])
+                self.assertEqual(ret["readmission_probe"][-1]["side"], side)
                 self.assertTrue(ret["mark_judgment_retained_after_growth"])
                 self.assertTrue(ret["growth_regime_has_two_marks"])
                 self.assertEqual(cand["mentioned"], ["a"])
@@ -241,6 +307,15 @@ class FactTests(unittest.TestCase):
             history_json([Supply("a"), AdmitMark("a", 1)]),
             [{"kind": "Supply", "token": "a"}, {"kind": "AdmitMark", "token": "a", "side": 1}],
         )
+
+    def test_refusal_names_the_refused_history_and_is_silent_otherwise(self) -> None:
+        g = genesis("U")
+        self.assertIsNone(refusal([Supply("a"), AdmitMark("a", 0)], g))
+        self.assertEqual(
+            refusal([Supply("a"), AdmitMark("a", 0), AdmitMark("a", 1)], g),
+            "mark 'a' is admitted on side 0; an admission naming side 1 would move it and is refused",
+        )
+        self.assertEqual(refusal([AdmitMark("a", 0)], g), "mark 'a' was not supplied before admission")
 
 
 class EnumerationCrossChecks(unittest.TestCase):
@@ -264,7 +339,7 @@ class EnumerationCrossChecks(unittest.TestCase):
     def test_declared_candidate_space_matches_an_unpruned_enumeration(self) -> None:
         for rd in ("U", "O"):
             g = genesis(rd)
-            history = [Supply("a")]
+            history: list[Event] = [Supply("a")]
             after = replay(history, g)
             declared = one_step_admissions(after, supplied(history))
             unpruned = [
@@ -275,6 +350,15 @@ class EnumerationCrossChecks(unittest.TestCase):
             ]
             self.assertEqual(declared, unpruned)
             self.assertEqual(len(declared), 2)
+
+    def test_candidate_classes_group_by_canonical_key(self) -> None:
+        history: list[Event] = [Supply("a")]
+        u = candidate_classes(genesis("U"), history, [AdmitMark("a", 0), AdmitMark("a", 1)])
+        self.assertEqual(len(u), 1)
+        self.assertEqual(len(u[0]["members"]), 2)
+        o = candidate_classes(genesis("O"), history, [AdmitMark("a", 0), AdmitMark("a", 1)])
+        self.assertEqual([cls["canonical_key"] for cls in o], [["O", [0]], ["O", [1]]])
+        self.assertEqual(candidate_classes(genesis("O"), history, []), [])
 
     def test_domains_have_the_declared_sizes(self) -> None:
         self.assertEqual(len(judgment_domain(JUDGMENT_DOMAIN_MAX_MARKS)), 8)
@@ -308,13 +392,20 @@ class ScorerNegativeDirection(unittest.TestCase):
         self.kinds = ["OnSide", "SideNamed"]
         self.events = ["Supply", "AdmitMark"]
 
-    def run_score(self, u: Json | None = None, o: Json | None = None,
-                  kinds: list[str] | None = None, events: list[str] | None = None) -> Json:
+    def run_score(
+        self,
+        u: Json | None = None,
+        o: Json | None = None,
+        kinds: list[str] | None = None,
+        events: list[str] | None = None,
+        state_changing: list[str] | None = None,
+    ) -> Json:
         return score(
             self.u if u is None else u,
             self.o if o is None else o,
             self.kinds if kinds is None else kinds,
             self.events if events is None else events,
+            STATE_CHANGING_EVENT_KINDS if state_changing is None else state_changing,
         )
 
     def mutated(self, base: Json, path: list[Any], value: Any) -> Json:
@@ -325,10 +416,12 @@ class ScorerNegativeDirection(unittest.TestCase):
         node[path[-1]] = value
         return out
 
-    def test_baseline_hits(self) -> None:
+    def test_baseline(self) -> None:
         scores = self.run_score()
-        for cid in ("C1-1", "C1-2", "C1-3", "C1-4", "C1-5", "C1-6", "C1-7", "C0-X"):
+        for cid in ("C1-1", "C1-2", "C1-3", "C1-6", "C1-7", "C0-X"):
             self.assertEqual(scores[cid]["status"], "HIT", cid)
+        self.assertEqual(scores["C1-4"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
 
     def test_c1_1_misses_when_supply_changes_state(self) -> None:
         u = self.mutated(self.u, ["supply", "regime_equals_genesis"], False)
@@ -345,6 +438,16 @@ class ScorerNegativeDirection(unittest.TestCase):
         self.assertEqual(self.run_score(o=o)["C1-2"]["status"], "MISSED")
         u2 = self.mutated(self.u, ["supply", "admitted"], ["a"])
         self.assertEqual(self.run_score(u=u2)["C1-2"]["status"], "MISSED")
+
+    def test_c1_2_misses_when_a_moving_admission_is_accepted(self) -> None:
+        o = self.mutated(self.o, ["candidates", 0, "retention", "moving_admission_refused"], False)
+        scores = self.run_score(o=o)
+        self.assertEqual(scores["C1-2"]["status"], "MISSED")
+        self.assertEqual(scores["C1-2"]["readmission_clause_status"], "MISSED")
+        u = self.mutated(
+            self.u, ["candidates", 1, "retention", "regime_unchanged_by_supply_and_readmission"], False
+        )
+        self.assertEqual(self.run_score(u=u)["C1-2"]["status"], "MISSED")
 
     def test_c1_3_misses_on_a_second_judgment_or_a_changed_name(self) -> None:
         extra = [
@@ -372,15 +475,52 @@ class ScorerNegativeDirection(unittest.TestCase):
         u3 = self.mutated(self.u, ["candidates", 1, "sides_collapsed"], True)
         self.assertEqual(self.run_score(u=u3)["C1-4"]["status"], "MISSED")
 
+    def test_c1_4_only_event_clause_is_scored_literally(self) -> None:
+        # The literal clause would hit only if the history were the admission
+        # alone; a supply is an event, so the actual two-event history is a
+        # literal miss and a state-changing hit, hence PARTIAL.
+        admission_only = [{"kind": "AdmitMark", "token": "a", "side": 0}]
+        u = self.mutated(self.u, ["candidates", 0, "history"], admission_only)
+        u = self.mutated(u, ["candidates", 1, "history"], [{"kind": "AdmitMark", "token": "a", "side": 1}])
+        scores = self.run_score(u=u)
+        self.assertEqual(scores["C1-4"]["status"], "HIT")
+        self.assertEqual(scores["C1-4"]["only_event_clause_status"], "HIT")
+        two_admissions = [
+            {"kind": "AdmitMark", "token": "a", "side": 0},
+            {"kind": "AdmitMark", "token": "b", "side": 0},
+        ]
+        u2 = self.mutated(self.u, ["candidates", 0, "history"], two_admissions)
+        scores = self.run_score(u=u2)
+        self.assertEqual(scores["C1-4"]["status"], "MISSED")
+        self.assertEqual(scores["C1-4"]["facts_status"], "HIT")
+        self.assertEqual(scores["C1-4"]["only_state_changing_event_status"], "MISSED")
+        # a supply counted as state-changing would fail the weaker reading too
+        self.assertEqual(
+            self.run_score(state_changing=["Supply", "AdmitMark"])["C1-4"]["status"], "MISSED"
+        )
+
     def test_c1_5_misses_when_o_collapses_or_loses_the_branch(self) -> None:
         o = self.mutated(self.o, ["candidate_space", "classes_under_isomorphism"], 1)
         self.assertEqual(self.run_score(o=o)["C1-5"]["status"], "MISSED")
         o2 = self.mutated(self.o, ["convention", "isomorphic_under_reading"], True)
         self.assertEqual(self.run_score(o=o2)["C1-5"]["status"], "MISSED")
-        o3 = self.mutated(self.o, ["retained_non_isomorphic_candidates"], [])
+        o3 = self.mutated(self.o, ["candidate_classes"], self.o["candidate_classes"][:1])
         self.assertEqual(self.run_score(o=o3)["C1-5"]["status"], "MISSED")
-        o4 = self.mutated(self.o, ["convention", "other_is_reflection_of_designated"], False)
+        o4 = self.mutated(self.o, ["convention", "other_is_reflection_of_candidate"], False)
         self.assertEqual(self.run_score(o=o4)["C1-5"]["status"], "MISSED")
+        o5 = self.mutated(
+            self.o, ["convention", "candidate_event"], {"kind": "AdmitMark", "token": "z", "side": 0}
+        )
+        self.assertEqual(self.run_score(o=o5)["C1-5"]["status"], "MISSED")
+
+    def test_c1_5_designation_clause_hits_only_if_an_admitted_candidate_were_current(self) -> None:
+        scores = self.run_score()
+        self.assertEqual(scores["C1-5"]["status"], "PARTIAL")
+        self.assertEqual(scores["C1-5"]["current_state_designation_status"], "MISSED")
+        o = self.mutated(self.o, ["current_state", "admitted_candidate_is_current"], True)
+        scores = self.run_score(o=o)
+        self.assertEqual(scores["C1-5"]["status"], "HIT")
+        self.assertEqual(scores["C1-5"]["current_state_designation_status"], "HIT")
 
     def test_c1_6_misses_on_a_following_event_or_a_new_form(self) -> None:
         u = self.mutated(self.u, ["candidates", 0, "event_follows_relation_empty"], False)
@@ -404,9 +544,9 @@ class ScorerNegativeDirection(unittest.TestCase):
         self.assertEqual(c0x["status"], "MISSED")
         o = self.mutated(
             self.o,
-            ["candidates", 0, "new_observations"],
+            ["candidates", 1, "new_observations"],
             [
-                {"kind": "OnSide", "mark": 0, "side": 0},
+                {"kind": "OnSide", "mark": 0, "side": 1},
                 {"kind": "SideNamed", "side": 0, "name": "left"},
             ],
         )
@@ -416,6 +556,8 @@ class ScorerNegativeDirection(unittest.TestCase):
         self.assertEqual(c0x["status"], "MISSED")
         c0x = self.run_score(events=self.events + ["Remove"])["C0-X"]
         self.assertEqual(c0x["U_half_status"], "MISSED")
+        u2 = self.mutated(self.u, ["candidates", 1, "sides_collapsed"], True)
+        self.assertEqual(self.run_score(u=u2)["C0-X"]["U_half_status"], "MISSED")
 
 
 if __name__ == "__main__":

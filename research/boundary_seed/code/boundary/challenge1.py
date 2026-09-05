@@ -1,15 +1,24 @@
 """Challenge 1: the supply of ``<a|>`` under readings U and O.
 
 Everything computed here is metatheory about the kernel in ``model.py``
-and the presentation layer in ``presentation.py``.  Under each reading the
-receipt carries the supplied-only history and every one-step admission
-candidate as separately certified regimes.  It designates the admitted
-regime under the declared convention as the current state, says so, and
-retains the other candidate: under U it is isomorphic and quotiented;
-under O it is a non-isomorphic branch carried by the proved fact that it
-is the reflection of the designated one.  Nothing is admitted silently:
-every state change in the receipt is an event in a replayed history, and
-the retention probes are hypothetical, like the Challenge 0 census.
+and the presentation layer in ``presentation.py``.  The caller supplies
+and does not retain, so under each reading the receipt carries the
+supplied-only history, whose replay is the current state and equals
+genesis, and every one-step admission candidate as a separately certified
+candidate history.  No candidate is designated current: the current state
+is the replay of the caller's history and nothing the caller did not
+supply.  The declared convention selects which candidate admission the
+presented side licenses, if admission is later called for; it admits
+nothing.  Under U the two candidates are one isomorphism class; under O
+they are two, both retained, the second the reflection of the first by a
+replay-level theorem.  Nothing is admitted silently: every state change in
+the receipt is an event in a replayed candidate history, and the retention
+probes are hypothetical, like the Challenge 0 census.
+
+An earlier version designated the convention's admitted candidate as the
+current state.  That turned a candidate from this module's own enumerator
+into admitted state with no admission event from the caller, conflating
+supply with admission, and is WITHDRAWN.
 """
 
 from __future__ import annotations
@@ -30,6 +39,7 @@ from boundary.model import (
     READING_O,
     READING_U,
     SIDE_NAMES,
+    AdmissionError,
     AdmitMark,
     Event,
     Observation,
@@ -73,12 +83,16 @@ INSCRIPTION = "<a|>"
 JUDGMENT_DOMAIN_MAX_MARKS = 2
 REGIME_DOMAIN_MAX_MARKS = 1
 HYPOTHETICAL_TOKEN = "b"
+STATE_CHANGING_EVENT_KINDS: list[str] = ["AdmitMark"]
 
 BOUNDARY_DEPENDENCE: dict[str, str] = {
     "supply is presentation only": "does not depend on the admitted boundary",
     "admission is a separate event; the mark is retained": (
         "does not depend on the admitted boundary for the event discipline; "
         "the side the mark is retained on requires it"
+    ),
+    "the current state is the replay of the caller's history": (
+        "does not depend on the admitted boundary"
     ),
     "the initial datum and reading are unchanged by every event": (
         "does not depend on the admitted boundary"
@@ -104,6 +118,11 @@ def history_json(history: list[Event]) -> list[dict[str, object]]:
 
 def judgments_json(judgments: frozenset[Observation] | list[Observation]) -> list[dict[str, object]]:
     return [judgment_json(j) for j in sorted(judgments, key=repr)]
+
+
+def key_json(key: tuple[object, ...]) -> list[object]:
+    """A canonical key as it is rendered: tuples become lists."""
+    return [list(part) if isinstance(part, tuple) else part for part in key]
 
 
 def judgment_domain(max_marks: int) -> list[Observation]:
@@ -142,13 +161,23 @@ def probes(token: str) -> list[Event]:
     return [Supply(token), AdmitMark(token, 0), AdmitMark(token, 1)]
 
 
+def refusal(history: list[Event], base: Regime) -> str | None:
+    """The message certifying replay refuses a history with, or ``None``."""
+    try:
+        replay(history, base)
+    except AdmissionError as exc:
+        return str(exc)
+    return None
+
+
 def one_step_admissions(r: Regime, presented: frozenset[str]) -> list[AdmitMark]:
     """The declared finite candidate space of admissions after a history.
 
     One candidate per presented, not yet admitted token and per side, in a
     deterministic order.  Deterministic computation over metatheory: it
     enumerates and applies nothing; a candidate becomes state only through
-    ``replay`` of a history that contains it.  It lives here and not in the
+    ``replay`` of a history that contains it, and no history the caller
+    supplied at Challenge 1 contains one.  It lives here and not in the
     kernel because the Challenge 0 generator census fired on it there.
     """
     return [
@@ -189,24 +218,50 @@ def supply_facts(reading: str, g: Regime, history: list[Event]) -> Json:
     }
 
 
+def current_state_facts(g: Regime, history: list[Event]) -> Json:
+    """The current state after the challenge: the replay of the caller's
+    history, which is the supply alone.  No candidate is designated."""
+    current = replay(history, g)
+    return {
+        "rule": "the replay of the caller's history, which supplied and did not retain",
+        "history": history_json(history),
+        "placement": list(current.placement),
+        "marks": current.n_marks(),
+        "regime_equals_genesis": current == g,
+        "certified": certify(history, g, current),
+        "admitted_candidate_is_current": current.n_marks() > 0,
+    }
+
+
 def retention_facts(g: Regime, history: list[Event], r: Regime, ev: AdmitMark) -> Json:
-    """Hypothetical later events of the Challenge 1 grammar; nothing admitted."""
-    same_token: list[Event] = [
+    """Hypothetical later events of the Challenge 1 grammar; nothing admitted.
+
+    A supply and a re-admission of the admitted token on its own side leave
+    the regime unchanged; an admission naming the other side is refused by
+    certifying replay rather than absorbed; a hypothetical second admission
+    of a never-supplied-by-the-caller token leaves the first mark's judgment
+    holding.
+    """
+    readmission: list[Event] = [
         Supply(HYPOTHETICAL_TOKEN),
         Supply(ev.token),
-        AdmitMark(ev.token, 1 - ev.side),
         AdmitMark(ev.token, ev.side),
     ]
+    moving: list[Event] = [AdmitMark(ev.token, 1 - ev.side)]
     growth: list[Event] = [Supply(HYPOTHETICAL_TOKEN), AdmitMark(HYPOTHETICAL_TOKEN, 1 - ev.side)]
-    after_same = replay(history + same_token, g)
+    after_readmission = replay(history + readmission, g)
     after_growth = replay(history + growth, g)
     judgment = OnSide(0, ev.side)
+    moving_refusal = refusal(history + moving, g)
     return {
-        "same_token_probe": history_json(same_token),
-        "regime_unchanged_by_supply_and_redesignation": after_same == r,
+        "readmission_probe": history_json(readmission),
+        "regime_unchanged_by_supply_and_readmission": after_readmission == r,
+        "mark_judgment_retained_after_readmission": observation_holds(after_readmission, judgment),
+        "moving_admission_probe": history_json(moving),
+        "moving_admission_refused": moving_refusal is not None,
+        "moving_admission_refusal": moving_refusal,
         "growth_probe": history_json(growth),
         "mark_judgment_retained_after_growth": observation_holds(after_growth, judgment),
-        "mark_judgment_retained_after_same_token_probe": observation_holds(after_same, judgment),
         "growth_regime_has_two_marks": after_growth.n_marks() == 2,
     }
 
@@ -223,7 +278,7 @@ def candidate_facts(reading: str, g: Regime, supplied_history: list[Event], ev: 
         "unsupplied_admission_refused": not certify([ev], g, r),
         "marks": r.n_marks(),
         "placement": list(r.placement),
-        "canonical_key": list(canonical(r)),
+        "canonical_key": key_json(canonical(r)),
         "side_profiles": [profile_json(side_profile(r, 0)), profile_json(side_profile(r, 1))],
         "sides_collapsed": sides_collapsed(r),
         "new_observations": judgments_json(new_observations(after_supply, r)),
@@ -244,14 +299,15 @@ def candidate_facts(reading: str, g: Regime, supplied_history: list[Event], ev: 
 
 
 def convention_facts(reading: str, g: Regime, whole: Whole, supplied_history: list[Event]) -> Json:
-    designated_event = admission_event(whole, DECLARED_CONVENTION)
+    """The declared convention selects a candidate admission; it admits nothing."""
+    candidate_event = admission_event(whole, DECLARED_CONVENTION)
     other_event = admission_event(whole, OTHER_CONVENTION)
-    designated = replay(supplied_history + [designated_event], g)
+    candidate = replay(supplied_history + [candidate_event], g)
     other = replay(supplied_history + [other_event], g)
-    witness = isomorphism_witness(designated, other)
+    witness = isomorphism_witness(candidate, other)
     judgments = judgment_domain(JUDGMENT_DOMAIN_MAX_MARKS)
     domain = regime_domain(reading, REGIME_DOMAIN_MAX_MARKS)
-    separating = separating_judgments(designated, other, judgments)
+    separating = separating_judgments(candidate, other, judgments)
     invariant_separating = [
         j for j in separating if invariant_under_permitted_renamings(j, domain)
     ]
@@ -259,13 +315,13 @@ def convention_facts(reading: str, g: Regime, whole: Whole, supplied_history: li
         "declared": DECLARED_CONVENTION,
         "conventions": {name: dict(sides) for name, sides in CONVENTIONS.items()},
         "presented_side": whole.presented_side,
-        "designated_event": event_json(designated_event),
+        "candidate_event": event_json(candidate_event),
         "other_event": event_json(other_event),
-        "designated_placement": list(designated.placement),
+        "candidate_placement": list(candidate.placement),
         "other_placement": list(other.placement),
-        "candidates_equal": designated == other,
-        "other_is_reflection_of_designated": reflect(designated) == other,
-        "isomorphic_under_reading": is_isomorphic(designated, other),
+        "candidates_equal": candidate == other,
+        "other_is_reflection_of_candidate": reflect(candidate) == other,
+        "isomorphic_under_reading": is_isomorphic(candidate, other),
         "isomorphism_witness": (
             None if witness is None else {"reflected": witness[0], "permutation": list(witness[1])}
         ),
@@ -273,8 +329,20 @@ def convention_facts(reading: str, g: Regime, whole: Whole, supplied_history: li
         "regime_domain_max_marks": REGIME_DOMAIN_MAX_MARKS,
         "separating_judgments": judgments_json(separating),
         "permitted_renaming_invariant_separating_judgments": judgments_json(invariant_separating),
-        "designation_is_by": "declared convention, not proof",
+        "selection_is_by": "declared convention, not proof; the convention admits nothing",
     }
+
+
+def candidate_classes(g: Regime, supplied_history: list[Event], candidates: list[AdmitMark]) -> list[Json]:
+    """The candidates grouped by canonical key; every class is retained."""
+    classes: dict[tuple[object, ...], list[dict[str, object]]] = {}
+    for ev in candidates:
+        key = canonical(replay(supplied_history + [ev], g))
+        classes.setdefault(key, []).append(event_json(ev))
+    return [
+        {"canonical_key": key_json(key), "members": members}
+        for key, members in sorted(classes.items(), key=lambda item: repr(item[0]))
+    ]
 
 
 def reading_facts(reading: str) -> Json:
@@ -283,57 +351,48 @@ def reading_facts(reading: str) -> Json:
     supplied_history: list[Event] = [supply_event(whole)]
     candidates = one_step_admissions(replay(supplied_history, g), supplied(supplied_history))
     candidate_rows = [candidate_facts(reading, g, supplied_history, ev) for ev in candidates]
-    keys = {tuple(row["canonical_key"]) for row in candidate_rows}
-    convention = convention_facts(reading, g, whole, supplied_history)
-    designated = next(
-        row for row in candidate_rows if row["event"] == convention["designated_event"]
-    )
-    retained = [
-        row["event"]
-        for row in candidate_rows
-        if row["event"] != convention["designated_event"]
-        and tuple(row["canonical_key"]) != tuple(designated["canonical_key"])
-    ]
+    classes = candidate_classes(g, supplied_history, candidates)
     return {
         "reading": reading,
         "whole": {"token": whole.token, "presented_side": whole.presented_side},
         "genesis_sides_collapsed": sides_collapsed(g),
         "genesis_holding_judgments": len(observations(g)),
         "supply": supply_facts(reading, g, supplied_history),
+        "current_state": current_state_facts(g, supplied_history),
         "candidate_space": {
             "declared": "each supplied, not yet admitted token on each side",
             "count": len(candidates),
-            "classes_under_isomorphism": len(keys),
+            "classes_under_isomorphism": len(classes),
         },
         "candidates": candidate_rows,
-        "convention": convention,
-        "designated_current": {
-            "convention": DECLARED_CONVENTION,
-            "history": designated["history"],
-            "placement": designated["placement"],
-            "canonical_key": designated["canonical_key"],
-            "certified": designated["certified"],
-        },
-        "retained_non_isomorphic_candidates": retained,
+        "candidate_classes": classes,
+        "convention": convention_facts(reading, g, whole, supplied_history),
     }
 
 
 def score_c0x(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]) -> Json:
-    """Score the Challenge 0 extrapolation against the Challenge 1 facts."""
-    u_des = next(c for c in u["candidates"] if c["event"] == u["convention"]["designated_event"])
-    o_des = next(c for c in o["candidates"] if c["event"] == o["convention"]["designated_event"])
+    """Score the Challenge 0 extrapolation against the Challenge 1 facts.
+
+    C0-X is conditional on the mark being admitted on a side, so it is
+    scored against every certified candidate, not against a current state.
+    """
     no_augmentation = (
         observation_kinds == ["OnSide", "SideNamed"]
         and event_kinds == ["Supply", "AdmitMark"]
-        and [e["kind"] for e in u_des["history"]] == ["Supply", "AdmitMark"]
+        and all(
+            [e["kind"] for e in c["history"]] == ["Supply", "AdmitMark"] for c in u["candidates"]
+        )
     )
-    u_half = bool(u["genesis_sides_collapsed"]) and not u_des["sides_collapsed"] and no_augmentation
-    o_side = o_des["event"]["side"]
-    o_half = (
-        not o["genesis_sides_collapsed"]
-        and not o_des["sides_collapsed"]
-        and o_des["new_observations"] == [{"kind": "OnSide", "mark": 0, "side": o_side}]
-        and o_des["name_observations_unchanged"]
+    u_half = (
+        bool(u["genesis_sides_collapsed"])
+        and all(not c["sides_collapsed"] for c in u["candidates"])
+        and no_augmentation
+    )
+    o_half = not o["genesis_sides_collapsed"] and all(
+        not c["sides_collapsed"]
+        and c["new_observations"] == [{"kind": "OnSide", "mark": 0, "side": c["event"]["side"]}]
+        and c["name_observations_unchanged"]
+        for c in o["candidates"]
     )
 
     def verdict(hit: bool) -> str:
@@ -345,18 +404,27 @@ def score_c0x(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[
         "U_half_status": verdict(u_half),
         "O_half_status": verdict(o_half),
         "evidence": (
-            "U: genesis collapsed, the designated one-mark regime not, with a "
+            "U: genesis collapsed, every certified one-mark candidate not, with a "
             "history of one supply and one admission and no new event kind or "
             "judgment form; O: the sides were distinct and remain so, and the only "
-            "new holding judgment is the mark's own side"
+            "new holding judgment of every candidate is the mark's own side"
         ),
     }
 
 
-def score(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]) -> Json:
+def score(
+    u: Json,
+    o: Json,
+    observation_kinds: list[str],
+    event_kinds: list[str],
+    state_changing: list[str],
+) -> Json:
     """Mechanical scoring of the frozen Challenge 1 predictions and of C0-X."""
     both = (u, o)
     cands = [c for rd in both for c in rd["candidates"]]
+
+    def verdict(hit: bool) -> str:
+        return "HIT" if hit else "MISSED"
 
     c1_1 = all(
         rd["supply"]["regime_equals_genesis"]
@@ -367,8 +435,9 @@ def score(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]
     c1_2 = all(rd["supply"]["admitted"] == [] for rd in both) and all(
         c["certified"]
         and c["unsupplied_admission_refused"]
-        and c["retention"]["regime_unchanged_by_supply_and_redesignation"]
-        and c["retention"]["mark_judgment_retained_after_same_token_probe"]
+        and c["retention"]["regime_unchanged_by_supply_and_readmission"]
+        and c["retention"]["mark_judgment_retained_after_readmission"]
+        and c["retention"]["moving_admission_refused"]
         and c["retention"]["mark_judgment_retained_after_growth"]
         for c in cands
     )
@@ -387,26 +456,41 @@ def score(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]
         for c in rd["candidates"]
     )
     uc = u["convention"]
-    c1_4 = (
+    c1_4_facts = (
         all(not c["sides_collapsed"] for c in u["candidates"])
-        and all([e["kind"] for e in c["history"]] == ["Supply", "AdmitMark"] for c in u["candidates"])
         and not uc["candidates_equal"]
-        and uc["other_is_reflection_of_designated"]
+        and uc["other_is_reflection_of_candidate"]
         and u["candidate_space"]["classes_under_isomorphism"] == 1
         and uc["isomorphic_under_reading"]
         and uc["permitted_renaming_invariant_separating_judgments"] == []
     )
+    # The frozen clause reads "the admission is the only event in the
+    # history".  A supply is an event by definition 5, so the clause is
+    # scored literally and, separately, on the weaker reading "the only
+    # state-changing event"; a literal miss with a weaker hit is PARTIAL.
+    c1_4_only_event = all(len(c["history"]) == 1 for c in u["candidates"])
+    c1_4_only_state_changing = all(
+        [e["kind"] for e in c["history"] if e["kind"] in state_changing] == ["AdmitMark"]
+        for c in u["candidates"]
+    )
     oc = o["convention"]
-    c1_5 = (
+    c1_5_facts = (
         oc["declared"] in oc["conventions"]
         and o["candidate_space"]["count"] == 2
         and all(c["certified"] for c in o["candidates"])
         and not oc["candidates_equal"]
         and o["candidate_space"]["classes_under_isomorphism"] == 2
         and not oc["isomorphic_under_reading"]
-        and oc["other_is_reflection_of_designated"]
-        and len(o["retained_non_isomorphic_candidates"]) == 1
+        and oc["other_is_reflection_of_candidate"]
+        and len(o["candidate_classes"]) == 2
+        and oc["candidate_event"] in [c["event"] for c in o["candidates"]]
     )
+    # The frozen clause "the designation is by convention and not by proof"
+    # was first scored as current-state designation of the convention's
+    # admitted candidate.  The caller supplied and did not retain, so no
+    # admitted candidate is current; that reading is scored here as it was
+    # read, and fails.  The convention's selection of a candidate survives.
+    c1_5_designated_current = bool(o["current_state"]["admitted_candidate_is_current"])
     c1_6 = (
         all(
             c["event_follows_relation_empty"] and c["initial_datum_unchanged"] and c["reading_unchanged"]
@@ -419,9 +503,6 @@ def score(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]
         rd["genesis_holding_judgments"] == rd["supply"]["holding_judgments_before"] for rd in both
     ) and c1_6
 
-    def verdict(hit: bool) -> str:
-        return "HIT" if hit else "MISSED"
-
     return {
         "C0-X": score_c0x(u, o, observation_kinds, event_kinds),
         "C1-1": {
@@ -432,9 +513,19 @@ def score(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]
         "C1-2": {
             "status": verdict(c1_2),
             "label": "FORCED",
+            "readmission_clause_status": "SHARPENED" if c1_2 else "MISSED",
+            "readmission_clause_fact": (
+                "the frozen parenthetical called a re-admission on either side a "
+                "designation; a re-admission on the mark's own side is a no-op and "
+                "one naming the other side is refused by certifying replay, so no "
+                "accepted event moves or duplicates the mark; the word designation "
+                "is reserved for current-state designation"
+            ),
             "evidence": (
                 "no mark after supply alone; every candidate certified only with the "
-                "prior supply; retention probes leave the mark's judgment holding"
+                "prior supply; a supply and a same-side re-admission leave the regime "
+                "unchanged; a moving admission is refused; the hypothetical growth "
+                "probe leaves the mark's judgment holding"
             ),
         },
         "C1-3": {
@@ -446,21 +537,47 @@ def score(u: Json, o: Json, observation_kinds: list[str], event_kinds: list[str]
             ),
         },
         "C1-4": {
-            "status": verdict(c1_4),
+            "status": (
+                "MISSED"
+                if not c1_4_facts
+                else "HIT"
+                if c1_4_only_event
+                else "PARTIAL"
+                if c1_4_only_state_changing
+                else "MISSED"
+            ),
             "label": "FORCED",
+            "facts_status": verdict(c1_4_facts),
+            "only_event_clause_status": verdict(c1_4_only_event),
+            "only_state_changing_event_status": verdict(c1_4_only_state_changing),
             "evidence": (
                 "U profiles differ after one admission; the candidates are unequal, "
                 "each the other's reflection, one isomorphism class, and no "
-                "permitted-renaming-invariant judgment of the bounded domain separates them"
+                "permitted-renaming-invariant judgment of the bounded domain separates "
+                "them; the clause 'the admission is the only event in the history' is "
+                "false as written, the history being one supply and one admission, and "
+                "is scored on the reading 'the only state-changing event'"
             ),
         },
         "C1-5": {
-            "status": verdict(c1_5),
+            "status": (
+                "MISSED"
+                if not c1_5_facts
+                else "HIT"
+                if c1_5_designated_current
+                else "PARTIAL"
+            ),
             "label": "NOT FORCED",
+            "facts_status": verdict(c1_5_facts),
+            "current_state_designation_status": verdict(c1_5_designated_current),
             "evidence": (
                 "a declared convention; two certified O candidates in two classes, "
-                "not isomorphic, the other the reflection of the designated; one "
-                "retained non-isomorphic branch"
+                "not isomorphic, the other the reflection of the convention's "
+                "candidate; both classes retained; the convention selects a candidate "
+                "admission; the clause 'the designation is by convention' was first "
+                "scored as current-state designation of the admitted candidate, which "
+                "conflated supply with admission and is withdrawn: the caller "
+                "supplied and did not retain, so no admitted candidate is current"
             ),
         },
         "C1-6": {
@@ -502,7 +619,7 @@ def build() -> Json:
         "challenge0_predictions_sha256": C0_PREDICTIONS_SHA256,
         "readings": {READING_U: u, READING_O: o},
         "event_kinds": event_kinds,
-        "state_changing_event_kinds": ["AdmitMark"],
+        "state_changing_event_kinds": list(STATE_CHANGING_EVENT_KINDS),
         "state_event_generators": state_event_generators(),
         "event_returning_functions_by_module": event_returning_functions_by_module(),
         "observation_vocabulary": observation_kinds,
@@ -511,20 +628,23 @@ def build() -> Json:
             "mention": "yes: the token is named by the supply and by every candidate admission",
             "admission": (
                 "examined: applied only in the certified candidate histories, "
-                "never by the supply"
+                "never by the supply, and never by the caller at this challenge"
             ),
             "current-state designation": (
-                "yes: the admitted regime under the declared convention is designated current"
+                "yes: the current state is the replay of the caller's history, the "
+                "supply alone, and equals genesis; no admission candidate is current"
             ),
-            "retention": "probed: the admitted mark's judgment survives every later grammar event",
-            "observation": "yes: one new OnSide judgment holds after admission",
+            "retention": (
+                "probed: a supply and a same-side re-admission leave the admitted "
+                "mark's judgment holding; a moving admission is refused"
+            ),
+            "observation": "yes: one new OnSide judgment holds after a candidate admission",
             "side": "yes: the presented side, mapped to an admitted side by convention",
             "equality": (
                 "yes: structural regime equality, distinct from the isomorphism relation"
             ),
         },
         "boundary_dependence": BOUNDARY_DEPENDENCE,
-        "scores": score(u, o, observation_kinds, event_kinds),
+        "scores": score(u, o, observation_kinds, event_kinds, STATE_CHANGING_EVENT_KINDS),
         "authority_effect": "None",
     }
-

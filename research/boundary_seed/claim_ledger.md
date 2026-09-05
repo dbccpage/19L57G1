@@ -220,8 +220,8 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Axiom report**: not applicable.
 - **Falsifier**: a row of the census that departs from the closed form.
 - **Surviving boundary**: the enumerated zero-through-four-mark domain; the
-  `n = 1` row is now realized by admitted candidates (B1-SIDES-U,
-  B1-CONVENTION-O).
+  `n = 1` row is now realized by certified, not current, candidates
+  (B1-SIDES-U, B1-CONVENTION-O, B1-CURRENT-STATE).
 
 ### B0-CANONICAL-SCOPE
 
@@ -273,8 +273,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   after; the only new holding judgment is the mark's own side).
 - **Dependencies**: the admission grammar Challenge 1 declares (definitions
   19, 21, 24).
-- **Assumptions**: the declared presentation convention selects the
-  designated candidate; both candidates score identically.
+- **Assumptions**: the prediction is conditional on the mark being
+  admitted, so it is scored against every certified candidate; both score
+  identically; no candidate is current (B1-CURRENT-STATE).
 - **Python evidence**: receipt `receipts/challenge1.json` `scores.C0-X`;
   `test_scores`, `test_c0_x_halves_miss_independently`.
 - **Lean theorem**: `BoundarySeed.admitted_sides_differ`,
@@ -293,46 +294,107 @@ Python receipt, bounded), LIMITATION, OPEN.
   genesis, the supply-only history certifies genesis, and every judgment
   of the closed grammar holds after the supply exactly when it held
   before.
-- **Status**: PROVED (state and judgment clauses); COMPUTED (the certified
-  history).
+- **Status**: DEFINITION (one supply changes no state and no judgment, by
+  unfolding `step`: `supply_no_op`, `supply_preserves_holds` are `rfl`);
+  PROVED (a history of supplies replays to its base, by induction:
+  `replay_supply_inert`); COMPUTED (the certified supply-only history).
+  An earlier version labelled the two `rfl` theorems PROVED, which the
+  paper's own DEFINITION-level list contradicted; corrected.
 - **Dependencies**: definitions 5, 6, 9, 17, 19.
 - **Assumptions**: the read whole's token is what the supply presents; the
   presented side is not carried by the event.
 - **Python evidence**: receipt `readings.*.supply`;
   `test_supply_is_presentation_only_under_both_readings`; score C1-1;
   `test_c1_1_misses_when_supply_changes_state`.
-- **Lean theorem**: `BoundarySeed.supply_preserves_holds`,
-  `BoundarySeed.supply_no_op`.
-- **Axiom report**: propext; none.
+- **Lean theorem**: `BoundarySeed.supply_no_op`,
+  `BoundarySeed.supply_preserves_holds` (both DEFINITION-level);
+  `BoundarySeed.replay_supply_inert`.
+- **Axiom report**: none; propext; none.
 - **Falsifier**: a judgment whose holding changes across a supply, or a
   supply-only history certifying a regime other than genesis.
 - **Surviving boundary**: every regime; independent of the admitted
   boundary.
 
+### B1-CURRENT-STATE
+
+- **Statement**: The current state after a challenge is the replay of the
+  caller's history and nothing the caller did not supply.  At Challenge 1
+  the caller supplies and does not retain, so under each reading the
+  current state is the replay of `[Supply(a)]`, which certifies and equals
+  genesis.  No admission event is the caller's; the two one-step admission
+  candidates are certified candidate histories, every isomorphism class of
+  them is retained (one under U, two under O), and none is current.  The
+  declared convention selects which candidate the presented side licenses
+  if admission is later called for, and admits nothing.
+- **Status**: DEFINITION (the designation rule and the convention's
+  selection); PROVED (the supply-only history replays to genesis:
+  `replay_supply_inert`); COMPUTED (the certified histories and classes).
+  An earlier version designated the convention's admitted candidate as
+  current with no admission event from the caller; that conflated supply
+  with admission, turned a model proposal into an admitted state change,
+  and is WITHDRAWN.
+- **Dependencies**: definitions 5, 6, 18, 21, 24, 25.
+- **Assumptions**: “supplies” at Challenge 1 licenses no admission; what
+  “retains” licenses at Challenge 2, and who pays, is Challenge 2's first
+  decision.
+- **Python evidence**: receipt `readings.*.current_state`,
+  `readings.*.candidate_classes`, `readings.*.convention.candidate_event`,
+  `readings.*.convention.selection_is_by`;
+  `test_current_state_is_the_replay_of_the_supplied_only_history`,
+  `test_convention_selects_a_candidate_and_admits_nothing`,
+  `test_candidate_space_and_classes`,
+  `test_candidate_classes_group_by_canonical_key`.
+- **Lean theorem**: `BoundarySeed.replay_supply_inert` (the state clause);
+  none for the designation rule, which is a declaration.
+- **Axiom report**: none.
+- **Falsifier**: a current state after Challenge 1 whose history contains
+  an event the caller did not supply, or a candidate class dropped without
+  a proof eliminating it.
+- **Surviving boundary**: every challenge; independent of the admitted
+  boundary.
+
 ### B1-ADMISSION-RETENTION
 
 - **Statement**: The mark enters the admitted state only through the
-  separately declared admission event; certifying replay refuses it
-  without the prior supply and accepts it after.  Once admitted, the
-  mark's judgment holds after every later event and every later history:
-  a supply, a re-designation on either side (designation, not
-  duplication), and a hypothetical second admission all leave it holding.
-- **Status**: DEFINITION (the replay precondition and the designation
-  convention); PROVED (retention under every event and history).
+  separately declared admission event, which no history of the caller's
+  contains at Challenge 1; certifying replay refuses it without the prior
+  supply and accepts it after.  In a certified candidate, once admitted
+  the mark's judgment holds after every later event and every later
+  history of the Lean grammar (a supply, a new placement); in the Python
+  kernel a re-admission of the token on its own side is a no-op and a
+  re-admission naming the other side is refused because it would move the
+  mark; a hypothetical second admission of another token leaves the
+  judgment holding.
+- **Status**: DEFINITION (the replay precondition; the same-side no-op and
+  the moving-admission refusal, Python-only because the Lean events carry
+  no token); PROVED (retention under every event and history of the Lean
+  grammar).  An earlier version called the same-side no-op a designation,
+  absorbed a re-admission naming the other side as a no-op with its side
+  discarded, so that the falsifier “an event that moves the admitted mark”
+  could not fire by construction, and cited the Lean retention theorems
+  for that Python-only behaviour; all three are WITHDRAWN.
 - **Dependencies**: definitions 5, 6, 9, 21, 24.
 - **Assumptions**: the Challenge 1 event grammar; the second admission of
   the retention probe is hypothetical and its token was never supplied by
   the caller.
 - **Python evidence**: receipt `readings.*.candidates[*].certified`,
-  `unsupplied_admission_refused`, `retention.*`;
-  `test_each_candidate_adds_exactly_its_own_judgment`; score C1-2;
-  `test_c1_2_misses_on_unsupplied_admission_or_lost_retention`.
-- **Lean theorem**: `BoundarySeed.step_preserves_onSide`,
-  `BoundarySeed.replay_preserves_onSide`,
-  `BoundarySeed.getD_append_left`.
+  `unsupplied_admission_refused`, `retention.*` (in particular
+  `moving_admission_refused`, `moving_admission_refusal`,
+  `regime_unchanged_by_supply_and_readmission`);
+  `test_each_candidate_adds_exactly_its_own_judgment`,
+  `test_readmission_on_its_side_is_a_no_op`,
+  `test_moving_admission_is_refused_by_name`,
+  `test_refusal_names_the_refused_history_and_is_silent_otherwise`; score
+  C1-2; `test_c1_2_misses_on_unsupplied_admission_or_lost_retention`,
+  `test_c1_2_misses_when_a_moving_admission_is_accepted`.
+- **Lean theorem**: `BoundarySeed.replay_preserves_onSide`,
+  `BoundarySeed.step_preserves_onSide`, `BoundarySeed.getD_append_left`
+  (supplies and new placements only).
 - **Axiom report**: propext; propext; propext.
-- **Falsifier**: a supply-only history reaching a placed mark, or a later
-  event of the grammar that removes or moves an admitted mark.
+- **Falsifier**: a supply-only history reaching a placed mark, or an
+  accepted later event of the grammar that removes or moves an admitted
+  mark; the moving admission is now refused rather than absorbed, so the
+  second falsifier is testable and does not fire.
 - **Surviving boundary**: the event grammar as declared; the side the mark
   is retained on requires the admitted boundary, the discipline does not.
 
@@ -344,7 +406,14 @@ Python receipt, bounded), LIMITATION, OPEN.
   judgment holds after every event and history exactly as before (none
   under U, both under O).  The mark's profile is that one judgment.  A
   supply adds no holding judgment.
-- **Status**: PROVED; the mark-profile clause is DEFINITION.
+- **Status**: PROVED (the one new judgment and its evaluation at the
+  candidates: `admitted_onSide_true_iff`, `place_new_judgment`,
+  `place_other_side_false`, `admitted_U_no_sideNamed`,
+  `admitted_O_sideNamed`; every history keeps every side-name judgment:
+  `replay_preserves_sideNamed`); DEFINITION (one event keeps a side-name
+  judgment, `step_preserves_sideNamed`, by unfolding; the mark-profile
+  clause).  An earlier version counted `step_preserves_sideNamed` as
+  content; corrected.
 - **Dependencies**: definitions 8, 9, 22, 24.
 - **Assumptions**: the closed judgment grammar, unchanged.
 - **Python evidence**: receipt `candidates[*].new_observations`,
@@ -378,16 +447,21 @@ Python receipt, bounded), LIMITATION, OPEN.
   them.  “The mark lies on exactly one side” is a U fact; “which side”
   is not.
 - **Status**: PROVED (profiles differ; candidates unequal and reflected;
-  related; invariant judgments do not separate); COMPUTED (one class and
-  the empty invariant-separating list, on the declared bounded domains).
+  invariant judgments do not separate); DEFINITION (the permission half
+  of `candidates_related_U`, `reflectionPermitted .U := True`; its content
+  is `reflect_admitted`); COMPUTED (one class and the empty
+  invariant-separating list, on the declared bounded domains).
 - **Dependencies**: definitions 10 to 12, 16, 23, 24, 26, 27.
 - **Assumptions**: reading U; the judgment domain names marks below two
   and the regime domain has at most one mark.
 - **Python evidence**: receipt `readings.U.candidate_space`,
-  `readings.U.convention.*`; `test_candidate_space_and_classes`,
+  `readings.U.candidate_classes`, `readings.U.convention.*`;
+  `test_candidate_space_and_classes`,
   `test_separating_judgments_under_each_reading`,
-  `test_invariance_under_permitted_renamings`; score C1-4;
-  `test_c1_4_misses_when_u_separates_or_splits`.
+  `test_invariance_under_permitted_renamings`; score C1-4 (PARTIAL: its
+  “only event in the history” clause is scored literally, see
+  `challenge1/STATUS.md`); `test_c1_4_misses_when_u_separates_or_splits`,
+  `test_c1_4_only_event_clause_is_scored_literally`.
 - **Lean theorem**: `BoundarySeed.admitted_sides_differ`,
   `BoundarySeed.admitted_contents_placed`,
   `BoundarySeed.admitted_contents_other`,
@@ -406,22 +480,40 @@ Python receipt, bounded), LIMITATION, OPEN.
 
 - **Statement**: Under O the inscription `<a|>` does not decide which
   admitted name the left of the bar carries; a presentation convention
-  (left is side 0, named `near`) is declared as metatheory.  The two
-  candidate regimes are unequal, related by no permitted renaming, and lie
-  in two isomorphism classes; the mark's own judgment separates them and
-  is invariant under every permitted renaming, there being none but the
-  identity at one mark.  The regime under the other convention is the
-  reflection of the designated one and is retained as a branch.
-- **Status**: DEFINITION (the convention, the designation); PROVED
-  (unequal; not related; separated; the other is the reflection);
-  COMPUTED (two classes; the retained branch).
+  (left is side 0, named `near`) is declared as metatheory, selects the
+  candidate admission the presented side licenses, and admits nothing.
+  The two candidate regimes are unequal, related by no permitted renaming,
+  and lie in two isomorphism classes; the mark's own judgment separates
+  them and is invariant under every permitted renaming, there being none
+  but the identity at one mark.  The candidate under the other convention
+  is the reflection of the convention's candidate; both classes are
+  retained, and neither is current.
+- **Status**: DEFINITION (the convention and its selection); PROVED
+  (unequal, `admitted_candidates_unequal`; the other is the reflection,
+  `reflect_admitted`; the one-mark relation does not relate them,
+  `candidates_not_related_O`, whose permission half is by unfolding
+  `reflectionPermitted .O := False` so that under O the relation is raw
+  inequality; the mark's own judgment separates them as raw data,
+  `onSide_separates_candidates`); COMPUTED (related by no permitted
+  renaming in the general relation with mark permutations, over the
+  unpruned `permitted_images` search: `isomorphic_under_reading = false`,
+  `isomorphism_witness = null`; two classes; both retained; the judgment's
+  invariance on the bounded domain).  An earlier version labelled “related
+  by no permitted renaming” PROVED on `candidates_not_related_O`, whose
+  adequacy for the general relation is prose plus a Python test; split as
+  above.
 - **Dependencies**: definitions 2, 12, 16, 18, 23 to 27.
 - **Assumptions**: reading O.
 - **Python evidence**: receipt `readings.O.candidate_space`,
-  `readings.O.convention.*`, `readings.O.retained_non_isomorphic_candidates`;
-  `test_designated_current_is_by_the_declared_convention`,
-  `test_conventions_are_the_two_bijections`; score C1-5;
-  `test_c1_5_misses_when_o_collapses_or_loses_the_branch`.
+  `readings.O.candidate_classes`, `readings.O.convention.*`;
+  `test_convention_selects_a_candidate_and_admits_nothing`,
+  `test_candidate_space_and_classes`,
+  `test_conventions_are_the_two_bijections`,
+  `test_permitted_images_count_the_permitted_renamings`,
+  `test_isomorphism_witness_and_relation`; score C1-5 (PARTIAL, see
+  B1-CURRENT-STATE and `challenge1/STATUS.md`);
+  `test_c1_5_misses_when_o_collapses_or_loses_the_branch`,
+  `test_c1_5_designation_clause_hits_only_if_an_admitted_candidate_were_current`.
 - **Lean theorem**: `BoundarySeed.candidates_not_related_O`,
   `BoundarySeed.onSide_separates_candidates`,
   `BoundarySeed.admitted_candidates_unequal`,
@@ -429,37 +521,62 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Axiom report**: propext; propext, Quot.sound; propext; propext.
 - **Falsifier**: a derivation of the O side of `a` from the inscription
   alone with no declared convention, equal O keys for the two candidates,
-  or a designated regime whose reflection is not the other candidate.
+  a permitted renaming found by the unpruned search, or a convention's
+  candidate whose reflection is not the other candidate.
 - **Surviving boundary**: every O tower from this rung on depends on the
   declared convention; requires the admitted boundary.
 
 ### B1-REFLECT-COMMUTES
 
 - **Statement**: The reflection commutes with a supply and carries a
-  placement on a side to a placement on the other side.  Hence every
-  continuation of the retained O branch is the reflection of a
-  continuation of the designated one, and the branch is carried without a
-  second tower.
-- **Status**: PROVED.
-- **Dependencies**: definitions 5, 6, 12.
+  placement on a side to a placement on the other side; by induction over
+  histories, the reflection of a replayed history is the replay of the
+  side-exchanged history from the reflected base.  Hence every
+  continuation of the second O candidate class is the reflection of a
+  continuation of the first, and that class is carried without a second
+  tower.
+- **Status**: PROVED (`reflect_replay`, by induction, and its corollaries
+  `continuation_reflects` and `other_continuation_is_a_reflection`);
+  DEFINITION (the step lemma `reflect_step_supply`, `rfl`, and
+  `reflect_step`, a case split).  An earlier version was PROVED on the
+  two step lemmas alone, with the history-level “hence” a prose step and a
+  Python test that checked only an involution; the replay-level theorem
+  and a replay-commutation test now carry it.
+- **Dependencies**: definitions 5, 6, 12, 24, 28.
 - **Assumptions**: none.
-- **Python evidence**: receipt `convention.other_is_reflection_of_designated`;
+- **Python evidence**: receipt `convention.other_is_reflection_of_candidate`;
+  `test_reflect_commutes_with_replay` (every history of up to three events
+  over two tokens from genesis under both readings: 86 accepted histories
+  commute, and every refused history is refused side-exchanged);
   `test_reflect_is_an_involution_and_swaps_sides`.
-- **Lean theorem**: `BoundarySeed.reflect_step_supply`,
-  `BoundarySeed.reflect_step_place`.
-- **Axiom report**: none; propext.
+- **Lean theorem**: `BoundarySeed.reflect_replay`,
+  `BoundarySeed.continuation_reflects`,
+  `BoundarySeed.other_continuation_is_a_reflection`,
+  `BoundarySeed.reflect_step`, `BoundarySeed.reflect_step_place`,
+  `BoundarySeed.reflect_step_supply`,
+  `BoundarySeed.exchangeSide_exchangeSide`,
+  `BoundarySeed.map_exchangeSide_map_exchangeSide`.
+- **Axiom report**: propext; propext; propext; propext; propext; none;
+  propext; propext.
 - **Falsifier**: a history whose reflected replay is not the replay of the
   side-exchanged history.
-- **Surviving boundary**: every regime and history of the grammar.
+- **Surviving boundary**: every regime and history of the Lean grammar;
+  in Python, every accepted history within the tested bound.
 
 ### B1-INERTIA
 
-- **Statement**: No event follows from the supplied or admitted regime in
+- **Statement**: No event follows from the supplied or candidate regime in
   the declared relation; every event and every history keeps the reading
   and the initial datum; Challenge 1 adds no event kind and no judgment
   form.
-- **Status**: PROVED (relation empty; reading and datum kept); DEFINITION
-  (no new form, by the unchanged grammars).
+- **Status**: DEFINITION (the relation is empty by unfolding
+  `EventFollows := False`, and `no_event_follows_admitted` is a bare
+  instantiation of `no_event_follows`; one event keeps the reading and
+  datum, `step_reading` and `step_initialDatum`, by unfolding; no new
+  form, by the unchanged grammars); PROVED (every history keeps the
+  reading and datum: `replay_reading`, `replay_initialDatum`, by
+  induction).  An earlier version labelled the relation-empty and step
+  clauses PROVED; corrected.
 - **Dependencies**: definitions 3, 5 to 8.
 - **Assumptions**: none.
 - **Python evidence**: receipt `candidates[*].event_follows_relation_empty`,
@@ -503,7 +620,9 @@ Python receipt, bounded), LIMITATION, OPEN.
   carrying one regime onto another with tokens forgotten, found by
   unpruned search.  It agrees with canonical-key equality over every pair
   of regimes with at most three marks.  The Lean one-mark relatedness is
-  sufficient at one mark only.
+  intended for one mark only; that adequacy is prose, and under O the
+  relation reduces to raw inequality by unfolding, so no Lean theorem
+  about it is a theorem about the general relation.
 - **Status**: DEFINITION with bounded COMPUTED checks.
 - **Dependencies**: definitions 13 to 16, 23, 27.
 - **Assumptions**: validated regimes.
@@ -544,7 +663,8 @@ Python receipt, bounded), LIMITATION, OPEN.
 
 ### B1-BOUNDARY-DEPENDENCE
 
-- **Statement**: Supply inertia, the admission discipline, the invariance
+- **Statement**: Supply inertia, the admission discipline, the rule that
+  the current state is the replay of the caller's history, the invariance
   of the initial datum and reading, and the empty event-follows relation
   do not require the admitted boundary.  The one new judgment, the
   profiles, the candidates, the convention, and the class counts require
