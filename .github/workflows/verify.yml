@@ -400,3 +400,41 @@ jobs:
       - name: Second derivation, stake rung, strict typing
         working-directory: research/second_stake
         run: python -m mypy
+      # The side-free control (research/side_free) is the measurement the
+      # boundary rung could not take from inside itself: the same requirement,
+      # at the same prices, in a carrier with no placement and no sides.  Its
+      # design and predictions were frozen in a commit of their own before any
+      # of its code existed, and verify_pins.py holds both files byte for byte
+      # across the whole history of the path.  Appended after the existing
+      # steps and touching nothing else, as this tree's brief requires.
+      #
+      # --allow-unreachable-pin is load-bearing and is NOT hygiene.  The
+      # commit the tree pins is on an unmerged branch that a fresh clone of
+      # the remote does not carry, so the fourth check -- the vendored bytes
+      # against that commit -- cannot run here.  The flag downgrades it to a
+      # reported SKIP naming the reason and the residual, instead of a red job
+      # or, worse, a silent pass.  The three digests that fix those bytes need
+      # no git at all and are still hard.  Locally the flag is omitted and the
+      # check is hard; drop it here when that branch merges.
+      - name: Side-free control, pins and frozen texts
+        run: python research/side_free/verify_pins.py --allow-unreachable-pin
+      # The receipt comparison must follow a fresh run in the same checkout: a
+      # committed receipt is not evidence of the current code.  Coverage is
+      # generated in this same fresh process and checked immediately, and the
+      # test count is asserted so an enumeration that finds NOTHING cannot
+      # pass as a green suite.
+      - name: Side-free control, tests, coverage, receipt, isolation
+        working-directory: research/side_free
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/side-free-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran 234 tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          python run_side_free.py
+          git diff --exit-code -- receipts
+      - name: Side-free control, strict typing
+        working-directory: research/side_free
+        run: python -m mypy

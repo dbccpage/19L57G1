@@ -1,0 +1,35 @@
+'SideFree.admitMark_no_op' does not depend on any axioms
+'SideFree.admitOccurrence_appends' does not depend on any axioms
+'SideFree.admitOccurrence_size' depends on axioms: [propext]
+'SideFree.base_exchange_is_an_automorphism' depends on axioms: [propext]
+'SideFree.blank_congr' does not depend on any axioms
+'SideFree.blank_length' depends on axioms: [propext]
+'SideFree.exchange_is_not_the_identity' does not depend on any axioms
+'SideFree.exchange_moves_zero_to_one' depends on axioms: [propext]
+'SideFree.extra_mark_exchange_is_an_automorphism' depends on axioms: [propext]
+'SideFree.forget_reflect' depends on axioms: [propext]
+'SideFree.forget_rename' depends on axioms: [propext]
+'SideFree.forgetful_lemma_forgetting_labels' depends on axioms: [propext, Quot.sound]
+'SideFree.forgetful_lemma_keeping_labels' depends on axioms: [propext]
+'SideFree.free_separation_implies_sided_separation' depends on axioms: [propext]
+'SideFree.free_separation_implies_sided_separation_forgetting_labels' depends on axioms: [propext, Quot.sound]
+'SideFree.genesis_size' does not depend on any axioms
+'SideFree.keep_labels_exchange_is_an_automorphism' depends on axioms: [propext]
+'SideFree.no_event_follows' does not depend on any axioms
+'SideFree.no_judgment_at_genesis' depends on axioms: [propext]
+'SideFree.reflect_length' depends on axioms: [propext]
+'SideFree.reorder_length_congr' depends on axioms: [propext, Quot.sound]
+'SideFree.reorder_map' depends on axioms: [propext]
+'SideFree.replay_append' does not depend on any axioms
+'SideFree.replay_deterministic' does not depend on any axioms
+'SideFree.replay_supply_inert' does not depend on any axioms
+'SideFree.retainedPlus_replays_from_genesis' does not depend on any axioms
+'SideFree.retained_judgments' does not depend on any axioms
+'SideFree.retained_replays_from_genesis' does not depend on any axioms
+'SideFree.retained_size' does not depend on any axioms
+'SideFree.shared_policy_retains_one_mark' does not depend on any axioms
+'SideFree.step_changes_only_by_admission' does not depend on any axioms
+'SideFree.supply_is_not_an_admission' does not depend on any axioms
+'SideFree.supply_no_op' does not depend on any axioms
+'SideFree.withdrawal_does_not_move_zero_to_one' depends on axioms: [propext]
+'SideFree.withdrawal_moves_no_index' depends on axioms: [propext]

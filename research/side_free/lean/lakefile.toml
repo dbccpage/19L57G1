@@ -1,0 +1,6 @@
+name = "sidefree"
+version = "0.1.0"
+defaultTargets = ["SideFree"]
+
+[[lean_lib]]
+name = "SideFree"

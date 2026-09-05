@@ -1,0 +1,20 @@
+# Tree-local config for the side-free control.  The root pyproject scopes mypy
+# and coverage to code/, so this tree is outside both unless run from here.
+# This tree imports nothing from outside itself.
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "code"
+explicit_package_bases = true
+files = [
+  "code/sidefree",
+  "tests",
+  "run_side_free.py",
+  "check_coverage.py",
+  "verify_pins.py",
+  "verify_lean.py",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["code/sidefree"]
