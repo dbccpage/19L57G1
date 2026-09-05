@@ -2148,14 +2148,16 @@
       "report": {
         "automorphisms_checked": 2140,
         "cells": 1344,
+        "converse_failure_cells": 228,
+        "corollary_antecedent_cells": 800,
         "corollary_holds": true,
+        "corollary_non_vacuous": true,
         "corollary_violations": 0,
         "first_corollary_violation": null,
         "first_violation": null,
+        "forgetting_loses_separation": true,
         "holds": true,
         "injection_live": false,
-        "non_vacuity_cells": 228,
-        "non_vacuous": true,
         "violations": 0
       },
       "sign_consequence": "the pinned minimum is at most the side-free minimum, so a negative difference is unreachable and a tie is the strongest statement available against the admitted primitive",
@@ -18484,7 +18486,10 @@
   "smuggle_tripwire": {
     "automorphisms_checked": 2140,
     "cells": 1344,
+    "converse_failure_cells": 0,
+    "corollary_antecedent_cells": 1040,
     "corollary_holds": false,
+    "corollary_non_vacuous": true,
     "corollary_violations": 12,
     "first_corollary_violation": {
       "keep_labels": false,
@@ -18521,10 +18526,9 @@
       "reading": "U",
       "withdraw_reflection": false
     },
+    "forgetting_loses_separation": false,
     "holds": false,
     "injection_live": true,
-    "non_vacuity_cells": 0,
-    "non_vacuous": false,
     "violations": 12,
     "what_was_injected": "the side re-admitted into the side-free key as a per-mark two-valued attribute -- exactly the substitute the lemma exists to catch.  This is a declared PARAMETER of the lemma function exercised deliberately, not an edit to any source file, so no receipt is written under a live source injection"
   },

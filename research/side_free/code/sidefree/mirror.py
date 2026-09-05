@@ -690,19 +690,30 @@ def lemma_cells() -> list[tuple[Regime, bool, bool, bool]]:
 
 
 def forgetful_lemma(inject_side: bool = False) -> Json:
-    """The lemma, its corollary, and its non-vacuity, over the full census.
+    """The lemma, its corollary, and two counts over the full census.
 
     Every side-typed automorphism of a mirror regime must have its
     permutation admitted as an automorphism of the forgotten regime under the
     transferred flags.  A violation names the cell and the offending
     renaming.  The corollary then says side-free separation implies
-    side-typed separation at every cell of two or more marks, and the
-    non-vacuity count says the implication is not empty.
+    side-typed separation at every cell of two or more marks.
+
+    The two counts measure different things and neither substitutes for the
+    other.  ``corollary_antecedent_cells`` counts the cells where the
+    side-free world separates -- where the corollary's antecedent HOLDS, so
+    it is the count that says the implication is not empty.
+    ``converse_failure_cells`` counts the cells where the side-typed world
+    separates and the forgotten one does not: there the antecedent FAILS and
+    the corollary asserts nothing, so it measures the converse's failure --
+    that forgetting really does lose separations -- and not the corollary's
+    non-vacuity.  An earlier version of this function reported the second
+    count alone, under the first count's name.
     """
     checked = 0
     violations: list[Json] = []
     corollary_violations: list[Json] = []
-    non_vacuous = 0
+    antecedent_cells = 0
+    converse_failures = 0
     cells = lemma_cells()
     i, j = RETAINED_MARKS
     for r, wr, mp, kl in cells:
@@ -736,8 +747,10 @@ def forgetful_lemma(inject_side: bool = False) -> Json:
                         "keep_labels": kl,
                     }
                 )
+            if free_sep:
+                antecedent_cells += 1
             if sided and not free_sep:
-                non_vacuous += 1
+                converse_failures += 1
     return {
         "cells": len(cells),
         "automorphisms_checked": checked,
@@ -747,10 +760,12 @@ def forgetful_lemma(inject_side: bool = False) -> Json:
         "first_corollary_violation": (
             corollary_violations[0] if corollary_violations else None
         ),
-        "non_vacuity_cells": non_vacuous,
+        "corollary_antecedent_cells": antecedent_cells,
+        "converse_failure_cells": converse_failures,
         "holds": not violations,
         "corollary_holds": not corollary_violations,
-        "non_vacuous": non_vacuous > 0,
+        "corollary_non_vacuous": antecedent_cells > 0,
+        "forgetting_loses_separation": converse_failures > 0,
         "injection_live": inject_side,
     }
 

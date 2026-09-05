@@ -121,7 +121,9 @@ never counted as content.
 * **Assumes.**  In Lean, that a renaming acts by reading marks at indices; the
   proof needs no permutation property, which is strictly stronger than needed.
 * **Python evidence.**  Gate G5: 1344 cells, 2140 automorphisms checked, 0
-  violations, 0 corollary violations, 228 non-vacuity cells;
+  violations, 0 corollary violations; of the 1280 cells of two or more marks,
+  **800** where the corollary's antecedent holds and **228** where the
+  side-typed world separates and the forgotten one does not;
   `tests/test_mirror.py::Forgetting`; injection I6 in `MANUAL.md`.
 * **Lean.**  `SideFree.forgetful_lemma_keeping_labels`,
   `SideFree.forgetful_lemma_forgetting_labels`,
@@ -134,6 +136,17 @@ never counted as content.
 * **Falsifier.**  Any violating cell with no injection live.
 * **Surviving boundary.**  The lemma is about the two carriers declared here.
   That the mirror is the pinned carrier is not claimed; see SF-MIRROR.
+* **Correction, recorded not edited away.**  The 228 was reported as the
+  corollary's non-vacuity, and it is not: the corollary says side-free
+  separation implies side-typed separation, so at each of those cells its
+  antecedent FAILS and it asserts nothing.  The count that shows the
+  implication is not empty is the 800, which nothing reported until this
+  repair.  The corollary is non-vacuous either way — that is what the 800 now
+  establishes — but the number cited for it measured the converse's failure
+  instead, which is worth reporting on its own and under its own name.  Both
+  counts are now computed and reported, and gate G5 names whichever of the two
+  it caught.  `DESIGN.md` §11 and `PREDICTIONS.md` P17 carry the mislabel and
+  are frozen; the correction lives here and in `STATUS.md`.
 
 ### SF-FAIRNESS-SIGN
 

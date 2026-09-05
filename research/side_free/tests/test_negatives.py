@@ -272,16 +272,33 @@ class LemmaGate(unittest.TestCase):
         self.assertTrue(any("lemma fails" in str(p) for p in gate["problems"]))
 
     def test_a_corollary_violation_and_a_vacuous_census_are_named(self) -> None:
+        """Each of the three conditions gets its own line, and the two counts
+        are never named by each other's message."""
         broken: Any = dict(mir.forgetful_lemma(False))
         broken["corollary_holds"] = False
         broken["first_corollary_violation"] = {"probe": True}
-        broken["non_vacuous"] = False
+        broken["corollary_non_vacuous"] = False
+        broken["forgetting_loses_separation"] = False
         with swapped(mir, "forgetful_lemma", lambda _inject: broken):
             gate: Any = control.gate_forgetful_lemma()
         self.assertFalse(gate["passed"])
         joined = " ".join(str(p) for p in gate["problems"])
         self.assertIn("corollary fails", joined)
-        self.assertIn("vacuous", joined)
+        self.assertIn("no cell satisfies its antecedent", joined)
+        self.assertIn("forgetting loses no separation", joined)
+
+    def test_a_live_converse_failure_is_not_reported_as_vacuity(self) -> None:
+        """The smuggle injection drives the converse count to zero while the
+        corollary's antecedent still holds at 1040 cells, so the gate must
+        name the converse and NOT call the corollary vacuous."""
+        injected: Any = mir.forgetful_lemma(True)
+        self.assertEqual(injected["converse_failure_cells"], 0)
+        self.assertGreater(injected["corollary_antecedent_cells"], 0)
+        with swapped(mir, "forgetful_lemma", lambda _inject: injected):
+            gate: Any = control.gate_forgetful_lemma()
+        joined = " ".join(str(p) for p in gate["problems"])
+        self.assertIn("forgetting loses no separation", joined)
+        self.assertNotIn("no cell satisfies its antecedent", joined)
 
 
 class MirrorGate(unittest.TestCase):

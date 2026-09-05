@@ -44,6 +44,16 @@ python verify_lean.py --regen    # rewrites lean/axioms.txt, deliberately
 `verify_pins.py` takes `--allow-unreachable-pin`, and only the CI step passes
 it.  See "What the gates are worth" below for why.
 
+**Adding or removing a test obliges a second edit.**  The registered CI step
+asserts an EXACT test count, so that an enumeration finding nothing cannot pass
+as a green suite; that literal lives in the workflow and does not move by
+itself.  It DRIFTED once — written at 321, left there while two later commits
+added two tests, so the step could not pass at all — which is why the
+obligation is written here beside the other deliberate acts.  The count is now
+held from this side as well: `tests/test_registration.py` parses it out of the
+workflow and fails by name when it is not the count this suite discovers, in
+either direction.
+
 ## What this tree adds, gate by gate
 
 | gate | what it checks | where it lives |
@@ -53,7 +63,7 @@ it.  See "What the gates are worth" below for why.
 | G2 | the two requirement texts, as the pinned texts with one declared phrase deleted, byte for byte; plus a whole-word scan of the control strings | `control.gate_requirement_texts` |
 | G3 | the three surviving capability sentences byte for byte, the cross-world join by name, and the mechanical side-word partition | `control.gate_capability_texts` |
 | G4 | **the decisive one.**  This tree's own verdict function against the pinned world's own recorded automorphism sets, on the fourteen rows the minimum ranges over | `control.gate_verdict_replay` |
-| G5 | **the smuggle tripwire.**  The forgetful lemma, its corollary and its non-vacuity over the full declared census of 1344 cells | `control.gate_forgetful_lemma` |
+| G5 | **the smuggle tripwire.**  The forgetful lemma and its corollary over the full declared census of 1344 cells, plus two counts that are not each other: the cells where the corollary's antecedent holds, which is its non-vacuity, and the cells where the side-typed world separates and the forgotten one does not, which is the converse's failure | `control.gate_forgetful_lemma` |
 | G6 | the mirror against the pinned vector on all 48 rows per reading, plus the minima and their classes | `control.gate_mirror_matches_the_pin` |
 | deletion totality | no deleted name survives in the side-free modules; no narrowed name is absent; no identifier carries a deleted stem outside a declared allowlist | `tests/test_deletion.py` |
 | source isolation | no citation into a sealed path, no sealed identifier, no other research tree name — with exactly one declared carve | `tests/test_isolation.py` |
@@ -64,6 +74,7 @@ it.  See "What the gates are worth" below for why.
 | C2 | the control's own headline numbers are the ones the rows carry, the two deltas recomputed from the two minima, and the base row is where the row that reads it by index says it is | `comparison.gate_receipt_agrees` |
 | C3 | the two worlds' minima joined through the declared collapse map, and the routes only the pinned world reaches recomputed from the pin | `comparison.gate_minimum_join` |
 | C4 | the row ids are distinct and the declared item taxonomy is total in both directions | `comparison.gate_taxonomy` |
+| registered count | the test count pinned in this tree's own CI step equals the count this suite discovers, failing in both directions | `tests/test_registration.py` |
 
 ## Proving a gate: the injection record
 
@@ -83,7 +94,7 @@ which compares and never writes.
 | I3 | the deleted phrase reinserted into the control requirement | `python run_side_free.py --check` | `FAIL: the record is VOID and NO difference is reported` then `FAIL: G2: the pinned declared with ' under a reading' deleted is not the control text byte for byte` | 1 | reverted; exit 0, receipt byte-identical |
 | I4 | one character of a capability sentence altered | `python run_side_free.py --check` | `FAIL: G3: capability text for keep_labels is not byte-identical` | 1 | reverted; exit 0 |
 | I5 | `keep_labels` renamed to `keep_label` throughout the control's own space | `python run_side_free.py --check` | `FAIL: G3: coordinate names absent from the pinned list: ['keep_label']` and the mechanical-partition line beside it — the cross-world join fails **by name** rather than dropping a route | 1 | reverted; exit 0 |
-| I6 | the side re-admitted into the side-free key as a per-mark two-valued attribute | `python run_side_free.py --check` | `FAIL: G5: the forgetful lemma fails: {'reading': 'U', 'labels': ['a','a'], 'placement': [0,1], … 'automorphism': {'reflected': True, 'permutation': [1,0]}}`, the corollary line, and the vacuity line | 1 | reverted; exit 0 |
+| I6 | the side re-admitted into the side-free key as a per-mark two-valued attribute | `python run_side_free.py --check` | `FAIL: G5: the forgetful lemma fails: {'reading': 'U', 'labels': ['a','a'], 'placement': [0,1], … 'automorphism': {'reflected': True, 'permutation': [1,0]}}`, the corollary line, and `FAIL: G5: forgetting loses no separation at any cell of the declared census: the converse fails nowhere` | 1 | reverted; exit 0, receipt byte-identical |
 | I7 | a deleted identifier (`placement`) reintroduced into a side-free module | `python -m unittest discover -s tests -p "test_deletion.py"` | `test_no_deleted_name_survives_in_the_side_free_modules` … `Lists differ: ['placement'] != []`, and the stem scan names it too | 1 | reverted; exit 0 |
 | I8 | one value of the committed receipt perturbed | `python run_side_free.py --check` | `FAIL: receipts/side_free.json differs from a fresh computation` | 1 | restored; exit 0 |
 | I9 | a measured source touched without changing it, after the report was written | `python check_coverage.py` | `FAIL: coverage.json predates measured source files: code\sidefree\model.py` | 1 | regenerated; exit 0 |
@@ -95,6 +106,11 @@ which compares and never writes.
 | I15 | one boundary value changed in the pinned manifest: `declared_values["3:readings.U.minima_by_mu1.minimum"]` from `1` to `0` | `python run_comparison.py --check` | `FAIL: the comparison is VOID and NO difference is reported` then `FAIL: C1: declared value 3:readings.U.minima_by_mu1.minimum is 0, the pinned bytes say 1` | 1 | value restored; exit 0, both files byte-identical |
 | I16 | the same one boundary value, against the pin verifier | `python research/side_free/verify_pins.py` | `FAIL: declared value 3:readings.U.minima_by_mu1.minimum is 0, the pinned receipt says 1` | 1 | value restored; exit 0 |
 | I17 | one value of the vendored `pinned/boundary_challenge2.json` bytes altered | `python run_comparison.py --check`, then `python research/side_free/verify_pins.py` | `FAIL: C0: challenge 2: pinned/boundary_challenge2.json has sha256 b5f90e4b5295… , the manifest declares ca6a9f935951…`, and the verifier's own `FAIL: pinned/boundary_challenge2.json: sha256 … wanted …` | 1 and 1 | restored from the pinned commit; both exit 0 |
+| I18 | the test count pinned in this tree's CI step changed from 325 to 324 | `python -m unittest tests.test_registration` | `AssertionError: 324 != 325 : .github/workflows/verify.yml pins Ran 324 tests and this suite discovers 325; bump the pin in the same commit that changes the suite size` | 1 | reverted; exit 0 |
+
+I18's defect is not hypothetical: the pin stood at 321 against a suite of 323
+when this guard was written, so the registered step could not pass, and the
+first run of the guard reported that pair before anything was injected.
 
 Several further probes live as permanent tests rather than as one-off
 injections, because they mutate a temporary copy and can therefore run every
@@ -102,6 +118,19 @@ time: a mutated pinned verdict against G4, a drifting mirror against G6, a
 malformed pin against every reader, a disagreeing key choice, an empty
 satisfying set, and a scorer forced to report a MISS.  Each is written so it
 FAILS if the guard is removed.
+
+**Source isolation** is proved that way too, and is named here because it is a
+row of the table above and was reachable by no census before this line.  Its
+probes run the scan over assembled examples and require it to name each one:
+a citation into the sealed paper, into the sealed artifacts, into the sealed
+Lean and into the sealed kernel, each by its own label; a sealed claim
+identifier; a sealed Lean name; an import of the sealed kernel, with this
+tree's own import admitted beside it; a bare directory name that is not a
+citation, admitted; the carved tree's name barred outside the three declared
+files and admitted inside them, and another tree's name barred inside those
+same three; and non-UTF-8 bytes reported as unscannable rather than passed
+over.  Each example is assembled from pieces so this file carries no citation
+of its own.
 
 The remaining three published comparison gates are proved the same way, and
 are named here because a census of what has been proved must reach every gate

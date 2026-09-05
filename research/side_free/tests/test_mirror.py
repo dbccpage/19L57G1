@@ -195,8 +195,10 @@ class Forgetting(unittest.TestCase):
         self.assertEqual(LEMMA["violations"], 0)
         self.assertTrue(LEMMA["corollary_holds"])
         self.assertEqual(LEMMA["corollary_violations"], 0)
-        self.assertTrue(LEMMA["non_vacuous"])
-        self.assertGreater(LEMMA["non_vacuity_cells"], 0)
+        self.assertTrue(LEMMA["corollary_non_vacuous"])
+        self.assertGreater(LEMMA["corollary_antecedent_cells"], 0)
+        self.assertTrue(LEMMA["forgetting_loses_separation"])
+        self.assertGreater(LEMMA["converse_failure_cells"], 0)
         self.assertIsNone(LEMMA["first_violation"])
         self.assertIsNone(LEMMA["first_corollary_violation"])
         self.assertFalse(LEMMA["injection_live"])
@@ -205,7 +207,11 @@ class Forgetting(unittest.TestCase):
         self.assertEqual(len(mir.lemma_cells()), 1344)
         self.assertEqual(LEMMA["cells"], 1344)
         self.assertEqual(LEMMA["automorphisms_checked"], 2140)
-        self.assertEqual(LEMMA["non_vacuity_cells"], 228)
+        # The two counts are different measurements over the 1280 cells of two
+        # or more marks: where the corollary's antecedent holds, and where the
+        # converse fails.  Neither is the other.
+        self.assertEqual(LEMMA["corollary_antecedent_cells"], 800)
+        self.assertEqual(LEMMA["converse_failure_cells"], 228)
 
     def test_the_injection_fires_and_names_its_first_cell(self) -> None:
         """Negative: re-admit the side as a per-mark attribute and the lemma

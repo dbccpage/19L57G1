@@ -192,3 +192,81 @@ and in the ledger beside its value instead.
   `COMPARISON.md` is re-rendered from the latter.  No committed value was
   edited by hand.  The battery transcript in `STATUS.md` is re-pasted from a
   fresh run at this commit.
+
+## 2026-09-05 — third repair pass: the registered step, and a mislabelled count
+
+* **This tree's registered CI step could not pass.**  It asserts an exact test
+  count so that an enumeration finding nothing cannot pass as a green suite,
+  and the literal stood at 321 while the suite ran 323: the value was right
+  when the step was written and was not moved when the second repair pass added
+  two tests.  The failure is loud rather than silent — the step aborts on the
+  grep and the three checks after it never run — but it reddens this tree's
+  only gate in CI on a defect that is not in the code, which is the same thing
+  the entry above repaired for the receipt comparison.  The count is corrected,
+  and the mechanism that let it drift is closed rather than only the value:
+  `tests/test_registration.py` parses the pinned number out of the workflow —
+  from this tree's own step, selected by its working directory, since sibling
+  steps carry the same guard with their own counts — and requires it to equal
+  the count this suite discovers, failing in both directions and naming both
+  numbers.  The guard is published as a row of `MANUAL.md`'s gate table, has an
+  injection row (I18), and the obligation to bump the pin when the suite
+  changes size is written beside the other deliberate acts in that file.  The
+  literal itself stays: a wildcard would let an empty enumeration through,
+  which is the whole point of the line.  Reason: a gate nobody can pass teaches
+  a reader to ignore the job, and a pin held from one side only drifts again.
+
+* **`STATUS.md` said one route-table cell was "the whole of what the admitted
+  primitive bought", and its own table two paragraphs up said two.**  The
+  receipt agrees with the table: `routes_bought_count` is 2, and the second
+  route, `withdraw_reflection`, is dropped by the mechanical deletion criterion
+  before the cross-world join, so it can disagree in no cell at all.  The
+  sentence therefore dropped the more interesting half — the route the
+  primitive bought that has no side-free counterpart whatever — while reading
+  as a summary of everything.  It is narrowed to what the route table actually
+  says.  The same unscored aside stands in the frozen `PREDICTIONS.md` beside
+  P4, whose scored clauses are the two deltas, the decided value and
+  `route_disagreements`; the frozen file is not edited and a fourth scoring
+  note records that nothing in the machine holds that sentence.  Reason: a
+  claim the computation does not bear must not be copied into a live document.
+
+* **The count reported as the corollary's non-vacuity measured something
+  else.**  Gate G5 published `non_vacuity_cells = 228`, computed as the cells
+  where the side-typed world separates the two retained marks and the forgotten
+  one does not.  At every one of those cells the corollary's antecedent —
+  side-free separation — FAILS, so the implication asserts nothing there and
+  the count cannot show it is non-empty; and G5's message on a zero would have
+  said "the corollary is vacuous", which is the opposite of what a zero there
+  means.  The corollary is non-vacuous, at **800** of the 1280 cells of two or
+  more marks, and that number was computed by nothing.  Both are now reported
+  under their own names — `corollary_antecedent_cells` and
+  `converse_failure_cells` — and G5 carries one message for each, so a failure
+  names which of the two it caught.  The 228 is unchanged, and what it measures
+  is worth its own line: forgetting really does lose separations, so the
+  converse of the corollary fails.  The frozen `DESIGN.md` §11 declares the
+  check under the same mislabel and `PREDICTIONS.md` P17 repeats it; neither is
+  edited, P17's clause follows the frozen file's own DESCRIPTION to the renamed
+  field, both counts are unchanged and it remains a HIT, and the correction is
+  recorded as a fifth scoring note in `STATUS.md` and beside
+  SF-FORGETFUL-LEMMA in the ledger.  Injection I6 was re-run against the
+  repaired gate: its third diagnostic line is now the converse line rather than
+  the vacuity line, because the injection drives the converse count to zero
+  while the corollary's antecedent still holds at 1040 cells, and the row
+  records what was observed.  Reason: the substantive claim was true and the
+  evidence cited for it measured a different property, which is the kind of
+  agreement that survives review by accident.
+
+* **Source isolation was published as a gate and reached by no census.**  Its
+  probes exist — the scan is run over an assembled example of each barred kind
+  and required to name it — but neither permanent-probe paragraph in
+  `MANUAL.md` mentioned them, so a reader auditing gate by gate would conclude
+  the row was unproved.  That is the defect the entry above repaired for C2, C3
+  and C4, under a principle stated generally, and this row was missed by it.
+  The paragraph now names the diagnostics.  Reason: a census of what has been
+  proved must reach every gate the table publishes.
+
+* **Receipts recomputed, never patched.**  `receipts/side_free.json` moves from
+  542219 to 542418 bytes, the two renamed fields and the added count being the
+  whole of the difference; it is byte-identical on a second regeneration.
+  `receipts/comparison.json` and `COMPARISON.md` are re-rendered and come back
+  unchanged, since no value they carry moved.  The battery transcript in
+  `STATUS.md` is re-pasted from a fresh run at this commit.

@@ -41,8 +41,13 @@ The two price lists agree at `base`, `withdraw_mark_permutations` and
 `keep_labels`, and disagree at exactly **one** cell, `extra_mark`: the further
 mark separates the two retained marks in the pinned world because the two
 sides then carry different numbers of marks, and there are no sides here to
-count.  That single cell is the whole of what the admitted primitive bought at
-this rung.
+count.  That is the whole of the disagreement **inside the joined route
+table**, and it is not the whole of what the admitted primitive bought.  The
+second route it bought, `withdraw_reflection`, is outside the join altogether:
+the mechanical deletion criterion drops it because its capability sentence
+names the sides, so it is filed under `unmatched_pinned_routes` and can
+disagree in no cell.  The receipt's `routes_bought_count` is **2**, and the
+table above says so.
 
 ## The terminal sentence, and its scope
 
@@ -93,7 +98,7 @@ content either.
 | P14 | NOT FORCED | the two transferring collateral facts, per row | HIT |
 | P15 | NOT FORCED | 64/64 against 28/64; 8/8 against 2/8 | HIT |
 | P16 | FORCED | 0 lemma violations, 0 corollary violations | HIT |
-| P17 | NOT FORCED | 2140 automorphisms checked, 228 non-vacuity cells | HIT |
+| P17 | NOT FORCED | 2140 automorphisms checked, 228 cells where the side-typed world separates and the side-free does not | HIT; the frozen file's LABEL for the second number is corrected in the note below |
 | P18 | NOT FORCED | the injection gives 12 violations, first at U/("a","a")/(0,1)/(reflected,[1,0]) | HIT |
 | P19 | NOT FORCED | the residue judgment separates nothing | HIT |
 | P20 | NOT FORCED | G4 agrees on all fourteen rows | HIT |
@@ -105,7 +110,7 @@ content either.
 | P26 | NOT FORCED | the decided value is NOTHING_IN_COST | HIT |
 | P27 | FORCED | the terminal sentence keeps its scope clause | HIT |
 
-**Three notes on the scoring, recorded because a clean sweep invites suspicion.**
+**Five notes on the scoring, recorded because a clean sweep invites suspicion.**
 
 * P17 and P18 depend on the declared census domain and its declared iteration
   order, both fixed in `DESIGN.md` §11 before any code existed.  They are hits
@@ -144,6 +149,36 @@ content either.
   pair does not contain.  The first repair reached the comment alone and left
   the record — the copy a reader cites — carrying the reversed sign for one
   commit; that is recorded here rather than smoothed.
+* **P4's frozen sentence carries an aside the machine does not score, and this
+  page had copied it.**  What P4 is scored on is four clauses: the two deltas,
+  the decided value, and `route_disagreements == ["extra_mark"]`.  The frozen
+  file adds, beside them, that the one disagreeing cell "is the whole of what
+  the admitted primitive bought at this rung" — a sentence no clause holds, and
+  a sentence that is wrong in the direction that flatters: the primitive bought
+  two routes, and the second, `withdraw_reflection`, is dropped by the
+  mechanical criterion before the join and so can disagree in no cell at all.
+  The frozen file is not edited.  The copy that had reached this page's own
+  answer section is narrowed above, and P4's hit stands on the four clauses it
+  is scored on.
+* **P17's second number is labelled wrong in the frozen file, and the machine
+  now says what it measures.**  The frozen sentence DESCRIBES the count exactly
+  — cells at two or more marks where the side-typed world separates the two
+  retained marks and the side-free world does not — and then calls it "the
+  lemma's non-vacuity".  It is not: the corollary says side-free separation
+  implies side-typed separation, so at every one of those 228 cells the
+  antecedent FAILS and the implication asserts nothing.  The count that shows
+  the implication is not empty is the one nothing reported — the cells where
+  the side-free world separates — and it is **800** of the 1280 cells of two or
+  more marks.  The corollary really is non-vacuous, then, but the evidence
+  cited for it measured a different property: that forgetting genuinely loses
+  separations, and that the converse fails.  Both counts are now computed and
+  reported under their own names, `corollary_antecedent_cells` and
+  `converse_failure_cells`, and gate G5 names whichever it caught rather than
+  calling either failure a vacuous corollary.  P17's clauses follow the frozen
+  file's description to the renamed field; both counts are unchanged and it
+  remains a HIT.  `DESIGN.md` §11 declares the check under the same mislabel
+  and is frozen, so the correction is recorded here and beside
+  SF-FORGETFUL-LEMMA in the ledger, as P24's and P27's are.
 
 ## The price list
 
@@ -281,10 +316,10 @@ line with one field missing; both were stale on arrival, and the fix is to
 re-run rather than to re-type.
 
 ```
-323 tests, OK
+325 tests, OK
 line 100.00% branch 100.00% over 9 files
-mypy: Success: no issues found in 23 source files
-receipt ok: 542219 bytes, byte-identical
+mypy: Success: no issues found in 24 source files
+receipt ok: 542418 bytes, byte-identical
 comparison ok: 130322 receipt bytes and 28385 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
 pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,

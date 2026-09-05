@@ -510,8 +510,21 @@ def gate_forgetful_lemma() -> Json:
         problems.append(
             f"the corollary fails: {report['first_corollary_violation']}"
         )
-    if not report["non_vacuous"]:
-        problems.append("the corollary is vacuous over the declared census")
+    # Two checks, two messages, because a single line here would misname what
+    # it caught.  The first is the corollary's own non-vacuity: no cell
+    # satisfies its antecedent, so the implication is empty.  The second is
+    # the check the frozen design declares -- forgetting loses a separation
+    # somewhere -- which is what the smuggle injection drives to zero.
+    if not report["corollary_non_vacuous"]:
+        problems.append(
+            "the corollary is vacuous over the declared census: no cell "
+            "satisfies its antecedent"
+        )
+    if not report["forgetting_loses_separation"]:
+        problems.append(
+            "forgetting loses no separation at any cell of the declared "
+            "census: the converse fails nowhere"
+        )
     return {
         "gate": "G5",
         "name": "forgetful_lemma",
@@ -1818,7 +1831,12 @@ PREDICTIONS: tuple[Prediction, ...] = (
         "**2140** side-typed automorphisms checked",
         (
             Clause("gates.G5.report.automorphisms_checked", 2140),
-            Clause("gates.G5.report.non_vacuity_cells", 228),
+            # The frozen sentence describes this count exactly -- cells where
+            # the side-typed world separates and the side-free does not -- and
+            # then mislabels it as the corollary's non-vacuity.  The clause
+            # follows the description to the field that now carries it; the
+            # mislabel is recorded in STATUS.md and beside the ledger entry.
+            Clause("gates.G5.report.converse_failure_cells", 228),
         ),
     ),
     Prediction(
