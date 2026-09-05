@@ -26,6 +26,7 @@ From the repository root, for a challenge `<k>`:
 ```text
 python research/boundary_seed/verify_pins.py
 python research/boundary_seed/run_challenge<k>.py
+python research/boundary_seed/run_continuation<n>.py
 cd research/boundary_seed && python -m unittest discover -s tests -p "test_*.py" && python -m mypy && cd ../..
 cd research/boundary_seed && python -m coverage erase && python -m coverage run -m unittest discover -s tests -p "test_*.py" && python -m coverage json -q && python check_coverage.py && cd ../..
 python research/boundary_seed/verify_lean.py
@@ -33,10 +34,14 @@ python ci/check_prose_watchlist.py
 python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 ```
 
-Definitions 47 to 71 and the Challenge 4 and Challenge 5 kernel additions are
-recorded in `paper.md`; the run's reading of what this file governs is
-unchanged.  For a challenge `<k>` the runner is `run_challenge<k>.py`, and the
-research job runs every one of them.
+Definitions 47 to 82 and the Challenge 4, Challenge 5 and continuation stage 1
+additions are recorded in `paper.md`; the run's reading of what this file
+governs is unchanged.  For a challenge `<k>` the runner is
+`run_challenge<k>.py`, and for a continuation stage `<n>` it is
+`run_continuation<n>.py`; the research job runs every one of them.  A
+continuation stage keeps its frozen predictions and its handoff under
+`continuation/stage<n>/`, which `.gitattributes` marks `-text` beside the
+challenge directories.
 
 `verify_lean.py` scans every `.lean` file for the forbidden tokens as
 text, requires every module under `lean/BoundarySeed/` to lie in the
@@ -62,8 +67,9 @@ parent-tree or explicit-exclusion protocol is defined and verified.
 ## Session protocol
 
 Read the handoff, the seed, `PLAN.md`, this file, and the latest
-challenge's `STATUS.md`; close at most one challenge or continuation
-stage; write the handoff; never merge.
+`STATUS.md` — a challenge's while the mandatory sequence is open, a
+continuation stage's after it closes; close at most one challenge or
+continuation stage; write the handoff; never merge.
 
 ## Injection record
 
@@ -156,12 +162,22 @@ injection is live.
 | 5 | Lean audit totality (`verify_lean.py`) | a theorem `zzz_probe_unaudited` added to `Challenge5.lean` with no `#print axioms` line in the root | `FAIL: BoundarySeed.zzz_probe_unaudited is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, exit 1, naming that theorem and no other; exit 0 at 177 reports after the probe was deleted.  The axiom log was NOT regenerated at any point while the probe was live |
 | 5 | Lean audit totality, the same accident as Challenge 4 (found live, not injected) | reverting the root module with `git checkout` while restoring the import injection above, which dropped the rung's import line AND all 38 of its `#print axioms` lines; the rung's own Lean file being untracked, the same command could not revert it either and left the probe theorem in place | the census named the module and then named every one of the 38 theorems — `FAIL: BoundarySeed.deepReplay_addresses_append is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, and so on — exit 1.  Recorded because it is the SECOND rung at which this reversal has done it, which says the hazard is in the reversal procedure and not in one session's carelessness; the repair rebuilt the audit lines from the source text rather than by hand, and the clean injection above was then run again so that its diagnostic names the probe alone |
 | 5 | receipt byte-identity (found live, not injected) | the order census restructured to report the structural difference between the two within-whole orders beside the class-level one, with the committed receipt left stale | the test failed showing the differing bytes, 1 failure in 97; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 122088 to 123522 bytes, and the suite passed 97 |
-| 5 | Lean decision procedure (found live, not injected) | `decide` offered a goal carrying the reading as a free variable | `error: Expected type must not contain free variables`; two projection lemmas, `innerSideIsZero_nestedRetained` and `innerSideIsZero_innerReflected`, project the reading away first and the build then succeeded.  The same defect appeared at Challenges 2, 3 and 4, which makes this the fourth rung running |
+| 5 | Lean decision procedure (found live, not injected) | `decide` offered a goal carrying the reading as a free variable | `error: Expected type must not contain free variables`; two projection lemmas, `innerSideIsZero_nestedRetained` and `innerSideIsZero_innerReflected`, project the reading away first and the build then succeeded.  **The recurrence count in an earlier version of this cell was wrong and is corrected here**: it said the defect had appeared at Challenges 2, 3 and 4, making this the fourth rung running.  This table records it at Challenge 3, in the row above, whose cell says it also appeared at Challenge 2; there is no Challenge 4 row, and no status or change-log entry records a Challenge 4 occurrence.  What the rows support is Challenges 2 and 3, which makes this the THIRD occurrence.  The `challenge5/STATUS.md` sentence that says "for the third rung running" and then lists three earlier rungs is left as it stands, a previous rung's status not being edited, and is answered here |
 | 5 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 303 tests in ` | exit 1; `^Ran 400 tests in ` exit 0 on the same log |
 | 5 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the second measure's declared text corrected to definition 70's partition, the further-mark probe made to decide on a census rather than on the policy's own name, the reader-bound census added, and C5-1 and C4-X given their ordinal clauses, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 405; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 123522 to 127455 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 405 |
 | 5 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 400 tests in ` | exit 1; `^Ran 405 tests in ` exit 0 on the same log |
 | 5 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the C4-X visibility clause folded into the scorer, the C5-6 result basis relabelled DEFINITION-level, and the C5-7 evidence scoped to the recording policy, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 406; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 127455 to 128086 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 406 |
 | 5 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 405 tests in ` | exit 1; `^Ran 406 tests in ` exit 0 on the same log |
+| 5 | axiom log (`verify_lean.py`), deliberate regeneration — the row the rung did not have | the rung's thirty-eight theorems added, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; then `wrote lean\axioms.txt: 177 reports` under `--regen` and `lean ok: 177 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`, 139 to 177; no injection live.  The rung recorded the regeneration in its status and its change log and gave it no row, while the two earlier deliberate regenerations each got one; this is that row |
+| 5 | declared domain census (found live, not injected) — the row the rung did not have | the domain enumeration passing the outer whole's own depth as the items' allowance | the declared domain came out at **nine** members instead of 144, so the class key, the policy separation and the depths census were all read over a ninth of the space.  Found by a probe and not by a gate; `test_the_domain_is_the_declared_product` rebuilds the domain from the declared alphabet independently and fixes it.  Recorded because the rung's status reports the failure and this table did not |
+| 5 | collateral-fact agreement census (`facts_agreeing_everywhere`) — the row the rung did not have | the census made to read the FIRST point of the space instead of every point | three failures named: `test_the_facts_that_agree_everywhere_are_named` reported `[False, False, False, False, False, False, True, True] != [False, False, False, False, False, False, False, False]`, two pairs of declared facts being reported as agreeing everywhere on the strength of one point; `test_the_agreement_check_reads_both_ways` and the receipt's byte identity failed with it; 107 tests OK after `git checkout` of the module.  The census is what the rung added to answer a Challenge 4 advisory, and it had negative-direction tests and no row |
+| stage 1 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `continuation/stage1/PREDICTIONS.md` | `FAIL: working copy of continuation/stage1/PREDICTIONS.md: 72c6ad4cf27f... wanted ac401dafbfa5...`, exit 1; `pins ok: seed ba30bcd600d8 and 7 frozen prediction file(s)` and exit 0 after restore |
+| stage 1 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, stage 1) | `authority_effect` changed from `None` to `Some` in the committed `receipts/continuation1.json` | the test reported FAILED showing the differing bytes, 1 failure in 1; OK after `run_continuation1.py` rewrote the original bytes and the six pin tests passed |
+| stage 1 | the branch key's policy part (`branch_key`), new at this stage | the Challenge 5 class key of an adopted policy dropped from the key, leaving the declarations and the configuration's least key | eight failures named, and the one the part exists to catch first: `test_the_branch_counts` reported `5 != 6`, the two policy branches having collapsed into one class although the enumeration parts them over the Challenge 5 domain; `test_the_policy_part_of_the_key_is_load_bearing` errored, `test_the_branch_names`, `test_two_generators_are_two_when_they_part_at_a_branch`, the bounds row, the scores, the tally and the receipt bytes all moved with it.  94 tests OK after reversal.  **This is the defect the policy part exists to catch**: read at the configuration alone the key understates a tie the seed requires to be retained, which is the Challenge 5 defect one level up.  The reversal was done by patching the module and NOT by `git checkout`, the file being untracked at the time, which is the hazard rows for Challenges 4 and 5 record |
+| stage 1 | the substitution census (`branch_substitution_census`), new at this stage | the enumeration source made to name the least domain member carrying as many marks as the branch's configuration admits — that is, made to read the state | nine failures named: the census read `reads_nothing_of_the_branch: False` with 22 of the 36 ordered pairs moving under U, `test_the_enumeration_generator_reads_nothing_of_the_branch` reported `False is not true`, S1-6 went from PARTIAL to MISSED and S1-5 from HIT to PARTIAL, and the receipt bytes moved with them; 94 tests OK after reversal, again by patching rather than by `git checkout` |
+| stage 1 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Continuation1` removed from the root module | `FAIL: BoundarySeed.Continuation1 is outside the root's import closure and is never elaborated`, exit 1 read directly and not through a pipeline; `lean ok: 205 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore |
+| stage 1 | axiom log (`verify_lean.py`), deliberate regeneration | the stage's twenty-eight theorems added, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`; then `wrote lean\axioms.txt: 205 reports` under `--regen` and `lean ok: 205 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`, 177 to 205; no injection live |
+| stage 1 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 406 tests in ` | exit 1; `^Ran 504 tests in ` exit 0 on the same log; the stale `^Ran 503 tests in ` from an intermediate count also exits 1, which is the same direction observed twice |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -183,5 +199,9 @@ review-repair rows the session after that again, the Challenge 4 rows the
 session after that, the Challenge 4 review-repair rows the session after that,
 the Challenge 5 rows the session after that again, the Challenge 5
 review-repair rows the session after that, and the Challenge 5 second
-review-repair rows the session after that; current whole-tree
-counts are reported in the latest `challenge<k>/STATUS.md`.
+review-repair rows the session after that.  The three rows labelled *the row
+the rung did not have* were added at continuation stage 1, from the Challenge 5
+status's own record for the first two and from an injection run at stage 1 for
+the third; the stage-1 rows record that stage.  Current whole-tree counts are
+reported in the latest status page — `challenge<k>/STATUS.md` for a challenge,
+`continuation/stage<n>/STATUS.md` for a continuation stage.

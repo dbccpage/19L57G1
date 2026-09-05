@@ -39,6 +39,9 @@ FROZEN: dict[str, str] = {
     "challenge5/PREDICTIONS.md": (
         "b3aab18d8e5a0700e563862ef7a884248badefbc7c653df0e00097044e3d99de"
     ),
+    "continuation/stage1/PREDICTIONS.md": (
+        "ac401dafbfa5072f04b6ab532992eae41391f87b6fe4441592b86804c4bf8313"
+    ),
 }
 
 

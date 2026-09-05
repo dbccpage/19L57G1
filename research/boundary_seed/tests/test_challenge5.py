@@ -107,6 +107,7 @@ from boundary.challenge5 import (  # noqa: E402
     retain,
     retained_key,
     score,
+    score_c4x,
     side_items,
     signatures_agree,
     tally,
@@ -1303,6 +1304,81 @@ class BuildTimeTests(unittest.TestCase):
         )
         self.assertEqual(
             len(list(product(POLICY_SPACE, (False, True)))), len(point_space())
+        )
+
+
+    def test_the_order_census_reads_a_different_count_at_each_policy(self) -> None:
+        # The receipt's `order` block is computed at the recording policy and
+        # carries no policy field, so the number 116 is that policy's.  The
+        # same census at the other two admitting policies reads 121 and 108,
+        # which is why the paper's row and B5-ORDER name the policy.  The
+        # receipt is not regenerated for this; the scope is stated in prose and
+        # the three numbers are computed here.
+        counts = {}
+        for policy in (POLICY_ADDRESS, POLICY_OPAQUE, POLICY_FLATTEN):
+            moved = 0
+            for whole in domain():
+                declared = deep_replay(
+                    policy_history(whole, policy), deep_genesis(READING_U)
+                )
+                other = deep_replay(
+                    policy_history(
+                        whole, policy, DECLARED_CONVENTION, OTHER_WITHIN_WHOLE_ORDER
+                    ),
+                    deep_genesis(READING_U),
+                )
+                moved += declared != other
+            counts[POLICY_NAMES[policy]] = moved
+        self.assertEqual(counts, {"record": 116, "opaque": 121, "discard": 108})
+        self.assertEqual(
+            int(order_facts(READING_U)["domain_inscriptions_where_the_states_differ"]),
+            counts["record"],
+        )
+
+
+class C4XNegativeDirectionTests(unittest.TestCase):
+    """The three C4-X clause statuses that were only ever asserted in the HIT
+    direction.  Review found the gap: the rung claimed the negative direction of
+    every scored clause was tested, and three of C4-X's eight were not."""
+
+    def facts(self) -> tuple[Json, Json, Json]:
+        return (
+            reading_facts(READING_U),
+            reading_facts(READING_O),
+            reader_facts(),
+        )
+
+    def test_c4x_widening_priced_clause_misses_when_the_run_does_not_pay(self) -> None:
+        u, o, reader = self.facts()
+        moved = copy.deepcopy(reader)
+        moved["paid_by"] = "the caller"
+        self.assertEqual(
+            score_c4x(u, o, moved)["widening_priced_clause_status"], "MISSED"
+        )
+        self.assertEqual(score_c4x(u, o, reader)["widening_priced_clause_status"], "HIT")
+
+    def test_c4x_datum_clause_misses_when_a_point_changes_the_initial_datum(self) -> None:
+        u, o, reader = self.facts()
+        moved = copy.deepcopy(u)
+        moved["point_detail"][0]["initial_datum_unchanged"] = False
+        self.assertEqual(
+            score_c4x(moved, o, reader)["inner_whole_not_a_datum_clause_status"],
+            "MISSED",
+        )
+        self.assertEqual(
+            score_c4x(u, o, reader)["inner_whole_not_a_datum_clause_status"], "HIT"
+        )
+
+    def test_c4x_space_clause_misses_when_the_policy_space_is_shorter(self) -> None:
+        u, o, reader = self.facts()
+        moved = copy.deepcopy(o)
+        moved["policies"] = moved["policies"][:-1]
+        self.assertEqual(
+            score_c4x(u, moved, reader)["declared_finite_policy_space_clause_status"],
+            "MISSED",
+        )
+        self.assertEqual(
+            score_c4x(u, o, reader)["declared_finite_policy_space_clause_status"], "HIT"
         )
 
 

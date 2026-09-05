@@ -4,6 +4,7 @@ import BoundarySeed.Challenge2
 import BoundarySeed.Challenge3
 import BoundarySeed.Challenge4
 import BoundarySeed.Challenge5
+import BoundarySeed.Continuation1
 
 /-!
 # The boundary derivation: root
@@ -190,3 +191,31 @@ compares the build log with the committed axiom log.
 #print axioms BoundarySeed.nestedRetained_reading
 #print axioms BoundarySeed.nestedRetained_initialDatum
 #print axioms BoundarySeed.no_event_follows_nestedRetained
+#print axioms BoundarySeed.firstMissingFrom_zero
+#print axioms BoundarySeed.firstMissingFrom_succ_present
+#print axioms BoundarySeed.firstMissingFrom_succ_missing
+#print axioms BoundarySeed.firstMissingFrom_not_present
+#print axioms BoundarySeed.firstMissingFrom_ge
+#print axioms BoundarySeed.firstMissingFrom_lt
+#print axioms BoundarySeed.firstMissingFrom_none_means_every_index_present
+#print axioms BoundarySeed.firstMissing_not_present
+#print axioms BoundarySeed.firstMissing_lt_bound
+#print axioms BoundarySeed.contains_cons_self
+#print axioms BoundarySeed.firstMissing_never_repeats
+#print axioms BoundarySeed.record_lengthens
+#print axioms BoundarySeed.firstMissing_presentedIndices
+#print axioms BoundarySeed.firstMissing_presentedIndices_recorded
+#print axioms BoundarySeed.nodes_le_succ
+#print axioms BoundarySeed.nodes_add_le
+#print axioms BoundarySeed.nodes_mono
+#print axioms BoundarySeed.nodes_U_four
+#print axioms BoundarySeed.nodes_U_five
+#print axioms BoundarySeed.nodes_O_four
+#print axioms BoundarySeed.nodes_O_five
+#print axioms BoundarySeed.roundBound_U_fits
+#print axioms BoundarySeed.roundBound_O_fits
+#print axioms BoundarySeed.roundBound_U
+#print axioms BoundarySeed.roundBound_O
+#print axioms BoundarySeed.the_seed_bound_does_not_fit_U
+#print axioms BoundarySeed.the_seed_bound_does_not_fit_O
+#print axioms BoundarySeed.roundBound_is_short_of_the_seed_bound

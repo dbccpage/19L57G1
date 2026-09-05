@@ -1,8 +1,9 @@
 # Claim ledger: the boundary derivation
 
 `AuthorityEffect: None`.  One entry per claim used by `paper.md`.  IDs
-are stable and prefixed `B<challenge>-`.  The admitted boundary is listed
-first.  Statuses: DEFINITION (true by unfolding a declaration; never
+are stable and prefixed `B<challenge>-` for the mandatory challenge sequence
+and `S<stage>-` for a stage of the autonomous continuation.  The admitted
+boundary is listed first.  Statuses: DEFINITION (true by unfolding a declaration; never
 counted as content), PROVED (Lean theorem named), COMPUTED (deterministic
 Python receipt, bounded), LIMITATION, OPEN.
 
@@ -2425,11 +2426,15 @@ Python receipt, bounded), LIMITATION, OPEN.
   inscriptions, and at none of those is it the caller's own.  So among the
   points that admit the caller's inscription the minimum capability count is
   one, exactly two non-isomorphic classes attain it, both are retained, and
-  **uniqueness is refuted under both readings** — where at Challenge 4 it was
-  not refuted under U.
+  **uniqueness is refuted under both readings**.
 - **Status**: COMPUTED, a census over the declared domain with the parting
   inscriptions named, and the implemented quotient of definition 69.  Counted
-  as content: score C5-4.
+  as content: score C5-4.  **The comparison with Challenge 4 — that uniqueness
+  was not refuted under U there — is kept OUT of the COMPUTED status**, in the
+  words B5-MEASURES-PART already uses: it is read off `receipts/challenge4.json`'s
+  own `readings.U.minima_by_mu1.unique` and is computed by nothing in this
+  rung.  An earlier version folded it into the status, which is the shape the
+  second review narrowed out of B5-CLASS-KEY.
 - **Dependencies**: definitions 62, 69; B5-POLICY-SPACE, B5-NESTING-INVISIBLE.
 - **Assumptions**: two policies are the same policy exactly when they retain
   isomorphic states at every member of the declared domain; a wider domain
@@ -2666,10 +2671,16 @@ Python receipt, bounded), LIMITATION, OPEN.
   however many further marks are admitted at whatever depth.
 - **Status**: COMPUTED (the certification, the replay, and the probes at every
   point, with both values of the admission predicate attained); PROVED (that
-  any deep history keeps the reading and the datum, that the deep event-follows
-  relation is empty, and that an admitted address is read the same after any
-  later history).  The empty relation is DEFINITION-level and is reported
-  apart.  Counted as content: score C5-8.
+  any deep history keeps the reading, by `deepReplay_reading`, and the datum,
+  by `deepReplay_initialDatum`, and that an admitted address is read the same
+  after any later history, by `deepReplay_preserves_address`).  DEFINITION-level,
+  and reported apart rather than inside the PROVED conjunction: that the deep
+  event-follows relation is empty, `deep_no_event_follows` with its
+  instantiation `no_event_follows_nestedRetained`, the relation being declared
+  empty.  Counted as content: score C5-8.  Two earlier versions were wrong here
+  and both are corrected: one named the datum clause without naming the theorem
+  that proves it, and one put the empty relation inside the PROVED conjunction
+  while calling the same clause DEFINITION-level in the next sentence.
 - **Dependencies**: definitions 9, 63, 64; B5-RETENTION.
 - **Assumptions**: the probe set offers every event kind of the deep grammar.
 - **Python evidence**: receipt `readings.*.point_detail.*.event_follows_relation_empty`,
@@ -2689,6 +2700,35 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Falsifier**: a non-empty event-follows relation at any point; a retained
   state that does not replay from genesis; or an earlier event kind withdrawn.
 - **Surviving boundary**: Challenge 5 and every later stage that adds no rule.
+
+### B5-ORDER
+
+- **Statement**: The declared within-whole admission order is applied at every
+  level at Challenge 5.  Over the declared 144-member domain it moves the
+  retained state at 116 inscriptions **under the recording policy**, at 121
+  under the opaque policy and at 108 under the discarding one; and it moves no
+  state's class at any policy.
+- **Status**: COMPUTED for the first count, which is the receipt's own
+  `order.domain_inscriptions_where_the_states_differ` at the recording policy,
+  the `order` block being computed at that policy and carrying no policy field;
+  the two other counts are read off the same key at the other two policies and
+  are stated here rather than added to the receipt, which is not regenerated.
+  DEFINITION-level for the second: the two orders admit the same marks at the
+  same addresses and differ only in the order of admission, which is a
+  permutation of the internal identities, and the mark permutations are
+  permitted at every point of the space, so the count is zero by unfolding
+  definition 13 and is policy-independent for the same reason.
+- **Dependencies**: definitions 48, 61, 63, 69; B5-POLICY-SPACE.
+- **Assumptions**: the order is a declaration of the same kind as the
+  convention and the inscription fixes neither.
+- **Python evidence**: receipt `readings.*.order`;
+  `test_the_order_moves_the_state_and_not_its_class`,
+  `test_the_order_census_reads_a_different_count_at_each_policy`.
+- **Lean theorem**: none; the Lean model carries no order.
+- **Axiom report**: not applicable.
+- **Falsifier**: the two orders giving non-isomorphic states at any member of
+  the declared domain; or the structural count being zero.
+- **Surviving boundary**: the Challenge 5 domain and policy space.
 
 ### B5-OUTSIDE
 
@@ -2751,3 +2791,362 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Axiom report**: not applicable.
 - **Falsifier**: as written in `challenge5/PREDICTIONS.md`.
 - **Surviving boundary**: not yet.
+
+### S1-BRANCHES
+
+- **Statement**: A branch is a certified line of the run: the declarations in
+  force on it, the caller history it replays, and the configuration that replay
+  produces.  Under the one-adoption rule — the base branch adopts nothing and
+  every other declared branch adopts exactly one retained tied-minimum class of
+  one closed rung — the declared branch set is **six branches under reading U
+  and five under reading O**.  The minima are recomputed from the closed rungs'
+  own modules and agree with those rungs' committed receipts.
+- **Status**: COMPUTED, the recomputation and the implemented quotient of
+  S1-BRANCH-KEY.  Counted as content: score S1-1.  The one-adoption rule itself
+  is a DEFINITION of this stage and the product of the rungs' classes is not
+  enumerated.
+- **Dependencies**: definitions 73, 74, 75; B3-THREE-MINIMA, B4-MINIMUM-U,
+  B4-MINIMA-O, B5-TWO-TIED-MINIMA.
+- **Assumptions**: that a rung's minimum answers that rung's requirement alone,
+  so that no requirement of the run justifies a second adoption; and definition
+  74's per-challenge reading of the current configuration, a cumulative reading
+  being available and not taken.
+- **Python evidence**: receipt `readings.*.branch_count`, `branches`,
+  `branch_classes`, `branch_space.rung_minima`;
+  `test_the_branch_counts`, `test_the_branch_names`,
+  `test_the_recomputed_minima_match_the_committed_receipts`,
+  `test_every_candidate_lies_in_exactly_one_class`.
+- **Lean theorem**: none; Lean closes no branch set.
+- **Axiom report**: not applicable.
+- **Falsifier**: a branch count other than six and five; a recomputed minimum
+  differing from the closed rung's committed receipt; or a candidate lying in
+  no class or in two.
+- **Surviving boundary**: the continuation, until a round changes the set.
+
+### S1-BRANCH-KEY
+
+- **Statement**: Two branches are the same branch exactly when their branch
+  keys are equal, and the key is the declarations in force, the Challenge 5
+  class key of an adopted policy, and the least key of the configuration under
+  the branch's own permitted renamings.  The quotient identifies the two
+  withdrawals of the mark permutations, which are one declaration named at
+  Challenges 3 and 4; the two further-mark points, which are one class; and,
+  under O, the Challenge 3 null minimum with the base.  **The policy part of
+  the key is load-bearing**: the two policy branches retain configurations with
+  the same least key, so a key read at the configuration alone reports five
+  branches under U and four under O, one short under each reading.
+- **Status**: COMPUTED, both keys computed at every candidate and compared.
+  Counted as content: score S1-2.
+- **Dependencies**: definition 75; definition 69; B5-CLASS-KEY.
+- **Assumptions**: that the least key of a configuration under a candidate's
+  own renamings is the right state-level comparison, which is the comparison
+  Challenges 3 to 5 used.
+- **Python evidence**: receipt `readings.*.branch_classes`,
+  `branch_classes_without_the_policy_key`,
+  `branch_count_without_the_policy_key`;
+  `test_the_policy_part_of_the_key_is_load_bearing`,
+  `test_the_quotient_identifies_one_declaration_named_at_two_rungs`,
+  `test_the_quotient_identifies_the_null_minimum_with_the_base`.
+- **Lean theorem**: none.
+- **Axiom report**: not applicable.
+- **Falsifier**: the two policy branches having different least keys; the
+  counts not falling when the policy part is dropped; or the quotient
+  identifying two branches that declare different structures.
+- **Surviving boundary**: the continuation's branch set.
+
+### S1-GENERATOR-SPACE
+
+- **Statement**: What may be shown to a branch next is decided by nothing the
+  run has declared, so the stage declares twelve generators over three
+  coordinates — the source of the next inscription, whether it is retained,
+  whether a demand is imposed — and four capabilities: that the process
+  supplies, that the process admits, that the next presentation is computed
+  from the branch's admitted state, and that the process imposes a requirement.
+  A generator is one step exactly when its capability count is one, and one of
+  two or more bundles and is refused.  **That count is not the number of
+  coordinates moved**: the state-reading source moves one coordinate and uses
+  two capabilities, as the recording policy did at Challenge 5.
+- **Status**: DEFINITION for the space, the capability names and the counts; a
+  hit on them is by construction and is not counted as content: score S1-3.
+  COMPUTED that the two counts part in this space.
+- **Dependencies**: definitions 77, 78; definition 45 for the admitting
+  capability; B5-ONE-STEP-PARTS.
+- **Assumptions**: the three source values exhaust the run's own reading of
+  what may name the next inscription — nothing, something read without the
+  state, something read from it — and that reading is itself a declaration,
+  stated in the receipt.  One source of each of the last two kinds is
+  enumerated and not every one.
+- **Python evidence**: receipt `generator_space`,
+  `readings.*.one_step_iff_capability_count_one` (true) and
+  `one_step_iff_one_coordinate_moved` (false);
+  `test_the_space_is_the_product_of_its_declared_coordinates`,
+  `test_the_declared_capability_counts`,
+  `test_one_step_is_capability_count_one_and_not_coordinate_count`.
+- **Lean theorem**: none; the Lean model carries no generator space.
+- **Axiom report**: not applicable.
+- **Falsifier**: a space size other than twelve; a generator that supplies and
+  retains costing one; or the two counts agreeing at every point.
+- **Surviving boundary**: this stage's enumeration and nothing wider.
+
+### S1-WEAKEST-GENERATOR
+
+- **Statement**: Among the generators that emit a challenge at a branch at all,
+  the minimum capability count is **one**, under both readings and at every
+  declared branch.  The generator of count zero emits nothing and is not
+  eligible.  Under reading O the enumeration generator attains the minimum
+  alone at every branch.  Under reading U it attains it alone at five branches
+  and shares it at the sixth: the further-mark branch carries a third group tag
+  that no whole the caller presented introduced, so a pair remains that the
+  caller never demanded, the demand generator emits there, and **two tied
+  classes are retained**.  The demand it emits is already met at that branch's
+  own renamings.
+- **Status**: COMPUTED, an eligibility filter computed per branch with both
+  values attained under U, and the implemented quotient of generators over the
+  branch set.  Counted as content: score S1-4.
+- **Dependencies**: definitions 77 to 80; S1-GENERATOR-SPACE, S1-BRANCHES;
+  definition 52 for the sense of the demand.
+- **Assumptions**: that a demand may name any pair of the branch's own retained
+  wholes, the process's further mark included, and that the caller's already
+  imposed demand is the pair of the two wholes current at Challenges 3 and 4.
+  A narrower reading, under which only the caller's own wholes may be named,
+  would leave the demand generator emitting nowhere and the tie would not
+  arise; that reading is not taken and the choice is recorded here.
+- **Python evidence**: receipt `readings.*.branch_detail.*.minima_by_mu1`,
+  `demand_generator_emits_at`, `branches_with_a_tie`;
+  `test_the_minimum_among_emitting_generators_is_one`,
+  `test_the_tie_is_on_the_further_mark_branch_of_reading_u_alone`,
+  `test_both_tied_classes_are_retained`,
+  `test_the_demand_generator_emits_on_one_branch_of_reading_u_alone`,
+  `test_the_null_generator_is_not_eligible`.
+- **Lean theorem**: none; Lean closes no minimum.
+- **Axiom report**: not applicable.
+- **Falsifier**: a minimum other than one at any branch; the demand generator
+  emitting where the caller's two wholes are the only retained wholes; its
+  emitting nothing on the further-mark branch; or a tie anywhere under O.
+- **Surviving boundary**: this stage's branch set and generator space.
+
+### S1-FIRST-CHALLENGE
+
+- **Statement**: The challenge the enumeration generator names is the same on
+  every declared branch and under both readings: `<|b>`, the least member of
+  the declared 144-member domain, in that domain's own order, that the
+  presented record does not carry.  It has **one mark and depth one** — a
+  further mark and not a deeper nesting — and it is not in the record.
+- **Status**: COMPUTED, an enumeration over the declared domain.  Counted as
+  content: score S1-5.
+- **Dependencies**: definitions 76, 79; definition 69 for the domain.
+- **Assumptions**: that the initial inscription belongs in the presented
+  record, definition 1 making it a supplied whole; leaving it out would make
+  the least unpresented member the initial inscription itself.
+- **Python evidence**: receipt `record`, `readings.*.first_challenge`,
+  `the_same_challenge_on_every_branch`;
+  `test_the_first_challenge`,
+  `test_the_enumeration_generator_emits_the_same_challenge_everywhere`,
+  `test_the_presented_record_is_the_rungs_own_inscriptions`.
+- **Lean theorem**: `BoundarySeed.firstMissing_presentedIndices`, at the
+  record's own indices; DEFINITION-level, a concrete evaluation.
+- **Axiom report**: none.
+- **Falsifier**: two branches whose first challenge differs; a first challenge
+  of depth greater than one, or carrying other than one mark; or a first
+  challenge already in the record.
+- **Surviving boundary**: the first round of the next stage.
+
+### S1-READS-NOTHING
+
+- **Statement**: Replacing any declared branch by any other moves nothing the
+  enumeration generator emits, over every ordered pair of branches under each
+  reading, so it reads no component of any branch — not a placement, not an
+  address, not a judgment, not a profile.  The census is not vacuous: the
+  branch set carries four distinct configuration keys under each reading, and
+  the state-reading source moves under the same census, at 22 of the 36 pairs
+  under U and 12 of the 25 under O.
+- **Status**: COMPUTED.  Counted as content: score S1-6, whose second clause
+  MISSED.
+- **Dependencies**: definitions 79, 81; S1-BRANCHES.
+- **Assumptions**: that substituting the whole branch is at least as strong as
+  substituting the configuration alone, which it is, the configuration being
+  part of the branch.
+- **Python evidence**: receipt `readings.*.substitution_census`;
+  `test_the_enumeration_generator_reads_nothing_of_the_branch`,
+  `test_the_state_source_moves_under_the_same_census`,
+  `test_the_demand_generator_moves_under_u_and_not_under_o`.
+- **Lean theorem**: none; the substitution census is a Python enumeration.
+- **Axiom report**: not applicable.
+- **Falsifier**: any substitution that moves the emitted challenge; a branch
+  set with one configuration key, which would make the census vacuous; or the
+  state-reading source failing to move under it.
+- **Surviving boundary**: this stage's branch set.
+- **Recorded miss**: the frozen S1-6 also asserted that the run's census of
+  functions returning an event would find none in this stage's module.  It
+  finds one, `inherited_history`, which reads the recorded caller history each
+  branch replays; the clause MISSED and is recorded next to its value.  What
+  the census cannot see is recorded with it, in the receipt's
+  `events_named_by_this_stage`: it reads a return annotation and cannot tell a
+  function that names the events of a recorded history from one that issues a
+  new event, so a clean census would not have been evidence either.
+
+### S1-NON-REPETITION
+
+- **Statement**: The generator is a function of the presented record alone.
+  What it names has not been presented; what it names lies inside the declared
+  bound; a challenge once named is never named again from the record that
+  carries it; and it falls silent only when the record already carries every
+  index below the bound — so a branch that stops for want of a next challenge
+  stops because the declared domain is exhausted and not because the procedure
+  gave up.
+- **Status**: PROVED, for an arbitrary record and bound.  Counted as content:
+  score S1-7.
+- **Dependencies**: definition 79.
+- **Assumptions**: that the Lean `firstMissing` over indices is the Python
+  `first_missing` over the declared domain's order.  That correspondence is
+  prose; a test holds the Lean file's concrete numbers to the Python ones,
+  which checks the numbers and not the correspondence.
+- **Python evidence**: `test_first_missing_reads_both_ways`,
+  `test_the_lean_record_is_the_python_record`,
+  `test_the_lean_first_challenge_is_the_python_one`.
+- **Lean theorem**: `BoundarySeed.firstMissing_not_present`,
+  `BoundarySeed.firstMissing_lt_bound`,
+  `BoundarySeed.firstMissing_never_repeats`,
+  `BoundarySeed.firstMissingFrom_none_means_every_index_present`.
+- **Axiom report**: `[propext]` for the first; `[propext, Quot.sound]` for the
+  other three.
+- **Falsifier**: a record and bound at which the generator names a presented
+  index, names one at or above the bound, names the same index twice, or falls
+  silent while an index below the bound is unpresented.
+- **Surviving boundary**: every stage that uses this generator.
+
+### S1-BOUNDS
+
+- **Statement**: The node ceiling is one thousand, a declaration of this stage.
+  The branching bound is **three**, read off the closed rungs' own recomputed
+  minima: the largest number of tied non-isomorphic minimum classes any of them
+  produced.  The round bound is then computed and not declared, and it is
+  **four under both readings** — 726 nodes under U and 605 under O, against
+  2184 and 1820 one round further — which is short of the seed's fifteen.  So
+  an exact frontier under a declared bound is owed and fifteen rounds are not
+  attempted.
+- **Status**: COMPUTED for the branching bound and the round bound; DEFINITION
+  for the ceiling, which is listed as one and whose effect on the bound the
+  receipt reports at five ceilings.  PROVED that four is the largest round
+  count fitting the ceiling at each branch count, and that fifteen does not
+  fit.  Counted as content: score S1-8.
+- **Dependencies**: definition 82; S1-BRANCHES for the branch counts.
+- **Assumptions**: that a branch splits into at most as many branches per round
+  as the largest tie the run has produced.  That is a bound the stage holds
+  itself to, not a theorem that no later round produces a wider one; a round
+  that produced more classes than the bound would stop at the bound and the
+  frontier would be exported there.
+- **Python evidence**: receipt `readings.*.bounds`;
+  `test_the_node_counts`, `test_the_round_bound_is_computed_from_the_ceiling`,
+  `test_the_branching_bound_is_read_off_the_closed_rungs`,
+  `test_the_ceiling_is_declared_and_the_bound_moves_with_it`,
+  `test_the_lean_node_counts_are_the_python_ones`.
+- **Lean theorem**: `BoundarySeed.nodes_mono`, `BoundarySeed.roundBound_U`,
+  `BoundarySeed.roundBound_O`,
+  `BoundarySeed.the_seed_bound_does_not_fit_U`,
+  `BoundarySeed.the_seed_bound_does_not_fit_O`.
+- **Axiom report**: `[propext, Quot.sound]` for all five.
+- **Falsifier**: a branching bound other than the largest tie the closed rungs
+  produced; a round bound declared rather than computed; a round bound of
+  fifteen or more at the declared ceiling; or a round bound differing between
+  the readings.
+- **Surviving boundary**: the continuation, at this ceiling and this branch set.
+
+### S1-REQUIREMENTS
+
+- **Statement**: The Challenge 4 requirement is the live one at this stage, and
+  the branches part over it: it is unresolved at the base under both readings,
+  unresolved at the side-exchange withdrawal and at the further mark under U,
+  met at the withdrawal of the mark permutations under both readings and at the
+  keeping of the labels under O, and it **disappears** at both policy branches,
+  whose configurations hold fewer than two retained wholes.  Disappearance is
+  one of the fates the seed lists for an unresolved requirement, and it is
+  recorded rather than treated as satisfaction.
+- **Status**: COMPUTED, definition 52's sense at each branch's own renamings.
+  Reported beside score S1-1 and not scored on its own.
+- **Dependencies**: definitions 52, 74, 80; B4-FAILS-UNDER-BOTH.
+- **Assumptions**: that a requirement about two retained wholes is not carried
+  by a configuration holding fewer than two, and that its disappearance is not
+  its satisfaction.
+- **Python evidence**: receipt `readings.*.branch_detail.*.live_requirement`;
+  `test_the_live_requirement_is_unresolved_at_the_base`,
+  `test_the_challenge_4_minimum_meets_the_live_requirement`,
+  `test_the_requirement_disappears_on_a_policy_branch`.
+- **Lean theorem**: none here; the Challenge 4 obstruction is proved at that
+  rung.
+- **Axiom report**: not applicable.
+- **Falsifier**: the requirement reported met at a branch a permitted
+  automorphism of whose configuration carries one whole onto the other; or
+  reported carried at a configuration with fewer than two retained wholes.
+- **Surviving boundary**: the branch set as this stage leaves it.
+
+### S1-NO-ROUND
+
+- **Statement**: This stage accepts no augmentation round, adopts no candidate,
+  admits nothing, and declares no event kind.  Every branch's configuration is
+  the replay of its own recorded history and is certified from genesis; the
+  initial datum and the reading are unchanged at every branch; and both
+  event-follows relations stay empty on every probe.
+- **Status**: COMPUTED for the certification, the replay and the probes at
+  every branch; DEFINITION-level for the empty relations, which are declared
+  empty and are reported apart.  Counted as content: score S1-9.
+- **Dependencies**: definitions 7, 25, 64, 72, 73.
+- **Assumptions**: the probe sets offer every event kind of both grammars.
+- **Python evidence**: receipt `readings.*.branch_detail.*.certified`,
+  `replays_from_genesis`, `initial_datum_unchanged`, `reading_unchanged`,
+  `event_follows_relation_empty`, `deep_event_follows_relation_empty`,
+  `new_event_kinds_at_stage_1`, `bounds.rounds_accepted_at_this_stage`;
+  `test_every_branch_replays_from_genesis`,
+  `test_every_branch_row_reports_its_declarations_and_its_replay`,
+  `test_the_receipt_states_that_no_round_is_run`.
+- **Lean theorem**: `BoundarySeed.deep_no_event_follows`,
+  `BoundarySeed.no_event_follows` for the two declared relations, inherited.
+- **Axiom report**: `[propext]` for both.
+- **Falsifier**: a non-empty event-follows relation at any branch; a
+  configuration that does not replay from genesis; any round accepted; any
+  candidate adopted; or a changed initial datum or reading.
+- **Surviving boundary**: this stage; the next stage runs the rounds.
+
+### S1-BOUNDARY-DEPENDENCE
+
+- **Statement**: The branch set, the one-adoption rule, the generator space,
+  the capability counts, the one-step rule, the refusal of bundles, the node
+  ceiling, the branching bound and the computed round bound do not require the
+  admitted boundary.  Every configuration the branch quotient compares does,
+  the least key being a key of a placement; the declared domain the enumeration
+  generator reads does, its members being wholes delimited by one bar with a
+  side on each hand; and the demand generator's requirement does, a permitted
+  automorphism being a renaming of marks and, under U, of the two sides.
+- **Status**: COMPUTED where a receipt key carries it, declared where the
+  statement is about what a definition mentions.
+- **Dependencies**: the whole stage.
+- **Assumptions**: the dependence is judged by whether the notion is
+  formulated after removing the boundary, as at every earlier rung.
+- **Python evidence**: receipt `boundary_dependence`.
+- **Lean theorem**: none; dependence is not an object-language statement.
+- **Axiom report**: not applicable.
+- **Falsifier**: a result listed independent that cannot be stated without the
+  boundary, or the converse.
+- **Surviving boundary**: this stage.
+
+### S1-X
+
+- **Statement**: The stage that runs the accepted rounds presents `<|b>` to
+  every branch at its first round, and a supply changes no admitted state, so
+  no branch accepts an augmentation at that round and the branch set does not
+  grow; the stage reports termination rather than growth, every branch stopping
+  for want of a justified response well short of the four-round bound, unless
+  it first declares the further capability that lets the process admit as well
+  as supply, which costs a second capability and is refused as one step.
+- **Status**: OPEN, the frozen extrapolation of this stage.  Not scored here;
+  the stage that runs the rounds scores it.
+- **Dependencies**: S1-WEAKEST-GENERATOR, S1-FIRST-CHALLENGE, S1-BOUNDS;
+  B0-INERTIA and B1-SUPPLY-PRESENTATION for the inertia of a supply.
+- **Assumptions**: none beyond this stage's declarations.
+- **Python evidence**: none yet; `scores.S1-X` records it PENDING.
+- **Lean theorem**: none yet.
+- **Axiom report**: not applicable.
+- **Falsifier**: any branch accepting an augmentation at round one; the branch
+  set growing at round one; the first round being refused rather than answered
+  by the null response; or the stage reaching the round bound on any branch.
+- **Surviving boundary**: the next stage.

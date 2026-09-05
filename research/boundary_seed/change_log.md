@@ -1646,3 +1646,151 @@ Carried: nothing new.  The Challenge 1 to Challenge 4 items already carried in
 `challenge5/STATUS.md` are unchanged.
 
 Declined: nothing.
+
+## 2026-09-05, continuation stage 1 predictions frozen
+
+`continuation/stage1/PREDICTIONS.md` committed before the branch's first
+stage-1 code-or-proof commit, sha256
+`ac401dafbfa5072f04b6ab532992eae41391f87b6fe4441592b86804c4bf8313`, with
+`.gitattributes` extended to mark `continuation/*/PREDICTIONS.md` `-text`.  The
+frozen file discloses, in its own text, the four numbers the writer had
+computed in scratch against the tree's own committed code before freezing — the
+branch counts, the first challenge, the undemanded pairs on the further-mark
+branch, and the arithmetic of the node bound — so that a reader can discount
+the corresponding hits to zero.  That disclosure is sharper than the earlier
+rungs gave and is the reason the near sweep below is weak evidence.
+
+## 2026-09-05, continuation stage 1: the branches, the generators, and the bounds
+
+The seed's autonomous continuation opens.  This stage declares, for each
+surviving branch under each reading, the weakest deterministic challenge
+generator the run can justify from that branch alone, and the resource bounds
+the rounds will run under; **it runs no round**, adopts no candidate, admits
+nothing, and declares no event kind.
+
+Added: `code/boundary/continuation1.py` with definitions 72 to 82,
+`run_continuation1.py`, `receipts/continuation1.json`,
+`lean/BoundarySeed/Continuation1.lean` with twenty-eight theorems,
+`tests/test_continuation1.py` with ninety-four tests, paper section 6 with its
+four parts, paper section 7.7, the ledger's `S1-*` entries, and the stage's
+registration in the research job.  The ledger's ID convention is extended:
+`B<challenge>-` for the mandatory sequence, `S<stage>-` for a continuation
+stage.
+
+What the stage found, in the order it was derived:
+
+- **The branch set is six under U and five under O.**  The run adopted nothing
+  at any rung, so the base branch is what stands and every other declared
+  branch adopts exactly one retained tied-minimum class of one closed rung.
+  The minima are recomputed from the closed rungs' own modules, not restated,
+  and a test holds the recomputation to their committed receipts.
+- **The branch quotient keeps the two policy branches apart although their
+  configurations agree.**  Both retain one mark on one side and have the same
+  least key, so a key read at the configuration alone reports five branches and
+  four — one short under each reading.  The key carries the policy's own
+  Challenge 5 class key, which is the defect that rung's domain-wide key was
+  written to avoid, met again one level up.
+- **The generator of capability count zero emits nothing, so the minimum is
+  taken among the generators that emit**, exactly as Challenge 5 took its
+  minima among the policies that admit.  That minimum is one under both
+  readings.
+- **The two counts of one step part again.**  The state-reading source moves
+  one coordinate and uses two capabilities, as the recording policy did at
+  Challenge 5, so Challenge 5's parting is not an accident of that rung's
+  space.
+- **A tie under U and none under O.**  On the further-mark branch the grouping
+  carries a third tag no caller whole introduced, so a pair remains that was
+  never demanded; the demand generator emits there and nowhere else, and two
+  tied classes are retained.  Under O that branch does not exist, the Challenge
+  3 minimum there being the null point.
+- **The first challenge is `<|b>`** — one mark at depth one, a further mark and
+  not a deeper nesting — and it is the same on every branch and under both
+  readings.  The generator that names it reads no component of any branch,
+  which a census over every ordered pair of branches computes and which the
+  state-reading source fails under.
+- **The round bound is four, computed, and short of the seed's fifteen.**  The
+  node ceiling of one thousand is a declaration and the branching bound of
+  three is read off the closed rungs' own minima; that four is the largest
+  round count fitting the ceiling, and that fifteen does not fit, are proved.
+- **The requirement of Challenge 4 parts the branches**: unresolved at three of
+  the six under U, met at one, and gone at the two policy branches, whose
+  configurations hold fewer than two retained wholes.  Disappearance is one of
+  the fates the seed lists and is recorded rather than read as satisfaction.
+
+**One prediction MISSED and is recorded next to its value.**  The frozen S1-6
+asserted that the run's census of functions returning an event would find none
+in this stage's module.  It finds one, `inherited_history`, which reads the
+recorded caller history each branch replays.  The clause is scored MISSED, S1-6
+is PARTIAL, and the code is **not** changed to make the clause true: what the
+census cannot see is recorded beside the miss instead, in the receipt's
+`events_named_by_this_stage` — it reads a return annotation and cannot tell a
+function that names the events of a recorded history from one that issues a new
+event, so a clean census would not have been evidence either.  The frozen file
+is untouched.
+
+C5-X is scored PENDING with four of its five clauses HIT: the frontier export
+is the work of the stage that runs the rounds, and its clause is the one that
+keeps the prediction open.  The clause about importing undeclared
+object-language structure is scored on the substitution census, which is what
+the frozen words name, and not on this stage's own function census, which is
+S1-6's clause; the two are kept apart rather than one verdict being carried
+into the other.
+
+## 2026-09-05, review repairs carried into continuation stage 1
+
+Fifteen advisories arrived from the review of Challenge 5.  Each is actioned or
+carried with its reason in `continuation/stage1/STATUS.md`; the repairs that
+lie in a living document or in apparatus are listed here.
+
+- **Section 7.6's partition is now total.**  Eleven theorems lay in neither the
+  DEFINITION-level list nor the content sentence, `deep_no_event_follows` among
+  them, which the ledger already called DEFINITION-level — one theorem with a
+  label in the ledger and none in the paper.  Every theorem of the table now
+  lies in exactly one half, and the two non-fixing theorems are counted as
+  content by the rule section 7.5 states for the structurally identical
+  Challenge 4 pair.
+- **B5-INERTIA now names the theorem for every conjunct of its PROVED status**,
+  and the empty deep event-follows relation moves out of that conjunction into
+  a DEFINITION-level clause, matching the paper.  Two earlier versions were
+  wrong in two different ways and both are corrected.
+- **B5-TWO-TIED-MINIMA's Challenge 4 comparison is out of its COMPUTED
+  status**, in the words B5-MEASURES-PART already uses: it is read off the
+  Challenge 4 receipt and is computed by nothing in this rung.
+- **A word was missing from the `flatRetained_eq` gloss** in section 7.6; and
+  the `depth_is_invariant_where_the_inner_side_is_not` gloss read as a
+  biconditional where the theorem is one equality at two named states.  Both
+  are reworded.
+- **The within-whole order rows of section 5.17 carry a claim identifier and a
+  policy scope.**  The receipt's `order` block is computed at the recording
+  policy and carries no policy field; the census reads 116 there, 121 at the
+  opaque policy and 108 at the discarding one, which a new test computes.  The
+  new ledger entry is B5-ORDER, and the Challenge 5 receipt is not regenerated:
+  the scope is stated in prose, and the second half of the row, that the order
+  moves no state's class, is policy-independent and needs none.
+- **Section 9 now scopes its minimum sentence** to the points that admit the
+  caller's inscription, as the 5.17 row and B5-TWO-TIED-MINIMA do, and **records
+  that no policy is taken** and the configuration is unchanged, which 5.19 and
+  section 10 make a headline and the Challenge 1 paragraph of the same section
+  already recorded for itself.
+- **The rung's terminal sentence** says "at any policy of capability count one",
+  the scope every other statement of it carries.
+- **Definition 64** no longer reads as if the deep grammar belonged to the
+  recording policy: it says which policy needs `AdmitAt` and states that the
+  deep grammar is the policy-agnostic replay rendering the receipt uses at
+  every admitting point.
+- **Three C4-X clause statuses that were only ever asserted in the hitting
+  direction now have their negative directions tested**, which is what the
+  paper's blanket sentence about the scorer requires: the widening's price, the
+  initial-datum clause, and the policy-space clause.  Adding the tests was
+  preferred to narrowing the sentence.
+- **Three injection rows that Challenge 5 owed are added to `MANUAL.md`**: the
+  deliberate axiom-log regeneration from 139 to 177 reports, the found-live
+  nine-versus-144 domain defect, and an injection of the collateral-fact
+  agreement census, run at this stage and observed.  The free-variable
+  recurrence count in the Challenge 5 row is corrected against what the rows
+  actually record: Challenges 2 and 3, so Challenge 5 is the third occurrence
+  and not the fourth.
+
+Carried, with reasons, in the status: the six items in `challenge4.py` and the
+items in `challenge5.py` and in earlier `STATUS.md` pages, all of which would
+regenerate a closed rung's receipt or edit a previous rung's status.
