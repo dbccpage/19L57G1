@@ -22,12 +22,15 @@ from boundary import challenge0, model  # noqa: E402
 from boundary.challenge1 import (  # noqa: E402
     BOUNDARY_DEPENDENCE,
     C0_PREDICTIONS_SHA256,
+    DEFINITION_LEVEL_PREDICTIONS,
     INSCRIPTION,
     JUDGMENT_DOMAIN_MAX_MARKS,
     PREDICTIONS_SHA256,
     REGIME_DOMAIN_MAX_MARKS,
+    SCORED_PREDICTIONS,
     SEED_SHA256,
     STATE_CHANGING_EVENT_KINDS,
+    TALLY_CRITERION,
     build,
     candidate_classes,
     current_state_facts,
@@ -43,6 +46,7 @@ from boundary.challenge1 import (  # noqa: E402
     retention_facts,
     score,
     separating_judgments,
+    tally,
 )
 from boundary.model import (  # noqa: E402
     AdmitMark,
@@ -140,6 +144,7 @@ class ReceiptTests(unittest.TestCase):
             receipt["event_returning_functions_by_module"],
         )
         self.assertEqual(receipt["boundary_dependence"], BOUNDARY_DEPENDENCE)
+        self.assertEqual(receipt["tally"], tally(receipt["scores"]))
         self.assertEqual(
             sorted(receipt["what_the_challenge_exercises"]),
             sorted(
@@ -180,6 +185,15 @@ class FactTests(unittest.TestCase):
         self.assertEqual(scores["C1-5"]["current_state_designation_status"], "MISSED")
         self.assertTrue(scores["C1-7"]["result_basis"].startswith("DEFINITION-level"))
         self.assertIn("proxy", scores["C1-7"]["mechanical_part"])
+        # The DEFINITION-level bases are receipt facts, one per listed
+        # prediction, and the one content hit says why it is not by unfolding.
+        for cid in DEFINITION_LEVEL_PREDICTIONS:
+            self.assertTrue(scores[cid]["result_basis"].startswith("DEFINITION-level"), cid)
+            self.assertIn("not counted as content", scores[cid]["result_basis"], cid)
+        self.assertTrue(scores["C1-3"]["result_basis"].startswith("content"))
+        self.assertIn("none of them by unfolding", scores["C1-3"]["result_basis"])
+        for cid in ("C1-2", "C1-4", "C1-5"):
+            self.assertNotIn("result_basis", scores[cid], cid)
         for cid in ("C1-1", "C1-2", "C1-3", "C1-4", "C1-6"):
             self.assertEqual(scores[cid]["label"], "FORCED", cid)
         for cid in ("C1-5", "C1-7", "C1-X", "C0-X"):
@@ -223,15 +237,20 @@ class FactTests(unittest.TestCase):
         facts = current_state_facts(g, supplied_only, candidates)
         self.assertFalse(facts["admitted_candidate_is_current"])
         self.assertEqual(facts["marks"], 0)
-        retained: list[Event] = [Supply("a"), AdmitMark("a", 1)]
-        facts = current_state_facts(g, retained, candidates)
+        # a hypothetical caller history that admits: no such history is the
+        # caller's at Challenge 1, and what Challenge 2's "retains" admits is
+        # that rung's decision, so this is not called a retention here
+        admitted_by_caller: list[Event] = [Supply("a"), AdmitMark("a", 1)]
+        facts = current_state_facts(g, admitted_by_caller, candidates)
         self.assertTrue(facts["admitted_candidate_is_current"])
         self.assertEqual(facts["marks"], 1)
         other: list[Event] = [Supply("z"), AdmitMark("z", 0)]
         facts = current_state_facts(g, other, candidates)
         self.assertFalse(facts["admitted_candidate_is_current"])
         self.assertEqual(facts["marks"], 1)
-        self.assertFalse(current_state_facts(g, retained, [])["admitted_candidate_is_current"])
+        self.assertFalse(
+            current_state_facts(g, admitted_by_caller, [])["admitted_candidate_is_current"]
+        )
 
     def test_moving_admission_fact_reads_accepted_and_inert_only_when_the_kernel_absorbs(self) -> None:
         # The other-side half of the frozen C1-2 parenthetical is a fact
@@ -620,6 +639,52 @@ class ScorerNegativeDirection(unittest.TestCase):
         self.assertEqual(self.run_score(u=u)["C1-7"]["status"], "MISSED")
         o = self.mutated(self.o, ["candidates", 0, "initial_datum_unchanged"], False)
         self.assertEqual(self.run_score(o=o)["C1-7"]["status"], "MISSED")
+
+    def test_tally_counts_definition_level_hits_apart_from_content(self) -> None:
+        # The tally the paper reports is computed from the statuses and the
+        # declared DEFINITION-level list: C1-3 is the one content hit, C1-1,
+        # C1-6, and C1-7 hit by construction, and the three PARTIALs are
+        # neither.  The list is declared, not inferred from the receipt.
+        counted = tally(self.run_score())
+        self.assertEqual(counted["scored"], list(SCORED_PREDICTIONS))
+        self.assertEqual(counted["definition_level_declared"], ["C1-1", "C1-6", "C1-7"])
+        self.assertEqual(counted["criterion"], TALLY_CRITERION)
+        self.assertEqual(counted["hit_as_content"], ["C1-3"])
+        self.assertEqual(counted["hit_definition_level"], ["C1-1", "C1-6", "C1-7"])
+        self.assertEqual(counted["partial"], ["C1-2", "C1-4", "C1-5"])
+        self.assertEqual(counted["missed"], [])
+        self.assertEqual(
+            sorted(counted["hit_as_content"] + counted["hit_definition_level"]
+                   + counted["partial"] + counted["missed"]),
+            sorted(SCORED_PREDICTIONS),
+        )
+        self.assertNotIn("C0-X", counted["scored"])
+        self.assertNotIn("C1-X", counted["scored"])
+
+    def test_tally_moves_a_miss_out_of_every_hit_list_and_refuses_an_unknown_status(
+        self,
+    ) -> None:
+        # A DEFINITION-level prediction that misses is a miss, not a hit by
+        # construction; a content prediction that misses leaves the content
+        # list empty; a status outside HIT, PARTIAL, MISSED is refused by
+        # name rather than silently dropped from the count.
+        scores = self.run_score()
+        missed_definition = self.mutated(scores, ["C1-1", "status"], "MISSED")
+        counted = tally(missed_definition)
+        self.assertEqual(counted["hit_definition_level"], ["C1-6", "C1-7"])
+        self.assertEqual(counted["missed"], ["C1-1"])
+        self.assertEqual(counted["hit_as_content"], ["C1-3"])
+        missed_content = self.mutated(scores, ["C1-3", "status"], "MISSED")
+        counted = tally(missed_content)
+        self.assertEqual(counted["hit_as_content"], [])
+        self.assertEqual(counted["missed"], ["C1-3"])
+        self.assertEqual(counted["hit_definition_level"], ["C1-1", "C1-6", "C1-7"])
+        partial_definition = self.mutated(scores, ["C1-6", "status"], "PARTIAL")
+        counted = tally(partial_definition)
+        self.assertEqual(counted["partial"], ["C1-2", "C1-4", "C1-5", "C1-6"])
+        self.assertEqual(counted["hit_definition_level"], ["C1-1", "C1-7"])
+        with self.assertRaisesRegex(ValueError, "unexpected status 'PENDING' for C1-2"):
+            tally(self.mutated(scores, ["C1-2", "status"], "PENDING"))
 
     def test_c0_x_halves_miss_independently(self) -> None:
         u = self.mutated(self.u, ["genesis_sides_collapsed"], False)

@@ -357,7 +357,7 @@ jobs:
           log="$RUNNER_TEMP/boundary-seed-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 109 tests in ' "$log"
+          grep -Eq '^Ran 111 tests in ' "$log"
           python -m coverage json -q
           python check_coverage.py
           python run_challenge0.py

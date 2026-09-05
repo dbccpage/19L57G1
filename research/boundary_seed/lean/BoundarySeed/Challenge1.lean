@@ -231,7 +231,7 @@ theorem continuation_reflects (rd : Reading) (s : Bool) (h : List Event) :
 
 /-- Every continuation of the candidate on `!s` is the reflection of a
 continuation of the candidate on `s`; under `O` this is what carries the
-retained branch without a second tower. -/
+kept second class without a second tower. -/
 theorem other_continuation_is_a_reflection (rd : Reading) (s : Bool) (h : List Event) :
     replay h (admitted rd (!s)) = reflect (replay (h.map exchangeSide) (admitted rd s)) := by
   rw [continuation_reflects, map_exchangeSide_map_exchangeSide]

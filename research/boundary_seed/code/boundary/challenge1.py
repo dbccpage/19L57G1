@@ -10,8 +10,10 @@ is the replay of the caller's history and nothing the caller did not
 supply.  The declared convention selects which candidate admission the
 presented side licenses, if admission is later called for; it admits
 nothing.  Under U the two candidates are one isomorphism class; under O
-they are two, both retained, the second the reflection of the first by a
-replay-level theorem.  Nothing is admitted silently: every state change in
+they are two, both kept as certified branches, the second the reflection
+of the first by a replay-level theorem.  A kept class admits nothing and
+is not the placement tuple; the word retained is reserved for an admitted
+mark's placement.  Nothing is admitted silently: every state change in
 the receipt is an event in a replayed candidate history, and the retention
 probes are hypothetical, like the Challenge 0 census.
 
@@ -84,6 +86,25 @@ JUDGMENT_DOMAIN_MAX_MARKS = 2
 REGIME_DOMAIN_MAX_MARKS = 1
 HYPOTHETICAL_TOKEN = "b"
 STATE_CHANGING_EVENT_KINDS: list[str] = ["AdmitMark"]
+SCORED_PREDICTIONS: tuple[str, ...] = ("C1-1", "C1-2", "C1-3", "C1-4", "C1-5", "C1-6", "C1-7")
+# The scored predictions whose every clause, read literally, is true by
+# unfolding a declaration or reports a modelling decision of the run.  A HIT
+# on one of them is HIT by construction and is not counted as content, by
+# the rule of PLAN.md; a miss on one is a miss like any other.  The list is
+# declared here so that the tally the paper reports is a receipt fact.  The
+# criterion: a prediction counts as content only if at least one of its
+# hitting clauses rests on a theorem outside the DEFINITION-level lists of
+# the paper's section 7 or on a computation not fixed by a declaration alone
+# (a search, a census over hypothetical placements, an isomorphism witness).
+DEFINITION_LEVEL_PREDICTIONS: tuple[str, ...] = ("C1-1", "C1-6", "C1-7")
+TALLY_CRITERION = (
+    "a prediction counts as content only if at least one of its hitting "
+    "clauses, read literally, rests on a theorem outside the DEFINITION-level "
+    "lists of the paper's section 7 or on a computation not fixed by a "
+    "declaration alone; a prediction whose every clause is true by unfolding "
+    "a declaration, or reports a modelling decision of the run, is HIT by "
+    "construction and not counted as content"
+)
 
 BOUNDARY_DEPENDENCE: dict[str, str] = {
     "supply is presentation only": "does not depend on the admitted boundary",
@@ -351,7 +372,7 @@ def convention_facts(reading: str, g: Regime, whole: Whole, supplied_history: li
 
 
 def candidate_classes(g: Regime, supplied_history: list[Event], candidates: list[AdmitMark]) -> list[Json]:
-    """The candidates grouped by canonical key; every class is retained."""
+    """The candidates grouped by canonical key; every class is kept."""
     classes: dict[tuple[object, ...], list[dict[str, object]]] = {}
     for ev in candidates:
         key = canonical(replay(supplied_history + [ev], g))
@@ -549,6 +570,14 @@ def score(
         "C1-1": {
             "status": verdict(c1_1),
             "label": "FORCED",
+            "result_basis": (
+                "DEFINITION-level: one supply changes no state and no judgment by "
+                "unfolding step (supply_no_op and supply_preserves_holds are rfl), "
+                "and the supply-only history replays to genesis as the n = 1 "
+                "instance of replay_supply_inert, which is rfl; every clause is "
+                "true by unfolding, so a hit is by construction and is not counted "
+                "as content"
+            ),
             "evidence": "supply.regime_equals_genesis, certifies_genesis, observations_unchanged",
         },
         "C1-2": {
@@ -583,6 +612,13 @@ def score(
         "C1-3": {
             "status": verdict(c1_3),
             "label": "FORCED",
+            "result_basis": (
+                "content: the one new judgment and its evaluation at the candidates "
+                "rest on admitted_onSide_true_iff, place_new_judgment, and "
+                "place_other_side_false, and the unchanged name judgments on the "
+                "induction replay_preserves_sideNamed, none of them by unfolding; "
+                "the supply clause alone is DEFINITION-level (supply_preserves_holds)"
+            ),
             "evidence": (
                 "supply adds no holding judgment; each candidate adds exactly its "
                 "OnSide judgment, the other side's does not hold, names unchanged"
@@ -625,7 +661,7 @@ def score(
             "evidence": (
                 "a declared convention; two certified O candidates in two classes, "
                 "not isomorphic, the other the reflection of the convention's "
-                "candidate; both classes retained; the convention selects a candidate "
+                "candidate; both classes kept; the convention selects a candidate "
                 "admission; the clause 'the designation is by convention' was first "
                 "scored as current-state designation of the admitted candidate, which "
                 "conflated supply with admission and is withdrawn: the caller "
@@ -635,6 +671,16 @@ def score(
         "C1-6": {
             "status": verdict(c1_6),
             "label": "FORCED",
+            "result_basis": (
+                "DEFINITION-level: the declared relation is empty by unfolding "
+                "EventFollows := False (no_event_follows_admitted is a bare "
+                "instantiation of no_event_follows); one event keeps the reading "
+                "and the initial datum by unfolding step (step_reading, "
+                "step_initialDatum), which is the clause as written; and the "
+                "unchanged grammars are a census of the run's own declarations, a "
+                "modelling decision of the same kind as C1-7's; a hit is by "
+                "construction and is not counted as content"
+            ),
             "evidence": (
                 "the event-follows relation is empty on every candidate; the initial "
                 "datum and reading are unchanged; no new event kind or judgment form"
@@ -670,11 +716,38 @@ def score(
     }
 
 
+def tally(scores: Json) -> Json:
+    """Count the scored Challenge 1 predictions by status and by basis.
+
+    A HIT counts as content only if the prediction is outside the declared
+    DEFINITION-level list; a HIT on a listed prediction is HIT by
+    construction; a PARTIAL or a MISSED is reported as such whichever list
+    the prediction is on.  Any other status is refused by name rather than
+    dropped from the count.
+    """
+    by_status: dict[str, list[str]] = {"HIT": [], "PARTIAL": [], "MISSED": []}
+    for cid in SCORED_PREDICTIONS:
+        status = scores[cid]["status"]
+        if status not in by_status:
+            raise ValueError(f"unexpected status {status!r} for {cid}")
+        by_status[status].append(cid)
+    return {
+        "scored": list(SCORED_PREDICTIONS),
+        "definition_level_declared": list(DEFINITION_LEVEL_PREDICTIONS),
+        "criterion": TALLY_CRITERION,
+        "hit_as_content": [c for c in by_status["HIT"] if c not in DEFINITION_LEVEL_PREDICTIONS],
+        "hit_definition_level": [c for c in by_status["HIT"] if c in DEFINITION_LEVEL_PREDICTIONS],
+        "partial": by_status["PARTIAL"],
+        "missed": by_status["MISSED"],
+    }
+
+
 def build() -> Json:
     u = reading_facts(READING_U)
     o = reading_facts(READING_O)
     observation_kinds = observation_vocabulary()
     event_kinds = [t.__name__ for t in EVENT_TYPES]
+    scores = score(u, o, observation_kinds, event_kinds, STATE_CHANGING_EVENT_KINDS)
     return {
         "challenge": 1,
         "inscription": INSCRIPTION,
@@ -709,6 +782,7 @@ def build() -> Json:
             ),
         },
         "boundary_dependence": BOUNDARY_DEPENDENCE,
-        "scores": score(u, o, observation_kinds, event_kinds, STATE_CHANGING_EVENT_KINDS),
+        "scores": scores,
+        "tally": tally(scores),
         "authority_effect": "None",
     }

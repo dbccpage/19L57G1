@@ -283,11 +283,23 @@ Python receipt, bounded), LIMITATION, OPEN.
   observationally separable under U with no augmentation beyond the
   admission, and under O nothing becomes distinguishable that was not
   already.
-- **Status**: SCORED at Challenge 1: HIT in both halves.  The U half is
-  PROVED (`admitted_sides_differ` against `sides_collapsed_at_genesis_U`,
-  with a history of one supply and one admission and no new event kind or
-  judgment form); the O half is PROVED (the sides distinct before and
-  after; the only new holding judgment is the mark's own side).
+- **Status**: SCORED at Challenge 1: HIT in both halves.  U half: PROVED
+  for the profile clause (collapsed at genesis, `sides_collapsed_at_genesis_U`;
+  distinct in every candidate, `admitted_sides_differ`); DEFINITION for the
+  history shape (the candidate history is declared as one supply and one
+  placement, `admitted_eq` is `rfl`); COMPUTED for “no augmentation beyond
+  the admission”, which is the unchanged grammars: a comparison of the
+  receipt's `event_kinds`, `observation_vocabulary`, and the candidates'
+  `history` kinds against the Challenge 0 declarations in `score_c0x`, not
+  a Lean theorem.  O half: PROVED for the profile and judgment clauses
+  (distinct before, `sides_distinct_at_genesis_O`; distinct after,
+  `admitted_sides_differ`; the only new holding judgment is the mark's own
+  side, `admitted_onSide_true_iff`, with the name judgments as at genesis,
+  `admitted_O_sideNamed`); COMPUTED for the receipt comparison of
+  `new_observations` and `name_observations_unchanged` over every
+  candidate.  An earlier version labelled each half PROVED as a whole,
+  carrying the grammar clause on a receipt comparison and leaving the O
+  “distinct before” theorem uncited; corrected, no result changing.
 - **Dependencies**: the admission grammar Challenge 1 declares (definitions
   19, 21, 24).
 - **Assumptions**: the prediction is conditional on the mark being
@@ -297,10 +309,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   `test_scores`, `test_c0_x_halves_miss_independently`.
 - **Lean theorem**: `BoundarySeed.admitted_sides_differ`,
   `BoundarySeed.sides_collapsed_at_genesis_U`,
+  `BoundarySeed.sides_distinct_at_genesis_O`,
   `BoundarySeed.admitted_onSide_true_iff`,
-  `BoundarySeed.admitted_O_sideNamed`.
+  `BoundarySeed.admitted_O_sideNamed`, `BoundarySeed.admitted_eq`
+  (DEFINITION-level); none for the grammar clause.
 - **Axiom report**: propext, Quot.sound; propext, Quot.sound; propext,
-  Quot.sound; propext.
+  Quot.sound; propext, Quot.sound; propext; none.
 - **Falsifier**: as written in `challenge0/PREDICTIONS.md`; neither fired.
 - **Surviving boundary**: the Challenge 1 one-mark regimes.
 
@@ -321,7 +335,11 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Assumptions**: the read whole's token is what the supply presents; the
   presented side is not carried by the event.
 - **Python evidence**: receipt `readings.*.supply`;
-  `test_supply_is_presentation_only_under_both_readings`; score C1-1;
+  `test_supply_is_presentation_only_under_both_readings`; score C1-1
+  (HIT, DEFINITION-level, not counted as content: every clause of the
+  frozen text rests on the `rfl` facts above, `scores.C1-1.result_basis`,
+  `tally.hit_definition_level`;
+  `test_tally_counts_definition_level_hits_apart_from_content`);
   `test_c1_1_misses_when_supply_changes_state`.
 - **Lean theorem**: `BoundarySeed.supply_no_op`,
   `BoundarySeed.supply_preserves_holds` (both DEFINITION-level);
@@ -338,9 +356,11 @@ Python receipt, bounded), LIMITATION, OPEN.
   caller's history and nothing the caller did not supply.  At Challenge 1
   the caller supplies and does not retain, so under each reading the
   current state is the replay of `[Supply(a)]`, which certifies and equals
-  genesis.  No admission event is the caller's; the two one-step admission
-  candidates are certified candidate histories, every isomorphism class of
-  them is retained (one under U, two under O), and none is current.  The
+  genesis; that `a` is supplied is a fact of that history, and a regime
+  carries no supplied component.  No admission event is the caller's; the
+  two one-step admission candidates are certified candidate histories,
+  every isomorphism class of them is kept as a certified branch (one under
+  U, two under O), keeping admits nothing, and none is current.  The
   declared convention selects which candidate the presented side licenses
   if admission is later called for, and admits nothing.
 - **Status**: DEFINITION (the designation rule and the convention's
@@ -353,7 +373,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   An earlier version designated the convention's admitted candidate as
   current with no admission event from the caller; that conflated supply
   with admission, turned a model proposal into an admitted state change,
-  and is WITHDRAWN.
+  and is WITHDRAWN.  A later version described the current state as
+  “genesis with `a` presented” and called the kept candidate classes
+  retained; the first read the supply into a regime that carries no such
+  component, the second used retained in a sense other than the placement
+  tuple of B1-ADMISSION-RETENTION, and both are WITHDRAWN (paper section 1
+  and definition 25).
 - **Dependencies**: definitions 5, 6, 18, 21, 24, 25.
 - **Assumptions**: “supplies” at Challenge 1 licenses no admission; what
   “retains” licenses at Challenge 2, and who pays, is Challenge 2's first
@@ -451,7 +476,10 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Assumptions**: the closed judgment grammar, unchanged.
 - **Python evidence**: receipt `candidates[*].new_observations`,
   `mark_profile`, `other_side_judgment_holds`,
-  `name_observations_unchanged`, `holding_judgments`; score C1-3;
+  `name_observations_unchanged`, `holding_judgments`; score C1-3 (HIT,
+  counted as content: its judgment clauses rest on the PROVED theorems
+  above and its supply clause alone is DEFINITION-level,
+  `scores.C1-3.result_basis`, `tally.hit_as_content`);
   `test_c1_3_misses_on_a_second_judgment_or_a_changed_name`;
   `test_mark_profile_is_the_side_and_nothing_else`,
   `test_new_observations_is_the_extension_difference`.
@@ -533,7 +561,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   them and is invariant under every permitted renaming, there being none
   but the identity at one mark.  The candidate under the other convention
   is the reflection of the convention's candidate; both classes are
-  retained, and neither is current.
+  kept as certified branches, and neither is current.
 - **Status**: DEFINITION (the convention and its selection); PROVED
   (unequal, `admitted_candidates_unequal`; the other is the reflection,
   `reflect_admitted`; the one-mark relation does not relate them,
@@ -543,7 +571,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   `onSide_separates_candidates`); COMPUTED (related by no permitted
   renaming in the general relation with mark permutations, over the
   unpruned `permitted_images` search: `isomorphic_under_reading = false`,
-  `isomorphism_witness = null`; two classes; both retained; the judgment's
+  `isomorphism_witness = null`; two classes; both kept; the judgment's
   invariance on the bounded domain).  An earlier version labelled “related
   by no permitted renaming” PROVED on `candidates_not_related_O`, whose
   adequacy for the general relation is prose plus a Python test; split as
@@ -627,7 +655,12 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Assumptions**: none.
 - **Python evidence**: receipt `candidates[*].event_follows_relation_empty`,
   `initial_datum_unchanged`, `reading_unchanged`, `event_kinds`,
-  `observation_vocabulary`; score C1-6;
+  `observation_vocabulary`; score C1-6 (HIT, DEFINITION-level, not
+  counted as content: the frozen text's relation clause is the empty
+  relation by unfolding, its “unchanged by every event” clause is the
+  step lemmas by unfolding, and its grammar clause is the census of the
+  run's own declarations, a modelling decision as C1-7's;
+  `scores.C1-6.result_basis`, `tally.hit_definition_level`);
   `test_c1_6_misses_on_a_following_event_or_a_new_form`.
 - **Lean theorem**: `BoundarySeed.no_event_follows_admitted`,
   `BoundarySeed.step_reading`, `BoundarySeed.step_initialDatum`,

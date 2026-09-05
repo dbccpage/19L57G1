@@ -95,9 +95,11 @@ injection is live.
 | 1 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the scorer and fact repairs with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 109); `run_challenge1.py` regenerated the receipt deliberately with no injection live (24663 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 109 |
 | 1 second review repair | axiom log (`verify_lean.py`) | `bounded_invariant_judgment_does_not_separate` added with its `#print axioms` line, the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; then `wrote lean\axioms.txt: 56 reports` under `--regen` and `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
 | 1 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 106 tests in ` | exit 1; `^Ran 109 tests in ` exit 0 on the same log |
+| 1 third review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the scorer's `result_basis` for C1-1, C1-3, and C1-6, the `tally` key, and the C1-5 evidence wording, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 111); `run_challenge1.py` regenerated the receipt deliberately with no injection live (24663 to 26687 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 111 |
+| 1 third review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 109 tests in ` | exit 1; `^Ran 111 tests in ` exit 0 on the same log |
 
 The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
-adversaries.  The Challenge 1 rows record that rung and its two review
+adversaries.  The Challenge 1 rows record that rung and its three review
 repairs; current whole-tree counts are reported in the latest
 `challenge<k>/STATUS.md`.

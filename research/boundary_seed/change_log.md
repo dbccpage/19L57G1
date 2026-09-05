@@ -328,3 +328,78 @@ above:
 WITHDRAWN from the entry above: “C1-2's parenthetical annotated SHARPENED,
 its retention clause still HIT” and, from the paper and status it
 describes, “Five of seven hit, two are PARTIAL”.  Declined: nothing.
+
+## 2026-09-04, Challenge 1 third exact-head review repair
+
+`SEED.md`, `challenge0/PREDICTIONS.md`, and `challenge1/PREDICTIONS.md`
+remain byte-identical.  Review of `00acb2f7` found four should-fix
+defects; every finding is addressed, none declined.  No prediction's HIT,
+PARTIAL, or MISSED status changed, no theorem was added or removed, and
+the axiom log was not regenerated.  Recorded rather than folded into the
+entries above:
+
+- Split, one clause one label: B0-X had labelled each half PROVED as a
+  whole.  Its U half's clause “no new event kind or judgment form” is
+  decided in `score_c0x` by comparing the receipt's `event_kinds`,
+  `observation_vocabulary`, and candidate `history` kinds against the
+  Challenge 0 declarations, a receipt comparison and not a Lean theorem;
+  its O half's “distinct before” clause rests on
+  `sides_distinct_at_genesis_O`, which the entry's Lean list did not cite.
+  Now PROVED for the profile and judgment theorems, DEFINITION for the
+  declared history shape (`admitted_eq`, `rfl`), COMPUTED for the grammar
+  clause, with `sides_distinct_at_genesis_O` and its report
+  `propext, Quot.sound` added to the list.  Reason: a receipt comparison
+  had been carried under a PROVED label, which is the receipt-as-proof
+  move the seed forbids, and a cited theorem must be named where it is
+  used.
+- Re-counted, and the rule stated: “Three of seven hit as content (C1-1,
+  C1-3, C1-6)” is WITHDRAWN.  C1-1's receipt facts are exactly the ones
+  B1-SUPPLY-PRESENTATION and B1-CURRENT-STATE label DEFINITION (`rfl` by
+  unfolding `step`), and C1-6's clauses are the empty relation by
+  declaration, the step lemmas by unfolding, and a census of the run's
+  own grammars, a modelling decision of the same kind as C1-7's; C1-7 had
+  been excluded from the tally on that very rule while the other two were
+  counted.  The rule is now stated once (a prediction counts as content
+  only if at least one of its hitting clauses, read literally, rests on a
+  theorem outside the DEFINITION-level lists or on a computation not
+  fixed by a declaration alone) and applied by the scorer: the
+  DEFINITION-level list is declared in `challenge1.py`, every listed
+  prediction and the one content hit carry a `result_basis`, and the
+  receipt's `tally` counts the statuses against the list, with negative
+  tests for a miss on a listed prediction and for an unknown status.  One
+  of seven hits as content (C1-3); C1-1, C1-6, and C1-7 hit by
+  construction; three are PARTIAL; C0-X hit in both halves as content.
+  Reason: `PLAN.md` says a target true by unfolding a definition is never
+  counted as content, and a tally applied to one prediction and not to
+  two others of the same shape is a judgement call the receipt could not
+  check.  The receipt regenerated deliberately, 24663 to 26687 bytes, with
+  no injection live.
+- WITHDRAWN: “the current state is genesis with `a` presented”, from the
+  paper's definition 25, its 5.1 and 9, and the status.  The current state
+  is a regime, the replay of the caller's history; the regime type has no
+  supplied or presented component (`Regime` carries reading, marks,
+  placement, and the initial datum, and `replay`'s supplied set is a local
+  of the replay); so “with `a` presented” read the supply into the state,
+  the conflation of supply with state that the first review repair had
+  withdrawn in its designation form.  The prose now says what the receipt
+  says: the current regime is genesis, the caller's history is
+  `[Supply(a)]`, and that `a` is supplied is a fact of the history
+  (definition 20).  Reason: the seed lists supply and current-state
+  designation among the notions never conflated.
+- WITHDRAWN: “retained” for a candidate class the run does not drop.  The
+  paper's section 1 defines retention as the placement tuple, the seed
+  lists retention among the notions never conflated, and the run says what
+  the caller's “retains” admits is Challenge 2's first decision; yet the
+  candidate classes, which lie in no placement tuple and admit nothing,
+  were called retained in the paper, the ledger, the status, the scorer,
+  and a Lean docstring.  A candidate class is now *kept*, declared beside
+  the definition in section 1 together with the seed's two other subjects
+  of the verb (the caller's whole, the run's tied branch), and retained
+  names the placement tuple alone; the caller's “retains” stays quoted.
+  Reason: one word in two undeclared senses is a conflation whether or not
+  either sense is wrong.
+- The workflow's test-count grep updated from 109 to 111 after observing
+  the stale count fail on the fresh log.
+
+WITHDRAWN from the entry above: the count “Three hit as content (C1-1,
+C1-3, C1-6)”.  Declined: nothing.
