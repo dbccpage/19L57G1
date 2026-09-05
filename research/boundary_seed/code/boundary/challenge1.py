@@ -570,7 +570,9 @@ def score(
     # clause as current-state designation of an admitted candidate, words the
     # frozen text does not contain, and reported it MISSED; that scoring is
     # WITHDRAWN.  admitted_candidate_is_current stays a plain fact of the
-    # current state, read by no clause.
+    # current state, read by no clause.  The frozen file's bare "designation"
+    # is read in its own context here and at C1-2, and never as current-state
+    # designation, which the run reserves for its own prose (paper section 1).
     c1_5_designation = (
         oc["selection_is_by"].startswith("declared convention, not proof")
         and oc["candidate_event"]["side"] == oc["conventions"][oc["declared"]][oc["presented_side"]]
@@ -620,8 +622,9 @@ def score(
                 "judgment unchanged; a re-admission on the mark's own side is such "
                 "an event, and one naming the other side is refused by certifying "
                 "replay, so the clause is false as written and is scored as "
-                "written; the word designation is reserved for current-state "
-                "designation"
+                "written; the frozen bare word designation is read here as a "
+                "re-admission of an already admitted token, not as current-state "
+                "designation, which the run reserves for its own prose"
             ),
             "evidence": (
                 "no mark after supply alone; every candidate certified only with the "
@@ -696,15 +699,19 @@ def score(
                 "admitted candidate, words the frozen text does not contain, and "
                 "reported it MISSED; that scoring is WITHDRAWN, while the current "
                 "state stays the replay of the caller's history and no candidate is "
-                "current (admitted_candidate_is_current, a fact no clause reads)"
+                "current (admitted_candidate_is_current, a fact no clause reads); "
+                "the frozen bare word designation is read here as the convention's "
+                "selection, not as current-state designation, which the run "
+                "reserves for its own prose"
             ),
             "result_basis": (
                 "content: the two O classes and the absence of a permitted renaming "
                 "are computed over the unpruned search (isomorphism_witness null), "
-                "and the candidates unequal and the other the reflection of the "
-                "convention's rest on admitted_candidates_unequal and "
-                "reflect_admitted, none by unfolding; the convention itself is a "
-                "declaration, pinned literally to the frozen text"
+                "and the candidates unequal rests on admitted_candidates_unequal, "
+                "which is not by unfolding; that the other is the reflection of the "
+                "convention's candidate is reflect_admitted, which is rfl and is "
+                "DEFINITION-level; the convention itself is a declaration, pinned "
+                "literally to the frozen text"
             ),
             "evidence": (
                 "the declared convention is the frozen one, left is side 0, which O "
@@ -748,10 +755,11 @@ def score(
                 "does not name"
             ),
             "evidence": (
-                "every certified regime keeps the one initial datum and places one "
-                "mark; no second datum or boundary appears in any regime because "
-                "none is representable; the whole-as-datum question is left OPEN "
-                "for Challenge 5"
+                "every certified candidate regime keeps the one initial datum and "
+                "places one mark, which is the population the scorer reads; the "
+                "current state is certified and places none; no second datum or "
+                "boundary appears in any regime because none is representable; the "
+                "whole-as-datum question is left OPEN for Challenge 5"
             ),
         },
         "C1-X": {

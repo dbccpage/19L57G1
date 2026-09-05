@@ -776,7 +776,7 @@
       "status": "HIT"
     },
     "C1-2": {
-      "either_side_readmission_clause_fact": "the frozen parenthetical reads a re-admission of the same token on either side as an accepted later event that leaves the mark's judgment unchanged; a re-admission on the mark's own side is such an event, and one naming the other side is refused by certifying replay, so the clause is false as written and is scored as written; the word designation is reserved for current-state designation",
+      "either_side_readmission_clause_fact": "the frozen parenthetical reads a re-admission of the same token on either side as an accepted later event that leaves the mark's judgment unchanged; a re-admission on the mark's own side is such an event, and one naming the other side is refused by certifying replay, so the clause is false as written and is scored as written; the frozen bare word designation is read here as a re-admission of an already admitted token, not as current-state designation, which the run reserves for its own prose",
       "either_side_readmission_clause_status": "MISSED",
       "evidence": "no mark after supply alone; every candidate certified only with the prior supply; a supply and a same-side re-admission leave the regime unchanged; no accepted event moves or duplicates the mark, the moving admission being refused; the hypothetical growth probe leaves the mark's judgment holding; the other-side half of the parenthetical is a literal miss",
       "facts_status": "HIT",
@@ -799,12 +799,12 @@
     },
     "C1-5": {
       "convention_clause_status": "HIT",
-      "designation_clause_fact": "the frozen clause 'the designation is by convention and not by proof' is scored on its own words: the convention designates, that is selects, a candidate, the selected candidate is the convention's image of the presented side, and the regime under the other convention is the reflection of the designated one; an earlier version scored the clause as current-state designation of an admitted candidate, words the frozen text does not contain, and reported it MISSED; that scoring is WITHDRAWN, while the current state stays the replay of the caller's history and no candidate is current (admitted_candidate_is_current, a fact no clause reads)",
+      "designation_clause_fact": "the frozen clause 'the designation is by convention and not by proof' is scored on its own words: the convention designates, that is selects, a candidate, the selected candidate is the convention's image of the presented side, and the regime under the other convention is the reflection of the designated one; an earlier version scored the clause as current-state designation of an admitted candidate, words the frozen text does not contain, and reported it MISSED; that scoring is WITHDRAWN, while the current state stays the replay of the caller's history and no candidate is current (admitted_candidate_is_current, a fact no clause reads); the frozen bare word designation is read here as the convention's selection, not as current-state designation, which the run reserves for its own prose",
       "designation_clause_status": "HIT",
       "evidence": "the declared convention is the frozen one, left is side 0, which O names near; two certified O candidates in two classes, not isomorphic, the other the reflection of the convention's candidate; both classes kept; the convention selects a candidate admission by declaration and not by proof, and admits nothing",
       "facts_status": "HIT",
       "label": "NOT FORCED",
-      "result_basis": "content: the two O classes and the absence of a permitted renaming are computed over the unpruned search (isomorphism_witness null), and the candidates unequal and the other the reflection of the convention's rest on admitted_candidates_unequal and reflect_admitted, none by unfolding; the convention itself is a declaration, pinned literally to the frozen text",
+      "result_basis": "content: the two O classes and the absence of a permitted renaming are computed over the unpruned search (isomorphism_witness null), and the candidates unequal rests on admitted_candidates_unequal, which is not by unfolding; that the other is the reflection of the convention's candidate is reflect_admitted, which is rfl and is DEFINITION-level; the convention itself is a declaration, pinned literally to the frozen text",
       "status": "HIT"
     },
     "C1-6": {
@@ -814,7 +814,7 @@
       "status": "HIT"
     },
     "C1-7": {
-      "evidence": "every certified regime keeps the one initial datum and places one mark; no second datum or boundary appears in any regime because none is representable; the whole-as-datum question is left OPEN for Challenge 5",
+      "evidence": "every certified candidate regime keeps the one initial datum and places one mark, which is the population the scorer reads; the current state is certified and places none; no second datum or boundary appears in any regime because none is representable; the whole-as-datum question is left OPEN for Challenge 5",
       "label": "NOT FORCED",
       "mechanical_part": "initial_datum_unchanged, which the regime type fixes and which no receipt can report false; and marks == 1, a proxy reading 'the mark placed on a side' as exactly one placed mark, which the frozen text does not name",
       "result_basis": "DEFINITION-level: the regime type represents neither a second datum nor a second boundary, so the mechanical part holds by construction and is not counted as content; the modelling clause is a decision only a later challenge can falsify",

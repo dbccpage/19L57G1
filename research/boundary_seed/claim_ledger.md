@@ -525,7 +525,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   grammar has no judgment expressing “exactly one side”, so it is a U fact
   of the metatheory and not an internal judgment.  “Which side” is not a
   U fact.
-- **Status**: PROVED (profiles differ; candidates unequal and reflected;
+- **Status**: PROVED (profiles differ; candidates unequal;
   the exactly-one-side clause as a metatheoretic statement,
   `admitted_onSide_true_iff` with `no_observation_at_genesis`, which an
   earlier version carried with no status, evidence, or theorem; a
@@ -536,9 +536,12 @@ Python receipt, bounded), LIMITATION, OPEN.
   permitted renamings are the identity and the reflection — that
   identification is by inspection of `permitted_images`, not a Lean
   theorem; the global-hypothesis `invariant_judgment_does_not_separate` is
-  kept and closes less); DEFINITION (the permission half of
-  `candidates_related_U`, `reflectionPermitted .U := True`; its content is
-  `reflect_admitted`); COMPUTED (one class and the empty
+  kept and closes less); DEFINITION (`candidates_related_U` as a whole:
+  its permission half is `reflectionPermitted .U := True` and its
+  reflection half is `reflect_admitted`, which is `rfl`, both sides
+  reducing to the one-element placement; an earlier version called
+  `reflect_admitted` the theorem's content and proved it by `simp`, whose
+  `propext` it then carried); COMPUTED (one class and the empty
   invariant-separating list over the eight-judgment domain).  An earlier
   version rested the bounded-domain clause on the global-hypothesis
   theorem alone: a judgment such as `OnSide(1, s)` is invariant on the
@@ -566,7 +569,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.admitted_onSide_true_iff`,
   `BoundarySeed.no_observation_at_genesis`.
 - **Axiom report**: propext, Quot.sound; propext, Quot.sound; propext,
-  Quot.sound; propext; propext; propext; propext; propext; propext,
+  Quot.sound; propext; none; none; propext; propext; propext,
   Quot.sound; propext.
 - **Falsifier**: equal U profiles after one admitted mark, different U
   keys for the two candidates, or a permitted-renaming-invariant judgment
@@ -585,10 +588,15 @@ Python receipt, bounded), LIMITATION, OPEN.
   them and is invariant under every permitted renaming, there being none
   but the identity at one mark.  The candidate under the other convention
   is the reflection of the convention's candidate; both classes are
-  kept as certified branches, and neither is current.
-- **Status**: DEFINITION (the convention and its selection); PROVED
-  (unequal, `admitted_candidates_unequal`; the other is the reflection,
-  `reflect_admitted`; the one-mark relation does not relate them,
+  kept as certified branches, and neither is current.  The frozen clause's
+  bare word designation is read as this selection, as the paper's section 1
+  declares; the run reserves designation for current-state designation in
+  its own prose, and the two readings are stated together so that one word
+  does not carry two undeclared senses.
+- **Status**: DEFINITION (the convention and its selection; the other
+  candidate is the reflection of it, `reflect_admitted`, which is `rfl`,
+  relabelled from PROVED); PROVED (unequal,
+  `admitted_candidates_unequal`; the one-mark relation does not relate them,
   `candidates_not_related_O`, whose permission half is by unfolding
   `reflectionPermitted .O := False` so that under O the relation is raw
   inequality; the mark's own judgment separates them as raw data,
@@ -625,7 +633,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   `BoundarySeed.onSide_separates_candidates`,
   `BoundarySeed.admitted_candidates_unequal`,
   `BoundarySeed.reflect_admitted`.
-- **Axiom report**: propext; propext, Quot.sound; propext; propext.
+- **Axiom report**: propext; propext, Quot.sound; propext; none.
 - **Falsifier**: a derivation of the O side of `a` from the inscription
   alone with no declared convention, equal O keys for the two candidates,
   a permitted renaming found by the unpruned search, or a convention's
@@ -713,9 +721,12 @@ Python receipt, bounded), LIMITATION, OPEN.
 ### B1-ONE-BOUNDARY
 
 - **Statement**: Every Challenge 1 result is stated with the mark placed
-  on a side of the one admitted boundary; every certified regime keeps the
-  one initial datum and places one mark; no result required admitting the
-  whole `<a|>` as a second datum or a second boundary.
+  on a side of the one admitted boundary; every certified candidate regime
+  keeps the one initial datum and places one mark; no result required
+  admitting the whole `<a|>` as a second datum or a second boundary.  An
+  earlier version wrote “every certified regime”, which is false of the
+  current state: it is certified and places none, the scorer reading only
+  the candidates; narrowed.
 - **Status**: DEFINITION-level modelling decision, scored on its
   mechanical part, which holds by construction: the `Regime` type
   represents neither a second datum nor a second boundary, so
@@ -757,7 +768,7 @@ Python receipt, bounded), LIMITATION, OPEN.
   receipt `convention.isomorphism_witness`.
 - **Lean theorem**: `oneMarkRelated` definition; `candidates_related_U`,
   `candidates_not_related_O`.
-- **Axiom report**: not applicable; propext; propext.
+- **Axiom report**: not applicable; none; propext.
 - **Falsifier**: a pair within the bound where the witness search and the
   canonical key disagree.
 - **Surviving boundary**: zero through three marks.

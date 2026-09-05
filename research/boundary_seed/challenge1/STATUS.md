@@ -3,7 +3,7 @@
 `AuthorityEffect: None`.  Session of 2026-09-04, branch
 `research/boundary-run`, opened from main at `7d2e6e86` with Challenge 0
 in its repaired state (53 tests, line and branch 100%, 20 Lean reports);
-then four exact-head review repairs in further sessions on the same
+then five exact-head review repairs in further sessions on the same
 branch.
 
 ## Order of the work, as committed
@@ -28,11 +28,16 @@ branch.
    DEFINITION-level, the current regime stated as genesis with the supply
    a fact of the history, and the separation of retained from kept, listed
    under “Repairs” below.
-6. The fourth review repair commit, which adds this version of the file:
-   C1-5 re-scored on the frozen words with the convention pinned, C1-3's
-   content basis corrected, `reflect_step` relabelled, the exactly-one-side
-   clause given its status, the second sense of supply removed, and the
-   witness-search provenance narrowed, listed under “Repairs” below.
+6. `78c4a96c`: the fourth review repair: C1-5 re-scored on the frozen
+   words with the convention pinned, C1-3's content basis corrected,
+   `reflect_step` relabelled, the exactly-one-side clause given its
+   status, the second sense of supply removed, and the witness-search
+   provenance narrowed, listed under “Repairs” below.
+7. The fifth review repair commit, which adds this version of the file:
+   B1-ONE-BOUNDARY narrowed to the candidate regimes, the frozen file's
+   bare “designation” declared, `reflect_admitted` proved by `rfl` and
+   relabelled DEFINITION-level, and the cited-test-name totality gate
+   added, listed under “Repairs” below.  No status changed.
 
 This history proves “committed before” only.  It cannot prove when any
 untracked or off-tree code or proof was written.
@@ -58,7 +63,7 @@ Inscription `<a|>`, supplied after the close of Challenge 0.  Receipt
 | new holding judgments after a candidate admission | exactly one, `OnSide(0, s)`; the other side's does not hold; no name judgment (PROVED) | exactly one, `OnSide(0, s)`; the two name judgments hold as at genesis (PROVED for every history; the one-event step is DEFINITION) |
 | the mark's profile | its side, nothing else (DEFINITION) | same |
 | the two sides after one candidate admission | profiles differ (PROVED); the admission would take the sides from collapsed to distinct | profiles differ (PROVED); the sides were already distinct by name |
-| the two candidate regimes (`a` on side 0, on side 1) | unequal, each the other's reflection (PROVED); related by the permitted reflection: one class (PROVED for the one-mark relation, whose permission half is DEFINITION; COMPUTED for the general relation) | unequal, each the other's reflection (PROVED); related by no permitted renaming: two classes (COMPUTED over the unpruned search with mark permutations; the Lean one-mark relation, raw inequality under O, does not relate them, PROVED) |
+| the two candidate regimes (`a` on side 0, on side 1) | unequal (PROVED), each the other's reflection (DEFINITION: `reflect_admitted` is `rfl`); related by the permitted reflection: one class (DEFINITION for the one-mark relation, both halves by unfolding; COMPUTED for the general relation) | unequal (PROVED), each the other's reflection (DEFINITION); related by no permitted renaming: two classes (COMPUTED over the unpruned search with mark permutations; the Lean one-mark relation, raw inequality under O, does not relate them, PROVED) |
 | “which side” as an internal fact | not one: no permitted-renaming-invariant judgment of the bounded domain separates the candidates (PROVED by `bounded_invariant_judgment_does_not_separate`, whose hypothesis is the bounded notion under U; COMPUTED over the eight-judgment domain) | one, once admitted: `OnSide(0, s)` separates them and every renaming is the identity at one mark (PROVED, COMPUTED) |
 | the presentation convention (left is side 0) | invisible up to the permitted reflection | visible; the other convention's candidate is the reflection of the convention's candidate (PROVED) and is a second class, kept |
 | the convention's candidate | `a` on side 0, selected by convention and admitted by nothing | same; the side-1 candidate kept as a certified branch |
@@ -101,7 +106,7 @@ caller.  WITHDRAWN.
 | C1-2 | FORCED | PARTIAL | unsupplied admission refused; the admitted mark's judgment survives supplies, a same-side re-admission, and the hypothetical growth probe, and no accepted event moves or duplicates the mark: HIT (`facts_status`).  The frozen parenthetical “a re-admission of the same token on either side, which is designation and not duplication” predicts an accepted other-side re-admission, which the repaired kernel refuses by name; there is no after-state for the clause to hold in, so it is false as written and MISSED (`either_side_readmission_clause_status`, from the clause's own receipt fact `moving_admission_accepted_and_inert`).  The first review repair labelled it SHARPENED from the overall score; that label meant true-and-too-narrow at C0-5 and did not apply, and is WITHDRAWN.  PARTIAL, as C1-4 |
 | C1-3 | FORCED | HIT | exactly one new judgment; other side false; names unchanged; supply adds none; counted as content, the one-judgment clauses resting on `admitted_onSide_true_iff`, `place_new_judgment`, and `place_other_side_false`, none by unfolding; the name clause, read per event as the frozen text has it, is `step_preserves_sideNamed`, DEFINITION-level, exactly as C1-6's parallel clause was scored, the induction `replay_preserves_sideNamed` being the rung's addition (`scores.C1-3.result_basis`); an earlier basis attributed the name clause to the induction, corrected, no status changing |
 | C1-4 | FORCED | PARTIAL | U profiles differ; one class; no permitted-renaming-invariant judgment separates the candidates: HIT.  The clause “the admission is the only event in the history” is false as written: each candidate history is one supply and one admission, and a supply is an event by definition 5.  It was first scored HIT on the silently weakened reading “the only state-changing event”, which is now scored separately in the receipt (`only_state_changing_event_status: HIT`, `only_event_clause_status: MISSED`).  PARTIAL, as C0-4 was |
-| C1-5 | NOT FORCED | HIT | the declared convention is the frozen one, left is side 0, which O names `near`, pinned piece by piece (`convention_clause_status: HIT`; declaring the other convention scores it MISSED, `test_c1_5_convention_clause_misses_under_the_other_convention`); two O classes; the other candidate is the reflection of the convention's candidate; both kept (`facts_status: HIT`); the clause “the designation is by convention and not by proof” is scored on the frozen words — the convention designates, that is selects, a candidate, and the regime under the other convention is the reflection of the designated one — from `selection_is_by` and `other_is_reflection_of_candidate` (`designation_clause_status: HIT`); counted as content, the two classes being COMPUTED over the unpruned search and the inequality and reflection PROVED (`scores.C1-5.result_basis`).  The first three repairs scored that clause MISSED as “current-state designation of the convention's admitted candidate” and reported PARTIAL; the frozen text contains no such words, and the run's withdrawal of that designation (definition 25) is a fact about the run, not a clause of the prediction; the earlier scoring is WITHDRAWN, recorded here next to its value, and the status moves PARTIAL to HIT |
+| C1-5 | NOT FORCED | HIT | the declared convention is the frozen one, left is side 0, which O names `near`, pinned piece by piece (`convention_clause_status: HIT`; declaring the other convention scores it MISSED, `test_c1_5_convention_clause_misses_under_the_other_convention`); two O classes; the other candidate is the reflection of the convention's candidate; both kept (`facts_status: HIT`); the clause “the designation is by convention and not by proof” is scored on the frozen words — the convention designates, that is selects, a candidate, and the regime under the other convention is the reflection of the designated one — from `selection_is_by` and `other_is_reflection_of_candidate` (`designation_clause_status: HIT`); counted as content, the two classes being COMPUTED over the unpruned search and the inequality PROVED, while `reflect_admitted` is `rfl` and DEFINITION-level (`scores.C1-5.result_basis`); the frozen bare word designation is read as the convention's selection, declared in the paper's section 1 and mirrored in the clause fact.  The first three repairs scored that clause MISSED as “current-state designation of the convention's admitted candidate” and reported PARTIAL; the frozen text contains no such words, and the run's withdrawal of that designation (definition 25) is a fact about the run, not a clause of the prediction; the earlier scoring is WITHDRAWN, recorded here next to its value, and the status moves PARTIAL to HIT |
 | C1-6 | FORCED | HIT, DEFINITION-level | empty event-follows relation; datum and reading unchanged; no new form; the relation is empty by unfolding `EventFollows := False`, “unchanged by every event” is the step lemmas by unfolding (the history-level inductions are the rung's addition, not the prediction's), and the unchanged grammars are a census of the run's own declarations, a modelling decision as C1-7's, so the hit is by construction and is not counted as content; an earlier version counted it (`scores.C1-6.result_basis`, `tally`) |
 | C1-7 | NOT FORCED | HIT by construction, DEFINITION-level | the regime type represents neither a second datum nor a second boundary, so `initial_datum_unchanged` cannot be reported false, and `marks == 1` is a proxy reading “the mark placed on a side” as exactly one placed mark, which the frozen text does not name; not counted as content; the modelling clause can only be falsified by a later challenge; whole-as-datum is OPEN for Challenge 5 |
 | C1-X | NOT FORCED | PENDING | scored by Challenge 2 |
@@ -182,6 +187,15 @@ insight.
   content criterion is `PLAN.md`'s rule applied clause by clause and
   declared in the scorer, and the word kept for a candidate class was
   chosen against the seed's own two uses of retain.
+- The cited-test-name gate added at the fifth repair is apparatus, and its
+  shape — enumerate the citations, require each to resolve, fail in the
+  direction the prose can drift — is the repository contract's, not this
+  run's derivation; the reviewer proposed it in those terms and the run
+  adopted it rather than deriving it.  Recorded because reading 0 asks for
+  the reach as well as the result.  Its population, and the rule that a
+  name which cannot be run is written in plain text, are this tree's.
+  Nothing in the `rfl` proof of `reflect_admitted` was remembered: the
+  reduction was checked by building it.
 
 ## Leftovers, for Challenge 2 and later
 
@@ -356,20 +370,53 @@ The fourth exact-head review repair, in a further session:
 - The provenance note on the isomorphism witness narrowed, above.
 - The workflow's test-count grep updated, 111 to 112.
 
+The fifth exact-head review repair, in a further session:
+
+- B1-ONE-BOUNDARY narrowed: “every certified regime keeps the one initial
+  datum and places one mark” is false of the current state, which is
+  certified and places none; the ledger and the receipt's C1-7 evidence
+  now say “every certified candidate regime”, which is the population the
+  scorer reads, and add what the current state does.  No status change.
+- The frozen file's bare “designation” declared beside the run's
+  reservation of the word: section 1 now says the reservation is on this
+  run's own prose, and that the frozen file's two other senses — a
+  re-admission of an already admitted token at C1-2, the convention's
+  selection at C1-5 — are each read in their own context and neither as
+  current-state designation, on which reading C1-5's HIT depends.
+  B1-CONVENTION-O, the kernel docstring, and the two receipt clause facts
+  say the same.  No status change.
+- `reflect_admitted` proved by `rfl` and relabelled DEFINITION-level, with
+  `candidates_related_U`, whose other half is the permission by
+  unfolding: the statement is true by unfolding, both sides reducing to
+  the one-element placement, and the earlier `simp [reflect]` carried a
+  `propext` the axiom log reported as content.  Both are added to the
+  paper's 7.2 DEFINITION-level list and relabelled in B1-SIDES-U and
+  B1-CONVENTION-O; their axiom reports are now none and the log was
+  regenerated deliberately, 56 reports with two lines changed.  C1-5 stays
+  HIT and counted as content on its computed clause and
+  `admitted_candidates_unequal`.
+- The injection record's two rows naming renamed tests repaired, and
+  `tests/test_prose_citations.py` added: every backticked `test_*` token
+  in the tree's Markdown, `SEED.md` excepted, must resolve to a test the
+  suite defines.  It failed on exactly those two rows, and again on a
+  planted citation, with a temporary-tree probe fixing the same
+  direction.
+- The workflow's test-count grep updated, 112 to 114.
+
 ## Gates run in the latest repair session
 
 | gate | result |
 |---|---|
 | `verify_pins.py` | `pins ok: seed ba30bcd600d8 and 2 frozen prediction file(s)` |
-| `unittest discover -s tests` | `Ran 112 tests`, OK |
-| `mypy` (strict, tree pyproject) | `Success: no issues found in 17 source files` |
+| `unittest discover -s tests` | `Ran 114 tests`, OK |
+| `mypy` (strict, tree pyproject) | `Success: no issues found in 18 source files` |
 | `coverage` + `check_coverage.py` | `line 100.00% branch 100.00% over 5 files` |
-| `run_challenge0.py`, `run_challenge1.py` | Challenge 0 receipt byte-unchanged (5553 bytes); Challenge 1 receipt regenerated deliberately (27943 bytes), then byte-identical on rerun; `git diff --exit-code -- receipts` clean after commit |
-| `verify_lean.py` | `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no theorem added or removed, the log not regenerated |
+| `run_challenge0.py`, `run_challenge1.py` | Challenge 0 receipt byte-unchanged (5553 bytes); Challenge 1 receipt regenerated deliberately (28363 bytes), then byte-identical on rerun; `git diff --exit-code -- receipts` clean after commit |
+| `verify_lean.py` | `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no theorem added or removed, the log regenerated deliberately because `reflect_admitted` and `candidates_related_U` lost their `propext` |
 | `ci/check_prose_watchlist.py` | `prose watchlist clean: 49 watched terms, … census matches its pin`; no regeneration |
 | `tests/test_primitive_contact.py` | firewall passes |
 | `ci/check_paper_citations.py` | cross-references resolve |
-| injections | the pre-repair scorer's facts HIT under the other convention, the stale-receipt failure observed before the deliberate regeneration, and the stale test-count grep observed failing on the fresh log, all in `MANUAL.md`; the earlier rows stand |
+| injections | the cited-test-name check failing on the two renamed tests and then on a planted citation, the stale-receipt failure observed before the deliberate regeneration, and the stale test-count grep observed failing on the fresh log, all in `MANUAL.md`; the earlier rows stand |
 
 ## Next session
 

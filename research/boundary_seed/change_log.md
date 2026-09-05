@@ -510,3 +510,69 @@ WITHDRAWN from the entry above: “One of seven hits as content (C1-3)”,
 “three are PARTIAL”, and, from the paper and status it describes, “no
 prediction's HIT, PARTIAL, or MISSED status changed” as a description of
 every re-count.  Declined: nothing.
+
+## 2026-09-05, Challenge 1 fifth exact-head review repair
+
+`SEED.md`, `challenge0/PREDICTIONS.md`, and `challenge1/PREDICTIONS.md`
+remain byte-identical.  Review of `78c4a96c` found five should-fix defects
+that survived refutation, two of them the same defect reported by two
+reviewers and repaired together; every finding is addressed, none
+declined.  No theorem was added or removed, no prediction's status
+changed, and the tally is unchanged.  Recorded rather than folded into the
+entries above:
+
+- Narrowed: B1-ONE-BOUNDARY's “every certified regime keeps the one
+  initial datum and places one mark”.  The current state is a certified
+  regime that places none — under both readings `current_state.certified`
+  is true with `marks: 0` — while the scorer reads only the candidate
+  regimes.  The ledger statement and the receipt's C1-7 evidence now say
+  “every certified candidate regime”, name that population as the one the
+  scorer reads, and add that the current state is certified and places
+  none.  No status change.  Reason: a ledger sentence that generalizes
+  past the population its evidence covers is an overclaim, and the
+  receipt carried the same words.
+- Declared: the frozen file's two other senses of “designation”.
+  Section 1 reserves the word for current-state designation, and C1-5's
+  clause is scored on the frozen file's bare use of it for the
+  convention's selection; one word in two undeclared senses is the
+  conflation the third and fourth repairs removed for “retained” and
+  “supply”, and here the sense chosen decides C1-5's status and the
+  content tally.  Section 1 now declares that the reservation is on this
+  run's own prose and that the frozen file's two other senses — a
+  re-admission of an already admitted token at C1-2, the convention's
+  selection at C1-5 — are each read in their own context and neither as
+  current-state designation; B1-CONVENTION-O, the kernel docstring, and
+  the two receipt clause facts say the same, and C1-5's HIT is stated to
+  depend on that declared reading.  No status change.  Reason: a word
+  this run has reserved needs its other readings declared where they are
+  scored, not glossed in one clause fact.
+- Relabelled: `reflect_admitted` is DEFINITION-level.  Its statement is
+  true by unfolding — both sides reduce to the one-element placement,
+  exactly as `reflect_genesis` reduces on the empty one — but its proof
+  was `simp [reflect]`, whose `propext` the axiom log then carried, and
+  the paper called it the content of `candidates_related_U` while C1-5's
+  basis said “none of them by unfolding”.  The proof is now `rfl`;
+  `reflect_admitted` and `candidates_related_U`, whose other half is the
+  permission by unfolding, join the paper's 7.2 DEFINITION-level list and
+  are relabelled in B1-SIDES-U and B1-CONVENTION-O; their axiom reports
+  become none and the log was regenerated deliberately, 56 reports with
+  two lines changed, no injection live.  C1-5 stays HIT and counted as
+  content, on its computed clause and `admitted_candidates_unequal`.
+  Reason: a target true by unfolding is DEFINITION-level and never
+  counted as content, and a tactic's axiom is not content either.
+- Repaired: the injection record's rows 88 and 89 named negative tests
+  renamed at `00acb2f7` and `78c4a96c`, so a reader could not run the
+  tests those rows cite.  Both rows now name the current tests beside the
+  retired names, and `tests/test_prose_citations.py` makes the citation
+  total: every backticked `test_*` token in the tree's Markdown, `SEED.md`
+  excepted, must resolve to a test the suite defines, and a name that is
+  deliberately not runnable is written in plain text.  It failed first on
+  exactly those two rows, naming file, line, and name, and again on a
+  planted citation in this file; a temporary-tree probe fixes the same
+  direction.  Reason: prose that points at a test which cannot be run is
+  the failure this repository closes with a totality gate, and these two
+  were found by review because no gate read the names.
+- The workflow's test-count grep updated from 112 to 114 after observing
+  the stale count fail on the fresh log.
+
+Declined: nothing.

@@ -20,7 +20,11 @@ Classification (assumption discipline):
   current-state designation (the current state is the replay of the
   caller's history) and is not used for this no-op; an earlier version
   called the no-op a designation and absorbed the moving admission
-  silently, which is WITHDRAWN.
+  silently, which is WITHDRAWN.  That reservation is on this run's own
+  prose: the frozen prediction file uses the bare word in two other
+  senses, a re-admission of an already admitted token and the
+  convention's selection of a candidate, each read in its own context
+  where it is scored and neither read as current-state designation.
 * The closed observation grammar has two positive judgment forms:
   ``OnSide`` and, under ``O``, ``SideNamed``.  ``contents`` and
   ``side_profile`` are metatheoretic extensions of those judgments used to

@@ -10,7 +10,7 @@
 'BoundarySeed.admitted_sides_differ' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.bounded_invariant_judgment_does_not_separate' depends on axioms: [propext]
 'BoundarySeed.candidates_not_related_O' depends on axioms: [propext]
-'BoundarySeed.candidates_related_U' depends on axioms: [propext]
+'BoundarySeed.candidates_related_U' does not depend on any axioms
 'BoundarySeed.contents_genesis' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.continuation_reflects' depends on axioms: [propext]
 'BoundarySeed.exchangeSide_exchangeSide' depends on axioms: [propext]
@@ -28,7 +28,7 @@
 'BoundarySeed.other_continuation_is_a_reflection' depends on axioms: [propext]
 'BoundarySeed.place_new_judgment' depends on axioms: [propext, Quot.sound]
 'BoundarySeed.place_other_side_false' depends on axioms: [propext]
-'BoundarySeed.reflect_admitted' depends on axioms: [propext]
+'BoundarySeed.reflect_admitted' does not depend on any axioms
 'BoundarySeed.reflect_genesis' does not depend on any axioms
 'BoundarySeed.reflect_moves_a_mark' depends on axioms: [propext]
 'BoundarySeed.reflect_reflect' depends on axioms: [propext]

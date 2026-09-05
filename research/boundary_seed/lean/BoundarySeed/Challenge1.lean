@@ -217,10 +217,12 @@ theorem reflect_replay (h : List Event) (r : Regime) :
       replay (t.map exchangeSide) (step (reflect r) (exchangeSide e))
     rw [ih (step r e), reflect_step]
 
-/-- The two Challenge 1 candidates are each other's reflection. -/
+/-- The two Challenge 1 candidates are each other's reflection.
+DEFINITION-level: both sides reduce to the one-element placement, so the
+statement is `rfl`.  An earlier proof used `simp [reflect]` and carried its
+`propext` into the axiom log. -/
 theorem reflect_admitted (rd : Reading) (s : Bool) :
-    reflect (admitted rd s) = admitted rd (!s) := by
-  rw [admitted_eq, admitted_eq]; simp [reflect]
+    reflect (admitted rd s) = admitted rd (!s) := rfl
 
 /-- Every continuation of one candidate reflects to a continuation of the
 other: the reflection of a history replayed from the candidate on `s` is the
@@ -250,7 +252,9 @@ in general. -/
 def oneMarkRelated (rd : Reading) (a b : Regime) : Prop :=
   a = b ∨ (reflectionPermitted rd ∧ b = reflect a)
 
-/-- Under `U` the two candidates are related by a permitted renaming. -/
+/-- Under `U` the two candidates are related by a permitted renaming.
+DEFINITION-level as a whole: the permission is `reflectionPermitted .U :=
+True` and the reflection half is `reflect_admitted`, itself `rfl`. -/
 theorem candidates_related_U (s : Bool) :
     oneMarkRelated .U (admitted .U s) (admitted .U (!s)) :=
   Or.inr ⟨reflection_permitted_U, (reflect_admitted .U s).symm⟩
