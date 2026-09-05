@@ -176,6 +176,18 @@ def comparison_base() -> str | None:
     return None
 
 
+def head_commit() -> str:
+    """The commit under test, so the guard can tell "no branch" from "no
+    diff". Failing closed: an unreadable HEAD is not an excuse to skip."""
+    proc = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        capture_output=True, text=True, cwd=REPO, check=False,
+    )
+    if proc.returncode != 0 or not proc.stdout.strip():
+        raise ValueError("git rev-parse HEAD failed; the scope scan cannot run")
+    return proc.stdout.strip()
+
+
 def nul_paths(raw: bytes, *, population: str) -> list[str]:
     """Decode a NUL-delimited Git path population, failing closed."""
     if not raw:
@@ -349,6 +361,8 @@ class WriteRootScan(unittest.TestCase):
         base = comparison_base()
         if base is None:  # pragma: no cover - a resolvable base exists here
             self.fail("no comparison base; the committed-scope scan cannot run")
+        self.base = base
+        self.head = head_commit()
         self.changed = changed_paths(base)
 
     def test_this_branch_touches_nothing_outside_the_write_root(self) -> None:
@@ -360,12 +374,46 @@ class WriteRootScan(unittest.TestCase):
         self.assertEqual(stray, [])
 
     def test_the_scan_sees_this_branch_at_all(self) -> None:
-        """NEGATIVE: an empty change set would make the scan above vacuous.
-        This branch must be seen to have written its own tree."""
+        """NEGATIVE: the boundary scan above must not pass by reading nothing.
+
+        An empty change set makes `test_this_branch_touches_nothing_outside_
+        the_write_root` trivially green, so something has to notice. What that
+        something may NOT do is assert through the two situations where an
+        empty or foreign change set is the correct answer:
+
+        * **HEAD is the comparison base.** On `main` after this rung merged
+          there is no branch under test at all, and the diff is empty because
+          the work already landed. An earlier version of this test asserted
+          through that case and so failed on `main` at `7d2e6e86` -- a red
+          gate reporting nothing wrong, which is the failure the register
+          exists to prevent, committed by the guard against it.
+        * **The branch has commits, none under this write root.** It is
+          another rung's branch. This rung's boundary is not what it is
+          testing, and demanding this rung's files on it is the same
+          over-broad scope the `second_stream` verifier was repaired for.
+
+        Both are SKIPPED and named, never passed silently. The case the guard
+        exists for survives: HEAD ahead of the base with an EMPTY change set
+        means the base machinery returned a diff of nothing while there was
+        something to diff, and that still fails.
+        """
+        if self.base == self.head:
+            self.skipTest(
+                f"HEAD is the comparison base ({self.base[:12]}); no branch is "
+                "under test, so there is nothing for the boundary scan to read"
+            )
         self.assertTrue(
-            any(p.startswith(WRITE_ROOT + "/") for p in self.changed),
-            f"the comparison base sees no change in {WRITE_ROOT}",
+            self.changed,
+            f"HEAD {self.head[:12]} is ahead of the base {self.base[:12]} but "
+            "the change set is empty; the boundary scan would pass by reading "
+            "nothing",
         )
+        mine = [p for p in self.changed if p.startswith(WRITE_ROOT + "/")]
+        if not mine:
+            self.skipTest(
+                f"this branch changed {len(self.changed)} path(s), none under "
+                f"{WRITE_ROOT}/; it is not this rung's branch"
+            )
 
     def test_no_sealed_path_is_touched(self) -> None:
         sealed = (
