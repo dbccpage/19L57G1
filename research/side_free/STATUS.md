@@ -212,7 +212,7 @@ content either.
 
 `receipts/comparison.json` and the document it renders, `COMPARISON.md`, put
 the two worlds side by side item by item. Pinned-path boundary numbers are
-READ from the four pinned receipts at `5c43c5ee`. Other sources are named by cell path
+READ from the four pinned receipts at `6c80c7ae43a704dcf9f109146cc6cf77139ed18e`. Other sources are named by cell path
 and role in `boundary_source_census`: R03's boundary price cells read this
 tree's endowment ledger; R40's boundary value cells are minima of the
 restricted second measure, which no pinned path carries and
@@ -285,10 +285,9 @@ Two findings the price list adds that the control alone did not carry.
   route that satisfies it by unfolding.  Inherited as OPEN.
 * **The Lean package is a manual receipt.**  No CI job builds it, so its
   35 axiom reports are unchecked by any gate.  A live residual.
-* **The pinned commit is on an unmerged branch.**  `verify_pins.py` fails by
-  default when it is unreachable; the CI step downgrades that to a reported
-  SKIP.  In CI the vendored bytes are held by their three digests alone.
-  Re-take the pin when that branch merges.
+* **The pinned source has landed.** `verify_pins.py` requires its exact
+  commit, source bytes and ancestry to `HEAD`; no CI downgrade remains.
+  The fresh-receipt comparison is unconditional.
 * **G4's scope** is the fourteen rows the minimum ranges over, not all 48
   points per reading.
 * **The control is one rung wide.**  It says nothing about what the admitted
@@ -297,29 +296,12 @@ Two findings the price list adds that the control alone did not carry.
   rungs 0 to 2, but the requirement and its price are still priced at one rung
   only, and the verdict says so.
 * **(e) `receipts/side_free.json` is not the same file in every clone.**
-  OPENED by the price-list work.  The record still carries the pinned commit's
-  reachability inside its own bytes, at `gates.G1.commit_check`.  Observed
-  rather than argued: with the commit replaced in a temporary manifest by an
-  unreachable one, a fresh computation differs from the committed record in
-  exactly two lines — `status` PASS becomes SKIPPED, and the reason line
-  changes — so it is not byte-identical to the committed record.  No byte
-  count is quoted on either side: the fresh record's length depends on the
-  substituted id and on git's own message, and the committed record's moves
-  with every recomputation.  The committed count lives in the re-pasted
-  battery transcript below.  The pinned branch is carried by no remote, so
-  a checkout that fetches only remote refs is exactly that clone.  The record
-  is **not repaired**, because `DESIGN.md` §11 declares that conditional check
-  to be part of that record, and the frozen files are not edited to fit a
-  later finding.  What IS repaired is the CI step: it required no diff after a
-  fresh run, which is a red job in that clone on a defect that is not in the
-  code, and recording the defect had not stopped it being registered in that
-  form.  The comparison is now hard where the pinned commit is reachable and,
-  where it is not, the diff is printed under a named SKIP — so in that clone
-  drift in this record is visible and is not gated, which is the residual that
-  stays open.  `receipts/comparison.json` is built the other way — its rows are
-  held by sha256 alone and the reachability report is printed by the runner —
-  and a test proves it comes back byte for byte with every `git show` made to
-  fail.
+  The frozen conditional source-check field remains. Missing source may
+  change diagnostic bytes, so clone independence is not claimed for this
+  record. The CI loophole is closed: the source pin names the landed merge,
+  unavailable source fails the required verifier, and fresh receipt bytes
+  are compared unconditionally. `receipts/comparison.json` retains its
+  separately tested clone-independent rendering property.
 * **The dependence adjudication is one clause wide.**  The selector that picks
   the universal claim is DECLARED; only the evidence under it is computed.
   The other 19 entries of the pinned dictionary are reproduced and classified,
@@ -332,7 +314,7 @@ table with its one disagreement; the two unmatched pinned routes with their
 removal arguments; the endowment ledger with every mismatching row named, the
 one row this tree computes a price for carrying that price and the other five
 listed by name as carrying none, and the mismatch the ledger calls UNMATCHABLE
-named as such; both censuses; the deletion register with its 69 deleted and 36
+named as such; both censuses; the deletion register with its 83 deleted and 36
 narrowed names; the two identity policies replayed, with the shared one
 reported as a REFUSAL OF THE SUBJECT and never as a false; the removed refusal
 and its computed consequence; `mu2` per carrier with its non-comparability
@@ -342,20 +324,15 @@ data join from the receipt; the key-choice invariance table;
 and the declared secondary computation, which flips the answer to
 `NO_SATISFYING_CANDIDATE` and never decides.
 
-## Local battery, all green
+## Current verification inventory
 
-Re-pasted from a fresh run of the battery at this commit.  An earlier version
-of this block quoted comparison byte counts no committed file had and a pins
-line with one field missing; both were stale on arrival, and the fix is to
-re-run rather than to re-type.
+Discovery and fresh receipt checks at the landed-source repin are listed
+below. Full-suite, typing and Lean results are reported against the exact
+reviewed revision in the pull request; discovery is not execution evidence.
+The earlier full-battery transcript is historical, not evidence for this repin.
 
 ```
-352 tests, OK
-coverage: measured over 9 files; percentages come from the fresh coverage gate
-mypy: Success: no issues found in 25 source files
-receipt ok: 550107 bytes, byte-identical
-comparison ok: 156946 receipt bytes and 30295 document bytes, byte-identical
-lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
-pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
-         4 vendored receipt(s), 91 declared value(s), 2 receipt(s)
+364 tests discovered
+receipt ok: 552262 bytes, byte-identical
+comparison ok: 156108 receipt bytes and 29457 document bytes, byte-identical
 ```

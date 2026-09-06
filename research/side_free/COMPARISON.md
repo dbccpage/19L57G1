@@ -4,7 +4,7 @@ Rendered from `receipts/comparison.json` by `run_comparison.py`.  Every number, 
 
 The price list: what each world can say at the pinned rungs, what each says it costs, and what the admitted primitive bought.  Every row is computed from a pinned receipt or from a carrier; no boundary number is typed in.
 
-Pinned commit `5c43c5ee`.  The blob at the pinned commit when that commit is reachable, and the vendored copy otherwise; both are held to the one declared sha256, so the rows are the same either way.
+Pinned commit `6c80c7ae43a704dcf9f109146cc6cf77139ed18e`.  The blob at the pinned commit when that commit is reachable, and the vendored copy otherwise; both are held to the one declared sha256, so the rows are the same either way.
 
 | challenge | vendored copy | sha256 | bytes |
 |---|---|---|---|
@@ -234,7 +234,7 @@ Over 47 compared items at the pinned rungs, the control reaches the unnamed read
 
 Decided value: `NOTHING_IN_COST`.
 
-**Scope.** Challenges 0 to 3 of the pinned world at 5c43c5ee, and their analogues in this carrier: the three declared coordinates, the pinned requirement and prices, the retained two-mark configuration, and the measure mu1.  Nothing wider.
+**Scope.** Challenges 0 to 3 of the pinned world at 6c80c7ae43a704dcf9f109146cc6cf77139ed18e, and their analogues in this carrier: the three declared coordinates, the pinned requirement and prices, the retained two-mark configuration, and the measure mu1.  Nothing wider.
 
 **It does not speak for** the rungs not yet run in the pinned world, nor for whether the requirement was the right one to impose, nor for what the admitted primitive would buy at a rung this comparison does not price.
 
@@ -246,4 +246,4 @@ Decided value: `NOTHING_IN_COST`.
 * **SF-OPEN-B** (inherited) The price of re-purchasing a per-mark two-valued datum.  It lies outside the pinned candidate space and is therefore priced in neither world.
 * **SF-OPEN-C** (inherited) The pinned premise that a candidate's permitted renamings are closed under composition and inverse is inherited, stated, and checked by nothing.
 * **SF-OPEN-D** (inherited) Whether the requirement should have been declared so as to exclude a route that satisfies it by unfolding.
-* **SF-OPEN-E** (opened here) OPENED BY THIS COMPARISON.  The record itself is not repaired; the CI step that could not survive it is.  The sibling record receipts/side_free.json carries the pinned commit's reachability inside its own bytes, at gates.G1.commit_check, so it is not the same file in a clone that cannot reach that commit.  Observed, not argued: with the commit replaced in a temporary manifest by an unreachable one, a fresh computation differs from the committed record in exactly two lines -- status PASS becomes SKIPPED, and the reason line changes.  No byte count is quoted for that fresh record, because its length depends on the substituted id and on git's own message.  The pinned branch is carried by no remote, so a checkout that fetches only remote refs is exactly that clone.  The record is NOT repaired, because the frozen design declares that conditional check to be part of it, and the frozen files are not edited to fit a later finding.  The CI step IS repaired: it required no diff after a fresh run, which reddens that clone on a defect that is not in the code, and it now takes the same reachability split the pin verifier takes -- the byte comparison is hard where the pinned commit is reachable, and where it is not the diff is PRINTED under a named SKIP.  Residual, recorded and not closed: in that clone drift in that record is visible in the log and is gated by nothing.  THIS record is built the other way: its rows are held by sha256 alone and the reachability report is printed by the runner, so it is the same file in both clones.
+* **SF-OPEN-E** (opened here) Record-format limitation remains; the CI bypass is closed. The sibling record receipts/side_free.json retains its conditional source check at gates.G1.commit_check as the frozen design requires. Unavailable source can change diagnostic bytes, so that record is not claimed clone-independent. The source pin now names its actual landed merge. Required source verification fails on missing or differing source or ancestry outside the checked history; CI compares fresh receipt bytes unconditionally. A clone without the required source cannot pass the battery. This comparison record retains its separate clone-independent rendering property.

@@ -344,10 +344,10 @@ never counted as content.
 * **Python evidence.**  Gate G1; `verify_pins.py`; injections I1 and I14.
 * **Falsifier.**  Any digest, the byte count, a CR byte, or a blob at the
   pinned commit differing.
-* **Surviving boundary.**  **Live residual.**  The pinned commit is on an
-  unmerged branch; in CI the conditional check is a reported SKIP and the
-  bytes are held by their digests alone.  Re-take the pin when that branch
-  merges.
+* **Surviving boundary.** The pinned commit has landed. The required verifier
+  now fails on unavailable or differing source, and CI compares fresh receipt
+  bytes unconditionally. The record's conditional field remains as frozen;
+  a clone without the required source is not a validated execution.
 
 ### SF-OBSERVATION-INERT
 
@@ -398,7 +398,7 @@ never counted as content.
 ### SF-DELETION-TOTAL
 
 * **Statement.**  The deletion register's population is the mechanical closure
-  over the pinned source's own names — 105 entries, 69 deleted and 36 narrowed
+  over the pinned source's own names — 119 entries, 83 deleted and 36 narrowed
   — no deleted name survives in the side-free modules, and no narrowed name is
   absent from them.
 * **Status.**  DETERMINISTIC COMPUTATION, with one judgement inside it.
@@ -406,8 +406,8 @@ never counted as content.
 * **Assumes.**  The declared word stems.  Whether they are the right stems is
   a judgement about words, not a computation, and is recorded as such.
 * **Python evidence.**  `deletion_register.totality`;
-  `tests/test_deletion.py`; injection I7.  The population check is conditional
-  on the pinned commit and SKIPS with its reason when unreachable.
+  `tests/test_deletion.py`; injection I7. The population check requires the
+  landed pinned source and fails when it is unavailable.
 * **Falsifier.**  A surviving deleted name, an absent narrowed one, or a stem
   leak outside the six-name allowlist.
 * **Surviving boundary.**  `mirror.py` and `control.py` are excluded from the
@@ -617,37 +617,19 @@ anything, and records this question as OPEN.  This control inherits it.
 
 ### SF-OPEN-E — the sibling record is not the same file in every clone
 
-**Opened by the price-list work.  The record still carries the environment
-value; what is repaired is the CI step that could not survive it.**
-`receipts/side_free.json` carries the pinned commit's reachability inside its
-own bytes at `gates.G1.commit_check`.  Observed rather than argued: with the
-commit replaced in a temporary manifest by an unreachable one, a fresh
-computation differs from the committed record in exactly two lines — `status`
-PASS becomes SKIPPED, and the reason line changes — so it is not byte-identical
-to the committed record.  No byte count is quoted on either side: the fresh
-record's length depends on the substituted id and on git's own message, and the
-committed record's moves with every recomputation, so a figure written here is
-stale at the next one.  The earlier figures 541041 against 541009 are
-superseded by that dependence, and the count of the committed bytes belongs in
-the re-pasted battery transcript in `STATUS.md`, which is re-run rather than
-re-typed.  The pinned branch is carried by no remote, so a checkout that
-fetches only remote refs is exactly that clone.
+**Record-format limitation remains; the CI bypass is closed.**
+`receipts/side_free.json` carries its conditional source check at
+`gates.G1.commit_check`, as the frozen design requires. If that source is
+unavailable, its diagnostic bytes can differ; no clone-independent claim is
+made for this record. The reported source commit now comes from the manifest,
+with the separate pin metadata required to agree.
 
-The record is **not repaired**, because `DESIGN.md` §11 declares that
-conditional check to be part of that record, and the frozen files are not
-edited to fit a later finding.  It is logged rather than smoothed, which is
-what this tree does with a defect it finds in itself.
+The source pin now names its actual landed merge. The required verifier fails
+on unavailable or differing source and on source outside the checked history;
+the CI receipt comparison is unconditional. The earlier named-skip route is
+retired. A clone lacking the source is invalid, not a passing execution with
+ungated drift. Frozen design and predictions remain byte-identical.
 
-**The CI consequence IS repaired.**  An earlier version of this entry ended
-"and the CI step that regenerates that record and then requires no diff would
-fail there", and that step was registered in exactly that form — recording the
-defect did not stop the job going red on it.  The step now takes the same
-reachability split the pin verifier takes: the byte comparison is hard where
-the pinned commit is reachable, and where it is not the diff is PRINTED under
-a named SKIP.  **Residual, recorded and not closed:** in that clone drift in
-this record is visible in the log and is not gated by anything.  Make the
-comparison hard again when that branch merges.
-
-`receipts/comparison.json` is built the other way and is covered by
-SF-COMPARISON-RECORD-IS-CLONE-INDEPENDENT.
+`receipts/comparison.json` retains its distinct clone-independent rendering
+property, covered by SF-COMPARISON-RECORD-IS-CLONE-INDEPENDENT.
 **OPEN OBSTRUCTION.**

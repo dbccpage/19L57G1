@@ -304,9 +304,9 @@
     "requirement.second_reading": "some property of a mark that forgets whatever the candidate's declared serialization forgets, and that is invariant under every permitted renaming of the reading, holds of one retained mark and not of the other"
   },
   "extracted_note": "Every value above is read from pinned/boundary_challenge3.json at the JSON path that is its key. A test re-reads each path from the receipt and requires equality, so a hand edit of this file fails by name.",
-  "provenance_command": "git show 5c43c5ee:research/boundary_seed/receipts/challenge3.json > research/side_free/pinned/boundary_challenge3.json",
-  "source_commit": "5c43c5ee",
-  "source_commit_note": "On the branch research/boundary-run; NOT an ancestor of main. Re-take the pin when that work merges.",
+  "provenance_command": "git show 6c80c7ae43a704dcf9f109146cc6cf77139ed18e:research/boundary_seed/receipts/challenge3.json > research/side_free/pinned/boundary_challenge3.json",
+  "source_commit": "6c80c7ae43a704dcf9f109146cc6cf77139ed18e",
+  "source_commit_note": "Actual main merge of research/boundary-run with freeze ancestry preserved. Vendored receipts, extracted values and declared values are unchanged; the source pin and deletion census are re-audited.",
   "source_path": "research/boundary_seed/receipts/challenge3.json",
   "transferring_collateral_facts": [
     "order_internally_available",

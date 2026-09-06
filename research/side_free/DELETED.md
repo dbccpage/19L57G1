@@ -18,10 +18,10 @@ from the pinned source at the pinned commit:
   one of those names.
 
 `tests/test_deletion.py` recomputes that population and requires it to equal
-the register exactly, in both directions.  It needs the pinned commit, which
-lives on an unmerged branch, so it SKIPS with that reason when the commit is
-unreachable rather than passing quietly.  Everything else on this page needs
-no git at all.
+the register exactly, in both directions. It needs the landed pinned commit
+and fails if its source is unavailable. Everything else on this page needs
+no git at all. Later source definitions are classified as absent here, not
+imported as additional control operations; the comparison scope is unchanged.
 
 ## How the classification is fixed, and how it is held
 
@@ -73,12 +73,26 @@ are allowed anyway.  Two kinds appear, and no third.
 | `_SIDE_WORD` | the deletion criterion's own pattern; it must spell what it deletes |
 | `satisfies_second_reading` | 'reading' in its other pinned sense: a second way of reading the imposed challenge, not the index over the two sides |
 
-## DELETED: 69 names, absent from the side-free modules
+## DELETED: 83 names, absent from the side-free modules
 
 | name | reason |
 |---|---|
 | `CONVENTIONS` | direct: the name carries the deleted component conventions |
 | `DECLARED_CONVENTION` | direct: the name carries the deleted component convention |
+| `DeepRegime` | via: its pinned definition reaches READINGS, reading, side |
+| `Renamings` | via: its pinned definition reaches reflection |
+| `_read_nested` | via: its pinned definition reaches _split_sides |
+| `_split_sides` | direct: the name carries the deleted component sides |
+| `configurations_isomorphic` | via: its pinned definition reaches reading |
+| `deep_genesis` | via: its pinned definition reaches reading |
+| `deep_is_isomorphic` | via: its pinned definition reaches reading |
+| `deep_rename_marks` | via: its pinned definition reaches reading |
+| `deep_serialize` | via: its pinned definition reaches reading |
+| `deep_step` | via: its pinned definition reaches reading, side |
+| `exchange_level` | via: its pinned definition reaches reading, side |
+| `flatten_deep` | via: its pinned definition reaches reading |
+| `pair_marks` | via: its pinned definition reaches admitted_side, convention |
+| `permitted_configuration_images` | via: its pinned definition reaches reflection |
 | `OTHER_CONVENTION` | direct: the name carries the deleted component convention |
 | `OnSide` | direct: the name carries the deleted component side |
 | `PRESENTED_SIDES` | direct: the name carries the deleted component sides |

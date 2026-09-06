@@ -183,12 +183,12 @@ def crude_hits(line: str) -> list[tuple[int, str]]:
 # shrinks cannot pass, and one that grows must be looked at.  Regenerate
 # deliberately with ``--census`` and never while an injection is live.
 POPULATION_CENSUS: dict[str, tuple[int, int]] = {
-    "CLAIM_LEDGER.md": (138, 99),
+    "CLAIM_LEDGER.md": (135, 96),
     "DELETED.md": (7, 9),
-    "MANUAL.md": (158, 36),
-    "STATUS.md": (212, 96),
+    "MANUAL.md": (151, 34),
+    "STATUS.md": (206, 92),
     "change_log.md": (128, 140),
-    "pinned/QUOTATIONS.md": (18, 19),
+    "pinned/QUOTATIONS.md": (25, 19),
 }
 
 
@@ -568,18 +568,16 @@ def co(name: str) -> tuple[str, str]:
 
 
 BINDINGS: tuple[Binding, ...] = (
-    # --- the battery transcript, and the counts it prints -------------------
-    Binding(ALL, r"^(?P<n>\d+) tests, OK$", co("suite size, from unittest discover")),
-    Binding(ALL, r"over (?P<n>\d+) files", co("check_coverage.measured_files()")),
+    # --- the verification inventory and its independently resolved counts ---
+    Binding(
+        ("STATUS.md",),
+        r"^(?P<n>\d+) tests discovered$",
+        co("suite size, from unittest discover"),
+    ),
     Binding(
         ALL,
         r"at or above (?P<n>\d+%)",
         co("the coverage bar, check_coverage.BAR"),
-    ),
-    Binding(
-        ALL,
-        r"no issues found in (?P<n>\d+) source files",
-        co("mypy's file list, expanded from pyproject.toml"),
     ),
     Binding(
         ALL,
@@ -609,25 +607,9 @@ BINDINGS: tuple[Binding, ...] = (
     ),
     Binding(
         ALL,
-        r"at (?P<n>\d+) bytes",
-        co("bytes of pinned/boundary_challenge3.json"),
-    ),
-    Binding(
-        ALL,
         r"(?P<n>\d+) bytes, no CR",
         co("bytes of pinned/boundary_challenge3.json"),
     ),
-    Binding(
-        ALL,
-        r"(?P<n>\d+) vendored receipt",
-        co("SOURCE_MANIFEST.json vendored_receipts, counted"),
-    ),
-    Binding(
-        ALL,
-        r"(?P<n>\d+) declared value",
-        co("BOUNDARY_PIN.json declared_values, counted"),
-    ),
-    Binding(ALL, r"(?P<n>\d+) receipt\(s\)", co("this tree's own receipts, counted")),
     # --- the decided block --------------------------------------------------
     Binding(ALL, r"under `mu1` \| \*\*(?P<n>\d+)\*\*", sf("decided.side_free_minimum")),
     Binding(
@@ -1611,16 +1593,6 @@ EXEMPTIONS: tuple[Exemption, ...] = (
         "what was written, so its numbers are historical by construction",
     ),
     Exemption(
-        LEDGER,
-        r"The earlier figures (?P<n>[\d,]+) against [\d,]+",
-        "HISTORICAL: named as superseded on the line that names it",
-    ),
-    Exemption(
-        LEDGER,
-        r"The earlier figures [\d,]+ against (?P<n>[\d,]+)",
-        "HISTORICAL: named as superseded on the line that names it",
-    ),
-    Exemption(
         LOG,
         r"(?P<n>twelve) unchecked places",
         "HISTORICAL: arithmetic inside the description of a repaired defect",
@@ -2036,6 +2008,22 @@ class Rules(unittest.TestCase):
             _unknown, mismatched, _stale = run()
         self.assertTrue(any(name in row and "stated 2, true 3" in row for row in mismatched))
         self.assertFalse(any("stated 2, true 3" in row for row in run()[1]))
+
+        discovered = int(suite_size())
+        bumped = discovered + 1
+        inventory = re.sub(
+            r"^\d+ tests discovered$",
+            f"{bumped} tests discovered",
+            prose_text("STATUS.md"),
+            flags=re.M,
+        )
+        altered = dict(original)
+        altered["STATUS.md"] = gather("STATUS.md", inventory)
+        diagnostic = f"stated {bumped}, true {discovered}"
+        with patch.object(sys.modules[__name__], "_POPULATION", altered):
+            _unknown, mismatched, _stale = run()
+        self.assertTrue(any("STATUS.md" in row and diagnostic in row for row in mismatched))
+        self.assertFalse(any(diagnostic in row for row in run()[1]))
 
     def test_an_altered_word_count_cannot_fall_into_a_determiner_exemption(self) -> None:
         for word, wanted in (("three", 3.0), ("two", 2.0), ("one", 1.0), ("7", 7.0)):

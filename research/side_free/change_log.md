@@ -489,3 +489,19 @@ its document are regenerated; the ledger and status state the corrected
 provenance boundary. The registered test count follows the added probe.
 No comparison value, price, minimum, verdict, frozen input or source pin is
 changed by this repair.
+
+## Landed-source repin
+
+The source now binds its actual merge on main, with the dedicated source
+freeze preserved. Vendored receipts and their extracted and declared values
+are byte-identical. Later source definitions expand the deletion population;
+each added name is classified as absent from the control, with its source
+dependency stated. This does not widen the control's declared challenge scope.
+
+The emitted source label now comes from the manifest, and the separate pin
+metadata must agree. Missing or differing source fails required verification;
+the historical CI downgrade and conditional receipt-diff bypass are retired.
+The frozen conditional diagnostic field remains, so record-format dependence
+outside validated clones is still named. Frozen design and predictions are
+unchanged. The permanent probes exercise source and provenance failures with
+recovery, without regenerating under an injected defect.

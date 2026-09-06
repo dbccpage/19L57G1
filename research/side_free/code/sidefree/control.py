@@ -74,7 +74,6 @@ MANIFEST_PATH = TREE / "SOURCE_MANIFEST.json"
 PIN_SHA256 = "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab"
 PIN_BLOB = "dbb4cce3cdd49d15d0784c2a73bf7afeab9de7a0"
 PIN_BYTES = 220518
-PINNED_COMMIT = "5c43c5ee"
 
 # The pinned rows the decisive gate replays: the base row and the six
 # one-step rows of each reading, which is exactly what the minimum ranges
@@ -322,6 +321,9 @@ def gate_pin_bytes() -> Json:
                 f"BOUNDARY_PIN.json {field} is {vendored.get(field)!r}, bytes say {value!r}"
             )
     checked_commit = commit_check()
+    declared_commit = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))["pinned_commit"]
+    if meta.get("source_commit") != declared_commit:
+        problems.append("BOUNDARY_PIN.json source_commit differs from SOURCE_MANIFEST.json pinned_commit")
     if checked_commit["status"] == "FAIL":
         problems.append(f"pinned commit: {checked_commit['reason']}")
     return {
@@ -342,8 +344,7 @@ def commit_check() -> Json:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     source_path = dig(manifest, "vendored_blob.source_path")
     # The commit is read from the manifest, which is the one place it is
-    # declared; the module constant is the reported value and never a second
-    # source of truth.
+    # declared; decide() reports that same manifest value.
     commit = str(dig(manifest, "pinned_commit"))
     proc = subprocess.run(
         ["git", "show", f"{commit}:{source_path}"],
@@ -359,7 +360,7 @@ def commit_check() -> Json:
             ),
             "residual": (
                 "the link from the vendored bytes to that commit is only as "
-                "strong as that unmerged branch's reachability here"
+                "strong as source availability here; the required pin verifier fails without it"
             ),
         }
     same = proc.stdout == pin_bytes()
@@ -372,7 +373,7 @@ def commit_check() -> Json:
         ),
         "residual": (
             "the link from the vendored bytes to that commit is only as "
-            "strong as that unmerged branch's reachability here"
+            "strong as source availability here; the required pin verifier fails without it"
         ),
     }
 
@@ -647,7 +648,7 @@ def gate_mirror_matches_the_pin(rows_by_reading: dict[str, list[Json]]) -> Json:
 # The POPULATION is enumerated independently of the classifier: it is the set
 # of pinned defined names carrying a deleted word component (the direct seed),
 # together with every pinned top-level definition whose body reaches one of
-# those names (the closure).  A conditional test recomputes that population
+# those names (the closure).  A required test recomputes that population
 # from the pinned source at the pinned commit and requires it to equal the
 # names below, so the register cannot quietly lose an entry.
 #
@@ -761,6 +762,20 @@ DELETION_REGISTER: tuple[tuple[str, str, str], ...] = (
     ("serialize", "NARROWED", "via: its pinned definition reaches placement, reading"),
     ("serialize_keeping_labels", "NARROWED", "via: its pinned definition reaches placement, reading"),
     ("step", "NARROWED", "via: its pinned definition reaches placement, reading, side"),
+    ("DeepRegime", "DELETED", "via: its pinned definition reaches READINGS, reading, side"),
+    ("Renamings", "DELETED", "via: its pinned definition reaches reflection"),
+    ("_read_nested", "DELETED", "via: its pinned definition reaches _split_sides"),
+    ("_split_sides", "DELETED", "direct: the name carries the deleted component sides"),
+    ("configurations_isomorphic", "DELETED", "via: its pinned definition reaches reading"),
+    ("deep_genesis", "DELETED", "via: its pinned definition reaches reading"),
+    ("deep_is_isomorphic", "DELETED", "via: its pinned definition reaches reading"),
+    ("deep_rename_marks", "DELETED", "via: its pinned definition reaches reading"),
+    ("deep_serialize", "DELETED", "via: its pinned definition reaches reading"),
+    ("deep_step", "DELETED", "via: its pinned definition reaches reading, side"),
+    ("exchange_level", "DELETED", "via: its pinned definition reaches reading, side"),
+    ("flatten_deep", "DELETED", "via: its pinned definition reaches reading"),
+    ("pair_marks", "DELETED", "via: its pinned definition reaches admitted_side, convention"),
+    ("permitted_configuration_images", "DELETED", "via: its pinned definition reaches reflection"),
 )
 
 
@@ -2253,8 +2268,9 @@ SCOPE_LIMITS: tuple[str, ...] = (
     "The Lean package of this tree is a MANUAL RECEIPT: no CI job builds it, "
     "so its axiom report is unchecked by any gate.  Recorded as a live "
     "residual, not closed.",
-    "The link from the vendored bytes to the pinned commit is only as strong "
-    "as that unmerged branch's reachability in the clone doing the checking.",
+    "The conditional commit field remains in this record as frozen; required "
+    "source verification and unconditional CI replay comparison now fail "
+    "when its landed source is unavailable or differs.",
 )
 
 
@@ -2313,7 +2329,7 @@ def decide() -> Json:
             "them"
         ),
         "admits": "nothing; this tree admits no primitive at all",
-        "pinned_commit": PINNED_COMMIT,
+        "pinned_commit": str(json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))["pinned_commit"]),
         "void": not passed,
         "gates": gates,
         "requirement": {

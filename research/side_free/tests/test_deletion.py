@@ -3,8 +3,8 @@
 The population is enumerated INDEPENDENTLY of the classifier -- from the
 pinned source at the pinned commit -- so a name the classifier cannot place
 fails the population check instead of cancelling out on both sides of it.
-That check needs the pinned commit and skips with a reason when it is
-unreachable; the totality checks below need no git at all and always run.
+That check needs every declared pinned source and fails by name when one is
+unavailable; the totality checks below need no git at all and always run.
 
 The classification is declared in ``control.DELETION_REGISTER`` and is held
 in BOTH directions: a DELETED name must be absent from the side-free
@@ -20,6 +20,7 @@ import re
 import subprocess
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "code"))
 
@@ -30,8 +31,8 @@ ROOT = TREE.parent.parent
 BLOCK = control.deletion_register_block()
 
 
-def pinned_source() -> dict[str, str] | None:
-    """The pinned .py sources at the pinned commit, or ``None`` if unreachable."""
+def pinned_source() -> dict[str, str]:
+    """The pinned .py sources; missing or empty source populations fail."""
     manifest = json.loads((TREE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
     commit = manifest["pinned_commit"]
     out: dict[str, str] = {}
@@ -43,8 +44,10 @@ def pinned_source() -> dict[str, str] | None:
             ["git", "show", f"{commit}:{path}"], cwd=ROOT, capture_output=True
         )
         if proc.returncode != 0:
-            return None
+            raise RuntimeError(f"pinned population source {commit}:{path} is unavailable")
         out[path] = proc.stdout.decode("utf-8")
+    if not out:
+        raise RuntimeError(f"pinned population at {commit} has no Python sources")
     return out
 
 
@@ -88,11 +91,6 @@ class Population(unittest.TestCase):
         self,
     ) -> None:
         sources = pinned_source()
-        if sources is None:
-            self.skipTest(
-                "the pinned commit is unreachable in this clone; the population "
-                "check is SKIPPED with this reason and never silently passed"
-            )
         seed: set[str] = set()
         for text in sources.values():
             seed |= {n for n in defined_names(text) if control.carries_a_deleted_stem(n)}
@@ -116,7 +114,20 @@ class Population(unittest.TestCase):
                             closure.add(name)
         registered = {name for name, _kind, _why in control.DELETION_REGISTER}
         self.assertEqual(registered, seed | closure)
-        self.assertEqual(len(registered), 105)
+        self.assertEqual(len(registered), 119)
+
+    def test_missing_population_source_fails_by_name_then_recovers(self) -> None:
+        baseline = pinned_source()
+        self.assertTrue(baseline)
+        first = next(iter(baseline))
+        failed: subprocess.CompletedProcess[bytes] = subprocess.CompletedProcess(
+            ["git", "show", "PinProbeMissing"], 1, b"", b"missing probe"
+        )
+        with patch.object(subprocess, "run", return_value=failed):
+            with self.assertRaisesRegex(RuntimeError, re.escape(first)) as caught:
+                pinned_source()
+        self.assertEqual(pinned_source(), baseline)
+        print(f"INJECTION population: {caught.exception}; RECOVERY clean")
 
     def test_every_entry_carries_a_kind_and_a_reason(self) -> None:
         for name, kind, why in control.DELETION_REGISTER:

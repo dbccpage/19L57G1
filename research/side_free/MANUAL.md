@@ -41,8 +41,9 @@ python verify_lean.py            # builds from clean, then audits
 python verify_lean.py --regen    # rewrites lean/axioms.txt, deliberately
 ```
 
-`verify_pins.py` takes `--allow-unreachable-pin`, and only the CI step passes
-it.  See "What the gates are worth" below for why.
+`verify_pins.py` now requires the landed source commit and its ancestry to
+`HEAD`. The former `--allow-unreachable-pin` bypass is refused. The frozen
+design's conditional record field remains; it is not a waiver of this gate.
 
 **Adding or removing a test obliges a second edit.**  The registered CI step
 asserts an EXACT test count, so that an enumeration finding nothing cannot pass
@@ -157,20 +158,11 @@ ids`.  Each runs over a deep copy, so none of them writes anything.
   itself.
 * **G6 keeps the mirror honest**, but the mirror is a countermodel-domain
   object and never the pinned carrier.  A divergence VOIDS the run.
-* **The pinned-commit check can be unavailable.**  `5c43c5ee` is on an
-  unmerged branch that a fresh clone of the remote does not carry.  By default
-  `verify_pins.py` FAILS when it is unreachable; the CI step passes
-  `--allow-unreachable-pin`, which downgrades that to a reported SKIP with the
-  reason and the residual named.  **Residual, recorded and not closed:** in
-  CI the link from the vendored bytes to that commit is not checked at all,
-  and only the three digests — which need no git — hold.  Re-take the pin when
-  that branch merges.  The suite asserts the SPLIT and not this machine's side
-  of it: where the commit is reachable the verifier must exit 0 with no flag,
-  and where it is not it must exit 1 naming the commit and then exit 0 under
-  the flag.  An earlier version of that test asserted exit 0 with no flag
-  unconditionally, which is a red job in exactly the clone the flag exists
-  for; it was undisclosed by any document here, which is why it is written
-  down now.
+* **The landed source is required.** The pin has been re-taken at its actual
+  merge commit. The verifier fails if the source is unavailable, outside the
+  checked history, or differs from the manifest. CI no longer permits a
+  reported skip. The frozen design records the earlier state; its source
+  clause is historical, not a current bypass.
 * **The Lean package is a manual receipt.**  No CI job builds it, so its axiom
   report is unchecked by any gate.  Recorded as a live residual, not closed.
 * **Coverage is measured from inside the tree** and its report is untracked;
@@ -188,15 +180,11 @@ ids`.  Each runs over a deep copy, so none of them writes anything.
   `receipts/side_free.json` is built the other way and does NOT have this
   property; that is recorded as an open item and is not repaired here, because
   the frozen design declares the conditional check to be part of that record.
-* **That sibling record's CI step takes the same split.**  It regenerates the
-  record and then compares bytes — hard where the pinned commit is reachable,
-  and where it is not the regenerated diff is PRINTED under a named SKIP.  It
-  previously required no diff unconditionally, which the record itself cannot
-  satisfy in a clone that cannot reach that commit, and the step was registered
-  in that form anyway.  **Residual, recorded and not closed (SF-OPEN-E):** in
-  that clone drift in this one record is visible in the job log and is gated by
-  nothing.  Make the comparison hard again when that branch merges — the same
-  act that drops `--allow-unreachable-pin` above.
+* **That sibling record's CI comparison is now unconditional.** After the
+  source landed, the pin verifier and fresh-receipt comparison became hard
+  checks. SF-OPEN-E retains only the record-format limitation: a computation
+  without its required source can produce different diagnostic bytes, but
+  that clone cannot pass the verification battery.
 
 ## What injection does NOT prove
 

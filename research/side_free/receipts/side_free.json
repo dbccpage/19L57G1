@@ -1244,7 +1244,7 @@
     "what_the_admitted_primitive_bought": "NOTHING_IN_COST"
   },
   "deletion_register": {
-    "deleted_count": 69,
+    "deleted_count": 83,
     "deleted_names_surviving": [],
     "deleted_stem_leaks": [],
     "entries": [
@@ -1772,6 +1772,76 @@
         "kind": "NARROWED",
         "name": "step",
         "reason": "via: its pinned definition reaches placement, reading, side"
+      },
+      {
+        "kind": "DELETED",
+        "name": "DeepRegime",
+        "reason": "via: its pinned definition reaches READINGS, reading, side"
+      },
+      {
+        "kind": "DELETED",
+        "name": "Renamings",
+        "reason": "via: its pinned definition reaches reflection"
+      },
+      {
+        "kind": "DELETED",
+        "name": "_read_nested",
+        "reason": "via: its pinned definition reaches _split_sides"
+      },
+      {
+        "kind": "DELETED",
+        "name": "_split_sides",
+        "reason": "direct: the name carries the deleted component sides"
+      },
+      {
+        "kind": "DELETED",
+        "name": "configurations_isomorphic",
+        "reason": "via: its pinned definition reaches reading"
+      },
+      {
+        "kind": "DELETED",
+        "name": "deep_genesis",
+        "reason": "via: its pinned definition reaches reading"
+      },
+      {
+        "kind": "DELETED",
+        "name": "deep_is_isomorphic",
+        "reason": "via: its pinned definition reaches reading"
+      },
+      {
+        "kind": "DELETED",
+        "name": "deep_rename_marks",
+        "reason": "via: its pinned definition reaches reading"
+      },
+      {
+        "kind": "DELETED",
+        "name": "deep_serialize",
+        "reason": "via: its pinned definition reaches reading"
+      },
+      {
+        "kind": "DELETED",
+        "name": "deep_step",
+        "reason": "via: its pinned definition reaches reading, side"
+      },
+      {
+        "kind": "DELETED",
+        "name": "exchange_level",
+        "reason": "via: its pinned definition reaches reading, side"
+      },
+      {
+        "kind": "DELETED",
+        "name": "flatten_deep",
+        "reason": "via: its pinned definition reaches reading"
+      },
+      {
+        "kind": "DELETED",
+        "name": "pair_marks",
+        "reason": "via: its pinned definition reaches admitted_side, convention"
+      },
+      {
+        "kind": "DELETED",
+        "name": "permitted_configuration_images",
+        "reason": "via: its pinned definition reaches reflection"
       }
     ],
     "identifier_census_size": 293,
@@ -2066,7 +2136,7 @@
       "carries_cr": false,
       "commit_check": {
         "reason": "the vendored bytes equal the blob at the pinned commit",
-        "residual": "the link from the vendored bytes to that commit is only as strong as that unmerged branch's reachability here",
+        "residual": "the link from the vendored bytes to that commit is only as strong as source availability here; the required pin verifier fails without it",
         "status": "PASS"
       },
       "gate": "G1",
@@ -17805,7 +17875,7 @@
       "why_open": "the pinned tree retains such a route and records this as OPEN; this control inherits it, counts the route in the primary answer, and freezes the secondary answer that excludes it"
     }
   ],
-  "pinned_commit": "5c43c5ee",
+  "pinned_commit": "6c80c7ae43a704dcf9f109146cc6cf77139ed18e",
   "predictions": {
     "design_file_sha256": "7cd9d5487614e6b542a53371f10f19a1daa2ace7447c5132695b6f1ce4a0880e",
     "forced_hits": 4,
@@ -18314,7 +18384,7 @@
     "G4 covers the fourteen rows the minimum ranges over and is total over what the minimum is computed FROM, but not over all 48 points per reading, so a defect in a bundle row's recorded verdict is invisible to it.",
     "The control is one rung wide and says nothing about what the admitted primitive bought at earlier rungs, nor about whether the requirement was the right one to impose.",
     "The Lean package of this tree is a MANUAL RECEIPT: no CI job builds it, so its axiom report is unchecked by any gate.  Recorded as a live residual, not closed.",
-    "The link from the vendored bytes to the pinned commit is only as strong as that unmerged branch's reachability in the clone doing the checking."
+    "The conditional commit field remains in this record as frozen; required source verification and unconditional CI replay comparison now fail when its landed source is unavailable or differs."
   ],
   "second_measures": {
     "control_fact_list": [

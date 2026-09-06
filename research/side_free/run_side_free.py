@@ -1,7 +1,8 @@
 """Write the side-free control's receipt.
 
-Deterministic: sorted keys, LF only, no timestamp, no environment value, and
-byte-identical on regeneration.  ``--check`` compares without writing.
+Sorted keys, LF only and no timestamp. The frozen conditional source-check
+field can vary without the required source; validated runs require that
+source and byte-identical regeneration. ``--check`` never writes.
 """
 
 from __future__ import annotations

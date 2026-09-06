@@ -291,60 +291,125 @@ class PinVerifier(unittest.TestCase):
         """Negative: the pin check must fail on one changed hex digit."""
         raw = (TREE / verify_pins.PIN_REL).read_bytes()
         self.assertEqual(verify_pins.sha(raw), verify_pins.PIN_SHA256)
-        self.assertNotEqual(verify_pins.sha(raw + b" "), verify_pins.PIN_SHA256)
-        self.assertNotEqual(verify_pins.blob_id(raw + b" "), verify_pins.PIN_BLOB)
+        with patch.object(verify_pins, "PIN_SHA256", "0" * 64):
+            problems = verify_pins.check_vendored_pin()
+        self.assertTrue(any(f"{verify_pins.PIN_REL}: sha256" in p for p in problems))
+        self.assertEqual(verify_pins.check_vendored_pin(), [])
 
     def test_the_commit_check_is_reported_and_never_omitted(self) -> None:
-        problems, notes = verify_pins.check_pinned_commit(True)
+        problems, notes = verify_pins.check_pinned_commit()
         self.assertEqual(problems, [])
         self.assertTrue(notes)
-        self.assertTrue(any("PASS" in n or "SKIPPED" in n for n in notes))
+        self.assertTrue(all("PASS" in n and "ancestor of HEAD" in n for n in notes))
 
     def test_the_verifier_runs_clean_from_the_repository_root(self) -> None:
-        """The branch this clone is actually in, never the one this machine is in.
+        """The integrated source must be present, ancestral, and byte-bound."""
+        proc = self.run_verifier()
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("pins ok", proc.stdout)
+        self.assertNotIn("SKIPPED", proc.stdout)
 
-        The pinned commit sits on an unmerged branch, so a checkout that
-        fetches only remote refs cannot reach it.  The verifier already
-        reports that split -- hard by default, a reported SKIP under the flag
-        -- and an earlier version of this test asserted exit 0 in default mode
-        unconditionally, which fails in exactly that clone.  What is asserted
-        now is the reported split itself, as ``comparison.load_pinned``
-        already does for the vendored receipts.
-        """
-        root = TREE.parent.parent
-        manifest = json.loads(
-            (TREE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8")
-        )
-        commit = str(manifest["pinned_commit"])
-        reachable = (
-            subprocess.run(
-                ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
-                cwd=root,
-                capture_output=True,
-            ).returncode
-            == 0
+    def run_verifier(self, *argv: str) -> "subprocess.CompletedProcess[str]":
+        return subprocess.run(
+            [sys.executable, str(TREE / "verify_pins.py"), *argv],
+            cwd=TREE.parent.parent,
+            capture_output=True,
+            text=True,
         )
 
-        def run(*argv: str) -> "subprocess.CompletedProcess[str]":
-            return subprocess.run(
-                [sys.executable, str(TREE / "verify_pins.py"), *argv],
-                cwd=root,
-                capture_output=True,
-                text=True,
-            )
+    def source_failure_and_recovery(self, defect: str) -> None:
+        """Exercise real Git failures in a disposable, receipt-free fixture."""
+        import tempfile
 
-        proc = run()
-        if reachable:
-            self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
-            self.assertIn("pins ok", proc.stdout)
-            return
-        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
-        self.assertIn(f"the pinned commit {commit} is unreachable", proc.stdout)
-        downgraded = run("--allow-unreachable-pin")
-        self.assertEqual(
-            downgraded.returncode, 0, downgraded.stdout + downgraded.stderr
-        )
-        self.assertIn("pins ok", downgraded.stdout)
+        with tempfile.TemporaryDirectory(prefix="side-free-pin-probe-") as tmp:
+            root = pathlib.Path(tmp)
+
+            def git(*args: str, data: bytes | None = None) -> str:
+                proc = subprocess.run(
+                    ["git", "-c", "user.name=PinProbe", "-c",
+                     "user.email=pin-probe@example.invalid", *args],
+                    cwd=root, input=data, capture_output=True, check=True,
+                )
+                return proc.stdout.decode("utf-8").strip()
+
+            git("init", "--quiet")
+            payload = b"PinProbe source bytes\n"
+            blob = git("hash-object", "-w", "--stdin", data=payload)
+            tree = git("mktree", data=f"100644 blob {blob}\tPinProbe.txt\n".encode())
+            base = git("commit-tree", tree, "-m", "PinProbe base")
+            head = git("commit-tree", tree, "-p", base, "-m", "PinProbe head")
+            unrelated = git("commit-tree", tree, "-m", "PinProbe unrelated root")
+            git("update-ref", "HEAD", head)
+            manifest: Any = {
+                "pinned_commit": base,
+                "sources": [{"path": "PinProbe.txt", "sha256": verify_pins.sha(payload)}],
+            }
+            path = root / "SOURCE_MANIFEST.json"
+
+            def run_gate() -> "subprocess.CompletedProcess[str]":
+                path.write_text(json.dumps(manifest), encoding="utf-8")
+                script = (
+                    "import pathlib,sys,verify_pins; "
+                    "verify_pins.ROOT=verify_pins.HERE=pathlib.Path(sys.argv[1]); "
+                    "problems,notes=verify_pins.check_pinned_commit(); "
+                    "[print('FAIL: '+p) for p in problems]; "
+                    "[print(n) for n in notes]; raise SystemExit(bool(problems))"
+                )
+                return subprocess.run(
+                    [sys.executable, "-c", script, str(root)],
+                    cwd=TREE, capture_output=True, text=True,
+                )
+
+            baseline = run_gate()
+            self.assertEqual(baseline.returncode, 0, baseline.stdout + baseline.stderr)
+            if defect == "unavailable":
+                manifest["pinned_commit"] = "0" * 40
+                expected = f"the pinned commit {'0' * 40} is unavailable"
+            elif defect == "nonancestor":
+                manifest["pinned_commit"] = unrelated
+                expected = f"the pinned commit {unrelated} is not an ancestor of HEAD"
+            elif defect == "missing-source":
+                manifest["sources"][0]["path"] = "PinProbeMissing.txt"
+                expected = f"{base} has no PinProbeMissing.txt"
+            elif defect == "wrong-blob":
+                manifest["sources"][0]["sha256"] = "0" * 64
+                expected = f"PinProbe.txt at {base}: {verify_pins.sha(payload)} wanted {'0' * 64}"
+            else:
+                raise AssertionError(f"unknown pin probe {defect}")
+            failed = run_gate()
+            self.assertEqual(failed.returncode, 1, failed.stdout + failed.stderr)
+            self.assertIn(f"FAIL: {expected}", failed.stdout)
+            self.assertNotIn("PASS:", failed.stdout)
+            manifest["pinned_commit"] = base
+            manifest["sources"] = [{"path": "PinProbe.txt", "sha256": verify_pins.sha(payload)}]
+            recovered = run_gate()
+            self.assertEqual(recovered.returncode, 0, recovered.stdout + recovered.stderr)
+            self.assertIn("PASS:", recovered.stdout)
+            print(f"INJECTION {defect}: exit {failed.returncode}: {failed.stdout.strip()}")
+            print(f"RECOVERY {defect}: exit {recovered.returncode}")
+
+    def test_unavailable_source_commit_fails_by_name_then_recovers(self) -> None:
+        self.source_failure_and_recovery("unavailable")
+
+    def test_reachable_nonancestor_fails_by_name_then_recovers(self) -> None:
+        self.source_failure_and_recovery("nonancestor")
+
+    def test_missing_source_blob_fails_by_name_then_recovers(self) -> None:
+        self.source_failure_and_recovery("missing-source")
+
+    def test_wrong_source_blob_fails_by_name_then_recovers(self) -> None:
+        self.source_failure_and_recovery("wrong-blob")
+
+    def test_obsolete_bypass_flag_fails_by_name_then_recovers(self) -> None:
+        failed = self.run_verifier("--allow-unreachable-pin")
+        self.assertEqual(failed.returncode, 1, failed.stdout + failed.stderr)
+        self.assertIn("FAIL: obsolete --allow-unreachable-pin", failed.stdout)
+        self.assertNotIn("pins ok", failed.stdout)
+        recovered = self.run_verifier()
+        self.assertEqual(recovered.returncode, 0, recovered.stdout + recovered.stderr)
+        self.assertIn("pins ok", recovered.stdout)
+        print(f"INJECTION obsolete-bypass: exit {failed.returncode}: {failed.stdout.strip()}")
+        print(f"RECOVERY obsolete-bypass: exit {recovered.returncode}")
 
 
 if __name__ == "__main__":

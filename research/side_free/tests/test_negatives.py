@@ -67,6 +67,21 @@ def swapped(module: object, name: str, value: object) -> Iterator[None]:
 
 
 class PinGate(unittest.TestCase):
+    def test_the_reported_source_pin_uses_the_manifest(self) -> None:
+        manifest = json.loads(control.MANIFEST_PATH.read_text(encoding="utf-8"))
+        record: Any = control.decide()
+        self.assertEqual(record["pinned_commit"], manifest["pinned_commit"])
+        self.assertEqual(control.pin_meta()["source_commit"], manifest["pinned_commit"])
+
+    def test_conflicting_source_metadata_voids_the_run_and_recovers(self) -> None:
+        altered = copy.deepcopy(control.pin_meta())
+        altered["source_commit"] = "0" * 40
+        with patch.object(control, "pin_meta", return_value=altered):
+            record: Any = control.decide()
+        self.assertTrue(record["void"])
+        self.assertIn("source_commit", " ".join(record["gates"]["G1"]["problems"]))
+        self.assertTrue(control.gate_pin_bytes()["passed"])
+
     def test_a_reachable_commit_mismatch_voids_the_run_and_recovers(self) -> None:
         failed = {"status": "FAIL", "reason": "vendored bytes DIFFER at the pinned commit"}
         with patch.object(control, "commit_check", return_value=failed):

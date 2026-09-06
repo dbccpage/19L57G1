@@ -6,8 +6,9 @@ The other two are `SOURCE_MANIFEST.json` and `BOUNDARY_PIN.json`.  Every other
 research tree name stays barred everywhere, here included, and
 `tests/test_isolation.py` enforces both halves.
 
-Source: `research/boundary_seed`, at commit `5c43c5ee`, on the branch
-`research/boundary-run`, which is **not** an ancestor of `main`.
+Source: `research/boundary_seed`, at merge commit
+`6c80c7ae43a704dcf9f109146cc6cf77139ed18e`, landed on `main`.
+The vendored quotation bytes are unchanged from the earlier frozen-design pin.
 
 Every quotation below is reproduced byte for byte from the vendored receipt
 `boundary_challenge3.json` unless the entry says otherwise, and the reproduced

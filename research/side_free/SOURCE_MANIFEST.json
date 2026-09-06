@@ -9,19 +9,19 @@
     "rule": "The pinned tree's own directory name may appear in exactly these three files of this tree and nowhere else. Every other research tree name stays barred everywhere, including here. The scan in tests/test_isolation.py enforces both halves.",
     "why": "A control must name the thing it is a control for. One carve, declared, tested, and no wider."
   },
-  "pinned_commit": "5c43c5ee",
-  "pinned_commit_note": "This commit is on the branch research/boundary-run and is NOT an ancestor of main. The pin is to be re-taken when that work merges. Until then the link from the vendored bytes to this commit is only as strong as that branch's reachability in the clone doing the checking; that residual is recorded and not closed.",
-  "provenance_command": "git show 5c43c5ee:research/boundary_seed/receipts/challenge3.json > research/side_free/pinned/boundary_challenge3.json",
+  "pinned_commit": "6c80c7ae43a704dcf9f109146cc6cf77139ed18e",
+  "pinned_commit_note": "Actual main merge of research/boundary-run, preserving the dedicated source freeze. The frozen design's earlier source pin remains historical; this repin changes source custody and deletion population, not vendored receipt values. Full history and hard source verification are required.",
+  "provenance_command": "git show 6c80c7ae43a704dcf9f109146cc6cf77139ed18e:research/boundary_seed/receipts/challenge3.json > research/side_free/pinned/boundary_challenge3.json",
   "sources": [
     {
       "path": "research/boundary_seed/code/boundary/model.py",
       "role": "the pinned carrier: regime, events, replay, renaming, the flagged enumerations",
-      "sha256": "213270cc2b5cccaa3a860d90b6a02dae4ad4cccfb2d11ae504c442683c0302b9"
+      "sha256": "6755b61b0aa1850bb077eb10a28b90ad0b9197410fa21b4e12705930a99b3618"
     },
     {
       "path": "research/boundary_seed/code/boundary/presentation.py",
       "role": "the pinned presentation layer: the reader, the presented position, the convention",
-      "sha256": "931505a178aa4497b8aa75dabd40bbbcc546bc5e9772f036e913f628a5e0fe8e"
+      "sha256": "3df4c0ac07d168df5123afd0b527f287ff8ee75b8895d367256f691da78ca546"
     },
     {
       "path": "research/boundary_seed/code/boundary/challenge2.py",
@@ -31,7 +31,7 @@
     {
       "path": "research/boundary_seed/code/boundary/challenge3.py",
       "role": "the pinned requirement, candidate space, cost measures, and minima",
-      "sha256": "eae6a161fecd8831b62ef2908525e2ebf22a253c245bb24b3924f5d0ece7fa18"
+      "sha256": "dd28174bed8e37f160d53ee363dc16deee8ecb32d46713c029c57ea7197b5872"
     },
     {
       "path": "research/boundary_seed/receipts/challenge3.json",

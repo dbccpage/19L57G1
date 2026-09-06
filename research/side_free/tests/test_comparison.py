@@ -146,13 +146,18 @@ class TheRecord(unittest.TestCase):
         self.assertEqual([item["id"] for item in opened], ["SF-OPEN-E"])
         statement = str(opened[0]["statement"])
         self.assertIn("gates.G1.commit_check", statement)
-        self.assertIn("exactly two lines", statement)
+        self.assertIn("Record-format limitation remains", statement)
+        self.assertIn("CI bypass is closed", statement)
+        self.assertIn("CI compares fresh receipt bytes unconditionally", statement)
+        self.assertIn("without the required source cannot pass", statement)
+        self.assertNotIn("exactly two lines", statement)
 
     def test_the_opened_item_quotes_no_byte_count(self) -> None:
         """Negative: a byte pair here would name a length nothing committed has.
 
         The fresh record's length depends on the substituted commit id and on
-        git's own message, so the item states the two differing lines instead.
+        git's own message, so the item states the conditional field rather
+        than claiming an exact diagnostic length or number of changed lines.
         """
         opened = [item for item in RECORD["open"] if not item["inherited"]]
         statement = str(opened[0]["statement"])

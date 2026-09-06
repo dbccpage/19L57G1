@@ -14,13 +14,10 @@ Four things are checked, and the difference between them matters.
    hold in any clone.
 
 3. **The pinned commit.**  Every file of ``SOURCE_MANIFEST.json`` must have
-   its declared blob digest at the pinned commit.  That commit lives on an
-   UNMERGED branch which a fresh clone of the remote does not carry, so this
-   check can be unavailable.  It is then reported as SKIPPED with the reason
-   and the residual named -- never as a pass.  By default an unreachable
-   pinned commit FAILS; ``--allow-unreachable-pin`` downgrades it to the
-   reported SKIP, and only the CI step passes that flag, with a comment
-   saying why.
+   its declared blob digest at the full pinned commit, which must exist and
+   be an ancestor of ``HEAD``. Missing sources and unrelated commits fail.
+   The former ``--allow-unreachable-pin`` bypass is obsolete and fails
+   explicitly; vendored bytes alone do not discharge source provenance.
 
 4. **Byte stability.**  Every receipt and every pinned file refuses CR bytes
    and must be committed ``-text``, so the same check means the same thing on
@@ -258,28 +255,31 @@ def check_declared_values() -> list[str]:
     return problems
 
 
-def check_pinned_commit(allow_unreachable: bool) -> tuple[list[str], list[str]]:
+def check_pinned_commit() -> tuple[list[str], list[str]]:
     """Blob digests at the pinned commit.  Returns (problems, notes)."""
     manifest = json.loads((HERE / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
     commit = manifest["pinned_commit"]
+    if (
+        not isinstance(commit, str)
+        or len(commit) != 40
+        or any(char not in "0123456789abcdef" for char in commit)
+    ):
+        return ([f"SOURCE_MANIFEST.json pinned_commit is not a full commit SHA: {commit!r}"], [])
     probe = subprocess.run(
         ["git", "cat-file", "-e", f"{commit}^{{commit}}"], cwd=ROOT, capture_output=True
     )
     if probe.returncode != 0:
-        message = (
-            f"the pinned commit {commit} is unreachable in this clone; it is on "
-            f"an unmerged branch that a fresh clone of the remote does not "
-            f"carry.  The vendored bytes are still fixed by sha256, git blob id "
-            f"and byte count, which need no git at all"
-        )
-        residual = (
-            "RESIDUAL, recorded and not closed: the link from the vendored "
-            "bytes to that commit is only as strong as that branch's "
-            "reachability here"
-        )
-        if allow_unreachable:
-            return ([], [f"SKIPPED: {message}", residual])
-        return ([f"{message} (pass --allow-unreachable-pin to downgrade)"], [residual])
+        return ([f"the pinned commit {commit} is unavailable in this clone"], [])
+    ancestry = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", commit, "HEAD"],
+        cwd=ROOT,
+        capture_output=True,
+    )
+    if ancestry.returncode != 0:
+        detail = "is not an ancestor of HEAD" if ancestry.returncode == 1 else "ancestry check failed"
+        return ([f"the pinned commit {commit} {detail}"], [])
+    if not manifest["sources"]:
+        return (["SOURCE_MANIFEST.json has no pinned sources"], [])
     problems: list[str] = []
     for source in manifest["sources"]:
         data = git_bytes(f"{commit}:{source['path']}")
@@ -289,11 +289,19 @@ def check_pinned_commit(allow_unreachable: bool) -> tuple[list[str], list[str]]:
             problems.append(
                 f"{source['path']} at {commit}: {sha(data)} wanted {source['sha256']}"
             )
-    return (problems, [f"PASS: {len(manifest['sources'])} blobs at {commit}"])
+    notes = [] if problems else [
+        f"PASS: {len(manifest['sources'])} blobs at {commit}, an ancestor of HEAD"
+    ]
+    return (problems, notes)
 
 
 def main(argv: list[str]) -> int:
-    allow_unreachable = "--allow-unreachable-pin" in argv
+    if "--allow-unreachable-pin" in argv:
+        print("FAIL: obsolete --allow-unreachable-pin; source provenance cannot be skipped")
+        return 1
+    if argv:
+        print(f"FAIL: unknown arguments: {' '.join(argv)}")
+        return 1
     problems: list[str] = []
     notes: list[str] = []
     shallow = subprocess.run(
@@ -313,7 +321,7 @@ def main(argv: list[str]) -> int:
     problems.extend(check_vendored_receipts())
     problems.extend(check_extracted_values())
     problems.extend(check_declared_values())
-    commit_problems, commit_notes = check_pinned_commit(allow_unreachable)
+    commit_problems, commit_notes = check_pinned_commit()
     problems.extend(commit_problems)
     notes.extend(commit_notes)
     for name in ("pinned/boundary_challenge3.json", "pinned/BOUNDARY_PIN.json"):
