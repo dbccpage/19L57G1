@@ -231,6 +231,10 @@ class EndowmentAndCensus(unittest.TestCase):
         self.assertEqual(
             sorted(flagged), sorted(ledger["why_the_declared_cells_are_declared"])
         )
+        unmatchable = [
+            entry for entry in ledger["named_mismatches"] if "UNMATCHABLE" in str(entry)
+        ]
+        self.assertEqual(len(unmatchable), 1)
         priced = ledger["mismatching_rows_with_a_stated_price"]
         unpriced = ledger["mismatching_rows_with_no_stated_price"]
         self.assertEqual(priced, ["coordinates_the_genesis_declaration_fixes"])
@@ -242,6 +246,81 @@ class EndowmentAndCensus(unittest.TestCase):
             self.assertEqual(
                 named, has_price and str(row["row"]) in ledger["mismatching_rows"]
             )
+
+    def test_the_declared_census_counts_cells_and_never_rows(self) -> None:
+        """The counts the live documents write, held where they are computed.
+
+        Four declared CELLS across two declared ROWS, and the two numbers are
+        not interchangeable: a scoring note headed "two cells" was carrying
+        the row count under the cell word, so both are asserted here and the
+        prose names these fields rather than restating them.  The cell
+        population is rows times columns and the two censuses partition it,
+        so a cell cannot be dropped from both.
+        """
+        ledger = RECORD["endowment_ledger"]
+        self.assertEqual(ledger["columns"], ["control", "unnamed", "named"])
+        self.assertEqual(len(ledger["rows"]), 7)
+        self.assertEqual(len(ledger["declared_cells"]), 4)
+        self.assertEqual(len(ledger["computed_cells"]), 17)
+        self.assertEqual(len(ledger["rows_with_a_declared_column"]), 2)
+        self.assertEqual(
+            len(ledger["rows"]) - len(ledger["rows_with_a_declared_column"]), 5
+        )
+        self.assertEqual(
+            len(ledger["declared_cells"]) + len(ledger["computed_cells"]),
+            len(ledger["rows"]) * len(ledger["columns"]),
+        )
+        self.assertEqual(
+            set(ledger["declared_cells"]) & set(ledger["computed_cells"]), set()
+        )
+        self.assertEqual(
+            ledger["declared_cells"],
+            [
+                "declarations_at_genesis:control",
+                "declarations_at_genesis:unnamed",
+                "declarations_at_genesis:named",
+                "coordinates_the_genesis_declaration_fixes:control",
+            ],
+        )
+
+    def test_definition_level_is_computed_and_not_asserted(self) -> None:
+        """Declared on BOTH sides, which is what `comparison.py` means by it.
+
+        The whole `declarations_at_genesis` row is declared in every column;
+        the control cell of the coordinates row stands beside two computed
+        reading cells and is therefore NOT definition-level.  The ledger's
+        prose asserted the classification for both, and this is the flag that
+        decides it instead.
+        """
+        ledger = RECORD["endowment_ledger"]
+        self.assertEqual(ledger["definition_level_rows"], ["declarations_at_genesis"])
+        for row in ledger["rows"]:
+            self.assertEqual(
+                row["definition_level"],
+                len(row["declared_columns"]) == len(ledger["columns"]),
+                str(row["row"]),
+            )
+
+    def test_the_by_row_projection_drops_no_field(self) -> None:
+        """The keyed view carries every field of the row it keys.
+
+        It used to enumerate three columns, so `declared_columns` was written
+        onto the rows and lost before any consumer read a cell through it --
+        and `comparison.py` reads cells only through this projection.  A
+        projection that enumerates what it keeps loses the next field too.
+        """
+        ledger = RECORD["endowment_ledger"]
+        by_row = ledger["by_row"]
+        self.assertEqual(sorted(by_row), sorted(str(r["row"]) for r in ledger["rows"]))
+        for row in ledger["rows"]:
+            self.assertEqual(
+                by_row[str(row["row"])],
+                {key: value for key, value in row.items() if key != "row"},
+            )
+        self.assertEqual(
+            by_row["coordinates_the_genesis_declaration_fixes"]["declared_columns"],
+            ["control"],
+        )
 
     def test_the_numeric_rows(self) -> None:
         by_row = RECORD["endowment_ledger"]["by_row"]

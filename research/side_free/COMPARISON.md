@@ -104,7 +104,7 @@ A row is in BOUGHT_NOTHING exactly when the control reaches the same value at th
 * **R36.** The map joins by NAME in both reading columns, but its one-class justification is a fact of the unnamed reading only: there the two pinned further-mark points carry one class key, while under the named reading they carry two different class keys and are two classes.  So the named column shows five names where that reading has six points, and the decision this table reports is taken against the unnamed reading.
 * **R38.** As R36: the map joins by name in both columns, its one-class justification holds under the unnamed reading only, and the named column therefore shows five names where that reading has six satisfying points.
 * **R39.** The two lists are not the same length, so the second measure counted over them is NOT comparable across the worlds and is never differenced.  The restricted measure below is.
-* **R40.** The ONLY row whose two boundary cells are not read from a pinned path.  No pinned receipt carries a minimum of the restricted measure, so both are minima computed on THIS TREE'S OWN mirror carrier and read out of this tree's record.  The totality gate over the declared pinned values therefore does not reach them, and never counted them: what holds them instead is the weaker per-point data join, `second_measures.data_join_against_the_pin`, which joins 48 rows per reading against the pin and reports its mismatches.
+* **R40.** A row whose two boundary cells are not read from a pinned path.  Which rows those are is not asserted here but computed over every row's declared sources, at `boundary_source_census.rows_whose_boundary_cells_are_not_read_from_a_pinned_path`.  No pinned receipt carries a minimum of the restricted measure, so both are minima computed on THIS TREE'S OWN mirror carrier and read out of this tree's record.  The totality gate over the declared pinned values therefore does not reach them, and never counted them: what holds them instead is the weaker per-point data join, `second_measures.data_join_against_the_pin`, which joins 48 rows per reading against the pin and reports its mismatches.
 
 ### the prices each world states
 
@@ -160,6 +160,10 @@ Rows whose pinned field the pinned world's own receipt calls declared and not co
 Rows whose control field this module declares rather than computes: `["R45"]`.  DEFINITION-level, being declared on both sides: `["R45"]`.
 
 A row whose pinned column and control column are BOTH declared and not computed agrees by unfolding two declarations.  That is DEFINITION-level and is not content, so it is named here and the verdict reports its tallies with the declared-field rows and without them.
+
+Rows reading a cell this tree's own endowment ledger flags as declared and not computed, by value column and by price column: `[{"price_columns": ["control"], "row": "R03", "value_columns": []}]`.
+
+A column that reads a cell this tree's own endowment ledger flags in its declared_columns is reading a DECLARATION of this tree and not a measurement taken off a carrier.  It is named for the reason the pinned world's own declared fields are named: so that a typed-in value is not read as something either world measured.
 
 | kind | bought nothing | bought something | absent |
 |---|---|---|---|

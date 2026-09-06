@@ -357,3 +357,99 @@ and in the ledger beside its value instead.
   test already present rather than as a test of their own, and the reason is
   written in its docstring.  The battery transcript in `STATUS.md` is re-pasted
   from a fresh run at this commit.
+
+## 2026-09-05 — fifth repair pass: the counts the fourth pass typed by hand
+
+The pass above closed five findings and introduced three, and all three were
+one defect: a count typed into prose by hand that the record contradicts.
+Each is repaired below by naming the field that carries the count, and by
+asserting the count where this tree can assert it, so that a sentence cannot
+go stale on its own.
+
+* **[A] Two sentences of one scoring note disagreed about P22's cells.**  The
+  first said the frozen classification holds of "nine of P22's twelve cells"
+  and is false of two; thirteen lines later the same note said one cell of
+  twelve is a declaration and "the other eleven are computed".  Nine plus two
+  is eleven.  Neither figure was the population: P22 carries twelve CLAUSES
+  over NINE ledger cells, because the three cells of the renaming row are
+  objects and two clauses read each of them.  The population is now computed
+  for every prediction, at `ledger_cells` beside its score, and split by the
+  ledger's own declared-cell census into `declared` and `computed`.  The note
+  states the split once, and `tests/test_predictions.py` holds the twelve, the
+  nine, the one and the eight, together with the totality of the split.
+  Reason: a clause is not a cell, and a note that counts one under the other's
+  name cannot be checked by reading it.
+
+* **[B] The same note was headed with a ROW count under the word cells.**  It
+  read "Two cells of the endowment ledger are DECLARED", while the record
+  flags four cells and the paragraph under the heading described three cells
+  in one row and one in another.  Two is the number of rows.  The heading now
+  names `declared_cells` and says four, across the two rows of
+  `rows_with_a_declared_column`; both censuses are asserted with their
+  partition, declared plus computed equalling rows times columns with an empty
+  intersection, so neither number can drift alone.  Reason: as [A], and in the
+  sentence a reader quotes instead of re-deriving.
+
+* **[C] A pre-existing error was corrected silently inside a repair announced
+  for something else.**  The sentence listing what the machine reports beside
+  the answer said the ledger names every mismatching row "including the two
+  that are UNMATCHABLE".  `named_mismatches` carries two entries and exactly
+  ONE of them says UNMATCHABLE, so the plural was wrong.  The pass above
+  rewrote that sentence for a different finding and made it singular in
+  passing, recording the change nowhere.  The singular STANDS, being what the
+  record bears; this entry is the record of it, and the count is now asserted
+  in the ledger test so the singular is held rather than believed.  Reason: a
+  correction made inside another correction is invisible to a reader diffing
+  for the finding that was announced.
+
+* **[D] The declared-cell flag stopped before the place the value is read.**
+  `declared_columns` was written onto `endowment_ledger.rows`, and the
+  `by_row` projection, which enumerated three columns, dropped it — while
+  `comparison.py` reads endowment cells only through `by_row`.  So R03's price
+  control cell, which is one of the four declared cells, was still rendered in
+  the price list as a measurement.  The projection now carries every field of
+  the row it keys, total by construction rather than by enumeration, so the
+  next field cannot be lost the same way.  `comparison.py` gained the mirror
+  of its pinned-side check: every row and every price block reports
+  `columns_reading_a_declared_ledger_cell`, the rows that read one are
+  censused in `bought_table`, and `COMPARISON.md` renders that census beside
+  the two declared-field censuses already there.  R03's price control column
+  is the one entry.  Reason: a flag that does not reach the consumer has not
+  been carried.
+
+* **[E] The claim ledger asserted a classification no field carried.**  It
+  said the declared endowment cells "are DEFINITION-level and are not counted
+  as content".  This tree's own definition-level test — declared on BOTH
+  sides — is true of `declarations_at_genesis`, all three of whose columns are
+  declared, and FALSE of `coordinates the genesis declaration fixes`, whose
+  one declared cell stands beside two computed ones.  The flag is computed per
+  row now, reported as `definition_level` and `definition_level_rows`, and the
+  ledger says what those bear.  The "not counted as content" half is
+  WITHDRAWN: the only tally criterion this tree computes is the FORCED label
+  on a prediction, P22 does not carry it, and nothing subtracts these cells
+  from any count.  Reason: a classification asserted in prose beside a
+  computed flag that contradicts it is worse than no classification.
+
+* **The two further reviewer notes, fixed because both fixes are computed.**
+  The minima table's first column was relabelled "whose minimum" in the pass
+  above while the record still keyed it `world`; the key is renamed to match,
+  which asserts nothing that was not already asserted.  R40's note claimed to
+  be "the ONLY row whose two boundary cells are not read from a pinned path".
+  That is true, and it is now decided rather than typed: `boundary_source_census`
+  puts every row's two boundary columns through one rule — a pinned path, or
+  the length or the collapse of one — and names the rows that fail it.  The
+  note names the field, the census names R40, and a test holds both.
+
+* **Receipts recomputed, never patched.**  `receipts/side_free.json` moves
+  from 543976 to 550107 bytes: the ledger's column list, its declared-cell and
+  computed-cell censuses, the per-row `definition_level` flag, the projection
+  that no longer drops a field, and the per-prediction `ledger_cells` block.
+  `receipts/comparison.json` moves from 131468 to 140158 bytes and
+  `COMPARISON.md` from 29546 to 30238, carrying the declared-cell flags, the
+  boundary-source census, the renamed minima key and R40's reworded note.
+  Both come back byte-identical on a second regeneration.  No decided value,
+  no verdict and no computed count moves.  The suite moves from 325 tests to
+  331, and the literal the registered CI step pins moves with it in this
+  commit; that one literal in that one step is this pass's only change outside
+  `research/side_free/`.  The battery transcript in `STATUS.md` is re-pasted
+  from a fresh run at this commit.

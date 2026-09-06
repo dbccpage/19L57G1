@@ -103,7 +103,7 @@ content either.
 | P19 | NOT FORCED | the residue judgment separates nothing | HIT |
 | P20 | NOT FORCED | G4 agrees on all fourteen rows | HIT |
 | P21 | NOT FORCED | the mirror reproduces the pinned vector | HIT |
-| P22 | NOT FORCED | the four numeric endowment rows | HIT; one of its twelve cells is a declaration of this tree and not a measurement, see the note below |
+| P22 | NOT FORCED | the four numeric endowment rows | HIT; one of the ledger cells it reads is a declaration of this tree and not a measurement, see the note below |
 | P23 | NOT FORCED | the shared policy retains one mark; the subject is refused | HIT |
 | P24 | NOT FORCED in the frozen file; FORCED in fact, see the note | key-choice invariance at all eight points | HIT, and not counted as content |
 | P25 | NOT FORCED | the secondary flips to NO_SATISFYING_CANDIDATE | HIT |
@@ -179,26 +179,33 @@ content either.
   remains a HIT.  `DESIGN.md` §11 declares the check under the same mislabel
   and is frozen, so the correction is recorded here and beside
   SF-FORGETFUL-LEMMA in the ledger, as P24's and P27's are.
-* **Two cells of the endowment ledger are DECLARED by this tree and not
-  computed, and P22 scores one of them.**  `DESIGN.md` §1 files every
-  endowment row under deterministic computation, and §8 says every row is
-  computed by the same code in each column.  That is true of five of the seven
-  rows and of nine of P22's twelve cells, and false of two cells.  The whole
-  `declarations_at_genesis` row is three prose lists — nothing in either
-  carrier enumerates its own genesis declaration, so those three cells are
-  statements ABOUT the carriers and not readings taken off them — and the
-  CONTROL cell of `coordinates the genesis declaration fixes` is a typed zero,
-  because this control has no reading level to declare at and so has nothing
-  to compare against its inherited defaults, while the two reading cells
-  beside it really are computed.  Both are now flagged in the record itself:
-  every ledger row carries a `declared_columns` field, the two rows with a
-  declared column are listed under `rows_with_a_declared_column`, and each
-  says why — the instrument `comparison.py` already uses to keep a `Declared`
-  cell apart from a `Computed` one, so that a typed-in value is not read as a
-  measurement.  One of P22's twelve cells, the control zero in its first row,
-  is therefore an agreement true by unfolding a declaration; the other eleven
-  are computed, and the hit stands on them.  The frozen file is not edited and
-  the correction lives here and beside SF-FAIRNESS-SIGN in the ledger, as
+* **The cells the ledger lists under `declared_cells` are DECLARED by this
+  tree and not computed, and P22 reads one of them.**  `DESIGN.md` §1 files
+  every endowment row under deterministic computation, and §8 says every row
+  is computed by the same code in each column.  That is true of the rows
+  outside `rows_with_a_declared_column` and of the cells under
+  `computed_cells`, and false of the cells under `declared_cells` — which are
+  four, spread across those two rows, so the row count and the cell count are
+  different numbers and an earlier draft of this note reported the first under
+  the second's name.  The whole `declarations_at_genesis` row is three prose
+  lists — nothing in either carrier enumerates its own genesis declaration, so
+  those three cells are statements ABOUT the carriers and not readings taken
+  off them — and the CONTROL cell of `coordinates the genesis declaration
+  fixes` is a typed zero, because this control has no reading level to declare
+  at and so has nothing to compare against its inherited defaults, while the
+  two reading cells beside it really are computed.  All four are flagged in
+  the record: every ledger row carries a `declared_columns` field, the rows
+  carrying one are listed under `rows_with_a_declared_column` and the cells
+  themselves under `declared_cells`, and each row says why — the instrument
+  `comparison.py` already uses to keep a `Declared` cell apart from a
+  `Computed` one, so that a typed-in value is not read as a measurement.
+  P22's own population is computed too, beside its score at `ledger_cells`:
+  twelve clauses over NINE cells, since the three cells of the renaming row
+  are objects and two clauses read each of them.  Exactly one of the nine, the
+  control zero of its first row, is in `declared_cells`, and that clause is an
+  agreement true by unfolding a declaration; the other eight are in
+  `computed_cells`, and the hit stands on them.  The frozen file is not edited
+  and the correction lives here and beside SF-FAIRNESS-SIGN in the ledger, as
   P17's and P24's do.
 
 ## The price list
@@ -339,11 +346,11 @@ line with one field missing; both were stale on arrival, and the fix is to
 re-run rather than to re-type.
 
 ```
-325 tests, OK
+331 tests, OK
 line 100.00% branch 100.00% over 9 files
 mypy: Success: no issues found in 24 source files
-receipt ok: 543976 bytes, byte-identical
-comparison ok: 131468 receipt bytes and 29546 document bytes, byte-identical
+receipt ok: 550107 bytes, byte-identical
+comparison ok: 140158 receipt bytes and 30238 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
 pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
          4 vendored receipt(s), 91 declared value(s), 2 receipt(s)

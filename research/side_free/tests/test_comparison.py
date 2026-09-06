@@ -331,6 +331,49 @@ class Sources(unittest.TestCase):
         resolver.resolve(C.Pin(1, "readings.U.genesis_holding_judgments"))
         self.assertEqual(resolver.used, [(1, "readings.U.genesis_holding_judgments")])
 
+    def test_a_column_reading_a_declared_ledger_cell_says_so(self) -> None:
+        """R03's price control cell is a DECLARATION of the sibling tree.
+
+        It is one of the four cells the endowment ledger flags, and the price
+        list presented it as a measurement: the flag was written onto the
+        ledger rows and dropped by the projection this module reads.  The
+        field is total over every row and every price block, so a row without
+        the flag says so rather than omitting the question.
+        """
+        rows = {str(row["id"]): row for row in js(RECORD["rows"])}
+        for row in rows.values():
+            self.assertIn("columns_reading_a_declared_ledger_cell", row)
+            self.assertIn("columns_reading_a_declared_ledger_cell", row["price"])
+        self.assertEqual(
+            rows["R03"]["price"]["columns_reading_a_declared_ledger_cell"], ["control"]
+        )
+        self.assertEqual(rows["R03"]["columns_reading_a_declared_ledger_cell"], [])
+        self.assertEqual(
+            js(RECORD["bought_table"])["rows_reading_a_declared_ledger_cell"],
+            [{"row": "R03", "value_columns": [], "price_columns": ["control"]}],
+        )
+
+    def test_the_boundary_source_census_bears_r40s_claim(self) -> None:
+        """R40's note asserted "the ONLY row"; the census now decides it.
+
+        Every row's two boundary columns are put through the same rule, and a
+        length or a collapse of a pinned path still counts as reading the
+        pin.  The note names this field instead of a number.
+        """
+        census = js(RECORD["boundary_source_census"])
+        self.assertEqual(len(census["rows_checked"]), RECORD["row_count"])
+        self.assertEqual(
+            census["rows_whose_boundary_cells_are_not_read_from_a_pinned_path"],
+            [{"row": "R40", "columns": ["unnamed", "named"]}],
+        )
+        self.assertTrue(C.reads_a_pinned_path(C.Pin(0, "readings.U.marks")))
+        self.assertTrue(
+            C.reads_a_pinned_path(C.Count(C.Pin(0, "readings.U.marks")))
+        )
+        self.assertFalse(C.reads_a_pinned_path(C.Computed("genesis_marks")))
+        rows = {str(row["id"]): row for row in js(RECORD["rows"])}
+        self.assertIn("boundary_source_census", str(rows["R40"]["note"]))
+
     def test_dig_refuses_to_descend_into_a_leaf(self) -> None:
         with self.assertRaises(KeyError):
             C.dig({"a": 1}, "a.b")
@@ -572,7 +615,7 @@ class MinimaAndTheSides(unittest.TestCase):
 
     def test_the_withdrawal_reads_no_placement_in_either_world(self) -> None:
         rows = {
-            (row["world"], row["point"]): row
+            (row["whose_minimum"], row["point"]): row
             for row in RECORD["minima_and_the_sides"]["rows"]
         }
         pinned = rows[("the pinned world", "withdraw_mark_permutations")]

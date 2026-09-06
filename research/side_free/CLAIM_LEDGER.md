@@ -175,8 +175,16 @@ never counted as content.
   `declared_columns` field naming which of its columns are declarations, the
   two rows with one are listed under `rows_with_a_declared_column`, and each
   carries its reason — the instrument `comparison.py` uses to keep `Declared`
-  apart from `Computed`, applied here for the same reason.  Those cells are
-  DEFINITION-level and are not counted as content.  `DESIGN.md` §1 classifies
+  apart from `Computed`, applied here for the same reason.  Whether a row is
+  DEFINITION-level is computed and not asserted: `definition_level` is true of
+  a row declared in every column, which here is `declarations_at_genesis`
+  alone, and false of `coordinates the genesis declaration fixes`, whose one
+  declared cell stands beside two computed ones — so that row is a
+  declaration compared against measurements, which is not the same thing and
+  the record no longer calls it so.  Neither row is struck from a tally by any
+  computation of this tree: the only tally criterion here is the FORCED label
+  on a prediction, P22 does not carry it, and its hit is counted as it stands
+  with this correction qualifying it.  `DESIGN.md` §1 classifies
   every endowment row as deterministic computation and §8 says every row is
   computed by the same code in each column; both are frozen, so the correction
   lives here and in `STATUS.md`.  The ledger's own summary said mismatching

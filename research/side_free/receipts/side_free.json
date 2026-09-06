@@ -1812,6 +1812,8 @@
           "label_internally_available": false,
           "order_internally_available": false
         },
+        "declared_columns": [],
+        "definition_level": false,
         "named": {
           "label_internally_available": false,
           "order_internally_available": false
@@ -1823,11 +1825,22 @@
       },
       "coordinates_the_genesis_declaration_fixes": {
         "control": 0,
+        "declared_columns": [
+          "control"
+        ],
+        "definition_level": false,
         "named": 2,
+        "price_if_bought": 2,
         "unnamed": 0
       },
       "declarations_at_genesis": {
         "control": [],
+        "declared_columns": [
+          "control",
+          "unnamed",
+          "named"
+        ],
+        "definition_level": true,
         "named": [
           "one whole with two sides",
           "the two sides carry admitted names"
@@ -1838,6 +1851,8 @@
       },
       "invariant_and_separating_mark_properties_at_base": {
         "control": [],
+        "declared_columns": [],
+        "definition_level": false,
         "named": [
           "on_side_0",
           "on_side_1"
@@ -1848,6 +1863,8 @@
         "control": [
           "Admitted"
         ],
+        "declared_columns": [],
+        "definition_level": false,
         "named": [
           "OnSide",
           "SideNamed"
@@ -1858,6 +1875,8 @@
       },
       "judgments_holding_at_genesis": {
         "control": 0,
+        "declared_columns": [],
+        "definition_level": false,
         "named": 2,
         "unnamed": 0
       },
@@ -1866,6 +1885,8 @@
           "automorphism_order": 2,
           "generators": 1
         },
+        "declared_columns": [],
+        "definition_level": false,
         "named": {
           "automorphism_order": 1,
           "generators": 1
@@ -1876,6 +1897,39 @@
         }
       }
     },
+    "columns": [
+      "control",
+      "unnamed",
+      "named"
+    ],
+    "computed_cells": [
+      "coordinates_the_genesis_declaration_fixes:unnamed",
+      "coordinates_the_genesis_declaration_fixes:named",
+      "judgment_forms:control",
+      "judgment_forms:unnamed",
+      "judgment_forms:named",
+      "judgments_holding_at_genesis:control",
+      "judgments_holding_at_genesis:unnamed",
+      "judgments_holding_at_genesis:named",
+      "renamings_at_the_retained_regime:control",
+      "renamings_at_the_retained_regime:unnamed",
+      "renamings_at_the_retained_regime:named",
+      "invariant_and_separating_mark_properties_at_base:control",
+      "invariant_and_separating_mark_properties_at_base:unnamed",
+      "invariant_and_separating_mark_properties_at_base:named",
+      "collateral_facts_both_worlds_can_state:control",
+      "collateral_facts_both_worlds_can_state:unnamed",
+      "collateral_facts_both_worlds_can_state:named"
+    ],
+    "declared_cells": [
+      "declarations_at_genesis:control",
+      "declarations_at_genesis:unnamed",
+      "declarations_at_genesis:named",
+      "coordinates_the_genesis_declaration_fixes:control"
+    ],
+    "definition_level_rows": [
+      "declarations_at_genesis"
+    ],
     "mismatching_rows": [
       "declarations_at_genesis",
       "coordinates_the_genesis_declaration_fixes",
@@ -1906,6 +1960,7 @@
           "unnamed",
           "named"
         ],
+        "definition_level": true,
         "named": [
           "one whole with two sides",
           "the two sides carry admitted names"
@@ -1920,6 +1975,7 @@
         "declared_columns": [
           "control"
         ],
+        "definition_level": false,
         "named": 2,
         "price_if_bought": 2,
         "row": "coordinates_the_genesis_declaration_fixes",
@@ -1930,6 +1986,7 @@
           "Admitted"
         ],
         "declared_columns": [],
+        "definition_level": false,
         "named": [
           "OnSide",
           "SideNamed"
@@ -1942,6 +1999,7 @@
       {
         "control": 0,
         "declared_columns": [],
+        "definition_level": false,
         "named": 2,
         "row": "judgments_holding_at_genesis",
         "unnamed": 0
@@ -1952,6 +2010,7 @@
           "generators": 1
         },
         "declared_columns": [],
+        "definition_level": false,
         "named": {
           "automorphism_order": 1,
           "generators": 1
@@ -1965,6 +2024,7 @@
       {
         "control": [],
         "declared_columns": [],
+        "definition_level": false,
         "named": [
           "on_side_0",
           "on_side_1"
@@ -1978,6 +2038,7 @@
           "order_internally_available": false
         },
         "declared_columns": [],
+        "definition_level": false,
         "named": {
           "label_internally_available": false,
           "order_internally_available": false
@@ -17758,6 +17819,11 @@
         "failures": [],
         "forced": false,
         "id": "P1",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "`side_free_minimum = 1` under `mu1`",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17767,6 +17833,11 @@
         "failures": [],
         "forced": false,
         "id": "P2",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "`side_free_classes = 1`, and `unique` is `true`",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17776,6 +17847,11 @@
         "failures": [],
         "forced": false,
         "id": "P3",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "It costs `mu1 = 1` in both worlds",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17785,6 +17861,11 @@
         "failures": [],
         "forced": false,
         "id": "P4",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "what_the_admitted_primitive_bought = NOTHING_IN_COST",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17794,6 +17875,11 @@
         "failures": [],
         "forced": false,
         "id": "P5",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "`mu1 = 0`, **2** automorphisms, FAILS",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17803,6 +17889,11 @@
         "failures": [],
         "forced": false,
         "id": "P6",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**P6 \u2014 `keep_labels`.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17812,6 +17903,11 @@
         "failures": [],
         "forced": false,
         "id": "P7",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**P7 \u2014 `extra_mark`.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17821,6 +17917,11 @@
         "failures": [],
         "forced": true,
         "id": "P8",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**P8 \u2014 `withdraw_mark_permutations`.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17830,6 +17931,11 @@
         "failures": [],
         "forced": true,
         "id": "P9",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "Four of the eight points carry",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17839,6 +17945,11 @@
         "failures": [],
         "forced": false,
         "id": "P10",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "`plurality_vs_unnamed = -2`",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17848,6 +17959,11 @@
         "failures": [],
         "forced": false,
         "id": "P11",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "`withdraw_reflection` and `extra_mark`, obtained by mapping",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17857,6 +17973,11 @@
         "failures": [],
         "forced": false,
         "id": "P12",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "`base` 0, `keep_labels` 1,",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17866,6 +17987,11 @@
         "failures": [],
         "forced": false,
         "id": "P13",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "The minimum is **0** in all three",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17875,6 +18001,11 @@
         "failures": [],
         "forced": false,
         "id": "P14",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "is `false` at every one of the eight points",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17884,6 +18015,11 @@
         "failures": [],
         "forced": false,
         "id": "P15",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**64 of 64** with the mark permutations withdrawn",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17893,6 +18029,11 @@
         "failures": [],
         "forced": true,
         "id": "P16",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**0** lemma violations and **0** corollary violations",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17902,6 +18043,11 @@
         "failures": [],
         "forced": false,
         "id": "P17",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**2140** side-typed automorphisms checked",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17911,6 +18057,11 @@
         "failures": [],
         "forced": false,
         "id": "P18",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "produces **12** lemma violations",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17920,6 +18071,11 @@
         "failures": [],
         "forced": false,
         "id": "P19",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "separates the two retained marks at **no** cell",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17929,6 +18085,11 @@
         "failures": [],
         "forced": false,
         "id": "P20",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**P20 \u2014 G4 agrees on all fourteen rows.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17938,6 +18099,11 @@
         "failures": [],
         "forced": false,
         "id": "P21",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "refused-bundle count **41**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17947,6 +18113,32 @@
         "failures": [],
         "forced": false,
         "id": "P22",
+        "ledger_cells": {
+          "cells": [
+            "coordinates_the_genesis_declaration_fixes:control",
+            "coordinates_the_genesis_declaration_fixes:named",
+            "coordinates_the_genesis_declaration_fixes:unnamed",
+            "judgments_holding_at_genesis:control",
+            "judgments_holding_at_genesis:named",
+            "judgments_holding_at_genesis:unnamed",
+            "renamings_at_the_retained_regime:control",
+            "renamings_at_the_retained_regime:named",
+            "renamings_at_the_retained_regime:unnamed"
+          ],
+          "computed": [
+            "coordinates_the_genesis_declaration_fixes:named",
+            "coordinates_the_genesis_declaration_fixes:unnamed",
+            "judgments_holding_at_genesis:control",
+            "judgments_holding_at_genesis:named",
+            "judgments_holding_at_genesis:unnamed",
+            "renamings_at_the_retained_regime:control",
+            "renamings_at_the_retained_regime:named",
+            "renamings_at_the_retained_regime:unnamed"
+          ],
+          "declared": [
+            "coordinates_the_genesis_declaration_fixes:control"
+          ]
+        },
         "quote": "**P22 \u2014 the four numeric rows.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17956,6 +18148,11 @@
         "failures": [],
         "forced": false,
         "id": "P23",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "yielding\n**one** mark",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17965,6 +18162,11 @@
         "failures": [],
         "forced": false,
         "id": "P24",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**P24 \u2014 key-choice invariance.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17974,6 +18176,11 @@
         "failures": [],
         "forced": false,
         "id": "P25",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "the secondary\n  answer is `NO_SATISFYING_CANDIDATE`",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17983,6 +18190,11 @@
         "failures": [],
         "forced": false,
         "id": "P26",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "**P26 \u2014 the decided value.**",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"
@@ -17992,6 +18204,11 @@
         "failures": [],
         "forced": true,
         "id": "P27",
+        "ledger_cells": {
+          "cells": [],
+          "computed": [],
+          "declared": []
+        },
         "quote": "no price that the admission\norder could not buy at the same price",
         "quote_found_in_the_frozen_file": true,
         "status": "HIT"

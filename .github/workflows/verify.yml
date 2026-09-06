@@ -451,7 +451,7 @@ jobs:
           log="$RUNNER_TEMP/side-free-tests.log"
           python -m coverage erase
           python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
-          grep -Eq '^Ran 325 tests in ' "$log"
+          grep -Eq '^Ran 331 tests in ' "$log"
           python -m coverage json -q
           python check_coverage.py
           python run_side_free.py

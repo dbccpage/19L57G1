@@ -856,6 +856,10 @@ UNMATCHED_PINNED_ROUTES: tuple[Json, ...] = (
 CONTROL_GENERATOR_KEYS: tuple[str, ...] = ("mark_permutations",)
 MIRROR_GENERATOR_KEYS: tuple[str, ...] = ("side_exchange", "mark_permutations")
 
+# The three columns of the ledger, declared once so that a cell census counts
+# cells and never rows.  A row times these is the cell population.
+LEDGER_COLUMNS: tuple[str, ...] = ("control", "unnamed", "named")
+
 # The endowment cells this module DECLARES rather than computes, kept apart
 # from the computed ones exactly as ``comparison.py`` keeps ``Declared`` apart
 # from ``Computed``: a typed-in value must not be read as a measurement.  The
@@ -1030,9 +1034,13 @@ def endowment_ledger(rows: Sequence[Json], mrows: dict[str, list[Json]]) -> Json
         },
     ]
     for entry in ledger:
-        entry["declared_columns"] = list(
-            DECLARED_ENDOWMENT_CELLS.get(str(entry["row"]), ())
-        )
+        declared = list(DECLARED_ENDOWMENT_CELLS.get(str(entry["row"]), ()))
+        entry["declared_columns"] = declared
+        # DEFINITION-level here means what it means in ``comparison.py``:
+        # declared on BOTH sides, so the row's agreement unfolds declarations
+        # rather than measurements.  A row declared in the control column
+        # alone is NOT that, and this flag is what says so.
+        entry["definition_level"] = len(declared) == len(LEDGER_COLUMNS)
     mismatching = [
         str(entry["row"])
         for entry in ledger
@@ -1050,8 +1058,24 @@ def endowment_ledger(rows: Sequence[Json], mrows: dict[str, list[Json]]) -> Json
         "mismatching_rows_with_no_stated_price": [
             row for row in mismatching if row not in priced
         ],
+        "columns": list(LEDGER_COLUMNS),
         "rows_with_a_declared_column": [
             str(entry["row"]) for entry in ledger if entry["declared_columns"]
+        ],
+        "declared_cells": [
+            f"{entry['row']}:{column}"
+            for entry in ledger
+            for column in LEDGER_COLUMNS
+            if column in as_list(entry["declared_columns"])
+        ],
+        "computed_cells": [
+            f"{entry['row']}:{column}"
+            for entry in ledger
+            for column in LEDGER_COLUMNS
+            if column not in as_list(entry["declared_columns"])
+        ],
+        "definition_level_rows": [
+            str(entry["row"]) for entry in ledger if entry["definition_level"]
         ],
         "why_the_declared_cells_are_declared": dict(
             WHY_ENDOWMENT_CELLS_ARE_DECLARED
@@ -2043,8 +2067,61 @@ def frozen_text(name: str) -> str:
     return (TREE / name).read_text(encoding="utf-8")
 
 
+LEDGER_CELL_PREFIX = "endowment_ledger.by_row."
+
+
+def ledger_declared_cells(record: Json) -> list[str] | None:
+    """The ledger's declared-cell census, or ``None`` when there is none.
+
+    ``None`` is not the empty list.  A record carrying no census cannot say
+    that no cell is declared, and converting that absence into a
+    classification is the move this tree bars everywhere else.
+    """
+    try:
+        cells = dig(record, "endowment_ledger.declared_cells")
+    except (KeyError, IndexError, TypeError):
+        return None
+    return [str(name) for name in as_list(cells)]
+
+
+def ledger_cells_read(clauses: Sequence[Clause], declared: list[str] | None) -> Json:
+    """The distinct endowment-ledger CELLS a prediction's clauses read.
+
+    A clause names a path, and several clauses can read one cell: the
+    renaming row's cells are objects, so two clauses read one cell there.
+    Clauses are therefore not cells, and this counts cells.  Each is then put
+    through the ledger's own declared-cell census, so which of a prediction's
+    cells are declarations of this tree rather than measurements is computed
+    here and never typed into prose.
+    """
+    cells: list[str] = []
+    for clause in clauses:
+        if not clause.path.startswith(LEDGER_CELL_PREFIX):
+            continue
+        parts = clause.path[len(LEDGER_CELL_PREFIX) :].split(".")
+        cell = f"{parts[0]}:{parts[1]}"
+        if cell not in cells:
+            cells.append(cell)
+    if declared is None:
+        return {
+            "cells": sorted(cells),
+            "declared": None,
+            "computed": None,
+            "why_unclassified": (
+                "the record carries no endowment_ledger.declared_cells, so the "
+                "absence is reported and is NOT read as no cell being declared"
+            ),
+        }
+    return {
+        "cells": sorted(cells),
+        "declared": sorted(cell for cell in cells if cell in declared),
+        "computed": sorted(cell for cell in cells if cell not in declared),
+    }
+
+
 def score_predictions(record: Json) -> Json:
     frozen = frozen_text("PREDICTIONS.md")
+    declared_cells = ledger_declared_cells(record)
     scored: list[Json] = []
     for prediction in PREDICTIONS:
         failures: list[Json] = []
@@ -2071,6 +2148,9 @@ def score_predictions(record: Json) -> Json:
                 "failures": failures,
                 "quote": prediction.quote,
                 "quote_found_in_the_frozen_file": prediction.quote in frozen,
+                "ledger_cells": ledger_cells_read(
+                    prediction.clauses, declared_cells
+                ),
             }
         )
     hits = [s for s in scored if s["status"] == "HIT"]
@@ -2310,11 +2390,16 @@ def decide() -> Json:
         "unmatched_pinned_routes": list(UNMATCHED_PINNED_ROUTES),
         "endowment_ledger": {
             **ledger,
+            # Keyed by row name and carrying every OTHER field the row
+            # carries.  Written this way rather than as a list of picked
+            # columns because the picked version silently dropped
+            # ``declared_columns``, so a consumer reading a cell through this
+            # projection could not see that the cell was a declaration.  A
+            # projection that enumerates what it keeps loses the next field
+            # too; this one cannot.
             "by_row": {
                 str(entry["row"]): {
-                    "control": entry["control"],
-                    "unnamed": entry["unnamed"],
-                    "named": entry["named"],
+                    key: value for key, value in entry.items() if key != "row"
                 }
                 for entry in as_list(ledger["rows"])
                 if isinstance(entry, dict)

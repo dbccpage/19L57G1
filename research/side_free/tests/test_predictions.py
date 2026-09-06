@@ -106,6 +106,54 @@ class Scoring(unittest.TestCase):
         block = control.score_predictions({})
         self.assertEqual(block["hits"], 0)
         self.assertEqual(block["misses"], len(control.PREDICTIONS))
+        scored = block["scored"]
+        assert isinstance(scored, list)
+        for entry in scored:
+            assert isinstance(entry, dict)
+            cells = entry["ledger_cells"]
+            assert isinstance(cells, dict)
+            self.assertIsNone(cells["declared"])
+            self.assertIsNone(cells["computed"])
+            self.assertIn("NOT read as", str(cells["why_unclassified"]))
+
+    def test_the_ledger_cells_a_prediction_reads_are_counted_as_cells(self) -> None:
+        """A clause is not a cell, and the record now says which it counts.
+
+        P22 carries twelve clauses over nine ledger cells: the three cells of
+        the renaming row are objects and two clauses read each of them.  A
+        scoring note called all twelve cells and then split them two ways
+        that did not add up, so the population is computed here.  Exactly one
+        of the nine is a declaration of this tree; the split is total.
+        """
+        block = RECORD["predictions"]
+        assert isinstance(block, dict)
+        scored = block["scored"]
+        assert isinstance(scored, list)
+        by_id = {str(entry["id"]): entry for entry in scored if isinstance(entry, dict)}
+        reading = sorted(
+            name for name, entry in by_id.items() if entry["ledger_cells"]["cells"]
+        )
+        self.assertEqual(reading, ["P22"])
+        p22 = by_id["P22"]
+        self.assertEqual(p22["clauses"], 12)
+        cells = p22["ledger_cells"]
+        self.assertEqual(len(cells["cells"]), 9)
+        self.assertEqual(
+            cells["declared"], ["coordinates_the_genesis_declaration_fixes:control"]
+        )
+        self.assertEqual(len(cells["computed"]), 8)
+        ledger = RECORD["endowment_ledger"]
+        assert isinstance(ledger, dict)
+        for entry in scored:
+            assert isinstance(entry, dict)
+            block_cells = entry["ledger_cells"]
+            assert isinstance(block_cells, dict)
+            self.assertEqual(
+                sorted(list(block_cells["declared"]) + list(block_cells["computed"])),
+                block_cells["cells"],
+            )
+            for name in block_cells["declared"]:
+                self.assertIn(name, ledger["declared_cells"])
 
     def test_the_forced_label_is_reported_and_not_counted_as_content(self) -> None:
         block = RECORD["predictions"]

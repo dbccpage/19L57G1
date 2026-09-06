@@ -591,7 +591,7 @@ def minima_reading_a_side(pinned: Mapping[int, Json], record: Json) -> Json:
             coordinates = mir.changed_coordinates(aug)
             rows.append(
                 {
-                    "world": "the pinned world",
+                    "whose_minimum": "the pinned world",
                     "reading": reading,
                     "point": point,
                     "coordinates_moved": coordinates,
@@ -607,7 +607,7 @@ def minima_reading_a_side(pinned: Mapping[int, Json], record: Json) -> Json:
         coordinates = ctl.changed_coordinates(control_aug)
         rows.append(
             {
-                "world": "the control",
+                "whose_minimum": "the control",
                 "reading": None,
                 "point": point,
                 "coordinates_moved": coordinates,
@@ -1247,10 +1247,14 @@ def specs() -> list[Spec]:
             Receipt("second_measures.mirror_minima_by_mu2_restricted.O.minimum"),
             Receipt("second_measures.control_minima_by_mu2_restricted.minimum"),
             note=(
-                "the ONLY row whose two boundary cells are not read from a "
-                "pinned path.  No pinned receipt carries a minimum of the "
-                "restricted measure, so both are minima computed on THIS "
-                "TREE'S OWN mirror carrier and read out of this tree's record.  "
+                "a row whose two boundary cells are not read from a pinned "
+                "path.  Which rows those are is not asserted here but computed "
+                "over every row's declared sources, at "
+                "`boundary_source_census.rows_whose_boundary_cells_are_not_"
+                "read_from_a_pinned_path`.  No pinned receipt carries a "
+                "minimum of the restricted measure, so both are minima "
+                "computed on THIS TREE'S OWN mirror carrier and read out of "
+                "this tree's record.  "
                 "The totality gate over the declared pinned values therefore "
                 "does not reach them, and never counted them: what holds them "
                 "instead is the weaker per-point data join, "
@@ -1380,6 +1384,7 @@ def price_cells(resolver: Resolver, price: Price | None, kind: str) -> Json:
             "control": None,
             "control_equals_unnamed": True,
             "control_equals_named": True,
+            "columns_reading_a_declared_ledger_cell": [],
         }
     unnamed = resolver.resolve(price.unnamed)
     named = resolver.resolve(price.named)
@@ -1394,6 +1399,15 @@ def price_cells(resolver: Resolver, price: Price | None, kind: str) -> Json:
         "control_source": control.source,
         "control_equals_unnamed": control.value == unnamed.value,
         "control_equals_named": control.value == named.value,
+        "columns_reading_a_declared_ledger_cell": [
+            column
+            for column, source in (
+                ("unnamed", price.unnamed),
+                ("named", price.named),
+                ("control", price.control),
+            )
+            if record_field_is_declared_not_computed(resolver, source)
+        ],
     }
 
 
@@ -1423,6 +1437,77 @@ def pinned_field_is_declared_not_computed(resolver: Resolver, source: Source) ->
         Pin(source.challenge, f"readings.{parts[1]}.price.fields_declared_not_computed")
     )
     return parts[3] in [str(name) for name in as_list(flagged.value)]
+
+
+def record_field_is_declared_not_computed(resolver: Resolver, source: Source) -> bool:
+    """Does THIS TREE'S own record flag the endowment cell this reads?
+
+    The mirror of the check above, on the control side.  Every endowment
+    ledger row carries ``declared_columns``, and the ``by_row`` projection
+    carries it too, so a column that reads a flagged cell can say it is
+    reading a DECLARATION of this tree rather than a measurement taken off a
+    carrier.  The projection used to drop the field, which meant a consumer
+    reading a cell through it could not ask this question at all.
+    """
+    if not isinstance(source, Receipt):
+        return False
+    parts = source.path.split(".")
+    if len(parts) != 4 or parts[0] != "endowment_ledger" or parts[1] != "by_row":
+        return False
+    flagged = resolver.resolve(
+        Receipt(f"endowment_ledger.by_row.{parts[2]}.declared_columns")
+    )
+    return parts[3] in [str(name) for name in as_list(flagged.value)]
+
+
+def reads_a_pinned_path(source: Source) -> bool:
+    """Does this column resolve, in the end, to a path of a pinned receipt?
+
+    A length or a collapse of a pinned path still reads the pin; a receipt
+    path, a computed key or a declared value does not.
+    """
+    if isinstance(source, Pin):
+        return True
+    if isinstance(source, (Count, Collapsed)):
+        return reads_a_pinned_path(source.inner)
+    return False
+
+
+def boundary_source_census() -> Json:
+    """Which rows read a boundary cell from somewhere other than the pin.
+
+    R40's note used to ASSERT that it is the only such row.  It is -- but a
+    count typed into prose is exactly the defect this tree has had to repair
+    before, so the answer is computed here from the declared sources and the
+    note names this field instead of a number.
+    """
+    census = [
+        {
+            "row": spec.id,
+            "columns": [
+                column
+                for column, source in (
+                    ("unnamed", spec.unnamed),
+                    ("named", spec.named),
+                )
+                if not reads_a_pinned_path(source)
+            ],
+        }
+        for spec in specs()
+    ]
+    return {
+        "rule": (
+            "a boundary column reads a pinned path when its source is a pinned "
+            "path, or the length or the collapse of one.  Anything else is "
+            "produced on a carrier of this tree or read out of this tree's own "
+            "record, and the totality gate over the declared pinned values does "
+            "not reach it"
+        ),
+        "rows_checked": [entry["row"] for entry in census],
+        "rows_whose_boundary_cells_are_not_read_from_a_pinned_path": [
+            entry for entry in census if entry["columns"]
+        ],
+    }
 
 
 def build_row(resolver: Resolver, spec: Spec) -> Json:
@@ -1455,6 +1540,15 @@ def build_row(resolver: Resolver, spec: Spec) -> Json:
         "the_pinned_field_is_declared_not_computed": declared_only,
         "the_control_field_is_declared_not_computed": control_declared,
         "why_the_control_field_is_declared": why_declared,
+        "columns_reading_a_declared_ledger_cell": [
+            column
+            for column, source in (
+                ("unnamed", spec.unnamed),
+                ("named", spec.named),
+                ("control", spec.control),
+            )
+            if record_field_is_declared_not_computed(resolver, source)
+        ],
         "is_definition_level": declared_only and control_declared,
         "price": price,
         "status": status_of(against_unnamed, price, "control_equals_unnamed"),
@@ -1561,6 +1655,27 @@ def bought_table(rows: Sequence[Json]) -> Json:
         "definition_level_rows": [
             row["id"] for row in rows if bool(row["is_definition_level"])
         ],
+        "rows_reading_a_declared_ledger_cell": [
+            {
+                "row": row["id"],
+                "value_columns": row["columns_reading_a_declared_ledger_cell"],
+                "price_columns": as_dict(row["price"])[
+                    "columns_reading_a_declared_ledger_cell"
+                ],
+            }
+            for row in rows
+            if as_list(row["columns_reading_a_declared_ledger_cell"])
+            or as_list(
+                as_dict(row["price"])["columns_reading_a_declared_ledger_cell"]
+            )
+        ],
+        "why_the_declared_ledger_cells_are_named": (
+            "a column that reads a cell this tree's own endowment ledger flags "
+            "in its declared_columns is reading a DECLARATION of this tree and "
+            "not a measurement taken off a carrier.  It is named for the reason "
+            "the pinned world's own declared fields are named: so that a "
+            "typed-in value is not read as something either world measured"
+        ),
         "why_the_definition_level_rows_are_named": (
             "a row whose pinned column and control column are BOTH declared and "
             "not computed agrees by unfolding two declarations.  That is "
@@ -2058,6 +2173,7 @@ def compare() -> Json:
     present = {str(row["stage"]) for row in rows}
     out["stages"] = [stage for stage in STAGES if stage in present]
     out["bought_table"] = table
+    out["boundary_source_census"] = boundary_source_census()
     out["minima_and_the_sides"] = minima_reading_a_side(pinned, record)
     out["pinned_dependence_claims"] = dependence_block(pinned, record)
     out["verdict"] = verdict_block(record, rows, table, commit)
@@ -2275,6 +2391,15 @@ def document(record: Json) -> bytes:
     add("")
     add(sentence(table["why_the_definition_level_rows_are_named"]) + ".")
     add("")
+    add(
+        "Rows reading a cell this tree's own endowment ledger flags as declared "
+        "and not computed, by value column and by price column: "
+        + show(table["rows_reading_a_declared_ledger_cell"])
+        + "."
+    )
+    add("")
+    add(sentence(table["why_the_declared_ledger_cells_are_named"]) + ".")
+    add("")
     add("| kind | bought nothing | bought something | absent |")
     add("|---|---|---|---|")
     for kind, buckets in sorted(as_dict(table["by_kind"]).items()):
@@ -2317,7 +2442,7 @@ def document(record: Json) -> bytes:
         row = as_dict(entry)
         placement = as_dict(row["placement"])
         add(
-            f"| {row['world']} | {show(row['reading'])} | `{row['point']}` | "
+            f"| {row['whose_minimum']} | {show(row['reading'])} | `{row['point']}` | "
             f"{str(row['names_a_side_in_its_capability_sentence']).lower()} | "
             f"{str(placement['reads_the_placement']).lower()} |"
         )
