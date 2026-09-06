@@ -15,6 +15,8 @@ import pathlib
 import subprocess
 import sys
 
+from verify_freeze import audit as audit_freeze
+
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 REL = "research/boundary_seed"
@@ -23,6 +25,27 @@ SEED_SHA256 = "ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be"
 FROZEN: dict[str, str] = {
     "challenge0/PREDICTIONS.md": (
         "a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395"
+    ),
+    "challenge1/PREDICTIONS.md": (
+        "7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7"
+    ),
+    "challenge2/PREDICTIONS.md": (
+        "95f9371b030b8df64b4842a5df7be695d9e7f1b2311a300e78d915a701c16474"
+    ),
+    "challenge3/PREDICTIONS.md": (
+        "27057895c47e5bd718b0ea8e51689f3325cef78102c912c6feea8e913a7e7755"
+    ),
+    "challenge4/PREDICTIONS.md": (
+        "42371f458e23ce89885a76c542863c112482c0ca6b4f1d9ff6a058b3c21f2041"
+    ),
+    "challenge5/PREDICTIONS.md": (
+        "b3aab18d8e5a0700e563862ef7a884248badefbc7c653df0e00097044e3d99de"
+    ),
+    "continuation/stage1/PREDICTIONS.md": (
+        "ac401dafbfa5072f04b6ab532992eae41391f87b6fe4441592b86804c4bf8313"
+    ),
+    "continuation/stage2/PREDICTIONS.md": (
+        "f4b3ebf85ad0176352647a606e8dd856674fb153d89e10e17d48f4734cf26f06"
     ),
 }
 
@@ -33,14 +56,14 @@ def sha(data: bytes) -> str:
 
 def git_bytes(spec: str) -> bytes | None:
     proc = subprocess.run(
-        ["git", "show", spec], cwd=ROOT, capture_output=True
+        ["git", "--no-replace-objects", "show", spec], cwd=ROOT, capture_output=True
     )
     return proc.stdout if proc.returncode == 0 else None
 
 
 def history(rel: str) -> list[str]:
     proc = subprocess.run(
-        ["git", "rev-list", "--reverse", "HEAD", "--", f"{REL}/{rel}"],
+        ["git", "--no-replace-objects", "rev-list", "--reverse", "--full-history", "HEAD", "--", f"{REL}/{rel}"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -58,7 +81,7 @@ def text_is_unset(rel: str, source: str) -> bool:
     elif source != "working tree":
         raise ValueError(f"unknown attribute source: {source}")
     proc = subprocess.run(
-        ["git", "check-attr", *options, "text", "--", f"{REL}/{rel}"],
+        ["git", "--no-replace-objects", "check-attr", *options, "text", "--", f"{REL}/{rel}"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -110,7 +133,7 @@ def check(rel: str, want: str) -> list[str]:
 def main() -> int:
     problems: list[str] = []
     shallow = subprocess.run(
-        ["git", "rev-parse", "--is-shallow-repository"],
+        ["git", "--no-replace-objects", "rev-parse", "--is-shallow-repository"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -127,8 +150,10 @@ def main() -> int:
         rel = receipt.relative_to(HERE).as_posix()
         problems.extend(attribute_problems(rel, "byte-stable"))
     problems.extend(attribute_problems("lean/axioms.txt", "byte-stable"))
-    if history("FREEZE.md"):
-        print("note: committed FREEZE.md marker; pre-freeze source scan is retired")
+    freeze = audit_freeze(ROOT)
+    problems.extend(freeze.problems)
+    if freeze.frozen:
+        print(f"note: validated source freeze {freeze.commit}; pre-freeze source scan is retired")
     for p in problems:
         print(f"FAIL: {p}")
     if problems:

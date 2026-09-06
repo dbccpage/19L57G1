@@ -21,6 +21,8 @@ import re
 import subprocess
 import unittest
 
+from verify_freeze import audit as audit_freeze, blobs as read_blobs, tree as read_tree
+
 TREE = pathlib.Path(__file__).resolve().parent.parent
 ROOT = TREE.parent.parent
 REL = "research/boundary_seed"
@@ -51,7 +53,7 @@ SEALED_PATTERNS: tuple[tuple[str, str], ...] = (
 
 
 def git_bytes(args: list[str]) -> bytes:
-    proc = subprocess.run(["git", *args], cwd=ROOT, capture_output=True)
+    proc = subprocess.run(["git", "--no-replace-objects", *args], cwd=ROOT, capture_output=True)
     if proc.returncode != 0:
         detail = proc.stderr.decode("utf-8", errors="replace").strip()
         raise RuntimeError(f"git {' '.join(args)} failed: {detail}")
@@ -162,8 +164,8 @@ def current_research_paths() -> list[str]:
     )
 
 
-def history_commits() -> list[str]:
-    data = git_bytes(["rev-list", "--reverse", "HEAD", "--", REL])
+def history_commits(ref: str = "HEAD") -> list[str]:
+    data = git_bytes(["rev-list", "--reverse", "--full-history", ref, "--", REL])
     return [line for line in data.decode("ascii").splitlines() if line]
 
 
@@ -171,7 +173,7 @@ def historical_other_trees() -> list[str]:
     """All sibling research-tree names reachable from ``HEAD`` history."""
 
     paths = nul_paths(
-        git_bytes(["log", "--format=", "--name-only", "-z", "HEAD", "--", "research/"])
+        git_bytes(["log", "--full-history", "--format=", "--name-only", "-z", "HEAD", "--", "research/"])
     )
     names = {
         parts[1]
@@ -184,40 +186,56 @@ def historical_other_trees() -> list[str]:
 
 
 def scan_snapshot(
-    ref: str, label: str, names: list[str]
+    ref: str, label: str, names: list[str],
+    cache: dict[str, list[str]] | None = None,
 ) -> tuple[list[str], bool]:
-    paths = tree_paths(ref)
+    # All versions and paths remain in the population. Only repeated reads and
+    # scans of identical immutable Git blobs are shared within this invocation.
+    population = read_tree(ROOT, ref)
     patterns = all_patterns(names)
+    cached = {} if cache is None else cache
+    missing = [
+        blob.oid for path, blob in population.items()
+        if not is_exempt(path) and blob.oid not in cached
+    ]
+    for oid, data in read_blobs(ROOT, missing).items():
+        cached[oid] = scan_bytes(data, "", patterns)
     problems: list[str] = []
-    for repo_path in paths:
+    for repo_path, blob in population.items():
         if is_exempt(repo_path):
             continue
-        data = git_bytes(["show", f"{ref}:{repo_path}"])
-        problems.extend(scan_bytes(data, f"{label}:{repo_path}", patterns))
-    return problems, FREEZE_REPO_PATH in paths
+        problems.extend(f"{label}:{repo_path}{suffix}" for suffix in cached[blob.oid])
+    return problems, FREEZE_REPO_PATH in population
 
 
 def scan_committed_history() -> tuple[list[str], bool]:
     """Scan every distinct pre-freeze write-root version and the freeze."""
 
-    problems: list[str] = []
-    frozen = False
+    freeze = audit_freeze(ROOT)
+    problems = list(freeze.problems)
+    frozen = freeze.frozen
     shallow = git_bytes(["rev-parse", "--is-shallow-repository"]).decode("ascii").strip()
     if shallow != "false":
         return ["history: repository is shallow; blindness history is incomplete"], False
-    commits = history_commits()
+    tip = freeze.commit if frozen and freeze.commit is not None else "HEAD"
+    commits = history_commits(tip)
     if not commits:
         return ["history: no commit contains the write root"], False
     names = historical_other_trees()
+    cache: dict[str, list[str]] = {}
     for commit in commits:
-        found, frozen = scan_snapshot(commit, commit[:12], names)
-        problems.extend(found)
-        if frozen:
-            break
-    head = git_bytes(["rev-parse", "HEAD"]).decode("ascii").strip()
-    if not frozen and commits[-1] != head:
-        found, frozen = scan_snapshot("HEAD", "HEAD", names)
-        problems.extend(found)
+        try:
+            found, _marker_present = scan_snapshot(commit, commit[:12], names, cache)
+            problems.extend(found)
+        except (ValueError, OSError, UnicodeError) as exc:
+            problems.append(f"{commit}: source population cannot be scanned: {exc}")
+    head = git_bytes(["rev-parse", tip]).decode("ascii").strip()
+    if commits[-1] != head:
+        try:
+            found, _marker_present = scan_snapshot(tip, tip, names, cache)
+            problems.extend(found)
+        except (ValueError, OSError, UnicodeError) as exc:
+            problems.append(f"{tip}: source population cannot be scanned: {exc}")
     return problems, frozen
 
 
@@ -231,23 +249,33 @@ def current_other_trees(paths: list[str]) -> list[str]:
 
 
 def scan_index_and_working() -> list[str]:
-    indexed = index_paths()
     working = working_paths()
     patterns = all_patterns(current_other_trees(current_research_paths()))
     problems: list[str] = []
-    for repo_path in indexed:
+    indexed: list[tuple[str, str]] = []
+    for record in git_bytes(["ls-files", "--stage", "-z", "--", REL]).split(b"\0"):
+        if not record:
+            continue
+        header, raw_path = record.split(b"\t", 1)
+        mode, oid, stage = header.decode("ascii").split()
+        repo_path = raw_path.decode("utf-8")
         if is_exempt(repo_path):
             continue
-        data = git_bytes(["show", f":{repo_path}"])
-        problems.extend(scan_bytes(data, f"INDEX:{repo_path}", patterns))
+        if mode not in ("100644", "100755") or stage != "0":
+            problems.append(f"INDEX:{repo_path}: nonregular or unresolved source cannot be scanned")
+            continue
+        indexed.append((repo_path, oid))
+    content = read_blobs(ROOT, [oid for _path, oid in indexed])
+    for repo_path, oid in indexed:
+        problems.extend(scan_bytes(content[oid], f"INDEX:{repo_path}", patterns))
     for repo_path in working:
         if is_exempt(repo_path):
             continue
         path = ROOT / repo_path
-        if not path.exists():
-            continue
         if path.is_symlink():
             problems.append(f"{repo_path}: symlink cannot be blind-scanned")
+            continue
+        if not path.exists():
             continue
         try:
             data = path.read_bytes()
