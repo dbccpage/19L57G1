@@ -183,11 +183,11 @@ def crude_hits(line: str) -> list[tuple[int, str]]:
 # shrinks cannot pass, and one that grows must be looked at.  Regenerate
 # deliberately with ``--census`` and never while an injection is live.
 POPULATION_CENSUS: dict[str, tuple[int, int]] = {
-    "CLAIM_LEDGER.md": (130, 103),
+    "CLAIM_LEDGER.md": (138, 99),
     "DELETED.md": (7, 9),
-    "MANUAL.md": (152, 36),
-    "STATUS.md": (210, 99),
-    "change_log.md": (123, 140),
+    "MANUAL.md": (158, 36),
+    "STATUS.md": (212, 96),
+    "change_log.md": (128, 140),
     "pinned/QUOTATIONS.md": (18, 19),
 }
 

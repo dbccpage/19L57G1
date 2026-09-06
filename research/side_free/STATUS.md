@@ -211,12 +211,16 @@ content either.
 ## The price list
 
 `receipts/comparison.json` and the document it renders, `COMPARISON.md`, put
-the two worlds side by side item by item.  Every boundary number is READ from
-one of the four pinned receipts at `5c43c5ee` — with one exception, R40's two
-minima of the restricted second measure, which no pinned path carries and
+the two worlds side by side item by item. Pinned-path boundary numbers are
+READ from the four pinned receipts at `5c43c5ee`. Other sources are named by cell path
+and role in `boundary_source_census`: R03's boundary price cells read this
+tree's endowment ledger; R40's boundary value cells are minima of the
+restricted second measure, which no pinned path carries and
 which are computed on this tree's own mirror and held by the per-point data
-join against the pin instead.  Every control number is read from this tree's
-own record or computed from its carrier by replay from genesis, and no
+join against the pin instead. The former claim that R40 was the only
+exception is WITHDRAWN: the census then omitted price columns. Every control
+number is read from this tree's own record or computed from its carrier by
+replay from genesis, and no
 boundary number is typed into any source file of this tree.
 
 | what the comparison found | value |
@@ -346,11 +350,11 @@ line with one field missing; both were stale on arrival, and the fix is to
 re-run rather than to re-type.
 
 ```
-351 tests, OK
+352 tests, OK
 coverage: measured over 9 files; percentages come from the fresh coverage gate
 mypy: Success: no issues found in 25 source files
 receipt ok: 550107 bytes, byte-identical
-comparison ok: 140158 receipt bytes and 30238 document bytes, byte-identical
+comparison ok: 156946 receipt bytes and 30295 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
 pins ok: 2 frozen file(s), the vendored pin e4904075aaa0 at 220518 bytes,
          4 vendored receipt(s), 91 declared value(s), 2 receipt(s)

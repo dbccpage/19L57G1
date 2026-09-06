@@ -480,28 +480,37 @@ never counted as content.
 
 ### SF-NO-HAND-TYPED-BOUNDARY-NUMBER
 
-* **Statement.**  Every boundary value the comparison uses is read from a
-  pinned receipt at a declared JSON path, is declared a second time in
+* **Statement.** Every pinned-path boundary value the comparison uses is read
+  from a pinned receipt at a declared JSON path, is declared a second time in
   `pinned/BOUNDARY_PIN.json`, and the declaration is total in both directions:
-  91 declared, 91 read, 91 checked — with **one stated exception**.  R40's two
-  boundary columns are the minima of the restricted second measure, which the
+  91 declared, 91 read, 91 checked. The boundary-source census separately names
+  cells outside that population by output path and role. R03's boundary price
+  cells read this tree's own endowment ledger. R40's boundary value columns
+  are the minima of the restricted second measure, which the
   pinned receipts do not carry at any JSON path; they are computed on this
   tree's own mirror and are held instead by the per-point data join against the
   pin.  An earlier version of this line said *every* boundary value without
-  that exception, and gate C1 never saw those two cells at all.
+  an exception, then named only R40. Both claims are WITHDRAWN: gate C1
+  records neither the price cells of R03 nor the value cells of R40.
 * **Status.**  DETERMINISTIC COMPUTATION.
 * **Depends on.**  SF-PIN.
 * **Assumes.**  Nothing beyond the four pinned receipts' bytes.
 * **Python evidence.**  Gate C1; `verify_pins.check_declared_values`;
-  injections I15 and I16, each failing by name and recovering.
+  injections I15 and I16, each failing by name and recovering;
+  `test_the_boundary_source_census_bears_r40s_claim` and
+  `test_omitting_price_cells_from_the_census_fails_by_path_and_recovers`.
 * **Falsifier.**  A boundary number in a source file of this tree; an
   undeclared value a row reads; a declared value no row reads.
 * **Surviving boundary.**  Totality is not correctness.  A perfect pin of the
   wrong row set is still the wrong row set, and C1 cannot see that.  And the
   totality is over the values C1 can see: the resolver records a use only for a
-  value read at a pinned path, so R40's two mirror-computed boundary cells are
-  outside both directions of the count.  What holds them is a different and
-  weaker guarantee — `second_measures.data_join_against_the_pin`, which joins
+  value read at a pinned path, so R03's boundary price cells and R40's
+  mirror-computed boundary value cells are outside both directions of the
+  count. R03 reads
+  `endowment_ledger.by_row.coordinates_the_genesis_declaration_fixes`
+  from the generated control record and its endowment checks. What holds
+  R40's cells is a different and weaker guarantee —
+  `second_measures.data_join_against_the_pin`, which joins
   48 rows per reading against the pin and reports the mismatches — and it is
   named here rather than folded into the 91.
 

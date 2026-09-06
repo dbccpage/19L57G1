@@ -473,3 +473,19 @@ literal full-percentage source. The coverage gate supplies the independently
 computed fresh measurements. The test registration and status file counts
 move with the measured suite. The frozen design, frozen predictions and
 vendored boundary inputs are unchanged; this repair does not rebind the pin.
+
+## Boundary price-column census repair
+
+The earlier statement that R40 was the only row with boundary cells outside
+the pinned-path population is WITHDRAWN. The census inspected value columns
+and omitted stated-price columns: R03's boundary prices read the control
+record's endowment ledger. The census now includes those slots, names output
+paths and roles, and reports R03's price cells alongside R40's value cells.
+
+The census test independently gathers rendered source metadata. A permanent
+probe removes R03's price cells, requires a failure naming the omitted path,
+and checks recovery without rewriting any receipt. The comparison record and
+its document are regenerated; the ledger and status state the corrected
+provenance boundary. The registered test count follows the added probe.
+No comparison value, price, minimum, verdict, frozen input or source pin is
+changed by this repair.

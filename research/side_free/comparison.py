@@ -1247,9 +1247,10 @@ def specs() -> list[Spec]:
             Receipt("second_measures.mirror_minima_by_mu2_restricted.O.minimum"),
             Receipt("second_measures.control_minima_by_mu2_restricted.minimum"),
             note=(
-                "a row whose two boundary cells are not read from a pinned "
+                "a row whose boundary value cells are not read from a pinned "
                 "path.  Which rows those are is not asserted here but computed "
-                "over every row's declared sources, at "
+                "over every row's value and stated-price sources, with each "
+                "cell's role and path recorded, at "
                 "`boundary_source_census.rows_whose_boundary_cells_are_not_"
                 "read_from_a_pinned_path`.  No pinned receipt carries a "
                 "minimum of the restricted measure, so both are minima "
@@ -1474,38 +1475,62 @@ def reads_a_pinned_path(source: Source) -> bool:
 
 
 def boundary_source_census() -> Json:
-    """Which rows read a boundary cell from somewhere other than the pin.
+    """Classify boundary value and stated-price cells by declared source.
 
-    R40's note used to ASSERT that it is the only such row.  It is -- but a
-    count typed into prose is exactly the defect this tree has had to repair
-    before, so the answer is computed here from the declared sources and the
-    note names this field instead of a number.
+    The former value-only population missed R03's price cells.  Cell paths
+    identify the actual output slots; roles keep a price from being mistaken
+    for the value beside it.  Tests independently gather the rendered rows'
+    source metadata and require this census to cover that whole population.
     """
-    census = [
-        {
-            "row": spec.id,
-            "columns": [
-                column
-                for column, source in (
-                    ("unnamed", spec.unnamed),
-                    ("named", spec.named),
-                )
-                if not reads_a_pinned_path(source)
-            ],
-        }
-        for spec in specs()
-    ]
+    row_specs = specs()
+    cells: list[Json] = []
+    for spec in row_specs:
+        sources = [
+            ("value", "unnamed", "unnamed_reading", spec.unnamed),
+            ("value", "named", "named_reading", spec.named),
+        ]
+        if spec.price is not None:
+            sources.extend(
+                [
+                    ("price", "unnamed", "price.unnamed", spec.price.unnamed),
+                    ("price", "named", "price.named", spec.price.named),
+                ]
+            )
+        cells.extend(
+            {
+                "row": spec.id,
+                "column": column,
+                "role": role,
+                "path": path,
+                "reads_a_pinned_path": reads_a_pinned_path(source),
+            }
+            for role, column, path, source in sources
+        )
     return {
         "rule": (
-            "a boundary column reads a pinned path when its source is a pinned "
+            "every boundary value and stated-price cell is checked.  A cell "
+            "reads a pinned path when its source is a pinned "
             "path, or the length or the collapse of one.  Anything else is "
             "produced on a carrier of this tree or read out of this tree's own "
             "record, and the totality gate over the declared pinned values does "
             "not reach it"
         ),
-        "rows_checked": [entry["row"] for entry in census],
+        "rows_checked": [spec.id for spec in row_specs],
+        "cells_checked": cells,
         "rows_whose_boundary_cells_are_not_read_from_a_pinned_path": [
-            entry for entry in census if entry["columns"]
+            {
+                "row": spec.id,
+                "cells": [
+                    cell
+                    for cell in cells
+                    if cell["row"] == spec.id and not cell["reads_a_pinned_path"]
+                ],
+            }
+            for spec in row_specs
+            if any(
+                cell["row"] == spec.id and not cell["reads_a_pinned_path"]
+                for cell in cells
+            )
         ],
     }
 

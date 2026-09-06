@@ -353,18 +353,62 @@ class Sources(unittest.TestCase):
             [{"row": "R03", "value_columns": [], "price_columns": ["control"]}],
         )
 
-    def test_the_boundary_source_census_bears_r40s_claim(self) -> None:
-        """R40's note asserted "the ONLY row"; the census now decides it.
+    def assert_boundary_source_census_complete(self, census: Any) -> None:
+        """Gather actual output sources independently of Spec and its census."""
+        expected: dict[str, Any] = {}
+        for row in RECORD["rows"]:
+            for column, path in (
+                ("unnamed", "unnamed_reading"), ("named", "named_reading")
+            ):
+                expected[f"{row['id']}.{path}"] = {
+                    "row": row["id"], "column": column, "role": "value",
+                    "path": path,
+                    "reads_a_pinned_path": row["sources"][column].startswith(
+                        "pinned challenge "
+                    ),
+                }
+            for key, source in row["price"].items():
+                if key not in ("unnamed_source", "named_source"):
+                    continue
+                column = key.removesuffix("_source")
+                path = f"price.{column}"
+                expected[f"{row['id']}.{path}"] = {
+                    "row": row["id"], "column": column, "role": "price",
+                    "path": path,
+                    "reads_a_pinned_path": source.startswith("pinned challenge "),
+                }
+        actual = {
+            f"{cell['row']}.{cell['path']}": cell for cell in census["cells_checked"]
+        }
+        self.assertEqual(len(actual), len(census["cells_checked"]), "duplicate cell")
+        self.assertEqual(
+            set(actual), set(expected),
+            f"boundary source census: missing {sorted(set(expected) - set(actual))}; "
+            f"unexpected {sorted(set(actual) - set(expected))}",
+        )
+        self.assertEqual(actual, expected)
+        exceptions = {
+            f"{cell['row']}.{cell['path']}": cell
+            for entry in census[
+                "rows_whose_boundary_cells_are_not_read_from_a_pinned_path"
+            ]
+            for cell in entry["cells"]
+        }
+        self.assertEqual(
+            exceptions,
+            {key: cell for key, cell in expected.items() if not cell["reads_a_pinned_path"]},
+        )
 
-        Every row's two boundary columns are put through the same rule, and a
-        length or a collapse of a pinned path still counts as reading the
-        pin.  The note names this field instead of a number.
-        """
+    def test_the_boundary_source_census_bears_r40s_claim(self) -> None:
+        """Both boundary roles are covered, including R03's stated prices."""
         census = js(RECORD["boundary_source_census"])
+        self.assert_boundary_source_census_complete(census)
         self.assertEqual(len(census["rows_checked"]), RECORD["row_count"])
         self.assertEqual(
-            census["rows_whose_boundary_cells_are_not_read_from_a_pinned_path"],
-            [{"row": "R40", "columns": ["unnamed", "named"]}],
+            [entry["row"] for entry in census[
+                "rows_whose_boundary_cells_are_not_read_from_a_pinned_path"
+            ]],
+            ["R03", "R40"],
         )
         self.assertTrue(C.reads_a_pinned_path(C.Pin(0, "readings.U.marks")))
         self.assertTrue(
@@ -373,6 +417,16 @@ class Sources(unittest.TestCase):
         self.assertFalse(C.reads_a_pinned_path(C.Computed("genesis_marks")))
         rows = {str(row["id"]): row for row in js(RECORD["rows"])}
         self.assertIn("boundary_source_census", str(rows["R40"]["note"]))
+
+    def test_omitting_price_cells_from_the_census_fails_by_path_and_recovers(self) -> None:
+        changed = copy.deepcopy(RECORD["boundary_source_census"])
+        changed["cells_checked"] = [
+            cell for cell in changed["cells_checked"]
+            if not (cell["row"] == "R03" and cell["role"] == "price")
+        ]
+        with self.assertRaisesRegex(AssertionError, r"R03\.price\.unnamed"):
+            self.assert_boundary_source_census_complete(changed)
+        self.assert_boundary_source_census_complete(RECORD["boundary_source_census"])
 
     def test_dig_refuses_to_descend_into_a_leaf(self) -> None:
         with self.assertRaises(KeyError):

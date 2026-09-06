@@ -235,3 +235,19 @@ The status transcript records the measured file count and no percentage:
 comparing a percentage to a literal full percentage would verify no report.
 The prose gate rejects that former transcript shape. No receipt, frozen file
 or axiom log is regenerated while any permanent probe is active.
+
+## Boundary source census
+
+The census covers boundary value columns and stated-price columns. It names
+each output path, column and role, and separately lists sources that are not
+pinned paths. The earlier value-only population missed R03's boundary prices
+from the control record's endowment ledger while reporting R40's mirror
+minima. The resulting claim that R40 was the only exception is WITHDRAWN.
+
+`test_the_boundary_source_census_bears_r40s_claim` independently gathers the
+rendered rows' source metadata and compares the complete population and its
+non-pin classification. The permanent omission probe removes R03's price
+cells in memory, requires a diagnostic naming `R03.price.unnamed`, and checks
+recovery on the original census. It writes no receipt. This checks population
+and provenance classification, not the correctness of the computed values;
+the pinned-value gate retains its existing domain.

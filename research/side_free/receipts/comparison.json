@@ -1235,6 +1235,694 @@
     "why_the_kinds_are_reported": "a difference in a world's own bookkeeping -- the size of its declared space, the tag its serialization key carries -- is not a capability the primitive bought, and the kinds keep the two apart without curating which rows are in which bucket"
   },
   "boundary_source_census": {
+    "cells_checked": [
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R01"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R01"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R02"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R02"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R03"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R03"
+      },
+      {
+        "column": "unnamed",
+        "path": "price.unnamed",
+        "reads_a_pinned_path": false,
+        "role": "price",
+        "row": "R03"
+      },
+      {
+        "column": "named",
+        "path": "price.named",
+        "reads_a_pinned_path": false,
+        "role": "price",
+        "row": "R03"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R04"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R04"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R05"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R05"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R06"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R06"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R07"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R07"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R08"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R08"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R09"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R09"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R10"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R10"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R11"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R11"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R12"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R12"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R13"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R13"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R14"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R14"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R15"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R15"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R16"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R16"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R17"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R17"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R18"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R18"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R19"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R19"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R20"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R20"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R21"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R21"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R22"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R22"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R23"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R23"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R24"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R24"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R25"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R25"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R26"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R26"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R27"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R27"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R28"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R28"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R29"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R29"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R30"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R30"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R31"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R31"
+      },
+      {
+        "column": "unnamed",
+        "path": "price.unnamed",
+        "reads_a_pinned_path": true,
+        "role": "price",
+        "row": "R31"
+      },
+      {
+        "column": "named",
+        "path": "price.named",
+        "reads_a_pinned_path": true,
+        "role": "price",
+        "row": "R31"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R32"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R32"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R33"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R33"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R34"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R34"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R35"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R35"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R36"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R36"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R37"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R37"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R38"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R38"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R39"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R39"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": false,
+        "role": "value",
+        "row": "R40"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": false,
+        "role": "value",
+        "row": "R40"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R41"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R41"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R42"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R42"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R43"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R43"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R44"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R44"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R45"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R45"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R46"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R46"
+      },
+      {
+        "column": "unnamed",
+        "path": "unnamed_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R47"
+      },
+      {
+        "column": "named",
+        "path": "named_reading",
+        "reads_a_pinned_path": true,
+        "role": "value",
+        "row": "R47"
+      }
+    ],
     "rows_checked": [
       "R01",
       "R02",
@@ -1286,14 +1974,45 @@
     ],
     "rows_whose_boundary_cells_are_not_read_from_a_pinned_path": [
       {
-        "columns": [
-          "unnamed",
-          "named"
+        "cells": [
+          {
+            "column": "unnamed",
+            "path": "price.unnamed",
+            "reads_a_pinned_path": false,
+            "role": "price",
+            "row": "R03"
+          },
+          {
+            "column": "named",
+            "path": "price.named",
+            "reads_a_pinned_path": false,
+            "role": "price",
+            "row": "R03"
+          }
+        ],
+        "row": "R03"
+      },
+      {
+        "cells": [
+          {
+            "column": "unnamed",
+            "path": "unnamed_reading",
+            "reads_a_pinned_path": false,
+            "role": "value",
+            "row": "R40"
+          },
+          {
+            "column": "named",
+            "path": "named_reading",
+            "reads_a_pinned_path": false,
+            "role": "value",
+            "row": "R40"
+          }
         ],
         "row": "R40"
       }
     ],
-    "rule": "a boundary column reads a pinned path when its source is a pinned path, or the length or the collapse of one.  Anything else is produced on a carrier of this tree or read out of this tree's own record, and the totality gate over the declared pinned values does not reach it"
+    "rule": "every boundary value and stated-price cell is checked.  A cell reads a pinned path when its source is a pinned path, or the length or the collapse of one.  Anything else is produced on a carrier of this tree or read out of this tree's own record, and the totality gate over the declared pinned values does not reach it"
   },
   "gates": {
     "C0": {
@@ -3648,7 +4367,7 @@
       "item": "the minimum of the restricted second measure",
       "kind": "price",
       "named_reading": 0,
-      "note": "a row whose two boundary cells are not read from a pinned path.  Which rows those are is not asserted here but computed over every row's declared sources, at `boundary_source_census.rows_whose_boundary_cells_are_not_read_from_a_pinned_path`.  No pinned receipt carries a minimum of the restricted measure, so both are minima computed on THIS TREE'S OWN mirror carrier and read out of this tree's record.  The totality gate over the declared pinned values therefore does not reach them, and never counted them: what holds them instead is the weaker per-point data join, `second_measures.data_join_against_the_pin`, which joins 48 rows per reading against the pin and reports its mismatches",
+      "note": "a row whose boundary value cells are not read from a pinned path.  Which rows those are is not asserted here but computed over every row's value and stated-price sources, with each cell's role and path recorded, at `boundary_source_census.rows_whose_boundary_cells_are_not_read_from_a_pinned_path`.  No pinned receipt carries a minimum of the restricted measure, so both are minima computed on THIS TREE'S OWN mirror carrier and read out of this tree's record.  The totality gate over the declared pinned values therefore does not reach them, and never counted them: what holds them instead is the weaker per-point data join, `second_measures.data_join_against_the_pin`, which joins 48 rows per reading against the pin and reports its mismatches",
       "price": {
         "columns_reading_a_declared_ledger_cell": [],
         "control": null,
