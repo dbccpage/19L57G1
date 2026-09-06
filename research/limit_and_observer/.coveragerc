@@ -1,0 +1,7 @@
+[run]
+branch = True
+source = code
+relative_files = True
+
+[json]
+output = coverage.json

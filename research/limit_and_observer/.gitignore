@@ -1,0 +1,4 @@
+coverage.json
+.coverage
+lean/.lake/
+lean/lake-manifest.json

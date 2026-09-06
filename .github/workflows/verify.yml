@@ -407,6 +407,40 @@ jobs:
       - name: Second derivation, stake rung, strict typing
         working-directory: research/second_stake
         run: python -m mypy
+      # The limit and the second observer, priced in one tree.
+      # An asserted minimum test count keeps the registration from being
+      # vacuous: thinghood, grammar_fit and priced_admissions all report
+      # "Ran 0 tests" under this exact command, so a gate that only runs it
+      # proves nothing.
+      - name: Limit and second observer, pins and frozen texts
+        run: python research/limit_and_observer/verify_pins.py
+      - name: Limit and second observer, tests, receipt, and coverage
+        working-directory: research/limit_and_observer
+        run: |
+          set -euo pipefail
+          log="$RUNNER_TEMP/limit-and-observer-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran ([6-9][0-9]|[1-9][0-9]{2,}) tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          python run_price.py
+          git diff --exit-code -- receipts
+      - name: Limit and second observer, strict typing
+        working-directory: research/limit_and_observer
+        run: python -m mypy
+      # The pins, the tests, the coverage gate, the receipt regeneration and
+      # mypy all read code and receipts. None of them reads PROSE, and three
+      # published numbers in FINDINGS.md were the refuted predictions rather
+      # than the computed values while every one of those stayed green. This
+      # step binds each published number to the receipt it claims to report
+      # and fails in both directions: a drifted number is named with its file,
+      # line and both values, and a binding that stops matching is named as a
+      # stale binding, so deleting the sentence is not a way to pass. It runs
+      # after run_price.py so it cannot compare prose against a stale receipt.
+      - name: Limit and second observer, published prose bound to the receipt
+        working-directory: research/limit_and_observer
+        run: python verify_prose.py
       # The side-free control (research/side_free) is the measurement the
       # boundary rung could not take from inside itself: the same requirement,
       # at the same prices, in a carrier with no placement and no sides.  Its
