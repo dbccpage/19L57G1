@@ -6,8 +6,9 @@ AuthorityEffect: None.
 
 ## Order of the work, which is the evidence
 
-1. `REQUIREMENTS.md` and `PREDICTIONS.md` were written and committed **alone**,
-   before any module of this tree existed, in commit
+1. `REQUIREMENTS.md` and `PREDICTIONS.md` were written and committed with only
+   the package's transport `.gitattributes`, before any module of this tree
+   existed, in commit
    `ef26fc9eb3676e8edd3f4319bfd698c8951e0aad`. Their sha256 values are pinned
    in `SOURCE_MANIFEST.json` and checked by `verify_pins.py` at that snapshot
    and at HEAD. Neither has been edited since.
