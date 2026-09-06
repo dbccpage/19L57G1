@@ -1,10 +1,32 @@
 import BoundarySeed.Basic
+import BoundarySeed.Challenge1
+import BoundarySeed.Challenge2
+import BoundarySeed.Challenge3
+import BoundarySeed.Challenge4
+import BoundarySeed.Challenge5
+import BoundarySeed.Continuation1
+import BoundarySeed.Continuation2
+
+#print axioms BoundarySeed.zero_valid_is_minimum
+#print axioms BoundarySeed.minimum_has_zero_cost
+#print axioms BoundarySeed.unique_zero_is_only_minimum
+#print axioms BoundarySeed.valid_null_is_not_no_response
+#print axioms BoundarySeed.nullSupplyRun_preserves_state
+#print axioms BoundarySeed.null_responses_accept_zero
+#print axioms BoundarySeed.attempts_can_exceed_accepted
+#print axioms BoundarySeed.supplyPrefix_length_le
+#print axioms BoundarySeed.supplyPrefix_successor_census
+#print axioms BoundarySeed.supplyPrefix_first_four
+#print axioms BoundarySeed.supplyPrefix_exact_frontier
+#print axioms BoundarySeed.supplyPrefix_frontier_is_not_exhaustion
+#print axioms BoundarySeed.stage2_root_budget
 
 /-!
 # The boundary derivation: root
 
-Challenge 0 only.  Every theorem below has a `#print axioms` line, and
-`verify_lean.py` compares the build log with the committed axiom log.
+Challenges 0 to 5.  Every theorem declared under `lean/BoundarySeed/` has a
+`#print axioms` line here, which `verify_lean.py` requires by name, and it
+compares the build log with the committed axiom log.
 -/
 
 #print axioms BoundarySeed.supply_no_op
@@ -27,3 +49,188 @@ Challenge 0 only.  Every theorem below has a `#print axioms` line, and
 #print axioms BoundarySeed.replay_deterministic
 #print axioms BoundarySeed.replay_supply_inert
 #print axioms BoundarySeed.no_event_follows
+#print axioms BoundarySeed.admitted_eq
+#print axioms BoundarySeed.supply_preserves_holds
+#print axioms BoundarySeed.step_reading
+#print axioms BoundarySeed.step_initialDatum
+#print axioms BoundarySeed.replay_reading
+#print axioms BoundarySeed.replay_initialDatum
+#print axioms BoundarySeed.step_preserves_sideNamed
+#print axioms BoundarySeed.replay_preserves_sideNamed
+#print axioms BoundarySeed.getD_append_left
+#print axioms BoundarySeed.step_preserves_onSide
+#print axioms BoundarySeed.replay_preserves_onSide
+#print axioms BoundarySeed.getD_append_singleton
+#print axioms BoundarySeed.place_new_judgment
+#print axioms BoundarySeed.place_other_side_false
+#print axioms BoundarySeed.admitted_onSide_true_iff
+#print axioms BoundarySeed.admitted_U_no_sideNamed
+#print axioms BoundarySeed.admitted_O_sideNamed
+#print axioms BoundarySeed.admitted_contents_placed
+#print axioms BoundarySeed.admitted_contents_other
+#print axioms BoundarySeed.admitted_sides_differ
+#print axioms BoundarySeed.reflect_step_supply
+#print axioms BoundarySeed.reflect_step_place
+#print axioms BoundarySeed.exchangeSide_exchangeSide
+#print axioms BoundarySeed.map_exchangeSide_map_exchangeSide
+#print axioms BoundarySeed.reflect_step
+#print axioms BoundarySeed.reflect_replay
+#print axioms BoundarySeed.reflect_admitted
+#print axioms BoundarySeed.continuation_reflects
+#print axioms BoundarySeed.other_continuation_is_a_reflection
+#print axioms BoundarySeed.admitted_candidates_unequal
+#print axioms BoundarySeed.candidates_related_U
+#print axioms BoundarySeed.candidates_not_related_O
+#print axioms BoundarySeed.invariant_judgment_does_not_separate
+#print axioms BoundarySeed.bounded_invariant_judgment_does_not_separate
+#print axioms BoundarySeed.onSide_separates_candidates
+#print axioms BoundarySeed.no_event_follows_admitted
+#print axioms BoundarySeed.retained_eq
+#print axioms BoundarySeed.retained_placement_length
+#print axioms BoundarySeed.retained_without_supplies
+#print axioms BoundarySeed.retainedOtherOrder_eq
+#print axioms BoundarySeed.retained_onSide_zero
+#print axioms BoundarySeed.retained_onSide_one
+#print axioms BoundarySeed.retained_onSide_beyond
+#print axioms BoundarySeed.retained_onSide_true_iff
+#print axioms BoundarySeed.retained_marks_differ_in_side
+#print axioms BoundarySeed.retained_sideNamed
+#print axioms BoundarySeed.retained_contents_false
+#print axioms BoundarySeed.retained_contents_true
+#print axioms BoundarySeed.retained_sides_differ
+#print axioms BoundarySeed.exchangeFirstTwo_involutive
+#print axioms BoundarySeed.swapFirstTwo_involutive
+#print axioms BoundarySeed.exchangeMarks_involutive
+#print axioms BoundarySeed.exchangeMarks_reflect_retained
+#print axioms BoundarySeed.reflect_retained_ne
+#print axioms BoundarySeed.exchangeMarks_retained_ne
+#print axioms BoundarySeed.retainedOtherOrder_is_exchange
+#print axioms BoundarySeed.retainedOtherOrder_ne_retained
+#print axioms BoundarySeed.retained_composite_permitted_U
+#print axioms BoundarySeed.retained_exchange_transports
+#print axioms BoundarySeed.retained_marks_separated_by_a_side
+#print axioms BoundarySeed.retained_judgments_survive
+#print axioms BoundarySeed.retained_reading
+#print axioms BoundarySeed.retained_initialDatum
+#print axioms BoundarySeed.no_event_follows_retained
+#print axioms BoundarySeed.composite_retained
+#print axioms BoundarySeed.exchangeFirstTwo_zero
+#print axioms BoundarySeed.exchangeFirstTwo_one
+#print axioms BoundarySeed.retained_U_requirement_fails
+#print axioms BoundarySeed.no_invariant_mark_property_separates_retained
+#print axioms BoundarySeed.mark_form_is_not_invariant_under_the_composite
+#print axioms BoundarySeed.countOn_nil
+#print axioms BoundarySeed.countOn_cons
+#print axioms BoundarySeed.countOn_map_not
+#print axioms BoundarySeed.countOn_perm
+#print axioms BoundarySeed.reflect_not_undone_by_renaming
+#print axioms BoundarySeed.retainedPlus_eq
+#print axioms BoundarySeed.retainedPlus_reading
+#print axioms BoundarySeed.retainedPlus_initialDatum
+#print axioms BoundarySeed.retainedPlus_placement
+#print axioms BoundarySeed.retained_placement
+#print axioms BoundarySeed.retainedPlus_counts_differ
+#print axioms BoundarySeed.retainedPlus_reflection_is_not_an_automorphism
+#print axioms BoundarySeed.retained_counts_equal
+#print axioms BoundarySeed.retainedPlus_judgments_survive
+#print axioms BoundarySeed.no_event_follows_retainedPlus
+#print axioms BoundarySeed.crossRetained_eq
+#print axioms BoundarySeed.crossRetained_placement
+#print axioms BoundarySeed.crossRetained_placement_length
+#print axioms BoundarySeed.crossRetained_onSide_zero
+#print axioms BoundarySeed.crossRetained_onSide_one
+#print axioms BoundarySeed.crossRetained_onSide_two
+#print axioms BoundarySeed.crossRetained_onSide_three
+#print axioms BoundarySeed.crossRetained_onSide_beyond
+#print axioms BoundarySeed.crossRetained_onSide_true_iff
+#print axioms BoundarySeed.crossRetained_marks_share_a_side
+#print axioms BoundarySeed.crossRetained_other_marks_share_a_side
+#print axioms BoundarySeed.crossRetained_sideNamed
+#print axioms BoundarySeed.exchangeWholes_involutive
+#print axioms BoundarySeed.exchangeWholes_zero
+#print axioms BoundarySeed.exchangeWholes_one
+#print axioms BoundarySeed.exchangeWholes_carries_the_first_whole
+#print axioms BoundarySeed.swapWholes_involutive
+#print axioms BoundarySeed.exchangeWholesRegime_involutive
+#print axioms BoundarySeed.exchangeWholesRegime_crossRetained
+#print axioms BoundarySeed.reflect_crossRetained_ne
+#print axioms BoundarySeed.exchangeMarks_crossRetained_ne
+#print axioms BoundarySeed.no_invariant_pair_property_separates_the_wholes
+#print axioms BoundarySeed.no_invariant_mark_property_separates_the_paired_marks
+#print axioms BoundarySeed.firstIsMarkZero_separates_the_wholes
+#print axioms BoundarySeed.firstIsMarkZero_is_not_invariant_under_the_whole_exchange
+#print axioms BoundarySeed.crossRetained_counts_equal
+#print axioms BoundarySeed.replay_placement_append
+#print axioms BoundarySeed.exchangeWholesRegime_of_prefix
+#print axioms BoundarySeed.whole_exchange_survives_every_continuation
+#print axioms BoundarySeed.whole_exchange_survives_a_further_mark
+#print axioms BoundarySeed.crossRetained_judgments_survive
+#print axioms BoundarySeed.crossRetained_reading
+#print axioms BoundarySeed.crossRetained_initialDatum
+#print axioms BoundarySeed.no_event_follows_crossRetained
+#print axioms BoundarySeed.nestedRetained_eq
+#print axioms BoundarySeed.flatRetained_eq
+#print axioms BoundarySeed.nestedRetained_addresses
+#print axioms BoundarySeed.deep_supply_no_op
+#print axioms BoundarySeed.deepStep_changes_only_by_placeAt
+#print axioms BoundarySeed.deep_no_event_follows
+#print axioms BoundarySeed.nestedRetained_depth
+#print axioms BoundarySeed.flatRetained_depth
+#print axioms BoundarySeed.nestedRetained_ne_flatRetained
+#print axioms BoundarySeed.exchangeAt_length
+#print axioms BoundarySeed.depth_invariant_under_exchange
+#print axioms BoundarySeed.exchangeAt_involutive
+#print axioms BoundarySeed.exchangeLevel_involutive
+#print axioms BoundarySeed.flattenAddress_exchangeAt_succ
+#print axioms BoundarySeed.flattenDeep_exchangeLevel_succ
+#print axioms BoundarySeed.flatten_nested_eq_flat
+#print axioms BoundarySeed.flatten_nested_eq_admitted
+#print axioms BoundarySeed.no_flattened_property_separates_the_nesting
+#print axioms BoundarySeed.innerReflected_eq
+#print axioms BoundarySeed.exchangeLevel_one_nestedRetained
+#print axioms BoundarySeed.exchangeLevel_zero_nestedRetained
+#print axioms BoundarySeed.no_invariant_property_separates_the_inner_sides
+#print axioms BoundarySeed.innerSideIsZero_nestedRetained
+#print axioms BoundarySeed.innerSideIsZero_innerReflected
+#print axioms BoundarySeed.innerSideIsZero_separates
+#print axioms BoundarySeed.innerSideIsZero_is_not_invariant_under_the_inner_exchange
+#print axioms BoundarySeed.depth_is_invariant_where_the_inner_side_is_not
+#print axioms BoundarySeed.deepStep_reading
+#print axioms BoundarySeed.deepStep_initialDatum
+#print axioms BoundarySeed.deepReplay_reading
+#print axioms BoundarySeed.deepReplay_initialDatum
+#print axioms BoundarySeed.deepReplay_addresses_append
+#print axioms BoundarySeed.getD_append_left_address
+#print axioms BoundarySeed.deepReplay_preserves_address
+#print axioms BoundarySeed.nested_depth_survives_every_continuation
+#print axioms BoundarySeed.nestedRetained_reading
+#print axioms BoundarySeed.nestedRetained_initialDatum
+#print axioms BoundarySeed.no_event_follows_nestedRetained
+#print axioms BoundarySeed.firstMissingFrom_zero
+#print axioms BoundarySeed.firstMissingFrom_succ_present
+#print axioms BoundarySeed.firstMissingFrom_succ_missing
+#print axioms BoundarySeed.firstMissingFrom_not_present
+#print axioms BoundarySeed.firstMissingFrom_ge
+#print axioms BoundarySeed.firstMissingFrom_lt
+#print axioms BoundarySeed.firstMissingFrom_none_means_every_index_present
+#print axioms BoundarySeed.firstMissing_not_present
+#print axioms BoundarySeed.firstMissing_lt_bound
+#print axioms BoundarySeed.contains_cons_self
+#print axioms BoundarySeed.firstMissing_never_repeats
+#print axioms BoundarySeed.record_lengthens
+#print axioms BoundarySeed.firstMissing_presentedIndices
+#print axioms BoundarySeed.firstMissing_presentedIndices_recorded
+#print axioms BoundarySeed.nodes_le_succ
+#print axioms BoundarySeed.nodes_add_le
+#print axioms BoundarySeed.nodes_mono
+#print axioms BoundarySeed.nodes_U_four
+#print axioms BoundarySeed.nodes_U_five
+#print axioms BoundarySeed.nodes_O_four
+#print axioms BoundarySeed.nodes_O_five
+#print axioms BoundarySeed.roundBound_U_fits
+#print axioms BoundarySeed.roundBound_O_fits
+#print axioms BoundarySeed.roundBound_U
+#print axioms BoundarySeed.roundBound_O
+#print axioms BoundarySeed.the_seed_bound_does_not_fit_U
+#print axioms BoundarySeed.the_seed_bound_does_not_fit_O
+#print axioms BoundarySeed.roundBound_is_short_of_the_seed_bound

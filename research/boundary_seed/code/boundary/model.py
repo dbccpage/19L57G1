@@ -1,5 +1,5 @@
 """Admitted regimes, events, replay, observation, and renaming for the
-boundary world, as far as Challenge 0 requires.
+boundary world, as far as Challenges 0 to 2 require.
 
 Classification (assumption discipline):
 
@@ -12,9 +12,19 @@ Classification (assumption discipline):
   names them ``near`` and ``far``, so the exchange is not a renaming.
 * ``Supply`` is an external presentation event and changes no state.
   ``AdmitMark`` is the only event that changes state: it admits a supplied
-  mark on a side.  Re-admission of an admitted mark is a designation, not
-  a duplication (declared convention, as presentation identity is
-  metatheoretic).
+  mark on a side.  An admission naming a token already admitted on that
+  side is a no-op: the token is already admitted and nothing is
+  duplicated.  An admission naming the other side would move the mark and
+  is refused by name.  Both are Python-only declarations, because the Lean
+  model carries no tokens.  The word "designation" is reserved for
+  current-state designation (the current state is the replay of the
+  caller's history) and is not used for this no-op; an earlier version
+  called the no-op a designation and absorbed the moving admission
+  silently, which is WITHDRAWN.  That reservation is on this run's own
+  prose: the frozen prediction file uses the bare word in two other
+  senses, a re-admission of an already admitted token and the
+  convention's selection of a candidate, each read in its own context
+  where it is scored and neither read as current-state designation.
 * The closed observation grammar has two positive judgment forms:
   ``OnSide`` and, under ``O``, ``SideNamed``.  ``contents`` and
   ``side_profile`` are metatheoretic extensions of those judgments used to
@@ -22,6 +32,93 @@ Classification (assumption discipline):
   object-language data.  There is no ``Empty`` or counting judgment.
 * ``replay`` rebuilds a regime from an event list; every certified regime
   must equal the replay of its history.
+
+Challenge 1 additions, each a DERIVED DEFINITION over the above unless
+marked otherwise:
+
+* ``mentioned`` and ``supplied`` are metatheoretic readings of a history:
+  the tokens any event names, and the tokens a ``Supply`` presents.  A
+  mention is not an event; it is the metatheory naming a token.
+* ``mark_profile`` is the metatheoretic extension of the holding judgments
+  that name one admitted mark; ``new_observations`` is the set difference
+  of two extensions.
+* The declared finite candidate space of admissions after a history lives
+  in ``challenge1.py``, not here: the kernel carries no public function
+  whose return annotation contains an event type, and the Challenge 0
+  generator census keeps it that way.
+* ``permitted_images`` lists the regimes a permitted renaming reaches
+  (mark permutations under both readings, the reflection under ``U``);
+  ``isomorphism_witness`` searches it without pruning, and
+  ``is_isomorphic`` is its truth value.  Equality of regimes is
+  structural; isomorphism is this relation; the two are never conflated.
+
+Challenge 2 additions:
+
+* **Internal identity is the admission index.**  A mark's internal
+  identity is its position in ``placement``, which is the order in which
+  it was admitted; the entry of ``marks`` beside it is the presentation
+  token that was named when it was admitted, and is a LABEL.  Challenges
+  0 and 1 required the labels to be distinct, which identified
+  presentation identity with internal identity.  Challenge 2 supplies two
+  wholes carrying the same visible mark, so that requirement is
+  WITHDRAWN: a valid regime may carry one label twice.  The datum's own
+  ``internal_id`` numbers the supplied whole and lives in a different
+  identity space from a mark's index; they share a numeral and nothing
+  else.
+* ``AdmitOccurrence`` is the Challenge 2 admission event: it admits one
+  presented occurrence as a FRESH mark on a side, whatever labels are
+  already present.  ``AdmitMark`` keeps its Challenge 1 meaning exactly
+  — it is keyed by the label — and now refuses by name to act on a
+  regime that carries its label more than once, because a label-keyed
+  admission cannot say which mark it names there.  The two events are the
+  two identity policies of ``challenge2.py`` made executable, and neither
+  is applied to state except by ``replay`` of an explicit history.
+* ``automorphisms`` lists the permitted renamings that carry a regime
+  onto itself with tokens forgotten; ``mark_automorphism_to`` searches
+  them for one carrying one mark to another, and
+  ``marks_internally_separable`` is the negation of its existence.
+  ``side_exchanging_automorphism`` searches them for one that includes
+  the reflection.  All three enumerate ``permitted_images`` without
+  pruning.
+* ``mark_side`` reads one mark's side; ``marks_on_different_sides`` is
+  the property that no two admitted marks share a side.  Both are
+  metatheoretic readings of the placement tuple, not object-language
+  values.
+
+Challenge 3 additions.  Challenges 0 to 2 fixed the permitted renamings by
+the reading: mark permutations always, the reflection under ``U``.  Challenge
+3 must ask what a declared augmentation that WITHDRAWS one of those would
+do, so the same enumeration is offered coordinate by coordinate:
+
+* ``serialize_keeping_labels`` is ``serialize`` without the token
+  forgetting, used only where a declared augmentation withdraws it.
+* ``permitted_images_under`` enumerates the images the two renaming flags
+  permit; ``permitted_images`` is its instance at the flags the reading
+  declares.  ``automorphisms_under``, ``mark_automorphism_to_under``,
+  ``marks_separable_under``, ``side_exchanging_automorphism_under``,
+  ``is_isomorphic_under``, and ``canonical_under`` are the corresponding
+  instances of the Challenge 2 functions.  All are unpruned; each takes the
+  serializer as a flag rather than choosing one by judgment.  A flag is a
+  declaration of the augmentation being examined and never a discovery.
+
+Challenge 4 additions.  The caller now retains two wholes carrying two marks
+each, so the question is about a GROUPING of marks and not about two marks:
+
+* ``Configuration`` is a regime together with a grouping, one tag per
+  admitted mark.  The regime carries no grouping component; the grouping is
+  metatheory read off the caller's history, and it enters the state only
+  under a declared augmentation whose key keeps it.  Keeping the two apart is
+  the point of the type.
+* ``Renamings`` collects the five flags a declared augmentation sets.
+  ``tag_maps`` declares that the exchange of the two caller tags is a
+  renaming exactly when the grouping is admitted and the two wholes are not
+  named — the tag-level counterpart of the side exchange under reading U.
+* ``permitted_configuration_images`` is the unpruned enumeration;
+  ``configuration_automorphisms``, ``group_carrying_automorphism``,
+  ``wholes_separable_in``, ``mark_carrying_automorphism``,
+  ``marks_separable_in``, ``configurations_isomorphic``, and ``whole_orbit``
+  filter or search it.  At ``keep_groups`` false and trivial tag maps they
+  are the Challenge 3 functions with the grouping ignored, which is checked.
 """
 
 from __future__ import annotations
@@ -55,12 +152,19 @@ class Regime:
     """Admitted state.
 
     ``reading``:       the declared reading of the boundary, ``U`` or ``O``.
-    ``marks``:         admitted marks in admission order (presentation tokens;
-                       internal identity is the index).
+    ``marks``:         for each admitted mark, in admission order, the
+                       presentation token named when it was admitted.  This
+                       is a LABEL and need not be unique; the mark's
+                       internal identity is its index.
     ``placement``:     for each admitted mark, the side it lies on, ``0`` or
                        ``1``.
     ``initial_datum``: the one opaque supplied whole.  It and its boundary
                        frame are implicit and unique in every valid regime.
+                       Its ``internal_id`` is not a mark index.
+
+    Challenges 0 and 1 additionally required the labels to be distinct.
+    Challenge 2 withdrew that requirement, because the caller supplies two
+    wholes carrying the same visible mark; see the module docstring.
     """
 
     reading: str
@@ -75,8 +179,6 @@ class Regime:
             raise AdmissionError("the Challenge 0 initial datum is fixed")
         if len(self.marks) != len(self.placement):
             raise AdmissionError("marks and placement must have equal length")
-        if len(set(self.marks)) != len(self.marks):
-            raise AdmissionError("admitted mark tokens must be unique")
         if any(side not in (0, 1) for side in self.placement):
             raise AdmissionError("every admitted mark must lie on side 0 or 1")
 
@@ -97,17 +199,32 @@ class Supply:
 
 @dataclass(frozen=True)
 class AdmitMark:
-    """Admission of a previously presented token as a mark on a side.
+    """Challenge 1 admission of a previously presented token as a mark on a
+    side, keyed by the token.
 
-    ``step`` is the low-level state action.  ``replay`` is the certifying
-    interface and enforces the prior-presentation precondition.
+    ``step`` is the low-level state action, and raises both refusals below.
+    ``replay`` is the certifying interface, enforces the prior-presentation
+    precondition, and surfaces what ``step`` raises.
     """
 
     token: str
     side: int
 
 
-Event = Union[Supply, AdmitMark]
+@dataclass(frozen=True)
+class AdmitOccurrence:
+    """Challenge 2 admission of one presented occurrence as a fresh mark.
+
+    The token is carried as the new mark's label and is not consulted for
+    identity: the mark's internal identity is its admission index.  The
+    prior-presentation precondition is enforced by certifying ``replay``.
+    """
+
+    token: str
+    side: int
+
+
+Event = Union[Supply, AdmitMark, AdmitOccurrence]
 
 
 def step(r: Regime, e: Event) -> Regime:
@@ -116,18 +233,36 @@ def step(r: Regime, e: Event) -> Regime:
         return r
     if e.side not in (0, 1):
         raise AdmissionError(f"side must be 0 or 1, got {e.side}")
+    if isinstance(e, AdmitOccurrence):
+        return Regime(r.reading, r.marks + (e.token,), r.placement + (e.side,))
+    if r.marks.count(e.token) > 1:
+        raise AdmissionError(
+            f"label {e.token!r} names more than one admitted mark; the "
+            f"token-keyed admission cannot say which and is refused"
+        )
     if e.token in r.marks:
+        held = r.placement[r.marks.index(e.token)]
+        if held != e.side:
+            raise AdmissionError(
+                f"mark {e.token!r} is admitted on side {held}; an admission "
+                f"naming side {e.side} would move it and is refused"
+            )
         return r
     return Regime(r.reading, r.marks + (e.token,), r.placement + (e.side,))
 
 
 def replay(history: Sequence[Event], base: Regime) -> Regime:
-    """Replay a well-formed history, refusing a new mark not supplied first."""
+    """Replay a well-formed history, refusing an admission not supplied first."""
     r = base
     supplied: set[str] = set()
     for e in history:
         if isinstance(e, Supply):
             supplied.add(e.token)
+        elif isinstance(e, AdmitOccurrence):
+            if e.token not in supplied:
+                raise AdmissionError(
+                    f"occurrence {e.token!r} was not supplied before admission"
+                )
         elif e.token not in supplied and e.token not in r.marks:
             raise AdmissionError(f"mark {e.token!r} was not supplied before admission")
         r = step(r, e)
@@ -149,6 +284,16 @@ def event_follows(_r: Regime, _e: Event) -> bool:
     made by inspecting Python callables.
     """
     return False
+
+
+def mentioned(history: Sequence[Event]) -> frozenset[str]:
+    """Tokens named by any event of a history.  A mention is not an event."""
+    return frozenset(e.token for e in history)
+
+
+def supplied(history: Sequence[Event]) -> frozenset[str]:
+    """Tokens presented by a ``Supply`` event of a history."""
+    return frozenset(e.token for e in history if isinstance(e, Supply))
 
 
 # ---------------------------------------------------------------------------
@@ -238,6 +383,22 @@ def observations(r: Regime) -> frozenset[Observation]:
     return frozenset((*mark_observations(r), *name_observations(r)))
 
 
+def mark_profile(r: Regime, mark: int) -> frozenset[Observation]:
+    """Metatheoretic extension of the holding judgments naming one mark.
+
+    At Challenge 1 this is the mark's side and nothing else; the collection
+    is not an object-language value.
+    """
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+    return frozenset(j for j in observations(r) if isinstance(j, OnSide) and j.mark == mark)
+
+
+def new_observations(before: Regime, after: Regime) -> frozenset[Observation]:
+    """Judgments holding in ``after`` that did not hold in ``before``."""
+    return observations(after) - observations(before)
+
+
 # ---------------------------------------------------------------------------
 # Renaming and the reflection
 # ---------------------------------------------------------------------------
@@ -298,6 +459,41 @@ def canonical(r: Regime) -> tuple[object, ...]:
     return best
 
 
+def permitted_images(r: Regime) -> list[tuple[bool, tuple[int, ...], Regime]]:
+    """Every regime a permitted renaming reaches from ``r``, with the renaming.
+
+    Each entry is ``(reflected, permutation, image)``.  Mark permutations are
+    permitted under both readings; the side exchange only under ``U``.  This
+    is the unpruned enumeration that ``canonical`` minimizes over.
+    """
+    bases = [(False, r)] + ([(True, reflect(r))] if r.reading == READING_U else [])
+    return [
+        (reflected, tuple(pi), rename_marks(base, pi))
+        for reflected, base in bases
+        for pi in permutations(range(r.n_marks()))
+    ]
+
+
+def isomorphism_witness(
+    a: Regime, b: Regime
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted renaming carrying ``a`` onto ``b`` with tokens forgotten,
+    found by unpruned search, or ``None``.  Regimes of different readings are
+    never isomorphic."""
+    if a.reading != b.reading:
+        return None
+    target = serialize(b)
+    for reflected, pi, image in permitted_images(a):
+        if serialize(image) == target:
+            return (reflected, pi)
+    return None
+
+
+def is_isomorphic(a: Regime, b: Regime) -> bool:
+    """The implemented isomorphism relation: a permitted renaming exists."""
+    return isomorphism_witness(a, b) is not None
+
+
 def fixed_up_to_mark_renaming(r: Regime) -> bool:
     """Whether reflection stabilizes this placement after a mark renaming.
 
@@ -326,3 +522,709 @@ def is_automorphism_reflection(r: Regime) -> bool:
     if r.reading == READING_O:
         return False
     return fixed_up_to_mark_renaming(r)
+
+
+# ---------------------------------------------------------------------------
+# Challenge 2: automorphisms, mark separation, and sides
+# ---------------------------------------------------------------------------
+
+
+def automorphisms(r: Regime) -> list[tuple[bool, tuple[int, ...]]]:
+    """Every permitted renaming carrying ``r`` onto itself, tokens forgotten.
+
+    Unpruned: it filters the full ``permitted_images`` enumeration.  Each
+    entry is ``(reflected, permutation)``, and the permutation sends the mark
+    at index ``i`` to index ``permutation[i]``.
+    """
+    target = serialize(r)
+    return [
+        (reflected, pi)
+        for reflected, pi, image in permitted_images(r)
+        if serialize(image) == target
+    ]
+
+
+def _check_mark(r: Regime, mark: int) -> None:
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+
+
+def mark_automorphism_to(
+    r: Regime, i: int, j: int
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism of ``r`` carrying mark ``i`` to mark ``j``.
+
+    ``None`` when none exists.  The identity is such an automorphism when
+    ``i == j``, so the search answers the separation question only for
+    distinct marks.
+    """
+    _check_mark(r, i)
+    _check_mark(r, j)
+    for reflected, pi in automorphisms(r):
+        if pi[i] == j:
+            return (reflected, pi)
+    return None
+
+
+def marks_internally_separable(r: Regime, i: int, j: int) -> bool:
+    """Whether no permitted automorphism of ``r`` carries mark ``i`` to ``j``.
+
+    This is the declared sense in which two admitted marks are separated by
+    the resources the reading permits: if such an automorphism exists, every
+    mark property invariant under permitted renamings takes the same value at
+    the two marks, so nothing invariant tells them apart.
+    """
+    return mark_automorphism_to(r, i, j) is None
+
+
+def side_exchanging_automorphism(r: Regime) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism of ``r`` that includes the side exchange.
+
+    ``None`` when none exists.  Under ``O`` the reflection is not a permitted
+    renaming, so this is always ``None`` there.
+    """
+    for reflected, pi in automorphisms(r):
+        if reflected:
+            return (reflected, pi)
+    return None
+
+
+def mark_side(r: Regime, mark: int) -> int:
+    """The side an admitted mark lies on.  Metatheoretic reading."""
+    _check_mark(r, mark)
+    return r.placement[mark]
+
+
+def marks_on_different_sides(r: Regime) -> bool:
+    """Whether no two admitted marks lie on the same side."""
+    return len(set(r.placement)) == r.n_marks()
+
+
+# ---------------------------------------------------------------------------
+# Challenge 3: the renaming set, taken coordinate by coordinate
+# ---------------------------------------------------------------------------
+
+
+def serialize_keeping_labels(r: Regime) -> tuple[object, ...]:
+    """Reading, presentation labels, and placement.
+
+    ``serialize`` forgets the labels (definition 14).  A declared Challenge 3
+    augmentation may withdraw that forgetting; this is what it would leave.
+    """
+    return (r.reading, r.marks, r.placement)
+
+
+def _key(r: Regime, keep_labels: bool) -> tuple[object, ...]:
+    return serialize_keeping_labels(r) if keep_labels else serialize(r)
+
+
+def permitted_images_under(
+    r: Regime, reflection: bool, mark_permutations: bool
+) -> list[tuple[bool, tuple[int, ...], Regime]]:
+    """Every regime reached by the renamings the two flags permit.
+
+    Unpruned.  The identity permutation is always offered; the other mark
+    permutations only when ``mark_permutations`` is set, and the side
+    exchange only when ``reflection`` is.  ``permitted_images`` is the
+    instance at the flags the reading declares.
+    """
+    n = r.n_marks()
+    perms = (
+        list(permutations(range(n))) if mark_permutations else [tuple(range(n))]
+    )
+    bases = [(False, r)] + ([(True, reflect(r))] if reflection else [])
+    return [
+        (reflected, tuple(pi), rename_marks(base, pi))
+        for reflected, base in bases
+        for pi in perms
+    ]
+
+
+def automorphisms_under(
+    r: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> list[tuple[bool, tuple[int, ...]]]:
+    """Every renaming the flags permit that carries ``r`` onto itself."""
+    target = _key(r, keep_labels)
+    return [
+        (reflected, pi)
+        for reflected, pi, image in permitted_images_under(r, reflection, mark_permutations)
+        if _key(image, keep_labels) == target
+    ]
+
+
+def mark_automorphism_to_under(
+    r: Regime,
+    i: int,
+    j: int,
+    reflection: bool,
+    mark_permutations: bool,
+    keep_labels: bool,
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism carrying mark ``i`` to mark ``j``, or ``None``."""
+    _check_mark(r, i)
+    _check_mark(r, j)
+    for reflected, pi in automorphisms_under(r, reflection, mark_permutations, keep_labels):
+        if pi[i] == j:
+            return (reflected, pi)
+    return None
+
+
+def marks_separable_under(
+    r: Regime,
+    i: int,
+    j: int,
+    reflection: bool,
+    mark_permutations: bool,
+    keep_labels: bool,
+) -> bool:
+    """Whether no permitted automorphism carries mark ``i`` to mark ``j``."""
+    return mark_automorphism_to_under(r, i, j, reflection, mark_permutations, keep_labels) is None
+
+
+def side_exchanging_automorphism_under(
+    r: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> tuple[bool, tuple[int, ...]] | None:
+    """A permitted automorphism that includes the side exchange, or ``None``."""
+    for reflected, pi in automorphisms_under(r, reflection, mark_permutations, keep_labels):
+        if reflected:
+            return (reflected, pi)
+    return None
+
+
+def is_isomorphic_under(
+    a: Regime, b: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> bool:
+    """Whether a renaming the flags permit carries ``a`` onto ``b``."""
+    if a.reading != b.reading:
+        return False
+    target = _key(b, keep_labels)
+    return any(
+        _key(image, keep_labels) == target
+        for _reflected, _pi, image in permitted_images_under(a, reflection, mark_permutations)
+    )
+
+
+def canonical_under(
+    r: Regime, reflection: bool, mark_permutations: bool, keep_labels: bool
+) -> tuple[object, ...]:
+    """The minimum key over every image the flags permit.
+
+    Bounded, like ``canonical``: no unbounded completeness is claimed.
+    """
+    best: tuple[object, ...] | None = None
+    for _reflected, _pi, image in permitted_images_under(r, reflection, mark_permutations):
+        key = _key(image, keep_labels)
+        if best is None or key < best:
+            best = key
+    assert best is not None
+    return best
+
+
+def mark_orbit_under(
+    r: Regime,
+    mark: int,
+    reflection: bool,
+    mark_permutations: bool,
+    keep_labels: bool,
+) -> frozenset[tuple[tuple[object, ...], int]]:
+    """The images of one mark under every renaming the flags permit.
+
+    Each element pairs the key of an image regime with the index the mark is
+    carried to.  Membership in this set is a property of a ``(regime, mark)``
+    pair that is invariant under those renamings by construction, so it is the
+    witness the second reading of the Challenge 3 requirement asks for.
+    """
+    _check_mark(r, mark)
+    return frozenset(
+        (_key(image, keep_labels), pi[mark])
+        for _reflected, pi, image in permitted_images_under(r, reflection, mark_permutations)
+    )
+
+
+# ---------------------------------------------------------------------------
+# Challenge 4: the whole grouping, configurations, and whole separability
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class Renamings:
+    """What a declared augmentation permits, and what its key keeps.
+
+    Five flags, each a DECLARATION of the augmentation being examined and
+    never a discovery: whether the side exchange is a permitted renaming;
+    whether the mark permutations are; whether the exchange of the two
+    caller group tags is; whether the key keeps the presentation labels;
+    and whether it keeps the group tags.  At the flags a reading declares
+    with no augmentation the first two are the reading's own and the last
+    three are false, which is Challenges 0 to 3 unchanged.
+    """
+
+    reflection: bool
+    mark_permutations: bool
+    group_permutations: bool
+    keep_labels: bool
+    keep_groups: bool
+
+
+@dataclass(frozen=True)
+class Configuration:
+    """A regime together with a grouping of its admitted marks.
+
+    The grouping gives, for each admitted mark, the tag of the presented
+    whole whose admission introduced it.  **The regime carries no such
+    component**: the grouping is metatheory read off the caller's history,
+    and it becomes part of the state only under a declared augmentation
+    that keeps it in the key.  Keeping the two distinct is the point of
+    this dataclass.
+    """
+
+    regime: Regime
+    groups: tuple[int, ...]
+
+    def __post_init__(self) -> None:
+        if len(self.groups) != self.regime.n_marks():
+            raise AdmissionError("one group tag per admitted mark")
+        if any(tag < 0 for tag in self.groups):
+            raise AdmissionError("a group tag is a nonnegative index")
+
+    def members(self, tag: int) -> frozenset[int]:
+        """The internal identities the given tag groups."""
+        return frozenset(i for i, g in enumerate(self.groups) if g == tag)
+
+
+CALLER_TAGS: tuple[int, int] = (0, 1)
+
+
+def tag_maps(group_permutations: bool) -> list[tuple[int, ...]]:
+    """The permitted maps on group tags.
+
+    Declared: when the grouping is admitted and the two caller tags are not
+    named, their exchange is a renaming the object language cannot see, which
+    is the tag-level counterpart of the side exchange under reading U.  Any
+    further tag the process introduces is its own and is fixed.  Otherwise the
+    identity is the only tag map.  This is a declaration, not a discovery.
+    """
+    return [(0, 1), (1, 0)] if group_permutations else [(0, 1)]
+
+
+def relabel_groups(groups: Sequence[int], sigma: Sequence[int]) -> tuple[int, ...]:
+    """Apply a map on the group tags; a tag outside the map is fixed."""
+    return tuple(sigma[g] if g < len(sigma) else g for g in groups)
+
+
+def rename_groups(groups: Sequence[int], pi: Sequence[int]) -> tuple[int, ...]:
+    """Carry a group tuple along a permutation of internal identities."""
+    n = len(groups)
+    if sorted(pi) != list(range(n)):
+        raise ValueError("not a permutation of the admitted marks")
+    out = [0] * n
+    for i in range(n):
+        out[pi[i]] = groups[i]
+    return tuple(out)
+
+
+def configuration_key(c: Configuration, rn: Renamings) -> tuple[object, ...]:
+    """The key the augmentation declares: the serialization, and the group
+    tuple when and only when the grouping is admitted."""
+    return _key(c.regime, rn.keep_labels) + ((c.groups,) if rn.keep_groups else ())
+
+
+ConfigurationImage = tuple[bool, tuple[int, ...], tuple[int, ...], Configuration]
+
+
+def permitted_configuration_images(c: Configuration, rn: Renamings) -> list[ConfigurationImage]:
+    """Every configuration a permitted renaming reaches, with the renaming.
+
+    Each entry is ``(reflected, permutation, tag map, image)``.  Unpruned: the
+    mark permutations come from ``permitted_images_under`` and the tag maps
+    from ``tag_maps``, and every pair is offered.  With the tag maps trivial
+    the entries are in the order of ``permitted_images_under``.
+    """
+    out: list[ConfigurationImage] = []
+    for reflected, pi, image in permitted_images_under(
+        c.regime, rn.reflection, rn.mark_permutations
+    ):
+        for sigma in tag_maps(rn.group_permutations):
+            out.append(
+                (
+                    reflected,
+                    pi,
+                    sigma,
+                    Configuration(image, rename_groups(relabel_groups(c.groups, sigma), pi)),
+                )
+            )
+    return out
+
+
+Witness = tuple[bool, tuple[int, ...], tuple[int, ...]]
+
+
+def configuration_automorphisms(c: Configuration, rn: Renamings) -> list[Witness]:
+    """Every permitted renaming carrying a configuration onto itself in the
+    declared key.  Unpruned: it filters the full enumeration."""
+    target = configuration_key(c, rn)
+    return [
+        (reflected, pi, sigma)
+        for reflected, pi, sigma, image in permitted_configuration_images(c, rn)
+        if configuration_key(image, rn) == target
+    ]
+
+
+def group_carrying_automorphism(
+    c: Configuration, source: int, target: int, rn: Renamings
+) -> Witness | None:
+    """A permitted automorphism carrying the mark-set of one whole onto the
+    mark-set of another, or ``None``.
+
+    The test reads the grouping, which is metatheory unless the augmentation
+    admits it; that is recorded rather than hidden.  An empty source set is
+    refused, because the empty set is carried onto every empty set and the
+    question would answer itself.
+    """
+    have = c.members(source)
+    want = c.members(target)
+    if not have or not want:
+        raise ValueError(f"whole {source} or {target} groups no admitted mark")
+    for reflected, pi, sigma in configuration_automorphisms(c, rn):
+        if frozenset(pi[i] for i in have) == want:
+            return (reflected, pi, sigma)
+    return None
+
+
+def wholes_separable_in(c: Configuration, a: int, b: int, rn: Renamings) -> bool:
+    """Whether no permitted automorphism carries one whole's marks onto the
+    other's.  The declared Challenge 4 requirement."""
+    return group_carrying_automorphism(c, a, b, rn) is None
+
+
+def mark_carrying_automorphism(
+    c: Configuration, i: int, j: int, rn: Renamings
+) -> Witness | None:
+    """A permitted automorphism of a configuration carrying mark ``i`` to
+    mark ``j``, or ``None``."""
+    _check_mark(c.regime, i)
+    _check_mark(c.regime, j)
+    for reflected, pi, sigma in configuration_automorphisms(c, rn):
+        if pi[i] == j:
+            return (reflected, pi, sigma)
+    return None
+
+
+def marks_separable_in(c: Configuration, i: int, j: int, rn: Renamings) -> bool:
+    """The Challenge 3 sense of mark separability, at a configuration."""
+    return mark_carrying_automorphism(c, i, j, rn) is None
+
+
+def configurations_isomorphic(c: Configuration, d: Configuration, rn: Renamings) -> bool:
+    """Whether a permitted renaming carries one configuration onto another in
+    the declared key.  Configurations of different readings are never
+    isomorphic."""
+    if c.regime.reading != d.regime.reading:
+        return False
+    target = configuration_key(d, rn)
+    return any(
+        configuration_key(image, rn) == target
+        for _reflected, _pi, _sigma, image in permitted_configuration_images(c, rn)
+    )
+
+
+def whole_orbit(
+    c: Configuration, tag: int, rn: Renamings
+) -> frozenset[tuple[tuple[object, ...], frozenset[int]]]:
+    """The images of one whole's mark-set under every permitted renaming.
+
+    Each element pairs the key of an image configuration with the mark-set the
+    whole is carried to.  Membership in this set is a property of a
+    ``(configuration, mark-set)`` pair invariant under those renamings by
+    construction — resting on the premise, stated and checked by nothing, that
+    the renamings are closed under composition and inverse — so it is the
+    witness the second reading of the Challenge 4 requirement asks for.
+    """
+    have = c.members(tag)
+    return frozenset(
+        (configuration_key(image, rn), frozenset(pi[i] for i in have))
+        for _reflected, pi, _sigma, image in permitted_configuration_images(c, rn)
+    )
+
+
+# ---------------------------------------------------------------------------
+# Challenge 5: addresses, the deep regime, and the level exchanges
+# ---------------------------------------------------------------------------
+
+
+Address = tuple[int, ...]
+
+
+@dataclass(frozen=True)
+class DeepRegime:
+    """Admitted state under a policy that records the crossing.
+
+    ``addresses``: for each admitted mark, in admission order, the finite
+    sequence of sides crossed to reach it, OUTERMOST FIRST.  A ``Regime``
+    records one side per mark; this records a sequence, and the length of
+    that sequence is the mark's DEPTH.  The two state types are kept apart
+    deliberately: ``flatten_deep`` is the only map between them and it is not
+    injective, which is the point of the rung.
+
+    The one opaque supplied whole is fixed, exactly as in ``Regime``: no
+    admission event of any kind creates a second, so an inner whole is never
+    a second initial datum.
+    """
+
+    reading: str
+    marks: tuple[str, ...]
+    addresses: tuple[Address, ...]
+    initial_datum: OpaqueDatum = INITIAL_DATUM
+
+    def __post_init__(self) -> None:
+        if self.reading not in READINGS:
+            raise AdmissionError(f"unknown reading: {self.reading!r}")
+        if self.initial_datum != INITIAL_DATUM:
+            raise AdmissionError("the Challenge 0 initial datum is fixed")
+        if len(self.marks) != len(self.addresses):
+            raise AdmissionError("marks and addresses must have equal length")
+        for address in self.addresses:
+            if not address:
+                raise AdmissionError("an address crosses at least one boundary")
+            if any(side not in (0, 1) for side in address):
+                raise AdmissionError("every crossing names side 0 or side 1")
+
+    def n_marks(self) -> int:
+        return len(self.marks)
+
+
+def deep_genesis(reading: str) -> DeepRegime:
+    return DeepRegime(reading, (), ())
+
+
+@dataclass(frozen=True)
+class AdmitAt:
+    """The Challenge 5 admission event: one presented occurrence as a fresh
+    mark at an address.
+
+    It is ``AdmitOccurrence`` with a sequence of crossings in place of one
+    side, and it is available only under a policy that declares the crossing
+    to be recorded; ``challenge5.py`` decides which policies do.
+    """
+
+    token: str
+    address: Address
+
+
+DeepEvent = Union[Supply, AdmitAt]
+
+
+def deep_step(r: DeepRegime, e: DeepEvent) -> DeepRegime:
+    """Apply one event to deep admitted state, assuming a well-formed history."""
+    if isinstance(e, Supply):
+        return r
+    if not e.address:
+        raise AdmissionError("an address crosses at least one boundary")
+    if any(side not in (0, 1) for side in e.address):
+        raise AdmissionError(f"every crossing names side 0 or 1, got {e.address}")
+    return DeepRegime(
+        r.reading, r.marks + (e.token,), r.addresses + (e.address,), r.initial_datum
+    )
+
+
+def deep_replay(history: Sequence[DeepEvent], base: DeepRegime) -> DeepRegime:
+    """Replay a well-formed deep history, refusing an unsupplied admission."""
+    r = base
+    presented: set[str] = set()
+    for e in history:
+        if isinstance(e, Supply):
+            presented.add(e.token)
+        elif e.token not in presented:
+            raise AdmissionError(
+                f"occurrence {e.token!r} was not supplied before admission"
+            )
+        r = deep_step(r, e)
+    return r
+
+
+def deep_certify(
+    history: Sequence[DeepEvent], base: DeepRegime, claimed: DeepRegime
+) -> bool:
+    try:
+        return deep_replay(history, base) == claimed
+    except AdmissionError:
+        return False
+
+
+def deep_event_follows(_r: DeepRegime, _e: DeepEvent) -> bool:
+    """The object-language transition relation on deep regimes is empty too."""
+    return False
+
+
+def depth_of(r: DeepRegime, mark: int) -> int:
+    """The number of boundaries crossed to reach one admitted mark.
+
+    A metatheoretic reading of the address tuple, exactly as ``mark_side`` is
+    a metatheoretic reading of the placement tuple.  Whether it is internally
+    available is a separate question, decided by the renamings and the key.
+    """
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+    return len(r.addresses[mark])
+
+
+def flatten_deep(r: DeepRegime) -> Regime:
+    """Discard every crossing but the outermost: the regime a policy that does
+    not record the crossing would hold.
+
+    Not injective: two marks reached by different inner crossings of the same
+    outer side have the same image.  That is what makes the nesting invisible
+    to a policy that does not record it.
+    """
+    return Regime(
+        r.reading, r.marks, tuple(address[0] for address in r.addresses), r.initial_datum
+    )
+
+
+def exchange_level(r: DeepRegime, level: int) -> DeepRegime:
+    """Exchange the two sides of one boundary level.
+
+    An address shorter than ``level + 1`` never crossed that boundary and is
+    unchanged.  ``reflect`` is this at level ``0`` on a ``Regime``.
+    """
+    if level < 0:
+        raise ValueError(f"a boundary level is nonnegative, got {level}")
+    return DeepRegime(
+        r.reading,
+        r.marks,
+        tuple(
+            tuple(1 - side if i == level else side for i, side in enumerate(address))
+            for address in r.addresses
+        ),
+        r.initial_datum,
+    )
+
+
+def deep_rename_marks(r: DeepRegime, pi: Sequence[int]) -> DeepRegime:
+    """Apply a permutation of internal identities to a deep regime."""
+    n = r.n_marks()
+    if sorted(pi) != list(range(n)):
+        raise ValueError("not a permutation of the admitted marks")
+    marks: list[str] = [""] * n
+    addresses: list[Address] = [()] * n
+    for i in range(n):
+        marks[pi[i]] = r.marks[i]
+        addresses[pi[i]] = r.addresses[i]
+    return DeepRegime(r.reading, tuple(marks), tuple(addresses), r.initial_datum)
+
+
+def deep_serialize(r: DeepRegime, keep_labels: bool = False) -> tuple[object, ...]:
+    """Tokens forgotten unless a policy keeps them; reading and addresses kept."""
+    if keep_labels:
+        return (r.reading, r.marks, r.addresses)
+    return (r.reading, r.addresses)
+
+
+def level_flip_sets(unnamed_levels: Sequence[int]) -> list[tuple[int, ...]]:
+    """Every subset of the unnamed levels, as a sorted tuple, deterministically.
+
+    A level whose two sides carry no admitted name has an exchange the object
+    language cannot see, and the exchanges of different levels are independent
+    declarations, so the permitted set is the whole power set.  Which levels
+    are unnamed is a declaration of the candidate, never a discovery.
+    """
+    levels = sorted(set(unnamed_levels))
+    out: list[tuple[int, ...]] = [()]
+    for level in levels:
+        out = out + [(*chosen, level) for chosen in out]
+    return sorted(out)
+
+
+DeepImage = tuple[tuple[int, ...], tuple[int, ...], DeepRegime]
+
+
+def deep_permitted_images(
+    r: DeepRegime, unnamed_levels: Sequence[int], mark_permutations: bool = True
+) -> list[DeepImage]:
+    """Every deep regime a permitted renaming reaches, with the renaming.
+
+    Each entry is ``(exchanged levels, permutation, image)``.  Unpruned: the
+    whole product of level-exchange subsets and permitted mark permutations
+    is offered.
+    """
+    n = r.n_marks()
+    perms = list(permutations(range(n))) if mark_permutations else [tuple(range(n))]
+    out: list[DeepImage] = []
+    for flips in level_flip_sets(unnamed_levels):
+        base = r
+        for level in flips:
+            base = exchange_level(base, level)
+        for pi in perms:
+            out.append((flips, tuple(pi), deep_rename_marks(base, pi)))
+    return out
+
+
+def deep_automorphisms(
+    r: DeepRegime,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+    keep_labels: bool = False,
+) -> list[tuple[tuple[int, ...], tuple[int, ...]]]:
+    """Every permitted renaming carrying a deep regime onto itself."""
+    target = deep_serialize(r, keep_labels)
+    return [
+        (flips, pi)
+        for flips, pi, image in deep_permitted_images(r, unnamed_levels, mark_permutations)
+        if deep_serialize(image, keep_labels) == target
+    ]
+
+
+def deep_is_isomorphic(
+    a: DeepRegime,
+    b: DeepRegime,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+    keep_labels: bool = False,
+) -> bool:
+    """Whether a permitted renaming carries one deep regime onto another."""
+    if a.reading != b.reading:
+        return False
+    target = deep_serialize(b, keep_labels)
+    return any(
+        deep_serialize(image, keep_labels) == target
+        for _flips, _pi, image in deep_permitted_images(a, unnamed_levels, mark_permutations)
+    )
+
+
+def deep_canonical(
+    r: DeepRegime,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+    keep_labels: bool = False,
+) -> tuple[object, ...]:
+    """The minimum serialization over every image the declaration permits.
+
+    Bounded, like ``canonical``: no unbounded completeness is claimed.
+    """
+    best: tuple[object, ...] | None = None
+    for _flips, _pi, image in deep_permitted_images(r, unnamed_levels, mark_permutations):
+        key = deep_serialize(image, keep_labels)
+        if best is None or key < best:
+            best = key
+    assert best is not None
+    return best
+
+
+def deep_mark_orbit(
+    r: DeepRegime,
+    mark: int,
+    unnamed_levels: Sequence[int],
+    mark_permutations: bool = True,
+) -> frozenset[Address]:
+    """The addresses one admitted mark is carried to by permitted renamings.
+
+    A fact about the mark's address is internally available exactly when it
+    takes one value over this set: if two images disagree about it, no
+    property invariant under the permitted renamings can report it.
+    """
+    if not 0 <= mark < r.n_marks():
+        raise ValueError(f"mark {mark} is not admitted")
+    return frozenset(
+        image.addresses[pi[mark]]
+        for _flips, pi, image in deep_permitted_images(r, unnamed_levels, mark_permutations)
+    )

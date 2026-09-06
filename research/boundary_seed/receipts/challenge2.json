@@ -1,0 +1,1102 @@
+{
+  "authority_effect": "None",
+  "boundary_dependence": {
+    "supply is presentation only, and the current state is the replay of the caller's history": "does not depend on the admitted boundary",
+    "the event-follows relation stays empty": "does not depend on the admitted boundary",
+    "the identity policy space and the refusal of the shared policy": "does not depend on the admitted boundary; it is about presentation tokens and internal identity",
+    "the initial datum and reading are unchanged by every event": "does not depend on the admitted boundary",
+    "the two new judgments, the sides the marks are retained on, the automorphisms, the separation, and the different-sides fact": "require the admitted boundary and are not formulated after removing it"
+  },
+  "challenge": 2,
+  "challenge0_predictions_sha256": "a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395",
+  "challenge1_predictions_sha256": "7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7",
+  "different_sides_census": {
+    "images_checked": 177,
+    "invariant_under_every_permitted_renaming": true,
+    "max_marks": 3,
+    "note": "hypothetical placements under both readings; nothing here is admitted.  The property reads the placement tuple only and is not an object-language value."
+  },
+  "event_kinds": [
+    "Supply",
+    "AdmitMark",
+    "AdmitOccurrence"
+  ],
+  "event_returning_functions_by_module": {
+    "challenge1": [
+      "admission_event",
+      "one_step_admissions",
+      "probes",
+      "supply_event"
+    ],
+    "challenge2": [
+      "caller_history",
+      "policy_event",
+      "probes",
+      "supply_event"
+    ],
+    "model": [],
+    "presentation": [
+      "admission_event",
+      "supply_event"
+    ]
+  },
+  "inscriptions": [
+    "<a|>",
+    "<|a>"
+  ],
+  "new_event_kinds_at_challenge_2": [
+    "AdmitOccurrence"
+  ],
+  "observation_vocabulary": [
+    "OnSide",
+    "SideNamed"
+  ],
+  "predictions_sha256": "95f9371b030b8df64b4842a5df7be695d9e7f1b2311a300e78d915a701c16474",
+  "readings": {
+    "O": {
+      "automorphisms": {
+        "count": 1,
+        "entries": [
+          {
+            "permutation": [
+              0,
+              1
+            ],
+            "reflected": false
+          }
+        ],
+        "fixed_by_reflection_up_to_mark_renaming": true,
+        "mark_exchange_alone_fixes": false,
+        "mark_exchange_witness": null,
+        "marks_internally_separable": true,
+        "reflection_alone_fixes": false,
+        "side_exchange_witness": null,
+        "sides_internally_separable": true
+      },
+      "convention": {
+        "classes_under_isomorphism": 1,
+        "conventions": {
+          "left is side 0": {
+            "left": 0,
+            "right": 1
+          },
+          "left is side 1": {
+            "left": 1,
+            "right": 0
+          }
+        },
+        "declared": "left is side 0",
+        "declared_placement": [
+          0,
+          1
+        ],
+        "isomorphic_under_reading": true,
+        "other_placement": [
+          1,
+          0
+        ],
+        "presented_sides": [
+          "left",
+          "right"
+        ],
+        "regimes_equal": false,
+        "selection_is_by": "declared convention, not proof; it fixes which presented whole becomes which mark and not that the two marks are separated",
+        "witness": {
+          "permutation": [
+            1,
+            0
+          ],
+          "reflected": false
+        }
+      },
+      "identity_policies": {
+        "declared": "occurrence identity: an admission admits a fresh mark, the token being a label",
+        "declared_is_the_only_one_admitting_both": true,
+        "exhaustive_because": "a policy decides what the second admission of the caller's two wholes admits, and its target either is or is not a mark already admitted; the space has one policy for each answer and no third answer exists.  This is exhaustive over the declared space and claims nothing about policies that would change the event grammar further",
+        "policies_admitting_both_wholes": [
+          "occurrence identity: an admission admits a fresh mark, the token being a label"
+        ],
+        "policies_refused_under_every_convention": [
+          "shared identity: an admission names the mark its token already names"
+        ],
+        "rows": [
+          {
+            "certified": false,
+            "convention": "left is side 0",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              }
+            ],
+            "labels": [],
+            "marks": 0,
+            "placement": [],
+            "policy": "shared identity: an admission names the mark its token already names",
+            "refusal": "mark 'a' is admitted on side 0; an admission naming side 1 would move it and is refused",
+            "refused": true
+          },
+          {
+            "certified": false,
+            "convention": "left is side 1",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "labels": [],
+            "marks": 0,
+            "placement": [],
+            "policy": "shared identity: an admission names the mark its token already names",
+            "refusal": "mark 'a' is admitted on side 1; an admission naming side 0 would move it and is refused",
+            "refused": true
+          },
+          {
+            "certified": true,
+            "convention": "left is side 0",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 1,
+                "token": "a"
+              }
+            ],
+            "labels": [
+              "a",
+              "a"
+            ],
+            "marks": 2,
+            "placement": [
+              0,
+              1
+            ],
+            "policy": "occurrence identity: an admission admits a fresh mark, the token being a label",
+            "refusal": null,
+            "refused": false
+          },
+          {
+            "certified": true,
+            "convention": "left is side 1",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 1,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "labels": [
+              "a",
+              "a"
+            ],
+            "marks": 2,
+            "placement": [
+              1,
+              0
+            ],
+            "policy": "occurrence identity: an admission admits a fresh mark, the token being a label",
+            "refusal": null,
+            "refused": false
+          }
+        ],
+        "space": [
+          "shared identity: an admission names the mark its token already names",
+          "occurrence identity: an admission admits a fresh mark, the token being a label"
+        ],
+        "space_size": 2
+      },
+      "label": {
+        "canonical_keys_equal": true,
+        "isomorphic": true,
+        "label_internally_available": false,
+        "regimes_equal": false,
+        "relabelled_labels": [
+          "z",
+          "z"
+        ],
+        "serializations_equal": true
+      },
+      "order": {
+        "canonical_keys_equal": true,
+        "isomorphic": true,
+        "order_internally_available": false,
+        "other_order_history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 1,
+            "token": "a"
+          },
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 0,
+            "token": "a"
+          }
+        ],
+        "other_order_placement": [
+          1,
+          0
+        ],
+        "regimes_equal": false,
+        "witness": {
+          "permutation": [
+            1,
+            0
+          ],
+          "reflected": false
+        }
+      },
+      "price": {
+        "boundary_alone_buys": "that the two retained marks do not share a side, under both readings",
+        "capabilities": {
+          "admitted boundary": {
+            "buys_at_challenge_2": "that each retained whole lies on a side, and that the two retained marks do not share one",
+            "declared_at": "the seed, as the one admitted primitive exception",
+            "paid_by": "the seed"
+          },
+          "occurrence identity": {
+            "buys_at_challenge_2": "that the two wholes are two marks at all, despite the shared visible mark; without it the caller's retention is refused",
+            "declared_at": "Challenge 2, as this rung's one new declaration",
+            "paid_by": "the run"
+          },
+          "presentation convention": {
+            "buys_at_challenge_2": "which presented whole becomes which mark; not that the two marks are separated, the other convention's regime lying in the same isomorphism class under both readings",
+            "declared_at": "Challenge 1, as metatheory",
+            "paid_by": "the run"
+          },
+          "side names under O": {
+            "buys_at_challenge_2": "under O only: that the two retained marks are separated, one on near and one on far",
+            "declared_at": "genesis, as the O reading of the one declaration",
+            "paid_by": "the declared reading"
+          }
+        },
+        "capabilities_the_separation_uses": [
+          "admitted boundary",
+          "side names under O",
+          "occurrence identity"
+        ],
+        "new_at_challenge_2": [
+          "occurrence identity"
+        ],
+        "new_event_kinds": [
+          "AdmitOccurrence"
+        ],
+        "nothing_new_paid_at_challenge_2": false,
+        "paid_by_at_challenge_2": "the run",
+        "separation_available": true,
+        "withdrawn_rules": [
+          "admitted presentation tokens must be unique (definition 3 of Challenges 0 and 1)"
+        ]
+      },
+      "reading": "O",
+      "retained": {
+        "canonical_key": [
+          "O",
+          [
+            0,
+            1
+          ]
+        ],
+        "certified": true,
+        "event_follows_relation_empty": true,
+        "history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 0,
+            "token": "a"
+          },
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 1,
+            "token": "a"
+          }
+        ],
+        "holding_judgments_after": 4,
+        "holding_judgments_before": 2,
+        "initial_datum_unchanged": true,
+        "labels": [
+          "a",
+          "a"
+        ],
+        "labels_repeat": true,
+        "later_events": {
+          "growth_probe": [
+            {
+              "kind": "Supply",
+              "token": "b"
+            },
+            {
+              "kind": "AdmitOccurrence",
+              "side": 0,
+              "token": "b"
+            }
+          ],
+          "growth_regime_marks": 3,
+          "judgments_retained_after_growth": [
+            true,
+            true
+          ],
+          "token_keyed_probe": [
+            {
+              "kind": "AdmitMark",
+              "side": 0,
+              "token": "a"
+            }
+          ],
+          "token_keyed_refusal": "label 'a' names more than one admitted mark; the token-keyed admission cannot say which and is refused",
+          "token_keyed_refused": true
+        },
+        "marks": 2,
+        "marks_on_different_sides": true,
+        "mentioned": [
+          "a"
+        ],
+        "name_observations_unchanged": true,
+        "new_observations": [
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 0
+          },
+          {
+            "kind": "OnSide",
+            "mark": 1,
+            "side": 1
+          }
+        ],
+        "placement": [
+          0,
+          1
+        ],
+        "reading_unchanged": true,
+        "replays_from_genesis": true,
+        "side_profiles": [
+          [
+            "near",
+            [
+              0
+            ]
+          ],
+          [
+            "far",
+            [
+              1
+            ]
+          ]
+        ],
+        "sides_collapsed": false,
+        "supplied": [
+          "a"
+        ],
+        "supplies_are_equal_values": true,
+        "supply_only_regime_equals_genesis": true
+      },
+      "separation": {
+        "invariant_mark_forms": [
+          0,
+          1
+        ],
+        "invariant_separating_mark_forms": [
+          0,
+          1
+        ],
+        "mark_forms": [
+          0,
+          1
+        ],
+        "mark_profiles": [
+          [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 0
+            }
+          ],
+          [
+            {
+              "kind": "OnSide",
+              "mark": 1,
+              "side": 1
+            }
+          ]
+        ],
+        "mark_side_names": [
+          "near",
+          "far"
+        ],
+        "mark_sides": [
+          0,
+          1
+        ],
+        "regime_domain_max_marks": 2,
+        "regime_domain_size": 7,
+        "separating_mark_forms": [
+          0,
+          1
+        ]
+      },
+      "wholes": [
+        {
+          "presented_side": "left",
+          "token": "a"
+        },
+        {
+          "presented_side": "right",
+          "token": "a"
+        }
+      ]
+    },
+    "U": {
+      "automorphisms": {
+        "count": 2,
+        "entries": [
+          {
+            "permutation": [
+              0,
+              1
+            ],
+            "reflected": false
+          },
+          {
+            "permutation": [
+              1,
+              0
+            ],
+            "reflected": true
+          }
+        ],
+        "fixed_by_reflection_up_to_mark_renaming": true,
+        "mark_exchange_alone_fixes": false,
+        "mark_exchange_witness": {
+          "permutation": [
+            1,
+            0
+          ],
+          "reflected": true
+        },
+        "marks_internally_separable": false,
+        "reflection_alone_fixes": false,
+        "side_exchange_witness": {
+          "permutation": [
+            1,
+            0
+          ],
+          "reflected": true
+        },
+        "sides_internally_separable": false
+      },
+      "convention": {
+        "classes_under_isomorphism": 1,
+        "conventions": {
+          "left is side 0": {
+            "left": 0,
+            "right": 1
+          },
+          "left is side 1": {
+            "left": 1,
+            "right": 0
+          }
+        },
+        "declared": "left is side 0",
+        "declared_placement": [
+          0,
+          1
+        ],
+        "isomorphic_under_reading": true,
+        "other_placement": [
+          1,
+          0
+        ],
+        "presented_sides": [
+          "left",
+          "right"
+        ],
+        "regimes_equal": false,
+        "selection_is_by": "declared convention, not proof; it fixes which presented whole becomes which mark and not that the two marks are separated",
+        "witness": {
+          "permutation": [
+            1,
+            0
+          ],
+          "reflected": false
+        }
+      },
+      "identity_policies": {
+        "declared": "occurrence identity: an admission admits a fresh mark, the token being a label",
+        "declared_is_the_only_one_admitting_both": true,
+        "exhaustive_because": "a policy decides what the second admission of the caller's two wholes admits, and its target either is or is not a mark already admitted; the space has one policy for each answer and no third answer exists.  This is exhaustive over the declared space and claims nothing about policies that would change the event grammar further",
+        "policies_admitting_both_wholes": [
+          "occurrence identity: an admission admits a fresh mark, the token being a label"
+        ],
+        "policies_refused_under_every_convention": [
+          "shared identity: an admission names the mark its token already names"
+        ],
+        "rows": [
+          {
+            "certified": false,
+            "convention": "left is side 0",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              }
+            ],
+            "labels": [],
+            "marks": 0,
+            "placement": [],
+            "policy": "shared identity: an admission names the mark its token already names",
+            "refusal": "mark 'a' is admitted on side 0; an admission naming side 1 would move it and is refused",
+            "refused": true
+          },
+          {
+            "certified": false,
+            "convention": "left is side 1",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 1,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitMark",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "labels": [],
+            "marks": 0,
+            "placement": [],
+            "policy": "shared identity: an admission names the mark its token already names",
+            "refusal": "mark 'a' is admitted on side 1; an admission naming side 0 would move it and is refused",
+            "refused": true
+          },
+          {
+            "certified": true,
+            "convention": "left is side 0",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 1,
+                "token": "a"
+              }
+            ],
+            "labels": [
+              "a",
+              "a"
+            ],
+            "marks": 2,
+            "placement": [
+              0,
+              1
+            ],
+            "policy": "occurrence identity: an admission admits a fresh mark, the token being a label",
+            "refusal": null,
+            "refused": false
+          },
+          {
+            "certified": true,
+            "convention": "left is side 1",
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 1,
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "labels": [
+              "a",
+              "a"
+            ],
+            "marks": 2,
+            "placement": [
+              1,
+              0
+            ],
+            "policy": "occurrence identity: an admission admits a fresh mark, the token being a label",
+            "refusal": null,
+            "refused": false
+          }
+        ],
+        "space": [
+          "shared identity: an admission names the mark its token already names",
+          "occurrence identity: an admission admits a fresh mark, the token being a label"
+        ],
+        "space_size": 2
+      },
+      "label": {
+        "canonical_keys_equal": true,
+        "isomorphic": true,
+        "label_internally_available": false,
+        "regimes_equal": false,
+        "relabelled_labels": [
+          "z",
+          "z"
+        ],
+        "serializations_equal": true
+      },
+      "order": {
+        "canonical_keys_equal": true,
+        "isomorphic": true,
+        "order_internally_available": false,
+        "other_order_history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 1,
+            "token": "a"
+          },
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 0,
+            "token": "a"
+          }
+        ],
+        "other_order_placement": [
+          1,
+          0
+        ],
+        "regimes_equal": false,
+        "witness": {
+          "permutation": [
+            1,
+            0
+          ],
+          "reflected": false
+        }
+      },
+      "price": {
+        "boundary_alone_buys": "that the two retained marks do not share a side, under both readings",
+        "capabilities": {
+          "admitted boundary": {
+            "buys_at_challenge_2": "that each retained whole lies on a side, and that the two retained marks do not share one",
+            "declared_at": "the seed, as the one admitted primitive exception",
+            "paid_by": "the seed"
+          },
+          "occurrence identity": {
+            "buys_at_challenge_2": "that the two wholes are two marks at all, despite the shared visible mark; without it the caller's retention is refused",
+            "declared_at": "Challenge 2, as this rung's one new declaration",
+            "paid_by": "the run"
+          },
+          "presentation convention": {
+            "buys_at_challenge_2": "which presented whole becomes which mark; not that the two marks are separated, the other convention's regime lying in the same isomorphism class under both readings",
+            "declared_at": "Challenge 1, as metatheory",
+            "paid_by": "the run"
+          },
+          "side names under O": {
+            "buys_at_challenge_2": "under O only: that the two retained marks are separated, one on near and one on far",
+            "declared_at": "genesis, as the O reading of the one declaration",
+            "paid_by": "the declared reading"
+          }
+        },
+        "capabilities_the_separation_uses": [],
+        "new_at_challenge_2": [
+          "occurrence identity"
+        ],
+        "new_event_kinds": [
+          "AdmitOccurrence"
+        ],
+        "nothing_new_paid_at_challenge_2": false,
+        "paid_by_at_challenge_2": "the run",
+        "separation_available": false,
+        "withdrawn_rules": [
+          "admitted presentation tokens must be unique (definition 3 of Challenges 0 and 1)"
+        ]
+      },
+      "reading": "U",
+      "retained": {
+        "canonical_key": [
+          "U",
+          [
+            0,
+            1
+          ]
+        ],
+        "certified": true,
+        "event_follows_relation_empty": true,
+        "history": [
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 0,
+            "token": "a"
+          },
+          {
+            "kind": "Supply",
+            "token": "a"
+          },
+          {
+            "kind": "AdmitOccurrence",
+            "side": 1,
+            "token": "a"
+          }
+        ],
+        "holding_judgments_after": 2,
+        "holding_judgments_before": 0,
+        "initial_datum_unchanged": true,
+        "labels": [
+          "a",
+          "a"
+        ],
+        "labels_repeat": true,
+        "later_events": {
+          "growth_probe": [
+            {
+              "kind": "Supply",
+              "token": "b"
+            },
+            {
+              "kind": "AdmitOccurrence",
+              "side": 0,
+              "token": "b"
+            }
+          ],
+          "growth_regime_marks": 3,
+          "judgments_retained_after_growth": [
+            true,
+            true
+          ],
+          "token_keyed_probe": [
+            {
+              "kind": "AdmitMark",
+              "side": 0,
+              "token": "a"
+            }
+          ],
+          "token_keyed_refusal": "label 'a' names more than one admitted mark; the token-keyed admission cannot say which and is refused",
+          "token_keyed_refused": true
+        },
+        "marks": 2,
+        "marks_on_different_sides": true,
+        "mentioned": [
+          "a"
+        ],
+        "name_observations_unchanged": true,
+        "new_observations": [
+          {
+            "kind": "OnSide",
+            "mark": 0,
+            "side": 0
+          },
+          {
+            "kind": "OnSide",
+            "mark": 1,
+            "side": 1
+          }
+        ],
+        "placement": [
+          0,
+          1
+        ],
+        "reading_unchanged": true,
+        "replays_from_genesis": true,
+        "side_profiles": [
+          [
+            [
+              0
+            ]
+          ],
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "sides_collapsed": false,
+        "supplied": [
+          "a"
+        ],
+        "supplies_are_equal_values": true,
+        "supply_only_regime_equals_genesis": true
+      },
+      "separation": {
+        "invariant_mark_forms": [],
+        "invariant_separating_mark_forms": [],
+        "mark_forms": [
+          0,
+          1
+        ],
+        "mark_profiles": [
+          [
+            {
+              "kind": "OnSide",
+              "mark": 0,
+              "side": 0
+            }
+          ],
+          [
+            {
+              "kind": "OnSide",
+              "mark": 1,
+              "side": 1
+            }
+          ]
+        ],
+        "mark_side_names": [],
+        "mark_sides": [
+          0,
+          1
+        ],
+        "regime_domain_max_marks": 2,
+        "regime_domain_size": 7,
+        "separating_mark_forms": [
+          0,
+          1
+        ]
+      },
+      "wholes": [
+        {
+          "presented_side": "left",
+          "token": "a"
+        },
+        {
+          "presented_side": "right",
+          "token": "a"
+        }
+      ]
+    }
+  },
+  "scores": {
+    "C1-X": {
+      "O_half_status": "PARTIAL",
+      "O_names_clause_status": "HIT",
+      "O_nothing_new_paid_clause_fact": "the frozen clause reads 'the price is the O declaration paid at genesis, and nothing new is paid at Challenge 2', and its falsifier names 'under O a price beyond the names'.  The rung paid one new declaration, the occurrence identity of price.new_at_challenge_2, without which the caller's retention is refused under both readings, so the clause is false as written and the falsifier fired.  The names clause is scored separately and hits",
+      "O_nothing_new_paid_clause_status": "MISSED",
+      "U_half_status": "HIT",
+      "condition_status": "HIT",
+      "evidence": "U: the retained regime is fixed by the reflection up to mark renaming, a permitted automorphism exchanges the two marks, and no invariant mark form separates them; O: the marks are separated, one on near and one on far, by two invariant mark forms, but a new declaration was paid at this rung",
+      "label": "NOT FORCED",
+      "status": "PARTIAL"
+    },
+    "C2-1": {
+      "evidence": "the caller history is a supply and an occurrence admission for each whole, certified and replayed from genesis, and its regime holds two marks on opposite sides; the two supplies are the same event value",
+      "label": "NOT FORCED",
+      "result_basis": "DEFINITION-level: the reading of the caller's 'retains' is the run's decision, and the two marks on opposite sides follow from the declared convention and the declared identity policy; a hit is by construction and is not counted as content",
+      "status": "HIT"
+    },
+    "C2-2": {
+      "evidence": "all four shared-policy histories are refused, each by the moving-admission refusal naming the side the mark is admitted on",
+      "label": "FORCED",
+      "result_basis": "DEFINITION-level: the refusal is the Challenge 1 moving-admission declaration replayed on a declared history, under both readings and both conventions; a hit is by construction and is not counted as content, although the declaration was made before this question arose",
+      "status": "HIT"
+    },
+    "C2-3": {
+      "evidence": "the declared space has two policies, exactly one of which lets the caller retain both wholes; the price is one new admission event and the withdrawal of the token-uniqueness rule, paid by the run and equal under both readings",
+      "label": "NOT FORCED",
+      "result_basis": "DEFINITION-level: the space, its exhaustiveness, the declared policy, and the price are declarations of this rung, and the clause that only one policy admits both rests on the C2-2 refusal; a hit is by construction and is not counted as content",
+      "status": "HIT"
+    },
+    "C2-4": {
+      "evidence": "exactly two new holding judgments, one per mark and per side; no name judgment, datum, or reading changes; 0 to 2 under U and 2 to 4 under O; each mark's profile is its own side; both judgments survive the growth probe",
+      "label": "FORCED",
+      "result_basis": "content: the two new judgments and their evaluation rest on retained_onSide_true_iff with retained_onSide_zero, retained_onSide_one, and retained_onSide_beyond, none of them by unfolding, and retention on retained_judgments_survive",
+      "status": "HIT"
+    },
+    "C2-5": {
+      "evidence": "two permitted automorphisms under U and one under O; the reflection with the mark exchange carries mark 0 to mark 1; neither mark form is invariant under U, so none separates them",
+      "label": "FORCED",
+      "result_basis": "content: the automorphism counts and the exchanging witness are computed over the unpruned permitted-image enumeration, and the invariance of each mark form is a census over the bounded regime domain; the concrete transport is the Lean retained_exchange_transports",
+      "status": "HIT"
+    },
+    "C2-6": {
+      "evidence": "under O the only permitted automorphism is the identity, both mark forms are invariant and both separate the marks, one lying on near and one on far; the other convention's regime lies in the same class under both readings",
+      "label": "FORCED",
+      "result_basis": "content: the single O automorphism and the absence of an exchanging one are computed over the unpruned search, the invariance of both mark forms is a census, and the convention class count is an isomorphism-witness computation; the raw separation is the Lean retained_marks_separated_by_a_side",
+      "status": "HIT"
+    },
+    "C2-7": {
+      "evidence": "the property survives every permitted renaming in the census and holds of the retained regime; under U no invariant mark form separates the two wholes, under O both do",
+      "label": "FORCED",
+      "result_basis": "content: the invariance of the different-sides property is a census over every regime of at most three marks under both readings and every permitted image of each",
+      "status": "HIT"
+    },
+    "C2-8": {
+      "evidence": "under U a permitted automorphism exchanges the two sides and under O none does; the profile comparison is false at the retained regime under both readings; the other admission order and a different visible mark both give isomorphic regimes",
+      "label": "NOT FORCED",
+      "result_basis": "content: the side-exchanging automorphism, the order isomorphism, and the label isomorphism are witness searches over the unpruned enumeration, and none is fixed by a declaration",
+      "status": "HIT"
+    },
+    "C2-X": {
+      "evidence": "scored by Challenge 3",
+      "label": "NOT FORCED",
+      "status": "PENDING"
+    }
+  },
+  "seed_sha256": "ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be",
+  "state_changing_event_kinds": [
+    "AdmitMark",
+    "AdmitOccurrence"
+  ],
+  "state_event_generators": [],
+  "tally": {
+    "criterion": "a prediction counts as content only if at least one of its hitting clauses, read literally, rests on a theorem outside the DEFINITION-level lists of the paper's section 7 or on a computation not fixed by a declaration alone; a prediction whose every clause is true by unfolding a declaration, or reports a modelling decision of the run, is HIT by construction and not counted as content",
+    "definition_level_declared": [
+      "C2-1",
+      "C2-2",
+      "C2-3"
+    ],
+    "hit_as_content": [
+      "C2-4",
+      "C2-5",
+      "C2-6",
+      "C2-7",
+      "C2-8"
+    ],
+    "hit_definition_level": [
+      "C2-1",
+      "C2-2",
+      "C2-3"
+    ],
+    "missed": [],
+    "partial": [],
+    "scored": [
+      "C2-1",
+      "C2-2",
+      "C2-3",
+      "C2-4",
+      "C2-5",
+      "C2-6",
+      "C2-7",
+      "C2-8"
+    ]
+  },
+  "what_the_challenge_exercises": {
+    "admission": "yes: the caller retains, so the caller's history contains one admission per whole; which admission event that is, is the declared identity policy",
+    "current-state designation": "yes: the current state is the replay of the caller's history and holds two marks on opposite sides",
+    "equality": "yes: structural regime equality compares the labels, the isomorphism relation and the canonical key forget them, and the difference is live at this rung because the two wholes share a visible mark",
+    "mention": "yes: the shared visible mark is named by every event of the caller's history and is not an identity",
+    "observation": "yes: two new OnSide judgments, one per mark",
+    "retention": "yes: the placement tuple carries both marks, and both judgments survive the hypothetical growth probe",
+    "side": "yes: the presented side of each whole, mapped to an admitted side by the declared convention",
+    "supply": "yes: one Supply event per retained whole, the two equal as values"
+  },
+  "withdrawn_rules_at_challenge_2": [
+    "admitted presentation tokens must be unique (definition 3 of Challenges 0 and 1)"
+  ]
+}

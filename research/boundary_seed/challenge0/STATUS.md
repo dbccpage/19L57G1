@@ -32,14 +32,20 @@ Inscription `<|>`, no object-language operation.  Receipt
 
 | | reading U | reading O |
 |---|---|---|
-| initial opaque datum | present (PROVED) | present (PROVED) |
+| initial opaque datum | present (DEFINITION-level: `genesis_initial_datum` is `rfl`) | same |
 | sides collapsed at genesis | yes (PROVED) | no; the difference is the two admitted names only (DEFINITION) |
-| supply changes state | never (PROVED) | never (PROVED) |
-| an event follows from the state | none in the declared empty relation (PROVED) | same |
+| supply changes state | never (DEFINITION for one supply, `supply_no_op` is `rfl`; PROVED for a history of supplies, `replay_supply_inert`) | same |
+| an event follows from the state | none in the declared empty relation (DEFINITION: `no_event_follows` unfolds the declaration) | same |
 | mark-on-side judgment at genesis | none (PROVED) | none (PROVED) |
 | side-name judgment at genesis | none (PROVED) | `near` and `far` (PROVED from the declaration) |
-| the reflection | permitted operation; automorphism at genesis; involution | fixes genesis as raw data but is not permitted; moves any placed mark |
+| the reflection | permitted operation (DEFINITION); fixes genesis (DEFINITION-level, `reflect_genesis` is `rfl`), hence an automorphism at genesis; involution (PROVED) | fixes genesis as raw data (DEFINITION-level) but is not permitted (DEFINITION); moves any placed mark (PROVED) |
 | classes for n = 0..4 marks | 1, 1, 2, 2, 3 | 1, 2, 3, 4, 5 |
+
+The labels in this table were corrected by the second Challenge 1 review
+repair (`change_log.md`): a theorem that is `rfl`, an unfolding, or a case
+split onto `rfl` is DEFINITION-level, one theorem one label, as the
+Challenge 1 rung already held for its own theorems.  The earlier version
+of the table read PROVED in those cells.
 
 Boundary dependence: the supplied opaque datum, supply inertia, and the
 empty event-follows relation do not require the admitted boundary.  Every
