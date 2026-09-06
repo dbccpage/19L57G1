@@ -321,6 +321,9 @@ def gate_pin_bytes() -> Json:
             problems.append(
                 f"BOUNDARY_PIN.json {field} is {vendored.get(field)!r}, bytes say {value!r}"
             )
+    checked_commit = commit_check()
+    if checked_commit["status"] == "FAIL":
+        problems.append(f"pinned commit: {checked_commit['reason']}")
     return {
         "gate": "G1",
         "name": "pin_bytes_ok",
@@ -328,7 +331,7 @@ def gate_pin_bytes() -> Json:
         "git_blob_sha1": got_blob,
         "byte_count": len(raw),
         "carries_cr": b"\r" in raw,
-        "commit_check": commit_check(),
+        "commit_check": checked_commit,
         "problems": problems,
         "passed": not problems,
     }

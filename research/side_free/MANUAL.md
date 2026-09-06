@@ -205,3 +205,33 @@ wrong set is still the wrong set.  In particular: the deletion register's
 population is enumerated from the pinned source independently of the
 classifier, but whether the declared word stems are the right stems is a
 judgement, not a computation.
+
+## Guard repair and permanent probes
+
+The pin gate now fails when its reachable-commit comparison fails. The
+permanent test `test_a_reachable_commit_mismatch_voids_the_run_and_recovers`
+injects that mismatch, requires the failure to name the pinned commit and
+the decision to be VOID, and checks recovery after the rebinding ends.
+
+The Lean audit accepts primed report names and theorem attributes. It also
+compares the requested names against the fresh report population, rejecting
+missing, duplicate, unexpected and malformed reports. Permanent probes in
+`tests/test_predictions.py` exercise these cases, including a primed report
+carrying a disallowed dependency. This scanner recognizes the declared source
+forms used by this package; it is not a parser for arbitrary Lean syntax.
+
+The prose gate `tests/test_prose_numbers.py` independently gathers the tracked
+prose population, binds quantities to record fields or named computations,
+and names explicit exemptions. Numeric captures accept different spellings
+and values, so changing a quantity cannot select a generic determiner
+exemption in place of its binding. Its permanent runner probe changes the
+declared-coordinate count in memory, requires a diagnostic naming the ledger
+and both values, and checks recovery. The quoted pin text keeps its explicit
+quotation exemption. Generic determiner exemptions remain declared residuals
+outside the quantitative phrases recognized by the binding table.
+
+Coverage percentages are taken from the fresh report by `check_coverage.py`.
+The status transcript records the measured file count and no percentage:
+comparing a percentage to a literal full percentage would verify no report.
+The prose gate rejects that former transcript shape. No receipt, frozen file
+or axiom log is regenerated while any permanent probe is active.

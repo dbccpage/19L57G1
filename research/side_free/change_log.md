@@ -453,3 +453,23 @@ go stale on its own.
   commit; that one literal in that one step is this pass's only change outside
   `research/side_free/`.  The battery transcript in `STATUS.md` is re-pasted
   from a fresh run at this commit.
+
+## Guard repair
+
+Adopted the unfinished numerical prose guard and tightened its claim
+selectors. A changed quantity is now read under the same binding as the
+original quantity; the selector cannot depend on the value it is checking.
+The ledger's declared-cell sentence now matches its cell population, and the
+corollary-domain total is computed from the declared census. The retained
+generic determiner exemptions and quoted-source exemption remain explicit.
+
+A reachable pin mismatch now makes the pin gate fail and the decision VOID.
+The Lean audit recognizes primed names and theorem attributes, and compares
+the requested report population against the fresh parsed reports. Permanent
+probes cover each repaired failure and recovery without editing any receipt.
+
+Removed the status transcript's claimed coverage percentages and the guard's
+literal full-percentage source. The coverage gate supplies the independently
+computed fresh measurements. The test registration and status file counts
+move with the measured suite. The frozen design, frozen predictions and
+vendored boundary inputs are unchanged; this repair does not rebind the pin.

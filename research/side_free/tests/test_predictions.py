@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 import unittest
+from unittest.mock import patch
 from typing import Any
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "code"))
@@ -219,6 +220,27 @@ class CoverageGate(unittest.TestCase):
 
 
 class LeanGate(unittest.TestCase):
+    def test_attribute_theorems_and_primed_reports_are_not_dropped(self) -> None:
+        declaration = verify_lean.THEOREM.match("@[simp] theorem probe' : True := True.intro")
+        self.assertIsNotNone(declaration)
+        assert declaration is not None
+        self.assertEqual(declaration.group(1), "probe'")
+        line = "'SideFree.probe'' depends on axioms: [Classical.choice]"
+        self.assertEqual(verify_lean.reports(line), [line])
+        match = verify_lean.REPORT.search(line)
+        assert match is not None
+        self.assertEqual(match.group("name"), "SideFree.probe'")
+        self.assertNotIn(match.group("axioms"), verify_lean.ALLOWED)
+
+    def test_report_population_names_missing_duplicate_and_unparsed_reports(self) -> None:
+        line = "'SideFree.probe'' does not depend on any axioms"
+        with patch.object(verify_lean, "audited_theorems", return_value=["SideFree.probe'"]):
+            self.assertEqual(verify_lean.report_problems(line), [])
+            self.assertIn("SideFree.probe'", " ".join(verify_lean.report_problems("")))
+            self.assertIn("found 2", " ".join(verify_lean.report_problems(line + "\n" + line)))
+            self.assertIn("unparsed", " ".join(verify_lean.report_problems("broken depends on axioms: []")))
+            self.assertEqual(verify_lean.report_problems(line), [])
+
     def test_the_forbidden_token_scan_finds_nothing_in_the_package(self) -> None:
         self.assertEqual(verify_lean.scan_sources(), [])
 

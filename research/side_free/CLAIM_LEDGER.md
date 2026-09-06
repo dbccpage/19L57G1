@@ -167,7 +167,7 @@ never counted as content.
 * **Correction, recorded not edited away.**  The other guard against an unfair
   comparison — the endowment ledger, which `DESIGN.md` §12 names against the
   hazard of a control crippled by starting with less — was reported as
-  computed throughout, and two of its cells are not.  The whole
+  computed throughout, and four of its cells are not.  The whole
   `declarations_at_genesis` row is three prose lists, one per column, and the
   CONTROL cell of `coordinates the genesis declaration fixes` is a typed zero;
   nothing in either carrier enumerates its own genesis declaration, and this

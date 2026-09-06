@@ -15,6 +15,7 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from typing import Any, Iterator
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "code"))
@@ -66,6 +67,16 @@ def swapped(module: object, name: str, value: object) -> Iterator[None]:
 
 
 class PinGate(unittest.TestCase):
+    def test_a_reachable_commit_mismatch_voids_the_run_and_recovers(self) -> None:
+        failed = {"status": "FAIL", "reason": "vendored bytes DIFFER at the pinned commit"}
+        with patch.object(control, "commit_check", return_value=failed):
+            record: Any = control.decide()
+        self.assertFalse(record["gates"]["G1"]["passed"])
+        self.assertIn("pinned commit", " ".join(record["gates"]["G1"]["problems"]))
+        self.assertTrue(record["void"])
+        self.assertEqual(record["decided"]["what_the_admitted_primitive_bought"], "VOID")
+        self.assertTrue(control.gate_pin_bytes()["passed"])
+
     def test_a_flipped_digest_is_named(self) -> None:
         with swapped_pin(lambda payload: payload.update({"zzz_probe": 1})):
             gate: Any = control.gate_pin_bytes()

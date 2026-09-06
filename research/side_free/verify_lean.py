@@ -20,6 +20,7 @@ the word for a theorem cannot enter or leave it."""
 from __future__ import annotations
 
 import pathlib
+from collections import Counter
 import re
 import subprocess
 import sys
@@ -45,12 +46,15 @@ ROOT_MODULE = LEAN / "SideFree.lean"
 BLOCK_COMMENT = re.compile(r"/-.*?-/", re.S)
 LINE_COMMENT = re.compile(r"--[^\n]*")
 IDENT = r"[A-Za-z_][A-Za-z0-9_'!?]*"
-THEOREM = re.compile(rf"^\s*(?:(?:private|protected)\s+)?theorem\s+({IDENT})")
+THEOREM = re.compile(
+    rf"^\s*(?:@\[[^\]]*\]\s*)*(?:(?:private|protected)\s+)?"
+    rf"theorem\s+({IDENT}(?:\.{IDENT})*)"
+)
 NAMESPACE = re.compile(rf"^namespace\s+({IDENT}(?:\.{IDENT})*)\s*$")
 END_NAMESPACE = re.compile(rf"^end\s+({IDENT}(?:\.{IDENT})*)\s*$")
 PRINT_AXIOMS = re.compile(r"^#print\s+axioms\s+(\S+)\s*$", re.M)
 REPORT = re.compile(
-    r"'(?P<name>[^']+)' "
+    r"'(?P<name>.+?)' "
     r"(?:depends on axioms: \[(?P<axioms>[^\]]*)\]|does not depend on any axioms)$"
 )
 
@@ -177,6 +181,32 @@ def reports(log: str) -> list[str]:
     return sorted(out)
 
 
+def report_problems(log: str) -> list[str]:
+    """Every requested name must have exactly one parseable report.
+
+    Report-like lines are gathered independently of REPORT, so malformed
+    output cannot disappear from both sides of the comparison.
+    """
+    problems = [
+        f"unparsed axiom report: {line.strip()}"
+        for line in log.splitlines()
+        if ("depends on axioms:" in line or "does not depend on any axioms" in line)
+        and REPORT.search(line.strip()) is None
+    ]
+    found = Counter(
+        match.group("name")
+        for line in reports(log)
+        if (match := REPORT.search(line)) is not None
+    )
+    expected = Counter(audited_theorems())
+    for name in sorted(set(found) | set(expected)):
+        if found[name] != 1 or expected[name] != 1:
+            problems.append(
+                f"axiom report {name}: requested {expected[name]}, found {found[name]}"
+            )
+    return problems
+
+
 def main(argv: list[str]) -> int:
     problems = scan_sources()
     problems.extend(
@@ -192,7 +222,13 @@ def main(argv: list[str]) -> int:
         print(f"FAIL: {p}")
     if problems:
         return 1
-    found = reports(build())
+    log = build()
+    problems = report_problems(log)
+    for problem in problems:
+        print(f"FAIL: {problem}")
+    if problems:
+        return 1
+    found = reports(log)
     if not found:
         print("FAIL: no axiom reports in the build log")
         return 1

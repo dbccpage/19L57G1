@@ -346,9 +346,9 @@ line with one field missing; both were stale on arrival, and the fix is to
 re-run rather than to re-type.
 
 ```
-331 tests, OK
-line 100.00% branch 100.00% over 9 files
-mypy: Success: no issues found in 24 source files
+351 tests, OK
+coverage: measured over 9 files; percentages come from the fresh coverage gate
+mypy: Success: no issues found in 25 source files
 receipt ok: 550107 bytes, byte-identical
 comparison ok: 140158 receipt bytes and 30238 document bytes, byte-identical
 lean ok: 35 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt
