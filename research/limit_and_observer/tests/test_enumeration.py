@@ -118,23 +118,84 @@ class PruningIsSoundForMinima(unittest.TestCase):
 
     def test_pruned_and_unpruned_minima_agree(self) -> None:
         """The whole point: pruning may drop candidates, but never changes
-        the *minimum* item count at which a demand is answered."""
+        the *minimum* item count at which a demand is answered.
+
+        Every demand, not two of them.  An earlier version ran OBS-1 and
+        OBS-2 only, at a bound too tight for OBS-3 to be answered at all,
+        while ``inert_context`` claimed soundness for the whole space; the
+        bound is raised here so OBS-3 is answered inside it, and the other
+        six demands are checked in the same enumeration."""
+        from code.demands import DEMANDS
+        from code.price import price_many
+
+        tight = Bounds(
+            max_items=5, max_sealed_items=3, max_reader_items=2,
+            max_arity=1, w_max=3, max_readers=2,
+        )
+        answered = 0
+        for reading in ("L", "F"):
+            base = genesis(reading)
+            a = price_many(base, reading, DEMANDS, ("mu1",), tight, True)
+            b = price_many(base, reading, DEMANDS, ("mu1",), tight, False)
+            for d in DEMANDS:
+                ma, mb = a[(d.name, "mu1")], b[(d.name, "mu1")]
+                self.assertEqual(ma.cost, mb.cost, f"{d.name}/{reading}")
+                self.assertEqual(
+                    ma.cost_below_minimum_all_fail,
+                    mb.cost_below_minimum_all_fail,
+                    f"{d.name}/{reading}",
+                )
+                self.assertLessEqual(len(ma.raw_minima), len(mb.raw_minima))
+                if ma.raw_minima:
+                    answered += 1
+        self.assertGreater(
+            answered, 0, "an all-empty comparison would prove nothing"
+        )
+
+    def test_pruning_does_not_move_obs4_where_obs4_is_answered(self) -> None:
+        """OBS-4 is the one demand whose predicate reads **selections** rather
+        than induced relations, so the inert-context lemma does not cover it
+        and it is checked directly.
+
+        Reading F answers OBS-4 inside a three-item sealed prefix; reading L
+        does not, and is left to the width argument in ``inert_context``."""
         from code.price import price
 
         tight = Bounds(
-            max_items=4, max_sealed_items=3, max_reader_items=2,
-            max_arity=1, w_max=3, max_readers=2,
+            max_items=6, max_sealed_items=3, max_reader_items=4,
+            max_arity=2, w_max=3, max_readers=2,
         )
-        for name in ("OBS-1", "OBS-2"):
-            for reading in ("L", "F"):
-                a = price(genesis(reading), reading,
-                          DEMANDS_BY_NAME[name], "mu1", tight, prune=True)
-                b = price(genesis(reading), reading,
-                          DEMANDS_BY_NAME[name], "mu1", tight, prune=False)
-                self.assertEqual(a.cost, b.cost, f"{name}/{reading}")
-                self.assertLessEqual(
-                    len(a.raw_minima), len(b.raw_minima)
-                )
+        a = price(genesis("F"), "F", DEMANDS_BY_NAME["OBS-4"], "mu1",
+                  tight, prune=True)
+        b = price(genesis("F"), "F", DEMANDS_BY_NAME["OBS-4"], "mu1",
+                  tight, prune=False)
+        self.assertTrue(a.raw_minima, "the comparison must not be vacuous")
+        self.assertEqual(a.cost, b.cost)
+        self.assertEqual(set(a.raw_minima), set(b.raw_minima))
+
+    def test_a_width_one_inert_reader_separates_nothing(self) -> None:
+        """The step the OBS-4 width argument rests on.
+
+        At the declared bounds two readers leave at most two context items
+        between them, so an OBS-4 answer has both readers at width one.  A
+        width-one reader whose only context is inert separates nothing, and
+        OBS-4 refuses a reader that separates nothing — so no OBS-4 answer
+        within the bounds holds an inert context, whatever the pruning does."""
+        from code.census import population
+
+        checked = 0
+        for r in population(2, DEFAULT_BOUNDS):
+            for b in all_reading_classes():
+                for c in contexts(r):
+                    if not inert_context(r, b, c):
+                        continue
+                    for a in lawful_aggregations(3):
+                        self.assertEqual(
+                            induced_relation(r, Reader((c,), b, a)),
+                            frozenset(),
+                        )
+                        checked += 1
+        self.assertGreater(checked, 0, "the step must have live witnesses")
 
     def test_unpruned_suffixes_are_a_superset_of_pruned_ones(self) -> None:
         base = genesis("L")

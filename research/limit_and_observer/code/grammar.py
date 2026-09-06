@@ -5,7 +5,9 @@ Classification: metatheory apparatus computing object-language facts.
 Re-implemented against the pinned sealed source ``code/derivation/observe.py``.
 
 The one fact this whole tree turns on is that the sealed relation is an *or*
-of two independent bits.  Pinned source, line 56, in full::
+of two independent bits.  Pinned source, line 52, in full (an earlier version
+of this line said 56, which is ``profile``; the quoted body was always right
+and only the anchor was wrong)::
 
     def derivable(r, inst): return inst[0] in r.rules or inst in r.insts
 

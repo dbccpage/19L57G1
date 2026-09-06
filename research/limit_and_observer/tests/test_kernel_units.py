@@ -397,7 +397,7 @@ class QuotientUnits(unittest.TestCase):
         key = serialize_regime(r, (0, 1), ())
         self.assertIn((0, 1), key[4])
 
-    def test_serialize_reader_uses_the_behaviour(self) -> None:
+    def test_serialize_reader_uses_the_complement_class(self) -> None:
         r = ruled_state()
         rho = Reader(
             contexts(r)[:1], ADMISSION_ONLY_READING,

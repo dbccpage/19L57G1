@@ -20,7 +20,7 @@ from typing import Iterable, Sequence, TypeVar
 
 from .grammar import Context
 from .items import StatedState
-from .readers import Reader, behaviour
+from .readers import Reader, reading_class
 from .regime import Pair, Regime
 
 T = TypeVar("T")
@@ -71,16 +71,14 @@ def serialize_reader(
 ) -> CanonKey:
     """A reader under a bijection pair.
 
-    The reading enters through its **behaviour**, not its value table: the
-    induced relation depends on the reading only through the behaviour, so two
-    readings sharing one behaviour are the same reader by the tree's own
-    distinctness rule.  Eliminating them is elimination by proof, and the
-    proof is checked by ``tests/test_readers.py``."""
+    The reading enters through its complement class, as frozen in section 7.
+    Equal separation behaviours need not be the same transported reader;
+    relation agreement does not erase this field from OBS-4."""
     sel = sorted(
         flatten_context(transport_context(c, pi, phi))
         for c in rho.selection
     )
-    return (behaviour(rho.reading), tuple(rho.aggregation), tuple(sel))
+    return (reading_class(rho.reading), tuple(rho.aggregation), tuple(sel))
 
 
 def flatten_context(c: Context) -> tuple[int, tuple[int, ...]]:

@@ -5,9 +5,10 @@ its enumerator); deterministic computation (everything else).
 
 Following ``research/second_stream``, the widened space is **this rung's own
 admitted primitive** and is never called the sealed candidate space at that
-width.  The prefix enumerator is certified by set equality against an
-independently written superset construction one coordinate wider in each
-direction.
+width. At both genesis bases the prefix enumerator is certified by exact
+delta-to-child equality through four items against an independent grouped
+construction with widened coordinate pools (tests/test_prefix_certificate.py).
+The shared replay semantics remain a separate correspondence obligation.
 
 The sealed ``iter_cost2_deltas`` is never used: its four pruning lemmas are
 justified against pair separation and none of this tree's demands is pair
@@ -37,7 +38,6 @@ from .items import (
 from .readers import (
     Reading,
     all_reading_classes,
-    behaviour,
     lawful_aggregations,
     reads_at,
 )
@@ -48,6 +48,10 @@ class CandidateBudgetRefused(RuntimeError):
     """Named terminal: an enumeration exceeded its declared candidate budget.
 
     Refused rather than truncated."""
+
+    def __init__(self, message: str, candidate: Delta | None = None) -> None:
+        super().__init__(message)
+        self.candidate = candidate
 
 
 @dataclass(frozen=True)
@@ -193,10 +197,39 @@ def inert_context(r: Regime, b: Reading, c: Context) -> bool:
     Two ways to be inert: the reading does not vary at the context's coverage
     bit, or the admission bit is constant across every datum there.  Adding an
     inert context leaves every separating count unchanged, so it leaves the
-    induced relation identical while costing one item — hence no *minimum*
-    candidate contains one.  The pruning is therefore sound for minima and for
-    below-minimum exhaustion alike, and ``tests/test_enumeration.py`` checks
-    it against the unpruned enumeration."""
+    induced relation identical while costing one item.
+
+    **How far that argument reaches, stated exactly.**  It settles the
+    pruning for a predicate whose value depends on the candidate only through
+    the induced relations and the resulting regime: OBS-1, OBS-2, OBS-3, OBS-5
+    and LIM-G are of that form.  It settles **nothing by itself** for the
+    other three, and each is a different case:
+
+    * **OBS-4** reads the two readers' **selections**, through
+      ``renaming_of_each_other``, so an inert context could move its verdict
+      without moving any relation.
+    * **LIM-R** reads a reader's **width**, in the short-circuit that skips
+      the chain search below the carrier; an inert context raises the width
+      while adding no strict split.
+    * **LIM-F** reads the **item kinds** of the delta and no relation at all.
+
+    An earlier version of this docstring claimed soundness for minima and
+    below-minimum exhaustion with no qualification whatever.  That claim is
+    **WITHDRAWN** as stated.
+
+    What covers the three.  OBS-4 has an argument at the declared bounds:
+    ``max_reader_items`` is 4 and ``max_readers`` is 2, so two readers leave
+    at most two context items between them, and OBS-4 refuses a reader that
+    separates nothing — a width-1 reader whose only context is inert separates
+    nothing, and a width-0 reader separates nothing either — so no candidate
+    answering OBS-4 within these bounds holds an inert context.
+    ``tests/test_enumeration.py``
+    ``test_a_width_one_inert_reader_separates_nothing`` carries that step and
+    ``test_pruning_does_not_move_obs4_where_obs4_is_answered`` compares pruned
+    against unpruned where OBS-4 is answered.  LIM-R and LIM-F have no such
+    argument written here; for them the evidence is the cross-check itself,
+    ``test_pruned_and_unpruned_minima_agree``, which runs **every** demand at a
+    tightened bound where OBS-3 is answered inside it."""
     if not reads_at(b, coverage_bit(r, c)):
         return True
     vals = {admission_bit(r, c, d) for d in range(r.n_data())}
@@ -209,9 +242,8 @@ def reader_suffixes(
     """Every reader suffix of exactly ``s`` items over the regime.
 
     ``s`` items buy ``nr`` readers and ``s - nr`` contexts, each context its
-    own item.  Readings are enumerated by behaviour representative, which is
-    elimination by proof: the induced relation depends on the reading only
-    through its behaviour."""
+    own item. All eight complement classes are retained. Equal separation
+    behaviours do not establish full reader identity for OBS-4."""
     if s == 0:
         yield ()
         return
@@ -219,7 +251,7 @@ def reader_suffixes(
         return
     ctx = contexts(r)
     aggs = lawful_aggregations(bounds.w_max)
-    readings = _behaviour_representatives()
+    readings = all_reading_classes()
     # A canonical delta is the candidate, and two orderings of the same reader
     # specifications sort to one delta.  Deduping here is what keeps the raw
     # minima a set, which the harness invariants require.
@@ -267,14 +299,6 @@ def reader_suffixes(
                     yield out
 
 
-def _behaviour_representatives() -> tuple[Reading, ...]:
-    """One reading per induced-separation behaviour, deterministically."""
-    seen: dict[tuple[bool, bool], Reading] = {}
-    for b in all_reading_classes():
-        seen.setdefault(behaviour(b), b)
-    return tuple(seen[k] for k in sorted(seen))
-
-
 def _compositions(total: int, parts: int, cap: int) -> Iterator[tuple[int, ...]]:
     """Every way to split ``total`` context items among ``parts`` readers,
     none exceeding the declared width."""
@@ -317,6 +341,8 @@ def iter_candidates(
                 if seen > bounds.candidate_budget:
                     raise CandidateBudgetRefused(
                         f"enumeration exceeded the declared candidate budget "
-                        f"{bounds.candidate_budget}"
+                        f"{bounds.candidate_budget} at item count {total}; "
+                        f"{seen - 1} candidates yielded; next candidate refused",
+                        candidate=delta,
                     )
                 yield delta, state

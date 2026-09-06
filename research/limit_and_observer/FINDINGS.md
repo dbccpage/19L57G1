@@ -25,14 +25,27 @@ Over the quotiented depth-3 population of **85** states:
 Every observation-grammar question is vacuous at them. They carry the
 calibration and no observation finding whatever.
 
-The grammar is monotone non-decreasing along every one-item move: **243**
-quotiented moves, **0** violations, 65 enlarging the context set and 178
+The grammar is monotone non-decreasing along every one-item move: **1067**
+quotiented moves, **0** violations, 227 enlarging the context set and 840
 leaving it unchanged. That is what licenses evaluating an early context at a
 later stage without declaring a transport relation.
 
+Those are the census values. This page carried **243**, 65 and 178 — the
+pre-freeze figures of `PREDICTIONS.md` P-1, which counted moves only from the
+states expanded during the breadth rounds and left the depth-3 frontier
+unexpanded, while the census expands all 85. P-1 is scored a **miss on the
+move counts** and the miss is recorded in `STATUS.md`; the violation count and
+the population size are as predicted. Reporting the refuted figure here, in
+the section whose whole purpose is that no finding rests on an unchecked
+count, was the worst available place for it.
+
 ## 1. The fact the tree turns on
 
-`code/derivation/observe.py` line 56, in full:
+`code/derivation/observe.py` line 52, in full (this page, `code/grammar.py`,
+`lean/LimitObserver.lean` and `SOURCE_MANIFEST.json` all said 56, which is
+`profile`; the quoted body was always right and only the anchor was wrong,
+and `REQUIREMENTS.md` is frozen so its copy of the wrong anchor stands with
+the correction recorded in `STATUS.md`):
 
     def derivable(r, inst): return inst[0] in r.rules or inst in r.insts
 
@@ -41,12 +54,17 @@ The sealed observation relation is an **or** of two independent bits: a
 which does not depend on the datum plugged in, and an **admission** bit, which
 says the plugging is an admitted instance.
 
-The repository's assumption discipline says supply, mention, admission,
-current-state designation, retention, observation and equality are never
-conflated. **The sealed observation relation conflates coverage with
-admission, inside itself.** Nothing in the estate reads the two bits apart.
-That is where a second observer lives, and this tree exhibits one and prices
-it.
+The projected truth value does not retain which ingredient made it true.
+**Where coverage is present, this observation discards variation in the
+admission bit.** The admitted state still stores instances and uniform rules
+separately, and their admission events are separate. The sealed definition
+explicitly observes positive derivability by either route; this information
+loss does not establish a breach of the assumption discipline.
+
+This tree declares and prices a reader that can inspect an ingredient the
+sealed observation interface does not distinguish there. That is a new
+admitted reader primitive, not a correction to the sealed state model. No
+repository-wide census here proves that every other interface lacks it.
 
 ### The sharper form, which was not expected
 
@@ -63,11 +81,20 @@ the seven non-constant ones:
 | `covered` | present |
 | `either` | absent and present |
 
-And then, computed rather than declared: **the sealed observation relation is
-exactly the `uncovered` reader over every context with the aggregation
+This collapse concerns induced relations only. All eight complement classes
+remain in the candidate space, the canonical reader key and OBS-4 transport,
+as the frozen design requires. Equal behavior does not make two full readers
+automorphism images.
+
+And then, computed rather than declared: **the sealed induced-separation relation
+is exactly that of the `uncovered` reader over every context with the aggregation
 "at least one separating context"**, checked at all 85 states of the
 population with 0 mismatches. The sealed observer is a point of this tree's
-reader space. The rival is its exact complement on the covered half.
+reader space. The `covered` behaviour has the complementary sensitivity to
+the admission bit: it varies where coverage is present instead of absent.
+This is not pointwise negation of the sealed truth value (which preserves
+separability), nor a claim that the induced relations are complements on
+every carrier.
 
 That is the whole result in one line: **the sealed observer reads admission
 only where coverage is absent, and is therefore blind exactly where the
@@ -85,30 +112,38 @@ equal to the sealed originals on the whole enumerated space.
 | OBS-1 existence | single state | 3 / 3 | **PRICE** |
 | OBS-2 sub-reader | single state | 3 / 3 | **PRICE** |
 | OBS-3 rival | single state | **5 / 5** | **PRICE** |
-| OBS-4 coexistence | single state | **8 / 7** | **PRICE** |
+| OBS-4 coexistence | single state | **7 / 6** | **PRICE** |
 | OBS-5 derivability | single state | see receipt | **PRICE** |
-| LIM-R refinement | chain at a fixed state | none | **PROVED OBSTRUCTION** |
-| LIM-G growth | run | none | **PROVED OBSTRUCTION** |
-| LIM-F family verdict | run | none | **PROVED OBSTRUCTION** |
+| LIM-R refinement | chain at a fixed state | none / OPEN | **OPEN: F CandidateBudgetRefused** |
+| LIM-G growth | run | none / OPEN | **OPEN: F CandidateBudgetRefused** |
+| LIM-F family verdict | run | none / OPEN | **OPEN: F CandidateBudgetRefused** |
 
-The exact class counts, `mu2` values, capability vectors and representatives
-are in `receipts/price.json`; this page does not restate a number the receipt
-owns.
+The exact certified class counts, `mu2` values, capability vectors and
+representatives are in `receipts/price.json`. A PRICE survives only when its
+lower levels and entire successful level completed. Interrupted searches have
+null price/count fields, `incomplete = true` and exhaustion false. The prior
+complete price/tie census used the coarser four-behavior space and is
+withdrawn: restoring all eight frozen reading classes reaches the unchanged
+four-million-candidate guard. The search traces retain actual completed
+levels and the observed interruption boundary, not the unseen frontier.
 
 Two things in that table are worth saying out loud.
 
 **The class count and the relation count are different numbers and both are
-reported.** OBS-3 in reading L has 72 raw minima in 36 canonical-key classes —
-and **exactly one** distinct induced separation relation. The canonical key is
-deliberately finer than the induced relation: two readers agreeing at this
-state may differ at another, so they are not one admitted object. But what the
-72 minima *buy* is one reader. Reporting only the 36 would overstate the
-variety purchased; reporting only the 1 would understate what was admitted.
+reported for completed minima.** The canonical key retains the declared
+reading class, aggregation and selection, and is finer than the induced
+relation. Equal behavior alone does not identify full readers. The prior
+four-behavior raw/class counts are not carried into the eight-class receipt.
 
 **`mu2` is blind along the reader axis, by the formula.** Reader items declare
 no form arity, so they contribute nothing to the second component. This is
 **reported and never repaired**: amending `mu2` would stop it being the sealed
 function and would silently change what every sealed answer means.
+
+**The capability vector carries all nine declared keys.** Alongside the seven
+item counts, `reading_class` records a Boolean table per admitted reader and
+`aggregation_lawful` records its checked lawfulness. These are lists, not new
+scalar costs. The class representative records the exact aggregation table.
 
 ## 3. The second observer: a PRICE of 5
 
@@ -146,16 +181,25 @@ why the ladder has five rungs and why OBS-4 exists: a clause set chosen after
 seeing the enumeration could have stopped at 3 and called it the second
 observer.
 
-**The readings diverge at OBS-4: 8 in reading L, 7 in reading F.** Reading F
+**The readings diverge at OBS-4: 7 in reading L, 6 in reading F.** Reading F
 admits three data at genesis, so a designated pair plus a third datum is
 available without buying a growth item; reading L must buy one. The two
 readings agree on the rival's price and disagree on the price of
 non-degenerate coexistence. That was not expected and it is a real finding
 about the two readings rather than about the readers.
 
+Those are the enumerated values, read from `receipts/price.json`. This page
+carried **8 and 7** — `PREDICTIONS.md` P-16, whose pre-freeze prototype
+generated reader suffixes more restrictively than this tree's enumerator does
+and was wrong by exactly one item in both readings. P-16 is scored a **miss
+on the values** and the miss is recorded in `STATUS.md`; what it got right —
+OBS-1 and OBS-2 at 3, OBS-4 strictly above OBS-3, and the two readings
+differing — is kept there beside it. The explanation above accounts for the
+one-item gap and survives the correction unchanged.
+
 ## 4. The limit: three obstructions, none with a one-step price
 
-### LIM-R, refinement without end — PROVED OBSTRUCTION
+### LIM-R — conditional theorem and bounded census; search OPEN
 
 A lawful reader's induced partition of the admitted data has at least one
 block and at most `n_data` blocks. For a **monotone** aggregation, adding a
@@ -164,7 +208,20 @@ at most `n_data - 1` and the demand — a chain longer than the carrier — is m
 by nothing.
 
 Proved in Lean as `chain_bounded` and `refinement_demand_unsatisfiable`, over
-any strictly increasing block count bounded by the carrier.
+any block count that rises strictly **along the chain** and is bounded by the
+carrier **up to the chain's length**.
+
+**A repair to those theorems, recorded rather than quietly made.** They first
+asked strictness at *every* index while also bounding the block count at
+*every* index. Those two hypotheses are jointly unsatisfiable — a strictly
+increasing sequence of naturals leaves every bound — so the theorems were
+**vacuous**: no chain could instantiate one, the chain length occurred in no
+hypothesis, and the conclusion followed from the contradiction rather than
+from the chain. Nothing detected it, and nothing here could have: an axiom
+report says which axioms a proof used, never whether its hypotheses can be
+met. The hypotheses are now bounded by the chain, which is what a finite
+chain actually supplies, and `chain_bound_has_an_instance` exhibits an
+instance meeting all three so the vacuity cannot return unnoticed.
 
 **How far the proof reaches, and a narrowing this tree made to its own first
 statement.** The first version of this paragraph said every strict split
@@ -186,18 +243,32 @@ receipt leaned on.
 anywhere exceeds it. Without attainment the obstruction would be a demand
 nothing finite could meet, and would be reported OPEN instead.
 
+**How far the declared space reaches into this demand.** A chain of strict
+splits has at most one step per context, so a chain longer than the carrier
+needs a width above the carrier. At `w_max = 3` that is possible only at
+carriers below 3, so the width bound alone leaves the demand open at **24** of
+the 85 states and closes it at the other 61. At those 24 it is the chain
+bound, not the item bound, that supplies the independent obstruction evidence;
+at the other 61 the width bound suffices. Neither observation declares an
+interrupted search complete. The receipt carries the count under
+`obstructions.LIM-R.reach_of_the_declared_space`. It is **not zero**, and that
+is exactly where this demand differs from LIM-G below.
+
 **Escape: none in the declared alphabet.** The demand's threshold is stated
 relative to the carrier and the ceiling tracks the carrier exactly, so
 admitting data raises both together — proved in Lean as
-`refinement_obstruction_survives_growth`. **No finite delta over the six item
-kinds lifts it, not one growth item and not any number of them.** The smallest
-lifting admission is a **seventh item kind**, and rather than invent a number
-for it the receipt **names the capability** it would have to carry: either a
-carrier not equal to the admitted data, or a reader whose non-separation is
-not an equivalence on the admitted data — which is exactly what lawfulness
-refuses.
+`refinement_obstruction_survives_growth`, over any number of growth items,
+under the same chain-bounded hypotheses as above. The Python evidence beside
+it is narrower and is reported as what it is: `test_growth_does_not_lift_it`
+checks up to **two** growth items on one exhibited regime, and the chain
+census checks the bound at every carrier the population reaches. Any escape
+must leave the declared space and change its refinement contract. That is a
+necessary condition, not a construction of a sufficient seventh item or a
+proof of its minimality. Extension feasibility and minimum price remain OPEN;
+the frozen P-10's finite-delta and smallest-extension clauses are scored
+separately.
 
-### LIM-G, growth without end — PROVED OBSTRUCTION at a derived threshold
+### LIM-G — signature/capacity evidence; search OPEN
 
 Two data with equal signatures have a separating count of zero, and `a(0)` is
 false for every admitted aggregation. So the non-separation relation of any
@@ -214,11 +285,28 @@ from it.
 **Positive control:** a reader separating every pair exists below the
 threshold — at carrier 2 with one context, at carrier 3 with two.
 
-**Escape: a rate, not a price.** At any *given* carrier the obstruction is
-lifted by buying width, and the cheapest such purchase is **one `AddContext`
-item**. But the requirement grows with the carrier — a reader needs at least
-`log2(n)` contexts — so growth *without end* has **no one-step price at all**.
-Reporting the 1 without the rate would be the central failure available here.
+**The carrier bound is separate from reader-search completion.** The demand
+needs a carrier above `2 ** w_max = 8`, and the declared space cannot reach
+one: `max_sealed_items` is 4 and the genesis carriers are 2 and 3, so the
+largest carrier any candidate reaches is **6** in reading L and **7** in
+reading F. Every LIM-G candidate is therefore rejected at the carrier test
+before a reader property is examined. This structural bound carries
+**no information about readers**. The completed L search certifies an empty
+row; the refused F search does not claim a complete empty minimum set or an
+exhaustion pass. `REQUIREMENTS.md` warns against exactly this
+in the paragraph justifying the widening above the sealed two items, and the
+warning applies here. The obstruction rests on the signature argument, the
+capacity census, and a carrier-9 exhibit built from **eight** sealed items —
+twice the declared bound, so outside the space, named as such in the receipt
+under `obstructions.LIM-G.positive_control`, and metatheory that is never
+admitted.
+
+**Escape price: OPEN.** At least `ceil(log2(n))` contexts are necessary for
+full separation, but width alone is not sufficient. A carrier with no explicit
+instances has equal admission signatures at every available context: buying
+more contexts separates nothing. `width_only_countermodel` exhibits this
+within the declared space. The earlier one-`AddContext` escape and its claimed
+sufficient rate are withdrawn; no minimum escape price has been computed.
 
 **What is proved in Lean and what is not, stated in the same breath.** Lean
 proves the obstruction for growth by data carrying no instance, with an
@@ -228,7 +316,7 @@ even when growth carries content, needs a pigeonhole over signatures and is
 **checked exhaustively in Python at every width up to the declared bound** and
 recorded as an **OPEN Lean obligation**. It is not claimed as a theorem.
 
-### LIM-F, the family-determined verdict — PROVED OBSTRUCTION
+### LIM-F — stage-locality and family controls; search OPEN
 
 No item of the declared alphabet carries a stage index, an earlier regime, or
 its own earlier verdict, so every admitted reader's stage verdict is a
@@ -252,8 +340,9 @@ the first verdict", among others — pass both the stability and the novelty
 tests on the exhibited sequences. They are metatheory and are never admitted.
 Without them an empty result would be OPEN, not an obstruction.
 
-**Escape:** a seventh item kind admitting a total function of the finite
-verdict sequence. The capability it must carry is **reading the family up to
+**Proposed escape, not a minimum:** an outside-contract item admitting a total
+function of the finite verdict sequence. No admitted extension or minimum
+escape price has been constructed. The proposed capability is **reading the family up to
 `k` rather than the current state** — which `research/second_stake`
 independently classifies as index-reading and treats as a negative control.
 Naming that capability is the whole value of the result.
@@ -266,53 +355,64 @@ does.
 
 None of the answers below is inferred from equal cost, which is exactly the
 inference a shared measure invites. Each is decided by an implemented
-algorithm and recorded in `receipts/price.json`.
+algorithm and recorded in `receipts/price.json` — and where a test could not
+be run at all, that is said in place of an answer rather than an expectation
+being written as a result.
 
 ### Which is cheaper
 
-**The second observer, decisively — and not by an inequality between two
-integers.** It has a finite one-step price of 5 in the declared space. Every
-limit direction has **none**: two of the three are lifted by no finite delta
-over the six item kinds at all, and the third is lifted only at a rate that
-grows with the carrier. The comparison is **PRICE versus PROVED OBSTRUCTION**,
-not 5 versus some larger number.
+**The advertised decisive comparison is not established by the refused
+search.** The observer's completed price is retained, but unfinished limit
+minimum censuses are OPEN, not exhaustive empty sets. The conditional Lean
+bounds, bounded censuses and family controls below are separate evidence;
+they are not a replacement for a completed minimum/tie census. P-17 is OPEN.
 
 ### Do refinement and growth cost the same
 
-**No, and they fail to have a price for different reasons.** That is the
-result the brief asked not to be assumed in either direction.
+**Their obstruction bounds differ; no comparison of escape prices is established.**
 
 * Refinement's obstruction is **carrier-relative**: the ceiling tracks the
   carrier, so growth raises both together and no finite admission in the
   alphabet lifts it.
 * Growth's obstruction is **width-relative** with an **absolute** threshold
-  `2 ** w` that does not move with the carrier, and *is* lifted at any given
-  carrier by one item of width — so it has an escape the other does not, and
-  that escape is a rate.
+  `2 ** w` that does not move with the carrier. Necessary width does not
+  supply distinguishing instances, and its minimum escape price is OPEN.
 
-Same measures, same population, same quotient, same routine — different
-answers. The asymmetry is measured, not assumed.
+P-12's predicted sufficient width-only escape is refuted by the retained
+countermodel. The shared cost measures do not supply the missing construction.
 
 ### Does either purchase the other
 
-**Neither purchases the other**, decided by running each demand's predicate on
-the other's retained minima in both directions, and by comparing the canonical
-key sets for containment in both directions. The one containment that does
-hold is the expected one: **refinement purchases growth**, because a chain
-past the carrier needs the carrier to grow.
+Among the completed observer minima, **no observer demand purchases a limit demand**,
+decided by running each
+demand's predicate on the other's retained minima — 30 rows, 0 of them true —
+without treating this direct predicate test as a minimum-set containment test.
 
-No single delta is minimal for two demands of **different evidence arity**,
-and that flag is carried into every row: the observer ladder is decided at a
+**The other direction was not run.** A refused limit search has no certified
+minimum to feed the other predicate and no complete key set to compare, so
+`comparison.purchase` holds no row with a limit demand as the first, and
+`comparison.containment_of_canonical_key_sets` holds no limit-against-limit
+row at all. `PREDICTIONS.md` P-18's second half — "refinement purchases
+growth", because a chain past the carrier needs the carrier to grow — is
+therefore **UNTESTED here**, and the receipt records it as
+`P-18-refinement-purchases-growth-UNTESTED` rather than letting the narrower
+test that did run stand in for the whole prediction. This page asserted it as
+a holding containment; that assertion is **WITHDRAWN**. The expectation may
+still be right and nothing here bears on it.
+
+No cross-arity joint minimum is certified; pairs involving unfinished minimum
+censuses are not compared. Evidence arity is carried into every row: the observer ladder is decided at a
 single state, LIM-R over a chain at a fixed state, LIM-G and LIM-F on a run. A
 candidate answering demands of different arity is answering different kinds of
 question, and that is a finding rather than a coincidence to smooth over.
 
 ### Is one a special case of the other
 
-**No.** The containment test returns false in both directions for every
-observer/limit pair. What is true, and weaker, is the shared structure: both
-halves are bounded by the same two quantities — the carrier and the width —
-and the second observer is cheap precisely because it needs neither to grow.
+**OPEN across both readings.** The observer/limit containment checks — 15 executed rows — cover L;
+comparisons using refused minimum sets stay OPEN. The completed L cells use
+the declared non-vacuous containment test. The receipt names the omitted F
+pairs and their incomplete census. The previous false-in-both-directions
+containment claim is withdrawn; missing key sets are not empty key sets.
 
 ### The possibility the brief named
 
@@ -377,11 +477,26 @@ is measured rather than argued.
 * **LIM-G's run is this rung's own declared statement**, at the state level,
   and is **not** the sealed continuation policy. Reproducing that policy would
   require re-implementing the sealed engine, which this tree does not do.
-* **This tree's Lean receipt is manual.** No CI gate runs any research tree's
-  `verify_lean.py`; `CLAUDE.md` records that as the last live residual, and
-  this tree sits squarely inside it. Every claim resting on it is labelled
-  CITED, never CHECKED.
+* **This tree's Lean receipt is manual.** No CI gate runs this package's
+  `verify_lean.py`. Every claim resting on it is labelled CITED, never CHECKED.
 * **`w_max` is 3 and `max_readers` is 2.** Lawfulness is width-dependent and
   was measured, not assumed stable: 2 of 2 lawful at width 1, 3 of 4 at width
   2, 4 of 8 at width 3, 4 of 16 at width 4. Nothing here claims a width beyond
   4.
+* **LIM-G was never given a finite price.** The declared space cannot reach
+  the carrier the demand names. This is a fact about `max_sealed_items`, not
+  completion of the interrupted F enumeration. Pricing it inside a space that reaches the threshold —
+  which needs `max_sealed_items` above 6 — is OPEN.
+* **P-18's second half was not tested.** Whether refinement purchases growth
+  has no input here, because the limit minimum censuses are unfinished. It is
+  recorded UNTESTED, not scored.
+* **Independent prefix certification reaches four sealed items at both
+  genesis bases.** The grouped construction widens the coordinate pools and
+  compares exact delta-to-child maps, using shared replay semantics. Direct
+  agreement of both measures with the pinned sealed implementation also
+  covers counts 0–4 at both bases. Neither closes the open depth-4 population.
+* **`verify_prose.py` reads only the numbers a binding names.** A claim
+  written with no number in it — most of this page — is outside its reach and
+  stays a reader's business. It also cannot tell whether the receipt is the
+  right mathematical object; a perfect binding to the wrong computation is
+  still the wrong computation.

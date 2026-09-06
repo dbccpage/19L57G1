@@ -422,3 +422,15 @@ jobs:
       - name: Limit and second observer, strict typing
         working-directory: research/limit_and_observer
         run: python -m mypy
+      # The pins, the tests, the coverage gate, the receipt regeneration and
+      # mypy all read code and receipts. None of them reads PROSE, and three
+      # published numbers in FINDINGS.md were the refuted predictions rather
+      # than the computed values while every one of those stayed green. This
+      # step binds each published number to the receipt it claims to report
+      # and fails in both directions: a drifted number is named with its file,
+      # line and both values, and a binding that stops matching is named as a
+      # stale binding, so deleting the sentence is not a way to pass. It runs
+      # after run_price.py so it cannot compare prose against a stale receipt.
+      - name: Limit and second observer, published prose bound to the receipt
+        working-directory: research/limit_and_observer
+        run: python verify_prose.py

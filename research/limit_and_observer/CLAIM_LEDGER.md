@@ -6,25 +6,29 @@ evidence, Lean theorem, axiom report, falsifier, surviving boundary.
 **Evidence labels.** **CHECKED** means confirmed in the gated
 `artifacts/lean_axioms.txt`. **CITED** means read from a pinned source, or a
 research tree's manual receipt read by no gate. This tree's own Lean receipt
-is CITED, never CHECKED: no CI gate runs any research tree's `verify_lean.py`,
-and `CLAUDE.md` records that as the last live residual.
+is CITED, never CHECKED: no CI gate runs this package's `verify_lean.py`.
 
 AuthorityEffect: None.
 
 ---
 
-## LO-01 — The sealed observation relation conflates two independent bits
+## LO-01 — The sealed observation discards admission variation where covered
 
 **Statement.** `derivable(r, inst) = inst[0] in r.rules or inst in r.insts` is
 an *or* of a coverage bit, which does not depend on the datum plugged in, and
-an admission bit, which does. The repository's own assumption discipline
-forbids conflating admission with observation; the sealed relation conflates
-coverage with admission inside itself.
+an admission bit, which does. At a fixed covered context the projected value
+is constant despite variation in admission; at an uncovered context it reads
+admission. The admitted state and its admission events retain the ingredients
+separately. The projection's information loss is not evidence that these
+state components or events were conflated, or that the discipline was broken.
 
 **Status.** derived definition (a reading of a pinned source). Not a theorem.
 
 **Dependencies.** `code/derivation/observe.py`, pinned at blob sha256
-`78443d67…`.
+`78443d67…`, at **line 52**. Four files of this tree said line 56, which is
+`profile`; the quoted body was always right, the blob pin always verified, and
+only the anchor was wrong. `REQUIREMENTS.md` is frozen and its copy of the
+wrong anchor stands, with the correction recorded in `STATUS.md`.
 
 **Assumptions.** None beyond the pin.
 
@@ -43,7 +47,9 @@ population.
 coverage bit is present.
 
 **Boundary.** This is a statement about the sealed *function*, not about the
-paper's prose or about any intent.
+paper's prose or about any intent. It does not establish that no other
+repository interface reads the ingredients apart. The alternative reader
+priced here is declared, not supplied by this projection alone.
 
 ---
 
@@ -69,14 +75,21 @@ the whole population.
 **Lean.** `LimitObserver.behaviour_determines_separation`,
 `separatesAt_eq_readsAt`.
 
-**Axiom report.** `behaviour_determines_separation: [propext]`. CITED.
+**Axiom report.** `behaviour_determines_separation: [propext]`;
+`separatesAt_eq_readsAt: [propext]`. CITED.  The second had **no** report
+until the hand-written report list was replaced by a census read out of the
+compiled environment; the list's own header claimed to cover every exported
+theorem and did not.
 
 **Falsifier.** Two readings with the same behaviour inducing different
 relations at some state; or a fifth behaviour.
 
 **Boundary.** The collapse is about the *induced relation*. The canonical key
 of a stated state is deliberately finer than the induced relation, and both
-counts are reported.
+counts are reported. The key retains the frozen complement class. The former
+behavior-keyed implementation did not preserve OBS-4's full-reader transport
+predicate and is withdrawn; `test_equal_behaviour_does_not_erase_the_frozen_reader_class`
+records its concrete counterexample.
 
 ---
 
@@ -190,9 +203,16 @@ classes in reading F.
 
 **Assumptions.** The sealed `Bounds(2, 2)` item alphabet.
 
-**Python evidence.** `run_price.py` `minimum_rival_prefix_census`;
-`code/census.py` `admits_rival`; `tests/test_census.py`
+**Python evidence.** `run_price.py` `minimum_rival_prefix_census`, which
+computes the raw counts **and** the isomorphism class counts into
+`receipts/price.json` under `censuses.minimum_rival_prefix`; `code/census.py`
+`admits_rival`; `tests/test_census.py`
 `test_every_rival_state_has_the_forced_shape`.
+
+The class counts were quoted in this row while being computed nowhere, and
+P-14 — whose frozen text asserts them — was scored on the shape alone. Both
+counts are now computed and both enter the score; the computed values are the
+ones quoted above.
 
 **Lean.** `LimitObserver.rival_separates_where_sealed_identifies` exhibits the
 rival at a covered context; it does not prove the minimality of 3.
@@ -214,8 +234,12 @@ above the sealed two-item bound.
 identifies, has minimum `mu1 = 5` at both sealed genesis bases: three sealed
 items, one `NewReader`, one `AddContext`. Outcome **PRICE**.
 
-**Status.** deterministic computation, complete within the declared bound,
-with `cost_below_minimum_all_fail` decided by exhaustion.
+**Status.** deterministic computation at fully completed successful/lower levels,
+with `cost_below_minimum_all_fail` decided by exhaustion — computed by
+`code/price.py` `below_minimum_exhausted` from the item counts the walk
+exhausted. It was a hard-coded `True` in both branches of the assembly,
+correct only by the accident that the walk ascends and unfalsifiable by any
+test; the value is unchanged and the way it is reached is not.
 
 **Dependencies.** LO-01, LO-04, LO-06.
 
@@ -293,11 +317,13 @@ states**, **0** chains above it. `tests/test_obstructions.py`
 `test_the_positive_control_the_ceiling_is_attained`.
 
 **Lean.** `LimitObserver.chain_bounded`,
-`LimitObserver.refinement_demand_unsatisfiable`, `LimitObserver.strict_ge`.
+`LimitObserver.refinement_demand_unsatisfiable`, `LimitObserver.strict_ge`,
+`LimitObserver.chain_bound_has_an_instance`.
 
 **Axiom report.** `chain_bounded: [Quot.sound, propext]`;
-`refinement_demand_unsatisfiable: [Quot.sound, propext]`; `strict_ge`
-axiom-free. CITED.
+`refinement_demand_unsatisfiable: [Quot.sound, propext]`;
+`strict_ge: [Quot.sound, propext]`;
+`chain_bound_has_an_instance: [Quot.sound, propext]`. CITED.
 
 **Falsifier.** A lawful reader chain strictly longer than `n_data - 1` at any
 state.
@@ -311,13 +337,35 @@ parity aggregation the block count can **fall** when a context is added.
 `test_a_non_monotone_aggregation_can_lower_the_block_count` carries the
 countermodel, and `code/readers.py` `monotone_aggregations` decides the split.
 
-Consequently the Lean theorem — which is about any strictly increasing block
-count bounded by the carrier — applies through its hypothesis only to the
-monotone aggregations. For the other two the bound is checked exhaustively
+Consequently the Lean theorem — which is about any block count that rises
+strictly along the chain and is bounded by the carrier up to the chain's
+length — applies through its hypothesis only to the monotone aggregations. For
+the other two the bound is checked exhaustively
 over the declared population (`test_the_chain_bound_still_holds_for_every_lawful_aggregation`,
 0 chains above the ceiling) and is reported as a computation, not a theorem.
 The positive control is what makes either half an obstruction rather than a
 demand nothing finite could meet.
+
+**A second narrowing, to the Lean statement itself.** `chain_bounded` first
+asked strictness at *every* index while also bounding the block count at
+*every* index. Those hypotheses are jointly unsatisfiable, so the theorem and
+its two corollaries were **vacuous** and no chain instantiated them; the chain
+length appeared in no hypothesis at all. That form is **WITHDRAWN**. The
+hypotheses are now bounded by the chain — strictness below the chain's length,
+boundedness up to it — and `chain_bound_has_an_instance` exhibits an instance
+meeting all three. The axiom report could not have caught the vacuity, because
+it says which axioms a proof used and never whether its hypotheses can be met;
+that is the residual this row now carries rather than assumes away.
+
+**The reach of the enumeration, separately from the proof.** A chain longer
+than the carrier needs a width above the carrier, so at `w_max = 3` the width
+bound alone leaves the demand open at **24** of the 85 states and closes it at
+the other 61. At those 24 the chain census tests the reader obstruction;
+at the rest the width alone rules out the demand. That population census is
+separate from the one-step price search: L completes, while F is refused.
+The proof and the chain census cover all 85; this is not a complete F price census, and
+`receipts/price.json` records the count under
+`obstructions.LIM-R.reach_of_the_declared_space`.
 
 ---
 
@@ -325,21 +373,24 @@ demand nothing finite could meet.
 
 **Statement.** The demand's threshold is carrier-relative and the ceiling
 tracks the carrier exactly, so admitting data raises both together. No finite
-delta over the declared alphabet lifts the refinement obstruction. The
-smallest lifting admission is a **seventh item kind**, and the capability it
-must carry is named rather than priced: a carrier not equal to the admitted
-data, or a reader whose non-separation is not an equivalence on the admitted
-data.
+delta over the declared alphabet lifts the refinement obstruction, under
+LO-09's chain hypotheses. Any escape must leave that declared contract.
+No sufficient extension or smallest lifting item has been constructed.
 
-**Status.** proved theorem, with the escape **named and not priced**.
+**Status.** conditional proved theorem; extension feasibility and minimality OPEN.
 
 **Dependencies.** LO-09.
 
 **Assumptions.** As LO-09.
 
 **Python evidence.** `tests/test_obstructions.py`
-`test_growth_does_not_lift_it`; `receipts/price.json` under
-`obstructions.LIM-R.escape`, where `price_in_items` is `null`.
+`test_growth_does_not_lift_it`, which checks up to **two** growth items on one
+exhibited regime; `code/census.py` `chain_census`, which checks the bound at
+every carrier the population reaches (2 to 6); `receipts/price.json` under
+`obstructions.LIM-R.escape`, where `price_in_items` is `null` and
+`liftable_by_a_finite_delta_over_the_six_kinds` is computed from the census
+and the enumeration rather than written as a literal; it is null when the
+full finite search is refused. The conditional Lean statement is separate.
 
 **Lean.** `LimitObserver.refinement_obstruction_survives_growth`.
 
@@ -347,8 +398,18 @@ data.
 
 **Falsifier.** A delta over the six kinds after which LIM-R is satisfiable.
 
-**Boundary.** A number is deliberately **not** quoted for the escape. Quoting
-one would price an item kind that does not exist.
+**Boundary.** Neither a price nor a smallest extension is established. The
+former 'smallest seventh item kind' wording is withdrawn. The frozen P-10
+remains unchanged; its finite-delta clause and untested extension clause are
+recorded separately in the receipt.
+
+**Boundary, and what "any number of them" rests on.** The Lean theorem is what
+covers *any* number of growth items, and it carried the vacuous hypotheses
+withdrawn in LO-09 until they were bounded by the chain; before that repair
+this row's "proved theorem" status had no instance behind it. The Python
+evidence is narrower than the theorem and is reported as such above: two
+growth items on one regime, plus the census over carriers 2 to 6. Neither is a
+check at every number of growth items, and neither is presented as one.
 
 ---
 
@@ -360,7 +421,8 @@ relation of any fixed-selection reader of width `w` is coarser than signature
 equality and has at most `2 ** w` blocks. Once the carrier exceeds `2 ** w`
 some pair is identified, for every selection, behaviour and lawful
 aggregation. The threshold `2 ** w_max = 8` is derived from the width and does
-not depend on the carrier. Outcome **PROVED OBSTRUCTION**.
+not depend on the carrier. This capacity evidence is separate from the full
+search result, now **OPEN: CandidateBudgetRefused**.
 
 **Status.** proved theorem for growth by uninstantiated data (Lean); the
 sharper `2 ** w` threshold is a deterministic computation, exhaustive at
@@ -393,33 +455,49 @@ pigeonhole over signatures that core Lean without Mathlib does not supply. It
 is **checked in Python and recorded OPEN in Lean**, and is not claimed as a
 theorem.
 
+**Boundary, and what the empty price row does NOT show.** The demand needs a
+carrier above `2 ** w_max = 8`. `max_sealed_items` is 4 and the genesis
+carriers are 2 and 3, so the largest carrier any candidate in the declared
+space reaches is **6** in reading L and **7** in reading F: every LIM-G
+candidate is rejected at the carrier test before a reader property is
+examined. The completed L empty minimum set and its exhaustion flag carry
+**no information about readers**. F's refused search has no certified empty
+minimum set or exhaustion pass; the carrier bound does not complete its
+enumeration. This row's evidence is the signature argument, `capacity_census`,
+and a carrier-9 exhibit built from **eight** sealed items — outside the
+declared space, named as such in `receipts/price.json` under
+`obstructions.LIM-G.positive_control.carrier_above_the_threshold_exhibited_out_of_space`,
+and metatheory that is never admitted. It is **not** the enumeration.
+Pricing LIM-G inside a space that reaches its threshold is OPEN.
+
 ---
 
-## LO-12 — Growth's escape is a rate, not a one-step price
+## LO-12 — Necessary width is not a priced escape
 
-**Statement.** At any *given* carrier the LIM-G obstruction is lifted by one
-`AddContext` item. Growth *without end* has **no one-step price**: a reader
-needs at least `log2(n)` contexts, so the escape grows with the carrier.
+**Statement.** A reader needs at least `ceil(log2(n))` contexts for full
+separation, but that condition is not sufficient. With no explicit instances,
+all admission signatures coincide and additional contexts separate nothing.
+The previously asserted one-item escape is withdrawn. Its minimum price is OPEN.
 
-**Status.** deterministic computation plus declaration.
+**Status.** countermodel to the width-only escape; open minimum escape price.
 
 **Dependencies.** LO-11.
 
 **Assumptions.** As LO-11.
 
 **Python evidence.** `receipts/price.json` under
-`obstructions.LIM-G.escape`, where `price_at_one_carrier_in_items` is `1` and
-`price_for_growth_without_end` is `null`.
+`obstructions.LIM-G.escape`, where both price fields are `null`, and
+`width_only_countermodel`; `tests/test_review_guards.py`
+`test_more_width_cannot_repair_equal_raw_signatures`.
 
 **Lean.** None.
 
 **Axiom report.** Not applicable.
 
-**Falsifier.** A finite delta after which a fixed-selection reader separates
-every pair at every carrier.
+**Falsifier.** A selection separating data whose raw signatures agree everywhere.
 
-**Boundary.** Reporting the `1` without the rate would be the central failure
-available here, and the receipt carries both fields for that reason.
+**Boundary.** The necessary width bound is not a construction, a sufficient
+rate, or evidence of a minimum purchase.
 
 ---
 
@@ -429,7 +507,8 @@ available here, and the receipt carries both fields for that reason.
 earlier regime, or its own earlier verdict, so every admitted reader's stage
 verdict is a function of that stage's regime alone. A novel family verdict
 differs from every stage verdict and so is the value of no stage-local reader.
-Outcome **PROVED OBSTRUCTION**.
+The full search result is **OPEN: CandidateBudgetRefused**; the family
+controls and stage-locality evidence are retained separately.
 
 **Status.** proved theorem (that novelty forces a constant sequence) plus
 deterministic computation (the exhaustiveness check over the alphabet).
@@ -461,13 +540,13 @@ a field. The positive control is metatheory and is never admitted.
 
 ---
 
-## LO-14 — Refinement and growth do not cost the same
+## LO-14 — Different obstruction bounds, open escape comparison
 
-**Statement.** The two limit directions carry different outcomes and different
-escapes. Refinement's obstruction is carrier-relative and is lifted by no
-finite delta. Growth's is width-relative with an absolute threshold `2 ** w`
-and *is* lifted at any given carrier by one item of width. Neither has a
-one-step price, and they fail to have one for different reasons.
+**Statement.** Refinement's ceiling tracks the carrier; growth's signature
+ceiling tracks width. The complete minimum censuses remain uncomputed after
+the resource refusal; they are not certified empty sets.
+P-12's stronger claim that width alone supplies an escape is refuted. No
+comparison of minimum escape prices has been established.
 
 **Status.** deterministic computation over the two obstruction records.
 
@@ -478,25 +557,25 @@ one-step price, and they fail to have one for different reasons.
 **Python evidence.** `run_price.py` `score_predictions` P-12;
 `receipts/price.json` under `obstructions`.
 
-**Lean.** None; this compares two theorems rather than proving a third.
+**Lean.** None; the sharper growth threshold remains an OPEN Lean obligation.
 
 **Axiom report.** Not applicable.
 
-**Falsifier.** The two directions returning the same outcome with the same
-escape.
+**Falsifier.** A reader separating the equal-raw-signature countermodel by
+adding selected contexts alone.
 
-**Boundary.** This is the result the brief asked not to be assumed in either
-direction. It is measured, under one pair of measures at one population.
+**Boundary.** Different bounds do not imply different computed prices.
 
 ---
 
-## LO-15 — The second observer is cheaper than the limit, and not by an inequality
+## LO-15 — The decisive price comparison remains OPEN
 
-**Statement.** The second observer has a finite one-step price of 5 in the
-declared space; every limit direction has none. The comparison is **PRICE
-versus PROVED OBSTRUCTION**, not 5 against a larger integer.
+**Statement.** The observer has a completed price certificate. The refused
+limit searches do not establish complete empty minima, so the former
+'decisively cheaper' comparison is withdrawn. Independent conditional
+theorems and bounded censuses are recorded under their own scopes.
 
-**Status.** deterministic computation.
+**Status.** OPEN for the full comparison; completed observer prices retained.
 
 **Dependencies.** LO-07, LO-09, LO-11, LO-13.
 
@@ -517,12 +596,25 @@ importance, not order of payment.
 
 ---
 
-## LO-16 — Neither half purchases the other
+## LO-16 — Direct purchase checks retained; minimum-set comparisons OPEN
 
-**Statement.** Running each demand's predicate on the other's retained minima,
-in both directions, and comparing the canonical key sets for containment in
-both directions, no observer demand purchases a limit demand or the reverse.
-No single delta is minimal for two demands of different evidence arity.
+**Statement.** For the completed observer minima, direct predicate checks show
+**no observer demand purchases a limit demand**: 30 purchase rows, none true,
+and 15 containment rows were executed for completed L observer/limit pairs.
+F's corresponding 15 pairs are omitted as OPEN. Missing
+minimum sets are unknown, not empty. Joint-minimality pairs involving a
+refused minimum census are also omitted, not answered negatively.
+
+**What was not run.** A refused limit search supplies no certified minimum to
+feed the other predicate or complete key set to compare, so `comparison.purchase` holds **no** row
+with a limit demand as the first and
+`comparison.containment_of_canonical_key_sets` holds **no** limit-against-limit
+row. "The reverse" therefore names a test that produced nothing, not a test
+that returned false. An earlier version of this row said "or the reverse"
+without that qualification, and `FINDINGS.md` went further and asserted
+"refinement purchases growth" as a holding containment; both are corrected
+here, and the receipt records
+`P-18-refinement-purchases-growth-UNTESTED` as false.
 
 **Status.** deterministic computation.
 
@@ -543,7 +635,8 @@ and `comparison.joint_minimality`.
 a delta jointly minimal across evidence arities.
 
 **Boundary.** Equality of `mu1` is **never** taken as evidence of purchase,
-containment or joint minimality. Each is decided by running the test.
+containment or joint minimality. Each is decided by running the test — and
+where there was nothing to run, that is reported instead of an answer.
 
 ---
 

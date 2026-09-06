@@ -226,7 +226,14 @@ class RefinementIsObstructedAtTheCarrier(unittest.TestCase):
 
     def test_growth_does_not_lift_it(self) -> None:
         """The threshold is stated relative to the carrier and the ceiling
-        tracks the carrier, so admitting data raises both together."""
+        tracks the carrier, so admitting data raises both together.
+
+        Scope, so that this is not read as more than it is: **two** growth
+        items on **one** exhibited regime.  What covers *any* number of growth
+        items is the Lean theorem
+        ``refinement_obstruction_survives_growth``, and what covers every
+        carrier the population reaches is ``chain_census``.  LO-10 in
+        ``CLAIM_LEDGER.md`` reports all three separately for that reason."""
         r = genesis("F")
         state = apply_delta(
             StatedState(r, ()), (NewForm(1), NewInst(0, (0,))), 3, 2
@@ -289,7 +296,15 @@ class GrowthIsObstructedAtTheWidth(unittest.TestCase):
 
     def test_a_carrier_above_the_threshold_identifies_some_pair(self) -> None:
         """The pigeonhole, exhibited: build a carrier larger than two to the
-        width and check that every fixed-selection reader identifies a pair."""
+        width and check that every fixed-selection reader identifies a pair.
+
+        **This exhibit is outside the declared candidate space, deliberately
+        and by necessity.**  It takes eight sealed items where
+        ``max_sealed_items`` is 4, because the threshold needs a carrier of 9
+        and the declared space reaches 6 in reading L and 7 in reading F.  That
+        is why LIM-G's empty price row is a fact about the item bound rather
+        than about readers: the receipt records this exhibit by name under
+        ``obstructions.LIM-G.positive_control`` and says so."""
         base = genesis("F")
         wide = apply_delta(
             StatedState(base, ()),

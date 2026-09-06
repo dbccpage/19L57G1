@@ -22,6 +22,7 @@ from code.price import (  # noqa: E402
     GradeRefused,
     Minimum,
     ResponseClass,
+    below_minimum_exhausted,
     price,
     price_many,
     satisfies_at,
@@ -153,6 +154,48 @@ class OneRoutineForEveryDemand(unittest.TestCase):
                     sit = Situation(base, delta, state, (0, 1), 3)
                     for d in DEMANDS:
                         self.assertIsInstance(d.predicate(sit), bool)
+
+
+class BelowMinimumExhaustionIsDecidedNotAsserted(unittest.TestCase):
+    """``cost_below_minimum_all_fail`` was a hard-coded ``True`` in both
+    branches of the assembly, so no test could catch a regression: reordering
+    the walk would have left every receipt row saying ``true``.  It is now
+    computed from what the walk exhausted, and these tests are what that buys.
+    """
+
+    def test_an_ascending_walk_reports_the_exhaustion(self) -> None:
+        """Answered at count 5 with counts 0 to 4 searched and empty."""
+        self.assertTrue(below_minimum_exhausted(5, 5, 8))
+
+    def test_a_non_ascending_walk_is_reported_false(self) -> None:
+        """The regression the hard-coded ``True`` could not see: a walk that
+        reaches count 5 first has exhausted nothing below it."""
+        self.assertFalse(below_minimum_exhausted(0, 5, 8))
+        self.assertFalse(below_minimum_exhausted(2, 5, 8))
+
+    def test_nothing_found_needs_every_count_searched(self) -> None:
+        self.assertTrue(below_minimum_exhausted(9, None, 8))
+        self.assertFalse(below_minimum_exhausted(4, None, 8))
+
+    def test_the_routine_computes_the_field_from_its_own_walk(self) -> None:
+        """The field the receipt carries is this function's value, at the
+        item count the routine actually reported."""
+        for reading in ("L", "F"):
+            got = price_many(
+                genesis(reading), reading, DEMANDS, ("mu1",), TIGHT,
+            )
+            for d in DEMANDS:
+                m = got[(d.name, "mu1")]
+                found_at = m.cost[0] if m.raw_minima else None
+                self.assertEqual(
+                    m.cost_below_minimum_all_fail,
+                    below_minimum_exhausted(
+                        m.cost[0] if m.raw_minima else TIGHT.max_items + 1,
+                        found_at,
+                        TIGHT.max_items,
+                    ),
+                    d.name,
+                )
 
 
 class PurchaseIsRunNotInferred(unittest.TestCase):

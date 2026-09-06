@@ -7,7 +7,9 @@ at item count 0, 1, ... in order, keeps the satisfying candidates, returns at
 the first count with a non-empty set, refines by the measure's later
 coordinates, quotients by the canonical key of the **resulting** stated state,
 retains every tied class with its capability vector, and decides
-``cost_below_minimum_all_fail`` by exhaustion rather than by assertion.
+``cost_below_minimum_all_fail`` by exhaustion rather than by assertion — the
+flag is computed from the item counts the walk actually exhausted, so
+reordering the walk falsifies it instead of leaving it silently true.
 
 The harness reproduces ``research/partial_decide``'s invariants, including the
 one that matters: the classes must **partition** the raw minima.
@@ -19,7 +21,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .demands import Demand, Situation
-from .enumerate_space import Bounds, iter_candidates
+from .enumerate_space import Bounds, CandidateBudgetRefused, iter_candidates
 from .items import Delta, StatedState, capabilities, mu1, mu2
 from .quotient import CanonKey, canonical_state, designated_pair
 from .readers import induced_relation
@@ -30,6 +32,20 @@ class GradeRefused(ValueError):
     """A grade was constructed violating one of its own invariants."""
 
 
+@dataclass
+class PricingTrace:
+    """Actual completed levels and a replayable interrupted frontier, if any."""
+
+    completed_levels: dict[int, int] = field(default_factory=dict)
+    refused_level: int | None = None
+    yielded_at_refusal: int = 0
+    last_yielded: Delta | None = None
+    first_refused: Delta | None = None
+    reason: str | None = None
+    observed_hits_at_refusal: dict[str, int] = field(default_factory=dict)
+    first_witnesses_at_refusal: dict[str, Delta] = field(default_factory=dict)
+
+
 @dataclass(frozen=True)
 class ResponseClass:
     """One isomorphism class of minimum candidates."""
@@ -37,7 +53,7 @@ class ResponseClass:
     key: CanonKey
     representative: Delta
     members: tuple[Delta, ...]
-    capability_vector: dict[str, int]
+    capability_vector: dict[str, object]
 
     def __post_init__(self) -> None:
         if not self.members:
@@ -70,6 +86,7 @@ class Minimum:
     #: agreeing at this state may differ at another, so they are not one
     #: admitted object.  Both are reported; neither is presented as the other.
     distinct_induced_relations: int = 0
+    search_refused: bool = False
     grade: str = field(default="")
 
     def __post_init__(self) -> None:
@@ -92,7 +109,7 @@ class Minimum:
 
 def _grade(m: Minimum) -> str:
     if not m.raw_minima:
-        return "Empty"
+        return "Refused" if m.search_refused else "Empty"
     if len(m.raw_minima) == 1:
         return "UniqueDelta"
     if len(m.classes) == 1:
@@ -123,6 +140,27 @@ def _measure_value(measure: str, delta: Delta) -> tuple[int, int]:
     raise ValueError(f"unknown measure: {measure}")
 
 
+def below_minimum_exhausted(
+    empty_counts: int, found_at: Optional[int], max_items: int
+) -> bool:
+    """Whether every item count strictly below the reported minimum was
+    enumerated **in full** and produced no satisfying candidate.
+
+    This is the field ``cost_below_minimum_all_fail``, and it is decided from
+    what the search actually did rather than asserted.  ``empty_counts`` is
+    how many whole item counts the demand survived before it was answered;
+    ``found_at`` is the count that answered it, or ``None`` when nothing did.
+
+    It was a hard-coded ``True`` in both branches of the assembly, correct only
+    by the accident that the walk happens to ascend, with no test able to catch
+    a regression: reordering the enumeration left the receipt saying ``true``
+    for every row.  Computing it from the walk is what makes a reordering
+    falsify it."""
+    if found_at is None:
+        return empty_counts == max_items + 1
+    return empty_counts == found_at
+
+
 def price_many(
     base: Regime,
     reading: str,
@@ -130,6 +168,8 @@ def price_many(
     measures: tuple[str, ...],
     bounds: Bounds,
     prune: bool = True,
+    trace: PricingTrace | None = None,
+    retain_completed_on_refusal: bool = False,
 ) -> dict[tuple[str, str], "Minimum"]:
     """Price several demands at one base, enumerating the space once.
 
@@ -145,27 +185,66 @@ def price_many(
     designated = designated_pair(base, collapsed_pairs(base))
     pending = {d.name: d for d in demands}
     found: dict[str, list[tuple[Delta, StatedState]]] = {}
+    #: Whole item counts each demand survived with nothing satisfying it, and
+    #: the count that answered it.  These two are what decide
+    #: ``cost_below_minimum_all_fail``; nothing about the loop's direction is
+    #: assumed by the decision.
+    empty_counts: dict[str, int] = {d.name: 0 for d in demands}
+    found_at: dict[str, Optional[int]] = {d.name: None for d in demands}
+    refused = False
     for total in range(0, bounds.max_items + 1):
         if not pending:
             break
         hits: dict[str, list[tuple[Delta, StatedState]]] = {
             name: [] for name in pending
         }
-        for delta, state in iter_candidates(base, total, bounds, prune):
-            sit = Situation(base, delta, state, designated, bounds.w_max)
-            for name, d in pending.items():
-                if d.predicate(sit):
-                    hits[name].append((delta, state))
+        yielded = 0
+        last_delta = None
+        try:
+            for delta, state in iter_candidates(base, total, bounds, prune):
+                yielded += 1
+                last_delta = delta
+                sit = Situation(base, delta, state, designated, bounds.w_max)
+                for name, d in pending.items():
+                    if d.predicate(sit):
+                        hits[name].append((delta, state))
+        except CandidateBudgetRefused as error:
+            if trace is not None:
+                trace.refused_level = total
+                trace.yielded_at_refusal = yielded
+                trace.last_yielded = last_delta
+                trace.first_refused = error.candidate
+                trace.reason = str(error)
+                trace.observed_hits_at_refusal = {name: len(v) for name, v in hits.items()}
+                trace.first_witnesses_at_refusal = {
+                    name: v[0][0] for name, v in hits.items() if v
+                }
+            if not retain_completed_on_refusal:
+                raise
+            refused = True
+            # Nothing from the interrupted level is a complete minimum/tie
+            # certificate. Only earlier, fully completed levels survive.
+            break
+        if trace is not None:
+            trace.completed_levels[total] = yielded
         for name in list(pending):
             if hits[name]:
                 found[name] = hits[name]
+                found_at[name] = total
                 del pending[name]
+            else:
+                empty_counts[name] += 1
 
     out: dict[tuple[str, str], Minimum] = {}
     for d in demands:
         for measure in measures:
             out[(d.name, measure)] = _assemble(
-                d, reading, measure, bounds, designated, found.get(d.name, [])
+                d, reading, measure, bounds, designated,
+                found.get(d.name, []),
+                below_minimum_exhausted(
+                    empty_counts[d.name], found_at[d.name], bounds.max_items
+                ),
+                search_refused=refused and found_at[d.name] is None,
             )
     return out
 
@@ -177,9 +256,14 @@ def _assemble(
     bounds: Bounds,
     designated: Optional[Pair],
     hits: list[tuple[Delta, StatedState]],
+    exhausted: bool,
+    search_refused: bool = False,
 ) -> "Minimum":
     """Turn the satisfying candidates at the first successful item count into
-    a graded, quotiented ``Minimum``."""
+    a graded, quotiented ``Minimum``.
+
+    ``exhausted`` is computed by the caller from the walk and is not decided
+    here; see ``below_minimum_exhausted``."""
     if not hits:
         return Minimum(
             demand=demand.name,
@@ -189,9 +273,10 @@ def _assemble(
             cost=(-1, -1),
             raw_minima=(),
             classes=(),
-            cost_below_minimum_all_fail=True,
+            cost_below_minimum_all_fail=exhausted,
             complete_within=bounds,
             designated=designated,
+            search_refused=search_refused,
         )
     best = min(_measure_value(measure, d) for d, _ in hits)
     chosen = [(d, s) for (d, s) in hits if _measure_value(measure, d) == best]
@@ -226,7 +311,7 @@ def _assemble(
         cost=best,
         raw_minima=raw,
         classes=classes,
-        cost_below_minimum_all_fail=True,
+        cost_below_minimum_all_fail=exhausted,
         complete_within=bounds,
         designated=designated,
         distinct_induced_relations=len(relations),

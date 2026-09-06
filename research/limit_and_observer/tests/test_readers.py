@@ -1,4 +1,4 @@
-"""The reader axis, and the lemma that lets the quotient key by behaviour.
+"""The reader axis and its induced-separation behaviour lemma.
 
 The sharpest structural fact this tree derives: the sixteen readings collapse
 to exactly **four** induced-separation behaviours, and the sealed observation
@@ -89,8 +89,8 @@ class TheReadingAxisIsCompleteAndSmall(unittest.TestCase):
 class TheBehaviourLemma(unittest.TestCase):
     """Two readings sharing a behaviour induce the same relation everywhere.
 
-    This is what makes keying the quotient by behaviour elimination *by
-    proof* rather than a convenience."""
+    This does not establish full reader identity: the frozen quotient retains
+    the complement class, and OBS-4 transports that class as well."""
 
     def test_same_behaviour_gives_the_same_relation_at_every_state(
         self,

@@ -20,7 +20,9 @@ from dataclasses import dataclass
 from typing import Union
 
 from .grammar import Context, contexts
-from .readers import Aggregation, Reader, Reading
+from .readers import (
+    Aggregation, Reader, Reading, lawful_aggregations, reading_class,
+)
 from .regime import (
     AdmitDatum,
     AdmitForm,
@@ -104,6 +106,18 @@ def is_sealed_item(it: Item) -> bool:
     return isinstance(it, (NewDatum, NewForm, NewInst, NewRuleAll))
 
 
+ITEM_FIELDS: dict[type[object], set[str]] = {
+    NewDatum: set(), NewForm: {"arity"}, NewInst: {"form", "args"},
+    NewRuleAll: {"form"}, NewReader: {"reading", "aggregation"},
+    AddContext: {"reader", "context"},
+}
+
+
+def item_shape_valid(it: object) -> bool:
+    """The complete six-kind field census, with unknown subclasses refused."""
+    return type(it) in ITEM_FIELDS and set(vars(it)) == ITEM_FIELDS[type(it)]
+
+
 def mu1(delta: Delta) -> int:
     """The sealed item count, re-implemented.  Reader items are items."""
     return len(delta)
@@ -167,6 +181,8 @@ def apply_delta(
     Validity is decided here and never by the sealed fast path, which is
     forced rather than cautious: the fast path refuses a rule-bearing base and
     every minimum rival prefix contains ``NewRuleAll``."""
+    if not all(item_shape_valid(it) for it in delta):
+        raise AdmissionRefused("item kind or fields are outside the declared alphabet")
     delta = canonical_delta(delta)
     regime = replay(sealed_events(state.regime, delta), state.regime)
     readers = list(state.readers)
@@ -177,6 +193,12 @@ def apply_delta(
                 raise AdmissionRefused(
                     f"at most {max_readers} readers per stated state"
                 )
+            if len(it.reading) != 4 or any(type(v) is not bool for v in it.reading):
+                raise AdmissionRefused("reader reading must be four Boolean values")
+            if (len(it.aggregation) != w_max + 1
+                    or any(type(v) is not bool for v in it.aggregation)
+                    or it.aggregation not in lawful_aggregations(w_max)):
+                raise AdmissionRefused("reader aggregation is not lawful at the declared width")
             readers.append(Reader((), it.reading, it.aggregation))
         elif isinstance(it, AddContext):
             if not 0 <= it.reader < len(readers):
@@ -198,7 +220,7 @@ def apply_delta(
     return StatedState(regime, tuple(readers))
 
 
-def capabilities(delta: Delta) -> dict[str, int]:
+def capabilities(delta: Delta) -> dict[str, object]:
     """The capability vector of a candidate.
 
     The sealed five keys unchanged, plus the reader keys.  Reported as a
@@ -216,6 +238,14 @@ def capabilities(delta: Delta) -> dict[str, int]:
         "new_reader_contexts": sum(
             1 for it in delta if isinstance(it, AddContext)
         ),
+        "reading_class": [
+            list(reading_class(it.reading)) for it in delta
+            if isinstance(it, NewReader)
+        ],
+        "aggregation_lawful": [
+            it.aggregation in lawful_aggregations(len(it.aggregation) - 1)
+            for it in delta if isinstance(it, NewReader)
+        ],
     }
 
 

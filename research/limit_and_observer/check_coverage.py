@@ -64,7 +64,10 @@ def main() -> None:
             )
 
     totals = data["totals"]
-    line = totals["percent_covered"]
+    statements = totals.get("num_statements", 0)
+    if statements == 0:
+        fail("no statement data; refusing an empty line census")
+    line = 100.0 * totals["covered_lines"] / statements
     covered_b = totals.get("covered_branches", 0)
     total_b = totals.get("num_branches", 0)
     if total_b == 0:
@@ -79,11 +82,13 @@ def main() -> None:
     if problems:
         for name, f in sorted(data["files"].items()):
             s = f["summary"]
+            ns = s.get("num_statements", 0)
+            l = 100.0 * s.get("covered_lines", 0) / ns if ns else 100.0
             nb = s.get("num_branches", 0)
             b = 100.0 * s.get("covered_branches", 0) / nb if nb else 100.0
-            if s["percent_covered"] < THRESHOLD or b < THRESHOLD:
+            if l < THRESHOLD or b < THRESHOLD:
                 print(
-                    f"  {name}: line {s['percent_covered']:.1f}% "
+                    f"  {name}: line {l:.1f}% "
                     f"branch {b:.1f}%"
                 )
         fail("; ".join(problems))

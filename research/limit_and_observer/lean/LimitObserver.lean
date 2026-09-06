@@ -8,7 +8,9 @@ proof by accident.
 
 Scope, stated once and meant: this file proves
 
-  * the refinement obstruction, in full generality (`chain_bounded`);
+  * the refinement obstruction, for any block count that rises strictly along
+    the chain and is bounded by the carrier (`chain_bounded`), with a witness
+    that those hypotheses are satisfiable (`chain_bound_has_an_instance`);
   * the growth obstruction for growth by uninstantiated data, with an
     explicit witness and no counting (`fresh_data_are_never_separated`,
     `growth_defeats_every_reader`);
@@ -29,7 +31,9 @@ namespace LimitObserver
 /-! ## The two derivability bits, and the sealed relation -/
 
 /-- The sealed relation: coverage ∨ admission.  A transcription of
-`code/derivation/observe.py` line 56, pinned in `SOURCE_MANIFEST.json`. -/
+`code/derivation/observe.py` line 52, pinned in `SOURCE_MANIFEST.json`.  (An
+earlier version of this line said 56, which is `profile`; the quoted body was
+always right and only the anchor was wrong.) -/
 def sealedDerivable (coverage admission : Bool) : Bool :=
   coverage || admission
 
@@ -71,52 +75,95 @@ theorem rival_agrees_where_uncovered (bi bj : Bool) :
 /-! ## Refinement without end is obstructed at the carrier
 
 A lawful reader's induced partition of the admitted data has at least one
-block and at most `n` blocks, and every strict split raises the block count.
-A chain of `m` strict splits therefore needs `m + 1` distinct block counts
-inside `[1, n]`, so `m < n`.  Nothing about readers enters the proof: it is a
-statement about any strictly increasing block count bounded by the carrier,
-which is why it survives every choice of reading and aggregation. -/
+block and at most `n` blocks, and along a chain of strict splits every step
+raises the block count.  A chain of `m` strict splits therefore needs `m + 1`
+distinct block counts inside `[1, n]`, so `m < n`.  Nothing about readers
+enters the proof: it is a statement about any block count that rises strictly
+along the chain and is bounded by the carrier, which is why it survives every
+choice of reading and aggregation.
 
-/-- A strictly increasing sequence rises at least as fast as its index. -/
-theorem strict_ge (g : Nat → Nat) (h : ∀ k, g k < g (k + 1)) :
-    ∀ k, g 0 + k ≤ g k := by
-  intro k
-  induction k with
-  | zero => exact Nat.le_refl _
+**The strictness hypothesis is bounded by the chain, and that bound is a
+repair.**  The first version of this section quantified strictness over EVERY
+index — `∀ k, g k < g (k + 1)` — while also bounding `g` by the carrier at
+every index.  Those two hypotheses are jointly unsatisfiable, because a
+strictly increasing sequence of naturals leaves every bound, so every theorem
+below was vacuous: the chain length `m` occurred in no hypothesis and the
+conclusion followed from the contradiction rather than from the chain.  That
+version is **WITHDRAWN**.  Strictness is now asked only below `m` and
+boundedness only up to `m`, which is what a finite chain actually supplies,
+and `chain_bound_has_an_instance` exhibits an `(n, m, g)` meeting all three so
+the hypotheses cannot quietly become unsatisfiable again. -/
+
+/-- A sequence rising strictly at every step below `m` rises at least as fast
+as its index up to `m`. -/
+theorem strict_ge (g : Nat → Nat) :
+    ∀ m, (∀ k, k < m → g k < g (k + 1)) → g 0 + m ≤ g m := by
+  intro m
+  induction m with
+  | zero => intro _; omega
   | succ n ih =>
-      have hn : g n < g (n + 1) := h n
-      have : g 0 + n + 1 ≤ g n + 1 := Nat.succ_le_succ ih
-      exact Nat.le_trans this hn
+      intro h
+      have hn : g n < g (n + 1) := h n (by omega)
+      have h0 : g 0 + n ≤ g n := ih (fun k hk => h k (by omega))
+      omega
 
 /-- **The refinement obstruction.**  If the block count starts at least at
-one, never exceeds the carrier `n`, and strictly increases at every step,
-then a chain of `m` strict splits has `m < n`.  In particular no chain is
-longer than the carrier, so the demand `m > n` is met by nothing. -/
-theorem chain_bounded (n : Nat) (g : Nat → Nat)
-    (hpos : 1 ≤ g 0) (hle : ∀ k, g k ≤ n) (hstrict : ∀ k, g k < g (k + 1))
-    (m : Nat) : m < n := by
-  have h1 : g 0 + m ≤ g m := strict_ge g hstrict m
-  have h2 : g m ≤ n := hle m
-  have h3 : 1 + m ≤ g 0 + m := Nat.add_le_add_right hpos m
-  have : 1 + m ≤ n := Nat.le_trans (Nat.le_trans h3 h1) h2
+one, never exceeds the carrier `n` along the chain, and rises strictly at
+every step of the chain, then a chain of `m` strict splits has `m < n`.  In
+particular no chain is longer than the carrier, so the demand `m > n` is met
+by nothing. -/
+theorem chain_bounded (n m : Nat) (g : Nat → Nat)
+    (hpos : 1 ≤ g 0) (hle : ∀ k, k ≤ m → g k ≤ n)
+    (hstrict : ∀ k, k < m → g k < g (k + 1)) : m < n := by
+  have h1 : g 0 + m ≤ g m := strict_ge g m hstrict
+  have h2 : g m ≤ n := hle m (Nat.le_refl m)
   omega
+
+/-- The block count of a chain of strict splits at a carrier of three: one
+block before any split, then two, then three. -/
+def blockCount (k : Nat) : Nat := k + 1
+
+/-- **The hypotheses are satisfiable**, exhibited rather than argued.  At a
+carrier of three, a chain of two strict splits with block count `k + 1` meets
+all three hypotheses of `chain_bounded` at once.  This exhibit exists because
+the first version of the bound had no instance at all and nothing detected
+it: an axiom report says only which axioms a proof used, never whether its
+hypotheses can be met. -/
+theorem chain_bound_has_an_instance :
+    1 ≤ blockCount 0
+    ∧ (∀ k, k ≤ 2 → blockCount k ≤ 3)
+    ∧ (∀ k, k < 2 → blockCount k < blockCount (k + 1)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · unfold blockCount; omega
+  · intro k hk; unfold blockCount; omega
+  · intro k _; unfold blockCount; omega
+
+-- The exhibit really is an instance: this application elaborates only if
+-- every hypothesis of `chain_bounded` is met by it.  It is an `example` and
+-- so carries no name into the axiom census.
+example : 2 < 3 :=
+  chain_bounded 3 2 blockCount
+    chain_bound_has_an_instance.1
+    chain_bound_has_an_instance.2.1
+    chain_bound_has_an_instance.2.2
 
 /-- The demand asks for a chain strictly longer than the carrier.  No such
 chain exists, at any state, for any lawful reader. -/
-theorem refinement_demand_unsatisfiable (n : Nat) (g : Nat → Nat)
-    (hpos : 1 ≤ g 0) (hle : ∀ k, g k ≤ n) (hstrict : ∀ k, g k < g (k + 1))
-    (m : Nat) : ¬ (n < m) := by
-  have := chain_bounded n g hpos hle hstrict m
+theorem refinement_demand_unsatisfiable (n m : Nat) (g : Nat → Nat)
+    (hpos : 1 ≤ g 0) (hle : ∀ k, k ≤ m → g k ≤ n)
+    (hstrict : ∀ k, k < m → g k < g (k + 1)) : ¬ (n < m) := by
+  have := chain_bounded n m g hpos hle hstrict
   omega
 
 /-- **Growth does not lift it.**  Admitting data raises the carrier and the
 ceiling together, so the bound holds at every carrier reached by any finite
 number of growth items.  This is why no finite delta over the declared
 alphabet lifts the refinement obstruction. -/
-theorem refinement_obstruction_survives_growth (n extra : Nat) (g : Nat → Nat)
-    (hpos : 1 ≤ g 0) (hle : ∀ k, g k ≤ n + extra)
-    (hstrict : ∀ k, g k < g (k + 1)) (m : Nat) : ¬ (n + extra < m) := by
-  have := chain_bounded (n + extra) g hpos hle hstrict m
+theorem refinement_obstruction_survives_growth (n extra m : Nat)
+    (g : Nat → Nat)
+    (hpos : 1 ≤ g 0) (hle : ∀ k, k ≤ m → g k ≤ n + extra)
+    (hstrict : ∀ k, k < m → g k < g (k + 1)) : ¬ (n + extra < m) := by
+  have := chain_bounded (n + extra) m g hpos hle hstrict
   omega
 
 /-! ## Growth without end defeats a fixed selection
@@ -255,8 +302,8 @@ theorem separatesAt_eq_readsAt (b : Bool → Bool → Bool)
     simp [hbf, hbt]
 
 /-- The behaviour determines separation at a context: two readings sharing a
-behaviour separate the same pairs, everywhere.  This is what makes keying the
-quotient by behaviour elimination *by proof*. -/
+behaviour separate the same pairs, everywhere. This relation statement does
+not identify their reading classes under the full-reader transport. -/
 theorem behaviour_determines_separation
     (b b' : Bool → Bool → Bool) (h : behaviour b = behaviour b')
     (coverage bi bj : Bool) :

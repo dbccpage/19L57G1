@@ -26,9 +26,10 @@ from .items import (
     NewReader,
     StatedState,
     is_sealed_item,
+    item_shape_valid,
 )
 from .quotient import automorphisms, transport_context
-from .readers import Reader, induced_relation
+from .readers import Reader, induced_relation, reading_class
 from .regime import Pair, Regime
 
 Relation = frozenset[Pair]
@@ -108,9 +109,9 @@ def obs4_coexistence(sit: Situation) -> bool:
 
 
 def renaming_of_each_other(r: Regime, a: Reader, b: Reader) -> bool:
-    """Whether some automorphism of the regime carries one reader's selection
-    onto the other's.  The second observer must not be the first one
-    renamed."""
+    """Transport the frozen reading class, aggregation and selected contexts."""
+    if reading_class(a.reading) != reading_class(b.reading) or a.aggregation != b.aggregation:
+        return False
     for pi, phi in automorphisms(r):
         moved = sorted(transport_context(c, pi, phi) for c in a.selection)
         if moved == sorted(b.selection):
@@ -258,16 +259,7 @@ def reads_only_the_stage(delta: Delta) -> bool:
     the four sealed items carry admission data.  This is a real property of
     the enumeration and it can fail — if an item kind grows a field, it fails
     here."""
-    for it in delta:
-        if isinstance(it, NewReader):
-            if set(vars(it)) != {"reading", "aggregation"}:
-                return False
-        elif isinstance(it, AddContext):
-            if set(vars(it)) != {"reader", "context"}:
-                return False
-        elif not is_sealed_item(it):
-            return False
-    return True
+    return all(item_shape_valid(it) for it in delta)
 
 
 def limf_family_verdict(sit: Situation) -> bool:

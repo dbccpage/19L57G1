@@ -312,7 +312,19 @@ class MeasuresAreTheSealedExpressions(unittest.TestCase):
     def test_the_capability_vector_is_never_totalled(self) -> None:
         caps = capabilities((NewForm(1), NewRuleAll(0)))
         self.assertNotIn("total", caps)
-        self.assertEqual(len(caps), 7)
+        # Counts and reader properties remain separate values; no scalar
+        # encoding of the new properties changes either cost measure.
+        self.assertEqual(len(caps), 9)
+        self.assertEqual(caps["reading_class"], [])
+        self.assertEqual(caps["aggregation_lawful"], [])
+        self.assertEqual(
+            sorted(caps),
+            [
+                "aggregation_lawful", "new_data", "new_form_arity_sum", "new_forms",
+                "new_instances", "new_reader_contexts", "new_readers",
+                "new_rules", "reading_class",
+            ],
+        )
 
 
 class BudgetsAreRefusedNotTruncated(unittest.TestCase):

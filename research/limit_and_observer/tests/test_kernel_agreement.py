@@ -46,6 +46,7 @@ from code.items import (  # noqa: E402
     mu2,
 )
 from code.quotient import canonical_regime  # noqa: E402
+from code.readers import Reader, SEALED_READING  # noqa: E402
 from code.regime import genesis  # noqa: E402
 
 
@@ -160,14 +161,14 @@ class SealedCrossCheck(unittest.TestCase):
     def test_mu1_and_mu2_agree_with_the_sealed_expressions(self) -> None:
         """Value agreement on the whole enumerated sealed space, not on a
         handful of cases."""
-        base = genesis("F")
         checked = 0
-        for k in (0, 1, 2):
-            for delta in sealed_prefixes(base, k, DEFAULT_BOUNDS):
-                theirs = tuple(_to_sealed_item(i) for i in delta)
-                self.assertEqual(mu1(delta), SEALED.candidates.mu1(theirs))  # type: ignore[union-attr]
-                self.assertEqual(mu2(delta), SEALED.candidates.mu2(theirs))  # type: ignore[union-attr]
-                checked += 1
+        for reading in ("L", "F"):
+            for k in range(DEFAULT_BOUNDS.max_sealed_items + 1):
+                for delta in sealed_prefixes(genesis(reading), k, DEFAULT_BOUNDS):
+                    theirs = tuple(_to_sealed_item(i) for i in delta)
+                    self.assertEqual(mu1(delta), SEALED.candidates.mu1(theirs))  # type: ignore[union-attr]
+                    self.assertEqual(mu2(delta), SEALED.candidates.mu2(theirs))  # type: ignore[union-attr]
+                    checked += 1
         self.assertGreater(checked, 20)
 
     def test_canonical_key_agrees_as_an_equality_relation(self) -> None:
@@ -210,13 +211,20 @@ def _to_sealed_item(it):  # type: ignore[no-untyped-def]
 class ProjectionCommutes(unittest.TestCase):
     def test_projection_commutes_with_every_sealed_event(self) -> None:
         """The reader-free slice of this tree is exactly the sealed
-        derivation, so the projection to the regime must commute."""
+        derivation, so the projection to the regime must commute.
+
+        The first version of this test built **both** sides from
+        ``StatedState(base, ())`` and asserted they were equal, which compared
+        a value with itself: the variable named ``with_readers`` held no
+        reader and removing readers from ``apply_delta`` entirely would not
+        have failed it.  The left-hand state now carries a reader."""
+        blind = Reader((), SEALED_READING, (False, True, True, True))
         for reading in ("L", "F"):
             base = genesis(reading)
             for it in iter_sealed_items(base, DEFAULT_BOUNDS):
                 delta = canonical_delta((it,))
                 with_readers = apply_delta(
-                    StatedState(base, ()), delta, 3, 2
+                    StatedState(base, (blind,)), delta, 3, 2
                 ).regime
                 without = apply_delta(
                     StatedState(base, ()), delta, 3, 2
@@ -232,6 +240,32 @@ class ProjectionCommutes(unittest.TestCase):
                 self.assertEqual(with_readers.insts, theirs.insts)
                 self.assertEqual(with_readers.rules, theirs.rules)
                 self.assertEqual(with_readers.reqs, theirs.reqs)
+
+    def test_a_reader_with_a_selection_leaves_the_regime_alone(self) -> None:
+        """The blind reader above carries an empty selection, so this is the
+        other half: a reader holding a context of the regime changes no field
+        of it under any sealed item."""
+        checked = 0
+        for reading in ("L", "F"):
+            base = genesis(reading)
+            withform = apply_delta(
+                StatedState(base, ()), (NewForm(1),), 3, 2
+            ).regime
+            ctx = contexts(withform)
+            self.assertTrue(ctx, "the witness regime must carry a context")
+            rho = Reader(ctx[:1], SEALED_READING, (False, True, True, True))
+            for it in iter_sealed_items(withform, DEFAULT_BOUNDS):
+                delta = canonical_delta((it,))
+                self.assertEqual(
+                    apply_delta(
+                        StatedState(withform, (rho,)), delta, 3, 2
+                    ).regime,
+                    apply_delta(
+                        StatedState(withform, ()), delta, 3, 2
+                    ).regime,
+                )
+                checked += 1
+        self.assertGreater(checked, 0)
 
 
 class CalibrationGate(unittest.TestCase):
