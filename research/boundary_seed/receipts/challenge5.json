@@ -1,0 +1,3967 @@
+{
+  "authority_effect": "None",
+  "boundary_dependence": {
+    "the identity of the policy space, the capability counts, the one-step rule, and the refusal of bundles": "does not depend on the admitted boundary",
+    "the invisibility of the nesting at every one-step policy": "requires the admitted boundary, being a statement about which side a mark lies on after the inner boundary is discarded or absorbed",
+    "the notion of depth, the address, the crossing, and every level exchange": "require the admitted boundary: a crossing is a crossing OF a boundary, and an address is a sequence of its sides.  Nothing in this rung's state is formulated after removing it",
+    "the outside of the outermost boundary": "requires the admitted boundary to be formulated at all, and the run formulates no address value for it; that is recorded OPEN",
+    "the reader's depth bound and the domain of inscriptions": "require the admitted boundary in the weak sense that a whole is delimited by one bar with a side on each hand; how many items a side may carry and how deep the reader goes are declarations the boundary does not decide",
+    "the two senses of an available depth, and their parting": "does not depend on the admitted boundary: one is a statement about renamings and a key, the other about the forms of the closed observation grammar, and both would be stated the same way for any state carrying a sequence"
+  },
+  "capabilities": {
+    "admitted boundary": {
+      "buys_at_challenge_5": "that an item lies on a side at all, and therefore that a nested item lies on a side of a side; every policy but the refusing one is formulable only under it, and so is the whole notion of a crossing",
+      "declared_at": "the seed, as the one admitted primitive exception",
+      "paid_by": "the seed"
+    },
+    "occurrence identity": {
+      "buys_at_challenge_5": "that a presented item becomes a fresh admitted mark whatever labels are already present, which every admitting policy uses",
+      "declared_at": "Challenge 2, as that rung's one new declaration",
+      "paid_by": "the run"
+    },
+    "presentation convention": {
+      "buys_at_challenge_5": "which presented side becomes which admitted side, now applied at every level; the run declares one convention for all levels and does not enumerate a policy that reads a different one inside",
+      "declared_at": "Challenge 1, as metatheory",
+      "paid_by": "the run"
+    },
+    "side names under O": {
+      "buys_at_challenge_5": "which side of the OUTER boundary the retained mark lies on, at every policy that admits it.  It buys nothing about the inner boundary: whether the naming reaches inward is a further declaration, and without it the inner side is not internally available under O either",
+      "declared_at": "genesis, as the O reading of the one declaration",
+      "paid_by": "the declared reading"
+    },
+    "the nested reader bound": {
+      "buys_at_challenge_5": "that the caller's inscription can be read at all, and a finite domain of inscriptions to enumerate; it decides nothing about what an admission does with what it reads",
+      "declared_at": "Challenge 5, as this rung's declaration",
+      "paid_by": "the run"
+    },
+    "the widened reader bound": {
+      "buys_at_challenge_5": "nothing here: the Challenge 4 reader refuses the caller's inscription by name, exactly as the Challenge 1 reader does",
+      "declared_at": "Challenge 4, as that rung's declaration",
+      "paid_by": "the run"
+    }
+  },
+  "challenge": 5,
+  "challenge0_predictions_sha256": "a03ee8127e83603af75c56c4061bcbe9dc1689c3b56b90854148dfb9856cc395",
+  "challenge1_predictions_sha256": "7cf17e56fffb4e45d4100750010265582fa921fabeed7fb1b84aa798f6e56dc7",
+  "challenge2_predictions_sha256": "95f9371b030b8df64b4842a5df7be695d9e7f1b2311a300e78d915a701c16474",
+  "challenge3_predictions_sha256": "27057895c47e5bd718b0ea8e51689f3325cef78102c912c6feea8e913a7e7755",
+  "challenge4_predictions_sha256": "42371f458e23ce89885a76c542863c112482c0ca6b4f1d9ff6a058b3c21f2041",
+  "closed_grammar_forms_reading_depth": [],
+  "collateral_facts": [
+    "nesting_internally_visible",
+    "depth_determined_by_the_key",
+    "depth_takes_more_than_one_value_over_the_domain",
+    "inner_side_internally_available",
+    "outer_side_internally_available",
+    "depth_expressible_in_the_closed_grammar",
+    "inner_whole_presentation_admitted",
+    "side_names_hold"
+  ],
+  "domain": {
+    "alphabet": [
+      "a",
+      "b"
+    ],
+    "caller_inscription_in_the_domain": true,
+    "declared_because": "two policies are the same policy exactly when they retain isomorphic states at every member of this domain; the domain is a declaration, and a wider alphabet or a deeper bound is available and is not enumerated",
+    "depth_bound": 2,
+    "first_members": [
+      "<|>",
+      "<|a>",
+      "<|b>",
+      "<|<|>>",
+      "<|<|a>>",
+      "<|<|b>>",
+      "<|<a|>>",
+      "<|<a|a>>"
+    ],
+    "size": 144
+  },
+  "event_kinds": [
+    "Supply",
+    "AdmitMark",
+    "AdmitOccurrence",
+    "AdmitAt"
+  ],
+  "event_returning_functions_by_module": {
+    "challenge4": [
+      "candidate_history",
+      "probes",
+      "process_admission",
+      "retention_history"
+    ],
+    "challenge5": [
+      "flat_history",
+      "policy_history",
+      "probes"
+    ],
+    "model": [],
+    "presentation": [
+      "admission_event",
+      "supply_event"
+    ]
+  },
+  "identity_policy_inherited": "occurrence identity: an admission admits a fresh mark, the token being a label",
+  "inscription": "<<a|>|>",
+  "measures": {
+    "mu1": "capability count: the number of undeclared capabilities the candidate uses",
+    "mu2": "collateral count: how many of the eight declared facts the candidate makes internally available that the same reading's base did not.  They are not eight facts about one retained configuration: FOUR are about the caller's retained whole and are reported FALSE where there is no retained configuration rather than vacuously true, the base being the refusing policy, which retains nothing; TWO are censuses of the policy's behaviour over the declared domain; ONE is about the closed observation grammar; and ONE is about the reading.  The eight are facts and not independent facts: the receipt computes which pairs of them take the same value at every point of this rung's space and names them, so that a reader knows where this measure counts one thing twice"
+  },
+  "new_event_kinds_at_challenge_5": [
+    "AdmitAt"
+  ],
+  "observation_vocabulary": [
+    "OnSide",
+    "SideNamed"
+  ],
+  "outside_of_the_outermost_boundary": {
+    "address_alphabet": [
+      0,
+      1
+    ],
+    "address_values_denoting_the_outside": [],
+    "formulable": false,
+    "note": "an address is a sequence of sides crossed INWARD from the outermost boundary, and the declared alphabet has two values, both of them sides of a boundary already crossed.  There is no value for a place beyond the outermost boundary, and the run declares none: the question is named and left OPEN rather than answered by a declaration made to answer it",
+    "status": "OPEN"
+  },
+  "policy_space": {
+    "capabilities_of_policy": {
+      "discard": [
+        "reach_inside_a_nested_whole"
+      ],
+      "opaque": [
+        "admit_a_whole_as_a_mark"
+      ],
+      "record": [
+        "reach_inside_a_nested_whole",
+        "record_the_crossing"
+      ],
+      "refuse": []
+    },
+    "capability_of": {
+      "admit_a_whole_as_a_mark": "an admission event may name an item that is not a visible mark, and admit it as one mark on a side",
+      "reach_inside_a_nested_whole": "an admission event may name a mark lying inside a nested whole, so that the interior of an item is reachable at all",
+      "record_the_crossing": "the state records, for each admitted mark, the finite sequence of sides crossed to reach it rather than one side, and the event grammar gains the admission that names such a sequence",
+      "the_reading_names_the_inner_sides": "the reading's naming of the two sides reaches the inner boundary, so that the exchange of an inner boundary's two sides is not a renaming the object language can miss"
+    },
+    "coordinates": [
+      "nesting_policy",
+      "naming_reaches_inward"
+    ],
+    "exhaustive_because": "an admission meeting an item that is a whole either does not act on it (refuse), acts on the whole without its interior (opaque), acts on the interior without the boundary between (discard), or acts on the interior keeping that boundary (record).  Those four exhaust the declared alternatives; what the space does NOT enumerate is a policy that admits the inner whole AND its items as separate marks, one that admits the inner boundary as a datum of its own, one that reads an item under a different convention at each level, or one that groups marks by anything but the crossing.  Every minimality statement of this rung is scoped to the declared four",
+    "members": [
+      "refuse: an admission never names an item that is a whole",
+      "opaque: the inner whole is admitted as ONE mark on the outer side and its interior is discarded",
+      "discard: the inner boundary is discarded and the inner whole's own items are admitted on the outer side",
+      "record: the inner whole's items are admitted, each carrying the finite sequence of sides crossed to reach it"
+    ],
+    "names": [
+      "refuse",
+      "opaque",
+      "discard",
+      "record"
+    ],
+    "one_step_rule": "a candidate is one step exactly when the number of undeclared capabilities it uses is one.  At Challenge 4 that number was also the number of coordinates moved; here it is not, the policy coordinate having a value that uses two capabilities, and the run keeps the capability reading because the seed requires a candidate called one step not to bundle capabilities",
+    "size": 8
+  },
+  "predictions_sha256": "b3aab18d8e5a0700e563862ef7a884248badefbc7c653df0e00097044e3d99de",
+  "reader": {
+    "beyond_the_bound_probe": "<<<a|>|>|>",
+    "beyond_the_bound_refusal": "an item lying deeper than the declared bound of 2 is refused: '<a|>'",
+    "beyond_the_bound_refused": true,
+    "declared_at_challenge_5": [
+      "an item on a side is a mark OR a whole, down to a declared depth bound of two, where the Challenge 4 reader admitted at most one MARK on each side and read no item that is itself a whole",
+      "the declared within-whole admission order is applied at every level, and every supply of the retained whole precedes every admission of it; the inscription fixes neither, any more than it fixes the convention",
+      "one presentation token for every whole admitted as a mark"
+    ],
+    "declared_depth_bound": 2,
+    "inherited_readers": [
+      {
+        "reader": "challenge_1_reader",
+        "refusal": "not a whole with one bar and at most one mark: '<<a|>|>'",
+        "refused": true
+      },
+      {
+        "reader": "challenge_4_reader",
+        "refusal": "not a whole with one bar and at most one mark on each side: '<<a|>|>'",
+        "refused": true
+      }
+    ],
+    "inherited_readers_refuse_both": true,
+    "order_declaration": "the declared within-whole admission order is applied at every level, and every supply of the retained whole precedes every admission of it; the inscription fixes neither, any more than it fixes the convention",
+    "paid_by": "the run",
+    "read": {
+      "depth": 2,
+      "left_is_a_whole": true,
+      "right_is_empty": true,
+      "spelling_rebuilt": "<<a|>|>"
+    },
+    "reader_bounds_declared": 3,
+    "whole_token": "w",
+    "widened_bound": "an item on a side is a mark OR a whole, down to a declared depth bound of two, where the Challenge 4 reader admitted at most one MARK on each side and read no item that is itself a whole",
+    "widenings_of_the_reader_bound": 2
+  },
+  "readings": {
+    "O": {
+      "admitting_one_step_points": [
+        "opaque",
+        "discard"
+      ],
+      "admitting_points": [
+        "opaque",
+        "opaque+naming_reaches_inward",
+        "discard",
+        "discard+naming_reaches_inward",
+        "record",
+        "record+naming_reaches_inward"
+      ],
+      "bundles_refused": [
+        "opaque+naming_reaches_inward",
+        "discard+naming_reaches_inward",
+        "record",
+        "record+naming_reaches_inward"
+      ],
+      "bundles_refused_count": 4,
+      "collateral_facts_agreeing_everywhere": [
+        [
+          "nesting_internally_visible",
+          "depth_takes_more_than_one_value_over_the_domain"
+        ],
+        [
+          "depth_determined_by_the_key",
+          "side_names_hold"
+        ]
+      ],
+      "levels": [
+        0,
+        1
+      ],
+      "measures_agree_on_minima": false,
+      "measures_differ_somewhere": true,
+      "minima_by_mu1": {
+        "class_count": 2,
+        "classes": [
+          {
+            "class_key": [
+              "one side per mark",
+              "True",
+              "()",
+              "3ddedf457f97daa5"
+            ],
+            "members": [
+              "opaque"
+            ]
+          },
+          {
+            "class_key": [
+              "one side per mark",
+              "True",
+              "()",
+              "f251be3c156d139f"
+            ],
+            "members": [
+              "discard"
+            ]
+          }
+        ],
+        "measure": "mu1",
+        "minimum": 1,
+        "points": [
+          "opaque",
+          "discard"
+        ],
+        "unique": false
+      },
+      "minima_by_mu2": {
+        "class_count": 1,
+        "classes": [
+          {
+            "class_key": [
+              "one side per mark",
+              "True",
+              "()",
+              "f251be3c156d139f"
+            ],
+            "members": [
+              "discard"
+            ]
+          }
+        ],
+        "measure": "mu2",
+        "minimum": 1,
+        "points": [
+          "discard"
+        ],
+        "unique": true
+      },
+      "naming_coordinate_collapses_at": [
+        [
+          "refuse",
+          "refuse+naming_reaches_inward"
+        ],
+        [
+          "opaque",
+          "opaque+naming_reaches_inward"
+        ],
+        [
+          "discard",
+          "discard+naming_reaches_inward"
+        ]
+      ],
+      "naming_coordinate_collapses_everywhere": false,
+      "one_step_iff_capability_count_one": true,
+      "one_step_iff_one_coordinate_moved": false,
+      "one_step_points": [
+        "refuse+naming_reaches_inward",
+        "opaque",
+        "discard"
+      ],
+      "order": {
+        "at_the_caller_inscription_isomorphic": true,
+        "declared_order": "left first",
+        "domain_inscriptions_where_the_orders_part_up_to_renaming": 0,
+        "domain_inscriptions_where_the_states_differ": 116,
+        "domain_size": 144,
+        "first_such_inscriptions": [
+          "<|<a|a>>",
+          "<|<a|b>>",
+          "<|<b|a>>",
+          "<|<b|b>>"
+        ],
+        "note": "the order is a declaration extended to every level at this rung; it is invisible at the caller's inscription, which admits one mark, and the two counts say how many members of the declared domain it moves structurally and how many up to renaming",
+        "other_order": "right first",
+        "part_up_to_renaming_is_definition_level_because": "the two orders admit the same marks at the same addresses and differ only in the order of admission, which is a permutation of the internal identities; the mark permutations are permitted at every point of this rung's space, so the two states are always carried onto each other.  The census computes the number and is not evidence for it: the count is zero by unfolding definition 13, and only the STRUCTURAL difference above is a measurement"
+      },
+      "point_detail": [
+        {
+          "admits": false,
+          "automorphism_count": 0,
+          "bundles": false,
+          "capabilities": [],
+          "capability_coordinates": [],
+          "certified": false,
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "4b167e376d0aebe0"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "refuse"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "4b167e376d0aebe0",
+          "effective_structure": [
+            "one side per mark",
+            "False",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": null,
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": null,
+            "recorded_at_the_requested_place": false
+          },
+          "history": [],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy admits nothing"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "refused"
+          ],
+          "mark_address_orbit": [],
+          "mark_address_orbit_size": 0,
+          "marks": 0,
+          "mu1": 0,
+          "mu2": 0,
+          "name": "refuse",
+          "named_levels": [
+            0
+          ],
+          "one_step": false,
+          "permitted_images": 0,
+          "reachable_levels": [],
+          "reading_unchanged": true,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'",
+          "replays_from_genesis": false,
+          "retained": null,
+          "unnamed_levels": [
+            1
+          ],
+          "what_the_inner_whole_is": "not admissible: no admission names it"
+        },
+        {
+          "admits": false,
+          "automorphism_count": 0,
+          "bundles": false,
+          "capabilities": [
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "naming_reaches_inward"
+          ],
+          "certified": false,
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "4b167e376d0aebe0"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "refuse"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "4b167e376d0aebe0",
+          "effective_structure": [
+            "one side per mark",
+            "False",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": null,
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": null,
+            "recorded_at_the_requested_place": false
+          },
+          "history": [],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy admits nothing"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "refused"
+          ],
+          "mark_address_orbit": [],
+          "mark_address_orbit_size": 0,
+          "marks": 0,
+          "mu1": 1,
+          "mu2": 0,
+          "name": "refuse+naming_reaches_inward",
+          "named_levels": [
+            0,
+            1
+          ],
+          "one_step": true,
+          "permitted_images": 0,
+          "reachable_levels": [],
+          "reading_unchanged": true,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'",
+          "replays_from_genesis": false,
+          "retained": null,
+          "unnamed_levels": [],
+          "what_the_inner_whole_is": "not admissible: no admission names it"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": false,
+          "capabilities": [
+            "admit_a_whole_as_a_mark"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "3ddedf457f97daa5"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": true,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": true,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "inner_whole_presentation_admitted",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "opaque"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "3ddedf457f97daa5",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "w"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "w"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "w"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": false,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "w"
+              }
+            ],
+            "marks": [
+              "w"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "O",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ]
+          ],
+          "mark_address_orbit_size": 1,
+          "marks": 1,
+          "mu1": 1,
+          "mu2": 2,
+          "name": "opaque",
+          "named_levels": [
+            0
+          ],
+          "one_step": true,
+          "permitted_images": 1,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "w"
+            ],
+            "reading": "O"
+          },
+          "unnamed_levels": [
+            1
+          ],
+          "what_the_inner_whole_is": "a MARK: it is admitted as one mark on the outer side"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "admit_a_whole_as_a_mark",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "3ddedf457f97daa5"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": true,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": true,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "inner_whole_presentation_admitted",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "opaque"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "3ddedf457f97daa5",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "w"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "w"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "w"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": false,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "w"
+              }
+            ],
+            "marks": [
+              "w"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "O",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ]
+          ],
+          "mark_address_orbit_size": 1,
+          "marks": 1,
+          "mu1": 2,
+          "mu2": 2,
+          "name": "opaque+naming_reaches_inward",
+          "named_levels": [
+            0,
+            1
+          ],
+          "one_step": false,
+          "permitted_images": 1,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "w"
+            ],
+            "reading": "O"
+          },
+          "unnamed_levels": [],
+          "what_the_inner_whole_is": "a MARK: it is admitted as one mark on the outer side"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": false,
+          "capabilities": [
+            "reach_inside_a_nested_whole"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "f251be3c156d139f"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": true,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "discard"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "f251be3c156d139f",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": true,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": true,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "marks": [
+              "a"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "O",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ]
+          ],
+          "mark_address_orbit_size": 1,
+          "marks": 1,
+          "mu1": 1,
+          "mu2": 1,
+          "name": "discard",
+          "named_levels": [
+            0
+          ],
+          "one_step": true,
+          "permitted_images": 1,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "unnamed_levels": [
+            1
+          ],
+          "what_the_inner_whole_is": "NOTHING: it is not admitted at all, and only the items it carries are"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "f251be3c156d139f"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": true,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "discard"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "f251be3c156d139f",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": true,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": true,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "marks": [
+              "a"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "O",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ]
+          ],
+          "mark_address_orbit_size": 1,
+          "marks": 1,
+          "mu1": 2,
+          "mu2": 1,
+          "name": "discard+naming_reaches_inward",
+          "named_levels": [
+            0,
+            1
+          ],
+          "one_step": false,
+          "permitted_images": 1,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "unnamed_levels": [],
+          "what_the_inner_whole_is": "NOTHING: it is not admitted at all, and only the items it carries are"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "certified": true,
+          "class_key": [
+            "records the crossing",
+            "True",
+            "(1,)",
+            "a64719720a5487aa"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": true,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": true,
+            "outer_side_internally_available": true,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "record"
+          },
+          "depths_over_the_domain": [
+            1,
+            2
+          ],
+          "domain_behaviour_digest": "a64719720a5487aa",
+          "effective_structure": [
+            "records the crossing",
+            "True",
+            "(1,)"
+          ],
+          "effective_unnamed_levels": [
+            1
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
+            "possible": true,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0,
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0,
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy records the crossing, which the inherited grammar cannot carry"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "O",
+            [
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 2,
+          "marks": 1,
+          "mu1": 2,
+          "mu2": 3,
+          "name": "record",
+          "named_levels": [
+            0
+          ],
+          "one_step": false,
+          "permitted_images": 2,
+          "reachable_levels": [
+            0,
+            1
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0,
+                0
+              ]
+            ],
+            "depths": [
+              2
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "unnamed_levels": [
+            1
+          ],
+          "what_the_inner_whole_is": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "certified": true,
+          "class_key": [
+            "records the crossing",
+            "True",
+            "()",
+            "25bc09b6c2964200"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": true,
+            "inner_side_internally_available": true,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": true,
+            "outer_side_internally_available": true,
+            "side_names_hold": true
+          },
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain",
+            "inner_side_internally_available",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "record"
+          },
+          "depths_over_the_domain": [
+            1,
+            2
+          ],
+          "domain_behaviour_digest": "25bc09b6c2964200",
+          "effective_structure": [
+            "records the crossing",
+            "True",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
+            "possible": true,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0,
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0,
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy records the crossing, which the inherited grammar cannot carry"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "O",
+            [
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0,
+              0
+            ]
+          ],
+          "mark_address_orbit_size": 1,
+          "marks": 1,
+          "mu1": 3,
+          "mu2": 4,
+          "name": "record+naming_reaches_inward",
+          "named_levels": [
+            0,
+            1
+          ],
+          "one_step": false,
+          "permitted_images": 1,
+          "reachable_levels": [
+            0,
+            1
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0,
+                0
+              ]
+            ],
+            "depths": [
+              2
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "O"
+          },
+          "unnamed_levels": [],
+          "what_the_inner_whole_is": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted"
+        }
+      ],
+      "points": [
+        {
+          "admits": false,
+          "bundles": false,
+          "capabilities": [],
+          "capability_coordinates": [],
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "4b167e376d0aebe0"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "refuse"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 0,
+          "mu2": 0,
+          "name": "refuse",
+          "one_step": false,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'"
+        },
+        {
+          "admits": false,
+          "bundles": false,
+          "capabilities": [
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "4b167e376d0aebe0"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "refuse"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 1,
+          "mu2": 0,
+          "name": "refuse+naming_reaches_inward",
+          "one_step": true,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'"
+        },
+        {
+          "admits": true,
+          "bundles": false,
+          "capabilities": [
+            "admit_a_whole_as_a_mark"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "3ddedf457f97daa5"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "inner_whole_presentation_admitted",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "opaque"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 1,
+          "mu2": 2,
+          "name": "opaque",
+          "one_step": true,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "admit_a_whole_as_a_mark",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "3ddedf457f97daa5"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "inner_whole_presentation_admitted",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "opaque"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 2,
+          "mu2": 2,
+          "name": "opaque+naming_reaches_inward",
+          "one_step": false,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": false,
+          "capabilities": [
+            "reach_inside_a_nested_whole"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "f251be3c156d139f"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "discard"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 1,
+          "mu2": 1,
+          "name": "discard",
+          "one_step": true,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "()",
+            "f251be3c156d139f"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "discard"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 2,
+          "mu2": 1,
+          "name": "discard+naming_reaches_inward",
+          "one_step": false,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "class_key": [
+            "records the crossing",
+            "True",
+            "(1,)",
+            "a64719720a5487aa"
+          ],
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "record"
+          },
+          "effective_unnamed_levels": [
+            1
+          ],
+          "mu1": 2,
+          "mu2": 3,
+          "name": "record",
+          "one_step": false,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "records the crossing",
+            "True",
+            "()",
+            "25bc09b6c2964200"
+          ],
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain",
+            "inner_side_internally_available",
+            "outer_side_internally_available",
+            "side_names_hold"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "record"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 3,
+          "mu2": 4,
+          "name": "record+naming_reaches_inward",
+          "one_step": false,
+          "refusal": null
+        }
+      ],
+      "policies": [
+        {
+          "admits_the_caller_inscription": false,
+          "bundles": false,
+          "capabilities": [],
+          "capability_count": 0,
+          "declared": "refuse: an admission never names an item that is a whole",
+          "one_step": false,
+          "policy": "refuse",
+          "what_the_inner_whole_is": "not admissible: no admission names it"
+        },
+        {
+          "admits_the_caller_inscription": true,
+          "bundles": false,
+          "capabilities": [
+            "admit_a_whole_as_a_mark"
+          ],
+          "capability_count": 1,
+          "declared": "opaque: the inner whole is admitted as ONE mark on the outer side and its interior is discarded",
+          "one_step": true,
+          "policy": "opaque",
+          "what_the_inner_whole_is": "a MARK: it is admitted as one mark on the outer side"
+        },
+        {
+          "admits_the_caller_inscription": true,
+          "bundles": false,
+          "capabilities": [
+            "reach_inside_a_nested_whole"
+          ],
+          "capability_count": 1,
+          "declared": "discard: the inner boundary is discarded and the inner whole's own items are admitted on the outer side",
+          "one_step": true,
+          "policy": "discard",
+          "what_the_inner_whole_is": "NOTHING: it is not admitted at all, and only the items it carries are"
+        },
+        {
+          "admits_the_caller_inscription": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing"
+          ],
+          "capability_count": 2,
+          "declared": "record: the inner whole's items are admitted, each carrying the finite sequence of sides crossed to reach it",
+          "one_step": false,
+          "policy": "record",
+          "what_the_inner_whole_is": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted"
+        }
+      ],
+      "policy_separation": {
+        "domain_size": 144,
+        "first_inscriptions_where_they_part": [
+          "<|<|>>",
+          "<|<a|a>>",
+          "<|<a|b>>",
+          "<|<b|a>>"
+        ],
+        "inscriptions_where_they_part": 95,
+        "note": "the two one-step policies agree up to isomorphism at the caller's own inscription and are two policies nonetheless; the class key is read over the whole declared domain for exactly that reason",
+        "part_at_the_caller_inscription": false,
+        "same_policy_on_the_domain": false
+      },
+      "price": {
+        "capabilities_not_used": [
+          "side names under O"
+        ],
+        "capabilities_the_retention_would_use": [
+          "admitted boundary",
+          "occurrence identity",
+          "the nested reader bound"
+        ],
+        "declared_at": "Challenge 5, by whichever retained minimum is taken",
+        "declared_regardless_at_challenge_5": [
+          "an item on a side is a mark OR a whole, down to a declared depth bound of two, where the Challenge 4 reader admitted at most one MARK on each side and read no item that is itself a whole",
+          "the declared within-whole admission order is applied at every level, and every supply of the retained whole precedes every admission of it; the inscription fixes neither, any more than it fixes the convention",
+          "one presentation token for every whole admitted as a mark"
+        ],
+        "fields_declared_not_computed": [
+          "capabilities_the_retention_would_use",
+          "capabilities_not_used",
+          "declared_at",
+          "paid_by",
+          "what_the_caller_asked_for_costs",
+          "what_the_caller_asked_for_is_one_step"
+        ],
+        "minimum_capability_count": 1,
+        "new_at_challenge_5": [
+          "admit_a_whole_as_a_mark",
+          "reach_inside_a_nested_whole"
+        ],
+        "paid_by": "the run",
+        "retained_without_a_new_capability": false,
+        "what_the_caller_asked_for_costs": 2,
+        "what_the_caller_asked_for_is_one_step": false
+      },
+      "reading": "O",
+      "space_size": 8
+    },
+    "U": {
+      "admitting_one_step_points": [
+        "opaque",
+        "discard"
+      ],
+      "admitting_points": [
+        "opaque",
+        "opaque+naming_reaches_inward",
+        "discard",
+        "discard+naming_reaches_inward",
+        "record",
+        "record+naming_reaches_inward"
+      ],
+      "bundles_refused": [
+        "opaque+naming_reaches_inward",
+        "discard+naming_reaches_inward",
+        "record",
+        "record+naming_reaches_inward"
+      ],
+      "bundles_refused_count": 4,
+      "collateral_facts_agreeing_everywhere": [
+        [
+          "nesting_internally_visible",
+          "depth_takes_more_than_one_value_over_the_domain"
+        ],
+        [
+          "inner_side_internally_available",
+          "outer_side_internally_available"
+        ],
+        [
+          "inner_side_internally_available",
+          "depth_expressible_in_the_closed_grammar"
+        ],
+        [
+          "inner_side_internally_available",
+          "side_names_hold"
+        ],
+        [
+          "outer_side_internally_available",
+          "depth_expressible_in_the_closed_grammar"
+        ],
+        [
+          "outer_side_internally_available",
+          "side_names_hold"
+        ],
+        [
+          "depth_expressible_in_the_closed_grammar",
+          "side_names_hold"
+        ]
+      ],
+      "levels": [
+        0,
+        1
+      ],
+      "measures_agree_on_minima": false,
+      "measures_differ_somewhere": true,
+      "minima_by_mu1": {
+        "class_count": 2,
+        "classes": [
+          {
+            "class_key": [
+              "one side per mark",
+              "True",
+              "(0,)",
+              "1fe522eaf8ba40ed"
+            ],
+            "members": [
+              "opaque"
+            ]
+          },
+          {
+            "class_key": [
+              "one side per mark",
+              "True",
+              "(0,)",
+              "51946469f52a31d7"
+            ],
+            "members": [
+              "discard"
+            ]
+          }
+        ],
+        "measure": "mu1",
+        "minimum": 1,
+        "points": [
+          "opaque",
+          "discard"
+        ],
+        "unique": false
+      },
+      "minima_by_mu2": {
+        "class_count": 1,
+        "classes": [
+          {
+            "class_key": [
+              "one side per mark",
+              "True",
+              "(0,)",
+              "51946469f52a31d7"
+            ],
+            "members": [
+              "discard"
+            ]
+          }
+        ],
+        "measure": "mu2",
+        "minimum": 0,
+        "points": [
+          "discard"
+        ],
+        "unique": true
+      },
+      "naming_coordinate_collapses_at": [
+        [
+          "refuse",
+          "refuse+naming_reaches_inward"
+        ],
+        [
+          "opaque",
+          "opaque+naming_reaches_inward"
+        ],
+        [
+          "discard",
+          "discard+naming_reaches_inward"
+        ],
+        [
+          "record",
+          "record+naming_reaches_inward"
+        ]
+      ],
+      "naming_coordinate_collapses_everywhere": true,
+      "one_step_iff_capability_count_one": true,
+      "one_step_iff_one_coordinate_moved": false,
+      "one_step_points": [
+        "refuse+naming_reaches_inward",
+        "opaque",
+        "discard"
+      ],
+      "order": {
+        "at_the_caller_inscription_isomorphic": true,
+        "declared_order": "left first",
+        "domain_inscriptions_where_the_orders_part_up_to_renaming": 0,
+        "domain_inscriptions_where_the_states_differ": 116,
+        "domain_size": 144,
+        "first_such_inscriptions": [
+          "<|<a|a>>",
+          "<|<a|b>>",
+          "<|<b|a>>",
+          "<|<b|b>>"
+        ],
+        "note": "the order is a declaration extended to every level at this rung; it is invisible at the caller's inscription, which admits one mark, and the two counts say how many members of the declared domain it moves structurally and how many up to renaming",
+        "other_order": "right first",
+        "part_up_to_renaming_is_definition_level_because": "the two orders admit the same marks at the same addresses and differ only in the order of admission, which is a permutation of the internal identities; the mark permutations are permitted at every point of this rung's space, so the two states are always carried onto each other.  The census computes the number and is not evidence for it: the count is zero by unfolding definition 13, and only the STRUCTURAL difference above is a measurement"
+      },
+      "point_detail": [
+        {
+          "admits": false,
+          "automorphism_count": 0,
+          "bundles": false,
+          "capabilities": [],
+          "capability_coordinates": [],
+          "certified": false,
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "1f3b11fe9b7df0e5"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "refuse"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "1f3b11fe9b7df0e5",
+          "effective_structure": [
+            "one side per mark",
+            "False",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": null,
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": null,
+            "recorded_at_the_requested_place": false
+          },
+          "history": [],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy admits nothing"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "refused"
+          ],
+          "mark_address_orbit": [],
+          "mark_address_orbit_size": 0,
+          "marks": 0,
+          "mu1": 0,
+          "mu2": 0,
+          "name": "refuse",
+          "named_levels": [],
+          "one_step": false,
+          "permitted_images": 0,
+          "reachable_levels": [],
+          "reading_unchanged": true,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'",
+          "replays_from_genesis": false,
+          "retained": null,
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "not admissible: no admission names it"
+        },
+        {
+          "admits": false,
+          "automorphism_count": 0,
+          "bundles": false,
+          "capabilities": [
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "naming_reaches_inward"
+          ],
+          "certified": false,
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "1f3b11fe9b7df0e5"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "refuse"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "1f3b11fe9b7df0e5",
+          "effective_structure": [
+            "one side per mark",
+            "False",
+            "()"
+          ],
+          "effective_unnamed_levels": [],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": null,
+            "because": "the policy refuses the caller's inscription and retains nothing, so there is no inner whole to enter",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": null,
+            "recorded_at_the_requested_place": false
+          },
+          "history": [],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy admits nothing"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "refused"
+          ],
+          "mark_address_orbit": [],
+          "mark_address_orbit_size": 0,
+          "marks": 0,
+          "mu1": 1,
+          "mu2": 0,
+          "name": "refuse+naming_reaches_inward",
+          "named_levels": [],
+          "one_step": true,
+          "permitted_images": 0,
+          "reachable_levels": [],
+          "reading_unchanged": true,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'",
+          "replays_from_genesis": false,
+          "retained": null,
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "not admissible: no admission names it"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": false,
+          "capabilities": [
+            "admit_a_whole_as_a_mark"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "1fe522eaf8ba40ed"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": true,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "inner_whole_presentation_admitted"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "opaque"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "1fe522eaf8ba40ed",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "(0,)"
+          ],
+          "effective_unnamed_levels": [
+            0
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "w"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "w"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "w"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": false,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "w"
+              }
+            ],
+            "marks": [
+              "w"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "U",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 2,
+          "marks": 1,
+          "mu1": 1,
+          "mu2": 1,
+          "name": "opaque",
+          "named_levels": [],
+          "one_step": true,
+          "permitted_images": 2,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "w"
+            ],
+            "reading": "U"
+          },
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "a MARK: it is admitted as one mark on the outer side"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "admit_a_whole_as_a_mark",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "1fe522eaf8ba40ed"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": true,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "inner_whole_presentation_admitted"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "opaque"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "1fe522eaf8ba40ed",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "(0,)"
+          ],
+          "effective_unnamed_levels": [
+            0
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "w"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "w"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "w"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": false,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "w"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "w"
+              }
+            ],
+            "marks": [
+              "w"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "U",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 2,
+          "marks": 1,
+          "mu1": 2,
+          "mu2": 1,
+          "name": "opaque+naming_reaches_inward",
+          "named_levels": [],
+          "one_step": false,
+          "permitted_images": 2,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "w"
+            ],
+            "reading": "U"
+          },
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "a MARK: it is admitted as one mark on the outer side"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": false,
+          "capabilities": [
+            "reach_inside_a_nested_whole"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "51946469f52a31d7"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "discard"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "51946469f52a31d7",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "(0,)"
+          ],
+          "effective_unnamed_levels": [
+            0
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": true,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": true,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "marks": [
+              "a"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "U",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 2,
+          "marks": 1,
+          "mu1": 1,
+          "mu2": 0,
+          "name": "discard",
+          "named_levels": [],
+          "one_step": true,
+          "permitted_images": 2,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "NOTHING: it is not admitted at all, and only the items it carries are"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "certified": true,
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "51946469f52a31d7"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": false,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": false,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "discard"
+          },
+          "depths_over_the_domain": [
+            1
+          ],
+          "domain_behaviour_digest": "51946469f52a31d7",
+          "effective_structure": [
+            "one side per mark",
+            "True",
+            "(0,)"
+          ],
+          "effective_unnamed_levels": [
+            0
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": true,
+          "flat_inscription_isomorphic": true,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name no place deeper than 1 over the declared domain, so the length-2 address the policy-agnostic deep grammar records here is not one this policy produces: a place inside the inner whole is not nameable under it",
+            "deepest_place_the_policy_names": 1,
+            "possible": false,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "agrees_with_the_deep_replay": true,
+            "available": true,
+            "certified": true,
+            "flat_inscription_regime_equal": true,
+            "flat_inscription_regime_isomorphic": true,
+            "history": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "kind": "AdmitOccurrence",
+                "side": 0,
+                "token": "a"
+              }
+            ],
+            "marks": [
+              "a"
+            ],
+            "placement": [
+              0
+            ]
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "U",
+            [
+              [
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 2,
+          "marks": 1,
+          "mu1": 2,
+          "mu2": 0,
+          "name": "discard+naming_reaches_inward",
+          "named_levels": [],
+          "one_step": false,
+          "permitted_images": 2,
+          "reachable_levels": [
+            0
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "NOTHING: it is not admitted at all, and only the items it carries are"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "certified": true,
+          "class_key": [
+            "records the crossing",
+            "True",
+            "(0, 1)",
+            "bba840842d311f01"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": true,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": true,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "record"
+          },
+          "depths_over_the_domain": [
+            1,
+            2
+          ],
+          "domain_behaviour_digest": "bba840842d311f01",
+          "effective_structure": [
+            "records the crossing",
+            "True",
+            "(0, 1)"
+          ],
+          "effective_unnamed_levels": [
+            0,
+            1
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
+            "possible": true,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0,
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0,
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy records the crossing, which the inherited grammar cannot carry"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "U",
+            [
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 4,
+          "marks": 1,
+          "mu1": 2,
+          "mu2": 2,
+          "name": "record",
+          "named_levels": [],
+          "one_step": false,
+          "permitted_images": 4,
+          "reachable_levels": [
+            0,
+            1
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0,
+                0
+              ]
+            ],
+            "depths": [
+              2
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted"
+        },
+        {
+          "admits": true,
+          "automorphism_count": 1,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "certified": true,
+          "class_key": [
+            "records the crossing",
+            "True",
+            "(0, 1)",
+            "bba840842d311f01"
+          ],
+          "collateral_facts": {
+            "depth_determined_by_the_key": true,
+            "depth_expressible_in_the_closed_grammar": false,
+            "depth_takes_more_than_one_value_over_the_domain": true,
+            "inner_side_internally_available": false,
+            "inner_whole_presentation_admitted": false,
+            "nesting_internally_visible": true,
+            "outer_side_internally_available": false,
+            "side_names_hold": false
+          },
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "record"
+          },
+          "depths_over_the_domain": [
+            1,
+            2
+          ],
+          "domain_behaviour_digest": "bba840842d311f01",
+          "effective_structure": [
+            "records the crossing",
+            "True",
+            "(0, 1)"
+          ],
+          "effective_unnamed_levels": [
+            0,
+            1
+          ],
+          "event_follows_relation_empty": true,
+          "flat_inscription_equal": false,
+          "flat_inscription_isomorphic": false,
+          "flat_inscription_retained": {
+            "addresses": [
+              [
+                0
+              ]
+            ],
+            "depths": [
+              1
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "further_mark_within_the_inner_whole": {
+            "address": [
+              0,
+              1
+            ],
+            "because": "the policy's own admissions name places to depth 2 over the declared domain, so the admission names a place inside the inner whole and the replay keeps the mark there",
+            "deepest_place_the_policy_names": 2,
+            "possible": true,
+            "probe": [
+              {
+                "kind": "Supply",
+                "token": "a"
+              },
+              {
+                "address": [
+                  0,
+                  0
+                ],
+                "kind": "AdmitAt",
+                "token": "a"
+              },
+              {
+                "kind": "Supply",
+                "token": "b"
+              },
+              {
+                "address": [
+                  0,
+                  1
+                ],
+                "kind": "AdmitAt",
+                "token": "b"
+              }
+            ],
+            "recorded_at_the_requested_place": true
+          },
+          "history": [
+            {
+              "kind": "Supply",
+              "token": "a"
+            },
+            {
+              "address": [
+                0,
+                0
+              ],
+              "kind": "AdmitAt",
+              "token": "a"
+            }
+          ],
+          "inherited_event_follows_relation_empty": true,
+          "inherited_grammar": {
+            "available": false,
+            "because": "the policy records the crossing, which the inherited grammar cannot carry"
+          },
+          "initial_datum_unchanged": true,
+          "least_key": [
+            "U",
+            [
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "mark_address_orbit": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "mark_address_orbit_size": 4,
+          "marks": 1,
+          "mu1": 3,
+          "mu2": 2,
+          "name": "record+naming_reaches_inward",
+          "named_levels": [],
+          "one_step": false,
+          "permitted_images": 4,
+          "reachable_levels": [
+            0,
+            1
+          ],
+          "reading_unchanged": true,
+          "refusal": null,
+          "replays_from_genesis": true,
+          "retained": {
+            "addresses": [
+              [
+                0,
+                0
+              ]
+            ],
+            "depths": [
+              2
+            ],
+            "marks": [
+              "a"
+            ],
+            "reading": "U"
+          },
+          "unnamed_levels": [
+            0,
+            1
+          ],
+          "what_the_inner_whole_is": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted"
+        }
+      ],
+      "points": [
+        {
+          "admits": false,
+          "bundles": false,
+          "capabilities": [],
+          "capability_coordinates": [],
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "1f3b11fe9b7df0e5"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "refuse"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 0,
+          "mu2": 0,
+          "name": "refuse",
+          "one_step": false,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'"
+        },
+        {
+          "admits": false,
+          "bundles": false,
+          "capabilities": [
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "one side per mark",
+            "False",
+            "()",
+            "1f3b11fe9b7df0e5"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "refuse"
+          },
+          "effective_unnamed_levels": [],
+          "mu1": 1,
+          "mu2": 0,
+          "name": "refuse+naming_reaches_inward",
+          "one_step": true,
+          "refusal": "the declared policy refuses an item that is a whole: '<a|>'"
+        },
+        {
+          "admits": true,
+          "bundles": false,
+          "capabilities": [
+            "admit_a_whole_as_a_mark"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "1fe522eaf8ba40ed"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "inner_whole_presentation_admitted"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "opaque"
+          },
+          "effective_unnamed_levels": [
+            0
+          ],
+          "mu1": 1,
+          "mu2": 1,
+          "name": "opaque",
+          "one_step": true,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "admit_a_whole_as_a_mark",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "1fe522eaf8ba40ed"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key",
+            "inner_whole_presentation_admitted"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "opaque"
+          },
+          "effective_unnamed_levels": [
+            0
+          ],
+          "mu1": 2,
+          "mu2": 1,
+          "name": "opaque+naming_reaches_inward",
+          "one_step": false,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": false,
+          "capabilities": [
+            "reach_inside_a_nested_whole"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "51946469f52a31d7"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "discard"
+          },
+          "effective_unnamed_levels": [
+            0
+          ],
+          "mu1": 1,
+          "mu2": 0,
+          "name": "discard",
+          "one_step": true,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "one side per mark",
+            "True",
+            "(0,)",
+            "51946469f52a31d7"
+          ],
+          "collateral_facts_holding": [
+            "depth_determined_by_the_key"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "discard"
+          },
+          "effective_unnamed_levels": [
+            0
+          ],
+          "mu1": 2,
+          "mu2": 0,
+          "name": "discard+naming_reaches_inward",
+          "one_step": false,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing"
+          ],
+          "capability_coordinates": [
+            "nesting_policy"
+          ],
+          "class_key": [
+            "records the crossing",
+            "True",
+            "(0, 1)",
+            "bba840842d311f01"
+          ],
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": false,
+            "nesting_policy": "record"
+          },
+          "effective_unnamed_levels": [
+            0,
+            1
+          ],
+          "mu1": 2,
+          "mu2": 2,
+          "name": "record",
+          "one_step": false,
+          "refusal": null
+        },
+        {
+          "admits": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing",
+            "the_reading_names_the_inner_sides"
+          ],
+          "capability_coordinates": [
+            "nesting_policy",
+            "naming_reaches_inward"
+          ],
+          "class_key": [
+            "records the crossing",
+            "True",
+            "(0, 1)",
+            "bba840842d311f01"
+          ],
+          "collateral_facts_holding": [
+            "nesting_internally_visible",
+            "depth_determined_by_the_key",
+            "depth_takes_more_than_one_value_over_the_domain"
+          ],
+          "coordinates": {
+            "naming_reaches_inward": true,
+            "nesting_policy": "record"
+          },
+          "effective_unnamed_levels": [
+            0,
+            1
+          ],
+          "mu1": 3,
+          "mu2": 2,
+          "name": "record+naming_reaches_inward",
+          "one_step": false,
+          "refusal": null
+        }
+      ],
+      "policies": [
+        {
+          "admits_the_caller_inscription": false,
+          "bundles": false,
+          "capabilities": [],
+          "capability_count": 0,
+          "declared": "refuse: an admission never names an item that is a whole",
+          "one_step": false,
+          "policy": "refuse",
+          "what_the_inner_whole_is": "not admissible: no admission names it"
+        },
+        {
+          "admits_the_caller_inscription": true,
+          "bundles": false,
+          "capabilities": [
+            "admit_a_whole_as_a_mark"
+          ],
+          "capability_count": 1,
+          "declared": "opaque: the inner whole is admitted as ONE mark on the outer side and its interior is discarded",
+          "one_step": true,
+          "policy": "opaque",
+          "what_the_inner_whole_is": "a MARK: it is admitted as one mark on the outer side"
+        },
+        {
+          "admits_the_caller_inscription": true,
+          "bundles": false,
+          "capabilities": [
+            "reach_inside_a_nested_whole"
+          ],
+          "capability_count": 1,
+          "declared": "discard: the inner boundary is discarded and the inner whole's own items are admitted on the outer side",
+          "one_step": true,
+          "policy": "discard",
+          "what_the_inner_whole_is": "NOTHING: it is not admitted at all, and only the items it carries are"
+        },
+        {
+          "admits_the_caller_inscription": true,
+          "bundles": true,
+          "capabilities": [
+            "reach_inside_a_nested_whole",
+            "record_the_crossing"
+          ],
+          "capability_count": 2,
+          "declared": "record: the inner whole's items are admitted, each carrying the finite sequence of sides crossed to reach it",
+          "one_step": false,
+          "policy": "record",
+          "what_the_inner_whole_is": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted"
+        }
+      ],
+      "policy_separation": {
+        "domain_size": 144,
+        "first_inscriptions_where_they_part": [
+          "<|<|>>",
+          "<|<a|a>>",
+          "<|<a|b>>",
+          "<|<b|a>>"
+        ],
+        "inscriptions_where_they_part": 95,
+        "note": "the two one-step policies agree up to isomorphism at the caller's own inscription and are two policies nonetheless; the class key is read over the whole declared domain for exactly that reason",
+        "part_at_the_caller_inscription": false,
+        "same_policy_on_the_domain": false
+      },
+      "price": {
+        "capabilities_not_used": [],
+        "capabilities_the_retention_would_use": [
+          "admitted boundary",
+          "occurrence identity",
+          "the nested reader bound"
+        ],
+        "declared_at": "Challenge 5, by whichever retained minimum is taken",
+        "declared_regardless_at_challenge_5": [
+          "an item on a side is a mark OR a whole, down to a declared depth bound of two, where the Challenge 4 reader admitted at most one MARK on each side and read no item that is itself a whole",
+          "the declared within-whole admission order is applied at every level, and every supply of the retained whole precedes every admission of it; the inscription fixes neither, any more than it fixes the convention",
+          "one presentation token for every whole admitted as a mark"
+        ],
+        "fields_declared_not_computed": [
+          "capabilities_the_retention_would_use",
+          "capabilities_not_used",
+          "declared_at",
+          "paid_by",
+          "what_the_caller_asked_for_costs",
+          "what_the_caller_asked_for_is_one_step"
+        ],
+        "minimum_capability_count": 1,
+        "new_at_challenge_5": [
+          "admit_a_whole_as_a_mark",
+          "reach_inside_a_nested_whole"
+        ],
+        "paid_by": "the run",
+        "retained_without_a_new_capability": false,
+        "what_the_caller_asked_for_costs": 2,
+        "what_the_caller_asked_for_is_one_step": false
+      },
+      "reading": "U",
+      "space_size": 8
+    }
+  },
+  "relabelled_token_inherited": "z",
+  "scores": {
+    "C4-X": {
+      "declared_finite_policy_space_clause_status": "HIT",
+      "depth_not_available_without_a_declaration_clause_status": "HIT",
+      "evidence": "both inherited readers refuse the caller's inscription by name and the new bound \u2014 the run's THIRD reader bound and its SECOND widening, which is the ordinal this clause asserts \u2014 is paid by the run; the decision takes the form of a declared finite policy space of four members; depth is available at no policy of capability count one and the nesting is internally visible at none either, so the boundary within a side is not visible without a new declaration; and the inner whole is a second initial datum under no policy",
+      "exactly_one_clause_fact": "the frozen clause reads 'a declared finite space of policies with exactly one member letting the caller retain the inscription'.  THREE of the four declared policies admit the caller's inscription; exactly one retains it so that the retained state tells it from the flat inscription.  The clause is scored on the first count, which is what 'letting the caller retain the inscription' says, and the second is reported beside it",
+      "exactly_one_member_retains_clause_status": "MISSED",
+      "inner_whole_not_a_datum_clause_status": "HIT",
+      "label": "NOT FORCED",
+      "nesting_not_visible_without_a_declaration_clause_status": "HIT",
+      "points_where_the_nesting_is_internally_visible": [
+        "record",
+        "record+naming_reaches_inward"
+      ],
+      "policies_admitting_the_inscription": [
+        "opaque",
+        "discard",
+        "record"
+      ],
+      "reader_bounds_declared": 3,
+      "reader_refuses_clause_status": "HIT",
+      "status": "PARTIAL",
+      "widening_ordinal_clause_status": "HIT",
+      "widening_priced_clause_status": "HIT",
+      "widenings_of_the_reader_bound": 2
+    },
+    "C5-1": {
+      "evidence": "both inherited readers refuse the caller's inscription by name; the widened reader reads it as a whole whose left item is a whole and whose right side is empty, at depth two; and it refuses a whole deeper than its declared bound by name.  The ordinal clause MISSED: the run has 3 reader bounds and 2 widenings",
+      "label": "FORCED",
+      "reader_bounds_declared": 3,
+      "readers_clause_status": "HIT",
+      "result_basis": "DEFINITION-level: the two refusals are the Challenge 1 and Challenge 4 bounds replayed on the caller's text, the widened reader's own bound is this rung's declaration, and the ordinal is a census of the run's own reader bounds; a hit is by construction and is not counted as content",
+      "status": "PARTIAL",
+      "widening_ordinal_clause_fact": "the frozen clause gives this widening the ordinal THIRD; the frozen C4-X gives the same event the ordinal SECOND.  Both are scored against the one census beside this key \u2014 the reader bounds the run has declared, and the widenings, which are one fewer because the Challenge 1 bound was declared and not widened.  Each clause is scored on the ordinal its own words carry, and the frozen files are untouched",
+      "widening_ordinal_clause_status": "MISSED",
+      "widenings_of_the_reader_bound": 2
+    },
+    "C5-2": {
+      "evidence": "four declared policies at capability counts 0, 1, 1, and 2 over three declared capabilities; a policy is one step exactly when its capability count is one; and the recording policy, which is what the caller's demand needs, is refused as a bundle",
+      "label": "NOT FORCED",
+      "result_basis": "DEFINITION-level: the four policies, the three capabilities named for them, and therefore the counts and the identity of one step with capability count one are declarations of this rung; a hit is by construction and is not counted as content",
+      "status": "HIT"
+    },
+    "C5-3": {
+      "evidence": "under both one-step policies and both readings the caller's inscription retains exactly one mark, and what it retains is isomorphic to what the Challenge 1 inscription retains, so the nesting is internally invisible there",
+      "label": "FORCED",
+      "result_basis": "content: the comparison with what `<a|>` retains is an isomorphism-witness search over the unpruned enumeration at each candidate's own renamings, and both values are attained elsewhere in the space",
+      "status": "HIT"
+    },
+    "C5-4": {
+      "evidence": "the two one-step policies part on the declared domain and agree at the caller's own inscription; the minimum capability count among admitting points is one, two classes attain it, both are retained, and uniqueness is refuted under both readings",
+      "label": "FORCED",
+      "result_basis": "content: the separation of the two one-step policies is a census over the declared domain with the parting inscriptions named, and the class count is the implemented quotient",
+      "status": "HIT"
+    },
+    "C5-5": {
+      "evidence": "no retained state under any policy carries a second initial datum; the inner whole is a mark under the opaque policy, nothing under the discarding policy, and a second boundary under the recording policy; and a further mark may be admitted inside it under the recording policy alone, which is not one step",
+      "label": "NOT FORCED",
+      "result_basis": "content: that no policy makes a second initial datum is a replay of every point's history with the datum read off, and that a further mark may be admitted within the inner whole is a probe whose deciding fact is a census \u2014 the deepest place each policy's own admissions name over the declared domain \u2014 with both values attained.  The classification of what the inner whole IS under each policy is the run's and is declared, not computed",
+      "status": "HIT"
+    },
+    "C5-6": {
+      "evidence": "under every one-step policy every retained mark has depth one, so depth separates nothing, and under the recording policy the domain holds depths one and two; equal keys give equal depths at EVERY point of the space, the refusing base included; and no form of the closed observation grammar reads depth at any point",
+      "label": "FORCED",
+      "result_basis": "content: the depths a policy can hold, a census over the declared domain \u2014 [1] at every one-step policy against [1, 2] at the recording one.  TWO clauses are DEFINITION-level and are reported separately: that the key determines depth, which unfolds the declared serialization, every permitted renaming keeping each address its length, so it holds at every point of the space including the refusing base and never separates one candidate from another; and that no form of the closed grammar reads depth, the grammar being the declared sum of two forms",
+      "status": "HIT"
+    },
+    "C5-7": {
+      "evidence": "the naming coordinate collapses at every policy under U and at three of four under O; under the RECORDING policy the retained mark's address orbit has four members under U, one under O with the naming reaching inward, and two under O without it, while at the two one-step policies the same key reads two under U and one under O; so which side of the inner boundary the mark lies on is not internally available under O either without that further declaration",
+      "label": "FORCED",
+      "result_basis": "content: the collapse is the implemented quotient over the whole declared domain, and the orbit sizes are read off the unpruned enumeration of each candidate's permitted renamings",
+      "status": "HIT"
+    },
+    "C5-8": {
+      "evidence": "at every point the initial datum and the reading are unchanged and the event-follows relation is empty on every probe of both grammars; every admitting point's history is certified and replays from genesis; and no rule of an earlier rung is withdrawn",
+      "label": "FORCED",
+      "result_basis": "content: the certification and the replay are computed at every point of the space, and both values of the admission predicate are attained.  That the event-follows relation is empty is the declared grammar and is DEFINITION-level",
+      "status": "HIT"
+    },
+    "C5-X": {
+      "evidence": "scored by the autonomous continuation",
+      "label": "NOT FORCED",
+      "status": "PENDING"
+    }
+  },
+  "seed_sha256": "ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be",
+  "state_event_generators": [],
+  "tally": {
+    "criterion": "a prediction counts as content only if at least one of its hitting clauses, read literally, rests on a theorem outside the DEFINITION-level lists of the paper's section 7 or on a computation not fixed by a declaration alone; a prediction whose every clause is true by unfolding a declaration, or reports a modelling decision of the run, is HIT by construction and not counted as content",
+    "definition_level_declared": [
+      "C5-1",
+      "C5-2"
+    ],
+    "hit_as_content": [
+      "C5-3",
+      "C5-4",
+      "C5-5",
+      "C5-6",
+      "C5-7",
+      "C5-8"
+    ],
+    "hit_definition_level": [
+      "C5-2"
+    ],
+    "missed": [],
+    "partial": [
+      "C5-1"
+    ],
+    "scored": [
+      "C5-1",
+      "C5-2",
+      "C5-3",
+      "C5-4",
+      "C5-5",
+      "C5-6",
+      "C5-7",
+      "C5-8"
+    ]
+  },
+  "what_the_challenge_exercises": {
+    "admission": "yes, and it is the rung's subject: what an admission does with an item that is a whole is the declared policy space, and no policy is taken",
+    "current-state designation": "yes: every retained state is the replay of an explicit history, and the current configuration is the Challenge 4 retention, no policy of this rung having been taken",
+    "equality": "yes: structural equality of a deep regime, the isomorphism relation at a candidate's permitted renamings, and the sameness of two POLICIES over the declared domain are three different relations, and the rung uses all three",
+    "mention": "yes: the inner whole is named by the reader and by the refusal, and naming it is not admitting it",
+    "observation": "yes: the closed grammar is unchanged and no form is added; the rung computes that no form of it reads depth",
+    "retention": "yes: what the caller's retention amounts to is exactly what the policy space decides, and three of the four policies retain something",
+    "side": "yes, and it is the rung's subject: a side of a side is what the caller's inscription presents, and only the recording policy keeps the difference between the two levels",
+    "supply": "yes: one Supply per admitted mark, before every admission of the retained whole; a policy that admits nothing supplies nothing"
+  },
+  "what_the_inner_whole_is": {
+    "discard": "NOTHING: it is not admitted at all, and only the items it carries are",
+    "opaque": "a MARK: it is admitted as one mark on the outer side",
+    "record": "a second BOUNDARY: a new definition, whose two sides are places at which a mark may be admitted",
+    "refuse": "not admissible: no admission names it"
+  },
+  "withdrawn_rules_at_challenge_5": []
+}

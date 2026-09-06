@@ -1,5 +1,6 @@
 SEED.md -text
 FREEZE.md -text
 challenge*/PREDICTIONS.md -text
+continuation/*/PREDICTIONS.md -text
 lean/axioms.txt -text
 receipts/** -text

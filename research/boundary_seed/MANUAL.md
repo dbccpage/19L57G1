@@ -26,6 +26,7 @@ From the repository root, for a challenge `<k>`:
 ```text
 python research/boundary_seed/verify_pins.py
 python research/boundary_seed/run_challenge<k>.py
+python research/boundary_seed/run_continuation<n>.py
 cd research/boundary_seed && python -m unittest discover -s tests -p "test_*.py" && python -m mypy && cd ../..
 cd research/boundary_seed && python -m coverage erase && python -m coverage run -m unittest discover -s tests -p "test_*.py" && python -m coverage json -q && python check_coverage.py && cd ../..
 python research/boundary_seed/verify_lean.py
@@ -33,28 +34,97 @@ python ci/check_prose_watchlist.py
 python -m pytest tests/test_primitive_contact.py -q -p no:cacheprovider
 ```
 
-`verify_lean.py` first requires a successful clean, builds the tree's Lean
-package, scans every
-`.lean` file for the forbidden tokens as text, requires every axiom
-report to lie within `{propext, Quot.sound}`, and compares the reports
-with `lean/axioms.txt`; `--regen` rewrites that log deliberately and
+Definitions 47 to 82 and the Challenge 4, Challenge 5 and continuation stage 1
+additions are recorded in `paper.md`; the run's reading of what this file
+governs is unchanged.  For a challenge `<k>` the runner is
+`run_challenge<k>.py`, and for a continuation stage `<n>` it is
+`run_continuation<n>.py`; the research job runs every one of them.  A
+continuation stage keeps its frozen predictions and its handoff under
+`continuation/stage<n>/`, which `.gitattributes` marks `-text` beside the
+challenge directories.
+
+`verify_lean.py` scans every `.lean` file for the forbidden tokens as
+text, requires every module under `lean/BoundarySeed/` to lie in the
+root's transitive import closure (an unreached module is never
+elaborated), requires every theorem those modules declare to carry a
+`#print axioms` line in the root module (the source text is read with
+block and line comments stripped first, so doc prose cannot enter or leave
+the population), then requires a successful clean, builds the tree's Lean
+package, requires every axiom report to lie within `{propext,
+Quot.sound}`, and compares the reports with `lean/axioms.txt`; `--regen` rewrites that log deliberately and
 never under a live injection.  The research job runs the pins, the tests
-under coverage with the receipt regeneration and the blindness scan, and
-strict typing; the Lean package is a manual receipt.
+under coverage with the receipt regeneration and the source-isolation
+scan, and strict typing; the Lean package is a manual receipt.
 
 `verify_pins.py` compares working, index, HEAD, and committed-history bytes
 for the seed and frozen predictions.  The source-isolation test likewise
 checks working, index, and history bytes and fails on undecodable content.
-A working or staged `FREEZE.md` does not retire the scan.  The current rule
-retires it at a reachable committed marker; that rule does not validate the
-marker as a complete hash manifest, so comparison remains blocked until a
-parent-tree or explicit-exclusion protocol is defined and verified.
+A working or staged `FREEZE.md` does not retire the scan. The earlier
+marker-presence rule is withdrawn: `verify_freeze.py` now validates a
+dedicated parent-manifest commit before the scan can retire. It is called
+by the pin verifier and the source-isolation test, not merely documented.
+
+### Source freeze protocol: metatheoretic custody only
+
+After the stopping clauses are met or their exact obstructions recorded OPEN,
+commit the complete source and verification apparatus first. From the tree,
+`python verify_freeze.py --write` generates the marker for that exact HEAD;
+it refuses staged, working or untracked intentional source changes. Commit
+only `FREEZE.md` in the next commit. That commit must have exactly one parent
+and change no other repository path. `python verify_freeze.py --require-frozen`
+then verifies the result. No real marker was generated under a probe.
+
+The manifest independently enumerates all tracked regular blobs under the
+write root in its parent, with relative path, executable mode, byte length
+and SHA-256. It hashes Git blob bytes, not checkout line endings. The marker
+describes its parent instead of hashing itself; ignored generated build and
+coverage caches are outside the tracked source census. Neither predictions,
+receipts, proof sources nor prose are excluded. Unknown source paths prevent
+generation. Symlinks, unresolved index entries, malformed manifests, shallow
+history and legacy graft files fail closed. Git replacement objects are
+disabled when reading the exact history.
+
+After the freeze, only `comparison.md` may be added or changed. Every newly
+reachable source snapshot is checked, including parallel edit/revert and
+deletion/recovery histories; unrelated ancestry with no source is not mistaken
+for a source deletion. The index is enumerated directly and each working
+source file is hashed independently of Git's unchanged flags. On Windows the
+executable bit is checked in the index; on other hosts the filesystem bit is
+also checked. Raw marker bytes must remain identical. Merge must preserve
+the dedicated marker commit and its ancestry; a squash does not preserve
+this protocol. The author, not this procedure, decides whether to merge.
+
+The source-isolation scan still checks every historical version and path,
+the current index, and nonignored working files before that boundary. Batch
+Git reads and within-run caching share work only for identical immutable
+blobs under the same complete pattern/name set. They do not drop path or
+history populations. Historical sibling names and pinned-file histories use
+full-history traversal so a reverted side branch cannot disappear. These are
+custody and scan claims, not proof of mathematical completeness, blindness or
+independent discovery. `AuthorityEffect: None`.
+
+The temporary-repository regression fixtures in `tests/test_freeze.py` supply
+the following controls. The committed malformed-marker control and its
+integration with the source scan reject a later comparison by name. The
+canonical-byte mutation family rejects missing rows, extra or duplicate keys, wrong
+hashes, modes, types, parent identity and line endings; restoring the original
+candidate recovers. Working and staged markers cannot disable the scan.
+Post-freeze edits, reverts, deletion and recreation remain visible. Both
+unchanged flags fail on the actual revised file and recover on restoration.
+Merged side histories keep altered pins, temporary sibling names and premature
+comparisons visible even under replacement grafts. Parallel source changes
+and complete deletion remain failures after HEAD is restored; an unrelated
+source-free merge remains acceptable in the independent review probe. No real
+receipt was regenerated during any of these injections. The dedicated
+symlink-ordering regression exercises the dangling-link branch with a mock,
+not a claim that Windows granted permission to create a real symlink.
 
 ## Session protocol
 
 Read the handoff, the seed, `PLAN.md`, this file, and the latest
-challenge's `STATUS.md`; close at most one challenge or continuation
-stage; write the handoff; never merge.
+`STATUS.md` — a challenge's while the mandatory sequence is open, a
+continuation stage's after it closes; close at most one challenge or
+continuation stage; write the handoff; never merge.
 
 ## Injection record
 
@@ -65,17 +135,185 @@ injection is live.
 
 | challenge | gate | injection | observed failure |
 |---|---|---|---|
-| 0 | blindness scan (`tests/test_blind.py`) | stray `zzz_probe.md` in the write root carrying an assembled citation into the sealed paper | `FAIL: test_write_root_is_blind_before_the_freeze` naming `research\boundary_seed\zzz_probe.md:1: citation into the sealed paper`, exit 1; 10 tests OK after deletion |
+| 0 | source-isolation scan (`tests/test_blind.py`) | stray `zzz_probe.md` in the write root carrying an assembled citation into the sealed paper | the scan failed on the write-root probe file at line 1 for a citation into the sealed paper, exit 1; 10 tests OK after deletion.  The failing test was then named test_write_root_is_blind_before_the_freeze, in plain text here because that name was retired when the scan was renamed; its successor is `test_write_root_is_source_isolated_before_the_freeze` |
 | 0 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`) | `authority_effect` changed from `None` to `Some` in the committed receipt | the test failed showing the differing bytes, exit 1; OK after the original bytes were restored |
 | 0 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge0/PREDICTIONS.md` | `FAIL: working copy of challenge0/PREDICTIONS.md: 1e15d854… wanted a03ee812…`, exit 1; `pins ok` after restore |
 | 0 | axiom log (`verify_lean.py`) | the `supply_no_op` report dropped from `lean/axioms.txt` | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; `lean ok: 13 axiom reports` after restore |
-| 0 | coverage gate (`check_coverage.py`) | `coverage.json` removed | `FAIL: coverage.json missing; run coverage from inside the tree first`, exit 1; the old recovery output mislabeled combined 98.09% as line coverage and is withdrawn below |
+| 0 | coverage gate (`check_coverage.py`) | `coverage.json` removed | `FAIL: coverage.json missing; run coverage from inside the tree first`, exit 1; recovery is the review-repair row two below, which reports the repaired suite at line 100.00% and branch 100.00%.  The recovery line this row first carried mislabeled a combined 98.09% as line coverage and is WITHDRAWN; the row records a failure and its recovery, as the table's standard requires, and an earlier version of it recorded the failure alone |
 | 0 | forbidden-token scan (found live, not injected) | the Lean event constructor was first named with the forbidden admission word | `FAIL: lean\BoundarySeed\Basic.lean:34: forbidden token …` on four lines, exit 1; the constructor became `place` and the scan passed |
 | 0 | census test (found live, not injected) | the reflection census compared regimes with their tokens | `test_census_rows`: `False is not true` on `fixed_iff_equal_counts`; the comparison now forgets tokens and the law holds to four marks |
 | 0 review repair | frozen-file portability (found live) | clean Windows checkout converted the un-attributed prediction blob to CRLF | working sha256 `02f6ea78…` differed from pinned `a03ee812…`; `-text` attributes restore byte identity |
 | 0 review repair | independent coverage arithmetic | synthetic totals report 94/100 lines and 100/100 branches while `percent_covered` says 97 | `test_combined_percent_cannot_rescue_low_line_coverage` returns line 94.00%, branch 100.00%; the repaired full suite is 53 passed at line 100.00%, branch 100.00% |
 | 0 review repair | source-isolation parser probes | nested and Windows paths, lowercase Lean names, nested seed, non-UTF-8 bytes, and staged/history populations | 14 focused source-isolation/coverage-gate probes pass; malformed bytes and protected references fail closed by name |
+| 1 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge1/PREDICTIONS.md` | `FAIL: working copy of challenge1/PREDICTIONS.md: 22b94644… wanted 7cf17e56…`, exit 1; `pins ok: seed ba30bcd600d8 and 2 frozen prediction file(s)` after restore |
+| 1 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge1.json` | the test failed showing the differing bytes, exit 1; OK after the original bytes were restored |
+| 1 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 53 tests in ` | exit 1; `^Ran 97 tests in ` exit 0 on the same log |
+| 1 | axiom log (`verify_lean.py`) | the `replay_preserves_onSide` report dropped from `lean/axioms.txt` (48 lines) | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; `lean ok: 49 axiom reports` after restore |
+| 1 | Lean import-closure census (`verify_lean.py`) | `lean/BoundarySeed/ZzzProbe.lean` added, imported by nothing | `FAIL: BoundarySeed.ZzzProbe is outside the root's import closure and is never elaborated`, exit 1; `lean ok: 49 axiom reports` after deletion; `test_planted_unreached_module_is_named` fixes the negative direction |
+| 1 | Lean import-closure hole (found live, not injected) | `Challenge1.lean` written but not imported by the root | `lake build` reported `Build completed successfully` with the 20 Challenge 0 reports and never elaborated the new file; the root import and the census above close it |
+| 1 | generator census (found live, not injected) | the candidate enumerator written into `model.py` with return type `list[AdmitMark]` | `test_no_state_event_generator_in_the_kernel`: `['one_step_admissions'] != []`, and the Challenge 0 receipt's byte identity failed with it; the enumerator moved to `challenge1.py`, the Challenge 0 receipt is unchanged |
+| 1 | no-timestamp scan (found live, not injected) | the receipt key `candidates` | `AssertionError: 'date' unexpectedly found` from a substring match; the scan now matches whole words and asserts the key is present |
+| 1 review repair | no-timestamp scan, the narrowing above (found live by review) | keys `build_date`, `run_timestamp`, `python_version` planted in a copy of the receipt | the whole-word scan `\b…\b` returned no hit on all three, `_` being a word character; the repaired scan, which forbids a watched word glued to letters, names `date`, `python`, `timestamp` on the same plant and nothing on the real receipt; `test_environment_scan_catches_planted_snake_case_keys` fixes both directions, and `test_challenge0.py` now uses the same pattern |
+| 1 review repair | moving-admission refusal (found live by review) | `AdmitMark(a, 1)` replayed after `a` admitted on side 0 | the pre-repair kernel returned the regime unchanged with placement `(0,)`, the requested side discarded, so “an event that moves the admitted mark” could not fire; the repaired kernel raises `AdmissionError: mark 'a' is admitted on side 0; an admission naming side 1 would move it and is refused`, `certify` returns false, the receipt records the refusal, and `test_moving_admission_is_refused_by_name` and test_c1_2_misses_when_a_moving_admission_is_accepted fix both directions; the second was renamed at `00acb2f7` to `test_c1_2_misses_when_a_moving_admission_is_accepted_and_moves_the_mark` |
+| 1 review repair | prediction scorer, literal clauses (found live by review) | C1-4 “the only event in the history” scored against a two-event history; C1-5 “the designation is by convention” scored as current-state designation of an admitted candidate | the scorer now reports each disputed clause on both readings: C1-4 `only_event_clause_status: MISSED`, `only_state_changing_event_status: HIT`, PARTIAL; C1-5 `current_state_designation_status: MISSED`, `facts_status: HIT`, PARTIAL; `test_c1_4_only_event_clause_is_scored_literally` shows HIT only for a one-event history and MISSED for two admissions, and test_c1_5_designation_clause_hits_only_if_an_admitted_candidate_were_current shows HIT only when the receipt says an admitted candidate is current; that test was replaced at `78c4a96c`, when the clause was re-scored on the frozen words, by `test_c1_5_designation_clause_is_scored_on_the_frozen_words` |
+| 1 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the kernel and metatheory repairs, with the committed receipt left stale | the test failed showing the differing bytes (3 failures in the suite); `run_challenge1.py` regenerated the receipt deliberately with no injection live, `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 106 |
+| 1 review repair | axiom log (`verify_lean.py`), deliberate regeneration | six theorems added (`reflect_replay` and companions) | `wrote lean\axioms.txt: 55 reports` under `--regen`, then `lean ok: 55 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
+| 1 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 97 tests in ` | exit 1; `^Ran 106 tests in ` exit 0 on the same log |
+| 1 second review repair | prediction scorer, C1-2 literal clause (found live by review) | the parenthetical's other-side half labelled from the overall pass, with no clause fact | the pre-repair receipt read `readmission_clause_status: SHARPENED` beside `status: HIT`; the repaired scorer reads `either_side_readmission_clause_status: MISSED` and `status: PARTIAL` on the real receipt, and HIT only when every candidate's `moving_admission_accepted_and_inert` is true; `test_c1_2_either_side_clause_hits_only_when_every_moving_admission_is_accepted_and_inert` fixes both directions, and `test_moving_admission_fact_reads_accepted_and_inert_only_when_the_kernel_absorbs` shows the fact true only under an absorbing `step` |
+| 1 second review repair | current-state designation fact (found live by review) | a caller history admitting a token `z`, no Challenge 1 candidate current | the pre-repair proxy `marks > 0` read True; the membership fact reads False, and `test_current_state_designation_is_candidate_membership` fixes it |
+| 1 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the scorer and fact repairs with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 109); `run_challenge1.py` regenerated the receipt deliberately with no injection live (24663 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 109 |
+| 1 second review repair | axiom log (`verify_lean.py`) | `bounded_invariant_judgment_does_not_separate` added with its `#print axioms` line, the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; then `wrote lean\axioms.txt: 56 reports` under `--regen` and `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
+| 1 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 106 tests in ` | exit 1; `^Ran 109 tests in ` exit 0 on the same log |
+| 1 third review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the scorer's `result_basis` for C1-1, C1-3, and C1-6, the `tally` key, and the C1-5 evidence wording, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 111); `run_challenge1.py` regenerated the receipt deliberately with no injection live (24663 to 26687 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 111 |
+| 1 third review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 109 tests in ` | exit 1; `^Ran 111 tests in ` exit 0 on the same log |
+| 1 fourth review repair | prediction scorer, C1-5 convention pin (found live by review) | the other convention `left is side 1` declared with its swapped candidate event, by patching the declaration and recomputing the O facts | the pre-repair scorer reported `facts_status: HIT` beside `current_state_designation_status: MISSED`, the same PARTIAL as the real receipt, so the declared convention's identity was unscored; the repaired scorer reads `convention_clause_status: MISSED`, `designation_clause_status: HIT`, `facts_status: HIT`, `status: PARTIAL`, and HIT on the real receipt; `test_c1_5_convention_clause_misses_under_the_other_convention` fixes both directions, piece by piece |
+| 1 fourth review repair | prediction scorer, C1-5 designation clause (found live by review) | `admitted_candidate_is_current` set true in a copy of the receipt; then `selection_is_by` set to `proof` | the repaired C1-5 score is unchanged by the first, the fact being read by no clause; the second reads `designation_clause_status: MISSED`, `status: PARTIAL`; `test_c1_5_designation_clause_is_scored_on_the_frozen_words` fixes both directions |
+| 1 fourth review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the scorer's C1-5 clauses, `side_0_name_under_O`, and the C1-3 basis, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 112); `run_challenge1.py` regenerated the receipt deliberately with no injection live (26687 to 27943 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 112 |
+| 1 fourth review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 111 tests in ` | exit 1; `^Ran 112 tests in ` exit 0 on the same log |
+| 1 fifth review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 1) | the C1-7 evidence rescoped to the candidate regimes, the C1-5 basis relabelled, and the two designation clause facts reworded, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 114); `run_challenge1.py` regenerated the receipt deliberately with no injection live (27943 to 28363 bytes), `run_challenge0.py` reported `unchanged: receipts\challenge0.json (5553 bytes)`, and the suite passed 114 |
+| 1 fifth review repair | axiom log (`verify_lean.py`), deliberate regeneration | `reflect_admitted` reproved by `rfl`, no theorem added or removed | `wrote lean\axioms.txt: 56 reports` under `--regen`, two reports moving from `[propext]` to none (`reflect_admitted`, `candidates_related_U`), then `lean ok: 56 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
+| 1 fifth review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 112 tests in ` | exit 1; `^Ran 114 tests in ` exit 0 on the same log |
+| 1 fifth review repair | cited-test-name totality (`tests/test_prose_citations.py`) (found live by review, then re-injected) | the two rows above, which named negative tests renamed at `00acb2f7` and `78c4a96c` | on its first run the new check reported, for MANUAL.md line 88, that test_c1_2_misses_when_a_moving_admission_is_accepted (plain text here, retired) matched no test defined in tests/, and the same for line 89, exit 1; both rows now name the current tests and the check passes.  Re-injected afterwards by citing test_zzz_probe_absent, backticked, in the change log: the check named that file, line 514, and that name, exit 1, then exit 0 after reversal; `test_planted_unresolvable_citation_is_named` fixes the same direction in a temporary tree |
+| 2 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge2/PREDICTIONS.md` | `FAIL: working copy of challenge2/PREDICTIONS.md: d46a59cabe0e… wanted 95f9371b030b…`, exit 1; `pins ok: seed ba30bcd600d8 and 3 frozen prediction file(s)` and exit 0 after restore |
+| 2 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 2) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge2.json` | the test failed showing the differing bytes; OK after the original bytes were restored |
+| 2 | Lean audit totality (`verify_lean.py`), new at this rung | a theorem `zzz_probe_unaudited` added to `Challenge2.lean` with no `#print axioms` line in the root | `FAIL: BoundarySeed.zzz_probe_unaudited is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, exit 1; and the counterfactual on the same tree — with the new check removed, the identical injection reported `lean ok: 84 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0, which is the residual observed rather than argued.  Exit 0 after deleting the probe and restoring the check; the axiom log was NOT regenerated at any point while the probe was live |
+| 2 | withdrawn repeated-label rule (found live, not injected) | the Challenge 1 negative test asserting that a regime with a repeated admitted label is refused, run against the Challenge 2 kernel | `test_invalid_regimes_are_refused`: `AdmissionError not raised` on the `('a', 'a')` case, 1 failure in 114.  The rule was withdrawn deliberately at this rung, so the case moved to `test_a_repeated_label_is_a_valid_regime_from_challenge_2` and the token-keyed refusal of a repeated label got its own negative test |
+| 2 | `verify_lean.py` failure printer (found live, not injected) | a real `lake build` failure, while `Challenge2.lean` did not yet compile | the printer raised `UnicodeEncodeError` on Lake's non-ASCII progress marks instead of showing the build errors; the printer now forces printable output, and the same failure then named four Lean errors with their lines |
+| 2 | cited-test-name totality, widened population | the widened population run over the tree as it stood | three unresolved names, exit 1: one retired source-isolation test cited in this file's row for Challenge 0, and two names quoted inside the fifth-repair row's diagnostics.  All three rows now give those names in plain text, as the convention below requires, and the check passes; `test_a_name_quoted_inside_a_longer_span_is_found` and `test_a_test_file_name_is_not_a_test_name` fix both directions, with `test_the_planted_file_name_does_not_fire` in a temporary tree |
+| 2 | prediction tally (Challenge 1) — the row the third repair did not have | `C1-7` removed from `DEFINITION_LEVEL_PREDICTIONS` in `challenge1.py` | three failures named: `test_tally_counts_definition_level_hits_apart_from_content`, `test_tally_moves_a_miss_out_of_every_hit_list_and_refuses_an_unknown_status` (`['C1-6'] != ['C1-6', 'C1-7']`), and `test_committed_receipt_matches_the_renderer`; 42 tests OK after reversal.  The third repair recorded only the receipt regeneration and the test-count grep, so the tally gate had negative tests and no injection row; this is that row |
+| 2 | different-sides census, negative direction | the census run over a property that reads one side rather than the difference of the two | `invariant_under_every_permitted_renaming` false with the same 177 images checked; `test_the_census_reports_a_property_that_is_not_invariant` fixes it, and the real property reports true |
+| 2 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 114 tests in ` | exit 1; `^Ran 165 tests in ` exit 0 on the same log |
+| 3 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge3/PREDICTIONS.md` | `FAIL: working copy of challenge3/PREDICTIONS.md: f74dbde92f39... wanted 27057895c47e...`, exit 1; `pins ok: seed ba30bcd600d8 and 4 frozen prediction file(s)` and exit 0 after restore |
+| 3 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge3.json` | the test failed showing the differing bytes, exit 1; OK after the original bytes were restored |
+| 3 | candidate quotient (`class_key`), new at this rung | the declared structure stripped from the class key, leaving the canonical regime key alone | eight failures: `test_the_minima_under_U_are_three_tied_classes` reported `2 != 3`, the two withdrawal candidates having collapsed into one class although they declare different renamings, and `test_the_class_key_is_the_structure_with_the_canonical_regime`, the scores, the tally, and the receipt bytes all moved with it; 47 tests OK after reversal.  This is the defect the key exists to catch: without the structure the enumeration understates the tie |
+| 3 | requirement-readings agreement (`test_the_orbit_witness_agrees_with_the_requirement_at_every_point`), new at this rung | the orbit witness compared against the label-forgetting serialization whatever the candidate declares | `AssertionError: False != True : ('U', 'keep_labels')`, naming the exact point, with five further failures; OK after reversal.  The check is a totality over all 96 points, so a candidate whose serialization the witness ignores cannot hide in it |
+| 3 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Challenge3` removed from the root module | `FAIL: BoundarySeed.Challenge3 is outside the root's import closure and is never elaborated`, exit 1; `lean ok: 105 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore.  The exit status was read directly and not through a pipeline |
+| 3 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 165 tests in ` | exit 1; `^Ran 222 tests in ` exit 0 on the same log |
+| 3 | coordinate census (found live, not injected) | `extra_mark = 0` tested against a shared falsehood | the point `extra_mark_0` vanished from the 48 and the scorer raised `StopIteration` looking for its row; each coordinate is now tested against its own inherited value and `test_side_zero_is_a_moved_coordinate` fixes both directions |
+| 3 | prediction scorer, literal clauses (found live, not injected) | C3-3 scored against “no declared mark property is invariant at the U base”, and C3-5 against an ordered list | both reported MISSED on the real receipt; the frozen C3-3 clause names the two mark forms of Challenge 2, so it is scored on those two with the label property reported separately, and the frozen C3-5 clause names four points and no order, so the comparison is by set.  Recorded because the first scoring would have reported a miss on clauses the frozen file does not make |
+| 3 | Lean decision procedure (found live, not injected) | `decide` offered a goal carrying the reading as a free variable | `error: Expected type must not contain free variables`, three times; two placement lemmas project the reading away first and the build then succeeded.  The same defect appeared at Challenge 2 |
+| 3 review repair | placement check (`test_the_placement_is_checked_against_the_declared_convention`) — the row the rung did not have | the further mark's admission moved to the other side, `process_admission` returning side `1 - extra_mark` | `AssertionError: False is not true : extra_mark_0`, exit 1; OK after reversal.  The rung added this check to replace two tautologies and then gave it neither a row nor a negative-direction test, so it could only ever read true; `test_the_placement_key_reads_false_when_the_prediction_parts` now fixes that direction, and the rung's own totality sentence is corrected in `challenge3/STATUS.md` |
+| 3 review repair | probe-set check (`test_the_probe_set_offers_every_event_kind`) — the row the rung did not have | the two occurrence admissions deleted from `probes` | `AssertionError: Items in the second set but not the first: 'AdmitOccurrence'`, exit 1; OK after reversal; `test_the_probe_set_check_sees_a_dropped_event_kind` fixes the negative direction |
+| 3 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | the second measure's declared text corrected and the computed key `sides_fact_agrees_with_the_requirement_at_every_point` added, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 55); `run_challenge3.py` regenerated the receipt deliberately with no injection live (219403 to 219789 bytes), the Challenge 0 to 2 receipts reported unchanged, and the suite passed 227 |
+| 3 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 222 tests in ` | exit 1; `^Ran 227 tests in ` exit 0 on the same log |
+| 3 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 3) | the second reading's declared text narrowed and the key `fields_declared_not_computed` added to the price, with the committed receipt left stale | the test failed showing the differing bytes (1 failure in 56); `run_challenge3.py` regenerated the receipt deliberately with no injection live (219789 to 220518 bytes), the Challenge 0 to 2 receipts reported unchanged, and the suite passed 228 |
+| 3 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 227 tests in ` | exit 1; `^Ran 228 tests in ` exit 0 on the same log |
+| 4 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge4/PREDICTIONS.md` | `FAIL: working copy of challenge4/PREDICTIONS.md: 75c1997c36a9... wanted 42371f458e23...`, exit 1; `pins ok: seed ba30bcd600d8 and 5 frozen prediction file(s)` and exit 0 after restore |
+| 4 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 4) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge4.json` | the test reported FAILED showing the differing bytes; OK after `run_challenge4.py` rewrote the original bytes.  The FAILED line was read directly and not through a pipeline's exit status |
+| 4 | witness key-determination clause, new at this rung | the second conjunct dropped from `whole_property_facts`, leaving invariance alone | the base of BOTH readings, where the requirement FAILS, reported `witness_whole_properties: ['set_is_the_first_whole']` — and under O `set_carries_label_a_on_side_0` beside it — so a property that reads a group tag the key does not carry was reported as a witness for a separation that does not hold.  Two tests failed by name, `test_the_tag_property_is_invariant_and_not_determined_by_the_key` and `test_the_witness_of_each_satisfying_one_step_point`; 23 tests OK after reversal.  **This is the defect the clause exists to catch, and it was live in the rung's first census before review**: the fix is definition 55's second conjunct together with the three-grouping domain and the two-element-set family, and `test_the_key_determination_census_reads_both_ways` fixes both directions |
+| 4 | analysis-against-kernel cross-check, new at this rung | `analyse` made to compute `satisfies` from the pointwise sense instead of the whole sense | `test_the_analysis_agrees_with_the_kernel_functions`: `AssertionError: False != True` naming the point, the grouping-with-names augmentation under U where the two senses genuinely part; 15 tests OK after reversal.  The receipt derives every fact of a candidate from ONE enumeration of its images, so this check is what holds that derivation to the kernel's declared functions |
+| 4 | placement check (`test_the_placement_is_checked_against_the_declarations`) | the process's further mark admitted on `1 - extra_mark` | `AssertionError: False is not true : extra_mark_0`, exit 1; OK after reversal.  `test_the_placement_key_reads_false_when_the_prediction_parts` fixes the same direction by patching the predicted placement |
+| 4 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Challenge4` removed from the root module | `FAIL: BoundarySeed.Challenge4 is outside the root's import closure and is never elaborated`, exit 1; `lean ok: 138 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore.  The exit status was read directly and not through a pipeline |
+| 4 | Lean audit totality (`verify_lean.py`) (found live, not injected) | reverting the root module with `git checkout` while restoring the injection above, which dropped the rung's import line AND all 33 of its `#print axioms` lines | the census named the module and then named every one of the 33 theorems: `FAIL: BoundarySeed.crossRetained_eq is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, and so on, exit 1; exit 0 at 138 reports after the lines were rewritten.  Recorded because it was an accident and not a plan, and because a whole rung's worth of unaudited theorems is exactly what the check was added at Challenge 2 to catch |
+| 4 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 228 tests in ` | exit 1; `^Ran 303 tests in ` exit 0 on the same log |
+| 4 | prediction scorer, literal clauses (found live, not injected) | C4-3 and C3-X scored against "no declared whole property separates the two wholes" | both reported MISSED on the real receipt, three of the five declared properties separating the two wholes at the base.  The frozen C4-3 clause names "both declared side-reading whole properties" and the frozen C3-X clause names "the side each mark lies on", so both are scored on the two side-reading properties, with the index, label, and tag properties reported separately.  Recorded because the first scoring would have reported misses on clauses the frozen files do not make, which is the same defect the Challenge 3 scorer had twice |
+| 4 | receipt size (found live, not injected) | the first build, with eight collateral booleans and the effective structure on every one of the 192 point rows twice over | 936733 bytes against the megabyte at which the run owes a summary and a gzip, a 6% margin, and 9.9 seconds to build.  The point rows now carry the facts that HOLD and the full map is on the nine rows reported in full, and every candidate's facts come from one enumeration of its images rather than fifteen: 795554 bytes and 2.9 seconds.  Recorded because a later rung adding keys to a point row has less room than the number alone suggests |
+| 4 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 4) | the boundary-dependence key given its exception and the grouping square's cells, the withdraw-mark-permutations capability text reworded off the reserved word, and the C4-8 basis relabelled, with the committed receipt left stale | the test reported FAILED showing the differing bytes (1 failure in 75); `run_challenge4.py` regenerated the receipt deliberately with no injection live (795554 to 795960 bytes), the Challenge 0 to 3 receipts reported unchanged, and the suite passed |
+| 4 review repair | axiom log (`verify_lean.py`), deliberate regeneration | the companion theorem `crossRetained_other_marks_share_a_side` added for the other pair of marks that share a side, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; then `wrote lean\axioms.txt: 139 reports` under `--regen` and `lean ok: 139 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`; no injection live |
+| 5 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `challenge5/PREDICTIONS.md` | `FAIL: working copy of challenge5/PREDICTIONS.md: 21354c6d1148... wanted b3aab18d8e5a...`, exit 1; `pins ok: seed ba30bcd600d8 and 6 frozen prediction file(s)` and exit 0 after restore |
+| 5 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | `authority_effect` changed from `None` to `Some` in the committed `receipts/challenge5.json` | the test reported FAILED showing the differing bytes, 1 failure in 4; OK after `run_challenge5.py` rewrote the original bytes.  The FAILED line was read directly and not through a pipeline's exit status |
+| 5 | class key over the declared domain (`class_key`), new at this rung | the behaviour read at the caller's ONE inscription instead of at every member of the declared domain | seven failures named, and the one the key exists to catch first: `test_the_minima_are_two_tied_classes_under_both_readings` reported `1 != 2`, the two one-step policies having collapsed into a single class although the enumeration parts them at 95 inscriptions; `test_the_two_one_step_policies_are_two` reported `True is not false`, `test_the_class_key_read_at_one_inscription_understates_the_tie` reported the two keys equal, C5-4 went MISSED, the tally moved, and the receipt bytes moved with them.  97 tests OK after reversal.  **This is the defect the domain-wide key exists to catch**: read at the caller's inscription alone the key understates a tie the seed requires to be retained |
+| 5 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Challenge5` removed from the root module | `FAIL: BoundarySeed.Challenge5 is outside the root's import closure and is never elaborated`, exit 1; `lean ok: 177 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore.  The exit status was read directly and not through a pipeline, which reported tail's status and showed 0 while the script was returning 1 |
+| 5 | Lean audit totality (`verify_lean.py`) | a theorem `zzz_probe_unaudited` added to `Challenge5.lean` with no `#print axioms` line in the root | `FAIL: BoundarySeed.zzz_probe_unaudited is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, exit 1, naming that theorem and no other; exit 0 at 177 reports after the probe was deleted.  The axiom log was NOT regenerated at any point while the probe was live |
+| 5 | Lean audit totality, the same accident as Challenge 4 (found live, not injected) | reverting the root module with `git checkout` while restoring the import injection above, which dropped the rung's import line AND all 38 of its `#print axioms` lines; the rung's own Lean file being untracked, the same command could not revert it either and left the probe theorem in place | the census named the module and then named every one of the 38 theorems — `FAIL: BoundarySeed.deepReplay_addresses_append is declared under lean/BoundarySeed/ but has no #print axioms line in BoundarySeed.lean`, and so on — exit 1.  Recorded because it is the SECOND rung at which this reversal has done it, which says the hazard is in the reversal procedure and not in one session's carelessness; the repair rebuilt the audit lines from the source text rather than by hand, and the clean injection above was then run again so that its diagnostic names the probe alone |
+| 5 | receipt byte-identity (found live, not injected) | the order census restructured to report the structural difference between the two within-whole orders beside the class-level one, with the committed receipt left stale | the test failed showing the differing bytes, 1 failure in 97; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 122088 to 123522 bytes, and the suite passed 97 |
+| 5 | Lean decision procedure (found live, not injected) | `decide` offered a goal carrying the reading as a free variable | `error: Expected type must not contain free variables`; two projection lemmas, `innerSideIsZero_nestedRetained` and `innerSideIsZero_innerReflected`, project the reading away first and the build then succeeded.  **The recurrence count in an earlier version of this cell was wrong and is corrected here**: it said the defect had appeared at Challenges 2, 3 and 4, making this the fourth rung running.  This table records it at Challenge 3, in the row above, whose cell says it also appeared at Challenge 2; there is no Challenge 4 row, and no status or change-log entry records a Challenge 4 occurrence.  What the rows support is Challenges 2 and 3, which makes this the THIRD occurrence.  The `challenge5/STATUS.md` sentence that says "for the third rung running" and then lists three earlier rungs is left as it stands, a previous rung's status not being edited, and is answered here |
+| 5 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 303 tests in ` | exit 1; `^Ran 400 tests in ` exit 0 on the same log |
+| 5 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the second measure's declared text corrected to definition 70's partition, the further-mark probe made to decide on a census rather than on the policy's own name, the reader-bound census added, and C5-1 and C4-X given their ordinal clauses, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 405; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 123522 to 127455 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 405 |
+| 5 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 400 tests in ` | exit 1; `^Ran 405 tests in ` exit 0 on the same log |
+| 5 second review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, Challenge 5) | the C4-X visibility clause folded into the scorer, the C5-6 result basis relabelled DEFINITION-level, and the C5-7 evidence scoped to the recording policy, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 406; `run_challenge5.py` regenerated the receipt deliberately with no injection live, 127455 to 128086 bytes, the Challenge 0 to 4 receipts reported unchanged, and the suite passed 406 |
+| 5 second review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 405 tests in ` | exit 1; `^Ran 406 tests in ` exit 0 on the same log |
+| 5 | axiom log (`verify_lean.py`), deliberate regeneration — the row the rung did not have | the rung's thirty-eight theorems added, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`, exit 1; then `wrote lean\axioms.txt: 177 reports` under `--regen` and `lean ok: 177 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`, 139 to 177; no injection live.  The rung recorded the regeneration in its status and its change log and gave it no row, while the two earlier deliberate regenerations each got one; this is that row |
+| 5 | declared domain census (found live, not injected) — the row the rung did not have | the domain enumeration passing the outer whole's own depth as the items' allowance | the declared domain came out at **nine** members instead of 144, so the class key, the policy separation and the depths census were all read over a ninth of the space.  Found by a probe and not by a gate; `test_the_domain_is_the_declared_product` rebuilds the domain from the declared alphabet independently and fixes it.  Recorded because the rung's status reports the failure and this table did not |
+| 5 | collateral-fact agreement census (`facts_agreeing_everywhere`) — the row the rung did not have | the census made to read the FIRST point of the space instead of every point | three failures named: `test_the_facts_that_agree_everywhere_are_named` reported `[False, False, False, False, False, False, True, True] != [False, False, False, False, False, False, False, False]`, two pairs of declared facts being reported as agreeing everywhere on the strength of one point; `test_the_agreement_check_reads_both_ways` and the receipt's byte identity failed with it; 107 tests OK after `git checkout` of the module.  The census is what the rung added to answer a Challenge 4 advisory, and it had negative-direction tests and no row |
+| stage 1 | frozen-prediction pin (`verify_pins.py`) | one byte appended to `continuation/stage1/PREDICTIONS.md` | `FAIL: working copy of continuation/stage1/PREDICTIONS.md: 72c6ad4cf27f... wanted ac401dafbfa5...`, exit 1; `pins ok: seed ba30bcd600d8 and 7 frozen prediction file(s)` and exit 0 after restore |
+| stage 1 | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, stage 1) | `authority_effect` changed from `None` to `Some` in the committed `receipts/continuation1.json` | the test reported FAILED showing the differing bytes, 1 failure in 1; OK after `run_continuation1.py` rewrote the original bytes and the six pin tests passed |
+| stage 1 | the branch key's policy part (`branch_key`), new at this stage | the Challenge 5 class key of an adopted policy dropped from the key, leaving the declarations and the configuration's least key | eight failures named, and the one the part exists to catch first: `test_the_branch_counts` reported `5 != 6`, the two policy branches having collapsed into one class although the enumeration parts them over the Challenge 5 domain; `test_the_policy_part_of_the_key_is_load_bearing` errored, `test_the_branch_names`, `test_two_generators_are_two_when_they_part_at_a_branch`, the bounds row, the scores, the tally and the receipt bytes all moved with it.  94 tests OK after reversal.  **This is the defect the policy part exists to catch**: read at the configuration alone the key understates a tie the seed requires to be retained, which is the Challenge 5 defect one level up.  The reversal was done by patching the module and NOT by `git checkout`, the file being untracked at the time, which is the hazard rows for Challenges 4 and 5 record |
+| stage 1 | the substitution census (`branch_substitution_census`), new at this stage | the enumeration source made to name the least domain member carrying as many marks as the branch's configuration admits — that is, made to read the state | nine failures named: the census read `reads_nothing_of_the_branch: False` with 22 of the 36 ordered pairs moving under U, `test_the_enumeration_generator_reads_nothing_of_the_branch` reported `False is not true`, S1-6 went from PARTIAL to MISSED and S1-5 from HIT to PARTIAL, and the receipt bytes moved with them; 94 tests OK after reversal, again by patching rather than by `git checkout` |
+| stage 1 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Continuation1` removed from the root module | `FAIL: BoundarySeed.Continuation1 is outside the root's import closure and is never elaborated`, exit 1 read directly and not through a pipeline; `lean ok: 205 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore |
+| stage 1 | axiom log (`verify_lean.py`), deliberate regeneration | the stage's twenty-eight theorems added, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`; then `wrote lean\axioms.txt: 205 reports` under `--regen` and `lean ok: 205 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`, 177 to 205; no injection live |
+| stage 1 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 406 tests in ` | exit 1; `^Ran 504 tests in ` exit 0 on the same log; the stale `^Ran 503 tests in ` from an intermediate count also exits 1, which is the same direction observed twice |
+| stage 1 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, stage 1) | the S1-3 clause re-scored on the frozen words, the S1-1 quotient clause widened to the three identifications the frozen text names, and the substitution census's reach recorded, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 98 on the stage's own module; `run_continuation1.py` regenerated the receipt deliberately with no injection live, 210774 to 212495 bytes, the six closed-rung receipts reported unchanged, and the full suite passed 508 |
+| stage 1 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 504 tests in ` | exit 1 read directly and not through a pipeline; `^Ran 508 tests in ` exit 0 on the same log |
+| stage 1 takeover | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, stage 1) | the remaining C5-X explanation corrected to separate output constancy from independence, with the existing receipt left stale | the named test failed with exit 1 on the differing explanation, 1 failure in 1; deliberate regeneration with no injection live wrote 212629 bytes, and the same test passed with exit 0.  The earlier repair's 212495-byte result remains recorded above as its own intermediate receipt |
+
+A test name presented as code in this file or any other tree document must
+resolve to a test the suite defines; the check above reads every `test_*`
+token appearing anywhere inside a backtick span of the tree's Markdown,
+`SEED.md` excepted, and skips a token followed by `.py`, which is a file
+name and not a runnable test.  A name that is deliberately not runnable is
+therefore written in plain text: a retired name beside the test that
+replaced it, and an injected probe name in the row that records it.  The
+population was widened at Challenge 2, after review found that a name
+quoted inside a longer span — a quoted failure line — was invisible to it,
+which is where two retired names were hiding.
 
 The first five injected rows record the original Challenge 0 run and retain
 their then-current counts.  The review-repair rows record the later
-adversaries; current whole-tree counts are reported in `challenge0/STATUS.md`.
+adversaries.  The Challenge 1 rows record that rung and its five review
+repairs, the Challenge 2 rows that rung, the Challenge 3 rows the rung after
+it, the Challenge 3 review-repair rows the session after that, the second
+review-repair rows the session after that again, the Challenge 4 rows the
+session after that, the Challenge 4 review-repair rows the session after that,
+the Challenge 5 rows the session after that again, the Challenge 5
+review-repair rows the session after that, and the Challenge 5 second
+review-repair rows the session after that.  The three rows labelled *the row
+the rung did not have* were added at continuation stage 1, from the Challenge 5
+status's own record for the first two and from an injection run at stage 1 for
+the third; the stage-1 rows record that stage, and the stage-1 review-repair
+rows the session after it.  Current whole-tree counts are
+reported in the latest status page — `challenge<k>/STATUS.md` for a challenge,
+`continuation/stage<n>/STATUS.md` for a continuation stage.
+
+## Continuation stage 2 apparatus
+
+The stage-2 session read the configured pin, gates and inject verification
+procedures as metatheoretic apparatus. It also received operator instructions
+on preserving ties and distinguishing valid null success from absent response.
+The inherited prior-exposure ceiling remains in force; this is not a new
+blindness or independent-discovery claim. Prediction commit `20855969`
+precedes all stage-2 implementation and proof work.
+
+Run `run_continuation2.py` for the deterministic stage export. Its resource
+limits distinguish attempted challenges from accepted augmentations. Replay
+must retain the full genesis supply history: a regime alone is not a supply
+record. Policy roots are certified in their original deep grammar and rendered
+through the existing flat-history rule, never by silently dropping a crossing.
+
+| stage | gate or regression | injected or observed defect | result |
+|---|---|---|---|
+| 2 | full genesis replay | suffix replay from a populated regime omitted earlier supply witnesses | the positive-occurrence regression raised `occurrence 'a' was not supplied before admission`; complete origin replay repaired it, and both occurrence candidates now pass at every actual supply root |
+| 2 | challenge validity | the predicate is replaced with false in the fixture | null and every positive point are refused; `test_supply_predicate_is_recomputed_not_inferred_from_inertia` passes after restoring the real predicate |
+| 2 | exact exported populations | delete a minimum class, an exported node or a frontier member in a receipt copy | the fresh export verifier names the changed member census; `test_corrupted_replay_and_tie_omission_are_named` checks failure and clean recovery without rewriting a receipt |
+| 2 | replay payload | change a continuation supply token in a receipt copy | the verifier names the corrupted continuation-events path; the unchanged export has no problems |
+| 2 | pending tie retention | offer four tied response classes against a branching bound of three | all four classes are exported at the frontier; `test_branching_bound_preserves_the_entire_pending_tie` checks that none is truncated |
+| 2 | axiom log | add the thirteen stage-2 reports with the old log left stale | fresh build succeeded; `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`; deliberate regeneration with no live injection wrote 218 reports |
+
+The stage-2 receipt verifier shares the executor with the writer. It checks
+deterministic replay, exact populations and byte agreement; it does not prove
+the mathematical correctness of that executor or Python/Lean correspondence.
+
+The stage-2 corruption controls were also run directly. Removing the root's
+minimum class returned `continuation2.readings.U.nodes[0].minimum_classes:
+member census differs`; changing a supply token returned
+`continuation2.readings.U.nodes[7].state.continuation_events[0].token:
+replayed value differs`. The unchanged export returned no problems. No receipt
+was regenerated while either copied injection was live.
+
+Parallel battery ordering matters: run the computational workers, wait for
+them all, combine their coverage shards, then run source isolation. At stage 2
+the isolation worker was started alongside the others and correctly rejected
+five temporary unignored binary coverage files as non-UTF-8. Combining the
+finished shards consumed those files; rerunning the same twelve isolation
+tests passed in 42.440 seconds. No ignore rule or scan exception was added.
+There were 565 unique passing tests, not 577. The final coverage gate reports
+100.00% line and branch over eleven code files, and typing checks 38 files.
+
+The final source review added one scoring control, bringing discovery to 566
+unique tests. Making every positive-cost candidate invalid previously left
+S2-2 HIT; the repaired predicate and
+`test_s2_2_misses_when_positive_candidates_are_all_inapplicable` now score it
+MISSED. Restoring the actual candidate rows gives HIT. The receipt remains
+byte-identical. The same review withdrew a status sentence that confused the
+separate attempt cap with the inherited accepted-round-bound falsifier; actual
+accepted counts are zero, and S1-X stays PARTIAL for its other literal misses.

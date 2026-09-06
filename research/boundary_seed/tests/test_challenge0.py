@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import json
 import pathlib
+import re
 import sys
 import types
 import unittest
@@ -55,9 +56,14 @@ class ReceiptTests(unittest.TestCase):
         self.assertNotIn(b"\r", path.read_bytes())
 
     def test_receipt_carries_no_timestamp_or_environment(self) -> None:
-        text = json.dumps(build(), sort_keys=True)
-        for word in ("time", "date", "python", "platform", "user"):
-            self.assertNotIn(word, text.lower().replace("timestamp", "time"))
+        # The same token scan as the Challenge 1 receipt: a watched word is a
+        # hit when it is not glued to letters, so snake_case keys are split.
+        text = json.dumps(build(), sort_keys=True).lower()
+        hits = re.findall(
+            r"(?<![a-z])(timestamp|time|date|python|platform|user)(?![a-z])", text
+        )
+        self.assertEqual(hits, [])
+        self.assertIn("readings", text)
 
 
 class FactTests(unittest.TestCase):
