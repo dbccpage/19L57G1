@@ -26,6 +26,7 @@ MODULES = [
     "BoundarySeed.Challenge4",
     "BoundarySeed.Challenge5",
     "BoundarySeed.Continuation1",
+    "BoundarySeed.Continuation2",
 ]
 
 

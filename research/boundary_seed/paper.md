@@ -1,4 +1,4 @@
-# The boundary derivation: Challenges 0 to 5 and continuation stage 1, under declared prior exposure
+# The boundary derivation: Challenges 0 to 5 and continuation stages 1 and 2, under declared prior exposure
 
 `AuthorityEffect: None`.  A source-isolated derivation from the inscription
 `<|>`, carried out inside this repository under the read-only seed
@@ -14,7 +14,7 @@ The seed is read-only, sha256
 `ba30bcd600d8232f054f3b4d9a5d03caafaa7442dfd8095643f39cfcea1ad0be`.
 The run writes only `research/boundary_seed/` and the append-only
 registration of its checks in the research job of the workflow.  Until a
-committed `FREEZE.md` marker exists, the declared procedure reads nothing of the repository
+validated, dedicated `FREEZE.md` commit exists, the declared procedure reads nothing of the repository
 beyond the seed, five named contract sections, and its own tree; it imports
 nothing from the sealed kernel and builds its own.  The source-isolation
 scan checks working, index, and committed-history bytes for citations into
@@ -50,6 +50,15 @@ is the run's own account of the channel and is not itself checked by
 anything.
 
 ## 1. Metatheory and object language
+
+Continuation stage 2 opened in a fresh instrument session after reading the
+seed, the five named contract sections, the plan, manual and stage-1 handoff.
+Its predictions were committed at `20855969` before stage-2 code or Lean.
+The session also received the repository contract through its harness and
+read the pin, gates and inject procedures as verification apparatus, plus
+operator review instructions about valid null responses and retaining ties.
+That exposure is material and does not restore blindness. No result of another
+derivation is used to define this stage's candidates or decide its results.
 
 Metatheory is everything used to carry out and check the derivation:
 Python, Lean, tests, receipts, readings, presentation tokens, extensional
@@ -903,6 +912,65 @@ whole Challenge 3 candidate space are Python-only.
     largest round count whose node count fits the ceiling.  The receipt reports
     the bound at five ceilings, so the dependence on the declaration is visible
     rather than buried.
+
+83. **Continuation state (stage 2).** Derived definition: a certified origin
+    branch, current declarations and retention policy, and an append-only
+    suffix of supply/admission events with a tag for each new occurrence.
+    Genesis replay includes the origin's supply witnesses. A deep origin is
+    separately certified in its own grammar and rendered by the existing
+    flat-history rule, available only at addresses of length one.
+84. **Attempt and accepted augmentation.** Metatheory apparatus: an attempt
+    processes one emitted challenge and selects a minimum valid response.
+    Null is a successful response but accepts no augmentation. An explicit
+    positive declaration or admission is an accepted augmentation. Presented
+    indices and imposed pairs are history records, not admitted marks.
+85. **Continued generators.** Derived definitions: the enumeration source
+    searches the line's updated presented record; the demand source searches
+    all pairs of currently retained tags not yet imposed on that line. Every
+    inherited minimum emitting generator class gets a root. Its capability
+    cost is recorded separately from response costs; its selection is an
+    explicit metatheoretic declaration.
+86. **Response space.** Metatheory apparatus: null; each still-unset Boolean
+    coordinate of the Challenge 4 space; a further occurrence of the first
+    historically supplied token on either side; each different admitting
+    Challenge 5 policy; and, for a supplied whole, retention under the current
+    policy (the refusing policy where none was adopted). A policy declaration
+    affects future retention, not old history. The recording policy costs two
+    capabilities and is refused as one step; every other positive point costs
+    one. This finite atomic space contains the inherited positive capabilities
+    and does not enumerate simultaneous combinations or deeper state grammar.
+    Retention uses the existing reader and policy-history projection of a
+    supplied whole, with its supply witnesses and explicit admissions.
+87. **Response validity.** Derived definition from declared requirements: a
+    supply demands no retention; a generated demand must have both endpoints
+    present and be recomputed as met in the resulting configuration. Every
+    previously met carried demand must remain met. An old unresolved demand
+    remains recorded and is not silently reissued as a new challenge. Missing
+    endpoints mean disappeared, never met. A resulting state has at most eight
+    marks; this is an additional finite resource declaration.
+88. **Response quotient.** Derived definition: equality of the least joint
+    configuration/requirement key under the declared renamings, including U's
+    reflection where not withdrawn, together with the declaration structure
+    and the policy's behaviour over the entire inherited domain. The joint key
+    retains grouping even when the object language cannot observe it, because
+    future demands use it. It is finer than an observational key. No digest
+    decides equality. Distinct generator roots are never merged.
+89. **Stage-2 resource bounds.** Metatheory apparatus: four attempts per line,
+    four accepted augmentations per line, at most three minimum response
+    classes per expansion, eight marks, and one thousand nodes per reading.
+    The attempt cap is a separate declaration, not the accepted-round count.
+    Including the generator tie gives seven U roots; the inherited tree bound
+    at four levels is 847, with 605 for O's five roots. Fifteen accepted rounds
+    remain the seed target and are not claimed achieved. A larger next tie or
+    exhausted node budget exports all its pending classes without truncation.
+90. **Exact finite export.** Deterministic computation: every root and child
+    has its parent, chosen minimum class, candidate census, costs, current
+    challenge, replay history, declarations, requirements and counts. A
+    terminal has no next challenge or no valid response. A resource frontier
+    has its exact pending challenge and, where already computed, all pending
+    response classes. Fresh execution checks the complete export; its algorithm
+    is shared with the writer, a limitation stated rather than independent
+    mathematical evidence.
 
 ## 4. Challenge 0: the initial state `<|>`
 
@@ -2181,10 +2249,55 @@ what the stage would have liked them to say.
 | the demand generator and the requirement it imposes | requires the boundary: a permitted automorphism of a configuration is a renaming of marks and, under U, of the two sides |
 | the node ceiling, the branching bound, and the computed round bound | independent of the boundary: they count branches and rounds |
 
+### 6.5 Continuation stage 2: attempts, null minima, and the exact frontier
+
+`receipts/continuation2.json` recomputes the inherited branches and every
+minimum emitting generator class. The result, in the finite spaces of
+definitions 83 to 90, is:
+
+| computed result | U | O |
+|---|---|---|
+| generator roots | 7 | 5 |
+| exported nodes | 33 | 25 |
+| successful response attempts | 26 | 20 |
+| accepted augmentations | 0 | 0 |
+| terminal lines | 1, demand generator exhausted after two attempts | 0 |
+| frontier lines | 6 at four attempts | 5 at four attempts |
+| minimum response at every executed challenge | null, cost 0 | null, cost 0 |
+| next supply at each frontier | `<|<a|>>` | `<|<a|>>` |
+
+The supply lines process domain indices 2, 3, 4 and 5. Some supplied wholes
+are nested, but none is retained: seeing a presentation is not admitting its
+interior or licensing depth as an internal count. Every positive candidate is
+still offered and priced; the source does not restrict the space to null.
+The additional U line imposes `(0, 2)` and then `(1, 2)`. Both demands are
+recomputed as already met; the inherited `(0, 1)` remains unresolved there.
+It stops because every pair of its three retained tags has been imposed.
+
+For the other lines, valid null responses continue updating the presented
+record. They do not justify a no-response terminal. Their four-attempt cutoff
+is a resource frontier, with exact pending challenges exported, not proof of
+termination of the underlying process. On policy branches the old pair remains
+disappeared; at each base and the other unresolved U branches it persists;
+previously met pairs stay met. The receipt records each fate at every node.
+All admitted configurations and readings remain unchanged on the executed
+lines, as recomputed by full genesis replay. Wider candidate spaces, further
+attempts and positive augmentations beyond this prefix remain OPEN.
+
+S2-1 through S2-6 HIT as bounded computations; inherited counts and ordinary
+null-minimum reasoning carry no claim of new foresight. S2-X remains PENDING
+because no response to the frontier challenge is computed. S1-X is PARTIAL:
+its null-first-response, zero-first-augmentation and no-first-split clauses
+hit, but its every-root-supplies clause misses the retained demand generator,
+and its predicted no-response termination misses the eleven resource
+frontiers. No frozen prediction or earlier receipt is changed. C5-X's remaining
+frontier clause is HIT at this explicitly bounded, computed scope; its prior
+four clauses keep the scope reported by stage 1.
+
 ## 7. Proofs and countermodels
 
 Lean package `lean/`, core Lean only, no dependency on any other package
-in this repository.  Two hundred and five theorems, every one with a
+in this repository.  Two hundred and eighteen theorems, every one with a
 `#print axioms`
 report in `lean/axioms.txt`, checked against a successful clean and fresh
 build by `verify_lean.py`; every report lies within
@@ -2206,7 +2319,7 @@ the same injected theorem left the build reporting `lean ok: 84 axiom
 reports … matching lean/axioms.txt`.  What the check does not do is read the
 compiled environment, so a theorem the source-text scan cannot see would
 escape it; the scan's population and the root's citation list currently
-agree exactly, 205 and 205, in both directions.
+agree exactly, 218 and 218, in both directions.
 
 ### 7.1 Challenge 0 (`Basic.lean`)
 
@@ -2756,6 +2869,35 @@ Lean file's concrete numbers — the record's indices, the domain's size, the
 four node counts and the ceiling — to the Python ones, which checks the numbers
 and not the correspondence.
 
+### 7.8 Continuation stage 2 (`Continuation2.lean`)
+
+The thirteen reports are partitioned explicitly. Five are DEFINITION-level:
+`attempts_can_exceed_accepted`, `supplyPrefix_successor_census`,
+`supplyPrefix_first_four`, `supplyPrefix_exact_frontier`, and
+`stage2_root_budget`. They evaluate declared functions or unfold a defining
+case, and are not counted as content. Eight are scoped content theorems:
+`zero_valid_is_minimum`, `minimum_has_zero_cost`,
+`unique_zero_is_only_minimum`, `valid_null_is_not_no_response`,
+`nullSupplyRun_preserves_state`, `null_responses_accept_zero`,
+`supplyPrefix_length_le`, and `supplyPrefix_frontier_is_not_exhaustion`.
+
+The minimum theorems assume validity of the zero-cost point. They do not
+establish that any Python challenge satisfies that premise: the executor
+recomputes it. They prove that a valid unique zero-cost point excludes every
+positive-cost point from the minimum set, and that its validity contradicts
+absence of a valid response. The null-run theorem proves unchanged regime for
+any finite sequence of supply steps; acceptedCount is zero on any list of null
+responses. The prefix theorem bounds the declared generator's emitted list by
+its attempt fuel; the concrete prefix and frontier evaluate to indices
+`[2, 3, 4, 5]` and `6`, whose non-exhaustion is then proved.
+
+Among these reports, `supplyPrefix_length_le` uses `[propext, Quot.sound]`;
+`null_responses_accept_zero`, `supplyPrefix_successor_census`, and
+`supplyPrefix_frontier_is_not_exhaustion` use `[propext]`; the other nine use
+none. Full Python/Lean semantic correspondence and a theorem covering every
+future response space remain OPEN. The complete 58-node census is COMPUTED,
+not promoted to a theorem by the axiom log.
+
 ## 8. Receipts
 
 - `receipts/challenge0.json` through `receipts/challenge5.json`:
@@ -2800,11 +2942,11 @@ and not the correspondence.
   convention pinned, and once more at the fifth, when C1-7's evidence was
   rescoped to the candidate regimes, C1-5's basis relabelled, and the two
   designation clause facts reworded, with no injection live any time.
-- Fresh coverage over the ten declared code
+- Stage-1 coverage over the then ten declared code
   files is 100.00% line and 100.00% branch; `check_coverage.py` computes
   line coverage as covered lines divided by statements rather than
   Coverage.py's combined line-plus-branch percentage.
-- `lean/axioms.txt`: 205 reports.  It was regenerated once at Challenge 1
+- `lean/axioms.txt`: 218 reports.  It was regenerated once at Challenge 1
   when the theorem set was final, three more times during that rung's
   review repairs, once at Challenge 2 when its twenty-eight theorems were
   final, 56 to 84 reports, once at Challenge 3 when its twenty-one were
@@ -2813,7 +2955,7 @@ and not the correspondence.
   companion theorem for the other pair sharing a side was added, 138 to 139;
   and once at Challenge 5 when its thirty-eight were final, 139 to 177,
   and once at continuation stage 1 when its twenty-eight were final, 177 to
-  205; no regeneration was under a live injection.
+  205, then at stage 2 from 205 to 218; no regeneration was under a live injection.
 - `receipts/continuation1.json` is 212629 bytes, far inside the megabyte at
   which the stage would owe a summary and a gzip with a content hash: its
   spaces are eleven branches and twelve generators, so every row is carried in
@@ -2821,13 +2963,17 @@ and not the correspondence.
   which is the check that declaring the branches and the generators disturbed
   no closed rung: the stage adds a module and reads the closed rungs' own
   functions, and changes no value any earlier receipt reports.
-- The suite passes 508 tests: 98 of stage 1's own and four added to the
+- The stage-1 suite passed 508 tests: 98 of stage 1's own and four added to the
   Challenge 5 file, three of them the negative directions of C4-X clauses that
   the Challenge 5 rung asserted in the hitting direction only, and one the
   census that gives the within-whole order its policy scope.
   Strict typing includes every challenge and continuation runner; the stage-1
   runner was missing from that explicit list and is included by this repair.
 - Injection record: `MANUAL.md`.
+- Stage 2 adds `run_continuation2.py`, the deterministic finite export and
+  37 tests after the scorer review repair. Its fresh whole-tree test count, coverage, typing, pin and audit
+  results are recorded in `continuation/stage2/STATUS.md`; the stage-1 counts
+  above are historical. The seven earlier receipts remain byte-identical.
 
 ## 9. The strongest defensible statement so far
 
@@ -3102,6 +3248,15 @@ declared bound is owed and fifteen rounds are not attempted.  No round is
 accepted here, no candidate is adopted, nothing is admitted, and both
 event-follows relations are empty on every probe at every branch.
 
+At continuation stage 2 all twelve inherited generator lines are executed.
+Forty-six successful attempts accept zero augmentations. The U demand line
+terminates by pair exhaustion after two attempts; eleven supply lines reach
+the explicit four-attempt frontier with `<|<a|>>` pending. Each executed
+challenge has a recomputed valid null minimum among the declared positive
+candidates. The 58-node export retains every generator root and every minimum
+response class within the resource bounds. It proves no universal process
+minimality, no unbounded termination and no equivalence to another derivation.
+
 These are scoped Lean theorems, bounded computations, or labelled
 definitions and conventions.  Because the instrument declared prior
 exposure, they carry no blind-independence or independent-discovery
@@ -3319,14 +3474,31 @@ Continuation stage 1 adds these:
   Python gates and source-isolation scan but does not build Lean.
 - Prior exposure is disclosed and material: the run is source-isolated, not
   blind.  The scan proves only the byte populations and patterns it checks.
-- The seed's future freeze instruction asks a file to hash every file in its
-  own write root, which is self-referential if it includes itself.  Until a
-  parent-tree or explicit-exclusion protocol is defined and verified, a
-  committed marker can retire the mechanical source scan but cannot establish
-  a valid freeze manifest; comparison remains OPEN.
+- The source-freeze apparatus hashes every tracked regular write-root blob at
+  the marker commit's sole parent, including the seed, predictions, code,
+  prose, receipts and proof sources. The dedicated marker commit adds only
+  its manifest; its own bytes are the explicitly excluded self-reference.
+  Ignored generated caches are outside this source census. Exact Git blob
+  bytes, modes and paths are checked, not checkout newline conventions.
+  This resolves the manifest protocol, not the mathematical stopping clauses.
+  A filename alone cannot retire source isolation. Comparison remains a
+  separate post-freeze act and may cause no revision of the frozen source.
+
+Continuation stage 2 adds the following live boundaries. Four attempts are
+not four accepted augmentations; no line achieved fifteen accepted rounds.
+The eleven exact frontiers leave continuation beyond the attempt cap OPEN.
+The one-adoption roots, atomic response space, existing reader and policy
+grammar, eight-mark limit and implemented renaming action remain assumptions.
+Invariant requirement counting over arbitrary larger states, the general
+initial-process property, an outside address and depth convergence remain
+OPEN. The new Lean results do not close Python/Lean semantic correspondence.
 
 ## 11. Comparison
 
-Withheld.  A working or staged `FREEZE.md` does not retire the isolation gate.
-A committed marker does retire that mechanical scan, but does not by itself
-close or verify the unresolved manifest protocol above.
+The comparison belongs in the separate `comparison.md`, written only after
+the dedicated source freeze has been validated. This paper is part of that
+frozen source and is not revised in response. A working, staged, malformed or
+incomplete marker cannot retire the isolation gate. The scan still checks
+all reachable pre-freeze source versions; the custody verifier rejects later
+source revisions, including hidden working edits and reverted branch history.
+Custody is not evidence that the mathematical stopping clauses were met.

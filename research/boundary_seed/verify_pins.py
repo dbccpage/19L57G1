@@ -15,6 +15,8 @@ import pathlib
 import subprocess
 import sys
 
+from verify_freeze import audit as audit_freeze
+
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 REL = "research/boundary_seed"
@@ -54,14 +56,14 @@ def sha(data: bytes) -> str:
 
 def git_bytes(spec: str) -> bytes | None:
     proc = subprocess.run(
-        ["git", "show", spec], cwd=ROOT, capture_output=True
+        ["git", "--no-replace-objects", "show", spec], cwd=ROOT, capture_output=True
     )
     return proc.stdout if proc.returncode == 0 else None
 
 
 def history(rel: str) -> list[str]:
     proc = subprocess.run(
-        ["git", "rev-list", "--reverse", "HEAD", "--", f"{REL}/{rel}"],
+        ["git", "--no-replace-objects", "rev-list", "--reverse", "--full-history", "HEAD", "--", f"{REL}/{rel}"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -79,7 +81,7 @@ def text_is_unset(rel: str, source: str) -> bool:
     elif source != "working tree":
         raise ValueError(f"unknown attribute source: {source}")
     proc = subprocess.run(
-        ["git", "check-attr", *options, "text", "--", f"{REL}/{rel}"],
+        ["git", "--no-replace-objects", "check-attr", *options, "text", "--", f"{REL}/{rel}"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -131,7 +133,7 @@ def check(rel: str, want: str) -> list[str]:
 def main() -> int:
     problems: list[str] = []
     shallow = subprocess.run(
-        ["git", "rev-parse", "--is-shallow-repository"],
+        ["git", "--no-replace-objects", "rev-parse", "--is-shallow-repository"],
         cwd=ROOT,
         capture_output=True,
         text=True,
@@ -148,8 +150,10 @@ def main() -> int:
         rel = receipt.relative_to(HERE).as_posix()
         problems.extend(attribute_problems(rel, "byte-stable"))
     problems.extend(attribute_problems("lean/axioms.txt", "byte-stable"))
-    if history("FREEZE.md"):
-        print("note: committed FREEZE.md marker; pre-freeze source scan is retired")
+    freeze = audit_freeze(ROOT)
+    problems.extend(freeze.problems)
+    if freeze.frozen:
+        print(f"note: validated source freeze {freeze.commit}; pre-freeze source scan is retired")
     for p in problems:
         print(f"FAIL: {p}")
     if problems:

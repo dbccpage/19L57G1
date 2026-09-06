@@ -5,6 +5,21 @@ import BoundarySeed.Challenge3
 import BoundarySeed.Challenge4
 import BoundarySeed.Challenge5
 import BoundarySeed.Continuation1
+import BoundarySeed.Continuation2
+
+#print axioms BoundarySeed.zero_valid_is_minimum
+#print axioms BoundarySeed.minimum_has_zero_cost
+#print axioms BoundarySeed.unique_zero_is_only_minimum
+#print axioms BoundarySeed.valid_null_is_not_no_response
+#print axioms BoundarySeed.nullSupplyRun_preserves_state
+#print axioms BoundarySeed.null_responses_accept_zero
+#print axioms BoundarySeed.attempts_can_exceed_accepted
+#print axioms BoundarySeed.supplyPrefix_length_le
+#print axioms BoundarySeed.supplyPrefix_successor_census
+#print axioms BoundarySeed.supplyPrefix_first_four
+#print axioms BoundarySeed.supplyPrefix_exact_frontier
+#print axioms BoundarySeed.supplyPrefix_frontier_is_not_exhaustion
+#print axioms BoundarySeed.stage2_root_budget
 
 /-!
 # The boundary derivation: root

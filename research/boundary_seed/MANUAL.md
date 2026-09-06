@@ -59,10 +59,65 @@ scan, and strict typing; the Lean package is a manual receipt.
 `verify_pins.py` compares working, index, HEAD, and committed-history bytes
 for the seed and frozen predictions.  The source-isolation test likewise
 checks working, index, and history bytes and fails on undecodable content.
-A working or staged `FREEZE.md` does not retire the scan.  The current rule
-retires it at a reachable committed marker; that rule does not validate the
-marker as a complete hash manifest, so comparison remains blocked until a
-parent-tree or explicit-exclusion protocol is defined and verified.
+A working or staged `FREEZE.md` does not retire the scan. The earlier
+marker-presence rule is withdrawn: `verify_freeze.py` now validates a
+dedicated parent-manifest commit before the scan can retire. It is called
+by the pin verifier and the source-isolation test, not merely documented.
+
+### Source freeze protocol: metatheoretic custody only
+
+After the stopping clauses are met or their exact obstructions recorded OPEN,
+commit the complete source and verification apparatus first. From the tree,
+`python verify_freeze.py --write` generates the marker for that exact HEAD;
+it refuses staged, working or untracked intentional source changes. Commit
+only `FREEZE.md` in the next commit. That commit must have exactly one parent
+and change no other repository path. `python verify_freeze.py --require-frozen`
+then verifies the result. No real marker was generated under a probe.
+
+The manifest independently enumerates all tracked regular blobs under the
+write root in its parent, with relative path, executable mode, byte length
+and SHA-256. It hashes Git blob bytes, not checkout line endings. The marker
+describes its parent instead of hashing itself; ignored generated build and
+coverage caches are outside the tracked source census. Neither predictions,
+receipts, proof sources nor prose are excluded. Unknown source paths prevent
+generation. Symlinks, unresolved index entries, malformed manifests, shallow
+history and legacy graft files fail closed. Git replacement objects are
+disabled when reading the exact history.
+
+After the freeze, only `comparison.md` may be added or changed. Every newly
+reachable source snapshot is checked, including parallel edit/revert and
+deletion/recovery histories; unrelated ancestry with no source is not mistaken
+for a source deletion. The index is enumerated directly and each working
+source file is hashed independently of Git's unchanged flags. On Windows the
+executable bit is checked in the index; on other hosts the filesystem bit is
+also checked. Raw marker bytes must remain identical. Merge must preserve
+the dedicated marker commit and its ancestry; a squash does not preserve
+this protocol. The author, not this procedure, decides whether to merge.
+
+The source-isolation scan still checks every historical version and path,
+the current index, and nonignored working files before that boundary. Batch
+Git reads and within-run caching share work only for identical immutable
+blobs under the same complete pattern/name set. They do not drop path or
+history populations. Historical sibling names and pinned-file histories use
+full-history traversal so a reverted side branch cannot disappear. These are
+custody and scan claims, not proof of mathematical completeness, blindness or
+independent discovery. `AuthorityEffect: None`.
+
+The temporary-repository regression fixtures in `tests/test_freeze.py` supply
+the following controls. The committed malformed-marker control and its
+integration with the source scan reject a later comparison by name. The
+canonical-byte mutation family rejects missing rows, extra or duplicate keys, wrong
+hashes, modes, types, parent identity and line endings; restoring the original
+candidate recovers. Working and staged markers cannot disable the scan.
+Post-freeze edits, reverts, deletion and recreation remain visible. Both
+unchanged flags fail on the actual revised file and recover on restoration.
+Merged side histories keep altered pins, temporary sibling names and premature
+comparisons visible even under replacement grafts. Parallel source changes
+and complete deletion remain failures after HEAD is restored; an unrelated
+source-free merge remains acceptable in the independent review probe. No real
+receipt was regenerated during any of these injections. The dedicated
+symlink-ordering regression exercises the dangling-link branch with a mock,
+not a claim that Windows granted permission to create a real symlink.
 
 ## Session protocol
 
@@ -209,3 +264,56 @@ the third; the stage-1 rows record that stage, and the stage-1 review-repair
 rows the session after it.  Current whole-tree counts are
 reported in the latest status page — `challenge<k>/STATUS.md` for a challenge,
 `continuation/stage<n>/STATUS.md` for a continuation stage.
+
+## Continuation stage 2 apparatus
+
+The stage-2 session read the configured pin, gates and inject verification
+procedures as metatheoretic apparatus. It also received operator instructions
+on preserving ties and distinguishing valid null success from absent response.
+The inherited prior-exposure ceiling remains in force; this is not a new
+blindness or independent-discovery claim. Prediction commit `20855969`
+precedes all stage-2 implementation and proof work.
+
+Run `run_continuation2.py` for the deterministic stage export. Its resource
+limits distinguish attempted challenges from accepted augmentations. Replay
+must retain the full genesis supply history: a regime alone is not a supply
+record. Policy roots are certified in their original deep grammar and rendered
+through the existing flat-history rule, never by silently dropping a crossing.
+
+| stage | gate or regression | injected or observed defect | result |
+|---|---|---|---|
+| 2 | full genesis replay | suffix replay from a populated regime omitted earlier supply witnesses | the positive-occurrence regression raised `occurrence 'a' was not supplied before admission`; complete origin replay repaired it, and both occurrence candidates now pass at every actual supply root |
+| 2 | challenge validity | the predicate is replaced with false in the fixture | null and every positive point are refused; `test_supply_predicate_is_recomputed_not_inferred_from_inertia` passes after restoring the real predicate |
+| 2 | exact exported populations | delete a minimum class, an exported node or a frontier member in a receipt copy | the fresh export verifier names the changed member census; `test_corrupted_replay_and_tie_omission_are_named` checks failure and clean recovery without rewriting a receipt |
+| 2 | replay payload | change a continuation supply token in a receipt copy | the verifier names the corrupted continuation-events path; the unchanged export has no problems |
+| 2 | pending tie retention | offer four tied response classes against a branching bound of three | all four classes are exported at the frontier; `test_branching_bound_preserves_the_entire_pending_tie` checks that none is truncated |
+| 2 | axiom log | add the thirteen stage-2 reports with the old log left stale | fresh build succeeded; `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`; deliberate regeneration with no live injection wrote 218 reports |
+
+The stage-2 receipt verifier shares the executor with the writer. It checks
+deterministic replay, exact populations and byte agreement; it does not prove
+the mathematical correctness of that executor or Python/Lean correspondence.
+
+The stage-2 corruption controls were also run directly. Removing the root's
+minimum class returned `continuation2.readings.U.nodes[0].minimum_classes:
+member census differs`; changing a supply token returned
+`continuation2.readings.U.nodes[7].state.continuation_events[0].token:
+replayed value differs`. The unchanged export returned no problems. No receipt
+was regenerated while either copied injection was live.
+
+Parallel battery ordering matters: run the computational workers, wait for
+them all, combine their coverage shards, then run source isolation. At stage 2
+the isolation worker was started alongside the others and correctly rejected
+five temporary unignored binary coverage files as non-UTF-8. Combining the
+finished shards consumed those files; rerunning the same twelve isolation
+tests passed in 42.440 seconds. No ignore rule or scan exception was added.
+There were 565 unique passing tests, not 577. The final coverage gate reports
+100.00% line and branch over eleven code files, and typing checks 38 files.
+
+The final source review added one scoring control, bringing discovery to 566
+unique tests. Making every positive-cost candidate invalid previously left
+S2-2 HIT; the repaired predicate and
+`test_s2_2_misses_when_positive_candidates_are_all_inapplicable` now score it
+MISSED. Restoring the actual candidate rows gives HIT. The receipt remains
+byte-identical. The same review withdrew a status sentence that confused the
+separate attempt cap with the inherited accepted-round-bound falsifier; actual
+accepted counts are zero, and S1-X stays PARTIAL for its other literal misses.

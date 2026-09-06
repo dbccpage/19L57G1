@@ -16,9 +16,11 @@ files = [
   "run_challenge4.py",
   "run_challenge5.py",
   "run_continuation1.py",
+  "run_continuation2.py",
   "check_coverage.py",
   "verify_pins.py",
   "verify_lean.py",
+  "verify_freeze.py",
 ]
 
 [tool.coverage.run]

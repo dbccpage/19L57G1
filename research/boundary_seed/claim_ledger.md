@@ -2781,21 +2781,23 @@ Python receipt, bounded), LIMITATION, OPEN.
   fifteen accepted augmentation rounds on any branch in one session; it will
   declare a smaller resource bound, export the exact frontier, and state what
   is complete within that bound and nothing wider.
-- **Status**: OPEN; the extrapolation of Challenge 5 remains PENDING after
-  continuation stage 1.  Its first challenge, smaller bound and zero accepted
-  rounds are COMPUTED there.  The enumeration source's declared-input
-  justification is DEFINITION-level; its finite substitution census alone
-  does not establish independence.  The frontier clause awaits stage 2.
+- **Status**: COMPUTED at stage 2: C5-X HIT within the declared finite scope.
+  The four clauses reported at stage 1 keep their prior scope; the frontier
+  clause is now checked by the complete bounded export. The enumeration
+  source's declared-input justification is DEFINITION-level; its substitution
+  census alone does not establish independence.
 - **Dependencies**: the continuation's declared generator, its resource bound,
   and its frontier export.
 - **Assumptions**: the stage-1 declared branch and generator spaces.
-- **Python evidence**: `receipts/continuation1.json`, `scores.C5-X`;
+- **Python evidence**: `receipts/continuation1.json`, `receipts/continuation2.json`, `scores.C5-X`;
   `test_c5x_is_pending_with_four_clauses_hit` and
   `test_c5x_clauses_read_both_ways`.
-- **Lean theorem**: none yet.
+- **Lean theorem**: none for the whole extrapolation; S2-FRONTIER names the
+  narrower generator-prefix results.
 - **Axiom report**: not applicable.
 - **Falsifier**: as written in `challenge5/PREDICTIONS.md`.
-- **Surviving boundary**: the stage-1 spaces; no frontier is certified yet.
+- **Surviving boundary**: the stage-1 roots and generators, stage-2 atomic
+  responses and explicit attempt/resource limits; no unbounded claim.
 
 ### S1-BRANCHES
 
@@ -3194,15 +3196,149 @@ Python receipt, bounded), LIMITATION, OPEN.
   for want of a justified response well short of the four-round bound, unless
   it first declares the further capability that lets the process admit as well
   as supply, which costs a second capability and is refused as one step.
-- **Status**: OPEN, the frozen extrapolation of this stage.  Not scored here;
-  the stage that runs the rounds scores it.
+- **Status**: COMPUTED at stage 2, PARTIAL. Null first responses, no first
+  accepted augmentation and no first split HIT. Every-root supply MISSES the
+  preserved demand generator. No-response termination MISSES: null is valid,
+  eleven lines reach a resource frontier, and one terminates by generator
+  exhaustion. The frozen words and earlier receipt remain unchanged.
 - **Dependencies**: S1-WEAKEST-GENERATOR, S1-FIRST-CHALLENGE, S1-BOUNDS;
   B0-INERTIA and B1-SUPPLY-PRESENTATION for the inertia of a supply.
 - **Assumptions**: none beyond this stage's declarations.
-- **Python evidence**: none yet; `scores.S1-X` records it PENDING.
+- **Python evidence**: `receipts/continuation2.json`, `scores.S1-X`;
+  `test_scores_preserve_literal_misses_and_pending_extrapolation`.
 - **Lean theorem**: none yet.
 - **Axiom report**: not applicable.
 - **Falsifier**: any branch accepting an augmentation at round one; the branch
   set growing at round one; the first round being refused rather than answered
   by the null response; or the stage reaching the round bound on any branch.
 - **Surviving boundary**: the next stage.
+
+### S2-SPACE
+
+- **Statement**: Definitions 83 to 90 declare the state, generator adoption,
+  challenge predicate, atomic response space, costs, joint quotient and finite
+  resource bounds. A supply is not a retention demand. Every generated demand
+  is recomputed, and an old met demand cannot be lost.
+- **Status**: DEFINITION; these are declared metatheory, not discovered rules.
+- **Dependencies**: B-BOUNDARY first; the stage-1 branch and generator spaces,
+  Challenge 4 Boolean capabilities and occurrence grammar, Challenge 5 policies.
+- **Assumptions**: one-adoption roots; four attempts; four accepted rounds;
+  three minimum classes; eight marks; one thousand nodes per reading.
+- **Python evidence**: `code/boundary/continuation2.py`, `candidates`, `valid`,
+  `state_key`; `test_candidate_space_contains_all_available_positive_capabilities`,
+  `test_nontrivial_demand_rejects_null_and_finds_positive_responses`.
+- **Lean theorem**: no theorem that these declarations are necessary.
+- **Axiom report**: not applicable.
+- **Falsifier**: an unpriced bundled capability reported as one step, or a
+  response approved without recomputing the declared predicate.
+- **Surviving boundary**: this finite space only; no universal minimality.
+
+### S2-NULL
+
+- **Statement**: Every executed challenge under both readings has the unique
+  null minimum of cost zero; 46 attempts accept zero augmentations. For any
+  abstract validity predicate and natural cost, a valid unique zero-cost point
+  is the only minimum and contradicts absence of a valid response.
+- **Status**: COMPUTED for the actual 46 challenges; PROVED for the conditional
+  abstract minimum statements. The premise of validity is never supplied by
+  supply inertia or by a passing receipt.
+- **Dependencies**: S2-SPACE and the recomputed requirement predicate.
+- **Assumptions**: the declared cost function and validity; finite state space
+  for the computational clause.
+- **Python evidence**: `receipts/continuation2.json`, `readings.*.nodes`,
+  `test_successful_null_is_never_no_valid_response`,
+  `test_supply_predicate_is_recomputed_not_inferred_from_inertia`.
+- **Lean theorem**: `BoundarySeed.zero_valid_is_minimum`,
+  `BoundarySeed.minimum_has_zero_cost`, `BoundarySeed.unique_zero_is_only_minimum`,
+  `BoundarySeed.valid_null_is_not_no_response`,
+  `BoundarySeed.null_responses_accept_zero`.
+- **Axiom report**: none for the first four; `[propext]` for the last.
+- **Falsifier**: an executed challenge whose null is invalid, a tied positive
+  zero-cost response, or a valid null labelled no valid response.
+- **Surviving boundary**: the actual finite prefix and the stated abstract
+  hypotheses; no proof of arbitrary future challenge validity.
+
+### S2-REPLAY
+
+- **Statement**: The 58 exported configurations under U and O replay from
+  genesis with explicit supply/admission history and unchanged admitted state
+  on the executed lines. Positive occurrence candidates preserve the original
+  supply witnesses. Every minimum class and generator root is retained.
+- **Status**: COMPUTED for the complete export; PROVED for state invariance of
+  any finite Lean null-supply run. Generator adoption costs are metatheory.
+- **Dependencies**: S2-SPACE, earlier certified histories and flat-history
+  rendering of the two depth-one policy origins.
+- **Assumptions**: the existing replay and renaming implementations, current
+  configuration reading and declared joint key.
+- **Python evidence**: `test_every_recorded_endpoint_is_replayed_and_certified`,
+  `test_genesis_prefix_preserves_supply_witnesses_for_positive_candidates`,
+  `test_every_inherited_generator_class_is_a_root`,
+  `test_corrupted_replay_and_tie_omission_are_named`,
+  `test_u_reflection_quotient_and_policy_domain_are_load_bearing`.
+- **Lean theorem**: `BoundarySeed.nullSupplyRun_preserves_state`.
+- **Axiom report**: none.
+- **Falsifier**: a changed or uncertified endpoint, omitted generator tie or
+  minimum response class, or loss of a supply witness from the replay prefix.
+- **Surviving boundary**: finite algorithmic replay; independent mathematical
+  implementation and general Python/Lean semantic correspondence remain OPEN.
+
+### S2-FRONTIER
+
+- **Statement**: U has seven roots, 33 nodes, six attempt-bound frontier lines
+  and one demand-exhaustion terminal after two attempts. O has five roots,
+  25 nodes and five attempt-bound frontier lines. The supply prefix is indices
+  2, 3, 4, 5; index 6, `<|<a|>>`, is pending. Every minimum class is expanded
+  or named on the resource frontier; no line reaches fifteen accepted rounds.
+- **Status**: COMPUTED for the whole forest. DEFINITION-level for concrete
+  Lean prefix/budget evaluations and the successor equation; PROVED for the
+  arbitrary-fuel prefix length bound and non-exhaustion at the concrete frontier.
+- **Dependencies**: S2-SPACE, S2-NULL, S2-REPLAY and stage-1 firstMissing.
+- **Assumptions**: the separate attempt limit, accepted limit, node ceiling,
+  branching and mark bounds. Four attempts are not four accepted augmentations.
+- **Python evidence**: `test_exact_node_and_frontier_counts`,
+  `test_frontier_has_exact_next_challenge_and_zero_accepted`,
+  `test_branching_bound_preserves_the_entire_pending_tie`,
+  `test_zero_attempt_and_node_ceiling_frontiers_are_exact`.
+- **Lean theorem**: `BoundarySeed.supplyPrefix_first_four`,
+  `BoundarySeed.supplyPrefix_exact_frontier`, `BoundarySeed.stage2_root_budget`,
+  `BoundarySeed.attempts_can_exceed_accepted` (DEFINITION, no axioms);
+  `BoundarySeed.supplyPrefix_successor_census` (DEFINITION, `[propext]`);
+  `BoundarySeed.supplyPrefix_length_le` (PROVED, `[propext, Quot.sound]`);
+  `BoundarySeed.supplyPrefix_frontier_is_not_exhaustion` (PROVED, `[propext]`).
+- **Axiom report**: exactly as individually recorded above and in the axiom log.
+- **Falsifier**: omitted root, edge, tie, terminal or pending challenge;
+  exhausted generator reported where the exact pending challenge exists.
+- **Surviving boundary**: the declared finite prefix; the eleven continuing
+  lines are OPEN beyond their resource frontier, not terminal derivations.
+
+### S2-REQUIREMENTS
+
+- **Statement**: Old requirements are tracked as met, unresolved or
+  disappeared at every node. The U demand line adds `(0, 2)` and `(1, 2)`,
+  both recomputed met, while `(0, 1)` stays unresolved. No executed line changes
+  its admitted state; policy origins keep the old pair disappeared.
+- **Status**: COMPUTED. General invariance under arbitrary larger-state
+  renamings remains OPEN; no such theorem follows from this finite table.
+- **Dependencies**: S2-SPACE, S2-REPLAY and the whole-separation predicate.
+- **Assumptions**: inherited current-state reading and explicit pair identity.
+- **Python evidence**: `test_demand_line_tracks_new_requirements_and_exhaustion`,
+  `test_requirements_do_not_conflate_disappearance_with_satisfaction`,
+  `test_met_carried_requirement_cannot_be_lost`.
+- **Lean theorem**: none for the full requirement ledger.
+- **Axiom report**: not applicable.
+- **Falsifier**: a disappeared pair called met or an unresolved pair dropped
+  without the endpoint disappearance being recorded.
+- **Surviving boundary**: this finite requirement population.
+
+### S2-X
+
+- **Statement**: Beyond an unchanged supply frontier, the next attempt under
+  the same declarations will again have a valid null minimum.
+- **Status**: OPEN, frozen prediction PENDING; that response is not computed.
+- **Dependencies**: S2-FRONTIER and the stage-2 frozen prediction file.
+- **Assumptions**: the same generator and response space at the future attempt.
+- **Python evidence**: `receipts/continuation2.json`, `scores.S2-X`.
+- **Lean theorem**: none for validity at that future challenge.
+- **Axiom report**: not applicable.
+- **Falsifier**: a later recomputed challenge needing a positive minimum.
+- **Surviving boundary**: the next continuation stage, not executed here.

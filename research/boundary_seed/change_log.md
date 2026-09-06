@@ -1906,3 +1906,58 @@ seven receipt replays, the seed and seven frozen-prediction pins, and a clean
 205-report Lean audit.  The prose watchlist and identifier firewall also
 return exit 0.  The status records each check's boundary, the firewall skip,
 and the repository-wide gates not run by this scoped session.
+
+## Continuation stage 2: null success and the exact resource frontier
+
+Predictions were frozen in their own commit `20855969` before stage-2 code or
+Lean. The stage recomputes every inherited state branch and minimum emitting
+generator class, preserving seven U and five O lines. It declares an atomic
+response space including inherited positive capabilities and recomputes
+challenge validity rather than inferring it from supply inertia.
+
+The run executes 26 U and 20 O successful attempts, with no accepted
+augmentation. The additional U demand line exhausts its pairs after two null
+responses. Eleven supply lines reach the explicit four-attempt frontier;
+index 6, `<|<a|>>`, remains pending. The attempt cap is kept separate from four
+accepted augmentations and the seed's fifteen-augmentation target. All
+requirements, histories, candidates, minima and exact pending challenges are
+exported. The paper, ledger and stage status record the finite scope and OPEN
+continuation beyond it. Required questions 1 to 14 receive an updated census;
+question 15 and comparison remain withheld.
+
+The first regression caught a genuine replay defect: starting suffix replay
+from an existing regime discarded the earlier supply witnesses and wrongly
+refused positive occurrence candidates. Full origin history plus suffix now
+replays from genesis; policy origins use the existing checked flat rendering.
+The candidate rows changed, while null minima and line counts did not.
+Thirty-six new tests exercise nontrivial demand validity, all inherited
+generator roots, tie retention, history corruption, resource frontiers and
+positive-candidate supply provenance. Thirteen scoped Lean reports bring the
+audit to 218. The fresh build rejected the stale log before deliberate
+regeneration; no receipt was regenerated during a live injection.
+
+S1-X is now PARTIAL: its demand-generator omission and no-response terminal
+prediction are recorded as misses beside the values. C5-X's remaining frontier
+clause is HIT within the stated finite computed scope. S2-1 through S2-6 HIT;
+S2-X is PENDING. Frozen predictions, earlier status pages and earlier receipts
+are unchanged. The configured verification procedures and operator apparatus
+exposure are disclosed without any stronger provenance claim.
+
+Final verification passes 565 unique tests, fresh 100.00% line and branch
+coverage over eleven code files, strict typing over 38 files, the seed and
+eight prediction pins, all eight deterministic receipt replays, the clean
+218-report Lean audit, the unchanged prose-watchlist pin and identifier
+firewall (one skip). Stage 2's receipt is 349533 bytes. The parallel coverage
+workers initially exposed binary temporary shards to the source scan; the
+gate rejected them, coverage combine consumed them, and the unchanged scan
+then passed. The ordering correction and actual failed/recovered populations
+are recorded in the manual. No scan exemption was introduced.
+
+Final independent source review corrected the status's assertion that the
+accepted-round-bound falsifier fires: the eleven lines reach the separate
+attempt cap and accept zero augmentations. The assertion is withdrawn, with
+S1-X still PARTIAL for its generator and terminal misses. S2-2 now checks that
+a positive-cost candidate is actually valid, not merely present; one new
+negative-direction regression raises the suite to 566. The affected 37-test
+stage suite is rerun with coverage; the receipt stays byte-identical and its
+scores, branch populations and minimum prices do not move.
