@@ -1,0 +1,6 @@
+REQUIREMENTS.md -text
+PREDICTIONS.md -text
+SOURCE_MANIFEST.json -text
+pinned/** -text
+receipts/** -text
+lean/axioms.txt -text

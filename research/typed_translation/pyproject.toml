@@ -1,0 +1,18 @@
+[tool.coverage.run]
+branch = true
+source = ["code/typed_translation"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "code"
+files = [
+  "code",
+  "run_translation.py",
+  "verify_pins.py",
+  "verify_prose.py",
+  "check_coverage.py",
+]

@@ -1,0 +1,264 @@
+{
+  "rows": [
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R00",
+      "probes": ["event_follows_empty"],
+      "stage": "challenge0",
+      "subject": "empty event-follows relation"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R01",
+      "probes": ["initial_datum_fixed"],
+      "stage": "challenge0",
+      "subject": "initial opaque datum"
+    },
+    {
+      "claim": "require the admitted boundary and are not formulated after removing it",
+      "id": "R02",
+      "probes": ["side_profiles", "side_collapse", "side_names", "side_reflection", "side_class_count"],
+      "stage": "challenge0",
+      "subject": "side profiles, collapse, names, reflection, and class counts"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R03",
+      "probes": ["supply_inert"],
+      "stage": "challenge0",
+      "subject": "supply inertia"
+    },
+    {
+      "claim": "does not depend on the admitted boundary for the event discipline; the side the mark is retained on requires it",
+      "id": "R04",
+      "probes": ["admission_separate", "mark_retained", "retained_address"],
+      "stage": "challenge1",
+      "subject": "admission is a separate event; the mark is retained"
+    },
+    {
+      "claim": "require the admitted boundary and are not formulated after removing it",
+      "id": "R05",
+      "probes": ["side_judgment", "mark_side_profile", "side_candidate_count", "presentation_convention", "side_class_count"],
+      "stage": "challenge1",
+      "subject": "one new judgment, the mark's side; profiles; candidates; convention; classes"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R06",
+      "probes": ["supply_inert"],
+      "stage": "challenge1",
+      "subject": "supply is presentation only"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R07",
+      "probes": ["replay_exact"],
+      "stage": "challenge1",
+      "subject": "the current state is the replay of the caller's history"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R08",
+      "probes": ["event_follows_empty"],
+      "stage": "challenge1",
+      "subject": "the event-follows relation stays empty"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R09",
+      "probes": ["initial_datum_fixed", "reading_fixed"],
+      "stage": "challenge1",
+      "subject": "the initial datum and reading are unchanged by every event"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R10",
+      "probes": ["supply_inert", "replay_exact"],
+      "stage": "challenge2",
+      "subject": "supply is presentation only, and the current state is the replay of the caller's history"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R11",
+      "probes": ["event_follows_empty"],
+      "stage": "challenge2",
+      "subject": "the event-follows relation stays empty"
+    },
+    {
+      "claim": "does not depend on the admitted boundary; it is about presentation tokens and internal identity",
+      "id": "R12",
+      "probes": ["identity_policy_count", "shared_policy_refused"],
+      "stage": "challenge2",
+      "subject": "the identity policy space and the refusal of the shared policy"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R13",
+      "probes": ["initial_datum_fixed", "reading_fixed"],
+      "stage": "challenge2",
+      "subject": "the initial datum and reading are unchanged by every event"
+    },
+    {
+      "claim": "require the admitted boundary and are not formulated after removing it",
+      "id": "R14",
+      "probes": ["two_side_judgments", "retained_addresses", "automorphism_count", "mark_separation", "different_sides"],
+      "stage": "challenge2",
+      "subject": "the two new judgments, the sides the marks are retained on, the automorphisms, the separation, and the different-sides fact"
+    },
+    {
+      "claim": "does not depend on the admitted boundary; it is about renamings and orbits, and it would be stated the same way for any renaming set",
+      "id": "R15",
+      "probes": ["separation_requirement", "reading_agreement"],
+      "stage": "challenge3",
+      "subject": "the declared sense of the requirement and the agreement of its two readings"
+    },
+    {
+      "claim": "requires the admitted boundary: the further mark is admitted ON a side, and what separates the two retained marks there is that the two sides then carry different numbers of marks",
+      "id": "R16",
+      "probes": ["further_mark_admitted", "further_mark_separates"],
+      "stage": "challenge3",
+      "subject": "the further-mark candidate"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R17",
+      "probes": ["candidate_space_shape", "capability_count", "bundle_refusal"],
+      "stage": "challenge3",
+      "subject": "the identity of the candidate space, the capability counts, and the refusal of bundles"
+    },
+    {
+      "claim": "require the admitted boundary and are not formulated after removing it",
+      "id": "R18",
+      "probes": ["side_reflection", "side_properties", "counterfactual_square", "separation_results", "index_separation_result"],
+      "stage": "challenge3",
+      "subject": "the side exchange, its withdrawal, the two side mark properties, the counterfactual square, and every separation result of the rung"
+    },
+    {
+      "claim": "does not depend on the admitted boundary; the admission index is carried by the placement tuple's length and not by the sides",
+      "id": "R19",
+      "probes": ["index_properties", "withdraw_mark_permutations"],
+      "stage": "challenge3",
+      "subject": "the two index mark properties and the withdrawal of the mark permutations"
+    },
+    {
+      "claim": "does not depend on the admitted boundary; they are about renamings, orbits, and mark-sets, and would be stated the same way for any renaming set",
+      "id": "R20",
+      "probes": ["separation_requirement", "pointwise_set_requirement", "reading_agreement"],
+      "stage": "challenge4",
+      "subject": "the declared sense, its second reading, and the pointwise sense"
+    },
+    {
+      "claim": "requires the admitted boundary: the further mark is admitted ON a side, and there is no other coordinate for it to move",
+      "id": "R21",
+      "probes": ["further_mark_admitted", "retained_address"],
+      "stage": "challenge4",
+      "subject": "the further-mark coordinate"
+    },
+    {
+      "claim": "does not depend on the admitted boundary; a group tag and an admission index are carried by the placement tuple's length and by the caller's history, not by the sides",
+      "id": "R22",
+      "probes": ["grouping_coordinates", "tag_property", "index_properties", "withdraw_mark_permutations"],
+      "stage": "challenge4",
+      "subject": "the grouping coordinates, the tag property, the index property, and the withdrawal of the mark permutations"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R23",
+      "probes": ["candidate_space_shape", "capability_count", "one_step_rule", "bundle_refusal"],
+      "stage": "challenge4",
+      "subject": "the identity of the candidate space, the capability counts, the one-step rule, and the refusal of bundles"
+    },
+    {
+      "claim": "require the admitted boundary and are not formulated after removing it",
+      "id": "R24",
+      "probes": ["side_reflection", "side_properties", "label_and_side_property", "grouping_square", "separation_results"],
+      "stage": "challenge4",
+      "subject": "the side exchange, its withdrawal, the two side-reading whole properties, the label-and-side property, the grouping square's cells, and every separation result of the rung except the index withdrawal"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R25",
+      "probes": ["policy_space_shape", "capability_count", "one_step_rule", "bundle_refusal"],
+      "stage": "challenge5",
+      "subject": "the identity of the policy space, the capability counts, the one-step rule, and the refusal of bundles"
+    },
+    {
+      "claim": "requires the admitted boundary, being a statement about which side a mark lies on after the inner boundary is discarded or absorbed",
+      "id": "R26",
+      "probes": ["nesting_invisibility"],
+      "stage": "challenge5",
+      "subject": "the invisibility of the nesting at every one-step policy"
+    },
+    {
+      "claim": "require the admitted boundary: a crossing is a crossing OF a boundary, and an address is a sequence of its sides.  Nothing in this rung's state is formulated after removing it",
+      "id": "R27",
+      "probes": ["depth_value", "address_value", "crossing_value", "level_exchanges"],
+      "stage": "challenge5",
+      "subject": "the notion of depth, the address, the crossing, and every level exchange"
+    },
+    {
+      "claim": "requires the admitted boundary to be formulated at all, and the run formulates no address value for it; that is recorded OPEN",
+      "id": "R28",
+      "probes": ["outside_outer_boundary"],
+      "stage": "challenge5",
+      "subject": "the outside of the outermost boundary"
+    },
+    {
+      "claim": "require the admitted boundary in the weak sense that a whole is delimited by one bar with a side on each hand; how many items a side may carry and how deep the reader goes are declarations the boundary does not decide",
+      "id": "R29",
+      "probes": ["reader_depth_bound", "inscription_domain", "item_bound", "enumeration_order"],
+      "stage": "challenge5",
+      "subject": "the reader's depth bound and the domain of inscriptions"
+    },
+    {
+      "claim": "does not depend on the admitted boundary: one is a statement about renamings and a key, the other about the forms of the closed observation grammar, and both would be stated the same way for any state carrying a sequence",
+      "id": "R30",
+      "probes": ["available_depth_orbit", "available_depth_observation"],
+      "stage": "challenge5",
+      "subject": "the two senses of an available depth, and their parting"
+    },
+    {
+      "claim": "does not depend on the admitted boundary as a rule, but every configuration it quotients does: the least key it compares is a key of a placement, and a placement is a side per mark",
+      "id": "R31",
+      "probes": ["branch_payload", "one_adoption_rule", "quotient_algorithm"],
+      "stage": "continuation1",
+      "subject": "the branch set, the one-adoption rule, and the branch quotient"
+    },
+    {
+      "claim": "requires the admitted boundary: a permitted automorphism of a configuration is a renaming of marks and, under U, of the two sides",
+      "id": "R32",
+      "probes": ["demand_target", "separation_requirement"],
+      "stage": "continuation1",
+      "subject": "the demand generator, and the requirement it imposes"
+    },
+    {
+      "claim": "requires the admitted boundary through the declared domain, whose members are wholes delimited by one bar with a side on each hand; the enumeration of that domain and the order on it are declarations the boundary does not decide",
+      "id": "R33",
+      "probes": ["inscription_domain", "enumeration_order"],
+      "stage": "continuation1",
+      "subject": "the enumeration generator and what it emits"
+    },
+    {
+      "claim": "does not depend on the admitted boundary",
+      "id": "R34",
+      "probes": ["generator_space_shape", "capability_count", "one_step_rule", "bundle_refusal"],
+      "stage": "continuation1",
+      "subject": "the generator space, its capabilities, the one-step rule, and the refusal of bundles"
+    },
+    {
+      "claim": "does not depend on the admitted boundary: they count branches and rounds and would be stated the same way for any finite branching",
+      "id": "R35",
+      "probes": ["node_ceiling", "branching_bound", "round_bound"],
+      "stage": "continuation1",
+      "subject": "the node ceiling, the branching bound, and the computed round bound"
+    },
+    {
+      "claim": "The supplied inscriptions, placement and renaming action use the paid boundary. Attempt accounting, enumeration, replay checks and finite resource limits are metatheory.",
+      "id": "R36",
+      "probes": ["supplied_inscriptions", "placement", "renaming_action", "attempt_accounting", "enumeration_order", "replay_exact", "finite_resource_limits"],
+      "stage": "continuation2",
+      "subject": "inscriptions, placement, renaming, attempt accounting, replay, and resources"
+    }
+  ],
+  "snapshot": "6129e859f8889aa197d186e6a330aed43ef672fc"
+}
