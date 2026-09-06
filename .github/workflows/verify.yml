@@ -165,6 +165,12 @@ jobs:
       # committed log as evidence of a build that CI never performed.
       - name: Second derivation, rung 2 track 1, fresh Lean and axiom audit
         run: python3 research/second_nofirst/verify_lean.py
+      # The typed-translation joining tree has an independent one-module Lake
+      # package.  Unlike the older manual research receipts, its two
+      # obstruction targets and provenance theorem are rebuilt here and its
+      # declaration census is compared with an exact committed inventory.
+      - name: Typed translation, fresh Lean and total axiom inventory
+        run: python3 research/typed_translation/verify_lean.py
       # Must stay LAST in this job and must not write to lake_build.log: the
       # three steps above compare that log against artifacts/lean_axioms.txt.
       # `lake build` only builds defaultTargets, so a module the root does not
@@ -510,3 +516,31 @@ jobs:
       - name: Side-free control, prose numbers bound to the record
         working-directory: research/side_free
         run: python -m unittest tests.test_prose_numbers -v
+      # The typed-translation tree joins the sealed and boundary grammars and
+      # runs the total one-field removal experiment.  The freeze/pin verifier
+      # also binds the side-free and limit/second-observer controls by exact
+      # source blobs; their own batteries remain registered immediately above.
+      - name: Typed translation, freeze, source pins, vendored values, isolation
+        run: python research/typed_translation/verify_pins.py
+      # The literal count is paired with tests/test_gates.py, which discovers
+      # the suite independently and requires this number to move with it.
+      - name: Typed translation, tests, coverage, receipt, isolation
+        working-directory: research/typed_translation
+        env:
+          PYTHONPATH: code
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/typed-translation-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran 119 tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          python run_translation.py
+          git diff --exit-code -- receipts/typed_translation.json STATUS.md FINDINGS.md CLAIM_LEDGER.md
+      - name: Typed translation, strict typing
+        working-directory: research/typed_translation
+        run: python -m mypy
+      - name: Typed translation, published prose bound to fresh computation
+        working-directory: research/typed_translation
+        run: python verify_prose.py

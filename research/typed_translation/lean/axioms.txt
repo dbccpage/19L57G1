@@ -1,0 +1,3 @@
+'TypedTranslation.memoryless_fixed_block_obstruction' depends on axioms: [propext, Quot.sound]
+'TypedTranslation.retained_provenance_not_equal' does not depend on any axioms
+'TypedTranslation.symmetric_form_cost_obstruction' depends on axioms: [propext, Quot.sound]

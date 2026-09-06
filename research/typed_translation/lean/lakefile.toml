@@ -1,0 +1,6 @@
+name = "typedtranslation"
+version = "0.1.0"
+defaultTargets = ["TypedTranslation"]
+
+[[lean_lib]]
+name = "TypedTranslation"
