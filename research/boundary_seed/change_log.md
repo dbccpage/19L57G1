@@ -1794,3 +1794,115 @@ lie in a living document or in apparatus are listed here.
 Carried, with reasons, in the status: the six items in `challenge4.py` and the
 items in `challenge5.py` and in earlier `STATUS.md` pages, all of which would
 regenerate a closed rung's receipt or edit a previous rung's status.
+
+## 2026-09-05, continuation stage 1: review repair at the exact head
+
+Six advisories arrived from the review of the stage commit `68452c34`.  All six
+are actioned; none is declined.  Every repair lies in this stage's own module,
+tests, receipt or prose, so no closed rung's receipt is regenerated and no
+frozen `PREDICTIONS.md` is touched.
+
+- **S1-3 is re-scored against its frozen words and is PARTIAL.**  The frozen
+  falsifier names "the capability count and the coordinate count disagreeing in
+  this space".  They disagree — `one_step_iff_capability_count_one` is true and
+  `one_step_iff_one_coordinate_moved` is false, the state-reading source moving
+  one coordinate and using two capabilities — so the falsifier fired and the
+  clause MISSED.  The scorer had required that same disagreement in order to
+  score HIT, which is the falsifier inverted, and the negative test hard-coded
+  the inversion.  Both are repaired: the clause hits only where the two counts
+  agree, the receipt key is `counts_agree_clause_status`, and the miss is
+  recorded next to its value in the evidence string in the shape S1-6 already
+  used.  The reason for the repair is the rule the run has followed since
+  Challenge 1: a frozen clause is scored on the frozen words and only those, in
+  either direction.  **What does not change is the result**: one step is
+  capability count one, the seed requiring a candidate called one step not to
+  bundle, and the two readings part.  What changes is that the stage no longer
+  reports a frozen clause as hit by the very fact that refutes it.  The
+  ledger's restatement of the falsifier carried the same inversion and is
+  corrected to the frozen polarity, with the miss recorded there; the paper's
+  and the status page's "eight of nine hit" sentences become seven of nine with
+  two PARTIAL, and the event census is no longer called the single miss.
+- **The branch quotient is no longer credited with identifying the two
+  further-mark points.**  `branch_candidates` forms one candidate per rung
+  class, taking its first member, so `extra_mark_1` is never a branch and the
+  further-mark branch is a singleton of `branch_classes` — the very key the
+  paper, the results table, section 9, the status page and S1-BRANCH-KEY cited
+  for the identification.  The identification is real and is Challenge 3's own
+  quotient, one level down; all five places now say which quotient makes which
+  identification and cite `branch_space.rung_minima.challenge3`.  The S1-1
+  quotient clause had asked only that *some* class hold more than one member,
+  which cannot see any of the three identifications the frozen text names; it
+  now names all three and reads both quotients, and
+  `test_s1_1_reads_both_quotients_the_frozen_text_names` fixes the direction
+  that splitting the adopted class alone must MISS.  The reason: an evidence
+  citation that does not carry the claim is worse than none, because a reader
+  who checks it finds a singleton and cannot tell whether the claim or the
+  citation is wrong.
+- **Definition 81 no longer entails independence from constancy.**  It said
+  that a generator whose emitted challenge is constant over the branch set
+  "reads no component of any branch, state included", and the run's own receipt
+  is a countermodel: under O the demand generator has
+  `reads_nothing_of_the_branch: true` while its emitted demand is computed from
+  the branch's configuration, and the same generator moves under U.  The
+  entailment is withdrawn from definition 81, from definition 79, from
+  `branch_substitution_census`'s docstring, from the declared-inputs sentence,
+  from section 9 and from S1-READS-NOTHING, whose status is split: COMPUTED for
+  the constancy over the declared branch set, DEFINITION-level for the
+  independence, which is true by unfolding the generator's source and not by
+  the census.  The receipt gains `generator_space.substitution_census_reach`,
+  `test_constancy_over_the_branch_set_does_not_entail_reading_nothing` pins the
+  countermodel, and the residual is listed in section 10.  **No computed value
+  moves**: the enumeration generator's conclusion was true on other grounds all
+  along, and what was wrong was the stated inference and the label on it.
+- **Section 7.7's partition is now total, and names theorems.**
+  `firstMissingFrom_ge` and `contains_cons_self` lay in neither the
+  DEFINITION-level list nor the content sentence — the defect actioned at 7.6
+  in the previous session, in the next section down.  Both halves now name
+  theorems rather than descriptions and sum visibly to the table's
+  twenty-eight: fifteen DEFINITION-level, `contains_cons_self` among them as
+  one `simp` on a constructor, and thirteen content, `firstMissingFrom_ge`
+  among them as an induction over an arbitrary record.
+- **S1-NON-REPETITION's PROVED status covers only clauses that name a
+  theorem.**  "The generator is a function of the presented record alone" has
+  no Lean statement, and the Lean `firstMissing` takes a record *and* a bound;
+  the clause moves into a DEFINITION-level one, true by unfolding, and the four
+  proved clauses keep their four theorems.  This is the shape repaired for
+  B5-INERTIA in the previous session.
+- **S1-BOUNDARY-DEPENDENCE reads LIMITATION.**  The receipt's
+  `boundary_dependence` block is five declared sentences that nothing computes,
+  and every earlier rung's entry of the kind — B3, B4, B5 — reads "LIMITATION,
+  a dependency classification of the run.  It is reported in the receipt and is
+  not computed by anything."  This one now reads with them, and names
+  `test_the_receipt_reports_the_boundary_dependence`, which is what holds the
+  receipt to the declared block.
+
+The stage-1 receipt is regenerated deliberately with no injection live, 210774
+to 212495 bytes; the six closed-rung receipts report unchanged.  The suite
+grows by four tests and the workflow's test-count grep moves with it.  The Lean
+theorem set does not move, so `lean/axioms.txt` is not regenerated.
+
+## Operator-directed completion of the stage-1 review repair
+
+The existing repair was taken over after its writer stopped.  The remaining
+C5-X evidence sentence and the test-module introduction still attributed
+independence to the finite substitution census.  They now separate its
+computed output constancy from the DEFINITION-level inspection of the
+enumeration source's declared inputs, matching S1-READS-NOTHING.  The C5-X
+score values do not move; its receipt explanation is regenerated deliberately
+with no injection live.  B5-X now points to that pending stage-1 evidence
+instead of saying no evidence exists.
+
+The stage-1 runner is included in the explicit strict-typing file list.  The
+paper's current suite count is corrected from 504 to 508, including 98 tests
+of stage 1.  The status separates the original stage's gate record from the
+takeover verification, discloses the additional operational review context,
+and adds the seed's fifteen-question progress census with unresolved work
+marked OPEN or awaiting a later stage.  No continuation round, stage-2
+prediction, freeze or comparison is produced by this repair.
+
+The completed repair passes 508 tests in 250.336 seconds with fresh 100% line
+and branch coverage over ten source files, strict typing over 33 files, all
+seven receipt replays, the seed and seven frozen-prediction pins, and a clean
+205-report Lean audit.  The prose watchlist and identifier firewall also
+return exit 0.  The status records each check's boundary, the firewall skip,
+and the repository-wide gates not run by this scoped session.

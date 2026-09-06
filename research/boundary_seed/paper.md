@@ -867,8 +867,10 @@ whole Challenge 3 candidate space are Python-only.
     least member of the declared domain, in that domain's own order, that the
     presented record does not carry, and which emits nothing when the record
     carries them all.  It reads the domain enumeration and the presented record
-    and no component of any state, which the substitution census of definition
-    81 computes.
+    and no component of any state.  That is DEFINITION-level, true by unfolding
+    the source: no value of a branch enters it.  What the substitution census
+    of definition 81 adds is the computed fact that what it emits does not move
+    over the declared branch set.
 80. **The demand generator, and the imposed record (stage 1).**  The generator
     whose only output is the least unordered pair of distinct retained wholes of
     the branch that the run has not already been required to separate.  The
@@ -880,11 +882,16 @@ whole Challenge 3 candidate space are Python-only.
     census over every ordered pair of declared branches of whether replacing one
     branch by the other moves what the generator emits.  It substitutes the
     WHOLE branch, declarations and configuration together, which is stronger
-    than substituting the configuration alone: a generator whose emitted
-    challenge is constant over the branch set reads no component of any branch,
-    state included.  The census is not vacuous, the branch set holding four
-    distinct configuration keys under each reading, and the state-reading source
-    moves under it.
+    than substituting the configuration alone.  What it computes is
+    **constancy** over the declared branch set: a finite, non-vacuous sample,
+    the branch set holding four distinct configuration keys under each reading,
+    under which the state-reading source moves.  Constancy is **not**
+    independence, and this run carries its own witness against reading it as
+    such: the demand generator moves under U, so it does read the branch's
+    configuration, and it is constant under O, where the same census reports it
+    reading nothing of the branch.  The census predicate is named for the wider
+    reading and computes the narrower one; the receipt states the reach beside
+    it.
 82. **The resource bounds, and the computed round bound (stage 1).**  The *node
     ceiling* is one thousand, a **declaration** of this stage derived from
     nothing.  The *branching bound* is three, read off the closed rungs' own
@@ -1997,15 +2004,21 @@ base, and the further-mark class is no minimum there.  So the branch that
 carries a third retained whole is a branch of reading U alone, and that is what
 makes the tie below a U result.
 
-**The branch quotient identifies three things, and it is the key and not the
+**The branch quotient identifies two things, and it is the key and not the
 configuration that does it.**  The two withdrawals of the mark permutations are
-one declaration named at two rungs; the two further-mark points are one class;
-the Challenge 3 null minimum under O is the base.  Against that, the two policy
-branches retain configurations with the **same** least key — one mark on one
-side — and are two branches nonetheless, because the key carries the policy's
-own Challenge 5 class key.  Drop that part and the counts fall to five and
-four: it is the Challenge 5 defect one level up, and the receipt reports both
-counts.
+one declaration named at two rungs; and under O the Challenge 3 null minimum is
+the base.  A third identification the stage relies on is **not** the branch
+quotient's: the two further-mark points are one class at Challenge 3's own
+quotient, before any branch candidate is formed, so that class reaches the
+branch set as one candidate and `extra_mark_1` is never a branch at all.  An
+earlier version of this paragraph credited the branch quotient with it and
+cited `branch_classes`, where the further-mark branch is a singleton; the
+evidence is `branch_space.rung_minima.challenge3`.  Against all that, the two
+policy branches retain configurations with the **same** least key — one mark on
+one side — and are two branches nonetheless, because the key carries the
+policy's own Challenge 5 class key.  Drop that part and the counts fall to five
+and four: it is the Challenge 5 defect one level up, and the receipt reports
+both counts.
 
 **The generator space** (definitions 77 and 78).  What the run may do to a
 branch from that branch alone is decided by nothing the run has declared, so
@@ -2035,7 +2048,8 @@ table says otherwise.
 | result | reading U | reading O | evidence |
 |---|---|---|---|
 | declared branches | **6** | **5** | `branch_count`; the closed rungs' minima recomputed and held to their receipts |
-| what the quotient identifies | the two withdrawals, the two further-mark points | the two withdrawals absent, the Challenge 3 null minimum with the base | `branch_classes` |
+| what the BRANCH quotient identifies | the two withdrawals | the two withdrawals absent, the Challenge 3 null minimum with the base | `branch_classes` |
+| what Challenge 3's own quotient identifies, one level down | the two further-mark points, which reach the branch set as one candidate | no further-mark class, that rung's minimum under O being the null point | `branch_space.rung_minima.challenge3` |
 | the branch key read at the configuration alone | **5**, one branch short | **4**, one branch short | `branch_count_without_the_policy_key` |
 | every branch replays from genesis | yes, all six certified | yes, all five | `branch_detail.*.certified`, `replays_from_genesis` |
 | the live Challenge 4 requirement | unresolved at the base, at the side-exchange withdrawal and at the further mark; met at the withdrawal of the mark permutations; **disappeared** at both policy branches | unresolved at the base; met at both Challenge 4 minima; disappeared at both policy branches | `branch_detail.*.live_requirement` |
@@ -2049,7 +2063,7 @@ table says otherwise.
 | what the demand generator does | emits on the further-mark branch alone, where the grouping carries a third tag; the demand it emits is already met at that branch's own renamings | emits nowhere | `demand_generator_emits_at`, `emitted.demand_already_met` |
 | **the first challenge** | `<|b>`, one mark at depth one — a further mark and not a deeper nesting | same | `record.least_unpresented` |
 | the same challenge on every branch | yes | yes | `the_same_challenge_on_every_branch` |
-| the enumeration generator reads any component of a branch | **no**, over all 36 ordered pairs | **no**, over all 25 | `substitution_census`; the census is not vacuous, four distinct configuration keys under each reading |
+| what the enumeration generator emits moves under a substitution of one branch for another | **no**, over all 36 ordered pairs | **no**, over all 25 | `substitution_census`; the census is not vacuous, four distinct configuration keys under each reading.  That it reads no component of a branch is DEFINITION-level, by unfolding its source, and not an entailment of this row: `substitution_census_reach` |
 | the state source under the same census | moves at 22 of the 36 | moves at 12 of the 25 | `substitution_census` |
 | what it names has not been presented, and is never named twice | — | — | Lean `firstMissing_not_present`, `firstMissing_never_repeats` |
 | it falls silent only when the domain is exhausted | — | — | Lean `firstMissingFrom_none_means_every_index_present` |
@@ -2089,10 +2103,10 @@ direction of every clause is tested.
 
 | id | label | status | basis |
 |---|---|---|---|
-| C5-X | NOT FORCED | **PENDING** | four of its five clauses are decided here and hit: the first challenge is a further mark and not a deeper nesting; the generator imports no undeclared structure, which is the substitution census; fifteen rounds are not reached, no round being accepted; and a smaller bound is declared.  The fifth, the frontier export, is the work of the stage that runs the rounds, so the prediction is not counted in this stage's tally |
+| C5-X | NOT FORCED | **PENDING** | four of its five clauses are decided here and hit: the first challenge is a further mark and not a deeper nesting; the enumeration source uses only its declared inputs, a DEFINITION-level justification, while the executable clause checks finite output constancy and cannot establish independence; fifteen rounds are not reached, no round being accepted; and a smaller bound is declared.  The fifth, the frontier export, is the work of the stage that runs the rounds, so the prediction is not counted in this stage's tally |
 | S1-1 | NOT FORCED | HIT | content: the closed rungs' minima recomputed and the implemented quotient |
 | S1-2 | FORCED | HIT | content: the two keys computed and compared, and the counts that fall when the policy part is dropped |
-| S1-3 | NOT FORCED | HIT | DEFINITION-level, not counted as content: the coordinates, the capability names and the counts are declarations |
+| S1-3 | NOT FORCED | **PARTIAL** | the space-size clause HITS, DEFINITION-level and not counted as content: the coordinates, the capability names and the counts are declarations.  **MISSED**, recorded next to its value: the frozen falsifier names "the capability count and the coordinate count disagreeing in this space", and they disagree — the state-reading source moves one coordinate and uses two capabilities.  The stage keeps the capability reading and scores the frozen clause against it; the frozen file is untouched |
 | S1-4 | FORCED | HIT | content: an eligibility filter computed per branch, with both values attained under U |
 | S1-5 | FORCED | HIT | content: an enumeration over the declared 144-member domain |
 | S1-6 | FORCED | **PARTIAL** | the substitution clause HITS over every ordered pair of branches.  **MISSED**, recorded next to its value: the clause that this stage's module would have no function returning an event.  It has one, `inherited_history`, which reads the recorded caller history each branch replays.  What the census cannot see is stated beside it and computed — it cannot tell naming a recorded event from issuing a new one — and the frozen file is untouched |
@@ -2101,9 +2115,10 @@ direction of every clause is tested.
 | S1-9 | FORCED | HIT | content for the replay and certification at every branch; DEFINITION-level for the empty relations, reported apart |
 | S1-X | NOT FORCED | PENDING | scored by the stage that runs the rounds |
 
-Eight of nine scored predictions hit and one is PARTIAL: seven hit as content
-and one by construction (S1-3), by the criterion Challenge 1 declared and this
-stage reuses unchanged.
+Seven of nine scored predictions hit and two are PARTIAL, with a miss recorded
+next to its value in each: all seven hit as content, and the stage's one
+DEFINITION-level prediction is among the two that part.  The criterion is the
+one Challenge 1 declared and this stage reuses unchanged.
 
 **A near sweep is the weakest evidence this run produces, and this stage says
 which of its numbers were known before the freeze.**  Four were: the branch
@@ -2115,8 +2130,13 @@ can discount the corresponding hits to zero.  What was not known: whether the
 implemented branch quotient would identify the adoptions the writer expected,
 whether the demand generator would be eliminated on every branch of reading O,
 whether the two cost readings of one step would agree in this space, and what
-the stage's own census would say.  The single miss is one of those: the stage
-asserted a clean event census for its own module and got one entry.
+the stage's own census would say.  **Both misses are among those four.**  The
+stage asserted a clean event census for its own module and got one entry; and
+it wrote a falsifier that named the two cost readings of one step disagreeing,
+which is exactly what they do.  The second was scored the wrong way round when
+the stage first closed — the scorer required the disagreement in order to hit —
+and that inversion is repaired here, against the frozen words and not against
+what the stage would have liked them to say.
 
 #### 6.3 What stage 1 does not establish
 
@@ -2705,15 +2725,26 @@ declared bound.
 | `roundBound_is_short_of_the_seed_bound` | the computed bound is short of the seed's | none |
 
 DEFINITION-level, true by unfolding or by evaluating a concrete term, and not
-counted as content: the three defining equations, `record_lengthens`,
-`firstMissing_presentedIndices`, `firstMissing_presentedIndices_recorded`, the
-four concrete node counts, the two fitting values, `nodes_le_succ`, and
-`roundBound_is_short_of_the_seed_bound`.  The content is the four theorems
-about an arbitrary record — that what is named was not present, that it lies
-inside the bound, that it is never named twice, and that silence means
-exhaustion — together with `nodes_add_le`, `nodes_mono`, the two round-bound
-theorems, and the two that rule the seed's fifteen out.  Every theorem of the
-table lies in exactly one of the two halves.
+counted as content — **fifteen**: the three defining equations
+`firstMissingFrom_zero`, `firstMissingFrom_succ_present` and
+`firstMissingFrom_succ_missing`; `contains_cons_self`, which is one `simp` on a
+constructor; `record_lengthens`; `firstMissing_presentedIndices`;
+`firstMissing_presentedIndices_recorded`; the four concrete node counts
+`nodes_U_four`, `nodes_U_five`, `nodes_O_four` and `nodes_O_five`; the two
+fitting values `roundBound_U_fits` and `roundBound_O_fits`; `nodes_le_succ`;
+and `roundBound_is_short_of_the_seed_bound`.  The content is the remaining
+**thirteen**: `firstMissingFrom_not_present` and `firstMissing_not_present`,
+`firstMissingFrom_ge`, `firstMissingFrom_lt` and `firstMissing_lt_bound`,
+`firstMissingFrom_none_means_every_index_present`,
+`firstMissing_never_repeats`, `nodes_add_le`, `nodes_mono`, `roundBound_U` and
+`roundBound_O`, and `the_seed_bound_does_not_fit_U` and
+`the_seed_bound_does_not_fit_O` — each an induction or a bound over an
+arbitrary record or an arbitrary round count.  Fifteen and thirteen are the
+table's twenty-eight, so every theorem of the table lies in exactly one of the
+two halves.  An earlier version of this paragraph named the halves by
+description rather than by theorem and left `firstMissingFrom_ge` and
+`contains_cons_self` in neither, which is the defect the same session repaired
+in section 7.6.
 
 What Lean does **not** close at stage 1: the branch set, the one-adoption rule,
 the branch quotient and the part of its key that is load-bearing, the generator
@@ -2783,17 +2814,19 @@ and not the correspondence.
   and once at Challenge 5 when its thirty-eight were final, 139 to 177,
   and once at continuation stage 1 when its twenty-eight were final, 177 to
   205; no regeneration was under a live injection.
-- `receipts/continuation1.json` is 210 kilobytes, far inside the megabyte at
+- `receipts/continuation1.json` is 212629 bytes, far inside the megabyte at
   which the stage would owe a summary and a gzip with a content hash: its
   spaces are eleven branches and twelve generators, so every row is carried in
   full.  The Challenge 0 to Challenge 5 receipts were byte-unchanged across it,
   which is the check that declaring the branches and the generators disturbed
   no closed rung: the stage adds a module and reads the closed rungs' own
   functions, and changes no value any earlier receipt reports.
-- The suite passes 504 tests: 94 of stage 1's own and four added to the
+- The suite passes 508 tests: 98 of stage 1's own and four added to the
   Challenge 5 file, three of them the negative directions of C4-X clauses that
   the Challenge 5 rung asserted in the hitting direction only, and one the
   census that gives the within-whole order its policy scope.
+  Strict typing includes every challenge and continuation runner; the stage-1
+  runner was missing from that explicit list and is included by this repair.
 - Injection record: `MANUAL.md`.
 
 ## 9. The strongest defensible statement so far
@@ -3021,10 +3054,12 @@ configuration that replay produces.  The run has adopted nothing at any rung,
 so the base branch is what stands and every other declared branch adopts
 exactly one retained tied-minimum class of one closed rung — six branches under
 U and five under O, the minima recomputed from the closed rungs' own modules
-and held to their committed receipts.  The implemented quotient identifies the
-two withdrawals of the mark permutations, which are one declaration named at
-Challenges 3 and 4; the two further-mark points, which are one class; and,
-under O, the Challenge 3 null minimum with the base.  It keeps the two policy
+and held to their committed receipts.  The branch quotient identifies the two
+withdrawals of the mark permutations, which are one declaration named at
+Challenges 3 and 4, and, under O, the Challenge 3 null minimum with the base;
+the two further-mark points are one class at Challenge 3's own quotient, one
+level down, so that class reaches the branch set as one candidate.  It keeps
+the two policy
 branches apart although they retain configurations with the **same** least key,
 because the key carries the policy's own Challenge 5 class key: read at the
 configuration alone the key reports five branches and four, one short under
@@ -3045,10 +3080,13 @@ demanded, the demand generator emits there, and **two tied classes are
 retained**.  The demand it emits is already met at that branch's own renamings,
 which the receipt computes.  The challenge the enumeration generator names is
 the same on every branch and under both readings — `<|b>`, one mark at depth
-one, a further mark and not a deeper nesting — and it reads no component of any
-branch: replacing any declared branch by any other moves nothing it emits, over
-a branch set carrying four distinct configuration keys, while the state-reading
-source moves under the same census.  It is proved that what such a generator
+one, a further mark and not a deeper nesting — and what it emits does not move
+when any declared branch is replaced by any other, over a branch set carrying
+four distinct configuration keys, while the state-reading source moves under
+the same census.  That census computes constancy and not independence, and the
+run's own demand generator is the witness for the difference: it moves under U
+and is constant under O.  That this generator reads no component of any branch
+is DEFINITION-level, by unfolding its source.  It is proved that what such a generator
 names has not been presented, that it lies inside the declared bound, that a
 challenge once named is never named again, and that it falls silent only when
 the record already carries every index below the bound — so a branch that stops
@@ -3256,6 +3294,20 @@ Continuation stage 1 adds these:
   recorded with it: it reads a return annotation and cannot tell a function
   that names the events of a recorded history from one that issues a new event,
   so a clean census would not have been evidence either.
+- **The substitution census computes constancy, not independence**, and its
+  predicate is named for the wider reading.  The run's own witness against the
+  entailment is in its receipt: under O the demand generator passes the census
+  while its emitted demand is computed from the branch's configuration, and the
+  same generator moves under U.  So constancy over a five- or six-member branch
+  set does not establish that a generator reads nothing of a branch.  Nothing
+  computed moves — that the enumeration generator reads no component of a
+  branch holds by unfolding its source, which takes no branch value — but the
+  claim is DEFINITION-level there and COMPUTED only for the constancy.
+- **The frozen S1-3 carried a falsifier the stage's own result fires**: it named
+  the capability count and the coordinate count disagreeing, and they disagree.
+  The clause MISSED and S1-3 is PARTIAL.  The stage as first closed scored the
+  clause the other way round, requiring the disagreement in order to hit; that
+  inversion is repaired, the frozen file untouched.
 - The correspondence between the Lean generator and bound and their Python
   counterparts is prose; a test holds the Lean file's concrete numbers to the
   Python ones, which checks the numbers and not the correspondence.

@@ -2781,16 +2781,21 @@ Python receipt, bounded), LIMITATION, OPEN.
   fifteen accepted augmentation rounds on any branch in one session; it will
   declare a smaller resource bound, export the exact frontier, and state what
   is complete within that bound and nothing wider.
-- **Status**: OPEN; the extrapolation of Challenge 5, scored by the autonomous
-  continuation.  Nothing of it is computed here.
+- **Status**: OPEN; the extrapolation of Challenge 5 remains PENDING after
+  continuation stage 1.  Its first challenge, smaller bound and zero accepted
+  rounds are COMPUTED there.  The enumeration source's declared-input
+  justification is DEFINITION-level; its finite substitution census alone
+  does not establish independence.  The frontier clause awaits stage 2.
 - **Dependencies**: the continuation's declared generator, its resource bound,
   and its frontier export.
-- **Assumptions**: none yet.
-- **Python evidence**: none yet.
+- **Assumptions**: the stage-1 declared branch and generator spaces.
+- **Python evidence**: `receipts/continuation1.json`, `scores.C5-X`;
+  `test_c5x_is_pending_with_four_clauses_hit` and
+  `test_c5x_clauses_read_both_ways`.
 - **Lean theorem**: none yet.
 - **Axiom report**: not applicable.
 - **Falsifier**: as written in `challenge5/PREDICTIONS.md`.
-- **Surviving boundary**: not yet.
+- **Surviving boundary**: the stage-1 spaces; no frontier is certified yet.
 
 ### S1-BRANCHES
 
@@ -2828,30 +2833,40 @@ Python receipt, bounded), LIMITATION, OPEN.
 - **Statement**: Two branches are the same branch exactly when their branch
   keys are equal, and the key is the declarations in force, the Challenge 5
   class key of an adopted policy, and the least key of the configuration under
-  the branch's own permitted renamings.  The quotient identifies the two
+  the branch's own permitted renamings.  This quotient identifies the two
   withdrawals of the mark permutations, which are one declaration named at
-  Challenges 3 and 4; the two further-mark points, which are one class; and,
-  under O, the Challenge 3 null minimum with the base.  **The policy part of
-  the key is load-bearing**: the two policy branches retain configurations with
-  the same least key, so a key read at the configuration alone reports five
-  branches under U and four under O, one short under each reading.
-- **Status**: COMPUTED, both keys computed at every candidate and compared.
-  Counted as content: score S1-2.
+  Challenges 3 and 4, and, under O, the Challenge 3 null minimum with the base.
+  It does **not** identify the two further-mark points: they are one class at
+  Challenge 3's own quotient, one level down, and a branch candidate is formed
+  from one member of each rung class, so `extra_mark_1` is never a branch and
+  the further-mark branch is a singleton of `branch_classes`.  An earlier
+  version of this entry credited the branch quotient with that identification
+  and cited `branch_classes` for it; the evidence is
+  `branch_space.rung_minima.challenge3`.  **The policy part of the key is
+  load-bearing**: the two policy branches retain configurations with the same
+  least key, so a key read at the configuration alone reports five branches
+  under U and four under O, one short under each reading.
+- **Status**: COMPUTED, both keys computed at every candidate and compared, and
+  the rung classes recomputed from the closed rungs' own modules.  Counted as
+  content: score S1-2.
 - **Dependencies**: definition 75; definition 69; B5-CLASS-KEY.
 - **Assumptions**: that the least key of a configuration under a candidate's
   own renamings is the right state-level comparison, which is the comparison
   Challenges 3 to 5 used.
 - **Python evidence**: receipt `readings.*.branch_classes`,
   `branch_classes_without_the_policy_key`,
-  `branch_count_without_the_policy_key`;
+  `branch_count_without_the_policy_key`, `branch_space.rung_minima.challenge3`;
   `test_the_policy_part_of_the_key_is_load_bearing`,
   `test_the_quotient_identifies_one_declaration_named_at_two_rungs`,
-  `test_the_quotient_identifies_the_null_minimum_with_the_base`.
+  `test_the_quotient_identifies_the_null_minimum_with_the_base`,
+  `test_the_two_further_mark_points_are_one_class_at_their_rung`,
+  `test_s1_1_reads_both_quotients_the_frozen_text_names`.
 - **Lean theorem**: none.
 - **Axiom report**: not applicable.
 - **Falsifier**: the two policy branches having different least keys; the
-  counts not falling when the policy part is dropped; or the quotient
-  identifying two branches that declare different structures.
+  counts not falling when the policy part is dropped; the quotient
+  identifying two branches that declare different structures; or the two
+  further-mark points lying in different classes at Challenge 3's quotient.
 - **Surviving boundary**: the continuation's branch set.
 
 ### S1-GENERATOR-SPACE
@@ -2867,8 +2882,10 @@ Python receipt, bounded), LIMITATION, OPEN.
   coordinates moved**: the state-reading source moves one coordinate and uses
   two capabilities, as the recording policy did at Challenge 5.
 - **Status**: DEFINITION for the space, the capability names and the counts; a
-  hit on them is by construction and is not counted as content: score S1-3.
-  COMPUTED that the two counts part in this space.
+  hit on them is by construction and is not counted as content.  COMPUTED that
+  the two counts part in this space.  Score S1-3 is **PARTIAL**: the space-size
+  clause HITS and the counts clause MISSED, the frozen falsifier naming the two
+  counts disagreeing and the run computing that they disagree.
 - **Dependencies**: definitions 77, 78; definition 45 for the admitting
   capability; B5-ONE-STEP-PARTS.
 - **Assumptions**: the three source values exhaust the run's own reading of
@@ -2881,11 +2898,22 @@ Python receipt, bounded), LIMITATION, OPEN.
   `one_step_iff_one_coordinate_moved` (false);
   `test_the_space_is_the_product_of_its_declared_coordinates`,
   `test_the_declared_capability_counts`,
-  `test_one_step_is_capability_count_one_and_not_coordinate_count`.
+  `test_one_step_is_capability_count_one_and_not_coordinate_count`,
+  `test_s1_3_counts_clause_is_scored_on_the_frozen_words`,
+  `test_s1_3_counts_clause_hits_only_where_the_two_counts_agree`.
 - **Lean theorem**: none; the Lean model carries no generator space.
 - **Axiom report**: not applicable.
-- **Falsifier**: a space size other than twelve; a generator that supplies and
-  retains costing one; or the two counts agreeing at every point.
+- **Falsifier**: as frozen — a space size other than twelve; a generator that
+  supplies and retains costing one; or the capability count and the coordinate
+  count disagreeing in this space.  An earlier version of this line restated
+  the third limb inverted, as the two counts *agreeing*, which is the reading
+  the scorer had and the frozen file does not.
+- **Recorded miss**: the third limb **fired**.  The two counts disagree —
+  `one_step_iff_capability_count_one` is true and
+  `one_step_iff_one_coordinate_moved` is false — so the clause MISSED and S1-3
+  is PARTIAL.  The stage keeps the capability reading of one step, which the
+  seed requires, and scores the frozen clause against it rather than the other
+  way round; the frozen file is untouched.
 - **Surviving boundary**: this stage's enumeration and nothing wider.
 
 ### S1-WEAKEST-GENERATOR
@@ -2955,26 +2983,41 @@ Python receipt, bounded), LIMITATION, OPEN.
 
 - **Statement**: Replacing any declared branch by any other moves nothing the
   enumeration generator emits, over every ordered pair of branches under each
-  reading, so it reads no component of any branch — not a placement, not an
-  address, not a judgment, not a profile.  The census is not vacuous: the
-  branch set carries four distinct configuration keys under each reading, and
-  the state-reading source moves under the same census, at 22 of the 36 pairs
-  under U and 12 of the 25 under O.
-- **Status**: COMPUTED.  Counted as content: score S1-6, whose second clause
-  MISSED.
+  reading.  The census is not vacuous: the branch set carries four distinct
+  configuration keys under each reading, and the state-reading source moves
+  under the same census, at 22 of the 36 pairs under U and 12 of the 25 under
+  O.  Separately, and not from that census: the generator's declared inputs are
+  the domain enumeration and the presented record, so it reads no component of
+  any branch — not a placement, not an address, not a judgment, not a profile.
+- **Status**: COMPUTED for the constancy over the declared branch set.
+  DEFINITION-level for the independence, which is true by unfolding the
+  generator's source and is **not** an entailment of the census.  Counted as
+  content: score S1-6, whose second clause MISSED.
 - **Dependencies**: definitions 79, 81; S1-BRANCHES.
 - **Assumptions**: that substituting the whole branch is at least as strong as
   substituting the configuration alone, which it is, the configuration being
   part of the branch.
-- **Python evidence**: receipt `readings.*.substitution_census`;
+- **Python evidence**: receipt `readings.*.substitution_census`,
+  `generator_space.substitution_census_reach`,
+  `generator_space.declared_inputs`;
   `test_the_enumeration_generator_reads_nothing_of_the_branch`,
   `test_the_state_source_moves_under_the_same_census`,
-  `test_the_demand_generator_moves_under_u_and_not_under_o`.
+  `test_the_demand_generator_moves_under_u_and_not_under_o`,
+  `test_constancy_over_the_branch_set_does_not_entail_reading_nothing`.
 - **Lean theorem**: none; the substitution census is a Python enumeration.
 - **Axiom report**: not applicable.
 - **Falsifier**: any substitution that moves the emitted challenge; a branch
   set with one configuration key, which would make the census vacuous; or the
   state-reading source failing to move under it.
+- **Recorded narrowing**: an earlier version of this entry, of definition 81
+  and of the module's own docstring said that constancy over the branch set
+  entails reading no component of a branch, and labelled the conjunction
+  COMPUTED.  It does not, and the run carries the countermodel in its own
+  receipt: under O the demand generator has
+  `reads_nothing_of_the_branch: true` while `emitted_demand` computes from the
+  branch's configuration, and the same generator moves under U.  No computed
+  value moves — the enumeration generator's independence holds by unfolding —
+  but the entailment is withdrawn and the label split.
 - **Surviving boundary**: this stage's branch set.
 - **Recorded miss**: the frozen S1-6 also asserted that the run's census of
   functions returning an event would find none in this stage's module.  It
@@ -2987,16 +3030,23 @@ Python receipt, bounded), LIMITATION, OPEN.
 
 ### S1-NON-REPETITION
 
-- **Statement**: The generator is a function of the presented record alone.
-  What it names has not been presented; what it names lies inside the declared
-  bound; a challenge once named is never named again from the record that
-  carries it; and it falls silent only when the record already carries every
-  index below the bound — so a branch that stops for want of a next challenge
-  stops because the declared domain is exhausted and not because the procedure
-  gave up.
-- **Status**: PROVED, for an arbitrary record and bound.  Counted as content:
-  score S1-7.
-- **Dependencies**: definition 79.
+- **Statement**: Of an arbitrary record and bound: what the generator names has
+  not been presented; what it names lies inside the declared bound; a challenge
+  once named is never named again from the record that carries it; and it falls
+  silent only when the record already carries every index below the bound — so
+  a branch that stops for want of a next challenge stops because the declared
+  domain is exhausted and not because the procedure gave up.  Separately: the
+  generator is a function of the presented record and the declared bound, and
+  of nothing else.
+- **Status**: PROVED, for an arbitrary record and bound, of the four clauses
+  above the separation; each names its theorem below.  DEFINITION-level for the
+  last clause, which no theorem states and which is true by unfolding: the
+  Python `least_unpresented` reads `PRESENTED_TEXTS` and `domain_texts()` and
+  no branch value, and the Lean `firstMissing` takes a record and a bound and
+  nothing else.  An earlier version of this entry ran the last clause into the
+  PROVED status, where it named no theorem — the shape repaired for B5-INERTIA
+  in the same session.  Counted as content: score S1-7.
+- **Dependencies**: definition 79; S1-READS-NOTHING for the declared inputs.
 - **Assumptions**: that the Lean `firstMissing` over indices is the Python
   `first_missing` over the declared domain's order.  That correspondence is
   prose; a test holds the Lean file's concrete numbers to the Python ones,
@@ -3117,12 +3167,18 @@ Python receipt, bounded), LIMITATION, OPEN.
   generator reads does, its members being wholes delimited by one bar with a
   side on each hand; and the demand generator's requirement does, a permitted
   automorphism being a renaming of marks and, under U, of the two sides.
-- **Status**: COMPUTED where a receipt key carries it, declared where the
-  statement is about what a definition mentions.
+- **Status**: LIMITATION, a dependency classification of the run.  It is
+  reported in the receipt and is not computed by anything: the receipt's
+  `boundary_dependence` block is a declared dictionary of five sentences, and
+  the shape test holds the receipt to it.  An earlier version of this entry
+  read COMPUTED where a receipt key carries it, which the block does not
+  support; every earlier rung's entry of this kind reads LIMITATION and this
+  one now reads with them.
 - **Dependencies**: the whole stage.
 - **Assumptions**: the dependence is judged by whether the notion is
   formulated after removing the boundary, as at every earlier rung.
-- **Python evidence**: receipt `boundary_dependence`.
+- **Python evidence**: receipt `boundary_dependence`;
+  `test_the_receipt_reports_the_boundary_dependence`.
 - **Lean theorem**: none; dependence is not an object-language statement.
 - **Axiom report**: not applicable.
 - **Falsifier**: a result listed independent that cannot be stated without the

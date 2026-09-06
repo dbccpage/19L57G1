@@ -901,12 +901,17 @@ def branch_substitution_census(reading: str, g: Generator) -> Json:
     """Whether replacing one branch by another moves what the generator emits.
 
     This substitutes the WHOLE branch, declarations and configuration together,
-    which is stronger than substituting the configuration alone: a generator
-    whose emitted challenge is constant over the branch set reads no component
-    of any branch, state included.  It is not vacuous — the branch set holds
-    several distinct configuration keys, which the row reports beside the
-    answer — and the state-reading source moves under it, which is what makes
-    the census a test rather than a tautology.
+    which is stronger than substituting the configuration alone.  What it
+    computes is CONSTANCY over the declared branch set: a finite, non-vacuous
+    sample — the branch set holds several distinct configuration keys, which
+    the row reports beside the answer — under which the state-reading source
+    moves, which is what makes the census a test rather than a tautology.
+
+    Constancy is **not** independence, and the run carries its own witness
+    against reading it as such; ``SUBSTITUTION_CENSUS_REACH`` states the reach
+    exactly.  The field ``reads_nothing_of_the_branch`` names constancy and
+    reads wider than what is computed; it is kept so that the receipt's key
+    does not move, with the reach recorded beside it.
     """
     branches = declared_branches(reading)
     moved = [
@@ -927,6 +932,19 @@ def branch_substitution_census(reading: str, g: Generator) -> Json:
     }
 
 
+SUBSTITUTION_CENSUS_REACH = (
+    "the census computes that the emitted challenge does not move over the "
+    "declared branch set: a finite, non-vacuous sample, and not a quantifier "
+    "over every branch there could be.  It does NOT establish that a generator "
+    "reads no component of a branch, and the run carries its own witness "
+    "against that entailment: the demand generator MOVES under U, so it does "
+    "read the branch's configuration, and it is constant under O, where this "
+    "same census therefore reports it reading nothing of the branch.  What is "
+    "true of the enumeration generator is true by unfolding and not by the "
+    "census: its source names the least member of the declared domain the "
+    "presented record does not carry, and no value of a branch enters it"
+)
+
 DECLARED_GENERATOR_INPUTS: tuple[str, ...] = (
     "the declared 144-member domain of inscriptions and its order",
     "the record of the texts the caller has presented",
@@ -934,8 +952,10 @@ DECLARED_GENERATOR_INPUTS: tuple[str, ...] = (
 DECLARED_GENERATOR_INPUTS_ARE_METATHEORY_BECAUSE = (
     "the domain is the Challenge 5 reader's own enumeration and the presented "
     "record is a reading of the history (definition 20 at the level of texts); "
-    "no regime, deep regime, judgment, or profile is among them, which the "
-    "substitution census computes rather than asserts"
+    "no regime, deep regime, judgment, or profile is among them.  That is read "
+    "off the generator's declared source and is a DECLARATION of this stage; "
+    "the substitution census beside it computes constancy over the branch set "
+    "and does not establish it"
 )
 
 
@@ -1329,6 +1349,29 @@ def _enumeration_reads_nothing(u: Json, o: Json) -> bool:
     )
 
 
+def _identified_classes(facts: Json) -> list[list[str]]:
+    """Every class of two or more that the run's implemented quotients put
+    together at this reading.
+
+    Two quotients and not one, which is the thing the paper got wrong.  The
+    branch key groups the branch CANDIDATES; each closed rung's own quotient
+    grouped its minimum classes before any candidate was formed from them, and
+    ``branch_candidates`` takes one member per rung class, so a rung class of
+    two members reaches the branch set as one candidate and never as two.  The
+    frozen S1-1 names identifications of both kinds, so both are read here.
+    """
+    classes = [
+        [str(name) for name in members]
+        for members in facts["branch_classes"]
+        if len(members) > 1
+    ]
+    for row in facts["branch_detail"]:
+        members = [str(name) for name in row["adopted_class"]]
+        if len(members) > 1:
+            classes.append(members)
+    return classes
+
+
 def event_returning_functions() -> list[str]:
     """The Challenge 0 census, run over this stage's own module."""
     return state_event_generators(sys.modules[__name__], EVENT_TYPES)
@@ -1337,9 +1380,17 @@ def event_returning_functions() -> list[str]:
 def score(u: Json, o: Json, record: Json) -> Json:
     """Score this stage's frozen predictions against the enumeration."""
     counts_clause = verdict(u["branch_count"] == 6 and o["branch_count"] == 5)
+    # The frozen S1-1 names three identifications, and an earlier version of
+    # this clause asked only that SOME class hold two members under each
+    # reading, which cannot see any of the three.  It now names them, and
+    # reads both quotients: the further-mark pair is Challenge 3's own class.
+    identified_u = _identified_classes(u)
+    identified_o = _identified_classes(o)
     quotient_clause = verdict(
-        any(len(members) > 1 for members in u["branch_classes"])
-        and any(len(members) > 1 for members in o["branch_classes"])
+        ["withdraw_mark_permutations@3", "withdraw_mark_permutations@4"]
+        in identified_u
+        and ["extra_mark_0", "extra_mark_1"] in identified_u
+        and ["base", "base@3"] in identified_o
     )
     policy_key_clause = verdict(
         u["branch_count_without_the_policy_key"] == 5
@@ -1348,9 +1399,16 @@ def score(u: Json, o: Json, record: Json) -> Json:
     space_clause = verdict(
         u["generator_space_size"] == 12 and o["generator_space_size"] == 12
     )
-    counts_part_clause = verdict(
+    # Scored on the frozen words and only those.  S1-3's third falsifier is
+    # "the capability count and the coordinate count disagreeing in this
+    # space", so AGREEMENT is what hits and the disagreement this stage
+    # computes MISSES.  An earlier version of this clause required the
+    # disagreement in order to hit, which is the falsifier inverted; the
+    # stage's own result stands and the frozen clause it refutes is scored
+    # against it.
+    counts_agree_clause = verdict(
         bool(u["one_step_iff_capability_count_one"])
-        and not u["one_step_iff_one_coordinate_moved"]
+        and bool(u["one_step_iff_one_coordinate_moved"])
     )
     minimum_clause = verdict(
         u["minimum_capability_count_among_emitting"] == [1]
@@ -1405,9 +1463,16 @@ def score(u: Json, o: Json, record: Json) -> Json:
             "evidence": (
                 f"branch counts {u['branch_count']} under U and "
                 f"{o['branch_count']} under O, from the closed rungs' "
-                "recomputed minima and the implemented branch key"
+                "recomputed minima and the implemented branch key.  The three "
+                "identifications the frozen text names are made by TWO "
+                "quotients and not one: the branch key identifies the two "
+                "withdrawals of the mark permutations under U and the "
+                "Challenge 3 null minimum with the base under O, while the "
+                "two further-mark points are one class at Challenge 3's own "
+                "quotient, so the branch set carries one candidate for them "
+                "and never two"
             ),
-            "result_basis": "content: a recomputation and an implemented quotient",
+            "result_basis": "content: a recomputation and two implemented quotients",
         },
         "S1-2": {
             "label": "FORCED",
@@ -1421,12 +1486,23 @@ def score(u: Json, o: Json, record: Json) -> Json:
         },
         "S1-3": {
             "label": "NOT FORCED",
-            "status": combine(space_clause, counts_part_clause),
+            "status": combine(space_clause, counts_agree_clause),
             "space_size_clause_status": space_clause,
-            "counts_part_clause_status": counts_part_clause,
+            "counts_agree_clause_status": counts_agree_clause,
             "evidence": (
                 f"{u['generator_space_size']} points over {len(COORDINATES)} "
-                f"coordinates and {len(CAPABILITY_OF)} declared capabilities"
+                f"coordinates and {len(CAPABILITY_OF)} declared capabilities, "
+                "so the space-size clause HITS.  The counts clause MISSED, "
+                "recorded next to its value: the frozen falsifier is \"the "
+                "capability count and the coordinate count disagreeing in this "
+                "space\", and they disagree — "
+                f"one_step_iff_capability_count_one is "
+                f"{bool(u['one_step_iff_capability_count_one'])} and "
+                "one_step_iff_one_coordinate_moved is "
+                f"{bool(u['one_step_iff_one_coordinate_moved'])}, the "
+                "state-reading source moving one coordinate and using two "
+                "capabilities.  The stage keeps the capability reading and "
+                "scores the frozen clause against it; the falsifier fired"
             ),
             "result_basis": (
                 "DEFINITION-level: the coordinates, the capability names, and "
@@ -1542,10 +1618,11 @@ def score_c5x(u: Json, o: Json, record: Json) -> Json:
     """Score the Challenge 5 extrapolation against this stage's facts.
 
     The frozen clause is about the GENERATOR importing object-language
-    structure the run has not declared, so it is scored on the substitution
-    census and not on this stage's own function census.  The function census is
-    a clause of the frozen S1-6, which it MISSES, and the two are kept apart
-    rather than one verdict being carried into the other.
+    structure the run has not declared.  The executable clause reads the
+    substitution census, which computes only output constancy; the independence
+    justification is DEFINITION-level inspection of the enumeration source and
+    its declared inputs, not an entailment of that finite census.  The function
+    census is a clause of the frozen S1-6, which it MISSES.
     """
     further_mark = verdict(bool(record["least_unpresented_is_a_further_mark"]))
     no_undeclared = verdict(_enumeration_reads_nothing(u, o))
@@ -1568,9 +1645,11 @@ def score_c5x(u: Json, o: Json, record: Json) -> Json:
         "evidence": (
             "four of the five clauses are decided here and hit: the first "
             f"challenge is {record['least_unpresented']!r}, one mark at depth "
-            f"{record['least_unpresented_depth']}; the generator reads nothing "
-            "of the branch, which is what this clause asks and what the "
-            "substitution census computes; no round is accepted, so fifteen "
+            f"{record['least_unpresented_depth']}; the enumeration source takes "
+            "only the declared domain and presented record, so its independence "
+            "is DEFINITION-level.  The executable clause checks output constancy "
+            "over the declared branches; that finite census alone does not "
+            "establish independence.  No round is accepted, so fifteen "
             "are not reached; and the "
             f"round bound is {u['bounds']['round_bound']}, short of "
             f"{SEED_ROUND_BOUND}.  The frontier export is the work of the stage "
@@ -1698,6 +1777,7 @@ def build() -> Json:
             "declared_inputs_are_metatheory_because": (
                 DECLARED_GENERATOR_INPUTS_ARE_METATHEORY_BECAUSE
             ),
+            "substitution_census_reach": SUBSTITUTION_CENSUS_REACH,
             "what_a_generated_challenge_is": (
                 "at most one inscription of the declared domain, supplied; "
                 "whether that inscription is also retained; and at most one "

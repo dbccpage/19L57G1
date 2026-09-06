@@ -2,8 +2,8 @@
 branch set recomputed from the closed rungs and held to their committed
 receipts, the branch quotient and the part of its key that is load-bearing, the
 declared generator space and its prices, what each generator emits at each
-branch, the census that shows the weakest emitting generator reads nothing of
-the branch, the declared and computed bounds, the correspondence between the
+branch, the census of output constancy over the declared branch set and its
+independence limitation, the declared and computed bounds, the correspondence between the
 Lean numbers and the Python ones, the scores of this stage's frozen predictions
 and of C5-X, and the negative direction of every scored clause."""
 
@@ -566,6 +566,35 @@ class SubstitutionCensusTests(unittest.TestCase):
             ]
         )
 
+    def test_constancy_over_the_branch_set_does_not_entail_reading_nothing(
+        self,
+    ) -> None:
+        # The run's own witness against reading the census as independence.
+        # One generator, two readings: it MOVES under U, so its emitted
+        # challenge is computed from the branch, and it is constant under O,
+        # where the same census reports `reads_nothing_of_the_branch` of it.
+        # Constancy over a five-member sample is what is computed; what the
+        # field is named is wider, and the receipt records the reach.
+        demand = Generator(demands=True)
+        self.assertFalse(
+            branch_substitution_census(READING_U, demand)["reads_nothing_of_the_branch"]
+        )
+        self.assertTrue(
+            branch_substitution_census(READING_O, demand)["reads_nothing_of_the_branch"]
+        )
+        # Sharper still: under O what the demand generator reads DIFFERS from
+        # branch to branch — the base holds the caller's two wholes and each
+        # policy branch holds one — and what it emits does not.  The census
+        # sees the output and never the input.
+        pairs = [branch_pairs(READING_O, b) for b in declared_branches(READING_O)]
+        self.assertIn(list(IMPOSED_DEMANDS), pairs)
+        self.assertIn([], pairs)
+        for branch in declared_branches(READING_O):
+            self.assertIsNone(emitted_demand(READING_O, branch, demand))
+        reach = build()["generator_space"]["substitution_census_reach"]
+        self.assertIn("does NOT establish", reach)
+        self.assertIn("by unfolding", reach)
+
 
 class MinimaTests(unittest.TestCase):
     def test_the_minimum_among_emitting_generators_is_one(self) -> None:
@@ -699,7 +728,7 @@ class ScoreTests(unittest.TestCase):
             {
                 "S1-1": "HIT",
                 "S1-2": "HIT",
-                "S1-3": "HIT",
+                "S1-3": "PARTIAL",
                 "S1-4": "HIT",
                 "S1-5": "HIT",
                 "S1-6": "PARTIAL",
@@ -742,6 +771,37 @@ class ScoreTests(unittest.TestCase):
             scores["S1-1"]["quotient_identifies_a_class_clause_status"], "MISSED"
         )
 
+    def test_s1_1_reads_both_quotients_the_frozen_text_names(self) -> None:
+        # The branch key never sees `extra_mark_1`: `branch_candidates` takes
+        # one member per rung class.  The identification is Challenge 3's own
+        # quotient, and the clause reads it there, so splitting the adopted
+        # class alone MISSES with every branch class left standing.
+        u, o, record = self.facts()
+        self.assertNotIn(
+            "extra_mark_1",
+            [name for members in u["branch_classes"] for name in members],
+        )
+        split = copy.deepcopy(u)
+        for row in split["branch_detail"]:
+            row["adopted_class"] = row["adopted_class"][:1]
+        self.assertEqual(
+            score(split, o, record)["S1-1"][
+                "quotient_identifies_a_class_clause_status"
+            ],
+            "MISSED",
+        )
+        # And the O half, which the branch key does make.
+        broken = copy.deepcopy(o)
+        broken["branch_classes"] = [
+            [name] for members in o["branch_classes"] for name in members
+        ]
+        self.assertEqual(
+            score(u, broken, record)["S1-1"][
+                "quotient_identifies_a_class_clause_status"
+            ],
+            "MISSED",
+        )
+
     def test_s1_2_misses_when_the_policy_part_carries_nothing(self) -> None:
         u, o, record = self.facts()
         moved = copy.deepcopy(u)
@@ -755,12 +815,30 @@ class ScoreTests(unittest.TestCase):
         scores = score(moved, o, record)
         self.assertEqual(scores["S1-3"]["space_size_clause_status"], "MISSED")
 
-    def test_s1_3_misses_when_the_two_counts_agree(self) -> None:
+    def test_s1_3_counts_clause_is_scored_on_the_frozen_words(self) -> None:
+        # The frozen falsifier names the two counts DISAGREEING, so agreement
+        # is what hits.  They disagree here, so the clause MISSES on the real
+        # receipt, and an earlier version of the scorer required the
+        # disagreement in order to hit — the falsifier inverted.
+        u, o, record = self.facts()
+        self.assertTrue(u["one_step_iff_capability_count_one"])
+        self.assertFalse(u["one_step_iff_one_coordinate_moved"])
+        scores = score(u, o, record)
+        self.assertEqual(scores["S1-3"]["counts_agree_clause_status"], "MISSED")
+        self.assertEqual(scores["S1-3"]["space_size_clause_status"], "HIT")
+        self.assertEqual(scores["S1-3"]["status"], "PARTIAL")
+
+    def test_s1_3_counts_clause_hits_only_where_the_two_counts_agree(self) -> None:
         u, o, record = self.facts()
         moved = copy.deepcopy(u)
         moved["one_step_iff_one_coordinate_moved"] = True
         scores = score(moved, o, record)
-        self.assertEqual(scores["S1-3"]["counts_part_clause_status"], "MISSED")
+        self.assertEqual(scores["S1-3"]["counts_agree_clause_status"], "HIT")
+        self.assertEqual(scores["S1-3"]["status"], "HIT")
+        moved["one_step_iff_capability_count_one"] = False
+        self.assertEqual(
+            score(moved, o, record)["S1-3"]["counts_agree_clause_status"], "MISSED"
+        )
 
     def test_s1_4_misses_when_the_minimum_moves(self) -> None:
         u, o, record = self.facts()
@@ -885,10 +963,13 @@ class ScoreTests(unittest.TestCase):
         self.assertEqual(combine("HIT", "MISSED"), "PARTIAL")
 
     def test_the_tally_counts_definition_level_apart_from_content(self) -> None:
+        # The stage's one DEFINITION-level prediction is PARTIAL, so nothing
+        # is left in the definition-level HIT list and every HIT is content.
         receipt = build()
         counts = receipt["tally"]
-        self.assertEqual(counts["hit_definition_level"], list(DEFINITION_LEVEL_PREDICTIONS))
-        self.assertEqual(counts["partial"], ["S1-6"])
+        self.assertEqual(counts["definition_level_declared"], list(DEFINITION_LEVEL_PREDICTIONS))
+        self.assertEqual(counts["hit_definition_level"], [])
+        self.assertEqual(counts["partial"], ["S1-3", "S1-6"])
         self.assertEqual(counts["missed"], [])
         self.assertEqual(len(counts["hit_as_content"]), 7)
 
@@ -914,6 +995,18 @@ class ReceiptShapeTests(unittest.TestCase):
         self.assertEqual(receipt["new_event_kinds_at_stage_1"], [])
         self.assertEqual(receipt["withdrawn_rules_at_stage_1"], [])
         self.assertEqual(receipt["authority_effect"], "None")
+
+    def test_the_receipt_reports_the_boundary_dependence(self) -> None:
+        # The block is prose the stage declares and nothing computes; the
+        # shape test is what holds it to the receipt, as at every closed rung.
+        receipt = build()
+        self.assertEqual(
+            sorted(receipt["boundary_dependence"]),
+            sorted(continuation1.BOUNDARY_DEPENDENCE),
+        )
+        self.assertEqual(
+            receipt["boundary_dependence"], dict(continuation1.BOUNDARY_DEPENDENCE)
+        )
 
     def test_the_kernel_declares_no_event_generator(self) -> None:
         receipt = build()

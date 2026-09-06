@@ -163,7 +163,7 @@
       "the declared 144-member domain of inscriptions and its order",
       "the record of the texts the caller has presented"
     ],
-    "declared_inputs_are_metatheory_because": "the domain is the Challenge 5 reader's own enumeration and the presented record is a reading of the history (definition 20 at the level of texts); no regime, deep regime, judgment, or profile is among them, which the substitution census computes rather than asserts",
+    "declared_inputs_are_metatheory_because": "the domain is the Challenge 5 reader's own enumeration and the presented record is a reading of the history (definition 20 at the level of texts); no regime, deep regime, judgment, or profile is among them.  That is read off the generator's declared source and is a DECLARATION of this stage; the substitution census beside it computes constancy over the branch set and does not establish it",
     "exhaustive_because": "a generator either names no inscription, or names one without reading the branch's admitted state, or names one by reading it.  Those three exhaust the declared alternatives.  The stage enumerates ONE source of each of the last two kinds \u2014 the declared domain enumeration, and the least domain member carrying as many marks as the configuration admits \u2014 and not every source of either kind; what a state-reading source costs is the same for all of them, because every one of them reads the state, and that is the only thing this space asks of the third value",
     "one_step_rule": "a generator is one step exactly when the number of undeclared capabilities it uses is one, and one of two or more bundles capabilities and is refused as a one-step augmentation.  As at Challenge 5 that number is not the number of coordinates moved: the state-reading source moves one coordinate and uses two capabilities",
     "size": 12,
@@ -177,6 +177,7 @@
       "enumeration: the least member of the declared domain, in that domain's own order, that the presented record does not carry",
       "state: the least member of the declared domain carrying as many marks as the branch's configuration admits"
     ],
+    "substitution_census_reach": "the census computes that the emitted challenge does not move over the declared branch set: a finite, non-vacuous sample, and not a quantifier over every branch there could be.  It does NOT establish that a generator reads no component of a branch, and the run carries its own witness against that entailment: the demand generator MOVES under U, so it does read the branch's configuration, and it is constant under O, where this same census therefore reports it reading nothing of the branch.  What is true of the enumeration generator is true by unfolding and not by the census: its source names the least member of the declared domain the presented record does not carry, and no value of a branch enters it",
     "what_a_generated_challenge_is": "at most one inscription of the declared domain, supplied; whether that inscription is also retained; and at most one demand that two named retained wholes of the branch be internally separable in the declared sense.  A generator emits a challenge exactly when it produces an inscription or a demand"
   },
   "imposed_demands": [
@@ -7137,7 +7138,7 @@
   "requirement_sense": "two retained wholes of a branch meet the requirement under a reading when no permitted automorphism of the configuration carries the mark-set of one onto the mark-set of the other (definition 52), read at the branch's own renamings",
   "scores": {
     "C5-X": {
-      "evidence": "four of the five clauses are decided here and hit: the first challenge is '<|b>', one mark at depth 1; the generator reads nothing of the branch, which is what this clause asks and what the substitution census computes; no round is accepted, so fifteen are not reached; and the round bound is 4, short of 15.  The frontier export is the work of the stage that runs the rounds, so the prediction stays PENDING and is not counted in this stage's tally",
+      "evidence": "four of the five clauses are decided here and hit: the first challenge is '<|b>', one mark at depth 1; the enumeration source takes only the declared domain and presented record, so its independence is DEFINITION-level.  The executable clause checks output constancy over the declared branches; that finite census alone does not establish independence.  No round is accepted, so fifteen are not reached; and the round bound is 4, short of 15.  The frontier export is the work of the stage that runs the rounds, so the prediction stays PENDING and is not counted in this stage's tally",
       "fifteen_rounds_not_reached_clause_status": "HIT",
       "first_challenge_is_a_further_mark_clause_status": "HIT",
       "frontier_exported_clause_status": "PENDING",
@@ -7148,10 +7149,10 @@
     },
     "S1-1": {
       "counts_clause_status": "HIT",
-      "evidence": "branch counts 6 under U and 5 under O, from the closed rungs' recomputed minima and the implemented branch key",
+      "evidence": "branch counts 6 under U and 5 under O, from the closed rungs' recomputed minima and the implemented branch key.  The three identifications the frozen text names are made by TWO quotients and not one: the branch key identifies the two withdrawals of the mark permutations under U and the Challenge 3 null minimum with the base under O, while the two further-mark points are one class at Challenge 3's own quotient, so the branch set carries one candidate for them and never two",
       "label": "NOT FORCED",
       "quotient_identifies_a_class_clause_status": "HIT",
-      "result_basis": "content: a recomputation and an implemented quotient",
+      "result_basis": "content: a recomputation and two implemented quotients",
       "status": "HIT"
     },
     "S1-2": {
@@ -7161,12 +7162,12 @@
       "status": "HIT"
     },
     "S1-3": {
-      "counts_part_clause_status": "HIT",
-      "evidence": "12 points over 3 coordinates and 4 declared capabilities",
+      "counts_agree_clause_status": "MISSED",
+      "evidence": "12 points over 3 coordinates and 4 declared capabilities, so the space-size clause HITS.  The counts clause MISSED, recorded next to its value: the frozen falsifier is \"the capability count and the coordinate count disagreeing in this space\", and they disagree \u2014 one_step_iff_capability_count_one is True and one_step_iff_one_coordinate_moved is False, the state-reading source moving one coordinate and using two capabilities.  The stage keeps the capability reading and scores the frozen clause against it; the falsifier fired",
       "label": "NOT FORCED",
       "result_basis": "DEFINITION-level: the coordinates, the capability names, and the counts are declarations of this stage",
       "space_size_clause_status": "HIT",
-      "status": "HIT"
+      "status": "PARTIAL"
     },
     "S1-4": {
       "demand_generator_clause_status": "HIT",
@@ -7235,11 +7236,10 @@
       "S1-8",
       "S1-9"
     ],
-    "hit_definition_level": [
-      "S1-3"
-    ],
+    "hit_definition_level": [],
     "missed": [],
     "partial": [
+      "S1-3",
       "S1-6"
     ],
     "scored": [

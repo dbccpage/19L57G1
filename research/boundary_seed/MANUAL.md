@@ -178,6 +178,9 @@ injection is live.
 | stage 1 | Lean import-closure census (`verify_lean.py`) | `import BoundarySeed.Continuation1` removed from the root module | `FAIL: BoundarySeed.Continuation1 is outside the root's import closure and is never elaborated`, exit 1 read directly and not through a pipeline; `lean ok: 205 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt` and exit 0 after restore |
 | stage 1 | axiom log (`verify_lean.py`), deliberate regeneration | the stage's twenty-eight theorems added, with the log left stale | `FAIL: axiom reports differ between the fresh build and lean/axioms.txt`; then `wrote lean\axioms.txt: 205 reports` under `--regen` and `lean ok: 205 axiom reports within ['Quot.sound', 'propext'], matching lean/axioms.txt`, 177 to 205; no injection live |
 | stage 1 | workflow test-count grep | the fresh suite log matched against the stale `^Ran 406 tests in ` | exit 1; `^Ran 504 tests in ` exit 0 on the same log; the stale `^Ran 503 tests in ` from an intermediate count also exits 1, which is the same direction observed twice |
+| stage 1 review repair | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, stage 1) | the S1-3 clause re-scored on the frozen words, the S1-1 quotient clause widened to the three identifications the frozen text names, and the substitution census's reach recorded, with the committed receipt left stale | the test reported FAILED showing the differing bytes, 1 failure in 98 on the stage's own module; `run_continuation1.py` regenerated the receipt deliberately with no injection live, 210774 to 212495 bytes, the six closed-rung receipts reported unchanged, and the full suite passed 508 |
+| stage 1 review repair | workflow test-count grep | the fresh suite log matched against the stale `^Ran 504 tests in ` | exit 1 read directly and not through a pipeline; `^Ran 508 tests in ` exit 0 on the same log |
+| stage 1 takeover | receipt byte-identity (`test_committed_receipt_matches_the_renderer`, stage 1) | the remaining C5-X explanation corrected to separate output constancy from independence, with the existing receipt left stale | the named test failed with exit 1 on the differing explanation, 1 failure in 1; deliberate regeneration with no injection live wrote 212629 bytes, and the same test passed with exit 0.  The earlier repair's 212495-byte result remains recorded above as its own intermediate receipt |
 
 A test name presented as code in this file or any other tree document must
 resolve to a test the suite defines; the check above reads every `test_*`
@@ -202,6 +205,7 @@ review-repair rows the session after that, and the Challenge 5 second
 review-repair rows the session after that.  The three rows labelled *the row
 the rung did not have* were added at continuation stage 1, from the Challenge 5
 status's own record for the first two and from an injection run at stage 1 for
-the third; the stage-1 rows record that stage.  Current whole-tree counts are
+the third; the stage-1 rows record that stage, and the stage-1 review-repair
+rows the session after it.  Current whole-tree counts are
 reported in the latest status page — `challenge<k>/STATUS.md` for a challenge,
 `continuation/stage<n>/STATUS.md` for a continuation stage.
