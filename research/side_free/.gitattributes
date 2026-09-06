@@ -1,0 +1,6 @@
+DESIGN.md -text
+PREDICTIONS.md -text
+receipts/** -text
+pinned/** -text
+lean/axioms.txt -text
+COMPARISON.md -text

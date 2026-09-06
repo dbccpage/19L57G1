@@ -441,3 +441,72 @@ jobs:
       - name: Limit and second observer, published prose bound to the receipt
         working-directory: research/limit_and_observer
         run: python verify_prose.py
+      # The side-free control (research/side_free) is the measurement the
+      # boundary rung could not take from inside itself: the same requirement,
+      # at the same prices, in a carrier with no placement and no sides.  Its
+      # design and predictions were frozen in a commit of their own before any
+      # of its code existed, and verify_pins.py holds both files byte for byte
+      # across the whole history of the path.  Appended after the existing
+      # steps and touching nothing else, as this tree's brief requires.
+      #
+      # The source has merged. The full source pin must exist, be an ancestor
+      # of this checkout, and match every declared source digest. Vendored
+      # bytes alone do not discharge this required provenance check.
+      - name: Side-free control, pins and frozen texts
+        run: python research/side_free/verify_pins.py
+      # The receipt comparison must follow a fresh run in the same checkout: a
+      # committed receipt is not evidence of the current code.  Coverage is
+      # generated in this same fresh process and checked immediately, and the
+      # test count is asserted so an enumeration that finds NOTHING cannot
+      # pass as a green suite.  That count is a literal here and it DRIFTED:
+      # it was written at 321 and two later commits added two tests without
+      # moving it, so the step could not pass.  The literal stays -- a
+      # wildcard would let an empty enumeration through, which is the whole
+      # point of the line -- and the drift is closed from the other side:
+      # tests/test_registration.py parses this number out of this file and
+      # requires it to equal the count the suite discovers, so a suite that
+      # grows without a bump here fails locally by name.
+      #
+      # The frozen design's conditional field remains in the record. The
+      # required pin step above refuses the unavailable-source condition, so
+      # the fresh receipt comparison below is unconditional after integration.
+      - name: Side-free control, tests, coverage, receipt, isolation
+        working-directory: research/side_free
+        run: |
+          set -o pipefail
+          log="$RUNNER_TEMP/side-free-tests.log"
+          python -m coverage erase
+          python -m coverage run -m unittest discover -s tests -p "test_*.py" 2>&1 | tee "$log"
+          grep -Eq '^Ran 364 tests in ' "$log"
+          python -m coverage json -q
+          python check_coverage.py
+          python run_side_free.py
+          git diff --exit-code -- receipts
+      - name: Side-free control, strict typing
+        working-directory: research/side_free
+        run: python -m mypy
+      # The price list between the two worlds.  It is registered as its own
+      # step because it has its own failure mode: every boundary number it
+      # carries is read from a pinned receipt and declared a second time in
+      # pinned/BOUNDARY_PIN.json, and gate C1 fails BY NAME when either side
+      # drifts.  COMPARISON.md is RENDERED from the receipt, so it is diffed
+      # beside it: a document that carries a number the receipt does not is
+      # the failure this step exists to catch. Both fresh receipt comparisons
+      # are mandatory; neither permits an unavailable-source fallback in CI.
+      - name: Side-free control, the price-list comparison
+        working-directory: research/side_free
+        run: |
+          python run_comparison.py
+          git diff --exit-code -- receipts/comparison.json COMPARISON.md
+      # The numbers gate.  This tree restates computed values across five prose
+      # documents, and three editorial repair passes each fixed the counts they
+      # were given and left or made others of the same class: a count typed into
+      # prose that no record field carries, or that contradicts one.  Prose has
+      # no gate, so an editorial fix cannot terminate.  This one binds every
+      # numeric literal of every tracked prose file to a named field of a
+      # receipt, to a named computation, or to a declared exemption, and FAILS
+      # CLOSED on anything else.  It runs inside the suite above as well; it is
+      # registered separately so that a red run says which defect class it is.
+      - name: Side-free control, prose numbers bound to the record
+        working-directory: research/side_free
+        run: python -m unittest tests.test_prose_numbers -v

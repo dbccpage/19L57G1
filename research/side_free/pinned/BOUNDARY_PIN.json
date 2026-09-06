@@ -1,0 +1,340 @@
+{
+  "authority_effect": "None",
+  "collapse_map": {
+    "extra_mark_0": "extra_mark",
+    "extra_mark_1": "extra_mark"
+  },
+  "collapse_map_why": "The two pinned further-mark points carry one class key and stand as the two members of one retained class, so one control point joins one pinned class. Route-set comparison across the two worlds is performed by this declared map and never by eye.",
+  "declared_values": {
+    "0:observation_vocabulary": [
+      "OnSide",
+      "SideNamed"
+    ],
+    "0:readings.O.canonical_key": [
+      "O",
+      []
+    ],
+    "0:readings.O.event_follows_relation_empty": true,
+    "0:readings.O.marks": 0,
+    "0:readings.O.sides_collapsed": false,
+    "0:readings.O.supply_leaves_state_unchanged": true,
+    "0:readings.U.canonical_key": [
+      "U",
+      []
+    ],
+    "0:readings.U.event_follows_relation_empty": true,
+    "0:readings.U.marks": 0,
+    "0:readings.U.sides_collapsed": true,
+    "0:readings.U.supply_leaves_state_unchanged": true,
+    "1:readings.O.candidate_space.classes_under_isomorphism": 2,
+    "1:readings.O.candidate_space.count": 2,
+    "1:readings.O.candidates.0.canonical_key": [
+      "O",
+      [
+        0
+      ]
+    ],
+    "1:readings.O.candidates.0.holding_judgments": 3,
+    "1:readings.O.candidates.0.marks": 1,
+    "1:readings.O.candidates.0.retention.moving_admission_refused": true,
+    "1:readings.O.current_state.regime_equals_genesis": true,
+    "1:readings.O.genesis_holding_judgments": 2,
+    "1:readings.U.candidate_space.classes_under_isomorphism": 1,
+    "1:readings.U.candidate_space.count": 2,
+    "1:readings.U.candidates.0.canonical_key": [
+      "U",
+      [
+        0
+      ]
+    ],
+    "1:readings.U.candidates.0.holding_judgments": 1,
+    "1:readings.U.candidates.0.marks": 1,
+    "1:readings.U.candidates.0.retention.moving_admission_refused": true,
+    "1:readings.U.current_state.regime_equals_genesis": true,
+    "1:readings.U.genesis_holding_judgments": 0,
+    "2:readings.O.automorphisms.count": 1,
+    "2:readings.O.automorphisms.marks_internally_separable": true,
+    "2:readings.O.convention.classes_under_isomorphism": 1,
+    "2:readings.O.convention.isomorphic_under_reading": true,
+    "2:readings.O.convention.regimes_equal": false,
+    "2:readings.O.identity_policies.policies_admitting_both_wholes": [
+      "occurrence identity: an admission admits a fresh mark, the token being a label"
+    ],
+    "2:readings.O.identity_policies.rows.0.marks": 0,
+    "2:readings.O.label.label_internally_available": false,
+    "2:readings.O.order.order_internally_available": false,
+    "2:readings.O.retained.canonical_key": [
+      "O",
+      [
+        0,
+        1
+      ]
+    ],
+    "2:readings.O.retained.holding_judgments_after": 4,
+    "2:readings.O.retained.labels": [
+      "a",
+      "a"
+    ],
+    "2:readings.O.retained.marks": 2,
+    "2:readings.U.automorphisms.count": 2,
+    "2:readings.U.automorphisms.marks_internally_separable": false,
+    "2:readings.U.convention.classes_under_isomorphism": 1,
+    "2:readings.U.convention.isomorphic_under_reading": true,
+    "2:readings.U.convention.regimes_equal": false,
+    "2:readings.U.identity_policies.policies_admitting_both_wholes": [
+      "occurrence identity: an admission admits a fresh mark, the token being a label"
+    ],
+    "2:readings.U.identity_policies.rows.0.marks": 0,
+    "2:readings.U.label.label_internally_available": false,
+    "2:readings.U.order.order_internally_available": false,
+    "2:readings.U.retained.canonical_key": [
+      "U",
+      [
+        0,
+        1
+      ]
+    ],
+    "2:readings.U.retained.holding_judgments_after": 2,
+    "2:readings.U.retained.labels": [
+      "a",
+      "a"
+    ],
+    "2:readings.U.retained.marks": 2,
+    "2:state_changing_event_kinds": [
+      "AdmitMark",
+      "AdmitOccurrence"
+    ],
+    "3:candidate_space.coordinates": [
+      "withdraw_reflection",
+      "withdraw_mark_permutations",
+      "admit_names",
+      "keep_labels",
+      "extra_mark"
+    ],
+    "3:candidate_space.extra_mark_values": [
+      "None",
+      "0",
+      "1"
+    ],
+    "3:collateral_facts": [
+      "sides_internally_separable",
+      "order_internally_available",
+      "label_internally_available",
+      "convention_internally_available",
+      "side_names_hold"
+    ],
+    "3:readings.O.base.invariant_separating_mark_properties": [
+      "on_side_0",
+      "on_side_1"
+    ],
+    "3:readings.O.base.satisfies": true,
+    "3:readings.O.bundles_refused_count": 41,
+    "3:readings.O.minima_by_mu1.class_count": 1,
+    "3:readings.O.minima_by_mu1.minimum": 0,
+    "3:readings.O.minima_by_mu1.points": [
+      "base"
+    ],
+    "3:readings.O.minima_by_mu1.unique": true,
+    "3:readings.O.one_step_points": [
+      "extra_mark_0",
+      "extra_mark_1",
+      "keep_labels",
+      "admit_names",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "3:readings.O.price.capabilities_the_satisfaction_uses": [
+      "admitted boundary",
+      "the side exchange is not a permitted renaming",
+      "occurrence identity"
+    ],
+    "3:readings.O.price.fields_declared_not_computed": [
+      "capabilities_the_satisfaction_uses",
+      "capabilities_not_used",
+      "declared_at",
+      "paid_by"
+    ],
+    "3:readings.O.price.minimum_capability_count": 0,
+    "3:readings.O.price.new_at_challenge_3": [],
+    "3:readings.O.price.nothing_new_paid_at_challenge_3": true,
+    "3:readings.O.price.paid_by": "the declared reading, and the run at Challenge 2",
+    "3:readings.O.price.requirement_met_without_augmentation": true,
+    "3:readings.O.satisfying_one_step_points": [
+      "extra_mark_0",
+      "extra_mark_1",
+      "keep_labels",
+      "admit_names",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "3:readings.O.space_size": 48,
+    "3:readings.U.base.invariant_separating_mark_properties": [],
+    "3:readings.U.base.satisfies": false,
+    "3:readings.U.bundles_refused_count": 41,
+    "3:readings.U.minima_by_mu1.class_count": 3,
+    "3:readings.U.minima_by_mu1.minimum": 1,
+    "3:readings.U.minima_by_mu1.points": [
+      "extra_mark_0",
+      "extra_mark_1",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "3:readings.U.minima_by_mu1.unique": false,
+    "3:readings.U.one_step_points": [
+      "extra_mark_0",
+      "extra_mark_1",
+      "keep_labels",
+      "admit_names",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "3:readings.U.price.capabilities_the_satisfaction_uses": [],
+    "3:readings.U.price.fields_declared_not_computed": [
+      "capabilities_the_satisfaction_uses",
+      "capabilities_not_used",
+      "declared_at",
+      "paid_by"
+    ],
+    "3:readings.U.price.minimum_capability_count": 1,
+    "3:readings.U.price.new_at_challenge_3": [
+      "extra_mark",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "3:readings.U.price.nothing_new_paid_at_challenge_3": false,
+    "3:readings.U.price.paid_by": "the run",
+    "3:readings.U.price.requirement_met_without_augmentation": false,
+    "3:readings.U.satisfying_one_step_points": [
+      "extra_mark_0",
+      "extra_mark_1",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "3:readings.U.space_size": 48
+  },
+  "declared_values_note": "Every value the price-list comparison reads from a pinned receipt, keyed by CHALLENGE:JSON-PATH and snapshotted from the vendored bytes rather than typed by hand. Gate C1 of comparison.py re-reads each path from those bytes and requires equality, and requires the declaration to be TOTAL in both directions: a value a row reads that is not declared here fails, and a value declared here that no row reads fails. A hand edit of either side therefore fails BY NAME.",
+  "deleted_coordinates": [
+    "withdraw_reflection",
+    "admit_names"
+  ],
+  "deletion_criterion": "A pinned coordinate transfers exactly when its pinned capability sentence contains no whole word 'side' or 'sides'.",
+  "extracted": {
+    "candidate_space.capability_of.admit_names": "the two sides carry admitted names, so the judgment grammar of the reading gains the side-name form",
+    "candidate_space.capability_of.extra_mark": "the process extends the caller's history with an admission of its own, rather than replaying only what the caller supplied and admitted",
+    "candidate_space.capability_of.keep_labels": "a mark's presentation label is internally available: the token forgetting of definition 14 is withdrawn",
+    "candidate_space.capability_of.withdraw_mark_permutations": "a mark's admission index is internally available: the metatheoretic name definition 3 assigns is declared to be an internal designation",
+    "candidate_space.capability_of.withdraw_reflection": "the side exchange is not a permitted renaming: the two sides are declared distinguishable, which is the part of the O reading that reading U does not carry",
+    "candidate_space.coordinates": [
+      "withdraw_reflection",
+      "withdraw_mark_permutations",
+      "admit_names",
+      "keep_labels",
+      "extra_mark"
+    ],
+    "candidate_space.exhaustive_over": "the five declared coordinates and their declared values, and nothing wider.  It does not enumerate an augmentation that changes the event grammar again, that admits more than one further mark in one step, that supplies a datum the caller never presented, or that derives the permitted renamings from the judgment grammar instead of declaring them (definition 16).  Every minimality statement below is scoped to this space",
+    "candidate_space.extra_mark_values": [
+      "None",
+      "0",
+      "1"
+    ],
+    "candidate_space.size": 48,
+    "collateral_facts": [
+      "sides_internally_separable",
+      "order_internally_available",
+      "label_internally_available",
+      "convention_internally_available",
+      "side_names_hold"
+    ],
+    "mark_properties": [
+      "on_side_0",
+      "on_side_1",
+      "has_index_0",
+      "has_index_1",
+      "carries_label_a"
+    ],
+    "measures.mu1": "capability count: the number of undeclared capabilities the candidate uses",
+    "measures.mu2": "collateral count: how many of the five declared facts about the retained configuration the candidate makes internally available that the same reading's base did not.  The required separation is not one of the five, but the first of them, that the two sides are internally separable, is computed to take the requirement's value at every point of the declared space, so where the base fails the requirement a satisfying candidate's count includes that one",
+    "property_domain_max_marks": 3,
+    "property_domain_size": 85,
+    "readings.O.base.automorphism_count": 1,
+    "readings.O.base.satisfies": true,
+    "readings.O.bundles_refused_count": 41,
+    "readings.O.minima_by_mu1.class_count": 1,
+    "readings.O.minima_by_mu1.classes.members": [
+      [
+        "base"
+      ]
+    ],
+    "readings.O.minima_by_mu1.minimum": 0,
+    "readings.O.minima_by_mu1.points": [
+      "base"
+    ],
+    "readings.O.minima_by_mu1.unique": true,
+    "readings.O.space_size": 48,
+    "readings.U.base.automorphism_count": 2,
+    "readings.U.base.satisfies": false,
+    "readings.U.bundles_refused_count": 41,
+    "readings.U.minima_by_mu1.class_count": 3,
+    "readings.U.minima_by_mu1.classes.members": [
+      [
+        "withdraw_reflection"
+      ],
+      [
+        "withdraw_mark_permutations"
+      ],
+      [
+        "extra_mark_0",
+        "extra_mark_1"
+      ]
+    ],
+    "readings.U.minima_by_mu1.minimum": 1,
+    "readings.U.minima_by_mu1.points": [
+      "extra_mark_0",
+      "extra_mark_1",
+      "withdraw_mark_permutations",
+      "withdraw_reflection"
+    ],
+    "readings.U.minima_by_mu1.unique": false,
+    "readings.U.space_size": 48,
+    "requirement.declared": "the two retained marks are internally separable under a reading exactly when no permitted automorphism of the regime carries one of them to the other",
+    "requirement.retained_marks": [
+      0,
+      1
+    ],
+    "requirement.second_reading": "some property of a mark that forgets whatever the candidate's declared serialization forgets, and that is invariant under every permitted renaming of the reading, holds of one retained mark and not of the other"
+  },
+  "extracted_note": "Every value above is read from pinned/boundary_challenge3.json at the JSON path that is its key. A test re-reads each path from the receipt and requires equality, so a hand edit of this file fails by name.",
+  "provenance_command": "git show 6c80c7ae43a704dcf9f109146cc6cf77139ed18e:research/boundary_seed/receipts/challenge3.json > research/side_free/pinned/boundary_challenge3.json",
+  "source_commit": "6c80c7ae43a704dcf9f109146cc6cf77139ed18e",
+  "source_commit_note": "Actual main merge of research/boundary-run with freeze ancestry preserved. Vendored receipts, extracted values and declared values are unchanged; the source pin and deletion census are re-audited.",
+  "source_path": "research/boundary_seed/receipts/challenge3.json",
+  "transferring_collateral_facts": [
+    "order_internally_available",
+    "label_internally_available"
+  ],
+  "transferring_coordinates": [
+    "withdraw_mark_permutations",
+    "keep_labels",
+    "extra_mark"
+  ],
+  "value_set_change": {
+    "control_values": [
+      "False",
+      "True"
+    ],
+    "coordinate": "extra_mark",
+    "note": "The single value-set change of the whole deletion, flagged because it is the one place a second deletion could hide.",
+    "pinned_values": [
+      "None",
+      "0",
+      "1"
+    ]
+  },
+  "vendored": {
+    "byte_count": 220518,
+    "carries_cr": false,
+    "git_blob_sha1": "dbb4cce3cdd49d15d0784c2a73bf7afeab9de7a0",
+    "local_path": "pinned/boundary_challenge3.json",
+    "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "authority_effect": "None",
+  "carve": {
+    "allowed_paths": [
+      "research/side_free/SOURCE_MANIFEST.json",
+      "research/side_free/pinned/BOUNDARY_PIN.json",
+      "research/side_free/pinned/QUOTATIONS.md"
+    ],
+    "rule": "The pinned tree's own directory name may appear in exactly these three files of this tree and nowhere else. Every other research tree name stays barred everywhere, including here. The scan in tests/test_isolation.py enforces both halves.",
+    "why": "A control must name the thing it is a control for. One carve, declared, tested, and no wider."
+  },
+  "pinned_commit": "6c80c7ae43a704dcf9f109146cc6cf77139ed18e",
+  "pinned_commit_note": "Actual main merge of research/boundary-run, preserving the dedicated source freeze. The frozen design's earlier source pin remains historical; this repin changes source custody and deletion population, not vendored receipt values. Full history and hard source verification are required.",
+  "provenance_command": "git show 6c80c7ae43a704dcf9f109146cc6cf77139ed18e:research/boundary_seed/receipts/challenge3.json > research/side_free/pinned/boundary_challenge3.json",
+  "sources": [
+    {
+      "path": "research/boundary_seed/code/boundary/model.py",
+      "role": "the pinned carrier: regime, events, replay, renaming, the flagged enumerations",
+      "sha256": "6755b61b0aa1850bb077eb10a28b90ad0b9197410fa21b4e12705930a99b3618"
+    },
+    {
+      "path": "research/boundary_seed/code/boundary/presentation.py",
+      "role": "the pinned presentation layer: the reader, the presented position, the convention",
+      "sha256": "3df4c0ac07d168df5123afd0b527f287ff8ee75b8895d367256f691da78ca546"
+    },
+    {
+      "path": "research/boundary_seed/code/boundary/challenge2.py",
+      "role": "the pinned inscriptions, identity policies, and caller history",
+      "sha256": "e1ecf9fa114ded868db14e1ccf6bfb51965f6b7248b155dc085579b79aead8c7"
+    },
+    {
+      "path": "research/boundary_seed/code/boundary/challenge3.py",
+      "role": "the pinned requirement, candidate space, cost measures, and minima",
+      "sha256": "dd28174bed8e37f160d53ee363dc16deee8ecb32d46713c029c57ea7197b5872"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge3.json",
+      "role": "the vendored pin itself, copied to pinned/boundary_challenge3.json",
+      "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge0.json",
+      "role": "the pinned rung-zero receipt, read by the comparison for what is observable at genesis",
+      "sha256": "7441796b52658c72698774565cbef69aa4b17740d90ba5bb2c27e23c7aafb7c9"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge1.json",
+      "role": "the pinned rung-one receipt, read by the comparison for what is observable after one admitted mark",
+      "sha256": "de48399f3fe54792edf8294b72fe92768f3d25b7144589f65d3d7ec45a0eb1b6"
+    },
+    {
+      "path": "research/boundary_seed/receipts/challenge2.json",
+      "role": "the pinned rung-two receipt, read by the comparison for what is observable with two retained marks",
+      "sha256": "ca6a9f935951b7d813baf9ddbea881c32325f2e6b5309780a333477f13f4b12b"
+    }
+  ],
+  "vendored_blob": {
+    "local_path": "pinned/boundary_challenge3.json",
+    "source_path": "research/boundary_seed/receipts/challenge3.json"
+  },
+  "vendored_receipts": [
+    {
+      "byte_count": 5553,
+      "challenge": 0,
+      "local_path": "pinned/boundary_challenge0.json",
+      "sha256": "7441796b52658c72698774565cbef69aa4b17740d90ba5bb2c27e23c7aafb7c9",
+      "source_path": "research/boundary_seed/receipts/challenge0.json"
+    },
+    {
+      "byte_count": 28363,
+      "challenge": 1,
+      "local_path": "pinned/boundary_challenge1.json",
+      "sha256": "de48399f3fe54792edf8294b72fe92768f3d25b7144589f65d3d7ec45a0eb1b6",
+      "source_path": "research/boundary_seed/receipts/challenge1.json"
+    },
+    {
+      "byte_count": 35499,
+      "challenge": 2,
+      "local_path": "pinned/boundary_challenge2.json",
+      "sha256": "ca6a9f935951b7d813baf9ddbea881c32325f2e6b5309780a333477f13f4b12b",
+      "source_path": "research/boundary_seed/receipts/challenge2.json"
+    },
+    {
+      "byte_count": 220518,
+      "challenge": 3,
+      "local_path": "pinned/boundary_challenge3.json",
+      "sha256": "e4904075aaa07dd05a2f9d0cba313e77b6eb965a44efecb5cff51864f70a64ab",
+      "source_path": "research/boundary_seed/receipts/challenge3.json"
+    }
+  ],
+  "vendored_receipts_note": "The four pinned receipts the comparison reads. Each is held to one sha256 that is recomputable from the bytes with no git at all; comparison.py prefers the blob at the pinned commit and falls back to the vendored copy, and the two are the same bytes or the run is VOID."
+}
