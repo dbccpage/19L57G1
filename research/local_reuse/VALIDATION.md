@@ -26,12 +26,21 @@ the new packet are in REPRODUCE.md.
 | Original recursive module census and explicit elaboration | all 75 pinned modules elaborate |
 | Original forbidden-token and reliance audit | 77 sources; all 1,530 enumerated reports within `{propext, Quot.sound}` |
 | Original axiom inventory | all 1,530 names match; fresh rendering is byte-identical to the committed artifact |
-| Original tests, dual coverage gate, and strict typing | still running at initial publication; no pass is inferred |
+| Original tests under coverage | passed; one skipped test |
+| Original independent dual coverage gate | 99.10% lines and 96.71% branches, both above 95%; fresh report covers the exact 60-source census |
+| Original strict typing | passed, all 60 source files |
 
 The original verification workflow also contains separate research-package
 jobs and extra research Lean packages. Those untouched packages were not all
 rerun locally. The new workflow runs the packet independently; hosted status
 must be read from the PR at its actual head.
+
+At initial PR head `d2d9db646c091ea67d54abe73c02cac789543e17`, hosted runs
+`34146328611` (the new packet) and `34146328658` (original verification)
+failed before execution: all five jobs report `runner_id=0` and empty step
+lists. This provides no hosted test or proof result. The local passes above
+remain separate evidence; a later head's workflow status must be checked
+independently.
 
 All edits are confined to this new packet and its dedicated workflow. No
 existing source, frozen input, original proof, or original evidence artifact
