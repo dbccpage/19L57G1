@@ -30,10 +30,21 @@ added or changed sealed sources, duplicate manifest entries, and foreign
 module origins, all in temporary fixtures. Original sources are not mutated.
 
 Lean provides 31 authored theorems. Independent environment enumeration also
-finds eight compiler-generated theorem helpers. All 39 declarations receive
-reports and are audited; the inventory does not hide the helpers to preserve
-an initially expected count. The semantic proofs are separate from this
-audit apparatus. The compiled statement scope remains the one in CLAIMS.md.
+finds eight compiler-generated theorem helpers. All 39 **theorem**
+declarations receive reports and are audited; the inventory does not hide the
+helpers to preserve an initially expected count. The semantic proofs are
+separate from this audit apparatus. The compiled statement scope remains the
+one in CLAIMS.md.
+
+Reach, stated exactly: `Inventory.lean` filters on `.thmInfo`, so the census
+is theorem-complete over the `LocalReuse` namespace and reports nothing for
+the two inductives (`ResponsePath`, `ContextPath`), their constructors and
+recursors, or the six definitions (`itemEvent`, `roundEvents`, `pathEvents`,
+`markedLeft`, `markedRight`, `mapRound`). A definition carrying a disallowed
+axiom that no theorem reaches would go unreported. That is the same residual
+the root `CLAUDE.md` records for the sealed audit, and it is named here rather
+than left to a reader: an earlier draft of this paragraph said "all 39
+declarations", which is the wording that document withdrew as false.
 
 The final scope review included the repository's later passage and trace
 definitions. Three additional composition lemmas make shared-prefix replay,

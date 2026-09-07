@@ -67,6 +67,6 @@ jobs:
           sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
           "$HOME/.elan/bin/elan" toolchain install "$(cat research/local_reuse/lean/lean-toolchain)"
-      - name: Fresh proofs, independent declaration census and reliance audit
+      - name: Fresh proofs, independent theorem census and reliance audit
         working-directory: research/local_reuse
         run: python verify_lean.py --check
