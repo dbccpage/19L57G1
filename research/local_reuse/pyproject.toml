@@ -1,0 +1,18 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "../../code"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["audit.py", "run.py", "verify_sources.py", "verify_lean.py"]
+mypy_path = "../../code"
+explicit_package_bases = true
+
+[tool.coverage.run]
+branch = true
+source = ["audit"]
+
+[tool.coverage.report]
+show_missing = true

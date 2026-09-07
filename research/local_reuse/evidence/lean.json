@@ -1,0 +1,158 @@
+{
+  "authority_effect": "None",
+  "census": "compiled environment theorem declarations in LocalReuse",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Inventory.lean": "ed439eb104756d1ded5977834314b3dcbd9fe8d5f4711bb4f2c70b92db362991",
+    "LocalReuse.lean": "624bbd8db7609885f84190e744dbf0edb2ef9b091ea44e7a926e5ab7819242ac",
+    "lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_driver_refinement": "NOT_PROVED",
+  "reports": {
+    "LocalReuse.ContextPath.brecOn": [
+      "propext"
+    ],
+    "LocalReuse.ResponsePath.brecOn": [
+      "propext"
+    ],
+    "LocalReuse.contextPath_is_responsePath": [
+      "propext"
+    ],
+    "LocalReuse.contextPath_transport": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.contextPath_transport_length": [
+      "propext"
+    ],
+    "LocalReuse.delta_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.difference_can_have_no_response_step": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.difference_can_have_no_response_step._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.difference_can_have_no_response_step._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.finite_response_fan": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.fixed_carrier_round_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.markedLeft.eq_1": [],
+    "LocalReuse.markedLeft_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.markedRight.eq_1": [],
+    "LocalReuse.markedRight_separates": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.markedRight_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.no_admission_reversal": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.no_positive_path_from_markedRight": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.no_seven_closed_rounds_on_two_data": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.no_seven_closed_rounds_on_two_data._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.padF_absorb": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.padF_absorb._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.passage_finite_fan": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.passage_halted_cut": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.passage_rewrite_at_cut": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.replayE_restart": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.replayE_retains_instance": [
+      "propext"
+    ],
+    "LocalReuse.replayE_suffix": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.replayT_restart": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.replayT_suffix": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.responsePath_append": [
+      "propext"
+    ],
+    "LocalReuse.responsePath_append_iff": [
+      "propext"
+    ],
+    "LocalReuse.responsePath_cut_unique": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.responsePath_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.responsePath_split": [
+      "propext"
+    ],
+    "LocalReuse.round_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "LocalReuse.stepE_itemEvent": [
+      "propext"
+    ],
+    "LocalReuse.stepE_retains_instance": [
+      "propext"
+    ],
+    "LocalReuse.supplied_target_has_response": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements and their explicit hypotheses",
+  "theorem_count_including_generated": 39,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

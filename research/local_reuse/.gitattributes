@@ -1,0 +1,4 @@
+evidence/** -text
+*.py text eol=lf
+*.md text eol=lf
+lean/*.lean text eol=lf
