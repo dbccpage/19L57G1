@@ -3,7 +3,7 @@
   "census": "compiled environment theorem declarations in LocalReuse",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Inventory.lean": "ed439eb104756d1ded5977834314b3dcbd9fe8d5f4711bb4f2c70b92db362991",
+    "Inventory.lean": "254ead8ae05726738f5717f17309352441981185ecd2724890c5b3df78cfed9a",
     "LocalReuse.lean": "624bbd8db7609885f84190e744dbf0edb2ef9b091ea44e7a926e5ab7819242ac",
     "lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"

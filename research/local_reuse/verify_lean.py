@@ -103,17 +103,29 @@ def main() -> int:
     mode.add_argument("--check", action="store_true")
     mode.add_argument("--write", action="store_true")
     args = parser.parse_args()
-    fresh = verify()
-    if args.write:
-        RECORD.parent.mkdir(parents=True, exist_ok=True)
-        RECORD.write_bytes(fresh)
-        print("WROTE: freshly compiled theorem and reliance record")
-    elif not RECORD.is_file() or RECORD.read_bytes() != fresh:
-        print("FAIL: evidence/lean.json differs from fresh compilation")
+    try:
+        fresh = verify()
+        if args.write:
+            RECORD.parent.mkdir(parents=True, exist_ok=True)
+            RECORD.write_bytes(fresh)
+            print("WROTE: freshly compiled theorem and reliance record")
+        elif not RECORD.is_file() or RECORD.read_bytes() != fresh:
+            print("FAIL: evidence/lean.json differs from fresh compilation")
+            return 1
+        else:
+            # "theorem census over the LocalReuse namespace", not "complete":
+            # the reach is theorems only, and a definition carrying a
+            # disallowed axiom that no theorem reaches goes unreported.
+            print("PASS: fresh Lean build, theorem census over the LocalReuse "
+                  "namespace, reliance and source records")
+        return 0
+    except (ValueError, TypeError, KeyError, OSError, RuntimeError,
+            subprocess.SubprocessError) as exc:
+        # Every refusal this module raises by name reaches the operator as a
+        # named FAIL line, matching run.py and verify_sources.py. A build that
+        # exceeds the timeout arrives here too, as SubprocessError.
+        print("FAIL: " + str(exc))
         return 1
-    else:
-        print("PASS: fresh Lean build, complete theorem census, reliance and source records")
-    return 0
 
 
 if __name__ == "__main__":

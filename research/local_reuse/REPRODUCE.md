@@ -28,10 +28,22 @@ objects, altered local proof sources, and changed sealed inputs.
 
 The Lean package imports the existing source by a local Lake path dependency.
 Compilation writes only ignored `.lake` caches, not source or sealed evidence.
-The two `--write` modes deliberately create records during development; CI
-never uses them. They must not be run while a mutation is present.
+The two `--write` modes deliberately create records during development; no
+automatic check uses them. They must not be run while a mutation is present.
 
-The dedicated `local-reuse.yml` workflow runs these checks. The original
-verification workflow remains unchanged. This packet's results do not stand
-in for a fresh execution of every original research package or every sealed
-gate family.
+## Where these checks run
+
+**Locally, by hand, and nowhere else.** This project does not use GitHub
+Actions. An earlier draft of this packet added `.github/workflows/local-reuse.yml`
+and this paragraph said that workflow ran the checks; both were removed,
+because a file that never executes is not enforcement and saying otherwise
+told a reader the packet was covered when it was not.
+
+The packet is therefore not yet registered in any live enumeration. The
+gate-11 command block in the root `CLAUDE.md` lists four research trees and
+does not list this one. Adding it there is the author's act, not this
+packet's; until it happens, the four commands at the top of this file are the
+whole verification story and someone has to run them.
+
+This packet's results do not stand in for a fresh execution of every original
+research package or every sealed gate family.

@@ -7,8 +7,9 @@ import pytest
 
 import audit
 from audit import AuditFailure, descendant_keys, evidence, replay_cuts, sample
-from derivation.candidates import Bounds, NewInst, min_responses, response_valid_naive
-from derivation.engine import READING_L
+from derivation.candidates import Bounds, NewInst, delta_events, min_responses, response_valid_naive
+from derivation.engine import READING_F, READING_L
+from derivation.iso import canonical
 from derivation.export import tree_full_json, verify_full_export
 from derivation.model import AdmissionError, AdmitDatum, AdmitForm, AdmitInst, AdmitRuleAll, Impose, Supply, replay
 from derivation.observe import separable
@@ -23,7 +24,7 @@ def test_original_seven_round_run_and_full_export(record: dict[str, Any]) -> Non
     assert record["open_run"]["stats"]["max_depth"] == 7
     assert record["open_run"]["stats"]["expansions_with_ties"] == 1
     assert record["open_run"]["stats"]["by_status"]["completed"] == 3
-    assert record["open_run"]["replay_cut_checks"] == 180
+    assert record["open_run"]["replay_checks"] == {"edges": 11, "history_cuts_tautological": 180}
     assert all(verify_full_export(tree) for tree in record["trees"].values())
 
 
@@ -96,13 +97,50 @@ def test_standing_requirements_are_not_discardable() -> None:
     assert not response_valid_naive(base, (1, 2), delta)
     forgotten = replay(history[:-1])
     assert response_valid_naive(forgotten, (1, 2), delta)
+    # The claim is about what the ENGINE accepts, and the engine decides with
+    # response_valid_fast through min_responses, not with the reference
+    # predicate above. The two have different domains, so agreement here is
+    # checked rather than assumed.
+    standing = min_responses(base, (1, 2), "mu2", Bounds(2, 2))
+    dropped = min_responses(forgotten, (1, 2), "mu2", Bounds(2, 2))
+    assert standing is not None and dropped is not None
+    assert delta not in standing.deltas
+    assert delta in dropped.deltas
 
 
 @pytest.mark.parametrize("index,raw,classes", [(0, 6, 3), (1, 2, 1), (2, 10, 5), (3, 2, 1)])
-def test_all_tied_classes_are_retained(record: dict[str, Any], index: int, raw: int, classes: int) -> None:
+def test_recorded_tie_counts_match_their_pins(record: dict[str, Any], index: int, raw: int, classes: int) -> None:
+    """A pin on four recorded numbers. It checks no retention property.
+
+    The previous name for this test said retention, which it never checked;
+    `test_no_tied_minimum_is_dropped_by_the_quotient` does that.
+    """
     row = record["branch_widths"][index]
     assert row["raw_minima"] == raw
     assert row["result_classes"] == classes
+
+
+def test_no_tied_minimum_is_dropped_by_the_quotient(record: dict[str, Any]) -> None:
+    """Recompute the quotient from the engine's raw minima, independently.
+
+    `minimum_keys` deduplicates the engine's tied deltas by canonical key, so
+    a defect there would silently lower `result_classes` while the pinned
+    counts above were simply repinned to match. This rebuilds both numbers
+    from `min_responses` and compares them to what the receipt recorded.
+    """
+    rows = record["branch_widths"]
+    index = 0
+    for reading in (READING_L, READING_F):
+        base = replay(reading.genesis)
+        for measure in ("mu1", "mu2"):
+            result = min_responses(base, reading.target, measure, Bounds(2, 2))
+            assert result is not None
+            keys = {canonical(replay((Impose(*reading.target),) + delta_events(base, delta), base))
+                    for delta in result.deltas}
+            assert rows[index]["raw_minima"] == len(result.deltas)
+            assert rows[index]["result_classes"] == len(keys)
+            index += 1
+    assert index == len(rows)
 
 
 def test_bounded_absence_is_not_global_impossibility() -> None:

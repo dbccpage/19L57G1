@@ -64,7 +64,7 @@ The committed computation record contains full exports, not just counts.
 | Reading L, measure `mu2`, seven requested rounds, external supply enabled | 12 nodes, 11 edges, depth 7, three bound-frontier nodes; all emitted tied classes retained |
 | Same request with external supply disabled | two nodes, one edge; the separation is answered and closure stops at depth 1 |
 | Restart the open run at its depth-2 node using its complete history, sole closure target, and five remaining rounds | the same ten descendant classes and the same full exported node/edge multisets after ID/depth normalization |
-| Every original open-run edge, at every split of its parent history | 180 successful replay decomposition checks |
+| Every original open-run edge, at every split of its parent history | 180 replay decomposition checks, all successful and all tautological: `replay` is a left fold, so no engine defect can make one fail. Counted, not offered as evidence |
 | Initial Reading L at bounds `(2, 2)` | `mu1`: six raw minima in three classes; `mu2`: two raw minima in one class |
 | Initial Reading F at the same bounds | `mu1`: ten raw minima in five classes; `mu2`: two raw minima in one class |
 
@@ -77,7 +77,9 @@ Lean response relation.
 
 1. **Keep the admission state and standing requirements.** A new instance can
    separate a new pair while destroying an earlier separation. Forgetting the
-   earlier requirement changes which responses the engine accepts.
+   earlier requirement changes which responses the engine accepts: the test
+   checks this through `min_responses`, the path the driver itself takes, as
+   well as through the reference predicate.
 2. **Distinguish a fresh root from a continuation.** The driver processes one
    supplied root target first; later nodes use closure-challenge orbits. A new
    call at an already solved node reissues the old target and self-merges,
@@ -136,7 +138,10 @@ signs and coefficient system are declared inputs. This supplies a specific
 algebraic check, not an automatic choice of a successful sign change. These
 passage and boundary results do not establish a bridge to the Python driver.
 
-A separated two-datum state also has no further collapsed-pair response step.
+A separated two-datum state *can* have no further collapsed-pair response
+step: `markedRight` is such a state and the theorem is about it. The
+universal reading over all separated two-datum states is not proved, and a
+state carrying a rule or a standing requirement is untouched by it.
 The existing fixed-carrier bound rules out seven closed accepted rounds on two
 data. Both facts are compatible with the user's allowed stopped outcome.
 

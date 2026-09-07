@@ -6,7 +6,6 @@ import argparse
 import json
 from pathlib import Path
 
-from audit import evidence
 from verify_sources import verify_sources
 
 ROOT = Path(__file__).resolve().parent
@@ -17,6 +16,11 @@ def receipt_bytes() -> bytes:
     failures = verify_sources()
     if failures:
         raise RuntimeError("source verification failed: " + "; ".join(failures))
+    # Imported here rather than at module scope. `audit` imports the seven
+    # pinned derivation modules, and importing a module executes its top-level
+    # code; at module scope that would happen before the check above, so the
+    # guard would be reporting on code this interpreter had already run.
+    from audit import evidence
     result = evidence()
     failures = verify_sources()
     if failures:

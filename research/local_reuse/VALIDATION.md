@@ -13,7 +13,7 @@ the new packet are in REPRODUCE.md.
 | New packet strict typing | passed, four source files |
 | New packet computation record | regenerated and byte-identical |
 | New packet source guard | passed before and after replay and compilation |
-| New packet Lean build and independent theorem census | 31 authored theorems and eight generated helpers; all 39 reported, within `{propext, Quot.sound}` |
+| New packet Lean build and independent theorem census | 31 authored theorems and eight generated helpers; all 39 theorem declarations in the `LocalReuse` namespace reported, within `{propext, Quot.sound}`; a private theorem is refused rather than counted |
 | Original prompt hash gate | both frozen hashes match |
 | Original transport citations | 190 verified, zero unresolved |
 | Original skill declarations | seven checked |
@@ -30,19 +30,19 @@ the new packet are in REPRODUCE.md.
 | Original independent dual coverage gate | 99.10% lines and 96.71% branches, both above 95%; fresh report covers the exact 60-source census |
 | Original strict typing | passed, all 60 source files |
 
-The original verification workflow also contains separate research-package
-jobs and extra research Lean packages. Those untouched packages were not all
-rerun locally. The new workflow runs the packet independently; hosted status
-must be read from the PR at its actual head.
+The original verification definitions also cover separate research packages
+and extra research Lean packages. Those untouched packages were not all rerun
+locally.
 
-At initial PR head `d2d9db646c091ea67d54abe73c02cac789543e17`, hosted runs
-`34146328611` (the new packet) and `34146328658` (original verification)
-failed before execution: all five jobs report `runner_id=0` and empty step
-lists. This provides no hosted test or proof result. The local passes above
-remain separate evidence; a later head's workflow status must be checked
-independently.
+**Every result above is a local run.** This project does not use GitHub
+Actions, so there is no hosted status to read and none is claimed. An earlier
+draft of this document reported two hosted runs at PR head
+`d2d9db646c091ea67d54abe73c02cac789543e17` that failed before executing
+anything, with `runner_id=0` and empty step lists; that observation provided
+no test or proof result then and is not evidence now. It is recorded here as
+withdrawn rather than deleted.
 
-All edits are confined to this new packet and its dedicated workflow. No
-existing source, frozen input, original proof, or original evidence artifact
-is edited. The source guard checks the five sealed trees against the pinned
-baseline rather than accepting updated source digests automatically.
+All edits are confined to this new packet. No existing source, frozen input,
+original proof, or original evidence artifact is edited. The source guard
+checks the two trees this packet consumes against the pinned baseline rather
+than accepting updated source digests automatically.

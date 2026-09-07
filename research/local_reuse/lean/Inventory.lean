@@ -16,6 +16,20 @@ run_cmd do
       | .thmInfo _ =>
           if (`LocalReuse).isPrefixOf name then name.toString :: found else found
       | _ => found
+  -- A private theorem is registered as `_private.<module>.<n>.LocalReuse.<name>`,
+  -- which carries no `LocalReuse` prefix, so it would appear in neither this
+  -- census nor the required report population and would need no `#print axioms`
+  -- line to keep the two sets equal. Rather than spell mangled names, the
+  -- packet declares it has none and refuses one that appears.
+  let hidden := environment.constants.fold (init := ([] : List String))
+    fun found name declaration =>
+      match declaration with
+      | .thmInfo _ =>
+          if isPrivateName name && ((privateToUserName? name).any (`LocalReuse).isPrefixOf)
+          then name.toString :: found else found
+      | _ => found
+  if !hidden.isEmpty then
+    throwError "LOCAL_REUSE_PRIVATE_THEOREM_PRESENT: {hidden}"
   let sorted := names.mergeSort (fun left right => left ≤ right)
   if sorted.isEmpty then
     throwError "LOCAL_REUSE_THEOREM_CENSUS_EMPTY"

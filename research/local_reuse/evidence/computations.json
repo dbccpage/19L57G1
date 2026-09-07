@@ -46,7 +46,10 @@
   ],
   "classification": "deterministic computation",
   "closed_run": {
-    "replay_cut_checks": 7,
+    "replay_checks": {
+      "edges": 1,
+      "history_cuts_tautological": 7
+    },
     "stats": {
       "all_certified": true,
       "by_status": {
@@ -176,7 +179,10 @@
     }
   },
   "open_run": {
-    "replay_cut_checks": 180,
+    "replay_checks": {
+      "edges": 11,
+      "history_cuts_tautological": 180
+    },
     "stats": {
       "all_certified": true,
       "by_status": {
@@ -237,7 +243,10 @@
       2
     ]
   },
-  "restart_replay_cut_checks": 163,
+  "restart_replay_checks": {
+    "edges": 9,
+    "history_cuts_tautological": 163
+  },
   "schema_version": 1,
   "source_commit": "93853697ed845284ecbb9a9b51a78c9bf5b070cb",
   "trees": {

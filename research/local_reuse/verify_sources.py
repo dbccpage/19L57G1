@@ -4,6 +4,26 @@ AuthorityEffect: None
 The guard checks source identity and runtime origin, not theorem truth.  CRLF
 checkout conversion is allowed for text inputs; pinned Git objects are never
 rewritten.  There is deliberately no manifest generation or repair option.
+
+**Scope: what this packet consumes, and nothing else.**  Two trees can change
+what this packet computed.  ``code/derivation`` supplies the seven modules
+``audit.py`` imports and drives.  ``lean4/Derivation`` supplies the modules
+``lean/LocalReuse.lean`` imports, whose whole content the proofs depend on, so
+that tree is pinned by its exact Git tree object.  Both are pinned here.
+
+``prompt``, ``paper`` and ``artifacts`` are **not** pinned.  Schema v1 pinned
+all five sealed trees by tree object and diffed all five against the baseline.
+That was withdrawn: this packet reads none of those three, so churn in them
+could not change any recorded result, and pinning them made the packet
+unverifiable on unrelated commits with no repair path -- a red that says
+nothing about the evidence.  The narrower pin is not a weaker claim about this
+packet's inputs; it is the same claim, stated over the inputs it has.
+
+Untracked files are refused only where a build or an import would pick them
+up: a ``.py`` under ``code/derivation`` or a ``.lean`` under
+``lean4/Derivation``.  Schema v1 refused every untracked file under all five
+trees, so an unrelated scratch file anywhere in the repository reported a
+source-integrity failure and stopped both receipts from being checked at all.
 """
 
 from __future__ import annotations
@@ -20,7 +40,9 @@ from typing import Mapping
 
 BASELINE_COMMIT = "93853697ed845284ecbb9a9b51a78c9bf5b070cb"
 PACKET = Path("research/local_reuse")
-SEALED_TREES = ("prompt", "paper", "code", "lean4/Derivation", "artifacts")
+SCHEMA = "local-reuse-sources-v2"
+# tree -> the suffix whose files a build or an import would consume there.
+CONSUMED_TREES = {"code/derivation": ".py", "lean4/Derivation": ".lean"}
 CONFIG_PATHS = (
     "lean4/Derivation.lean",
     "lean4/lean-toolchain",
@@ -46,7 +68,10 @@ def _sha(raw: bytes) -> str:
 
 def _git(root: Path, *args: str) -> bytes:
     result = subprocess.run(
-        ["git", "-C", str(root), *args], capture_output=True, check=False
+        # -c core.quotePath=false so a non-ASCII path is compared as itself
+        # rather than as git's C-escaped rendering of itself.
+        ["git", "-C", str(root), "-c", "core.quotePath=false", *args],
+        capture_output=True, check=False
     )
     if result.returncode:
         raise ValueError(result.stderr.decode("utf-8", errors="replace").strip())
@@ -82,20 +107,45 @@ def runtime_errors(root: Path, modules: Mapping[str, ModuleType]) -> list[str]:
         ):
             try:
                 actual = Path(value).resolve(strict=True) if isinstance(value, str) else None
-                if actual != expected or not actual.is_relative_to(root):
+                if actual != expected:
                     errors.append(f"RUNTIME_ORIGIN: {name} {label}={value!r}; expected {expected}")
             except (OSError, RuntimeError):
                 errors.append(f"RUNTIME_ORIGIN: {name} {label}={value!r} is unavailable")
     return errors
 
 
+def tree_census(root: Path, tree: str, suffix: str) -> tuple[list[str], list[str]]:
+    """The baseline and current consumable files of one pinned tree.
+
+    Current includes untracked files, because an untracked ``.py`` on the
+    import path or an untracked ``.lean`` in the elaborated tree changes what
+    runs.  An untracked file of any other kind, anywhere, does not.
+    """
+    baseline = sorted(
+        path for path in _git(root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT,
+                              "--", tree).decode().splitlines()
+        if path.endswith(suffix)
+    )
+    current = sorted(
+        path.relative_to(root).as_posix()
+        for path in (root / tree).rglob("*" + suffix)
+    )
+    return baseline, current
+
+
 def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True) -> list[str]:
     """Return named failures; an empty list is a pass for this source scope.
 
     The baseline must remain available locally.  Later unrelated commits are
-    allowed; changes under the sealed trees or the explicitly pinned Lean
-    configuration are rejected.  Runtime checking imports the seven modules
-    only after their files pass, and detects already-loaded foreign copies.
+    allowed; changes under the two consumed trees or the explicitly pinned Lean
+    configuration are rejected.
+
+    Runtime checking imports the seven modules only after their files pass.
+    That ordering holds for this function alone: a caller that imports
+    ``derivation`` at its own module scope has already run that code before
+    calling here.  ``run.py`` imports ``audit`` inside ``receipt_bytes`` for
+    exactly this reason, and the origin check below is what catches an
+    already-loaded foreign copy either way.
     """
     root = (repo_root or Path(__file__).resolve().parents[2]).resolve()
     errors: list[str] = []
@@ -104,16 +154,18 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
             (root / PACKET / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"),
             object_pairs_hook=_unique_object,
         )
-        if not isinstance(manifest, dict) or manifest.get("schema") != "local-reuse-sources-v1":
-            return ["MANIFEST_SCHEMA: expected local-reuse-sources-v1 object"]
+        if not isinstance(manifest, dict) or manifest.get("schema") != SCHEMA:
+            return [f"MANIFEST_SCHEMA: expected {SCHEMA} object"]
         if manifest.get("baseline_commit") != BASELINE_COMMIT:
             return ["MANIFEST_BASELINE: unexpected baseline commit"]
         if manifest.get("text_normalization") != "CRLF_TO_LF_ONLY":
             return ["MANIFEST_NORMALIZATION: expected CRLF_TO_LF_ONLY"]
         if manifest.get("runtime_modules") != RUNTIME_PATHS:
             return ["MANIFEST_RUNTIME_CENSUS: runtime module paths differ"]
-        if set(manifest.get("sealed_trees", {})) != set(SEALED_TREES):
-            return ["MANIFEST_SEALED_CENSUS: sealed tree paths differ"]
+        if set(manifest.get("consumed_trees", {})) != set(CONSUMED_TREES):
+            return ["MANIFEST_CONSUMED_CENSUS: consumed tree paths differ"]
+        if set(manifest.get("tree_census", {})) != set(CONSUMED_TREES):
+            return ["MANIFEST_TREE_CENSUS: censused tree paths differ"]
         if set(manifest.get("source_sha256", {})) != set(RUNTIME_PATHS.values()) | set(CONFIG_PATHS):
             return ["MANIFEST_SOURCE_CENSUS: pinned source paths differ"]
     except (OSError, ValueError, TypeError) as exc:
@@ -125,50 +177,36 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
     except (OSError, ValueError) as exc:
         return [f"BASELINE_UNAVAILABLE: {exc}"]
     try:
-        for relative in SEALED_TREES:
-            tree_oid = _git(root, "rev-parse", f"{BASELINE_COMMIT}:{relative}").decode().strip()
-            if manifest["sealed_trees"][relative] != tree_oid:
-                errors.append(f"BASELINE_TREE_PIN: {relative}")
-        baseline_census = sorted(
-            path for path in _git(root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT,
-                                 "--", "code/derivation").decode().splitlines()
-            if path.endswith(".py")
-        )
-        if manifest.get("derivation_python_census") != baseline_census:
-            errors.append("MANIFEST_DERIVATION_CENSUS: differs from baseline")
-        current_census = sorted(path.relative_to(root).as_posix()
-                                for path in (root / "code/derivation").rglob("*.py"))
-        if current_census != baseline_census:
-            errors.append(
-                f"SOURCE_CENSUS: missing={sorted(set(baseline_census) - set(current_census))} "
-                f"unexpected={sorted(set(current_census) - set(baseline_census))}"
-            )
-        sealed_baseline = set(_git(root, "ls-tree", "-r", "--name-only", BASELINE_COMMIT,
-                                   "--", *SEALED_TREES).decode().splitlines())
-        sealed_current = set(_git(root, "ls-files", "--cached", "--others", "--exclude-standard",
-                                  "--", *SEALED_TREES).decode().splitlines())
-        if sealed_current != sealed_baseline:
-            errors.append(
-                f"SEALED_SOURCE_CENSUS: missing={sorted(sealed_baseline - sealed_current)} "
-                f"unexpected={sorted(sealed_current - sealed_baseline)}"
-            )
+        for tree, suffix in CONSUMED_TREES.items():
+            tree_oid = _git(root, "rev-parse", f"{BASELINE_COMMIT}:{tree}").decode().strip()
+            if manifest["consumed_trees"][tree] != tree_oid:
+                errors.append(f"BASELINE_TREE_PIN: {tree}")
+            baseline, current = tree_census(root, tree, suffix)
+            if manifest["tree_census"][tree] != baseline:
+                errors.append(f"MANIFEST_TREE_CENSUS: {tree} differs from baseline")
+            if current != baseline:
+                errors.append(
+                    f"SOURCE_CENSUS: {tree}: missing={sorted(set(baseline) - set(current))} "
+                    f"unexpected={sorted(set(current) - set(baseline))}"
+                )
         for relative, pinned_hash in manifest["source_sha256"].items():
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _sha(blob) != pinned_hash:
                 errors.append(f"BASELINE_SOURCE_PIN: {relative}")
             source = root / relative
             try:
-                if source.resolve(strict=True) != source or not source.resolve().is_relative_to(root):
+                if source.resolve(strict=True) != source:
                     errors.append(f"SOURCE_ORIGIN: {relative} resolves outside its pinned path")
                 elif canonical_text(source.read_bytes()) != canonical_text(blob):
                     errors.append(f"SOURCE_CHANGED: {relative}")
             except OSError as exc:
                 errors.append(f"SOURCE_UNAVAILABLE: {relative}: {exc}")
+        consumed = (*CONSUMED_TREES, *CONFIG_PATHS)
         changed = set(_git(root, "diff", "--name-only", "--no-ext-diff", BASELINE_COMMIT,
-                           "--", *SEALED_TREES, *CONFIG_PATHS).decode().splitlines())
+                           "--", *consumed).decode().splitlines())
         changed.update(_git(root, "diff", "--cached", "--name-only", "--no-ext-diff", BASELINE_COMMIT,
-                            "--", *SEALED_TREES, *CONFIG_PATHS).decode().splitlines())
-        errors.extend(f"SEALED_TRACKED_DIFF: {path}" for path in sorted(changed))
+                            "--", *consumed).decode().splitlines())
+        errors.extend(f"CONSUMED_TRACKED_DIFF: {path}" for path in sorted(changed))
     except (OSError, ValueError, TypeError, KeyError) as exc:
         errors.append(f"SOURCE_INSPECTION_FAILED: {exc}")
     if errors or not check_runtime:
@@ -194,7 +232,7 @@ def main() -> int:
     for failure in failures:
         print(f"FAIL: {failure}")
     if not failures:
-        print(f"PASS: unchanged pinned sources and local runtime origins at {BASELINE_COMMIT}")
+        print(f"PASS: unchanged consumed sources and local runtime origins at {BASELINE_COMMIT}")
     return 1 if failures else 0
 
 
