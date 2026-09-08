@@ -1,0 +1,2063 @@
+{
+ "authority_effect": "None",
+ "bounds": {
+  "max_arity": 2,
+  "max_items": 2
+ },
+ "exhibits": {
+  "linked_F_mu1": {
+   "branches": [
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 6,
+     "final_good": true,
+     "final_regime_sha256": "8cdaf9464becf9d7d23208d88a5ccbbbb175fed6903d66a229c1b451e01dac33",
+     "final_reqs": 8,
+     "fire_families": [
+      1,
+      5,
+      3,
+      1,
+      7,
+      5,
+      5
+     ],
+     "fire_targets": [
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       4,
+       5
+      ]
+     ],
+     "fires": 7,
+     "grows": 3,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      }
+     ],
+     "history_length": 32,
+     "no_grow_is_activity": true,
+     "opening_class": 0,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 1,
+       "j": 2
+      },
+      {
+       "arity": 1,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        1
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form1+inst1",
+     "opening_regime_sha256": "a028075c301188b12f03ef33de472ef827b70c62566d93a2a9a00982df6be2ba",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire"
+     ],
+     "target_response_classes": [
+      1,
+      5,
+      3,
+      1,
+      7,
+      5,
+      5
+     ]
+    },
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 6,
+     "final_good": true,
+     "final_regime_sha256": "68f740256bdf318fff1f024d1039c8cf2969eee15b33093cb6ad5de7da5aa0b8",
+     "final_reqs": 8,
+     "fire_families": [
+      8,
+      11,
+      10,
+      15,
+      13,
+      19,
+      17
+     ],
+     "fire_targets": [
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       0,
+       4
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       0,
+       5
+      ],
+      [
+       4,
+       5
+      ]
+     ],
+     "fires": 7,
+     "grows": 3,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         0,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        0
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         0,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        0
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         0,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        0
+       ]
+      }
+     ],
+     "history_length": 30,
+     "no_grow_is_activity": true,
+     "opening_class": 1,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 1,
+       "j": 2
+      },
+      {
+       "arity": 2,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        1,
+        1
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form2+inst2diag",
+     "opening_regime_sha256": "5bfdb5c4b5e0def41345dfb7a7c89b8d191d5a5bfd24b2816c7392a2d92be9a5",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire"
+     ],
+     "target_response_classes": [
+      8,
+      11,
+      10,
+      15,
+      13,
+      19,
+      17
+     ]
+    },
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 8,
+     "final_good": true,
+     "final_regime_sha256": "83e38abfc2914f30fae4c5bb6513e3b8d5584ff69d3df6e6aded19a7d8045b8a",
+     "final_reqs": 6,
+     "fire_families": [
+      6,
+      16,
+      19,
+      23,
+      27
+     ],
+     "fire_targets": [
+      [
+       0,
+       3
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       4,
+       5
+      ],
+      [
+       5,
+       6
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     "fires": 5,
+     "grows": 5,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         0,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        0
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         3,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        3
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 6,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         5,
+         6
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        5
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 7,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         6,
+         7
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        6
+       ]
+      }
+     ],
+     "history_length": 30,
+     "no_grow_is_activity": true,
+     "opening_class": 2,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 1,
+       "j": 2
+      },
+      {
+       "arity": 2,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        1,
+        2
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form2+inst2",
+     "opening_regime_sha256": "f10b1e45b619165685f9d66449513f04a7b4c8a6fd83e48db8fc01553fe59bf0",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire"
+     ],
+     "target_response_classes": [
+      6,
+      16,
+      19,
+      23,
+      27
+     ]
+    },
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 8,
+     "final_good": true,
+     "final_regime_sha256": "46aa4d1ef9c1e6113f650532e6ab8e0aa100af7fb4baf110c0b004622f86c741",
+     "final_reqs": 6,
+     "fire_families": [
+      11,
+      16,
+      19,
+      23,
+      27
+     ],
+     "fire_targets": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       4,
+       5
+      ],
+      [
+       5,
+       6
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     "fires": 5,
+     "grows": 5,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         3,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        3
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 6,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         5,
+         6
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        5
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 7,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         6,
+         7
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        6
+       ]
+      }
+     ],
+     "history_length": 30,
+     "no_grow_is_activity": true,
+     "opening_class": 3,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 1,
+       "j": 2
+      },
+      {
+       "arity": 2,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        1,
+        0
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form2+inst2",
+     "opening_regime_sha256": "79da0ac7bc5c64835e739f61586231ff576eb7b17324b3d3add8b7212adcfce3",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire"
+     ],
+     "target_response_classes": [
+      11,
+      16,
+      19,
+      23,
+      27
+     ]
+    },
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 8,
+     "final_good": true,
+     "final_regime_sha256": "459ac35ce6e3e5791f6c58febb75843327d7fca53a3c92dc6db04492732aa9e4",
+     "final_reqs": 6,
+     "fire_families": [
+      11,
+      16,
+      19,
+      23,
+      27
+     ],
+     "fire_targets": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       4,
+       5
+      ],
+      [
+       5,
+       6
+      ],
+      [
+       6,
+       7
+      ]
+     ],
+     "fires": 5,
+     "grows": 5,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         3,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        3
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 6,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         5,
+         6
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        5
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 7,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         6,
+         7
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        6
+       ]
+      }
+     ],
+     "history_length": 30,
+     "no_grow_is_activity": true,
+     "opening_class": 4,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 1,
+       "j": 2
+      },
+      {
+       "arity": 2,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        0,
+        1
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form2+inst2",
+     "opening_regime_sha256": "4df0ce9e054a166f7b7291583fcd5c73ac402148de1d51687e03f212a5ebf866",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire"
+     ],
+     "target_response_classes": [
+      11,
+      16,
+      19,
+      23,
+      27
+     ]
+    }
+   ],
+   "measure": "mu1",
+   "reading": "F",
+   "root_classes": 5,
+   "root_cost": [
+    2,
+    -1
+   ],
+   "root_raw_minima": 10,
+   "root_target": [
+    1,
+    2
+   ]
+  },
+  "linked_F_mu2": {
+   "branches": [
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 6,
+     "final_good": true,
+     "final_regime_sha256": "8cdaf9464becf9d7d23208d88a5ccbbbb175fed6903d66a229c1b451e01dac33",
+     "final_reqs": 8,
+     "fire_families": [
+      1,
+      1,
+      3,
+      1,
+      1,
+      5,
+      5
+     ],
+     "fire_targets": [
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       4,
+       5
+      ]
+     ],
+     "fires": 7,
+     "grows": 3,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      }
+     ],
+     "history_length": 32,
+     "no_grow_is_activity": true,
+     "opening_class": 0,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 1,
+       "j": 2
+      },
+      {
+       "arity": 1,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        1
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form1+inst1",
+     "opening_regime_sha256": "a028075c301188b12f03ef33de472ef827b70c62566d93a2a9a00982df6be2ba",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire"
+     ],
+     "target_response_classes": [
+      1,
+      1,
+      3,
+      1,
+      1,
+      5,
+      5
+     ]
+    }
+   ],
+   "measure": "mu2",
+   "reading": "F",
+   "root_classes": 1,
+   "root_cost": [
+    2,
+    1
+   ],
+   "root_raw_minima": 2,
+   "root_target": [
+    1,
+    2
+   ]
+  },
+  "linked_L_mu1": {
+   "branches": [
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 6,
+     "final_good": true,
+     "final_regime_sha256": "49e26c6e7d053603d0f58f05b93162dabb8311a900d8d03dcf7d09700797366d",
+     "final_reqs": 7,
+     "fire_families": [
+      1,
+      5,
+      3,
+      1,
+      7,
+      5
+     ],
+     "fire_targets": [
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       4
+      ]
+     ],
+     "fires": 6,
+     "grows": 4,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 2,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         2
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      }
+     ],
+     "history_length": 31,
+     "no_grow_is_activity": true,
+     "opening_class": 0,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 0,
+       "j": 1
+      },
+      {
+       "arity": 1,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        0
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form1+inst1",
+     "opening_regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "grow"
+     ],
+     "target_response_classes": [
+      1,
+      5,
+      3,
+      1,
+      7,
+      5
+     ]
+    },
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 6,
+     "final_good": true,
+     "final_regime_sha256": "225a881d8184a593272ce9d5d4b9c5d2cb58b6ebff516afdfc110b511c53b3c2",
+     "final_reqs": 7,
+     "fire_families": [
+      8,
+      11,
+      10,
+      15,
+      13,
+      19
+     ],
+     "fire_targets": [
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       2,
+       5
+      ]
+     ],
+     "fires": 6,
+     "grows": 4,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 2,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         2
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      }
+     ],
+     "history_length": 29,
+     "no_grow_is_activity": true,
+     "opening_class": 1,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 0,
+       "j": 1
+      },
+      {
+       "arity": 2,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        0,
+        0
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form2+inst2diag",
+     "opening_regime_sha256": "3d3f62f37fcda28ace29e56a84e793daba5e0e6ede7def2517d20d68fd87c448",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "grow",
+      "fire"
+     ],
+     "target_response_classes": [
+      8,
+      11,
+      10,
+      15,
+      13,
+      19
+     ]
+    },
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 8,
+     "final_good": true,
+     "final_regime_sha256": "18c2cc0083e534aa776c2944b94493e7e86556c6239524233b5892b96c19b557",
+     "final_reqs": 5,
+     "fire_families": [
+      6,
+      16,
+      19,
+      23
+     ],
+     "fire_targets": [
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       4
+      ],
+      [
+       4,
+       5
+      ],
+      [
+       5,
+       6
+      ]
+     ],
+     "fires": 4,
+     "grows": 6,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 2,
+       "new_demand_count": 0,
+       "new_demands": [],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": []
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         2,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        2
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         3,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        3
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 6,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         5,
+         6
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        5
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 7,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         6,
+         7
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        6
+       ]
+      }
+     ],
+     "history_length": 29,
+     "no_grow_is_activity": true,
+     "opening_class": 2,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 0,
+       "j": 1
+      },
+      {
+       "arity": 2,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        0,
+        1
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form2+inst2",
+     "opening_regime_sha256": "5b6e930fc90e9d3c87ab595dcd55ccd535932ff04c7f25e55f2d9a90618f6650",
+     "selections": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow",
+      "fire",
+      "grow"
+     ],
+     "target_response_classes": [
+      6,
+      16,
+      19,
+      23
+     ]
+    }
+   ],
+   "measure": "mu1",
+   "reading": "L",
+   "root_classes": 3,
+   "root_cost": [
+    2,
+    -1
+   ],
+   "root_raw_minima": 6,
+   "root_target": [
+    0,
+    1
+   ]
+  },
+  "linked_L_mu2": {
+   "branches": [
+    {
+     "certified": true,
+     "every_fire_is_activity": true,
+     "final_data": 6,
+     "final_good": true,
+     "final_regime_sha256": "49e26c6e7d053603d0f58f05b93162dabb8311a900d8d03dcf7d09700797366d",
+     "final_reqs": 7,
+     "fire_families": [
+      1,
+      1,
+      3,
+      1,
+      1,
+      5
+     ],
+     "fire_targets": [
+      [
+       1,
+       2
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       4
+      ]
+     ],
+     "fires": 6,
+     "grows": 4,
+     "growth_records": [
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 2,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         2
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 3,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         3
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 4,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         1,
+         4
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        1
+       ]
+      },
+      {
+       "at_most_one": true,
+       "characterization_holds": true,
+       "data_before": 5,
+       "new_demand_count": 1,
+       "new_demands": [
+        [
+         4,
+         5
+        ]
+       ],
+       "old_verdicts_unchanged": true,
+       "unmentioned_before": [
+        4
+       ]
+      }
+     ],
+     "history_length": 31,
+     "no_grow_is_activity": true,
+     "opening_class": 0,
+     "opening_events": [
+      {
+       "event": "impose_separation",
+       "i": 0,
+       "j": 1
+      },
+      {
+       "arity": 1,
+       "event": "admit_form"
+      },
+      {
+       "args": [
+        0
+       ],
+       "event": "admit_inst",
+       "form": 0
+      }
+     ],
+     "opening_label": "form1+inst1",
+     "opening_regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "steps": [
+      "grow",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "fire",
+      "fire",
+      "grow",
+      "fire",
+      "grow"
+     ],
+     "target_response_classes": [
+      1,
+      1,
+      3,
+      1,
+      1,
+      5
+     ]
+    }
+   ],
+   "measure": "mu2",
+   "reading": "L",
+   "root_classes": 1,
+   "root_cost": [
+    2,
+    1
+   ],
+   "root_raw_minima": 2,
+   "root_target": [
+    0,
+    1
+   ]
+  },
+  "removal_F_mu2": {
+   "both_laws": {
+    "final_data": 5,
+    "fires": 6,
+    "kinds": [
+     "fire",
+     "grow"
+    ],
+    "steps": 8
+   },
+   "measure": "mu2",
+   "no_closure": {
+    "any_activity": false,
+    "final_data": 11,
+    "final_demands": 45,
+    "kinds": [
+     "grow"
+    ],
+    "steps": 8
+   },
+   "no_growth": {
+    "final_data": 3,
+    "kinds": [
+     "fire"
+    ],
+    "steps": 2,
+    "stopped_at_fixpoint": true
+   },
+   "reading": "F",
+   "requested_steps": 8
+  },
+  "removal_L_mu2": {
+   "both_laws": {
+    "final_data": 5,
+    "fires": 5,
+    "kinds": [
+     "fire",
+     "grow"
+    ],
+    "steps": 8
+   },
+   "measure": "mu2",
+   "no_closure": {
+    "any_activity": false,
+    "final_data": 10,
+    "final_demands": 36,
+    "kinds": [
+     "grow"
+    ],
+    "steps": 8
+   },
+   "no_growth": {
+    "final_data": 2,
+    "kinds": [],
+    "steps": 0,
+    "stopped_at_fixpoint": true
+   },
+   "reading": "L",
+   "requested_steps": 8
+  }
+ },
+ "fixpoint_census": {
+  "closed_F": {
+   "all_characterizations_hold": true,
+   "all_good": true,
+   "all_two_growths_demand": true,
+   "fixpoints": 16,
+   "nodes": 20,
+   "one_growth_demand_histogram": {
+    "0": 4,
+    "1": 12
+   },
+   "rows": [
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 3,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      0
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 4,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 5,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 7,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      0
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 8,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 9,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      0
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 10,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 11,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      0
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 12,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 13,
+     "one_growth_new_demands": 0,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": []
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 14,
+     "one_growth_new_demands": 0,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": []
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 15,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 16,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 17,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      2
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 18,
+     "one_growth_new_demands": 0,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": []
+    },
+    {
+     "characterization_holds": true,
+     "data": 3,
+     "good": true,
+     "node": 19,
+     "one_growth_new_demands": 0,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": []
+    }
+   ]
+  },
+  "closed_L": {
+   "all_characterizations_hold": true,
+   "all_good": true,
+   "all_two_growths_demand": true,
+   "fixpoints": 3,
+   "nodes": 4,
+   "one_growth_demand_histogram": {
+    "0": 1,
+    "1": 2
+   },
+   "rows": [
+    {
+     "characterization_holds": true,
+     "data": 2,
+     "good": true,
+     "node": 1,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      1
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 2,
+     "good": true,
+     "node": 2,
+     "one_growth_new_demands": 1,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": [
+      1
+     ]
+    },
+    {
+     "characterization_holds": true,
+     "data": 2,
+     "good": true,
+     "node": 3,
+     "one_growth_new_demands": 0,
+     "two_growths_fresh_pair_demanded": true,
+     "unmentioned": []
+    }
+   ]
+  }
+ },
+ "formal_run_scope": "grow-grow-mark prefixes in permissive XStep; driver liveness and inclusion-minimality OPEN",
+ "host_dependencies": [
+  "declared candidate bounds and cost measure",
+  "orbit representatives",
+  "canonical-key quotient per target",
+  "fresh-name convention",
+  "explicit branch selections",
+  "host iteration"
+ ],
+ "laws_declared": [
+  "L1: supply and admit one fresh datum when growth is selected",
+  "L2: collapsed distinct pairs supply the closure demands",
+  "L3: the host driver fires before growth, subject to its step bound"
+ ],
+ "root_families": {
+  "F_mu1": {
+   "classes": 5,
+   "cost": [
+    2,
+    -1
+   ],
+   "labels": [
+    "form1+inst1",
+    "form2+inst2diag",
+    "form2+inst2",
+    "form2+inst2",
+    "form2+inst2"
+   ],
+   "raw_minima": 10
+  },
+  "F_mu2": {
+   "classes": 1,
+   "cost": [
+    2,
+    1
+   ],
+   "labels": [
+    "form1+inst1"
+   ],
+   "raw_minima": 2
+  },
+  "L_mu1": {
+   "classes": 3,
+   "cost": [
+    2,
+    -1
+   ],
+   "labels": [
+    "form1+inst1",
+    "form2+inst2diag",
+    "form2+inst2"
+   ],
+   "raw_minima": 6
+  },
+  "L_mu2": {
+   "classes": 1,
+   "cost": [
+    2,
+    1
+   ],
+   "labels": [
+    "form1+inst1"
+   ],
+   "raw_minima": 2
+  }
+ },
+ "route_pair": {
+  "base_regime_sha256": "ac118237eb3980c29a6577ca27e7d21ed28742f3633b1d0ed645669a65a2c6d1",
+  "continuations_agree": true,
+  "endpoint_regime_sha256": "0eff8ed472a1e24a5580d8cea439aa11fcf6fca5f9bd10eecc78a47cd08a1f9c",
+  "endpoints_equal": true,
+  "span_total_early": 2,
+  "span_total_late": 3
+ },
+ "schema": "ignition-evidence-v2",
+ "selection_policy": "the finite exhibits supply zero for each possible fire; every used selection is recorded"
+}
