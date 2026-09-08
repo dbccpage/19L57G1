@@ -57,6 +57,7 @@ from derivation.candidates import (  # noqa: E402
     NewInst,
     NewRuleAll,
     canonical_delta,
+    delta_events,
     min_responses,
 )
 from derivation.export import (  # noqa: E402
@@ -69,7 +70,7 @@ from derivation.export import (  # noqa: E402
     verify_full_export,
 )
 from derivation.iso import CanonKey, canonical  # noqa: E402
-from derivation.model import AdmitDatum, Event, Pair, Regime, Supply, replay  # noqa: E402
+from derivation.model import AdmitDatum, Event, Impose, Pair, Regime, Supply, replay  # noqa: E402
 from derivation.observe import collapsed_pairs, separable  # noqa: E402
 
 EXPORTS = ("closed_L", "closed_F", "tree_L_mu1", "tree_L_mu2", "tree_F_mu1", "tree_F_mu2")
@@ -117,6 +118,12 @@ def forms_used(r: Regime) -> bool:
 
 
 def fixpoint(r: Regime) -> bool:
+    """The closure policy has no collapsed pair left to demand."""
+    return not collapsed_pairs(r)
+
+
+def all_pairs_demanded(r: Regime) -> bool:
+    """A stronger, separate condition: every pair occurs in the requirement store."""
     n = r.n_data()
     return all((i, j) in r.reqs for i in range(n) for j in range(i + 1, n))
 
@@ -238,7 +245,8 @@ def edge_failures(name: str, payload: Mapping[str, object], regimes: Mapping[int
         if challenge == "supply":
             counts["supply"] += 1
             token = f"g{base.n_data()}"
-            if events != (Supply(token), AdmitDatum(token)) or response:
+            if (events != (Supply(token), AdmitDatum(token)) or response
+                    or token in base.data):
                 failures.append(f"{label}: supply edge does not admit exactly one fresh datum")
             continue
         counts["rounds"] += 1
@@ -253,6 +261,10 @@ def edge_failures(name: str, payload: Mapping[str, object], regimes: Mapping[int
             failures.append(f"{label}: target {target} already stands on the parent")
         if not in_bounds(response, bounds):
             failures.append(f"{label}: response outside the declared bounds")
+            continue
+        expected_events = (Impose(*target),) + delta_events(base, response)
+        if events != expected_events:
+            failures.append(f"{label}: recorded events differ from the imposed target and response")
             continue
         mr = min_responses(base, target, measure, bounds)
         if mr is None:
@@ -345,7 +357,7 @@ def census(root: Path = ROOT) -> JsonDict:
     sources: JsonDict = {}
     all_keys: dict[CanonKey, tuple[str, int]] = {}
     totals = {"nodes": 0, "edges": 0, "rounds": 0, "supply": 0, "minimum_agreements": 0,
-              "fixpoints": 0, "answered_fixpoints": 0}
+              "fixpoints": 0, "answered_fixpoints": 0, "all_pairs_demanded": 0}
     for name in EXPORTS:
         gz = root / "artifacts" / "full" / f"{name}.json.gz"
         raw = gz.read_bytes()
@@ -378,6 +390,8 @@ def census(root: Path = ROOT) -> JsonDict:
         for nid, key in keys.items():
             all_keys.setdefault(key, (name, nid))
         fix = [nid for nid in sorted(regimes) if fixpoint(regimes[nid])]
+        demanded = [nid for nid in sorted(regimes) if all_pairs_demanded(regimes[nid])]
+        answered_fix = [nid for nid in fix if answered(regimes[nid])]
         arity_fail = [nid for nid in sorted(regimes) if not within_arity(regimes[nid], bounds)]
         if arity_fail:
             raise CensusError(f"{name} node {arity_fail[0]}: a form exceeds the declared arity bound")
@@ -394,7 +408,8 @@ def census(root: Path = ROOT) -> JsonDict:
             "classes_per_depth": per_depth,
             "max_depth": max(cast(int, n["depth"]) for n in nodes),
             "fixpoints": len(fix),
-            "answered_fixpoints": len(fix),
+            "answered_fixpoints": len(answered_fix),
+            "all_pairs_demanded": len(demanded),
         }
         totals["nodes"] += len(nodes)
         totals["edges"] += len(cast(Sequence[object], payload["edges"]))
@@ -402,7 +417,8 @@ def census(root: Path = ROOT) -> JsonDict:
         totals["supply"] += counts["supply"]
         totals["minimum_agreements"] += counts["minimum_agreements"]
         totals["fixpoints"] += len(fix)
-        totals["answered_fixpoints"] += len(fix)
+        totals["answered_fixpoints"] += len(answered_fix)
+        totals["all_pairs_demanded"] += len(demanded)
     countermodels: list[JsonDict] = []
     for label, state in unreachable_states().items():
         key = canonical(state)

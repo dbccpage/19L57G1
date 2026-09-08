@@ -228,7 +228,8 @@
   "distinct_classes_over_all_exports": 3338,
   "exports": {
     "closed_F": {
-      "answered_fixpoints": 5,
+      "all_pairs_demanded": 5,
+      "answered_fixpoints": 16,
       "classes_per_depth": {
         "0": {
           "classes": 1,
@@ -257,7 +258,7 @@
         "rounds": 19,
         "supply": 0
       },
-      "fixpoints": 5,
+      "fixpoints": 16,
       "invariants": {
         "answered": {
           "fails_on": 0,
@@ -285,6 +286,7 @@
       "supply_enabled": false
     },
     "closed_L": {
+      "all_pairs_demanded": 3,
       "answered_fixpoints": 3,
       "classes_per_depth": {
         "0": {
@@ -334,7 +336,8 @@
       "supply_enabled": false
     },
     "tree_F_mu1": {
-      "answered_fixpoints": 5,
+      "all_pairs_demanded": 5,
+      "answered_fixpoints": 912,
       "classes_per_depth": {
         "0": {
           "classes": 1,
@@ -375,7 +378,7 @@
         "rounds": 1011,
         "supply": 233
       },
-      "fixpoints": 5,
+      "fixpoints": 912,
       "invariants": {
         "answered": {
           "fails_on": 0,
@@ -403,7 +406,8 @@
       "supply_enabled": true
     },
     "tree_F_mu2": {
-      "answered_fixpoints": 3,
+      "all_pairs_demanded": 3,
+      "answered_fixpoints": 631,
       "classes_per_depth": {
         "0": {
           "classes": 1,
@@ -480,7 +484,7 @@
         "rounds": 1547,
         "supply": 413
       },
-      "fixpoints": 3,
+      "fixpoints": 631,
       "invariants": {
         "answered": {
           "fails_on": 0,
@@ -508,7 +512,8 @@
       "supply_enabled": true
     },
     "tree_L_mu1": {
-      "answered_fixpoints": 8,
+      "all_pairs_demanded": 8,
+      "answered_fixpoints": 968,
       "classes_per_depth": {
         "0": {
           "classes": 1,
@@ -553,7 +558,7 @@
         "rounds": 1055,
         "supply": 195
       },
-      "fixpoints": 8,
+      "fixpoints": 968,
       "invariants": {
         "answered": {
           "fails_on": 0,
@@ -581,7 +586,8 @@
       "supply_enabled": true
     },
     "tree_L_mu2": {
-      "answered_fixpoints": 4,
+      "all_pairs_demanded": 4,
+      "answered_fixpoints": 414,
       "classes_per_depth": {
         "0": {
           "classes": 1,
@@ -658,7 +664,7 @@
         "rounds": 911,
         "supply": 111
       },
-      "fixpoints": 4,
+      "fixpoints": 414,
       "invariants": {
         "answered": {
           "fails_on": 0,
@@ -726,9 +732,10 @@
     }
   },
   "totals": {
-    "answered_fixpoints": 28,
+    "all_pairs_demanded": 28,
+    "answered_fixpoints": 2944,
     "edges": 5498,
-    "fixpoints": 28,
+    "fixpoints": 2944,
     "minimum_agreements": 4546,
     "nodes": 5240,
     "rounds": 4546,

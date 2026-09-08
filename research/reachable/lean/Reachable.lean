@@ -13,7 +13,7 @@ one supply (a fresh datum) or one round: a collapsed target, a valid response
 that is shortest inside the declared candidate space, and the recorded
 successor.  Four invariants hold of every reachable state: no rule is ever
 admitted, well-formedness is kept, every standing requirement is answered,
-and every admitted form carries an instance.  Two well-formed, rule-free
+and every admitted form carries an instance.  Two well-formed
 states inside the bounds are then shown unreachable.
 
 The round relation quantifies over every shortest valid response.  Orbit
@@ -438,24 +438,35 @@ theorem reach_answered {root t : Regime} (h : Reach root t)
   | supply _ hstep ih => exact answered_supply ih hstep
   | round _ hmin _ => exact answered_of_transStep hmin.1
 
-/-- A closure fixpoint: every ordered pair of admitted data has been
-demanded. -/
-def Fixpoint (r : Regime) : Prop :=
+/-- Every ordered pair of admitted data has been explicitly demanded.
+This is stronger than reaching a closure fixpoint: one response can also
+separate pairs that were never demanded. -/
+def AllPairsDemanded (r : Regime) : Prop :=
   ∀ i j, i < j → j < r.data → (i, j) ∈ r.reqs
 
-theorem answered_fixpoint_separates {t : Regime} (ha : Answered t)
-    (hf : Fixpoint t) : ∀ i j, i < j → j < t.data → separable t i j :=
+/-- The observational condition at a closure fixpoint: every admitted pair
+has a separating witness. The Python census decides this with the sealed
+collapsed-pair enumerator. -/
+def Fixpoint (r : Regime) : Prop :=
+  ∀ i j, i < j → j < r.data → separable r i j
+
+theorem answered_allPairsDemanded_fixpoint {t : Regime} (ha : Answered t)
+    (hf : AllPairsDemanded t) : Fixpoint t :=
   fun i j hij hj => ha (i, j) (hf i j hij hj)
+
+/-- A witnessed fixpoint has no collapsed admitted pair. -/
+theorem fixpoint_no_collapsed {t : Regime} (hf : Fixpoint t) :
+    ∀ i j, i < j → j < t.data → ¬ collapsed t i j :=
+  fun i j hij hj => separable_not_collapsed (hf i j hij hj)
 
 theorem rootL_answered : Answered rootL := fun _ hq => nomatch hq
 theorem rootF_answered : Answered rootF := fun _ hq => nomatch hq
 
-/-- The reachable-regime form of the fixpoint statement: a reachable state
-at a closure fixpoint separates every pair of its data. -/
-theorem reach_fixpoint_separates {root t : Regime} (h : Reach root t)
-    (ha : Answered root) (hf : Fixpoint t) :
-    ∀ i j, i < j → j < t.data → separable t i j :=
-  answered_fixpoint_separates (reach_answered h ha) hf
+/-- Reaching a state in which every pair has been demanded suffices for a
+closure fixpoint. The converse is not claimed. -/
+theorem reach_allPairsDemanded_fixpoint {root t : Regime} (h : Reach root t)
+    (ha : Answered root) (hf : AllPairsDemanded t) : Fixpoint t :=
+  answered_allPairsDemanded_fixpoint (reach_answered h ha) hf
 
 /-! ## 6. Invariant (d): every admitted form carries an instance -/
 
@@ -775,10 +786,11 @@ end Reachable
 #print axioms Reachable.separable_addDatum
 #print axioms Reachable.answered_supply
 #print axioms Reachable.reach_answered
-#print axioms Reachable.answered_fixpoint_separates
+#print axioms Reachable.answered_allPairsDemanded_fixpoint
+#print axioms Reachable.fixpoint_no_collapsed
 #print axioms Reachable.rootL_answered
 #print axioms Reachable.rootF_answered
-#print axioms Reachable.reach_fixpoint_separates
+#print axioms Reachable.reach_allPairsDemanded_fixpoint
 #print axioms Reachable.separable_appendForm
 #print axioms Reachable.formsUsed_of_not_form
 #print axioms Reachable.formsUsed_pair_not_form

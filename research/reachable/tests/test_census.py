@@ -18,8 +18,9 @@ sys.path.insert(0, str(ROOT.parents[1] / "code"))
 
 import census  # noqa: E402
 from derivation.candidates import Bounds  # noqa: E402
-from derivation.export import read_json_gz  # noqa: E402
+from derivation.export import Json, read_json_gz, verify_full_export  # noqa: E402
 from derivation.model import Event, Regime  # noqa: E402
+from derivation.observe import collapsed_pairs  # noqa: E402
 
 
 def _load(name: str) -> Mapping[str, object]:
@@ -63,6 +64,16 @@ class CensusOverTheExports(unittest.TestCase):
             self.assertTrue(row["well_formed"])
             nearest = cast(Mapping[str, object], row["nearest_exported_node"])
             self.assertEqual(nearest["distance"], 1)
+
+    def test_closure_fixpoints_are_not_the_all_pairs_demanded_subset(self) -> None:
+        exports = cast(Mapping[str, Mapping[str, object]], self.payload["exports"])
+        expected = {"closed_L": 3, "closed_F": 16, "tree_L_mu1": 968,
+                    "tree_L_mu2": 414, "tree_F_mu1": 912, "tree_F_mu2": 631}
+        for name, count in expected.items():
+            self.assertEqual(exports[name]["fixpoints"], count, name)
+        totals = cast(Mapping[str, int], self.payload["totals"])
+        self.assertEqual(totals["fixpoints"], 2944)
+        self.assertEqual(totals["all_pairs_demanded"], 28)
 
 
 class NegativeTestsNameTheDefect(unittest.TestCase):
@@ -144,6 +155,39 @@ class NegativeTestsNameTheDefect(unittest.TestCase):
         nodes = cast(Sequence[Mapping[str, object]], self.export["nodes"])
         failures, _, _ = census.class_census(self.name, nodes, regimes)
         self.assertEqual(failures, ["closed_L node 2: isomorphic to node 1"])
+
+    def test_actual_events_are_bound_to_the_checked_minimum(self) -> None:
+        edges = [dict(e) for e in cast(Sequence[Mapping[str, object]], self.export["edges"])]
+        events = list(cast(Sequence[object], edges[0]["events"]))
+        # An absorbed repeat preserves every endpoint and the sealed replay
+        # certificate, but it is not the advertised two-item response block.
+        events.append({"event": "admit_inst", "form": 0, "args": [0]})
+        edges[0]["events"] = events
+        payload = dict(self.export)
+        payload["edges"] = edges
+        self.assertTrue(verify_full_export(cast(Mapping[str, Json], payload)))
+        failures, _ = census.edge_failures(self.name, payload, self.regimes, "mu1", self.bounds)
+        self.assertEqual(failures, ["closed_L edge 0->1: recorded events differ from the imposed target and response"])
+        recovered, _ = census.edge_failures(self.name, self.export, self.regimes, "mu1", self.bounds)
+        self.assertEqual(recovered, [])
+
+    def test_supply_must_be_fresh_in_the_actual_parent(self) -> None:
+        state = Regime(("g1",), (), frozenset(), frozenset(), frozenset())
+        payload: dict[str, object] = {"edges": [{"parent": 0, "child": 0, "kind": "merge",
+            "challenge": "supply", "response": [], "events": [
+                {"event": "supply", "token": "g1"}, {"event": "admit_datum", "token": "g1"}]}]}
+        failures, _ = census.edge_failures("probe", payload, {0: state}, "mu1", self.bounds)
+        self.assertEqual(failures, ["probe edge 0->0: supply edge does not admit exactly one fresh datum"])
+        fresh_parent = Regime(("a",), (), frozenset(), frozenset(), frozenset())
+        recovered, _ = census.edge_failures("probe", payload, {0: fresh_parent}, "mu1", self.bounds)
+        self.assertEqual(recovered, [])
+
+    def test_a_response_can_separate_pairs_that_were_never_demanded(self) -> None:
+        _, regimes = census.reconstruct("closed_F", _load("closed_F"))
+        state = regimes[3]
+        self.assertEqual(collapsed_pairs(state), ())
+        self.assertTrue(census.fixpoint(state))
+        self.assertFalse(census.all_pairs_demanded(state))
 
 
 class TheUnreachableStates(unittest.TestCase):

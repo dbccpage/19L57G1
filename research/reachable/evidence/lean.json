@@ -1,15 +1,19 @@
 {
   "authority_effect": "None",
-  "census": "the #print axioms lines of lean/Reachable.lean, compared in both directions",
+  "census": "compiled environment theorem declarations in the Reachable namespace, including generated declarations",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Reachable.lean": "1d37420f5b7c240ed1c23d2ecf1d7b3c020d833bb87e2adcb51b3d7853b20248",
-    "lakefile.toml": "8fea5d4d10426f52c725847f422c00479677ea073f2749fa65dcf6744f084ea1",
+    "Inventory.lean": "4acbaa804c22d99a481cfa8ed60d3dcba81a7b32b8df493c7650f1cc8fbbdc9f",
+    "Reachable.lean": "8a06feb958ef151552aaadec87e226e665456fce1c48f90a96629610555aa40d",
+    "lakefile.toml": "8b7ad75db2dd7d4a5c11f00a882dfcc9f0d40916566e61f55831d9b2bf50900b",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_engine_refinement": "NOT_PROVED; checked edge by edge by census.py",
   "reports": {
-    "Reachable.answered_fixpoint_separates": [
+    "Reachable.Reach.brecOn": [
+      "propext"
+    ],
+    "Reachable.answered_allPairsDemanded_fixpoint": [
       "propext"
     ],
     "Reachable.answered_of_transStep": [
@@ -42,6 +46,10 @@
     "Reachable.applyItem_reqs_free": [
       "propext"
     ],
+    "Reachable.fixpoint_no_collapsed": [
+      "propext"
+    ],
+    "Reachable.formNoInst.eq_1": [],
     "Reachable.formNoInst_arities": [],
     "Reachable.formNoInst_not_formsUsed": [],
     "Reachable.formNoInst_rule_free": [],
@@ -77,14 +85,30 @@
       "Quot.sound",
       "propext"
     ],
+    "Reachable.minResponse_formsUsed._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.minResponse_formsUsed._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.minResponse_formsUsed._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
     "Reachable.minResponse_no_rule": [
       "Quot.sound",
       "propext"
     ],
-    "Reachable.reach_answered": [
+    "Reachable.minResponse_no_rule._proof_1_1": [
+      "Quot.sound",
       "propext"
     ],
-    "Reachable.reach_fixpoint_separates": [
+    "Reachable.reach_allPairsDemanded_fixpoint": [
+      "propext"
+    ],
+    "Reachable.reach_answered": [
       "propext"
     ],
     "Reachable.reach_formsUsed": [
@@ -99,6 +123,7 @@
       "Quot.sound",
       "propext"
     ],
+    "Reachable.rootF.eq_1": [],
     "Reachable.rootF_answered": [
       "propext"
     ],
@@ -107,6 +132,7 @@
       "Quot.sound",
       "propext"
     ],
+    "Reachable.rootL.eq_1": [],
     "Reachable.rootL_answered": [
       "propext"
     ],
@@ -115,6 +141,7 @@
       "Quot.sound",
       "propext"
     ],
+    "Reachable.ruledMark.eq_1": [],
     "Reachable.ruledMark_rules_ne": [],
     "Reachable.ruledMark_unreachable": [
       "Quot.sound",
@@ -128,6 +155,18 @@
       "propext"
     ],
     "Reachable.separable_appendForm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.separable_appendForm._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.separable_appendForm._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.separable_appendForm._proof_1_3": [
       "Quot.sound",
       "propext"
     ],
@@ -148,6 +187,14 @@
       "Quot.sound",
       "propext"
     ],
+    "Reachable.wf_applyItem._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.wf_applyItem._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
     "Reachable.wf_impose": [
       "propext"
     ],
@@ -158,6 +205,6 @@
   },
   "schema_version": 1,
   "scope": "the exact theorem statements and their explicit hypotheses",
-  "theorem_count": 48,
+  "theorem_count": 63,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

@@ -1,9 +1,9 @@
-"""Compile the reachability proofs and compare their reports to the source census.
+"""Compile the reachability proofs and compare their reports to an environment census.
 
 AuthorityEffect: None.
 
-Every theorem the source exports carries a ``#print axioms`` line; the
-compiled report set must equal that census in both directions, every report
+Every compiled theorem in the Reachable namespace is enumerated independently
+by Inventory.lean. The report set must equal that census in both directions, every report
 must lie within the whitelist, and the local sources must not change while
 compiling.  The record ``evidence/lean.json`` is byte-compared in check mode.
 """
@@ -22,22 +22,23 @@ from verify_sources import verify_sources
 ROOT = Path(__file__).resolve().parent
 LEAN = ROOT / "lean"
 RECORD = ROOT / "evidence" / "lean.json"
-EXPECTED_FILES = {"Reachable.lean"}
+EXPECTED_FILES = {"Reachable.lean", "Inventory.lean"}
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
-PRINT_LINE = re.compile(r"^#print axioms (\S+)\s*$", re.MULTILINE)
+CENSUS_LINE = re.compile(r"^REACHABLE_THEOREM: (\S+)$", re.MULTILINE)
 
 
-def source_census(text: str) -> list[str]:
-    """The theorem names the source itself asks a report for, in order."""
-    names = PRINT_LINE.findall(text)
+def environment_census(text: str) -> list[str]:
+    """The independent compiled theorem population, including generated declarations."""
+    names = CENSUS_LINE.findall(text)
     if not names or len(set(names)) != len(names):
-        raise ValueError("empty or duplicate #print axioms census in the source")
+        raise ValueError("empty or duplicate environment theorem census")
     return names
 
 
-def parse_reports(log: str, census: list[str]) -> dict[str, list[str]]:
+def parse_reports(log: str, inventory_log: str) -> dict[str, list[str]]:
     """Reports keyed by name; fails on a duplicate, a disallowed reliance, or
     any mismatch between the report set and the census."""
+    census = environment_census(inventory_log)
     reports: dict[str, list[str]] = {}
     for line in log.splitlines():
         used = re.fullmatch(r"'(.+?)' depends on axioms: \[(.*?)\]", line)
@@ -90,10 +91,10 @@ def verify() -> bytes:
     version = invoke("env", "lean", "--version").strip()
     if not version.startswith("Lean (version 4.33.0,"):
         raise ValueError(f"unexpected Lean version: {version}")
-    invoke("build", "Reachable")
+    invoke("build", "Reachable", "Inventory")
     log = invoke("env", "lean", "Reachable.lean")
-    census = source_census((LEAN / "Reachable.lean").read_text(encoding="utf-8"))
-    reports = parse_reports(log, census)
+    census = invoke("env", "lean", "Inventory.lean")
+    reports = parse_reports(log + "\n" + census, census)
     if source_hashes() != before:
         raise ValueError("local proof sources changed while compiling")
     errors = verify_sources()
@@ -103,7 +104,7 @@ def verify() -> bytes:
                "authority_effect": "None", "toolchain": "leanprover/lean4:v4.33.0",
                "local_sources_sha256": before, "theorem_count": len(reports),
                "reports": reports,
-               "census": "the #print axioms lines of lean/Reachable.lean, compared in both directions",
+               "census": "compiled environment theorem declarations in the Reachable namespace, including generated declarations",
                "scope": "the exact theorem statements and their explicit hypotheses",
                "python_engine_refinement": "NOT_PROVED; checked edge by edge by census.py"}
     return (json.dumps(payload, sort_keys=True, indent=2) + "\n").encode("utf-8")
@@ -125,7 +126,7 @@ def main() -> int:
             print("FAIL: evidence/lean.json differs from fresh compilation")
             return 1
         else:
-            print("PASS: fresh Lean build, report census equal to the source in both "
+            print("PASS: fresh Lean build, report census equal to the compiled environment in both "
                   "directions, reliance within the whitelist, sources unchanged")
         return 0
     except (ValueError, TypeError, KeyError, OSError, RuntimeError,

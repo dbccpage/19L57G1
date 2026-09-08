@@ -64,18 +64,19 @@ Definitions shared by the claims, from `lean/Reachable.lean`:
   context separates.
 - **Bound**: none.
 
-### CL-RE-03b — at a closure fixpoint every pair is separated
+### CL-RE-03b — demanding every pair suffices for a closure fixpoint
 
-- **Statement**: `Reach root t → Answered root → Fixpoint t → ∀ i j, i < j →
-  j < t.data → separable t i j`, where `Fixpoint t` says every ordered pair of
-  admitted data stands in `t.reqs`.  This is the reachable-regime form of the
-  sealed fixpoint statement (`allPairs_length` gives the size of the
-  requirement language; this gives the separation).
+- **Statement**: `Reach root t → Answered root → AllPairsDemanded t → Fixpoint t`.
+  `AllPairsDemanded` means every ordered admitted pair stands in `t.reqs`;
+  `Fixpoint` means every such pair has a separating witness. The latter
+  excludes collapsed pairs by `fixpoint_no_collapsed`. The converse from
+  fixpoint to all pairs demanded is false, as `closed_F` node 3 demonstrates.
 - **Class**: theorem.
-- **Lean**: `Reachable.reach_fixpoint_separates`,
-  `Reachable.answered_fixpoint_separates`.
+- **Lean**: `Reachable.reach_allPairsDemanded_fixpoint`,
+  `Reachable.answered_allPairsDemanded_fixpoint`, `Reachable.fixpoint_no_collapsed`.
 - **Python**: `reachable.json:exports.*.fixpoints` and `answered_fixpoints`
-  are equal in every export.
+  are equal in every export, totaling 2944; the separate `all_pairs_demanded`
+  population totals 28. The former count of 28 fixpoints is withdrawn.
 - **Falsifier**: a reachable fixpoint with a collapsed pair.
 - **Bound**: none.
 
