@@ -1,0 +1,346 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 8,
+  "census": "compiled environment theorem declarations in the Ignition namespace",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Ignition.lean": "9aa01d463825565c584dc8b33e347f331a281d04e54327bb54f1c10411c9b71f",
+    "Inventory.lean": "3da0a9eeb452c932b33d3dcadef59b839683bdbfdc7e2cfc1e1a03100f41d1ea",
+    "lakefile.toml": "c3dae512d55898c79ca48f1af47a97bf5cb33efaaa095230d2be892d5a021341",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_driver_refinement": "NOT_PROVED",
+  "reports": {
+    "Ignition.applyDelta_reqs_free": [
+      "propext"
+    ],
+    "Ignition.applyDelta_rules": [
+      "propext"
+    ],
+    "Ignition.applyDelta_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.applyItem_reqs_free": [
+      "propext"
+    ],
+    "Ignition.applyItem_rules": [
+      "propext"
+    ],
+    "Ignition.applyItem_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.applyItem_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.applyItem_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.blockState.eq_1": [],
+    "Ignition.blockState_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.blockState_ne": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.blockState_ne._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.block_eq": [],
+    "Ignition.block_is_activity": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.block_is_transStep": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.block_is_transStep._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.block_is_xsteps": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.block_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.collapsed_of_unmentioned_pair": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.collapsed_trans": [
+      "propext"
+    ],
+    "Ignition.collapsed_with_unmentioned_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.ctxList._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.demand_iff_residual": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.demand_refutes_factorization": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.demand_residual": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.derivable_unmentioned_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.fire_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.fresh_mark_not_inst": [
+      "propext"
+    ],
+    "Ignition.fresh_pair_not_req": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.fresh_pair_not_req._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.future_factors_through_endpoint": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.good_fire": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.good_grow": [
+      "propext"
+    ],
+    "Ignition.good_xstep": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.grow_at_most_one_demand": [
+      "propext"
+    ],
+    "Ignition.grow_demand_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.grow_keeps_verdicts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.grow_replays": [
+      "propext"
+    ],
+    "Ignition.grow_wf": [
+      "propext"
+    ],
+    "Ignition.holeAt_getD": [],
+    "Ignition.holeAt_length": [
+      "propext"
+    ],
+    "Ignition.holeAt_map_getD": [],
+    "Ignition.identity_not_signature_determined": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.idle_and_active_both_lawful": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.idle_lawful": [
+      "propext"
+    ],
+    "Ignition.inert_history": [
+      "propext"
+    ],
+    "Ignition.joint_eq_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.joint_idempotent": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.markDelta_applies": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.markDelta_applies._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.markDelta_rule_free": [
+      "propext"
+    ],
+    "Ignition.mem_ctxList": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_ctxList._simp_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_ctxList._simp_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_ctxList._simp_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_ctxList._simp_1_4": [
+      "propext"
+    ],
+    "Ignition.mem_slotOptions": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_tuples": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_tuples._simp_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.mem_tuples._simp_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.partition_order_free": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.plug_holeAt": [],
+    "Ignition.plug_not_mem_of_unmentioned": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.question_eq_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.representative_order_dependent": [],
+    "Ignition.rootF_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.rootL_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.routes_agree": [
+      "propext"
+    ],
+    "Ignition.routes_cost_differ": [
+      "propext"
+    ],
+    "Ignition.routes_indistinguishable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runHist_prefix": [],
+    "Ignition.runHist_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_data": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_data._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_forms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_forms._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_reqs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.runState_reqs._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.separable_grow": [
+      "propext"
+    ],
+    "Ignition.sigEq_iff_collapsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.sigEq_pair": [
+      "propext"
+    ],
+    "Ignition.slotOptions.eq_1": [],
+    "Ignition.stepE_grow": [
+      "propext"
+    ],
+    "Ignition.two_grows_collapsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.two_grows_replays": [
+      "propext"
+    ],
+    "Ignition.two_grows_response": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.two_grows_response._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.two_grows_response._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.unmentioned_of_ge": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.unmentioned_of_ge._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.wfCtx_holeAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Ignition.xstep_replays": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements and their explicit hypotheses; the engine's minimum-response selection and orbit selection are not formalized",
+  "theorem_count_including_generated": 93,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
