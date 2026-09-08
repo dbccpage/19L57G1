@@ -1,0 +1,96 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 2,
+  "census": "compiled environment theorem declarations in the Execution namespace",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
+    "Inventory.lean": "ccfd8aaa2798307492449ffcbe9be46b88168ab32ff8655b3291c5c168ac11a6",
+    "lakefile.toml": "2de03feae368d2562bd92825580caf68994932001f11700bfb09b38049fb9127",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_mirror_refinement": "NOT_PROVED",
+  "reports": {
+    "Execution.Config.mk.inj": [],
+    "Execution.Config.mk.injEq": [
+      "propext"
+    ],
+    "Execution.Config.mk.sizeOf_spec": [],
+    "Execution.evalWord_append": [
+      "propext"
+    ],
+    "Execution.evalWord_encode": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.isEdge_self": [
+      "propext"
+    ],
+    "Execution.isEdge_true": [
+      "propext"
+    ],
+    "Execution.iterate_add": [
+      "propext"
+    ],
+    "Execution.iterate_evalWord": [
+      "propext"
+    ],
+    "Execution.iterate_graph": [
+      "propext"
+    ],
+    "Execution.iterate_word": [
+      "propext"
+    ],
+    "Execution.iterate_zero": [
+      "propext"
+    ],
+    "Execution.lookup_encode": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.lookup_isSome": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.lookup_mem": [
+      "propext"
+    ],
+    "Execution.run_append": [
+      "propext"
+    ],
+    "Execution.run_encode": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.run_evalWord": [
+      "propext"
+    ],
+    "Execution.run_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.run_nil": [
+      "propext"
+    ],
+    "Execution.run_total": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.run_word": [
+      "propext"
+    ],
+    "Execution.step_nil": [
+      "propext"
+    ],
+    "Execution.value_edge": [
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "Execution": 24
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
+  "theorem_count_including_generated": 24,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

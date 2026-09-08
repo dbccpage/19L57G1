@@ -1,0 +1,230 @@
+{
+ "authority_effect": "None",
+ "classification": "deterministic computation: the configuration machine over the sealed encoding",
+ "concatenation": "Execution.run_append",
+ "config_status": "DECLARED_HOST_CONFIG",
+ "config_status_meaning": "Config is a metatheory record whose graph field is a copy of the encoded instances; the process reads encoded data and does not itself live in the sealed grammar.",
+ "correspondence": "Execution.run_encode",
+ "fragment": "words",
+ "iterate": "Execution.iterate",
+ "not_delivered": [
+  "control",
+  "branching",
+  "iteration",
+  "retained record",
+  "semantic_clock",
+  "resource ledger"
+ ],
+ "observation": {
+  "active": "the final active datum, a member of the carrier",
+  "output": "the tape of data visited, one entry per letter consumed"
+ },
+ "reference": "Execution.evalWord",
+ "run": "Execution.run",
+ "runs": [
+  {
+   "active": 2,
+   "output": [
+    1,
+    0,
+    1,
+    2
+   ],
+   "reference_active": 2,
+   "setting": "twoOps",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "word": [
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "active": 0,
+   "output": [
+    1,
+    2,
+    0
+   ],
+   "reference_active": 0,
+   "setting": "twoOps",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "word": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "active": 2,
+   "output": [],
+   "reference_active": 2,
+   "setting": "twoOps",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "word": []
+  },
+  {
+   "active": 0,
+   "output": [
+    0,
+    0
+   ],
+   "reference_active": 0,
+   "setting": "d2Merged",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   },
+   "start": 1,
+   "word": [
+    0,
+    0
+   ]
+  },
+  {
+   "active": 0,
+   "output": [
+    0
+   ],
+   "reference_active": 0,
+   "setting": "boolEmptyMerged",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "word": [
+    0
+   ]
+  },
+  {
+   "active": 0,
+   "output": [
+    0,
+    0,
+    0
+   ],
+   "reference_active": 0,
+   "setting": "s2Merged",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "ret": []
+   },
+   "start": 0,
+   "word": [
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "schema_version": 1,
+ "step": "Execution.step",
+ "totality": "Execution.run_total",
+ "word": "a list of operation indices; step reads the edge of form 3 + k leaving the active datum"
+}

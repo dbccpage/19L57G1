@@ -1,0 +1,74 @@
+"""The report parser and the committed Lean record."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import sys
+import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from verify_lean import ALLOWED_AXIOMS, MODULES, RECORD, parse_reports  # noqa: E402
+
+CENSUS = "EXECUTION_THEOREM: Execution.run_encode"
+BRIDGE = ("Execution.lookup_mem", "Execution.lookup_isSome", "Execution.lookup_encode",
+          "Execution.run_evalWord", "Execution.run_word", "Execution.evalWord_append",
+          "Execution.run_append", "Execution.iterate_add", "Execution.evalWord_encode",
+          "Execution.run_encode", "Execution.run_total", "Execution.run_lt", "Execution.run_nil")
+
+
+class ReportParser(unittest.TestCase):
+    def test_accepts_primed_theorem_names(self) -> None:
+        self.assertEqual(
+            parse_reports("'Execution.run_encode'' depends on axioms: [propext]",
+                          "EXECUTION_THEOREM: Execution.run_encode'"),
+            {"Execution.run_encode'": ["propext"]})
+
+    def test_incomplete_or_disallowed_reports_fail_by_name(self) -> None:
+        cases = [
+            ("", "", "empty"),
+            ("", CENSUS, "missing"),
+            ("'Execution.other' does not depend on any axioms", CENSUS, "mismatch"),
+            ("'Execution.run_encode' depends on axioms: [Classical.choice]", CENSUS, "disallowed"),
+            ("'Execution.run_encode' does not depend on any axioms\n"
+             "'Execution.run_encode' does not depend on any axioms", CENSUS, "duplicate report"),
+            ("'Execution.run_encode' does not depend on any axioms", CENSUS + "\n" + CENSUS,
+             "duplicate environment"),
+            ("'Execution.run_encode' does not depend on any axioms\n"
+             "'Execution.extra' does not depend on any axioms", CENSUS, "extra"),
+        ]
+        for log, census, reason in cases:
+            with self.subTest(reason=reason):
+                with self.assertRaisesRegex(ValueError, reason):
+                    parse_reports(log, census)
+
+
+class CommittedRecord(unittest.TestCase):
+    def test_record_is_within_the_whitelist_and_carries_the_bridge(self) -> None:
+        record = json.loads(RECORD.read_text(encoding="utf-8"))
+        reports = record["reports"]
+        self.assertEqual(record["theorem_count_including_generated"], len(reports))
+        self.assertEqual(record["axiom_free_count"], sum(1 for v in reports.values() if not v))
+        for name, axioms in reports.items():
+            self.assertTrue(any(name.startswith(m + ".") for m in MODULES), name)
+            self.assertTrue(set(axioms) <= ALLOWED_AXIOMS, name)
+        self.assertEqual(sum(record["reports_per_namespace"].values()), len(reports))
+        for theorem in BRIDGE:
+            self.assertIn(theorem, reports)
+        self.assertEqual(record["python_mirror_refinement"], "NOT_PROVED")
+
+    def test_the_figures_the_readme_quotes(self) -> None:
+        record = json.loads(RECORD.read_text(encoding="utf-8"))
+        authored = sum(
+            1 for module in MODULES
+            for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
+            if line.startswith("#print axioms ")
+        )
+        self.assertEqual(authored, 21)
+        self.assertEqual(record["theorem_count_including_generated"], 24)
+        self.assertEqual(record["axiom_free_count"], 2)
+        self.assertEqual(record["reports_per_namespace"], {"Execution": 24})
+
+
+if __name__ == "__main__":
+    unittest.main()
