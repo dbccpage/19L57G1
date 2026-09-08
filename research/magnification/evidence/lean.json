@@ -1,0 +1,261 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 15,
+  "census": "compiled environment theorem declarations in the EngineClass, Restart and Magnification namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "EngineClass.lean": "e5eda56fb87691a1c0a765600f7b7e5b69bccd96dcf71cd35b50652d7bf532ab",
+    "Inventory.lean": "28d94e01c9e3a94ccbbf843f9a7c53bf590ecc3343a00afcb368b5c024724632",
+    "Magnification.lean": "0f42692c4e64e3baa5de1a717675001ebe04ed452e2c8bb9ce6c7ff66ccd3d3f",
+    "Restart.lean": "a725f94035e0e8e858a15ed832e85664714fc19474e4ec36c3a4a07bb7f847ce",
+    "lakefile.toml": "bf463f64c4ee53a9347542bf5819132a4cc169b5a24492af2813635850c540ae",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_driver_refinement": "NOT_PROVED",
+  "reports": {
+    "EngineClass.Measure.mu1.sizeOf_spec": [],
+    "EngineClass.Measure.mu2.sizeOf_spec": [],
+    "EngineClass.Measure.ofNat_ctorIdx": [],
+    "EngineClass.Path.brecOn": [
+      "propext"
+    ],
+    "EngineClass.Rooted.brecOn": [
+      "propext"
+    ],
+    "EngineClass.applyDelta_reqs_free": [
+      "propext"
+    ],
+    "EngineClass.applyDelta_rules": [
+      "propext"
+    ],
+    "EngineClass.applyDelta_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.applyItem_reqs_free": [
+      "propext"
+    ],
+    "EngineClass.applyItem_rules": [
+      "propext"
+    ],
+    "EngineClass.applyItem_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.applyItem_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.applyItem_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.fire_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.fire_transStep": [
+      "propext"
+    ],
+    "EngineClass.good_fire": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.good_grow": [
+      "propext"
+    ],
+    "EngineClass.good_path": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.good_rooted": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.good_step": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.grow_replays": [
+      "propext"
+    ],
+    "EngineClass.grow_wf": [
+      "propext"
+    ],
+    "EngineClass.inBounds_dropRules": [
+      "propext"
+    ],
+    "EngineClass.instDecidableEqMeasure._proof_1": [],
+    "EngineClass.instDecidableEqMeasure._proof_2": [],
+    "EngineClass.isMin_no_rule": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.isMin_no_rule._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.isMin_valid": [
+      "propext"
+    ],
+    "EngineClass.lexLE_refl": [],
+    "EngineClass.mem_dropRules": [
+      "propext"
+    ],
+    "EngineClass.path_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.rooted_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "EngineClass.separable_grow": [
+      "propext"
+    ],
+    "EngineClass.step_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.bare_mark_not_min_in_context": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.bare_round_embeds": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.context_changes_minimum": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.ctxRegime.eq_1": [],
+    "Magnification.ctxRegime_good": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.ctx_collapsed_12": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.ctx_empty_invalid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.ctx_min1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.ctx_one_item_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.derivable_fresh": [
+      "propext"
+    ],
+    "Magnification.fresh_form_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.fresh_form_valid._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.holeAt_getD": [],
+    "Magnification.holeAt_length": [
+      "propext"
+    ],
+    "Magnification.holeAt_map_getD": [],
+    "Magnification.holeAt_plug_other": [
+      "propext"
+    ],
+    "Magnification.induced_collapsed": [
+      "propext"
+    ],
+    "Magnification.induced_constant": [],
+    "Magnification.induced_eq_R2L": [],
+    "Magnification.induced_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Magnification.plug_holeAt": [],
+    "Restart.aritySum_map": [
+      "propext"
+    ],
+    "Restart.cost_map": [
+      "propext"
+    ],
+    "Restart.fire_auto": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.fire_rename": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.idForms0._proof_1": [],
+    "Restart.inBounds_map": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.lexLE_zero_one": [],
+    "Restart.map_pad_f_g": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.newForm_mem_map": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.not_orbitRep_rootF_12": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.orbitRep_rootF_01": [
+      "propext"
+    ],
+    "Restart.orbitRep_rootL_01": [
+      "propext"
+    ],
+    "Restart.path_append": [
+      "propext"
+    ],
+    "Restart.path_append_iff": [
+      "propext"
+    ],
+    "Restart.path_cut_unique": [
+      "propext"
+    ],
+    "Restart.path_split": [
+      "propext"
+    ],
+    "Restart.rooted_iff_path": [
+      "propext"
+    ],
+    "Restart.rooted_restart": [
+      "propext"
+    ],
+    "Restart.sw_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.sw_bound._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Restart.sw_invol": [],
+    "Restart.swap01F_auto": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "EngineClass": 34,
+    "Magnification": 21,
+    "Restart": 22
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements and their explicit hypotheses; the engine's orbit selection is stated as a relation and checked against the exports computationally, not proved to be what the engine computes",
+  "theorem_count_including_generated": 77,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
