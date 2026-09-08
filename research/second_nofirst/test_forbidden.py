@@ -246,14 +246,18 @@ def census_pin_status() -> str:
     return proc.stdout.strip()
 
 
-def scope_from_commits(commits: list[list[str]], uncommitted: list[str]) -> list[str]:
-    """All paths of each commit that touches this rung, plus pending writes.
+def scope_from_commits(commits: list[list[str]], uncommitted: list[str],
+                       current_paths: list[str]) -> list[str]:
+    """Current proposed paths of this rung's commits, plus pending writes.
 
     Separate sibling commits are not attributed to this rung. A commit that
     mixes this rung with a sibling still exposes every path and fails scope.
-    The sealed-path scan continues to use the whole branch's changed paths.
+    Paths already in the comparison base are removed before classifying a
+    merge commit. The sealed-path scan still uses the whole branch's changes.
     """
-    owned = [paths for paths in commits if any(p.startswith(WRITE_ROOT + "/") for p in paths)]
+    visible = set(current_paths)
+    proposed = [[p for p in paths if p in visible] for paths in commits]
+    owned = [paths for paths in proposed if any(p.startswith(WRITE_ROOT + "/") for p in paths)]
     if owned or any(p.startswith(WRITE_ROOT + "/") for p in uncommitted):
         return sorted({p for paths in owned for p in paths} | set(uncommitted))
     return []
@@ -286,7 +290,7 @@ def rung_commit_paths(base: str, head: str) -> list[str]:
         if diff.returncode != 0:
             raise RuntimeError("rung commit path census is unavailable")
         commits.append(nul_paths(diff.stdout, population="rung commit"))
-    return scope_from_commits(commits, changed_paths(head))
+    return scope_from_commits(commits, changed_paths(head), changed_paths(base))
 
 
 def removed_append_lines(base: str, path: str) -> list[str]:
@@ -701,7 +705,11 @@ class ScannerFailureTests(unittest.TestCase):
         ]
         for commits, pending, expected in cases:
             with self.subTest(commits=commits, pending=pending):
-                self.assertEqual(scope_from_commits(commits, pending), expected)
+                current = sorted({p for paths in commits for p in paths} | set(pending))
+                self.assertEqual(scope_from_commits(commits, pending, current), expected)
+        # A merge can bring this rung from main into its first parent. That
+        # path is already in the comparison base, so it is not a new write.
+        self.assertEqual(scope_from_commits([[mine, sibling]], [], [sibling]), [])
         case = WriteRootScan("test_no_sealed_path_is_touched")
         case.base, case.head, case.changed, case.scoped = "base", "head", ["code/probe.py"], []
         with self.assertRaises(AssertionError):
