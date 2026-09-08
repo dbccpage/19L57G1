@@ -2501,7 +2501,7 @@ Lean edits are doc comments only and the package was rebuilt.
 
 ## 2026-09-08 -- stale counts re-measured at `60c2cb05`
 
-A fresh audit compared every number in `paper/` with the machine at
+The measurements listed below were checked against the machine at
 `60c2cb05d91cdfa099017c9cd205b52564db884b`.  Each stale figure below is
 dated and superseded rather than overwritten, quoting the withdrawn
 wording.  Measured: 77 Lean sources and 1530 axiom reports
@@ -2541,3 +2541,10 @@ skipped; line 99.10% and branch 96.71% (`ci/check_coverage.py`); and
 No theorem, computation, artifact key, claim ID, or claim status changed.
 Every edit is to dated prose, and the derivation's recorded results are
 untouched.
+
+Scope correction on review: the opening sentence originally read "A fresh
+audit compared every number in `paper/` with the machine".  The recorded
+commands cover the measurement families listed above; this entry records
+no census or verification of every numerical statement in the paper.  The
+name-by-name theorem check and the digest-pinned ledger value remain
+outside this measurement update.
