@@ -34,6 +34,7 @@ class Fixture:
         git(root, "config", "user.email", "fixture@example.invalid")
         for relative in (*guard.RUNTIME_PATHS.values(), *guard.CONFIG_PATHS,
                          "lean4/Derivation/Example.lean", "research/local_reuse/lean/LocalReuse.lean",
+                         "research/ignition/lean/Ignition.lean",
                          *UNCONSUMED):
             path = root / relative
             path.parent.mkdir(parents=True, exist_ok=True)

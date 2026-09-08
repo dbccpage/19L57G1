@@ -1,0 +1,34 @@
+name = "setting_translation"
+version = "0.1.0"
+defaultTargets = ["Translation", "Chains", "Visible", "Transcription", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The merged replay-cut theorems, consumed read-only through magnification.
+[[require]]
+name = "local_reuse"
+path = "../../local_reuse/lean"
+
+# The merged engine relation and the valid-response constructions,
+# consumed read-only rather than re-proved.
+[[require]]
+name = "magnification"
+path = "../../magnification/lean"
+
+[[lean_lib]]
+name = "Translation"
+
+[[lean_lib]]
+name = "Chains"
+
+[[lean_lib]]
+name = "Visible"
+
+[[lean_lib]]
+name = "Transcription"
+
+[[lean_lib]]
+name = "Inventory"

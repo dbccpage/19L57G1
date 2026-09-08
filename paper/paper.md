@@ -6,6 +6,15 @@ Every statement in this paper carries exactly one classification tag from:
 exhaustively computed only within explicitly declared bounds),
 **[conjecture]**, **[counterexample]**, **[unresolved]**.
 
+The claim ledger (`paper/paper_claim_ledger.md`) promises the same
+classification per claim.  Measured on 2026-09-08 over its 137 entries, 85
+carry a class outside that vocabulary (composite prose classes), 6 carry
+none, and many omit the dependency, assumption, axiom or falsifier fields;
+`tests/test_claim_ledger_conformance.py` freezes that debt so it cannot
+grow silently.  The promise is kept by this paper's tags and by the
+ledger's active core entries, not yet by every ledger entry (disclosed
+2026-09-08; the normalization is open work).
+
 ## 1. Experimental boundary
 
 **[declared metatheory]** The experiment is blind: no external
@@ -55,7 +64,10 @@ regeneration with content comparison.  The reference implementation is
 **[declared metatheory]** Declared resource bounds: candidate deltas of at
 most 2 items; concrete enumeration of form arities up to 2 (the arity
 dimension is additionally covered by a grammar-wide theorem, section 7.4);
-15 requested augmentation rounds; *pre-expansion node guards* of 1200
+15 requested transition steps — the seed prompt's "augmentation rounds",
+where a step is a separation response or an external supply, so a
+completed path carries 10 to 12 separation responses
+(`CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS`); *pre-expansion node guards* of 1200
 (measure mu1) and 3000 (measure mu2) per tree — the guard is checked
 before a node is expanded, and an expansion in progress completes, so an
 export may contain slightly more nodes than the guard value (hence the
@@ -85,9 +97,14 @@ interpretation (never assigned).
 All definitions below are **[definition]**, implemented in
 `code/derivation/model.py`, `observe.py`, `candidates.py`, `iso.py`,
 `engine.py`.  The Lean development (`lean4/Derivation/`) formalizes a
-*token-erased abstraction*: data are counted, not named.  The bridge is
-proved, not asserted, and rests on two theorems rather than on duplicate
-idempotence alone:
+*token-erased abstraction*: data are counted, not named.  The bridge
+between the two Lean models — the token-aware specification and the
+token-erased one — is proved, not asserted, and rests on two theorems
+rather than on duplicate idempotence alone; the Python implementation is
+connected to the token-aware specification by executable checks (the
+replay and certification tests and the enumeration cross-checks named in
+`CL-TOKEN-ERASURE`), not by a proof over the Python source (endpoints
+stated exactly 2026-09-08):
 
 * **Erasure simulation** (`erase_step` / `erase_replay`,
   `Derivation/Erasure.lean`): replaying a token-aware history with
@@ -134,10 +151,16 @@ idempotence alone:
    (the declared sense used for every separation requirement): profiles
    differ, i.e. some well-formed context is derivable when plugged with
    one datum and not the other.
-6. **Delta**: a finite multiset of items — `NewDatum`, `NewForm(arity)`,
-   `NewInst(form, args)` (may reference a form added by the same delta),
-   `NewRuleAll(form)`.  **Cost measures** (both declared): `mu1` = item
-   count; `mu2` = (item count, sum of new-form arities), lexicographic.
+6. **Delta**: a finite list of items applied in order — `NewDatum`,
+   `NewForm(arity)`, `NewInst(form, args)`, `NewRuleAll(form)`; an
+   instance may reference a form added earlier in the same delta, and the
+   reverse order is rejected as an ill-formed admission.  The enumerator
+   emits each delta in one canonical order (`canonical_delta`), so a delta
+   is a multiset only up to that ordering convention.  **Cost measures**
+   (both declared): `mu1` = item count; `mu2` = (item count, sum of
+   new-form arities), lexicographic — both read the items, not the order.
+   (An earlier version said "multiset" with no convention — corrected
+   2026-09-08.)
 7. **Valid response** to `Separate(i, j)`: the delta applies and the
    result separates the target while every previously imposed requirement
    stays separated (requirements are persistent constraints — declared
@@ -182,11 +205,16 @@ one atomic datum with no inherited meaning.
 * **[theorem]** (`genesis_underivable`, `underivable_of_empty`) Nothing is
   derivable at genesis, and nothing is derivable in any regime with no
   instances and no rules.
-* **[theorem]** (model-scoped) No successor is internally forced: the
-  model contains no transition machinery other than external-event-indexed
-  admission; a proposal cannot mutate state without an admission event
-  (structurally enforced; negative tests reject every ill-formed
-  admission).
+* **[definition]** (structural, model-scoped) No successor is internally
+  forced: the declared model contains no transition machinery other than
+  external-event-indexed admission, so a proposal cannot mutate state
+  without an admission event (negative tests reject every ill-formed
+  admission).  This is a property of the declared grammar, not a proved
+  theorem about a forcing predicate — no such predicate is defined, and
+  nothing here says a successor is impossible in an extension of the
+  language.  The bare-supply case is **[theorem]** (`supply_no_op`).  (An
+  earlier version tagged the whole item **[theorem]** — corrected
+  2026-09-08.)
 * **[finite computation]** (`artifacts/challenges.json`, challenge0)
   Context count 0, derivable set empty, admitted data empty (reading L) or
   the single opaque datum (reading F) — in both readings there are no
@@ -418,16 +446,31 @@ leaf).  Every node is replay-certified from genesis.
 | F mu1 | 1201 | 1244 | 6 | 0 | 886 | 0 | 0 | no |
 | F mu2 | 1847 | 1960 | 15 | 0 | 0 | 885 | 0 | no |
 
-* The mu2 trees have **no guard cutoff**: the full isomorphism-quotient
-  tree to the requested 15 rounds is finite and fully enumerated
-  (963 / 1847 nodes).  Their leaves are round-cut, not terminal: the runs
-  were stopped at the requested depth.  **[finite computation]** Reaching
-  a finite requested depth is exactly that — *not* a proof of
-  unboundedness, and no unboundedness claim is made
-  (`CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`).
-* The mu1 trees hit the declared 1200-node pre-expansion guard at depths 7 / 6; the
-  exact frontier (927 / 886 leaves) is exported.  Enumeration below the
-  cut is complete within the declared bounds.
+* The mu2 trees have **no guard cutoff**: the isomorphism-quotient tree
+  to the requested depth of 15 transition steps is finite and enumerated
+  in full within the declared bounds (963 / 1847 nodes), conditional on
+  the orbit challenge policy losing no child classes
+  (`CL-TREE-MU2-COMPLETE`; that class-set condition is finite
+  computation).  A step is a separation response or an external supply:
+  the completed leaves carry 10 or 11 separation responses in L (527 / 41
+  leaves) and 10, 11 or 12 in F (268 / 605 / 12), so the seed prompt's
+  fifteen accepted augmentation rounds were reached as transition steps,
+  not as response rounds (`CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS`).
+  Their leaves are round-cut, not terminal: the runs were stopped at the
+  requested depth.  **[finite computation]** Reaching a finite requested
+  depth is exactly that — *not* a proof of unboundedness, and no
+  unboundedness claim is made
+  (`CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`).  (An earlier
+  version said "the full tree to the requested 15 rounds is fully
+  enumerated" — narrowed 2026-09-08.)
+* The mu1 trees hit the declared 1200-node pre-expansion guard first at
+  depth 6 (L) / 5 (F); the maximum depths reached are 7 / 6, and the exact
+  frontier is exported across two levels (L: 47 guard-cut nodes at depth
+  6 and 880 at depth 7; F: 303 at depth 5 and 583 at depth 6; 927 / 886 in
+  all).  Enumeration of the expanded subgraph is complete within the
+  declared bounds; not every node at the maximum depth was reached or
+  expanded.  (An earlier version said "at depths 7 / 6", the maximum
+  depths, for the cut — corrected 2026-09-08.)
 * What is and is not established about continuation beyond the runs:
   response existence for any supplied demand is **[theorem]**
   (`mark_progress`); the behavior of the external continuation policy
@@ -580,19 +623,29 @@ longer or infinite tower is forced.
 10. *Is the final process minimal or initial among a clearly defined class
     of finite processes satisfying the same challenges?*  **Claim
     refused** — **[unresolved]**.  No universal property was proved.  What
-    is proved: determinism of the engine given the declared bounds
-    (byte-identical artifacts), completeness of enumerations within
-    declared bounds, and the per-stage minimality/uniqueness results with
-    their scopes.
+    is established: determinism of the artifacts across the exercised
+    runs and platforms is **[finite computation]** (`CL-DETERMINISM`;
+    byte-identical artifacts are repeated-run agreement, not an engine
+    theorem), completeness of enumerations within declared bounds is
+    **[bounded theorem]** under the conditions its ledger entries state,
+    and the per-stage minimality and uniqueness results are **[theorem]**
+    with their scopes.  (An earlier version said "what is proved:
+    determinism of the engine" — corrected 2026-09-08.)
 11. *At what first stage do familiar mathematical structures become
     definable?*  **Withheld** — the caller's blind-protocol correction
     forbids naming external structures; the question cannot be answered
     without doing so.  **[unresolved]** by instruction.  What can be said
-    internally: from Challenge 3 round 1 onward, each datum's internal
-    identity is exactly its profile, and the two surviving discrimination
-    styles are attribute-like (unary marks) and relation-like (binary
-    links); their formal properties are fully captured by the exported
-    structures.
+    internally: a valid response separates the challenged pair by
+    profiles, and other distinct data may stay observationally
+    equivalent — internal identity is the index, never the profile
+    (`CL-IDENTITY-NOT-PROFILE`: in reading F the first-round `mu2` minimum
+    that admits one unary form marking datum 1 leaves indices 0 and 2
+    distinct with identical empty profiles); the two surviving
+    discrimination styles are attribute-like (unary marks) and
+    relation-like (binary links).  An earlier version said "from
+    Challenge 3 round 1 onward, each datum's internal identity is exactly
+    its profile"; that sentence is false in the model and was withdrawn
+    2026-09-08.
 
 ## 11. Strongest defensible terminal result
 
@@ -632,9 +685,13 @@ Within the declared metatheory and candidate grammar:
   rounds — pair-separation closure terminates (closed-system baselines:
   1 and 3 rounds, every maximal branch terminal).
 * (g) **[finite computation]** With the declared external continuation
-  policy the process reached the requested 15 rounds; the
-  isomorphism-quotient tree at that depth is finite and fully enumerated
-  under the refined measure (963 / 1847 nodes) and guard-bounded with exact exported frontiers under the item-count measure.  Continuation
+  policy the process reached the requested depth of 15 transition steps
+  (10 to 12 of them separation responses on each completed leaf, the rest
+  external supply); the isomorphism-quotient tree at that depth is finite
+  and enumerated in full within the declared bounds under the refined
+  measure (963 / 1847 nodes), conditional on the orbit challenge policy
+  losing no child classes (`CL-TREE-MU2-COMPLETE`), and guard-bounded with
+  exact exported frontiers under the item-count measure.  Continuation
   beyond the exported depths is **[unresolved]**; no unboundedness is
   claimed.
 * (h) **[unresolved]** Two admission readings of the challenge text
@@ -651,7 +708,10 @@ Within the declared metatheory and candidate grammar:
   mu1/mu2 split documents one such sensitivity precisely.
 * **[discharged register — boundaries recorded]** The residual
   register is CLOSED as of 2026-08-18: all eight rows are struck, each
-  by a Lean proof of the statement its row asked for.  The register is
+  by a Lean proof of the statement its row asked for — for R6 and R7,
+  the statement under a renaming of the datum indices with the forms
+  fixed; their form-action and executable components are named below
+  and in `CL-REGISTER-SCOPE` (scope stated 2026-09-08).  The register is
   retained below rather than deleted, struck row by struck row, so a
   reader comparing revisions can see exactly what left and when.  An
   earlier version of this bullet ran the residuals together in one
@@ -696,6 +756,21 @@ Within the declared metatheory and candidate grammar:
   numbering of the surviving rows is left unchanged so that a reader
   comparing revisions can see exactly which row left.
 
+  Scope of R6, stated 2026-09-08: `collapsed_rename` and
+  `collapsedCount_rename` act on the datum indices with the forms fixed,
+  and the count transport takes a candidate pair list and a decider as
+  parameters; a regime isomorphism has two bijections.  Collapse
+  transport under the full two-bijection isomorphism is proved
+  separately — `collapsed_transport` in `lean4/Derivation/IsoCollapse.lean`
+  and `collapsed_renameForms`, `collapsed_renameDataForm` in
+  `lean4/Derivation/FormTransport.lean`, all within the audited reports —
+  while the executable count's correctness and the identification of the
+  mapped list with the engine's pair enumeration stay computational.  An
+  earlier ledger sentence said the collapsed-pair count is a component
+  of the canonical key; it is not (`iso.py::serialize` carries the data
+  count, forms, instances, rules and requirements), and the sentence was
+  withdrawn.
+
   Five kinds appear: **(a)** exhaustively certified in Python, Lean
   absent; **(b)** partial Lean, with the bridge to the used form
   computational; **(c)** proved for one reading, bounded for the other;
@@ -709,8 +784,8 @@ Within the declared metatheory and candidate grammar:
   | ~~R3~~ | DISCHARGED 2026-08-17 — **Mention lemma**: an instance-only delta changes the target pair's profiles only if some instance mentions a target datum | a | same test; `collapsed_append_unmentioning` (Lean) | nothing; closed |
   | ~~R4~~ | **Delta-level rule-removal bridge** — **DISCHARGED 2026-08-18** | — | `applyDelta_dropRules`, `validResponse_dropRules`, `rule_item_never_minimal` (Lean); `separable_of_subrules` as before | nothing; closed |
   | ~~R5~~ | **Grammar-wide mu2 uniqueness for reading F** — **DISCHARGED 2026-08-18** | — | `mu2_unique_F`, the reading-F analogue asked for, with `genesis_mark_not_separable` closing the one new case via the R3 mention lemma | nothing; closed |
-  | ~~R6~~ | **Count-invariance** transport under regime isomorphism — **DISCHARGED 2026-08-17** | — | `collapsed_rename`, `collapsedCount_rename` (Lean); `test_canonical_invariant_under_rename` retained as independent exhaustive evidence | nothing; closed |
-  | ~~R7~~ | **Transition-congruence** transport under regime isomorphism — **DISCHARGED 2026-08-18** (relation level; the class-set conversion stays with CL-ISO-SOUND) | — | `transStep_rename_fwd`, `transStep_image_total`, `validCount_rename` (Lean); the exhaustive tests retained as independent evidence | nothing; closed |
+  | ~~R6~~ | **Count-invariance** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-17** (full-isomorphism collapse transport: `collapsed_transport`, `collapsed_renameDataForm`; the executable count and pair enumeration stay computational — scope stated 2026-09-08) | — | `collapsed_rename`, `collapsedCount_rename` (Lean); `test_canonical_invariant_under_rename` retained as independent exhaustive evidence | nothing; closed |
+  | ~~R7~~ | **Transition-congruence** transport under datum renaming, forms fixed — **DISCHARGED 2026-08-18** (relation level; form-action transport, minimum-family transport and the class-set conversion stay computational with CL-ISO-SOUND — scope stated 2026-09-08) | — | `transStep_rename_fwd`, `transStep_image_total`, `validCount_rename` (Lean); the exhaustive tests retained as independent evidence | nothing; closed |
   | ~~R8~~ | Counting-law **hypotheses** connected to the transition system — **DISCHARGED 2026-08-18** (under the declared round shape; that exported rounds have that shape stays computational) | — | `ClosedRun`, `round_reqs_succ`, `round_data_eq`, `closedRun_round_bound_from_empty` (Lean); the abstract laws as before | nothing; closed |
 
   **No live row remains.**  Every kind-(a) residual went by the same
@@ -855,15 +930,52 @@ OB3_COMPARISON_POLICY_STILL_OPEN
 AuthorityEffect: None
 ```
 
-What survives, and is checked: the derivation itself was carried out
-blind, and no external name appears in `prompt/`, `code/`,
-`lean4/Derivation/`, or `artifacts/`. In `paper/`, the six known
-comparison surfaces are fenced, but exact comparison-policy precedence,
-allowed sealed paths, and end-only placement remain open author acts. The
-withdrawn sentence claimed more.
+What is checked, mechanically and on the present files: no identifier
+from the firewall's denylist appears in `prompt/`, `code/`,
+`lean4/Derivation/`, or `artifacts/`, and the prose watchlist census
+matches its pin.  What is attested, not checked: that the derivation
+itself was carried out blind.  That is an operator attestation by the
+repository's author, dated 2026-08-16, and no instrument here can
+establish the historical absence of exposure or dependence; a scanner
+reads files, not history.  In `paper/`, the six known comparison surfaces
+are fenced, but exact comparison-policy precedence, allowed sealed paths,
+and end-only placement remain open author acts.  The withdrawn sentence
+claimed more, and an earlier version of this paragraph ran the checked
+and the attested together ("what survives, and is checked: the
+derivation itself was carried out blind") — separated 2026-09-08.
 
 No gate detects any of this.  `ci/check_paper_citations.py` checks that
 a cited path resolves; the vocabulary firewall in
 `tests/test_primitive_contact.py` bars a denylist of identifiers, not
 prose naming of a theory.  The attestation was, and the narrowed version
 remains, an operator claim.
+
+## 14. Where the rest of the ledger lives
+
+**[declared metatheory]** The publication unit of this paper is the core
+finite-engine account of sections 1 to 11.  It cites these ledger entries
+by ID: `CL-3-INFINITE-TIES`, `CL-3-NONUNIQUE-MU1`, `CL-BRANCH-REPORTS`,
+`CL-CLOSURE-TERMINATION`, `CL-CLOSURE-VS-EXTERNAL`, `CL-COUNT-INVARIANCE`,
+`CL-DETERMINISM`, `CL-IDENTITY-NOT-PROFILE`, `CL-ISO-SOUND`, `CL-PROGRESS`,
+`CL-PRUNE-STRUCTURAL`, `CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`,
+`CL-REGISTER-SCOPE`, `CL-TOKEN-ERASURE`, `CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS`,
+`CL-TREE-MU2-COMPLETE`.  Three passages that had no entry of their own
+now do: the identity sentence of section 10.11
+(`CL-IDENTITY-NOT-PROFILE`), the count of transition steps against
+response rounds (`CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS`), and the
+scope of the closed residual register (`CL-REGISTER-SCOPE`).
+
+The ledger's later sections record supplementary investigations that this
+paper does not reproduce and does not depend on: "Frontier Run 006
+claims", "F5 claims", "Native primitive-difference interface claims",
+"Represented-progress claims", "Ultra-closure claims", "PR #12 —
+Primitive Difference contact and passage", "Local finite-alphabet G1 class
+claims" and "Publication reconciliation claims".  A reader of this paper
+alone needs none of them; a reader of the collection finds each result
+under its section heading with its own evidence route.  Two of those
+results bear directly on section 11 and are credited there: full
+two-bijection collapse transport (`collapsed_transport`,
+`collapsed_renameDataForm`) and the partial canonical-key bridges of
+`IsoCanon.lean` and `IsoBridge.lean`.  Shared vocabulary across the
+sections does not make the later calculi one formally integrated
+derivation with this one.

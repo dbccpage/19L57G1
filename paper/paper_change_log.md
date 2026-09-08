@@ -2548,3 +2548,105 @@ commands cover the measurement families listed above; this entry records
 no census or verification of every numerical statement in the paper.  The
 name-by-name theorem check and the digest-pinned ledger value remain
 outside this measurement update.
+
+## 2026-09-08 -- reconciliation with the publication review, batch one
+
+Source revision `f12a498e` (main); the external publication review of the
+same date listed twelve findings, and this entry records the passages
+changed for the first eleven.  Every change narrows a sentence to its
+evidence or names a scope; no theorem, computation or artifact changed.
+The recounts are pinned by `tests/test_paper_reconciliation.py`.
+
+* `paper.md` section 10.11: withdrawn "from Challenge 3 round 1 onward,
+  each datum's internal identity is exactly its profile" — false in the
+  model (reading F, the first-round `mu2` minimum marking datum 1 leaves
+  indices 0 and 2 collapsed).  Now: identity is the index; a valid
+  response separates the challenged pair, other distinct data may stay
+  observationally equivalent.  New entry `CL-IDENTITY-NOT-PROFILE`.
+* `paper.md` section 2 bounds, section 8 tree bullets, terminal clause
+  (g); ledger `CL-TREE-MU2-COMPLETE`,
+  `CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY`: withdrawn "15
+  requested augmentation rounds" and "the full tree to the requested 15
+  rounds is fully enumerated".  The engine's depth counts transition
+  steps, supply included; completed `mu2` leaves carry 10 to 12
+  separation responses (L 527 / 41 at 10 / 11; F 268 / 605 / 12 at 10 /
+  11 / 12).  New entry `CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS`.
+* `paper.md` section 8 mu1 bullet; ledger `CL-TREE-MU1-FRONTIER`:
+  withdrawn "at depths 7 / 6" for the guard cut.  First cuts are at 6 / 5,
+  maximum depths 7 / 6, frontier across two levels (L 47 + 880, F 303 +
+  583).
+* `paper.md` section 3 definition 6: withdrawn "a finite multiset of
+  items"; a delta is an ordered list, the enumerator's canonical order is
+  the convention, the cost measures read the items.
+* `paper.md` section 3 opening and ledger `CL-TOKEN-ERASURE`: "the bridge
+  is proved" now names its endpoints — the two Lean models; the Python
+  implementation is connected by executable checks, not by a proof over
+  the source.
+* `paper.md` section 11 register bullet, the R6 paragraph and the R6 / R7
+  rows; ledger `CL-COUNT-INVARIANCE`: the discharged transports act on
+  datum indices with forms fixed; full two-bijection collapse transport is
+  credited to `collapsed_transport`, `collapsed_renameForms`,
+  `collapsed_renameDataForm`; withdrawn "the count is a component of the
+  canonical key" (false: the key carries no such count).  New entry
+  `CL-REGISTER-SCOPE`.
+* `paper.md` section 8 mu2 bullet and terminal clause (g): the
+  completeness of the `mu2` quotient trees now carries the ledger's
+  condition — the orbit challenge policy losing no child classes.
+* `paper.md` section 10 item 10: withdrawn "what is proved: determinism
+  of the engine (byte-identical artifacts)"; determinism is finite
+  computation (`CL-DETERMINISM`), completeness is a bounded theorem under
+  its conditions.  Section 5 inertia item: the forcing clause is a
+  structural property of the declared grammar, tagged **[definition]**,
+  the bare-supply case **[theorem]**; ledger `CL-0-INERTIA` scoped the
+  same way.  Ledger
+  `CL-PD2-RECEIPT-BYTES`: withdrawn "the universal is a property of the
+  hash construction".
+* `paper.md` opening: the ledger's measured classification debt (137
+  entries; 85 composite classes, 6 without a class) is disclosed beside
+  the paper's own promise; the normalization is open work.
+* `paper.md` new section 14: the publication unit (sections 1 to 11), the
+  sixteen ledger entries the paper cites, and where the supplementary
+  sections live.
+* `paper.md` section 13: the mechanically checked present-file
+  properties are separated from the operator's attestation of blindness
+  (dated 2026-08-16); withdrawn "what survives, and is checked: the
+  derivation itself was carried out blind".
+
+The body pin `tests/claim_ledger_body_pin.txt` was regenerated
+deliberately for all 140 entries: the seven edited entries, the three new
+ones, and `CL-G1-TERMINAL-20260826`, whose parsed body runs to the next
+heading and now ends where the appended section begins.  The frozen
+heading census in `tests/test_claim_ledger_conformance.py` gained the
+three new IDs at its end.
+
+Not changed here, and recorded so it is not mistaken for oversight: the
+ledger's `KNOWN_*` conformance debt (finding nine of the review) beyond
+its disclosure; the `CL-PRUNE-RULE` and `CL-CAP-BOUND` propagation items
+and the collision reconstruction count binding (finding twelve), which
+follow in the next batch.
+
+## 2026-09-08 -- reconciliation with the publication review, batch two
+
+Source revision `fe84ce09` (the batch-one commit).  Three propagation
+items of finding twelve, closed at their sites:
+
+* `CL-PRUNE-RULE`: the statement's clause (ii) said "computational" while
+  the class said "theorem (bridge proved 2026-08-18)"; the statement now
+  says proved, naming `applyDelta_dropRules`.
+* `CL-CAP-BOUND`: the two OPEN residuals now carry a forward pointer to
+  the G1 entries that discharge their restricted forms
+  (`CL-G1-CAPACITY-APPLICATION`, `CL-G1-CLASS-EXCLUSION`); the
+  unrestricted forms stay open.
+* `CL-PD2-CONTACT-RECONSTRUCTION`: "1184 reports" is bound to the
+  2026-08-13 run, with the 1530 figure at `f12a498e` beside it.  This
+  closes the item the 2026-09-08 stale-count entry recorded as "NOT
+  changed", and the body pin `tests/claim_ledger_body_pin.txt` is
+  regenerated deliberately for the three edited entries.
+
+Outside `paper/`, the same batch adds `research/README.md` (which research
+trees the workflow enumerates, which are local receipts, and which
+verifier files are hand copies), names the eight registered research
+verifiers the gates skill omitted, with
+`tests/test_gates_skill_matches_workflow.py` to hold the skill to the
+workflow, and repins the primitive-difference manifest to the batch-one
+commit.  No theorem, computation or artifact changed.

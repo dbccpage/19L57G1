@@ -23,7 +23,12 @@ implementation.
 ### CL-0-INERTIA
 - **Statement**: With nothing admitted, nothing is derivable and no
   successor state is internally forced; a bare supply never changes the
-  admitted state.
+  admitted state.  The forcing clause is structural: the declared model
+  has no transition machinery besides event-indexed admission, no forcing
+  predicate is defined, and nothing here excludes a successor in an
+  extension of the language; the class below covers the derivability and
+  bare-supply clauses, the forcing clause being that structural
+  observation (scope stated 2026-09-08).
 - **Class**: theorem.
 - **Deps**: none. **Assumptions**: shared only.
 - **Python**: `challenges.json:challenge0`; `test_challenge0_inertia`,
@@ -249,7 +254,9 @@ implementation.
   proved.  (ii) The delta-level corollary "a delta containing a
   uniform-rule item is never a minimum valid response" additionally needs
   the bridge that rule items commute out of a delta leaving the same
-  regime with a smaller rule set — computational.
+  regime with a smaller rule set — proved (`applyDelta_dropRules`,
+  2026-08-18; this statement still said "computational" until
+  2026-09-08, while the class below already said theorem).
 - **Class**: (i) theorem; (ii) theorem (bridge proved 2026-08-18); the
   full-space computational check is retained as independent evidence.
 - **Deps**: none. **Assumptions**: shared.
@@ -451,9 +458,14 @@ implementation.
 - **Falsifier / boundary**: recount from the exported trees.
 
 ### CL-TREE-MU2-COMPLETE
-- **Statement**: The isomorphism-quotient trees under mu2 are fully
-  enumerated to the requested 15 rounds with zero guard cutoff: 963
-  nodes / 1022 edges (L), 1847 / 1960 (F); all leaves are round-cut.
+- **Statement**: The isomorphism-quotient trees under mu2 are enumerated
+  in full, within the declared bounds, to the requested depth of 15
+  transition steps with zero guard cutoff: 963 nodes / 1022 edges (L),
+  1847 / 1960 (F); all leaves are round-cut.  A transition step is a
+  separation response or an external supply; each completed leaf carries
+  10 to 12 separation responses (`CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS`;
+  an earlier version said "fully enumerated to the requested 15 rounds"
+  — narrowed 2026-09-08).
   *Bounds: declared bounds; completeness is of the quotient tree within
   them, and is conditional on the orbit challenge policy losing no
   child classes — the class-set form of CL-TRANSITION-EQUIVARIANCE,
@@ -469,9 +481,15 @@ implementation.
   export.
 
 ### CL-TREE-MU1-FRONTIER
-- **Statement**: The mu1 trees are guard-bounded at the 1200-node pre-expansion guard with exact
-  exported frontiers: depth 7 with 927 frontier leaves (L), depth 6 with
-  886 (F); enumeration is complete above the cut.
+- **Statement**: The mu1 trees are guard-bounded at the 1200-node
+  pre-expansion guard with exact exported frontiers across two levels:
+  first cut at depth 6 (L) / 5 (F), maximum depth 7 / 6; L carries 47
+  guard-cut nodes at depth 6 and 880 at depth 7 (927), F 303 at depth 5
+  and 583 at depth 6 (886).  The expanded subgraph is complete within the
+  bounds; not every node at the maximum depth was reached or expanded.
+  (An earlier version said "depth 7 with 927 frontier leaves (L), depth 6
+  with 886 (F)", the maximum depths, for the cut — corrected 2026-09-08;
+  `test_mu1_first_guard_cut_below_maximum_depth` recounts.)
 - **Class**: finite computation.
 - **Deps**: as CL-TREE-MU2-COMPLETE.
 - **Python**: `tree_L_mu1_summary.json`, `tree_F_mu1_summary.json`;
@@ -482,8 +500,10 @@ implementation.
 
 ### CL-REACHES-REQUESTED-DEPTH-WITH-EXTERNAL-SUPPLY
 - **Statement**: With the external continuation policy, the process
-  reaches the requested depth in the mu2 trees (15 of 15 rounds; mu1
-  trees reach 7 / 6 before the pre-expansion node guard).  Reaching a
+  reaches the requested depth in the mu2 trees (15 of 15 transition
+  steps, of which 10 to 12 on each completed leaf are separation
+  responses and the rest external supply; mu1 trees reach maximum depth
+  7 / 6 with first guard cuts at 6 / 5).  Reaching a
   finite requested
   depth is not a proof of unboundedness; no unboundedness claim is made,
   and the behavior beyond the exported depths is unresolved.
@@ -538,7 +558,10 @@ implementation.
   version said "no exported claim"; claims stated at the representation
   level — the concrete replay equalities — are covered only up to
   `RegimeExt`, and nothing proves every exported claim factors through
-  the listed observables — narrowed 2026-08-18.)
+  the listed observables — narrowed 2026-08-18.)  Both components relate
+  the two Lean models; the Python implementation is connected to the
+  token-aware model by the executable checks named under Python, not by
+  any proof over the Python source (endpoints stated 2026-09-08).
 - **Class**: theorem.
 - **Deps**: CL-0-INERTIA (`supply_no_op` makes the duplicate case a
   no-op). **Assumptions**: shared.
@@ -637,13 +660,23 @@ implementation.
   certification over the Challenge 3 classes and mixed regimes covers
   all three conjuncts and is retained as independent evidence.
 - **Deps**: CL-ISO-SOUND. **Assumptions**: shared.
-- **Python**: canonical-invariance tests (the count is a component of the
-  canonical key); `test_closure_policy_is_token_blind`.
+- **Python**: canonical-invariance tests
+  (`test_canonical_invariant_under_rename`; an earlier version said the
+  count is a component of the canonical key — false, `serialize` in
+  `iso.py` carries the data count, forms, instances, rules and
+  requirements, and the invariance fixtures have one form, so their form
+  permutation loop exercises only the identity — withdrawn 2026-09-08);
+  `test_closure_policy_is_token_blind`.
 - **Lean**: `collapsed_rename` (observational collapse transports under a
   datum renaming) and `collapsedCount_rename` (the count over any
   candidate pair list is preserved), with `plug_mapCtx`,
   `derivable_rename`, `wfCtx_rename` as the supporting steps; language-size
-  law `allPairs_length` as before.
+  law `allPairs_length` as before.  Under the full two-bijection
+  isomorphism, collapse transport is proved by `collapsed_transport`
+  (in `lean4/Derivation/IsoCollapse.lean`) and `collapsed_renameForms`,
+  `collapsed_renameDataForm` (in `lean4/Derivation/FormTransport.lean`);
+  the executable count and the pair enumeration stay computational
+  (credited 2026-09-08).
 - **Axioms**: `propext, Quot.sound`.
 - **Scope, exactly**: `collapsed_rename` is unconditional in the renaming's
   bounds — it needs only bijectivity. The bound fields are used solely by
@@ -1908,9 +1941,12 @@ CL-PD2-LADDER)
   flipped content byte and an appended byte each move the canonical
   hash; a pure line-ending re-rendering does not — it is the same
   canonical content).  An earlier version said "any content byte
-  change moves the canonical hash" as tested; the universal is a
-  property of the hash construction, not of the two sampled mutations
-  — scope made explicit 2026-08-18.
+  change moves the canonical hash" as tested, and a later one called
+  the universal "a property of the hash construction"; neither is
+  established by these tests and neither is claimed — a fixed-size
+  digest is not an injective encoding of arbitrary content, and what
+  stands is the two observed mutations and the canonicalization
+  convention (narrowed 2026-08-18 and again 2026-09-08).
 - **Class**: finite computation + tests.
 - **Python**: `run_primitive_receipt.py` (`canonical_sha256`),
   `tests/test_primitive_receipt.py` (blob/checkout distinction,
@@ -2406,7 +2442,9 @@ CL-PD2-LADDER)
   `.collapseAllObs_id_not_classConstant`,
   `.collapseAllObs_no_view_descend`.
 - **Axioms**: every report of the three collision modules lies within
-  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1184 reports;
+  {propext, Quot.sound} (`artifacts/lean_axioms.txt` as run on
+  2026-08-13, 1184 reports then; 1530 reports at `f12a498e` — the figure
+  is bound to that dated run, not to the mutable artifact path;
   `ci/check_axiom_report.py`).
 - **Python**: `primitive_contact.json:enumerations.E3_descent_dictionary`
   (64 combinations, 28 descending, 36 fixed-domain divergences) and
@@ -3295,7 +3333,11 @@ CL-PD2-LADDER)
     about the sealed `Generator.profile2` colouring in particular, and
     nothing here relates the two.
   - The general-`n` radius correspondence and a repair-strategy-class
-    consequence are the two OPEN residuals of this investigation.
+    consequence are the two OPEN residuals of this investigation.  Their
+    restricted forms are discharged later in this ledger by the local
+    finite-alphabet G1 entries (`CL-G1-CAPACITY-APPLICATION`,
+    `CL-G1-CLASS-EXCLUSION`); the unrestricted forms stay open (forward
+    pointer added 2026-09-08).
   - Identity-grade observation, absolute interior, and any "no outside"
     result are outside this investigation's statement language. This
     entry does not license any of them.
@@ -3804,3 +3846,74 @@ finite bounds are bound by `artifacts/g1_class_receipt.json`.
   without failure, or reintroduction of a chain G4 terminal without a live
   adapter. OB-1 remains open outside the declared class.
 
+
+## Publication reconciliation claims (2026-09-08)
+
+Entries added while reconciling the paper with its evidence.  Each names
+the paper passage it governs.
+
+### CL-IDENTITY-NOT-PROFILE
+- **Statement**: Internal identity is the datum index, never the profile:
+  a valid response separates the challenged pair by profiles while other
+  distinct data may stay observationally equivalent.  Witness: in reading
+  F, the first-round `mu2` minimum that admits one unary form and its
+  instance on datum 1 (cost (2, 1)) separates the required pair (1, 2)
+  and leaves indices 0 and 2 distinct with identical empty profiles
+  (profile sizes [0, 1, 0]; collapsed pairs {(0, 2)}).  Governs the
+  section 10.11 sentence withdrawn 2026-09-08.
+- **Class**: counterexample.
+- **Deps**: CL-3-UNIQUE-MU2-F, CL-3-COST1-IMPOSSIBLE. **Assumptions**:
+  shared + bounds.
+- **Python**: `test_identity_is_index_not_profile` (the delta is in the
+  engine's first `mu2` minimum family; the profiles and the collapsed
+  pair are recomputed).
+- **Lean**: `deltaU0F_valid` (the response is valid), `U0F` (its result),
+  `cost1_insufficient_F` (no one-item response); the collapse of 0 and
+  2 in `U0F` is decided by the Python recount, not stated in Lean.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a proof that every valid first-round response
+  separates every pair of distinct data — refuted by the witness.
+
+### CL-TRANSITION-STEPS-VS-RESPONSE-ROUNDS
+- **Statement**: The engine's depth counts transition steps, and a step is
+  either a separation response or an external supply with an empty
+  response; the requested depth of 15 was reached in transition steps.
+  Over the completed `mu2` leaves, the separation-response rounds per
+  leaf are 10 (527 leaves) and 11 (41) in L, and 10 (268), 11 (605) and
+  12 (12) in F; every exported edge satisfies child depth = parent depth
+  + 1.  The seed prompt's "fifteen accepted augmentation rounds" were
+  therefore not reached as response rounds, and no run under a
+  response-only counter has been made.
+- **Class**: finite computation.
+- **Deps**: CL-TREE-MU2-COMPLETE. **Assumptions**: shared + bounds.
+- **Python**: `test_completed_mu2_leaves_carry_ten_to_twelve_response_rounds`
+  (recount over `full/tree_L_mu2.json.gz` and `full/tree_F_mu2.json.gz`).
+- **Lean**: --. **Axioms**: --.
+- **Falsifier / boundary**: a completed leaf whose response-round count
+  is outside the stated distribution; a run under a response-only
+  counter would be a different result.
+
+### CL-REGISTER-SCOPE
+- **Statement**: The residual register of section 11 is closed for the
+  statements its rows asked for under a renaming of the datum indices
+  with the forms fixed (R6, R7); the form-action components — collapse
+  transport under the full two-bijection isomorphism — are proved
+  separately (`collapsed_transport`, `collapsed_renameForms`,
+  `collapsed_renameDataForm`), and the executable components — the
+  correctness of the reported count, the identification of the mapped
+  candidate list with the engine's pair enumeration, minimum-family
+  transport under a form bijection, and the conversion of relation-level
+  congruence to equal canonical-key class sets — are finite computation
+  with CL-ISO-SOUND.  "All residuals closed" means exactly this.
+- **Class**: theorem.
+- **Deps**: CL-COUNT-INVARIANCE, CL-TRANSITION-EQUIVARIANCE, CL-ISO-SOUND.
+  **Assumptions**: shared.
+- **Python**: `test_canonical_invariant_under_rename`,
+  `tests/test_equivariance.py`.
+- **Lean**: `collapsed_rename`, `collapsedCount_rename`,
+  `transStep_rename_fwd`, `collapsed_transport`, `collapsed_renameForms`,
+  `collapsed_renameDataForm`.
+- **Axioms**: `propext, Quot.sound`.
+- **Falsifier / boundary**: a form bijection under which collapse or a
+  transition fails to transport; the executable components remain
+  computational until proved.
