@@ -342,6 +342,20 @@ remains a separate manual Lean/axiom receipt and is not part of CI.
 The partial-Decide verifier has no automatic repin: its sealed source snapshot
 and import authority list move only by an inspected provenance edit.
 
+The workflow enumerates nine more registered trees by the same shape
+(pin verifier, then the tree's tests and typing from inside it):
+`research/boundary_seed/verify_pins.py`,
+`research/limit_and_observer/verify_pins.py`,
+`research/second_inheritance/verify_pins.py`,
+`research/second_nofirst/verify_pins.py`,
+`research/second_stake/verify_pins.py`,
+`research/second_stream/verify_pins.py`,
+`research/side_free/verify_pins.py`,
+`research/typed_translation/verify_pins.py`, and the four blocks above.
+`tests/test_gates_skill_matches_workflow.py` fails by path when the workflow
+runs a gate script this skill does not name; `research/README.md` lists the
+trees the workflow does not enumerate at all.
+
 ### 12. Prose watchlist census
 
 ```powershell

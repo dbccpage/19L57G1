@@ -2624,3 +2624,29 @@ ledger's `KNOWN_*` conformance debt (finding nine of the review) beyond
 its disclosure; the `CL-PRUNE-RULE` and `CL-CAP-BOUND` propagation items
 and the collision reconstruction count binding (finding twelve), which
 follow in the next batch.
+
+## 2026-09-08 -- reconciliation with the publication review, batch two
+
+Source revision `fe84ce09` (the batch-one commit).  Three propagation
+items of finding twelve, closed at their sites:
+
+* `CL-PRUNE-RULE`: the statement's clause (ii) said "computational" while
+  the class said "theorem (bridge proved 2026-08-18)"; the statement now
+  says proved, naming `applyDelta_dropRules`.
+* `CL-CAP-BOUND`: the two OPEN residuals now carry a forward pointer to
+  the G1 entries that discharge their restricted forms
+  (`CL-G1-CAPACITY-APPLICATION`, `CL-G1-CLASS-EXCLUSION`); the
+  unrestricted forms stay open.
+* `CL-PD2-CONTACT-RECONSTRUCTION`: "1184 reports" is bound to the
+  2026-08-13 run, with the 1530 figure at `f12a498e` beside it.  This
+  closes the item the 2026-09-08 stale-count entry recorded as "NOT
+  changed", and the body pin `tests/claim_ledger_body_pin.txt` is
+  regenerated deliberately for the three edited entries.
+
+Outside `paper/`, the same batch adds `research/README.md` (which research
+trees the workflow enumerates, which are local receipts, and which
+verifier files are hand copies), names the eight registered research
+verifiers the gates skill omitted, with
+`tests/test_gates_skill_matches_workflow.py` to hold the skill to the
+workflow, and repins the primitive-difference manifest to the batch-one
+commit.  No theorem, computation or artifact changed.

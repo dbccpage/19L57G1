@@ -254,7 +254,9 @@ implementation.
   proved.  (ii) The delta-level corollary "a delta containing a
   uniform-rule item is never a minimum valid response" additionally needs
   the bridge that rule items commute out of a delta leaving the same
-  regime with a smaller rule set — computational.
+  regime with a smaller rule set — proved (`applyDelta_dropRules`,
+  2026-08-18; this statement still said "computational" until
+  2026-09-08, while the class below already said theorem).
 - **Class**: (i) theorem; (ii) theorem (bridge proved 2026-08-18); the
   full-space computational check is retained as independent evidence.
 - **Deps**: none. **Assumptions**: shared.
@@ -2440,7 +2442,9 @@ CL-PD2-LADDER)
   `.collapseAllObs_id_not_classConstant`,
   `.collapseAllObs_no_view_descend`.
 - **Axioms**: every report of the three collision modules lies within
-  {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1184 reports;
+  {propext, Quot.sound} (`artifacts/lean_axioms.txt` as run on
+  2026-08-13, 1184 reports then; 1530 reports at `f12a498e` — the figure
+  is bound to that dated run, not to the mutable artifact path;
   `ci/check_axiom_report.py`).
 - **Python**: `primitive_contact.json:enumerations.E3_descent_dictionary`
   (64 combinations, 28 descending, 36 fixed-domain divergences) and
@@ -3329,7 +3333,11 @@ CL-PD2-LADDER)
     about the sealed `Generator.profile2` colouring in particular, and
     nothing here relates the two.
   - The general-`n` radius correspondence and a repair-strategy-class
-    consequence are the two OPEN residuals of this investigation.
+    consequence are the two OPEN residuals of this investigation.  Their
+    restricted forms are discharged later in this ledger by the local
+    finite-alphabet G1 entries (`CL-G1-CAPACITY-APPLICATION`,
+    `CL-G1-CLASS-EXCLUSION`); the unrestricted forms stay open (forward
+    pointer added 2026-09-08).
   - Identity-grade observation, absolute interior, and any "no outside"
     result are outside this investigation's statement language. This
     entry does not license any of them.
