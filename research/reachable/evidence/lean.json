@@ -1,0 +1,163 @@
+{
+  "authority_effect": "None",
+  "census": "the #print axioms lines of lean/Reachable.lean, compared in both directions",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Reachable.lean": "1d37420f5b7c240ed1c23d2ecf1d7b3c020d833bb87e2adcb51b3d7853b20248",
+    "lakefile.toml": "8fea5d4d10426f52c725847f422c00479677ea073f2749fa65dcf6744f084ea1",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_engine_refinement": "NOT_PROVED; checked edge by edge by census.py",
+  "reports": {
+    "Reachable.answered_fixpoint_separates": [
+      "propext"
+    ],
+    "Reachable.answered_of_transStep": [
+      "propext"
+    ],
+    "Reachable.answered_supply": [
+      "propext"
+    ],
+    "Reachable.applyDelta_no_rule_rules": [
+      "propext"
+    ],
+    "Reachable.applyDelta_reqs_free": [
+      "propext"
+    ],
+    "Reachable.applyItem_newDatum": [
+      "propext"
+    ],
+    "Reachable.applyItem_newForm": [
+      "propext"
+    ],
+    "Reachable.applyItem_newInst": [
+      "propext"
+    ],
+    "Reachable.applyItem_no_rule_rules": [
+      "propext"
+    ],
+    "Reachable.applyItem_not_form": [
+      "propext"
+    ],
+    "Reachable.applyItem_reqs_free": [
+      "propext"
+    ],
+    "Reachable.formNoInst_arities": [],
+    "Reachable.formNoInst_not_formsUsed": [],
+    "Reachable.formNoInst_rule_free": [],
+    "Reachable.formNoInst_unreachable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.formNoInst_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.formsUsed_of_not_form": [
+      "propext"
+    ],
+    "Reachable.formsUsed_pair_not_form": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.getD_append_lt": [
+      "propext"
+    ],
+    "Reachable.inBounds_dropRules": [
+      "propext"
+    ],
+    "Reachable.inBounds_nil": [],
+    "Reachable.inBounds_single": [
+      "propext"
+    ],
+    "Reachable.mem_dropRules": [
+      "propext"
+    ],
+    "Reachable.minResponse_formsUsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.minResponse_no_rule": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.reach_answered": [
+      "propext"
+    ],
+    "Reachable.reach_fixpoint_separates": [
+      "propext"
+    ],
+    "Reachable.reach_formsUsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.reach_rules": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.reach_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.rootF_answered": [
+      "propext"
+    ],
+    "Reachable.rootF_formsUsed": [],
+    "Reachable.rootF_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.rootL_answered": [
+      "propext"
+    ],
+    "Reachable.rootL_formsUsed": [],
+    "Reachable.rootL_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.ruledMark_rules_ne": [],
+    "Reachable.ruledMark_unreachable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.ruledMark_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.separable_addDatum": [
+      "propext"
+    ],
+    "Reachable.separable_appendForm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.separable_reqs": [
+      "propext"
+    ],
+    "Reachable.transStep_applyDelta": [
+      "propext"
+    ],
+    "Reachable.wf_admitDatum": [
+      "propext"
+    ],
+    "Reachable.wf_applyDelta": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.wf_applyItem": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Reachable.wf_impose": [
+      "propext"
+    ],
+    "Reachable.wf_respond": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements and their explicit hypotheses",
+  "theorem_count": 48,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

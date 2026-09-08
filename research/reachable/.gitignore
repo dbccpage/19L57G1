@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.json
+lean/.lake/
+lean/lake-manifest.json

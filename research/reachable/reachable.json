@@ -1,0 +1,737 @@
+{
+  "authority_effect": "None",
+  "bounds": {
+    "max_arity": 2,
+    "max_items": 2
+  },
+  "countermodels": [
+    {
+      "invariants": {
+        "answered": false,
+        "forms_used": false,
+        "rule_free": true,
+        "well_formed": true
+      },
+      "isomorphic_to_an_exported_node": false,
+      "lean": "Reachable.formNoInst_unreachable",
+      "name": "form_without_instance",
+      "nearest_exported_node": {
+        "distance": 1,
+        "export": "closed_L",
+        "node": 1,
+        "regime": {
+          "data": [
+            "<a>",
+            "<ab>"
+          ],
+          "forms": [
+            1
+          ],
+          "insts": [
+            [
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "reqs": [
+            [
+              0,
+              1
+            ]
+          ],
+          "rules": []
+        },
+        "replay_certificate": {
+          "history": [
+            {
+              "event": "supply",
+              "token": "<>"
+            },
+            {
+              "event": "supply",
+              "token": "<a>"
+            },
+            {
+              "event": "supply",
+              "token": "<a>"
+            },
+            {
+              "event": "supply",
+              "token": "<ab>"
+            },
+            {
+              "event": "admit_datum",
+              "token": "<a>"
+            },
+            {
+              "event": "admit_datum",
+              "token": "<ab>"
+            },
+            {
+              "event": "impose_separation",
+              "i": 0,
+              "j": 1
+            },
+            {
+              "arity": 1,
+              "event": "admit_form"
+            },
+            {
+              "args": [
+                0
+              ],
+              "event": "admit_inst",
+              "form": 0
+            }
+          ],
+          "regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d"
+        }
+      },
+      "regime": {
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [
+          1
+        ],
+        "insts": [],
+        "reqs": [
+          [
+            0,
+            1
+          ]
+        ],
+        "rules": []
+      },
+      "rule_free": true,
+      "well_formed": true,
+      "within_arity_bound": true
+    },
+    {
+      "invariants": {
+        "answered": false,
+        "forms_used": true,
+        "rule_free": false,
+        "well_formed": true
+      },
+      "isomorphic_to_an_exported_node": false,
+      "lean": "Reachable.ruledMark_unreachable",
+      "name": "ruled_mark",
+      "nearest_exported_node": {
+        "distance": 1,
+        "export": "closed_L",
+        "node": 1,
+        "regime": {
+          "data": [
+            "<a>",
+            "<ab>"
+          ],
+          "forms": [
+            1
+          ],
+          "insts": [
+            [
+              0,
+              [
+                0
+              ]
+            ]
+          ],
+          "reqs": [
+            [
+              0,
+              1
+            ]
+          ],
+          "rules": []
+        },
+        "replay_certificate": {
+          "history": [
+            {
+              "event": "supply",
+              "token": "<>"
+            },
+            {
+              "event": "supply",
+              "token": "<a>"
+            },
+            {
+              "event": "supply",
+              "token": "<a>"
+            },
+            {
+              "event": "supply",
+              "token": "<ab>"
+            },
+            {
+              "event": "admit_datum",
+              "token": "<a>"
+            },
+            {
+              "event": "admit_datum",
+              "token": "<ab>"
+            },
+            {
+              "event": "impose_separation",
+              "i": 0,
+              "j": 1
+            },
+            {
+              "arity": 1,
+              "event": "admit_form"
+            },
+            {
+              "args": [
+                0
+              ],
+              "event": "admit_inst",
+              "form": 0
+            }
+          ],
+          "regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d"
+        }
+      },
+      "regime": {
+        "data": [
+          "<a>",
+          "<ab>"
+        ],
+        "forms": [
+          1
+        ],
+        "insts": [
+          [
+            0,
+            [
+              0
+            ]
+          ]
+        ],
+        "reqs": [
+          [
+            0,
+            1
+          ]
+        ],
+        "rules": [
+          0
+        ]
+      },
+      "rule_free": false,
+      "well_formed": true,
+      "within_arity_bound": true
+    }
+  ],
+  "distinct_classes_over_all_exports": 3338,
+  "exports": {
+    "closed_F": {
+      "answered_fixpoints": 5,
+      "classes_per_depth": {
+        "0": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "1": {
+          "classes": 5,
+          "nodes": 5
+        },
+        "2": {
+          "classes": 9,
+          "nodes": 9
+        },
+        "3": {
+          "classes": 5,
+          "nodes": 5
+        }
+      },
+      "edges": 19,
+      "edges_checked": {
+        "collapsed_targets": 19,
+        "creation": 19,
+        "fresh_targets": 19,
+        "merge": 0,
+        "minimum_agreements": 19,
+        "rounds": 19,
+        "supply": 0
+      },
+      "fixpoints": 5,
+      "invariants": {
+        "answered": {
+          "fails_on": 0,
+          "holds_on": 20
+        },
+        "forms_used": {
+          "fails_on": 0,
+          "holds_on": 20
+        },
+        "rule_free": {
+          "fails_on": 0,
+          "holds_on": 20
+        },
+        "well_formed": {
+          "fails_on": 0,
+          "holds_on": 20
+        }
+      },
+      "max_depth": 3,
+      "measure": "mu1",
+      "nodes": 20,
+      "reading": "F",
+      "replay_hash_recheck": 20,
+      "sealed_certification": true,
+      "supply_enabled": false
+    },
+    "closed_L": {
+      "answered_fixpoints": 3,
+      "classes_per_depth": {
+        "0": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "1": {
+          "classes": 3,
+          "nodes": 3
+        }
+      },
+      "edges": 3,
+      "edges_checked": {
+        "collapsed_targets": 3,
+        "creation": 3,
+        "fresh_targets": 3,
+        "merge": 0,
+        "minimum_agreements": 3,
+        "rounds": 3,
+        "supply": 0
+      },
+      "fixpoints": 3,
+      "invariants": {
+        "answered": {
+          "fails_on": 0,
+          "holds_on": 4
+        },
+        "forms_used": {
+          "fails_on": 0,
+          "holds_on": 4
+        },
+        "rule_free": {
+          "fails_on": 0,
+          "holds_on": 4
+        },
+        "well_formed": {
+          "fails_on": 0,
+          "holds_on": 4
+        }
+      },
+      "max_depth": 1,
+      "measure": "mu1",
+      "nodes": 4,
+      "reading": "L",
+      "replay_hash_recheck": 4,
+      "sealed_certification": true,
+      "supply_enabled": false
+    },
+    "tree_F_mu1": {
+      "answered_fixpoints": 5,
+      "classes_per_depth": {
+        "0": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "1": {
+          "classes": 5,
+          "nodes": 5
+        },
+        "2": {
+          "classes": 12,
+          "nodes": 12
+        },
+        "3": {
+          "classes": 40,
+          "nodes": 40
+        },
+        "4": {
+          "classes": 153,
+          "nodes": 153
+        },
+        "5": {
+          "classes": 407,
+          "nodes": 407
+        },
+        "6": {
+          "classes": 583,
+          "nodes": 583
+        }
+      },
+      "edges": 1244,
+      "edges_checked": {
+        "collapsed_targets": 1011,
+        "creation": 1200,
+        "fresh_targets": 1011,
+        "merge": 44,
+        "minimum_agreements": 1011,
+        "rounds": 1011,
+        "supply": 233
+      },
+      "fixpoints": 5,
+      "invariants": {
+        "answered": {
+          "fails_on": 0,
+          "holds_on": 1201
+        },
+        "forms_used": {
+          "fails_on": 0,
+          "holds_on": 1201
+        },
+        "rule_free": {
+          "fails_on": 0,
+          "holds_on": 1201
+        },
+        "well_formed": {
+          "fails_on": 0,
+          "holds_on": 1201
+        }
+      },
+      "max_depth": 6,
+      "measure": "mu1",
+      "nodes": 1201,
+      "reading": "F",
+      "replay_hash_recheck": 1201,
+      "sealed_certification": true,
+      "supply_enabled": true
+    },
+    "tree_F_mu2": {
+      "answered_fixpoints": 3,
+      "classes_per_depth": {
+        "0": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "1": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "10": {
+          "classes": 14,
+          "nodes": 14
+        },
+        "11": {
+          "classes": 52,
+          "nodes": 52
+        },
+        "12": {
+          "classes": 111,
+          "nodes": 111
+        },
+        "13": {
+          "classes": 182,
+          "nodes": 182
+        },
+        "14": {
+          "classes": 568,
+          "nodes": 568
+        },
+        "15": {
+          "classes": 885,
+          "nodes": 885
+        },
+        "2": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "3": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "4": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "5": {
+          "classes": 3,
+          "nodes": 3
+        },
+        "6": {
+          "classes": 3,
+          "nodes": 3
+        },
+        "7": {
+          "classes": 6,
+          "nodes": 6
+        },
+        "8": {
+          "classes": 6,
+          "nodes": 6
+        },
+        "9": {
+          "classes": 12,
+          "nodes": 12
+        }
+      },
+      "edges": 1960,
+      "edges_checked": {
+        "collapsed_targets": 1547,
+        "creation": 1846,
+        "fresh_targets": 1547,
+        "merge": 114,
+        "minimum_agreements": 1547,
+        "rounds": 1547,
+        "supply": 413
+      },
+      "fixpoints": 3,
+      "invariants": {
+        "answered": {
+          "fails_on": 0,
+          "holds_on": 1847
+        },
+        "forms_used": {
+          "fails_on": 0,
+          "holds_on": 1847
+        },
+        "rule_free": {
+          "fails_on": 0,
+          "holds_on": 1847
+        },
+        "well_formed": {
+          "fails_on": 0,
+          "holds_on": 1847
+        }
+      },
+      "max_depth": 15,
+      "measure": "mu2",
+      "nodes": 1847,
+      "reading": "F",
+      "replay_hash_recheck": 1847,
+      "sealed_certification": true,
+      "supply_enabled": true
+    },
+    "tree_L_mu1": {
+      "answered_fixpoints": 8,
+      "classes_per_depth": {
+        "0": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "1": {
+          "classes": 3,
+          "nodes": 3
+        },
+        "2": {
+          "classes": 3,
+          "nodes": 3
+        },
+        "3": {
+          "classes": 10,
+          "nodes": 10
+        },
+        "4": {
+          "classes": 19,
+          "nodes": 19
+        },
+        "5": {
+          "classes": 92,
+          "nodes": 92
+        },
+        "6": {
+          "classes": 197,
+          "nodes": 197
+        },
+        "7": {
+          "classes": 880,
+          "nodes": 880
+        }
+      },
+      "edges": 1250,
+      "edges_checked": {
+        "collapsed_targets": 1055,
+        "creation": 1204,
+        "fresh_targets": 1055,
+        "merge": 46,
+        "minimum_agreements": 1055,
+        "rounds": 1055,
+        "supply": 195
+      },
+      "fixpoints": 8,
+      "invariants": {
+        "answered": {
+          "fails_on": 0,
+          "holds_on": 1205
+        },
+        "forms_used": {
+          "fails_on": 0,
+          "holds_on": 1205
+        },
+        "rule_free": {
+          "fails_on": 0,
+          "holds_on": 1205
+        },
+        "well_formed": {
+          "fails_on": 0,
+          "holds_on": 1205
+        }
+      },
+      "max_depth": 7,
+      "measure": "mu1",
+      "nodes": 1205,
+      "reading": "L",
+      "replay_hash_recheck": 1205,
+      "sealed_certification": true,
+      "supply_enabled": true
+    },
+    "tree_L_mu2": {
+      "answered_fixpoints": 4,
+      "classes_per_depth": {
+        "0": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "1": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "10": {
+          "classes": 12,
+          "nodes": 12
+        },
+        "11": {
+          "classes": 14,
+          "nodes": 14
+        },
+        "12": {
+          "classes": 52,
+          "nodes": 52
+        },
+        "13": {
+          "classes": 111,
+          "nodes": 111
+        },
+        "14": {
+          "classes": 182,
+          "nodes": 182
+        },
+        "15": {
+          "classes": 568,
+          "nodes": 568
+        },
+        "2": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "3": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "4": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "5": {
+          "classes": 1,
+          "nodes": 1
+        },
+        "6": {
+          "classes": 3,
+          "nodes": 3
+        },
+        "7": {
+          "classes": 3,
+          "nodes": 3
+        },
+        "8": {
+          "classes": 6,
+          "nodes": 6
+        },
+        "9": {
+          "classes": 6,
+          "nodes": 6
+        }
+      },
+      "edges": 1022,
+      "edges_checked": {
+        "collapsed_targets": 911,
+        "creation": 962,
+        "fresh_targets": 911,
+        "merge": 60,
+        "minimum_agreements": 911,
+        "rounds": 911,
+        "supply": 111
+      },
+      "fixpoints": 4,
+      "invariants": {
+        "answered": {
+          "fails_on": 0,
+          "holds_on": 963
+        },
+        "forms_used": {
+          "fails_on": 0,
+          "holds_on": 963
+        },
+        "rule_free": {
+          "fails_on": 0,
+          "holds_on": 963
+        },
+        "well_formed": {
+          "fails_on": 0,
+          "holds_on": 963
+        }
+      },
+      "max_depth": 15,
+      "measure": "mu2",
+      "nodes": 963,
+      "reading": "L",
+      "replay_hash_recheck": 963,
+      "sealed_certification": true,
+      "supply_enabled": true
+    }
+  },
+  "invariants_checked": [
+    "rule_free",
+    "well_formed",
+    "answered",
+    "forms_used"
+  ],
+  "schema": "reachable-census-v1",
+  "sources": {
+    "artifacts/full/closed_F.json.gz": {
+      "content_sha256": "e47cfb2124d2af2f5dcdd1232aa6a97b0d4a1fd8e524aa3964c2dc35cad068e0",
+      "gz_sha256": "4ac695069db689bf765af8e0e350acb4b049b0276b31a72021c610c1c3a5e874",
+      "summary_pin_matches": true
+    },
+    "artifacts/full/closed_L.json.gz": {
+      "content_sha256": "4f6a1f3777ca304351ebe96744f9955cf86e69b8315a0eea1bc0603c3569efbb",
+      "gz_sha256": "5c7cab5c1cdb6e2e812054192f98c1167840f66fe060b0981ab00a0fb7b78f2c",
+      "summary_pin_matches": true
+    },
+    "artifacts/full/tree_F_mu1.json.gz": {
+      "content_sha256": "745fe99ee2c0757414e273232eaad1dfcdfd6d19bd1b9f291a7c373af70ca4f0",
+      "gz_sha256": "9b9d52b5d8372de780ceed03427bd1624b86ebb9d43bc9babb074ab719581915",
+      "summary_pin_matches": true
+    },
+    "artifacts/full/tree_F_mu2.json.gz": {
+      "content_sha256": "3bdfec07aa71f707b05f112aed1dbf20b61764406252751bd32fa3ab653ae056",
+      "gz_sha256": "37559afba9e06a5b87d95c2aadb41487b476e1899ae7685c5cee2d7c1ad76802",
+      "summary_pin_matches": true
+    },
+    "artifacts/full/tree_L_mu1.json.gz": {
+      "content_sha256": "f20da3a74e81ee90dd05d9e5542a4e23b5d5f61fc17c93691d61fe62491e455a",
+      "gz_sha256": "970f020e1a5f4b1a1f59fb7dce0695a1aeba18b6c4f973d3d8977ff99dff3e31",
+      "summary_pin_matches": true
+    },
+    "artifacts/full/tree_L_mu2.json.gz": {
+      "content_sha256": "4226b687cb77c3ae029fcb442376d78c598f07bfbf60693c8f0bb1617e03b001",
+      "gz_sha256": "915fd54f3505a15e5a2d911b1161c48ca968b3e38daa7a6d3a1001d1e9a516b8",
+      "summary_pin_matches": true
+    }
+  },
+  "totals": {
+    "answered_fixpoints": 28,
+    "edges": 5498,
+    "fixpoints": 28,
+    "minimum_agreements": 4546,
+    "nodes": 5240,
+    "rounds": 4546,
+    "supply": 952
+  }
+}
