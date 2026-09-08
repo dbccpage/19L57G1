@@ -417,6 +417,8 @@ class WriteRootScan(unittest.TestCase):
     def require_rung_scope(self) -> None:
         if self.base != self.head:
             self.assertTrue(self.changed, "ahead of base with an empty change set")
+        if any(p.startswith(WRITE_ROOT + "/") for p in self.changed):
+            self.assertTrue(self.scoped, "this rung changed but its commit scope is empty")
         if not self.scoped:
             self.skipTest("no commit or pending write belongs to this rung")
 
@@ -718,6 +720,9 @@ class ScannerFailureTests(unittest.TestCase):
             case.test_no_sibling_research_tree_is_written()
         case.changed = []
         with self.assertRaisesRegex(AssertionError, "empty change set"):
+            case.test_this_branch_touches_nothing_outside_the_write_root()
+        case.changed = [mine]
+        with self.assertRaisesRegex(AssertionError, "commit scope is empty"):
             case.test_this_branch_touches_nothing_outside_the_write_root()
         success = subprocess.CompletedProcess(args=[], returncode=0, stdout="", stderr="")
         with mock.patch.object(subprocess, "run", return_value=success):
