@@ -207,7 +207,43 @@ files."*
 
 Everything below is metatheoretic apparatus (how to drive the toolchain and
 where things live), not object-language input. It records the verification
-contract already enforced by `.github/workflows/verify.yml` and `ci/`.
+contract written in `.github/workflows/verify.yml` and `ci/`, and run
+locally — see **No hosted CI** immediately below.
+
+## No hosted CI — settled, do not reopen
+
+**This repository does not use hosted GitHub Actions CI, and never will.**
+This is a permanent decision by the author (2026-09-08), not a lapse, an
+outage, or a billing problem to be fixed. Treat it as closed.
+
+`.github/workflows/verify.yml` is kept as the written contract: it is the
+canonical list of the twelve gate families and the order they run in. It
+does **not** execute. No push, pull request, or merge triggers a hosted
+run, and none is expected to.
+
+What "green" means here: **every gate is run locally by the author (or by
+an agent at the author's direction) before a merge, and the pass is a local
+receipt.** A receipt in a PR body, a README, or a change-log entry is a
+local run unless it explicitly says otherwise. There is no hosted run to
+consult, ever.
+
+Consequences, so no one asks again:
+
+- Do **not** propose enabling, restoring, paying for, re-instating, or
+  "fixing" hosted CI, and do not open issues or PRs toward that end.
+- Do **not** read an absent, dormant, skipped, or failed Actions run as a
+  defect, a regression, or a thing to investigate. There is nothing there
+  to investigate.
+- A merge is authorized on the strength of local receipts alone. The
+  author merges; the absence of a hosted check never blocks or gates that.
+- Sentences elsewhere in this file that say a gate is "enforced by CI",
+  that "CI sees" a merge state, or that describe a hosted rollup, are
+  historical wording from when hosted runs were contemplated. Read them as
+  "the gate that `verify.yml` defines, run locally." This subsection is the
+  authority; where it conflicts with older phrasing, it wins.
+
+The peer file `AGENTS.md` states the same policy in short form for agents
+that read it instead of this one.
 
 ## Pull-request topology
 
