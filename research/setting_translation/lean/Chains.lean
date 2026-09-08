@@ -1,3 +1,4 @@
+import Derivation.CapacityBound
 import Derivation.Pigeonhole
 import Translation
 
@@ -15,8 +16,9 @@ word of operation indices runs by following its forms in order (`run`).
   of the closure runs a word (`clos_word`) and every word runs a member
   (`word_in_clos`).
 * `E_iff_noChain`: the word criterion is decidable — a word longer than
-  `n * n` revisits a product state and shortens (`shorten`, by the sealed
-  `Pigeonhole.pigeonhole`), so words of length at most `n * n` suffice.
+  `n * n` revisits a pair of positions and shortens (`shorten`, by the
+  sealed `Pigeonhole.pigeonhole`, with the sealed `CapacityBound.encode`
+  coding the pair), so words of length at most `n * n` suffice.
 
 AuthorityEffect: None.
 -/
@@ -139,34 +141,32 @@ theorem E_iff (F : FiniteSetting) :
     have hb := hfx ⟨F.b, F.b_lt⟩
     exact ha.symm.trans ((congrArg Fin.val heq).trans hb)
 
-/-! ## 3. The bound: a long word revisits a product state -/
+/-! ## 3. The bound: a long word revisits a pair of positions -/
 
-/-- The code of a pair of carrier points as one product state. -/
+/-- The code of a pair of carrier positions: the sealed
+`CapacityBound.encode n [y, x]`, written out. -/
 def code (n x y : Nat) : Nat := x * n + y
 
 theorem code_lt {n x y : Nat} (hx : x < n) (hy : y < n) : code n x y < n * n := by
-  unfold code
-  have h2 : (x + 1) * n ≤ n * n := Nat.mul_le_mul hx (Nat.le_refl n)
-  rw [Nat.add_mul, Nat.one_mul] at h2
-  exact Nat.lt_of_lt_of_le (Nat.add_lt_add_left hy _) h2
+  have h : y + n * x < n ^ 2 := CapacityBound.encode_lt n [y, x] (two_args_lt hy hx)
+  rw [Nat.pow_two] at h
+  show x * n + y < n * n
+  rw [Nat.mul_comm x n, Nat.add_comm (n * x) y]
+  exact h
 
-theorem code_inj {n x y x' y' : Nat} (hy : y < n) (hy' : y' < n)
+theorem code_inj {n x y x' y' : Nat} (hx : x < n) (hy : y < n) (hx' : x' < n) (hy' : y' < n)
     (h : code n x y = code n x' y') : x = x' ∧ y = y' := by
-  have hn : 0 < n := Nat.lt_of_le_of_lt (Nat.zero_le y) hy
-  unfold code at h
-  have h1 : (x * n + y) / n = x := by
-    rw [Nat.mul_comm x n, Nat.mul_add_div hn, Nat.div_eq_of_lt hy, Nat.add_zero]
-  have h2 : (x' * n + y') / n = x' := by
-    rw [Nat.mul_comm x' n, Nat.mul_add_div hn, Nat.div_eq_of_lt hy', Nat.add_zero]
-  have h3 : (x * n + y) % n = y := by
-    rw [Nat.mul_comm x n, Nat.mul_add_mod, Nat.mod_eq_of_lt hy]
-  have h4 : (x' * n + y') % n = y' := by
-    rw [Nat.mul_comm x' n, Nat.mul_add_mod, Nat.mod_eq_of_lt hy']
-  constructor
-  · rw [← h1, ← h2, h]
-  · rw [← h3, ← h4, h]
+  have h2 : CapacityBound.encode n [y, x] = CapacityBound.encode n [y', x'] := by
+    show y + n * x = y' + n * x'
+    unfold code at h
+    rw [Nat.mul_comm x n, Nat.add_comm (n * x) y, Nat.mul_comm x' n,
+      Nat.add_comm (n * x') y'] at h
+    exact h
+  obtain ⟨hy2, hx2⟩ := list_two_inj
+    (CapacityBound.encode_inj n [y, x] [y', x'] rfl (two_args_lt hy hx) (two_args_lt hy' hx') h2)
+  exact ⟨hx2, hy2⟩
 
-/-- The product state after the first `p` letters of a word. -/
+/-- The pair of positions after the first `p` indices of a word. -/
 def state (F : FiniteSetting) (w : List Nat) (p : Nat) : Nat :=
   code F.n (run F (w.take p) F.a) (run F (w.take p) F.b)
 
@@ -174,13 +174,14 @@ theorem wordOk_take {F : FiniteSetting} {w : List Nat} (hw : WordOk F w) (p : Na
     WordOk F (w.take p) :=
   fun j hj => hw j (List.mem_of_mem_take hj)
 
-/-- Two equal product states cut the word between them. -/
+/-- Two equal position pairs cut the word between them. -/
 theorem cut (F : FiniteSetting) (w : List Nat) (hw : WordOk F w) (hlen : F.n * F.n < w.length)
     (p q : Nat) (hpq : p < q) (hq : q < F.n * F.n + 1) (hst : state F w p = state F w q)
     (heq : run F w F.a = run F w F.b) :
     ∃ w', WordOk F w' ∧ w'.length < w.length ∧ run F w' F.a = run F w' F.b := by
   have hql : q ≤ w.length := by omega
-  obtain ⟨ha, hb⟩ := code_inj (run_lt F _ _ (wordOk_take hw p) F.b_lt)
+  obtain ⟨ha, hb⟩ := code_inj (run_lt F _ _ (wordOk_take hw p) F.a_lt)
+    (run_lt F _ _ (wordOk_take hw p) F.b_lt) (run_lt F _ _ (wordOk_take hw q) F.a_lt)
     (run_lt F _ _ (wordOk_take hw q) F.b_lt) hst
   refine ⟨w.take p ++ w.drop q, ?_, ?_, ?_⟩
   · intro j hj
@@ -218,7 +219,7 @@ theorem bounded_shorten (F : FiniteSetting) :
 
 /-! ## 4. The decidable criterion -/
 
-/-- All words over `k` letters of length at most `L`. -/
+/-- All words over `k` operation indices of length at most `L`. -/
 def words (k : Nat) : Nat → List (List Nat)
   | 0 => [[]]
   | L + 1 => [] :: (List.range k).flatMap (fun i => (words k L).map (fun w => i :: w))

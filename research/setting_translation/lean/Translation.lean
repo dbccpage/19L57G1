@@ -117,6 +117,45 @@ theorem mem_storeInsts {n f : Nat} {s : Nat → Nat → Bool} {i : Inst} :
   · rintro ⟨x, y, hx, hy, hs, rfl⟩
     exact ⟨(x, y), List.mem_filter.mpr ⟨mem_pairs.mpr ⟨hx, hy⟩, hs⟩, rfl⟩
 
+/-- The instances of a list of stores on consecutive forms from `f`. -/
+def storesFrom (n : Nat) : Nat → List (Nat → Nat → Bool) → List Inst
+  | _, [] => []
+  | f, s :: rest => storeInsts n f s ++ storesFrom n (f + 1) rest
+
+theorem mem_storesFrom {n : Nat} {i : Inst} :
+    ∀ (f : Nat) (stores : List (Nat → Nat → Bool)),
+      i ∈ storesFrom n f stores ↔
+        ∃ k, k < stores.length ∧ ∃ x y, x < n ∧ y < n ∧
+          stores.getD k (fun _ _ => false) x y = true ∧ i = (f + k, [x, y])
+  | _, [] => by
+      constructor
+      · intro h
+        exact absurd h List.not_mem_nil
+      · rintro ⟨k, hk, _⟩
+        exact absurd hk (Nat.not_lt_zero k)
+  | f, s :: rest => by
+      show i ∈ storeInsts n f s ++ storesFrom n (f + 1) rest ↔ _
+      rw [List.mem_append, mem_storeInsts, mem_storesFrom (f + 1) rest]
+      constructor
+      · rintro (⟨x, y, hx, hy, hs, rfl⟩ | ⟨k, hk, x, y, hx, hy, hs, rfl⟩)
+        · exact ⟨0, Nat.succ_pos _, x, y, hx, hy, by rw [List.getD_cons_zero]; exact hs, rfl⟩
+        · refine ⟨k + 1, Nat.succ_lt_succ hk, x, y, hx, hy, ?_, ?_⟩
+          · rw [List.getD_cons_succ]
+            exact hs
+          · have hf : f + 1 + k = f + (k + 1) := by omega
+            rw [hf]
+      · rintro ⟨k, hk, x, y, hx, hy, hs, rfl⟩
+        cases k with
+        | zero =>
+            rw [List.getD_cons_zero] at hs
+            exact Or.inl ⟨x, y, hx, hy, hs, rfl⟩
+        | succ k =>
+            refine Or.inr ⟨k, Nat.lt_of_succ_lt_succ hk, x, y, hx, hy, ?_, ?_⟩
+            · rw [List.getD_cons_succ] at hs
+              exact hs
+            · have hf : f + (k + 1) = f + 1 + k := by omega
+              rw [hf]
+
 /-- The graph of one operation as the instances of form `f`. -/
 def graphInsts (n f : Nat) (g : Nat → Nat) : List Inst :=
   (List.range n).map (fun x => (f, [x, g x]))
@@ -168,12 +207,9 @@ operation, their instances, no rule, no standing requirement. -/
 def encode (F : FiniteSetting) : Regime :=
   ⟨F.n,
    [2, 2, 2] ++ F.ops.map (fun _ => 2),
-   storeInsts F.n 0 F.rel ++ storeInsts F.n 1 F.ret ++ storeInsts F.n 2 F.prot ++
-     graphsFrom F.n 3 F.ops,
+   storesFrom F.n 0 [F.rel, F.ret, F.prot] ++ graphsFrom F.n 3 F.ops,
    [],
    []⟩
-
-theorem encode_data (F : FiniteSetting) : (encode F).data = F.n := rfl
 
 theorem encode_rules (F : FiniteSetting) : (encode F).rules = [] := rfl
 
@@ -206,25 +242,11 @@ theorem encode_forms_getD (F : FiniteSetting) {f : Nat} (hf : f < (encode F).for
 /-- The instances of the encoding, form by form. -/
 theorem mem_encode_insts {F : FiniteSetting} {i : Inst} :
     i ∈ (encode F).insts ↔
-      (∃ x y, x < F.n ∧ y < F.n ∧ F.rel x y = true ∧ i = (0, [x, y])) ∨
-      (∃ x y, x < F.n ∧ y < F.n ∧ F.ret x y = true ∧ i = (1, [x, y])) ∨
-      (∃ x y, x < F.n ∧ y < F.n ∧ F.prot x y = true ∧ i = (2, [x, y])) ∨
+      (∃ k, k < [F.rel, F.ret, F.prot].length ∧ ∃ x y, x < F.n ∧ y < F.n ∧
+        [F.rel, F.ret, F.prot].getD k (fun _ _ => false) x y = true ∧ i = (0 + k, [x, y])) ∨
       (∃ k, k < F.ops.length ∧ ∃ x, x < F.n ∧ i = (3 + k, [x, F.ops.getD k id x])) := by
-  show i ∈ storeInsts F.n 0 F.rel ++ storeInsts F.n 1 F.ret ++ storeInsts F.n 2 F.prot ++
-      graphsFrom F.n 3 F.ops ↔ _
-  rw [List.mem_append, List.mem_append, List.mem_append, mem_storeInsts, mem_storeInsts,
-    mem_storeInsts, mem_graphsFrom]
-  constructor
-  · rintro (((h | h) | h) | h)
-    · exact Or.inl h
-    · exact Or.inr (Or.inl h)
-    · exact Or.inr (Or.inr (Or.inl h))
-    · exact Or.inr (Or.inr (Or.inr h))
-  · rintro (h | h | h | h)
-    · exact Or.inl (Or.inl (Or.inl h))
-    · exact Or.inl (Or.inl (Or.inr h))
-    · exact Or.inl (Or.inr h)
-    · exact Or.inr h
+  show i ∈ storesFrom F.n 0 [F.rel, F.ret, F.prot] ++ graphsFrom F.n 3 F.ops ↔ _
+  rw [List.mem_append, mem_storesFrom, mem_graphsFrom]
 
 theorem two_args_lt {n x y : Nat} (hx : x < n) (hy : y < n) : ∀ a ∈ [x, y], a < n := by
   intro a ha
@@ -239,25 +261,12 @@ theorem encode_wf (F : FiniteSetting) : (encode F).wf := by
   have hlen := encode_forms_length F
   refine ⟨?_, ?_, ?_, ?_⟩
   · intro p hp
-    rcases mem_encode_insts.mp hp with
-      ⟨x, y, hx, hy, _, rfl⟩ | ⟨x, y, hx, hy, _, rfl⟩ | ⟨x, y, hx, hy, _, rfl⟩ |
-      ⟨k, hk, x, hx, rfl⟩
-    · refine ⟨?_, ?_, two_args_lt hx hy⟩
-      · show 0 < (encode F).forms.length
+    rcases mem_encode_insts.mp hp with ⟨k, hk, x, y, hx, hy, _, rfl⟩ | ⟨k, hk, x, hx, rfl⟩
+    · have hk3 : k < 3 := hk
+      refine ⟨?_, ?_, two_args_lt hx hy⟩
+      · show 0 + k < (encode F).forms.length
         omega
-      · show [x, y].length = (encode F).forms.getD 0 0
-        rw [encode_forms_getD F (by omega)]
-        rfl
-    · refine ⟨?_, ?_, two_args_lt hx hy⟩
-      · show 1 < (encode F).forms.length
-        omega
-      · show [x, y].length = (encode F).forms.getD 1 0
-        rw [encode_forms_getD F (by omega)]
-        rfl
-    · refine ⟨?_, ?_, two_args_lt hx hy⟩
-      · show 2 < (encode F).forms.length
-        omega
-      · show [x, y].length = (encode F).forms.getD 2 0
+      · show [x, y].length = (encode F).forms.getD (0 + k) 0
         rw [encode_forms_getD F (by omega)]
         rfl
     · refine ⟨?_, ?_, two_args_lt hx (F.ops_closed _ (getD_mem hk) x hx)⟩
@@ -285,75 +294,47 @@ theorem derivable_encode {F : FiniteSetting} {i : Inst} :
     · exact absurd h List.not_mem_nil
   · exact Or.inl
 
-/-- Form 0 asserts exactly the difference relation. -/
-theorem derivable_rel (F : FiniteSetting) {x y : Nat} (hx : x < F.n) (hy : y < F.n) :
-    derivable (encode F) (0, [x, y]) ↔ F.rel x y = true := by
+/-- The three store forms assert exactly their stores. -/
+theorem derivable_store (F : FiniteSetting) {k x y : Nat} (hk : k < 3) (hx : x < F.n)
+    (hy : y < F.n) :
+    derivable (encode F) (k, [x, y]) ↔
+      [F.rel, F.ret, F.prot].getD k (fun _ _ => false) x y = true := by
   rw [derivable_encode, mem_encode_insts]
   constructor
-  · rintro (⟨x', y', _, _, hs, h⟩ | ⟨x', y', _, _, _, h⟩ | ⟨x', y', _, _, _, h⟩ |
-      ⟨k, _, x', _, h⟩)
-    · injection h with _ h2
+  · rintro (⟨k', _, x', y', _, _, hs, h⟩ | ⟨k', _, x', _, h⟩)
+    · injection h with h1 h2
+      have hk' : k' = k := by omega
+      subst hk'
       obtain ⟨rfl, rfl⟩ := list_two_inj h2
       exact hs
     · injection h with h1 _
-      exact absurd h1 (by decide)
-    · injection h with h1 _
-      exact absurd h1 (by decide)
-    · injection h with h1 _
       omega
   · intro hs
-    exact Or.inl ⟨x, y, hx, hy, hs, rfl⟩
+    exact Or.inl ⟨k, hk, x, y, hx, hy, hs, by rw [Nat.zero_add]⟩
+
+/-- Form 0 asserts exactly the difference relation. -/
+theorem derivable_rel (F : FiniteSetting) {x y : Nat} (hx : x < F.n) (hy : y < F.n) :
+    derivable (encode F) (0, [x, y]) ↔ F.rel x y = true :=
+  derivable_store F (by decide) hx hy
 
 /-- Form 1 asserts exactly the retention store. -/
 theorem derivable_ret (F : FiniteSetting) {x y : Nat} (hx : x < F.n) (hy : y < F.n) :
-    derivable (encode F) (1, [x, y]) ↔ F.ret x y = true := by
-  rw [derivable_encode, mem_encode_insts]
-  constructor
-  · rintro (⟨x', y', _, _, _, h⟩ | ⟨x', y', _, _, hs, h⟩ | ⟨x', y', _, _, _, h⟩ |
-      ⟨k, _, x', _, h⟩)
-    · injection h with h1 _
-      exact absurd h1 (by decide)
-    · injection h with _ h2
-      obtain ⟨rfl, rfl⟩ := list_two_inj h2
-      exact hs
-    · injection h with h1 _
-      exact absurd h1 (by decide)
-    · injection h with h1 _
-      omega
-  · intro hs
-    exact Or.inr (Or.inl ⟨x, y, hx, hy, hs, rfl⟩)
+    derivable (encode F) (1, [x, y]) ↔ F.ret x y = true :=
+  derivable_store F (by decide) hx hy
 
 /-- Form 2 asserts exactly the protection store. -/
 theorem derivable_prot (F : FiniteSetting) {x y : Nat} (hx : x < F.n) (hy : y < F.n) :
-    derivable (encode F) (2, [x, y]) ↔ F.prot x y = true := by
-  rw [derivable_encode, mem_encode_insts]
-  constructor
-  · rintro (⟨x', y', _, _, _, h⟩ | ⟨x', y', _, _, _, h⟩ | ⟨x', y', _, _, hs, h⟩ |
-      ⟨k, _, x', _, h⟩)
-    · injection h with h1 _
-      exact absurd h1 (by decide)
-    · injection h with h1 _
-      exact absurd h1 (by decide)
-    · injection h with _ h2
-      obtain ⟨rfl, rfl⟩ := list_two_inj h2
-      exact hs
-    · injection h with h1 _
-      omega
-  · intro hs
-    exact Or.inr (Or.inr (Or.inl ⟨x, y, hx, hy, hs, rfl⟩))
+    derivable (encode F) (2, [x, y]) ↔ F.prot x y = true :=
+  derivable_store F (by decide) hx hy
 
 /-- Form `3 + k` asserts exactly the graph of the `k`-th operation. -/
 theorem derivable_op (F : FiniteSetting) {k x y : Nat} (hk : k < F.ops.length) (hx : x < F.n) :
     derivable (encode F) (3 + k, [x, y]) ↔ y = F.ops.getD k id x := by
   rw [derivable_encode, mem_encode_insts]
   constructor
-  · rintro (⟨x', y', _, _, _, h⟩ | ⟨x', y', _, _, _, h⟩ | ⟨x', y', _, _, _, h⟩ |
-      ⟨k', _, x', _, h⟩)
+  · rintro (⟨k', hk', x', y', _, _, _, h⟩ | ⟨k', _, x', _, h⟩)
     · injection h with h1 _
-      omega
-    · injection h with h1 _
-      omega
-    · injection h with h1 _
+      have hk3 : k' < 3 := hk'
       omega
     · injection h with h1 h2
       have hk' : k' = k := by omega
@@ -361,7 +342,7 @@ theorem derivable_op (F : FiniteSetting) {k x y : Nat} (hk : k < F.ops.length) (
       obtain ⟨rfl, rfl⟩ := list_two_inj h2
       rfl
   · rintro rfl
-    exact Or.inr (Or.inr (Or.inr ⟨k, hk, x, hx, rfl⟩))
+    exact Or.inr ⟨k, hk, x, hx, rfl⟩
 
 /-! ## 5. The readings, decided on the encoding -/
 
@@ -485,9 +466,9 @@ end Translation
 #print axioms Translation.list_two_inj
 #print axioms Translation.mem_pairs
 #print axioms Translation.mem_storeInsts
+#print axioms Translation.mem_storesFrom
 #print axioms Translation.mem_graphInsts
 #print axioms Translation.mem_graphsFrom
-#print axioms Translation.encode_data
 #print axioms Translation.encode_rules
 #print axioms Translation.encode_reqs
 #print axioms Translation.encode_forms_length
@@ -497,6 +478,7 @@ end Translation
 #print axioms Translation.two_args_lt
 #print axioms Translation.encode_wf
 #print axioms Translation.derivable_encode
+#print axioms Translation.derivable_store
 #print axioms Translation.derivable_rel
 #print axioms Translation.derivable_ret
 #print axioms Translation.derivable_prot

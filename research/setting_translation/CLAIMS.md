@@ -85,7 +85,8 @@ pair; every reading is decided on the encoding *together with* the pair.
 - **Hypotheses**: none.
 - **Novelty**: the closure `Clos` is matched with words in both directions
   (`word_in_clos`, `clos_word`); the bound uses the sealed
-  `Pigeonhole.pigeonhole` on coded position pairs (`shorten`, `cut`).
+  `Pigeonhole.pigeonhole` on position pairs coded by the sealed
+  `CapacityBound.encode` (`encode_lt`, `encode_inj`; `shorten`, `cut`).
 - **Evidence**: `Chains.E_iff`, `E_iff_noChain`, `noChain_iff`,
   `bounded_shorten`, `shorten`, `cut`, `code_inj`, `mem_words`; computed:
   the bounded criterion (`translation.no_chain`, exponential in the

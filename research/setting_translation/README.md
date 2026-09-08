@@ -32,7 +32,7 @@ absent self-instance on any form is a minimum response; on the two-point
 setting with no assertion the self-instance and the link on the difference
 form are two of them.
 
-Lean: 144 authored theorems, 176 reports with the compiler-generated ones,
+Lean: 144 authored theorems, 173 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the merged `local_reuse` and `magnification` packages.  Python:
 the translation, the nine readings and the visibility criterion checked
@@ -74,7 +74,7 @@ of operation indices runs by following its forms in order (`run`).
 | `word_in_clos` | every word runs as a member of the closure of the admitted family |
 | `clos_word` | every member of the closure (the sealed `PrimDiff.Clos`: base, identity, composition) runs some word |
 | `E_iff` | reading `E` is exactly: no word over the operation forms runs the endpoints to the same datum |
-| `cut`, `shorten` | a word longer than `n * n` that identifies the endpoints revisits a coded pair of positions (the sealed `Pigeonhole.pigeonhole`) and shortens |
+| `cut`, `shorten` | a word longer than `n * n` that identifies the endpoints revisits a coded pair of positions (the sealed `CapacityBound.encode` for the code, `Pigeonhole.pigeonhole` for the collision) and shortens |
 | `bounded_shorten`, `noChain_iff` | words of length at most `n * n` suffice |
 | `E_iff_noChain` | reading `E` is the decidable criterion `NoChain` |
 
@@ -184,14 +184,18 @@ finitely many operations — are the scope; nothing is claimed beyond it.
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 144 authored theorems and 32
-compiler-generated ones, 176 reports, all within `{propext, Quot.sound}`;
-`Translation` 51, `Chains` 24, `Visible` 51, `Transcription` 50; the report
+**Lean** (`lean/`, `evidence/lean.json`): 144 authored theorems and 29
+compiler-generated ones, 173 reports, all within `{propext, Quot.sound}`;
+`Translation` 49, `Chains` 24, `Visible` 50, `Transcription` 50; the report
 population equals the environment census of the four namespaces in both
 directions; no private theorem; forbidden-token scan clean.  The list
 lemmas `getD_mem`, `getD_of_all_two` read the core and the sealed
-`Attachment.getD_lt`; the context and word enumerations (`two_slots`,
-`wfCtx_binary`, `words`) are local instances of the general enumerations
+`Attachment.getD_lt`; the position-pair code of `Chains` is the sealed
+`CapacityBound.encode` and its bound and injectivity are the sealed
+`encode_lt`, `encode_inj`; the three stores are one recursion
+(`storesFrom`, `derivable_store`) and the three context shapes one
+equivalence (`wfCtx_binary`); the context and word enumerations
+(`two_slots`, `words`) are local instances of the general enumerations
 the merged ignition family carries, which is not a dependency here.
 
 **Python** (`translation.py`, `run.py`, `evidence/census.json`, `tests/`):

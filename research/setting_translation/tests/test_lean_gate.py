@@ -71,10 +71,10 @@ class CommittedRecord(unittest.TestCase):
             if line.startswith("#print axioms ")
         )
         self.assertEqual(authored, 144)
-        self.assertEqual(record["theorem_count_including_generated"], 176)
-        self.assertEqual(record["axiom_free_count"], 22)
+        self.assertEqual(record["theorem_count_including_generated"], 173)
+        self.assertEqual(record["axiom_free_count"], 21)
         self.assertEqual(record["reports_per_namespace"],
-                         {"Translation": 51, "Chains": 24, "Visible": 51, "Transcription": 50})
+                         {"Translation": 49, "Chains": 24, "Visible": 50, "Transcription": 50})
 
 
 if __name__ == "__main__":

@@ -1,14 +1,14 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 22,
+  "axiom_free_count": 21,
   "census": "compiled environment theorem declarations in the Translation, Chains, Visible and Transcription namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Chains.lean": "bf6cf8d6549d0c89eac78d0332b6b3aed7d1cb80863ec35c0dd3407595344ba5",
-    "Inventory.lean": "a78d842b1d2362e4f593dd6faf799e9d45952ba0208e168bf08f6fa1f2996341",
+    "Chains.lean": "9099ca11beaa9e2ac11c096c68de55260e36fa995c8c9f612ce9b51d1c432d44",
+    "Inventory.lean": "b0fd0cb8a0f2f906b4343b402f3de2645f7a5bfc3a9e0a99290e243a1ad36a5b",
     "Transcription.lean": "1d1c0b4593fdb8ea4181c962d343e8be7d8fc4c0d68c45cec7924d4ed57c4e02",
-    "Translation.lean": "7e7f36d45d20ab0a85a07d5b2d13275320bd0193391ef928d3e4a95eadce2613",
-    "Visible.lean": "ab5e5f16cfb8382eeef24f203ea752af93bc8254fc7fde094dfd0ed3d3ccd0e9",
+    "Translation.lean": "77d3b86c7fc93748807c69b9f70c3e89f26c80ae952885f7cb6c07bd331cc879",
+    "Visible.lean": "09ddc8e91b17b47e33ffc664e24885f6b11bc7fa8be139ba114b3f1b7fb42066",
     "lakefile.toml": "f82672361e0db8d0968e87dc295fa1eac657cabf6d748f5b2568c69f1e769a94",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -37,6 +37,7 @@
       "propext"
     ],
     "Chains.code_lt": [
+      "Quot.sound",
       "propext"
     ],
     "Chains.cut": [
@@ -333,19 +334,7 @@
       "Quot.sound",
       "propext"
     ],
-    "Translation.derivable_op._proof_1_3": [
-      "Quot.sound",
-      "propext"
-    ],
-    "Translation.derivable_op._proof_1_4": [
-      "Quot.sound",
-      "propext"
-    ],
     "Translation.derivable_prot": [
-      "Quot.sound",
-      "propext"
-    ],
-    "Translation.derivable_prot._proof_1_1": [
       "Quot.sound",
       "propext"
     ],
@@ -353,19 +342,22 @@
       "Quot.sound",
       "propext"
     ],
-    "Translation.derivable_rel._proof_1_1": [
-      "Quot.sound",
-      "propext"
-    ],
     "Translation.derivable_ret": [
       "Quot.sound",
       "propext"
     ],
-    "Translation.derivable_ret._proof_1_1": [
+    "Translation.derivable_store": [
       "Quot.sound",
       "propext"
     ],
-    "Translation.encode_data": [],
+    "Translation.derivable_store._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Translation.derivable_store._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
     "Translation.encode_forms_getD": [
       "Quot.sound",
       "propext"
@@ -388,14 +380,6 @@
       "propext"
     ],
     "Translation.encode_wf._proof_1_2": [
-      "Quot.sound",
-      "propext"
-    ],
-    "Translation.encode_wf._proof_1_3": [
-      "Quot.sound",
-      "propext"
-    ],
-    "Translation.encode_wf._proof_1_4": [
       "Quot.sound",
       "propext"
     ],
@@ -435,6 +419,18 @@
       "propext"
     ],
     "Translation.mem_storeInsts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Translation.mem_storesFrom": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Translation.mem_storesFrom._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Translation.mem_storesFrom._proof_1_4": [
       "Quot.sound",
       "propext"
     ],
@@ -607,9 +603,6 @@
     "Visible.wfCtx_binary": [
       "propext"
     ],
-    "Visible.wfCtx_both": [
-      "propext"
-    ],
     "Visible.wfCtx_column": [
       "propext"
     ],
@@ -624,11 +617,11 @@
   "reports_per_namespace": {
     "Chains": 24,
     "Transcription": 50,
-    "Translation": 51,
-    "Visible": 51
+    "Translation": 49,
+    "Visible": 50
   },
   "schema_version": 1,
   "scope": "the exact theorem statements and their explicit hypotheses over finite settings: carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier",
-  "theorem_count_including_generated": 176,
+  "theorem_count_including_generated": 173,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

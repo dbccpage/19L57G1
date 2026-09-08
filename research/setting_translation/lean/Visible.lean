@@ -71,57 +71,68 @@ theorem two_slots :
   | _ :: _ :: _ :: t, h, _ =>
       absurd (Nat.succ.inj (Nat.succ.inj (h : t.length + 3 = 2))) (Nat.succ_ne_zero _)
 
-/-- Well-formed contexts of a binary regime: both holes, or one hole beside
-an admitted datum. -/
-theorem wfCtx_binary {r : Regime} (hb : Binary r) (c : Ctx) (hc : wfCtx r c) :
-    c.form < r.forms.length ∧
+/-- The well-formed contexts of a binary regime are exactly the three shapes:
+both holes, or one hole beside an admitted datum on the right or on the
+left. -/
+theorem wfCtx_binary {r : Regime} (hb : Binary r) (c : Ctx) :
+    wfCtx r c ↔ c.form < r.forms.length ∧
       (c.slots = [none, none] ∨
         ∃ z, z < r.data ∧ (c.slots = [none, some z] ∨ c.slots = [some z, none])) := by
-  obtain ⟨hf, hlen, hhole, hok⟩ := hc
-  refine ⟨hf, ?_⟩
-  rw [binary_getD hb hf] at hlen
-  rcases two_slots c.slots hlen hhole with h | ⟨z, h | h⟩
-  · exact Or.inl h
-  · refine Or.inr ⟨z, ?_, Or.inl h⟩
-    exact hok (some z) (by rw [h]; exact List.mem_cons_of_mem _ List.mem_cons_self)
-  · refine Or.inr ⟨z, ?_, Or.inr h⟩
-    exact hok (some z) (by rw [h]; exact List.mem_cons_self)
-
-theorem wfCtx_both {r : Regime} (hb : Binary r) {f : Nat} (hf : f < r.forms.length) :
-    wfCtx r ⟨f, [none, none]⟩ := by
-  refine ⟨hf, ?_, List.mem_cons_self, ?_⟩
-  · rw [binary_getD hb hf]
-    rfl
-  · intro s hs
-    rcases List.mem_cons.mp hs with rfl | hs
-    · trivial
-    · rcases List.mem_cons.mp hs with rfl | hs
-      · trivial
-      · exact absurd hs List.not_mem_nil
+  constructor
+  · rintro ⟨hf, hlen, hhole, hok⟩
+    refine ⟨hf, ?_⟩
+    rw [binary_getD hb hf] at hlen
+    rcases two_slots c.slots hlen hhole with h | ⟨z, h | h⟩
+    · exact Or.inl h
+    · refine Or.inr ⟨z, ?_, Or.inl h⟩
+      exact hok (some z) (by rw [h]; exact List.mem_cons_of_mem _ List.mem_cons_self)
+    · refine Or.inr ⟨z, ?_, Or.inr h⟩
+      exact hok (some z) (by rw [h]; exact List.mem_cons_self)
+  · rintro ⟨hf, h | ⟨z, hz, h | h⟩⟩
+    · refine ⟨hf, ?_, ?_, ?_⟩
+      · rw [h, binary_getD hb hf]
+        rfl
+      · rw [h]
+        exact List.mem_cons_self
+      · rw [h]
+        intro s hs
+        rcases List.mem_cons.mp hs with rfl | hs
+        · trivial
+        · rcases List.mem_cons.mp hs with rfl | hs
+          · trivial
+          · exact absurd hs List.not_mem_nil
+    · refine ⟨hf, ?_, ?_, ?_⟩
+      · rw [h, binary_getD hb hf]
+        rfl
+      · rw [h]
+        exact List.mem_cons_self
+      · rw [h]
+        intro s hs
+        rcases List.mem_cons.mp hs with rfl | hs
+        · trivial
+        · rcases List.mem_cons.mp hs with rfl | hs
+          · exact hz
+          · exact absurd hs List.not_mem_nil
+    · refine ⟨hf, ?_, ?_, ?_⟩
+      · rw [h, binary_getD hb hf]
+        rfl
+      · rw [h]
+        exact List.mem_cons_of_mem _ List.mem_cons_self
+      · rw [h]
+        intro s hs
+        rcases List.mem_cons.mp hs with rfl | hs
+        · exact hz
+        · rcases List.mem_cons.mp hs with rfl | hs
+          · trivial
+          · exact absurd hs List.not_mem_nil
 
 theorem wfCtx_row {r : Regime} (hb : Binary r) {f z : Nat} (hf : f < r.forms.length)
-    (hz : z < r.data) : wfCtx r ⟨f, [none, some z]⟩ := by
-  refine ⟨hf, ?_, List.mem_cons_self, ?_⟩
-  · rw [binary_getD hb hf]
-    rfl
-  · intro s hs
-    rcases List.mem_cons.mp hs with rfl | hs
-    · trivial
-    · rcases List.mem_cons.mp hs with rfl | hs
-      · exact hz
-      · exact absurd hs List.not_mem_nil
+    (hz : z < r.data) : wfCtx r ⟨f, [none, some z]⟩ :=
+  (wfCtx_binary hb _).mpr ⟨hf, Or.inr ⟨z, hz, Or.inl rfl⟩⟩
 
 theorem wfCtx_column {r : Regime} (hb : Binary r) {f z : Nat} (hf : f < r.forms.length)
-    (hz : z < r.data) : wfCtx r ⟨f, [some z, none]⟩ := by
-  refine ⟨hf, ?_, List.mem_cons_of_mem _ List.mem_cons_self, ?_⟩
-  · rw [binary_getD hb hf]
-    rfl
-  · intro s hs
-    rcases List.mem_cons.mp hs with rfl | hs
-    · exact hz
-    · rcases List.mem_cons.mp hs with rfl | hs
-      · trivial
-      · exact absurd hs List.not_mem_nil
+    (hz : z < r.data) : wfCtx r ⟨f, [some z, none]⟩ :=
+  (wfCtx_binary hb _).mpr ⟨hf, Or.inr ⟨z, hz, Or.inr rfl⟩⟩
 
 /-! ## 2. Internal visibility -/
 
@@ -142,7 +153,7 @@ theorem plug_slots (c : Ctx) (d : Nat) :
 
 theorem visible_of_ctx {r : Regime} (hb : Binary r) {x y : Nat} (c : Ctx) (hc : wfCtx r c)
     (hne : ¬ (derivable r (plug c x) ↔ derivable r (plug c y))) : Visible r x y := by
-  obtain ⟨hf, hs⟩ := wfCtx_binary hb c hc
+  obtain ⟨hf, hs⟩ := (wfCtx_binary hb c).mp hc
   refine ⟨c.form, hf, ?_⟩
   rw [plug_slots, plug_slots] at hne
   rcases hs with h | ⟨z, hz, h | h⟩
@@ -160,7 +171,7 @@ theorem separable_iff_visible {r : Regime} (hb : Binary r) (x y : Nat) :
   · rintro ⟨c, hc, hne⟩
     exact visible_of_ctx hb c hc hne
   · rintro ⟨f, hf, h | ⟨z, hz, h | h⟩⟩
-    · exact ⟨⟨f, [none, none]⟩, wfCtx_both hb hf, h⟩
+    · exact ⟨⟨f, [none, none]⟩, (wfCtx_binary hb _).mpr ⟨hf, Or.inl rfl⟩, h⟩
     · exact ⟨⟨f, [none, some z]⟩, wfCtx_row hb hf hz, h⟩
     · exact ⟨⟨f, [some z, none]⟩, wfCtx_column hb hf hz, h⟩
 
@@ -505,7 +516,6 @@ end Visible
 #print axioms Visible.binary_getD
 #print axioms Visible.two_slots
 #print axioms Visible.wfCtx_binary
-#print axioms Visible.wfCtx_both
 #print axioms Visible.wfCtx_row
 #print axioms Visible.wfCtx_column
 #print axioms Visible.plug_slots
