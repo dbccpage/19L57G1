@@ -1,0 +1,7 @@
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+lean/*.lean text eol=lf
+lean/lean-toolchain text eol=lf
+evidence/** -text
