@@ -1,6 +1,6 @@
 name = "represented_execution"
 version = "0.1.0"
-defaultTargets = ["Execution", "Inventory"]
+defaultTargets = ["Execution", "Control", "Inventory"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -15,6 +15,9 @@ path = "../../setting_translation/lean"
 
 [[lean_lib]]
 name = "Execution"
+
+[[lean_lib]]
+name = "Control"
 
 [[lean_lib]]
 name = "Inventory"

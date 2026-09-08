@@ -14,7 +14,12 @@ CENSUS = "EXECUTION_THEOREM: Execution.run_encode"
 BRIDGE = ("Execution.lookup_mem", "Execution.lookup_isSome", "Execution.lookup_encode",
           "Execution.run_evalWord", "Execution.run_word", "Execution.evalWord_append",
           "Execution.run_append", "Execution.iterate_add", "Execution.evalWord_encode",
-          "Execution.run_encode", "Execution.run_total", "Execution.run_lt", "Execution.run_nil")
+          "Execution.run_encode", "Execution.run_total", "Execution.run_lt", "Execution.run_nil",
+          "Control.encodeC_wf", "Control.lookup_program_op", "Control.enabled_program",
+          "Control.fire_ok", "Control.fire_exhausted", "Control.mem_successors",
+          "Control.successors_sound", "Control.successors_complete", "Control.init_pair",
+          "Control.live_successor", "Control.stepDet_branch", "Control.runDet_branch",
+          "Control.run_branch")
 
 
 class ReportParser(unittest.TestCase):
@@ -64,10 +69,10 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 21)
-        self.assertEqual(record["theorem_count_including_generated"], 24)
-        self.assertEqual(record["axiom_free_count"], 2)
-        self.assertEqual(record["reports_per_namespace"], {"Execution": 24})
+        self.assertEqual(authored, 42)
+        self.assertEqual(record["theorem_count_including_generated"], 71)
+        self.assertEqual(record["axiom_free_count"], 18)
+        self.assertEqual(record["reports_per_namespace"], {"Execution": 24, "Control": 47})
 
 
 if __name__ == "__main__":

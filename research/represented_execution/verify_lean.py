@@ -27,7 +27,7 @@ if PACKET != Path("research/represented_execution"):
 ROOT = Path(__file__).resolve().parent
 LEAN = ROOT / "lean"
 RECORD = ROOT / "evidence" / "lean.json"
-MODULES = ("Execution",)
+MODULES = ("Execution", "Control")
 EXPECTED_FILES = {f"{m}.lean" for m in MODULES} | {"Inventory.lean"}
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
 CENSUS_LINE = re.compile(r"^EXECUTION_THEOREM: (\S+)$", re.MULTILINE)
@@ -108,7 +108,7 @@ def verify() -> bytes:
                "axiom_free_count": sum(1 for axioms in reports.values() if not axioms),
                "reports_per_namespace": per_module,
                "reports": reports,
-               "census": "compiled environment theorem declarations in the Execution namespace",
+               "census": "compiled environment theorem declarations in the Execution and Control namespaces",
                "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, "
                         "boolean-valued stores, finitely many operations closed on the carrier) and "
                         "well-formed words of operation indices; the configuration is "
@@ -133,7 +133,7 @@ def main() -> int:
             print("FAIL: evidence/lean.json differs from fresh compilation")
             return 1
         else:
-            print("PASS: fresh Lean build, theorem census over the Execution namespace, "
+            print("PASS: fresh Lean build, theorem census over the Execution and Control namespaces, "
                   "reliance and source records")
         return 0
     except (ValueError, TypeError, KeyError, OSError, RuntimeError,

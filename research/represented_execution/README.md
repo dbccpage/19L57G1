@@ -4,38 +4,67 @@ AuthorityEffect: None.  Outside the sealed derivation; consumes it read-only.
 Not registered in `.github/workflows/verify.yml`: its checks run locally
 through `verify.py` (section 6).
 
-**Result (commit 1, the word-bridge).**  A finite setting is encoded as a
-regime whose operation graphs are the instances of binary forms (the merged
-`setting_translation`).  This family runs a word of operation indices by
-*reading those instances*: a configuration carries the encoded graph, the
-remaining word, the active datum and an output tape; one `step` consumes the
-head `k` of the word by looking the instance `(3 + k, [active, y])` up in the
-graph and moving to `y`; `run` is `iterate step` for the length of the word,
-by definition.  For every finite setting, every well-formed word and every
-admitted datum the run halts with the word consumed and the active datum the
-operations compute (`run_total`, `run_encode`) — proved without the machine
-ever reading the operation functions `F.ops`, which enter once, in the
-statement that reading the graph is faithful (`lookup_encode`, through the
-merged `derivable_op`).  The machine is stepwise: a configuration exists after
-any prefix of the word (`iterate_add`), and running `u ++ v` is running `u`
-and continuing with `v` (`run_append`).
+**Result.**  A finite setting is encoded as a regime whose operation graphs
+are the instances of binary forms (the merged `setting_translation`).  This
+family executes represented programs by *reading those instances*, in two
+commits.
 
-Configuration status: **DECLARED_HOST_CONFIG**.  `Config` is a structure of
-the metatheory whose `graph` field is a copy of the encoded instances.  The
-process reads encoded data; it does not itself live in the sealed grammar,
-and nothing here says it does.
+*Commit 1, the word machine.*  A configuration carries the encoded graph, the
+remaining word of operation indices, the active datum and an output tape;
+one `step` consumes the head `k` of the word by looking the instance
+`(3 + k, [active, y])` up in the graph and moving to `y`; `run` is `iterate
+step` for the length of the word, by definition.  For every finite setting,
+every well-formed word and every admitted datum the run halts with the word
+consumed and the active datum the operations compute (`run_total`,
+`run_encode`) — proved without the machine ever reading the operation
+functions `F.ops`, which enter once, in the statement that reading the graph
+is faithful (`lookup_encode`, through the merged `derivable_op`).  The
+machine is stepwise: a configuration exists after any prefix of the word
+(`iterate_add`), and running `u ++ v` is running `u` and continuing with `v`
+(`run_append`).
 
-Lean: 21 authored theorems, 24 reports with the compiler-generated ones, all
-within `{propext, Quot.sound}`, in a package importing the sealed package and
-the merged `setting_translation` package.  Python: the machine mirrored,
-checked against the merged `translation.run` (the fold that reads `F.ops`,
-which the tests may consult and the machine never does) on every word of
-length at most three from every datum of the thirteen sealed settings, the
-six two-point exhibits, a three-point two-operation setting and the first
-400 settings of the sealed universe; the graph mutation, mid-run edit,
-two-graphs-one-word, letter-names-an-operation, concatenation and empty-word
-tests the brief names; the named refusals; an oracle check on the machine's
-source; 37 tests, strict typing over ten files, a byte-identical record.
+*Commit 2, control by data.*  A controlled setting adds an enablement
+relation — operation `k` may fire at datum `x` — represented in the same
+device as one more binary form per operation whose *self-instance*
+`(3 + nops + k, [x, x])` says `k` is enabled at `x`; the represented program
+(operation graphs and enablements) is a well-formed regime of the sealed
+grammar (`encodeC_wf`).  A fixed interpreter reads the enablements at the
+active datum, then the chosen operation's edge, and moves: which operation
+fires is read from the data.  Against the reference step `CStep`, stated on
+the setting before any encoding, every successor realises a reference step
+and every reference step with fuel is realised (`successors_sound`,
+`successors_complete`).  The deterministic runner fires the one enabled
+operation and stops with the terminal `branch` when two are — it never
+selects (`run_branch`); its terminals `halt`, `exhausted`, `refuse`, `branch`
+are distinct.  The clock advances exactly when an operation edge is applied
+and the fuel is spent by one per firing and renewed by nothing (`fire_ok`,
+`fire_exhausted`).  The state carries the program only — no store is loaded
+— and the initial state does not depend on the designated pair (`init_pair`).
+Computed: a branch driven by data, an iteration whose length the data set,
+different programs giving different tapes, arbitrarily long runs until the
+fuel is spent.  **Not delivered**, and named as the next obstacle: a retained
+record that a later operation reads (CL-RE-14).
+
+Configuration status: **DECLARED_HOST_CONFIG**.  `Config` and `State` are
+structures of the metatheory whose graph fields are copies of encoded
+instances.  The processes read encoded data; they do not themselves live in
+the sealed grammar, and nothing here says they do.  (The *program* of commit
+2 is a regime; the *state* that runs it is host.)
+
+Lean: 42 authored theorems, 71 reports with the compiler-generated ones, all
+within `{propext, Quot.sound}`, in a package importing the sealed package
+and the merged `setting_translation` package.  Python: both machines
+mirrored; the word machine checked against the merged `translation.run` (the
+fold that reads `F.ops`, which the tests may consult and the machines never
+do) on every word of length at most three from every datum of the thirteen
+sealed settings, the six two-point exhibits, a three-point two-operation
+setting and the first 400 settings of the sealed universe; the control
+machine's successor family checked against the reference step on every datum
+of four programs; the graph mutation, mid-run edit, two-graphs-one-word,
+letter-names-an-operation, concatenation, empty-word, branch-by-data,
+iteration-by-data, never-selects, family-permutation and fuel tests the
+brief names; the named refusals; an oracle check on both machines' source;
+58 tests, strict typing over twelve files, two byte-identical records.
 Execution base `756917dcaeff5979faa9b1346a1a8ce666b33b25` (main); no sealed
 path is written.
 
@@ -53,9 +82,10 @@ The reference `evalWord` is a fold through the same `lookup`, so
 `run_evalWord` relates two graph-readers with different control structure,
 and `evalWord_encode` carries both to `Chains.run`.  That last theorem is the
 bridge from the represented machine to the operations it represents, and it
-is where `F.ops` appears — in the statement.
+is where `F.ops` appears — in the statement.  Commit 2 reads the enablements
+the same way: `enabled_program` derives the relation from the self-instances.
 
-## 2. The machine (`lean/Execution.lean`)
+## 2. The word machine (`lean/Execution.lean`)
 
 | definition | content |
 |---|---|
@@ -69,89 +99,128 @@ is where `F.ops` appears — in the statement.
 | `init F w x` | the encoded instances of `F` as the graph, word `w`, start `x`, empty tape |
 | `resume c v` | run a further word from a halted configuration |
 
-A word is a list of operation indices, not of data: `step` reads
-`graph[3 + head]` at the active datum, so a two-operation setting follows the
-letter, not always operation 0 (`test_a_letter_names_an_operation`).
-
-## 3. The theorems
-
 | theorem | content |
 |---|---|
 | `lookup_mem`, `lookup_isSome` | a value read is an instance of the graph; an instance present is found |
 | `lookup_encode` | reading the encoded graph at `(3 + k, x)` gives the `k`-th operation's value (CL-RE-01) |
 | `iterate_evalWord`, `run_evalWord` | the configuration machine and the fold agree on the active datum (CL-RE-02) |
 | `iterate_word`, `run_word`, `iterate_graph` | a halted run has consumed its word and kept its graph |
-| `evalWord_append`, `run_append` | running `u ++ v` is running `u` and continuing with `v` (CL-RE-04) |
-| `iterate_add` | iterating `a + b` steps is iterating `a` then `b` |
+| `evalWord_append`, `run_append`, `iterate_add` | running `u ++ v` is running `u` then `v`; a configuration exists after any prefix (CL-RE-04) |
 | `step_nil`, `iterate_zero`, `run_nil` | the empty word is the unit |
 | `evalWord_encode` | on the encoding the fold computes `Chains.run` by reading the graph alone |
-| `run_encode` | **the word-bridge**: a halted run has consumed its word and its active datum is `Chains.run F w x` (CL-RE-03) |
-| `run_total` | a well-formed word from an admitted datum runs to a halt |
-| `run_lt` | the halted datum is in the carrier |
+| `run_encode`, `run_total`, `run_lt` | **the word-bridge** (CL-RE-03) |
 
-The proofs unfold the machine's definitions by `show` and `change` rather
-than by `simp`, so that no matcher equation is minted behind the environment
-census (the trap the merged families record).
+A word is a list of operation indices, not of data: `step` reads
+`graph[3 + head]` at the active datum, so a two-operation setting follows the
+letter, not always operation 0.
 
-## 4. The executable tests the brief names (`tests/test_execution.py`)
+## 3. Control by data (`lean/Control.lean`)
 
-On a three-point setting with two distinct operations (`(1, 2, 0)` and the
-constant `0`), so that reading the letter and reading the graph both matter:
-
-| test | what it shows |
+| definition | content |
 |---|---|
-| graph mutation | redirecting the edge of operation 0 at datum 1 changes the halted datum of the word `[0, 0]` from 2 to 1 |
-| mid-run edit | after one step of `[0, 0, 0]`, redirecting that edge diverges the continuation (halted datum 1, not 0) and its tape from the unedited run |
-| two graphs, one word | the same word on two settings differing at one instance halts at different data |
-| a letter names an operation | `[0]` and `[1]` from datum 0 halt at 1 and 0 |
-| concatenation | `run(u ++ v)` equals `resume(run u, v)` on every pair of words of length at most two |
-| empty word | no step, no move, empty tape, on every sealed setting |
-| iterate add | `iterate (a + b)` equals `iterate a` then `iterate b` for every split of four steps |
+| `Controlled` | a finite setting with `ctrl x k`: operation `k` may fire at datum `x` |
+| `CStep C x k y` | **the reference step**, on the setting: `k` enabled at `x` and `y` its value there |
+| `ctrlInsts`, `program` | the enablements as self-instances `(3 + nops + k, [x, x])`; the program = operation graphs and enablements, no store |
+| `encodeC` | the controlled regime: stores, program, `3 + 2 · nops` binary forms, no rule, no requirement |
+| `enabled`, `enabledAt` | operation `k` is enabled at `x` when its control form's edge leaving `x` returns `x`; the enabled operations at `x`, a list nothing reads as a choice |
+| `State` | the program, the operation count, `active`, `tape`, `clock`, `fuel` |
+| `fire s k` | with fuel: read `k`'s edge, move, extend the tape, tick the clock, spend one fuel; else `exhausted`; no edge, `noEdge` |
+| `successors s` | one state per enabled operation that fires |
+| `stepDet`, `runDet`, `run` | the deterministic runner: fire the one enabled operation; `halt` when none; `branch` when two; bounded by a copy of the fuel |
+| `init C x fuel` | the program, a start datum on the tape, clock zero, a declared fuel |
+| `Live C s` | the live class: the program loaded, an admitted datum with an enabled operation, and fuel |
 
-The refusals: a missing edge refuses without writing (the configuration
-before the missing edge is reached and no dummy datum appears); two edges on
-one form leaving one datum are refused by name rather than silently ordered;
-a start outside the carrier and an unknown letter refuse.
+| theorem | content |
+|---|---|
+| `mem_ctrlInsts`, `mem_program`, `encodeC_forms_two`, `encodeC_wf` | the represented program is a well-formed binary regime (CL-RE-07) |
+| `lookup_program_op`, `enabled_iff`, `mem_enabledAt`, `enabled_program` | edges and enablements are read faithfully from the program (CL-RE-08) |
+| `fire_ok`, `fire_succ`, `fire_exhausted` | what one firing does; no fuel, no firing (CL-RE-11) |
+| `mem_successors`, `successors_sound`, `successors_complete` | the successor family is the reference relation (CL-RE-09) |
+| `init_pair` | the initial state does not read the designated pair (CL-RE-13) |
+| `live_successor` | a live state has a successor (CL-RE-12) |
+| `stepDet_branch`, `runDet_branch`, `run_branch` | `branch` only where two operations are enabled: the runner never selects (CL-RE-10) |
+
+**The executable tests** (`tests/test_control.py`) on one three-point carrier
+with three operations — the cycle `0 → 1 → 2 → 0`, the constant `0`, the climb
+`0 → 1 → 2 → 2`:
+
+| program | enablements | what it shows |
+|---|---|---|
+| ping | cycle at 0, constant at 1 | a branch driven by data: tapes `0,1,0,1,0` from 0, `1,0,1,0,1` from 1, halt at 2 |
+| climb | climb at 0 and 1 | an iteration whose length the data set: 2, 1, 0 firings from the three starts, each `halt` |
+| forever | cycle everywhere | arbitrarily long runs: exactly `n` firings on fuel `n`, `exhausted`, for `n < 8` |
+| fork | cycle and constant at 0 | `branch` at clock 0; successor data `{0, 1}`; the family invariant under permuting the operations |
+
+The refusals: an enabled operation with its edge removed returns `refuse`
+without writing; a start outside the carrier and an out-of-range enablement
+are refused by name.  The bookkeeping: clock equals tape length minus one and
+clock plus fuel left equals the declared fuel on every run; fuel decreases
+3, 2, 1, 0 and then nothing fires; firing keeps the program.
 
 **Oracle check** (`tests/test_oracle.py`, a check and not a framework): the
-machine's Python source names no `.ops`, no `translation.run`, no `follow`,
-no chain criterion and no cache; the Lean definitions of `isEdge`, `value`,
-`lookup`, `step`, `iterate`, `run`, `evalWord` and `resume` contain no `ops`,
-no `Chains` and no `follow`.  The *tests* consult `translation.run` for the
-expected values; the machine does not.
+machine functions of both Python modules — those taking a graph, a
+configuration or a state and nothing else — and the machine definitions of
+both Lean modules name no operation table, no merged `F.ops`-reading fold, no
+chain criterion, no cache and no reference step.  The loaders read a setting
+through the merged encoder and its shape; `control.cstep` is a documented
+check the tests consult.
 
-## 5. The artifact for Target B (`evidence/process.json`)
+## 4. The artifact for Target B (`evidence/process.json`)
 
 `run.py` writes the record the brief's Target B consumes and may not author:
-`fragment: "words"`, the names of `Step`, `run`, `iterate`, the reference and
-the correspondence theorem, the configuration status, how a run is observed
-(the final active datum, and the tape of data visited, one entry per letter),
-six recorded word-runs each with its active datum equal to what the
-operations compute, and the exact list of what this fragment does not
-deliver.  Sorted keys, no timestamp, no machine path; the receipt refuses to
-record a run that refuses, leaves its word unconsumed, or halts at a datum
-other than the operations'.
+`fragment: "control"`; the two machines' `Step`, `run`, references and
+correspondence theorems; the configuration status; how a run is observed
+(the final active datum, and the tape of data visited); six word-runs each
+with its active datum equal to what the operations compute; eight controlled
+runs each of whose transitions is a reference step; the branching example;
+the iteration example; the live class; and the exact list of what is not
+delivered.  Sorted keys, no timestamp, no machine path.  The receipt refuses
+to record a word-run that refuses, leaves its word unconsumed or halts at a
+datum other than the operations', a controlled run with a transition that is
+not a reference step, or a clock that does not count the firings.
+
+## 5. The single finish bar, met and not met
+
+Commit 1 ships: the typed `step`/`run`, the Lean correspondence, the mutation,
+the mid-run edit, the concatenate lemma, the configuration's status declared,
+`process.json` written.  Commit 2 was attempted, as the brief requires, and
+delivers branching by data, iteration whose length the data set, the successor
+family without a selector, the four terminals, the clock, the fuel, and
+non-stuckness on the live class.  What it does not deliver is exact: a
+retained record that a later operation reads.  The tape is retained and
+observable, but no enablement reads it, so two states with one active datum
+and different tapes have one future — the merged endpoint theorem's
+situation, reproduced rather than escaped.  The construction the brief names
+— an enablement reading the previous datum beside the active one,
+representable as a binary form with instances `[previous, active]` in the
+same device — is the next single obstacle.  Represented storage growth
+beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 21 authored theorems and 3
-compiler-generated ones (the `Config` constructor's injectivity and size
-specification), 24 reports, all within `{propext, Quot.sound}`; the report
-population equals the environment census of the `Execution` namespace in both
-directions; no private theorem; forbidden-token scan clean.  `Classical.choice`
-was observed once, entering through `BEq` in an earlier `isEdge`; the
-definition now decides the `Prop` directly and the reliance is gone.
+**Lean** (`lean/`, `evidence/lean.json`): 42 authored theorems and 29
+compiler-generated ones (the `Config`, `Controlled` and `State` constructors'
+injectivity and size specifications, the `Fired` and `Terminal` constructors'
+size specifications, `Terminal`'s decidable equality, and the proof terms of
+five theorems), 71 reports, all within `{propext, Quot.sound}`; the report
+population equals the environment census of the `Execution` and `Control`
+namespaces in both directions; no private theorem; forbidden-token scan
+clean.  `Classical.choice` was observed once, entering through `BEq` in an
+earlier `isEdge`; the definition now decides the `Prop` directly and the
+reliance is gone.  The proofs unfold the machines' definitions by `show` and
+by definitional `have`, never by `simp`, so that no matcher equation is
+minted behind the census (the trap the merged families record).
 
-**Python** (`execution.py`, `run.py`, `evidence/process.json`, `tests/`): 36
-tests, strict typing over ten files, the record replays byte-identically.
-`verify.py`, `verify_sources.py`, `verify_lean.py` and `run.py` follow the
-merged `research/setting_translation` files with names, pins and refusals
-changed; there is no shared helper across the research trees.  One defect
-found and fixed while building: the sibling family also has a `run.py` and a
-`verify_sources.py`, and a `sys.path` order that put the sibling ahead of this
-tree loaded the sibling's custody guard silently.  This tree's directory is
-now always first on the path, and `run.py` and `verify_lean.py` refuse by
-name if a foreign guard is imported.
+**Python** (`execution.py`, `control.py`, `run.py`, `evidence/process.json`,
+`tests/`): 58 tests, strict typing over twelve files, the two records replay
+byte-identically.  `verify.py`, `verify_sources.py`, `verify_lean.py` and
+`run.py` follow the merged `research/setting_translation` files with names,
+pins and refusals changed; there is no shared helper across the research
+trees.  One defect found and fixed while building: the sibling family also
+has a `run.py` and a `verify_sources.py`, and a `sys.path` order that put the
+sibling ahead of this tree loaded the sibling's custody guard silently.  This
+tree's directory is now always first on the path, and `run.py` and
+`verify_lean.py` refuse by name if a foreign guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
 `756917dcaeff5979faa9b1346a1a8ce666b33b25`, the eight derivation modules the
@@ -160,7 +229,8 @@ merged encoder loads by digest and runtime origin; the sealed
 `magnification` and `setting_translation` Lean trees, and the
 `setting_translation` Python tree by Git tree object; the Lean configuration
 of the five packages by digest.  An untracked source in any of the seven
-trees is refused.  No export is read.
+trees is refused.  No export is read.  The two records are `-text` by an
+in-tree `.gitattributes`, so a CRLF checkout cannot rewrite them.
 
 ```powershell
 cd research/represented_execution
@@ -172,19 +242,21 @@ Regenerate the two records deliberately and never under a live injection:
 
 ## Not claimed
 
-* That the configuration is a regime of the sealed grammar: it is a declared
-  host record (CL-RE-05).  An encoded configuration is not built.
-* Control: composition, data-dependent branching, iteration, represented
-  storage growth, a retained record that changes a later readout, the
-  `semantic_clock`, the resource ledger.  None is in this fragment; the
-  record's `not_delivered` list is exact.
-* That the Python mirror computes the Lean predicates: the agreement is on
+* That the running state is a regime of the sealed grammar: it is a declared
+  host record (CL-RE-05).  The represented *program* of a controlled setting
+  is a regime (CL-RE-07); the *state* is not.
+* A retained record that a later operation reads; represented storage growth
+  beyond the tape; an encoded configuration (section 5, CL-RE-14).
+* Exploring the successor family as a tree of runs: the family is available
+  and the runner refuses to pick; no run through a fork is built.
+* An infinite run: the fuel is a represented field nothing renews, and no
+  renewing law is declared.
+* That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations; the Lean `lookup` reads the first edge in
   list order and the Python `lookup` the unique edge of a set, which coincide
   on every encoding and are not claimed to coincide on a graph with two edges
   leaving one datum on one form (the Python refuses such a graph by name).
-* That every edge of every encoding is load-bearing for some word: the
-  mutation and mid-run-edit tests are two witnesses on one setting.
+* That every edge of every encoding is load-bearing for some word.
 * Anything about infinite carriers, undecidable stores or infinite operation
   families.
 
@@ -192,12 +264,13 @@ Regenerate the two records deliberately and never under a live injection:
 
 | file | role |
 |---|---|
-| `lean/Execution.lean` | the reader, the configuration machine, the reference, the word-bridge |
+| `lean/Execution.lean` | the reader, the word machine, the reference, the word-bridge |
+| `lean/Control.lean` | controlled settings, the represented program, the data-driven machine, the reference step |
 | `lean/Inventory.lean` | the environment census |
-| `execution.py` | the machine mirrored; `init` is the one function that sees a setting |
+| `execution.py`, `control.py` | the machines mirrored; `init` is the one function of each that sees a setting |
 | `run.py`, `evidence/process.json` | the artifact for Target B and its refusals |
 | `verify_lean.py`, `evidence/lean.json` | the Lean build, two-way census and reliance record |
 | `verify_sources.py`, `SOURCE_MANIFEST.json` | custody of the consumed inputs |
 | `verify.py` | every check in order |
-| `tests/` | the machine against the operations, the brief's tests, the refusals, the oracle check, custody, the parser, the records |
+| `tests/` | the machines against the operations and the reference step, the brief's tests, the refusals, the oracle check, custody, the parser, the records |
 | `CLAIMS.md` | one `CL-RE-*` entry per claim |

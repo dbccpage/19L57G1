@@ -1,26 +1,480 @@
 {
  "authority_effect": "None",
- "classification": "deterministic computation: the configuration machine over the sealed encoding",
- "concatenation": "Execution.run_append",
+ "branching_example": {
+  "meaning": "at datum 0 the cycle is enabled, at datum 1 the constant map, at datum 2 nothing: which operation fires is read from the data",
+  "program": "ping",
+  "tapes_by_start": {
+   "0": [
+    0,
+    1,
+    0,
+    1,
+    0
+   ],
+   "1": [
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "2": [
+    2
+   ]
+  }
+ },
+ "classification": "deterministic computation: the word machine and the data-driven machine over the sealed encoding",
  "config_status": "DECLARED_HOST_CONFIG",
- "config_status_meaning": "Config is a metatheory record whose graph field is a copy of the encoded instances; the process reads encoded data and does not itself live in the sealed grammar.",
- "correspondence": "Execution.run_encode",
- "fragment": "words",
- "iterate": "Execution.iterate",
+ "config_status_meaning": "Config and State are metatheory records whose graph fields are copies of encoded instances; the processes read encoded data and do not themselves live in the sealed grammar.  The represented program of a controlled setting is itself a well-formed regime (Control.encodeC_wf).",
+ "control": {
+  "clock": "advances exactly when an operation edge is applied (Control.fire_ok); the machine has no administrative step",
+  "completeness": "Control.successors_complete",
+  "enablement_read_faithfully": "Control.enabled_program",
+  "fire": "Control.fire",
+  "fuel": "a represented field, spent by one per firing (Control.fire_ok), renewed by nothing (Control.fire_exhausted)",
+  "never_selects": "Control.run_branch",
+  "non_stuck_on_the_live_class": "Control.live_successor",
+  "pair": "the initial state does not depend on the designated pair (Control.init_pair)",
+  "program": "operation graphs and enablements; the enablement of operation k at datum x is the self-instance (3 + nops + k, [x, x]); the stores are not loaded",
+  "reference": "Control.CStep",
+  "run": "Control.run",
+  "soundness": "Control.successors_sound",
+  "step": "Control.stepDet",
+  "successors": "Control.successors",
+  "terminals": [
+   "halt",
+   "exhausted",
+   "refuse",
+   "branch"
+  ],
+  "well_formed_program": "Control.encodeC_wf"
+ },
+ "control_runs": [
+  {
+   "clock": 4,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 0,
+   "program": "ping",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    0,
+    1,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 4,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 0,
+   "program": "ping",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "successors_at_end": [],
+   "tape": [
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 0,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 4,
+   "program": "ping",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 2,
+   "enablements": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "fuel": 10,
+   "fuel_left": 8,
+   "program": "climb",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 1,
+   "enablements": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "fuel": 10,
+   "fuel_left": 9,
+   "program": "climb",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "successors_at_end": [],
+   "tape": [
+    1,
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 0,
+   "enablements": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "fuel": 10,
+   "fuel_left": 10,
+   "program": "climb",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 5,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "fuel": 5,
+   "fuel_left": 0,
+   "program": "forever",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    2
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 0,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "fuel": 5,
+   "fuel_left": 5,
+   "program": "fork",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [
+    0,
+    1
+   ],
+   "tape": [
+    0
+   ],
+   "terminal": "branch"
+  }
+ ],
+ "fragment": "control",
+ "iteration_example": {
+  "firings_by_start": {
+   "0": 2,
+   "1": 1,
+   "2": 0
+  },
+  "meaning": "the climb is enabled at 0 and 1 and nothing at 2: the run halts after a number of firings set by the start datum, not by the interpreter",
+  "program": "climb",
+  "terminals_by_start": {
+   "0": "halt",
+   "1": "halt",
+   "2": "halt"
+  }
+ },
+ "live_class": "Control.Live: an admitted active datum with an enabled operation and fuel",
  "not_delivered": [
-  "control",
-  "branching",
-  "iteration",
-  "retained record",
-  "semantic_clock",
-  "resource ledger"
+  "a retained record that a later operation reads: the tape is retained and observable, but no enablement reads it, so two states with one active datum and different tapes have one future",
+  "represented storage growth beyond the tape",
+  "an encoded configuration: the state is a declared host record"
  ],
  "observation": {
   "active": "the final active datum, a member of the carrier",
-  "output": "the tape of data visited, one entry per letter consumed"
+  "output": "the tape of data visited, one entry per firing (the words machine: one per letter)"
  },
- "reference": "Execution.evalWord",
- "run": "Execution.run",
  "runs": [
   {
    "active": 2,
@@ -223,8 +677,15 @@
    ]
   }
  ],
- "schema_version": 1,
- "step": "Execution.step",
- "totality": "Execution.run_total",
- "word": "a list of operation indices; step reads the edge of form 3 + k leaving the active datum"
+ "schema_version": 2,
+ "words": {
+  "concatenation": "Execution.run_append",
+  "correspondence": "Execution.run_encode",
+  "iterate": "Execution.iterate",
+  "reference": "Execution.evalWord",
+  "run": "Execution.run",
+  "step": "Execution.step",
+  "totality": "Execution.run_total",
+  "word": "a list of operation indices; step reads the edge of form 3 + k leaving the active datum"
+ }
 }

@@ -1,16 +1,146 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 2,
-  "census": "compiled environment theorem declarations in the Execution namespace",
+  "axiom_free_count": 18,
+  "census": "compiled environment theorem declarations in the Execution and Control namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
+    "Control.lean": "ddfd5ba5898781851fd1e921bea8baaece89aed74d41c150157f79d72f1f979b",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "ccfd8aaa2798307492449ffcbe9be46b88168ab32ff8655b3291c5c168ac11a6",
-    "lakefile.toml": "2de03feae368d2562bd92825580caf68994932001f11700bfb09b38049fb9127",
+    "Inventory.lean": "4c91cff01b8fa8f586df593650f6f5d8a1d1e29fd21c2054f03b47bbaf205e22",
+    "lakefile.toml": "e674d4f07167ceee4019c32d9ea762102f0936bb34fbafc7d636adad945ef063",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
   "reports": {
+    "Control.Controlled.mk.inj": [],
+    "Control.Controlled.mk.injEq": [
+      "propext"
+    ],
+    "Control.Controlled.mk.sizeOf_spec": [],
+    "Control.Fired.exhausted.sizeOf_spec": [],
+    "Control.Fired.noEdge.sizeOf_spec": [],
+    "Control.Fired.ok.inj": [],
+    "Control.Fired.ok.injEq": [
+      "propext"
+    ],
+    "Control.Fired.ok.sizeOf_spec": [],
+    "Control.State.mk.inj": [],
+    "Control.State.mk.injEq": [
+      "propext"
+    ],
+    "Control.State.mk.sizeOf_spec": [],
+    "Control.Terminal.branch.sizeOf_spec": [],
+    "Control.Terminal.exhausted.sizeOf_spec": [],
+    "Control.Terminal.halt.sizeOf_spec": [],
+    "Control.Terminal.ofNat_ctorIdx": [],
+    "Control.Terminal.refuse.sizeOf_spec": [],
+    "Control.enabled_iff": [
+      "propext"
+    ],
+    "Control.enabled_program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.enabled_program._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.enabled_program._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_forms_getD": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_forms_length": [
+      "propext"
+    ],
+    "Control.encodeC_forms_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.fire_exhausted": [
+      "propext"
+    ],
+    "Control.fire_ok": [
+      "propext"
+    ],
+    "Control.fire_succ": [
+      "propext"
+    ],
+    "Control.init_pair": [],
+    "Control.instDecidableEqTerminal._proof_1": [],
+    "Control.instDecidableEqTerminal._proof_2": [],
+    "Control.live_successor": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.live_successor._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.lookup_program_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.lookup_program_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.lookup_program_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_ctrlInsts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_enabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_successors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.runDet_branch": [
+      "propext"
+    ],
+    "Control.run_branch": [
+      "propext"
+    ],
+    "Control.stepDet_branch": [
+      "propext"
+    ],
+    "Control.successors_complete": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.successors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
     "Execution.Config.mk.inj": [],
     "Execution.Config.mk.injEq": [
       "propext"
@@ -87,10 +217,11 @@
     ]
   },
   "reports_per_namespace": {
+    "Control": 47,
     "Execution": 24
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 24,
+  "theorem_count_including_generated": 71,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

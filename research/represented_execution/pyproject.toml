@@ -6,6 +6,6 @@ addopts = "-q"
 [tool.mypy]
 python_version = "3.14"
 strict = true
-files = ["execution.py", "run.py", "verify.py", "verify_sources.py", "verify_lean.py", "tests"]
+files = ["execution.py", "control.py", "run.py", "verify.py", "verify_sources.py", "verify_lean.py", "tests"]
 mypy_path = ".:../../code:../setting_translation"
 explicit_package_bases = true
