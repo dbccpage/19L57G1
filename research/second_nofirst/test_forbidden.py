@@ -246,6 +246,49 @@ def census_pin_status() -> str:
     return proc.stdout.strip()
 
 
+def scope_from_commits(commits: list[list[str]], uncommitted: list[str]) -> list[str]:
+    """All paths of each commit that touches this rung, plus pending writes.
+
+    Separate sibling commits are not attributed to this rung. A commit that
+    mixes this rung with a sibling still exposes every path and fails scope.
+    The sealed-path scan continues to use the whole branch's changed paths.
+    """
+    owned = [paths for paths in commits if any(p.startswith(WRITE_ROOT + "/") for p in paths)]
+    if owned or any(p.startswith(WRITE_ROOT + "/") for p in uncommitted):
+        return sorted({p for paths in owned for p in paths} | set(uncommitted))
+    return []
+
+
+def rung_commit_paths(base: str, head: str) -> list[str]:
+    """Read every branch commit against its first parent, without rename hiding.
+
+    Merge commits are included; a mixed merge is not silently excused. Missing
+    or malformed commit and path populations fail closed.
+    """
+    proc = subprocess.run(
+        ["git", "rev-list", "--parents", f"{base}..{head}"],
+        capture_output=True, text=True, cwd=REPO, check=False,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError("rung commit census is unavailable")
+    rows = proc.stdout.splitlines()
+    if base != head and not rows:
+        raise ValueError("rung commit census is empty ahead of its base")
+    commits: list[list[str]] = []
+    for row in rows:
+        ids = row.split()
+        if len(ids) < 2 or any(re.fullmatch(r"[0-9a-f]{40}", s) is None for s in ids):
+            raise ValueError("malformed rung commit census")
+        diff = subprocess.run(
+            ["git", "diff", "--no-renames", "--name-only", "-z", ids[1], ids[0], "--"],
+            capture_output=True, cwd=REPO, check=False,
+        )
+        if diff.returncode != 0:
+            raise RuntimeError("rung commit path census is unavailable")
+        commits.append(nul_paths(diff.stdout, population="rung commit"))
+    return scope_from_commits(commits, changed_paths(head))
+
+
 def removed_append_lines(base: str, path: str) -> list[str]:
     proc = subprocess.run(
         ["git", "diff", "--no-renames", "-U0", base, "--", path],
@@ -354,8 +397,9 @@ class OutsideGlossary(unittest.TestCase):
 
 
 class WriteRootScan(unittest.TestCase):
-    """FW-SEAL, FW-SHARE: what this branch wrote, measured against the tip
-    of `main` it has merged rather than against the pin snapshot."""
+    """FW-SEAL checks the whole branch; FW-SHARE checks this rung's commits.
+    Both use the merged tip of `main`, never the historical pin snapshot.
+    """
 
     def setUp(self) -> None:
         base = comparison_base()
@@ -364,11 +408,19 @@ class WriteRootScan(unittest.TestCase):
         self.base = base
         self.head = head_commit()
         self.changed = changed_paths(base)
+        self.scoped = rung_commit_paths(base, self.head)
+
+    def require_rung_scope(self) -> None:
+        if self.base != self.head:
+            self.assertTrue(self.changed, "ahead of base with an empty change set")
+        if not self.scoped:
+            self.skipTest("no commit or pending write belongs to this rung")
 
     def test_this_branch_touches_nothing_outside_the_write_root(self) -> None:
+        self.require_rung_scope()
         stray = [
             path
-            for path in self.changed
+            for path in self.scoped
             if not path.startswith(WRITE_ROOT + "/") and path not in APPEND_ONLY
         ]
         self.assertEqual(stray, [])
@@ -424,9 +476,10 @@ class WriteRootScan(unittest.TestCase):
         self.assertEqual([p for p in self.changed if p.startswith(sealed)], [])
 
     def test_no_sibling_research_tree_is_written(self) -> None:
+        self.require_rung_scope()
         siblings = [
             path
-            for path in self.changed
+            for path in self.scoped
             if path.startswith("research/")
             and not path.startswith(WRITE_ROOT + "/")
             and path != "research/second/MANUAL.md"
@@ -633,6 +686,35 @@ class ScannerFailureTests(unittest.TestCase):
             run.call_args_list[1].args[0],
             ["git", "ls-files", "-z", "--others", "--exclude-standard", "--"],
         )
+        mine = WRITE_ROOT + "/probe.py"
+        sibling = "research/sibling/probe.py"
+        # Same-commit contamination stays visible; a separately committed
+        # maintenance repair does not own another study's commits.
+        cases = [
+            ([], [], []),
+            ([[sibling]], [], []),
+            ([[mine]], [], [mine]),
+            ([[sibling], [mine]], [], [mine]),
+            ([[mine, sibling]], [], sorted([mine, sibling])),
+            ([[mine]], [sibling], sorted([mine, sibling])),
+            ([], [mine, sibling], sorted([mine, sibling])),
+        ]
+        for commits, pending, expected in cases:
+            with self.subTest(commits=commits, pending=pending):
+                self.assertEqual(scope_from_commits(commits, pending), expected)
+        case = WriteRootScan("test_no_sealed_path_is_touched")
+        case.base, case.head, case.changed, case.scoped = "base", "head", ["code/probe.py"], []
+        with self.assertRaises(AssertionError):
+            case.test_no_sealed_path_is_touched()
+        with self.assertRaises(unittest.SkipTest):
+            case.test_no_sibling_research_tree_is_written()
+        case.changed = []
+        with self.assertRaisesRegex(AssertionError, "empty change set"):
+            case.test_this_branch_touches_nothing_outside_the_write_root()
+        success = subprocess.CompletedProcess(args=[], returncode=0, stdout="", stderr="")
+        with mock.patch.object(subprocess, "run", return_value=success):
+            with self.assertRaisesRegex(ValueError, "empty ahead"):
+                rung_commit_paths("base", "head")
 
     def test_non_utf8_scope_path_fails_closed(self) -> None:
         bad = subprocess.CompletedProcess(
