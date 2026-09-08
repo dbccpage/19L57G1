@@ -214,8 +214,10 @@ size 1, 1, 3, 1, 1, 5, targets (1,2), (0,2), (1,3), (2,3), (0,3), (1,4), final
 state six data and seven requirements, `Good`, certified.  Reading L, mu1,
 the binary-link opening: the first growth creates no demand and the second
 creates the fresh-pair demand (2,3) — the earlier response determined the
-later demand.  Reading F openings fire twice before any growth (they are not
-fixpoints).  Removal: with L2 off, eight growths, no verdict changes, 36 (L)
+later demand.  Reading F's openings are not all fixpoints: the unary mark
+leaves two data unmentioned and fires twice before any growth, the self-loop
+fires once, and the three binary links grow first.  Removal: with L2 off,
+eight growths, no verdict changes, 36 (L)
 and 45 (F) standing demands; with L1 off, the run stops at the fixpoint
 (immediately for L, after two fires for F); with both, five and six fires in
 eight steps.  The horizon-uniform statement is `runHist_replays` with
