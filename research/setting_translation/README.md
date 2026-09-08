@@ -238,11 +238,13 @@ regenerated while live):
 | visibility criterion, self-instance clause | the self-instance test deleted from the computed criterion | **no failure over all 56 088 settings.** The clause is redundant for admitted data in general, not only there: `Visible.visible_iff_rows_columns` was proved from this observation, and `translation.visible_rows_columns` now cross-checks it on every pair | n/a |
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`f12a498ea75899ea119df958d54209fee25819f1`, the eight derivation modules by
-digest and runtime origin, the sealed `lean4/Derivation` tree and the
-`research/local_reuse/lean` and `research/magnification/lean` trees by Git
-tree object, the three Lean configurations by digest; an untracked `.py` on
-the import path or `.lean` in any of the three Lean trees is refused.  No
+`0bb7fe5ecc16da8b6ee7c5e94df933eae7b65779` (re-baselined 2026-09-08 from
+`f12a498e` when the magnification package took the ignition family as a
+dependency), the eight derivation modules by digest and runtime origin, the
+sealed `lean4/Derivation` tree and the `research/local_reuse/lean`,
+`research/ignition/lean` and `research/magnification/lean` trees by Git
+tree object, the four Lean configurations by digest; an untracked `.py` on
+the import path or `.lean` in any of the four Lean trees is refused.  No
 export is read.  The runtime census reads the whole interpreter, so the
 family's checks run in their own interpreter, as `verify.py` runs them.
 

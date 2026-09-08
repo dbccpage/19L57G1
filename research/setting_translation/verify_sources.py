@@ -7,10 +7,11 @@ rewritten.  There is deliberately no manifest generation or repair option.
 
 Scope: exactly what this family consumes.  ``code/derivation`` supplies the
 eight modules ``translation.py`` imports and drives.  ``lean4/Derivation``
-supplies the sealed modules the local proofs import; ``research/local_reuse/lean``
-and ``research/magnification/lean`` the merged research packages they build
-on; the three trees are pinned by their exact Git tree objects and the Lean
-configuration of the three packages by digest.  No export is read.  ``prompt``
+supplies the sealed modules the local proofs import; ``research/local_reuse/lean``,
+``research/ignition/lean`` and ``research/magnification/lean`` the merged
+research packages they build on (ignition through magnification); the four
+trees are pinned by their exact Git tree objects and the Lean configuration
+of the four packages by digest.  No export is read.  ``prompt``
 and ``paper`` are not read and not pinned.
 """
 
@@ -26,13 +27,14 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "f12a498ea75899ea119df958d54209fee25819f1"
+BASELINE_COMMIT = "0bb7fe5ecc16da8b6ee7c5e94df933eae7b65779"
 PACKET = Path("research/setting_translation")
 SCHEMA = "setting-translation-sources-v1"
 CONSUMED_TREES = {
     "code/derivation": ".py",
     "lean4/Derivation": ".lean",
     "research/local_reuse/lean": ".lean",
+    "research/ignition/lean": ".lean",
     "research/magnification/lean": ".lean",
 }
 CONFIG_PATHS = (
@@ -42,6 +44,8 @@ CONFIG_PATHS = (
     "lean4/lake-manifest.json",
     "research/local_reuse/lean/lakefile.toml",
     "research/local_reuse/lean/lean-toolchain",
+    "research/ignition/lean/lakefile.toml",
+    "research/ignition/lean/lean-toolchain",
     "research/magnification/lean/lakefile.toml",
     "research/magnification/lean/lean-toolchain",
 )

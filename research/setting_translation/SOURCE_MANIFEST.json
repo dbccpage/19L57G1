@@ -1,8 +1,8 @@
 {
   "schema": "setting-translation-sources-v1",
-  "baseline_commit": "f12a498ea75899ea119df958d54209fee25819f1",
+  "baseline_commit": "0bb7fe5ecc16da8b6ee7c5e94df933eae7b65779",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the eight derivation modules translation.py imports, the sealed Lean derivation tree and the merged local_reuse and magnification Lean trees that the local proofs import, and the Lean configuration of the three packages. No export is read. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the eight derivation modules translation.py imports, the sealed Lean derivation tree and the merged local_reuse, ignition and magnification Lean trees that the local proofs import (ignition through magnification), and the Lean configuration of the four packages. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
@@ -17,7 +17,8 @@
     "code/derivation": "9eb989edeedd89d0935b021124969d2659509785",
     "lean4/Derivation": "df9365891b7bbcb02bc8010db2c5db7b1a43beef",
     "research/local_reuse/lean": "2513d6608b5d22f864eecc7db8b12cf1f94c2c0f",
-    "research/magnification/lean": "c3c37caf4f137cc31de79cad0ed926d8ffdb3f2f"
+    "research/ignition/lean": "28d385864d8fecc5083c4be4d82adec03bc1cdaa",
+    "research/magnification/lean": "8c9e41e7e3f93345c9c337f2a81b4a5ac3d2b674"
   },
   "tree_census": {
     "code/derivation": [
@@ -136,6 +137,10 @@
       "research/local_reuse/lean/Inventory.lean",
       "research/local_reuse/lean/LocalReuse.lean"
     ],
+    "research/ignition/lean": [
+      "research/ignition/lean/Ignition.lean",
+      "research/ignition/lean/Inventory.lean"
+    ],
     "research/magnification/lean": [
       "research/magnification/lean/EngineClass.lean",
       "research/magnification/lean/Inventory.lean",
@@ -158,7 +163,9 @@
     "lean4/lake-manifest.json": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91",
     "research/local_reuse/lean/lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
     "research/local_reuse/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "research/magnification/lean/lakefile.toml": "bf463f64c4ee53a9347542bf5819132a4cc169b5a24492af2813635850c540ae",
+    "research/ignition/lean/lakefile.toml": "c3dae512d55898c79ca48f1af47a97bf5cb33efaaa095230d2be892d5a021341",
+    "research/ignition/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/magnification/lean/lakefile.toml": "2b7eed3e03f71b4d753a73eb67ba635f51bfb839480abf399ca15ac3cb4ae534",
     "research/magnification/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   }
 }

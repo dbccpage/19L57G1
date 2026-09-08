@@ -17,7 +17,7 @@ import verify_sources as guard  # noqa: E402
 
 UNCONSUMED = ("prompt/input.md", "paper/claim.md", "artifacts/other.json")
 LEAN_SOURCES = ("lean4/Derivation/Example.lean", "research/local_reuse/lean/LocalReuse.lean",
-                "research/magnification/lean/EngineClass.lean")
+                "research/ignition/lean/Ignition.lean", "research/magnification/lean/EngineClass.lean")
 
 
 def git(root: Path, *args: str) -> bytes:
@@ -109,7 +109,8 @@ class CustodyTests(unittest.TestCase):
 
     def test_untracked_source_in_a_consumed_tree_is_named(self) -> None:
         for relative in ("code/derivation/new.py", "lean4/Derivation/New.lean",
-                         "research/local_reuse/lean/Extra.lean", "research/magnification/lean/Extra.lean"):
+                         "research/local_reuse/lean/Extra.lean", "research/ignition/lean/Extra.lean",
+                         "research/magnification/lean/Extra.lean"):
             with self.subTest(relative=relative):
                 path = self.root / relative
                 path.write_bytes(b"# injected source\n")
