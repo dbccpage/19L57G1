@@ -178,9 +178,9 @@ theorem fire_rename {n : Nat} (σ : DRen n) {m : Measure} {r t : Regime}
 
 /-- **Equivariance at an automorphism**: when the renaming fixes the regime,
 the response family at the image pair is the renamed family and the children
-are the renamed children.  This is the relation-level fact the engine's
-orbit selection rests on; the selection of the least pair is itself not
-congruent (sealed `least_pair_selection_not_congruent`). -/
+are the renamed children. This requires literal equality under a datum
+renaming. It does not establish transport of orbit-selected steps under the
+broader datum-and-form automorphisms used by `IsAuto`. -/
 theorem fire_auto {n : Nat} (σ : DRen n) {m : Measure} {r t : Regime}
     (hn : r.data = n) (hg : Good r) (hauto : renameRegimeR σ.f r = r)
     {i j : Nat} {δ : List Item} (h : Fire m r i j δ t) :

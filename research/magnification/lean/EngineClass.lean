@@ -34,7 +34,7 @@ relation over the sealed `Regime`, `collapsed`, `validResponse` and
   (`fire_replays`, `path_replays`).
 
 The well-formedness lemmas of section 1 duplicate those of the ignition
-family (pull request #147) pending its merge; they are marked as such.
+family (pull request #147, now merged); they remain local to this package.
 
 AuthorityEffect: None.
 -/
@@ -44,8 +44,8 @@ namespace EngineClass
 open Derivation
 
 /-! ## 1. Well-formedness and rule-freeness along responses
-(duplicated from `research/ignition/lean/Ignition.lean`, PR #147, pending
-its merge; to be replaced by an import once it lands) -/
+(duplicated from `research/ignition/lean/Ignition.lean`, merged PR #147;
+retained locally without adding that package as a dependency) -/
 
 theorem applyItem_wf {r s : Regime} (hwf : r.wf) {it : Item}
     (h : applyItem r it = some s) : s.wf := by
@@ -356,7 +356,7 @@ inductive Path (m : Measure) (supply : Bool) : Regime → List Regime → Regime
   | cons {r s t : Regime} {rest : List Regime} :
       EngineStep m supply r s → Path m supply s rest t → Path m supply r (s :: rest) t
 
-/-- **The rooted class**: the root, or the seed round on the declared target
+/-- **The rooted class**: the seed round on the declared target
 followed by engine steps.  The seed target is a parameter because the sealed
 engine answers `reading.target` at the root rather than an orbit
 representative (see `Restart.not_orbitRep_rootF_12`). -/

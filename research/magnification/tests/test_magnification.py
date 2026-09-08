@@ -95,6 +95,34 @@ class ClosedExports(unittest.TestCase):
         failures = failures_of(mg.check_export(mutated))
         self.assertTrue(any("minimum classes have no edge" in f for f in failures), failures)
 
+    def test_repeated_minimum_class_edge_is_named(self) -> None:
+        mutated = replace(self.closed_l, edges=self.closed_l.edges + (self.closed_l.edges[-1],))
+        failures = failures_of(mg.check_export(mutated))
+        self.assertTrue(any("duplicate minimum class" in f for f in failures), failures)
+
+    def test_redundant_response_with_the_same_endpoint_is_refused(self) -> None:
+        edges: list[dict[str, Json]] = [dict(e) for e in self.closed_f.edges]
+        index = next(k for k, e in enumerate(edges) if len(cast(Sequence[Json], e["response"])) == 1)
+        response = list(cast(Sequence[Json], edges[index]["response"]))
+        edges[index]["response"] = response + response
+        failures = failures_of(mg.check_export(replace(self.closed_f, edges=tuple(edges))))
+        self.assertTrue(any("response is not a minimum delta" in f for f in failures), failures)
+
+    def test_unreported_inert_event_is_refused(self) -> None:
+        edges: list[dict[str, Json]] = [dict(e) for e in self.closed_l.edges]
+        edges[0]["events"] = list(cast(Sequence[Json], edges[0]["events"])) + [
+            {"event": "supply", "token": "unreported"}]
+        failures = failures_of(mg.check_export(replace(self.closed_l, edges=tuple(edges))))
+        self.assertTrue(any("events differ from the declared response" in f for f in failures), failures)
+
+    def test_supply_event_must_match_the_fresh_growth(self) -> None:
+        ex = mg.load(REPO, "tree_L_mu2")
+        edges: list[dict[str, Json]] = [dict(e) for e in ex.edges]
+        index = next(k for k, e in enumerate(edges) if e["challenge"] == "supply")
+        edges[index]["events"] = []
+        failures = failures_of(mg.check_export(replace(ex, edges=tuple(edges))))
+        self.assertTrue(any("supply events differ from fresh growth" in f for f in failures), failures)
+
     def test_non_minimum_response_is_named(self) -> None:
         edges: list[dict[str, Json]] = [dict(e) for e in self.closed_f.edges]
         index = next(k for k, e in enumerate(edges)

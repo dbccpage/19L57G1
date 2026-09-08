@@ -27,6 +27,29 @@ def receipt_bytes() -> bytes:
     import magnification
 
     result = magnification.census(REPO)
+    totals = result["totals"]
+    assert isinstance(totals, dict)
+    if totals["failures"] != 0:
+        raise RuntimeError("census reports semantic failures")
+    exports = result["exports"]
+    assert isinstance(exports, dict)
+    for name, export in exports.items():
+        assert isinstance(export, dict)
+        mag = export["magnification"]
+        assert isinstance(mag, dict)
+        if mag["seed_responses_valid"] != mag["creation_rounds"]:
+            raise RuntimeError(f"{name}: a seed response is invalid")
+    samples = result["restart_samples"]
+    assert isinstance(samples, dict)
+    runs = samples["runs"]
+    assert isinstance(runs, list)
+    for sample in runs:
+        assert isinstance(sample, dict)
+        layers = sample["layers"]
+        assert isinstance(layers, list)
+        if not layers or any(not isinstance(layer, dict) or layer.get("equal") is not True
+                             for layer in layers):
+            raise RuntimeError("sampled restart is unequal or incomplete")
     failures = verify_sources()
     if failures:
         raise RuntimeError("source verification failed after replay: " + "; ".join(failures))

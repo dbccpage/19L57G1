@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import run  # noqa: E402
@@ -27,6 +28,28 @@ class CensusRecord(unittest.TestCase):
         record["totals"]["rounds"] += 1
         mutated = (json.dumps(record, sort_keys=True, indent=1) + "\n").encode("utf-8")
         self.assertNotEqual(mutated, self.fresh)
+
+    def test_matching_bytes_cannot_adopt_a_semantic_failure(self) -> None:
+        record = json.loads(self.fresh.decode("utf-8"))
+        record["totals"]["failures"] = 1
+        with patch("run.verify_sources", return_value=[]), patch("magnification.census", return_value=record):
+            with self.assertRaisesRegex(RuntimeError, "semantic failures"):
+                run.receipt_bytes()
+
+    def test_bad_magnification_or_restart_cannot_be_recorded(self) -> None:
+        for name in ("invalid response", "unequal restart", "incomplete restart"):
+            with self.subTest(name=name):
+                record = json.loads(self.fresh.decode("utf-8"))
+                if name == "invalid response":
+                    record["exports"]["closed_L"]["magnification"]["seed_responses_valid"] = 0
+                else:
+                    layer = record["restart_samples"]["runs"][0]["layers"][0]
+                    layer.pop("equal")
+                    if name == "unequal restart":
+                        layer["equal"] = False
+                with patch("run.verify_sources", return_value=[]), patch("magnification.census", return_value=record):
+                    with self.assertRaises(RuntimeError):
+                        run.receipt_bytes()
 
     def test_record_carries_no_timestamp_or_path(self) -> None:
         text = self.fresh.decode("utf-8")

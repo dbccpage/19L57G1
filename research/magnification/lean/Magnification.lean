@@ -4,14 +4,13 @@ import EngineClass
 /-!
 # Magnification: a primitive difference as a seed, and what context changes
 
-* `induced`: the regime a primitive difference induces when magnified —
-  two data and the demand to separate them.  It is the reading-L root, and
-  it is the same for every setting (`induced_constant`): magnification
-  forgets everything but the pair.
+* `induced`: a declared constant map from settings to the demanded seed
+  R2L. It ignores all fields and requires no difference witness. Its
+  constancy records the definition, not a derived translation.
 * `fresh_form_valid`: at any collapsed pair of any `Good` state, admitting a
   fresh form with one instance that mentions the first datum is a valid
-  response — the three tied first-round classes of the seed (the unary
-  mark, the binary link, the binary self-loop) embed at every difference
+  response. The unary mark, binary link and binary self-loop constructions
+  remain valid at every distinct admitted pair
   (`bare_round_embeds`).  This generalizes the sealed `mark_progress`.
 * `context_changes_minimum`: a state with an existing unary form has a
   one-item minimum at a collapsed pair, while the seed has none below two
@@ -28,10 +27,9 @@ open Derivation EngineClass
 
 /-! ## 1. The induced seed -/
 
-/-- The regime a primitive difference induces: two data and the demand to
-separate them.  The setting is not read: on the sealed carrier a difference
-is a pair of admitted data, and nothing else of the setting has a
-translation into the sealed grammar. -/
+/-- A declared constant map to two data and a separation demand. Every
+field of the setting is ignored; no witness is required. This definition
+does not prove that the setting translates to, or forces, this regime. -/
 def induced (_S : PrimitiveCore.Setting) : Regime := ⟨2, [], [], [], [(0, 1)]⟩
 
 theorem induced_eq_R2L (S : PrimitiveCore.Setting) : induced S = R2L := rfl
@@ -43,7 +41,7 @@ theorem induced_wf (S : PrimitiveCore.Setting) : (induced S).wf := R2L_wf
 theorem induced_collapsed (S : PrimitiveCore.Setting) : collapsed (induced S) 0 1 :=
   R2L_collapsed
 
-/-! ## 2. The holed context (duplicated from PR #147 pending its merge) -/
+/-! ## 2. The holed context (retained locally from the now-merged PR #147) -/
 
 def holeAt (d : Nat) (args : List Nat) : List (Option Nat) :=
   args.map (fun a => if a = d then none else some a)
@@ -207,9 +205,9 @@ theorem fresh_form_valid (r : Regime) (hwf : r.wf)
         exact (derivable_fresh hwf a args _ (hplug q.1)).mp
           (hiff.mpr ((derivable_fresh hwf a args _ (hplug q.2)).mpr h))
 
-/-- **The seed's three first-round classes embed at every difference**: at
-any `Good` state and any collapsed pair, the unary mark, the binary link and
-the binary self-loop are valid responses. -/
+/-- At any `Good` state and any distinct admitted pair, the unary mark,
+binary link and binary self-loop constructions are valid responses. This
+does not assert an embedding of classes or of whole response trees. -/
 theorem bare_round_embeds (r : Regime) (hg : Good r) (i j : Nat)
     (hi : i < r.data) (hj : j < r.data) (hij : i ≠ j) :
     validResponse r i j [.newForm 1, .newInst r.forms.length [i]] ∧

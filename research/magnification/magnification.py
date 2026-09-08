@@ -14,14 +14,12 @@ Three checks, one per bridge:
    node the exported fan equals the fan the relation demands — one edge per
    orbit demand and per minimum class, a supply edge exactly when quiet, the
    seed target at the root — with the recorded costs, tie counts and class
-   sizes; the completeness depth below which every fire-maximal history
-   lands on an exported node.  Orbit demands are re-derived a second way on
+   sizes; the first cutoff depth of the recorded traversal.  Orbit demands are re-derived a second way on
    small nodes: automorphisms by brute force over every bijection pair.
 2. **Restart.**  Two-step reachable classes from a node, recomputed from the
-   node alone, against the classes two edges away in the exported DAG (a
-   merge edge lands on the isomorphism representative and continues from
-   it): equivariance of the quotient, tested on every node whose two-step
-   neighbourhood is expanded.
+   node alone, continuing from one freshly replayed raw child per key,
+   against the keys two edges away in the exported DAG. This is a finite
+   check of selected representatives at fully expanded neighbourhoods.
 3. **Magnification.**  At every exported round: the seed's three first-round
    responses remain valid at the target; the exported minimum is one item
    wherever an existing form serves; the share of rounds where context
@@ -47,7 +45,7 @@ from derivation.candidates import (
     response_valid_naive,
 )
 from derivation.engine import READING_F, READING_L, Reading, closure_challenge_orbits
-from derivation.export import Json, event_from_json, read_json_gz, regime_sha256, verify_full_export
+from derivation.export import Json, event_from_json, event_json, read_json_gz, regime_sha256, verify_full_export
 from derivation.iso import CanonKey, canonical, serialize
 from derivation.model import AdmitDatum, Event, Impose, Pair, Regime, Supply, replay
 from derivation.observe import collapsed_pairs, separable
@@ -205,18 +203,22 @@ def check_export(ex: Export) -> JsonDict:
                 continue
             child = ex.regimes[cast(int, edges[0]["child"])]
             token = f"g{r.n_data()}"
+            if edges[0]["events"] != [event_json(Supply(token)), event_json(AdmitDatum(token))]:
+                failures.append(f"{ex.name} node {nid}: supply events differ from fresh growth")
             grown = replay((Supply(token), AdmitDatum(token)), r)
             if canonical(child) != canonical(grown):
                 failures.append(f"{ex.name} node {nid}: supply edge lands off the grown class")
             continue
         fans += 1
         expected: dict[tuple[Pair, CanonKey], tuple[int, int, tuple[int, int]]] = {}
+        minimum_deltas: dict[Pair, set[Delta]] = {}
         for target in targets:
             mr = min_responses(r, target, ex.measure, ex.bounds)
             if mr is None:
                 failures.append(f"{ex.name} node {nid}: no response to {target} within bounds")
                 continue
             grouped = classes_of(r, target, mr.deltas)
+            minimum_deltas[target] = set(mr.deltas)
             cost = (mr.cost[0], mr.cost[1]) if ex.measure == "mu2" else (mr.cost[0], -1)
             for key, members in grouped.items():
                 expected[(target, key)] = (len(grouped), len(members), cost)
@@ -234,6 +236,16 @@ def check_export(ex: Export) -> JsonDict:
                 failures.append(f"{ex.name} edge {nid}->{e['child']}: response is not a minimum class at {target}")
                 continue
             tie_classes, class_size, cost = expected[(target, key)]
+            if delta not in minimum_deltas[target]:
+                failures.append(f"{ex.name} edge {nid}->{e['child']}: response is not a minimum delta")
+                continue
+            declared_events = (Impose(*target),) + delta_events(r, delta)
+            if e["events"] != [event_json(event) for event in declared_events]:
+                failures.append(f"{ex.name} edge {nid}->{e['child']}: events differ from the declared response")
+                continue
+            if (target, key) in seen:
+                failures.append(f"{ex.name} edge {nid}->{e['child']}: duplicate minimum class")
+                continue
             if (cast(int, e["tie_classes"]), cast(int, e["class_size"]), tuple(cast(Sequence[int], e["cost"]))) != (tie_classes, class_size, cost):
                 failures.append(f"{ex.name} edge {nid}->{e['child']}: recorded ties/size/cost differ")
                 continue
@@ -345,22 +357,29 @@ def restart_check(ex: Export) -> JsonDict:
     keys = {nid: canonical(r) for nid, r in ex.regimes.items()}
     checked = 0
     failures: list[str] = []
-    cache: dict[int, set[CanonKey]] = {}
-
-    def successors(node: int) -> set[CanonKey]:
-        if node not in cache:
-            cache[node] = successor_classes(ex, ex.regimes[node], node == 0)
-        return cache[node]
-
     for nid, children in sorted(out_edges.items()):
         if status[nid] != "expanded" or any(status[c] != "expanded" for c in children):
             continue
         dag_two = {keys[g] for c in children for g in out_edges.get(c, [])}
         recomputed: set[CanonKey] = set()
-        for child_key in successors(nid):
-            # the child's own regime: the exported representative of its class
-            rep = next(c for c in children if keys[c] == child_key)
-            recomputed |= successors(rep)
+        r = ex.regimes[nid]
+        targets = (ex.reading.target,) if nid == 0 else closure_challenge_orbits(r)
+        raw_children: dict[CanonKey, Regime] = {}
+        if not targets and ex.supply:
+            token = f"g{r.n_data()}"
+            child = replay((Supply(token), AdmitDatum(token)), r)
+            raw_children[canonical(child)] = child
+        for target in targets:
+            mr = min_responses(r, target, ex.measure, ex.bounds)
+            if mr is None:
+                raise ClassError("no response within bounds")
+            for child_key, members in classes_of(r, target, mr.deltas).items():
+                child = replay((Impose(*target),) + delta_events(r, members[0]), r)
+                raw_children.setdefault(child_key, child)
+        # Continue from freshly replayed children, never the exported representative.
+        # One deterministic raw representative per computed key is tested here.
+        for child in raw_children.values():
+            recomputed |= successor_classes(ex, child, False)
         checked += 1
         if dag_two != recomputed:
             failures.append(f"{ex.name} node {nid}: two-step classes differ "
@@ -371,8 +390,8 @@ def restart_check(ex: Export) -> JsonDict:
 def restart_from_node(ex: Export, nid: int, rounds: int) -> JsonDict:
     """Restart the class at one exported node with its complete regime and
     run `rounds` fire-maximal engine steps, quotiented by isomorphism; then
-    read the same depths off the exported DAG.  Equal class sets at every
-    depth is the fractal statement, tested on one node."""
+    read the same depths off the exported DAG. Equal key sets at the checked
+    depths are a finite restart comparison for this selected node."""
     out_edges: dict[int, list[int]] = {}
     for e in ex.edges:
         out_edges.setdefault(cast(int, e["parent"]), []).append(cast(int, e["child"]))

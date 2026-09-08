@@ -4,10 +4,10 @@
   "census": "compiled environment theorem declarations in the EngineClass, Restart and Magnification namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "EngineClass.lean": "e5eda56fb87691a1c0a765600f7b7e5b69bccd96dcf71cd35b50652d7bf532ab",
+    "EngineClass.lean": "6ccd2fb2077b1fc2651f0eca028c7f515a5ba98b830d21f017563621c2f64bd8",
     "Inventory.lean": "28d94e01c9e3a94ccbbf843f9a7c53bf590ecc3343a00afcb368b5c024724632",
-    "Magnification.lean": "0f42692c4e64e3baa5de1a717675001ebe04ed452e2c8bb9ce6c7ff66ccd3d3f",
-    "Restart.lean": "a725f94035e0e8e858a15ed832e85664714fc19474e4ec36c3a4a07bb7f847ce",
+    "Magnification.lean": "d6b3f5cf366fbb10d6c5950696546ccc4de72eef07b0068f40abf24afd9121fd",
+    "Restart.lean": "95edef4584f06ea8e693a4ab14396b218e6da434978995403a629d4b60c96602",
     "lakefile.toml": "bf463f64c4ee53a9347542bf5819132a4cc169b5a24492af2813635850c540ae",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
