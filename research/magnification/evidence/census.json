@@ -1,0 +1,401 @@
+{
+ "authority_effect": "None",
+ "exports": {
+  "closed_F": {
+   "engine_class": {
+    "completeness_depth": 3,
+    "edges": 19,
+    "failures": [],
+    "fans_checked": 4,
+    "first_cutoff_depth": null,
+    "nodes": 20,
+    "rounds_checked": 19,
+    "rounds_minimum_and_representative": 19,
+    "statuses": {
+     "expanded": 4,
+     "terminal_all_separated": 16
+    },
+    "supplies_checked": 0
+   },
+   "guard": 1200,
+   "magnification": {
+    "creation_rounds": 19,
+    "one_item_minima": 9,
+    "rounds_cheaper_than_the_seed": 9,
+    "rounds_with_a_seed_response_among_the_minima": 10,
+    "seed_responses_valid": 19,
+    "two_item_minima": 10
+   },
+   "max_rounds": 15,
+   "measure": "mu1",
+   "orbit_brute_force": {
+    "automorphism_count_histogram": {
+     "1": 17,
+     "2": 2,
+     "6": 1
+    },
+    "disagreements": [],
+    "max_data": 5,
+    "max_forms": 3,
+    "nodes_checked": 20
+   },
+   "reading": "F",
+   "restart_two_step": {
+    "failures": [],
+    "nodes_checked": 1
+   },
+   "supply": false
+  },
+  "closed_L": {
+   "engine_class": {
+    "completeness_depth": 1,
+    "edges": 3,
+    "failures": [],
+    "fans_checked": 1,
+    "first_cutoff_depth": null,
+    "nodes": 4,
+    "rounds_checked": 3,
+    "rounds_minimum_and_representative": 3,
+    "statuses": {
+     "expanded": 1,
+     "terminal_all_separated": 3
+    },
+    "supplies_checked": 0
+   },
+   "guard": 1200,
+   "magnification": {
+    "creation_rounds": 3,
+    "one_item_minima": 0,
+    "rounds_cheaper_than_the_seed": 0,
+    "rounds_with_a_seed_response_among_the_minima": 3,
+    "seed_responses_valid": 3,
+    "two_item_minima": 3
+   },
+   "max_rounds": 15,
+   "measure": "mu1",
+   "orbit_brute_force": {
+    "automorphism_count_histogram": {
+     "1": 3,
+     "2": 1
+    },
+    "disagreements": [],
+    "max_data": 5,
+    "max_forms": 3,
+    "nodes_checked": 4
+   },
+   "reading": "L",
+   "restart_two_step": {
+    "failures": [],
+    "nodes_checked": 0
+   },
+   "supply": false
+  },
+  "tree_F_mu1": {
+   "engine_class": {
+    "completeness_depth": 5,
+    "edges": 1244,
+    "failures": [],
+    "fans_checked": 82,
+    "first_cutoff_depth": 5,
+    "nodes": 1201,
+    "rounds_checked": 1011,
+    "rounds_minimum_and_representative": 1011,
+    "statuses": {
+     "expanded": 315,
+     "frontier_guard": 886
+    },
+    "supplies_checked": 233
+   },
+   "guard": 1200,
+   "magnification": {
+    "creation_rounds": 967,
+    "one_item_minima": 957,
+    "rounds_cheaper_than_the_seed": 957,
+    "rounds_with_a_seed_response_among_the_minima": 10,
+    "seed_responses_valid": 967,
+    "two_item_minima": 10
+   },
+   "max_rounds": 15,
+   "measure": "mu1",
+   "orbit_brute_force": {
+    "automorphism_count_histogram": {
+     "1": 1131,
+     "2": 54,
+     "6": 3
+    },
+    "disagreements": [],
+    "max_data": 5,
+    "max_forms": 3,
+    "nodes_checked": 1188
+   },
+   "reading": "F",
+   "restart_two_step": {
+    "failures": [],
+    "nodes_checked": 109
+   },
+   "supply": true
+  },
+  "tree_F_mu2": {
+   "engine_class": {
+    "completeness_depth": 15,
+    "edges": 1960,
+    "failures": [],
+    "fans_checked": 549,
+    "first_cutoff_depth": 15,
+    "nodes": 1847,
+    "rounds_checked": 1547,
+    "rounds_minimum_and_representative": 1547,
+    "statuses": {
+     "completed": 885,
+     "expanded": 962
+    },
+    "supplies_checked": 413
+   },
+   "guard": 3000,
+   "magnification": {
+    "creation_rounds": 1433,
+    "one_item_minima": 1352,
+    "rounds_cheaper_than_the_seed": 1352,
+    "rounds_with_a_seed_response_among_the_minima": 75,
+    "seed_responses_valid": 1433,
+    "two_item_minima": 81
+   },
+   "max_rounds": 15,
+   "measure": "mu2",
+   "orbit_brute_force": {
+    "automorphism_count_histogram": {
+     "1": 29,
+     "2": 9,
+     "6": 1
+    },
+    "disagreements": [],
+    "max_data": 5,
+    "max_forms": 3,
+    "nodes_checked": 39
+   },
+   "reading": "F",
+   "restart_two_step": {
+    "failures": [],
+    "nodes_checked": 394
+   },
+   "supply": true
+  },
+  "tree_L_mu1": {
+   "engine_class": {
+    "completeness_depth": 6,
+    "edges": 1250,
+    "failures": [],
+    "fans_checked": 83,
+    "first_cutoff_depth": 6,
+    "nodes": 1205,
+    "rounds_checked": 1055,
+    "rounds_minimum_and_representative": 1055,
+    "statuses": {
+     "expanded": 278,
+     "frontier_guard": 927
+    },
+    "supplies_checked": 195
+   },
+   "guard": 1200,
+   "magnification": {
+    "creation_rounds": 1009,
+    "one_item_minima": 1001,
+    "rounds_cheaper_than_the_seed": 1001,
+    "rounds_with_a_seed_response_among_the_minima": 8,
+    "seed_responses_valid": 1009,
+    "two_item_minima": 8
+   },
+   "max_rounds": 15,
+   "measure": "mu1",
+   "orbit_brute_force": {
+    "automorphism_count_histogram": {
+     "1": 1105,
+     "2": 59,
+     "24": 1,
+     "6": 5
+    },
+    "disagreements": [],
+    "max_data": 5,
+    "max_forms": 3,
+    "nodes_checked": 1170
+   },
+   "reading": "L",
+   "restart_two_step": {
+    "failures": [],
+    "nodes_checked": 106
+   },
+   "supply": true
+  },
+  "tree_L_mu2": {
+   "engine_class": {
+    "completeness_depth": 15,
+    "edges": 1022,
+    "failures": [],
+    "fans_checked": 284,
+    "first_cutoff_depth": 15,
+    "nodes": 963,
+    "rounds_checked": 911,
+    "rounds_minimum_and_representative": 911,
+    "statuses": {
+     "completed": 568,
+     "expanded": 395
+    },
+    "supplies_checked": 111
+   },
+   "guard": 3000,
+   "magnification": {
+    "creation_rounds": 851,
+    "one_item_minima": 800,
+    "rounds_cheaper_than_the_seed": 800,
+    "rounds_with_a_seed_response_among_the_minima": 51,
+    "seed_responses_valid": 851,
+    "two_item_minima": 51
+   },
+   "max_rounds": 15,
+   "measure": "mu2",
+   "orbit_brute_force": {
+    "automorphism_count_histogram": {
+     "1": 30,
+     "2": 10
+    },
+    "disagreements": [],
+    "max_data": 5,
+    "max_forms": 3,
+    "nodes_checked": 40
+   },
+   "reading": "L",
+   "restart_two_step": {
+    "failures": [],
+    "nodes_checked": 213
+   },
+   "supply": true
+  }
+ },
+ "restart_samples": {
+  "export": "tree_L_mu2",
+  "runs": [
+   {
+    "layers": [
+     {
+      "dag_classes": 1,
+      "depth": 1,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 1,
+      "depth": 2,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 1,
+      "depth": 3,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 1,
+      "depth": 4,
+      "equal": true,
+      "recomputed_classes": 1
+     }
+    ],
+    "node": 1,
+    "node_depth": 1,
+    "rounds": 4
+   },
+   {
+    "layers": [
+     {
+      "dag_classes": 1,
+      "depth": 1,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 1,
+      "depth": 2,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 1,
+      "depth": 3,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 3,
+      "depth": 4,
+      "equal": true,
+      "recomputed_classes": 3
+     }
+    ],
+    "node": 2,
+    "node_depth": 2,
+    "rounds": 4
+   },
+   {
+    "layers": [
+     {
+      "dag_classes": 1,
+      "depth": 1,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 1,
+      "depth": 2,
+      "equal": true,
+      "recomputed_classes": 1
+     },
+     {
+      "dag_classes": 3,
+      "depth": 3,
+      "equal": true,
+      "recomputed_classes": 3
+     },
+     {
+      "dag_classes": 3,
+      "depth": 4,
+      "equal": true,
+      "recomputed_classes": 3
+     }
+    ],
+    "node": 3,
+    "node_depth": 3,
+    "rounds": 4
+   }
+  ]
+ },
+ "root_orbit_demands": {
+  "F": [
+   [
+    0,
+    1
+   ]
+  ],
+  "F_seed_is_orbit_representative": false,
+  "F_seed_target": [
+   1,
+   2
+  ],
+  "L": [
+   [
+    0,
+    1
+   ]
+  ]
+ },
+ "schema": "magnification-census-v1",
+ "totals": {
+  "edges": 5498,
+  "failures": 0,
+  "fans": 1003,
+  "minima": 4546,
+  "nodes": 5240,
+  "rounds": 4546,
+  "supplies": 952
+ }
+}

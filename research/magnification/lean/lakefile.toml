@@ -1,0 +1,26 @@
+name = "magnification"
+version = "0.1.0"
+defaultTargets = ["EngineClass", "Restart", "Magnification", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The merged replay-cut theorems of the local_reuse family, consumed
+# read-only rather than re-proved.
+[[require]]
+name = "local_reuse"
+path = "../../local_reuse/lean"
+
+[[lean_lib]]
+name = "EngineClass"
+
+[[lean_lib]]
+name = "Restart"
+
+[[lean_lib]]
+name = "Magnification"
+
+[[lean_lib]]
+name = "Inventory"
