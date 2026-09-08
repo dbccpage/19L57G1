@@ -46,12 +46,17 @@ def evidence() -> dict[str, object]:
         for steps in [ig.fire(root, measure, ig.BOUNDS, [reading.target])]
     }
     return {
-        "schema": "ignition-evidence-v1",
+        "schema": "ignition-evidence-v2",
         "authority_effect": "None",
         "bounds": {"max_items": ig.BOUNDS.max_items, "max_arity": ig.BOUNDS.max_arity},
-        "laws_declared": ["growth: supply and admit one fresh datum",
-                          "firing: a collapsed pair is the demand; a minimum valid "
-                          "response answers it; every class retained"],
+        "laws_declared": ["L1: supply and admit one fresh datum when growth is selected",
+                          "L2: collapsed distinct pairs supply the closure demands",
+                          "L3: the host driver fires before growth, subject to its step bound"],
+        "host_dependencies": ["declared candidate bounds and cost measure", "orbit representatives",
+                              "canonical-key quotient per target", "fresh-name convention",
+                              "explicit branch selections", "host iteration"],
+        "selection_policy": "the finite exhibits supply zero for each possible fire; every used selection is recorded",
+        "formal_run_scope": "grow-grow-mark prefixes in permissive XStep; driver liveness and inclusion-minimality OPEN",
         "root_families": root_families,
         "route_pair": ig.route_pair(),
         "fixpoint_census": ig.fixpoint_census(REPO),

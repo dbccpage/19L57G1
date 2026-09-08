@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "code"))
 
 import ignition as ig  # noqa: E402
 from derivation.candidates import NewInst, delta_events, response_valid_naive  # noqa: E402
-from derivation.model import AdmitDatum, Impose, Regime, Supply, certify, replay  # noqa: E402
+from derivation.model import AdmitDatum, AdmitForm, AdmitInst, Impose, Regime, Supply, certify, replay  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[3]
 ROOT_L = replay(ig.READINGS["L"].genesis)
@@ -227,6 +227,47 @@ class NegativeCases(unittest.TestCase):
     def test_selection_outside_the_family_is_refused(self) -> None:
         with self.assertRaisesRegex(ig.IgnitionError, "outside the family"):
             ig.drive(ig.READINGS["L"].genesis, "mu2", 1, [5], root_targets=[(0, 1)])
+
+    def test_missing_selection_is_refused_even_for_a_singleton(self) -> None:
+        with self.assertRaisesRegex(ig.IgnitionError, "missing selection for fire 0"):
+            ig.drive(ig.READINGS["L"].genesis, "mu2", 1, [], root_targets=[(0, 1)])
+        chosen = ig.drive(ig.READINGS["L"].genesis, "mu2", 1, [0], root_targets=[(0, 1)])
+        self.assertEqual(chosen.selections, (0,))
+        self.assertEqual(chosen.family_sizes, (1,))
+        self.assertTrue(chosen.certified())
+
+    def test_family_size_covers_all_target_orbits(self) -> None:
+        history = (AdmitDatum("a"), AdmitDatum("b"), AdmitDatum("c"), AdmitDatum("d"),
+                   AdmitForm(1), AdmitInst(0, (0,)), Impose(0, 1))
+        state = replay(history)
+        self.assertTrue(ig.good(state))
+        self.assertGreater(len(ig.orbit_demands(state)), 1)
+        family = ig.fire(state, "mu2")
+        index = len(family) - 1
+        chosen = ig.drive(history, "mu2", 1, [index])
+        self.assertEqual(chosen.selections, (index,))
+        self.assertEqual(chosen.family_sizes, (len(family),))
+        self.assertLess(chosen.steps[0].tie_classes, chosen.family_sizes[0])
+        self.assertTrue(chosen.certified())
+
+    def test_negative_indices_are_outside_the_sealed_natural_carrier(self) -> None:
+        invalid = (
+            Regime(("a",), (1,), frozenset({(0, (-1,))}), frozenset(), frozenset()),
+            Regime(("a",), (1,), frozenset({(0, (0,))}), frozenset(), frozenset({(-1, 0)})),
+        )
+        for state in invalid:
+            self.assertFalse(ig.well_formed(state))
+            self.assertFalse(ig.good(state))
+        self.assertTrue(ig.good(opening_children("L", "mu2")[0]))
+
+    def test_productive_block_schedule_is_not_fire_maximal_at_the_root(self) -> None:
+        # The formal run starts with growth. The executable driver must fire
+        # here because the reading's root already carries a collapsed pair.
+        self.assertEqual(ig.demands(ROOT_L), ((0, 1),))
+        self.assertEqual(ig.grow(ROOT_L).kind, "grow")
+        realized = ig.drive(ig.READINGS["L"].genesis, "mu2", 1, [0])
+        self.assertEqual(realized.steps[0].kind, "fire")
+        self.assertTrue(realized.certified())
 
     def test_a_minimum_never_carries_a_rule_or_an_unused_form(self) -> None:
         for child in opening_children("L", "mu1"):

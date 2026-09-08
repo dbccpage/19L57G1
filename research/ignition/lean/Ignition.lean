@@ -19,19 +19,19 @@ Nothing in `lean4/` is changed; the replay-cut theorems of the merged
 
 The file answers one question in seven parts.
 
-1. **The sealed signature has no autonomous transition.**  Every state
+1. **Replay permits idle histories.** Every state
    change is indexed by an event, and a bare-supply history of any length
    is lawful and changes nothing (`inert_history`, `idle_lawful`).  So the
-   idle interpretation satisfies every sealed premise: "what happens next"
-   is not a property the sealed signature can state.
+   idle history satisfies replay. This is not a formal undefinability claim
+   about an occurrence predicate or a state-based successor.
 2. **Demand from state, characterized.**  A fresh datum collapses with an
    admitted datum exactly when that datum is mentioned by no instance
    (`grow_demand_iff`).  Two fresh data always collapse
    (`two_grows_collapsed`).  At a state where every pair is separated, one
    growth step creates at most one demand (`grow_at_most_one_demand`).
    Growth changes no verdict on the old data (`grow_keeps_verdicts`).
-3. **The declared extension.**  `XStep` adds exactly two laws to the
-   sealed step: growth (one fresh datum) and firing (a collapsed pair
+3. **The declared extension.** `XStep` has two permitted step forms:
+   growth (one fresh datum) and firing (a collapsed pair
    becomes the demand and a valid rule-free response answers it — the
    sealed `TransStep`).  Every `XStep` decodes to a sealed event block that
    replays to the same successor (`grow_replays`, `fire_replays`), and the
@@ -42,7 +42,9 @@ The file answers one question in seven parts.
    data, one more form and one more requirement (`block_replays`,
    `blockState_good`), and iterates without bound (`runHist_replays`,
    `runState_data`, `runState_reqs`).  The response changes a verdict
-   (`block_is_activity`); the growth steps alone do not.
+   (`block_is_activity`); the growth steps alone do not. The construction
+   prescribes this schedule and the mark response. It is not a proof of
+   liveness for the Python minimum-response, fire-before-growth driver.
 5. **The residual bridge on the actual carrier.**  The sealed closure
    demand — a collapsed pair of distinct data — is exactly the residual
    of the profile presentation relative to the identity comparison
@@ -52,9 +54,9 @@ The file answers one question in seven parts.
    fibers and is idempotent (`joint_eq_iff`, `joint_idempotent`); its
    partition is order-free and its representative is not
    (`partition_order_free`, `representative_order_dependent`).
-6. **The future factors through the endpoint.**  Two histories reaching
-   one regime have identical continuations (`future_factors_through_endpoint`);
-   a route-dependent total is therefore invisible to every continuation
+6. **Common event suffixes factor through the endpoint.** Two histories reaching
+   one regime agree after the same suffix (`future_factors_through_endpoint`);
+   a route-dependent total is therefore invisible to that replay operation
    (`routes_agree`, `routes_cost_differ`).
 7. **What the boundary does not say.**  No statement here excludes the
    idle history; the extension's activity law is where that exclusion
@@ -725,9 +727,8 @@ theorem rootF_good : Good ⟨3, [], [], [], []⟩ := by
     cases hq
 
 /-- **Two interpretations of the same static facts.**  From any `Good`
-state the idle history and the block are both lawful under the sealed
-step; the sealed premises prefer neither.  Excluding the first is the
-extension's activity law, and nothing else. -/
+state the idle history and the block both satisfy sealed replay. This
+theorem does not select an occurring history or formalize an activity law. -/
 theorem idle_and_active_both_lawful {r : Regime} (hg : Good r) :
     replayE [Event.supply 0] r = some r ∧
       replayE (block r) r = some (blockState r) ∧ blockState r ≠ r :=
@@ -927,9 +928,9 @@ theorem representative_order_dependent :
 
 /-! ## 7. The future factors through the endpoint -/
 
-/-- Two histories reaching one regime have identical continuations: no
-continuation can distinguish them, so no route-dependent quantity is
-observable from within the sealed carrier. -/
+/-- Two histories reaching one regime agree after the same event suffix.
+A host driver reading the earlier history and choosing different suffixes
+is outside this statement. -/
 theorem future_factors_through_endpoint {h1 h2 : List Event} {b s : Regime}
     (e1 : replayE h1 b = some s) (e2 : replayE h2 b = some s) (k : List Event) :
     replayE (h1 ++ k) b = replayE (h2 ++ k) b := by
@@ -960,8 +961,8 @@ theorem routes_cost_differ :
     spanTotal commitEarly routeBase = 2 ∧ spanTotal commitLate routeBase = 3 := by
   decide
 
-/-- Every continuation of the two routes agrees: the differing total is
-not in the state and cannot be read back by any later history. -/
+/-- Every common event suffix of the two routes agrees: the differing total
+is absent from their shared endpoint. -/
 theorem routes_indistinguishable (k : List Event) :
     replayE (commitEarly ++ k) routeBase = replayE (commitLate ++ k) routeBase :=
   future_factors_through_endpoint (b := routeBase) (s := ⟨3, [1], [], [0], []⟩)

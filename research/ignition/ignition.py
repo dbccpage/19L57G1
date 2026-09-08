@@ -1,11 +1,11 @@
 """The declared extension on the sealed carrier, executed by the sealed kernel.
 
-AuthorityEffect: None.  This module adds no primitive.  Every state it
+AuthorityEffect: None.  This module adds no sealed event constructor.  Every state it
 produces is the sealed ``replay`` of a sealed event list; every demand it
 reads is the sealed ``collapsed_pairs``; every response family it offers is
 the sealed ``min_responses`` within the declared bounds, quotiented by the
 sealed ``canonical`` key with every class retained.  What it declares, and
-what the sealed derivation does not, are exactly two laws:
+what the sealed derivation does not, are two permitted step forms:
 
 * **growth** -- one fresh datum is supplied and admitted (the sealed
   engine's external continuation policy, taken as a law of the history
@@ -15,8 +15,10 @@ what the sealed derivation does not, are exactly two laws:
   sealed response search, taken as a law of the history class).
 
 Branch handling: a fire offers every retained isomorphism class.  A realized
-history therefore needs a selection, and ``drive`` takes that selection as an
-explicit input and records it; the family sizes are recorded alongside.
+history therefore needs a selection, and ``drive`` takes each selection as an
+explicit input and records it with the full offered family size. The host
+iteration and fire-before-growth schedule are additional declared apparatus;
+neither permitted step form supplies an occurrence law.
 
 Also here, as executable negative controls for the tests: a demand generator
 that reads presentation glyphs, a fire that drops tied classes, a scripted
@@ -99,11 +101,11 @@ def well_formed(r: Regime) -> bool:
     n = r.n_data()
     return (
         all(
-            0 <= f < len(r.forms) and len(args) == r.forms[f] and all(a < n for a in args)
+            0 <= f < len(r.forms) and len(args) == r.forms[f] and all(0 <= a < n for a in args)
             for (f, args) in r.insts
         )
         and all(0 <= f < len(r.forms) for f in r.rules)
-        and all(i < j < n for (i, j) in r.reqs)
+        and all(0 <= i < j < n for (i, j) in r.reqs)
         and all(a >= 1 for a in r.forms)
     )
 
@@ -249,6 +251,7 @@ class Realized:
     history: tuple[Event, ...]
     steps: tuple[Step, ...]
     selections: tuple[int, ...]
+    family_sizes: tuple[int, ...]
     final: Regime
 
     def certified(self) -> bool:
@@ -261,16 +264,18 @@ def drive(root_history: Sequence[Event], measure: str, n_steps: int,
     """Realize one history of the extension's class from a recorded root.
 
     Fire-maximal: while a demand stands and ``closure`` holds, fire and take
-    the branch named by the next selection (0 when the selection list is
-    exhausted); otherwise, if ``growth`` holds, grow; otherwise stop.  The
-    selection is an explicit input; the family it selects from is recorded
-    in each step's ``tie_classes``.  ``root_targets`` answers the sealed
+    the branch named by the next explicit selection; an exhausted selection
+    list is refused. Otherwise, if ``growth`` holds, grow; otherwise stop.
+    ``family_sizes`` records the full family across the supplied orbit targets;
+    each step's ``tie_classes`` counts responses to that step's target only.
+    ``root_targets`` answers the sealed
     reading's own target at the root, as the sealed engine does.
     """
     history = tuple(root_history)
     r = replay(history)
     steps: list[Step] = []
     used: list[int] = []
+    family_sizes: list[int] = []
     first = True
     for _ in range(n_steps):
         targets: tuple[Pair, ...] = ()
@@ -282,10 +287,13 @@ def drive(root_history: Sequence[Event], measure: str, n_steps: int,
         first = False
         if closure and targets:
             family = fire(r, measure, bounds, targets)
-            index = selections[len(used)] if len(used) < len(selections) else 0
+            if len(used) >= len(selections):
+                raise IgnitionError(f"missing selection for fire {len(used)} in family of {len(family)}")
+            index = selections[len(used)]
             if not (0 <= index < len(family)):
                 raise IgnitionError(f"selection {index} outside the family of {len(family)}")
             used.append(index)
+            family_sizes.append(len(family))
             chosen = family[index]
         elif growth:
             chosen = grow(r)
@@ -295,7 +303,7 @@ def drive(root_history: Sequence[Event], measure: str, n_steps: int,
         history = history + chosen.events
         r = chosen.child
         assert certify(history, r)
-    return Realized(history, tuple(steps), tuple(used), r)
+    return Realized(history, tuple(steps), tuple(used), tuple(family_sizes), r)
 
 
 # ---------------------------------------------------------------------------
@@ -306,7 +314,7 @@ def drive(root_history: Sequence[Event], measure: str, n_steps: int,
 def growth_demand_record(r: Regime) -> JsonDict:
     """One growth step from ``r``: the Lean characterization, executed.
     The new demands are exactly the pairs of the fresh datum with the
-    unmentioned data; at a good state there is at most one."""
+    unmentioned data; at a good closure fixpoint there is at most one."""
     child = grow(r).child
     before = set(demands(r))
     after = set(demands(child))
@@ -339,7 +347,7 @@ def linked_episodes(reading: Reading, measure: str, n_steps: int,
     for index, opening in enumerate(first_round):
         history = root_history + opening.events
         assert certify(history, opening.child)
-        realized = drive(history, measure, n_steps, [], bounds=bounds)
+        realized = drive(history, measure, n_steps, [0] * n_steps, bounds=bounds)
         kinds = [s.kind for s in realized.steps]
         grow_records: list[Json] = []
         state = opening.child
@@ -357,7 +365,9 @@ def linked_episodes(reading: Reading, measure: str, n_steps: int,
             "fires": len(fires),
             "grows": kinds.count("grow"),
             "growth_records": grow_records,
-            "fire_families": [s.tie_classes for s in fires],
+            "selections": list(realized.selections),
+            "fire_families": list(realized.family_sizes),
+            "target_response_classes": [s.tie_classes for s in fires],
             "fire_targets": [list(cast(Pair, s.target)) for s in fires],
             "every_fire_is_activity": all(
                 is_activity(_before(realized, k), s.child)
@@ -397,9 +407,9 @@ def disabled_components(reading: Reading, measure: str, n_steps: int,
     root = replay(root_history)
     opening = fire(root, measure, bounds, [reading.target])[0]
     history = root_history + opening.events
-    no_closure = drive(history, measure, n_steps, [], closure=False, bounds=bounds)
-    no_growth = drive(history, measure, n_steps, [], growth=False, bounds=bounds)
-    full = drive(history, measure, n_steps, [], bounds=bounds)
+    no_closure = drive(history, measure, n_steps, [0] * n_steps, closure=False, bounds=bounds)
+    no_growth = drive(history, measure, n_steps, [0] * n_steps, growth=False, bounds=bounds)
+    full = drive(history, measure, n_steps, [0] * n_steps, bounds=bounds)
     return {
         "reading": reading.name,
         "measure": measure,
@@ -430,7 +440,7 @@ def disabled_components(reading: Reading, measure: str, n_steps: int,
 def route_pair() -> JsonDict:
     """Exhibit 1, on the sealed carrier.  Two histories with one endpoint:
     commit a rule before growing, or after.  The span total differs, the
-    endpoint does not, and every continuation agrees."""
+    endpoint does not, and every common sealed event suffix agrees."""
     base_history: tuple[Event, ...] = (AdmitDatum("a"), AdmitDatum("b"), AdmitForm(1))
     base = replay(base_history)
     early: tuple[Event, ...] = (AdmitRuleAll(0), AdmitDatum("c"))

@@ -112,13 +112,14 @@ every standing requirement separated); `XStep` (growth, or a rule-free sealed
   with `r.data + 2k` data, `r.forms.length + k` forms and `r.reqs.length + k`
   requirements; `runHist r k` is a prefix of `runHist r (k+1)`; each block is
   three extension steps and its round changes the verdict on its target.
-- **Hypotheses**: `Good r`; growth supplied at every block (L1); the fresh
-  pair taken as the demand (L2); the block executed (L3).
+- **Hypotheses**: `Good r`. The definition prescribes two growths followed by
+  the fresh-pair mark response. Occurrence of that prescribed history is an
+  interpretation supplied outside the replay theorem.
 - **Novelty**: the first horizon-uniform productive run in the sealed event
   language; the sealed tree carried the closed bound and finite exports only.
   The `Constitution` tower is the analogous statement on the `World` carrier
-  with a represented policy; this one has no policy field and is priced as
-  three laws.
+  with a represented policy; this construction has no policy field and its
+  schedule and response are given by the definition.
 - **Evidence**: `runHist_replays`, `runState_good`, `runState_data`,
   `runState_forms`, `runState_reqs`, `runHist_prefix`, `block_is_xsteps`,
   `block_is_activity`, `rootL_good`, `rootF_good`.
@@ -126,8 +127,10 @@ every standing requirement separated); `XStep` (growth, or a rule-free sealed
   horizon at which the counts break.
 - **Obligation**: the block uses the mark response, always valid; the sealed
   engine's minimum at the same state may be a one-item instance when a form
-  exists — the run is a witness of the class, not the engine's minimum-cost
-  history.
+  exists. The run also grows while demands may stand, already at the
+  reading-L root. It is a witness in permissive `XStep`, not in the Python
+  driver's fire-before-growth class. Driver liveness and inclusion-minimality
+  of the law package remain OPEN, including within this grammar.
 
 ### CL-IG-09 — two interpretations of the same static facts
 
@@ -138,10 +141,11 @@ every standing requirement separated); `XStep` (growth, or a rule-free sealed
 - **Novelty**: the boundary theorem of this family.
 - **Evidence**: `idle_and_active_both_lawful`, `blockState_ne`,
   `block_is_activity`.
-- **Falsifier**: a sealed premise the idle history violates.
-- **Obligation**: the statement that the sealed signature cannot formulate
-  occurrence is a grammar observation (no transition without an event), not a
-  theorem, and is recorded as such.
+- **Falsifier**: failure of either displayed replay equality or of the
+  endpoint inequality.
+- **Obligation**: the sealed step takes an event argument and supplies no
+  occurrence law. Undefinability of occurrence or of a state-based successor
+  is not proved; either would require a separate formal statement.
 
 ### CL-IG-10 — the closure demand is the residual relative to identity
 
@@ -188,26 +192,30 @@ every standing requirement separated); `XStep` (growth, or a rule-free sealed
 
 ### CL-IG-13 — the future factors through the endpoint
 
-- **Statement**: two histories replaying to one regime have identical
-  continuations; the commit-early and commit-late routes share an endpoint,
-  differ in span total (2 against 3) and agree on every continuation.
-- **Hypotheses**: none.
+- **Statement**: two histories replaying to one regime agree after every
+  common sealed event suffix; the commit-early and commit-late routes share
+  an endpoint, differ in span total (2 against 3) and agree on every such suffix.
+- **Hypotheses**: both histories replay from the same base to the same
+  successful endpoint; the suffix is identical for both.
 - **Novelty**: the negative form of exhibit 1 on the sealed carrier; the
   route example is the merged `path_dependent_cost` witness restated, not a
   new result.
 - **Evidence**: `future_factors_through_endpoint`, `routes_agree`,
   `routes_cost_differ`, `routes_indistinguishable`; `route_pair` in the record.
 - **Falsifier**: a continuation distinguishing the two routes.
-- **Obligation**: storing a route-dependent quantity is a separately
-  classified extension, not built.
+- **Obligation**: a host driver reading retained history and choosing
+  different suffixes is outside this theorem. Storing a route-dependent
+  quantity in the carrier is a separately classified extension, not built.
 
 ### CL-IG-14 — the exhibits are certified computations
 
 - **Statement**: `linked_episodes`, `disabled_components`, `route_pair` and
   `fixpoint_census` in `evidence/ignition.json` replay byte-identically; every
   realized history certifies by the sealed `certify`; every fire is activity
-  and no growth is; removal of L2 removes all activity and removal of L1 stops
-  at the fixpoint; the root families are L/mu1 3 classes of 6, F/mu1 5 of 10,
+  and no growth is; in the recorded finite removal experiments, removal of
+  L2 removes activity and removal of L1 stops at the fixpoint. Every used
+  selection is explicit and recorded with the full offered family size;
+  per-target response-class counts are separate. The root families are L/mu1 3 classes of 6, F/mu1 5 of 10,
   mu2 1 of 2 for both readings.
 - **Class**: finite computation.
 - **Evidence**: `run.py --check`; `tests/test_ignition.py`,
@@ -217,7 +225,7 @@ every standing requirement separated); `XStep` (growth, or a rule-free sealed
 
 ### CL-IG-15 — the negative and positive controls
 
-- **Statement**: the eight named defects are rejected by the check they
+- **Statement**: the named defects are rejected by the check they
   attack and the two positive controls are accepted (section 8 of
   `README.md`).
 - **Class**: finite computation.
@@ -227,12 +235,12 @@ every standing requirement separated); `XStep` (growth, or a rule-free sealed
 
 ## What is not claimed
 
-* Seed entailment of any law: the three laws are declared, and CL-IG-01 is
-  the reason the third cannot be derived on the sealed signature.
+* Seed entailment of any law: the law groups and host mechanisms are
+  declared; CL-IG-01 proves that replay permits idle histories.
 * Engine refinement: the engine's minimum selection, orbit quotient and node
-  guards are not formalized; its exports are members of the class by
-  construction, not proved to be its quotient.
-* Necessity of `{grow, fire}` outside that grammar; a commitment over
+  guards are not formalized; certification checks replay, not membership in
+  a formal fire-before-growth class or completeness of its quotient.
+* Necessity of `{grow, fire}` within or outside that grammar; a commitment over
   profiles rather than indices; a represented budget on this carrier.
 * Anything about three-item responses, other measures, the `World`, passage or
   described-execution carriers, or exhibit 3.

@@ -128,6 +128,15 @@
      ],
      "opening_label": "form1+inst1",
      "opening_regime_sha256": "a028075c301188b12f03ef33de472ef827b70c62566d93a2a9a00982df6be2ba",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "fire",
       "fire",
@@ -139,6 +148,15 @@
       "fire",
       "grow",
       "fire"
+     ],
+     "target_response_classes": [
+      1,
+      5,
+      3,
+      1,
+      7,
+      5,
+      5
      ]
     },
     {
@@ -263,6 +281,15 @@
      ],
      "opening_label": "form2+inst2diag",
      "opening_regime_sha256": "5bfdb5c4b5e0def41345dfb7a7c89b8d191d5a5bfd24b2816c7392a2d92be9a5",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "fire",
       "grow",
@@ -274,6 +301,15 @@
       "grow",
       "fire",
       "fire"
+     ],
+     "target_response_classes": [
+      8,
+      11,
+      10,
+      15,
+      13,
+      19,
+      17
      ]
     },
     {
@@ -420,6 +456,13 @@
      ],
      "opening_label": "form2+inst2",
      "opening_regime_sha256": "f10b1e45b619165685f9d66449513f04a7b4c8a6fd83e48db8fc01553fe59bf0",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "fire",
@@ -431,6 +474,13 @@
       "fire",
       "grow",
       "fire"
+     ],
+     "target_response_classes": [
+      6,
+      16,
+      19,
+      23,
+      27
      ]
     },
     {
@@ -577,6 +627,13 @@
      ],
      "opening_label": "form2+inst2",
      "opening_regime_sha256": "79da0ac7bc5c64835e739f61586231ff576eb7b17324b3d3add8b7212adcfce3",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "fire",
@@ -588,6 +645,13 @@
       "fire",
       "grow",
       "fire"
+     ],
+     "target_response_classes": [
+      11,
+      16,
+      19,
+      23,
+      27
      ]
     },
     {
@@ -734,6 +798,13 @@
      ],
      "opening_label": "form2+inst2",
      "opening_regime_sha256": "4df0ce9e054a166f7b7291583fcd5c73ac402148de1d51687e03f212a5ebf866",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "fire",
@@ -745,6 +816,13 @@
       "fire",
       "grow",
       "fire"
+     ],
+     "target_response_classes": [
+      11,
+      16,
+      19,
+      23,
+      27
      ]
     }
    ],
@@ -884,6 +962,15 @@
      ],
      "opening_label": "form1+inst1",
      "opening_regime_sha256": "a028075c301188b12f03ef33de472ef827b70c62566d93a2a9a00982df6be2ba",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "fire",
       "fire",
@@ -895,6 +982,15 @@
       "fire",
       "grow",
       "fire"
+     ],
+     "target_response_classes": [
+      1,
+      1,
+      3,
+      1,
+      1,
+      5,
+      5
      ]
     }
    ],
@@ -1045,6 +1141,14 @@
      ],
      "opening_label": "form1+inst1",
      "opening_regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "fire",
@@ -1056,6 +1160,14 @@
       "grow",
       "fire",
       "grow"
+     ],
+     "target_response_classes": [
+      1,
+      5,
+      3,
+      1,
+      7,
+      5
      ]
     },
     {
@@ -1191,6 +1303,14 @@
      ],
      "opening_label": "form2+inst2diag",
      "opening_regime_sha256": "3d3f62f37fcda28ace29e56a84e793daba5e0e6ede7def2517d20d68fd87c448",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "fire",
@@ -1202,6 +1322,14 @@
       "fire",
       "grow",
       "fire"
+     ],
+     "target_response_classes": [
+      8,
+      11,
+      10,
+      15,
+      13,
+      19
      ]
     },
     {
@@ -1352,6 +1480,12 @@
      ],
      "opening_label": "form2+inst2",
      "opening_regime_sha256": "5b6e930fc90e9d3c87ab595dcd55ccd535932ff04c7f25e55f2d9a90618f6650",
+     "selections": [
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "grow",
@@ -1363,6 +1497,12 @@
       "grow",
       "fire",
       "grow"
+     ],
+     "target_response_classes": [
+      6,
+      16,
+      19,
+      23
      ]
     }
    ],
@@ -1513,6 +1653,14 @@
      ],
      "opening_label": "form1+inst1",
      "opening_regime_sha256": "2572a1df8b019c1992325219ba486bdec0fa75a2f788615232c1e33d4622205d",
+     "selections": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
      "steps": [
       "grow",
       "fire",
@@ -1524,6 +1672,14 @@
       "grow",
       "fire",
       "grow"
+     ],
+     "target_response_classes": [
+      1,
+      1,
+      3,
+      1,
+      1,
+      5
      ]
     }
    ],
@@ -1828,9 +1984,19 @@
    ]
   }
  },
+ "formal_run_scope": "grow-grow-mark prefixes in permissive XStep; driver liveness and inclusion-minimality OPEN",
+ "host_dependencies": [
+  "declared candidate bounds and cost measure",
+  "orbit representatives",
+  "canonical-key quotient per target",
+  "fresh-name convention",
+  "explicit branch selections",
+  "host iteration"
+ ],
  "laws_declared": [
-  "growth: supply and admit one fresh datum",
-  "firing: a collapsed pair is the demand; a minimum valid response answers it; every class retained"
+  "L1: supply and admit one fresh datum when growth is selected",
+  "L2: collapsed distinct pairs supply the closure demands",
+  "L3: the host driver fires before growth, subject to its step bound"
  ],
  "root_families": {
   "F_mu1": {
@@ -1892,5 +2058,6 @@
   "span_total_early": 2,
   "span_total_late": 3
  },
- "schema": "ignition-evidence-v1"
+ "schema": "ignition-evidence-v2",
+ "selection_policy": "the finite exhibits supply zero for each possible fire; every used selection is recorded"
 }

@@ -4,7 +4,7 @@
   "census": "compiled environment theorem declarations in the Ignition namespace",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Ignition.lean": "9aa01d463825565c584dc8b33e347f331a281d04e54327bb54f1c10411c9b71f",
+    "Ignition.lean": "b2051e09657a7b0f43d7b7fce026bf032dd806157b014022d9ee075b410e484d",
     "Inventory.lean": "3da0a9eeb452c932b33d3dcadef59b839683bdbfdc7e2cfc1e1a03100f41d1ea",
     "lakefile.toml": "c3dae512d55898c79ca48f1af47a97bf5cb33efaaa095230d2be892d5a021341",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
