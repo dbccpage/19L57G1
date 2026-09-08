@@ -30,7 +30,9 @@ Candidates only. AuthorityEffect: None. Nothing here is approved or scheduled.
 - **Need:** close the standing "elaboration is not auditing" residual. Every
   module under `lean4/Derivation/` elaborates against a pinned census, but a
   module the root does not import emits no `#print axioms` report, so
-  "axiom-clean" covers only the 1314 enumerated reports
+  "axiom-clean" covers only the enumerated reports (1314 when this entry
+  was written; the census landed since, and the inventory is 1530 as of
+  2026-09-08 at `60c2cb05`)
 - **Proposed behaviour:** enumerate declarations from the ELABORATOR, not
   from text, and emit a report per parked declaration
 - **Not in scope:** any regex over `.lean` source. That approach is already

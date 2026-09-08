@@ -402,10 +402,11 @@ dispositions), and also `lean_definition_map.md` and
 and full arriving statements verbatim throughout.  `lean4/`, `code/`
 and `paper/` carry none of it.
 
-**Where the new theorems live.**  Three modules, 2015 lines in the
-working tree (539 + 710 + 766; 1942 at the spine commit `ebb1e0b`),
-every `#print axioms` report inside {propext, Quot.sound}
-(`artifacts/lean_axioms.txt`, 1184 reports):
+**Where the new theorems live.**  Three modules, 2274 lines as of
+2026-09-08 at `60c2cb05` (539 + 710 + 1025; 2015 when this section was
+written, 1942 at the spine commit `ebb1e0b`), every `#print axioms`
+report inside {propext, Quot.sound} (`artifacts/lean_axioms.txt`, 1184
+reports when written, 1530 as of 2026-09-08):
 
 | module | content | headline names |
 |---|---|---|
