@@ -1,14 +1,15 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 18,
-  "census": "compiled environment theorem declarations in the Translation, Chains and Visible namespaces",
+  "axiom_free_count": 22,
+  "census": "compiled environment theorem declarations in the Translation, Chains, Visible and Transcription namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Chains.lean": "bf6cf8d6549d0c89eac78d0332b6b3aed7d1cb80863ec35c0dd3407595344ba5",
-    "Inventory.lean": "d49b674015793fd02b9b1ae40e6c5e10d440f4dde9f7eb9259b82e45ea71e9b4",
-    "Translation.lean": "b6a671cf93b965c45b3a00053c8822d4d474a3cf4c5ca38c591c46484141eb41",
-    "Visible.lean": "66fb2c6c9135032735fc1aeaac0205c7852537cd36c1c1d239ead96cec8ef228",
-    "lakefile.toml": "b879faf07ddd61aaa88cc6da4a3539ad0cb3355870e5c53c1f3499e83acc75b6",
+    "Inventory.lean": "a78d842b1d2362e4f593dd6faf799e9d45952ba0208e168bf08f6fa1f2996341",
+    "Transcription.lean": "1d1c0b4593fdb8ea4181c962d343e8be7d8fc4c0d68c45cec7924d4ed57c4e02",
+    "Translation.lean": "7e7f36d45d20ab0a85a07d5b2d13275320bd0193391ef928d3e4a95eadce2613",
+    "Visible.lean": "ab5e5f16cfb8382eeef24f203ea752af93bc8254fc7fde094dfd0ed3d3ccd0e9",
+    "lakefile.toml": "f82672361e0db8d0968e87dc295fa1eac657cabf6d748f5b2568c69f1e769a94",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
@@ -88,6 +89,192 @@
     "Chains.wordOk_tail": [],
     "Chains.wordOk_take": [],
     "Chains.word_in_clos": [
+      "propext"
+    ],
+    "Transcription.boolEmptyMerged_d": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.boolEmptyMerged_not_e": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.boolEmpty_d": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.boolEmpty_e": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.boolEmpty_not_a": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.boolEmpty_not_c": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.boolEmpty_not_w": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.closedOn_spec": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Bare._proof_1": [],
+    "Transcription.d2Bare_a": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Bare_bc": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Bare_bl": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Bare_not_bs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Bare_not_c": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Bare_not_f": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Merged._proof_1": [],
+    "Transcription.d2Merged_a": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Merged_bc": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Merged_bl": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Merged_not_e": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2ProtectedMerged_f": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2ProtectedMerged_not_e": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Protected_f": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.d2Protected_not_bs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.ok_a": [
+      "propext"
+    ],
+    "Transcription.ok_b": [
+      "propext"
+    ],
+    "Transcription.ok_ops": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.s2Bare_bs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.s2Bare_not_c": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.s2Bare_not_f": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.s2Merged_bs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.s2Merged_not_e": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.tri._proof_1": [],
+    "Transcription.triProtected_f": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.triProtected_not_bc": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.triSym_bs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.triSym_not_bc": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.tri_a": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.tri_bl": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.tri_not_bc": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitBare._proof_1": [],
+    "Transcription.unitBare_not_a": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitBare_not_c": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitBare_not_d": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitBare_not_e": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitBare_w": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitFull_c": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitFull_not_a": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitFull_not_d": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Transcription.unitFull_not_e": [
+      "Quot.sound",
       "propext"
     ],
     "Translation.A_iff": [
@@ -266,6 +453,13 @@
       "Quot.sound",
       "propext"
     ],
+    "Visible.A_separable_rev": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Visible.applyItem_newInst": [
+      "propext"
+    ],
     "Visible.binary_getD": [
       "propext"
     ],
@@ -279,6 +473,9 @@
     ],
     "Visible.collapsed_iff_not_visible": [
       "Quot.sound",
+      "propext"
+    ],
+    "Visible.derivable_add": [
       "propext"
     ],
     "Visible.encode_binary": [
@@ -301,6 +498,14 @@
       "Quot.sound",
       "propext"
     ],
+    "Visible.encode_link_min": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Visible.encode_self_min": [
+      "Quot.sound",
+      "propext"
+    ],
     "Visible.encode_separable_iff": [
       "Quot.sound",
       "propext"
@@ -319,6 +524,12 @@
     ],
     "Visible.linkOnly_visible": [
       "Quot.sound",
+      "propext"
+    ],
+    "Visible.link_min": [
+      "propext"
+    ],
+    "Visible.link_valid": [
       "propext"
     ],
     "Visible.noPair_collapsed": [
@@ -368,7 +579,16 @@
       "Quot.sound",
       "propext"
     ],
+    "Visible.self_min": [
+      "propext"
+    ],
+    "Visible.self_valid": [
+      "propext"
+    ],
     "Visible.separable_iff_visible": [
+      "propext"
+    ],
+    "Visible.separable_symm": [
       "propext"
     ],
     "Visible.two._proof_1": [],
@@ -403,11 +623,12 @@
   },
   "reports_per_namespace": {
     "Chains": 24,
+    "Transcription": 50,
     "Translation": 51,
-    "Visible": 41
+    "Visible": 51
   },
   "schema_version": 1,
   "scope": "the exact theorem statements and their explicit hypotheses over finite settings: carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier",
-  "theorem_count_including_generated": 116,
+  "theorem_count_including_generated": 176,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

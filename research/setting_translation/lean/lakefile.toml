@@ -1,6 +1,6 @@
 name = "setting_translation"
 version = "0.1.0"
-defaultTargets = ["Translation", "Chains", "Visible", "Inventory"]
+defaultTargets = ["Translation", "Chains", "Visible", "Transcription", "Inventory"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -26,6 +26,9 @@ name = "Chains"
 
 [[lean_lib]]
 name = "Visible"
+
+[[lean_lib]]
+name = "Transcription"
 
 [[lean_lib]]
 name = "Inventory"

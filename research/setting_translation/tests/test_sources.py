@@ -27,7 +27,7 @@ def git(root: Path, *args: str) -> bytes:
 class Fixture:
     def __init__(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self.tmp.name) / "fixture"
+        self.root = (Path(self.tmp.name) / "fixture").resolve()
         self.root.mkdir()
         root = self.root
         git(root, "init", "--quiet")
@@ -43,6 +43,14 @@ class Fixture:
         self.baseline = git(root, "rev-parse", "HEAD").decode().strip()
         self.original_baseline = guard.BASELINE_COMMIT
         guard.BASELINE_COMMIT = self.baseline
+        try:
+            self._write_manifest(root)
+        except BaseException:
+            guard.BASELINE_COMMIT = self.original_baseline
+            self.tmp.cleanup()
+            raise
+
+    def _write_manifest(self, root: Path) -> None:
         manifest = {
             "schema": guard.SCHEMA,
             "baseline_commit": self.baseline,

@@ -55,10 +55,26 @@ class CommittedRecord(unittest.TestCase):
                         "Chains.word_in_clos", "Visible.separable_iff_visible",
                         "Visible.collapsed_iff_not_visible", "Visible.A_separable",
                         "Visible.witness_alone_invisible", "Visible.A_no_fire", "Visible.one_inst_min",
+                        "Visible.link_valid", "Visible.self_valid", "Visible.link_min", "Visible.self_min",
+                        "Visible.encode_link_min", "Visible.encode_self_min", "Visible.A_separable_rev",
                         "Visible.noPair_fires_self", "Visible.noPair_fires_link", "Visible.everyPair_fires",
-                        "Visible.seed_embeds"):
+                        "Visible.seed_embeds", "Transcription.d2Bare_not_bs", "Transcription.boolEmpty_e",
+                        "Transcription.triProtected_f"):
             self.assertIn(theorem, reports)
         self.assertEqual(record["python_mirror_refinement"], "NOT_PROVED")
+
+    def test_the_figures_the_readme_quotes(self) -> None:
+        record = json.loads(RECORD.read_text(encoding="utf-8"))
+        authored = sum(
+            1 for module in MODULES
+            for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
+            if line.startswith("#print axioms ")
+        )
+        self.assertEqual(authored, 144)
+        self.assertEqual(record["theorem_count_including_generated"], 176)
+        self.assertEqual(record["axiom_free_count"], 22)
+        self.assertEqual(record["reports_per_namespace"],
+                         {"Translation": 51, "Chains": 24, "Visible": 51, "Transcription": 50})
 
 
 if __name__ == "__main__":

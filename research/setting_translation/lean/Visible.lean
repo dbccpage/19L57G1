@@ -13,22 +13,26 @@ or **column** differs at them; and collapse is the negation
 (`collapsed_iff_not_visible`); the self-instance clause is never the only
 witness (`visible_iff_rows_columns`).
 
-On an encoded setting this reads: the asserted difference is internal
-exactly when the relation treats the two endpoints differently in a
-self-instance, a row or a column.  A witnessed pair with no self-instance
-is always internal (`A_separable`): the row context at the second endpoint
-sees the link `(0, [a, b])` present and the self-instance `(0, [b, b])`
-absent.  A bare witness is not enough: the constant relation on two points
-asserts the pair and leaves it collapsed (`witness_alone_invisible`).
+On an encoded setting this reads: the designated pair is internal exactly
+when some form — a store or an operation graph — treats the two endpoints
+differently in a self-instance, a row or a column.  A witnessed pair with
+no self-instance is always internal (`A_separable`): the row context at the
+second endpoint sees the link `(0, [a, b])` present and the self-instance
+`(0, [b, b])` absent.  A bare witness is not enough: the constant relation
+on two points with empty stores and no operation asserts the pair and
+leaves it collapsed (`witness_alone_invisible`).
 
-At a collapsed encoded pair the sealed engine fires, and a valid
-one-instance response is a minimum under both measures (`one_inst_min`); on
+At a collapsed pair of a binary regime, every absent link and every absent
+self-instance is a valid response (`link_valid`, `self_valid`) and hence a
+minimum under both measures (`one_inst_min`, `link_min`, `self_min`); on
 the two-point setting with no assertion the self-instance and the link on
-the difference form are each such minima (`noPair_fires_self`,
+the difference form are such minima (`noPair_fires_self`,
 `noPair_fires_link`), and on the constant relation a self-instance on the
-empty retention form is (`everyPair_fires`).  At a visible pair the engine
-has no seed firing (`A_no_fire`), while the three fresh-form responses of
-the seed remain valid there (`seed_embeds`).
+empty retention form is (`everyPair_fires`).  When every instance of every
+form is present no one-instance response exists and the theorems say
+nothing.  At a visible pair the engine has no seed firing, in either order
+of the endpoints (`A_no_fire`), while the three fresh-form responses of the
+seed remain valid there (`seed_embeds`).
 
 AuthorityEffect: None.
 -/
@@ -289,10 +293,21 @@ theorem no_fire_of_separable {m : Measure} {r : Regime} {i j : Nat} {δ : List I
     {t : Regime} (h : separable r i j) : ¬ Fire m r i j δ t :=
   fun hf => separable_not_collapsed h hf.2.2.1
 
-/-- **At a witnessed irreflexive pair the engine has nothing to do.** -/
+/-- Separability is symmetric. -/
+theorem separable_symm {r : Regime} {x y : Nat} (h : separable r x y) : separable r y x := by
+  obtain ⟨c, hc, hne⟩ := h
+  exact ⟨c, hc, fun h' => hne h'.symm⟩
+
+theorem A_separable_rev (F : FiniteSetting) (h : PrimitiveCore.A (toSetting F)) :
+    separable (encode F) F.b F.a :=
+  separable_symm (A_separable F h)
+
+/-- **At a witnessed irreflexive pair the engine has nothing to do**, whichever
+of the two endpoints the engine orders first. -/
 theorem A_no_fire (F : FiniteSetting) (h : PrimitiveCore.A (toSetting F)) (m : Measure)
-    (δ : List Item) (t : Regime) : ¬ Fire m (encode F) F.a F.b δ t :=
-  no_fire_of_separable (A_separable F h)
+    (δ : List Item) (t : Regime) :
+    ¬ Fire m (encode F) F.a F.b δ t ∧ ¬ Fire m (encode F) F.b F.a δ t :=
+  ⟨no_fire_of_separable (A_separable F h), no_fire_of_separable (A_separable_rev F h)⟩
 
 /-- At a collapsed pair, a valid one-instance response is a minimum under
 both measures. -/
@@ -323,6 +338,115 @@ theorem one_inst_min (m : Measure) {r : Regime} {i j f : Nat} {args : List Nat}
             | nil => exact Or.inr ⟨rfl, Nat.zero_le _⟩
             | cons _ _ => exact Or.inl (Nat.succ_lt_succ (Nat.succ_pos _))
 
+/-! ## 6. Absent instances at a collapsed pair -/
+
+/-- Derivability after admitting one absent instance: the old derivable
+instances and the new one. -/
+theorem derivable_add {r : Regime} {p : Inst} (hp : p ∉ r.insts) (x : Inst) :
+    derivable { r with insts := insertNew r.insts p } x ↔ derivable r x ∨ x = p := by
+  show (x ∈ insertNew r.insts p ∨ x.1 ∈ r.rules) ↔ (x ∈ r.insts ∨ x.1 ∈ r.rules) ∨ x = p
+  rw [insertNew_of_not_mem hp, List.mem_append, List.mem_singleton]
+  constructor
+  · rintro ((h | h) | h)
+    · exact Or.inl (Or.inl h)
+    · exact Or.inr h
+    · exact Or.inl (Or.inr h)
+  · rintro ((h | h) | h)
+    · exact Or.inl (Or.inl h)
+    · exact Or.inr h
+    · exact Or.inl (Or.inr h)
+
+theorem applyItem_newInst {r : Regime} {f : Nat} {args : List Nat}
+    (hf : f < r.forms.length) (hlen : args.length = r.forms.getD f 0)
+    (hargs : ∀ x ∈ args, x < r.data) :
+    applyItem r (.newInst f args) = some { r with insts := insertNew r.insts (f, args) } := by
+  show (if f < r.forms.length ∧ args.length = r.forms.getD f 0 ∧ (∀ x ∈ args, x < r.data)
+      then some { r with insts := insertNew r.insts (f, args) } else none) = _
+  rw [if_pos ⟨hf, hlen, hargs⟩]
+
+/-- **An absent link is a valid response at a collapsed pair** of a binary
+regime without standing requirements: the row context at the second datum
+sees the link present and the second self-instance absent (collapse forced
+that self-instance absent through the same context). -/
+theorem link_valid {r : Regime} (hb : Binary r) (hq : r.reqs = []) {i j f : Nat}
+    (hi : i < r.data) (hj : j < r.data) (hij : i ≠ j) (hf : f < r.forms.length)
+    (hc : collapsed r i j) (habs : ¬ derivable r (f, [i, j])) :
+    validResponse r i j [.newInst f [i, j]] := by
+  have hmem : ((f, [i, j]) : Inst) ∉ r.insts := fun h => habs (Or.inl h)
+  have hjj : ¬ derivable r (f, [j, j]) := fun h =>
+    habs ((hc ⟨f, [none, some j]⟩ (wfCtx_row hb hf hj)).mpr h)
+  refine ⟨{ r with insts := insertNew r.insts (f, [i, j]) }, ?_, ?_, ?_⟩
+  · rw [applyDelta_single]
+    exact applyItem_newInst hf (by rw [binary_getD hb hf]; rfl) (two_args_lt hi hj)
+  · refine ⟨⟨f, [none, some j]⟩, wfCtx_row hb hf hj, ?_⟩
+    show ¬ (derivable _ (f, [i, j]) ↔ derivable _ (f, [j, j]))
+    rw [derivable_add hmem, derivable_add hmem]
+    intro hiff
+    rcases hiff.mp (Or.inr rfl) with h | h
+    · exact hjj h
+    · injection h with _ h2
+      exact hij (list_two_inj h2).1.symm
+  · intro q hq'
+    rw [hq] at hq'
+    exact absurd hq' List.not_mem_nil
+
+/-- **An absent self-instance is a valid response at a collapsed pair**: the
+column context at the first datum sees it present and the link absent. -/
+theorem self_valid {r : Regime} (hb : Binary r) (hq : r.reqs = []) {i j f : Nat}
+    (hi : i < r.data) (hij : i ≠ j) (hf : f < r.forms.length)
+    (hc : collapsed r i j) (habs : ¬ derivable r (f, [i, i])) :
+    validResponse r i j [.newInst f [i, i]] := by
+  have hmem : ((f, [i, i]) : Inst) ∉ r.insts := fun h => habs (Or.inl h)
+  have hij' : ¬ derivable r (f, [i, j]) := fun h =>
+    habs ((hc ⟨f, [some i, none]⟩ (wfCtx_column hb hf hi)).mpr h)
+  refine ⟨{ r with insts := insertNew r.insts (f, [i, i]) }, ?_, ?_, ?_⟩
+  · rw [applyDelta_single]
+    exact applyItem_newInst hf (by rw [binary_getD hb hf]; rfl) (two_args_lt hi hi)
+  · refine ⟨⟨f, [some i, none]⟩, wfCtx_column hb hf hi, ?_⟩
+    show ¬ (derivable _ (f, [i, i]) ↔ derivable _ (f, [i, j]))
+    rw [derivable_add hmem, derivable_add hmem]
+    intro hiff
+    rcases hiff.mp (Or.inr rfl) with h | h
+    · exact hij' h
+    · injection h with _ h2
+      exact hij (list_two_inj h2).2.symm
+  · intro q hq'
+    rw [hq] at hq'
+    exact absurd hq' List.not_mem_nil
+
+/-- Every absent link at a collapsed pair is a minimum under both measures. -/
+theorem link_min (m : Measure) {r : Regime} (hb : Binary r) (hq : r.reqs = []) {i j f : Nat}
+    (hi : i < r.data) (hj : j < r.data) (hij : i ≠ j) (hf : f < r.forms.length)
+    (hc : collapsed r i j) (habs : ¬ derivable r (f, [i, j])) :
+    IsMin m r i j [.newInst f [i, j]] :=
+  one_inst_min m hc (link_valid hb hq hi hj hij hf hc habs)
+
+/-- Every absent self-instance at a collapsed pair is a minimum under both
+measures. -/
+theorem self_min (m : Measure) {r : Regime} (hb : Binary r) (hq : r.reqs = []) {i j f : Nat}
+    (hi : i < r.data) (hij : i ≠ j) (hf : f < r.forms.length)
+    (hc : collapsed r i j) (habs : ¬ derivable r (f, [i, i])) :
+    IsMin m r i j [.newInst f [i, i]] :=
+  one_inst_min m hc (self_valid hb hq hi hij hf hc habs)
+
+/-- On an encoded setting whose designated pair is collapsed, an absent link
+on any form is a minimum response. -/
+theorem encode_link_min (F : FiniteSetting) (m : Measure) {f : Nat}
+    (hf : f < (encode F).forms.length) (hab : F.a ≠ F.b)
+    (hc : collapsed (encode F) F.a F.b) (habs : ¬ derivable (encode F) (f, [F.a, F.b])) :
+    IsMin m (encode F) F.a F.b [.newInst f [F.a, F.b]] :=
+  link_min m (encode_binary F) rfl F.a_lt F.b_lt hab hf hc habs
+
+/-- On an encoded setting whose designated pair is collapsed, an absent
+self-instance on any form is a minimum response. -/
+theorem encode_self_min (F : FiniteSetting) (m : Measure) {f : Nat}
+    (hf : f < (encode F).forms.length) (hab : F.a ≠ F.b)
+    (hc : collapsed (encode F) F.a F.b) (habs : ¬ derivable (encode F) (f, [F.a, F.a])) :
+    IsMin m (encode F) F.a F.b [.newInst f [F.a, F.a]] :=
+  self_min m (encode_binary F) rfl F.a_lt hab hf hc habs
+
+/-! ## 7. The exhibits fired -/
+
 /-- The state after the seed round on the two-point setting with no
 assertion, answered by the self-instance. -/
 def noPairSelf : Regime := ⟨2, [2, 2, 2], [(0, [0, 0])], [], [(0, 1)]⟩
@@ -330,23 +454,22 @@ def noPairSelf : Regime := ⟨2, [2, 2, 2], [(0, [0, 0])], [], [(0, 1)]⟩
 /-- The same, answered by the link. -/
 def noPairLink : Regime := ⟨2, [2, 2, 2], [(0, [0, 1])], [], [(0, 1)]⟩
 
-theorem noPair_self_valid : validResponse (encode (two noPair)) 0 1 [.newInst 0 [0, 0]] := by
-  refine ⟨⟨2, [2, 2, 2], [(0, [0, 0])], [], []⟩, by decide, ?_,
-    fun _ hq => absurd hq List.not_mem_nil⟩
-  exact (separable_iff_visible (by decide) 0 1).mpr (by decide)
+theorem noPair_self_valid : validResponse (encode (two noPair)) 0 1 [.newInst 0 [0, 0]] :=
+  self_valid (encode_binary _) rfl (by decide) (by decide) (by decide) noPair_collapsed (by decide)
 
-theorem noPair_link_valid : validResponse (encode (two noPair)) 0 1 [.newInst 0 [0, 1]] := by
-  refine ⟨⟨2, [2, 2, 2], [(0, [0, 1])], [], []⟩, by decide, ?_,
-    fun _ hq => absurd hq List.not_mem_nil⟩
-  exact (separable_iff_visible (by decide) 0 1).mpr (by decide)
+theorem noPair_link_valid : validResponse (encode (two noPair)) 0 1 [.newInst 0 [0, 1]] :=
+  link_valid (encode_binary _) rfl (by decide) (by decide) (by decide) (by decide)
+    noPair_collapsed (by decide)
 
-/-- **The self-instance is a minimum response at the bare two-point pair.** -/
+/-- **The self-instance is a minimum response at the two-point pair with no
+assertion.** -/
 theorem noPair_fires_self (m : Measure) :
     Fire m (encode (two noPair)) 0 1 [.newInst 0 [0, 0]] noPairSelf :=
   ⟨by decide, by decide, noPair_collapsed, one_inst_min m noPair_collapsed noPair_self_valid,
    by decide⟩
 
-/-- **The link is a minimum response at the bare two-point pair.** -/
+/-- **The link is a minimum response at the two-point pair with no
+assertion.** -/
 theorem noPair_fires_link (m : Measure) :
     Fire m (encode (two noPair)) 0 1 [.newInst 0 [0, 1]] noPairLink :=
   ⟨by decide, by decide, noPair_collapsed, one_inst_min m noPair_collapsed noPair_link_valid,
@@ -366,13 +489,12 @@ def everyPairFired : Regime :=
   ⟨2, [2, 2, 2], [(0, [0, 0]), (0, [0, 1]), (0, [1, 0]), (0, [1, 1]), (1, [0, 0])], [], [(0, 1)]⟩
 
 theorem everyPair_self_valid :
-    validResponse (encode (two everyPair)) 0 1 [.newInst 1 [0, 0]] := by
-  refine ⟨⟨2, [2, 2, 2], [(0, [0, 0]), (0, [0, 1]), (0, [1, 0]), (0, [1, 1]), (1, [0, 0])], [], []⟩,
-    by decide, ?_, fun _ hq => absurd hq List.not_mem_nil⟩
-  exact (separable_iff_visible (by decide) 0 1).mpr (by decide)
+    validResponse (encode (two everyPair)) 0 1 [.newInst 1 [0, 0]] :=
+  self_valid (encode_binary _) rfl (by decide) (by decide) (by decide) everyPair_collapsed
+    (by decide)
 
 /-- **Where the asserted relation is constant across the pair, a self-instance
-on another form is a minimum response.** -/
+on the empty retention form is a minimum response.** -/
 theorem everyPair_fires (m : Measure) :
     Fire m (encode (two everyPair)) 0 1 [.newInst 1 [0, 0]] everyPairFired :=
   ⟨by decide, by decide, everyPair_collapsed,
@@ -407,8 +529,18 @@ end Visible
 #print axioms Visible.encode_good
 #print axioms Visible.seed_embeds
 #print axioms Visible.no_fire_of_separable
+#print axioms Visible.separable_symm
+#print axioms Visible.A_separable_rev
 #print axioms Visible.A_no_fire
 #print axioms Visible.one_inst_min
+#print axioms Visible.derivable_add
+#print axioms Visible.applyItem_newInst
+#print axioms Visible.link_valid
+#print axioms Visible.self_valid
+#print axioms Visible.link_min
+#print axioms Visible.self_min
+#print axioms Visible.encode_link_min
+#print axioms Visible.encode_self_min
 #print axioms Visible.noPair_self_valid
 #print axioms Visible.noPair_link_valid
 #print axioms Visible.noPair_fires_self

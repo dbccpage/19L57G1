@@ -1,4 +1,5 @@
 import Derivation.Basic
+import Derivation.Attachment
 import Derivation.PrimitiveCore
 
 /-!
@@ -22,8 +23,10 @@ grammar with no new primitive:
 The encoding is faithful instance by instance (`derivable_rel`,
 `derivable_ret`, `derivable_prot`, `derivable_op`), and every candidate
 reading of the setting except `E` is here shown equivalent to a decidable
-statement about derivable instances of the encoding (`W_iff` … `F_iff`);
-`E` is handled in `Chains`.
+statement about derivable instances of the encoding at the designated pair
+(`W_iff` … `F_iff`); `E` is handled in `Chains`.  The encoding carries no
+requirement, so the designated pair travels beside it: two settings that
+differ only in their endpoints share one regime.
 
 AuthorityEffect: None.
 -/
@@ -66,26 +69,16 @@ instance (F : FiniteSetting) (x y : Fin F.n) : Decidable ((toSetting F).r x y) :
 
 /-! ## 2. List apparatus -/
 
-theorem getD_mem {α : Type} {d : α} :
-    ∀ {l : List α} {k : Nat}, k < l.length → l.getD k d ∈ l
-  | [], k, h => absurd h (Nat.not_lt_zero k)
-  | a :: _, 0, _ => by
-      rw [List.getD_cons_zero]
-      exact List.mem_cons_self
-  | _ :: t, k + 1, h => by
-      rw [List.getD_cons_succ]
-      exact List.mem_cons_of_mem _ (getD_mem (l := t) (Nat.lt_of_succ_lt_succ h))
+theorem getD_mem {α : Type} {d : α} {l : List α} {k : Nat} (h : k < l.length) :
+    l.getD k d ∈ l := by
+  rw [List.getD_eq_getElem?_getD, List.getElem?_eq_getElem h]
+  exact List.getElem_mem h
 
-theorem getD_of_all_two :
-    ∀ (l : List Nat), (∀ a ∈ l, a = 2) → ∀ i, i < l.length → l.getD i 0 = 2
-  | [], _, i, h => absurd h (Nat.not_lt_zero i)
-  | a :: _, hall, 0, _ => by
-      rw [List.getD_cons_zero]
-      exact hall a List.mem_cons_self
-  | _ :: t, hall, i + 1, h => by
-      rw [List.getD_cons_succ]
-      exact getD_of_all_two t (fun x hx => hall x (List.mem_cons_of_mem _ hx)) i
-        (Nat.lt_of_succ_lt_succ h)
+/-- Every entry two (the sealed `Attachment.getD_lt` reads the entry). -/
+theorem getD_of_all_two (l : List Nat) (hall : ∀ a ∈ l, a = 2) (i : Nat) (hi : i < l.length) :
+    l.getD i 0 = 2 := by
+  rw [Attachment.getD_lt hi]
+  exact hall _ (List.getElem_mem hi)
 
 theorem list_two_inj {x y x' y' : Nat} (h : [x, y] = [x', y']) : x = x' ∧ y = y' := by
   injection h with h1 h2

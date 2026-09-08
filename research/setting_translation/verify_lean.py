@@ -3,8 +3,8 @@
 AuthorityEffect: None.
 
 The census (`lean/Inventory.lean`) enumerates every compiled theorem of the
-`Translation`, `Chains` and `Visible` namespaces from the environment,
-independently of source layout; the reports come from the three modules' own
+`Translation`, `Chains`, `Visible` and `Transcription` namespaces from the environment,
+independently of source layout; the reports come from the four modules' own
 `#print axioms` lines plus the generated-declaration lines in
 `Inventory.lean`.  The two populations must coincide, every report must lie
 within the repository's permitted axioms, and the sources must carry no
@@ -25,7 +25,7 @@ from verify_sources import verify_sources
 ROOT = Path(__file__).resolve().parent
 LEAN = ROOT / "lean"
 RECORD = ROOT / "evidence" / "lean.json"
-MODULES = ("Translation", "Chains", "Visible")
+MODULES = ("Translation", "Chains", "Visible", "Transcription")
 EXPECTED_FILES = {f"{m}.lean" for m in MODULES} | {"Inventory.lean"}
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
 CENSUS_LINE = re.compile(r"^TRANSLATION_THEOREM: (\S+)$", re.MULTILINE)
@@ -107,7 +107,7 @@ def verify() -> bytes:
                "reports_per_namespace": per_module,
                "reports": reports,
                "census": "compiled environment theorem declarations in the Translation, "
-                         "Chains and Visible namespaces",
+                         "Chains, Visible and Transcription namespaces",
                "scope": "the exact theorem statements and their explicit hypotheses over finite "
                         "settings: carrier {0, ..., n-1}, boolean-valued stores, finitely many "
                         "operations closed on the carrier",
@@ -131,7 +131,7 @@ def main() -> int:
             print("FAIL: evidence/lean.json differs from fresh compilation")
             return 1
         else:
-            print("PASS: fresh Lean build, theorem census over the three local namespaces, "
+            print("PASS: fresh Lean build, theorem census over the four local namespaces, "
                   "reliance and source records")
         return 0
     except (ValueError, TypeError, KeyError, OSError, RuntimeError,

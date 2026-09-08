@@ -1,9 +1,14 @@
 {
  "authority_effect": "None",
  "classification": "deterministic computation through the sealed kernel",
- "schema_version": 1,
+ "schema_version": 2,
  "sealed_settings": {
   "failures": [],
+  "restart_bounds": {
+   "guard": 120,
+   "max_rounds": 4,
+   "supply": false
+  },
   "settings": {
    "boolEmpty": {
     "faithful": true,
@@ -22,20 +27,23 @@
     "regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 2
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "2feff74372428134d9a088b577a5ecc8821754b7a1d5131d57c69ba3d62d6431",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
+      "nodes": 3,
       "root_round": [
        {
         "class_size": 6,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -50,12 +58,10 @@
        },
        {
         "class_size": 6,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -69,22 +75,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 2
-       },
-       "edges": 2,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 1,
-       "nodes": 3,
-       "roles": {
-        "discrimination": 2
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -92,20 +82,23 @@
       "target_collapsed_at_root": true
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 2
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "4801654789bb213a1c391db383c772e333d968a6006c092e7176b9ef381bbaf2",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
+      "nodes": 3,
       "root_round": [
        {
         "class_size": 6,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -120,12 +113,10 @@
        },
        {
         "class_size": 6,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -139,22 +130,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 2
-       },
-       "edges": 2,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 1,
-       "nodes": 3,
-       "roles": {
-        "discrimination": 2
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -200,7 +175,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [],
+     "r": [],
      "ret": []
     }
    },
@@ -221,40 +196,27 @@
     "regime_sha256": "cd64124d4df7ed73b8a960b2fbe8cc2be7df4015cf801f46f11a0939c2704ae6",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "6287baad5d10e82a1638b05f532b19eedee466ef9d430370a3389413a464dee0",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "cd64124d4df7ed73b8a960b2fbe8cc2be7df4015cf801f46f11a0939c2704ae6",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -262,40 +224,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "1473570069cae54bedcb011e99dcccf0a374148a89914a2d75773ef9938b1fbe",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "cd64124d4df7ed73b8a960b2fbe8cc2be7df4015cf801f46f11a0939c2704ae6",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -328,7 +277,7 @@
       ]
      ],
      "prot": [],
-     "rel": [],
+     "r": [],
      "ret": []
     }
    },
@@ -349,40 +298,27 @@
     "regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "23004348914ec4a47be0f0e511eaa556468666dee62c7ebecb92a58297b14f49",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -390,40 +326,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "e72f597828e74ee405bd71761321bd1176a12a38684a8fafd1327f7756573f96",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -475,7 +398,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -501,40 +424,27 @@
     "regime_sha256": "a4a6590508502815a0cdac0dd22c865f474e4f57c74e7701d77f255393ae64fe",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "d9cb30c93a749192af7fd34f023b5a46d7cc656d688c23b7e003fe09f2f79645",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "a4a6590508502815a0cdac0dd22c865f474e4f57c74e7701d77f255393ae64fe",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -542,40 +452,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "33be7bf6d3d4e627d42627a388d9954d5ff44c8ca8b234e98513cccb21b8aa77",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "a4a6590508502815a0cdac0dd22c865f474e4f57c74e7701d77f255393ae64fe",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -620,7 +517,7 @@
       ]
      ],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -646,40 +543,27 @@
     "regime_sha256": "8ac6ec4c4bd310e97a6a2dc07d08c0e62c1e6c9581bfba36d41a407b45644334",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "68678966f09937665c0f3887561bb6d398b1f293c62a2ae98a0fcdfd9e8b1b6c",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "8ac6ec4c4bd310e97a6a2dc07d08c0e62c1e6c9581bfba36d41a407b45644334",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -687,40 +571,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "c3ddd50863c790cfca1ccfe53ee641975594d905c3c3d9533401c1e90301bbe9",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "8ac6ec4c4bd310e97a6a2dc07d08c0e62c1e6c9581bfba36d41a407b45644334",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -765,7 +636,7 @@
        1
       ]
      ],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -808,40 +679,27 @@
     "regime_sha256": "55df2a2985d09f41b87a46a3fb3b15220f67fcf3fd1795093c25213c55b80770",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "dca57c0d1b1b57c887a15a5475ed92d329e1a397ae635721c1eda5c5f1403efe",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "55df2a2985d09f41b87a46a3fb3b15220f67fcf3fd1795093c25213c55b80770",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -849,40 +707,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "00d141cd27b23248dfd3220be2ffdf5cfd8a79946d16847dbba3c713eee6451a",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "55df2a2985d09f41b87a46a3fb3b15220f67fcf3fd1795093c25213c55b80770",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -932,7 +777,7 @@
        1
       ]
      ],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -975,40 +820,27 @@
     "regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "00a77c2105479b94ffd59b419f42e5fa6daf6731fe73caa7b1004fd563839939",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1016,40 +848,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "099a727cb8ca6e86be925d282688cc17928e9393cca8b9518a92ca9b88f6da4a",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1083,7 +902,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -1113,40 +932,27 @@
     "regime_sha256": "4aa8fb75c1b4ea30b511aca90543f12121ac240eee7c18bd3e8592b255dd7230",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "871c451c0872e32a21864982f96f03d307f7f613004a1d248671a28edf2f96b4",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "4aa8fb75c1b4ea30b511aca90543f12121ac240eee7c18bd3e8592b255dd7230",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1154,40 +960,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "93a5dca963b3814779bbf444e1843709392a0db34862e62527df1c1fcd086ab1",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "4aa8fb75c1b4ea30b511aca90543f12121ac240eee7c18bd3e8592b255dd7230",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1220,7 +1013,7 @@
       ]
      ],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -1250,40 +1043,27 @@
     "regime_sha256": "b5884aeb8e3e5609d3cb9c413e30db54d5d1232df3c9e1e024e9f490bda41a8b",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "16deb4ab414a0652620b18cd59e86be62b6d8fee3f480054ce8820bd0a835353",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "b5884aeb8e3e5609d3cb9c413e30db54d5d1232df3c9e1e024e9f490bda41a8b",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1291,40 +1071,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "7c8af267e6558ef8b23ffea16b540c6be3554c8a72b91d4ed42ace6f870378d5",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "b5884aeb8e3e5609d3cb9c413e30db54d5d1232df3c9e1e024e9f490bda41a8b",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1358,7 +1125,7 @@
      "n": 3,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -1384,40 +1151,27 @@
     "regime_sha256": "d46d537135c9d8e1b62b202788f714fcb4c6234d103879c60d36c303c4117042",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "f52f5d7ddb34475de0572d4027f6750733bee309824682c3cd1085ebb1b64f8e",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "d46d537135c9d8e1b62b202788f714fcb4c6234d103879c60d36c303c4117042",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1425,40 +1179,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "5f67f38205a9fe902306c8a0c43a9c26fb56825f78cde4d16637319bdd8de6e2",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "d46d537135c9d8e1b62b202788f714fcb4c6234d103879c60d36c303c4117042",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1523,7 +1264,7 @@
        2
       ]
      ],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -1586,40 +1327,27 @@
     "regime_sha256": "28f5120aee7cbf67dbf90cf926fc7918ea3dd266167a297d379ceefc7ce8a98a",
     "restart": {
      "mu1": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "e98dccedd385f140ed4291c958d93803ca3c3936cab3d622361b668b72a91d21",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu1",
-      "root_regime_sha256": "28f5120aee7cbf67dbf90cf926fc7918ea3dd266167a297d379ceefc7ce8a98a",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1627,40 +1355,27 @@
       "target_collapsed_at_root": false
      },
      "mu2": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "8ef0ccdb809c414e8ce381c4464ec08a1c17970dc8c1929d0a93b5e87d24598e",
-      "guard": 120,
-      "max_rounds": 4,
-      "measure": "mu2",
-      "root_regime_sha256": "28f5120aee7cbf67dbf90cf926fc7918ea3dd266167a297d379ceefc7ce8a98a",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1688,7 +1403,7 @@
      "n": 3,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -1753,7 +1468,7 @@
      "n": 1,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        0
@@ -1813,7 +1528,7 @@
        0
       ]
      ],
-     "rel": [
+     "r": [
       [
        0,
        0
@@ -1849,40 +1564,27 @@
     },
     "restart": {
      "mu1_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "dab4d457458a3034d3e62047d65837c2993898a95e792fcb8d27b060a030be0b",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1890,41 +1592,27 @@
       "target_collapsed_at_root": false
      },
      "mu1_supply": {
+      "by_status": {
+       "completed": 1,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "2bd8600499db3e8861fe652f79752e88e52ab0e54409a854949fe0923c517fda",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
+      "nodes": 4,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 1,
-        "expanded": 3
-       },
-       "edges": 3,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 3,
-       "nodes": 4,
-       "roles": {
-        "": 1,
-        "supply": 2
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -1932,40 +1620,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "7e895313f4638911b0e269f7e37646eba1b3c0910ad92b8818f9affdb838bf3a",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -1973,41 +1648,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_supply": {
+      "by_status": {
+       "completed": 1,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "38fc9ccd70c36d2716f39d360d9ae006a35495de81f733dd895fa7dc791d0b6e",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "1a48cb1d4be83a70b578e325b8ae7119fc8d7a15a1cf3df49a2e993b7bacb273",
+      "nodes": 4,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 1,
-        "expanded": 3
-       },
-       "edges": 3,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 3,
-       "nodes": 4,
-       "roles": {
-        "": 1,
-        "supply": 2
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2021,7 +1682,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -2049,20 +1710,23 @@
     },
     "restart": {
      "mu1_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 2
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "e1226e692d91bee49ce4c5231a5d305a91d1e6494cb5f6ae874ca6781cab3ca0",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "1a030824eae6ed6e5d66df7f3f3884612d7347a88615406a34e652cb26d1c99e",
+      "nodes": 3,
       "root_round": [
        {
         "class_size": 4,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2077,12 +1741,10 @@
        },
        {
         "class_size": 4,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2096,22 +1758,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 2
-       },
-       "edges": 2,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 1,
-       "nodes": 3,
-       "roles": {
-        "discrimination": 2
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2119,20 +1765,23 @@
       "target_collapsed_at_root": true
      },
      "mu1_supply": {
+      "by_status": {
+       "completed": 2,
+       "expanded": 5
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "1edd1e3fb8f42c629b4009f2f5a88c3d83f77ce916f64bd5bc03e5cd6a664dea",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "1a030824eae6ed6e5d66df7f3f3884612d7347a88615406a34e652cb26d1c99e",
+      "nodes": 7,
       "root_round": [
        {
         "class_size": 4,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2147,12 +1796,10 @@
        },
        {
         "class_size": 4,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2166,23 +1813,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 2,
-        "expanded": 5
-       },
-       "edges": 6,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 3,
-       "nodes": 7,
-       "roles": {
-        "discrimination": 2,
-        "supply": 4
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2190,20 +1820,23 @@
       "target_collapsed_at_root": true
      },
      "mu2_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 2
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "bad0bffbf7e0f08f732bfef33d69fbbdcf962db8095e3d1056dd3b81cb97a9b5",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "1a030824eae6ed6e5d66df7f3f3884612d7347a88615406a34e652cb26d1c99e",
+      "nodes": 3,
       "root_round": [
        {
         "class_size": 4,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2218,12 +1851,10 @@
        },
        {
         "class_size": 4,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2237,22 +1868,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 2
-       },
-       "edges": 2,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 1,
-       "nodes": 3,
-       "roles": {
-        "discrimination": 2
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2260,20 +1875,23 @@
       "target_collapsed_at_root": true
      },
      "mu2_supply": {
+      "by_status": {
+       "completed": 2,
+       "expanded": 5
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "13b801a11634b76d773597b8b08732f8a2e06e9e2909a7e50381133a4c85b1c1",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "1a030824eae6ed6e5d66df7f3f3884612d7347a88615406a34e652cb26d1c99e",
+      "nodes": 7,
       "root_round": [
        {
         "class_size": 4,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2288,12 +1906,10 @@
        },
        {
         "class_size": 4,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2307,23 +1923,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 2,
-        "expanded": 5
-       },
-       "edges": 6,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 3,
-       "nodes": 7,
-       "roles": {
-        "discrimination": 2,
-        "supply": 4
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2337,7 +1936,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        0
@@ -2373,40 +1972,27 @@
     },
     "restart": {
      "mu1_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "69e0fdf39597b0003c84d0f04471d113a5a5fd9620b013ed21b731042a899768",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2414,41 +2000,27 @@
       "target_collapsed_at_root": false
      },
      "mu1_supply": {
+      "by_status": {
+       "completed": 1,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "7d0430f91c963d60d992275b8fbd5db2401ccabe577c4b0704e6c753f7300edd",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
+      "nodes": 4,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 1,
-        "expanded": 3
-       },
-       "edges": 3,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 3,
-       "nodes": 4,
-       "roles": {
-        "": 1,
-        "supply": 2
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2456,40 +2028,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "683dbc80584dc8e3a8cb7a521d7dbc9f231fcb3b559c88d6ec36cee38d02340b",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2497,41 +2056,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_supply": {
+      "by_status": {
+       "completed": 1,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "8a4bfcda52d24b57392d18a1a93ae23ce234c2594dd1a12f1548b7cabb9e5ebf",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "f672ff160c3dc701562c1295736c52e094308787d01b297774647f2246a3fd31",
+      "nodes": 4,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 1,
-        "expanded": 3
-       },
-       "edges": 3,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 3,
-       "nodes": 4,
-       "roles": {
-        "": 1,
-        "supply": 2
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2545,7 +2090,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        1
@@ -2569,20 +2114,23 @@
     },
     "restart": {
      "mu1_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 2
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "6522ad454cedae8703ac5286b3ec92c8d9951907abd7f2d76c3f40d7d85cba36",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
+      "nodes": 3,
       "root_round": [
        {
         "class_size": 6,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2597,12 +2145,10 @@
        },
        {
         "class_size": 6,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2616,22 +2162,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 2
-       },
-       "edges": 2,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 1,
-       "nodes": 3,
-       "roles": {
-        "discrimination": 2
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2639,20 +2169,23 @@
       "target_collapsed_at_root": true
      },
      "mu1_supply": {
+      "by_status": {
+       "completed": 17,
+       "expanded": 5
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "ae013ceeffd71a3b717318ff72f59ea46fb08a4238bc3ff04df3369e5f0553bd",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
+      "nodes": 22,
       "root_round": [
        {
         "class_size": 6,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2667,12 +2200,10 @@
        },
        {
         "class_size": 6,
-        "cost": [
-         1,
-         -1
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": null,
         "response": [
          {
           "args": [
@@ -2686,23 +2217,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 17,
-        "expanded": 5
-       },
-       "edges": 21,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 2,
-       "max_depth": 3,
-       "nodes": 22,
-       "roles": {
-        "discrimination": 18,
-        "supply": 3
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2710,20 +2224,23 @@
       "target_collapsed_at_root": true
      },
      "mu2_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 2
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "0d1bb7801dfa6a0062f9df31ad1d6721a50f53315c0bb176b5c4ae8c33d819df",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
+      "nodes": 3,
       "root_round": [
        {
         "class_size": 6,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2738,12 +2255,10 @@
        },
        {
         "class_size": 6,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2757,22 +2272,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 2
-       },
-       "edges": 2,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 1,
-       "nodes": 3,
-       "roles": {
-        "discrimination": 2
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2780,20 +2279,23 @@
       "target_collapsed_at_root": true
      },
      "mu2_supply": {
+      "by_status": {
+       "completed": 17,
+       "expanded": 5
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "d8be6b76a67ea393a1674583f51f54639ecd57e023165653e4a307a41e830179",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "24adb7f148b798a874478f1b335f8cf6a4de53914757342bafece3fb8b14a979",
+      "nodes": 22,
       "root_round": [
        {
         "class_size": 6,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2diag",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2808,12 +2310,10 @@
        },
        {
         "class_size": 6,
-        "cost": [
-         1,
-         0
-        ],
+        "items": 1,
         "kind": "creation",
         "label": "inst2",
+        "new_form_arity": 0,
         "response": [
          {
           "args": [
@@ -2827,23 +2327,6 @@
         "tie_classes": 2
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 17,
-        "expanded": 5
-       },
-       "edges": 21,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 2,
-       "max_depth": 3,
-       "nodes": 22,
-       "roles": {
-        "discrimination": 18,
-        "supply": 3
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2857,7 +2340,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [],
+     "r": [],
      "ret": []
     },
     "visible": false
@@ -2876,40 +2359,27 @@
     },
     "restart": {
      "mu1_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "66b5d7a5d9e242141ad7cc4868bf5e9220f2149978bf546735f2818b3e54b66b",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "1528c72542a3b840e1ae9e75ea30a5cec1f84112a29d1028c6f06aab40ed2f29",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -2917,41 +2387,27 @@
       "target_collapsed_at_root": false
      },
      "mu1_supply": {
+      "by_status": {
+       "completed": 1,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "133a6ffb117f6867249020a9edc483862e857cebac9accd541b285308c1c0627",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "1528c72542a3b840e1ae9e75ea30a5cec1f84112a29d1028c6f06aab40ed2f29",
+      "nodes": 4,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 1,
-        "expanded": 3
-       },
-       "edges": 3,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 3,
-       "nodes": 4,
-       "roles": {
-        "": 1,
-        "supply": 2
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -2959,40 +2415,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "da38c4836d0cb98e65b00fd35288086acf160cd42347b325d4b7a727dba9736c",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "1528c72542a3b840e1ae9e75ea30a5cec1f84112a29d1028c6f06aab40ed2f29",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -3000,41 +2443,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_supply": {
+      "by_status": {
+       "completed": 1,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "89475bc2b018dcf0eb055708ac264c77655508d22ebc5881719af3856dab621c",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "1528c72542a3b840e1ae9e75ea30a5cec1f84112a29d1028c6f06aab40ed2f29",
+      "nodes": 4,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 1,
-        "expanded": 3
-       },
-       "edges": 3,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 3,
-       "nodes": 4,
-       "roles": {
-        "": 1,
-        "supply": 2
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -3048,7 +2477,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        0
@@ -3076,40 +2505,27 @@
     },
     "restart": {
      "mu1_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "7fb9ea2e9619391132c47a79414f590993ce62f27a2eba56b4a60bb62b082260",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "8a97a400dfb8cd8b9b7c4336383f75218a4ad095e7fb960e654d57d8ea89bd1d",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -3117,42 +2533,27 @@
       "target_collapsed_at_root": false
      },
      "mu1_supply": {
+      "by_status": {
+       "completed": 16,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "9be562fcae8c68b38e0a17036fe493ce20af987b8263c00f21dfb921dd110774",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu1",
-      "root_regime_sha256": "8a97a400dfb8cd8b9b7c4336383f75218a4ad095e7fb960e654d57d8ea89bd1d",
+      "nodes": 19,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         -1
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": null,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 16,
-        "expanded": 3
-       },
-       "edges": 18,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 3,
-       "nodes": 19,
-       "roles": {
-        "": 1,
-        "discrimination": 16,
-        "supply": 1
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -3160,40 +2561,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_closed": {
+      "by_status": {
+       "expanded": 1,
+       "terminal_all_separated": 1
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "084aaa1e5e974673155675ffdaff28306c5bc53f9ff3900e185b7b06a7778b33",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "8a97a400dfb8cd8b9b7c4336383f75218a4ad095e7fb960e654d57d8ea89bd1d",
+      "nodes": 2,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "expanded": 1,
-        "terminal_all_separated": 1
-       },
-       "edges": 1,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 0,
-       "max_depth": 1,
-       "nodes": 2,
-       "roles": {
-        "": 1
-       }
-      },
-      "supply": false,
       "target": [
        0,
        1
@@ -3201,42 +2589,27 @@
       "target_collapsed_at_root": false
      },
      "mu2_supply": {
+      "by_status": {
+       "completed": 16,
+       "expanded": 3
+      },
+      "designated_pair": [
+       0,
+       1
+      ],
       "export_sha256": "2e06fa3f9db86bdd33eef35b4ea97a8cd0987c0a21b541b67143a52da7159382",
-      "guard": 60,
-      "max_rounds": 3,
-      "measure": "mu2",
-      "root_regime_sha256": "8a97a400dfb8cd8b9b7c4336383f75218a4ad095e7fb960e654d57d8ea89bd1d",
+      "nodes": 19,
       "root_round": [
        {
         "class_size": 1,
-        "cost": [
-         0,
-         0
-        ],
+        "items": 0,
         "kind": "creation",
         "label": "empty",
+        "new_form_arity": 0,
         "response": [],
         "tie_classes": 1
        }
       ],
-      "stats": {
-       "all_certified": true,
-       "by_status": {
-        "completed": 16,
-        "expanded": 3
-       },
-       "edges": 18,
-       "expansions_with_multiple_orbits": 0,
-       "expansions_with_ties": 1,
-       "max_depth": 3,
-       "nodes": 19,
-       "roles": {
-        "": 1,
-        "discrimination": 16,
-        "supply": 1
-       }
-      },
-      "supply": true,
       "target": [
        0,
        1
@@ -3250,7 +2623,7 @@
      "n": 2,
      "ops": [],
      "prot": [],
-     "rel": [
+     "r": [
       [
        0,
        0
@@ -3261,7 +2634,11 @@
     "visible": true
    }
   },
-  "failures": []
+  "failures": [],
+  "restart_bounds": {
+   "guard": 60,
+   "max_rounds": 3
+  }
  },
  "universe": {
   "by_carrier_size": {
@@ -3273,46 +2650,55 @@
    "A": {
     "holds": 2352,
     "holds_collapsed": 0,
+    "holds_distinct": 2352,
     "holds_visible": 2352
    },
    "Bc": {
     "holds": 1272,
     "holds_collapsed": 0,
+    "holds_distinct": 1272,
     "holds_visible": 1272
    },
    "Bl": {
     "holds": 2352,
     "holds_collapsed": 0,
+    "holds_distinct": 2352,
     "holds_visible": 2352
    },
    "Bs": {
     "holds": 312,
     "holds_collapsed": 0,
+    "holds_distinct": 312,
     "holds_visible": 312
    },
    "C": {
-    "holds": 9312,
+    "holds": 14022,
     "holds_collapsed": 0,
+    "holds_distinct": 9312,
     "holds_visible": 9312
    },
    "D": {
     "holds": 37248,
     "holds_collapsed": 132,
+    "holds_distinct": 37248,
     "holds_visible": 37116
    },
    "E": {
     "holds": 24832,
     "holds_collapsed": 100,
+    "holds_distinct": 24832,
     "holds_visible": 24732
    },
    "F": {
     "holds": 588,
     "holds_collapsed": 0,
+    "holds_distinct": 588,
     "holds_visible": 588
    },
    "W": {
-    "holds": 18624,
+    "holds": 28044,
     "holds_collapsed": 66,
+    "holds_distinct": 18624,
     "holds_visible": 18558
    }
   },
@@ -3321,5 +2707,11 @@
   "failures": [],
   "settings": 56088,
   "settings_with_distinct_endpoints": 37248
+ },
+ "verdict_sources": {
+  "failures": [],
+  "rows": 42,
+  "sealed_rows": 42,
+  "transcribed_rows": 42
  }
 }
