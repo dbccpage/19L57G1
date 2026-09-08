@@ -13,6 +13,12 @@ path = "../../../lean4"
 name = "local_reuse"
 path = "../../local_reuse/lean"
 
+# The merged well-formedness and rule-freeness lemmas of the ignition
+# family, consumed read-only rather than duplicated.
+[[require]]
+name = "ignition"
+path = "../../ignition/lean"
+
 [[lean_lib]]
 name = "EngineClass"
 

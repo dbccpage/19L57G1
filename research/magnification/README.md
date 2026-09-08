@@ -176,14 +176,16 @@ tree in every context or rules out every other definition of self-similarity.
 
 ## 5. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 63 authored theorems and 14
-compiler-generated ones, 77 reports — 34 `[propext, Quot.sound]`, 28
-`[propext]`, 15 axiom-free; `EngineClass` 34, `Restart` 22, `Magnification`
+**Lean** (`lean/`, `evidence/lean.json`): 57 authored theorems and 12
+compiler-generated ones, 69 reports — 30 `[propext, Quot.sound]`, 24
+`[propext]`, 15 axiom-free; `EngineClass` 26, `Restart` 22, `Magnification`
 21; the report population equals the environment census of the three
 namespaces in both directions; no private theorem; forbidden-token scan
-clean.  The well-formedness lemmas of `EngineClass` section 1 duplicate those
-of the now-merged ignition family (PR #147). They are retained locally;
-this package still imports only the sealed package and `local_reuse`.
+clean.  The well-formedness lemmas of `EngineClass` section 1 are the merged
+ignition family's (PR #147), consumed through `import Ignition` since
+2026-09-08; until then they were local copies (63 authored theorems, 77
+reports), and this package now imports the sealed package, `local_reuse` and
+`ignition`.
 
 **Python** (`magnification.py`, `run.py`, `evidence/census.json`, `tests/`):
 38 tests, strict typing over nine files, the record replays byte-identically.
@@ -212,11 +214,13 @@ regenerated while live):
 | Lean record | one report's axioms edited in `evidence/lean.json` | `FAIL: evidence/lean.json differs from fresh compilation` | PASS |
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`60c2cb05d91cdfa099017c9cd205b52564db884b`, the seven derivation modules by digest and runtime
-origin, the sealed `lean4/Derivation` tree and the `research/local_reuse/lean`
-tree by Git tree object, both Lean configurations by digest, the six full
-exports and their summaries by raw digest; an untracked `.py` on the import
-path or `.lean` in either Lean tree is refused.
+`f12a498ea75899ea119df958d54209fee25819f1` (re-baselined 2026-09-08 from
+`60c2cb05` when the ignition tree became a dependency), the seven derivation
+modules by digest and runtime origin, the sealed `lean4/Derivation` tree and
+the `research/local_reuse/lean` and `research/ignition/lean` trees by Git
+tree object, the three Lean configurations by digest, the six full exports
+and their summaries by raw digest; an untracked `.py` on the import path or
+`.lean` in any of the three Lean trees is refused.
 
 **Author-recorded regression gates at the original head `0717d6e2`**: (1) prompt hashes ok; (2) transport citations clean, 190 verified; (3) the full sealed suite under coverage, exit 0, line 99.10 %, branch 96.71 % (four workers); (4) mypy clean over 60 files; (5) artifacts reproducible, 40 JSON byte-identical and 6 full exports content-identical; (6) Lean audit clean on a fresh log, 77 sources, 1530 reports within the whitelist, report pin matching; (7) 7 skills well formed; (8) 62 paper cross-references resolve; (9) 1152 ledger evidence tokens resolve; (10) parked audit complete, 75 modules, 12 parked; (11) the four registered research checks pass; (12) prose watchlist clean with no pin regenerated, 49 terms, 130 files, 1826 hits; the identifier firewall passes over the index. Unavailable: hosted CI. Pre-existing failures observed: none.
 

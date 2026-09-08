@@ -7,10 +7,11 @@ rewritten.  There is deliberately no manifest generation or repair option.
 
 Scope: exactly what this family consumes.  ``code/derivation`` supplies the
 seven modules ``magnification.py`` imports and drives.  ``lean4/Derivation``
-supplies the sealed modules the local proofs import, and
-``research/local_reuse/lean`` the merged replay-cut theorems; both trees are
-pinned by their exact Git tree objects and the Lean configuration of both
-packages by digest.  The six full exports and their summaries, read by the
+supplies the sealed modules the local proofs import,
+``research/local_reuse/lean`` the merged replay-cut theorems and
+``research/ignition/lean`` the merged well-formedness lemmas; the three trees
+are pinned by their exact Git tree objects and the Lean configuration of the
+three packages by digest.  The six full exports and their summaries, read by the
 census, are pinned by raw digest.  ``prompt`` and ``paper`` are not read and
 not pinned.
 """
@@ -27,13 +28,14 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "60c2cb05d91cdfa099017c9cd205b52564db884b"
+BASELINE_COMMIT = "f12a498ea75899ea119df958d54209fee25819f1"
 PACKET = Path("research/magnification")
 SCHEMA = "magnification-sources-v1"
 CONSUMED_TREES = {
     "code/derivation": ".py",
     "lean4/Derivation": ".lean",
     "research/local_reuse/lean": ".lean",
+    "research/ignition/lean": ".lean",
 }
 CONFIG_PATHS = (
     "lean4/Derivation.lean",
@@ -42,6 +44,8 @@ CONFIG_PATHS = (
     "lean4/lake-manifest.json",
     "research/local_reuse/lean/lakefile.toml",
     "research/local_reuse/lean/lean-toolchain",
+    "research/ignition/lean/lakefile.toml",
+    "research/ignition/lean/lean-toolchain",
 )
 RUNTIME_PATHS = {
     "derivation": "code/derivation/__init__.py",

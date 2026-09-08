@@ -45,8 +45,6 @@ census. -/
 #print axioms EngineClass.Measure.ofNat_ctorIdx
 #print axioms EngineClass.Path.brecOn
 #print axioms EngineClass.Rooted.brecOn
-#print axioms EngineClass.applyItem_wf._proof_1_1
-#print axioms EngineClass.applyItem_wf._proof_1_2
 #print axioms EngineClass.instDecidableEqMeasure._proof_1
 #print axioms EngineClass.instDecidableEqMeasure._proof_2
 #print axioms EngineClass.isMin_no_rule._proof_1_1

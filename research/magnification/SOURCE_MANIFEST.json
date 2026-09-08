@@ -1,8 +1,8 @@
 {
   "schema": "magnification-sources-v1",
-  "baseline_commit": "60c2cb05d91cdfa099017c9cd205b52564db884b",
+  "baseline_commit": "f12a498ea75899ea119df958d54209fee25819f1",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the seven derivation modules magnification.py imports, the sealed Lean derivation tree and the merged local_reuse Lean tree that the local proofs import, the Lean configuration of both packages, and the six full exports with their summaries read by the census. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the seven derivation modules magnification.py imports, the sealed Lean derivation tree and the merged local_reuse and ignition Lean trees that the local proofs import, the Lean configuration of the three packages, and the six full exports with their summaries read by the census. prompt and paper are not read and not pinned.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
@@ -15,7 +15,8 @@
   "consumed_trees": {
     "code/derivation": "9eb989edeedd89d0935b021124969d2659509785",
     "lean4/Derivation": "df9365891b7bbcb02bc8010db2c5db7b1a43beef",
-    "research/local_reuse/lean": "2513d6608b5d22f864eecc7db8b12cf1f94c2c0f"
+    "research/local_reuse/lean": "2513d6608b5d22f864eecc7db8b12cf1f94c2c0f",
+    "research/ignition/lean": "28d385864d8fecc5083c4be4d82adec03bc1cdaa"
   },
   "tree_census": {
     "code/derivation": [
@@ -133,6 +134,10 @@
     "research/local_reuse/lean": [
       "research/local_reuse/lean/Inventory.lean",
       "research/local_reuse/lean/LocalReuse.lean"
+    ],
+    "research/ignition/lean": [
+      "research/ignition/lean/Ignition.lean",
+      "research/ignition/lean/Inventory.lean"
     ]
   },
   "source_sha256": {
@@ -148,7 +153,9 @@
     "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",
     "lean4/lake-manifest.json": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91",
     "research/local_reuse/lean/lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
-    "research/local_reuse/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    "research/local_reuse/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/ignition/lean/lakefile.toml": "c3dae512d55898c79ca48f1af47a97bf5cb33efaaa095230d2be892d5a021341",
+    "research/ignition/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "artifact_sha256": {
     "artifacts/full/closed_F.json.gz": "4ac695069db689bf765af8e0e350acb4b049b0276b31a72021c610c1c3a5e874",

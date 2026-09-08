@@ -8,6 +8,7 @@ import Derivation.Rounds
 import Derivation.TransitionTransport
 import Derivation.Ext
 import LocalReuse
+import Ignition
 
 /-!
 # The engine's class, as a relation over the sealed definitions
@@ -33,190 +34,23 @@ relation over the sealed `Regime`, `collapsed`, `validResponse` and
 * Every step decodes to a sealed event block replaying to its successor
   (`fire_replays`, `path_replays`).
 
-The well-formedness lemmas of section 1 duplicate those of the ignition
-family (pull request #147, now merged); they remain local to this package.
+The well-formedness lemmas of section 1 are the merged ignition family's,
+consumed through `import Ignition` (they were local copies until
+2026-09-08).
 
 AuthorityEffect: None.
 -/
 
 namespace EngineClass
 
-open Derivation
+open Derivation Ignition
 
 /-! ## 1. Well-formedness and rule-freeness along responses
-(duplicated from `research/ignition/lean/Ignition.lean`, merged PR #147;
-retained locally without adding that package as a dependency) -/
 
-theorem applyItem_wf {r s : Regime} (hwf : r.wf) {it : Item}
-    (h : applyItem r it = some s) : s.wf := by
-  obtain ⟨hinst, hrule, hreq, hform⟩ := hwf
-  cases it with
-  | newDatum =>
-      have hs : s = { r with data := r.data + 1 } := (Option.some.inj h).symm
-      subst hs
-      refine ⟨?_, hrule, ?_, hform⟩
-      · intro p hp
-        obtain ⟨h1, h2, h3⟩ := hinst p hp
-        exact ⟨h1, h2, fun a ha => Nat.lt_succ_of_lt (h3 a ha)⟩
-      · intro q hq
-        obtain ⟨h1, h2⟩ := hreq q hq
-        exact ⟨h1, Nat.lt_succ_of_lt h2⟩
-  | newForm a =>
-      simp only [applyItem] at h
-      split at h
-      · rename_i ha
-        have hs : s = { r with forms := r.forms ++ [a] } := (Option.some.inj h).symm
-        subst hs
-        refine ⟨?_, ?_, hreq, ?_⟩
-        · intro p hp
-          obtain ⟨h1, h2, h3⟩ := hinst p hp
-          refine ⟨?_, ?_, h3⟩
-          · show p.1 < (r.forms ++ [a]).length
-            simp only [List.length_append, List.length_cons, List.length_nil]
-            omega
-          · show p.2.length = (r.forms ++ [a]).getD p.1 0
-            rw [getD_append_lt _ _ _ h1]
-            exact h2
-        · intro f hf
-          show f < (r.forms ++ [a]).length
-          have := hrule f hf
-          simp only [List.length_append, List.length_cons, List.length_nil]
-          omega
-        · intro b hb
-          rcases List.mem_append.mp hb with hb | hb
-          · exact hform b hb
-          · have : b = a := List.mem_singleton.mp hb
-            subst this
-            exact ha
-      · cases h
-  | newInst f args =>
-      simp only [applyItem] at h
-      split at h
-      · rename_i hc
-        have hs : s = { r with insts := insertNew r.insts (f, args) } :=
-          (Option.some.inj h).symm
-        subst hs
-        refine ⟨?_, hrule, hreq, hform⟩
-        intro p hp
-        rcases mem_insertNew.mp hp with hp | hp
-        · exact hinst p hp
-        · subst hp
-          exact ⟨hc.1, hc.2.1, hc.2.2⟩
-      · cases h
-  | newRuleAll f =>
-      simp only [applyItem] at h
-      split at h
-      · rename_i hc
-        have hs : s = { r with rules := insertNew r.rules f } := (Option.some.inj h).symm
-        subst hs
-        refine ⟨hinst, ?_, hreq, hform⟩
-        intro g hg
-        rcases mem_insertNew.mp hg with hg | hg
-        · exact hrule g hg
-        · subst hg
-          exact hc
-      · cases h
-
-theorem applyDelta_wf : ∀ {δ : List Item} {r s : Regime}, r.wf →
-    applyDelta r δ = some s → s.wf
-  | [], r, s, hwf, h => by
-      have hs : s = r := (Option.some.inj h).symm
-      subst hs
-      exact hwf
-  | it :: rest, r, s, hwf, h => by
-      rw [applyDelta_cons] at h
-      cases happ : applyItem r it with
-      | none => rw [happ] at h; cases h
-      | some r1 =>
-          rw [happ] at h
-          exact applyDelta_wf (applyItem_wf hwf happ) h
-
-theorem applyItem_rules {r s : Regime} {it : Item}
-    (hnr : ∀ f, it ≠ Item.newRuleAll f) (h : applyItem r it = some s) :
-    s.rules = r.rules := by
-  cases it with
-  | newDatum =>
-      have hs : s = { r with data := r.data + 1 } := (Option.some.inj h).symm
-      subst hs
-      rfl
-  | newForm a =>
-      simp only [applyItem] at h
-      split at h
-      · have hs : s = { r with forms := r.forms ++ [a] } := (Option.some.inj h).symm
-        subst hs
-        rfl
-      · cases h
-  | newInst f args =>
-      simp only [applyItem] at h
-      split at h
-      · have hs : s = { r with insts := insertNew r.insts (f, args) } :=
-          (Option.some.inj h).symm
-        subst hs
-        rfl
-      · cases h
-  | newRuleAll f => exact absurd rfl (hnr f)
-
-theorem applyDelta_rules : ∀ {δ : List Item} {r s : Regime},
-    (∀ f, Item.newRuleAll f ∉ δ) → applyDelta r δ = some s → s.rules = r.rules
-  | [], r, s, _, h => by
-      have hs : s = r := (Option.some.inj h).symm
-      subst hs
-      rfl
-  | it :: rest, r, s, hnr, h => by
-      rw [applyDelta_cons] at h
-      cases happ : applyItem r it with
-      | none => rw [happ] at h; cases h
-      | some r1 =>
-          rw [happ] at h
-          have hit : ∀ f, it ≠ Item.newRuleAll f :=
-            fun f he => hnr f (he ▸ List.mem_cons_self)
-          have hrest : ∀ f, Item.newRuleAll f ∉ rest :=
-            fun f hm => hnr f (List.mem_cons_of_mem _ hm)
-          exact (applyDelta_rules hrest h).trans (applyItem_rules hit happ)
-
-theorem applyItem_reqs_free (r : Regime) (Q : List (Nat × Nat)) (it : Item) :
-    applyItem { r with reqs := Q } it
-      = (applyItem r it).map (fun u => { u with reqs := Q }) := by
-  cases it with
-  | newDatum => rfl
-  | newForm a =>
-      show (if 1 ≤ a then some _ else none)
-        = Option.map _ (if 1 ≤ a then some _ else none)
-      by_cases h : 1 ≤ a
-      · rw [if_pos h, if_pos h]
-        rfl
-      · rw [if_neg h, if_neg h]
-        rfl
-  | newInst f args =>
-      show (if f < r.forms.length ∧ args.length = r.forms.getD f 0 ∧
-              (∀ x ∈ args, x < r.data) then some _ else none)
-        = Option.map _ (if f < r.forms.length ∧ args.length = r.forms.getD f 0 ∧
-              (∀ x ∈ args, x < r.data) then some _ else none)
-      by_cases h : f < r.forms.length ∧ args.length = r.forms.getD f 0 ∧
-          (∀ x ∈ args, x < r.data)
-      · rw [if_pos h, if_pos h]
-        rfl
-      · rw [if_neg h, if_neg h]
-        rfl
-  | newRuleAll f =>
-      show (if f < r.forms.length then some _ else none)
-        = Option.map _ (if f < r.forms.length then some _ else none)
-      by_cases h : f < r.forms.length
-      · rw [if_pos h, if_pos h]
-        rfl
-      · rw [if_neg h, if_neg h]
-        rfl
-
-theorem applyDelta_reqs_free (Q : List (Nat × Nat)) :
-    ∀ (δ : List Item) (r : Regime),
-      applyDelta { r with reqs := Q } δ
-        = (applyDelta r δ).map (fun u => { u with reqs := Q })
-  | [], r => rfl
-  | it :: rest, r => by
-      rw [applyDelta_cons, applyDelta_cons, applyItem_reqs_free]
-      cases applyItem r it with
-      | none => rfl
-      | some u => exact applyDelta_reqs_free Q rest u
+`applyItem_wf`, `applyDelta_wf`, `applyItem_rules`, `applyDelta_rules`,
+`applyItem_reqs_free` and `applyDelta_reqs_free` are the merged ignition
+family's theorems (`research/ignition/lean/Ignition.lean`), consumed through
+`import Ignition`; until 2026-09-08 this section carried local copies. -/
 
 /-! ## 2. The declared candidate space and the two measures -/
 
@@ -490,12 +324,6 @@ theorem rooted_replays {m : Measure} {supply : Bool} {root t : Regime} {tgt : Na
 
 end EngineClass
 
-#print axioms EngineClass.applyItem_wf
-#print axioms EngineClass.applyDelta_wf
-#print axioms EngineClass.applyItem_rules
-#print axioms EngineClass.applyDelta_rules
-#print axioms EngineClass.applyItem_reqs_free
-#print axioms EngineClass.applyDelta_reqs_free
 #print axioms EngineClass.lexLE_refl
 #print axioms EngineClass.isMin_valid
 #print axioms EngineClass.mem_dropRules
