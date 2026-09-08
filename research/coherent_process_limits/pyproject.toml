@@ -1,0 +1,11 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "../../code", "../setting_translation", "../represented_execution"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["limits.py", "run.py", "verify.py", "verify_sources.py", "verify_lean.py", "tests"]
+mypy_path = ".:../../code:../setting_translation:../represented_execution"
+explicit_package_bases = true

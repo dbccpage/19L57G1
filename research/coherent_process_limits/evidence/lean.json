@@ -1,0 +1,160 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 10,
+  "census": "compiled environment theorem declarations in the Limits and Observe namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Inventory.lean": "22035cd2aa9a65fae4646f89988532a44643f84a04211669ec89824b20853be3",
+    "Limits.lean": "01bf1a31d7583673801f12b222e47b3159c3e102a8a115c253e7482860ffc3eb",
+    "Observe.lean": "75c13a81bb945e9835cc0b5b68de00cb3eb4ff8b39a4b6f872594553d737356d",
+    "lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_mirror_refinement": "NOT_PROVED",
+  "reports": {
+    "Limits.bond._proof_1": [],
+    "Limits.ebond._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.ebond._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eofSeq._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eofSeq_etoSeq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eofSeq_etoSeq._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.estable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.estable._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.estable._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.etoSeq._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.etoSeq._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.etoSeq_eofSeq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.even_thread": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eventual._proof_1": [],
+    "Limits.eventual._proof_2": [],
+    "Limits.eventual_agrees": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eventual_agrees._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eventual_not_compatible": [],
+    "Limits.ofSeq._proof_1": [],
+    "Limits.ofSeq_toSeq": [
+      "Quot.sound"
+    ],
+    "Limits.shift_not_local": [],
+    "Limits.stable": [],
+    "Limits.thread_even": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.toSeq_ofSeq": [],
+    "Observe.base._proof_1": [],
+    "Observe.base._proof_2": [],
+    "Observe.base._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_lt._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.lost_fuel": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_active_det": [
+      "propext"
+    ],
+    "Observe.next_tape": [
+      "propext"
+    ],
+    "Observe.obs_prefix": [
+      "propext"
+    ],
+    "Observe.obs_prefix_add": [
+      "propext"
+    ],
+    "Observe.stepDet_inr": [
+      "propext"
+    ],
+    "Observe.succ3_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.succ3_lt._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_bound._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_bound._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_eq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_eq._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_eq._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "Limits": 24,
+    "Observe": 19
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements: compatible families of finite observations over a finite carrier and their sequences; the represented execution family's deterministic runner observed at step scales; the forever program of that family. The topology of the thread space is declared, not proved.",
+  "theorem_count_including_generated": 43,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

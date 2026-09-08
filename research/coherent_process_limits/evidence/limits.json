@@ -1,0 +1,166 @@
+{
+ "artifact": {
+  "authored_by": "research/represented_execution",
+  "finding_for_the_represented_execution_family": {
+   "identified_from_recorded_runs": 8,
+   "recovered_order_of_sorted_tables": [
+    1,
+    0,
+    2
+   ],
+   "schema_loses_operation_order": true
+  },
+  "fragment": "control",
+  "path": "research/represented_execution/evidence/process.json",
+  "pinned_by_digest_in": "SOURCE_MANIFEST.json",
+  "programs_identified": [
+   "climb",
+   "forever",
+   "fork",
+   "ping"
+  ],
+  "written_here": false
+ },
+ "authority_effect": "None",
+ "causal_footprint": {
+  "independence": "an edit to an instance away from the active datum does not change the step; an edit at it does (the represented execution family's mutation tests)",
+  "not_delivered": "an interacting instance with two loci of activity; the process has one",
+  "reads": "a firing reads the enablement self-instance and the operation edge at the active datum (Control.fire, Control.enabled)",
+  "writes": "active, tape, clock, fuel; the program is kept (Control.fire_ok)"
+ },
+ "classification": "deterministic computation: the represented process observed at step scales, and the abstract inverse system mirrored",
+ "connected_experiment": {
+  "bound": "L <= 3 * count <= L + 2 for a tape of length L",
+  "derived_at_scale": 3,
+  "derived_from": [
+   0,
+   1,
+   2,
+   0
+  ],
+  "limit": "the frequency count / L lies within 2 / (3 L) of 1 / 3 at every scale; the limiting value 1 / 3 is the rational the bound isolates, and precision e needs L >= 2 / (3 e)",
+  "program": "forever",
+  "readout": "the number of entries equal to datum 0 in the tape",
+  "scales": [
+   {
+    "bound_holds": true,
+    "count_zero": 2,
+    "prefix_of_next": true,
+    "recorded_tape_is_prefix": true,
+    "scale": 3,
+    "tape_length": 4,
+    "three_count_minus_length": 2
+   },
+   {
+    "bound_holds": true,
+    "count_zero": 3,
+    "prefix_of_next": true,
+    "recorded_tape_is_prefix": true,
+    "scale": 6,
+    "tape_length": 7,
+    "three_count_minus_length": 2
+   },
+   {
+    "bound_holds": true,
+    "count_zero": 5,
+    "prefix_of_next": true,
+    "recorded_tape_is_prefix": true,
+    "scale": 12,
+    "tape_length": 13,
+    "three_count_minus_length": 2
+   },
+   {
+    "bound_holds": true,
+    "count_zero": 9,
+    "prefix_of_next": true,
+    "recorded_tape_is_prefix": true,
+    "scale": 24,
+    "tape_length": 25,
+    "three_count_minus_length": 2
+   }
+  ],
+  "start": 0
+ },
+ "limit": {
+  "cofinal_rescaling": "Limits.thread_even, Limits.even_thread: the even scales have the same threads",
+  "construction": "Limits.ofSeq; universal property Limits.ofSeq_toSeq and Limits.toSeq_ofSeq: the thread space is the sequence space; no choice or compactness is used",
+  "eventual_agreement_is_not_compatibility": "Limits.eventual_not_compatible, Limits.eventual_agrees",
+  "stages": "words of length n over the carrier (Limits.Stage)",
+  "thread_space": "compatible families at every scale (Limits.Compatible, Limits.Thread)",
+  "topology": "declared, not proved: the product of the discrete topologies on the finite stages; totally disconnected; not an interval, not a circle; none is claimed, and an interval would need an order or metric compatible with the stages and an identification of threads this family does not make"
+ },
+ "lost_fuel": {
+  "after_one_step_fuel_0": [
+   0
+  ],
+  "after_one_step_fuel_1": [
+   0,
+   1
+  ],
+  "lost_information": "fuel",
+  "repair": "observe the fuel beside the tape; with the program, the active datum and the fuel the next observation is determined (Observe.next_active_det)",
+  "same_tape": true,
+  "tape": [
+   0
+  ]
+ },
+ "not_delivered": [
+  "an interval, circle or integration theory: the limit is a totally disconnected thread space and a rational frequency with a bound",
+  "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
+  "a general theorem that every realized tape is eventually periodic: the determinism of the next datum is proved, the eventual periodicity is computed over the declared class",
+  "a second locus of activity for causal independence between two processes"
+ ],
+ "observation_system": {
+  "bonding": "forget the entries beyond the coarser length",
+  "compatibility_at_every_scale": "Observe.obs_prefix, Observe.obs_prefix_add",
+  "observation": "the tape after n steps (Observe.obs)",
+  "scale": "the number of steps of the deterministic runner watched",
+  "why": "a step only appends (Control.fire_ok through Observe.next_tape)"
+ },
+ "schema_version": 1,
+ "shift": {
+  "meaning": "two words with one prefix of length 2 shift to different words: the entry beyond the observed boundary would have to be supplied (Limits.shift_not_local)",
+  "prefixes": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "shifted": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    0
+   ]
+  ]
+ },
+ "verdicts": {
+  "all_realized_tapes_functional": true,
+  "class": "every program on the recorded setting with at most one operation enabled per datum, from every datum",
+  "fuel": 4,
+  "injective": "the observation at the scale of a tape's length is the tape itself: injective on tapes",
+  "not_dense_witness": [
+   0,
+   1,
+   0,
+   2
+  ],
+  "programs": 64,
+  "realized_tapes": 23,
+  "surjective": false,
+  "why_not_surjective": "a realized tape is functional (equal entries have equal successors, Observe.next_active_det), so no thread with the prefix [0, 1, 0, 2] is realized; the full thread space contains it",
+  "witness_has_no_realized_extension": true
+ },
+ "which_threads": {
+  "all_mathematical_sequences": "the thread space is all of them (the construction is total)",
+  "computably_presented": "between the two; not characterised here",
+  "process_generated": "functional tapes \u2014 equal entries have equal successors (Observe.next_active_det) \u2014 hence eventually periodic on a finite carrier; a strict subset"
+ }
+}

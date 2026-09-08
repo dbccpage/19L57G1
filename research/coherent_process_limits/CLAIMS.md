@@ -1,0 +1,221 @@
+# Claims: coherent finite observations of the represented process
+
+AuthorityEffect: None.  Every claim names its hypotheses, its novelty against
+the reused results, its evidence, its falsifier and its remaining obligation.
+The words forced, minimal, free, canonical, equivalent, universal and complete
+appear only where a proof is named.  Lean names are in `lean/Limits.lean`
+(the abstract inverse system) and `lean/Observe.lean` (the represented process
+at step scales) under the namespaces `Limits` and `Observe`; every report lies
+within `{propext, Quot.sound}` (`evidence/lean.json`).  "The process" means
+the merged `Control` machine of `research/represented_execution` run by its
+deterministic runner; "the artifact" means that family's
+`evidence/process.json`, authored there and only read here; "a scale" means
+a number of steps of the runner watched; "the observation at scale `n`" means
+the tape after `n` steps (`Observe.obs`).
+
+### CL-CP-01 — the thread space is the sequence space
+
+- **Statement**: a stage is a word of length `n` over a carrier of size `c`,
+  the bonding forgets the last entry, and a family is compatible when the
+  bonding holds at every scale.  The prefixes of a sequence form a
+  compatible family (`ofSeq`), a compatible family determines a sequence
+  (`toSeq`, reading entry `i` at scale `i + 1`), and the two constructions
+  are inverse (`toSeq_ofSeq`, `ofSeq_toSeq`).
+- **Hypotheses**: none.
+- **Novelty**: the sealed `wit_no_infinite` says arbitrary finite witnesses
+  need not assemble into one history; here they assemble because the family
+  is compatible by construction and the bonding is restriction.  No choice
+  or compactness principle is used: `toSeq_ofSeq` and `stable` depend on no
+  axiom at all.
+- **Evidence**: `Limits.ofSeq`, `toSeq`, `stable`, `toSeq_ofSeq`,
+  `ofSeq_toSeq`; computed: `limits.of_seq`/`to_seq` on three sequences.
+- **Falsifier**: a compatible family that is not the prefix family of its
+  sequence.
+- **Obligation**: none.  The topology of the thread space is *declared*
+  (CL-CP-11), not proved.
+
+### CL-CP-02 — eventual agreement is not compatibility
+
+- **Statement**: the family over two letters that reads `1` at scale 1 and
+  `0` everywhere else satisfies the bonding at every scale from 2 on
+  (`eventual_agrees`) and is not compatible (`eventual_not_compatible`).
+- **Hypotheses**: none.
+- **Novelty**: the brief's required negative: "compatible" is agreement at
+  every stage, and a family that agrees after stage `N` and differs at
+  `N − 1` is refused by the definition, not admitted by a silent switch to
+  eventual agreement.
+- **Evidence**: the two theorems; computed: `limits.eventual`.
+- **Falsifier**: n/a (a definition's boundary, exhibited).
+- **Obligation**: none.
+
+### CL-CP-03 — invariance under the even cofinal rescaling
+
+- **Statement**: the subsystem of even scales, with the bonding that forgets
+  two entries, has compatible families determined by the same sequences
+  (`etoSeq_eofSeq`, `eofSeq_etoSeq`), and the two thread spaces correspond
+  both ways through the sequences (`thread_even`, `even_thread`).
+- **Hypotheses**: none.
+- **Novelty**: the brief's cofinality clause with a test: there is one limit,
+  not two "the" limits.
+- **Evidence**: the named theorems; computed: `limits.even_family` reads
+  back the sequence.
+- **Falsifier**: an even-scale family with no all-scale counterpart, or two.
+- **Obligation**: other cofinal reindexings are not stated; the even one is
+  the exhibit.
+
+### CL-CP-04 — the observations of the process are compatible at every scale
+
+- **Statement**: for every state `s` and every scale `n`, the tape after `n`
+  steps is a prefix of the tape after `n + 1` (`obs_prefix`) and of the tape
+  after any later number of steps (`obs_prefix_add`).  The bonding of the
+  concrete system — forget the entries beyond the coarser length — holds at
+  every scale because one step only appends (`next_tape`, through the merged
+  `fire_ok`), and a terminal keeps the state.
+- **Hypotheses**: none: every state, every program, every scale.
+- **Novelty**: this is the commuting law of the brief's item 3 for the
+  scale system of run-observations: observing then advancing equals
+  advancing then observing, with the coarse observation the prefix.
+- **Evidence**: `Observe.next_tape`, `obs_prefix`, `obs_prefix_add`,
+  `stepDet_inr`; computed: every program identified from the artifact, every
+  datum, twelve scales (`tests/test_limits.py`).
+- **Falsifier**: a state and scale whose observation is not a prefix of the
+  next.
+- **Obligation**: the scale is the step count of one run with one declared
+  fuel; that the observation is independent of the declared fuel while fuel
+  lasts is computed (the four-scale experiment), not proved.
+
+### CL-CP-05 — the tape does not determine the future; the fuel is what is lost
+
+- **Statement**: on the `forever` program from datum 0, the states with fuel
+  0 and fuel 1 have the same tape `[0]`; after one step the first still reads
+  `[0]` and the second `[0, 1]` (`lost_fuel`).  The repair: with the program,
+  the active datum and the fuel, the next datum is determined — two states
+  with the same program and active datum that both step reach the same datum
+  (`next_active_det`).
+- **Hypotheses**: for `next_active_det`, equal program, operation count and
+  active datum, and both states stepping.
+- **Novelty**: the brief's failure pair, with the lost information named
+  (the fuel) and the observation repaired by including it, rather than a
+  relational transition retained.
+- **Evidence**: `Observe.lost_fuel` (decided on the concrete program),
+  `next_active_det`; computed: `limits.lost_fuel`, and the determinism check
+  on states with different tapes and clocks.
+- **Falsifier**: two states with one program, active datum and fuel that
+  step to different data.
+- **Obligation**: at a fork the runner stops and the tape freezes; lifting
+  the successor relation of a fork to threads is not built (CL-CP-11).
+
+### CL-CP-06 — a shifted observation needs the entry beyond the boundary
+
+- **Statement**: there is no function of the two-entry prefix that returns
+  the two-entry prefix of the word shifted by one: `[0, 1, 2]` and
+  `[0, 1, 0]` share the prefix `[0, 1]` and shift to `[1, 2]` and `[1, 0]`
+  (`shift_not_local`).
+- **Hypotheses**: none.
+- **Novelty**: the brief's required negative for a scale map that imports
+  information across the observed boundary; the host would have to supply
+  the third entry.
+- **Evidence**: the theorem (no axiom); computed: `limits.shift_failure`.
+- **Falsifier**: n/a (exhibited).
+- **Obligation**: none.
+
+### CL-CP-07 — the three verdicts: injective, not dense, not surjective
+
+- **Statement**: the observation at the scale of a tape's length is the tape
+  (injective on tapes).  The image of the process is not dense: no realized
+  tape extends `[0, 1, 0, 2]`, because a realized tape is functional — equal
+  entries have equal successors — and that word is not.  Hence the process
+  does not realize every thread.
+- **Hypotheses**: for the computed verdict, the declared class: every program
+  on the recorded three-point setting with at most one operation enabled per
+  datum (64 programs), from every datum, at fuel 4.
+- **Novelty**: the brief's three separate claims with three separate
+  falsifiers; density is refused by a named prefix, not by a cardinality
+  remark.
+- **Evidence**: `Observe.next_active_det` (the reason: the next datum is a
+  function of the current one); computed: `limits.verdicts` — all 64 × 3
+  realized tapes are functional and none extends the witness.
+- **Falsifier**: a realized tape that is not functional, or one extending
+  `[0, 1, 0, 2]`.
+- **Obligation**: the general theorem that every realized tape is functional
+  along the whole run (not only one step) is computed over the class, not
+  proved; eventual periodicity on a finite carrier is the standard
+  consequence and is not formalized.
+
+### CL-CP-08 — the connected experiment: one process, four scales, one bound
+
+- **Statement**: the `forever` program identified from the artifact, from
+  datum 0, observed at scales 3, 6, 12, 24.  The observations are each a
+  prefix of the next; the artifact's own recorded tape (fuel 5) is a prefix
+  of every finer one.  The readout is the number of zeros; the bound
+  `L ≤ 3 · zeros ≤ L + 2` is derived at scale 3 from the visible period and
+  holds at every finer scale with the readout unchanged.  On the sequence
+  `i ↦ i % 3` the bound is a theorem for every `L` (`zeros_eq`,
+  `zeros_bound`): the frequency of `0` is `1 / 3` up to `2 / (3 L)`, and
+  precision `ε` needs `L ≥ 2 / (3 ε)`.
+- **Hypotheses**: the identified program; the four scales.
+- **Novelty**: a finite observable with an explicit approximation bound and
+  a computable precision rule, tied to a limiting quantity that is a
+  rational — existence of the limit and effective access to it separated by
+  the rule; no interval, circle or real number used.
+- **Evidence**: `Observe.zeros_bound`; computed: `limits.connected_experiment`
+  (`evidence/limits.json`), and the receipt refuses a failing bound at any
+  scale.
+- **Falsifier**: a scale at which the readout leaves the bound, or an
+  observation that is not a prefix of the next.
+- **Obligation**: that the `forever` tape after `n` steps *is* the first
+  `n + 1` entries of `i ↦ i % 3` is computed at every scale, not proved; the
+  proved bound is on the sequence.  This is the labeled missing connection.
+
+### CL-CP-09 — the artifact consumed, and a finding for the family that wrote it
+
+- **Statement**: the artifact's fragment is `control`; its eight recorded
+  controlled runs identify the four programs uniquely — the operation order
+  is the one permutation of the sorted tables under which every recorded run
+  replays to its tape and terminal.  Finding: the artifact's `setting_json`
+  is the sealed `Setting.json`, which sorts the operation tables and so loses
+  the index order the enablements refer to; taken alone it would put the
+  constant map at index 0.
+- **Hypotheses**: none.
+- **Novelty**: the artifact contract doing its job — the consumer found what
+  the producer's schema drops.
+- **Evidence**: `limits.identify_programs`; computed: the sorted order alone
+  misidentifies, and an inconsistent artifact is refused
+  (`tests/test_limits.py`).  The artifact is pinned by digest in
+  `SOURCE_MANIFEST.json` at the represented execution family's commit.
+- **Falsifier**: a recorded run that no ordering replays, or two orderings
+  that both do.
+- **Obligation**: the represented execution family should record the
+  operation tables in index order.  Nothing here writes its artifact.
+
+### CL-CP-10 — the causal footprint of a step, limited
+
+- **Statement**: a firing reads the enablement self-instance and the
+  operation edge at the active datum and writes the active datum, the tape,
+  the clock and the fuel, keeping the program (the merged `fire_ok`, `fire`,
+  `enabled`).  An edit to an instance away from the active datum does not
+  change the step; an edit at it does.
+- **Hypotheses**: the merged definitions.
+- **Novelty**: the brief's read/write extraction, stated for the one locus
+  the process has.
+- **Evidence**: the merged theorems and the represented execution family's
+  mutation tests.
+- **Falsifier**: a step that changes under an edit away from the active
+  datum.
+- **Obligation**: the process has one locus of activity; independence and
+  interaction between two loci — a product of two processes — are not built.
+
+### CL-CP-11 — declared, and not delivered
+
+- **Topology, declared**: the thread space carries the product of the
+  discrete topologies on the finite stages; that space is totally
+  disconnected; it is not an interval and not a circle, and none is claimed.
+  An interval would need an order or metric compatible with the stages and an
+  identification of threads this family does not make.  Not proved in Lean.
+- **Not delivered**: lifting a fork's successor relation to threads; the
+  general eventual-periodicity theorem; a second locus of activity; the
+  proved link between the `forever` tape and the sequence `i ↦ i % 3`.
+- **Next single obstacle**: the model-selection and measurement burden
+  (P218).  Nothing here selects a physical law; the readout is a frequency
+  of a datum in a represented process, and a physical claim would need an
+  independently specified measurement protocol and calibration.

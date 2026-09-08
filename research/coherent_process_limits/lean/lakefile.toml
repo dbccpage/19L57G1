@@ -1,0 +1,24 @@
+name = "coherent_process_limits"
+version = "0.1.0"
+defaultTargets = ["Limits", "Observe", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The represented execution family: the process this family observes,
+# consumed read-only (it carries setting_translation and the merged
+# packages beneath it).
+[[require]]
+name = "represented_execution"
+path = "../../represented_execution/lean"
+
+[[lean_lib]]
+name = "Limits"
+
+[[lean_lib]]
+name = "Observe"
+
+[[lean_lib]]
+name = "Inventory"
