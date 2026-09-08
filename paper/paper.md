@@ -777,6 +777,13 @@ Within the declared metatheory and candidate grammar:
   collected (434 passed, 1 skipped), line 99.10%, branch 96.73%,
   measured on a clean single-process run.  The 57/1322 reading above
   stands as taken.
+
+  **Superseded again (2026-09-08, at commit `60c2cb05`)**: the machine
+  gives 77 Lean sources and 75 modules (63 in the root's import closure,
+  12 parked), 1530 axiom reports within {propext, Quot.sound}, 516 tests
+  collected (515 passed, 1 skipped), line 99.10%, branch 96.71%, measured
+  by the pinned-lock suite under coverage.  The 62/1417/435/96.73%
+  reading above stands as taken.
 * **[metatheoretic; kind (e), a gap in the audit rather than in the
   mathematics — NARROWED, formerly an open obstruction]** Elaboration is
   not auditing.  This bullet formerly read that a module the root does not
@@ -785,9 +792,11 @@ Within the declared metatheory and candidate grammar:
   declaration census ... so it is left OPEN rather than closed badly".
   The census now exists: `lean4/ParkedAudit.lean` reads the compiled
   environment rather than the source text, and reports every theorem of the
-  twelve modules outside the root's import closure.  The inventory is 1472
-  reports (the figure tracks the inventory and earlier read 1417, and 1314
-  before that), all within `{propext, Quot.sound}`.
+  twelve modules outside the root's import closure.  The inventory is 1530
+  reports as of 2026-09-08 at `60c2cb05`, re-measured by
+  `ci/check_axiom_report.py` against a fresh build log (the figure tracks
+  the inventory and earlier read 1472, 1417, and 1314 before that), all
+  within `{propext, Quot.sound}`.
   
   What remains open is narrower and is stated here rather than dropped.
   The census reports **theorems**, so a definition carrying an axiom that

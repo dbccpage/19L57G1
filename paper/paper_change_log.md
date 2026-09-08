@@ -2498,3 +2498,53 @@ string value, or paper prose, and the derivation's recorded results are
 untouched.  Verification: the affected tests, strict typing, the ledger
 evidence gate, and the paper citation gate were run after the edits; the
 Lean edits are doc comments only and the package was rebuilt.
+
+## 2026-09-08 -- stale counts re-measured at `60c2cb05`
+
+The measurements listed below were checked against the machine at
+`60c2cb05d91cdfa099017c9cd205b52564db884b`.  Each stale figure below is
+dated and superseded rather than overwritten, quoting the withdrawn
+wording.  Measured: 77 Lean sources and 1530 axiom reports
+(`ci/check_lean_audit.py`, `ci/check_axiom_report.py` on a fresh build
+log); 75 modules, 63 in the root's closure and 12 parked
+(`ci/check_parked_audit.py`); 516 tests collected, 515 passed and 1
+skipped; line 99.10% and branch 96.71% (`ci/check_coverage.py`); and
+539 + 710 + 1025 lines for the three collision modules.
+
+* `paper.md`, the "elaboration is not auditing" bullet: withdrawn "The
+  inventory is 1472 reports (the figure tracks the inventory and earlier
+  read 1417, and 1314 before that)"; now 1530, dated and commit-pinned,
+  with the chain of earlier readings kept.
+* `paper.md`, the gate-status chain: the 2026-08-18 entry ("62 sources and
+  1417 axiom reports ... 435 tests collected (434 passed, 1 skipped), line
+  99.10%, branch 96.73%") stands as taken; a dated supersession is
+  appended below it, which is the convention that chain already uses.
+* `native_derivation_map.md`: withdrawn "`artifacts/lean_axioms.txt` now
+  carries 1184 reports" and "checked name by name against all 1184
+  reports"; now dated to the time of writing with the 1530 figure beside
+  it, and the name-by-name check scoped to the reports it was run
+  against.
+* `primitive_difference_map.md`: withdrawn "Three modules, 2015 lines in
+  the working tree (539 + 710 + 766; 1942 at the spine commit `ebb1e0b`)"
+  and "(`artifacts/lean_axioms.txt`, 1184 reports)"; now 2274 lines
+  (539 + 710 + 1025) and 1530 reports, dated, with the earlier figures
+  kept.
+* `skill_inbox.md`, the 2026-08-16 entry: withdrawn "covers only the 1314
+  enumerated reports"; now dated to the entry with the 1530 figure beside
+  it.
+* NOT changed, recorded so it is not mistaken for oversight:
+  `paper_claim_ledger.md`, `CL-PD2-CONTACT-RECONSTRUCTION`
+  ("`artifacts/lean_axioms.txt`, 1184 reports").  Its body is
+  digest-pinned by `tests/claim_ledger_body_pin.txt`, outside `paper/`,
+  so that correction waits for a deliberate repin by the author.
+
+No theorem, computation, artifact key, claim ID, or claim status changed.
+Every edit is to dated prose, and the derivation's recorded results are
+untouched.
+
+Scope correction on review: the opening sentence originally read "A fresh
+audit compared every number in `paper/` with the machine".  The recorded
+commands cover the measurement families listed above; this entry records
+no census or verification of every numerical statement in the paper.  The
+name-by-name theorem check and the digest-pinned ledger value remain
+outside this measurement update.
