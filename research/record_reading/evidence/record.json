@@ -1,0 +1,964 @@
+{
+ "artifact": {
+  "authored_by": "research/represented_execution",
+  "finding_inherited": {
+   "identified_from_recorded_runs": 8,
+   "recovered_order_of_sorted_tables": [
+    1,
+    0,
+    2
+   ],
+   "schema_loses_operation_order": true
+  },
+  "path": "research/represented_execution/evidence/process.json",
+  "read_through": "research/coherent_process_limits (limits.identify_programs)",
+  "repair_here": "every run below records its operation tables in index order (ops_in_index_order)",
+  "written_here": false
+ },
+ "authority_effect": "None",
+ "classification": "deterministic computation: the record-reading machine over the sealed encoding, and the selection experiment on the represented process",
+ "config_status": "DECLARED_HOST_CONFIG",
+ "forget": {
+  "distinction_disappears": true,
+  "meaning": "the record forgotten: the enablement read at the datum as its own predecessor",
+  "projection": [
+   [
+    0,
+    0
+   ]
+  ],
+  "tape": [
+   0,
+   1
+  ],
+  "terminal": "halt"
+ },
+ "lift": {
+  "agrees_with_forever_at_every_declared_input": true,
+  "program": "liftForever"
+ },
+ "not_delivered": [
+  "a record read deeper than one entry: the enablement reads the previous datum only",
+  "an encoded configuration: the state is a declared host record",
+  "an observable that reads which operation fired: the residual of the selection experiment is exactly what such an observable would separate",
+  "a second locus of activity"
+ ],
+ "record_is_read": {
+  "actives_by_step": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "left_towards": [
+   1,
+   0
+  ],
+  "meaning": "at its third step the run is at the datum it started from and moves elsewhere than the first time: the enablement read the record (Record.record_is_read)",
+  "memoryless_cannot": "a run of the merged machine that returns to a datum leaves it the same way (Record.memoryless_functional)",
+  "memoryless_class_checked": {
+   "class": "every program on the identified setting with at most one operation enabled per datum, from every datum, at fuel 3",
+   "programs": 64,
+   "tape_0_1_0_0_realized": false,
+   "tape_is_functional": false
+  },
+  "program": "twist",
+  "same_datum_at_steps": [
+   0,
+   2
+  ]
+ },
+ "record_reading": {
+  "completeness": "Record.rsuccessors_complete",
+  "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
+  "never_selects": "Record.rrun_branch",
+  "only_appends": "Record.robs_prefix",
+  "program": "Record.rprogram; well-formed regime Record.encodeR_wf",
+  "read": "Record.renabled: the presence of the instance (3 + nops + k, [previous, active]); Record.previous: the entry before the last on the record",
+  "read_faithfully": "Record.renabled_rprogram",
+  "record_is_what_the_process_wrote": "Record.previous_fire: after a firing the datum the step left is the previous the next enablement reads",
+  "reference": "Record.RStep",
+  "soundness": "Record.rsuccessors_sound"
+ },
+ "record_runs": [
+  {
+   "clock": 3,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 3,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 0,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    0,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 0,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 0,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 4,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 1,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "successors_at_end": [],
+   "tape": [
+    1
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 0,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 4,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 2,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 1,
+   "program": "turncoat",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    0,
+    1,
+    2
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 0,
+   "program": "turncoat",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2,
+    0,
+    0,
+    1,
+    2,
+    0,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     0
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 2,
+   "program": "liftForever",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0
+   ],
+   "terminal": "exhausted"
+  }
+ ],
+ "schema_version": 1,
+ "selection": {
+  "ambiguity_exhibited": {
+   "both_survive": true,
+   "climbFirst": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "forever": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "programs_differ": true,
+   "separated_by_a_declared_input": false,
+   "why": "both carry 0 to 1: the tape does not say which operation carried the datum (Select.forever_indistinguishable, from Select.obs_bisim)"
+  },
+  "classes": {
+   "memoryless": {
+    "burden": 0,
+    "class": "every program on the identified setting with at most one operation enabled per datum",
+    "class_size": 64,
+    "experiments": [],
+    "residual": {
+     "between_classes_it_differs_on_a_reached_pair": true,
+     "largest_class": 8,
+     "residual_classes": 1,
+     "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
+    },
+    "survivors": 8,
+    "unique_within_class": false
+   },
+   "record": {
+    "burden": 3,
+    "class": "every record-reading program on the identified setting with at most one operation enabled per (previous, active) pair",
+    "class_size": 262144,
+    "experiments": [
+     {
+      "classes_after": 11,
+      "scale": 6,
+      "start": 1
+     },
+     {
+      "classes_after": 37,
+      "scale": 2,
+      "start": 2
+     },
+     {
+      "classes_after": 45,
+      "scale": 4,
+      "start": 0
+     }
+    ],
+    "residual": {
+     "between_classes_it_differs_on_a_reached_pair": true,
+     "largest_class": 4096,
+     "residual_classes": 45,
+     "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
+    },
+    "survivors": 32768,
+    "unique_within_class": false
+   }
+  },
+  "declared_before_readout": {
+   "classes": {
+    "memoryless": "every program on the identified setting with at most one operation enabled per datum",
+    "record": "every record-reading program on the identified setting with at most one operation enabled per (previous, active) pair"
+   },
+   "fuel": 8,
+   "observed_program": "forever",
+   "observed_scale": 3,
+   "observed_start": 0,
+   "readout": "the tape after the scale's number of steps of the deterministic runner",
+   "scales": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "separation_rule": "the retained laws are separated by the readouts of the declared inputs only, each read as the prefix of one run per start at the finest scale",
+   "starts": [
+    0,
+    1,
+    2
+   ],
+   "survivor_rule": "a law is retained when its own run from the observed start at the observed scale reads the seen observation; no law is removed afterwards"
+  },
+  "discrimination_exhibited": {
+   "agree_at_the_seen_observation": true,
+   "lift_forever": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     0
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "separated_by_scale": {
+    "readouts": [
+     [
+      0,
+      1,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      2,
+      0,
+      1
+     ]
+    ],
+    "scale": 4,
+    "start": 0
+   },
+   "separated_by_start": {
+    "readouts": [
+     [
+      2,
+      0,
+      0
+     ],
+     [
+      2,
+      0,
+      1
+     ]
+    ],
+    "scale": 2,
+    "start": 2
+   },
+   "turncoat": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ]
+  },
+  "missing_axiom": "an observable that reads which operation fired, not only where the datum went: the tape identifies a law up to its next-value function on the pairs the runs reach (Select.obs_bisim) and the residual classes are exactly those (checked above)",
+  "observation": [
+   0,
+   1,
+   2,
+   0
+  ]
+ }
+}

@@ -1,0 +1,3 @@
+# The two records are compared byte for byte by `run.py --check` and
+# `verify_lean.py --check`; a CRLF checkout must not rewrite them.
+evidence/** -text

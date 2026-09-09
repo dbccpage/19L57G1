@@ -1,0 +1,134 @@
+"""The selection experiment: the protocol declared before the readout, the
+survivors by replay, the burden, the residual and its reason, the exhibited
+ambiguity and the exhibited discrimination."""
+
+from __future__ import annotations
+
+from pathlib import Path
+import sys
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT.parents[1] / "code"))
+sys.path.insert(0, str(ROOT.parent / "setting_translation"))
+sys.path.insert(0, str(ROOT.parent / "represented_execution"))
+sys.path.insert(0, str(ROOT.parent / "coherent_process_limits"))
+sys.path.insert(0, str(ROOT))
+
+import control as ct  # noqa: E402
+import limits as lm  # noqa: E402
+import record as rc  # noqa: E402
+import selection as sel  # noqa: E402
+import translation as tr  # noqa: E402
+
+
+class Setting(unittest.TestCase):
+    F: tr.FiniteSetting
+    forever: ct.Controlled
+    observation: sel.Word
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        artifact = lm.load_artifact()
+        programs, _ = lm.identify_programs(artifact)
+        cls.forever = programs["forever"]
+        cls.F = cls.forever.F
+        runs = artifact["control_runs"]
+        assert isinstance(runs, list)
+        recorded = tuple(int(v) for v in next(r for r in runs if r["program"] == "forever")["tape"])
+        cls.observation = recorded[: sel.OBSERVED_SCALE + 1]
+
+
+class Protocol(Setting):
+    def test_the_protocol_is_declared_as_constants(self) -> None:
+        self.assertEqual(sel.STARTS, (0, 1, 2))
+        self.assertEqual(sel.SCALES, tuple(range(1, 9)))
+        self.assertEqual(len(sel.INPUTS), 24)
+        self.assertEqual((sel.OBSERVED_START, sel.OBSERVED_SCALE), (0, 3))
+        self.assertEqual(self.observation, (0, 1, 2, 0))
+
+    def test_the_seen_observation_is_the_declared_readout_of_the_recorded_program(self) -> None:
+        self.assertEqual(sel.observe(self.forever, sel.OBSERVED_START, sel.OBSERVED_SCALE), self.observation)
+
+    def test_survivors_are_retained_by_replay_only(self) -> None:
+        laws: list[sel.Law] = [self.forever, ct.Controlled(self.F, frozenset({(0, 1)})), rc.turncoat(self.F),
+                               rc.twist(self.F)]
+        kept = sel.survivors(laws, self.observation)
+        self.assertEqual(len(kept), 2)
+        self.assertTrue(all(sel.observe(law, 0, 3) == self.observation for law in kept))
+        self.assertEqual(sel.survivors(laws, (0, 1, 0, 0)), [rc.twist(self.F)])
+
+    def test_the_finest_scale_carries_every_coarser_one(self) -> None:
+        for law in (self.forever, rc.turncoat(self.F), rc.twist(self.F)):
+            for x in sel.STARTS:
+                fine = sel.observe(law, x, sel.MAX_SCALE)
+                for n in sel.SCALES:
+                    coarse = sel.observe(law, x, n)
+                    self.assertEqual(coarse, fine[: len(coarse)])
+
+    def test_next_value_is_what_a_step_moves_to(self) -> None:
+        for law in (self.forever, rc.turncoat(self.F), rc.twist(self.F)):
+            for x in sel.STARTS:
+                s = ct.init(law, x, 4) if isinstance(law, ct.Controlled) else rc.rinit(law, x, 4)
+                for _ in range(4):
+                    p = rc.previous(s)
+                    value = sel.next_value(law, p, s.active)
+                    nxt = lm.next_state(s) if isinstance(law, ct.Controlled) else rc.rnext(s)
+                    if value is None:
+                        self.assertEqual(nxt.tape, s.tape)
+                    else:
+                        self.assertEqual(nxt.active, value)
+                    s = nxt
+
+
+class Memoryless(Setting):
+    def test_eight_survive_one_residual_class_no_further_input_helps(self) -> None:
+        kept = sel.survivors(sel.memoryless_class(self.F), self.observation)
+        self.assertEqual(len(kept), 8)
+        sequence, residual = sel.burden(kept)
+        self.assertEqual(sequence, [])
+        self.assertEqual(residual, 1)
+        reason = sel.residual_reason(kept)
+        self.assertTrue(reason["within_a_class_the_next_value_function_agrees_on_reached_pairs"])
+        self.assertTrue(reason["between_classes_it_differs_on_a_reached_pair"])
+
+    def test_forever_and_climb_first_differ_and_are_not_separated(self) -> None:
+        climb_first = ct.Controlled(self.F, frozenset({(0, 2), (1, 0), (2, 0)}))
+        self.assertNotEqual(ct.program(self.forever), ct.program(climb_first))
+        self.assertEqual(sel.signature(self.forever), sel.signature(climb_first))
+        for x in range(3):
+            self.assertEqual(sel.next_value(self.forever, x, x), sel.next_value(climb_first, x, x))
+
+
+class Record(Setting):
+    def test_turncoat_agrees_at_the_seen_observation_and_is_separated(self) -> None:
+        turncoat, lifted = rc.turncoat(self.F), rc.lift(self.forever)
+        self.assertEqual(sel.observe(turncoat, 0, 3), sel.observe(lifted, 0, 3))
+        self.assertNotEqual(sel.observe(turncoat, 0, 4), sel.observe(lifted, 0, 4))
+        self.assertNotEqual(sel.observe(turncoat, 2, 2), sel.observe(lifted, 2, 2))
+        self.assertEqual(sel.observe(turncoat, 0, 4), (0, 1, 2, 0, 0))
+        self.assertEqual(sel.observe(lifted, 0, 4), (0, 1, 2, 0, 1))
+
+    def test_the_greedy_burden_refines_and_stops(self) -> None:
+        laws: list[sel.Law] = [rc.turncoat(self.F), rc.lift(self.forever), rc.twist(self.F)]
+        sequence, residual = sel.burden(laws)
+        self.assertEqual(residual, 3)
+        self.assertEqual(len(sequence), 1)
+        self.assertEqual(sequence[0]["classes_after"], 3)
+
+    def test_the_record_class_has_the_declared_size(self) -> None:
+        laws = sel.record_class(self.F)
+        self.assertEqual(len(laws), 4 ** 9)
+        self.assertIn(rc.turncoat(self.F), laws)
+        self.assertIn(rc.twist(self.F), laws)
+        self.assertIn(rc.lift(self.forever), laws)
+
+
+class Refusals(Setting):
+    def test_a_seen_observation_of_the_wrong_scale_is_refused(self) -> None:
+        with self.assertRaisesRegex(sel.SelectError, "scale"):
+            sel.experiment(self.F, (0, 1, 2), self.forever)
+
+
+if __name__ == "__main__":
+    unittest.main()

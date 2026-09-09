@@ -1,0 +1,24 @@
+name = "record_reading"
+version = "0.1.0"
+defaultTargets = ["Record", "Select", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The coherent process limits family: the observation of the represented
+# process at step scales, consumed read-only (it carries the represented
+# execution family, setting_translation and the merged packages beneath it).
+[[require]]
+name = "coherent_process_limits"
+path = "../../coherent_process_limits/lean"
+
+[[lean_lib]]
+name = "Record"
+
+[[lean_lib]]
+name = "Select"
+
+[[lean_lib]]
+name = "Inventory"

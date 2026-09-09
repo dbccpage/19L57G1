@@ -1,0 +1,250 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 3,
+  "census": "compiled environment theorem declarations in the Record and Select namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Inventory.lean": "d4c422b6fc97d908ee7922934d62e76c0c7af857f79952ceb2a8e193b9c9f63f",
+    "Record.lean": "8b98f15836a31b06399ee6fd4c5a8c22f7cca6058648937c7dd216a4c35f6807",
+    "Select.lean": "a8ccfbfd1663ad0c552fc37106b8a4e61cd154bd28f978ab2c622d8dae71f9fa",
+    "lakefile.toml": "85a4758ed5764cf63df4d089d5fe842ce15e7344e56a924f2fc642402a730929",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_mirror_refinement": "NOT_PROVED",
+  "reports": {
+    "Record.Recorded.mk.inj": [],
+    "Record.Recorded.mk.injEq": [
+      "propext"
+    ],
+    "Record.Recorded.mk.sizeOf_spec": [],
+    "Record.encodeR_forms_getD": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_forms_length": [
+      "propext"
+    ],
+    "Record.encodeR_forms_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.fire_synced": [
+      "propext"
+    ],
+    "Record.forget_twist": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lift_RStep": [
+      "propext"
+    ],
+    "Record.lift_renabled": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lookup_rprogram_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lookup_rprogram_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lookup_rprogram_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_recInsts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_renabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_rprogram": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_rsuccessors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.memoryless_functional": [
+      "propext"
+    ],
+    "Record.present_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.previous_fire": [
+      "propext"
+    ],
+    "Record.previous_rinit": [
+      "propext"
+    ],
+    "Record.record_is_read": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_rprogram": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_rprogram._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_rprogram._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.rinit_synced": [],
+    "Record.rnext_tape": [
+      "propext"
+    ],
+    "Record.robs_prefix": [
+      "propext"
+    ],
+    "Record.robs_prefix_add": [
+      "propext"
+    ],
+    "Record.rrunDet_branch": [
+      "propext"
+    ],
+    "Record.rrun_branch": [
+      "propext"
+    ],
+    "Record.rstepDet_branch": [
+      "propext"
+    ],
+    "Record.rstepDet_inr": [
+      "propext"
+    ],
+    "Record.rsuccessors_complete": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.rsuccessors_complete._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.rsuccessors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.twist_period": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.twist_tape": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.enabledAt_ge": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.enabledAt_ge._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.enabledAt_ge._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.forever_ambiguous": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.forever_differ": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.forever_indistinguishable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.nextValue_ge": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.next_of_inl": [
+      "propext"
+    ],
+    "Select.next_of_inr": [
+      "propext"
+    ],
+    "Select.obs_bisim": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.obs_take": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_iter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.stepDet_spec": [
+      "propext"
+    ],
+    "Select.turncoat_agrees": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.turncoat_differs_scale": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.turncoat_differs_start": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "Record": 43,
+    "Select": 20
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination.",
+  "theorem_count_including_generated": 63,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
