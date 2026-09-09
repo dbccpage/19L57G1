@@ -200,6 +200,50 @@ theorem shift_not_local :
   have h3 : ([1, 2] : List Nat) = [1, 0] := h1.trans h2.symm
   cases h3
 
+/-! ## 6. Two sequences that an interval reading would identify
+
+An adapter carrying threads on two data to an interval would send
+`0, 1, 1, 1, …` and `1, 0, 0, 0, …` to the same point.  This family declares
+no such adapter, and the question of whether to keep them apart or to quotient
+has a structural answer here rather than a chosen one: the thread space **is**
+the sequence space, by the bijection `ofSeq`/`toSeq`, so distinct sequences
+are distinct threads and there is nothing to quotient by.  Identifying them
+would be a *further* declared map, and none is declared.
+
+What is proved: the two are separated already at scale one — the coarsest
+scale that sees anything — so no bonding, and no cofinal rescaling, can bring
+them together.  The refusal is recorded rather than the identification. -/
+
+/-- The two sequences an interval reading would identify. -/
+def twinLo : Nat → Fin 2 := fun i => if i = 0 then ⟨0, by decide⟩ else ⟨1, by decide⟩
+def twinHi : Nat → Fin 2 := fun i => if i = 0 then ⟨1, by decide⟩ else ⟨0, by decide⟩
+
+theorem twins_differ_at_zero : twinLo 0 ≠ twinHi 0 := by decide
+
+/-- **They are separated at the coarsest scale that sees anything.**  The
+observations at scale one already differ, so no later scale can agree. -/
+theorem twins_differ_at_scale_one :
+    (ofSeq 2 twinLo).val 1 ≠ (ofSeq 2 twinHi).val 1 := by
+  intro h
+  have h0 : (ofSeq 2 twinLo).val 1 ⟨0, by decide⟩ = (ofSeq 2 twinHi).val 1 ⟨0, by decide⟩ := by
+    rw [h]
+  exact twins_differ_at_zero h0
+
+/-- **And therefore they are two threads.** -/
+theorem twins_are_two_threads : ofSeq 2 twinLo ≠ ofSeq 2 twinHi := by
+  intro h
+  exact twins_differ_at_scale_one (by rw [h])
+
+/-- **Distinct sequences are always distinct threads.**  Not a fact about the
+twins: the thread space is the sequence space, so an identification of any two
+sequences would have to be a further declared map, and this family declares
+none. -/
+theorem threads_are_sequences (s t : Nat → Fin 2) (h : ofSeq 2 s = ofSeq 2 t) : s = t := by
+  have h1 : toSeq 2 (ofSeq 2 s) = toSeq 2 (ofSeq 2 t) := by rw [h]
+  rw [toSeq_ofSeq, toSeq_ofSeq] at h1
+  exact h1
+
+
 end Limits
 
 #print axioms Limits.toSeq_ofSeq
@@ -215,3 +259,7 @@ end Limits
 #print axioms Limits.thread_restrictEven
 #print axioms Limits.even_thread
 #print axioms Limits.shift_not_local
+#print axioms Limits.twins_differ_at_zero
+#print axioms Limits.twins_differ_at_scale_one
+#print axioms Limits.twins_are_two_threads
+#print axioms Limits.threads_are_sequences

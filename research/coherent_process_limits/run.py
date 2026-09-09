@@ -48,6 +48,7 @@ from verify_sources import PACKET, verify_sources  # noqa: E402
 if PACKET != Path("research/coherent_process_limits"):
     raise RuntimeError(f"wrong custody guard imported: {PACKET}")
 
+import control as ct  # noqa: E402
 import limits as lm  # noqa: E402
 
 
@@ -123,6 +124,8 @@ def record() -> JsonObj:
         "connected_experiment": lm.connected_experiment(forever, recorded),
         "two_locus_experiment": lm.two_locus_experiment(artifact),
         "periodicity": lm.periodicity(forever.F, 12),
+        "fork_family": lm.fork_family(
+            ct.Controlled(forever.F, frozenset({(0, 0), (0, 1)})), 0, 5, (0, 1, 2, 3)),
         "causal_footprint": {
             "reads": "a firing reads the enablement self-instance and the operation edge at the active datum "
                      "(Control.fire, Control.enabled)",
@@ -143,7 +146,9 @@ def record() -> JsonObj:
         "not_delivered": [
             "an interval, circle or integration theory: the limit is a totally disconnected thread space and "
             "a rational frequency with a bound",
-            "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
+            "a thread out of a fork's family of observations: the family is observed at four scales "
+            "and its members are proved prefix-compatible, but a thread needs one tape chosen per "
+            "scale at each fork, and that selection is refused",
             "the limit of a two-locus run as an inverse system in its own right: the two-locus "
             "observation is taken at five scales and its one-locus-at-a-time property proved along "
             "every run, but the thread space over the product carrier, and whether the two loci give "

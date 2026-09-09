@@ -1,12 +1,12 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 12,
+  "axiom_free_count": 16,
   "census": "compiled environment theorem declarations in the Limits and Observe namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Inventory.lean": "5803f23751597dfd74a3724bcdd60e976409bac95289bde429140c7f6ddb763b",
-    "Limits.lean": "e1a75d181c111c5f0980e4098550e1202643ec0a6f595c53661b94074a964f0b",
-    "Observe.lean": "d59a3920387212d938ef2f0d256c7b3ac3c65b5c854b4514966838dc60d5fbbb",
+    "Limits.lean": "b53b5327e478c4983af7f2f8dbaa7236f2d0989e821236d90325ecefedcabe0e",
+    "Observe.lean": "462162324cdd6e19158002708856ea7438cdcd4fd9521e18f08d277522369715",
     "lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -98,10 +98,21 @@
       "Quot.sound",
       "propext"
     ],
+    "Limits.threads_are_sequences": [],
     "Limits.toSeq_ofSeq": [],
+    "Limits.twins_are_two_threads": [],
+    "Limits.twins_differ_at_scale_one": [],
+    "Limits.twins_differ_at_zero": [],
     "Observe.base._proof_1": [],
     "Observe.base._proof_2": [],
     "Observe.base._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.branchStep_ne_nil": [
+      "propext"
+    ],
+    "Observe.branchStep_tape": [
       "Quot.sound",
       "propext"
     ],
@@ -227,6 +238,22 @@
       "propext"
     ],
     "Observe.forever_zeros": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.fork_family_is_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.fork_runner_is_frozen": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.fork_runner_not_in_the_family": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.frontier_ne_nil": [
       "Quot.sound",
       "propext"
     ],
@@ -357,6 +384,14 @@
       "propext"
     ],
     "Observe.next_tape": [
+      "propext"
+    ],
+    "Observe.obsSet_prefix": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obsSet_prefix_add": [
+      "Quot.sound",
       "propext"
     ],
     "Observe.obs_fuel_eq": [
@@ -508,11 +543,11 @@
     ]
   },
   "reports_per_namespace": {
-    "Limits": 28,
-    "Observe": 110
+    "Limits": 32,
+    "Observe": 118
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: compatible families of finite observations over a finite carrier and their sequences; the represented execution family's deterministic runner observed at step scales; the forever program of that family. The topology of the thread space is declared, not proved.",
-  "theorem_count_including_generated": 138,
+  "theorem_count_including_generated": 150,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

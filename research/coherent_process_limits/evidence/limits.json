@@ -35,9 +35,40 @@
    2,
    0
   ],
+  "enablements": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ]
+  ],
   "fuel": 24,
   "limit": "the frequency count / L lies within 2 / (3 L) of 1 / 3 at every scale; the limiting value 1 / 3 is the rational the bound isolates, and precision e needs L >= 2 / (3 e)",
   "observed_from": "one state, at four scales: obs n s, the Lean Observe.obs",
+  "ops_in_index_order": [
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    2,
+    2
+   ]
+  ],
   "program": "forever",
   "readout": "the number of entries equal to datum 0 in the tape",
   "scales": [
@@ -48,6 +79,12 @@
     "recorded_tape_is_a_prefix_of_this_one": false,
     "recorded_tape_prefix_related": true,
     "scale": 3,
+    "tape": [
+     0,
+     1,
+     2,
+     0
+    ],
     "tape_length": 4,
     "three_count_minus_length": 2
    },
@@ -58,6 +95,15 @@
     "recorded_tape_is_a_prefix_of_this_one": true,
     "recorded_tape_prefix_related": true,
     "scale": 6,
+    "tape": [
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0
+    ],
     "tape_length": 7,
     "three_count_minus_length": 2
    },
@@ -68,6 +114,21 @@
     "recorded_tape_is_a_prefix_of_this_one": true,
     "recorded_tape_prefix_related": true,
     "scale": 12,
+    "tape": [
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0
+    ],
     "tape_length": 13,
     "three_count_minus_length": 2
    },
@@ -78,11 +139,147 @@
     "recorded_tape_is_a_prefix_of_this_one": true,
     "recorded_tape_prefix_related": true,
     "scale": 24,
+    "tape": [
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0
+    ],
     "tape_length": 25,
     "three_count_minus_length": 2
    }
   ],
+  "setting_json": {
+   "a": 0,
+   "b": 1,
+   "n": 3,
+   "ops": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "prot": [],
+   "r": [],
+   "ret": []
+  },
   "start": 0
+ },
+ "fork_family": {
+  "enablements": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "every_member_extends_to_the_next_scale": true,
+  "families_by_scale": {
+   "0": [
+    [
+     0
+    ]
+   ],
+   "1": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "2": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "3": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  "fuel": 5,
+  "program": "the cycle and the constant map both enabled at datum 0",
+  "reading": "the deterministic runner stops at a fork and its tape freezes, so its observation is not a member of the family; the family is the honest object.  What is NOT built is a thread out of it: that needs one tape chosen per scale at each fork, which is exactly the selection the runner refuses to make",
+  "runner_is_in_the_family": false,
+  "runner_observation": [
+   0
+  ],
+  "sizes_by_scale": {
+   "0": 1,
+   "1": 2,
+   "2": 3,
+   "3": 4
+  },
+  "start": 0,
+  "theorem": "Observe.branchStep_tape, obsSet_prefix, obsSet_prefix_add: every tape at a scale is a prefix of some tape at every later scale, with no branch selected; Observe.fork_family_is_two, fork_runner_is_frozen, fork_runner_not_in_the_family are this exhibit"
  },
  "limit": {
   "cofinal_rescaling": "Limits.thread_even, Limits.even_thread: the even scales have the same threads, through the sequences; Limits.restrictEven and Limits.restrictEven_eq: the map that carries them is the restriction of a thread to the even scales, which is what limits.even_family computes",
@@ -109,7 +306,7 @@
  },
  "not_delivered": [
   "an interval, circle or integration theory: the limit is a totally disconnected thread space and a rational frequency with a bound",
-  "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
+  "a thread out of a fork's family of observations: the family is observed at four scales and its members are proved prefix-compatible, but a thread needs one tape chosen per scale at each fork, and that selection is refused",
   "the limit of a two-locus run as an inverse system in its own right: the two-locus observation is taken at five scales and its one-locus-at-a-time property proved along every run, but the thread space over the product carrier, and whether the two loci give two commuting inverse systems, are not built"
  ],
  "observation_system": {

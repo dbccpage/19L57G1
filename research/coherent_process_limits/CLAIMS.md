@@ -322,6 +322,64 @@ the tape after `n` steps (`Observe.obs`).
   entry, not only the last — follows from the same orbit identification and
   is not stated as a separate theorem.
 
+### CL-CP-14 — a fork observed as a family, and the thread that is refused
+
+- **Statement**: `branchStep` takes a state to its successors, or to itself
+  where there are none, so it is never empty (`branchStep_ne_nil`) and only
+  ever appends to the tape (`branchStep_tape`).  `frontier n` iterates it and
+  `obsSet n` reads the tapes off.  **Compatibility, relationally**: every tape
+  observed at a scale is a prefix of *some* tape observed at the next
+  (`obsSet_prefix`) and hence at every later one (`obsSet_prefix_add`) — with
+  no branch designated, the witness being some member and not a chosen one.
+  On a forking program the family at scale one carries two distinct tapes
+  while the runner's own observation has frozen at the start
+  (`fork_family_is_two`, `fork_runner_is_frozen`), and the runner's
+  observation is not even a member of the family
+  (`fork_runner_not_in_the_family`).
+- **Hypotheses**: none beyond the machine.
+- **Novelty**: it separates the two halves that "lifting a fork to threads"
+  ran together.  The relational half needs no selection and is proved; the
+  functional half — a *thread*, one tape per scale — needs a choice at each
+  fork, which is exactly what `Control.stepDet` refuses to make.  Naming which
+  half is available is the result.
+- **Evidence**: `Observe.branchStep_ne_nil`, `branchStep_tape`,
+  `frontier_ne_nil`, `obsSet_prefix`, `obsSet_prefix_add`,
+  `fork_family_is_two`, `fork_runner_is_frozen`,
+  `fork_runner_not_in_the_family`; `limits.branch_step`, `frontier`,
+  `obs_set`, `fork_family`, and the record's `fork_family` section at four
+  scales with sizes 1, 2, 3, 4.
+- **Falsifier**: a family member at a scale that extends to nothing at the
+  next.  The receipt names the observation and the scale, and the refusal is
+  injected in `tests/test_evidence.py` by a branch step that discards the
+  record.
+- **Obligation**: a thread out of the family is not built, and no choice
+  function is declared.  Nothing here says the family is a *limit* of
+  anything: `Limits`' thread space is over sequences, and the family is a
+  list of words at each scale, not a stage of that system.
+
+### CL-CP-15 — two sequences an interval reading would identify, kept apart
+
+- **Statement**: `threads_are_sequences` — distinct sequences are distinct
+  threads, because `ofSeq`/`toSeq` is a bijection.  The two sequences an
+  adapter to an interval would identify are separated at scale one
+  (`twins_differ_at_zero`, `twins_differ_at_scale_one`) and are therefore two
+  threads (`twins_are_two_threads`).
+- **Hypotheses**: none.
+- **Novelty**: the question "keep them distinct or declare the quotient" has a
+  structural answer here rather than a chosen one.  No adapter to an interval
+  is declared, so no identification arises; and because the thread space *is*
+  the sequence space, an identification would have to be a further declared
+  map rather than a property of the limit.  The refusal is recorded instead of
+  the identification.
+- **Evidence**: `Limits.twinLo`, `twinHi`, `twins_differ_at_zero`,
+  `twins_differ_at_scale_one`, `twins_are_two_threads`,
+  `threads_are_sequences`.
+- **Falsifier**: two distinct sequences giving one thread.
+- **Obligation**: the statement is that no identification is made, not that
+  none could be.  If an adapter to an interval were ever declared, the bound
+  of CL-CP-08 would have to be shown to respect it, and that is not done here
+  because there is no adapter to respect.
+
 ### CL-CP-11 — declared, and not delivered
 
 - **Topology, declared**: the thread space carries the product of the
@@ -329,8 +387,8 @@ the tape after `n` steps (`Observe.obs`).
   disconnected; it is not an interval and not a circle, and none is claimed.
   An interval would need an order or metric compatible with the stages and an
   identification of threads this family does not make.  Not proved in Lean.
-- **Not delivered**: lifting a fork's successor relation to threads; the
-  thread space of a two-locus run
+- **Not delivered**: a *thread* out of a fork's family (the relational half is
+  CL-CP-14); the thread space of a two-locus run
   as an inverse system of its own (the observation is taken, the limit over
   it is not).  An earlier version of this line named "a second locus of
   activity", "the proved link between the `forever` tape and the sequence

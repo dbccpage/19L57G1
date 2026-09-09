@@ -50,7 +50,7 @@ field the order is still recovered as the one ordering under which every run
 replays, and an enablement naming an operation the sealed schema collapsed
 is refused by name.  That is the artifact contract doing its job.
 
-Lean: 70 authored theorems, 138 reports with the compiler-generated ones,
+Lean: 82 authored theorems, 150 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
@@ -58,8 +58,9 @@ recorded run replayed; compatibility checked on every identified program,
 every datum, twelve scales; the three verdicts computed over the 64
 deterministic programs on the recorded setting; the experiment at four
 scales, the two-locus experiment at five and the periodicity of all 192 runs
-on the setting; 48 tests, strict typing over nine files, two byte-identical
-records.
+on the setting, and the fork family at four; 51 tests, strict typing over
+nine files, two byte-identical records; every recorded experiment replays from
+the record's own fields.
 Execution base `d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the represented
 execution family's two-locus-run commit, at which its artifact is frozen and
 pinned;
@@ -144,9 +145,7 @@ then advancing is advancing then observing, with the coarse observation the
 prefix (`obs_prefix`).  For a per-state observation that reads only the tape,
 the square fails — the failure pair is `lost_fuel`, the lost information is
 the fuel, and the repair is to observe the fuel, after which the next datum
-is determined (`next_active_det`).  For a fork the runner stops with the
-terminal `branch` and the tape freezes: lifting the successor relation to
-threads is not built.
+is determined (`next_active_det`).  For a fork see below.
 
 The causal footprint of a step is what the merged `fire` reads and writes:
 the enablement self-instance and the operation edge at the active datum;
@@ -202,6 +201,36 @@ library.  `limits.periodicity` computes the numbers: over all 192 runs of the
 the largest period 3, and their largest sum 3 — exactly the carrier size, so
 the proved bound is tight here.
 
+### A fork, observed as a family
+
+The deterministic runner stops at a fork and its tape freezes, which is why
+the successor relation was never lifted to threads.  The relational half needs
+no selection: observe the whole *family* of successors at each scale.
+
+| theorem | content |
+|---|---|
+| `branchStep`, `branchStep_tape` | successors, or the state itself where there are none; either way the tape only grows |
+| `frontier`, `obsSet`, `frontier_ne_nil` | every state the process can be in after `n` steps, and the tapes read off them |
+| `obsSet_prefix`, `obsSet_prefix_add` | **compatibility, relationally**: every tape at a scale is a prefix of *some* tape at every later one, with no branch designated |
+| `fork_family_is_two`, `fork_runner_is_frozen`, `fork_runner_not_in_the_family` | the exhibit: two observations where the runner has none, and the runner's own is not even a member |
+
+What is **not** built, and is the point: a *thread* out of the family.  A
+thread needs one tape per scale, and choosing one at a fork is exactly the
+selection the runner refuses to make.  `limits.fork_family` records the
+families at four scales — sizes 1, 2, 3, 4 — and refuses a member that
+extends to nothing at the next.
+
+### Two sequences an interval reading would identify
+
+An adapter to an interval would send `0,1,1,1,…` and `1,0,0,0,…` to one point.
+This family declares no such adapter, and the answer is structural rather than
+chosen: the thread space **is** the sequence space (`ofSeq`/`toSeq`), so
+distinct sequences are distinct threads (`threads_are_sequences`) and there is
+nothing to quotient by.  The twins are separated already at scale one
+(`twins_differ_at_scale_one`, `twins_are_two_threads`), so no bonding and no
+cofinal rescaling can bring them together.  Identifying them would be a
+further declared map, and none is declared.
+
 ## 6. What "the limit" is here, and is not
 
 The thread space is all sequences over the carrier.  The process generates
@@ -218,16 +247,16 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 70 authored theorems and 68
+**Lean** (`lean/`, `evidence/lean.json`): 82 authored theorems and 68
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 138 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 150 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a
 conjunction goal classically; the conjunction is now split first and the
 reliance is gone.
 
-**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 48
+**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 51
 tests, strict typing over nine files, the two records replay byte-identically.
 `verify.py`, `verify_sources.py`, `verify_lean.py` and `run.py` follow the
 sibling families' files with names, pins and refusals changed; this tree's
@@ -269,7 +298,11 @@ Regenerate the two records deliberately and never under a live injection:
 * That the tape is literally a periodic word from the preperiod on, entry by
   entry: the datum and the tape's last entry are proved to repeat, and the
   entrywise statement is not separately stated.
-* Lifting a fork's successor relation to threads.
+* A **thread** out of a fork's family: the family is observed and its members
+  are proved prefix-compatible, but a thread needs a tape chosen per scale at
+  each fork and that selection is refused.  An earlier version of this line
+  said "lifting a fork's successor relation to threads" without distinguishing
+  the two; the relational half is `obsSet_prefix_add`.
 * That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations.
 

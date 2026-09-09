@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
-from typing import Any
+from typing import Any, cast
 import unittest
 from unittest.mock import patch
 
@@ -119,6 +119,74 @@ class LimitsRecord(unittest.TestCase):
         self.assertIn("192 runs", periodicity["population"])
         self.assertNotIn("standard consequence and is not formalized",
                          record["which_threads"]["process_generated"])
+
+    def test_every_recorded_experiment_replays_from_its_own_record(self) -> None:
+        """The house check the producer family carries and this one lacked:
+        rebuild each recorded experiment from the record's own fields — the
+        index-ordered tables with the recorded enablements, start and fuel —
+        and compare every recorded tape.  The sealed `setting_json` is
+        set-valued and does not determine the program on its own."""
+        import control as ct  # noqa: PLC0415
+        import translation as tr  # noqa: PLC0415
+        record = self.record()
+
+        def program(entry: dict[str, Any]) -> ct.Controlled:
+            sealed = entry["setting_json"]
+            pairs = {key: frozenset((int(p[0]), int(p[1])) for p in sealed[key])
+                     for key in ("r", "ret", "prot")}
+            tables = tuple(tuple(int(v) for v in t) for t in entry["ops_in_index_order"])
+            self.assertEqual(sorted(list(t) for t in set(tables)), sealed["ops"])
+            F = tr.FiniteSetting(int(sealed["n"]), pairs["r"], pairs["ret"], pairs["prot"],
+                                 int(sealed["a"]), int(sealed["b"]), tables)
+            return ct.Controlled(F, frozenset((int(p[0]), int(p[1]))
+                                              for p in entry["enablements"]))
+
+        connected = record["connected_experiment"]
+        state = ct.init(program(connected), int(connected["start"]), int(connected["fuel"]))
+        for scale in connected["scales"]:
+            self.assertEqual(list(lm.obs(int(scale["scale"]), state)), scale["tape"],
+                             scale["scale"])
+            self.assertEqual(len(scale["tape"]), scale["tape_length"], scale["scale"])
+            self.assertEqual(lm.count_zero(tuple(scale["tape"])), scale["count_zero"],
+                             scale["scale"])
+
+        two = record["two_locus_experiment"]
+        schedule = {int(x): int(k) for x, k in two["programs_recorded_schedule"].items()}
+        artifact = lm.load_artifact()
+        entry: dict[str, Any] = dict(cast(dict[str, Any], artifact["two_loci"]))
+        entry["enablements"] = [[x, k] for x, k in sorted(schedule.items())]
+        pair = program(entry)
+        pair_state = ct.init(pair, 0, max(int(row["scale"]) for row in two["scales"]))
+        for row in two["scales"]:
+            self.assertEqual(list(lm.obs(int(row["scale"]), pair_state)), row["tape"],
+                             row["scale"])
+
+        fork = record["fork_family"]
+        forking = ct.Controlled(program(connected).F,
+                                frozenset((int(p[0]), int(p[1])) for p in fork["enablements"]))
+        fork_state = ct.init(forking, int(fork["start"]), int(fork["fuel"]))
+        for scale, family in fork["families_by_scale"].items():
+            self.assertEqual([list(w) for w in lm.obs_set(int(scale), fork_state)], family, scale)
+
+    def test_the_fork_family_grows_and_the_runner_does_not(self) -> None:
+        fork = self.record()["fork_family"]
+        self.assertEqual(fork["sizes_by_scale"], {"0": 1, "1": 2, "2": 3, "3": 4})
+        self.assertEqual(fork["runner_observation"], [0])
+        self.assertFalse(fork["runner_is_in_the_family"])
+        self.assertTrue(fork["every_member_extends_to_the_next_scale"])
+
+    def test_the_receipt_refuses_a_family_member_that_extends_to_nothing(self) -> None:
+        """A branch step that discarded the record would break compatibility;
+        the receipt names the observation and the scale."""
+        import control as ct  # noqa: PLC0415
+
+        def truncating(s: ct.State) -> tuple[ct.State, ...]:
+            return (ct.State(s.graph, s.nops, s.active, (), s.clock, s.fuel),)
+
+        with patch("run.verify_sources", return_value=[]), \
+                patch("limits.branch_step", side_effect=truncating):
+            with self.assertRaisesRegex(lm.LimitsError, "extends to nothing"):
+                run.receipt_bytes()
 
     def test_record_carries_no_timestamp_path_or_sentinel(self) -> None:
         text = self.fresh.decode("utf-8")

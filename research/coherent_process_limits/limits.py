@@ -387,6 +387,7 @@ def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj
             "recorded_tape_prefix_related": is_prefix(recorded_tape, tape)
             if len(recorded_tape) <= len(tape) else is_prefix(tape, recorded_tape),
             "recorded_tape_is_a_prefix_of_this_one": is_prefix(recorded_tape, tape),
+            "tape": list(tape),
         })
     for entry in scales:
         if not entry["bound_holds"]:
@@ -398,6 +399,9 @@ def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj
                               "prefix-related")
     return {
         "program": "forever",
+        "setting_json": forever.F.json(),
+        "ops_in_index_order": [list(g) for g in forever.F.ops],
+        "enablements": sorted(list(pair) for pair in forever.ctrl),
         "start": 0,
         "fuel": SCALES[-1],
         "observed_from": "one state, at four scales: obs n s, the Lean Observe.obs",
@@ -414,6 +418,67 @@ def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj
 # ---------------------------------------------------------------------------
 # The three verdicts, and the failures
 # ---------------------------------------------------------------------------
+
+
+def branch_step(s: ct.State) -> tuple[ct.State, ...]:
+    """The successors of a state, or the state itself where there are none.
+    Never empty, so the frontier does not die at a terminal.  Mirrors the Lean
+    ``Observe.branchStep``."""
+    out = ct.successors(s)
+    return out if out else (s,)
+
+
+def frontier(n: int, s: ct.State) -> tuple[ct.State, ...]:
+    """Every state the process can be in after ``n`` steps, with no selection
+    made.  Mirrors ``Observe.frontier``."""
+    if n < 0:
+        raise LimitsError("a scale is a count")
+    states: tuple[ct.State, ...] = (s,)
+    for _ in range(n):
+        states = tuple(t for state in states for t in branch_step(state))
+    return states
+
+
+def obs_set(n: int, s: ct.State) -> list[Word]:
+    """The family of observations at a scale.  Mirrors ``Observe.obsSet``."""
+    return [state.tape for state in frontier(n, s)]
+
+
+def fork_family(C: ct.Controlled, start: int, fuel: int, scales: Sequence[int]) -> JsonObj:
+    """A forking program observed as a family rather than as one run.
+
+    The receipt refuses a family at a scale none of whose members extends a
+    member of the coarser one, and refuses a runner observation recorded as if
+    it belonged to a family it is not in.
+    """
+    state = ct.init(C, start, fuel)
+    families = {n: obs_set(n, state) for n in scales}
+    for index, n in enumerate(scales[:-1]):
+        finer = families[scales[index + 1]]
+        for word in families[n]:
+            if not any(is_prefix(word, longer) for longer in finer):
+                raise LimitsError(f"the observation {list(word)} at scale {n} extends to nothing "
+                                  f"at scale {scales[index + 1]}")
+    runner = obs(scales[-1], state)
+    return {
+        "program": "the cycle and the constant map both enabled at datum 0",
+        "enablements": sorted(list(pair) for pair in C.ctrl),
+        "start": start,
+        "fuel": fuel,
+        "families_by_scale": {str(n): [list(word) for word in families[n]] for n in scales},
+        "sizes_by_scale": {str(n): len(families[n]) for n in scales},
+        "every_member_extends_to_the_next_scale": True,
+        "runner_observation": list(runner),
+        "runner_is_in_the_family": runner in families[scales[-1]],
+        "reading": "the deterministic runner stops at a fork and its tape freezes, so its "
+                   "observation is not a member of the family; the family is the honest object.  "
+                   "What is NOT built is a thread out of it: that needs one tape chosen per scale "
+                   "at each fork, which is exactly the selection the runner refuses to make",
+        "theorem": "Observe.branchStep_tape, obsSet_prefix, obsSet_prefix_add: every tape at a "
+                   "scale is a prefix of some tape at every later scale, with no branch selected; "
+                   "Observe.fork_family_is_two, fork_runner_is_frozen, "
+                   "fork_runner_not_in_the_family are this exhibit",
+    }
 
 
 def next_val(C: ct.Controlled, x: int) -> int:
