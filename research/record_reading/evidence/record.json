@@ -67,6 +67,7 @@
  },
  "record_reading": {
   "bisimulation": "Select.RRel, Select.rrel_next, Select.robs_bisim: same next-value function, active datum, record and fuel give the same observation at every scale; the record is part of the relation, so previous agrees (Select.previous_congr)",
+  "ceiling_of_a_depth_one_read": "Record.robs_functional: every realised tape is functional in its pairs \u2014 two places where the same datum follows the same datum are followed by the same datum.  A memoryless tape is functional in single entries; one entry of record buys pairs and no more, and a deeper read has to break exactly this",
   "completeness": "Record.rsuccessors_complete",
   "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
   "never_selects": "Record.rrun_branch",

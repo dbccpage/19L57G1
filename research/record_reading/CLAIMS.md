@@ -205,6 +205,29 @@ climb, in index order; "the record" means the machine's tape.
 - **Obligation**: the residual explanation is checked against the programs,
   not proved; the greedy sequence is one sequence, not a minimum.
 
+### CL-RR-12 — the ceiling of a depth-one read
+
+- **Statement**: every tape a record-reading run realises is functional in its
+  *pairs*: two places where the same datum follows the same datum are followed
+  by the same datum (`robs_functional`).  The tape of a run is a chain of the
+  machine in the sense of consecutive triples (`RChain`, carried by
+  `rnext_chain` / `riter_chain` from `rinit_chain`), and a chain is functional
+  because `rnextOf` is a function of the pair (`rchain_functional`).
+- **Hypotheses**: none beyond a run from an initial state: every recorded
+  setting, start datum, fuel and scale.
+- **Novelty**: the exact measure of what reading one entry of the record buys.
+  The memoryless machine's tape is functional in single entries (the observed
+  family's `obs_functional`); reading one entry of the record buys functionality
+  in pairs and no more.  A tape that repeats a pair with two different
+  successors is realised by no record-reading program at all — which is what a
+  deeper read has to produce.
+- **Evidence**: `Record.triplesOf`, `lastTwo`, `RChain`, `rchain_functional`,
+  `rnext_chain`, `riter_chain`, `rinit_chain`, `robs_functional`.
+- **Falsifier**: a record-reading run whose tape repeats a pair with two
+  different successors.
+- **Obligation**: none.  The depth-two read that would break this ceiling is
+  not built (CL-RR-11).
+
 ### CL-RR-11 — the protocol declared before the readout; the artifact; not delivered
 
 - **Declared first**: the classes, the starts `0, 1, 2`, the scales `1..8`,
@@ -218,8 +241,11 @@ climb, in index order; "the record" means the machine's tape.
   read through the observed family's `identify_programs`, never written;
   the finding that its schema loses the operation order is inherited, and
   every run recorded here carries its operation tables in index order.
-- **Not delivered**: a record read deeper than one entry; an encoded
-  configuration; an observable that reads which operation fired — the
+- **Not delivered**: a record read deeper than one entry — the ceiling it
+  would have to break is now exact (CL-RR-12), and the sealed grammar permits
+  the ternary form it would need (`Regime.wf` constrains an arity only by
+  `1 ≤ a`), so the obstacle is the construction and not the grammar; an
+  encoded configuration; an observable that reads which operation fired — the
   residual of the experiment is exactly what such an observable would
   separate; a second locus of activity.  The merged memoryless
   reader does not apply to a record program — several instances of one

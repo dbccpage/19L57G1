@@ -662,6 +662,151 @@ theorem rrunDet_branch : ∀ (b : Nat) (s : State), RBranchOk (rrunDet b s)
 
 theorem rrun_branch (s : State) : RBranchOk (rrun s) := rrunDet_branch s.fuel s
 
+/-! ## 10. The record-reading tape is a chain, and functional in its pairs
+
+The memoryless machine's tape is functional in its single entries (the
+observed family's `obs_functional`).  Reading one entry of the record buys
+exactly one more: the tape of a record-reading run is functional in its
+*pairs* — the entry after two given entries is determined.  That is the ceiling
+of a depth-one read, and what a deeper read has to break. -/
+
+/-- The consecutive triples of a list: two entries and the one after them. -/
+def triplesOf : List Nat → List (Nat × Nat × Nat)
+  | x :: y :: z :: rest => (x, y, z) :: triplesOf (y :: z :: rest)
+  | _ => []
+
+/-- The last two entries of a list, in order. -/
+def lastTwo : List Nat → Option (Nat × Nat)
+  | [] => none
+  | [_] => none
+  | [a, b] => some (a, b)
+  | _ :: y :: z :: rest => lastTwo (y :: z :: rest)
+
+theorem lastTwo_reverse : ∀ (l : List Nat) {p x : Nat}, lastTwo l = some (p, x) →
+    ∃ r, l.reverse = x :: p :: r
+  | [], _, _, h => by cases h
+  | [_], _, _, h => by cases h
+  | [a, b], p, x, h => by
+      have h' : (a, b) = (p, x) := Option.some.inj h
+      injection h' with h1 h2
+      subst h1
+      subst h2
+      exact ⟨[], rfl⟩
+  | a :: y :: z :: rest, p, x, h => by
+      obtain ⟨r, hr⟩ := lastTwo_reverse (y :: z :: rest) h
+      refine ⟨r ++ [a], ?_⟩
+      rw [List.reverse_cons, hr]
+      rfl
+
+theorem lastTwo_ne_none : ∀ (a b : Nat) (l : List Nat), lastTwo (a :: b :: l) ≠ none
+  | _, _, [], h => by cases h
+  | _, b, c :: rest, h => lastTwo_ne_none b c rest h
+
+theorem triplesOf_snoc_none : ∀ (l : List Nat) (y : Nat), lastTwo l = none →
+    triplesOf (l ++ [y]) = triplesOf l
+  | [], _, _ => rfl
+  | [_], _, _ => rfl
+  | _ :: _ :: _, _, h => absurd h (lastTwo_ne_none _ _ _)
+
+theorem triplesOf_snoc : ∀ (l : List Nat) {p x : Nat} (y : Nat), lastTwo l = some (p, x) →
+    triplesOf (l ++ [y]) = triplesOf l ++ [(p, x, y)]
+  | [], _, _, _, h => by cases h
+  | [_], _, _, _, h => by cases h
+  | [a, b], p, x, y, h => by
+      have h' : (a, b) = (p, x) := Option.some.inj h
+      injection h' with h1 h2
+      subst h1
+      subst h2
+      rfl
+  | a :: b :: c :: rest, p, x, y, h => by
+      have h2 : lastTwo (b :: c :: rest) = some (p, x) := h
+      show (a, b, c) :: triplesOf (b :: c :: (rest ++ [y])) = _
+      rw [show (b :: c :: (rest ++ [y]) : List Nat) = (b :: c :: rest) ++ [y] from rfl,
+        triplesOf_snoc (b :: c :: rest) y h2]
+      rfl
+
+/-- A tape is a chain of the record-reading machine when each entry is the
+next value of the two before it. -/
+def RChain (g : List Inst) (nops : Nat) (l : List Nat) : Prop :=
+  ∀ t ∈ triplesOf l, rnextOf g nops t.1 t.2.1 = some t.2.2
+
+/-- **A record chain is functional in its pairs.** -/
+theorem rchain_functional {g : List Inst} {nops : Nat} {l : List Nat} (h : RChain g nops l)
+    {t u : Nat × Nat × Nat} (ht : t ∈ triplesOf l) (hu : u ∈ triplesOf l)
+    (h1 : t.1 = u.1) (h2 : t.2.1 = u.2.1) : t.2.2 = u.2.2 := by
+  have hv := h t ht
+  have hw := h u hu
+  rw [h1, h2] at hv
+  exact Option.some.inj (hv.symm.trans hw)
+
+theorem previous_of_reverse {s : State} {p x : Nat} {r : List Nat}
+    (h : s.tape.reverse = x :: p :: r) : previous s = p := by
+  show (match s.tape.reverse with | _ :: p :: _ => p | _ => s.active) = p
+  rw [h]
+
+theorem getLast?_snoc (l : List Nat) (y : Nat) : (l ++ [y]).getLast? = some y := by simp
+
+/-- A step keeps the tape a record chain and keeps the last entry active. -/
+theorem rnext_chain {s : State} (hc : RChain s.graph s.nops s.tape)
+    (hl : s.tape.getLast? = some s.active) :
+    RChain (rnext s).graph (rnext s).nops (rnext s).tape ∧
+      (rnext s).tape.getLast? = some (rnext s).active := by
+  rcases rstepDet_spec s with ⟨-, t, hs⟩ | ⟨f, y, -, hv, hs⟩
+  · rw [rnext_of_inl hs]
+    exact ⟨hc, hl⟩
+  · rw [rnext_of_inr hs]
+    refine ⟨?_, getLast?_snoc _ _⟩
+    intro u hu
+    cases h2 : lastTwo s.tape with
+    | none =>
+        rw [triplesOf_snoc_none s.tape y h2] at hu
+        exact hc u hu
+    | some q =>
+        obtain ⟨r, hr⟩ := lastTwo_reverse s.tape (by rw [h2])
+        have hq : q.1 = previous s := (previous_of_reverse hr).symm
+        have hx : q.2 = s.active := by
+          have hh : s.tape.reverse.head? = s.tape.getLast? := by simp
+          rw [hr] at hh
+          exact Option.some.inj (hh.trans hl)
+        rw [show q = (q.1, q.2) from rfl] at h2
+        rw [triplesOf_snoc s.tape y h2, List.mem_append] at hu
+        rcases hu with h | h
+        · exact hc u h
+        · rw [List.mem_singleton.mp h, hq, hx]
+          exact hv
+
+theorem riter_succ : ∀ (n : Nat) (s : State), riter (n + 1) s = riter n (rnext s)
+  | 0, _ => rfl
+  | n + 1, s => by
+      show rnext (riter (n + 1) s) = rnext (riter n (rnext s))
+      rw [riter_succ n s]
+
+theorem riter_chain : ∀ (n : Nat) (s : State), RChain s.graph s.nops s.tape →
+    s.tape.getLast? = some s.active →
+    RChain (riter n s).graph (riter n s).nops (riter n s).tape ∧
+      (riter n s).tape.getLast? = some (riter n s).active
+  | 0, _, hc, hl => ⟨hc, hl⟩
+  | n + 1, s, hc, hl => by
+      rw [riter_succ]
+      obtain ⟨hc', hl'⟩ := rnext_chain hc hl
+      exact riter_chain n (rnext s) hc' hl'
+
+theorem rinit_chain (C : Recorded) (x fuel : Nat) :
+    RChain (rinit C x fuel).graph (rinit C x fuel).nops (rinit C x fuel).tape ∧
+      (rinit C x fuel).tape.getLast? = some (rinit C x fuel).active :=
+  ⟨fun _ hu => absurd hu List.not_mem_nil, rfl⟩
+
+/-- **The ceiling of a depth-one read.**  Every tape a record-reading run
+realises is functional in its pairs: two places where the same datum follows
+the same datum are followed by the same datum.  A tape that breaks this is
+realised by no record-reading program at all. -/
+theorem robs_functional (C : Recorded) (x fuel n : Nat) {t u : Nat × Nat × Nat}
+    (ht : t ∈ triplesOf (robs n (rinit C x fuel)))
+    (hu : u ∈ triplesOf (robs n (rinit C x fuel)))
+    (h1 : t.1 = u.1) (h2 : t.2.1 = u.2.1) : t.2.2 = u.2.2 :=
+  rchain_functional
+    (riter_chain n _ (rinit_chain C x fuel).1 (rinit_chain C x fuel).2).1 ht hu h1 h2
+
 end Record
 
 #print axioms Record.mem_recInsts
@@ -698,4 +843,16 @@ end Record
 #print axioms Record.robs_prefix_add
 #print axioms Record.rstepDet_branch
 #print axioms Record.rrunDet_branch
+#print axioms Record.lastTwo_reverse
+#print axioms Record.lastTwo_ne_none
+#print axioms Record.triplesOf_snoc_none
+#print axioms Record.triplesOf_snoc
+#print axioms Record.rchain_functional
+#print axioms Record.previous_of_reverse
+#print axioms Record.getLast?_snoc
+#print axioms Record.rnext_chain
+#print axioms Record.riter_succ
+#print axioms Record.riter_chain
+#print axioms Record.rinit_chain
+#print axioms Record.robs_functional
 #print axioms Record.rrun_branch

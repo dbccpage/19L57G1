@@ -1,11 +1,11 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 3,
+  "axiom_free_count": 4,
   "census": "compiled environment theorem declarations in the Record and Select namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Inventory.lean": "fd4d200b0c77b98040593f7190eec9f5c0b28eb4f259891e25b089c283956e38",
-    "Record.lean": "364f416050b57d457e9cbcae0b89a3906a2854164dd2af5295b5e645adfac8c3",
+    "Record.lean": "44a3b1b1b8719c340d755735c6da3ebf5d228c0e9b2275361f8a9615b5940c1c",
     "Select.lean": "4bbc28e3f9925ef4f521e30c43ec71df20a27cfff6cfd2b29ee836d4034c6e7f",
     "lakefile.toml": "85a4758ed5764cf63df4d089d5fe842ce15e7344e56a924f2fc642402a730929",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
@@ -49,6 +49,13 @@
     ],
     "Record.forget_twist": [
       "Quot.sound",
+      "propext"
+    ],
+    "Record.getLast?_snoc": [
+      "propext"
+    ],
+    "Record.lastTwo_ne_none": [],
+    "Record.lastTwo_reverse": [
       "propext"
     ],
     "Record.lift_RStep": [
@@ -96,7 +103,13 @@
     "Record.previous_fire": [
       "propext"
     ],
+    "Record.previous_of_reverse": [
+      "propext"
+    ],
     "Record.previous_rinit": [
+      "propext"
+    ],
+    "Record.rchain_functional": [
       "propext"
     ],
     "Record.record_is_read": [
@@ -119,7 +132,19 @@
       "Quot.sound",
       "propext"
     ],
+    "Record.rinit_chain": [
+      "propext"
+    ],
     "Record.rinit_synced": [],
+    "Record.riter_chain": [
+      "propext"
+    ],
+    "Record.riter_succ": [
+      "propext"
+    ],
+    "Record.rnext_chain": [
+      "propext"
+    ],
     "Record.rnext_of_inl": [
       "propext"
     ],
@@ -127,6 +152,9 @@
       "propext"
     ],
     "Record.rnext_tape": [
+      "propext"
+    ],
+    "Record.robs_functional": [
       "propext"
     ],
     "Record.robs_prefix": [
@@ -160,6 +188,12 @@
     ],
     "Record.rsuccessors_sound": [
       "Quot.sound",
+      "propext"
+    ],
+    "Record.triplesOf_snoc": [
+      "propext"
+    ],
+    "Record.triplesOf_snoc_none": [
       "propext"
     ],
     "Record.twist_period": [
@@ -280,11 +314,11 @@
     ]
   },
   "reports_per_namespace": {
-    "Record": 46,
+    "Record": 58,
     "Select": 28
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination.",
-  "theorem_count_including_generated": 74,
+  "theorem_count_including_generated": 86,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

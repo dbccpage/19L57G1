@@ -126,6 +126,11 @@ def record() -> JsonObj:
             "never_selects": "Record.rrun_branch",
             "only_appends": "Record.robs_prefix",
             "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
+            "ceiling_of_a_depth_one_read": "Record.robs_functional: every realised tape is functional in "
+                                           "its pairs — two places where the same datum follows the same "
+                                           "datum are followed by the same datum.  A memoryless tape is "
+                                           "functional in single entries; one entry of record buys pairs "
+                                           "and no more, and a deeper read has to break exactly this",
             "one_step_by_its_next_value": "Record.rnextOf, Record.rstepDet_spec",
             "bisimulation": "Select.RRel, Select.rrel_next, Select.robs_bisim: same next-value function, "
                             "active datum, record and fuel give the same observation at every scale; the "

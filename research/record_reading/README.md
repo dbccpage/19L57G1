@@ -41,7 +41,7 @@ three greedy experiments separate them into 45 residual classes (largest
 4096), and the residual is exactly the next-value function on the pairs the
 runs reach, checked against the programs.
 
-Lean: 55 authored theorems, 74 reports with the compiler-generated ones,
+Lean: 67 authored theorems, 86 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
@@ -73,6 +73,7 @@ no sibling path is written.
 | `lift_RStep`, `lift_renabled` | the memoryless class embeds (CL-RR-05) |
 | `twist_tape`, `record_is_read`, `memoryless_functional` | **the distinction**, and its impossibility without the record (CL-RR-06) |
 | `forget_twist` | the record forgotten, the distinction gone (CL-RR-07) |
+| `triplesOf`, `lastTwo`, `RChain`, `rchain_functional`, `rnext_chain`, `riter_chain`, `robs_functional` | **the ceiling of a depth-one read**: every realised tape is functional in its pairs (CL-RR-12) |
 
 ## 2. The selection (`lean/Select.lean`)
 
@@ -127,9 +128,9 @@ in index order are not the transcribed `Observe.base`.
 
 ## 5. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 55 authored theorems and 19
+**Lean** (`lean/`, `evidence/lean.json`): 67 authored theorems and 19
 compiler-generated ones (the structure's injectivity and size lemmas and
-the proof terms of case splits), 74 reports, all within
+the proof terms of case splits), 86 reports, all within
 `{propext, Quot.sound}`; the report population equals the environment
 census of the `Record` and `Select` namespaces in both directions; no
 private theorem; forbidden-token scan clean.  The concrete runs are decided
@@ -165,7 +166,11 @@ Regenerate the two records deliberately and never under a live injection:
 ## Not claimed
 
 * A record read deeper than one entry: the enablement reads the previous
-  datum only.
+  datum only.  What such a read would have to break is now exact — a tape
+  functional in single entries but not in pairs (CL-RR-12) — and the sealed
+  grammar permits the ternary form it would need, since `Regime.wf` constrains
+  a form's arity only by `1 ≤ a`.  The obstacle is the construction, not the
+  grammar.
 * An encoded configuration: the state is a declared host record.
 * That the greedy experiment sequence is a minimum: it is one sequence.
 * An observable that reads which operation fired: the residual of the
