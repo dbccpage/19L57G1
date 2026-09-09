@@ -50,15 +50,16 @@ field the order is still recovered as the one ordering under which every run
 replays, and an enablement naming an operation the sealed schema collapsed
 is refused by name.  That is the artifact contract doing its job.
 
-Lean: 59 authored theorems, 103 reports with the compiler-generated ones,
+Lean: 70 authored theorems, 138 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
 recorded run replayed; compatibility checked on every identified program,
 every datum, twelve scales; the three verdicts computed over the 64
 deterministic programs on the recorded setting; the experiment at four
-scales and the two-locus experiment at five; 46 tests, strict typing over
-nine files, two byte-identical records.
+scales, the two-locus experiment at five and the periodicity of all 192 runs
+on the setting; 48 tests, strict typing over nine files, two byte-identical
+records.
 Execution base `d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the represented
 execution family's two-locus-run commit, at which its artifact is frozen and
 pinned;
@@ -180,6 +181,27 @@ second-locus size whose two coordinate readings of the recorded tape are the
 recorded projections, refusing if none or two.  What is still not built: the
 thread space of a two-locus run as an inverse system of its own.
 
+### Eventual periodicity
+
+Functionality along the whole run plus a finite carrier gives eventual
+periodicity, and every ledger here called that "the standard consequence" and
+left it unstated.  It is stated now:
+
+| theorem | content |
+|---|---|
+| `find_eq`, `pigeon` | **the pigeonhole**, proved here and not cited: `n + 1` values below `n` repeat |
+| `orbit`, `orbit_add`, `orbit_lt`, `eventually_periodic` | an orbit on `n` data repeats, with preperiod and period together at most `n` |
+| `nextVal`, `nextVal_lt`, `next_active`, `iter_active` | the datum after `n` steps **is** that orbit at `n`, while the fuel lasts |
+| `eventually_periodic_run` | **the run is eventually periodic**, for every program, start and fuel |
+| `obs_last_repeats` | and the record shows it: the two tapes end on the same entry |
+
+The pigeonhole is written out because the census of reliance refuses the
+standard library's classical lemmas and this package consumes no finite-set
+library.  `limits.periodicity` computes the numbers: over all 192 runs of the
+64 deterministic programs on the recorded setting, the largest preperiod is 2,
+the largest period 3, and their largest sum 3 — exactly the carrier size, so
+the proved bound is tight here.
+
 ## 6. What "the limit" is here, and is not
 
 The thread space is all sequences over the carrier.  The process generates
@@ -196,16 +218,16 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 59 authored theorems and 44
+**Lean** (`lean/`, `evidence/lean.json`): 70 authored theorems and 68
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 103 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 138 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a
 conjunction goal classically; the conjunction is now split first and the
 reliance is gone.
 
-**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 46
+**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 48
 tests, strict typing over nine files, the two records replay byte-identically.
 `verify.py`, `verify_sources.py`, `verify_lean.py` and `run.py` follow the
 sibling families' files with names, pins and refusals changed; this tree's
@@ -240,11 +262,14 @@ Regenerate the two records deliberately and never under a live injection:
 * That the `forever` tape after `n` steps *is* the first `n + 1` entries of
   `i ↦ i % 3`: computed at every recorded scale; the proved bound is on the
   sequence.  This is the labeled missing connection.
-* That every realized tape is eventually periodic: functionality along the
-  whole run is proved (`obs_functional`), and eventual periodicity on a finite
-  carrier is its standard consequence, but that consequence is not formalized
-  and the density witness is computed over the declared class of 64 programs.
-* Lifting a fork's successor relation to threads; a second locus of activity.
+* The density witness: computed over the declared class of 64 programs.  An
+  earlier version of this line said that eventual periodicity "is not
+  formalized"; that is WITHDRAWN — `eventually_periodic_run` and
+  `obs_last_repeats` (CL-CP-13).
+* That the tape is literally a periodic word from the preperiod on, entry by
+  entry: the datum and the tape's last entry are proved to repeat, and the
+  entrywise statement is not separately stated.
+* Lifting a fork's successor relation to threads.
 * That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations.
 

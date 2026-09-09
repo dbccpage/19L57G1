@@ -20,7 +20,9 @@ BRIDGE = ("Limits.toSeq_ofSeq", "Limits.stable", "Limits.ofSeq_toSeq", "Limits.e
           "Observe.forever_obs", "Observe.forever_run_bound", "Observe.next_fire", "Observe.obs_functional",
           "Observe.chain_functional", "Observe.iter_chain",
           "Observe.nextOf_one_locus", "Observe.chain_one_locus", "Observe.obs_one_locus",
-          "Observe.prod_op_one_locus", "Observe.iter_graph", "Observe.pair_obs")
+          "Observe.prod_op_one_locus", "Observe.iter_graph", "Observe.pair_obs",
+          "Observe.pigeon", "Observe.eventually_periodic", "Observe.eventually_periodic_run",
+          "Observe.obs_last_repeats", "Observe.nextVal_lt", "Observe.iter_active")
 
 
 class ReportParser(unittest.TestCase):
@@ -70,10 +72,10 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 59)
-        self.assertEqual(record["theorem_count_including_generated"], 103)
-        self.assertEqual(record["axiom_free_count"], 10)
-        self.assertEqual(record["reports_per_namespace"], {"Limits": 28, "Observe": 75})
+        self.assertEqual(authored, 70)
+        self.assertEqual(record["theorem_count_including_generated"], 138)
+        self.assertEqual(record["axiom_free_count"], 12)
+        self.assertEqual(record["reports_per_namespace"], {"Limits": 28, "Observe": 110})
         self.assertEqual(record["reports"]["Observe.zeros_bound"], ["Quot.sound", "propext"])
 
 

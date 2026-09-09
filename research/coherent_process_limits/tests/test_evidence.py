@@ -101,6 +101,25 @@ class LimitsRecord(unittest.TestCase):
         self.assertFalse(two["square_on_the_observation"]["holds"])
         self.assertIn("delivered", record["causal_footprint"]["two_loci"])
 
+    def test_the_receipt_refuses_an_orbit_that_does_not_repeat(self) -> None:
+        """A next value leaving the carrier has no repeat to find.  The search
+        is bounded by the carrier and refuses by name: a receipt that hangs
+        would be worse than one that fails."""
+        with patch("run.verify_sources", return_value=[]),                 patch("limits.next_val", side_effect=lambda C, x: x + 1):
+            with self.assertRaisesRegex(lm.LimitsError, "does not repeat within the carrier"):
+                run.receipt_bytes()
+
+    def test_the_periodicity_the_record_reports(self) -> None:
+        record = self.record()
+        periodicity = record["periodicity"]
+        self.assertEqual(periodicity["carrier"], 3)
+        self.assertEqual(periodicity["largest_preperiod_plus_period"], 3)
+        self.assertTrue(periodicity["preperiod_plus_period_within_the_carrier"])
+        self.assertTrue(periodicity["every_tape_repeats_with_its_period"])
+        self.assertIn("192 runs", periodicity["population"])
+        self.assertNotIn("standard consequence and is not formalized",
+                         record["which_threads"]["process_generated"])
+
     def test_record_carries_no_timestamp_path_or_sentinel(self) -> None:
         text = self.fresh.decode("utf-8")
         for token in ("timestamp", "C:\\\\", "/Users/", "worktrees"):

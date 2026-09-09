@@ -101,9 +101,12 @@ def record() -> JsonObj:
             "all_mathematical_sequences": "the thread space is all of them (the construction is total)",
             "process_generated": "functional tapes — equal entries have equal successors, proved along the "
                                  "whole run for every setting, start and scale (Observe.obs_functional, from "
-                                 "the chain invariant Observe.iter_chain) — hence eventually periodic on a "
-                                 "finite carrier, which is the standard consequence and is not formalized; "
-                                 "a strict subset",
+                                 "the chain invariant Observe.iter_chain) — and therefore eventually "
+                                 "periodic on a finite carrier, with preperiod and period together at most "
+                                 "the carrier size (Observe.eventually_periodic_run, carried to the record "
+                                 "by Observe.obs_last_repeats).  An earlier version of this line called the "
+                                 "periodicity the standard consequence and left it unformalized; that is "
+                                 "WITHDRAWN.  A strict subset",
             "computably_presented": "between the two; not characterised here",
         },
         "tape_is_the_sequence": {
@@ -119,6 +122,7 @@ def record() -> JsonObj:
         "shift": lm.shift_failure(),
         "connected_experiment": lm.connected_experiment(forever, recorded),
         "two_locus_experiment": lm.two_locus_experiment(artifact),
+        "periodicity": lm.periodicity(forever.F, 12),
         "causal_footprint": {
             "reads": "a firing reads the enablement self-instance and the operation edge at the active datum "
                      "(Control.fire, Control.enabled)",
@@ -140,8 +144,6 @@ def record() -> JsonObj:
             "an interval, circle or integration theory: the limit is a totally disconnected thread space and "
             "a rational frequency with a bound",
             "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
-            "a general theorem that every realized tape is eventually periodic: the determinism of the next "
-            "datum is proved, the eventual periodicity is computed over the declared class",
             "the limit of a two-locus run as an inverse system in its own right: the two-locus "
             "observation is taken at five scales and its one-locus-at-a-time property proved along "
             "every run, but the thread space over the product carrier, and whether the two loci give "

@@ -155,10 +155,11 @@ the tape after `n` steps (`Observe.obs`).
   controlled setting, start datum, fuel and scale: the tape of a run is a
   chain of the machine (`iter_chain`, from the invariant that the last entry
   is the active datum), and a chain is functional because the next value is a
-  function of the datum (`chain_functional`).  What remains: eventual
-  periodicity on a finite carrier is the standard consequence of
-  functionality and is still not formalized, and the density witness is
-  computed over the declared class.
+  function of the datum (`chain_functional`).  What remains: the density
+  witness is computed over the declared class.  An earlier version of this
+  line also said that eventual periodicity on a finite carrier "is the
+  standard consequence of functionality and is still not formalized"; that is
+  **WITHDRAWN** by CL-CP-13, which formalizes it.
 
 ### CL-CP-08 — the connected experiment: one process, four scales, one bound
 
@@ -280,6 +281,47 @@ the tape after `n` steps (`Observe.obs`).
   own right* is not built — whether the two loci give two commuting inverse
   systems whose product is the whole is unasked here.  Two loci, not `k`.
 
+### CL-CP-13 — eventual periodicity, formalized
+
+- **Statement**: on a finite carrier the datum a run is at is **eventually
+  periodic**: there are a preperiod `i` and a positive period `k` with
+  `i + k ≤ C.F.n` such that from step `i` on, every step revisits the datum a
+  period earlier (`eventually_periodic_run`).  It is carried to the record by
+  `obs_last_repeats`: the observations at the two scales end on the same
+  entry, so the periodicity is visible in the tape and not only in the state.
+  The proof identifies the datum sequence with the orbit of one total
+  function on the carrier — `nextVal`, the value the runner moves to with the
+  datum itself wherever it stops (`nextVal_lt`, `next_active`, `iter_active`)
+  — and an orbit on `n` data repeats within `n` steps (`eventually_periodic`,
+  from `pigeon`).
+- **Hypotheses**: an admitted start datum, and steps within the declared
+  fuel.  Nothing about the program: it holds of halting, branching and
+  refusing runs alike, because `nextVal` sends a datum the runner stops at to
+  itself.
+- **Novelty**: nothing is cited.  The pigeonhole is **proved here**,
+  constructively, in about forty lines, because the census of reliance
+  refuses the standard library's classical lemmas and this package consumes
+  no finite-set library.  That is the cost of the discipline, paid rather
+  than argued around; and the constructive proof is the compression argument,
+  not a decision procedure.
+- **Evidence**: `Observe.find_eq`, `pigeon`, `orbit`, `orbit_add`,
+  `orbit_lt`, `eventually_periodic`, `nextVal`, `nextOf_eq_lookup`,
+  `nextVal_lt`, `next_active`, `iter_active`, `eventually_periodic_run`,
+  `obs_last_repeats`.  **Computed** (`limits.periodicity`, in the record):
+  over every deterministic program on the recorded setting from every datum —
+  192 runs at fuel 12 — the largest preperiod is 2, the largest period 3, and
+  the largest sum 3, which is exactly the carrier size, so the proved bound is
+  tight on this setting; every realised tape repeats with the period the orbit
+  names.
+- **Falsifier**: a run whose preperiod and period sum past the carrier; a
+  tape that does not repeat where the orbit says it must; an orbit with no
+  repeat inside the carrier at all.  The receipt refuses each by name, and
+  the search is bounded so that the third fails rather than hangs.
+- **Obligation**: the statement is about the datum and the tape's last entry.
+  That the tape is *literally* a periodic word from index `i` on — every
+  entry, not only the last — follows from the same orbit identification and
+  is not stated as a separate theorem.
+
 ### CL-CP-11 — declared, and not delivered
 
 - **Topology, declared**: the thread space carries the product of the
@@ -288,12 +330,13 @@ the tape after `n` steps (`Observe.obs`).
   An interval would need an order or metric compatible with the stages and an
   identification of threads this family does not make.  Not proved in Lean.
 - **Not delivered**: lifting a fork's successor relation to threads; the
-  general eventual-periodicity theorem; the thread space of a two-locus run
+  thread space of a two-locus run
   as an inverse system of its own (the observation is taken, the limit over
   it is not).  An earlier version of this line named "a second locus of
-  activity" and "the proved link between the `forever` tape and the sequence
-  `i ↦ i % 3`"; both are WITHDRAWN — the link is `Observe.forever_obs` and
-  the second locus is CL-CP-12.
+  activity", "the proved link between the `forever` tape and the sequence
+  `i ↦ i % 3`" and "the general eventual-periodicity theorem"; all three are
+  WITHDRAWN — the link is `Observe.forever_obs`, the second locus is
+  CL-CP-12, and the periodicity is CL-CP-13.
 - **Next single obstacle**: the model-selection and measurement burden
   (P218).  Nothing here selects a physical law; the readout is a frequency
   of a datum in a represented process, and a physical claim would need an

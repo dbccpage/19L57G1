@@ -110,7 +110,6 @@
  "not_delivered": [
   "an interval, circle or integration theory: the limit is a totally disconnected thread space and a rational frequency with a bound",
   "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
-  "a general theorem that every realized tape is eventually periodic: the determinism of the next datum is proved, the eventual periodicity is computed over the declared class",
   "the limit of a two-locus run as an inverse system in its own right: the two-locus observation is taken at five scales and its one-locus-at-a-time property proved along every run, but the thread space over the product carrier, and whether the two loci give two commuting inverse systems, are not built"
  ],
  "observation_system": {
@@ -120,6 +119,16 @@
   "observation": "the tape after n steps (Observe.obs)",
   "scale": "the number of steps of the deterministic runner watched",
   "why": "a step only appends (Control.fire_ok through Observe.next_tape)"
+ },
+ "periodicity": {
+  "carrier": 3,
+  "every_tape_repeats_with_its_period": true,
+  "largest_period": 3,
+  "largest_preperiod": 2,
+  "largest_preperiod_plus_period": 3,
+  "population": "every deterministic program on the recorded setting, from every datum: 192 runs at fuel 12",
+  "preperiod_plus_period_within_the_carrier": true,
+  "theorem": "Observe.eventually_periodic_run: on a finite carrier the datum a run is at repeats, with preperiod and period together at most the carrier size; Observe.obs_last_repeats carries it to the record.  Proved from a pigeonhole (Observe.pigeon) written here rather than cited: the axiom census refuses the standard library's classical lemmas and this package consumes no finite-set library"
  },
  "schema_version": 1,
  "shift": {
@@ -310,6 +319,6 @@
  "which_threads": {
   "all_mathematical_sequences": "the thread space is all of them (the construction is total)",
   "computably_presented": "between the two; not characterised here",
-  "process_generated": "functional tapes \u2014 equal entries have equal successors, proved along the whole run for every setting, start and scale (Observe.obs_functional, from the chain invariant Observe.iter_chain) \u2014 hence eventually periodic on a finite carrier, which is the standard consequence and is not formalized; a strict subset"
+  "process_generated": "functional tapes \u2014 equal entries have equal successors, proved along the whole run for every setting, start and scale (Observe.obs_functional, from the chain invariant Observe.iter_chain) \u2014 and therefore eventually periodic on a finite carrier, with preperiod and period together at most the carrier size (Observe.eventually_periodic_run, carried to the record by Observe.obs_last_repeats).  An earlier version of this line called the periodicity the standard consequence and left it unformalized; that is WITHDRAWN.  A strict subset"
  }
 }

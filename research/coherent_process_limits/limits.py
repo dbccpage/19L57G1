@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Callable, Sequence, cast
 
 import control as ct
-from execution import ExecutionError
+from execution import ExecutionError, lookup
 import product as pr
 import translation as tr
 
@@ -414,6 +414,74 @@ def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj
 # ---------------------------------------------------------------------------
 # The three verdicts, and the failures
 # ---------------------------------------------------------------------------
+
+
+def next_val(C: ct.Controlled, x: int) -> int:
+    """The Lean ``Observe.nextVal``: the datum the runner moves to, and the
+    datum itself wherever it stops.  A total function on the carrier, which is
+    what an orbit needs."""
+    g, count = ct.program(C), ct.nops(C)
+    enabled = ct.enabled_at(g, count, x)
+    if len(enabled) != 1:
+        return x
+    y = lookup(3 + enabled[0], x, g)
+    return x if y is None else y
+
+
+def orbit_period(C: ct.Controlled, start: int) -> tuple[int, int]:
+    """The least preperiod and period of the datum orbit from ``start``.  The
+    Lean proves that they exist and that they sum to at most the carrier size
+    (``Observe.eventually_periodic_run``); this computes which they are.
+
+    The search is bounded by the carrier and refuses rather than running on:
+    a next value that left the carrier would have no repeat to find, and a
+    receipt that hangs is worse than one that fails."""
+    seen: dict[int, int] = {}
+    x, t = start, 0
+    while x not in seen:
+        if t > C.F.n:
+            raise LimitsError(f"the orbit from {start} does not repeat within the carrier {C.F.n}")
+        seen[x] = t
+        x = next_val(C, x)
+        t += 1
+    return seen[x], t - seen[x]
+
+
+def periodicity(F: tr.FiniteSetting, fuel: int) -> JsonObj:
+    """Over every deterministic program on the setting and every start: the
+    preperiod and period of the datum orbit, that they sum to at most the
+    carrier size, and that the realised tape repeats with that period.
+
+    The receipt refuses a preperiod and period summing past the carrier, and a
+    tape that does not repeat where the orbit says it must."""
+    rows: list[tuple[int, int]] = []
+    for C in deterministic_programs(F):
+        for start in range(F.n):
+            pre, period = orbit_period(C, start)
+            if pre + period > F.n:
+                raise LimitsError(f"a preperiod {pre} and period {period} past the carrier {F.n}")
+            tape = ct.trace(C, start, fuel)[1].tape
+            for index in range(pre + period, len(tape)):
+                if tape[index] != tape[index - period]:
+                    raise LimitsError(
+                        f"the tape does not repeat with the period the orbit names at {index}")
+            rows.append((pre, period))
+    return {
+        "population": "every deterministic program on the recorded setting, from every datum: "
+                      f"{len(rows)} runs at fuel {fuel}",
+        "carrier": F.n,
+        "largest_preperiod": max(pre for pre, _ in rows),
+        "largest_period": max(period for _, period in rows),
+        "largest_preperiod_plus_period": max(pre + period for pre, period in rows),
+        "preperiod_plus_period_within_the_carrier": True,
+        "every_tape_repeats_with_its_period": True,
+        "theorem": "Observe.eventually_periodic_run: on a finite carrier the datum a run is at "
+                   "repeats, with preperiod and period together at most the carrier size; "
+                   "Observe.obs_last_repeats carries it to the record.  Proved from a pigeonhole "
+                   "(Observe.pigeon) written here rather than cited: the axiom census refuses the "
+                   "standard library's classical lemmas and this package consumes no finite-set "
+                   "library",
+    }
 
 
 def deterministic_programs(F: tr.FiniteSetting) -> list[ct.Controlled]:
