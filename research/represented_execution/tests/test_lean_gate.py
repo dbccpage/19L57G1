@@ -29,6 +29,7 @@ BRIDGE = ("Execution.lookup_mem", "Execution.lookup_isSome", "Execution.lookup_e
           "Rename.rename_op", "Rename.rename_enabledAt", "Rename.rename_lookup",
           "Rename.rename_stepDet", "Rename.rename_runDet", "Rename.rename_run",
           "Rename.rename_tape", "Rename.not_a_renaming",
+          "Runner.stepDetOf_of_two", "Runner.stepDetOf_branch_iff", "Runner.ctrl_branch_iff",
           "Runner.stepDetOf_inr", "Runner.stepDetOf_spec", "Runner.stepDetOf_branch",
           "Runner.runDetOf_branch", "Runner.obsOf_prefix_add", "Runner.ctrl_stepDet",
           "Runner.ctrl_runDet", "Runner.blind_halts", "Runner.greedy_branches")
@@ -75,28 +76,67 @@ class CommittedRecord(unittest.TestCase):
         self.assertEqual(record["python_mirror_refinement"], "NOT_PROVED")
 
     def test_the_figures_the_readme_quotes(self) -> None:
+        """The generated population is the **complement** of the authored one,
+        not a second count by a name heuristic.  Two independently pinned
+        numbers can drift apart and did: the README once put the `Renaming`
+        field projections inside a heuristic count that excluded them, so
+        authored + generated did not reach the total and nothing noticed."""
         record = json.loads(RECORD.read_text(encoding="utf-8"))
-        authored = sum(
-            1 for module in MODULES
-            for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
-            if line.startswith("#print axioms ")
-        )
-        self.assertEqual(authored, 111)
-        self.assertEqual(record["theorem_count_including_generated"], 168)
+        authored = {line.split("#print axioms ")[1].strip()
+                    for module in MODULES
+                    for line in (RECORD.parents[1] / "lean" / f"{module}.lean")
+                    .read_text(encoding="utf-8").splitlines()
+                    if line.startswith("#print axioms ")}
+        reports = set(record["reports"])
+        generated = reports - authored
+        self.assertEqual(authored - reports, set(), "an authored report is not in the record")
+        self.assertEqual(len(authored) + len(generated), len(reports))
+        self.assertEqual(len(authored), 114)
+        self.assertEqual(len(generated), 59)
+        self.assertEqual(record["theorem_count_including_generated"], 173)
         self.assertEqual(record["axiom_free_count"], 42)
         self.assertEqual(record["reports_per_namespace"],
                          {"Execution": 24, "Control": 49, "Product": 19,
-                          "Schedule": 30, "Rename": 30, "Runner": 16})
-        # The generated population the README breaks down, by name.
-        generated = {name for name in record["reports"]
-                     if "._proof_" in name or ".mk." in name or "sizeOf_spec" in name
-                     or "ofNat_ctorIdx" in name or "instDecidable" in name or name.endswith(".inj")
-                     or name.endswith(".injEq")}
-        self.assertEqual(len(generated), 53)
-        self.assertEqual(sum(1 for name in generated if "._proof_" in name
-                             and "instDecidable" not in name), 29)
-        self.assertEqual(len({name.split("._proof_")[0] for name in generated
-                              if "._proof_" in name and "instDecidable" not in name}), 16)
+                          "Schedule": 30, "Rename": 30, "Runner": 21})
+
+    def test_the_generated_population_breaks_down_exhaustively(self) -> None:
+        """Every generated name is one of six kinds, and the six partition it:
+        the README's breakdown is checked to be a partition, not a list that
+        happens to be near the total."""
+        record = json.loads(RECORD.read_text(encoding="utf-8"))
+        authored = {line.split("#print axioms ")[1].strip()
+                    for module in MODULES
+                    for line in (RECORD.parents[1] / "lean" / f"{module}.lean")
+                    .read_text(encoding="utf-8").splitlines()
+                    if line.startswith("#print axioms ")}
+        generated = set(record["reports"]) - authored
+
+        def kind(name: str) -> str:
+            if "instDecidable" in name:
+                return "decidable equality"
+            if "._proof_" in name:
+                return "proof term"
+            if name.endswith((".inj", ".injEq")):
+                return "constructor injectivity"
+            if "sizeOf_spec" in name:
+                return "size specification"
+            if "ofNat_ctorIdx" in name:
+                return "constructor index"
+            return "field projection"
+
+        counts: dict[str, int] = {}
+        for name in generated:
+            counts[kind(name)] = counts.get(kind(name), 0) + 1
+        self.assertEqual(counts, {"constructor injectivity": 10, "proof term": 31,
+                                  "size specification": 11, "field projection": 4,
+                                  "constructor index": 1, "decidable equality": 2})
+        self.assertEqual(sum(counts.values()), len(generated))
+        # The four field projections are `Renaming`'s Prop-valued fields, which
+        # Lean classifies as theorems.  They are a kind of their own and not
+        # inside the proof terms, which is where the README once put them.
+        self.assertEqual({name for name in generated if kind(name) == "field projection"},
+                         {"Rename.Renaming.fwd_lt", "Rename.Renaming.bwd_lt",
+                          "Rename.Renaming.left", "Rename.Renaming.right"})
 
 
 if __name__ == "__main__":

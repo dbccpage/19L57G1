@@ -117,9 +117,20 @@ class ScheduleIsData(unittest.TestCase):
                     self.assertTrue(pr.moves_one_locus(2, state.tape), (choices, start))
 
     def test_a_schedule_naming_an_operation_outside_the_setting_is_refused(self) -> None:
+        """And the Lean does something else, on purpose.  `Schedule.scheduled`
+        builds the setting, enables nothing at that datum and halts; this
+        refuses.  `enabledAt_scheduled` carries `sched x < F.ops.length`, so
+        the two agree wherever anything is claimed and part only where a
+        mistake is made.  Both behaviours are pinned so the difference is a
+        record and not a discovery."""
         P = pr.prod_setting(setting(2, ((1, 0),)), setting(2, ((1, 0),)))
         with self.assertRaises(ExecutionError):
             pr.scheduled(P, lambda _: len(P.ops))
+        # What the Lean would do at such a datum: nothing is enabled there.
+        partial = ct.Controlled(P, frozenset({(0, 0)}))
+        graph, count = ct.program(partial), ct.nops(partial)
+        self.assertEqual(ct.enabled_at(graph, count, 1), ())
+        self.assertIs(ct.step_det(ct.init(partial, 1, 3)), ct.Terminal.HALT)
 
     def test_the_destuttered_projection_is_that_locus_own_run(self) -> None:
         # Every schedule over the two-point loci, each start, read at each locus.

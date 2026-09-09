@@ -6,10 +6,10 @@
   "local_sources_sha256": {
     "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "7b75f67fde893c91a34340fc8b7d0fcaecf77f7d3de223c89bb4a6407da5ede8",
+    "Inventory.lean": "43fdf12c196d54358ef76f5c695bc2eab153c12786b5263f5e79124bbbd13362",
     "Product.lean": "182593969c18573c525d69eb49a76de9ecb83de897403134248a448a4c0c877a",
     "Rename.lean": "b59a41b3c0cf57a26d4e32ae47c1c31bc5c0ebe25c115c89dae17da3d27d7e6a",
-    "Runner.lean": "575c2e64bafa2594f2bbcbbe8b2ee9518e826fe907fb1c2e44069c07405733a1",
+    "Runner.lean": "3243fd0d2200185f19d3f187deda4d8ab5efc5bce6cc20a8949d7e2799e4af46",
     "Schedule.lean": "75dc2a33c71b72c250737f2b9068222e61573057a603c551334e2440620935ab",
     "lakefile.toml": "26c410493e14da60100f67c527512029fd6f3fbd0cfa9490a51bd37ae4ce6a67",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
@@ -378,6 +378,10 @@
     "Runner.blind_halts": [
       "propext"
     ],
+    "Runner.ctrl_branch_iff": [
+      "Quot.sound",
+      "propext"
+    ],
     "Runner.ctrl_run": [
       "propext"
     ],
@@ -417,7 +421,23 @@
     "Runner.stepDetOf_branch": [
       "propext"
     ],
+    "Runner.stepDetOf_branch_iff": [
+      "Quot.sound",
+      "propext"
+    ],
     "Runner.stepDetOf_inr": [
+      "propext"
+    ],
+    "Runner.stepDetOf_of_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.stepDetOf_of_two._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.stepDetOf_of_two._proof_1_2": [
+      "Quot.sound",
       "propext"
     ],
     "Runner.stepDetOf_spec": [
@@ -520,11 +540,11 @@
     "Execution": 24,
     "Product": 19,
     "Rename": 30,
-    "Runner": 16,
+    "Runner": 21,
     "Schedule": 30
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 168,
+  "theorem_count_including_generated": 173,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

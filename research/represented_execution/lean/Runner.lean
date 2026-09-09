@@ -18,7 +18,8 @@ function at its own reader.
 This module builds it: `stepDetOf`, `nextOf`, `iterOf`, `obsOf`, `runDetOf`
 over an arbitrary `Reader`, with the theorems each family proved separately
 proved once — the step is characterised by its read (`stepDetOf_inr`,
-`stepDetOf_spec`), it never selects (`stepDetOf_branch`, `runDetOf_branch`),
+`stepDetOf_spec`), it never selects — and that is two implications, not one
+(`stepDetOf_branch_iff`) —
 and it only appends (`nextOf_tape`, `obsOf_prefix`, `obsOf_prefix_add`),
 keeping the program (`nextOf_graph`).
 
@@ -209,6 +210,41 @@ theorem stepDetOf_branch {read : Reader} {s : State} (h : stepDetOf read s = .in
           show 2 ≤ rest'.length + 2
           exact Nat.le_add_left 2 rest'.length
 
+/-- **And it must**: two named is `branch`, not a choice.  `stepDetOf_branch`
+alone is one implication — a runner that *selected* among two enabled
+operations would return a state rather than `branch`, and that theorem would
+stay true of it.  This is the converse, and the two together are what "never
+selects" means. -/
+theorem stepDetOf_of_two {read : Reader} {s : State} (h : 2 ≤ (read s).length) :
+    stepDetOf read s = .inl .branch := by
+  have hstep : stepDetOf read s =
+      (match read s with
+        | [] => Sum.inl Terminal.halt
+        | [k] =>
+          match fire s k with
+          | .ok t => Sum.inr t
+          | .exhausted => Sum.inl Terminal.exhausted
+          | .noEdge => Sum.inl Terminal.refuse
+        | _ :: _ :: _ => Sum.inl Terminal.branch) := rfl
+  cases hr : read s with
+  | nil =>
+      rw [hr] at h
+      have h0 : (2 : Nat) ≤ 0 := h
+      exact absurd h0 (by omega)
+  | cons k rest =>
+      cases rest with
+      | nil =>
+          rw [hr] at h
+          have h1 : (2 : Nat) ≤ 1 := h
+          exact absurd h1 (by omega)
+      | cons k' rest' =>
+          rw [hstep, hr]
+
+/-- **Never selects, both ways.** -/
+theorem stepDetOf_branch_iff (read : Reader) (s : State) :
+    stepDetOf read s = .inl .branch ↔ 2 ≤ (read s).length :=
+  ⟨stepDetOf_branch, stepDetOf_of_two⟩
+
 def BranchOkOf (read : Reader) (p : Terminal × State) : Prop :=
   p.1 = .branch → 2 ≤ (read p.2).length
 
@@ -346,6 +382,13 @@ theorem ctrl_run_branch (s : State) : BranchOkOf ctrlReader (Control.run s) := b
   rw [ctrl_run s]
   exact runDetOf_branch ctrlReader s.fuel s
 
+/-- The merged machine's disqualifier, both ways: with two operations enabled
+the step **is** `branch`, so the runner cannot be selecting. -/
+theorem ctrl_branch_iff (s : State) :
+    Control.stepDet s = .inl .branch ↔ 2 ≤ (enabledAt s.graph s.nops s.active).length := by
+  rw [ctrl_stepDet s]
+  exact stepDetOf_branch_iff ctrlReader s
+
 /-! ## 4. The reader sees the state, and that is the point -/
 
 /-- **A reader that ignores the state is a machine that halts or loops.**  The
@@ -366,6 +409,8 @@ end Runner
 #print axioms Runner.stepDetOf_inr
 #print axioms Runner.stepDetOf_spec
 #print axioms Runner.stepDetOf_branch
+#print axioms Runner.stepDetOf_of_two
+#print axioms Runner.stepDetOf_branch_iff
 #print axioms Runner.runDetOf_branch
 #print axioms Runner.nextOf_tape
 #print axioms Runner.nextOf_graph
@@ -377,5 +422,6 @@ end Runner
 #print axioms Runner.ctrl_run
 #print axioms Runner.ctrl_stepDet_branch
 #print axioms Runner.ctrl_run_branch
+#print axioms Runner.ctrl_branch_iff
 #print axioms Runner.blind_halts
 #print axioms Runner.greedy_branches

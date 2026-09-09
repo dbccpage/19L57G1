@@ -4,9 +4,11 @@ AuthorityEffect: None.  Every claim names its hypotheses, its novelty against
 the reused results, its evidence, its falsifier and its remaining obligation.
 The words forced, minimal, free, canonical, equivalent, universal and complete
 appear only where a proof is named.  Lean names are in `lean/Execution.lean`
-(commit 1, the word machine) and `lean/Control.lean` (commit 2, control by
-data) under the namespaces `Execution` and `Control`; every report lies within
-`{propext, Quot.sound}` (`evidence/lean.json`).  "Finite setting" means the
+(the word machine), `lean/Control.lean` (control by data), `lean/Product.lean`
+(two loci as a carrier), `lean/Schedule.lean` (a two-locus run),
+`lean/Rename.lean` (renaming the carrier) and `lean/Runner.lean` (the
+interpreter over a reader), under the namespaces of the same names; every
+report lies within `{propext, Quot.sound}` (`evidence/lean.json`).  "Finite setting" means the
 merged `Translation.FiniteSetting`: carrier `{0, …, n-1}`, boolean-valued
 stores, two endpoints in the carrier, finitely many operations closed on the
 carrier.  "The encoded graph" means the instances of the merged
@@ -359,10 +361,14 @@ at datum `x`.
   (`square_fails_on_the_observation`); and the tape read at one locus with
   the adjacent repeats dropped **is that locus's own one-locus run**
   (`locus1_is_its_own_run`, `locus2_is_its_own_run`, against `solo_run`).
-- **Hypotheses**: `sched x < F.ops.length` at the datum in question — a
-  schedule that names an operation the setting does not have enables nothing,
-  and the machine halts rather than choosing.  For `step_moves_one_locus`, a
-  state carrying the two-locus program at an admitted datum.
+- **Hypotheses**: `sched x < F.ops.length` at the datum in question.  For
+  `step_moves_one_locus`, a state carrying the two-locus program at an
+  admitted datum.  **The mirror is stricter than the Lean outside that
+  hypothesis, and the difference is recorded rather than smoothed**: a
+  schedule naming an operation the setting does not have enables nothing in
+  the Lean and the machine halts, while `product.scheduled` refuses to build
+  it at all.  The two agree wherever anything is claimed and part only where a
+  mistake is made; `tests/test_product.py` pins both.
 - **Novelty**: it answers the obstacle by relocating it rather than by
   weakening it.  The runner's refusal to select stands untouched — the point
   is that a scheduled program never asks it to select.  And the observational
@@ -441,7 +447,11 @@ at datum `x`.
   the theorems each family proved separately hold of it once: the step is
   characterised by what the reader named and what the edge said
   (`stepDetOf_inr`, `stepDetOf_spec`); it never selects (`stepDetOf_branch`,
-  `runDetOf_branch`); it only appends and keeps the program (`nextOf_tape`,
+  `runDetOf_branch`) — and that is **two** implications, not one:
+  `stepDetOf_of_two` proves that two named *is* `branch`, without which a
+  runner that selected among two enabled operations would satisfy
+  `stepDetOf_branch` vacuously (`stepDetOf_branch_iff`, `ctrl_branch_iff`);
+  it only appends and keeps the program (`nextOf_tape`,
   `nextOf_graph`, `obsOf_prefix`, `obsOf_prefix_add`).  **The merged machine is
   that machine at its own reader**: `Control.stepDet` *is* `stepDetOf
   ctrlReader`, by `rfl` (`ctrl_stepDet`), and `Control.runDet` is `runDetOf`
@@ -457,8 +467,9 @@ at datum `x`.
   `greedy_branches` keep it from being vacuous.
 - **Evidence**: `Runner.stepDetOf_inr`, `stepDetOf_spec`, `stepDetOf_branch`,
   `runDetOf_branch`, `nextOf_tape`, `nextOf_graph`, `iterOf_succ`,
-  `obsOf_prefix`, `obsOf_prefix_add`, `ctrl_stepDet`, `ctrl_runDet`,
-  `ctrl_run`, `ctrl_stepDet_branch`, `ctrl_run_branch`, `blind_halts`,
+  `obsOf_prefix`, `obsOf_prefix_add`, `stepDetOf_of_two`,
+  `stepDetOf_branch_iff`, `ctrl_stepDet`, `ctrl_runDet`, `ctrl_run`,
+  `ctrl_stepDet_branch`, `ctrl_branch_iff`, `ctrl_run_branch`, `blind_halts`,
   `greedy_branches`; `runner.py` and `tests/test_runner.py`, over **every**
   enablement relation on the three-point setting — deterministic or not, all
   512 of them — from every datum at every scale.

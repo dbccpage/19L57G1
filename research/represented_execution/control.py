@@ -57,7 +57,13 @@ class Controlled:
 
 def nops(C: Controlled) -> int:
     """The operation count, read as the shape of the merged encoding: its
-    forms beyond the three stores."""
+    forms beyond the three stores.
+
+    The Lean uses ``C.F.ops.length`` instead.  The two coincide on a faithful
+    encoder and this reading is the stricter one — it is what the *machine*
+    can see, since the machine is given a graph and not a setting.  They are
+    not assumed to coincide: ``tests/test_control.py`` checks the identity on
+    every setting these trees build."""
     return len(tr.encode(C.F).forms) - 3
 
 

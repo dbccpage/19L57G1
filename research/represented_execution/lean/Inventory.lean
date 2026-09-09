@@ -105,3 +105,5 @@ is compared with the independent environment census. -/
 #print axioms Rename.renameSetting._proof_3
 #print axioms Rename.rename_fire._proof_1_1
 #print axioms Rename.rename_fire._proof_1_4
+#print axioms Runner.stepDetOf_of_two._proof_1_1
+#print axioms Runner.stepDetOf_of_two._proof_1_2

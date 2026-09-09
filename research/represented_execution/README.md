@@ -52,7 +52,7 @@ instances.  The processes read encoded data; they do not themselves live in
 the sealed grammar, and nothing here says they do.  (The *program* of commit
 2 is a regime; the *state* that runs it is host.)
 
-Lean: 111 authored theorems, 168 reports with the compiler-generated ones, all
+Lean: 114 authored theorems, 173 reports with the compiler-generated ones, all
 within `{propext, Quot.sound}`, in a package importing the sealed package
 and the merged `setting_translation` package.  Python: both machines
 mirrored; the word machine checked against the merged `translation.run` (the
@@ -65,7 +65,8 @@ of four programs; the graph mutation, mid-run edit, two-graphs-one-word,
 letter-names-an-operation, concatenation, empty-word, branch-by-data,
 iteration-by-data, never-selects, family-permutation and fuel tests the
 brief names; the named refusals; an oracle check on both machines' source;
-64 tests, strict typing over twelve files, two byte-identical records.
+109 tests, strict typing over the tree's own nine modules and nine test
+files by a glob, two byte-identical records.
 Execution base `756917dcaeff5979faa9b1346a1a8ce666b33b25` (main); no sealed
 path is written.
 
@@ -251,7 +252,8 @@ than the state.  **It need not**: all three are functions `State → List Nat`.
 | theorem | content |
 |---|---|
 | `stepDetOf_inr`, `stepDetOf_spec` | the step is characterised by what the reader named and what the edge said |
-| `stepDetOf_branch`, `runDetOf_branch` | it never selects |
+| `stepDetOf_branch`, `stepDetOf_of_two`, `stepDetOf_branch_iff` | **it never selects — both ways.** `branch` implies two were named, *and* two named implies `branch`. The first alone is satisfied by a runner that selects, since such a runner returns a state and never says `branch` at all |
+| `runDetOf_branch`, `ctrl_branch_iff` | and the runner's `branch` is honest at the state it returns |
 | `nextOf_tape`, `obsOf_prefix`, `obsOf_prefix_add`, `nextOf_graph` | it only appends, and keeps the program |
 | `ctrl_stepDet` | **the identification, by `rfl`**: `Control.stepDet` *is* `stepDetOf ctrlReader` |
 | `ctrl_runDet`, `ctrl_run`, `ctrl_run_branch` | and its runner is the generic runner at that reader |
@@ -306,29 +308,28 @@ beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 111 authored theorems and 53
-compiler-generated ones — nine constructor injectivity and size
-specifications for `Config`, `Controlled` and `State`; five for `Fired`
-(three size specifications and `ok`'s injectivity); five for `Terminal` (four
-size specifications and its `ofNat_ctorIdx`); the two proof terms of
-`Terminal`'s decidable equality; the four Prop-valued field
-projections of `Renaming`, which Lean classifies as theorems; and
-twenty-nine auxiliary proof terms of sixteen theorems and definitions
-(`enabled_program`, `encodeC_wf`, `live_successor`, `lookup_program_op`,
-`successors_complete`, `fst_lt`, `pack_lt`, `prodSetting`,
-`filter_range_eq_nil`, `filter_range_eq_single`, `scheduled_no_branch`,
-`two`, `getD_map`, `renameSetting`, `rename_fire`, `flipRenaming`) — 168
-reports, all within `{propext, Quot.sound}`; the report population equals the
+**Lean** (`lean/`, `evidence/lean.json`): 114 authored theorems, and 59
+compiler-generated ones **counted as the complement** of the authored names
+rather than by a second heuristic — 10 constructor injectivities, 11 size
+specifications, 1 constructor index, 2 proof terms of `Terminal`'s decidable
+equality, 4 Prop-valued field projections of `Renaming` (which Lean classifies
+as theorems), and 31 auxiliary proof terms of 17 theorems and definitions.
+114 + 59 = 173 reports, and `tests/test_lean_gate.py` checks that identity and
+that the six kinds partition the generated population; an earlier version
+pinned the two counts separately and put the four field projections inside a
+heuristic that excluded them, so the sum did not reach the total and nothing
+noticed.  All within `{propext, Quot.sound}`; the report population equals the
 environment census of the `Execution`, `Control`, `Product`, `Schedule`,
-`Rename` and `Runner` namespaces in both directions; no private theorem; forbidden-token scan
-clean.  `Classical.choice` was observed once, entering through `BEq` in an
+`Rename` and `Runner` namespaces in both directions; no private theorem;
+forbidden-token scan clean.  `Classical.choice` was observed once, entering through `BEq` in an
 earlier `isEdge`; the definition now decides the `Prop` directly and the
 reliance is gone.  The proofs unfold the machines' definitions by `show` and
 by definitional `have`, never by `simp`, so that no matcher equation is
 minted behind the census (the trap the merged families record).
 
 **Python** (`execution.py`, `control.py`, `run.py`, `evidence/process.json`,
-`tests/`): 64 tests, strict typing over twelve files, the two records replay
+`tests/`): 109 tests, strict typing over the tree's own modules and tests by a
+**glob** and not a hand list, the two records replay
 byte-identically.  `verify.py`, `verify_sources.py`, `verify_lean.py` and
 `run.py` follow the merged `research/setting_translation` files with names,
 pins and refusals changed; there is no shared helper across the research
@@ -353,6 +354,15 @@ cd research/represented_execution
 python verify.py     # sources, tests, mypy, lean (lake build + census), process --check
 ```
 
+The mypy census is a **glob** of the tree's own `*.py`, not a hand list.  That
+was a repair, and it was demonstrated before it was made: an unannotated,
+type-broken `zzz_probe_orphan.py` that nothing imported left the run reporting
+`Success: no issues found in 15 source files`; with the glob it is named.  A
+module that *is* imported by a listed one was already checked — `follow_imports`
+visits it and strict applies there — so the hole was exactly the unimported
+file, which is the same census drift the runner glob and the parked-module
+audit were built for.
+
 Regenerate the two records deliberately and never under a live injection:
 `python run.py --write`, `python verify_lean.py --write`.
 
@@ -375,10 +385,6 @@ Regenerate the two records deliberately and never under a live injection:
   a graph by name).  A later family's record-reading program is such a graph
   on its control forms; it is read by membership there, not by `lookup`.
 * That every edge of every encoding is load-bearing for some word.
-* A two-locus *run*: the product is of settings, so no enablement is factored
-  into two loci and no scheduler chooses which locus moves (CL-RE-15).  There
-  the two-locus run is mirrored and recorded; the *square* and the
-  one-locus-at-a-time property are proved of every run and computed of one.
 * Anything about infinite carriers, undecidable stores or infinite operation
   families.
 

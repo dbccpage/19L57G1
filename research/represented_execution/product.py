@@ -107,7 +107,17 @@ def prod_setting(F: tr.FiniteSetting, G: tr.FiniteSetting) -> tr.FiniteSetting:
 
 def scheduled(F: tr.FiniteSetting, sched: Callable[[int], int]) -> ct.Controlled:
     """A controlled setting whose program names, at each datum, the one
-    operation that fires there."""
+    operation that fires there.
+
+    **Stricter than the Lean, deliberately.**  A schedule naming an operation
+    the setting does not have is refused here by ``Controlled.__post_init__``;
+    the Lean ``Schedule.scheduled`` builds the setting anyway, enables nothing
+    at that datum, and the machine halts.  The Lean *theorem* is silent about
+    the case — ``enabledAt_scheduled`` carries the hypothesis
+    ``sched x < F.ops.length`` — so the two agree exactly where anything is
+    claimed, and part where a mistake is made.  ``tests/test_product.py`` pins
+    both behaviours rather than leaving the difference to be discovered.
+    """
     return ct.Controlled(F, frozenset((x, sched(x)) for x in range(F.n)))
 
 

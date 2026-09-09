@@ -223,6 +223,28 @@ class Bookkeeping(unittest.TestCase):
         assert isinstance(fired, ct.State)
         self.assertEqual(fired.graph, s.graph)
         self.assertEqual(fired.nops, s.nops)
+class TheOperationCountIsReadFromTheEncoding(unittest.TestCase):
+    """`control.nops` reads the shape of the encoding; the Lean reads the
+    setting.  The two coincide on a faithful encoder, and that is checked here
+    rather than assumed."""
+
+    def test_the_count_read_from_the_encoding_is_the_number_of_operations(self) -> None:
+        settings = [tr.FiniteSetting(n, tr.NONE, tr.NONE, tr.NONE, 0, n - 1, ops)
+                    for n in (1, 2, 3)
+                    for ops in ((), (tuple(range(n)),),
+                                (tuple(range(n)), tuple((i + 1) % n for i in range(n))))]
+        settings.extend(tr.SEALED_SETTINGS.values())
+        for F in settings:
+            C = ct.Controlled(F, frozenset())
+            self.assertEqual(ct.nops(C), len(F.ops), F.json())
+
+    def test_it_holds_of_a_setting_with_repeated_operation_tables(self) -> None:
+        """The sealed schema collapses repetitions; the encoder does not, and
+        the count follows the index order.  This is the case where a careless
+        reading of `setting_json` would disagree."""
+        table = (0, 1)
+        F = tr.FiniteSetting(2, tr.NONE, tr.NONE, tr.NONE, 0, 1, (table, table))
+        self.assertEqual(ct.nops(ct.Controlled(F, frozenset())), 2)
 
 
 if __name__ == "__main__":
