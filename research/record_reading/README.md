@@ -47,7 +47,7 @@ package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
 run recorded with its operation tables in index order; 50 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`e0c7dda85582bafce720adb8cee6002e450d6f79`, the observed family's commit
+`724fe33b682fef859f2a1c0275f793af6cc46bab`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
@@ -186,7 +186,7 @@ the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`e0c7dda85582bafce720adb8cee6002e450d6f79`, the eight derivation modules and
+`724fe33b682fef859f2a1c0275f793af6cc46bab`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,

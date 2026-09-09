@@ -1,6 +1,6 @@
 {
   "schema": "record-reading-sources-v1",
-  "baseline_commit": "e0c7dda85582bafce720adb8cee6002e450d6f79",
+  "baseline_commit": "724fe33b682fef859f2a1c0275f793af6cc46bab",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution, control and limits modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation, represented_execution and coherent_process_limits Lean trees the local proofs build on, the setting_translation, represented_execution and coherent_process_limits Python trees that supply the encoder, the machines this family extends and the observation it selects against, the Lean configuration of the seven packages, and the represented execution family's artifact evidence/process.json (read here through the coherent process limits family's identification, never written here) at the commit at which both families are frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
@@ -28,8 +28,8 @@
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
     "research/represented_execution/lean": "0978dbfb3093aee37432bc70dbff0fce3536606d",
     "research/represented_execution": "848b9a103df63c35b5ce17f3ca4779494b873695",
-    "research/coherent_process_limits/lean": "8f1e8c7aa5fd62c0de68d14dfad22392a5432428",
-    "research/coherent_process_limits": "fbba535ae4ccbf550c44235163cd7ba197ea869b"
+    "research/coherent_process_limits/lean": "657d6562f95c6f340db9b6bafc88fd1edb5e6a6f",
+    "research/coherent_process_limits": "6e83c2405d595d4ca36686ea4b17bfd4a0ce326b"
   },
   "tree_census": {
     "code/derivation": [
@@ -231,7 +231,7 @@
     "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/coherent_process_limits/lean/lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
     "research/coherent_process_limits/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "research/coherent_process_limits/limits.py": "21e8c89baa332846aed650e8e617c5e6a3e4adae197264b122ba8d0a381d75dd",
+    "research/coherent_process_limits/limits.py": "15c72d112a39b95fa137b8595412bb0bd4e1753b2556bf56b2024916c621c03a",
     "research/ignition/lean/lakefile.toml": "c3dae512d55898c79ca48f1af47a97bf5cb33efaaa095230d2be892d5a021341",
     "research/ignition/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/local_reuse/lean/lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
