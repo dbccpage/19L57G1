@@ -61,7 +61,7 @@ scales, the two-locus experiment at five and the periodicity of all 192 runs
 on the setting, and the fork family at four; 52 tests, strict typing over
 nine files by a glob, two byte-identical records; every recorded experiment replays from
 the record's own fields.
-Execution base `d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the represented
+Execution base `abdcdb68760460623520ebef31f55ffe6d4d842b`, the represented
 execution family's two-locus-run commit, at which its artifact is frozen and
 pinned;
 no sealed path and no sibling path is written.
@@ -283,7 +283,7 @@ directory is always first on the path, and `run.py` and `verify_lean.py`
 refuse by name if a foreign guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the eight derivation modules and
+`abdcdb68760460623520ebef31f55ffe6d4d842b`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `product` modules by
 digest and
 runtime origin; the sealed `lean4/Derivation` tree, the merged

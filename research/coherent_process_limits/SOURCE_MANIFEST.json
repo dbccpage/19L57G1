@@ -1,6 +1,6 @@
 {
   "schema": "coherent-process-limits-sources-v1",
-  "baseline_commit": "63f6c7f4b5ee93802b2b871116e42c731fbac943",
+  "baseline_commit": "abdcdb68760460623520ebef31f55ffe6d4d842b",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution and control modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation and represented_execution Lean trees, and the setting_translation and represented_execution Python trees by Git tree object; the Lean configuration of the six packages and the represented execution family's artifact evidence/process.json (authored there, read here, never written here) at the commit at which that family is frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
@@ -26,7 +26,7 @@
     "research/setting_translation/lean": "7e329a7a398067f3bd38051d7ab0ecb619e98448",
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
     "research/represented_execution/lean": "029507c079417cc540e9b8fb850339a253d6a70e",
-    "research/represented_execution": "0c8ccc8dc69dc36f9995a2d2c72e3db9ace8d9d6"
+    "research/represented_execution": "6fee5c0a8f63d1cc0be1d17d4e0e9e2dc8159c56"
   },
   "tree_census": {
     "code/derivation": [
