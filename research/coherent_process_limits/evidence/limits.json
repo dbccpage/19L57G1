@@ -21,8 +21,8 @@
  "authority_effect": "None",
  "causal_footprint": {
   "independence": "an edit to an instance away from the active datum does not change the step, and an edit at it does: the represented execution family's test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged and its mutation tests.  Computed on those populations; no theorem states it",
-  "not_delivered": "the observed process has one locus of activity, so no square is stated of its observations; the producer family has since built two loci as a product carrier and proved the square there (its Product.left_right_comm, Product.coupling_breaks_the_square), and the lifting to a two-locus run and its observations is what remains",
   "reads": "a firing reads the enablement self-instance and the operation edge at the active datum (Control.fire, Control.enabled)",
+  "two_loci": "delivered.  The producer family runs two loci by a schedule carried in the data, and Observe.obs_one_locus lifts the independence to the observation: at every scale, from every start, with any fuel and for every schedule, the observed tape of a two-locus run moves one locus at a time.  What does NOT lift is the square itself \u2014 two orders reach the same datum and record different tapes \u2014 and what does is the projection with the repeats dropped.  Computed here at five scales in two_locus_experiment, over the factorization identified from the artifact rather than declared",
   "writes": "active, tape, clock, fuel; the program is kept (Control.fire_ok)"
  },
  "classification": "deterministic computation: the represented process observed at step scales, and the abstract inverse system mirrored",
@@ -111,7 +111,7 @@
   "an interval, circle or integration theory: the limit is a totally disconnected thread space and a rational frequency with a bound",
   "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
   "a general theorem that every realized tape is eventually periodic: the determinism of the next datum is proved, the eventual periodicity is computed over the declared class",
-  "a two-locus run and its observation at step scales: the producer family built the second locus as a product carrier and proved the independence square on operations, but no run of it is observed here"
+  "the limit of a two-locus run as an inverse system in its own right: the two-locus observation is taken at five scales and its one-locus-at-a-time property proved along every run, but the thread space over the product carrier, and whether the two loci give two commuting inverse systems, are not built"
  ],
  "observation_system": {
   "bonding": "forget the entries beyond the coarser length",
@@ -149,6 +149,146 @@
   "bound_on_the_run": "Observe.forever_length, forever_zeros, forever_run_bound: the readout of the observation itself obeys L <= 3 * count <= L + 2",
   "theorem": "Observe.forever_iter, forever_obs: after n steps of the cycle-everywhere program from datum 0, with fuel to spare, the active datum is n % 3 and the tape is the first n + 1 entries of i -> i % 3",
   "was": "computed at every recorded scale and labelled the missing connection; proved now"
+ },
+ "two_locus_experiment": {
+  "identified_from": "the recorded tape and its two recorded projections; not declared here",
+  "identified_second_locus_size": 2,
+  "one_locus_run": [
+   0,
+   1,
+   0
+  ],
+  "programs_recorded_schedule": {
+   "0": 0,
+   "1": 1,
+   "2": 1,
+   "3": 0
+  },
+  "recorded_tape": [
+   0,
+   2,
+   3,
+   1,
+   0
+  ],
+  "scales": [
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 1,
+    "second_locus_destuttered": [
+     0
+    ],
+    "tape": [
+     0,
+     2
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 2,
+    "second_locus_destuttered": [
+     0,
+     1
+    ],
+    "tape": [
+     0,
+     2,
+     3
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1,
+     0
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 3,
+    "second_locus_destuttered": [
+     0,
+     1
+    ],
+    "tape": [
+     0,
+     2,
+     3,
+     1
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1,
+     0
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 4,
+    "second_locus_destuttered": [
+     0,
+     1,
+     0
+    ],
+    "tape": [
+     0,
+     2,
+     3,
+     1,
+     0
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1,
+     0,
+     1,
+     0
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 8,
+    "second_locus_destuttered": [
+     0,
+     1,
+     0,
+     1,
+     0
+    ],
+    "tape": [
+     0,
+     2,
+     3,
+     1,
+     0,
+     2,
+     3,
+     1,
+     0
+    ]
+   }
+  ],
+  "square_on_the_observation": {
+   "holds": false,
+   "reading": "the two orders reach the same datum and record different tapes (the producer family's Schedule.square_on_the_outcome and square_fails_on_the_observation); what lifts to the observation is not the square but the projection with the repeats dropped, and one locus moving at a time"
+  },
+  "theorem": "Observe.obs_one_locus: at every scale, from every start, with any fuel and for every schedule, the observed tape of a two-locus run moves one locus at a time; Observe.pair_obs names this program's observation at scale four"
  },
  "verdicts": {
   "all_realized_tapes_functional": true,

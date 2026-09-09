@@ -240,13 +240,45 @@ the tape after `n` steps (`Observe.obs`).
   populations.
 - **Falsifier**: a step that changes under an edit away from the active
   datum.
-- **Obligation**: the *process this family observes* has one locus of
-  activity, so no square is stated of its observations.  The producer family
-  has since built the second locus as a product carrier and proved the
-  independence square there — moves at different loci commute, and a move
-  that reads the other locus does not (its CL-RE-15) — so what remains here
-  is the lifting: a two-locus **run**, its observation at step scales, and the
-  square as a statement about observations rather than about operations.
+- **Obligation**: discharged for the two-locus case by CL-CP-12.  What is
+  still read off the definitions rather than proved is the invariance itself:
+  no theorem here states that an edit away from the active datum leaves the
+  step unchanged.
+
+### CL-CP-12 — the two-locus observation: one locus moves at a time, and the square does not lift
+
+- **Statement**: the producer family runs two loci by a schedule carried in
+  the data (its CL-RE-16).  Of the **observation** of such a run:
+  `Observe.obs_one_locus` — at every scale, from every start, with any fuel
+  and for **every** schedule, consecutive entries of the observed tape leave
+  one of the two coordinates exactly where it was.  It is the chain
+  invariant of `obs_functional` read through the product's locality theorems
+  rather than through determinism, and it assumes no admissible range: the
+  enablement instance the machine reads is what places the datum in the
+  carrier (`nextOf_one_locus`, from `nextOf_some` and `prod_op_one_locus`).
+  What does **not** lift is the square itself: two orders reach the same
+  datum and record different tapes.  What lifts instead is the projection
+  with the adjacent repeats dropped.
+- **Hypotheses**: a state carrying a two-locus program; nothing about the
+  schedule, the start, the fuel or the scale.
+- **Novelty**: the lifting CL-CP-10 asked for, and it is two-sided.  The
+  negative half is the informative one: a tape totally orders events that the
+  loci do not, so a record of two independent processes carries strictly more
+  than the processes do.  The repeats the destuttering drops are exactly the
+  steps that moved the other locus.
+- **Evidence**: `Observe.nextOf_of_single`, `nextOf_some`,
+  `prod_op_one_locus`, `nextOf_one_locus`, `chain_one_locus`, `next_graph`,
+  `iter_graph`, `obs_one_locus`, `pair_obs`; `limits.two_locus_experiment`
+  and the record's `two_locus_experiment` section, at five scales, over the
+  factorization `identify_loci` reads **from the producer's record** rather
+  than being told; `tests/test_evidence.py`'s two injections.
+- **Falsifier**: an observed step of a two-locus run that changes both
+  coordinates; a locus reading not prefix-related to that locus's own run; a
+  recorded projection identifying no single factorization.  The receipt
+  refuses each by name.
+- **Obligation**: the limit of a two-locus run *as an inverse system in its
+  own right* is not built — whether the two loci give two commuting inverse
+  systems whose product is the whole is unasked here.  Two loci, not `k`.
 
 ### CL-CP-11 — declared, and not delivered
 
@@ -256,8 +288,12 @@ the tape after `n` steps (`Observe.obs`).
   An interval would need an order or metric compatible with the stages and an
   identification of threads this family does not make.  Not proved in Lean.
 - **Not delivered**: lifting a fork's successor relation to threads; the
-  general eventual-periodicity theorem; a second locus of activity; the
-  proved link between the `forever` tape and the sequence `i ↦ i % 3`.
+  general eventual-periodicity theorem; the thread space of a two-locus run
+  as an inverse system of its own (the observation is taken, the limit over
+  it is not).  An earlier version of this line named "a second locus of
+  activity" and "the proved link between the `forever` tape and the sequence
+  `i ↦ i % 3`"; both are WITHDRAWN — the link is `Observe.forever_obs` and
+  the second locus is CL-CP-12.
 - **Next single obstacle**: the model-selection and measurement burden
   (P218).  Nothing here selects a physical law; the readout is a frequency
   of a datum in a represented process, and a physical claim would need an

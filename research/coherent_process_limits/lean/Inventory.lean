@@ -81,3 +81,5 @@ environment census. -/
 #print axioms Observe.zeros_eq._proof_1_4
 #print axioms Observe.zeros_bound._proof_1_1
 #print axioms Observe.zeros_bound._proof_1_2
+#print axioms Observe.nextOf_one_locus._proof_1_1
+#print axioms Observe.nextOf_one_locus._proof_1_2

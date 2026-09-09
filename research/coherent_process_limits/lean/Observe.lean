@@ -1,4 +1,4 @@
-import Control
+import Schedule
 
 /-!
 # Observe: the represented process at finite scales
@@ -27,7 +27,7 @@ AuthorityEffect: None.
 
 namespace Observe
 
-open Derivation Translation Execution Control
+open Derivation Translation Execution Control Product Schedule
 
 /-! ## 1. Steps, scales, observations -/
 
@@ -432,6 +432,140 @@ theorem obs_functional (C : Controlled) (x fuel n : Nat) {p q : Nat × Nat}
   chain_functional
     (iter_chain n _ (init_chain C x fuel).1 (init_chain C x fuel).2).1 hp hq he
 
+/-! ## 2c. Two loci: the observation moves one at a time
+
+The producer family builds two loci as a product carrier, proves the
+independence square of the *operations*, and runs them by a schedule carried
+in the data.  What this family owes is the square as a statement about
+**observations**, and this is it: along a whole run, at every scale, from
+every start and with any fuel, consecutive entries of the observed tape
+differ in at most one locus.
+
+It is the same chain invariant as `obs_functional`, read through the
+product's locality theorems rather than through determinism.  No admissible
+range is assumed: the enablement instance the machine reads is what places
+the datum in the carrier, so the hypothesis is the program and nothing else.
+-/
+
+/-- The next value is read from the one enabled operation. -/
+theorem nextOf_of_single {g : List Inst} {nops x y k : Nat}
+    (he : enabledAt g nops x = [k]) (h : nextOf g nops x = some y) :
+    lookup (3 + k) x g = some y := by
+  revert h
+  show (match enabledAt g nops x with | [k] => lookup (3 + k) x g | _ => none) = some y →
+      lookup (3 + k) x g = some y
+  rw [he]
+  exact id
+
+/-- A next value exists only where exactly one operation is enabled. -/
+theorem nextOf_some {g : List Inst} {nops x y : Nat} (h : nextOf g nops x = some y) :
+    ∃ k, enabledAt g nops x = [k] ∧ lookup (3 + k) x g = some y := by
+  have hu : nextOf g nops x =
+      (match enabledAt g nops x with | [k] => lookup (3 + k) x g | _ => none) := rfl
+  cases hl : enabledAt g nops x with
+  | nil =>
+      rw [hl] at hu
+      rw [hu] at h
+      cases h
+  | cons k rest =>
+      cases rest with
+      | nil => exact ⟨k, rfl, nextOf_of_single hl h⟩
+      | cons k' rest' =>
+          rw [hl] at hu
+          rw [hu] at h
+          cases h
+
+/-- An operation of a product setting, named by its index, moves at most one
+locus.  This is `Product.prod_left_local` and `prod_right_local` read at an
+index rather than at a membership. -/
+theorem prod_op_one_locus (F G : FiniteSetting) {k : Nat}
+    (hk : k < (prodSetting F G).ops.length) (x : Nat) :
+    fstOf G.n ((prodSetting F G).ops.getD k id x) = fstOf G.n x ∨
+      sndOf G.n ((prodSetting F G).ops.getD k id x) = sndOf G.n x := by
+  have hmem : (prodSetting F G).ops.getD k id ∈
+      F.ops.map (leftOp G.n) ++ G.ops.map (rightOp G.n) := getD_mem hk
+  rcases List.mem_append.mp hmem with hleft | hright
+  · exact Or.inr (prod_left_local F G hleft x)
+  · exact Or.inl (prod_right_local G hright x)
+
+/-- **The step of a two-locus program moves one locus.**  Stated of the
+program's next value, so it holds wherever the machine moves at all. -/
+theorem nextOf_one_locus (F G : FiniteSetting) (sched : Nat → Nat) {x y : Nat}
+    (h : nextOf (program (twoLocus F G sched)) (prodSetting F G).ops.length x = some y) :
+    fstOf G.n y = fstOf G.n x ∨ sndOf G.n y = sndOf G.n x := by
+  obtain ⟨k, he, hl⟩ := nextOf_some h
+  have hk : k < (prodSetting F G).ops.length := by
+    have hkmem : k ∈ enabledAt (program (twoLocus F G sched))
+        (prodSetting F G).ops.length x := by
+      rw [he]
+      exact List.Mem.head []
+    exact (mem_enabledAt.mp hkmem).1
+  have hk2 : k < (twoLocus F G sched).F.ops.length := hk
+  have hmem : ((3 + k : Nat), [x, y]) ∈ program (twoLocus F G sched) := lookup_mem hl
+  rcases mem_program.mp hmem with ⟨k', hk', x', -, heq⟩ | ⟨k', -, x', -, -, heq⟩
+  · injection heq with h1 h2
+    have hkk : k' = k := by omega
+    subst hkk
+    obtain ⟨hx, hy⟩ := list_two_inj h2
+    subst hx
+    subst hy
+    exact prod_op_one_locus F G hk' x
+  · injection heq with h1 _
+    omega
+
+/-- A tape moves one locus at a time when each consecutive pair leaves one of
+the two coordinates exactly where it was. -/
+def OneLocus (m : Nat) (l : List Nat) : Prop :=
+  ∀ p ∈ pairsOf l, fstOf m p.2 = fstOf m p.1 ∨ sndOf m p.2 = sndOf m p.1
+
+/-- A chain of a two-locus program moves one locus at a time. -/
+theorem chain_one_locus (F G : FiniteSetting) (sched : Nat → Nat) {l : List Nat}
+    (h : Chain (program (twoLocus F G sched)) (prodSetting F G).ops.length l) :
+    OneLocus G.n l := fun p hp => nextOf_one_locus F G sched (h p hp)
+
+/-- A step keeps the program and the operation count. -/
+theorem next_graph (s : State) : (next s).graph = s.graph ∧ (next s).nops = s.nops := by
+  cases hs : stepDet s with
+  | inl t =>
+      have hn : next s = s := by
+        show (match stepDet s with | .inr s' => s' | .inl _ => s) = s
+        rw [hs]
+      rw [hn]
+      exact ⟨rfl, rfl⟩
+  | inr s' =>
+      have hn : next s = s' := by
+        show (match stepDet s with | .inr s' => s' | .inl _ => s) = s'
+        rw [hs]
+      obtain ⟨k, -, hf⟩ := stepDet_inr hs
+      obtain ⟨-, -, -, -, hg, hnn⟩ := fire_ok hf
+      rw [hn]
+      exact ⟨hg, hnn⟩
+
+theorem iter_graph : ∀ (n : Nat) (s : State),
+    (iter n s).graph = s.graph ∧ (iter n s).nops = s.nops
+  | 0, _ => ⟨rfl, rfl⟩
+  | n + 1, s => by
+      rw [iter_succ]
+      obtain ⟨hg, hn⟩ := iter_graph n (next s)
+      obtain ⟨hg', hn'⟩ := next_graph s
+      exact ⟨hg.trans hg', hn.trans hn'⟩
+
+/-- **The square, lifted to the observation.**  At every scale, from every
+start, with any fuel, the observed tape of a two-locus run moves one locus at
+a time: the record never shows the two loci moving together.  This is what
+the family's causal-footprint entry recorded as not delivered. -/
+theorem obs_one_locus (F G : FiniteSetting) (sched : Nat → Nat) (x fuel n : Nat) :
+    OneLocus G.n (obs n (Control.init (twoLocus F G sched) x fuel)) := by
+  have hstart := init_chain (twoLocus F G sched) x fuel
+  have hchain := (iter_chain n (Control.init (twoLocus F G sched) x fuel) hstart.1 hstart.2).1
+  obtain ⟨hg, hn⟩ := iter_graph n (Control.init (twoLocus F G sched) x fuel)
+  rw [hg, hn] at hchain
+  exact chain_one_locus F G sched hchain
+
+/-- And the run the producer family records is one: its observation at scale
+four is the tape the theorem there names, and it moves one locus at a time. -/
+theorem pair_obs : obs 4 (Control.init Schedule.pair 0 4) = [0, 2, 3, 1, 0] := by decide
+
 /-! ## 3. The `forever` program of the represented execution family -/
 
 def cyc (x : Nat) : Nat := if x = 0 then 1 else if x = 1 then 2 else 0
@@ -642,6 +776,15 @@ end Observe
 #print axioms Observe.iter_chain
 #print axioms Observe.init_chain
 #print axioms Observe.obs_functional
+#print axioms Observe.nextOf_of_single
+#print axioms Observe.nextOf_some
+#print axioms Observe.prod_op_one_locus
+#print axioms Observe.nextOf_one_locus
+#print axioms Observe.chain_one_locus
+#print axioms Observe.next_graph
+#print axioms Observe.iter_graph
+#print axioms Observe.obs_one_locus
+#print axioms Observe.pair_obs
 #print axioms Observe.enabledAt_forever
 #print axioms Observe.lookup_forever
 #print axioms Observe.cyc_mod

@@ -50,16 +50,18 @@ field the order is still recovered as the one ordering under which every run
 replays, and an enablement naming an operation the sealed schema collapsed
 is refused by name.  That is the artifact contract doing its job.
 
-Lean: 50 authored theorems, 92 reports with the compiler-generated ones,
+Lean: 59 authored theorems, 103 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
 recorded run replayed; compatibility checked on every identified program,
 every datum, twelve scales; the three verdicts computed over the 64
 deterministic programs on the recorded setting; the experiment at four
-scales; 43 tests, strict typing over nine files, two byte-identical records.
-Execution base `ab7cc9a521973f8ec69a1cc1a7e9a92591d13acd`, the represented
-execution family's two-loci commit, at which its artifact is frozen and pinned;
+scales and the two-locus experiment at five; 46 tests, strict typing over
+nine files, two byte-identical records.
+Execution base `d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the represented
+execution family's two-locus-run commit, at which its artifact is frozen and
+pinned;
 no sealed path and no sibling path is written.
 
 ## 1. The abstract inverse system (`lean/Limits.lean`)
@@ -149,11 +151,34 @@ The causal footprint of a step is what the merged `fire` reads and writes:
 the enablement self-instance and the operation edge at the active datum;
 the active datum, the tape, the clock and the fuel, keeping the program.  An
 edit away from the active datum does not change the step; an edit at it does
-(the family's mutation tests).  The process has one locus of activity, so
-independence and interaction between two loci are not observed here; the
-producer family has since built the second locus as a product carrier and
-proved the independence square on its operations, and the lifting to a
-two-locus run and its observations is what remains.
+(the family's mutation tests).
+
+### Two loci, observed
+
+The producer family now runs two loci by a schedule carried in the data, and
+this is the lifting the paragraph above used to defer:
+
+| theorem | content |
+|---|---|
+| `nextOf_some`, `nextOf_of_single` | the next value exists only where exactly one operation is enabled, and is read from it |
+| `prod_op_one_locus` | an operation of a product setting, named by index, moves at most one locus |
+| `nextOf_one_locus` | so a step of a two-locus program does — with no admissible range assumed, since the enablement instance the machine reads is what places the datum in the carrier |
+| `obs_one_locus` | **and so does the whole observation**: at every scale, from every start, with any fuel and for every schedule |
+| `pair_obs` | the producer's recorded run, observed here at scale four |
+
+Read it two-sidedly.  The square itself does **not** lift: two orders reach
+the same datum and record different tapes (the producer's
+`square_on_the_outcome`, `square_fails_on_the_observation`).  What lifts is
+the projection with the adjacent repeats dropped, and the repeats are exactly
+the steps that moved the other locus.  A tape totally orders events that the
+loci do not, so the record of two independent processes carries strictly more
+than the processes do.
+
+`limits.two_locus_experiment` computes this at five scales — and reads the
+factorization of the carrier **from the producer's record**, as the unique
+second-locus size whose two coordinate readings of the recorded tape are the
+recorded projections, refusing if none or two.  What is still not built: the
+thread space of a two-locus run as an inverse system of its own.
 
 ## 6. What "the limit" is here, and is not
 
@@ -171,16 +196,16 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 50 authored theorems and 42
+**Lean** (`lean/`, `evidence/lean.json`): 59 authored theorems and 44
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 92 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 103 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a
 conjunction goal classically; the conjunction is now split first and the
 reliance is gone.
 
-**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 43
+**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 46
 tests, strict typing over nine files, the two records replay byte-identically.
 `verify.py`, `verify_sources.py`, `verify_lean.py` and `run.py` follow the
 sibling families' files with names, pins and refusals changed; this tree's
@@ -188,8 +213,9 @@ directory is always first on the path, and `run.py` and `verify_lean.py`
 refuse by name if a foreign guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`ab7cc9a521973f8ec69a1cc1a7e9a92591d13acd`, the eight derivation modules and
-the consumed `translation`, `execution` and `control` modules by digest and
+`d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the eight derivation modules and
+the consumed `translation`, `execution`, `control` and `product` modules by
+digest and
 runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation` and
 `represented_execution` Lean trees, and the `setting_translation` and

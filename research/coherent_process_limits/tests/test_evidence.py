@@ -65,6 +65,42 @@ class LimitsRecord(unittest.TestCase):
             with self.assertRaisesRegex(lm.LimitsError, "fragment"):
                 run.receipt_bytes()
 
+    def test_the_receipt_refuses_a_two_locus_run_that_moves_both_loci(self) -> None:
+        """The producer's record is read, not trusted: a tape claiming a step
+        from `(0, 0)` to `(1, 1)` is refused by name."""
+        artifact = lm.load_artifact()
+        artifact["two_loci"] = json.loads(json.dumps(artifact["two_loci"]))
+        two = artifact["two_loci"]
+        assert isinstance(two, dict)
+        with patch("run.verify_sources", return_value=[]),                 patch("limits.pr.moves_one_locus", return_value=False),                 patch("limits.load_artifact", return_value=artifact):
+            with self.assertRaisesRegex(lm.LimitsError, "moved both loci"):
+                run.receipt_bytes()
+
+    def test_the_receipt_refuses_a_two_locus_record_that_names_no_factorization(self) -> None:
+        """The second-locus size is identified from the record.  A recorded
+        projection that no coordinate reading produces identifies none, and
+        the receipt says so rather than picking one."""
+        artifact = lm.load_artifact()
+        two = json.loads(json.dumps(artifact["two_loci"]))
+        two["projections"]["first_locus"] = [9, 9, 9, 9, 9]
+        artifact["two_loci"] = two
+        with patch("run.verify_sources", return_value=[]),                 patch("limits.load_artifact", return_value=artifact):
+            with self.assertRaisesRegex(lm.LimitsError, "identifies 0 factorizations"):
+                run.receipt_bytes()
+
+    def test_the_identified_factorization_is_the_one_the_producer_used(self) -> None:
+        record = self.record()
+        two = record["two_locus_experiment"]
+        self.assertEqual(two["identified_second_locus_size"], 2)
+        self.assertEqual(two["recorded_tape"], [0, 2, 3, 1, 0])
+        self.assertEqual([entry["scale"] for entry in two["scales"]], list(lm.TWO_LOCUS_SCALES))
+        for entry in two["scales"]:
+            self.assertTrue(entry["one_locus_at_a_time"], entry["scale"])
+            self.assertTrue(entry["prefix_of_next"], entry["scale"])
+            self.assertTrue(entry["each_locus_agrees_with_its_own_run"], entry["scale"])
+        self.assertFalse(two["square_on_the_observation"]["holds"])
+        self.assertIn("delivered", record["causal_footprint"]["two_loci"])
+
     def test_record_carries_no_timestamp_path_or_sentinel(self) -> None:
         text = self.fresh.decode("utf-8")
         for token in ("timestamp", "C:\\\\", "/Users/", "worktrees"):

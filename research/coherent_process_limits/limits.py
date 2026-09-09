@@ -17,6 +17,12 @@ before that field, the order is recovered as the unique permutation under
 which every run replays, and a recorded enablement naming an operation the
 sealed schema does not carry is refused rather than replayed on a smaller
 setting.
+
+The artifact now also carries a two-locus run.  ``identify_loci`` reads which
+factorization of the carrier it is over from the record — the unique second
+locus size whose two coordinate readings of the recorded tape are the recorded
+projections — rather than being told it, and ``two_locus_experiment`` observes
+that program at five step scales.
 """
 
 from __future__ import annotations
@@ -28,6 +34,7 @@ from typing import Callable, Sequence, cast
 
 import control as ct
 from execution import ExecutionError
+import product as pr
 import translation as tr
 
 ROOT = Path(__file__).resolve().parent
@@ -256,6 +263,97 @@ def bound_holds(tape: Word) -> bool:
 
 
 SCALES: tuple[int, ...] = (3, 6, 12, 24)
+TWO_LOCUS_SCALES: tuple[int, ...] = (1, 2, 3, 4, 8)
+
+
+def identify_loci(two: JsonObj) -> int:
+    """Which factorization of the carrier the recorded two-locus run is over,
+    identified from the record and not declared here: the unique second-locus
+    size whose two coordinate readings of the recorded tape are the recorded
+    projections.  None or two candidates is a refusal, exactly as for the
+    operation order."""
+    tape = tuple(int(v) for v in cast(list[int], cast(JsonObj, two["alternating_run"])["tape"]))
+    projections = cast(JsonObj, two["projections"])
+    first = [int(v) for v in cast(list[int], projections["first_locus"])]
+    second = [int(v) for v in cast(list[int], projections["second_locus"])]
+    n = int(cast(int, cast(JsonObj, two["setting_json"])["n"]))
+    found = [m for m in range(1, n + 1)
+             if n % m == 0
+             and [pr.fst_of(m, x) for x in tape] == first
+             and [pr.snd_of(m, x) for x in tape] == second]
+    if len(found) != 1:
+        raise LimitsError(f"the recorded two-locus run identifies {len(found)} factorizations, not one")
+    return found[0]
+
+
+def two_locus_experiment(record: JsonObj) -> JsonObj:
+    """Observe the represented family's two-locus program at five step scales.
+
+    Checked at each: the observations are compatible (each a prefix of the
+    next); every step moves one locus and not both; and each locus's reading
+    of the tape, with the repeats dropped, is prefix-related to that locus's
+    own one-locus run — the two agree as far as both go.  The recorded tape
+    must be a prefix of the observation at its own scale.  The Lean statement
+    of the middle check, along the whole run and for every schedule, is
+    ``Observe.obs_one_locus``; this computes it of one program at five
+    scales."""
+    two = cast(JsonObj, record["two_loci"])
+    m = identify_loci(two)
+    tables = tuple(tuple(int(v) for v in table)
+                   for table in cast(list[list[int]], two["ops_in_index_order"]))
+    F = setting_from_tables(cast(JsonObj, two["setting_json"]), tables)
+    schedule = {int(x): int(k) for x, k in
+                cast(dict[str, int], cast(JsonObj, two["schedule"])["alternating"]).items()}
+    C = ct.Controlled(F, frozenset(schedule.items()))
+    state = ct.init(C, 0, TWO_LOCUS_SCALES[-1])
+    tapes = {n: obs(n, state) for n in TWO_LOCUS_SCALES}
+    recorded = tuple(int(v) for v in cast(list[int], cast(JsonObj, two["alternating_run"])["tape"]))
+    own = tuple(int(v) for v in cast(list[int], cast(JsonObj, two["projections"])["one_locus_run"]))
+    scales: list[JsonObj] = []
+    for index, n in enumerate(TWO_LOCUS_SCALES):
+        tape = tapes[n]
+        readings = {which: pr.destutter(pr.locus(m, which, tape)) for which in (0, 1)}
+        scales.append({
+            "scale": n,
+            "tape": list(tape),
+            "one_locus_at_a_time": pr.moves_one_locus(m, tape),
+            "prefix_of_next": n == TWO_LOCUS_SCALES[-1]
+            or is_prefix(tape, tapes[TWO_LOCUS_SCALES[index + 1]]),
+            "first_locus_destuttered": list(readings[0]),
+            "second_locus_destuttered": list(readings[1]),
+            "each_locus_agrees_with_its_own_run": all(
+                is_prefix(readings[which], own) or is_prefix(own, readings[which])
+                for which in (0, 1)),
+        })
+    for entry in scales:
+        if not entry["one_locus_at_a_time"]:
+            raise LimitsError(f"a step at scale {entry['scale']} moved both loci")
+        if not entry["prefix_of_next"]:
+            raise LimitsError(f"the two-locus observation at scale {entry['scale']} is not a prefix "
+                              "of the next")
+        if not entry["each_locus_agrees_with_its_own_run"]:
+            raise LimitsError(f"a locus reading at scale {entry['scale']} is not prefix-related to that "
+                              "locus's own run")
+    if not is_prefix(recorded, tapes[len(recorded) - 1]):
+        raise LimitsError("the recorded two-locus tape is not the observation at its own scale")
+    return {
+        "identified_second_locus_size": m,
+        "identified_from": "the recorded tape and its two recorded projections; not declared here",
+        "programs_recorded_schedule": {str(x): k for x, k in sorted(schedule.items())},
+        "recorded_tape": list(recorded),
+        "one_locus_run": list(own),
+        "scales": scales,
+        "square_on_the_observation": {
+            "holds": False,
+            "reading": "the two orders reach the same datum and record different tapes (the producer "
+                       "family's Schedule.square_on_the_outcome and square_fails_on_the_observation); "
+                       "what lifts to the observation is not the square but the projection with the "
+                       "repeats dropped, and one locus moving at a time",
+        },
+        "theorem": "Observe.obs_one_locus: at every scale, from every start, with any fuel and for "
+                   "every schedule, the observed tape of a two-locus run moves one locus at a time; "
+                   "Observe.pair_obs names this program's observation at scale four",
+    }
 
 
 def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj:

@@ -14,7 +14,10 @@ scales.
 The receipt refuses to record an artifact whose fragment is not ``control``,
 programs the recorded runs do not identify uniquely, observations that are
 not prefix-compatible, a recorded tape not prefix-related to the observed
-run, and a bound that fails at any scale.
+run, and a bound that fails at any scale.  For the two-locus run it refuses a
+recorded tape identifying no single factorization of the carrier, a step that
+moved both loci, and a locus reading that is not prefix-related to that
+locus's own run.
 """
 
 from __future__ import annotations
@@ -115,6 +118,7 @@ def record() -> JsonObj:
         "lost_fuel": lm.lost_fuel(forever),
         "shift": lm.shift_failure(),
         "connected_experiment": lm.connected_experiment(forever, recorded),
+        "two_locus_experiment": lm.two_locus_experiment(artifact),
         "causal_footprint": {
             "reads": "a firing reads the enablement self-instance and the operation edge at the active datum "
                      "(Control.fire, Control.enabled)",
@@ -123,11 +127,14 @@ def record() -> JsonObj:
                             "an edit at it does: the represented execution family's "
                             "test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged and its "
                             "mutation tests.  Computed on those populations; no theorem states it",
-            "not_delivered": "the observed process has one locus of activity, so no square is stated of "
-                             "its observations; the producer family has since built two loci as a product "
-                             "carrier and proved the square there (its Product.left_right_comm, "
-                             "Product.coupling_breaks_the_square), and the lifting to a two-locus run and "
-                             "its observations is what remains",
+            "two_loci": "delivered.  The producer family runs two loci by a schedule carried in the "
+                        "data, and Observe.obs_one_locus lifts the independence to the observation: at "
+                        "every scale, from every start, with any fuel and for every schedule, the "
+                        "observed tape of a two-locus run moves one locus at a time.  What does NOT "
+                        "lift is the square itself — two orders reach the same datum and record "
+                        "different tapes — and what does is the projection with the repeats dropped.  "
+                        "Computed here at five scales in two_locus_experiment, over the factorization "
+                        "identified from the artifact rather than declared",
         },
         "not_delivered": [
             "an interval, circle or integration theory: the limit is a totally disconnected thread space and "
@@ -135,9 +142,10 @@ def record() -> JsonObj:
             "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
             "a general theorem that every realized tape is eventually periodic: the determinism of the next "
             "datum is proved, the eventual periodicity is computed over the declared class",
-            "a two-locus run and its observation at step scales: the producer family built the second "
-            "locus as a product carrier and proved the independence square on operations, but no run of "
-            "it is observed here",
+            "the limit of a two-locus run as an inverse system in its own right: the two-locus "
+            "observation is taken at five scales and its one-locus-at-a-time property proved along "
+            "every run, but the thread space over the product carrier, and whether the two loci give "
+            "two commuting inverse systems, are not built",
         ],
     }
 

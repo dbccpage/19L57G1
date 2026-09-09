@@ -4,7 +4,7 @@ AuthorityEffect: None.
 The guard checks source identity and runtime origin, not theorem truth.
 Runtime origin covers every module the machines execute: the eight sealed
 ``derivation`` modules, the merged ``translation``, and the represented
-execution family's ``execution`` and ``control``.  A same-named module
+execution family's ``execution``, ``control`` and ``product``.  A same-named module
 resolved from anywhere else is named rather than silently accepted.  CRLF
 checkout conversion is allowed for text inputs; pinned Git objects are never
 rewritten.  There is deliberately no manifest generation or repair option.
@@ -36,7 +36,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "ab7cc9a521973f8ec69a1cc1a7e9a92591d13acd"
+BASELINE_COMMIT = "d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130"
 PACKET = Path("research/coherent_process_limits")
 SCHEMA = "coherent-process-limits-sources-v1"
 CONSUMED_TREES = {
@@ -75,6 +75,7 @@ RUNTIME_PATHS = {
     "translation": "research/setting_translation/translation.py",
     "execution": "research/represented_execution/execution.py",
     "control": "research/represented_execution/control.py",
+    "product": "research/represented_execution/product.py",
 }
 # The directories the runtime census imports from, in the order the machines
 # expect: the sealed code, then the consumed research trees.

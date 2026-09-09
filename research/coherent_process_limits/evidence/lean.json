@@ -4,9 +4,9 @@
   "census": "compiled environment theorem declarations in the Limits and Observe namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Inventory.lean": "288e346f43ae677a8aeef53413a0125a3aae306a3f486b7163b78fa3e9d6dc27",
+    "Inventory.lean": "670f4c9a9c2189e85dda0547aeb75de5be05abb23ac951aea5f6f55bf9715d31",
     "Limits.lean": "e1a75d181c111c5f0980e4098550e1202643ec0a6f595c53661b94074a964f0b",
-    "Observe.lean": "6f2a5d2a621eca1bb75df25429178623b1ad9d9de9e9f140b14cde3ece11b876",
+    "Observe.lean": "5e6f123af7744bdc687984923771245984e1a15f8cd73d6c283f0603781f794d",
     "lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -108,6 +108,10 @@
     "Observe.chain_functional": [
       "propext"
     ],
+    "Observe.chain_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
     "Observe.chain_snoc": [
       "propext"
     ],
@@ -196,6 +200,9 @@
       "Quot.sound",
       "propext"
     ],
+    "Observe.iter_graph": [
+      "propext"
+    ],
     "Observe.iter_succ": [
       "propext"
     ],
@@ -212,6 +219,24 @@
       "propext"
     ],
     "Observe.mem_pairsOf_snoc": [
+      "propext"
+    ],
+    "Observe.nextOf_of_single": [
+      "propext"
+    ],
+    "Observe.nextOf_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextOf_one_locus._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextOf_one_locus._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextOf_some": [
       "propext"
     ],
     "Observe.next_active_det": [
@@ -251,6 +276,9 @@
       "Quot.sound",
       "propext"
     ],
+    "Observe.next_graph": [
+      "propext"
+    ],
     "Observe.next_halt": [
       "propext"
     ],
@@ -288,10 +316,22 @@
       "Quot.sound",
       "propext"
     ],
+    "Observe.obs_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
     "Observe.obs_prefix": [
       "propext"
     ],
     "Observe.obs_prefix_add": [
+      "propext"
+    ],
+    "Observe.pair_obs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.prod_op_one_locus": [
+      "Quot.sound",
       "propext"
     ],
     "Observe.same_next": [
@@ -336,10 +376,10 @@
   },
   "reports_per_namespace": {
     "Limits": 28,
-    "Observe": 64
+    "Observe": 75
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: compatible families of finite observations over a finite carrier and their sequences; the represented execution family's deterministic runner observed at step scales; the forever program of that family. The topology of the thread space is declared, not proved.",
-  "theorem_count_including_generated": 92,
+  "theorem_count_including_generated": 103,
   "toolchain": "leanprover/lean4:v4.33.0"
 }
