@@ -4,7 +4,8 @@ AuthorityEffect: None.
 The guard checks source identity and runtime origin, not theorem truth.
 Runtime origin covers every module the machines execute: the eight sealed
 ``derivation`` modules, the merged ``translation``, the represented execution
-family's ``execution`` and ``control``, and the observed family's ``limits``.
+family's ``execution``, ``control`` and ``product``, and the observed
+family's ``limits``.
 A same-named module resolved from anywhere else is named rather than
 silently accepted.  CRLF checkout conversion is allowed for text inputs;
 pinned Git objects are never rewritten.  There is deliberately no manifest
@@ -38,7 +39,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "139be1103884d5fc7c7125c0fae408a4b7cd915c"
+BASELINE_COMMIT = "e0c7dda85582bafce720adb8cee6002e450d6f79"
 PACKET = Path("research/record_reading")
 SCHEMA = "record-reading-sources-v1"
 CONSUMED_TREES = {
@@ -81,6 +82,7 @@ RUNTIME_PATHS = {
     "translation": "research/setting_translation/translation.py",
     "execution": "research/represented_execution/execution.py",
     "control": "research/represented_execution/control.py",
+    "product": "research/represented_execution/product.py",
     "limits": "research/coherent_process_limits/limits.py",
 }
 # The directories the runtime census imports from, in the order the machines

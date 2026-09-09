@@ -255,11 +255,58 @@ climb, in index order; "the record" means the machine's tape.
   `twist2_repeats_a_pair`, `no_record_run_realises`, `depth_two_is_deeper`.
 - **Falsifier**: a depth-two setting whose `encodeR2` is ill-formed; a
   record-reading run realising `[0, 1, 2, 0, 1, 0]`.
-- **Obligation**: the depth-two machine has **no Python mirror** — it is
-  proved and not computed, and no receipt records a depth-two run.  Its
-  bisimulation, its chain invariant and the ceiling of a depth-*two* read
-  (functionality in triples) are not stated; a depth-`d` family for general
-  `d` is not built.
+- **Obligation**: the bisimulation of the depth-two machine is not stated.
+  An earlier version of this entry said the machine had no Python mirror, that
+  no receipt recorded a depth-two run, and that its chain invariant and the
+  ceiling of a depth-*two* read were not stated; all three are **WITHDRAWN**
+  by CL-RR-14, which supplies the mirror, the receipt, the chain invariant and
+  the ceiling.  A depth-`d` family for general `d` is still not built.
+
+### CL-RR-14 — the ceiling of a depth-two read, and the ladder of depths
+
+- **Statement**: the tape of a depth-two run is a chain of the machine's next
+  value on **three** arguments (`R2Chain`, `r2stepDet_spec`, `r2next_chain`,
+  `r2iter_chain`), and a chain of a three-argument function is functional in
+  its triples (`r2chain_functional`).  Hence **the ceiling**: every tape a
+  depth-two run realises is functional in its triples — three entries
+  determine the fourth (`r2obs_functional`).  The classes are a **chain**: a
+  window of `d + 1` entries contains a window of `d` (`pairsOf_of_triplesOf`,
+  `triplesOf_of_quadsOf`), so a tape functional in `d` entries is functional
+  in `d + 1` (`triples_of_pairs`, `quads_of_triples`).  Both proved inclusions
+  are **strict** (`the_ladder`): the depth-one exhibit repeats an entry with
+  two successors (`twist_repeats_an_entry`) and the depth-two exhibit repeats
+  a pair (`twist2_repeats_a_pair`).
+- **Hypotheses**: none beyond the machine.  The ceiling is stated of every
+  program, every start, every fuel and every scale.
+- **Novelty**: three ceilings, one per rung, and the ladder proved to be a
+  chain rather than assumed.  The order matters: the *ceiling* of a depth is
+  proved first and the exhibit above it second, so "deeper" is a theorem about
+  what the shallower machine cannot do rather than a claim about a bigger
+  construction.  The strictness is measured as well as proved — see below.
+- **Evidence**: `Depth.r2nextOf`, `r2stepDet_spec`, `r2next_of_inl`,
+  `r2next_of_inr`, `quadsOf`, `lastThree`, `lastThree_reverse`,
+  `lastThree_ne_none`, `quadsOf_snoc_none`, `quadsOf_snoc`, `R2Chain`,
+  `r2chain_functional`, `before_of_reverse`, `r2next_chain`, `r2iter_succ`,
+  `r2iter_chain`, `r2init_chain`, `r2obs_functional`, `pairsOf_of_triplesOf`,
+  `triplesOf_of_quadsOf`, `triples_of_pairs`, `quads_of_triples`,
+  `twist_repeats_an_entry`, `the_ladder`; `depth.py`, `tests/test_depth.py`,
+  and the record's `depth_two` section.  **Computed** (`depth.ladder`, over
+  *every* deterministic program of each depth on a two-point setting at fuel
+  six, exhaustive and not sampled): the three depths realise 10, 22 and 70
+  tapes; every realised tape meets its own depth's ceiling; 8 then 38 of them
+  break the ceiling of the depth below, which by that ceiling is exactly the
+  set the depth below cannot realise.
+- **Falsifier**: a depth-two run realising a tape not functional in its
+  triples; a tape functional in `d` entries and not in `d + 1`; a rung
+  realising nothing the rung below cannot.  The receipt refuses each by name,
+  and also refuses a depth-two program whose instances are not the sealed
+  replay of its own admission history.
+- **Obligation**: a machine of depth `d` for `d > 2` is built neither here nor
+  in the Lean, so each ceiling is proved at its own rung and not for a general
+  `d`.  `depth.functional` is written for any window size so that the
+  statement checked at each rung is the same one, but that is apparatus and
+  not a theorem.  The bisimulation of the depth-two machine is still not
+  stated.
 
 ### CL-RR-11 — the protocol declared before the readout; the artifact; not delivered
 

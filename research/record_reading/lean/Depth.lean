@@ -385,6 +385,291 @@ theorem depth_two_is_deeper :
         Record.robs n (Record.rinit C x fuel) ≠ [0, 1, 2, 0, 1, 0] :=
   ⟨twist2_tape, fun C x fuel n h => no_record_run_realises C x fuel n h⟩
 
+/-! ## 7. The ceiling of a depth-two read, and the ladder
+
+Reading one entry buys functionality in pairs and no more; the ceiling of a
+depth-two read should be functionality in *triples*, and this proves it.  The
+argument is the depth-one one with one more coordinate: the tape of a
+depth-two run is a chain of the machine's next value, and a chain of a
+three-argument function is functional in its triples.
+
+Two rungs of a ladder are then in hand, with their ceilings and their
+exhibits, and the ladder is a chain: a tape functional in `d` entries is
+functional in `d + 1`, so the classes only grow, and the exhibits show that
+each of the two inclusions proved here is strict. -/
+
+/-- The value the depth-two runner moves to at the active datum after the two
+recorded ones: the value of the one operation enabled there, and none when
+none, two, or no edge.  The fuel is not read: this is what the *program* says
+about the triple. -/
+def r2nextOf (g : List Inst) (nops b p x : Nat) : Option Nat :=
+  match r2enabledAt g nops b p x with
+  | [k] => lookup (3 + k) x g
+  | _ => none
+
+/-- **One step of the depth-two runner, by its next value.** -/
+theorem r2stepDet_spec (s : State) :
+    ((s.fuel = 0 ∨ r2nextOf s.graph s.nops (before s) (previous s) s.active = none) ∧
+        ∃ t, r2stepDet s = .inl t) ∨
+      ∃ f y, s.fuel = f + 1 ∧ r2nextOf s.graph s.nops (before s) (previous s) s.active = some y ∧
+        r2stepDet s = .inr ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩ := by
+  have hstep : r2stepDet s =
+      (match r2enabledAt s.graph s.nops (before s) (previous s) s.active with
+        | [] => Sum.inl Terminal.halt
+        | [k] =>
+          match fire s k with
+          | .ok s' => Sum.inr s'
+          | .exhausted => Sum.inl Terminal.exhausted
+          | .noEdge => Sum.inl Terminal.refuse
+        | _ :: _ :: _ => Sum.inl Terminal.branch) := rfl
+  have hval : r2nextOf s.graph s.nops (before s) (previous s) s.active =
+      (match r2enabledAt s.graph s.nops (before s) (previous s) s.active with
+        | [k] => lookup (3 + k) s.active s.graph
+        | _ => none) := rfl
+  rw [hstep, hval]
+  cases r2enabledAt s.graph s.nops (before s) (previous s) s.active with
+  | nil => exact Or.inl ⟨Or.inr rfl, Terminal.halt, rfl⟩
+  | cons k rest =>
+      cases rest with
+      | nil =>
+          show ((s.fuel = 0 ∨ lookup (3 + k) s.active s.graph = none) ∧
+                ∃ t, (match fire s k with
+                      | .ok s' => Sum.inr s'
+                      | .exhausted => Sum.inl Terminal.exhausted
+                      | .noEdge => Sum.inl Terminal.refuse) = Sum.inl t) ∨
+              ∃ f y, s.fuel = f + 1 ∧ lookup (3 + k) s.active s.graph = some y ∧
+                (match fire s k with
+                 | .ok s' => Sum.inr s'
+                 | .exhausted => Sum.inl Terminal.exhausted
+                 | .noEdge => Sum.inl Terminal.refuse) =
+                  Sum.inr ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩
+          cases hfu : s.fuel with
+          | zero =>
+              rw [fire_exhausted hfu]
+              exact Or.inl ⟨Or.inl rfl, Terminal.exhausted, rfl⟩
+          | succ f =>
+              rw [fire_succ s k f hfu]
+              cases lookup (3 + k) s.active s.graph with
+              | none => exact Or.inl ⟨Or.inr rfl, Terminal.refuse, rfl⟩
+              | some y => exact Or.inr ⟨f, y, rfl, rfl, rfl⟩
+      | cons k' rest' => exact Or.inl ⟨Or.inr rfl, Terminal.branch, rfl⟩
+
+theorem r2next_of_inl {s : State} {t : Terminal} (h : r2stepDet s = .inl t) : r2next s = s := by
+  show (match r2stepDet s with | .inr s' => s' | .inl _ => s) = s
+  rw [h]
+
+theorem r2next_of_inr {s s' : State} (h : r2stepDet s = .inr s') : r2next s = s' := by
+  show (match r2stepDet s with | .inr s' => s' | .inl _ => s) = s'
+  rw [h]
+
+/-- The consecutive quadruples of a list: three entries and the one after them. -/
+def quadsOf : List Nat → List (Nat × Nat × Nat × Nat)
+  | w :: x :: y :: z :: rest => (w, x, y, z) :: quadsOf (x :: y :: z :: rest)
+  | _ => []
+
+/-- The last three entries of a list, in order. -/
+def lastThree : List Nat → Option (Nat × Nat × Nat)
+  | [] => none
+  | [_] => none
+  | [_, _] => none
+  | [a, b, c] => some (a, b, c)
+  | _ :: x :: y :: z :: rest => lastThree (x :: y :: z :: rest)
+
+theorem lastThree_reverse : ∀ (l : List Nat) {b p x : Nat}, lastThree l = some (b, p, x) →
+    ∃ r, l.reverse = x :: p :: b :: r
+  | [], _, _, _, h => by cases h
+  | [_], _, _, _, h => by cases h
+  | [_, _], _, _, _, h => by cases h
+  | [a, b, c], p, q, r, h => by
+      have h' : (a, b, c) = (p, q, r) := Option.some.inj h
+      injection h' with h1 h2
+      injection h2 with h2 h3
+      subst h1
+      subst h2
+      subst h3
+      exact ⟨[], rfl⟩
+  | a :: x :: y :: z :: rest, b, p, q, h => by
+      obtain ⟨r, hr⟩ := lastThree_reverse (x :: y :: z :: rest) h
+      refine ⟨r ++ [a], ?_⟩
+      rw [List.reverse_cons, hr]
+      rfl
+
+theorem lastThree_ne_none : ∀ (a b c : Nat) (l : List Nat), lastThree (a :: b :: c :: l) ≠ none
+  | _, _, _, [], h => by cases h
+  | _, b, c, d :: rest, h => lastThree_ne_none b c d rest h
+
+theorem quadsOf_snoc_none : ∀ (l : List Nat) (y : Nat), lastThree l = none →
+    quadsOf (l ++ [y]) = quadsOf l
+  | [], _, _ => rfl
+  | [_], _, _ => rfl
+  | [_, _], _, _ => rfl
+  | _ :: _ :: _ :: _, _, h => absurd h (lastThree_ne_none _ _ _ _)
+
+theorem quadsOf_snoc : ∀ (l : List Nat) {b p x : Nat} (y : Nat), lastThree l = some (b, p, x) →
+    quadsOf (l ++ [y]) = quadsOf l ++ [(b, p, x, y)]
+  | [], _, _, _, _, h => by cases h
+  | [_], _, _, _, _, h => by cases h
+  | [_, _], _, _, _, _, h => by cases h
+  | [a, b, c], p, q, r, y, h => by
+      have h' : (a, b, c) = (p, q, r) := Option.some.inj h
+      injection h' with h1 h2
+      injection h2 with h2 h3
+      subst h1
+      subst h2
+      subst h3
+      rfl
+  | a :: b :: c :: d :: rest, p, q, r, y, h => by
+      have h2 : lastThree (b :: c :: d :: rest) = some (p, q, r) := h
+      show (a, b, c, d) :: quadsOf (b :: c :: d :: (rest ++ [y])) = _
+      rw [show (b :: c :: d :: (rest ++ [y]) : List Nat) = (b :: c :: d :: rest) ++ [y] from rfl,
+        quadsOf_snoc (b :: c :: d :: rest) y h2]
+      rfl
+
+/-- A tape is a chain of the depth-two machine when each entry is the next
+value of the three before it. -/
+def R2Chain (g : List Inst) (nops : Nat) (l : List Nat) : Prop :=
+  ∀ q ∈ quadsOf l, r2nextOf g nops q.1 q.2.1 q.2.2.1 = some q.2.2.2
+
+/-- **A depth-two chain is functional in its triples.** -/
+theorem r2chain_functional {g : List Inst} {nops : Nat} {l : List Nat} (h : R2Chain g nops l)
+    {q r : Nat × Nat × Nat × Nat} (hq : q ∈ quadsOf l) (hr : r ∈ quadsOf l)
+    (h1 : q.1 = r.1) (h2 : q.2.1 = r.2.1) (h3 : q.2.2.1 = r.2.2.1) : q.2.2.2 = r.2.2.2 := by
+  have hv := h q hq
+  have hw := h r hr
+  rw [h1, h2, h3] at hv
+  exact Option.some.inj (hv.symm.trans hw)
+
+theorem before_of_reverse {s : State} {b p x : Nat} {r : List Nat}
+    (h : s.tape.reverse = x :: p :: b :: r) : before s = b := by
+  show (match s.tape.reverse with | _ :: _ :: b :: _ => b | _ => previous s) = b
+  rw [h]
+
+/-- A step keeps the tape a depth-two chain and keeps the last entry active. -/
+theorem r2next_chain {s : State} (hc : R2Chain s.graph s.nops s.tape)
+    (hl : s.tape.getLast? = some s.active) :
+    R2Chain (r2next s).graph (r2next s).nops (r2next s).tape ∧
+      (r2next s).tape.getLast? = some (r2next s).active := by
+  rcases r2stepDet_spec s with ⟨-, t, hs⟩ | ⟨f, y, -, hv, hs⟩
+  · rw [r2next_of_inl hs]
+    exact ⟨hc, hl⟩
+  · rw [r2next_of_inr hs]
+    refine ⟨?_, getLast?_snoc _ _⟩
+    intro u hu
+    cases h3 : lastThree s.tape with
+    | none =>
+        rw [quadsOf_snoc_none s.tape y h3] at hu
+        exact hc u hu
+    | some q =>
+        obtain ⟨r, hr⟩ := lastThree_reverse s.tape (by rw [h3])
+        have hb : q.1 = before s := (before_of_reverse hr).symm
+        have hp : q.2.1 = previous s := (previous_of_reverse hr).symm
+        have hx : q.2.2 = s.active := by
+          have hh : s.tape.reverse.head? = s.tape.getLast? := by simp
+          rw [hr] at hh
+          exact Option.some.inj (hh.trans hl)
+        rw [show q = (q.1, q.2.1, q.2.2) from rfl] at h3
+        rw [quadsOf_snoc s.tape y h3, List.mem_append] at hu
+        rcases hu with h | h
+        · exact hc u h
+        · rw [List.mem_singleton.mp h, hb, hp, hx]
+          exact hv
+
+theorem r2iter_succ : ∀ (n : Nat) (s : State), r2iter (n + 1) s = r2iter n (r2next s)
+  | 0, _ => rfl
+  | n + 1, s => by
+      show r2next (r2iter (n + 1) s) = r2next (r2iter n (r2next s))
+      rw [r2iter_succ n s]
+
+theorem r2iter_chain : ∀ (n : Nat) (s : State), R2Chain s.graph s.nops s.tape →
+    s.tape.getLast? = some s.active →
+    R2Chain (r2iter n s).graph (r2iter n s).nops (r2iter n s).tape ∧
+      (r2iter n s).tape.getLast? = some (r2iter n s).active
+  | 0, _, hc, hl => ⟨hc, hl⟩
+  | n + 1, s, hc, hl => by
+      rw [r2iter_succ]
+      obtain ⟨hc', hl'⟩ := r2next_chain hc hl
+      exact r2iter_chain n (r2next s) hc' hl'
+
+theorem r2init_chain (C : Recorded2) (x fuel : Nat) :
+    R2Chain (r2init C x fuel).graph (r2init C x fuel).nops (r2init C x fuel).tape ∧
+      (r2init C x fuel).tape.getLast? = some (r2init C x fuel).active :=
+  ⟨fun _ hu => absurd hu List.not_mem_nil, rfl⟩
+
+/-- **The ceiling of a depth-two read.**  Every tape a depth-two run realises
+is functional in its triples: three entries determine the fourth.  A tape that
+breaks this is realised by no depth-two program at all — which is the exact
+statement `Record.robs_functional` makes one rung below. -/
+theorem r2obs_functional (C : Recorded2) (x fuel n : Nat) {q r : Nat × Nat × Nat × Nat}
+    (hq : q ∈ quadsOf (r2obs n (r2init C x fuel)))
+    (hr : r ∈ quadsOf (r2obs n (r2init C x fuel)))
+    (h1 : q.1 = r.1) (h2 : q.2.1 = r.2.1) (h3 : q.2.2.1 = r.2.2.1) : q.2.2.2 = r.2.2.2 :=
+  r2chain_functional
+    (r2iter_chain n _ (r2init_chain C x fuel).1 (r2init_chain C x fuel).2).1 hq hr h1 h2 h3
+
+/-! ## 8. The ladder is a chain, and both proved rungs are strict -/
+
+/-- The last two entries of a window of three are a window of two. -/
+theorem pairsOf_of_triplesOf : ∀ (l : List Nat) {t : Nat × Nat × Nat},
+    t ∈ Record.triplesOf l → (t.2.1, t.2.2) ∈ Observe.pairsOf l
+  | [], _, h => absurd h List.not_mem_nil
+  | [_], _, h => absurd h List.not_mem_nil
+  | [_, _], _, h => absurd h List.not_mem_nil
+  | x :: y :: z :: rest, t, h => by
+      have h' : t ∈ (x, y, z) :: Record.triplesOf (y :: z :: rest) := h
+      rcases List.mem_cons.mp h' with rfl | h''
+      · exact List.Mem.tail _ (List.Mem.head _)
+      · exact List.Mem.tail _ (pairsOf_of_triplesOf (y :: z :: rest) h'')
+
+/-- The last three entries of a window of four are a window of three. -/
+theorem triplesOf_of_quadsOf : ∀ (l : List Nat) {q : Nat × Nat × Nat × Nat},
+    q ∈ quadsOf l → (q.2.1, q.2.2.1, q.2.2.2) ∈ Record.triplesOf l
+  | [], _, h => absurd h List.not_mem_nil
+  | [_], _, h => absurd h List.not_mem_nil
+  | [_, _], _, h => absurd h List.not_mem_nil
+  | [_, _, _], _, h => absurd h List.not_mem_nil
+  | w :: x :: y :: z :: rest, q, h => by
+      have h' : q ∈ (w, x, y, z) :: quadsOf (x :: y :: z :: rest) := h
+      rcases List.mem_cons.mp h' with rfl | h''
+      · exact List.Mem.tail _ (List.Mem.head _)
+      · exact List.Mem.tail _ (triplesOf_of_quadsOf (x :: y :: z :: rest) h'')
+
+/-- **The ladder only grows, first step.**  A tape functional in its single
+entries is functional in its pairs. -/
+theorem triples_of_pairs {l : List Nat}
+    (h : ∀ p ∈ Observe.pairsOf l, ∀ q ∈ Observe.pairsOf l, p.1 = q.1 → p.2 = q.2)
+    {t u : Nat × Nat × Nat} (ht : t ∈ Record.triplesOf l) (hu : u ∈ Record.triplesOf l)
+    (h2 : t.2.1 = u.2.1) : t.2.2 = u.2.2 :=
+  h _ (pairsOf_of_triplesOf l ht) _ (pairsOf_of_triplesOf l hu) h2
+
+/-- **The ladder only grows, second step.**  A tape functional in its pairs is
+functional in its triples. -/
+theorem quads_of_triples {l : List Nat}
+    (h : ∀ t ∈ Record.triplesOf l, ∀ u ∈ Record.triplesOf l,
+      t.1 = u.1 → t.2.1 = u.2.1 → t.2.2 = u.2.2)
+    {q r : Nat × Nat × Nat × Nat} (hq : q ∈ quadsOf l) (hr : r ∈ quadsOf l)
+    (h2 : q.2.1 = r.2.1) (h3 : q.2.2.1 = r.2.2.1) : q.2.2.2 = r.2.2.2 :=
+  h _ (triplesOf_of_quadsOf l hq) _ (triplesOf_of_quadsOf l hr) h2 h3
+
+/-- The depth-one exhibit repeats a single entry with two different
+successors, so it is not functional in its entries. -/
+theorem twist_repeats_an_entry :
+    ((0, 1) ∈ Observe.pairsOf [0, 1, 0, 0]) ∧ ((0, 0) ∈ Observe.pairsOf [0, 1, 0, 0]) := by decide
+
+/-- **The two proved rungs, and both inclusions strict.**  A memoryless run's
+tape is functional in its entries; the depth-one exhibit is not, and is
+functional in its pairs.  A depth-one run's tape is functional in its pairs;
+the depth-two exhibit is not, and is functional in its triples.  The ceilings
+are `Observe.obs_functional`, `Record.robs_functional` and `r2obs_functional`;
+the exhibits are `Record.twist_tape` and `twist2_tape`. -/
+theorem the_ladder :
+    (Record.robs 3 (Record.rinit Record.twist 0 3) = [0, 1, 0, 0] ∧
+      ((0, 1) ∈ Observe.pairsOf [0, 1, 0, 0] ∧ (0, 0) ∈ Observe.pairsOf [0, 1, 0, 0])) ∧
+    (r2obs 5 (r2init twist2 0 5) = [0, 1, 2, 0, 1, 0] ∧
+      ((0, 1, 2) ∈ Record.triplesOf [0, 1, 2, 0, 1, 0] ∧
+        (0, 1, 0) ∈ Record.triplesOf [0, 1, 2, 0, 1, 0])) :=
+  ⟨⟨Record.twist_tape, twist_repeats_an_entry⟩, ⟨twist2_tape, twist2_repeats_a_pair⟩⟩
+
+
 end Depth
 
 #print axioms Depth.formsOf_length
@@ -406,3 +691,23 @@ end Depth
 #print axioms Depth.twist2_repeats_a_pair
 #print axioms Depth.no_record_run_realises
 #print axioms Depth.depth_two_is_deeper
+#print axioms Depth.r2stepDet_spec
+#print axioms Depth.r2next_of_inl
+#print axioms Depth.r2next_of_inr
+#print axioms Depth.lastThree_reverse
+#print axioms Depth.lastThree_ne_none
+#print axioms Depth.quadsOf_snoc_none
+#print axioms Depth.quadsOf_snoc
+#print axioms Depth.r2chain_functional
+#print axioms Depth.before_of_reverse
+#print axioms Depth.r2next_chain
+#print axioms Depth.r2iter_succ
+#print axioms Depth.r2iter_chain
+#print axioms Depth.r2init_chain
+#print axioms Depth.r2obs_functional
+#print axioms Depth.pairsOf_of_triplesOf
+#print axioms Depth.triplesOf_of_quadsOf
+#print axioms Depth.triples_of_pairs
+#print axioms Depth.quads_of_triples
+#print axioms Depth.twist_repeats_an_entry
+#print axioms Depth.the_ladder

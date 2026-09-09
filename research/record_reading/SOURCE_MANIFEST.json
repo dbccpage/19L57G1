@@ -1,6 +1,6 @@
 {
   "schema": "record-reading-sources-v1",
-  "baseline_commit": "139be1103884d5fc7c7125c0fae408a4b7cd915c",
+  "baseline_commit": "e0c7dda85582bafce720adb8cee6002e450d6f79",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution, control and limits modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation, represented_execution and coherent_process_limits Lean trees the local proofs build on, the setting_translation, represented_execution and coherent_process_limits Python trees that supply the encoder, the machines this family extends and the observation it selects against, the Lean configuration of the seven packages, and the represented execution family's artifact evidence/process.json (read here through the coherent process limits family's identification, never written here) at the commit at which both families are frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
@@ -15,6 +15,7 @@
     "translation": "research/setting_translation/translation.py",
     "execution": "research/represented_execution/execution.py",
     "control": "research/represented_execution/control.py",
+    "product": "research/represented_execution/product.py",
     "limits": "research/coherent_process_limits/limits.py"
   },
   "consumed_trees": {
@@ -25,10 +26,10 @@
     "research/magnification/lean": "8c9e41e7e3f93345c9c337f2a81b4a5ac3d2b674",
     "research/setting_translation/lean": "7e329a7a398067f3bd38051d7ab0ecb619e98448",
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
-    "research/represented_execution/lean": "f62399cd96723aed6c7b8913dc8979ef5bd517c9",
-    "research/represented_execution": "9f1d12eb268b9b661bb661891b302c7ecd249f31",
-    "research/coherent_process_limits/lean": "975ff5e547fc7f3a802e94f86d097883107d2960",
-    "research/coherent_process_limits": "3f135d27376f1de478922055586bc59638df0691"
+    "research/represented_execution/lean": "0978dbfb3093aee37432bc70dbff0fce3536606d",
+    "research/represented_execution": "848b9a103df63c35b5ce17f3ca4779494b873695",
+    "research/coherent_process_limits/lean": "8f1e8c7aa5fd62c0de68d14dfad22392a5432428",
+    "research/coherent_process_limits": "fbba535ae4ccbf550c44235163cd7ba197ea869b"
   },
   "tree_census": {
     "code/derivation": [
@@ -179,17 +180,20 @@
       "research/represented_execution/lean/Control.lean",
       "research/represented_execution/lean/Execution.lean",
       "research/represented_execution/lean/Inventory.lean",
-      "research/represented_execution/lean/Product.lean"
+      "research/represented_execution/lean/Product.lean",
+      "research/represented_execution/lean/Schedule.lean"
     ],
     "research/represented_execution": [
       "research/represented_execution/control.py",
       "research/represented_execution/execution.py",
+      "research/represented_execution/product.py",
       "research/represented_execution/run.py",
       "research/represented_execution/tests/test_control.py",
       "research/represented_execution/tests/test_evidence.py",
       "research/represented_execution/tests/test_execution.py",
       "research/represented_execution/tests/test_lean_gate.py",
       "research/represented_execution/tests/test_oracle.py",
+      "research/represented_execution/tests/test_product.py",
       "research/represented_execution/tests/test_sources.py",
       "research/represented_execution/verify.py",
       "research/represented_execution/verify_lean.py",
@@ -214,33 +218,34 @@
   },
   "source_sha256": {
     "code/derivation/__init__.py": "0fabcb53dc46712447a727f6ceb661e5aab3267a3e8b50bdea11044b64f853af",
-    "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
-    "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba",
     "code/derivation/candidates.py": "856ce42faba2dc2ae1217207ecc8af893eac29b50ae8a374dc06d2ba22c957bb",
-    "code/derivation/iso.py": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e",
     "code/derivation/engine.py": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e",
     "code/derivation/export.py": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd",
+    "code/derivation/iso.py": "b0f1f3bcf05126111a07706f4388a9fff5e30455d4b8f127966cf99ab0d0886e",
+    "code/derivation/model.py": "6a7fd2ba9688d47e9291514c623a811cde3c6b9e8fda1d12a608dc9bb0b1f3c2",
+    "code/derivation/observe.py": "78443d67e613d9cc9924538fe2e0a5acaf81f4654440bfe8586e16652f0317ba",
     "code/derivation/primitive_core.py": "4833aa46e0032b4d978d9ee59547e0eef2fa07a33f308d107c85b87f93e47068",
-    "research/setting_translation/translation.py": "981010dee589ed36fdc80eea3f249f9848ca349e2f050cba7796bb5dcb68ce3f",
-    "research/represented_execution/execution.py": "411bfa9a7435fbc111f58057e4ae84b2507c34775d04a71635b14567f2e34c51",
-    "research/represented_execution/control.py": "0ab01c970191a2347cafa0ffc13774b22859ca5e6270468751ac4271cc52574f",
-    "research/coherent_process_limits/limits.py": "b2aa8c19aaf5b1d46b9fb6d79caa4366878deb06de4207678fcb35eb51b28d41",
     "lean4/Derivation.lean": "97384b4ab806336332d6dceda984a77d6d407526311ef6027ce8b06f58a46b6e",
-    "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",
     "lean4/lake-manifest.json": "df949b280480c0c2a766e8e6dd33245fe85923c517f6c0d121b79b6f2b2cab91",
-    "research/local_reuse/lean/lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
-    "research/local_reuse/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",
+    "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/coherent_process_limits/lean/lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
+    "research/coherent_process_limits/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/coherent_process_limits/limits.py": "21e8c89baa332846aed650e8e617c5e6a3e4adae197264b122ba8d0a381d75dd",
     "research/ignition/lean/lakefile.toml": "c3dae512d55898c79ca48f1af47a97bf5cb33efaaa095230d2be892d5a021341",
     "research/ignition/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/local_reuse/lean/lakefile.toml": "981ca8e8aa36d330576aeeb50353bdc67a11a1b4e66781655838ebb3b37c4e95",
+    "research/local_reuse/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/magnification/lean/lakefile.toml": "2b7eed3e03f71b4d753a73eb67ba635f51bfb839480abf399ca15ac3cb4ae534",
     "research/magnification/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/represented_execution/control.py": "0ab01c970191a2347cafa0ffc13774b22859ca5e6270468751ac4271cc52574f",
+    "research/represented_execution/evidence/process.json": "a9c473dbe01022465321a90e5d0db907401a2cd50ae19434efd68a7a66ab9fd3",
+    "research/represented_execution/execution.py": "411bfa9a7435fbc111f58057e4ae84b2507c34775d04a71635b14567f2e34c51",
+    "research/represented_execution/lean/lakefile.toml": "33e9b4d7672614e97a2254b55513c363b7124fdd82a5b4dfc60cfdbfcd157796",
+    "research/represented_execution/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "research/represented_execution/product.py": "6c6259c5d3c6d47c5a7b4a3e899bc03841f705f479139fb33e018d159fe8dd2f",
     "research/setting_translation/lean/lakefile.toml": "f82672361e0db8d0968e87dc295fa1eac657cabf6d748f5b2568c69f1e769a94",
     "research/setting_translation/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "research/represented_execution/lean/lakefile.toml": "c89e4bd8813e9c302eb8dbc6577ad6175f5eda6c0074a4bb5c468816d9a39f74",
-    "research/represented_execution/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "research/represented_execution/evidence/process.json": "5cfe8425983f05f6ece6516f773e94adeff3a5b49ba86a3b156a69059fca858c",
-    "research/coherent_process_limits/lean/lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
-    "research/coherent_process_limits/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+    "research/setting_translation/translation.py": "981010dee589ed36fdc80eea3f249f9848ca349e2f050cba7796bb5dcb68ce3f"
   }
 }

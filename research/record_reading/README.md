@@ -41,13 +41,13 @@ three greedy experiments separate them into 45 residual classes (largest
 4096), and the residual is exactly the next-value function on the pairs the
 runs reach, checked against the programs.
 
-Lean: 86 authored theorems, 120 reports with the compiler-generated ones,
+Lean: 106 authored theorems, 140 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
 run recorded with its operation tables in index order; 50 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`139be1103884d5fc7c7125c0fae408a4b7cd915c`, the observed family's commit
+`e0c7dda85582bafce720adb8cee6002e450d6f79`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
@@ -106,8 +106,31 @@ grammar admits a regime of mixed arity with no new admission, because
 | `lift2`, `lift2_R2Step` | the depth-one class embeds |
 | `twist2_tape`, `no_record_run_realises`, `depth_two_is_deeper` | **a tape no depth-one program realises**: `0, 1, 2, 0, 1, 0`, whose pair `(0, 1)` is followed once by `2` and once by `0` (CL-RR-13) |
 
-The depth-two machine is proved and not computed: it has no Python mirror and
-no receipt records a depth-two run.
+### The ceiling of a depth-two read, and the ladder
+
+| theorem | content |
+|---|---|
+| `r2nextOf`, `r2stepDet_spec` | one step of the depth-two runner, by its next value |
+| `R2Chain`, `r2chain_functional`, `r2next_chain`, `r2iter_chain` | the tape of a depth-two run is a chain of a three-argument function |
+| `r2obs_functional` | **the ceiling**: every tape a depth-two run realises is functional in its *triples* — three entries determine the fourth |
+| `pairsOf_of_triplesOf`, `triplesOf_of_quadsOf` | a window of `d + 1` contains a window of `d` |
+| `triples_of_pairs`, `quads_of_triples` | **the ladder only grows**: a tape functional in `d` entries is functional in `d + 1` |
+| `twist_repeats_an_entry`, `the_ladder` | and both proved inclusions are **strict**, by the two exhibits |
+
+Three ceilings are now proved — `Observe.obs_functional` for a memoryless run,
+`Record.robs_functional` for a depth-one read, `r2obs_functional` for a
+depth-two one — and the classes they bound are a chain with two strict steps.
+`depth.py` mirrors the machine and computes the ladder exhaustively: over
+*every* deterministic program of each depth on a two-point setting at fuel
+six, the three depths realise **10, 22 and 70** tapes; every tape meets its
+own depth's ceiling, and 8 then 38 of them break the ceiling of the depth
+below — which by that ceiling is exactly the set the depth below cannot
+realise.
+
+A machine of depth `d` for `d > 2` is built neither here nor in the Lean, so
+the ceiling is proved one rung at a time and not for a general `d`.
+`depth.functional` is written for any window size, so the statement checked at
+each rung is the same statement.
 
 ## 3. The experiment (`selection.py`)
 
@@ -147,23 +170,23 @@ in index order are not the transcribed `Observe.base`.
 
 ## 5. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 86 authored theorems and 34
+**Lean** (`lean/`, `evidence/lean.json`): 106 authored theorems and 34
 compiler-generated ones (the structure's injectivity and size lemmas and
-the proof terms of case splits), 120 reports, all within
+the proof terms of case splits), 140 reports, all within
 `{propext, Quot.sound}`; the report population equals the environment
 census of the `Record`, `Select` and `Depth` namespaces in both directions; no
 private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
 **Python** (`record.py`, `selection.py`, `run.py`, `evidence/record.json`,
-`tests/`): 50 tests, strict typing over eleven files, the two records replay
+`tests/`): 68 tests, strict typing over twelve files, the two records replay
 byte-identically.  The house files follow the sibling families' with
 names, pins and refusals changed; this tree's directory is always first on
 the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`139be1103884d5fc7c7125c0fae408a4b7cd915c`, the eight derivation modules and
+`e0c7dda85582bafce720adb8cee6002e450d6f79`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
@@ -185,11 +208,15 @@ Regenerate the two records deliberately and never under a live injection:
 ## Not claimed
 
 * A record read deeper than *two* entries, or a depth-`d` family for general
-  `d`: depth two is built (CL-RR-13), depth three is not, and the ceiling of a
-  depth-two read — functionality in triples — is not stated.
-* A Python mirror of the depth-two machine, or a receipt recording a
-  depth-two run: CL-RR-13 is proved, not computed.  Its bisimulation and its
-  chain invariant are likewise not stated.
+  `d`: depth two is built (CL-RR-13), depth three is not, and each ceiling is
+  proved at its own rung rather than for a general `d`.  An earlier version of
+  this line added that "the ceiling of a depth-two read — functionality in
+  triples — is not stated"; that is WITHDRAWN, it is `r2obs_functional`
+  (CL-RR-14).
+* The **bisimulation** of the depth-two machine: the chain invariant is
+  stated (CL-RR-14) and the bisimulation is not.  An earlier version of this
+  line also said the depth-two machine had no Python mirror and no receipt;
+  that is WITHDRAWN — `depth.py` and the record's `depth_two` section.
 * An encoded configuration: the state is a declared host record.
 * That the greedy experiment sequence is a minimum: it is one sequence.
 * An observable that reads which operation fired: the residual of the
@@ -210,9 +237,10 @@ Regenerate the two records deliberately and never under a live injection:
 |---|---|
 | `lean/Record.lean` | the record-reading enablement, the interpreter, the reference, the embedding, the distinction |
 | `lean/Select.lean` | one step by its next value, the bisimulation, the ambiguity, the discriminating input |
-| `lean/Depth.lean` | the depth-two read: ternary control forms, a regime of mixed arity, a tape no depth-one program realises |
+| `lean/Depth.lean` | the depth-two read: ternary control forms, a regime of mixed arity, a tape no depth-one program realises, and the ceiling of a depth-two read |
 | `lean/Inventory.lean` | the environment census |
 | `record.py` | the machine mirrored; the named programs |
+| `depth.py` | the depth-two machine mirrored, windows of a tape, and the exhaustive ladder sweep |
 | `selection.py` | the protocol, the classes, the survivors, the burden, the residual |
 | `run.py`, `evidence/record.json` | the record and its refusals |
 | `verify_lean.py`, `evidence/lean.json` | the Lean build, two-way census and reliance record |

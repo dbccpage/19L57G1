@@ -1,10 +1,10 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 6,
+  "axiom_free_count": 7,
   "census": "compiled environment theorem declarations in the Record, Select and Depth namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Depth.lean": "e96ad666b06514cb9142f4a2ab7cfe97bc8b52e6793c6848a83ba2a5bb25f249",
+    "Depth.lean": "c719ae0cb7fd5310de124e7f768bb14f4a5ba50da2b937b86bb662b97f022c46",
     "Inventory.lean": "8614b5c1062367c6f71f92cc0a4094546a7dd15f189f46d97c0aed1109270777",
     "Record.lean": "44a3b1b1b8719c340d755735c6da3ebf5d228c0e9b2275361f8a9615b5940c1c",
     "Select.lean": "4bbc28e3f9925ef4f521e30c43ec71df20a27cfff6cfd2b29ee836d4034c6e7f",
@@ -18,6 +18,9 @@
       "propext"
     ],
     "Depth.Recorded2.mk.sizeOf_spec": [],
+    "Depth.before_of_reverse": [
+      "propext"
+    ],
     "Depth.depth_two_is_deeper": [
       "Quot.sound",
       "propext"
@@ -67,6 +70,10 @@
     "Depth.formsOf_pos": [
       "propext"
     ],
+    "Depth.lastThree_ne_none": [],
+    "Depth.lastThree_reverse": [
+      "propext"
+    ],
     "Depth.lift2_R2Step": [
       "propext"
     ],
@@ -106,6 +113,22 @@
       "Quot.sound",
       "propext"
     ],
+    "Depth.pairsOf_of_triplesOf": [
+      "propext"
+    ],
+    "Depth.quadsOf_snoc": [
+      "propext"
+    ],
+    "Depth.quadsOf_snoc_none": [
+      "propext"
+    ],
+    "Depth.quads_of_triples": [
+      "propext"
+    ],
+    "Depth.r2chain_functional": [
+      "Quot.sound",
+      "propext"
+    ],
     "Depth.r2enabled._proof_1": [
       "Quot.sound",
       "propext"
@@ -126,8 +149,50 @@
       "Quot.sound",
       "propext"
     ],
+    "Depth.r2init_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2iter_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2iter_succ": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_of_inl": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_of_inr": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2obs_functional": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2stepDet_spec": [
+      "Quot.sound",
+      "propext"
+    ],
     "Depth.r2successors_sound": [
       "Quot.sound",
+      "propext"
+    ],
+    "Depth.the_ladder": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.triplesOf_of_quadsOf": [
+      "propext"
+    ],
+    "Depth.triples_of_pairs": [
       "propext"
     ],
     "Depth.twist2_repeats_a_pair": [
@@ -135,6 +200,10 @@
       "propext"
     ],
     "Depth.twist2_tape": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.twist_repeats_an_entry": [
       "Quot.sound",
       "propext"
     ],
@@ -440,12 +509,12 @@
     ]
   },
   "reports_per_namespace": {
-    "Depth": 34,
+    "Depth": 54,
     "Record": 58,
     "Select": 28
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination; and the depth-two read, whose control forms are ternary \u2014 a regime of mixed arity, which the sealed grammar admits \u2014 realising a tape no depth-one program realises.",
-  "theorem_count_including_generated": 120,
+  "theorem_count_including_generated": 140,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

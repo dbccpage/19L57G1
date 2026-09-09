@@ -7,17 +7,22 @@ from the represented execution family's artifact (read through the coherent
 process limits family, never written here), the record-reading runs with
 their operation tables in index order, the exhibited reading of the record
 and its disappearance, the memoryless class that cannot produce it, the
-lifted memoryless program, and the selection experiment: the protocol
-declared before the readout, the survivors of both classes, the greedy
-burden, the residual and its reason, the exhibited ambiguity and the
-exhibited discrimination.
+lifted memoryless program, the selection experiment (the protocol declared
+before the readout, the survivors of both classes, the greedy burden, the
+residual and its reason, the exhibited ambiguity and the exhibited
+discrimination), and the depth-two machine with the ladder of reading
+depths.
 
 The receipt refuses a setting whose tables in index order are not the
 transcribed ones the Lean programs are stated on, a recorded run any of
 whose transitions is not a reference step at the recorded previous datum, a
 clock that does not count the firings, a seen observation of the wrong
 scale, a class none of whose laws replays it, and an exhibited pair that
-does not survive.
+does not survive.  For the depth-two machine it refuses a program whose
+instances are not the sealed replay of its own admission history, an exhibit
+whose tape is not the one the theorem names or that breaks the wrong ceiling,
+and a sweep in which a realised tape misses its own ceiling or a rung is not
+strict.
 """
 
 from __future__ import annotations
@@ -50,9 +55,23 @@ if PACKET != Path("research/record_reading"):
     raise RuntimeError(f"wrong custody guard imported: {PACKET}")
 
 import control as ct  # noqa: E402
+import depth as dp  # noqa: E402
 import limits as lm  # noqa: E402
 import record as rc  # noqa: E402
 import selection as sel  # noqa: E402
+import translation as tr  # noqa: E402
+
+# The depth-two exhibit, transcribed from `lean/Depth.lean`'s `twist2`: the
+# cycle after (0, 0) at 0 and at 1, after (0, 1) at 2, after (1, 2) at 0; the
+# constant map after (2, 0) at 1.
+TWIST2_ENABLEMENTS = frozenset({(0, 0, 0, 0), (0, 0, 1, 0), (0, 1, 2, 0),
+                                (1, 2, 0, 0), (2, 0, 1, 1)})
+TWIST2_TAPE = (0, 1, 2, 0, 1, 0)
+# The two-point setting the ladder sweep is exhaustive over: the flip and the
+# identity.  Two data keep the depth-three key space at eight, so *every*
+# deterministic program of each depth is run rather than a sample.
+LADDER_SETTING = tr.FiniteSetting(2, tr.NONE, tr.NONE, tr.NONE, 0, 1, ((1, 0), (0, 1)))
+LADDER_FUEL = 6
 
 
 def record_run(name: str, C: rc.Recorded, start: int, fuel: int) -> JsonObj:
@@ -81,6 +100,74 @@ def record_run(name: str, C: rc.Recorded, start: int, fuel: int) -> JsonObj:
         "fuel_left": s.fuel,
         "previous_at_end": rc.previous(s),
         "successors_at_end": sorted(t.active for t in rc.rsuccessors(s)),
+    }
+
+
+def depth_two_record(F: tr.FiniteSetting) -> JsonObj:
+    """The depth-two machine, its exhibit, and the ladder of reading depths.
+
+    The receipt refuses a depth-two program whose directly built instances
+    differ from the sealed replay of its admission history, an exhibit whose
+    tape is not the one the Lean theorem names, an exhibit that meets the
+    ceiling it is supposed to break, and a sweep in which any realised tape
+    misses its own depth's ceiling or a rung fails to be strict.
+    """
+    twist2 = dp.Recorded2(F, TWIST2_ENABLEMENTS)
+    if dp.r2program(twist2) != dp.r2program_by_replay(twist2):
+        raise RuntimeError("the depth-two program is not the sealed replay of its own history")
+    tape = dp.r2obs(5, dp.r2init(twist2, 0, 5))
+    if tape != TWIST2_TAPE:
+        raise RuntimeError(f"the depth-two exhibit realises {list(tape)}, not the tape the theorem names")
+    if not dp.functional(3, tape) or dp.functional(2, tape):
+        raise RuntimeError("the depth-two exhibit does not break exactly the ceiling below it")
+    rows = dp.ladder(LADDER_SETTING, LADDER_FUEL)
+    for row in rows:
+        if not row["every_tape_meets_this_ceiling"]:
+            raise RuntimeError(f"a tape of depth {row['entries_read']} misses that depth's ceiling")
+        if cast(int, row["entries_read"]) > 1 and not row["strictly_more_than_the_depth_below"]:
+            raise RuntimeError(f"depth {row['entries_read']} realises no tape the depth below cannot")
+    return {
+        "machine": "an enablement reading (before, previous, active), represented on a ternary control "
+                   "form per operation with instances (3 + nops + k, [b, p, x])",
+        "grammar_unchanged": {
+            "forms_of_the_exhibit": list(dp.encode_r2(twist2).forms),
+            "reading": "three binary stores, one binary form per operation graph, one ternary form per "
+                       "enablement.  Regime.wf bounds a form's arity below by one and not above, so a "
+                       "regime of mixed arity is a regime as the sealed grammar already stands",
+            "theorem": "Depth.encodeR2_wf",
+            "program_equals_sealed_replay": True,
+        },
+        "exhibit": {
+            "enablements": sorted(list(quad) for quad in TWIST2_ENABLEMENTS),
+            "enablement_meaning": "[before, previous, active, k]: operation k may fire at the active "
+                                  "datum when the two entries before it on the record are those",
+            "tape": list(tape),
+            "functional_in_triples": dp.functional(3, tape),
+            "functional_in_pairs": dp.functional(2, tape),
+            "theorems": "Depth.twist2_tape, Depth.twist2_repeats_a_pair, Depth.no_record_run_realises, "
+                        "Depth.depth_two_is_deeper",
+        },
+        "ladder": {
+            "setting_json": LADDER_SETTING.json(),
+            "ops_in_index_order": [list(g) for g in LADDER_SETTING.ops],
+            "fuel": LADDER_FUEL,
+            "population": "every deterministic program of each depth on this setting, from every datum: "
+                          "an assignment of at most one operation to each key, exhaustive and not sampled",
+            "rows": rows,
+            "ceilings_proved": {
+                "1": "Observe.obs_functional",
+                "2": "Record.robs_functional",
+                "3": "Depth.r2obs_functional",
+            },
+            "only_grows": "Depth.triples_of_pairs, Depth.quads_of_triples: a tape functional in d entries "
+                          "is functional in d + 1, so the classes are a chain",
+            "strictness_proved": "Depth.the_ladder, from Record.twist_tape and Depth.twist2_tape; the "
+                                 "sweep below counts how many such tapes there are",
+        },
+        "not_delivered": "a machine of depth d for d > 2, here or in the Lean.  The ceiling is proved one "
+                         "rung at a time and not for a general d, because no general-depth machine is "
+                         "built; `depth.functional` is written for any window size so that the statement "
+                         "checked at each rung is the same one",
     }
 
 
@@ -182,6 +269,7 @@ def record() -> JsonObj:
                 sel.observe(lifted, x, n) == sel.observe(forever, x, n) for x in sel.STARTS for n in sel.SCALES),
         },
         "selection": sel.experiment(F, observation, forever),
+        "depth_two": depth_two_record(F),
         "not_delivered": [
             "a record read deeper than two entries, or a depth-d family for general d",
             "a Python mirror of the depth-two machine, or a receipt of a depth-two run",
