@@ -2,18 +2,20 @@ import Lean
 import Execution
 import Control
 import Product
+import Schedule
 
 /-!
 Metatheoretic audit apparatus: enumerate the compiled theorem declarations
-of the `Execution`, `Control` and `Product` namespaces independently of source layout
-and of the printed dependency reports.  AuthorityEffect: None.
+of the `Execution`, `Control`, `Product` and `Schedule` namespaces independently of
+source layout and of the printed dependency reports.  AuthorityEffect: None.
 -/
 
 open Lean Elab Command in
 run_cmd do
   let environment ← getEnv
   let local? (name : Name) : Bool :=
-    (`Execution).isPrefixOf name || (`Control).isPrefixOf name || (`Product).isPrefixOf name
+    (`Execution).isPrefixOf name || (`Control).isPrefixOf name ||
+      (`Product).isPrefixOf name || (`Schedule).isPrefixOf name
   let names := environment.constants.fold (init := ([] : List String))
     fun found name declaration =>
       match declaration with
@@ -37,15 +39,24 @@ run_cmd do
 
 /- The compiler generates these additional theorem declarations for the
 `Config`, `Controlled` and `State` structures (constructor injectivity and
-the size specifications).  Their reports are included beside the authored
-reports of `Execution.lean` and `Control.lean`, and the combined population
-is compared with the independent environment census. -/
+the size specifications), and for the side conditions of the recursive proofs
+and of the finite settings declared in `Schedule.lean`.  Their reports are
+included beside the authored reports of the four modules, and the combined
+population is compared with the independent environment census. -/
 #print axioms Control.successors_complete._proof_1_1
 #print axioms Product.fst_lt._proof_1_1
 #print axioms Product.pack_lt._proof_1_1
 #print axioms Product.prodSetting._proof_1
 #print axioms Product.prodSetting._proof_2
 #print axioms Product.prodSetting._proof_3
+#print axioms Schedule.filter_range_eq_nil._proof_1_3
+#print axioms Schedule.filter_range_eq_nil._proof_1_4
+#print axioms Schedule.filter_range_eq_single._proof_1_3
+#print axioms Schedule.filter_range_eq_single._proof_1_4
+#print axioms Schedule.scheduled_no_branch._proof_1_1
+#print axioms Schedule.two._proof_1
+#print axioms Schedule.two._proof_2
+#print axioms Schedule.two._proof_3
 #print axioms Execution.Config.mk.inj
 #print axioms Execution.Config.mk.injEq
 #print axioms Execution.Config.mk.sizeOf_spec

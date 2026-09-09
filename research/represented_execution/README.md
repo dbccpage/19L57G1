@@ -52,7 +52,7 @@ instances.  The processes read encoded data; they do not themselves live in
 the sealed grammar, and nothing here says they do.  (The *program* of commit
 2 is a regime; the *state* that runs it is host.)
 
-Lean: 57 authored theorems, 92 reports with the compiler-generated ones, all
+Lean: 79 authored theorems, 122 reports with the compiler-generated ones, all
 within `{propext, Quot.sound}`, in a package importing the sealed package
 and the merged `setting_translation` package.  Python: both machines
 mirrored; the word machine checked against the merged `translation.run` (the
@@ -182,10 +182,36 @@ one locus each, and the encoder and the control machine run it unchanged.
 | `left_right_comm`, `prod_comm` | **the independence square**: moves at different loci commute, for any two operations |
 | `coupling_breaks_the_square`, `uncoupled_square_holds` | **interaction**: a move that reads the other locus does not commute, on a carrier where the uncoupled pair does |
 
-Proved and not computed: there is no Python mirror of the product.  The
-product is of *settings*, not of controlled programs — a two-locus run with an
-enablement per locus, and a scheduler choosing which locus moves, are not
-built (CL-RE-15).
+The product is of *settings*.  Section 3b runs it.
+
+## 3b. A two-locus run, and what its record shows (`lean/Schedule.lean`)
+
+A carrier is not a run.  Running two loci means deciding which one moves, and
+the obstacle is exact: if the *interpreter* decides, the schedule is a host
+choice, and `Control.stepDet` already refuses to select — it returns `branch`
+when two operations are enabled.  The answer is that **the schedule is data**.
+A scheduled setting names, at each datum, the one operation enabled there; the
+naming is carried by the enablement instances the machine already reads, so
+the interpreter finds a singleton and never selects.  Nothing about the
+interpreter changes and nothing is added to the grammar.
+
+| theorem | content |
+|---|---|
+| `enabledAt_scheduled` | at every admitted datum exactly one operation is enabled: the one the schedule names |
+| `scheduled_no_branch` | so the deterministic step **cannot** return `branch` — the refusal that would expose a host scheduler is not triggered |
+| `step_moves_one_locus` | **one locus at a time**: whatever the schedule, every step leaves one coordinate exactly where it was |
+| `pair_run`, `pair_terminal`, `pairSwapped_run` | the alternating run `0, 2, 3, 1, 0` and its mirror `0, 1, 3, 2, 0`, both ending on spent fuel |
+| `square_on_the_outcome` | the two orders reach the same datum |
+| `square_fails_on_the_observation` | and record different tapes |
+| `locus1_is_its_own_run`, `locus2_is_its_own_run` | the tape read at one locus, with the repeats dropped, **is** that locus's own one-locus run |
+| `swap_moves_both` | the failure case: an operation at neither locus moves both in one step |
+
+The reading, stated plainly: the square lifts to the outcome and does not lift
+to the observation, because a tape totally orders events that the loci do not.
+What lifts is the *projection* — and the destuttering is the whole content of
+the lift, since the repeats it drops are exactly the steps that moved the
+other locus.  `Schedule.alt` reads both coordinates, which is what a schedule
+may do and an operation may not (`Product.coupling_breaks_the_square`).
 
 ## 4. The artifact for Target B (`evidence/process.json`)
 
@@ -229,17 +255,18 @@ beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 57 authored theorems and 35
+**Lean** (`lean/`, `evidence/lean.json`): 79 authored theorems and 43
 compiler-generated ones — nine constructor injectivity and size
 specifications for `Config`, `Controlled` and `State`; five for `Fired`
 (three size specifications and `ok`'s injectivity); five for `Terminal` (four
 size specifications and its `ofNat_ctorIdx`); the two proof terms of
-`Terminal`'s decidable equality; and fourteen auxiliary proof terms of eight
-theorems and definitions (`enabled_program`, `encodeC_wf`, `live_successor`,
-`lookup_program_op`, `successors_complete`, `fst_lt`, `pack_lt`,
-`prodSetting`) — 92 reports, all within
-`{propext, Quot.sound}`; the report
-population equals the environment census of the `Execution`, `Control` and `Product`
+`Terminal`'s decidable equality; and twenty-two auxiliary proof terms of
+twelve theorems and definitions (`enabled_program`, `encodeC_wf`,
+`live_successor`, `lookup_program_op`, `successors_complete`, `fst_lt`,
+`pack_lt`, `prodSetting`, `filter_range_eq_nil`, `filter_range_eq_single`,
+`scheduled_no_branch`, `two`) — 122 reports, all within
+`{propext, Quot.sound}`; the report population equals the environment census
+of the `Execution`, `Control`, `Product` and `Schedule`
 namespaces in both directions; no private theorem; forbidden-token scan
 clean.  `Classical.choice` was observed once, entering through `BEq` in an
 earlier `isEdge`; the definition now decides the `Prop` directly and the
@@ -297,7 +324,8 @@ Regenerate the two records deliberately and never under a live injection:
 * That every edge of every encoding is load-bearing for some word.
 * A two-locus *run*: the product is of settings, so no enablement is factored
   into two loci and no scheduler chooses which locus moves (CL-RE-15).  There
-  is no Python mirror of the product.
+  the two-locus run is mirrored and recorded; the *square* and the
+  one-locus-at-a-time property are proved of every run and computed of one.
 * Anything about infinite carriers, undecidable stores or infinite operation
   families.
 
@@ -308,8 +336,10 @@ Regenerate the two records deliberately and never under a live injection:
 | `lean/Execution.lean` | the reader, the word machine, the reference, the word-bridge |
 | `lean/Control.lean` | controlled settings, the represented program, the data-driven machine, the reference step |
 | `lean/Product.lean` | two loci as a product carrier, the independence square, and the coupling that breaks it |
+| `lean/Schedule.lean` | the schedule as data, a two-locus run, and the square on outcomes and on observations |
 | `lean/Inventory.lean` | the environment census |
 | `execution.py`, `control.py` | the machines mirrored; `init` is the one function of each that sees a setting |
+| `product.py` | the product carrier, the schedule as data, and reading a tape at one locus |
 | `run.py`, `evidence/process.json` | the artifact for Target B and its refusals |
 | `verify_lean.py`, `evidence/lean.json` | the Lean build, two-way census and reliance record |
 | `verify_sources.py`, `SOURCE_MANIFEST.json` | custody of the consumed inputs |

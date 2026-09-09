@@ -605,7 +605,9 @@
  "not_delivered": [
   "a retained record that a later operation reads: the tape is retained and observable, but no enablement reads it, so two states with one active datum and different tapes have one future",
   "represented storage growth beyond the tape",
-  "an encoded configuration: the state is a declared host record"
+  "an encoded configuration: the state is a declared host record",
+  "the two-locus run observed at step scales: the run and its projections are recorded here, but the inverse system over them is the observing family's to build",
+  "a schedule that is not a function of the active datum: a run whose choice of locus depends on the tape would need the record-reading enablement, which is a different family's machine"
  ],
  "observation": {
   "active": "the final active datum, a member of the carrier",
@@ -868,6 +870,145 @@
   }
  ],
  "schema_version": 2,
+ "two_loci": {
+  "alternating_run": {
+   "tape": [
+    0,
+    2,
+    3,
+    1,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  "carrier": "pairs over two two-point loci, packed as m * a + b (Product.pack)",
+  "mirror_run": {
+   "tape": [
+    0,
+    1,
+    3,
+    2,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  "one_locus_at_a_time": {
+   "failure_case": "Schedule.swap_moves_both: an operation at neither locus moves both in one step, so this is a property of the product's operations and not of the machine",
+   "holds": true,
+   "theorem": "Schedule.step_moves_one_locus, from Product.prod_left_local and prod_right_local"
+  },
+  "ops_in_index_order": [
+   [
+    2,
+    3,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    3,
+    2
+   ]
+  ],
+  "projections": {
+   "destuttered": {
+    "first_locus": [
+     0,
+     1,
+     0
+    ],
+    "second_locus": [
+     0,
+     1,
+     0
+    ]
+   },
+   "first_locus": [
+    0,
+    1,
+    1,
+    0,
+    0
+   ],
+   "one_locus_run": [
+    0,
+    1,
+    0
+   ],
+   "reading": "what lifts to observations is the projection with the repeats dropped; the repeats are exactly the steps that moved the other locus",
+   "second_locus": [
+    0,
+    0,
+    1,
+    1,
+    0
+   ],
+   "theorem": "Schedule.locus1_is_its_own_run, Schedule.locus2_is_its_own_run"
+  },
+  "schedule": {
+   "alternating": {
+    "0": 0,
+    "1": 1,
+    "2": 1,
+    "3": 0
+   },
+   "carried_by": "enablement self-instances, exactly as for any controlled setting",
+   "mirror": {
+    "0": 1,
+    "1": 0,
+    "2": 0,
+    "3": 1
+   },
+   "never_selects": "Schedule.enabledAt_scheduled, Schedule.scheduled_no_branch: at every datum the enabled list is a singleton, so the interpreter has nothing to choose and the two-locus run needs no host scheduler",
+   "reads_both_loci": "a schedule may, and an operation may not: Product.coupling_breaks_the_square"
+  },
+  "setting_json": {
+   "a": 0,
+   "b": 3,
+   "n": 4,
+   "ops": [
+    [
+     1,
+     0,
+     3,
+     2
+    ],
+    [
+     2,
+     3,
+     0,
+     1
+    ]
+   ],
+   "prot": [],
+   "r": [],
+   "ret": []
+  },
+  "square": {
+   "on_the_observation": {
+    "agree": false,
+    "alternating": [
+     0,
+     2,
+     3
+    ],
+    "mirror": [
+     0,
+     1,
+     3
+    ],
+    "reading": "the commutation is real and the record still distinguishes the orders: a tape totally orders events that the loci do not",
+    "theorem": "Schedule.square_fails_on_the_observation"
+   },
+   "on_the_outcome": {
+    "agree": true,
+    "alternating": 3,
+    "mirror": 3,
+    "theorem": "Schedule.square_on_the_outcome; the operations commute by Product.prod_comm"
+   }
+  }
+ },
  "words": {
   "concatenation": "Execution.run_append",
   "correspondence": "Execution.run_encode",

@@ -333,14 +333,65 @@ at datum `x`.
   `coupling_breaks_the_square`, `uncoupled_square_holds`.
 - **Falsifier**: two local operations that do not commute, or a coupled move
   that does.
-- **Obligation**: the product is of *settings*, not of controlled programs:
-  no enablement relation is factored into two loci, so a two-locus **run**
-  with an enablement per locus is not built, and neither is a scheduler that
-  chooses which locus moves.  There is no Python mirror of the product; it is
-  proved, not computed.  `Nat.div_lt_of_lt_mul` and
+- **Obligation**: the square is of *operations*.  Lifting it to observations,
+  and the two-locus run it needs, are CL-RE-16, which also supplies the Python
+  mirror this entry once lacked.  What remains after that entry: the product
+  is of two loci and not of `k`, and the observing family's inverse system is
+  not built over a two-locus run.  `Nat.div_lt_of_lt_mul` and
   `Nat.lt_of_mul_lt_mul_left` were both found to rely on `Classical.choice`
   by the axiom census, and `fst_lt` is proved without them — recorded because
   the census caught it, not a reading of the sources.
+
+### CL-RE-16 — a two-locus run: the schedule is data, and the square lifts to the projection
+
+- **Statement**: a *scheduled* setting `scheduled F sched` enables, at each
+  datum, exactly the one operation `sched` names there
+  (`enabledAt_scheduled`), so the deterministic step cannot return `branch`
+  (`scheduled_no_branch`).  The schedule is carried by the ordinary
+  enablement instances; the interpreter is unchanged and is told nothing it
+  was not told before.  On the product carrier this is a **two-locus run**,
+  and of it: **one locus moves at a time** — whatever the schedule, every
+  step leaves one coordinate exactly where it was (`step_moves_one_locus`);
+  the alternating schedule from `(0, 0)` realises `0, 2, 3, 1, 0` and its
+  mirror `0, 1, 3, 2, 0` (`pair_run`, `pairSwapped_run`, both terminating on
+  spent fuel); the two orders **reach the same datum**
+  (`square_on_the_outcome`) and **record different tapes**
+  (`square_fails_on_the_observation`); and the tape read at one locus with
+  the adjacent repeats dropped **is that locus's own one-locus run**
+  (`locus1_is_its_own_run`, `locus2_is_its_own_run`, against `solo_run`).
+- **Hypotheses**: `sched x < F.ops.length` at the datum in question — a
+  schedule that names an operation the setting does not have enables nothing,
+  and the machine halts rather than choosing.  For `step_moves_one_locus`, a
+  state carrying the two-locus program at an admitted datum.
+- **Novelty**: it answers the obstacle by relocating it rather than by
+  weakening it.  The runner's refusal to select stands untouched — the point
+  is that a scheduled program never asks it to select.  And the observational
+  result is two-sided in a way the operational square is not: the square
+  **fails** on tapes, and what survives is the projection modulo stutter.
+  The failure is not a defect: a tape totally orders events that the loci do
+  not, and the repeats the destuttering drops are exactly the steps that
+  moved the other locus.
+- **Evidence**: `Schedule.enabledAt_scheduled`, `scheduled_no_branch`,
+  `step_moves_one_locus`, `pair_run`, `pair_terminal`, `pairSwapped_run`,
+  `square_on_the_outcome`, `square_fails_on_the_observation`, `solo_run`,
+  `locus1_is_its_own_run`, `locus2_is_its_own_run`, `locus1_stutters`,
+  `locus2_stutters`, `swap_moves_both`, `swap_not_local`; `product.py`,
+  `tests/test_product.py` (exhaustive over every value table on two points
+  and every schedule over the four product data), the record's `two_loci`
+  section and its two injections in `tests/test_evidence.py`.
+- **Falsifier**: a scheduled program at whose datum two operations are
+  enabled; a step of a two-locus run that moves both coordinates; two orders
+  reaching different data, or recording the same tape; a destuttered
+  projection that is not the locus's own run.  The receipt refuses each by
+  name.
+- **Obligation**: the schedule is a function of the **active datum** only.  A
+  schedule that reads the tape — which is what "the two loci take turns
+  regardless of where they are" would need in general — is the
+  record-reading family's enablement, not this one's, and is not built here.
+  The alternation used is available only because the product datum happens to
+  carry enough state to see whose turn it is.  Two loci, not `k`.  And the
+  observation is the tape: the inverse system over a two-locus run at step
+  scales is the observing family's, and is not built here.
 
 ### CL-RE-14 — what control delivers observably, and what it does not
 

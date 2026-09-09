@@ -86,6 +86,27 @@ class ProcessRecord(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "clock does not count"):
                 run.receipt_bytes()
 
+    def test_the_receipt_refuses_a_two_locus_step_that_moves_both_loci(self) -> None:
+        """The exchange `(3, 2, 1, 0)` sends `(0, 0)` to `(1, 1)`: one step,
+        both loci.  It is not an operation of any product setting, which is
+        exactly what the refusal is for."""
+        import product as pr  # noqa: PLC0415
+        import translation as tr  # noqa: PLC0415
+        coupled = tr.FiniteSetting(4, tr.NONE, tr.NONE, tr.NONE, 0, 3, ((3, 2, 1, 0),))
+        with patch("run.verify_sources", return_value=[]),                 patch("run.PAIR", pr.scheduled(coupled, lambda _: 0)):
+            with self.assertRaisesRegex(RuntimeError, "moved both loci"):
+                run.receipt_bytes()
+
+    def test_the_receipt_refuses_a_schedule_the_runner_had_to_choose_in(self) -> None:
+        """Two operations enabled at one datum is a host choice by another
+        name; the runner refuses it and so does the receipt."""
+        import translation as tr  # noqa: PLC0415
+        both = tr.FiniteSetting(4, tr.NONE, tr.NONE, tr.NONE, 0, 3,
+                                ((1, 0, 3, 2), (2, 3, 0, 1)))
+        with patch("run.verify_sources", return_value=[]),                 patch("run.PAIR", ct.Controlled(both, frozenset({(0, 0), (0, 1)}))):
+            with self.assertRaisesRegex(RuntimeError, "left a choice"):
+                run.receipt_bytes()
+
     def test_every_recorded_run_replays_from_its_own_record(self) -> None:
         """CL-RE-06's falsifier, mechanically: rebuild each run from the
         record alone — the index-ordered tables with the recorded word or
@@ -150,6 +171,18 @@ class ProcessRecord(unittest.TestCase):
         self.assertEqual(by_program[("fork", 0)]["terminal"], "branch")
         self.assertEqual(by_program[("fork", 0)]["successors_at_end"], [0, 1])
         self.assertTrue(any("retained record" in item for item in record["not_delivered"]))
+        two = record["two_loci"]
+        self.assertEqual(two["alternating_run"]["tape"], [0, 2, 3, 1, 0])
+        self.assertEqual(two["mirror_run"]["tape"], [0, 1, 3, 2, 0])
+        self.assertTrue(two["one_locus_at_a_time"]["holds"])
+        self.assertTrue(two["square"]["on_the_outcome"]["agree"])
+        self.assertFalse(two["square"]["on_the_observation"]["agree"])
+        self.assertEqual(two["projections"]["destuttered"]["first_locus"],
+                         two["projections"]["one_locus_run"])
+        self.assertEqual(two["projections"]["destuttered"]["second_locus"],
+                         two["projections"]["one_locus_run"])
+        self.assertNotEqual(two["projections"]["first_locus"],
+                            two["projections"]["second_locus"])
 
 
 if __name__ == "__main__":

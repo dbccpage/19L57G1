@@ -1,14 +1,15 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 21,
-  "census": "compiled environment theorem declarations in the Execution, Control and Product namespaces",
+  "axiom_free_count": 30,
+  "census": "compiled environment theorem declarations in the Execution, Control, Product and Schedule namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "2ed3a6154b9274280382c5ab1cffa61ca97f9f44e17e425c6834b414941c2453",
+    "Inventory.lean": "2f5c914698b6e34f9ebcfc321a3f629f700d0e3ecd222816d39eafd8fad6050b",
     "Product.lean": "182593969c18573c525d69eb49a76de9ecb83de897403134248a448a4c0c877a",
-    "lakefile.toml": "c89e4bd8813e9c302eb8dbc6577ad6175f5eda6c0074a4bb5c468816d9a39f74",
+    "Schedule.lean": "75dc2a33c71b72c250737f2b9068222e61573057a603c551334e2440620935ab",
+    "lakefile.toml": "33e9b4d7672614e97a2254b55513c363b7124fdd82a5b4dfc60cfdbfcd157796",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
@@ -288,15 +289,107 @@
     "Product.uncoupled_square_holds": [
       "Quot.sound",
       "propext"
+    ],
+    "Schedule.bool_of_iff": [],
+    "Schedule.enabledAt_scheduled": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_congr_mem": [],
+    "Schedule.filter_range_eq_nil": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_nil._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_nil._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_single": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_single._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_single._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_single_false": [],
+    "Schedule.filter_single_true": [],
+    "Schedule.flip_lt": [],
+    "Schedule.locus1_is_its_own_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.locus1_stutters": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.locus2_is_its_own_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.locus2_stutters": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.pairSwapped_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.pair_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.pair_terminal": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.scheduled_no_branch": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.scheduled_no_branch._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.solo_run": [
+      "propext"
+    ],
+    "Schedule.square_fails_on_the_observation": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.square_on_the_outcome": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.step_moves_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.swap_moves_both": [],
+    "Schedule.swap_not_local": [],
+    "Schedule.two._proof_1": [],
+    "Schedule.two._proof_2": [],
+    "Schedule.two._proof_3": [
+      "propext"
     ]
   },
   "reports_per_namespace": {
     "Control": 49,
     "Execution": 24,
-    "Product": 19
+    "Product": 19,
+    "Schedule": 30
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 92,
+  "theorem_count_including_generated": 122,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

@@ -52,6 +52,7 @@ if PACKET != Path("research/represented_execution"):
 
 import control as ct  # noqa: E402
 import execution as ex  # noqa: E402
+import product as pr  # noqa: E402
 import translation as tr  # noqa: E402
 
 # A three-point setting with two distinct operations: reading the letter and
@@ -75,6 +76,27 @@ PING = ct.Controlled(BASE, frozenset({(0, 0), (1, 1)}))
 CLIMB = ct.Controlled(BASE, frozenset({(0, 2), (1, 2)}))
 FOREVER = ct.Controlled(BASE, frozenset({(0, 0), (1, 0), (2, 0)}))
 FORK = ct.Controlled(BASE, frozenset({(0, 0), (0, 1)}))
+
+# Two loci on one carrier: two two-point settings, the flip at each, and a
+# schedule that names which locus moves at each datum.  The schedule reads
+# both coordinates, which is what a schedule may do and an operation may not.
+FLIP = (1, 0)
+TWO = tr.FiniteSetting(2, tr.NONE, tr.NONE, tr.NONE, 0, 1, (FLIP,))
+
+
+def alt(x: int) -> int:
+    """Move the first locus when the two loci agree, the second when they differ."""
+    return 0 if pr.fst_of(2, x) == pr.snd_of(2, x) else 1
+
+
+def alt_mirror(x: int) -> int:
+    """The same alternation begun at the other locus."""
+    return 1 if pr.fst_of(2, x) == pr.snd_of(2, x) else 0
+
+
+PAIR = pr.two_locus(TWO, TWO, alt)
+PAIR_MIRROR = pr.two_locus(TWO, TWO, alt_mirror)
+SOLO = pr.scheduled(TWO, lambda _: 0)
 
 CONTROL_RUNS: tuple[tuple[str, ct.Controlled, int, int], ...] = (
     ("ping", PING, 0, 4),
@@ -131,9 +153,90 @@ def control_run(name: str, C: ct.Controlled, start: int, fuel: int) -> JsonObj:
     }
 
 
+def two_locus_record() -> JsonObj:
+    """The two-locus run, its mirror, and what each locus reads off the tape.
+
+    The receipt refuses to record a schedule the runner had to choose in
+    (a ``BRANCH`` terminal), a step that moved both loci at once, a
+    projection that is not the locus's own run, two orders that disagree on
+    the datum they reach, or two orders that agree on the tape.
+    """
+    forward, mirror = ct.trace(PAIR, 0, 4), ct.trace(PAIR_MIRROR, 0, 4)
+    solo = ct.trace(SOLO, 0, 2)
+    half_forward, half_mirror = ct.trace(PAIR, 0, 2), ct.trace(PAIR_MIRROR, 0, 2)
+    for name, (terminal, state) in (("alternating", forward), ("mirror", mirror),
+                                    ("solo", solo)):
+        if terminal is ct.Terminal.BRANCH:
+            raise RuntimeError(f"{name}: the runner was left a choice; the schedule is not in the data")
+        if not pr.moves_one_locus(2, state.tape):
+            raise RuntimeError(f"{name}: a step moved both loci at once")
+    readings = {which: pr.locus(2, which, forward[1].tape) for which in (0, 1)}
+    for which, reading in readings.items():
+        if pr.destutter(reading) != solo[1].tape:
+            raise RuntimeError(f"locus {which}: the destuttered projection is not that locus's own run")
+    if half_forward[1].active != half_mirror[1].active:
+        raise RuntimeError("the two orders reach different data: the square fails of the outcome")
+    if half_forward[1].tape == half_mirror[1].tape:
+        raise RuntimeError("the two orders record the same tape: there is nothing for the order to be")
+    return {
+        "carrier": "pairs over two two-point loci, packed as m * a + b (Product.pack)",
+        "setting_json": PAIR.F.json(),
+        "ops_in_index_order": [list(g) for g in PAIR.F.ops],
+        "schedule": {
+            "alternating": {str(x): alt(x) for x in range(4)},
+            "mirror": {str(x): alt_mirror(x) for x in range(4)},
+            "carried_by": "enablement self-instances, exactly as for any controlled setting",
+            "never_selects": "Schedule.enabledAt_scheduled, Schedule.scheduled_no_branch: at every datum "
+                             "the enabled list is a singleton, so the interpreter has nothing to choose "
+                             "and the two-locus run needs no host scheduler",
+            "reads_both_loci": "a schedule may, and an operation may not: Product.coupling_breaks_the_square",
+        },
+        "alternating_run": {"tape": list(forward[1].tape), "terminal": forward[0].value},
+        "mirror_run": {"tape": list(mirror[1].tape), "terminal": mirror[0].value},
+        "one_locus_at_a_time": {
+            "holds": pr.moves_one_locus(2, forward[1].tape),
+            "theorem": "Schedule.step_moves_one_locus, from Product.prod_left_local and prod_right_local",
+            "failure_case": "Schedule.swap_moves_both: an operation at neither locus moves both in one "
+                            "step, so this is a property of the product's operations and not of the machine",
+        },
+        "square": {
+            "on_the_outcome": {
+                "alternating": half_forward[1].active,
+                "mirror": half_mirror[1].active,
+                "agree": half_forward[1].active == half_mirror[1].active,
+                "theorem": "Schedule.square_on_the_outcome; the operations commute by Product.prod_comm",
+            },
+            "on_the_observation": {
+                "alternating": list(half_forward[1].tape),
+                "mirror": list(half_mirror[1].tape),
+                "agree": half_forward[1].tape == half_mirror[1].tape,
+                "theorem": "Schedule.square_fails_on_the_observation",
+                "reading": "the commutation is real and the record still distinguishes the orders: a tape "
+                           "totally orders events that the loci do not",
+            },
+        },
+        "projections": {
+            "first_locus": list(readings[0]),
+            "second_locus": list(readings[1]),
+            "destuttered": {"first_locus": list(pr.destutter(readings[0])),
+                            "second_locus": list(pr.destutter(readings[1]))},
+            "one_locus_run": list(solo[1].tape),
+            "theorem": "Schedule.locus1_is_its_own_run, Schedule.locus2_is_its_own_run",
+            "reading": "what lifts to observations is the projection with the repeats dropped; the repeats "
+                       "are exactly the steps that moved the other locus",
+        },
+    }
+
+
 def record() -> JsonObj:
     ping = {x: ct.trace(PING, x, 4)[1].tape for x in range(3)}
     climb = {x: ct.trace(CLIMB, x, 10) for x in range(3)}
+    # Evaluated here rather than inside the literal below, so that the order
+    # in which the receipt's refusals can fire is the order they are written
+    # in and not the order the keys happen to appear.
+    runs = [word_run(*entry) for entry in RUNS]
+    control_runs = [control_run(*entry) for entry in CONTROL_RUNS]
+    two_loci = two_locus_record()
     return {
         "schema_version": 2,
         "classification": "deterministic computation: the word machine and the data-driven machine over "
@@ -194,13 +297,18 @@ def record() -> JsonObj:
             "firings_by_start": {str(x): climb[x][1].clock for x in range(3)},
             "terminals_by_start": {str(x): climb[x][0].value for x in range(3)},
         },
-        "runs": [word_run(*entry) for entry in RUNS],
-        "control_runs": [control_run(*entry) for entry in CONTROL_RUNS],
+        "two_loci": two_loci,
+        "runs": runs,
+        "control_runs": control_runs,
         "not_delivered": [
             "a retained record that a later operation reads: the tape is retained and observable, but no "
             "enablement reads it, so two states with one active datum and different tapes have one future",
             "represented storage growth beyond the tape",
             "an encoded configuration: the state is a declared host record",
+            "the two-locus run observed at step scales: the run and its projections are recorded here, "
+            "but the inverse system over them is the observing family's to build",
+            "a schedule that is not a function of the active datum: a run whose choice of locus depends "
+            "on the tape would need the record-reading enablement, which is a different family's machine",
         ],
     }
 
