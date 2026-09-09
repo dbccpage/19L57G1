@@ -1756,6 +1756,27 @@
     "class": "every program on the identified setting with at most one operation enabled per datum",
     "class_size": 64,
     "experiments": [],
+    "minimum_burden": {
+     "a_least_set": [],
+     "a_single_start": {
+      "0": {
+       "least_from_this_start_alone": 0,
+       "suffices": true
+      },
+      "1": {
+       "least_from_this_start_alone": 0,
+       "suffices": true
+      },
+      "2": {
+       "least_from_this_start_alone": 0,
+       "suffices": true
+      }
+     },
+     "least": 0,
+     "reading": "the greedy sequence is one sequence; this is the minimum, and the two are reported side by side rather than one presented as the other",
+     "residual_classes": 1,
+     "searched": "every subset of the declared inputs by increasing size, over one representative per residual class"
+    },
     "one_survivor": false,
     "residual": {
      "between_classes_it_differs_on_a_reached_pair": null,
@@ -1764,6 +1785,18 @@
      "largest_class": 8,
      "residual_classes": 1,
      "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
+    },
+    "second_readout": {
+     "largest_class_under_both": 1,
+     "largest_class_under_the_first_readout": 8,
+     "readout": "the tape, with the index of the operation that produced each entry beside it",
+     "refines_the_first": true,
+     "residual_classes_under_both": 8,
+     "residual_classes_under_the_first_readout": 1,
+     "status": "HOST READOUT: the index is reported by the interpreter, not written by the process.  The tape and the clock are represented fields of the state and this is not one; making it one would be a change to the machine, and that change is not made here.  The precedent is named rather than borrowed",
+     "what_is_left": "the enablement at pairs no run reaches; the largest class has at most 3 such pairs on the identified carrier",
+     "why_it_is_not_free": "which operation carried the datum is not a function of the record (Select.forever_indistinguishable, from Select.obs_bisim), so this readout is genuinely more than the first and not a rearrangement of it",
+     "within_a_class_the_enablement_agrees_on_every_reached_pair": true
     },
     "separated_into_singletons": false,
     "survivors": 8
@@ -1789,6 +1822,40 @@
       "start": 0
      }
     ],
+    "minimum_burden": {
+     "a_least_set": [
+      {
+       "scale": 4,
+       "start": 0
+      },
+      {
+       "scale": 2,
+       "start": 1
+      },
+      {
+       "scale": 1,
+       "start": 2
+      }
+     ],
+     "a_single_start": {
+      "0": {
+       "least_from_this_start_alone": null,
+       "suffices": false
+      },
+      "1": {
+       "least_from_this_start_alone": null,
+       "suffices": false
+      },
+      "2": {
+       "least_from_this_start_alone": null,
+       "suffices": false
+      }
+     },
+     "least": 3,
+     "reading": "the greedy sequence is one sequence; this is the minimum, and the two are reported side by side rather than one presented as the other",
+     "residual_classes": 45,
+     "searched": "every subset of the declared inputs by increasing size, over one representative per residual class"
+    },
     "one_survivor": false,
     "residual": {
      "between_classes_it_differs_on_a_reached_pair": true,
@@ -1797,6 +1864,18 @@
      "largest_class": 4096,
      "residual_classes": 45,
      "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
+    },
+    "second_readout": {
+     "largest_class_under_both": 64,
+     "largest_class_under_the_first_readout": 4096,
+     "readout": "the tape, with the index of the operation that produced each entry beside it",
+     "refines_the_first": true,
+     "residual_classes_under_both": 896,
+     "residual_classes_under_the_first_readout": 45,
+     "status": "HOST READOUT: the index is reported by the interpreter, not written by the process.  The tape and the clock are represented fields of the state and this is not one; making it one would be a change to the machine, and that change is not made here.  The precedent is named rather than borrowed",
+     "what_is_left": "the enablement at pairs no run reaches; the largest class has at most 3 such pairs on the identified carrier",
+     "why_it_is_not_free": "which operation carried the datum is not a function of the record (Select.forever_indistinguishable, from Select.obs_bisim), so this readout is genuinely more than the first and not a rearrangement of it",
+     "within_a_class_the_enablement_agrees_on_every_reached_pair": true
     },
     "separated_into_singletons": false,
     "survivors": 32768

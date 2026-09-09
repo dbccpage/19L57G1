@@ -308,6 +308,58 @@ climb, in index order; "the record" means the machine's tape.
   not a theorem.  The bisimulation of the depth-two machine is still not
   stated.
 
+### CL-RR-15 — the burden as a minimum, and a second readout
+
+- **Statement** (computed). **The minimum.** The greedy sequence is one
+  sequence; `minimum_burden` searches every subset of the declared inputs by
+  increasing size and reports the least that separates the retained laws as
+  finely as all of them together do.  On the record class it is **3** — the
+  same length as the greedy sequence, so the greedy sequence is optimal here,
+  though it is a *different* set of three.  **No single start suffices**: for
+  each of the three declared starts, all eight of its scales together leave
+  the partition coarser than the residual.  The search is exhaustive and
+  cheap for a stated reason: laws with equal readouts on all the declared
+  inputs have equal readouts on any subset, so one representative per residual
+  class decides every subset.
+  **The second readout.**  Reporting the index of the operation that produced
+  each entry beside the entry takes the record class's residual from **45
+  classes with a largest class of 4096** to **896 classes with a largest class
+  of 64**, and within every class of the refined partition the laws agree on
+  their enablement — index and value — at every pair the runs reach.  What is
+  left to distinguish them is the enablement at pairs no run reaches: the
+  largest class is 4³, four choices at each of three unreached pairs.  That is
+  the collapse the rung predicted, and it is measured rather than asserted.
+- **Hypotheses**: the protocol as declared before any readout; the identified
+  setting.
+- **Novelty**: the second readout is **not free**, and the reason is a theorem
+  already here: which operation carried the datum is not a function of the
+  record (`Select.forever_indistinguishable`, from `Select.obs_bisim`), so the
+  index is genuinely more than the tape and not a rearrangement of it.
+- **Status of the second readout**: **HOST READOUT**, declared as such.  The
+  index is reported by the *interpreter*; the process does not write it.  The
+  tape and the clock are represented fields of the state and this is not one.
+  Making it one would be a change to the machine — a field written by firing —
+  and that change is **not made here**.  The precedent is named rather than
+  borrowed.
+- **Evidence**: `selection.minimum_burden`, `fired_at`, `annotated_run`,
+  `annotated_signature`, `annotated_partition`, `second_readout`; the record's
+  `selection.classes.*.minimum_burden` and `.second_readout`;
+  `tests/test_selection.py`, which re-derives the minimum by an independent
+  exhaustive search over smaller subsets, and checks the refinement against
+  partitioning by the annotated runs themselves on the class small enough to
+  do both.
+- **Falsifier**: a subset of the declared inputs smaller than the reported
+  minimum that reaches the residual; a class of the refined partition whose
+  members disagree on a reached pair.  The receipt refuses the second by name,
+  and the refusal is injected by reporting the plain partition as if it were
+  the refinement.
+- **Obligation**: the second readout is a host report.  An observable that the
+  *process writes* — a represented field carrying the index, as the tape
+  carries the datum — is not built, and until it is, the collapse recorded
+  here is a fact about what an outside observer could learn and not about what
+  the process makes available.  The minimum is a minimum over the **declared**
+  inputs; a different input family could be shorter.
+
 ### CL-RR-11 — the protocol declared before the readout; the artifact; not delivered
 
 - **Declared first**: the classes, the starts `0, 1, 2`, the scales `1..8`,

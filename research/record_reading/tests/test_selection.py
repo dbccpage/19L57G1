@@ -4,8 +4,10 @@ ambiguity and the exhibited discrimination."""
 
 from __future__ import annotations
 
+from itertools import combinations
 from pathlib import Path
 import sys
+from typing import cast
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -150,6 +152,89 @@ class Refusals(Setting):
     def test_a_seen_observation_of_the_wrong_scale_is_refused(self) -> None:
         with self.assertRaisesRegex(sel.SelectError, "scale"):
             sel.experiment(self.F, (0, 1, 2), self.forever)
+class TheMinimumBurdenAndTheSecondReadout(unittest.TestCase):
+    """W42 and W39: the minimum against the greedy sequence, and the readout
+    that reports which operation fired."""
+
+    F: tr.FiniteSetting
+    forever: ct.Controlled
+    observation: sel.Word
+    kept: list[sel.Law]
+    sigs: list[sel.Signature]
+    memo: list[sel.Law]
+    memo_sigs: list[sel.Signature]
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        programs, _ = lm.identify_programs(lm.load_artifact())
+        cls.forever = programs["forever"]
+        cls.F = cls.forever.F
+        cls.observation = sel.observe(cls.forever, sel.OBSERVED_START, sel.OBSERVED_SCALE)
+        cls.kept = sel.survivors(sel.record_class(cls.F), cls.observation)
+        cls.sigs = sel.signatures(cls.kept)
+        cls.memo = sel.survivors(sel.memoryless_class(cls.F), cls.observation)
+        cls.memo_sigs = sel.signatures(cls.memo)
+
+    def test_the_minimum_is_reached_and_is_a_minimum(self) -> None:
+        result = sel.minimum_burden(self.sigs)
+        least = [(int(entry["start"]), int(entry["scale"]))
+                 for entry in cast(list[dict[str, int]], result["a_least_set"])]
+        target = len(sel.partition(self.sigs, list(sel.INPUTS)))
+        self.assertEqual(len(sel.partition(self.sigs, least)), target)
+        for size in range(len(least)):
+            for subset in combinations(sel.INPUTS, size):
+                self.assertNotEqual(len(sel.partition(self.sigs, list(subset))), target, subset)
+
+    def test_the_greedy_sequence_is_no_shorter_than_the_minimum(self) -> None:
+        greedy, _ = sel.burden(self.kept, self.sigs)
+        self.assertGreaterEqual(len(greedy), cast(int, sel.minimum_burden(self.sigs)["least"]))
+
+    def test_no_single_start_separates_the_record_class(self) -> None:
+        single = cast(dict[str, dict[str, object]], sel.minimum_burden(self.sigs)["a_single_start"])
+        for start in sel.STARTS:
+            self.assertFalse(single[str(start)]["suffices"], start)
+
+    def test_the_refined_partition_is_the_partition_by_annotated_runs(self) -> None:
+        """The refinement is computed from the fired index at reached pairs;
+        this checks it against partitioning by the annotated runs themselves,
+        on the class small enough to do both."""
+        direct: dict[object, list[int]] = {}
+        for index, law in enumerate(self.memo):
+            key = tuple(sel.annotated_run(law, start, scale) for start, scale in sel.INPUTS)
+            direct.setdefault(key, []).append(index)
+        refined = sel.annotated_partition(self.memo, self.memo_sigs)
+        self.assertEqual(sorted(sorted(m) for m in direct.values()),
+                         sorted(sorted(m) for m in refined.values()))
+
+    def test_the_second_readout_refines_the_first_and_leaves_only_unreached_pairs(self) -> None:
+        result = sel.second_readout(self.kept, self.sigs)
+        self.assertGreater(cast(int, result["residual_classes_under_both"]),
+                           cast(int, result["residual_classes_under_the_first_readout"]))
+        self.assertLess(cast(int, result["largest_class_under_both"]),
+                        cast(int, result["largest_class_under_the_first_readout"]))
+        self.assertTrue(result["within_a_class_the_enablement_agrees_on_every_reached_pair"])
+
+    def test_the_annotated_run_reports_an_index_for_every_entry_but_the_first(self) -> None:
+        for law in (self.forever, rc.turncoat(self.F)):
+            for start in sel.STARTS:
+                plain = sel.observe(law, start, 4)
+                annotated = sel.annotated_run(law, start, 4)
+                self.assertEqual([datum for datum, _ in annotated], list(plain), start)
+                self.assertEqual(annotated[0][1], len(self.F.ops), start)
+                for _, index in annotated[1:]:
+                    self.assertLess(index, len(self.F.ops), start)
+
+    def test_a_refinement_that_is_not_one_is_refused(self) -> None:
+        """The refusal is the receipt's, not a comment.  Reporting the plain
+        partition as if the second readout had refined it would claim a
+        collapse that did not happen; the check fires because a plain class
+        holds laws whose fired index differs at a pair the runs reach --
+        which is the ambiguity CL-RR-09 exhibits."""
+        from unittest.mock import patch  # noqa: PLC0415
+        with patch("selection.annotated_partition",
+                   side_effect=lambda laws, sigs: sel.partition(sigs, list(sel.INPUTS))):
+            with self.assertRaisesRegex(sel.SelectError, "disagrees on a reached pair"):
+                sel.second_readout(self.kept, self.sigs)
 
 
 if __name__ == "__main__":

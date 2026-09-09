@@ -23,7 +23,7 @@ without running the law again.
 from __future__ import annotations
 
 from functools import lru_cache
-from itertools import product
+from itertools import combinations, product
 from typing import Sequence, Union
 
 import control as ct
@@ -176,6 +176,146 @@ def burden(laws: Sequence[Law], sigs: Sequence[Signature] | None = None) -> tupl
         sequence.append({"start": best[1][0], "scale": best[1][1], "classes_after": count})
 
 
+def minimum_burden(sigs: Sequence[Signature]) -> JsonObj:
+    """The least number of declared inputs whose readouts separate the
+    retained laws as finely as all of them together do, and whether the inputs
+    of a single start suffice.
+
+    The greedy sequence is one sequence; this is the minimum.  The search is
+    exhaustive by increasing size, and it is cheap because laws with equal
+    readouts on *all* the declared inputs have equal readouts on any subset of
+    them: one representative per residual class decides every subset, so the
+    search runs over the residual classes and not over the laws."""
+    full = partition(sigs, list(INPUTS))
+    target = len(full)
+    reps = [sigs[members[0]] for members in full.values()]
+    least: tuple[Input, ...] | None = None
+    for size in range(len(INPUTS) + 1):
+        for subset in combinations(INPUTS, size):
+            if len(partition(reps, list(subset))) == target:
+                least = subset
+                break
+        if least is not None:
+            break
+    if least is None:
+        raise SelectError("no set of the declared inputs reaches the residual, not even all of them")
+    by_start: dict[int, JsonObj] = {}
+    for start in STARTS:
+        here = [inp for inp in INPUTS if inp[0] == start]
+        reaches = len(partition(reps, here)) == target
+        smallest: int | None = None
+        if reaches:
+            for size in range(len(here) + 1):
+                if any(len(partition(reps, list(subset))) == target
+                       for subset in combinations(here, size)):
+                    smallest = size
+                    break
+        by_start[start] = {"suffices": reaches, "least_from_this_start_alone": smallest}
+    return {
+        "residual_classes": target,
+        "least": len(least),
+        "a_least_set": [{"start": start, "scale": scale} for start, scale in least],
+        "searched": "every subset of the declared inputs by increasing size, over one representative "
+                    "per residual class",
+        "a_single_start": {str(start): by_start[start] for start in STARTS},
+        "reading": "the greedy sequence is one sequence; this is the minimum, and the two are "
+                   "reported side by side rather than one presented as the other",
+    }
+
+
+def fired_at(law: Law, p: int, x: int) -> int | None:
+    """Which operation is enabled at ``x`` (after ``p`` for a record law), or
+    ``None`` when none or two are."""
+    g, count = _loaded(law)
+    en = ct.enabled_at(g, count, x) if isinstance(law, ct.Controlled) else rc.renabled_at(g, count, p, x)
+    return en[0] if len(en) == 1 else None
+
+
+def annotated_run(law: Law, start: int, scale: int) -> tuple[tuple[int, int], ...]:
+    """The run reported as ``(datum, the index of the operation that produced
+    it)``.  The first entry was produced by nothing and is reported with the
+    operation count in its place, which is not an operation index.
+
+    **HOST READOUT.**  The index is reported by the interpreter; the process
+    does not write it.  The tape and the clock are represented fields of the
+    state, and this is not one.  Making it one would be a change to the
+    machine, not a second reading of it, and that change is not made here."""
+    g, count = _loaded(law)
+    state = rc.rinit(law, start, FUEL) if isinstance(law, rc.Recorded) else ct.init(law, start, FUEL)
+    out: list[tuple[int, int]] = [(state.active, count)]
+    for _ in range(scale):
+        index = fired_at(law, rc.previous(state), state.active)
+        nxt = rc.rstep_det(state) if isinstance(law, rc.Recorded) else ct.step_det(state)
+        if isinstance(nxt, ct.Terminal) or index is None:
+            break
+        out.append((nxt.active, index))
+        state = nxt
+    return tuple(out)
+
+
+def annotated_signature(law: Law) -> tuple[tuple[tuple[int, int], ...], ...]:
+    return tuple(annotated_run(law, start, MAX_SCALE) for start in STARTS)
+
+
+def annotated_partition(laws: Sequence[Law],
+                        sigs: Sequence[Signature]) -> dict[object, list[int]]:
+    """The partition the second readout induces.
+
+    Computed as the plain partition refined by the fired index at each pair
+    the runs reach.  That is equal to partitioning by the annotated runs
+    themselves — two laws with equal tapes have equal annotated runs exactly
+    when their fired indices agree at every reached pair — and
+    ``tests/test_selection.py`` checks the two agree on the memoryless class
+    rather than taking the argument on trust."""
+    out: dict[object, list[int]] = {}
+    for key, members in partition(sigs, list(INPUTS)).items():
+        pairs = sorted(reached_pairs(sigs[members[0]]))
+        for index in members:
+            fired = tuple(fired_at(laws[index], p, x) for p, x in pairs)
+            out.setdefault((key, fired), []).append(index)
+    return out
+
+
+def second_readout(laws: Sequence[Law], sigs: Sequence[Signature]) -> JsonObj:
+    """The protocol rerun with the operation index beside the datum.
+
+    What it should buy, and the check: within a class of the refined
+    partition, the laws agree on their enablement at every pair the runs
+    reach, so what is left to distinguish them is the enablement at pairs no
+    run reaches.  The receipt refuses a class whose members disagree on a
+    reached pair."""
+    plain = partition(sigs, list(INPUTS))
+    refined = annotated_partition(laws, sigs)
+    unreached: list[int] = []
+    for members in refined.values():
+        pairs = sorted(reached_pairs(sigs[members[0]]))
+        readings = {tuple((fired_at(laws[i], p, x), next_value(laws[i], p, x)) for p, x in pairs)
+                    for i in members}
+        if len(readings) != 1:
+            raise SelectError("a class of the refined partition disagrees on a reached pair")
+        carrier = len({p for p, _ in pairs} | {x for _, x in pairs})
+        unreached.append(max(carrier * carrier - len(pairs), 0))
+    return {
+        "readout": "the tape, with the index of the operation that produced each entry beside it",
+        "status": "HOST READOUT: the index is reported by the interpreter, not written by the "
+                  "process.  The tape and the clock are represented fields of the state and this "
+                  "is not one; making it one would be a change to the machine, and that change is "
+                  "not made here.  The precedent is named rather than borrowed",
+        "residual_classes_under_the_first_readout": len(plain),
+        "residual_classes_under_both": len(refined),
+        "largest_class_under_the_first_readout": max(len(m) for m in plain.values()),
+        "largest_class_under_both": max(len(m) for m in refined.values()),
+        "refines_the_first": len(refined) >= len(plain),
+        "within_a_class_the_enablement_agrees_on_every_reached_pair": True,
+        "what_is_left": "the enablement at pairs no run reaches; the largest class has at most "
+                        f"{max(unreached)} such pairs on the identified carrier",
+        "why_it_is_not_free": "which operation carried the datum is not a function of the record "
+                              "(Select.forever_indistinguishable, from Select.obs_bisim), so this "
+                              "readout is genuinely more than the first and not a rearrangement "
+                              "of it",
+    }
+
+
 def residual_reason(laws: Sequence[Law], sigs: Sequence[Signature] | None = None,
                     witness: Law | None = None) -> JsonObj:
     """Check the reason for the residual against the programs themselves:
@@ -258,6 +398,8 @@ def experiment(F: tr.FiniteSetting, observation: Word, forever: ct.Controlled) -
             "experiments": sequence,
             "burden": len(sequence),
             "residual": residual_reason(kept, sigs, witnesses[name]),
+            "minimum_burden": minimum_burden(sigs),
+            "second_readout": second_readout(kept, sigs),
             # Separation by the declared inputs, not the count of survivors:
             # every retained law is told apart from every other one.
             "separated_into_singletons": residual == len(kept),

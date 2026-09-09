@@ -47,7 +47,7 @@ package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
 run recorded with its operation tables in index order; 50 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`724fe33b682fef859f2a1c0275f793af6cc46bab`, the observed family's commit
+`3cb02d5ea9e3a11e32105cdf38b61ea704d94944`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
@@ -179,14 +179,14 @@ private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
 **Python** (`record.py`, `selection.py`, `run.py`, `evidence/record.json`,
-`tests/`): 68 tests, strict typing over twelve files, the two records replay
+`tests/`): 77 tests, strict typing over twelve files, the two records replay
 byte-identically.  The house files follow the sibling families' with
 names, pins and refusals changed; this tree's directory is always first on
 the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`724fe33b682fef859f2a1c0275f793af6cc46bab`, the eight derivation modules and
+`3cb02d5ea9e3a11e32105cdf38b61ea704d94944`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
@@ -218,9 +218,18 @@ Regenerate the two records deliberately and never under a live injection:
   line also said the depth-two machine had no Python mirror and no receipt;
   that is WITHDRAWN — `depth.py` and the record's `depth_two` section.
 * An encoded configuration: the state is a declared host record.
-* That the greedy experiment sequence is a minimum: it is one sequence.
-* An observable that reads which operation fired: the residual of the
-  experiment is exactly what it would separate, and it is not built.
+* That a shorter separating family exists outside the declared inputs.  An
+  earlier version of this line said only that "the greedy experiment sequence
+  is a minimum: it is one sequence"; the minimum over the declared inputs is
+  now computed and is 3, the same length as the greedy sequence though a
+  different set (CL-RR-15).
+* An observable the **process writes** that reads which operation fired.  The
+  host readout is built and measured (CL-RR-15) and takes the record class's
+  residual from 45 classes to 896; a represented field carrying the index is
+  not built, and that would be a change to the machine rather than a second
+  reading of it.
+* That the minimum burden is a minimum over anything but the **declared**
+  inputs.
 * That the merged memoryless reader applies to a record program: it does not.
   A record program carries several instances of one control form leaving one
   record entry, and `execution.lookup` refuses such a form by name, so

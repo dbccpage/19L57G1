@@ -65,6 +65,50 @@ class RecordFile(unittest.TestCase):
             with self.assertRaisesRegex(sel.SelectError, "replays"):
                 run.receipt_bytes()
 
+    def test_every_recorded_run_replays_from_its_own_record(self) -> None:
+        """The house check the producer family carries: rebuild each recorded
+        run from the record's own fields — the index-ordered tables with the
+        recorded enablements, start and fuel — and compare the recorded
+        outcome.  The sealed `setting_json` is set-valued and does not
+        determine the program on its own."""
+        import record as rc  # noqa: PLC0415
+        import translation as tr  # noqa: PLC0415
+        record = self.record()
+        for entry in record["record_runs"]:
+            sealed = entry["setting_json"]
+            pairs = {key: frozenset((int(q[0]), int(q[1])) for q in sealed[key])
+                     for key in ("r", "ret", "prot")}
+            tables = tuple(tuple(int(v) for v in t) for t in entry["ops_in_index_order"])
+            self.assertEqual(sorted(list(t) for t in set(tables)), sealed["ops"])
+            F = tr.FiniteSetting(int(sealed["n"]), pairs["r"], pairs["ret"], pairs["prot"],
+                                 int(sealed["a"]), int(sealed["b"]), tables)
+            C = rc.Recorded(F, frozenset((int(t[0]), int(t[1]), int(t[2]))
+                                         for t in entry["enablements"]))
+            terminal, state = rc.rtrace(C, int(entry["start"]), int(entry["fuel"]))
+            self.assertEqual(list(state.tape), entry["tape"], entry["program"])
+            self.assertEqual(terminal.value, entry["terminal"], entry["program"])
+            self.assertEqual(state.clock, entry["clock"], entry["program"])
+            self.assertEqual(state.fuel, entry["fuel_left"], entry["program"])
+            self.assertEqual(rc.previous(state), entry["previous_at_end"], entry["program"])
+
+    def test_the_minimum_burden_and_the_second_readout_the_record_reports(self) -> None:
+        classes = self.record()["selection"]["classes"]
+        for name in ("memoryless", "record"):
+            minimum = classes[name]["minimum_burden"]
+            self.assertLessEqual(minimum["least"], classes[name]["burden"])
+            self.assertEqual(len(minimum["a_least_set"]), minimum["least"])
+            second = classes[name]["second_readout"]
+            self.assertTrue(second["refines_the_first"])
+            self.assertTrue(second["within_a_class_the_enablement_agrees_on_every_reached_pair"])
+            self.assertIn("HOST READOUT", second["status"])
+        record_class = classes["record"]
+        self.assertEqual(record_class["minimum_burden"]["least"], 3)
+        self.assertEqual(record_class["second_readout"]["residual_classes_under_the_first_readout"], 45)
+        self.assertEqual(record_class["second_readout"]["residual_classes_under_both"], 896)
+        self.assertEqual(record_class["second_readout"]["largest_class_under_both"], 64)
+        for start in ("0", "1", "2"):
+            self.assertFalse(record_class["minimum_burden"]["a_single_start"][start]["suffices"])
+
     def test_record_carries_no_timestamp_path_or_sentinel(self) -> None:
         text = self.fresh.decode("utf-8")
         for token in ("timestamp", "C:\\\\", "/Users/", "worktrees"):
