@@ -1,0 +1,2052 @@
+{
+ "artifact": {
+  "authored_by": "research/represented_execution",
+  "finding_inherited": {
+   "identified_from_recorded_runs": 8,
+   "order_read_from": "the artifact's ops_in_index_order, cross-checked against the sealed table set",
+   "recovered_order_of_sorted_tables": null,
+   "sealed_schema_is_set_valued": "Setting.json sorts the operation tables and collapses repetitions, so it determines neither the index order the enablements refer to nor the operation count"
+  },
+  "path": "research/represented_execution/evidence/process.json",
+  "read_through": "research/coherent_process_limits (limits.identify_programs)",
+  "repair_here": "every run below records its operation tables in index order (ops_in_index_order)",
+  "written_here": false
+ },
+ "authority_effect": "None",
+ "classification": "deterministic computation: the record-reading machine over the sealed encoding, and the selection experiment on the represented process",
+ "config_status": "DECLARED_HOST_CONFIG",
+ "depth_two": {
+  "exhibit": {
+   "enablement_meaning": "[before, previous, active, k]: operation k may fire at the active datum when the two entries before it on the record are those",
+   "enablements": [
+    [
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     1,
+     2,
+     0
+    ],
+    [
+     1,
+     2,
+     0,
+     0
+    ],
+    [
+     2,
+     0,
+     1,
+     1
+    ]
+   ],
+   "functional_in_pairs": false,
+   "functional_in_triples": true,
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    0
+   ],
+   "theorems": "Depth.twist2_tape, Depth.twist2_repeats_a_pair, Depth.no_record_run_realises, Depth.depth_two_is_deeper"
+  },
+  "grammar_unchanged": {
+   "forms_of_the_exhibit": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3
+   ],
+   "program_equals_sealed_replay": true,
+   "reading": "three binary stores, one binary form per operation graph, one ternary form per enablement.  Regime.wf bounds a form's arity below by one and not above, so a regime of mixed arity is a regime as the sealed grammar already stands",
+   "theorem": "Depth.encodeR2_wf"
+  },
+  "ladder": {
+   "ceilings_proved": {
+    "1": "Observe.obs_functional",
+    "2": "Record.robs_functional",
+    "3": "Depth.r2obs_functional"
+   },
+   "fuel": 6,
+   "only_grows": "Depth.triples_of_pairs, Depth.quads_of_triples: a tape functional in d entries is functional in d + 1, so the classes are a chain",
+   "ops_in_index_order": [
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "population": "every deterministic program of each depth on this setting, from every datum: an assignment of at most one operation to each key, exhaustive and not sampled",
+   "rows": [
+    {
+     "entries_read": 1,
+     "every_tape_meets_this_ceiling": true,
+     "strictly_more_than_the_depth_below": false,
+     "tapes_breaking_the_ceiling_below": [],
+     "tapes_realised": 10,
+     "tapes_the_depth_below_cannot_realise": [],
+     "window": 2
+    },
+    {
+     "entries_read": 2,
+     "every_tape_meets_this_ceiling": true,
+     "strictly_more_than_the_depth_below": true,
+     "tapes_breaking_the_ceiling_below": [
+      [
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       1
+      ]
+     ],
+     "tapes_realised": 22,
+     "tapes_the_depth_below_cannot_realise": [
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       1
+      ]
+     ],
+     "window": 3
+    },
+    {
+     "entries_read": 3,
+     "every_tape_meets_this_ceiling": true,
+     "strictly_more_than_the_depth_below": true,
+     "tapes_breaking_the_ceiling_below": [
+      [
+       0,
+       1,
+       0,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1
+      ]
+     ],
+     "tapes_realised": 70,
+     "tapes_the_depth_below_cannot_realise": [
+      [
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       0,
+       1,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1
+      ]
+     ],
+     "window": 4
+    }
+   ],
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "strictness_proved": "Depth.the_ladder, from Record.twist_tape and Depth.twist2_tape; the sweep below counts how many such tapes there are"
+  },
+  "machine": "an enablement reading (before, previous, active), represented on a ternary control form per operation with instances (3 + nops + k, [b, p, x])",
+  "not_delivered": "a machine of depth d for d > 2, here or in the Lean.  The ceiling is proved one rung at a time and not for a general d, because no general-depth machine is built; `depth.functional` is written for any window size so that the statement checked at each rung is the same one"
+ },
+ "forget": {
+  "distinction_disappears": true,
+  "meaning": "the record forgotten: the enablement read at the datum as its own predecessor",
+  "projection": [
+   [
+    0,
+    0
+   ]
+  ],
+  "tape": [
+   0,
+   1
+  ],
+  "terminal": "halt"
+ },
+ "lift": {
+  "agrees_with_forever_at_every_declared_input": true,
+  "program": "liftForever"
+ },
+ "not_delivered": [
+  "a record read deeper than two entries, or a depth-d family for general d",
+  "an encoded configuration: the state is a declared host record",
+  "an observable the PROCESS WRITES that reads which operation fired.  The host readout is built and measured in the selection section: it takes the record class's residual from 45 classes to 896 and leaves exactly the enablements at unreached pairs.  What is not built is a represented field carrying the index, as the tape carries the datum, and that would be a change to the machine rather than a second reading of it",
+  "a second locus of activity IN THIS FAMILY: the producer family builds one and this family neither consumes nor extends it"
+ ],
+ "record_is_read": {
+  "actives_by_step": [
+   0,
+   1,
+   0,
+   0
+  ],
+  "left_towards": [
+   1,
+   0
+  ],
+  "meaning": "at its third step the run is at the datum it started from and moves elsewhere than the first time: the enablement read the record (Record.record_is_read)",
+  "memoryless_cannot": "a run of the merged machine that returns to a datum leaves it the same way (Record.memoryless_functional)",
+  "memoryless_class_checked": {
+   "class": "every program on the identified setting with at most one operation enabled per datum, from every datum, at fuel 3",
+   "programs": 64,
+   "tape_0_1_0_0_realized": false,
+   "tape_is_functional": false
+  },
+  "program": "twist",
+  "same_datum_at_steps": [
+   0,
+   2
+  ]
+ },
+ "record_reading": {
+  "bisimulation": "Select.RRel, Select.rrel_next, Select.robs_bisim: same next-value function, active datum, record and fuel give the same observation at every scale; the record is part of the relation, so previous agrees (Select.previous_congr)",
+  "ceiling_of_a_depth_one_read": "Record.robs_functional: every realised tape is functional in its pairs \u2014 two places where the same datum follows the same datum are followed by the same datum.  A memoryless tape is functional in single entries; one entry of record buys pairs and no more, and a deeper read has to break exactly this",
+  "completeness": "Record.rsuccessors_complete",
+  "depth_two": "Depth.encodeR2_wf: a depth-two enablement is the instance (3 + nops + k, [before, previous, active]) on a ternary control form, so the regime has mixed arity \u2014 the sealed Regime.wf constrains a form's arity only by 1 <= a, and no new admission was needed.  Depth.twist2_tape and Depth.no_record_run_realises: the tape 0, 1, 2, 0, 1, 0 is realised there and by no record-reading program.  Mirrored by depth.py and recorded in the depth_two section below; an earlier version of this line said \"proved, not computed: no Python mirror\" and was left standing after the mirror landed",
+  "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
+  "never_selects": "Record.rrun_branch",
+  "one_step_by_its_next_value": "Record.rnextOf, Record.rstepDet_spec",
+  "only_appends": "Record.robs_prefix",
+  "program": "Record.rprogram; well-formed regime Record.encodeR_wf",
+  "read": "Record.renabled: the presence of the instance (3 + nops + k, [previous, active]); Record.previous: the entry before the last on the record",
+  "read_faithfully": "Record.renabled_rprogram",
+  "record_is_what_the_process_wrote": "Record.previous_fire: after a firing the datum the step left is the previous the next enablement reads",
+  "reference": "Record.RStep",
+  "soundness": "Record.rsuccessors_sound"
+ },
+ "record_runs": [
+  {
+   "clock": 3,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 3,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 0,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    0,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 0,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 0,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 4,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 1,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "successors_at_end": [],
+   "tape": [
+    1
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 0,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     0,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 4,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 2,
+   "program": "twist",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 1,
+   "program": "turncoat",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    0,
+    1,
+    2
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 0,
+   "program": "turncoat",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2,
+    0,
+    0,
+    1,
+    2,
+    0,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 6,
+   "enablement_meaning": "[previous, active, k]: operation k may fire at the active datum when the datum before it on the record is previous; represented as the instance (3 + nops + k, [previous, active])",
+   "enablements": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     0
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "fuel": 6,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "previous_at_end": 2,
+   "program": "liftForever",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0
+   ],
+   "terminal": "exhausted"
+  }
+ ],
+ "schema_version": 1,
+ "selection": {
+  "ambiguity_exhibited": {
+   "both_survive": true,
+   "climbFirst": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "forever": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "programs_differ": true,
+   "separated_by_a_declared_input": false,
+   "why": "both carry 0 to 1: the tape does not say which operation carried the datum (Select.forever_indistinguishable, from Select.obs_bisim)"
+  },
+  "classes": {
+   "memoryless": {
+    "burden": 0,
+    "class": "every program on the identified setting with at most one operation enabled per datum",
+    "class_size": 64,
+    "experiments": [],
+    "minimum_burden": {
+     "a_least_set": [],
+     "a_single_start": {
+      "0": {
+       "least_from_this_start_alone": 0,
+       "suffices": true
+      },
+      "1": {
+       "least_from_this_start_alone": 0,
+       "suffices": true
+      },
+      "2": {
+       "least_from_this_start_alone": 0,
+       "suffices": true
+      }
+     },
+     "least": 0,
+     "reading": "the greedy sequence is one sequence; this is the minimum, and the two are reported side by side rather than one presented as the other",
+     "residual_classes": 1,
+     "searched": "every subset of the declared inputs by increasing size, over one representative per residual class"
+    },
+    "one_survivor": false,
+    "residual": {
+     "between_classes_it_differs_on_a_reached_pair": null,
+     "class_of_the_law_that_produced_the_observation": 8,
+     "class_pairs_compared": 0,
+     "largest_class": 8,
+     "residual_classes": 1,
+     "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
+    },
+    "second_readout": {
+     "largest_class_under_both": 1,
+     "largest_class_under_the_first_readout": 8,
+     "readout": "the tape, with the index of the operation that produced each entry beside it",
+     "refines_the_first": true,
+     "residual_classes_under_both": 8,
+     "residual_classes_under_the_first_readout": 1,
+     "status": "HOST READOUT: the index is reported by the interpreter, not written by the process.  The tape and the clock are represented fields of the state and this is not one; making it one would be a change to the machine, and that change is not made here.  The precedent is named rather than borrowed",
+     "what_is_left": "the enablement at pairs no run reaches; the largest class has at most 3 such pairs on the identified carrier",
+     "why_it_is_not_free": "which operation carried the datum is not a function of the record (Select.forever_indistinguishable, from Select.obs_bisim), so this readout is genuinely more than the first and not a rearrangement of it",
+     "within_a_class_the_enablement_agrees_on_every_reached_pair": true
+    },
+    "separated_into_singletons": false,
+    "survivors": 8
+   },
+   "record": {
+    "burden": 3,
+    "class": "every record-reading program on the identified setting with at most one operation enabled per (previous, active) pair",
+    "class_size": 262144,
+    "experiments": [
+     {
+      "classes_after": 11,
+      "scale": 6,
+      "start": 1
+     },
+     {
+      "classes_after": 37,
+      "scale": 2,
+      "start": 2
+     },
+     {
+      "classes_after": 45,
+      "scale": 4,
+      "start": 0
+     }
+    ],
+    "minimum_burden": {
+     "a_least_set": [
+      {
+       "scale": 4,
+       "start": 0
+      },
+      {
+       "scale": 2,
+       "start": 1
+      },
+      {
+       "scale": 1,
+       "start": 2
+      }
+     ],
+     "a_single_start": {
+      "0": {
+       "least_from_this_start_alone": null,
+       "suffices": false
+      },
+      "1": {
+       "least_from_this_start_alone": null,
+       "suffices": false
+      },
+      "2": {
+       "least_from_this_start_alone": null,
+       "suffices": false
+      }
+     },
+     "least": 3,
+     "reading": "the greedy sequence is one sequence; this is the minimum, and the two are reported side by side rather than one presented as the other",
+     "residual_classes": 45,
+     "searched": "every subset of the declared inputs by increasing size, over one representative per residual class"
+    },
+    "one_survivor": false,
+    "residual": {
+     "between_classes_it_differs_on_a_reached_pair": true,
+     "class_of_the_law_that_produced_the_observation": 4096,
+     "class_pairs_compared": 990,
+     "largest_class": 4096,
+     "residual_classes": 45,
+     "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
+    },
+    "second_readout": {
+     "largest_class_under_both": 64,
+     "largest_class_under_the_first_readout": 4096,
+     "readout": "the tape, with the index of the operation that produced each entry beside it",
+     "refines_the_first": true,
+     "residual_classes_under_both": 896,
+     "residual_classes_under_the_first_readout": 45,
+     "status": "HOST READOUT: the index is reported by the interpreter, not written by the process.  The tape and the clock are represented fields of the state and this is not one; making it one would be a change to the machine, and that change is not made here.  The precedent is named rather than borrowed",
+     "what_is_left": "the enablement at pairs no run reaches; the largest class has at most 3 such pairs on the identified carrier",
+     "why_it_is_not_free": "which operation carried the datum is not a function of the record (Select.forever_indistinguishable, from Select.obs_bisim), so this readout is genuinely more than the first and not a rearrangement of it",
+     "within_a_class_the_enablement_agrees_on_every_reached_pair": true
+    },
+    "separated_into_singletons": false,
+    "survivors": 32768
+   }
+  },
+  "declared_before_readout": {
+   "classes": {
+    "memoryless": "every program on the identified setting with at most one operation enabled per datum",
+    "record": "every record-reading program on the identified setting with at most one operation enabled per (previous, active) pair"
+   },
+   "fuel": 8,
+   "observed_program": "forever",
+   "observed_scale": 3,
+   "observed_start": 0,
+   "readout": "the tape after the scale's number of steps of the deterministic runner",
+   "scales": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "separation_rule": "the retained laws are separated by the readouts of the declared inputs only, each read as the prefix of one run per start at the finest scale",
+   "starts": [
+    0,
+    1,
+    2
+   ],
+   "survivor_rule": "a law is retained when its own run from the observed start at the observed scale reads the seen observation; no law is removed afterwards"
+  },
+  "discrimination_exhibited": {
+   "agree_at_the_seen_observation": true,
+   "lift_forever": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     0
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ],
+   "separated_by_scale": {
+    "readouts": [
+     [
+      0,
+      1,
+      2,
+      0,
+      0
+     ],
+     [
+      0,
+      1,
+      2,
+      0,
+      1
+     ]
+    ],
+    "scale": 4,
+    "start": 0
+   },
+   "separated_by_start": {
+    "readouts": [
+     [
+      2,
+      0,
+      0
+     ],
+     [
+      2,
+      0,
+      1
+     ]
+    ],
+    "scale": 2,
+    "start": 2
+   },
+   "turncoat": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     2,
+     0
+    ],
+    [
+     1,
+     0,
+     0
+    ],
+    [
+     1,
+     1,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     2,
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     0
+    ],
+    [
+     2,
+     2,
+     0
+    ]
+   ]
+  },
+  "missing_axiom": "an observable that reads which operation fired, not only where the datum went: the tape identifies a law up to its next-value function on the pairs the runs reach (Select.obs_bisim) and the residual classes are exactly those (checked above)",
+  "observation": [
+   0,
+   1,
+   2,
+   0
+  ]
+ }
+}

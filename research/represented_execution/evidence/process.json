@@ -1,0 +1,1055 @@
+{
+ "authority_effect": "None",
+ "branching_example": {
+  "meaning": "at datum 0 the cycle is enabled, at datum 1 the constant map, at datum 2 nothing: which operation fires is read from the data",
+  "program": "ping",
+  "tapes_by_start": {
+   "0": [
+    0,
+    1,
+    0,
+    1,
+    0
+   ],
+   "1": [
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "2": [
+    2
+   ]
+  }
+ },
+ "classification": "deterministic computation: the word machine and the data-driven machine over the sealed encoding",
+ "config_status": "DECLARED_HOST_CONFIG",
+ "config_status_meaning": "Config and State are metatheory records whose graph fields are copies of encoded instances; the processes read encoded data and do not themselves live in the sealed grammar.  The represented program of a controlled setting is itself a well-formed regime (Control.encodeC_wf).",
+ "control": {
+  "clock": "advances exactly when an operation edge is applied (Control.fire_ok); the machine has no administrative step",
+  "completeness": "Control.successors_complete",
+  "enablement_read_faithfully": "Control.enabled_program",
+  "fire": "Control.fire",
+  "fuel": "a represented field, spent by one per firing (Control.fire_ok), renewed by nothing (Control.fire_exhausted)",
+  "never_selects": "Control.run_branch",
+  "non_stuck_on_the_live_class": "Control.live_successor",
+  "pair": "the initial state does not depend on the designated pair (Control.init_pair)",
+  "program": "operation graphs and enablements; the enablement of operation k at datum x is the self-instance (3 + nops + k, [x, x]); the stores are not loaded",
+  "reference": "Control.CStep",
+  "run": "Control.run",
+  "soundness": "Control.successors_sound",
+  "step": "Control.stepDet",
+  "successors": "Control.successors",
+  "terminals": [
+   "halt",
+   "exhausted",
+   "refuse",
+   "branch"
+  ],
+  "well_formed_program": "Control.encodeC_wf"
+ },
+ "control_runs": [
+  {
+   "clock": 4,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "ping",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    0,
+    1,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 4,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "ping",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "successors_at_end": [],
+   "tape": [
+    1,
+    0,
+    1,
+    0,
+    1
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 0,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "fuel": 4,
+   "fuel_left": 4,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "ping",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 2,
+   "enablements": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "fuel": 10,
+   "fuel_left": 8,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "climb",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 1,
+   "enablements": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "fuel": 10,
+   "fuel_left": 9,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "climb",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "successors_at_end": [],
+   "tape": [
+    1,
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 0,
+   "enablements": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "fuel": 10,
+   "fuel_left": 10,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "climb",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "successors_at_end": [],
+   "tape": [
+    2
+   ],
+   "terminal": "halt"
+  },
+  {
+   "clock": 5,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "fuel": 5,
+   "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "forever",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [],
+   "tape": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    2
+   ],
+   "terminal": "exhausted"
+  },
+  {
+   "clock": 0,
+   "enablements": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "fuel": 5,
+   "fuel_left": 5,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "program": "fork",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ],
+     [
+      1,
+      2,
+      2
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "successors_at_end": [
+    0,
+    1
+   ],
+   "tape": [
+    0
+   ],
+   "terminal": "branch"
+  }
+ ],
+ "fragment": "control",
+ "iteration_example": {
+  "firings_by_start": {
+   "0": 2,
+   "1": 1,
+   "2": 0
+  },
+  "meaning": "the climb is enabled at 0 and 1 and nothing at 2: the run halts after a number of firings set by the start datum, not by the interpreter",
+  "program": "climb",
+  "terminals_by_start": {
+   "0": "halt",
+   "1": "halt",
+   "2": "halt"
+  }
+ },
+ "live_class": "Control.Live: an admitted active datum with an enabled operation and fuel",
+ "not_delivered": [
+  "a retained record that a later operation reads: the tape is retained and observable, but no enablement reads it, so two states with one active datum and different tapes have one future",
+  "represented storage growth beyond the tape",
+  "an encoded configuration: the state is a declared host record",
+  "the two-locus run observed at step scales: the run and its projections are recorded here, but the inverse system over them is the observing family's to build",
+  "a schedule that is not a function of the active datum: a run whose choice of locus depends on the tape would need the record-reading enablement, which is a different family's machine"
+ ],
+ "observation": {
+  "active": "the final active datum, a member of the carrier",
+  "output": "the tape of data visited, one entry per firing (the words machine: one per letter)"
+ },
+ "renaming": {
+  "reading": "presentation identity is not internal identity, and the machine reads only the latter: a datum is a number here because something had to be written down",
+  "refuses_a_map_that_is_not_a_permutation": true,
+  "renaming": "a permutation of the carrier; the inverse is computed and checked here, and declared with its two-sided conditions in the Lean",
+  "sweep": {
+   "carrier": 3,
+   "every_run_transports": true,
+   "fuel": 6,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "programs": 64,
+   "renamings": 6,
+   "runs_checked": 1152
+  },
+  "theorems": "Rename.rename_enabledAt, rename_lookup, rename_stepDet, rename_runDet, rename_run, rename_tape: the correspondence holds for every controlled setting, every renaming and every start, not only over this sweep; Rename.not_a_renaming is the failure case",
+  "what_does_not": "the terminal, the clock and the fuel; and the interpreter, which is unchanged",
+  "what_moves": "every operation is conjugated, every store is read through the inverse, the endpoints move, and the enablement is read through the inverse"
+ },
+ "runs": [
+  {
+   "active": 2,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "output": [
+    1,
+    0,
+    1,
+    2
+   ],
+   "reference_active": 2,
+   "setting": "twoOps",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "word": [
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "active": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "output": [
+    1,
+    2,
+    0
+   ],
+   "reference_active": 0,
+   "setting": "twoOps",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 0,
+   "word": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "active": 2,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "output": [],
+   "reference_active": 2,
+   "setting": "twoOps",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 3,
+    "ops": [
+     [
+      0,
+      0,
+      0
+     ],
+     [
+      1,
+      2,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 2,
+   "word": []
+  },
+  {
+   "active": 0,
+   "ops_in_index_order": [
+    [
+     0,
+     0
+    ]
+   ],
+   "output": [
+    0,
+    0
+   ],
+   "reference_active": 0,
+   "setting": "d2Merged",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ]
+    ],
+    "ret": []
+   },
+   "start": 1,
+   "word": [
+    0,
+    0
+   ]
+  },
+  {
+   "active": 0,
+   "ops_in_index_order": [
+    [
+     0,
+     0
+    ]
+   ],
+   "output": [
+    0
+   ],
+   "reference_active": 0,
+   "setting": "boolEmptyMerged",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [],
+    "ret": []
+   },
+   "start": 1,
+   "word": [
+    0
+   ]
+  },
+  {
+   "active": 0,
+   "ops_in_index_order": [
+    [
+     0,
+     0
+    ]
+   ],
+   "output": [
+    0,
+    0,
+    0
+   ],
+   "reference_active": 0,
+   "setting": "s2Merged",
+   "setting_json": {
+    "a": 0,
+    "b": 1,
+    "n": 2,
+    "ops": [
+     [
+      0,
+      0
+     ]
+    ],
+    "prot": [],
+    "r": [
+     [
+      0,
+      1
+     ],
+     [
+      1,
+      0
+     ]
+    ],
+    "ret": []
+   },
+   "start": 0,
+   "word": [
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "schema_version": 2,
+ "two_loci": {
+  "alternating_run": {
+   "tape": [
+    0,
+    2,
+    3,
+    1,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  "carrier": "pairs over two two-point loci, packed as m * a + b (Product.pack)",
+  "mirror_run": {
+   "tape": [
+    0,
+    1,
+    3,
+    2,
+    0
+   ],
+   "terminal": "exhausted"
+  },
+  "one_locus_at_a_time": {
+   "failure_case": "Schedule.swap_moves_both: an operation at neither locus moves both in one step, so this is a property of the product's operations and not of the machine",
+   "holds": true,
+   "theorem": "Schedule.step_moves_one_locus, from Product.prod_left_local and prod_right_local"
+  },
+  "ops_in_index_order": [
+   [
+    2,
+    3,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    3,
+    2
+   ]
+  ],
+  "projections": {
+   "destuttered": {
+    "first_locus": [
+     0,
+     1,
+     0
+    ],
+    "second_locus": [
+     0,
+     1,
+     0
+    ]
+   },
+   "first_locus": [
+    0,
+    1,
+    1,
+    0,
+    0
+   ],
+   "one_locus_run": [
+    0,
+    1,
+    0
+   ],
+   "reading": "what lifts to observations is the projection with the repeats dropped; the repeats are exactly the steps that moved the other locus",
+   "second_locus": [
+    0,
+    0,
+    1,
+    1,
+    0
+   ],
+   "theorem": "Schedule.locus1_is_its_own_run, Schedule.locus2_is_its_own_run"
+  },
+  "schedule": {
+   "alternating": {
+    "0": 0,
+    "1": 1,
+    "2": 1,
+    "3": 0
+   },
+   "carried_by": "enablement self-instances, exactly as for any controlled setting",
+   "mirror": {
+    "0": 1,
+    "1": 0,
+    "2": 0,
+    "3": 1
+   },
+   "never_selects": "Schedule.enabledAt_scheduled, Schedule.scheduled_no_branch: at every datum the enabled list is a singleton, so the interpreter has nothing to choose and the two-locus run needs no host scheduler",
+   "reads_both_loci": "a schedule may, and an operation may not: Product.coupling_breaks_the_square"
+  },
+  "setting_json": {
+   "a": 0,
+   "b": 3,
+   "n": 4,
+   "ops": [
+    [
+     1,
+     0,
+     3,
+     2
+    ],
+    [
+     2,
+     3,
+     0,
+     1
+    ]
+   ],
+   "prot": [],
+   "r": [],
+   "ret": []
+  },
+  "square": {
+   "on_the_observation": {
+    "agree": false,
+    "alternating": [
+     0,
+     2,
+     3
+    ],
+    "mirror": [
+     0,
+     1,
+     3
+    ],
+    "reading": "the commutation is real and the record still distinguishes the orders: a tape totally orders events that the loci do not",
+    "theorem": "Schedule.square_fails_on_the_observation"
+   },
+   "on_the_outcome": {
+    "agree": true,
+    "alternating": 3,
+    "mirror": 3,
+    "theorem": "Schedule.square_on_the_outcome; the operations commute by Product.prod_comm"
+   }
+  }
+ },
+ "words": {
+  "concatenation": "Execution.run_append",
+  "correspondence": "Execution.run_encode",
+  "iterate": "Execution.iterate",
+  "reference": "Execution.evalWord",
+  "run": "Execution.run",
+  "step": "Execution.step",
+  "totality": "Execution.run_total",
+  "word": "a list of operation indices; step reads the edge of form 3 + k leaving the active datum"
+ }
+}

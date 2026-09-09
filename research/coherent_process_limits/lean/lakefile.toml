@@ -1,0 +1,42 @@
+name = "coherent_process_limits"
+version = "0.1.0"
+defaultTargets = ["Limits", "Steps", "Chain", "TwoLoci", "Cycle", "Periodic", "Fork", "Observe", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The represented execution family: the process this family observes,
+# consumed read-only (it carries setting_translation and the merged
+# packages beneath it).
+[[require]]
+name = "represented_execution"
+path = "../../represented_execution/lean"
+
+[[lean_lib]]
+name = "Limits"
+
+[[lean_lib]]
+name = "Steps"
+
+[[lean_lib]]
+name = "Chain"
+
+[[lean_lib]]
+name = "TwoLoci"
+
+[[lean_lib]]
+name = "Cycle"
+
+[[lean_lib]]
+name = "Periodic"
+
+[[lean_lib]]
+name = "Fork"
+
+[[lean_lib]]
+name = "Observe"
+
+[[lean_lib]]
+name = "Inventory"

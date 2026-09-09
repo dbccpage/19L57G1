@@ -1,0 +1,558 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 7,
+  "census": "compiled environment theorem declarations in the Record, Select and Depth namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Depth.lean": "281b0c465f72d134cf234c9fad1b7281a38e58b268a3cca694460e69c9e45e02",
+    "Inventory.lean": "8614b5c1062367c6f71f92cc0a4094546a7dd15f189f46d97c0aed1109270777",
+    "Record.lean": "8fdeef14844cd7bc1c038b9061a69a7331cabb0bde814763118ceef998eb029e",
+    "Select.lean": "4bbc28e3f9925ef4f521e30c43ec71df20a27cfff6cfd2b29ee836d4034c6e7f",
+    "lakefile.toml": "ec73670d4dc74d6c30a89bcce228dcb19b45eec22eaa0823cc3b455b51cfd307",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_mirror_refinement": "NOT_PROVED",
+  "reports": {
+    "Depth.Recorded2.mk.inj": [],
+    "Depth.Recorded2.mk.injEq": [
+      "propext"
+    ],
+    "Depth.Recorded2.mk.sizeOf_spec": [],
+    "Depth.before_of_reverse": [
+      "propext"
+    ],
+    "Depth.depth_two_is_deeper": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_getD_binary": [
+      "propext"
+    ],
+    "Depth.formsOf_getD_ternary": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_getD_ternary._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_getD_ternary._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_length": [
+      "propext"
+    ],
+    "Depth.formsOf_pos": [
+      "propext"
+    ],
+    "Depth.lastThree_ne_none": [],
+    "Depth.lastThree_reverse": [
+      "propext"
+    ],
+    "Depth.lift2_R2Step": [
+      "propext"
+    ],
+    "Depth.lookup_r2program_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.lookup_r2program_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.lookup_r2program_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_carrierTriples": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_r2enabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_r2program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_r2successors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_rec2Insts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.no_record_run_realises": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.pairsOf_of_triplesOf": [
+      "propext"
+    ],
+    "Depth.quadsOf_snoc": [
+      "propext"
+    ],
+    "Depth.quadsOf_snoc_none": [
+      "propext"
+    ],
+    "Depth.quads_of_triples": [
+      "propext"
+    ],
+    "Depth.r2chain_functional": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_r2program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_r2program._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_r2program._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2init_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2iter_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2iter_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2iter_succ": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_of_inl": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_of_inr": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2obs_functional": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2obs_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2stepDet_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2stepDet_spec": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2successors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.the_ladder": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.three_readers_one_runner": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.triplesOf_of_quadsOf": [
+      "propext"
+    ],
+    "Depth.triples_of_pairs": [
+      "propext"
+    ],
+    "Depth.twist2_repeats_a_pair": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.twist2_tape": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.twist_repeats_an_entry": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.Recorded.mk.inj": [],
+    "Record.Recorded.mk.injEq": [
+      "propext"
+    ],
+    "Record.Recorded.mk.sizeOf_spec": [],
+    "Record.encodeR_forms_getD": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_forms_length": [
+      "propext"
+    ],
+    "Record.encodeR_forms_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.encodeR_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.fire_synced": [
+      "propext"
+    ],
+    "Record.forget_twist": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.getLast?_snoc": [
+      "propext"
+    ],
+    "Record.lastTwo_ne_none": [],
+    "Record.lastTwo_reverse": [
+      "propext"
+    ],
+    "Record.lift_RStep": [
+      "propext"
+    ],
+    "Record.lift_renabled": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lookup_rprogram_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lookup_rprogram_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.lookup_rprogram_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_recInsts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_renabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_rprogram": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.mem_rsuccessors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.memoryless_functional": [
+      "propext"
+    ],
+    "Record.present_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.previous_fire": [
+      "propext"
+    ],
+    "Record.previous_of_reverse": [
+      "propext"
+    ],
+    "Record.previous_rinit": [
+      "propext"
+    ],
+    "Record.rchain_functional": [
+      "propext"
+    ],
+    "Record.record_is_read": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_rprogram": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_rprogram._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.renabled_rprogram._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.rinit_chain": [
+      "propext"
+    ],
+    "Record.rinit_synced": [],
+    "Record.riter_chain": [
+      "propext"
+    ],
+    "Record.riter_is_generic": [
+      "propext"
+    ],
+    "Record.riter_succ": [
+      "propext"
+    ],
+    "Record.rnext_chain": [
+      "propext"
+    ],
+    "Record.rnext_is_generic": [
+      "propext"
+    ],
+    "Record.rnext_of_inl": [
+      "propext"
+    ],
+    "Record.rnext_of_inr": [
+      "propext"
+    ],
+    "Record.rnext_tape": [
+      "propext"
+    ],
+    "Record.robs_functional": [
+      "propext"
+    ],
+    "Record.robs_is_generic": [
+      "propext"
+    ],
+    "Record.robs_prefix": [
+      "propext"
+    ],
+    "Record.robs_prefix_add": [
+      "propext"
+    ],
+    "Record.robs_prefix_is_generic": [
+      "propext"
+    ],
+    "Record.rrunDet_branch": [
+      "propext"
+    ],
+    "Record.rrunDet_is_generic": [
+      "propext"
+    ],
+    "Record.rrun_branch": [
+      "propext"
+    ],
+    "Record.rstepDet_branch": [
+      "propext"
+    ],
+    "Record.rstepDet_inr": [
+      "propext"
+    ],
+    "Record.rstepDet_is_generic": [
+      "propext"
+    ],
+    "Record.rstepDet_spec": [
+      "propext"
+    ],
+    "Record.rsuccessors_complete": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.rsuccessors_complete._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.rsuccessors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.triplesOf_snoc": [
+      "propext"
+    ],
+    "Record.triplesOf_snoc_none": [
+      "propext"
+    ],
+    "Record.twist_period": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Record.twist_tape": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.enabledAt_ge": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.enabledAt_ge._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.enabledAt_ge._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.forever_ambiguous": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.forever_differ": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.forever_indistinguishable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.nextValue_ge": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.next_of_inl": [
+      "propext"
+    ],
+    "Select.next_of_inr": [
+      "propext"
+    ],
+    "Select.obs_bisim": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.obs_take": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.previous_congr": [
+      "propext"
+    ],
+    "Select.rel_iter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rel_next._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.robs_bisim": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.robs_take": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_iter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.stepDet_spec": [
+      "propext"
+    ],
+    "Select.turncoat_agrees": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.turncoat_differs_scale": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.turncoat_differs_start": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "Depth": 59,
+    "Record": 64,
+    "Select": 28
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination; and the depth-two read, whose control forms are ternary \u2014 a regime of mixed arity, which the sealed grammar admits \u2014 realising a tape no depth-one program realises.",
+  "theorem_count_including_generated": 151,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

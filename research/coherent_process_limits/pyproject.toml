@@ -1,0 +1,16 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "../../code", "../setting_translation", "../represented_execution"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+# A glob, not a hand list: a module the list forgot is a module the census
+# does not check.  A file nothing imports is invisible to `follow_imports`,
+# and that was demonstrated before this line was written -- an unannotated,
+# type-broken `zzz_probe_orphan.py` left the run reporting "Success: no
+# issues found in 15 source files"; with the glob it is named.
+files = ["*.py", "tests"]
+mypy_path = ".:../../code:../setting_translation:../represented_execution"
+explicit_package_bases = true

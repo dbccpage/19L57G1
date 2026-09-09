@@ -1,0 +1,571 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 16,
+  "census": "compiled environment theorem declarations in the Limits and Observe namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Chain.lean": "da1ae508b96fd057b1401723e0fce609ce7b0220b42edb4551a48ab4ab4065b1",
+    "Cycle.lean": "c318561a9bd86c882eaefabd13407f8dc08c3e8534b297ae58d01febc5462e28",
+    "Fork.lean": "8dfdea2c6b48852400f19d006005cc937bb2734cf6da778fdf013dde8c23a99c",
+    "Inventory.lean": "5803f23751597dfd74a3724bcdd60e976409bac95289bde429140c7f6ddb763b",
+    "Limits.lean": "b53b5327e478c4983af7f2f8dbaa7236f2d0989e821236d90325ecefedcabe0e",
+    "Observe.lean": "524c5736c58663ba28090d257ea1bcc072298b363676684c4aaab4cb57f8d499",
+    "Periodic.lean": "2f4c4033c48ef28946dda2ba401851b11a7ec7143381b3da0a9b72bae6eff0fe",
+    "Steps.lean": "a3442c383335603696455595dca6a0a638611600b9ec00b4f335dd45d83477f8",
+    "TwoLoci.lean": "4f9f5fed7670ec5439803133215796cb6e5f3b56e35766f0277eed7f2b8b2177",
+    "lakefile.toml": "563642a15251da517170cb52cb330c3f7c7464d649d565549e94bbb499c587f0",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_mirror_refinement": "NOT_PROVED",
+  "reports": {
+    "Limits.bond._proof_1": [],
+    "Limits.ebond._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.ebond._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eofSeq._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eofSeq_etoSeq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eofSeq_etoSeq._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.estable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.estable._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.estable._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.etoSeq._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.etoSeq._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.etoSeq_eofSeq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.even_thread": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eventual._proof_1": [],
+    "Limits.eventual._proof_2": [],
+    "Limits.eventual_agrees": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eventual_agrees._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.eventual_not_compatible": [],
+    "Limits.ofSeq._proof_1": [],
+    "Limits.ofSeq_toSeq": [
+      "Quot.sound"
+    ],
+    "Limits.restrictEven._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.restrictEven._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.restrictEven_eq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.shift_not_local": [],
+    "Limits.stable": [],
+    "Limits.thread_even": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.thread_restrictEven": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.threads_are_sequences": [],
+    "Limits.toSeq_ofSeq": [],
+    "Limits.twins_are_two_threads": [],
+    "Limits.twins_differ_at_scale_one": [],
+    "Limits.twins_differ_at_zero": [],
+    "Observe.base._proof_1": [],
+    "Observe.base._proof_2": [],
+    "Observe.base._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.branchStep_ne_nil": [
+      "propext"
+    ],
+    "Observe.branchStep_tape": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.chain_functional": [
+      "propext"
+    ],
+    "Observe.chain_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.chain_snoc": [
+      "propext"
+    ],
+    "Observe.cycTape_succ": [
+      "propext"
+    ],
+    "Observe.cyc_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_lt._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_mod": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_mod._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_mod._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_mod._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.cyc_mod._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.enabledAt_forever": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.enabledAt_forever._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic_run._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.eventually_periodic_run._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.find_eq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.find_eq._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.find_eq._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_iter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_iter._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_iter._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_iter._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_iter._proof_1_6": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_obs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_run_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.forever_zeros": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.fork_family_is_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.fork_runner_is_frozen": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.fork_runner_not_in_the_family": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.frontier_ne_nil": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.getLast?_snoc": [
+      "propext"
+    ],
+    "Observe.init_chain": [
+      "propext"
+    ],
+    "Observe.iter_active": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.iter_active._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.iter_active._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.iter_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.iter_graph": [
+      "propext"
+    ],
+    "Observe.iter_is_generic": [
+      "propext"
+    ],
+    "Observe.iter_succ": [
+      "propext"
+    ],
+    "Observe.lookup_forever": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.lookup_forever._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.lost_fuel": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.mem_pairsOf_snoc": [
+      "propext"
+    ],
+    "Observe.nextOf_eq_lookup": [
+      "propext"
+    ],
+    "Observe.nextOf_of_single": [
+      "propext"
+    ],
+    "Observe.nextOf_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextOf_one_locus._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextOf_one_locus._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextOf_some": [
+      "propext"
+    ],
+    "Observe.nextVal_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextVal_lt._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.nextVal_lt._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_active": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_active_det": [
+      "propext"
+    ],
+    "Observe.next_branch": [
+      "propext"
+    ],
+    "Observe.next_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_chain._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_exhausted": [
+      "propext"
+    ],
+    "Observe.next_fire": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_fire._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_fire._proof_1_6": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_fuel": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_fuel._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.next_graph": [
+      "propext"
+    ],
+    "Observe.next_halt": [
+      "propext"
+    ],
+    "Observe.next_is_generic": [
+      "propext"
+    ],
+    "Observe.next_refuse": [
+      "propext"
+    ],
+    "Observe.next_tape": [
+      "propext"
+    ],
+    "Observe.obsSet_prefix": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obsSet_prefix_add": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_fuel_eq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_fuel_indep": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_fuel_indep._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_fuel_indep._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_fuel_indep._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_fuel_indep._proof_1_6": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_functional": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_is_generic": [
+      "propext"
+    ],
+    "Observe.obs_last_repeats": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.obs_prefix": [
+      "propext"
+    ],
+    "Observe.obs_prefix_add": [
+      "propext"
+    ],
+    "Observe.obs_prefix_is_generic": [
+      "propext"
+    ],
+    "Observe.orbit_add": [],
+    "Observe.orbit_lt": [],
+    "Observe.pair_obs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_10": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_11": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_12": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_13": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_14": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_15": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_6": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_7": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_8": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.pigeon._proof_1_9": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.prod_op_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.same_next": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.stepDet_inr": [
+      "propext"
+    ],
+    "Observe.succ3_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.succ3_lt._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_bound._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_bound._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_eq": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_eq._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Observe.zeros_eq._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "Limits": 32,
+    "Observe": 122
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements: compatible families of finite observations over a finite carrier and their sequences; the represented execution family's deterministic runner observed at step scales; the forever program of that family. The topology of the thread space is declared, not proved.",
+  "theorem_count_including_generated": 154,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

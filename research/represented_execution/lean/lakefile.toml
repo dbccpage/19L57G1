@@ -1,0 +1,35 @@
+name = "represented_execution"
+version = "0.1.0"
+defaultTargets = ["Execution", "Control", "Product", "Schedule", "Rename", "Runner", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+# The merged encoding of a finite setting as a regime, and the merged
+# `Chains.run` it is bridged to, consumed read-only.
+[[require]]
+name = "setting_translation"
+path = "../../setting_translation/lean"
+
+[[lean_lib]]
+name = "Execution"
+
+[[lean_lib]]
+name = "Control"
+
+[[lean_lib]]
+name = "Product"
+
+[[lean_lib]]
+name = "Inventory"
+
+[[lean_lib]]
+name = "Schedule"
+
+[[lean_lib]]
+name = "Rename"
+
+[[lean_lib]]
+name = "Runner"

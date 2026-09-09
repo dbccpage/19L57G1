@@ -1,0 +1,550 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 42,
+  "census": "compiled environment theorem declarations in the Execution, Control, Product, Schedule, Rename and Runner namespaces",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
+    "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
+    "Inventory.lean": "43fdf12c196d54358ef76f5c695bc2eab153c12786b5263f5e79124bbbd13362",
+    "Product.lean": "182593969c18573c525d69eb49a76de9ecb83de897403134248a448a4c0c877a",
+    "Rename.lean": "b59a41b3c0cf57a26d4e32ae47c1c31bc5c0ebe25c115c89dae17da3d27d7e6a",
+    "Runner.lean": "3243fd0d2200185f19d3f187deda4d8ab5efc5bce6cc20a8949d7e2799e4af46",
+    "Schedule.lean": "75dc2a33c71b72c250737f2b9068222e61573057a603c551334e2440620935ab",
+    "lakefile.toml": "26c410493e14da60100f67c527512029fd6f3fbd0cfa9490a51bd37ae4ce6a67",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "python_mirror_refinement": "NOT_PROVED",
+  "reports": {
+    "Control.Controlled.mk.inj": [],
+    "Control.Controlled.mk.injEq": [
+      "propext"
+    ],
+    "Control.Controlled.mk.sizeOf_spec": [],
+    "Control.Fired.exhausted.sizeOf_spec": [],
+    "Control.Fired.noEdge.sizeOf_spec": [],
+    "Control.Fired.ok.inj": [],
+    "Control.Fired.ok.injEq": [
+      "propext"
+    ],
+    "Control.Fired.ok.sizeOf_spec": [],
+    "Control.State.mk.inj": [],
+    "Control.State.mk.injEq": [
+      "propext"
+    ],
+    "Control.State.mk.sizeOf_spec": [],
+    "Control.Terminal.branch.sizeOf_spec": [],
+    "Control.Terminal.exhausted.sizeOf_spec": [],
+    "Control.Terminal.halt.sizeOf_spec": [],
+    "Control.Terminal.ofNat_ctorIdx": [],
+    "Control.Terminal.refuse.sizeOf_spec": [],
+    "Control.enabled_iff": [
+      "propext"
+    ],
+    "Control.enabled_program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.enabled_program._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.enabled_program._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_forms_getD": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_forms_length": [
+      "propext"
+    ],
+    "Control.encodeC_forms_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.encodeC_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.fire_exhausted": [
+      "propext"
+    ],
+    "Control.fire_ok": [
+      "propext"
+    ],
+    "Control.fire_succ": [
+      "propext"
+    ],
+    "Control.init_pair": [],
+    "Control.init_program": [],
+    "Control.instDecidableEqTerminal._proof_1": [],
+    "Control.instDecidableEqTerminal._proof_2": [],
+    "Control.live_successor": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.live_successor._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.lookup_program_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.lookup_program_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.lookup_program_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_ctrlInsts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_enabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.mem_successors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.runDet_branch": [
+      "propext"
+    ],
+    "Control.run_branch": [
+      "propext"
+    ],
+    "Control.stepDet_branch": [
+      "propext"
+    ],
+    "Control.successors_complete": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.successors_complete._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.successors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.Config.mk.inj": [],
+    "Execution.Config.mk.injEq": [
+      "propext"
+    ],
+    "Execution.Config.mk.sizeOf_spec": [],
+    "Execution.evalWord_append": [
+      "propext"
+    ],
+    "Execution.evalWord_encode": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.isEdge_self": [
+      "propext"
+    ],
+    "Execution.isEdge_true": [
+      "propext"
+    ],
+    "Execution.iterate_add": [
+      "propext"
+    ],
+    "Execution.iterate_evalWord": [
+      "propext"
+    ],
+    "Execution.iterate_graph": [
+      "propext"
+    ],
+    "Execution.iterate_word": [
+      "propext"
+    ],
+    "Execution.iterate_zero": [
+      "propext"
+    ],
+    "Execution.lookup_encode": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.lookup_isSome": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.lookup_mem": [
+      "propext"
+    ],
+    "Execution.run_append": [
+      "propext"
+    ],
+    "Execution.run_encode": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.run_evalWord": [
+      "propext"
+    ],
+    "Execution.run_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.run_nil": [
+      "propext"
+    ],
+    "Execution.run_total": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Execution.run_word": [
+      "propext"
+    ],
+    "Execution.step_nil": [
+      "propext"
+    ],
+    "Execution.value_edge": [
+      "propext"
+    ],
+    "Product.coupling_breaks_the_square": [],
+    "Product.fst_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.fst_lt._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.fst_pack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.leftOp_snd": [
+      "propext"
+    ],
+    "Product.left_right_comm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.pack_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.pack_lt._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting_n": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prod_comm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prod_left_local": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prod_right_local": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.rightOp_fst": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.snd_lt": [],
+    "Product.snd_pack": [
+      "propext"
+    ],
+    "Product.uncoupled_square_holds": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.Renaming.bwd_lt": [],
+    "Rename.Renaming.fwd_lt": [],
+    "Rename.Renaming.left": [],
+    "Rename.Renaming.mk.inj": [],
+    "Rename.Renaming.mk.injEq": [
+      "propext"
+    ],
+    "Rename.Renaming.mk.sizeOf_spec": [],
+    "Rename.Renaming.right": [],
+    "Rename.carried_init": [],
+    "Rename.flipRenaming._proof_1": [],
+    "Rename.flip_renames_the_solo_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.getD_map": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.getD_map._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.length_map": [],
+    "Rename.not_a_renaming": [],
+    "Rename.renameControlled_nops": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.renameSetting._proof_1": [],
+    "Rename.renameSetting._proof_2": [],
+    "Rename.renameSetting._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.renameSetting_n": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.renameSetting_ops_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_enabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_fire": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_fire._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_fire._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_lookup": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_runDet": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_stepDet": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_tape": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.blind_halts": [
+      "propext"
+    ],
+    "Runner.ctrl_branch_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.ctrl_run": [
+      "propext"
+    ],
+    "Runner.ctrl_runDet": [
+      "propext"
+    ],
+    "Runner.ctrl_run_branch": [
+      "propext"
+    ],
+    "Runner.ctrl_stepDet": [
+      "propext"
+    ],
+    "Runner.ctrl_stepDet_branch": [
+      "propext"
+    ],
+    "Runner.greedy_branches": [
+      "propext"
+    ],
+    "Runner.iterOf_succ": [
+      "propext"
+    ],
+    "Runner.nextOf_graph": [
+      "propext"
+    ],
+    "Runner.nextOf_tape": [
+      "propext"
+    ],
+    "Runner.obsOf_prefix": [
+      "propext"
+    ],
+    "Runner.obsOf_prefix_add": [
+      "propext"
+    ],
+    "Runner.runDetOf_branch": [
+      "propext"
+    ],
+    "Runner.stepDetOf_branch": [
+      "propext"
+    ],
+    "Runner.stepDetOf_branch_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.stepDetOf_inr": [
+      "propext"
+    ],
+    "Runner.stepDetOf_of_two": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.stepDetOf_of_two._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.stepDetOf_of_two._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Runner.stepDetOf_spec": [
+      "propext"
+    ],
+    "Schedule.bool_of_iff": [],
+    "Schedule.enabledAt_scheduled": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_congr_mem": [],
+    "Schedule.filter_range_eq_nil": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_nil._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_nil._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_single": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_single._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_range_eq_single._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.filter_single_false": [],
+    "Schedule.filter_single_true": [],
+    "Schedule.flip_lt": [],
+    "Schedule.locus1_is_its_own_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.locus1_stutters": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.locus2_is_its_own_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.locus2_stutters": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.pairSwapped_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.pair_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.pair_terminal": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.scheduled_no_branch": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.scheduled_no_branch._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.solo_run": [
+      "propext"
+    ],
+    "Schedule.square_fails_on_the_observation": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.square_on_the_outcome": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.step_moves_one_locus": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Schedule.swap_moves_both": [],
+    "Schedule.swap_not_local": [],
+    "Schedule.two._proof_1": [],
+    "Schedule.two._proof_2": [],
+    "Schedule.two._proof_3": [
+      "propext"
+    ]
+  },
+  "reports_per_namespace": {
+    "Control": 49,
+    "Execution": 24,
+    "Product": 19,
+    "Rename": 30,
+    "Runner": 21,
+    "Schedule": 30
+  },
+  "schema_version": 1,
+  "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
+  "theorem_count_including_generated": 173,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

@@ -1,0 +1,521 @@
+{
+ "artifact": {
+  "authored_by": "research/represented_execution",
+  "finding_for_the_represented_execution_family": {
+   "identified_from_recorded_runs": 8,
+   "order_read_from": "the artifact's ops_in_index_order, cross-checked against the sealed table set",
+   "recovered_order_of_sorted_tables": null,
+   "sealed_schema_is_set_valued": "Setting.json sorts the operation tables and collapses repetitions, so it determines neither the index order the enablements refer to nor the operation count"
+  },
+  "fragment": "control",
+  "path": "research/represented_execution/evidence/process.json",
+  "pinned_by_digest_in": "SOURCE_MANIFEST.json",
+  "programs_identified": [
+   "climb",
+   "forever",
+   "fork",
+   "ping"
+  ],
+  "written_here": false
+ },
+ "authority_effect": "None",
+ "causal_footprint": {
+  "independence": "an edit to an instance away from the active datum does not change the step, and an edit at it does: the represented execution family's test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged and its mutation tests.  Computed on those populations; no theorem states it",
+  "reads": "a firing reads the enablement self-instance and the operation edge at the active datum (Control.fire, Control.enabled)",
+  "two_loci": "delivered.  The producer family runs two loci by a schedule carried in the data, and Observe.obs_one_locus lifts the independence to the observation: at every scale, from every start, with any fuel and for every schedule, the observed tape of a two-locus run moves one locus at a time.  What does NOT lift is the square itself \u2014 two orders reach the same datum and record different tapes \u2014 and what does is the projection with the repeats dropped.  Computed here at five scales in two_locus_experiment, over the factorization identified from the artifact rather than declared",
+  "writes": "active, tape, clock, fuel; the program is kept (Control.fire_ok)"
+ },
+ "classification": "deterministic computation: the represented process observed at step scales, and the abstract inverse system mirrored",
+ "connected_experiment": {
+  "bound": "L <= 3 * count <= L + 2 for a tape of length L",
+  "derived_at_scale": 3,
+  "derived_from": [
+   0,
+   1,
+   2,
+   0
+  ],
+  "enablements": [
+   [
+    0,
+    0
+   ],
+   [
+    1,
+    0
+   ],
+   [
+    2,
+    0
+   ]
+  ],
+  "fuel": 24,
+  "limit": "the frequency count / L lies within 2 / (3 L) of 1 / 3 at every scale; the limiting value 1 / 3 is the rational the bound isolates, and precision e needs L >= 2 / (3 e)",
+  "observed_from": "one state, at four scales: obs n s, the Lean Observe.obs",
+  "ops_in_index_order": [
+   [
+    1,
+    2,
+    0
+   ],
+   [
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    2,
+    2
+   ]
+  ],
+  "program": "forever",
+  "readout": "the number of entries equal to datum 0 in the tape",
+  "scales": [
+   {
+    "bound_holds": true,
+    "count_zero": 2,
+    "prefix_of_next": true,
+    "recorded_tape_is_a_prefix_of_this_one": false,
+    "recorded_tape_prefix_related": true,
+    "scale": 3,
+    "tape": [
+     0,
+     1,
+     2,
+     0
+    ],
+    "tape_length": 4,
+    "three_count_minus_length": 2
+   },
+   {
+    "bound_holds": true,
+    "count_zero": 3,
+    "prefix_of_next": true,
+    "recorded_tape_is_a_prefix_of_this_one": true,
+    "recorded_tape_prefix_related": true,
+    "scale": 6,
+    "tape": [
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0
+    ],
+    "tape_length": 7,
+    "three_count_minus_length": 2
+   },
+   {
+    "bound_holds": true,
+    "count_zero": 5,
+    "prefix_of_next": true,
+    "recorded_tape_is_a_prefix_of_this_one": true,
+    "recorded_tape_prefix_related": true,
+    "scale": 12,
+    "tape": [
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0
+    ],
+    "tape_length": 13,
+    "three_count_minus_length": 2
+   },
+   {
+    "bound_holds": true,
+    "count_zero": 9,
+    "prefix_of_next": true,
+    "recorded_tape_is_a_prefix_of_this_one": true,
+    "recorded_tape_prefix_related": true,
+    "scale": 24,
+    "tape": [
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0,
+     1,
+     2,
+     0
+    ],
+    "tape_length": 25,
+    "three_count_minus_length": 2
+   }
+  ],
+  "setting_json": {
+   "a": 0,
+   "b": 1,
+   "n": 3,
+   "ops": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "prot": [],
+   "r": [],
+   "ret": []
+  },
+  "start": 0
+ },
+ "fork_family": {
+  "enablements": [
+   [
+    0,
+    0
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "every_member_extends_to_the_next_scale": true,
+  "families_by_scale": {
+   "0": [
+    [
+     0
+    ]
+   ],
+   "1": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0
+    ]
+   ],
+   "2": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "3": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0,
+     1
+    ],
+    [
+     0,
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  "fuel": 5,
+  "program": "the cycle and the constant map both enabled at datum 0",
+  "reading": "the deterministic runner stops at a fork and its tape freezes, so its observation is not a member of the family; the family is the honest object.  What is NOT built is a thread out of it: that needs one tape chosen per scale at each fork, which is exactly the selection the runner refuses to make",
+  "runner_is_in_the_family": false,
+  "runner_observation": [
+   0
+  ],
+  "sizes_by_scale": {
+   "0": 1,
+   "1": 2,
+   "2": 3,
+   "3": 4
+  },
+  "start": 0,
+  "theorem": "Observe.branchStep_tape, obsSet_prefix, obsSet_prefix_add: every tape at a scale is a prefix of some tape at every later scale, with no branch selected; Observe.fork_family_is_two, fork_runner_is_frozen, fork_runner_not_in_the_family are this exhibit"
+ },
+ "limit": {
+  "cofinal_rescaling": "Limits.thread_even, Limits.even_thread: the even scales have the same threads, through the sequences; Limits.restrictEven and Limits.restrictEven_eq: the map that carries them is the restriction of a thread to the even scales, which is what limits.even_family computes",
+  "construction": "Limits.ofSeq; the inverse pair Limits.ofSeq_toSeq and Limits.toSeq_ofSeq: the thread space is the sequence space, a bijection and not a mediating-map statement; no choice or compactness is used",
+  "eventual_agreement_is_not_compatibility": "Limits.eventual_not_compatible, Limits.eventual_agrees",
+  "stages": "words of length n over the carrier (Limits.Stage)",
+  "thread_space": "compatible families at every scale (Limits.Compatible, Limits.Thread)",
+  "topology": "declared, not proved: the product of the discrete topologies on the finite stages; totally disconnected; not an interval, not a circle; none is claimed, and an interval would need an order or metric compatible with the stages and an identification of threads this family does not make"
+ },
+ "lost_fuel": {
+  "after_one_step_fuel_0": [
+   0
+  ],
+  "after_one_step_fuel_1": [
+   0,
+   1
+  ],
+  "lost_information": "fuel",
+  "repair": "observe the fuel beside the tape; with the program, the active datum and the fuel the next DATUM is determined (Observe.next_active_det).  Not the next observation: two states with the same program, active datum and fuel and different tapes have different next tapes, because a step appends to the tape it has",
+  "same_tape": true,
+  "tape": [
+   0
+  ]
+ },
+ "not_delivered": [
+  "an interval, circle or integration theory: the limit is a totally disconnected thread space and a rational frequency with a bound",
+  "a thread out of a fork's family of observations: the family is observed at four scales and its members are proved prefix-compatible, but a thread needs one tape chosen per scale at each fork, and that selection is refused",
+  "the limit of a two-locus run as an inverse system in its own right: the two-locus observation is taken at five scales and its one-locus-at-a-time property proved along every run, but the thread space over the product carrier, and whether the two loci give two commuting inverse systems, are not built"
+ ],
+ "observation_system": {
+  "bonding": "forget the entries beyond the coarser length",
+  "compatibility_at_every_scale": "Observe.obs_prefix, Observe.obs_prefix_add",
+  "fuel_independence": "Observe.obs_fuel_indep, obs_fuel_eq: two states agreeing on graph, operation count, active datum and tape, each with at least n fuel, have the same observation at scale n; the fuel is consulted only to refuse",
+  "observation": "the tape after n steps (Observe.obs)",
+  "scale": "the number of steps of the deterministic runner watched",
+  "why": "a step only appends (Control.fire_ok through Observe.next_tape)"
+ },
+ "periodicity": {
+  "carrier": 3,
+  "every_tape_repeats_with_its_period": true,
+  "largest_period": 3,
+  "largest_preperiod": 2,
+  "largest_preperiod_plus_period": 3,
+  "population": "every deterministic program on the recorded setting, from every datum: 192 runs at fuel 12",
+  "preperiod_plus_period_within_the_carrier": true,
+  "theorem": "Observe.eventually_periodic_run: on a finite carrier the datum a run is at repeats, with preperiod and period together at most the carrier size; Observe.obs_last_repeats carries it to the record.  Proved from a pigeonhole (Observe.pigeon) written here rather than cited: the axiom census refuses the standard library's classical lemmas and this package consumes no finite-set library"
+ },
+ "schema_version": 1,
+ "shift": {
+  "meaning": "two words with one prefix of length 2 shift to different words: the entry beyond the observed boundary would have to be supplied (Limits.shift_not_local)",
+  "prefixes": [
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "shifted": [
+   [
+    1,
+    2
+   ],
+   [
+    1,
+    0
+   ]
+  ]
+ },
+ "tape_is_the_sequence": {
+  "bound_on_the_run": "Observe.forever_length, forever_zeros, forever_run_bound: the readout of the observation itself obeys L <= 3 * count <= L + 2",
+  "theorem": "Observe.forever_iter, forever_obs: after n steps of the cycle-everywhere program from datum 0, with fuel to spare, the active datum is n % 3 and the tape is the first n + 1 entries of i -> i % 3",
+  "was": "computed at every recorded scale and labelled the missing connection; proved now"
+ },
+ "two_locus_experiment": {
+  "identified_from": "the recorded tape and its two recorded projections; not declared here",
+  "identified_second_locus_size": 2,
+  "one_locus_run": [
+   0,
+   1,
+   0
+  ],
+  "programs_recorded_schedule": {
+   "0": 0,
+   "1": 1,
+   "2": 1,
+   "3": 0
+  },
+  "recorded_tape": [
+   0,
+   2,
+   3,
+   1,
+   0
+  ],
+  "scales": [
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 1,
+    "second_locus_destuttered": [
+     0
+    ],
+    "tape": [
+     0,
+     2
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 2,
+    "second_locus_destuttered": [
+     0,
+     1
+    ],
+    "tape": [
+     0,
+     2,
+     3
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1,
+     0
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 3,
+    "second_locus_destuttered": [
+     0,
+     1
+    ],
+    "tape": [
+     0,
+     2,
+     3,
+     1
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1,
+     0
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 4,
+    "second_locus_destuttered": [
+     0,
+     1,
+     0
+    ],
+    "tape": [
+     0,
+     2,
+     3,
+     1,
+     0
+    ]
+   },
+   {
+    "each_locus_agrees_with_its_own_run": true,
+    "first_locus_destuttered": [
+     0,
+     1,
+     0,
+     1,
+     0
+    ],
+    "one_locus_at_a_time": true,
+    "prefix_of_next": true,
+    "scale": 8,
+    "second_locus_destuttered": [
+     0,
+     1,
+     0,
+     1,
+     0
+    ],
+    "tape": [
+     0,
+     2,
+     3,
+     1,
+     0,
+     2,
+     3,
+     1,
+     0
+    ]
+   }
+  ],
+  "square_on_the_observation": {
+   "holds": false,
+   "reading": "the two orders reach the same datum and record different tapes (the producer family's Schedule.square_on_the_outcome and square_fails_on_the_observation); what lifts to the observation is not the square but the projection with the repeats dropped, and one locus moving at a time"
+  },
+  "theorem": "Observe.obs_one_locus: at every scale, from every start, with any fuel and for every schedule, the observed tape of a two-locus run moves one locus at a time; Observe.pair_obs names this program's observation at scale four"
+ },
+ "verdicts": {
+  "all_realized_tapes_functional": true,
+  "class": "every program on the recorded setting with at most one operation enabled per datum, from every datum",
+  "fuel": 4,
+  "injective": "the observation at the scale of a tape's length is the tape itself: injective on tapes",
+  "not_dense_witness": [
+   0,
+   1,
+   0,
+   2
+  ],
+  "programs": 64,
+  "realized_tapes": 23,
+  "surjective": false,
+  "why_not_surjective": "a realized tape is functional (equal entries have equal successors, Observe.next_active_det), so no thread with the prefix [0, 1, 0, 2] is realized; the full thread space contains it",
+  "witness_has_no_realized_extension": true
+ },
+ "which_threads": {
+  "all_mathematical_sequences": "the thread space is all of them (the construction is total)",
+  "computably_presented": "between the two; not characterised here",
+  "process_generated": "functional tapes \u2014 equal entries have equal successors, proved along the whole run for every setting, start and scale (Observe.obs_functional, from the chain invariant Observe.iter_chain) \u2014 and therefore eventually periodic on a finite carrier, with preperiod and period together at most the carrier size (Observe.eventually_periodic_run, carried to the record by Observe.obs_last_repeats).  An earlier version of this line called the periodicity the standard consequence and left it unformalized; that is WITHDRAWN.  A strict subset"
+ }
+}
