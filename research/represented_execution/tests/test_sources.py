@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 from types import ModuleType
+import re
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -184,6 +185,22 @@ class CustodyTests(unittest.TestCase):
                             for f in guard.runtime_errors(self.root, modules)))
         modules["derivation.unpinned"] = ModuleType("derivation.unpinned")
         self.assertTrue(any(f.startswith("RUNTIME_CENSUS:") for f in guard.runtime_errors(self.root, modules)))
+class TheReadmeNamesTheBaselineItPins(unittest.TestCase):
+    """A commit id written in prose drifts at every repin, silently.  This
+    review found two stale ones in a sibling README; the repair is not to
+    substitute more carefully but to make the prose checkable."""
+
+    def test_every_commit_id_in_the_readme_is_the_pinned_baseline(self) -> None:
+        tree = Path(__file__).resolve().parents[1]
+        text = (tree / "README.md").read_text(encoding="utf-8")
+        named = set(re.findall(r"[0-9a-f]{40}", text))
+        self.assertTrue(named, "the README names no baseline at all")
+        self.assertEqual(named, {guard.BASELINE_COMMIT})
+
+    def test_the_manifest_names_the_same_one(self) -> None:
+        tree = Path(__file__).resolve().parents[1]
+        manifest = json.loads((tree / "SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["baseline_commit"], guard.BASELINE_COMMIT)
 
 
 if __name__ == "__main__":
