@@ -1,15 +1,16 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 30,
-  "census": "compiled environment theorem declarations in the Execution, Control, Product and Schedule namespaces",
+  "axiom_free_count": 42,
+  "census": "compiled environment theorem declarations in the Execution, Control, Product, Schedule and Rename namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "2f5c914698b6e34f9ebcfc321a3f629f700d0e3ecd222816d39eafd8fad6050b",
+    "Inventory.lean": "e94d537806aa14f618168e96981e3858192a9a2039a6142de32d7fe87cbc9c02",
     "Product.lean": "182593969c18573c525d69eb49a76de9ecb83de897403134248a448a4c0c877a",
+    "Rename.lean": "b59a41b3c0cf57a26d4e32ae47c1c31bc5c0ebe25c115c89dae17da3d27d7e6a",
     "Schedule.lean": "75dc2a33c71b72c250737f2b9068222e61573057a603c551334e2440620935ab",
-    "lakefile.toml": "33e9b4d7672614e97a2254b55513c363b7124fdd82a5b4dfc60cfdbfcd157796",
+    "lakefile.toml": "58b72910fa32bd701cb794b588526cc27e84eb479bd440b7da4a165e84efb85f",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
@@ -290,6 +291,89 @@
       "Quot.sound",
       "propext"
     ],
+    "Rename.Renaming.bwd_lt": [],
+    "Rename.Renaming.fwd_lt": [],
+    "Rename.Renaming.left": [],
+    "Rename.Renaming.mk.inj": [],
+    "Rename.Renaming.mk.injEq": [
+      "propext"
+    ],
+    "Rename.Renaming.mk.sizeOf_spec": [],
+    "Rename.Renaming.right": [],
+    "Rename.carried_init": [],
+    "Rename.flipRenaming._proof_1": [],
+    "Rename.flip_renames_the_solo_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.getD_map": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.getD_map._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.length_map": [],
+    "Rename.not_a_renaming": [],
+    "Rename.renameControlled_nops": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.renameSetting._proof_1": [],
+    "Rename.renameSetting._proof_2": [],
+    "Rename.renameSetting._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.renameSetting_n": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.renameSetting_ops_length": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_enabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_fire": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_fire._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_fire._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_lookup": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_run": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_runDet": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_stepDet": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Rename.rename_tape": [
+      "Quot.sound",
+      "propext"
+    ],
     "Schedule.bool_of_iff": [],
     "Schedule.enabledAt_scheduled": [
       "Quot.sound",
@@ -386,10 +470,11 @@
     "Control": 49,
     "Execution": 24,
     "Product": 19,
+    "Rename": 30,
     "Schedule": 30
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 122,
+  "theorem_count_including_generated": 152,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

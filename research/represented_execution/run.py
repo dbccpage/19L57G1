@@ -53,6 +53,7 @@ if PACKET != Path("research/represented_execution"):
 import control as ct  # noqa: E402
 import execution as ex  # noqa: E402
 import product as pr  # noqa: E402
+import rename as rn  # noqa: E402
 import translation as tr  # noqa: E402
 
 # A three-point setting with two distinct operations: reading the letter and
@@ -153,6 +154,38 @@ def control_run(name: str, C: ct.Controlled, start: int, fuel: int) -> JsonObj:
     }
 
 
+def rename_record() -> JsonObj:
+    """Every permutation of the three-point carrier against every
+    deterministic program on it.
+
+    The receipt refuses a run that does not transport, and refuses a map that
+    is not a permutation rather than renaming by it.
+    """
+    result = rn.sweep(BASE, 6)
+    for bad in ((0, 0, 1), (0, 1), (0, 1, 3)):
+        try:
+            rn.Renaming(3, bad)
+        except ex.ExecutionError:
+            continue
+        raise RuntimeError(f"{list(bad)} was accepted as a renaming of three data")
+    return {
+        "renaming": "a permutation of the carrier; the inverse is computed and checked here, and "
+                    "declared with its two-sided conditions in the Lean",
+        "what_moves": "every operation is conjugated, every store is read through the inverse, the "
+                      "endpoints move, and the enablement is read through the inverse",
+        "what_does_not": "the terminal, the clock and the fuel; and the interpreter, which is "
+                         "unchanged",
+        "sweep": result,
+        "refuses_a_map_that_is_not_a_permutation": True,
+        "theorems": "Rename.rename_enabledAt, rename_lookup, rename_stepDet, rename_runDet, "
+                    "rename_run, rename_tape: the correspondence holds for every controlled "
+                    "setting, every renaming and every start, not only over this sweep; "
+                    "Rename.not_a_renaming is the failure case",
+        "reading": "presentation identity is not internal identity, and the machine reads only the "
+                   "latter: a datum is a number here because something had to be written down",
+    }
+
+
 def two_locus_record() -> JsonObj:
     """The two-locus run, its mirror, and what each locus reads off the tape.
 
@@ -237,6 +270,7 @@ def record() -> JsonObj:
     runs = [word_run(*entry) for entry in RUNS]
     control_runs = [control_run(*entry) for entry in CONTROL_RUNS]
     two_loci = two_locus_record()
+    renaming = rename_record()
     return {
         "schema_version": 2,
         "classification": "deterministic computation: the word machine and the data-driven machine over "
@@ -297,6 +331,7 @@ def record() -> JsonObj:
             "firings_by_start": {str(x): climb[x][1].clock for x in range(3)},
             "terminals_by_start": {str(x): climb[x][0].value for x in range(3)},
         },
+        "renaming": renaming,
         "two_loci": two_loci,
         "runs": runs,
         "control_runs": control_runs,

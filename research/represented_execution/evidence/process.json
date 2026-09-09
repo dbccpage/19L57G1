@@ -613,6 +613,39 @@
   "active": "the final active datum, a member of the carrier",
   "output": "the tape of data visited, one entry per firing (the words machine: one per letter)"
  },
+ "renaming": {
+  "reading": "presentation identity is not internal identity, and the machine reads only the latter: a datum is a number here because something had to be written down",
+  "refuses_a_map_that_is_not_a_permutation": true,
+  "renaming": "a permutation of the carrier; the inverse is computed and checked here, and declared with its two-sided conditions in the Lean",
+  "sweep": {
+   "carrier": 3,
+   "every_run_transports": true,
+   "fuel": 6,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
+   "programs": 64,
+   "renamings": 6,
+   "runs_checked": 1152
+  },
+  "theorems": "Rename.rename_enabledAt, rename_lookup, rename_stepDet, rename_runDet, rename_run, rename_tape: the correspondence holds for every controlled setting, every renaming and every start, not only over this sweep; Rename.not_a_renaming is the failure case",
+  "what_does_not": "the terminal, the clock and the fuel; and the interpreter, which is unchanged",
+  "what_moves": "every operation is conjugated, every store is read through the inverse, the endpoints move, and the enablement is read through the inverse"
+ },
  "runs": [
   {
    "active": 2,

@@ -52,7 +52,7 @@ instances.  The processes read encoded data; they do not themselves live in
 the sealed grammar, and nothing here says they do.  (The *program* of commit
 2 is a regime; the *state* that runs it is host.)
 
-Lean: 79 authored theorems, 122 reports with the compiler-generated ones, all
+Lean: 95 authored theorems, 152 reports with the compiler-generated ones, all
 within `{propext, Quot.sound}`, in a package importing the sealed package
 and the merged `setting_translation` package.  Python: both machines
 mirrored; the word machine checked against the merged `translation.run` (the
@@ -213,6 +213,33 @@ the lift, since the repeats it drops are exactly the steps that moved the
 other locus.  `Schedule.alt` reads both coordinates, which is what a schedule
 may do and an operation may not (`Product.coupling_breaks_the_square`).
 
+## 3c. The machine does not read the names of the data (`lean/Rename.lean`)
+
+A datum is a number here only because something had to be written down.  A
+**renaming** is a permutation of the carrier — given as a map with a
+two-sided inverse *on the carrier*, four conditions on `Nat → Nat` rather than
+a bijection of a subtype, so nothing outside the grammar's arithmetic is
+needed.  It carries a setting to a renamed one (operations conjugated, stores
+read through the inverse, endpoints moved) and a controlled setting to a
+renamed one (enablement read through the inverse).
+
+| theorem | content |
+|---|---|
+| `rename_op` | an operation of the renamed setting **is** the renamed operation |
+| `rename_enabledAt` | the enablement read at the renamed datum is the one read at the original |
+| `rename_lookup` | and the edge leaving it is the renamed edge |
+| `rename_stepDet` | **one step corresponds**: the renamed state steps to the renamed successor, or stops with the *same* terminal |
+| `rename_runDet`, `rename_run` | **the whole run corresponds**: same terminal, same clock, same fuel, the renamed datum |
+| `rename_tape` | and the record is the renamed record |
+| `not_a_renaming` | the failure case: the collapse of two data has no inverse, and no map is one |
+
+Presentation identity is not internal identity, and this is the theorem that
+says the machine reads only the latter.  `rename.py` mirrors it and the
+receipt sweeps all six permutations of the three-point carrier against all 64
+deterministic programs from all three starts — 1152 runs, every one
+transporting — and refuses a map that is not a permutation rather than
+renaming by it.
+
 ## 4. The artifact for Target B (`evidence/process.json`)
 
 `run.py` writes the record the brief's Target B consumes and may not author:
@@ -255,19 +282,21 @@ beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 79 authored theorems and 43
+**Lean** (`lean/`, `evidence/lean.json`): 95 authored theorems and 53
 compiler-generated ones — nine constructor injectivity and size
 specifications for `Config`, `Controlled` and `State`; five for `Fired`
 (three size specifications and `ok`'s injectivity); five for `Terminal` (four
 size specifications and its `ofNat_ctorIdx`); the two proof terms of
-`Terminal`'s decidable equality; and twenty-two auxiliary proof terms of
-twelve theorems and definitions (`enabled_program`, `encodeC_wf`,
-`live_successor`, `lookup_program_op`, `successors_complete`, `fst_lt`,
-`pack_lt`, `prodSetting`, `filter_range_eq_nil`, `filter_range_eq_single`,
-`scheduled_no_branch`, `two`) — 122 reports, all within
-`{propext, Quot.sound}`; the report population equals the environment census
-of the `Execution`, `Control`, `Product` and `Schedule`
-namespaces in both directions; no private theorem; forbidden-token scan
+`Terminal`'s decidable equality; the four Prop-valued field
+projections of `Renaming`, which Lean classifies as theorems; and
+twenty-nine auxiliary proof terms of sixteen theorems and definitions
+(`enabled_program`, `encodeC_wf`, `live_successor`, `lookup_program_op`,
+`successors_complete`, `fst_lt`, `pack_lt`, `prodSetting`,
+`filter_range_eq_nil`, `filter_range_eq_single`, `scheduled_no_branch`,
+`two`, `getD_map`, `renameSetting`, `rename_fire`, `flipRenaming`) — 152
+reports, all within `{propext, Quot.sound}`; the report population equals the
+environment census of the `Execution`, `Control`, `Product`, `Schedule` and
+`Rename` namespaces in both directions; no private theorem; forbidden-token scan
 clean.  `Classical.choice` was observed once, entering through `BEq` in an
 earlier `isEdge`; the definition now decides the `Prop` directly and the
 reliance is gone.  The proofs unfold the machines' definitions by `show` and
@@ -337,9 +366,11 @@ Regenerate the two records deliberately and never under a live injection:
 | `lean/Control.lean` | controlled settings, the represented program, the data-driven machine, the reference step |
 | `lean/Product.lean` | two loci as a product carrier, the independence square, and the coupling that breaks it |
 | `lean/Schedule.lean` | the schedule as data, a two-locus run, and the square on outcomes and on observations |
+| `lean/Rename.lean` | renaming the carrier, and the run that corresponds under it |
 | `lean/Inventory.lean` | the environment census |
 | `execution.py`, `control.py` | the machines mirrored; `init` is the one function of each that sees a setting |
 | `product.py` | the product carrier, the schedule as data, and reading a tape at one locus |
+| `rename.py` | permutations of the carrier, the conjugation, and the transport sweep |
 | `run.py`, `evidence/process.json` | the artifact for Target B and its refusals |
 | `verify_lean.py`, `evidence/lean.json` | the Lean build, two-way census and reliance record |
 | `verify_sources.py`, `SOURCE_MANIFEST.json` | custody of the consumed inputs |

@@ -1,6 +1,6 @@
 name = "represented_execution"
 version = "0.1.0"
-defaultTargets = ["Execution", "Control", "Product", "Schedule", "Inventory"]
+defaultTargets = ["Execution", "Control", "Product", "Schedule", "Rename", "Inventory"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -27,3 +27,6 @@ name = "Inventory"
 
 [[lean_lib]]
 name = "Schedule"
+
+[[lean_lib]]
+name = "Rename"

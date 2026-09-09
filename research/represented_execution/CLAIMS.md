@@ -393,6 +393,47 @@ at datum `x`.
   observation is the tape: the inverse system over a two-locus run at step
   scales is the observing family's, and is not built here.
 
+### CL-RE-17 — renaming the carrier: the machine does not read the names of the data
+
+- **Statement**: a `Renaming` of a carrier of `n` data is a map with a
+  two-sided inverse there.  It carries a finite setting to `renameSetting`
+  (every operation conjugated, every store read through the inverse, the
+  endpoints moved) and a controlled setting to `renameControlled` (the
+  enablement read through the inverse).  Then: an operation of the renamed
+  setting **is** the renamed operation (`rename_op`); the enablement read at
+  the renamed datum is the one read at the original (`rename_enabledAt`) and
+  the edge leaving it is the renamed edge (`rename_lookup`); **one step
+  corresponds** — the renamed state steps to the renamed successor, or stops
+  with the *same* terminal (`rename_stepDet`); **the whole run corresponds**
+  (`rename_runDet`, `rename_run`) with the same terminal, clock and fuel; and
+  **the record is the renamed record** (`rename_tape`).
+- **Hypotheses**: an admitted start datum, and a state carrying the program at
+  an admitted datum (`Carried`), which the initial state satisfies
+  (`carried_init`).  Nothing about the program.
+- **Novelty**: it is the separation of presentation identity from internal
+  identity, stated about the *machine* rather than about a quotient.  The
+  renaming is not required to be a bijection of anything outside the carrier,
+  and the inverse is what does the work: `not_a_renaming` shows the collapse
+  of two data admits none, so the transport is not available for it.
+- **Evidence**: `Rename.getD_map`, `length_map`, `renameSetting_n`,
+  `renameSetting_ops_length`, `rename_op`, `renameControlled_nops`,
+  `rename_enabledAt`, `rename_lookup`, `carried_init`, `rename_fire`,
+  `rename_stepDet`, `rename_runDet`, `rename_run`, `rename_tape`,
+  `not_a_renaming`, `flip_renames_the_solo_run`; `rename.py`,
+  `tests/test_rename.py`, and the record's `renaming` section — all six
+  permutations of the three-point carrier against all 64 deterministic
+  programs from all three starts, 1152 runs.
+- **Falsifier**: a run whose renamed run reaches a different terminal, clock,
+  fuel, datum or record.  The receipt names the program, the start and the
+  permutation; the diagnostic is itself injected in `tests/test_rename.py` by
+  renaming a setting without renaming its enablement.
+- **Obligation**: the transport is along a **permutation of the carrier**.  A
+  map between settings of different sizes — a quotient, or an embedding — is
+  not built, and neither is the statement that two settings related by a
+  renaming are the same object rather than two objects with corresponding
+  runs.  The stores are renamed but nothing reads them: `program` does not
+  load them, so their renaming is unobserved by any theorem here.
+
 ### CL-RE-14 — what control delivers observably, and what it does not
 
 - **Statement** (computed): on one three-point carrier with three

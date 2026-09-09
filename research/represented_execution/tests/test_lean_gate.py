@@ -25,7 +25,10 @@ BRIDGE = ("Execution.lookup_mem", "Execution.lookup_isSome", "Execution.lookup_e
           "Schedule.step_moves_one_locus", "Schedule.pair_run", "Schedule.pair_terminal",
           "Schedule.square_on_the_outcome", "Schedule.square_fails_on_the_observation",
           "Schedule.locus1_is_its_own_run", "Schedule.locus2_is_its_own_run",
-          "Schedule.swap_moves_both")
+          "Schedule.swap_moves_both",
+          "Rename.rename_op", "Rename.rename_enabledAt", "Rename.rename_lookup",
+          "Rename.rename_stepDet", "Rename.rename_runDet", "Rename.rename_run",
+          "Rename.rename_tape", "Rename.not_a_renaming")
 
 
 class ReportParser(unittest.TestCase):
@@ -75,21 +78,22 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 79)
-        self.assertEqual(record["theorem_count_including_generated"], 122)
-        self.assertEqual(record["axiom_free_count"], 30)
+        self.assertEqual(authored, 95)
+        self.assertEqual(record["theorem_count_including_generated"], 152)
+        self.assertEqual(record["axiom_free_count"], 42)
         self.assertEqual(record["reports_per_namespace"],
-                         {"Execution": 24, "Control": 49, "Product": 19, "Schedule": 30})
+                         {"Execution": 24, "Control": 49, "Product": 19,
+                          "Schedule": 30, "Rename": 30})
         # The generated population the README breaks down, by name.
         generated = {name for name in record["reports"]
                      if "._proof_" in name or ".mk." in name or "sizeOf_spec" in name
                      or "ofNat_ctorIdx" in name or "instDecidable" in name or name.endswith(".inj")
                      or name.endswith(".injEq")}
-        self.assertEqual(len(generated), 43)
+        self.assertEqual(len(generated), 53)
         self.assertEqual(sum(1 for name in generated if "._proof_" in name
-                             and "instDecidable" not in name), 22)
+                             and "instDecidable" not in name), 29)
         self.assertEqual(len({name.split("._proof_")[0] for name in generated
-                              if "._proof_" in name and "instDecidable" not in name}), 12)
+                              if "._proof_" in name and "instDecidable" not in name}), 16)
 
 
 if __name__ == "__main__":
