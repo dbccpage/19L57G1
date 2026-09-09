@@ -79,5 +79,41 @@ one such defect).  The copies to touch on a defect:
 * `run.py`: `coherent_process_limits`, `ignition`, `local_reuse`, `magnification`, `record_reading`, `represented_execution`, `setting_translation`
 * `verify.py`: `coherent_process_limits`, `ignition`, `magnification`, `reachable`, `record_reading`, `represented_execution`, `setting_translation`
 
-A shared module under `research/` importable by every tree is the repair;
-until it exists, this list is the checklist.
+A shared module under `research/` importable by every tree was the proposed
+repair.  **It is declined, and the reason is the point**: a shared guard is a
+single point of trust for eight independent pins.  Each tree's
+`verify_sources.py` pins a *different* baseline commit, and a change that bent
+one tree's guard would silently bend all eight.  The isolation is what the
+copies buy, and the checklist above is not the cost of a missing abstraction —
+it is the price of the isolation.
+
+What was wanted from the repair is *visibility*, and that is what
+`house_diff.py` gives.  It parses each copy, extracts the top-level
+definitions, replaces every literal with a placeholder — so a tree's own
+baseline, schema and module census never read as a difference — and reports
+which trees agree with which on each definition's **logic**:
+
+```
+python research/house_diff.py --logic
+```
+
+It reads and changes nothing; a clean report is not a receipt, and it cannot
+notice a defect all eight copies share.
+
+**Its first run, 2026-09-09, found the drift it was built for.**  Eleven
+definitions differ in logic, and one of them splits exactly along the line of
+the three trees the receipts audit touched:
+
+| definition | shape 1 | shape 2 |
+|---|---|---|
+| `runtime_errors` | `ignition`, `local_reuse`, `magnification`, `reachable`, `setting_translation` | `coherent_process_limits`, `record_reading`, `represented_execution` |
+
+The five build their runtime census from the `derivation` modules alone; the
+three build it from **every** module in `RUNTIME_PATHS`.  Today the difference
+is **benign**, and for a stated reason: all five pin only `derivation` modules,
+so the two readings agree on them.  It stops being benign the moment one of
+those five pins a module of its own — a `translation`, an `execution` — at
+which point its census would silently stop checking that module's origin.
+Recorded rather than repaired, because repairing it would mean editing five
+trees' pinned guards to no present effect; the condition under which it must
+be repaired is now written down.
