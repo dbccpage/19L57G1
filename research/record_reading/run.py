@@ -34,11 +34,15 @@ RECEIPT = ROOT / "evidence" / "record.json"
 JsonObj = dict[str, object]
 
 # This tree's own directory stays first on the path: the sibling families
-# also have a ``run.py`` and a ``verify_sources.py``.
-for dependency in (REPO / "code", REPO / "research" / "setting_translation",
-                   REPO / "research" / "represented_execution", REPO / "research" / "coherent_process_limits"):
-    if str(dependency) not in sys.path:
-        sys.path.append(str(dependency))
+# also have a ``run.py`` and a ``verify_sources.py``.  The consumed trees go
+# immediately after it and never at the end: appended, they would sit behind
+# ``PYTHONPATH`` and site-packages, and a same-named module found there would
+# compute this record while the pins still passed.
+sys.path[1:1] = [str(dependency) for dependency in
+                 (REPO / "code", REPO / "research" / "setting_translation",
+                  REPO / "research" / "represented_execution",
+                  REPO / "research" / "coherent_process_limits")
+                 if str(dependency) not in sys.path]
 
 from verify_sources import PACKET, verify_sources  # noqa: E402
 

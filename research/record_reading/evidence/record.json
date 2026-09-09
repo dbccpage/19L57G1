@@ -3,12 +3,9 @@
   "authored_by": "research/represented_execution",
   "finding_inherited": {
    "identified_from_recorded_runs": 8,
-   "recovered_order_of_sorted_tables": [
-    1,
-    0,
-    2
-   ],
-   "schema_loses_operation_order": true
+   "order_read_from": "the artifact's ops_in_index_order, cross-checked against the sealed table set",
+   "recovered_order_of_sorted_tables": null,
+   "sealed_schema_is_set_valued": "Setting.json sorts the operation tables and collapses repetitions, so it determines neither the index order the enablements refer to nor the operation count"
   },
   "path": "research/represented_execution/evidence/process.json",
   "read_through": "research/coherent_process_limits (limits.identify_programs)",
@@ -752,14 +749,17 @@
     "class": "every program on the identified setting with at most one operation enabled per datum",
     "class_size": 64,
     "experiments": [],
+    "one_survivor": false,
     "residual": {
-     "between_classes_it_differs_on_a_reached_pair": true,
+     "between_classes_it_differs_on_a_reached_pair": null,
+     "class_of_the_law_that_produced_the_observation": 8,
+     "class_pairs_compared": 0,
      "largest_class": 8,
      "residual_classes": 1,
      "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
     },
-    "survivors": 8,
-    "unique_within_class": false
+    "separated_into_singletons": false,
+    "survivors": 8
    },
    "record": {
     "burden": 3,
@@ -782,14 +782,17 @@
       "start": 0
      }
     ],
+    "one_survivor": false,
     "residual": {
      "between_classes_it_differs_on_a_reached_pair": true,
+     "class_of_the_law_that_produced_the_observation": 4096,
+     "class_pairs_compared": 990,
      "largest_class": 4096,
      "residual_classes": 45,
      "within_a_class_the_next_value_function_agrees_on_reached_pairs": true
     },
-    "survivors": 32768,
-    "unique_within_class": false
+    "separated_into_singletons": false,
+    "survivors": 32768
    }
   },
   "declared_before_readout": {

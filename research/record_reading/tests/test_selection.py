@@ -50,6 +50,16 @@ class Protocol(Setting):
     def test_the_seen_observation_is_the_declared_readout_of_the_recorded_program(self) -> None:
         self.assertEqual(sel.observe(self.forever, sel.OBSERVED_START, sel.OBSERVED_SCALE), self.observation)
 
+    def test_the_survivor_rule_reads_the_protocol_at_call_time(self) -> None:
+        """The start and scale are not frozen as default arguments: a
+        protocol change moves both halves together."""
+        from unittest.mock import patch  # noqa: PLC0415
+        laws: list[sel.Law] = [self.forever]
+        with patch("selection.OBSERVED_SCALE", 4):
+            self.assertEqual(sel.survivors(laws, (0, 1, 2, 0)), [])
+            self.assertEqual(sel.survivors(laws, (0, 1, 2, 0, 1)), [self.forever])
+        self.assertEqual(sel.survivors(laws, (0, 1, 2, 0)), [self.forever])
+
     def test_survivors_are_retained_by_replay_only(self) -> None:
         laws: list[sel.Law] = [self.forever, ct.Controlled(self.F, frozenset({(0, 1)})), rc.turncoat(self.F),
                                rc.twist(self.F)]
@@ -88,8 +98,20 @@ class Memoryless(Setting):
         sequence, residual = sel.burden(kept)
         self.assertEqual(sequence, [])
         self.assertEqual(residual, 1)
-        reason = sel.residual_reason(kept)
+        reason = sel.residual_reason(kept, witness=self.forever)
         self.assertTrue(reason["within_a_class_the_next_value_function_agrees_on_reached_pairs"])
+        # One class: there is no pair of classes to differ on, so the claim is
+        # not made rather than reported vacuously true.
+        self.assertEqual(reason["class_pairs_compared"], 0)
+        self.assertIsNone(reason["between_classes_it_differs_on_a_reached_pair"])
+        self.assertEqual(reason["class_of_the_law_that_produced_the_observation"], 8)
+
+    def test_the_between_class_check_is_made_where_there_are_two_classes(self) -> None:
+        """The same check on a population with two residual classes: it is a
+        claim there, and it holds."""
+        kept: list[sel.Law] = [self.forever, ct.Controlled(self.F, frozenset({(0, 0), (1, 1)}))]
+        reason = sel.residual_reason(kept)
+        self.assertEqual(reason["class_pairs_compared"], 1)
         self.assertTrue(reason["between_classes_it_differs_on_a_reached_pair"])
 
     def test_forever_and_climb_first_differ_and_are_not_separated(self) -> None:

@@ -87,10 +87,15 @@ def observe(law: Law, start: int, scale: int) -> Word:
     return rc.robs(scale, rc.rinit(law, start, FUEL))
 
 
-def survivors(laws: Sequence[Law], observation: Word, start: int = OBSERVED_START,
-              scale: int = OBSERVED_SCALE) -> list[Law]:
-    """Retain every law whose run replays the seen observation."""
-    return [law for law in laws if observe(law, start, scale) == observation]
+def survivors(laws: Sequence[Law], observation: Word, start: int | None = None,
+              scale: int | None = None) -> list[Law]:
+    """Retain every law whose run replays the seen observation.  The start and
+    scale default to the declared protocol *at call time*: bound as default
+    arguments they would freeze the constants at import and could disagree
+    with the observation `experiment` validates."""
+    at, upto = (OBSERVED_START if start is None else start,
+                OBSERVED_SCALE if scale is None else scale)
+    return [law for law in laws if observe(law, at, upto) == observation]
 
 
 @lru_cache(maxsize=None)
@@ -171,7 +176,8 @@ def burden(laws: Sequence[Law], sigs: Sequence[Signature] | None = None) -> tupl
         sequence.append({"start": best[1][0], "scale": best[1][1], "classes_after": count})
 
 
-def residual_reason(laws: Sequence[Law], sigs: Sequence[Signature] | None = None) -> JsonObj:
+def residual_reason(laws: Sequence[Law], sigs: Sequence[Signature] | None = None,
+                    witness: Law | None = None) -> JsonObj:
     """Check the reason for the residual against the programs themselves:
     within a class of laws no declared input separates, the next-value
     function read from the program agrees on every pair the runs reach
@@ -186,17 +192,28 @@ def residual_reason(laws: Sequence[Law], sigs: Sequence[Signature] | None = None
         values = {tuple(next_value(laws[i], p, x) for p, x in pairs) for i in members}
         if len(values) != 1:
             within = False
+    compared = 0
     between = True
     for i, a in enumerate(classes):
         for b in classes[i + 1:]:
+            compared += 1
             union = reached_pairs(sigs[a[0]]) | reached_pairs(sigs[b[0]])
             if all(next_value(laws[a[0]], p, x) == next_value(laws[b[0]], p, x) for p, x in union):
                 between = False
+    witness_class: int | None = None
+    if witness is not None:
+        key = tuple(readout_of(signature(witness), inp) for inp in INPUTS)
+        found = partition(sigs, list(INPUTS)).get(key)
+        witness_class = None if found is None else len(found)
     return {
         "residual_classes": len(classes),
         "largest_class": max(len(m) for m in classes),
+        "class_pairs_compared": compared,
         "within_a_class_the_next_value_function_agrees_on_reached_pairs": within,
-        "between_classes_it_differs_on_a_reached_pair": between,
+        # With one class there is no pair to differ on: the claim is not made
+        # rather than reported vacuously true.
+        "between_classes_it_differs_on_a_reached_pair": between if compared else None,
+        "class_of_the_law_that_produced_the_observation": witness_class,
     }
 
 
@@ -226,6 +243,7 @@ def experiment(F: tr.FiniteSetting, observation: Word, forever: ct.Controlled) -
     lifted = rc.lift(forever)
     results: JsonObj = {}
     kept_by_class: dict[str, list[Law]] = {}
+    witnesses: dict[str, Law] = {"memoryless": forever, "record": lifted}
     for name, laws in (("memoryless", memoryless_class(F)), ("record", record_class(F))):
         kept = survivors(laws, observation)
         if not kept:
@@ -239,8 +257,11 @@ def experiment(F: tr.FiniteSetting, observation: Word, forever: ct.Controlled) -
             "survivors": len(kept),
             "experiments": sequence,
             "burden": len(sequence),
-            "residual": residual_reason(kept, sigs),
-            "unique_within_class": residual == 1 and len(kept) == 1,
+            "residual": residual_reason(kept, sigs, witnesses[name]),
+            # Separation by the declared inputs, not the count of survivors:
+            # every retained law is told apart from every other one.
+            "separated_into_singletons": residual == len(kept),
+            "one_survivor": len(kept) == 1,
         }
     if not (contains(kept_by_class["memoryless"], forever) and contains(kept_by_class["memoryless"], climb_first)):
         raise SelectError("the exhibited ambiguous pair does not survive the seen observation")

@@ -194,7 +194,9 @@ climb, in index order; "the record" means the machine's tape.
 - **Evidence**: the theorems; computed: `selection.experiment`
   (`evidence/record.json`).
 - **Falsifier**: a residual class whose members differ in next value on a
-  reached pair, or two classes agreeing on all reached pairs.
+  reached pair, or two classes agreeing on all reached pairs (checked over
+  the 990 pairs of the record population; the memoryless population has one
+  class and no such pair).
 - **Obligation**: the residual explanation is checked against the programs,
   not proved; the greedy sequence is one sequence, not a minimum.
 
@@ -215,4 +217,8 @@ climb, in index order; "the record" means the machine's tape.
   configuration; an observable that reads which operation fired — the
   residual of the experiment is exactly what such an observable would
   separate; a second locus of activity.  The bisimulation for the
-  record-reading machine is computed, not proved.
+  record-reading machine is computed, not proved.  The merged memoryless
+  reader does not apply to a record program — several instances of one
+  control form leave one record entry and `lookup` refuses such a form — so
+  the two machines' agreement is claimed only through `lift_renabled`, not by
+  running one reader on the other's program.

@@ -97,8 +97,18 @@ class RecordFile(unittest.TestCase):
         for name in ("memoryless", "record"):
             residual = selection["classes"][name]["residual"]
             self.assertTrue(residual["within_a_class_the_next_value_function_agrees_on_reached_pairs"])
-            self.assertTrue(residual["between_classes_it_differs_on_a_reached_pair"])
-            self.assertFalse(selection["classes"][name]["unique_within_class"])
+            self.assertFalse(selection["classes"][name]["separated_into_singletons"])
+            self.assertFalse(selection["classes"][name]["one_survivor"])
+        # One residual class in the memoryless population: no pair of classes
+        # to differ on, so the between-class claim is not made there.
+        self.assertEqual(memoryless["residual"]["class_pairs_compared"], 0)
+        self.assertIsNone(memoryless["residual"]["between_classes_it_differs_on_a_reached_pair"])
+        self.assertEqual(memoryless["residual"]["class_of_the_law_that_produced_the_observation"], 8)
+        self.assertEqual(rec["residual"]["class_pairs_compared"], 990)
+        self.assertTrue(rec["residual"]["between_classes_it_differs_on_a_reached_pair"])
+        # The law that produced the seen observation is in the largest class:
+        # the record class identifies it least of all.
+        self.assertEqual(rec["residual"]["class_of_the_law_that_produced_the_observation"], 4096)
         self.assertTrue(selection["ambiguity_exhibited"]["programs_differ"])
         self.assertFalse(selection["ambiguity_exhibited"]["separated_by_a_declared_input"])
         self.assertTrue(selection["discrimination_exhibited"]["agree_at_the_seen_observation"])

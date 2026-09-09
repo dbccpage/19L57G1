@@ -23,6 +23,15 @@ produces beyond the stores; ``tests/test_record.py`` checks the two agree on
 every named program, every lifted memoryless program and a declared sample
 of the record class, so the class enumeration in ``selection.py`` need not
 replay the sealed engine a quarter of a million times.
+
+A record program is **not an operation graph on its control forms**: several
+instances of one control form may leave one record entry, which is what makes
+the read a relation.  The merged memoryless reader — ``control.enabled``,
+``control.enabled_at``, ``control.step_det`` and the observation ``limits.obs``
+built on them — reads those forms through ``execution.lookup``, which refuses
+a form with two edges leaving one datum by name.  It must therefore not be
+applied to a record program; ``selection.py`` dispatches on the law's type,
+and ``tests/test_record.py`` pins the refusal.
 """
 
 from __future__ import annotations

@@ -45,10 +45,10 @@ Lean: 47 authored theorems, 63 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
-run recorded with its operation tables in index order; 47 tests, strict
+run recorded with its operation tables in index order; 50 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`785bd455afe42a127a237d546ddb098c399466aa`, the observed family's commit,
-at which both consumed families are frozen and pinned; no sealed path and
+`b12eba224e6be83ba73e6b205d38dc116cfae162`, the observed family's repaired
+commit, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
 ## 1. The record read (`lean/Record.lean`)
@@ -104,6 +104,11 @@ each step the input refining the partition most.
 | memoryless | 64 | 8 | none refines | 1 | 8 |
 | record | 262144 | 32768 | (1, 6) → 11; (2, 2) → 37; (0, 4) → 45 | 45 | 4096 |
 
+The law that produced the seen observation is in the largest residual class
+of each: the record class identifies it least of all.  With one residual
+class there is no pair of classes to differ on, so the between-class check is
+recorded as not made rather than as vacuously true.
+
 Within every residual class the next-value function read from the program
 agrees on every pair the runs reach; between two classes it differs on a
 reached pair.  The residual is the operation index on reached pairs and the
@@ -114,8 +119,9 @@ fired would separate, and the tape cannot.
 
 `research/represented_execution/evidence/process.json` is read through the
 observed family's `identify_programs`, never written; the finding that its
-schema loses the operation order is inherited, and every run recorded here
-carries `ops_in_index_order`.  The receipt refuses a setting whose tables
+schema is set-valued is inherited — the producer has since repaired it, and
+the observed family now reads its `ops_in_index_order` — and every run
+recorded here carries the same field.  The receipt refuses a setting whose tables
 in index order are not the transcribed `Observe.base`.
 
 ## 5. Evidence
@@ -129,14 +135,15 @@ private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
 **Python** (`record.py`, `selection.py`, `run.py`, `evidence/record.json`,
-`tests/`): 47 tests, strict typing over eleven files, the two records replay
+`tests/`): 50 tests, strict typing over eleven files, the two records replay
 byte-identically.  The house files follow the sibling families' with
 names, pins and refusals changed; this tree's directory is always first on
 the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`785bd455afe42a127a237d546ddb098c399466aa`, the eight derivation modules by
+`b12eba224e6be83ba73e6b205d38dc116cfae162`, the eight derivation modules and
+the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
 `represented_execution` and `coherent_process_limits` Lean trees, and the
@@ -164,6 +171,12 @@ Regenerate the two records deliberately and never under a live injection:
 * That the greedy experiment sequence is a minimum: it is one sequence.
 * An observable that reads which operation fired: the residual of the
   experiment is exactly what it would separate, and it is not built.
+* That the merged memoryless reader applies to a record program: it does not.
+  A record program carries several instances of one control form leaving one
+  record entry, and `execution.lookup` refuses such a form by name, so
+  `control.enabled_at`, `control.step_det` and `limits.obs` must not be
+  applied to it.  The dispatch in `selection.py` is what keeps them apart and
+  `tests/test_record.py` pins the refusal.
 * A second locus of activity.
 * That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations.

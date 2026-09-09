@@ -64,6 +64,19 @@ class Program(Setting):
         # several instances of one control form leave datum 0: a relation, not a function.
         self.assertGreater(sum(1 for f, args in g if f == 3 + 3 + 0 and args[0] == 0), 1)
 
+    def test_the_memoryless_reader_refuses_a_record_program(self) -> None:
+        """A record program is not an operation graph on its control forms:
+        several instances of one form leave one record entry.  The merged
+        reader goes through ``lookup``, which refuses such a form by name, so
+        it must not be applied here — the dispatch in ``selection.py`` is what
+        keeps it away."""
+        for C in (rc.turncoat(self.F), rc.lift(self.forever)):
+            g = rc.rprogram(C)
+            with self.assertRaisesRegex(ExecutionError, "not an operation graph"):
+                ct.enabled_at(g, 3, 0)
+            with self.assertRaisesRegex(ExecutionError, "not an operation graph"):
+                ct.step_det(ct.State(g, 3, 0, (0,), 0, 3))
+
     def test_an_enablement_outside_the_setting_is_refused(self) -> None:
         with self.assertRaisesRegex(ExecutionError, "outside the setting"):
             rc.Recorded(self.F, frozenset({(0, 3, 0)}))
