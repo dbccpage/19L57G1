@@ -807,6 +807,75 @@ theorem robs_functional (C : Recorded) (x fuel n : Nat) {t u : Nat × Nat × Nat
   rchain_functional
     (riter_chain n _ (rinit_chain C x fuel).1 (rinit_chain C x fuel).2).1 ht hu h1 h2
 
+/-! ## 11. This machine is the generic runner at a deeper reader
+
+The producer family parameterised the interpreter over an enablement reader
+`State → List Nat` and asked whether a reader must see more than the state.
+This family is the first answer: reading one entry of the record needs
+`previous s`, which is a function of the state, so the reader is still a
+reader and this runner is the generic one at it.
+
+Every theorem of §9 and the compatibility of §7 are therefore instances, and
+the copies in this file are copies and not obligations. -/
+
+/-- What the record-reading machine reads: the enablements at the active datum
+after the one before it on the record. -/
+def recordReader (s : State) : List Nat :=
+  renabledAt s.graph s.nops (previous s) s.active
+
+/-- **The identification, by `rfl`.** -/
+theorem rstepDet_is_generic (s : State) :
+    rstepDet s = Runner.stepDetOf recordReader s := rfl
+
+theorem rnext_is_generic (s : State) : rnext s = Runner.nextOf recordReader s := rfl
+
+theorem riter_is_generic : ∀ (n : Nat) (s : State),
+    riter n s = Runner.iterOf recordReader n s
+  | 0, _ => rfl
+  | n + 1, s => by
+      show rnext (riter n s) = Runner.nextOf recordReader (Runner.iterOf recordReader n s)
+      rw [riter_is_generic n s, rnext_is_generic]
+
+theorem robs_is_generic (n : Nat) (s : State) :
+    robs n s = Runner.obsOf recordReader n s := by
+  show (riter n s).tape = (Runner.iterOf recordReader n s).tape
+  rw [riter_is_generic n s]
+
+theorem rrunDet_is_generic : ∀ (b : Nat) (s : State),
+    rrunDet b s = Runner.runDetOf recordReader b s
+  | 0, _ => rfl
+  | b + 1, s => by
+      cases h : rstepDet s with
+      | inl t =>
+          have h1 : rrunDet (b + 1) s = (t, s) := by
+            show (match rstepDet s with | .inl t => (t, s) | .inr s' => rrunDet b s') = (t, s)
+            rw [h]
+          have h2 : Runner.runDetOf recordReader (b + 1) s = (t, s) := by
+            show (match Runner.stepDetOf recordReader s with
+                  | .inl t => (t, s)
+                  | .inr s' => Runner.runDetOf recordReader b s') = (t, s)
+            rw [← rstepDet_is_generic s, h]
+          rw [h1, h2]
+      | inr s' =>
+          have h1 : rrunDet (b + 1) s = rrunDet b s' := by
+            show (match rstepDet s with | .inl t => (t, s) | .inr s' => rrunDet b s') = _
+            rw [h]
+          have h2 : Runner.runDetOf recordReader (b + 1) s
+              = Runner.runDetOf recordReader b s' := by
+            show (match Runner.stepDetOf recordReader s with
+                  | .inl t => (t, s)
+                  | .inr s' => Runner.runDetOf recordReader b s') = _
+            rw [← rstepDet_is_generic s, h]
+          rw [h1, h2, rrunDet_is_generic b s']
+
+/-- And so this family's compatibility is the generic one, not a second proof
+of it. -/
+theorem robs_prefix_is_generic (m : Nat) (s : State) (k : Nat) :
+    robs m s <+: robs (m + k) s := by
+  rw [robs_is_generic m s, robs_is_generic (m + k) s]
+  exact Runner.obsOf_prefix_add recordReader m s k
+
+
 end Record
 
 #print axioms Record.mem_recInsts
@@ -856,3 +925,9 @@ end Record
 #print axioms Record.rinit_chain
 #print axioms Record.robs_functional
 #print axioms Record.rrun_branch
+#print axioms Record.rstepDet_is_generic
+#print axioms Record.rnext_is_generic
+#print axioms Record.riter_is_generic
+#print axioms Record.robs_is_generic
+#print axioms Record.rrunDet_is_generic
+#print axioms Record.robs_prefix_is_generic

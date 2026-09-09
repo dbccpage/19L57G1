@@ -670,6 +670,47 @@ theorem the_ladder :
   ⟨⟨Record.twist_tape, twist_repeats_an_entry⟩, ⟨twist2_tape, twist2_repeats_a_pair⟩⟩
 
 
+/-! ## 9. And so is the depth-two machine
+
+The third reader, and the one that settles the question: reading *two* entries
+of the record needs `before s` beside `previous s`, and both are functions of
+the state.  A reader still sees the state and nothing more, so the depth-two
+runner is the generic runner too — a fourth read would cost a reader and no
+runner at all. -/
+
+/-- What the depth-two machine reads. -/
+def depthReader (s : State) : List Nat :=
+  r2enabledAt s.graph s.nops (before s) (previous s) s.active
+
+theorem r2stepDet_is_generic (s : State) :
+    r2stepDet s = Runner.stepDetOf depthReader s := rfl
+
+theorem r2next_is_generic (s : State) : r2next s = Runner.nextOf depthReader s := rfl
+
+theorem r2iter_is_generic : ∀ (n : Nat) (s : State),
+    r2iter n s = Runner.iterOf depthReader n s
+  | 0, _ => rfl
+  | n + 1, s => by
+      show r2next (r2iter n s) = Runner.nextOf depthReader (Runner.iterOf depthReader n s)
+      rw [r2iter_is_generic n s, r2next_is_generic]
+
+theorem r2obs_is_generic (n : Nat) (s : State) :
+    r2obs n s = Runner.obsOf depthReader n s := by
+  show (r2iter n s).tape = (Runner.iterOf depthReader n s).tape
+  rw [r2iter_is_generic n s]
+
+/-- **Three readers, one runner.**  The merged read, the depth-one read and
+the depth-two read are three functions `State → List Nat`, and the three
+machines are the one generic machine at them.  The rung that asked for this
+named its own failure — that a reader would have to see more than the state —
+and it does not happen. -/
+theorem three_readers_one_runner (s : State) :
+    Control.stepDet s = Runner.stepDetOf Runner.ctrlReader s ∧
+      rstepDet s = Runner.stepDetOf recordReader s ∧
+      r2stepDet s = Runner.stepDetOf depthReader s :=
+  ⟨rfl, rfl, rfl⟩
+
+
 end Depth
 
 #print axioms Depth.formsOf_length
@@ -711,3 +752,8 @@ end Depth
 #print axioms Depth.quads_of_triples
 #print axioms Depth.twist_repeats_an_entry
 #print axioms Depth.the_ladder
+#print axioms Depth.r2stepDet_is_generic
+#print axioms Depth.r2next_is_generic
+#print axioms Depth.r2iter_is_generic
+#print axioms Depth.r2obs_is_generic
+#print axioms Depth.three_readers_one_runner

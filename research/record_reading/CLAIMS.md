@@ -360,6 +360,38 @@ climb, in index order; "the record" means the machine's tape.
   the process makes available.  The minimum is a minimum over the **declared**
   inputs; a different input family could be shorter.
 
+### CL-RR-16 — three readers, one runner
+
+- **Statement**: the producer family's `Runner` is the interpreter over an
+  enablement reader `State → List Nat`.  This family's two machines are that
+  machine at two readers: `recordReader s = renabledAt … (previous s)
+  s.active` and `depthReader s = r2enabledAt … (before s) (previous s)
+  s.active`, with `rstepDet_is_generic` and `r2stepDet_is_generic` both `rfl`,
+  the runners and observations identified alongside (`rrunDet_is_generic`,
+  `robs_is_generic`, `r2obs_is_generic`), and this family's compatibility
+  *derived* from `Runner.obsOf_prefix_add` rather than proved again
+  (`robs_prefix_is_generic`).  `Depth.three_readers_one_runner` states the
+  three identifications together.
+- **Hypotheses**: none.
+- **Novelty**: the rung that asked for this named its own failure — that a
+  reader would have to see more than the state.  **It does not happen**:
+  `previous` and `before` are functions of the state, so a deeper read is
+  still a read.  That is the finding, and it is what makes the runner one
+  runner rather than three that look alike.
+- **Evidence**: `Record.recordReader`, `rstepDet_is_generic`,
+  `rnext_is_generic`, `riter_is_generic`, `robs_is_generic`,
+  `rrunDet_is_generic`, `robs_prefix_is_generic`; `Depth.depthReader`,
+  `r2stepDet_is_generic`, `r2next_is_generic`, `r2iter_is_generic`,
+  `r2obs_is_generic`, `three_readers_one_runner`; `tests/test_depth.py`, over
+  every deterministic program of each depth on the two-point setting.
+- **Falsifier**: a state at which one of the two machines and the generic
+  machine at its reader differ.  The Lean says they cannot, by `rfl`.
+- **Obligation**: the copies are **not removed**.  `rstepDet`, `rrunDet`,
+  `rnext`, `robs`, `r2stepDet` and the rest stay in these files, and so do
+  their separate theorems.  What is gone is the excuse for them and the cost
+  of the next reader; a reader who wants the duplication actually deleted is
+  owed a different change from this one.
+
 ### CL-RR-11 — the protocol declared before the readout; the artifact; not delivered
 
 - **Declared first**: the classes, the starts `0, 1, 2`, the scales `1..8`,

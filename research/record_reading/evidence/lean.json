@@ -4,9 +4,9 @@
   "census": "compiled environment theorem declarations in the Record, Select and Depth namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Depth.lean": "c719ae0cb7fd5310de124e7f768bb14f4a5ba50da2b937b86bb662b97f022c46",
+    "Depth.lean": "281b0c465f72d134cf234c9fad1b7281a38e58b268a3cca694460e69c9e45e02",
     "Inventory.lean": "8614b5c1062367c6f71f92cc0a4094546a7dd15f189f46d97c0aed1109270777",
-    "Record.lean": "44a3b1b1b8719c340d755735c6da3ebf5d228c0e9b2275361f8a9615b5940c1c",
+    "Record.lean": "8fdeef14844cd7bc1c038b9061a69a7331cabb0bde814763118ceef998eb029e",
     "Select.lean": "4bbc28e3f9925ef4f521e30c43ec71df20a27cfff6cfd2b29ee836d4034c6e7f",
     "lakefile.toml": "ec73670d4dc74d6c30a89bcce228dcb19b45eec22eaa0823cc3b455b51cfd307",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
@@ -157,11 +157,19 @@
       "Quot.sound",
       "propext"
     ],
+    "Depth.r2iter_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
     "Depth.r2iter_succ": [
       "Quot.sound",
       "propext"
     ],
     "Depth.r2next_chain": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2next_is_generic": [
       "Quot.sound",
       "propext"
     ],
@@ -177,6 +185,14 @@
       "Quot.sound",
       "propext"
     ],
+    "Depth.r2obs_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2stepDet_is_generic": [
+      "Quot.sound",
+      "propext"
+    ],
     "Depth.r2stepDet_spec": [
       "Quot.sound",
       "propext"
@@ -186,6 +202,10 @@
       "propext"
     ],
     "Depth.the_ladder": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.three_readers_one_runner": [
       "Quot.sound",
       "propext"
     ],
@@ -334,10 +354,16 @@
     "Record.riter_chain": [
       "propext"
     ],
+    "Record.riter_is_generic": [
+      "propext"
+    ],
     "Record.riter_succ": [
       "propext"
     ],
     "Record.rnext_chain": [
+      "propext"
+    ],
+    "Record.rnext_is_generic": [
       "propext"
     ],
     "Record.rnext_of_inl": [
@@ -352,13 +378,22 @@
     "Record.robs_functional": [
       "propext"
     ],
+    "Record.robs_is_generic": [
+      "propext"
+    ],
     "Record.robs_prefix": [
       "propext"
     ],
     "Record.robs_prefix_add": [
       "propext"
     ],
+    "Record.robs_prefix_is_generic": [
+      "propext"
+    ],
     "Record.rrunDet_branch": [
+      "propext"
+    ],
+    "Record.rrunDet_is_generic": [
       "propext"
     ],
     "Record.rrun_branch": [
@@ -368,6 +403,9 @@
       "propext"
     ],
     "Record.rstepDet_inr": [
+      "propext"
+    ],
+    "Record.rstepDet_is_generic": [
       "propext"
     ],
     "Record.rstepDet_spec": [
@@ -509,12 +547,12 @@
     ]
   },
   "reports_per_namespace": {
-    "Depth": 54,
-    "Record": 58,
+    "Depth": 59,
+    "Record": 64,
     "Select": 28
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination; and the depth-two read, whose control forms are ternary \u2014 a regime of mixed arity, which the sealed grammar admits \u2014 realising a tape no depth-one program realises.",
-  "theorem_count_including_generated": 140,
+  "theorem_count_including_generated": 151,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

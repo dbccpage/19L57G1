@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "coherent_process_l
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import control as ct  # noqa: E402
+import runner as rn  # noqa: E402
 import depth as dp  # noqa: E402
 import record as rc  # noqa: E402
 import translation as tr  # noqa: E402
@@ -152,6 +153,53 @@ class AgainstTheMemorylessMachine(unittest.TestCase):
             C = ct.Controlled(BASE, frozenset((key[0], k) for key, k in choice.items()))
             for start in range(BASE.n):
                 self.assertTrue(dp.functional(1, ct.trace(C, start, 6)[1].tape), choice)
+
+
+class ThreeReadersOneRunner(unittest.TestCase):
+    """W44 in Python: the three machines are the one interpreter at three
+    readers, checked over the declared populations rather than by `rfl`."""
+
+    def record_reader(self, s: ct.State) -> tuple[int, ...]:
+        return rc.renabled_at(s.graph, s.nops, rc.previous(s), s.active)
+
+    def depth_reader(self, s: ct.State) -> tuple[int, ...]:
+        return dp.r2enabled_at(s.graph, s.nops, dp.before(s), rc.previous(s), s.active)
+
+    def test_the_record_machine_is_the_generic_one_at_its_reader(self) -> None:
+        """Over every deterministic depth-one program on the two-point
+        setting: 81 programs, both starts, seven steps each."""
+        for choice in dp.deterministic_choices(2, TWO.n, len(TWO.ops)):
+            C = rc.Recorded(TWO, frozenset((key[0], key[1], k) for key, k in choice.items()))
+            for start in range(TWO.n):
+                s = rc.rinit(C, start, 6)
+                for _ in range(7):
+                    mine = rc.rstep_det(s)
+                    self.assertEqual(mine, rn.step_det_of(self.record_reader, s), (choice, start))
+                    if isinstance(mine, ct.Terminal):
+                        break
+                    s = mine
+
+    def test_the_depth_two_machine_is_the_generic_one_at_its_reader(self) -> None:
+        for choice in dp.deterministic_choices(3, 2, 2):
+            F = TWO
+            C = dp.Recorded2(F, frozenset((key[0], key[1], key[2], k) for key, k in choice.items()))
+            for start in range(F.n):
+                s = dp.r2init(C, start, 6)
+                for _ in range(7):
+                    mine = dp.r2step_det(s)
+                    self.assertEqual(mine, rn.step_det_of(self.depth_reader, s), (choice, start))
+                    if isinstance(mine, ct.Terminal):
+                        break
+                    s = mine
+
+    def test_both_observations_are_the_generic_one(self) -> None:
+        for choice in dp.deterministic_choices(2, TWO.n, len(TWO.ops)):
+            C = rc.Recorded(TWO, frozenset((key[0], key[1], k) for key, k in choice.items()))
+            for start in range(TWO.n):
+                s = rc.rinit(C, start, 6)
+                for scale in range(7):
+                    self.assertEqual(rc.robs(scale, s),
+                                     rn.obs_of(self.record_reader, scale, s), (choice, start, scale))
 
 
 if __name__ == "__main__":

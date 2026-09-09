@@ -41,13 +41,13 @@ three greedy experiments separate them into 45 residual classes (largest
 4096), and the residual is exactly the next-value function on the pairs the
 runs reach, checked against the programs.
 
-Lean: 106 authored theorems, 140 reports with the compiler-generated ones,
+Lean: 117 authored theorems, 151 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
 run recorded with its operation tables in index order; 50 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`3cb02d5ea9e3a11e32105cdf38b61ea704d94944`, the observed family's commit
+`60a9c43662e518fdb21dde3a5be1e6d5f5061d83`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
@@ -132,6 +132,28 @@ the ceiling is proved one rung at a time and not for a general `d`.
 `depth.functional` is written for any window size, so the statement checked at
 each rung is the same statement.
 
+### Three readers, one runner
+
+The producer family parameterised the interpreter over an enablement reader
+`State → List Nat` and asked whether a reader must see more than the state.
+This family is the answer twice over: reading one entry of the record needs
+`previous s`, reading two needs `before s` beside it, and **both are functions
+of the state**.
+
+| theorem | content |
+|---|---|
+| `Record.recordReader`, `rstepDet_is_generic` | the depth-one machine is the generic runner at its reader, by `rfl` |
+| `Record.rrunDet_is_generic`, `robs_prefix_is_generic` | and so is its runner; its compatibility is *derived* from `Runner.obsOf_prefix_add`, not proved again |
+| `Depth.depthReader`, `r2stepDet_is_generic`, `r2obs_is_generic` | and so is the depth-two machine |
+| `Depth.three_readers_one_runner` | **the three machines are the one machine at three readers** — three `rfl`s |
+
+The rung that asked for this named its own failure: that a reader would have to
+see more than the state.  It does not happen, so the copies of the runner in
+these files are copies and not obligations, and a fourth read costs a reader
+and no runner at all.  `tests/test_depth.py` checks the identification the
+Lean states by `rfl`, over every deterministic program of each depth on the
+two-point setting.
+
 ## 3. The experiment (`selection.py`)
 
 Declared before any readout: two classes (memoryless, at most one operation
@@ -170,23 +192,23 @@ in index order are not the transcribed `Observe.base`.
 
 ## 5. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 106 authored theorems and 34
+**Lean** (`lean/`, `evidence/lean.json`): 117 authored theorems and 34
 compiler-generated ones (the structure's injectivity and size lemmas and
-the proof terms of case splits), 140 reports, all within
+the proof terms of case splits), 151 reports, all within
 `{propext, Quot.sound}`; the report population equals the environment
 census of the `Record`, `Select` and `Depth` namespaces in both directions; no
 private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
 **Python** (`record.py`, `selection.py`, `run.py`, `evidence/record.json`,
-`tests/`): 77 tests, strict typing over twelve files, the two records replay
+`tests/`): 80 tests, strict typing over twelve files, the two records replay
 byte-identically.  The house files follow the sibling families' with
 names, pins and refusals changed; this tree's directory is always first on
 the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`3cb02d5ea9e3a11e32105cdf38b61ea704d94944`, the eight derivation modules and
+`60a9c43662e518fdb21dde3a5be1e6d5f5061d83`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,

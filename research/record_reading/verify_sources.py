@@ -39,7 +39,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "3cb02d5ea9e3a11e32105cdf38b61ea704d94944"
+BASELINE_COMMIT = "60a9c43662e518fdb21dde3a5be1e6d5f5061d83"
 PACKET = Path("research/record_reading")
 SCHEMA = "record-reading-sources-v1"
 CONSUMED_TREES = {
@@ -82,6 +82,7 @@ RUNTIME_PATHS = {
     "translation": "research/setting_translation/translation.py",
     "execution": "research/represented_execution/execution.py",
     "control": "research/represented_execution/control.py",
+    "runner": "research/represented_execution/runner.py",
     "product": "research/represented_execution/product.py",
     "limits": "research/coherent_process_limits/limits.py",
 }

@@ -1,6 +1,6 @@
 {
   "schema": "record-reading-sources-v1",
-  "baseline_commit": "3cb02d5ea9e3a11e32105cdf38b61ea704d94944",
+  "baseline_commit": "60a9c43662e518fdb21dde3a5be1e6d5f5061d83",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution, control and limits modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation, represented_execution and coherent_process_limits Lean trees the local proofs build on, the setting_translation, represented_execution and coherent_process_limits Python trees that supply the encoder, the machines this family extends and the observation it selects against, the Lean configuration of the seven packages, and the represented execution family's artifact evidence/process.json (read here through the coherent process limits family's identification, never written here) at the commit at which both families are frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
@@ -15,6 +15,7 @@
     "translation": "research/setting_translation/translation.py",
     "execution": "research/represented_execution/execution.py",
     "control": "research/represented_execution/control.py",
+    "runner": "research/represented_execution/runner.py",
     "product": "research/represented_execution/product.py",
     "limits": "research/coherent_process_limits/limits.py"
   },
@@ -26,10 +27,10 @@
     "research/magnification/lean": "8c9e41e7e3f93345c9c337f2a81b4a5ac3d2b674",
     "research/setting_translation/lean": "7e329a7a398067f3bd38051d7ab0ecb619e98448",
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
-    "research/represented_execution/lean": "97d72c41aa706b15d336c08040eaa9c79dbce15c",
-    "research/represented_execution": "12c0689ae5f23601df86a102b031b3b1cc7b393a",
-    "research/coherent_process_limits/lean": "d649537d90bc3e24204ecc8b69e47d17e6c72fe0",
-    "research/coherent_process_limits": "5266d77391be83cde835018936385ca07e64d473"
+    "research/represented_execution/lean": "574d31d96ede420e191bb9c1936ee977198cd0a1",
+    "research/represented_execution": "88140c9af7a51d6cc96c48452528bcb6ef4c2051",
+    "research/coherent_process_limits/lean": "cedf63ea65094b687596503c5f4ad8b8a7762343",
+    "research/coherent_process_limits": "655d0f1a443d52eb3a17f84914fd60a460412228"
   },
   "tree_census": {
     "code/derivation": [
@@ -182,6 +183,7 @@
       "research/represented_execution/lean/Inventory.lean",
       "research/represented_execution/lean/Product.lean",
       "research/represented_execution/lean/Rename.lean",
+      "research/represented_execution/lean/Runner.lean",
       "research/represented_execution/lean/Schedule.lean"
     ],
     "research/represented_execution": [
@@ -190,6 +192,7 @@
       "research/represented_execution/product.py",
       "research/represented_execution/rename.py",
       "research/represented_execution/run.py",
+      "research/represented_execution/runner.py",
       "research/represented_execution/tests/test_control.py",
       "research/represented_execution/tests/test_evidence.py",
       "research/represented_execution/tests/test_execution.py",
@@ -197,6 +200,7 @@
       "research/represented_execution/tests/test_oracle.py",
       "research/represented_execution/tests/test_product.py",
       "research/represented_execution/tests/test_rename.py",
+      "research/represented_execution/tests/test_runner.py",
       "research/represented_execution/tests/test_sources.py",
       "research/represented_execution/verify.py",
       "research/represented_execution/verify_lean.py",
@@ -244,9 +248,10 @@
     "research/represented_execution/control.py": "0ab01c970191a2347cafa0ffc13774b22859ca5e6270468751ac4271cc52574f",
     "research/represented_execution/evidence/process.json": "0fa4cf453a154d8fadf73a054105e13bd6cae9a47d4861588cc9100e4b61d9b7",
     "research/represented_execution/execution.py": "411bfa9a7435fbc111f58057e4ae84b2507c34775d04a71635b14567f2e34c51",
-    "research/represented_execution/lean/lakefile.toml": "58b72910fa32bd701cb794b588526cc27e84eb479bd440b7da4a165e84efb85f",
+    "research/represented_execution/lean/lakefile.toml": "26c410493e14da60100f67c527512029fd6f3fbd0cfa9490a51bd37ae4ce6a67",
     "research/represented_execution/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/represented_execution/product.py": "6c6259c5d3c6d47c5a7b4a3e899bc03841f705f479139fb33e018d159fe8dd2f",
+    "research/represented_execution/runner.py": "10d8a5c822ca49a05b414ee72107391ce1d64f71452b62e7eb30a4852336c66e",
     "research/setting_translation/lean/lakefile.toml": "f82672361e0db8d0968e87dc295fa1eac657cabf6d748f5b2568c69f1e769a94",
     "research/setting_translation/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/setting_translation/translation.py": "981010dee589ed36fdc80eea3f249f9848ca349e2f050cba7796bb5dcb68ce3f"

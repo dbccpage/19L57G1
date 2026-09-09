@@ -22,7 +22,10 @@ BRIDGE = ("Record.encodeR_wf", "Record.renabled_rprogram", "Record.previous_fire
           "Depth.encodeR2_wf", "Depth.twist2_tape", "Depth.no_record_run_realises",
           "Depth.depth_two_is_deeper", "Depth.r2enabled_r2program",
           "Depth.r2obs_functional", "Depth.r2chain_functional", "Depth.r2stepDet_spec",
-          "Depth.triples_of_pairs", "Depth.quads_of_triples", "Depth.the_ladder")
+          "Depth.triples_of_pairs", "Depth.quads_of_triples", "Depth.the_ladder",
+          "Record.rstepDet_is_generic", "Record.rrunDet_is_generic",
+          "Record.robs_prefix_is_generic", "Depth.r2stepDet_is_generic",
+          "Depth.r2obs_is_generic", "Depth.three_readers_one_runner")
 
 
 class ReportParser(unittest.TestCase):
@@ -72,11 +75,11 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 106)
-        self.assertEqual(record["theorem_count_including_generated"], 140)
+        self.assertEqual(authored, 117)
+        self.assertEqual(record["theorem_count_including_generated"], 151)
         self.assertEqual(record["axiom_free_count"], 7)
         self.assertEqual(record["reports_per_namespace"],
-                         {"Record": 58, "Select": 28, "Depth": 54})
+                         {"Record": 64, "Select": 28, "Depth": 59})
         self.assertEqual(record["reports"]["Select.obs_bisim"], ["Quot.sound", "propext"])
         self.assertEqual(record["reports"]["Record.memoryless_functional"], ["propext"])
         self.assertEqual(record["reports"]["Record.previous_fire"], ["propext"])
