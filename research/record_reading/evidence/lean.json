@@ -4,9 +4,9 @@
   "census": "compiled environment theorem declarations in the Record and Select namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Inventory.lean": "d4c422b6fc97d908ee7922934d62e76c0c7af857f79952ceb2a8e193b9c9f63f",
-    "Record.lean": "8b98f15836a31b06399ee6fd4c5a8c22f7cca6058648937c7dd216a4c35f6807",
-    "Select.lean": "a8ccfbfd1663ad0c552fc37106b8a4e61cd154bd28f978ab2c622d8dae71f9fa",
+    "Inventory.lean": "fd4d200b0c77b98040593f7190eec9f5c0b28eb4f259891e25b089c283956e38",
+    "Record.lean": "364f416050b57d457e9cbcae0b89a3906a2854164dd2af5295b5e645adfac8c3",
+    "Select.lean": "4bbc28e3f9925ef4f521e30c43ec71df20a27cfff6cfd2b29ee836d4034c6e7f",
     "lakefile.toml": "85a4758ed5764cf63df4d089d5fe842ce15e7344e56a924f2fc642402a730929",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -120,6 +120,12 @@
       "propext"
     ],
     "Record.rinit_synced": [],
+    "Record.rnext_of_inl": [
+      "propext"
+    ],
+    "Record.rnext_of_inr": [
+      "propext"
+    ],
     "Record.rnext_tape": [
       "propext"
     ],
@@ -139,6 +145,9 @@
       "propext"
     ],
     "Record.rstepDet_inr": [
+      "propext"
+    ],
+    "Record.rstepDet_spec": [
       "propext"
     ],
     "Record.rsuccessors_complete": [
@@ -203,6 +212,9 @@
       "Quot.sound",
       "propext"
     ],
+    "Select.previous_congr": [
+      "propext"
+    ],
     "Select.rel_iter": [
       "Quot.sound",
       "propext"
@@ -223,6 +235,34 @@
       "Quot.sound",
       "propext"
     ],
+    "Select.robs_bisim": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.robs_take": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_iter": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Select.rrel_next._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
     "Select.stepDet_spec": [
       "propext"
     ],
@@ -240,11 +280,11 @@
     ]
   },
   "reports_per_namespace": {
-    "Record": 43,
-    "Select": 20
+    "Record": 46,
+    "Select": 28
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination.",
-  "theorem_count_including_generated": 63,
+  "theorem_count_including_generated": 74,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

@@ -66,9 +66,11 @@
   ]
  },
  "record_reading": {
+  "bisimulation": "Select.RRel, Select.rrel_next, Select.robs_bisim: same next-value function, active datum, record and fuel give the same observation at every scale; the record is part of the relation, so previous agrees (Select.previous_congr)",
   "completeness": "Record.rsuccessors_complete",
   "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
   "never_selects": "Record.rrun_branch",
+  "one_step_by_its_next_value": "Record.rnextOf, Record.rstepDet_spec",
   "only_appends": "Record.robs_prefix",
   "program": "Record.rprogram; well-formed regime Record.encodeR_wf",
   "read": "Record.renabled: the presence of the instance (3 + nops + k, [previous, active]); Record.previous: the entry before the last on the record",

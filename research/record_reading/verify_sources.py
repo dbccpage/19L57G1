@@ -38,7 +38,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "90acc68ab18acbd65f158de5f0e2fb8be16ac7d8"
+BASELINE_COMMIT = "f62d857afb38630742249c47a4446892b0e87daf"
 PACKET = Path("research/record_reading")
 SCHEMA = "record-reading-sources-v1"
 CONSUMED_TREES = {

@@ -1,6 +1,6 @@
 {
   "schema": "record-reading-sources-v1",
-  "baseline_commit": "90acc68ab18acbd65f158de5f0e2fb8be16ac7d8",
+  "baseline_commit": "f62d857afb38630742249c47a4446892b0e87daf",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution, control and limits modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation, represented_execution and coherent_process_limits Lean trees the local proofs build on, the setting_translation, represented_execution and coherent_process_limits Python trees that supply the encoder, the machines this family extends and the observation it selects against, the Lean configuration of the seven packages, and the represented execution family's artifact evidence/process.json (read here through the coherent process limits family's identification, never written here) at the commit at which both families are frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
@@ -27,8 +27,8 @@
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
     "research/represented_execution/lean": "4a3d9cbac827b31a4515bec89c1dffb80c0b0186",
     "research/represented_execution": "33cebbd938c3835d0cfe9d1affa81e95d27ccec3",
-    "research/coherent_process_limits/lean": "299811e3c82e25ca2f10c95760709eb01dfc6e33",
-    "research/coherent_process_limits": "d01a5f99e05ce31fb5ca2d62fd7ad73f92e89fc8"
+    "research/coherent_process_limits/lean": "975ff5e547fc7f3a802e94f86d097883107d2960",
+    "research/coherent_process_limits": "c2457bd37360fa99821366cca95df4682ffc4ade"
   },
   "tree_census": {
     "code/derivation": [

@@ -153,8 +153,13 @@ climb, in index order; "the record" means the machine's tape.
   three programs from three starts.
 - **Falsifier**: two states with one next-value function, datum, record and
   fuel and different observations.
-- **Obligation**: the bisimulation is stated for the merged machine; the
-  record-reading analogue is computed (CL-RR-10), not proved.
+- **Obligation**: discharged.  `Record.rnextOf` reads what the record-reading
+  program says about a `(previous, active)` pair, `Record.rstepDet_spec`
+  expresses one step of that machine by it, and `Select.RRel` / `rrel_next` /
+  `rrel_iter` / `robs_bisim` give the same invariance there: same next-value
+  function, active datum, record and fuel, same observation at every scale.
+  The record is part of the relation, so `previous` — a function of the record
+  — agrees too (`previous_congr`).  `robs_take` is the finest-scale corollary.
 
 ### CL-RR-09 — the ambiguity exhibited: which operation carried the datum is not observed
 
@@ -216,8 +221,7 @@ climb, in index order; "the record" means the machine's tape.
 - **Not delivered**: a record read deeper than one entry; an encoded
   configuration; an observable that reads which operation fired — the
   residual of the experiment is exactly what such an observable would
-  separate; a second locus of activity.  The bisimulation for the
-  record-reading machine is computed, not proved.  The merged memoryless
+  separate; a second locus of activity.  The merged memoryless
   reader does not apply to a record program — several instances of one
   control form leave one record entry and `lookup` refuses such a form — so
   the two machines' agreement is claimed only through `lift_renabled`, not by

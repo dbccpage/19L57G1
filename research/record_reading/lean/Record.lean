@@ -322,6 +322,71 @@ def riter : Nat → State → State
 /-- The observation at scale `n`: the record after `n` steps. -/
 def robs (n : Nat) (s : State) : List Nat := (riter n s).tape
 
+/-- The value the record-reading runner moves to at the active datum after the
+recorded one: the value of the one operation enabled there, and none when
+none, two, or no edge.  The fuel is not read: this is what the *program* says
+about the pair. -/
+def rnextOf (g : List Inst) (nops p x : Nat) : Option Nat :=
+  match renabledAt g nops p x with
+  | [k] => lookup (3 + k) x g
+  | _ => none
+
+/-- **One step of the record-reading runner, by its next value.**  Either it
+stops — no fuel, or no next value — or it moves to the next value, appending
+it, ticking the clock and spending one fuel. -/
+theorem rstepDet_spec (s : State) :
+    ((s.fuel = 0 ∨ rnextOf s.graph s.nops (previous s) s.active = none) ∧
+        ∃ t, rstepDet s = .inl t) ∨
+      ∃ f y, s.fuel = f + 1 ∧ rnextOf s.graph s.nops (previous s) s.active = some y ∧
+        rstepDet s = .inr ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩ := by
+  have hstep : rstepDet s = (match renabledAt s.graph s.nops (previous s) s.active with
+        | [] => Sum.inl Terminal.halt
+        | [k] =>
+          match fire s k with
+          | .ok s' => Sum.inr s'
+          | .exhausted => Sum.inl Terminal.exhausted
+          | .noEdge => Sum.inl Terminal.refuse
+        | _ :: _ :: _ => Sum.inl Terminal.branch) := rfl
+  have hval : rnextOf s.graph s.nops (previous s) s.active =
+      (match renabledAt s.graph s.nops (previous s) s.active with
+        | [k] => lookup (3 + k) s.active s.graph
+        | _ => none) := rfl
+  rw [hstep, hval]
+  cases renabledAt s.graph s.nops (previous s) s.active with
+  | nil => exact Or.inl ⟨Or.inr rfl, Terminal.halt, rfl⟩
+  | cons k rest =>
+      cases rest with
+      | nil =>
+          show ((s.fuel = 0 ∨ lookup (3 + k) s.active s.graph = none) ∧
+                ∃ t, (match fire s k with
+                      | .ok s' => Sum.inr s'
+                      | .exhausted => Sum.inl Terminal.exhausted
+                      | .noEdge => Sum.inl Terminal.refuse) = Sum.inl t) ∨
+              ∃ f y, s.fuel = f + 1 ∧ lookup (3 + k) s.active s.graph = some y ∧
+                (match fire s k with
+                 | .ok s' => Sum.inr s'
+                 | .exhausted => Sum.inl Terminal.exhausted
+                 | .noEdge => Sum.inl Terminal.refuse) =
+                  Sum.inr ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩
+          cases hfu : s.fuel with
+          | zero =>
+              rw [fire_exhausted hfu]
+              exact Or.inl ⟨Or.inl rfl, Terminal.exhausted, rfl⟩
+          | succ f =>
+              rw [fire_succ s k f hfu]
+              cases lookup (3 + k) s.active s.graph with
+              | none => exact Or.inl ⟨Or.inr rfl, Terminal.refuse, rfl⟩
+              | some y => exact Or.inr ⟨f, y, rfl, rfl, rfl⟩
+      | cons k' rest' => exact Or.inl ⟨Or.inr rfl, Terminal.branch, rfl⟩
+
+theorem rnext_of_inl {s : State} {t : Terminal} (h : rstepDet s = .inl t) : rnext s = s := by
+  show (match rstepDet s with | .inr s' => s' | .inl _ => s) = s
+  rw [h]
+
+theorem rnext_of_inr {s s' : State} (h : rstepDet s = .inr s') : rnext s = s' := by
+  show (match rstepDet s with | .inr s' => s' | .inl _ => s) = s'
+  rw [h]
+
 theorem mem_rsuccessors {s s' : State} :
     s' ∈ rsuccessors s ↔
       ∃ k, k ∈ renabledAt s.graph s.nops (previous s) s.active ∧ fire s k = .ok s' := by
@@ -610,6 +675,9 @@ end Record
 #print axioms Record.renabled_iff
 #print axioms Record.mem_renabledAt
 #print axioms Record.renabled_rprogram
+#print axioms Record.rstepDet_spec
+#print axioms Record.rnext_of_inl
+#print axioms Record.rnext_of_inr
 #print axioms Record.mem_rsuccessors
 #print axioms Record.rinit_synced
 #print axioms Record.previous_rinit

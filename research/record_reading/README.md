@@ -41,14 +41,14 @@ three greedy experiments separate them into 45 residual classes (largest
 4096), and the residual is exactly the next-value function on the pairs the
 runs reach, checked against the programs.
 
-Lean: 47 authored theorems, 63 reports with the compiler-generated ones,
+Lean: 55 authored theorems, 74 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
 run recorded with its operation tables in index order; 50 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`90acc68ab18acbd65f158de5f0e2fb8be16ac7d8`, the observed family's commit
-with its two obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
+`f62d857afb38630742249c47a4446892b0e87daf`, the observed family's commit
+with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
 ## 1. The record read (`lean/Record.lean`)
@@ -85,6 +85,7 @@ no sibling path is written.
 | theorem | content |
 |---|---|
 | `stepDet_spec`, `obs_bisim`, `obs_take` | one step by its next value; **the observation is a bisimulation invariant**; the finest scale suffices (CL-RR-08) |
+| `Record.rnextOf`, `Record.rstepDet_spec`, `previous_congr`, `RRel`, `rrel_next`, `rrel_iter`, `robs_bisim`, `robs_take` | **the same for the record-reading machine**, with `previous` carried by the record (CL-RR-08's obligation) |
 | `forever_differ`, `forever_ambiguous`, `forever_indistinguishable` | **the ambiguity exhibited** (CL-RR-09) |
 | `turncoat_agrees`, `turncoat_differs_scale`, `turncoat_differs_start` | **the discriminating input exhibited** (CL-RR-10) |
 
@@ -126,9 +127,9 @@ in index order are not the transcribed `Observe.base`.
 
 ## 5. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 47 authored theorems and 16
+**Lean** (`lean/`, `evidence/lean.json`): 55 authored theorems and 19
 compiler-generated ones (the structure's injectivity and size lemmas and
-the proof terms of case splits), 63 reports, all within
+the proof terms of case splits), 74 reports, all within
 `{propext, Quot.sound}`; the report population equals the environment
 census of the `Record` and `Select` namespaces in both directions; no
 private theorem; forbidden-token scan clean.  The concrete runs are decided
@@ -142,7 +143,7 @@ the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`90acc68ab18acbd65f158de5f0e2fb8be16ac7d8`, the eight derivation modules and
+`f62d857afb38630742249c47a4446892b0e87daf`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
@@ -166,8 +167,6 @@ Regenerate the two records deliberately and never under a live injection:
 * A record read deeper than one entry: the enablement reads the previous
   datum only.
 * An encoded configuration: the state is a declared host record.
-* The bisimulation theorem for the record-reading machine: stated and
-  proved for the merged machine; computed for the record machine.
 * That the greedy experiment sequence is a minimum: it is one sequence.
 * An observable that reads which operation fired: the residual of the
   experiment is exactly what it would separate, and it is not built.

@@ -126,6 +126,10 @@ def record() -> JsonObj:
             "never_selects": "Record.rrun_branch",
             "only_appends": "Record.robs_prefix",
             "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
+            "one_step_by_its_next_value": "Record.rnextOf, Record.rstepDet_spec",
+            "bisimulation": "Select.RRel, Select.rrel_next, Select.robs_bisim: same next-value function, "
+                            "active datum, record and fuel give the same observation at every scale; the "
+                            "record is part of the relation, so previous agrees (Select.previous_congr)",
         },
         "record_runs": [
             record_run("twist", twist, 0, 3),

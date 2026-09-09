@@ -52,6 +52,9 @@ with the independent environment census. -/
 #print axioms Record.rsuccessors_complete._proof_1_1
 #print axioms Select.enabledAt_ge._proof_1_1
 #print axioms Select.enabledAt_ge._proof_1_2
+#print axioms Select.rrel_next._proof_1_1
+#print axioms Select.rrel_next._proof_1_2
+#print axioms Select.rrel_next._proof_1_3
 #print axioms Select.rel_next._proof_1_1
 #print axioms Select.rel_next._proof_1_2
 #print axioms Select.rel_next._proof_1_3

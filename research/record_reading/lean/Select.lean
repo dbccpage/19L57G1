@@ -223,6 +223,71 @@ theorem turncoat_differs_start :
     Record.robs 2 (Record.rinit turncoat 2 6) ≠ Record.robs 2 (Record.rinit (Record.lift forever) 2 6) := by
   decide
 
+/-! ## 5. The same for the record-reading machine
+
+`obs_bisim` was stated for the merged machine, and the record machine's
+counterpart was computed rather than proved.  It is the same argument: the
+record is part of the relation, so `previous` — a function of the record —
+agrees too, and `Record.rstepDet_spec` expresses one step by its next value
+exactly as `stepDet_spec` does. -/
+
+theorem previous_congr {s t : State} (ha : s.active = t.active) (htape : s.tape = t.tape) :
+    Record.previous s = Record.previous t := by
+  show (match s.tape.reverse with | _ :: p :: _ => p | _ => s.active)
+      = (match t.tape.reverse with | _ :: p :: _ => p | _ => t.active)
+  rw [htape, ha]
+
+/-- Two states that agree on the record-reading next-value function, the
+active datum, the record and the fuel. -/
+def RRel (s t : State) : Prop :=
+  (∀ p x, Record.rnextOf s.graph s.nops p x = Record.rnextOf t.graph t.nops p x) ∧
+    s.active = t.active ∧ s.tape = t.tape ∧ s.fuel = t.fuel
+
+theorem rrel_next {s t : State} (h : RRel s t) : RRel (Record.rnext s) (Record.rnext t) := by
+  obtain ⟨hv, ha, htape, hf⟩ := h
+  have hp : Record.previous s = Record.previous t := previous_congr ha htape
+  have hvt : Record.rnextOf t.graph t.nops (Record.previous t) t.active
+      = Record.rnextOf s.graph s.nops (Record.previous s) s.active := by
+    rw [← hp, ← ha]
+    exact (hv (Record.previous s) s.active).symm
+  rcases Record.rstepDet_spec s with ⟨hs0, ts, hs⟩ | ⟨f, y, hsf, hsv, hs⟩ <;>
+    rcases Record.rstepDet_spec t with ⟨ht0, tt, ht⟩ | ⟨f', y', htf, htv, ht⟩
+  · rw [Record.rnext_of_inl hs, Record.rnext_of_inl ht]
+    exact ⟨hv, ha, htape, hf⟩
+  · exfalso
+    rcases hs0 with hs0 | hs0
+    · omega
+    · rw [hvt, hs0] at htv
+      cases htv
+  · exfalso
+    rcases ht0 with ht0 | ht0
+    · omega
+    · rw [hvt, hsv] at ht0
+      cases ht0
+  · rw [Record.rnext_of_inr hs, Record.rnext_of_inr ht]
+    have hff : f = f' := by omega
+    have hyy : y = y' := by
+      rw [hvt, hsv] at htv
+      exact Option.some.inj htv
+    subst hff
+    subst hyy
+    exact ⟨hv, rfl, by rw [htape], rfl⟩
+
+theorem rrel_iter {s t : State} (h : RRel s t) :
+    ∀ n, RRel (Record.riter n s) (Record.riter n t)
+  | 0 => h
+  | n + 1 => rrel_next (rrel_iter h n)
+
+/-- **Bisimulation, for the record-reading machine.**  Same next-value
+function, active datum, record and fuel: same observation at every scale. -/
+theorem robs_bisim {s t : State} (h : RRel s t) (n : Nat) :
+    Record.robs n s = Record.robs n t := (rrel_iter h n).2.2.1
+
+/-- And the finest scale suffices there too. -/
+theorem robs_take (m k : Nat) (s : State) :
+    Record.robs m s = (Record.robs (m + k) s).take (Record.robs m s).length :=
+  List.prefix_iff_eq_take.mp (Record.robs_prefix_add m s k)
+
 end Select
 
 #print axioms Select.stepDet_spec
@@ -240,3 +305,8 @@ end Select
 #print axioms Select.turncoat_agrees
 #print axioms Select.turncoat_differs_scale
 #print axioms Select.turncoat_differs_start
+#print axioms Select.previous_congr
+#print axioms Select.rrel_next
+#print axioms Select.rrel_iter
+#print axioms Select.robs_bisim
+#print axioms Select.robs_take
