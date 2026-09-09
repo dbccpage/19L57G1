@@ -1,0 +1,6 @@
+.coverage
+coverage.json
+.mypy_cache/
+__pycache__/
+tests/__pycache__/
+_census.json

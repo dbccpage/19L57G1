@@ -1,0 +1,32 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 8,
+  "census": "compiled environment theorem declarations in the IsoSound namespace",
+  "classification": "Lean proof compilation",
+  "general_soundness": "OPEN",
+  "local_sources_sha256": {
+    "Inventory.lean": "098b4e6dc2efc1a67c4e9f73f450cf56b44f98cef5033be0e5a3663a6eb6e93f",
+    "IsoSound.lean": "8db7a666be27a4b63c845c67ff533da803f2dd7d7deb17b455a76483551ab3ab",
+    "lakefile.toml": "62a1e1d2ac07dcdd552ccebbb34fea61c2efd99a6bc2f0a5dba0cf9d3c3d28f3",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "outcome": "no_falsifier_in_bound",
+  "python_driver_refinement": "NOT_PROVED",
+  "reports": {
+    "IsoSound.equal_of_fields": [],
+    "IsoSound.general_bridge_recorded_open": [],
+    "IsoSound.genesis_data": [],
+    "IsoSound.genesis_forms": [],
+    "IsoSound.genesis_insts": [],
+    "IsoSound.genesis_reqs": [],
+    "IsoSound.genesis_rules": [],
+    "IsoSound.genesis_unique": [],
+    "IsoSound.genesis_wf": [
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "identity-field uniqueness only; the refined-key / iso bridge remains OPEN",
+  "theorem_count_including_generated": 9,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
