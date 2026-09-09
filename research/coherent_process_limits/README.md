@@ -21,8 +21,9 @@ determines the next datum is the program and the active datum
 (`next_active_det`).  A shifted observation is not a function of the prefix
 (`shift_not_local`).  The three verdicts are separate: the observation is
 injective on tapes; the process's image is not dense (no realized tape
-extends `[0, 1, 0, 2]`, since realized tapes are functional); it is not
-surjective.  The **connected experiment**: the `forever` program, identified
+extends `[0, 1, 0, 2]`, since realized tapes are functional — proved for
+every setting and every scale by `obs_functional`, not only computed over a
+class); it is not surjective.  The **connected experiment**: the `forever` program, identified
 from the family's artifact, observed at scales 3, 6, 12 and 24 — one state
 at fuel 24 read by `obs` at four scales, so each observation is a prefix of
 the next by `obs_prefix_add`, the artifact's own recorded tape (six entries)
@@ -49,7 +50,7 @@ field the order is still recovered as the one ordering under which every run
 replays, and an enablement naming an operation the sealed schema collapsed
 is refused by name.  That is the artifact contract doing its job.
 
-Lean: 42 authored theorems, 83 reports with the compiler-generated ones,
+Lean: 50 authored theorems, 92 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
@@ -99,6 +100,7 @@ is invoked.
 | `stepDet_inr`, `next_tape` | a step is the firing of the one enabled operation and only appends |
 | `obs_prefix`, `obs_prefix_add` | **compatibility at every scale** (CL-CP-04) |
 | `next_active_det` | the next datum is a function of the program and the active datum |
+| `nextOf`, `Chain`, `chain_functional`, `next_chain`, `iter_chain`, `obs_functional` | **every realized tape is functional along the whole run** (CL-CP-07's obligation) |
 | `lost_fuel` | same tape, different fuel, different next observation (CL-CP-05) |
 | `zeros_eq`, `zeros_bound` | `zeros L = (L + 2) / 3`; `L ≤ 3 · zeros L ≤ L + 2` (CL-CP-08) |
 | `iter_succ`, `next_halt`, `next_branch`, `next_exhausted`, `next_refuse`, `next_fire`, `next_fuel` | one step, by cases: what fires, what stands, what the fuel does |
@@ -166,9 +168,9 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 42 authored theorems and 41
+**Lean** (`lean/`, `evidence/lean.json`): 50 authored theorems and 42
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 83 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 92 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a
@@ -209,9 +211,10 @@ Regenerate the two records deliberately and never under a live injection:
 * That the `forever` tape after `n` steps *is* the first `n + 1` entries of
   `i ↦ i % 3`: computed at every recorded scale; the proved bound is on the
   sequence.  This is the labeled missing connection.
-* The general theorem that every realized tape is functional along a whole
-  run, or eventually periodic: the one-step determinism is proved; the rest
-  is computed over the declared class of 64 programs.
+* That every realized tape is eventually periodic: functionality along the
+  whole run is proved (`obs_functional`), and eventual periodicity on a finite
+  carrier is its standard consequence, but that consequence is not formalized
+  and the density witness is computed over the declared class of 64 programs.
 * Lifting a fork's successor relation to threads; a second locus of activity.
 * That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations.

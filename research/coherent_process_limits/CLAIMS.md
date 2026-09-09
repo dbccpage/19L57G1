@@ -144,15 +144,21 @@ the tape after `n` steps (`Observe.obs`).
 - **Novelty**: the brief's three separate claims with three separate
   falsifiers; density is refused by a named prefix, not by a cardinality
   remark.
-- **Evidence**: `Observe.next_active_det` (the reason: the next datum is a
-  function of the current one); computed: `limits.verdicts` — all 64 × 3
-  realized tapes are functional and none extends the witness.
+- **Evidence**: `Observe.next_active_det` (one step), `Observe.nextOf`,
+  `Chain`, `chain_functional`, `iter_chain`, `obs_functional` (the whole run,
+  every setting); computed: `limits.verdicts` — all 64 × 3 realized tapes are
+  functional and none extends the witness.
 - **Falsifier**: a realized tape that is not functional, or one extending
   `[0, 1, 0, 2]`.
-- **Obligation**: the general theorem that every realized tape is functional
-  along the whole run (not only one step) is computed over the class, not
-  proved; eventual periodicity on a finite carrier is the standard
-  consequence and is not formalized.
+- **Obligation**: discharged for functionality.  `obs_functional` proves that
+  every realized tape is functional along the *whole* run, for every
+  controlled setting, start datum, fuel and scale: the tape of a run is a
+  chain of the machine (`iter_chain`, from the invariant that the last entry
+  is the active datum), and a chain is functional because the next value is a
+  function of the datum (`chain_functional`).  What remains: eventual
+  periodicity on a finite carrier is the standard consequence of
+  functionality and is still not formalized, and the density witness is
+  computed over the declared class.
 
 ### CL-CP-08 — the connected experiment: one process, four scales, one bound
 

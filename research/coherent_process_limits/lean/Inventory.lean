@@ -66,6 +66,7 @@ environment census. -/
 #print axioms Observe.lookup_forever._proof_1_3
 #print axioms Observe.next_fire._proof_1_1
 #print axioms Observe.next_fire._proof_1_6
+#print axioms Observe.next_chain._proof_1_1
 #print axioms Observe.next_fuel._proof_1_1
 #print axioms Observe.obs_fuel_indep._proof_1_3
 #print axioms Observe.obs_fuel_indep._proof_1_4

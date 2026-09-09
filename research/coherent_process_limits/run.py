@@ -96,8 +96,10 @@ def record() -> JsonObj:
         },
         "which_threads": {
             "all_mathematical_sequences": "the thread space is all of them (the construction is total)",
-            "process_generated": "functional tapes — equal entries have equal successors "
-                                 "(Observe.next_active_det) — hence eventually periodic on a finite carrier; "
+            "process_generated": "functional tapes — equal entries have equal successors, proved along the "
+                                 "whole run for every setting, start and scale (Observe.obs_functional, from "
+                                 "the chain invariant Observe.iter_chain) — hence eventually periodic on a "
+                                 "finite carrier, which is the standard consequence and is not formalized; "
                                  "a strict subset",
             "computably_presented": "between the two; not characterised here",
         },
