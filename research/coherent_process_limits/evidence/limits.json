@@ -116,6 +116,7 @@
  "observation_system": {
   "bonding": "forget the entries beyond the coarser length",
   "compatibility_at_every_scale": "Observe.obs_prefix, Observe.obs_prefix_add",
+  "fuel_independence": "Observe.obs_fuel_indep, obs_fuel_eq: two states agreeing on graph, operation count, active datum and tape, each with at least n fuel, have the same observation at scale n; the fuel is consulted only to refuse",
   "observation": "the tape after n steps (Observe.obs)",
   "scale": "the number of steps of the deterministic runner watched",
   "why": "a step only appends (Control.fire_ok through Observe.next_tape)"
@@ -143,6 +144,11 @@
     0
    ]
   ]
+ },
+ "tape_is_the_sequence": {
+  "bound_on_the_run": "Observe.forever_length, forever_zeros, forever_run_bound: the readout of the observation itself obeys L <= 3 * count <= L + 2",
+  "theorem": "Observe.forever_iter, forever_obs: after n steps of the cycle-everywhere program from datum 0, with fuel to spare, the active datum is n % 3 and the tape is the first n + 1 entries of i -> i % 3",
+  "was": "computed at every recorded scale and labelled the missing connection; proved now"
  },
  "verdicts": {
   "all_realized_tapes_functional": true,

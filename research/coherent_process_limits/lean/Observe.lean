@@ -27,7 +27,7 @@ AuthorityEffect: None.
 
 namespace Observe
 
-open Derivation Translation Control
+open Derivation Translation Execution Control
 
 /-! ## 1. Steps, scales, observations -/
 
@@ -127,6 +127,178 @@ theorem next_active_det {s t s' t' : State} (hg : s.graph = t.graph) (hn : s.nop
   rw [hl] at hl'
   exact Option.some.inj hl'
 
+/-! ## 2a. One step, by cases; and what the fuel does not change -/
+
+/-- Iterating `n + 1` times is stepping once and iterating `n` times. -/
+theorem iter_succ : ∀ (n : Nat) (s : State), iter (n + 1) s = iter n (next s)
+  | 0, _ => rfl
+  | n + 1, s => by
+      show next (iter (n + 1) s) = next (iter n (next s))
+      rw [iter_succ n s]
+
+/-- No operation enabled: the state stands. -/
+theorem next_halt {s : State} (he : enabledAt s.graph s.nops s.active = []) : next s = s := by
+  have h : stepDet s = Sum.inl Terminal.halt := by
+    show (match enabledAt s.graph s.nops s.active with
+          | [] => Sum.inl Terminal.halt
+          | [k] =>
+            match fire s k with
+            | .ok s' => Sum.inr s'
+            | .exhausted => Sum.inl Terminal.exhausted
+            | .noEdge => Sum.inl Terminal.refuse
+          | _ :: _ :: _ => Sum.inl Terminal.branch) = Sum.inl Terminal.halt
+    rw [he]
+  show (match stepDet s with | .inr s' => s' | .inl _ => s) = s
+  rw [h]
+
+/-- Two enabled: the runner refuses to pick and the state stands. -/
+theorem next_branch {s : State} {a b : Nat} {rest : List Nat}
+    (he : enabledAt s.graph s.nops s.active = a :: b :: rest) : next s = s := by
+  have h : stepDet s = Sum.inl Terminal.branch := by
+    show (match enabledAt s.graph s.nops s.active with
+          | [] => Sum.inl Terminal.halt
+          | [k] =>
+            match fire s k with
+            | .ok s' => Sum.inr s'
+            | .exhausted => Sum.inl Terminal.exhausted
+            | .noEdge => Sum.inl Terminal.refuse
+          | _ :: _ :: _ => Sum.inl Terminal.branch) = Sum.inl Terminal.branch
+    rw [he]
+  show (match stepDet s with | .inr s' => s' | .inl _ => s) = s
+  rw [h]
+
+/-- No fuel: the state stands. -/
+theorem next_exhausted {s : State} {k : Nat} (he : enabledAt s.graph s.nops s.active = [k])
+    (hf : s.fuel = 0) : next s = s := by
+  have h : stepDet s = Sum.inl Terminal.exhausted := by
+    show (match enabledAt s.graph s.nops s.active with
+          | [] => Sum.inl Terminal.halt
+          | [k] =>
+            match fire s k with
+            | .ok s' => Sum.inr s'
+            | .exhausted => Sum.inl Terminal.exhausted
+            | .noEdge => Sum.inl Terminal.refuse
+          | _ :: _ :: _ => Sum.inl Terminal.branch) = Sum.inl Terminal.exhausted
+    rw [he]
+    show (match fire s k with
+          | .ok s' => Sum.inr s'
+          | .exhausted => Sum.inl Terminal.exhausted
+          | .noEdge => Sum.inl Terminal.refuse) = Sum.inl Terminal.exhausted
+    rw [fire_exhausted hf]
+  show (match stepDet s with | .inr s' => s' | .inl _ => s) = s
+  rw [h]
+
+/-- The one enabled operation has no edge: the state stands. -/
+theorem next_refuse {s : State} {k : Nat} (he : enabledAt s.graph s.nops s.active = [k])
+    (hl : lookup (3 + k) s.active s.graph = none) : next s = s := by
+  cases hfu : s.fuel with
+  | zero => exact next_exhausted he hfu
+  | succ f =>
+      have h : stepDet s = Sum.inl Terminal.refuse := by
+        show (match enabledAt s.graph s.nops s.active with
+              | [] => Sum.inl Terminal.halt
+              | [k] =>
+                match fire s k with
+                | .ok s' => Sum.inr s'
+                | .exhausted => Sum.inl Terminal.exhausted
+                | .noEdge => Sum.inl Terminal.refuse
+              | _ :: _ :: _ => Sum.inl Terminal.branch) = Sum.inl Terminal.refuse
+        rw [he]
+        show (match fire s k with
+              | .ok s' => Sum.inr s'
+              | .exhausted => Sum.inl Terminal.exhausted
+              | .noEdge => Sum.inl Terminal.refuse) = Sum.inl Terminal.refuse
+        rw [fire_succ s k f hfu, hl]
+      show (match stepDet s with | .inr s' => s' | .inl _ => s) = s
+      rw [h]
+
+/-- **One firing, in full.**  With one operation enabled, an edge for it and
+fuel, the step moves to the edge's value, appends it, ticks the clock and
+spends one fuel, keeping the program. -/
+theorem next_fire {s : State} {k y : Nat} (he : enabledAt s.graph s.nops s.active = [k])
+    (hfuel : 0 < s.fuel) (hl : lookup (3 + k) s.active s.graph = some y) :
+    next s = ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, s.fuel - 1⟩ := by
+  obtain ⟨f, hf⟩ : ∃ f, s.fuel = f + 1 := ⟨s.fuel - 1, by omega⟩
+  have h : stepDet s = Sum.inr ⟨s.graph, s.nops, y, s.tape ++ [y], s.clock + 1, f⟩ := by
+    show (match enabledAt s.graph s.nops s.active with
+          | [] => Sum.inl Terminal.halt
+          | [k] =>
+            match fire s k with
+            | .ok s' => Sum.inr s'
+            | .exhausted => Sum.inl Terminal.exhausted
+            | .noEdge => Sum.inl Terminal.refuse
+          | _ :: _ :: _ => Sum.inl Terminal.branch) = _
+    rw [he]
+    show (match fire s k with
+          | .ok s' => Sum.inr s'
+          | .exhausted => Sum.inl Terminal.exhausted
+          | .noEdge => Sum.inl Terminal.refuse) = _
+    rw [fire_succ s k f hf, hl]
+  show (match stepDet s with | .inr s' => s' | .inl _ => s) = _
+  rw [h]
+  have hff : f = s.fuel - 1 := by omega
+  rw [hff]
+
+/-- A step spends at most one fuel. -/
+theorem next_fuel (s : State) : s.fuel - 1 ≤ (next s).fuel := by
+  show s.fuel - 1 ≤ (match stepDet s with | .inr s' => s' | .inl _ => s).fuel
+  cases hs : stepDet s with
+  | inl t => exact Nat.sub_le _ _
+  | inr s' =>
+      show s.fuel - 1 ≤ s'.fuel
+      obtain ⟨k, -, hf⟩ := stepDet_inr hs
+      obtain ⟨-, -, -, hfuel, -, -⟩ := fire_ok hf
+      omega
+
+/-- Two states agreeing on everything a step reads except the fuel. -/
+def Same (s t : State) : Prop :=
+  s.graph = t.graph ∧ s.nops = t.nops ∧ s.active = t.active ∧ s.tape = t.tape
+
+/-- With fuel on both sides, a step preserves that agreement: the fuel is
+consulted only to refuse. -/
+theorem same_next {s t : State} (h : Same s t) (hs : 0 < s.fuel) (ht : 0 < t.fuel) :
+    Same (next s) (next t) := by
+  obtain ⟨hg, hn, ha, htape⟩ := h
+  have he : enabledAt t.graph t.nops t.active = enabledAt s.graph s.nops s.active := by
+    rw [hg, hn, ha]
+  cases hes : enabledAt s.graph s.nops s.active with
+  | nil =>
+      rw [next_halt hes, next_halt (he.trans hes)]
+      exact ⟨hg, hn, ha, htape⟩
+  | cons k rest =>
+      cases rest with
+      | nil =>
+          cases hl : lookup (3 + k) s.active s.graph with
+          | none =>
+              rw [next_refuse hes hl, next_refuse (he.trans hes) (by rw [← hg, ← ha]; exact hl)]
+              exact ⟨hg, hn, ha, htape⟩
+          | some y =>
+              rw [next_fire hes hs hl,
+                next_fire (he.trans hes) ht (by rw [← hg, ← ha]; exact hl)]
+              exact ⟨hg, hn, rfl, by rw [htape]⟩
+      | cons k' rest' =>
+          rw [next_branch hes, next_branch (he.trans hes)]
+          exact ⟨hg, hn, ha, htape⟩
+
+/-- **The observation does not read the declared fuel while fuel lasts.**
+Two states differing only in the fuel, each with at least `n`, have the same
+observation at scale `n`.  (CL-CP-04's obligation.) -/
+theorem obs_fuel_indep : ∀ (n : Nat) {s t : State}, Same s t → n ≤ s.fuel → n ≤ t.fuel →
+    Same (iter n s) (iter n t)
+  | 0, _, _, h, _, _ => h
+  | n + 1, s, t, h, hs, ht => by
+      rw [iter_succ, iter_succ]
+      have hs0 : 0 < s.fuel := by omega
+      have ht0 : 0 < t.fuel := by omega
+      have hfs : s.fuel - 1 ≤ (next s).fuel := next_fuel s
+      have hft : t.fuel - 1 ≤ (next t).fuel := next_fuel t
+      have hns : n ≤ (next s).fuel := by omega
+      have hnt : n ≤ (next t).fuel := by omega
+      exact obs_fuel_indep n (same_next h hs0 ht0) hns hnt
+
+theorem obs_fuel_eq (n : Nat) {s t : State} (h : Same s t) (hs : n ≤ s.fuel) (ht : n ≤ t.fuel) :
+    obs n s = obs n t := (obs_fuel_indep n h hs ht).2.2.2
+
 /-! ## 3. The `forever` program of the represented execution family -/
 
 def cyc (x : Nat) : Nat := if x = 0 then 1 else if x = 1 then 2 else 0
@@ -172,6 +344,85 @@ theorem lost_fuel :
   · decide
   · decide
 
+/-! ### The `forever` run, entry by entry -/
+
+/-- At every admitted datum the cycle, and only the cycle, is enabled. -/
+theorem enabledAt_forever : ∀ x, x < 3 → enabledAt (program forever) 3 x = [0]
+  | 0, _ => by decide
+  | 1, _ => by decide
+  | 2, _ => by decide
+  | _ + 3, h => absurd h (by omega)
+
+/-- And the edge it reads is the cycle's value. -/
+theorem lookup_forever : ∀ x, x < 3 → lookup (3 + 0) x (program forever) = some (cyc x)
+  | 0, _ => by decide
+  | 1, _ => by decide
+  | 2, _ => by decide
+  | _ + 3, h => absurd h (by omega)
+
+/-- The cycle is the successor modulo three. -/
+theorem cyc_mod (n : Nat) : cyc (n % 3) = (n + 1) % 3 := by
+  have h : n % 3 = 0 ∨ n % 3 = 1 ∨ n % 3 = 2 := by omega
+  rcases h with h | h | h
+  · rw [h]
+    show 1 = (n + 1) % 3
+    omega
+  · rw [h]
+    show 2 = (n + 1) % 3
+    omega
+  · rw [h]
+    show 0 = (n + 1) % 3
+    omega
+
+/-- The first `n + 1` entries of the sequence `i ↦ i % 3`. -/
+def cycTape (n : Nat) : List Nat := (List.range (n + 1)).map (fun i => i % 3)
+
+theorem cycTape_succ (n : Nat) : cycTape (n + 1) = cycTape n ++ [(n + 1) % 3] := by
+  have hr : List.range (n + 1 + 1) = List.range (n + 1) ++ [n + 1] := List.range_succ
+  show (List.range (n + 1 + 1)).map (fun i => i % 3) = _
+  rw [hr, List.map_append]
+  rfl
+
+/-- **The tape is the sequence.**  With fuel to spare, after `n` steps of the
+cycle-everywhere program from datum 0 the active datum is `n % 3` and the tape
+is the first `n + 1` entries of `i ↦ i % 3`.  This is the connection CL-CP-08
+left computed: the bound below is proved on the sequence, and this carries it
+to the process. -/
+theorem forever_iter (f : Nat) : ∀ n, n ≤ f →
+    (iter n (Control.init forever 0 f)).graph = program forever ∧
+      (iter n (Control.init forever 0 f)).nops = 3 ∧
+      (iter n (Control.init forever 0 f)).active = n % 3 ∧
+      (iter n (Control.init forever 0 f)).tape = cycTape n ∧
+      (iter n (Control.init forever 0 f)).fuel = f - n
+  | 0, _ => ⟨rfl, rfl, rfl, rfl, rfl⟩
+  | n + 1, h => by
+      obtain ⟨hg, hn, ha, ht, hf⟩ := forever_iter f n (by omega)
+      have hlt : n % 3 < 3 := by omega
+      have hen : enabledAt (iter n (Control.init forever 0 f)).graph
+          (iter n (Control.init forever 0 f)).nops
+          (iter n (Control.init forever 0 f)).active = [0] := by
+        rw [hg, hn, ha]
+        exact enabledAt_forever _ hlt
+      have hl : lookup (3 + 0) (iter n (Control.init forever 0 f)).active
+          (iter n (Control.init forever 0 f)).graph = some ((n + 1) % 3) := by
+        rw [hg, ha, ← cyc_mod n]
+        exact lookup_forever _ hlt
+      have hfuel : 0 < (iter n (Control.init forever 0 f)).fuel := by
+        rw [hf]
+        omega
+      have hstep : iter (n + 1) (Control.init forever 0 f)
+          = next (iter n (Control.init forever 0 f)) := rfl
+      rw [hstep, next_fire hen hfuel hl]
+      refine ⟨hg, hn, rfl, ?_, ?_⟩
+      · rw [ht, cycTape_succ]
+      · rw [hf]
+        show f - n - 1 = f - (n + 1)
+        omega
+
+/-- The observation at scale `n` of that run **is** the sequence's prefix. -/
+theorem forever_obs (f n : Nat) (h : n ≤ f) :
+    obs n (Control.init forever 0 f) = cycTape n := (forever_iter f n h).2.2.2.1
+
 /-! ## 4. The readout and its bound on the cycle's sequence
 
 The `forever` run from datum 0 visits `0, 1, 2, 0, 1, 2, …`: its tape after
@@ -207,9 +458,58 @@ theorem zeros_bound (L : Nat) : L ≤ 3 * zeros L ∧ 3 * zeros L ≤ L + 2 := b
   rw [zeros_eq]
   exact ⟨by omega, by omega⟩
 
+/-! ### The bound, carried from the sequence to the run
+
+`zeros_bound` is arithmetic on the sequence `i ↦ i % 3`.  With `forever_obs`
+— the tape *is* that sequence's prefix — it becomes a statement about the
+process the family observes, which is what CL-CP-08 left as its obligation. -/
+
+theorem forever_length (f n : Nat) (h : n ≤ f) :
+    (obs n (Control.init forever 0 f)).length = n + 1 := by
+  rw [forever_obs f n h]
+  show ((List.range (n + 1)).map (fun i => i % 3)).length = n + 1
+  rw [List.length_map, List.length_range]
+
+theorem forever_zeros (f n : Nat) (h : n ≤ f) :
+    (obs n (Control.init forever 0 f)).countP (fun x => decide (x = 0)) = zeros (n + 1) := by
+  rw [forever_obs f n h]
+  show ((List.range (n + 1)).map (fun i => i % 3)).countP (fun x => decide (x = 0)) = _
+  rw [List.countP_map]
+  rfl
+
+/-- **The bound is a fact about the run.**  The observed tape's length `L` and
+its count of datum 0 satisfy `L ≤ 3 · count ≤ L + 2` at every scale the
+declared fuel allows. -/
+theorem forever_run_bound (f n : Nat) (h : n ≤ f) :
+    (obs n (Control.init forever 0 f)).length
+        ≤ 3 * (obs n (Control.init forever 0 f)).countP (fun x => decide (x = 0)) ∧
+      3 * (obs n (Control.init forever 0 f)).countP (fun x => decide (x = 0))
+        ≤ (obs n (Control.init forever 0 f)).length + 2 := by
+  rw [forever_length f n h, forever_zeros f n h]
+  exact zeros_bound (n + 1)
+
 end Observe
 
 #print axioms Observe.stepDet_inr
+#print axioms Observe.iter_succ
+#print axioms Observe.next_halt
+#print axioms Observe.next_branch
+#print axioms Observe.next_exhausted
+#print axioms Observe.next_refuse
+#print axioms Observe.next_fire
+#print axioms Observe.next_fuel
+#print axioms Observe.same_next
+#print axioms Observe.obs_fuel_indep
+#print axioms Observe.obs_fuel_eq
+#print axioms Observe.enabledAt_forever
+#print axioms Observe.lookup_forever
+#print axioms Observe.cyc_mod
+#print axioms Observe.cycTape_succ
+#print axioms Observe.forever_iter
+#print axioms Observe.forever_obs
+#print axioms Observe.forever_length
+#print axioms Observe.forever_zeros
+#print axioms Observe.forever_run_bound
 #print axioms Observe.next_tape
 #print axioms Observe.obs_prefix
 #print axioms Observe.obs_prefix_add

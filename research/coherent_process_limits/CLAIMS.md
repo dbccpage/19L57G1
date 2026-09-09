@@ -90,11 +90,11 @@ the tape after `n` steps (`Observe.obs`).
   datum, twelve scales (`tests/test_limits.py`).
 - **Falsifier**: a state and scale whose observation is not a prefix of the
   next.
-- **Obligation**: the scale is the step count of one run with one declared
-  fuel; that the observation is independent of the declared fuel while fuel
-  lasts is computed, not proved: the experiment observes one state at four
-  scales, and the agreement of that with four runs whose fuel equals the
-  scale is the computed part.
+- **Obligation**: discharged.  `obs_fuel_indep` and `obs_fuel_eq` prove that
+  two states agreeing on graph, operation count, active datum and tape, each
+  with at least `n` fuel, have the same observation at scale `n` — the fuel is
+  consulted only to refuse (`next_exhausted`), never to choose.  The scale is
+  still the step count of one run.
 
 ### CL-CP-05 — the tape does not determine the future; the fuel is what is lost
 
@@ -169,13 +169,16 @@ the tape after `n` steps (`Observe.obs`).
   holds at every finer scale with the readout unchanged.  On the sequence
   `i ↦ i % 3` the bound is a theorem for every `L` (`zeros_eq`,
   `zeros_bound`): the frequency of `0` is `1 / 3` up to `2 / (3 L)`, and
-  precision `ε` needs `L ≥ 2 / (3 ε)`.
+  precision `ε` needs `L ≥ 2 / (3 ε)`.  The tape of the run *is* that
+  sequence's prefix (`forever_obs`), so the bound holds of the observation
+  itself (`forever_run_bound`).
 - **Hypotheses**: the identified program; the four scales.
 - **Novelty**: a finite observable with an explicit approximation bound and
   a computable precision rule, tied to a limiting quantity that is a
   rational — existence of the limit and effective access to it separated by
   the rule; no interval, circle or real number used.
-- **Evidence**: `Observe.zeros_bound`; computed: `limits.connected_experiment`
+- **Evidence**: `Observe.zeros_bound`, `forever_iter`, `forever_obs`,
+  `forever_run_bound`; computed: `limits.connected_experiment`
   (`evidence/limits.json`), and the receipt refuses a failing bound at any
   scale.
 - **Falsifier**: a scale at which the readout leaves the bound, or an

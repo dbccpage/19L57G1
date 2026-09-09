@@ -4,11 +4,12 @@ AuthorityEffect: None.  ``--write`` creates the record deliberately;
 ``--check`` recomputes it and compares bytes.  The record carries no
 timestamps and no machine-specific paths.  It names the artifact consumed
 (the represented execution family's ``evidence/process.json``, read and
-never written here), the programs identified from it and the finding that
-its schema loses the operation order, the observation system and its
-theorems, the limit and its declared topology, which threads the process
-generates, the three verdicts, the failure pairs, and the connected
-experiment at four scales.
+never written here), the programs identified from it and the finding that its
+schema is set-valued, the observation system and its theorems, the proof that
+the observed tape is the sequence and that the bound holds of the run, the
+limit and its declared topology, which threads the process generates, the
+three verdicts, the failure pairs, and the connected experiment at four
+scales.
 
 The receipt refuses to record an artifact whose fragment is not ``control``,
 programs the recorded runs do not identify uniquely, observations that are
@@ -73,6 +74,9 @@ def record() -> JsonObj:
             "bonding": "forget the entries beyond the coarser length",
             "compatibility_at_every_scale": "Observe.obs_prefix, Observe.obs_prefix_add",
             "why": "a step only appends (Control.fire_ok through Observe.next_tape)",
+            "fuel_independence": "Observe.obs_fuel_indep, obs_fuel_eq: two states agreeing on graph, "
+                                 "operation count, active datum and tape, each with at least n fuel, have "
+                                 "the same observation at scale n; the fuel is consulted only to refuse",
         },
         "limit": {
             "stages": "words of length n over the carrier (Limits.Stage)",
@@ -96,6 +100,14 @@ def record() -> JsonObj:
                                  "(Observe.next_active_det) — hence eventually periodic on a finite carrier; "
                                  "a strict subset",
             "computably_presented": "between the two; not characterised here",
+        },
+        "tape_is_the_sequence": {
+            "theorem": "Observe.forever_iter, forever_obs: after n steps of the cycle-everywhere program "
+                       "from datum 0, with fuel to spare, the active datum is n % 3 and the tape is the "
+                       "first n + 1 entries of i -> i % 3",
+            "bound_on_the_run": "Observe.forever_length, forever_zeros, forever_run_bound: the readout of "
+                                "the observation itself obeys L <= 3 * count <= L + 2",
+            "was": "computed at every recorded scale and labelled the missing connection; proved now",
         },
         "verdicts": lm.verdicts(forever.F, 4),
         "lost_fuel": lm.lost_fuel(forever),

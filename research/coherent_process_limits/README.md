@@ -30,7 +30,11 @@ a prefix of every finer one and an extension of the coarsest, and the bound `L �
 from the visible period holding at every finer scale with the readout
 unchanged.  On the cycle's sequence `i ↦ i % 3` the bound is a theorem for
 every `L` (`zeros_bound`): the frequency of datum 0 is `1 / 3` up to
-`2 / (3 L)`, precision `ε` needs `L ≥ 2 / (3 ε)`.  No interval, circle or
+`2 / (3 L)`, precision `ε` needs `L ≥ 2 / (3 ε)`.  The run's tape **is** that
+sequence's prefix (`forever_iter`, `forever_obs`), so the bound is a fact
+about the observation itself (`forever_run_bound`) and not only about the
+arithmetic; and the observation does not read the declared fuel while fuel
+lasts (`obs_fuel_indep`).  No interval, circle or
 real number is used; the topology of the thread space is declared — totally
 disconnected — and none of those is claimed.
 
@@ -45,7 +49,7 @@ field the order is still recovered as the one ordering under which every run
 replays, and an enablement naming an operation the sealed schema collapsed
 is refused by name.  That is the artifact contract doing its job.
 
-Lean: 23 authored theorems, 47 reports with the compiler-generated ones,
+Lean: 42 authored theorems, 83 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
@@ -97,6 +101,10 @@ is invoked.
 | `next_active_det` | the next datum is a function of the program and the active datum |
 | `lost_fuel` | same tape, different fuel, different next observation (CL-CP-05) |
 | `zeros_eq`, `zeros_bound` | `zeros L = (L + 2) / 3`; `L ≤ 3 · zeros L ≤ L + 2` (CL-CP-08) |
+| `iter_succ`, `next_halt`, `next_branch`, `next_exhausted`, `next_refuse`, `next_fire`, `next_fuel` | one step, by cases: what fires, what stands, what the fuel does |
+| `same_next`, `obs_fuel_indep`, `obs_fuel_eq` | **the observation does not read the declared fuel while fuel lasts** (CL-CP-04's obligation) |
+| `enabledAt_forever`, `lookup_forever`, `cyc_mod`, `forever_iter`, `forever_obs` | **the tape is the sequence**: after `n` steps the tape is the first `n + 1` entries of `i ↦ i % 3` (CL-CP-08's obligation) |
+| `forever_length`, `forever_zeros`, `forever_run_bound` | the bound carried from the sequence to the run |
 
 ## 3. The artifact consumed (`limits.py`)
 
@@ -158,9 +166,9 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 23 authored theorems and 24
+**Lean** (`lean/`, `evidence/lean.json`): 42 authored theorems and 41
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 47 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 83 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a
@@ -205,8 +213,6 @@ Regenerate the two records deliberately and never under a live injection:
   run, or eventually periodic: the one-step determinism is proved; the rest
   is computed over the declared class of 64 programs.
 * Lifting a fork's successor relation to threads; a second locus of activity.
-* That the observation is independent of the declared fuel while fuel lasts:
-  computed at four scales, not proved.
 * That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations.
 
