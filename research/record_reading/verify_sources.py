@@ -7,7 +7,8 @@ Runtime origin covers every module the machines execute: the eight sealed
 family's ``execution`` and ``control``, and the observed family's ``limits``.
 A same-named module resolved from anywhere else is named rather than
 silently accepted.  CRLF checkout conversion is allowed for text inputs;
-pinned Git objects are never rewritten.  There is deliberately no manifest generation or repair option.
+pinned Git objects are never rewritten.  There is deliberately no manifest
+generation or repair option.
 
 Scope: exactly what this family consumes.  ``code/derivation`` supplies the
 eight modules the merged encoder loads when the machines are imported.
@@ -37,7 +38,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "b12eba224e6be83ba73e6b205d38dc116cfae162"
+BASELINE_COMMIT = "90acc68ab18acbd65f158de5f0e2fb8be16ac7d8"
 PACKET = Path("research/record_reading")
 SCHEMA = "record-reading-sources-v1"
 CONSUMED_TREES = {
