@@ -1,6 +1,6 @@
 name = "record_reading"
 version = "0.1.0"
-defaultTargets = ["Record", "Select", "Inventory"]
+defaultTargets = ["Record", "Select", "Depth", "Inventory"]
 
 # The sealed derivation package, consumed read-only.
 [[require]]
@@ -19,6 +19,9 @@ name = "Record"
 
 [[lean_lib]]
 name = "Select"
+
+[[lean_lib]]
+name = "Depth"
 
 [[lean_lib]]
 name = "Inventory"

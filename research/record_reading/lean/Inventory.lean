@@ -1,10 +1,11 @@
 import Lean
 import Record
 import Select
+import Depth
 
 /-!
 Metatheoretic audit apparatus: enumerate the compiled theorem declarations
-of the `Record` and `Select` namespaces independently of source layout and
+of the `Record`, `Select` and `Depth` namespaces independently of source layout and
 of the printed dependency reports.  AuthorityEffect: None.
 -/
 
@@ -12,7 +13,7 @@ open Lean Elab Command in
 run_cmd do
   let environment ← getEnv
   let local? (name : Name) : Bool :=
-    (`Record).isPrefixOf name || (`Select).isPrefixOf name
+    (`Record).isPrefixOf name || (`Select).isPrefixOf name || (`Depth).isPrefixOf name
   let names := environment.constants.fold (init := ([] : List String))
     fun found name declaration =>
       match declaration with
@@ -37,8 +38,23 @@ run_cmd do
 /- The compiler generates these additional theorem declarations (the
 structure's injectivity and size lemmas, and the proof terms of case splits
 inside theorems).  Their reports are included beside the authored reports of
-`Record.lean` and `Select.lean`, and the combined population is compared
+`Record.lean`, `Select.lean` and `Depth.lean`, and the combined population is compared
 with the independent environment census. -/
+#print axioms Depth.Recorded2.mk.inj
+#print axioms Depth.Recorded2.mk.injEq
+#print axioms Depth.Recorded2.mk.sizeOf_spec
+#print axioms Depth.encodeR2_wf._proof_1_1
+#print axioms Depth.encodeR2_wf._proof_1_2
+#print axioms Depth.encodeR2_wf._proof_1_3
+#print axioms Depth.encodeR2_wf._proof_1_4
+#print axioms Depth.encodeR2_wf._proof_1_5
+#print axioms Depth.formsOf_getD_ternary._proof_1_1
+#print axioms Depth.formsOf_getD_ternary._proof_1_2
+#print axioms Depth.lookup_r2program_op._proof_1_1
+#print axioms Depth.lookup_r2program_op._proof_1_2
+#print axioms Depth.r2enabled._proof_1
+#print axioms Depth.r2enabled_r2program._proof_1_1
+#print axioms Depth.r2enabled_r2program._proof_1_2
 #print axioms Record.Recorded.mk.inj
 #print axioms Record.Recorded.mk.injEq
 #print axioms Record.Recorded.mk.sizeOf_spec

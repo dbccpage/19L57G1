@@ -228,6 +228,39 @@ climb, in index order; "the record" means the machine's tape.
 - **Obligation**: none.  The depth-two read that would break this ceiling is
   not built (CL-RR-11).
 
+### CL-RR-13 — a record read two entries deep, and a regime of mixed arity
+
+- **Statement**: a depth-two recorded setting's enablement `hctrl2 b p x k` —
+  operation `k` may fire at `x` after `p` after `b` — is represented by the
+  instance `(3 + nops + k, [b, p, x])` on a **ternary** control form.  With the
+  binary stores and operation graphs that is a regime of mixed arity, and it is
+  well-formed (`encodeR2_wf`); the enablement is read faithfully
+  (`r2enabled_r2program`), by membership, and the successors realise the
+  reference step `R2Step` (`r2successors_sound`).  The depth-one class embeds
+  (`lift2`, `lift2_R2Step`).  On the observed family's setting the program
+  `twist2` visits `0, 1, 2, 0, 1, 0` from datum 0 (`twist2_tape`); that tape
+  carries the pair `(0, 1)` followed once by `2` and once by `0`, so **no
+  record-reading program realises it** (`no_record_run_realises`, through
+  CL-RR-12) — `depth_two_is_deeper` states the two halves together.
+- **Hypotheses**: for the faithful read, admitted `b`, `p`, `x` and `k` in
+  range; for the concrete run, the transcribed base setting.
+- **Novelty**: the first family here whose encoding is **not all-binary**.
+  Nothing about the sealed grammar had to move to allow it: `Regime.wf`
+  constrains a form's arity only by `1 ≤ a`, so the ternary form needs no new
+  admission.  And the gain is measured rather than asserted — the depth-one
+  ceiling is CL-RR-12, and this is a tape above it.
+- **Evidence**: `Depth.formsOf_getD_binary`, `formsOf_getD_ternary`,
+  `formsOf_pos`, `encodeR2_wf`, `mem_r2program`, `r2enabled_r2program`,
+  `lookup_r2program_op`, `r2successors_sound`, `lift2_R2Step`, `twist2_tape`,
+  `twist2_repeats_a_pair`, `no_record_run_realises`, `depth_two_is_deeper`.
+- **Falsifier**: a depth-two setting whose `encodeR2` is ill-formed; a
+  record-reading run realising `[0, 1, 2, 0, 1, 0]`.
+- **Obligation**: the depth-two machine has **no Python mirror** — it is
+  proved and not computed, and no receipt records a depth-two run.  Its
+  bisimulation, its chain invariant and the ceiling of a depth-*two* read
+  (functionality in triples) are not stated; a depth-`d` family for general
+  `d` is not built.
+
 ### CL-RR-11 — the protocol declared before the readout; the artifact; not delivered
 
 - **Declared first**: the classes, the starts `0, 1, 2`, the scales `1..8`,
@@ -241,11 +274,9 @@ climb, in index order; "the record" means the machine's tape.
   read through the observed family's `identify_programs`, never written;
   the finding that its schema loses the operation order is inherited, and
   every run recorded here carries its operation tables in index order.
-- **Not delivered**: a record read deeper than one entry — the ceiling it
-  would have to break is now exact (CL-RR-12), and the sealed grammar permits
-  the ternary form it would need (`Regime.wf` constrains an arity only by
-  `1 ≤ a`), so the obstacle is the construction and not the grammar; an
-  encoded configuration; an observable that reads which operation fired — the
+- **Not delivered**: a record read deeper than *two* entries, and a depth-`d`
+  family for general `d`; a Python mirror of the depth-two machine (CL-RR-13
+  is proved, not computed); an encoded configuration; an observable that reads which operation fired — the
   residual of the experiment is exactly what such an observable would
   separate; a second locus of activity.  The merged memoryless
   reader does not apply to a record program — several instances of one

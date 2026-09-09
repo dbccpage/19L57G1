@@ -18,7 +18,9 @@ BRIDGE = ("Record.encodeR_wf", "Record.renabled_rprogram", "Record.previous_fire
           "Select.forever_differ", "Select.forever_indistinguishable", "Select.turncoat_agrees",
           "Select.turncoat_differs_scale", "Select.turncoat_differs_start",
           "Record.rstepDet_spec", "Select.robs_bisim", "Select.robs_take",
-          "Record.robs_functional", "Record.rchain_functional")
+          "Record.robs_functional", "Record.rchain_functional",
+          "Depth.encodeR2_wf", "Depth.twist2_tape", "Depth.no_record_run_realises",
+          "Depth.depth_two_is_deeper", "Depth.r2enabled_r2program")
 
 
 class ReportParser(unittest.TestCase):
@@ -68,10 +70,10 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 67)
-        self.assertEqual(record["theorem_count_including_generated"], 86)
-        self.assertEqual(record["axiom_free_count"], 4)
-        self.assertEqual(record["reports_per_namespace"], {"Record": 58, "Select": 28})
+        self.assertEqual(authored, 86)
+        self.assertEqual(record["theorem_count_including_generated"], 120)
+        self.assertEqual(record["axiom_free_count"], 6)
+        self.assertEqual(record["reports_per_namespace"], {"Record": 58, "Select": 28, "Depth": 34})
         self.assertEqual(record["reports"]["Select.obs_bisim"], ["Quot.sound", "propext"])
         self.assertEqual(record["reports"]["Record.memoryless_functional"], ["propext"])
         self.assertEqual(record["reports"]["Record.previous_fire"], ["propext"])

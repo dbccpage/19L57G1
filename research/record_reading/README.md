@@ -41,7 +41,7 @@ three greedy experiments separate them into 45 residual classes (largest
 4096), and the residual is exactly the next-value function on the pairs the
 runs reach, checked against the programs.
 
-Lean: 67 authored theorems, 86 reports with the compiler-generated ones,
+Lean: 86 authored theorems, 120 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
@@ -90,6 +90,25 @@ no sibling path is written.
 | `forever_differ`, `forever_ambiguous`, `forever_indistinguishable` | **the ambiguity exhibited** (CL-RR-09) |
 | `turncoat_agrees`, `turncoat_differs_scale`, `turncoat_differs_start` | **the discriminating input exhibited** (CL-RR-10) |
 
+## 2a. A record read two entries deep (`lean/Depth.lean`)
+
+Reading one entry buys functionality in pairs and no more (CL-RR-12).  Reading
+two breaks that ceiling — and it is the first encoding here that is **not
+all-binary**: a depth-two enablement needs three data at once, so its control
+forms are ternary, `(3 + nops + k, [before, previous, active])`.  The sealed
+grammar admits a regime of mixed arity with no new admission, because
+`Regime.wf` constrains a form's arity only by `1 ≤ a`.
+
+| theorem | content |
+|---|---|
+| `formsOf_getD_binary`, `formsOf_getD_ternary`, `formsOf_pos`, `encodeR2_wf` | **a regime of mixed arity is still a regime** |
+| `r2enabled_r2program`, `lookup_r2program_op`, `r2successors_sound` | the enablement and the edge are read faithfully; the successors are reference steps |
+| `lift2`, `lift2_R2Step` | the depth-one class embeds |
+| `twist2_tape`, `no_record_run_realises`, `depth_two_is_deeper` | **a tape no depth-one program realises**: `0, 1, 2, 0, 1, 0`, whose pair `(0, 1)` is followed once by `2` and once by `0` (CL-RR-13) |
+
+The depth-two machine is proved and not computed: it has no Python mirror and
+no receipt records a depth-two run.
+
 ## 3. The experiment (`selection.py`)
 
 Declared before any readout: two classes (memoryless, at most one operation
@@ -128,11 +147,11 @@ in index order are not the transcribed `Observe.base`.
 
 ## 5. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 67 authored theorems and 19
+**Lean** (`lean/`, `evidence/lean.json`): 86 authored theorems and 34
 compiler-generated ones (the structure's injectivity and size lemmas and
-the proof terms of case splits), 86 reports, all within
+the proof terms of case splits), 120 reports, all within
 `{propext, Quot.sound}`; the report population equals the environment
-census of the `Record` and `Select` namespaces in both directions; no
+census of the `Record`, `Select` and `Depth` namespaces in both directions; no
 private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
@@ -165,12 +184,12 @@ Regenerate the two records deliberately and never under a live injection:
 
 ## Not claimed
 
-* A record read deeper than one entry: the enablement reads the previous
-  datum only.  What such a read would have to break is now exact — a tape
-  functional in single entries but not in pairs (CL-RR-12) — and the sealed
-  grammar permits the ternary form it would need, since `Regime.wf` constrains
-  a form's arity only by `1 ≤ a`.  The obstacle is the construction, not the
-  grammar.
+* A record read deeper than *two* entries, or a depth-`d` family for general
+  `d`: depth two is built (CL-RR-13), depth three is not, and the ceiling of a
+  depth-two read — functionality in triples — is not stated.
+* A Python mirror of the depth-two machine, or a receipt recording a
+  depth-two run: CL-RR-13 is proved, not computed.  Its bisimulation and its
+  chain invariant are likewise not stated.
 * An encoded configuration: the state is a declared host record.
 * That the greedy experiment sequence is a minimum: it is one sequence.
 * An observable that reads which operation fired: the residual of the
@@ -191,6 +210,7 @@ Regenerate the two records deliberately and never under a live injection:
 |---|---|
 | `lean/Record.lean` | the record-reading enablement, the interpreter, the reference, the embedding, the distinction |
 | `lean/Select.lean` | one step by its next value, the bisimulation, the ambiguity, the discriminating input |
+| `lean/Depth.lean` | the depth-two read: ternary control forms, a regime of mixed arity, a tape no depth-one program realises |
 | `lean/Inventory.lean` | the environment census |
 | `record.py` | the machine mirrored; the named programs |
 | `selection.py` | the protocol, the classes, the survivors, the burden, the residual |

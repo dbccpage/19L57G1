@@ -1,17 +1,143 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 4,
-  "census": "compiled environment theorem declarations in the Record and Select namespaces",
+  "axiom_free_count": 6,
+  "census": "compiled environment theorem declarations in the Record, Select and Depth namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Inventory.lean": "fd4d200b0c77b98040593f7190eec9f5c0b28eb4f259891e25b089c283956e38",
+    "Depth.lean": "e96ad666b06514cb9142f4a2ab7cfe97bc8b52e6793c6848a83ba2a5bb25f249",
+    "Inventory.lean": "8614b5c1062367c6f71f92cc0a4094546a7dd15f189f46d97c0aed1109270777",
     "Record.lean": "44a3b1b1b8719c340d755735c6da3ebf5d228c0e9b2275361f8a9615b5940c1c",
     "Select.lean": "4bbc28e3f9925ef4f521e30c43ec71df20a27cfff6cfd2b29ee836d4034c6e7f",
-    "lakefile.toml": "85a4758ed5764cf63df4d089d5fe842ce15e7344e56a924f2fc642402a730929",
+    "lakefile.toml": "ec73670d4dc74d6c30a89bcce228dcb19b45eec22eaa0823cc3b455b51cfd307",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
   "reports": {
+    "Depth.Recorded2.mk.inj": [],
+    "Depth.Recorded2.mk.injEq": [
+      "propext"
+    ],
+    "Depth.Recorded2.mk.sizeOf_spec": [],
+    "Depth.depth_two_is_deeper": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.encodeR2_wf._proof_1_5": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_getD_binary": [
+      "propext"
+    ],
+    "Depth.formsOf_getD_ternary": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_getD_ternary._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_getD_ternary._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.formsOf_length": [
+      "propext"
+    ],
+    "Depth.formsOf_pos": [
+      "propext"
+    ],
+    "Depth.lift2_R2Step": [
+      "propext"
+    ],
+    "Depth.lookup_r2program_op": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.lookup_r2program_op._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.lookup_r2program_op._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_carrierTriples": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_r2enabledAt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_r2program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_r2successors": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.mem_rec2Insts": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.no_record_run_realises": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_iff": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_r2program": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_r2program._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2enabled_r2program._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.r2successors_sound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.twist2_repeats_a_pair": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Depth.twist2_tape": [
+      "Quot.sound",
+      "propext"
+    ],
     "Record.Recorded.mk.inj": [],
     "Record.Recorded.mk.injEq": [
       "propext"
@@ -314,11 +440,12 @@
     ]
   },
   "reports_per_namespace": {
+    "Depth": 34,
     "Record": 58,
     "Select": 28
   },
   "schema_version": 1,
-  "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination.",
-  "theorem_count_including_generated": 86,
+  "scope": "the exact theorem statements: the record-reading enablement represented in the merged device and read by the merged interpreter; the memoryless class lifted; the concrete programs on the observed family's three-point setting; one step of the merged runner characterised by its next value and the bisimulation of observations it gives; the exhibited ambiguity and the exhibited discrimination; and the depth-two read, whose control forms are ternary \u2014 a regime of mixed arity, which the sealed grammar admits \u2014 realising a tape no depth-one program realises.",
+  "theorem_count_including_generated": 120,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

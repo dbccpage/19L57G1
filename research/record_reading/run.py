@@ -126,6 +126,12 @@ def record() -> JsonObj:
             "never_selects": "Record.rrun_branch",
             "only_appends": "Record.robs_prefix",
             "memoryless_embeds": "Record.lift, Record.lift_RStep, Record.lift_renabled",
+            "depth_two": "Depth.encodeR2_wf: a depth-two enablement is the instance "
+                         "(3 + nops + k, [before, previous, active]) on a ternary control form, so the "
+                         "regime has mixed arity — the sealed Regime.wf constrains a form's arity only by "
+                         "1 <= a, and no new admission was needed.  Depth.twist2_tape and "
+                         "Depth.no_record_run_realises: the tape 0, 1, 2, 0, 1, 0 is realised there and by "
+                         "no record-reading program.  Proved, not computed: no Python mirror",
             "ceiling_of_a_depth_one_read": "Record.robs_functional: every realised tape is functional in "
                                            "its pairs — two places where the same datum follows the same "
                                            "datum are followed by the same datum.  A memoryless tape is "
@@ -177,7 +183,8 @@ def record() -> JsonObj:
         },
         "selection": sel.experiment(F, observation, forever),
         "not_delivered": [
-            "a record read deeper than one entry: the enablement reads the previous datum only",
+            "a record read deeper than two entries, or a depth-d family for general d",
+            "a Python mirror of the depth-two machine, or a receipt of a depth-two run",
             "an encoded configuration: the state is a declared host record",
             "an observable that reads which operation fired: the residual of the selection experiment is "
             "exactly what such an observable would separate",

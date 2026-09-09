@@ -3,7 +3,7 @@
 AuthorityEffect: None.
 
 The census (`lean/Inventory.lean`) enumerates every compiled theorem of the
-`Record` and `Select` namespaces from the environment, independently of
+`Record`, `Select` and `Depth` namespaces from the environment, independently of
 source layout; the reports come from the modules' own `#print axioms` lines
 plus the generated-declaration lines in `Inventory.lean`.  The two populations
 must coincide, every report must lie within the repository's permitted
@@ -27,7 +27,7 @@ if PACKET != Path("research/record_reading"):
 ROOT = Path(__file__).resolve().parent
 LEAN = ROOT / "lean"
 RECORD = ROOT / "evidence" / "lean.json"
-MODULES = ("Record", "Select")
+MODULES = ("Record", "Select", "Depth")
 EXPECTED_FILES = {f"{m}.lean" for m in MODULES} | {"Inventory.lean"}
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
 CENSUS_LINE = re.compile(r"^RECORD_THEOREM: (\S+)$", re.MULTILINE)
@@ -108,12 +108,15 @@ def verify() -> bytes:
                "axiom_free_count": sum(1 for axioms in reports.values() if not axioms),
                "reports_per_namespace": per_module,
                "reports": reports,
-               "census": "compiled environment theorem declarations in the Record and Select namespaces",
+               "census": "compiled environment theorem declarations in the Record, Select and Depth namespaces",
                "scope": "the exact theorem statements: the record-reading enablement represented in the "
                         "merged device and read by the merged interpreter; the memoryless class lifted; "
                         "the concrete programs on the observed family's three-point setting; one step of "
                         "the merged runner characterised by its next value and the bisimulation of "
-                        "observations it gives; the exhibited ambiguity and the exhibited discrimination.",
+                        "observations it gives; the exhibited ambiguity and the exhibited discrimination; "
+                        "and the depth-two read, whose control forms are ternary — a regime of "
+                        "mixed arity, which the sealed grammar admits — realising a tape no "
+                        "depth-one program realises.",
                "python_mirror_refinement": "NOT_PROVED"}
     return (json.dumps(payload, sort_keys=True, indent=2) + "\n").encode("utf-8")
 
@@ -134,7 +137,7 @@ def main() -> int:
             print("FAIL: evidence/lean.json differs from fresh compilation")
             return 1
         else:
-            print("PASS: fresh Lean build, theorem census over the Record and Select namespaces, "
+            print("PASS: fresh Lean build, theorem census over the Record, Select and Depth namespaces, "
                   "reliance and source records")
         return 0
     except (ValueError, TypeError, KeyError, OSError, RuntimeError,
