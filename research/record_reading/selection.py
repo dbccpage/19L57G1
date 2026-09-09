@@ -30,6 +30,7 @@ import control as ct
 from execution import Graph, lookup
 import limits as lm
 import record as rc
+import runner as rn
 import translation as tr
 
 Word = tuple[int, ...]
@@ -79,12 +80,32 @@ def record_class(F: tr.FiniteSetting) -> list[rc.Recorded]:
     return out
 
 
+@lru_cache(maxsize=None)
+def reader_of(law: Law) -> rn.Reader:
+    """The enablement reader of a law's class.
+
+    The dispatch on the class happens **here, once per law**, and nowhere
+    else.  Every function below runs the law through the producer family's one
+    interpreter (`runner.step_det_of` and its iterations) at this reader, so
+    adding the depth-two class is a third reader and no third copy of anything
+    — which is the whole content of `Depth.three_readers_one_runner`.  An
+    earlier version tested `isinstance` on every hot path instead."""
+    if isinstance(law, ct.Controlled):
+        return rn.ctrl_reader
+    return rc.record_reader
+
+
+def state_of(law: Law, start: int) -> ct.State:
+    """The initial state of a law at a start datum, with the declared fuel."""
+    if isinstance(law, ct.Controlled):
+        return ct.init(law, start, FUEL)
+    return rc.rinit(law, start, FUEL)
+
+
 def observe(law: Law, start: int, scale: int) -> Word:
     """The readout of one experiment: run the law from the start datum with
     the declared fuel and read the tape at the scale."""
-    if isinstance(law, ct.Controlled):
-        return lm.obs(scale, ct.init(law, start, FUEL))
-    return rc.robs(scale, rc.rinit(law, start, FUEL))
+    return rn.obs_of(reader_of(law), scale, state_of(law, start))
 
 
 def survivors(laws: Sequence[Law], observation: Word, start: int | None = None,
@@ -105,12 +126,22 @@ def _loaded(law: Law) -> tuple[Graph, int]:
     return rc.rprogram(law), len(law.F.ops)
 
 
+def at_pair(law: Law, p: int, x: int) -> ct.State:
+    """A state of the law standing at ``x`` with ``p`` before it on the record.
+
+    The record is the two entries and nothing else, so a reader that looks
+    further back than the pair would read the padding rather than the state.
+    Only the depth-one and memoryless readers are used on it, and both look at
+    most that far — which is exactly why the pair is enough to name a law's
+    next value."""
+    graph, count = _loaded(law)
+    return ct.State(graph, count, x, (p, x), 0, FUEL)
+
+
 def next_value(law: Law, p: int, x: int) -> int | None:
     """The Lean ``nextValue``, read from the program: the value of the one
     enabled operation at ``x`` (after ``p`` for a record law), or ``None``."""
-    g, count = _loaded(law)
-    en = ct.enabled_at(g, count, x) if isinstance(law, ct.Controlled) else rc.renabled_at(g, count, p, x)
-    return lookup(3 + en[0], x, g) if len(en) == 1 else None
+    return rn.next_value_of(reader_of(law), at_pair(law, p, x))
 
 
 def signature(law: Law) -> Signature:
@@ -226,9 +257,8 @@ def minimum_burden(sigs: Sequence[Signature]) -> JsonObj:
 def fired_at(law: Law, p: int, x: int) -> int | None:
     """Which operation is enabled at ``x`` (after ``p`` for a record law), or
     ``None`` when none or two are."""
-    g, count = _loaded(law)
-    en = ct.enabled_at(g, count, x) if isinstance(law, ct.Controlled) else rc.renabled_at(g, count, p, x)
-    return en[0] if len(en) == 1 else None
+    named = reader_of(law)(at_pair(law, p, x))
+    return named[0] if len(named) == 1 else None
 
 
 def annotated_run(law: Law, start: int, scale: int) -> tuple[tuple[int, int], ...]:
@@ -240,15 +270,15 @@ def annotated_run(law: Law, start: int, scale: int) -> tuple[tuple[int, int], ..
     does not write it.  The tape and the clock are represented fields of the
     state, and this is not one.  Making it one would be a change to the
     machine, not a second reading of it, and that change is not made here."""
-    g, count = _loaded(law)
-    state = rc.rinit(law, start, FUEL) if isinstance(law, rc.Recorded) else ct.init(law, start, FUEL)
-    out: list[tuple[int, int]] = [(state.active, count)]
+    read = reader_of(law)
+    state = state_of(law, start)
+    out: list[tuple[int, int]] = [(state.active, _loaded(law)[1])]
     for _ in range(scale):
-        index = fired_at(law, rc.previous(state), state.active)
-        nxt = rc.rstep_det(state) if isinstance(law, rc.Recorded) else ct.step_det(state)
-        if isinstance(nxt, ct.Terminal) or index is None:
+        named = read(state)
+        nxt = rn.step_det_of(read, state)
+        if isinstance(nxt, ct.Terminal) or len(named) != 1:
             break
-        out.append((nxt.active, index))
+        out.append((nxt.active, named[0]))
         state = nxt
     return tuple(out)
 

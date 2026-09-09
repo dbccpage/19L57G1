@@ -45,9 +45,9 @@ Lean: 117 authored theorems, 151 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
-run recorded with its operation tables in index order; 81 tests, strict
+run recorded with its operation tables in index order; 83 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`3c9a38e3a1a14e6a658ef23c9163fcf5f2fca000`, the observed family's commit
+`6df9aa3163d514070c6b90a0949a68d52d63a2dc`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
@@ -205,7 +205,7 @@ private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
 **Python** (`record.py`, `selection.py`, `run.py`, `evidence/record.json`,
-`tests/`): 81 tests, strict typing over the tree's own modules and tests by a
+`tests/`): 83 tests, strict typing over the tree's own modules and tests by a
 **glob** and not a hand list, the two records replay
 byte-identically.  The house files follow the sibling families' with
 names, pins and refusals changed; this tree's directory is always first on
@@ -213,7 +213,7 @@ the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`3c9a38e3a1a14e6a658ef23c9163fcf5f2fca000`, the eight derivation modules and
+`6df9aa3163d514070c6b90a0949a68d52d63a2dc`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
@@ -277,7 +277,7 @@ Regenerate the two records deliberately and never under a live injection:
 | `lean/Inventory.lean` | the environment census |
 | `record.py` | the machine mirrored, as the producer family's interpreter at `record_reader`; the named programs |
 | `depth.py` | the depth-two machine mirrored, windows of a tape, and the exhaustive ladder sweep |
-| `selection.py` | the protocol, the classes, the survivors, the burden, the residual |
+| `selection.py` | the protocol, the classes, the survivors, the burden, the residual; the class of a law is dispatched **once**, in `reader_of`, and every run below goes through the producer family's one interpreter at that reader |
 | `run.py`, `evidence/record.json` | the record and its refusals |
 | `verify_lean.py`, `evidence/lean.json` | the Lean build, two-way census and reliance record |
 | `verify_sources.py`, `SOURCE_MANIFEST.json` | custody of the consumed inputs |
