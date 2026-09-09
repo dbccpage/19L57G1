@@ -294,8 +294,15 @@ climb, in index order; "the record" means the machine's tape.
   *every* deterministic program of each depth on a two-point setting at fuel
   six, exhaustive and not sampled): the three depths realise 10, 22 and 70
   tapes; every realised tape meets its own depth's ceiling; 8 then 38 of them
-  break the ceiling of the depth below, which by that ceiling is exactly the
-  set the depth below cannot realise.
+  break the ceiling of the depth below, and by that ceiling each of those is a
+  tape the depth below cannot realise.  **The inclusion is strict and the
+  earlier wording "exactly the set" was false**: the depth below cannot
+  realise 12 and 48 tapes respectively, and the extra 4 and 10 are *short* —
+  runs that stopped before the fuel ran out.  They are functional at the
+  shallower window, and the ceiling says nothing about when a machine may
+  halt, so it does not reach them.  `tests/test_depth.py` now asserts the
+  inclusion **and** that it is proper, so "exactly" cannot be re-asserted
+  quietly.
 - **Falsifier**: a depth-two run realising a tape not functional in its
   triples; a tape functional in `d` entries and not in `d + 1`; a rung
   realising nothing the rung below cannot.  The receipt refuses each by name,
@@ -406,10 +413,14 @@ climb, in index order; "the record" means the machine's tape.
   the finding that its schema loses the operation order is inherited, and
   every run recorded here carries its operation tables in index order.
 - **Not delivered**: a record read deeper than *two* entries, and a depth-`d`
-  family for general `d`; a Python mirror of the depth-two machine (CL-RR-13
-  is proved, not computed); an encoded configuration; an observable that reads which operation fired — the
-  residual of the experiment is exactly what such an observable would
-  separate; a second locus of activity.  The merged memoryless
+  family for general `d`; an encoded configuration; an observable the
+  **process writes** that reads which operation fired; a second locus of
+  activity in this family.  An earlier version of this list also named "a
+  Python mirror of the depth-two machine (CL-RR-13 is proved, not computed)"
+  and billed the firing-operation observable as missing outright; both are
+  **WITHDRAWN** — `depth.py` and the record's `depth_two` section are the
+  mirror (CL-RR-14), and the host readout is built and measured (CL-RR-15).
+  What is not built is a *represented field* carrying the index.  The merged memoryless
   reader does not apply to a record program — several instances of one
   control form leave one record entry and `lookup` refuses such a form — so
   the two machines' agreement is claimed only through `lift_renabled`, not by

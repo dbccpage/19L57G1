@@ -45,9 +45,9 @@ Lean: 117 authored theorems, 151 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed
 package and the observed family's package.  Python: the machine mirrored;
 the artifact read through the observed family and never written, every
-run recorded with its operation tables in index order; 50 tests, strict
+run recorded with its operation tables in index order; 81 tests, strict
 typing over eleven files, two byte-identical records.  Base
-`60a9c43662e518fdb21dde3a5be1e6d5f5061d83`, the observed family's commit
+`3c9a38e3a1a14e6a658ef23c9163fcf5f2fca000`, the observed family's commit
 with its obligations discharged, at which both consumed families are frozen and pinned; no sealed path and
 no sibling path is written.
 
@@ -124,8 +124,12 @@ depth-two one — and the classes they bound are a chain with two strict steps.
 *every* deterministic program of each depth on a two-point setting at fuel
 six, the three depths realise **10, 22 and 70** tapes; every tape meets its
 own depth's ceiling, and 8 then 38 of them break the ceiling of the depth
-below — which by that ceiling is exactly the set the depth below cannot
-realise.
+below — which by that ceiling the depth below cannot realise.  The inclusion
+is **strict**: the depth below cannot realise 12 and 48, and the extra 4 and
+10 are short tapes, runs that stopped before the fuel ran out.  They are
+functional at the shallower window; the ceiling says nothing about when a
+machine may halt, so it does not reach them.  An earlier version of this
+sentence said "exactly the set", which was false.
 
 A machine of depth `d` for `d > 2` is built neither here nor in the Lean, so
 the ceiling is proved one rung at a time and not for a general `d`.
@@ -201,14 +205,15 @@ private theorem; forbidden-token scan clean.  The concrete runs are decided
 by the kernel on the observed family's transcribed setting.
 
 **Python** (`record.py`, `selection.py`, `run.py`, `evidence/record.json`,
-`tests/`): 80 tests, strict typing over twelve files, the two records replay
+`tests/`): 81 tests, strict typing over the tree's own modules and tests by a
+**glob** and not a hand list, the two records replay
 byte-identically.  The house files follow the sibling families' with
 names, pins and refusals changed; this tree's directory is always first on
 the path, and `run.py` and `verify_lean.py` refuse by name if a foreign
 guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`60a9c43662e518fdb21dde3a5be1e6d5f5061d83`, the eight derivation modules and
+`3c9a38e3a1a14e6a658ef23c9163fcf5f2fca000`, the eight derivation modules and
 the consumed `translation`, `execution`, `control` and `limits` modules by
 digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation`,
@@ -270,7 +275,7 @@ Regenerate the two records deliberately and never under a live injection:
 | `lean/Select.lean` | one step by its next value, the bisimulation, the ambiguity, the discriminating input |
 | `lean/Depth.lean` | the depth-two read: ternary control forms, a regime of mixed arity, a tape no depth-one program realises, and the ceiling of a depth-two read |
 | `lean/Inventory.lean` | the environment census |
-| `record.py` | the machine mirrored; the named programs |
+| `record.py` | the machine mirrored, as the producer family's interpreter at `record_reader`; the named programs |
 | `depth.py` | the depth-two machine mirrored, windows of a tape, and the exhaustive ladder sweep |
 | `selection.py` | the protocol, the classes, the survivors, the burden, the residual |
 | `run.py`, `evidence/record.json` | the record and its refusals |

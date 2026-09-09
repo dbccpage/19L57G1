@@ -39,6 +39,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import control as ct
+import runner as rn
 import translation as tr
 from derivation.model import AdmitForm, AdmitInst, Event, Regime, replay
 from execution import ExecutionError, Graph, lookup
@@ -153,32 +154,26 @@ def rsuccessors(s: ct.State) -> tuple[ct.State, ...]:
     return tuple(out)
 
 
+def record_reader(s: ct.State) -> tuple[int, ...]:
+    """What the record-reading machine reads: the enablements at the active
+    datum after the one before it on the record.  The Lean
+    ``Record.recordReader``, and a function of the *state* — which is what
+    makes this machine the generic interpreter at a reader rather than a
+    fourth copy of it (``Record.rstepDet_is_generic``)."""
+    return renabled_at(s.graph, s.nops, previous(s), s.active)
+
+
 def rstep_det(s: ct.State) -> ct.Terminal | ct.State:
-    """The Lean ``rstepDet``: read the record, fire the one enabled
-    operation; halt when none; ``BRANCH`` when two."""
-    en = renabled_at(s.graph, s.nops, previous(s), s.active)
-    if not en:
-        return ct.Terminal.HALT
-    if len(en) >= 2:
-        return ct.Terminal.BRANCH
-    fired = ct.fire(s, en[0])
-    if fired is ct.Refusal.EXHAUSTED:
-        return ct.Terminal.EXHAUSTED
-    if fired is ct.Refusal.NO_EDGE:
-        return ct.Terminal.REFUSE
-    assert isinstance(fired, ct.State)
-    return fired
+    """The Lean ``rstepDet``, which is ``Runner.stepDetOf`` at this reader —
+    by ``rfl`` there and by delegation here.  The body this replaced was
+    ``control.step_det`` with the key swapped, and it carried a divergence the
+    delegation removes: it stopped on ``bound == 0`` where the merged runner
+    stops on ``bound <= 0``, so a hand-built state with negative fuel looped."""
+    return rn.step_det_of(record_reader, s)
 
 
 def rrun_det(bound: int, s: ct.State) -> tuple[ct.Terminal, ct.State]:
-    while True:
-        nxt = rstep_det(s)
-        if isinstance(nxt, ct.Terminal):
-            return (nxt, s)
-        if bound == 0:
-            return (ct.Terminal.EXHAUSTED, s)
-        s = nxt
-        bound -= 1
+    return rn.run_det_of(record_reader, bound, s)
 
 
 def rrun(s: ct.State) -> tuple[ct.Terminal, ct.State]:
@@ -201,14 +196,13 @@ def rtrace(C: Recorded, x: int, fuel: int) -> tuple[ct.Terminal, ct.State]:
 
 def rnext(s: ct.State) -> ct.State:
     """One step of the runner; a terminal keeps the state."""
-    r = rstep_det(s)
-    return r if isinstance(r, ct.State) else s
+    return rn.next_of(record_reader, s)
 
 
 def riter(n: int, s: ct.State) -> ct.State:
-    for _ in range(n):
-        s = rnext(s)
-    return s
+    if n < 0:
+        raise ExecutionError("a scale is a count")
+    return rn.iter_of(record_reader, n, s)
 
 
 def robs(n: int, s: ct.State) -> Word:

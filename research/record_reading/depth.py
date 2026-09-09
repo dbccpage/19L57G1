@@ -39,6 +39,7 @@ from typing import Iterator, Sequence
 
 import control as ct
 import record as rc
+import runner as rn
 import translation as tr
 from derivation.model import AdmitForm, AdmitInst, Event, Regime, replay
 from execution import ExecutionError, Graph
@@ -133,32 +134,26 @@ def before(s: ct.State) -> int:
     return s.tape[-3] if len(s.tape) >= 3 else rc.previous(s)
 
 
+def depth_reader(s: ct.State) -> tuple[int, ...]:
+    """What the depth-two machine reads.  The Lean ``Depth.depthReader`` — and
+    the third reader, which is what settles that a reader need see no more than
+    the state (``Depth.three_readers_one_runner``)."""
+    return r2enabled_at(s.graph, s.nops, before(s), rc.previous(s), s.active)
+
+
 def r2step_det(s: ct.State) -> ct.Terminal | ct.State:
-    en = r2enabled_at(s.graph, s.nops, before(s), rc.previous(s), s.active)
-    if not en:
-        return ct.Terminal.HALT
-    if len(en) >= 2:
-        return ct.Terminal.BRANCH
-    fired = ct.fire(s, en[0])
-    if fired is ct.Refusal.EXHAUSTED:
-        return ct.Terminal.EXHAUSTED
-    if fired is ct.Refusal.NO_EDGE:
-        return ct.Terminal.REFUSE
-    assert isinstance(fired, ct.State)
-    return fired
+    """The Lean ``r2stepDet``, which is ``Runner.stepDetOf`` at this reader."""
+    return rn.step_det_of(depth_reader, s)
 
 
 def r2next(s: ct.State) -> ct.State:
-    nxt = r2step_det(s)
-    return s if isinstance(nxt, ct.Terminal) else nxt
+    return rn.next_of(depth_reader, s)
 
 
 def r2iter(n: int, s: ct.State) -> ct.State:
     if n < 0:
         raise ExecutionError("a scale is a count")
-    for _ in range(n):
-        s = r2next(s)
-    return s
+    return rn.iter_of(depth_reader, n, s)
 
 
 def r2obs(n: int, s: ct.State) -> Word:
@@ -174,12 +169,8 @@ def r2init(C: Recorded2, x: int, fuel: int) -> ct.State:
 
 
 def r2trace(C: Recorded2, x: int, fuel: int) -> tuple[ct.Terminal, ct.State]:
-    s = r2init(C, x, fuel)
-    while True:
-        nxt = r2step_det(s)
-        if isinstance(nxt, ct.Terminal):
-            return (nxt, s)
-        s = nxt
+    state = r2init(C, x, fuel)
+    return rn.run_det_of(depth_reader, state.fuel, state)
 
 
 def lift2(C: rc.Recorded) -> Recorded2:

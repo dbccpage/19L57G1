@@ -218,7 +218,10 @@ def record() -> JsonObj:
                          "regime has mixed arity — the sealed Regime.wf constrains a form's arity only by "
                          "1 <= a, and no new admission was needed.  Depth.twist2_tape and "
                          "Depth.no_record_run_realises: the tape 0, 1, 2, 0, 1, 0 is realised there and by "
-                         "no record-reading program.  Proved, not computed: no Python mirror",
+                         "no record-reading program.  Mirrored by depth.py and recorded in the "
+                         "depth_two section below; an earlier version of this line said "
+                         "\"proved, not computed: no Python mirror\" and was left standing after "
+                         "the mirror landed",
             "ceiling_of_a_depth_one_read": "Record.robs_functional: every realised tape is functional in "
                                            "its pairs — two places where the same datum follows the same "
                                            "datum are followed by the same datum.  A memoryless tape is "
@@ -272,11 +275,14 @@ def record() -> JsonObj:
         "depth_two": depth_two_record(F),
         "not_delivered": [
             "a record read deeper than two entries, or a depth-d family for general d",
-            "a Python mirror of the depth-two machine, or a receipt of a depth-two run",
             "an encoded configuration: the state is a declared host record",
-            "an observable that reads which operation fired: the residual of the selection experiment is "
-            "exactly what such an observable would separate",
-            "a second locus of activity",
+            "an observable the PROCESS WRITES that reads which operation fired.  The host readout is "
+            "built and measured in the selection section: it takes the record class's residual from 45 "
+            "classes to 896 and leaves exactly the enablements at unreached pairs.  What is not built is "
+            "a represented field carrying the index, as the tape carries the datum, and that would be a "
+            "change to the machine rather than a second reading of it",
+            "a second locus of activity IN THIS FAMILY: the producer family builds one and this "
+            "family neither consumes nor extends it",
         ],
     }
 

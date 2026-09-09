@@ -129,16 +129,28 @@ class TheLadder(unittest.TestCase):
         self.assertEqual([row["tapes_realised"] for row in self.rows], [10, 22, 70])
         self.assertEqual([row["window"] for row in self.rows], [2, 3, 4])
 
-    def test_a_tape_the_depth_below_cannot_realise_is_exactly_one_breaking_its_ceiling(self) -> None:
-        """Not a coincidence but the ceiling doing the work: by
-        `Record.robs_functional` a tape breaking the pair ceiling is realised
-        by no depth-one program, so the two lists must agree."""
+    def test_breaking_the_ceiling_below_is_a_proper_subset_of_being_unrealisable(self) -> None:
+        """The ceiling gives one direction: a tape breaking it is realised by
+        no program of the depth below.  The converse is **false**, and the test
+        asserts that it is false so the stronger claim cannot be re-asserted
+        quietly.  The extra tapes are all short — runs that stopped before the
+        fuel ran out — and are functional at the shallower window; the ceiling
+        says nothing about when a machine may halt."""
         for row in self.rows[1:]:
             beyond = {tuple(t) for t in cast(list[list[int]],
                                              row["tapes_the_depth_below_cannot_realise"])}
             breaking = {tuple(t) for t in cast(list[list[int]],
                                                row["tapes_breaking_the_ceiling_below"])}
-            self.assertTrue(breaking <= beyond, row["entries_read"])
+            self.assertTrue(breaking < beyond, row["entries_read"])
+            for tape in beyond - breaking:
+                self.assertTrue(dp.functional(cast(int, row["entries_read"]) - 1, tape), tape)
+                self.assertLess(len(tape), 7, tape)
+
+    def test_the_two_cardinalities_the_ledger_quotes(self) -> None:
+        self.assertEqual([len(cast(list[list[int]], row["tapes_breaking_the_ceiling_below"]))
+                          for row in self.rows], [0, 8, 38])
+        self.assertEqual([len(cast(list[list[int]], row["tapes_the_depth_below_cannot_realise"]))
+                          for row in self.rows], [0, 12, 48])
 
     def test_a_depth_no_machine_is_built_for_is_refused_rather_than_guessed(self) -> None:
         with self.assertRaises(ExecutionError):
