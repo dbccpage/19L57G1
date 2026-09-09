@@ -97,7 +97,6 @@ class CustodyTests(unittest.TestCase):
                 failures = self.fixture.check()
                 path.write_bytes(original)
                 self.assertIn(f"SOURCE_CHANGED: {relative}", failures)
-                self.assertIn(f"CONSUMED_TRACKED_DIFF: {relative}", failures)
         self.assertEqual(self.fixture.check(), [])
 
     def test_untracked_source_in_a_consumed_tree_is_named(self) -> None:
@@ -189,6 +188,27 @@ class CustodyTests(unittest.TestCase):
 
     def test_lone_cr_is_not_accepted_as_checkout_conversion(self) -> None:
         self.assertNotEqual(guard.canonical_text(b"a\rb\n"), guard.canonical_text(b"a\nb\n"))
+
+    def test_assume_unchanged_lean_source_is_named(self) -> None:
+        """Index flags must not hide a byte change from the compiler.
+
+        ``git diff`` is silent under ``assume-unchanged``; the blob
+        comparison still names ``Example.lean``.
+        """
+        relative = "lean4/Derivation/Example.lean"
+        path = self.root / relative
+        original = path.read_bytes()
+        git(self.root, "update-index", "--assume-unchanged", "--", relative)
+        try:
+            path.write_bytes(b"-- injected assume-unchanged payload\n")
+            diff = git(self.root, "diff", "--name-only", self.fixture.baseline, "--", relative)
+            self.assertEqual(diff.strip(), b"")
+            failures = self.fixture.check()
+            self.assertIn(f"SOURCE_CHANGED: {relative}", failures)
+        finally:
+            path.write_bytes(original)
+            git(self.root, "update-index", "--no-assume-unchanged", "--", relative)
+        self.assertEqual(self.fixture.check(), [])
 
     def test_schema_and_normalization_guards(self) -> None:
         manifest = json.loads(self.fixture.manifest_path.read_text(encoding="utf-8"))

@@ -64,6 +64,21 @@ class Injections(unittest.TestCase):
         self.assertIn("E1_GUARD: C5 labelled endogenous", errors)
 
 
+def _required_files() -> dict[str, object]:
+    return {name: {} for name in check_coverage.REQUIRED_FILES}
+
+
+def _ok_totals(covered_lines: int = 95, statements: int = 100,
+               covered_branches: int = 19, branches: int = 20) -> dict[str, object]:
+    return {
+        "percent_covered": 97.0,
+        "covered_lines": covered_lines,
+        "num_statements": statements,
+        "covered_branches": covered_branches,
+        "num_branches": branches,
+    }
+
+
 class CoverageGate(unittest.TestCase):
     def test_missing_report_fails(self) -> None:
         original = check_coverage.REPORT
@@ -74,70 +89,140 @@ class CoverageGate(unittest.TestCase):
         finally:
             check_coverage.REPORT = original
 
-    def _write(self, payload: dict[str, object]) -> Path:
-        tmp = Path(tempfile.mkdtemp()) / "coverage.json"
-        tmp.write_text(json.dumps(payload), encoding="utf-8")
-        return tmp
-
     def test_leaked_tests_path_fails(self) -> None:
-        tmp = self._write({
-            "totals": {"percent_covered": 100.0, "covered_branches": 1, "num_branches": 1},
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(),
             "files": {"tests/test_x.py": {}},
         })
-        original = check_coverage.REPORT
-        check_coverage.REPORT = tmp
-        try:
-            with mock.patch("sys.stdout", io.StringIO()):
-                self.assertEqual(check_coverage.main(), 1)
-        finally:
-            check_coverage.REPORT = original
+        self.assertTrue(any(e.startswith("COVERAGE_LEAK:") for e in errors), errors)
 
     def test_missing_totals_fails(self) -> None:
-        tmp = self._write({"files": {"grammar.py": {}}})
-        original = check_coverage.REPORT
-        check_coverage.REPORT = tmp
-        try:
-            with mock.patch("sys.stdout", io.StringIO()):
-                self.assertEqual(check_coverage.main(), 1)
-        finally:
-            check_coverage.REPORT = original
+        errors = check_coverage.report_errors({"files": _required_files()})
+        self.assertTrue(any(e.startswith("COVERAGE_TOTALS:") for e in errors), errors)
 
     def test_empty_files_fails(self) -> None:
-        tmp = self._write({
-            "totals": {"percent_covered": 100.0, "covered_branches": 0, "num_branches": 0},
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(),
             "files": {},
         })
+        self.assertTrue(any(e.startswith("COVERAGE_FILES:") for e in errors), errors)
+
+    def test_low_statement_fails_even_when_percent_covered_is_high(self) -> None:
+        """94% statements + 100% branches used to pass as 97% 'line' coverage."""
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(covered_lines=94, statements=100,
+                                 covered_branches=100, branches=100),
+            "files": _required_files(),
+        })
+        self.assertTrue(any(e.startswith("COVERAGE_STATEMENT:") for e in errors), errors)
+        self.assertFalse(any(e.startswith("COVERAGE_BRANCH:") for e in errors), errors)
+
+    def test_combined_percent_covered_is_not_statement_coverage(self) -> None:
+        totals = _ok_totals(covered_lines=94, statements=100,
+                            covered_branches=100, branches=100)
+        statement, branch = check_coverage.percentages(totals)
+        self.assertAlmostEqual(statement, 94.0)
+        self.assertAlmostEqual(branch, 100.0)
+        combined = totals["percent_covered"]
+        assert isinstance(combined, (int, float))
+        self.assertGreater(float(combined), statement)
+
+    def test_unrelated_only_population_fails(self) -> None:
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(covered_lines=100, statements=100,
+                                 covered_branches=100, branches=100),
+            "files": {"unrelated.py": {}},
+        })
+        self.assertTrue(any(e.startswith("COVERAGE_POPULATION:") for e in errors), errors)
+        self.assertTrue(any("grammar.py" in e for e in errors), errors)
+
+    def test_missing_branch_measurement_fails(self) -> None:
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(covered_branches=0, branches=0),
+            "files": _required_files(),
+        })
+        self.assertTrue(any("no branches" in e for e in errors), errors)
+
+    def test_payload_not_object_fails(self) -> None:
+        errors = check_coverage.report_errors(["not", "an", "object"])
+        self.assertEqual(errors, ["COVERAGE_SHAPE: not an object"])
+
+    def test_incomplete_totals_fail_closed(self) -> None:
+        errors = check_coverage.report_errors({
+            "totals": {"percent_covered": 100.0},
+            "files": _required_files(),
+        })
+        self.assertTrue(any("covered_lines" in e for e in errors), errors)
+
+    def test_zero_statements_fails(self) -> None:
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(covered_lines=0, statements=0),
+            "files": _required_files(),
+        })
+        self.assertTrue(any("no statements" in e for e in errors), errors)
+
+    def test_low_branch_fails_with_high_statements(self) -> None:
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(covered_lines=100, statements=100,
+                                 covered_branches=18, branches=20),
+            "files": _required_files(),
+        })
+        self.assertTrue(any(e.startswith("COVERAGE_BRANCH:") for e in errors), errors)
+        self.assertFalse(any(e.startswith("COVERAGE_STATEMENT:") for e in errors), errors)
+
+    def test_unreadable_report_fails(self) -> None:
+        tmp = Path(tempfile.mkdtemp()) / "coverage.json"
+        tmp.write_text("{not json", encoding="utf-8")
         original = check_coverage.REPORT
         check_coverage.REPORT = tmp
         try:
-            with mock.patch("sys.stdout", io.StringIO()):
+            captured = io.StringIO()
+            with mock.patch("sys.stdout", captured):
                 self.assertEqual(check_coverage.main(), 1)
+            self.assertIn("unreadable", captured.getvalue())
         finally:
             check_coverage.REPORT = original
 
-    def test_low_line_fails(self) -> None:
-        tmp = self._write({
-            "totals": {"percent_covered": 10.0, "covered_branches": 10, "num_branches": 10},
-            "files": {"grammar.py": {}},
-        })
+    def test_main_prints_named_failures(self) -> None:
+        tmp = Path(tempfile.mkdtemp()) / "coverage.json"
+        tmp.write_text(json.dumps({
+            "totals": _ok_totals(covered_lines=1, statements=100,
+                                 covered_branches=20, branches=20),
+            "files": _required_files(),
+        }), encoding="utf-8")
         original = check_coverage.REPORT
         check_coverage.REPORT = tmp
         try:
-            with mock.patch("sys.stdout", io.StringIO()):
+            captured = io.StringIO()
+            with mock.patch("sys.stdout", captured):
                 self.assertEqual(check_coverage.main(), 1)
+            self.assertIn("COVERAGE_STATEMENT:", captured.getvalue())
         finally:
             check_coverage.REPORT = original
 
     def test_pass_at_threshold(self) -> None:
-        tmp = self._write({
-            "totals": {"percent_covered": 95.0, "covered_branches": 19, "num_branches": 20},
-            "files": {"grammar.py": {}},
+        errors = check_coverage.report_errors({
+            "totals": _ok_totals(covered_lines=95, statements=100,
+                                 covered_branches=19, branches=20),
+            "files": _required_files(),
         })
+        self.assertEqual(errors, [])
+
+    def test_main_reports_statement_not_combined_percent(self) -> None:
+        tmp = Path(tempfile.mkdtemp()) / "coverage.json"
+        tmp.write_text(json.dumps({
+            "totals": _ok_totals(covered_lines=95, statements=100,
+                                 covered_branches=19, branches=20),
+            "files": _required_files(),
+        }), encoding="utf-8")
         original = check_coverage.REPORT
         check_coverage.REPORT = tmp
         try:
-            with mock.patch("sys.stdout", io.StringIO()):
+            captured = io.StringIO()
+            with mock.patch("sys.stdout", captured):
                 self.assertEqual(check_coverage.main(), 0)
+            self.assertIn("statement 95.00%", captured.getvalue())
+            self.assertIn("branch 95.00%", captured.getvalue())
         finally:
             check_coverage.REPORT = original
 

@@ -24,10 +24,17 @@ memory (`tests/test_injections.py`, `tests/test_sources.py`,
 | G7 | first bytes of pinned `model.py` in a fixture | `SOURCE_CHANGED: code/derivation/model.py` | no failure |
 | G8 | reader source with `regime.reqs` | AST hit `...:reqs` | no failure |
 | G9 | census row C5 labelled endogenous | `E1_GUARD: C5 labelled endogenous` | no failure |
+| G10 | `assume-unchanged` then edit `Example.lean` | `SOURCE_CHANGED: lean4/Derivation/Example.lean`; `git diff` silent | no failure |
+| G11 | 94% statements + 100% branches (`percent_covered` 97) | `COVERAGE_STATEMENT: 94.00%` | pass at 95/95 statements and branches |
+| G12 | coverage report containing only `unrelated.py` | `COVERAGE_POPULATION: missing [...]` | required four files restore the pass |
 
 G2 is a positive control rather than a mutation: the generating step that
 writes `reqs` is an `Impose`, which is exactly what E2 forbids of a
 non-supplying step.
+
+G10–G12 are the three review defects on `f5e17f6`: index flags hiding a
+consumed Lean blob, combined `percent_covered` sold as line coverage, and
+a nonempty file set that omitted every computational module.
 
 ## What this tree does not claim
 

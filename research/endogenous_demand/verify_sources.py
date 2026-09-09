@@ -10,6 +10,11 @@ modules the Python mirror imports.  ``lean4/Derivation`` supplies the sealed
 modules ``lean/EndogenousDemand.lean`` imports.  Both trees are pinned by
 their exact Git tree objects, and the Lean configuration by digest.
 
+Every consumed path is compared to its baseline blob by reading the
+working-tree file.  That comparison does not consult Git's index flags, so
+``assume-unchanged`` / ``skip-worktree`` cannot hide a byte change from the
+compiler.  Staged-but-restored edits are still named by ``git diff --cached``.
+
 ``prompt`` and ``paper`` are not pinned: this family reads neither.  Untracked
 files are refused only where a build or an import would pick them up: a ``.py``
 under ``code/derivation`` or a ``.lean`` under ``lean4/Derivation``.
@@ -108,6 +113,28 @@ def runtime_errors(root: Path, modules: Mapping[str, ModuleType]) -> list[str]:
     return errors
 
 
+def worktree_matches_blob(root: Path, relative: str, blob: bytes, *, text: bool) -> str | None:
+    """Compare working-tree bytes to a baseline blob.  Independent of the index.
+
+    Returns a named failure, or ``None`` on match.  Text paths allow the
+    ordinary CRLF checkout conversion; artifacts must match raw.
+    """
+    path = root / relative
+    try:
+        if path.resolve(strict=True) != path:
+            return f"SOURCE_ORIGIN: {relative} resolves outside its pinned path"
+        raw = path.read_bytes()
+    except OSError as exc:
+        kind = "ARTIFACT_UNAVAILABLE" if not text else "SOURCE_UNAVAILABLE"
+        return f"{kind}: {relative}: {exc}"
+    if text:
+        if canonical_text(raw) != canonical_text(blob):
+            return f"SOURCE_CHANGED: {relative}"
+    elif raw != blob:
+        return f"ARTIFACT_CHANGED: {relative}"
+    return None
+
+
 def tree_census(root: Path, tree: str, suffix: str) -> tuple[list[str], list[str]]:
     """The baseline and current consumable files of one pinned tree."""
     baseline = sorted(
@@ -169,33 +196,38 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
                     f"SOURCE_CENSUS: {tree}: missing={sorted(set(baseline) - set(current))} "
                     f"unexpected={sorted(set(current) - set(baseline))}"
                 )
+            for relative in baseline:
+                blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
+                failure = worktree_matches_blob(root, relative, blob, text=True)
+                if failure:
+                    errors.append(failure)
+        censused = {
+            path
+            for paths in manifest["tree_census"].values()
+            for path in paths
+        }
         for relative, pinned_hash in manifest["source_sha256"].items():
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _sha(blob) != pinned_hash:
                 errors.append(f"BASELINE_SOURCE_PIN: {relative}")
-            source = root / relative
-            try:
-                if source.resolve(strict=True) != source:
-                    errors.append(f"SOURCE_ORIGIN: {relative} resolves outside its pinned path")
-                elif canonical_text(source.read_bytes()) != canonical_text(blob):
-                    errors.append(f"SOURCE_CHANGED: {relative}")
-            except OSError as exc:
-                errors.append(f"SOURCE_UNAVAILABLE: {relative}: {exc}")
+            if relative in censused:
+                continue
+            failure = worktree_matches_blob(root, relative, blob, text=True)
+            if failure:
+                errors.append(failure)
         for relative, pinned_hash in manifest["artifact_sha256"].items():
             blob = _git(root, "show", f"{BASELINE_COMMIT}:{relative}")
             if _raw_sha(blob) != pinned_hash:
                 errors.append(f"BASELINE_ARTIFACT_PIN: {relative}")
-            artifact = root / relative
-            try:
-                if artifact.read_bytes() != blob:
-                    errors.append(f"ARTIFACT_CHANGED: {relative}")
-            except OSError as exc:
-                errors.append(f"ARTIFACT_UNAVAILABLE: {relative}: {exc}")
+            failure = worktree_matches_blob(root, relative, blob, text=False)
+            if failure:
+                errors.append(failure)
         consumed = (*CONSUMED_TREES, *CONFIG_PATHS, *ARTIFACT_PATHS)
-        changed = set(_git(root, "diff", "--name-only", "--no-ext-diff", BASELINE_COMMIT,
-                           "--", *consumed).decode().splitlines())
-        changed.update(_git(root, "diff", "--cached", "--name-only", "--no-ext-diff", BASELINE_COMMIT,
-                            "--", *consumed).decode().splitlines())
+        # Index only: worktree bytes are compared to blobs above, so that
+        # assume-unchanged cannot hide a change.  Staged-but-restored
+        # edits still have to fail.
+        changed = set(_git(root, "diff", "--cached", "--name-only", "--no-ext-diff",
+                           BASELINE_COMMIT, "--", *consumed).decode().splitlines())
         errors.extend(f"CONSUMED_TRACKED_DIFF: {path}" for path in sorted(changed))
     except (OSError, ValueError, TypeError, KeyError) as exc:
         errors.append(f"SOURCE_INSPECTION_FAILED: {exc}")

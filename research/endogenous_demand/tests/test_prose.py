@@ -27,7 +27,8 @@ class Prose(unittest.TestCase):
 
     def test_status_records_injections(self) -> None:
         status = (ROOT / "STATUS.md").read_text(encoding="utf-8")
-        for gate in ("G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9"):
+        for gate in ("G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9",
+                     "G10", "G11", "G12"):
             self.assertIn(gate, status)
 
 
