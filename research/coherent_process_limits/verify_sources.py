@@ -36,7 +36,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "f5c445f40f339031e1a3191c5147b4eba98525b8"
+BASELINE_COMMIT = "ab7cc9a521973f8ec69a1cc1a7e9a92591d13acd"
 PACKET = Path("research/coherent_process_limits")
 SCHEMA = "coherent-process-limits-sources-v1"
 CONSUMED_TREES = {

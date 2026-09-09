@@ -123,7 +123,11 @@ def record() -> JsonObj:
                             "an edit at it does: the represented execution family's "
                             "test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged and its "
                             "mutation tests.  Computed on those populations; no theorem states it",
-            "not_delivered": "an interacting instance with two loci of activity; the process has one",
+            "not_delivered": "the observed process has one locus of activity, so no square is stated of "
+                             "its observations; the producer family has since built two loci as a product "
+                             "carrier and proved the square there (its Product.left_right_comm, "
+                             "Product.coupling_breaks_the_square), and the lifting to a two-locus run and "
+                             "its observations is what remains",
         },
         "not_delivered": [
             "an interval, circle or integration theory: the limit is a totally disconnected thread space and "
@@ -131,7 +135,9 @@ def record() -> JsonObj:
             "lifting the successor relation of a fork to threads: the deterministic runner stops at a fork",
             "a general theorem that every realized tape is eventually periodic: the determinism of the next "
             "datum is proved, the eventual periodicity is computed over the declared class",
-            "a second locus of activity for causal independence between two processes",
+            "a two-locus run and its observation at step scales: the producer family built the second "
+            "locus as a product carrier and proved the independence square on operations, but no run of "
+            "it is observed here",
         ],
     }
 

@@ -240,8 +240,13 @@ the tape after `n` steps (`Observe.obs`).
   populations.
 - **Falsifier**: a step that changes under an edit away from the active
   datum.
-- **Obligation**: the process has one locus of activity; independence and
-  interaction between two loci — a product of two processes — are not built.
+- **Obligation**: the *process this family observes* has one locus of
+  activity, so no square is stated of its observations.  The producer family
+  has since built the second locus as a product carrier and proved the
+  independence square there — moves at different loci commute, and a move
+  that reads the other locus does not (its CL-RE-15) — so what remains here
+  is the lifting: a two-locus **run**, its observation at step scales, and the
+  square as a statement about observations rather than about operations.
 
 ### CL-CP-11 — declared, and not delivered
 

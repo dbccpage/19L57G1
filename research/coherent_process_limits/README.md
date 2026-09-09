@@ -58,8 +58,8 @@ recorded run replayed; compatibility checked on every identified program,
 every datum, twelve scales; the three verdicts computed over the 64
 deterministic programs on the recorded setting; the experiment at four
 scales; 43 tests, strict typing over nine files, two byte-identical records.
-Execution base `f5c445f40f339031e1a3191c5147b4eba98525b8`, the represented
-execution family's repaired commit, at which its artifact is frozen and pinned;
+Execution base `ab7cc9a521973f8ec69a1cc1a7e9a92591d13acd`, the represented
+execution family's two-loci commit, at which its artifact is frozen and pinned;
 no sealed path and no sibling path is written.
 
 ## 1. The abstract inverse system (`lean/Limits.lean`)
@@ -150,7 +150,10 @@ the enablement self-instance and the operation edge at the active datum;
 the active datum, the tape, the clock and the fuel, keeping the program.  An
 edit away from the active datum does not change the step; an edit at it does
 (the family's mutation tests).  The process has one locus of activity, so
-independence and interaction between two loci are not built.
+independence and interaction between two loci are not observed here; the
+producer family has since built the second locus as a product carrier and
+proved the independence square on its operations, and the lifting to a
+two-locus run and its observations is what remains.
 
 ## 6. What "the limit" is here, and is not
 
@@ -185,7 +188,7 @@ directory is always first on the path, and `run.py` and `verify_lean.py`
 refuse by name if a foreign guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`f5c445f40f339031e1a3191c5147b4eba98525b8`, the eight derivation modules and
+`ab7cc9a521973f8ec69a1cc1a7e9a92591d13acd`, the eight derivation modules and
 the consumed `translation`, `execution` and `control` modules by digest and
 runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation` and
