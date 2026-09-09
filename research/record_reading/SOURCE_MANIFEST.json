@@ -1,6 +1,6 @@
 {
   "schema": "record-reading-sources-v1",
-  "baseline_commit": "f62d857afb38630742249c47a4446892b0e87daf",
+  "baseline_commit": "139be1103884d5fc7c7125c0fae408a4b7cd915c",
   "text_normalization": "CRLF_TO_LF_ONLY",
   "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution, control and limits modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation, represented_execution and coherent_process_limits Lean trees the local proofs build on, the setting_translation, represented_execution and coherent_process_limits Python trees that supply the encoder, the machines this family extends and the observation it selects against, the Lean configuration of the seven packages, and the represented execution family's artifact evidence/process.json (read here through the coherent process limits family's identification, never written here) at the commit at which both families are frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
@@ -25,10 +25,10 @@
     "research/magnification/lean": "8c9e41e7e3f93345c9c337f2a81b4a5ac3d2b674",
     "research/setting_translation/lean": "7e329a7a398067f3bd38051d7ab0ecb619e98448",
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
-    "research/represented_execution/lean": "4a3d9cbac827b31a4515bec89c1dffb80c0b0186",
-    "research/represented_execution": "33cebbd938c3835d0cfe9d1affa81e95d27ccec3",
+    "research/represented_execution/lean": "f62399cd96723aed6c7b8913dc8979ef5bd517c9",
+    "research/represented_execution": "9f1d12eb268b9b661bb661891b302c7ecd249f31",
     "research/coherent_process_limits/lean": "975ff5e547fc7f3a802e94f86d097883107d2960",
-    "research/coherent_process_limits": "c2457bd37360fa99821366cca95df4682ffc4ade"
+    "research/coherent_process_limits": "3f135d27376f1de478922055586bc59638df0691"
   },
   "tree_census": {
     "code/derivation": [
@@ -178,7 +178,8 @@
     "research/represented_execution/lean": [
       "research/represented_execution/lean/Control.lean",
       "research/represented_execution/lean/Execution.lean",
-      "research/represented_execution/lean/Inventory.lean"
+      "research/represented_execution/lean/Inventory.lean",
+      "research/represented_execution/lean/Product.lean"
     ],
     "research/represented_execution": [
       "research/represented_execution/control.py",
@@ -236,7 +237,7 @@
     "research/magnification/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/setting_translation/lean/lakefile.toml": "f82672361e0db8d0968e87dc295fa1eac657cabf6d748f5b2568c69f1e769a94",
     "research/setting_translation/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "research/represented_execution/lean/lakefile.toml": "e674d4f07167ceee4019c32d9ea762102f0936bb34fbafc7d636adad945ef063",
+    "research/represented_execution/lean/lakefile.toml": "c89e4bd8813e9c302eb8dbc6577ad6175f5eda6c0074a4bb5c468816d9a39f74",
     "research/represented_execution/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/represented_execution/evidence/process.json": "5cfe8425983f05f6ece6516f773e94adeff3a5b49ba86a3b156a69059fca858c",
     "research/coherent_process_limits/lean/lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
