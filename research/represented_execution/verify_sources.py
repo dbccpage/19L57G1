@@ -5,6 +5,10 @@ The guard checks source identity and runtime origin, not theorem truth.  CRLF
 checkout conversion is allowed for text inputs; pinned Git objects are never
 rewritten.  There is deliberately no manifest generation or repair option.
 
+Runtime origin covers every module the machines execute: the eight sealed
+``derivation`` modules and the merged ``translation``.  A same-named module
+resolved from anywhere else is named rather than silently accepted.
+
 Scope: exactly what this family consumes.  ``code/derivation`` supplies the
 eight modules the merged ``translation.py`` imports when ``execution.py``
 imports it.  ``lean4/Derivation`` supplies the sealed modules the local proofs
@@ -60,7 +64,11 @@ RUNTIME_PATHS = {
     **{f"derivation.{name}": f"code/derivation/{name}.py" for name in (
         "model", "observe", "candidates", "iso", "engine", "export", "primitive_core"
     )},
+    "translation": "research/setting_translation/translation.py",
 }
+# The directories the runtime census imports from, in the order the machines
+# expect: the sealed code, then the consumed research trees.
+IMPORT_ROOTS = ("code", "research/setting_translation")
 
 
 def canonical_text(raw: bytes) -> bytes:
@@ -93,7 +101,8 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
 
 def runtime_errors(root: Path, modules: Mapping[str, ModuleType]) -> list[str]:
     errors: list[str] = []
-    present = {name for name in modules if name == "derivation" or name.startswith("derivation.")}
+    present = {name for name in modules
+               if name in RUNTIME_PATHS or name.startswith("derivation.")}
     if present != set(RUNTIME_PATHS):
         errors.append(
             f"RUNTIME_CENSUS: missing={sorted(set(RUNTIME_PATHS) - present)} "
@@ -199,7 +208,8 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
         return errors
     old_path = sys.path[:]
     try:
-        sys.path.insert(0, str(root / "code"))
+        for index, relative in enumerate(IMPORT_ROOTS):
+            sys.path.insert(index, str(root / relative))
         for name in RUNTIME_PATHS:
             importlib.import_module(name)
     except Exception as exc:

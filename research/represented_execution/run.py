@@ -14,6 +14,13 @@ what the operations compute — the merged ``translation.run``, which reads
 the operation tables and which this *check* may consult; the machines never
 do — or whose word is not consumed; and a controlled run any of whose
 transitions is not a reference step (``control.cstep``, likewise a check).
+
+Every run carries ``ops_in_index_order``.  Its ``setting_json`` is the sealed
+``Setting.json``, whose ``ops`` field is set-valued: the tables are sorted
+and repetitions collapsed, so the index order the words and enablements refer
+to is not recoverable from that field alone.  The index-ordered list is what
+a consumer replays with; ``tests/test_evidence.py`` replays every recorded
+run from its own record through it.
 """
 
 from __future__ import annotations
@@ -31,10 +38,12 @@ JsonObj = dict[str, object]
 
 # This tree's own directory stays first on the path: the merged sibling also
 # has a ``run.py`` and a ``verify_sources.py``, and an import that resolved
-# to the sibling would run the wrong custody guard silently.
-for dependency in (REPO / "code", REPO / "research" / "setting_translation"):
-    if str(dependency) not in sys.path:
-        sys.path.append(str(dependency))
+# to the sibling would run the wrong custody guard silently.  The consumed
+# trees go immediately after it and never at the end: appended, they would
+# sit behind ``PYTHONPATH`` and site-packages, and a same-named module found
+# there would compute this record while the pins still passed.
+sys.path[1:1] = [str(dependency) for dependency in (REPO / "code", REPO / "research" / "setting_translation")
+                 if str(dependency) not in sys.path]
 
 from verify_sources import PACKET, verify_sources  # noqa: E402
 
@@ -91,6 +100,7 @@ def word_run(name: str, F: tr.FiniteSetting, word: tuple[int, ...], start: int) 
     return {
         "setting": name,
         "setting_json": F.json(),
+        "ops_in_index_order": [list(g) for g in F.ops],
         "start": start,
         "word": list(word),
         "active": c.active,
@@ -109,6 +119,7 @@ def control_run(name: str, C: ct.Controlled, start: int, fuel: int) -> JsonObj:
     return {
         "program": name,
         "setting_json": C.F.json(),
+        "ops_in_index_order": [list(g) for g in C.F.ops],
         "enablements": sorted(list(pair) for pair in C.ctrl),
         "start": start,
         "fuel": fuel,

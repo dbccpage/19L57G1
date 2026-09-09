@@ -31,9 +31,10 @@ device as one more binary form per operation whose *self-instance*
 grammar (`encodeC_wf`).  A fixed interpreter reads the enablements at the
 active datum, then the chosen operation's edge, and moves: which operation
 fires is read from the data.  Against the reference step `CStep`, stated on
-the setting before any encoding, every successor realises a reference step
-and every reference step with fuel is realised (`successors_sound`,
-`successors_complete`).  The deterministic runner fires the one enabled
+the setting before any encoding, every successor of a state carrying the
+program realises a reference step at its active datum, and every reference
+step there with fuel is realised (`successors_sound`, `successors_complete`,
+at any such state and not only the initial one).  The deterministic runner fires the one enabled
 operation and stops with the terminal `branch` when two are — it never
 selects (`run_branch`); its terminals `halt`, `exhausted`, `refuse`, `branch`
 are distinct.  The clock advances exactly when an operation edge is applied
@@ -51,7 +52,7 @@ instances.  The processes read encoded data; they do not themselves live in
 the sealed grammar, and nothing here says they do.  (The *program* of commit
 2 is a regime; the *state* that runs it is host.)
 
-Lean: 42 authored theorems, 71 reports with the compiler-generated ones, all
+Lean: 43 authored theorems, 73 reports with the compiler-generated ones, all
 within `{propext, Quot.sound}`, in a package importing the sealed package
 and the merged `setting_translation` package.  Python: both machines
 mirrored; the word machine checked against the merged `translation.run` (the
@@ -64,7 +65,7 @@ of four programs; the graph mutation, mid-run edit, two-graphs-one-word,
 letter-names-an-operation, concatenation, empty-word, branch-by-data,
 iteration-by-data, never-selects, family-permutation and fuel tests the
 brief names; the named refusals; an oracle check on both machines' source;
-58 tests, strict typing over twelve files, two byte-identical records.
+64 tests, strict typing over twelve files, two byte-identical records.
 Execution base `756917dcaeff5979faa9b1346a1a8ce666b33b25` (main); no sealed
 path is written.
 
@@ -179,6 +180,15 @@ to record a word-run that refuses, leaves its word unconsumed or halts at a
 datum other than the operations', a controlled run with a transition that is
 not a reference step, or a clock that does not count the firings.
 
+Every run carries `ops_in_index_order`.  A run's `setting_json` is the sealed
+`Setting.json`, whose `ops` field is set-valued — the tables are sorted and
+repetitions collapsed — so the index order the `word` and `enablements` refer
+to is not recoverable from it: read literally, five of the fourteen runs did
+not replay before the field was added, and the consumer family found it
+(its CL-CP-09) rather than this family's own checks.
+`test_every_recorded_run_replays_from_its_own_record` now rebuilds each run
+from the record alone and compares the recorded outcome.
+
 ## 5. The single finish bar, met and not met
 
 Commit 1 ships: the typed `step`/`run`, the Lean correspondence, the mutation,
@@ -198,11 +208,15 @@ beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 42 authored theorems and 29
-compiler-generated ones (the `Config`, `Controlled` and `State` constructors'
-injectivity and size specifications, the `Fired` and `Terminal` constructors'
-size specifications, `Terminal`'s decidable equality, and the proof terms of
-five theorems), 71 reports, all within `{propext, Quot.sound}`; the report
+**Lean** (`lean/`, `evidence/lean.json`): 43 authored theorems and 30
+compiler-generated ones — nine constructor injectivity and size
+specifications for `Config`, `Controlled` and `State`; five for `Fired`
+(three size specifications and `ok`'s injectivity); five for `Terminal` (four
+size specifications and its `ofNat_ctorIdx`); the two proof terms of
+`Terminal`'s decidable equality; and nine auxiliary proof terms of five
+theorems (`enabled_program`, `encodeC_wf`, `live_successor`,
+`lookup_program_op`, `successors_complete`) — 73 reports, all within
+`{propext, Quot.sound}`; the report
 population equals the environment census of the `Execution` and `Control`
 namespaces in both directions; no private theorem; forbidden-token scan
 clean.  `Classical.choice` was observed once, entering through `BEq` in an
@@ -212,7 +226,7 @@ by definitional `have`, never by `simp`, so that no matcher equation is
 minted behind the census (the trap the merged families record).
 
 **Python** (`execution.py`, `control.py`, `run.py`, `evidence/process.json`,
-`tests/`): 58 tests, strict typing over twelve files, the two records replay
+`tests/`): 64 tests, strict typing over twelve files, the two records replay
 byte-identically.  `verify.py`, `verify_sources.py`, `verify_lean.py` and
 `run.py` follow the merged `research/setting_translation` files with names,
 pins and refusals changed; there is no shared helper across the research
@@ -254,8 +268,10 @@ Regenerate the two records deliberately and never under a live injection:
 * That the Python mirrors compute the Lean predicates: the agreement is on
   the stated finite populations; the Lean `lookup` reads the first edge in
   list order and the Python `lookup` the unique edge of a set, which coincide
-  on every encoding and are not claimed to coincide on a graph with two edges
-  leaving one datum on one form (the Python refuses such a graph by name).
+  on every `encode` and `encode_c` graph and are not claimed to coincide on a
+  graph with two edges leaving one datum on one form (the Python refuses such
+  a graph by name).  A later family's record-reading program is such a graph
+  on its control forms; it is read by membership there, not by `lookup`.
 * That every edge of every encoding is load-bearing for some word.
 * Anything about infinite carriers, undecidable stores or infinite operation
   families.

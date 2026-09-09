@@ -86,6 +86,35 @@ class ProcessRecord(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "clock does not count"):
                 run.receipt_bytes()
 
+    def test_every_recorded_run_replays_from_its_own_record(self) -> None:
+        """CL-RE-06's falsifier, mechanically: rebuild each run from the
+        record alone — the index-ordered tables with the recorded word or
+        enablements, start and fuel — and compare the recorded outcome.  The
+        sealed ``setting_json`` is set-valued and does not determine it."""
+        import translation as tr  # noqa: PLC0415
+        record = self.record()
+
+        def setting(entry: dict[str, Any]) -> tr.FiniteSetting:
+            sealed_json = entry["setting_json"]
+            pairs = {key: frozenset((int(p[0]), int(p[1])) for p in sealed_json[key])
+                     for key in ("r", "ret", "prot")}
+            tables = tuple(tuple(int(v) for v in table) for table in entry["ops_in_index_order"])
+            self.assertEqual(sorted(list(t) for t in set(tables)), sealed_json["ops"])
+            return tr.FiniteSetting(int(sealed_json["n"]), pairs["r"], pairs["ret"], pairs["prot"],
+                                    int(sealed_json["a"]), int(sealed_json["b"]), tables)
+
+        for entry in record["runs"]:
+            c = ex.run(ex.init(setting(entry), tuple(entry["word"]), int(entry["start"])))
+            assert c is not None
+            self.assertEqual(c.active, entry["active"], entry["setting"])
+            self.assertEqual(list(c.output), entry["output"], entry["setting"])
+        for entry in record["control_runs"]:
+            C = ct.Controlled(setting(entry),
+                              frozenset((int(p[0]), int(p[1])) for p in entry["enablements"]))
+            terminal, s = ct.trace(C, int(entry["start"]), int(entry["fuel"]))
+            self.assertEqual(list(s.tape), entry["tape"], entry["program"])
+            self.assertEqual(terminal.value, entry["terminal"], entry["program"])
+
     def test_record_carries_no_timestamp_path_or_sentinel(self) -> None:
         text = self.fresh.decode("utf-8")
         for token in ("timestamp", "C:\\\\", "/Users/", "worktrees", "-1"):

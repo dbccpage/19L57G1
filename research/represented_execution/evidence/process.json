@@ -64,6 +64,23 @@
    ],
    "fuel": 4,
    "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "ping",
    "setting_json": {
     "a": 0,
@@ -115,6 +132,23 @@
    ],
    "fuel": 4,
    "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "ping",
    "setting_json": {
     "a": 0,
@@ -166,6 +200,23 @@
    ],
    "fuel": 4,
    "fuel_left": 4,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "ping",
    "setting_json": {
     "a": 0,
@@ -213,6 +264,23 @@
    ],
    "fuel": 10,
    "fuel_left": 8,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "climb",
    "setting_json": {
     "a": 0,
@@ -262,6 +330,23 @@
    ],
    "fuel": 10,
    "fuel_left": 9,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "climb",
    "setting_json": {
     "a": 0,
@@ -310,6 +395,23 @@
    ],
    "fuel": 10,
    "fuel_left": 10,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "climb",
    "setting_json": {
     "a": 0,
@@ -361,6 +463,23 @@
    ],
    "fuel": 5,
    "fuel_left": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "forever",
    "setting_json": {
     "a": 0,
@@ -413,6 +532,23 @@
    ],
    "fuel": 5,
    "fuel_left": 5,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2
+    ]
+   ],
    "program": "fork",
    "setting_json": {
     "a": 0,
@@ -478,6 +614,18 @@
  "runs": [
   {
    "active": 2,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
    "output": [
     1,
     0,
@@ -516,6 +664,18 @@
   },
   {
    "active": 0,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
    "output": [
     1,
     2,
@@ -552,6 +712,18 @@
   },
   {
    "active": 2,
+   "ops_in_index_order": [
+    [
+     1,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
    "output": [],
    "reference_active": 2,
    "setting": "twoOps",
@@ -580,6 +752,12 @@
   },
   {
    "active": 0,
+   "ops_in_index_order": [
+    [
+     0,
+     0
+    ]
+   ],
    "output": [
     0,
     0
@@ -613,6 +791,12 @@
   },
   {
    "active": 0,
+   "ops_in_index_order": [
+    [
+     0,
+     0
+    ]
+   ],
    "output": [
     0
    ],
@@ -639,6 +823,12 @@
   },
   {
    "active": 0,
+   "ops_in_index_order": [
+    [
+     0,
+     0
+    ]
+   ],
    "output": [
     0,
     0,

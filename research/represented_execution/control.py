@@ -28,6 +28,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Sequence
 
+import execution as ex
 import translation as tr
 from derivation.model import AdmitForm, AdmitInst, Event, Regime, replay
 from execution import ExecutionError, Graph, lookup
@@ -139,8 +140,11 @@ def enabled_at(g: Graph, count: int, x: int) -> tuple[int, ...]:
 
 def fire(s: State, k: int) -> State | Refusal:
     """Fire operation ``k`` at the active datum: with fuel left, read its
-    edge, move, extend the tape, tick the clock, spend one fuel."""
-    if s.fuel == 0:
+    edge, move, extend the tape, tick the clock, spend one fuel.  The Lean
+    ``fire`` matches the fuel as a ``Nat``, so ``<= 0`` is its ``0`` case: a
+    state built by hand with negative fuel must not fire."""
+    ex.check_word((k,))
+    if s.fuel <= 0:
         return Refusal.EXHAUSTED
     y = lookup(3 + k, s.active, s.graph)
     if y is None:
@@ -181,7 +185,7 @@ def run_det(bound: int, s: State) -> tuple[Terminal, State]:
         nxt = step_det(s)
         if isinstance(nxt, Terminal):
             return (nxt, s)
-        if bound == 0:
+        if bound <= 0:
             return (Terminal.EXHAUSTED, s)
         s = nxt
         bound -= 1

@@ -165,6 +165,23 @@ class Refusals(unittest.TestCase):
     def test_an_unknown_letter_refuses(self) -> None:
         self.assertIsNone(ex.run(ex.init(TWO_OPS, (2,), 0)))
 
+    def test_a_negative_letter_is_refused_and_never_reads_a_store(self) -> None:
+        """A word is a list of operation indices; the Lean word is a
+        ``List Nat``.  Unrefused, ``3 + k`` for a negative ``k`` would address
+        the difference, retention or protection form."""
+        bare = tr.SEALED_SETTINGS["d2Bare"]
+        self.assertEqual(len(bare.ops), 0)
+        for word in ((-3,), (0, -1), (-2, 0)):
+            with self.assertRaisesRegex(ex.ExecutionError, "not an operation index"):
+                ex.init(bare, word, 0)
+        c = ex.init(bare, (), 0)
+        with self.assertRaisesRegex(ex.ExecutionError, "not an operation index"):
+            ex.eval_word(c.graph, (-3,), 0)
+        with self.assertRaisesRegex(ex.ExecutionError, "not an operation index"):
+            ex.resume(c, (-3,))
+        with self.assertRaisesRegex(ex.ExecutionError, "not an operation index"):
+            ex.step(ex.Config(c.graph, (-3,), 0, ()))
+
 
 if __name__ == "__main__":
     unittest.main()

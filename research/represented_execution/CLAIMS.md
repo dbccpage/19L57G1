@@ -133,7 +133,11 @@ at datum `x`.
   with its active datum equal to what the operations compute, eight recorded
   controlled runs each of whose transitions is a reference step, a branching
   example, an iteration example, the live class, and the exact list of what
-  is not delivered.  Sorted keys, no timestamp, no machine path.
+  is not delivered.  Sorted keys, no timestamp, no machine path.  Every run
+  carries `ops_in_index_order`, the operation tables in the order its `word`
+  and `enablements` index: the run's `setting_json` is the sealed
+  `Setting.json`, whose `ops` field is set-valued (sorted, repetitions
+  collapsed), so that field alone does not determine the run.
 - **Hypotheses**: none.
 - **Novelty**: the brief's contract: Target B consumes a file authored by
   Target A and may not create it; the branching and iteration examples are
@@ -142,10 +146,20 @@ at datum `x`.
   record a word-run that refuses, leaves its word unconsumed, or halts at a
   datum other than the operations', a controlled run with a transition that
   is not a reference step, or a clock that does not count the firings
-  (`tests/test_evidence.py`).
+  (`tests/test_evidence.py`).  The falsifier is mechanical:
+  `test_every_recorded_run_replays_from_its_own_record` rebuilds each run
+  from the record alone — `ops_in_index_order` with the recorded `word` or
+  `enablements`, `start` and `fuel` — and compares the recorded
+  `active`/`output`/`tape`/`terminal`.
 - **Falsifier**: a recorded run whose active datum is not the operations', or
-  a recorded transition that is not a reference step.
+  a recorded transition that is not a reference step, or a run the record
+  does not replay from its own fields.
 - **Obligation**: the record's `not_delivered` list is exact (CL-RE-14).
+  Recorded on repair: until `ops_in_index_order` was added, `setting_json`
+  was the only table field, and five of the fourteen recorded runs did not
+  replay from the record read literally — the falsifier above, met by the
+  record and caught by the consumer family (its CL-CP-09), not by this
+  family's own checks.
 
 ## Commit 2 — control by data
 
@@ -191,23 +205,30 @@ at datum `x`.
 
 - **Statement**: the reference step `CStep C x k y` — `k` enabled at `x` and
   `y` its value there — is stated on the setting before any encoding.  A
-  successor of an initial state is exactly a firing of an enabled operation
-  (`mem_successors`, by membership: no first element is named); every
-  successor realises a reference step (`successors_sound`); every reference
-  step from an admitted datum, given fuel, is realised by a successor
-  (`successors_complete`).
-- **Hypotheses**: `x < C.F.n`; for completeness, fuel `fuel + 1`.
+  successor is exactly a firing of an enabled operation (`mem_successors`, by
+  membership: no first element is named); every successor of a state carrying
+  the program realises a reference step at that state's active datum
+  (`successors_sound`); every reference step there, given fuel, is realised
+  by a successor (`successors_complete`).  Both are stated at any such state,
+  not only the initial one, which carries the program by `init_program`.
+- **Hypotheses**: the state's graph is `program C`, its operation count
+  `C.F.ops.length` and its active datum admitted; for completeness,
+  `0 < s.fuel`.
 - **Novelty**: this is the brief's simulation and reflection for the
   represented program: the interpreter's code is fixed and the program is
   the instances it reads.
 - **Evidence**: `Control.successors_sound`, `successors_complete`,
-  `mem_successors`, `fire_ok`; computed: the set of successor data equals the
-  set of enabled operations' values, and each successor is a reference step,
-  on every datum of four controlled settings (`tests/test_control.py`).
+  `init_program`, `mem_successors`, `fire_ok`; computed: the set of successor
+  data equals the set of enabled operations' values, and each successor is a
+  reference step, on every datum of four controlled settings and at every
+  state a run of them reaches (`tests/test_control.py`).
 - **Falsifier**: a successor that is not a reference step, or an enabled
   operation with fuel whose value is not reached by any successor.
 - **Obligation**: the correspondence is one step at a time; a bisimulation
-  over whole runs is a corollary the tree does not state.
+  over whole runs is a corollary the tree does not state.  An earlier wording
+  said "every successor" while the theorems were stated at the initial state
+  only; the theorems now carry the general hypotheses, and the narrower
+  reading is withdrawn.
 
 ### CL-RE-10 — the runner never selects; the terminals are kept apart
 

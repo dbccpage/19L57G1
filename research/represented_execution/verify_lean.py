@@ -3,9 +3,9 @@
 AuthorityEffect: None.
 
 The census (`lean/Inventory.lean`) enumerates every compiled theorem of the
-`Execution` namespace from the environment, independently of source layout;
-the reports come from the module's own `#print axioms` lines plus the
-generated-declaration lines in `Inventory.lean`.  The two populations must
+`Execution` and `Control` namespaces from the environment, independently of
+source layout; the reports come from the modules' own `#print axioms` lines
+plus the generated-declaration lines in `Inventory.lean`.  The two populations must
 coincide, every report must lie within the repository's permitted axioms,
 and the sources must carry no forbidden token.
 """

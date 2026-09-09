@@ -54,12 +54,22 @@ def lookup(f: int, x: int, graph: Graph) -> int | None:
     return ys[0] if ys else None
 
 
+def check_word(word: Sequence[int]) -> None:
+    """A letter is an operation index.  The Lean word is a ``List Nat``, so a
+    negative letter has no counterpart there; unrefused it would read the
+    store forms 0, 1, 2 as if they were operation graphs."""
+    for k in word:
+        if k < 0:
+            raise ExecutionError(f"the letter {k} is not an operation index")
+
+
 def step(c: Config) -> Config | None:
     """One step: consume the head ``k`` of the word by reading the edge of
     form ``3 + k`` leaving the active datum.  No word, or no edge: no step."""
     if not c.word:
         return None
     k, rest = c.word[0], c.word[1:]
+    check_word((k,))
     y = lookup(3 + k, c.active, c.graph)
     if y is None:
         return None
@@ -83,6 +93,7 @@ def run(c: Config) -> Config | None:
 
 def eval_word(graph: Graph, word: Sequence[int], a: int) -> int | None:
     """The reference fold, reading the same graph through the same lookup."""
+    check_word(word)
     for k in word:
         y = lookup(3 + k, a, graph)
         if y is None:
@@ -96,11 +107,13 @@ def init(F: tr.FiniteSetting, word: Sequence[int], x: int) -> Config:
     datum, an empty tape.  The one function that sees a setting."""
     if not 0 <= x < F.n:
         raise ExecutionError("the start datum lies outside the carrier")
+    check_word(word)
     return Config(frozenset(tr.encode(F).insts), tuple(word), x, ())
 
 
 def resume(c: Config, v: Sequence[int]) -> Config | None:
     """Continue a halted configuration on a further word."""
+    check_word(v)
     return run(Config(c.graph, tuple(v), c.active, c.output))
 
 

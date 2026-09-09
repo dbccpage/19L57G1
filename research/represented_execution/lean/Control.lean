@@ -35,9 +35,12 @@ delivers, and what it refuses:
   retention, protection — are not loaded (`program`), and `init` does not
   depend on the designated pair (`init_pair`).
 * **Simulation and reflection.** Against the reference relation `CStep`,
-  stated on the setting before any encoding: every successor realises a
-  reference step (`successors_sound`) and every reference step with fuel
-  left is realised (`successors_complete`).
+  stated on the setting before any encoding: every successor of a state
+  carrying the program realises a reference step at its active datum
+  (`successors_sound`) and every reference step there with fuel left is
+  realised (`successors_complete`).  Both are stated at any such state, not
+  only the initial one (`init_program`), so they speak about every step of a
+  run.
 
 Configuration status remains **DECLARED_HOST_CONFIG**: `State` is a
 metatheory structure carrying encoded instances.  The proofs unfold the
@@ -394,35 +397,44 @@ theorem mem_successors {s s' : State} :
 
 /-! ## 6. Simulation and reflection against the reference step -/
 
-/-- **Soundness.**  Every successor of an initial state realises a
-reference step: the operation was enabled at the datum, and the new datum
-is its value. -/
-theorem successors_sound (C : Controlled) {x fuel : Nat} (hx : x < C.F.n) {s' : State}
-    (h : s' ∈ successors (init C x fuel)) : ∃ k, CStep C x k s'.active := by
+/-- **Soundness.**  Every successor of a state carrying the program realises
+a reference step at its active datum: the operation was enabled there, and
+the new datum is its value.  Stated at any such state, not only the initial
+one, so that it speaks about every step of a run. -/
+theorem successors_sound (C : Controlled) {s s' : State} (hg : s.graph = program C)
+    (hn : s.nops = C.F.ops.length) (hx : s.active < C.F.n)
+    (h : s' ∈ successors s) : ∃ k, CStep C s.active k s'.active := by
   obtain ⟨k, hk, hf⟩ := mem_successors.mp h
-  have hk' : k < C.F.ops.length ∧ enabled (program C) C.F.ops.length x k = true :=
-    mem_enabledAt.mp hk
+  have hk' := mem_enabledAt.mp hk
+  rw [hg, hn] at hk'
   have hen := (enabled_program C hk'.1 hx).mp hk'.2
   obtain ⟨hl, -, -, -, -, -⟩ := fire_ok hf
-  have hl' : lookup (3 + k) x (program C) = some s'.active := hl
-  rw [lookup_program_op C hk'.1 hx] at hl'
-  exact ⟨k, hk'.1, hen, (Option.some.inj hl').symm⟩
+  rw [hg, lookup_program_op C hk'.1 hx] at hl
+  exact ⟨k, hk'.1, hen, (Option.some.inj hl).symm⟩
 
-/-- **Completeness.**  Every reference step from an admitted datum, given
-fuel, is realised by a successor. -/
-theorem successors_complete (C : Controlled) {x k y fuel : Nat} (hx : x < C.F.n)
-    (hs : CStep C x k y) :
-    ∃ s' ∈ successors (init C x (fuel + 1)), s'.active = y := by
+/-- **Completeness.**  Every reference step at the active datum of such a
+state, given fuel, is realised by a successor. -/
+theorem successors_complete (C : Controlled) {s : State} {k y : Nat} (hg : s.graph = program C)
+    (hn : s.nops = C.F.ops.length) (hx : s.active < C.F.n)
+    (hs : CStep C s.active k y) (hfuel : 0 < s.fuel) :
+    ∃ s' ∈ successors s, s'.active = y := by
   obtain ⟨hk, hc, rfl⟩ := hs
-  have hen : enabled (program C) C.F.ops.length x k = true := (enabled_program C hk hx).mpr hc
-  have hmem : k ∈ enabledAt (program C) C.F.ops.length x := mem_enabledAt.mpr ⟨hk, hen⟩
-  refine ⟨⟨program C, C.F.ops.length, C.F.ops.getD k id x, [x] ++ [C.F.ops.getD k id x], 0 + 1, fuel⟩,
+  have hen : enabled (program C) C.F.ops.length s.active k = true :=
+    (enabled_program C hk hx).mpr hc
+  have hmem : k ∈ enabledAt s.graph s.nops s.active := by
+    rw [hg, hn]
+    exact mem_enabledAt.mpr ⟨hk, hen⟩
+  obtain ⟨f, hf⟩ : ∃ f, s.fuel = f + 1 := ⟨s.fuel - 1, by omega⟩
+  refine ⟨⟨s.graph, s.nops, C.F.ops.getD k id s.active,
+    s.tape ++ [C.F.ops.getD k id s.active], s.clock + 1, f⟩,
     mem_successors.mpr ⟨k, hmem, ?_⟩, rfl⟩
-  rw [fire_succ (init C x (fuel + 1)) k fuel rfl]
-  show (match lookup (3 + k) x (program C) with
-        | none => Fired.noEdge
-        | some y => Fired.ok ⟨program C, C.F.ops.length, y, [x] ++ [y], 0 + 1, fuel⟩) = _
-  rw [lookup_program_op C hk hx]
+  rw [fire_succ s k f hf, hg, lookup_program_op C hk hx]
+
+/-- The initial state carries the program at its start datum, so the two
+theorems above apply to it. -/
+theorem init_program (C : Controlled) (x fuel : Nat) :
+    (init C x fuel).graph = program C ∧ (init C x fuel).nops = C.F.ops.length ∧
+      (init C x fuel).active = x := ⟨rfl, rfl, rfl⟩
 
 /-- `init` does not read the designated pair: two controlled settings that
 differ only in their endpoints have the same initial state. -/
@@ -541,6 +553,7 @@ end Control
 #print axioms Control.mem_successors
 #print axioms Control.successors_sound
 #print axioms Control.successors_complete
+#print axioms Control.init_program
 #print axioms Control.init_pair
 #print axioms Control.live_successor
 #print axioms Control.stepDet_branch

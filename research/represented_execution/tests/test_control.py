@@ -77,6 +77,44 @@ class ReferenceStep(unittest.TestCase):
                 for t in ct.successors(s):
                     self.assertTrue(any(ct.cstep(C, x, k, t.active) for k in range(ct.nops(C))))
 
+    def test_soundness_and_completeness_hold_at_every_state_a_run_reaches(self) -> None:
+        """The Lean statements carry the program as a hypothesis rather than
+        naming the initial state, so they speak at every step of a run."""
+        for C in (PING, CLIMB, FOREVER):
+            for x in range(C.F.n):
+                s = ct.init(C, x, 6)
+                for _ in range(6):
+                    seen = {t.active for t in ct.successors(s)}
+                    expected = {tr.run(C.F, (k,), s.active)
+                                for k in range(ct.nops(C)) if (s.active, k) in C.ctrl}
+                    self.assertEqual(seen, expected, (C.ctrl, s.active))
+                    for t in ct.successors(s):
+                        self.assertTrue(any(ct.cstep(C, s.active, k, t.active)
+                                            for k in range(ct.nops(C))))
+                    nxt = ct.step_det(s)
+                    if not isinstance(nxt, ct.State):
+                        break
+                    s = nxt
+
+    def test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged(self) -> None:
+        """The other half of the causal footprint: a firing reads the
+        enablement and the edge at the active datum, so an instance elsewhere
+        is not read.  The 'an edit at it does' half is the word machine's
+        mutation tests."""
+        s = ct.init(PING, 0, 3)
+        elsewhere = ct.State(ex.replace_edge(s.graph, 3, 2, 2), s.nops, s.active, s.tape,
+                             s.clock, s.fuel)
+        self.assertNotEqual(elsewhere.graph, s.graph)
+        here, there = ct.fire(s, 0), ct.fire(elsewhere, 0)
+        assert isinstance(here, ct.State) and isinstance(there, ct.State)
+        self.assertEqual((there.active, there.tape, there.clock, there.fuel),
+                         (here.active, here.tape, here.clock, here.fuel))
+        self.assertEqual({t.active for t in ct.successors(elsewhere)},
+                         {t.active for t in ct.successors(s)})
+        self.assertEqual(ct.run(elsewhere)[1].tape, ct.run(s)[1].tape)
+        at_it = ct.State(ex.replace_edge(s.graph, 3, 0, 2), s.nops, s.active, s.tape, s.clock, s.fuel)
+        self.assertNotEqual(ct.run(at_it)[1].tape, ct.run(s)[1].tape)
+
     def test_no_fuel_no_successor(self) -> None:
         self.assertEqual(ct.successors(ct.init(FOREVER, 0, 0)), ())
 
@@ -163,6 +201,21 @@ class Bookkeeping(unittest.TestCase):
             s = fired
             fuels.append(s.fuel)
         self.assertEqual(fuels, [3, 2, 1, 0])
+
+    def test_a_state_with_no_fuel_fires_nothing_however_the_state_was_built(self) -> None:
+        """The Lean `fire` matches the fuel as a `Nat`; a hand-built state
+        with negative fuel has no counterpart there and must not fire."""
+        s = ct.init(FOREVER, 0, 0)
+        self.assertEqual(ct.fire(s, 0), ct.Refusal.EXHAUSTED)
+        negative = ct.State(s.graph, s.nops, s.active, s.tape, s.clock, -1)
+        self.assertEqual(ct.fire(negative, 0), ct.Refusal.EXHAUSTED)
+        self.assertEqual(ct.run(negative), (ct.Terminal.EXHAUSTED, negative))
+        self.assertEqual(ct.run_det(-3, negative), (ct.Terminal.EXHAUSTED, negative))
+
+    def test_a_negative_operation_index_is_refused_by_name(self) -> None:
+        """`3 + k` for a negative `k` would address a store form."""
+        with self.assertRaisesRegex(ex.ExecutionError, "not an operation index"):
+            ct.fire(ct.init(FOREVER, 0, 3), -3)
 
     def test_firing_keeps_the_program(self) -> None:
         s = ct.init(PING, 0, 2)

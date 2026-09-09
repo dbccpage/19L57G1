@@ -1,12 +1,12 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 18,
+  "axiom_free_count": 19,
   "census": "compiled environment theorem declarations in the Execution and Control namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Control.lean": "ddfd5ba5898781851fd1e921bea8baaece89aed74d41c150157f79d72f1f979b",
+    "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "4c91cff01b8fa8f586df593650f6f5d8a1d1e29fd21c2054f03b47bbaf205e22",
+    "Inventory.lean": "e1d13f4ce4a8cd62fb95fefa14c81e7b7696c8fc0f77c161edcb73607dc9a816",
     "lakefile.toml": "e674d4f07167ceee4019c32d9ea762102f0936bb34fbafc7d636adad945ef063",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -86,6 +86,7 @@
       "propext"
     ],
     "Control.init_pair": [],
+    "Control.init_program": [],
     "Control.instDecidableEqTerminal._proof_1": [],
     "Control.instDecidableEqTerminal._proof_2": [],
     "Control.live_successor": [
@@ -134,6 +135,10 @@
       "propext"
     ],
     "Control.successors_complete": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Control.successors_complete._proof_1_1": [
       "Quot.sound",
       "propext"
     ],
@@ -217,11 +222,11 @@
     ]
   },
   "reports_per_namespace": {
-    "Control": 47,
+    "Control": 49,
     "Execution": 24
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 71,
+  "theorem_count_including_generated": 73,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

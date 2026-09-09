@@ -2,7 +2,7 @@
   "schema": "represented-execution-sources-v1",
   "baseline_commit": "756917dcaeff5979faa9b1346a1a8ce666b33b25",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the eight derivation modules the merged translation.py loads when execution.py imports it, the sealed Lean derivation tree, the merged local_reuse, ignition, magnification and setting_translation Lean trees the local proofs build on, the merged setting_translation Python that supplies the encoder, and the Lean configuration of the five packages. No export is read. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the merged translation module, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification and setting_translation Lean trees and the setting_translation Python tree by Git tree object; the Lean configuration of the five packages by digest. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
@@ -11,7 +11,8 @@
     "derivation.iso": "code/derivation/iso.py",
     "derivation.engine": "code/derivation/engine.py",
     "derivation.export": "code/derivation/export.py",
-    "derivation.primitive_core": "code/derivation/primitive_core.py"
+    "derivation.primitive_core": "code/derivation/primitive_core.py",
+    "translation": "research/setting_translation/translation.py"
   },
   "consumed_trees": {
     "code/derivation": "9eb989edeedd89d0935b021124969d2659509785",
@@ -177,6 +178,7 @@
     "code/derivation/engine.py": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e",
     "code/derivation/export.py": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd",
     "code/derivation/primitive_core.py": "4833aa46e0032b4d978d9ee59547e0eef2fa07a33f308d107c85b87f93e47068",
+    "research/setting_translation/translation.py": "981010dee589ed36fdc80eea3f249f9848ca349e2f050cba7796bb5dcb68ce3f",
     "lean4/Derivation.lean": "97384b4ab806336332d6dceda984a77d6d407526311ef6027ce8b06f58a46b6e",
     "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",

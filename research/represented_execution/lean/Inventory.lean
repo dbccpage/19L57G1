@@ -39,6 +39,7 @@ run_cmd do
 the size specifications).  Their reports are included beside the authored
 reports of `Execution.lean` and `Control.lean`, and the combined population
 is compared with the independent environment census. -/
+#print axioms Control.successors_complete._proof_1_1
 #print axioms Execution.Config.mk.inj
 #print axioms Execution.Config.mk.injEq
 #print axioms Execution.Config.mk.sizeOf_spec
