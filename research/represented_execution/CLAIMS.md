@@ -303,6 +303,45 @@ at datum `x`.
   settings differing only in endpoints with different initial states.
 - **Obligation**: none.
 
+### CL-RE-15 — two loci of activity, their independence, and what breaks it
+
+- **Statement**: a product datum `pack m a b = m * a + b` carries two loci,
+  read back by `fstOf`/`sndOf`.  Two finite settings give a product setting
+  `prodSetting F G` on `F.n * G.n` data whose operations act at one locus each
+  — `leftOp` on the first, `rightOp` on the second — and it is a finite
+  setting of the merged class, so the merged encoder represents it and the
+  control machine runs it unchanged.  **The independence square**: a move at
+  one locus and a move at the other commute (`left_right_comm`, `prod_comm`),
+  for any two operations, the second needing only to keep its own coordinate
+  in range.  A left move leaves the second coordinate alone and a right move
+  the first (`prod_left_local`, `prod_right_local`).  **Interaction**: a
+  coupled move — one that reads the second locus to decide the first — does
+  not commute with a move at the second locus
+  (`coupling_breaks_the_square`), while the uncoupled pair on the same
+  carrier does (`uncoupled_square_holds`).
+- **Hypotheses**: `0 < m`, which every finite setting supplies through its
+  admitted endpoint; for the product, the two settings' own closure.
+- **Novelty**: two loci are a **datum** here, not a new machine — the
+  interpreter, the encoder and the grammar are untouched, and the second
+  locus is bought entirely by the product carrier.  That is what makes the
+  square a statement about the *structure* rather than about the runner: it
+  holds for every pair of local operations and fails exactly when an
+  operation stops being local.
+- **Evidence**: `Product.fst_pack`, `snd_pack`, `pack_lt`, `fst_lt`,
+  `snd_lt`, `leftOp_snd`, `rightOp_fst`, `left_right_comm`, `prodSetting_n`,
+  `prod_left_local`, `prod_right_local`, `prod_comm`,
+  `coupling_breaks_the_square`, `uncoupled_square_holds`.
+- **Falsifier**: two local operations that do not commute, or a coupled move
+  that does.
+- **Obligation**: the product is of *settings*, not of controlled programs:
+  no enablement relation is factored into two loci, so a two-locus **run**
+  with an enablement per locus is not built, and neither is a scheduler that
+  chooses which locus moves.  There is no Python mirror of the product; it is
+  proved, not computed.  `Nat.div_lt_of_lt_mul` and
+  `Nat.lt_of_mul_lt_mul_left` were both found to rely on `Classical.choice`
+  by the axiom census, and `fst_lt` is proved without them — recorded because
+  the census caught it, not a reading of the sources.
+
 ### CL-RE-14 — what control delivers observably, and what it does not
 
 - **Statement** (computed): on one three-point carrier with three

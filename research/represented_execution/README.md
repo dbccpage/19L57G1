@@ -52,7 +52,7 @@ instances.  The processes read encoded data; they do not themselves live in
 the sealed grammar, and nothing here says they do.  (The *program* of commit
 2 is a regime; the *state* that runs it is host.)
 
-Lean: 43 authored theorems, 73 reports with the compiler-generated ones, all
+Lean: 57 authored theorems, 92 reports with the compiler-generated ones, all
 within `{propext, Quot.sound}`, in a package importing the sealed package
 and the merged `setting_translation` package.  Python: both machines
 mirrored; the word machine checked against the merged `translation.run` (the
@@ -166,6 +166,27 @@ chain criterion, no cache and no reference step.  The loaders read a setting
 through the merged encoder and its shape; `control.cstep` is a documented
 check the tests consult.
 
+## 3a. Two loci of activity (`lean/Product.lean`)
+
+One active datum is one locus, and the consuming families recorded that as a
+limit: no independence and no interaction between two loci can be stated of a
+process that has one.  The second locus is bought by the **carrier**, not by a
+new machine: `pack m a b = m * a + b` carries the pair, `prodSetting F G` is a
+finite setting of the merged class on `F.n * G.n` data whose operations act at
+one locus each, and the encoder and the control machine run it unchanged.
+
+| theorem | content |
+|---|---|
+| `fst_pack`, `snd_pack`, `pack_lt`, `fst_lt`, `snd_lt` | packing and reading back two loci |
+| `leftOp_snd`, `rightOp_fst`, `prod_left_local`, `prod_right_local` | each move touches one locus |
+| `left_right_comm`, `prod_comm` | **the independence square**: moves at different loci commute, for any two operations |
+| `coupling_breaks_the_square`, `uncoupled_square_holds` | **interaction**: a move that reads the other locus does not commute, on a carrier where the uncoupled pair does |
+
+Proved and not computed: there is no Python mirror of the product.  The
+product is of *settings*, not of controlled programs — a two-locus run with an
+enablement per locus, and a scheduler choosing which locus moves, are not
+built (CL-RE-15).
+
 ## 4. The artifact for Target B (`evidence/process.json`)
 
 `run.py` writes the record the brief's Target B consumes and may not author:
@@ -208,16 +229,17 @@ beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 43 authored theorems and 30
+**Lean** (`lean/`, `evidence/lean.json`): 57 authored theorems and 35
 compiler-generated ones — nine constructor injectivity and size
 specifications for `Config`, `Controlled` and `State`; five for `Fired`
 (three size specifications and `ok`'s injectivity); five for `Terminal` (four
 size specifications and its `ofNat_ctorIdx`); the two proof terms of
-`Terminal`'s decidable equality; and nine auxiliary proof terms of five
-theorems (`enabled_program`, `encodeC_wf`, `live_successor`,
-`lookup_program_op`, `successors_complete`) — 73 reports, all within
+`Terminal`'s decidable equality; and fourteen auxiliary proof terms of eight
+theorems and definitions (`enabled_program`, `encodeC_wf`, `live_successor`,
+`lookup_program_op`, `successors_complete`, `fst_lt`, `pack_lt`,
+`prodSetting`) — 92 reports, all within
 `{propext, Quot.sound}`; the report
-population equals the environment census of the `Execution` and `Control`
+population equals the environment census of the `Execution`, `Control` and `Product`
 namespaces in both directions; no private theorem; forbidden-token scan
 clean.  `Classical.choice` was observed once, entering through `BEq` in an
 earlier `isEdge`; the definition now decides the `Prop` directly and the
@@ -273,6 +295,9 @@ Regenerate the two records deliberately and never under a live injection:
   a graph by name).  A later family's record-reading program is such a graph
   on its control forms; it is read by membership there, not by `lookup`.
 * That every edge of every encoding is load-bearing for some word.
+* A two-locus *run*: the product is of settings, so no enablement is factored
+  into two loci and no scheduler chooses which locus moves (CL-RE-15).  There
+  is no Python mirror of the product.
 * Anything about infinite carriers, undecidable stores or infinite operation
   families.
 
@@ -282,6 +307,7 @@ Regenerate the two records deliberately and never under a live injection:
 |---|---|
 | `lean/Execution.lean` | the reader, the word machine, the reference, the word-bridge |
 | `lean/Control.lean` | controlled settings, the represented program, the data-driven machine, the reference step |
+| `lean/Product.lean` | two loci as a product carrier, the independence square, and the coupling that breaks it |
 | `lean/Inventory.lean` | the environment census |
 | `execution.py`, `control.py` | the machines mirrored; `init` is the one function of each that sees a setting |
 | `run.py`, `evidence/process.json` | the artifact for Target B and its refusals |

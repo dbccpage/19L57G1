@@ -1,13 +1,14 @@
 {
   "authority_effect": "None",
-  "axiom_free_count": 19,
-  "census": "compiled environment theorem declarations in the Execution and Control namespaces",
+  "axiom_free_count": 21,
+  "census": "compiled environment theorem declarations in the Execution, Control and Product namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "e1d13f4ce4a8cd62fb95fefa14c81e7b7696c8fc0f77c161edcb73607dc9a816",
-    "lakefile.toml": "e674d4f07167ceee4019c32d9ea762102f0936bb34fbafc7d636adad945ef063",
+    "Inventory.lean": "2ed3a6154b9274280382c5ab1cffa61ca97f9f44e17e425c6834b414941c2453",
+    "Product.lean": "182593969c18573c525d69eb49a76de9ecb83de897403134248a448a4c0c877a",
+    "lakefile.toml": "c89e4bd8813e9c302eb8dbc6577ad6175f5eda6c0074a4bb5c468816d9a39f74",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
@@ -219,14 +220,83 @@
     ],
     "Execution.value_edge": [
       "propext"
+    ],
+    "Product.coupling_breaks_the_square": [],
+    "Product.fst_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.fst_lt._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.fst_pack": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.leftOp_snd": [
+      "propext"
+    ],
+    "Product.left_right_comm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.pack_lt": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.pack_lt._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting._proof_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prodSetting_n": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prod_comm": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prod_left_local": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.prod_right_local": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.rightOp_fst": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Product.snd_lt": [],
+    "Product.snd_pack": [
+      "propext"
+    ],
+    "Product.uncoupled_square_holds": [
+      "Quot.sound",
+      "propext"
     ]
   },
   "reports_per_namespace": {
     "Control": 49,
-    "Execution": 24
+    "Execution": 24,
+    "Product": 19
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 73,
+  "theorem_count_including_generated": 92,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

@@ -1,10 +1,11 @@
 import Lean
 import Execution
 import Control
+import Product
 
 /-!
 Metatheoretic audit apparatus: enumerate the compiled theorem declarations
-of the `Execution` and `Control` namespaces independently of source layout
+of the `Execution`, `Control` and `Product` namespaces independently of source layout
 and of the printed dependency reports.  AuthorityEffect: None.
 -/
 
@@ -12,7 +13,7 @@ open Lean Elab Command in
 run_cmd do
   let environment ← getEnv
   let local? (name : Name) : Bool :=
-    (`Execution).isPrefixOf name || (`Control).isPrefixOf name
+    (`Execution).isPrefixOf name || (`Control).isPrefixOf name || (`Product).isPrefixOf name
   let names := environment.constants.fold (init := ([] : List String))
     fun found name declaration =>
       match declaration with
@@ -40,6 +41,11 @@ the size specifications).  Their reports are included beside the authored
 reports of `Execution.lean` and `Control.lean`, and the combined population
 is compared with the independent environment census. -/
 #print axioms Control.successors_complete._proof_1_1
+#print axioms Product.fst_lt._proof_1_1
+#print axioms Product.pack_lt._proof_1_1
+#print axioms Product.prodSetting._proof_1
+#print axioms Product.prodSetting._proof_2
+#print axioms Product.prodSetting._proof_3
 #print axioms Execution.Config.mk.inj
 #print axioms Execution.Config.mk.injEq
 #print axioms Execution.Config.mk.sizeOf_spec
