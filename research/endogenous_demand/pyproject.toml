@@ -1,0 +1,20 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "../../code"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["grammar.py", "candidates.py", "reader.py", "run.py", "verify.py", "verify_sources.py", "verify_lean.py", "check_coverage.py", "tests"]
+mypy_path = ".:../../code"
+explicit_package_bases = true
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = ["tests/*", "lean/*", ".lake/*", "verify.py", "verify_lean.py", "verify_sources.py", "run.py"]
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true

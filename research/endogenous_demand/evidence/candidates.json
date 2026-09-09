@@ -1,0 +1,260 @@
+{
+ "authority_effect": "None",
+ "census": [
+  {
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E1"
+   ],
+   "id": "C1",
+   "reason": "host next_demand inspects collapsed pairs and picks",
+   "status": "defeated"
+  },
+  {
+   "cites": "CL-CLOSURE-POLICY",
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E1",
+    "E2"
+   ],
+   "id": "C2",
+   "reason": "declared closure policy; Impose is in the history",
+   "status": "defeated"
+  },
+  {
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E3"
+   ],
+   "id": "C3",
+   "reason": "launders a previously supplied Impose through an instance",
+   "status": "defeated"
+  },
+  {
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E2"
+   ],
+   "id": "C4",
+   "reason": "AdmitRuleAll changes derivability, not reqs",
+   "status": "defeated"
+  },
+  {
+   "cites": "SC-8 SC-18 CL-IG-02",
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E1",
+    "E2"
+   ],
+   "id": "C5",
+   "reason": "host holds plus external AdmitDatum; demand is not in reqs",
+   "status": "defeated"
+  },
+  {
+   "cites": "CL-IG-02",
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E2"
+   ],
+   "id": "C6",
+   "reason": "growth then Impose: the supplying event is in the history",
+   "status": "defeated"
+  },
+  {
+   "cites": "GC-11 generation_never_dries",
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E1"
+   ],
+   "id": "C7",
+   "reason": "declared reflective rule; object-language generator not in scope",
+   "status": "defeated"
+  },
+  {
+   "cites": "ST-14 ST-24 ST-28",
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E1"
+   ],
+   "id": "C8",
+   "reason": "host Labeler; invariance leftover stays in second_stake",
+   "status": "defeated"
+  },
+  {
+   "class": "C_reqs",
+   "endogenous": false,
+   "fails": [
+    "E3"
+   ],
+   "id": "C9",
+   "reason": "the pair is already internally separable",
+   "status": "defeated"
+  },
+  {
+   "class": "outside",
+   "endogenous": false,
+   "fails": [],
+   "id": "C10",
+   "reason": "new Event constructor would be a sealed-path amendment",
+   "status": "outside_class"
+  },
+  {
+   "class": "instance_channel",
+   "endogenous": false,
+   "fails": [
+    "E2"
+   ],
+   "id": "I1",
+   "reason": "never-selects instance read never enters reqs; E2 as written fails; remainder OPEN",
+   "status": "OPEN"
+  }
+ ],
+ "class": "C_reqs",
+ "dynamics": "not applicable inside C_reqs: there is no generator",
+ "guard_errors": [],
+ "outcome": "B",
+ "required_ids": [
+  "C1",
+  "C2",
+  "C3",
+  "C4",
+  "C5",
+  "C6",
+  "C7",
+  "C8",
+  "C9",
+  "C10",
+  "I1"
+ ],
+ "schema": "endogenous-demand-candidates-v1",
+ "witnesses": {
+  "C1": {
+   "e2_violation": null,
+   "host_function": "host_next_demand",
+   "picked": [
+    0,
+    1
+   ],
+   "reqs": []
+  },
+  "C2": {
+   "e2_violation": null,
+   "impose_events": [
+    [
+     0,
+     1
+    ]
+   ],
+   "last_is_impose": true,
+   "orbits": [
+    [
+     0,
+     1
+    ]
+   ],
+   "reqs": [
+    [
+     0,
+     1
+    ]
+   ]
+  },
+  "C3": {
+   "copied_pair": [
+    0,
+    1
+   ],
+   "identical_to_supplied": true,
+   "instance": [
+    0,
+    [
+     0,
+     1
+    ]
+   ],
+   "reqs": [
+    [
+     0,
+     1
+    ]
+   ],
+   "supplied_pair": [
+    0,
+    1
+   ]
+  },
+  "C4": {
+   "changed_reqs": false,
+   "e2_violation": null,
+   "reqs": [],
+   "rules": [
+    0
+   ]
+  },
+  "C5": {
+   "e2_violation": null,
+   "growth_event": "AdmitDatum",
+   "host_demanded": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "host_predicate": "host_holds",
+   "reqs": []
+  },
+  "C6": {
+   "e2_violation": null,
+   "impose_events": [
+    [
+     0,
+     2
+    ]
+   ],
+   "last_is_impose": true,
+   "reqs": [
+    [
+     0,
+     2
+    ]
+   ]
+  },
+  "C9": {
+   "already_separable": true,
+   "pair": [
+    0,
+    1
+   ],
+   "reqs": []
+  },
+  "I1": {
+   "channel": "instance",
+   "e2_violation": null,
+   "in_reqs": false,
+   "read_pairs": [
+    [
+     0,
+     1
+    ]
+   ],
+   "reqs": [],
+   "status": "OPEN"
+  }
+ }
+}
