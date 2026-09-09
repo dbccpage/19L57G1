@@ -434,6 +434,43 @@ at datum `x`.
   runs.  The stores are renamed but nothing reads them: `program` does not
   load them, so their renaming is unobserved by any theorem here.
 
+### CL-RE-18 — one interpreter, parameterised by what it reads
+
+- **Statement**: a `Reader` is a function `State → List Nat`.  `stepDetOf`,
+  `nextOf`, `iterOf`, `obsOf` and `runDetOf` are the interpreter over one, and
+  the theorems each family proved separately hold of it once: the step is
+  characterised by what the reader named and what the edge said
+  (`stepDetOf_inr`, `stepDetOf_spec`); it never selects (`stepDetOf_branch`,
+  `runDetOf_branch`); it only appends and keeps the program (`nextOf_tape`,
+  `nextOf_graph`, `obsOf_prefix`, `obsOf_prefix_add`).  **The merged machine is
+  that machine at its own reader**: `Control.stepDet` *is* `stepDetOf
+  ctrlReader`, by `rfl` (`ctrl_stepDet`), and `Control.runDet` is `runDetOf`
+  at it (`ctrl_runDet`).
+- **Hypotheses**: none.
+- **Novelty**: it answers the question the duplication raised rather than
+  tidying the duplication away.  The reader **does not need to see more than
+  the state** — that is what the three existing reads have in common, and it
+  is why one runner suffices.  The claim is made as an *identification* and
+  not as a refactor: nothing is renamed, no theorem is deleted, no census
+  churns, and the two statements sit side by side so a reader can check that
+  the abstraction is faithful rather than trust that it is.  `blind_halts` and
+  `greedy_branches` keep it from being vacuous.
+- **Evidence**: `Runner.stepDetOf_inr`, `stepDetOf_spec`, `stepDetOf_branch`,
+  `runDetOf_branch`, `nextOf_tape`, `nextOf_graph`, `iterOf_succ`,
+  `obsOf_prefix`, `obsOf_prefix_add`, `ctrl_stepDet`, `ctrl_runDet`,
+  `ctrl_run`, `ctrl_stepDet_branch`, `ctrl_run_branch`, `blind_halts`,
+  `greedy_branches`; `runner.py` and `tests/test_runner.py`, over **every**
+  enablement relation on the three-point setting — deterministic or not, all
+  512 of them — from every datum at every scale.
+- **Falsifier**: a state at which the merged step and the generic step at
+  `ctrlReader` differ.  The Lean says they cannot, by `rfl`; the Python checks
+  it over the population, which is what a mirror can do.
+- **Obligation**: the consuming families' two readers are identified in
+  *their* trees, not here — this module cannot mention `previous` or `before`,
+  which are theirs.  And the copies are not *removed*: `Control.stepDet` and
+  the rest stay, so the duplication in the source is still there.  What is
+  gone is the excuse for it, and the next reader's cost.
+
 ### CL-RE-14 — what control delivers observably, and what it does not
 
 - **Statement** (computed): on one three-point carrier with three

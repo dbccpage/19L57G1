@@ -52,7 +52,7 @@ instances.  The processes read encoded data; they do not themselves live in
 the sealed grammar, and nothing here says they do.  (The *program* of commit
 2 is a regime; the *state* that runs it is host.)
 
-Lean: 95 authored theorems, 152 reports with the compiler-generated ones, all
+Lean: 111 authored theorems, 168 reports with the compiler-generated ones, all
 within `{propext, Quot.sound}`, in a package importing the sealed package
 and the merged `setting_translation` package.  Python: both machines
 mirrored; the word machine checked against the merged `translation.run` (the
@@ -240,6 +240,30 @@ deterministic programs from all three starts — 1152 runs, every one
 transporting — and refuses a map that is not a permutation rather than
 renaming by it.
 
+## 3d. One interpreter, parameterised by what it reads (`lean/Runner.lean`)
+
+Three families now run the same interpreter with three different enablement
+reads — `enabledAt … s.active`, `renabledAt … (previous s) s.active`,
+`r2enabledAt … (before s) (previous s) s.active` — and each copied the runner
+and its theorems.  The question that raised was whether a reader must see more
+than the state.  **It need not**: all three are functions `State → List Nat`.
+
+| theorem | content |
+|---|---|
+| `stepDetOf_inr`, `stepDetOf_spec` | the step is characterised by what the reader named and what the edge said |
+| `stepDetOf_branch`, `runDetOf_branch` | it never selects |
+| `nextOf_tape`, `obsOf_prefix`, `obsOf_prefix_add`, `nextOf_graph` | it only appends, and keeps the program |
+| `ctrl_stepDet` | **the identification, by `rfl`**: `Control.stepDet` *is* `stepDetOf ctrlReader` |
+| `ctrl_runDet`, `ctrl_run`, `ctrl_run_branch` | and its runner is the generic runner at that reader |
+| `blind_halts`, `greedy_branches` | the two extreme readers, so the abstraction is not vacuous |
+
+Nothing existing is renamed or replaced: the claim is made as an
+identification, not a refactor, so no theorem name moved and no census
+churned.  A fourth read costs a `Reader` and no runner at all.  `runner.py`
+mirrors it and `tests/test_runner.py` checks the identification the Lean
+states by `rfl` — over **every** enablement relation on the three-point
+setting, deterministic or not, from every datum at every scale.
+
 ## 4. The artifact for Target B (`evidence/process.json`)
 
 `run.py` writes the record the brief's Target B consumes and may not author:
@@ -282,7 +306,7 @@ beyond the tape, and an encoded configuration, are likewise not built.
 
 ## 6. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 95 authored theorems and 53
+**Lean** (`lean/`, `evidence/lean.json`): 111 authored theorems and 53
 compiler-generated ones — nine constructor injectivity and size
 specifications for `Config`, `Controlled` and `State`; five for `Fired`
 (three size specifications and `ok`'s injectivity); five for `Terminal` (four
@@ -293,10 +317,10 @@ twenty-nine auxiliary proof terms of sixteen theorems and definitions
 (`enabled_program`, `encodeC_wf`, `live_successor`, `lookup_program_op`,
 `successors_complete`, `fst_lt`, `pack_lt`, `prodSetting`,
 `filter_range_eq_nil`, `filter_range_eq_single`, `scheduled_no_branch`,
-`two`, `getD_map`, `renameSetting`, `rename_fire`, `flipRenaming`) — 152
+`two`, `getD_map`, `renameSetting`, `rename_fire`, `flipRenaming`) — 168
 reports, all within `{propext, Quot.sound}`; the report population equals the
-environment census of the `Execution`, `Control`, `Product`, `Schedule` and
-`Rename` namespaces in both directions; no private theorem; forbidden-token scan
+environment census of the `Execution`, `Control`, `Product`, `Schedule`,
+`Rename` and `Runner` namespaces in both directions; no private theorem; forbidden-token scan
 clean.  `Classical.choice` was observed once, entering through `BEq` in an
 earlier `isEdge`; the definition now decides the `Prop` directly and the
 reliance is gone.  The proofs unfold the machines' definitions by `show` and
@@ -367,10 +391,12 @@ Regenerate the two records deliberately and never under a live injection:
 | `lean/Product.lean` | two loci as a product carrier, the independence square, and the coupling that breaks it |
 | `lean/Schedule.lean` | the schedule as data, a two-locus run, and the square on outcomes and on observations |
 | `lean/Rename.lean` | renaming the carrier, and the run that corresponds under it |
+| `lean/Runner.lean` | the interpreter over an enablement reader, and the merged machine as one instance |
 | `lean/Inventory.lean` | the environment census |
 | `execution.py`, `control.py` | the machines mirrored; `init` is the one function of each that sees a setting |
 | `product.py` | the product carrier, the schedule as data, and reading a tape at one locus |
 | `rename.py` | permutations of the carrier, the conjugation, and the transport sweep |
+| `runner.py` | the interpreter over a reader, and the readers |
 | `run.py`, `evidence/process.json` | the artifact for Target B and its refusals |
 | `verify_lean.py`, `evidence/lean.json` | the Lean build, two-way census and reliance record |
 | `verify_sources.py`, `SOURCE_MANIFEST.json` | custody of the consumed inputs |

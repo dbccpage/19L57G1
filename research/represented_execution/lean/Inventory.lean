@@ -4,11 +4,12 @@ import Control
 import Product
 import Schedule
 import Rename
+import Runner
 
 /-!
 Metatheoretic audit apparatus: enumerate the compiled theorem declarations
-of the `Execution`, `Control`, `Product`, `Schedule` and `Rename` namespaces
-independently of source layout and of the printed dependency reports.  AuthorityEffect: None.
+of the `Execution`, `Control`, `Product`, `Schedule`, `Rename` and `Runner`
+namespaces independently of source layout and of the printed dependency reports.  AuthorityEffect: None.
 -/
 
 open Lean Elab Command in
@@ -17,7 +18,7 @@ run_cmd do
   let local? (name : Name) : Bool :=
     (`Execution).isPrefixOf name || (`Control).isPrefixOf name ||
       (`Product).isPrefixOf name || (`Schedule).isPrefixOf name ||
-      (`Rename).isPrefixOf name
+      (`Rename).isPrefixOf name || (`Runner).isPrefixOf name
   let names := environment.constants.fold (init := ([] : List String))
     fun found name declaration =>
       match declaration with

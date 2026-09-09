@@ -1,16 +1,17 @@
 {
   "authority_effect": "None",
   "axiom_free_count": 42,
-  "census": "compiled environment theorem declarations in the Execution, Control, Product, Schedule and Rename namespaces",
+  "census": "compiled environment theorem declarations in the Execution, Control, Product, Schedule, Rename and Runner namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
     "Control.lean": "82d1f7398cdb0cf8a622bdf5b51defb02199b862b3b47055990896f038da3185",
     "Execution.lean": "94b668b2d32715918d6d2dcf14def04583ac200a0493fc8e695d8ecb95b029ac",
-    "Inventory.lean": "e94d537806aa14f618168e96981e3858192a9a2039a6142de32d7fe87cbc9c02",
+    "Inventory.lean": "7b75f67fde893c91a34340fc8b7d0fcaecf77f7d3de223c89bb4a6407da5ede8",
     "Product.lean": "182593969c18573c525d69eb49a76de9ecb83de897403134248a448a4c0c877a",
     "Rename.lean": "b59a41b3c0cf57a26d4e32ae47c1c31bc5c0ebe25c115c89dae17da3d27d7e6a",
+    "Runner.lean": "575c2e64bafa2594f2bbcbbe8b2ee9518e826fe907fb1c2e44069c07405733a1",
     "Schedule.lean": "75dc2a33c71b72c250737f2b9068222e61573057a603c551334e2440620935ab",
-    "lakefile.toml": "58b72910fa32bd701cb794b588526cc27e84eb479bd440b7da4a165e84efb85f",
+    "lakefile.toml": "26c410493e14da60100f67c527512029fd6f3fbd0cfa9490a51bd37ae4ce6a67",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",
@@ -374,6 +375,54 @@
       "Quot.sound",
       "propext"
     ],
+    "Runner.blind_halts": [
+      "propext"
+    ],
+    "Runner.ctrl_run": [
+      "propext"
+    ],
+    "Runner.ctrl_runDet": [
+      "propext"
+    ],
+    "Runner.ctrl_run_branch": [
+      "propext"
+    ],
+    "Runner.ctrl_stepDet": [
+      "propext"
+    ],
+    "Runner.ctrl_stepDet_branch": [
+      "propext"
+    ],
+    "Runner.greedy_branches": [
+      "propext"
+    ],
+    "Runner.iterOf_succ": [
+      "propext"
+    ],
+    "Runner.nextOf_graph": [
+      "propext"
+    ],
+    "Runner.nextOf_tape": [
+      "propext"
+    ],
+    "Runner.obsOf_prefix": [
+      "propext"
+    ],
+    "Runner.obsOf_prefix_add": [
+      "propext"
+    ],
+    "Runner.runDetOf_branch": [
+      "propext"
+    ],
+    "Runner.stepDetOf_branch": [
+      "propext"
+    ],
+    "Runner.stepDetOf_inr": [
+      "propext"
+    ],
+    "Runner.stepDetOf_spec": [
+      "propext"
+    ],
     "Schedule.bool_of_iff": [],
     "Schedule.enabledAt_scheduled": [
       "Quot.sound",
@@ -471,10 +520,11 @@
     "Execution": 24,
     "Product": 19,
     "Rename": 30,
+    "Runner": 16,
     "Schedule": 30
   },
   "schema_version": 1,
   "scope": "the exact theorem statements over finite settings (carrier {0, ..., n-1}, boolean-valued stores, finitely many operations closed on the carrier) and well-formed words of operation indices; the configuration is DECLARED_HOST_CONFIG",
-  "theorem_count_including_generated": 152,
+  "theorem_count_including_generated": 168,
   "toolchain": "leanprover/lean4:v4.33.0"
 }
