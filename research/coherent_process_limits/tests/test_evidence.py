@@ -75,14 +75,22 @@ class LimitsRecord(unittest.TestCase):
         self.assertEqual(record["artifact"]["fragment"], "control")
         self.assertFalse(record["artifact"]["written_here"])
         finding = record["artifact"]["finding_for_the_represented_execution_family"]
-        self.assertTrue(finding["schema_loses_operation_order"])
+        self.assertIn("collapses repetitions", finding["sealed_schema_is_set_valued"])
+        self.assertIn("ops_in_index_order", finding["order_read_from"])
+        self.assertIsNone(finding["recovered_order_of_sorted_tables"])
         self.assertEqual(finding["identified_from_recorded_runs"], 8)
         scales = record["connected_experiment"]["scales"]
         self.assertEqual([e["scale"] for e in scales], [3, 6, 12, 24])
         self.assertEqual([e["tape_length"] for e in scales], [4, 7, 13, 25])
         self.assertEqual([e["count_zero"] for e in scales], [2, 3, 5, 9])
-        self.assertTrue(all(e["bound_holds"] and e["prefix_of_next"] and e["recorded_tape_is_prefix"]
+        self.assertTrue(all(e["bound_holds"] and e["prefix_of_next"] and e["recorded_tape_prefix_related"]
                             for e in scales))
+        # The recorded tape (fuel 5, six entries) is a prefix of every scale
+        # at least as fine, and an extension of the coarsest one.
+        self.assertEqual([e["recorded_tape_is_a_prefix_of_this_one"] for e in scales],
+                         [False, True, True, True])
+        self.assertEqual(record["connected_experiment"]["fuel"], 24)
+        self.assertIn("one state", record["connected_experiment"]["observed_from"])
         self.assertEqual(record["connected_experiment"]["derived_from"], [0, 1, 2, 0])
         verdicts = record["verdicts"]
         self.assertEqual(verdicts["programs"], 64)

@@ -13,7 +13,8 @@ from verify_lean import ALLOWED_AXIOMS, MODULES, RECORD, parse_reports  # noqa: 
 CENSUS = "LIMITS_THEOREM: Limits.ofSeq_toSeq"
 BRIDGE = ("Limits.toSeq_ofSeq", "Limits.stable", "Limits.ofSeq_toSeq", "Limits.eventual_agrees",
           "Limits.eventual_not_compatible", "Limits.etoSeq_eofSeq", "Limits.estable",
-          "Limits.eofSeq_etoSeq", "Limits.thread_even", "Limits.even_thread", "Limits.shift_not_local",
+          "Limits.eofSeq_etoSeq", "Limits.thread_even", "Limits.even_thread", "Limits.restrictEven_eq",
+          "Limits.thread_restrictEven", "Limits.shift_not_local",
           "Observe.stepDet_inr", "Observe.next_tape", "Observe.obs_prefix", "Observe.obs_prefix_add",
           "Observe.next_active_det", "Observe.lost_fuel")
 
@@ -65,10 +66,10 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 21)
-        self.assertEqual(record["theorem_count_including_generated"], 43)
+        self.assertEqual(authored, 23)
+        self.assertEqual(record["theorem_count_including_generated"], 47)
         self.assertEqual(record["axiom_free_count"], 10)
-        self.assertEqual(record["reports_per_namespace"], {"Limits": 24, "Observe": 19})
+        self.assertEqual(record["reports_per_namespace"], {"Limits": 28, "Observe": 19})
         self.assertEqual(record["reports"]["Observe.zeros_bound"], ["Quot.sound", "propext"])
 
 

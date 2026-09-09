@@ -20,7 +20,9 @@ the tape after `n` steps (`Observe.obs`).
   bonding holds at every scale.  The prefixes of a sequence form a
   compatible family (`ofSeq`), a compatible family determines a sequence
   (`toSeq`, reading entry `i` at scale `i + 1`), and the two constructions
-  are inverse (`toSeq_ofSeq`, `ofSeq_toSeq`).
+  are inverse (`toSeq_ofSeq`, `ofSeq_toSeq`): a bijection, and not a
+  mediating-map statement — no cone over an arbitrary object is quantified,
+  and the limit's universal property is neither stated nor claimed.
 - **Hypotheses**: none.
 - **Novelty**: the sealed `wit_no_infinite` says arbitrary finite witnesses
   need not assemble into one history; here they assemble because the family
@@ -53,15 +55,23 @@ the tape after `n` steps (`Observe.obs`).
 - **Statement**: the subsystem of even scales, with the bonding that forgets
   two entries, has compatible families determined by the same sequences
   (`etoSeq_eofSeq`, `eofSeq_etoSeq`), and the two thread spaces correspond
-  both ways through the sequences (`thread_even`, `even_thread`).
+  both ways through the sequences (`thread_even`, `even_thread`).  The map
+  that carries the correspondence is the restriction of a thread to the even
+  scales: `restrictEven` is that restriction, it lands in the even thread
+  space, and it equals the detour through the sequences
+  (`restrictEven_eq`, `thread_restrictEven`).
 - **Hypotheses**: none.
 - **Novelty**: the brief's cofinality clause with a test: there is one limit,
   not two "the" limits.
-- **Evidence**: the named theorems; computed: `limits.even_family` reads
-  back the sequence.
+- **Evidence**: the named theorems; computed: `limits.even_family` — which
+  is the restriction map, the object `restrictEven_eq` relates to the
+  sequence detour — reads back the sequence.
 - **Falsifier**: an even-scale family with no all-scale counterpart, or two.
 - **Obligation**: other cofinal reindexings are not stated; the even one is
-  the exhibit.
+  the exhibit.  An earlier version stated only `thread_even`/`even_thread`,
+  which are definitionally `ofSeq_toSeq`/`eofSeq_etoSeq` and say nothing
+  about restriction, while citing the restriction map as computed evidence;
+  `restrictEven_eq` closes that gap rather than the wording being narrowed.
 
 ### CL-CP-04 — the observations of the process are compatible at every scale
 
@@ -82,7 +92,9 @@ the tape after `n` steps (`Observe.obs`).
   next.
 - **Obligation**: the scale is the step count of one run with one declared
   fuel; that the observation is independent of the declared fuel while fuel
-  lasts is computed (the four-scale experiment), not proved.
+  lasts is computed, not proved: the experiment observes one state at four
+  scales, and the agreement of that with four runs whose fuel equals the
+  scale is the computed part.
 
 ### CL-CP-05 — the tape does not determine the future; the fuel is what is lost
 
@@ -145,9 +157,14 @@ the tape after `n` steps (`Observe.obs`).
 ### CL-CP-08 — the connected experiment: one process, four scales, one bound
 
 - **Statement**: the `forever` program identified from the artifact, from
-  datum 0, observed at scales 3, 6, 12, 24.  The observations are each a
-  prefix of the next; the artifact's own recorded tape (fuel 5) is a prefix
-  of every finer one.  The readout is the number of zeros; the bound
+  datum 0, at fuel 24, observed at scales 3, 6, 12, 24 — one state read by
+  `obs` at four scales, so that the chain of prefixes is an instance of
+  `obs_prefix_add` for that state.  The observations are each a
+  prefix of the next; the artifact's own recorded tape (fuel 5, six entries)
+  is prefix-related to each — a prefix of the scale-6, 12 and 24
+  observations, and an extension of the scale-3 one, which the record states
+  separately (`recorded_tape_prefix_related` and
+  `recorded_tape_is_a_prefix_of_this_one`).  The readout is the number of zeros; the bound
   `L ≤ 3 · zeros ≤ L + 2` is derived at scale 3 from the visible period and
   holds at every finer scale with the readout unchanged.  On the sequence
   `i ↦ i % 3` the bound is a theorem for every `L` (`zeros_eq`,
@@ -170,12 +187,16 @@ the tape after `n` steps (`Observe.obs`).
 ### CL-CP-09 — the artifact consumed, and a finding for the family that wrote it
 
 - **Statement**: the artifact's fragment is `control`; its eight recorded
-  controlled runs identify the four programs uniquely — the operation order
-  is the one permutation of the sorted tables under which every recorded run
-  replays to its tape and terminal.  Finding: the artifact's `setting_json`
-  is the sealed `Setting.json`, which sorts the operation tables and so loses
-  the index order the enablements refer to; taken alone it would put the
-  constant map at index 0.
+  controlled runs identify the four programs.  The operation order is read
+  from each run's `ops_in_index_order`, cross-checked against the sealed
+  table set, and every run is replayed to its tape and terminal; for a record
+  without that field the order is recovered as the one permutation of the
+  sealed tables under which every run replays.  Finding, reported to the
+  producer and since repaired there: the artifact's `setting_json` is the
+  sealed `Setting.json`, whose `ops` field is set-valued — sorted, with
+  repetitions collapsed — so it determines neither the index order the
+  enablements refer to (taken alone it would put the constant map at index 0)
+  nor the operation count.
 - **Hypotheses**: none.
 - **Novelty**: the artifact contract doing its job — the consumer found what
   the producer's schema drops.
@@ -183,10 +204,14 @@ the tape after `n` steps (`Observe.obs`).
   misidentifies, and an inconsistent artifact is refused
   (`tests/test_limits.py`).  The artifact is pinned by digest in
   `SOURCE_MANIFEST.json` at the represented execution family's commit.
-- **Falsifier**: a recorded run that no ordering replays, or two orderings
-  that both do.
-- **Obligation**: the represented execution family should record the
-  operation tables in index order.  Nothing here writes its artifact.
+- **Falsifier**: a recorded run that no ordering replays, two orderings that
+  both do, a recorded order that is not the sealed table set, two runs
+  disagreeing on the order, an enablement naming an operation the sealed
+  schema does not carry, or one program name recorded with two enablement
+  sets — each refused by name (`tests/test_limits.py`).
+- **Obligation**: discharged at the producer — it now records
+  `ops_in_index_order` on every run, and this family reads it.  Nothing here
+  writes its artifact.
 
 ### CL-CP-10 — the causal footprint of a step, limited
 
@@ -198,8 +223,12 @@ the tape after `n` steps (`Observe.obs`).
 - **Hypotheses**: the merged definitions.
 - **Novelty**: the brief's read/write extraction, stated for the one locus
   the process has.
-- **Evidence**: the merged theorems and the represented execution family's
-  mutation tests.
+- **Evidence**: the merged `fire`, `fire_ok` and `enabled`, which consult
+  `lookup` at `s.active` only; computed, in the represented execution family:
+  `test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged` for the
+  first half and the mutation tests for the second.  No theorem states the
+  invariance; it is read off the definitions and checked on those
+  populations.
 - **Falsifier**: a step that changes under an edit away from the active
   datum.
 - **Obligation**: the process has one locus of activity; independence and

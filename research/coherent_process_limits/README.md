@@ -11,9 +11,11 @@ scale `n` is the tape after `n` steps.  The observations are **compatible at
 every scale** as a theorem: each is a prefix of the next (`obs_prefix`,
 `obs_prefix_add`), because a step only appends.  Abstractly, compatible
 families of finite words over a finite carrier are exactly the sequences
-(`ofSeq_toSeq`, `toSeq_ofSeq`, constructed without choice), eventual
+(`ofSeq_toSeq`, `toSeq_ofSeq`, constructed without choice — a bijection, not
+the limit's universal property, which is not claimed), eventual
 agreement is not compatibility (`eventual_not_compatible`), and the even
-scales have the same threads (`thread_even`, `even_thread`).  What the tape
+scales have the same threads (`thread_even`, `even_thread`), carried by the
+restriction of a thread to those scales (`restrictEven`, `restrictEven_eq`).  What the tape
 observation loses is the fuel (`lost_fuel`, on the `forever` program); what
 determines the next datum is the program and the active datum
 (`next_active_det`).  A shifted observation is not a function of the prefix
@@ -21,9 +23,10 @@ determines the next datum is the program and the active datum
 injective on tapes; the process's image is not dense (no realized tape
 extends `[0, 1, 0, 2]`, since realized tapes are functional); it is not
 surjective.  The **connected experiment**: the `forever` program, identified
-from the family's artifact, observed at scales 3, 6, 12 and 24 — each
-observation a prefix of the next, the artifact's own recorded tape a prefix
-of every finer one, and the bound `L ≤ 3 · zeros ≤ L + 2` derived at scale 3
+from the family's artifact, observed at scales 3, 6, 12 and 24 — one state
+at fuel 24 read by `obs` at four scales, so each observation is a prefix of
+the next by `obs_prefix_add`, the artifact's own recorded tape (six entries)
+a prefix of every finer one and an extension of the coarsest, and the bound `L ≤ 3 · zeros ≤ L + 2` derived at scale 3
 from the visible period holding at every finer scale with the readout
 unchanged.  On the cycle's sequence `i ↦ i % 3` the bound is a theorem for
 every `L` (`zeros_bound`): the frequency of datum 0 is `1 / 3` up to
@@ -31,23 +34,27 @@ every `L` (`zeros_bound`): the frequency of datum 0 is `1 / 3` up to
 real number is used; the topology of the thread space is declared — totally
 disconnected — and none of those is claimed.
 
-**A finding for the family that wrote the artifact.**  Its `setting_json` is
-the sealed `Setting.json`, which sorts the operation tables and so loses the
-index order the enablements refer to; taken alone it puts the constant map
-at index 0.  The programs were identified as the one ordering under which
-every recorded run replays (`identify_programs`), and the defect is recorded.
-That is the artifact contract doing its job.
+**A finding for the family that wrote the artifact, and its repair.**  Its
+`setting_json` is the sealed `Setting.json`, whose `ops` field is set-valued
+— sorted, repetitions collapsed — so it determines neither the index order
+the enablements refer to (taken alone it puts the constant map at index 0)
+nor the operation count.  The producer now records `ops_in_index_order` on
+every run and this family reads it, cross-checks it against the sealed table
+set and replays every run (`identify_programs`); for a record without the
+field the order is still recovered as the one ordering under which every run
+replays, and an enablement naming an operation the sealed schema collapsed
+is refused by name.  That is the artifact contract doing its job.
 
-Lean: 21 authored theorems, 43 reports with the compiler-generated ones,
+Lean: 23 authored theorems, 47 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
 recorded run replayed; compatibility checked on every identified program,
 every datum, twelve scales; the three verdicts computed over the 64
 deterministic programs on the recorded setting; the experiment at four
-scales; 37 tests, strict typing over nine files, two byte-identical records.
-Execution base `7aa6ae6f10c5cddee6f00d208f1c2291ad2368d2`, the represented
-execution family's second commit, at which its artifact is frozen and pinned;
+scales; 43 tests, strict typing over nine files, two byte-identical records.
+Execution base `f5c445f40f339031e1a3191c5147b4eba98525b8`, the represented
+execution family's repaired commit, at which its artifact is frozen and pinned;
 no sealed path and no sibling path is written.
 
 ## 1. The abstract inverse system (`lean/Limits.lean`)
@@ -64,9 +71,9 @@ no sealed path and no sibling path is written.
 
 | theorem | content |
 |---|---|
-| `toSeq_ofSeq`, `ofSeq_toSeq`, `stable` | **the thread space is the sequence space** (CL-CP-01); no axiom in the first and third |
+| `toSeq_ofSeq`, `ofSeq_toSeq`, `stable` | **the thread space is the sequence space** (CL-CP-01), a bijection; no axiom in the first and third |
 | `eventual_agrees`, `eventual_not_compatible` | eventual agreement is not compatibility (CL-CP-02) |
-| `etoSeq_eofSeq`, `eofSeq_etoSeq`, `estable`, `thread_even`, `even_thread` | the even scales have the same threads (CL-CP-03) |
+| `etoSeq_eofSeq`, `eofSeq_etoSeq`, `estable`, `thread_even`, `even_thread`, `restrictEven_eq`, `thread_restrictEven` | the even scales have the same threads, carried by restriction (CL-CP-03) |
 | `shift_not_local` | shifting needs the entry beyond the boundary (CL-CP-06) |
 
 The contrast with the sealed `wit_no_infinite`: there, arbitrary finite
@@ -105,8 +112,8 @@ identified `forever` program is the cycle enabled everywhere.
 
 | item | what is recorded |
 |---|---|
-| scales 3, 6, 12, 24 | tapes of length 4, 7, 13, 25; zeros 2, 3, 5, 9; `3 · zeros − L ∈ {0, 1, 2}` at each |
-| compatibility | each observation a prefix of the next; the artifact's recorded tape (fuel 5) a prefix of every finer one |
+| scales 3, 6, 12, 24 | one state at fuel 24, read by `obs`; tapes of length 4, 7, 13, 25; zeros 2, 3, 5, 9; `3 · zeros − L ∈ {0, 1, 2}` at each |
+| compatibility | each observation a prefix of the next; the artifact's recorded tape (fuel 5) a prefix of the scale-6, 12 and 24 observations and an extension of the scale-3 one |
 | the bound | derived at scale 3 from `[0, 1, 2, 0]`; the readout unchanged at every finer scale |
 | lost fuel | fuel 0 and fuel 1 from datum 0: tape `[0]` both; after a step `[0]` and `[0, 1]` |
 | shift | `[0, 1, 2]` and `[0, 1, 0]` share the prefix `[0, 1]` and shift to `[1, 2]`, `[1, 0]` |
@@ -151,16 +158,16 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 21 authored theorems and 22
+**Lean** (`lean/`, `evidence/lean.json`): 23 authored theorems and 24
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 43 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 47 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a
 conjunction goal classically; the conjunction is now split first and the
 reliance is gone.
 
-**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 37
+**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 43
 tests, strict typing over nine files, the two records replay byte-identically.
 `verify.py`, `verify_sources.py`, `verify_lean.py` and `run.py` follow the
 sibling families' files with names, pins and refusals changed; this tree's
@@ -168,8 +175,9 @@ directory is always first on the path, and `run.py` and `verify_lean.py`
 refuse by name if a foreign guard is imported.
 
 **Custody** (`verify_sources.py`, `SOURCE_MANIFEST.json`): at
-`7aa6ae6f10c5cddee6f00d208f1c2291ad2368d2`, the eight derivation modules by
-digest and runtime origin; the sealed `lean4/Derivation` tree, the merged
+`f5c445f40f339031e1a3191c5147b4eba98525b8`, the eight derivation modules and
+the consumed `translation`, `execution` and `control` modules by digest and
+runtime origin; the sealed `lean4/Derivation` tree, the merged
 `local_reuse`, `ignition`, `magnification`, `setting_translation` and
 `represented_execution` Lean trees, and the `setting_translation` and
 `represented_execution` Python trees by Git tree object; the Lean
@@ -206,7 +214,7 @@ Regenerate the two records deliberately and never under a live injection:
 
 | file | role |
 |---|---|
-| `lean/Limits.lean` | the abstract inverse system, its universal property, the negatives, the cofinal rescaling |
+| `lean/Limits.lean` | the abstract inverse system, its bijection with the sequence space, the negatives, the cofinal rescaling |
 | `lean/Observe.lean` | the process at step scales, compatibility, the lost fuel, the next datum, the bound |
 | `lean/Inventory.lean` | the environment census |
 | `limits.py` | the mirrors, the artifact consumed and the programs identified, the experiment, the verdicts |

@@ -7,11 +7,16 @@ The process observed is the merged control machine of
 ``research/represented_execution`` — its ``control.step_det`` — and the
 artifact that family authored, ``evidence/process.json``.  This family reads
 that artifact and never writes it.  The artifact's ``setting_json`` is the
-sealed ``Setting.json``, which sorts the operation tables and so loses the
-index order the enablements refer to; ``identify_programs`` recovers the
-order as the unique one that reproduces every recorded run, and refuses if
-none or several do.  That the schema is lossy is recorded as a finding for
-the represented execution family.
+sealed ``Setting.json``, which sorts the operation tables and collapses
+repetitions, so it determines neither the index order the enablements refer
+to nor the operation count; ``identify_programs`` reads the order from the
+run's ``ops_in_index_order`` — the field the represented execution family
+added when this family reported the loss — cross-checks it against the
+sealed table set, and replays every recorded run.  For an artifact written
+before that field, the order is recovered as the unique permutation under
+which every run replays, and a recorded enablement naming an operation the
+sealed schema does not carry is refused rather than replayed on a smaller
+setting.
 """
 
 from __future__ import annotations
@@ -22,6 +27,7 @@ from pathlib import Path
 from typing import Callable, Sequence, cast
 
 import control as ct
+from execution import ExecutionError
 import translation as tr
 
 ROOT = Path(__file__).resolve().parent
@@ -123,56 +129,111 @@ def load_artifact(path: Path = ARTIFACT) -> JsonObj:
     return cast(JsonObj, record)
 
 
-def setting_from_json(setting_json: JsonObj, order: Sequence[int]) -> tr.FiniteSetting:
+def setting_from_tables(setting_json: JsonObj, tables: Sequence[Word]) -> tr.FiniteSetting:
     """A finite setting from the sealed ``Setting.json`` with the operation
-    tables taken in the given order (the schema sorts them)."""
-    tables = [tuple(int(v) for v in table) for table in cast(list[list[int]], setting_json["ops"])]
+    tables given in index order."""
     pairs = cast(Callable[[str], frozenset[tuple[int, int]]],
                  lambda key: frozenset((int(p[0]), int(p[1]))
                                        for p in cast(list[list[int]], setting_json[key])))
     return tr.FiniteSetting(int(cast(int, setting_json["n"])), pairs("r"), pairs("ret"), pairs("prot"),
                             int(cast(int, setting_json["a"])), int(cast(int, setting_json["b"])),
-                            tuple(tables[k] for k in order))
+                            tuple(tables))
+
+
+def sealed_tables(setting_json: JsonObj) -> list[Word]:
+    """The tables the sealed schema carries: sorted, and with repetitions
+    collapsed, because ``to_sealed`` builds a set of them."""
+    return [tuple(int(v) for v in table) for table in cast(list[list[int]], setting_json["ops"])]
+
+
+def setting_from_json(setting_json: JsonObj, order: Sequence[int]) -> tr.FiniteSetting:
+    """A finite setting with the *sealed* tables taken in the given order."""
+    tables = sealed_tables(setting_json)
+    return setting_from_tables(setting_json, [tables[k] for k in order])
+
+
+def recorded_tables(run: JsonObj, setting_json: JsonObj) -> tuple[Word, ...] | None:
+    """The operation tables in index order as the artifact records them, or
+    ``None`` for an artifact written before the producer carried them.  The
+    sealed ``setting_json`` is set-valued — sorted, repetitions collapsed — so
+    it determines neither the order nor the count, and the two are
+    cross-checked."""
+    field = run.get("ops_in_index_order")
+    if field is None:
+        return None
+    tables = tuple(tuple(int(v) for v in table) for table in cast(list[list[int]], field))
+    if sorted(set(tables)) != sorted(sealed_tables(setting_json)):
+        raise LimitsError("the recorded index-ordered tables are not the sealed schema's set of tables")
+    return tables
+
+
+def replays(F: tr.FiniteSetting, run: JsonObj) -> bool:
+    """Whether the recorded run replays on this setting to its tape and
+    terminal.  A run naming an operation the setting does not have is a
+    refusal of this family, not a raw error from the machine."""
+    enablements = frozenset((int(p[0]), int(p[1])) for p in cast(list[list[int]], run["enablements"]))
+    try:
+        C = ct.Controlled(F, enablements)
+    except ExecutionError as exc:
+        raise LimitsError(f"run {run['program']!r}: {exc}; the identified setting has "
+                          f"{len(F.ops)} operations") from exc
+    terminal, s = ct.trace(C, int(cast(int, run["start"])), int(cast(int, run["fuel"])))
+    return list(s.tape) == run["tape"] and terminal.value == run["terminal"]
 
 
 def identify_programs(record: JsonObj) -> tuple[dict[str, ct.Controlled], JsonObj]:
-    """Recover the programs the artifact recorded: the operation order is the
-    unique permutation of the sorted tables under which every recorded
-    controlled run replays to its recorded tape and terminal.  Refuses when
-    none or several orders do."""
+    """Recover the programs the artifact recorded.  The operation order is
+    read from a run's ``ops_in_index_order`` when the producer carries it,
+    and otherwise recovered as the unique permutation of the sealed tables
+    under which every recorded run replays.  Either way every run must
+    replay.  Refusals: runs that do not share one setting or one order, a
+    recorded enablement naming an operation the sealed schema does not carry
+    (it collapses repeated tables), no such permutation or several, a run
+    that does not replay, and a program name recorded with two enablement
+    sets."""
     runs = cast(list[JsonObj], record["control_runs"])
     settings = {json.dumps(r["setting_json"], sort_keys=True) for r in runs}
     if len(settings) != 1:
         raise LimitsError("the recorded runs do not share one setting; identification is per setting only")
     setting_json = cast(JsonObj, runs[0]["setting_json"])
-    count = len(cast(list[object], setting_json["ops"]))
-    consistent: list[tuple[int, ...]] = []
-    for order in permutations(range(count)):
+    tables = recorded_tables(runs[0], setting_json)
+    order: list[int] | None = None
+    if tables is not None:
+        if any(recorded_tables(r, setting_json) != tables for r in runs):
+            raise LimitsError("the recorded runs do not share one operation order")
+        F = setting_from_tables(setting_json, tables)
+        source = "the artifact's ops_in_index_order, cross-checked against the sealed table set"
+    else:
+        count = len(sealed_tables(setting_json))
+        named = max((int(p[1]) for r in runs for p in cast(list[list[int]], r["enablements"])), default=-1)
+        if named >= count:
+            raise LimitsError(f"a recorded enablement names operation {named} but the sealed schema "
+                              f"carries {count} tables; the schema collapses repeated tables")
+        consistent = [perm for perm in permutations(range(count))
+                      if all(replays(setting_from_json(setting_json, perm), r) for r in runs)]
+        if not consistent:
+            raise LimitsError("no ordering of the recorded operation tables replays the recorded runs")
+        if len(consistent) > 1:
+            raise LimitsError(f"the recorded runs leave the operation order ambiguous: {consistent}")
+        order = list(consistent[0])
         F = setting_from_json(setting_json, order)
-        ok = True
-        for r in runs:
-            enablements = frozenset((int(p[0]), int(p[1])) for p in cast(list[list[int]], r["enablements"]))
-            C = ct.Controlled(F, enablements)
-            terminal, s = ct.trace(C, int(cast(int, r["start"])), int(cast(int, r["fuel"])))
-            if list(s.tape) != r["tape"] or terminal.value != r["terminal"]:
-                ok = False
-                break
-        if ok:
-            consistent.append(order)
-    if not consistent:
-        raise LimitsError("no ordering of the recorded operation tables replays the recorded runs")
-    if len(consistent) > 1:
-        raise LimitsError(f"the recorded runs leave the operation order ambiguous: {consistent}")
-    order = consistent[0]
-    F = setting_from_json(setting_json, order)
+        source = "recovered by replay: the unique permutation of the sealed tables"
     programs: dict[str, ct.Controlled] = {}
     for r in runs:
+        if not replays(F, r):
+            raise LimitsError(f"run {r['program']!r} does not replay on the identified setting")
         name = str(r["program"])
         enablements = frozenset((int(p[0]), int(p[1])) for p in cast(list[list[int]], r["enablements"]))
-        programs.setdefault(name, ct.Controlled(F, enablements))
+        if name in programs and programs[name].ctrl != enablements:
+            raise LimitsError(f"program {name!r} is recorded with two enablement sets: "
+                              f"{sorted(programs[name].ctrl)} and {sorted(enablements)}")
+        programs[name] = ct.Controlled(F, enablements)
     finding: JsonObj = {
-        "schema_loses_operation_order": True,
-        "recovered_order_of_sorted_tables": list(order),
+        "sealed_schema_is_set_valued": "Setting.json sorts the operation tables and collapses "
+                                       "repetitions, so it determines neither the index order the "
+                                       "enablements refer to nor the operation count",
+        "order_read_from": source,
+        "recovered_order_of_sorted_tables": order,
         "identified_from_recorded_runs": len(runs),
     }
     return programs, finding
@@ -198,12 +259,20 @@ SCALES: tuple[int, ...] = (3, 6, 12, 24)
 
 
 def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj:
-    """Run the represented process at four step scales from datum 0; check
-    that the observations are compatible (each a prefix of the next), that
-    the artifact's own recorded tape is a prefix of every scale at least as
-    fine, and that the bound derived at the coarsest scale holds at every
-    finer one with the readout unchanged."""
-    tapes = {F: ct.trace(forever, 0, F)[1].tape for F in SCALES}
+    """Observe the represented process at four step scales from datum 0 and
+    check that the observations are compatible (each a prefix of the next),
+    that the artifact's own recorded tape is prefix-related to each — a
+    prefix of every scale at least as fine, and an extension of the coarser
+    one — and that the bound derived at the coarsest scale holds at every
+    finer one with the readout unchanged.
+
+    One state, observed at four scales: ``obs n s`` is the Lean ``Observe.obs``
+    and the chain of prefixes is then an instance of ``Observe.obs_prefix_add``
+    for that state.  Running four states with fuel equal to the scale gives
+    the same tapes here, but that agreement is the fuel-independence CL-CP-04
+    leaves computed, so the experiment does not rest on it."""
+    state = ct.init(forever, 0, SCALES[-1])
+    tapes = {F: obs(F, state) for F in SCALES}
     coarse = tapes[SCALES[0]]
     if not bound_holds(coarse):
         raise LimitsError("the bound does not hold at the coarse scale it was derived from")
@@ -217,20 +286,23 @@ def connected_experiment(forever: ct.Controlled, recorded_tape: Word) -> JsonObj
             "three_count_minus_length": 3 * count_zero(tape) - len(tape),
             "bound_holds": bound_holds(tape),
             "prefix_of_next": F == SCALES[-1] or is_prefix(tape, tapes[SCALES[SCALES.index(F) + 1]]),
-            "recorded_tape_is_prefix": is_prefix(recorded_tape, tape) if len(recorded_tape) <= len(tape)
-            else is_prefix(tape, recorded_tape),
+            "recorded_tape_prefix_related": is_prefix(recorded_tape, tape)
+            if len(recorded_tape) <= len(tape) else is_prefix(tape, recorded_tape),
+            "recorded_tape_is_a_prefix_of_this_one": is_prefix(recorded_tape, tape),
         })
     for entry in scales:
         if not entry["bound_holds"]:
             raise LimitsError(f"the bound fails at scale {entry['scale']}")
         if not entry["prefix_of_next"]:
             raise LimitsError(f"the observation at scale {entry['scale']} is not a prefix of the next")
-        if not entry["recorded_tape_is_prefix"]:
+        if not entry["recorded_tape_prefix_related"]:
             raise LimitsError(f"the artifact's recorded tape and the scale {entry['scale']} observation are not "
                               "prefix-related")
     return {
         "program": "forever",
         "start": 0,
+        "fuel": SCALES[-1],
+        "observed_from": "one state, at four scales: obs n s, the Lean Observe.obs",
         "readout": "the number of entries equal to datum 0 in the tape",
         "bound": "L <= 3 * count <= L + 2 for a tape of length L",
         "derived_at_scale": SCALES[0],

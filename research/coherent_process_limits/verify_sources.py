@@ -1,7 +1,11 @@
 """Read-only custody checks for the sealed and merged inputs this family consumes.
 
 AuthorityEffect: None.
-The guard checks source identity and runtime origin, not theorem truth.  CRLF
+The guard checks source identity and runtime origin, not theorem truth.
+Runtime origin covers every module the machines execute: the eight sealed
+``derivation`` modules, the merged ``translation``, and the represented
+execution family's ``execution`` and ``control``.  A same-named module
+resolved from anywhere else is named rather than silently accepted.  CRLF
 checkout conversion is allowed for text inputs; pinned Git objects are never
 rewritten.  There is deliberately no manifest generation or repair option.
 
@@ -32,7 +36,7 @@ import sys
 from types import ModuleType
 from typing import Mapping
 
-BASELINE_COMMIT = "7aa6ae6f10c5cddee6f00d208f1c2291ad2368d2"
+BASELINE_COMMIT = "f5c445f40f339031e1a3191c5147b4eba98525b8"
 PACKET = Path("research/coherent_process_limits")
 SCHEMA = "coherent-process-limits-sources-v1"
 CONSUMED_TREES = {
@@ -68,7 +72,13 @@ RUNTIME_PATHS = {
     **{f"derivation.{name}": f"code/derivation/{name}.py" for name in (
         "model", "observe", "candidates", "iso", "engine", "export", "primitive_core"
     )},
+    "translation": "research/setting_translation/translation.py",
+    "execution": "research/represented_execution/execution.py",
+    "control": "research/represented_execution/control.py",
 }
+# The directories the runtime census imports from, in the order the machines
+# expect: the sealed code, then the consumed research trees.
+IMPORT_ROOTS = ("code", "research/setting_translation", "research/represented_execution")
 
 
 def canonical_text(raw: bytes) -> bytes:
@@ -101,7 +111,8 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
 
 def runtime_errors(root: Path, modules: Mapping[str, ModuleType]) -> list[str]:
     errors: list[str] = []
-    present = {name for name in modules if name == "derivation" or name.startswith("derivation.")}
+    present = {name for name in modules
+               if name in RUNTIME_PATHS or name.startswith("derivation.")}
     if present != set(RUNTIME_PATHS):
         errors.append(
             f"RUNTIME_CENSUS: missing={sorted(set(RUNTIME_PATHS) - present)} "
@@ -207,7 +218,8 @@ def verify_sources(repo_root: Path | None = None, *, check_runtime: bool = True)
         return errors
     old_path = sys.path[:]
     try:
-        sys.path.insert(0, str(root / "code"))
+        for index, relative in enumerate(IMPORT_ROOTS):
+            sys.path.insert(index, str(root / relative))
         for name in RUNTIME_PATHS:
             importlib.import_module(name)
     except Exception as exc:

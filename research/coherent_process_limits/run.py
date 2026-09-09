@@ -30,11 +30,14 @@ RECEIPT = ROOT / "evidence" / "limits.json"
 JsonObj = dict[str, object]
 
 # This tree's own directory stays first on the path: the sibling families
-# also have a ``run.py`` and a ``verify_sources.py``.
-for dependency in (REPO / "code", REPO / "research" / "setting_translation",
-                   REPO / "research" / "represented_execution"):
-    if str(dependency) not in sys.path:
-        sys.path.append(str(dependency))
+# also have a ``run.py`` and a ``verify_sources.py``.  The consumed trees go
+# immediately after it and never at the end: appended, they would sit behind
+# ``PYTHONPATH`` and site-packages, and a same-named module found there would
+# compute this record while the pins still passed.
+sys.path[1:1] = [str(dependency) for dependency in
+                 (REPO / "code", REPO / "research" / "setting_translation",
+                  REPO / "research" / "represented_execution")
+                 if str(dependency) not in sys.path]
 
 from verify_sources import PACKET, verify_sources  # noqa: E402
 
@@ -74,10 +77,14 @@ def record() -> JsonObj:
         "limit": {
             "stages": "words of length n over the carrier (Limits.Stage)",
             "thread_space": "compatible families at every scale (Limits.Compatible, Limits.Thread)",
-            "construction": "Limits.ofSeq; universal property Limits.ofSeq_toSeq and Limits.toSeq_ofSeq: "
-                            "the thread space is the sequence space; no choice or compactness is used",
+            "construction": "Limits.ofSeq; the inverse pair Limits.ofSeq_toSeq and Limits.toSeq_ofSeq: "
+                            "the thread space is the sequence space, a bijection and not a "
+                            "mediating-map statement; no choice or compactness is used",
             "eventual_agreement_is_not_compatibility": "Limits.eventual_not_compatible, Limits.eventual_agrees",
-            "cofinal_rescaling": "Limits.thread_even, Limits.even_thread: the even scales have the same threads",
+            "cofinal_rescaling": "Limits.thread_even, Limits.even_thread: the even scales have the same "
+                                 "threads, through the sequences; Limits.restrictEven and "
+                                 "Limits.restrictEven_eq: the map that carries them is the restriction "
+                                 "of a thread to the even scales, which is what limits.even_family computes",
             "topology": "declared, not proved: the product of the discrete topologies on the finite stages; "
                         "totally disconnected; not an interval, not a circle; none is claimed, and an "
                         "interval would need an order or metric compatible with the stages and an "
@@ -98,8 +105,10 @@ def record() -> JsonObj:
             "reads": "a firing reads the enablement self-instance and the operation edge at the active datum "
                      "(Control.fire, Control.enabled)",
             "writes": "active, tape, clock, fuel; the program is kept (Control.fire_ok)",
-            "independence": "an edit to an instance away from the active datum does not change the step; an "
-                            "edit at it does (the represented execution family's mutation tests)",
+            "independence": "an edit to an instance away from the active datum does not change the step, and "
+                            "an edit at it does: the represented execution family's "
+                            "test_an_edit_away_from_the_active_datum_leaves_the_step_unchanged and its "
+                            "mutation tests.  Computed on those populations; no theorem states it",
             "not_delivered": "an interacting instance with two loci of activity; the process has one",
         },
         "not_delivered": [

@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
+from typing import cast
 import unittest
 
 # Dependencies first, this tree last, so this tree wins name collisions with
@@ -92,7 +93,72 @@ class Artifact(unittest.TestCase):
         runs = record["control_runs"]
         assert isinstance(runs, list)
         runs[0]["tape"] = [9, 9]
-        with self.assertRaisesRegex(lm.LimitsError, "no ordering"):
+        with self.assertRaisesRegex(lm.LimitsError, "does not replay"):
+            lm.identify_programs(record)
+
+    def test_an_artifact_without_the_order_still_identifies_by_replay(self) -> None:
+        """The path for a record written before the producer carried the
+        index order: the unique permutation of the sealed tables."""
+        import copy
+        record = copy.deepcopy(self.record)
+        runs = record["control_runs"]
+        assert isinstance(runs, list)
+        for r in runs:
+            del r["ops_in_index_order"]
+        programs, finding = lm.identify_programs(record)
+        self.assertEqual(programs["forever"].F.ops[0], (1, 2, 0))
+        self.assertEqual(finding["recovered_order_of_sorted_tables"], [1, 0, 2])
+        self.assertIn("recovered by replay", str(finding["order_read_from"]))
+
+    def test_tables_that_disagree_with_the_sealed_set_are_refused(self) -> None:
+        import copy
+        record = copy.deepcopy(self.record)
+        runs = record["control_runs"]
+        assert isinstance(runs, list)
+        runs[0]["ops_in_index_order"] = [[0, 0, 0], [0, 0, 0], [1, 2, 2]]
+        with self.assertRaisesRegex(lm.LimitsError, "not the sealed schema's set of tables"):
+            lm.identify_programs(record)
+
+    def test_runs_that_disagree_on_the_order_are_refused(self) -> None:
+        import copy
+        record = copy.deepcopy(self.record)
+        runs = record["control_runs"]
+        assert isinstance(runs, list)
+        runs[1]["ops_in_index_order"] = [[0, 0, 0], [1, 2, 0], [1, 2, 2]]
+        with self.assertRaisesRegex(lm.LimitsError, "do not share one operation order"):
+            lm.identify_programs(record)
+
+    def test_an_enablement_naming_a_collapsed_table_is_refused_by_name(self) -> None:
+        """The sealed schema is set-valued: a setting with a repeated table
+        is recorded with fewer tables than it has operations.  Without the
+        index order, a run naming the missing index must be refused rather
+        than replayed on a smaller setting."""
+        import copy
+        record = copy.deepcopy(self.record)
+        runs = record["control_runs"]
+        assert isinstance(runs, list)
+        entry: dict[str, object] = copy.deepcopy(runs[0])
+        record["control_runs"] = [entry]
+        del entry["ops_in_index_order"]
+        setting = dict(cast(dict[str, object], entry["setting_json"]))
+        setting["ops"] = [[0, 0, 0], [1, 2, 0]]
+        entry["setting_json"] = setting
+        entry["enablements"] = [[0, 2]]
+        with self.assertRaisesRegex(lm.LimitsError, "collapses repeated tables"):
+            lm.identify_programs(record)
+
+    def test_one_name_with_two_enablement_sets_is_refused(self) -> None:
+        import copy
+        record = copy.deepcopy(self.record)
+        runs = record["control_runs"]
+        assert isinstance(runs, list)
+        extra = copy.deepcopy(next(r for r in runs if r["program"] == "ping"))
+        extra["enablements"] = [[0, 0]]
+        extra["start"], extra["fuel"] = 2, 4
+        extra["tape"], extra["terminal"], extra["clock"], extra["fuel_left"] = [2], "halt", 0, 4
+        extra["successors_at_end"] = []
+        record["control_runs"] = [*runs, extra]
+        with self.assertRaisesRegex(lm.LimitsError, "two enablement sets"):
             lm.identify_programs(record)
 
     def test_a_wrong_fragment_is_refused(self) -> None:
@@ -159,9 +225,18 @@ class ConnectedExperiment(unittest.TestCase):
         for e in scales:
             self.assertTrue(e["bound_holds"])
             self.assertTrue(e["prefix_of_next"])
-            self.assertTrue(e["recorded_tape_is_prefix"])
+            self.assertTrue(e["recorded_tape_prefix_related"])
             self.assertIn(e["three_count_minus_length"], (0, 1, 2))
         self.assertEqual(report["derived_from"], [0, 1, 2, 0])
+
+    def test_the_scales_are_observations_of_one_state(self) -> None:
+        """The chain of prefixes is an instance of `Observe.obs_prefix_add`
+        for one state, not a comparison of runs with different fuel."""
+        programs, _ = lm.identify_programs(lm.load_artifact())
+        s = ct.init(programs["forever"], 0, lm.SCALES[-1])
+        for n in lm.SCALES:
+            self.assertTrue(lm.is_prefix(lm.obs(n, s), lm.obs(lm.SCALES[-1], s)))
+        self.assertEqual([len(lm.obs(n, s)) for n in lm.SCALES], [4, 7, 13, 25])
 
     def test_the_bound_is_not_vacuous(self) -> None:
         self.assertTrue(lm.bound_holds((0, 1, 2, 0, 1, 2)))

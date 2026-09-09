@@ -9,10 +9,13 @@ the set of compatible families (`Thread`).
 
 Three facts about that space, all constructive:
 
-* **Construction and universal property.**  A sequence `ℕ → Fin c` gives a
-  compatible family (`ofSeq`), a compatible family gives a sequence
-  (`toSeq`: read entry `i` at scale `i + 1`), and the two are inverse
-  (`toSeq_ofSeq`, `ofSeq_toSeq`).  The thread space *is* the sequence space;
+* **Construction, and a bijection with the sequence space.**  A sequence
+  `ℕ → Fin c` gives a compatible family (`ofSeq`), a compatible family gives
+  a sequence (`toSeq`: read entry `i` at scale `i + 1`), and the two are
+  inverse (`toSeq_ofSeq`, `ofSeq_toSeq`).  The thread space *is* the sequence
+  space in that sense — a bijection, not a mediating-map statement: no cone
+  over an arbitrary object is quantified, and nothing here claims the limit's
+  universal property;
   no choice or compactness principle is used, because the bonding is
   restriction and the family is assembled explicitly.  This is the contrast
   with the sealed `wit_no_infinite`, where arbitrary finite witnesses need
@@ -21,7 +24,9 @@ Three facts about that space, all constructive:
   scale 2 on and disagrees at scale 1 is not compatible
   (`eventual_not_compatible`, `eventual_agrees`).
 * **Cofinal rescaling.**  The subsystem of even scales has the same thread
-  space, through the same sequences (`thread_even`, `even_thread`).
+  space, through the same sequences (`thread_even`, `even_thread`), and the
+  map that carries it is the restriction of a thread to the even scales
+  (`restrictEven`, `restrictEven_eq`).
 
 And one negative about observation maps: shifting a word by one is not a
 function of its prefix — the entry beyond the observed boundary is needed
@@ -52,7 +57,7 @@ def Compatible (c : Nat) (t : (n : Nat) → Stage c n) : Prop :=
 /-- The thread space: the compatible families. -/
 abbrev Thread (c : Nat) := { t : (n : Nat) → Stage c n // Compatible c t }
 
-/-! ## 2. Construction and universal property -/
+/-! ## 2. Construction: the thread space is the sequence space -/
 
 /-- A sequence gives a compatible family: its prefixes. -/
 def ofSeq (c : Nat) (s : Nat → Fin c) : Thread c :=
@@ -77,8 +82,10 @@ theorem stable (c : Nat) (t : Thread c) :
         rw [h1, t.property n]
         exact stable c t n m (Nat.le_of_lt_succ hlt) i hm hi
 
-/-- **Universal property.**  A compatible family is the family of prefixes
-of its sequence: the thread space is the sequence space. -/
+/-- **Inverse.**  A compatible family is the family of prefixes of its
+sequence: with `toSeq_ofSeq`, the thread space is the sequence space.  This
+is a bijection and nothing more: no cone over an arbitrary object is
+quantified, and the limit's universal property is not claimed. -/
 theorem ofSeq_toSeq (c : Nat) (t : Thread c) : ofSeq c (toSeq c t) = t := by
   apply Subtype.ext
   funext n i
@@ -149,10 +156,33 @@ theorem eofSeq_etoSeq (c : Nat) (t : EThread c) : eofSeq c (etoSeq c t) = t := b
   · exact estable c t (i.val + 1) n (Nat.le_of_lt h) i.val i.isLt (by omega)
   · exact (estable c t n (i.val + 1) h i.val (by omega) i.isLt).symm
 
+/-- The restriction of a thread to the even scales is a thread of the even
+scales: the entries agree wherever two scales overlap (`stable`). -/
+def restrictEven (c : Nat) (t : Thread c) : EThread c :=
+  ⟨fun n => t.val (2 * n), fun n => by
+    funext i
+    exact stable c t (2 * (n + 1)) (2 * n) (by omega) i.val i.isLt (by omega)⟩
+
+/-- **The rescaling map is the restriction.**  Reading a thread at the even
+scales and reading its sequence at the even scales are the same thread, so
+the correspondence below is carried by restriction and not only by the
+sequences. -/
+theorem restrictEven_eq (c : Nat) (t : Thread c) : restrictEven c t = eofSeq c (toSeq c t) := by
+  apply Subtype.ext
+  funext n i
+  show t.val (2 * n) i = t.val (i.val + 1) ⟨i.val, Nat.lt_succ_self _⟩
+  exact stable c t (2 * n) (i.val + 1) i.isLt i.val (Nat.lt_succ_self _) i.isLt
+
 /-- **Invariance under the cofinal rescaling**: a thread of all scales and a
-thread of the even scales are the same sequence, both ways. -/
+thread of the even scales are the same sequence, both ways.  With
+`restrictEven_eq` the forward map is the restriction. -/
 theorem thread_even (c : Nat) (t : Thread c) : ofSeq c (etoSeq c (eofSeq c (toSeq c t))) = t := by
   rw [etoSeq_eofSeq, ofSeq_toSeq]
+
+/-- The same, with the restriction in place of the sequence detour. -/
+theorem thread_restrictEven (c : Nat) (t : Thread c) :
+    ofSeq c (etoSeq c (restrictEven c t)) = t := by
+  rw [restrictEven_eq, etoSeq_eofSeq, ofSeq_toSeq]
 
 theorem even_thread (c : Nat) (e : EThread c) : eofSeq c (toSeq c (ofSeq c (etoSeq c e))) = e := by
   rw [toSeq_ofSeq, eofSeq_etoSeq]
@@ -180,6 +210,8 @@ end Limits
 #print axioms Limits.etoSeq_eofSeq
 #print axioms Limits.estable
 #print axioms Limits.eofSeq_etoSeq
+#print axioms Limits.restrictEven_eq
 #print axioms Limits.thread_even
+#print axioms Limits.thread_restrictEven
 #print axioms Limits.even_thread
 #print axioms Limits.shift_not_local

@@ -52,6 +52,8 @@ environment census. -/
 #print axioms Limits.eventual._proof_2
 #print axioms Limits.eventual_agrees._proof_1_1
 #print axioms Limits.ofSeq._proof_1
+#print axioms Limits.restrictEven._proof_1
+#print axioms Limits.restrictEven._proof_2
 #print axioms Observe.base._proof_1
 #print axioms Observe.base._proof_2
 #print axioms Observe.base._proof_3

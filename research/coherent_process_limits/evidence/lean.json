@@ -4,8 +4,8 @@
   "census": "compiled environment theorem declarations in the Limits and Observe namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
-    "Inventory.lean": "22035cd2aa9a65fae4646f89988532a44643f84a04211669ec89824b20853be3",
-    "Limits.lean": "01bf1a31d7583673801f12b222e47b3159c3e102a8a115c253e7482860ffc3eb",
+    "Inventory.lean": "491a4f554fd4c0aa1c376573f3271c469dd72e35036f0e16ba4f3a808a5d0078",
+    "Limits.lean": "e1a75d181c111c5f0980e4098550e1202643ec0a6f595c53661b94074a964f0b",
     "Observe.lean": "75c13a81bb945e9835cc0b5b68de00cb3eb4ff8b39a4b6f872594553d737356d",
     "lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
@@ -76,9 +76,25 @@
     "Limits.ofSeq_toSeq": [
       "Quot.sound"
     ],
+    "Limits.restrictEven._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.restrictEven._proof_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.restrictEven_eq": [
+      "Quot.sound",
+      "propext"
+    ],
     "Limits.shift_not_local": [],
     "Limits.stable": [],
     "Limits.thread_even": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Limits.thread_restrictEven": [
       "Quot.sound",
       "propext"
     ],
@@ -150,11 +166,11 @@
     ]
   },
   "reports_per_namespace": {
-    "Limits": 24,
+    "Limits": 28,
     "Observe": 19
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: compatible families of finite observations over a finite carrier and their sequences; the represented execution family's deterministic runner observed at step scales; the forever program of that family. The topology of the thread space is declared, not proved.",
-  "theorem_count_including_generated": 43,
+  "theorem_count_including_generated": 47,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

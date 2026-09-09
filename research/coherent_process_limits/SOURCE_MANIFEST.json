@@ -1,8 +1,8 @@
 {
   "schema": "coherent-process-limits-sources-v1",
-  "baseline_commit": "7aa6ae6f10c5cddee6f00d208f1c2291ad2368d2",
+  "baseline_commit": "f5c445f40f339031e1a3191c5147b4eba98525b8",
   "text_normalization": "CRLF_TO_LF_ONLY",
-  "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads, the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation and represented_execution Lean trees the local proofs build on, the setting_translation and represented_execution Python trees that supply the encoder and the machines this family observes, the Lean configuration of the six packages, and the represented execution family's artifact evidence/process.json (authored there, read here, never written here) at the commit at which that family is frozen. No export is read. prompt and paper are not read and not pinned.",
+  "scope": "Exactly the sources this family consumes: the eight derivation modules the merged encoder loads and the translation, execution and control modules, by digest and runtime origin; the sealed Lean derivation tree, the merged local_reuse, ignition, magnification, setting_translation and represented_execution Lean trees, and the setting_translation and represented_execution Python trees by Git tree object; the Lean configuration of the six packages and the represented execution family's artifact evidence/process.json (authored there, read here, never written here) at the commit at which that family is frozen. No export is read. prompt and paper are not read and not pinned.",
   "runtime_modules": {
     "derivation": "code/derivation/__init__.py",
     "derivation.model": "code/derivation/model.py",
@@ -11,7 +11,10 @@
     "derivation.iso": "code/derivation/iso.py",
     "derivation.engine": "code/derivation/engine.py",
     "derivation.export": "code/derivation/export.py",
-    "derivation.primitive_core": "code/derivation/primitive_core.py"
+    "derivation.primitive_core": "code/derivation/primitive_core.py",
+    "translation": "research/setting_translation/translation.py",
+    "execution": "research/represented_execution/execution.py",
+    "control": "research/represented_execution/control.py"
   },
   "consumed_trees": {
     "code/derivation": "9eb989edeedd89d0935b021124969d2659509785",
@@ -21,8 +24,8 @@
     "research/magnification/lean": "8c9e41e7e3f93345c9c337f2a81b4a5ac3d2b674",
     "research/setting_translation/lean": "7e329a7a398067f3bd38051d7ab0ecb619e98448",
     "research/setting_translation": "1b64e46f1bdd5cc211080c89547c69f418d512ef",
-    "research/represented_execution/lean": "f1c028be5c9f163385d2e73490b26273504664a8",
-    "research/represented_execution": "a8dde751ed5f1bfd3fb74bd418c0d77b9467c6f3"
+    "research/represented_execution/lean": "4a3d9cbac827b31a4515bec89c1dffb80c0b0186",
+    "research/represented_execution": "33cebbd938c3835d0cfe9d1affa81e95d27ccec3"
   },
   "tree_census": {
     "code/derivation": [
@@ -198,6 +201,9 @@
     "code/derivation/engine.py": "23803a3dcce2adf0dee623caba33791d41a25d2da3fdfd226da3cad2ee140b5e",
     "code/derivation/export.py": "202b2fba9cb99864bae52d2463864c67064bb0f85e27b78c3371d930b5bf7bdd",
     "code/derivation/primitive_core.py": "4833aa46e0032b4d978d9ee59547e0eef2fa07a33f308d107c85b87f93e47068",
+    "research/setting_translation/translation.py": "981010dee589ed36fdc80eea3f249f9848ca349e2f050cba7796bb5dcb68ce3f",
+    "research/represented_execution/execution.py": "411bfa9a7435fbc111f58057e4ae84b2507c34775d04a71635b14567f2e34c51",
+    "research/represented_execution/control.py": "0ab01c970191a2347cafa0ffc13774b22859ca5e6270468751ac4271cc52574f",
     "lean4/Derivation.lean": "97384b4ab806336332d6dceda984a77d6d407526311ef6027ce8b06f58a46b6e",
     "lean4/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "lean4/lakefile.toml": "e75cbde5829dc2efbb5612fbfdba9301c20ccbf2d21ab80bc87db52f4ead0f3c",
@@ -212,6 +218,6 @@
     "research/setting_translation/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
     "research/represented_execution/lean/lakefile.toml": "e674d4f07167ceee4019c32d9ea762102f0936bb34fbafc7d636adad945ef063",
     "research/represented_execution/lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "research/represented_execution/evidence/process.json": "0b181bdb1707318489dd9fe6b04216beb63d99060bde92aff610485760d579d7"
+    "research/represented_execution/evidence/process.json": "5cfe8425983f05f6ece6516f773e94adeff3a5b49ba86a3b156a69059fca858c"
   }
 }
