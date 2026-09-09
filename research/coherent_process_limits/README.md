@@ -50,7 +50,7 @@ field the order is still recovered as the one ordering under which every run
 replays, and an enablement naming an operation the sealed schema collapsed
 is refused by name.  That is the artifact contract doing its job.
 
-Lean: 82 authored theorems, 150 reports with the compiler-generated ones,
+Lean: 86 authored theorems, 154 reports with the compiler-generated ones,
 all within `{propext, Quot.sound}`, in a package importing the sealed package
 and the represented execution package.  Python: the abstract system and the
 observations mirrored; the artifact consumed and never written; every
@@ -231,6 +231,17 @@ nothing to quotient by.  The twins are separated already at scale one
 cofinal rescaling can bring them together.  Identifying them would be a
 further declared map, and none is declared.
 
+### This family's observation is the generic runner's
+
+The producer family parameterised the interpreter over an enablement reader
+(its `Runner`).  `next_is_generic`, `iter_is_generic` and `obs_is_generic`
+identify this family's step, iteration and observation with that machine's at
+`Runner.ctrlReader` — the first by `rfl`, the second by a one-line induction.
+`obs_prefix_is_generic` then *derives* this family's compatibility from
+`Runner.obsOf_prefix_add` rather than proving it a second time.  The point is
+not economy: it is that a second reader inherits the compatibility instead of
+copying it.
+
 ## 6. What "the limit" is here, and is not
 
 The thread space is all sequences over the carrier.  The process generates
@@ -247,9 +258,9 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 82 authored theorems and 68
+**Lean** (`lean/`, `evidence/lean.json`): 86 authored theorems and 68
 compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 150 reports, all within `{propext, Quot.sound}`;
+case splits inside theorems), 154 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
 scan clean.  `Classical.choice` was observed once, when `omega` negated a

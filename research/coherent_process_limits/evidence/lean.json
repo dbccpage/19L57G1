@@ -6,7 +6,7 @@
   "local_sources_sha256": {
     "Inventory.lean": "5803f23751597dfd74a3724bcdd60e976409bac95289bde429140c7f6ddb763b",
     "Limits.lean": "b53b5327e478c4983af7f2f8dbaa7236f2d0989e821236d90325ecefedcabe0e",
-    "Observe.lean": "462162324cdd6e19158002708856ea7438cdcd4fd9521e18f08d277522369715",
+    "Observe.lean": "90a2c6f08a77a79a72530db5fac405941cbac1f472534411272f2952c357dc96",
     "lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
@@ -282,6 +282,9 @@
     "Observe.iter_graph": [
       "propext"
     ],
+    "Observe.iter_is_generic": [
+      "propext"
+    ],
     "Observe.iter_succ": [
       "propext"
     ],
@@ -380,6 +383,9 @@
     "Observe.next_halt": [
       "propext"
     ],
+    "Observe.next_is_generic": [
+      "propext"
+    ],
     "Observe.next_refuse": [
       "propext"
     ],
@@ -422,6 +428,9 @@
       "Quot.sound",
       "propext"
     ],
+    "Observe.obs_is_generic": [
+      "propext"
+    ],
     "Observe.obs_last_repeats": [
       "Quot.sound",
       "propext"
@@ -434,6 +443,9 @@
       "propext"
     ],
     "Observe.obs_prefix_add": [
+      "propext"
+    ],
+    "Observe.obs_prefix_is_generic": [
       "propext"
     ],
     "Observe.orbit_add": [],
@@ -544,10 +556,10 @@
   },
   "reports_per_namespace": {
     "Limits": 32,
-    "Observe": 118
+    "Observe": 122
   },
   "schema_version": 1,
   "scope": "the exact theorem statements: compatible families of finite observations over a finite carrier and their sequences; the represented execution family's deterministic runner observed at step scales; the forever program of that family. The topology of the thread space is declared, not proved.",
-  "theorem_count_including_generated": 150,
+  "theorem_count_including_generated": 154,
   "toolchain": "leanprover/lean4:v4.33.0"
 }

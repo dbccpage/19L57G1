@@ -25,7 +25,9 @@ BRIDGE = ("Limits.toSeq_ofSeq", "Limits.stable", "Limits.ofSeq_toSeq", "Limits.e
           "Observe.obs_last_repeats", "Observe.nextVal_lt", "Observe.iter_active",
           "Observe.obsSet_prefix", "Observe.obsSet_prefix_add", "Observe.branchStep_tape",
           "Observe.fork_family_is_two", "Observe.fork_runner_not_in_the_family",
-          "Limits.twins_are_two_threads", "Limits.threads_are_sequences")
+          "Limits.twins_are_two_threads", "Limits.threads_are_sequences",
+          "Observe.next_is_generic", "Observe.iter_is_generic", "Observe.obs_is_generic",
+          "Observe.obs_prefix_is_generic")
 
 
 class ReportParser(unittest.TestCase):
@@ -75,10 +77,10 @@ class CommittedRecord(unittest.TestCase):
             for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
             if line.startswith("#print axioms ")
         )
-        self.assertEqual(authored, 82)
-        self.assertEqual(record["theorem_count_including_generated"], 150)
+        self.assertEqual(authored, 86)
+        self.assertEqual(record["theorem_count_including_generated"], 154)
         self.assertEqual(record["axiom_free_count"], 16)
-        self.assertEqual(record["reports_per_namespace"], {"Limits": 32, "Observe": 118})
+        self.assertEqual(record["reports_per_namespace"], {"Limits": 32, "Observe": 122})
         self.assertEqual(record["reports"]["Observe.zeros_bound"], ["Quot.sound", "propext"])
 
 

@@ -1,4 +1,4 @@
-import Schedule
+import Runner
 
 /-!
 # Observe: the represented process at finite scales
@@ -27,7 +27,7 @@ AuthorityEffect: None.
 
 namespace Observe
 
-open Derivation Translation Execution Control Product Schedule
+open Derivation Translation Execution Control Product Schedule Runner
 
 /-! ## 1. Steps, scales, observations -/
 
@@ -1102,6 +1102,39 @@ theorem fork_runner_not_in_the_family :
     obs 1 (Control.init forking 0 5) ∉ obsSet 1 (Control.init forking 0 5) := by decide
 
 
+/-! ## 7. This family's observation is the generic one at the merged reader
+
+The producer family parameterised the interpreter over an enablement reader
+and identified its own step with the generic step at `Runner.ctrlReader`.
+This family's `next`, `iter` and `obs` are that machine's, at the same reader,
+and the identifications are `rfl` or a one-line induction.
+
+The point is not economy.  It is that the compatibility this family proves
+(`obs_prefix_add`) and the compatibility the generic runner proves
+(`Runner.obsOf_prefix_add`) are the same theorem, so a second reader — the
+record-reading one, the depth-two one — inherits it instead of copying it. -/
+
+theorem next_is_generic (s : State) : next s = Runner.nextOf Runner.ctrlReader s := rfl
+
+theorem iter_is_generic : ∀ (n : Nat) (s : State),
+    iter n s = Runner.iterOf Runner.ctrlReader n s
+  | 0, _ => rfl
+  | n + 1, s => by
+      show next (iter n s) = Runner.nextOf Runner.ctrlReader (Runner.iterOf Runner.ctrlReader n s)
+      rw [iter_is_generic n s, next_is_generic]
+
+theorem obs_is_generic (n : Nat) (s : State) : obs n s = Runner.obsOf Runner.ctrlReader n s := by
+  show (iter n s).tape = (Runner.iterOf Runner.ctrlReader n s).tape
+  rw [iter_is_generic n s]
+
+/-- And so this family's compatibility is the generic one, not a second proof
+of it. -/
+theorem obs_prefix_is_generic (m : Nat) (s : State) (k : Nat) :
+    obs m s <+: obs (m + k) s := by
+  rw [obs_is_generic m s, obs_is_generic (m + k) s]
+  exact Runner.obsOf_prefix_add Runner.ctrlReader m s k
+
+
 end Observe
 
 #print axioms Observe.stepDet_inr
@@ -1169,3 +1202,7 @@ end Observe
 #print axioms Observe.fork_family_is_two
 #print axioms Observe.fork_runner_is_frozen
 #print axioms Observe.fork_runner_not_in_the_family
+#print axioms Observe.next_is_generic
+#print axioms Observe.iter_is_generic
+#print axioms Observe.obs_is_generic
+#print axioms Observe.obs_prefix_is_generic
