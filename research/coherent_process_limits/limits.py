@@ -601,7 +601,7 @@ def lost_fuel(forever: ct.Controlled) -> JsonObj:
         "after_one_step_fuel_1": list(obs(1, s1)),
         "lost_information": "fuel",
         "repair": "observe the fuel beside the tape; with the program, the active datum and the fuel the "
-                  "next observation is determined (Observe.next_active_det)",
+                  "next DATUM is determined (Observe.next_active_det).  Not the next observation: two states with the same program, active datum and fuel and different tapes have different next tapes, because a step appends to the tape it has",
     }
 
 

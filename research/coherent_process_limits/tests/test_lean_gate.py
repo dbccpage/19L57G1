@@ -71,17 +71,35 @@ class CommittedRecord(unittest.TestCase):
         self.assertEqual(record["python_mirror_refinement"], "NOT_PROVED")
 
     def test_the_figures_the_readme_quotes(self) -> None:
+        """The generated population is the **complement** of the authored one,
+        not a second count by a name heuristic, so authored + generated is an
+        identity rather than two numbers that can drift apart."""
         record = json.loads(RECORD.read_text(encoding="utf-8"))
-        authored = sum(
-            1 for module in MODULES
-            for line in (RECORD.parents[1] / "lean" / f"{module}.lean").read_text(encoding="utf-8").splitlines()
-            if line.startswith("#print axioms ")
-        )
-        self.assertEqual(authored, 86)
+        authored = {line.split("#print axioms ")[1].strip()
+                    for module in MODULES
+                    for line in (RECORD.parents[1] / "lean" / f"{module}.lean")
+                    .read_text(encoding="utf-8").splitlines()
+                    if line.startswith("#print axioms ")}
+        reports = set(record["reports"])
+        self.assertEqual(authored - reports, set(), "an authored report is not in the record")
+        self.assertEqual(len(authored) + len(reports - authored), len(reports))
+        self.assertEqual(len(authored), 86)
+        self.assertEqual(len(reports - authored), 68)
         self.assertEqual(record["theorem_count_including_generated"], 154)
         self.assertEqual(record["axiom_free_count"], 16)
         self.assertEqual(record["reports_per_namespace"], {"Limits": 32, "Observe": 122})
-        self.assertEqual(record["reports"]["Observe.zeros_bound"], ["Quot.sound", "propext"])
+
+    def test_the_modules_are_files_and_the_namespaces_are_two(self) -> None:
+        """`Observe` is seven files sharing one namespace.  A per-module count
+        would report six zeros; the census is over namespaces and the
+        elaboration is over files, and the two lists are kept apart."""
+        from verify_lean import NAMESPACES  # noqa: PLC0415
+        self.assertEqual(set(NAMESPACES), {"Limits", "Observe"})
+        self.assertEqual(len(MODULES), 8)
+        for module in MODULES:
+            self.assertTrue((RECORD.parents[1] / "lean" / f"{module}.lean").is_file(), module)
+        record = json.loads(RECORD.read_text(encoding="utf-8"))
+        self.assertEqual(set(record["reports_per_namespace"]), set(NAMESPACES))
 
 
 if __name__ == "__main__":

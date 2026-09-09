@@ -4,10 +4,16 @@
   "census": "compiled environment theorem declarations in the Limits and Observe namespaces",
   "classification": "Lean proof compilation",
   "local_sources_sha256": {
+    "Chain.lean": "da1ae508b96fd057b1401723e0fce609ce7b0220b42edb4551a48ab4ab4065b1",
+    "Cycle.lean": "c318561a9bd86c882eaefabd13407f8dc08c3e8534b297ae58d01febc5462e28",
+    "Fork.lean": "8dfdea2c6b48852400f19d006005cc937bb2734cf6da778fdf013dde8c23a99c",
     "Inventory.lean": "5803f23751597dfd74a3724bcdd60e976409bac95289bde429140c7f6ddb763b",
     "Limits.lean": "b53b5327e478c4983af7f2f8dbaa7236f2d0989e821236d90325ecefedcabe0e",
-    "Observe.lean": "90a2c6f08a77a79a72530db5fac405941cbac1f472534411272f2952c357dc96",
-    "lakefile.toml": "ab4bcf0a92e423200d7fe8106bcde5c5d76662b6868f494daabe76df5249e769",
+    "Observe.lean": "524c5736c58663ba28090d257ea1bcc072298b363676684c4aaab4cb57f8d499",
+    "Periodic.lean": "2f4c4033c48ef28946dda2ba401851b11a7ec7143381b3da0a9b72bae6eff0fe",
+    "Steps.lean": "a3442c383335603696455595dca6a0a638611600b9ec00b4f335dd45d83477f8",
+    "TwoLoci.lean": "4f9f5fed7670ec5439803133215796cb6e5f3b56e35766f0277eed7f2b8b2177",
+    "lakefile.toml": "563642a15251da517170cb52cb330c3f7c7464d649d565549e94bbb499c587f0",
     "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
   },
   "python_mirror_refinement": "NOT_PROVED",

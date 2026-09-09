@@ -27,7 +27,12 @@ if PACKET != Path("research/coherent_process_limits"):
 ROOT = Path(__file__).resolve().parent
 LEAN = ROOT / "lean"
 RECORD = ROOT / "evidence" / "lean.json"
-MODULES = ("Limits", "Observe")
+# The files elaborated to collect the reports, and the namespaces the census
+# is over.  They are no longer the same list: `Observe` was one 1208-line file
+# carrying six studies and is now seven files sharing one namespace, so a
+# per-*module* count would report six zeros and hide where the theorems are.
+MODULES = ("Limits", "Steps", "Chain", "TwoLoci", "Cycle", "Periodic", "Fork", "Observe")
+NAMESPACES = ("Limits", "Observe")
 EXPECTED_FILES = {f"{m}.lean" for m in MODULES} | {"Inventory.lean"}
 ALLOWED_AXIOMS = {"propext", "Quot.sound"}
 CENSUS_LINE = re.compile(r"^LIMITS_THEOREM: (\S+)$", re.MULTILINE)
@@ -100,7 +105,7 @@ def verify() -> bytes:
     errors = verify_sources()
     if errors:
         raise ValueError("source verification after build: " + "; ".join(errors))
-    per_module = {m: sum(1 for name in reports if name.startswith(m + ".")) for m in MODULES}
+    per_module = {m: sum(1 for name in reports if name.startswith(m + ".")) for m in NAMESPACES}
     payload = {"schema_version": 1, "classification": "Lean proof compilation",
                "authority_effect": "None", "toolchain": "leanprover/lean4:v4.33.0",
                "local_sources_sha256": before,

@@ -298,7 +298,7 @@
    1
   ],
   "lost_information": "fuel",
-  "repair": "observe the fuel beside the tape; with the program, the active datum and the fuel the next observation is determined (Observe.next_active_det)",
+  "repair": "observe the fuel beside the tape; with the program, the active datum and the fuel the next DATUM is determined (Observe.next_active_det).  Not the next observation: two states with the same program, active datum and fuel and different tapes have different next tapes, because a step appends to the tape it has",
   "same_tape": true,
   "tape": [
    0

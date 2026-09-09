@@ -58,8 +58,8 @@ recorded run replayed; compatibility checked on every identified program,
 every datum, twelve scales; the three verdicts computed over the 64
 deterministic programs on the recorded setting; the experiment at four
 scales, the two-locus experiment at five and the periodicity of all 192 runs
-on the setting, and the fork family at four; 51 tests, strict typing over
-nine files, two byte-identical records; every recorded experiment replays from
+on the setting, and the fork family at four; 52 tests, strict typing over
+nine files by a glob, two byte-identical records; every recorded experiment replays from
 the record's own fields.
 Execution base `d3a429f52e5864d0b5a9ab4ca6dba2b07acd4130`, the represented
 execution family's two-locus-run commit, at which its artifact is frozen and
@@ -258,17 +258,25 @@ or metric compatible with the stages and an identification of threads
 
 ## 7. Evidence
 
-**Lean** (`lean/`, `evidence/lean.json`): 86 authored theorems and 68
-compiler-generated ones (the proof terms of bounds inside definitions and of
-case splits inside theorems), 154 reports, all within `{propext, Quot.sound}`;
+**Lean** (`lean/`, `evidence/lean.json`): 86 authored theorems, and 68
+compiler-generated ones **counted as the complement** of the authored names
+(the proof terms of bounds inside definitions and of case splits inside
+theorems); 86 + 68 = 154 reports, all within `{propext, Quot.sound}`;
 the report population equals the environment census of the `Limits` and
 `Observe` namespaces in both directions; no private theorem; forbidden-token
-scan clean.  `Classical.choice` was observed once, when `omega` negated a
+scan clean.  **Modules and namespaces are no longer the same list**: `Observe`
+was one 1208-line file carrying six studies and is now `Steps`, `Chain`,
+`TwoLoci`, `Cycle`, `Periodic`, `Fork` and a root `Observe` that imports them,
+all sharing the one namespace — so `import Observe` and every `Observe.*` name
+a consumer writes are unchanged, and `verify_lean.py` keeps `MODULES` (the
+files it elaborates) apart from `NAMESPACES` (the census prefixes), because a
+per-module count would have reported six zeros.  `Classical.choice` was observed once, when `omega` negated a
 conjunction goal classically; the conjunction is now split first and the
 reliance is gone.
 
-**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 51
-tests, strict typing over nine files, the two records replay byte-identically.
+**Python** (`limits.py`, `run.py`, `evidence/limits.json`, `tests/`): 52
+tests, strict typing over the tree own modules and tests by a **glob** and not
+a hand list, the two records replay byte-identically.
 `verify.py`, `verify_sources.py`, `verify_lean.py` and `run.py` follow the
 sibling families' files with names, pins and refusals changed; this tree's
 directory is always first on the path, and `run.py` and `verify_lean.py`
@@ -299,9 +307,13 @@ Regenerate the two records deliberately and never under a live injection:
 * An interval, circle, integration theory or real number: the limit is a
   totally disconnected thread space and a rational frequency with a bound on
   naturals.  The topology is declared, not proved.
-* That the `forever` tape after `n` steps *is* the first `n + 1` entries of
-  `i ↦ i % 3`: computed at every recorded scale; the proved bound is on the
-  sequence.  This is the labeled missing connection.
+* That the transcribed `forever` program is the one the artifact records: the
+  Lean transcribes the setting and the program by hand, the Python identifies
+  them from the artifact and replays every recorded run, and no theorem ties
+  the two.  An earlier version of this line said instead that the tape being
+  the first `n + 1` entries of `i ↦ i % 3` was "computed at every recorded
+  scale" and called it the labeled missing connection; that is **WITHDRAWN** —
+  it is `Observe.forever_obs`, and `forever_run_bound` carries it to the run.
 * The density witness: computed over the declared class of 64 programs.  An
   earlier version of this line said that eventual periodicity "is not
   formalized"; that is WITHDRAWN — `eventually_periodic_run` and

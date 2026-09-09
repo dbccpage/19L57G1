@@ -190,9 +190,17 @@ the tape after `n` steps (`Observe.obs`).
   scale.
 - **Falsifier**: a scale at which the readout leaves the bound, or an
   observation that is not a prefix of the next.
-- **Obligation**: that the `forever` tape after `n` steps *is* the first
-  `n + 1` entries of `i ↦ i % 3` is computed at every scale, not proved; the
-  proved bound is on the sequence.  This is the labeled missing connection.
+- **Obligation**: none outstanding for the connection itself.  An earlier
+  version of this line said that the `forever` tape after `n` steps being the
+  first `n + 1` entries of `i ↦ i % 3` "is computed at every scale, not
+  proved", and called it the labeled missing connection.  That is
+  **WITHDRAWN**: `Observe.forever_obs` is the prefix identity and
+  `forever_run_bound` carries the bound to the run, and this entry's own
+  Statement and Evidence had already been rewritten to cite them.  The
+  obligation was the leftover.  What does remain: the setting and the program
+  are **transcribed by hand** into the Lean while the Python identifies them
+  from the consumed artifact, so the Lean proves this of *a* three-point
+  program and the Python is what ties it to the one the artifact records.
 
 ### CL-CP-09 — the artifact consumed, and a finding for the family that wrote it
 
