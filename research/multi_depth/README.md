@@ -9,7 +9,7 @@ This directory scales depth-two retained-record enablement to an arbitrary multi
 1. **Formal Core Lean 4 (`lean/DepthLadder.lean`):**
    - Implements generic `windowsOf (k : Nat) : List Nat → List (List Nat)` without ad-hoc tuple types.
    - Defines `functional (k : Nat) (tape : List Nat) : Prop` stating that length-$(k+1)$ windows agreeing on their length-$k$ prefix must be identical.
-   - Proves `ladder_monotonic (k : Nat) (tape : List Nat) : functional k tape → functional (k + 1) tape` constructively.
+   - Establishes `ladder_monotonic (k : Nat) (tape : List Nat) : functional k tape → functional (k + 1) tape` constructively.
    - Verified clean under `#print axioms` strictly contained in `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
 
 2. **Python Mirror & Sweep Verification (`multi_depth.py`):**
