@@ -1,6 +1,6 @@
 """audit_estate.py — Comprehensive Research Estate Honesty Auditor.
 
-Audits all 48 research trees across the Genesis estate for:
+Audits all research trees declared in research/README.md across the Genesis estate for:
 1. Gate 11 CI inclusion vs. local-only manual receipt status.
 2. Lean formalization presence and axiom gate coverage (CI vs. manual vs. none).
 3. Test count drift between root README (481) and current test suite (523).
@@ -297,9 +297,9 @@ def generate_audit_report(
         "## 1. Executive Summary & Epistemic Boundaries",
         "",
         "This audit reconciles the estate-wide governance, Gate 11 CI integration, test count drift,",
-        "axiom dependencies, and verification boundaries across all 48 research trees in `research/`.",
+        "axiom dependencies, and verification boundaries across all research trees in `research/`.",
         "",
-        "- **Total Research Trees Audited:** 48",
+        f"- **Total Research Trees Audited:** {total_trees}",
         f"- **Trees Integrated in Gate 11 CI:** {g11_count} (workflow enumerated)",
         f"- **Trees Retained as Local Receipts Only:** {local_count}",
         f"- **Trees with Lean Axiom Verification in CI:** {ci_lean_count} (`second_nofirst`, `typed_translation`)",
