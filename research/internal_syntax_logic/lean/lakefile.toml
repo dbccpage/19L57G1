@@ -1,0 +1,22 @@
+name = "internal_syntax_logic"
+version = "0.1.0"
+defaultTargets = ["Syntax", "Logic", "Pricing", "Connectives", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "Syntax"
+
+[[lean_lib]]
+name = "Logic"
+
+[[lean_lib]]
+name = "Pricing"
+
+[[lean_lib]]
+name = "Connectives"
+
+[[lean_lib]]
+name = "Inventory"

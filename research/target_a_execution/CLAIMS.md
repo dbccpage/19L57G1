@@ -143,11 +143,45 @@ settings under fuel bounds without ungrounded universality claims.
 
 ---
 
+### CL-TA-13: Operational Protection Enforcement
+- **Statement:** Stored protection obligations (`SEPARATED`, `COLLAPSED`, `REFLEXIVE`) and designated pair constraints are actively validated at each transition; legal transitions preserve separation and boundary stability, whereas collapsing or identifying distinct endpoints triggers operational refusal (`Fired.protectionViolation`).
+- **Formal Status:** Lean theorem `Execution.fire_protection_preserved` (`#print axioms: [propext]`).
+- **Empirical Status:** Unit tests in `tests/test_protection.py::test_separated_pair_legal_transition`, `test_separated_pair_violating_collapse_refusal`, and `test_exhaustive_policy_sweep`.
+- **What it supports:** Operational enforcement of protection constraints during execution without relying on passive metadata.
+- **What it does not support:** Automatic generation of satisfying operations.
+- **Narrowest defensible claim:** An operation step advances state if and only if all typed protection obligations and designated pair constraints are satisfied.
+- **Next test needed:** Integration with multi-locus concurrent carrier interactions (Target B).
+
+---
+
+### CL-TA-14: Operational Refusal State Non-Mutation
+- **Statement:** When an operation violates an obligation, designated pair constraint, or encounters edge exhaustion, the interpreter halts with terminal `Terminal.refuse` (`Terminal.REFUSAL`), leaving the machine state completely unmutated across active datum, tape, clock, fuel, and graph.
+- **Formal Status:** Lean theorem `Execution.refusal_preserves_state` (`#print axioms: [propext]`), `Execution.stepDetOf_refuse_protectionViolation` (`#print axioms: [propext]`), and `Execution.stepDetOf_refuse_noEdge` (`#print axioms: [propext]`).
+- **Empirical Status:** Unit tests in `tests/test_protection.py::test_non_mutation_on_all_refusals`.
+- **What it supports:** State non-mutation under operational refusal semantics.
+- **What it does not support:** Rollback of committed external side-effects (the engine has no external side-effects).
+- **Narrowest defensible claim:** If `stepDetOf` yields a terminal refusal, `nextOf` returns the identical state object without modification.
+- **Next test needed:** Compositional transactional chaining across multiple tentative steps.
+
+---
+
+### CL-TA-15: Reflexive Protection Boundary Stability
+- **Statement:** Reflexive protection entries `(x, x)` represent boundary stability (self-protection) rather than separation demands; an operation is accepted if and only if $x \mapsto x$, demonstrating a counterexample to the naive reduction of all protection entries to distinctness checks ($u \ne v$).
+- **Formal Status:** Lean definitions `Execution.ProtectionKind.reflexive` and `Execution.checkObligation`.
+- **Empirical Status:** Unit tests in `tests/test_protection.py::test_reflexive_counterexample_to_naive_separation` and `test_reflexive_boundary_mutation_refusal`.
+- **What it supports:** Discrimination between separation demands and boundary stability in typed protection policies.
+- **What it does not support:** Global topological boundary isolation without explicit reflexive instances.
+- **Narrowest defensible claim:** Reflexive entries enforce invariance of the datum under valid operations and do not reject $x = x$ on initialization.
+- **Next test needed:** Multi-boundary stability under concurrent observer projections.
+
+---
+
 ## 2. Axiom Reliance Summary
 
 | Module | Declaration Count | Axiom-Free | Permitted Axioms (`propext`, `Quot.sound`) | Classical Choice | mathlib |
 |---|---|---|---|---|---|
-| `Execution.lean` | 38 | 15 | 23 (`propext`: 22, `propext, Quot.sound`: 1) | 0 | 0 |
+| `Execution.lean` | 56 | 28 | 28 (`propext`: 27, `propext, Quot.sound`: 1) | 0 | 0 |
 | `Branch.lean` | 12 | 2 | 10 (`propext`: 10) | 0 | 0 |
 | `Memory.lean` | 8 | 0 | 8 (`propext`: 4, `propext, Quot.sound`: 4) | 0 | 0 |
-| **Total** | **58** | **17** | **41** | **0** | **0** |
+| **Total** | **76** | **30** | **46** | **0** | **0** |
+

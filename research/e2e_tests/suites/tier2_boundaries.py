@@ -597,9 +597,9 @@ def test_b16_axiom_census_boundary_contains_only_valid_axioms() -> None:
     import re
     research_dir = E2E_ROOT.parent
 
-    # 1. Inspect evidence receipts across all five target packages
+    # 1. Inspect evidence receipts across all target packages
     receipts = list(research_dir.glob("*/evidence/receipt.json"))
-    assert len(receipts) == 5, f"Expected 5 research receipts, found {len(receipts)}"
+    assert len(receipts) >= 5, f"Expected at least 5 research receipts, found {len(receipts)}"
 
     allowed = {"propext", "Quot.sound"}
     for r in receipts:

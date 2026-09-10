@@ -1,0 +1,23 @@
+name = "m105_number_tower"
+version = "0.1.0"
+defaultTargets = ["NNO", "IntZ", "RatQ", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[require]]
+name = "g011_finitary_substrate"
+path = "../../g011_finitary_substrate/lean"
+
+[[lean_lib]]
+name = "NNO"
+
+[[lean_lib]]
+name = "IntZ"
+
+[[lean_lib]]
+name = "RatQ"
+
+[[lean_lib]]
+name = "Inventory"

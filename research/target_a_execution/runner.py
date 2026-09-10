@@ -53,6 +53,7 @@ class Terminal(Enum):
     HALT = "halt"
     EXHAUSTED = "exhausted"
     REFUSE = "refuse"
+    REFUSAL = "refuse"
     BRANCH = "branch"
 
 
@@ -61,6 +62,45 @@ class Refusal(Enum):
 
     EXHAUSTED = "exhausted"
     NO_EDGE = "noEdge"
+    PROTECTION_VIOLATION = "protectionViolation"
+    MALFORMED_OBLIGATION = "malformedObligation"
+
+
+class ProtectionKind(Enum):
+    """The kind of protection policy.
+
+    - SEPARATED: (u, v) with u != v; must remain distinct across state transitions.
+    - COLLAPSED: (u, v) representing an identified/collapsed pair (u == v), which
+      explicitly fails or refuses under protection evaluation.
+    - REFLEXIVE: (x, x) self-protection / boundary stability; x must map to x (x' == x).
+    """
+
+    SEPARATED = "separated"
+    COLLAPSED = "collapsed"
+    REFLEXIVE = "reflexive"
+
+
+@dataclass(frozen=True)
+class ProtectionObligation:
+    """A typed operational protection obligation (Spec 1504, W03).
+
+    Key properties:
+    - SEPARATED requires u != v.
+    - COLLAPSED represents an identified pair (u == v).
+    - REFLEXIVE requires u == v (self-protection / boundary stability).
+    """
+
+    kind: ProtectionKind
+    u: int
+    v: int
+
+    def __post_init__(self) -> None:
+        if self.u < 0 or self.v < 0:
+            raise ExecutionError("obligation datum must be non-negative")
+        if self.kind == ProtectionKind.REFLEXIVE and self.u != self.v:
+            raise ExecutionError("reflexive obligation must have u == v")
+        if self.kind == ProtectionKind.SEPARATED and self.u == self.v:
+            raise ExecutionError("separated obligation cannot have u == v")
 
 
 @dataclass(frozen=True)
@@ -72,7 +112,7 @@ class Config:
     word: tuple[int, ...]
     active: int
     output: tuple[int, ...]
-    protection_obligations: tuple[int, ...] = ()
+    protection_obligations: tuple[ProtectionObligation, ...] = ()
     designated_pair: tuple[int, int] | None = None
 
 
@@ -99,6 +139,59 @@ def check_word(word: Sequence[int]) -> None:
             raise ExecutionError(f"negative operation index {k} is invalid")
 
 
+def check_obligation(
+    g: Graph, k: int, obl: Any
+) -> ProtectionObligation | Refusal:
+    """Evaluate a protection obligation against operation k and graph g."""
+    if not isinstance(obl, ProtectionObligation):
+        return Refusal.MALFORMED_OBLIGATION
+    if obl.kind == ProtectionKind.SEPARATED:
+        if obl.u == obl.v:
+            return Refusal.PROTECTION_VIOLATION
+        u_nxt = lookup(3 + k, obl.u, g)
+        v_nxt = lookup(3 + k, obl.v, g)
+        if u_nxt is None or v_nxt is None:
+            return Refusal.NO_EDGE
+        if u_nxt == v_nxt:
+            return Refusal.PROTECTION_VIOLATION
+        return ProtectionObligation(ProtectionKind.SEPARATED, u_nxt, v_nxt)
+    elif obl.kind == ProtectionKind.COLLAPSED:
+        # A collapsed pair explicitly refuses when protection distinctness is enforced
+        return Refusal.PROTECTION_VIOLATION
+    elif obl.kind == ProtectionKind.REFLEXIVE:
+        if obl.u != obl.v:
+            return Refusal.MALFORMED_OBLIGATION
+        u_nxt = lookup(3 + k, obl.u, g)
+        if u_nxt is None:
+            return Refusal.NO_EDGE
+        if u_nxt != obl.u:
+            return Refusal.PROTECTION_VIOLATION
+        return ProtectionObligation(ProtectionKind.REFLEXIVE, obl.u, obl.u)
+    return Refusal.MALFORMED_OBLIGATION
+
+
+def check_designated_pair(
+    g: Graph, k: int, dp: Any
+) -> tuple[int, int] | Refusal:
+    """Evaluate designated pair against operation k and graph g."""
+    if not (isinstance(dp, tuple) and len(dp) == 2):
+        return Refusal.MALFORMED_OBLIGATION
+    a, b = dp
+    if not (isinstance(a, int) and isinstance(b, int)):
+        return Refusal.MALFORMED_OBLIGATION
+    if a < 0 or b < 0:
+        return Refusal.MALFORMED_OBLIGATION
+    if a == b:
+        return Refusal.PROTECTION_VIOLATION
+    a_nxt = lookup(3 + k, a, g)
+    b_nxt = lookup(3 + k, b, g)
+    if a_nxt is None or b_nxt is None:
+        return Refusal.NO_EDGE
+    if a_nxt == b_nxt:
+        return Refusal.PROTECTION_VIOLATION
+    return (a_nxt, b_nxt)
+
+
 def step_word(c: Config) -> Config | None:
     """Consume the head operation index k from word, look up edge 3 + k from active, and move."""
     if not c.word:
@@ -108,13 +201,28 @@ def step_word(c: Config) -> Config | None:
     y = lookup(3 + k, c.active, c.graph)
     if y is None:
         return None
+
+    new_dp = c.designated_pair
+    if c.designated_pair is not None:
+        dp_res = check_designated_pair(c.graph, k, c.designated_pair)
+        if isinstance(dp_res, Refusal):
+            return None
+        new_dp = dp_res
+
+    new_obls: list[ProtectionObligation] = []
+    for obl in c.protection_obligations:
+        obl_res = check_obligation(c.graph, k, obl)
+        if isinstance(obl_res, Refusal):
+            return None
+        new_obls.append(obl_res)
+
     return Config(
         c.graph,
         rest,
         y,
         c.output + (y,),
-        c.protection_obligations,
-        c.designated_pair,
+        tuple(new_obls),
+        new_dp,
     )
 
 
@@ -170,6 +278,8 @@ def step_det_of(read: Reader, s: Any, fire_fn: Callable[[Any, int], Any]) -> Ter
     - If read(s) has exactly 1 operation: fires that operation via fire_fn.
       - Refusal.EXHAUSTED -> Terminal.EXHAUSTED
       - Refusal.NO_EDGE -> Terminal.REFUSE
+      - Refusal.PROTECTION_VIOLATION -> Terminal.REFUSE
+      - Refusal.MALFORMED_OBLIGATION -> Terminal.REFUSE
       - State -> returns next State.
     """
     enabled_ops = read(s)
@@ -181,7 +291,11 @@ def step_det_of(read: Reader, s: Any, fire_fn: Callable[[Any, int], Any]) -> Ter
     result = fire_fn(s, op)
     if result is Refusal.EXHAUSTED:
         return Terminal.EXHAUSTED
-    if result is Refusal.NO_EDGE:
+    if result in (
+        Refusal.NO_EDGE,
+        Refusal.PROTECTION_VIOLATION,
+        Refusal.MALFORMED_OBLIGATION,
+    ):
         return Terminal.REFUSE
     return result
 
