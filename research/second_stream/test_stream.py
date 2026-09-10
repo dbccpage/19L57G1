@@ -2321,14 +2321,37 @@ class PinVerifierTests(unittest.TestCase):
         self.assertIn("ci/prose_watchlist.json", joined)
         self.assertIn("contact/analysis/contact_countermodels.json", joined)
 
-    def test_the_two_refusal_tables_are_pinned_as_sources(self) -> None:
-        """Pins: 'the two tables the rung's scans read are pinned, so a
-        committed prune of either fails this verifier instead of silently
-        narrowing a scan.'"""
+    def test_both_refusal_tables_stay_pinned_so_a_prune_still_fails(self) -> None:
+        """Pins: 'a committed prune of either table the rung's scans read
+        fails this verifier instead of silently narrowing a scan.'  The two
+        tables are pinned DIFFERENTLY, and the difference is recorded rather
+        than silent: contact_countermodels.json is a source, checked at the
+        snapshot and at HEAD; ci/prose_watchlist.json is a frozen text,
+        checked at HEAD only, because a later and unrelated rung legitimately
+        grew that shared census past this rung's snapshot.  Both remain
+        pinned, and dropping either from its own list is a population-differs
+        refusal -- which is the anti-narrowing guard, unmoved by the split."""
 
-        paths = {_txt(_obj(row)["path"]) for row in _arr(self.manifest()["sources"])}
-        self.assertIn("ci/prose_watchlist.json", paths)
-        self.assertIn("contact/analysis/contact_countermodels.json", paths)
+        source_paths = {_txt(_obj(row)["path"]) for row in _arr(self.manifest()["sources"])}
+        frozen_paths = {_txt(_obj(row)["path"]) for row in _arr(self.manifest()["frozen_texts"])}
+        self.assertIn("contact/analysis/contact_countermodels.json", source_paths)
+        self.assertIn("ci/prose_watchlist.json", frozen_paths)
+
+        pruned_source = self.manifest()
+        pruned_source["sources"] = [
+            row
+            for row in _arr(pruned_source["sources"])
+            if _txt(_obj(row)["path"]) != "contact/analysis/contact_countermodels.json"
+        ]
+        self.assertIn("source population differs", self.refusal(pruned_source))
+
+        pruned_frozen = self.manifest()
+        pruned_frozen["frozen_texts"] = [
+            row
+            for row in _arr(pruned_frozen["frozen_texts"])
+            if _txt(_obj(row)["path"]) != "ci/prose_watchlist.json"
+        ]
+        self.assertIn("frozen text population differs", self.refusal(pruned_frozen))
 
     def test_source_and_frozen_populations_cannot_shrink(self) -> None:
         payload = self.manifest()
