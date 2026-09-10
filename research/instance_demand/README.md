@@ -1,4 +1,4 @@
-# Instance demand: Stages 1 through 4 checkpoint
+# Instance demand: four-stage construction and its open boundary
 
 AuthorityEffect: None. OB-1 remains **OPEN**. This is a staged construction
 attempt with supplied targets and prior exposure, outside the sealed derivation.
@@ -10,6 +10,8 @@ needs two nonempty rounds, refuting one-pass idempotence for this emitter.
 The output-admission operation and obligation meaning remain host conventions,
 so E1 and OB-1 remain OPEN. Neither Outcome A nor full instance-channel
 impossibility is claimed. Earlier proof and computation payloads remain intact.
+`OBLIGATIONS.md` states the remaining proof targets and distinguishes the literal
+requirement-store condition from the broader instance-channel question.
 
 ## Stage 4 construction and result
 
@@ -286,10 +288,12 @@ records Stage 3 unchanged, including its historical next-stage field.
 `evidence/dynamics.json` records Stage 4; `lean.json` and `verification.json`
 cover all four stages.
 
-This work is a local checkpoint, not a registration in the twelve gate
-families. Full repository integration and a merge decision are later work.
+`research/README.md` lists this package as a local receipt only. Its verifier
+supplements the twelve repository gate families; it is not added to their
+written command census. Publication validation is recorded with the pull
+request. All validation runs locally. The author decides whether to merge.
 
-## Remaining stages
+## Stage record
 
 1. **Stage 1 COMPLETE:** native provenance and singleton/control witnesses.
 2. **Stage 2 COMPLETE:** uniform-closure materialization, conservative replay,
@@ -300,5 +304,6 @@ families. Full repository integration and a merge decision are later work.
 4. **Stage 4 COMPLETE:** finite termination, least closed extension, complete
    replay, two-round chain, functionality counterexample, and clause assessment.
    Native admission and the obligation interpretation remain OPEN.
-5. **Stage 5:** reconcile claims and artifacts, run required local integration
-   checks, and prepare publication when authorized.
+5. **Stage 5 publication package:** preserve the four research stages, register
+   the local verifier, and state the remaining obligations in `OBLIGATIONS.md`.
+   Publication requires the package replay and the repository's local gates.
