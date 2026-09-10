@@ -1,0 +1,11 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "../../code"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["*.py", "tests"]
+mypy_path = ".:../../code"
+explicit_package_bases = true

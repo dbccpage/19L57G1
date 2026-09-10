@@ -1,0 +1,23 @@
+name = "target_b_dynamics"
+version = "0.1.0"
+defaultTargets = ["Limits", "Observe", "Commute", "RationalBounds", "Inventory"]
+
+# The sealed derivation package, consumed read-only.
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "Limits"
+
+[[lean_lib]]
+name = "Observe"
+
+[[lean_lib]]
+name = "Commute"
+
+[[lean_lib]]
+name = "RationalBounds"
+
+[[lean_lib]]
+name = "Inventory"

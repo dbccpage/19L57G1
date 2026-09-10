@@ -1,0 +1,191 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "depth2_ternary_break_ceiling": true,
+    "non_selection_on_forks": true,
+    "retained_records_read": true,
+    "scope": "Finite graph representation and parameterized deterministic execution",
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 17,
+    "reports": {
+      "Branch.CFGState.mk.inj": [],
+      "Branch.CFGState.mk.injEq": [
+        "propext"
+      ],
+      "Branch.CFGState.mk.sizeOf_spec": [],
+      "Branch.branch_deterministic": [
+        "propext"
+      ],
+      "Branch.branch_halt": [
+        "propext"
+      ],
+      "Branch.branch_non_selection": [
+        "propext"
+      ],
+      "Branch.jump_table_lookup": [
+        "propext"
+      ],
+      "Branch.lookupBranch_mem": [
+        "propext"
+      ],
+      "Branch.stepCFG_clock": [
+        "propext"
+      ],
+      "Branch.stepCFG_fork": [
+        "propext"
+      ],
+      "Branch.stepCFG_fuel": [
+        "propext"
+      ],
+      "Branch.stepCFG_ok": [
+        "propext"
+      ],
+      "Execution.Config.mk.inj": [],
+      "Execution.Config.mk.injEq": [
+        "propext"
+      ],
+      "Execution.Config.mk.sizeOf_spec": [],
+      "Execution.Fired.exhausted.sizeOf_spec": [],
+      "Execution.Fired.noEdge.sizeOf_spec": [],
+      "Execution.Fired.ok.inj": [],
+      "Execution.Fired.ok.injEq": [
+        "propext"
+      ],
+      "Execution.Fired.ok.sizeOf_spec": [],
+      "Execution.State.mk.inj": [],
+      "Execution.State.mk.injEq": [
+        "propext"
+      ],
+      "Execution.State.mk.sizeOf_spec": [],
+      "Execution.Terminal.branch.sizeOf_spec": [],
+      "Execution.Terminal.exhausted.sizeOf_spec": [],
+      "Execution.Terminal.halt.sizeOf_spec": [],
+      "Execution.Terminal.ofNat_ctorIdx": [],
+      "Execution.Terminal.refuse.sizeOf_spec": [],
+      "Execution.fire_clock": [
+        "propext"
+      ],
+      "Execution.fire_exhausted": [
+        "propext"
+      ],
+      "Execution.fire_fuel": [
+        "propext"
+      ],
+      "Execution.fire_ok": [
+        "propext"
+      ],
+      "Execution.fire_succ": [
+        "propext"
+      ],
+      "Execution.fire_tape": [
+        "propext"
+      ],
+      "Execution.instDecidableEqTerminal._proof_1": [],
+      "Execution.instDecidableEqTerminal._proof_2": [],
+      "Execution.isEdge_self": [
+        "propext"
+      ],
+      "Execution.isEdge_true": [
+        "propext"
+      ],
+      "Execution.iterate_evalWord": [
+        "propext"
+      ],
+      "Execution.iterate_zero": [
+        "propext"
+      ],
+      "Execution.lookup_isSome": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Execution.lookup_mem": [
+        "propext"
+      ],
+      "Execution.nextOf_tape": [
+        "propext"
+      ],
+      "Execution.run_evalWord": [
+        "propext"
+      ],
+      "Execution.run_nil": [
+        "propext"
+      ],
+      "Execution.stepDetOf_branch": [
+        "propext"
+      ],
+      "Execution.stepDetOf_halt": [
+        "propext"
+      ],
+      "Execution.stepDetOf_inr": [
+        "propext"
+      ],
+      "Execution.step_nil": [
+        "propext"
+      ],
+      "Execution.value_edge": [
+        "propext"
+      ],
+      "Memory.functional2_of_functional1": [
+        "propext"
+      ],
+      "Memory.previous_fire_synced": [
+        "propext"
+      ],
+      "Memory.renabled._proof_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Memory.twist2_not_functional2": [
+        "propext"
+      ],
+      "Memory.twist_functional2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Memory.twist_functional2._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Memory.twist_functional2._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Memory.twist_not_functional1": [
+        "propext"
+      ]
+    },
+    "theorem_count": 58
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 29,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "branch.py": "b429e3330de4f1bed75856a883d5ab03282bcd18d92ed209475630a4041981b3",
+    "control.py": "8f3fb28d5e8c3e135e9710cb104c330e17068c4e196e235bf4a00a72a3ae1c28",
+    "lean/Branch.lean": "3e647a5bd98e60e14105216f623ac77f3febc30a7f51edc1ccdd3a09fd784bbd",
+    "lean/Execution.lean": "24fa6689e7c478f8ae3bad9f850942c587a1375e6de0170895cfeb2f139343bd",
+    "lean/Inventory.lean": "8bd679573e0f27838867712f8e33804e03d2038a14ac1915455d2e40095e82f4",
+    "lean/Memory.lean": "b70de73420f7dc3679b656d35cb0811a72aeeec52e3a1706301b368c156916bf",
+    "memory.py": "1f36e243ca62758de2cf262b23d0acaa84f56238095c7a35407e0af5772b6f7b",
+    "runner.py": "a8eb4c2e5c622e73403ffb126000492958bad18434a8a20cde3b30eddd31e52c",
+    "tests/test_branching.py": "1ed180db1e6ec65e2becda6f926e8354d66fcc2b5f3d62036f00eafe5f50bf6f",
+    "tests/test_control.py": "d3791799b4f9d0267a27cf98915939b2eec183c6a25cbafec96ea062f1134e51",
+    "tests/test_memory.py": "a510624829f6db736e9a4f0462bba7a341b299bfb5138fa5ccad82311081decf",
+    "tests/test_runner.py": "59b3a04e1a49995acfa5b93d3bb6315835e9541ceb8b7b49e94693f5985f21a7",
+    "verify.py": "105b28196b8069eb8521333bc561dba12f6daf7f596b5c694e3568e7ad0909c4"
+  },
+  "status": "PASS",
+  "target": "Target A (Represented Execution Substrate)",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
