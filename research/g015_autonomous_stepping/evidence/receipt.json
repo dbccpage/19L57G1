@@ -4,7 +4,7 @@
     "lean/AutonomousStepping.lean": "f39db06dcd56bdf3ff92fcb74c53439199f4b4bd7a8d387a3389a86a22a5bc7f",
     "lean/Inventory.lean": "0e16a376fe2ac9b00c60b002499834f84b18c98313d08f45dcddd01b301ce3fb",
     "stepping.py": "be006329d5bc1d56881781b026b627ad20dd0f45e156f45f498ede4ac98b58ae",
-    "verify.py": "2e64c1ed5440bf983944fdfd47302cc02c482cac98e60f974d44a691df2f3ab3",
+    "verify.py": "f88b50d8a83e10694840043956f3b671b6ef802f291ad990e8699a1b8fded252",
     "tests/test_stepping.py": "d961d1f312f92e1144fea7d4fa6e95cc51566fb668fc2865299706a8318b41ef"
   },
   "pytest": {
@@ -14,8 +14,22 @@
   },
   "lean": {
     "build_status": "PASS",
-    "theorems_audited": 0,
-    "theorem_details": {}
+    "theorems_audited": 5,
+    "theorem_details": {
+      "G015AutonomousStepping.resource_conservation": [
+        "Quot.sound"
+      ],
+      "G015AutonomousStepping.finite_saturation_steps": [
+        "propext",
+        "Quot.sound"
+      ],
+      "G015AutonomousStepping.finite_saturation_resources": [
+        "propext",
+        "Quot.sound"
+      ],
+      "G015AutonomousStepping.inert_history_quiescent": [],
+      "G015AutonomousStepping.refusal_preserves_state": []
+    }
   },
   "verification_status": "VERIFIED_SOUND"
 }

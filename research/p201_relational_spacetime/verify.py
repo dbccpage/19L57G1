@@ -1,4 +1,4 @@
-"""Verification harness for Target P201/P202 Relational Spacetime, Dimensions & Clocks.
+"""Verification harness for Target P201/P202 Relational Dimensions & Clocks.
 
 Runs:
 1. Source hygiene check (forbids sorry, admit, unsafe, partial, axiom).
@@ -27,10 +27,10 @@ FORBIDDEN_LEAN_TOKENS = re.compile(
     r"\b(?:sorry|admit|unsafe|partial)\b|^\s*axiom\s", re.MULTILINE
 )
 AXIOM_RE = re.compile(
-    r"^info:.*? '(.+?)' depends on axioms: \[(.*?)\]$", re.MULTILINE
+    r"^(?:info:\s*)?'(.+?)' depends on axioms: \[(.*?)\]$", re.MULTILINE
 )
 NO_AXIOM_RE = re.compile(
-    r"^info:.*? '(.+?)' does not depend on any axioms$", re.MULTILINE
+    r"^(?:info:\s*)?'(.+?)' does not depend on any axioms$", re.MULTILINE
 )
 
 
@@ -111,6 +111,9 @@ def run_lean() -> dict[str, Any]:
 
     for name in NO_AXIOM_RE.findall(inv_output):
         theorems[name] = []
+
+    if not theorems:
+        raise RuntimeError(f"No theorem axioms were parsed from Inventory.lean output:\n{inv_output}")
 
     return {
         "build_status": "PASS",

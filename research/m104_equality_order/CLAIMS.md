@@ -24,7 +24,7 @@
 
 1. Does not claim higher homotopy type theory or the univalence axiom for infinite types.
 2. Does not claim infinite continuous spectral orders or general topology on infinite sets.
-3. Does not prove completeness of arbitrary equational theories.
+3. Does not establish completeness of arbitrary equational theories.
 
 ## 3. The narrowest defensible claim
 

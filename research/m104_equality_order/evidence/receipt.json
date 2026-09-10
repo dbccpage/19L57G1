@@ -4,7 +4,7 @@
     "lean/EqualityOrder.lean": "f42895cda2e5608dc3265ef4110ae0d0870435a329951b9eed5256542b09a2db",
     "lean/Inventory.lean": "40f9d485fbe77a1d8660695a256c308062958c2289d36e768fa8ccb6c8cc89dc",
     "equality_order.py": "e4bf9e63c0d8e7184c8e346d7d7449bb862d33ac4af20442858f0124d9b911b9",
-    "verify.py": "0626ca04976671c35e0e2dd9393fe3b1de2c9025343caf4f745f59cdcad7bb61",
+    "verify.py": "2d9e43a55df26f718995803ab1412ea215501dca383a6944e84d5fab3f63062f",
     "tests/test_equality_order.py": "917d8752b1bb90b9516e9ce2fa2b3a105118e8806904243bfdc6bd6ca921ccf1"
   },
   "pytest": {
@@ -14,8 +14,21 @@
   },
   "lean": {
     "build_status": "PASS",
-    "theorems_audited": 0,
-    "theorem_details": {}
+    "theorems_audited": 12,
+    "theorem_details": {
+      "M104EqualityOrder.presentation_implies_defeq": [],
+      "M104EqualityOrder.defeq_implies_propeq_eval": [],
+      "M104EqualityOrder.state_eq_implies_obseq": [],
+      "M104EqualityOrder.defeq_not_implies_presentation": [],
+      "M104EqualityOrder.obseq_not_implies_state_eq": [],
+      "M104EqualityOrder.reach_refl": [],
+      "M104EqualityOrder.reach_trans": [],
+      "M104EqualityOrder.refines_refl": [],
+      "M104EqualityOrder.refines_trans": [],
+      "M104EqualityOrder.cost_refl": [],
+      "M104EqualityOrder.cost_trans": [],
+      "M104EqualityOrder.reachability_not_cost": []
+    }
   },
   "verification_status": "VERIFIED_SOUND"
 }

@@ -15,13 +15,13 @@
 
 ## 2. What it does not support
 
-1. Does not support continuous 4-dimensional pseudo-Riemannian manifolds or general relativity field equations ($G_{\mu\nu} = 8\pi T_{\mu\nu}$); all carrier geometry is strictly discrete and relational.
-2. Does not claim a derivation of quantum time-energy uncertainty relations.
+1. Does not support continuous 4-dimensional manifolds; all carrier geometry is strictly discrete and relational.
+2. Does not claim continuous uncertainty relations.
 3. Does not claim continuous-variable differential calculus.
 
 ## 3. The narrowest defensible claim
 
-Under the declared discrete relational state and clock model, quantities transform covariantly under unit rescaling, dimensionless ratios are gauge-invariant, cross-dimensional operations refuse cleanly, future-test equivalence is a step-congruence, and internal clock gear ratios are exact in $\mathbb{Q}$.
+Under the declared discrete relational state and clock model, quantities transform covariantly under unit rescaling, dimensionless ratios are invariant under calibration choice, cross-dimensional operations refuse cleanly, future-test equivalence is a step-congruence, and internal clock gear ratios are exact in $\mathbb{Q}$.
 
 ## 4. The next test needed
 

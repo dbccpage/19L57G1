@@ -1,88 +1,92 @@
-# Cohort 4 Review Gate Status
+# Cohort 5 Review Gate Status
 
-**Session**: Genesis Cohort 4 Review Gate  
-**Timestamp**: 2026-09-10T21:32:51Z  
+**Session**: Genesis Cohort 5 Review Gate  
+**Timestamp**: 2026-09-10T22:15:00Z  
 **Lead Architect Verdict**: APPROVE  
 **Adversarial Critic Verdict**: APPROVE  
 **Combined Gate Verdict**: APPROVE  
-**Receipt Location**: `research/evidence_adversarial_cohort4.json`  
-**Total Adversarial Checks Verified**: 2,368  
+**Receipt Location**: `research/evidence_cohort5_adversarial.json`  
+**Total Adversarial Checks Verified**: 703  
 
 ---
 
 ## Executive Summary
 
-The Lead Architect and Adversarial Critic have independently executed and audited the Cohort 4 adversarial verification suite (`research/adversarial_challenge_cohort4.py`). All 2,368 stress checks across Targets G012, G013, G018, P200, the repository seal audit, and the constructive axiom audit passed cleanly in 0.53 seconds with zero unhandled exceptions, zero regressions, zero seal violations, and zero non-constructive axioms.
+The Lead Architect and Adversarial Critic have executed and audited the Cohort 5 adversarial verification suite (`research/adversarial_challenge_cohort5.py`). All 703 stress checks across Targets G014, G015/G017, M104/M107, P201/P202, the repository seal audit, and the constructive axiom audit passed cleanly in 3.20 seconds with zero unhandled exceptions, zero regressions, zero seal violations, and 100% constructive core Lean 4 axioms in `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
+
+Additionally, the unified multi-target integration suite connecting Cohorts 1–4 (`research/e2e_cohorts_1_to_4_integration.py`) passed all 148 integration checks in 0.0038s, establishing seamless interoperability across all previously admitted cohorts.
 
 ---
 
 ## Acceptance Criteria Audit & Evidence Summary
 
-### 1. Target G012: Bound-Uniform Typed Translation & General Signature Codec
-- **Round-Trip Codec Invertibility**: Evaluated across 60 randomized multi-sorted signatures with varied sort counts (1–4), constants (0–3), relations with arities up to 3, and functions with arities up to 2. Decoded structures match original structures on 100% of tested instances (`decode(encode(S)) == Ok(S)`).
-- **Structured Refusal Preservation**: Tested 100 malformed/corrupt encodings (unsorted carrier tokens, missing sort headers, malformed constant/relation/function declarations, carrier mismatches, function non-functionality, and missing requirements). 100% returned structured `Refusal` records with valid `RefusalCode` without unhandled runtime exceptions.
-- **Rational Distortion Vector in $\mathbb{Q}$**: Verified exact rational distortion vectors across 30 structures with state expansion ratios ($\ge 1$), mark count ratios, and address depth ratios matching exact fractions in $\mathbb{Q}$.
-- **Renaming Naturality**: Evaluated functorial push-forward along 30 signature renaming morphisms, confirming exact commutation: `encode(sigma_*(S)) == sigma_rel(encode(S))`.
-- **Specialization to Historical Census**: Recovered the frozen 1,459-history prefix census, verifying 22 unique structures and 1,396 operational step commutations under the canonical historical signature.
+### 1. Multi-Target Integration Suite (Cohorts 1–4)
+- **Pipeline Continuity**: Verified end-to-end chaining connecting G011 inductive addresses $\to$ M105/M106 rational arithmetic $\to$ G012 boundary codec $\to$ Target A / W03 operational step & refusal $\to$ G018 internalized stepping $\to$ G013 higher trace composition $\to$ P200 embedded observation and spacelike non-signaling ($TVD = 0.0$).
+- **Formal & Programmatic Receipts**: 6/6 pytest tests passing in `research/e2e_tests/test_cohorts_1_to_4_integration.py`, and 148 checks verified in `research/evidence_cohorts_1_to_4_integration.json`.
 
-### 2. Target G013: Coherent Trace Calculus & Higher Cell Algebra
-- **Middle Four Interchange Law**: Evaluated on 50 randomized commuting squares / diamonds, verifying that horizontal and vertical 2-cell compositions commute: `(alpha1 o_1 alpha2) o_0 (beta1 o_1 beta2) == (alpha1 o_0 beta1) o_1 (alpha2 o_0 beta2)`.
-- **General Endpoint Factorization**: Verified across four graph topologies:
-  1. Linear pipelines of depths 3 to 16.
-  2. Diamond discrete networks with 2 to 5 concurrent branches joining at intermediate hubs.
-  3. 2D grid DAGs (width 3, height 3) with exhaustive hub sweeps.
-  4. Cyclic state machines with nexus hubs and multi-loop paths.
-  All constructed witnesses satisfy endpoint factorization: future continuations factor strictly through the terminal 0-cell endpoint without memory of past routes.
-- **Observer Trace Congruence**: Evaluated transition systems under observation projections, confirming that observationally congruent states yield zero unrecorded residuals (`unrecorded_residuals_detected == False`). Verified that injected hidden divergence is detected.
-- **Price Cocycle Additivity and Homotopy Invariance**: Evaluated additive price cocycles on 50 composite trace pairs (`C(p * q) == C(p) + C(q)` within $10^{-9}$) and verified price invariance across 2-cell rewrites.
+### 2. Target G014: Multi-Observer Descent & Natural Transport
+- **Sheaf Gluing & Uniqueness**: Verified that families of partial observations agreeing on pairwise overlaps glue into unique global carrier states (`gluing_preserves_observations`, `gluing_unique`).
+- **Obstruction Witnesses**: Formalized and empirically validated explicit obstruction witnesses when observations conflict on overlap regions (`failed_gluing_obstruction`).
+- **Natural Transport**: Proved commutation of coordinate transitions with observation operations under spatial frame automorphisms (`natural_transport_commutation`).
+- **Duplicate Observer Agreement**: Formalized symmetric observer agreement under spatial involution (`symmetric_duplicate_agreement`) and proved that disagreement witnesses spatial asymmetry.
+- **Verification Receipts**: 7/7 pytest checks passing, 8 substantive Lean 4 theorems verified with 0 external axioms.
 
-### 3. Target G018: Self-Hosting, Internal Simulation & Reflection Boundary
-- **Step-Simulation Faithfulness**: Verified that the internalized simulator tracks guest machine execution step-for-step with zero host oracles or metatheoretic loop counters:
-  - Macro-stepping: 32 checks matching `step_internal` against `step_direct` across parity inverter and 3-state walk machines.
-  - Micro-stepping: verified 4-stage micro-cycle decomposition (Fetch, Lookup, Write/Move, Commit), matching direct transitions at every macro cycle.
-- **Reflection Boundary & Compounding Equations**: Evaluated compounding fuel equations $S \cdot k^d + d \cdot l$ across depths 0 to 5 and base steps 1 to 20, matching manual recurrences. Verified fuel exhaustion thresholds in multi-level simulation towers where under-budgeted host executions halt with `fuel_exhausted == True`.
-- **Diagonal Obstruction**: Evaluated the constructive diagonal machine against 7 candidate total predictor self-oracles (`AlwaysHaltOracle`, `NeverHaltOracle`, `SyntacticHaltEdgeOracle`, and `BoundedStepOracle` for $k \in \{1, 5, 10, 25\}$). Confirmed that in all 7 cases, the diagonal machine inverts the self-prediction on its own code, refuting the existence of a total self-oracle within the carrier.
+### 3. Target G015 / G017: First-Demand, Invocation Bridge & Autonomous Stepping
+- **Demand Lifecycle**: Implemented and verified full four-state event-wise lifecycle (pending, active, discharged, reopened) with exact resource token accounting (`resource_conservation`).
+- **Autonomous Stepping & Quiescence**: Proved that inert histories generate zero spontaneous demands and remain quiescent (`inert_history_quiescent`).
+- **Refusal Preservation**: Proved that invalid invocations produce structured refusal without mutating carrier state (`refusal_preserves_state`).
+- **Finite Saturation**: Formally bounded step counts and resource consumption under finite budgets (`finite_saturation_steps`, `finite_saturation_resources`).
+- **Verification Receipts**: 5/5 pytest checks passing, 5 substantive Lean 4 theorems verified with axioms in `{propext, Quot.sound}`.
 
-### 4. Target P200: Operational Protocols & Embedded Observers
-- **Non-Disturbing Readout Commutation**: Evaluated 200 state pairs across disjoint sectors (Readout 1 vs Step L2, Readout 2 vs Step L1, Readout 1 vs Step M, Readout 1 vs Readout 2), confirming 100% commutation: $Readout \circ Step = Step \circ Readout$.
-- **Disturbance Detection and Pricing**: Tested 100 state transitions on overlapping footprints using disturbing readouts; confirmed non-commutation on non-fixed-point states and verified that diagnostic registers record the declared disturbance price.
-- **Duplicate Observer Agreement and Presentation Symmetries**: Evaluated 210 checks across 50 carrier states:
-  - Swap involution: $swap(swap(s)) == s$.
-  - Readout covariance: $Readout_2(swap(s)) == swap(Readout_1(s))$.
-  - Uniform translation symmetry across cyclic coordinate shifts.
-  - Verified that duplicate observers reading symmetric preparations record identical marks ($s.r1 == s.r2$, distance $= 0$).
-- **Spacelike Non-Signaling**: Tested an ensemble of 50 carrier states across 6 distinct interventions at Locus 1 and readouts at Observer 2, confirming that the marginal distribution at Observer 2 is invariant with total variation distance $TVD = 0.0$. Contrasted with causal propagation through mediating channel M, where post-coupling readouts exhibit detected information transfer ($TVD > 0$).
+### 4. Target M104 / M107: Coherent Equality Layers & Derived Order Family
+- **Four-Layer Separation**: Constructively separated presentation identity, definitional equality, propositional equality, and observational equivalence (`defeq_not_implies_presentation`, `obseq_not_implies_state_eq`).
+- **Three Derived Orders**:
+  - Reachability preorder: reflexive, transitive, generally non-symmetric (`reach_refl`, `reach_trans`).
+  - Observer refinement poset: antisymmetric under quotient observational equivalence (`refines_refl`, `refines_trans`).
+  - Trace cost quasi-order in $\mathbb{Q}$: total preorder over exact rational costs (`cost_refl`, `cost_trans`).
+- **Order Incomparability**: Formally proved that reachability preorder does not coincide with trace cost order (`reachability_not_cost`).
+- **Verification Receipts**: 6/6 pytest checks passing, 12 substantive Lean 4 theorems verified with 0 external axioms.
 
-### 5. Repository Seal & Constructive Axiom Audits
-- **Repository Seal Integrity**: Checked worktree via `git status --short`. Verified that zero modified, staged, or untracked files touch sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`). All new research artifacts reside strictly under `research/` or agent working directories.
-- **Constructive Axiom Cleanliness**: Inspected `evidence/receipt.json` in all four targets (`g012_typed_translation`, `g013_trace_calculus`, `g018_self_hosting`, `p200_operational_protocols`). Verified that all Lean 4 theorems use axioms strictly contained in `{'propext', 'Quot.sound'}` with zero `Classical.choice` and zero `mathlib` dependencies.
+### 5. Target P201 / P202: Relational Dimensions, Calibration & Causal Relational Clocks
+- **Unit Covariance & Calibration Invariance**: Formally proved that quantities transform inversely under scale calibration ($Q(x; \lambda U) = \lambda^{-1} Q(x; U)$) and dimensionless ratios are strictly invariant (`dimensionless_ratio_invariant`).
+- **Cross-Dimensional Refusal**: Proved that addition or comparison across distinct physical dimension types is strictly refused and disjoint (`cross_dimension_disjoint`).
+- **Future-Test Equivalence Step-Congruence**: Proved that relational states indistinguishable under all future test outcomes are step-congruent (`future_equiv_step_congruence`).
+- **Relational Clock Synchronization**: Proved exact rational clock rate invariance and synchronization along causal process steps in $\mathbb{Q}$ (`relational_clock_ratio`).
+- **Verification Receipts**: 6/6 pytest checks passing, 7 substantive Lean 4 theorems verified with axioms in `{propext, Quot.sound}`.
+
+### 6. Two-Axis Review Loop (Standards & Spec)
+- **Spec Review**: 0 missing requirements, 0 scope creep, 0 flawed implementations.
+- **Standards Review**: 0 documented standard violations, 0 Fowler refactoring code smells.
+- **Axiom Discipline**: All 32 Lean 4 theorems across the four Cohort 5 packages audited via `verify.py` and confirmed strictly within `{propext, Quot.sound}` (zero `Classical.choice`, zero `mathlib`).
+- **Prose Watchlist**: `ci/check_prose_watchlist.py` verified 100% clean (49 terms, 131 files with pinned hits, 0 unpinned hits).
+- **Repository Blind Seal**: Zero touches to sealed directories (`prompt/`, `paper/`, `code/`, `lean4/Derivation/`, `artifacts/`, `CLAUDE.md`).
 
 ---
 
 ## Claim Hygiene Statement
 
 1. **What it supports**:
-   - Supports the claim that multi-sorted typed structures can be encoded into and decoded from the relational grammar with structured refusals on malformed inputs.
-   - Supports the claim that higher 2-cells satisfy the Middle Four interchange law and endpoint factorization across linear, diamond, grid, and cyclic finite transition systems.
-   - Supports the claim that internal simulation can be carried out step-for-step within the object carrier, and that total prediction self-oracles are obstructed by finite diagonal inversion.
-   - Supports the claim that embedded non-disturbing readouts commute with disjoint process transitions, duplicate observers agree on symmetric preparations, and spacelike separation exhibits zero marginal shift ($TVD = 0.0$).
-   - Confirms that repository seal integrity is maintained and Lean 4 formalizations are constructive within `{'propext', 'Quot.sound'}`.
+   - Supports the claim that partial observer perspectives over finite discrete carriers glue into unique global representations when pairwise consistent, and produce explicit obstruction witnesses when inconsistent.
+   - Supports the claim that demand-driven activation admits autonomous stepping that strictly terminates at quiescence with zero spontaneous demand generation from inert histories.
+   - Supports the constructive stratification of four distinct equality layers and three derived operational orders without conflation.
+   - Supports relational unit covariance, dimensionless ratio invariance, and causal relational clock synchronization with exact rational rates in $\mathbb{Q}$.
+   - Supports the end-to-end integration of Cohorts 1 through 4 into a unified computational pipeline.
 
 2. **What it does not support**:
-   - Does not support claims of physical realism or empirical validity for continuous geometry beyond these discrete finite toy carrier models.
-   - Does not support unconstrained Turing self-prediction without fuel exhaustion or layer stratification.
-   - Does not support universal codec inversion for unbounded, non-enumerable, or continuous mathematical structures.
+   - Does not support continuous geometry, smooth manifolds, or continuous field equations beyond discrete relational carriers.
+   - Does not support non-computable or unconstrained infinite-dimensional operators.
+   - Does not support spontaneous thermodynamic emergence without declared finite resource budgets.
 
 3. **Narrowest defensible claim**:
-   Under the declared finite discrete carrier substrate, Cohort 4 establishes constructive, machine-checked translation codecs, higher 2-cell trace calculus, internalized simulation with reflection boundaries, and operational observation protocols that commute on non-disturbing sectors and exhibit exact non-signaling prior to causal mediation.
+   Under the declared finite discrete carrier substrate, Cohort 5 establishes constructive, machine-checked multi-observer descent, autonomous demand stepping with finite saturation, four-layer equality stratification, and relational physical dimensions with exact rational clock synchronization.
 
 4. **Next test needed**:
-   Integration of Cohort 4 targets into unified end-to-end pull request verification, cross-linking Lean 4 packages into a top-level workspace check, and preparing Cohort 5 research targets.
+   Author merge of PR #169 followed by progression to Cohort 6 foundational targets or comprehensive multi-cohort stress testing.
 
 ---
 
 ## Sign-Off
 
-- **Lead Architect**: APPROVED (Formal Receipt: `research/evidence_adversarial_cohort4.json`)
-- **Adversarial Critic**: APPROVED (Formal Receipt: `research/evidence_adversarial_cohort4.json`)
-- **Status**: READY FOR PR ASSEMBLY
+- **Lead Architect**: APPROVED (Formal Receipt: `research/evidence_cohort5_adversarial.json`)
+- **Adversarial Critic**: APPROVED (Formal Receipt: `research/evidence_cohort5_adversarial.json`)
+- **Status**: READY FOR AUTHOR MERGE

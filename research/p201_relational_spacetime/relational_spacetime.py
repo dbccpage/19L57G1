@@ -2,7 +2,7 @@
 
 This module formalizes:
 1. Relational quantities, typed dimensions, and unit covariance.
-2. Exact dimensionless invariants independent of reference calibration gauges.
+2. Exact dimensionless invariants independent of reference calibration standards.
 3. Causal dependency, endogenous succession, and future-test state congruence.
 4. Embedded relational clocks and clock synchronization with exact rational rates in Q.
 5. Prohibition of external time schedulers and illegal cross-dimensional scalarization.
@@ -66,7 +66,7 @@ class PhysicalDimension(Enum):
 
 @dataclass(frozen=True)
 class CalibrationStandard:
-    """An admitted reference gauge fixing a unit of measurement."""
+    """An admitted reference standard fixing a unit of measurement."""
 
     name: str
     dimension: PhysicalDimension

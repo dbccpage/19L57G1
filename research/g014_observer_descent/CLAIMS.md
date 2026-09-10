@@ -16,8 +16,8 @@
 ## 2. What it does not support
 
 1. Does not support infinite-dimensional topological sheaf theory or continuous manifolds; all carriers and observer coverages are strictly finite and discrete.
-2. Does not show that arbitrary physical spacetime manifolds emerge automatically from finite covers without additional geometric constraints.
-3. Does not prove quantum state tomography or non-commuting observable algebras; all observations in this target commute on state readouts.
+2. Does not show that arbitrary continuous manifolds emerge automatically from finite covers without additional geometric constraints.
+3. Does not establish non-commuting observable algebras; all observations in this target commute on state readouts.
 
 ## 3. The narrowest defensible claim
 
