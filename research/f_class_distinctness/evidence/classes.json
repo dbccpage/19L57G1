@@ -1,0 +1,250 @@
+{
+ "authority_effect": "None",
+ "catalog_completeness": "engine enumeration under Bounds(2,2); not this theorem",
+ "f_engine_class_count": 5,
+ "f_engine_labels": [
+  "form1+inst1",
+  "form2+inst2",
+  "form2+inst2",
+  "form2+inst2",
+  "form2+inst2diag"
+ ],
+ "f_fields": {
+  "DiagF": [
+   3,
+   [
+    2
+   ],
+   [
+    [
+     0,
+     [
+      1,
+      1
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     1,
+     2
+    ]
+   ]
+  ],
+  "InF": [
+   3,
+   [
+    2
+   ],
+   [
+    [
+     0,
+     [
+      0,
+      1
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     1,
+     2
+    ]
+   ]
+  ],
+  "LinkF": [
+   3,
+   [
+    2
+   ],
+   [
+    [
+     0,
+     [
+      1,
+      2
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     1,
+     2
+    ]
+   ]
+  ],
+  "MarkF": [
+   3,
+   [
+    1
+   ],
+   [
+    [
+     0,
+     [
+      1
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     1,
+     2
+    ]
+   ]
+  ],
+  "OutF": [
+   3,
+   [
+    2
+   ],
+   [
+    [
+     0,
+     [
+      1,
+      0
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     1,
+     2
+    ]
+   ]
+  ]
+ },
+ "f_rep_to_engine": [
+  {
+   "engine_labels": [
+    "form1+inst1"
+   ],
+   "rep": "MarkF"
+  },
+  {
+   "engine_labels": [
+    "form2+inst2diag"
+   ],
+   "rep": "DiagF"
+  },
+  {
+   "engine_labels": [
+    "form2+inst2"
+   ],
+   "rep": "LinkF"
+  },
+  {
+   "engine_labels": [
+    "form2+inst2"
+   ],
+   "rep": "OutF"
+  },
+  {
+   "engine_labels": [
+    "form2+inst2"
+   ],
+   "rep": "InF"
+  }
+ ],
+ "f_representatives": [
+  "MarkF",
+  "DiagF",
+  "LinkF",
+  "OutF",
+  "InF"
+ ],
+ "l_engine_class_count": 3,
+ "l_engine_labels": [
+  "form1+inst1",
+  "form2+inst2",
+  "form2+inst2diag"
+ ],
+ "l_fields": {
+  "BD": [
+   2,
+   [
+    2
+   ],
+   [
+    [
+     0,
+     [
+      0,
+      0
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     0,
+     1
+    ]
+   ]
+  ],
+  "BL": [
+   2,
+   [
+    2
+   ],
+   [
+    [
+     0,
+     [
+      0,
+      1
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     0,
+     1
+    ]
+   ]
+  ],
+  "U0": [
+   2,
+   [
+    1
+   ],
+   [
+    [
+     0,
+     [
+      0
+     ]
+    ]
+   ],
+   [],
+   [
+    [
+     0,
+     1
+    ]
+   ]
+  ]
+ },
+ "l_pairwise_iso_hits": [],
+ "l_representatives": [
+  "U0",
+  "BL",
+  "BD"
+ ],
+ "lean_theorem": "FClassDistinctness.five_classes_pairwise_noniso",
+ "pairwise_iso_hits": [],
+ "pairwise_noniso": true,
+ "readings_carried": [
+  "L",
+  "F"
+ ],
+ "schema": "f-class-distinctness-v1",
+ "within_class_iso_failures": []
+}
