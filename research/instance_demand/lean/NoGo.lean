@@ -3,13 +3,19 @@ import RepresentedEmitter
 /-!
 Scoped negative for the represented two-edge instance channel.
 
-Class `InClass` is the stored form-0 ternary instruction of Stage 3.
-It does not mention E1, owed-separation, or separability. It is nonempty
-and contains every `Enabled` program's instruction.
+Class `InClass` is stored form-0 ternary instructions. Membership does
+not mention E1, owed-separation, or separability. It is nonempty, and
+every `Enabled` output names a member as its instruction.
 
 E1 here is *native store*: a sealed step writes a new instance without
-being that instance's `admitInst` event. That is the Target 1 item-3
-demand. It is unsatisfiable by `new_stored_instance_needs_event`.
+being that instance's `admitInst`. That is unsatisfiable on the sealed
+grammar (`e1_impossible`), so E1 ∧ E2′ ∧ E3 is unsatisfiable
+independently of class membership. The class is the scope of the ledger
+row, not a hypothesis of the unsat proof.
+
+The in-class E3 failure is unruled emission of the Enabled output, which
+separates its endpoints. The Stage-1 I1 singleton is a different encoding
+and is not a member of this class.
 
 This closes OB-1 negatively for this class only. It does not license a
 general close. Literal `reqs` E2 is not used.
@@ -39,63 +45,41 @@ def E2prime (r : Regime) (e : Event) (i j : Nat) : Prop :=
 def E3 (r : Regime) (i j : Nat) : Prop :=
   ¬ separable r i j
 
-theorem class_nonempty : ∃ r c, InClass r c :=
-  ⟨seed 3 0 2 1 false, (0, [0, 1, 2]), ⟨0, 1, 2, rfl, by simp [seed]⟩⟩
+theorem class_independent_of_coverage :
+    InClass (seed 3 0 2 1 false) (0, [0, 1, 2]) ∧
+    InClass (seed 3 0 2 1 true) (0, [0, 1, 2]) :=
+  ⟨⟨0, 1, 2, rfl, by simp [seed]⟩, ⟨0, 1, 2, rfl, by simp [seed]⟩⟩
 
+theorem class_nonempty : ∃ r c, InClass r c :=
+  ⟨seed 3 0 2 1 false, (0, [0, 1, 2]), class_independent_of_coverage.1⟩
+
+/-- Every Enabled output names a stored form-0 ternary as its instruction. -/
 theorem class_covers_enabled {r : Regime} {i : Inst}
-    (h : Enabled r.insts i) : ∃ c, InClass r c := by
-  rcases h with ⟨k, l, o, _x, _z, _y, hc, _, _, _, _⟩
-  exact ⟨(0, [k, l, o]), ⟨k, l, o, rfl, hc⟩⟩
+    (h : Enabled r.insts i) :
+    ∃ k l o, InClass r (0, [k, l, o]) ∧ i.1 = 3 + o := by
+  rcases h with ⟨k, l, o, _x, _z, _y, hc, _, _, _, hi⟩
+  exact ⟨k, l, o, ⟨k, l, o, rfl, hc⟩, congrArg Prod.fst hi⟩
 
 theorem e1_impossible {r s : Regime} {e : Event} {out : Inst}
     (h : E1 r s e out) : False :=
   h.2.2.2 (new_stored_instance_needs_event h.1 h.2.1 h.2.2.1)
-
-theorem no_member_is_endogenous
-    {r s : Regime} {e : Event} {c out : Inst} {i j : Nat}
-    (_hc : InClass r c)
-    (h : E1 r s e out ∧ E2prime r e i j ∧ E3 r i j) : False :=
-  e1_impossible h.1
-
-theorem shape_uncovered_fails_native_join :
-    Enabled (seed 3 0 2 1 false).insts (5, [0, 1]) ∧
-      ¬ derivable (seed 3 0 2 1 false) (5, [0, 1]) :=
-  native_closure_counterexample
 
 theorem shape_imposed_fails_E2p {r : Regime} {i j : Nat} :
     ¬ E2prime r (Event.impose i j) i j := by
   intro h
   exact h.2 i j rfl
 
-theorem shape_separated_fails_E3 {n x y : Nat}
-    (hne : x ≠ y) (hy : y < n) :
-    ¬ E3 (lone n x y) x y :=
-  fun h => h (lone_pair_separates n x y hne hy)
-
-/-- A seventh constructor that wrote instances without being `admitInst`
-    of the new tuple would sit outside the sealed `Event` type. -/
-theorem missing_operation_is_extension {r s : Regime} {e : Event} {i : Inst}
-    (h : stepE r e = some s) (hi : i ∈ s.insts) (hn : i ∉ r.insts) :
-    e = Event.admitInst i.1 i.2 :=
-  new_stored_instance_needs_event h hi hn
-
-theorem class_contains_seed_instruction :
-    InClass (seed 3 0 2 1 false) (0, [0, 1, 2]) :=
-  ⟨0, 1, 2, rfl, by simp [seed]⟩
-
-theorem covered_seed_instruction :
-    InClass (seed 3 0 2 1 true) (0, [0, 1, 2]) :=
-  ⟨0, 1, 2, rfl, by simp [seed]⟩
+/-- After unruled emission of the Enabled output, the endpoints separate. -/
+theorem shape_unruled_emission_fails_E3 {n x z y : Nat}
+    (hxy : x < y) (hyn : y < n) :
+    ¬ E3 (emit (seed n x z y false)) x y :=
+  fun h => h (unruled_emission_separates n x z y hxy hyn)
 
 end InstanceDemand.NoGo
 
+#print axioms InstanceDemand.NoGo.class_independent_of_coverage
 #print axioms InstanceDemand.NoGo.class_nonempty
 #print axioms InstanceDemand.NoGo.class_covers_enabled
 #print axioms InstanceDemand.NoGo.e1_impossible
-#print axioms InstanceDemand.NoGo.no_member_is_endogenous
-#print axioms InstanceDemand.NoGo.shape_uncovered_fails_native_join
 #print axioms InstanceDemand.NoGo.shape_imposed_fails_E2p
-#print axioms InstanceDemand.NoGo.shape_separated_fails_E3
-#print axioms InstanceDemand.NoGo.missing_operation_is_extension
-#print axioms InstanceDemand.NoGo.class_contains_seed_instruction
-#print axioms InstanceDemand.NoGo.covered_seed_instruction
+#print axioms InstanceDemand.NoGo.shape_unruled_emission_fails_E3

@@ -657,33 +657,20 @@
     "InstanceDemand.Emitter.unruled_output_not_derivable": [
       "propext"
     ],
-    "InstanceDemand.NoGo.class_contains_seed_instruction": [
-      "propext"
-    ],
     "InstanceDemand.NoGo.class_covers_enabled": [],
-    "InstanceDemand.NoGo.class_nonempty": [
+    "InstanceDemand.NoGo.class_independent_of_coverage": [
       "propext"
     ],
-    "InstanceDemand.NoGo.covered_seed_instruction": [
+    "InstanceDemand.NoGo.class_nonempty": [
       "propext"
     ],
     "InstanceDemand.NoGo.e1_impossible": [
       "propext"
     ],
-    "InstanceDemand.NoGo.missing_operation_is_extension": [
-      "propext"
-    ],
-    "InstanceDemand.NoGo.no_member_is_endogenous": [
-      "propext"
-    ],
     "InstanceDemand.NoGo.shape_imposed_fails_E2p": [
       "propext"
     ],
-    "InstanceDemand.NoGo.shape_separated_fails_E3": [
-      "Quot.sound",
-      "propext"
-    ],
-    "InstanceDemand.NoGo.shape_uncovered_fails_native_join": [
+    "InstanceDemand.NoGo.shape_unruled_emission_fails_E3": [
       "Quot.sound",
       "propext"
     ],
@@ -756,5 +743,5 @@
     ]
   },
   "stage": 4,
-  "theorem_count_including_generated": 215
+  "theorem_count_including_generated": 211
 }

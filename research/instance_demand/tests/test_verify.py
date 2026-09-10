@@ -63,6 +63,11 @@ class VerificationControls(unittest.TestCase):
             verify.check_coverage(payload)
         payload["files"] = measured
         self.assertEqual(verify.check_coverage(payload), (100.0, 100.0))
+        relative = {name: measured[str(verify.ROOT / name)]
+                    for name in ("probe.py", "materialize.py", "emitter.py", "dynamics.py")}
+        payload["files"] = relative
+        self.assertEqual(verify.check_coverage(payload), (100.0, 100.0))
+        payload["files"] = measured
         for key in ("covered_lines", "covered_branches"):
             measured[str(verify.ROOT / "dynamics.py")]["summary"][key] = 94
             with self.assertRaisesRegex(ValueError, "COVERAGE_FILE"):

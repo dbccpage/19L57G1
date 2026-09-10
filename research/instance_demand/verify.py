@@ -117,12 +117,17 @@ def command(argv: list[str], cwd: Path = ROOT) -> str:
     return result.stdout + result.stderr
 
 
+def coverage_file_path(name: str) -> Path:
+    """Resolve a coverage.json path against this package, not process cwd."""
+    path = Path(name)
+    if path.is_absolute():
+        return path.resolve()
+    return (ROOT / path.name).resolve()
+
+
 def check_coverage(payload: Any) -> tuple[float, float]:
     files = payload["files"]
-    def cov_path(name: str) -> Path:
-        path = Path(name)
-        return path.resolve() if path.is_absolute() else (ROOT / path.name).resolve()
-    if {cov_path(name) for name in files} != {
+    if {coverage_file_path(name) for name in files} != {
             (ROOT / "probe.py").resolve(), (ROOT / "materialize.py").resolve(),
             (ROOT / "emitter.py").resolve(), (ROOT / "dynamics.py").resolve()}:
         raise ValueError("COVERAGE_POPULATION")
@@ -212,7 +217,7 @@ def verify(lake: str, write: bool) -> None:
         elif not path.is_file() or path.read_bytes() != raw:
             raise ValueError("EVIDENCE_DIFFERS: " + name)
     print(f"PASS Stages 1-4: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
-          f"{len(reports)} theorem reports. OB-1 remains OPEN.")
+          f"{len(reports)} theorem reports. OB-1 remains OPEN outside InClass.")
 
 
 def main() -> int:

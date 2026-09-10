@@ -11,9 +11,10 @@ Stage 4 proves finite termination of repeated emission under the explicitly
 declared host admission procedure. It reaches the least closed extension by
 instance membership on unchanged data and forms. A reachable four-data chain
 needs two nonempty rounds, refuting one-pass idempotence for this emitter.
-The output-admission operation and obligation meaning remain host conventions,
-so E1 and OB-1 remain OPEN. Neither Outcome A nor full instance-channel
-impossibility is claimed. Earlier proof and computation payloads remain intact.
+The output-admission operation and obligation meaning remain host conventions.
+E1 as native store is unsatisfiable on the sealed grammar, and that is the
+scoped negative for `InClass`; E1 and OB-1 remain OPEN outside that class.
+Neither Outcome A nor full instance-channel impossibility is claimed. Earlier proof and computation payloads remain intact.
 `OBLIGATIONS.md` states the remaining proof targets and distinguishes the literal
 requirement-store condition from the broader instance-channel question.
 
@@ -79,13 +80,13 @@ chain; this is not a new unmet-demand witness. Both controls remain scoped.
 
 | Clause | Stage 4 assessment |
 |---|---|
-| E1 | OPEN: native production of the admission event and obligation meaning remain unproved. |
+| E1 | Closed negatively for `InClass` (native store without `admitInst` is unsatisfiable). OPEN outside that class: host emitters and other encodings remain. |
 | Literal E2 | Not satisfied: `reqs` is unchanged at every round. |
 | Owed-separation E2 | Conditional covered payloads; their obligation role is declared. |
 | E3 | The earlier unruled singleton fails after emission. The covered chain stays collapsed; its payload was already derivable. |
 | E4 | Covered terminal chain and earlier reading samples have proved valid responses and whole-history replay. |
 | Dynamics | Termination proved for repeated emission on fixed data/forms with no intervening events. |
-| Outcome | OB-1 OPEN. This candidate does not establish Outcome A or a general impossibility. |
+| Outcome | OB-1 OPEN outside `InClass`. This candidate does not establish Outcome A or a general impossibility. |
 
 ## Stage 3 construction and result
 
