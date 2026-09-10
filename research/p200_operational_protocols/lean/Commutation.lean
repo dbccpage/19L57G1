@@ -3,7 +3,7 @@ import Protocol
 /-!
 # Readout-to-Step Commutation
 
-Proves:
+Establishes:
 1. `readout_step_commutation`:
    On non-disturbing sectors (disjoint carrier footprints), embedded observer
    readout commutes with autonomous carrier step transitions:
@@ -62,6 +62,24 @@ theorem readout1_stepM_commutation (probe : Nat → Nat) (h : Nat → Nat) :
     Commutes (readout1 probe) (stepM h) := by
   intro s
   rfl
+
+/-- Operational replay of an arbitrary finite list of autonomous process steps at Locus 1. -/
+def replayL1 : List (Nat → Nat) → CarrierState → CarrierState
+  | [], s => s
+  | f :: fs, s => replayL1 fs (stepL1 f s)
+
+/-- **Protocol-to-Replay Commutation Theorem.**
+    Non-disturbing readout of Locus 2 into R2 commutes with any sequential
+    replay of autonomous process steps at Locus 1. -/
+theorem readout_replayL1_commutation (probe : Nat → Nat) (fs : List (Nat → Nat)) (s : CarrierState) :
+    readout2 probe (replayL1 fs s) = replayL1 fs (readout2 probe s) := by
+  induction fs generalizing s with
+  | nil => rfl
+  | cons f fs ih =>
+    dsimp [replayL1]
+    have h_comm : readout2 probe (stepL1 f s) = stepL1 f (readout2 probe s) := rfl
+    rw [← h_comm]
+    exact ih (stepL1 f s)
 
 /-- Concrete step modifying Locus 1 by incrementing coordinate. -/
 def concreteStepL1 (s : CarrierState) : CarrierState :=

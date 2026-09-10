@@ -31,6 +31,33 @@ theorem reflection_fuel_closed_form (d baseSteps : Nat) :
     rw [ih]
     omega
 
+/-- Exact closed-form for reflection fuel with linear overhead (overhead = 1, arbitrary layerCost). -/
+theorem reflection_fuel_closed_form_linear (d baseSteps layerCost : Nat) :
+    reflectionFuelRequired d baseSteps 1 layerCost = baseSteps + d * layerCost := by
+  induction d with
+  | zero =>
+    dsimp [reflectionFuelRequired]
+    omega
+  | succ d ih =>
+    dsimp [reflectionFuelRequired]
+    rw [ih]
+    rw [Nat.succ_mul]
+    omega
+
+/-- Decoupled compounding fuel equation S * k^d + d * l. -/
+def decoupledCompoundingFuel (d baseSteps overhead layerCost : Nat) : Nat :=
+  baseSteps * (overhead ^ d) + d * layerCost
+
+/-- For unit step overhead (overhead = 1), decoupled compounding fuel coincides
+    with recursive reflection fuel for any layerCost. -/
+theorem decoupled_compounding_eq_recursive_linear (d baseSteps layerCost : Nat) :
+    decoupledCompoundingFuel d baseSteps 1 layerCost = reflectionFuelRequired d baseSteps 1 layerCost := by
+  rw [reflection_fuel_closed_form_linear]
+  dsimp [decoupledCompoundingFuel]
+  have : (1 : Nat) ^ d = 1 := Nat.one_pow d
+  rw [this]
+  omega
+
 /-- Monotonicity of reflection fuel requirement in depth. -/
 theorem reflection_fuel_monotone (d baseSteps overhead layerCost : Nat)
     (h_ov : overhead ≥ 1) (h_lc : layerCost ≥ 1) :

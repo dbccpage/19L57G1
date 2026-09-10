@@ -39,19 +39,30 @@ class FunctionSymbol:
 
 
 @dataclass(frozen=True)
+class ObserverSymbol:
+    """An observer projection symbol declared with target sort and record sort."""
+
+    name: str
+    target_sort: str
+    record_sort: str
+
+
+@dataclass(frozen=True)
 class Signature:
-    """Multi-sorted signature with constants, relations, and functions."""
+    """Multi-sorted signature with constants, relations, functions, and observers."""
 
     sorts: tuple[str, ...]
     constants: tuple[ConstantSymbol, ...] = ()
     relations: tuple[RelationSymbol, ...] = ()
     functions: tuple[FunctionSymbol, ...] = ()
+    observers: tuple[ObserverSymbol, ...] = ()
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "sorts", tuple(sorted(self.sorts)))
         object.__setattr__(self, "constants", tuple(sorted(self.constants, key=lambda c: c.name)))
         object.__setattr__(self, "relations", tuple(sorted(self.relations, key=lambda r: r.name)))
         object.__setattr__(self, "functions", tuple(sorted(self.functions, key=lambda f: f.name)))
+        object.__setattr__(self, "observers", tuple(sorted(self.observers, key=lambda o: o.name)))
         self.validate()
 
     def validate(self) -> None:
@@ -88,6 +99,16 @@ class Signature:
                     raise ValueError(f"Function '{f.name}' references unknown argument sort '{s}'")
             if f.target_sort not in sort_set:
                 raise ValueError(f"Function '{f.name}' references unknown target sort '{f.target_sort}'")
+
+        # Observers unique and sorts valid
+        obs_names = [o.name for o in self.observers]
+        if len(obs_names) != len(set(obs_names)):
+            raise ValueError(f"Duplicate observers in signature: {obs_names}")
+        for o in self.observers:
+            if o.target_sort not in sort_set:
+                raise ValueError(f"Observer '{o.name}' references unknown target sort '{o.target_sort}'")
+            if o.record_sort not in sort_set:
+                raise ValueError(f"Observer '{o.name}' references unknown record sort '{o.record_sort}'")
 
     def get_sort(self, name: str) -> str:
         if name not in self.sorts:

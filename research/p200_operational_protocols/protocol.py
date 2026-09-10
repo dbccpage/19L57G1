@@ -3,7 +3,7 @@
 Defines:
 - Multi-locus carrier state: target physical loci, mediating channels,
   and embedded observer record registers.
-- Footprints and Bernstein disjointness.
+- Footprints and disjoint access conditions.
 - Operational protocol stages:
   1. Preparations (initializing state regions)
   2. Interventions (local perturbations at designated loci)
@@ -34,6 +34,17 @@ class Locus(Enum):
 
 
 @dataclass(frozen=True)
+class CapacityBounds:
+    """Bounded coordinate capacity limits."""
+
+    n1: int
+    n2: int
+    nm: int
+    nr1: int
+    nr2: int
+
+
+@dataclass(frozen=True)
 class CarrierState:
     """Discrete state of the multi-locus carrier."""
 
@@ -44,8 +55,19 @@ class CarrierState:
     r2: int = 0
     dist: int = 0
 
-    def is_valid(self, n1: int, n2: int, nm: int, nr1: int, nr2: int) -> bool:
+    def is_valid(
+        self,
+        n1: int | None = None,
+        n2: int | None = None,
+        nm: int | None = None,
+        nr1: int | None = None,
+        nr2: int | None = None,
+        bounds: CapacityBounds | None = None,
+    ) -> bool:
         """Check whether coordinates satisfy capacity limits."""
+        if bounds is not None:
+            n1, n2, nm, nr1, nr2 = bounds.n1, bounds.n2, bounds.nm, bounds.nr1, bounds.nr2
+        assert n1 is not None and n2 is not None and nm is not None and nr1 is not None and nr2 is not None
         return (
             0 <= self.l1 < n1
             and 0 <= self.l2 < n2
@@ -54,6 +76,38 @@ class CarrierState:
             and 0 <= self.r2 < nr2
             and self.dist >= 0
         )
+
+    def read_locus(self, locus: Locus) -> int:
+        """Read value at specified locus without reflection."""
+        if locus == Locus.L1:
+            return self.l1
+        elif locus == Locus.L2:
+            return self.l2
+        elif locus == Locus.M:
+            return self.m
+        elif locus == Locus.R1:
+            return self.r1
+        elif locus == Locus.R2:
+            return self.r2
+        elif locus == Locus.DIST:
+            return self.dist
+        raise ValueError(f"Unknown locus: {locus}")
+
+    def with_update(self, locus: Locus, value: int) -> CarrierState:
+        """Return updated state at target locus without external dictionary mutation."""
+        if locus == Locus.L1:
+            return CarrierState(l1=value, l2=self.l2, m=self.m, r1=self.r1, r2=self.r2, dist=self.dist)
+        elif locus == Locus.L2:
+            return CarrierState(l1=self.l1, l2=value, m=self.m, r1=self.r1, r2=self.r2, dist=self.dist)
+        elif locus == Locus.M:
+            return CarrierState(l1=self.l1, l2=self.l2, m=value, r1=self.r1, r2=self.r2, dist=self.dist)
+        elif locus == Locus.R1:
+            return CarrierState(l1=self.l1, l2=self.l2, m=self.m, r1=value, r2=self.r2, dist=self.dist)
+        elif locus == Locus.R2:
+            return CarrierState(l1=self.l1, l2=self.l2, m=self.m, r1=self.r1, r2=value, dist=self.dist)
+        elif locus == Locus.DIST:
+            return CarrierState(l1=self.l1, l2=self.l2, m=self.m, r1=self.r1, r2=self.r2, dist=value)
+        raise ValueError(f"Unknown locus: {locus}")
 
     def to_tuple(self) -> Tuple[int, int, int, int, int, int]:
         return (self.l1, self.l2, self.m, self.r1, self.r2, self.dist)
@@ -67,7 +121,7 @@ class Footprint:
     writes: frozenset[Locus]
 
     def is_disjoint(self, other: Footprint) -> bool:
-        """Check Bernstein disjointness conditions:
+        """Check disjoint access conditions:
 
         1. No write-write conflict: writes & other.writes == empty
         2. No read-write conflict: reads & other.writes == empty
@@ -171,32 +225,37 @@ class MeasurementInstrument:
 
     def execute(self, s: CarrierState) -> CarrierState:
         """Execute instrument readout on carrier state."""
-        target_val = int(getattr(s, self.target_locus.name.lower()))
+        target_val = s.read_locus(self.target_locus)
         measured_val = self.probe_fn(target_val)
 
-        new_l1 = s.l1
-        new_l2 = s.l2
-        new_dist = s.dist
-
+        curr = s
         if self.is_disturbing and self.disturb_fn is not None:
             disturbed_val = self.disturb_fn(target_val)
-            if self.target_locus == Locus.L1:
-                new_l1 = disturbed_val
-            elif self.target_locus == Locus.L2:
-                new_l2 = disturbed_val
-            new_dist += self.disturbance_cost
+            curr = curr.with_update(self.target_locus, disturbed_val)
+            curr = curr.with_update(Locus.DIST, curr.dist + self.disturbance_cost)
 
-        new_r1 = measured_val if self.record_locus == Locus.R1 else s.r1
-        new_r2 = measured_val if self.record_locus == Locus.R2 else s.r2
+        return curr.with_update(self.record_locus, measured_val)
 
-        return CarrierState(
-            l1=new_l1,
-            l2=new_l2,
-            m=s.m,
-            r1=new_r1,
-            r2=new_r2,
-            dist=new_dist,
-        )
+    def readout(self, s: CarrierState) -> CarrierState:
+        """Alias for execute to support readout calling convention."""
+        return self.execute(s)
+
+
+def create_non_disturbing_readout(
+    target_locus: Locus,
+    record_locus: Locus,
+    probe_fn: Callable[[int], int] = lambda x: x,
+    name: str = "readout",
+) -> MeasurementInstrument:
+    """Factory creating a non-disturbing measurement instrument."""
+    return MeasurementInstrument(
+        name=name,
+        target_locus=target_locus,
+        record_locus=record_locus,
+        probe_fn=probe_fn,
+        is_disturbing=False,
+    )
+
 
 
 def non_disturbing_readout_1(

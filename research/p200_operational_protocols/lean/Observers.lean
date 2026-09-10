@@ -3,7 +3,7 @@ import Protocol
 /-!
 # Duplicate Embedded Observers and Symmetry Relations
 
-Proves:
+Establishes:
 1. Presentation symmetries:
    Swap involution exchanging Observer 1 (L1, R1) and Observer 2 (L2, R2).
 2. Equivariance / Covariance:

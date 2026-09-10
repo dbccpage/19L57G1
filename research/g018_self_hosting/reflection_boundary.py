@@ -36,10 +36,12 @@ class ReflectionResult:
 def compute_fuel_required(depth: int, base_steps: int, overhead_per_step: int = 1, layer_overhead: int = 1) -> int:
     """Compute exact host fuel needed to simulate `base_steps` through a tower of `depth` evaluators.
 
-    For an evaluator tower of depth d:
+    Evaluator tower layer recurrence:
       Level 0: Guest runs for S steps.
       Level 1: Evaluator requires S * overhead + layer_overhead steps.
-      Level d: Compounding requirement: S * (overhead)^d + d * layer_overhead.
+      Level d: Compounding recurrence: F(0) = S, F(d) = F(d-1) * overhead + layer_overhead.
+               When overhead = 1, this evaluates exactly to the closed form: S + d * layer_overhead.
+               When overhead > 1, this compounds geometrically: S * k^d + l * (k^d - 1) / (k - 1).
     """
     if depth <= 0:
         return base_steps
@@ -47,6 +49,13 @@ def compute_fuel_required(depth: int, base_steps: int, overhead_per_step: int = 
     for _ in range(depth):
         fuel = fuel * overhead_per_step + layer_overhead
     return fuel
+
+
+def decoupled_compounding_fuel(depth: int, base_steps: int, overhead_per_step: int = 1, layer_overhead: int = 1) -> int:
+    """Compute decoupled compounding fuel: S * (overhead)^d + d * layer_overhead."""
+    if depth <= 0:
+        return base_steps
+    return base_steps * (overhead_per_step ** depth) + depth * layer_overhead
 
 
 def max_reflection_depth(available_fuel: int, base_steps: int, overhead_per_step: int = 1, layer_overhead: int = 1) -> int:

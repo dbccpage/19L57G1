@@ -119,3 +119,18 @@ def test_disturbance_causes_commutation_failure() -> None:
     assert receipt.interfering
     assert receipt.disturbance_cost == 1
     assert receipt.diagnostic_mark == 1
+
+
+def test_replay_commutation_witness() -> None:
+    """Verify sequential protocol replay commutation on non-disturbing sectors."""
+    from commutation import replay_commutation_witness, create_step_l1
+    from protocol import create_non_disturbing_readout
+
+    s = CarrierState(l1=5, l2=3, m=0, r1=0, r2=0, dist=0)
+    steps = [
+        create_step_l1("step1", lambda x: x + 1),
+        create_step_l1("step2", lambda x: x * 2),
+        create_step_l1("step3", lambda x: x - 3),
+    ]
+    readout_l2 = create_non_disturbing_readout(Locus.L2, Locus.R2, probe_fn=lambda x: x * 10)
+    assert replay_commutation_witness(s, steps, readout_l2)

@@ -5,10 +5,10 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_theorems": 55,
+    "axiom_free_theorems": 57,
     "disallowed_axioms_detected": [],
     "status": "PASS",
-    "total_theorems": 63
+    "total_theorems": 65
   },
   "schema_version": 1,
   "source_hashes": {
@@ -17,7 +17,7 @@
     "higher_cell.py": "6f43daa653f03ff2400db6b7c593fa6052d947da76beeff149fe5ec2b14cd1de",
     "lean/Congruence.lean": "6ca0e539076097e26e7a89a8421dbc356ee6f735b63ed1cd60fbb16daa79ac07",
     "lean/Factorization.lean": "26d40c4e6c0a0336ad10e9843316ee79f22b178c9d5c6c652fad557f46f812b4",
-    "lean/HigherCell.lean": "edba31708cb496bbb1838d6028f7725fb0c9823a8fd694cfcc7d2290d11f228e",
+    "lean/HigherCell.lean": "49839ef0985c9603498e1ad7e28d3bf1bcabdfa7bca2f05be73b9ff2c0d3a007",
     "lean/Inventory.lean": "b614ae10646c2ed6e77df2748dc5af6ca3acd92dcb5280bf3e4faab40a77c1cb",
     "lean/Price.lean": "0f34a604e88e89c9962f9c1c24acb03a915da3b629013e8d7866b1b1b2b39879",
     "lean/Trace.lean": "284ab9743d7922096389fbcb19e66346e11438470f97853822ddae66c502c04f",
@@ -56,6 +56,7 @@
     "G013TraceCalculus.Cell2.trans.inj",
     "G013TraceCalculus.Cell2.trans.injEq",
     "G013TraceCalculus.Cell2.trans.sizeOf_spec",
+    "G013TraceCalculus.EqCell2.brecOn",
     "G013TraceCalculus.GuardedSystem.mk.inj",
     "G013TraceCalculus.GuardedSystem.mk.injEq",
     "G013TraceCalculus.GuardedSystem.mk.sizeOf_spec",
@@ -83,6 +84,7 @@
     "G013TraceCalculus.interchange_target_coherence",
     "G013TraceCalculus.length_concat",
     "G013TraceCalculus.length_nil",
+    "G013TraceCalculus.middle_four_interchange_equiv",
     "G013TraceCalculus.nil_concat",
     "G013TraceCalculus.observer_congruent_immediate",
     "G013TraceCalculus.observer_congruent_refl",
@@ -105,7 +107,7 @@
     "G013TraceCalculus.sourceOf_concat",
     "G013TraceCalculus.targetOf_concat"
   ],
-  "timestamp_utc": "2026-09-10T21:42:36.587978+00:00",
+  "timestamp_utc": "2026-09-10T21:52:56.155012+00:00",
   "title": "Coherent Trace Calculus & Higher Cell Algebra",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

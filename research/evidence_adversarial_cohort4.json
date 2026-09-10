@@ -1,10 +1,10 @@
 {
-  "timestamp_utc": "2026-09-10T21:42:09Z",
+  "timestamp_utc": "2026-09-10T21:53:05Z",
   "verdict": "APPROVE",
   "lead_architect_verdict": "APPROVE",
   "adversarial_critic_verdict": "APPROVE",
   "total_checks": 2368,
-  "elapsed_seconds": 0.3875,
+  "elapsed_seconds": 0.3313,
   "target_breakdown": {
     "g012_typed_translation": {
       "structured_refusal_corrupt_encodings": 100,

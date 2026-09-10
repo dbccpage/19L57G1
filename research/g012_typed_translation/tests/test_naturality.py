@@ -162,3 +162,25 @@ def test_distortion_vector_invariant_under_renaming() -> None:
     renamed_distortion = compute_distortion(renamed_struct)
 
     assert orig_distortion == renamed_distortion
+
+
+def test_parameterized_address_depth() -> None:
+    """Verify distortion calculation with parameterized address depths."""
+    sig = Signature(
+        sorts=("A",),
+        relations=(RelationSymbol("R", ("A", "A")),),
+    )
+    struct = TypedStructure.create(
+        sig,
+        carriers={"A": ["a1", "a2"]},
+        relations={"R": [("a1", "a2")]},
+    )
+    # max arity = 2, struct_depth = 3
+    d3 = compute_distortion(struct, address_depth=3)
+    assert d3.address_depth_ratio == Fraction(3, 3)
+
+    d5 = compute_distortion(struct, address_depth=5)
+    assert d5.address_depth_ratio == Fraction(5, 3)
+
+    d1 = compute_distortion(struct, address_depth=1)
+    assert d1.address_depth_ratio == Fraction(1, 3)

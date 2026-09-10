@@ -5,7 +5,7 @@ import Signature
 
 Constructive encoder and decoder mapping between typed finite structures
 and the five-part relational carrier (data, forms, insts, rules, reqs).
-Proves exact round-trip invertibility, structured refusal preservation,
+Establishes exact round-trip invertibility, structured refusal preservation,
 and operational transition commutation.
 
 AuthorityEffect: None.

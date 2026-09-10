@@ -16,7 +16,7 @@
       "Quot.sound",
       "propext"
     ],
-    "axiom_free_count": 48,
+    "axiom_free_count": 49,
     "reports": {
       "P200OperationalProtocols.CarrierState.ext": [],
       "P200OperationalProtocols.CarrierState.ext_iff": [],
@@ -66,6 +66,7 @@
       "P200OperationalProtocols.readout2_preserves_r1": [],
       "P200OperationalProtocols.readout2_stepM_commutation": [],
       "P200OperationalProtocols.readout2_swap": [],
+      "P200OperationalProtocols.readout_replayL1_commutation": [],
       "P200OperationalProtocols.readout_step_commutation": [],
       "P200OperationalProtocols.record1_preserves_target": [],
       "P200OperationalProtocols.record2_preserves_target": [],
@@ -78,28 +79,28 @@
       "P200OperationalProtocols.swap_preserves_m": [],
       "P200OperationalProtocols.swap_symmetric_eq": []
     },
-    "theorem_count": 51
+    "theorem_count": 52
   },
   "pytest": {
     "exit_code": 0,
-    "passed": 22,
+    "passed": 23,
     "status": "PASS"
   },
   "schema_version": 1,
   "source_hashes": {
-    "commutation.py": "d0114ae18df8444e17f4f828a521227165358c30bd5fe0f070009e1e0d5f2d3d",
+    "commutation.py": "ea1e303972f29e5271ac8f539955d315d55d186f3251439573ae637a934ea7f2",
     "embedded_observer.py": "2d6e972dea770789f94ad3db805013046383646004e18dafb65f32da9eca158a",
-    "lean/Commutation.lean": "0d843293a46da1601a863ae8e377c2c344e6940a5b5d3ccbeb27ea1bbd0ff3be",
-    "lean/Inventory.lean": "215be5d1a0f59ec46ea0629b0c6702a9bbad89268752288b81b3c44d08bf7525",
-    "lean/NonSignaling.lean": "d652b80047af0a79e2a458235e4e01af5867c2e94c988fed0d7c3ea4efc7c2e0",
-    "lean/Observers.lean": "e2396a5bdb5ffccd3fd8a134048189516aab8c23584021e973f96a9c85b00440",
+    "lean/Commutation.lean": "254287d7a3382063280fe6bf656686357cea1b7053c758aaeaa4960aef9871f3",
+    "lean/Inventory.lean": "775239f9b6238c3e10f9136992fa3f27150e7c80e2faa6dac3c5357a38668a41",
+    "lean/NonSignaling.lean": "ef1ded1b9b53bc6e8bfdc5b256dac89bf3544ade393d9be05297a136f5f4046d",
+    "lean/Observers.lean": "4abc53f0930d7348fea6326cdb174fc170e54d688349bc668ade0ff8e705dd3d",
     "lean/Protocol.lean": "f185837f09f0cea49d8354d4179ceacb526888c4458ad2c956dec535933cbe30",
-    "non_signaling.py": "48651a98a4d736951af782eead6257a3f5a23e8db74db7cf8bc9c7c54169990f",
-    "protocol.py": "514720bf48b735b63a248b8857c4567509b6fd85cfd5e1232bb837fbea7c1a98",
-    "tests/test_commutation.py": "964672008948d02f5660c4633721fbd4137769b9427d7b71dde00d38932c33f1",
+    "non_signaling.py": "f022821eeb1b8cc179edf786de9680af74f0893e696cecf9db8e750e336c2c56",
+    "protocol.py": "d33182daa3b0b34cf5e52a4dc0b1a36dbfb5f0b4e06b6430fd6c2a867f6a66d4",
+    "tests/test_commutation.py": "74d3a3be59d7f931214a90d67c74b7e8ffbf7bb8d2f1d95edb79d7ebf9cab18f",
     "tests/test_duplicate_observers.py": "e877836bda6575a5c5e440d2e880e5a6e8b5a0d28a25dd7a9f1dd7ac067bbdb3",
     "tests/test_non_signaling.py": "7ba6c25d89645b8b1c967f9aad75da2495951986cba9e143694c80866eb7418b",
-    "tests/test_protocol.py": "548d094f945bde91d03d634e8db89a6277ef76c0c5868ddcd8b8f5fd9319c757",
+    "tests/test_protocol.py": "b1e36b44cd9f5d7cd8b92f13ec707312df8e87e9bbc878be87db1f9f7df12b5c",
     "verify.py": "8d7536622d727e241283512954c659b6b829a5f0cb8fa938b16e8c2eda5e9d02"
   },
   "status": "PASS",

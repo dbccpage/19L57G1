@@ -36,7 +36,7 @@ The substrate consists of six discrete coordinates:
 
 ### 3. Readout Commutation and Disturbance Pricing
 
-For operations $A$ and $B$, commutation holds when their access footprints satisfy the Bernstein conditions:
+For operations $A$ and $B$, commutation holds when their access footprints satisfy the disjoint access conditions:
 - $\text{writes}(A) \cap \text{writes}(B) = \emptyset$
 - $\text{reads}(A) \cap \text{writes}(B) = \emptyset$
 - $\text{writes}(A) \cap \text{reads}(B) = \emptyset$

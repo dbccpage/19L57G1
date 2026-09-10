@@ -8,7 +8,7 @@
     "axiom_free_theorems": 43,
     "disallowed_axioms_detected": [],
     "status": "PASS",
-    "total_theorems": 71
+    "total_theorems": 76
   },
   "schema_version": 1,
   "source_hashes": {
@@ -17,11 +17,11 @@
     "lean/CarrierRepr.lean": "a1b99bd4f211794701eae077af1bfc2da2e38aed14831e3f1994dbea3bff88b5",
     "lean/Inventory.lean": "a0f7d989d0276667538a63b8b2f6a90efa8bf728ca1e2c71c72fad2843c9f77c",
     "lean/Obstruction.lean": "e5daf03a2fb45f04d99641597295b5a846e29571362213b0ffd5318f3e7e97e2",
-    "lean/ReflectionBoundary.lean": "d994f148e769aaf389fbcf9d84ceb56e796b60affd536181d154605b623370ec",
+    "lean/ReflectionBoundary.lean": "bd52b3eb4ce11e5f42f269ba995a004c9f70954bb425650cc385aee0b2fa27ea",
     "lean/Simulator.lean": "3b3cb8facf02e08aff128d10856619b6090b7d85109142a4a21605fe3728556e",
     "lean/lakefile.toml": "83dcc94807e809a75673af2db19885f04c0ade18c1b78d2b756a0b6f3c8db723",
     "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
-    "reflection_boundary.py": "1b447f656c78524210737b157e6076ef1e3018028217b4a570e037c674d6d7f6",
+    "reflection_boundary.py": "93805498abf4d95e0f4d4b388e5a3ce289b6d42db895ef6003c1356767de9212",
     "simulator.py": "e6669dec7ec4ccad91c46bb64683379a8bf74056ff69609c46adc8f98dc89f6a",
     "tests/test_carrier_repr.py": "0571d69b583f3c3f925c905fffbce1f0c3f5271c9f459fd0e8a129d99bcc6149",
     "tests/test_diagonal_obstruction.py": "b3af4ce855d115a2e2fa4ce7d11f8f486aa2d7c11a4faf702f51e300df0766a4",
@@ -52,6 +52,8 @@
     "G018SelfHosting.Transition.mk.sizeOf_spec",
     "G018SelfHosting.bool_neq_not_self",
     "G018SelfHosting.carrier_state_pigeonhole_step",
+    "G018SelfHosting.decoupled_compounding_eq_recursive_linear",
+    "G018SelfHosting.decoupled_compounding_eq_recursive_linear._proof_1_1",
     "G018SelfHosting.diagonal_self_evaluation_obstruction",
     "G018SelfHosting.halting_self_oracle_obstruction",
     "G018SelfHosting.hasMatchNat.eq_1",
@@ -90,6 +92,9 @@
     "G018SelfHosting.reflection_capacity_limit",
     "G018SelfHosting.reflection_fuel_closed_form",
     "G018SelfHosting.reflection_fuel_closed_form._proof_1_1",
+    "G018SelfHosting.reflection_fuel_closed_form_linear",
+    "G018SelfHosting.reflection_fuel_closed_form_linear._proof_1_1",
+    "G018SelfHosting.reflection_fuel_closed_form_linear._proof_1_2",
     "G018SelfHosting.reflection_fuel_monotone",
     "G018SelfHosting.reflection_fuel_monotone._proof_1_1",
     "G018SelfHosting.reflection_fuel_monotone._proof_1_2",
@@ -110,7 +115,7 @@
     "G018SelfHosting.step_simulation_extract_commutes",
     "G018SelfHosting.total_transition_oracle_refutation"
   ],
-  "timestamp_utc": "2026-09-10T21:42:42.375593+00:00",
+  "timestamp_utc": "2026-09-10T21:53:02.628232+00:00",
   "title": "Self-Hosting, Internal Simulation & Reflection Boundary",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

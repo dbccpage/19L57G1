@@ -80,6 +80,7 @@ run_cmd do
 #print axioms P200OperationalProtocols.readout2_preserves_r1
 #print axioms P200OperationalProtocols.readout2_stepM_commutation
 #print axioms P200OperationalProtocols.readout2_swap
+#print axioms P200OperationalProtocols.readout_replayL1_commutation
 #print axioms P200OperationalProtocols.readout_step_commutation
 #print axioms P200OperationalProtocols.record1_preserves_target
 #print axioms P200OperationalProtocols.record2_preserves_target

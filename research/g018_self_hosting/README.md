@@ -44,7 +44,7 @@ The reflection boundary formalizes capacity limits on self-evaluation:
   attempting to evaluate a guest with state space $m > k$ incurs state aliasing ($\exists s_1 \neq s_2, f(s_1) = f(s_2)$).
 
 ### 2.4 Diagonal Obstruction (`diagonal_obstruction.py`, `Obstruction.lean`)
-Proves that no finite carrier contains a total halting or transition self-oracle.
+Formalizes that no finite carrier contains a total halting or transition self-oracle.
 For every candidate total predictor $P(M, x) \to \text{Bool}$, the diagonal construction synthesizes
 a machine $D_P$ that executes the opposite of $P$'s prediction on its own code:
 - $P(D_P, \text{code}(D_P)) = \text{True} \implies D_P \text{ loops}$
@@ -61,7 +61,7 @@ $$\neg \exists (P : \text{Nat} \to \text{Nat} \to \text{Bool}), \exists d, \fora
 - Shows constructively that total halting self-prediction is obstructed for any candidate predictor within the carrier.
 
 ### 2. What it does not support
-- Does not demonstrate universal computability across arbitrary infinite Turing machines or general continuum dynamics.
+- Does not demonstrate computability across arbitrary infinite transition systems or general continuum dynamics.
 - Does not claim that real-world hardware or LLMs possess or lack self-modeling capacity.
 - Does not establish unstratified reflective self-modification without fuel decrement.
 

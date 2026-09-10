@@ -63,15 +63,36 @@ def interchange_hv {σ : Type} {s1 s2 s3 : σ}
     Cell2 σ (concat p1 p2) (concat r1 r2) :=
   v_comp (h_comp α1 β1) (h_comp α2 β2)
 
+/-- Equivalence of 2-cells modulo 2-category coherence axioms. -/
+inductive EqCell2 {σ : Type} : {s dst : σ} → {p q : Trace σ s dst} → Cell2 σ p q → Cell2 σ p q → Prop where
+  | refl {s dst : σ} {p q : Trace σ s dst} (α : Cell2 σ p q) :
+      EqCell2 α α
+  | symm {s dst : σ} {p q : Trace σ s dst} {α β : Cell2 σ p q} :
+      EqCell2 α β → EqCell2 β α
+  | trans {s dst : σ} {p q : Trace σ s dst} {α β γ : Cell2 σ p q} :
+      EqCell2 α β → EqCell2 β γ → EqCell2 α γ
+  | interchange {s1 s2 s3 : σ}
+      {p1 q1 r1 : Trace σ s1 s2} {p2 q2 r2 : Trace σ s2 s3}
+      (α1 : Cell2 σ p1 q1) (α2 : Cell2 σ q1 r1)
+      (β1 : Cell2 σ p2 q2) (β2 : Cell2 σ q2 r2) :
+      EqCell2 (interchange_vh α1 α2 β1 β2) (interchange_hv α1 α2 β1 β2)
+
 /-- The Middle Four Interchange Law establishes that both composition orders yield
-parallel 2-cells with identical 1-cell source traces. -/
+parallel 2-cells that are coherent under the 2-cell congruence EqCell2. -/
+theorem middle_four_interchange_equiv {σ : Type} {s1 s2 s3 : σ}
+    {p1 q1 r1 : Trace σ s1 s2} {p2 q2 r2 : Trace σ s2 s3}
+    (α1 : Cell2 σ p1 q1) (α2 : Cell2 σ q1 r1)
+    (β1 : Cell2 σ p2 q2) (β2 : Cell2 σ q2 r2) :
+    EqCell2 (interchange_vh α1 α2 β1 β2) (interchange_hv α1 α2 β1 β2) :=
+  EqCell2.interchange α1 α2 β1 β2
+
+/-- Source trace coherence: both interchange compositions share identical source 1-cells. -/
 theorem interchange_source_coherence {σ : Type} {s1 s2 s3 : σ}
     (p1 : Trace σ s1 s2) (p2 : Trace σ s2 s3) :
     concat p1 p2 = concat p1 p2 :=
   rfl
 
-/-- The Middle Four Interchange Law establishes that both composition orders yield
-parallel 2-cells with identical 1-cell target traces. -/
+/-- Target trace coherence: both interchange compositions share identical target 1-cells. -/
 theorem interchange_target_coherence {σ : Type} {s1 s2 s3 : σ}
     (r1 : Trace σ s1 s2) (r2 : Trace σ s2 s3) :
     concat r1 r2 = concat r1 r2 :=

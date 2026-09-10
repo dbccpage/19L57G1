@@ -1,6 +1,6 @@
 """Readout-to-step commutation on non-disturbing sectors.
 
-Proves and verifies:
+Derives and verifies:
 1. Readout-to-step commutation theorem:
    For any readout operation and process state transition whose carrier footprints
    are disjoint (non-disturbing sector), the operations commute on all carrier states:
@@ -16,21 +16,20 @@ Axiom Scope: Constructive finite state evaluations without external host oracles
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Callable, List, Optional, Tuple
+from typing import Any, Callable, List, Optional, Sequence, Tuple
 
 from protocol import (
     CarrierState,
     Footprint,
     Locus,
     MeasurementInstrument,
-    non_disturbing_readout_2,
-    disturbing_readout_1,
+    create_non_disturbing_readout,
 )
 
 
 @dataclass(frozen=True)
 class ProcessStep:
-    """An autonomous state transition step of the carrier process."""
+    """Localized state transition at a designated locus."""
 
     name: str
     target_locus: Locus
@@ -43,20 +42,9 @@ class ProcessStep:
         return Footprint(reads=self.reads, writes=self.writes)
 
     def execute(self, s: CarrierState) -> CarrierState:
-        target_val = int(getattr(s, self.target_locus.name.lower()))
+        target_val = s.read_locus(self.target_locus)
         new_val = self.transition_fn(target_val)
-        kwargs = {self.target_locus.name.lower(): new_val}
-        # Construct new state with updated field
-        d = {
-            "l1": s.l1,
-            "l2": s.l2,
-            "m": s.m,
-            "r1": s.r1,
-            "r2": s.r2,
-            "dist": s.dist,
-        }
-        d.update(kwargs)
-        return CarrierState(**d)
+        return s.with_update(self.target_locus, new_val)
 
 
 def is_non_disturbing_sector(fp_readout: Footprint, fp_step: Footprint) -> bool:
@@ -117,6 +105,18 @@ def step_m(h: Callable[[int], int]) -> Callable[[CarrierState], CarrierState]:
     )
 
 
+def create_step_l1(name: str, fn: Callable[[int], int]) -> ProcessStep:
+    """Create a named ProcessStep localized at Locus 1."""
+    return ProcessStep(
+        name=name,
+        target_locus=Locus.L1,
+        transition_fn=fn,
+        reads=frozenset({Locus.L1}),
+        writes=frozenset({Locus.L1}),
+    )
+
+
+
 @dataclass(frozen=True)
 class DisturbanceReceipt:
     """Receipt documenting disturbance detection and explicit pricing."""
@@ -146,3 +146,26 @@ def evaluate_disturbance_pricing(
         commutation_preserved_on_priced_carrier=commutes,
         diagnostic_mark=max(left.dist, right.dist),
     )
+
+
+def replay_protocol_sequence(initial_state: CarrierState, steps: Sequence[ProcessStep]) -> CarrierState:
+    """Execute a sequential replay trace of protocol steps."""
+    curr = initial_state
+    for step in steps:
+        curr = step.execute(curr)
+    return curr
+
+
+def replay_commutation_witness(
+    initial_state: CarrierState,
+    steps: Sequence[ProcessStep],
+    readout: MeasurementInstrument,
+) -> bool:
+    """Verify that a sequential protocol replay trace commutes with a non-disturbing readout:
+    readout(replay(s, steps)) == replay(readout(s), steps).
+    """
+    if any(not is_non_disturbing_sector(readout.footprint, step.footprint) for step in steps):
+        return False
+    state_a = readout.readout(replay_protocol_sequence(initial_state, steps))
+    state_b = replay_protocol_sequence(readout.readout(initial_state), steps)
+    return state_a == state_b

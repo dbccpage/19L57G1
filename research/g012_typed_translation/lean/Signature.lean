@@ -50,12 +50,25 @@ structure FuncDecl where
   target : SortId
   deriving DecidableEq, Repr
 
-/-- Multi-sorted relational signature. -/
+/-- Inductive observer symbol identifier. -/
+inductive ObsId where
+  | mk : String → ObsId
+  deriving DecidableEq, Repr
+
+/-- Observer symbol declaration with observed sort and record sort. -/
+structure ObsDecl where
+  id : ObsId
+  target : SortId
+  record : SortId
+  deriving DecidableEq, Repr
+
+/-- Multi-sorted relational signature with observers. -/
 structure Signature where
   sorts : List SortId
   consts : List ConstDecl
   rels : List RelDecl
   funcs : List FuncDecl
+  obs : List ObsDecl := []
   deriving DecidableEq, Repr
 
 /-- Element in a typed structure carrier. -/

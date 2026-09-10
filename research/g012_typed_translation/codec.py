@@ -21,6 +21,7 @@ try:
         AddRelationTuple,
         ConstantSymbol,
         FunctionSymbol,
+        ObserverSymbol,
         RelationSymbol,
         SetConstant,
         SetFunctionValue,
@@ -35,6 +36,7 @@ except ImportError:
         AddRelationTuple,
         ConstantSymbol,
         FunctionSymbol,
+        ObserverSymbol,
         RelationSymbol,
         SetConstant,
         SetFunctionValue,
@@ -159,6 +161,8 @@ def encode(struct: TypedStructure) -> RelationalState:
         forms_set.add(f"rel:{r.name}:{','.join(r.arity)}")
     for f in sig.functions:
         forms_set.add(f"func:{f.name}:{','.join(f.arity)}->{f.target_sort}")
+    for o in sig.observers:
+        forms_set.add(f"obs:{o.name}:{o.target_sort}->{o.record_sort}")
 
     # 2. Data: elements per sort
     data_set: set[str] = set()
@@ -235,6 +239,7 @@ def decode(state: RelationalState) -> Result[TypedStructure, Refusal]:
         constants: list[ConstantSymbol] = []
         relations: list[RelationSymbol] = []
         functions: list[FunctionSymbol] = []
+        observers: list[ObserverSymbol] = []
 
         for form in state.forms:
             if form.startswith("sort:"):
@@ -262,6 +267,14 @@ def decode(state: RelationalState) -> Result[TypedStructure, Refusal]:
                     return Err(Refusal(RefusalCode.MALFORMED_ENCODING, f"Empty func name or target in '{form}'"))
                 arity = tuple(p for p in arity_str.split(",") if p) if arity_str else ()
                 functions.append(FunctionSymbol(name=f_name, arity=arity, target_sort=target_sort))
+            elif form.startswith("obs:"):
+                m = re.fullmatch(r"obs:([^:]+):(.*?)->(.*)", form)
+                if not m:
+                    return Err(Refusal(RefusalCode.MALFORMED_ENCODING, f"Malformed obs declaration '{form}'"))
+                o_name, target_sort, record_sort = m.group(1), m.group(2), m.group(3)
+                if not o_name or not target_sort or not record_sort:
+                    return Err(Refusal(RefusalCode.MALFORMED_ENCODING, f"Empty obs name or target/record in '{form}'"))
+                observers.append(ObserverSymbol(name=o_name, target_sort=target_sort, record_sort=record_sort))
             else:
                 return Err(Refusal(RefusalCode.MALFORMED_ENCODING, f"Unknown form prefix in '{form}'"))
 
@@ -272,6 +285,7 @@ def decode(state: RelationalState) -> Result[TypedStructure, Refusal]:
                 constants=tuple(sorted(constants, key=lambda c: c.name)),
                 relations=tuple(sorted(relations, key=lambda r: r.name)),
                 functions=tuple(sorted(functions, key=lambda f: f.name)),
+                observers=tuple(sorted(observers, key=lambda o: o.name)),
             )
         except ValueError as e:
             return Err(Refusal(RefusalCode.INVALID_SIGNATURE, str(e)))

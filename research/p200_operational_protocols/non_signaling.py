@@ -24,6 +24,7 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
+from fractions import Fraction
 from typing import Any, Callable, Dict, List, Sequence, Tuple
 
 from embedded_observer import EmbeddedObserver, create_duplicate_observers
@@ -41,10 +42,10 @@ def compute_marginal_r2_distribution(
     states: Sequence[CarrierState],
     intervention_1: Callable[[int], int],
     observer_2: EmbeddedObserver,
-) -> Dict[int, float]:
-    """Compute empirical marginal distribution of Observer 2's record R2
+) -> Dict[int, Fraction]:
+    """Compute exact empirical marginal distribution of Observer 2's record R2
 
-    after applying an intervention at Locus 1.
+    after applying an intervention at Locus 1 using exact rational counting.
     """
     counts: Counter[int] = Counter()
     total = len(states)
@@ -59,48 +60,48 @@ def compute_marginal_r2_distribution(
         r2_val = observer_2.get_record(s_measured)
         counts[r2_val] += 1
 
-    return {k: v / total for k, v in counts.items()}
+    return {k: Fraction(v, total) for k, v in counts.items()}
 
 
 def total_variation_distance(
-    p: Dict[int, float], q: Dict[int, float]
-) -> float:
-    """Compute total variation distance between two discrete distributions:
+    p: Dict[int, Fraction | float], q: Dict[int, Fraction | float]
+) -> Fraction:
+    """Compute exact rational total variation distance between two discrete distributions:
 
-    TVD = 0.5 * sum_x |p(x) - q(x)|.
+    TVD = 1/2 * sum_x |p(x) - q(x)| in Q.
     """
     all_keys = set(p.keys()) | set(q.keys())
-    diff = sum(abs(p.get(k, 0.0) - q.get(k, 0.0)) for k in all_keys)
-    return 0.5 * diff
+    diff = sum(abs(Fraction(p.get(k, 0)) - Fraction(q.get(k, 0))) for k in all_keys)
+    return Fraction(1, 2) * diff
 
 
 @dataclass(frozen=True)
 class NonSignalingReport:
-    """Rigorous verification report for spacelike non-signaling."""
+    """Rigorous verification report for spacelike non-signaling with exact rational bounds."""
 
     total_states_tested: int
     interventions_tested: List[str]
-    max_total_variation_distance: float
+    max_total_variation_distance: Fraction
     non_signaling_satisfied: bool
-    marginal_distributions: Dict[str, Dict[int, float]]
+    marginal_distributions: Dict[str, Dict[int, Fraction]]
 
 
 def verify_spacelike_non_signaling(
     states: Sequence[CarrierState],
     interventions: Dict[str, Callable[[int], int]],
     observer_2: EmbeddedObserver,
-    tolerance: float = 1e-12,
+    tolerance: Fraction | float = Fraction(0, 1),
 ) -> NonSignalingReport:
     """Test multiple candidate interventions at Locus 1 and verify that
 
-    the marginal distribution at Observer 2 remains invariant within tolerance.
+    the marginal distribution at Observer 2 remains invariant with exact zero variation.
     """
-    distributions: Dict[str, Dict[int, float]] = {}
+    distributions: Dict[str, Dict[int, Fraction]] = {}
     for name, fn in interventions.items():
         distributions[name] = compute_marginal_r2_distribution(states, fn, observer_2)
 
     names = list(interventions.keys())
-    max_tvd = 0.0
+    max_tvd = Fraction(0, 1)
     if len(names) >= 2:
         base_name = names[0]
         base_dist = distributions[base_name]
@@ -109,8 +110,8 @@ def verify_spacelike_non_signaling(
             if tvd > max_tvd:
                 max_tvd = tvd
 
-    satisfied = max_tvd <= tolerance
-
+    # Non-signaling requires max_tvd <= tolerance (exact Fraction(0))
+    satisfied = bool(max_tvd <= Fraction(tolerance))
     return NonSignalingReport(
         total_states_tested=len(states),
         interventions_tested=names,
@@ -153,9 +154,9 @@ def simulate_correlated_pair_protocol(
 
     return {
         "n_trials": n_trials,
-        "unperturbed_coincidence_rate": unperturbed_agreements / n_trials,
+        "unperturbed_coincidence_rate": Fraction(unperturbed_agreements, n_trials),
         "marginal_tvd": tvd,
-        "is_non_signaling": tvd < 1e-12,
+        "is_non_signaling": tvd == 0,
     }
 
 

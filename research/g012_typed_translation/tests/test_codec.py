@@ -250,3 +250,27 @@ def test_fuzz_corrupted_strings_never_raise() -> None:
         res = decode(st)
         assert isinstance(res, Err)
         assert res.unwrap_err().code in RefusalCode
+
+
+def test_codec_with_observers() -> None:
+    """Verify round-trip encoding and decoding with observer symbols in signature."""
+    from signature import ObserverSymbol
+
+    sig = Signature(
+        sorts=("qubit", "classical_bit"),
+        observers=(ObserverSymbol("readout_z", "qubit", "classical_bit"),),
+    )
+    struct = TypedStructure(
+        signature=sig,
+        carriers=(("classical_bit", ("0", "1")), ("qubit", ("q0", "q1"))),
+    )
+    rel_state = encode(struct)
+    assert any(f.startswith("obs:readout_z") for f in rel_state.forms)
+
+    res = decode(rel_state)
+    assert isinstance(res, Ok)
+    decoded = res.unwrap()
+    assert len(decoded.signature.observers) == 1
+    assert decoded.signature.observers[0].name == "readout_z"
+    assert decoded.signature.observers[0].target_sort == "qubit"
+    assert decoded.signature.observers[0].record_sort == "classical_bit"

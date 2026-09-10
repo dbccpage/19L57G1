@@ -293,7 +293,7 @@ class DistortionVector:
         return (self.state_expansion, self.mark_count_ratio, self.address_depth_ratio)
 
 
-def compute_distortion(struct: TypedStructure) -> DistortionVector:
+def compute_distortion(struct: TypedStructure, address_depth: int = 3) -> DistortionVector:
     """Compute the exact rational distortion vector for a TypedStructure encoding."""
     state = encode(struct)
 
@@ -315,6 +315,7 @@ def compute_distortion(struct: TypedStructure) -> DistortionVector:
         + len(struct.signature.constants)
         + len(struct.signature.relations)
         + len(struct.signature.functions)
+        + len(struct.signature.observers)
     )
     source_atoms = max(
         1,
@@ -332,8 +333,8 @@ def compute_distortion(struct: TypedStructure) -> DistortionVector:
     source_marks = max(1, source_tuples + source_constants + source_func_entries)
     mark_count_ratio = Fraction(rel_marks, source_marks)
 
-    # 3. Address depth ratio: relational address nesting depth (3 levels) vs signature arity depth
-    # Relational paths: category : symbol : arguments (depth 3)
+    # 3. Address depth ratio: relational address nesting depth vs signature arity depth
+    # Relational paths: category : symbol : arguments (parameterized depth, default 3)
     max_arity = max(
         [len(r.arity) for r in struct.signature.relations]
         + [len(f.arity) + 1 for f in struct.signature.functions]
@@ -341,7 +342,7 @@ def compute_distortion(struct: TypedStructure) -> DistortionVector:
     )
     # Structure arity depth = max_arity + 1
     struct_depth = max_arity + 1
-    rel_depth = 3
+    rel_depth = max(1, address_depth)
     address_depth_ratio = Fraction(rel_depth, struct_depth)
 
     return DistortionVector(

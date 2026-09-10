@@ -4,7 +4,7 @@ import Commutation
 /-!
 # Spacelike Non-Signaling & Marginal Invariance
 
-Proves:
+Establishes:
 1. `spacelike_non_signaling`:
    Local interventions at Locus 1 do not perturb the outcome of readouts
    at Locus 2 prior to relational step propagation.
@@ -57,7 +57,7 @@ def causalRelay (s : CarrierState) : CarrierState :=
   relayReceiveM (relayTransmitL1 s)
 
 /-- **Causal Propagation Contrast Theorem.**
-    While spacelike separation guarantees zero readout perturbation,
+    While spacelike separation demonstrates zero readout perturbation,
     relational propagation through mediating channel M allows causal signaling. -/
 theorem causal_signaling_divergence :
     let s0 : CarrierState := { l1 := 0, l2 := 0, m := 0, r1 := 0, r2 := 0, dist := 0 }

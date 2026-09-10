@@ -21,6 +21,7 @@ from protocol import (
     record_1,
     record_2,
     record_distance,
+    CapacityBounds,
 )
 
 
@@ -28,6 +29,11 @@ def test_carrier_state_creation_and_validity() -> None:
     s = CarrierState(l1=3, l2=4, m=1, r1=0, r2=0, dist=0)
     assert s.is_valid(n1=5, n2=5, nm=2, nr1=10, nr2=10)
     assert not s.is_valid(n1=3, n2=5, nm=2, nr1=10, nr2=10)
+    bounds = CapacityBounds(n1=5, n2=5, nm=2, nr1=10, nr2=10)
+    assert s.is_valid(bounds=bounds)
+    assert s.read_locus(Locus.L1) == 3
+    s_updated = s.with_update(Locus.L1, 4)
+    assert s_updated.l1 == 4
     assert s.to_tuple() == (3, 4, 1, 0, 0, 0)
 
 
