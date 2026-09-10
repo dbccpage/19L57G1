@@ -1,6 +1,204 @@
 {
   "outcome": "OPEN",
   "reports": {
+    "InstanceDemand.Closure.addMany.eq_1": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.addMany_mem": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.addMany_mem._simp_1_2": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.answer_separates": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.answer_separates._simp_1_3": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.answer_separates._simp_1_4": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.answered.eq_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.answered_pair_still_read": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.base.eq_1": [],
+    "InstanceDemand.Closure.base_no_pair": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.complete_histories_replay": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.events.eq_1": [],
+    "InstanceDemand.Closure.events_no_impose": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.generated_pairs_answerable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.generated_pairs_answerable._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.generated_pairs_answerable._proof_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.generated_pairs_unmet": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize.eq_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_collapsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_collapsed._simp_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_derivable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_derivable._simp_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_fields": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_idempotent": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_mem": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_replay": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_separable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_separable._simp_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialize_wf": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialized_pairs": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialized_pairs._simp_1_2": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.materialized_pairs._simp_1_3": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.pending._proof_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.pending.eq_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.pending_bound": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.pending_empty_after": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.pending_mem": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.pending_mem._simp_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.readPair.eq_1": [],
+    "InstanceDemand.Closure.replay_append": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.response.eq_1": [],
+    "InstanceDemand.Closure.responseEvents.eq_1": [],
+    "InstanceDemand.Closure.response_applies": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.response_replays": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.seeds_replay": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.seeds_well_formed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.storeMany.eq_1": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.storeMany_replay": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.tuples_mem": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.tuples_mem._simp_1_1": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.tuples_mem._simp_1_2": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.tuples_mem._simp_1_3": [
+      "propext"
+    ],
+    "InstanceDemand.Closure.uniformEntries.eq_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.uniformEntries_mem": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.uniformEntries_mem._simp_1_2": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.uniformEntries_mem._simp_1_3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.Closure.wfInst.eq_1": [
+      "propext"
+    ],
     "InstanceDemand.both_readings_covered_replay": [
       "propext"
     ],
@@ -69,6 +267,6 @@
       "propext"
     ]
   },
-  "stage": 1,
-  "theorem_count_including_generated": 23
+  "stage": 2,
+  "theorem_count_including_generated": 80
 }

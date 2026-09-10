@@ -6,7 +6,7 @@ explicit_package_bases = true
 
 [tool.coverage.run]
 branch = true
-source = ["probe"]
+source = ["probe", "materialize"]
 
 [tool.coverage.report]
 show_missing = true

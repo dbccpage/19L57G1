@@ -1,4 +1,4 @@
-"""Replay Stage 1, pin consumed sources, and audit compiled theorem evidence.
+"""Replay Stages 1 and 2, pin sources, and audit compiled theorem evidence.
 
 The receipt keeps OB-1 OPEN. It does not identify event occurrence with supply.
 AuthorityEffect: None.
@@ -102,7 +102,8 @@ def command(argv: list[str], cwd: Path = ROOT) -> str:
 
 def check_coverage(payload: Any) -> tuple[float, float]:
     files = payload["files"]
-    if {Path(name).resolve() for name in files} != {(ROOT / "probe.py").resolve()}:
+    if {Path(name).resolve() for name in files} != {
+            (ROOT / "probe.py").resolve(), (ROOT / "materialize.py").resolve()}:
         raise ValueError("COVERAGE_POPULATION")
     totals = payload["totals"]
     lines = 100 * totals["covered_lines"] / totals["num_statements"]
@@ -125,7 +126,7 @@ def verify(lake: str, write: bool) -> None:
     check_sources()
     before = input_hashes()
     lean_files = {p.name for p in (ROOT / "lean").glob("*.lean")}
-    if lean_files != {"InstanceDemand.lean", "Inventory.lean"}:
+    if lean_files != {"InstanceDemand.lean", "ClosureMaterialization.lean", "Inventory.lean"}:
         raise ValueError("LEAN_FILE_CENSUS")
     for name in lean_files:
         text = (ROOT / "lean" / name).read_text(encoding="utf-8")
@@ -145,20 +146,24 @@ def verify(lake: str, write: bool) -> None:
         raise ValueError("LEAN_VERSION")
     command([lake, "build"], ROOT / "lean")
     proof_log = command([lake, "env", "lean", "InstanceDemand.lean"], ROOT / "lean")
+    proof_log += command([lake, "env", "lean", "ClosureMaterialization.lean"], ROOT / "lean")
     inventory_log = command([lake, "env", "lean", "Inventory.lean"], ROOT / "lean")
     reports = parse_reports(proof_log + inventory_log, inventory_log)
     import probe
+    import materialize
     computation = probe.report()
+    closure = materialize.report()
     check_sources()
     if input_hashes() != before:
         raise ValueError("INPUTS_CHANGED_DURING_VERIFICATION")
     records = {"computation.json": computation,
-               "lean.json": {"stage": 1, "outcome": "OPEN", "reports": reports,
+               "materialization.json": closure,
+               "lean.json": {"stage": 2, "outcome": "OPEN", "reports": reports,
                              "theorem_count_including_generated": len(reports)},
-               "verification.json": {"stage": 1, "outcome": "OPEN", "base": BASE,
+               "verification.json": {"stage": 2, "outcome": "OPEN", "base": BASE,
                     "python_tests": int(count[1]), "python_version": sys.version.split()[0],
                     "statement_coverage": line, "branch_coverage": branch,
-                    "coverage_scope": "probe.py only; verifier apparatus excluded",
+                    "coverage_scope": "probe.py and materialize.py; verifier apparatus excluded",
                     "sources": before, "lean_theorems_including_generated": len(reports)}}
     for name, record in records.items():
         raw = (json.dumps(record, sort_keys=True, indent=2) + "\n").encode("utf-8")
@@ -168,7 +173,7 @@ def verify(lake: str, write: bool) -> None:
             path.write_bytes(raw)
         elif not path.is_file() or path.read_bytes() != raw:
             raise ValueError("EVIDENCE_DIFFERS: " + name)
-    print(f"PASS Stage 1: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
+    print(f"PASS Stages 1-2: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
           f"{len(reports)} theorem reports. OB-1 remains OPEN.")
 
 

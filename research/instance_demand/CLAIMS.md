@@ -1,7 +1,8 @@
-# Instance-channel claims: Stage 1
+# Instance-channel claims: Stages 1 and 2
 
 AuthorityEffect: None. Outcome **OPEN** for OB-1. The existing `C_reqs`
-result is unchanged. No instance generator has yet been exhibited.
+result is unchanged. A host materializer is exhibited; an endogenous instance
+generator satisfying E1 has not been exhibited.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -12,25 +13,54 @@ result is unchanged. No instance generator has yet been exhibited.
 | CL-ID-05 | Proved theorem: the rule-covered control remains collapsed, despite storing the same instance. | `covered_pair_collapsed`; `probe.sample` for both readings | A well-formed separating context in that control. This prevents overgeneralizing CL-ID-04. |
 | CL-ID-06 | Proved theorem: all four samples are well-formed and the two requirement-free reading histories, with and without uniform coverage, replay exactly. | `samples_well_formed`, `both_readings_replay`, `both_readings_covered_replay` | Replay or well-formedness failure. These are not replays of the requirement-bearing Challenge-3 endpoints. |
 | CL-ID-07 | Deterministic computation: exhaustive one-binary-form sweep on 0..3 data, with every instance/rule subset and empty initial requirements. | `probe.sweep`, `evidence/computation.json` | 1,062 states, 17,762 successful extensions, or 2,337 uniform-conclusion cases fail to reproduce. No unbounded Python claim. |
-| CL-ID-08 | Open obstruction: existence of an admitted program whose interpreter emits a fresh demand-instance satisfying E1, owed-separation E2, E3, E4 and a dynamics theorem. | Stages 2–4 in README; prior `endogenous_demand/CLAIMS.md` CL-ED-OPEN | A construction with those proofs, or a justified class-specific impossibility. Not resolved by occurrence being recorded as `AdmitInst`. |
+| CL-ID-08 | Open obstruction: existence of an admitted program whose interpreter emits a fresh demand-instance satisfying E1, owed-separation E2, E3, E4 and a dynamics theorem. | Stages 3–4 in README; prior `endogenous_demand/CLAIMS.md` CL-ED-OPEN | A construction with those proofs, or a justified class-specific impossibility. Not resolved by occurrence being recorded as `AdmitInst`. |
+| CL-ID-09 | Proved theorem: the tuple enumeration contains exactly the lists with the declared length and admitted arguments; uniform entries are exactly well-formed instances whose form is ruled; pending entries additionally are not stored. | `Closure.tuples_mem`, `uniformEntries_mem`, `pending_mem`, `pending_bound` | Missing or extra member under those definitions. The proved numerical bound is pending length at most uniform-entry length, not an asymptotic efficiency claim. |
+| CL-ID-10 | Proved theorem: storing any list of well-formed instances replays through the existing instance admissions; materialization is such a replay and emits no requirement event. | `Closure.addMany_mem`, `storeMany_replay`, `materialize_replay`, `events_no_impose` | Failed replay under the well-formedness premise. A replay theorem does not identify who produces events. |
+| CL-ID-11 | Proved theorem: materialization preserves data, forms, rules, requirements and well-formedness; final membership is old membership or a well-formed uniform conclusion. | `Closure.materialize_fields`, `materialize_wf`, `materialize_mem` | A changed field or failure of the membership equivalence. Literal E2 is not satisfied. |
+| CL-ID-12 | Proved theorem: materialization preserves derivability for every instance and preserves collapsed/separable relations for every pair. | `Closure.materialize_derivable`, `materialize_collapsed`, `materialize_separable` | A separating context added or removed by this procedure. This does not assert equality of raw instance stores. |
+| CL-ID-13 | Proved theorem: after one materialization the pending list is empty and a second pass leaves the regime equal. | `Closure.pending_empty_after`, `materialize_idempotent` | Nonempty second-pass pending list. Only this procedure on an otherwise unchanged regime is covered. |
+| CL-ID-14 | Proved theorem: on `base n`, no pair is initially stored; after materialization the declared pair reader returns exactly `x < y < n`, and all such endpoints remain collapsed. | `Closure.base_no_pair`, `materialized_pairs`, `generated_pairs_unmet` | A stored pair before this procedure or a separating context afterward. The interpretation of form 0 as a demand is a convention, not this theorem's conclusion. |
+| CL-ID-15 | Proved theorem: each pair read from materialized `base n` has a valid response using a fresh unary form and its instance at the first endpoint. The response both applies and replays. | `Closure.response_applies`, `response_replays`, `answer_separates`, `generated_pairs_answerable` | A response failing to separate the pair. These sample regimes have no pre-existing requirements; no minimality or unique-response claim. |
+| CL-ID-16 | Proved theorem: the two- and three-data seeds are well-formed, and their seed/materialization/single-pair-response histories replay from genesis. | `Closure.seeds_well_formed`, `seeds_replay`, `replay_append`, `complete_histories_replay` | A failed native history. As in Stage 1, these are requirement-free reading analogues, not the Challenge-3 endpoints. |
+| CL-ID-17 | Proved theorem: the declared reader still reads a pair after the separating response of CL-ID-15. | `Closure.answered_pair_still_read`, `answer_separates` | The stored pair disappearing or the exhibited context failing. Raw readability cannot be identified with currently unmet demand. |
+| CL-ID-18 | Deterministic computation: materialization passes the stated 1,062-state binary rectangle, adds 2,337 instances in total, preserves profiles/replay, and yields 1,062 fixed points. Both reading samples have a combined response separating all their read pairs. | `materialize.sweep`, `sample`, `evidence/materialization.json`; `tests/test_materialize.py` | Counts or sample witnesses fail to replay. The combined response for all three-data pairs is computed; the general Lean response claim is per pair. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
 `propext` and `Quot.sound`; the two replay statements use `propext`.
-The nine generated theorem reports are included in `evidence/lean.json`.
+Stage 2 adds 28 authored and 29 generated theorem reports, all within
+`{propext, Quot.sound}`. Every exact dependency set, including Stage 1's nine
+generated reports, is listed in `evidence/lean.json` (80 reports total).
+Unrestricted simplification initially introduced disallowed dependence in
+the construction; the final direct proofs pass the unchanged dependency gate.
 
 ## Notions and assumptions
 
 - Supplied task: attempt instance-channel demand production under the stated
   E1–E4 conditions. The alternate E2 reading is examined separately from `reqs`.
 - Metatheory apparatus: the fixed verifier, compiler, history census, finite
-  state enumeration, and the abstract faithful reader parameter.
+  state enumeration, abstract faithful reader parameter, uniform materializer,
+  and the fixed reading assigning obligation meaning to binary form 0.
 - Admitted primitives: the sealed data, forms, instance admission, and uniform
   rules. This stage adds none to the sealed grammar.
-- Derived definitions: the two sample regimes and their histories.
+- Derived definitions: the sample regimes and histories; well-formed-instance
+  predicate, tuple list, uniform-entry and pending lists, and response witnesses.
 - Proved theorems and computations: exactly the rows above and their scopes.
 - Open obstruction: event generation and obligation semantics for a represented
-  emitter. No host routine in this stage selects an endogenous target.
+  emitter. The host materializer keeps every well-formed uniform conclusion;
+  its operation is not proved to be required by the admitted structure.
+
+## Clause assessment after Stage 2
+
+E1 remains OPEN. Neither a deterministic enumeration nor its successful sealed
+replay proves that the admitted grammar produces its events. Literal E2 fails
+for this procedure by CL-ID-11. The owed-separation reading has conditional
+E2/E3 witnesses by CL-ID-14, and responses by CL-ID-15/16. These do not resolve
+whether the role of demand was derived or supplied by the reader convention.
+The rule already entails every materialized tuple; only storage is fresh.
+CL-ID-17 rules out calling this raw reader a general unmet-demand filter.
+CL-ID-13 is a procedure-specific fixed point, not an impossibility theorem
+about represented emitters. No Outcome A or continuing dynamics is claimed.
 
 ## Negative controls
 
@@ -43,3 +73,13 @@ checked. Invalid admissions and unknown reading labels are rejected.
 Verifier tests additionally exercise source-population, theorem-census,
 dependency, and coverage failures. These guard tests are finite checks, not
 proofs that arbitrary tampering or semantic dishonesty can be detected.
+
+Stage 2 additionally rejects malformed form/rule/instance/requirement inputs;
+omitted and extra conclusions; altered fields; duplicate, wrong and noninstance
+events; corrupted replay and observation results; failed fixed points; and
+failed unmet-pair or response witnesses. A control keeps all three strict pairs
+in the three-data sample. A mixed-arity control preserves an existing requirement
+and an unruled instance without inventing another instance on that unruled form.
+All injections are local test replacements. The 25-test combined suite has
+100% statement and branch coverage over the two research modules, excluding
+verification apparatus. No Python-to-Lean equivalence theorem is claimed.

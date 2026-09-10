@@ -35,7 +35,8 @@ class VerificationControls(unittest.TestCase):
         self.assertEqual(verify.parse_reports(good, census), {name: ["propext"]})
 
     def test_coverage_requires_both_thresholds_and_exact_file(self) -> None:
-        payload: dict[str, Any] = {"files": {str(verify.ROOT / "probe.py"): {}},
+        measured: dict[str, Any] = {str(verify.ROOT / name): {} for name in ("probe.py", "materialize.py")}
+        payload: dict[str, Any] = {"files": measured,
                                   "totals": {"covered_lines": 100, "num_statements": 100,
                                              "covered_branches": 100, "num_branches": 100}}
         self.assertEqual(verify.check_coverage(payload), (100.0, 100.0))
@@ -47,5 +48,5 @@ class VerificationControls(unittest.TestCase):
         payload["files"] = {"unrelated.py": {}}
         with self.assertRaisesRegex(ValueError, "COVERAGE_POPULATION"):
             verify.check_coverage(payload)
-        payload["files"] = {str(verify.ROOT / "probe.py"): {}}
+        payload["files"] = measured
         self.assertEqual(verify.check_coverage(payload), (100.0, 100.0))

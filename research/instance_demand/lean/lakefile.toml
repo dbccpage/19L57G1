@@ -1,6 +1,6 @@
 name = "instance_demand"
 version = "0.1.0"
-defaultTargets = ["InstanceDemand", "Inventory"]
+defaultTargets = ["InstanceDemand", "ClosureMaterialization", "Inventory"]
 
 [[require]]
 name = "derivation"
@@ -11,3 +11,6 @@ name = "InstanceDemand"
 
 [[lean_lib]]
 name = "Inventory"
+
+[[lean_lib]]
+name = "ClosureMaterialization"
