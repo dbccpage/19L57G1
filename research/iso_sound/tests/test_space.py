@@ -17,8 +17,24 @@ from derivation.iso import CanonKey, canonical  # noqa: E402
 
 class Space(unittest.TestCase):
     def test_closed_form_matches_enumeration(self) -> None:
+        n = 0
+        for r in space.enumerate_regimes():
+            n += 1
+            n_data, n_forms = r.n_data(), len(r.forms)
+            self.assertEqual(r.data, tuple(f"d{i}" for i in range(n_data)))
+            self.assertLessEqual(n_data, space.MAX_DATA)
+            self.assertLessEqual(n_forms, space.MAX_FORMS)
+            self.assertLessEqual(len(r.insts), space.MAX_INSTS)
+            self.assertTrue(all(1 <= a <= space.MAX_ARITY for a in r.forms))
+            for form, args in r.insts:
+                self.assertGreaterEqual(form, 0)
+                self.assertLess(form, n_forms)
+                self.assertEqual(len(args), r.forms[form])
+                self.assertTrue(all(0 <= a < n_data for a in args))
+            self.assertTrue(all(0 <= form < n_forms for form in r.rules))
+            self.assertTrue(all(0 <= i < j < n_data for i, j in r.reqs))
+        self.assertEqual(n, 56020)
         self.assertEqual(space.count_space(), 56020)
-        self.assertEqual(sum(1 for _ in space.enumerate_regimes()), 56020)
 
     def test_comb_edges(self) -> None:
         self.assertEqual(space._comb(5, -1), 0)
@@ -43,6 +59,19 @@ class Corpus(unittest.TestCase):
         self.assertTrue(record["agreement"])
         self.assertEqual(record["disagreements"], 0)
         self.assertEqual(len(corpus.seed_corpus()), 7)
+
+    def test_seed_corpus_matches_sealed_iso_fixtures(self) -> None:
+        import importlib.util
+        sealed_path = Path(__file__).resolve().parents[3] / "tests" / "test_iso.py"
+        spec = importlib.util.spec_from_file_location("_sealed_test_iso", sealed_path)
+        self.assertIsNotNone(spec)
+        assert spec is not None and spec.loader is not None
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        expected = (
+            mod.U_A, mod.U_B, mod.B_LINK, mod.B_LINK_R, mod.B_DIAG, mod.F_OUT, mod.F_IN,
+        )
+        self.assertEqual(corpus.seed_corpus(), expected)
 
 
 class SplitDetector(unittest.TestCase):

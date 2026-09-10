@@ -11,10 +11,11 @@ sealed Lean field for `CL-ISO-SOUND` stays unresolved.
 
 ## The space
 
-Well-formed regimes with `n_data ≤ 3`, `n_forms ≤ 2`, arity `≤ 2`,
-`|insts| ≤ 3`.  Dummy tokens.  Closed-form size **56020**, matching the
-enumeration.  On this run: **5698** refined classes and **5698**
-brute-force classes, `agreement: true`, `falsifier_count: 0`.
+Well-formed regimes with dummy presentation tokens `d0..d{n-1}`,
+`n_data ≤ 3`, `n_forms ≤ 2`, arity `≤ 2`, `|insts| ≤ 3`.  The
+implemented isomorphism forgets tokens.  Closed-form size **56020**,
+matching the enumeration.  On this run: **5698** refined classes and
+**5698** brute-force classes, `agreement: true`, `falsifier_count: 0`.
 
 The seven mixed regimes from the sealed iso tests sit inside the bound
 and agree pairwise.  They are a named corpus, not the space.

@@ -27,6 +27,8 @@ class ComputationRecord(unittest.TestCase):
     def test_the_figures_the_readme_quotes(self) -> None:
         record = json.loads(self.fresh.decode("utf-8"))
         self.assertEqual(record["regime_count"], 56020)
+        self.assertEqual(record["refined_class_count"], 5698)
+        self.assertEqual(record["brute_class_count"], 5698)
         self.assertEqual(record["refined_class_count"], record["brute_class_count"])
         self.assertTrue(record["agreement"])
         self.assertEqual(record["falsifier_count"], 0)

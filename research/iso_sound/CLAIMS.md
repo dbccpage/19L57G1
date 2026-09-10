@@ -10,16 +10,20 @@ negation.
 
 ### CL-IS-BOUND
 
-- **Statement**: The hunt enumerates every well-formed regime with
-  `n_data ≤ 3`, `n_forms ≤ 2`, arity `≤ 2`, `|insts| ≤ 3`.  Closed-form
-  size 56020 equals the enumeration length.
+- **Statement**: The hunt enumerates every well-formed regime whose
+  presentation tokens are the dummy labels `d0..d{n-1}`, with
+  `n_data ≤ 3`, `n_forms ≤ 2`, arity `≤ 2`, `|insts| ≤ 3`.  The
+  implemented isomorphism forgets tokens, so other token assignments
+  are the same iso-classes.  Closed-form size 56020 equals the
+  enumeration length.
 - **Class**: declared metatheory (the bound) plus deterministic
   computation (the count).
 - **Evidence**: `space.count_space`, `space.enumerate_regimes`,
   `evidence/hunt.json` `regime_count`.
-- **Falsifier**: enumeration length ≠ 56020, or a well-formed regime
-  inside the bound that is not yielded.
-- **Obligation**: none.  A larger bound is a different hunt.
+- **Falsifier**: enumeration length ≠ 56020, or a dummy-token
+  well-formed regime inside the bound that is not yielded.
+- **Obligation**: none.  A larger bound, or a token-sensitive key, is a
+  different hunt.
 
 ### CL-IS-HUNT
 
@@ -39,7 +43,8 @@ negation.
 - **Statement**: The seven mixed regimes from the sealed iso tests sit
   inside the bound and agree pairwise on refined vs brute equality.
 - **Class**: finite computation.
-- **Evidence**: `corpus.corpus_agreement`; hunt record `seed_corpus`.
+- **Evidence**: `corpus.corpus_agreement`; hunt record `seed_corpus`;
+  `test_seed_corpus_matches_sealed_iso_fixtures`.
 - **Falsifier**: a corpus pair that disagrees, or a corpus regime
   outside the bound.
 - **Obligation**: the corpus is not the space.
@@ -49,12 +54,13 @@ negation.
 - **Statement**: The general refined-key ⇔ isomorphism bridge is not
   proved here.  Lean records that fact as `general_bridge_recorded_open`.
 - **Class**: open obstruction.
-- **Lean**: `IsoSound.general_bridge_recorded_open`.  Identity-field
-  uniqueness only: `genesis_unique`, `equal_of_fields`.
+- **Lean**: `IsoSound.general_bridge_recorded_open` (statement `True`;
+  the name records the open field, it does not prove openness).
+  Identity-field uniqueness only: `genesis_unique`, `equal_of_fields`.
 - **Falsifier**: a general Lean converse, which this tree does not
   claim.
-- **Axioms**: none on those three; `{propext}` on the others as
-  recorded.
+- **Axioms**: `{propext}` on `genesis_wf` only; the other eight reports
+  are empty, as recorded in `evidence/lean.json`.
 
 ### CL-IS-KERNEL
 

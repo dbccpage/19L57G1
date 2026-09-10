@@ -15,6 +15,8 @@ class Prose(unittest.TestCase):
         for text, name in ((readme, "README"), (claims, "CLAIMS")):
             self.assertIn("OPEN", text, name)
             self.assertIn("56020", text, name)
+            self.assertIn("5698", text, name)
+            self.assertIn("dummy", text.lower(), name)
             self.assertIn("AuthorityEffect: None", text, name)
             self.assertNotIn("import mathlib", text.lower(), name)
             self.assertNotIn("CL-ISO-SOUND is proved", text)
