@@ -1,8 +1,9 @@
-# Instance-channel claims: Stages 1 and 2
+# Instance-channel claims: Stages 1 through 3
 
 AuthorityEffect: None. Outcome **OPEN** for OB-1. The existing `C_reqs`
-result is unchanged. A host materializer is exhibited; an endogenous instance
-generator satisfying E1 has not been exhibited.
+result is unchanged. A uniform materializer and a stored-instruction composition
+emitter are exhibited as host operations. The latter has a graph-computation
+bridge, but endogenous admission and obligation semantics under E1 are unproved.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -24,13 +25,23 @@ generator satisfying E1 has not been exhibited.
 | CL-ID-16 | Proved theorem: the two- and three-data seeds are well-formed, and their seed/materialization/single-pair-response histories replay from genesis. | `Closure.seeds_well_formed`, `seeds_replay`, `replay_append`, `complete_histories_replay` | A failed native history. As in Stage 1, these are requirement-free reading analogues, not the Challenge-3 endpoints. |
 | CL-ID-17 | Proved theorem: the declared reader still reads a pair after the separating response of CL-ID-15. | `Closure.answered_pair_still_read`, `answer_separates` | The stored pair disappearing or the exhibited context failing. Raw readability cannot be identified with currently unmet demand. |
 | CL-ID-18 | Deterministic computation: materialization passes the stated 1,062-state binary rectangle, adds 2,337 instances in total, preserves profiles/replay, and yields 1,062 fixed points. Both reading samples have a combined response separating all their read pairs. | `materialize.sweep`, `sample`, `evidence/materialization.json`; `tests/test_materialize.py` | Counts or sample witnesses fail to replay. The combined response for all three-data pairs is computed; the general Lean response claim is per pair. |
+| CL-ID-19 | Proved theorem: decoding returns exactly stored ternary instructions and binary edges; the raw emitter returns exactly instruction-enabled two-edge paths with ordered distinct endpoints. | `Emitter.length_two`, `length_three`, `codes_mem`, `edge_mem`, `instructions_mem`, `edges_mem`, `raw_mem` | Missing or extra membership under the declared layout. Distinct paths with the same output may repeat it. |
+| CL-ID-20 | Proved theorem: on functional operand graphs, each emitted path has the endpoint computed by `Execution.run`; every successful two-step execution output at ordered endpoints is retained. The sample executions have their stated endpoints. | `Emitter.lookup_of_functional`, `two_edge_bridge`, `emitted_has_represented_path`, `execution_output_retained`, `seed_execution_bridge` | Failed correspondence under the stated hypotheses. No identification of an ambiguous all-path result with a first-match result. |
+| CL-ID-21 | Proved theorem: without any stored instruction of the declared shape the raw emitter is empty; successful existing execution keeps its input graph. | `Emitter.no_instruction_no_output`, `represented_run_keeps_graph` | An instruction-free raw output or a graph write by that existing execution. The additional output-admission wrapper is not part of `Execution.run`. |
+| CL-ID-22 | Proved theorem: pending outputs are precisely enabled, well-formed, initially unstored tuples. Their admission list replays, final membership is exact, other fields are unchanged, and well-formedness is preserved. | `Emitter.pending_mem`, `emission_replay`, `emitted_membership`, `emission_fields`, `emission_wf` | A failure under those definitions. Literal E2 is not satisfied: requirements are unchanged. |
+| CL-ID-23 | Proved theorem: the stored instruction and both premises do not universally entail their composed output under sealed derivability. A reachable well-formed unruled-output example defeats that rule schema. | `Emitter.native_closure_counterexample`, `no_native_join_rule`, `unruled_output_not_derivable`, `seeds_replay`, `seeds_wf` | The counterexample output is native-derivable, or the exhibited seed is unreachable/ill-formed. No impossibility for every represented emitter is asserted. |
+| CL-ID-24 | Proved theorem: the four L/F output controls replay and are well-formed; each sample family produces exactly its stated single pending output when the endpoint bounds hold; generation histories contain no impose. | `Emitter.raw_seed`, `pending_seed`, `emit_seed`, `seeds_replay`, `seeds_wf`, `histories_no_impose` | A failed sample replay or wrong output. L/F add one auxiliary datum each, yielding 3/4 data; not the sealed Challenge-3 endpoints or a minimum encoding. |
+| CL-ID-25 | Proved theorem: the seeds begin collapsed. An unruled singleton emission separates the target; a covered emission leaves every pair collapsed. | `Emitter.seed_collapsed`, `unruled_emission_separates`, `fully_covered_collapsed`, `covered_emission_collapsed` | A counter-context under the stated hypotheses. Unruled output fails E3 after emission; covered output is only a conditional obligation candidate. |
+| CL-ID-26 | Proved theorem: covered sample pairs have valid responses using fresh unary form 6; these apply and separate the target, and both complete reading histories replay. | `Emitter.response_applies`, `answer_separates`, `covered_answerable`, `covered_histories_replay` | A failed valid response or replay. No pre-existing requirements, uniqueness, optimality, or derived obligation meaning is claimed. |
+| CL-ID-27 | Deterministic computation: the declared 5,140-state graph census replays with 2,560 admission events, 2,528 distinct new instances, 2,340 functional execution paths, and 522 instruction-free states. Both covered samples have whole response replay. | `emitter.sweep`, `sample`, `evidence/emitter.json`; `tests/test_emitter.py` | Counts or witnesses fail to reproduce. The census is not exhaustive over instruction programs, arbitrary data sizes, or repeated growth. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
 `propext` and `Quot.sound`; the two replay statements use `propext`.
 Stage 2 adds 28 authored and 29 generated theorem reports, all within
 `{propext, Quot.sound}`. Every exact dependency set, including Stage 1's nine
-generated reports, is listed in `evidence/lean.json` (80 reports total).
+generated reports, is listed in `evidence/lean.json`. Stage 3 adds 36 authored
+and 30 generated reports, also within that budget, for 146 reports total.
 Unrestricted simplification initially introduced disallowed dependence in
 the construction; the final direct proofs pass the unchanged dependency gate.
 
@@ -40,15 +51,49 @@ the construction; the final direct proofs pass the unchanged dependency gate.
   E1–E4 conditions. The alternate E2 reading is examined separately from `reqs`.
 - Metatheory apparatus: the fixed verifier, compiler, history census, finite
   state enumeration, abstract faithful reader parameter, uniform materializer,
-  and the fixed reading assigning obligation meaning to binary form 0.
+  the Stage 2 reading assigning obligation meaning to binary form 0, and the
+  Stage 3 instruction interpreter, output-admission wrapper and obligation
+  reading. In Stage 3 form 0 is ternary code; output form is `3+o`.
 - Admitted primitives: the sealed data, forms, instance admission, and uniform
   rules. This stage adds none to the sealed grammar.
 - Derived definitions: the sample regimes and histories; well-formed-instance
-  predicate, tuple list, uniform-entry and pending lists, and response witnesses.
+  predicate, tuple list, uniform-entry and pending lists, response witnesses,
+  instruction/edge decoders, enabled composition relation and functional-graph
+  predicate. The examples' instruction and graph instances are supplied admitted
+  data; their operation-code interpretation is declared metatheory apparatus.
 - Proved theorems and computations: exactly the rows above and their scopes.
 - Open obstruction: event generation and obligation semantics for a represented
   emitter. The host materializer keeps every well-formed uniform conclusion;
   its operation is not proved to be required by the admitted structure.
+
+## Clause assessment after Stage 3
+
+The searched candidate class is one-pass composition under stored ternary
+instructions `(0,[k,l,o])`, with operand forms `3+k`, `3+l` and output form
+`3+o`. All matching two-edge paths with `x < y` are retained. Its fixed syntactic
+interpreter consults stored instances; a separate well-formedness/freshness
+filter and admission wrapper consumes the regime. The role of its output as
+an owed separation is declared, not derived.
+
+CL-ID-20 proves a computation bridge to the existing execution model.
+CL-ID-21/23 prevent promoting it to a native production rule: execution does
+not write the graph, and the inference schema fails native derivability in a
+reachable countermodel. E1 is therefore OPEN, with the exact missing operation
+being interpretation of composed output as an admission event and an obligation.
+Literal E2 fails by CL-ID-22. At the post-emission state the unruled singleton
+candidate fails E3 by CL-ID-25; the covered candidate remains an unmet stored
+payload with E4 response/replay witnesses by CL-ID-26. Covered output was already
+derivable before storage. These are conditional witnesses under owed-separation E2, not
+a proof of derived demand or a full Outcome A.
+
+The finite census consists of 1,044 pairs-of-relations states on 0..2 active
+data, with instruction presence and output coverage each toggled, plus 4,096
+pairs of partial functional graphs on three active data with instruction and
+output coverage present. Three additional data are admitted outside each active
+graph carrier. Each census state has six forms and empty requirements. General
+Lean membership/replay claims cover more than this census; Python/Lean semantic
+equivalence is not proved. Repeated emitter dynamics are Stage 4, and Stage 2's
+idempotence theorem is not a theorem about this different emitter.
 
 ## Clause assessment after Stage 2
 
@@ -80,6 +125,12 @@ events; corrupted replay and observation results; failed fixed points; and
 failed unmet-pair or response witnesses. A control keeps all three strict pairs
 in the three-data sample. A mixed-arity control preserves an existing requirement
 and an unruled instance without inventing another instance on that unruled form.
-All injections are local test replacements. The 25-test combined suite has
-100% statement and branch coverage over the two research modules, excluding
-verification apparatus. No Python-to-Lean equivalence theorem is claimed.
+All injections are local test replacements. Stage 3 adds controls for missing
+instructions/edges; every alternative on an ambiguous graph; repeated output
+from distinct paths; instruction-controlled output forms; invalid output arity
+or bounds; preserved requirements; wrong path populations, endpoints, traces,
+replay, execution output, whole histories, and sample boundary/response checks.
+The supplemental source-manifest population is separately tested. The combined
+39-test suite has 100% statement and branch coverage over the three research
+modules, excluding verification apparatus. No Python-to-Lean equivalence theorem
+is claimed.

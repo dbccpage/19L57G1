@@ -1,6 +1,7 @@
 import Lean
 import InstanceDemand
 import ClosureMaterialization
+import RepresentedEmitter
 
 open Lean Elab Command in
 run_cmd do
@@ -62,3 +63,34 @@ run_cmd do
 #print axioms InstanceDemand.Closure.uniformEntries_mem._simp_1_2
 #print axioms InstanceDemand.Closure.uniformEntries_mem._simp_1_3
 #print axioms InstanceDemand.Closure.wfInst.eq_1
+
+#print axioms InstanceDemand.Emitter.answer_separates._proof_1_3
+#print axioms InstanceDemand.Emitter.answer_separates._simp_1_4
+#print axioms InstanceDemand.Emitter.answered.eq_1
+#print axioms InstanceDemand.Emitter.covered_emission_collapsed._proof_1_3
+#print axioms InstanceDemand.Emitter.covered_emission_collapsed._simp_1_1
+#print axioms InstanceDemand.Emitter.covered_emission_collapsed._simp_1_2
+#print axioms InstanceDemand.Emitter.edges.eq_1
+#print axioms InstanceDemand.Emitter.edges_mem._simp_1_2
+#print axioms InstanceDemand.Emitter.edges_mem._simp_1_3
+#print axioms InstanceDemand.Emitter.emit.eq_1
+#print axioms InstanceDemand.Emitter.histories_no_impose._simp_1_2
+#print axioms InstanceDemand.Emitter.instructions.eq_1
+#print axioms InstanceDemand.Emitter.instructions_mem._simp_1_2
+#print axioms InstanceDemand.Emitter.instructions_mem._simp_1_3
+#print axioms InstanceDemand.Emitter.length_three._proof_1_1
+#print axioms InstanceDemand.Emitter.length_two._proof_1_1
+#print axioms InstanceDemand.Emitter.pending._proof_1
+#print axioms InstanceDemand.Emitter.pending.eq_1
+#print axioms InstanceDemand.Emitter.pending_mem._simp_1_2
+#print axioms InstanceDemand.Emitter.pending_mem._simp_1_3
+#print axioms InstanceDemand.Emitter.raw_mem._simp_1_1
+#print axioms InstanceDemand.Emitter.response.eq_1
+#print axioms InstanceDemand.Emitter.responseEvents.eq_1
+#print axioms InstanceDemand.Emitter.seed.eq_1
+#print axioms InstanceDemand.Emitter.seedHistory.eq_1
+#print axioms InstanceDemand.Emitter.seed_collapsed._proof_1_4
+#print axioms InstanceDemand.Emitter.seed_collapsed._proof_1_5
+#print axioms InstanceDemand.Emitter.seed_collapsed._simp_1_2
+#print axioms InstanceDemand.Emitter.seed_collapsed._simp_1_3
+#print axioms InstanceDemand.Emitter.unruled_emission_separates._proof_1_3

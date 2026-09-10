@@ -1,6 +1,6 @@
 name = "instance_demand"
 version = "0.1.0"
-defaultTargets = ["InstanceDemand", "ClosureMaterialization", "Inventory"]
+defaultTargets = ["InstanceDemand", "ClosureMaterialization", "RepresentedEmitter", "Inventory"]
 
 [[require]]
 name = "derivation"
@@ -14,3 +14,10 @@ name = "Inventory"
 
 [[lean_lib]]
 name = "ClosureMaterialization"
+
+[[require]]
+name = "represented_execution"
+path = "../../represented_execution/lean"
+
+[[lean_lib]]
+name = "RepresentedEmitter"

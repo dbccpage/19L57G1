@@ -1,4 +1,4 @@
-"""Replay Stages 1 and 2, pin sources, and audit compiled theorem evidence.
+"""Replay Stages 1 through 3, pin sources, and audit compiled theorem evidence.
 
 The receipt keeps OB-1 OPEN. It does not identify event occurrence with supply.
 AuthorityEffect: None.
@@ -28,6 +28,21 @@ SOURCE_PATHS = (
     "research/endogenous_demand/CLAIMS.md", "research/endogenous_demand/reader.py",
     "research/represented_execution/lean/Execution.lean",
 )
+STAGE3_SOURCE_PATHS = (
+    "lean4/Derivation/Attachment.lean", "lean4/Derivation/Bridge.lean",
+    "lean4/Derivation/CapacityBound.lean", "lean4/Derivation/Erasure.lean",
+    "lean4/Derivation/Generator.lean", "lean4/Derivation/HigherStructure.lean",
+    "lean4/Derivation/Pigeonhole.lean", "lean4/Derivation/PrimDiff.lean",
+    "lean4/Derivation/PrimitiveCore.lean", "lean4/Derivation/PrimitivePassage.lean",
+    "lean4/Derivation/Refusal.lean", "lean4/Derivation/RefusalFrontier.lean",
+    "lean4/Derivation/SeparationCapacity.lean",
+    "research/ignition/lean/lakefile.toml", "research/ignition/lean/lean-toolchain",
+    "research/local_reuse/lean/lakefile.toml", "research/local_reuse/lean/lean-toolchain",
+    "research/magnification/lean/lakefile.toml", "research/magnification/lean/lean-toolchain",
+    "research/represented_execution/lean/lakefile.toml", "research/represented_execution/lean/lean-toolchain",
+    "research/setting_translation/lean/Chains.lean", "research/setting_translation/lean/Translation.lean",
+    "research/setting_translation/lean/lakefile.toml", "research/setting_translation/lean/lean-toolchain",
+)
 ALLOWED = {"propext", "Quot.sound"}
 FORBIDDEN = re.compile(r"\b(?:sorry|admit|unsafe|partial)\b|^\s*axiom\s", re.MULTILINE)
 CENSUS = re.compile(r"^INSTANCE_DEMAND_THEOREM: (\S+)$", re.MULTILINE)
@@ -41,11 +56,11 @@ def git(*args: str) -> bytes:
     return subprocess.check_output(["git", *args], cwd=REPO, stderr=subprocess.PIPE)
 
 
-def validate_manifest(payload: Any) -> dict[str, str]:
+def validate_manifest(payload: Any, expected: tuple[str, ...] = SOURCE_PATHS) -> dict[str, str]:
     if not isinstance(payload, dict) or payload.get("base") != BASE:
         raise ValueError("SOURCE_BASE")
     sources = payload.get("sources")
-    if not isinstance(sources, dict) or set(sources) != set(SOURCE_PATHS):
+    if not isinstance(sources, dict) or set(sources) != set(expected):
         raise ValueError("SOURCE_POPULATION")
     if not all(isinstance(v, str) and re.fullmatch(r"[a-f0-9]{64}", v) for v in sources.values()):
         raise ValueError("SOURCE_DIGEST_SHAPE")
@@ -54,6 +69,8 @@ def validate_manifest(payload: Any) -> dict[str, str]:
 
 def check_sources() -> None:
     sources = validate_manifest(json.loads((ROOT / "SOURCE_MANIFEST.json").read_text()))
+    sources.update(validate_manifest(json.loads((ROOT / "STAGE3_SOURCE_MANIFEST.json").read_text()),
+                                     STAGE3_SOURCE_PATHS))
     git("merge-base", "--is-ancestor", BASE, "HEAD")
     for name, digest in sources.items():
         pinned = git("show", f"{BASE}:{name}")
@@ -103,7 +120,8 @@ def command(argv: list[str], cwd: Path = ROOT) -> str:
 def check_coverage(payload: Any) -> tuple[float, float]:
     files = payload["files"]
     if {Path(name).resolve() for name in files} != {
-            (ROOT / "probe.py").resolve(), (ROOT / "materialize.py").resolve()}:
+            (ROOT / "probe.py").resolve(), (ROOT / "materialize.py").resolve(),
+            (ROOT / "emitter.py").resolve()}:
         raise ValueError("COVERAGE_POPULATION")
     totals = payload["totals"]
     lines = 100 * totals["covered_lines"] / totals["num_statements"]
@@ -117,6 +135,7 @@ def input_hashes() -> dict[str, str]:
     paths = [*ROOT.glob("*.py"), *ROOT.glob("*.md"), *ROOT.glob("*.toml"),
              *ROOT.glob("tests/*.py"), *ROOT.glob("lean/*.lean"), ROOT / "lean/lakefile.toml",
              ROOT / "lean/lean-toolchain", ROOT / "SOURCE_MANIFEST.json",
+             ROOT / "STAGE3_SOURCE_MANIFEST.json",
              ROOT / ".gitattributes", ROOT / ".gitignore"]
     return {p.relative_to(ROOT).as_posix(): sha(p.read_bytes().replace(b"\r\n", b"\n"))
             for p in sorted(paths)}
@@ -126,7 +145,7 @@ def verify(lake: str, write: bool) -> None:
     check_sources()
     before = input_hashes()
     lean_files = {p.name for p in (ROOT / "lean").glob("*.lean")}
-    if lean_files != {"InstanceDemand.lean", "ClosureMaterialization.lean", "Inventory.lean"}:
+    if lean_files != {"InstanceDemand.lean", "ClosureMaterialization.lean", "RepresentedEmitter.lean", "Inventory.lean"}:
         raise ValueError("LEAN_FILE_CENSUS")
     for name in lean_files:
         text = (ROOT / "lean" / name).read_text(encoding="utf-8")
@@ -147,23 +166,27 @@ def verify(lake: str, write: bool) -> None:
     command([lake, "build"], ROOT / "lean")
     proof_log = command([lake, "env", "lean", "InstanceDemand.lean"], ROOT / "lean")
     proof_log += command([lake, "env", "lean", "ClosureMaterialization.lean"], ROOT / "lean")
+    proof_log += command([lake, "env", "lean", "RepresentedEmitter.lean"], ROOT / "lean")
     inventory_log = command([lake, "env", "lean", "Inventory.lean"], ROOT / "lean")
     reports = parse_reports(proof_log + inventory_log, inventory_log)
     import probe
     import materialize
+    import emitter
     computation = probe.report()
     closure = materialize.report()
+    emission = emitter.report()
     check_sources()
     if input_hashes() != before:
         raise ValueError("INPUTS_CHANGED_DURING_VERIFICATION")
     records = {"computation.json": computation,
                "materialization.json": closure,
-               "lean.json": {"stage": 2, "outcome": "OPEN", "reports": reports,
+               "emitter.json": emission,
+               "lean.json": {"stage": 3, "outcome": "OPEN", "reports": reports,
                              "theorem_count_including_generated": len(reports)},
-               "verification.json": {"stage": 2, "outcome": "OPEN", "base": BASE,
+               "verification.json": {"stage": 3, "outcome": "OPEN", "base": BASE,
                     "python_tests": int(count[1]), "python_version": sys.version.split()[0],
                     "statement_coverage": line, "branch_coverage": branch,
-                    "coverage_scope": "probe.py and materialize.py; verifier apparatus excluded",
+                    "coverage_scope": "probe.py, materialize.py, emitter.py; verifier apparatus excluded",
                     "sources": before, "lean_theorems_including_generated": len(reports)}}
     for name, record in records.items():
         raw = (json.dumps(record, sort_keys=True, indent=2) + "\n").encode("utf-8")
@@ -173,7 +196,7 @@ def verify(lake: str, write: bool) -> None:
             path.write_bytes(raw)
         elif not path.is_file() or path.read_bytes() != raw:
             raise ValueError("EVIDENCE_DIFFERS: " + name)
-    print(f"PASS Stages 1-2: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
+    print(f"PASS Stages 1-3: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
           f"{len(reports)} theorem reports. OB-1 remains OPEN.")
 
 

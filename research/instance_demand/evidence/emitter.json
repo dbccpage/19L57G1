@@ -1,0 +1,132 @@
+{
+  "E1": "OPEN: output admission and obligation meaning remain additional host operations",
+  "E2_literal": "NOT_SATISFIED: requirements unchanged",
+  "E3": "Unruled singleton output separates its pair; covered output remains unmet conditionally",
+  "E4": "Covered two-reading samples have existing responses and whole replay",
+  "authority_effect": "None",
+  "bridge": "Computed outputs agree with represented execution on functional operand graphs",
+  "candidate_class": "One-pass stored ternary instructions composing two stored binary edges",
+  "native_inference": "REFUTED for this join schema by a reachable unruled-output counterexample",
+  "next_stage": "Assess the scoped outcome and dynamics without claiming E1",
+  "outcome": "OPEN",
+  "samples": [
+    {
+      "computed_endpoint": 1,
+      "contains_impose": false,
+      "data_count": 3,
+      "instruction": [
+        0,
+        1,
+        2
+      ],
+      "intermediate": 2,
+      "output_covered": false,
+      "outputs_without_instruction": [],
+      "pair": [
+        0,
+        1
+      ],
+      "pair_already_separated_by_emission": true,
+      "payload_previously_derivable": false,
+      "payload_previously_stored": false,
+      "reading": "L",
+      "requirements_after": [],
+      "same_profiles_without_instruction": true,
+      "whole_emission_replay": true
+    },
+    {
+      "computed_endpoint": 1,
+      "contains_impose": false,
+      "data_count": 3,
+      "instruction": [
+        0,
+        1,
+        2
+      ],
+      "intermediate": 2,
+      "output_covered": true,
+      "outputs_without_instruction": [],
+      "pair": [
+        0,
+        1
+      ],
+      "pair_already_separated_by_emission": false,
+      "payload_previously_derivable": true,
+      "payload_previously_stored": false,
+      "reading": "L",
+      "requirements_after": [],
+      "response_context": [
+        6,
+        [
+          null
+        ]
+      ],
+      "same_profiles_without_instruction": true,
+      "whole_emission_replay": true,
+      "whole_response_replay": true
+    },
+    {
+      "computed_endpoint": 2,
+      "contains_impose": false,
+      "data_count": 4,
+      "instruction": [
+        0,
+        1,
+        2
+      ],
+      "intermediate": 3,
+      "output_covered": false,
+      "outputs_without_instruction": [],
+      "pair": [
+        1,
+        2
+      ],
+      "pair_already_separated_by_emission": true,
+      "payload_previously_derivable": false,
+      "payload_previously_stored": false,
+      "reading": "F",
+      "requirements_after": [],
+      "same_profiles_without_instruction": true,
+      "whole_emission_replay": true
+    },
+    {
+      "computed_endpoint": 2,
+      "contains_impose": false,
+      "data_count": 4,
+      "instruction": [
+        0,
+        1,
+        2
+      ],
+      "intermediate": 3,
+      "output_covered": true,
+      "outputs_without_instruction": [],
+      "pair": [
+        1,
+        2
+      ],
+      "pair_already_separated_by_emission": false,
+      "payload_previously_derivable": true,
+      "payload_previously_stored": false,
+      "reading": "F",
+      "requirements_after": [],
+      "response_context": [
+        6,
+        [
+          null
+        ]
+      ],
+      "same_profiles_without_instruction": true,
+      "whole_emission_replay": true,
+      "whole_response_replay": true
+    }
+  ],
+  "stage": 3,
+  "sweep": {
+    "admission_events": 2560,
+    "distinct_new_instances": 2528,
+    "functional_execution_paths": 2340,
+    "states": 5140,
+    "states_without_instruction": 522
+  }
+}

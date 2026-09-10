@@ -34,8 +34,18 @@ class VerificationControls(unittest.TestCase):
                 verify.parse_reports(text, inventory)
         self.assertEqual(verify.parse_reports(good, census), {name: ["propext"]})
 
+    def test_stage3_manifest_keeps_earlier_pin_and_exact_population(self) -> None:
+        good: dict[str, Any] = {"base": verify.BASE, "sources": dict.fromkeys(verify.STAGE3_SOURCE_PATHS, "0" * 64)}
+        self.assertEqual(len(verify.validate_manifest(good, verify.STAGE3_SOURCE_PATHS)), 25)
+        self.assertFalse(set(verify.SOURCE_PATHS) & set(verify.STAGE3_SOURCE_PATHS))
+        with self.assertRaisesRegex(ValueError, "SOURCE_POPULATION"):
+            verify.validate_manifest(good)
+        good["sources"].pop(verify.STAGE3_SOURCE_PATHS[0])
+        with self.assertRaisesRegex(ValueError, "SOURCE_POPULATION"):
+            verify.validate_manifest(good, verify.STAGE3_SOURCE_PATHS)
+
     def test_coverage_requires_both_thresholds_and_exact_file(self) -> None:
-        measured: dict[str, Any] = {str(verify.ROOT / name): {} for name in ("probe.py", "materialize.py")}
+        measured: dict[str, Any] = {str(verify.ROOT / name): {} for name in ("probe.py", "materialize.py", "emitter.py")}
         payload: dict[str, Any] = {"files": measured,
                                   "totals": {"covered_lines": 100, "num_statements": 100,
                                              "covered_branches": 100, "num_branches": 100}}

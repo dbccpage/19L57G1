@@ -1,14 +1,68 @@
-# Instance demand: Stages 1 and 2 checkpoint
+# Instance demand: Stages 1 through 3 checkpoint
 
 AuthorityEffect: None. OB-1 remains **OPEN**. This is a staged construction
 attempt with supplied targets and prior exposure, outside the sealed derivation.
 
-Stage 2 constructs a finite uniform-closure materializer and proves that it
-stores fresh syntax without changing derivability or observational separation.
-It supplies answerable, initially unmet pairs under a declared instance reading.
-The procedure still needs a represented emitter and an obligation interpretation
-to establish E1. Neither Outcome A nor full instance-channel impossibility is
-claimed. Stage 1's provenance results and original I1 controls remain intact.
+Stage 3 constructs an emitter controlled by stored instructions and proves its
+calculation agrees with the existing graph execution on functional operands.
+It also refutes identifying the added composition rule with sealed derivability.
+The output-admission operation and obligation meaning remain host conventions,
+so E1 and OB-1 remain OPEN. Neither Outcome A nor full instance-channel
+impossibility is claimed. Stages 1 and 2 remain intact as scoped inputs.
+
+## Stage 3 construction and result
+
+The declared layout stores instruction `(k,l,o)` as `(0,[k,l,o])`; operation
+index `k` refers to binary form `3+k`, following the existing execution layout.
+From that instruction and stored edges `(3+k,[x,z])`, `(3+l,[z,y])`, the
+interpreter emits `(3+o,[x,y])` when `x < y`. This is a fixed syntactic reading:
+no requirement store or observational profile selects the output. All matching
+paths are retained. Distinct paths may give the same tuple and therefore
+repeat an admission event; storage itself deduplicates it.
+
+`lean/RepresentedEmitter.lean` proves exact instruction/edge decoding and output
+membership. On functional operand graphs, the resulting endpoint equals the
+existing `Execution.run` result for the two-operation word. Every successful
+two-step execution output with `x < y` is retained by the emitter even when
+other paths exist. The first direction's functionality assumption matters:
+`Execution.lookup` takes the first matching edge, while this emitter retains
+all paths. Python's separate unique lookup refuses ambiguity. These claims
+concern `Execution` on stored graphs, not the entire finite-setting encoding.
+
+The admission wrapper keeps only well-formed, initially unstored output tuples
+and feeds their instance events through sealed replay. General Lean theorems
+prove exact final membership, replay, unchanged other fields, and preserved
+well-formedness. `represented_run_keeps_graph` separately proves that the
+existing execution operation itself does not perform this write.
+
+The stronger native inference claim is false: `native_closure_counterexample`
+gives a reachable well-formed regime with the instruction and both premises,
+but the unruled output is not derivable. `no_native_join_rule` refutes the
+universal inference from this stored pattern to native derivability. It does
+not quantify over all conceivable instance generators or interpreters.
+
+Two output controls identify the remaining demand problem:
+
+| Output form | Before output admission | After output admission | Assessment |
+|---|---|---|---|
+| Unruled | The pair is collapsed; the output is not derivable. | The singleton output separates its own endpoints. | The proposed stored demand fails E3 at the post-emission state. |
+| Uniformly ruled | The pair is collapsed; the output is already derivable but unstored. | The stored output leaves the pair collapsed. | Conditional unmet-pair witness; native production and obligation meaning remain unproved. |
+
+The L and F samples add one auxiliary datum to the two- and three-data reading
+analogues: respectively 3 and 4 data, targets `(0,1)` and `(1,2)`, and
+intermediates 2 and 3. The admitted instruction is `[0,1,2]`; all six forms are
+explicitly admitted, including the layout's two unused unary forms. No claim
+of a minimum encoding is made. For covered outputs a fresh unary form 6 and
+its instance at the first endpoint answer the pair. Lean proves valid responses
+and whole histories from genesis; both generating histories contain no impose.
+They are not the sealed Challenge-3 states. Removing the instruction disables
+the emitter; the finite samples retain the same observational profiles.
+
+E1 is still the missing admission/interpretation bridge. Literal E2 fails
+because `reqs` stays unchanged. Under owed-separation E2 the covered samples
+provide conditional payload and response witnesses, not a proved endogenous
+obligation. Stage 3 covers one emission pass. It does not transfer Stage 2's
+fixed-point theorem to this different procedure or claim sustained dynamics.
 
 ## Stage 2 construction and result
 
@@ -54,7 +108,8 @@ a general guarantee of fresh unmet demand after arbitrary responses.
 
 Observational conservativity does not rule out an instance reader observing
 the added syntax. Conversely, observing new syntax does not itself establish
-an endogenous obligation. Stage 3 must resolve that distinction.
+an endogenous obligation. Stage 3 resolves the computation bridge for its
+declared composition program and leaves the admission/obligation bridge OPEN.
 
 ## Stage 1 results retained
 
@@ -88,7 +143,8 @@ with their imposed requirements removed from a claimed replay of those states.
 
 `lean/InstanceDemand.lean` has 14 authored theorems and nine generated reports.
 `lean/ClosureMaterialization.lean` adds 28 authored theorems and 29 generated
-reports. The combined census has 80 reports, all within
+reports. `lean/RepresentedEmitter.lean` adds 36 authored theorems and 30 generated
+reports. The combined census has 146 reports, all within
 `{propext, Quot.sound}`. `lean/Inventory.lean` obtains that population from the
 compiled environment independently of the printed reports. No private theorem
 is permitted in the namespace.
@@ -105,8 +161,23 @@ admissions, preservation of every datum's complete finite context profile,
 native replay, and 1,062 fixed points. Additional tests cover mixed unary,
 binary, and ternary forms, an unruled form, an existing requirement, malformed
 inputs, omitted or extra consequences, wrong admission traces, and corrupted
-replay or observation results. The combined suite has 25 tests and passes
-strict typing. Both measured modules have 100% statement and branch coverage.
+replay or observation results.
+
+`emitter.py` checks 5,140 reachable configurations: 1,044 from every pair of
+binary-relation subsets on 0..2 active data, crossed with instruction presence
+and output coverage; plus 4,096 pairs of partial functional graphs on three
+active data, with the instruction present and the output covered. Each census
+state has three additional admitted data outside the active graph carrier,
+the six-form layout, and empty requirements. This padding makes the instruction
+codes valid; it is not claimed necessary. The run records 2,560 admission events,
+2,528 distinct new instances, 2,340 functional execution paths, and 522 states
+without an instruction. Separate tests cover multiple instructions, differing
+output forms, ambiguity, repeated outputs, and invalid output forms/arities.
+
+The combined suite has 39 tests and passes strict typing. All three measured
+modules have 100% statement and branch coverage. The original ten input pins
+remain unchanged; `STAGE3_SOURCE_MANIFEST.json` adds 25 baseline-pinned files
+covering the newly imported execution dependencies and package configurations.
 
 From this directory, with Python, coverage, mypy, and Lean 4.33.0 installed:
 
@@ -117,15 +188,16 @@ python verify.py --lake PATH_TO_LAKE
 The verifier checks sources at the pinned base and HEAD and from disk; checks
 the runtime origin of the consumed Python modules; runs tests, strict typing,
 and compilation; compares the complete namespace census to the axiom reports;
-and compares fresh evidence bytes. Coverage measures `probe.py` and
-`materialize.py` and requires
+and compares fresh evidence bytes. Coverage measures `probe.py`,
+`materialize.py`, and `emitter.py` and requires
 95% statements and branches independently. Verification apparatus is outside
 that coverage claim. `--write` deliberately regenerates the receipts. Inputs
 are hashed with text line endings normalized; evidence files are byte-bound.
 
 `evidence/computation.json` retains the Stage 1 record unchanged, including its
-historical next-stage field. `evidence/materialization.json` records Stage 2;
-`lean.json` and `verification.json` cover both stages.
+historical next-stage field. `evidence/materialization.json` retains Stage 2
+unchanged, including its historical next-stage field. `evidence/emitter.json`
+records Stage 3; `lean.json` and `verification.json` cover all three stages.
 
 This work is a local checkpoint, not a registration in the twelve gate
 families. Full repository integration and a merge decision are later work.
@@ -135,9 +207,9 @@ families. Full repository integration and a merge decision are later work.
 1. **Stage 1 COMPLETE:** native provenance and singleton/control witnesses.
 2. **Stage 2 COMPLETE:** uniform-closure materialization, conservative replay,
    fixed point, conditional unmet-pair witnesses, and existing responses.
-3. **Stage 3:** attempt an emitter controlled by admitted program instances,
-   with a fixed interpreter retaining every alternative or refusing ambiguity.
-   Prove the semantic bridge; replayability alone is insufficient.
+3. **Stage 3 COMPLETE:** stored composition instructions, graph-execution bridge,
+   admission replay, native-inference counterexample, and two output controls.
+   This completes the candidate attempt; E1 itself remains OPEN.
 4. **Stage 4:** assess E1, literal E2, owed-separation E2, E3, E4, and the dynamics
    claim separately. The event-origin theorem does not close this stage.
 5. **Stage 5:** reconcile claims and artifacts, run required local integration
