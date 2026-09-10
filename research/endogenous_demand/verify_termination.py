@@ -329,7 +329,8 @@ def main() -> int:
         st = driven_step(st, (0, st.data - 1))
     print(f"  Initial N_0={n0} (bound={b0}); with external driving, reached {st.data - n0} extra steps. Obstruction is tight.")
     print("================================================================================")
-    print("ALL VERIFICATION CHECKS PASSED: OB-1 Obstruction Theorem Confirmed.")
+    print("ALL VERIFICATION CHECKS PASSED: endogenous termination bound verified.")
+    print("  (OB-1 demand generator on C_reqs remains OPEN — this bound does not close it.)")
     print("================================================================================")
     return 0
 

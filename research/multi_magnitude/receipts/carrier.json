@@ -27,7 +27,7 @@
         "arrow_count": 16,
         "cell": "a_only",
         "channel_a": {
-          "source": "two_label_slots",
+          "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
         "channel_b": {
@@ -59,7 +59,7 @@
         "arrow_count": 16,
         "cell": "a_only",
         "channel_a": {
-          "source": "two_label_slots",
+          "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
         "channel_b": {
@@ -91,7 +91,7 @@
         "arrow_count": 16,
         "cell": "a_only",
         "channel_a": {
-          "source": "two_label_slots",
+          "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
         "channel_b": {
@@ -120,10 +120,10 @@
         ]
       },
       {
-        "arrow_count": 16,
+        "arrow_count": 8,
         "cell": "b_only",
         "channel_a": {
-          "source": "phase_2",
+          "source": "3_labels_exceed_bound_2",
           "verdict": "NOT_CURABLE_WITHIN_BOUND"
         },
         "channel_b": {
@@ -135,10 +135,10 @@
           "pos_dominated": false
         },
         "distinct_magnitudes": 1,
-        "fibre": 2,
-        "name": "square_2x2_occ2_uncurable_b_cert",
+        "fibre": 6,
+        "name": "square_2x2_occ3_single_signed",
         "walk_bound": 4,
-        "walk_count": 265,
+        "walk_count": 137,
         "walk_magnitudes": [
           1
         ]
@@ -147,7 +147,7 @@
         "arrow_count": 16,
         "cell": "both",
         "channel_a": {
-          "source": "two_label_slots",
+          "source": "2_label_slots",
           "verdict": "CURABLE_WITHIN_BOUND"
         },
         "channel_b": {
@@ -168,10 +168,10 @@
         ]
       },
       {
-        "arrow_count": 16,
+        "arrow_count": 8,
         "cell": "neither",
         "channel_a": {
-          "source": "phase_2",
+          "source": "3_labels_exceed_bound_2",
           "verdict": "NOT_CURABLE_WITHIN_BOUND"
         },
         "channel_b": {
@@ -187,10 +187,10 @@
           "pos_dominated": false
         },
         "distinct_magnitudes": 5,
-        "fibre": 2,
-        "name": "square_2x2_occ2_uncurable_cyc3",
+        "fibre": 6,
+        "name": "square_2x2_occ3_cyc3",
         "walk_bound": 4,
-        "walk_count": 265,
+        "walk_count": 137,
         "walk_magnitudes": [
           1,
           2,

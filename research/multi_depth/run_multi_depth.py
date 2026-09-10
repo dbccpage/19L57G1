@@ -48,14 +48,19 @@ def main() -> int:
             "strict_separation": f_kp1 and not f_k,
         })
 
+    lean_data: dict[str, object] = {
+        "theorem": "DepthLadder.ladder_monotonic",
+        "audit_passed": lean_ok,
+    }
+    if lean_ok:
+        lean_data["axioms"] = ["propext", "Quot.sound"]
+        lean_data["zero_classical_choice"] = True
+        lean_data["zero_mathlib"] = True
+    else:
+        lean_data["axioms"] = "BUILD_FAILED"
+
     receipt_data = {
-        "lean_verification": {
-            "theorem": "DepthLadder.ladder_monotonic",
-            "axioms": ["propext", "Quot.sound"],
-            "zero_classical_choice": True,
-            "zero_mathlib": True,
-            "audit_passed": lean_ok,
-        },
+        "lean_verification": lean_data,
         "sweep_verification": sweep,
         "ladder_strictness": ladder_checks,
     }
@@ -64,7 +69,7 @@ def main() -> int:
     content = json.dumps(receipt_data, indent=2, sort_keys=True) + "\n"
     out_file.write_text(content, encoding="utf-8")
     print(f"Receipt written to {out_file}")
-    return 0
+    return 0 if lean_ok else 1
 
 
 if __name__ == "__main__":

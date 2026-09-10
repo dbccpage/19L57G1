@@ -116,9 +116,25 @@ def separation_verdict(rows: list[dict[str, object]]) -> dict[str, object]:
     }
 
 
+def compute_channel_a(p: GenPres, slot_bound: int = 2) -> tuple[str, str]:
+    """Compute Channel-A verdict from the presentation's transport structure.
+
+    A presentation is curable within bound if its distinct transport labels
+    fit within the slot_bound (relabeling budget). Otherwise it is not
+    curable within bound.
+    """
+    distinct_transports = len({a.transport for a in p.arrows})
+    if distinct_transports <= slot_bound:
+        return ("CURABLE_WITHIN_BOUND", f"{distinct_transports}_label_slots")
+    return ("NOT_CURABLE_WITHIN_BOUND", f"{distinct_transports}_labels_exceed_bound_{slot_bound}")
+
+
 def build_multi_magnitude_census() -> list[dict[str, object]]:
     """Build census incorporating multi-magnitude cyclotomic weights and unit weights,
-    demonstrating the complete separation of repair channels."""
+    demonstrating the complete separation of repair channels.
+
+    Each row uses a distinct presentation. Channel-A is computed from the
+    transport label count, not hardcoded."""
     # Obtain cyclotomic row at n=3: [2, -1, -1]
     cyc3 = cyc.row_family_v6(3)
     assert cyc3 == [2, -1, -1]
@@ -128,43 +144,45 @@ def build_multi_magnitude_census() -> list[dict[str, object]]:
 
     rows: list[dict[str, object]] = []
 
-    # 1. Curable members equipped with cyclotomic multi-magnitude weights:
-    # Channel (a) cures them (two-label slot relabeling), but Channel (b)
-    # refuses due to multi-magnitude imbalance -> produces "a_only" cells!
+    # 1. "a_only": cyclotomic-weighted occ2 (2 transports → curable, multi-mag → no B cert)
     for name in ("signed_square_pos", "signed_square_neg"):
         if name in base_members:
             p_base = base_members[name]
             p_cyc = cyclotomic_arrow_variant(p_base, cyc3)
-            rows.append(channel_row(f"{name}_cyc3", p_cyc, "CURABLE_WITHIN_BOUND", "two_label_slots"))
+            verdict, source = compute_channel_a(p_cyc)
+            rows.append(channel_row(f"{name}_cyc3", p_cyc, verdict, source))
 
-    # square_2x2_occ2 equipped with cyclotomic weights
     if "square_2x2_occ2" in base_members:
         p_sq = base_members["square_2x2_occ2"]
         p_sq_cyc = cyclotomic_arrow_variant(p_sq, cyc3)
-        rows.append(channel_row("square_2x2_occ2_cyc3", p_sq_cyc, "CURABLE_WITHIN_BOUND", "two_label_slots"))
+        verdict, source = compute_channel_a(p_sq_cyc)
+        rows.append(channel_row("square_2x2_occ2_cyc3", p_sq_cyc, verdict, source))
 
-    # 2. Member where Channel (a) is uncurable / obstructed within bound,
-    # but Channel (b) certificate exists (e.g. single-signed or symmetric weights) -> produces "b_only" cells!
-    if "square_2x2_occ2" in base_members:
-        p_sq = base_members["square_2x2_occ2"]
-        # Single-signed weights (+1 everywhere)
-        p_single = GenPres(
-            p_sq.objects,
-            tuple(Arrow(a.src, a.dst, a.transport, 1) for a in p_sq.arrows),
-            p_sq.fibre,
-            p_sq.generators,
+    # 2. "b_only": single-signed occ2 (2 transports but all amps=+1 → no relabeling needed,
+    #    channel_a is curable but B dominates → need a presentation where A fails but B passes)
+    #    Use occ3 with single-signed weights: 3 transports → NOT curable, but unit amps → B cert
+    if "square_2x2_occ3" in base_members:
+        p_occ3 = base_members["square_2x2_occ3"]
+        p_occ3_single = GenPres(
+            p_occ3.objects,
+            tuple(Arrow(a.src, a.dst, a.transport, 1) for a in p_occ3.arrows),
+            p_occ3.fibre,
+            p_occ3.generators,
         )
-        rows.append(channel_row("square_2x2_occ2_uncurable_b_cert", p_single, "NOT_CURABLE_WITHIN_BOUND", "phase_2"))
+        verdict, source = compute_channel_a(p_occ3_single)
+        rows.append(channel_row("square_2x2_occ3_single_signed", p_occ3_single, verdict, source))
 
-    # 3. Standard unit-weight presentation (single magnitude 1) where both succeed -> "both"
+    # 3. "both": unit-weight occ2 (2 transports → curable, unit amps → B cert)
     if "signed_square_pos" in base_members:
         p_base = base_members["signed_square_pos"]
-        rows.append(channel_row("signed_square_pos_unit", p_base, "CURABLE_WITHIN_BOUND", "two_label_slots"))
+        verdict, source = compute_channel_a(p_base)
+        rows.append(channel_row("signed_square_pos_unit", p_base, verdict, source))
 
-    # 4. Uncurable presentation with multi-magnitude refusing weights -> "neither"
-    if "square_2x2_occ2" in base_members:
-        p_sq = base_members["square_2x2_occ2"]
-        p_neither = cyclotomic_arrow_variant(p_sq, cyc3)
-        rows.append(channel_row("square_2x2_occ2_uncurable_cyc3", p_neither, "NOT_CURABLE_WITHIN_BOUND", "phase_2"))
+    # 4. "neither": cyclotomic-weighted occ3 (3 transports → NOT curable, multi-mag → no B cert)
+    if "square_2x2_occ3" in base_members:
+        p_occ3 = base_members["square_2x2_occ3"]
+        p_occ3_cyc = cyclotomic_arrow_variant(p_occ3, cyc3)
+        verdict, source = compute_channel_a(p_occ3_cyc)
+        rows.append(channel_row("square_2x2_occ3_cyc3", p_occ3_cyc, verdict, source))
 
     return rows

@@ -193,7 +193,10 @@ def ColumnReductionEquivalence (n : Nat) : Prop :=
     (detL redheffer n = detL R_tri n) ∧
     (detL R_tri n = runningBalance n)
 
-/-- Conditioned on the priced column-reduction equivalence, `det(R_n) = M(n)`. -/
+/-- Structural packaging: given the CRE hypothesis (which bundles both
+    `detL redheffer n = detL R_tri n` and `detL R_tri n = runningBalance n`),
+    extract and compose the two conjuncts via rewriting. This is transitivity
+    of the CRE's own assumed equalities, not an independent identity. -/
 theorem det_redheffer_eq_running_balance_of_column_reduction (n : Nat)
     (h : ColumnReductionEquivalence n) :
     detL redheffer n = runningBalance n := by

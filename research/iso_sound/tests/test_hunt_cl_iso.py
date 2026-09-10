@@ -15,7 +15,7 @@ import sys
 import unittest
 
 # Ensure imports resolve
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 CODE_DIR = ROOT / "code"
 RESEARCH_DIR = ROOT / "research"
 ISO_SOUND_DIR = RESEARCH_DIR / "iso_sound"

@@ -175,9 +175,21 @@ def audit_test_counts(repo_root: Path = REPO_ROOT) -> dict[str, Any]:
     counts_by_file: dict[str, int] = {}
     for line in res.stdout.splitlines():
         line = line.strip()
-        if ": " in line and line.startswith("tests/"):
-            parts = line.split(": ")
-            counts_by_file[parts[0]] = int(parts[1])
+        # pytest --collect-only -q format varies by version:
+        #   older/some: "tests/test_foo.py: 10"
+        #   newer/some: "tests/test_foo.py::test_bar"
+        if line.startswith("tests/"):
+            if ": " in line and not "::" in line:
+                # "tests/test_foo.py: 10" format
+                parts = line.split(": ")
+                try:
+                    counts_by_file[parts[0]] = int(parts[1])
+                except (ValueError, IndexError):
+                    pass
+            elif "::" in line:
+                # "tests/test_foo.py::test_bar" format
+                test_file = line.split("::")[0]
+                counts_by_file[test_file] = counts_by_file.get(test_file, 0) + 1
 
     current_collected = sum(counts_by_file.values())
     current_files = len(counts_by_file)
