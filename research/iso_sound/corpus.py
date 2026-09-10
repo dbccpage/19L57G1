@@ -70,11 +70,14 @@ def in_bounds(r: Regime) -> bool:
 
 def corpus_agreement() -> dict[str, object]:
     corpus = seed_corpus()
+    # Compute each regime's two keys once (O(n)), not once per partner (O(n^2)).
+    refined_keys = [canonical(r) for r in corpus]
+    brute_keys = [canonical_bruteforce(r) for r in corpus]
     disagree = 0
-    for i, left in enumerate(corpus):
-        for right in corpus[i:]:
-            refined = canonical(left) == canonical(right)
-            brute = canonical_bruteforce(left) == canonical_bruteforce(right)
+    for i in range(len(corpus)):
+        for j in range(i, len(corpus)):
+            refined = refined_keys[i] == refined_keys[j]
+            brute = brute_keys[i] == brute_keys[j]
             if refined != brute:
                 disagree += 1
     return {

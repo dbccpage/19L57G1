@@ -17,7 +17,10 @@ from typing import Mapping
 ROOT = Path(__file__).resolve().parent
 REPORT = ROOT / "coverage.json"
 THRESHOLD = 95.0
-OMIT_PARTS = ("tests/", "lean/", ".lake/")
+# Directory names whose measured files are not this tree's own Python.  Matched
+# as PATH COMPONENTS, not substrings: a file under a directory like ``clean/``
+# or ``subtests/`` must not be mistaken for ``lean/``/``tests/``.
+OMIT_DIRS = frozenset({"tests", "lean", ".lake"})
 REQUIRED_FILES: tuple[str, ...] = (
     "space.py",
     "hunt.py",
@@ -30,49 +33,9 @@ def _basename(path: str) -> str:
     return path.replace("\\", "/").rsplit("/", 1)[-1]
 
 
-def report_errors(payload: object) -> list[str]:
-    """Named failures of one coverage.json object.  Empty list is a pass."""
-    if not isinstance(payload, dict):
-        return ["COVERAGE_SHAPE: not an object"]
-    totals = payload.get("totals")
-    if not isinstance(totals, dict):
-        return ["COVERAGE_TOTALS: missing"]
-    files = payload.get("files")
-    if not isinstance(files, dict) or not files:
-        return ["COVERAGE_FILES: missing"]
-    errors: list[str] = []
-    measured = [_basename(path) for path in files]
-    leaked = [path for path in files if any(part in path.replace("\\", "/") for part in OMIT_PARTS)]
-    if leaked:
-        errors.append("COVERAGE_LEAK: " + ", ".join(leaked[:5]))
-    missing = sorted(set(REQUIRED_FILES) - set(measured))
-    if missing:
-        errors.append(f"COVERAGE_POPULATION: missing {missing}")
-    try:
-        covered_lines = float(totals["covered_lines"])
-        num_statements = float(totals["num_statements"])
-        covered_branches = float(totals["covered_branches"])
-        num_branches = float(totals["num_branches"])
-    except (KeyError, TypeError, ValueError):
-        errors.append("COVERAGE_TOTALS: covered_lines/num_statements/covered_branches/num_branches required")
-        return errors
-    if num_statements <= 0:
-        errors.append("COVERAGE_TOTALS: no statements")
-        return errors
-    if num_branches <= 0:
-        errors.append("COVERAGE_TOTALS: no branches; branch measurement is required")
-        return errors
-    statement = 100.0 * covered_lines / num_statements
-    branch = 100.0 * covered_branches / num_branches
-    if statement < THRESHOLD:
-        errors.append(
-            f"COVERAGE_STATEMENT: {statement:.2f}% (need {THRESHOLD:.0f}%)"
-        )
-    if branch < THRESHOLD:
-        errors.append(
-            f"COVERAGE_BRANCH: {branch:.2f}% (need {THRESHOLD:.0f}%)"
-        )
-    return errors
+def _directories(path: str) -> set[str]:
+    """The directory components of ``path`` (its basename excluded)."""
+    return set(path.replace("\\", "/").split("/")[:-1])
 
 
 def _number(value: object) -> float:
@@ -81,15 +44,71 @@ def _number(value: object) -> float:
     return float(value)
 
 
+def _totals(totals: Mapping[str, object]) -> tuple[float, float, float, float]:
+    """The four coverage totals as floats.  The single numeric-extraction path;
+    rejects bool and non-numeric so every caller agrees on what is valid."""
+    return (
+        _number(totals["covered_lines"]),
+        _number(totals["num_statements"]),
+        _number(totals["covered_branches"]),
+        _number(totals["num_branches"]),
+    )
+
+
 def percentages(totals: Mapping[str, object]) -> tuple[float, float]:
-    covered_lines = _number(totals["covered_lines"])
-    num_statements = _number(totals["num_statements"])
-    covered_branches = _number(totals["covered_branches"])
-    num_branches = _number(totals["num_branches"])
+    covered_lines, num_statements, covered_branches, num_branches = _totals(totals)
     return (
         100.0 * covered_lines / num_statements,
         100.0 * covered_branches / num_branches,
     )
+
+
+def evaluate(payload: object) -> tuple[list[str], float | None, float | None]:
+    """Named failures plus the computed percentages.
+
+    Returns ``(errors, statement, branch)``; the percentages are ``None``
+    whenever evaluation stopped before computing them, and the two enforced
+    values when ``errors`` is empty.
+    """
+    if not isinstance(payload, dict):
+        return (["COVERAGE_SHAPE: not an object"], None, None)
+    totals = payload.get("totals")
+    if not isinstance(totals, dict):
+        return (["COVERAGE_TOTALS: missing"], None, None)
+    files = payload.get("files")
+    if not isinstance(files, dict) or not files:
+        return (["COVERAGE_FILES: missing"], None, None)
+    errors: list[str] = []
+    measured = [_basename(path) for path in files]
+    leaked = [path for path in files if _directories(path) & OMIT_DIRS]
+    if leaked:
+        errors.append("COVERAGE_LEAK: " + ", ".join(leaked[:5]))
+    missing = sorted(set(REQUIRED_FILES) - set(measured))
+    if missing:
+        errors.append(f"COVERAGE_POPULATION: missing {missing}")
+    try:
+        covered_lines, num_statements, covered_branches, num_branches = _totals(totals)
+    except (KeyError, TypeError, ValueError):
+        errors.append("COVERAGE_TOTALS: covered_lines/num_statements/covered_branches/num_branches required")
+        return (errors, None, None)
+    if num_statements <= 0:
+        errors.append("COVERAGE_TOTALS: no statements")
+        return (errors, None, None)
+    if num_branches <= 0:
+        errors.append("COVERAGE_TOTALS: no branches; branch measurement is required")
+        return (errors, None, None)
+    statement = 100.0 * covered_lines / num_statements
+    branch = 100.0 * covered_branches / num_branches
+    if statement < THRESHOLD:
+        errors.append(f"COVERAGE_STATEMENT: {statement:.2f}% (need {THRESHOLD:.0f}%)")
+    if branch < THRESHOLD:
+        errors.append(f"COVERAGE_BRANCH: {branch:.2f}% (need {THRESHOLD:.0f}%)")
+    return (errors, statement, branch)
+
+
+def report_errors(payload: object) -> list[str]:
+    """Named failures of one coverage.json object.  Empty list is a pass."""
+    return evaluate(payload)[0]
 
 
 def main() -> int:
@@ -101,15 +120,12 @@ def main() -> int:
     except (OSError, ValueError) as exc:
         print(f"FAIL: coverage.json unreadable: {exc}")
         return 1
-    errors = report_errors(payload)
+    errors, statement, branch = evaluate(payload)
     if errors:
         for error in errors:
             print(f"FAIL: {error}")
         return 1
-    assert isinstance(payload, dict)
-    totals = payload["totals"]
-    assert isinstance(totals, dict)
-    statement, branch = percentages(totals)
+    assert statement is not None and branch is not None
     print(f"PASS: coverage statement {statement:.2f}% branch {branch:.2f}%")
     return 0
 

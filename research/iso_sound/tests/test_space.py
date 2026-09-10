@@ -36,12 +36,13 @@ class Space(unittest.TestCase):
         self.assertEqual(n, 56020)
         self.assertEqual(space.count_space(), 56020)
 
-    def test_comb_edges(self) -> None:
-        self.assertEqual(space._comb(5, -1), 0)
-        self.assertEqual(space._comb(5, 6), 0)
-        self.assertEqual(space._comb(5, 0), 1)
-        self.assertEqual(space._comb(5, 5), 1)
-        self.assertEqual(space._comb(5, 2), 10)
+    def test_count_space_is_independent_of_the_enumerator_shape(self) -> None:
+        # count_space re-derives signatures inline and counts slots
+        # arithmetically, so it does not call the enumerator's own
+        # form_signatures/instance_slots; it must still equal the enumeration.
+        n = sum(1 for _ in space.enumerate_regimes())
+        self.assertEqual(space.count_space(), n)
+        self.assertEqual(space.count_space(), 56020)
 
     def test_empty_and_max_form_signatures(self) -> None:
         sigs = space.form_signatures()

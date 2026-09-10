@@ -9,6 +9,7 @@ AuthorityEffect: None.
 
 from __future__ import annotations
 
+import math
 from itertools import combinations, product
 from typing import Iterator
 
@@ -91,27 +92,21 @@ def regime_record(r: Regime) -> dict[str, object]:
 
 
 def count_space() -> int:
-    """Closed-form size of the enumeration, used to pin the bound."""
+    """Closed-form size of the enumeration, used to cross-check the bound.
+
+    Independent of ``form_signatures``/``instance_slots``: the signature set is
+    re-derived inline and the slot count is the arithmetic ``sum n_data**arity``,
+    so this catches an under-enumeration in those two functions rather than
+    sharing their blind spot.  The literal 56020 pinned in the tests is the
+    ground-truth anchor.
+    """
     total = 0
     for n_data in range(MAX_DATA + 1):
         n_req = n_data * (n_data - 1) // 2
-        for forms in form_signatures():
-            n_slots = len(instance_slots(n_data, forms))
-            max_k = min(MAX_INSTS, n_slots)
-            n_inst_sets = sum(
-                _comb(n_slots, k) for k in range(max_k + 1)
-            )
-            total += n_inst_sets * (1 << len(forms)) * (1 << n_req)
+        for n_forms in range(MAX_FORMS + 1):
+            for arities in product(range(1, MAX_ARITY + 1), repeat=n_forms):
+                n_slots = sum(n_data ** arity for arity in arities)
+                max_k = min(MAX_INSTS, n_slots)
+                n_inst_sets = sum(math.comb(n_slots, k) for k in range(max_k + 1))
+                total += n_inst_sets * (1 << n_forms) * (1 << n_req)
     return total
-
-
-def _comb(n: int, k: int) -> int:
-    if k < 0 or k > n:
-        return 0
-    if k == 0 or k == n:
-        return 1
-    k = min(k, n - k)
-    out = 1
-    for i in range(k):
-        out = out * (n - i) // (i + 1)
-    return out

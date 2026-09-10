@@ -26,11 +26,10 @@ def receipt_bytes() -> bytes:
     failures = verify_sources()
     if failures:
         raise RuntimeError("source verification failed: " + "; ".join(failures))
-    payload = hunt_bytes()
-    failures = verify_sources()
-    if failures:
-        raise RuntimeError("source verification failed after hunt: " + "; ".join(failures))
-    return payload
+    # The hunt imports and computes only; it writes no files, so a second full
+    # custody scan here (dozens of git calls over the sealed tree) would
+    # re-verify unchanged inputs for nothing.
+    return hunt_bytes()
 
 
 def main() -> int:
