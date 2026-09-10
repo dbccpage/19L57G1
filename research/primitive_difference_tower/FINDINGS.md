@@ -2,7 +2,7 @@
 
 ## Result
 
-At sealed snapshot `86e06953380457a39d7acbec0947fab736bc49a8` (repinned 2026-09-10 from `55ebb50bd66fca3c558c9d3c9efe8bae80440b1d` after `artifacts/completion_dependency_graph.json` moved on the merge bar; this tree's own sources are unchanged), an
+At sealed snapshot `e6f626d45b4bdb05bea6f8d2a64b4e6cb49b4a35` (repinned 2026-09-10 from `55ebb50bd66fca3c558c9d3c9efe8bae80440b1d` after `artifacts/completion_dependency_graph.json` moved on the merge bar; this tree's own sources are unchanged), an
 unqualified endogenous-push conclusion is **not established**.  The result is
 instead a source-boundary analysis plus a separate declared finite fixture.
 After that fixture admits a seed, labels, an anchor, and a successor grammar,
