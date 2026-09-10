@@ -158,12 +158,11 @@ L_REPS: tuple[tuple[str, Regime], ...] = (
     ("BD", diag_l()),
 )
 
-F_SWAPS: tuple[tuple[str, Regime, Regime], ...] = (
-    ("MarkF", mark_f(), mark_f_swap()),
-    ("DiagF", diag_f(), diag_f_swap()),
-    ("LinkF", link_f(), link_f_swap()),
-    ("OutF", out_f(), out_f_swap()),
-    ("InF", in_f(), in_f_swap()),
+# Reuse the representatives already built in F_REPS (same order) rather than
+# rebuilding each one; only the swap member is constructed here.
+_F_SWAP_FNS = (mark_f_swap, diag_f_swap, link_f_swap, out_f_swap, in_f_swap)
+F_SWAPS: tuple[tuple[str, Regime, Regime], ...] = tuple(
+    (name, reg, swap()) for (name, reg), swap in zip(F_REPS, _F_SWAP_FNS)
 )
 
 

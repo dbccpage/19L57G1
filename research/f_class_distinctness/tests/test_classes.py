@@ -24,6 +24,29 @@ class Fields(unittest.TestCase):
         for name, reg in cl.L_REPS:
             self.assertEqual(cl.regime_fields(reg), cl.LEAN_L_FIELDS[name], name)
 
+    def test_inline_f_defs_match_the_lean_source(self) -> None:
+        # DiagF/LinkF/OutF/InF are defined inline in the Lean file as field
+        # literals; assert those literals match LEAN_F_FIELDS so a Lean-def edit
+        # cannot silently diverge from the Python snapshot the mirror checks.
+        # (MarkF is the sealed U0F and the L reps are sealed defs, referenced by
+        # name rather than literal, so they are out of this source-bridge scope.)
+        lean = (Path(__file__).resolve().parents[1] / "lean"
+                / "FClassDistinctness.lean").read_text(encoding="utf-8")
+        for name in ("DiagF", "LinkF", "OutF", "InF"):
+            n, forms, insts, rules, reqs = cl.LEAN_F_FIELDS[name]
+            forms_s = "[" + ", ".join(str(a) for a in forms) + "]"
+            insts_s = "[" + ", ".join(
+                "(" + str(f) + ", [" + ", ".join(str(x) for x in args) + "])"
+                for f, args in insts
+            ) + "]"
+            rules_s = "[" + ", ".join(str(r) for r in rules) + "]"
+            reqs_s = "[" + ", ".join("(" + str(i) + ", " + str(j) + ")" for i, j in reqs) + "]"
+            literal = f"⟨{n}, {forms_s}, {insts_s}, {rules_s}, {reqs_s}⟩"
+            # bind the literal to its exact def, not merely its presence anywhere
+            # (e.g. DiagF' carries the [2,2] literal), so an edit to `def DiagF`
+            # cannot pass by matching another definition's body.
+            self.assertIn(f"def {name} : Regime := {literal}", lean, (name, literal))
+
 
 class Distinctness(unittest.TestCase):
     def test_f_pairwise_noniso(self) -> None:

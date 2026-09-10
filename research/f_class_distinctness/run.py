@@ -26,11 +26,10 @@ def receipt_bytes() -> bytes:
     failures = verify_sources()
     if failures:
         raise RuntimeError("source verification failed: " + "; ".join(failures))
-    payload = class_bytes()
-    failures = verify_sources()
-    if failures:
-        raise RuntimeError("source verification failed after computation: " + "; ".join(failures))
-    return payload
+    # The class record computation imports and replays only; it writes no files,
+    # so a second full custody scan here (dozens of git calls over the sealed
+    # tree) would re-verify unchanged inputs for nothing.
+    return class_bytes()
 
 
 def main() -> int:
