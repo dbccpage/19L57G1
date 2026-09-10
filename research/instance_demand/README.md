@@ -1,7 +1,11 @@
 # Instance demand: four-stage construction and its open boundary
 
-AuthorityEffect: None. OB-1 remains **OPEN**. This is a staged construction
-attempt with supplied targets and prior exposure, outside the sealed derivation.
+AuthorityEffect: None. OB-1 remains **OPEN** outside the two-edge
+instruction class. `NoGo.lean` closes the instance channel **negatively for
+that class only** (`InClass`: stored form-0 ternary instructions): native
+store without `admitInst` of the new tuple is unsatisfiable. This is a staged
+construction attempt with supplied targets and prior exposure, outside the
+sealed derivation.
 
 Stage 4 proves finite termination of repeated emission under the explicitly
 declared host admission procedure. It reaches the least closed extension by

@@ -1,6 +1,6 @@
 name = "instance_demand"
 version = "0.1.0"
-defaultTargets = ["InstanceDemand", "ClosureMaterialization", "RepresentedEmitter", "EmissionDynamics", "Inventory"]
+defaultTargets = ["InstanceDemand", "ClosureMaterialization", "RepresentedEmitter", "EmissionDynamics", "NoGo", "Inventory"]
 
 [[require]]
 name = "derivation"
@@ -24,3 +24,6 @@ name = "RepresentedEmitter"
 
 [[lean_lib]]
 name = "EmissionDynamics"
+
+[[lean_lib]]
+name = "NoGo"

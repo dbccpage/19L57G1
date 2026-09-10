@@ -1,10 +1,10 @@
 # Instance-channel claims: Stages 1 through 4
 
-AuthorityEffect: None. Outcome **OPEN** for OB-1. The existing `C_reqs`
-result is unchanged. A uniform materializer and a stored-instruction composition
-emitter are exhibited as host operations. The latter has a graph-computation
-bridge and a proved terminating iteration, but endogenous admission and
-obligation semantics under E1 are unproved.
+AuthorityEffect: None. Outcome **OPEN** for OB-1 outside `NoGo.InClass`.
+The existing `C_reqs` result is unchanged. A uniform materializer and a
+stored-instruction composition emitter are exhibited as host operations.
+`NoGo.no_member_is_endogenous` closes the two-edge instruction class
+negatively under E1 = native store without that tuple's `admitInst`.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -44,6 +44,7 @@ obligation semantics under E1 are unproved.
 | CL-ID-34 | Proved theorem: the chain's initial form-3 graph is functional, but is not functional after its first emission. | `Dynamics.chain_functionality_boundary`; `test_chain_needs_two_rounds_and_retains_duplicate_path_events` | Functionality survives in that exact example. The Stage 3 graph-execution bridge remains conditional and cannot be applied at later rounds without its premises. |
 | CL-ID-35 | Proved theorem: every pair in the covered chain remains collapsed at every round. Terminal pair `(0,3)` has a valid response using fresh unary form 4, the whole response history replays, and its stored payload remains afterward. | `Dynamics.chain_covered_collapsed`, `chain_response_valid`, `chain_response_replay`, `chain_answered_pair_retained` | Failed collapse, response, or replay. The covered output was already derivable; its obligation role is not proved. |
 | CL-ID-36 | Deterministic computation: the 2,124-configuration repeated-emission census has 1,772 initial fixed points and 352 one-round cases, with 384 admission events/new instances. The separate four-data chain has two rounds, 4 events, and 3 new instances. | `dynamics.sweep`, `chain_sample`, `evidence/dynamics.json`; `tests/test_dynamics.py` | Counts, least-store comparison, or whole replay fail. The bounded census itself has no multiple-round example and is not all programs or data sizes. |
+| CL-ID-37 | Proved theorem, scoped: no member of `InClass` (stored form-0 ternary instructions) satisfies E1 ∧ E2′ ∧ E3 together, where E1 is a sealed step storing a new instance without being that instance's `admitInst`. The class is nonempty and contains every `Enabled` instruction. | `NoGo.class_nonempty`, `class_covers_enabled`, `e1_impossible`, `no_member_is_endogenous`, `shape_uncovered_fails_native_join`, `shape_imposed_fails_E2p`, `shape_separated_fails_E3`, `missing_operation_is_extension`; `tests/test_nogo.py` | A sealed step that stores a new instance without that `admitInst`. Does not close OB-1 outside this class. Literal `reqs` E2 is not used. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
