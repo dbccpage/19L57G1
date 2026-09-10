@@ -19,12 +19,12 @@ proved, and — stated with equal precision — what was not.
 
 | | |
 |---|---|
-| Python | 58 typed source files; the computational object language and its studies |
-| Lean 4 | 74 modules, 62 in the root's import closure, 12 parked and audited separately |
-| Tests | 37 files, 481 collected: 480 passed / 1 skipped; line 99.09% / branch 96.71% |
-| Artifacts | 39 deterministic JSON exports plus 6 full gzipped trees |
-| Claims | 135 `CL-*` headings; schema and evidence ratchets expose the remaining legacy gaps |
-| Axioms | 1506 axiom reports, all within `{propext, Quot.sound}` |
+| Python | 60 typed source files; the computational object language and its studies |
+| Lean 4 | 75 modules, 63 in the root's import closure, 12 parked and audited separately |
+| Tests | 41 files, 481 collected: 480 passed / 1 skipped; line 99.09% / branch 96.71% |
+| Artifacts | 40 deterministic JSON exports plus 6 full gzipped trees |
+| Claims | 140 `CL-*` headings; schema and evidence ratchets expose the remaining legacy gaps |
+| Axioms | 1530 axiom reports, all within `{propext, Quot.sound}` |
 
 The derivation's result is not that some structure was built. It is
 that at the first point where the system had to answer, **the
@@ -67,12 +67,12 @@ can contradict.
   `lean4/Derivation/` is elaborated as its own build target against a
   pinned census, so a module the root does not import cannot escape
   typechecking.
-* **The ledger is the join, with explicit legacy debt.** Its 135 `CL-*`
+* **The ledger is the join, with explicit legacy debt.** Its 140 `CL-*`
   headings provide the schema for class, Python evidence, Lean names, and
   falsifier fields. Conformance ratchets expose the known missing fields;
   the evidence gate verifies that citations which are present still resolve.
 
-## Eleven gate families
+## Twelve gate families
 
 ```
 1   prompt byte-identity          7   skills well formed, declaring no authority
@@ -80,7 +80,8 @@ can contradict.
 3   dual 95% line/branch gates    9   ledger evidence citations resolve
 4   strict typing (mypy)         10   parked-module census and audit wiring
 5   artifact regeneration        11   research provenance, tests, and typing
-6   Lean build, forbidden-token and axiom audit
+6   Lean build, forbidden-token  12   prose-watchlist digest census
+    and axiom audit
 ```
 
 Run them with `.claude/skills/gates`, which enforces freshness so a
@@ -94,7 +95,7 @@ the rest.
 * **A gate proves a receipt, not a payload.** Hashes, test passes, and
   byte comparisons say what the commands printed. They do not say the
   mathematics is right.
-* **"Axiom-clean" is a claim about the enumerated reports** (1506), not
+* **"Axiom-clean" is a claim about the enumerated reports** (1530), not
   about every declaration in the tree. An earlier version of this bullet
   said thirteen parked modules "emit no report; their axioms are unchecked";
   that is WITHDRAWN — `lean4/ParkedAudit.lean` now reports the twelve
@@ -125,7 +126,7 @@ terminal result** and 12 is the limitations register.
 where present and keeps known legacy gaps explicit rather than treating a
 green ratchet as completion. Start here when you doubt a paper sentence.
 
-**The kernel** — read these six in order; 25 study modules plus the package
+**The kernel** — read these six in order; 26 study modules plus the package
 initializer are layered on them:
 
 ```
@@ -146,7 +147,7 @@ that have actually been tested.
 ```powershell
 python -m pytest                    # 480 passed, 1 skipped on the current census
 python -m mypy                      # strict, over code/
-cd lean4; lake build; cd ..         # default targets; CI census elaborates all 74 modules
+cd lean4; lake build; cd ..         # default targets; the census elaborates all 75 modules
 ```
 
 Artifacts regenerate deterministically. Family 5 in
