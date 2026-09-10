@@ -52,7 +52,15 @@ def TargetClassAdequate (T : TargetSystem) : Prop :=
   EmpiricalAdequacy T
 
 /-!
-### Canonical Constructive Witness: 2-State Binary Toggling Transducer
+### Minimal Toy Witness: 2-State Binary Toggling Transducer
+
+Epistemic Scope:
+`binaryToggleSystem` serves as a minimal constructive toy witness demonstrating
+that the structural predicates `TargetClassAdequate` are logically satisfiable
+and separate non-trivial systems from collapsing single-state systems (`trivialSystem`).
+This does NOT assert that a two-state system is an adequate physical theory of everything;
+the complete 9-criterion adequacy charter is independently specified in `Charter.lean`
+and evaluated under `TOE_TARGET_CLASS_FROZEN`.
 -/
 
 /-- State space of the binary toggling system. -/

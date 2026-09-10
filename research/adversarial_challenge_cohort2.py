@@ -550,7 +550,7 @@ def test_g010_straight_line_length_invariance_fuzzing() -> None:
             f"Linear program {p_idx} violated length invariance: {len0}, {len1}, {len99}, {len_neg}"
         )
 
-    # Verify that CONDITIONAL_ROUTING_TASK is impossible for LinearInterpreter
+    # Verify that CONDITIONAL_ROUTING_TASK is obstructed for LinearInterpreter
     task = make_conditional_routing_task()
     # Any linear program emits same length on (0,) and (1,), but task requires 1 and 2
     dummy_linear_prog = [SetConst(dst=0, val=10), Emit(src=0), Halt()]

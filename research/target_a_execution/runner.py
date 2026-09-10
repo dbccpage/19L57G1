@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable, Sequence
+from typing import Any, Callable, Protocol, Sequence, runtime_checkable
 
 from derivation.model import Inst
 
@@ -27,6 +27,24 @@ Graph = frozenset[Inst]
 
 class ExecutionError(ValueError):
     """A named refusal or validation failure of the interpreter."""
+
+
+@runtime_checkable
+class TapeCarrier(Protocol):
+    """Protocol for state objects carrying an execution tape."""
+
+    tape: tuple[int, ...]
+
+
+@runtime_checkable
+class StateCarrier(TapeCarrier, Protocol):
+    """Protocol for state objects carrying full execution state."""
+
+    graph: Graph
+    active: int
+    tape: tuple[int, ...]
+    clock: int
+    fuel: int
 
 
 class Terminal(Enum):
@@ -179,6 +197,9 @@ def obs_of(read: Reader, n: int, s: Any, fire_fn: Callable[[Any, int], Any]) -> 
 
 
 def cast_tape(s: Any) -> tuple[int, ...]:
+    """Extract execution tape from state object adhering to TapeCarrier protocol."""
+    if isinstance(s, TapeCarrier):
+        return s.tape
     return getattr(s, "tape", ())
 
 
@@ -213,4 +234,6 @@ def next_value_of(read: Reader, s: Any) -> int | None:
     enabled_ops = read(s)
     if len(enabled_ops) != 1:
         return None
-    return lookup(3 + enabled_ops[0], getattr(s, "active", 0), getattr(s, "graph", frozenset()))
+    active = s.active if isinstance(s, StateCarrier) else getattr(s, "active", 0)
+    graph = s.graph if isinstance(s, StateCarrier) else getattr(s, "graph", frozenset())
+    return lookup(3 + enabled_ops[0], active, graph)

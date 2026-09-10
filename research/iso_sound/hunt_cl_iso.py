@@ -11,7 +11,7 @@ Claim Hygiene:
 - Narrow claim: Confirms partition agreement across declared bounded regimes,
   yielding exact equivalence classes with zero discrepancies.
 - Non-claim: Agreement within these finite settings supports partition soundness
-  up to the declared horizon; it does not prove universal isomorphism soundness.
+  up to the declared horizon; it does not establish general isomorphism soundness.
 - General soundness remains OPEN (tracked in paper claim ledger as CL-ISO-SOUND).
 
 AuthorityEffect: None.

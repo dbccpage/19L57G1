@@ -31,6 +31,7 @@ FORM_CFG_STEP = 10
 FORM_CFG_BRANCH = 11
 FORM_JUMP_TABLE = 12
 FORM_CFG_INDIRECT = 13
+FORM_CFG_ASSIGN = 14
 
 
 @dataclass(frozen=True)
@@ -93,6 +94,11 @@ class CFGBuilder:
         self.edges.add((FORM_CFG_INDIRECT, (pc, table_id)))
         return self
 
+    def add_assignment(self, pc: int, new_data: int, next_pc: int) -> CFGBuilder:
+        """Add an instruction mutating active data to new_data and advancing to next_pc."""
+        self.edges.add((FORM_CFG_ASSIGN, (pc, new_data, next_pc)))
+        return self
+
     def to_graph(self) -> Graph:
         """Return the immutable frozen graph of all encoded CFG edges."""
         return frozenset(self.edges)
@@ -113,25 +119,26 @@ def resolve_jump_table_target(graph: Graph, table_id: int, index: int) -> int | 
     return matches[0] if matches else None
 
 
-def get_cfg_successors(graph: Graph, pc: int, data: int) -> tuple[int, ...]:
-    """Find all valid successor PCs from current pc given data value.
+def get_cfg_transitions(graph: Graph, pc: int, data: int) -> tuple[tuple[int, int], ...]:
+    """Find all valid successor transitions (target_pc, next_data) from current state.
 
     Searches across:
-    1. Unconditional steps: (FORM_CFG_STEP, (pc, next_pc))
-    2. Matching conditional branches: (FORM_CFG_BRANCH, (pc, data, target_pc))
-    3. Indirect jump tables: (FORM_CFG_INDIRECT, (pc, table_id)) resolved at index=data.
+    1. Unconditional steps: (FORM_CFG_STEP, (pc, next_pc)) -> preserves data
+    2. Matching conditional branches: (FORM_CFG_BRANCH, (pc, cond, target_pc)) -> preserves data
+    3. Indirect jump tables: (FORM_CFG_INDIRECT, (pc, table_id)) resolved at index=data -> preserves data
+    4. Data assignments: (FORM_CFG_ASSIGN, (pc, new_data, target_pc)) -> mutates data to new_data
     """
-    targets: set[int] = set()
+    transitions: set[tuple[int, int]] = set()
 
     # 1. Unconditional steps
     for form, args in graph:
         if form == FORM_CFG_STEP and len(args) == 2 and args[0] == pc:
-            targets.add(args[1])
+            transitions.add((args[1], data))
 
     # 2. Matching conditional branches
     for form, args in graph:
         if form == FORM_CFG_BRANCH and len(args) == 3 and args[0] == pc and args[1] == data:
-            targets.add(args[2])
+            transitions.add((args[2], data))
 
     # 3. Indirect jump tables
     for form, args in graph:
@@ -139,37 +146,50 @@ def get_cfg_successors(graph: Graph, pc: int, data: int) -> tuple[int, ...]:
             table_id = args[1]
             resolved = resolve_jump_table_target(graph, table_id, data)
             if resolved is not None:
-                targets.add(resolved)
+                transitions.add((resolved, data))
 
-    return tuple(sorted(targets))
+    # 4. Data assignments
+    for form, args in graph:
+        if form == FORM_CFG_ASSIGN and len(args) == 3 and args[0] == pc:
+            new_data = args[1]
+            target_pc = args[2]
+            transitions.add((target_pc, new_data))
+
+    return tuple(sorted(transitions))
+
+
+def get_cfg_successors(graph: Graph, pc: int, data: int) -> tuple[int, ...]:
+    """Find all valid successor PCs from current pc given data value."""
+    transitions = get_cfg_transitions(graph, pc, data)
+    return tuple(sorted(set(target for target, _ in transitions)))
 
 
 def step_cfg(s: CFGState) -> Terminal | CFGState:
     """Perform one deterministic step in the represented CFG.
 
     Enforces strict non-selection on forks:
-    - 0 targets -> Terminal.HALT
-    - >= 2 targets -> Terminal.BRANCH (refusal to silently choose a path)
-    - 1 target:
+    - 0 transitions -> Terminal.HALT
+    - >= 2 transitions -> Terminal.BRANCH (refusal to silently choose a path)
+    - 1 transition:
       - if fuel <= 0 -> Terminal.EXHAUSTED
-      - else -> advances to target_pc, updates history, clock + 1, fuel - 1.
+      - else -> advances to target_pc, updates data to next_data, clock + 1, fuel - 1.
     """
-    targets = get_cfg_successors(s.graph, s.pc, s.data)
+    transitions = get_cfg_transitions(s.graph, s.pc, s.data)
 
-    if not targets:
+    if not transitions:
         return Terminal.HALT
-    if len(targets) >= 2:
+    if len(transitions) >= 2:
         return Terminal.BRANCH
 
     if s.fuel <= 0:
         return Terminal.EXHAUSTED
 
-    next_pc = targets[0]
-    next_history = s.history + ((next_pc, s.data),)
+    next_pc, next_data = transitions[0]
+    next_history = s.history + ((next_pc, next_data),)
     return CFGState(
         graph=s.graph,
         pc=next_pc,
-        data=s.data,
+        data=next_data,
         history=next_history,
         clock=s.clock + 1,
         fuel=s.fuel - 1,

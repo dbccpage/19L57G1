@@ -99,3 +99,24 @@ def test_cfg_fuel_exhaustion() -> None:
     assert term is Terminal.EXHAUSTED
     assert final_s.clock == 3
     assert final_s.fuel == 0
+
+
+def test_cfg_dynamic_data_mutation_and_branching() -> None:
+    # Program starts with data=0 at PC 0.
+    # PC 0: mutates data to 42, jumps to PC 1
+    # PC 1: conditional branch: if data == 42 -> PC 100, if data == 0 -> PC 200
+    # PC 100: halt
+    builder = CFGBuilder()
+    builder.add_assignment(pc=0, new_data=42, next_pc=1)
+    builder.add_branch(pc=1, cond_val=42, target_pc=100)
+    builder.add_branch(pc=1, cond_val=0, target_pc=200)
+    graph = builder.to_graph()
+
+    state = init_cfg(graph, start_pc=0, initial_data=0, fuel=10)
+    term, final_s = run_cfg(10, state)
+
+    assert term is Terminal.HALT
+    assert final_s.pc == 100
+    assert final_s.data == 42
+    assert final_s.clock == 2
+    assert final_s.history == ((0, 0), (1, 42), (100, 42))

@@ -733,5 +733,6 @@ def test_f16_vocabulary_firewall_zero_denylist_leaks():
 
 def test_f16_test_ready_artifact_publication_and_receipts():
     test_ready = E2E_ROOT / "TEST_READY.md"
+    test_infra = E2E_ROOT / "TEST_INFRA.md"
     assert test_ready.exists()
-    assert (Path(".agents/TEST_READY.md")).exists()
+    assert test_infra.exists()
