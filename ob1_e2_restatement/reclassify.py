@@ -53,9 +53,12 @@ def check_census_pin() -> None:
     live = (REPO / "research" / "endogenous_demand" / "candidates.py").read_bytes()
     if _sha(live) != CANDIDATES_SHA256:
         raise SystemExit("candidates.py does not match the b947873 pin")
-    shown = subprocess.check_output(
-        ["git", "-C", str(REPO), "show", f"{CENSUS_COMMIT}:research/endogenous_demand/candidates.py"]
-    )
+    try:
+        shown = subprocess.check_output(
+            ["git", "-C", str(REPO), "show", f"{CENSUS_COMMIT}:research/endogenous_demand/candidates.py"]
+        )
+    except (subprocess.CalledProcessError, OSError) as exc:
+        raise SystemExit(f"git show {CENSUS_COMMIT}:candidates.py failed: {exc}") from exc
     if _sha(shown) != CANDIDATES_SHA256:
         raise SystemExit(f"git show {CENSUS_COMMIT}:candidates.py does not match the pin")
 
@@ -85,12 +88,18 @@ class Row:
     e2_violation: str | None
 
 
+def _rule_history() -> tuple[Event, ...]:
+    """The surviving-shape history shared by probe C4 and shape_probe(): two
+    collapsed data, a binary form, and the single uniform rule."""
+    return cand._two_data() + (AdmitForm(2), AdmitRuleAll(0))
+
+
 def probes() -> tuple[Probe, ...]:
     two = cand._two_data()
     orbits = closure_challenge_orbits(replay(two))
     c2_history = two + tuple(Impose(i, j) for i, j in orbits)
     grown = two + (Supply("c"), AdmitDatum("c"))
-    rule = two + (AdmitForm(2), AdmitRuleAll(0))
+    rule = _rule_history()
     inst = two + (AdmitForm(2), AdmitInst(0, (0, 1)))
     return (
         Probe("C1", two, "host", None, "host_next"),
@@ -156,9 +165,12 @@ def flip_label(e2_fails: tuple[object, ...], e2_status: str, e2p: str, source: s
         return "yes"
     if e2p in e2_fails:
         return "no"
-    if e2p == "E2'" and "E2" in e2_fails:
+    if e2p == "E2'":
         return "restated"
-    return "restated"
+    # e2p is E1 or E3 yet absent from the census fails tuple: a mismatch, not a
+    # restatement. Surface it in the cell so --check fails loudly rather than
+    # silently mislabelling the row "restated".
+    return f"mismatch:{e2p}"
 
 
 def row_from(census: dict[str, object], probe: Probe) -> Row:
@@ -171,7 +183,7 @@ def row_from(census: dict[str, object], probe: Probe) -> Row:
     last = type(history[-1]).__name__ if history else "—"
     e2p, reason = classify(probe.source, pair, already, last)
     in_reqs = pair in regime.reqs if regime is not None and pair is not None else None
-    how = {
+    how_by_source = {
         "host": "host_next_demand" if probe.cid == "C1" else "host_holds on growth",
         "policy": "closure_challenge_orbits then Impose",
         "launder": "copy of previously imposed pair, then AdmitInst",
@@ -180,7 +192,11 @@ def row_from(census: dict[str, object], probe: Probe) -> Row:
         "inst": "never-selects read of AdmitInst (0,[0,1])" if probe.cid == "I1" else "unary AdmitInst on datum 0",
         "cited": "",
         "outside": "",
-    }[probe.source]
+    }
+    try:
+        how = how_by_source[probe.source]
+    except KeyError:
+        raise SystemExit(f"row_from: unknown probe source {probe.source!r} for {probe.cid}") from None
     violation = e2_violation(history) if history else None
     return Row(
         cid=probe.cid,
@@ -222,7 +238,7 @@ def render_table(rows: tuple[Row, ...]) -> str:
 
 
 def shape_probe() -> dict[str, object]:
-    history = cand._two_data() + (AdmitForm(2), AdmitRuleAll(0))
+    history = _rule_history()
     regime = replay(history)
     collapsed = collapsed_pairs(regime)
     pair = collapsed[0] if collapsed else None
@@ -237,6 +253,9 @@ def shape_probe() -> dict[str, object]:
 
 def all_rows() -> tuple[Row, ...]:
     by_id = {str(row["id"]): row for row in cand.CENSUS}
+    missing = sorted({p.cid for p in probes() if p.cid not in by_id})
+    if missing:
+        raise SystemExit(f"probes reference ids absent from CENSUS: {missing}")
     return tuple(row_from(by_id[p.cid], p) for p in probes())
 
 
@@ -244,7 +263,11 @@ def check_finding(rows: tuple[Row, ...]) -> None:
     text = FINDING.read_text(encoding="utf-8")
     table = render_table(rows)
     if table not in text:
-        raise SystemExit("FINDING.md table does not match reclassify.py")
+        raise SystemExit(
+            "rendered table is not a substring of FINDING.md: FINDING.md is stale, "
+            "or a pinned/live census input changed the table -- re-run "
+            "`python reclassify.py` and update FINDING.md, or investigate input drift"
+        )
     i1 = next(r for r in rows if r.cid == "I1")
     if i1.already_sep != "True" or i1.e2p_fails != "E3" or i1.flipped != "yes":
         raise SystemExit("I1 under E2' is not the recorded flip")
