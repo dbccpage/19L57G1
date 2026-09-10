@@ -1,0 +1,74 @@
+{
+  "outcome": "OPEN",
+  "reports": {
+    "InstanceDemand.both_readings_covered_replay": [
+      "propext"
+    ],
+    "InstanceDemand.both_readings_replay": [
+      "propext"
+    ],
+    "InstanceDemand.covered.eq_1": [],
+    "InstanceDemand.covered_pair_collapsed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.covered_pair_collapsed._proof_1_1": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.faithful_read_origin": [
+      "propext"
+    ],
+    "InstanceDemand.genesis_instance_origin": [
+      "propext"
+    ],
+    "InstanceDemand.genesis_instance_origin._simp_1_2": [
+      "propext"
+    ],
+    "InstanceDemand.lone.eq_1": [],
+    "InstanceDemand.lone_pair_separates": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.new_derivable_is_uniform": [],
+    "InstanceDemand.new_stored_instance_needs_event": [
+      "propext"
+    ],
+    "InstanceDemand.replay_cons": [
+      "propext"
+    ],
+    "InstanceDemand.replay_insts_mem": [
+      "propext"
+    ],
+    "InstanceDemand.replay_insts_mem._simp_1_1": [
+      "propext"
+    ],
+    "InstanceDemand.replay_insts_mem._simp_1_2": [
+      "propext"
+    ],
+    "InstanceDemand.replay_insts_mem._simp_1_3": [
+      "propext"
+    ],
+    "InstanceDemand.replay_nil": [
+      "propext"
+    ],
+    "InstanceDemand.samples_well_formed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.step_insts_mem": [
+      "propext"
+    ],
+    "InstanceDemand.step_insts_mem._simp_1_1": [
+      "propext"
+    ],
+    "InstanceDemand.step_insts_mem._simp_1_2": [
+      "propext"
+    ],
+    "InstanceDemand.uniform_rule_keeps_instances": [
+      "propext"
+    ]
+  },
+  "stage": 1,
+  "theorem_count_including_generated": 23
+}

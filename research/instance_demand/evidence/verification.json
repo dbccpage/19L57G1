@@ -1,0 +1,27 @@
+{
+  "base": "4cab03e9e1f9056492c33bd12298459b2f84958c",
+  "branch_coverage": 100.0,
+  "coverage_scope": "probe.py only; verifier apparatus excluded",
+  "lean_theorems_including_generated": 23,
+  "outcome": "OPEN",
+  "python_tests": 14,
+  "python_version": "3.14.2",
+  "sources": {
+    ".gitattributes": "824c59b8e2d8159c02d2e42c2e09a5ed9afd42b907d36268f7efd953683a54cf",
+    ".gitignore": "b171803c3ea8f291d00f148409fce4f25be02059431874eab5a766f2d711e364",
+    "CLAIMS.md": "3e49d2470d69b408e18b014953d1bdd69575a8fbaf684e3aa699212fc0c8ca36",
+    "README.md": "7331feef99723c703336dacf45b351956d8107a62b7967e758e21e7314ebc8c3",
+    "SOURCE_MANIFEST.json": "458a565071ea108e1628a3111db23c5bf94ceb8a5b8b9d31dac0d8932bf24240",
+    "lean/InstanceDemand.lean": "b36dbafe48d6aba0da6de3d74b94f69ae9dce4eec24c0cf2c80a273d9f395c91",
+    "lean/Inventory.lean": "bcbb7bb0cb8bbbd2ee2c9c3b1d8e4f7c6c79f997f75ebae495739402b286e120",
+    "lean/lakefile.toml": "1d8e80c6d6426f2f219d34840e840c981b7ceb042d8b3048f3d961dfa808319e",
+    "lean/lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b",
+    "probe.py": "902b9d01d4452609153abbc693a06dcd915b17ad84c65e981d3780c1e22a261e",
+    "pyproject.toml": "84139333863fb57316eb9339c712e62a7bb9a2112bbb5c807bf60a848f243eed",
+    "tests/test_probe.py": "35bc04b123f58e1d1222253b6d3e02c592ca2b5bbf8623f12f8d06ce7e1e3898",
+    "tests/test_verify.py": "f8e3281ba3c774a68104d4f3059552e5865783ec098ca153dfd2c7ef7a029133",
+    "verify.py": "e5f53d0b19b9c9c86c322440f1c2e7259b50347c1cbc0b05103a7585db1ffd66"
+  },
+  "stage": 1,
+  "statement_coverage": 100.0
+}

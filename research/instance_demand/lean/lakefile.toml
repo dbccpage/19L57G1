@@ -1,0 +1,13 @@
+name = "instance_demand"
+version = "0.1.0"
+defaultTargets = ["InstanceDemand", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "InstanceDemand"
+
+[[lean_lib]]
+name = "Inventory"
