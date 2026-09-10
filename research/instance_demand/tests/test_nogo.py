@@ -1,7 +1,8 @@
 """Python controls for the scoped two-edge no-go class.
 
-These reconstruct InClass membership and the in-class failure shapes on
-the Stage-3 seed. They do not close OB-1 outside that class.
+These reconstruct InClass membership, channel E1 (host `AdmitInst` allowed),
+the owed-separation clause, and E3 on the Stage-3 seed. They do not close
+OB-1 outside that class.
 AuthorityEffect: None.
 """
 
@@ -19,8 +20,41 @@ def in_class(regime: Regime, c: tuple[int, tuple[int, ...]]) -> bool:
     return form == 0 and len(args) == 3 and (form, args) in regime.insts
 
 
-def e2_prime(regime: Regime, impose: bool, i: int, j: int) -> bool:
-    return (not separable(regime, i, j)) and (not impose)
+def reads_output(regime: Regime, c: tuple[int, tuple[int, ...]],
+                 out: tuple[int, tuple[int, ...]]) -> bool:
+    form, args = c
+    return (
+        (form, args) in regime.insts
+        and form == 0
+        and len(args) == 3
+        and out in e.raw_outputs(regime.insts)
+        and out[0] == 3 + args[2]
+    )
+
+
+def owed(regime: Regime, i: int, j: int) -> bool:
+    return i < j < regime.n_data() and not separable(regime, i, j)
+
+
+def e2_prime(r: Regime, s: Regime, impose: bool, out: tuple[int, tuple[int, ...]],
+             i: int, j: int) -> bool:
+    return (
+        out[1] == (i, j)
+        and owed(s, i, j)
+        and (not impose)
+        and out in e.raw_outputs(r.insts)
+    )
+
+
+def e3(r: Regime, s: Regime, out: tuple[int, tuple[int, ...]],
+       i: int, j: int) -> bool:
+    form, args = out
+    return (
+        args == (i, j)
+        and owed(s, i, j)
+        and not owed(r, i, j)
+        and form in r.rules
+    )
 
 
 def unruled_seed() -> Regime:
@@ -58,6 +92,10 @@ class NoGoClass(unittest.TestCase):
         self.assertFalse(cheating(r, instruction))
         self.assertIn((5, (0, 1)), e.raw_outputs(r.insts))
 
+    def test_i1_singleton_is_not_in_class(self) -> None:
+        r = unruled_seed()
+        self.assertFalse(in_class(r, (0, (0, 1))))
+
     def test_unruled_enabled_output_is_not_natively_derivable(self) -> None:
         r = unruled_seed()
         out = (5, (0, 1))
@@ -73,22 +111,63 @@ class NoGoClass(unittest.TestCase):
         self.assertEqual(replay((AdmitRuleAll(5),), base=r).insts, r.insts)
         self.assertEqual(replay((AdmitForm(2),), base=r).insts, r.insts)
 
-    def test_host_emit_writes_via_admitInst_events(self) -> None:
-        r = unruled_seed()
+    def test_host_emit_is_channel_e1_not_native_store(self) -> None:
+        r = covered_seed()
         after, events = e.emit(r)
-        self.assertIn((5, (0, 1)), after.insts)
-        self.assertNotIn((5, (0, 1)), r.insts)
+        c = (0, (0, 1, 2))
+        out = (5, (0, 1))
+        self.assertTrue(in_class(r, c))
+        self.assertTrue(reads_output(r, c, out))
+        self.assertIn(out, after.insts)
+        self.assertNotIn(out, r.insts)
         self.assertTrue(events)
         self.assertTrue(all(isinstance(ev, AdmitInst) for ev in events))
 
     def test_impose_cannot_be_e2prime_origin(self) -> None:
         r = unruled_seed()
-        self.assertFalse(separable(r, 0, 1))
-        self.assertFalse(e2_prime(r, True, 0, 1))
-        self.assertTrue(e2_prime(r, False, 0, 1))
+        after, _events = e.emit(r)
+        out = (5, (0, 1))
+        self.assertFalse(e2_prime(r, after, True, out, 0, 1))
 
-    def test_unruled_emission_separates_so_e3_fails(self) -> None:
+    def test_unruled_emission_separates_so_owed_fails(self) -> None:
         r = unruled_seed()
-        self.assertFalse(separable(r, 0, 1))
+        self.assertTrue(owed(r, 0, 1))
         after, _events = e.emit(r)
         self.assertTrue(separable(after, 0, 1))
+        self.assertFalse(owed(after, 0, 1))
+        self.assertFalse(e3(r, after, (5, (0, 1)), 0, 1))
+
+    def test_covered_emission_is_already_owed_so_e3_fails(self) -> None:
+        r = covered_seed()
+        after, _events = e.emit(r)
+        out = (5, (0, 1))
+        self.assertTrue(owed(r, 0, 1))
+        self.assertTrue(owed(after, 0, 1))
+        self.assertIn(5, r.rules)
+        self.assertFalse(e3(r, after, out, 0, 1))
+
+    def test_weak_e3_without_freshness_would_pass_covered(self) -> None:
+        r = covered_seed()
+        after, _events = e.emit(r)
+        self.assertFalse(separable(after, 0, 1))
+        self.assertTrue(owed(after, 0, 1))
+        self.assertTrue(owed(r, 0, 1))
+        self.assertFalse(e3(r, after, (5, (0, 1)), 0, 1))
+
+    def test_conjunction_fails_on_both_coverages(self) -> None:
+        c = (0, (0, 1, 2))
+        out = (5, (0, 1))
+        for seed in (unruled_seed, covered_seed):
+            r = seed()
+            after, events = e.emit(r)
+            self.assertTrue(in_class(r, c))
+            self.assertTrue(reads_output(r, c, out))
+            self.assertTrue(all(isinstance(ev, AdmitInst) for ev in events))
+            self.assertFalse(e3(r, after, out, 0, 1))
+
+    def test_functional_run_stays_in_class(self) -> None:
+        r = covered_seed()
+        c = (0, (0, 1, 2))
+        self.assertTrue(in_class(r, c))
+        self.assertEqual(e.eval_word(r.insts, (0, 1), 0), 1)
+        self.assertIn((5, (0, 1)), e.raw_outputs(r.insts))
