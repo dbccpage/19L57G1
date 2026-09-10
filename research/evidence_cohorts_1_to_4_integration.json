@@ -1,0 +1,32 @@
+{
+  "timestamp_utc": "2026-09-10T22:02:31.835001+00:00",
+  "verdict": "APPROVE",
+  "total_checks": 148,
+  "elapsed_seconds": 0.0038,
+  "check_breakdown": {
+    "substrate_to_algebra_checks": 40,
+    "codec_roundtrip_checks": 28,
+    "refusal_invariance_checks": 5,
+    "simulation_faithfulness_checks": 20,
+    "trace_and_higher_cell_checks": 5,
+    "protocol_commutation_checks": 25,
+    "spacelike_non_signaling_checks": 25
+  },
+  "pipeline_stages": [
+    "G011 Finitary Substrate -> M105/M106 Number Tower Q",
+    "G012 Bound-Uniform Codec -> Relational State Inversion",
+    "Target A Execution -> W03 Protection Obligation Refusal Invariance",
+    "G018 Zero-Oracle Self-Simulation -> Reflection Recurrence",
+    "G013 2-Cell Trace Calculus -> Middle Four Interchange & Factorization",
+    "P200 Operational Protocols -> Non-Disturbing Commutation & Spacelike Non-Signaling"
+  ],
+  "claim_hygiene_scope": {
+    "Substrate": "Inductive finite ordinals and tree addresses with zero host memory pointers",
+    "Algebra": "Constructive integers and exact rational localization Q modulo cross-multiplication",
+    "Codec": "Invertible multi-sorted relational grammar mapping with exact rational distortion vectors",
+    "Execution": "Represented CFG stepping with state-preserving refusal under protection obligations",
+    "Simulation": "Zero-oracle internal self-simulation bounded by closed-form reflection fuel",
+    "Traces": "Confluent 2-cells satisfying the Middle Four Interchange law and endpoint factorization",
+    "Protocols": "Operational non-disturbing readout commutation and exact spacelike non-signaling TVD = 0/1"
+  }
+}

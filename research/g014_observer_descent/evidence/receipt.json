@@ -1,0 +1,30 @@
+{
+  "target": "G014 Multi-Observer Descent & Natural Transport",
+  "source_hashes": {
+    "lean/Inventory.lean": "d2e7cdebffebd98fa20a63d7c5997819bb6553b25a38f9d6e10c17b2a28084a0",
+    "lean/ObserverDescent.lean": "eb737adad05f9ba475804d8e585d73e4c26a5f06d99e8eb9b50dd4b69e7fe21f",
+    "observer_descent.py": "6fc0bcfdac714534c88688a3668828aea56842f00ac5e4328a7c8706ade44621",
+    "verify.py": "907b5d968e0b63f6a875ee9689524199e55d0539203e5055dfbfb5a7082bc3ee",
+    "tests/test_observer_descent.py": "c2cc2875eb9c6b706af877f9f5447ca947f33f19df8cd0b203378157c6d0b79e"
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 7,
+    "status": "PASS"
+  },
+  "lean": {
+    "build_status": "PASS",
+    "theorems_audited": 8,
+    "theorem_details": {
+      "G014ObserverDescent.CarrierState.ext'": [],
+      "G014ObserverDescent.gluing_preserves_observations": [],
+      "G014ObserverDescent.gluing_unique": [],
+      "G014ObserverDescent.failed_gluing_obstruction": [],
+      "G014ObserverDescent.swap13_involutive": [],
+      "G014ObserverDescent.natural_transport_commutation": [],
+      "G014ObserverDescent.symmetric_duplicate_agreement": [],
+      "G014ObserverDescent.duplicate_disagreement_witnesses_asymmetry": []
+    }
+  },
+  "verification_status": "VERIFIED_SOUND"
+}
