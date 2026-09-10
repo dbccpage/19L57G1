@@ -1,0 +1,22 @@
+name = "g018_self_hosting"
+version = "0.1.0"
+defaultTargets = ["CarrierRepr", "Simulator", "ReflectionBoundary", "Obstruction", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "CarrierRepr"
+
+[[lean_lib]]
+name = "Simulator"
+
+[[lean_lib]]
+name = "ReflectionBoundary"
+
+[[lean_lib]]
+name = "Obstruction"
+
+[[lean_lib]]
+name = "Inventory"

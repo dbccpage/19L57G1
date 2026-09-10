@@ -2,7 +2,7 @@
   "timestamp_utc": "2026-09-10T21:01:00Z",
   "verdict": "APPROVE",
   "total_checks": 24152,
-  "elapsed_seconds": 0.2327,
+  "elapsed_seconds": 0.2689,
   "target_a_execution": {
     "refusal_non_mutation_checks": 18,
     "reflexive_vs_separated_checks": 6

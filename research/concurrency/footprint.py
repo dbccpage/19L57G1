@@ -76,9 +76,9 @@ class Footprint:
 
 
 def locus_interferes(w_a: bool, r_a: bool, w_b: bool, r_b: bool) -> bool:
-    """Check Bernstein interference condition on a single locus.
+    """Check Bernstein conflict condition on a single locus.
 
-    Interference occurs if one writes and the other reads or writes.
+    Conflict occurs if one writes and the other reads or writes.
     """
     return (w_a and (r_b or w_b)) or (w_b and (r_a or w_a))
 
@@ -127,7 +127,7 @@ class DependencyGraph:
         self.names = [op.name for op in operations]
         self._by_name = {op.name: op for op in operations}
 
-        # Derive edges strictly from access overlaps (interference)
+        # Derive edges strictly from access overlaps (conflict)
         self.edges: list[Tuple[str, str]] = []
         for i in range(len(operations)):
             for j in range(i + 1, len(operations)):

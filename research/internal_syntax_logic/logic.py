@@ -1,7 +1,7 @@
 """M101: Resource-Sensitive Consequence & Operational Logic.
 
 Constructive implementation of substructural sequent calculus, cut reductions,
-operational phase-space valuation semantics, and non-triviality verification.
+operational resource-space valuation semantics, and non-triviality verification.
 
 AuthorityEffect: None.
 """
@@ -93,7 +93,7 @@ def formula_size(f: Formula) -> int:
 
 
 # ---------------------------------------------------------------------------
-# Operational Valuation / Phase-Space Semantics
+# Operational Valuation / Resource-Space Semantics
 # ---------------------------------------------------------------------------
 
 def eval_formula(v: Callable[[int, int], bool], f: Formula, r: int, max_bound: int = 20) -> bool:

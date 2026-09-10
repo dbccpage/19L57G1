@@ -23,7 +23,7 @@ Axiom Scope: strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
 
 ## CL-CC-02: Derived Interaction Dependency Graph Without Spatial Metric
 
-- **Statement**: An interaction dependency graph $G = (V, E)$ is derived strictly from operational read/write access footprints without assuming background Euclidean metrics, lattices, or geometric coordinates. Operations $S_i, S_j$ are connected by an edge iff their access footprints interfere under the Bernstein condition.
+- **Statement**: An interaction dependency graph $G = (V, E)$ is derived strictly from operational read/write access footprints without assuming background Euclidean metrics, discrete grids, or geometric coordinates. Operations $S_i, S_j$ are connected by an edge iff their access footprints conflict under the Bernstein condition.
 - **Formal Theorems**:
   - `Concurrency.locusInterferes_symm`
   - `Concurrency.interferes_symm`
@@ -47,7 +47,7 @@ Axiom Scope: strictly within `{propext, Quot.sound}`; zero `Classical.choice`; z
 
 ---
 
-## CL-CC-04: Non-Commuting Failing Squares (Operational Interference)
+## CL-CC-04: Non-Commuting Failing Squares (Operational Conflict)
 
 - **Statement**: Operations sharing a mutable locus fail to commute in general. Concrete witnesses establish that write-write conflicts and read-write conflicts break operational commutation.
 - **Formal Theorems**:

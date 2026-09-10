@@ -1,4 +1,4 @@
-"""Unit tests for footprint.py: Footprint, Bernstein interference, and DependencyGraph."""
+"""Unit tests for footprint.py: Footprint, Bernstein conflict condition, and DependencyGraph."""
 
 from __future__ import annotations
 
