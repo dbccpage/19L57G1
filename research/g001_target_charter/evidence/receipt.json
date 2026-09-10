@@ -1,0 +1,114 @@
+{
+  "axiom_boundary": [
+    "propext",
+    "Quot.sound"
+  ],
+  "axiom_free_theorem_count": 61,
+  "census_theorem_count": 73,
+  "charter_freeze_hash": "fa29c58f39f589c029c9bea138a2c7b104bf9052321ad9f9845d1f6c9e8bdc9f",
+  "charter_status": "TOE_TARGET_CLASS_FROZEN",
+  "criteria_count": 9,
+  "gate": "G001_TOE_TARGET_CLASS_CHARTER",
+  "lean_toolchain": "leanprover/lean4:v4.33.0",
+  "propext_only_theorem_count": 12,
+  "reports": {
+    "Adequacy.TargetSystem.mk.inj": [],
+    "Adequacy.TargetSystem.mk.injEq": [
+      "propext"
+    ],
+    "Adequacy.TargetSystem.mk.sizeOf_spec": [],
+    "Adequacy.TwoState.ofNat_ctorIdx": [],
+    "Adequacy.TwoState.s0.sizeOf_spec": [],
+    "Adequacy.TwoState.s1.sizeOf_spec": [],
+    "Adequacy.binaryToggle_computational": [],
+    "Adequacy.binaryToggle_empirical": [],
+    "Adequacy.binaryToggle_mathematical": [],
+    "Adequacy.binaryToggle_physical": [],
+    "Adequacy.binaryToggle_target_class_adequate": [],
+    "Adequacy.instDecidableEqTwoState._proof_1": [],
+    "Adequacy.instDecidableEqTwoState._proof_2": [],
+    "Adequacy.s0_ne_s1": [],
+    "Adequacy.toggleNext_s0": [],
+    "Adequacy.toggleNext_s1": [],
+    "Adequacy.trivial_not_adequate": [],
+    "Adequacy.trivial_not_computational": [],
+    "Adequacy.trivial_not_empirical": [],
+    "Adequacy.trivial_not_mathematical": [],
+    "Charter.CharterRecord.mk.inj": [],
+    "Charter.CharterRecord.mk.injEq": [
+      "propext"
+    ],
+    "Charter.CharterRecord.mk.sizeOf_spec": [],
+    "Charter.CriterionID.calculusUniqueness.sizeOf_spec": [],
+    "Charter.CriterionID.comparisonMorphisms.sizeOf_spec": [],
+    "Charter.CriterionID.computational.sizeOf_spec": [],
+    "Charter.CriterionID.empirical.sizeOf_spec": [],
+    "Charter.CriterionID.foundational.sizeOf_spec": [],
+    "Charter.CriterionID.ofNat_ctorIdx": [],
+    "Charter.CriterionID.physical.sizeOf_spec": [],
+    "Charter.CriterionID.physicalModelUniqueness.sizeOf_spec": [],
+    "Charter.CriterionID.reasoning.sizeOf_spec": [],
+    "Charter.CriterionID.representational.sizeOf_spec": [],
+    "Charter.CriterionID.toNat_inj": [],
+    "Charter.Dimension.computational.sizeOf_spec": [],
+    "Charter.Dimension.empirical.sizeOf_spec": [],
+    "Charter.Dimension.mathematical.sizeOf_spec": [],
+    "Charter.Dimension.ofNat_ctorIdx": [],
+    "Charter.Dimension.physical.sizeOf_spec": [],
+    "Charter.allCriteria_length": [],
+    "Charter.allCriteria_nodup": [],
+    "Charter.calculusUniqueness_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.comparisonMorphisms_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.computational_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.empirical_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.foundational_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.frozenCharter_count": [],
+    "Charter.frozenCharter_frozen": [],
+    "Charter.frozenCharter_status": [],
+    "Charter.instDecidableEqCriterionID._proof_1": [],
+    "Charter.instDecidableEqCriterionID._proof_2": [],
+    "Charter.instDecidableEqDimension._proof_1": [],
+    "Charter.instDecidableEqDimension._proof_2": [],
+    "Charter.physicalModelUniqueness_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.physical_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.reasoning_mem_allCriteria": [
+      "propext"
+    ],
+    "Charter.representational_mem_allCriteria": [
+      "propext"
+    ],
+    "Morphism.ComparisonMorphism.comm_observe": [],
+    "Morphism.ComparisonMorphism.comm_step": [],
+    "Morphism.ComparisonMorphism.faithful_obs": [],
+    "Morphism.ComparisonMorphism.mk.inj": [],
+    "Morphism.ComparisonMorphism.mk.injEq": [
+      "propext"
+    ],
+    "Morphism.ComparisonMorphism.mk.sizeOf_spec": [],
+    "Morphism.compMorphism._proof_1": [],
+    "Morphism.compMorphism._proof_2": [],
+    "Morphism.compMorphism._proof_3": [],
+    "Morphism.comp_assoc": [],
+    "Morphism.comp_id": [],
+    "Morphism.idMorphism._proof_1": [],
+    "Morphism.id_comp": [],
+    "Morphism.preserves_computational": [],
+    "Morphism.preserves_empirical": [],
+    "Morphism.preserves_mathematical": []
+  },
+  "status": "PASS"
+}

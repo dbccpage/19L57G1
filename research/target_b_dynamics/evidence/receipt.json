@@ -1,0 +1,385 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "chain_functionality_and_topological_non_density": true,
+    "commuting_dynamics_square": true,
+    "prefix_compatibility_proved": true,
+    "rational_frequency_bounds_in_Q": true,
+    "refusal_of_unconstructed_continuum_or_circle": true,
+    "scope": "Finite observation scale maps, compatible thread spaces, and commuting dynamics",
+    "thread_space_sequence_bijection": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 33,
+    "reports": {
+      "Commute.bondTrace._proof_1": [],
+      "Commute.bond_stepStage_commute": [],
+      "Commute.fuel_starvation_divergence": [
+        "propext"
+      ],
+      "Commute.obs_iter_next_commute": [
+        "propext"
+      ],
+      "Commute.ofSeq_stepThread": [],
+      "Commute.shift_not_local_refusal": [],
+      "Commute.stepThread._proof_1": [],
+      "Commute.toSeq_stepThread": [],
+      "Commute.trace_commuting_square": [
+        "propext"
+      ],
+      "Limits.bond._proof_1": [],
+      "Limits.ebond._proof_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.ebond._proof_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.eofSeq._proof_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.eofSeq_etoSeq": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.eofSeq_etoSeq._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.estable": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.estable._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.estable._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.etoSeq._proof_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.etoSeq._proof_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.etoSeq_eofSeq": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.even_thread": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.eventual._proof_1": [],
+      "Limits.eventual._proof_2": [],
+      "Limits.eventual_agrees": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.eventual_agrees._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.eventual_not_compatible": [],
+      "Limits.ofSeq._proof_1": [],
+      "Limits.ofSeq_toSeq": [
+        "Quot.sound"
+      ],
+      "Limits.restrictEven._proof_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.restrictEven._proof_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.restrictEven_eq": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.shift_not_local": [],
+      "Limits.stable": [],
+      "Limits.thread_even": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.thread_restrictEven": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Limits.threads_are_sequences": [],
+      "Limits.toSeq_ofSeq": [],
+      "Limits.twins_are_two_threads": [],
+      "Limits.twins_differ_at_scale_one": [],
+      "Limits.twins_differ_at_zero": [],
+      "Observe.Fired.exhausted.sizeOf_spec": [],
+      "Observe.Fired.noEdge.sizeOf_spec": [],
+      "Observe.Fired.ok.inj": [],
+      "Observe.Fired.ok.injEq": [
+        "propext"
+      ],
+      "Observe.Fired.ok.sizeOf_spec": [],
+      "Observe.State.mk.inj": [],
+      "Observe.State.mk.injEq": [
+        "propext"
+      ],
+      "Observe.State.mk.sizeOf_spec": [],
+      "Observe.Terminal.branch.sizeOf_spec": [],
+      "Observe.Terminal.exhausted.sizeOf_spec": [],
+      "Observe.Terminal.halt.sizeOf_spec": [],
+      "Observe.Terminal.ofNat_ctorIdx": [],
+      "Observe.Terminal.refuse.sizeOf_spec": [],
+      "Observe.fire_exhausted": [
+        "propext"
+      ],
+      "Observe.fire_ok": [
+        "propext"
+      ],
+      "Observe.fire_succ": [
+        "propext"
+      ],
+      "Observe.instDecidableEqTerminal._proof_1": [],
+      "Observe.instDecidableEqTerminal._proof_2": [],
+      "Observe.iter_succ": [
+        "propext"
+      ],
+      "Observe.lost_fuel": [
+        "propext"
+      ],
+      "Observe.next_active_det": [
+        "propext"
+      ],
+      "Observe.next_branch": [
+        "propext"
+      ],
+      "Observe.next_exhausted": [
+        "propext"
+      ],
+      "Observe.next_fire": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.next_fire._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.next_fire._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.next_fuel": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.next_fuel._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.next_halt": [
+        "propext"
+      ],
+      "Observe.next_refuse": [
+        "propext"
+      ],
+      "Observe.next_tape": [
+        "propext"
+      ],
+      "Observe.obs_fuel_eq": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.obs_fuel_indep": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.obs_fuel_indep._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.obs_fuel_indep._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.obs_fuel_indep._proof_1_5": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.obs_fuel_indep._proof_1_6": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.obs_prefix": [
+        "propext"
+      ],
+      "Observe.obs_prefix_add": [
+        "propext"
+      ],
+      "Observe.same_next": [
+        "Quot.sound",
+        "propext"
+      ],
+      "Observe.stepDet_inr": [
+        "propext"
+      ],
+      "RationalBounds.chain_functional": [
+        "propext"
+      ],
+      "RationalBounds.cycTape_succ": [
+        "propext"
+      ],
+      "RationalBounds.cyc_mod": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cyc_mod._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cyc_mod._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cyc_mod._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cyc_mod._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_iter": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_iter._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_iter._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_iter._proof_1_5": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_iter._proof_1_6": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_obs": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_obs_length": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_obs_zeros": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.cycle_run_bound": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.dyadic_twins_separated": [],
+      "RationalBounds.enabledAt_cycle": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.enabledAt_cycle._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.lookup_cycle": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.lookup_cycle._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.non_density_witness": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.twist_not_chain": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.twist_pairs": [],
+      "RationalBounds.zeros_bound": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_bound._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_bound._proof_1_2": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_eq": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_eq._proof_1_3": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_eq._proof_1_4": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_rational_error": [
+        "Quot.sound",
+        "propext"
+      ],
+      "RationalBounds.zeros_rational_error._proof_1_1": [
+        "Quot.sound",
+        "propext"
+      ]
+    },
+    "theorem_count": 114
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 28,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "bounds.py": "02b6dfad7114c36b5a064d38fcadff8a4af880e09d412743399c2b61ebc7f033",
+    "commute.py": "f3403f174f2ea247a18c5a49812a384e664108dc9323fe8b19b0a6508ba8e9cd",
+    "lean/Commute.lean": "810f2b20ce5e0fa46b5832c7c5777aff60e489e8d07f8960c40d9637c39bccc0",
+    "lean/Inventory.lean": "5f66684f4a4f92862847416f9ca076fb9975fece644070b107b3a2eccfefd927",
+    "lean/Limits.lean": "98d99cc93a56954bad8aa88794405cef29bf230fed5330bc8fb04b54c571ab58",
+    "lean/Observe.lean": "fd303ad55d7c231e3c465e6b199cb558260777f27ea6fbaec84ff14fd8ae982b",
+    "lean/RationalBounds.lean": "13ef19aac78c82c9b1144a17143e616f2e6fb75f9bdd592621170051398f9a49",
+    "limits.py": "0fe491f681c829ed20a98779fa571a60925a92a863a7045a908c7681aa66dad2",
+    "observe.py": "32bca59f740d939dfbb10baaf246b80a37f6ecb8110c4de1df8a5f22edbfe563",
+    "tests/test_bounds.py": "eaf809e4f294cfb508ea9b2f593deab082534cedd0978cc9a16c98d128728b27",
+    "tests/test_commute.py": "c1629c81d5420a080fbaa5dad883f6cf3f95514250c88cbe26a421f1eb1b5816",
+    "tests/test_limits.py": "33b2d967c33302400d834809e0f1b23a984856cb99b9ea2c64ed19298decfe16",
+    "tests/test_observe.py": "9738ffdbba562f790bac37d8e71e50439eb4d4c170a4add9f79b6cbdf0e34154",
+    "verify.py": "db78513c8738066fb003b55cac863e12347f586f9f5577ac156d9d233d5d3a3a"
+  },
+  "status": "PASS",
+  "target": "Target B (Coherent Observation Scales & Dynamics)",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

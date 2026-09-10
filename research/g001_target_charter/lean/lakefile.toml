@@ -1,0 +1,19 @@
+name = "g001_target_charter"
+version = "0.1.0"
+defaultTargets = ["Charter", "Adequacy", "Morphism", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "Charter"
+
+[[lean_lib]]
+name = "Adequacy"
+
+[[lean_lib]]
+name = "Morphism"
+
+[[lean_lib]]
+name = "Inventory"
