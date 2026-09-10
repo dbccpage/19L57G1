@@ -19,6 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+from fractions import Fraction
 import hashlib
 import json
 from typing import Any, Mapping
@@ -50,7 +51,7 @@ class AdequacyCriterion:
     description: str
     required_capabilities: tuple[str, ...]
     falsification_conditions: tuple[str, ...]
-    weight: float = 1.0
+    weight: Fraction = Fraction(1, 1)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -60,7 +61,7 @@ class AdequacyCriterion:
             "description": self.description,
             "required_capabilities": list(self.required_capabilities),
             "falsification_conditions": list(self.falsification_conditions),
-            "weight": self.weight,
+            "weight": str(self.weight),
         }
 
 

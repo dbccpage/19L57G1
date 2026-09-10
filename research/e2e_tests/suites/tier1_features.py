@@ -414,12 +414,12 @@ def test_f08_rational_precision_error_decreases_with_length() -> None:
 def test_f09_charter_freezes_nine_independent_criteria() -> None:
     assert len(AdequacyDimension) == 9
 
-def test_f09_evaluates_computational_universality_criterion() -> None:
+def test_f09_evaluates_computational_capacity_criterion() -> None:
     sys = TargetSystem(
         name="TargetA_Toy",
-        dimension_scores={AdequacyDimension.COMPUTATIONAL_UNIVERSALITY: True},
+        dimension_scores={AdequacyDimension.COMPUTATIONAL_CAPACITY: True},
     )
-    assert sys.dimension_scores[AdequacyDimension.COMPUTATIONAL_UNIVERSALITY] is True
+    assert sys.dimension_scores[AdequacyDimension.COMPUTATIONAL_CAPACITY] is True
 
 def test_f09_evaluates_mathematical_foundations_criterion() -> None:
     sys = TargetSystem(

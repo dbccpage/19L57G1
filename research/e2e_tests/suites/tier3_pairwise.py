@@ -122,7 +122,7 @@ def test_pairwise_g001_adequacy_verification_of_target_a_and_target_b() -> None:
     sys_a = TargetSystem(
         name="TargetA_Execution",
         dimension_scores={
-            AdequacyDimension.COMPUTATIONAL_UNIVERSALITY: True,
+            AdequacyDimension.COMPUTATIONAL_CAPACITY: True,
             AdequacyDimension.REPRESENTATIONAL_COMPLETENESS: True,
         },
     )

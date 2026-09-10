@@ -217,7 +217,7 @@
     "FinitarySubstrate.instDecidableEqOrdinal.decEq._proof_3",
     "FinitarySubstrate.instDecidableEqOrdinal.decEq._proof_4"
   ],
-  "timestamp_utc": "2026-09-10T19:03:46.565355+00:00",
+  "timestamp_utc": "2026-09-10T19:43:14.983244+00:00",
   "title": "Internal Finitary Substrate",
   "toolchains": {
     "lean": "leanprover/lean4:v4.33.0",

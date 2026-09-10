@@ -65,12 +65,15 @@ class Refusal(Enum):
 
 @dataclass(frozen=True)
 class Config:
-    """The word machine configuration carrying graph, word, active datum, and tape."""
+    """The word machine configuration carrying graph, word, active datum, tape,
+    and represented protection obligations and designated pair constraints (Spec 1504)."""
 
     graph: Graph
     word: tuple[int, ...]
     active: int
     output: tuple[int, ...]
+    protection_obligations: tuple[int, ...] = ()
+    designated_pair: tuple[int, int] | None = None
 
 
 def lookup(f: int, x: int, graph: Graph) -> int | None:
@@ -105,7 +108,14 @@ def step_word(c: Config) -> Config | None:
     y = lookup(3 + k, c.active, c.graph)
     if y is None:
         return None
-    return Config(c.graph, rest, y, c.output + (y,))
+    return Config(
+        c.graph,
+        rest,
+        y,
+        c.output + (y,),
+        c.protection_obligations,
+        c.designated_pair,
+    )
 
 
 def iterate_word(n: int, c: Config) -> Config | None:

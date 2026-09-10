@@ -10,7 +10,7 @@ Challenges:
    random cycle lengths L in [1, 500], rational error budget in Q, and chain functionality
    asserting that non-functional prefix combinations like [0, 1, 0, 2] are unproduceable.
 3. G010: Operational capability removal verification, adversarial smuggling attempts
-   bypassing AST checks, empirical proof of straight-line length invariance, state collapse
+   bypassing AST checks, empirical demonstration of straight-line length invariance, state collapse
    under register clobbering, and adapter non-recoverability.
 """
 

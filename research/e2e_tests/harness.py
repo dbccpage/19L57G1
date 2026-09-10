@@ -258,7 +258,7 @@ def rational_frequency(tape: Sequence[int], target: int) -> Tuple[int, int]:
 # ===========================================================================
 
 class AdequacyDimension(Enum):
-    COMPUTATIONAL_UNIVERSALITY = "computational_universality"
+    COMPUTATIONAL_CAPACITY = "computational_capacity"
     REASONING_ADEQUACY = "reasoning_adequacy"
     REPRESENTATIONAL_COMPLETENESS = "representational_completeness"
     MATHEMATICAL_FOUNDATIONS = "mathematical_foundations"
@@ -434,30 +434,3 @@ def endogenous_recursion(depth: Ordinal, fuel: int, acc: int) -> Tuple[int, bool
     return endogenous_recursion(depth.pred(), fuel - 1, acc + 1)
 
 
-# ===========================================================================
-# 6. Progressive Dynamic Resolver (Live Tree Integration)
-# ===========================================================================
-
-def resolve_target_a():
-    """Bridge to live target_a_execution."""
-    return target_a_runner
-
-
-def resolve_target_b():
-    """Bridge to live target_b_dynamics."""
-    return target_b_limits
-
-
-def resolve_g001():
-    """Bridge to live g001_target_charter."""
-    return g001_charter
-
-
-def resolve_g010():
-    """Bridge to live g010_primitive_removal."""
-    return g010_capability
-
-
-def resolve_g011():
-    """Bridge to live g011_finitary_substrate."""
-    return g011_ordinals

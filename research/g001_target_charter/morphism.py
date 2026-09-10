@@ -12,6 +12,7 @@ AuthorityEffect: None.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from fractions import Fraction
 from typing import Any, Callable, Sequence, Set
 
 from adequacy import CriterionResult, EvaluationReport, TargetSystem, Verdict
@@ -31,7 +32,7 @@ class ComparisonMorphism:
     map_state: Callable[[Any], Any]
     map_op: Callable[[Any], Any]
     map_obs: Callable[[Any], Any]
-    distortion: float = 0.0
+    distortion: Fraction = Fraction(0, 1)
     preserves_criteria: Set[CriterionID] = field(default_factory=set)
 
     def check_observation_commutativity(self, sample_states: Sequence[Any]) -> bool:

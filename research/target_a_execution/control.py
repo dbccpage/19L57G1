@@ -40,7 +40,8 @@ Enablement = frozenset[tuple[int, int]]
 @dataclass(frozen=True)
 class State:
     """The interpreter state carrying program graph, operation count, active datum,
-    tape of visited data, operation clock, and fuel.
+    tape of visited data, operation clock, fuel, and represented protection obligations
+    and designated pair constraints (Spec 1504).
     """
 
     graph: Graph
@@ -49,6 +50,8 @@ class State:
     tape: tuple[int, ...]
     clock: int
     fuel: int
+    protection_obligations: tuple[int, ...] = ()
+    designated_pair: tuple[int, int] | None = None
 
     def __post_init__(self) -> None:
         if self.nops < 0:
@@ -150,6 +153,8 @@ def fire(s: State, k: int) -> State | Refusal:
         tape=s.tape + (y,),
         clock=s.clock + 1,
         fuel=s.fuel - 1,
+        protection_obligations=s.protection_obligations,
+        designated_pair=s.designated_pair,
     )
 
 
@@ -189,7 +194,13 @@ def run(s: State) -> tuple[Terminal, State]:
     return run_det(s.fuel, s)
 
 
-def init(C: Controlled, x: int, fuel: int) -> State:
+def init(
+    C: Controlled,
+    x: int,
+    fuel: int,
+    protection_obligations: tuple[int, ...] = (),
+    designated_pair: tuple[int, int] | None = None,
+) -> State:
     """Initialize state from a Controlled setting with given start datum and fuel."""
     if not (0 <= x < C.n):
         raise ExecutionError(f"start datum {x} lies outside carrier {C.n}")
@@ -202,6 +213,8 @@ def init(C: Controlled, x: int, fuel: int) -> State:
         tape=(x,),
         clock=0,
         fuel=fuel,
+        protection_obligations=protection_obligations,
+        designated_pair=designated_pair,
     )
 
 

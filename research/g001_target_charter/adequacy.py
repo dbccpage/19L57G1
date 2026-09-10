@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
+from fractions import Fraction
 from typing import Any, Callable, Mapping, Sequence, Set
 
 from charter import CriterionID, TargetClassCharter
@@ -30,7 +31,7 @@ class CriterionResult:
     """Detailed evaluation result for a single criterion."""
     criterion_id: CriterionID
     verdict: Verdict
-    score: float
+    score: Fraction
     details: str
     capabilities_met: tuple[str, ...]
     capabilities_missing: tuple[str, ...]
@@ -40,7 +41,7 @@ class CriterionResult:
         return {
             "criterion_id": self.criterion_id.value,
             "verdict": self.verdict.value,
-            "score": self.score,
+            "score": str(self.score),
             "details": self.details,
             "capabilities_met": list(self.capabilities_met),
             "capabilities_missing": list(self.capabilities_missing),
@@ -123,13 +124,17 @@ class AdequacyEngine:
 
     def evaluate(self, system: TargetSystem) -> EvaluationReport:
         """Evaluates candidate system against all 9 criteria without retrospective shifts."""
-        if system.is_circular_definition:
+        is_circular = system.is_circular_definition or (
+            "genesis_evaluator" in system.description.lower()
+            or "target_class_charter" in system.description.lower()
+        )
+        if is_circular:
             refused_results = {}
             for cid in self._charter.criteria:
                 refused_results[cid] = CriterionResult(
                     criterion_id=cid,
                     verdict=Verdict.REFUSED,
-                    score=0.0,
+                    score=Fraction(0, 1),
                     details="Refused: candidate circularly defines adequacy standards via self-reference.",
                     capabilities_met=(),
                     capabilities_missing=tuple(self._charter.get_criterion(cid).required_capabilities),
@@ -187,14 +192,18 @@ class AdequacyEngine:
         required = criterion.required_capabilities
 
         # Check for unencoded oracle reliance (disallowed for computational & representational)
-        if system.has_unencoded_oracle and cid in (
+        has_oracle = system.has_unencoded_oracle or any(
+            getattr(fn, "__name__", "") in ("oracle", "unencoded_oracle", "host_lookup")
+            for fn in (system.step, system.observe)
+        )
+        if has_oracle and cid in (
             CriterionID.COMPUTATIONAL,
             CriterionID.REPRESENTATIONAL,
         ):
             return CriterionResult(
                 criterion_id=cid,
                 verdict=Verdict.REFUSED,
-                score=0.0,
+                score=Fraction(0, 1),
                 details="Refused: System relies on unencoded host oracles.",
                 capabilities_met=(),
                 capabilities_missing=required,
@@ -219,19 +228,19 @@ class AdequacyEngine:
             return CriterionResult(
                 criterion_id=cid,
                 verdict=Verdict.FAILED,
-                score=0.0,
+                score=Fraction(0, 1),
                 details="Failed: Candidate runtime raised unexpected exception during step/observe.",
                 capabilities_met=tuple(met),
                 capabilities_missing=tuple(missing),
                 falsification_detected=True,
             )
 
-        fraction = len(met) / len(required) if required else 1.0
+        fraction = Fraction(len(met), len(required)) if required else Fraction(1, 1)
 
-        if fraction == 1.0:
+        if fraction == Fraction(1, 1):
             verdict = Verdict.SATISFIED
             details = f"Satisfied: All {len(required)} required capabilities present."
-        elif fraction > 0.0:
+        elif fraction > Fraction(0, 1):
             verdict = Verdict.PARTIALLY_SATISFIED
             details = f"Partially Satisfied: {len(met)}/{len(required)} capabilities present."
         else:
@@ -241,7 +250,7 @@ class AdequacyEngine:
         return CriterionResult(
             criterion_id=cid,
             verdict=verdict,
-            score=round(fraction, 4),
+            score=fraction,
             details=details,
             capabilities_met=tuple(met),
             capabilities_missing=tuple(missing),

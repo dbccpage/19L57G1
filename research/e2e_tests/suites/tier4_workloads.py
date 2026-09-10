@@ -117,7 +117,7 @@ def test_w03_full_nine_criteria_charter_evaluation() -> None:
     substrate = TargetSystem(
         name="AdmittedConstructiveSubstrate",
         dimension_scores={
-            AdequacyDimension.COMPUTATIONAL_UNIVERSALITY: True,
+            AdequacyDimension.COMPUTATIONAL_CAPACITY: True,
             AdequacyDimension.REASONING_ADEQUACY: True,
             AdequacyDimension.REPRESENTATIONAL_COMPLETENESS: True,
             AdequacyDimension.MATHEMATICAL_FOUNDATIONS: True,
