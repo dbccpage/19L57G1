@@ -776,7 +776,8 @@
    ],
    "citing_claims": [
     "CL-3-COST1-IMPOSSIBLE",
-    "CL-3-UNIQUE-MU2-F"
+    "CL-3-UNIQUE-MU2-F",
+    "CL-IDENTITY-NOT-PROFILE"
    ],
    "consumers": [],
    "kind": "concrete",
@@ -792,7 +793,8 @@
    ],
    "citing_claims": [
     "CL-3-MIN-TWO",
-    "CL-3-UNIQUE-MU2-F"
+    "CL-3-UNIQUE-MU2-F",
+    "CL-IDENTITY-NOT-PROFILE"
    ],
    "consumers": [],
    "kind": "generic",
@@ -18775,7 +18777,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-COUNT-INVARIANCE"
+    "CL-COUNT-INVARIANCE",
+    "CL-REGISTER-SCOPE"
    ],
    "consumers": [
     "FormTransport.lean",
@@ -18793,7 +18796,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-COUNT-INVARIANCE"
+    "CL-COUNT-INVARIANCE",
+    "CL-REGISTER-SCOPE"
    ],
    "consumers": [],
    "kind": "generic",
@@ -19475,7 +19479,8 @@
     "Quot.sound"
    ],
    "citing_claims": [
-    "CL-TRANSITION-EQUIVARIANCE"
+    "CL-TRANSITION-EQUIVARIANCE",
+    "CL-REGISTER-SCOPE"
    ],
    "consumers": [],
    "kind": "generic",
@@ -20376,7 +20381,10 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE",
+    "CL-REGISTER-SCOPE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "FormTransport.lean",
@@ -20389,7 +20397,10 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE",
+    "CL-REGISTER-SCOPE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "FormTransport.lean",
@@ -20633,7 +20644,10 @@
     "propext",
     "Quot.sound"
    ],
-   "citing_claims": [],
+   "citing_claims": [
+    "CL-COUNT-INVARIANCE",
+    "CL-REGISTER-SCOPE"
+   ],
    "consumers": [],
    "kind": "generic",
    "module": "IsoCollapse.lean",
