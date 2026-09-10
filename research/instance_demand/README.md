@@ -2,8 +2,10 @@
 
 AuthorityEffect: None. OB-1 remains **OPEN** outside the two-edge
 instruction class. `NoGo.lean` closes the instance channel **negatively for
-that class only** (`InClass`: stored form-0 ternary instructions): native
-store without `admitInst` of the new tuple is unsatisfiable. This is a staged
+that class only** (`InClass`: stored form-0 ternary instructions): channel
+E1 may store a class member's output by `admitInst`, and no member
+satisfies E1 ∧ E2′ ∧ E3 (`no_member_is_endogenous`). Native store without
+that tuple's `admitInst` is separately unsatisfiable. This is a staged
 construction attempt with supplied targets and prior exposure, outside the
 sealed derivation.
 
@@ -12,8 +14,8 @@ declared host admission procedure. It reaches the least closed extension by
 instance membership on unchanged data and forms. A reachable four-data chain
 needs two nonempty rounds, refuting one-pass idempotence for this emitter.
 The output-admission operation and obligation meaning remain host conventions.
-E1 as native store is unsatisfiable on the sealed grammar, and that is the
-scoped negative for `InClass`; E1 and OB-1 remain OPEN outside that class.
+Channel E1 on `InClass` allows an `admitInst` store; the triple with E2′
+and E3 is unsatisfiable on that class. E1 and OB-1 remain OPEN outside it.
 Neither Outcome A nor full instance-channel impossibility is claimed. Earlier proof and computation payloads remain intact.
 `OBLIGATIONS.md` states the remaining proof targets and distinguishes the literal
 requirement-store condition from the broader instance-channel question.
@@ -80,7 +82,7 @@ chain; this is not a new unmet-demand witness. Both controls remain scoped.
 
 | Clause | Stage 4 assessment |
 |---|---|
-| E1 | Closed negatively for `InClass` (native store without `admitInst` is unsatisfiable). OPEN outside that class: host emitters and other encodings remain. |
+| E1 | Channel E1 on `InClass` may store by `admitInst`; the triple E1 ∧ E2′ ∧ E3 is unsatisfiable (`no_member_is_endogenous`). OPEN outside that class: host emitters and other encodings remain. |
 | Literal E2 | Not satisfied: `reqs` is unchanged at every round. |
 | Owed-separation E2 | Conditional covered payloads; their obligation role is declared. |
 | E3 | The earlier unruled singleton fails after emission. The covered chain stays collapsed; its payload was already derivable. |

@@ -158,5 +158,7 @@ obtained inside the current constitution, identify the missing operation and
 prove the obstruction for the justified class. Adding that operation by hand
 would produce a conditional extension of the grammar; it would not close OB-1
 as a derivation in the sealed grammar. `NoGo.lean` is that scoped negative
-for stored form-0 ternary instructions: native store without `admitInst` is
-unsatisfiable on the sealed grammar. **OB-1 remains OPEN outside that class.**
+for stored form-0 ternary instructions: channel E1 may store a class
+member's output by `admitInst`, and `no_member_is_endogenous` proves no
+member satisfies E1 ∧ E2′ ∧ E3. Native store without that tuple's
+`admitInst` is a grammar extension. **OB-1 remains OPEN outside that class.**

@@ -3,10 +3,12 @@
 AuthorityEffect: None. Outcome **OPEN** for OB-1 outside `NoGo.InClass`.
 The existing `C_reqs` result is unchanged. A uniform materializer and a
 stored-instruction composition emitter are exhibited as host operations.
-`NoGo.e1_impossible` is native store without that tuple's `admitInst`,
-unsatisfiable on the sealed grammar; `InClass` is the nonempty
-conclusion-free cover of every Enabled instruction, so that unsat is the
-scoped negative for this class, not a class-specific new obstruction.
+Channel E1 allows an `admitInst` store of a class member's read output.
+`NativeStore` (a store that is not that tuple's `admitInst`) is
+unsatisfiable on the sealed grammar. `no_member_is_endogenous` is the
+scoped negative for `InClass`: E1 ∧ E2′ ∧ E3 fails because a storing
+step of a class member's output is `admitInst` of that output, and E3
+requires a ruled form whose store cannot freshly owe the pair.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -46,7 +48,7 @@ scoped negative for this class, not a class-specific new obstruction.
 | CL-ID-34 | Proved theorem: the chain's initial form-3 graph is functional, but is not functional after its first emission. | `Dynamics.chain_functionality_boundary`; `test_chain_needs_two_rounds_and_retains_duplicate_path_events` | Functionality survives in that exact example. The Stage 3 graph-execution bridge remains conditional and cannot be applied at later rounds without its premises. |
 | CL-ID-35 | Proved theorem: every pair in the covered chain remains collapsed at every round. Terminal pair `(0,3)` has a valid response using fresh unary form 4, the whole response history replays, and its stored payload remains afterward. | `Dynamics.chain_covered_collapsed`, `chain_response_valid`, `chain_response_replay`, `chain_answered_pair_retained` | Failed collapse, response, or replay. The covered output was already derivable; its obligation role is not proved. |
 | CL-ID-36 | Deterministic computation: the 2,124-configuration repeated-emission census has 1,772 initial fixed points and 352 one-round cases, with 384 admission events/new instances. The separate four-data chain has two rounds, 4 events, and 3 new instances. | `dynamics.sweep`, `chain_sample`, `evidence/dynamics.json`; `tests/test_dynamics.py` | Counts, least-store comparison, or whole replay fail. The bounded census itself has no multiple-round example and is not all programs or data sizes. |
-| CL-ID-37 | Proved theorem, scoped: E1 as native store (a sealed step writes a new instance without being that instance's `admitInst`) is unsatisfiable. `InClass` is stored form-0 ternary instructions: nonempty, independent of output coverage, and every `Enabled` output names a member as its instruction. The endogenous triple therefore fails on this class because E1 fails on every sealed step, including those of class members; the class is not a hypothesis of the unsat. In-class shapes: unruled Enabled output is not derivable; `impose` is not an E2′ origin; after unruled emission the endpoints separate, so E3 fails. | `NoGo.class_nonempty`, `class_independent_of_coverage`, `class_covers_enabled`, `e1_impossible`, `shape_imposed_fails_E2p`, `shape_unruled_emission_fails_E3`; `Emitter.native_closure_counterexample`; `tests/test_nogo.py` | A sealed step that stores a new instance without that `admitInst`. Does not close OB-1 outside this class. Literal `reqs` E2 is not used. The Stage-1 I1 singleton is not a member of `InClass`. |
+| CL-ID-37 | Proved theorem, scoped: `InClass` is stored form-0 ternary instructions: nonempty, independent of output coverage, covering every `Enabled` output and every successful functional-graph run of a stored instruction. Channel E1 is a reading of a class member plus a sealed step that stores the output; that step may be `admitInst`. `NativeStore` (store without that tuple's `admitInst`) is unsatisfiable. E2′ is an owed pair at the post-state, not an `impose`, produced by `Enabled` firing, not `reqs` membership. E3 is a freshly owed pair whose payload is rule-produced. `no_member_is_endogenous`: no class member satisfies E1 ∧ E2′ ∧ E3. Per-shape: unruled output fails E3 as admitted-not-rule-produced and is separable after emission; ruled store fails E3 because separability is unchanged; `impose` is not an E2′ origin. | `NoGo.class_nonempty`, `class_independent_of_coverage`, `class_covers_enabled`, `class_covers_functional`, `native_store_impossible`, `missing_operation_is_extension`, `no_member_is_endogenous`, `shape_imposed_fails_E2p`, `shape_unruled_fails_E3`, `shape_ruled_fails_E3`, `shape_unruled_emission_fails_owed`; `Emitter.native_closure_counterexample`; `tests/test_nogo.py` | A class member with a storing step whose payload is both freshly owed and rule-produced. Does not close OB-1 outside this class. Literal `reqs` E2 is not used. The Stage-1 I1 singleton is not a member of `InClass`. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
@@ -86,17 +88,19 @@ the construction; the final direct proofs pass the unchanged dependency gate.
 - Open obstruction: event generation and obligation semantics for a represented
   emitter outside `InClass`. The host materializer keeps every well-formed
   uniform conclusion; its operation is not proved to be required by the
-  admitted structure. Native store without `admitInst` is unsatisfiable on
-  the sealed grammar for every class, including this one.
+  admitted structure. Channel E1 on `InClass` may use `admitInst`; the
+  conjunction with E2′ and E3 still fails. `NativeStore` is unsatisfiable
+  on the sealed grammar for every class, including this one.
 
 ## Clause assessment after Stage 4
 
 The repeated-emission candidate has a proved dynamics result: under its declared
 host law, on fixed data/forms and with no intervening events, it reaches its
 least closed extension within the missing-slot budget. This closes the scoped
-dynamics obligation for that procedure. Native store without `admitInst` is
-unsatisfiable (`NoGo.e1_impossible`); that is the scoped negative for
-`InClass`. E1 and OB-1 remain OPEN outside that class.
+dynamics obligation for that procedure. Channel E1 on `InClass` allows an
+`admitInst` store of a read output; `no_member_is_endogenous` is the scoped
+negative for the triple E1 ∧ E2′ ∧ E3. `NativeStore` remains unsatisfiable.
+E1 and OB-1 remain OPEN outside that class.
 
 Literal E2 remains unsatisfied at every round, because `reqs` is unchanged.
 Under owed-separation E2, the covered chain has a fresh stored payload, stays
@@ -187,6 +191,7 @@ aggregate cannot hide a deficient new module. The live test count is the
 `python_tests` field in `evidence/verification.json`; all four research
 modules have 100% statement and branch coverage, excluding verification
 apparatus. No Python-to-Lean equivalence theorem is claimed.
-The scoped no-go suite reconstructs class membership, the E1 non-store
-control, the in-class E3 failure after unruled emission, and a cheating
-class that would drop the Enabled instruction.
+The scoped no-go suite reconstructs class membership, channel E1 (host
+`AdmitInst` allowed), the covered freshness failure, the unruled owed
+failure, a cheating class that would drop the Enabled instruction, and
+the functional-graph cover.

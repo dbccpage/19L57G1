@@ -657,20 +657,62 @@
     "InstanceDemand.Emitter.unruled_output_not_derivable": [
       "propext"
     ],
+    "InstanceDemand.NoGo.admitInst_step_inv": [
+      "propext"
+    ],
     "InstanceDemand.NoGo.class_covers_enabled": [],
+    "InstanceDemand.NoGo.class_covers_functional": [
+      "Quot.sound",
+      "propext"
+    ],
     "InstanceDemand.NoGo.class_independent_of_coverage": [
       "propext"
     ],
     "InstanceDemand.NoGo.class_nonempty": [
       "propext"
     ],
-    "InstanceDemand.NoGo.e1_impossible": [
+    "InstanceDemand.NoGo.derivable_iff_of_ruled_admitInst": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.e1_step_is_admitInst": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.missing_operation_is_extension": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.native_store_impossible": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.no_member_is_endogenous": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.non_admitInst_keeps_insts": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.owed_iff_of_ruled_admitInst": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.separable_iff_of_ruled_admitInst": [
+      "Quot.sound",
       "propext"
     ],
     "InstanceDemand.NoGo.shape_imposed_fails_E2p": [
       "propext"
     ],
-    "InstanceDemand.NoGo.shape_unruled_emission_fails_E3": [
+    "InstanceDemand.NoGo.shape_ruled_fails_E3": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.shape_unruled_emission_fails_owed": [
+      "Quot.sound",
+      "propext"
+    ],
+    "InstanceDemand.NoGo.shape_unruled_fails_E3": [
+      "propext"
+    ],
+    "InstanceDemand.NoGo.wfCtx_iff_of_admitInst": [
       "Quot.sound",
       "propext"
     ],
@@ -743,5 +785,5 @@
     ]
   },
   "stage": 4,
-  "theorem_count_including_generated": 211
+  "theorem_count_including_generated": 223
 }
