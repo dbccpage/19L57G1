@@ -9,15 +9,20 @@ Checks, none implying the others:
   one reported as undecided rather than as "not an ancestor";
 * every source in ``SOURCE_MANIFEST.json`` hashes, as a Git blob, to its
   recorded sha256 **at the snapshot and again at HEAD**; this is endpoint
-  equality and makes no claim about intermediate commits; the pinned set
-  includes the two TABLES the rung's refusal scans
-  read, ``ci/prose_watchlist.json`` and
+  equality and makes no claim about intermediate commits; the pinned
+  sources include one of the two TABLES the rung's refusal scans read,
   ``contact/analysis/contact_countermodels.json``, so a committed prune of
-  either fails here rather than silently narrowing a scan;
+  it fails here rather than silently narrowing a scan; the other table,
+  ``ci/prose_watchlist.json``, is a repository-wide census a later and
+  unrelated rung legitimately grew after this snapshot, so it is pinned
+  among the frozen texts at HEAD only -- a committed prune of it still
+  fails, but it is no longer claimed to stand byte-identical at a snapshot
+  it has moved past;
 * ``absent_at_snapshot`` records the presence of each named path at the
   snapshot correctly, and is permitted to be empty;
-* the frozen seed, question, and prediction texts still hash, as blobs at
-  HEAD, to the values recorded when they were frozen;
+* the frozen seed, question, and prediction texts, and the shared
+  prose-watchlist census, still hash, as blobs at HEAD, to the values
+  recorded for them;
 * every commit after the exact required snapshot that CONTRIBUTES a change
   under this rung's write root is audited NUL-safely across all of the paths
   that same commit contributed; a merge contributes its combined diff and not
@@ -47,12 +52,16 @@ repair rather than a convention:
    as rung zero recorded them -- precisely so that the comparison, not the
    casing, is what carries the check.
 
-The frozen texts are hashed at HEAD only.  Two of the three were created by
-the freeze commit and therefore do not exist at the snapshot; hashing them
-there would fail for a reason that has nothing to do with the freeze.  This
-verifier reads Git blobs, so an edit to a frozen text that is never staged
-is invisible to it; the runner hashes the same three files FROM DISK before
-the build and again before output.
+The frozen texts are hashed at HEAD only.  Two of the three rung texts were
+created by the freeze commit and therefore do not exist at the snapshot;
+hashing them there would fail for a reason that has nothing to do with the
+freeze.  A fourth frozen entry, ``ci/prose_watchlist.json``, is hashed here
+rather than among the sources because a later rung grew that shared census
+after this snapshot; hashing it at the snapshot would now fail for a reason
+that has nothing to do with this rung.  This verifier reads Git blobs, so an
+edit to a frozen text that is never staged is invisible to it; the runner
+hashes the rung's own three such files FROM DISK before the build and again
+before output.
 
 A pass says the bytes match at the snapshot and HEAD endpoints. It does not
 establish uninterrupted history and says nothing about the mathematics.
@@ -60,7 +69,11 @@ establish uninterrupted history and says nothing about the mathematics.
 never touches ``frozen_texts``, and -- unlike rung zero's ``repin()``, which
 sets ``snapshot_commit`` to HEAD -- it refuses to move ``snapshot_commit``,
 because the snapshot is the commit the rung's prose is written against and
-moving it silently is how a citation stops meaning anything.
+moving it silently is how a citation stops meaning anything.  Because
+``ci/prose_watchlist.json`` now lives among the frozen texts, a future
+legitimate growth of that shared census is repinned BY HAND here, not by
+``--repin``; that a census change is a deliberate, reviewed edit is the
+anti-narrowing property, not a regression.
 """
 
 from __future__ import annotations
@@ -108,7 +121,6 @@ SEALED_PREFIXES = (
 REQUIRED_SOURCE_PATHS = frozenset(
     {
         "ci/check_prose_watchlist.py",
-        "ci/prose_watchlist.json",
         "code/derivation/__init__.py",
         "code/derivation/candidates.py",
         "code/derivation/" + "eng" + "ine.py",
@@ -132,6 +144,7 @@ REQUIRED_SOURCE_PATHS = frozenset(
 )
 REQUIRED_FROZEN_PATHS = frozenset(
     {
+        "ci/prose_watchlist.json",
         "research/second/SEED.md",
         "research/second_stream/PREDICTIONS.md",
         "research/second_stream/PROMPT.md",
