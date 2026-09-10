@@ -26,7 +26,7 @@ PREDICTION, THIN, RECORDED.
 This row is the whole of the rung's engagement with the sealed estate's
 first standing obstruction.  The sealed sentence is quoted verbatim, from
 the span pinned in `SOURCE_MANIFEST.json` as `paper/paper.md` lines
-488-494 with hash
+531-537 with hash
 `bfb9e4e0d74602110a2636b0944a75cce4075972aa75c00db503547b98daba6a`.  It is
 not edited, not narrowed, and not restated in weaker words.
 

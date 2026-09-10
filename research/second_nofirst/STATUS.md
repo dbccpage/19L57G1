@@ -19,6 +19,11 @@ proofs are in `lean/`, with the axiom log committed at
   recorded ABSENT at this snapshot in `SOURCE_MANIFEST.json` and its
   `STATUS.md` was not read.  Only one commit was therefore in play at
   launch, not two.
+- **2026-09-10 repin (PR 164):** `paper/paper.md` moved on `main` after
+  launch (`5DCA1E8E…` → `6C657F4F…`), which fails `verify_pins.py` at HEAD.
+  Sources and spans were rehashed from HEAD; snapshot is now
+  `233621725ea7b3281a12604f63a0345ac85f9f39`. `research/second_stream/` is
+  present at this snapshot. Frozen texts were not repinned.
 - **Pull request 133 merged while this rung was being built**, at
   `9b9bea87f0ed3b3bd5be8145b837f91cbaeb3d4d`.  No pinned source moved: it added
   `research/second_stream/` and appended to the two shared files, and every

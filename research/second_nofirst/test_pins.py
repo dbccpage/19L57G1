@@ -214,7 +214,7 @@ class PinFailureTests(unittest.TestCase):
 
     def test_a_wrong_absence_record_is_named(self) -> None:
         def mutate(p: dict[str, Any]) -> None:
-            p["absent_at_snapshot"][0]["present_at_snapshot"] = True
+            p["absent_at_snapshot"][0]["present_at_snapshot"] = False
 
         self.assertIn("absent-at-snapshot record wrong", self._fails(mutate))
 

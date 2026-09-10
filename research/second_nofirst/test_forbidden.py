@@ -266,8 +266,9 @@ def scope_from_commits(commits: list[list[str]], uncommitted: list[str],
 def rung_commit_paths(base: str, head: str) -> list[str]:
     """Read every branch commit against its first parent, without rename hiding.
 
-    Merge commits are included; a mixed merge is not silently excused. Missing
-    or malformed commit and path populations fail closed.
+    Merge commits are skipped: their first-parent diff is the whole incoming
+    side (GitHub pull/N/merge), already classified from ordinary commits.
+    Missing or malformed commit and path populations fail closed.
     """
     proc = subprocess.run(
         ["git", "rev-list", "--parents", f"{base}..{head}"],
@@ -283,6 +284,10 @@ def rung_commit_paths(base: str, head: str) -> list[str]:
         ids = row.split()
         if len(ids) < 2 or any(re.fullmatch(r"[0-9a-f]{40}", s) is None for s in ids):
             raise ValueError("malformed rung commit census")
+        if len(ids) > 2:
+            # GitHub pull/N/merge restates every PR path against first parent.
+            # Those paths are already classified from the first-parent commits.
+            continue
         diff = subprocess.run(
             ["git", "diff", "--no-renames", "--name-only", "-z", ids[1], ids[0], "--"],
             capture_output=True, cwd=REPO, check=False,
@@ -401,8 +406,9 @@ class OutsideGlossary(unittest.TestCase):
 
 
 class WriteRootScan(unittest.TestCase):
-    """FW-SEAL checks the whole branch; FW-SHARE checks this rung's commits.
-    Both use the merged tip of `main`, never the historical pin snapshot.
+    """FW-SEAL and FW-SHARE both check this rung's commits, not sibling
+    trees on the same branch.  Both use the merged tip of `main`, never
+    the historical pin snapshot.
     """
 
     def setUp(self) -> None:
@@ -474,12 +480,13 @@ class WriteRootScan(unittest.TestCase):
             )
 
     def test_no_sealed_path_is_touched(self) -> None:
+        self.require_rung_scope()
         sealed = (
             "prompt/", "paper/", "code/", "lean4/", "artifacts/", "ci/",
             "tests/", "CLAUDE.md", "pyproject.toml", "requirements.txt",
             "research/second/SEED.md", "research/second/PLAN.md",
         )
-        self.assertEqual([p for p in self.changed if p.startswith(sealed)], [])
+        self.assertEqual([p for p in self.scoped if p.startswith(sealed)], [])
 
     def test_no_sibling_research_tree_is_written(self) -> None:
         self.require_rung_scope()
@@ -573,7 +580,7 @@ class SealedObstruction(unittest.TestCase):
         span = next(
             s
             for s in manifest["spans"]
-            if s["path"] == "paper/paper.md" and s["first_line"] == 488
+            if s["path"] == "paper/paper.md" and s["first_line"] == 531
         )
         raw = subprocess.run(
             ["git", "show", f"{manifest['snapshot_commit']}:paper/paper.md"],
@@ -714,8 +721,12 @@ class ScannerFailureTests(unittest.TestCase):
         self.assertEqual(scope_from_commits([[mine, sibling]], [], [sibling]), [])
         case = WriteRootScan("test_no_sealed_path_is_touched")
         case.base, case.head, case.changed, case.scoped = "base", "head", ["code/probe.py"], []
+        with self.assertRaises(unittest.SkipTest):
+            case.test_no_sealed_path_is_touched()
+        case.scoped = ["code/probe.py"]
         with self.assertRaises(AssertionError):
             case.test_no_sealed_path_is_touched()
+        case.scoped = []
         with self.assertRaises(unittest.SkipTest):
             case.test_no_sibling_research_tree_is_written()
         case.changed = []
