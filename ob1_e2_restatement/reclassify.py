@@ -1,40 +1,29 @@
 """E2 vs E2' diagnostic over the endogenous_demand census.
 
-Throwaway. Imports the tree's candidates and the sealed derivation
-model read-only via git-archive of the census commit. Not a receipt.
+Imports the live tree and sealed derivation read-only. Pins
+``candidates.py`` to commit ``b947873``. Not a receipt.
 
 AuthorityEffect: None.
 """
 
 from __future__ import annotations
 
-import io
-import sys
-import tarfile
-import tempfile
-from pathlib import Path
+import argparse
+import hashlib
 import subprocess
-from typing import Callable
+import sys
+from dataclasses import dataclass
+from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 CENSUS_COMMIT = "b947873b6147f196686163d00a0946de639f8c2c"
+CANDIDATES_SHA256 = (
+    "dd9f429fa6d6b7914837d4dab4160fd667db513b498599c742ac1a9fd7a560ef"
+)
+FINDING = Path(__file__).resolve().parent / "FINDING.md"
 
-
-def _load_tree() -> Path:
-    archive = subprocess.check_output(
-        ["git", "-C", str(REPO), "archive", "--format=tar", CENSUS_COMMIT,
-         "research/endogenous_demand"],
-    )
-    tmp = Path(tempfile.mkdtemp(prefix="ob1_e2_"))
-    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:") as tar:
-        tar.extractall(tmp)
-    packet = tmp / "research" / "endogenous_demand"
-    sys.path.insert(0, str(REPO / "code"))
-    sys.path.insert(0, str(packet))
-    return packet
-
-
-_load_tree()
+sys.path.insert(0, str(REPO / "code"))
+sys.path.insert(0, str(REPO / "research" / "endogenous_demand"))
 
 from derivation.engine import closure_challenge_orbits  # noqa: E402
 from derivation.model import (  # noqa: E402
@@ -42,6 +31,7 @@ from derivation.model import (  # noqa: E402
     AdmitForm,
     AdmitInst,
     AdmitRuleAll,
+    Event,
     Impose,
     Pair,
     Regime,
@@ -51,298 +41,173 @@ from derivation.model import (  # noqa: E402
 from derivation.observe import collapsed_pairs, separable  # noqa: E402
 
 import candidates as cand  # noqa: E402
-from grammar import e2_violation, is_impose  # noqa: E402
+from grammar import e2_violation  # noqa: E402
 from reader import read_pairs_of_regime  # noqa: E402
 
 
-def _sep(regime: Regime, pair: Pair | None) -> bool | None:
-    if pair is None:
-        return None
-    return separable(regime, pair[0], pair[1])
+def _sha(raw: bytes) -> str:
+    return hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
 
 
-def _pair(values: object) -> Pair | None:
-    if values is None:
+def check_census_pin() -> None:
+    live = (REPO / "research" / "endogenous_demand" / "candidates.py").read_bytes()
+    if _sha(live) != CANDIDATES_SHA256:
+        raise SystemExit("candidates.py does not match the b947873 pin")
+    shown = subprocess.check_output(
+        ["git", "-C", str(REPO), "show", f"{CENSUS_COMMIT}:research/endogenous_demand/candidates.py"]
+    )
+    if _sha(shown) != CANDIDATES_SHA256:
+        raise SystemExit(f"git show {CENSUS_COMMIT}:candidates.py does not match the pin")
+
+
+@dataclass(frozen=True)
+class Probe:
+    cid: str
+    history: tuple[Event, ...] | None
+    source: str
+    pair: Pair | None
+    pair_from: str
+
+
+@dataclass(frozen=True)
+class Row:
+    cid: str
+    e2_fails: str
+    e2_status: str
+    e2p_fails: str
+    e2p_reason: str
+    flipped: str
+    pair: str
+    in_reqs: str
+    already_sep: str
+    last_event: str
+    how: str
+    e2_violation: str | None
+
+
+def probes() -> tuple[Probe, ...]:
+    two = cand._two_data()
+    orbits = closure_challenge_orbits(replay(two))
+    c2_history = two + tuple(Impose(i, j) for i, j in orbits)
+    grown = two + (Supply("c"), AdmitDatum("c"))
+    rule = two + (AdmitForm(2), AdmitRuleAll(0))
+    inst = two + (AdmitForm(2), AdmitInst(0, (0, 1)))
+    return (
+        Probe("C1", two, "host", None, "host_next"),
+        Probe("C2", c2_history, "policy", orbits[0] if orbits else None, "given"),
+        Probe("C3", two + (Impose(0, 1), AdmitForm(2), AdmitInst(0, (0, 1))), "launder", (0, 1), "given"),
+        Probe("C4", rule, "rule", None, "none"),
+        Probe("C5", grown, "host", None, "host_holds"),
+        Probe("C6", grown + (Impose(0, 2),), "impose", (0, 2), "given"),
+        Probe("C7", None, "cited", None, "none"),
+        Probe("C8", None, "cited", None, "none"),
+        Probe("C9", cand._marked_two_data(), "inst", (0, 1), "given"),
+        Probe("C10", None, "outside", None, "none"),
+        Probe("I1", inst, "inst", None, "reader"),
+    )
+
+
+def resolve_pair(probe: Probe, regime: Regime | None) -> Pair | None:
+    if probe.pair_from == "given":
+        return probe.pair
+    if regime is None:
         return None
-    if isinstance(values, (list, tuple)) and len(values) == 2:
-        left, right = values
-        if isinstance(left, int) and isinstance(right, int):
-            return (left, right)
+    if probe.pair_from == "host_next":
+        return cand.host_next_demand(regime)
+    if probe.pair_from == "host_holds":
+        demanded = [
+            (i, j)
+            for i in range(regime.n_data())
+            for j in range(i + 1, regime.n_data())
+            if cand.host_holds(i, j)
+        ]
+        return demanded[0] if demanded else None
+    if probe.pair_from == "reader":
+        read = read_pairs_of_regime(regime, 0)
+        return read[0] if read else None
     return None
 
 
-def eval_c1() -> dict[str, object]:
-    history = cand._two_data()
-    regime = replay(history)
-    picked = cand.host_next_demand(regime)
-    pair = _pair(picked)
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": pair,
-        "how_designated": "host_next_demand",
-        "last_event": type(history[-1]).__name__,
-    }
-
-
-def eval_c2() -> dict[str, object]:
-    base_h = cand._two_data()
-    orbits = closure_challenge_orbits(replay(base_h))
-    history = base_h + tuple(Impose(i, j) for i, j in orbits)
-    regime = replay(history)
-    pair = orbits[0] if orbits else None
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": pair,
-        "how_designated": "closure_challenge_orbits then Impose",
-        "last_event": type(history[-1]).__name__,
-    }
-
-
-def eval_c3() -> dict[str, object]:
-    supplied = cand._two_data() + (Impose(0, 1),)
-    history = supplied + (AdmitForm(2), AdmitInst(0, (0, 1)))
-    regime = replay(history)
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": (0, 1),
-        "how_designated": "copy of previously imposed pair, then AdmitInst",
-        "last_event": type(history[-1]).__name__,
-        "identical_to_supplied": (0, 1) in replay(supplied).reqs,
-    }
-
-
-def eval_c4() -> dict[str, object]:
-    history = cand._two_data() + (AdmitForm(2), AdmitRuleAll(0))
-    regime = replay(history)
-    read = read_pairs_of_regime(regime, 0)
-    collapsed = collapsed_pairs(regime)
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": None,
-        "how_designated": "AdmitRuleAll; reader sees no insts",
-        "last_event": type(history[-1]).__name__,
-        "read_pairs": [list(p) for p in read],
-        "collapsed_after_rule": [list(p) for p in collapsed],
-        "insts": len(regime.insts),
-        "rules": sorted(regime.rules),
-    }
-
-
-def eval_c5() -> dict[str, object]:
-    history = cand._two_data() + (Supply("c"), AdmitDatum("c"))
-    regime = replay(history)
-    demanded = [
-        (i, j)
-        for i in range(regime.n_data())
-        for j in range(i + 1, regime.n_data())
-        if cand.host_holds(i, j)
-    ]
-    pair = demanded[0] if demanded else None
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": pair,
-        "how_designated": "host_holds on growth",
-        "last_event": type(history[-1]).__name__,
-        "host_demanded": [list(p) for p in demanded],
-    }
-
-
-def eval_c6() -> dict[str, object]:
-    history = cand._two_data() + (Supply("c"), AdmitDatum("c"), Impose(0, 2))
-    regime = replay(history)
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": (0, 2),
-        "how_designated": "AdmitDatum then Impose",
-        "last_event": type(history[-1]).__name__,
-    }
-
-
-def eval_c9() -> dict[str, object]:
-    history = cand._marked_two_data()
-    regime = replay(history)
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": (0, 1),
-        "how_designated": "unary AdmitInst on datum 0",
-        "last_event": type(history[-1]).__name__,
-    }
-
-
-def eval_i1() -> dict[str, object]:
-    history = cand._two_data() + (AdmitForm(2), AdmitInst(0, (0, 1)))
-    regime = replay(history)
-    read = read_pairs_of_regime(regime, 0)
-    pair = read[0] if read else None
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": pair,
-        "how_designated": "never-selects read of AdmitInst (0,[0,1])",
-        "last_event": type(history[-1]).__name__,
-        "read_pairs": [list(p) for p in read],
-        "insts": [list(inst) for inst in sorted(regime.insts)],
-    }
-
-
-def eval_shape() -> dict[str, object]:
-    """The candidate surviving shape, realized with the only sealed rule."""
-    history = cand._two_data() + (AdmitForm(2), AdmitRuleAll(0))
-    regime = replay(history)
-    read = read_pairs_of_regime(regime, 0)
-    collapsed = collapsed_pairs(regime)
-    pair = collapsed[0] if collapsed else None
-    return {
-        "history": history,
-        "regime": regime,
-        "pair": pair,
-        "how_designated": "uniform rule; no instance emitted",
-        "last_event": type(history[-1]).__name__,
-        "read_pairs": [list(p) for p in read],
-        "collapsed_after_rule": [list(p) for p in collapsed],
-        "insts": len(regime.insts),
-        "already_separable": _sep(regime, pair),
-    }
-
-
-EVALUATORS: dict[str, Callable[[], dict[str, object]]] = {
-    "C1": eval_c1,
-    "C2": eval_c2,
-    "C3": eval_c3,
-    "C4": eval_c4,
-    "C5": eval_c5,
-    "C6": eval_c6,
-    "C9": eval_c9,
-    "I1": eval_i1,
-}
-
-
-def classify_e2p(cid: str, row: dict[str, object], ev: dict[str, object]) -> tuple[str, str]:
-    """Return (failing_clause, reason) under E2'. Empty clause means not killed by E2' alone."""
-    pair = ev.get("pair")
-    regime = ev["regime"]
-    assert isinstance(regime, Regime)
-    p = pair if isinstance(pair, tuple) else None
-    already = _sep(regime, p) if p is not None else None
-    last = str(ev["last_event"])
-    how = str(ev["how_designated"])
-    in_reqs = bool(p is not None and p in regime.reqs)
-    host = how.startswith("host") or "closure_challenge_orbits" in how or "host_holds" in how
-
-    if cid == "C4":
-        return "E2'", "uniform AdmitRuleAll emits no insts and designates no pair"
-    if host:
+def classify(source: str, pair: Pair | None, already: bool | None, last: str) -> tuple[str, str]:
+    if source == "outside":
+        return "outside", "new Event constructor is a sealed-path amendment"
+    if source == "cited":
+        return "E1", "cited host/reflective construct; no separable witness in the tree"
+    if source in {"host", "policy"}:
         return "E1", "host or declared policy chooses the pair"
+    if source == "launder":
+        return "E3", "pair identical to a previously supplied Impose"
     if already is True:
-        return "E3", f"pair {p} is already separable"
-    if in_reqs or last == "Impose":
-        if cid == "C3" or ev.get("identical_to_supplied") is True:
-            return "E3", "pair identical to a previously supplied Impose"
+        extra = "; instance admitted, not produced by a rule" if last == "AdmitInst" else ""
+        return "E3", f"pair {pair} is already separable{extra}"
+    if source == "impose" or last == "Impose":
         return "E2'", f"last event is {last}; designation is supplied"
-    if last == "AdmitInst":
+    if source == "inst" or last == "AdmitInst":
         return "E2'", "instance was admitted, not produced by a rule firing"
-    if p is None:
-        return "E2'", "no pair designated"
-    if already is False and not host and last != "Impose":
-        return "E2'", f"pair {p} is owed but not produced by a rule firing ({last})"
-    return "E2'", how
+    if source == "rule":
+        return "E2'", "uniform AdmitRuleAll emits no insts and designates no pair"
+    return "E2'", f"no pair designated ({source})"
 
 
-def row_record(census_row: dict[str, object]) -> dict[str, object]:
-    cid = str(census_row["id"])
-    e2_fails = tuple(census_row["fails"])
-    e2_status = str(census_row["status"])
-    e2_reason = str(census_row["reason"])
-    if cid in {"C7", "C8"}:
-        return {
-            "id": cid,
-            "e2_fails": ",".join(e2_fails) or "—",
-            "e2_status": e2_status,
-            "e2p_fails": "E1",
-            "e2p_reason": "cited host/reflective construct; no separable witness in the tree",
-            "flipped": "not claimed",
-            "witness": "none",
-            "pair": "—",
-            "in_reqs": "—",
-            "already_separable": "—",
-            "last_event": "—",
-        }
-    if cid == "C10":
-        return {
-            "id": cid,
-            "e2_fails": "—",
-            "e2_status": e2_status,
-            "e2p_fails": "outside",
-            "e2p_reason": "new Event constructor is a sealed-path amendment",
-            "flipped": "no",
-            "witness": "none",
-            "pair": "—",
-            "in_reqs": "—",
-            "already_separable": "—",
-            "last_event": "—",
-        }
-    ev = EVALUATORS[cid]()
-    regime = ev["regime"]
-    assert isinstance(regime, Regime)
-    pair = ev.get("pair")
-    p = pair if isinstance(pair, tuple) else None
-    already = _sep(regime, p)
-    in_reqs = p in regime.reqs if p is not None else False
-    history = ev["history"]
-    assert isinstance(history, tuple)
-    e2p_clause, e2p_reason = classify_e2p(cid, census_row, ev)
-    flipped = "yes" if (cid == "I1" or set(e2_fails) != {e2p_clause}) and cid == "I1" else "no"
-    if cid == "I1":
-        flipped = "yes"
-    elif e2p_clause not in e2_fails and e2_status == "defeated":
-        flipped = "restated"
-        if e2p_clause in {"E1", "E2", "E3"} and e2p_clause in e2_fails:
-            flipped = "no"
-    return {
-        "id": cid,
-        "e2_fails": ",".join(e2_fails) or "—",
-        "e2_status": e2_status,
-        "e2p_fails": e2p_clause,
-        "e2p_reason": e2p_reason,
-        "flipped": flipped,
-        "witness": "yes",
-        "pair": list(p) if p is not None else None,
-        "in_reqs": in_reqs,
-        "already_separable": already,
-        "last_event": ev["last_event"],
-        "how": ev["how_designated"],
-        "e2_violation": e2_violation(history),
-        "e2_reason": e2_reason,
-        "collapsed": [list(q) for q in collapsed_pairs(regime)],
-        "reqs": [list(q) for q in sorted(regime.reqs)],
-    }
+def flip_label(e2_fails: tuple[object, ...], e2_status: str, e2p: str, source: str) -> str:
+    if source in {"cited", "outside"}:
+        return "not claimed" if source == "cited" else "no"
+    if e2_status == "OPEN":
+        return "yes"
+    if e2p in e2_fails:
+        return "no"
+    if e2p == "E2'" and "E2" in e2_fails:
+        return "restated"
+    return "restated"
 
 
-def print_table(rows: list[dict[str, object]]) -> None:
+def row_from(census: dict[str, object], probe: Probe) -> Row:
+    e2_fails = census["fails"]
+    assert isinstance(e2_fails, tuple)
+    history = probe.history
+    regime: Regime | None = replay(history) if history else None
+    pair = resolve_pair(probe, regime)
+    already = separable(regime, pair[0], pair[1]) if regime is not None and pair is not None else None
+    last = type(history[-1]).__name__ if history else "—"
+    e2p, reason = classify(probe.source, pair, already, last)
+    in_reqs = pair in regime.reqs if regime is not None and pair is not None else None
+    how = {
+        "host": "host_next_demand" if probe.cid == "C1" else "host_holds on growth",
+        "policy": "closure_challenge_orbits then Impose",
+        "launder": "copy of previously imposed pair, then AdmitInst",
+        "rule": "AdmitRuleAll; reader sees no insts",
+        "impose": "AdmitDatum then Impose",
+        "inst": "never-selects read of AdmitInst (0,[0,1])" if probe.cid == "I1" else "unary AdmitInst on datum 0",
+        "cited": "",
+        "outside": "",
+    }[probe.source]
+    violation = e2_violation(history) if history else None
+    return Row(
+        cid=probe.cid,
+        e2_fails=",".join(str(x) for x in e2_fails) or "—",
+        e2_status=str(census["status"]),
+        e2p_fails=e2p,
+        e2p_reason=reason,
+        flipped=flip_label(e2_fails, str(census["status"]), e2p, probe.source),
+        pair="—" if probe.source in {"cited", "outside"} else str(list(pair) if pair is not None else None),
+        in_reqs="—" if probe.source in {"cited", "outside"} else str(bool(in_reqs)),
+        already_sep="—" if probe.source in {"cited", "outside"} else str(already),
+        last_event=last,
+        how=how,
+        e2_violation=violation,
+    )
+
+
+def render_table(rows: tuple[Row, ...]) -> str:
     headers = (
         "id", "E2 fails", "E2 status", "E2' fails", "flipped",
         "pair", "in reqs", "already sep", "last event",
     )
-    body: list[tuple[str, ...]] = []
-    for row in rows:
-        body.append((
-            str(row["id"]),
-            str(row["e2_fails"]),
-            str(row["e2_status"]),
-            str(row["e2p_fails"]),
-            str(row["flipped"]),
-            str(row["pair"]),
-            str(row["in_reqs"]),
-            str(row["already_separable"]),
-            str(row["last_event"]),
-        ))
+    body = tuple(
+        (r.cid, r.e2_fails, r.e2_status, r.e2p_fails, r.flipped,
+         r.pair, r.in_reqs, r.already_sep, r.last_event)
+        for r in rows
+    )
     widths = [len(h) for h in headers]
     for line in body:
         for i, cell in enumerate(line):
@@ -351,34 +216,76 @@ def print_table(rows: list[dict[str, object]]) -> None:
     def fmt(cells: tuple[str, ...]) -> str:
         return "| " + " | ".join(c.ljust(widths[i]) for i, c in enumerate(cells)) + " |"
 
-    print(fmt(headers))
-    print("| " + " | ".join("-" * w for w in widths) + " |")
-    for line in body:
-        print(fmt(line))
-    print()
-    for row in rows:
-        print(f"{row['id']}: {row['e2p_reason']}")
-        if row.get("how"):
-            print(f"     how={row['how']}")
-        if row.get("e2_violation") is not None:
-            print(f"     e2_violation={row['e2_violation']}")
+    lines = [fmt(headers), "| " + " | ".join("-" * w for w in widths) + " |"]
+    lines.extend(fmt(line) for line in body)
+    return "\n".join(lines)
+
+
+def shape_probe() -> dict[str, object]:
+    history = cand._two_data() + (AdmitForm(2), AdmitRuleAll(0))
+    regime = replay(history)
+    collapsed = collapsed_pairs(regime)
+    pair = collapsed[0] if collapsed else None
+    return {
+        "insts": len(regime.insts),
+        "read_pairs": [list(p) for p in read_pairs_of_regime(regime, 0)],
+        "collapsed": [list(p) for p in collapsed],
+        "already_separable": separable(regime, pair[0], pair[1]) if pair else None,
+        "last": type(history[-1]).__name__,
+    }
+
+
+def all_rows() -> tuple[Row, ...]:
+    by_id = {str(row["id"]): row for row in cand.CENSUS}
+    return tuple(row_from(by_id[p.cid], p) for p in probes())
+
+
+def check_finding(rows: tuple[Row, ...]) -> None:
+    text = FINDING.read_text(encoding="utf-8")
+    table = render_table(rows)
+    if table not in text:
+        raise SystemExit("FINDING.md table does not match reclassify.py")
+    i1 = next(r for r in rows if r.cid == "I1")
+    if i1.already_sep != "True" or i1.e2p_fails != "E3" or i1.flipped != "yes":
+        raise SystemExit("I1 under E2' is not the recorded flip")
+    shape = shape_probe()
+    if shape["insts"] != 0 or shape["already_separable"] is not False:
+        raise SystemExit("surviving-shape probe changed")
+    if "- `insts = 0`" not in text:
+        raise SystemExit("FINDING.md missing surviving-shape insts = 0")
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    check_census_pin()
+    rows = all_rows()
+    table = render_table(rows)
+    if args.check:
+        check_finding(rows)
+        print("PASS: census pin, FINDING.md table, I1 flip")
+        return 0
     print(f"census commit {CENSUS_COMMIT}")
     print(f"sealed code    {REPO / 'code'}")
     print(f"CENSUS ids     {[row['id'] for row in cand.CENSUS]}")
     print()
-    rows = [row_record(row) for row in cand.CENSUS]
-    print_table(rows)
+    print(table)
+    print()
+    for row in rows:
+        print(f"{row.cid}: {row.e2p_reason}")
+        if row.how:
+            print(f"     how={row.how}")
+        if row.e2_violation is not None:
+            print(f"     e2_violation={row.e2_violation}")
     print()
     print("=== surviving-shape probe (AdmitRuleAll only) ===")
-    shape = eval_shape()
+    shape = shape_probe()
     print(
         f"insts={shape['insts']} read_pairs={shape['read_pairs']} "
-        f"collapsed={shape['collapsed_after_rule']} "
+        f"collapsed={shape['collapsed']} "
         f"already_separable={shape['already_separable']} "
-        f"last={shape['last_event']}"
+        f"last={shape['last']}"
     )
     print("uniform rule does not emit an instance; collapsed pair stays collapsed.")
     print("that is not a generator under E1/E2'/E3.")

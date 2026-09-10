@@ -1,9 +1,11 @@
 # E2′ restatement diagnostic
 
 `AuthorityEffect: None.` Scoping diagnostic, not a research result.
-Census: `research/endogenous_demand` at `b947873`. Sealed `code/` of
-this repository. Script: `reclassify.py`. Lives at repo-root
-`ob1_e2_restatement/`: outside the seal and outside `research/`.
+Census: `research/endogenous_demand/candidates.py` at `b947873`
+(digest pinned in `reclassify.py`). Sealed `code/` of this repository.
+Script: `reclassify.py`. Lives at repo-root `ob1_e2_restatement/`:
+outside the seal and outside `research/`. `python reclassify.py --check`
+fails if this table drifts.
 
 E2 = demand is a `reqs` member (the tree's operationalization).
 E2′ = demand is an owed separation: designated pair `(i,j)` with
