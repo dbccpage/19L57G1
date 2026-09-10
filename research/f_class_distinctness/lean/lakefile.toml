@@ -1,0 +1,13 @@
+name = "f_class_distinctness"
+version = "0.1.0"
+defaultTargets = ["FClassDistinctness", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "FClassDistinctness"
+
+[[lean_lib]]
+name = "Inventory"

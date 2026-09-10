@@ -1,0 +1,128 @@
+{
+  "authority_effect": "None",
+  "axiom_free_count": 0,
+  "catalog_completeness": "OPEN as a Lean theorem; engine enumeration under Bounds(2,2)",
+  "census": "compiled environment theorem declarations in the FClassDistinctness namespace",
+  "classification": "Lean proof compilation",
+  "local_sources_sha256": {
+    "FClassDistinctness.lean": "0684cd59bce9932f688b965c540c9961dd163f97b638cc2ea2fdca8b30a8c324",
+    "Inventory.lean": "763d94f63234c90eaf3aba622e062f4196fbaf1cbad014c0dfe9cbce42d2282a",
+    "lakefile.toml": "46348a054e59fbf49a9453393fc3b7f20341aeebecfd949276e233a405f19153",
+    "lean-toolchain": "302cd63c54178885b89e669f33b38f12f4dd7ae7e5cac537b3203e3768d8fb2b"
+  },
+  "outcome": "five_f_classes_pairwise_noniso",
+  "python_driver_refinement": "NOT_PROVED",
+  "reports": {
+    "FClassDistinctness.DiagF_not_iso_InF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.DiagF_not_iso_OutF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.DiagF_separable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.InF_separable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.LinkF_not_iso_DiagF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.LinkF_not_iso_InF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.LinkF_not_iso_OutF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.LinkF_separable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.MarkF_not_iso_DiagF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.MarkF_not_iso_InF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.MarkF_not_iso_LinkF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.MarkF_not_iso_OutF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.OutF_not_iso_InF": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.OutF_separable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.deltaDiagF_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.deltaInF_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.deltaLinkF_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.deltaMarkF_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.deltaOutF_valid": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.five_classes_pairwise_noniso": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.five_valid_pairwise_noniso": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.isoDiagF'_exists": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.isoInF'_exists": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.isoLinkF'_exists": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.isoOutF'_exists": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.one_form_fmap": [
+      "Quot.sound",
+      "propext"
+    ],
+    "FClassDistinctness.validResponse_R2F": [
+      "propext"
+    ]
+  },
+  "schema_version": 1,
+  "scope": "the five named reading-F representatives are pairwise non-isomorphic; this is not a proof that they are all the mu1 minima",
+  "theorem_count_including_generated": 27,
+  "toolchain": "leanprover/lean4:v4.33.0"
+}
