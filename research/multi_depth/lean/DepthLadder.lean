@@ -10,7 +10,7 @@ retained-record enablement machines to an arbitrary depth-$k$ ladder.
 2. `functional (k : Nat) (tape : List Nat) : Prop` asserts that any two windows
    of length $k + 1$ that agree on their first $k$ entries (the antecedent)
    must be identical (the successor is uniquely determined).
-3. `ladder_monotonic` proves the general monotonicity theorem:
+3. `ladder_monotonic` establishes the general monotonicity theorem:
    `functional k tape → functional (k + 1) tape` for all `k` and `tape`.
 
 Axioms audited: strictly contained in `{propext, Quot.sound}` (zero Classical.choice).

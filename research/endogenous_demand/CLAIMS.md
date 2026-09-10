@@ -160,4 +160,4 @@ is `E2OnCReqs`.
   plus a host condition.
 - **Class**: declared scope.
 - **Evidence**: `candidates.json` `dynamics`; `SC-18`; `CL-IG-02`.
-- **Falsifier**: a C_reqs generator, which this tree proves there is not.
+- **Falsifier**: a C_reqs generator, which this tree shows there is not.

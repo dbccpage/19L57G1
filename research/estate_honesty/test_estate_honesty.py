@@ -1,7 +1,7 @@
 """test_estate_honesty.py — Test suite for Target 10 Estate Honesty Pass.
 
 Verifies:
-1. Full 48-tree audit coverage and existence.
+1. Full 56 trees audit coverage and existence.
 2. Exact Gate 11 CI integration counts (13 trees wired, 35 local receipts).
 3. Exact Lean CI axiom checking (2 trees in CI: second_nofirst, typed_translation).
 4. Reconciliation of root test count drift (481 in README vs. 523 collected by pytest).

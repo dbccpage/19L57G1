@@ -233,7 +233,7 @@ theorem state_capacity_obstruction (k : Nat) (H : CapacityMachine k) :
   omega
 
 /-- Stratification Boundary Irreducibility Theorem:
-    There exists no universal host machine of capacity `k` capable of
+    There exists no general host machine of capacity `k` capable of
     evaluating all guest graphs of capacity `k + 1`. -/
 theorem stratification_boundary_irreducible (k : Nat) :
     ¬ ∃ (H : CapacityMachine k),

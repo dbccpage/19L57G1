@@ -176,7 +176,7 @@ theorem endogenous_trace_le_binom2 {r t : Regime} {k : Nat}
 
 /-- **Theorem (Obstruction to Infinite Generation / OB-1)**:
     No endogenous demand execution without external data growth can exceed
-    `binom(N, 2)` steps. Any trace of length `k > binom(N, 2)` is impossible. -/
+    `binom(N, 2)` steps. Any trace of length `k > binom(N, 2)` is excluded. -/
 theorem endogenous_obstruction_no_excess {r t : Regime} {k : Nat}
     (he : r.reqs = []) (h_excess : binom2 r.data < k) :
     ¬ EndogenousTrace r k t := by
