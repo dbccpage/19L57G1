@@ -1,4 +1,4 @@
-"""Replay Stages 1 through 3, pin sources, and audit compiled theorem evidence.
+"""Replay Stages 1 through 4, pin sources, and audit compiled theorem evidence.
 
 The receipt keeps OB-1 OPEN. It does not identify event occurrence with supply.
 AuthorityEffect: None.
@@ -121,8 +121,14 @@ def check_coverage(payload: Any) -> tuple[float, float]:
     files = payload["files"]
     if {Path(name).resolve() for name in files} != {
             (ROOT / "probe.py").resolve(), (ROOT / "materialize.py").resolve(),
-            (ROOT / "emitter.py").resolve()}:
+            (ROOT / "emitter.py").resolve(), (ROOT / "dynamics.py").resolve()}:
         raise ValueError("COVERAGE_POPULATION")
+    for name, measured in files.items():
+        summary = measured["summary"]
+        for numerator, denominator in (("covered_lines", "num_statements"),
+                                       ("covered_branches", "num_branches")):
+            if summary[denominator] and 100 * summary[numerator] / summary[denominator] < 95:
+                raise ValueError("COVERAGE_FILE: " + name)
     totals = payload["totals"]
     lines = 100 * totals["covered_lines"] / totals["num_statements"]
     branches = 100 * totals["covered_branches"] / totals["num_branches"]
@@ -145,7 +151,8 @@ def verify(lake: str, write: bool) -> None:
     check_sources()
     before = input_hashes()
     lean_files = {p.name for p in (ROOT / "lean").glob("*.lean")}
-    if lean_files != {"InstanceDemand.lean", "ClosureMaterialization.lean", "RepresentedEmitter.lean", "Inventory.lean"}:
+    if lean_files != {"InstanceDemand.lean", "ClosureMaterialization.lean", "RepresentedEmitter.lean",
+                      "EmissionDynamics.lean", "Inventory.lean"}:
         raise ValueError("LEAN_FILE_CENSUS")
     for name in lean_files:
         text = (ROOT / "lean" / name).read_text(encoding="utf-8")
@@ -167,26 +174,30 @@ def verify(lake: str, write: bool) -> None:
     proof_log = command([lake, "env", "lean", "InstanceDemand.lean"], ROOT / "lean")
     proof_log += command([lake, "env", "lean", "ClosureMaterialization.lean"], ROOT / "lean")
     proof_log += command([lake, "env", "lean", "RepresentedEmitter.lean"], ROOT / "lean")
+    proof_log += command([lake, "env", "lean", "EmissionDynamics.lean"], ROOT / "lean")
     inventory_log = command([lake, "env", "lean", "Inventory.lean"], ROOT / "lean")
     reports = parse_reports(proof_log + inventory_log, inventory_log)
     import probe
     import materialize
     import emitter
+    import dynamics
     computation = probe.report()
     closure = materialize.report()
     emission = emitter.report()
+    repeated = dynamics.report()
     check_sources()
     if input_hashes() != before:
         raise ValueError("INPUTS_CHANGED_DURING_VERIFICATION")
     records = {"computation.json": computation,
                "materialization.json": closure,
                "emitter.json": emission,
-               "lean.json": {"stage": 3, "outcome": "OPEN", "reports": reports,
+               "dynamics.json": repeated,
+               "lean.json": {"stage": 4, "outcome": "OPEN", "reports": reports,
                              "theorem_count_including_generated": len(reports)},
-               "verification.json": {"stage": 3, "outcome": "OPEN", "base": BASE,
+               "verification.json": {"stage": 4, "outcome": "OPEN", "base": BASE,
                     "python_tests": int(count[1]), "python_version": sys.version.split()[0],
                     "statement_coverage": line, "branch_coverage": branch,
-                    "coverage_scope": "probe.py, materialize.py, emitter.py; verifier apparatus excluded",
+                    "coverage_scope": "probe.py, materialize.py, emitter.py, dynamics.py; verifier apparatus excluded",
                     "sources": before, "lean_theorems_including_generated": len(reports)}}
     for name, record in records.items():
         raw = (json.dumps(record, sort_keys=True, indent=2) + "\n").encode("utf-8")
@@ -196,7 +207,7 @@ def verify(lake: str, write: bool) -> None:
             path.write_bytes(raw)
         elif not path.is_file() or path.read_bytes() != raw:
             raise ValueError("EVIDENCE_DIFFERS: " + name)
-    print(f"PASS Stages 1-3: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
+    print(f"PASS Stages 1-4: {count[1]} tests; {line:.2f}% statements, {branch:.2f}% branches; "
           f"{len(reports)} theorem reports. OB-1 remains OPEN.")
 
 

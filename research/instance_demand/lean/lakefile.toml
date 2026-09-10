@@ -1,6 +1,6 @@
 name = "instance_demand"
 version = "0.1.0"
-defaultTargets = ["InstanceDemand", "ClosureMaterialization", "RepresentedEmitter", "Inventory"]
+defaultTargets = ["InstanceDemand", "ClosureMaterialization", "RepresentedEmitter", "EmissionDynamics", "Inventory"]
 
 [[require]]
 name = "derivation"
@@ -21,3 +21,6 @@ path = "../../represented_execution/lean"
 
 [[lean_lib]]
 name = "RepresentedEmitter"
+
+[[lean_lib]]
+name = "EmissionDynamics"

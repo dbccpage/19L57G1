@@ -45,7 +45,10 @@ class VerificationControls(unittest.TestCase):
             verify.validate_manifest(good, verify.STAGE3_SOURCE_PATHS)
 
     def test_coverage_requires_both_thresholds_and_exact_file(self) -> None:
-        measured: dict[str, Any] = {str(verify.ROOT / name): {} for name in ("probe.py", "materialize.py", "emitter.py")}
+        measured: dict[str, Any] = {str(verify.ROOT / name): {
+            "summary": {"covered_lines": 100, "num_statements": 100,
+                        "covered_branches": 100, "num_branches": 100}}
+            for name in ("probe.py", "materialize.py", "emitter.py", "dynamics.py")}
         payload: dict[str, Any] = {"files": measured,
                                   "totals": {"covered_lines": 100, "num_statements": 100,
                                              "covered_branches": 100, "num_branches": 100}}
@@ -60,3 +63,8 @@ class VerificationControls(unittest.TestCase):
             verify.check_coverage(payload)
         payload["files"] = measured
         self.assertEqual(verify.check_coverage(payload), (100.0, 100.0))
+        for key in ("covered_lines", "covered_branches"):
+            measured[str(verify.ROOT / "dynamics.py")]["summary"][key] = 94
+            with self.assertRaisesRegex(ValueError, "COVERAGE_FILE"):
+                verify.check_coverage(payload)
+            measured[str(verify.ROOT / "dynamics.py")]["summary"][key] = 100

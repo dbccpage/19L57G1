@@ -1,9 +1,10 @@
-# Instance-channel claims: Stages 1 through 3
+# Instance-channel claims: Stages 1 through 4
 
 AuthorityEffect: None. Outcome **OPEN** for OB-1. The existing `C_reqs`
 result is unchanged. A uniform materializer and a stored-instruction composition
 emitter are exhibited as host operations. The latter has a graph-computation
-bridge, but endogenous admission and obligation semantics under E1 are unproved.
+bridge and a proved terminating iteration, but endogenous admission and
+obligation semantics under E1 are unproved.
 
 | ID | Classification and statement | Evidence | Falsifier or remaining obligation |
 |---|---|---|---|
@@ -34,6 +35,15 @@ bridge, but endogenous admission and obligation semantics under E1 are unproved.
 | CL-ID-25 | Proved theorem: the seeds begin collapsed. An unruled singleton emission separates the target; a covered emission leaves every pair collapsed. | `Emitter.seed_collapsed`, `unruled_emission_separates`, `fully_covered_collapsed`, `covered_emission_collapsed` | A counter-context under the stated hypotheses. Unruled output fails E3 after emission; covered output is only a conditional obligation candidate. |
 | CL-ID-26 | Proved theorem: covered sample pairs have valid responses using fresh unary form 6; these apply and separate the target, and both complete reading histories replay. | `Emitter.response_applies`, `answer_separates`, `covered_answerable`, `covered_histories_replay` | A failed valid response or replay. No pre-existing requirements, uniqueness, optimality, or derived obligation meaning is claimed. |
 | CL-ID-27 | Deterministic computation: the declared 5,140-state graph census replays with 2,560 admission events, 2,528 distinct new instances, 2,340 functional execution paths, and 522 instruction-free states. Both covered samples have whole response replay. | `emitter.sweep`, `sample`, `evidence/emitter.json`; `tests/test_emitter.py` | Counts or witnesses fail to reproduce. The census is not exhaustive over instruction programs, arbitrary data sizes, or repeated growth. |
+| CL-ID-28 | Proved theorem: the binary-slot enumeration has length `forms.length * data^2`; its initially missing entries bound the budget. Every nonempty emission batch strictly decreases that budget. | `Dynamics.slots_mem`, `flatMap_length`, `tuples_length`, `slots_length`, `missing_le`, `missing_strict`, `budget_bound`, `emission_extends`, `pending_in_slots`, `budget_decreases` | A pending output outside that carrier or a nonempty batch without strict decrease. Nonbinary form indices are included in the coarse carrier. No tight bound or bound on repeated path events. |
+| CL-ID-29 | Proved theorem: pending emptiness is equivalent to an unchanged emission state. Repetition stabilizes by the initial budget and all later states equal that state; changing forever is impossible for this law. | `Dynamics.emit_of_empty`, `empty_iff_fixed`, `rounds_succ_start`, `rounds_add`, `rounds_of_fixed`, `reaches_fixed`, `stable_by_budget`, `stable_after_budget`, `no_unbounded_strict_rounds` | A counterexample for the defined iteration with no intervening event. Does not cover response-driven carrier growth or every possible generator. |
+| CL-ID-30 | Proved theorem: emission never produces an instruction of form 0; the exact instruction list, data, forms, rules, and requirements are preserved at every round, as is initial well-formedness. | `Dynamics.pending_not_instruction`, `instructions_addMany`, `emission_instructions`, `rounds_fields`, `rounds_instructions`, `rounds_wf` | A changed field or instruction under the defined law; failure of wf preservation when initially wf. Literal E2 remains unsatisfied. |
+| CL-ID-31 | Proved theorem: every finite iteration has an instance-admission trace, contains no impose, and replays from its initial state or a seed already replayed from genesis. | `Dynamics.trace_replay`, `trace_no_impose`, `whole_trace_replay` | Failed replay under the stated premise. This does not derive the trace-producing operation from native structure. |
+| CL-ID-32 | Proved theorem: the terminal state is closed under the declared composition, contains every initial instance, and is contained by instance membership in every closed extension on the same data/forms. | `Dynamics.closed_iff_empty`, `terminal_closed`, `enabled_mono`, `rounds_below_closed`, `terminal_extends`, `terminal_least` | A missing enabled well-formed output or a smaller closed extension by membership. No uniqueness of list/event order, response, or obligation meaning. |
+| CL-ID-33 | Proved theorem: the four-data chain is reachable and well-formed, has initial budget 61, needs exactly two nonempty rounds, and is then fixed. Round two repeats one tuple along two paths. | `Dynamics.chain_replay`, `chain_wf`, `chain_rounds`, `chain_budget`, `chain_not_one_pass`, `chain_whole_replay`; `dynamics.chain_sample` | An incorrect batch, endpoint, or replay for either coverage setting. This refutes one-pass idempotence of this emitter, not Stage 2's different theorem. |
+| CL-ID-34 | Proved theorem: the chain's initial form-3 graph is functional, but is not functional after its first emission. | `Dynamics.chain_functionality_boundary`; `test_chain_needs_two_rounds_and_retains_duplicate_path_events` | Functionality survives in that exact example. The Stage 3 graph-execution bridge remains conditional and cannot be applied at later rounds without its premises. |
+| CL-ID-35 | Proved theorem: every pair in the covered chain remains collapsed at every round. Terminal pair `(0,3)` has a valid response using fresh unary form 4, the whole response history replays, and its stored payload remains afterward. | `Dynamics.chain_covered_collapsed`, `chain_response_valid`, `chain_response_replay`, `chain_answered_pair_retained` | Failed collapse, response, or replay. The covered output was already derivable; its obligation role is not proved. |
+| CL-ID-36 | Deterministic computation: the 2,124-configuration repeated-emission census has 1,772 initial fixed points and 352 one-round cases, with 384 admission events/new instances. The separate four-data chain has two rounds, 4 events, and 3 new instances. | `dynamics.sweep`, `chain_sample`, `evidence/dynamics.json`; `tests/test_dynamics.py` | Counts, least-store comparison, or whole replay fail. The bounded census itself has no multiple-round example and is not all programs or data sizes. |
 
 CL-ID-01/02 and the preservation part of CL-ID-03 use `propext`; the uniform
 conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
@@ -41,7 +51,10 @@ conclusion theorem is axiom-free. CL-ID-04/05 and sample well-formedness use
 Stage 2 adds 28 authored and 29 generated theorem reports, all within
 `{propext, Quot.sound}`. Every exact dependency set, including Stage 1's nine
 generated reports, is listed in `evidence/lean.json`. Stage 3 adds 36 authored
-and 30 generated reports, also within that budget, for 146 reports total.
+and 30 generated reports, also within that budget, for 146 reports through
+Stage 3. Stage 4 adds 45 authored theorems and 14 generated reports, including
+the newly materialized `Emitter.codes.eq_1` equation in the earlier namespace.
+All 205 reports pass the complete census and the unchanged dependency budget.
 Unrestricted simplification initially introduced disallowed dependence in
 the construction; the final direct proofs pass the unchanged dependency gate.
 
@@ -53,18 +66,44 @@ the construction; the final direct proofs pass the unchanged dependency gate.
   state enumeration, abstract faithful reader parameter, uniform materializer,
   the Stage 2 reading assigning obligation meaning to binary form 0, and the
   Stage 3 instruction interpreter, output-admission wrapper and obligation
-  reading. In Stage 3 form 0 is ternary code; output form is `3+o`.
+  reading, and Stage 4 repeated-emission law. Form 0 is ternary code;
+  output form is `3+o`. Iteration is explicitly supplied host apparatus.
 - Admitted primitives: the sealed data, forms, instance admission, and uniform
   rules. This stage adds none to the sealed grammar.
 - Derived definitions: the sample regimes and histories; well-formed-instance
   predicate, tuple list, uniform-entry and pending lists, response witnesses,
   instruction/edge decoders, enabled composition relation and functional-graph
-  predicate. The examples' instruction and graph instances are supplied admitted
+  predicate; binary-slot enumeration, missing-slot budget, iteration trace and
+  closed-extension predicate. The examples' instruction and graph instances are supplied admitted
   data; their operation-code interpretation is declared metatheory apparatus.
 - Proved theorems and computations: exactly the rows above and their scopes.
 - Open obstruction: event generation and obligation semantics for a represented
   emitter. The host materializer keeps every well-formed uniform conclusion;
   its operation is not proved to be required by the admitted structure.
+
+## Clause assessment after Stage 4
+
+The repeated-emission candidate has a proved dynamics result: under its declared
+host law, on fixed data/forms and with no intervening events, it reaches its
+least closed extension within the missing-slot budget. This closes the scoped
+dynamics obligation for that procedure. It does not supply the native admission
+or obligation interpretation missing from E1. E1 and OB-1 remain OPEN.
+
+Literal E2 remains unsatisfied at every round, because `reqs` is unchanged.
+Under owed-separation E2, the covered chain has a fresh stored payload, stays
+collapsed, and has a valid E4 response with whole replay. Its payload was already
+derivable before emission, and a raw stored-pair reader still sees it after the
+answer. These are conditional witnesses, not a derived obligation. The earlier
+unruled singleton still fails E3; the unruled four-data chain's `(0,3)` is already
+separable before iteration, as the Python control records.
+
+The two-round chain rules out treating all emission as a single idempotent pass.
+It also loses functionality after round one. The all-path iteration remains
+defined, but the Stage 3 functional graph-execution correspondence cannot be
+extended automatically to every later state. Fixed-carrier termination is not
+a theorem about interleaved responses, enlarged data/forms, or all endogenous
+generators. Neither Outcome A nor a general instance-channel impossibility is
+established. Reconciliation and publication are Stage 5.
 
 ## Clause assessment after Stage 3
 
@@ -92,7 +131,7 @@ pairs of partial functional graphs on three active data with instruction and
 output coverage present. Three additional data are admitted outside each active
 graph carrier. Each census state has six forms and empty requirements. General
 Lean membership/replay claims cover more than this census; Python/Lean semantic
-equivalence is not proved. Repeated emitter dynamics are Stage 4, and Stage 2's
+equivalence is not proved. Repeated emitter dynamics are now assessed in Stage 4, and Stage 2's
 idempotence theorem is not a theorem about this different emitter.
 
 ## Clause assessment after Stage 2
@@ -131,6 +170,10 @@ from distinct paths; instruction-controlled output forms; invalid output arity
 or bounds; preserved requirements; wrong path populations, endpoints, traces,
 replay, execution output, whole histories, and sample boundary/response checks.
 The supplemental source-manifest population is separately tested. The combined
-39-test suite has 100% statement and branch coverage over the three research
-modules, excluding verification apparatus. No Python-to-Lean equivalence theorem
-is claimed.
+Stage 3 suite had 39 tests. Stage 4 adds controls for premature termination,
+wrong round populations/endpoints, changed instructions, failed budget decrease,
+exceeded bounds, nonleast terminal stores, and failed trace/response replay.
+The verifier also enforces coverage thresholds per measured module, so a strong
+aggregate cannot hide a deficient new module. All 52 tests pass; all four
+research modules have 100% statement and branch coverage, excluding verification
+apparatus. No Python-to-Lean equivalence theorem is claimed.

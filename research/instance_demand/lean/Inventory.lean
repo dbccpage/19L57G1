@@ -2,6 +2,7 @@ import Lean
 import InstanceDemand
 import ClosureMaterialization
 import RepresentedEmitter
+import EmissionDynamics
 
 open Lean Elab Command in
 run_cmd do
@@ -94,3 +95,19 @@ run_cmd do
 #print axioms InstanceDemand.Emitter.seed_collapsed._simp_1_2
 #print axioms InstanceDemand.Emitter.seed_collapsed._simp_1_3
 #print axioms InstanceDemand.Emitter.unruled_emission_separates._proof_1_3
+
+-- Stage 4 generated theorem reports.
+#print axioms InstanceDemand.Dynamics.chain.eq_1
+#print axioms InstanceDemand.Dynamics.chain_covered_collapsed._proof_1_3
+#print axioms InstanceDemand.Dynamics.chain_covered_collapsed._simp_1_1
+#print axioms InstanceDemand.Dynamics.chain_covered_collapsed._simp_1_2
+#print axioms InstanceDemand.Dynamics.missing._proof_1
+#print axioms InstanceDemand.Dynamics.missing.eq_1
+#print axioms InstanceDemand.Dynamics.pending_not_instruction._proof_1_1
+#print axioms InstanceDemand.Dynamics.reaches_fixed._proof_1_1
+#print axioms InstanceDemand.Dynamics.reaches_fixed._proof_1_2
+#print axioms InstanceDemand.Dynamics.slots.eq_1
+#print axioms InstanceDemand.Dynamics.slots_mem._simp_1_2
+#print axioms InstanceDemand.Dynamics.stable_after_budget._proof_1_1
+#print axioms InstanceDemand.Dynamics.stable_by_budget._proof_1_1
+#print axioms InstanceDemand.Emitter.codes.eq_1
