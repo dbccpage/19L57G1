@@ -2,7 +2,7 @@
 # M101: Resource-Sensitive Consequence & Operational Logic
 
 Constructive substructural sequent calculus with linear contexts,
-explicit identity, cut rules and principal cut reductions, operational phase semantics,
+explicit identity, cut rules and principal cut reductions, operational resource semantics,
 soundness theorem, and proof of non-triviality (consistency: absurdity is not derivable).
 
 AuthorityEffect: None.
@@ -158,7 +158,7 @@ theorem cut_reduce_lolli {Γ Δ1 Δ2 : List Formula} {A B C : Formula}
     exact cut2
   exact d_final
 
-/-- Operational valuation / Phase semantics:
+/-- Operational valuation / Resource semantics:
     Evaluates formulas over consumable natural resource tokens. -/
 def evalFormula (v : Nat → Nat → Prop) : Formula → Nat → Prop
   | .atom a,     r => v a r
@@ -206,7 +206,7 @@ theorem evalContext_append (v : Nat → Nat → Prop) (Γ Δ : List Formula) (r 
         exact ⟨rG', rD, rfl, hG', hD⟩
 
 /-- Operational Soundness Theorem:
-    Every derivable sequent preserves truth in every operational phase model. -/
+    Every derivable sequent preserves truth in every operational resource model. -/
 theorem soundness (v : Nat → Nat → Prop) {Γ : List Formula} {C : Formula}
     (d : Deriv Γ C) : ∀ r, evalContext v Γ r → evalFormula v C r := by
   induction d with

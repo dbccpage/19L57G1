@@ -518,7 +518,7 @@ def run_internal_logic_adversarial_tests() -> dict[str, int]:
     assert d_bot.conclusion == bot_f
     assert d_bot.context == [bot_f]
 
-    # In phase-space valuation: Bot is unfulfillable under any finite resource
+    # In resource-space valuation: Bot is unfulfillable under any finite resource
     def dummy_val(atom_id: int, r: int) -> bool:
         return True
     for r in range(10):

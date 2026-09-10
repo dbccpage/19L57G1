@@ -1,0 +1,108 @@
+{
+  "authority_effect": "None",
+  "claim_hygiene": {
+    "axioms_within_propext_quot_sound": true,
+    "disturbance_priced_and_recorded": true,
+    "inter_observer_agreement_proved": true,
+    "preparations_interventions_records_defined": true,
+    "readout_step_commutation_proved": true,
+    "scope": "Operational protocols, embedded measurement instruments, non-disturbing readout commutation, duplicate observer agreement, and spacelike non-signaling",
+    "spacelike_non_signaling_proved": true,
+    "zero_classical_choice": true,
+    "zero_mathlib": true
+  },
+  "lean": {
+    "allowed_axioms": [
+      "Quot.sound",
+      "propext"
+    ],
+    "axiom_free_count": 48,
+    "reports": {
+      "P200OperationalProtocols.CarrierState.ext": [],
+      "P200OperationalProtocols.CarrierState.ext_iff": [],
+      "P200OperationalProtocols.CarrierState.mk.inj": [],
+      "P200OperationalProtocols.CarrierState.mk.injEq": [
+        "propext"
+      ],
+      "P200OperationalProtocols.CarrierState.mk.sizeOf_spec": [],
+      "P200OperationalProtocols.asymmetric_observation_divergence": [],
+      "P200OperationalProtocols.causal_signaling_divergence": [],
+      "P200OperationalProtocols.coincidence_iff": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P200OperationalProtocols.disturbing_readout_fails_commute": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_1": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_2": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_3": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_4": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_5": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_6": [],
+      "P200OperationalProtocols.instDecidableEqCarrierState.decEq._proof_7": [],
+      "P200OperationalProtocols.inter_observer_agreement": [],
+      "P200OperationalProtocols.inter_observer_coincidence": [
+        "Quot.sound",
+        "propext"
+      ],
+      "P200OperationalProtocols.intervene_l1_preserves_l2": [],
+      "P200OperationalProtocols.intervene_l1_preserves_m": [],
+      "P200OperationalProtocols.intervene_l1_preserves_r2": [],
+      "P200OperationalProtocols.intervene_l2_preserves_l1": [],
+      "P200OperationalProtocols.intervene_l2_preserves_m": [],
+      "P200OperationalProtocols.intervene_l2_preserves_r1": [],
+      "P200OperationalProtocols.prepare_product_l1": [],
+      "P200OperationalProtocols.prepare_product_l2": [],
+      "P200OperationalProtocols.prepare_product_records": [],
+      "P200OperationalProtocols.prepare_symmetric_eq": [],
+      "P200OperationalProtocols.readout1_preserves_l1": [],
+      "P200OperationalProtocols.readout1_preserves_l2": [],
+      "P200OperationalProtocols.readout1_preserves_r2": [],
+      "P200OperationalProtocols.readout1_readout2_comm": [],
+      "P200OperationalProtocols.readout1_stepL2_commutation": [],
+      "P200OperationalProtocols.readout1_stepM_commutation": [],
+      "P200OperationalProtocols.readout1_swap": [],
+      "P200OperationalProtocols.readout2_preserves_l1": [],
+      "P200OperationalProtocols.readout2_preserves_l2": [],
+      "P200OperationalProtocols.readout2_preserves_r1": [],
+      "P200OperationalProtocols.readout2_stepM_commutation": [],
+      "P200OperationalProtocols.readout2_swap": [],
+      "P200OperationalProtocols.readout_step_commutation": [],
+      "P200OperationalProtocols.record1_preserves_target": [],
+      "P200OperationalProtocols.record2_preserves_target": [],
+      "P200OperationalProtocols.spacelike_marginal2_invariance": [],
+      "P200OperationalProtocols.spacelike_marginal_invariance": [],
+      "P200OperationalProtocols.spacelike_non_signaling": [],
+      "P200OperationalProtocols.spacelike_sequence_non_signaling": [],
+      "P200OperationalProtocols.swap_involutive": [],
+      "P200OperationalProtocols.swap_preserves_dist": [],
+      "P200OperationalProtocols.swap_preserves_m": [],
+      "P200OperationalProtocols.swap_symmetric_eq": []
+    },
+    "theorem_count": 51
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 22,
+    "status": "PASS"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "commutation.py": "d0114ae18df8444e17f4f828a521227165358c30bd5fe0f070009e1e0d5f2d3d",
+    "embedded_observer.py": "2d6e972dea770789f94ad3db805013046383646004e18dafb65f32da9eca158a",
+    "lean/Commutation.lean": "0d843293a46da1601a863ae8e377c2c344e6940a5b5d3ccbeb27ea1bbd0ff3be",
+    "lean/Inventory.lean": "215be5d1a0f59ec46ea0629b0c6702a9bbad89268752288b81b3c44d08bf7525",
+    "lean/NonSignaling.lean": "d652b80047af0a79e2a458235e4e01af5867c2e94c988fed0d7c3ea4efc7c2e0",
+    "lean/Observers.lean": "e2396a5bdb5ffccd3fd8a134048189516aab8c23584021e973f96a9c85b00440",
+    "lean/Protocol.lean": "f185837f09f0cea49d8354d4179ceacb526888c4458ad2c956dec535933cbe30",
+    "non_signaling.py": "48651a98a4d736951af782eead6257a3f5a23e8db74db7cf8bc9c7c54169990f",
+    "protocol.py": "514720bf48b735b63a248b8857c4567509b6fd85cfd5e1232bb837fbea7c1a98",
+    "tests/test_commutation.py": "964672008948d02f5660c4633721fbd4137769b9427d7b71dde00d38932c33f1",
+    "tests/test_duplicate_observers.py": "e877836bda6575a5c5e440d2e880e5a6e8b5a0d28a25dd7a9f1dd7ac067bbdb3",
+    "tests/test_non_signaling.py": "7ba6c25d89645b8b1c967f9aad75da2495951986cba9e143694c80866eb7418b",
+    "tests/test_protocol.py": "548d094f945bde91d03d634e8db89a6277ef76c0c5868ddcd8b8f5fd9319c757",
+    "verify.py": "8d7536622d727e241283512954c659b6b829a5f0cb8fa938b16e8c2eda5e9d02"
+  },
+  "status": "PASS",
+  "target": "Requirement R4: Operational Protocols & Embedded Observers (Target P200)",
+  "toolchain": "leanprover/lean4:v4.33.0"
+}

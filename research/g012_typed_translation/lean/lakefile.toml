@@ -1,0 +1,22 @@
+name = "g012_typed_translation"
+version = "0.1.0"
+defaultTargets = ["Signature", "Codec", "Naturality", "Specialization", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "Signature"
+
+[[lean_lib]]
+name = "Codec"
+
+[[lean_lib]]
+name = "Naturality"
+
+[[lean_lib]]
+name = "Specialization"
+
+[[lean_lib]]
+name = "Inventory"

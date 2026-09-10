@@ -1,7 +1,7 @@
-"""Commuting squares and operational interference.
+"""Commuting squares and operational conflict.
 
 Verifies operational independence squares (S1 ∘ S2 = S2 ∘ S1) on disjoint footprints
-and exhibits non-commuting failing squares for interfering operations.
+and exhibits non-commuting failing squares for conflicting operations.
 
 AuthorityEffect: None.
 """

@@ -51,9 +51,9 @@ Packed into $\mathbb{N}$ via:
 $$\text{pack3}(n_2, n_m, s) = n_m \cdot (n_2 \cdot l_1 + l_2) + m$$
 
 ### 2. Interaction Dependency Graph
-Given operations with read footprints $R(S)$ and write footprints $W(S)$, interference between $S_1$ and $S_2$ on locus $L$ is given by the Bernstein condition:
-$$\text{interferes}_L(S_1, S_2) = (W_1 \cap (R_2 \cup W_2)) \cup (W_2 \cap (R_1 \cup W_1))$$
-The dependency graph $G = (V, E)$ has edges strictly where footprints interfere. No background spatial metric or coordinate space is assumed.
+Given operations with read footprints $R(S)$ and write footprints $W(S)$, conflict between $S_1$ and $S_2$ on locus $L$ is given by the Bernstein condition:
+$$\text{conflict}_L(S_1, S_2) = (W_1 \cap (R_2 \cup W_2)) \cup (W_2 \cap (R_1 \cup W_1))$$
+The dependency graph $G = (V, E)$ has edges strictly where footprints conflict. No background spatial metric or coordinate space is assumed.
 
 ### 3. Operational Independence Theorem
 If two operations $S_1, S_2$ have disjoint footprints, then for all states $s$:

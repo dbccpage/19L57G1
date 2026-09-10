@@ -1,0 +1,22 @@
+name = "p200_operational_protocols"
+version = "0.1.0"
+defaultTargets = ["Protocol", "Commutation", "Observers", "NonSignaling", "Inventory"]
+
+[[require]]
+name = "derivation"
+path = "../../../lean4"
+
+[[lean_lib]]
+name = "Protocol"
+
+[[lean_lib]]
+name = "Commutation"
+
+[[lean_lib]]
+name = "Observers"
+
+[[lean_lib]]
+name = "NonSignaling"
+
+[[lean_lib]]
+name = "Inventory"

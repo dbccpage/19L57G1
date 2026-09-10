@@ -43,8 +43,8 @@ def Footprint.writes (fp : Footprint) (l : Locus) : Bool :=
   | .L2 => fp.w2
   | .M  => fp.wm
 
-/-- Locus-level interference condition (Bernstein condition):
-    Interference occurs if one operation writes while the other reads or writes. -/
+/-- Locus-level conflict condition (Bernstein condition):
+    Conflict occurs if one operation writes while the other reads or writes. -/
 def locusInterferes (wA rA wB rB : Bool) : Bool :=
   (wA && (rB || wB)) || (wB && (rA || wA))
 
@@ -58,13 +58,13 @@ def interferes (f1 f2 : Footprint) : Bool :=
 def isDisjoint (f1 f2 : Footprint) : Bool :=
   !interferes f1 f2
 
-/-- Locus interference is symmetric. -/
+/-- Locus conflict is symmetric. -/
 theorem locusInterferes_symm (wA rA wB rB : Bool) :
     locusInterferes wA rA wB rB = locusInterferes wB rB wA rA := by
   dsimp [locusInterferes]
   cases wA <;> cases rA <;> cases wB <;> cases rB <;> rfl
 
-/-- Global footprint interference is symmetric. -/
+/-- Global footprint conflict is symmetric. -/
 theorem interferes_symm (f1 f2 : Footprint) :
     interferes f1 f2 = interferes f2 f1 := by
   dsimp [interferes]

@@ -2,7 +2,7 @@ import Carrier
 import Footprint
 
 /-!
-# Commuting Squares & Operational Interference
+# Commuting Squares & Operational Conflict
 
 Proves:
 1. Operational Independence Theorem: Two operations with disjoint access
