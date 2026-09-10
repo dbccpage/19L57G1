@@ -1,0 +1,6 @@
+name = "multi_depth"
+version = "0.1.0"
+defaultTargets = ["DepthLadder"]
+
+[[lean_lib]]
+name = "DepthLadder"

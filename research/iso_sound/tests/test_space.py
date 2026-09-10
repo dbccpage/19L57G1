@@ -51,6 +51,27 @@ class Space(unittest.TestCase):
         self.assertEqual(space.instance_slots(0, (1,)), ())
         self.assertEqual(space.req_slots(1), ())
 
+    def test_parameterized_space_and_deep_bounds(self) -> None:
+        sigs = space.form_signatures(max_forms=1, max_arity=3)
+        self.assertEqual(sigs, ((), (1,), (2,), (3,)))
+        self.assertEqual(space.count_space(3, 1, 3, 4), 338650)
+        self.assertEqual(space.DEEP_BOUNDS["max_arity"], 3)
+        self.assertEqual(space.DEEP_BOUNDS["max_insts"], 4)
+
+    def test_sample_regimes_deterministic(self) -> None:
+        samples1 = list(space.sample_regimes(sample_count=20, seed=42, require_ternary=True))
+        samples2 = list(space.sample_regimes(sample_count=20, seed=42, require_ternary=True))
+        self.assertEqual(len(samples1), 20)
+        self.assertEqual(samples1, samples2)
+        # Check that all have ternary forms
+        self.assertTrue(all(any(a >= 3 for a in r.forms) for r in samples1))
+        # Test non-ternary sampling
+        samples_binary = list(space.sample_regimes(max_data=2, max_forms=1, max_arity=2, max_insts=2, sample_count=10, seed=99, require_ternary=False))
+        self.assertEqual(len(samples_binary), 10)
+        # Test empty signature fallback branch when require_ternary has no matching sigs
+        fallback_samples = list(space.sample_regimes(max_data=2, max_forms=1, max_arity=2, max_insts=2, sample_count=5, seed=123, require_ternary=True))
+        self.assertEqual(len(fallback_samples), 5)
+
 
 class Corpus(unittest.TestCase):
     def test_seven_regimes_sit_in_the_bound_and_agree(self) -> None:

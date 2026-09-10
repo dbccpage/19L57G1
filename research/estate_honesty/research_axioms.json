@@ -1,0 +1,412 @@
+{
+  "admission_sign_shadow": {
+    "verify_lean_script": "research/admission_sign_shadow/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'} (implicit / hardcoded)",
+    "permits_choice": false,
+    "lean_source_count": 7,
+    "lean_sources": [
+      "research/admission_sign_shadow/lean/AdmissionSignShadow.lean",
+      "research/admission_sign_shadow/lean/lakefile.lean",
+      "research/admission_sign_shadow/lean/AdmissionSignShadow/ActualSectionAdapter.lean",
+      "research/admission_sign_shadow/lean/AdmissionSignShadow/AxiomReport.lean",
+      "research/admission_sign_shadow/lean/AdmissionSignShadow/Core.lean",
+      "research/admission_sign_shadow/lean/AdmissionSignShadow/FrozenPairBridge.lean",
+      "research/admission_sign_shadow/lean/AdmissionSignShadow/ReplayOccurrence.lean"
+    ]
+  },
+  "balance_carrier": {
+    "verify_lean_script": "research/balance_carrier/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 7,
+    "lean_sources": [
+      "research/balance_carrier/lean/BalanceCarrier.lean",
+      "research/balance_carrier/lean/lakefile.lean",
+      "research/balance_carrier/lean/BalanceCarrier/AxiomReport.lean",
+      "research/balance_carrier/lean/BalanceCarrier/Balance.lean",
+      "research/balance_carrier/lean/BalanceCarrier/LayerObserver.lean",
+      "research/balance_carrier/lean/BalanceCarrier/Receiver.lean",
+      "research/balance_carrier/lean/BalanceCarrier/WalkCarrier.lean"
+    ]
+  },
+  "boundary_seed": {
+    "verify_lean_script": "research/boundary_seed/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'}",
+    "permits_choice": false,
+    "lean_source_count": 9,
+    "lean_sources": [
+      "research/boundary_seed/lean/BoundarySeed.lean",
+      "research/boundary_seed/lean/BoundarySeed/Basic.lean",
+      "research/boundary_seed/lean/BoundarySeed/Challenge1.lean",
+      "research/boundary_seed/lean/BoundarySeed/Challenge2.lean",
+      "research/boundary_seed/lean/BoundarySeed/Challenge3.lean",
+      "research/boundary_seed/lean/BoundarySeed/Challenge4.lean",
+      "research/boundary_seed/lean/BoundarySeed/Challenge5.lean",
+      "research/boundary_seed/lean/BoundarySeed/Continuation1.lean",
+      "research/boundary_seed/lean/BoundarySeed/Continuation2.lean"
+    ]
+  },
+  "closed_family": {
+    "verify_lean_script": "research/closed_family/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 5,
+    "lean_sources": [
+      "research/closed_family/lean/ClosedFamily.lean",
+      "research/closed_family/lean/lakefile.lean",
+      "research/closed_family/lean/ClosedFamily/AxiomReport.lean",
+      "research/closed_family/lean/ClosedFamily/Base.lean",
+      "research/closed_family/lean/ClosedFamily/Closure.lean"
+    ]
+  },
+  "coherent_process_limits": {
+    "verify_lean_script": "research/coherent_process_limits/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 9,
+    "lean_sources": [
+      "research/coherent_process_limits/lean/Chain.lean",
+      "research/coherent_process_limits/lean/Cycle.lean",
+      "research/coherent_process_limits/lean/Fork.lean",
+      "research/coherent_process_limits/lean/Inventory.lean",
+      "research/coherent_process_limits/lean/Limits.lean",
+      "research/coherent_process_limits/lean/Observe.lean",
+      "research/coherent_process_limits/lean/Periodic.lean",
+      "research/coherent_process_limits/lean/Steps.lean",
+      "research/coherent_process_limits/lean/TwoLoci.lean"
+    ]
+  },
+  "convention_price": {
+    "verify_lean_script": "research/convention_price/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 5,
+    "lean_sources": [
+      "research/convention_price/lean/ConventionPrice.lean",
+      "research/convention_price/lean/lakefile.lean",
+      "research/convention_price/lean/ConventionPrice/AxiomReport.lean",
+      "research/convention_price/lean/ConventionPrice/ParityLaws.lean",
+      "research/convention_price/lean/ConventionPrice/Promotion.lean"
+    ]
+  },
+  "described_replay": {
+    "verify_lean_script": "research/described_replay/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'} (implicit / hardcoded)",
+    "permits_choice": false,
+    "lean_source_count": 9,
+    "lean_sources": [
+      "research/described_replay/lean/DescribedReplay.lean",
+      "research/described_replay/lean/lakefile.lean",
+      "research/described_replay/lean/DescribedReplay/AxiomReport.lean",
+      "research/described_replay/lean/DescribedReplay/Core.lean",
+      "research/described_replay/lean/DescribedReplay/Description.lean",
+      "research/described_replay/lean/DescribedReplay/Provenance.lean",
+      "research/described_replay/lean/DescribedReplay/Reporting.lean",
+      "research/described_replay/lean/DescribedReplay/Reproduction.lean",
+      "research/described_replay/lean/DescribedReplay/Stepper.lean"
+    ]
+  },
+  "endogenous_demand": {
+    "verify_lean_script": "research/endogenous_demand/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/endogenous_demand/lean/EndogenousDemand.lean",
+      "research/endogenous_demand/lean/Inventory.lean"
+    ]
+  },
+  "f_class_distinctness": {
+    "verify_lean_script": "research/f_class_distinctness/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/f_class_distinctness/lean/FClassDistinctness.lean",
+      "research/f_class_distinctness/lean/Inventory.lean"
+    ]
+  },
+  "family_embedding": {
+    "verify_lean_script": "research/family_embedding/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'}",
+    "permits_choice": false,
+    "lean_source_count": 3,
+    "lean_sources": [
+      "research/family_embedding/lean/FamilyEmbedding.lean",
+      "research/family_embedding/lean/lakefile.lean",
+      "research/family_embedding/lean/FamilyEmbedding/AxiomReport.lean"
+    ]
+  },
+  "fresh_characters": {
+    "verify_lean_script": "research/fresh_characters/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 8,
+    "lean_sources": [
+      "research/fresh_characters/lean/FreshCharacters.lean",
+      "research/fresh_characters/lean/lakefile.lean",
+      "research/fresh_characters/lean/FreshCharacters/AxiomReport.lean",
+      "research/fresh_characters/lean/FreshCharacters/Balance.lean",
+      "research/fresh_characters/lean/FreshCharacters/Characters.lean",
+      "research/fresh_characters/lean/FreshCharacters/FreshPart.lean",
+      "research/fresh_characters/lean/FreshCharacters/Receiver.lean",
+      "research/fresh_characters/lean/FreshCharacters/Steps.lean"
+    ]
+  },
+  "ignition": {
+    "verify_lean_script": "research/ignition/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/ignition/lean/Ignition.lean",
+      "research/ignition/lean/Inventory.lean"
+    ]
+  },
+  "iso_sound": {
+    "verify_lean_script": "research/iso_sound/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/iso_sound/lean/Inventory.lean",
+      "research/iso_sound/lean/IsoSound.lean"
+    ]
+  },
+  "limit_and_observer": {
+    "verify_lean_script": "research/limit_and_observer/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 3,
+    "lean_sources": [
+      "research/limit_and_observer/lean/lakefile.lean",
+      "research/limit_and_observer/lean/LimitObserver.lean",
+      "research/limit_and_observer/lean/LimitObserver/AxiomReport.lean"
+    ]
+  },
+  "local_reuse": {
+    "verify_lean_script": "research/local_reuse/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/local_reuse/lean/Inventory.lean",
+      "research/local_reuse/lean/LocalReuse.lean"
+    ]
+  },
+  "magnification": {
+    "verify_lean_script": "research/magnification/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 4,
+    "lean_sources": [
+      "research/magnification/lean/EngineClass.lean",
+      "research/magnification/lean/Inventory.lean",
+      "research/magnification/lean/Magnification.lean",
+      "research/magnification/lean/Restart.lean"
+    ]
+  },
+  "natural_sections": {
+    "verify_lean_script": "research/natural_sections/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'}",
+    "permits_choice": false,
+    "lean_source_count": 20,
+    "lean_sources": [
+      "research/natural_sections/lean/lakefile.lean",
+      "research/natural_sections/lean/NaturalSections.lean",
+      "research/natural_sections/lean/NaturalSections/Aggregation.lean",
+      "research/natural_sections/lean/NaturalSections/AxiomReport.lean",
+      "research/natural_sections/lean/NaturalSections/Budgets.lean",
+      "research/natural_sections/lean/NaturalSections/CutAndCounts.lean",
+      "research/natural_sections/lean/NaturalSections/EquivariantBridge.lean",
+      "research/natural_sections/lean/NaturalSections/HopFixture.lean",
+      "research/natural_sections/lean/NaturalSections/HopFixture3.lean",
+      "research/natural_sections/lean/NaturalSections/HopFixture4.lean",
+      "research/natural_sections/lean/NaturalSections/HopFixturePhase.lean",
+      "research/natural_sections/lean/NaturalSections/LayerBalance.lean",
+      "research/natural_sections/lean/NaturalSections/PhaseReceiver.lean",
+      "research/natural_sections/lean/NaturalSections/QuotientMass.lean",
+      "research/natural_sections/lean/NaturalSections/Refinement.lean",
+      "research/natural_sections/lean/NaturalSections/Represent.lean",
+      "research/natural_sections/lean/NaturalSections/SignRepair.lean",
+      "research/natural_sections/lean/NaturalSections/SlotExchange.lean",
+      "research/natural_sections/lean/NaturalSections/TwoComplex.lean",
+      "research/natural_sections/lean/NaturalSections/WeightedLayer.lean"
+    ]
+  },
+  "observer_visibility": {
+    "verify_lean_script": "research/observer_visibility/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'}",
+    "permits_choice": false,
+    "lean_source_count": 3,
+    "lean_sources": [
+      "research/observer_visibility/lean/lakefile.lean",
+      "research/observer_visibility/lean/ObserverVisibility.lean",
+      "research/observer_visibility/lean/ObserverVisibility/AxiomReport.lean"
+    ]
+  },
+  "path_dependent_cost": {
+    "verify_lean_script": "research/path_dependent_cost/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 4,
+    "lean_sources": [
+      "research/path_dependent_cost/lean/lakefile.lean",
+      "research/path_dependent_cost/lean/PathDependentCost.lean",
+      "research/path_dependent_cost/lean/PathDependentCost/AxiomReport.lean",
+      "research/path_dependent_cost/lean/PathDependentCost/Cochain.lean"
+    ]
+  },
+  "primitive_difference_tower": {
+    "verify_lean_script": "research/primitive_difference_tower/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'} (implicit / hardcoded)",
+    "permits_choice": false,
+    "lean_source_count": 4,
+    "lean_sources": [
+      "research/primitive_difference_tower/lean/lakefile.lean",
+      "research/primitive_difference_tower/lean/PrimitiveDifferenceTower.lean",
+      "research/primitive_difference_tower/lean/PrimitiveDifferenceTower/AxiomReport.lean",
+      "research/primitive_difference_tower/lean/PrimitiveDifferenceTower/SymmetryObstructionBridge.lean"
+    ]
+  },
+  "reach_additivity": {
+    "verify_lean_script": "research/reach_additivity/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 4,
+    "lean_sources": [
+      "research/reach_additivity/lean/lakefile.lean",
+      "research/reach_additivity/lean/ReachAdditivity.lean",
+      "research/reach_additivity/lean/ReachAdditivity/Additive.lean",
+      "research/reach_additivity/lean/ReachAdditivity/AxiomReport.lean"
+    ]
+  },
+  "reach_measure": {
+    "verify_lean_script": "research/reach_measure/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 4,
+    "lean_sources": [
+      "research/reach_measure/lean/lakefile.lean",
+      "research/reach_measure/lean/ReachMeasure.lean",
+      "research/reach_measure/lean/ReachMeasure/AxiomReport.lean",
+      "research/reach_measure/lean/ReachMeasure/Blindness.lean"
+    ]
+  },
+  "reachable": {
+    "verify_lean_script": "research/reachable/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/reachable/lean/Inventory.lean",
+      "research/reachable/lean/Reachable.lean"
+    ]
+  },
+  "record_reading": {
+    "verify_lean_script": "research/record_reading/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 4,
+    "lean_sources": [
+      "research/record_reading/lean/Depth.lean",
+      "research/record_reading/lean/Inventory.lean",
+      "research/record_reading/lean/Record.lean",
+      "research/record_reading/lean/Select.lean"
+    ]
+  },
+  "represented_execution": {
+    "verify_lean_script": "research/represented_execution/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 7,
+    "lean_sources": [
+      "research/represented_execution/lean/Control.lean",
+      "research/represented_execution/lean/Execution.lean",
+      "research/represented_execution/lean/Inventory.lean",
+      "research/represented_execution/lean/Product.lean",
+      "research/represented_execution/lean/Rename.lean",
+      "research/represented_execution/lean/Runner.lean",
+      "research/represented_execution/lean/Schedule.lean"
+    ]
+  },
+  "s9_obligations": {
+    "verify_lean_script": "research/s9_obligations/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'}",
+    "permits_choice": false,
+    "lean_source_count": 6,
+    "lean_sources": [
+      "research/s9_obligations/lean/lakefile.lean",
+      "research/s9_obligations/lean/S9Obligations.lean",
+      "research/s9_obligations/lean/S9Obligations/AxiomLattice.lean",
+      "research/s9_obligations/lean/S9Obligations/AxiomReport.lean",
+      "research/s9_obligations/lean/S9Obligations/MorphismClasses.lean",
+      "research/s9_obligations/lean/S9Obligations/WitnessTypes.lean"
+    ]
+  },
+  "second_nofirst": {
+    "verify_lean_script": "research/second_nofirst/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 10,
+    "lean_sources": [
+      "research/second_nofirst/lean/lakefile.lean",
+      "research/second_nofirst/lean/SecondNoFirst.lean",
+      "research/second_nofirst/lean/SecondNoFirst/AxiomReport.lean",
+      "research/second_nofirst/lean/SecondNoFirst/Inert.lean",
+      "research/second_nofirst/lean/SecondNoFirst/Inherited.lean",
+      "research/second_nofirst/lean/SecondNoFirst/Kernel.lean",
+      "research/second_nofirst/lean/SecondNoFirst/NoFirst.lean",
+      "research/second_nofirst/lean/SecondNoFirst/Propagate.lean",
+      "research/second_nofirst/lean/SecondNoFirst/Run.lean",
+      "research/second_nofirst/lean/SecondNoFirst/Stake.lean"
+    ]
+  },
+  "setting_translation": {
+    "verify_lean_script": "research/setting_translation/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 5,
+    "lean_sources": [
+      "research/setting_translation/lean/Chains.lean",
+      "research/setting_translation/lean/Inventory.lean",
+      "research/setting_translation/lean/Transcription.lean",
+      "research/setting_translation/lean/Translation.lean",
+      "research/setting_translation/lean/Visible.lean"
+    ]
+  },
+  "side_free": {
+    "verify_lean_script": "research/side_free/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'}",
+    "permits_choice": false,
+    "lean_source_count": 3,
+    "lean_sources": [
+      "research/side_free/lean/SideFree.lean",
+      "research/side_free/lean/SideFree/Basic.lean",
+      "research/side_free/lean/SideFree/Forget.lean"
+    ]
+  },
+  "standing_commitment": {
+    "verify_lean_script": "research/standing_commitment/verify_lean.py",
+    "allowed_axioms_declaration": "{\"propext\", \"Quot.sound\"}",
+    "permits_choice": false,
+    "lean_source_count": 5,
+    "lean_sources": [
+      "research/standing_commitment/lean/lakefile.lean",
+      "research/standing_commitment/lean/StandingCommitment.lean",
+      "research/standing_commitment/lean/StandingCommitment/AxiomReport.lean",
+      "research/standing_commitment/lean/StandingCommitment/Base.lean",
+      "research/standing_commitment/lean/StandingCommitment/Commitment.lean"
+    ]
+  },
+  "typed_translation": {
+    "verify_lean_script": "research/typed_translation/verify_lean.py",
+    "allowed_axioms_declaration": "{'propext', 'Quot.sound'} (implicit / hardcoded)",
+    "permits_choice": false,
+    "lean_source_count": 2,
+    "lean_sources": [
+      "research/typed_translation/lean/TypedTranslation.lean",
+      "research/typed_translation/lean/TypedTranslation/Basic.lean"
+    ]
+  }
+}

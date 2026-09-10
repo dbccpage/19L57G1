@@ -1,0 +1,6 @@
+name = "redheffer"
+version = "0.1.0"
+defaultTargets = ["RedhefferObstruction"]
+
+[[lean_lib]]
+name = "RedhefferObstruction"
